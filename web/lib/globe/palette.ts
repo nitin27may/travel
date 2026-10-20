@@ -87,6 +87,22 @@ export function readGlobePalette(el: Element | null, mode: 'light' | 'dark'): Gl
   return buildPalette((name) => normaliseColour(cs?.getPropertyValue(name).trim() || FALLBACK[mode][name], FALLBACK[mode][name]), mode);
 }
 
+/**
+ * A token that is a CSS `color-mix(in srgb, <colour> <n>%, transparent)` (the map border) as a plain rgb string. MapLibre cannot read
+ * `color-mix`: it rejected every layer painted with it, so the district lines at rest never existed (review S6).
+ */
+export function plainColour(c: string): string {
+  const cs = /^color\(\s*srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+%?))?\s*\)$/i.exec(c.trim());
+  if (cs) {
+    const a = cs[4] === undefined ? 1 : cs[4].endsWith('%') ? parseFloat(cs[4]) / 100 : Number(cs[4]);
+    return toCss([Number(cs[1]) * 255, Number(cs[2]) * 255, Number(cs[3]) * 255, a]);
+  }
+  const m = /^color-mix\(\s*in srgb\s*,\s*(.+?)\s+(\d+(?:\.\d+)?)%\s*,\s*transparent\s*\)$/i.exec(c.trim());
+  if (!m) return c;
+  const [r, g, b, a] = parseColour(m[1]);
+  return toCss([r, g, b, a * (Number(m[2]) / 100)]);
+}
+
 /** The palette from a token getter: pure, so the contrast rules can be tested without a browser. */
 export function buildPalette(t: (name: string) => string, mode: 'light' | 'dark'): GlobePalette {
   const dark = mode === 'dark';
@@ -97,7 +113,7 @@ export function buildPalette(t: (name: string) => string, mode: 'light' | 'dark'
   const white = 'rgb(255 255 255)';
   return {
     mode, ocean, land: t('--globe-land'), wood: t('--globe-wood'), river: t('--map-water'), high: t('--map-high'), shade: t('--map-shade'),
-    border: t('--map-border'), label: t('--ink-2'), halo: t('--map-halo'), ink: t('--ink'), surface: t('--surface'), accent,
+    border: plainColour(t('--map-border')), label: t('--ink-2'), halo: t('--map-halo'), ink: t('--ink'), surface: t('--surface'), accent,
     // Dark: amber is 6.98:1 on the ocean and carries the edge alone; the darker casing only separates it from busy land. Light: the ink casing carries it.
     accentSel: accent,
     casing: t('--map-casing'),

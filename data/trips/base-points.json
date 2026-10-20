@@ -47,6 +47,42 @@
       "kind": "community",
       "read": "2026-10-19",
       "method": "api"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.wikidata.org/wiki/Q6529888",
+      "title": "Les Praz (Wikidata P625)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.wikidata.org/wiki/Q482508",
+      "title": "Springdale (Wikidata P625)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.wikidata.org/wiki/Q2051042",
+      "title": "Hyde Park, Vermont (Wikidata P625)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.wikidata.org/wiki/Q922740",
+      "title": "Lincoln, New Hampshire (Wikidata P625)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api"
     }
   ],
   "records": [
@@ -117,6 +153,62 @@
         "point_checked": "agent checked 2026-10-19 (CS7b); needs a person's check",
         "src": [
           "src-0005"
+        ]
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-sept-2028",
+      "name": "Les Praz (first base, Chamonix valley)",
+      "why": "first of the two bases (Les Praz 3 nights, then Argentiere 4)",
+      "point": {
+        "lat": 45.93944444,
+        "lon": 6.88472222,
+        "point_source": "wikidata Q6529888",
+        "point_checked": "agent checked 2026-10-19 (GLB); needs a person's check",
+        "src": [
+          "src-0006"
+        ]
+      }
+    },
+    {
+      "ref": "trip/usa-southwest-rockies",
+      "name": "Springdale, Utah (first base)",
+      "why": "first of the five bases (Springdale 3 nights)",
+      "point": {
+        "lat": 37.184444444444,
+        "lon": -112.99972222222,
+        "point_source": "wikidata Q482508",
+        "point_checked": "agent checked 2026-10-19 (GLB); needs a person's check",
+        "src": [
+          "src-0007"
+        ]
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026",
+      "name": "Hyde Park, Vermont (the one base, town point)",
+      "why": "the trip's one base; the town, never the lodging address",
+      "point": {
+        "lat": 44.6245275,
+        "lon": -72.5647598,
+        "point_source": "wikidata Q2051042",
+        "point_checked": "agent checked 2026-10-19 (GLB); needs a person's check",
+        "src": [
+          "src-0008"
+        ]
+      }
+    },
+    {
+      "ref": "trip/new-hampshire-stopover-2026",
+      "name": "Lincoln, New Hampshire (the stopover night)",
+      "why": "the one night of the stopover; Franconia Notch and the Kancamagus start here",
+      "point": {
+        "lat": 44.045,
+        "lon": -71.6706,
+        "point_source": "wikidata Q922740",
+        "point_checked": "agent checked 2026-10-19 (GLB); needs a person's check",
+        "src": [
+          "src-0009"
         ]
       }
     }

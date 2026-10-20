@@ -7,6 +7,7 @@ import { Icon, kindIcon } from '@/components/ui/Icon';
 import type { GlobeEngine, MarkerSpec } from '@/lib/globe/engine';
 import { clusterItems, isMerged, type Cluster, type ClusterItem } from '@/lib/globe/cluster';
 import { colocationKey, discSize } from '@/lib/globe/model';
+import { seaOffset } from '@/lib/globe/placement';
 import type { PinModel } from '@/lib/globe/types';
 
 interface Props {
@@ -17,6 +18,8 @@ interface Props {
   interactive?: boolean;
   /** When given, a pin is a link (the home cover: a country pin goes to /globe/<cc>/). */
   hrefFor?: (p: PinModel) => string | null;
+  /** Land test over the 110m countries: with it, a country disc sits on the sea beside its land (review S3). */
+  isLand?: (lng: number, lat: number) => boolean;
   onOpen(p: PinModel): void;
 }
 
@@ -79,7 +82,7 @@ function PinButton({ pin, active, interactive, count, merged, mergedLabel, dim, 
         data-hot={hot ? 'true' : undefined}
         data-dim={dim ? 'true' : undefined}
         style={{ width: size, height: size }}
-        aria-label={`${pin.label}, ${n} ${n === 1 ? 'item' : 'items'}. Open on the globe.`}
+        aria-label={merged ? `${mergedLabel ?? pin.label} and ${n - 1} more, ${n} items. Open the globe.` : `${pin.label}, ${n} ${n === 1 ? 'item' : 'items'}. Open on the globe.`}
         onPointerEnter={() => setHover(true)}
         onPointerLeave={() => setHover(false)}
         onFocus={() => setHover(true)}
@@ -130,7 +133,7 @@ const sig = (cs: Cluster[]): string => cs.map((c) => `${c.id}@${Math.round(c.x /
  * the merge is worked out after each camera move and every 100 ms during a flight. The engine owns the marker positions; React
  * renders each pin into its marker element.
  */
-export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFor, onOpen }: Props) {
+export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFor, isLand, onOpen }: Props) {
   const [clusters, setClusters] = useState<Cluster[]>([]);
   const [fan, setFan] = useState<string | null>(null);
   const [els, setEls] = useState<Map<string, HTMLElement>>(new Map());
@@ -149,14 +152,14 @@ export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFo
         const at = engine.project(p.lng, p.lat);
         if (at) items.push({ id: p.id, x: at.x, y: at.y, lng: p.lng, lat: p.lat, r: radiusOf(p), count: p.count, label: p.label, tier: p.tier, quiet: p.quiet });
       }
-      // the home cover is a still picture of country links: nothing merges there, so each link stays the same element
-      const next = hrefFor ? items.map((i): Cluster => ({ id: i.id, items: [i], lng: i.lng, lat: i.lat, x: i.x, y: i.y, count: i.count, label: i.label, tier: i.tier })).sort((a, b) => (a.id < b.id ? -1 : 1)) : clusterItems(items);
+      // the home cover runs the same pass as /globe/ (review S4): two discs that would touch become one link to the globe
+      const next = clusterItems(items);
       const key = sig(next);
       if (key === last.current) return;
       last.current = key;
       setClusters(next);
     };
-  }, [engine, pins, hrefFor]);
+  }, [engine, pins]);
 
   useEffect(() => {
     const map = engine.map;
@@ -174,10 +177,17 @@ export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFo
   const colocated = (c: Cluster): boolean => new Set(members(c).map((p) => colocationKey(p))).size === 1;
   const clusterAt = (c: Cluster): { lng: number; lat: number } => (colocated(c) ? { lng: c.items[0].lng, lat: c.items[0].lat } : { lng: c.lng, lat: c.lat });
 
+  /** The sea offset of a country disc: the direction is geographic, so it holds as the globe turns (and it is a few dozen bounding-box tests, so no cache). */
+  const offsetOf = (c: Cluster): [number, number] | null => {
+    const p = byId.get(c.id);
+    if (!isLand || !p || p.kind !== 'country') return null;
+    return seaOffset(p.lng, p.lat, isLand, discSize(p.count) / 2 + 8);
+  };
+
   const specs = useMemo<MarkerSpec[]>(() => {
     const out: MarkerSpec[] = [];
     for (const c of clusters) {
-      if (!isMerged(c)) { out.push({ key: c.id, lng: c.lng, lat: c.lat, className: 'globe-marker' }); continue; }
+      if (!isMerged(c)) { const off = offsetOf(c); out.push({ key: c.id, lng: c.lng, lat: c.lat, className: 'globe-marker', ...(off ? { offset: off } : {}) }); continue; }
       const at = clusterAt(c);
       out.push({ key: `g:${c.id}`, lng: at.lng, lat: at.lat, className: 'globe-marker' });
       if (fan === c.id) {
@@ -188,8 +198,8 @@ export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFo
       }
     }
     return out;
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- clusterAt reads `byId`, which changes with `pins`
-  }, [clusters, fan, byId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- clusterAt and offsetOf read `byId`, which changes with `pins`
+  }, [clusters, fan, byId, isLand]);
 
   useLayoutEffect(() => {
     const made = engine.syncMarkers('pins', specs);
@@ -205,10 +215,14 @@ export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFo
     engine.setDiscs(clusters.flatMap((c) => {
       const m = members(c);
       const disc = isMerged(c) || (m[0] && isDisc(m[0]));
-      return disc ? [{ lng: c.lng, lat: c.lat, size: discSize(c.count) }] : [];
+      if (!disc) return [];
+      // a disc moved onto the sea keeps the map's names off where it is drawn, not off the land it stands for
+      const off = isMerged(c) ? null : offsetOf(c);
+      const at = off ? engine.map.unproject([c.x + off[0], c.y + off[1]]) : null;
+      return [{ lng: at ? at.lng : c.lng, lat: at ? at.lat : c.lat, size: discSize(c.count) }];
     }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- `members` reads `byId`
-  }, [engine, clusters, byId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- `members` and `offsetOf` read `byId`
+  }, [engine, clusters, byId, isLand]);
   useEffect(() => () => engine.setDiscs([]), [engine]);
 
   // A row of link pins (the home cover) is one Tab stop: the first pin that can take focus. The engine hides pins on the far
@@ -246,7 +260,7 @@ export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFo
         const out = [];
         const ms = members(c);
         const gel = els.get(`g:${c.id}`);
-        if (gel && ms[0]) out.push(createPortal(<PinButton key={`g:${c.id}`} pin={ms[0]} active={ms.some((p) => !!selectedKey && p.cardKey === selectedKey)} interactive={interactive} merged mergedLabel={c.label} count={c.count} dim={ms.every((p) => p.dim)} href={hrefFor?.(ms[0])} tabIndex={hrefFor ? -1 : undefined} onOpen={() => openMerged(c)} />, gel, `g:${c.id}`));
+        if (gel && ms[0]) out.push(createPortal(<PinButton key={`g:${c.id}`} pin={ms[0]} active={ms.some((p) => !!selectedKey && p.cardKey === selectedKey)} interactive={interactive} merged mergedLabel={c.label} count={c.count} dim={ms.every((p) => p.dim)} href={hrefFor ? '/globe/' : undefined} tabIndex={hrefFor ? -1 : undefined} onOpen={() => openMerged(c)} />, gel, `g:${c.id}`));
         if (fan === c.id) {
           for (const p of ms) {
             const el = els.get(p.id);

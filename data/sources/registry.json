@@ -21582,6 +21582,33 @@
       }
     },
     {
+      "id": "s-2ab83b812c",
+      "url": "https://www.wikidata.org/wiki/Q2051042",
+      "title": "Hyde Park, Vermont (Wikidata P625)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/trips/base-points.json",
+          "ref": "trip/vermont-fall-2026",
+          "field": "point"
+        }
+      ],
+      "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
+      "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-e6e8f85cca",
       "url": "https://www.wikidata.org/wiki/Q2085218",
       "title": "Temple Square (Wikidata P1435)",
@@ -21625,6 +21652,87 @@
         {
           "file": "data/trips/base-points.json",
           "ref": "trip/switzerland-2027",
+          "field": "point"
+        }
+      ],
+      "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
+      "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-74a73e5e3b",
+      "url": "https://www.wikidata.org/wiki/Q482508",
+      "title": "Springdale (Wikidata P625)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/trips/base-points.json",
+          "ref": "trip/usa-southwest-rockies",
+          "field": "point"
+        }
+      ],
+      "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
+      "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-40da036231",
+      "url": "https://www.wikidata.org/wiki/Q6529888",
+      "title": "Les Praz (Wikidata P625)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/trips/base-points.json",
+          "ref": "trip/chamonix-mont-blanc-sept-2028",
+          "field": "point"
+        }
+      ],
+      "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
+      "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-cf7697083f",
+      "url": "https://www.wikidata.org/wiki/Q922740",
+      "title": "Lincoln, New Hampshire (Wikidata P625)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/trips/base-points.json",
+          "ref": "trip/new-hampshire-stopover-2026",
           "field": "point"
         }
       ],
