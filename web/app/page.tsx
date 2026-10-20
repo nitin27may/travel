@@ -30,7 +30,6 @@ export default function Home() {
   return (
     <div className="home">
       <section className="home-cover" aria-label="Where we have been and where we are going">
-        <CoverGlobe data={cover} />
         <div className="home-cover-inner">
           <h1 className="home-title">Trip plans</h1>
           <CoverSearch />
@@ -38,6 +37,8 @@ export default function Home() {
             {pins.length} countries · {allTrips.length} trips · {allPlaces.length} places. Pick a pin to open its country.
           </p>
         </div>
+        {/* after the card in the source so a phone reads and tabs heading, search, then globe (backlog 4.15); desktop positions both absolutely */}
+        <CoverGlobe data={cover} />
       </section>
 
       <div className="home-wrap">
