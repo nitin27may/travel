@@ -47,7 +47,7 @@ The public site is built and on `main` (the old site is tagged `legacy-final`). 
 | 2 | Globe: "Fly here" does nothing; river draws a state; wrong centre for landforms | 9.7, 9.4 | round 1 plan items 4 and 5, [briefs/GLB2.md](briefs/GLB2.md) | GLB2a | 12 h | none | next |
 | 3 | Globe: switch for natural features (default on) | 9.8, Q52 | round 1 plan item 6 | GLB2a | 3 h | 9.4, 9.7 | next |
 | 4 | Hide the header "Sign in" (no login exists) | 11.1, Q64 | [briefs/SHL2.md](briefs/SHL2.md) | SHL2 | 1 h | CONS-0 | next |
-| 5 | "Report a problem" link (no personal address in the page) | 11.2, Q63, Q70 | briefs/SHL2.md | SHL2 | 2 h | Q70 | waiting (Q70) |
+| 5 | "Report a problem" link (no personal address in the page) | 11.2, Q63, Q70 | briefs/SHL2.md | SHL2 | 2 h | Q70 | next (Q70 decided: public feedback repo to create) |
 | 6 | Where filter: country and state or province, with counts (city level in E) | 8.1, Q54 | [nearby spec](../../features/nearby-and-regions.md) section 4, phase N0; [briefs/LST2.md](briefs/LST2.md) | LST2a | 8 h | CONS-0 | next |
 | 7 | Trail key-facts strip and a Search AllTrails link on every trail | 10.1, 10.3, Q53 | round 1 plan items 13 and 15; [briefs/PLC2.md](briefs/PLC2.md) | PLC2a | 6 h | none | next |
 | 8 | Metadata rule, tiers per kind, validator and gap reports (META-0) | 8.3, 13.5, 3.37 | EXECUTION-PLAN 6; [briefs/META.md](briefs/META.md) | META | 10 h | none | next |
