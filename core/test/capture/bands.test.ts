@@ -132,6 +132,15 @@ describe("bandsOf", () => {
     expect(b.flags).toEqual(["swim", "lifeguard", "toilets"]);
   });
 
+  it("a lake where swimming is discouraged is not a swimming lake", () => {
+    const ref = "place/lake";
+    const w = world(
+      [{ ref, type: "water.body.lake", layer: "place", name: "Lake" }],
+      [{ ref, kind: "lake", subkind: "lake", suitability: {}, ext: { kind: "water", swimming: v("discouraged", "official_info") } }],
+    );
+    expect(bandsOf(w, ref).flags).toEqual(["!swim"]);
+  });
+
   it("a sight with no hours and no values: every band is null, never a guess", () => {
     const ref = "place/museum";
     const w = world([{ ref, type: "culture.museum.museum", layer: "place", name: "Museum" }], []);

@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Icon } from '@/components/ui/Icon';
 import { GapChip, RefLink } from '@/components/suit/Rows';
 import { withUnits } from '@/components/suit/html';
@@ -141,21 +140,5 @@ export function Nearby({ rel, slugs, closing }: { rel: PublicRelevance; slugs: R
         </div>
       ) : null}
     </>
-  );
-}
-
-/** Plan B under the risk it answers (PS8): one line after the booking line in "Before you go". */
-export function PlanBLine({ rel, slugs }: { rel: PublicRelevance; slugs: Record<string, string> }) {
-  const b = rel.planB;
-  if (!b) return null;
-  return (
-    <li className="ps-line rv-planb">
-      <span className="rv-tag">Plan B</span>
-      <p className="pt">
-        {b.risk ? `${b.risk.charAt(0).toUpperCase()}${b.risk.slice(1)} can fall through. ` : ''}
-        <RefLink r={b} slugs={slugs} /> is the same kind of draw: {b.access}
-        {b.effortName ? ` · ${b.effortName.toLowerCase()}` : ''} · {km(b.km)}.
-      </p>
-    </li>
   );
 }

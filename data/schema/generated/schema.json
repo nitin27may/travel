@@ -7155,6 +7155,199 @@
       "x-private": [],
       "x-rules": []
     },
+    "sidecar.capture_supersedes": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "string",
+          "pattern": "^capture-supersedes\\/1$",
+          "x-type": "text"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^src-\\d{4,}$"
+              },
+              "url": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string"
+              },
+              "publisher": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "official",
+                  "operator",
+                  "reseller",
+                  "press",
+                  "blog",
+                  "community",
+                  "video",
+                  "computed"
+                ]
+              },
+              "read": {
+                "type": "string",
+                "format": "date"
+              },
+              "method": {
+                "type": "string",
+                "enum": [
+                  "read",
+                  "crawl",
+                  "api",
+                  "computed",
+                  "owner"
+                ]
+              },
+              "run": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "url",
+              "title",
+              "publisher",
+              "kind",
+              "read"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^sup-\\d{4,}$"
+              },
+              "layer": {
+                "type": "string",
+                "enum": [
+                  "suitability",
+                  "relevance",
+                  "capture"
+                ]
+              },
+              "ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "was": {},
+              "value": {
+                "type": "object",
+                "properties": {
+                  "v": {},
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap",
+                      "no_limit"
+                    ]
+                  },
+                  "basis": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "by": {
+                "type": "string",
+                "minLength": 1
+              },
+              "on": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            "required": [
+              "id",
+              "layer",
+              "ref",
+              "path",
+              "was",
+              "value",
+              "reason",
+              "by",
+              "on"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        }
+      },
+      "required": [
+        "schema",
+        "sources",
+        "entries"
+      ],
+      "additionalProperties": false,
+      "x-family": "sidecar",
+      "x-table": "capture_supersedes",
+      "x-single": true,
+      "x-pk": [],
+      "x-sql": {},
+      "x-ui": {
+        "label": "Capture supersedes"
+      },
+      "x-private": [],
+      "x-rules": []
+    },
     "sidecar.capture_types": {
       "type": "object",
       "properties": {
@@ -10189,6 +10382,29 @@
                   ],
                   "additionalProperties": false
                 }
+              },
+              "plan_b_pick": {
+                "type": "object",
+                "properties": {
+                  "ref": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  "src": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "ref",
+                  "reason"
+                ],
+                "additionalProperties": false
               },
               "override": {
                 "type": "object",
@@ -24471,7 +24687,8 @@
                                   "allowed",
                                   "banned",
                                   "unsafe",
-                                  "seasonal"
+                                  "seasonal",
+                                  "discouraged"
                                 ]
                               },
                               {
@@ -24551,7 +24768,8 @@
                                     "allowed",
                                     "banned",
                                     "unsafe",
-                                    "seasonal"
+                                    "seasonal",
+                                    "discouraged"
                                   ]
                                 },
                                 "basis": {
@@ -45771,7 +45989,8 @@
                                         "allowed",
                                         "banned",
                                         "unsafe",
-                                        "seasonal"
+                                        "seasonal",
+                                        "discouraged"
                                       ]
                                     },
                                     {
@@ -45851,7 +46070,8 @@
                                           "allowed",
                                           "banned",
                                           "unsafe",
-                                          "seasonal"
+                                          "seasonal",
+                                          "discouraged"
                                         ]
                                       },
                                       "basis": {

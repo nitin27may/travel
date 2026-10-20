@@ -306,6 +306,17 @@ describe('process notes never reach a visitor (3.27)', () => {
   });
 });
 
+describe('publicSuitability: swimming discouraged', () => {
+  it('says "Swimming discouraged" for the discouraged value and keeps the other words', () => {
+    const word = (swimming: string): string | null => {
+      const r = run('water.body.lake', { kind: 'lake', subkind: 'lake', suitability: {}, ext: { kind: 'water', swimming: v(swimming, 'official_info') } } as never);
+      return r.groups.flatMap((g) => g.rows).find((x) => x.key === 'ext.water.swimming')?.text ?? null;
+    };
+    expect(word('discouraged')).toBe('Swimming discouraged');
+    expect(word('allowed')).not.toBe('Swimming discouraged');
+  });
+});
+
 describe('time ranges carry their units (S1c 4)', () => {
   it('shows the unit on both ends when they differ and once when they match', async () => {
     const { publicSuitability } = await import('@/lib/public/suitability');

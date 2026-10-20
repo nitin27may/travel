@@ -251,8 +251,14 @@ export function warningsHtml(sec: SectionModel, rel: PublicRelevance | null, slu
   const unknownBooking = !sec.rows.some((r) => r.key === 'access_cost' && says(r)) && sec.rows.some((r) => r.key === 'access_cost') && !sec.lines.some((l) => l.kind === 'Book' || l.kind === 'Access') && !bookingHtml;
   const haz = hazards.filter((h) => h && h !== suitWarning);
   const b = rel?.planB;
+  // A hand-picked Plan B says why a person picked it and names the source; the access label is not drawn for it, so the label and the
+  // reason cannot disagree. A derived one says the access of the target from its own data.
   const planB = b
-    ? `<li class="ps-line rv-planb"><span class="rv-tag">Plan B</span><p class="pt">${b.risk ? `${esc(cap1(b.risk))} can fall through. ` : ''}${refLink(b, slugs)} is the same kind of view: ${esc(b.access)}${b.effortName ? ` · ${esc(b.effortName.toLowerCase())}` : ''} · ${kmText(b.km)}.</p></li>`
+    ? `<li class="ps-line rv-planb"><span class="rv-tag">Plan B</span><p class="pt">${b.risk ? `${esc(cap1(b.risk))} can fall through. ` : ''}${
+        b.reason
+          ? `${refLink(b, slugs)}: ${esc(b.reason.replace(/[.]$/, ''))}${b.effortName ? ` · ${esc(b.effortName.toLowerCase())}` : ''} · ${kmText(b.km)}.${b.source ? ` <span class="pb">Source: <a href="${esc(b.source.url)}" rel="noopener noreferrer" target="_blank">${esc(b.source.label)}</a></span>` : ''}`
+          : `${refLink(b, slugs)} is the same kind of view: ${esc(b.access)}${b.effortName ? ` · ${esc(b.effortName.toLowerCase())}` : ''} · ${kmText(b.km)}.`
+      }</p></li>`
     : '';
   // Plan B sits under the risk it answers: a booking or an access line (PS8, Q32). With no such line it is not drawn here; Similar nearby still tags it.
   const bookIdx = sec.lines.findIndex((l) => l.kind === 'Book');

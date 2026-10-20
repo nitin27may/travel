@@ -297,7 +297,9 @@
             "km": 24.8,
             "draw": "national",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           }
         ],
@@ -317,7 +319,9 @@
             "km": 24.8,
             "draw": "national",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           },
           {
@@ -677,7 +681,7 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
       "draw_suggested": "local",
       "effective_draw": "world",
-      "access_load": "easy",
+      "access_load": "plan",
       "detour_min": 20,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
@@ -757,7 +761,14 @@
         }
       ],
       "part_of": [],
-      "plan_b": null,
+      "plan_b": {
+        "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+        "km": 24.8,
+        "draw": "national",
+        "standing": "top",
+        "access_cost": [],
+        "family_effort": 4
+      },
       "fits": {
         "vacation": {
           "fit": "plan_around",
@@ -770,7 +781,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "too long a stop for the draw"
+          "reason": "needs a booking or permit"
         }
       },
       "role": "anchor",
@@ -956,7 +967,9 @@
             "km": 6.9,
             "draw": "national",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           },
           {
@@ -974,7 +987,9 @@
             "km": 6.9,
             "draw": "national",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           },
           {
@@ -1021,12 +1036,12 @@
       ],
       "part_of": [],
       "plan_b": {
-        "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
-        "km": 6.9,
+        "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+        "km": 18.2,
         "draw": "national",
         "standing": "top",
         "access_cost": [],
-        "family_effort": null
+        "family_effort": 4
       },
       "fits": {
         "vacation": {
@@ -1253,7 +1268,9 @@
             "km": 40.6,
             "draw": "national",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           },
           {
@@ -5494,7 +5511,7 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
       "draw_suggested": "local",
       "effective_draw": "world",
-      "access_load": "easy",
+      "access_load": "plan",
       "detour_min": 20,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
@@ -5574,7 +5591,14 @@
         }
       ],
       "part_of": [],
-      "plan_b": null,
+      "plan_b": {
+        "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+        "km": 24.8,
+        "draw": "national",
+        "standing": "top",
+        "access_cost": [],
+        "family_effort": 4
+      },
       "fits": {
         "vacation": {
           "fit": "plan_around",
@@ -5587,7 +5611,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "too long a stop for the draw"
+          "reason": "needs a booking or permit"
         }
       },
       "role": "anchor",

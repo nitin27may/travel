@@ -88,14 +88,17 @@
       ],
       "part_of": [],
       "plan_b": {
-        "ref": "place/alpe-di-siusi",
-        "km": 52.5,
-        "draw": "national",
-        "standing": "top",
+        "ref": "place/monte-piana",
+        "km": 4.4,
+        "draw": "regional",
+        "standing": "good",
         "access_cost": [
-          "lift_only"
+          "shuttle_only"
         ],
-        "family_effort": 3
+        "family_effort": 2,
+        "hand_picked": true,
+        "reason": "Starts at Lago d'Antorno, about 1 km before the toll booth, so it needs no toll slot; it faces the Tre Cime across 4.6 km",
+        "src": "src-0064"
       },
       "fits": {
         "vacation": {

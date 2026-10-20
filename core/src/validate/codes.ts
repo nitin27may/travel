@@ -146,6 +146,19 @@ export const CAP_WARNING_CODES = {
   W_CAP_NA_FIELD: "a value is stored for a property that the type's contract marks N (never asked)",
   W_CAP_BELOW_USABLE: "required properties of the type's contract are unanswered, so the record is below usable (the suitability slice has its own warning)",
 } as const;
+// capture-supersedes/1 codes (contract 9.7), tested in core/test/capture/supersede.test.ts
+export const SUP_ERROR_CODES = {
+  E_SUP_BASIS: "a supersede entry's basis is not official or operator, or none of its sources is an official or operator page",
+  E_SUP_STALE: "a supersede entry's `was` is not the value now stored at its ref and path",
+  E_SUP_NOT_LEDGER: "a supersede entry replaces a value that is not a pre-migration ledger leaf, or sits on a capture record; edit those in place",
+  E_SUP_PATH: "a supersede entry's ref has no record, or its path is not a value of the record that wins for the ref",
+  E_SUP_SCHEMA: "a supersede entry's new value does not have the shape of the value it replaces",
+  E_SUP_SRC: "a supersede entry has no source, or names a source that is not in the file's sources",
+  E_SUP_DUP: "two supersede entries for the same ref and path",
+} as const;
+export const SUP_WARNING_CODES = {
+  W_SUP_LANE_SRC: "a supersede entry's source page is not in the lane file's sources, so the page shows the basis without a source link",
+} as const;
 export type CapErrorCode = keyof typeof CAP_ERROR_CODES;
 export type CapWarningCode = keyof typeof CAP_WARNING_CODES;
 export const CAP_ERROR_LIST = Object.keys(CAP_ERROR_CODES) as CapErrorCode[];

@@ -50,6 +50,7 @@ export function detect(path: string | null, doc: unknown, root: string): DocInfo
     if (/(?:^|\/)data\/vocab\/tags\.json$/.test(r)) return { family: "sidecar", kind: "vocab" };
     if (/(?:^|\/)data\/vocab\/types\.json$/.test(r)) return { family: "sidecar", kind: "capture-types" };
     if (/(?:^|\/)data\/capture\/operators\.json$/.test(r)) return { family: "sidecar", kind: "capture-operators" };
+    if (/(?:^|\/)data\/capture\/supersedes\.json$/.test(r)) return { family: "sidecar", kind: "capture-supersedes" };
     if (/(?:^|\/)data\/capture\/runs\/[^/]+\.json$/.test(r)) return { family: "sidecar", kind: "capture-run" };
     if (/(?:^|\/)data\/capture\/(?!splits\/|runs\/)[^/]+\/[^/]+\.json$/.test(r)) return { family: "sidecar", kind: "capture" };
     if (/(?:^|\/)data\/catalog\/policy\.json$/.test(r)) return { family: "sidecar", kind: "policy" };
@@ -71,6 +72,7 @@ export function detect(path: string | null, doc: unknown, root: string): DocInfo
     if (doc.schema === "capture-types/1") return { family: "sidecar", kind: "capture-types" };
     if (doc.schema === "capture-operators/1") return { family: "sidecar", kind: "capture-operators" };
     if (doc.schema === "capture-run/1") return { family: "sidecar", kind: "capture-run" };
+    if (doc.schema === "capture-supersedes/1") return { family: "sidecar", kind: "capture-supersedes" };
     if (doc.schema === "sources/1") return { family: "sidecar", kind: "sources" };
     if ("trip" in doc && "profile" in doc) return { family: "trip" };
     if ("country" in doc && entityOfDoc(doc)) return { family: "catalog", entity: entityOfDoc(doc)! };
@@ -185,7 +187,7 @@ export function allFiles(root: string): string[] {
     if (r === "data/catalog/policy.json" || r === "data/catalog/backlog.json") return true;
     if (/^data\/suitability\/[^/]+\/[^/]+\.json$/.test(r)) return true;
     if (/^data\/relevance\/(?!signals\/|derived\/|inputs\/)[^/]+\/[^/]+\.json$/.test(r)) return true;
-    if (/^data\/capture\/(?!splits\/|runs\/)[^/]+\/[^/]+\.json$/.test(r) || /^data\/capture\/runs\/[^/]+\.json$/.test(r) || r === "data/capture/operators.json" || r === "data/vocab/types.json") return true;
+    if (/^data\/capture\/(?!splits\/|runs\/)[^/]+\/[^/]+\.json$/.test(r) || /^data\/capture\/runs\/[^/]+\.json$/.test(r) || r === "data/capture/operators.json" || r === "data/capture/supersedes.json" || r === "data/vocab/types.json") return true;
     if (r === "data/sources/registry.json") return true;
     if (r === "data/schema/freshness.json" || r === "data/schema/difficulty-map.json" || r === "data/schema/suitability-applicability.json" || r === "data/vocab/tags.json") return true;
     if (/^data\/locations\/(?:locations|[A-Z]{2})\.json$/.test(r)) return true;

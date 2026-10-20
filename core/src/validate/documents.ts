@@ -7,10 +7,10 @@ import { validateSuitability } from "./suitability.ts";
 import { validateApplicabilityRules } from "./applicability.ts";
 import { validateRelevance } from "./relevance.ts";
 import { validateSourcesRules } from "./sources.ts";
-import { validateCapture, validateCaptureOperators, validateCaptureRun, validateCaptureTypes } from "./capture.ts";
+import { validateCapture, validateCaptureOperators, validateCaptureRun, validateCaptureSupersedes, validateCaptureTypes } from "./capture.ts";
 import { validateDifficultyMapRules } from "../suitability/mapRules.ts";
 
-export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability" | "suitability-applicability" | "relevance" | "sources" | "capture" | "capture-types" | "capture-operators" | "capture-run";
+export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability" | "suitability-applicability" | "relevance" | "sources" | "capture" | "capture-types" | "capture-operators" | "capture-run" | "capture-supersedes";
 
 const TABLE_OF: Record<DocumentKind, string> = {
   "research-sidecar": "research_sidecar",
@@ -26,6 +26,7 @@ const TABLE_OF: Record<DocumentKind, string> = {
   "capture-types": "capture_types",
   "capture-operators": "capture_operators",
   "capture-run": "capture_run",
+  "capture-supersedes": "capture_supersedes",
 };
 
 export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): void {
@@ -51,6 +52,10 @@ export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): vo
   }
   if (kind === "capture-operators") {
     validateCaptureOperators(doc, ctx);
+    return;
+  }
+  if (kind === "capture-supersedes") {
+    validateCaptureSupersedes(doc, ctx);
     return;
   }
   if (kind === "capture-run") {

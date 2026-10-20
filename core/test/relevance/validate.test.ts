@@ -127,6 +127,19 @@ describe("pairs_with (3a.11)", () => {
   });
 });
 
+describe("plan_b_pick", () => {
+  it("accepts a resolvable ref with a known source and rejects itself, a bad ref and an unknown source", () => {
+    const base = rec({ ref: "place/lago-di-braies" });
+    const withPick = (pb: unknown) => run(doc([{ ...base, plan_b_pick: pb } as never]));
+    const scope = JSON.parse(readFileSync(join(ROOT, "data/suitability/scope.json"), "utf8")) as { places: string[] };
+    const other = scope.places.find((p) => p !== "lago-di-braies")!;
+    expect(codes(withPick({ ref: `place/${other}`, reason: "no toll slot needed", src: "src-0001" }))).toEqual([]);
+    expect(codes(withPick({ ref: "place/lago-di-braies", reason: "x" }))).toEqual(["E_REL_REF"]);
+    expect(codes(withPick({ ref: "place/does-not-exist", reason: "x" }))).toEqual(["E_REL_REF"]);
+    expect(codes(withPick({ ref: `place/${other}`, reason: "x", src: "src-9999" }))).toEqual(["E_REL_SRC"]);
+  });
+});
+
 describe("derived fields are never typed", () => {
   for (const k of ["draw_suggested", "role", "fits", "badge", "substitutes", "similar_osm_25km", "far_pointer", "pair_with", "plan_b", "detour_min", "from_hubs", "flags"]) {
     it(`rejects ${k}`, () => {

@@ -109,6 +109,8 @@ export const relRecord = z.strictObject({
   }),
   /** hand-picked "Nearby, worth adding": always qualifies and ranks first in derive's pair_with (3.2) */
   pairs_with: z.array(z.strictObject({ ref: z.string().min(1), reason: z.string().min(1).max(160), src: z.string().min(1).optional() })).max(3).optional(),
+  /** a hand-picked Plan B: wins over the derived substitute, with the reason it is better (3.45) */
+  plan_b_pick: z.strictObject({ ref: z.string().min(1), reason: z.string().min(1).max(160), src: z.string().min(1).optional() }).optional(),
   override: z.strictObject({
     field: z.enum(["role", "fit"]),
     value: z.string().min(1),

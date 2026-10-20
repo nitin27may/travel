@@ -22,6 +22,7 @@ public slug does. The OSM ids come from the capture record of the same trail (a 
 | `stitched` | true when the ways joined into one ordered line (or one loop) |
 | `confirmed` | true when nothing holds the line back; copied from the checks below, never typed |
 | `held_back` | why `confirmed` is false: `listed in UNCONFIRMED_TRAIL_DATA`, `the relation does not stitch into one line`, `our trailhead is N m from the line` (over 300 m, measured to the nearest point of the line), `our destination is N m from the line`, `not cut: <why>` (the relation could not be cut at the trailhead and the destination, so the whole relation is kept), `the stored OSM relation is the wrong route`, `N km against M km researched` (more than 40% off, as a round trip or as one way) |
+| `start_override` | true when the cut started at the `start` point of `inputs.json` instead of the stored trailhead (absent otherwise) |
 | `start_offset_m` | distance from our trailhead to the nearest point of the OSM line (not to the nearer end) |
 | `end_offset_m` | the same for the destination point, or null when none is recorded |
 | `cut` | how the line was cut: `destination` (trailhead to the destination point), `loop` (back to the trailhead), `ring` (a closed relation walked whole from the trailhead), `far end` (trailhead to the free end), or null (not cut) |
@@ -46,7 +47,7 @@ them (the first point where one meets the next, at least 300 m on), and ends at 
 `reaches`, or a point in `inputs.json`. A closed relation is walked whole from the trailhead, a route with `loop` closes back to it.
 Without a destination, a relation that runs on both sides of the trailhead is not cut and stays held back.
 
-`inputs.json` (`trail-track-inputs/1`), by prototype place id: `osm` (relations for a trail with no capture record), `destination` or
+`inputs.json` (`trail-track-inputs/1`), by prototype place id: `osm` (relations for a trail with no capture record), `start` (`{lat, lon}`: where the walk really starts when the stored trailhead is far from the OSM line by design, such as a lift base or a gate before a closed road; the trailhead is replaced for the cut and `start_offset_m` measures from it), `destination` or
 `destination_ref` (a point, or a ref in `data/relevance/inputs/points.json`), `loop`, `wrong_route` (the stored relation is not the
 walk: the track stays held back with that reason). Every entry carries its `source`. Points come from OSM or Wikidata only.
 

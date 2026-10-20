@@ -175,6 +175,40 @@ export const capture_operators = table("capture_operators", {
   operators: json(z.array(operator)),
 }, { family: "sidecar", pk: [], single: true, ui: { label: "Capture operators" } });
 
+/**
+ * 9.7: an official re-read replaces a pre-migration value as the shown value. The lane file is never edited; this file holds the
+ * replacement beside the original (`was`), with who, when and the source. `v` is checked against the Val it replaces by the validator.
+ */
+export const SUPERSEDE_BASES = ["official_rule", "official_grade", "official_info", "operator_rule", "operator_info"] as const;
+export const supersedeEntry = z.strictObject({
+  id: z.string().regex(/^sup-\d{4,}$/),
+  layer: z.enum(["suitability", "relevance", "capture"]),
+  ref,
+  /** dot path into the record, as the migration ledger walks it */
+  path: z.string().min(1),
+  /** the stored `v`, exactly: the check that the override is not stale */
+  was: z.unknown(),
+  value: z.strictObject({
+    v: z.unknown(),
+    state: z.enum(E.SUIT_STATE),
+    basis: z.string().min(1),
+    src: z.array(z.string().min(1)),
+    read: z.iso.date().optional(),
+    quote: z.string().max(300).optional(),
+    note: z.string().optional(),
+    applies_to: z.string().regex(/^\d{4}$/).optional(),
+  }),
+  reason: z.string().min(1),
+  by: z.string().min(1),
+  on: z.iso.date(),
+});
+
+export const capture_supersedes = table("capture_supersedes", {
+  schema: pattern(/^capture-supersedes\/1$/),
+  sources: json(z.array(sourceRow)),
+  entries: json(z.array(supersedeEntry)),
+}, { family: "sidecar", pk: [], single: true, ui: { label: "Capture supersedes" } });
+
 /** 9.6: the record every crawl or API run writes, so the next pass starts where this one stopped. */
 export const captureRun = z.strictObject({
   schema: z.literal("capture-run/1"),
@@ -215,5 +249,7 @@ export const capture_run = table("capture_run", {
 export type CaptureRecord = z.infer<typeof capRecord>;
 export type CaptureOperator = z.infer<typeof operator>;
 export type CaptureRun = z.infer<typeof captureRun>;
+export type SupersedeEntry = z.infer<typeof supersedeEntry>;
+export interface SupersedesFile { schema: "capture-supersedes/1"; sources: z.infer<typeof sourceRow>[]; entries: SupersedeEntry[] }
 export interface CaptureDoc { schema: "capture/1"; trip: string; lane: string; researched: string; agent: string; model: string; sources: z.infer<typeof sourceRow>[]; records: CaptureRecord[] }
 export interface OperatorsFile { schema: "capture-operators/1"; updated: string; operators: CaptureOperator[] }
