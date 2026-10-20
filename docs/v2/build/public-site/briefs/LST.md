@@ -1,5 +1,7 @@
 # LST: lists, filters, search and list shards (stage 4)
 
+> **Round 2 (20 Oct 2026):** this stage 4 brief is done. The next round for these files is [LST2.md](LST2.md), under [EXECUTION-PLAN.md](../EXECUTION-PLAN.md).
+
 - **Agent:** `travel-builder` (Sonnet).
 - **Effort:** about 22 h, in four parts:
   - list shards, 8 h

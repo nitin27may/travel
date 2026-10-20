@@ -1,5 +1,7 @@
 # Public site build: live status (coordinator handover)
 
+**20 Oct 2026: the sequenced plan is [EXECUTION-PLAN.md](EXECUTION-PLAN.md).** Owner order A, B, E, D with reviews R1 (after A and B) and R2 (after E); Q42 to Q64 decided ("go with all recommendations"); research unpaused for phase E; workstreams CONS (server seams, no hard-coding) and META (metadata for every place and activity) start first. New lane briefs: CONS, FIXF, SHL2, GLB2, LST2, PLC2, META, DATA, TRP2, MX, GO-LIVE in [briefs/](briefs/). Open for the owner: Q70 to Q72.
+
 **Another machine or a fresh session: read `/HANDOVER.md` (repo root) first, then `MASTER-PLAN.md` here. Owner memory notes are copied in `docs/v2/build/handover/memory/`.**
 
 Updated 2026-10-18, night, before a context compaction. Read this first after any reset, then `BACKLOG.md` (the full staged list: every finding goes there first, with an ID, and is marked done with its commit), then `docs/v2/TODO.md` and `README.md`.

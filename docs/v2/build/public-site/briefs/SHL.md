@@ -1,5 +1,7 @@
 # SHL: shell, home and e2e on the GPU (stage 4)
 
+> **Round 2 (20 Oct 2026):** this stage 4 brief is done. The next round for these files is [SHL2.md](SHL2.md), under [EXECUTION-PLAN.md](../EXECUTION-PLAN.md).
+
 - **Agent:** `travel-builder` (Sonnet).
 - **Effort:** about 4 h.
 - **Rows:** 3.34, 2.41 (mobile nav slot), 4.15 (shell part).

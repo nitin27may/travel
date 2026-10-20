@@ -1,5 +1,7 @@
 # Owner testing round 1: the fix plan (20 Oct 2026)
 
+> **Superseded in part (20 Oct 2026):** the order in section 3 and the decisions in section 4 are replaced by [EXECUTION-PLAN.md](EXECUTION-PLAN.md) (order A, B, E, D; Q51 to Q64 decided; research unpaused for E). Trail point counts: 81 of 122 trail pages, not 47 of 128 (BACKLOG 8.8). Items, causes and acceptance checks still stand.
+
 Every item the owner reported while testing the preview, with its cause, the fix, the lane, the files, the effort, how we know it is fixed, what it depends on, and the order. Backlog rows are the source of truth for status; this file is the plan. Nothing here is started. The owner decides what goes before his review and what goes after.
 
 ## 1. The items

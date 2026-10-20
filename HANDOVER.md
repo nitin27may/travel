@@ -1,6 +1,6 @@
 # Handover: pick this up on another machine
 
-Written 20 Oct 2026. Read this first, then `docs/v2/build/public-site/STATUS.md`, then `docs/v2/build/public-site/MASTER-PLAN.md`. Everything needed to continue is in this repository except the secrets and a few caches listed in section 4.
+Written 20 Oct 2026. Read this first, then `docs/v2/build/public-site/EXECUTION-PLAN.md` (the sequenced plan, phases A, B, E, D with owner reviews R1 and R2, added 20 Oct), then `STATUS.md` and `MASTER-PLAN.md` in the same folder. Everything needed to continue is in this repository except the secrets and a few caches listed in section 4.
 
 ## 1. State in one paragraph
 
@@ -11,6 +11,7 @@ The new public site (no login: search, globe, trips, places) is built and is **`
 | Order | File | Why |
 |---|---|---|
 | 1 | `HANDOVER.md` (this file) | Setup, commands, rules, what is not in git |
+| 1b | `docs/v2/build/public-site/EXECUTION-PLAN.md` and `briefs/` (CONS, FIXF, SHL2, GLB2, LST2, PLC2, META, DATA, TRP2, MX, GO-LIVE) | The agreed order of work, tasks, owned files, review gates, go-live checklist. Open owner questions: Q70 to Q72 |
 | 2 | `docs/v2/build/public-site/STATUS.md` | The coordinator's live handover: merged lanes, decisions in force, services |
 | 3 | `docs/v2/build/public-site/MASTER-PLAN.md` | Every pending public-site item, by phase, with links to its plan |
 | 4 | `docs/v2/build/public-site/BACKLOG.md` | Every finding with an ID, status and commit; the owner questions table (Q1 to Q69) |
@@ -125,3 +126,4 @@ All are in `docs/v2/build/public-site/MASTER-PLAN.md` section 8 with recommendat
 | Date | Change |
 |---|---|
 | 2026-10-20 | First version |
+| 2026-10-20 | Execution plan for phases A, B, E, D written and linked; the work order is now EXECUTION-PLAN.md |
