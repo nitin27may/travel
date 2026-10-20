@@ -329,9 +329,9 @@ html[data-globe-immersive='true'] .site-header, html[data-globe-immersive='true'
 html[data-globe-immersive='true'] .globe-root { top: 0; bottom: 0; }
 .globe-show-controls { position: absolute; z-index: 9; left: 50%; bottom: 36px; transform: translateX(-50%); min-height: 32px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: var(--r-full); background: var(--surface); color: var(--ink); font: var(--t-meta); cursor: pointer; box-shadow: var(--e-1); animation: globe-show-fade 3s var(--e-std) both; }
 .globe-show-controls:hover, .globe-show-controls:focus-visible { animation: none; opacity: 1; }
-@keyframes globe-show-fade { 0%, 70% { opacity: 1; } 100% { opacity: 0.4; } }
+@keyframes globe-show-fade { 0%, 70% { opacity: 1; } 100% { opacity: 0.75; } }
 .globe-ctl-hide { justify-self: start; display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 4px; border: 0; background: none; color: var(--ink-2); font: var(--t-meta); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
-.globe-ctl-hide kbd { font: 500 11px/1 var(--font-mono); padding: 2px 5px; border: 1px solid var(--line-2); border-radius: 4px; background: var(--surface-2); }
+.globe-show-controls kbd, .globe-ctl-hide kbd { font: 500 11px/1 var(--font-mono); padding: 2px 5px; border: 1px solid var(--line-2); border-radius: 4px; background: var(--surface-2); }
 
 /* ---------- attribution: compact, one line, and clear of the rail and the panel ---------- */
 .globe-root .maplibregl-ctrl-attrib.maplibregl-compact { min-height: 24px; background: color-mix(in srgb, var(--surface) 92%, transparent); border-radius: var(--r-full); font: 400 11.5px/1.6 var(--font-mono); }

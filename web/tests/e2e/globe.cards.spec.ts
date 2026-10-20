@@ -87,8 +87,8 @@ test.describe('globe cards', () => {
     await page.getByRole('button', { name: 'Map options' }).click();
     await page.getByRole('button', { name: /Hide controls/ }).click();
     await expect(page.locator('.globe-panel')).toHaveCSS('opacity', '0');
-    await expect(page.getByRole('button', { name: 'Show controls' })).toBeVisible();
-    await page.getByRole('button', { name: 'Show controls' }).click();
+    await expect(page.getByRole('button', { name: /Exit full screen/ })).toBeVisible();
+    await page.getByRole('button', { name: /Exit full screen/ }).click();
     await expect(page.locator('.globe-panel')).toHaveCSS('opacity', '1');
     await page.keyboard.press('.');
     await expect(page.locator('.globe-panel')).toHaveCSS('opacity', '0');
