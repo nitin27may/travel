@@ -148,7 +148,8 @@ export default function MapLibreMap({ spec, label, onSelect, onCamera, handleRef
       {!failure && spec.interactive !== false && (
         <Controls onZoom={(d) => engine.current?.zoomBy(d)} onFit={() => engine.current?.fit()} />
       )}
-      {!failure && spec.legend && <Legend items={spec.legend} />}
+      {/* kept when the basemap fails: the offline drawing still shows the dashed line, and the legend says what it means */}
+      {spec.legend && <Legend items={spec.legend} />}
       {/* Tab cycles the pins; Enter selects. Pages also show the same stops as a visible list. */}
       <PinList pins={spec.pins} label={label} onFocusPin={(id) => engine.current?.focusPin(id)} onSelect={(id) => onSelect?.(id)} />
     </div>
