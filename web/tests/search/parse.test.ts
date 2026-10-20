@@ -38,7 +38,7 @@ describe('the 30 fixture queries (section 3)', () => {
   }
 
   it('the chips of query 1 are the ones the spec shows', () => {
-    expect(labels(p(fixtures[0]!.query)).sort()).toEqual(['Banff, Alberta', 'Easy or a stroll', 'September', 'Trails and walks', 'With kids']);
+    expect(labels(p(fixtures[0]!.query)).sort()).toEqual(['Banff, Alberta', 'Easy with kids', 'Effort: Stroll, Easy', 'September', 'Trails and walks']);
   });
 });
 
@@ -140,15 +140,17 @@ describe('ambiguity rules (section 5)', () => {
     const trips = p('weekend trip with kids');
     expect(trips.facets.kid).toBeUndefined();
     const ask = trips.chips.find((c) => c.ask)!;
-    expect(ask.alternatives!.map((a) => a.set.kid![0])).toEqual(['4', '6', '8', '10', '12']);
-    expect(p('weekend trip with a 7 year old').facets.kid).toEqual(['6']);
-    expect(p('weekend trip with a 3 year old').facets.kid).toBeUndefined();
+    expect(ask.alternatives!.map((a) => a.set.kid![0])).toEqual(['0', '3', '6', '9', '12']);
+    // one control on both lists: the age as given, so a plan above it fades and none is hidden
+    expect(p('weekend trip with a 7 year old').facets.kid).toEqual(['7']);
+    expect(p('weekend trip with a 3 year old').facets.kid).toEqual(['3']);
+    expect(p('weekend trip with a 7 year old').chips.find((c) => c.id === 'kid')?.label).toBe('Youngest child 7');
   });
 
   it('Q40 is one switch: another answer changes the kids-without-age behaviour and nothing else', () => {
     const ask = p('hikes with kids', { decisions: { kidsWithoutAge: { places: 'ask', trips: 'ask' } } });
     expect(ask.facets.kid).toBeUndefined();
-    expect(ask.chips.find((c) => c.ask)?.alternatives).toHaveLength(7);
+    expect(ask.chips.find((c) => c.ask)?.alternatives).toHaveLength(5);
     const none = p('weekend trip with kids', { decisions: { kidsWithoutAge: { places: 'yes', trips: 'none' } } });
     expect(none.chips.some((c) => c.ask)).toBe(false);
     expect(none.unused).toContain('kids');

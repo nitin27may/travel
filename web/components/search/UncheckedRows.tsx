@@ -1,6 +1,7 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { OPEN_UNCHECKED } from '@/lib/entities/events';
 import type { EntityDescriptor } from '@/lib/entities/types';
 import type { UncheckedGroup } from '@/lib/entities/gaps';
 import '@/styles/search.css';
@@ -24,10 +25,19 @@ const noun = (note: string) => (note === 'not checked yet' ? 'with no answer' : 
 export function UncheckedRows<Row>({ d, groups }: UncheckedRowsProps<Row>) {
   const [open, setOpen] = useState(false);
   const bodyId = useId();
+  const section = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const show = () => {
+      setOpen(true);
+      section.current?.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    };
+    window.addEventListener(OPEN_UNCHECKED, show);
+    return () => window.removeEventListener(OPEN_UNCHECKED, show);
+  }, []);
   const total = groups.reduce((a, g) => a + g.rows.length, 0);
   if (!total) return null;
   return (
-    <section className="unchecked" data-open={open || undefined} aria-label="Not checked yet">
+    <section ref={section} className="unchecked" data-open={open || undefined} aria-label="Not checked yet">
       <button type="button" className="unchecked-head" aria-expanded={open} aria-controls={bodyId} onClick={() => setOpen(!open)}>
         <span className="unchecked-caret" aria-hidden="true">&#9656;</span>
         <span>

@@ -72,7 +72,7 @@ export function SmartRow<Row>({ d, state, onState, searchRef, applied, onApplied
   };
   const undo = () => {
     if (!live) return;
-    onState(undoState(live), 'push');
+    onState(undoState(live), 'replace');
     onApplied(null);
     smart.reset();
     searchRef.current?.focus();
