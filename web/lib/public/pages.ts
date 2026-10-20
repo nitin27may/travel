@@ -3,6 +3,7 @@
 // never import it from a client file. The page components read the result from `PublicPlace`, never the files (P9).
 import { existsSync } from 'node:fs';
 import path from 'node:path';
+import { withoutInapplicable } from './honesty-overrides';
 import { completeness as engineCompleteness } from '@travel/core/capture/engine.ts';
 import { primaryRef, type World } from '@travel/core/capture/records.ts';
 import { defaultContract, type Contract } from './contract';
@@ -147,7 +148,7 @@ export function buildPageExtras(root: string, world: World, places: readonly Pic
     if (!ref) continue;
     const model = buildSections(world, ref, contract, { scrub });
     if (!model) continue;
-    const suitLoc = model.suitabilityRef ? world.suit.get(model.suitabilityRef) : undefined;
+    const suitLoc = model.suitabilityRef && world.suit.get(model.suitabilityRef) ? withoutInapplicable(model.suitabilityRef, world.suit.get(model.suitabilityRef)!) : undefined;
     const suitType = model.suitabilityRef ? (world.cap.get(model.suitabilityRef)?.rec.type ?? model.type) : model.type;
     const suitability = suitLoc
       ? publicSuitability(suitLoc, { suitMarks: suitMarksFor(contract, suitType) ?? undefined, slot3: contract.slot3For(suitType), scrub })

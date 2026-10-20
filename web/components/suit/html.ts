@@ -207,9 +207,12 @@ function groupHtml(g: SuitGroup, slugs: Slugs): string {
   const values = g.rows.filter((r) => !r.gap);
   if (ECHO.has(g.id)) {
     // Facilities and When you can go are sections of their own (9 and 8): here only their values, with a link, so nothing is said twice (PS1, Q31)
-    const echo = values.map((r) => withUnits(r.short)).filter(Boolean);
-    if (echo.length === 0) return '';
-    return `<p class="su-echo" data-group="${g.id}"><span class="gt">${esc(g.title)}</span><span class="gs">${echo.join(' · ')}</span><a href="#${g.id}">See section</a></p>`;
+    // a value the source left out ("not stated") is not a value: it joins the standard gap wording instead of a half sentence ("cancelled for not stated")
+    const unstated = values.filter((r) => r.val?.state === 'none_stated' || r.val?.state === 'searched_none');
+    const echo = values.filter((r) => !unstated.includes(r)).map((r) => withUnits(r.short)).filter(Boolean);
+    if (echo.length === 0 && unstated.length === 0) return '';
+    const gapLine = unstated.length ? gapChip(`${GAP_WORDS}: ${unstated.map((r) => r.label.toLowerCase()).join(', ')}`) : '';
+    return `<p class="su-echo" data-group="${g.id}"><span class="gt">${esc(g.title)}</span><span class="gs">${echo.join(' · ')}${echo.length && gapLine ? ' ' : ''}${gapLine}</span><a href="#${g.id}">See section</a></p>`;
   }
   const gaps = g.rows.filter((r) => r.gap);
   const sum = g.open ? '' : `<span class="gs">${values.map((r) => withUnits(clip(r.short))).join(' · ')}${gaps.length || g.closing ? gapChip(clip(g.closing ?? `Not checked yet: ${gaps.map((r) => r.label.toLowerCase()).join(', ')}`, 90)) : ''}</span>`;

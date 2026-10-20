@@ -209,7 +209,7 @@ const LABEL: Record<string, string> = {
   'ext.trail.snowfields_until': 'Snow on the trail until',
   adult_time_min: 'Adult time', child_time_min: 'Child time', on_site_min: 'Time on site',
   toilets: 'Toilets', water: 'Drinking water', food: 'Food', shade: 'Shade', bail_out: 'Bail-out', signal: 'Phone signal', change_rooms: 'Changing rooms',
-  showers: 'Showers', picnic: 'Picnic', baby_change: 'Baby change', access_season: 'Access', 'participation.weather_cancel': 'Cancelled for', hazards: 'Hazards',
+  showers: 'Showers', picnic: 'Picnic', baby_change: 'Baby change', access_season: 'Access', 'participation.weather_cancel': 'Weather cancellation', hazards: 'Hazards',
   exposure: 'Exposure', altitude_m: 'Altitude', 'participation.kit_provided': 'Kit provided', 'participation.wear': 'Wear', 'water_safety.class': 'Water class',
   'water_safety.lifejacket': 'Life jackets', 'water_safety.child_sizes_from_kg': 'Child sizes from', 'water_safety.lifeguard': 'Lifeguard', 'water_safety.entry': 'Entry',
   'water_safety.water_temp_c': 'Water temperature', 'water_safety.current_or_tide': 'Current',
@@ -329,6 +329,9 @@ function describe(path: string, v: unknown, rec: { block: Obj; ext: Obj | undefi
       if (!isObj(v)) return null;
       const causes = ((v.causes as string[] | undefined) ?? []).map((c) => WEATHER_LABEL[c] ?? humanise(c));
       const policy = v.policy === 'refund' ? ' · refund' : v.policy === 'rebook' ? ' · rebook' : v.policy === 'credit' ? ' · credit' : '';
+      // a record can name no cause and still say something ("closures can occur in adverse weather"): that sentence is the value, never the raw object
+      const status = typeof v.status === 'string' ? v.status.trim() : '';
+      if (!causes.length && status) return `${cap(status)}${policy}`;
       return causes.length ? `${causes.join(', ')}${policy}` : null;
     }
     case 'hazards': return Array.isArray(v) ? v.map((h) => (isObj(h) ? String(h.note) : '')).filter(Boolean).join('; ') : null;

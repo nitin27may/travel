@@ -1,3 +1,4 @@
+import { withoutInapplicable } from './honesty-overrides';
 import { completeness, evalTrigger, readProperty } from '@travel/core/capture/engine.ts';
 import { incomingOf, primaryRef, type World } from '@travel/core/capture/records.ts';
 import { resolveNode } from '@travel/core/capture/resolve.ts';
@@ -190,6 +191,21 @@ const SELLING_CLASSES = new Set(['ticket', 'access']);
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const md = (s: string): string => `${Number(s.slice(3))} ${MONTHS[Number(s.slice(0, 2)) - 1]}`;
+const DAY = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+/** [2,3,4,5,6,7] -> "Tue–Sun"; a broken run lists its days. A period for all seven days names none. */
+function dayWords(days: unknown): string {
+  if (!Array.isArray(days) || days.length === 0 || days.length >= 7) return '';
+  const d = [...new Set(days.map(Number).filter((n) => n >= 1 && n <= 7))].sort((a, b) => a - b);
+  const run = d.every((n, i) => i === 0 || n === d[i - 1]! + 1);
+  return run && d.length > 2 ? `${DAY[d[0]! - 1]}–${DAY[d[d.length - 1]! - 1]}` : d.map((n) => DAY[n - 1]).join(', ');
+}
+function hoursPeriod(p: Record<string, unknown>): string {
+  const days = dayWords(p.days);
+  const dates = typeof p.from === 'string' && typeof p.to === 'string' ? `${md(p.from)} – ${md(p.to)}` : '';
+  const when = [days, dates].filter(Boolean).join(', ');
+  return `${when ? `${when} ` : ''}${p.open}–${p.close}`;
+}
+
 const num = (n: number): string => (Number.isInteger(n) ? String(n) : String(Math.round(n * 10) / 10));
 const humanise = (s: string): string => s.replace(/_/g, ' ');
 const cap1 = (s: string): string => (s ? s[0]!.toUpperCase() + s.slice(1) : s);
@@ -236,7 +252,8 @@ export function formatValue(def: Pick<PropertyDef, 'key' | 'value' | 'unit'>, v:
     case 'hours': {
       if (!isObj(v)) return String(v);
       if (v.always_open === true) return 'Always open';
-      const per = Array.isArray(v.periods) ? v.periods.map((p) => (isObj(p) ? `${p.open}–${p.close}` : '')).filter(Boolean).join(', ') : '';
+      // each period says which days and dates it covers when they are stored, so two periods never read as the same hours twice ("10:00–18:00, 10:00–18:00")
+      const per = Array.isArray(v.periods) ? [...new Set(v.periods.map((p) => (isObj(p) ? hoursPeriod(p) : '')).filter(Boolean))].join('; ') : '';
       return per || 'See times';
     }
     case 'limit': return isObj(v) ? Object.entries(v).map(([k, x]) => `${humanise(k)} ${String(x)}`).join(' · ') : String(v);
@@ -441,7 +458,7 @@ export function buildSections(world: World, rawRef: string, contract: Contract, 
   // the suitability block: the record's own, or the ticket offer of a lift line
   const ticketRef = layer === 'route' || layer === 'place' ? ticketOf(world, ref) : null;
   const suitRef = world.suit.has(ref) ? ref : (ticketRef && world.suit.has(ticketRef) ? ticketRef : null);
-  const suitLoc = suitRef ? world.suit.get(suitRef)! : null;
+  const suitLoc = suitRef ? withoutInapplicable(suitRef, world.suit.get(suitRef)!) : null;
   const suitType = suitRef && suitRef !== ref ? (world.cap.get(suitRef)?.rec.type ?? cap.type) : cap.type;
   const suitMarks = suitMarksFor(contract, suitType) ?? undefined;
   const operated = opts.operated ?? suitLoc?.rec.operated;
@@ -514,6 +531,17 @@ export function buildSections(world: World, rawRef: string, contract: Contract, 
   const warnings = sections.find((s) => s.id === 'warnings');
 
   // glance slots: echoes of the home rows
+  // "Operating season: Not checked yet" beside "Open 1 Jun – 30 Sep" is one fact told twice, once wrongly (S1b M7). When the season is a stored value in the
+  // suitability record, the empty capture row is dropped and the glance slot reads the season row instead.
+  const opRow = rowsByKey.get('season');
+  const seasonRow = rowsByKey.get('access_season');
+  const notAValue = (r: Row): boolean => r.gap || r.val?.state === 'searched_none' || r.val?.state === 'none_stated';
+  if (opRow && seasonRow && notAValue(opRow) && !notAValue(seasonRow)) {
+    for (const sec of sections) sec.rows = sec.rows.filter((x) => x !== opRow);
+    rowsByKey.delete('season');
+    const at = glanceKeys.indexOf('season');
+    if (at >= 0) glanceKeys[at] = 'access_season';
+  }
   const glance = glanceKeys.filter((k) => rowsByKey.has(k) || contract.properties[k]?.home.in === 'suitability');
 
   // relations

@@ -194,7 +194,7 @@ export function buildPlaces(src: Sources): PlaceBuild {
   // ---- locations.json ----
   for (const row of src.locationRows) {
     const raw = src.locationRaw.get(row.id) ?? {};
-    const km = mapLocationKind(row.kind);
+    const km = mapLocationKind(row.kind, row.id);
     const resolver = String(raw.resolver ?? '');
     const hasPoint = row.lat !== null && row.lon !== null && row.location_status !== 'none';
     const pointSource = resolver === 'wikidata' && row.wikidata ? `wikidata:${row.wikidata}` : resolver === 'manual' ? 'manual_pin' : resolver === 'nominatim' ? 'osm_nominatim' : 'unknown';

@@ -264,7 +264,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
   }));
   const selectedPoint = (id: string) => (unique.some((p) => p.id === id) ? id : id === 'place' && unique.some((p) => p.id === 'trailhead') ? 'trailhead' : undefined);
 
-  const hasAccess = !['area', 'town'].includes(place.kind) || Boolean(place.access && (place.access.trailhead || place.access.parking.length));
+  const hasAccess = !['area', 'town'].includes(place.kind) && place.subkind !== 'range' || Boolean(place.access && (place.access.trailhead || place.access.parking.length));
   const glance = glanceFor(place);
   const huts = hutFacts(place.facts);
   const access = accessFacts(place.facts).filter((f, i, all) => all.findIndex((g) => g.label === f.label && g.value === f.value) === i);
@@ -448,7 +448,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
           </div>
         </div>
 
-        {model ? <Glance model={model} suit={suit} level={place.completeness} /> : null}
+        {model ? <Glance model={model} suit={suit} level={place.completeness} trailhead={place.access?.trailhead?.name ?? null} isArea={place.kind === 'area' || place.subkind === 'range'} /> : null}
         {model ? <SectionIndex /> : null}
         {!model ? (
         <section className="pl-glance" aria-label="At a glance">
