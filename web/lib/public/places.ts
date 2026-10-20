@@ -517,8 +517,10 @@ function logSkippedShells(skipped: readonly SeedSkip[]): void {
 
 /**
  * A seed that carries `same_place_as` is the second record of a place whose first record has a page (backlog 3.55). Its own Rec is
- * dropped; the names and refs it answered to move to the first page, so a trip stop or an old ref still finds it. When the first
- * record has no page the second keeps its own (nothing is lost). The caller redirects the dropped seed's slug to the survivor's.
+ * dropped; the refs it answered to move to the first page, so a link by ref still finds it. Its NAME does not join the first page's
+ * name lookup: the trip builder merges stops that resolve to one page, which would drop a trip item the suitability scope (and core's
+ * pinned count of 207) still holds. The stop keeps its own item until the trip and core lanes re-pin it. When the first record has no
+ * page the second keeps its own (nothing is lost). The caller redirects the dropped seed's slug to the survivor's.
  */
 export function collapseDuplicates(
   recs: readonly Rec[],
@@ -545,7 +547,6 @@ export function collapseDuplicates(
     const own = byRef.get(primaryRef(world, seed.ref));
     const survivor = target(seed.duplicateOf);
     if (!own || !survivor || survivor === own) continue;
-    survivor.altNames = [...new Set([...(survivor.altNames ?? [survivor.name]), ...seed.names])];
     survivor.aliasRefs = [...new Set([...(survivor.aliasRefs ?? []), seed.ref, ...seed.aliasRefs])];
     dropped.push(own);
     pairs.push({ seed, survivor });

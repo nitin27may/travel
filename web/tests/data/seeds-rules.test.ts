@@ -101,8 +101,9 @@ describe('second records of one place (3.55)', () => {
     expect(fixture.places.length).toBe(real.places.length - 1);
   });
 
-  it('lets the second name find the first page, so a trip stop and search land on one entry', () => {
-    expect(fixture.byName.get('brewster stables lake louise horseback')).toEqual(['banff-horseback-rides']);
+  it('sends a link by the second ref to the first page, and leaves the second name out of the name lookup (a trip stop keeps its own item)', () => {
+    expect(fixture.byCaptureRef.get(SECOND)).toBe('banff-horseback-rides');
+    expect(fixture.byName.get('brewster stables lake louise horseback')).toBeUndefined();
     expect(fixture.byName.get('banff horseback rides')).toEqual(['banff-horseback-rides']);
   });
 
