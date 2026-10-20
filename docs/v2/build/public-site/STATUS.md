@@ -184,6 +184,27 @@ Q1-Q24 are in `BACKLOG.md`, each with a recommendation. "Go with your recommenda
 | http.server | 5197 | `docs/v2/design`, behind https://accountability-workshops-refused-rural.trycloudflare.com (mocks: `/trip-page/mock/`, `/globe/mock/`, `/suitability-display/mock/`) |
 | http.server | 3430 | `/tmp/l2preview/web/out`, an older build of the site, behind https://storage-repeat-reflects-growing.trycloudflare.com. Rebuild it from v2 HEAD before showing it again |
 
+## Enhancements (owner, 20 Oct)
+
+Spec: [features/nearby-and-regions.md](../../features/nearby-and-regions.md). It covers backlog rows 8.1-8.16 and questions Q50 and Q54-Q62.
+
+- **Where pill on Places: Country > State or province > City**, with parks and areas as a group in the third level. City uses a new `city=` key (Q62).
+- **Nearby:** an "Around here" block on place pages, and near and city views in the list, nearest first, capped at 100 km.
+- **Data rule:** every record carries its placement block: area, a sourced point with its role, and the nearest town.
+- **Towns layer:** GeoNames, shared with the globe city outlines (9.3).
+- **Smart trip builder:** the planner product.
+
+Audit: 121 of 359 place pages have no point (23 of them are a join gap). No record carries a nearest town. Around Whitby, nothing in our catalogue is within 100 km.
+
+Phasing:
+- **N0 (launch):** only the Where pill with country, province, and parks and areas, and only if it merges before the stage 6 preview.
+- **N1 (week 1 after go-live):** the towns layer, the city level, the data rule and points.
+- **N2:** Nearby and near mode.
+- **N3:** the ORS matrix.
+- **P1:** the builder.
+
+The launch decision is Q54.
+
 ## Cleanup due
 
 The merged lane worktrees can be removed once the owner agrees (confirm every deletion): v2-L2, L3, L4, PS, S0, S0b, RV0, RVC, CF, SR, RC, INTA, INTB, INTC and CC. Older pre-v2 work: `travel-wt/p3b` (parked) and `travel-wt/p4b` (PR #7 still open).
