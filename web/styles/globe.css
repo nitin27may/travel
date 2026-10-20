@@ -298,6 +298,16 @@ span.globe-pin { cursor: default; }
 /* the hint would sit on top of the control card on narrow desktops */
 @media (max-width: 1199px) { .globe-hint { display: none; } }
 
+/* ---------- 1024 x 768 class: the card is the left dock (review L2b ruling 1), so it never hangs over the crumb ---------- */
+@media (max-width: 1100px) and (max-height: 800px) and (min-height: 501px) {
+  .globe-card-dock { position: absolute; z-index: 7; left: 12px; top: var(--globe-dock-top, 110px); bottom: 44px; width: 296px; display: flex; border-radius: var(--r-4); }
+  .globe-card-dock .globe-card { width: 100%; max-height: 100%; overflow: auto; overscroll-behavior: contain; }
+  .globe-card-dock .globe-card-photo { height: 110px; }
+  .globe-card-dock .globe-card-actions { flex-wrap: nowrap; gap: 2px; position: sticky; bottom: 0; z-index: 2; margin: 0 -14px -14px; padding: 8px 14px; background: var(--surface); border-top: 1px solid var(--line); }
+  .globe-card-dock .globe-card-act { padding: 0 6px; }
+  .globe-root:has(.globe-card-dock) .globe-card-pill, .globe-root:has(.globe-card-dock) .globe-card-controls { display: none; } /* the dock takes the corner the options pill sits in */
+}
+
 /* shader warm-up: the borrowed zoomed-in frame is never seen */
 .globe-map[data-warming] .maplibregl-canvas, .globe-map[data-warming] .maplibregl-marker, .globe-map[data-warming] .globe-tip { visibility: hidden; }
 
