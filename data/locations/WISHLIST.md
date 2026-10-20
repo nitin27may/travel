@@ -1,8 +1,8 @@
 # Wishlist
 
-Generated from `data/locations/locations.json` on 2026-10-18. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
+Generated from `data/locations/locations.json` on 2026-10-19. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
 
-65 places in 7 countries, 4 collections. By status: idea 57, planned 8.
+74 places in 7 countries, 5 collections. By status: idea 66, planned 8.
 
 Legend: kind · season · status · stats from the source post are unverified until a research lane confirms them.
 
@@ -331,11 +331,54 @@ Legend: kind · season · status · stats from the source post are unverified un
   - <sub>US/VT/lamoille-county/stowe</sub>
 ### Washington
 
+#### Chelan County
+
+- **Lake Wenatchee** · lake · season ? · idea · [map](https://maps.google.com/?q=47.82267,-120.7772) [wd](https://www.wikidata.org/wiki/Q7172855) · #road-trip-stop
+  - Washington State road trip, add-on if there is time. Placeholder from a saved post, unverified.
+  - <sub>US/WA/chelan-county/lake-wenatchee</sub>
+- **Leavenworth** · town · season ? · idea · [map](https://maps.google.com/?q=47.5964,-120.665) [wd](https://www.wikidata.org/wiki/Q1025813) · #road-trip-stop #villages
+  - Washington State road trip, add-on if there is time. Placeholder from a saved post, unverified.
+  - <sub>US/WA/chelan-county/leavenworth</sub>
+#### Columbia River Gorge National Scenic Area
+
+- **Columbia River Gorge** · canyon · season ? · idea · [map](https://maps.google.com/?q=45.70472,-121.79167) [wd](https://www.wikidata.org/wiki/Q1112581) · #gorge #road-trip-stop #views #waterfall
+  - Washington State road trip, add-on if there is time (the post says the Washington side). Placeholder from a saved post, unverified.
+  - <sub>US/WA/columbia-river-gorge-national-scenic-area/columbia-river-gorge</sub>
+#### Jefferson County
+
+- **Olympic Peninsula** · region · season ? · idea · [map](https://maps.google.com/?q=47.79833,-123.61806) [wd](https://www.wikidata.org/wiki/Q780293) · #coast #lake #road-trip-stop
+  - Washington State road trip stop 5. Visit Forks, Neah Bay, Lake Crescent. Placeholder from a saved post, unverified.
+  - <sub>US/WA/jefferson-county/olympic-peninsula</sub>
+#### King County
+
+- **Mount Baker-Snoqualmie National Forest** · park · season ? · idea · [map](https://maps.google.com/?q=47.766,-121.378) [wd](https://www.wikidata.org/wiki/Q3079176) · #hiking #lake #road-trip-stop #waterfall
+  - Washington State road trip stop 3 (the post says Baker-Snoqualmie National Forest). Franklin Falls (very short hike), Barclay Lake (easy hike), visit Skykomish and Index. Placeholder from a saved post, unverified.
+  - <sub>US/WA/king-county/baker-snoqualmie-national-forest</sub>
+#### Lake Chelan National Recreation Area
+
+- **Lake Chelan** · lake · season ? · idea · [map](https://maps.google.com/?q=47.84111,-120.04639) [wd](https://www.wikidata.org/wiki/Q1115201) · #boat #road-trip-stop
+  - Washington State road trip, add-on if there is time (the post says Lake Chelan / Stehekin; Stehekin is at the head of the lake). Placeholder from a saved post, unverified.
+  - <sub>US/WA/lake-chelan-national-recreation-area/lake-chelan</sub>
+#### Mount Baker–Snoqualmie National Forest
+
+- **Mount Baker Wilderness** · park · season ? · idea · [map](https://maps.google.com/?q=48.8081,-121.743) [wd](https://www.wikidata.org/wiki/Q3326014) · #hiking #road-trip-stop #scenic-drive #views
+  - Washington State road trip stop 1. Artist Point (drive-up viewpoint), Huntoon Point (short hike), Chain Lakes Loop (moderate day hike). Placeholder from a saved post; stops and hike labels as posted, unverified.
+  - <sub>US/WA/mount-bakersnoqualmie-national-forest/mount-baker-wilderness</sub>
+#### Mount St. Helens National Volcanic Monument
+
+- **Mount St. Helens** · mountain · season ? · idea · [map](https://maps.google.com/?q=46.20028,-122.18944) [wd](https://www.wikidata.org/wiki/Q4675) · #road-trip-stop #views
+  - Washington State road trip, add-on if there is time. Placeholder from a saved post, unverified.
+  - <sub>US/WA/mount-st-helens-national-volcanic-monument/mount-st-helens</sub>
 #### Pierce County
 
 - **Mount Rainier National Park** · park · Sep,Oct · idea · [map](https://maps.google.com/?q=46.85,-121.75) [wd](https://www.wikidata.org/wiki/Q944329) · #fall-colours #hiking #mountain #national-park #scenic
   - Owner pick for autumn colour.
   - <sub>US/WA/pierce-county/mount-rainier-national-park</sub>
+#### Whatcom County
+
+- **North Cascades National Park** · park · season ? · idea · [map](https://maps.google.com/?q=48.48306,-120.91139) [wd](https://www.wikidata.org/wiki/Q1163799) · #hiking #lake #national-park #road-trip-stop #views
+  - Washington State road trip stop 2. Rent a canoe on Ross Lake; hike the Maple Pass loop for sunset (labelled a challenging hike in the post); Diablo Lake vista point. Placeholder from a saved post, unverified.
+  - <sub>US/WA/whatcom-county/north-cascades-national-park</sub>
 ### Wyoming
 
 #### Park County
@@ -432,3 +475,18 @@ From a saved Instagram post (15 Oct 2026): Hanoi days 1-2, Sapa days 3-4, Ha Lon
 1. Hanoi (Hanoi) [map](https://maps.google.com/?q=21.0245,105.84117)
 2. Sapa (Lào Cai) [map](https://maps.google.com/?q=22.33556,103.84194)
 3. Ha Long Bay (Quảng Ninh) [map](https://maps.google.com/?q=20.9,107.2)
+
+### Washington State road trip (5 stops and add-ons)
+
+From a saved social post (screenshot, 19 Oct 2026). Five stops in order, then add-ons if there is time. Each stop lists its highlights in the place note. Placeholder: stop order and hike labels as posted, driving times and details not verified.
+
+1. Mount Baker Wilderness (Washington) [map](https://maps.google.com/?q=48.8081,-121.743)
+2. North Cascades National Park (Washington) [map](https://maps.google.com/?q=48.48306,-120.91139)
+3. Mount Baker-Snoqualmie National Forest (Washington) [map](https://maps.google.com/?q=47.766,-121.378)
+4. Mount Rainier National Park (Washington) [map](https://maps.google.com/?q=46.85,-121.75)
+5. Olympic Peninsula (Washington) [map](https://maps.google.com/?q=47.79833,-123.61806)
+6. Leavenworth (Washington) [map](https://maps.google.com/?q=47.5964,-120.665)
+7. Columbia River Gorge (Washington) [map](https://maps.google.com/?q=45.70472,-121.79167)
+8. Mount St. Helens (Washington) [map](https://maps.google.com/?q=46.20028,-122.18944)
+9. Lake Chelan (Washington) [map](https://maps.google.com/?q=47.84111,-120.04639)
+10. Lake Wenatchee (Washington) [map](https://maps.google.com/?q=47.82267,-120.7772)
