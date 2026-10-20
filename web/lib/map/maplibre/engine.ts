@@ -95,7 +95,12 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
     for (const l of style.layers) {
       const sl = (l as { 'source-layer'?: string })['source-layer'] ?? '';
       if (l.type === 'background') set(l.id, 'paint', 'background-color', palette.land);
+      // the basemap's own shaded-relief raster is tinted green and brown at world zoom: grey it, so no map carries green (standing rule)
+      else if (l.type === 'raster') set(l.id, 'paint', 'raster-saturation', -1);
+      else if (l.type === 'fill-extrusion') set(l.id, 'paint', 'fill-extrusion-color', palette.high);
       else if (l.type === 'fill') {
+        // a pattern fill (wetland, road areas) would hide the fill colour, and its picture is green
+        if ((l.paint as Record<string, unknown> | undefined)?.['fill-pattern']) set(l.id, 'paint', 'fill-pattern', null);
         set(l.id, 'paint', 'fill-color', sl === 'water' ? palette.water : sl === 'building' ? palette.high : palette.land);
         set(l.id, 'paint', 'fill-outline-color', palette.land);
       } else if (l.type === 'line') {
