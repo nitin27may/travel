@@ -91,7 +91,7 @@ export function TripTimeline({ model, timelines, changedDays, picked, onPick }: 
                   {t.totals.driveMin > 0 ? <><Icon name="car" size={13} /> {fmtHM(t.totals.driveMin)}</> : null}
                 </span>
                 <span className="tl-trip-flags" aria-hidden="true">
-                  {anchorDays.has(d.n) ? <span className="tl-flag tl-flag-anchor" title="A stop worth the journey"><Icon name="route" size={13} /> Worth the journey</span> : null}
+                  {anchorDays.has(d.n) ? <span className="tl-flag tl-flag-anchor" title="A stop worth the journey" aria-label="Worth the journey"><Icon name="route" size={13} /> <span className="tl-flag-t">Worth the journey</span></span> : null}
                   {warn ? <span className="tl-flag tl-flag-warn" title={`${warn} ${warn === 1 ? 'warning' : 'warnings'}`}><Icon name="warn" size={13} /> {warn}</span> : null}
                   {changedDays.has(d.n) ? <span className="tl-flag">changed</span> : null}
                 </span>
