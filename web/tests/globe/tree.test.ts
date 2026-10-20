@@ -3,6 +3,7 @@ import { canonicalRegions } from '@/lib/public/globe';
 import { buildGlobeData } from '@/lib/globe/data';
 import { listPlaces } from '@/lib/public';
 import { getPlace } from '@/lib/public';
+import { pinsUnder } from '@/lib/globe/model';
 
 describe('one node per admin-1 region (spec 11, review M6)', () => {
   const data = buildGlobeData();
@@ -43,5 +44,28 @@ describe('one node per admin-1 region (spec 11, review M6)', () => {
       const cn = data.index.continents.flatMap((c) => c.countries).find((c) => c.slug === p.path[0]);
       expect(cn?.children.some((c) => c.slug === p.path[1]), `${p.slug} ${p.path.join('/')}`).toBe(true);
     }
+  });
+
+  describe('trip pins (backlog 3.46, review S1)', () => {
+    const trips = data.index.pins.filter((p) => p.kind === 'trip');
+    it('no trip pin sits at a country centroid: every one is a sourced point', () => {
+      expect(trips.length).toBeGreaterThan(10);
+      expect(trips.filter((t) => t.approx).map((t) => t.slug)).toEqual([]);
+    });
+    it('Chamonix, Utah, Vermont and New Hampshire sit on their base points', () => {
+      const at = (slug: string) => trips.find((t) => t.slug === slug)!;
+      expect(at('chamonix-mont-blanc-2028').lat).toBeCloseTo(45.94, 1);
+      expect(at('utah-five-parks').lon).toBeCloseTo(-113.0, 1);
+      expect(at('vermont-fall-2026').lat).toBeCloseTo(44.62, 1);
+      expect(at('new-hampshire-stopover-2026').lat).toBeCloseTo(44.05, 1);
+    });
+    it('a level lists only the trips whose base is inside it', () => {
+      const names = (path: string[]) => pinsUnder(data as never, path, 'trip').map((t) => t.slug);
+      expect(names(['ca'])).toContain('canadian-rockies-2029');
+      expect(names(['ca', 'ontario'])).not.toContain('canadian-rockies-2029');
+      expect(names(['ca', 'ontario'])).toContain('algonquin-muskoka-2026');
+      expect(names(['ca', 'alberta'])).toContain('canadian-rockies-2029');
+      expect(names(['ca', 'alberta'])).not.toContain('algonquin-muskoka-2026');
+    });
   });
 });

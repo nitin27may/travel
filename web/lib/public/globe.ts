@@ -1,6 +1,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { bbox, inBox, inFeature, topoFeatures, type Feat, type Topology } from '@/lib/globe/geometry';
+import { slugify } from '@/lib/globe/geoWork';
 import { CONTINENT_OF } from './taxonomy';
 import { normName } from './places';
 import { TRIP_SLUGS } from './slugs';
@@ -115,7 +116,7 @@ const A3_BY_A2 = (): Record<string, string> => {
  * Places with no shape (an approximate pin, a country with no admin file) keep the store's region.
  * Returns the canonical region of each place slug, and the shape index it fell in (for the build check).
  */
-export function canonicalRegions(places: PublicPlace[]): { region: Map<string, { slug: string; name: string }>; shapeOf: Map<string, string> } {
+export function canonicalRegions(places: PublicPlace[]): { region: Map<string, { slug: string; name: string }>; shapeOf: Map<string, string>; winner: Map<string, { slug: string; name: string }>; shapesOf: (cc: string) => Feat[] | null } {
   const a3s = A3_BY_A2();
   const shapesByCc = new Map<string, Feat[] | null>();
   const shapeOf = new Map<string, string>();
@@ -144,7 +145,7 @@ export function canonicalRegions(places: PublicPlace[]): { region: Map<string, {
   }
   const region = new Map<string, { slug: string; name: string }>();
   for (const [slug, key] of shapeOf) region.set(slug, winner.get(key)!);
-  return { region, shapeOf };
+  return { region, shapeOf, winner, shapesOf: (cc) => { if (!shapesByCc.has(cc)) shapesByCc.set(cc, a3s[cc] ? adminShapes(a3s[cc]) : null); return shapesByCc.get(cc) ?? null; } };
 }
 
 export function buildGlobe(root: string, places: PublicPlace[], trips: PublicTrip[], listedFolders: Map<string, string>): GlobeIndex {
@@ -153,7 +154,16 @@ export function buildGlobe(root: string, places: PublicPlace[], trips: PublicTri
   const tiers = readDrawTiers(root);
   const folderOf = new Map([...listedFolders].map(([f, s]) => [s, f]));
   const pins: GlobePin[] = [];
-  const { region } = canonicalRegions(places);
+  const { region, winner, shapesOf } = canonicalRegions(places);
+  /** The state a sourced point lies in (the shape's own region name where places use one, else Natural Earth's name), for scoping a trip to a level. */
+  const stateAt = (cc: string, lat: number, lon: number): { slug: string; name: string } | null => {
+    const shapes = shapesOf(cc);
+    const at: [number, number] = [lon, lat];
+    const hit = shapes ? shapes.findIndex((f) => f._bbox && inBox(f._bbox, at) && inFeature(f, at)) : -1;
+    if (hit < 0 || !shapes) return null;
+    const name = String(shapes[hit].properties?.name ?? '');
+    return winner.get(`${cc}#${hit}`) ?? (name ? { slug: slugify(name), name } : null);
+  };
   /** The area chain with its state replaced by the one region that shape stands for. */
   const chainOf = (p: PublicPlace) => p.areaChain.map((a, i) => (i === 1 && region.get(p.slug) ? { ...a, ...region.get(p.slug)! } : a));
   for (const p of places) {
@@ -161,13 +171,19 @@ export function buildGlobe(root: string, places: PublicPlace[], trips: PublicTri
     pins.push({ kind: 'place', slug: p.slug, name: p.name, lat: p.point.lat, lon: p.point.lon, type: p.kind, path: chainOf(p).map((a) => a.slug), approx: p.point.pointSource === 'prototype_approx', tier: tiers.get(normName(p.name)) ?? 'local' });
   }
   const tripCountry = new Map<string, string>();
+  const tripState = new Map<string, { slug: string; name: string }>();
   for (const t of trips) {
     const folder = folderOf.get(t.slug)!;
     const cc = TRIP_COUNTRY[folder]?.cc;
     if (!cc) continue;
     tripCountry.set(t.slug, cc);
     const pin = tripPin(t, folder, places, gaz, basePoints);
-    if (pin) pins.push({ kind: 'trip', slug: t.slug, name: t.title, lat: pin.lat, lon: pin.lon, type: t.depth, path: [cc], approx: pin.approx, tier: 'world' });
+    if (pin) {
+      // A trip belongs to the state its sourced base lies in, so a level lists only the trips inside it (review S1). An approximate pin has no state.
+      const st = pin.approx ? null : stateAt(cc, pin.lat, pin.lon);
+      if (st) tripState.set(t.slug, st);
+      pins.push({ kind: 'trip', slug: t.slug, name: t.title, lat: pin.lat, lon: pin.lon, type: t.depth, path: st ? [cc, st.slug] : [cc], approx: pin.approx, tier: 'world' });
+    }
   }
 
   const countries = new Map<string, GlobeNode>();
@@ -203,7 +219,11 @@ export function buildGlobe(root: string, places: PublicPlace[], trips: PublicTri
   const countryName = (cc: string) => [...places].flatMap((p) => p.areaChain).find((a) => a.level === 'country' && a.slug === cc)?.name ?? gazName(cc) ?? cc.toUpperCase();
   for (const t of trips) {
     const cc = tripCountry.get(t.slug);
-    if (cc) bump(countryNode(cc, countryName(cc)), 'trips');
+    if (!cc) continue;
+    const cn = countryNode(cc, countryName(cc));
+    bump(cn, 'trips');
+    const st = tripState.get(t.slug);
+    if (st) bump(child(cn, st.slug, st.name), 'trips');
   }
   const sortNodes = (ns: GlobeNode[]) => { ns.sort((a, b) => a.name.localeCompare(b.name)); ns.forEach((n) => sortNodes(n.children)); };
   sortNodes(rootNode.children);

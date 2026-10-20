@@ -477,16 +477,19 @@ export class GlobeController {
     // the area the card sits in is known now, so closing it before the shapes arrive still lands in the right place
     // The card opens when the camera lands, not at the start of the flight (spec 4.3); with no flight it opens now.
     const flies = o.fly !== false && !o.camera && !o.now;
-    this.emit({ selected: flies ? null : key, feature: null, notice: null, ...(samePath ? {} : { path: chain.slice(0, card.kind === 'trip' ? 1 : 3) }) });
-    if (!samePath || !this.adm1) await this.showArea(chain.slice(0, card.kind === 'trip' ? 1 : 3), { fly: false });
+    this.emit({ selected: flies ? null : key, feature: null, notice: null, ...(samePath ? {} : { path: chain.slice(0, 3) }) });
+    if (!samePath || !this.adm1) await this.showArea(chain.slice(0, 3), { fly: false });
     if (!pin) return;
     if (!flies && this.snap.selected !== key) return;
     if (o.camera) { engine.jumpTo(o.camera); return; }
     if (o.fly === false) return;
     engine.setPadding(this.padding(true));
     if (card.approx) {
+      // An approximate place frames the smallest area the crumb names (district, then state), never the whole country when it is known (review S5).
+      const area = this.areaBox(chain.slice(0, 3));
       const cb = this.countryBox(pin.path[0]);
-      if (cb) engine.flyToBox(cb.box, { plan: this.plan('place', { approx: true }), maxZoom: 6, wide: cb.wide });
+      if (area) engine.flyToBox(area.box, { plan: this.plan(area.step, { approx: true }), maxZoom: area.maxZoom });
+      else if (cb) engine.flyToBox(cb.box, { plan: this.plan('place', { approx: true }), maxZoom: 6, wide: cb.wide });
     } else {
       engine.flyToPoint([pin.lon, pin.lat], card.kind === 'trip' ? 8 : 12, { plan: this.plan(card.kind === 'trip' ? 'trip' : 'place') });
     }
@@ -494,6 +497,23 @@ export class GlobeController {
       const mine = this.areaToken;
       engine.afterMove(() => { if (this.areaToken === mine && this.currentUrl === url) this.emit({ selected: key }); });
     }
+  }
+
+  /** The box of the district (else the state) a path names, from the shapes this country has loaded; null when neither resolves. */
+  private areaBox(chain: string[]): { box: Bbox; step: 'district' | 'state'; maxZoom: number } | null {
+    const [cc, st, di] = chain;
+    if (!cc || !st) return null;
+    if (di && this.adm2 && this.snap.path[1] === st) {
+      const idx = resolveFeature(this.adm2, di, this.points(chain));
+      const box = idx !== null ? this.adm2.features[idx]?._bbox : null;
+      if (box) return { box, step: 'district', maxZoom: 11 };
+    }
+    if (this.adm1) {
+      const idx = resolveFeature(this.adm1, st, this.points([cc, st]));
+      const box = idx !== null ? this.adm1.features[idx]?._bbox : null;
+      if (box) return { box, step: 'state', maxZoom: 9 };
+    }
+    return null;
   }
 
   closeCard(): void {
