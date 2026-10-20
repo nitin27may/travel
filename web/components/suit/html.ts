@@ -192,7 +192,7 @@ const GLYPH: Record<string, string> = {
 export const glyph = (name: string, size = 13): string => (GLYPH[name] ? `<svg class="gy${size === 16 ? ' gy16' : ''}" viewBox="0 0 24 24" aria-hidden="true"><path d="${GLYPH[name]}"/></svg>` : '');
 
 /** A chip's text as whole segments: it breaks between "Hard", "Parks Canada Difficult" and "4 h 30–5 h 30", never inside one (S2). Non-breaking spaces, so no markup is added to the page. */
-const chipText = (t: string): string => t.split(' · ').map((x) => withUnits(x.replace(/ /g, '\u00a0'))).join(' · ');
+const chipText = (t: string): string => t.split(' · ').map((x) => withUnits(x.replace(/ /g, '\u00a0').replace(/(\d)–(?=\d+\u00a0?(?:h|min)\b)/g, '$1–\u2060'))).join(' · ');
 
 export function chipsHtml(chips: readonly (Chip | null)[]): string {
   const shown = chips.filter((c): c is Chip => c !== null);

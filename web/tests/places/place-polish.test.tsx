@@ -23,7 +23,7 @@ describe('the checks count (S1, 3.49)', () => {
 describe('chips (S2, S8, S11, S13)', () => {
   const larch = html('larch-valley-to-sentinel-pass');
   it('keeps the words of a value together with non-breaking spaces and wraps whole chips', () => {
-    expect(larch).toContain('4 h 30–5 h 30');
+    expect(larch).toContain('4\u00a0h\u00a030–\u20605\u00a0h\u00a030');
   });
   it('titles the family group "For a family", not "Who it suits" inside "Who it suits"', () => {
     expect(larch).toContain('For a family');

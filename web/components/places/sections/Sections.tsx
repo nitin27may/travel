@@ -8,7 +8,6 @@ import type { OfferCard, PageModel, Row, SectionModel } from '@/lib/public/secti
 import type { PublicSuitability } from '@/lib/public/suitability';
 import type { Completeness } from '@/lib/public/types';
 import { Nearby } from './Relevance';
-import { SectionIndex } from './SectionIndex';
 import { seasonShort } from './SeasonGrid';
 
 // The 14 sections of the capture contract in order (place-page-sections section 2). Each section reads its rows, its structures
@@ -260,7 +259,6 @@ export function Sections({ model, suit, rel, slugs, legacy, hasRoute }: Sections
   const drawn = drawnSections({ model, rel, legacy, hasRoute });
   return (
     <>
-      <SectionIndex />
       {drawn
         .map((sec) => {
           if (sec.id === 'suits') return suit ? <WhoItSuits key={sec.id} suit={suit} slugs={slugs} title={sec.title} /> : <WhoItSuitsEmpty key={sec.id} title={sec.title} />;

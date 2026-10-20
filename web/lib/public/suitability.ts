@@ -447,8 +447,9 @@ function rowFor(c: Ctx, path: string): SuitRow | { missingA: string } | null {
   const base = { key: path, label, val: v, gap: false, honesty };
   if (v.state === 'searched_none') {
     const when = v.searched ? ` · searched ${longDate(v.searched)}` : '';
-    // a place with no operator (a free waterfall) has no one to state or ask: the honest words are "Not checked yet" (3.57)
-    const text = c.operated ? `${c.words.searchedNone}${when} · ask before booking` : `${c.words.gap}${when}`;
+    // a place with no operator (a free waterfall) has no one to state or ask: it is a gap, in the words of every gap, "Not checked yet" (3.57)
+    if (!c.operated) return { key: path, label, text: c.words.gap, look: 'gap', val: null, gap: true, honesty: null, short: c.words.gap };
+    const text = `${c.words.searchedNone}${when} · ask before booking`;
     return { ...base, text, look: 'sentence', short: `${label.toLowerCase()} not stated` };
   }
   if (v.state === 'none_stated') {
@@ -777,7 +778,7 @@ function warningLine(c: Ctx): string | null {
   if (wc && wc.state === 'value' && isObj(wc.v) && Array.isArray(wc.v.causes) && wc.v.causes.length > 0 && parts.length < 2) {
     parts.push(`Cancelled for ${wc.v.causes.map((x: unknown) => WEATHER_LABEL[String(x)] ?? humanise(String(x))).join(' and ')}`);
   }
-  const line = parts.filter(Boolean).slice(0, 3).join('; ');
+  const line = parts.map((x) => x.replace(/[.;\s]+$/, '')).filter(Boolean).slice(0, 3).join('; ');
   return line ? line.replace(/[.;\s]+$/, '') : null;
 }
 
