@@ -173,11 +173,6 @@ Legend: kind · season · status · stats from the source post are unverified un
   - <sub>IT/lombardy/milano/milan</sub>
 ### Trentino-Alto Adige
 
-#### Belluno
-
-- **Dolomites** · mountain · Jul,Aug,Sep · planned · [map](https://maps.google.com/?q=46.61306,12.16306) [wd](https://www.wikidata.org/wiki/Q1283) [trip](../dolomites-july-2027/) · #dream-trip #hiking #rifugi #via-ferrata
-  - Tre Cime di Lavaredo is the icon. Planned as dolomites-july-2027 (13-26 Jul 2027). Hotel idea: Chalet Alfoss https://www.hotelchaletalfoss.it/en/
-  - <sub>IT/trentino-alto-adige/belluno/dolomites</sub>
 #### Provincia di Trento
 
 - **Trento** · city · season ? · idea · [map](https://maps.google.com/?q=46.06667,11.11667) [wd](https://www.wikidata.org/wiki/Q3376) · #gateway #wine
@@ -192,6 +187,11 @@ Legend: kind · season · status · stats from the source post are unverified un
   - <sub>IT/tuscany/firenze/florence</sub>
 ### Veneto
 
+#### Belluno
+
+- **Dolomites** · mountain · Jul,Aug,Sep · planned · [map](https://maps.google.com/?q=46.61306,12.16306) [wd](https://www.wikidata.org/wiki/Q1283) [trip](../dolomites-july-2027/) · #dream-trip #hiking #rifugi #via-ferrata
+  - Tre Cime di Lavaredo is the icon. Planned as dolomites-july-2027 (13-26 Jul 2027). Hotel idea: Chalet Alfoss https://www.hotelchaletalfoss.it/en/
+  - <sub>IT/veneto/belluno/dolomites</sub>
 #### Venetian Province
 
 - **Venice** · city · Apr,May,Sep,Oct · idea · [map](https://maps.google.com/?q=45.43972,12.33194) [wd](https://www.wikidata.org/wiki/Q641) · #canals
