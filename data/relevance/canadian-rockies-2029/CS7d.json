@@ -1,0 +1,300 @@
+{
+  "schema": "relevance/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "CS7d",
+  "researched": "2026-10-19",
+  "sources": [],
+  "records": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs",
+      "kind": "activity",
+      "subkind": "hot-springs",
+      "wikidata": {
+        "v": null,
+        "state": "gap",
+        "basis": null,
+        "src": []
+      },
+      "same_place_as": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Radium Hot Springs (legacy/canadian-rockies-sept-2029/sights/radium-hot-springs); that record carries the judgement"
+      },
+      "standing": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Radium Hot Springs (legacy/canadian-rockies-sept-2029/sights/radium-hot-springs); that record carries the judgement"
+      },
+      "standing_scope": "not judged on its own: the same place as Radium Hot Springs",
+      "distinction": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Radium Hot Springs (legacy/canadian-rockies-sept-2029/sights/radium-hot-springs); that record carries the judgement"
+      },
+      "easy_payoff": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Radium Hot Springs (legacy/canadian-rockies-sept-2029/sights/radium-hot-springs); that record carries the judgement"
+      },
+      "weather": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Radium Hot Springs (legacy/canadian-rockies-sept-2029/sights/radium-hot-springs); that record carries the judgement"
+      },
+      "why": "The Radium Hot Springs pools, recorded twice; the Radium Hot Springs page holds them.",
+      "access_cost": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Radium Hot Springs (legacy/canadian-rockies-sept-2029/sights/radium-hot-springs); that record carries the judgement"
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "not_applicable",
+          "basis": null,
+          "src": [],
+          "note": "duplicate record of Radium Hot Springs (legacy/canadian-rockies-sept-2029/sights/radium-hot-springs); that record carries the judgement"
+        },
+        "editorial": {
+          "v": null,
+          "state": "not_applicable",
+          "basis": null,
+          "src": [],
+          "note": "duplicate record of Radium Hot Springs (legacy/canadian-rockies-sept-2029/sights/radium-hot-springs); that record carries the judgement"
+        }
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
+      "kind": "drive",
+      "subkind": "scenic_drive",
+      "wikidata": {
+        "v": null,
+        "state": "gap",
+        "basis": null,
+        "src": []
+      },
+      "same_place_as": "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
+      "class_key": "drive/scenic-parkway",
+      "draw": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Red Rock Parkway and Red Rock Canyon (legacy/canadian-rockies-sept-2029/sights/red-rock-parkway); that record carries the judgement"
+      },
+      "standing": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Red Rock Parkway and Red Rock Canyon (legacy/canadian-rockies-sept-2029/sights/red-rock-parkway); that record carries the judgement"
+      },
+      "standing_scope": "not judged on its own: the same place as Red Rock Parkway and Red Rock Canyon",
+      "distinction": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Red Rock Parkway and Red Rock Canyon (legacy/canadian-rockies-sept-2029/sights/red-rock-parkway); that record carries the judgement"
+      },
+      "easy_payoff": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Red Rock Parkway and Red Rock Canyon (legacy/canadian-rockies-sept-2029/sights/red-rock-parkway); that record carries the judgement"
+      },
+      "weather": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Red Rock Parkway and Red Rock Canyon (legacy/canadian-rockies-sept-2029/sights/red-rock-parkway); that record carries the judgement"
+      },
+      "why": "The Red Rock Parkway in Waterton, recorded twice; one page holds it.",
+      "access_cost": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Red Rock Parkway and Red Rock Canyon (legacy/canadian-rockies-sept-2029/sights/red-rock-parkway); that record carries the judgement"
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "not_applicable",
+          "basis": null,
+          "src": [],
+          "note": "duplicate record of Red Rock Parkway and Red Rock Canyon (legacy/canadian-rockies-sept-2029/sights/red-rock-parkway); that record carries the judgement"
+        },
+        "editorial": {
+          "v": null,
+          "state": "not_applicable",
+          "basis": null,
+          "src": [],
+          "note": "duplicate record of Red Rock Parkway and Red Rock Canyon (legacy/canadian-rockies-sept-2029/sights/red-rock-parkway); that record carries the judgement"
+        }
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing",
+      "kind": "lift",
+      "subkind": "gondola",
+      "wikidata": {
+        "v": null,
+        "state": "gap",
+        "basis": null,
+        "src": []
+      },
+      "same_place_as": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "class_key": "lift/panorama",
+      "draw": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Lake Louise Summer Gondola (legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola); that record carries the judgement"
+      },
+      "standing": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Lake Louise Summer Gondola (legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola); that record carries the judgement"
+      },
+      "standing_scope": "not judged on its own: the same place as Lake Louise Summer Gondola",
+      "distinction": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Lake Louise Summer Gondola (legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola); that record carries the judgement"
+      },
+      "easy_payoff": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Lake Louise Summer Gondola (legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola); that record carries the judgement"
+      },
+      "weather": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Lake Louise Summer Gondola (legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola); that record carries the judgement"
+      },
+      "why": "The Lake Louise sightseeing gondola, the same ride as the Lake Louise Summer Gondola.",
+      "access_cost": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Lake Louise Summer Gondola (legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola); that record carries the judgement"
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "not_applicable",
+          "basis": null,
+          "src": [],
+          "note": "duplicate record of Lake Louise Summer Gondola (legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola); that record carries the judgement"
+        },
+        "editorial": {
+          "v": null,
+          "state": "not_applicable",
+          "basis": null,
+          "src": [],
+          "note": "duplicate record of Lake Louise Summer Gondola (legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola); that record carries the judgement"
+        }
+      }
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
+      "kind": "park",
+      "wikidata": {
+        "v": null,
+        "state": "gap",
+        "basis": null,
+        "src": []
+      },
+      "same_place_as": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+      "class_key": "trail/forest-loop",
+      "draw": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Canmore Nordic Centre summer (legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre); that record carries the judgement"
+      },
+      "standing": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Canmore Nordic Centre summer (legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre); that record carries the judgement"
+      },
+      "standing_scope": "not judged on its own: the same place as Canmore Nordic Centre summer",
+      "distinction": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Canmore Nordic Centre summer (legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre); that record carries the judgement"
+      },
+      "easy_payoff": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Canmore Nordic Centre summer (legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre); that record carries the judgement"
+      },
+      "weather": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Canmore Nordic Centre summer (legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre); that record carries the judgement"
+      },
+      "why": "Canmore Nordic Centre Provincial Park, where the summer trails run; one page holds both.",
+      "access_cost": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "duplicate record of Canmore Nordic Centre summer (legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre); that record carries the judgement"
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "not_applicable",
+          "basis": null,
+          "src": [],
+          "note": "duplicate record of Canmore Nordic Centre summer (legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre); that record carries the judgement"
+        },
+        "editorial": {
+          "v": null,
+          "state": "not_applicable",
+          "basis": null,
+          "src": [],
+          "note": "duplicate record of Canmore Nordic Centre summer (legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre); that record carries the judgement"
+        }
+      }
+    }
+  ]
+}
