@@ -4,13 +4,14 @@ import { Dialog } from '@base-ui/react/dialog';
 import { useRouter } from 'next/navigation';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Icon, kindIcon } from '@/components/ui/Icon';
-import { countParsed, onSearchGrow, relaxQuery, search, suggest } from '@/lib/client/data';
+import { countParsedAsync, onSearchGrow, relaxQuery, search, suggest } from '@/lib/client/data';
 import type { Suggestion } from '@/lib/search/suggest';
 import { setSink, stopBuffer, takeBuffer } from '@/lib/search/typeahead';
 import { describeCounts } from '@/lib/search/search';
 import { QueryChips } from './QueryChips';
 import { useQueryParse } from './useQueryParse';
 import type { SearchHit, SearchRecord, SearchResult } from '@/lib/search/types';
+import type { DidYouMean, ParsedQuery } from '@/lib/search/parse/types';
 import '@/styles/home.css';
 
 export interface GlobalSearchProps {
@@ -90,8 +91,27 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   const hits: SearchHit[] = useMemo(() => result?.groups.flatMap((g) => g.hits) ?? [], [result]);
   const parsed = smart.parsed;
   const read = !!parsed && parsed.target !== 'search' && parsed.chips.length > 0 ? parsed : null;
-  const count = useMemo(() => (read ? countParsed(read) : null), [read]);
-  const relax = useMemo(() => (read && count?.n === 0 ? relaxQuery(read) : null), [read, count]);
+  // the count and the "did you mean" come from the list files of the page we are on, so they arrive a moment after the reading
+  const [counted, setCounted] = useState<{ for: ParsedQuery; got: { n: number; unchecked: number } | null } | null>(null);
+  const [relaxed, setRelaxed] = useState<{ for: ParsedQuery; got: DidYouMean | null } | null>(null);
+  useEffect(() => {
+    if (!read) return;
+    let alive = true;
+    void countParsedAsync(read).then((got) => alive && setCounted({ for: read, got }));
+    return () => {
+      alive = false;
+    };
+  }, [read]);
+  const count = read && counted?.for === read ? counted.got : null;
+  useEffect(() => {
+    if (!read || count?.n !== 0) return;
+    let alive = true;
+    void relaxQuery(read).then((got) => alive && setRelaxed({ for: read, got }));
+    return () => {
+      alive = false;
+    };
+  }, [read, count]);
+  const relax = read && count?.n === 0 && relaxed?.for === read ? relaxed.got : null;
   const noun = read?.target === 'trips' ? 'trips' : 'places';
   // the first option opens the list the words describe, then the other readings, then the name hits (smart-search 6.1)
   const lead: { id: string; href: string; kind: 'show' | 'dym'; label: string }[] = useMemo(

@@ -24,7 +24,8 @@ export interface FilterBarProps<Row> {
   state: ListState;
   counts: Record<string, FacetCount[]>;
   labelOf: (param: FacetParam, value: string) => string;
-  shown: number;
+  /** Rows that match, or null while the files that answer the query are loading (the count line then says so; it never guesses). */
+  shown: number | null;
   total: number;
   searchRef: RefObject<HTMLInputElement | null>;
   /** What the count line adds, e.g. "12 not checked yet" (a facet's `gap`). */
@@ -149,9 +150,9 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
       {smart ? <SmartRow d={d} state={state} onState={onState} searchRef={searchRef} applied={smart.applied} onApplied={smart.onApplied} onReading={smart.onReading} slot={smart.slot} /> : null}
 
       <div className="filter-row filter-row-2">
-        <p className="count" role="status" aria-live="polite">
-          <strong className="num">{shown}</strong>
-          {filtered ? <span className="of"> of {total}</span> : null} {total === 1 && !filtered ? d.noun.one : d.noun.many}
+        <p className="count" role="status" aria-live="polite" aria-busy={shown === null || undefined}>
+          <strong className="num">{shown ?? 'Counting\u2026'}</strong>
+          {shown !== null && filtered ? <span className="of"> of {total}</span> : null} {shown === null ? null : total === 1 && !filtered ? d.noun.one : d.noun.many}
           {notes.length ? (
             <span className="count-note">
               <span className="count-sep"> · </span>

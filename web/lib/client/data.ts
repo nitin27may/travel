@@ -1,5 +1,7 @@
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import { filterRows, facetCounts, gapNotes } from '@/lib/entities/filter';
+import { isPlain, manifestCounts, pageWindow, shardsForScope } from '@/lib/entities/shards';
+import type { ListManifest } from '@/lib/entities/shards';
 import { emptyState } from '@/lib/entities/url';
 import { sortRows } from '@/lib/entities/sort';
 import { uncheckedRows } from '@/lib/entities/gaps';
@@ -160,12 +162,19 @@ export async function suggest(q: string, scope: SearchScope = {}): Promise<Sugge
 
 /**
  * How many rows a parse would open, and how many more are listed apart as "not checked yet" (Places only), when the page already holds
- * that list (the Places and Trips pages register theirs). Null on any other page: counting would mean loading the whole catalogue, and a new
- * bulk load is a server feature (P9). The header then says "Show places" without a number.
+ * that list (the Places and Trips pages register theirs) and the files that answer it have loaded. Null otherwise: a count is never a
+ * guess, and counting an unloaded scope would mean a new bulk load, which is a server feature (P9). `countParsedAsync` loads what a
+ * small scope needs and counts. The header then says "Show places" without a number.
  */
 export function countParsed(parsed: ParsedQuery): { n: number; unchecked: number } | null {
   if (parsed.target === 'search') return null;
   return countList(parsed.target === 'trips' ? 'trip' : 'place', { ...emptyState(), q: parsed.q, facets: parsed.facets });
+}
+
+/** `countParsed`, loading the list files the parse is scoped to first (at most `maxFiles` of them; a wider scope stays uncounted). */
+export async function countParsedAsync(parsed: ParsedQuery, maxFiles = 3): Promise<{ n: number; unchecked: number } | null> {
+  if (parsed.target === 'search') return null;
+  return countListAsync(parsed.target === 'trips' ? 'trip' : 'place', { ...emptyState(), q: parsed.q, facets: parsed.facets }, maxFiles);
 }
 
 /** The same count for any list state of a registered list: the list box asks it with the reading merged into the filters already set. */
@@ -173,21 +182,40 @@ export function countList(type: EntityType, query: ListState): { n: number; unch
   const hit = registered.get(type);
   if (!hit) return null;
   if (type === 'place') {
-    const got = listPlacesChecked(query);
-    return { n: got.rows.length, unchecked: got.unchecked.reduce((a, g) => a + g.rows.length, 0) };
+    // the unfiltered list is its manifest's total: no file needs to load for it
+    if (hit.shards && isPlain(query)) return { n: hit.shards.manifest.total, unchecked: 0 };
+    const got = peekPlacesChecked(query);
+    return got ? { n: got.rows.length, unchecked: got.unchecked.reduce((a, g) => a + g.rows.length, 0) } : null;
   }
   return { n: filterRows(hit.rows as readonly unknown[], query, hit.d as unknown as EntityDescriptor<unknown>).length, unchecked: 0 };
+}
+
+/** `countList`, loading the files the query is scoped to first. Resolves to null when that is more than `maxFiles` files not yet loaded. */
+export async function countListAsync(type: EntityType, query: ListState, maxFiles = Infinity): Promise<{ n: number; unchecked: number } | null> {
+  const hit = registered.get(type);
+  if (!hit) return null;
+  if (hit.shards && !isPlain(query)) {
+    const missing = shardsForScope(hit.shards.manifest, query).filter((r) => !shardLoaded.has(shardKey(type, r.id)));
+    if (missing.length > maxFiles) return null;
+    try {
+      await ensureShards(type, query);
+    } catch {
+      return null;
+    }
+  }
+  return countList(type, query);
 }
 
 // ---------------------------------------------------------------- lists
 
 /**
  * The Places and Trips lists, in the shape a server answers: `listPlaces(query)` and `listTrips(query)`, where the query is
- * the list's URL state (filters, search, sort). Today the server page ships the light rows and registers them here, and the
- * answer is computed in the browser; a server step replaces `listEntities` and the pages stay as they are.
+ * the list's URL state (filters, search, sort). Trips are few and ride in the page. Places do not: the page carries its first rows and
+ * a manifest, and the rows beyond come as files the data module loads for the query's scope (see "list shards" below). A server step
+ * replaces the file reads and the pages stay as they are.
  */
 export interface ListResult<Row> {
-  /** Rows that match, in the chosen order, before paging. */
+  /** Rows that match, in the chosen order, before paging. With a page size given for the plain list, only that page's rows (see `offset`). */
   rows: Row[];
   /** Rows of the whole catalogue of this kind. */
   total: number;
@@ -195,14 +223,26 @@ export interface ListResult<Row> {
   counts: Record<string, FacetCount[]>;
   /** Extra words for the count line ("12 not checked yet"). */
   notes: string[];
+  /** Rows that match, whether or not `rows` holds them all. */
+  matched: number;
+  /** Rank of `rows[0]` among the matches: 0 unless `rows` is one page of the plain list. */
+  offset: number;
 }
 
-const registered = new Map<EntityType, { d: EntityDescriptor<never>; rows: readonly unknown[]; version: number }>();
+interface ListSource {
+  d: EntityDescriptor<never>;
+  /** Every row for a list the page carries whole (Trips); the first page for a sharded one. */
+  rows: readonly unknown[];
+  version: number;
+  shards?: { manifest: ListManifest };
+}
+
+const registered = new Map<EntityType, ListSource>();
 
 /** Gives the data module the descriptor and the light rows the page was built with. Idempotent; returns a version that changes with the rows. */
 export function registerList<Row>(d: EntityDescriptor<Row>, rows: readonly Row[]): number {
   const had = registered.get(d.type);
-  if (had?.rows === rows) return had.version;
+  if (had?.rows === rows && !had.shards) return had.version;
   const version = (had?.version ?? 0) + 1;
   registered.set(d.type, { d: d as unknown as EntityDescriptor<never>, rows, version });
   return version;
@@ -213,15 +253,10 @@ function listEntities<Row>(type: EntityType, query: ListState): ListResult<Row> 
   if (!hit) throw new Error(`No ${type} list registered`);
   const d = hit.d as unknown as EntityDescriptor<Row>;
   const rows = hit.rows as readonly Row[];
-  return {
-    rows: sortRows(filterRows(rows, query, d), query, d),
-    total: rows.length,
-    counts: facetCounts(rows, query, d),
-    notes: gapNotes(rows, query, d),
-  };
+  const matched = sortRows(filterRows(rows, query, d), query, d);
+  return { rows: matched, total: rows.length, counts: facetCounts(rows, query, d), notes: gapNotes(rows, query, d), matched: matched.length, offset: 0 };
 }
 
-export const listPlaces = (query: ListState): ListResult<PlaceListRow> => listEntities<PlaceListRow>('place', query);
 export const listTrips = (query: ListState): ListResult<TripListRow> => listEntities<TripListRow>('trip', query);
 
 // ---------------------------------------------------------------- exports
@@ -416,13 +451,14 @@ export async function parseQuery(q: string, opts?: ParseOptions): Promise<Parsed
 
 /**
  * The Places answer split by honesty (H1): the rows that pass, and the rows that fail only on a gap of a constraint, per constraint.
- * `parsed` limits the second part to the keys a parse wrote (a filter the visitor chose by hand keeps its count line).
+ * `parsed` limits the second part to the keys a parse wrote (a filter the visitor chose by hand keeps its count line). `pageSize` asks for
+ * one page of the plain list, which needs only the files that page touches.
  */
-export function listPlacesChecked(query: ListState, parsed?: readonly FacetParam[]): ListResult<PlaceListRow> & { unchecked: UncheckedGroup<PlaceListRow>[] } {
-  const hit = registered.get('place');
-  if (!hit) throw new Error('No place list registered');
-  const d = hit.d as unknown as EntityDescriptor<PlaceListRow>;
-  return { ...listPlaces(query), unchecked: uncheckedRows(hit.rows as readonly PlaceListRow[], query, d, parsed) };
+export async function listPlacesChecked(query: ListState, parsed?: readonly FacetParam[], pageSize?: number): Promise<PlacesAnswer> {
+  await ensureShards('place', query, pageSize);
+  const got = peekPlacesChecked(query, parsed, pageSize);
+  if (!got) throw new Error('The place list is not loaded');
+  return got;
 }
 
 /**
@@ -430,22 +466,160 @@ export function listPlacesChecked(query: ListState, parsed?: readonly FacetParam
  * the count ("Without September: 8 places"). Null when the answer is not empty, when no single chip is to blame, or when the list of that
  * kind is not registered.
  */
-export function relaxQuery(parsed: ParsedQuery): DidYouMean | null {
+export async function relaxQuery(parsed: ParsedQuery): Promise<DidYouMean | null> {
   if (parsed.target === 'search') return null;
   const type: EntityType = parsed.target === 'trips' ? 'trip' : 'place';
   const hit = registered.get(type);
   if (!hit) return null;
   const d = hit.d as unknown as EntityDescriptor<unknown>;
-  const rows = hit.rows as readonly unknown[];
   const asked = { ...emptyState(), q: parsed.q, facets: parsed.facets };
-  if (parsed.chips.length < 2 || filterRows(rows, asked, d).length > 0) return null;
+  const matches = async (q: ListState): Promise<number> => {
+    await ensureShards(type, q);
+    return filterRows(rowsFor(type, q) ?? [], q, d).length;
+  };
+  if (parsed.chips.length < 2 || (await matches(asked)) > 0) return null;
   let best: { label: string; href: string; n: number } | null = null;
   for (const chip of parsed.chips) {
     if (chip.ask || !Object.keys(chip.set).length) continue;
     const facets = { ...parsed.facets };
     for (const key of Object.keys(chip.set)) delete facets[key];
-    const n = filterRows(rows, { ...emptyState(), q: parsed.q, facets }, d).length;
+    const n = await matches({ ...emptyState(), q: parsed.q, facets });
     if (n > (best?.n ?? 0)) best = { label: `Without ${chip.label}: ${n} ${n === 1 ? d.noun.one : d.noun.many}`, href: hrefFor(parsed.target, facets, parsed.q), n };
   }
   return best ? { label: best.label, href: best.href } : null;
+}
+
+// ---------------------------------------------------------------- list shards (3.59)
+
+// A long list (Places) is not inlined whole in its page (principles P1, P8, P9). The page registers its first rows and a manifest; the other
+// rows are files, one country at a time (`/list/places/<id>/data.json`, at most SHARD_ROWS rows each), and this section loads the ones a
+// query needs: the plain list's page N reads only the files that hold rank (N-1) x 48 onward; a query naming a country reads that country's
+// files; any other query reads them all, one request each, and the page shows "Counting" until they are in. No file holds the catalogue, and
+// no caller reads a file itself.
+
+export type PlacesAnswer = ListResult<PlaceListRow> & { unchecked: UncheckedGroup<PlaceListRow>[] };
+
+const shardLoaded = new Map<string, readonly unknown[]>();
+const shardPromises = new Map<string, Promise<readonly unknown[]>>();
+const shardKey = (type: EntityType, id: string) => `${type}:${id}`;
+
+/** Registers a list whose rows beyond the first page are files. Idempotent for the same `head` array; returns a version that changes with it. */
+export function registerShardedList<Row>(d: EntityDescriptor<Row>, head: readonly Row[], manifest: ListManifest): number {
+  const had = registered.get(d.type);
+  if (had?.rows === head && had.shards) return had.version;
+  const version = (had?.version ?? 0) + 1;
+  registered.set(d.type, { d: d as unknown as EntityDescriptor<never>, rows: head, version, shards: { manifest } });
+  return version;
+}
+
+/** The manifest of a registered sharded list, or null. */
+export function listManifest(type: EntityType): ListManifest | null {
+  return registered.get(type)?.shards?.manifest ?? null;
+}
+
+function loadShard(type: EntityType, id: string): Promise<readonly unknown[]> {
+  const key = shardKey(type, id);
+  let p = shardPromises.get(key);
+  if (!p) {
+    p = getJson<unknown[]>(`/list/${type}s/${encodeURIComponent(id)}/data.json`).then(
+      (rows) => {
+        shardLoaded.set(key, rows);
+        return rows;
+      },
+      (e) => {
+        shardPromises.delete(key);
+        throw e;
+      },
+    );
+    shardPromises.set(key, p);
+  }
+  return p;
+}
+
+/** Loads the files a query needs (nothing for a list the page carries whole, or for a first page the page carries). Rejects if any file fails. */
+export async function ensureShards(type: EntityType, query: ListState, pageSize?: number): Promise<void> {
+  const hit = registered.get(type);
+  if (!hit?.shards) return;
+  const m = hit.shards.manifest;
+  const refs = pageSize && isPlain(query) ? pageWindow(m, query.page, pageSize).files.map((f) => f.ref) : shardsForScope(m, query);
+  await Promise.all(refs.map((r) => loadShard(type, r.id)));
+}
+
+/** The rows a query is answered from, or null while their files are not in. A whole-list source is always ready. */
+function rowsFor(type: EntityType, query: ListState): readonly unknown[] | null {
+  const hit = registered.get(type);
+  if (!hit) return null;
+  if (!hit.shards) return hit.rows;
+  const out: unknown[] = [];
+  for (const ref of shardsForScope(hit.shards.manifest, query)) {
+    const rows = shardLoaded.get(shardKey(type, ref.id));
+    if (!rows) return null;
+    out.push(...rows);
+  }
+  return out;
+}
+
+/** The country facet for a query scoped to some countries: exact for the loaded ones, and the manifest's counts for the rest when nothing else filters. */
+function countryCounts(counts: Record<string, FacetCount[]>, m: ListManifest, query: ListState): Record<string, FacetCount[]> {
+  if (!query.facets.country?.length) return counts;
+  const onlyCountry = !query.q.trim() && !query.bbox && !query.f && !query.sv && !query.ids.length && Object.entries(query.facets).every(([k, v]) => k === 'country' || !v?.length);
+  if (!onlyCountry) return counts;
+  const mine = new Map((counts.country ?? []).map((o) => [o.value, o]));
+  const all = (manifestCounts(m).country ?? []).map((o) => mine.get(o.value) ?? o);
+  return { ...counts, country: all };
+}
+
+/**
+ * The Places answer when every file it needs has loaded, or null. For the plain list with a page size it is one page of rows
+ * (`offset` says where it starts) and the counts are the manifest's; for any other query it is the whole filtered, sorted answer.
+ */
+export function peekPlaces(query: ListState, pageSize?: number): ListResult<PlaceListRow> | null {
+  const hit = registered.get('place');
+  if (!hit) return null;
+  const d = hit.d as unknown as EntityDescriptor<PlaceListRow>;
+  if (hit.shards && pageSize && isPlain(query)) {
+    const m = hit.shards.manifest;
+    const w = pageWindow(m, query.page, pageSize);
+    let rows: PlaceListRow[];
+    if (!w.files.length) rows = (hit.rows as readonly PlaceListRow[]).slice(w.offset, w.offset + w.count);
+    else {
+      rows = [];
+      for (const { ref, start } of w.files) {
+        const have = shardLoaded.get(shardKey('place', ref.id)) as readonly PlaceListRow[] | undefined;
+        if (!have) return null;
+        rows.push(...have.slice(Math.max(0, w.offset - start), Math.min(ref.n, w.offset + w.count - start)));
+      }
+    }
+    return { rows, total: m.total, counts: manifestCounts(m), notes: m.countNotes, matched: m.total, offset: w.offset };
+  }
+  const rows = rowsFor('place', query) as readonly PlaceListRow[] | null;
+  if (!rows) return null;
+  const matched = sortRows(filterRows(rows, query, d), query, d);
+  const counts = facetCounts(rows, query, d);
+  return {
+    rows: matched,
+    total: hit.shards?.manifest.total ?? rows.length,
+    counts: hit.shards ? countryCounts(counts, hit.shards.manifest, query) : counts,
+    notes: gapNotes(rows, query, d),
+    matched: matched.length,
+    offset: 0,
+  };
+}
+
+/** `peekPlaces` split by honesty (H1). The plain list has nothing unchecked. */
+export function peekPlacesChecked(query: ListState, parsed?: readonly FacetParam[], pageSize?: number): PlacesAnswer | null {
+  const got = peekPlaces(query, pageSize);
+  if (!got) return null;
+  const hit = registered.get('place')!;
+  if (got.offset > 0 || (hit.shards && pageSize && isPlain(query))) return { ...got, unchecked: [] };
+  const rows = rowsFor('place', query) as readonly PlaceListRow[];
+  return { ...got, unchecked: uncheckedRows(rows, query, hit.d as unknown as EntityDescriptor<PlaceListRow>, parsed) };
+}
+
+/** The Places list for a query, in the shape a server answers: `listPlaces(query)`. Loads the files the query is scoped to first. */
+export async function listPlaces(query: ListState, pageSize?: number): Promise<ListResult<PlaceListRow>> {
+  await ensureShards('place', query, pageSize);
+  const got = peekPlaces(query, pageSize);
+  if (!got) throw new Error('No place list registered');
+  return got;
 }

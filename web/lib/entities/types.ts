@@ -178,6 +178,12 @@ export interface EntityDescriptor<Row> {
   /** Comparator used when `sort` is empty. */
   defaultSort: (a: Row, b: Row) => number;
   defaultSortLabel: string;
+  /**
+   * A quality tie-break for the default order (backlog 3.56), for lists whose cards are better with a photo. `tier` names the group a row
+   * belongs to (a country); `lead` says the row has what the lead cards need (a photo). Inside a tier the rows that lead come first, and
+   * tiers that have a leading row come before tiers that have none. Nothing is hidden or moved out of its tier, and an explicit sort ignores it.
+   */
+  defaultTier?: { tier: (row: Row) => string; lead: (row: Row) => boolean };
   search: (row: Row) => string;
   /** The ages for which a row is a stretch (space separated, e.g. "0 1 2 3"); cards, list rows and table rows carry it as `data-fade` and filters.css fades them while the Kids filter holds one of those ages. */
   fade?: (row: Row) => string | undefined;

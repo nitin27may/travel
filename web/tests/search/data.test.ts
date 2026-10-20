@@ -55,13 +55,16 @@ describe('parseQuery (lib/client/data.ts)', () => {
 describe('relaxQuery: the empty answer offers the chip that costs the most', () => {
   const p = (q: string) => parse(q, loadVocab(), searchRecords());
 
-  it('names the chip and the count it would give back, and the link gives that count', () => {
+  it('names the chip and the count it would give back, and the link gives that count', async () => {
     registerList(placeDescriptor, placeRows());
-    const offers = fixtures
-      .filter((f) => f.target === 'places')
-      .map((f) => ({ f, parsed: p(f.query) }))
-      .map(({ f, parsed }) => ({ f, parsed, got: relaxQuery(parsed) }))
-      .filter((x) => x.got);
+    const offers = (
+      await Promise.all(
+        fixtures
+          .filter((f) => f.target === 'places')
+          .map((f) => ({ f, parsed: p(f.query) }))
+          .map(async ({ f, parsed }) => ({ f, parsed, got: await relaxQuery(parsed) })),
+      )
+    ).filter((x) => x.got);
     expect(offers.length).toBeGreaterThan(0);
     for (const { f, parsed, got } of offers) {
       expect(got!.label, f.query).toMatch(/^Without .+: \d+ places?$/);
@@ -74,12 +77,12 @@ describe('relaxQuery: the empty answer offers the chip that costs the most', () 
     }
   });
 
-  it('is null for a name search, an answer that is not empty, a single chip, or an unregistered list', () => {
+  it('is null for a name search, an answer that is not empty, a single chip, or an unregistered list', async () => {
     registerList(placeDescriptor, placeRows());
-    expect(relaxQuery(p('Niagara Falls'))).toBeNull();
-    expect(relaxQuery(p('short walk under 3 km with a toddler'))).toBeNull(); // 15 rows
-    expect(relaxQuery(p('kayaking'))).toBeNull();
-    expect(relaxQuery(p('weekend trip with kids in October'))).toBeNull(); // no trip list registered here
+    expect(await relaxQuery(p('Niagara Falls'))).toBeNull();
+    expect(await relaxQuery(p('short walk under 3 km with a toddler'))).toBeNull(); // 15 rows
+    expect(await relaxQuery(p('kayaking'))).toBeNull();
+    expect(await relaxQuery(p('weekend trip with kids in October'))).toBeNull(); // no trip list registered here
     void tripDescriptor;
   });
 });

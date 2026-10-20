@@ -21,7 +21,7 @@ const NOT_CATALOGUE: Record<string, string> = {
 };
 
 /** A URL of catalogue data: search parts, exports, the old whole-list files. */
-const CATALOGUE_URL = /['"`]\/(?:search\/|globe-data\/|search-index|export-data|data\/(?:places|trips))|\/export-data\/|search-index\.json|data\/(?:places|trips)\.json/;
+const CATALOGUE_URL = /['"`]\/(?:search\/|globe-data\/|list\/|search-index|export-data|data\/(?:places|trips))|\/export-data\/|search-index\.json|data\/(?:places|trips)\.json/;
 
 function sources(): { rel: string; text: string }[] {
   const out: { rel: string; text: string }[] = [];
@@ -49,13 +49,13 @@ describe('the client data boundary (principle P9)', () => {
 
   it('no module but the data module names a catalogue data URL', () => {
     const hits = all.filter((s) => s.rel !== THE_MODULE && CATALOGUE_URL.test(s.text)).map((s) => s.rel);
-    // the server routes that write the files live under app/search and app/globe-data
-    expect(hits.filter((h) => !h.startsWith('app/search/') && !h.startsWith('app/globe-data/'))).toEqual([]);
+    // the server routes that write the files live under app/search, app/globe-data and app/list
+    expect(hits.filter((h) => !h.startsWith('app/search/') && !h.startsWith('app/globe-data/') && !h.startsWith('app/list/'))).toEqual([]);
   });
 
   it('the data module exposes the functions a future API keeps', () => {
     const text = all.find((s) => s.rel === THE_MODULE)!.text;
-    for (const fn of ['searchManifest', 'searchPart', 'searchParts', 'loadSearchRecords', 'loadExport', 'searchVocab', 'parseQuery', 'relaxQuery', 'listPlacesChecked']) expect(text, fn).toMatch(new RegExp(`export (async )?function ${fn}\\b`));
+    for (const fn of ['searchManifest', 'searchPart', 'searchParts', 'loadSearchRecords', 'loadExport', 'searchVocab', 'parseQuery', 'relaxQuery', 'listPlacesChecked', 'listPlaces', 'ensureShards', 'registerShardedList', 'countListAsync']) expect(text, fn).toMatch(new RegExp(`export (async )?function ${fn}\\b`));
   });
 
   it('no globe module calls fetch(): reference geometry goes through the data module (2.49)', () => {
@@ -73,6 +73,12 @@ describe('the client data boundary (principle P9)', () => {
     expect(CATALOGUE_URL.test("fetch('/search/place-ca/data.json')")).toBe(true);
     expect(CATALOGUE_URL.test('fetch(`/export-data/trips/${slug}/data.json`)')).toBe(true);
     expect(CATALOGUE_URL.test("fetch('/globe/data/gazetteer.json')")).toBe(false);
+  });
+
+  it('the list row files are catalogue URLs, and the data module keeps their section (3.59)', () => {
+    expect(CATALOGUE_URL.test("fetch('/list/places/ca/data.json')")).toBe(true);
+    expect(CATALOGUE_URL.test('fetch(`/list/places/${id}/data.json`)')).toBe(true);
+    expect(all.find((s) => s.rel === THE_MODULE)!.text).toContain('// ---------------------------------------------------------------- list shards (3.59)');
   });
 
   it('the smart-search files are catalogue URLs too: the vocabulary and, later, the vector shards (smart-search 9.1)', () => {

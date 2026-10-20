@@ -9,7 +9,10 @@ import { PAGE_SIZE, Pager } from '@/components/ui/Pager';
 import type { Applied } from '@/lib/search/applied';
 import type { ParsedQuery } from '@/lib/search/parse/types';
 import type { UncheckedRowsProps } from '@/components/search/UncheckedRows';
-import { listPlacesChecked, listTrips, registerList } from '@/lib/client/data';
+import { listPlacesChecked, listTrips, peekPlacesChecked, registerList, registerShardedList } from '@/lib/client/data';
+import type { PlacesAnswer } from '@/lib/client/data';
+import { manifestCounts } from '@/lib/entities/shards';
+import type { ListManifest } from '@/lib/entities/shards';
 import type { UncheckedGroup } from '@/lib/entities/gaps';
 import { registry } from '@/lib/entities/registry';
 import { fallbackLabel } from '@/lib/entities/valueLabels';
@@ -19,6 +22,7 @@ import { CardsView } from './CardsView';
 import type { DetailSheetProps } from './DetailSheet';
 import { EmptyState } from './EmptyState';
 import { FilterBar } from './FilterBar';
+import { ListSkeleton } from './ListSkeleton';
 import { ListView } from './ListView';
 import type { ViewProps } from './viewTypes';
 import { focusWasPushed, useUrlState } from './useUrlState';
@@ -32,22 +36,26 @@ const DetailSheet = dynamic(() => import('./DetailSheet').then((m) => m.DetailSh
 // "Not checked yet" (H1) loads when a filter leaves rows with no answer, never with the first paint
 const UncheckedRows = dynamic(() => import('@/components/search/UncheckedRows'), { ssr: false }) as unknown as <Row>(props: UncheckedRowsProps<Row>) => ReactElement | null;
 
+type Answer<Row> = Omit<PlacesAnswer, 'rows' | 'unchecked'> & { rows: Row[]; unchecked: UncheckedGroup<Row>[] };
+
 const VIEW_TITLES: Record<ViewName, string> = { cards: 'Cards view', list: 'List view', table: 'Table view', map: 'Map view' };
 
 interface Props<Row> {
   type: EntityType;
+  /** Every row of a short list (Trips); the first page of a sharded one (Places). */
   rows: Row[];
+  /** A sharded list's manifest: the rows beyond `rows` are files the data module loads for the query (backlog 3.59). */
+  shards?: ListManifest;
   lede: string;
 }
 
 /** Reads the URL, filters once, and hands the same rows to whichever view is active. */
-export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
+export function EntityPage<Row>({ type, rows, shards, lede }: Props<Row>) {
   const d = registry[type] as EntityDescriptor<Row>;
   const [state, setState] = useUrlState();
   const searchRef = useRef<HTMLInputElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLElement | null>(null);
-  const [announce, setAnnounce] = useState('');
   const [sheetEver, setSheetEver] = useState(false);
   // a reading the search box applied, until the visitor undoes it or changes those filters by hand (backlog 3.43)
   const [applied, setApplied] = useState<Applied | null>(null);
@@ -56,37 +64,62 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
   const [slot, setSlot] = useState<HTMLElement | null>(null);
 
   // the list answers come from the data module, in the shape a server will answer (principle P9)
-  const version = registerList(d, rows);
-  const answer = useMemo(() => {
+  const version = shards ? registerShardedList(d, rows, shards) : registerList(d, rows);
+  const asked = useMemo(() => (reading ? { ...state, q: '' } : state), [state, reading]);
+  const view: ViewName = state.view === 'map' ? 'map' : state.view;
+  const pageSize = PAGE_SIZE[view];
+  // the map needs every match; the other views read one page, which for the plain list is a run of the row files
+  const windowSize = view === 'map' ? undefined : pageSize;
+  const [arrived, setArrived] = useState(0);
+  const [attempt, setAttempt] = useState(0);
+  const [failed, setFailed] = useState<number | null>(null);
+  const answer = useMemo((): Answer<Row> | null => {
     void version;
-    const asked = reading ? { ...state, q: '' } : state;
-    return (d.type === 'trip' ? { ...listTrips(asked), unchecked: [] } : listPlacesChecked(asked)) as unknown as ReturnType<typeof listPlacesChecked> & { rows: Row[] };
-  }, [version, state, reading, d]);
-  const unchecked = answer.unchecked as unknown as UncheckedGroup<Row>[];
-  const sorted = answer.rows as Row[];
-  const filtered = sorted;
+    void arrived;
+    if (d.type === 'trip') return { ...listTrips(asked), unchecked: [] } as unknown as Answer<Row>;
+    return peekPlacesChecked(asked, undefined, windowSize) as unknown as Answer<Row> | null;
+  }, [version, arrived, asked, windowSize, d]);
+  // an answer waits on the files of its scope: ask for them, and look again when they are in
+  useEffect(() => {
+    if (answer) return;
+    let live = true;
+    listPlacesChecked(asked, undefined, windowSize).then(
+      () => live && setArrived((n) => n + 1),
+      () => live && setFailed(attempt),
+    );
+    return () => {
+      live = false;
+    };
+  }, [answer, asked, windowSize, attempt]);
+  // while the next answer loads, the filter bar keeps the options of the last one (set during render, the pattern React asks for)
+  const [lastCounts, setLastCounts] = useState(shards ? manifestCounts(shards) : {});
+  if (answer && answer.counts !== lastCounts) setLastCounts(answer.counts);
+  const unchecked = answer?.unchecked ?? [];
+  const matched = answer?.matched ?? 0;
   // grouping by country with one country chosen would head the whole list with that country's name again: no header then
   const chosen = activeGroup(state, d);
   const group = chosen?.id === 'country' && (state.facets.country?.length ?? 0) === 1 ? null : chosen;
   // 48 cards or 100 rows a page, with `?page=` in the URL (components 8.5)
-  const view: ViewName = state.view === 'map' ? 'map' : state.view;
-  const pageSize = PAGE_SIZE[view];
-  const pages = Math.max(1, Math.ceil(sorted.length / pageSize));
+  const pages = Math.max(1, Math.ceil(matched / pageSize));
   const page = Math.min(state.page, pages);
-  const paged = useMemo(() => (view === 'map' ? sorted : sorted.slice((page - 1) * pageSize, page * pageSize)), [sorted, view, page, pageSize]);
+  const paged = useMemo(() => {
+    if (!answer) return [] as Row[];
+    return view === 'map' ? answer.rows : answer.rows.slice((page - 1) * pageSize - answer.offset, page * pageSize - answer.offset);
+  }, [answer, view, page, pageSize]);
   const groups = useMemo(() => groupRows(paged, group), [paged, group]);
-  const counts = answer.counts;
-  const notes = answer.notes;
-  // value -> label for every facet, from all rows, so a chip keeps its name when its rows are filtered out
+  const counts = answer?.counts ?? lastCounts;
+  const notes = answer?.notes ?? [];
+  // value -> label for every facet, from the rows we hold and the options we know, so a chip keeps its name when its rows are filtered out
   const labels = useMemo(() => {
     const map: Record<string, Map<string, string>> = {};
     for (const f of d.facets) {
       const m = new Map<string, string>();
       for (const r of rows) for (const o of f.options(r)) if (!m.has(o.value)) m.set(o.value, o.label);
+      for (const list of [counts[f.param], shards ? manifestCounts(shards)[f.param] : undefined]) for (const o of list ?? []) if (!m.has(o.value)) m.set(o.value, o.label);
       map[f.param] = m;
     }
     return map;
-  }, [rows, d]);
+  }, [rows, shards, counts, d]);
   const labelOf = (param: FacetParam, value: string) => labels[param]?.get(value) ?? fallbackLabel(param, value);
   const focusRow = state.focus && d.primary === 'sheet' ? (rows.find((r) => d.id(r) === state.focus) ?? null) : null;
   if (focusRow && !sheetEver) setSheetEver(true); // load the sheet code the first time a row is focused
@@ -111,15 +144,8 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
     el?.scrollIntoView({ block: 'center', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   }, [state.focus, view]);
 
-  // tell screen readers what changed when the view or the count changes
-  const first = useRef(true);
-  useEffect(() => {
-    if (first.current) {
-      first.current = false;
-      return;
-    }
-    setAnnounce(`${VIEW_TITLES[view]}, ${filtered.length} ${filtered.length === 1 ? d.noun.one : d.noun.many}`);
-  }, [view, filtered.length, d]);
+  // tell screen readers what changed when the view or the count changes (a live region speaks changes, not what was there at load)
+  const announce = answer ? `${VIEW_TITLES[view]}, ${matched} ${matched === 1 ? d.noun.one : d.noun.many}` : '';
 
   const onOpen = (id: string, el: HTMLElement) => {
     trigger.current = el;
@@ -140,17 +166,19 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
       </header>
 
       <div className="filter-sticky" ref={barRef}>
-        <FilterBar d={d} state={state} counts={counts} labelOf={labelOf} shown={filtered.length} total={rows.length} searchRef={searchRef} notes={notes} smart={{ applied, onApplied: setApplied, onReading: setReading, slot, holding: reading !== null }} onState={setState} />
+        <FilterBar d={d} state={state} counts={counts} labelOf={labelOf} shown={answer ? matched : null} total={answer?.total ?? shards?.total ?? rows.length} searchRef={searchRef} notes={notes} smart={{ applied, onApplied: setApplied, onReading: setReading, slot, holding: reading !== null }} onState={setState} />
       </div>
 
       <div className="smart-slot" ref={setSlot} />
 
       <section className="results" aria-labelledby="results-heading" data-view={view}>
         <h2 id="results-heading" className="sr-only">
-          {VIEW_TITLES[view]}, {filtered.length} {filtered.length === 1 ? d.noun.one : d.noun.many}
+          {VIEW_TITLES[view]}, {answer ? `${matched} ${matched === 1 ? d.noun.one : d.noun.many}` : 'counting'}
         </h2>
-        {filtered.length === 0 ? (
-          <EmptyState d={d} state={state} rows={rows} labelOf={labelOf} applied={applied} onApplied={setApplied} uncheckedCount={unchecked.reduce((a, g) => a + g.rows.length, 0)} onState={setState} />
+        {!answer ? (
+          <ListSkeleton view={view} count={pageSize} failed={failed === attempt} onRetry={() => setAttempt((n) => n + 1)} />
+        ) : matched === 0 ? (
+          <EmptyState d={d} state={state} labelOf={labelOf} applied={applied} onApplied={setApplied} uncheckedCount={unchecked.reduce((a, g) => a + g.rows.length, 0)} onState={setState} />
         ) : view === 'cards' ? (
           <CardsView {...viewProps} />
         ) : view === 'list' ? (
@@ -158,7 +186,7 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
         ) : view === 'table' ? (
           <TableView {...viewProps} />
         ) : d.renderMap ? (
-          d.renderMap(filtered, state)
+          d.renderMap(answer.rows, state)
         ) : (
           <MapPlaceholder
             glyph="map"
@@ -171,7 +199,7 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
             }
           />
         )}
-        {filtered.length > 0 && view !== 'map' ? <Pager page={page} pageSize={pageSize} total={sorted.length} onPage={(p) => setState({ ...state, page: p }, 'push')} /> : null}
+        {answer && matched > 0 && view !== 'map' ? <Pager page={page} pageSize={pageSize} total={matched} onPage={(p) => setState({ ...state, page: p }, 'push')} /> : null}
         {unchecked.length > 0 && view !== 'map' ? <UncheckedRows d={d} groups={unchecked} /> : null}
       </section>
 

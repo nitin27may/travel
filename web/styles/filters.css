@@ -132,3 +132,15 @@ tr[data-row][data-from='17'] td:first-child::after { content: 'A stretch at ' va
 
 /* card footers: a place with a source line, a check state and a badge reads as one line of separated items */
 .src .foot-sep { color: var(--muted); }
+
+/* The list while its row files load (backlog 3.59): the same grid and height as the rows that replace it, so nothing shifts when they arrive. */
+.list-skeleton { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--card-gap); min-height: 70vh; align-content: start; }
+.list-skeleton[data-view='list'], .list-skeleton[data-view='table'] { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.skeleton-block { display: block; min-height: 20rem; border-radius: var(--r-4); background: var(--surface-2); border: 1px solid var(--line); opacity: 0.7; animation: skeleton-breathe 1.6s ease-in-out infinite; }
+.list-skeleton[data-view='list'] .skeleton-block, .list-skeleton[data-view='table'] .skeleton-block { min-height: 3.25rem; }
+@keyframes skeleton-breathe { 50% { opacity: 0.4; } }
+@media (max-width: 1279px) { .list-skeleton:not([data-view='list']):not([data-view='table']) { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 1023px) { .list-skeleton:not([data-view='list']):not([data-view='table']) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 639px) { .list-skeleton:not([data-view='list']):not([data-view='table']) { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .skeleton-block { animation: none; } }
+.list-failed { display: grid; gap: 12px; justify-items: start; padding: 24px 0; }

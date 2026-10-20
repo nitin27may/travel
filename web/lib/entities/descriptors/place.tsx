@@ -1,17 +1,14 @@
 import '@/styles/suitability.css';
 import type { ColumnDef } from '@tanstack/react-table';
-import dynamic from 'next/dynamic';
 import { PlaceCardFooter } from '@/components/places/PlaceCardFooter';
 import { Elevation, Stat } from '@/components/entity/cells';
+import { PlacesMapLazy } from '@/components/entity/PlacesMapLazy';
 import type { PlaceListRow } from '@/components/places/rows';
 import { Icon, kindIcon } from '@/components/ui/Icon';
 import { MONTH_NAMES, seasonLabel } from '@/lib/format/season';
 import { KID_HINTS, KID_ICONS, KID_LABELS, TAG_KIND_ORDER, cap } from '../labels';
 import { EFFORT_LABELS, EFFORT_VALUES, nodeLabel, scopedFacets, typeInScope } from '../facets';
 import type { Badge, EntityDescriptor, FacetDef, FacetOption } from '../types';
-
-// the Map view loads when first opened, so the list's first load stays inside the JS budget
-const PlacesMap = dynamic(() => import('@/components/places/PlacesMap').then((m) => m.PlacesMap), { ssr: false, loading: () => <p className="muted">Loading map</p> });
 
 /** The facet and group name of a kind: one name per kind, whatever a place's own label says (a hut is an Eatery here). */
 const kindName = (k: string) => cap(k);
@@ -323,11 +320,13 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
   },
   defaultSort: (a, b) =>
     a.country_name.localeCompare(b.country_name) || a.region_name.localeCompare(b.region_name) || a.area_name.localeCompare(b.area_name) || a.name.localeCompare(b.name),
-  defaultSortLabel: 'Country, region, area',
+  defaultSortLabel: 'Country, then places with photos',
+  // 3.56: inside a country the places with a photo lead, and countries that have a photo come before those with none
+  defaultTier: { tier: (p) => p.country, lead: (p) => p.image !== null },
   search: (p) => [p.name, p.area_name, p.region_name, p.country_name, p.tags.map((t) => t.label).join(' '), p.kindLabel, p.kind].join(' '),
   href: (p) => `/places/${p.slug}/`,
   detail: [],
   ops: {},
   emptyHint: 'Try removing a filter, or search for a different name.',
-  renderMap: (rows, state) => <PlacesMap rows={rows} state={state} />,
+  renderMap: (rows, state) => <PlacesMapLazy rows={rows} state={state} />,
 };
