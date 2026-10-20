@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { scheduleDay } from "../../src/schedule/schedule.ts";
-import { day, item, profile, variant } from "./helpers.ts";
+import { day, family, fixture, item, profile, variant } from "./helpers.ts";
 
 describe("TRP: legs through the base", () => {
   const hub = { lat: 52.8737, lon: -118.0814 };
@@ -20,5 +20,14 @@ describe("TRP: legs through the base", () => {
     const d = day([variant("main", [stop("a", "A lake", { point: { lat: 52.9, lon: -118.0 } })])], { base: { name: "Jasper", placeSlug: null, point: hub } });
     const t = scheduleDay(d, profile());
     expect(t.entries.filter((e) => e.kind === "leg").every((e) => !/ via /.test(e.title))).toBe(true);
+  });
+});
+
+describe("TRP: the rejoin wait", () => {
+  it("is scheduled on the plan's own versions in the one-lane view, not on the easy day that has no rejoin of its own", () => {
+    const one = scheduleDay(fixture("rockies-day5.json"), family(6));
+    expect(one.entries.some((e) => e.sub === "together")).toBe(true);
+    const easy = scheduleDay(fixture("rockies-day5.json"), family(6), { variant: "C" });
+    expect(easy.entries.some((e) => e.sub === "together")).toBe(false);
   });
 });
