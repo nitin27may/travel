@@ -166,3 +166,13 @@ export const LABELS: Record<string, string> = {
   'shape=road-trip': 'Road trip',
   'shape=one-base': 'One base',
 };
+
+/**
+ * "short" with no figure (backlog 3.51). On Places it is the shortest Length band, but only where a Length filter exists, which is when
+ * the parse is scoped to a trail or trek; the chip names the band so the reading is plain. On Trips it is the classes of a weekend or less.
+ * With no such scope the word stays unused and the parse says "short has no filter yet" (H3).
+ */
+export const SHORT = {
+  places: { param: 'f.length', value: 'lt3', label: 'Short: under 3 km', scopes: ['nature.trail', 'nature.trek'] },
+  trips: { param: 'length', values: ['day', 'overnight', 'weekend'], label: 'Weekend or shorter' },
+} as const;

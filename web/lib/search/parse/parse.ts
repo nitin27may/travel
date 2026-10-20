@@ -9,6 +9,7 @@ import {
 } from './grammar';
 import type { BandPick, Mod } from './grammar';
 import { hrefFor } from './href';
+import { SHORT } from './phrases';
 import { MAX_WORDS, singular, singularPhrase } from './words';
 import type { Chip, DidYouMean, ParseOptions, ParsedQuery, VocabFile } from './types';
 
@@ -457,6 +458,19 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
     addChip({ id: key, label, set: { [key]: key === 'length' || key === 'shape' ? [vals[0]!] : vals }, words: span(rs) });
   }
 
+  // "short" with no figure: the shortest band of the scoped kind on Places, a weekend or less on Trips (3.51)
+  // ("short walk" is a phrase of the Trails kind, so the word may already be claimed by that chip: the Length chip then covers the same word)
+  const shortAt = toks.findIndex((t, i) => t === 'short' && (!used[i] || chips.some((c) => c.id === 'k' && c.words[0] <= i && i < c.words[1])));
+  if (shortAt >= 0 && !facets['f.length'] && !facets['f.time'] && !facets['f.duration']) {
+    if (target === 'places' && kindNow().some((k) => SHORT.places.scopes.some((s) => k === s || k.startsWith(`${s}.`)))) {
+      if (!used[shortAt]) claim(shortAt, shortAt + 1);
+      addChip({ id: SHORT.places.param, label: SHORT.places.label, set: { [SHORT.places.param]: [SHORT.places.value] }, words: [shortAt, shortAt + 1] });
+    } else if (target === 'trips' && !facets[SHORT.trips.param]) {
+      claim(shortAt, shortAt + 1);
+      addChip({ id: SHORT.trips.param, label: SHORT.trips.label, set: { [SHORT.trips.param]: [...SHORT.trips.values] }, words: [shortAt, shortAt + 1] });
+    }
+  }
+
   // ---- the words nobody used (H3), typos (A13), and what holds a place we do not know (A5) ----
   for (let i = 0; i < n; ) {
     if (used[i] || filler(toks[i]!)) { i += 1; continue; }
@@ -482,7 +496,7 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
   for (const c of conflicts) for (const e of c.entries.slice(0, 2)) dym.scope.push({ label: `${c.phrase}: ${lab(e.param, e.value)}`, href: hrefFor(target, { ...facets, [e.param]: [e.value] }, q.join(' ')) });
 
   // "short" is a length with no number: no filter exists for it, and a word is never dropped silently (H3)
-  if (toks.includes('short') && !facets['f.length'] && !facets['f.time'] && !facets['f.duration'] && !notYet.includes('short')) notYet.push('short');
+  if (toks.includes('short') && !facets['f.length'] && !facets['f.time'] && !facets['f.duration'] && !(target === 'trips' && facets[SHORT.trips.param]) && !notYet.includes('short')) notYet.push('short');
 
   const qText = q.join(' ');
   chips.sort((a, b) => a.words[0] - b.words[0]);

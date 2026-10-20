@@ -316,11 +316,28 @@ describe('spec checks added in SQ1b round 3 (Q36 bands, H3)', () => {
   it('"hike with less than 300 m of climb" reads the same band', () => {
     expect(p('hike with less than 300 m of climb').facets['f.climb']).toEqual(['lt150', '150-400']);
   });
-  it('"short walk in Utah" says that "short" has no filter, and is not dropped silently', () => {
+  it('"short walk in Utah": on a trail scope, "short" is the shortest Length band, named in a chip (3.51)', () => {
     const got = p('short walk in Utah');
     expect(got.facets.k).toEqual(['nature.trail']);
+    expect(got.facets['f.length']).toEqual(['lt3']);
+    expect(got.chips.find((c) => c.id === 'f.length')?.label).toBe('Short: under 3 km');
+    expect(got.notYet).not.toContain('short');
+    expect(got.q).not.toContain('short');
+  });
+  it('"short trip in Iceland" on Trips is a weekend or less (3.51)', () => {
+    const got = p('short trip in Iceland');
+    expect(got.target).toBe('trips');
+    expect(got.facets.length).toEqual(['day', 'overnight', 'weekend']);
+    expect(got.chips.find((c) => c.id === 'length')?.label).toBe('Weekend or shorter');
+    expect(got.notYet).not.toContain('short');
+  });
+  it('"short" with no kind scope on Places still says it has no filter yet, and is not dropped silently', () => {
+    const got = p('short in Utah');
     expect(got.facets['f.length']).toBeUndefined();
     expect(got.notYet).toContain('short');
+  });
+  it('a figure still wins over the word: "short walk under 3 km" has one Length chip', () => {
+    expect(p('short walk under 3 km').chips.filter((c) => c.id === 'f.length')).toHaveLength(1);
   });
   it('"short walk under 3 km" keeps its Length chip and no note', () => {
     const got = p('short walk under 3 km with a toddler');

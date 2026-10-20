@@ -133,7 +133,7 @@ describe.skipIf(!existsSync(path.join(OUT, 'index.html')))('the built site holds
   });
   it('every public data file is a search part or geography, and no search part is bigger than 48 KB', () => {
     const json = files.map(rel).filter((p) => p.endsWith('.json') && !p.startsWith('_next/') && !p.startsWith('globe/') && !p.startsWith('globe-data/') && !p.startsWith('list/')); // globe-data has its own limits in budget.test.ts; the list files are checked below
-    for (const p of json) expect(p === 'search/manifest.json' || p === 'search/vocab.json' || /^search\/(trip|place|area)-[a-z]{2,4}\/data\.json$/.test(p), p).toBe(true);
+    for (const p of json) expect(p === 'search/manifest.json' || p === 'search/vocab.json' || /^search\/(trip|place|area)-[a-z]{2,4}\/data\.json$/.test(p) || /^search\/text\/[a-z]{2,3}(-\d+)?\/data\.json$/.test(p), p).toBe(true);
     for (const p of json) expect(readFileSync(path.join(OUT, p)).length, p).toBeLessThan(48 * 1024);
   });
   it('the Places list is a manifest and row files by country: no file holds the list, each file is the light rows (3.59, P8)', () => {

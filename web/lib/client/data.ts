@@ -1,5 +1,7 @@
 import type { PlaceExport, TripExport } from '@/lib/export/types';
-import { filterRows, facetCounts, gapNotes } from '@/lib/entities/filter';
+import { filterRows, facetCounts, gapNotes, matchesRow } from '@/lib/entities/filter';
+import { searchTexts } from '@/lib/search/fulltext';
+import type { TextIndex } from '@/lib/search/fulltext';
 import { isPlain, manifestCounts, pageWindow, shardsForScope } from '@/lib/entities/shards';
 import type { ListManifest } from '@/lib/entities/shards';
 import { emptyState } from '@/lib/entities/url';
@@ -543,6 +545,44 @@ export async function ensureShards(type: EntityType, query: ListState, pageSize?
   const m = hit.shards.manifest;
   const refs = pageSize && isPlain(query) ? pageWindow(m, query.page, pageSize).files.map((f) => f.ref) : shardsForScope(m, query);
   await Promise.all(refs.map((r) => loadShard(type, r.id)));
+  // words the name, area and tags do not hold: the full-text files of the scope answer them (3.60)
+  if (type === 'place' && query.q.trim() && !(pageSize && isPlain(query))) {
+    const rows = rowsFor(type, query) as readonly PlaceListRow[] | null;
+    if (rows && !filterRows(rows, query, hit.d as unknown as EntityDescriptor<PlaceListRow>).length) await Promise.all(refs.map((r) => loadText(r.id)));
+  }
+}
+
+// ---- the full-text pass (3.60) ----
+
+const textLoaded = new Map<string, TextIndex | null>();
+const textPromises = new Map<string, Promise<void>>();
+
+/** One full-text file. A file that will not load is remembered as missing, so the list shows its plain answer instead of waiting for it. */
+function loadText(id: string): Promise<void> {
+  let p = textPromises.get(id);
+  if (!p) {
+    p = getJson<TextIndex>(`/search/text/${encodeURIComponent(id)}/data.json`).then(
+      (ix) => void textLoaded.set(id, ix),
+      () => void textLoaded.set(id, null),
+    );
+    textPromises.set(id, p);
+  }
+  return p;
+}
+
+/**
+ * When a search finds nothing as a substring, the places whose card text holds the words, best first (BM25 over the scope's files), still
+ * passing every other filter. 'wait' while a file of the scope is on its way; null when no place holds the words.
+ */
+function fullText(rows: readonly PlaceListRow[], query: ListState, d: EntityDescriptor<PlaceListRow>, refs: readonly { id: string }[]): PlaceListRow[] | 'wait' {
+  const indexes: TextIndex[] = [];
+  for (const r of refs) {
+    if (!textLoaded.has(r.id)) return 'wait';
+    const ix = textLoaded.get(r.id);
+    if (ix) indexes.push(ix);
+  }
+  const rank = new Map(searchTexts(indexes, query.q).map((h, i) => [h.id, i]));
+  return rows.filter((r) => rank.has(r.slug) && matchesRow(r, query, d, 'q')).sort((a, b) => rank.get(a.slug)! - rank.get(b.slug)!);
 }
 
 /** The rows a query is answered from, or null while their files are not in. A whole-list source is always ready. */
@@ -594,13 +634,24 @@ export function peekPlaces(query: ListState, pageSize?: number): ListResult<Plac
   }
   const rows = rowsFor('place', query) as readonly PlaceListRow[] | null;
   if (!rows) return null;
-  const matched = sortRows(filterRows(rows, query, d), query, d);
-  const counts = facetCounts(rows, query, d);
+  let matched = sortRows(filterRows(rows, query, d), query, d);
+  let counts = facetCounts(rows, query, d);
+  const extra: string[] = [];
+  if (hit.shards && !matched.length && query.q.trim()) {
+    const found = fullText(rows, query, d, shardsForScope(hit.shards.manifest, query));
+    if (found === 'wait') return null;
+    if (found.length) {
+      // the same list, narrowed: the places whose descriptions hold the words, best first unless a sort was chosen
+      matched = query.sort.length ? sortRows(found, query, d) : found;
+      counts = facetCounts(found, { ...query, q: '' }, d);
+      extra.push(`matched on descriptions: \u201c${query.q.trim()}\u201d`);
+    }
+  }
   return {
     rows: matched,
     total: hit.shards?.manifest.total ?? rows.length,
     counts: hit.shards ? countryCounts(counts, hit.shards.manifest, query) : counts,
-    notes: gapNotes(rows, query, d),
+    notes: [...gapNotes(rows, query, d), ...extra],
     matched: matched.length,
     offset: 0,
   };
