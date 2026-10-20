@@ -1,5 +1,6 @@
 // Words for the trip tags. One place, so a card chip, a filter option and a table cell say the same thing.
 import { hoursMinutes } from '@/components/trips/format';
+import { ageBasisWhy, ageLabel } from '@/lib/format/age';
 import type { TripListRow } from '@/components/trips/types';
 
 export const LENGTH_LABELS: Record<string, string> = {
@@ -66,12 +67,9 @@ export function lengthLine(t: TripListRow): string {
 
 /** What the Kids chip says and what it rests on: "Kids from 8 · our plan", "Kids from 10 · checked", "All ages · checked". */
 export function kidsLabel(ageFit: number, basis: 'computed' | 'floor' | 'plan' | null): { text: string; why: string } {
-  const base = ageFit === 0 ? 'All ages' : `Kids from ${ageFit}`;
-  if (basis === 'plan' || basis === null) return { text: `${base} · our plan`, why: "The plan's own estimate; the records do not rule out a younger child, nor settle it." };
-  return {
-    text: `${base} · checked`,
-    why: basis === 'floor' ? 'Raised to the youngest age the records already allow on every day. Missing data can only make it higher.' : 'Every day has a version that fits this age, on records that carry the data.',
-  };
+  // the plan's own number is "our plan" when nothing was checked
+  const b = basis ?? 'plan';
+  return { text: ageLabel('fit', ageFit, b), why: ageBasisWhy(b) };
 }
 
 /** "Hike effort: moderate · checked" or "· our plan": the same two words as the Kids chip. */

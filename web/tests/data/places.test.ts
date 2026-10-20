@@ -84,8 +84,9 @@ describe('completeness', () => {
     expect(c.passed).toBe(12);
     expect(c.notTracked).toBe(PROFILE_TOTAL.trail - 15);
     expect(c.failed.map((f) => f.id).sort()).toEqual(['C1', 'C3', 'C4']);
-    expect(c.label).toBe('Partly checked · 12 of 15');
-    expect(c.tooltip).toBe('12 of 15 tracked checks pass; 23 checks are not tracked yet');
+    // one scope for the word and the count: the 23 checks the data cannot answer yet are counted after "of", so Partly never carries a full count
+    expect(c.label).toBe('Partly checked · 12 of 38');
+    expect(c.tooltip).toBe('12 of 15 tracked checks pass; 23 checks are not tracked yet and counted after "of"');
   });
 
   it('a place with a capture record takes its level from the contract engine, in the public words', () => {

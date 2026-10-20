@@ -22,8 +22,19 @@ import {
   type PublicDay,
   type PublicTrip,
   type Season,
+  type TripSchedule,
   type Track,
 } from './types';
+
+/**
+ * The one age a plan states it suits from. A plan whose own file names a family profile ("families with a child from about 6", the profile's
+ * youngest age) states that age; every other plan states its typed `ageFit`. The card tag, the hero chip, the plan bar and the filter all start
+ * from this number, so the Rockies cannot read 5 on a card and 6 in the hero (review 4.24, suitability-display "Age wording").
+ */
+export function statedAge(typed: number | null, schedule: TripSchedule | null): number | null {
+  const p = schedule?.defaultProfile;
+  return p?.party === 'family' && typeof p.youngest === 'number' ? p.youngest : typed;
+}
 
 export interface TripBuild {
   trips: PublicTrip[];
@@ -391,7 +402,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
       schedule,
       slug, title, subtitle, depth, visibility: vis, nights, daysCount: days.length || (nights !== null ? nights + 1 : null), seasonNotSet: !season, isDone, region, cover, season,
       firstBase: bases[0]?.name ?? (region.split(',')[0]?.trim() || null), legacyUrl: `/${folder}/`, honesty: uniqueHonesty(h),
-      bases, days, categories, gallery, effort, ageFit: pub?.ageFit ?? null, driveAvgMin: pub?.driveAvgMin ?? null,
+      bases, days, categories, gallery, effort, ageFit: statedAge(pub?.ageFit ?? null, schedule), driveAvgMin: pub?.driveAvgMin ?? null,
     };
     // no research marker reaches a public string (spec 5.1); the timeline's own strings were cleaned as they were made
     trips.push(scrubMarkers(built1));

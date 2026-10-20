@@ -431,12 +431,35 @@ listed in its change log under 18 Oct 2026 (display rules).
 - The soft fields (`softRequired`) show their gap or "not stated" chip as today; the safety-critical ones (`softSafety`) lead the "Not checked yet" line so a parent sees the limit that is missing first.
 - A filter or sort that treats `usable` as a floor treats `usable_partial` as below `usable` and above `draft`.
 
+## 10. Age wording (REVIEW4 4.24)
+
+One age is written one way. `web/lib/format/age.ts` (`ageLabel(kind, value, basis)`) is the only place an age phrase is made; cards, chips, lists,
+table cells, the filter bar, trip tags, day rows and place pages call it. Dropped: "Ages N+", "Age N+", "Kids from N", "All ages", "N+ years".
+
+| Kind | Words | Where |
+|---|---|---|
+| `control` | "Youngest child 6", "Youngest child Baby" | the Kids pill, its active chip, a parsed reading |
+| `fit`, advice or plan | "From about 6", "Any age" | place card and page chips, trip card, trip hero, table cells |
+| `fit`, rule | "Minimum age 8", "No minimum age" | the lock chip (operator or official rule) |
+| `fits`, `advice_fail`, `rule_fail` | "Fits age 6", "Not suited to age 3", "Not for under 8 · operator rule" | day rows and stops against the chosen age |
+
+The basis words of a trip stay: "From about 6 · our plan" (the plan's own number) and "From about 10 · checked" (computed or raised to the proven floor).
+A place's basis is drawn by the chip's look (lock for a rule, person for advice), not by extra words. Ticket price tiers ("Ages 6–12") are not a
+suitability age and keep their own wording.
+
+**One source of truth for a plan's age.** `statedAge()` in `web/lib/public/trips.ts`: a plan whose own file names a family profile states that
+profile's youngest age ("families with a child from about 6"); every other plan states its typed `ageFit`. The card tag, the hero chip, the plan bar and
+the Youngest child filter all start from it, so the Rockies read "From about 6 · our plan" on the card and "From about 6" in the hero, as the plan says. A computed
+value or the proven floor still replaces a plan's number when the records allow it (`tags.ts`), and the report `research/trip-tag-conflicts.md`
+lists the difference. With `?kid=6` the Rockies fits; with `?kid=5` it fades, since the plan was written for 6.
+
 ## Change log
 
 | Date | Change |
 |---|---|
 | 2026-10-18 | First design: six kinds, chip vocabulary (rule, advice, gap, fits, two fails), card and day-row merging, three filter labels, 13 acceptance checks, 10 conflicts with resolutions; mock rendered at 1440 and 390 in light and dark |
 | 2026-10-19 | S1 Part B: D11 settles 3.21 (a bungee page keeps its one-row "Effort and time" group); the built page implements sections 1 to 4 and the three chip looks, with native disclosures for groups and provenance |
+| 2026-10-20 | FIXA: section 10, one age formatter and one stated age per plan (REVIEW4 4.24); the rule chip reads "Minimum age N" |
 | 2026-10-18 | CF: "No minimum age" moves from `none_stated` to the new `no_limit` state; section 9 records the pending `usable_partial` label "usable, partly unverified" |
 
 ## Rendering check (18 Oct 2026)

@@ -4,6 +4,7 @@ import { createContext, useContext, type ReactNode } from 'react';
 import { SuitGlyph } from '@/components/suit/SuitGlyph';
 import { convertText } from '@/lib/format/convert';
 import { usePrefs } from '@/lib/format/prefs';
+import { ageLabel } from '@/lib/format/age';
 import type { ItemSuit } from '@/lib/public/types';
 
 // What a timeline entry draws about the place it visits (suitability-display 3.3 and D6; relevance 6.2). The trip page provides
@@ -33,9 +34,9 @@ interface Fit {
 /** Slot 1 against a party (D6): the rule that fails first, then our advice, else it fits. Null when nothing is known. */
 export function fitFor(s: ItemSuit, youngest: number | null): Fit | null {
   if (youngest === null || s.kidsFrom === null) return null;
-  if (s.kidsBasis === 'rule' && s.kidsFrom > youngest) return { kind: 'rule_fail', text: `Not for under ${s.kidsFrom} · operator rule`, label: `Operator rule: not for under ${s.kidsFrom}` };
-  if (s.kidsBasis === 'advice' && s.kidsFrom > youngest) return { kind: 'advice_fail', text: `Not suited to age ${youngest}`, label: `Our judgement: not suited to age ${youngest}` };
-  return { kind: 'fits', text: `Fits age ${youngest}`, label: `Fits age ${youngest}` };
+  if (s.kidsBasis === 'rule' && s.kidsFrom > youngest) return { kind: 'rule_fail', text: ageLabel('rule_fail', s.kidsFrom), label: `Operator rule: not for under ${s.kidsFrom}` };
+  if (s.kidsBasis === 'advice' && s.kidsFrom > youngest) return { kind: 'advice_fail', text: ageLabel('advice_fail', youngest), label: `Our judgement: ${ageLabel('advice_fail', youngest).toLowerCase()}` };
+  return { kind: 'fits', text: ageLabel('fits', youngest), label: ageLabel('fits', youngest) };
 }
 
 /**

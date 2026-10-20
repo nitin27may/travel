@@ -174,9 +174,9 @@ describe('Kids from N says what it rests on', () => {
     expect(utah.kidsBasis).toBe('floor');
   });
   it('the chip, the tooltip and the table cell carry the basis', () => {
-    expect(kidsLabel(8, 'plan').text).toBe('Kids from 8 · our plan');
-    expect(kidsLabel(10, 'floor').text).toBe('Kids from 10 · checked');
-    expect(kidsLabel(0, 'computed').text).toBe('All ages · checked');
+    expect(kidsLabel(8, 'plan').text).toBe('From about 8 · our plan');
+    expect(kidsLabel(10, 'floor').text).toBe('From about 10 · checked');
+    expect(kidsLabel(0, 'computed').text).toBe('Any age · checked');
     for (const r of rows0.filter((x) => x.ageFit !== null)) {
       const k = tagChips(r).suit.find((c) => c.key === 'kids')!;
       expect(k.label, r.slug).toMatch(/ · (our plan|checked)$/);
@@ -194,9 +194,9 @@ describe('the card chips', () => {
       for (const c of [...suit, ...tags]) expect(c.href, `${r.slug} ${c.key}`).toMatch(/^\/trips\/\?[a-z]+=[^&]+$/);
     }
   });
-  it('Kids from 7 opens the list for a youngest child of 7', () => {
+  it('From about 7 opens the list for a youngest child of 7', () => {
     const r = { ...rows[0]!, ageFit: 7, kidsBasis: 'plan' as const, hike: null as null };
-    expect(tagChips(r).suit[0]).toMatchObject({ label: 'Kids from 7 · our plan', href: '/trips/?kid=7' });
+    expect(tagChips(r).suit[0]).toMatchObject({ label: 'From about 7 · our plan', href: '/trips/?kid=7' });
   });
   it('the mono line says what kind of trip it is', () => {
     const base = rows.find((r) => r.depth === 'full')!;

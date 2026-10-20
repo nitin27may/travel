@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import { ageLabel } from '@/lib/format/age';
 import { ShareButton } from '@/components/actions/ShareButton';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Chip } from '@/components/ui/Chip';
@@ -282,7 +283,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
   const credits = photos.map((p) => ({ title: p.caption || p.file, author: p.author, licence: p.licence, licenceUrl: p.licenceUrl ?? undefined, sourceUrl: p.sourceUrl }));
   const suits: string[] = [];
   if (place.kidFit !== 'unknown') suits.push(KID_LABELS[place.kidFit] ?? place.kidFit);
-  if (place.minAge) suits.push(`${place.minAge}+ years`);
+  if (place.minAge) suits.push(ageLabel('fit', place.minAge, 'rule'));
 
   const model = place.sections;
   const suit = place.suitability;

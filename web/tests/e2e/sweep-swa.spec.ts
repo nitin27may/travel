@@ -11,7 +11,7 @@ test.describe('privacy of the party (2.34)', () => {
     await page.goto(`${site.url}/trips/patagonia-2027/`);
     await expect(page.getByRole('heading', { level: 1, name: 'Argentine Patagonia' })).toBeVisible();
     expect(await page.title()).not.toMatch(/kids/i);
-    expect(await page.locator('main').innerText()).toContain('Ages 11+');
+    expect(await page.locator('main').innerText()).toContain('From about 11');
   });
   test('trip pages link to no legacy plan', async ({ page, site }) => {
     for (const slug of ['patagonia-2027', 'canadian-rockies-2029', 'switzerland-2027']) {

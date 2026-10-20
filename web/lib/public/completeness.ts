@@ -1,3 +1,4 @@
+import { LEVEL_WORDS, levelLabel } from './levelWord';
 import type { Completeness, CompletenessLevel } from './types';
 
 // Hand-transcribed from docs/v2/research/kinds (README section 10 and each profile). Only the checks the data can
@@ -99,7 +100,8 @@ export function computeCompleteness(i: CompletenessInput): Completeness {
   if (!levelFail('D') && !levelFail('U')) level = failed.length === 0 && notTracked === 0 ? 'complete' : 'usable';
   // "Draft" is the workshop's word and never reaches a visitor (3.42): Basics only (a basic check fails), Early research, Partly checked, Checked
   const basicFail = checks.some((c) => c.level === 'D' && !c.pass);
-  const label = level === 'complete' ? 'Checked' : level === 'usable' ? `Partly checked · ${passed} of ${total}` : basicFail ? 'Basics only' : `Early research · ${passed} of ${total}`;
-  const tooltip = `${passed} of ${total} tracked checks pass; ${notTracked} check${notTracked === 1 ? ' is' : 's are'} not tracked yet`;
+  // the card counts the tracked checks; the ones the data cannot answer yet are counted after "of" so "Partly" never carries a full count
+  const label = level === 'draft' ? (basicFail ? LEVEL_WORDS.basics : `${LEVEL_WORDS.early} · ${passed} of ${total}`) : levelLabel(level, passed, total, false, notTracked);
+  const tooltip = `${passed} of ${total} tracked checks pass; ${notTracked} check${notTracked === 1 ? ' is' : 's are'} not tracked yet and counted after "of"`;
   return { level, passed, total, notTracked, failed, label, tooltip };
 }

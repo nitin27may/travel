@@ -26,7 +26,7 @@ describe('kid fit labels', () => {
   it('draws the kids chip as a rule, advice or gap and the effort name, plus at most one relevance chip', () => {
     const base = placeRows()[0];
     const rule = placeBadges({ ...base, kids_from: 8, kids_basis: 'rule', effort: null, badge: null });
-    expect(rule.find((b) => b.value === 'rule')?.text).toBe('Age 8+');
+    expect(rule.find((b) => b.value === 'rule')?.text).toBe('Minimum age 8');
     const advice = placeBadges({ ...base, kids_from: 6, kids_basis: 'advice', effort: 'Moderate', badge: 'Worth the journey' });
     expect(advice.find((b) => b.value === 'advice')?.text).toBe('From about 6');
     expect(advice.find((b) => b.value === 'effort')?.text).toBe('Moderate');
