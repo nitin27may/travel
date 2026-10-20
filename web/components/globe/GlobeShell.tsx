@@ -29,13 +29,14 @@ import { featureClass, loadFeatureFacts, type FeatureFacts } from '@/lib/globe/w
 import { distanceKm } from '@/lib/map/geo';
 import { nodeAt } from '@/lib/globe/model';
 import { placeCard, type Rect } from '@/lib/globe/anchor';
+import { landTest } from '@/lib/globe/placement';
 
 const EMPTY: GlobeSnapshot = { ready: false, failed: null, loading: '', path: [], crumbs: [], selected: null, feature: null, boundary: null, here: null, pins: [], notice: null };
 /** The floating elements a card must not sit on, as rectangles in the globe root's own coordinates (spec 3.2). */
 function occupiedRects(root: HTMLElement | null): Rect[] {
   if (!root) return [];
   const r0 = root.getBoundingClientRect();
-  return ['.globe-search', '.globe-crumbs', '.globe-zoom', '.globe-card-pill', '.globe-card-controls', '.globe-status', '.globe-panel-tab'].flatMap((sel) => {
+  return ['.globe-search', '.globe-crumbs', '.globe-zoom', '.globe-card-pill', '.globe-card-controls', '.globe-status', '.globe-panel-tab', '.maplibregl-ctrl-attrib', '.maplibregl-ctrl-scale'].flatMap((sel) => {
     const el = root.querySelector(sel);
     if (!el) return [];
     const b = el.getBoundingClientRect();
@@ -95,6 +96,8 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const [featEl, setFeatEl] = useState<HTMLElement | null>(null);
   const [featFacts, setFeatFacts] = useState<{ key: string; facts: FeatureFacts | null } | null>(null);
   const ctrl = useRef<GlobeController | null>(null);
+  // the 110m shapes captured while they still hold geometry; the swap to 50m drops it
+  const isLand = useMemo(() => (book ? landTest(book.fc) : undefined), [book]);
   const terrainRef = useRef(true);
   const engineRef = useRef<GlobeEngine | null>(null);
   const layoutRef = useRef<() => { width: number; height: number; cover: { top: number; right: number; bottom: number; left: number }; mode: 'desktop' | 'landscape' | 'phone' }>(() => ({ width: 1, height: 1, cover: { top: 0, right: 0, bottom: 0, left: 0 }, mode: 'desktop' }));
@@ -247,6 +250,25 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, []);
+  // Immersive is full screen (review S8): the header and bottom bar collapse through the html attribute, and the Fullscreen API takes the
+  // browser chrome where the browser has it. The key or the button that turned it on is the user gesture the request needs.
+  useEffect(() => {
+    const html = document.documentElement;
+    if (immersive) {
+      html.dataset.globeImmersive = 'true';
+      if (document.fullscreenEnabled && !document.fullscreenElement) void html.requestFullscreen().catch(() => undefined);
+    } else {
+      delete html.dataset.globeImmersive;
+      if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
+    }
+  }, [immersive]);
+  useEffect(() => {
+    const html = document.documentElement;
+    // the visitor leaves full screen with the browser's own key: the controls come back
+    const onChange = () => { if (!document.fullscreenElement) setImmersive(false); };
+    document.addEventListener('fullscreenchange', onChange);
+    return () => { document.removeEventListener('fullscreenchange', onChange); delete html.dataset.globeImmersive; if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined); };
+  }, []);
   // opening a card or a feature ends it (adjusted during render, not in an effect)
   const [cardWasOpen, setCardWasOpen] = useState(false);
   const cardNowOpen = !!(snap.selected || snap.feature);
@@ -323,6 +345,17 @@ export function GlobeShell({ data }: { data: GlobeData }) {
       .slice(0, 4);
   }, [snap.feature, data]);
 
+  // On the phone the attribution rides on top of the card sheet, whatever height the card makes it (review S9).
+  useLayoutEffect(() => {
+    const el = root.current, sheet = el?.querySelector<HTMLElement>('.globe-card-sheet');
+    if (!el || !sheet) { el?.style.removeProperty('--globe-card-sheet-h'); return; }
+    const set = () => el.style.setProperty('--globe-card-sheet-h', `${Math.round(sheet.getBoundingClientRect().height)}px`);
+    set();
+    const ro = new ResizeObserver(set);
+    ro.observe(sheet);
+    return () => ro.disconnect();
+  }, [snap.selected, phone]);
+
   // The landscape card dock starts under the breadcrumb, wherever that wraps to (review M3).
   useLayoutEffect(() => {
     const el = root.current, c = el?.querySelector('.globe-crumbs');
@@ -396,7 +429,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
         <div className="globe-canvas"><div className="globe-loading" aria-live="polite">Loading globe</div></div>
       )}
 
-      {engine && painted ? <PinLayer engine={engine} pins={snap.pins} selectedKey={snap.selected} onOpen={openPin} /> : null}
+      {engine && painted ? <PinLayer engine={engine} pins={snap.pins} selectedKey={snap.selected} isLand={isLand} onOpen={openPin} /> : null}
       {engine ? <HitMarker engine={engine} /> : null}
       {cardEl && card ? createPortal(<SelectionCard card={card} point={pin} onClose={() => controller?.closeCard()} />, cardEl) : null}
       {short && card ? <div className="globe-card-dock"><SelectionCard card={card} point={pin} onClose={() => controller?.closeCard()} /></div> : null}
