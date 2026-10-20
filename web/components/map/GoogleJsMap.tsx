@@ -27,7 +27,7 @@ function pinElement(p: Pin, pal: MapPalette, picked: boolean): HTMLElement {
   return e;
 }
 
-const LINE_WEIGHT = { route: 2, 'route-pick': 3.5, trail: 3, 'straight-estimate': 2 } as const;
+const LINE_WEIGHT = { route: 2, 'route-pick': 3.5, trail: 3, 'trail-unconfirmed': 3, 'straight-estimate': 2 } as const;
 
 export default function GoogleJsMap({ spec, label, onSelect, handleRef, className = '' }: MapFamilyProps) {
   const env = googleEnv();
@@ -47,12 +47,12 @@ export default function GoogleJsMap({ spec, label, onSelect, handleRef, classNam
     if (o.cursor) o.cursor.map = null;
     const pal = readPalette(box.current, pageIsDark() ? 'dark' : 'light');
     o.lines = spec.lines.map((l) => {
-      const dashed = l.style === 'straight-estimate';
+      const dashed = l.style === 'straight-estimate' || l.style === 'trail-unconfirmed';
       const pl = new g.Polyline({
         path: l.coords, map: m, geodesic: false,
-        strokeColor: l.style === 'route-pick' ? pal.routePick : pal.route,
+        strokeColor: l.style === 'route-pick' ? pal.routePick : l.style === 'trail-unconfirmed' ? pal.muted : pal.route,
         strokeWeight: LINE_WEIGHT[l.style], strokeOpacity: dashed ? 0 : 1,
-        icons: dashed ? [{ icon: { path: 'M 0,-1 0,1', strokeOpacity: 0.5, strokeColor: pal.route, scale: 2 }, offset: '0', repeat: '8px' }] : undefined,
+        icons: dashed ? [{ icon: { path: 'M 0,-1 0,1', strokeOpacity: l.style === 'trail-unconfirmed' ? 1 : 0.5, strokeColor: l.style === 'trail-unconfirmed' ? pal.muted : pal.route, scale: 2 }, offset: '0', repeat: '8px' }] : undefined,
       });
       return pl;
     });
