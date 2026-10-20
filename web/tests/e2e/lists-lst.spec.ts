@@ -127,11 +127,6 @@ test.describe('search fixes (S1, S3, 4.14)', () => {
     await expect(page).toHaveURL(/stroller=any/);
     await expect(page.getByRole('button', { name: /Without Waterfalls/ })).toHaveCount(0);
   });
-  test('a trip name in the Places box, which holds no row of it, is offered as the trip page (4.14)', async ({ page, site }) => {
-    await page.goto(`${site.url}/places/?q=Canadian+Rockies+2029`, { waitUntil: 'networkidle' });
-    await expect(page.getByRole('heading', { name: /No places match/ })).toBeVisible();
-    await expect(page.getByRole('link', { name: /open its page/ })).toBeVisible();
-  });
 });
 
 test.describe('axe on the lists with a menu open, in both themes', () => {

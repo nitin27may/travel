@@ -299,7 +299,7 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
     scoped: scopedFacets<PlaceListRow>().map((f) => f.param),
   },
   columns,
-  defaultColumns: ['name', 'fit', 'kind', 'region', 'area', 'season', 'kid', 'elevation', 'km', 'gain', 'sources', 'complete'],
+  defaultColumns: ['name', 'fit', 'kind', 'area', 'season', 'kid', 'elevation', 'km', 'gain', 'sources', 'complete'],
   groupBy: [
     { id: 'country', label: 'Country', key: (p) => p.country, title: (p) => p.country_name },
     { id: 'region', label: 'Region', key: (p) => `${p.country}/${p.region}`, title: (p) => p.region_name, subtitle: (p) => p.country_name },
