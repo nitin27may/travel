@@ -297,8 +297,17 @@ test.describe('the Places and Trips search boxes', () => {
     await box.fill(QWATERFALL);
     await box.press('Enter');
     await expect(page.locator('.smart-undo')).toBeVisible();
-    // the Kind has its pill in the bar, so the pill is the one control for it
-    await page.getByRole('button', { name: 'Clear Kind filter' }).click();
+    // one control per filter at each width: the pill's clear button from 640 px up, the chip's remove button on a phone
+    const phone = (page.viewportSize()?.width ?? 0) < 640;
+    const kind = phone ? page.getByRole('list', { name: 'Active filters' }).getByRole('button', { name: /^Remove filter Kind:/ }) : page.getByRole('button', { name: 'Clear Kind filter' });
+    await expect(kind).toBeVisible();
+    if (phone) {
+      const box = await kind.boundingBox();
+      expect(box?.width ?? 0).toBeGreaterThanOrEqual(40);
+      expect(box?.height ?? 0).toBeGreaterThanOrEqual(40);
+    }
+    await kind.click();
+    await expect(page).not.toHaveURL(/[?&]k=/);
     await expect(page.locator('.smart-row')).not.toHaveAttribute('data-open', '');
   });
 });
