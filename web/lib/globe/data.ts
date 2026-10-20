@@ -79,8 +79,12 @@ export function buildGlobeData(): GlobeData {
       const months = seasonLabel(p.season);
       if (months) facts.push({ label: 'Best months', text: months });
       if (KID_FACT[p.kidFit]) facts.push({ label: 'Kids', text: KID_FACT[p.kidFit] });
+      // Up to three facts from what the card already holds (review S10): length or elevation, then climb and time for a trail, then a minimum age.
       if (p.stats.distanceKm) facts.push({ label: 'Length', distanceKm: p.stats.distanceKm });
-      else if (typeof full?.elevationM === 'number') facts.push({ label: 'Elevation', elevationM: full.elevationM });
+      if (typeof full?.elevationM === 'number' && !p.stats.distanceKm) facts.push({ label: 'Elevation', elevationM: full.elevationM });
+      if (p.stats.gainM) facts.push({ label: 'Climb', elevationM: p.stats.gainM });
+      if (p.stats.hours) facts.push({ label: 'Time', text: /^[\d.]+$/.test(String(p.stats.hours)) ? `${p.stats.hours} h` : String(p.stats.hours) });
+      if (typeof full?.minAge === 'number' && full.minAge > 0) facts.push({ label: 'Age', text: `${full.minAge}+` });
       const first = p.trips[0];
       cards[key] = {
         key, kind: 'place', slug: p.slug, title: p.name, kindLabel: p.kindLabel, glyph: p.kind, areaLabel: p.areaLabel,
