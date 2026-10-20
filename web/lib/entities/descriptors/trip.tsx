@@ -6,7 +6,7 @@ import type { TripListRow } from '@/components/trips/types';
 import type { TripRow } from '@/lib/data/types';
 import { MONTH_NAMES } from '@/lib/format/season';
 import { TripTagChips } from '@/components/trips/tags/TripTagChips';
-import { AROUND_ORDER, HIKE_ORDER, HUB_BANDS, KID_AGES, LENGTH_LABELS, LENGTH_ORDER, PERDAY_ORDER, PHASE_FOR_LENGTH, hubBandOf, kidsLabel, lengthLine } from '@/components/trips/tags/labels';
+import { AROUND_ORDER, HIKE_ORDER, HUB_BANDS, LENGTH_LABELS, LENGTH_ORDER, PERDAY_ORDER, PHASE_FOR_LENGTH, lengthCell, hubBandOf, kidsLabel, lengthLine } from '@/components/trips/tags/labels';
 import { AROUND_LABEL } from '@/components/trips/tags/chips';
 import type { Badge, EntityDescriptor } from '../types';
 
@@ -38,7 +38,7 @@ const phase = (t: TripListRow) => (t.isDone ? 'done' : 'plan');
 const DEPTH_RANK = { full: 0, summary: 1, overview: 2 } as const;
 
 function col(id: string, header: string, cell: ColumnDef<TripListRow, unknown>['cell'], text: (t: TripListRow) => string | number, size = 140, opts: { align?: 'right'; sort?: boolean } = {}): ColumnDef<TripListRow, unknown> {
-  return { id, header, cell, size, minSize: 70, enableSorting: opts.sort !== false, meta: { label: header, text, align: opts.align } } as ColumnDef<TripListRow, unknown>;
+  return { id, header, cell, size, minSize: Math.min(70, size), enableSorting: opts.sort !== false, meta: { label: header, text, align: opts.align } } as ColumnDef<TripListRow, unknown>;
 }
 
 const lengthRank = (t: TripListRow): number => {
@@ -102,16 +102,25 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
       options: (t) => (t.length ? [{ value: t.length, label: LENGTH_LABELS[t.length] ?? t.length }] : []),
     },
     {
+      // "Youngest child", as on Places. Trips have no rule-versus-advice split yet (a plan's "Kids from N" is our estimate), so a plan above the
+      // age fades and is never hidden. A plan with no age guidance is hidden when an age is picked and counted as not checked yet.
       param: 'kid',
-      label: 'Kids',
+      label: 'Youngest child',
       type: 'single',
-      order: [...KID_AGES.map(String), 'unknown'],
-      // "a child of 6": the plans whose "Kids from N" is 6 or less. A plan with no age guidance never passes, and the count line says how many were left out.
+      control: 'age',
+      controlNote: 'Trips above this age fade; none are hidden yet',
+      order: ['unknown'],
       options: (t) =>
         t.ageFit === null
           ? [{ value: 'unknown', label: 'No age guidance yet', hint: 'Hidden when you pick an age' }]
-          : KID_AGES.filter((a) => a >= (t.ageFit as number)).map((a) => ({ value: String(a), label: `A child of ${a}`, hint: a === KID_AGES[0] ? 'Plans that suit a child this age' : undefined })),
+          : Array.from({ length: 18 }, (_, age) => ({ value: String(age), label: age === 0 ? 'Baby' : String(age) })),
       gap: { value: 'unknown', note: 'not checked yet' },
+      note: (matched, sel) => {
+        const age = Number(sel[0]);
+        if (!/^\d{1,2}$/.test(sel[0] ?? '')) return null;
+        const stretch = matched.filter((t) => t.ageFit !== null && t.ageFit > age).length;
+        return stretch ? `${stretch} ${stretch === 1 ? 'is a stretch' : 'are a stretch'} at ${age}, shown faded` : null;
+      },
     },
     { param: 'tag', label: 'Activities', type: 'multi', tier: 'more', options: (t) => t.activities.map((a) => ({ value: a.id, label: a.label })) },
     {
@@ -167,8 +176,8 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
       type: 'single',
       tier: 'more',
       order: HUB_BANDS.map((b) => `toronto-${b.n}`),
-      // hidden without a count-line note: until the hub data exists there is nothing to say on every /trips/ view
-      guard: { among: (t) => t.lengthClass !== null && t.lengthClass !== 'multi-day' },
+      // named in the count line's "Why these?" (L3b round 1): a facet hidden for want of data is never a silent loss
+      guard: { among: (t) => t.lengthClass !== null && t.lengthClass !== 'multi-day', what: 'few trips have a drive time yet' },
       options: (t) => {
         if (t.fromHubMin === null) return [];
         const b = hubBandOf(t.fromHubMin);
@@ -179,7 +188,8 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
   ],
   columns: [
     col('title', 'Trip', ({ row }) => <span className="cell-name">{row.original.title}</span>, (t) => t.title, 280),
-    col('length', 'Length', ({ row }) => (row.original.length ? LENGTH_LABELS[row.original.length] : dash), (t) => (t.length ? LENGTH_LABELS[t.length] : ''), 170),
+    col('fit', 'Fit', ({ row }) => (row.original.ageFit !== null && row.original.ageFit >= 1 ? <span className="fit-chip" title={`Plan suits ${row.original.ageFit}+`}>{row.original.ageFit}+</span> : null), () => '', 56, { sort: false }),
+    col('length', 'Length', ({ row }) => (row.original.length ? lengthCell(row.original.length) : dash), (t) => lengthCell(t.length), 170),
     col('nights', 'Nights', ({ row }) => (row.original.nights === null ? dash : <span className="num">{row.original.nights}</span>), (t) => t.nights ?? '', 90, { align: 'right' }),
     col('days', 'Days', ({ row }) => (row.original.days === null ? dash : <span className="num">{row.original.days}</span>), (t) => t.days ?? '', 80, { align: 'right' }),
     col('season', 'Valid for', ({ row }) => row.original.seasonLabel ?? <span className="dash">Not set yet</span>, (t) => t.seasonLabel ?? '', 200),
@@ -187,7 +197,7 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
     col('kids', 'Kids', ({ row }) => kidsText(row.original) || dash, kidsText, 100),
     col('depth', 'Depth', ({ row }) => DEPTH_LABEL[row.original.depth], (t) => DEPTH_LABEL[t.depth], 120),
   ],
-  defaultColumns: ['title', 'length', 'nights', 'season', 'countries', 'kids', 'depth'],
+  defaultColumns: ['title', 'fit', 'length', 'nights', 'season', 'countries', 'kids', 'depth'],
   groupBy: [
     { id: 'phase', label: 'Plan', key: phase, title: (t) => PHASE_TITLE[phase(t)], subtitle: (t) => (t.isDone ? 'Kept as templates to copy' : '') },
     // Day trips first, then overnights, weekends, long weekends and the 4+ bands (short-trips 3.3)
@@ -205,6 +215,10 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
   },
   defaultSort: (a, b) => Number(a.isDone) - Number(b.isDone) || DEPTH_RANK[a.depth] - DEPTH_RANK[b.depth] || a.title.localeCompare(b.title),
   defaultSortLabel: 'Most complete first',
+  // a plan above the chosen age fades with the reason on its card (there is no rule split for trips yet)
+  fadeBy: 'plan',
+  fadeFrom: (t) => (t.ageFit !== null && t.ageFit >= 1 ? t.ageFit : undefined),
+  fade: (t) => (t.ageFit !== null && t.ageFit >= 1 ? Array.from({ length: Math.min(t.ageFit, 18) }, (_, i) => i).join(' ') : undefined),
   search: (t) => [t.title, t.region, t.countryName, t.firstBase ?? ''].join(' '),
   href: (t) => tripHref(t.slug),
   detail: [],

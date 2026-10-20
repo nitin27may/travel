@@ -5,7 +5,7 @@
 // This module is pure (no fetch, no fs): the build writes the files from it and the data module reads them by it. A server step later
 // replaces the files with a query and keeps every caller.
 import { defaultOrder } from './sort';
-import { facetCounts, gapNotes } from './filter';
+import { facetCounts, gapCounts, gapNotes } from './filter';
 import type { FacetCount } from './filter';
 import { emptyState } from './url';
 import type { EntityDescriptor, ListState } from './types';
@@ -37,6 +37,8 @@ export interface ListManifest {
   counts: [param: string, options: FacetCount[]][];
   /** The count line's notes for the unfiltered list. */
   countNotes: string[];
+  /** Rows with no answer for a facet that has a "not known" state, as pairs of the facet's name and the count, for the unfiltered list. */
+  gaps: [param: string, n: number][];
 }
 
 export interface BuiltShards<Row> {
@@ -80,7 +82,7 @@ export function buildShards<Row>(rows: readonly Row[], d: EntityDescriptor<Row>,
   return {
     head: flat.slice(0, HEAD_ROWS),
     files,
-    manifest: { v: 1, total: flat.length, head: Math.min(HEAD_ROWS, flat.length), shards, counts, countNotes: gapNotes(flat, blank, d) },
+    manifest: { v: 1, total: flat.length, head: Math.min(HEAD_ROWS, flat.length), shards, counts, countNotes: gapNotes(flat, blank, d), gaps: Object.entries(gapCounts(flat, blank, d)) },
   };
 }
 

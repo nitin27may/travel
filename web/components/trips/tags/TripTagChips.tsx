@@ -30,6 +30,7 @@ export function TripTagChips({ row }: { row: TripListRow }) {
           {tags.map((c) => (
             <li key={c.key}>
               <a className="chip chip-neutral tag-link" href={c.href} title={c.aria}>
+                {c.icon ? <Icon name={c.icon as IconName} size={13} /> : null}
                 {c.label}
               </a>
             </li>

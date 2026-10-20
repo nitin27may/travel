@@ -21,12 +21,16 @@ import type { EntityDescriptor, EntityType, FacetParam, ViewName } from '@/lib/e
 import { CardsView } from './CardsView';
 import type { DetailSheetProps } from './DetailSheet';
 import { EmptyState } from './EmptyState';
-import { FilterBar } from './FilterBar';
+import { FilterBar, partitionFacets } from './FilterBar';
+import { PhoneSummary } from './PhoneSummary';
+import { useMediaQuery } from './useMediaQuery';
 import { ListSkeleton } from './ListSkeleton';
 import { ListView } from './ListView';
 import type { ViewProps } from './viewTypes';
 import { focusWasPushed, useUrlState } from './useUrlState';
 import { MAP_DISABLED_NOTE } from './ViewSwitcher';
+import { dropDependents } from '@/lib/entities/filter';
+import { stillApplies, undoState } from '@/lib/search/applied';
 
 // The table (TanStack Table and Virtual) and the detail sheet load when first needed, which keeps
 // the list pages inside the JS budget. dynamic() drops the generic parameter, so it is restored here.
@@ -62,6 +66,20 @@ export function EntityPage<Row>({ type, rows, shards, lede }: Props<Row>) {
   // the reading the box shows before Enter: the list is held, not filtered by the sentence (backlog 3.43 review M1)
   const [reading, setReading] = useState<ParsedQuery | null>(null);
   const [slot, setSlot] = useState<HTMLElement | null>(null);
+  // Back and Forward restore the undo line (SQ1b S2): the reading rides in the history entry it created. When the URL changes under us, take
+  // the entry's reading if it still holds, and drop ours if it no longer does.
+  const [seenState, setSeenState] = useState(state);
+  if (seenState !== state) {
+    setSeenState(state);
+    const saved = typeof window === 'undefined' ? null : ((window.history.state as { travelApplied?: Applied } | null)?.travelApplied ?? null);
+    if (saved && stillApplies(state, saved)) setApplied(saved);
+    else if (applied && !stillApplies(state, applied)) setApplied(null);
+  }
+  useEffect(() => {
+    const here = window.history.state as { travelApplied?: Applied } | null;
+    if ((here?.travelApplied ?? null) === applied) return;
+    window.history.replaceState({ ...here, travelApplied: applied }, '');
+  }, [applied, state]);
 
   // the list answers come from the data module, in the shape a server will answer (principle P9)
   const version = shards ? registerShardedList(d, rows, shards) : registerList(d, rows);
@@ -124,16 +142,34 @@ export function EntityPage<Row>({ type, rows, shards, lede }: Props<Row>) {
   const focusRow = state.focus && d.primary === 'sheet' ? (rows.find((r) => d.id(r) === state.focus) ?? null) : null;
   if (focusRow && !sheetEver) setSheetEver(true); // load the sheet code the first time a row is focused
 
-  // the table's sticky header sits under the sticky filter bar
+  // under 640 px the bar scrolls away and a 52 px summary takes its place once it has (lists-stage4-note section 1)
+  const phone = useMediaQuery('(max-width: 639px)');
+  const sentinel = useRef<HTMLDivElement>(null);
+  const [scrolledPast, setScrolledPast] = useState(false);
+  useEffect(() => {
+    const el = sentinel.current;
+    if (!el || !phone) return;
+    const io = new IntersectionObserver(([e]) => setScrolledPast(!!e && !e.isIntersecting && e.boundingClientRect.top < 56), { rootMargin: '-56px 0px 0px 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [phone]);
+  const compact = phone && scrolledPast;
+
+  // the table's sticky header sits under the sticky filter bar (on a phone, under the summary line while it shows)
   useEffect(() => {
     const el = barRef.current;
     if (!el) return;
-    const set = () => document.documentElement.style.setProperty('--bar-h', `${el.offsetHeight}px`);
+    const set = () => document.documentElement.style.setProperty('--bar-h', phone ? (compact ? '52px' : '0px') : `${el.offsetHeight}px`);
     set();
     const ro = new ResizeObserver(set);
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [phone, compact]);
+
+  const liveReading = applied && stillApplies(state, applied) ? applied : null;
+  const { primary, more } = partitionFacets(d, state, counts);
+  const kindValues = state.facets.k?.length === 1 ? state.facets.k : state.facets.kind?.length === 1 ? state.facets.kind : [];
+  const scopeNoun = kindValues.length === 1 && !state.facets.k?.[1] ? labelOf((state.facets.k?.length ? 'k' : 'kind') as FacetParam, kindValues[0]!).toLowerCase() : d.noun.many;
 
   // a deep link to ?focus=<id> scrolls the row into view once
   const scrolled = useRef<string | null>(null);
@@ -165,11 +201,40 @@ export function EntityPage<Row>({ type, rows, shards, lede }: Props<Row>) {
         <p className="lede">{lede}</p>
       </header>
 
-      <div className="filter-sticky" ref={barRef}>
-        <FilterBar d={d} state={state} counts={counts} labelOf={labelOf} shown={answer ? matched : null} total={answer?.total ?? shards?.total ?? rows.length} searchRef={searchRef} notes={notes} smart={{ applied, onApplied: setApplied, onReading: setReading, slot, holding: reading !== null }} onState={setState} />
+      <div className="filter-sticky bar-phone-flow" ref={barRef}>
+        <FilterBar d={d} state={state} counts={counts} labelOf={labelOf} shown={answer ? matched : null} scope={answer?.scope ?? shards?.total ?? rows.length} scopeNoun={scopeNoun} unchecked={unchecked.reduce((a, g) => a + g.rows.length, 0)} gaps={answer?.gaps ?? {}} searchRef={searchRef} notes={notes} smart={{ applied, onApplied: setApplied, onReading: setReading, slot, holding: reading !== null }} onState={setState} />
       </div>
 
       <div className="smart-slot" ref={setSlot} />
+      <div className="bar-sentinel" ref={sentinel} aria-hidden="true" />
+      {phone ? (
+        <PhoneSummary
+          d={d}
+          state={state}
+          show={compact}
+          shown={answer ? matched : null}
+          counts={counts}
+          gaps={answer?.gaps ?? {}}
+          primary={primary}
+          hasMore={more.length > 0}
+          labelOf={labelOf}
+          reading={liveReading ? { filters: Object.keys(liveReading.parsed.facets).length, undo: () => { setState(undoState(liveReading), 'replace'); setApplied(null); } } : null}
+          setFacet={(param, values) => {
+            const next = { ...state, facets: { ...state.facets }, focus: null };
+            if (values.length) next.facets[param] = values;
+            else {
+              delete next.facets[param];
+              dropDependents(next.facets, d, param);
+            }
+            setState(next, 'push');
+          }}
+          onState={setState}
+          focusSearch={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            searchRef.current?.focus({ preventScroll: true });
+          }}
+        />
+      ) : null}
 
       <section className="results" aria-labelledby="results-heading" data-view={view}>
         <h2 id="results-heading" className="sr-only">
@@ -178,7 +243,7 @@ export function EntityPage<Row>({ type, rows, shards, lede }: Props<Row>) {
         {!answer ? (
           <ListSkeleton view={view} count={pageSize} failed={failed === attempt} onRetry={() => setAttempt((n) => n + 1)} />
         ) : matched === 0 ? (
-          <EmptyState d={d} state={state} labelOf={labelOf} applied={applied} onApplied={setApplied} uncheckedCount={unchecked.reduce((a, g) => a + g.rows.length, 0)} onState={setState} />
+          <EmptyState<Row> d={d} state={state} labelOf={labelOf} applied={applied} onApplied={setApplied} uncheckedCount={unchecked.reduce((a, g) => a + g.rows.length, 0)} onState={setState} />
         ) : view === 'cards' ? (
           <CardsView {...viewProps} />
         ) : view === 'list' ? (

@@ -14,7 +14,7 @@ const row = (over: Partial<TripListRow>): TripListRow => ({ ...base, id: 'x', sl
 
 describe('the Trips filter bar', () => {
   it('has four primary pills: Where, When, Length, Kids; the rest are under More filters', () => {
-    expect(d.facets.filter((f) => f.tier !== 'more').map((f) => f.label)).toEqual(['Where', 'When', 'Length', 'Kids']);
+    expect(d.facets.filter((f) => f.tier !== 'more').map((f) => f.label)).toEqual(['Where', 'When', 'Length', 'Youngest child']);
     expect(d.facets.filter((f) => f.tier === 'more').map((f) => f.label)).toEqual(['Activities', 'Hike effort', 'Stroller days', 'Getting around', 'Driving per day', 'Shape', 'Source', 'From Toronto']);
   });
   it('Where: continents and every country, multi-select, and the URL carries codes', () => {
@@ -35,12 +35,14 @@ describe('the Trips filter bar', () => {
     // the count of an option is what you would get if you chose it, given the other filters
     expect(facetCounts(synthetic, decodeState('length=day&season=7'), d).length!.length).toBeGreaterThanOrEqual(0);
   });
-  it('Kids means "a child of N": plans whose Kids-from is N or less; a plan with no guidance never passes and is counted', () => {
+  it('Youngest child: any plan with age guidance stays and fades when it is above the age; a plan with no guidance never passes and is counted', () => {
     const r = [row({ slug: 'four', ageFit: 4 }), row({ slug: 'seven', ageFit: 7 }), row({ slug: 'eleven', ageFit: 11 }), row({ slug: 'none', ageFit: null })];
-    expect(q('kid=6', r)).toEqual(['four']);
-    expect(q('kid=8', r)).toEqual(['four', 'seven']);
+    expect(q('kid=6', r)).toEqual(['four', 'seven', 'eleven']);
     expect(q('kid=12', r)).toEqual(['four', 'seven', 'eleven']);
-    expect(gapNotes(r, decodeState('kid=8'), d)).toEqual(['1 not checked yet']);
+    expect(d.fade!(r[1]!)).toBe('0 1 2 3 4 5 6');
+    expect(d.fade!(r[1]!)?.split(' ')).not.toContain('7');
+    expect(d.fadeFrom!(r[2]!)).toBe(11);
+    expect(gapNotes(r, decodeState('kid=8'), d)).toEqual(expect.arrayContaining(['1 not checked yet', '1 is a stretch at 8, shown faded']));
   });
   it('More filters: activities, hike effort, getting around and shape filter on the derived tags', () => {
     const r = [row({ slug: 'lake', activities: [{ id: 'lake', label: 'Lake' }], hike: 'easy', around: ['rental-car'], shape: 'road-trip' }), row({ slug: 'none', activities: [], hike: null, around: [], shape: null })];
@@ -68,9 +70,10 @@ describe('the Trips filter bar', () => {
 
 describe('the From Toronto pill (short-trips 3.3, 4.2)', () => {
   const short = (over: Partial<TripListRow>) => row({ length: 'day', lengthClass: 'day', nights: 0, ...over });
-  it('is hidden by the 60% rule while no short trip has a drive time, with no count-line note', () => {
+  it('is hidden by the 60% rule while no short trip has a drive time, and the count line says so', () => {
     expect(facetCounts(rows, decodeState(''), d).drive).toBeUndefined();
-    expect(gapNotes(rows, decodeState(''), d).join(' ')).not.toContain('From Toronto');
+    // named in the count line's "Why these?" since L3b round 1: a facet hidden for want of data is not a silent loss
+    expect(gapNotes(rows, decodeState(''), d).join(' ')).toContain('From Toronto hidden');
   });
   it('shows with a fixture of hub values, filters by band and keeps ≈ for estimates', () => {
     const r = [short({ slug: 'a', fromHubMin: 50 }), short({ slug: 'b', fromHubMin: 85 }), short({ slug: 'c', fromHubMin: 85, fromHubApprox: true }), short({ slug: 'd', fromHubMin: 200 }), row({ slug: 'long', length: '9-14', lengthClass: 'multi-day', fromHubMin: null })];
