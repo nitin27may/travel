@@ -267,6 +267,10 @@ span.globe-pin { cursor: default; }
 .globe-cover { position: relative; width: 100%; height: 100%; min-height: 280px; }
 .globe-cover .globe-canvas { position: absolute; inset: 0; }
 .globe-canvas[data-globe-mode='cover'] .maplibregl-ctrl-bottom-right { z-index: 1; }
+/* The cover wears the /globe attribution in both themes (review S4): a surface chip with ink-2 text, 4.5:1 on dark as well as light. */
+.globe-cover .maplibregl-ctrl-attrib, .globe-cover .maplibregl-ctrl-attrib.maplibregl-compact { background: color-mix(in srgb, var(--surface) 92%, transparent); color: var(--ink-2); border-radius: var(--r-full); font: 400 11.5px/1.6 var(--font-mono); }
+.globe-cover .maplibregl-ctrl-attrib a { color: var(--ink-2); }
+.globe-cover .maplibregl-ctrl-attrib .maplibregl-ctrl-icon { background-color: transparent; }
 
 .globe-feature-near { margin-top: var(--s-2); }
 .globe-feature-near ul { margin: 4px 0 0; padding: 0; list-style: none; }
@@ -309,6 +313,10 @@ span.globe-pin { cursor: default; }
 .globe-root[data-immersive='true'] .globe-options-btn,
 .globe-root[data-immersive='true'] .globe-list-btn,
 .globe-root[data-immersive='true'] .globe-sheet { opacity: 0; pointer-events: none; animation: none; transition: opacity 200ms var(--e-out); }
+/* Truly full screen (review S8): the site header and the phone bottom bar go too, and the globe takes the whole viewport. The Fullscreen API
+   hides the browser's own chrome where it exists; this holds where it does not (iPhone Safari). */
+html[data-globe-immersive='true'] .site-header, html[data-globe-immersive='true'] .bottom-bar { display: none; }
+html[data-globe-immersive='true'] .globe-root { top: 0; bottom: 0; }
 .globe-show-controls { position: absolute; z-index: 9; left: 50%; bottom: 36px; transform: translateX(-50%); min-height: 32px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: var(--r-full); background: var(--surface); color: var(--ink); font: var(--t-meta); cursor: pointer; box-shadow: var(--e-1); animation: globe-show-fade 3s var(--e-std) both; }
 .globe-show-controls:hover, .globe-show-controls:focus-visible { animation: none; opacity: 1; }
 @keyframes globe-show-fade { 0%, 70% { opacity: 1; } 100% { opacity: 0.4; } }
@@ -320,6 +328,12 @@ span.globe-pin { cursor: default; }
 .globe-root .maplibregl-ctrl-attrib.maplibregl-compact-show { max-width: min(520px, 60vw); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .globe-root .maplibregl-ctrl-bottom-right { z-index: 5; }
 .globe-root .maplibregl-ctrl-bottom-right .maplibregl-ctrl { margin: 0 8px 8px 0; }
+/* Phone (review S9): the attribution and the scale bar live on the left, above the sheet's peek, so the bottom sheet never covers the credit
+   and the rail on the right never sits over it. With a card sheet open they ride on top of it. */
+.globe-root[data-phone='true'] .maplibregl-ctrl-bottom-right { right: auto; left: 0; bottom: 184px; }
+.globe-root[data-phone='true']:has(.globe-card-sheet) .maplibregl-ctrl-bottom-right { bottom: calc(var(--globe-card-sheet-h, 50%) + 4px); }
+/* Landscape: the scale bar sits left of Map options and the rail, not under them. */
+@media (max-height: 500px) and (orientation: landscape) { .globe-root .maplibregl-ctrl-bottom-right .maplibregl-ctrl-scale { margin-right: 120px; } }
 
 /* ---------- what is here (spec 4.1 rule 6): a popover at the point on a desktop, a sheet on a phone ---------- */
 .globe-here { --hx: 0; --hy: 0; position: absolute; z-index: 9; left: clamp(8px, calc(var(--hx) * 1px + 12px), calc(100% - 300px)); top: clamp(8px, calc(var(--hy) * 1px + 12px), calc(100% - 292px)); width: 288px; max-height: 280px; overflow: auto; padding: 4px; border-radius: var(--r-4); background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--e-2); animation: globe-card-in 200ms var(--e-out) both; }

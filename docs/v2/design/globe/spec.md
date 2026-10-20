@@ -119,6 +119,13 @@ open panel; every "centred" element centres on the free width, so opening the pa
 left over 200 ms `--e-out` (L2 already does this for the hint). The crumb chip and the phone icon rail share one
 baseline above the sheet peek; the crumb truncates to "… › last" before it can touch the rail.
 
+**Landscape card dock (accepted 19 Oct 2026, review L2b ruling 1).** At 1024 wide and on a landscape phone (844 x 390) the
+selection card is a left dock instead of a card riding on its pin or a right sheet: it keeps the right panel and the pin
+visible, which a right sheet could not. The dock starts 8 px under the crumb's measured bottom (`--globe-dock-top`), its
+actions row is a sticky footer so "Open place" never scrolls away, the photo is 64 px in landscape, and the panel drops to
+its tab while a card is open. The attribution and the scale bar are never under it: on a phone they sit on the left and ride
+above the card sheet (`--globe-card-sheet-h`), in landscape the scale bar sits left of Map options and the rail.
+
 ### 3.3 Collapse and expand
 
 - The panel tab (44 x 96, right edge) shows a chevron and the count of what is listed ("51"). Click or Enter opens it;
@@ -132,10 +139,12 @@ baseline above the sheet peek; the crumb truncates to "… › last" before it c
 
 ### 3.4 Immersive mode
 
-A button in the control card ("Hide controls", keyboard `.`) and a double-tap on empty ocean toggle immersive: every
+A button in the control card ("Hide controls", keyboard `.`) toggle immersive (no double-tap: it is MapLibre's zoom on touch, 4.1 rule 5): every
 floating element fades out over 200 ms except attribution (always visible, legal) and a 32 px "Show controls" pill
 bottom-centre that itself fades to 40% after 3 s and returns to 100% on pointer move. Immersive is off on load, not in
-the URL, and ends on Esc, on any search shortcut, or when a card opens.
+the URL, and ends on Esc, on any search shortcut, or when a card opens. Immersive is full screen (review S8): the site header
+and the phone bottom bar collapse (`html[data-globe-immersive]`) and the globe takes the whole viewport; where the browser has the
+Fullscreen API it also takes the browser's own chrome, and leaving full screen with the browser's key ends immersive.
 
 ## 4. Interaction model
 
