@@ -75,10 +75,10 @@ function makeCtx(input: ScheduleDayInput, profile: Profile): Ctx {
 }
 
 const legText = (r: ResolvedLeg): string =>
-  r.basis === "routed" ? "Routed road time" : r.basis === "plan" ? "From the plan" : r.basis === "matrix" ? "The plan's drive table" : r.km === null ? "Not known; a local move" : "A straight line scaled to a road time";
+  ({ routed: "Routed road time", plan: "From the plan", matrix: "The plan's drive table", estimate: r.km === null ? "A local move" : "A straight line scaled to a road time" })[r.basis];
 
-type PushIn = Omit<TimelineEntry, "id" | "day" | "tz" | "lane" | "optional" | "addedBy" | "honesty" | "sourceItemId" | "end"> &
-  Partial<Pick<TimelineEntry, "id" | "lane" | "optional" | "addedBy" | "honesty" | "sourceItemId">>;
+type PushIn = Omit<TimelineEntry, "id" | "day" | "tz" | "lane" | "optional" | "addedBy" | "honesty" | "sourceItemId" | "end" | "at" | "from" | "to"> &
+  Partial<Pick<TimelineEntry, "id" | "lane" | "optional" | "addedBy" | "honesty" | "sourceItemId" | "at" | "from" | "to">>;
 
 /** One lane from start to end. `squeeze` 1 shortens meals, 2 also drops generated breaks (spec 2.9 steps 6 and 7). */
 function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneOpts): LaneResult {
@@ -103,7 +103,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
   };
   const push = (e: PushIn): TimelineEntry => {
     const entry: TimelineEntry = {
-      day: input.day, lane: current, tz: input.tz, optional: false, addedBy: "scheduler", honesty: [], sourceItemId: null, ...e, id: e.id ?? nextId(e.kind, e.sub), end: "",
+      day: input.day, lane: current, tz: input.tz, optional: false, addedBy: "scheduler", honesty: [], sourceItemId: null, at: null, from: null, to: null, ...e, id: e.id ?? nextId(e.kind, e.sub), end: "",
     };
     entry.end = clock(m(entry.start) + entry.durationMin);
     entries.push(entry);
@@ -142,7 +142,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
   const addRest = (minutes: number, sub: string, title: string, at: PlaceRef | null): void => {
     minutes -= align();
     if (minutes <= 0) return;
-    push({ kind: "rest", sub, title, start: clock(t), durationMin: minutes, at, from: null, to: null, time: ruleTime(), duration: { source: "rule", basis: "the gap between entries" } });
+    push({ kind: "rest", sub, title, start: clock(t), durationMin: minutes, at, time: ruleTime(), duration: { source: "rule", basis: "the gap between entries" } });
     t += minutes;
     lastKind = "rest";
   };
@@ -152,7 +152,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     if (o.squeeze >= 2) return false;
     align();
     if (deadline !== null && t + minutes > deadline) return false;
-    push({ kind: "break", sub, title, start: clock(t), durationMin: minutes, at, from: null, to: null, time: ruleTime(), duration: ruleDur(`break.${sub}`, minutes) });
+    push({ kind: "break", sub, title, start: clock(t), durationMin: minutes, at, time: ruleTime(), duration: ruleDur(`break.${sub}`, minutes) });
     t += minutes;
     lastKind = "break";
     return true;
@@ -160,11 +160,14 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
 
   const addLeg = (toRef: PlaceRef | null, r: ResolvedLeg, title: string): void => {
     const from = lastPlace();
+    // a way through the base reads as one leg "via Jasper"; the second half of a split drive carries on, it does not start again
+    if (r.via && input.base) title += ` via ${input.base.name}`;
+    const rest = title.replace(/^Drive to /, "Drive on to ");
     const src: TimeSource = r.basis === "routed" ? "data" : r.basis === "plan" ? "plan" : "rule";
     const honesty: TimelineEntry["honesty"] = r.mode === "drive" && r.basis !== "routed" ? ["drive_estimated"] : [];
-    const part = (minutes: number, breaks: number): void => {
+    const part = (minutes: number, breaks: number, name = title): void => {
       push({
-        kind: "leg", sub: r.mode, title, start: clock(t), durationMin: minutes, at: null, from, to: toRef,
+        kind: "leg", sub: r.mode, title: name, start: clock(t), durationMin: minutes, at: null, from, to: toRef,
         time: { confidence: "suggested", source: src, pinned: false, note: null }, duration: { source: src, basis: legText(r) },
         leg: { mode: r.mode, km: r.km, basis: r.basis, breaks }, honesty: [...honesty],
       });
@@ -174,9 +177,9 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       const first = Math.max(5, Math.round(r.minutes / 10) * 5);
       part(first, 1);
       align();
-      push({ kind: "break", sub: "leg-stretch", title: "Stretch break", start: clock(t), durationMin: 15, at: null, from: null, to: null, time: ruleTime(), duration: ruleDur("break.leg-stretch", 15) });
+      push({ kind: "break", sub: "leg-stretch", title: "Stretch break", start: clock(t), durationMin: 15, at: null, time: ruleTime(), duration: ruleDur("break.leg-stretch", 15) });
       t += 15;
-      part(r.minutes - first, 1);
+      part(r.minutes - first, 1, rest);
     } else part(r.minutes, 0);
     lastKind = "leg";
   };
@@ -194,7 +197,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     if (maxMin !== null) minutes = Math.min(minutes, maxMin);
     const title = which === "dinner" ? (at ? `Dinner in ${at.name}` : "Dinner") : st === "picnic" ? "Picnic lunch" : "Lunch";
     push({
-      kind: "meal", sub: which, style: st, title, start: clock(t), durationMin: minutes, at, from: null, to: null,
+      kind: "meal", sub: which, style: st, title, start: clock(t), durationMin: minutes, at,
       time: { confidence: "suggested", source: "rule", pinned: false, window: { from: fmtMin(w.from), to: fmtMin(w.to), why: `${profile.party === "family" ? "family" : "adult"} ${which} window` }, note: null },
       duration: ruleDur(id, minutes),
     });
@@ -219,7 +222,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     if (start - t > REST_THRESHOLD_MIN) addRest(start - t, "free-time", "Free time before check-in", ref);
     else t = start;
     push({
-      kind: "checkin", sub: "stay", title: early ? `Drop bags, ${ref?.name ?? "your stay"}` : `Check in, ${ref?.name ?? "your stay"}`, start: clock(t), durationMin: minutes, at: ref, from: null, to: null,
+      kind: "checkin", sub: "stay", title: early ? `Drop bags, ${ref?.name ?? "your stay"}` : `Check in, ${ref?.name ?? "your stay"}`, start: clock(t), durationMin: minutes, at: ref,
       time: ruleTime("From 15:00 unless your stay says otherwise"), duration: ruleDur("checkin", minutes),
     });
     t += minutes;
@@ -303,20 +306,20 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     const defaultTitle = sub === "land" ? "Land and head out" : sub === "leave-home" ? "Leave home" : input.base ? `Leave ${input.base.name}` : "Start the day";
     t = startMin;
     push({
-      kind: "start", sub, title: input.start?.label ?? defaultTitle, start: clock(startMin), durationMin: 0, at: where, from: null, to: null,
+      kind: "start", sub, title: input.start?.label ?? defaultTitle, start: clock(startMin), durationMin: 0, at: where,
       time: { confidence: "suggested", source, pinned, note: note ?? (input.base || input.origin ? null : "Start point not set") }, duration: { source: "rule", basis: "a moment, not a duration" },
     });
     lastKind = "start";
     loc = startEnd;
     if (input.kind === "arrival") {
       const r = rule("arrival.car-hire");
-      push({ kind: "visit", sub: "car-hire", title: "Collect the hire car", start: clock(t), durationMin: r.minutes, at: where, from: null, to: null, time: ruleTime(), duration: ruleDur("arrival.car-hire", r.minutes) });
+      push({ kind: "visit", sub: "car-hire", title: "Collect the hire car", start: clock(t), durationMin: r.minutes, at: where, time: ruleTime(), duration: ruleDur("arrival.car-hire", r.minutes) });
       t += r.minutes;
       lastKind = "visit";
     }
     if (input.kind === "departure") {
       const r = rule("checkout");
-      push({ kind: "checkout", sub: "stay", title: input.base ? `Check out of ${input.base.name}` : "Check out", start: clock(t), durationMin: r.minutes, at: baseRef, from: null, to: null, time: ruleTime(), duration: ruleDur("checkout", r.minutes) });
+      push({ kind: "checkout", sub: "stay", title: input.base ? `Check out of ${input.base.name}` : "Check out", start: clock(t), durationMin: r.minutes, at: baseRef, time: ruleTime(), duration: ruleDur("checkout", r.minutes) });
       t += r.minutes;
       lastKind = "checkout";
     }
@@ -437,7 +440,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       }
       if (checkin) {
         push({
-          kind: "booking", sub: "slot", title: `Check in for ${it.title}`, start: clock(gateT), durationMin: checkin, at: placeOf(it), from: null, to: null,
+          kind: "booking", sub: "slot", title: `Check in for ${it.title}`, start: clock(gateT), durationMin: checkin, at: placeOf(it),
           time: { confidence: "fixed", source: it.start?.source === "operator" ? "operator" : "rule", pinned: true, note: `Arrive ${checkin} min before the slot` },
           duration: ruleDur("booking.checkin", checkin), bookingOf: it.id,
         });
@@ -447,7 +450,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       const buffer = !leg && lastKind !== null && lastKind !== "start" && lastKind !== "rest" && lastKind !== "leg" ? 5 : 0;
       s0 = ceil5(arrive + walkIn + buffer);
       if (it.start && o.released.has(it.id)) {
-        warnings.push({ code: "S_FIXED_MISSED", entryId: it.id, lane: current, message: `${it.title} moves from ${it.start.time} to about ${fmtMin(s0)}: what comes before it takes longer.` });
+        warnings.push({ code: "S_FIXED_MISSED", entryId: it.id, lane: current, message: `${it.title} moves from ${it.start.time} to about ${fmtMin(s0)}: earlier stops take longer.` });
       }
       const open = it.window?.from ? m(it.window.from) : 0;
       if (open > s0) {
@@ -473,14 +476,14 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     };
     t = s0;
     push({
-      id: it.id, kind: it.kind as EntryKind, sub: it.sub, title: it.title, start: clock(s0), durationMin: duration, at: placeOf(it), from: null, to: null, time,
+      id: it.id, kind: it.kind as EntryKind, sub: it.sub, title: it.title, start: clock(s0), durationMin: duration, at: placeOf(it), time,
       duration: { source: D.source, basis: D.basis }, ...(it.kind === "trail" || it.stats ? { stats: { distanceKm: it.stats?.distanceKm ?? null, gainM: it.stats?.gainM ?? null } } : {}),
       optional: it.optional, addedBy: stop.addedBy, sourceItemId: it.id, honesty: [...it.honesty, ...(D.unknown ? (["not_known"] as const) : [])],
     });
     t = s0 + duration;
     if (onTrailAt !== null) {
       push({
-        kind: "meal", sub: "lunch", style: "on-trail", title: "Packed lunch on the trail", start: clock(onTrailAt), durationMin: 0, at: placeOf(it), from: null, to: null,
+        kind: "meal", sub: "lunch", style: "on-trail", title: "Packed lunch on the trail", start: clock(onTrailAt), durationMin: 0, at: placeOf(it),
         time: { confidence: "suggested", source: "rule", pinned: false, note: null, window: { from: fmtMin(L.from), to: fmtMin(L.to), why: "lunch window" } },
         duration: { source: "rule", basis: "eaten on the trail, inside the walk" }, insideOf: it.id,
       });
@@ -523,7 +526,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     const title = input.kind === "departure" ? "At the airport 3 h before an international flight" : startsAtOrigin ? "Home again" : ref ? `Back at ${ref.name}` : "End of the day";
     align();
     push({
-      kind: "end", sub, title, start: clock(t), durationMin: 0, at: ref, from: null, to: null,
+      kind: "end", sub, title, start: clock(t), durationMin: 0, at: ref,
       time: { confidence: "suggested", source: "rule", pinned: false, note: null, ...(input.homeBy ? { window: { from: null, to: input.homeBy, why: "home by" } } : {}) },
       duration: { source: "rule", basis: "a moment, not a duration" },
     });
@@ -641,6 +644,17 @@ export const adultsOf = (p: Profile): Profile => ({ ...p, party: "adults", young
 
 const partOfDay = (min: number): "Morning" | "Afternoon" | "Evening" => (min < 12 * 60 ? "Morning" : min < 17 * 60 ? "Afternoon" : "Evening");
 
+const sumBy = (es: TimelineEntry[], f: (e: TimelineEntry) => number): number => es.reduce((n, e) => n + f(e), 0);
+const totalsOf = (es: TimelineEntry[], active: (e: TimelineEntry) => boolean): DayTimeline["totals"] => {
+  const trails = es.filter((e) => e.kind === "trail");
+  return {
+    activeMin: sumBy(es.filter((e) => !e.optional && active(e)), (e) => e.durationMin),
+    driveMin: sumBy(es.filter((e) => e.kind === "leg" && e.leg?.mode === "drive"), (e) => e.durationMin),
+    walkKm: Math.round(sumBy(trails, (e) => e.stats?.distanceKm ?? 0) * 10) / 10,
+    gainM: sumBy(trails, (e) => e.stats?.gainM ?? 0),
+  };
+};
+
 /** A condensed plan (design 9): the plan's own stops in order with a part of the day, a flight or transfer where it names one, and nothing invented. */
 function blocksDay(input: ScheduleDayInput, profile: Profile, opts: ScheduleOptions, sel: ReturnType<typeof selectVariant>): DayTimeline {
   const entries: TimelineEntry[] = [];
@@ -657,11 +671,10 @@ function blocksDay(input: ScheduleDayInput, profile: Profile, opts: ScheduleOpti
     }));
     t += D.minutes;
   });
-  const sum = (f: (e: TimelineEntry) => boolean) => entries.filter(f).reduce((n, e) => n + e.durationMin, 0);
   const tl: DayTimeline = {
     day: input.day, variant: { key: sel.variant.key, label: sel.variant.label, chosenBy: sel.chosenBy, reason: sel.reason }, lanes: ["all"], entries,
     span: { start: "09:00", end: clock(t), minutes: t - 9 * 60 },
-    totals: { activeMin: sum((e) => !e.optional), driveMin: sum((e) => e.kind === "leg" && e.leg?.mode === "drive"), walkKm: Math.round(entries.filter((e) => e.kind === "trail").reduce((n, e) => n + (e.stats?.distanceKm ?? 0), 0) * 10) / 10, gainM: entries.filter((e) => e.kind === "trail").reduce((n, e) => n + (e.stats?.gainM ?? 0), 0) },
+    totals: totalsOf(entries, () => true),
     warnings: [], fits: sel.fits, notes: sel.fits ? [] : [{ kind: "no-fit", text: sel.reason }], blocks: true,
   };
   tl.warnings = validateDay(tl, input, profile, null, new Map(items.map((i) => [i.id, i])), "all");
@@ -682,7 +695,8 @@ export function scheduleDay(input: ScheduleDayInput, profile: Profile, opts: Sch
   const rejoin = sel.parallel?.rejoin ?? sel.variant.rejoin ?? null;
   const splitDrawn = profile.split && sel.parallel !== null && rejoin !== null;
   const mainLabel: Lane = splitDrawn ? (sel.variant.key === "main" ? "B" : (sel.variant.key as Lane)) : "all";
-  if (splitDrawn && rejoin) {
+  // the wait for the other adult is part of the day whichever view is shown: a view switch must not change the plan (L3c I-1)
+  if (sel.parallel && rejoin) {
     const idx = rejoin.afterItem ? stops.findIndex((s) => s.item.id === rejoin.afterItem) : -1;
     const at = idx >= 0 ? idx + 1 : stops.length;
     stops = [...stops.slice(0, at), { item: rejoinItem(input.day, rejoin.place, rejoin.time), addedBy: "author", isRejoin: true }, ...stops.slice(at)];
@@ -721,12 +735,7 @@ export function scheduleDay(input: ScheduleDayInput, profile: Profile, opts: Sch
   const startM = Math.min(...real.map((e) => m(e.start)));
   const endM = Math.max(...real.filter(partyLane).map((e) => m(e.start) + e.durationMin));
   const span = { start: fmtMin(startM), end: clock(endM), minutes: endM - startM };
-  const totals = {
-    activeMin: real.filter((e) => partyLane(e) && !e.optional && (e.kind === "visit" || e.kind === "trail" || e.kind === "leg")).reduce((s, e) => s + e.durationMin, 0),
-    driveMin: real.filter((e) => partyLane(e) && e.kind === "leg" && e.leg?.mode === "drive").reduce((s, e) => s + e.durationMin, 0),
-    walkKm: Math.round(real.filter((e) => partyLane(e) && e.kind === "trail").reduce((s, e) => s + (e.stats?.distanceKm ?? 0), 0) * 10) / 10,
-    gainM: real.filter((e) => partyLane(e) && e.kind === "trail").reduce((s, e) => s + (e.stats?.gainM ?? 0), 0),
-  };
+  const totals = totalsOf(real.filter(partyLane), (e) => e.kind === "visit" || e.kind === "trail" || e.kind === "leg");
   if (!sel.fits) notes.unshift({ kind: "no-fit", text: sel.reason });
 
   const timeline: DayTimeline = {
