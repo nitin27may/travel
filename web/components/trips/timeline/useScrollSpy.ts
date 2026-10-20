@@ -7,6 +7,8 @@ const SETTLE_MS = 140;
 const SETTLE_NO_SCROLL_MS = 300;
 const SETTLE_CAP_MS = 3000;
 const PIN_SLACK_PX = 4;
+/** How long a pick may wait for its `goTo` before a settling scroll is allowed to write the URL again. */
+const HOLD_MS = 1000;
 /** After a jump lands, layout can still move above the target (the scheduler loads, images size); for this long it is re-aligned. */
 const REALIGN_MS = 2500;
 
@@ -28,6 +30,12 @@ export interface Spy<K> {
   reached: K | null;
   /** Scroll to an element and make `key` current at once; the spy ignores the scroll until it settles. `key` null for an anchor that is not an item. */
   goTo: (el: HTMLElement, key: K | null, instant?: boolean) => void;
+  /**
+   * Call the moment a pick is made, before its scroll starts (the URL change reaches `goTo` a frame later). A scroll the visitor made
+   * just before the pick may still be waiting to settle; without this it settles after the click and writes its own section into
+   * the URL over the pick, so the page stays where it was.
+   */
+  hold: () => void;
 }
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -46,7 +54,7 @@ export function useScrollSpy<K extends string | number>(opts: Options<K>): Spy<K
   useEffect(() => {
     o.current = opts;
   });
-  const s = useRef({ locked: false, pin: null as { key: K | null; y: number; el: HTMLElement; until: number } | null, cancelSettle: null as (() => void) | null });
+  const s = useRef({ locked: false, holdUntil: 0, pin: null as { key: K | null; y: number; el: HTMLElement; until: number } | null, cancelSettle: null as (() => void) | null });
 
   /** All the reads for one pass, together: bars, then every item's rect. Also publishes the bar height for `scroll-margin-top`. */
   const read = useCallback(() => {
@@ -98,7 +106,7 @@ export function useScrollSpy<K extends string | number>(opts: Options<K>): Spy<K
       schedule();
       window.clearTimeout(settleTimer);
       settleTimer = window.setTimeout(() => {
-        if (st.locked) return;
+        if (st.locked || performance.now() < st.holdUntil) return;
         const key = apply();
         // a pinned position is the visitor's own jump or anchor, not a scroll to follow
         if (!st.pin) o.current.onSettle?.(key);
@@ -122,6 +130,7 @@ export function useScrollSpy<K extends string | number>(opts: Options<K>): Spy<K
       if (st.pin) st.pin.until = 0;
     };
     window.addEventListener('wheel', release, { passive: true });
+    window.addEventListener('pointerdown', release, { passive: true });
     window.addEventListener('touchstart', release, { passive: true });
     window.addEventListener('keydown', release);
     schedule();
@@ -130,6 +139,7 @@ export function useScrollSpy<K extends string | number>(opts: Options<K>): Spy<K
     return () => {
       realign.disconnect();
       window.removeEventListener('wheel', release);
+      window.removeEventListener('pointerdown', release);
       window.removeEventListener('touchstart', release);
       window.removeEventListener('keydown', release);
       window.removeEventListener('scroll', onScroll);
@@ -148,6 +158,7 @@ export function useScrollSpy<K extends string | number>(opts: Options<K>): Spy<K
     (el: HTMLElement, key: K | null, instant = false) => {
       const st = s.current;
       st.cancelSettle?.();
+      st.holdUntil = 0;
       read(); // publish the bar height before the browser computes the scroll target
       st.locked = true;
       st.pin = null;
@@ -182,5 +193,9 @@ export function useScrollSpy<K extends string | number>(opts: Options<K>): Spy<K
     [apply, read],
   );
 
-  return { current: reached ?? first, reached, goTo };
+  const hold = useCallback(() => {
+    s.current.holdUntil = performance.now() + HOLD_MS;
+  }, []);
+
+  return { current: reached ?? first, reached, goTo, hold };
 }

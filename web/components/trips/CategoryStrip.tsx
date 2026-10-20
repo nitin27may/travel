@@ -24,7 +24,7 @@ export function CategoryStrip({ sections, active, sticky, onPick }: Props) {
     if (!chip) return;
     const b = box.current;
     const left = chip.offsetLeft - 16;
-    if (left < b.scrollLeft || chip.offsetLeft + chip.offsetWidth > b.scrollLeft + b.clientWidth) b.scrollTo({ left, behavior: 'smooth' });
+    if (left < b.scrollLeft || chip.offsetLeft + chip.offsetWidth > b.scrollLeft + b.clientWidth) b.scrollTo({ left, behavior: 'auto' }); // instant: a gliding strip moves the chip out from under a tap in flight (a tap landed between chips and did nothing)
   }, [active]);
   return (
     <nav className="cat-strip" data-print="hide" aria-label="Categories in this trip" data-sticky={sticky || undefined}>

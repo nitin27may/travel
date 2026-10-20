@@ -207,6 +207,26 @@ test('By category: the chip follows the section at the top, and Back is not walk
   await expect(page.locator('.cat-chip[aria-current="true"]')).toHaveAttribute('data-cat-chip', ids[1]!);
 });
 
+// The race behind a load-only failure: a scroll made just before a chip click settles after the click and wrote its own section over the pick.
+test('By category: a chip clicked while the last scroll is still settling keeps its pick', async ({ page, site }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(`${site.url}${TRIPS[0]}?view=category`);
+  await page.locator('section[data-cat]').first().waitFor();
+  const ids = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('section[data-cat]')].map((e) => e.dataset.cat!));
+  for (const wait of [60, 100, 125, 135, 140, 145, 160]) {
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(500);
+    // click from inside the page, so the delay between the scroll and the click is exact
+    await page.evaluate(([ms, id]) => new Promise<void>((done) => {
+      window.scrollTo(0, document.documentElement.scrollHeight);
+      window.setTimeout(() => { document.querySelector<HTMLElement>(`[data-cat-chip="${id}"]`)!.click(); done(); }, ms);
+    }), [wait, ids[1]!] as const);
+    await settled(page);
+    await expect(page.locator('.cat-chip[aria-current="true"]'), `click ${wait} ms after the scroll`).toHaveAttribute('data-cat-chip', ids[1]!);
+    expect(await page.evaluate(() => location.hash), `hash after ${wait} ms`).toBe(`#${ids[1]}`);
+  }
+});
+
 test('axe after scrolling the trip page', async ({ page, site }, info) => {
   test.skip(info.project.name !== 'chromium', 'axe runs on Chromium, as in a11y.spec.ts; the gallery tile name mismatch on WebKit is not this change');
   await page.goto(`${site.url}${TRIPS[0]}`);
