@@ -3,10 +3,8 @@
   "id": 1,
   "query": "easy hike with kids near Banff in September",
   "target": "places",
-  "url": "country=CA&region=alberta&area=banff&k=nature.trail&season=9&kid=yes&effort=stroll,easy",
-  "dym": [
-   "Banff National Park"
-  ]
+  "url": "country=CA&region=alberta&area=banff,banff-national-park&k=nature.trail&season=9&effort=stroll,easy",
+  "ask": true
  },
  {
   "id": 2,
@@ -33,7 +31,7 @@
   "id": 5,
   "query": "via ferrata for a 12 year old in the Dolomites",
   "target": "places",
-  "url": "country=IT&region=south-tyrol&area=dolomites&k=mountain.ferrata&kid=12"
+  "url": "country=IT&area=dolomites,alpe-di-siusi,alta-badia,alta-pusteria,bolzano,braies,sesto,val-dega,val-di-funes,val-gardena,val-pusteria,belluno,sella,ampezzo,auronzo,cadore,falzarego,misurina&k=mountain.ferrata&kid=12"
  },
  {
   "id": 6,
@@ -69,7 +67,7 @@
   "id": 10,
   "query": "viewpoint for sunset in the Dolomites",
   "target": "places",
-  "url": "country=IT&region=south-tyrol&area=dolomites&k=nature.viewpoint&f.best-time-of-day=sunset"
+  "url": "country=IT&area=dolomites,alpe-di-siusi,alta-badia,alta-pusteria,bolzano,braies,sesto,val-dega,val-di-funes,val-gardena,val-pusteria,belluno,sella,ampezzo,auronzo,cadore,falzarego,misurina&k=nature.viewpoint&f.best-time-of-day=sunset"
  },
  {
   "id": 11,
@@ -133,13 +131,14 @@
   "id": 20,
   "query": "rainy day things to do with kids in Banff",
   "target": "places",
-  "url": "country=CA&region=alberta&area=banff&k=intent:do&f.indoor-or-rainy-day=yes&kid=yes"
+  "url": "country=CA&region=alberta&area=banff,banff-national-park&k=intent:do&f.indoor-or-rainy-day=yes",
+  "ask": true
  },
  {
   "id": 21,
   "query": "free things to do near Lake Louise",
   "target": "places",
-  "url": "country=CA&region=alberta&area=banff-national-park&k=intent:do&f.price-band=free"
+  "url": "country=CA&region=alberta&area=banff-national-park,banff&k=intent:do&f.price-band=free"
  },
  {
   "id": 22,
@@ -157,13 +156,14 @@
   "id": 24,
   "query": "stroll near Lake Louise",
   "target": "places",
-  "url": "country=CA&region=alberta&area=banff-national-park&k=nature.trail&effort=stroll"
+  "url": "country=CA&region=alberta&area=banff-national-park,banff&k=nature.trail&effort=stroll"
  },
  {
   "id": 25,
   "query": "kid friendly waterfalls in Ontario",
   "target": "places",
-  "url": "country=CA&region=ontario&k=water.falls&kid=yes"
+  "url": "country=CA&region=ontario&k=water.falls",
+  "ask": true
  },
  {
   "id": 26,
@@ -191,15 +191,9 @@
   "id": 29,
   "query": "waterfalls worth the journey in Patagonia",
   "target": "places",
-  "url": "k=water.falls",
+  "url": "country=AR&area=el-calafate,el-chalten,ushuaia&k=water.falls",
   "notYet": [
    "worth the journey"
-  ],
-  "dym": [
-   "Argentine Patagonia"
-  ],
-  "unused": [
-   "patagonia"
   ]
  },
  {

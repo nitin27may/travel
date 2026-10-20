@@ -1,9 +1,10 @@
 // The query parser (smart-search section 4). Pure: parse(q, vocab, records) has no I/O and no clock, so a server can run it unchanged.
 // Pipeline: normalise -> names after "in/near" -> figures -> vocabulary phrases (longest first) -> names without a preposition -> resolve.
+import { controlLabel } from '@/lib/format/age';
 import { normalize } from '@/lib/search/normalize';
 import type { SearchRecord } from '@/lib/search/types';
-import { indexNames, placeArea, resolveName } from './areas';
-import type { Area, NameHit } from './areas';
+import { indexNames, placeArea, relatedAreas, resolveName, resolveRange } from './areas';
+import type { Area, NameHit, RangeHit } from './areas';
 import {
   DECISIONS, CLIMB_BANDS, CLIMB_WORDS, HUB_MAX, LENGTH_BANDS, TIME_BANDS, TRIP_EFFORT, TRIP_LENGTH_LABEL, figure, lengthClass, monthRange, monthShort, oneEdit, pickBands, splitFused, } from './grammar';
 import type { BandPick, Mod } from './grammar';
@@ -23,7 +24,16 @@ interface Index {
 
 /** One thing the words said, before it becomes a chip. `weak` is a reading that gives way to a stronger one (A2). */
 interface Raw { param: string; value: string; from: number; to: number; label?: string; weak?: boolean }
-interface Where { area: Area; others: Area[]; from: number; to: number; place?: SearchRecord }
+interface Where {
+  area: Area;
+  others: Area[];
+  from: number;
+  to: number;
+  place?: SearchRecord;
+  /** Every area path the place word stands for (smart-search 4.20, 4.21): the area, the areas that carry its name, the places of a range. */
+  union: string[][];
+  range?: RangeHit;
+}
 interface Span { text: string; from: number; to: number }
 
 const vocabCache = new WeakMap<VocabFile, Index>();
@@ -137,11 +147,24 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
     const rec: SearchRecord = { k: 'area', h: `/globe/${code.toLowerCase()}/`, n: vocab.c[code]!, s: 'Country', x: '' };
     return { kind: 'area', area: { rec, path: [code.toLowerCase()], norm: text, places: 0 }, others: [] };
   };
+  /** The area, then the areas that carry its name (Banff, Banff National Park), then the areas of the range the same word names (Dolomites). */
+  const unionOf = (a: Area, range: RangeHit | null): string[][] => {
+    const all = new Map<string, string[]>();
+    for (const path of [a.path, ...relatedAreas(names, a).map((r) => r.path), ...(range?.paths.map((p) => p.split('/')) ?? [])]) all.set(path.join('/'), path);
+    return [...all.values()];
+  };
   const addWhere = (hit: NameHit, from: number, to: number, text: string) => {
-    if (hit.kind === 'area') wheres.push({ area: hit.area, others: hit.others, from, to });
-    else if (hit.kind === 'place') {
+    if (hit.kind === 'area') {
+      const range = resolveRange(names, text);
+      const union = unionOf(hit.area, range);
+      wheres.push({ area: hit.area, others: hit.others.filter((o) => !union.some((p) => p.join('/') === o.path.join('/'))), from, to, union, range: range ?? undefined });
+    } else if (hit.kind === 'range') {
+      const union = hit.range.paths.map((p) => p.split('/'));
+      const area: Area = { rec: { k: 'area', h: '', n: hit.range.name, s: 'Range', x: '' }, path: [], norm: text, places: 0 };
+      wheres.push({ area, others: [], from, to, union, range: hit.range });
+    } else if (hit.kind === 'place') {
       const a = placeArea(names, hit.rec);
-      if (a) wheres.push({ area: a, others: [], from, to, place: hit.rec });
+      if (a) wheres.push({ area: a, others: [], from, to, place: hit.rec, union: unionOf(a, null) });
       else placeLike.push({ text, from, to });
     } else placeLike.push({ text, from, to });
   };
@@ -305,7 +328,8 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
   const tripsSignal = has((r) => TRIPS_ONLY.includes(r.param) || r.param === '$trips');
   const placesSignal = has((r) => (r.param === 'k' && !r.weak) || r.param.startsWith('f.') || r.param === '$duration' || (r.param === 'stroller' && r.value === 'all-terrain'));
   const target: 'places' | 'trips' = opts.target ?? (tripsSignal && !placesSignal ? 'trips' : 'places');
-  const offerTrips = !opts.target && tripsSignal && placesSignal;
+  // a trip-shaped ask on the Places box ('10 days') is offered to Trips with one link, never filtered as text
+  const offerTrips = tripsSignal && (opts.target === 'places' || (!opts.target && placesSignal));
   const otherList = (r: Raw) => (target === 'places' ? TRIPS_ONLY.includes(r.param) : r.param === 'k' || r.param.startsWith('f.') || r.param === '$duration');
 
   const chips: Chip[] = [];
@@ -327,33 +351,49 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
     const parent = a.path.length === 2 ? countryName(a.path[0]!) : (names.byPath.get(a.path.slice(0, -1).join('/'))?.rec.n ?? '');
     return parent ? `${a.rec.n}, ${parent}` : a.rec.n;
   };
-  const setOf = (a: Area): Record<string, string[]> => {
-    const set: Record<string, string[]> = { country: [a.path[0]!.toUpperCase()] };
+  /** The URL keys for a set of area paths: one country when they share it, the regions when they share one, every area. */
+  const setOfPaths = (paths: string[][]): Record<string, string[]> => {
+    const set: Record<string, string[]> = {};
+    const countries = uniq(paths.map((p) => p[0]!));
+    if (countries.length === 1) set.country = [countries[0]!.toUpperCase()];
     if (target === 'places') {
-      if (a.path[1]) set.region = [a.path[1]];
-      if (a.path[2]) set.area = [a.path[2]];
+      const regions = uniq(paths.filter((p) => p.length > 1).map((p) => p[1]!));
+      const areas = uniq(paths.filter((p) => p.length > 2).map((p) => p[2]!));
+      if (regions.length === 1) set.region = regions;
+      if (areas.length) set.area = areas;
     }
     return set;
+  };
+  /** What the chip says it matched: "Banff area, Alberta" when areas that carry the name joined, "Dolomites range (18 areas)" for a range. */
+  const whereLabel = (w: Where): string => {
+    if (w.range) return `${w.range.name} range (${w.union.length} areas)`;
+    const base = areaLabel(w.area);
+    return w.union.length > 1 && !w.place ? base.replace(w.area.rec.n, `${w.area.rec.n} area`) : base;
   };
 
   // where
   let country: string | null = null;
-  const places = uniq(wheres.map((w) => w.area.path[0]!));
-  if (places.length > 1) {
+  const placeCountries = uniq(wheres.flatMap((w) => w.union.map((p) => p[0]!)));
+  if (wheres.length > 1 && placeCountries.length > 1) {
     // A12: two countries cannot both hold: apply neither and offer each
     for (const w of wheres) lefts.push({ text: text(w.from, w.to), from: w.from, to: w.to });
-    for (const w of wheres) dym.area.push({ label: areaLabel(w.area), href: hrefFor(target, setOf(w.area), '') });
+    for (const w of wheres) dym.area.push({ label: whereLabel(w), href: hrefFor(target, setOfPaths(w.union), '') });
   } else if (wheres.length) {
     const w = wheres[0]!;
-    country = w.area.path[0]!.toUpperCase();
-    let label = areaLabel(w.area);
-    if (target === 'trips' && w.area.path.length > 1) {
-      // trips have no region facet: the country is applied and the name stays as text (A6)
-      q.push(normalize(w.area.rec.n));
-      label = `${countryName(country)} (“${w.area.rec.n}” as text)`;
+    const countries = uniq(w.union.map((p) => p[0]!));
+    country = countries.length === 1 ? countries[0]!.toUpperCase() : null;
+    let label = whereLabel(w);
+    let set = setOfPaths(w.union);
+    if (target === 'trips' && (w.range || w.area.path.length > 1)) {
+      // trips have no region facet: the country is applied (when there is one) and the name stays as text (A6)
+      const word = w.range ? text(w.from, w.to) : normalize(w.area.rec.n);
+      q.push(word);
+      label = `${country ? countryName(country) : w.area.rec.n} (“${w.range ? w.range.name : w.area.rec.n}” as text)`;
+      set = country ? { country: [country] } : {};
     }
-    const alternatives = w.others.slice(0, 3).map((o): Chip => ({ id: 'where', label: areaLabel(o), set: setOf(o), words: [w.from, w.to] }));
-    addChip({ id: 'where', label: w.place ? `${label} (near ${w.place.n})` : label, set: setOf(w.area), words: [w.from, w.to], alternatives: alternatives.length ? alternatives : undefined });
+    const alternatives = w.others.slice(0, 3).map((o): Chip => ({ id: 'where', label: areaLabel(o), set: setOfPaths([o.path]), words: [w.from, w.to] }));
+    if (Object.keys(set).length) addChip({ id: 'where', label: w.place ? `${label} (near ${w.place.n})` : label, set, words: [w.from, w.to], alternatives: alternatives.length ? alternatives : undefined });
+    else lefts.push({ text: text(w.from, w.to), from: w.from, to: w.to });
     for (const a of alternatives.slice(0, 2)) dym.area.push({ label: a.label, href: hrefFor(target, { ...without(facets, ['country', 'region', 'area']), ...a.set }, '') });
   }
   const south = country !== null && ix.south.has(country);
@@ -402,9 +442,9 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
   const kid = by.get('kid');
   const noAge = { ...DECISIONS.kidsWithoutAge, ...opts.decisions?.kidsWithoutAge };
   // A9, Q40: a party word with no age. A question chip sets nothing until an age is picked.
-  const ageLabel = (a: number | string) => `Youngest child ${Number(a) === 0 ? 'Baby' : a}`;
+  const ageChip = (a: number | string) => controlLabel(Number(a));
   const askAge = (at: [number, number], ages: readonly number[]) => {
-    if (!dropped.has('kid')) chips.push({ id: 'kid', label: 'With kids: how old is the youngest?', set: {}, words: at, ask: true, alternatives: ages.map((a) => ({ id: 'kid', label: ageLabel(a), set: { kid: [String(a)] }, words: at })) });
+    if (!dropped.has('kid')) chips.push({ id: 'kid', label: 'With kids: how old is the youngest?', set: {}, words: at, ask: true, alternatives: ages.map((a) => ({ id: 'kid', label: ageChip(a), set: { kid: [String(a)] }, words: at })) });
   };
   if (kid) {
     const ages = kid.filter((r) => r.value !== 'yes');
@@ -412,14 +452,14 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
     if (target === 'places') {
       if (ages.length) {
         const youngest = ages.reduce((a, b) => (Number(b.value) < Number(a.value) ? b : a));
-        addChip({ id: 'kid', label: ageLabel(youngest.value), set: { kid: [youngest.value] }, words: [youngest.from, youngest.to] });
+        addChip({ id: 'kid', label: ageChip(youngest.value), set: { kid: [youngest.value] }, words: [youngest.from, youngest.to] });
       } else if (noAge.places === 'yes') addChip({ id: 'kid', label: lab('kid', 'yes'), set: { kid: ['yes'] }, words: at });
       else if (noAge.places === 'ask') askAge(at, ASK_AGES);
       else lefts.push({ text: text(at[0], at[1]), from: at[0], to: at[1] });
     } else if (ages.length) {
       // one control on both lists: the youngest child's age as given (a plan above it fades, none is hidden)
       const age = Math.min(...ages.map((r) => Number(r.value)));
-      addChip({ id: 'kid', label: ageLabel(age), set: { kid: [String(age)] }, words: at });
+      addChip({ id: 'kid', label: ageChip(age), set: { kid: [String(age)] }, words: at });
     } else if (noAge.trips === 'ask') askAge(at, ASK_AGES);
     else lefts.push({ text: text(at[0], at[1]), from: at[0], to: at[1] });
   }
@@ -479,7 +519,9 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
     let k = i;
     while (k < n && !used[k] && !filler(toks[k]!)) k += 1;
     lefts.push({ text: text(i, k), from: i, to: k });
-    q.push(text(i, k));
+    // a word that matches nothing in the index is shown under Not used and never filters (smart-search 4.21): "friendly" must not zero a query
+    const known = toks.slice(i, k).filter((w) => names.tokens.has(w) || names.tokens.has(singular(w)));
+    if (known.length) q.push(known.join(' '));
     i = k;
   }
   // a suggestion is parsed without its own suggestions, so one typo cannot lead to another
@@ -492,7 +534,7 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
     lefts.push(p);
     const holds = (r: SearchRecord) => normalize(r.n).split(' ').includes(p.text) || normalize(r.n).includes(p.text);
     for (const t of names.trips.filter(holds).slice(0, 2)) dym.place.push({ label: `${t.n} (trip)`, href: t.h });
-    for (const a of names.list.filter((x) => x.path.length <= 2 && holds(x.rec)).slice(0, 2)) dym.place.push({ label: areaLabel(a), href: hrefFor(target, { ...without(facets, ['country', 'region', 'area']), ...setOf(a) }, '') });
+    for (const a of names.list.filter((x) => x.path.length <= 2 && holds(x.rec)).slice(0, 2)) dym.place.push({ label: areaLabel(a), href: hrefFor(target, { ...without(facets, ['country', 'region', 'area']), ...setOfPaths([a.path]) }, '') });
   }
   if (offerTrips) dym.list.push({ label: 'Search trips instead', href: parse(query, vocab, records, { ...opts, target: 'trips' }, false).href });
   for (const c of conflicts) for (const e of c.entries.slice(0, 2)) dym.scope.push({ label: `${c.phrase}: ${lab(e.param, e.value)}`, href: hrefFor(target, { ...facets, [e.param]: [e.value] }, q.join(' ')) });

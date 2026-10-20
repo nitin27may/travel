@@ -14,6 +14,11 @@ export interface SearchRecord {
   kind?: string;
   /** Extra rank for a notable range, sea or ocean, so it sits above a plain prefix match. */
   b?: number;
+  /**
+   * Trips only: the areas (`cc/region/district`, lower-case slugs) its places lie in. A range word such as "Rockies" or "Dolomites" reads
+   * its places through the trips that carry the word (smart-search 4.21). Area slugs only: no place, fact or note (principle P8).
+   */
+  ar?: string[];
 }
 
 export type SearchGroupId = 'trips' | 'places' | 'areas';

@@ -3,14 +3,17 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Icon, kindIcon } from '@/components/ui/Icon';
-import { countParsedAsync, onSearchGrow, relaxQuery, search, suggest } from '@/lib/client/data';
+import { countParsedAsync, onSearchGrow, relaxText, relaxToResults, search, suggest } from '@/lib/client/data';
+import type { Relaxation } from '@/lib/client/data';
 import type { Suggestion } from '@/lib/search/suggest';
 import { setSink, stopBuffer, takeBuffer } from '@/lib/search/typeahead';
 import { describeCounts } from '@/lib/search/search';
 import { QueryChips } from './QueryChips';
 import { useQueryParse } from './useQueryParse';
+import { HANDOFF_KEY } from '@/lib/search/applied';
+import type { Handoff } from '@/lib/search/applied';
 import type { SearchHit, SearchRecord, SearchResult } from '@/lib/search/types';
-import type { DidYouMean, ParsedQuery } from '@/lib/search/parse/types';
+import type { ParsedQuery } from '@/lib/search/parse/types';
 import '@/styles/home.css';
 
 export interface GlobalSearchProps {
@@ -135,7 +138,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   const read = !!parsed && parsed.target !== 'search' && parsed.chips.length > 0 ? parsed : null;
   // the count and the "did you mean" come from the list files of the page we are on, so they arrive a moment after the reading
   const [counted, setCounted] = useState<{ for: ParsedQuery; got: { n: number; unchecked: number } | null } | null>(null);
-  const [relaxed, setRelaxed] = useState<{ for: ParsedQuery; got: DidYouMean | null } | null>(null);
+  const [relaxed, setRelaxed] = useState<{ for: ParsedQuery; got: Relaxation | null } | null>(null);
   useEffect(() => {
     if (!read) return;
     let alive = true;
@@ -148,7 +151,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   useEffect(() => {
     if (!read || count?.n !== 0) return;
     let alive = true;
-    void relaxQuery(read).then((got) => alive && setRelaxed({ for: read, got }));
+    void relaxToResults(read).then((got) => alive && setRelaxed({ for: read, got }), () => alive && setRelaxed({ for: read, got: null }));
     return () => {
       alive = false;
     };
@@ -160,8 +163,11 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
     () =>
       read
         ? [
-            { id: 'show', href: read.href, kind: 'show', label: count === null ? `Show ${noun}` : `Show ${count.n} ${count.n === 1 ? noun.slice(0, -1) : noun}` },
-            ...[...read.didYouMean, ...(relax ? [relax] : [])].map((d, i) => ({ id: `dym-${i}`, href: d.href, kind: 'dym' as const, label: d.label })),
+            // a reading that gives nothing opens the relaxed one: never a bare "Show 0 places" under neat chips
+            relax
+              ? { id: 'show', href: relax.parsed.href, kind: 'show', label: `Show ${relax.n} ${relax.n === 1 ? noun.slice(0, -1) : noun} that match ${relax.total - relax.dropped.length} of ${relax.total}` }
+              : { id: 'show', href: read.href, kind: 'show', label: count === null ? `Show ${noun}` : `Show ${count.n} ${count.n === 1 ? noun.slice(0, -1) : noun}` },
+            ...read.didYouMean.map((d, i) => ({ id: `dym-${i}`, href: d.href, kind: 'dym' as const, label: d.label })),
           ]
         : [],
     [read, count, noun, relax],
@@ -174,7 +180,21 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
     onClose();
     router.push(href);
   };
-  const goOption = (i: number) => goTo(i < lead.length ? lead[i]?.href : hits[i - lead.length]?.record.h);
+  // the first option opens the list the words describe: the list holds the reading like one typed in its own box (undo line, relaxing when it gives nothing)
+  const handOff = (href: string) => {
+    if (!read || href !== lead[0]?.href || lead[0]?.kind !== 'show') return;
+    const value: Handoff = relax ? { text: q, parsed: relax.parsed, relaxed: { dropped: relax.dropped, total: relax.total } } : { text: q, parsed: read };
+    try {
+      sessionStorage.setItem(HANDOFF_KEY, JSON.stringify(value));
+    } catch {
+      // private mode: the list just opens with the filters
+    }
+  };
+  const goOption = (i: number) => {
+    const href = i < lead.length ? lead[i]?.href : hits[i - lead.length]?.record.h;
+    if (href) handOff(href);
+    goTo(href);
+  };
 
   useEffect(() => {
     document.getElementById(`${listId}-${active}`)?.scrollIntoView({ block: 'nearest' });
@@ -249,6 +269,11 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
           {read ? (
             <div className="gs-read">
               <QueryChips parsed={read} onRemove={smart.remove} onPick={smart.pick} onEmpty={() => inputRef.current?.focus()} />
+              {relax ? (
+                <p className="gs-relaxed" role="status">
+                  {relaxText(relax, noun)} &middot; without {relax.dropped.map((c) => c.label).join(', ')}
+                </p>
+              ) : null}
             </div>
           ) : null}
 
@@ -275,6 +300,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                     onClick={(e) => {
                       if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
                       e.preventDefault();
+                      handOff(o.href);
                       goTo(o.href);
                     }}
                   >

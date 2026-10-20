@@ -67,7 +67,7 @@ These 30 are the parser's test fixture (`web/tests/search/queries.json`) and the
 
 | # | Query | Target | Expected URL | Chips and notes |
 |---|---|---|---|---|
-| 1 | easy hike with kids near Banff in September | places | `country=CA&region=alberta&area=banff&k=nature.trail&season=9&kid=yes&effort=stroll,easy` | Trails · Banff, Alberta · September · With kids · Easy or a stroll. Did you mean: Banff National Park (A5) |
+| 1 | easy hike with kids near Banff in September | places | `country=CA&region=alberta&area=banff,banff-national-park&k=nature.trail&season=9&effort=stroll,easy` | Trails · Banff area, Alberta · September · Easy or a stroll · the question "With kids: how old is the youngest?" (A5, A9, REVIEW4 4.20). September gives no trail, so the list relaxes it and says so (A14) |
 | 2 | waterfall I can reach with a stroller | places | `k=water.falls&stroller=any` | Waterfalls · Any stroller. Waterfalls with no stroller answer go to "not checked yet" |
 | 3 | lakes in Iceland | places | `country=IS&k=water.body` | |
 | 4 | hot springs in Iceland in winter | places | `country=IS&k=water.thermal.hot_spring&season=12,1,2` | "Hot springs" is an exact type (A3). Winter is Dec-Feb in Iceland (A8) |
@@ -176,6 +176,7 @@ Each rule is applied in order, and each one has a test in the fixture.
 | A11 | **Target list.** Trip words (`trip`, `weekend`, `nights`, `road trip`, `day trip`, `camper van`, `from toronto`) send the parse to `/trips/`. Otherwise it goes to `/places/`. When both kinds of word appear, places win and "Did you mean" offers trips |
 | A12 | **Two values of one single-value key.** "kids 4 and 9" gives the youngest (`kid=4`). Two countries give neither, and both are offered |
 | A13 | **Typos.** A word of 5 letters or more that is one edit from a vocabulary phrase is not applied. It is offered: "Did you mean waterfall?" Only an exact or alias match is applied without asking |
+| A14 | **A place word resolves to every area that carries it, and a range word to the places of the trips that name it (REVIEW4 4.20, 4.21).** Areas of one country and depth whose names contain each other as whole words join ("Banff" with "Banff National Park"), when the shared name holds a word that names a place ("Lake" and "National Park" never join anything). The chip says what it matched ("Banff area, Alberta"). A range (`RANGES` in `phrases.ts`: Dolomites, Rockies, Alps, Patagonia) reads the area slugs of the trips whose name or region carries it, written to the trip's search record as `ar`, leaving out places more than 800 km from the trip's middle (the gateway city); the chip reads "Dolomites range (18 areas)". `region` and `country` are written only when the areas share them. A reading that gives no rows is relaxed on the list, narrowest chip first (season, age, effort, area; the kind last), and the list says "No match for all 4; showing places that match 3 · put back Kids" |
 
 ## 6. The chip UI and "Did you mean"
 
@@ -216,7 +217,7 @@ The present `suggest()` fallback (the single word with the most matches) stays a
 |---|---|
 | H1 | **A gap is never a yes.** A row with no answer for a parsed constraint does not appear in the main results. It appears in a separate, collapsed group below them: "Not checked yet (5): we have no stroller answer for these". The group is counted per constraint. On the list pages this is the facet's existing `gap` (`isGap`), shown as rows instead of only a count line |
 | H2 | **A known no is excluded, a rule hides, and advice fades.** This follows the Kids filter as it is (Q21): a `!stroller` flag excludes the row; a rule age above the parsed age hides it; an advice age fades it |
-| H3 | **Every applied constraint is visible as a chip.** Nothing is applied silently. Every word the parser did not use is listed under "Not used", except filler |
+| H3 | **Every applied constraint is visible as a chip.** Nothing is applied silently. Every word the parser did not use is listed under "Not used", except filler. A leftover word stays as a text search only when some name in the index carries it; a word that matches nothing ("friendly") never filters (REVIEW4 4.21) |
 | H4 | **The parser never infers a fact from a word.** "easy" filters on our effort answer; it never makes a place easy. Words that have no filter yet (relevance) are shown as not used, not approximated by a ranking |
 | H5 | **Phase 2 results are labelled as similar, never as matches.** Semantic ranking only reorders rows that already pass the parsed filters, plus an optional "Similar in meaning" group. It never moves a row past a filter, a rule or a gap (a vector that is close to "stroller" proves nothing about strollers) |
 | H6 | **Bands are named.** When a number is rounded to a band, the chip says so (A10) |
@@ -349,4 +350,4 @@ The decision goes into this page as a dated section, with the numbers. If both A
 | Q37 | "near Toronto", where the town is not in our area tree: ignore it (as now), or ship a small build-time list of towns within 100 km of our places, with a radius `bbox`? | Ship the small list (under 10 KB gzip) in a phase 1 follow-up, with a 40 km radius named on the chip ("Within 40 km of Toronto") |
 | Q38 | Phase 2 query side: the browser model (34 MB once, model hosted on Hugging Face or R2) now, or wait for a server? | Decide after the spike. If the browser passes, ship it, with the model on R2, and switch to Supabase Edge only when a backend exists for other reasons (the 7-day pause makes a search-only project fragile) |
 | Q39 | Run the parser in both the header search and the Places and Trips search boxes? | Yes. On the list pages it writes the normal filter keys, with a one-line undo to plain text |
-| Q40 | "with kids" with no age: set `kid=yes` on Places (the older kid-fit chip) and ask for an age on Trips? | Yes. It never guesses an age, and the chip offers the ages in one click |
+| Q40 | "with kids" with no age: set `kid=yes` on Places (the older kid-fit chip) and ask for an age on Trips? | Changed 20 Oct 2026 (REVIEW4): ask on both lists. The Youngest child pill is an age control, so "Easy with kids" never fills it; the question chip offers the ages in one click and sets nothing until one is picked. `kid=yes` still works in old links, and `DECISIONS.kidsWithoutAge.places = 'yes'` restores it |

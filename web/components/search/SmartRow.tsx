@@ -4,11 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { ReactNode, RefObject } from 'react';
 import { useMediaQuery } from '@/components/entity/useMediaQuery';
-import { countListAsync } from '@/lib/client/data';
+import { countListAsync, relaxText, relaxToResults } from '@/lib/client/data';
+import type { Relaxation } from '@/lib/client/data';
 import type { EntityDescriptor, ListState } from '@/lib/entities/types';
 import type { Applied } from '@/lib/search/applied';
-import { stillApplies, undoState } from '@/lib/search/applied';
-import { pickAlternative, withoutChips } from '@/lib/search/parse/pick';
+import { HANDOFF_KEY, stillApplies, undoState } from '@/lib/search/applied';
+import type { Handoff } from '@/lib/search/applied';
+import { decodeState, emptyState, encodeState } from '@/lib/entities/url';
+import { pickAlternative, withChip, withoutChips } from '@/lib/search/parse/pick';
 import type { Chip, ParsedQuery } from '@/lib/search/parse/types';
 import { QueryChips } from './QueryChips';
 import { useQueryParse } from './useQueryParse';
@@ -48,11 +51,16 @@ export function SmartRow<Row>({ d, state, onState, searchRef, applied, onApplied
   useEffect(() => () => onReading(null), [onReading]);
   // what Enter would open: the reading merged into the filters already set. A scope of more than three row files stays uncounted
   // ("Enter shows this reading in the list") rather than load the catalogue for a hint.
-  const [count, setCount] = useState<{ for: ParsedQuery; n: number; unchecked: number } | null>(null);
+  const [count, setCount] = useState<{ for: ParsedQuery; n: number; unchecked: number; relaxed: Relaxation | null } | null>(null);
   useEffect(() => {
     if (!preview) return;
     let alive = true;
-    void countListAsync(d.type, { ...state, q: preview.q, facets: { ...state.facets, ...preview.facets } }, 3).then((got) => alive && setCount(got ? { for: preview, ...got } : null));
+    void (async () => {
+      const got = await countListAsync(d.type, { ...state, q: preview.q, facets: { ...state.facets, ...preview.facets } }, 3);
+      // a reading that gives nothing says what Enter will show instead, never a bare "0"
+      const relaxed = got && got.n === 0 && got.unchecked === 0 ? await relaxToResults(preview, state).catch(() => null) : null;
+      if (alive) setCount(got ? { for: preview, ...got, relaxed } : null);
+    })();
     return () => {
       alive = false;
     };
@@ -60,14 +68,48 @@ export function SmartRow<Row>({ d, state, onState, searchRef, applied, onApplied
   }, [preview, d.type]);
   const shownCount = preview && count?.for === preview ? count : null;
 
+  // a reading the header search handed over for this very list: hold it like one typed here (undo line), and relax it when it gives no rows
+  useEffect(() => {
+    let raw: string | null = null;
+    try {
+      raw = sessionStorage.getItem(HANDOFF_KEY);
+      if (raw) sessionStorage.removeItem(HANDOFF_KEY);
+    } catch {
+      return;
+    }
+    if (!raw) return;
+    let hand: Handoff;
+    try {
+      hand = JSON.parse(raw) as Handoff;
+    } catch {
+      return;
+    }
+    const canon = (search: string) => encodeState(decodeState(search));
+    const here = new URL(window.location.href);
+    if (hand.parsed.target !== target || !hand.parsed.href.startsWith(here.pathname) || canon(hand.parsed.href.split('?')[1] ?? '') !== canon(here.search)) return;
+    void (async () => {
+      const before = { ...emptyState(), view: state.view };
+      const relaxed = hand.relaxed ? null : await relaxToResults(hand.parsed).catch(() => null);
+      const use = relaxed?.parsed ?? hand.parsed;
+      const note = relaxed ? { dropped: relaxed.dropped, total: relaxed.total } : hand.relaxed;
+      onApplied({ parsed: use, text: hand.text, before, relaxed: note });
+      if (relaxed) onState({ ...state, q: use.q, facets: { ...use.facets }, focus: null }, 'replace');
+    })();
+    // once, on arrival
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // a reading the visitor has since changed by hand is no longer theirs to undo
   useEffect(() => {
     if (applied && !live) onApplied(null);
   }, [applied, live, onApplied]);
 
-  const apply = (p: ParsedQuery, text: string) => {
-    onApplied({ parsed: p, text, before: state });
-    onState({ ...state, q: p.q, facets: { ...state.facets, ...p.facets }, focus: null }, 'push');
+  const apply = async (p: ParsedQuery, text: string) => {
+    // never a bare "0" under neat chips: a reading that gives no rows is relaxed, narrowest chip first, and the list says so
+    const relaxed = await relaxToResults(p, state).catch(() => null);
+    const use = relaxed?.parsed ?? p;
+    onApplied({ parsed: use, text, before: state, relaxed: relaxed ? { dropped: relaxed.dropped, total: relaxed.total } : undefined });
+    onState({ ...state, q: use.q, facets: { ...state.facets, ...use.facets }, focus: null }, 'push');
     smart.reset();
   };
   const undo = () => {
@@ -104,7 +146,7 @@ export function SmartRow<Row>({ d, state, onState, searchRef, applied, onApplied
         e.stopPropagation();
         void cur.smart.readNow().then((p) => {
           if (!p || p.target === 'search' || latest.current.state.q !== text) return;
-          if (filtersOf(p) > 0) latest.current.apply(p, text);
+          if (filtersOf(p) > 0) void latest.current.apply(p, text);
           // only a question ("with kids": how old?): ask it, never guess an age and never fall back to a text search with no rows
           else if (p.chips.some((c) => c.ask)) setAsk((a) => ({ id: p.chips.find((c) => c.ask)!.id, n: a.n + 1 }));
         });
@@ -126,7 +168,7 @@ export function SmartRow<Row>({ d, state, onState, searchRef, applied, onApplied
               <>Pick an age, or press <kbd>Enter</kbd> to choose one.</>
             ) : (
               <>
-                <kbd>Enter</kbd> shows {shownCount ? `${shownCount.n} ${shownCount.n === 1 ? d.noun.one : d.noun.many}${shownCount.unchecked ? ` \u00b7 ${shownCount.unchecked} not checked yet` : ''}` : 'this reading in the list'}. <kbd>Esc</kbd> clears the box.
+                <kbd>Enter</kbd> shows {shownCount?.relaxed ? `${shownCount.relaxed.n} ${shownCount.relaxed.n === 1 ? d.noun.one : d.noun.many} that match ${shownCount.relaxed.total - shownCount.relaxed.dropped.length} of ${shownCount.relaxed.total}` : shownCount ? `${shownCount.n} ${shownCount.n === 1 ? d.noun.one : d.noun.many}${shownCount.unchecked ? ` \u00b7 ${shownCount.unchecked} not checked yet` : ''}` : 'this reading in the list'}. <kbd>Esc</kbd> clears the box.
               </>
             )}
           </p>
@@ -158,6 +200,28 @@ export function SmartRow<Row>({ d, state, onState, searchRef, applied, onApplied
               </>
             )}
           </div>
+          {live.relaxed ? (
+            <p className="smart-relaxed" role="status">
+              {relaxText({ parsed: live.parsed, dropped: live.relaxed.dropped, total: live.relaxed.total, n: 0, unchecked: 0 }, d.noun.many)}
+              {' \u00b7 '}
+              {live.relaxed.dropped.map((c, i) => (
+                <span key={c.id}>
+                  {i ? ', ' : null}
+                  <button
+                    type="button"
+                    className="link-btn"
+                    onClick={() => {
+                      const rest = live.relaxed!.dropped.filter((x) => x !== c);
+                      onApplied({ ...live, parsed: withChip(live.parsed, c), relaxed: rest.length ? { dropped: rest, total: live.relaxed!.total } : undefined });
+                      onState({ ...state, facets: { ...state.facets, ...c.set }, focus: null }, 'push');
+                    }}
+                  >
+                    put back {c.label}
+                  </button>
+                </span>
+              ))}
+            </p>
+          ) : null}
           {askOpen ? (
             <QueryChips
               parsed={live.parsed}

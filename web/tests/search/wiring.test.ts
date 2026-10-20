@@ -58,7 +58,7 @@ describe('removing and switching chips', () => {
   });
 
   it('picking the other area replaces the area chip and the three keys', async () => {
-    const got = p('easy hike with kids near Banff in September');
+    const got = p('easy hike near Auronzo in September');
     const where = got.chips.find((c) => c.id === 'where')!;
     expect(where.alternatives?.length).toBeGreaterThan(0);
     const alt = where.alternatives![0]!;
@@ -81,8 +81,13 @@ describe('removing and switching chips', () => {
     expect(six.href).toContain('kid=6');
   });
 
-  it('on Places, "with kids" and no age sets kid=yes (Q40)', async () => {
-    expect(p('easy hike with kids near Banff in September').facets.kid).toEqual(['yes']);
+  it('on Places, "with kids" and no age asks the age and sets nothing until one is picked (Q40, 4.29)', async () => {
+    const got = p('easy hike with kids near Banff in September');
+    expect(got.facets.kid).toBeUndefined();
+    const ask = got.chips.find((c) => c.ask)!;
+    const six = pickAlternative(got, 'kid', ask.alternatives![2]!);
+    expect(six.facets.kid).toEqual(['6']);
+    expect(six.chips.find((c) => c.id === 'kid')!.label).toBe('Youngest child 6');
   });
 });
 
@@ -102,7 +107,7 @@ describe('the undo line (Q39)', () => {
     expect(stillApplies(after, applied)).toBe(true);
     expect(stillApplies({ ...after, facets: { ...after.facets, season: ['10'] } }, applied)).toBe(false);
     const dropped = { ...after, facets: { ...after.facets } };
-    delete dropped.facets.kid;
+    delete dropped.facets.season;
     expect(stillApplies(dropped, applied)).toBe(false);
   });
 });

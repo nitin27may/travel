@@ -6,6 +6,9 @@ import type { GlobeNode } from '@/lib/public';
 import { normalize } from './normalize';
 import type { SearchManifest, SearchPartRef, SearchRecord } from './types';
 
+/** How far from the middle of a trip's places a place may lie and still count as inside the range the trip names. */
+const RANGE_KM = 800;
+
 const plural = (n: number, w: string) => `${n} ${w}${n === 1 ? '' : 's'}`;
 
 /** A record and the country it belongs to (lower-case ISO alpha-2, or `xx` when a trip has none). */
@@ -70,6 +73,25 @@ function locatedRecords(): Located[] {
   const g = globeIndex();
   const tripCountry = new Map(g.pins.filter((p) => p.kind === 'trip').map((p) => [p.slug, p.path[0] ?? 'xx'] as const));
   const out: Located[] = [];
+  // the areas each trip's places lie in, for the range words (Rockies, Dolomites): country/region/district slugs, nothing else. A place far from the
+  // trip's middle (the gateway city of a Patagonia trip) is a way in, not part of the range, so it adds no area.
+  const tripPlaces = new Map<string, { path: string; lat: number; lon: number }[]>();
+  for (const p of listPlaces()) {
+    const chain = p.areaChain.map((a) => a.slug);
+    if (chain.length < 3 || !p.point) continue;
+    for (const t of p.trips) (tripPlaces.get(t.slug) ?? tripPlaces.set(t.slug, []).get(t.slug)!).push({ path: chain.slice(0, 3).join('/'), lat: p.point.lat, lon: p.point.lon });
+  }
+  const median = (v: number[]) => [...v].sort((x, y) => x - y)[Math.floor(v.length / 2)]!;
+  const km = (a: { lat: number; lon: number }, b: { lat: number; lon: number }) => {
+    const r = Math.PI / 180;
+    const h = Math.sin(((b.lat - a.lat) * r) / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(((b.lon - a.lon) * r) / 2) ** 2;
+    return 12742 * Math.asin(Math.sqrt(h));
+  };
+  const tripAreas = new Map<string, Set<string>>();
+  for (const [slug, list] of tripPlaces) {
+    const mid = { lat: median(list.map((x) => x.lat)), lon: median(list.map((x) => x.lon)) };
+    tripAreas.set(slug, new Set(list.filter((x) => km(mid, x) <= RANGE_KM).map((x) => x.path)));
+  }
   for (const t of listTrips()) {
     out.push({
       cc: tripCountry.get(t.slug) ?? 'xx',
@@ -79,6 +101,7 @@ function locatedRecords(): Located[] {
         n: t.title,
         s: [t.region, t.daysCount ? plural(t.daysCount, 'day') : ''].filter(Boolean).join(' · '),
         x: [t.region, t.firstBase ?? ''].join(' '),
+        ...(tripAreas.get(t.slug)?.size ? { ar: [...tripAreas.get(t.slug)!].sort() } : {}),
       },
     });
   }

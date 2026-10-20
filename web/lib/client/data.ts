@@ -11,7 +11,8 @@ import type { UncheckedGroup } from '@/lib/entities/gaps';
 import type { EntityDescriptor, EntityType, FacetParam, ListState } from '@/lib/entities/types';
 import { queryTokens } from '@/lib/search/aliases';
 import { hrefFor } from '@/lib/search/parse/href';
-import type { DidYouMean, ParseOptions, ParsedQuery, VocabFile } from '@/lib/search/parse/types';
+import { mergeSets, withoutChips } from '@/lib/search/parse/pick';
+import type { Chip, DidYouMean, ParseOptions, ParsedQuery, VocabFile } from '@/lib/search/parse/types';
 import { createSearcher } from '@/lib/search/search';
 import type { Searcher } from '@/lib/search/search';
 import { suggest as suggestFrom } from '@/lib/search/suggest';
@@ -495,6 +496,71 @@ export async function relaxQuery(parsed: ParsedQuery): Promise<DidYouMean | null
     if (n > (best?.n ?? 0)) best = { label: `Without ${chip.label}: ${n} ${n === 1 ? d.noun.one : d.noun.many}`, href: hrefFor(parsed.target, facets, parsed.q), n };
   }
   return best ? { label: best.label, href: best.href } : null;
+}
+
+/** How narrow a reading's chip is: the lowest rank goes first when a reading gives no rows (the kind is what was asked for, so it goes last). */
+function narrowness(c: Chip): number {
+  const keys = Object.keys(c.set);
+  if (keys.includes('season')) return 0;
+  if (keys.includes('kid')) return 1;
+  if (keys.some((k) => k === 'effort' || k === 'stroller' || k.startsWith('f.'))) return 2;
+  if (keys.includes('area') || keys.includes('region')) return 4;
+  if (keys.includes('k')) return 9;
+  return 5;
+}
+
+/** A sentence that gave no rows, relaxed step by step until it gives some (smart-search 6.2, review 4.29). */
+export interface Relaxation {
+  /** The reading with the dropped chips taken out: its facets are what the list applies. */
+  parsed: ParsedQuery;
+  /** The chips taken out, narrowest first. */
+  dropped: Chip[];
+  /** Constraints in the full reading ("No match for all 4"). */
+  total: number;
+  /** Rows the relaxed reading gives, and the rows listed apart as not checked yet. */
+  n: number;
+  unchecked: number;
+}
+
+/** "No match for all 4; showing places that match 3": what was relaxed, in plain words. */
+export function relaxText(r: Relaxation, noun: string): string {
+  return `No match for all ${r.total}; showing ${noun} that match ${r.total - r.dropped.length}`;
+}
+
+/**
+ * Never an empty answer under a good reading: when the reading as a whole gives nothing, drops the narrowest chip (the one whose removal gives
+ * the most rows, season and age before area, and the kind last), then the next, until rows appear. `base` holds the filters already set on
+ * the list. Null when the reading gives rows, when it gives none and no relaxing helps, or when the list is not registered or its scope is
+ * too wide to count without a bulk load (P9). A chip that asks a question is never dropped: it sets nothing.
+ */
+export async function relaxToResults(parsed: ParsedQuery, base: ListState = emptyState()): Promise<Relaxation | null> {
+  if (parsed.target === 'search') return null;
+  const type: EntityType = parsed.target === 'trips' ? 'trip' : 'place';
+  if (!registered.get(type)) return null;
+  const countOf = (facets: Record<string, string[]>) => countListAsync(type, { ...base, q: parsed.q, facets: { ...base.facets, ...facets } }, 3);
+  const first = await countOf(parsed.facets);
+  if (!first || first.n > 0 || first.unchecked > 0) return null;
+  const setters = parsed.chips.filter((c) => !c.ask && Object.keys(c.set).length);
+  if (setters.length < 2) return null;
+  let rest = parsed.chips;
+  const dropped: Chip[] = [];
+  while (dropped.length < setters.length - 1) {
+    const candidates = rest.filter((c) => !c.ask && Object.keys(c.set).length);
+    // the kind goes only when nothing else can
+    const pool = candidates.some((c) => !Object.keys(c.set).includes('k')) ? candidates.filter((c) => !Object.keys(c.set).includes('k')) : candidates;
+    let best: { chip: Chip; n: number; unchecked: number } | null = null;
+    for (const chip of pool) {
+      const got = await countOf(mergeSets(rest.filter((c) => c !== chip)));
+      if (!got) continue;
+      const better = !best || got.n > best.n || (got.n === best.n && narrowness(chip) < narrowness(best.chip));
+      if (better) best = { chip, ...got };
+    }
+    if (!best) return null;
+    dropped.push(best.chip);
+    rest = rest.filter((c) => c !== best!.chip);
+    if (best.n > 0 || best.unchecked > 0) return { parsed: withoutChips(parsed, dropped.map((c) => c.id)), dropped, total: setters.length, n: best.n, unchecked: best.unchecked };
+  }
+  return null;
 }
 
 // ---------------------------------------------------------------- list shards (3.59)

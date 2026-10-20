@@ -17,7 +17,7 @@ export interface Decisions {
   /** Q39: the list pages show "Read 'x' as 4 filters - Search the words instead" under the box. */
   undoLine: boolean;
 }
-export const DECISIONS: Decisions = { distance: 'bands', kidsWithoutAge: { places: 'yes', trips: 'ask' }, runsIn: 'all-search-boxes', undoLine: true };
+export const DECISIONS: Decisions = { distance: 'bands', kidsWithoutAge: { places: 'ask', trips: 'ask' }, runsIn: 'all-search-boxes', undoLine: true };
 
 /** [id, label, from, to): the bands the Places list filters on. A band holds a value v when from <= v < to. */
 export type Band = readonly [id: string, label: string, from: number, to: number];

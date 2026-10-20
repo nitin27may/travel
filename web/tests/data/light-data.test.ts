@@ -88,8 +88,9 @@ describe('list rows (principle P8)', () => {
 
 describe('search records (principle P8): names and areas only', () => {
   const data = createPublicData();
-  it('a record has the six search keys and nothing else', () => {
-    for (const r of buildSearchIndex()) expect(Object.keys(r).every((k) => ['k', 'h', 'n', 's', 'x', 'kind', 'b'].includes(k)), r.h).toBe(true);
+  it('a record has the six search keys and nothing else (a trip also lists the area slugs of its places, nothing more)', () => {
+    for (const r of buildSearchIndex()) expect(Object.keys(r).every((k) => ['k', 'h', 'n', 's', 'x', 'kind', 'b', ...(r.k === 'trip' ? ['ar'] : [])].includes(k)), r.h).toBe(true);
+    for (const r of buildSearchIndex().filter((x) => x.ar)) expect(r.ar!.every((a) => /^[a-z0-9-]+\/[a-z0-9-]+\/[a-z0-9-]+$/.test(a)), r.h).toBe(true);
   });
   it('the match text of a place is its kind and its area chain, with no tag, summary or fact word', () => {
     const places = new Map(data.listPlaces().map((p) => [`/places/${p.slug}/`, p]));

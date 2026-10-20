@@ -45,7 +45,7 @@ export function ViewOptions<Row>({ d, state, onState }: { d: EntityDescriptor<Ro
           <span>Sort by</span>
           <Select compact value={first?.id ?? ''} onChange={(e) => onState({ ...state, sort: e.target.value ? serialiseSort([{ id: e.target.value, desc: first?.desc ?? false }]) : [] })}>
             <option value="">{d.defaultSortLabel}</option>
-            {Object.entries(d.sorts).map(([id, s]) => (
+            {Object.entries(d.sorts).filter(([id]) => !d.sortMenu || d.sortMenu.includes(id) || id === first?.id).map(([id, s]) => (
               <option key={id} value={id}>
                 {s.label}
               </option>
