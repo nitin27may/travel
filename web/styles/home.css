@@ -28,14 +28,14 @@
   .home-cover-inner { left: max(var(--margin), calc((100% - var(--max-content)) / 2 + var(--margin))); transform: translateY(-50%); }
 }
 @media (max-width: 639px) {
-  /* phone: the map on top, the search card below it, so the card never covers a pin or the attribution */
+  /* phone: heading and search card first, the globe after them, so the card never covers a pin or the attribution and the first screen names the page (4.15) */
   .home-cover { height: auto; display: flex; flex-direction: column; overflow: visible; }
   .home-globe { position: relative; inset: auto; height: 320px; overflow: hidden; }
   /* the cue sits under the header edge; the attribution stays on one line at the foot */
   .home-globe-cue { display: block; position: absolute; z-index: 2; left: var(--margin); top: var(--s-3); margin: 0; font: var(--t-mono); color: var(--ink-2); pointer-events: none; }
   .home-globe .maplibregl-ctrl-attrib, .home-globe .maplibregl-ctrl-attrib a { font-size: 9px; letter-spacing: -0.02em; white-space: nowrap; }
   .home-globe .maplibregl-ctrl-attrib { max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
-  .home-cover-inner { position: static; transform: none; width: auto; margin: var(--s-3) var(--margin); padding: var(--s-4); }
+  .home-cover-inner { position: static; transform: none; width: auto; margin: var(--s-4) var(--margin) var(--s-3); padding: var(--s-4); }
   .home-title { font-size: 40px; }
   .home-hint { display: none; }
 }

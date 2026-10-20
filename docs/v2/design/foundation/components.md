@@ -155,8 +155,8 @@ or "11:30 am" all parse. Zone shown after the time when it differs from the devi
 
 Checkbox 20 x 20 (hit 44), radius 4, 1.5 px `--line-2`; checked `--ink` fill with a `--surface` check;
 indeterminate a 10 x 2 bar. Task rows use a 24 px round check (3.5): off is a 1.5 px `--line-2` ring on
-`--surface`; **done is `--ok-soft` fill, `--ok` border and a `--ok` check glyph** (5.53:1 light, 7.87:1
-dark; a white glyph on `--ok` is 1.8:1 in dark and is not allowed). Radio 20 px circle, dot
+`--surface`; **done is `--ok-soft` fill, `--ok` border and a `--ok` check glyph** (6.85:1 light, 7.56:1
+dark; a white glyph on `--ok` is 2.1:1 in dark and is not allowed). Radio 20 px circle, dot
 10 px `--ink`. Switch 44 x 24, thumb 20, off `--line-2` track, on `--accent` track; the thumb stays
 `--surface` with a 1 px `--line-2` keyline; label to the right, state word after it for screen readers only.
 Hover darkens the border to `--ink`; focus ring; disabled 45%. Animations: check draw 120 ms, switch thumb
@@ -207,14 +207,14 @@ values for the kind. Ratios light / dark.
 | **advice** (age band, our judgement: "From about 6") | 1 px `--line-2`, `--ink-2` 500 | person 13 px | `--ink-2` on `--surface` 12.09 / 10.76 AAA | slot 1 when no rule exists; detail rows |
 | **value** ("Moderate · CAI E · 3–4 h", "Class I–III · 2 h on water") | neutral: 1 px `--line-2`, `--ink-2` | the kind glyph | as advice | slots 2 and 3 |
 | **gap** ("Not checked yet") | 1 px **dashed** `--line-2`, `--muted` | none | `--muted` on `--surface` 6.94 / 7.45 AA | a missing field's row, or the whole row when nothing was checked; it replaces italic prose |
-| **fits** ("Fits a 6-year-old") | `--ok-soft`, `--ok` | check | 5.53 / 7.87 AA | slot 1 with a party profile, when every rule and our advice pass |
+| **fits** ("Fits a 6-year-old") | `--ok-soft`, `--ok` | check | 6.85 / 7.56 AA | slot 1 with a party profile, when every rule and our advice pass |
 | **advice fail** ("Not suited to a 3-year-old") | `--warn-soft`, `--warn` text | triangle | 6.11 / 7.84 AA | slot 1 with a profile, when our advice says no and no rule does |
 | **rule fail** ("Not for under 8 · operator rule") | `--crit-soft`, `--crit` text | none, the words carry it | 5.45 / 6.36 AA | slot 1 with a profile, when a rule excludes the youngest |
 
 Rules for the set. A chip never wraps inside itself; a limits chip holds at most three values and "+n", and if it
 would still overflow it truncates with an ellipsis and a `title` on cards only; on a day row or a place page it takes
 the full row width instead. The kids chip is the first chip on every surface. No codes ("FE3"): the family-effort
-name goes on the chip, the number stays in the filter's `title`. Nothing in the set is amber; green appears only on
+name goes on the chip, the number stays in the filter's `title`. Nothing in the set is amber; `--ok` (blue, with a check glyph) appears only on
 fits; coral only on a rule fail and on honesty chips; `--warn` is text on `--warn-soft`, never a fill (tokens 3).
 
 ### 2.9 Segmented control

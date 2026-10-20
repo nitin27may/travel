@@ -37,13 +37,14 @@ test.describe('shell', () => {
     expect((await header.boundingBox())?.height).toBe(60);
   });
 
-  test('phone: bottom bar with four items, header tabs hidden, no horizontal scroll', async ({ browser, site }) => {
+  test('phone: bottom bar with four items (Trips, Places, Globe, Search), header tabs hidden, no horizontal scroll', async ({ browser, site }) => {
     const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
     const page = await context.newPage();
     for (const path of ['/', '/trips/', '/places/', '/sign-in/', '/specimen/']) {
       await page.goto(`${site.url}${path}`, { waitUntil: 'networkidle' });
       const bar = page.getByRole('navigation', { name: 'Main, bottom' });
-      await expect(bar.getByRole('link')).toHaveText(['Trips', 'Places', 'Globe', 'Sign in']);
+      await expect(bar.getByRole('link')).toHaveText(['Trips', 'Places', 'Globe']);
+      await expect(bar.getByRole('button')).toHaveText(['Search']);
       await expect(page.locator('header.site-header .site-nav')).toBeHidden();
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     }
