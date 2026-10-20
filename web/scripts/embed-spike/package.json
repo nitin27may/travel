@@ -1,0 +1,9 @@
+{
+  "name": "embed-spike",
+  "private": true,
+  "type": "module",
+  "description": "SQ2s smart-search phase 2 spike. Measure only; not part of the web build.",
+  "dependencies": {
+    "@huggingface/transformers": "4.3.1"
+  }
+}
