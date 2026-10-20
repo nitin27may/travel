@@ -1,4 +1,4 @@
-import { cpSync, mkdirSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, readdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { buildPlaces } from '@/lib/public/places';
@@ -41,19 +41,16 @@ describe('seed rules (3.58)', () => {
   });
 });
 
-/** A repo root whose capture data is a copy with `same_place_as` set on one record. */
-function dupRoot(secondRef: string, firstRef: string): string {
+/** A repo root whose relevance data is a copy with one more record: `same_place_as` and a not_applicable draw, as CS7d writes a duplicate pair. */
+function dupRoot(secondRef: string, firstRef: string, draw: string = 'not_applicable'): string {
   const root = fixtureRoot(manifestWith({}));
   rmSync(path.join(root, 'data'));
   mkdirSync(path.join(root, 'data'));
-  for (const name of readdirSync(path.join(REPO, 'data'))) if (name !== 'capture') symlinkSync(path.join(REPO, 'data', name), path.join(root, 'data', name));
-  cpSync(path.join(REPO, 'data', 'capture'), path.join(root, 'data', 'capture'), { recursive: true });
-  const file = path.join(root, 'data', 'capture', 'canadian-rockies-2029', 'migrated.json');
-  const doc = JSON.parse(readFileSync(file, 'utf8')) as { records: { ref: string; same_place_as?: string }[] };
-  const rec = doc.records.find((r) => r.ref === secondRef);
-  if (!rec) throw new Error(`fixture: no record ${secondRef}`);
-  rec.same_place_as = firstRef;
-  writeFileSync(file, JSON.stringify(doc));
+  for (const name of readdirSync(path.join(REPO, 'data'))) if (name !== 'relevance') symlinkSync(path.join(REPO, 'data', name), path.join(root, 'data', name));
+  cpSync(path.join(REPO, 'data', 'relevance'), path.join(root, 'data', 'relevance'), { recursive: true });
+  const dir = path.join(root, 'data', 'relevance', 'canadian-rockies-2029');
+  const file = path.join(dir, 'PLC-fixture.json');
+  writeFileSync(file, JSON.stringify({ schema: 'relevance/1', trip: 'canadian-rockies-2029', lane: 'PLC-fixture', researched: '2026-10-19', agent: 'test', model: 'test', sources: [], records: [{ ref: secondRef, same_place_as: firstRef, draw: { state: draw } }] }));
   return root;
 }
 
@@ -80,6 +77,12 @@ describe('second records of one place (3.55)', () => {
   it('lets the second name find the first page, so a trip stop and search land on one entry', () => {
     expect(fixture.byName.get('radium hot springs pools')).toEqual(['radium-hot-springs']);
     expect(fixture.byName.get('radium hot springs')).toEqual(['radium-hot-springs']);
+  });
+
+  it('keeps two pages when same_place_as means an activity at a place (the draw is not not_applicable)', () => {
+    const activity = buildPlaces(loadSources({ root: dupRoot(SECOND, FIRST, 'value') }));
+    expect(activity.bySlug.has('radium-hot-springs-pools')).toBe(real.bySlug.has('radium-hot-springs-pools'));
+    expect(activity.legacyPaths.size).toBe(real.legacyPaths.size);
   });
 
   it('writes no redirect when the first record has no page', () => {
