@@ -33,6 +33,7 @@ export function searchRecords(): SearchRecord[] {
 }
 
 /** A URL's keys as sorted `key=value` pairs, so two orders of the same filters compare equal. */
-export const pairs = (href: string): string[] => [...new URLSearchParams(href.includes('?') ? href.split('?')[1] : href).entries()].map(([k, v]) => `${k}=${v}`).sort();
+// a comma list in a URL value is a set (area=a,b,c): compare it sorted, so a data change that moves a member never breaks a fixture
+export const pairs = (href: string): string[] => [...new URLSearchParams(href.includes('?') ? href.split('?')[1] : href).entries()].map(([k, v]) => `${k}=${v.includes(',') ? v.split(',').sort().join(',') : v}`).sort();
 
 export const labels = (p: ParsedQuery): string[] => p.chips.map((c) => c.label);
