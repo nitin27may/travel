@@ -4,7 +4,7 @@ import { prefersReducedMotion } from '../reduced-motion';
 import { readPalette, type MapPalette } from '../palette';
 import type { CameraState, FlyTarget, LngLat, MapHandle, MapSpec } from '../types';
 import { pinImages } from './images';
-import { hideBasemapLabel } from './labels';
+import { ADMIN_LABEL_MIN_ZOOM, hideBasemapLabel, isStateLabel } from './labels';
 import { STYLE_URLS, TERRAIN_FALLBACK, TERRAIN_MIN_ZOOM, TERRAIN_URL, modeOf, type StyleKey } from './styles';
 
 type ML = typeof import('maplibre-gl');
@@ -33,6 +33,11 @@ export interface MapLibreEngine extends MapHandle {
 const HIDE_LABEL_LAYER = /village|suburb|hamlet|neighbo|quarter|label_other|poi|housenumber|aerodrome|airport|ferry|mountain_peak/i;
 const HIDE_SOURCE_LAYERS = new Set(['poi', 'housenumber', 'aerodrome_label', 'transportation_name', 'mountain_peak']);
 const FIT_PADDING = { top: 56, bottom: 56, left: 56, right: 56 };
+/** The legend sits bottom-left over the map (MapChrome): fit with room under the pins for it, so it never covers a pin (3.31). */
+function fitPadding(spec: MapSpec, height: number) {
+  const legend = spec.legend?.length ? Math.min(32 + 22 * spec.legend.length + 16, Math.round(height * 0.4)) : 0;
+  return { ...FIT_PADDING, bottom: FIT_PADDING.bottom + legend };
+}
 
 function el(tag: string, css: Partial<CSSStyleDeclaration>, text?: string): HTMLElement {
   const e = document.createElement(tag);
@@ -62,7 +67,7 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
   const single = bb && bb[0].lng === bb[1].lng && bb[0].lat === bb[1].lat;
   const init: Record<string, unknown> = {};
   if (spec.camera) { init.center = [spec.camera.lng, spec.camera.lat]; init.zoom = spec.camera.zoom; }
-  else if (bb && !single) { init.bounds = [[bb[0].lng, bb[0].lat], [bb[1].lng, bb[1].lat]] as LngLatBoundsLike; init.fitBoundsOptions = { padding: FIT_PADDING, maxZoom: 13 }; }
+  else if (bb && !single) { init.bounds = [[bb[0].lng, bb[0].lat], [bb[1].lng, bb[1].lat]] as LngLatBoundsLike; init.fitBoundsOptions = { padding: fitPadding(spec, container.clientHeight), maxZoom: 13 }; }
   else if (bb) { init.center = [bb[0].lng, bb[0].lat]; init.zoom = 11; }
   else { init.center = [10, 46]; init.zoom = 4; }
 
@@ -90,15 +95,24 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
     for (const l of style.layers) {
       const sl = (l as { 'source-layer'?: string })['source-layer'] ?? '';
       if (l.type === 'background') set(l.id, 'paint', 'background-color', palette.land);
+      // the basemap's own shaded-relief raster is tinted green and brown at world zoom: grey it, so no map carries green (standing rule)
+      else if (l.type === 'raster') set(l.id, 'paint', 'raster-saturation', -1);
+      else if (l.type === 'fill-extrusion') set(l.id, 'paint', 'fill-extrusion-color', palette.high);
       else if (l.type === 'fill') {
+        // a pattern fill (wetland, road areas) would hide the fill colour, and its picture is green
+        if ((l.paint as Record<string, unknown> | undefined)?.['fill-pattern']) set(l.id, 'paint', 'fill-pattern', null);
         set(l.id, 'paint', 'fill-color', sl === 'water' ? palette.water : sl === 'building' ? palette.high : palette.land);
         set(l.id, 'paint', 'fill-outline-color', palette.land);
       } else if (l.type === 'line') {
-        if (sl === 'waterway') set(l.id, 'paint', 'line-color', palette.water);
+        if (sl === 'waterway') set(l.id, 'paint', 'line-color', palette.waterLine);
         else if (sl === 'boundary') set(l.id, 'paint', 'line-color', palette.border);
         else if (sl === 'transportation') set(l.id, 'paint', 'line-color', palette.contour);
       } else if (l.type === 'symbol') {
         if (HIDE_SOURCE_LAYERS.has(sl) || HIDE_LABEL_LAYER.test(l.id) || hideBasemapLabel(l.id, sl, spec.hideBasemapLabels)) { set(l.id, 'layout', 'visibility', 'none'); continue; }
+        // a map that thins its labels shows state and province names only from zoom 5, in both styles (4.6, C6)
+        if (spec.hideBasemapLabels?.length && isStateLabel(l.id, sl) && (l.minzoom ?? 0) < ADMIN_LABEL_MIN_ZOOM) { try { map.setLayerZoomRange(l.id, ADMIN_LABEL_MIN_ZOOM, l.maxzoom ?? 24); } catch { /* layer gone */ } }
+        // a basemap name keeps clear of our pins and their labels (4.2): the overlay below reserves its space, this keeps theirs apart
+        set(l.id, 'layout', 'text-padding', 3);
         set(l.id, 'paint', 'text-color', palette.label);
         set(l.id, 'paint', 'text-halo-color', palette.halo);
         set(l.id, 'paint', 'text-halo-width', 1.5);
@@ -179,6 +193,9 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
     line('line-route', is('route'), { 'line-color': palette.route, 'line-width': 2 });
     line('line-pick', is('route-pick'), { 'line-color': palette.routePick, 'line-width': 3.5 });
     line('line-trail', is('trail'), { 'line-color': palette.ink, 'line-width': 3 });
+    // a stored line nobody has confirmed: dashed in the muted ink on a light casing, 3:1 or better against the land in both themes (3.31)
+    line('line-trail-unconfirmed-casing', is('trail-unconfirmed'), { 'line-color': palette.halo, 'line-width': 5.5, 'line-opacity': 0.75 });
+    line('line-trail-unconfirmed', is('trail-unconfirmed'), { 'line-color': palette.muted, 'line-width': 3, 'line-dasharray': [2.2, 1.6] }, { 'line-cap': 'butt' });
     line('line-estimate', is('straight-estimate'), { 'line-color': palette.ink, 'line-width': 2, 'line-opacity': 0.5, 'line-dasharray': [2, 2] }, { 'line-cap': 'butt' });
 
     const single = ['all', ['==', ['get', 'n'], 1]];
@@ -188,7 +205,8 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
     map.addLayer({
       id: 'pin-icons', type: 'symbol', source: 'pins',
       filter: [...single, ['in', ['get', 'style'], ['literal', ['base', 'place', 'trailhead', 'parking', 'trip']]]] as never,
-      layout: { 'icon-image': ['concat', 'pin-', ['get', 'style']], 'icon-size': 1, 'icon-allow-overlap': true, 'icon-ignore-placement': true },
+      // our pins draw always but reserve their space: no basemap name sits under one (4.2)
+      layout: { 'icon-image': ['concat', 'pin-', ['get', 'style']], 'icon-size': 1, 'icon-allow-overlap': true, 'icon-ignore-placement': false, 'icon-padding': 6 },
     });
     map.addLayer({
       id: 'pin-numerals', type: 'symbol', source: 'pins',
@@ -201,7 +219,7 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
       filter: ['all', ['!=', ['get', 'label'], ''], ['==', ['get', 'n'], 1]] as never,
       layout: {
         'text-field': ['get', 'label'], 'text-font': fontStack, 'text-size': ['case', is('base'), 13, 12], 'text-anchor': 'top',
-        'text-offset': [0, 1.1], 'text-optional': true, 'text-padding': 4, 'text-max-width': 9,
+        'text-offset': [0, 1.1], 'text-optional': true, 'text-padding': 6, 'text-max-width': 9,
         'text-transform': 'none', 'symbol-sort-key': ['case', is('base'), 0, 1],
       },
       minzoom: 8,
@@ -318,7 +336,7 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
     if ('bounds' in target) {
       const [a, b] = target.bounds;
       const km = distanceKm(a, b);
-      map.fitBounds([[a.lng, a.lat], [b.lng, b.lat]], { padding: FIT_PADDING, maxZoom: o?.zoom ?? 14, duration: reduced ? 0 : flyDuration(km) });
+      map.fitBounds([[a.lng, a.lat], [b.lng, b.lat]], { padding: fitPadding(spec, container.clientHeight), maxZoom: o?.zoom ?? 14, duration: reduced ? 0 : flyDuration(km) });
       return;
     }
     const c = map.getCenter();

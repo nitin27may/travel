@@ -177,6 +177,8 @@ const GLYPH: Record<string, string> = {
   lock: 'M7 11V8a5 5 0 0 1 10 0v3M5.5 11h13v9h-13zM12 15v2',
   person: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4 21a8 8 0 0 1 16 0',
   walker: 'M13 4.5a1.5 1.5 0 1 0 0-.01M11 8l-2 5 3 2v5M11 8l4 3 3 1M9 13l-3 3',
+  gauge: 'M4 17a8 8 0 1 1 16 0M12 17l4-5M7 17h.01M17 17h.01',
+  wheel: 'M11 4a1.5 1.5 0 1 0 0-.01M11 8v6h5l2.5 5M11 11h4M8.5 12.5A5 5 0 1 0 15 18.5',
   clock: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM12 7v5l3 2',
   wave: 'M3 9c2.2 0 2.2 1.5 4.5 1.5S9.8 9 12 9s2.2 1.5 4.5 1.5S18.8 9 21 9M3 15c2.2 0 2.2 1.5 4.5 1.5S9.8 15 12 15s2.2 1.5 4.5 1.5S18.8 15 21 15',
   stroller: 'M5 5h3l1 9h9a3 3 0 0 0 3-3V8H8M9 14l-1 3M9.5 19.5a1 1 0 1 0 0-.01M17.5 19.5a1 1 0 1 0 0-.01',
@@ -189,10 +191,13 @@ const GLYPH: Record<string, string> = {
 };
 export const glyph = (name: string, size = 13): string => (GLYPH[name] ? `<svg class="gy${size === 16 ? ' gy16' : ''}" viewBox="0 0 24 24" aria-hidden="true"><path d="${GLYPH[name]}"/></svg>` : '');
 
+/** A chip's text as whole segments: it breaks between "Hard", "Parks Canada Difficult" and "4 h 30–5 h 30", never inside one (S2). Non-breaking spaces, so no markup is added to the page. */
+const chipText = (t: string): string => t.split(' · ').map((x) => withUnits(x.replace(/ /g, '\u00a0').replace(/(\d)–(?=\d+\u00a0?(?:h|min)\b)/g, '$1–\u2060'))).join(' · ');
+
 export function chipsHtml(chips: readonly (Chip | null)[]): string {
   const shown = chips.filter((c): c is Chip => c !== null);
   if (!shown.length) return '';
-  return `<ul class="chs" aria-label="Who it suits">${shown.map((c) => `<li class="ch" data-kind="${c.kind}"><span class="ci"${c.label === c.text ? '' : ` aria-label="${esc(c.label)}"`}>${glyph(c.glyph)}<span>${withUnits(c.text)}</span>${c.extra > 0 ? `<span class="ch-more">+${c.extra}</span>` : ''}</span></li>`).join('')}</ul>`;
+  return `<ul class="chs" aria-label="Who it suits">${shown.map((c) => `<li class="ch" data-kind="${c.kind}"><span class="ci"${c.label === c.text ? '' : ` aria-label="${esc(c.label)}"`}>${glyph(c.glyph)}<span>${chipText(c.text)}</span>${c.extra > 0 ? `<span class="ch-more">+${c.extra}</span>` : ''}</span></li>`).join('')}</ul>`;
 }
 
 const ECHO = new Set<string>(['facilities', 'when']);
@@ -202,8 +207,9 @@ function groupHtml(g: SuitGroup, slugs: Slugs): string {
   const values = g.rows.filter((r) => !r.gap);
   if (ECHO.has(g.id)) {
     // Facilities and When you can go are sections of their own (9 and 8): here only their values, with a link, so nothing is said twice (PS1, Q31)
-    if (values.length === 0) return '';
-    return `<p class="su-echo" data-group="${g.id}"><span class="gt">${esc(g.title)}</span><span class="gs">${values.map((r) => withUnits(clip(r.short))).join(' · ')}</span><a href="#${g.id}">See section</a></p>`;
+    const echo = values.map((r) => withUnits(r.short)).filter(Boolean);
+    if (echo.length === 0) return '';
+    return `<p class="su-echo" data-group="${g.id}"><span class="gt">${esc(g.title)}</span><span class="gs">${echo.join(' · ')}</span><a href="#${g.id}">See section</a></p>`;
   }
   const gaps = g.rows.filter((r) => r.gap);
   const sum = g.open ? '' : `<span class="gs">${values.map((r) => withUnits(clip(r.short))).join(' · ')}${gaps.length || g.closing ? gapChip(clip(g.closing ?? `Not checked yet: ${gaps.map((r) => r.label.toLowerCase()).join(', ')}`, 90)) : ''}</span>`;
@@ -213,7 +219,7 @@ function groupHtml(g: SuitGroup, slugs: Slugs): string {
 
 /** The inside of the "Who it suits" section: head, chips, warning line and the groups. */
 export function suitsInner(suit: PublicSuitability, slugs: Slugs, title: string): string {
-  return `<header class="ph"><h2 id="h-suits">${esc(title)}</h2>${suit.research.text ? `<p class="ps-meta">${esc(suit.research.text)}</p>` : ''}</header>${chipsHtml(suit.chips)}${suit.warning ? `<p class="su-warn">${glyph('triangle', 16)}<span>${withUnits(suit.warning)}</span></p>` : ''}${suit.groups.map((g) => groupHtml(g, slugs)).join('')}`;
+  return `<header class="ph"><h2 id="h-suits">${esc(title)}</h2>${suit.research.text ? `<p class="ps-meta">${esc(suit.research.text)}</p>` : ''}</header>${chipsHtml([...suit.chips, ...suit.accessChips])}${suit.warning ? `<p class="su-warn">${glyph('triangle', 16)}<span>${withUnits(suit.warning)}</span></p>` : ''}${suit.groups.map((g) => groupHtml(g, slugs)).join('')}`;
 }
 
 // ---- glance and "Before you go" ---------------------------------------------------------------------------------------------
@@ -256,8 +262,8 @@ export function warningsHtml(sec: SectionModel, rel: PublicRelevance | null, slu
   const planB = b
     ? `<li class="ps-line rv-planb"><span class="rv-tag">Plan B</span><p class="pt">${b.risk ? `${esc(cap1(b.risk))} can fall through. ` : ''}${
         b.reason
-          ? `${refLink(b, slugs)}: ${esc(b.reason.replace(/[.]$/, ''))}${b.effortName ? ` · ${esc(b.effortName.toLowerCase())}` : ''} · ${kmText(b.km)}.${b.source ? ` <span class="pb">Source: <a href="${esc(b.source.url)}" rel="noopener noreferrer" target="_blank">${esc(b.source.label)}</a></span>` : ''}`
-          : `${refLink(b, slugs)} is the same kind of view: ${esc(b.access)}${b.effortName ? ` · ${esc(b.effortName.toLowerCase())}` : ''} · ${kmText(b.km)}.`
+          ? `${refLink(b, slugs)}: ${withUnits(b.reason.replace(/[.]$/, ''))}${b.effortName ? ` · ${esc(b.effortName.toLowerCase())}` : ''} · ${kmText(b.km)}.${b.source ? ` <span class="pb">Source: <a href="${esc(b.source.url)}" rel="noopener noreferrer" target="_blank">${esc(b.source.label)}</a></span>` : ''}`
+          : `${refLink(b, slugs)} is the same kind of view: ${withUnits(b.access)}${b.effortName ? ` · ${esc(b.effortName.toLowerCase())}` : ''} · ${kmText(b.km)}.`
       }</p></li>`
     : '';
   // Plan B sits under the risk it answers: a booking or an access line (PS8, Q32). With no such line it is not drawn here; Similar nearby still tags it.

@@ -17,6 +17,7 @@ import { accessCard, factText, factsDl } from './sections/legacyHtml';
 import { withUnits } from '@/components/suit/html';
 import { CoverRelevance } from './sections/Relevance';
 import { Glance, Sections, type LegacySlots } from './sections/Sections';
+import { SectionIndex } from './sections/SectionIndex';
 import { GalleryLazy } from './GalleryLazy';
 import { LinksTabs } from './LinksTabs';
 import { dedupeMapPoints } from './mapPoints';
@@ -196,6 +197,23 @@ export interface PlacePageProps {
 
 const timeText = (v: string): string => (/\b(h|hours?|min|minutes?)\b/i.test(v) ? v : `${v} h`);
 
+/** "4 h 30–5 h 30", "5-6 h", "45–90 min" as a [low, high] pair in minutes, or null when the words are not a duration. */
+export function minutesRange(text: string): [number, number] | null {
+  const parts = text.replace(/\s+/g, ' ').trim().split(/\s*[–-]\s*/);
+  if (parts.length > 2) return null;
+  const unit = /\bmin/i.test(parts[parts.length - 1]!) && !/\bh\b|hours?/i.test(parts[parts.length - 1]!) ? 'min' : 'h';
+  const one = (t: string): number | null => {
+    const m = /^(\d+(?:\.\d+)?)\s*(h|hours?|min|minutes?)?(?:\s*(\d+)\s*(?:min)?)?$/i.exec(t.trim());
+    if (!m) return null;
+    const u = m[2] ? (/^h/i.test(m[2]) ? 'h' : 'min') : unit;
+    return Math.round(Number(m[1]) * (u === 'h' ? 60 : 1) + (m[3] ? Number(m[3]) : 0));
+  };
+  const a = one(parts[0]!);
+  const b = parts[1] === undefined ? a : one(parts[1]);
+  return a === null || b === null ? null : [a, b];
+}
+const sameRange = (a: [number, number] | null, b: [number, number] | null): boolean => !!a && !!b && a[0] === b[0] && a[1] === b[1];
+
 const COUNTRY_PATH = (p: PublicPlace) => p.areaChain.find((a) => a.level === 'country');
 
 export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps) {
@@ -272,12 +290,35 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
   const slugs = place.refSlugs;
   const hasTrack = place.lines.some((l) => (l.geometry?.length ?? 0) > 1 || (l.segments?.length ?? 0) > 0);
   // the older record's blocks, drawn inside the contract's sections so no visible fact is lost (S5)
+  // One adult time per trail (S4): the checked record's time lives in "Who it suits"; the older plan's time shows here only when no checked
+  // time exists, and as a conflict line, with both sources, when the two disagree (T3).
+  const legacyTime = factByLabel(place.facts, 'Time');
+  const adultTime = suit?.adultTime ?? null;
+  const routeTime = !adultTime && legacyTime ? timeText(legacyTime.value) : null;
+  const timeConflict = adultTime && legacyTime && !sameRange(minutesRange(adultTime.text), minutesRange(timeText(legacyTime.value))) ? { adult: adultTime, legacy: legacyTime } : null;
   const activityBlock = showProfile ? (
     <>
       <p
         className="pl-route-line num"
-        dangerouslySetInnerHTML={{ __html: withUnits([km !== null ? `${km} km` : null, gain !== null ? `${gain} m ${factByLabel(place.facts, 'Climb') ? 'climb' : 'change'}` : null, factByLabel(place.facts, 'Time') ? timeText(factByLabel(place.facts, 'Time')?.value ?? '') : null].filter(Boolean).join(' · ')) }}
+        dangerouslySetInnerHTML={{ __html: withUnits([km !== null ? `${km} km` : null, gain !== null ? `${gain} m ${factByLabel(place.facts, 'Climb') ? 'climb' : 'change'}` : null, routeTime].filter(Boolean).join(' · ')) }}
       />
+      {timeConflict ? (
+        <div className="pl-conflict" data-what="adult-time">
+          <Chip kind="caution" icon="warn">
+            Sources disagree on the adult time
+          </Chip>
+          <ul>
+            <li>
+              {timeConflict.adult.text}
+              <span className="pl-prov">{timeConflict.adult.basis}</span>
+            </li>
+            <li>
+              {timeText(timeConflict.legacy.value)}
+              <span className="pl-prov">{provenanceText(timeConflict.legacy.provenance)}</span>
+            </li>
+          </ul>
+        </div>
+      ) : null}
       <TrailProfile km={km} gainM={gain} startM={startM} loop={loop} highM={firstNumber(factByLabel(place.facts, 'High point')?.value)} guide={guide} lines={place.lines} />
       {huts.length ? (
         <ul className="pl-huts" aria-label="Huts and refuges">
@@ -320,7 +361,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
       <Icon name="info" size={14} /> No licensed photo yet, so none is shown.
     </p>
   );
-  const modelFacts = place.facts.filter((f, i, all) => !mapped.has(f.label) && !accessLabels.has(f.label) && !(showProfile && huts.some((h) => h.label === f.label)) && all.findIndex((g) => g.label === f.label && g.value === f.value) === i);
+  const modelFacts = place.facts.filter((f, i, all) => !mapped.has(f.label) && !(showProfile && f.label === 'Time') && !accessLabels.has(f.label) && !(showProfile && huts.some((h) => h.label === f.label)) && all.findIndex((g) => g.label === f.label && g.value === f.value) === i);
   const factsBlock = (
     <>
       {modelFacts.length ? <div className="su-c" dangerouslySetInnerHTML={{ __html: factsDl(modelFacts) }} /> : null}
@@ -408,6 +449,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
         </div>
 
         {model ? <Glance model={model} suit={suit} level={place.completeness} /> : null}
+        {model ? <SectionIndex /> : null}
         {!model ? (
         <section className="pl-glance" aria-label="At a glance">
           <ul>

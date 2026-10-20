@@ -42,6 +42,29 @@ export function fileFromUrl(url: string | null | undefined): string | null {
 }
 
 /**
+ * A credit names the author and the licence, and nothing else (2.5, 2.41). Commons authors are free text, and some are a whole sentence
+ * ("This Photo was taken by Wolfgang Moroder", "The original uploader was Datch78 at English Wikipedia."): keep the name, drop the
+ * description around it, the links and the markup. A string with no name left is no author.
+ */
+export function cleanAuthor(raw: string | null | undefined): string {
+  let a = String(raw ?? '')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/https?:\/\/\S+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const lead = /^(?:this (?:photo|image|picture|media)(?: or media)? (?:was )?(?:taken|created)(?: or created)? by|(?:the )?original uploader was|(?:photo(?:graph)?|image|picture|taken|created) by|flickr user:?|author:?)\s*/i;
+  a = a.replace(/\s+via wikimedia commons\.?$/i, '');
+  const before = a;
+  a = a.replace(lead, '');
+  a = a
+    .replace(/\s+at (?:english |en\.)?wikipedia\.?$/i, '')
+    .replace(/,\s*PD (?:photo|image)\.?$/i, '')
+    .replace(/[\s.,;:]+$/, '')
+    .trim();
+  return a || before.replace(/[\s.,;:]+$/, '').trim();
+}
+
+/**
  * A photo, or null when it has no author or no licence: no credit, no photo. The kind glyph replaces it.
  * Inline credit (gallery.json) wins over the fetched credits file.
  */
@@ -51,7 +74,7 @@ export function makePhoto(
   opts: { caption?: string; author?: string | null; licence?: string | null; group?: string | null; width?: number } = {},
 ): Photo | null {
   const c = credits[file];
-  const author = (opts.author || c?.author || '').trim();
+  const author = cleanAuthor(opts.author || c?.author);
   const licence = (opts.licence || c?.licence || '').trim();
   if (!author || !licence) return null;
   const width = opts.width ?? 960;

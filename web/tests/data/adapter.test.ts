@@ -115,7 +115,10 @@ describe('places', () => {
     expect(new Set(slugs).size).toBe(slugs.length);
     const redirects = d.legacyPlaceRedirects();
     const real = d.internals.places.filter((p) => p.sources.includes('locations'));
-    expect(redirects).toHaveLength(real.length);
+    // every saved place has its old nested URL; a merged duplicate (3.55) adds one flat /places/<slug>/ rule on top
+    const merged = redirects.filter((r) => /^\/places\/[^/]+\/$/.test(r.from));
+    expect(redirects.length - merged.length).toBe(real.length);
+    for (const m of merged) expect(slugs).not.toContain(m.from.replace(/^\/places\/|\/$/g, ''));
     for (const r of redirects) expect(slugs).toContain(r.to.replace(/^\/places\/|\/$/g, ''));
     expect(createPublicData({ hubRows: [] }).placeSlugs()).toEqual(slugs);
   });
