@@ -116,7 +116,8 @@
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
       ],
-      "layer": "route"
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing",
@@ -165,7 +166,8 @@
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
       ],
-      "layer": "route"
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
