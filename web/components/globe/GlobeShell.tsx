@@ -31,7 +31,7 @@ import { nodeAt } from '@/lib/globe/model';
 import { placeCard, type Rect } from '@/lib/globe/anchor';
 import { landTest } from '@/lib/globe/placement';
 
-const EMPTY: GlobeSnapshot = { ready: false, failed: null, loading: '', path: [], crumbs: [], selected: null, feature: null, boundary: null, here: null, pins: [], notice: null };
+const EMPTY: GlobeSnapshot = { ready: false, failed: null, loading: '', path: [], crumbs: [], selected: null, feature: null, boundary: null, here: null, districtTrips: [], pins: [], notice: null };
 /** The floating elements a card must not sit on, as rectangles in the globe root's own coordinates (spec 3.2). */
 function occupiedRects(root: HTMLElement | null): Rect[] {
   if (!root) return [];
@@ -406,12 +406,12 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const level = snap.path.length;
   const countNode = level === 0 ? null : nodeAt(data, snap.path);
   const worldCount = data.index.continents.reduce((n, c) => n + c.places + c.trips, 0);
-  const panelCount = level === 0 ? worldCount : countNode ? countNode.places + countNode.trips : 0;
+  const panelCount = level === 0 ? worldCount : countNode ? countNode.places + (level === 3 ? Math.max(countNode.trips, snap.districtTrips.length) : countNode.trips) : 0;
   const panelTitle = level === 0 ? 'Places and trips' : snap.crumbs[snap.crumbs.length - 1]?.label ?? '';
 
   const censusCredit = snap.path[0] === 'ca' && snap.path.length >= 2;
   const bodyList = book ? (
-    <GlobePanelBody data={data} book={book} path={snap.path} selected={snap.selected} onArea={(p) => { void controller?.goArea(p); }} onCard={(k) => { void controller?.selectCard(k); }} />
+    <GlobePanelBody data={data} book={book} path={snap.path} selected={snap.selected} districtTrips={snap.districtTrips} onArea={(p) => { void controller?.goArea(p); }} onCard={(k) => { void controller?.selectCard(k); }} />
   ) : null;
   // Where Canada's census divisions are drawn they carry their source and licence (F4).
   const body = bodyList ? (<>{bodyList}{censusCredit ? <p className="globe-credit">Districts: Statistics Canada, 2021 census divisions, <a href="https://www.statcan.gc.ca/en/reference/licence" target="_blank" rel="noopener noreferrer">Open Government Licence – Canada</a>.</p> : null}</>) : null;
@@ -446,7 +446,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
 
       <div className="globe-top">
         <GlobeCrumbs crumbs={snap.crumbs} canBack={canBack} onBack={() => controller?.back()} onCrumb={(p) => controller?.crumbTo(p)} />
-        {book ? <GlobeSearch book={book} onPick={onPick} placeholder={short ? 'Search the globe' : undefined} /> : null}
+        {book ? <GlobeSearch book={book} onPick={onPick} /> : null}
       </div>
 
       {snap.here ? (
@@ -504,8 +504,9 @@ export function GlobeShell({ data }: { data: GlobeData }) {
         <Button size="sm" variant="secondary" icon aria-label="Reset view" title="Reset view: back to the world (Home)" onClick={() => controller?.reset()}><Icon name="globe" size={16} /></Button>
         <Button size="sm" variant="secondary" icon aria-label="Zoom in" onClick={() => engine?.zoomBy(1)}><Icon name="plus" size={16} /></Button>
         <Button size="sm" variant="secondary" icon aria-label="Zoom out" onClick={() => engine?.zoomBy(-1)}><Icon name="minus" size={16} /></Button>
+        <Button size="sm" variant="secondary" icon aria-label="Full screen" title="Full screen: hide every control (press . to toggle, Esc to leave)" className="globe-fs-btn" onClick={() => { setOptionsOpen(false); setImmersive(true); }}><Icon name="expand" size={16} /></Button>
       </div>
-      {immersive ? <button type="button" className="globe-show-controls" onClick={() => setImmersive(false)}>Show controls</button> : null}
+      {immersive ? <button type="button" className="globe-show-controls" onClick={() => setImmersive(false)}>Exit full screen <kbd>Esc</kbd></button> : null}
 
       {hint && snap.ready && !phone && !short ? <p className="globe-hint" role="status">Drag to spin, scroll to zoom, click a pin to open it</p> : null}
 
