@@ -36,9 +36,9 @@ describe('H1 on rows built for the purpose', () => {
     registerList(d, rows);
   });
 
-  it('waterfalls with a stroller: the answer holds the yes, the two gaps are apart, the known no is neither', () => {
+  it('waterfalls with a stroller: the answer holds the yes, the two gaps are apart, the known no is neither', async () => {
     const p = parsed('waterfall I can reach with a stroller');
-    const got = listPlacesChecked(state(p.href));
+    const got = await listPlacesChecked(state(p.href));
     expect(got.rows.map((r) => r.id)).toEqual(['yes']);
     expect(got.unchecked).toHaveLength(1);
     expect(got.unchecked[0]!.param).toBe('stroller');
@@ -48,30 +48,30 @@ describe('H1 on rows built for the purpose', () => {
     expect(got.unchecked[0]!.rows.map((r) => r.id)).not.toContain('other');
   });
 
-  it('a scoped facet is a gap when the row has no answer: toilets on lakes', () => {
+  it('a scoped facet is a gap when the row has no answer: toilets on lakes', async () => {
     const lakes = [blank({ id: 'a', type: 'water.body.lake', flags: ['toilets'] }), blank({ id: 'b', type: 'water.body.lake', flags: ['!toilets'] }), blank({ id: 'c', type: 'water.body.lake' })];
     registerList(d, lakes);
-    const got = listPlacesChecked(state(parsed('lake with toilets').href));
+    const got = await listPlacesChecked(state(parsed('lake with toilets').href));
     expect(got.rows.map((r) => r.id)).toEqual(['a']);
     expect(got.unchecked.map((g) => [g.param, g.rows.map((r) => r.id)])).toEqual([['f.toilets', ['c']]]);
     registerList(d, rows);
   });
 
-  it('a row that is a gap on two constraints is listed once, under the first', () => {
+  it('a row that is a gap on two constraints is listed once, under the first', async () => {
     const s = state(parsed('waterfall with a stroller with toilets').href);
     const got = uncheckedRows(rows, s, d);
     const ids = got.flatMap((g) => g.rows.map((r) => r.id));
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it('a gap on a constraint the visitor chose by hand is not moved when the parse did not write it', () => {
+  it('a gap on a constraint the visitor chose by hand is not moved when the parse did not write it', async () => {
     const s = state('/places/?k=water.falls&stroller=any');
     registerList(d, rows);
-    expect(listPlacesChecked(s, ['kid']).unchecked).toEqual([]);
-    expect(listPlacesChecked(s, ['stroller']).unchecked).toHaveLength(1);
+    expect((await listPlacesChecked(s, ['kid'])).unchecked).toEqual([]);
+    expect((await listPlacesChecked(s, ['stroller'])).unchecked).toHaveLength(1);
   });
 
-  it('an explicit "not checked yet" selection is not a gap (the visitor asked for them)', () => {
+  it('an explicit "not checked yet" selection is not a gap (the visitor asked for them)', async () => {
     const f = d.facets.find((x) => x.param === 'stroller')!;
     expect(isGapRow(rows[3]!, f, ['any'])).toBe(true);
     expect(isGapRow(rows[3]!, f, ['none'])).toBe(false);
@@ -87,9 +87,9 @@ describe('H1 over the real places and the fixture queries (property)', () => {
   const places = fixtures.filter((f) => f.target === 'places');
 
   for (const f of places) {
-    it(`${f.id}. ${f.query}: no gap row is in the main group, and every gap row passes the other filters`, () => {
+    it(`${f.id}. ${f.query}: no gap row is in the main group, and every gap row passes the other filters`, async () => {
       const s = state(parsed(f.query).href);
-      const got = listPlacesChecked(s);
+      const got = await listPlacesChecked(s);
       const main = new Set(got.rows.map((r) => r.id));
       for (const facet of d.facets) {
         const sel = s.facets[facet.param] ?? [];
@@ -110,23 +110,23 @@ describe('H1 over the real places and the fixture queries (property)', () => {
     });
   }
 
-  it('queries 2, 9 and 28 show their gaps with the right counts', () => {
+  it('queries 2, 9 and 28 show their gaps with the right counts', async () => {
     // the count is worked out here from the rows, not from the function under test
     const q2 = state(parsed(fixtures[1]!.query).href);
     const falls = real.filter((p) => typeInScope(p.type, ['water.falls']));
     const expectGap = falls.filter((p) => !p.flags.some((x) => x === 'stroller' || x === 'stroller_part' || x === '!stroller'));
-    const got2 = listPlacesChecked(q2);
+    const got2 = await listPlacesChecked(q2);
     expect(got2.rows.every((p) => p.flags.includes('stroller'))).toBe(true);
     expect(got2.unchecked.find((g) => g.param === 'stroller')?.rows.length ?? 0).toBe(expectGap.length);
 
     const q9 = state(parsed(fixtures[8]!.query).href);
     const culture = real.filter((p) => typeInScope(p.type, ['culture']) && p.country === 'US' && p.region === 'vermont');
     const gap9 = culture.filter((p) => !p.flags.includes('step_free') && !p.flags.includes('!step_free'));
-    expect(listPlacesChecked(q9).unchecked.find((g) => g.param === 'f.step-free')?.rows.length ?? 0).toBe(gap9.length);
+    expect((await listPlacesChecked(q9)).unchecked.find((g) => g.param === 'f.step-free')?.rows.length ?? 0).toBe(gap9.length);
 
     const q28 = state(parsed(fixtures[27]!.query).href);
     const trails = real.filter((p) => typeInScope(p.type, ['nature.trail']));
-    const got28 = listPlacesChecked(q28);
+    const got28 = await listPlacesChecked(q28);
     const unknownDogs = trails.filter((p) => !p.flags.includes('dogs') && !p.flags.includes('!dogs')).length;
     const dogs = got28.unchecked.find((g) => g.param === 'f.dogs')?.rows.length ?? 0;
     // a row with no dogs answer and no shape answer is counted once, under dogs

@@ -24,7 +24,7 @@ const onlyListKeys = (keys: string[]) => keys.every((k) => k === 'q' || (FACET_P
 describe('URL round trip: no new key (acceptance, backlog 3.43)', () => {
   const read = fixtures.filter((f) => f.target !== 'search');
   for (const f of read) {
-    it(`${f.id}. ${f.query}`, () => {
+    it(`${f.id}. ${f.query}`, async () => {
       const got = p(f.query);
       const query = got.href.split('?')[1] ?? '';
       const state = decodeState(query);
@@ -38,7 +38,7 @@ describe('URL round trip: no new key (acceptance, backlog 3.43)', () => {
 });
 
 describe('removing and switching chips', () => {
-  it('removing a chip drops exactly its keys from the keys and the link', () => {
+  it('removing a chip drops exactly its keys from the keys and the link', async () => {
     const got = p('easy hike with kids near Banff in September');
     const less = withoutChips(got, ['season']);
     expect(less.chips.map((c) => c.id)).not.toContain('season');
@@ -50,14 +50,14 @@ describe('removing and switching chips', () => {
     expect(withoutChips(got, [])).toBe(got);
   });
 
-  it('a removed chip stays removed on the next parse: its words stay used, so q does not gain them', () => {
+  it('a removed chip stays removed on the next parse: its words stay used, so q does not gain them', async () => {
     const got = p('easy hike with kids near Banff in September', { dropped: ['season'] });
     expect(got.chips.map((c) => c.id)).not.toContain('season');
     expect(got.q).toBe('');
     expect(got.unused).not.toContain('september');
   });
 
-  it('picking the other area replaces the area chip and the three keys', () => {
+  it('picking the other area replaces the area chip and the three keys', async () => {
     const got = p('easy hike with kids near Banff in September');
     const where = got.chips.find((c) => c.id === 'where')!;
     expect(where.alternatives?.length).toBeGreaterThan(0);
@@ -69,19 +69,19 @@ describe('removing and switching chips', () => {
     expect(pairs(next.href)).toEqual(pairs(`?${encodeState({ ...emptyState(), q: next.q, facets: mergeSets(next.chips) })}`));
   });
 
-  it('on Trips, "with kids" asks the age and sets nothing until one is picked (Q40)', () => {
+  it('on Trips, "with kids" asks the age and sets nothing until one is picked (Q40)', async () => {
     const got = p('weekend trip with kids in October');
     const ask = got.chips.find((c) => c.ask)!;
     expect(ask.set).toEqual({});
     expect(got.facets.kid).toBeUndefined();
-    expect(ask.alternatives!.map((a) => a.set.kid?.[0])).toEqual(['4', '6', '8', '10', '12']);
-    const six = pickAlternative(got, 'kid', ask.alternatives![1]!);
+    expect(ask.alternatives!.map((a) => a.set.kid?.[0])).toEqual(['0', '3', '6', '9', '12']);
+    const six = pickAlternative(got, 'kid', ask.alternatives![2]!);
     expect(six.facets.kid).toEqual(['6']);
     expect(six.chips.find((c) => c.id === 'kid')!.ask).toBeUndefined();
     expect(six.href).toContain('kid=6');
   });
 
-  it('on Places, "with kids" and no age sets kid=yes (Q40)', () => {
+  it('on Places, "with kids" and no age sets kid=yes (Q40)', async () => {
     expect(p('easy hike with kids near Banff in September').facets.kid).toEqual(['yes']);
   });
 });
@@ -92,13 +92,13 @@ describe('the undo line (Q39)', () => {
   const applied: Applied = { parsed, text: 'easy hike with kids near Banff in September', before };
   const after: ListState = { ...before, q: parsed.q, facets: { ...before.facets, ...parsed.facets } };
 
-  it('undo puts the words back as plain text and the filters back as they were', () => {
+  it('undo puts the words back as plain text and the filters back as they were', async () => {
     const back = undoState(applied);
     expect(back.q).toBe(applied.text);
     expect(back.facets).toEqual(before.facets);
   });
 
-  it('holds while the filters it wrote are untouched, and lets go when the visitor changes one', () => {
+  it('holds while the filters it wrote are untouched, and lets go when the visitor changes one', async () => {
     expect(stillApplies(after, applied)).toBe(true);
     expect(stillApplies({ ...after, facets: { ...after.facets, season: ['10'] } }, applied)).toBe(false);
     const dropped = { ...after, facets: { ...after.facets } };
@@ -113,15 +113,15 @@ describe('the header count (countParsed)', () => {
     registerList(tripDescriptor, tripListRows());
   });
 
-  it('is the number of rows the list would show, and the number listed apart', () => {
+  it('is the number of rows the list would show, and the number listed apart', async () => {
     const got = p('waterfall I can reach with a stroller');
     const n = countParsed(got)!;
-    const real = listPlacesChecked(decodeState(got.href.split('?')[1]!));
+    const real = await listPlacesChecked(decodeState(got.href.split('?')[1]!));
     expect(n.n).toBe(real.rows.length);
     expect(n.unchecked).toBe(real.unchecked.reduce((a, g) => a + g.rows.length, 0));
   });
 
-  it('is null when a name won, and a plain count for trips', () => {
+  it('is null when a name won, and a plain count for trips', async () => {
     expect(countParsed(p('Niagara Falls'))).toBeNull();
     const trips = p('camper van trip in Iceland');
     expect(countParsed(trips)!.unchecked).toBe(0);

@@ -5,10 +5,10 @@ import type { SearchRecord } from '@/lib/search/types';
 import { indexNames, placeArea, resolveName } from './areas';
 import type { Area, NameHit } from './areas';
 import {
-  DECISIONS, CLIMB_BANDS, CLIMB_WORDS, HUB_MAX, KID_AGES, LENGTH_BANDS, TIME_BANDS, TRIP_EFFORT, TRIP_LENGTH_LABEL, figure, lengthClass, monthRange, monthShort, oneEdit, pickBands, splitFused, tripAge,
-} from './grammar';
+  DECISIONS, CLIMB_BANDS, CLIMB_WORDS, HUB_MAX, LENGTH_BANDS, TIME_BANDS, TRIP_EFFORT, TRIP_LENGTH_LABEL, figure, lengthClass, monthRange, monthShort, oneEdit, pickBands, splitFused, } from './grammar';
 import type { BandPick, Mod } from './grammar';
 import { hrefFor } from './href';
+import { SHORT } from './phrases';
 import { MAX_WORDS, singular, singularPhrase } from './words';
 import type { Chip, DidYouMean, ParseOptions, ParsedQuery, VocabFile } from './types';
 
@@ -55,6 +55,8 @@ function indexVocab(v: VocabFile): Index {
 const lookup = (ix: Index, phrase: string): Entry[] | undefined => ix.map.get(phrase) ?? ix.map.get(singularPhrase(phrase));
 
 const TRIPS_ONLY = ['length', 'around', 'shape', 'perday', 'drive'];
+/** The ages the question "how old is the youngest?" offers: the quick picks of the Youngest child control. */
+const ASK_AGES = [0, 3, 6, 9, 12] as const;
 const MULTI = new Set(['k', 'season', 'effort', 'f.length', 'f.climb', 'f.time', 'f.duration']);
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 const uniq = <T,>(a: T[]) => [...new Set(a)];
@@ -400,8 +402,9 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
   const kid = by.get('kid');
   const noAge = { ...DECISIONS.kidsWithoutAge, ...opts.decisions?.kidsWithoutAge };
   // A9, Q40: a party word with no age. A question chip sets nothing until an age is picked.
+  const ageLabel = (a: number | string) => `Youngest child ${Number(a) === 0 ? 'Baby' : a}`;
   const askAge = (at: [number, number], ages: readonly number[]) => {
-    if (!dropped.has('kid')) chips.push({ id: 'kid', label: 'With kids: how old is the youngest?', set: {}, words: at, ask: true, alternatives: ages.map((a) => ({ id: 'kid', label: target === 'trips' ? `A child of ${a}` : `Youngest child ${a}`, set: { kid: [String(a)] }, words: at })) });
+    if (!dropped.has('kid')) chips.push({ id: 'kid', label: 'With kids: how old is the youngest?', set: {}, words: at, ask: true, alternatives: ages.map((a) => ({ id: 'kid', label: ageLabel(a), set: { kid: [String(a)] }, words: at })) });
   };
   if (kid) {
     const ages = kid.filter((r) => r.value !== 'yes');
@@ -409,15 +412,15 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
     if (target === 'places') {
       if (ages.length) {
         const youngest = ages.reduce((a, b) => (Number(b.value) < Number(a.value) ? b : a));
-        addChip({ id: 'kid', label: vocab.l[`kid=${youngest.value}`] ?? `Youngest child ${youngest.value}`, set: { kid: [youngest.value] }, words: [youngest.from, youngest.to] });
+        addChip({ id: 'kid', label: ageLabel(youngest.value), set: { kid: [youngest.value] }, words: [youngest.from, youngest.to] });
       } else if (noAge.places === 'yes') addChip({ id: 'kid', label: lab('kid', 'yes'), set: { kid: ['yes'] }, words: at });
-      else if (noAge.places === 'ask') askAge(at, [0, 2, 4, 6, 8, 10, 12]);
+      else if (noAge.places === 'ask') askAge(at, ASK_AGES);
       else lefts.push({ text: text(at[0], at[1]), from: at[0], to: at[1] });
     } else if (ages.length) {
-      const age = tripAge(Math.min(...ages.map((r) => Number(r.value))));
-      if (age === null) lefts.push({ text: text(at[0], at[1]), from: at[0], to: at[1] });
-      else addChip({ id: 'kid', label: `A child of ${age}`, set: { kid: [String(age)] }, words: at });
-    } else if (noAge.trips === 'ask') askAge(at, KID_AGES);
+      // one control on both lists: the youngest child's age as given (a plan above it fades, none is hidden)
+      const age = Math.min(...ages.map((r) => Number(r.value)));
+      addChip({ id: 'kid', label: ageLabel(age), set: { kid: [String(age)] }, words: at });
+    } else if (noAge.trips === 'ask') askAge(at, ASK_AGES);
     else lefts.push({ text: text(at[0], at[1]), from: at[0], to: at[1] });
   }
   const stroller = by.get('stroller');
@@ -457,6 +460,19 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
     addChip({ id: key, label, set: { [key]: key === 'length' || key === 'shape' ? [vals[0]!] : vals }, words: span(rs) });
   }
 
+  // "short" with no figure: the shortest band of the scoped kind on Places, a weekend or less on Trips (3.51)
+  // ("short walk" is a phrase of the Trails kind, so the word may already be claimed by that chip: the Length chip then covers the same word)
+  const shortAt = toks.findIndex((t, i) => t === 'short' && (!used[i] || chips.some((c) => c.id === 'k' && c.words[0] <= i && i < c.words[1])));
+  if (shortAt >= 0 && !facets['f.length'] && !facets['f.time'] && !facets['f.duration']) {
+    if (target === 'places' && kindNow().some((k) => SHORT.places.scopes.some((s) => k === s || k.startsWith(`${s}.`)))) {
+      if (!used[shortAt]) claim(shortAt, shortAt + 1);
+      addChip({ id: SHORT.places.param, label: SHORT.places.label, set: { [SHORT.places.param]: [SHORT.places.value] }, words: [shortAt, shortAt + 1] });
+    } else if (target === 'trips' && !facets[SHORT.trips.param]) {
+      claim(shortAt, shortAt + 1);
+      addChip({ id: SHORT.trips.param, label: SHORT.trips.label, set: { [SHORT.trips.param]: [...SHORT.trips.values] }, words: [shortAt, shortAt + 1] });
+    }
+  }
+
   // ---- the words nobody used (H3), typos (A13), and what holds a place we do not know (A5) ----
   for (let i = 0; i < n; ) {
     if (used[i] || filler(toks[i]!)) { i += 1; continue; }
@@ -482,7 +498,7 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
   for (const c of conflicts) for (const e of c.entries.slice(0, 2)) dym.scope.push({ label: `${c.phrase}: ${lab(e.param, e.value)}`, href: hrefFor(target, { ...facets, [e.param]: [e.value] }, q.join(' ')) });
 
   // "short" is a length with no number: no filter exists for it, and a word is never dropped silently (H3)
-  if (toks.includes('short') && !facets['f.length'] && !facets['f.time'] && !facets['f.duration'] && !notYet.includes('short')) notYet.push('short');
+  if (toks.includes('short') && !facets['f.length'] && !facets['f.time'] && !facets['f.duration'] && !(target === 'trips' && facets[SHORT.trips.param]) && !notYet.includes('short')) notYet.push('short');
 
   const qText = q.join(' ');
   chips.sort((a, b) => a.words[0] - b.words[0]);

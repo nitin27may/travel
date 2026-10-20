@@ -33,7 +33,7 @@ test.describe('Places filters', () => {
 
   test('a facet that too few results answer is hidden, and the count line says why', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?k=nature.trail`);
-    await expect(page.locator('.count')).toContainText(/hidden: not known for most results/);
+    await expect(page.locator('.count-block')).toContainText(/hidden: not known for most results/);
   });
 
   test('clearing the Kind removes the scope facets and keeps the four primary pills', async ({ page, site }) => {
@@ -41,14 +41,14 @@ test.describe('Places filters', () => {
     await page.getByRole('button', { name: /Remove filter Kind/ }).click();
     await expect(page).not.toHaveURL(/k=nature/);
     await expect(page).not.toHaveURL(/f\./);
-    await expect(page.locator('.facet-group .pill-trigger')).toHaveText([/^Country/, /^Kind/, /^Season/, /^Kids/, /^More filters/]);
+    await expect(page.locator('.facet-group .pill-trigger')).toHaveText([/^Country/, /^Kind/, /^Season/, /^Youngest child/, /^More filters/]);
   });
 
   test('Kids is a stepper with quick ages; a pick lands in the URL and the count line names the age', async ({ page, site }) => {
     await page.goto(`${site.url}/places/`);
-    await page.locator('.pill-trigger', { hasText: /^Kids/ }).click();
-    const menu = page.getByRole('dialog', { name: 'Kids' });
-    await expect(menu.getByText('Youngest child')).toBeVisible();
+    await page.locator('.pill-trigger', { hasText: /^Youngest child/ }).click();
+    const menu = page.getByRole('dialog', { name: 'Youngest child' });
+    await expect(menu.getByText('Youngest child').first()).toBeVisible();
     expect(clean(await axe(page))).toEqual([]);
     await menu.getByRole('button', { name: '6', exact: true }).click();
     await expect(page).toHaveURL(/kid=6/);
@@ -113,6 +113,7 @@ test.describe('Places filters', () => {
   test('an old kind=trail link still filters and shows as a chip', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?kind=trail`);
     await expect(page.locator('.chips')).toContainText('Kind: Trail');
+    await expect(page.locator('.filter-bar .count strong')).toHaveText(/^\d+$/);
     expect(Number(await page.locator('.filter-bar .count strong').innerText())).toBeGreaterThan(0);
   });
 });
@@ -123,7 +124,7 @@ test.describe('phone', () => {
     await page.goto(`${site.url}/places/`);
     await page.getByRole('button', { name: /^Filters/ }).click();
     const sheet = page.getByRole('dialog');
-    await sheet.locator('summary', { hasText: /^Kids/ }).click();
+    await sheet.locator('summary', { hasText: /^Youngest child/ }).click();
     await expect(sheet.getByRole('button', { name: 'One year older' })).toBeVisible();
     const step = (await sheet.getByRole('button', { name: 'One year older' }).boundingBox())!;
     expect(step.height).toBeGreaterThanOrEqual(44);

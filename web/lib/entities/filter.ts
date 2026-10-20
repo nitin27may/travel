@@ -5,6 +5,25 @@ import { facetShows, scopeOf } from './facets';
 
 const lc = (s: string) => s.toLocaleLowerCase('en');
 
+// the lower-cased search text of a row, made once: a text search runs it for every row, several times a keystroke (10,000 rows, backlog 2.41)
+let lastQ = '';
+let lastWords: string[] = [];
+/** The words of a query, split once: the same string is tested against every row. */
+const wordsOf = (q: string): string[] => {
+  if (q !== lastQ) {
+    lastQ = q;
+    lastWords = lc(q).split(/\s+/).filter(Boolean);
+  }
+  return lastWords;
+};
+const hayCache = new WeakMap<object, string>();
+const hayOf = <Row,>(row: Row, d: EntityDescriptor<Row>): string => {
+  if (typeof row !== 'object' || row === null) return lc(d.search(row));
+  let h = hayCache.get(row);
+  if (h === undefined) hayCache.set(row, (h = lc(d.search(row))));
+  return h;
+};
+
 export function parseBbox(bbox: string | null): [number, number, number, number] | null {
   if (!bbox) return null;
   const n = bbox.split(',').map(Number);
@@ -34,8 +53,8 @@ export function matchesRow<Row>(row: Row, state: ListState, d: EntityDescriptor<
     if (!g || g.lon < box[0] || g.lat < box[1] || g.lon > box[2] || g.lat > box[3]) return false;
   }
   if (ignore !== 'q' && state.q.trim()) {
-    const hay = lc(d.search(row));
-    if (!lc(state.q).split(/\s+/).filter(Boolean).every((w) => hay.includes(w))) return false;
+    const hay = hayOf(row, d);
+    if (!wordsOf(state.q).every((w) => hay.includes(w))) return false;
   }
   return true;
 }
@@ -106,6 +125,36 @@ export function facetCounts<Row>(rows: readonly Row[], state: ListState, d: Enti
   return out;
 }
 
+/**
+ * For each facet that has a "not known" state (`gap`), how many rows that match every other filter are in it. The facet's menu says
+ * "27 not known yet, hidden when you pick one" from this, whether or not the facet has a selection.
+ */
+export function gapCounts<Row>(rows: readonly Row[], state: ListState, d: EntityDescriptor<Row>): Record<string, number> {
+  const out: Record<string, number> = {};
+  for (const facet of d.facets) {
+    const gap = facet.gap;
+    if (!gap || facet.hidden) continue;
+    let n = 0;
+    for (const row of rows) {
+      if (!matchesRow(row, state, d, facet.param)) continue;
+      if (gap.isGap ? gap.isGap(row, []) : facet.options(row).some((o) => o.value === gap.value)) n += 1;
+    }
+    if (n > 0) out[facet.param] = n;
+  }
+  return out;
+}
+
+/** Facets whose selection defines the scope of a list: the Kind, and the country. The count line's "of N" counts the rows inside it. */
+export const SCOPE_PARAMS: readonly FacetParam[] = ['k', 'kind', 'country'];
+
+/** The rows inside the scope of a query (its Kind and country, nothing else): the denominator of the count line. */
+export function scopeTotal<Row>(rows: readonly Row[], state: ListState, d: EntityDescriptor<Row>): number {
+  const facets: ListState['facets'] = {};
+  for (const p of SCOPE_PARAMS) if (state.facets[p]?.length) facets[p] = state.facets[p];
+  const scoped = { ...state, q: '', facets, bbox: null, f: null, sv: null, ids: [] as string[] };
+  return rows.filter((r) => matchesRow(r, scoped, d)).length;
+}
+
 /** Clearing a facet also clears every facet that depends on it, transitively (country, then region, then area). */
 export function dropDependents<Row>(facets: ListState['facets'], d: EntityDescriptor<Row>, param: FacetParam): void {
   // clearing the Kind removes the scope's facets and keeps the base ones (contract 7.1 rule 5)
@@ -140,7 +189,9 @@ export function activeFilters<Row>(state: ListState, d: EntityDescriptor<Row>, l
       if (rest.length) facets[param] = rest;
       else delete facets[param];
       if (!rest.length) dropDependents(facets, d, param);
-      out.push({ key: `${param}:${v}`, label: `${facet.label}: ${labelOf(param, v)}`, without: { ...state, facets, focus: null } });
+      // the Kids control reads "Youngest child 6", whichever list it is on
+      const label = facet.control === 'age' && /^\d{1,2}$/.test(v) ? `${facet.label} ${v === '0' ? 'Baby' : v}` : `${facet.label}: ${labelOf(param, v)}`;
+      out.push({ key: `${param}:${v}`, label, without: { ...state, facets, focus: null } });
     }
   }
   if (state.ids.length) {

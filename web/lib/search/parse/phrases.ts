@@ -139,11 +139,9 @@ export const COUNTRY_EXTRA: Record<string, string> = { usa: 'US', america: 'US',
 /** Chip words that read better than the facet's own label. */
 export const LABELS: Record<string, string> = {
   'k=intent:do': 'Things to do',
-  'effort=stroll,easy': 'Easy or a stroll',
-  'kid=yes': 'With kids',
-  'kid=0': 'Baby (age 0)',
-  'kid=2': 'Toddler (age 2)',
-  'kid=13': 'Teen (age 13)',
+  // chip and pill read the same words (S4): the pill is "Effort · Stroll, Easy"
+  'effort=stroll,easy': 'Effort: Stroll, Easy',
+  'kid=yes': 'Easy with kids',
   'stroller=any': 'Any stroller',
   'stroller=all-terrain': 'All-terrain stroller',
   'f.dogs=yes': 'Dogs allowed',
@@ -166,3 +164,13 @@ export const LABELS: Record<string, string> = {
   'shape=road-trip': 'Road trip',
   'shape=one-base': 'One base',
 };
+
+/**
+ * "short" with no figure (backlog 3.51). On Places it is the shortest Length band, but only where a Length filter exists, which is when
+ * the parse is scoped to a trail or trek; the chip names the band so the reading is plain. On Trips it is the classes of a weekend or less.
+ * With no such scope the word stays unused and the parse says "short has no filter yet" (H3).
+ */
+export const SHORT = {
+  places: { param: 'f.length', value: 'lt3', label: 'Short: under 3 km', scopes: ['nature.trail', 'nature.trek'] },
+  trips: { param: 'length', values: ['day', 'overnight', 'weekend'], label: 'Weekend or shorter' },
+} as const;

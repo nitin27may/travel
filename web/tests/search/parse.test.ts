@@ -38,7 +38,7 @@ describe('the 30 fixture queries (section 3)', () => {
   }
 
   it('the chips of query 1 are the ones the spec shows', () => {
-    expect(labels(p(fixtures[0]!.query)).sort()).toEqual(['Banff, Alberta', 'Easy or a stroll', 'September', 'Trails and walks', 'With kids']);
+    expect(labels(p(fixtures[0]!.query)).sort()).toEqual(['Banff, Alberta', 'Easy with kids', 'Effort: Stroll, Easy', 'September', 'Trails and walks']);
   });
 });
 
@@ -140,15 +140,17 @@ describe('ambiguity rules (section 5)', () => {
     const trips = p('weekend trip with kids');
     expect(trips.facets.kid).toBeUndefined();
     const ask = trips.chips.find((c) => c.ask)!;
-    expect(ask.alternatives!.map((a) => a.set.kid![0])).toEqual(['4', '6', '8', '10', '12']);
-    expect(p('weekend trip with a 7 year old').facets.kid).toEqual(['6']);
-    expect(p('weekend trip with a 3 year old').facets.kid).toBeUndefined();
+    expect(ask.alternatives!.map((a) => a.set.kid![0])).toEqual(['0', '3', '6', '9', '12']);
+    // one control on both lists: the age as given, so a plan above it fades and none is hidden
+    expect(p('weekend trip with a 7 year old').facets.kid).toEqual(['7']);
+    expect(p('weekend trip with a 3 year old').facets.kid).toEqual(['3']);
+    expect(p('weekend trip with a 7 year old').chips.find((c) => c.id === 'kid')?.label).toBe('Youngest child 7');
   });
 
   it('Q40 is one switch: another answer changes the kids-without-age behaviour and nothing else', () => {
     const ask = p('hikes with kids', { decisions: { kidsWithoutAge: { places: 'ask', trips: 'ask' } } });
     expect(ask.facets.kid).toBeUndefined();
-    expect(ask.chips.find((c) => c.ask)?.alternatives).toHaveLength(7);
+    expect(ask.chips.find((c) => c.ask)?.alternatives).toHaveLength(5);
     const none = p('weekend trip with kids', { decisions: { kidsWithoutAge: { places: 'yes', trips: 'none' } } });
     expect(none.chips.some((c) => c.ask)).toBe(false);
     expect(none.unused).toContain('kids');
@@ -316,11 +318,28 @@ describe('spec checks added in SQ1b round 3 (Q36 bands, H3)', () => {
   it('"hike with less than 300 m of climb" reads the same band', () => {
     expect(p('hike with less than 300 m of climb').facets['f.climb']).toEqual(['lt150', '150-400']);
   });
-  it('"short walk in Utah" says that "short" has no filter, and is not dropped silently', () => {
+  it('"short walk in Utah": on a trail scope, "short" is the shortest Length band, named in a chip (3.51)', () => {
     const got = p('short walk in Utah');
     expect(got.facets.k).toEqual(['nature.trail']);
+    expect(got.facets['f.length']).toEqual(['lt3']);
+    expect(got.chips.find((c) => c.id === 'f.length')?.label).toBe('Short: under 3 km');
+    expect(got.notYet).not.toContain('short');
+    expect(got.q).not.toContain('short');
+  });
+  it('"short trip in Iceland" on Trips is a weekend or less (3.51)', () => {
+    const got = p('short trip in Iceland');
+    expect(got.target).toBe('trips');
+    expect(got.facets.length).toEqual(['day', 'overnight', 'weekend']);
+    expect(got.chips.find((c) => c.id === 'length')?.label).toBe('Weekend or shorter');
+    expect(got.notYet).not.toContain('short');
+  });
+  it('"short" with no kind scope on Places still says it has no filter yet, and is not dropped silently', () => {
+    const got = p('short in Utah');
     expect(got.facets['f.length']).toBeUndefined();
     expect(got.notYet).toContain('short');
+  });
+  it('a figure still wins over the word: "short walk under 3 km" has one Length chip', () => {
+    expect(p('short walk under 3 km').chips.filter((c) => c.id === 'f.length')).toHaveLength(1);
   });
   it('"short walk under 3 km" keeps its Length chip and no note', () => {
     const got = p('short walk under 3 km with a toddler');

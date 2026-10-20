@@ -7,10 +7,11 @@ import { parseSort, serialiseSort } from '@/lib/entities/sort';
 import type { EntityDescriptor, ListState } from '@/lib/entities/types';
 
 /** The button says what it filters and how many values are on; the chips below say which. */
-export function FacetLabel({ label, n }: { label: string; n: number }) {
+export function FacetLabel({ label, n, value }: { label: string; n: number; value?: string }) {
   return (
     <>
       <span>{label}</span>
+      {value ? <span className="facet-val">{value}</span> : null}
       {n > 0 ? (
         <span className="facet-n num">
           {n}

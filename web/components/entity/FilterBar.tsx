@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import '@/styles/filters.css';
 import type { ReactElement, RefObject } from 'react';
 import { Chip } from '@/components/ui/Chip';
@@ -14,6 +14,7 @@ import { promotedFor, scopeTokens } from '@/lib/entities/facets';
 import type { EntityDescriptor, FacetDef, FacetParam, ListState, ViewName } from '@/lib/entities/types';
 import { FacetPopover } from './FacetMenu';
 import { LazyMoreFilters } from './MoreFilters.lazy';
+import { OPEN_FILTERS, OPEN_UNCHECKED } from '@/lib/entities/events';
 import type { PhoneFilterProps } from './PhoneFilterSheet';
 import { useMediaQuery } from './useMediaQuery';
 import { ViewOptions } from './ViewOptions';
@@ -24,8 +25,16 @@ export interface FilterBarProps<Row> {
   state: ListState;
   counts: Record<string, FacetCount[]>;
   labelOf: (param: FacetParam, value: string) => string;
-  shown: number;
-  total: number;
+  /** Rows that match, or null while the files that answer the query are loading (the count line then says so; it never guesses). */
+  shown: number | null;
+  /** Rows inside the scope of the query (its Kind and country): the "of N" of the count line. */
+  scope: number;
+  /** What the scope is called: the Kind's name, or the list's noun. */
+  scopeNoun: string;
+  /** Rows listed apart as "not checked yet". */
+  unchecked: number;
+  /** Per facet with a "not known" state, the rows in it. */
+  gaps: Record<string, number>;
   searchRef: RefObject<HTMLInputElement | null>;
   /** What the count line adds, e.g. "12 not checked yet" (a facet's `gap`). */
   notes?: string[];
@@ -70,7 +79,9 @@ const SmartRow = dynamic(() => import('@/components/search/SmartRow'), { ssr: fa
 const PhoneFilterSheet = dynamic(() => import('./PhoneFilterSheet'), { ssr: false }) as unknown as <Row>(props: PhoneFilterProps<Row>) => ReactElement | null;
 
 export function FilterBar<Row>(props: FilterBarProps<Row>) {
-  const { d, state, counts, labelOf, shown, total, searchRef, notes = [], smart, onState } = props;
+  const { d, state, counts, labelOf, shown, scope, scopeNoun, unchecked, gaps, searchRef, notes = [], smart, onState } = props;
+  const [why, setWhy] = useState(false);
+  const whyId = useId();
   const phone = useMediaQuery('(max-width: 639px)');
   const [sheetOpen, setSheetOpen] = useState(false);
   const [sheetEver, setSheetEver] = useState(false);
@@ -93,6 +104,15 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
       root.style.removeProperty('--kid-age-text');
     };
   }, [hasAgeControl, kidAge]);
+  // the phone summary's "More filters" opens the same sheet
+  useEffect(() => {
+    const open = () => {
+      setSheetEver(true);
+      setSheetOpen(true);
+    };
+    window.addEventListener(OPEN_FILTERS, open);
+    return () => window.removeEventListener(OPEN_FILTERS, open);
+  }, []);
   const chips = activeFilters(state, d, labelOf);
   // while a reading shows, the list is held: the sentence is not a filter yet, so it adds no "of N" and no Clear all
   const filtered = chips.length > 0 || (!smart?.holding && state.q.trim().length > 0);
@@ -106,6 +126,10 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
   };
   const changeView = (view: ViewName) => onState({ ...state, view, focus: null }, 'push');
   const activeCount = chips.length;
+  // the notes behind "Why these?": everything the count line used to stack, minus the not-checked count that has its own link
+  const whyNotes = notes.filter((n) => !/^\d+ not checked yet$/.test(n));
+  // a list with no "Not checked yet" group (Trips) still says how many were left out, as plain words
+  const leftOut = unchecked > 0 ? 0 : Number(notes.map((n) => /^(\d+) not checked yet$/.exec(n)?.[1]).find(Boolean) ?? 0);
 
   return (
     <div className="filter-bar" role="search" aria-label={`Filter ${d.noun.many}`}>
@@ -134,13 +158,13 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
           </button>
         </span>
         {phone && sheetEver ? (
-          <PhoneFilterSheet d={d} state={state} facets={primary} more={more} counts={counts} shown={shown} filtered={filtered} open={sheetOpen} onOpenChange={setSheetOpen} setFacet={setFacet} onState={onState} />
+          <PhoneFilterSheet d={d} state={state} facets={primary} more={more} counts={counts} gaps={gaps} shown={shown} filtered={filtered} open={sheetOpen} onOpenChange={setSheetOpen} setFacet={setFacet} onState={onState} />
         ) : null}
         <div className="facet-group" role="group" aria-label="Filters">
           {primary.map((f) => (
-            <FacetPopover key={f.param} facet={f} options={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} onChange={(v) => setFacet(f.param, v)} />
+            <FacetPopover key={f.param} facet={f} options={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} onChange={(v) => setFacet(f.param, v)} gapN={gaps[f.param]} />
           ))}
-          {more.length || waiting.length ? <LazyMoreFilters facets={more} waiting={waiting} counts={counts} state={state} setFacet={setFacet} /> : null}
+          {more.length || waiting.length ? <LazyMoreFilters facets={more} waiting={waiting} counts={counts} gaps={gaps} state={state} setFacet={setFacet} /> : null}
         </div>
 
         <ViewSwitcher view={state.view} onChange={changeView} mapEnabled={Boolean(d.renderMap)} />
@@ -149,17 +173,46 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
       {smart ? <SmartRow d={d} state={state} onState={onState} searchRef={searchRef} applied={smart.applied} onApplied={smart.onApplied} onReading={smart.onReading} slot={smart.slot} /> : null}
 
       <div className="filter-row filter-row-2">
-        <p className="count" role="status" aria-live="polite">
-          <strong className="num">{shown}</strong>
-          {filtered ? <span className="of"> of {total}</span> : null} {total === 1 && !filtered ? d.noun.one : d.noun.many}
-          {notes.length ? (
-            <span className="count-note">
-              <span className="count-sep"> · </span>
-              {notes.join(' · ')}
-            </span>
+        <div className="count-block">
+          <p className="count" role="status" aria-live="polite" aria-busy={shown === null || undefined}>
+            <strong className="num">{shown ?? 'Counting\u2026'}</strong>
+            {shown === null ? null : filtered ? (
+              <span className="of">
+                {' '}
+                of {scope} {scope === 1 && scopeNoun === d.noun.many ? d.noun.one : scopeNoun}
+              </span>
+            ) : (
+              <span> {shown === 1 ? d.noun.one : d.noun.many}</span>
+            )}
+            {kidAge && /^\d{1,2}$/.test(kidAge) && hasAgeControl ? <span className="count-qual"> &middot; for age {kidAge === '0' ? 'Baby' : kidAge}</span> : null}
+          </p>
+          {unchecked > 0 || leftOut > 0 || whyNotes.length ? (
+            <p className="count-more">
+              {unchecked > 0 ? (
+                <button type="button" className="count-link" onClick={() => window.dispatchEvent(new Event(OPEN_UNCHECKED))}>
+                  {unchecked} not checked yet
+                </button>
+              ) : null}
+              {leftOut > 0 ? <span>{leftOut} not checked yet</span> : null}
+              {whyNotes.length ? (
+                <button type="button" className="count-link" aria-expanded={why} aria-controls={whyId} onClick={() => setWhy(!why)}>
+                  Why these?
+                  <Icon name="chevronDown" size={13} />
+                </button>
+              ) : null}
+            </p>
           ) : null}
-        </p>
-        {chips.length ? (
+          {whyNotes.length ? (
+            <div className="count-why" id={whyId} data-open={why || undefined} inert={!why}>
+              <ul>
+                {whyNotes.map((n) => (
+                  <li key={n}>{n}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </div>
+        {chips.length || (filtered && !smart?.holding) ? (
           <ul className="chips" aria-label="Active filters">
             {chips.map((c) => (
               <li key={c.key}>
@@ -168,12 +221,14 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
                 </Chip>
               </li>
             ))}
+            {filtered ? (
+              <li className="chips-clear">
+                <button type="button" className="link-btn" onClick={() => onState(clearAll(state), 'push')}>
+                  Clear all
+                </button>
+              </li>
+            ) : null}
           </ul>
-        ) : null}
-        {filtered ? (
-          <button type="button" className="link-btn" onClick={() => onState(clearAll(state), 'push')}>
-            Clear all
-          </button>
         ) : null}
         <div className="row-end">
           <ViewOptions d={d} state={state} onState={onState} />

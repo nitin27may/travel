@@ -7,6 +7,9 @@
   color: var(--ink); font: var(--t-chip); background: var(--surface); text-decoration: none;
 }
 .trip-links a:hover { background: var(--surface-2); }
+/* "Public page" is a link, not a button: tags are the pills on a card (backlog 4.11) */
+.card-links.trip-links a { min-height: 28px; padding: 0; border: 0; border-radius: 0; background: none; color: var(--accent-text); font: var(--t-small); text-decoration: underline; text-underline-offset: 3px; }
+.card-links.trip-links a:hover { background: none; text-decoration-thickness: 2px; }
 /* tag chips on a card: each a link to the list filtered by it (backlog 3.2); above the card's stretched link */
 .trip-tags { position: relative; z-index: 2; display: grid; gap: var(--s-2); margin-bottom: var(--s-2); }
 .trip-tag-row { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-2); margin: 0; padding: 0; list-style: none; }

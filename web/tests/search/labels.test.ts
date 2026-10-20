@@ -31,7 +31,7 @@ describe('every value the parser can write has a name', () => {
     for (const n of [1, 2, 3, 4]) expect(fallbackLabel('drive', `toronto-${n}`)).toMatch(/^Within \d hours? of Toronto$/);
     expect(fallbackLabel('k', 'water.thermal.hot_spring')).toBe('Hot spring');
     expect(fallbackLabel('country', 'IS')).toBe('Iceland');
-    expect(fallbackLabel('kid', '2')).toBe('Age 2');
+    expect(fallbackLabel('kid', '2')).toBe('Youngest child 2');
   });
 
   it('every key and value of the 30 fixture parses', () => {
