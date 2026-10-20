@@ -41,7 +41,7 @@ export function resolveLeg(from: LegEnd, to: LegEnd, stored: StoredLeg[], hub: P
     // the other end is reached from the base by a stored leg: from a placed stop the way there is back through the base, not a copy of the way in
     const e = estimateLeg(known, hub);
     const toHub = find(stored, ["base"], (from.point ? to : from).ids);
-    return toHub?.minutes ? { ...e, mode: "drive", minutes: Math.round((e.minutes + toHub.minutes) / 5) * 5, km: null } : e;
+    return toHub?.minutes ? { ...e, mode: "drive", minutes: Math.round((e.minutes + toHub.minutes) / 5) * 5, km: null, via: true } : e;
   }
   return { mode: "drive", minutes: LOCAL_MOVE_MIN, km: null, basis: "estimate", estimate: true };
 }

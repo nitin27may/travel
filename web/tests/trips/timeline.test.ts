@@ -246,8 +246,9 @@ describe('review round three', () => {
 describe('review round two', () => {
   it('only the genuinely long Rockies days warn about the cap at the default profile', () => {
     const capped = rockies.schedule!.timelines.filter((t) => t.warnings.some((w) => w.code === 'S_DAY_CAP')).map((t) => t.day);
-    // 4 is the Icefields Parkway move day; 13 carries the optional Rawson Lake. Everything else is under 10 h away, Days 5 and 7 included.
-    expect(capped, capped.join()).toEqual([4, 13]);
+    // 4 is the Icefields Parkway move day; 13 carries the optional Rawson Lake. Days 2 and 5 pass the cap by 5 to 15 minutes once the wait for
+    // the other adult is scheduled in every view (L3c I-1: a view switch must not change the plan). Day 7 stays under.
+    expect(capped, capped.join()).toEqual([2, 4, 5, 13]);
     expect(scheduleDay(day(rockies, 5).scheduleInput!, P(), { variant: 'C' }).warnings.some((w) => w.code === 'S_DAY_CAP')).toBe(false);
   });
   it('the adults version of Day 5 takes its title from its own version and keeps the on-trail lunch before the drive back', () => {

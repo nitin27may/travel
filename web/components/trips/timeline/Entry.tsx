@@ -11,13 +11,14 @@ import { formatDistance, formatElevation } from '@/lib/format/units';
 import { EntrySuit } from '@/components/suit/TripSuit';
 import { TlIcon, type TlIconName } from './icons';
 import { CONF_LABEL, fixedLabel, honestyLabel, KIND_WORD, MODE_WORD, SOURCE_LABEL, timeSpeech, timeText } from './labels';
+import { FLIGHT_NOTE } from './marks';
 import { Prose } from './Prose';
 
 const GLYPH: Record<string, { ui?: IconName; tl?: TlIconName }> = {
   start: { tl: 'key' }, 'start:land': { ui: 'flight' }, 'start:leave-home': { ui: 'home' },
   visit: { ui: 'eye' }, 'visit:lake': { ui: 'lake' }, 'visit:waterfall': { ui: 'waterfall' }, 'visit:viewpoint': { ui: 'eye' }, 'visit:town': { ui: 'sight' }, 'visit:sight': { ui: 'sight' },
   'visit:lift-ride': { ui: 'lift' }, 'visit:boat': { tl: 'boat' }, 'visit:hot-spring': { ui: 'swim' }, 'visit:activity': { ui: 'bolt' }, 'visit:car-hire': { ui: 'car' },
-  'visit:errands': { ui: 'stay' }, trail: { tl: 'walker' }, meal: { ui: 'eatery' }, break: { tl: 'cup' }, rest: { tl: 'rest' }, checkin: { tl: 'bed' }, checkout: { tl: 'bed' },
+  'visit:errands': { ui: 'sight' }, trail: { tl: 'walker' }, meal: { ui: 'eatery' }, break: { tl: 'cup' }, rest: { tl: 'rest' }, checkin: { tl: 'bed' }, checkout: { tl: 'bed' },
   booking: { ui: 'ticket' }, sun: { ui: 'sun' }, 'sun:sunset': { tl: 'sunset' }, end: { ui: 'pin' },
   'leg:drive': { ui: 'car' }, 'leg:walk': { tl: 'walker' }, 'leg:shuttle': { tl: 'bus' }, 'leg:bus': { tl: 'bus' }, 'leg:train': { tl: 'train' }, 'leg:boat': { tl: 'boat' }, 'leg:ferry': { tl: 'boat' }, 'leg:lift': { ui: 'lift' }, 'leg:flight': { ui: 'flight' },
 };
@@ -34,7 +35,7 @@ export function LegRow({ e }: { e: TimelineEntry }) {
   const [prefs] = usePrefs();
   const est = e.leg ? e.leg.basis !== 'routed' : false;
   const word = MODE_WORD[e.leg?.mode ?? 'drive'] ?? 'Travel';
-  const to = e.to?.name ? e.title.replace(/^(Drive|Walk|Shuttle|Bus|Train|Boat|Ferry|Lift|Flight) to /, '') : '';
+  const to = e.to?.name ? e.title.replace(/^(Drive|Walk|Shuttle|Bus|Train|Boat|Ferry|Lift|Flight) (?:on )?to |^Back to /, '') : '';
   const back = /^(Back to|Drive on to)/.test(e.title);
   return (
     <li className="tl-leg num" data-lane={e.lane} data-mode={e.leg?.mode} data-estimate={est || undefined}>
@@ -44,7 +45,7 @@ export function LegRow({ e }: { e: TimelineEntry }) {
         <Glyph e={e} size={14} />
         <span className="sr-only">{`${e.start}, ${word} ${fmtHM(e.durationMin)}${est ? ', estimated' : ''}${to ? `, to ${to}` : ''}. `}</span>
         <span aria-hidden="true">
-          {est ? <span className="tl-est" title="A straight line or the plan's own figure, not a routed road time">≈</span> : null}
+          {est ? <><span className="tl-est" title="A straight line or the plan's own figure, not a routed road time">≈</span>{' '}</> : null}
           {word} <b>{fmtHM(e.durationMin)}</b>
           {e.leg?.km ? ` · ${formatDistance(e.leg.km, prefs.distance)}` : ''}
           {to && !back ? ` to ${to}` : back ? ` ${e.title.replace(/^Drive on to /, 'on to ')}` : ''}
@@ -69,19 +70,21 @@ interface Props {
   /** "moved 40 min later", shown for one viewing after an addition. */
   moved: number | null;
   onRemove?: () => void;
+  /** "Last rental 14:00": the latest the data lets this start, beside the other facts. */
+  last?: string | null;
   dimmed?: boolean;
   laneOff?: boolean;
 }
 
 /** One entry on the day's time rail (design 4.2): time, node, glyph, title, chips, meta, note, warnings; opens to its sources. */
-export function Entry({ entry: e, warnings, moved, onRemove, laneOff }: Props) {
+export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last }: Props) {
   const [open, setOpen] = useState(false);
   const [prefs] = usePrefs();
   const quiet = QUIET.has(e.kind);
   const href = place(e.at);
   const slot = fixedLabel(e);
   const dur = e.durationMin > 0 && e.kind !== 'sun' ? fmtHM(e.durationMin) : null;
-  const meta = [slot, ...stats(e, prefs), e.kind === 'meal' && e.style === 'on-trail' ? 'eaten on the trail' : null].filter(Boolean) as string[];
+  const meta = [slot, last, ...stats(e, prefs), e.kind === 'meal' && e.style === 'on-trail' ? 'eaten on the trail' : null].filter(Boolean) as string[];
   const hasMore = (!quiet || e.addedBy === 'visitor') && e.kind !== 'sun' && !e.block;
   const flagged = [...new Set(e.honesty)].filter((h) => h !== 'drive_estimated');
   const moveText = moved ? `moved ${fmtHM(Math.abs(moved))} ${moved > 0 ? 'later' : 'earlier'}` : null;
@@ -102,6 +105,7 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff }: Props) {
     >
       <span className="tl-time num" data-conf={e.time.confidence} data-block={e.block ? '' : undefined}>
         <span aria-hidden="true">{e.block ?? timeText(e)}</span>
+        {e.tz.length <= 3 ? <span className="tl-tz" aria-hidden="true">{e.tz}</span> : null}
         {e.kind === 'sun' ? <span className="tl-sun-glyph"><TlIcon name="sunset" size={13} /></span> : null}
       </span>
       <span className="tl-node" data-conf={e.time.confidence} aria-hidden="true" />
@@ -122,7 +126,7 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff }: Props) {
           {moveText ? <span className="tl-moved num">{moveText}</span> : null}
         </p>
         {meta.length ? <p className="tl-meta num">{meta.join(' · ')}</p> : null}
-        {e.time.note && e.kind !== 'start' ? <p className="tl-note"><Prose text={e.time.note} /></p> : null}
+        {e.time.note && (e.kind !== 'start' || e.time.note.startsWith(FLIGHT_NOTE)) ? <p className="tl-note"><Prose text={e.time.note} /></p> : null}
         {warnings.map((w) => (
           <p key={`${w.code}:${w.message}`} className="tl-warn" data-code={w.code}>
             <Icon name="warn" size={14} /> <Prose text={w.message} />

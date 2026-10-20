@@ -1,9 +1,10 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { MapFamilyProvider } from '@/components/map/MapFamilyProvider';
 import { Banner } from '@/components/ui/Banner';
 import { Chip } from '@/components/ui/Chip';
+import { Icon } from '@/components/ui/Icon';
 import { Segmented } from '@/components/ui/Segmented';
 import { publishTimeline, registerYoungest } from '@/lib/export/timelineState';
 import type { MapHandle } from '@/lib/map/types';
@@ -23,6 +24,7 @@ import { TripSuitProvider } from '@/components/suit/TripSuit';
 import { TripTimeline } from './timeline/TripTimeline';
 import { useScrollSpy } from './timeline/useScrollSpy';
 import { useTimeline } from './timeline/useTimeline';
+import { useSwap } from './timeline/useSwap';
 import { dayFitIds, RouteKey, TripRouteMap } from './TripRouteMap';
 import { useTripUrl } from './useTripUrl';
 
@@ -31,9 +33,16 @@ interface Props {
   model: TripPageModel;
   title: string;
   depth: 'full' | 'summary';
+  /** The season band, drawn below "Plan it for" on a trip with a timeline and first on any other (server-rendered, passed through). */
+  season?: ReactNode;
 }
 
 const reduced = () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/** "Family, 6 · Standard": who the plan is for right now, never "as written" (the sticky bar and the phone selector say it). */
+export function profileLabel(p: { party: string; youngest: number | null; pace: string }): string {
+  return `${p.party === 'adults' ? 'Adults' : `Family, ${p.youngest}`} · ${p.pace[0]!.toUpperCase()}${p.pace.slice(1)}`;
+}
 
 /** The "Suggested times" banner, once above the first day (spec 2.12). */
 function TimesBanner({ condensed }: { condensed: boolean }) {
@@ -57,15 +66,19 @@ function TimesBanner({ condensed }: { condensed: boolean }) {
  * day on a time rail (trip-timeline spec). The day at the top of the screen is the current day: it lights the rail, the strip and the day, and the map follows it once scrolling settles; By category regroups the same items and never
  * changes the order inside a day. Trips without schedule data keep the plain day rows.
  */
-export function TripPlan({ slug, model, title, depth }: Props) {
+export function TripPlan({ slug, model, title, depth, season }: Props) {
   const url = useTripUrl();
   const tlModel = model.timeline;
-  if (!tlModel) return <PlainPlan slug={slug} model={model} title={title} depth={depth} />;
-  return <TimelinePlan slug={slug} model={model} title={title} depth={depth} tlModel={tlModel} url={url} />;
+  if (!tlModel) return <PlainPlan slug={slug} model={model} title={title} depth={depth} season={season} />;
+  return <TimelinePlan slug={slug} model={model} title={title} depth={depth} season={season} tlModel={tlModel} url={url} />;
 }
 
-function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
+function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
   const api = useTimeline(tlModel, url);
+  const [edit, setEdit] = useState(false);
+  const pr = api.state.profile;
+  const swap = useSwap(api.timelines, `${pr.party}|${pr.youngest}|${pr.pace}|${pr.adults}|${pr.walkKm}`, api.pending);
+  const shown = swap.shown;
   const showCategory = url.view === 'category';
   const map = useRef<MapHandle>(null);
   // the hash this page wrote itself while following the scroll or jumping; the hash effect must not scroll to it again
@@ -104,32 +117,38 @@ function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlM
   const current = showCategory ? null : daySpy.current;
   const active = showCategory ? catSpy.current : null;
 
-  const route = useMemo(() => orderRoute(model.route, api.timelines), [model.route, api.timelines]);
+  const route = useMemo(() => orderRoute(model.route, shown), [model.route, shown]);
 
-  // The map follows the settled current day, and only while the map is on screen; scrolling back up to it shows today's day.
-  const [mapOn, setMapOn] = useState(false);
+  // The map follows the settled current day: the whole trip until Day 1 reaches the focus line, then that day, 350 ms after the scroll settles.
+  // "All days" pauses following; "Follow Day N", a rail or strip click, or the Day segment resumes it.
   const [mapDay, setMapDay] = useState<number | null>(null);
-  useEffect(() => {
-    const el = document.getElementById('route');
-    if (!el) return;
-    const io = new IntersectionObserver(([e]) => setMapOn(!!e?.isIntersecting));
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  const [paused, setPaused] = useState(false);
+  const [sheet, setSheet] = useState(false);
   const dayNow = showCategory ? null : daySpy.reached;
   useEffect(() => {
-    if (!mapOn) return;
+    if (paused) return;
     const t = window.setTimeout(() => setMapDay(dayNow), 350);
     return () => window.clearTimeout(t);
-  }, [mapOn, dayNow]);
+  }, [paused, dayNow]);
   const first = useRef(true);
   useEffect(() => {
     if (first.current) {
       first.current = false;
       return;
     }
-    if (mapDay !== null) map.current?.fit(dayFitIds(route, mapDay));
+    map.current?.fit(mapDay === null ? undefined : dayFitIds(route, mapDay));
   }, [mapDay, route]);
+  useEffect(() => {
+    if (!sheet) return;
+    const esc = (e: globalThis.KeyboardEvent) => {
+      if (e.key === 'Escape') setSheet(false);
+    };
+    window.addEventListener('keydown', esc);
+    return () => window.removeEventListener('keydown', esc);
+  }, [sheet]);
+  const placed = routeHasPositions(route);
+  const mapDayModel = mapDay === null ? null : route.days.find((d) => d.n === mapDay) ?? null;
+  const mapLabel = mapDayModel ? `Map: Day ${mapDayModel.n}${mapDayModel.base ? `, ${mapDayModel.base}` : ''}, ${mapDayModel.points.length} ${mapDayModel.points.length === 1 ? 'stop' : 'stops'}` : `Map: the whole trip${route.unplaced ? `, ${route.unplaced} stops not on the map` : ''}`;
 
   // an anchor (`#day-5`, `#trails`) scrolls to its target once the right view is on screen; an empty category goes to the strip
   const goDay = daySpy.goTo;
@@ -174,46 +193,33 @@ function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlM
       const el = document.getElementById(`day-${n}`);
       if (el) goDay(el, n);
       ownHash.current = `day-${n}`;
+      setPaused(false);
       url.go({ view: 'day', hash: `day-${n}` }, 'push');
     },
     [url, goDay],
   );
   const sections = useMemo(
-    () => model.sections.map((s) => ({ ...s, rows: s.rows.map((r) => ({ ...r, time: timeOfRow(r, r.days[0] ?? 0, api.timelines) ?? r.time })) })),
-    [model.sections, api.timelines],
+    () => model.sections.map((s) => ({ ...s, rows: s.rows.map((r) => ({ ...r, time: timeOfRow(r, r.days[0] ?? 0, shown) ?? r.time })) })),
+    [model.sections, shown],
   );
   const p = api.state.profile;
-  const planLabel = !api.changed ? 'Plan as written' : `${p.party === 'adults' ? 'Adults' : `Family, youngest ${p.youngest}`} · ${p.pace[0]!.toUpperCase()}${p.pace.slice(1)}`;
+  const planLabel = profileLabel(p);
+  const editPlan = useCallback(() => {
+    setEdit(true);
+    document.getElementById('plan-for')?.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' });
+  }, []);
 
   return (
     <TripSuitProvider value={{ byPlace: tlModel.suit, youngest: p.party === 'family' ? p.youngest : null }}>
     <div className="tl-wrap">
+      <ProfileBar model={tlModel} api={api} edit={edit} setEdit={setEdit} label={planLabel} />
+      {season}
       <TimesBanner condensed={tlModel.condensed} />
-      <ProfileBar model={tlModel} api={api} />
-      {!showCategory ? <TripTimeline model={tlModel} timelines={api.timelines} changedDays={api.changedDays} picked={current} onPick={pickDay} /> : null}
+      {!showCategory ? <TripTimeline model={tlModel} timelines={shown} changedDays={api.changedDays} picked={current} onPick={pickDay} /> : null}
 
-      <section className="trip-sec" aria-labelledby="route-h" id="route" data-print="hide">
-        <h2 id="route-h" className="trip-h">The route</h2>
-        {!routeHasPositions(route) ? (
-          <p className="trip-sec-note" data-testid="route-unplaced">
-            Stop positions are not researched yet, so there is no route map for this plan. The days below list every stop.
-          </p>
-        ) : (
-          <>
-            <p className="trip-sec-note">
-              Every day&apos;s stops as dots, the bases as signposts. Lines are straight estimates between stops; road routes come later.
-              {route.unplaced ? ` ${route.unplaced} stops have no map position yet.` : ''} Pick a day below to follow it.
-            </p>
-            <MapFamilyProvider family="maplibre">
-              <TripRouteMap ref={map} route={route} picked={mapDay} title={title} />
-            </MapFamilyProvider>
-            <RouteKey />
-          </>
-        )}
-      </section>
+      {!showCategory ? <PlanBar model={tlModel} label={planLabel} active={current} onPick={pickDay} onEdit={editPlan} /> : null}
 
-      {!showCategory ? <PlanBar model={tlModel} label={planLabel} active={current} onPick={pickDay} /> : null}
-
+      <div className="tl-cols" data-map={placed || undefined}>
       <section className="trip-sec" aria-labelledby="in-trip-h" id="in-this-trip">
         <h2 id="in-trip-h" className="trip-h">In this trip</h2>
         {depth === 'summary' ? (
@@ -241,13 +247,19 @@ function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlM
         {showCategory ? (
           <CategoryView sections={sections} />
         ) : (
-          <ol className="tl-days">
-            {tlModel.days.map((d) => {
-              const tl = api.timelines.find((t) => t.day === d.n)!;
+          <ol className="tl-days" data-swap={swap.phase}>
+            {tlModel.days.map((d, di) => {
+              const tl = shown.find((t) => t.day === d.n)!;
               const mine = api.added[d.n] ?? [];
               return (
                 <DayTimeline
                   key={d.n}
+                  index={di}
+                  engine={api.engine}
+                  loadEngine={api.loadEngine}
+                  profile={api.state.profile}
+                  override={api.state.overrides[d.n] ?? null}
+                  addedItems={mine.map((x) => x.item)}
                   day={d}
                   tl={tl}
                   picked={current === d.n}
@@ -266,13 +278,64 @@ function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlM
           </ol>
         )}
       </section>
+        <aside className="tl-mapcol" id="route" aria-labelledby="route-h" data-print="hide" data-sheet={sheet || undefined}>
+          <h2 id="route-h" className="trip-h tl-mapcol-h">The route</h2>
+          {!placed ? (
+            <p className="trip-sec-note" data-testid="route-unplaced">
+              Stop positions are not researched yet, so there is no route map for this plan. The days below list every stop.
+            </p>
+          ) : (
+            <>
+              <div className="tl-mapcol-bar">
+                <Segmented
+                  label="Map shows"
+                  size="s"
+                  value={paused || mapDay === null ? 'all' : 'day'}
+                  onChange={(v) => {
+                    if (v === 'all') {
+                      setPaused(true);
+                      setMapDay(null);
+                    } else setPaused(false);
+                  }}
+                  segments={[
+                    { value: 'all', label: 'All days' },
+                    { value: 'day', label: mapDay === null ? 'Day' : `Day ${mapDay}`, disabled: !showCategory && dayNow === null && mapDay === null },
+                  ]}
+                />
+                <button type="button" className="tl-mapcol-close" onClick={() => setSheet(false)} aria-label="Close map">
+                  <Icon name="close" size={16} />
+                </button>
+              </div>
+              <p className="tl-mapcol-label num" aria-live="polite">
+                {paused ? (
+                  <>
+                    Paused · <button type="button" className="tl-reset" onClick={() => setPaused(false)}>{dayNow !== null ? `Follow Day ${dayNow}` : 'Follow the days'}</button>
+                  </>
+                ) : (
+                  mapLabel
+                )}
+              </p>
+              <MapFamilyProvider family="maplibre">
+                <TripRouteMap ref={map} route={route} picked={paused ? null : mapDay} title={title} />
+              </MapFamilyProvider>
+              <p className="trip-sec-note tl-mapcol-note">Lines are straight estimates between stops; road routes come later.{route.unplaced ? ` ${route.unplaced} stops have no map position yet.` : ''}</p>
+              <RouteKey />
+            </>
+          )}
+        </aside>
+      </div>
+      {placed ? (
+        <button type="button" className="tl-mappill" data-print="hide" data-hidden={sheet || undefined} aria-expanded={sheet} aria-controls="route" onClick={() => setSheet(true)}>
+          <Icon name="map" size={18} /> {mapDay !== null && !paused ? `Map · Day ${mapDay}` : 'Map · All days'}
+        </button>
+      ) : null}
     </div>
     </TripSuitProvider>
   );
 }
 
 /** A trip with no schedule data (a build without data/schedules): the route map and the plain day rows. */
-function PlainPlan({ slug, model, title, depth }: Props) {
+function PlainPlan({ slug, model, title, depth, season }: Props) {
   const url = useTripUrl();
   const showCategory = url.view === 'category';
   const [open, setOpen] = useState<ReadonlySet<number>>(new Set());
@@ -335,6 +398,7 @@ function PlainPlan({ slug, model, title, depth }: Props) {
   };
   return (
     <>
+      {season}
       <section className="trip-sec" aria-labelledby="route-h" id="route" data-print="hide">
         <h2 id="route-h" className="trip-h">The route</h2>
         {!routeHasPositions(model.route) ? (

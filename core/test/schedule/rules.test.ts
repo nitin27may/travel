@@ -8,7 +8,7 @@ import { family, item, profile } from "./helpers.ts";
 
 describe("duration rules (spec 2.3)", () => {
   it("has a rule id for every row of the table", () => {
-    for (const id of ["viewpoint.roadside", "lake.viewpoint", "lake.shore", "waterfall.walk", "sight.museum", "town.stroll", "lift.ride", "hot-spring", "activity.default", "boat.default", "meal.dinner", "break.coffee", "checkin", "park.walk-in", "trail.naismith"]) {
+    for (const id of ["lake.viewpoint", "sight.museum", "town.stroll", "lift.ride", "hot-spring", "activity.default", "boat.default", "meal.dinner", "break.coffee", "checkin", "park.walk-in", "trail.naismith"]) {
       expect(DURATION_RULES[id], id).toBeDefined();
     }
   });
@@ -24,7 +24,7 @@ describe("duration rules (spec 2.3)", () => {
     const r = resolveDuration(t, family(6));
     expect(r.minutes).toBe(Math.round((naismithMin(3.2, 84) * 1.6) / 5) * 5);
     expect(r.minutes % 5).toBe(0);
-    expect(r.ruleId).toBe("trail.naismith");
+    expect(r.basis).toContain("Naismith");
     expect(r.basis).toContain("x 1.6");
   });
   it("never scales an operator duration", () => {

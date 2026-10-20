@@ -844,7 +844,21 @@
      "estimate": true,
      "km": null
     }
-   ]
+   ],
+   "zone": {
+    "place": "Mount Robson",
+    "label": "Pacific time",
+    "abbr": "PT",
+    "home": "Mountain time",
+    "homeAbbr": "MT",
+    "offsetMin": -60,
+    "items": [
+     "mount-robson-viewpoint",
+     "overlander-falls-trail",
+     "kinney-lake"
+    ],
+    "source": "research/trips/canadian-rockies-sept-2029/logistics-stays.md (Valemount and Mount Robson observe Pacific time; an inference to verify) and legacy/canadian-rockies-sept-2029/data/itinerary.json day 6"
+   }
   },
   "7": {
    "order": {
@@ -1191,9 +1205,9 @@
       "window": {
        "from": "10:00",
        "to": "16:45",
-       "lastUp": null,
+       "lastUp": "14:00",
        "lastDown": null,
-       "why": "2026 hours; the page also says last rental 14:00"
+       "why": "2026 hours 10:00 to 16:45; the rental page also says last rental 14:00, so be there by 14:00"
       }
      },
      {
@@ -1246,7 +1260,14 @@
     "emerald-lake-canoe": {
      "sub": "boat",
      "durationMin": 60,
-     "durationSource": "plan"
+     "durationSource": "plan",
+     "window": {
+      "from": "10:00",
+      "to": "16:45",
+      "lastUp": "14:00",
+      "lastDown": null,
+      "why": "2026 hours 10:00 to 16:45; the rental page also says last rental 14:00, so be there by 14:00"
+     }
     }
    },
    "split": {
@@ -1338,7 +1359,8 @@
      "estimate": true,
      "km": null
     }
-   ]
+   ],
+   "source": "research/trips/canadian-rockies-sept-2029: legacy data/verify-adventures.json (Emerald Lake canoe: 10:00 to 16:45 daily, the page also says last rental 14:00, a conflict) and PLAN.md"
   },
   "10": {
    "order": {
@@ -2006,7 +2028,10 @@
      "estimate": true,
      "km": null
     }
-   ]
+   ],
+   "flight": {
+    "source": "legacy/canadian-rockies-sept-2029/data/itinerary.json day 15: leave Kananaskis Village at least 3 h before departure; Troll Falls only if the flight leaves after about 15:00. 2029 flight times are a gap."
+   }
   }
  }
 }
