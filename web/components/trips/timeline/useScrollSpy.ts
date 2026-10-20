@@ -83,15 +83,6 @@ export function useScrollSpy<K extends string | number>(opts: Options<K>): Spy<K
         setReached(pin.key ?? r.key);
         return r.key;
       }
-      // Still inside the jump's window and the visitor has not touched anything: a smooth glide that outlived its idle timer (WebKit
-      // stalls scroll events under load) or a late layout shift moved the page. Put the target back, so the bottom-of-page rule
-      // cannot hand the highlight to the last section.
-      if (performance.now() < pin.until && pin.el.isConnected) {
-        pin.el.scrollIntoView({ block: 'start', behavior: 'auto' });
-        pin.y = window.scrollY;
-        setReached(pin.key ?? r.key);
-        return r.key;
-      }
       s.current.pin = null;
     }
     setReached(r.key);
