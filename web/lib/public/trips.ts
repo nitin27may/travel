@@ -47,12 +47,15 @@ function statsLine(s: { distanceKm: number | null; gainM: number | null; hours: 
 function collectCategories(days: PublicDay[], extra: CategoryItem[]): Record<Category, CategoryItem[]> {
   const cats = emptyCategories();
   const index = new Map<string, CategoryItem>();
+  const firstName = new Map<string, string>();
   for (const d of days) {
     const items = d.tracks ? d.tracks.flatMap((t) => t.items) : d.items;
     for (const it of items) {
       if (!it.category) continue;
       // two names that resolve to one page (a merged duplicate) are still two stops of the trip: each keeps its row, and both link the page
-      const key = it.placeSlug ? `${it.placeSlug}#${normName(it.name)}` : `${it.kind}:${normName(it.name)}`;
+      const nm = normName(it.name);
+      if (it.placeSlug && !firstName.has(it.placeSlug)) firstName.set(it.placeSlug, nm);
+      const key = it.placeSlug ? (firstName.get(it.placeSlug) === nm ? it.placeSlug : `${it.placeSlug}#${nm}`) : `${it.kind}:${nm}`;
       const found = index.get(key);
       if (found) {
         if (!found.days.includes(d.n)) found.days.push(d.n);
