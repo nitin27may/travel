@@ -132,9 +132,11 @@ describe('links tabs: searched and found nothing', () => {
     expect(page).not.toContain('Nothing recorded in this group yet');
     expect(html('tre-cime-di-lavaredo-loop')).not.toContain('WebSearch');
   });
-  it('a tab nobody searched says "Not checked yet"', () => {
+  it('a tab nobody searched says "not checked yet" once, in the tab, not "0" and a second sentence', () => {
     const page = renderToString(<LinksTabs tabs={[{ id: 'x', label: 'X', links: [], none: [] }]} checked={null} />);
-    expect(page).toContain('Not checked yet.');
+    expect(page).toContain('· not checked yet');
+    expect(page).not.toContain('Not checked yet.');
+    expect(page).not.toMatch(/pl-tab-n/);
   });
 });
 

@@ -17,6 +17,10 @@ import { nameOfRef, type RefLink } from './relevance';
 // renderer. The structures the contract's relations add (ways, access points, offers, "at this place you can also", parts,
 // the ticket offer of a lift) come from the records' relations and their derived inverses (core/src/capture/records.ts).
 
+/** A property label as a closing line says it: a brand keeps its capitals and a relation reads as words, never a raw key (S7). */
+const CLOSING_WORDS: Record<string, string> = { OpenStreetMap: 'OpenStreetMap link', Wikidata: 'Wikidata link', 'Part of': 'what it is part of', 'Track licence': "the track's licence" };
+export const closingWord = (label: string): string => CLOSING_WORDS[label] ?? label.toLowerCase();
+
 // ---- shapes ------------------------------------------------------------------------------------------------------------
 
 export type ValueType = string;
@@ -471,7 +475,7 @@ export function buildSections(world: World, rawRef: string, contract: Contract, 
       const echo = sm.id === 'cover' && COVER_ECHO.has(p.key);
       const row = baseRow(r, p.def, mark, p.home, echo);
       if (p.key === 'type' && !row.gap) row.text = contract.node(cap.type)?.label ?? row.text;
-      if (row.gap && mark === 'A') missingA.push(p.def.label.toLowerCase());
+      if (row.gap && mark === 'A') missingA.push(closingWord(p.def.label));
       else {
         rows.push(row);
         rowsByKey.set(p.key, row);
@@ -492,7 +496,7 @@ export function buildSections(world: World, rawRef: string, contract: Contract, 
 
     // R properties and no value in any: the page draws one closing line instead of the gap chips (PS14); the rows stay as data
     const empty = anyAsked && sm.id !== 'suits' && rows.length > 0 && rows.every((x) => x.gap);
-    const closingLabels = empty ? [...rows.map((x) => x.label.toLowerCase()), ...missingA] : missingA;
+    const closingLabels = empty ? [...rows.map((x) => closingWord(x.label)), ...missingA] : missingA;
     sections.push({
       n: sm.n,
       id: sm.id,
@@ -634,7 +638,7 @@ function offerCard(r: Rec, contract: Contract, ref: string, scrub: TextScrub, wo
       m = holds === true ? 'R' : 'A';
     }
     const row = baseRow(sub, def, m, 'options', false);
-    if (row.gap && m === 'A') missingA.push(def.label.toLowerCase());
+    if (row.gap && m === 'A') missingA.push(closingWord(def.label));
     else rows.push(row);
   }
   const at = (cap.at ?? [])[0];

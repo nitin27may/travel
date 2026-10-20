@@ -105,7 +105,8 @@ function planBSource(w: World, ref: string, id: string | undefined): { label: st
 /** The name of any ref: its capture name, else the last path segment made readable. */
 export function nameOfRef(world: World, ref: string): string {
   const cap = world.cap.get(primaryRef(world, ref))?.rec;
-  if (cap?.name) return cap.name;
+  // a working note in the middle of a name ("Banff Gondola (Sulphur Mountain summit) top station") is not part of it (3.57)
+  if (cap?.name) return cap.name.replace(/\s*\([^)]*\)(?=\s+\S)/g, '').replace(/\s+/g, ' ').trim() || cap.name;
   const seg = ref.split('#')[0]!.split('/').pop() ?? ref;
   return seg.replace(/^[a-z]+:/, '').replace(/[-_]/g, ' ').replace(/^./, (s) => s.toUpperCase());
 }
@@ -210,6 +211,8 @@ export interface RelevanceOptions {
   showNotJudged?: boolean;
 }
 
+/** "Nearby" means near: a pair or a stand-in further than this is not listed (the S1b review caps it at about 25 km). */
+export const NEARBY_MAX_KM = 25;
 const MAX_SIMILAR = 3;
 const MAX_PAIRS = 3;
 
@@ -334,14 +337,14 @@ export function publicRelevance(ctx: RelevanceContext, rawRef: string, opts: Rel
   const nearRefs = new Set((item?.substitutes.near ?? []).map((s) => s.ref));
   const skip = relatedRefs(ctx, ref);
   const similarAll = (item?.substitutes.near ?? []).filter((s) => !skip.has(primaryRef(w, s.ref)));
-  const similar = similarAll.slice(0, MAX_SIMILAR).map((s) => asSimilar(s, planBRef));
+  const similar = similarAll.filter((x) => (x.km ?? 0) <= NEARBY_MAX_KM).slice(0, MAX_SIMILAR).map((s) => asSimilar(s, planBRef));
   const similarArea = (item?.substitutes.area ?? []).filter((s) => !nearRefs.has(s.ref) && !skip.has(primaryRef(w, s.ref))).map((s) => asSimilar(s, planBRef));
 
   // pairs: hand-picked first (derive already sorts them so), never a way, payoff, part or the start of this record
   const pairs: PairPlace[] = [];
   for (const p of item?.pair_with ?? []) {
     const target = primaryRef(w, p.ref);
-    if (skip.has(target)) continue;
+    if (skip.has(target) || (p.km ?? 0) > NEARBY_MAX_KM) continue;
     const startsHere = (w.cap.get(target)?.rec.starts_at ?? []).some((r) => primaryRef(w, r) === ref);
     pairs.push({
       ref: p.ref,

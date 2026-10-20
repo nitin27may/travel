@@ -41,7 +41,8 @@ export function LinksTabs({ tabs, checked }: { tabs: LinkTab[]; checked: string 
             onClick={() => setCurrent(t.id)}
             onKeyDown={(e) => onKey(e, i)}
           >
-            {t.label} <span className="num pl-tab-n">{t.links.length}</span>
+            {t.label}{' '}
+            {t.links.length || t.none.length ? <span className="num pl-tab-n">{t.links.length}</span> : <span className="pl-tab-gap">· not checked yet</span>}
           </button>
         ))}
       </div>
@@ -73,7 +74,6 @@ export function LinksTabs({ tabs, checked }: { tabs: LinkTab[]; checked: string 
             ))}
           </ul>
         ) : null}
-        {!active.links.length && !active.none.length ? <p className="muted small">Not checked yet.</p> : null}
       </div>
       <p className="muted small pl-checked">{checked ? `Researched ${checked}; links are not re-checked automatically.` : 'Link check date: not checked yet.'}</p>
     </div>

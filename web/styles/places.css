@@ -190,3 +190,4 @@
 .pl-payoff { margin: 0; font: var(--t-small); color: var(--ink-2); }
 .pl-payoff a { font-weight: 600; }
 .pl-profile figcaption [class*='chip'] { white-space: normal; max-width: 100%; text-align: left; }
+.pl-tab-gap { color: var(--muted); font-weight: 400; }
