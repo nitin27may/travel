@@ -1,5 +1,7 @@
 # Public site build: live status (coordinator handover)
 
+**Another machine or a fresh session: read `/HANDOVER.md` (repo root) first, then `MASTER-PLAN.md` here. Owner memory notes are copied in `docs/v2/build/handover/memory/`.**
+
 Updated 2026-10-18, night, before a context compaction. Read this first after any reset, then `BACKLOG.md` (the full staged list: every finding goes there first, with an ID, and is marked done with its commit), then `docs/v2/TODO.md` and `README.md`.
 
 ## Where things are

@@ -1,0 +1,15 @@
+---
+name: travel-globe-build
+description: "The interactive world globe (travel/globe) runs on MapLibre 6 + OpenFreeMap + Mapterhorn with pre-built admin TopoJSON; Playwright must render on the Arc GPU (--use-angle=gl), not SwiftShader (35x slower); long Playwright MCP probes hang"
+metadata:
+  node_type: memory
+  type: project
+  originSessionId: 714f2667-d381-5eea-95c1-8887ada73bc1
+  modified: 2026-10-18T18:55:12.555Z
+---
+
+Nitin asked (2026-10-16) for the best interactive globe: spin, hover, drill country > state > district > city, rivers and peaks named, real world first, saved places linked later. Research and inventory: `travel/_system/site/GLOBE-RESEARCH.md`. Built: `travel/globe/index.html` (MapLibre GL JS 6.14 vendored in `globe/assets/vendor/`, OpenFreeMap liberty tiles, Mapterhorn terrain with AWS fallback), data via `_system/tools/globe_data.py` (`base`, `admin1`, `admin2 ALL`, `gazetteer`): 251 countries of ADM1 (Natural Earth 10m, 2.6 MB), 180 countries of ADM2 (geoBoundaries, 49k districts, 18 MB), manifest `globe/assets/admin/index.json`. He chose: all countries pre-built, not a priority list.
+
+**Why:** OpenFreeMap carries labels for seas, rivers, peaks, cities at every zoom with no key, so we maintain only admin polygons and facts; geoBoundaries global composites are 360-550 MB so per-country files are the only viable shape.
+
+**How to apply:** MapLibre 6 is ESM-only and loads `maplibre-gl-worker.mjs` + `maplibre-gl-shared.mjs` beside the main module (vendor all three; `import * as maplibregl`). Natural Earth codes differ for PSE/SSD/XKX (PSX/SDS/KOS). **Use the real GPU (Arc A770M) for every browser check:** launch Chromium with `--use-gl=angle --use-angle=gl --ignore-gpu-blocklist --enable-gpu-rasterization`. It works headless and headed; the WebGL renderer reads "Mesa Intel Arc A770M". The globe spins at 60 fps (p95 16.8 ms) on it, against 1.7 fps under the SwiftShader flags (`--use-angle=swiftshader`). Those render tiles too, but never judge motion or frame time with them. `--use-angle=vulkan` only works headless. Measured 2026-10-18; Nitin pointed out the GPU. Without GPU or SwiftShader flags, Chromium renders only raster layers and our polygons. Nitin's browser can still check visuals through `cloudflared tunnel --url http://127.0.0.1:8765` (never `pkill -f` with the same command string: it kills the launching shell). A Playwright `run_code` with several camera waits hung the MCP server for 30 min: keep probes short. REST Countries v3 is deprecated; population comes from Wikidata SPARQL. G1-G4 done and live 2026-10-17 (search, style switcher, terrain gated to zoom >= 3.5 which removed the globe-level seams, tests + pre-publish gate hook). G5 done 2026-10-17 (pins by status, counts per country/state/district, place card, "Plan these", `p` hash param, pins toggle); list page at locations/. Known data issue: Italy ADM1/ADM2 are inverted (NE provinces vs geoBoundaries regions). Hub generator bug fixed in C2: a page without class="sub" aborted publish.sh silently under set -e. Related: [[travel-repo-on-github]].
