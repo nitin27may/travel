@@ -2265,7 +2265,9 @@
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing",
       "type": "ride.lift.gondola",
       "layer": "route",
-      "name": "Lake Louise Sightseeing (same product as Lake Louise Gondola)"
+      "name": "Lake Louise Sightseeing (same product as Lake Louise Gondola)",
+      "route_is_attraction": true,
+      "attraction_reason": "Not judged on its own: the relevance record only marks this listing as the same ride as the Lake Louise Summer Gondola, whose top station holds the draw."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/legacy-trail",
@@ -2295,7 +2297,9 @@
       "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
       "type": "wheels.drive.scenic_drive",
       "layer": "route",
-      "name": "Waterton Red Rock Parkway (scenic drive)"
+      "name": "Waterton Red Rock Parkway (scenic drive)",
+      "route_is_attraction": true,
+      "attraction_reason": "A scenic drive driven for itself. Its relevance record only marks it as the same place as the Red Rock Parkway sight record."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",

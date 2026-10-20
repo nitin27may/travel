@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "canadian-rockies-2029",
-  "as_of": "2026-10-19",
+  "as_of": "2026-10-20",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -20,6 +20,202 @@
     "to": "09-22"
   },
   "items": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "offer"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "route"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "route"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "place"
+    },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
       "draw_suggested": "local",
