@@ -13,6 +13,8 @@ export async function ensureCountry(data: GlobeData, cc: string): Promise<void> 
   const have = loadedCountries.get(data) ?? new Set<string>();
   loadedCountries.set(data, have);
   if (have.has(cc)) return;
+  // A country the tree does not list has no pins file: it is empty, not a failed load (Birmingham, UK showed "could not be loaded").
+  if (!data.index.continents.some((c) => c.countries.some((n) => n.slug === cc))) { have.add(cc); return; }
   const pins = await globePins({ country: cc });
   if (have.has(cc)) return;
   have.add(cc);

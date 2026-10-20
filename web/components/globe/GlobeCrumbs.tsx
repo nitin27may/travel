@@ -14,7 +14,7 @@ interface Props {
 export function GlobeCrumbs({ crumbs, canBack, onBack, onCrumb }: Props) {
   const all = [{ label: 'World', path: [] as string[] }, ...crumbs];
   return (
-    <nav className="globe-crumbs" aria-label="Globe level" data-long={all.length > 3 ? 'true' : undefined}>
+    <nav className="globe-crumbs" aria-label="Globe level" data-long={all.length > 3 || all.reduce((n, c) => n + c.label.length, 0) > 26 ? 'true' : undefined}>
       {canBack ? (
         <button type="button" className="globe-back" onClick={onBack} aria-label="Back one level">
           <Icon name="chevronLeft" size={16} />

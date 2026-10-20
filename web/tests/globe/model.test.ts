@@ -79,6 +79,25 @@ describe('search', () => {
     ];
     expect(search('birmingham', { ...src, gazetteer: g, own: [] })[0].action.type).toBe('city');
   });
+  it('finds a city by its local name, and puts the city above the province of the same name (Firenze)', () => {
+    const g = [
+      { row: ['admin1', 'Florence', 11.3, 43.7, 'ITA', 'Italy', undefined, undefined, 'Firenze'] as never, n: 'florence', alt: ['firenze'] },
+      { row: ['city', 'Florence', 11.25, 43.78, 'ITA', 'Toscana', 4, 1500000, 'Florenz|Firenze'] as never, n: 'florence', alt: ['florenz', 'firenze'] },
+      { row: ['city', 'Florence', -87.7, 34.8, 'USA', 'Alabama', 8, 45349] as never, n: 'florence', alt: [] },
+    ];
+    const hits = search('Firenze', { ...src, gazetteer: g, own: [] });
+    expect(hits.map((h) => h.name)).toEqual(['Florence', 'Florence']);
+    expect(hits[0].action.type).toBe('city');
+    expect(hits.some((h) => h.action.type === 'city' && 'lng' in h.action && h.action.lng === -87.7)).toBe(false);
+  });
+  it('puts a match through an alias after every match on a name (an Antarctic base listed as "Italy")', () => {
+    const g = [
+      { row: ['city', 'Zucchelli Station', 164, -74, 'ATA', null, 7, 80, 'Italy'] as never, n: norm('Zucchelli Station'), alt: ['italy'] },
+      { row: ['country', 'Italy', 12.8, 42.8, 'ITA', 'Rome'] as never, n: 'italy' },
+      { row: ['city', 'Italyville', -6, 37, 'ESP', null, 9, 10] as never, n: 'italyville' },
+    ];
+    expect(search('Italy', { ...src, gazetteer: g, own: [] }).map((h) => h.name)).toEqual(['Italy', 'Italyville', 'Zucchelli Station']);
+  });
   it('matches without accents and finds a sea', () => {
     expect(search('adriat', { ...src, own: [] })[0].kindLabel).toBe('Sea or ocean');
     expect(norm('Zürich')).toBe('zurich');

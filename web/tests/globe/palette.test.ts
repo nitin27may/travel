@@ -71,3 +71,16 @@ describe('Q6: the dark land is a token', () => {
     expect(readFileSync(path.join(WEB, 'app/themes.css'), 'utf8').match(/--globe-land:/g)?.length).toBeGreaterThanOrEqual(2);
   });
 });
+
+import { plainColour } from '@/lib/globe/palette';
+describe('plainColour (the map border token reaches MapLibre as plain rgb, review S6)', () => {
+  it('reads a color-mix against transparent', () => {
+    expect(plainColour('color-mix(in srgb, rgb(77 91 107) 60%, transparent)')).toBe('rgb(77 91 107 / 0.6)');
+  });
+  it('reads the color(srgb) form a canvas gives back', () => {
+    expect(plainColour('color(srgb 0.301961 0.356863 0.419608 / 0.6)')).toBe('rgb(77 91 107 / 0.6)');
+  });
+  it('leaves a plain colour alone', () => {
+    expect(plainColour('rgb(1 2 3)')).toBe('rgb(1 2 3)');
+  });
+});

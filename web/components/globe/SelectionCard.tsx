@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { Chip } from '@/components/ui/Chip';
-import { EntityImage } from '@/components/ui/EntityImage';
 import { Icon, kindIcon } from '@/components/ui/Icon';
 import { formatDistance, formatElevation } from '@/lib/format/units';
 import { usePrefs } from '@/lib/format/prefs';
@@ -11,11 +10,22 @@ import type { BasemapFeature } from '@/lib/globe/engine';
 import type { CardFact, GlobeCard } from '@/lib/globe/types';
 import type { FeatureFacts } from '@/lib/globe/wikidata';
 import { directionsUrl } from '@/lib/globe/links';
+import { cardImageSources } from '@/lib/globe/cardImage';
 
 /** The value of a fact in the visitor's units (the page's km/m or mi/ft switch). */
 function useFactText(): (f: CardFact) => string {
   const [prefs] = usePrefs();
   return (f) => ('text' in f ? f.text : 'elevationM' in f ? formatElevation(f.elevationM, prefs.elevation) : formatDistance(f.distanceKm, prefs.distance));
+}
+
+/** The card photo: 320 or 640 px, with the kind glyph when it fails to load. */
+function CardPhoto({ url, icon }: { url: string; icon: Parameters<typeof Icon>[0]['name'] }) {
+  const [failed, setFailed] = useState(false);
+  const ref = useCallback((img: HTMLImageElement | null) => { if (img && img.complete && img.naturalWidth === 0) setFailed(true); }, []);
+  if (failed) return <div className="img-fallback" aria-hidden="true"><Icon name={icon} size={22} /></div>;
+  const s = cardImageSources(url);
+  // eslint-disable-next-line @next/next/no-img-element -- static export, our own renditions or Commons file paths
+  return <img ref={ref} src={s.src} srcSet={s.srcSet} sizes={s.sizes} alt="" width={320} height={200} loading="eager" decoding="async" onError={() => setFailed(true)} />;
 }
 
 /**
@@ -40,7 +50,7 @@ export function SelectionCard({ card, point, onClose }: { card: GlobeCard; point
     <article className="globe-card" aria-label={card.title}>
       {img ? (
         <div className="globe-card-photo">
-          <EntityImage src={img.url} width={640} sizes="360px" fallbackIcon={icon} />
+          <CardPhoto url={img.url} icon={icon} />
           <span className="globe-card-credit-on">
             <a href={img.sourceUrl} target="_blank" rel="noopener noreferrer">{img.author}</a> · {img.licence}
           </span>
