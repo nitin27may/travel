@@ -56,8 +56,16 @@ const PROTOTYPE_KINDS: Record<string, KindMap | null> = {
   stay: null,
 };
 
-export function mapLocationKind(kind: string): KindMap {
-  return LOCATION_KINDS[kind] ?? { kind: 'sight', subkind: null };
+/**
+ * Locations whose store kind is wrong for what they are. The store has no "mountain range" kind, so the Dolomites were filed as `mountain`
+ * (a summit, so a viewpoint). They keep the viewpoint kind, because the suitability scope (spec 7.1, 207 in-scope refs) is built from it,
+ * and the subkind says what it is: a range, which is labelled "Mountain range" and has no trailhead, no car park and no lift season.
+ */
+export const LOCATION_KIND_OVERRIDE: Record<string, KindMap> = {
+  'IT/veneto/belluno/dolomites': { kind: 'viewpoint', subkind: 'range' },
+};
+export function mapLocationKind(kind: string, id?: string): KindMap {
+  return (id ? LOCATION_KIND_OVERRIDE[id] : undefined) ?? LOCATION_KINDS[kind] ?? { kind: 'sight', subkind: null };
 }
 export function mapPrototypeKind(kind: string): KindMap | null {
   return kind in PROTOTYPE_KINDS ? PROTOTYPE_KINDS[kind] : { kind: 'sight', subkind: null };
@@ -87,6 +95,7 @@ export function categoryOf(kind: DayItemKind): Category | null {
 
 export function kindLabel(kind: PlaceKind, subkind: string | null): string {
   if (kind === 'area') return 'Area';
+  if (subkind === 'range') return 'Mountain range';
   if (subkind === 'scenic_drive') return 'Scenic drive';
   if (subkind === 'hut_kitchen') return 'Hut';
   if (kind === 'lift') return 'Lift';
