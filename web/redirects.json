@@ -310,8 +310,53 @@
     "status": 301
   },
   {
+    "from": "/places/US/WA/chelan-county/lake-wenatchee/",
+    "to": "/places/lake-wenatchee/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/WA/chelan-county/leavenworth/",
+    "to": "/places/leavenworth/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/WA/columbia-river-gorge-national-scenic-area/columbia-river-gorge/",
+    "to": "/places/columbia-river-gorge/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/WA/jefferson-county/olympic-peninsula/",
+    "to": "/places/olympic-peninsula/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/WA/king-county/baker-snoqualmie-national-forest/",
+    "to": "/places/mount-baker-snoqualmie-national-forest/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/WA/lake-chelan-national-recreation-area/lake-chelan/",
+    "to": "/places/lake-chelan/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/WA/mount-bakersnoqualmie-national-forest/mount-baker-wilderness/",
+    "to": "/places/mount-baker-wilderness/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/WA/mount-st-helens-national-volcanic-monument/mount-st-helens/",
+    "to": "/places/mount-st-helens/",
+    "status": 301
+  },
+  {
     "from": "/places/US/WA/pierce-county/mount-rainier-national-park/",
     "to": "/places/mount-rainier-national-park/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/WA/whatcom-county/north-cascades-national-park/",
+    "to": "/places/north-cascades-national-park/",
     "status": 301
   },
   {
