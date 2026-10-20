@@ -59,7 +59,9 @@ export function search(q: string, src: SearchSources, limit = 12): SearchHit[] {
   // A city beats an admin area of the same name ("Birmingham"): the admin result has no level page of its own to land on (review N3).
   // Done as a penalty on the admin row, not a pairwise tie-break, so the order stays a total order.
   const cityNames = new Set([...starts, ...contains].filter((e) => e.row[0] === 'city').map((e) => e.n));
-  const rank = (e: GazEntry): number => score(e.row) + (e.row[0] === 'admin1' && cityNames.has(e.n) ? 15 : 0);
+  // A match through an alias only (an Antarctic base listed as "Italy") follows every match on a primary name.
+  const aliasOnly = (e: GazEntry): boolean => !(e.n.startsWith(nq) || (nq.length >= 3 && e.n.includes(nq)));
+  const rank = (e: GazEntry): number => score(e.row) + (e.row[0] === 'admin1' && cityNames.has(e.n) ? 15 : 0) + (aliasOnly(e) ? 40 : 0);
   const byScore = (a: GazEntry, b: GazEntry) => rank(a) - rank(b) || a.row[1].length - b.row[1].length;
   const gaz = [...starts.sort(byScore), ...contains.sort(byScore)].map((e) => toHit(e.row, src.countriesByA3));
   return [...src.own.slice(0, 5), ...gaz].slice(0, limit);

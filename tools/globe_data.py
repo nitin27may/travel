@@ -311,10 +311,14 @@ def _with_aliases(rows: list) -> list:
         al = _alias_list(name, p, ["name", "name_local"])   # provinces carry their parent region in the other fields: noise, not names
         if al:
             admin[(name, p.get("adm0_a3"), round(p["longitude"], 3), round(p["latitude"], 3))] = "|".join(al)
+    # NAMEALT sometimes holds a country ("Italy" on an Antarctic base): never an alias of a place that is not that country
+    countries = {_fold(r[1]) for r in rows if r[0] == "country"}
     out = []
     for r in rows:
         key = (r[1], r[4], r[2], r[3])
         al = city.get(key) if r[0] == "city" else admin.get(key) if r[0] == "admin1" else None
+        if al:
+            al = "|".join(a for a in al.split("|") if _fold(a) not in countries)
         if al:
             out.append(list(r) + [None] * (8 - len(r)) + [al])
         else:

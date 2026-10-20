@@ -90,6 +90,14 @@ describe('search', () => {
     expect(hits[0].action.type).toBe('city');
     expect(hits.some((h) => h.action.type === 'city' && 'lng' in h.action && h.action.lng === -87.7)).toBe(false);
   });
+  it('puts a match through an alias after every match on a name (an Antarctic base listed as "Italy")', () => {
+    const g = [
+      { row: ['city', 'Zucchelli Station', 164, -74, 'ATA', null, 7, 80, 'Italy'] as never, n: norm('Zucchelli Station'), alt: ['italy'] },
+      { row: ['country', 'Italy', 12.8, 42.8, 'ITA', 'Rome'] as never, n: 'italy' },
+      { row: ['city', 'Italica', -6, 37, 'ESP', null, 9, 10] as never, n: 'italica' },
+    ];
+    expect(search('Italy', { ...src, gazetteer: g, own: [] }).map((h) => h.name)).toEqual(['Italy', 'Italica', 'Zucchelli Station']);
+  });
   it('matches without accents and finds a sea', () => {
     expect(search('adriat', { ...src, own: [] })[0].kindLabel).toBe('Sea or ocean');
     expect(norm('Zürich')).toBe('zurich');
