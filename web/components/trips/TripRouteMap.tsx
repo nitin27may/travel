@@ -12,8 +12,8 @@ registerPageFamily('/trips/[slug]', 'maplibre');
 const KEY = [
   { id: 'base', label: 'Base for the nights' },
   { id: 'stop', label: 'Stop' },
-  { id: 'est', label: 'Straight line between stops (road routes come later)' },
-  { id: 'pick', label: 'Picked day' },
+  { id: 'est', label: 'Straight line, not a route' },
+  { id: 'pick', label: 'Numbered: the day shown' },
 ] as const;
 
 const subscribePhone = (cb: () => void) => {
@@ -56,28 +56,44 @@ export function dayFitIds(route: RouteModel, n: number): string[] {
   return ids;
 }
 
+const cellOf = (p: { lng: number; lat: number }) => `${p.lng.toFixed(4)},${p.lat.toFixed(4)}`;
+
+/**
+ * The map for one picked day (or the whole trip). Rules:
+ * - A leg is drawn only as a straight, dashed, neutral line, named "Straight line, not a route" in the key: the stored legs hold
+ *   minutes and km but no road geometry, so no leg is solid. The solid amber `route-pick` style is for real route geometry only.
+ * - Each stop of the picked day is numbered once, in the timeline's order (the route is ordered by `orderRoute`). Two stops on one
+ *   spot (a trail and its trailhead place) draw one pin that keeps the first number, so no pin ever reads "2" twice.
+ * - A stop with no position gets no pin, no number and no line vertex.
+ */
 export function routeSpec(route: RouteModel, picked: number | null): MapSpec {
   const pins: Pin[] = route.bases.map((b) => ({ id: `base:${b.id}`, at: { lng: b.lng, lat: b.lat }, style: 'base', label: b.name, days: b.days }));
   const lines: Line[] = [];
-  const stopDays = new Map<string, { at: { lng: number; lat: number }; name: string; days: number[] }>();
+  const baseCells = new Set(route.bases.map(cellOf));
+  // Cells a numbered pin occupies: other days' dots must not share one, or they merge into a count badge that reads like a number.
+  const numbered = new Set<string>();
+  const day = route.days.find((d) => d.n === picked);
+  day?.points.forEach((p, i) => {
+    const c = cellOf(p);
+    if (numbered.has(c)) return;
+    numbered.add(c);
+    pins.push({ id: `pick:${day.n}:${i}`, at: { lng: p.lng, lat: p.lat }, style: 'stop-numbered', number: numbered.size, label: p.name, days: [day.n] });
+  });
+  const others = new Map<string, { at: { lng: number; lat: number }; days: number[]; key: string }>();
   for (const d of route.days) {
     const base = route.bases.find((b) => b.days.includes(d.n));
     const coords = [...(base ? [{ lng: base.lng, lat: base.lat }] : []), ...d.points.map((p) => ({ lng: p.lng, lat: p.lat }))];
-    if (coords.length > 1) lines.push({ id: `day:${d.n}`, coords, style: d.n === picked ? 'route-pick' : 'straight-estimate' });
-    if (d.n === picked) {
-      d.points.forEach((p, i) => pins.push({ id: `pick:${d.n}:${i}`, at: { lng: p.lng, lat: p.lat }, style: 'stop-numbered', number: i + 1, label: p.name, days: [d.n] }));
-      continue;
-    }
+    if (coords.length > 1) lines.push({ id: `day:${d.n}`, coords, style: 'straight-estimate' });
+    if (d.n === picked) continue;
     for (const p of d.points) {
-      const hit = stopDays.get(p.key);
-      if (hit) hit.days.push(d.n);
-      else stopDays.set(p.key, { at: { lng: p.lng, lat: p.lat }, name: p.name, days: [d.n] });
+      const c = cellOf(p);
+      if (numbered.has(c) || baseCells.has(c)) continue;
+      const hit = others.get(c);
+      if (!hit) others.set(c, { at: { lng: p.lng, lat: p.lat }, days: [d.n], key: p.key });
+      else if (!hit.days.includes(d.n)) hit.days.push(d.n);
     }
   }
-  // A stop on a base's own pin (same 4-decimal cell) would merge into it and hide its label, so the base alone is drawn there.
-  const cell = (p: { lng: number; lat: number }) => `${p.lng.toFixed(4)},${p.lat.toFixed(4)}`;
-  const baseCells = new Set(route.bases.map(cell));
-  for (const [key, s] of stopDays) if (!baseCells.has(cell(s.at))) pins.push({ id: `stop:${key}`, at: s.at, style: 'stop', days: s.days });
+  for (const s of others.values()) pins.push({ id: `stop:${s.key}`, at: s.at, style: 'stop', days: s.days });
   return { pins, lines, fit: 'all', hideBasemapLabels: ['towns', 'regions'], selectedId: undefined };
 }
 
