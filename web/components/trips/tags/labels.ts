@@ -13,15 +13,23 @@ export const LENGTH_LABELS: Record<string, string> = {
 };
 export const LENGTH_ORDER = Object.keys(LENGTH_LABELS);
 /** The chip on a card: short, singular. */
-export const LENGTH_CHIP: Record<string, string> = {
-  day: 'Day trip',
-  overnight: 'Overnight',
-  weekend: 'Weekend',
-  'long-weekend': 'Long weekend',
-  '4-8': '4 to 8 nights',
-  '9-14': '9 to 14 nights',
-  '15+': '15+ nights',
+/**
+ * The one set of names for a trip's length class (backlog 4.11): the card chip, the table cell and the subtitle all read it, so a
+ * weekend is "Weekend" with "2 nights" beside it everywhere. The Length filter's own menu lists the plural names in LENGTH_LABELS.
+ */
+export const LENGTH_NAME: Record<string, { name: string; nights: string | null }> = {
+  day: { name: 'Day trip', nights: null },
+  overnight: { name: 'Overnight', nights: '1 night' },
+  weekend: { name: 'Weekend', nights: '2 nights' },
+  'long-weekend': { name: 'Long weekend', nights: '3 nights' },
+  '4-8': { name: '4 to 8 nights', nights: null },
+  '9-14': { name: '9 to 14 nights', nights: null },
+  '15+': { name: '15+ nights', nights: null },
 };
+/** The chip on a card: short, singular. */
+export const LENGTH_CHIP: Record<string, string> = Object.fromEntries(Object.entries(LENGTH_NAME).map(([k, v]) => [k, v.name]));
+/** The table cell: the name, and the nights where the class has a fixed number. */
+export const lengthCell = (c: string | null): string => (c && LENGTH_NAME[c] ? `${LENGTH_NAME[c].name}${LENGTH_NAME[c].nights ? ` (${LENGTH_NAME[c].nights})` : ''}` : '');
 export const PHASE_FOR_LENGTH: Record<string, string> = { day: 'Day trips', overnight: 'Overnights', weekend: 'Weekends', 'long-weekend': 'Long weekends', '4-8': '4 to 8 nights', '9-14': '9 to 14 nights', '15+': '15 nights and more' };
 
 /** The standard ages the Kids filter offers: a plan suits a child of age A when its "Kids from N" is A or less. */
@@ -46,13 +54,11 @@ export function lengthLine(t: TripListRow): string {
   const place = t.region;
   switch (t.lengthClass) {
     case 'day':
-      return ['Day trip', from ?? place].filter(Boolean).join(' · ');
+      return [LENGTH_NAME.day!.name, from ?? place].filter(Boolean).join(' · ');
     case 'overnight':
-      return ['1 night', 'an overnight', from].filter(Boolean).join(' · ');
     case 'weekend':
-      return ['2 nights', 'a weekend', from].filter(Boolean).join(' · ');
     case 'long-weekend':
-      return ['3 nights', 'a long weekend', from].filter(Boolean).join(' · ');
+      return [LENGTH_NAME[t.lengthClass]!.name, LENGTH_NAME[t.lengthClass]!.nights, from].filter(Boolean).join(' · ');
     default:
       return [t.nights === null || t.days === null ? '' : `${t.nights} nights · ${t.days} days`, place].filter(Boolean).join(' · ');
   }

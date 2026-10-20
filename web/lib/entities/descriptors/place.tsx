@@ -72,7 +72,7 @@ function col(id: string, header: string, cell: PlaceCol['cell'], text: (p: Place
     header,
     cell,
     size: opts.size ?? 140,
-    minSize: 70,
+    minSize: Math.min(70, opts.size ?? 140),
     enableSorting: opts.sort !== false,
     meta: { label: header, align: opts.align, text, csvLabel: opts.csvLabel ?? header } satisfies ColMeta,
   } as PlaceCol;
@@ -81,20 +81,24 @@ function col(id: string, header: string, cell: PlaceCol['cell'], text: (p: Place
 const sourceCount = (p: PlaceListRow) => p.sourceTypes.length;
 const sourceText = (p: PlaceListRow) => (p.sourceTypes.length ? `${p.sourceTypes.length} ${p.sourceTypes.length === 1 ? 'source' : 'sources'}` : 'None yet');
 
+/** The "Fit" cell: the age the advice starts at, shown only while a chosen age makes the place a stretch (filters.css reads the row's data-fade). */
+const fitCell = (p: PlaceListRow) => (p.kids_basis === 'advice' && p.kids_from !== null && p.kids_from >= 1 ? <span className="fit-chip" title={`Advice says ${p.kids_from}+`}>{p.kids_from}+</span> : null);
+
 const columns: PlaceCol[] = [
-  col('name', 'Name', ({ row }) => <span className="cell-name">{row.original.name}</span>, (p) => p.name, { size: 230 }),
-  col('kind', 'Kind', ({ row }) => <span className="cell-icon"><Icon name={kindIcon(row.original.kind)} size={14} />{row.original.kindLabel}</span>, (p) => p.kindLabel, { size: 130 }),
-  col('country', 'Country', ({ row }) => row.original.country_name, (p) => p.country_name, { size: 130 }),
-  col('region', 'Region', ({ row }) => row.original.region_name, (p) => p.region_name, { size: 150 }),
-  col('area', 'Area', ({ row }) => row.original.area_name, (p) => p.area_name, { size: 200 }),
-  col('elevation', 'Elevation', ({ row }) => <Elevation m={row.original.elevation_m} />, (p) => p.elevation_m ?? '', { size: 120, align: 'right', csvLabel: 'Elevation (m)' }),
-  col('km', 'Length', ({ row }) => (row.original.km === null ? <span className="dash">&ndash;</span> : <Stat k="km" v={row.original.km} />), (p) => p.km ?? '', { size: 160, align: 'right', csvLabel: 'Length (km)' }),
-  col('gain', 'Climb', ({ row }) => (row.original.gain_m === null ? <span className="dash">&ndash;</span> : <Stat k="gain_m" v={row.original.gain_m} />), (p) => p.gain_m ?? '', { size: 170, align: 'right', csvLabel: 'Climb (m)' }),
-  col('season', 'Season', ({ row }) => seasonLabel(row.original.season) || <span className="dash">&ndash;</span>, (p) => seasonLabel(p.season), { size: 130 }),
-  col('kid', 'Kids', ({ row }) => (row.original.kid_fit === 'unknown' ? <span className="dash">&ndash;</span> : KID_LABELS[row.original.kid_fit] ?? row.original.kid_fit), (p) => KID_LABELS[p.kid_fit] ?? p.kid_fit, { size: 190 }),
+  col('name', 'Name', ({ row }) => <span className="cell-name">{row.original.name}</span>, (p) => p.name, { size: 210 }),
+  col('fit', 'Fit', ({ row }) => fitCell(row.original), () => '', { size: 56, sort: false, csvLabel: 'Fit' }),
+  col('kind', 'Kind', ({ row }) => <span className="cell-icon"><Icon name={kindIcon(row.original.kind)} size={14} />{row.original.kindLabel}</span>, (p) => p.kindLabel, { size: 120 }),
+  col('country', 'Country', ({ row }) => row.original.country_name, (p) => p.country_name, { size: 120 }),
+  col('region', 'Region', ({ row }) => row.original.region_name, (p) => p.region_name, { size: 130 }),
+  col('area', 'Area', ({ row }) => row.original.area_name, (p) => p.area_name, { size: 160 }),
+  col('elevation', 'Elevation', ({ row }) => <Elevation m={row.original.elevation_m} />, (p) => p.elevation_m ?? '', { size: 100, align: 'right', csvLabel: 'Elevation (m)' }),
+  col('km', 'Length', ({ row }) => (row.original.km === null ? <span className="dash">&ndash;</span> : <Stat k="km" v={row.original.km} bare />), (p) => p.km ?? '', { size: 90, align: 'right', csvLabel: 'Length (km)' }),
+  col('gain', 'Climb', ({ row }) => (row.original.gain_m === null ? <span className="dash">&ndash;</span> : <Stat k="gain_m" v={row.original.gain_m} bare />), (p) => p.gain_m ?? '', { size: 90, align: 'right', csvLabel: 'Climb (m)' }),
+  col('season', 'Season', ({ row }) => seasonLabel(row.original.season) || <span className="dash">&ndash;</span>, (p) => seasonLabel(p.season), { size: 120 }),
+  col('kid', 'Kids', ({ row }) => (row.original.kid_fit === 'unknown' ? <span className="dash">&ndash;</span> : KID_LABELS[row.original.kid_fit] ?? row.original.kid_fit), (p) => KID_LABELS[p.kid_fit] ?? p.kid_fit, { size: 150 }),
   col('tags', 'Tags', ({ row }) => row.original.tags.map((t) => t.label).join(', '), (p) => p.tags.map((t) => t.label).join('; '), { size: 220, sort: false }),
   col('sources', 'Sources', ({ row }) => (row.original.sourceTypes.length ? sourceText(row.original) : <span className="dash">None yet</span>), sourceCount, { size: 110 }),
-  col('complete', 'Completeness', ({ row }) => completenessText(row.original), (p) => p.completeness.label, { size: 160 }),
+  col('complete', 'Completeness', ({ row }) => completenessText(row.original), (p) => p.completeness.label, { size: 130 }),
   col('plan', 'Plan', ({ row }) => row.original.trips[0]?.title ?? <span className="dash">&ndash;</span>, (p) => p.trips[0]?.title ?? '', { size: 190 }),
 ];
 
@@ -147,7 +151,7 @@ export const passesAge = (p: PlaceListRow, age: number): boolean => p.kids_from 
 
 function kidOptions(p: PlaceListRow): FacetOption[] {
   const out: FacetOption[] = [{ value: p.kid_fit, label: KID_LABELS[p.kid_fit] ?? p.kid_fit, hint: KID_HINTS[p.kid_fit] }];
-  for (let age = 0; age <= 17; age += 1) if (passesAge(p, age)) out.push({ value: String(age), label: `Youngest child ${age}` });
+  for (let age = 0; age <= 17; age += 1) if (passesAge(p, age)) out.push({ value: String(age), label: age === 0 ? 'Baby' : String(age) });
   return out;
 }
 
@@ -221,7 +225,7 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
       // "Youngest child": a number is an age (0 to 17), read against `kids_from`; the older values (yes, strong-kid) are the kid-fit
       // chip and keep working in links. A rule above the age hides a place, advice above it fades its card, a gap never passes.
       param: 'kid',
-      label: 'Kids',
+      label: 'Youngest child',
       type: 'single',
       control: 'age',
       order: ['yes', 'strong-kid', 'no', 'unknown'],
@@ -232,7 +236,7 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
         if (!isAge(sel[0] ?? '')) return null;
         const age = Number(sel[0]);
         const stretch = matched.filter((p) => p.kids_from !== null && p.kids_from > age).length;
-        return stretch ? `for age ${age} · ${stretch} ${stretch === 1 ? 'is a stretch' : 'are a stretch'}, shown faded` : `for age ${age}`;
+        return stretch ? `${stretch} ${stretch === 1 ? 'is a stretch' : 'are a stretch'} at ${age}, shown faded` : null;
       },
     },
     {
@@ -295,7 +299,7 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
     scoped: scopedFacets<PlaceListRow>().map((f) => f.param),
   },
   columns,
-  defaultColumns: ['name', 'kind', 'region', 'area', 'season', 'kid', 'elevation', 'km', 'gain', 'sources', 'complete'],
+  defaultColumns: ['name', 'fit', 'kind', 'region', 'area', 'season', 'kid', 'elevation', 'km', 'gain', 'sources', 'complete'],
   groupBy: [
     { id: 'country', label: 'Country', key: (p) => p.country, title: (p) => p.country_name },
     { id: 'region', label: 'Region', key: (p) => `${p.country}/${p.region}`, title: (p) => p.region_name, subtitle: (p) => p.country_name },

@@ -12,7 +12,7 @@ export function Elevation({ m }: { m: number | null }) {
 const STAT_LABEL: Record<string, string> = { km: 'Length', gain_m: 'Climb', hours: 'Time', minutes: 'Time', level: 'Level', miles: 'Length' };
 
 /** One key stat in the viewer's units: km and gain_m convert, everything else prints as stored. */
-export function Stat({ k, v }: { k: string; v: string | number }) {
+export function Stat({ k, v, bare }: { k: string; v: string | number; bare?: boolean }) {
   const [prefs] = usePrefs();
   let text: string;
   if (k === 'km' && typeof v === 'number') text = formatDistance(v, prefs.distance);
@@ -22,7 +22,7 @@ export function Stat({ k, v }: { k: string; v: string | number }) {
   else text = String(v);
   return (
     <span className="stat">
-      <span className="stat-k">{STAT_LABEL[k] ?? k}</span> {text}
+      {bare ? null : <span className="stat-k">{STAT_LABEL[k] ?? k}</span>} {text}
     </span>
   );
 }

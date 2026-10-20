@@ -95,9 +95,15 @@ describe('search records (principle P8): names and areas only', () => {
     const places = new Map(data.listPlaces().map((p) => [`/places/${p.slug}/`, p]));
     const index = buildSearchIndex().filter((r) => r.k === 'place');
     expect(index.length).toBe(places.size);
+    // a page merged into another stays searchable by its old name (the slug of the page that was merged away)
+    const merged = new Map<string, string>();
+    for (const r of data.legacyPlaceRedirects()) {
+      const from = /^\/places\/([a-z0-9-]+)\/$/.exec(r.from)?.[1];
+      if (from && r.to !== r.from) merged.set(r.to, `${merged.get(r.to) ?? ''} ${from.replace(/-/g, ' ')}`);
+    }
     for (const r of index) {
       const p = places.get(r.h)!;
-      const allowed = new Set(normalize([p.kindLabel, p.kind, p.subkind ?? '', ...p.areaChain.map((a) => a.name)].join(' ')).split(' ').filter(Boolean));
+      const allowed = new Set(normalize([p.kindLabel, p.kind, p.subkind ?? '', ...p.areaChain.map((a) => a.name), merged.get(r.h) ?? ''].join(' ')).split(' ').filter(Boolean));
       const extra = normalize(r.x).split(' ').filter((w) => w && !allowed.has(w));
       expect(extra, r.h).toEqual([]);
     }

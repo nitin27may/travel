@@ -25,7 +25,7 @@ export function fallbackLabel(param: FacetParam, value: string): string {
       return value === 'intent:do' ? 'Things to do' : words(last);
     }
     case 'kid':
-      return value === 'yes' ? 'Easy with kids' : /^\d{1,2}$/.test(value) ? `Age ${value}` : words(value);
+      return value === 'yes' ? 'Easy with kids' : /^\d{1,2}$/.test(value) ? `Youngest child ${value === '0' ? 'Baby' : value}` : words(value);
     case 'effort':
       return EFFORT_LABELS[value] ?? words(value);
     case 'stroller':

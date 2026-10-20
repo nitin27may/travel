@@ -1,5 +1,5 @@
 import type { PlaceExport, TripExport } from '@/lib/export/types';
-import { filterRows, facetCounts, gapNotes, matchesRow } from '@/lib/entities/filter';
+import { filterRows, facetCounts, gapCounts, gapNotes, matchesRow, scopeTotal } from '@/lib/entities/filter';
 import { searchTexts } from '@/lib/search/fulltext';
 import type { TextIndex } from '@/lib/search/fulltext';
 import { isPlain, manifestCounts, pageWindow, shardsForScope } from '@/lib/entities/shards';
@@ -229,6 +229,10 @@ export interface ListResult<Row> {
   matched: number;
   /** Rank of `rows[0]` among the matches: 0 unless `rows` is one page of the plain list. */
   offset: number;
+  /** Rows inside the query's scope (its Kind and country): the denominator of the count line. */
+  scope: number;
+  /** Per facet with a "not known" state, the rows in it that match every other filter. */
+  gaps: Record<string, number>;
 }
 
 interface ListSource {
@@ -256,7 +260,7 @@ function listEntities<Row>(type: EntityType, query: ListState): ListResult<Row> 
   const d = hit.d as unknown as EntityDescriptor<Row>;
   const rows = hit.rows as readonly Row[];
   const matched = sortRows(filterRows(rows, query, d), query, d);
-  return { rows: matched, total: rows.length, counts: facetCounts(rows, query, d), notes: gapNotes(rows, query, d), matched: matched.length, offset: 0 };
+  return { rows: matched, total: rows.length, counts: facetCounts(rows, query, d), notes: gapNotes(rows, query, d), matched: matched.length, offset: 0, scope: scopeTotal(rows, query, d), gaps: gapCounts(rows, query, d) };
 }
 
 export const listTrips = (query: ListState): ListResult<TripListRow> => listEntities<TripListRow>('trip', query);
@@ -481,8 +485,10 @@ export async function relaxQuery(parsed: ParsedQuery): Promise<DidYouMean | null
   };
   if (parsed.chips.length < 2 || (await matches(asked)) > 0) return null;
   let best: { label: string; href: string; n: number } | null = null;
-  for (const chip of parsed.chips) {
-    if (chip.ask || !Object.keys(chip.set).length) continue;
+  // the kind is what was asked for ("Without Waterfalls" for a waterfall query helps no one): it goes only when nothing else can
+  const removable = parsed.chips.filter((c) => !c.ask && Object.keys(c.set).length);
+  const candidates = removable.some((c) => c.id !== 'k') ? removable.filter((c) => c.id !== 'k') : removable;
+  for (const chip of candidates) {
     const facets = { ...parsed.facets };
     for (const key of Object.keys(chip.set)) delete facets[key];
     const n = await matches({ ...emptyState(), q: parsed.q, facets });
@@ -630,7 +636,7 @@ export function peekPlaces(query: ListState, pageSize?: number): ListResult<Plac
         rows.push(...have.slice(Math.max(0, w.offset - start), Math.min(ref.n, w.offset + w.count - start)));
       }
     }
-    return { rows, total: m.total, counts: manifestCounts(m), notes: m.countNotes, matched: m.total, offset: w.offset };
+    return { rows, total: m.total, counts: manifestCounts(m), notes: m.countNotes, matched: m.total, offset: w.offset, scope: m.total, gaps: Object.fromEntries(m.gaps) };
   }
   const rows = rowsFor('place', query) as readonly PlaceListRow[] | null;
   if (!rows) return null;
@@ -654,6 +660,8 @@ export function peekPlaces(query: ListState, pageSize?: number): ListResult<Plac
     notes: [...gapNotes(rows, query, d), ...extra],
     matched: matched.length,
     offset: 0,
+    scope: scopeTotal(rows, query, d),
+    gaps: extra.length ? gapCounts(matched, { ...query, q: '' }, d) : gapCounts(rows, query, d),
   };
 }
 

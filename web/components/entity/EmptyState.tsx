@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { EmptyState as EmptyBlock } from '@/components/ui/EmptyState';
 import { stillApplies, undoState } from '@/lib/search/applied';
 import type { Applied } from '@/lib/search/applied';
-import { countListAsync, relaxQuery } from '@/lib/client/data';
+import { countListAsync, parseQuery, relaxQuery, search } from '@/lib/client/data';
 import { activeFilters } from '@/lib/entities/filter';
 import type { EntityDescriptor, FacetParam, ListState } from '@/lib/entities/types';
 import { decodeState, encodeState } from '@/lib/entities/url';
@@ -34,6 +34,8 @@ export function EmptyState<Row>({ d, state, labelOf, applied, onApplied, uncheck
   const live = applied && stillApplies(state, applied) ? applied : null;
   // what each way out would bring back: counted from the list files of the wider scope, so it arrives a moment after the block
   const [ways, setWays] = useState<{ key: string; options: { chip: ActiveFilter; n: number }[]; withoutQuery: number } | null>(null);
+  // for words typed in the list's box: a typo that has an answer, and a name the list does not hold as a row (an area, a trip) (SQ1b S3, 4.14)
+  const [words, setWords] = useState<{ key: string; typo: { label: string; to: ListState } | null; name: { label: string; href: string; area: ListState | null } | null } | null>(null);
   const [relaxState, setRelax] = useState<{ key: string; got: DidYouMean | null } | null>(null);
   const key = encodeState(state);
   useEffect(() => {
@@ -59,6 +61,43 @@ export function EmptyState<Row>({ d, state, labelOf, applied, onApplied, uncheck
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, live?.parsed]);
+  useEffect(() => {
+    const q = state.q.trim();
+    if (!q || live) return;
+    let alive = true;
+    void (async () => {
+      let typo: { label: string; to: ListState } | null = null;
+      let name: { label: string; href: string; area: ListState | null } | null = null;
+      try {
+        const parsed = await parseQuery(q, { target: d.type === 'trip' ? 'trips' : 'places' });
+        const fix = parsed.didYouMean.find((x) => !x.label.includes(',') && !x.label.includes(' '));
+        if (fix) {
+          const got = decodeState(fix.href.split('?')[1] ?? '');
+          const to: ListState = { ...state, q: got.q, facets: { ...state.facets, ...got.facets }, focus: null };
+          if (((await countListAsync(d.type, to))?.n ?? 0) > 0) typo = { label: fix.label, to };
+        }
+        const found = await search(q);
+        const hit = found.groups.flatMap((g) => g.hits)[0]?.record;
+        if (hit) {
+          const parts = /^\/globe\/([a-z]{2})(?:\/([^/]+))?(?:\/([^/]+))?\/$/.exec(hit.h);
+          if (hit.k === 'area' && parts && d.type === 'place') {
+            const facets: ListState['facets'] = { country: [parts[1]!.toUpperCase()] };
+            if (parts[2]) facets.region = [parts[2]];
+            if (parts[3]) facets.area = [parts[3]];
+            name = { label: `${hit.n} is an area: show its places`, href: hit.h, area: { ...state, q: '', facets, focus: null } };
+          } else if (hit.k !== 'area') name = { label: `${hit.n}: open its page`, href: hit.h, area: null };
+        }
+      } catch {
+        // the search files did not load: the other ways out still stand
+      }
+      if (alive) setWords({ key, typo, name });
+    })();
+    return () => {
+      alive = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key, d, live]);
+  const heard = words?.key === key ? words : null;
   const options = ways?.key === key ? ways.options : [];
   const withoutQuery = ways?.key === key ? ways.withoutQuery : 0;
   const nothingToFilter = !chips.length && !state.q.trim();
@@ -91,7 +130,7 @@ export function EmptyState<Row>({ d, state, labelOf, applied, onApplied, uncheck
         secondary={
           <Button
             onClick={() => {
-              onState(undoState(live), 'push');
+              onState(undoState(live), 'replace');
               onApplied?.(null);
             }}
           >
@@ -109,7 +148,11 @@ export function EmptyState<Row>({ d, state, labelOf, applied, onApplied, uncheck
       title={`No ${d.noun.many} match`}
       why={nearest ? 'Nothing fits all of these. The closest match is one filter away.' : 'No single change brings places back. Take off filters one at a time, or use Clear all above.'}
       action={
-        nearest ? (
+        heard?.typo ? (
+          <Button variant="primary" onClick={() => onState(heard.typo!.to, 'push')}>
+            Did you mean &ldquo;{heard.typo.label}&rdquo;?
+          </Button>
+        ) : nearest ? (
           <Button variant="primary" onClick={() => onState(nearest.chip.without, 'push')}>
             Remove &ldquo;{nearest.chip.label}&rdquo; to see {nearest.n} {noun(nearest.n)}
           </Button>
@@ -121,7 +164,25 @@ export function EmptyState<Row>({ d, state, labelOf, applied, onApplied, uncheck
       }
       secondary={
         <ul className="empty-list">
-          {nearest && withoutQuery > 0 ? (
+          {heard?.name ? (
+            <li>
+              {heard.name.area ? (
+                <Button onClick={() => onState(heard.name!.area!, 'push')}>{heard.name.label}</Button>
+              ) : (
+                <a className="btn" href={heard.name.href}>
+                  {heard.name.label}
+                </a>
+              )}
+            </li>
+          ) : null}
+          {heard?.typo && nearest ? (
+            <li>
+              <Button onClick={() => onState(nearest.chip.without, 'push')}>
+                Remove &ldquo;{nearest.chip.label}&rdquo; to see {nearest.n} {noun(nearest.n)}
+              </Button>
+            </li>
+          ) : null}
+          {(nearest || heard?.typo) && withoutQuery > 0 ? (
             <li>
               <Button onClick={() => onState({ ...state, q: '', focus: null }, 'push')}>
                 Clear the search to see {withoutQuery} {noun(withoutQuery)}

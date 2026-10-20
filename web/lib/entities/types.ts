@@ -118,6 +118,8 @@ export interface FacetDef<Row> {
   note?: (matched: readonly Row[], selected: string[]) => string | null;
   /** An input other than the option list. `age` is the Kids stepper with quick chips (suitability-display 5). */
   control?: 'age';
+  /** One muted line at the foot of the control's menu ("Trips above this age fade; none are hidden yet"). */
+  controlNote?: string;
 }
 
 export interface ScopeConfig<Row> {
@@ -189,6 +191,8 @@ export interface EntityDescriptor<Row> {
   fade?: (row: Row) => string | undefined;
   /** The age the advice starts at for a faded row; carried as `data-from` so the chip can say "advice says 8+". */
   fadeFrom?: (row: Row) => number | undefined;
+  /** What the age rests on, in the chip that says why a card fades: `advice` ("advice says 8+") or `plan` ("plan suits 8+"). Default advice. */
+  fadeBy?: 'advice' | 'plan';
   /** Rows hidden unless a facet selection names them (dropped places). */
   hiddenByDefault?: (row: Row, state: ListState, ignore?: FacetParam | 'q') => boolean;
   /** Where the row lives as a page, or null. */

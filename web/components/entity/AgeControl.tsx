@@ -6,10 +6,9 @@ export const MAX_AGE = 17;
 /** Quick picks beside the stepper (suitability-display 5): "Baby" is under one. */
 const QUICK: { age: number; label: string }[] = [
   { age: 0, label: 'Baby' },
-  { age: 4, label: '4' },
+  { age: 3, label: '3' },
   { age: 6, label: '6' },
-  { age: 8, label: '8' },
-  { age: 10, label: '10' },
+  { age: 9, label: '9' },
   { age: 12, label: '12' },
 ];
 
@@ -19,10 +18,12 @@ interface ControlProps {
   /** The selected age as written in the URL, or other values (an old kid-fit value) which the control treats as "no age". */
   selected: string[];
   onChange: (values: string[]) => void;
+  /** One muted line at the foot of the menu. */
+  note?: string;
 }
 
 /** Stepper and quick chips for the youngest child's age. "Any age" clears. No popover of its own, so the phone sheet can use it too. */
-export function AgeControl({ selected, onChange }: ControlProps) {
+export function AgeControl({ selected, onChange, note }: ControlProps) {
   const age = isAge(selected[0]) ? Number(selected[0]) : null;
   const set = (n: number) => onChange([String(Math.min(MAX_AGE, Math.max(0, n)))]);
   return (
@@ -51,6 +52,7 @@ export function AgeControl({ selected, onChange }: ControlProps) {
       <button type="button" className="link-btn age-any" disabled={selected.length === 0} onClick={() => onChange([])}>
         Any age
       </button>
+      {note ? <p className="muted age-note">{note}</p> : null}
     </div>
   );
 }
