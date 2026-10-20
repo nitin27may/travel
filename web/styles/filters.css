@@ -238,7 +238,9 @@ tr[data-row][data-fade-by='plan'][data-from='17'] td:first-child::after { conten
 .chips-clear { display: inline-flex; align-items: center; }
 @media (max-width: 639px) {
   /* the count block takes the cell the single-line count had; chips wrap instead of clipping, and Clear all sits with them */
-  .filter-bar .count-block { grid-column: 1; grid-row: 2; align-self: center; }
+  .filter-bar .count-block { grid-column: 1 / -1; grid-row: 2; align-self: center; }
+  .filter-bar .seg.seg { grid-column: 1 / -1; grid-row: 3; justify-self: start; }
+  .filter-bar .chips.chips { grid-row: 4; }
   .filter-bar .chips { flex-wrap: wrap; overflow-x: visible; padding-bottom: 0; }
   .filter-bar .chip { flex: 0 1 auto; max-width: 100%; }
 }
