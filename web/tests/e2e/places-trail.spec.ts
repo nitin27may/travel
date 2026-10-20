@@ -56,7 +56,8 @@ test.describe('trail whose route is not confirmed', () => {
   for (const url of [FANES, NUVOLAU]) {
     test(`${url}: dashed line label, no route in the export, and the reason`, async ({ page, site }) => {
       await page.goto(`${site.url}${url}`);
-      // the legend renders after hydration: wait for it, not for a fixed time (backlog 3.65)
+      // the harness blocks every tile server, so the map falls back to the offline drawing; the legend must survive that (a visitor with a blocked tile server sees the same page)
+      await expect(page.locator('[data-map-notice]')).toContainText('Map tiles are not available', { timeout: 45_000 });
       await page.locator('[data-map-legend]').first().waitFor({ state: 'attached', timeout: 45_000 });
       await expect(page.getByText('Route not confirmed yet', { exact: true }).first()).toBeVisible({ timeout: 30_000 });
       await expect(page.getByText(/Route line left out of the file: not confirmed yet/)).toBeVisible();
