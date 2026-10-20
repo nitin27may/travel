@@ -13,7 +13,7 @@ type ML = typeof import('maplibre-gl');
 
 export interface HoverInfo { kicker: string; title: string; sub?: string; sub2?: string; sub3?: string }
 export type HitLayer = 'country' | 'adm1' | 'adm2';
-export interface BasemapFeature { sourceLayer: string; kind: string; name: string; extra: string; lngLat: Pt; wikidata: string | null }
+export interface BasemapFeature { sourceLayer: string; kind: string; name: string; extra: string; lngLat: Pt; wikidata: string | null; /** The point a tile feature sits at (a city's label point), when it is a point. */ at?: Pt }
 
 export interface Focus { country: number | null; s: number | null; d: number | null }
 export interface Padding { top: number; right: number; bottom: number; left: number }
@@ -80,8 +80,8 @@ export interface GlobeEngine {
   setFocus(f: Focus): void;
   /** Draws one city's outline (OSM admin level 8), or none. */
   setCityArea(f: Feat | null): void;
-  /** The 36 px ring on a selected city that has no outline of ours. */
-  setCityRing(on: boolean): void;
+  /** The 36 px ring (casing and amber) at a selected city's own point when we hold no outline for it; `at` null clears it. */
+  setCityRing(at: Pt | null): void;
   /** Runs `cb` once the camera has come to rest (or after 3.5 s at most): a result opens its card when the flight lands, not during it. */
   afterMove(cb: () => void): void;
   /** The Natural Earth lake polygons (zoom 3 to 8, where the tiles name no lake): `render` is the GeoJSON text a worker wrote. */
@@ -247,12 +247,15 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       const sl = (l as { 'source-layer'?: string })['source-layer'] ?? '';
       // The style background is the sea, so a globe whose tiles have not arrived reads as water with our own land on it. The tiles
       // draw no land polygon (OpenMapTiles has only water), so past zoom 4 the background turns to land and the tiles' water draws the sea.
-      if (l.type === 'background') set(l.id, 'paint', 'background-color', ['interpolate', ['linear'], ['zoom'], 3, pal.ocean, 4.5, sc.land]);
+      // The poles beyond the tiles' 85 degree limit take the background colour, and Antarctica must not have an ocean-coloured hole in it (review 3.3b):
+      // so the background is land, and our own `ocean-fill` (below) paints the sea inside the tiles' range until the tiles' water takes over.
+      if (l.type === 'background') set(l.id, 'paint', 'background-color', sc.land);
       // Liberty's shaded-relief raster is tinted green at the far zooms; the hillshade layer carries the relief instead.
       else if (l.type === 'raster') set(l.id, 'layout', 'visibility', 'none');
       else if (l.type === 'fill') {
         const wooded = sl === 'landcover' || sl === 'park' || sl === 'landuse';
-        const fill = sl === 'water' ? sc.water : sl === 'building' ? pal.high : wooded ? sc.wood : sc.land;
+        // ice is the land colour, not the wood colour: a wood-coloured ice cap read as a pale disc inside Antarctica (review 3.3b)
+        const fill = sl === 'water' ? sc.water : sl === 'building' ? pal.high : /ice/.test(l.id) ? sc.land : wooded ? sc.wood : sc.land;
         // Liberty fills woods and parks with a sprite pattern (hue about 117, green) from zoom 12: the colour alone carries them here
         set(l.id, 'paint', 'fill-pattern', undefined);
         set(l.id, 'paint', 'fill-color', fill);
@@ -316,7 +319,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   function addHills(beforeId: string | undefined): void {
     if (map.getLayer('hills')) return;
     map.addLayer({
-      id: 'hills', type: 'hillshade', source: 'dem-hill',
+      id: 'hills', type: 'hillshade', source: 'dem',
       paint: {
         // None on the far globe where tiles meet in seams (spec 6.6), full relief once a country fills the view; Light fades out above zoom 10.
         'hillshade-exaggeration': hillCurve(),
@@ -342,7 +345,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   }
 
   function addRelief(firstWaterId: string | undefined): void {
-    map.addSource('dem-hill', { type: 'raster-dem', url: TERRAIN_URL, tileSize: 512 });
+    // One DEM source feeds the hillshade and the terrain: two sources fetched and decoded every elevation tile twice (the long-flight burst, 4.7).
     map.addSource('dem', { type: 'raster-dem', url: TERRAIN_URL, tileSize: 512 });
     addHills(firstWaterId);
   }
@@ -354,8 +357,8 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     try {
       map.setTerrain(null);
       if (map.getLayer('hills')) map.removeLayer('hills');
-      map.removeSource('dem'); map.removeSource('dem-hill');
-      map.addSource('dem', TERRAIN_FALLBACK); map.addSource('dem-hill', TERRAIN_FALLBACK);
+      map.removeSource('dem');
+      map.addSource('dem', TERRAIN_FALLBACK);
       addHills(undefined); applyTerrain();
     } catch { /* style changed under us */ }
   };
@@ -371,6 +374,10 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   function addLayers(firstSymbolId: string | undefined, firstWaterId: string | undefined, bottomId: string | undefined): void {
     map.addSource('countries', { type: 'geojson', data: countriesData as never });
     // Our own land at the far zooms (the tiles carry none): the 110m or 50m countries in the land colour, fading out as the tiles' land background takes over.
+    // The sea, as four boxes up to the Mercator limit (a box wider than 180 degrees is ambiguous on a globe): opaque to zoom 3, gone by 4.5.
+    const box = (w: number, e: number) => ({ type: 'Feature' as const, properties: {}, geometry: { type: 'Polygon' as const, coordinates: [[[w, -85.0511], [e, -85.0511], [e, 85.0511], [w, 85.0511], [w, -85.0511]]] } });
+    map.addSource('ocean', { type: 'geojson', data: { type: 'FeatureCollection', features: [box(-180, -90), box(-90, 0), box(0, 90), box(90, 180)] } as never });
+    map.addLayer({ id: 'ocean-fill', type: 'fill', source: 'ocean', paint: { 'fill-color': scheme().water, 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 3, 1, 4.5, 0], 'fill-antialias': false } }, bottomId);
     map.addLayer({ id: 'land-fill', type: 'fill', source: 'countries', paint: { 'fill-color': scheme().land, 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 3, 1, 4.5, 0], 'fill-antialias': true } }, bottomId);
     map.addLayer({ id: 'country-fill', type: 'fill', source: 'countries', paint: { 'fill-color': pal.accentSel, 'fill-opacity': ['case', sel('selected'), 0, sel('hover'), 0.35, 0] } }, firstWaterId);
 
@@ -389,7 +396,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     map.addLayer({ id: 'adm1-line-rest', type: 'line', source: 'adm1', paint: { 'line-color': pal.border, 'line-width': 0.8, 'line-opacity': 0.9 } });
     map.addLayer({ id: 'adm1-casing', type: 'line', source: 'adm1', paint: { 'line-color': pal.casingSel, 'line-width': casingWidth, 'line-opacity': 1 } });
     map.addLayer({ id: 'adm1-line', type: 'line', source: 'adm1', paint: { 'line-color': pal.accentSel, 'line-width': lineWidth(0), 'line-opacity': 1 } });
-    map.addLayer({ id: 'adm2-line-rest', type: 'line', source: 'adm2', paint: { 'line-color': pal.border, 'line-width': 0.9, 'line-opacity': 0.85 } });
+    map.addLayer({ id: 'adm2-line-rest', type: 'line', source: 'adm2', paint: { 'line-color': pal.border, 'line-width': 0.5, 'line-opacity': 0.9 } });
     map.addLayer({ id: 'adm2-casing', type: 'line', source: 'adm2', paint: { 'line-color': pal.casingSel, 'line-width': casingWidth, 'line-opacity': 1 } });
     map.addLayer({ id: 'adm2-line', type: 'line', source: 'adm2', paint: { 'line-color': pal.accentSel, 'line-width': lineWidth(0), 'line-opacity': 1 } });
     // Lakes as polygons below zoom 8 (spec 4.2): invisible, so they are only something to point at; the tiles draw the water.
@@ -423,9 +430,11 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       map.addLayer({ id: `${id}-casing`, type: 'circle', source, 'source-layer': id === 'hl-peak' ? 'mountain_peak' : 'water_name', filter: none, paint: { 'circle-radius': radius, 'circle-color': 'transparent', 'circle-stroke-color': pal.casingSel, 'circle-stroke-width': 4 } });
       map.addLayer({ id, type: 'circle', source, 'source-layer': id === 'hl-peak' ? 'mountain_peak' : 'water_name', filter: none, paint: { 'circle-radius': radius, 'circle-color': 'transparent', 'circle-stroke-color': pal.accentSel, 'circle-stroke-width': 2 } });
     };
-    // The honest ring for a selected city we hold no outline for (spec 4.2): 36 px, casing and amber, on the city's own label point.
-    map.addLayer({ id: 'hl-city-casing', type: 'circle', source: vectorSource, 'source-layer': 'place', filter: none, paint: { 'circle-radius': 18, 'circle-color': 'transparent', 'circle-stroke-color': pal.casingSel, 'circle-stroke-width': 4 } });
-    map.addLayer({ id: 'hl-city', type: 'circle', source: vectorSource, 'source-layer': 'place', filter: none, paint: { 'circle-radius': 18, 'circle-color': 'transparent', 'circle-stroke-color': pal.accentSel, 'circle-stroke-width': 2 } });
+    // The honest ring for a selected city we hold no outline for (spec 4.2): 36 px, casing and amber, at the city's own point from a
+    // source of one point, so a city that shares its name with another (Birmingham) never rings both.
+    map.addSource('city-ring', { type: 'geojson', data: ringData() as never });
+    map.addLayer({ id: 'hl-city-casing', type: 'circle', source: 'city-ring', paint: { 'circle-radius': 18, 'circle-color': 'transparent', 'circle-stroke-color': pal.casingSel, 'circle-stroke-width': 4 } });
+    map.addLayer({ id: 'hl-city', type: 'circle', source: 'city-ring', paint: { 'circle-radius': 18, 'circle-color': 'transparent', 'circle-stroke-color': pal.accentSel, 'circle-stroke-width': 2 } });
     ring('hl-peak', vectorSource, 9);
     ring('hl-label', vectorSource, 10);
     map.addLayer({ id: 'hl-park-casing', type: 'line', source: vectorSource, 'source-layer': 'park', filter: none, paint: { 'line-color': pal.casingSel, 'line-width': 4.5 } });
@@ -439,7 +448,8 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   }
 
   let cityArea: Feat | null = null;
-  let ringOn = false;
+  let ringAt: Pt | null = null;
+  const ringData = () => ({ type: 'FeatureCollection' as const, features: ringAt ? [{ type: 'Feature' as const, properties: {}, geometry: { type: 'Point' as const, coordinates: ringAt } }] : [] });
   let lakesData: unknown = EMPTY;
   // What each shape source holds: GeoJSON, or the object URL of GeoJSON a worker wrote (MapLibre then reads it in its own worker).
   let countriesData: unknown = forRender(opts.countries);
@@ -488,8 +498,6 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     set('hl-river', river); set('hl-river-casing', river);
     set('hl-peak', peak); set('hl-peak-casing', peak);
     set('hl-label', label && f?.sourceLayer !== 'place'); set('hl-label-casing', label && f?.sourceLayer !== 'place');
-    const cityRing = ringOn && !!f && f.sourceLayer === 'place';
-    if (map.getLayer('hl-city')) { map.setFilter('hl-city', cityRing && byName ? ['all', byName, ['==', ['get', 'class'], 'city']] as never : none); map.setFilter('hl-city-casing', cityRing && byName ? ['all', byName, ['==', ['get', 'class'], 'city']] as never : none); }
     set('hl-park', park); set('hl-park-casing', park); set('hl-park-fill', park);
     if (map.getLayer('hl-lake-fill')) map.setFilter('hl-lake-fill', lake && byName ? byName : none);
     if (map.getLayer('hl-lake-line')) map.setFilter('hl-lake-line', lake && byName ? byName : none);
@@ -604,7 +612,9 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       if (seen.has(`${sl(h)}:${name}`)) continue;
       seen.add(`${sl(h)}:${name}`);
       const d = describeBasemap(sl(h), h.properties);
-      out.push({ sourceLayer: sl(h), kind: d.kind, name, extra: d.extra, lngLat: [0, 0], wikidata: ((h.properties.wikidata ?? h.properties.wd) as string) ?? null });
+      const g = h.geometry as { type?: string; coordinates?: unknown } | undefined;
+      const at = sl(h) === 'place' && g?.type === 'Point' && Array.isArray(g.coordinates) ? ([Number(g.coordinates[0]), Number(g.coordinates[1])] as Pt) : undefined;
+      out.push({ sourceLayer: sl(h), kind: d.kind, name, extra: d.extra, lngLat: [0, 0], wikidata: ((h.properties.wikidata ?? h.properties.wd) as string) ?? null, ...(at ? { at } : {}) });
     }
     return out;
   }
@@ -651,7 +661,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     hideTip();
     const p = pick(e);
     if (p?.kind === 'shape') { handlers.onShape?.(p.layer, p.id); return; }
-    if (p) { p.f.lngLat = [e.lngLat.lng, e.lngLat.lat]; handlers.onBasemap?.(p.f); } else handlers.onBackground?.();
+    if (p) { p.f.lngLat = p.f.at ?? [e.lngLat.lng, e.lngLat.lat]; handlers.onBasemap?.(p.f); } else handlers.onBackground?.();
   });
 
   // ---- camera --------------------------------------------------------------------------------------------
@@ -844,10 +854,11 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       map.once('moveend', run);
       window.setTimeout(run, 3500);
     },
-    setCityRing(on) { ringOn = on; applyFeatureHighlight(); },
+    setCityRing(at) { ringAt = at; (map.getSource('city-ring') as GeoJSONSource | undefined)?.setData(ringData() as never); },
     setCityArea(f) {
       cityArea = f;
-      ringOn = false;
+      ringAt = null;
+      (map.getSource('city-ring') as GeoJSONSource | undefined)?.setData(ringData() as never);
       (map.getSource('city') as GeoJSONSource | undefined)?.setData((f ? { type: 'FeatureCollection', features: [f] } : EMPTY) as never);
     },
     setSpin(enabled, world) {

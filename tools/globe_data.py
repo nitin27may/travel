@@ -264,7 +264,62 @@ def cmd_gazetteer(args) -> int:
     rows = [r for r in rows if r[1]]
     write_json(ASSETS / "data" / "gazetteer.json", rows)
     print(f"  gazetteer: {len(rows)} rows", file=sys.stderr)
+    # The app's copy carries local names as aliases in column 8 (backlog 4.13, review S7): a visitor types "Firenze" or "Munchen".
+    # The legacy file above keeps its shape, so the old page and the adapter's reads are untouched.
+    write_json(WEB / "data" / "gazetteer.json", _with_aliases(rows))
     return 0
+
+
+ALIAS_LANGS = ("de", "es", "fr", "pt", "it", "nl")
+
+
+def _fold(s: str) -> str:
+    import unicodedata
+    return unicodedata.normalize("NFD", s).encode("ascii", "ignore").decode().lower()
+
+
+def _alias_list(name: str, props: dict, keys: list[str]) -> list[str]:
+    """Distinct spellings (other languages, the local and alternate names) that differ from `name` once accents are folded."""
+    seen = {_fold(name)}
+    out: list[str] = []
+    for k in keys:
+        for v in str(props.get(k) or "").replace("|", ",").split(","):
+            v = v.strip()
+            if v and _fold(v) not in seen and _fold(v):
+                seen.add(_fold(v)); out.append(v)
+    return out
+
+
+def _with_aliases(rows: list) -> list:
+    """Rows with an alias string (`a|b`) in column 8: cities from the full Natural Earth table, admin-1 from its name_* fields."""
+    full = fetch("https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_populated_places.geojson", CACHE / "ne_10m_populated_places.geojson")
+    city: dict[tuple, str] = {}
+    for f in json.loads(full.read_text(encoding="utf-8"))["features"]:
+        p = f["properties"]; lon, lat = f["geometry"]["coordinates"]
+        al = _alias_list(p["NAME"], p, ["NAMEPAR", "NAMEALT"] + [f"NAME_{l.upper()}" for l in ALIAS_LANGS])
+        if al:
+            city[(p["NAME"], p["ADM0_A3"], round(lon, 3), round(lat, 3))] = "|".join(al)
+    adm = fetch("https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson", CACHE / "ne_10m_admin_1.geojson")
+    admin: dict[tuple, str] = {}
+    for f in json.loads(adm.read_text(encoding="utf-8"))["features"]:
+        p = f["properties"]
+        if p.get("longitude") is None:
+            continue
+        name = p.get("name_en") or p.get("name")
+        if not name:
+            continue
+        al = _alias_list(name, p, ["name", "name_local"])   # provinces carry their parent region in the other fields: noise, not names
+        if al:
+            admin[(name, p.get("adm0_a3"), round(p["longitude"], 3), round(p["latitude"], 3))] = "|".join(al)
+    out = []
+    for r in rows:
+        key = (r[1], r[4], r[2], r[3])
+        al = city.get(key) if r[0] == "city" else admin.get(key) if r[0] == "admin1" else None
+        if al:
+            out.append(list(r) + [None] * (8 - len(r)) + [al])
+        else:
+            out.append(r)
+    return out
 
 # ----------------------------------------------------------------------------- L2b: web/public/globe
 WEB = ROOT / "web" / "public" / "globe"

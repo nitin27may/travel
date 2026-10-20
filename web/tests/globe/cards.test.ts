@@ -136,3 +136,32 @@ describe('directions', () => {
     expect(directionsUrl({ lat: 46.69, lon: 12.08 })).toBe('https://www.google.com/maps/dir/?api=1&destination=46.69000,12.08000');
   });
 });
+
+import { cardImageSources } from '@/lib/globe/cardImage';
+
+describe('card payload and photo weight (review S10, principle P8)', () => {
+  const cards = Object.values(buildGlobeData().cards);
+  const CARD_KEYS = ['key', 'kind', 'slug', 'title', 'kindLabel', 'glyph', 'areaLabel', 'summary', 'facts', 'usedIn', 'image', 'badge', 'approx', 'href'];
+  const IMAGE_KEYS = ['url', 'width', 'author', 'licence', 'sourceUrl', 'from'];
+  it('stays inside the card allowlist, field for field', () => {
+    for (const c of cards) {
+      expect(Object.keys(c).filter((k) => !CARD_KEYS.includes(k)), c.key).toEqual([]);
+      if (c.image) expect(Object.keys(c.image).filter((k) => !IMAGE_KEYS.includes(k)), c.key).toEqual([]);
+    }
+  });
+  it('asks for the 320 and 640 renditions only, never the 960', () => {
+    for (const u of ['https://commons.wikimedia.org/wiki/Special:FilePath/A.jpg?width=960', '/img/abc123-960.webp', 'https://commons.wikimedia.org/wiki/Special:FilePath/A.jpg']) {
+      const s = cardImageSources(u);
+      expect(s.src, u).toMatch(/640/);
+      expect(s.srcSet ?? '', u).not.toMatch(/960/);
+      expect(s.srcSet ?? '', u).toMatch(/320w, .*640w/);
+    }
+    expect(cardImageSources('https://example.org/x.jpg').srcSet).toBeUndefined();
+  });
+  it('fills a place card with up to three facts where the data holds them', () => {
+    const withFacts = cards.filter((c) => c.kind === 'place' && c.facts.length >= 2);
+    // 52 of 210 places hold two or more facts today (132 hold none: the data has no season, kid fit, length, climb, time or minimum age for them)
+    expect(withFacts.length).toBeGreaterThanOrEqual(50);
+    for (const c of cards) for (const f of c.facts) expect(f.label, c.key).toBeTruthy();
+  });
+});

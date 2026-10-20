@@ -246,7 +246,7 @@ export class GlobeController {
     } catch { /* no file: the ring and the note */ }
     if (this.snap.feature !== f) return;
     this.engine?.setCityArea(found);
-    this.engine?.setCityRing(!found);
+    this.engine?.setCityRing(found ? null : f.lngLat);
     this.emit({ boundary: found ? 'loaded' : 'none' });
   }
 
@@ -507,6 +507,14 @@ export class GlobeController {
       const idx = resolveFeature(this.adm2, di, this.points(chain));
       const box = idx !== null ? this.adm2.features[idx]?._bbox : null;
       if (box) return { box, step: 'district', maxZoom: 11 };
+    }
+    // A district we hold no shape for (a comune such as Braies): the box round its own pins, about 13 km each way, so the camera still lands on it.
+    if (di) {
+      const pts = this.points(chain);
+      if (pts.length) {
+        const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+        return { box: [[Math.min(...xs) - 0.12, Math.min(...ys) - 0.12], [Math.max(...xs) + 0.12, Math.max(...ys) + 0.12]], step: 'district', maxZoom: 11 };
+      }
     }
     if (this.adm1) {
       const idx = resolveFeature(this.adm1, st, this.points([cc, st]));

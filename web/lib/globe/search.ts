@@ -2,9 +2,9 @@ import { globeGazetteer } from '@/lib/client/data';
 import type { SearchRecord } from '@/lib/search/types';
 import type { CountryFacts } from './types';
 
-/** Gazetteer row: [kind, name, lon, lat, a3, extra, rank, population]. */
-export type GazRow = [string, string, number, number, string | null, string | null, number?, number?];
-export interface GazEntry { row: GazRow; n: string }
+/** Gazetteer row: [kind, name, lon, lat, a3, extra, rank, population, aliases]; aliases are local and other-language spellings joined by `|`. */
+export type GazRow = [string, string, number, number, string | null, string | null, number?, number?, string?];
+export interface GazEntry { row: GazRow; n: string; /** Folded aliases: "Firenze" for Florence. */ alt?: string[] }
 
 export type SearchAction =
   | { type: 'country'; a3: string }
@@ -23,7 +23,7 @@ const KIND_ORDER: Record<string, number> = { country: 0, admin1: 1, city: 2, mar
 
 let gazPromise: Promise<GazEntry[]> | null = null;
 export function loadGazetteer(): Promise<GazEntry[]> {
-  return (gazPromise ??= globeGazetteer().then((rows) => (rows as GazRow[]).map((row) => ({ row, n: norm(row[1]) }))));
+  return (gazPromise ??= globeGazetteer().then((rows) => (rows as GazRow[]).map((row) => ({ row, n: norm(row[1]), alt: row[8] ? row[8].split('|').map(norm) : [] }))));
 }
 
 export interface SearchSources {
@@ -52,13 +52,15 @@ export function search(q: string, src: SearchSources, limit = 12): SearchHit[] {
   if (!nq) return [];
   const starts: GazEntry[] = [], contains: GazEntry[] = [];
   for (const e of src.gazetteer) {
-    if (e.n.startsWith(nq)) starts.push(e);
-    else if (nq.length >= 3 && e.n.includes(nq)) contains.push(e);
+    if (e.n.startsWith(nq) || (e.alt ?? []).some((a) => a.startsWith(nq))) starts.push(e);
+    else if (nq.length >= 3 && (e.n.includes(nq) || (e.alt ?? []).some((a) => a.includes(nq)))) contains.push(e);
     if (starts.length > 400) break;
   }
-  // a city beats an admin area of the same name: the admin result has no level page of its own to land on (review round 3)
-  const sameNameCityFirst = (a: GazEntry, b: GazEntry): number => (a.n === b.n && a.row[0] !== b.row[0] && (a.row[0] === 'city' || b.row[0] === 'city') && (a.row[0] === 'admin1' || b.row[0] === 'admin1') ? (a.row[0] === 'city' ? -1 : 1) : 0);
-  const byScore = (a: GazEntry, b: GazEntry) => sameNameCityFirst(a, b) || score(a.row) - score(b.row) || a.row[1].length - b.row[1].length;
+  // A city beats an admin area of the same name ("Birmingham"): the admin result has no level page of its own to land on (review N3).
+  // Done as a penalty on the admin row, not a pairwise tie-break, so the order stays a total order.
+  const cityNames = new Set([...starts, ...contains].filter((e) => e.row[0] === 'city').map((e) => e.n));
+  const rank = (e: GazEntry): number => score(e.row) + (e.row[0] === 'admin1' && cityNames.has(e.n) ? 15 : 0);
+  const byScore = (a: GazEntry, b: GazEntry) => rank(a) - rank(b) || a.row[1].length - b.row[1].length;
   const gaz = [...starts.sort(byScore), ...contains.sort(byScore)].map((e) => toHit(e.row, src.countriesByA3));
   return [...src.own.slice(0, 5), ...gaz].slice(0, limit);
 }
