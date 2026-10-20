@@ -17,6 +17,7 @@ import { accessCard, factText, factsDl } from './sections/legacyHtml';
 import { withUnits } from '@/components/suit/html';
 import { CoverRelevance } from './sections/Relevance';
 import { Glance, Sections, type LegacySlots } from './sections/Sections';
+import { SectionIndex } from './sections/SectionIndex';
 import { GalleryLazy } from './GalleryLazy';
 import { LinksTabs } from './LinksTabs';
 import { dedupeMapPoints } from './mapPoints';
@@ -448,6 +449,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
         </div>
 
         {model ? <Glance model={model} suit={suit} level={place.completeness} /> : null}
+        {model ? <SectionIndex /> : null}
         {!model ? (
         <section className="pl-glance" aria-label="At a glance">
           <ul>
