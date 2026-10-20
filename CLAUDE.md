@@ -1,5 +1,7 @@
 # Travel plans repo
 
+**Start here on a new machine or session: read `HANDOVER.md`, then `docs/v2/build/public-site/STATUS.md`, `MASTER-PLAN.md` and `BACKLOG.md`.** `main` is the new public site (v2); the old site is the tag `legacy-final`; the live site is unchanged until the owner approves go-live.
+
 Each trip is one folder: `legacy/<slug>/` containing `index.html` (the deliverable) and `PLAN.md`; its research lives in `research/trips/<slug>/`.
 
 **Use the `trip-planner` skill** (`.claude/skills/trip-planner/`) for any new or revised trip plan — it defines the research process, the HTML format and design system, link/photo conventions, and the publish step.
