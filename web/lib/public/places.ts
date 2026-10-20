@@ -7,6 +7,7 @@ import { CATEGORY_OF_KIND, PROTOTYPE_AREAS, kindLabel, mapLocationKind, mapProto
 import { undatedTitle } from './dateless';
 import { groupLinks, trailSeeds, type TrailSeed } from './trail-places';
 import { assignSeedSlugs, captureSeeds, type CaptureSeed, type SeedSkip } from './seeds';
+import { primaryRef } from '@travel/core/capture/records.ts';
 import { publicWorld } from './world';
 import { applyLegacySupersedes } from './superseded';
 import { loadTracks, readDate, totalsDiffer, withTrack } from './tracks';
@@ -418,12 +419,17 @@ export function buildPlaces(src: Sources): PlaceBuild {
   // ---- places, routes and offers of public trips that only the capture records hold (backlog 3.48) ----
   const areaByName = new Map(recs.map((r) => [normName(r.name), r.areaChain]));
   const sb = captureSeeds({ src, world: publicWorld(src.root), placeNames, trailNames, areaByName });
+  const world = publicWorld(src.root);
+  logSkippedShells(sb.skipped);
   const seedOf = new Map<string, CaptureSeed>();
   for (const seed of sb.seeds) {
     if (!folderTrips.has(seed.tripFolder)) continue;
     seedOf.set(seed.ref, seed);
     recs.push(recFromCapture(seed, folderTrips.get(seed.tripFolder)!));
   }
+  // ---- second records of a place that already has a page (`same_place_as`, backlog 3.55): one page, the second slug redirects to it ----
+  const merged = collapseDuplicates(recs, [...seedOf.values()], world);
+  for (const r of merged.dropped) recs.splice(recs.indexOf(r), 1);
   const isSeed = (r: Rec) => !!r.captureRef && seedOf.has(r.captureRef);
 
   // ---- slugs: the pages that existed before keep theirs; the seeds fill free names ----
@@ -431,6 +437,7 @@ export function buildPlaces(src: Sources): PlaceBuild {
   const slugs = assignPlaceSlugs(recs.filter((r) => !isSeed(r)).map((r) => ({ key: key(r), name: r.name, areaSlug: r.areaChain[2]?.slug ?? '' })));
   const seedSlugs = assignSeedSlugs([...seedOf.values()], new Set(slugs.values()));
   const slugOf = (r: Rec): string => (isSeed(r) ? seedSlugs.get(r.captureRef!)! : slugs.get(key(r))!);
+  const duplicateRedirects = merged.pairs.map((m) => ({ from: `/places/${seedSlugs.get(m.seed.ref)!}/`, slug: slugOf(m.survivor), seed: m.seed }));
 
   applyLegacySupersedes(recs, publicWorld(src.root), normName);
   const places: PublicPlace[] = recs.map((r) => {
@@ -464,6 +471,11 @@ export function buildPlaces(src: Sources): PlaceBuild {
   const byLocationId = new Map<string, string>();
   const byCaptureRef = new Map<string, string>();
   const legacyPaths = new Map<string, string>();
+  for (const m of duplicateRedirects) {
+    legacyPaths.set(m.from, m.slug);
+    byCaptureRef.set(m.seed.ref, m.slug);
+    for (const a of m.seed.aliasRefs) byCaptureRef.set(a, m.slug);
+  }
   for (const r of recs) {
     const slug = slugOf(r);
     if (r.protoId) byProtoId.set(r.protoId, slug);
@@ -492,6 +504,53 @@ export function buildPlaces(src: Sources): PlaceBuild {
     for (const n of altNames.get(p.slug) ?? []) addName(n, p.slug);
   }
   return { places, bySlug, byProtoId, byLocationId, byCaptureRef, byName, legacyPaths, seedSkips: sb.skipped };
+}
+
+let shellsLogged = false;
+/** One build-log line naming the records that got no page because they hold nothing but a name (3.58). Only `next build` prints it. */
+function logSkippedShells(skipped: readonly SeedSkip[]): void {
+  const shells = skipped.filter((x) => x.why.startsWith('empty shell'));
+  if (shellsLogged || shells.length === 0 || process.env.NEXT_PHASE !== 'phase-production-build') return;
+  shellsLogged = true;
+  console.info(`places: ${shells.length} capture record(s) have no page, empty shells for CS7d: ${shells.map((x) => x.ref).join(', ')}`);
+}
+
+/**
+ * A seed that carries `same_place_as` is the second record of a place whose first record has a page (backlog 3.55). Its own Rec is
+ * dropped; the names and refs it answered to move to the first page, so a trip stop or an old ref still finds it. When the first
+ * record has no page the second keeps its own (nothing is lost). The caller redirects the dropped seed's slug to the survivor's.
+ */
+export function collapseDuplicates(
+  recs: readonly Rec[],
+  seeds: readonly CaptureSeed[],
+  world: Parameters<typeof primaryRef>[0],
+): { dropped: Rec[]; pairs: { seed: CaptureSeed; survivor: Rec }[] } {
+  const dropped: Rec[] = [];
+  const pairs: { seed: CaptureSeed; survivor: Rec }[] = [];
+  const byRef = new Map<string, Rec>();
+  for (const r of recs) if (r.captureRef) byRef.set(primaryRef(world, r.captureRef), r);
+  const dupRecs = new Map<string, CaptureSeed>(seeds.filter((s) => s.duplicateOf).map((s) => [primaryRef(world, s.ref), s]));
+  // follow a chain (c is a copy of b, b of a) to the page that stays; a loop keeps every member
+  const target = (ref: string): Rec | null => {
+    let cur = ref;
+    for (let i = 0; i < 8; i++) {
+      const dup = dupRecs.get(cur);
+      if (!dup) return byRef.get(cur) ?? null;
+      cur = dup.duplicateOf!;
+    }
+    return null;
+  };
+  for (const seed of seeds) {
+    if (!seed.duplicateOf) continue;
+    const own = byRef.get(primaryRef(world, seed.ref));
+    const survivor = target(seed.duplicateOf);
+    if (!own || !survivor || survivor === own) continue;
+    survivor.altNames = [...new Set([...(survivor.altNames ?? [survivor.name]), ...seed.names])];
+    survivor.aliasRefs = [...new Set([...(survivor.aliasRefs ?? []), seed.ref, ...seed.aliasRefs])];
+    dropped.push(own);
+    pairs.push({ seed, survivor });
+  }
+  return { dropped, pairs };
 }
 
 function recFromSeed(seed: TrailSeed, src: Sources, trip: TripRef): Rec {
