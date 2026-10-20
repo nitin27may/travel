@@ -441,7 +441,7 @@
         ],
         "note": "The toll road needs an online slot; when slots are released is an operator question."
       },
-      "area_id": "IT/trentino-alto-adige/belluno"
+      "area_id": "IT/veneto/belluno"
     },
     {
       "ref": "place/cadini-di-misurina-viewpoint",
@@ -459,7 +459,7 @@
           "on": "2026-10-19"
         }
       ],
-      "area_id": "IT/trentino-alto-adige/belluno"
+      "area_id": "IT/veneto/belluno"
     },
     {
       "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
@@ -539,7 +539,7 @@
           ]
         }
       ],
-      "area_id": "IT/trentino-alto-adige/belluno"
+      "area_id": "IT/veneto/belluno"
     },
     {
       "ref": "part/place/lago-di-sorapis#payoff",
@@ -630,7 +630,7 @@
           ]
         }
       ],
-      "area_id": "IT/trentino-alto-adige/belluno"
+      "area_id": "IT/veneto/belluno"
     },
     {
       "ref": "place/monte-piana",
@@ -665,7 +665,7 @@
           ]
         }
       ],
-      "area_id": "IT/trentino-alto-adige/belluno"
+      "area_id": "IT/veneto/belluno"
     },
     {
       "ref": "place/croda-del-becco",
@@ -1081,7 +1081,7 @@
           ]
         }
       ],
-      "area_id": "IT/trentino-alto-adige/belluno"
+      "area_id": "IT/veneto/belluno"
     },
     {
       "ref": "place/sass-pordoi-and-piz-boe",
@@ -1405,7 +1405,7 @@
         "read": "2026-10-19",
         "quote": "The lake's crystal waters reflect the Tre Cime and the surrounding forest, creating spectacular scenes at sunset or when blanketed in snow."
       },
-      "area_id": "IT/trentino-alto-adige/belluno"
+      "area_id": "IT/veneto/belluno"
     },
     {
       "ref": "place/lago-di-dobbiaco",
@@ -1442,7 +1442,7 @@
           "cortina.dolomiti.org Lago di Lìmedes page"
         ]
       },
-      "area_id": "IT/trentino-alto-adige/belluno"
+      "area_id": "IT/veneto/belluno"
     },
     {
       "ref": "place/lago-federa",
@@ -1994,7 +1994,7 @@
           ]
         }
       ],
-      "area_id": "IT/trentino-alto-adige/belluno"
+      "area_id": "IT/veneto/belluno"
     },
     {
       "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
