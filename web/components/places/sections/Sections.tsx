@@ -75,7 +75,7 @@ function findRow(model: PageModel, suit: PublicSuitability | null, key: string):
 }
 
 /** Six answers at a glance (PS13): the contract's glance, skipping what the chip row below already says. Each is a link to its row. */
-export function Glance({ model, suit, level }: { model: PageModel; suit: PublicSuitability | null; level: Completeness }) {
+export function Glance({ model, suit, level, trailhead = null, isArea = false }: { model: PageModel; suit: PublicSuitability | null; level: Completeness; trailhead?: string | null; isArea?: boolean }) {
   const directions = model.directions?.mode === 'drive' ? model.directions : null;
   // A required row the older record answered (step 9 of the contract mapping) counts as done: the engine ran before the mapping (3.49)
   const mapped = Math.min(
@@ -87,10 +87,14 @@ export function Glance({ model, suit, level }: { model: PageModel; suit: PublicS
     .filter((k) => !CHIP_ROW_PROPERTIES.includes(k))
     .map((k) => ({ key: k, hit: findRow(model, suit, k) }))
     .filter((x): x is { key: string; hit: { row: ShowRow; href: string } } => x.hit !== null)
+    // a range or region has no trailhead, no car park and no lift or road season: those tiles would only say "Not checked yet" about things it cannot have
+    .filter((x) => !(isArea && x.hit.row.gap && (x.key === 'access_points' || x.key === 'access_season')))
     .map(({ key, hit: { row, href } }) => {
       const value = (row.valueType === 'season_rows' ? seasonShort(row.value) : '') || row.text || '';
       // Directions already name where you start (S5): a gap here would contradict it, so the slot reads the same stop
       if (key === 'starts_at' && row.gap && directions?.role === 'starts_at') return { row: { ...row, gap: false, text: directions.name }, href, value: directions.name };
+      // the Directions card names the trailhead it holds: a "Starts at" gap beside it would say the opposite
+      if (key === 'starts_at' && row.gap && trailhead) return { row: { ...row, gap: false, text: trailhead }, href, value: trailhead };
       return { row, href, value };
     });
   // each value has one slot (S5): "Trailhead and parking" and "Starts at" are often the same stop, so the first one stays

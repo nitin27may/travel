@@ -103,11 +103,26 @@ export default function MapLibreMap({ spec, label, onSelect, onCamera, handleRef
         });
         if (dead) { created.destroy(); return; }
         engine.current = created;
+        requestAnimationFrame(() => created?.map.resize());
       } catch (e) {
         setFailure(e instanceof Error ? e.message : 'The map could not start.');
       }
     })();
     return () => { dead = true; engine.current = null; created?.destroy(); };
+  }, []);
+
+  // The frame can change size without a window resize (the rail and column layout swap, fonts settling, a section opening): the canvas follows it.
+  // maplibre tracks its container too, but the engine may not exist yet when the first change lands, so we resize on every frame change and once more when it is ready.
+  useEffect(() => {
+    const frame = box.current?.parentElement?.parentElement;
+    if (!frame || typeof ResizeObserver === 'undefined') return;
+    let raf = 0;
+    const ro = new ResizeObserver(() => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => engine.current?.map.resize());
+    });
+    ro.observe(frame);
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
   }, []);
 
   useEffect(() => { engine.current?.update(spec); }, [spec]);

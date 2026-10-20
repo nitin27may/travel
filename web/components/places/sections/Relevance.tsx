@@ -47,7 +47,8 @@ export function CoverRelevance({ rel, slugs, name }: { rel: PublicRelevance; slu
       {rel.payoff && rel.payoff.name.toLowerCase() !== name.toLowerCase() ? (
         <p className="rv-payoff">
           To <strong><RefLink r={rel.payoff} slugs={slugs} /></strong>
-          <span className="pb"> · photo and judgement from the place it reaches</span>
+          {/* its own line, with no leading dot: a wrapped line must never start with a lone separator */}
+          <span className="pb" style={{ display: 'block' }}>Photo and judgement come from the place it reaches</span>
         </p>
       ) : rel.payoffMissing ? (
         <p className="rv-payoff">
