@@ -12,7 +12,7 @@ import { loadCountries, type CountryBook } from '@/lib/globe/countries';
 import type { GlobeEngine } from '@/lib/globe/engine';
 import { DEFAULT_PREFS, loadPrefs, savePrefs, type GlobePrefs } from '@/lib/globe/prefs';
 import type { SearchHit } from '@/lib/globe/search';
-import type { Camera, GlobeData, PinModel } from '@/lib/globe/types';
+import type { Camera, GlobeCard, GlobeData, PinModel } from '@/lib/globe/types';
 import { parseCamera, parseView } from '@/lib/globe/url';
 import { effectiveStyle } from '@/lib/map/maplibre/styles';
 import { pageIsDark } from '@/lib/map/palette';
@@ -49,6 +49,12 @@ function chromeBottom(root: HTMLElement | null): number {
   if (!root) return 0;
   const r0 = root.getBoundingClientRect();
   return Math.max(0, ...['.globe-search', '.globe-crumbs'].map((s) => { const b = root.querySelector(s)?.getBoundingClientRect(); return b && b.width ? b.bottom - r0.top + 8 : 0; }));
+}
+
+/** The height a place or trip card will take, from what it holds, so the flip keeps the whole card (and its Open place button) inside the free area (review S3). */
+function cardHeight(card: GlobeCard | null | undefined): number {
+  if (!card) return 330;
+  return 56 + (card.image ? 150 : 0) + 76 + (card.summary ? 70 : 0) + (card.facts.length ? 56 : 0) + (card.usedIn ? 30 : 0) + 58 + (card.approx || card.badge ? 40 : 0);
 }
 
 /** Height of the phone sheet at rest (components 5.5). */
@@ -102,6 +108,10 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const engineRef = useRef<GlobeEngine | null>(null);
   const layoutRef = useRef<() => { width: number; height: number; cover: { top: number; right: number; bottom: number; left: number }; mode: 'desktop' | 'landscape' | 'phone' }>(() => ({ width: 1, height: 1, cover: { top: 0, right: 0, bottom: 0, left: 0 }, mode: 'desktop' }));
   const short = useMedia('(max-height: 500px) and (orientation: landscape)');
+  // A 1024 x 768 screen has no room to hang a 540 px card from its pin without covering the crumb: there the card is the left dock too
+  // (spec 3.2, review L2b ruling 1). `short` stays for what only a landscape phone changes.
+  const compact = useMedia('(max-width: 1100px) and (max-height: 800px) and (min-height: 501px)');
+  const dock = short || compact;
   // On a landscape phone the panel drops to its tab while a card is open, so the card and the pin have the screen (review M4).
   const panelOpen = panelWanted && !(short && !!snap.selected);
   const root = useRef<HTMLDivElement>(null);
@@ -293,16 +303,16 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   }, [engine, pin]);
   useLayoutEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- the marker element only exists after the engine syncs it */
-    if (!engine || !pin || phone || short) { if (engine) engine.syncMarkers('card', []); setCardEl(null); return; }
+    if (!engine || !pin || phone || dock) { if (engine) engine.syncMarkers('card', []); setCardEl(null); return; }
     const at = engine.project(pin.lon, pin.lat);
     const w = root.current?.clientWidth ?? window.innerWidth, h = root.current?.clientHeight ?? window.innerHeight;
     const free: Rect = { left: 0, top: chromeBottom(root.current), right: w - (panelOpen ? 384 : 0), bottom: h - 36 };
-    const pl = at ? placeCard(at, { w: 320, h: card?.image ? 390 : 330 }, free, occupiedRects(root.current)) : null;
+    const pl = at ? placeCard(at, { w: 320, h: cardHeight(card) }, free, occupiedRects(root.current)) : null;
     const m = engine.syncMarkers('card', [{ key: 'card', lng: pin.lon, lat: pin.lat, anchor: pl?.anchor ?? 'top-left', offset: [pl?.offset[0] ?? 26, pl?.offset[1] ?? 8], className: 'globe-card-anchor' }]);
     setCardEl(m.get('card') ?? null);
     /* eslint-enable react-hooks/set-state-in-effect */
     // eslint-disable-next-line react-hooks/exhaustive-deps -- `card` only sizes the estimate
-  }, [engine, pin, phone, short, panelOpen, camTick, snap.crumbs.length]);
+  }, [engine, pin, phone, dock, panelOpen, camTick, snap.crumbs.length]);
 
   // The feature card sits at the click point on a desktop and flips to the side with room, so the highlighted river, sea or peak stays in view
   // (spec 3.2). On a phone or a landscape phone it is a fixed card above the sheet's peek.
@@ -361,16 +371,16 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     const el = root.current, c = el?.querySelector('.globe-crumbs');
     if (!el || !c) return;
     el.style.setProperty('--globe-dock-top', `${Math.round(c.getBoundingClientRect().bottom - el.getBoundingClientRect().top + 8)}px`);
-  }, [short, snap.crumbs.length, snap.selected]);
+  }, [dock, snap.crumbs.length, snap.selected]);
 
   // Free canvas for the world frame: the canvas minus whatever the open panel or the resting sheet covers (spec 3.1).
   const panelFoot = (short ? 300 : 360) + 24;
   useEffect(() => {
     layoutRef.current = () => {
       const r = root.current?.getBoundingClientRect();
-      return { width: r?.width ?? window.innerWidth, height: r?.height ?? window.innerHeight, cover: { top: short ? 52 : 0, left: !phone && !short && cardOpen ? CARD_FOOT : 0, right: !phone && panelOpen ? panelFoot : 0, bottom: phone && sheetOpen ? PEEK : 0 }, mode: phone ? 'phone' : short ? 'landscape' : 'desktop' };
+      return { width: r?.width ?? window.innerWidth, height: r?.height ?? window.innerHeight, cover: { top: short ? 52 : 0, left: !phone && !short && cardOpen ? CARD_FOOT : 0, right: !phone && panelOpen ? panelFoot : 0, bottom: phone && sheetOpen ? PEEK : 0 }, mode: phone ? 'phone' : dock ? 'landscape' : 'desktop' };
     };
-  }, [phone, short, panelOpen, sheetOpen, panelFoot, cardOpen]);
+  }, [phone, short, dock, panelOpen, sheetOpen, panelFoot, cardOpen]);
   // The CSS halo (and the placeholder disc before the map exists) follows the world frame: centre of the free area, the computed diameter.
   const syncHalo = useCallback(() => {
     const el = root.current;
@@ -432,7 +442,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
       {engine && painted ? <PinLayer engine={engine} pins={snap.pins} selectedKey={snap.selected} isLand={isLand} onOpen={openPin} /> : null}
       {engine ? <HitMarker engine={engine} /> : null}
       {cardEl && card ? createPortal(<SelectionCard card={card} point={pin} onClose={() => controller?.closeCard()} />, cardEl) : null}
-      {short && card ? <div className="globe-card-dock"><SelectionCard card={card} point={pin} onClose={() => controller?.closeCard()} /></div> : null}
+      {dock && card ? <div className="globe-card-dock"><SelectionCard card={card} point={pin} onClose={() => controller?.closeCard()} /></div> : null}
 
       <div className="globe-top">
         <GlobeCrumbs crumbs={snap.crumbs} canBack={canBack} onBack={() => controller?.back()} onCrumb={(p) => controller?.crumbTo(p)} />

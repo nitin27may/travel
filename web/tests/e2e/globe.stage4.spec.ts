@@ -166,11 +166,16 @@ test.describe('globe stage 4 (GPU, real tiles)', () => {
   }, BOXES);
   for (const [w, h] of VIEWPORTS) {
     test(`the card, crumb, search, rail, options, attribution and scale bar do not overlap at ${w}x${h} (S3, S9)`, async ({ site }) => {
-      const page = await open(`${site.url}/globe/place/adolf-munkel-weg/`, { w, h });
+      const page = await open(`${site.url}/globe/place/lago-di-braies/`, { w, h });
       await painted(page);
       await expect(page.locator('.globe-card').first()).toBeVisible({ timeout: 60_000 });
       await rest(page, 3000);
       expect(await collisions(page)).toEqual([]);
+      // the whole card is on screen, and its primary action is not scrolled or clipped away (P7)
+      const act = await page.evaluate(() => { const b = document.querySelector('.globe-card-open')!.getBoundingClientRect(); const root = document.querySelector('.globe-root')!.getBoundingClientRect(); return { top: b.top, bottom: b.bottom, left: b.left, right: b.right, rootTop: root.top, rootBottom: root.bottom, vw: innerWidth }; });
+      expect(act.top, 'Open place starts inside the globe').toBeGreaterThanOrEqual(act.rootTop);
+      expect(act.bottom, 'Open place ends inside the globe').toBeLessThanOrEqual(act.rootBottom + 1);
+      expect(act.right).toBeLessThanOrEqual(act.vw);
       await page.context().close();
     });
   }
