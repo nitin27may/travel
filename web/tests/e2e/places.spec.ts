@@ -59,9 +59,9 @@ test.describe('places list', () => {
   test('every researched trail is listed, with no workshop word on its card', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?kind=trail&q=tre cime`);
     const card = page.locator('article.card', { hasText: 'Tre Cime di Lavaredo loop' });
-    // the engine puts it below Usable, and a place with only the basics has no badge: "Draft" is the workshop's word
-    await expect(card.locator('.pc-complete')).toHaveCount(0);
+    // a place with only the basics has no badge and one further on reads its level in public words; "Draft" is the workshop's word
     await expect(card).not.toContainText('Draft');
+    await expect(card.locator('.pc-complete')).not.toContainText('Draft');
     await expect(card.getByRole('link', { name: /^Place page/ })).toHaveAttribute('href', TRAIL);
   });
 

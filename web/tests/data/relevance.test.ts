@@ -208,6 +208,11 @@ describe('publicRelevance: the pointer and Plan B', () => {
     expect(p).not.toBeNull();
     expect(p!.name).toBeTruthy();
   });
+  it('a hand-picked Plan B carries the reason a person gave (Tre Cime to Monte Piana)', () => {
+    const p = publicRelevance(ctx, find('tre-cime-di-lavaredo-loop')).planB;
+    expect(p?.name).toMatch(/Monte Piana/);
+    expect(p?.reason).toMatch(/toll/i);
+  });
   it('gives an anchor with a fallible access cost its Plan B, with the risk in words', () => {
     let seen: ReturnType<typeof publicRelevance>['planB'] = null;
     for (const [ref, it] of ctx.derived) {

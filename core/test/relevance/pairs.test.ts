@@ -199,3 +199,11 @@ describe("pair_with: a hand-picked pair with no point (2.33)", () => {
     expect(run([ghost], facts)["place/lake-louise"]!.pair_with).toEqual([]);
   });
 });
+
+describe("plan_b_pick in the schema", () => {
+  it("takes a ref with a reason and an optional source, and refuses an empty reason or a key it does not know", () => {
+    expect(relRecord.safeParse({ ...louise, plan_b_pick: { ref: "place/x", reason: "short walk", src: "src-0001" } }).success).toBe(true);
+    expect(relRecord.safeParse({ ...louise, plan_b_pick: { ref: "place/x", reason: "" } }).success).toBe(false);
+    expect(relRecord.safeParse({ ...louise, plan_b_pick: { ref: "place/x", reason: "r", extra: 1 } }).success).toBe(false);
+  });
+});

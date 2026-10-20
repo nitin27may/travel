@@ -239,10 +239,11 @@
     {
       "id": "src-0056",
       "url": "https://www.ladige.it/territori/dolomiti/stop-al-traffico-passo-gardena-verso-la-ztl-unesco-fb9o1kzt",
-      "title": "Stop al traffico Passo Gardena, verso la ZTL (search result, not opened)",
+      "title": "Stop al traffico, passo Gardena verso la «Ztl Unesco» (newspaper report of a planned trial)",
       "publisher": "l'Adige (newspaper)",
       "kind": "press",
-      "read": "2026-10-18"
+      "read": "2026-10-19",
+      "method": "read"
     },
     {
       "id": "src-0057",
@@ -271,10 +272,11 @@
     {
       "id": "src-0061",
       "url": "https://www.planetmountain.com/it/itinerari/lago-di-limides.html",
-      "title": "Lago di Limides (search result, not opened)",
+      "title": "Lago di Limides, Croda da Lago - Nuvolau, Dolomiti (a winter snowshoe route, not the summer walk)",
       "publisher": "planetmountain.com (mountain magazine)",
       "kind": "press",
-      "read": "2026-10-18"
+      "read": "2026-10-19",
+      "method": "read"
     },
     {
       "id": "src-0063",
@@ -283,6 +285,15 @@
       "publisher": "Wikidata (CC0)",
       "kind": "community",
       "read": "2026-10-18"
+    },
+    {
+      "id": "src-0064",
+      "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lake-antorno-misurina-monte-piano_22272",
+      "title": "Summer hiking tour: Lake Antorno - Misurina - Monte Piana (tour 22272)",
+      "publisher": "3 Zinnen Dolomites (tourism board)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
     }
   ],
   "records": [
@@ -393,7 +404,12 @@
           "reason": "The Cadini viewpoint path leaves from Rifugio Auronzo, the loop's start: a short add-on",
           "src": "src-0037"
         }
-      ]
+      ],
+      "plan_b_pick": {
+        "ref": "place/monte-piana",
+        "reason": "Starts at Lago d'Antorno, about 1 km before the toll booth, so it needs no toll slot; it faces the Tre Cime across 4.6 km",
+        "src": "src-0064"
+      }
     },
     {
       "ref": "part/place/cadini-di-misurina-viewpoint#payoff",

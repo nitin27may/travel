@@ -643,6 +643,12 @@
       "coord_src": "wikidata",
       "point_source": "Q446041 P625"
     },
+    "part/place/funbob-monte-baranci#place": {
+      "lat": 46.71811,
+      "lon": 12.27879,
+      "coord_src": "osm",
+      "point_source": "OSM node 1825738077 Haunold - Monte Baranci chairlift top station, where the Funbob run starts; agent checked, needs a person's check"
+    },
     "part/place/lagazuoi-cable-car-and-tunnels#top": {
       "lat": 46.51921,
       "lon": 12.00851,
@@ -1056,6 +1062,18 @@
       "lon": 11.94,
       "coord_src": "prototype",
       "point_source": "snapshot place rafting (approximate)"
+    },
+    "place/rifugio-nuvolau-and-averau": {
+      "lat": 46.49524,
+      "lon": 12.04573,
+      "coord_src": "osm",
+      "point_source": "OSM way 200226208 Rifugio Nuvolau centroid (tourism=alpine_hut, ele 2575); agent checked, needs a person's check"
+    },
+    "place/rifugio-scotoni": {
+      "lat": 46.5531,
+      "lon": 11.9984,
+      "coord_src": "osm",
+      "point_source": "OSM way 229003439 Ütia de Scotoni - Rifugio Scotoni centroid (tourism=alpine_hut); the prototype pin is about 1.9 km south; agent checked, needs a person's check"
     },
     "place/san-candido": {
       "lat": 46.73287,

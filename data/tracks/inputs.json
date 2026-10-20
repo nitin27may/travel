@@ -9,7 +9,11 @@
         "relation:15791397",
         "relation:2261100"
       ],
-      "source": "docs/v2/research/lanes/CS7b-dolomites-tracks.md, 3.28: paths 443, 439, 464 and 452 from cortina.dolomiti.org 'To Rifugio Nuvolau' (9.8 km, 612 m, from and back to Passo Giau); Rifugio Nuvolau has no capture record"
+      "source": "docs/v2/research/lanes/CS7b-dolomites-tracks.md, 3.28: paths 443, 439, 464 and 452 from cortina.dolomiti.org 'To Rifugio Nuvolau' (9.8 km, 612 m, from and back to Passo Giau); Rifugio Nuvolau has no capture record; destination: Rifugio Nuvolau, OSM way 200226208 (tourism=alpine_hut, ele 2575), read 19 Oct 2026. Chaining (CS7c): 452 meets 443 at Passo Giau and 464 under Forcella Nuvolau (0 m); 443 meets 439 by Rifugio Scoiattoli (0 m); 439 (Cian Zopè by the Cinque Torri, Averau, to the hut) does not touch 452 (205 m) or 464 (185 m). The loop as the tourist office gives it runs 443, 439 to the hut, then down to Forcella Nuvolau and 464/452 to Passo Giau; the 185 m between 439 and 464 near Forcella Nuvolau (46.4995, 12.0428) is mapped only as untagged path ways (39426697, 1013608145) that belong to no route relation, so a person must confirm the connector before the four relations are stitched in the order 443, 439, way 39426697, 464, 452",
+      "destination": {
+        "lat": 46.49524,
+        "lon": 12.04573
+      }
     },
     "lagazuoi": {
       "wrong_route": "the stored relation is the Kaiserjäger Steig (the way up), not the tunnels; no OSM relation exists for the Galleria del Lagazuoi",
@@ -25,7 +29,42 @@
     },
     "federa": {
       "destination_ref": "place/lago-federa",
-      "source": "Wikidata Q3825692 P625 (Lago Federa), the point of capture ref place/lago-federa in data/relevance/inputs/points.json"
+      "source": "Wikidata Q3825692 P625 (Lago Federa), the point of capture ref place/lago-federa in data/relevance/inputs/points.json; CS7c, 19 Oct 2026: Lago Fedèra is OSM way 26430242 (wikidata Q3825692, 15 m from the Q3825692 P625), 88 m from relation 3170181 (path 434) and 1,498 m from relation 3170182 (path 437): the walk is 437 from Ru Curto, then 434 to the lake, so relation 3170181 was added to the capture record's osm links"
+    },
+    "fiscalina": {
+      "destination": {
+        "lat": 46.65138,
+        "lon": 12.35387
+      },
+      "source": "Talschlusshütte / Rifugio Fondovalle, OSM way 96096595 (tourism=alpine_hut, ele 1526), 28 m from relation 1116674 (path 102); the Fischleintal walk ends at the hut (dreizinnen.com 'Moos - Talschlusshütte'). Read 19 Oct 2026 (CS7c)"
+    },
+    "vallunga": {
+      "destination": {
+        "lat": 46.57669,
+        "lon": 11.80447
+      },
+      "source": "Crist de Pra da Ri, OSM node 6582175776 (historic=wayside_cross) at the Pra da Ri meadow (OSM way 167867711), where relation 2465034 reaches about 1,805 m on the stored DEM profile; valgardena.it gives the valley walk's high point as 1,817 m and 'back the same way'. Which landmark ends the walk is our inference; read 19 Oct 2026 (CS7c)"
+    },
+    "pordoi": {
+      "destination": {
+        "lat": 46.50897,
+        "lon": 11.82814
+      },
+      "source": "Piz Boè summit, Rifugio Capanna Piz Fassa, OSM way 42223145 (tourism=alpine_hut, ele 3152); relation 7302480 (path 627) ends at Rifugio Boè and relation 9491502 (path 638) continues to the summit (8 m from the hut); both are now osm links on the capture record. Read 19 Oct 2026 (CS7c)"
+    },
+    "cinque-torri": {
+      "source": "CS7c, 19 Oct 2026: no destination needed; the loop is at the top of the chairlift (Rifugio Scoiattoli, OSM way 200335135, 101 m from relation 3170143 path 439, which also passes Rifugio Cinque Torri at 28 m). The held-back reason is the trailhead pin at the chairlift base, 1.3 km below the line: the fetcher needs a start point at the lift top (code change), not new data. Start point (D2, 19 Oct 2026): Rifugio Scoiattoli, OSM way 200335135 (tourism=alpine_hut, ele 2255), centre of the building; the chairlift tops out here and the loop starts on foot.",
+      "start": {
+        "lat": 46.50809,
+        "lon": 12.04677
+      }
+    },
+    "fanes-falls": {
+      "source": "CS7c, 19 Oct 2026: no destination needed (end offset 125 m). The pin is the Sant'Uberto car park; the official walk starts at Pian de Loa past the closed road (CS7b 3.38), 325 m from relation 1641053. A start-point override (code change) would release it. Start point (D2, 19 Oct 2026): Pian de Loa, OSM node 1398755040 (place=locality), where cortina.dolomiti.org starts the walk, past the closed road from Sant'Uberto.",
+      "start": {
+        "lat": 46.60141,
+        "lon": 12.09661
+      }
     }
   }
 }

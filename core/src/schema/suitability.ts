@@ -229,7 +229,7 @@ export const ext = z.discriminatedUnion("kind", [
   z.strictObject({
     kind: z.literal("water"),
     note: z.string().optional(),
-    swimming: val(z.enum(["allowed", "banned", "unsafe", "seasonal"])).optional(),
+    swimming: val(z.enum(["allowed", "banned", "unsafe", "seasonal", "discouraged"])).optional(),
     clarity: val(z.enum(["clear", "cloudy"])).optional(),
     /** the age under which flotation is required: a limit (K3) */
     floats_required_under: val(int.min(0)).optional(),

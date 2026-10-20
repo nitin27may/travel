@@ -231,4 +231,25 @@ describe('OSM ids in capture records (3.30)', () => {
     const recs = [{ ref: 'part/place/a#parking', layer: 'place', type: 'transport.parking', name: 'A', links: [{ kind: 'osm', url: 'https://www.openstreetmap.org/way/123456', state: 'filled' }] }];
     expect(collectInputs(snapshot, recs, {})).toEqual([]);
   });
+  it('an explicit start point in inputs.json replaces the stored trailhead and is flagged', () => {
+    const snapshot = {
+      places: [{ id: 'a', name: 'A' }],
+      trails: { a: { trailhead: { lat: 46, lon: 11 }, facts: { geometry_source: { v: 'osm_relation' }, geometry_ids: { v: '111111' } } } },
+      access: {},
+    };
+    const [plain] = collectInputs(snapshot, [], {});
+    expect(plain.trailhead).toEqual({ lat: 46, lon: 11 });
+    expect(plain.startOverride).toBe(false);
+    const [moved] = collectInputs(snapshot, [], { overrides: { places: { a: { start: { lat: 46.5, lon: 11.5 } } } } });
+    expect(moved.trailhead).toEqual({ lat: 46.5, lon: 11.5 });
+    expect(moved.startOverride).toBe(true);
+    // a start with no usable numbers is ignored
+    const [bad] = collectInputs(snapshot, [], { overrides: { places: { a: { start: { lat: 'x' } } } } });
+    expect(bad.trailhead).toEqual({ lat: 46, lon: 11 });
+  });
+  it('writes start_override into the header only when it was used', () => {
+    const t = { schema: 'trail-track/1', place: 'a', refs: [], osm: ['relation:1'], fetched: '2026-10-19', source: 'osm-api', licence: 'ODbL-1.0', attribution: 'x', stitched: true, confirmed: true, held_back: [], start_offset_m: 3, end_offset_m: null, cut: null, legs: [], simplify_m: 5, totals: { km: 1, gain_m: 1, loss_m: 1, high_m: 1, low_m: 1 }, dem: 'x', step_m: 25, geometry: [[0, 0], [1, 1]], elevation: [] } as unknown as TrackFile;
+    expect(formatTrack(t)).not.toContain('start_override');
+    expect(formatTrack({ ...t, start_override: true } as TrackFile)).toContain('"start_override": true');
+  });
 });

@@ -385,42 +385,47 @@
     {
       "id": "src-0050",
       "url": "https://www.babytrekking.it/rifugio-croda-da-lago-ru-curto-coi-bambini/",
-      "title": "Rifugio Croda da Lago da Ru Curto coi bambini (search result, not opened)",
+      "title": "Rifugio Croda da Lago: da Ru Curto al lago Federa coi bambini - BabyTrekking",
       "publisher": "babytrekking.it (family hiking blog)",
       "kind": "blog",
-      "read": "2026-10-18"
+      "read": "2026-10-19",
+      "method": "read"
     },
     {
       "id": "src-0051",
       "url": "https://www.babytrekking.it/lago-sorapis-rifugio-vandelli-bambini-cortina/",
-      "title": "Lago Sorapis e Rifugio Vandelli coi bambini (search result, not opened)",
+      "title": "Lago Sorapis e Rifugio Vandelli, coi bambini nella valle incantata - BabyTrekking",
       "publisher": "babytrekking.it (family hiking blog)",
       "kind": "blog",
-      "read": "2026-10-18"
+      "read": "2026-10-19",
+      "method": "read"
     },
     {
       "id": "src-0052",
       "url": "https://swissfamilyfun.com/dolomites-vallunga/",
-      "title": "Dolomites: Vallunga (search result, not opened)",
+      "title": "Dolomites hike • Vallunga / Langental",
       "publisher": "Swiss Family Fun (family travel blog)",
       "kind": "blog",
-      "read": "2026-10-18"
+      "read": "2026-10-19",
+      "method": "read"
     },
     {
       "id": "src-0053",
       "url": "https://www.babytrekking.it/lago-di-misurina-passeggino/",
-      "title": "Lago di Misurina col passeggino (search result, not opened)",
+      "title": "Lago di Misurina, la perla del Cadore - BabyTrekking",
       "publisher": "babytrekking.it (family hiking blog)",
       "kind": "blog",
-      "read": "2026-10-18"
+      "read": "2026-10-19",
+      "method": "read"
     },
     {
       "id": "src-0054",
       "url": "https://www.disabili.com/viaggi/speciali-viaggi-a-tempo-libero/speciale-vacanze-estate/-sp-17235",
-      "title": "Aree turistiche montane: Dolomiti (search result, not opened)",
+      "title": "DOLOMITI - Passeggiate accessibili | Disabili.com",
       "publisher": "disabili.com",
       "kind": "press",
-      "read": "2026-10-18"
+      "read": "2026-10-19",
+      "method": "read"
     },
     {
       "id": "src-0055",
@@ -433,10 +438,11 @@
     {
       "id": "src-0056",
       "url": "https://www.ladige.it/territori/dolomiti/stop-al-traffico-passo-gardena-verso-la-ztl-unesco-fb9o1kzt",
-      "title": "Stop al traffico Passo Gardena, verso la ZTL (search result, not opened)",
+      "title": "Stop al traffico, passo Gardena verso la «Ztl Unesco» (newspaper report of a planned trial)",
       "publisher": "l'Adige (newspaper)",
       "kind": "press",
-      "read": "2026-10-18"
+      "read": "2026-10-19",
+      "method": "read"
     },
     {
       "id": "src-0057",
@@ -449,26 +455,29 @@
     {
       "id": "src-0060",
       "url": "https://www.linexo.de/magazin/radrouten-touren/drauradweg-die-schoenste-fahrradroute-durch-oesterreich",
-      "title": "Drauradweg (search result, not opened)",
+      "title": "Alles über den Drauradweg auf linexo.de (confirms the asphalt surface only)",
       "publisher": "linexo (cycling magazine)",
       "kind": "press",
-      "read": "2026-10-18"
+      "read": "2026-10-19",
+      "method": "read"
     },
     {
       "id": "src-0061",
       "url": "https://www.planetmountain.com/it/itinerari/lago-di-limides.html",
-      "title": "Lago di Limides (search result, not opened)",
+      "title": "Lago di Limides, Croda da Lago - Nuvolau, Dolomiti (a winter snowshoe route, not the summer walk)",
       "publisher": "planetmountain.com (mountain magazine)",
       "kind": "press",
-      "read": "2026-10-18"
+      "read": "2026-10-19",
+      "method": "read"
     },
     {
       "id": "src-0062",
       "url": "https://www.ecnews.it/fiscale/viaggi-e-tempo-libero/escursione-del-lago-federa/",
-      "title": "Escursione del Lago Federa (search result, not opened)",
+      "title": "Escursione del Lago Federa - EC News - Area fiscale",
       "publisher": "ecnews.it",
       "kind": "press",
-      "read": "2026-10-18"
+      "read": "2026-10-19",
+      "method": "read"
     },
     {
       "id": "src-0063",
@@ -484,6 +493,42 @@
       "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lake-antorno-misurina-monte-piano_22272",
       "title": "Summer hiking tour: Lake Antorno (Misurina) - Monte Piano",
       "publisher": "3 Zinnen Dolomites tourism board",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0065",
+      "url": "https://nature-parks.province.bz.it/en/code-of-conduct-for-the-nature-parks",
+      "title": "Code of Conduct for the Nature Parks",
+      "publisher": "Autonome Provinz Bozen - Südtirol (Naturparks)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0066",
+      "url": "https://www.dolomitiparco.com/Ita/Misc/regolamenti.php",
+      "title": "Regolamenti",
+      "publisher": "Parco Naturale delle Dolomiti d'Ampezzo (Regole d'Ampezzo)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0067",
+      "url": "https://cortina.dolomiti.org/en/escursioni/lago-di-limedes-en/",
+      "title": "Lago di Lìmedes",
+      "publisher": "Cortina d'Ampezzo tourism (Cortina Marketing)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0068",
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoifbee71b14b22c6bbad7d3fcc0919c8c4.drava-cycle-path-drau-radweg-innichen-san-candido---lienz-aut.s--candido-innichen",
+      "title": "Drava Cycle Path (Drau-Radweg) Innichen/San Candido - Lienz (A)",
+      "publisher": "IDM Südtirol (provincial tourism board)",
       "kind": "official",
       "read": "2026-10-19",
       "method": "read"
@@ -1751,6 +1796,17 @@
             "src-0014"
           ],
           "note": "Sign-post no. 1, then a red-marked path from Rifugio Biella."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0065"
+          ],
+          "read": "2026-10-19",
+          "quote": "They must be kept on a lead at all times and should not disturb or harm the park's wildlife",
+          "note": "South Tyrol nature-park rule (Decree 19/2013), for the trail's stretch inside the park."
         }
       },
       "flat": {
@@ -1954,6 +2010,17 @@
             "src-0018"
           ],
           "note": "Signed valley road and trail."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0065"
+          ],
+          "read": "2026-10-19",
+          "quote": "They must be kept on a lead at all times and should not disturb or harm the park's wildlife",
+          "note": "South Tyrol nature-park rule (Decree 19/2013), for the trail's stretch inside the park."
         }
       },
       "flat": {
@@ -2349,6 +2416,17 @@
             "src-0032"
           ],
           "note": "Path 10, then the signed Canyons and Waterfalls Path."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0066"
+          ],
+          "read": "2026-10-19",
+          "quote": "7. Tenete i vostri cani al guinzaglio. I cani liberi possono disturbare e ferire gli animali del Parco.",
+          "note": "Regole d'Ampezzo park rule; the Fanes valley is inside the park."
         }
       },
       "flat": {
@@ -2555,6 +2633,17 @@
             "src-0027"
           ],
           "note": "Trails 6, 35 and 28."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0065"
+          ],
+          "read": "2026-10-19",
+          "quote": "They must be kept on a lead at all times and should not disturb or harm the park's wildlife",
+          "note": "South Tyrol nature-park rule (Decree 19/2013), for the trail's stretch inside the park."
         }
       },
       "flat": {
@@ -3160,6 +3249,17 @@
             "src-0025"
           ],
           "note": "Trail no. 14."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0065"
+          ],
+          "read": "2026-10-19",
+          "quote": "They must be kept on a lead at all times and should not disturb or harm the park's wildlife",
+          "note": "South Tyrol nature-park rule (Decree 19/2013), for the trail's stretch inside the park."
         }
       },
       "flat": {
@@ -3954,6 +4054,20 @@
         "walk_km": null,
         "walk_gain_m": 100,
         "suit_level": "usable"
+      },
+      "ext": {
+        "kind": "trail",
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0065"
+          ],
+          "read": "2026-10-19",
+          "quote": "They must be kept on a lead at all times and should not disturb or harm the park's wildlife",
+          "note": "South Tyrol nature-park rule (Decree 19/2013), for the trail's stretch inside the park."
+        }
       }
     },
     {
@@ -4156,7 +4270,18 @@
       },
       "ext": {
         "kind": "trail",
-        "shape": "loop"
+        "shape": "loop",
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0065"
+          ],
+          "read": "2026-10-19",
+          "quote": "They must be kept on a lead at all times and should not disturb or harm the park's wildlife",
+          "note": "South Tyrol nature-park rule (Decree 19/2013), for the trail's stretch inside the park. The valley office also asks for a muzzle on dogs at the lake."
+        }
       },
       "flat": {
         "min_age": null,
@@ -4325,7 +4450,8 @@
           "basis": "our_inference",
           "src": [
             "src-0061",
-            "src-0046"
+            "src-0046",
+            "src-0067"
           ],
           "note": "About 2 km round trip and 80 m on a CAI E path from Passo Falzarego; the walk out after sunset needs a headlamp."
         },
@@ -4406,7 +4532,8 @@
           "state": "value",
           "basis": "community",
           "src": [
-            "src-0061"
+            "src-0061",
+            "src-0067"
           ],
           "note": "20-40 min each way."
         },
@@ -5167,7 +5294,8 @@
           "state": "value",
           "basis": "our_inference",
           "src": [
-            "src-0061"
+            "src-0061",
+            "src-0067"
           ],
           "note": "20-40 min each way from the Falzarego car park."
         },
@@ -6671,7 +6799,8 @@
             "basis": "our_inference",
             "src": [
               "src-0035",
-              "src-0060"
+              "src-0060",
+              "src-0068"
             ],
             "note": "Our grade: a marked cycle path suited to all bikes (board); a magazine notes short side-road sections at the start."
           },
@@ -6723,7 +6852,8 @@
               "state": "value",
               "basis": "community",
               "src": [
-                "src-0060"
+                "src-0060",
+                "src-0068"
               ],
               "note": "Mostly asphalt (cycling magazine, search result)."
             }

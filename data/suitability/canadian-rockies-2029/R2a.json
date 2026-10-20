@@ -397,6 +397,42 @@
       "publisher": "Parks Canada",
       "kind": "official",
       "read": "2026-10-18"
+    },
+    {
+      "id": "src-0051",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/etat-sentiers-trail-conditions",
+      "title": "Trail conditions - Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0052",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike",
+      "title": "Hiking - Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0053",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike",
+      "title": "Hiking - Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0054",
+      "url": "https://www.albertaparks.ca/albertaparks-ca/visit-our-parks/regulations/pets-in-parks/",
+      "title": "Pets in Parks | Alberta Parks",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
     }
   ],
   "records": [
@@ -734,6 +770,17 @@
             "src-0001"
           ],
           "note": "A maintained Parks Canada trail; Harvey Pass branches off beyond the lake."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0051"
+          ],
+          "read": "2026-10-19",
+          "quote": "Dogs are allowed on all trails in the summer unless otherwise specified in trail restrictions and closures.",
+          "note": "Banff allows dogs on all trails unless a restriction is listed; none was listed for this trail when read. The national-park rule is a leash of 3 m or less at all times."
         }
       },
       "flat": {
@@ -942,6 +989,17 @@
             "src-0023"
           ],
           "note": "A single lakeshore loop."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0052"
+          ],
+          "read": "2026-10-19",
+          "quote": "Keep dogs on leash and under control at all times.",
+          "note": "Park-wide rule on the park's hiking page."
         }
       },
       "flat": {
@@ -1151,6 +1209,17 @@
             "src-0023"
           ],
           "note": "A maintained Parks Canada trail with signed junctions to Little Yoho and Celeste Lake."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0052"
+          ],
+          "read": "2026-10-19",
+          "quote": "Keep dogs on leash and under control at all times.",
+          "note": "Park-wide rule on the park's hiking page."
         }
       },
       "flat": {
@@ -1339,6 +1408,17 @@
             "src-0033"
           ],
           "note": "Alberta Parks maintained trail between two day-use areas."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0054"
+          ],
+          "read": "2026-10-19",
+          "quote": "All pets are required to be leashed    no more than 2 metres, or caged, at all times while in Provincial Parks, Wildland Provincial Parks and Provincial Recreation Areas.",
+          "note": "Alberta provincial-park rule (leash of 2 m or less); no trail-specific ban found on the Kananaskis trail pages."
         }
       },
       "flat": {
@@ -1532,6 +1612,17 @@
             "src-0028"
           ],
           "note": "Maintained to the saddle; the last 400 m is unmaintained but obvious."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0054"
+          ],
+          "read": "2026-10-19",
+          "quote": "All pets are required to be leashed    no more than 2 metres, or caged, at all times while in Provincial Parks, Wildland Provincial Parks and Provincial Recreation Areas.",
+          "note": "Alberta provincial-park rule (leash of 2 m or less); no trail-specific ban found on the Kananaskis trail pages."
         }
       },
       "flat": {
@@ -1703,6 +1794,17 @@
             "src-0027"
           ],
           "note": "Signed fork at about 100 m between the easy and the interpretive route."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0054"
+          ],
+          "read": "2026-10-19",
+          "quote": "All pets are required to be leashed    no more than 2 metres, or caged, at all times while in Provincial Parks, Wildland Provincial Parks and Provincial Recreation Areas.",
+          "note": "Alberta provincial-park rule (leash of 2 m or less); no trail-specific ban found on the Kananaskis trail pages."
         }
       },
       "flat": {
@@ -1895,6 +1997,17 @@
             "src-0041"
           ],
           "note": "The first section of the Berg Lake Trail, a single obvious route."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0041"
+          ],
+          "read": "2026-10-19",
+          "quote": "Leashed dogs are allowed on the Berg Lake Trail for day-hikes only.",
+          "note": "BC Parks rule for the park; leashed."
         }
       },
       "flat": {
@@ -2078,6 +2191,17 @@
             "src-0001"
           ],
           "note": "A single lakeshore trail."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0051"
+          ],
+          "read": "2026-10-19",
+          "quote": "Dogs are allowed on all trails in the summer unless otherwise specified in trail restrictions and closures.",
+          "note": "Banff allows dogs on all trails unless a restriction is listed; none was listed for this trail when read. The national-park rule is a leash of 3 m or less at all times."
         }
       },
       "flat": {
@@ -2255,6 +2379,17 @@
             "src-0001"
           ],
           "note": "A maintained Parks Canada trail; route finding is only needed on the Paradise Valley side of the pass."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0051"
+          ],
+          "read": "2026-10-19",
+          "quote": "Dogs are allowed on all trails in the summer unless otherwise specified in trail restrictions and closures.",
+          "note": "Banff allows dogs on all trails unless a restriction is listed; none was listed for this trail when read. The national-park rule is a leash of 3 m or less at all times. The Parks Canada shuttle, the only public way to the start, takes pets only in a small carrier held on the lap."
         }
       },
       "flat": {
@@ -2459,6 +2594,17 @@
             "src-0007"
           ],
           "note": "Numbered Parks Canada trail (Trail 21)."
+        },
+        "dogs": {
+          "v": "allowed",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-19",
+          "quote": "Mary Schäffer Loop 3.2 km 1-2 hours 0 m 21 Easy No Yes No",
+          "note": "Jasper's trail table lists dogs as a permitted use on this trail. The table does not state the leash rule, so none is stored here."
         }
       },
       "flat": {
@@ -2663,6 +2809,17 @@
             "src-0008"
           ],
           "note": "Numbered Parks Canada trail (Trail 51), 'well-defined'."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0051"
+          ],
+          "read": "2026-10-19",
+          "quote": "Dogs are allowed on all trails in the summer unless otherwise specified in trail restrictions and closures.",
+          "note": "Banff allows dogs on all trails unless a restriction is listed; none was listed for this trail when read. The national-park rule is a leash of 3 m or less at all times."
         }
       },
       "flat": {
@@ -2852,6 +3009,17 @@
             "src-0001"
           ],
           "note": "Maintained Parks Canada trail with a signed junction to the Highline."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0051"
+          ],
+          "read": "2026-10-19",
+          "quote": "Dogs are allowed on all trails in the summer unless otherwise specified in trail restrictions and closures.",
+          "note": "Banff allows dogs on all trails unless a restriction is listed; none was listed for this trail when read. The national-park rule is a leash of 3 m or less at all times."
         }
       },
       "flat": {
@@ -3025,6 +3193,17 @@
             "src-0029"
           ],
           "note": "Interpretive trail from the Highwood Meadows Day Use Area."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0054"
+          ],
+          "read": "2026-10-19",
+          "quote": "All pets are required to be leashed    no more than 2 metres, or caged, at all times while in Provincial Parks, Wildland Provincial Parks and Provincial Recreation Areas.",
+          "note": "Alberta provincial-park rule (leash of 2 m or less); no trail-specific ban found on the Kananaskis trail pages."
         }
       },
       "flat": {
@@ -3221,6 +3400,17 @@
             "Alberta Parks Rawson Lake listing (search)"
           ],
           "note": "The ridge section is not an official trail."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0054"
+          ],
+          "read": "2026-10-19",
+          "quote": "All pets are required to be leashed    no more than 2 metres, or caged, at all times while in Provincial Parks, Wildland Provincial Parks and Provincial Recreation Areas.",
+          "note": "Alberta provincial-park rule (leash of 2 m or less); no trail-specific ban found on the Kananaskis trail pages."
         }
       },
       "flat": {
@@ -3410,6 +3600,17 @@
             "src-0009"
           ],
           "note": "Numbered Parks Canada trail (Trail 30)."
+        },
+        "dogs": {
+          "v": "allowed",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-19",
+          "quote": "Sulphur Skyline 8 km 4-6 hours 700 m 30 Difficult No Yes No",
+          "note": "Jasper's trail table lists dogs as a permitted use on this trail. The table does not state the leash rule, so none is stored here."
         }
       },
       "flat": {
@@ -3600,6 +3801,17 @@
             "src-0001"
           ],
           "note": "A signed network of meadow trails from the Village."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0051"
+          ],
+          "read": "2026-10-19",
+          "quote": "Dogs are allowed on all trails in the summer unless otherwise specified in trail restrictions and closures.",
+          "note": "Banff allows dogs on all trails unless a restriction is listed; none was listed for this trail when read. The national-park rule is a leash of 3 m or less at all times."
         }
       },
       "flat": {
@@ -3786,6 +3998,17 @@
             "src-0008"
           ],
           "note": "Numbered Parks Canada trail (Trail 50)."
+        },
+        "dogs": {
+          "v": "allowed",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-19",
+          "quote": "Wilcox Pass 2.4 km return to first viewpoint; 8 km return to pass ... 50 Moderate No Yes No",
+          "note": "Jasper's trail table lists dogs as a permitted use on this trail. The table does not state the leash rule, so none is stored here."
         }
       },
       "flat": {
@@ -3980,6 +4203,17 @@
             "src-0030"
           ],
           "note": "Alberta Parks maintained trail; bikes not permitted on the narrow section before the falls."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0054"
+          ],
+          "read": "2026-10-19",
+          "quote": "All pets are required to be leashed    no more than 2 metres, or caged, at all times while in Provincial Parks, Wildland Provincial Parks and Provincial Recreation Areas.",
+          "note": "Alberta provincial-park rule (leash of 2 m or less); no trail-specific ban found on the Kananaskis trail pages."
         }
       },
       "flat": {
@@ -4373,6 +4607,17 @@
             "src-0001"
           ],
           "note": "A single signed loop."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0051"
+          ],
+          "read": "2026-10-19",
+          "quote": "Dogs are allowed on all trails in the summer unless otherwise specified in trail restrictions and closures.",
+          "note": "Banff allows dogs on all trails unless a restriction is listed; none was listed for this trail when read. The national-park rule is a leash of 3 m or less at all times."
         }
       },
       "flat": {
@@ -4539,7 +4784,18 @@
       },
       "ext": {
         "kind": "trail",
-        "shape": "loop"
+        "shape": "loop",
+        "dogs": {
+          "v": "allowed",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-19",
+          "quote": "Mine Trail 800 m lower loop, 1.7 km upper loop ... 31/32 Easy No Yes No",
+          "note": "Jasper's trail table lists dogs as a permitted use on this trail. The table does not state the leash rule, so none is stored here."
+        }
       },
       "flat": {
         "min_age": null,
@@ -4950,7 +5206,18 @@
       },
       "ext": {
         "kind": "trail",
-        "shape": "out-and-back"
+        "shape": "out-and-back",
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0053"
+          ],
+          "read": "2026-10-19",
+          "quote": "Keep dogs on leash and under control at all times.",
+          "note": "Park-wide rule on the park's hiking page."
+        }
       },
       "flat": {
         "min_age": null,
@@ -5117,7 +5384,18 @@
       },
       "ext": {
         "kind": "trail",
-        "shape": "loop"
+        "shape": "loop",
+        "dogs": {
+          "v": "allowed",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-19",
+          "quote": "Moose Lake Loop 2.7 km 1-2 hours 59 m 20 Easy No Yes No",
+          "note": "Jasper's trail table lists dogs as a permitted use on this trail. The table does not state the leash rule, so none is stored here."
+        }
       },
       "flat": {
         "min_age": null,
@@ -5306,7 +5584,18 @@
       },
       "ext": {
         "kind": "trail",
-        "shape": "out-and-back"
+        "shape": "out-and-back",
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0051"
+          ],
+          "read": "2026-10-19",
+          "quote": "Dogs are allowed on all trails in the summer unless otherwise specified in trail restrictions and closures.",
+          "note": "Banff allows dogs on all trails unless a restriction is listed; none was listed for this trail when read. The national-park rule is a leash of 3 m or less at all times. The Parks Canada shuttle, the only public way to the start, takes pets only in a small carrier held on the lap."
+        }
       },
       "flat": {
         "min_age": null,
@@ -5460,7 +5749,18 @@
       },
       "ext": {
         "kind": "trail",
-        "shape": "out-and-back"
+        "shape": "out-and-back",
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0040"
+          ],
+          "read": "2026-10-19",
+          "quote": "Dogs and other pets are welcome in many parts of Mount Robson Park, but they must be leashed.",
+          "note": "BC Parks rule for the park; leashed."
+        }
       },
       "flat": {
         "min_age": null,
@@ -5638,7 +5938,18 @@
       },
       "ext": {
         "kind": "trail",
-        "shape": "out-and-back"
+        "shape": "out-and-back",
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0053"
+          ],
+          "read": "2026-10-19",
+          "quote": "Keep dogs on leash and under control at all times.",
+          "note": "Park-wide rule on the park's hiking page."
+        }
       },
       "flat": {
         "min_age": null,
@@ -5798,7 +6109,18 @@
       },
       "ext": {
         "kind": "trail",
-        "shape": "out-and-back"
+        "shape": "out-and-back",
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0051"
+          ],
+          "read": "2026-10-19",
+          "quote": "Dogs are allowed on all trails in the summer unless otherwise specified in trail restrictions and closures.",
+          "note": "Banff allows dogs on all trails unless a restriction is listed; none was listed for this trail when read. The national-park rule is a leash of 3 m or less at all times."
+        }
       },
       "flat": {
         "min_age": null,
@@ -5936,7 +6258,18 @@
       },
       "ext": {
         "kind": "trail",
-        "shape": "out-and-back"
+        "shape": "out-and-back",
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0054"
+          ],
+          "read": "2026-10-19",
+          "quote": "All pets are required to be leashed    no more than 2 metres, or caged, at all times while in Provincial Parks, Wildland Provincial Parks and Provincial Recreation Areas.",
+          "note": "Alberta provincial-park rule (leash of 2 m or less); no trail-specific ban found on the Kananaskis trail pages."
+        }
       },
       "flat": {
         "min_age": null,
@@ -6101,7 +6434,18 @@
       },
       "ext": {
         "kind": "trail",
-        "shape": "out-and-back"
+        "shape": "out-and-back",
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0052"
+          ],
+          "read": "2026-10-19",
+          "quote": "Keep dogs on leash and under control at all times.",
+          "note": "Park-wide rule on the park's hiking page."
+        }
       },
       "flat": {
         "min_age": null,
@@ -6273,7 +6617,18 @@
       },
       "ext": {
         "kind": "trail",
-        "shape": "out-and-back"
+        "shape": "out-and-back",
+        "dogs": {
+          "v": "allowed",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-19",
+          "quote": "Toe of the Athabasca Glacier 1.8 km 1 hour 60 m 52 Moderate No Yes No",
+          "note": "Jasper's trail table lists dogs as a permitted use on this trail. The table does not state the leash rule, so none is stored here."
+        }
       },
       "flat": {
         "min_age": null,
@@ -6440,7 +6795,18 @@
       },
       "ext": {
         "kind": "trail",
-        "shape": "loop"
+        "shape": "loop",
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0054"
+          ],
+          "read": "2026-10-19",
+          "quote": "All pets are required to be leashed    no more than 2 metres, or caged, at all times while in Provincial Parks, Wildland Provincial Parks and Provincial Recreation Areas.",
+          "note": "Alberta provincial-park rule (leash of 2 m or less); no trail-specific ban found on the Kananaskis trail pages."
+        }
       },
       "flat": {
         "min_age": null,
@@ -6860,6 +7226,19 @@
             "src-0001",
             "src-0002"
           ]
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-19",
+          "quote": "Trailhead:  Lake Minnewanka Day-use Area ... Amenities: limited paved parking including 5 accessible stalls, bike rack, accessible flush toilets, picnic tables and one bench.",
+          "note": "Flush toilets at the day-use area by the lot."
         }
       },
       "ext": {
@@ -7976,6 +8355,20 @@
         "walk_km": 2.2,
         "walk_gain_m": 85,
         "suit_level": "draft"
+      },
+      "ext": {
+        "kind": "trail",
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0051"
+          ],
+          "read": "2026-10-19",
+          "quote": "Dogs are allowed on all trails in the summer unless otherwise specified in trail restrictions and closures.",
+          "note": "Banff allows dogs on all trails unless a restriction is listed; none was listed for this trail when read. The national-park rule is a leash of 3 m or less at all times."
+        }
       }
     },
     {

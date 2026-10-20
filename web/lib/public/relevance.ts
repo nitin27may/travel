@@ -39,7 +39,7 @@ export interface DerivedItem {
   far_pointer: { ref: string; km: number; draw: string; same_class: boolean } | null;
   pair_with: PairRaw[];
   part_of: string[];
-  plan_b: { ref: string; km: number; draw: string; standing: string; access_cost: string[]; family_effort: number | null } | null;
+  plan_b: { ref: string; km: number; draw: string; standing: string; access_cost: string[]; family_effort: number | null; hand_picked?: boolean; reason?: string; src?: string } | null;
   role: string;
   flags: { go_clear_day: boolean; rainy_day: boolean; en_route: boolean; hidden_gem: boolean };
   badge: string | null;
@@ -93,6 +93,13 @@ export function accessWords(costs: string[], load: string | undefined): string {
   const items = costs.map((c) => ACCESS_WORDS[c] ?? c.replace(/_/g, ' '));
   if (items.length > 0) return items.join(' · ');
   return load === 'plan' ? 'book ahead' : load === 'hard' ? 'hard to book' : 'no booking';
+}
+
+/** The source row a hand-picked Plan B names, read from the lane file that holds the pick. */
+function planBSource(w: World, ref: string, id: string | undefined): { label: string; url: string } | null {
+  const located = w.rel.get(primaryRef(w, ref));
+  const row = id ? lookupFor(located)([id])[0] : undefined;
+  return row ? { label: row.publisher || row.title, url: row.url } : null;
 }
 
 /** The name of any ref: its capture name, else the last path segment made readable. */
@@ -158,6 +165,10 @@ export interface PlanB extends RefLink {
   effortName: string | null;
   /** what can fail on this page's own access: "shuttle or bus only", "timed entry" */
   risk: string;
+  /** why a person picked it (plan_b_pick); null for a derived Plan B */
+  reason: string | null;
+  /** the page the pick rests on, from the source table of the file that holds it */
+  source: { label: string; url: string } | null;
 }
 
 export interface PublicRelevance {
@@ -370,6 +381,8 @@ export function publicRelevance(ctx: RelevanceContext, rawRef: string, opts: Rel
       access: accessWords(item.plan_b.access_cost, ctx.derived.get(primaryRef(w, item.plan_b.ref))?.access_load),
       effortName: effortName(item.plan_b.family_effort),
       risk: own.map((t) => ACCESS_WORDS[t] ?? t).join(' · '),
+      reason: item.plan_b.hand_picked ? ctx.scrub.maybe(item.plan_b.reason, `plan b ${ref}`) : null,
+      source: item.plan_b.hand_picked ? planBSource(w, ref, item.plan_b.src) : null,
     };
   }
 

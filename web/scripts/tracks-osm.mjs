@@ -446,7 +446,7 @@ export function unconfirmedIds(source) {
  * Every trail with an OSM reference: [{place, name, osm: [...], refs, trailhead, destination, researchedKm, wrongRoute}].
  * The capture record of the same trail (a route of type nature.trail.*, matched by name) names the intended relations in its
  * `links`; they replace the ids written in the prototype fact. `ctx.points` is the relevance points file (the record's first
- * `reaches` point is the destination the track is cut at); `ctx.overrides` is data/tracks/inputs.json.
+ * `reaches` point is the destination the track is cut at); `ctx.overrides` is data/tracks/inputs.json (`start` replaces the stored trailhead).
  */
 export function collectInputs(snapshot, captureRecords = [], ctx = {}) {
   const routes = new Map();
@@ -465,7 +465,9 @@ export function collectInputs(snapshot, captureRecords = [], ctx = {}) {
     let refs = osmRefsFromCapture(rec);
     if (!refs.length) refs = over.osm ?? osmRefsOf(t?.facts?.geometry_source?.v, t?.facts?.geometry_ids?.v);
     if (!refs.length) continue;
-    const th = snapshot.access?.[p.id]?.trailhead ?? t?.trailhead ?? null;
+    // an explicit start point (inputs.json `start`) wins where the stored trailhead is far from the OSM line by design: the lift base, a gate before a closed road
+    const startOver = over.start && Number.isFinite(over.start.lat) && Number.isFinite(over.start.lon) ? over.start : null;
+    const th = startOver ?? snapshot.access?.[p.id]?.trailhead ?? t?.trailhead ?? null;
     const km = Number(String(t?.facts?.distance_km?.v ?? p.km ?? '').replace(/[^\d.]/g, ''));
     const reach = rec?.reaches?.map((r) => ctx.points?.[r]).find((q) => q && Number.isFinite(q.lat) && Number.isFinite(q.lon));
     const named = over.destination_ref ? ctx.points?.[over.destination_ref] : null;
@@ -480,6 +482,7 @@ export function collectInputs(snapshot, captureRecords = [], ctx = {}) {
       researchedKm: Number.isFinite(km) && km > 0 ? km : null,
       wrongRoute: over.wrong_route ?? null,
       loop: !!over.loop,
+      startOverride: !!startOver,
     });
   }
   return out;
@@ -532,6 +535,7 @@ export function formatTrack(t) {
     stitched: t.stitched,
     confirmed: t.confirmed,
     held_back: t.held_back,
+    ...(t.start_override ? { start_override: true } : {}),
     start_offset_m: t.start_offset_m,
     end_offset_m: t.end_offset_m,
     cut: t.cut,
@@ -742,7 +746,7 @@ async function buildTrack(inp, unconfirmed, source, refresh) {
   }
   if (!lengthConsistent(total, inp.researchedKm)) heldBack.push(`${Math.round(total * 10) / 10} km against ${inp.researchedKm} km researched`);
   const confirmed = heldBack.length === 0;
-  const head = { schema: SCHEMA, place: inp.place, refs: inp.refs ?? [], osm: inp.osm, fetched: read, source: used, licence: LICENCE, attribution: ATTRIBUTION, stitched, confirmed, held_back: heldBack, start_offset_m: offset, ...base, simplify_m: SIMPLIFY_M, step_m: SAMPLE_STEP_M };
+  const head = { schema: SCHEMA, place: inp.place, refs: inp.refs ?? [], osm: inp.osm, fetched: read, source: used, licence: LICENCE, attribution: ATTRIBUTION, stitched, confirmed, held_back: heldBack, ...(inp.startOverride ? { start_override: true } : {}), start_offset_m: offset, ...base, simplify_m: SIMPLIFY_M, step_m: SAMPLE_STEP_M };
   if (!stitched) {
     const segments = lines.map((l) => simplifyToLimit(l, SIMPLIFY_M, Math.floor(MAX_POINTS / lines.length)).line.map(round6));
     return { ...head, totals: { km: Math.round(total * 100) / 100, gain_m: null, loss_m: null, high_m: null, low_m: null }, dem: null, geometry: [], segments, elevation: [] };

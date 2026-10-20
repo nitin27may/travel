@@ -1,8 +1,8 @@
 export type LonLat = [number, number];
-export interface TrackInput { place: string; name: string; osm: string[]; trailhead: { lat: number; lon: number } | null; refs?: string[]; researchedKm?: number | null; destination?: { lat: number; lon: number } | null; wrongRoute?: string | null; loop?: boolean }
+export interface TrackInput { place: string; name: string; osm: string[]; trailhead: { lat: number; lon: number } | null; refs?: string[]; researchedKm?: number | null; destination?: { lat: number; lon: number } | null; wrongRoute?: string | null; loop?: boolean; startOverride?: boolean }
 export interface TrackFile {
   schema: string; place: string; refs: string[]; osm: string[]; fetched: string; source: string; licence: string; attribution: string;
-  stitched: boolean; confirmed: boolean; held_back?: string[]; start_offset_m: number | null; end_offset_m?: number | null; cut?: string | null; legs?: { osm: string; km: number }[]; simplify_m: number; step_m: number;
+  stitched: boolean; confirmed: boolean; held_back?: string[]; start_override?: boolean; start_offset_m: number | null; end_offset_m?: number | null; cut?: string | null; legs?: { osm: string; km: number }[]; simplify_m: number; step_m: number;
   totals: { km: number; gain_m: number | null; loss_m: number | null; high_m: number | null; low_m: number | null };
   dem: string | null; geometry: LonLat[]; segments?: LonLat[][]; elevation: [number, number][];
 }

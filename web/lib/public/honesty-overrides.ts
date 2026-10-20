@@ -7,6 +7,7 @@ export const UNCONFIRMED_TRAIL_DATA: Record<string, string> = {
   seceda: 'The OpenStreetMap route is waiting for a person to confirm it.',
   nuvolau: 'The OpenStreetMap route is waiting for a person to confirm it.',
   'viel-dal-pan': 'The distance and climb figures are waiting for a person to confirm them.',
+  'cinque-torri': 'The OpenStreetMap route is a 0.64 km cut from the hut with no researched length to check it against; a person must confirm it.',
   siusi: 'The distance and climb figures are waiting for a person to confirm them.',
   antorno: 'The pin is about 500 m off in places; a person must re-place it.',
 };
