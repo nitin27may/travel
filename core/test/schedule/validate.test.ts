@@ -51,7 +51,7 @@ describe("each validation code has a fixture that raises it and one that does no
     expect(codes(d, profile({ pace: "relaxed" }))).toContain("W_DRIVE_LIMIT");
     expect(codes(d, profile({ pace: "full" }))).not.toContain("W_DRIVE_LIMIT");
   });
-  it("W_EARLY, only for an unpinned start before 06:00", () => {
+  it("an early start the plan pins is a note on the start, never a W_EARLY warning (the profile's own start is never before 07:00)", () => {
     // an unpinned item, so the start is the profile's: made early by a very early start the plan did not write down
     const pinnedEarly = day([variant("main", [item("s", "visit", "Shuttle", { durationMin: 60, durationSource: "operator", start: at("06:30", "fixed", "operator") })])], { legs: [{ from: "base", to: "s", mode: "drive", minutes: 60, km: null, basis: "plan", estimate: true }] });
     const t = scheduleDay(pinnedEarly, profile());
@@ -90,7 +90,7 @@ describe("each validation code has a fixture that raises it and one that does no
   it("S_HOME_BY", () => {
     const d = day([variant("main", [item("v", "visit", "Falls", { durationMin: 120, durationSource: "plan", start: at("17:00") })])], { base: null, origin: { name: "Your start point", placeSlug: null, point: null }, homeBy: "19:00" });
     const w = scheduleDay(d, profile()).warnings.find((x) => x.code === "S_HOME_BY")!;
-    expect(w.message).toMatch(/^Home \d\d:\d\d, \d+ min after your home-by of 19:00\.$/);
+    expect(w.message).toMatch(/^Home \d\d:\d\d, \d+ min after 19:00\.$/);
     expect(codes({ ...d, homeBy: "23:30" })).not.toContain("S_HOME_BY");
   });
 });

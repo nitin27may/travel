@@ -239,6 +239,8 @@ export interface ResolvedLeg {
   basis: LegBasis;
   /** "≈" when not routed. */
   estimate: boolean;
+  /** The way runs through the day's base (a stop with no point): the title says "via Jasper". */
+  via?: boolean;
 }
 
 export interface Suitability {

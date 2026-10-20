@@ -169,7 +169,7 @@ This is the target output for the fixture `core/test/fixtures/schedule/rockies-d
 | about 19:55 to 20:30 | anchored | all | sun | Sunset | | sun |
 | 20:15 | sugg. | all | end | Back at the base | | |
 
-Day cap at the default profile (round 3 golden): the cap is measured on **time away from base**, so a long rest, dinner or an errand done at the base itself (a stored zero-minute leg to `base`) never counts. Across the Rockies trip it warns on **Days 4 and 13 only**: Day 4 is the Icefields Parkway move day (about 10 h 15 away) and Day 13 carries the optional Rawson Lake, which the message names. Day 5 (about 9 h 40 away) and Day 7 (laundry at the base, 2 h) do not warn. `core/test` and `web/tests/trips/timeline.test.ts` pin this list.
+Day cap at the default profile (round 3 golden): the cap is measured on **time away from base**, so a long rest, dinner or an errand done at the base itself (a stored zero-minute leg to `base`) never counts. Across the Rockies trip it warns on **Days 2, 4, 5 and 13**: Day 4 is the Icefields Parkway move day (about 10 h 15 away) and Day 13 carries the optional Rawson Lake, which the message names. Days 2 and 5 pass the cap by a few minutes because the wait for the other adult at the rejoin time is scheduled in every view, the one lane and the two-lane view alike (TRP, L3c I-1). Day 7 (laundry at the base, 2 h) does not warn. `core/test` and `web/tests/trips/timeline.test.ts` pin this list.
 
 Lane A is not shown by default for `family-6`. The day shows a "Split option: one adult can walk Bald Hills (4 h 30) and rejoin at 14:00" row, and `split=1` opens the two lanes (3.2).
 

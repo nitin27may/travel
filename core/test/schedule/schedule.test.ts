@@ -143,7 +143,17 @@ describe("determinism, pins and back-pressure", () => {
   it("keeps the authored order of items", () => {
     const t = scheduleDay(rockies5(), family(6));
     const ids = t.entries.filter((e) => e.sourceItemId).map((e) => e.sourceItemId);
-    expect(ids).toEqual(["maligne-lake-cruise", "mary-schaffer-loop", "moose-lake-loop", "pyramid-lake"]);
+    // the rejoin pin is part of the day in every view (L3c I-1), after the walk it follows
+    expect(ids).toEqual(["maligne-lake-cruise", "mary-schaffer-loop", "5-together", "moose-lake-loop", "pyramid-lake"]);
+  });
+  it("shows both lanes without changing the plan: the same times and the same warnings (L3c I-1)", () => {
+    const one = scheduleDay(rockies5(), family(6));
+    const two = scheduleDay(rockies5(), family(6, { split: true }));
+    expect(two.lanes.length).toBe(2);
+    const party = (t: typeof one, lane: string) => t.entries.filter((e) => e.lane === "all" || e.lane === lane).map((e) => `${e.id}@${e.start}+${e.durationMin}`);
+    expect(party(two, two.lanes[0]!)).toEqual(party(one, "all"));
+    expect(two.warnings.filter((w) => w.lane !== two.lanes[1]).map((w) => `${w.code}:${w.message}`)).toEqual(one.warnings.map((w) => `${w.code}:${w.message}`));
+    expect(two.span).toEqual(one.span);
   });
   it("never moves a fixed entry", () => {
     for (const p of [family(6, { pace: "relaxed" }), family(6, { pace: "full" }), family(10), profile({ pace: "relaxed" })]) {
