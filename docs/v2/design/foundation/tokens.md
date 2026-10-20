@@ -65,10 +65,10 @@ reached (7:1). No other text pair is allowed; add a row here before using one.
 | `--crit` on `--surface` | 6.61 | AA | 7.01 | AAA |
 | `--crit` on `--crit-soft` | 5.45 | AA | 6.36 | AA |
 | `--on-crit-fill` on `--crit-fill` | 5.70 | AA | 5.70 | AA |
-| `--ok` on `--bg` | 6.04 | AA | 10.12 | AAA |
-| `--ok` on `--surface` | 6.53 | AA | 9.16 | AAA |
-| `--ok` on `--ok-soft` | 5.53 | AA | 7.87 | AAA |
-| done check: `--ok` glyph on `--ok-soft` fill with a `--ok` border (never a white glyph on `--ok`: 1.8:1 in dark) | 5.53 | AA | 7.87 | AAA |
+| `--ok` on `--bg` | 7.69 | AAA | 8.70 | AAA |
+| `--ok` on `--surface` | 8.31 | AAA | 7.88 | AAA |
+| `--ok` on `--ok-soft` | 6.85 | AA | 7.56 | AAA |
+| done check: `--ok` glyph on `--ok-soft` fill with a `--ok` border (never a white glyph on `--ok`: 2.1:1 in dark) | 6.85 | AA | 7.56 | AAA |
 | `--warn` on `--bg` | 6.40 | AA | 9.18 | AAA |
 | `--warn` on `--surface` | 6.92 | AA | 8.31 | AAA |
 | `--warn` on `--warn-soft` | 6.11 | AA | 7.84 | AAA |
@@ -103,8 +103,8 @@ token must pass on paper.
 | `--on-crit-fill` | text on `--crit-fill` | `#FFFFFF` | `#FFFFFF` | |
 | `--warn` | **caution** (3.1): due in 8 to 30 days, window open, over pace, possible-but-check, unverified value | `#7A5200` | `#E0B15C` | text + triangle icon on `--warn-soft`; **never a fill**, so it cannot be confused with `--accent` |
 | `--warn-soft` | caution well | `#FBF0D6` | `#2B2314` | |
-| `--ok` | **done, booked, fits** | `#1D6B3A` | `#8FD0A0` | text + check icon; the only green in the system; never a brand or surface colour |
-| `--ok-soft` | ok well | `#E0F0E6` | `#173025` | |
+| `--ok` | **done, booked, fits** | `#1F4E8C` | `#8DB6EE` | text + check icon, never colour alone; a saturated royal blue, so it reads apart from `--info` (grey slate) and the navy header; **no green anywhere in the system** (owner rule, Q47); never a brand or surface colour |
+| `--ok-soft` | ok well | `#E1EAF6` | `#14233A` | |
 | `--info` | **notice**: offline, saved at, remote edit, template, read-only | `#3D5A78` | `#9DBBDA` | text + icon on `--info-soft`; dashed border for offline |
 | `--info-soft` | notice well | `#E3EAF2` | `#182738` | |
 | `--focus` | focus ring | `#172230` | `#E7ECF1` | inside `--header`: `--header-ink` |
@@ -143,11 +143,13 @@ of the trip's photo or name. Never text, never a fill behind text, never on the 
 | blue | `#0072B2` | 5.19 | 3.65 | Dolomites |
 | orange | `#E69F00` | 2.25 (keyline) | 8.41 | Patagonia |
 | rose | `#CC79A7` | 3.06 | 6.19 | Elora |
-| teal | `#009E73` | 3.42 | 5.54 | Costa Rica |
+| teal | `#0097A7` | 3.51 | 5.40 | Costa Rica |
 | sky | `#56B4E9` | 2.31 (keyline) | 8.21 | Iceland |
 | yellow | `#F0E442` | 1.32 (keyline) | 14.33 | Chamonix |
 | vermillion | `#D55E00` | 3.87 | 4.90 | Rockies |
 | none | `--line-2` | | | ideas and done trips |
+
+**Teal** (`--id-teal`, `#0097A7`, hue 187; it was `#009E73`, hue 164, a bluish green, replaced on 19 Oct because the owner's rule is no green anywhere). It is a trip identity colour only: the fourth key of the palette, drawn as a ring, bar or square beside a trip's photo or name when a trip is assigned it (`IDENTITY_KEYS` in `components/ui/Chip.tsx`, read by `Card`, `SideSheet` and `Toast`). Today no trip in the data carries it; it appears in the specimen's Costa Rica sample. It is never used for text, status, the map or the globe.
 
 The keyline is what makes yellow and sky legal on white. Orange and vermillion are near amber and coral;
 they are permitted because identity never fills a control or carries text, so the nearest they come to a
