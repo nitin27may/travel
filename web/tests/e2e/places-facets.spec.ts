@@ -38,7 +38,7 @@ test.describe('Places filters', () => {
 
   test('clearing the Kind removes the scope facets and keeps the four primary pills', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?k=nature.trail&f.dogs=yes`);
-    await page.getByRole('button', { name: /Remove filter Kind/ }).click();
+    await page.getByRole('button', { name: 'Clear Kind filter' }).click();
     await expect(page).not.toHaveURL(/k=nature/);
     await expect(page).not.toHaveURL(/f\./);
     await expect(page.locator('.facet-group .pill-trigger')).toHaveText([/^Country/, /^Kind/, /^Season/, /^Youngest child/, /^More filters/]);

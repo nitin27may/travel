@@ -40,12 +40,12 @@ the built `web/components/places/PlacePage.tsx`; the Rockies capture, suitabilit
 
 ### Research level words (S1b round 4)
 
-The word beside the count counts every check the page has, the place checks and the family checks of Who it suits together, and says why a page is held back.
+The word beside the count counts every check the page has, the place checks and the family checks of Who it suits together, and says why a page is held back. The word and the count come from one scope (`web/lib/public/levelWord.ts`, REVIEW4 4.29): "Checked" needs a full count, and "Partly checked" adds the optional or untracked checks still open after "of" ("25 of 29", never "25 of 25"). The tooltip carries the one explanation of the two scopes: "25 of 25 required checks done, place and family together; 4 optional checks are still open and counted after \"of\""
 
 | Level from the engine | Words | Rule |
 |---|---|---|
 | complete | "Checked" | nothing missing |
-| usable | "Partly checked · n of m" | required checks done, some optional ones open |
+| usable | "Partly checked · n of m" | required checks done, some optional ones open; m counts the open ones too, so a Partly never carries a full count |
 | draft, a third or more of the checks done | "Early research · n of m" | a required check is open |
 | draft, under a third done | "Basics only" | |
 | any level, no point stored | "Early research · n of m, no map point yet" | a place with no point never reads above Early research, and the count is followed by the reason |

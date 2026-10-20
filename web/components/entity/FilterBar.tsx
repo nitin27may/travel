@@ -114,6 +114,8 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
     return () => window.removeEventListener(OPEN_FILTERS, open);
   }, []);
   const chips = activeFilters(state, d, labelOf);
+  // a filter that has its pill in the bar is shown once, as that pill; the chip row keeps the rest (and shows all of them on a phone)
+  const pilled = new Set<string>(primary.map((f) => f.param));
   // while a reading shows, the list is held: the sentence is not a filter yet, so it adds no "of N" and no Clear all
   const filtered = chips.length > 0 || (!smart?.holding && state.q.trim().length > 0);
   const setFacet = (param: FacetParam, values: string[]) => {
@@ -215,7 +217,7 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
         {chips.length || (filtered && !smart?.holding) ? (
           <ul className="chips" aria-label="Active filters">
             {chips.map((c) => (
-              <li key={c.key}>
+              <li key={c.key} data-pilled={pilled.has(c.key.split(':')[0]!) || undefined}>
                 <Chip kind="active" onRemove={() => onState(c.without, 'push')} removeLabel={`Remove filter ${c.label}`}>
                   {c.label}
                 </Chip>

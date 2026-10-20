@@ -1,3 +1,4 @@
+import { ageLabel } from '@/lib/format/age';
 import { Chip } from '@/components/ui/Chip';
 import { Icon } from '@/components/ui/Icon';
 import { imageSrcSet, sizedImage } from '@/lib/format/image';
@@ -42,7 +43,7 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
             ) : null}
             {trip.ageFit !== null ? (
               <li>
-                <Chip kind="neutral" icon="user">Ages {trip.ageFit}+</Chip>
+                <Chip kind="neutral" icon="user">{ageLabel('fit', trip.ageFit)}</Chip>
               </li>
             ) : null}
             {trip.isDone ? (

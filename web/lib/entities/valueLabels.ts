@@ -1,6 +1,7 @@
 // A filter value no row carries still needs a name (smart-search 6.1: a chip and a pill never disagree). The pill labels come from the
 // rows, so a value the parser wrote that no row has ("hot_spring", month 12, "lt3") would show as its code. This is the fallback: the
 // facets' own label tables, then the plain words of the value. It never replaces a label a row gave.
+import { ageLabel } from '@/lib/format/age';
 import { MONTH_NAMES } from '@/lib/format/season';
 import { BEST_TIME_LABELS, BOOKING_LABELS, EFFORT_LABELS, PRICE_LABELS, SHAPE_LABELS, TIME_LABELS, WALK_LABELS } from './facets/answers';
 import { CLIMB_BANDS, LENGTH_BANDS, TRIP_LENGTH_LABEL } from '@/lib/search/parse/grammar';
@@ -25,7 +26,7 @@ export function fallbackLabel(param: FacetParam, value: string): string {
       return value === 'intent:do' ? 'Things to do' : words(last);
     }
     case 'kid':
-      return value === 'yes' ? 'Easy with kids' : /^\d{1,2}$/.test(value) ? `Youngest child ${value === '0' ? 'Baby' : value}` : words(value);
+      return value === 'yes' ? 'Easy with kids' : /^\d{1,2}$/.test(value) ? ageLabel('control', Number(value)) : words(value);
     case 'effort':
       return EFFORT_LABELS[value] ?? words(value);
     case 'stroller':

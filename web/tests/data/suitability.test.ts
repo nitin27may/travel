@@ -45,7 +45,7 @@ describe('publicSuitability: the three chips', () => {
     const c = r.chips[0]!;
     expect(c.kind).toBe('rule');
     expect(c.glyph).toBe('lock');
-    expect(c.text).toBe('Age 6+ · 23 kg min · swim test');
+    expect(c.text).toBe('Minimum age 6 · 23 kg min · swim test');
     expect(c.extra).toBe(2); // pregnancy not allowed + medical exclusions
     expect(c.label).toMatch(/^Operator rule:/);
   });
@@ -56,7 +56,7 @@ describe('publicSuitability: the three chips', () => {
       suitability: { min_age: v(8), min_weight_kg: v(30), max_weight_kg: v(125), min_height_cm: none('searched_none'), max_height_cm: none('searched_none'), participation: { pregnancy: v('not_allowed') } },
     };
     const r = run('air.zip.zipline', rec as never);
-    expect(r.chips[0]!.text).toBe('Age 8+ · 30–125 kg · height not stated');
+    expect(r.chips[0]!.text).toBe('Minimum age 8 · 30–125 kg · height not stated');
     expect(r.chips[0]!.extra).toBe(1);
     expect(r.chips[2]).toMatchObject({ kind: 'gap' }); // braking is R and missing
   });
@@ -254,7 +254,7 @@ describe('publicSuitability: a party profile (D6)', () => {
       suitability: { effort: { source_grade: v({ system: 'sac', value: 'T4' }, 'official_grade'), drivers: { distance_km: v(14, 'official_info'), gain_m: v(1100, 'official_info') } } },
     };
     const r = run('nature.trail.hike', hard as never, { party: { youngestAge: 3 } });
-    expect(r.chips[0]).toMatchObject({ kind: 'advice_fail', text: 'Not suited to a 3-year-old' });
+    expect(r.chips[0]).toMatchObject({ kind: 'advice_fail', text: 'Not suited to age 3' });
   });
 });
 

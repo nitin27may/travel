@@ -8,6 +8,7 @@ import { primaryRef, type World } from '@travel/core/capture/records.ts';
 import { defaultContract, type Contract } from './contract';
 import type { DropLog } from './dateless';
 import { loadRelevanceContext, publicRelevance, type PublicRelevance } from './relevance';
+import { LEVEL_WORDS, levelLabel } from './levelWord';
 import { scrubMarkers } from './prose';
 import { humaniseTokens } from '@/components/suit/html';
 import { buildSections, type PageModel } from './sections';
@@ -27,25 +28,7 @@ export interface PageExtras {
   completeness: Completeness;
 }
 
-/** The public words for a research level. "Draft" is the workshop's word and never reaches a visitor (3.42). */
-export const LEVEL_WORDS = { basics: 'Basics only', early: 'Early research', usable: 'Partly checked', complete: 'Checked' } as const;
-
-/**
- * The research level in words. It counts every check the page has (the place checks and the family checks of "Who it suits") and says
- * why a page is held back:
- *  - complete reads "Checked";
- *  - usable reads "Partly checked · n of m";
- *  - draft with at least a third of its checks done reads "Early research · n of m", under a third just "Basics only";
- *  - a place with no point stored never reads above Early research, and says "no map point yet" after the count.
- * Documented in place-page-sections.md ("Research level words").
- */
-export function levelLabel(level: CompletenessLevel, passed: number, total: number, noPoint = false): string {
-  const effective: CompletenessLevel = noPoint ? 'draft' : level;
-  const why = noPoint ? ', no map point yet' : '';
-  if (effective === 'complete') return LEVEL_WORDS.complete;
-  if (effective === 'usable') return `${LEVEL_WORDS.usable} · ${passed} of ${total}${why}`;
-  return total > 0 && passed * 3 < total ? LEVEL_WORDS.basics : `${LEVEL_WORDS.early} · ${passed} of ${total}${why}`;
-}
+export { LEVEL_WORDS, levelLabel };
 
 const engineLevel = (l: string | undefined): CompletenessLevel => (l === 'complete' ? 'complete' : l === 'usable' || l === 'usable_partial' ? 'usable' : 'draft');
 
@@ -57,14 +40,17 @@ function completenessOf(world: World, ref: string, model: PageModel, contract: C
   const total = model.checks.total + (family?.total ?? 0);
   const keys = comp ? [...comp.missingBase, ...comp.missingSuitability, ...comp.conditionalMissing] : [];
   const failed = keys.map((k) => ({ id: `check:${k}`, label: contract.properties[k]?.label ?? k.replace(/[._]/g, ' '), hint: contract.properties[k]?.gap ?? 'Not checked yet.' }));
+  // checks that are open but never hold the level: the engine's optional ("applicable") gaps and the soft values
+  const open = (comp?.missingApplicable.length ?? 0) + (comp?.soft.length ?? 0);
   return {
     level,
     passed: done,
     total,
     notTracked: 0,
     failed,
-    label: levelLabel(level, done, total, noPoint),
-    tooltip: `${done} of ${total} checks done, place and family`,
+    label: levelLabel(level, done, total, noPoint, open),
+    // the two scopes are explained here, once: the count is place and family checks together; "of" adds the optional ones still open
+    tooltip: `${done} of ${total} required checks done, place and family together${open ? `; ${open} optional ${open === 1 ? 'check is' : 'checks are'} still open and counted after "of"` : ''}`,
   };
 }
 

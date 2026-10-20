@@ -1,3 +1,4 @@
+import { ageLabel } from '@/lib/format/age';
 import { FACET_PARAMS, isScopedParam } from './types';
 import { fallbackLabel } from './valueLabels';
 import type { EntityDescriptor, FacetDef, FacetParam, ListState } from './types';
@@ -190,7 +191,7 @@ export function activeFilters<Row>(state: ListState, d: EntityDescriptor<Row>, l
       else delete facets[param];
       if (!rest.length) dropDependents(facets, d, param);
       // the Kids control reads "Youngest child 6", whichever list it is on
-      const label = facet.control === 'age' && /^\d{1,2}$/.test(v) ? `${facet.label} ${v === '0' ? 'Baby' : v}` : `${facet.label}: ${labelOf(param, v)}`;
+      const label = facet.control === 'age' ? (/^\d{1,2}$/.test(v) ? ageLabel('control', Number(v)) : labelOf(param, v)) : `${facet.label}: ${labelOf(param, v)}`;
       out.push({ key: `${param}:${v}`, label, without: { ...state, facets, focus: null } });
     }
   }

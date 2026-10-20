@@ -28,7 +28,9 @@ test.describe('the views share one URL state', () => {
     await pressed(page, 'cards').click();
     await expect(page).not.toHaveURL(/view=/);
     await expect(page.locator('.card')).toHaveCount(lakes);
-    await expect(page.getByRole('button', { name: /Remove filter Country: Canada/ })).toBeVisible();
+    // a filter with a pill in the bar shows once, as the pill (REVIEW4 confusing item 5)
+    await expect(page.getByRole('button', { name: 'Clear Country filter' })).toBeVisible();
+    await expect(page.getByRole('button', { name: /Remove filter Country: Canada/ })).toBeHidden();
 
     await pressed(page, 'table').click();
     await page.reload();
@@ -103,7 +105,7 @@ test.describe('the views share one URL state', () => {
     // the closest match comes first as the main action, and the bar holds the only Clear all
     await expect(page.getByRole('button', { name: 'Clear all' })).toHaveCount(1);
     await expect(page.getByRole('button', { name: /^Clear all filters/ })).toHaveCount(0);
-    await page.getByRole('button', { name: /Remove .*Youngest child.* to see/ }).click();
+    await page.getByRole('button', { name: /Remove .*kid.* to see/i }).click();
     await expect(page.getByRole('heading', { name: 'No places match' })).toHaveCount(0);
     await expect(count(page)).not.toHaveText('0');
   });

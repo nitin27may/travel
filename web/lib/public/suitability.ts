@@ -1,3 +1,4 @@
+import { ageLabel } from '@/lib/format/age';
 import type { SuitabilityRecord } from '@travel/core/schema/suitability.ts';
 import { isOperated, markOf, type Applicability, type Located, type Mark as CoreMark, profileOf, valueAt } from '@travel/core/suitability/applicability.ts';
 import { deriveEffort, kidsFromOf, ruleValOf, valOf } from '@travel/core/suitability/derive.ts';
@@ -278,8 +279,8 @@ function describe(path: string, v: unknown, rec: { block: Obj; ext: Obj | undefi
     case 'participation.min_shoe_eu': return typeof v === 'number' ? `EU ${v}+` : null;
     case 'age_band': {
       if (!isObj(v) || typeof v.from !== 'number') return null;
-      if (v.from === 0 && v.to === null) return 'Any age';
-      return v.to === null || v.to === undefined ? `From about ${v.from}` : `About ${v.from} to ${v.to}`;
+      if (v.to === null || v.to === undefined) return ageLabel('fit', v.from, 'advice');
+      return `About ${v.from} to ${v.to}`;
     }
     case 'carrier_ok': return v === true ? 'Carrier OK' : v === false ? 'Not suited to carriers' : null;
     case 'stroller': {
@@ -561,7 +562,7 @@ function limitsChip(c: Ctx): Chip | null {
 
   const minAge = ageRuleIsAdvice ? null : rule('min_age');
   const minAgeV = val(c, 'min_age');
-  if (minAge && typeof minAge.v === 'number') items.push({ text: `Age ${minAge.v}+`, field: 'min_age', basis: minAge.basis });
+  if (minAge && typeof minAge.v === 'number') items.push({ text: ageLabel('fit', minAge.v, 'rule'), field: 'min_age', basis: minAge.basis });
   else if (minAgeV?.state === 'no_limit') items.push({ text: c.words.noLimit, field: 'min_age', basis: minAgeV.basis ?? 'operator_rule' });
   else if (soft('min_age')) items.push({ text: 'age not stated', field: 'min_age', basis: null });
   const maxAge = ageRuleIsAdvice ? null : rule('max_age');
@@ -622,7 +623,7 @@ function limitsChip(c: Ctx): Chip | null {
 function adviceChip(c: Ctx, long: boolean): Chip | null {
   const x = val(c, 'age_band');
   if (!x || x.state !== 'value' || !isObj(x.v) || typeof x.v.from !== 'number') return null;
-  const word = x.v.from === 0 ? 'Any age' : `From about ${x.v.from}`;
+  const word = ageLabel('fit', x.v.from, 'advice');
   const text = long ? `${word} · our judgement` : word;
   return { kind: 'advice', text, glyph: 'person', label: chipLabel('advice', word, null, 'age_band'), field: 'age_band', extra: 0 };
 }
@@ -754,7 +755,7 @@ function fitChip(c: Ctx, party: NonNullable<SuitOptions['party']>, app: Applicab
     return { kind: 'rule_fail', text, glyph: 'none', label: chipLabel('rule_fail', text, basis, null), field: ruleFail.gate, extra: 0 };
   }
   if (failing.length > 0 || (result.fits === 'yes' && result.advice.length > 0)) {
-    const text = `Not suited to a ${party.youngestAge}-year-old`;
+    const text = ageLabel('advice_fail', party.youngestAge);
     return { kind: 'advice_fail', text, glyph: 'triangle', label: chipLabel('advice_fail', text, null, null), field: failing[0]?.gate ?? null, extra: 0 };
   }
   if (result.fits === 'yes') {
@@ -892,7 +893,7 @@ export function publicSuitability(located: { rec: SuitabilityRecord; file: strin
   if (val(c, 'min_age')?.state === 'no_limit' && (band?.from ?? 0) === 0) kids = { kind: 'rule', text: words.noLimit, glyph: 'lock', label: chipLabel('rule', words.noLimit, 'operator rule', 'min_age'), field: 'min_age', extra: 0 };
   else if (kidsFrom !== null) {
     kids = typeof minRule === 'number' && minRule >= (band?.from ?? 0)
-      ? { kind: 'rule', text: `Age ${minRule}+`, glyph: 'lock', label: chipLabel('rule', `Age ${minRule}+`, (val(c, 'min_age')?.basis === 'official_rule' ? 'official rule' : 'operator rule'), 'min_age'), field: 'min_age', extra: 0 }
+      ? { kind: 'rule', text: ageLabel('fit', minRule, 'rule'), glyph: 'lock', label: chipLabel('rule', ageLabel('fit', minRule, 'rule'), (val(c, 'min_age')?.basis === 'official_rule' ? 'official rule' : 'operator rule'), 'min_age'), field: 'min_age', extra: 0 }
       : adviceChip(c, false);
   } else if (mark('min_age') !== 'N' || mark('age_band') !== 'N') kids = gapChip(c, 'age_band', KIDS_GAP);
   const effortChip: Chip | null = s2.effort ? { kind: 'value', text: s2.effort.name, glyph: 'gauge', label: s2.effort.name, field: 'effort.source_grade', extra: 0 } : null;

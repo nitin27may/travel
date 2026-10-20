@@ -236,6 +236,8 @@ tr[data-row][data-fade-by='plan'][data-from='17'] td:first-child::after { conten
 @media (prefers-reduced-motion: reduce) { .count-why, .count-link svg { transition: none; } }
 .bar-sentinel { height: 0; }
 .chips-clear { display: inline-flex; align-items: center; }
+/* a filter with its own pill in the bar is shown once: the pill; the chip stays on a phone, where the bar's pills are folded away */
+@media (min-width: 640px) { .filter-bar .chips li[data-pilled] { display: none; } }
 @media (max-width: 639px) {
   /* the count block takes the cell the single-line count had; chips wrap instead of clipping, and Clear all sits with them */
   .filter-bar .count-block { grid-column: 1 / -1; grid-row: 2; align-self: center; }

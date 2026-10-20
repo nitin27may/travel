@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { DEPTH_LABEL, DEPTH_NOTICE, tripHref } from '@/components/trips/format';
 import type { TripListRow } from '@/components/trips/types';
 import type { TripRow } from '@/lib/data/types';
+import { ageLabel } from '@/lib/format/age';
 import { MONTH_NAMES } from '@/lib/format/season';
 import { TripTagChips } from '@/components/trips/tags/TripTagChips';
 import { AROUND_ORDER, HIKE_ORDER, HUB_BANDS, LENGTH_LABELS, LENGTH_ORDER, PERDAY_ORDER, PHASE_FOR_LENGTH, lengthCell, hubBandOf, kidsLabel, lengthLine } from '@/components/trips/tags/labels';
@@ -188,7 +189,7 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
   ],
   columns: [
     col('title', 'Trip', ({ row }) => <span className="cell-name">{row.original.title}</span>, (t) => t.title, 280),
-    col('fit', 'Fit', ({ row }) => (row.original.ageFit !== null && row.original.ageFit >= 1 ? <span className="fit-chip" title={`Plan suits ${row.original.ageFit}+`}>{row.original.ageFit}+</span> : null), () => '', 56, { sort: false }),
+    col('fit', 'Fit', ({ row }) => (row.original.ageFit !== null && row.original.ageFit >= 1 ? <span className="fit-chip" title={ageLabel('fit', row.original.ageFit, 'plan')}>{row.original.ageFit}+</span> : null), () => '', 56, { sort: false }),
     col('length', 'Length', ({ row }) => (row.original.length ? lengthCell(row.original.length) : dash), (t) => lengthCell(t.length), 170),
     col('nights', 'Nights', ({ row }) => (row.original.nights === null ? dash : <span className="num">{row.original.nights}</span>), (t) => t.nights ?? '', 90, { align: 'right' }),
     col('days', 'Days', ({ row }) => (row.original.days === null ? dash : <span className="num">{row.original.days}</span>), (t) => t.days ?? '', 80, { align: 'right' }),
