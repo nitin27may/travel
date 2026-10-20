@@ -55,7 +55,8 @@ export function GlobePanelBody({ data, book, path, selected, onArea, onCard }: P
     );
   }
   const node = nodeAt(data, path);
-  const trips = pinsUnder(data, path.slice(0, 1), 'trip');
+  // only the trips whose base lies inside this level (a trip pin's path is its country and the state of its base)
+  const trips = pinsUnder(data, path, 'trip');
   const places = pinsUnder(data, path, 'place');
   const children = (node?.children ?? []).filter((c) => c.places + c.trips > 0);
   if (!children.length && !trips.length && !places.length) {
