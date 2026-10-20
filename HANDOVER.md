@@ -34,6 +34,7 @@ git tag -l legacy-final                                   # the old site, kept
 (cd core && pnpm install) ; (cd web && pnpm install)
 python3 -m pip install pytest                             # the python tests
 (cd web && pnpm exec playwright install chromium firefox webkit)   # browsers for e2e
+tools/handover-cache.sh unpack                            # optional: restores the caches from ../travel-caches
 ```
 
 Versions used on the first machine: node 22.23, pnpm 12.4, Python 3.14, git 2.53, Playwright with Chromium build 1248. Other recent versions should work.
@@ -71,8 +72,7 @@ Never hand-edit generated files (the locations views, `data/schema/**`, `docs/v2
 | What | Where it was | What to do |
 |---|---|---|
 | **Secrets: `web/.env.local`** (mode 600, gitignored) | the first machine | Create it with these names only: `NEXT_PUBLIC_GOOGLE_MAPS_KEY`, `NEXT_PUBLIC_GOOGLE_MAP_ID`, `NEXT_PUBLIC_GOOGLE_MAPS_MAPID` (unused, to remove), `NEXT_PUBLIC_PLACE_MAP_FAMILY`, `ORS_API_KEY`. Values: the Google Maps key and Map ID from the Google Cloud console (the key's website restrictions were opened for testing and **must be restored at go-live**); the OpenRouteService key from openrouteservice.org. **Never commit or print them.** The ORS key must not appear in `web/out`; the build check greps for it |
-| Commons photo cache `web/.og-cache/` (57 MB, 291 files, gitignored) | the first machine | Optional: copy it over (`rsync`) so the first build does not refetch photos one at a time. Without it the build fetches them sequentially from Wikimedia Commons (slow, polite, works) |
-| Globe boundary downloads `tools/.cache/` (gitignored) | the first machine | Regenerated on demand by `python3 tools/globe_data.py`; only needed to rebuild globe data |
+| **Caches, packed next to the repo folder**: `../travel-caches/og-cache.tar.gz` (Commons photos for the build, 57 MB unpacked, gitignored `web/.og-cache/`) and `../travel-caches/globe-cache.tar.gz` (raw boundary and gazetteer downloads for the globe build, 443 MB unpacked, gitignored `tools/.cache/`) | `/home/nitin27may/workspace/travel-caches/` on the first machine, beside the `travel` folder | Copy the whole `travel-caches/` folder to the new machine **next to the cloned repo folder** (same parent), then run `tools/handover-cache.sh unpack`. Without them everything still works, only slower: the build refetches photos one at a time from Wikimedia Commons, and a globe rebuild redownloads boundaries. To refresh the packs on any machine: `tools/handover-cache.sh pack`. Nothing secret is in them; `web/.env.local` is never packed |
 | Cloudflare login | the first machine | `npx wrangler login --device` (the localhost callback fails; approve on the phone). The Pages project is `nks-travel` |
 | Preview tunnel and the design-mock tunnel | the first machine (a `cloudflared` quick tunnel, URL changes each time) | Recreate: `cd web && pnpm build && python3 -m http.server 3440 --bind 127.0.0.1 --directory out &` then `cloudflared tunnel --no-autoupdate --url http://127.0.0.1:3440` |
 | Claude memory | `~/.claude/projects/.../memory/` | Copies of the travel notes are in `docs/v2/build/handover/memory/` (see its README) |
