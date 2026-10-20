@@ -33,7 +33,8 @@ export function suitChips(p: PlaceListRow): Badge[] {
   if (p.kids_from !== null && p.kids_basis === 'rule') out.push({ text: p.kids_from === 0 ? 'No minimum age' : `Age ${p.kids_from}+`, tone: 'kid', value: 'rule', title: 'Operator or official rule' });
   else if (p.kids_from !== null) out.push({ text: p.kids_from === 0 ? 'Any age' : `From about ${p.kids_from}`, tone: 'kid', value: 'advice', icon: 'user', title: 'Our judgement' });
   else if (p.kid_fit !== 'unknown') out.push({ text: KID_LABELS[p.kid_fit] ?? p.kid_fit, tone: 'kid', icon: KID_ICONS[p.kid_fit] ?? 'user', title: KID_HINTS[p.kid_fit] });
-  else out.push({ text: 'Not checked yet', tone: 'muted', value: 'gap', title: 'Kids: not checked yet' });
+  else out.push({ text: 'Kids: not checked yet', tone: 'muted', value: 'gap', title: 'Kids: not checked yet' });
+  // the gauge glyph is drawn by styles/filters.css (the page's effort chip uses it), so the card and the page read alike
   if (p.effort) out.push({ text: p.effort, tone: 'neutral', value: 'effort', icon: 'trail', title: 'How hard, in family terms' });
   // a trail or trek nobody has rated shows the gap on the card, as it does on the page (verifier 9)
   else if (typeInScope(p.type, ['nature.trail', 'nature.trek'])) out.push({ text: 'Effort: not checked yet', tone: 'muted', value: 'gap', title: 'Effort: not checked yet' });
