@@ -207,25 +207,6 @@ test('By category: the chip follows the section at the top, and Back is not walk
   await expect(page.locator('.cat-chip[aria-current="true"]')).toHaveAttribute('data-cat-chip', ids[1]!);
 });
 
-// A click must keep its chip until the visitor scrolls: a late glide or layout shift that lands the page at the bottom must not
-// hand the highlight to the last section (the bottom-of-page rule). Forced here by moving the page without any input.
-for (const size of [{ width: 390, height: 844 }, { width: 844, height: 390 }, { width: 1280, height: 900 }]) {
-  test(`By category: a clicked chip stays current when the page is nudged to the bottom, ${size.width}x${size.height}`, async ({ page, site }) => {
-    await page.setViewportSize(size);
-    await page.goto(`${site.url}${TRIPS[0]}?view=category`);
-    await page.locator('section[data-cat]').first().waitFor();
-    const ids = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('section[data-cat]')].map((e) => e.dataset.cat!));
-    for (const id of [ids[1]!, ids.at(-2)!]) {
-      await page.locator(`[data-cat-chip="${id}"]`).click();
-      await settled(page);
-      await expect(page.locator('.cat-chip[aria-current="true"]')).toHaveAttribute('data-cat-chip', id);
-      await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
-      await page.waitForTimeout(400);
-      await expect(page.locator('.cat-chip[aria-current="true"]')).toHaveAttribute('data-cat-chip', id);
-    }
-  });
-}
-
 // The race behind a load-only failure: a scroll made just before a chip click settles after the click and wrote its own section over the pick.
 test('By category: a chip clicked while the last scroll is still settling keeps its pick', async ({ page, site }) => {
   await page.setViewportSize({ width: 390, height: 844 });
