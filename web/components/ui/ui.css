@@ -177,6 +177,11 @@
 .chip-photo { width: 20px; height: 20px; margin-left: -5px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 1.5px var(--tc), 0 0 0 2.5px var(--line-2); }
 .chip-x { display: inline-grid; place-items: center; width: 24px; height: 24px; margin: 0 -8px 0 -2px; border: 0; border-radius: 50%; background: transparent; color: inherit; cursor: pointer; }
 .chip-x:hover { background: color-mix(in srgb, currentColor 14%, transparent); }
+/* a phone finger needs 40 px: the remove button is the whole chip height, not the 24 px desktop disc */
+@media (max-width: 639px) {
+  .chip:has(> .chip-x) { height: 40px; }
+  .chip-x { width: 40px; height: 40px; margin: 0 -12px 0 -6px; }
+}
 .sq { display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: var(--tc, var(--line-2)); box-shadow: 0 0 0 1px var(--line-2); vertical-align: middle; flex: none; }
 .badge-row { display: flex; flex-wrap: wrap; gap: 6px; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
