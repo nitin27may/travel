@@ -9,7 +9,7 @@ test.describe('the Trips filter bar', () => {
   test('four primary pills and More filters; the rest are one tap further (P4)', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/`);
     const pills = page.locator('.facet-group .pill-trigger');
-    await expect(pills).toHaveText([/^Where/, /^When/, /^Length/, /^Kids/, /^More filters/]);
+    await expect(pills).toHaveText([/^Where/, /^When/, /^Length/, /^Youngest child/, /^More filters/]);
     await page.getByRole('button', { name: 'More filters' }).click();
     const more = page.getByRole('dialog', { name: 'More filters' });
     for (const name of ['Activities', 'Source']) await expect(more.locator('summary', { hasText: name })).toBeVisible();
@@ -31,15 +31,15 @@ test.describe('the Trips filter bar', () => {
     await expect(page.locator('.chips')).toContainText('Length: 9 to 14 nights');
   });
 
-  test('Kids is "a child of N", with the older plans filtered out and the unguided ones counted', async ({ page, site }) => {
+  test('Youngest child is the same stepper as on Places; plans above the age fade, none is hidden, and the unguided ones are counted', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/`);
-    await page.locator('.pill-trigger', { hasText: /^Kids/ }).click();
-    const menu = page.getByRole('dialog', { name: 'Kids' });
-    await expect(menu.getByText('A child of 4', { exact: false })).toBeVisible();
+    await page.locator('.pill-trigger', { hasText: /^Youngest child/ }).click();
+    const menu = page.getByRole('dialog', { name: 'Youngest child' });
+    await expect(menu.getByText('Trips above this age fade; none are hidden yet')).toBeVisible();
     expect(clean(await axe(page))).toEqual([]);
-    await menu.getByLabel(/A child of 6/).check();
+    await menu.getByRole('button', { name: '6', exact: true }).click();
     await expect(page).toHaveURL(/kid=6/);
-    await expect(page.locator('.count')).toContainText('not checked yet');
+    await expect(page.locator('.count-block')).toContainText('not checked yet');
   });
 
   test('every state is in the URL and survives a reload and Back', async ({ page, site }) => {
@@ -66,7 +66,8 @@ test.describe('the Trips filter bar', () => {
     await page.getByRole('button', { name: 'More filters' }).click();
     await expect(page.getByRole('dialog', { name: 'More filters' }).locator('summary', { hasText: 'From Toronto' })).toHaveCount(0);
     await page.keyboard.press('Escape');
-    await expect(page.locator('.count')).not.toContainText('From Toronto');
+    // named behind "Why these?" since L3b round 1
+    await expect(page.locator('.count-block')).toContainText('From Toronto hidden');
   });
 
   test('group by Length puts the shortest trips first', async ({ page, site }) => {

@@ -74,8 +74,8 @@ describe('removing and switching chips', () => {
     const ask = got.chips.find((c) => c.ask)!;
     expect(ask.set).toEqual({});
     expect(got.facets.kid).toBeUndefined();
-    expect(ask.alternatives!.map((a) => a.set.kid?.[0])).toEqual(['4', '6', '8', '10', '12']);
-    const six = pickAlternative(got, 'kid', ask.alternatives![1]!);
+    expect(ask.alternatives!.map((a) => a.set.kid?.[0])).toEqual(['0', '3', '6', '9', '12']);
+    const six = pickAlternative(got, 'kid', ask.alternatives![2]!);
     expect(six.facets.kid).toEqual(['6']);
     expect(six.chips.find((c) => c.id === 'kid')!.ask).toBeUndefined();
     expect(six.href).toContain('kid=6');

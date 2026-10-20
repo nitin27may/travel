@@ -75,6 +75,7 @@ test.describe('the views share one URL state', () => {
     expect(july).toBeGreaterThan(0);
     await page.goto(`${site.url}/places/?season=7`);
     // the saved places plus the researched Dolomites places that are open in July
+    await expect(count(page)).toHaveText(/^\d+$/);
     expect(Number(await count(page).textContent())).toBeGreaterThanOrEqual(july);
   });
 
@@ -102,7 +103,7 @@ test.describe('the views share one URL state', () => {
     // the closest match comes first as the main action, and the bar holds the only Clear all
     await expect(page.getByRole('button', { name: 'Clear all' })).toHaveCount(1);
     await expect(page.getByRole('button', { name: /^Clear all filters/ })).toHaveCount(0);
-    await page.getByRole('button', { name: /Remove .*Kids: .* to see/ }).click();
+    await page.getByRole('button', { name: /Remove .*Youngest child.* to see/ }).click();
     await expect(page.getByRole('heading', { name: 'No places match' })).toHaveCount(0);
     await expect(count(page)).not.toHaveText('0');
   });
@@ -110,6 +111,7 @@ test.describe('the views share one URL state', () => {
   test('the closest match is the removal that keeps the most of the request', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?country=CA&kind=lighthouse&kid=strong-kid`);
     const main = page.locator('.empty').getByRole('button', { name: /to see \d+ place/ });
+    await expect(main.first()).toBeVisible();
     const counts = (await main.allTextContents()).map((t) => Number(/to see (\d+)/.exec(t)![1]));
     expect(counts.length).toBeGreaterThan(0);
     expect(counts).toEqual([...counts].sort((a, b) => a - b));
@@ -117,9 +119,9 @@ test.describe('the views share one URL state', () => {
 
   test('the Kids filter says how many places were left out because nobody has checked them', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?kid=yes`);
-    await expect(page.locator('.filter-bar .count .count-note')).toHaveText(/\d+ not checked yet/);
+    await expect(page.locator('.filter-bar .count-more')).toContainText(/\d+ not checked yet/);
     await page.goto(`${site.url}/places/?kid=unknown`);
-    await expect(page.locator('.filter-bar .count .count-note')).toHaveCount(0);
+    await expect(page.locator('.filter-bar .count-more')).toHaveCount(0);
   });
 
   test('old links with Tag, Trip, Region and effort parameters still work', async ({ page, site }) => {
@@ -176,7 +178,7 @@ test.describe('keyboard and place links', () => {
   });
 
   test('table: group by with counts, collapse a group, choose columns', async ({ page, site }) => {
-    await page.goto(`${site.url}/places/?view=table`);
+    await page.goto(`${site.url}/places/?view=table&group=region`);
     const groups = page.locator('tr.grp-row');
     await expect.poll(() => groups.count(), { message: 'groups render after hydration' }).toBeGreaterThanOrEqual(2); // one page of 48 rows spans a few countries, not all of them
     const first = groups.first();

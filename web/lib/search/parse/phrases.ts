@@ -139,11 +139,9 @@ export const COUNTRY_EXTRA: Record<string, string> = { usa: 'US', america: 'US',
 /** Chip words that read better than the facet's own label. */
 export const LABELS: Record<string, string> = {
   'k=intent:do': 'Things to do',
-  'effort=stroll,easy': 'Easy or a stroll',
-  'kid=yes': 'With kids',
-  'kid=0': 'Baby (age 0)',
-  'kid=2': 'Toddler (age 2)',
-  'kid=13': 'Teen (age 13)',
+  // chip and pill read the same words (S4): the pill is "Effort · Stroll, Easy"
+  'effort=stroll,easy': 'Effort: Stroll, Easy',
+  'kid=yes': 'Easy with kids',
   'stroller=any': 'Any stroller',
   'stroller=all-terrain': 'All-terrain stroller',
   'f.dogs=yes': 'Dogs allowed',

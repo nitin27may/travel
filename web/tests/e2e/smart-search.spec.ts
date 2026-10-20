@@ -36,7 +36,7 @@ test.describe('header search', () => {
   test('query 1 reads as five chips, "Show places" is the first option, and Enter opens the list with the parsed keys', async ({ page, site }) => {
     const box = await openHeader(page, site);
     await box.fill(Q1);
-    for (const name of ['Remove Trails and walks', 'Remove With kids', 'Remove Banff, Alberta', 'Remove September', 'Remove Easy or a stroll']) {
+    for (const name of ['Remove Trails and walks', 'Remove Easy with kids', 'Remove Banff, Alberta', 'Remove September', 'Remove Effort: Stroll, Easy']) {
       await expect(page.getByRole('button', { name })).toBeVisible();
     }
     const first = page.getByRole('option').first();
@@ -126,7 +126,7 @@ test.describe('header search', () => {
     await ask.click();
     const pop = page.getByRole('group', { name: 'Pick the age' });
     await expect(pop).toBeVisible();
-    await pop.getByRole('button', { name: 'A child of 6' }).click();
+    await pop.getByRole('button', { name: 'Youngest child 6' }).click();
     await expect(page.getByRole('option').first()).toHaveAttribute('href', /kid=6/);
     await expect(page.getByRole('option').first()).toHaveAttribute('href', /^\/trips\//);
   });
@@ -253,7 +253,7 @@ test.describe('the Places and Trips search boxes', () => {
     const ask = page.getByRole('button', { name: /^With kids: how old is the youngest/ });
     await expect(ask).toBeVisible();
     await ask.click();
-    await page.getByRole('group', { name: 'Pick the age' }).getByRole('button', { name: 'A child of 6' }).click();
+    await page.getByRole('group', { name: 'Pick the age' }).getByRole('button', { name: 'Youngest child 6' }).click();
     await expect(page).toHaveURL(/kid=6/);
   });
 
@@ -317,11 +317,11 @@ test.describe('review SQ1b: must-fixes', () => {
     await box.press('Enter');
     const pop = page.getByRole('group', { name: 'Pick the age' });
     await expect(pop).toBeVisible();
-    await expect(pop.getByRole('button')).toHaveText(['A child of 4', 'A child of 6', 'A child of 8', 'A child of 10', 'A child of 12']);
+    await expect(pop.getByRole('button')).toHaveText(['Youngest child Baby', 'Youngest child 3', 'Youngest child 6', 'Youngest child 9', 'Youngest child 12']);
     await expect(page.getByRole('heading', { name: /^No trips match/ })).toHaveCount(0);
-    await pop.getByRole('button', { name: 'A child of 8' }).click();
+    await pop.getByRole('button', { name: 'Youngest child 9' }).click();
     await box.press('Enter');
-    await expect(page).toHaveURL(/kid=8/);
+    await expect(page).toHaveURL(/kid=9/);
   });
 
   test.describe('M3 at 390 px', () => {

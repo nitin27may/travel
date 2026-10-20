@@ -7,7 +7,7 @@ test.describe('places list', () => {
   test('shows four primary filter pills and More filters, and the four views with Map switched on (P4)', async ({ page, site }) => {
     await page.goto(`${site.url}/places/`);
     const pills = page.locator('.facet-group .pill-trigger');
-    await expect(pills).toHaveText([/^Country/, /^Kind/, /^Season/, /^Kids/, /^More filters/]);
+    await expect(pills).toHaveText([/^Country/, /^Kind/, /^Season/, /^Youngest child/, /^More filters/]);
     // the rest wait one tap away: Effort and Stroller (L3b) sit under More filters with the others
     for (const name of ['Tag', 'In a public trip', 'Effort', 'Stroller']) await expect(page.locator('.pill-trigger', { hasText: new RegExp(`^${name}`) })).toHaveCount(0);
     await page.getByRole('button', { name: 'More filters' }).click();
