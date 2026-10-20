@@ -11,6 +11,8 @@ interface Props {
   book: CountryBook;
   path: string[];
   selected: string | null;
+  /** District level: trips whose base lies inside the district. */
+  districtTrips?: string[];
   onArea(path: string[]): void;
   onCard(key: string): void;
 }
@@ -22,7 +24,7 @@ const counts = (places: number, trips: number) => [places ? plural(places, 'plac
  * The list equivalent of the canvas (components 7.2): saved places and published trips by continent and country with
  * flags and counts; inside a country it lists the states, trips and places. Everything on the canvas is reachable here.
  */
-export function GlobePanelBody({ data, book, path, selected, onArea, onCard }: Props) {
+export function GlobePanelBody({ data, book, path, selected, districtTrips, onArea, onCard }: Props) {
   if (!path.length) {
     return (
       <div className="globe-list">
@@ -56,7 +58,7 @@ export function GlobePanelBody({ data, book, path, selected, onArea, onCard }: P
   }
   const node = nodeAt(data, path);
   // only the trips whose base lies inside this level (a trip pin's path is its country and the state of its base)
-  const trips = pinsUnder(data, path, 'trip');
+  const trips = path.length === 3 ? pinsUnder(data, path.slice(0, 2), 'trip').filter((t) => districtTrips?.includes(t.slug)) : pinsUnder(data, path, 'trip');
   const places = pinsUnder(data, path, 'place');
   const children = (node?.children ?? []).filter((c) => c.places + c.trips > 0);
   if (!children.length && !trips.length && !places.length) {

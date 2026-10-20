@@ -14,7 +14,7 @@ interface Props {
 }
 
 /** Search a country, state, city, sea or range (components 7.2); saved places and trips come first. `/` focuses it. */
-export function GlobeSearch({ book, onPick, placeholder = 'Search a country, state, city, sea or range' }: Props) {
+export function GlobeSearch({ book, onPick, placeholder = 'Search the globe' }: Props) {
   const [q, setQ] = useState('');
   const [open, setOpen] = useState(false);
   const [cursor, setCursor] = useState(0);
