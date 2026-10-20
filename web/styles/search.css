@@ -37,6 +37,7 @@
 
 /* ---------- the header search: chips above the listbox ---------- */
 .gs-read { padding: var(--s-2) var(--s-2) var(--s-3); border-bottom: 1px solid var(--line); margin-bottom: var(--s-1); }
+.gs-relaxed { margin: var(--s-2) 0 0; padding: var(--s-1) var(--s-2); border-radius: var(--r-2); background: var(--warn-soft); color: var(--ink); font: var(--t-label); }
 .gs-show { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); min-height: 48px; padding: var(--s-2) var(--s-3); border-radius: var(--r-3); background: var(--accent); color: var(--accent-ink); font: var(--t-title); text-decoration: none; }
 .gs-show:hover, .gs-show[data-active] { background: var(--accent-hover); }
 .gs-show small { font: var(--t-label); }
@@ -53,6 +54,8 @@
 .smart-box { display: grid; gap: var(--s-2); padding: var(--s-1) 0; }
 .smart-undo { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); align-items: center; padding: var(--s-2) var(--s-3); border-radius: var(--r-2); background: var(--info-soft); color: var(--info); font: var(--t-label); }
 .smart-undo button { min-height: 24px; padding: 0; border: 0; background: none; color: inherit; font: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.smart-relaxed { margin: var(--s-1) 0 0; padding: var(--s-2) var(--s-3); border-radius: var(--r-2); background: var(--warn-soft); color: var(--ink); font: var(--t-label); }
+.smart-relaxed button { min-height: 24px; padding: 0; border: 0; background: none; color: inherit; font: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .smart-hint { font: var(--t-label); color: var(--muted); }
 .smart-hint kbd { font-family: var(--font-mono); }
 @media (max-width: 639px) {

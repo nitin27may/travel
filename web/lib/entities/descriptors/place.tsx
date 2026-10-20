@@ -5,6 +5,7 @@ import { Elevation, Stat } from '@/components/entity/cells';
 import { PlacesMapLazy } from '@/components/entity/PlacesMapLazy';
 import type { PlaceListRow } from '@/components/places/rows';
 import { Icon, kindIcon } from '@/components/ui/Icon';
+import { ageLabel } from '@/lib/format/age';
 import { MONTH_NAMES, seasonLabel } from '@/lib/format/season';
 import { KID_HINTS, KID_ICONS, KID_LABELS, TAG_KIND_ORDER, cap } from '../labels';
 import { EFFORT_LABELS, EFFORT_VALUES, nodeLabel, scopedFacets, typeInScope } from '../facets';
@@ -30,8 +31,8 @@ const CARD_HONESTY: Record<string, string> = {
  */
 export function suitChips(p: PlaceListRow): Badge[] {
   const out: Badge[] = [];
-  if (p.kids_from !== null && p.kids_basis === 'rule') out.push({ text: p.kids_from === 0 ? 'No minimum age' : `Age ${p.kids_from}+`, tone: 'kid', value: 'rule', title: 'Operator or official rule' });
-  else if (p.kids_from !== null) out.push({ text: p.kids_from === 0 ? 'Any age' : `From about ${p.kids_from}`, tone: 'kid', value: 'advice', icon: 'user', title: 'Our judgement' });
+  if (p.kids_from !== null && p.kids_basis === 'rule') out.push({ text: ageLabel('fit', p.kids_from, 'rule'), tone: 'kid', value: 'rule', title: 'Operator or official rule' });
+  else if (p.kids_from !== null) out.push({ text: ageLabel('fit', p.kids_from, 'advice'), tone: 'kid', value: 'advice', icon: 'user', title: 'Our judgement' });
   else if (p.kid_fit !== 'unknown') out.push({ text: KID_LABELS[p.kid_fit] ?? p.kid_fit, tone: 'kid', icon: KID_ICONS[p.kid_fit] ?? 'user', title: KID_HINTS[p.kid_fit] });
   else out.push({ text: 'Kids: not checked yet', tone: 'muted', value: 'gap', title: 'Kids: not checked yet' });
   // the gauge glyph is drawn by styles/filters.css (the page's effort chip uses it), so the card and the page read alike
@@ -82,7 +83,7 @@ const sourceCount = (p: PlaceListRow) => p.sourceTypes.length;
 const sourceText = (p: PlaceListRow) => (p.sourceTypes.length ? `${p.sourceTypes.length} ${p.sourceTypes.length === 1 ? 'source' : 'sources'}` : 'None yet');
 
 /** The "Fit" cell: the age the advice starts at, shown only while a chosen age makes the place a stretch (filters.css reads the row's data-fade). */
-const fitCell = (p: PlaceListRow) => (p.kids_basis === 'advice' && p.kids_from !== null && p.kids_from >= 1 ? <span className="fit-chip" title={`Advice says ${p.kids_from}+`}>{p.kids_from}+</span> : null);
+const fitCell = (p: PlaceListRow) => (p.kids_basis === 'advice' && p.kids_from !== null && p.kids_from >= 1 ? <span className="fit-chip" title={ageLabel('fit', p.kids_from, 'advice')}>{p.kids_from}+</span> : null);
 
 const columns: PlaceCol[] = [
   col('name', 'Name', ({ row }) => <span className="cell-name">{row.original.name}</span>, (p) => p.name, { size: 210 }),
@@ -102,9 +103,10 @@ const columns: PlaceCol[] = [
   col('plan', 'Plan', ({ row }) => row.original.trips[0]?.title ?? <span className="dash">&ndash;</span>, (p) => p.trips[0]?.title ?? '', { size: 190 }),
 ];
 
+/** Any selected value names one of the row's spellings. Region and Area take several values: a name such as Banff is also filed as Banff National Park (smart-search 4.20), and a range spans areas. */
 const aliasMatch = (values: (string | undefined)[], selected: string[]) => {
-  const want = lc(selected[0] ?? '');
-  return !want || values.some((v) => lc(v ?? '') === want);
+  const want = selected.map((s) => lc(s)).filter(Boolean);
+  return !want.length || values.some((v) => want.includes(lc(v ?? '')));
 };
 
 /** The `trip` facet value for a place no public trip uses. */
@@ -236,7 +238,7 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
         if (!isAge(sel[0] ?? '')) return null;
         const age = Number(sel[0]);
         const stretch = matched.filter((p) => p.kids_from !== null && p.kids_from > age).length;
-        return stretch ? `${stretch} ${stretch === 1 ? 'is a stretch' : 'are a stretch'} at ${age}, shown faded` : null;
+        return stretch ? `${stretch} ${stretch === 1 ? 'is a stretch' : 'are a stretch'} at ${age === 0 ? 'Baby' : age}, shown faded` : null;
       },
     },
     {
@@ -267,7 +269,7 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
     {
       param: 'region',
       label: 'Region',
-      type: 'single',
+      type: 'multi',
       tier: 'more',
       dependsOn: 'country',
       options: (p) => [{ value: p.region, label: p.region_name }],
@@ -276,7 +278,7 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
     {
       param: 'area',
       label: 'Area',
-      type: 'single',
+      type: 'multi',
       tier: 'more',
       dependsOn: 'region',
       options: (p) => [{ value: p.area, label: p.area_name }],
@@ -323,6 +325,7 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
     plan: { label: 'Plan', value: (p) => p.trips[0]?.title ?? null },
     added: { label: 'Date added', value: (p) => p.added || null },
   },
+  sortMenu: ['name', 'area', 'kind', 'km', 'gain', 'added'],
   defaultSort: (a, b) =>
     a.country_name.localeCompare(b.country_name) || a.region_name.localeCompare(b.region_name) || a.area_name.localeCompare(b.area_name) || a.name.localeCompare(b.name),
   defaultSortLabel: 'Country, then places with photos',

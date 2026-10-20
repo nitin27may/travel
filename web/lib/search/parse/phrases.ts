@@ -174,3 +174,19 @@ export const SHORT = {
   places: { param: 'f.length', value: 'lt3', label: 'Short: under 3 km', scopes: ['nature.trail', 'nature.trek'] },
   trips: { param: 'length', values: ['day', 'overnight', 'weekend'], label: 'Weekend or shorter' },
 } as const;
+
+/**
+ * Range and region words a visitor types that are no admin area: "Rockies", "Dolomites", "Alps", "Patagonia" (smart-search 4.21). A range is
+ * read through the trips that carry one of its `trips` words in their name or region: the places of those trips, by area. The words
+ * the visitor may type (`words`) are whole names, never one generic word, so "lake" or "national" cannot widen into a range.
+ * A new range is one entry here and needs no data change; a trip that names it brings its areas.
+ */
+export const RANGES: Record<string, { name: string; words: string[]; trips: string[] }> = {
+  dolomites: { name: 'Dolomites', words: ['dolomites'], trips: ['dolomites'] },
+  rockies: { name: 'Rockies', words: ['rockies', 'rocky mountains', 'canadian rockies'], trips: ['rockies', 'rocky mountains'] },
+  patagonia: { name: 'Patagonia', words: ['patagonia'], trips: ['patagonia'] },
+  alps: { name: 'Alps', words: ['alps'], trips: ['alps', 'dolomites', 'chamonix', 'mont blanc', 'switzerland'] },
+};
+
+/** Words that name a kind of place or protected area, not a place: they never decide that two area names are the same place (smart-search 4.20). */
+export const GENERIC_AREA_WORDS: readonly string[] = 'national provincial state park parks reserve nature wilderness wildland area region county lake lakes mount mountain mountains valley val river falls island bay coast beach village town of the and di del de la le du north south east west upper lower'.split(' ');

@@ -8,7 +8,9 @@ import { setTheme, THEMES } from './shots';
 // assertions read the URL the words became and the structure the visitor sees.
 
 const Q1 = 'easy hike with kids near Banff in September';
-const Q1_KEYS = { country: 'CA', region: 'alberta', area: 'banff', k: 'nature.trail', season: '9', kid: 'yes', effort: 'stroll,easy' };
+// September gives no trail in Banff, so the list relaxes it (REVIEW4 4.29); the same words without the month give trails
+const QB = 'easy hike with kids near Banff';
+const QB_KEYS = { country: 'CA', region: 'alberta', area: 'banff,banff-national-park', k: 'nature.trail', effort: 'stroll,easy' };
 const QWATERFALL = 'waterfall I can reach with a stroller';
 
 const keys = (url: string) => Object.fromEntries(new URL(url).searchParams.entries());
@@ -36,7 +38,7 @@ test.describe('header search', () => {
   test('query 1 reads as five chips, "Show places" is the first option, and Enter opens the list with the parsed keys', async ({ page, site }) => {
     const box = await openHeader(page, site);
     await box.fill(Q1);
-    for (const name of ['Remove Trails and walks', 'Remove Easy with kids', 'Remove Banff, Alberta', 'Remove September', 'Remove Effort: Stroll, Easy']) {
+    for (const name of ['Remove Trails and walks', 'Remove With kids: how old is the youngest?', 'Remove Banff area, Alberta', 'Remove September', 'Remove Effort: Stroll, Easy']) {
       await expect(page.getByRole('button', { name })).toBeVisible();
     }
     const first = page.getByRole('option').first();
@@ -44,9 +46,33 @@ test.describe('header search', () => {
     await expect(box).toHaveAttribute('aria-activedescendant', (await first.getAttribute('id'))!);
     await box.press('Enter');
     await expect(page).toHaveURL(/\/places\/\?/);
-    expect(keys(page.url())).toEqual(Q1_KEYS);
-    // the list holds the same keys as its own active filters
-    await expect(page.getByRole('list', { name: 'Active filters' }).getByText('Season: Sep')).toBeVisible();
+    // the reading gave no rows, so the list relaxes the narrowest chip and says so, instead of an empty state under neat chips
+    await expect(page.locator('.smart-relaxed')).toContainText('No match for all 4; showing places that match 3');
+    await expect(page.locator('.smart-relaxed')).toContainText('put back September');
+    await expect.poll(() => keys(page.url())).toEqual(QB_KEYS);
+    await expect(page.getByRole('heading', { name: /^No places match/ })).toHaveCount(0);
+    await expect(page.locator('.count .num')).not.toHaveText('0');
+  });
+
+  test('"easy hike with kids near Banff" opens trails in Banff and Banff National Park, and asks the age (it gave 0 of 75)', async ({ page, site }) => {
+    const box = await openHeader(page, site);
+    await box.fill(QB);
+    await expect(page.getByRole('button', { name: 'Remove Banff area, Alberta' })).toBeVisible();
+    await box.press('Enter');
+    await expect(page).toHaveURL(/\/places\/\?/);
+    expect(keys(page.url())).toEqual(QB_KEYS);
+    await expect(page.locator('.count .num')).not.toHaveText('0');
+    await expect(page.locator('.smart-relaxed')).toHaveCount(0);
+  });
+
+  test('"lake for a 6 year old in the Dolomites" opens lakes across South Tyrol and Veneto (it gave 0 of 10)', async ({ page, site }) => {
+    const box = await openHeader(page, site);
+    await box.fill('lake for a 6 year old in the Dolomites');
+    await expect(page.getByRole('button', { name: /^Remove Dolomites range/ })).toBeVisible();
+    await box.press('Enter');
+    await expect(page).toHaveURL(/k=water\.body/);
+    await expect(page.locator('.count .num')).not.toHaveText('0');
+    await expect(page.locator('.smart-relaxed')).toHaveCount(0);
   });
 
   test('on the Places page the Show option carries the count of the list', async ({ page, site }) => {
@@ -108,7 +134,7 @@ test.describe('header search', () => {
 
   test('"Did you mean" is a listbox option you can reach with the arrows: query 29', async ({ page, site }) => {
     const box = await openHeader(page, site);
-    await box.fill('waterfalls worth the journey in Patagonia');
+    await box.fill('waterfalls worth the journey in Kancamagus');
     const dym = page.getByRole('group', { name: 'Did you mean' });
     await expect(dym).toBeVisible();
     await expect(page.getByText('worth the journey')).toBeVisible();
@@ -131,15 +157,16 @@ test.describe('header search', () => {
     await expect(page.getByRole('option').first()).toHaveAttribute('href', /^\/trips\//);
   });
 
-  test('the other area reading replaces the chip (Banff or Banff National Park)', async ({ page, site }) => {
+  test('the other area reading replaces the chip (Auronzo in Veneto or in South Tyrol)', async ({ page, site }) => {
     const box = await openHeader(page, site);
-    await box.fill(Q1);
-    await page.getByRole('button', { name: /^Banff, Alberta/ }).click();
+    await box.fill('easy hike near Auronzo');
+    await page.getByRole('button', { name: /^Auronzo,/ }).first().click();
     const pop = page.getByRole('group', { name: 'Other readings' });
     await expect(pop).toBeVisible();
+    const before = await page.getByRole('option').first().getAttribute('href');
     await pop.getByRole('button').first().click();
-    await expect(page.getByRole('button', { name: /^Remove Banff National Park/ })).toBeVisible();
-    await expect(page.getByRole('option').first()).toHaveAttribute('href', /area=banff-national-park|area=banff/);
+    await expect(page.getByRole('option').first()).not.toHaveAttribute('href', before!);
+    await expect(page.getByRole('option').first()).toHaveAttribute('href', /area=auronzo/);
   });
 
   test('the cover search on the home page opens the same reading', async ({ page, site }) => {
@@ -151,38 +178,38 @@ test.describe('header search', () => {
 
   test('chip popover Esc closes the popover first and keeps the dialog', async ({ page, site }) => {
     const box = await openHeader(page, site);
-    await box.fill(Q1);
-    await page.getByRole('button', { name: /^Banff, Alberta/ }).click();
+    await box.fill('easy hike near Auronzo');
+    await page.getByRole('button', { name: /^Auronzo,/ }).first().click();
     await expect(page.getByRole('group', { name: 'Other readings' })).toBeVisible();
     await page.keyboard.press('Escape');
     await expect(page.getByRole('group', { name: 'Other readings' })).toHaveCount(0);
-    await expect(box).toHaveValue(Q1);
+    await expect(box).toHaveValue('easy hike near Auronzo');
   });
 });
 
 test.describe('the Places and Trips search boxes', () => {
   test('Places: Enter applies the reading, the undo line brings the words back, Esc does the same', async ({ page, site }) => {
     const box = await list(page, site, '/places/');
-    await box.fill(Q1);
+    await box.fill(QB);
     await expect(chips(page)).toBeVisible();
     await expect(page.getByText(/Enter.*shows/)).toBeVisible();
     await box.press('Enter');
     await expect(page).toHaveURL(/country=CA/);
-    expect(keys(page.url())).toEqual(Q1_KEYS);
+    expect(keys(page.url())).toEqual(QB_KEYS);
     const note = page.locator('.smart-undo');
-    await expect(note).toContainText(/as 5 filters/);
+    await expect(note).toContainText(/as 3 filters/);
     await expect(box).toHaveValue('');
     // undo with the button
     await note.getByRole('button', { name: /^Search the words instead|^Undo/ }).click();
-    await expect(box).toHaveValue(Q1);
-    expect(keys(page.url())).toEqual({ q: Q1 });
+    await expect(box).toHaveValue(QB);
+    expect(keys(page.url())).toEqual({ q: QB });
     // apply again and undo with Esc
     await box.press('Enter');
     await expect(page).toHaveURL(/country=CA/);
     await box.focus();
     await box.press('Escape');
-    await expect(box).toHaveValue(Q1);
-    expect(keys(page.url())).toEqual({ q: Q1 });
+    await expect(box).toHaveValue(QB);
+    expect(keys(page.url())).toEqual({ q: QB });
   });
 
   test('Places: Backspace at the start of the box removes the last chip before Enter', async ({ page, site }) => {
@@ -196,7 +223,7 @@ test.describe('the Places and Trips search boxes', () => {
     await expect(page).toHaveURL(/country=CA/);
     const k = keys(page.url());
     expect(k.season).toBeUndefined();
-    expect(Object.keys(k)).toHaveLength(6);
+    expect(Object.keys(k)).toHaveLength(5);
   });
 
   test('Places: "Not checked yet" holds the rows with no stroller answer, collapsed, and never inside the results (H1)', async ({ page, site }) => {
@@ -223,10 +250,18 @@ test.describe('the Places and Trips search boxes', () => {
     await expect(page.locator('.smart-undo')).toBeVisible();
   });
 
-  test('Places: an empty answer says so, names the chip that costs the most, and offers the words back', async ({ page, site }) => {
+  test('Places: a reading that gives nothing is relaxed, says what it relaxed, and the chip can be put back', async ({ page, site }) => {
     const box = await list(page, site, '/places/');
     await box.fill(Q1);
+    await expect(page.getByText(/Enter.*shows \d+ places? that match 3 of 4/)).toBeVisible();
     await box.press('Enter');
+    const relaxed = page.locator('.smart-relaxed');
+    await expect(relaxed).toContainText('No match for all 4; showing places that match 3');
+    await expect(page.getByRole('heading', { name: 'No places match all of this' })).toHaveCount(0);
+    expect(keys(page.url()).season).toBeUndefined();
+    // putting the chip back is the visitor's choice: the honest empty answer then returns
+    await tap(relaxed.getByRole('button', { name: 'put back September' }));
+    await expect(page).toHaveURL(/season=9/);
     await expect(page.getByRole('heading', { name: 'No places match all of this' })).toBeVisible();
     const words = page.getByRole('button', { name: 'Search the words instead' }).last();
     await tap(words);
@@ -262,7 +297,8 @@ test.describe('the Places and Trips search boxes', () => {
     await box.fill(QWATERFALL);
     await box.press('Enter');
     await expect(page.locator('.smart-undo')).toBeVisible();
-    await page.getByRole('button', { name: 'Remove filter Kind: Waterfalls and rapids' }).click();
+    // the Kind has its pill in the bar, so the pill is the one control for it
+    await page.getByRole('button', { name: 'Clear Kind filter' }).click();
     await expect(page.locator('.smart-row')).not.toHaveAttribute('data-open', '');
   });
 });
@@ -282,16 +318,23 @@ test.describe('review SQ1b: must-fixes', () => {
   });
 
   test('M2: values no row carries still read as names in the filter bar', async ({ page, site }) => {
-    const box = await list(page, site, '/places/');
-    await box.fill('hot springs in Iceland in winter');
-    await expect(chips(page)).toBeVisible();
-    await box.press('Enter');
-    await expect(page).toHaveURL(/season=12/);
+    // a link with a month no hot spring carries: the pills and chips name it, never its code (a parse would relax it away, 4.29)
+    await page.goto(`${site.url}/places/?k=water.thermal.hot_spring&country=IS&season=12&effort=easy`, { waitUntil: 'networkidle' });
     const bar = page.getByRole('list', { name: 'Active filters' });
-    await expect(bar).toContainText('Hot spring');
-    await expect(bar).toContainText('Season: Dec');
+    const buttons = page.getByRole('group', { name: 'Filters' });
+    if ((page.viewportSize()?.width ?? 0) >= 640) {
+      await expect(buttons).toContainText('Hot spring');
+      await expect(buttons).toContainText('Dec');
+    }
     await expect(bar).not.toContainText('water.thermal');
     await expect(bar).not.toContainText(/Season: \d/);
+    // the hot spring reading itself gives rows and is applied as it was read
+    const box = page.getByRole('searchbox', { name: 'Search places' });
+    await page.goto(`${site.url}/places/`, { waitUntil: 'networkidle' });
+    await box.fill('hot springs in Iceland');
+    await expect(chips(page)).toBeVisible();
+    await box.press('Enter');
+    await expect(page).toHaveURL(/k=water\.thermal\.hot_spring/);
   });
 
   test('M2 round 3: the facet buttons of the desktop bar read as names, after a parse and from a direct link', async ({ page, site }) => {
@@ -300,7 +343,8 @@ test.describe('review SQ1b: must-fixes', () => {
     await box.fill('hot springs in Iceland in winter');
     await expect(chips(page)).toBeVisible();
     await box.press('Enter');
-    await expect(page).toHaveURL(/season=12/);
+    // no hot spring is listed for winter, so the reading relaxes the month and says so; the buttons still read as names
+    await expect(page).toHaveURL(/k=water\.thermal\.hot_spring/);
     const buttons = page.getByRole('group', { name: 'Filters' });
     await expect(buttons).toContainText('Hot spring');
     await expect(buttons).not.toContainText('water.thermal');
@@ -386,7 +430,7 @@ test.describe('axe', () => {
     test(`header search with chips, a question and words not used (${theme})`, async ({ page, site }) => {
       await setTheme(page, theme);
       const box = await openHeader(page, site);
-      await box.fill('waterfalls worth the journey in Patagonia');
+      await box.fill('waterfalls worth the journey in Kancamagus');
       await expect(page.getByRole('group', { name: 'Did you mean' })).toBeVisible();
       await page.waitForTimeout(400);
       const r = await new AxeBuilder({ page }).analyze();

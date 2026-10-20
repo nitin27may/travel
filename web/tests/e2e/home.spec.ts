@@ -43,9 +43,11 @@ test.describe('home', () => {
     await page.getByRole('combobox').fill('family trail italy');
     const link = page.getByRole('option', { name: /^Show places/ });
     await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute('href', /^\/places\/\?(?=.*country=IT)(?=.*kid=yes)(?=.*k=nature\.trail)/);
+    await expect(link).toHaveAttribute('href', /^\/places\/\?(?=.*country=IT)(?=.*k=nature\.trail)/);
     await link.click();
-    await expect(page).toHaveURL(/\/places\/\?(?=.*country=IT)(?=.*kid=yes)/);
+    await expect(page).toHaveURL(/\/places\/\?(?=.*country=IT)(?=.*k=nature\.trail)/);
+    // "family" is a question until an age is picked: the Youngest child control is not filled with a guess (REVIEW4)
+    expect(page.url()).not.toContain('kid=');
   });
 
   test('no result message, and the header search works on another page', async ({ page, site }) => {

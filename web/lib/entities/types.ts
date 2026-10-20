@@ -177,6 +177,8 @@ export interface EntityDescriptor<Row> {
   defaultGroup: string;
   /** Sort values per sortable id (also the column ids that sort). */
   sorts: Record<string, { label: string; value: (row: Row) => string | number | null }>;
+  /** The sorts the "Sort by" menu offers (at most six, REVIEW4); the others stay sortable from their table column header. A sort chosen from a column still shows. */
+  sortMenu?: readonly string[];
   /** Comparator used when `sort` is empty. */
   defaultSort: (a: Row, b: Row) => number;
   defaultSortLabel: string;

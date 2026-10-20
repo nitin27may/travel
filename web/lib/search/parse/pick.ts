@@ -25,3 +25,10 @@ export function withoutChips(parsed: ParsedQuery, ids: readonly string[]): Parse
   const facets = mergeSets(chips);
   return { ...parsed, chips, facets, href: parsed.target === 'search' ? '' : hrefFor(parsed.target, facets, parsed.q) };
 }
+
+/** A chip put back into a reading (the "put back Kids" of a relaxed answer): the keys, the link and the order follow. */
+export function withChip(parsed: ParsedQuery, chip: Chip): ParsedQuery {
+  const chips = [...parsed.chips.filter((c) => c.id !== chip.id), chip].sort((a, b) => a.words[0] - b.words[0]);
+  const facets = mergeSets(chips);
+  return { ...parsed, chips, facets, href: parsed.target === 'search' ? '' : hrefFor(parsed.target, facets, parsed.q) };
+}

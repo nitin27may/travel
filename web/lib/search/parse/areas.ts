@@ -1,6 +1,7 @@
 // Place names for the parser (A1, A5, A6): areas, places and trips from the records the search already loads. No new list of places (P8).
 import { normalize } from '@/lib/search/normalize';
 import type { SearchRecord } from '@/lib/search/types';
+import { GENERIC_AREA_WORDS, RANGES } from './phrases';
 
 export interface Area {
   rec: SearchRecord;
@@ -22,6 +23,8 @@ export interface NameIndex {
   places: Map<string, SearchRecord[]>;
   trips: SearchRecord[];
   records: readonly SearchRecord[];
+  /** Every word of every name and match text in the records: a word of a query that is not here matches nothing. */
+  tokens: Set<string>;
 }
 
 const cache = new WeakMap<readonly SearchRecord[], NameIndex>();
@@ -41,10 +44,11 @@ const push = <T>(m: Map<string, T[]>, k: string, v: T): void => {
 export function indexNames(records: readonly SearchRecord[]): NameIndex {
   const hit = cache.get(records);
   if (hit) return hit;
-  const ix: NameIndex = { names: new Map(), areas: new Map(), list: [], byPath: new Map(), features: new Map(), places: new Map(), trips: [], records };
+  const ix: NameIndex = { names: new Map(), areas: new Map(), list: [], byPath: new Map(), features: new Map(), places: new Map(), trips: [], records, tokens: new Set() };
   for (const rec of records) {
     const norm = normalize(rec.n);
     if (!norm) continue;
+    for (const w of `${norm} ${normalize(rec.x)}`.split(' ')) if (w) ix.tokens.add(w);
     push(ix.names, norm, rec);
     if (rec.k === 'trip') ix.trips.push(rec);
     else if (rec.k === 'place') push(ix.places, norm, rec);
@@ -63,8 +67,16 @@ export function indexNames(records: readonly SearchRecord[]): NameIndex {
   return ix;
 }
 
+/** A range word read through the trips that carry it (RANGES): the area paths of their places. */
+export interface RangeHit {
+  name: string;
+  /** `cc/region/district` of every area the range's trips reach. */
+  paths: string[];
+}
+
 export type NameHit =
   | { kind: 'area'; area: Area; others: Area[] }
+  | { kind: 'range'; range: RangeHit }
   | { kind: 'place'; rec: SearchRecord }
   | { kind: 'feature'; rec: SearchRecord };
 
@@ -75,12 +87,14 @@ const byPlaces = (a: Area, b: Area) => b.places - a.places || a.path.length - b.
  * from catching an ordinary vocabulary word). One area wins by its place count and the rest are offered.
  */
 export function resolveName(ix: NameIndex, text: string, prefix: boolean): NameHit | null {
+  const range = resolveRange(ix, text);
   const exact = ix.areas.get(text);
   const near = prefix && text.length >= 4 ? ix.list.filter((a) => a.norm !== text && a.norm.startsWith(text)).sort(byPlaces) : [];
   if (exact?.length) {
     const [main, ...rest] = [...exact].sort(byPlaces);
     return { kind: 'area', area: main!, others: [...rest, ...near] };
   }
+  if (range) return { kind: 'range', range };
   const place = ix.places.get(text)?.[0];
   if (place) return { kind: 'place', rec: place };
   const feature = ix.features.get(text)?.[0];
@@ -110,4 +124,32 @@ export function areaLabel(ix: NameIndex, a: Area): string {
   if (a.path.length < 2) return a.rec.n;
   const parent = ix.byPath.get(a.path.slice(0, -1).join('/'));
   return parent ? `${a.rec.n}, ${parent.rec.n}` : a.rec.n;
+}
+
+const GENERIC = new Set(GENERIC_AREA_WORDS);
+
+/**
+ * The other areas of the same country and depth that carry this area's name, or are carried by it (smart-search 4.20): "Banff" and
+ * "Banff National Park", "Canmore" and "Canmore Area". It goes by whole words, and the shared name must hold a word that names a place:
+ * "Lake" or "National Park" alone never joins anything, so a generic word cannot widen a query to every park.
+ */
+export function relatedAreas(ix: NameIndex, a: Area): Area[] {
+  return ix.list.filter((b) => {
+    if (b === a || b.path[0] !== a.path[0] || b.path.length !== a.path.length || b.norm === a.norm) return false;
+    const [short, long] = a.norm.length < b.norm.length ? [a.norm, b.norm] : [b.norm, a.norm];
+    return ` ${long} `.includes(` ${short} `) && short.split(' ').some((w) => w.length > 2 && !GENERIC.has(w));
+  });
+}
+
+/** The range a typed phrase names, with the area paths of the trips that carry it. Null when it is no range or no trip carries it. */
+export function resolveRange(ix: NameIndex, text: string): RangeHit | null {
+  const key = Object.keys(RANGES).find((k) => RANGES[k]!.words.includes(text));
+  if (!key) return null;
+  const range = RANGES[key]!;
+  const paths = new Set<string>();
+  for (const t of ix.trips) {
+    const hay = ` ${normalize(`${t.n} ${t.x}`)} `;
+    if (t.ar && range.trips.some((w) => hay.includes(` ${w} `))) for (const p of t.ar) paths.add(p);
+  }
+  return paths.size ? { name: range.name, paths: [...paths].sort() } : null;
 }

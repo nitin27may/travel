@@ -38,7 +38,8 @@ describe('the 30 fixture queries (section 3)', () => {
   }
 
   it('the chips of query 1 are the ones the spec shows', () => {
-    expect(labels(p(fixtures[0]!.query)).sort()).toEqual(['Banff, Alberta', 'Easy with kids', 'Effort: Stroll, Easy', 'September', 'Trails and walks']);
+    // "with kids" is a question until an age is picked, so the Youngest child control is never filled with a made-up reading
+    expect(labels(p(fixtures[0]!.query)).sort()).toEqual(['Banff area, Alberta', 'Effort: Stroll, Easy', 'September', 'Trails and walks', 'With kids: how old is the youngest?']);
   });
 });
 
@@ -84,28 +85,33 @@ describe('ambiguity rules (section 5)', () => {
   });
 
   it('A5: an area tie picks the one with most places and offers the other', () => {
-    const got = p('hikes near Banff');
-    expect(got.facets.area).toEqual(['banff']);
-    expect(got.chips.find((c) => c.id === 'where')?.alternatives?.map((a) => a.label)).toEqual(['Banff National Park, Alberta']);
-    expect(got.didYouMean[0]!.href).toContain('area=banff-national-park');
+    const got = p('hikes near Auronzo');
+    expect(got.facets.area).toEqual(['auronzo']);
+    expect(got.chips.find((c) => c.id === 'where')?.alternatives?.map((a) => a.label)).toHaveLength(1);
+    expect(got.didYouMean[0]!.href).toContain('area=auronzo');
+    expect(got.didYouMean[0]!.href).not.toBe(got.href);
   });
 
   it('A5: a prefix of four letters finds the area, and a landform sets no area', () => {
     expect(p('hikes in Chamonix').facets.area).toEqual(['chamonix-valley']);
     const rockies = p('hikes in the Rocky Mountains');
-    expect(rockies.facets.area).toBeUndefined();
-    expect(rockies.unused).toContain('rocky mountains');
+    // a range is read through the places of the trips that name it (4.21), never as one admin area: the Rockies are a range of areas
+    expect(rockies.facets.area!.length).toBeGreaterThan(10);
+    expect(rockies.facets.region).toBeUndefined();
+    expect(rockies.chips.find((c) => c.id === 'where')!.label).toMatch(/^Rockies range \(\d+ areas\)$/);
+    expect(p('hikes on the Matterhorn').facets.area).toBeUndefined();
   });
 
   it('A5: a place we do not know is not applied, and what holds the word is offered', () => {
-    const got = p('waterfalls in Patagonia');
+    const got = p('waterfalls in Kancamagus');
     expect(got.facets).toEqual({ k: ['water.falls'] });
-    expect(got.unused).toContain('patagonia');
-    expect(got.didYouMean.some((d) => d.href === '/trips/patagonia-2027/')).toBe(true);
+    expect(got.unused).toContain('kancamagus');
+    expect(got.didYouMean.some((d) => d.href === '/trips/new-hampshire-stopover-2026/')).toBe(true);
   });
 
   it('A6: near a place uses the place\'s area; on trips an area below country stays text', () => {
-    expect(facetsOf('stroll near Lake Louise').area).toEqual(['banff-national-park']);
+    // Lake Louise is filed under Banff National Park, and the areas that carry the same name join it (4.20)
+    expect(facetsOf('stroll near Lake Louise').area).toEqual(['banff-national-park', 'banff']);
     const trip = p('road trip in Utah');
     expect(trip.facets).toEqual({ country: ['US'], shape: ['road-trip'] });
     expect(trip.q).toBe('utah');
@@ -133,7 +139,9 @@ describe('ambiguity rules (section 5)', () => {
   });
 
   it('A9: party words without an age', () => {
-    expect(facetsOf('hikes with kids').kid).toEqual(['yes']);
+    // the question sets nothing until an age is picked: the Youngest child pill is an age control, never "Easy with kids" (4.29)
+    expect(facetsOf('hikes with kids').kid).toBeUndefined();
+    expect(p('hikes with kids').chips.find((c) => c.ask)!.alternatives).toHaveLength(5);
     expect(facetsOf('toddler friendly hikes').kid).toEqual(['2']);
     expect(facetsOf('hikes with a baby').kid).toEqual(['0']);
     expect(facetsOf('hikes with a teen').kid).toEqual(['13']);
@@ -148,13 +156,15 @@ describe('ambiguity rules (section 5)', () => {
   });
 
   it('Q40 is one switch: another answer changes the kids-without-age behaviour and nothing else', () => {
-    const ask = p('hikes with kids', { decisions: { kidsWithoutAge: { places: 'ask', trips: 'ask' } } });
+    const yes = p('hikes with kids', { decisions: { kidsWithoutAge: { places: 'yes', trips: 'ask' } } });
+    expect(yes.facets.kid).toEqual(['yes']);
+    const ask = p('hikes with kids');
     expect(ask.facets.kid).toBeUndefined();
     expect(ask.chips.find((c) => c.ask)?.alternatives).toHaveLength(5);
     const none = p('weekend trip with kids', { decisions: { kidsWithoutAge: { places: 'yes', trips: 'none' } } });
     expect(none.chips.some((c) => c.ask)).toBe(false);
     expect(none.unused).toContain('kids');
-    expect(p('hikes with kids').facets.kid).toEqual(['yes']);
+    expect(p('hikes with kids').facets.kid).toBeUndefined();
   });
 
   it('A10: numbers map to bands, and the chip says when it rounded (H6)', () => {
@@ -227,12 +237,19 @@ describe('honesty (section 7)', () => {
     expect(p('worth the journey').facets).toEqual({});
   });
 
-  it('H3: a word with no filter is listed as not used and kept as text', () => {
+  it('H3: a word with no filter is listed as not used; kept as text only when something in the index carries it (4.21)', () => {
     const got = p('quiet hike in Banff');
     expect(got.unused).toEqual(['quiet']);
-    expect(got.q).toBe('quiet');
     expect(got.facets.q).toBeUndefined();
-    expect(got.href).toContain('q=quiet');
+    // a word the index has never seen never filters: "friendly" must not zero a query
+    expect(got.q).toBe('');
+    expect(got.href).not.toContain('q=');
+    const friendly = p('stroller friendly lake');
+    expect(friendly.unused).toContain('friendly');
+    expect(friendly.q).toBe('');
+    // a word that names something in the index still narrows by text
+    expect(p('hike with sunscreen').q).toBe('');
+    expect(p('hike with moraine').q).toBe('moraine');
   });
 
   it('a gap is never turned into a yes: a parsed constraint writes the filter, and the answer is checked by the list (gaps.test.ts)', () => {
