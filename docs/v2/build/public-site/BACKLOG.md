@@ -391,9 +391,9 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | Q67 | Who may sign in: invite only at first (recommended) or open | 20 Oct |
 | Q68 | Guest planning in memory with a share link before sign-in (same as Q59): yes (recommended) | 20 Oct |
 | Q69 | Household data (people, ages, passports, passes) private to the household, enforced by row-level security: yes (recommended) | 20 Oct |
-| Q70 | The repository is private, so a "Report a problem" issue link would 404 for visitors. Where do reports go? Recommended: a small public repo (for example `travel-feedback`) with an issue form, the page path prefilled; a form later with the server ([EXECUTION-PLAN.md](EXECUTION-PLAN.md) 18) | 20 Oct |
-| Q71 | Q44 is yes: which domain name, and register it through Cloudflare Registrar at cost? Recommended: yes, a short name the owner chooses | 20 Oct |
-| Q72 | May phase E start while the owner reviews R1 (the preview is a frozen build), with R1 fixes taking priority? Recommended: yes, it saves about 3 working days | 20 Oct |
+| Q70 | The repository is private, so a "Report a problem" issue link would 404 for visitors. Where do reports go? Recommended: a small public repo (for example `travel-feedback`) with an issue form, the page path prefilled; a form later with the server ([EXECUTION-PLAN.md](EXECUTION-PLAN.md) 18) | 20 Oct **Decided 20 Oct (owner): small public feedback repo with an issue form. Repo still to be created.** |
+| Q71 | Q44 is yes: which domain name, and register it through Cloudflare Registrar at cost? Recommended: yes, a short name the owner chooses | 20 Oct **Decided 20 Oct (owner): yes, register through Cloudflare Registrar at cost. The owner will give the name; still open until then.** |
+| Q72 | May phase E start while the owner reviews R1 (the preview is a frozen build), with R1 fixes taking priority? Recommended: yes, it saves about 3 working days | 20 Oct **Decided 20 Oct (owner): yes, start E during R1.** |
 
 ## Later: after go-live (planner and data)
 
