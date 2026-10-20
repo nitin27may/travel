@@ -8,8 +8,8 @@ A computed value is published only when it rests on known data: a gap is never a
 |---|---|---|---|---|---|---|---|
 | algonquin-muskoka-2026 | Kids from N | 4 | 10 | 10 | none | - | none |
 | algonquin-muskoka-2026 | Hike effort | easy | strenuous | strenuous | Track and Tower Trail (day 2, variant main, FE 4) | 0 | none |
-| canadian-rockies-2029 | Kids from N | 5 | none | 5 | none | - | 16 item(s) with no age or distance on record, e.g. Bear spray and groceries in Banff (day 1); Sunshine Village gondola and the meadow paths (day 2); Lake Minnewanka cruise (day 2); the scheduler's fit age 0 rests on them |
-| canadian-rockies-2029 | Hike effort | moderate | easy | moderate | Lake Louise Lakeshore (day 10, variant B, FE 2) | 10 | the known maximum (easy) is below the plan's word, so the plan's stands; 10 trail(s) in the family variants have no effort on record and are left out |
+| canadian-rockies-2029 | Kids from N | 5 | none | 5 | none | - | 14 item(s) with no age or distance on record, e.g. Bear spray and groceries in Banff (day 1); Sunshine Village gondola and the meadow paths (day 2); Lake Minnewanka cruise (day 2); the scheduler's fit age 0 rests on them |
+| canadian-rockies-2029 | Hike effort | moderate | easy | moderate | Toe of Athabasca Glacier (day 8, variant B, FE 2) | 5 | the known maximum (easy) is below the plan's word, so the plan's stands; 5 trail(s) in the family variants have no effort on record and are left out |
 | chamonix-mont-blanc-2028 | Kids from N | 10 | none | 10 | none | - | 3 item(s) with no age or distance on record, e.g. Montenvers train (day 4); Aiguille du Midi (day 5); Lac du Chatelard (day 6); the scheduler's fit age 6 rests on them |
 | chamonix-mont-blanc-2028 | Hike effort | moderate | moderate | moderate | Lac Blanc via Flegere (day 3, variant main, FE 3) | 0 | none |
 | dolomites-2027 | Kids from N | 8 | none | 10 | Lago di Sorapis | - | shown as the proven floor 10 (the plan says 8); 2 item(s) with no age or distance on record, e.g. Rifugio Scotoni (day 7); Rifugio Nuvolau and Averau (day 8); the scheduler's fit age 10 rests on them |

@@ -12,12 +12,9 @@ export interface DurationRule {
 }
 
 const T: [string, number][] = [
-  ["viewpoint.roadside", 15],
   ["viewpoint.short-walk", 30],
   ["lake.viewpoint", 45],
-  ["lake.shore", 90],
   ["waterfall.roadside", 20],
-  ["waterfall.walk", 15],
   ["sight.landmark", 45],
   ["sight.museum", 120],
   ["town.stroll", 90],
@@ -52,9 +49,6 @@ export const ACTIVE_BUDGET_MIN: Record<Pace, number> = { relaxed: 420, standard:
 export interface PaceRules {
   startMin: number;
   visitMultiplier: number;
-  bufferMin: number;
-  morningCoffee: boolean;
-  afternoonCoffee: boolean;
   capAdultsMin: number;
   capFamilyMin: number;
   capToddlerMin: number;
@@ -62,9 +56,9 @@ export interface PaceRules {
 }
 
 export const PACE_RULES: Record<Pace, PaceRules> = {
-  relaxed: { startMin: 8 * 60 + 30, visitMultiplier: 1.25, bufferMin: 20, morningCoffee: true, afternoonCoffee: true, capAdultsMin: 600, capFamilyMin: 540, capToddlerMin: 480, driveLimitMin: 180 },
-  standard: { startMin: 8 * 60, visitMultiplier: 1.0, bufferMin: 15, morningCoffee: false, afternoonCoffee: true, capAdultsMin: 690, capFamilyMin: 600, capToddlerMin: 540, driveLimitMin: 240 },
-  full: { startMin: 7 * 60, visitMultiplier: 0.85, bufferMin: 10, morningCoffee: false, afternoonCoffee: false, capAdultsMin: 780, capFamilyMin: 660, capToddlerMin: 570, driveLimitMin: 360 },
+  relaxed: { startMin: 8 * 60 + 30, visitMultiplier: 1.25, capAdultsMin: 600, capFamilyMin: 540, capToddlerMin: 480, driveLimitMin: 180 },
+  standard: { startMin: 8 * 60, visitMultiplier: 1.0, capAdultsMin: 690, capFamilyMin: 600, capToddlerMin: 540, driveLimitMin: 240 },
+  full: { startMin: 7 * 60, visitMultiplier: 0.85, capAdultsMin: 780, capFamilyMin: 660, capToddlerMin: 570, driveLimitMin: 360 },
 };
 
 export interface AgeRules {
@@ -72,20 +66,18 @@ export interface AgeRules {
   /** Default walk ceiling for one walk; null means none. */
   maxKm: number | null;
   maxGainM: number | null;
-  snackEveryMin: number | null;
   /** Highest family effort level (suitability 6.1 default by youngest age). */
   maxEffort: number;
 }
 
 /** The age bands of spec 2.4. A null youngest is an adult-only party. */
 export function ageRules(youngest: number | null): AgeRules {
-  if (youngest === null || youngest >= 13) return { trailMultiplier: 1.0, maxKm: null, maxGainM: null, snackEveryMin: null, maxEffort: youngest === null || youngest >= 16 ? 5 : 4 };
-  if (youngest <= 3) return { trailMultiplier: 1.3, maxKm: 8, maxGainM: 400, snackEveryMin: 120, maxEffort: 2 };
-  if (youngest <= 5) return { trailMultiplier: 1.8, maxKm: 4, maxGainM: 200, snackEveryMin: 120, maxEffort: 2 };
-  if (youngest <= 7) return { trailMultiplier: 1.6, maxKm: 6, maxGainM: 350, snackEveryMin: 150, maxEffort: 3 };
-  if (youngest <= 9) return { trailMultiplier: 1.35, maxKm: 9, maxGainM: 500, snackEveryMin: 150, maxEffort: 3 };
-  if (youngest <= 12) return { trailMultiplier: 1.15, maxKm: 12, maxGainM: 750, snackEveryMin: 180, maxEffort: 4 };
-  return { trailMultiplier: 1.0, maxKm: null, maxGainM: null, snackEveryMin: null, maxEffort: 4 };
+  if (youngest === null || youngest >= 13) return { trailMultiplier: 1.0, maxKm: null, maxGainM: null, maxEffort: youngest === null || youngest >= 16 ? 5 : 4 };
+  if (youngest <= 3) return { trailMultiplier: 1.3, maxKm: 8, maxGainM: 400, maxEffort: 2 };
+  if (youngest <= 5) return { trailMultiplier: 1.8, maxKm: 4, maxGainM: 200, maxEffort: 2 };
+  if (youngest <= 7) return { trailMultiplier: 1.6, maxKm: 6, maxGainM: 350, maxEffort: 3 };
+  if (youngest <= 9) return { trailMultiplier: 1.35, maxKm: 9, maxGainM: 500, maxEffort: 3 };
+  return { trailMultiplier: 1.15, maxKm: 12, maxGainM: 750, maxEffort: 4 };
 }
 
 /** The walk ceiling in force: the visitor's longest walk wins over the age band. */
@@ -136,7 +128,6 @@ export interface ResolvedDuration {
   minutes: number;
   source: "plan" | "data" | "operator" | "rule" | "pace";
   basis: string;
-  ruleId: string | null;
   /** True when the duration is a guess and the item carries "duration not known". */
   unknown: boolean;
 }
@@ -154,36 +145,20 @@ const fmt = (exact: number): string => {
 export const fmtHM = fmt;
 
 /** The rule id an item falls under when it has no duration of its own. */
+const SUB_RULE: Record<string, string> = {
+  viewpoint: "viewpoint.short-walk", lake: "lake.viewpoint", waterfall: "waterfall.roadside", town: "town.stroll", museum: "sight.museum",
+  "lift-ride": "lift.ride", "hot-spring": "hot-spring", "scenic-drive": "scenic-drive", boat: "boat.default", cruise: "boat.default", sight: "sight.landmark",
+};
 export function ruleIdFor(item: ScheduleItem): string {
   if (item.rule && DURATION_RULES[item.rule]) return item.rule;
   const sub = item.sub ?? "";
-  switch (item.kind) {
-    case "trail":
-      return "trail.naismith";
-    case "meal":
-      return sub === "breakfast" ? "meal.breakfast" : sub === "dinner" ? "meal.dinner" : sub === "sit-down" ? "meal.lunch.sit-down" : "meal.lunch.picnic";
-    case "break":
-      return DURATION_RULES[`break.${sub}`] ? `break.${sub}` : "break.snack";
-    case "checkin":
-      return "checkin";
-    case "checkout":
-      return "checkout";
-    case "rest":
-      return "break.snack";
-    default:
-  }
-  if (sub === "viewpoint") return "viewpoint.short-walk";
-  if (sub === "lake") return "lake.viewpoint";
-  if (sub === "waterfall") return "waterfall.roadside";
-  if (sub === "town") return "town.stroll";
-  if (sub === "museum") return "sight.museum";
-  if (sub === "lift-ride") return "lift.ride";
-  if (sub === "hot-spring") return "hot-spring";
-  if (sub === "scenic-drive") return "scenic-drive";
-  if (sub === "boat" || sub === "cruise") return "boat.default";
-  if (sub === "activity") return "activity.default";
-  if (sub === "sight") return "sight.landmark";
-  return "activity.default";
+  const k = item.kind;
+  if (k === "trail") return "trail.naismith";
+  if (k === "meal") return sub === "breakfast" ? "meal.breakfast" : sub === "dinner" ? "meal.dinner" : sub === "sit-down" ? "meal.lunch.sit-down" : "meal.lunch.picnic";
+  if (k === "break") return DURATION_RULES[`break.${sub}`] ? `break.${sub}` : "break.snack";
+  if (k === "checkin" || k === "checkout") return k;
+  if (k === "rest") return "break.snack";
+  return SUB_RULE[sub] ?? "activity.default";
 }
 
 /**
@@ -192,49 +167,38 @@ export function ruleIdFor(item: ScheduleItem): string {
  * never scaled (a booked 90 minute cruise is 90 minutes).
  */
 export function resolveDuration(item: ScheduleItem, p: Profile): ResolvedDuration {
-  const age = ageRules(p.party === "family" ? p.youngest : null);
   const pr = PACE_RULES[p.pace];
-  if (item.durationMin !== null && item.durationSource === "operator") {
-    return { minutes: item.durationMin, source: "operator", basis: `operator: ${fmt(item.durationMin)}`, ruleId: null, unknown: false };
-  }
+  const own = item.durationMin;
+  const src = item.durationSource === "plan" ? "plan" : "data";
+  const R = (minutes: number, source: ResolvedDuration["source"], basis: string, unknown = false): ResolvedDuration => ({ minutes, source, basis, unknown });
+  if (own !== null && item.durationSource === "operator") return R(own, "operator", `operator: ${fmt(own)}`);
   if (item.kind === "trail") {
-    const stats = item.stats;
+    const st = item.stats;
     let base: number | null = null;
     let basis = "";
     if (item.durationRange) {
       const [lo, hi] = item.durationRange;
       base = p.pace === "relaxed" ? hi : p.pace === "full" ? lo : Math.round((lo + hi) / 2);
       basis = `data ${fmt(lo)}-${fmt(hi)}, ${p.pace} = ${fmt(base)}`;
-    } else if (item.durationMin !== null) {
-      base = item.durationMin;
-      basis = `${item.durationSource === "plan" ? "plan" : "data"}: ${fmt(base)}`;
-    } else if (stats && stats.distanceKm !== null) {
-      base = naismithMin(stats.distanceKm, stats.gainM ?? 0);
+    } else if (own !== null) {
+      base = own;
+      basis = `${src}: ${fmt(base)}`;
+    } else if (st && st.distanceKm !== null) {
+      base = naismithMin(st.distanceKm, st.gainM ?? 0);
       basis = `rule: Naismith ${fmt(Math.round(base))}`;
     }
     if (base !== null) {
-      const mult = age.trailMultiplier;
-      const minutes = round5(base * mult);
-      return {
-        minutes,
-        source: item.durationRange || item.durationMin !== null ? (item.durationSource === "plan" ? "plan" : "data") : "rule",
-        basis: mult !== 1 ? `${basis}, x ${mult} for age ${p.youngest}` : basis,
-        ruleId: item.durationRange || item.durationMin !== null ? null : "trail.naismith",
-        unknown: false,
-      };
+      const mult = ageRules(p.party === "family" ? p.youngest : null).trailMultiplier;
+      return R(round5(base * mult), item.durationRange || own !== null ? src : "rule", mult !== 1 ? `${basis}, x ${mult} for age ${p.youngest}` : basis);
     }
   }
-  if (item.durationMin === 0) return { minutes: 0, source: "plan", basis: "a moment, not a duration", ruleId: null, unknown: false };
-  if (item.durationMin !== null) {
-    const src = item.durationSource === "plan" ? "plan" : "data";
+  if (own === 0) return R(0, "plan", "a moment, not a duration");
+  if (own !== null) {
     // data durations of visits follow the pace multiplier; the plan's own, meals, breaks and check-ins do not
-    const scale = item.kind === "visit" && src === "data" ? pr.visitMultiplier : 1;
-    const minutes = scale === 1 ? Math.max(5, Math.round(item.durationMin)) : round5(item.durationMin * scale);
-    return { minutes, source: src, basis: scale !== 1 ? `${src === "plan" ? "plan" : "data"} ${fmt(item.durationMin)}, ${p.pace} x ${scale}` : `${src === "plan" ? "plan" : "data"}: ${fmt(item.durationMin)}`, ruleId: null, unknown: false };
+    const k = item.kind === "visit" && src === "data" ? pr.visitMultiplier : 1;
+    return R(k === 1 ? Math.max(5, Math.round(own)) : round5(own * k), src, k !== 1 ? `${src} ${fmt(own)}, ${p.pace} x ${k}` : `${src}: ${fmt(own)}`);
   }
   const r = rule(ruleIdFor(item));
-  const scale = item.kind === "visit" ? pr.visitMultiplier : 1;
-  const minutes = scale === 1 ? r.minutes : round5(r.minutes * scale);
-  const known = r.id !== "activity.default" || item.sub === "activity" || item.rule === "activity.default";
-  return { minutes, source: "rule", basis: `rule: ${r.label} ${fmt(r.minutes)}${scale !== 1 ? ` x ${scale}` : ""}`, ruleId: r.id, unknown: !known };
+  const k = item.kind === "visit" ? pr.visitMultiplier : 1;
+  return R(k === 1 ? r.minutes : round5(r.minutes * k), "rule", `rule: ${r.label} ${fmt(r.minutes)}${k !== 1 ? ` x ${k}` : ""}`, r.id === "activity.default" && item.sub !== "activity" && item.rule !== "activity.default");
 }

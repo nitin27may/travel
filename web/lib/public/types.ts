@@ -457,3 +457,28 @@ export interface PublicData {
   globePaths(): string[][];
   legacyPlaceRedirects(): { from: string; to: string }[];
 }
+
+// TRP (stage 4)
+
+/** A day that crosses a time-zone line (the Rockies Day 6 at Mount Robson): the stops listed here read in local time, `offsetMin` from the trip's clock. */
+export interface DayZone {
+  /** Where the line is crossed: "Mount Robson". */
+  place: string;
+  /** "Pacific time", and its short form "PT". */
+  label: string;
+  abbr: string;
+  /** The clock the rest of the day reads on: "Mountain time", "MT". */
+  home: string;
+  homeAbbr: string;
+  offsetMin: number;
+  /** Schedule item ids that sit on the far side of the line. */
+  items: string[];
+}
+
+/** Declaration merge: the optional day marks TRP adds to PublicDay, so no other lane's lines change. */
+export interface PublicDay {
+  /** A time-zone line crossed during the day. Absent on most days. */
+  zone?: DayZone;
+  /** The day's last times depend on a flight whose time the plan does not know. */
+  flight?: boolean;
+}

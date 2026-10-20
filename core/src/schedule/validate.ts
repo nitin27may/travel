@@ -58,8 +58,6 @@ export function validateDay(t: DayTimeline, input: ScheduleDayInput, profile: Pr
       const limit = e.kind === "trail" ? sun.civilDusk.lo - 30 : sun.sunset.lo;
       if (endM(e) > limit && !e.optional) warn("W_DAYLIGHT", `Ends about ${fmtMin(endM(e))}; sunset can be ${fmtMin(sun.sunset.lo)} in this window.`, e, e.lane);
     }
-    // W_EARLY
-    if (timed && e.kind === "start" && m(e.start) < 360 && !e.time.pinned) warn("W_EARLY", `Starts ${e.start}, before 06:00.`, e, e.lane);
     // S_MIDNIGHT
     if (timed && m(e.start) + e.durationMin > 24 * 60 - 1 && e.kind !== "end") warn("S_MIDNIGHT", `${e.title} runs past midnight.`, e, e.lane);
     // W_CEILING: a trail in the party's lane over the walk ceiling
@@ -100,16 +98,16 @@ export function validateDay(t: DayTimeline, input: ScheduleDayInput, profile: Pr
   // W_PACE: active time on the party lane over the budget
   const budget = ACTIVE_BUDGET_MIN[profile.pace];
   if (timed && t.totals.activeMin > budget) {
-    warn("W_PACE", `Day ${t.day} has ${fmtHM(t.totals.activeMin)} of active time, over the ${profile.pace} budget of ${fmtHM(budget)}.`, null, "all");
+    warn("W_PACE", `${fmtHM(t.totals.activeMin)} of active time, over the ${profile.pace} budget of ${fmtHM(budget)}.`, null, "all");
   }
   // W_DRIVE_LIMIT
   if (timed && t.totals.driveMin > pr.driveLimitMin) {
-    warn("W_DRIVE_LIMIT", `Day ${t.day} drives ${fmtHM(t.totals.driveMin)}, over the ${fmtHM(pr.driveLimitMin)} limit for a ${profile.pace} day.`, null, "all");
+    warn("W_DRIVE_LIMIT", `Drives ${fmtHM(t.totals.driveMin)}, over the ${fmtHM(pr.driveLimitMin)} limit for a ${profile.pace} day.`, null, "all");
   }
   // S_HOME_BY
   const end = main.find((e) => e.kind === "end");
   if (end?.time.window?.why === "home by" && end.time.window.to && m(end.start) > m(end.time.window.to)) {
-    warn("S_HOME_BY", `Home ${end.start}, ${m(end.start) - m(end.time.window.to)} min after your home-by of ${end.time.window.to}.`, end, "all");
+    warn("S_HOME_BY", `Home ${end.start}, ${m(end.start) - m(end.time.window.to)} min after ${end.time.window.to}.`, end, "all");
   }
   // S_NO_FIT
   if (!t.fits) warn("S_NO_FIT", `No version of Day ${t.day} suits age ${profile.youngest ?? "this setting"}.`, null, "all");

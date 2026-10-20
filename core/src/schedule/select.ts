@@ -104,18 +104,13 @@ export function selectVariant(day: ScheduleDayInput, p: Profile, forced?: string
       firstWhy ??= f.reason;
       continue;
     }
-    let reason: string;
-    if (vs.length === 1) reason = "The plan's day";
-    else if (v.audience === "adults") reason = p.party === "adults" ? `${v.label}: the longest option for adults` : `${v.label}: fits age ${youngest}`;
-    else if (v.audience === "family") reason = `${v.label}: fits age ${youngest ?? 0}`;
-    else if (v.audience === "easy") reason = firstWhy ? `${v.label}: ${firstWhy}` : `${v.label}: the easiest option`;
-    else reason = `${v.label}: fits this setting`;
+    const why = v.audience === "easy" ? (firstWhy ?? "the easiest option") : v.audience === "any" ? "fits this setting" : p.party === "adults" && v.audience === "adults" ? "the longest option for adults" : `fits age ${youngest ?? 0}`;
+    const reason = vs.length === 1 ? "The plan's day" : `${v.label}: ${why}`;
     return { variant: v, parallel: parallelOf(v), fits: true, reason, chosenBy: "profile" };
   }
   // nothing fits: the lowest rank, flagged
   const low = [...vs].sort((a, b) => a.rank - b.rank)[0]!;
-  const f = variantFits(low, p);
-  return { variant: low, parallel: null, fits: false, reason: f.reason ?? "Does not suit this setting", chosenBy: "profile" };
+  return { variant: low, parallel: null, fits: false, reason: variantFits(low, p).reason ?? "", chosenBy: "profile" };
 }
 
 export { ageRules };

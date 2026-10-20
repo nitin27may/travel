@@ -2,13 +2,13 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { fmtHM } from '@travel/core/schedule/rules.ts';
-import type { DayTimeline as DayTimelineData, TimelineEntry } from '@travel/core/schedule/types.ts';
+import type { DayTimeline as DayTimelineData, Profile, ScheduleItem, TimelineEntry } from '@travel/core/schedule/types.ts';
 import { Button } from '@/components/ui/Button';
 import { useToast } from '@/components/ui/Toast';
 import { Chip } from '@/components/ui/Chip';
 import { DaySign } from '@/components/ui/DaySign';
-import { Icon } from '@/components/ui/Icon';
-import { VariantMenu } from './VariantMenu';
+import { Icon, type IconName } from '@/components/ui/Icon';
+import { VariantMenu, type MenuEntry } from './VariantMenu';
 import { Segmented } from '@/components/ui/Segmented';
 import { imageSrcSet, sizedImage } from '@/lib/format/image';
 import { usePrefs } from '@/lib/format/prefs';
@@ -19,6 +19,9 @@ import { chipsFor, honestyLabel } from './labels';
 import { diffTimelines } from '@travel/core/schedule/diff.ts';
 import type { AddCandidate, TimelineDayModel } from './model';
 import { Prose } from './Prose';
+import { variantLine, type VariantLine } from './consequence';
+import { flightEntries, localEntries, zoneNotes, zoneRun } from './marks';
+import type { Engine } from './useTimeline';
 import { dayReason, useTripSuit } from '@/components/suit/TripSuit';
 
 interface Props {
@@ -36,6 +39,28 @@ interface Props {
   onRemove: (key: string) => void;
   /** key of an added place for an added entry id */
   addedKeys: Map<string, string>;
+  /** What the add panel and the version menu work out costs from. */
+  engine: Engine | null;
+  loadEngine: () => void;
+  profile: Profile;
+  /** The version the visitor picked for this day, or null for the one the profile chose. */
+  override: string | null;
+  addedItems: ScheduleItem[];
+  /** Position among the days: the cross-fade staggers the first five. */
+  index: number;
+}
+
+/** "Sun 07:21 to 07:26, 20:16 to 20:21" from the day's light sentence: the phone header has room for the figures, not the sentence. */
+function sunShort(light: string | null): string | null {
+  const m = /Sunrise about (\d\d:\d\d) to (\d\d:\d\d), sunset about (\d\d:\d\d) to (\d\d:\d\d)/.exec(light ?? '');
+  return m ? `${m[1]}–${m[2]} · ${m[3]}–${m[4]}` : null;
+}
+
+/** The word beside a last start the data gives: a lift has a last ride, a boat a last rental. */
+function lastStart(item: ScheduleItem | undefined): string | null {
+  const t = item?.window?.lastUp;
+  if (!t) return null;
+  return `${item?.sub === 'lift-ride' ? 'Last ride up' : item?.sub === 'boat' ? 'Last rental' : 'Last start'} ${t}`;
 }
 
 const KNOW_VISIBLE = 3;
@@ -62,11 +87,13 @@ function DayLink({ day }: { day: number }) {
 }
 
 /** One day as a timeline (design 4): header, totals and warnings, the entries on a time rail, add to this day, Know before you go. */
-export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, onSplit, onVariant, onAdd, onRemove, addedKeys }: Props) {
+export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, onSplit, onVariant, onAdd, onRemove, addedKeys, engine, loadEngine, profile, override, addedItems, index }: Props) {
   const [prefs] = usePrefs();
   const suitCtx = useTripSuit();
   const [knowOpen, setKnowOpen] = useState(false);
   const [lane, setLane] = useState<string | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [moreSummary, setMoreSummary] = useState(false);
   // "moved 40 min later" after an addition, for one viewing: state adjusted while rendering, cleared by a timer
   const [snap, setSnap] = useState<{ tl: DayTimelineData; added: number; moved: Map<string, number>; gone: string[] }>({ tl, added: taken.length, moved: new Map(), gone: [] });
   // a link that arrives with additions in it is not an addition made now: the first moments after load show no "moved" notes
@@ -105,24 +132,38 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
   const know = [...(sel?.notes.know ?? []), ...day.know];
   const knowCount = know.reduce((n, g) => n + g.bullets.length, 0);
   const lead = sel?.notes.lead ?? null;
-  const entries = tl.entries;
+  // display only: a time-zone line and a flight change what the clock says, never the scheduled day
+  const entries = useMemo(() => localEntries(flightEntries(tl.entries, day.flight), day.zone), [tl.entries, day.flight, day.zone]);
+  const run = useMemo(() => (day.zone ? zoneRun(tl.entries, day.zone) : null), [tl.entries, day.zone]);
+  const items = useMemo(() => new Map(day.input.variants.flatMap((v) => v.items).map((i) => [i.id, i])), [day.input]);
+  const sun = sunShort(day.light);
   const noFit = tl.notes.find((n) => n.kind === 'no-fit');
   const splitOpt = tl.notes.find((n) => n.kind === 'split-option');
-  const menu = day.variants.map((v) => ({
+  // what each version would do to this day for this party, from the scheduler; worked out only while the menu is open
+  const lines = useMemo(() => {
+    const out = new Map<string, VariantLine>();
+    if (!menuOpen) return out;
+    out.set(tl.variant.key, variantLine(tl, prefs.distance));
+    if (engine) for (const v of day.variants) if (v.key !== tl.variant.key) out.set(v.key, variantLine(engine.scheduleDay(day.input, profile, { variant: v.key, added: addedItems }), prefs.distance));
+    return out;
+  }, [menuOpen, engine, tl, day.variants, day.input, profile, addedItems, prefs.distance]);
+  const menu: MenuEntry[] = day.variants.map((v) => ({
     label: `${v.label}${v.key === tl.variant.key ? (tl.variant.chosenBy === 'override' ? ' (picked)' : ' (chosen for your settings)') : ''}`,
+    detail: lines.get(v.key)?.line ?? null,
+    warn: lines.get(v.key)?.warn ?? null,
     onSelect: () => onVariant(v.key),
   }));
   if (tl.variant.chosenBy === 'override') menu.push({ label: 'Back to the version chosen for your settings', onSelect: () => onVariant(null) });
 
   return (
-    <li id={`day-${day.n}`} className="tl-day" data-picked={picked || undefined} data-changed={changed || undefined}>
+    <li id={`day-${day.n}`} className="tl-day" style={{ '--i': Math.min(index, 4) } as React.CSSProperties} data-picked={picked || undefined} data-changed={changed || undefined}>
       <header className="tl-day-head">
         <span className="tl-thumb" aria-hidden="true">
           {day.thumb ? (
             // eslint-disable-next-line @next/next/no-img-element -- static export, remote Commons URLs
             <img src={sizedImage(day.thumb.url, 192)} srcSet={imageSrcSet(day.thumb.url)} sizes="96px" alt="" width={192} height={136} loading="lazy" decoding="async" />
           ) : (
-            <Icon name="mountain" size={22} />
+            <Icon name={day.glyph as IconName} size={26} />
           )}
         </span>
         <div className="tl-day-main">
@@ -130,6 +171,22 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
             <DaySign n={day.n} state={picked ? 'focused' : 'quiet'} size="s" />
             {day.base ? <span className="tl-day-base num">{day.base}</span> : null}
             {tl.span.minutes > 0 && !tl.blocks ? <span className="tl-day-span num">{tl.span.start} to {tl.span.end}</span> : null}
+            {sun ? <span className="tl-day-sun num" title={day.light ?? undefined} aria-label={day.light ?? undefined}><Icon name="sun" size={13} /> {sun}</span> : null}
+            <span className="tl-day-chip" data-print="hide">
+              {day.variants.length > 1 ? (
+                <VariantMenu
+                  label={tl.variant.label}
+                  ariaLabel={`Version of Day ${day.n}: ${tl.variant.label}. ${reasonText}`}
+                  entries={menu}
+                  onOpenChange={(o) => { setMenuOpen(o); if (o) loadEngine(); }}
+                />
+              ) : null}
+              {changed ? (
+                <span className="tl-changed">
+                  Changed for this day · <button type="button" className="tl-reset" onClick={() => onVariant(null)}>Reset</button>
+                </span>
+              ) : null}
+            </span>
           </div>
           <h3 className="tl-day-title">{title}</h3>
           <p className="tl-day-totals num">
@@ -144,20 +201,6 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
           </p>
           {day.light ? <p className="tl-day-light num"><Icon name="sun" size={13} /> {day.light}</p> : null}
         </div>
-        <div className="tl-day-actions" data-print="hide">
-          {day.variants.length > 1 ? (
-            <VariantMenu
-              label={tl.variant.label}
-              ariaLabel={`Version of Day ${day.n}: ${tl.variant.label}. ${reasonText}`}
-              entries={menu}
-            />
-          ) : null}
-          {changed ? (
-            <span className="tl-changed">
-              Changed for this day · <button type="button" className="tl-reset" onClick={() => onVariant(null)}>Reset</button>
-            </span>
-          ) : null}
-        </div>
       </header>
 
       <div className="tl-day-body">
@@ -169,7 +212,12 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
             </span>
           </p>
         ) : null}
-        {day.summary && showSummary ? <p className="tl-summary"><Prose text={day.summary} /></p> : null}
+        {day.summary && showSummary ? (
+          <p className="tl-summary" data-open={moreSummary || undefined}>
+            <Prose text={day.summary} />{' '}
+            <button type="button" className="tl-reset tl-summary-more" aria-expanded={moreSummary} onClick={() => setMoreSummary((v) => !v)}>{moreSummary ? 'Show less' : 'Show all'}</button>
+          </p>
+        ) : null}
         {lead ? (
           <p className="tl-lead">
             <Prose text={lead.plain} /> {chipsFor(lead.plain, lead.chips).map((c) => <Chip key={c} kind="honest" icon={false}>{honestyLabel(c)}</Chip>)}
@@ -213,24 +261,27 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
               <span className="tl-lane-name" data-lane={tl.lanes[1]}>{`The stronger walkers: ${entries.find((e) => e.lane === tl.lanes[1] && e.kind === 'trail')?.title ?? 'a longer walk'}`}</span>
             </li>
           ) : null}
-          {entries.map((e: TimelineEntry) =>
+          {entries.map((e: TimelineEntry, i: number) => [
+            day.zone && run && i === run.from ? <ZoneRow key={`z-in-${day.n}`} text={zoneNotes(day.zone).enter} /> : null,
+            day.zone && run && i === run.back ? <ZoneRow key={`z-out-${day.n}`} text={zoneNotes(day.zone).back} /> : null,
             e.kind === 'leg' && !tl.blocks ? (
               <LegRow key={e.id} e={e} />
             ) : (
               <Entry
                 key={e.id}
                 entry={e}
+                last={lastStart(e.sourceItemId ? items.get(e.sourceItemId) : undefined)}
                 warnings={warnByEntry.get(e.id) ?? []}
                 moved={snap.moved.get(e.id) ?? null}
                 onRemove={e.addedBy === 'visitor' && addedKeys.has(e.id) ? () => onRemove(addedKeys.get(e.id)!) : undefined}
                 laneOff={split && e.lane !== 'all' && e.lane !== activeLane}
               />
             ),
-          )}
+          ])}
         </ol>
         {(tl.blocks ? tl.entries.length === 0 : tl.entries.length <= 2) ? <p className="tl-empty">No stops are planned for this day yet.</p> : null}
         {snap.gone.length ? <p className="tl-gone num" role="status">Left out now there is less room: {snap.gone.join(', ')}.</p> : null}
-        <AddToDay day={day.n} candidates={candidates} taken={taken} onAdd={onAdd} />
+        <AddToDay day={day.n} candidates={candidates} taken={taken} onAdd={onAdd} engine={engine} loadEngine={loadEngine} input={day.input} profile={profile} variant={override} added={addedItems} />
         <div className="tl-day-foot" data-print="hide">
           {knowCount > 0 ? (
             <button type="button" className="btn btn-sm btn-ghost tl-know-btn" aria-expanded={knowOpen} aria-controls={`know-${day.n}`} onClick={() => setKnowOpen((v) => !v)}>
@@ -247,6 +298,17 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
           </div>
         ) : null}
       </div>
+    </li>
+  );
+}
+
+/** The line where the clock changes: a row on the rail, between two entries, that is not an entry. */
+function ZoneRow({ text }: { text: string }) {
+  return (
+    <li className="tl-zone">
+      <span className="tl-time" aria-hidden="true" />
+      <span className="tl-node" aria-hidden="true" />
+      <p className="tl-zone-text"><Icon name="clock" size={14} /> <span>{text}</span></p>
     </li>
   );
 }

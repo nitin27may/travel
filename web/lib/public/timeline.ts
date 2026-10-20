@@ -12,6 +12,7 @@ import type {
 } from '@travel/core/schedule/types.ts';
 import { fmtMin } from '@travel/core/checks/time.ts';
 import { DropLog, undatedSentences } from './dateless';
+import { normName } from './places';
 import { dayKnow, noteBlock, noteLine, parseHoursRange, stripMarkers, type NoteBlock, type PrepareOpts } from './prose';
 import type { ProtoPlace, ProtoPubTrip, RockiesData, RockiesDay, Sources } from './sources';
 import type { DayItem, DayVariantInfo, PublicBase, PublicDay, TripSchedule } from './types';
@@ -52,6 +53,12 @@ export interface ScheduleDayFile {
   variants?: Partial<Record<'A' | 'B' | 'C', { label: string; audience: 'adults' | 'family' | 'easy' | 'any' }>>;
   /** For a departure day: be at the airport by this time. */
   arriveBy?: string;
+  /** TRP: the stops of this day that sit across a time-zone line. The clock after the line reads in local time. */
+  zone?: { place: string; label: string; abbr: string; home: string; homeAbbr: string; offsetMin: number; items: string[]; source: string };
+  /** TRP: the day's end depends on a flight whose time the plan does not know. `source` names the research it comes from. */
+  flight?: { source: string };
+  /** The research file or files an inserted pin or marker of this day comes from (not published). */
+  source?: string;
 }
 
 export interface ScheduleFile {
@@ -229,6 +236,7 @@ const trackRecordIds = (t: { trail_ids?: string[]; sight_ids?: string[]; adventu
 
 function rockiesVariant(
   key: 'A' | 'B' | 'C', day: RockiesDay, file: ScheduleFile, dayFile: ScheduleDayFile, R: RockiesData, where: string, log: DropLog, names: Map<string, string>,
+  linkOf: (name: string, trail: boolean) => string | null,
 ): DayVariant | null {
   const track = key === 'A' ? day.track_a : key === 'B' ? day.track_b : day.track_c;
   if (!track) return null;
@@ -245,6 +253,8 @@ function rockiesVariant(
     let base: ScheduleItem | null = rockiesItem(id, R, where, log);
     if (!base && inline?.kind) base = blankItem(id, inline.kind, inline.title ?? id);
     if (!base) continue;
+    // the page of the stop: the trip builder's kind-aware lookup, keyed by the record's own name (a trail stop its trail page, any other stop its place page)
+    base = { ...base, placeSlug: base.placeSlug ?? linkOf(base.title, base.kind === 'trail') };
     const titled = file.titles?.[id] ? { ...base, title: file.titles[id]! } : base;
     items.push(applyOverride(applyOverride(titled, dayFile.items?.[id], `${where} item ${id}`, log, names), inline, `${where} item ${id}`, log, names));
   }
@@ -363,6 +373,9 @@ export function attachTimeline(a: TimelineArgs): TripSchedule | null {
     const itin = R.itinerary.days;
     const names = new Map<string, string>();
     for (const rows of [R.trails, R.sights, R.adventures]) for (const r of rows) names.set(String(r.id), file.titles?.[String(r.id)] ?? String(r.name).replace(/\s*\(.*\)\s*$/, ''));
+    const links = new Map<string, string>();
+    for (const pd of a.days) for (const t of pd.tracks ?? []) for (const it of t.items) if (it.placeSlug) links.set(`${normName(it.name)}|${it.kind === 'trail'}`, it.placeSlug);
+    const linkOf = (name: string, trail: boolean): string | null => links.get(`${normName(name)}|${trail}`) ?? null;
     a.days.forEach((d, idx) => {
       const rd = itin[idx]! as RockiesDayRow;
       const dayFile = file.days[String(rd.n)] ?? {};
@@ -370,7 +383,7 @@ export function attachTimeline(a: TimelineArgs): TripSchedule | null {
       const kind: DayKind = dayFile.kind ?? (idx === 0 ? 'arrival' : idx === itin.length - 1 ? 'departure' : prevId !== rd.base_id ? 'transfer' : 'normal');
       const startBase = kind === 'arrival' ? baseOf(file, rd.base_id) : baseOf(file, prevId);
       const nextBase = kind === 'transfer' ? baseOf(file, rd.base_id) : kind === 'departure' ? baseOf(file, 'calgary-airport') : null;
-      const variants = (['A', 'B', 'C'] as const).map((k) => rockiesVariant(k, rd, file, dayFile, R, `${where} day ${rd.n}`, a.log, names)).filter((v): v is DayVariant => v !== null);
+      const variants = (['A', 'B', 'C'] as const).map((k) => rockiesVariant(k, rd, file, dayFile, R, `${where} day ${rd.n}`, a.log, names, linkOf)).filter((v): v is DayVariant => v !== null);
       const sun = sunLine(startBase?.point ?? null, tz, window);
       // the track notes: one lead line and grouped bullets per version
       const prep = (what: string): PrepareOpts => ({ sun: sun.range, scrub: (x) => undatedSentences(x, `${where} day ${rd.n} ${what}`, a.log), names });
@@ -394,6 +407,11 @@ export function attachTimeline(a: TimelineArgs): TripSchedule | null {
       d.variants = variantInfos(variants, notes, titles);
       d.know = know;
       d.light = sun.text;
+      if (dayFile.zone) {
+        const { place, label, abbr, home, homeAbbr, offsetMin, items } = dayFile.zone;
+        d.zone = { place, label, abbr, home, homeAbbr, offsetMin, items };
+      }
+      if (dayFile.flight) d.flight = true;
       inputs.push(input);
     });
   } else if (a.kind === 'dolomites' && a.protoPlaces && a.protoDays && file) {

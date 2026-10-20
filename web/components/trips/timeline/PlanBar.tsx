@@ -9,10 +9,12 @@ interface Props {
   label: string;
   active: number | null;
   onPick: (n: number) => void;
+  /** "Edit": scroll to the selector and open it. */
+  onEdit: () => void;
 }
 
 /** Sticky under the header while the days scroll: the profile in a few words and a rail of day numbers (design 3.4). */
-export function PlanBar({ model, label, active, onPick }: Props) {
+export function PlanBar({ model, label, active, onPick, onEdit }: Props) {
   const rail = useRef<HTMLOListElement>(null);
   useEffect(() => {
     const el = rail.current?.querySelector<HTMLElement>('[data-active]');
@@ -22,7 +24,9 @@ export function PlanBar({ model, label, active, onPick }: Props) {
   }, [active]);
   return (
     <nav className="tl-planbar" aria-label="Days" data-print="hide">
-      <p className="tl-planbar-line num">{label}</p>
+      <p className="tl-planbar-line num">
+        <span className="tl-planbar-who">{label}</span> · <button type="button" className="tl-reset" onClick={onEdit}>Edit</button>
+      </p>
       <ol className="tl-rail-days" ref={rail}>
         {model.days.map((d) => (
           <li key={d.n}>
