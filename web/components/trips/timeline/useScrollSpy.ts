@@ -125,6 +125,8 @@ export function useScrollSpy<K extends string | number>(opts: Options<K>): Spy<K
     window.addEventListener('touchstart', release, { passive: true });
     window.addEventListener('keydown', release);
     schedule();
+    // a scroll made before this page hydrated sent no event we heard: settle it as one, so the URL still follows
+    if (window.scrollY > 0) onScroll();
     return () => {
       realign.disconnect();
       window.removeEventListener('wheel', release);
