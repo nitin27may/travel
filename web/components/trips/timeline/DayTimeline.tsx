@@ -215,7 +215,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
         {day.summary && showSummary ? (
           <p className="tl-summary" data-open={moreSummary || undefined}>
             <Prose text={day.summary} />{' '}
-            <button type="button" className="tl-reset tl-summary-more" aria-expanded={moreSummary} onClick={() => setMoreSummary((v) => !v)}>{moreSummary ? 'Less' : 'More'}</button>
+            <button type="button" className="tl-reset tl-summary-more" aria-expanded={moreSummary} onClick={() => setMoreSummary((v) => !v)}>{moreSummary ? 'Show less' : 'Show all'}</button>
           </p>
         ) : null}
         {lead ? (
@@ -305,7 +305,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
 /** The line where the clock changes: a row on the rail, between two entries, that is not an entry. */
 function ZoneRow({ text }: { text: string }) {
   return (
-    <li className="tl-zone" role="note">
+    <li className="tl-zone">
       <span className="tl-time" aria-hidden="true" />
       <span className="tl-node" aria-hidden="true" />
       <p className="tl-zone-text"><Icon name="clock" size={14} /> <span>{text}</span></p>
