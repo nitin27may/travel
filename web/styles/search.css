@@ -59,9 +59,9 @@
 .smart-hint { font: var(--t-label); color: var(--muted); }
 .smart-hint kbd { font-family: var(--font-mono); }
 @media (max-width: 639px) {
-  .qchip, .qchip-t { min-height: 36px; }
-  .qchip-x { width: 36px; }
-  .qc-pop button { min-height: 36px; }
+  .qchip, .qchip-t { min-height: 40px; }
+  .qchip-x { width: 40px; min-height: 40px; }
+  .qc-pop button { min-height: 40px; }
 }
 
 /* ---------- Not checked yet ---------- */
