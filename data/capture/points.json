@@ -14,11 +14,23 @@
       "coord_src": "osm",
       "point_source": "OSM way 282985047 Columbia Icefield Glacier Discovery Centre (the Ice Explorer check-in); agent checked, needs a person's check"
     },
+    "legacy/canadian-rockies-sept-2029/adventures/elk-rut": {
+      "lat": 51.17508,
+      "lon": -115.57208,
+      "coord_src": "osm",
+      "point_source": "OSM node 29546626 Banff (town, Q58337): the plan's Day 1 stop is the elk rut in Banff townsite, and Parks Canada's elk safety page says elk are seen 'in town'; the rut has no single viewing point; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe": {
       "lat": 51.43971,
       "lon": -116.5413,
       "coord_src": "osm",
       "point_source": "OSM node 9902888899 (amenity=boat_rental, Canoe Rental) at Emerald Lake; agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky": {
+      "lat": 52.86934,
+      "lon": -118.05812,
+      "coord_src": "osm",
+      "point_source": "OSM node 4925566921 Old Fort Point (viewpoint), one of the four best locations on the Parks Canada Jasper dark-sky page and the one nearest the plan's Day 7 evening at Lake Annette (our choice among the four); read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram": {
       "lat": 52.85134,
@@ -97,6 +109,12 @@
       "lon": -115.13998,
       "coord_src": "osm",
       "point_source": "OSM node 269821248 North Interlakes (amenity=parking); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/kinney-lake": {
+      "lat": 53.04984,
+      "lon": -119.21545,
+      "coord_src": "osm",
+      "point_source": "OSM way 1185166549, the unnamed car park at the end of Kinney Lake Road where the Berg Lake Trail (relation 6035635, way 157610634) begins 125 m away; BC Parks names the start the Berg Lake trailhead; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop": {
       "lat": 52.72667,
