@@ -122,6 +122,10 @@ const HIDE_SOURCE_LAYERS = new Set(['poi', 'housenumber', 'aerodrome_label', 'tr
 const HIT_SOURCE_LAYERS = new Set(['waterway', 'water_name', 'mountain_peak', 'park', 'place']);
 const NONE = '\u0000';
 /** A shape round a pole has its edge on the tile limit; its outline would draw as a ring at 85 degrees, so only its fill shows. */
+/** The sea stops short of the tile limit in the south: Antarctica's polar ring is drawn with straight chords, and a sea box that reaches -85 shows through them as a faint ring (backlog 3.65). Below this the land colour is the background. */
+const SEA_SOUTH = -84.2;
+/** Latitude the south polar cap starts at: just inside the DEM's edge. */
+const POLE_CAP = -84.6;
 const NOT_POLAR = ['!=', ['get', 'polar'], true] as never;
 const ZERO_PAD = { top: 0, right: 0, bottom: 0, left: 0 };
 const WIDE_MAX = WIDE_ZOOM.max;
@@ -327,6 +331,13 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
         'hillshade-illumination-direction': 315, 'hillshade-illumination-anchor': 'map',
       },
     }, beforeId);
+    // The DEM ends at 85 degrees: hillshade beside the edge draws a faint ring round the pole (backlog 3.65). A land-coloured cap on top
+    // hides the last half degree of relief, where there is no data to shade anyway.
+    if (!map.getSource('polecap')) {
+      const cap = (w: number, e: number) => ({ type: 'Feature' as const, properties: {}, geometry: { type: 'Polygon' as const, coordinates: [[[w, -90], [e, -90], [e, POLE_CAP], [w, POLE_CAP], [w, -90]]] } });
+      map.addSource('polecap', { type: 'geojson', data: { type: 'FeatureCollection', features: [cap(-180, -90), cap(-90, 0), cap(0, 90), cap(90, 180)] } as never });
+    }
+    if (!map.getLayer('pole-cap')) map.addLayer({ id: 'pole-cap', type: 'fill', source: 'polecap', paint: { 'fill-color': scheme().land, 'fill-opacity': 1, 'fill-antialias': false } }, beforeId);
   }
 
   /** Relief grows in as the camera passes the terrain gate: five steps by zoom, so a fly-in ramps the exaggeration instead of popping it on (spec 5.3). */
@@ -375,10 +386,12 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     map.addSource('countries', { type: 'geojson', data: countriesData as never });
     // Our own land at the far zooms (the tiles carry none): the 110m or 50m countries in the land colour, fading out as the tiles' land background takes over.
     // The sea, as four boxes up to the Mercator limit (a box wider than 180 degrees is ambiguous on a globe): opaque to zoom 3, gone by 4.5.
-    const box = (w: number, e: number) => ({ type: 'Feature' as const, properties: {}, geometry: { type: 'Polygon' as const, coordinates: [[[w, -85.0511], [e, -85.0511], [e, 85.0511], [w, 85.0511], [w, -85.0511]]] } });
+    const box = (w: number, e: number) => ({ type: 'Feature' as const, properties: {}, geometry: { type: 'Polygon' as const, coordinates: [[[w, SEA_SOUTH], [e, SEA_SOUTH], [e, 85.0511], [w, 85.0511], [w, SEA_SOUTH]]] } });
     map.addSource('ocean', { type: 'geojson', data: { type: 'FeatureCollection', features: [box(-180, -90), box(-90, 0), box(0, 90), box(90, 180)] } as never });
     map.addLayer({ id: 'ocean-fill', type: 'fill', source: 'ocean', paint: { 'fill-color': scheme().water, 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 3, 1, 4.5, 0], 'fill-antialias': false } }, bottomId);
-    map.addLayer({ id: 'land-fill', type: 'fill', source: 'countries', paint: { 'fill-color': scheme().land, 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 3, 1, 4.5, 0], 'fill-antialias': true } }, bottomId);
+    map.addLayer({ id: 'land-fill', type: 'fill', source: 'countries', filter: NOT_POLAR, paint: { 'fill-color': scheme().land, 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 3, 1, 4.5, 0], 'fill-antialias': true } }, bottomId);
+    // A polar shape has its edge on the tile limit: an antialiased edge there is the faint ring (backlog 3.65), so it takes no outline.
+    map.addLayer({ id: 'land-fill-polar', type: 'fill', source: 'countries', filter: ['==', ['get', 'polar'], true] as never, paint: { 'fill-color': scheme().land, 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 3, 1, 4.5, 0], 'fill-antialias': false } }, bottomId);
     map.addLayer({ id: 'country-fill', type: 'fill', source: 'countries', paint: { 'fill-color': pal.accentSel, 'fill-opacity': ['case', sel('selected'), 0, sel('hover'), 0.35, 0] } }, firstWaterId);
 
     map.addSource('adm1', { type: 'geojson', data: admData.adm1 as never });
@@ -923,7 +936,9 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
         have?.marker.remove();
         const el = have?.el ?? document.createElement('div');
         if (s.className) el.className = s.className;
-        const marker = new ml.Marker({ element: el, opacityWhenCovered: '0', anchor: s.anchor ?? 'center', offset: s.offset ?? [0, 0] }).setLngLat([s.lng, s.lat]).addTo(map);
+        // MapLibre dims a marker the terrain covers; at pitch 55 over real terrain it judges a pin on a valley lake covered, so a deep link
+        // landed on a map with no pin and no card (review 4.26). Our markers stay opaque: the horizon is culled in cullMarkers().
+        const marker = new ml.Marker({ element: el, opacityWhenCovered: '1', anchor: s.anchor ?? 'center', offset: s.offset ?? [0, 0] }).setLngLat([s.lng, s.lat]).addTo(map);
         markers.set(id, { marker, el, sig });
         out.set(s.key, el);
       }

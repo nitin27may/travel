@@ -56,7 +56,9 @@ test.describe('trail whose route is not confirmed', () => {
   for (const url of [FANES, NUVOLAU]) {
     test(`${url}: dashed line label, no route in the export, and the reason`, async ({ page, site }) => {
       await page.goto(`${site.url}${url}`);
-      await expect(page.getByText('Route not confirmed yet', { exact: true }).first()).toBeVisible();
+      // the legend renders after hydration: wait for it, not for a fixed time (backlog 3.65)
+      await page.locator('[data-map-legend]').first().waitFor({ state: 'attached', timeout: 45_000 });
+      await expect(page.getByText('Route not confirmed yet', { exact: true }).first()).toBeVisible({ timeout: 30_000 });
       await expect(page.getByText(/Route line left out of the file: not confirmed yet/)).toBeVisible();
       await page.getByRole('button', { name: /Export/ }).click();
       await expect(page.getByRole('menuitem', { name: /GPX/ })).toBeVisible();
