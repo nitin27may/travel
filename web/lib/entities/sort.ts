@@ -23,11 +23,30 @@ function compareValues(a: string | number | null, b: string | number | null): nu
   return collator.compare(String(a), String(b));
 }
 
+/**
+ * The default order: the descriptor's own comparator, with the photo tie-break of backlog 3.56 when the descriptor names a tier.
+ * Inside a tier (a country) the rows that lead (have a photo) come first, and a tier with any leading row comes before a tier with none,
+ * so the first cards of the list carry a photo for the page's largest image. No row leaves its tier and none is hidden.
+ */
+export function defaultOrder<Row>(rows: readonly Row[], d: EntityDescriptor<Row>): Row[] {
+  const out = [...rows];
+  const t = d.defaultTier;
+  if (!t) return out.sort(d.defaultSort);
+  const leads = new Set<string>();
+  for (const r of rows) if (t.lead(r)) leads.add(t.tier(r));
+  return out.sort((a, b) => {
+    const ta = t.tier(a);
+    const tb = t.tier(b);
+    if (ta !== tb) return Number(!leads.has(ta)) - Number(!leads.has(tb)) || d.defaultSort(a, b);
+    return Number(!t.lead(a)) - Number(!t.lead(b)) || d.defaultSort(a, b);
+  });
+}
+
 /** Sorted copy. With no sort keys the descriptor's default order applies. */
 export function sortRows<Row>(rows: readonly Row[], state: ListState, d: EntityDescriptor<Row>): Row[] {
   const keys = parseSort(state.sort).filter((k) => d.sorts[k.id]);
   const out = [...rows];
-  if (!keys.length) return out.sort(d.defaultSort);
+  if (!keys.length) return defaultOrder(rows, d);
   return out.sort((a, b) => {
     for (const k of keys) {
       const get = d.sorts[k.id].value;

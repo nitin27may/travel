@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { ReactNode, RefObject } from 'react';
 import { useMediaQuery } from '@/components/entity/useMediaQuery';
-import { countList } from '@/lib/client/data';
+import { countListAsync } from '@/lib/client/data';
 import type { EntityDescriptor, ListState } from '@/lib/entities/types';
 import type { Applied } from '@/lib/search/applied';
 import { stillApplies, undoState } from '@/lib/search/applied';
@@ -46,12 +46,19 @@ export function SmartRow<Row>({ d, state, onState, searchRef, applied, onApplied
 
   useEffect(() => onReading(preview), [preview, onReading]);
   useEffect(() => () => onReading(null), [onReading]);
-  // what Enter would open: the reading merged into the filters already set
-  const count = useMemo(
-    () => (preview ? countList(d.type, { ...state, q: preview.q, facets: { ...state.facets, ...preview.facets } }) : null),
+  // what Enter would open: the reading merged into the filters already set. A scope of more than three row files stays uncounted
+  // ("Enter shows this reading in the list") rather than load the catalogue for a hint.
+  const [count, setCount] = useState<{ for: ParsedQuery; n: number; unchecked: number } | null>(null);
+  useEffect(() => {
+    if (!preview) return;
+    let alive = true;
+    void countListAsync(d.type, { ...state, q: preview.q, facets: { ...state.facets, ...preview.facets } }, 3).then((got) => alive && setCount(got ? { for: preview, ...got } : null));
+    return () => {
+      alive = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [preview, d.type],
-  );
+  }, [preview, d.type]);
+  const shownCount = preview && count?.for === preview ? count : null;
 
   // a reading the visitor has since changed by hand is no longer theirs to undo
   useEffect(() => {
@@ -119,7 +126,7 @@ export function SmartRow<Row>({ d, state, onState, searchRef, applied, onApplied
               <>Pick an age, or press <kbd>Enter</kbd> to choose one.</>
             ) : (
               <>
-                <kbd>Enter</kbd> shows {count ? `${count.n} ${count.n === 1 ? d.noun.one : d.noun.many}${count.unchecked ? ` \u00b7 ${count.unchecked} not checked yet` : ''}` : 'this reading in the list'}. <kbd>Esc</kbd> clears the box.
+                <kbd>Enter</kbd> shows {shownCount ? `${shownCount.n} ${shownCount.n === 1 ? d.noun.one : d.noun.many}${shownCount.unchecked ? ` \u00b7 ${shownCount.unchecked} not checked yet` : ''}` : 'this reading in the list'}. <kbd>Esc</kbd> clears the box.
               </>
             )}
           </p>

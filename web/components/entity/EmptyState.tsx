@@ -1,18 +1,20 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { EmptyState as EmptyBlock } from '@/components/ui/EmptyState';
 import { stillApplies, undoState } from '@/lib/search/applied';
 import type { Applied } from '@/lib/search/applied';
-import { relaxQuery } from '@/lib/client/data';
-import { activeFilters, filterRows } from '@/lib/entities/filter';
+import { countListAsync, relaxQuery } from '@/lib/client/data';
+import { activeFilters } from '@/lib/entities/filter';
 import type { EntityDescriptor, FacetParam, ListState } from '@/lib/entities/types';
-import { decodeState } from '@/lib/entities/url';
+import { decodeState, encodeState } from '@/lib/entities/url';
+import type { ActiveFilter } from '@/lib/entities/filter';
+import type { DidYouMean } from '@/lib/search/parse/types';
 
 interface Props<Row> {
   d: EntityDescriptor<Row>;
   state: ListState;
-  rows: readonly Row[];
   labelOf: (param: FacetParam, value: string) => string;
   /** A reading the search box applied (backlog 3.43): the empty answer then offers to drop the chip that costs the most. */
   applied?: Applied | null;
@@ -27,20 +29,43 @@ interface Props<Row> {
  * and keeps the most of what was asked, which is the removal that leaves the fewest rows. The bar's own "Clear all" stays the
  * only Clear all on the page; this block offers it only when no one change would help.
  */
-export function EmptyState<Row>({ d, state, rows, labelOf, applied, onApplied, uncheckedCount = 0, onState }: Props<Row>) {
+export function EmptyState<Row>({ d, state, labelOf, applied, onApplied, uncheckedCount = 0, onState }: Props<Row>) {
   const chips = activeFilters(state, d, labelOf);
-  const options = chips
-    .map((c) => ({ chip: c, n: filterRows(rows, c.without, d).length }))
-    .filter((o) => o.n > 0)
-    .sort((a, b) => a.n - b.n)
-    .slice(0, 3);
-  const withoutQuery = state.q.trim() ? filterRows(rows, { ...state, q: '' }, d).length : 0;
+  const live = applied && stillApplies(state, applied) ? applied : null;
+  // what each way out would bring back: counted from the list files of the wider scope, so it arrives a moment after the block
+  const [ways, setWays] = useState<{ key: string; options: { chip: ActiveFilter; n: number }[]; withoutQuery: number } | null>(null);
+  const [relaxState, setRelax] = useState<{ key: string; got: DidYouMean | null } | null>(null);
+  const key = encodeState(state);
+  useEffect(() => {
+    let alive = true;
+    void (async () => {
+      const counted = await Promise.all(activeFilters(state, d, labelOf).map(async (c) => ({ chip: c, n: (await countListAsync(d.type, c.without))?.n ?? 0 })));
+      const withoutQuery = state.q.trim() ? ((await countListAsync(d.type, { ...state, q: '' }))?.n ?? 0) : 0;
+      const options = counted.filter((o) => o.n > 0).sort((a, b) => a.n - b.n).slice(0, 3);
+      if (alive) setWays({ key, options, withoutQuery });
+    })();
+    return () => {
+      alive = false;
+    };
+    // `key` stands for `state`; the labels and descriptor do not change under a mounted block
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key, d]);
+  useEffect(() => {
+    if (!live) return;
+    let alive = true;
+    void relaxQuery(live.parsed).then((got) => alive && setRelax({ key, got }));
+    return () => {
+      alive = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key, live?.parsed]);
+  const options = ways?.key === key ? ways.options : [];
+  const withoutQuery = ways?.key === key ? ways.withoutQuery : 0;
   const nothingToFilter = !chips.length && !state.q.trim();
   const noun = (n: number) => (n === 1 ? d.noun.one : d.noun.many);
 
-  const live = applied && stillApplies(state, applied) ? applied : null;
   if (live) {
-    const relax = relaxQuery(live.parsed);
+    const relax = relaxState?.key === key ? relaxState.got : null;
     const kept = relax ? decodeState(relax.href.split('?')[1] ?? '').facets : null;
     const relaxed: ListState | null = kept
       ? { ...state, facets: Object.fromEntries(Object.entries(state.facets).filter(([k]) => !(k in live.parsed.facets) || k in kept)), focus: null }

@@ -17,7 +17,7 @@ export interface PhoneFilterProps<Row> {
   /** The facets under "More filters": one collapsed group below the primary ones. */
   more?: FacetDef<Row>[];
   counts: Record<string, FacetCount[]>;
-  shown: number;
+  shown: number | null;
   filtered: boolean;
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -63,7 +63,7 @@ export default function PhoneFilterSheet<Row>({ d, state, facets, more = [], cou
             Clear all
           </Button>
           <Button variant="primary" className="sheet-apply" onClick={() => onOpenChange(false)}>
-            Show {shown} {shown === 1 ? d.noun.one : d.noun.many}
+            {shown === null ? 'Counting\u2026' : `Show ${shown} ${shown === 1 ? d.noun.one : d.noun.many}`}
           </Button>
         </>
       }
