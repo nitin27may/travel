@@ -1,0 +1,527 @@
+{
+ "note": "Judged from the public place data before any ranker ran. Grade 2 = clearly asked for, 1 = partly. specId points at docs/v2/features/smart-search.md section 3.",
+ "queries": [
+  {
+   "id": 1,
+   "specId": 1,
+   "query": "easy hike with kids near Banff in September",
+   "relevant": {
+    "johnston-canyon-walk": 2,
+    "lake-louise-lakeshore": 2,
+    "moraine-lakeshore": 2,
+    "fenland-loop": 2,
+    "johnson-lake-loop": 2,
+    "moraine-lake-rockpile-loop": 2,
+    "johnston-canyon": 1,
+    "lake-agnes-tea-house": 1,
+    "larch-valley": 1,
+    "ink-pots-trail": 1,
+    "plain-of-six-glaciers-to-teahouse-and-abbot-pass-viewpoint": 1
+   },
+   "rationale": "Flat or short lakeshore and canyon walks in the Banff / Lake Louise area score 2; longer or steeper but doable walks score 1."
+  },
+  {
+   "id": 2,
+   "specId": 2,
+   "query": "waterfall I can reach with a stroller",
+   "relevant": {
+    "athabasca-falls": 2,
+    "sunwapta-falls": 2,
+    "takakkaw-falls": 2,
+    "godafoss": 2,
+    "gullfoss": 2,
+    "seljalandsfoss": 2,
+    "skogafoss": 2,
+    "elbow-falls": 2,
+    "montmorency-falls": 2,
+    "athabasca-falls-walk": 1,
+    "takakkaw-falls-walk": 1,
+    "wapta-falls-yoho": 1,
+    "wapta-falls": 1,
+    "johnston-canyon-lower-falls": 1,
+    "overlander-falls": 1,
+    "canyon-sainte-anne": 1,
+    "dettifoss": 1,
+    "troll-falls": 1,
+    "sentier-la-chute": 1,
+    "elbow-falls-loop": 1
+   },
+   "rationale": "Falls with a paved or very short, flat approach score 2 (their separate walk entry scores 1); short but rougher walks score 1. The data has no stroller field, so this rests on what the places are."
+  },
+  {
+   "id": 3,
+   "specId": 3,
+   "query": "lakes in Iceland",
+   "relevant": {
+    "jokulsarlon": 2
+   },
+   "rationale": "Only one Iceland place is typed Lake."
+  },
+  {
+   "id": 4,
+   "specId": 4,
+   "query": "hot springs in Iceland in winter",
+   "relevant": {
+    "myvatn-nature-baths": 2,
+    "geysir": 1,
+    "namaskard": 1
+   },
+   "rationale": "Myvatn Nature Baths is the soaking place; Geysir is geothermal but not a soak."
+  },
+  {
+   "id": 5,
+   "specId": 5,
+   "query": "via ferrata for a 12 year old in the Dolomites",
+   "relevant": {
+    "cinque-torri": 2,
+    "croda-del-becco": 1,
+    "sass-pordoi-and-piz-boe": 1,
+    "lago-di-sorapis": 1
+   },
+   "rationale": "Cinque Torri states a beginner via ferrata, 10+. The cabled routes are partial matches. The Banff via ferrata is in the wrong range."
+  },
+  {
+   "id": 6,
+   "specId": 6,
+   "query": "short walk under 3 km with a toddler",
+   "relevant": {
+    "wedge-pond-loop": 2,
+    "mount-lorette-ponds-loop": 2,
+    "elbow-falls-loop": 2,
+    "fenland-loop": 2,
+    "moraine-lake-rockpile-loop": 2,
+    "wedge-pond": 2,
+    "mount-lorette-ponds": 2,
+    "johnson-lake-loop": 1,
+    "lake-louise-lakeshore": 1,
+    "lago-di-dobbiaco-walk": 1,
+    "val-fiscalina": 1,
+    "vallunga": 1,
+    "parus-trail": 1,
+    "riverside-walk": 1,
+    "lago-di-dobbiaco": 1
+   },
+   "rationale": "Loops of about 1-2 km on flat ground score 2; flat but longer or one-way walks score 1."
+  },
+  {
+   "id": 7,
+   "specId": 7,
+   "query": "trails under 5 km near Jasper",
+   "relevant": {
+    "lake-annette-loop": 2,
+    "mary-schaffer-loop": 2,
+    "moose-lake-loop": 2,
+    "athabasca-falls-walk": 2,
+    "toe-of-athabasca-glacier": 2,
+    "miette-mine-trail": 1
+   },
+   "rationale": "Short Jasper-area loops and walks."
+  },
+  {
+   "id": 8,
+   "specId": 8,
+   "query": "half day hike in Zion",
+   "relevant": {
+    "narrows-from-the-temple-of-sinawava": 2,
+    "scout-lookout-angels-landing-chains-view": 2,
+    "riverside-walk": 1,
+    "parus-trail": 1,
+    "the-narrows": 1
+   },
+   "rationale": "The Narrows and Scout Lookout are half-day outings; the two easy valley paths are shorter."
+  },
+  {
+   "id": 9,
+   "specId": 9,
+   "query": "wheelchair accessible sights in Vermont",
+   "relevant": {
+    "stowe-recreation-path": 2,
+    "covered-bridge-loop": 1,
+    "smugglers-notch": 1,
+    "stowe": 1
+   },
+   "rationale": "The data has no accessibility field. A paved path scores 2; roadside sights score 1. Tests honesty about a gap more than ranking."
+  },
+  {
+   "id": 10,
+   "specId": 10,
+   "query": "viewpoint for sunset in the Dolomites",
+   "relevant": {
+    "lago-di-limides": 2,
+    "santa-maddalena-val-di-funes": 2,
+    "seceda-ridge": 1,
+    "cadini-di-misurina-viewpoint": 1,
+    "tre-cime-north-face-viewpoint-by-rifugio-locatelli": 1,
+    "passo-gardena": 1,
+    "dolomites": 1,
+    "lago-di-limides-walk": 1,
+    "rifugio-nuvolau-and-averau": 1
+   },
+   "rationale": "Places whose summary names sunset score 2; viewpoints and lakes with a west or open aspect score 1."
+  },
+  {
+   "id": 11,
+   "specId": 11,
+   "query": "hidden gems in Utah",
+   "relevant": {
+    "bentonite-hills": 2,
+    "factory-butte": 2,
+    "long-dong-silver-spire": 2,
+    "stansbury-island": 2,
+    "goblin-valley": 2,
+    "lower-calf-creek-falls": 2,
+    "kanarra-falls": 1,
+    "hickman-bridge": 1,
+    "fruita-orchards": 1
+   },
+   "rationale": "Remote or little-visited Utah places score 2; well-known but quieter ones score 1."
+  },
+  {
+   "id": 12,
+   "specId": 20,
+   "query": "rainy day things to do with kids in Banff",
+   "relevant": {
+    "cave-and-basin-national-historic-site": 2,
+    "banff-upper-hot-springs": 2,
+    "fairmont-banff-springs-spa": 1
+   },
+   "rationale": "Indoor or covered options only."
+  },
+  {
+   "id": 13,
+   "specId": 21,
+   "query": "free things to do near Lake Louise",
+   "relevant": {
+    "lake-louise": 2,
+    "lake-louise-lakeshore": 2,
+    "lake-agnes-tea-house": 2,
+    "plain-of-six-glaciers-to-teahouse-and-abbot-pass-viewpoint": 2,
+    "moraine-lake": 1,
+    "moraine-lakeshore": 1,
+    "moraine-lake-rockpile": 1,
+    "moraine-lake-rockpile-loop": 1,
+    "larch-valley": 1,
+    "mount-fairview": 1
+   },
+   "rationale": "Free walks and lakes score 2; Moraine Lake costs a shuttle and the Fairview and Larch Valley trails are further, so 1."
+  },
+  {
+   "id": 14,
+   "specId": 24,
+   "query": "stroll near Lake Louise",
+   "relevant": {
+    "lake-louise-lakeshore": 2,
+    "moraine-lakeshore": 2,
+    "moraine-lake-rockpile-loop": 1,
+    "lake-agnes-tea-house": 1,
+    "lake-louise": 1
+   },
+   "rationale": "Flat lakeshore walks."
+  },
+  {
+   "id": 15,
+   "specId": 25,
+   "query": "kid friendly waterfalls in Ontario",
+   "relevant": {
+    "ragged-falls": 2
+   },
+   "rationale": "Ragged Falls is the only Ontario waterfall."
+  },
+  {
+   "id": 16,
+   "specId": 27,
+   "query": "hard hikes in Chamonix in July",
+   "relevant": {
+    "lac-blanc-via-flegere": 2,
+    "plan-de-laiguille": 2,
+    "col-des-montets": 1
+   },
+   "rationale": "Steep Chamonix hikes score 2; the col walk is gentler."
+  },
+  {
+   "id": 17,
+   "specId": 29,
+   "query": "waterfalls worth the journey in Patagonia",
+   "relevant": {
+    "chorrillo-del-salto": 2
+   },
+   "rationale": "Only one waterfall in the Patagonia places."
+  },
+  {
+   "id": 18,
+   "specId": null,
+   "query": "white water rafting",
+   "relevant": {
+    "rafting-on-the-rienza": 2,
+    "kicking-horse-river-upper-section": 2,
+    "kicking-horse-river-lower-canyon": 2,
+    "kennecott-river-rafting-wrangell-st-elias": 2,
+    "kicking-horse-river": 1,
+    "bow-river-float-raft": 1,
+    "kananaskis-river": 1,
+    "rienza": 1
+   },
+   "rationale": "Rafting runs score 2; calm floats and the river entries score 1."
+  },
+  {
+   "id": 19,
+   "specId": null,
+   "query": "soak in hot springs",
+   "relevant": {
+    "banff-upper-hot-springs": 2,
+    "radium-hot-springs": 2,
+    "miette-hot-springs": 2,
+    "whiteswan-lake-and-lussier-hot-springs": 2,
+    "myvatn-nature-baths": 2,
+    "radium-hot-springs-pools": 1,
+    "ouray": 1,
+    "fairmont-banff-springs-spa": 1
+   },
+   "rationale": "Places where you bathe score 2; towns and spas with a hot-spring link score 1."
+  },
+  {
+   "id": 20,
+   "specId": null,
+   "query": "see a glacier up close",
+   "relevant": {
+    "athabasca-glacier-and-columbia-icefield": 2,
+    "toe-of-athabasca-glacier": 2,
+    "athabasca-glacier-guided-ice-walk": 2,
+    "jokulsarlon": 2,
+    "grotte-de-la-mer-de-glace": 2,
+    "perito-moreno-walkways": 2,
+    "plain-of-six-glaciers-to-teahouse-and-abbot-pass-viewpoint": 2,
+    "mount-edith-cavell-and-cavell-meadows": 2,
+    "columbia-icefield-skywalk": 1,
+    "diamond-beach": 1,
+    "montenvers-train": 1,
+    "parker-ridge": 1,
+    "wilcox-pass": 1,
+    "cavell-meadows": 1,
+    "snaefellsjokull-view": 1
+   },
+   "rationale": "Places that put you at a glacier score 2; glacier views from a distance score 1."
+  },
+  {
+   "id": 21,
+   "specId": null,
+   "query": "horseback riding",
+   "relevant": {
+    "banff-horseback-rides": 2,
+    "brewster-stables-lake-louise-horseback": 2,
+    "jasper-and-waterton-horseback-rides": 2
+   },
+   "rationale": "The three horse-ride entries."
+  },
+  {
+   "id": 22,
+   "specId": null,
+   "query": "scenic drive through the mountains",
+   "relevant": {
+    "icefields-parkway-scenic-drive": 2,
+    "highwood-pass-and-hwy-40-corridor": 2,
+    "million-dollar-highway": 2,
+    "zion-canyon-scenic-drive-by-shuttle": 2,
+    "smith-dorrien-spray-trail": 2,
+    "red-rock-parkway-and-red-rock-canyon": 1,
+    "waterton-red-rock-parkway": 1,
+    "vermilion-lakes-drive": 1,
+    "strada-per-il-rifugio-auronzo": 1
+   },
+   "rationale": "Mountain scenic drives score 2; short or valley drives score 1."
+  },
+  {
+   "id": 23,
+   "specId": null,
+   "query": "world war one history in the mountains",
+   "relevant": {
+    "cinque-torri": 2,
+    "monte-piana": 2,
+    "lagazuoi-cable-car-and-tunnels": 1,
+    "lagazuoi-tunnels": 1
+   },
+   "rationale": "The summaries name WWI open-air museums at Cinque Torri and Monte Piana; Lagazuoi has war tunnels."
+  },
+  {
+   "id": 24,
+   "specId": null,
+   "query": "dark sky stargazing",
+   "relevant": {
+    "jasper-dark-sky-preserve-stargazing": 2,
+    "sentier-des-cimes-parc-national-du-mont-megantic": 2
+   },
+   "rationale": "Places tagged or named dark sky."
+  },
+  {
+   "id": 25,
+   "specId": null,
+   "query": "black sand beach",
+   "relevant": {
+    "reynisfjara-beach": 2,
+    "djupalonssandur": 2,
+    "diamond-beach": 2
+   },
+   "rationale": "Black-sand beaches on the Iceland coast. The text never says black sand, so this needs world knowledge."
+  },
+  {
+   "id": 26,
+   "specId": null,
+   "query": "fall colours hike",
+   "relevant": {
+    "la-crete-trail-mont-sainte-anne": 2,
+    "mont-du-dome": 2,
+    "mont-saddle-and-montagne-de-marbre-loop": 2,
+    "sentier-des-cimes-parc-national-du-mont-megantic": 2,
+    "leperon": 2,
+    "le-buton-lookout-le-massif-de-charlevoix": 2,
+    "white-mountain-national-forest": 1,
+    "mount-rainier-national-park": 1,
+    "stowe": 1,
+    "larch-valley": 1,
+    "track-and-tower-trail": 1,
+    "covered-bridge-loop": 1,
+    "mont-xalibu": 1,
+    "larch-valley-to-sentinel-pass": 1
+   },
+   "rationale": "Trails tagged Fall colours score 2; places known for foliage score 1."
+  },
+  {
+   "id": 27,
+   "specId": null,
+   "query": "walk through a canyon",
+   "relevant": {
+    "johnston-canyon": 2,
+    "johnston-canyon-walk": 2,
+    "maligne-canyon": 2,
+    "marble-canyon": 2,
+    "marble-canyon-walk": 2,
+    "narrows-from-the-temple-of-sinawava": 2,
+    "the-narrows": 2,
+    "fjadrargljufur-canyon": 2,
+    "canyon-sainte-anne": 2,
+    "natural-bridge": 1,
+    "canyon-des-portes-de-lenfer": 1,
+    "kanarra-falls": 1,
+    "ink-pots": 1,
+    "ink-pots-trail": 1
+   },
+   "rationale": "Canyon walks score 2; canyon-adjacent or slot-canyon-with-permit entries score 1."
+  },
+  {
+   "id": 28,
+   "specId": null,
+   "query": "wildlife watching",
+   "relevant": {
+    "jasper-wildlife-tours": 2,
+    "elk-rut-viewing-and-bighorn-rut": 2,
+    "penguin-colony-stop": 2,
+    "laguna-nimez-birds": 2,
+    "bonaventure-island": 2,
+    "kicking-horse-mountain-resort-golden-eagle-express-gondola": 1,
+    "yellowstone-national-park": 1
+   },
+   "rationale": "Places or tours built around seeing animals."
+  },
+  {
+   "id": 29,
+   "specId": null,
+   "query": "mountain hut or tea house for lunch",
+   "relevant": {
+    "rifugio-nuvolau-and-averau": 2,
+    "rifugio-scotoni": 2,
+    "lake-agnes-tea-house": 2,
+    "adolf-munkel-weg": 1,
+    "plain-of-six-glaciers-to-teahouse-and-abbot-pass-viewpoint": 1,
+    "tre-cime-di-lavaredo-loop": 1
+   },
+   "rationale": "Huts and tea houses score 2; hikes whose summary names a lunch stop score 1."
+  },
+  {
+   "id": 30,
+   "specId": null,
+   "query": "cable car or gondola up a mountain",
+   "relevant": {
+    "banff-gondola": 2,
+    "lake-louise-summer-gondola": 2,
+    "lake-louise-sightseeing": 2,
+    "jasper-skytram": 2,
+    "aiguille-du-midi": 2,
+    "lagazuoi-cable-car-and-tunnels": 2,
+    "nakiska-summer-gondola-coaster": 2,
+    "kicking-horse-mountain-resort-golden-eagle-express-gondola": 2,
+    "sass-pordoi-and-piz-boe": 1,
+    "sulphur-mountain-switchback-trail-hike-up-gondola-down": 1,
+    "sulphur-mountain": 1,
+    "aiguille-du-midi-summit-terraces": 1
+   },
+   "rationale": "Lifts that take you up a mountain."
+  }
+ ],
+ "droppedSpecQueries": [
+  {
+   "specId": 12,
+   "query": "lake with toilets close to the parking",
+   "why": "Needs toilet and walk-from-car facts the public cards do not carry; unjudgeable from the data."
+  },
+  {
+   "specId": 13,
+   "query": "day trip from Toronto under 2 hours",
+   "why": "Trip query; the spike ranks the 353 places."
+  },
+  {
+   "specId": 14,
+   "query": "weekend trip with kids in October",
+   "why": "Trip query."
+  },
+  {
+   "specId": 15,
+   "query": "road trip in Utah with a 6 year old",
+   "why": "Trip query."
+  },
+  {
+   "specId": 16,
+   "query": "camper van trip in Iceland",
+   "why": "Trip query."
+  },
+  {
+   "specId": 17,
+   "query": "two week trip in summer",
+   "why": "Trip query."
+  },
+  {
+   "specId": 18,
+   "query": "long weekend in Vermont for the fall colours",
+   "why": "Trip query."
+  },
+  {
+   "specId": 19,
+   "query": "swimming beach with a lifeguard in Ontario",
+   "why": "No Ontario beach among the 353 places, and no lifeguard field."
+  },
+  {
+   "specId": 22,
+   "query": "gondola rides in Switzerland in June",
+   "why": "No Swiss gondola in the places (one dam). Replaced by own query 30."
+  },
+  {
+   "specId": 23,
+   "query": "moderate hike with 500 m climb",
+   "why": "Needs climb figures that most cards lack; unjudgeable."
+  },
+  {
+   "specId": 26,
+   "query": "Niagara Falls",
+   "why": "A name query, and Niagara is not among the 353 places."
+  },
+  {
+   "specId": 28,
+   "query": "dog friendly loop trail",
+   "why": "No dog field in the public data."
+  },
+  {
+   "specId": 30,
+   "query": "kayaking in Norway in August",
+   "why": "No Norway place."
+  }
+ ]
+}

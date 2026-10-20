@@ -1,0 +1,339 @@
+{
+ "chrome": "/home/nitin27may/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome",
+ "args": [
+  "--use-gl=angle",
+  "--use-angle=gl",
+  "--ignore-gpu-blocklist",
+  "--enable-gpu-rasterization",
+  "--enable-unsafe-webgpu",
+  "--enable-features=Vulkan"
+ ],
+ "runs": [
+  {
+   "cfg": {
+    "name": "wasm 1 thread, 1x CPU (desktop)",
+    "device": "wasm",
+    "throttle": 1,
+    "rounds": 3
+   },
+   "visits": [
+    {
+     "device": "wasm",
+     "iso": false,
+     "threads": 1,
+     "crossOriginIsolated": false,
+     "hardwareConcurrency": 20,
+     "webgpu": true,
+     "heapBefore": 4995503,
+     "loadMs": 749.8999999761581,
+     "firstQueryMs": 56.39999997615814,
+     "warm": {
+      "n": 90,
+      "p50": 12.100000023841858,
+      "p95": 26.69999998807907,
+      "max": 44.799999952316284,
+      "min": 6.5
+     },
+     "cardEmbedMsEach": 28.872000000476838,
+     "heapAfter": 44894649,
+     "parityMinCos": 0.9977144238907312,
+     "visit": "first (download)",
+     "transferredMB": 28.03,
+     "rssBeforeMB": 511,
+     "rssAfterMB": 740,
+     "rssExtraMB": 229
+    },
+    {
+     "device": "wasm",
+     "iso": false,
+     "threads": 1,
+     "crossOriginIsolated": false,
+     "hardwareConcurrency": 20,
+     "webgpu": true,
+     "heapBefore": 4972067,
+     "loadMs": 672.6999999880791,
+     "firstQueryMs": 83.40000003576279,
+     "warm": {
+      "n": 90,
+      "p50": 20.5,
+      "p95": 33.10000002384186,
+      "max": 40.19999998807907,
+      "min": 8.300000011920929
+     },
+     "cardEmbedMsEach": 44.9,
+     "heapAfter": 44717073,
+     "parityMinCos": 0.9977144238907312,
+     "visit": "return (cached)",
+     "transferredMB": 3.97,
+     "rssBeforeMB": 510,
+     "rssAfterMB": 740,
+     "rssExtraMB": 230
+    }
+   ],
+   "bytes_model_quantized.onnx": 23848857,
+   "bytes_ort-wasm-simd-threaded.wasm": 3696014
+  },
+  {
+   "cfg": {
+    "name": "wasm 1 thread, 4x CPU (phone proxy)",
+    "device": "wasm",
+    "throttle": 4,
+    "rounds": 3
+   },
+   "visits": [
+    {
+     "device": "wasm",
+     "iso": false,
+     "threads": 1,
+     "crossOriginIsolated": false,
+     "hardwareConcurrency": 20,
+     "webgpu": true,
+     "heapBefore": 4989527,
+     "loadMs": 2185.100000023842,
+     "firstQueryMs": 163.30000001192093,
+     "warm": {
+      "n": 90,
+      "p50": 38.30000001192093,
+      "p95": 54.89999997615814,
+      "max": 61,
+      "min": 18.399999976158142
+     },
+     "cardEmbedMsEach": 89.98399999976158,
+     "heapAfter": 10955313,
+     "parityMinCos": 0.9977144238907312,
+     "visit": "first (download)",
+     "transferredMB": 28.03,
+     "rssBeforeMB": 505,
+     "rssAfterMB": 705,
+     "rssExtraMB": 200
+    },
+    {
+     "device": "wasm",
+     "iso": false,
+     "threads": 1,
+     "crossOriginIsolated": false,
+     "hardwareConcurrency": 20,
+     "webgpu": true,
+     "heapBefore": 4982303,
+     "loadMs": 1684,
+     "firstQueryMs": 170.5,
+     "warm": {
+      "n": 90,
+      "p50": 37.39999997615814,
+      "p95": 53.5,
+      "max": 59.90000003576279,
+      "min": 24.30000001192093
+     },
+     "cardEmbedMsEach": 89.17600000023842,
+     "heapAfter": 10526517,
+     "parityMinCos": 0.9977144238907312,
+     "visit": "return (cached)",
+     "transferredMB": 3.97,
+     "rssBeforeMB": 532,
+     "rssAfterMB": 719,
+     "rssExtraMB": 187
+    }
+   ],
+   "bytes_model_quantized.onnx": 23848857,
+   "bytes_ort-wasm-simd-threaded.wasm": 3696014
+  },
+  {
+   "cfg": {
+    "name": "wasm 4 threads, 4x CPU (phone proxy, isolated page)",
+    "device": "wasm",
+    "throttle": 4,
+    "rounds": 3,
+    "iso": true,
+    "threads": 4
+   },
+   "visits": [
+    {
+     "device": "wasm",
+     "iso": true,
+     "threads": 4,
+     "crossOriginIsolated": true,
+     "hardwareConcurrency": 20,
+     "webgpu": true,
+     "heapBefore": 4637666,
+     "loadMs": 1670.1499999761581,
+     "firstQueryMs": 156.89000004529953,
+     "warm": {
+      "n": 90,
+      "p50": 19.790000021457672,
+      "p95": 30.5349999666214,
+      "max": 41.75,
+      "min": 12.444999992847443
+     },
+     "cardEmbedMsEach": 32.16009999990463,
+     "heapAfter": 45449485,
+     "parityMinCos": 0.9977144238907312,
+     "visit": "first (download)",
+     "transferredMB": 28.03,
+     "rssBeforeMB": 506,
+     "rssAfterMB": 752,
+     "rssExtraMB": 246
+    },
+    {
+     "device": "wasm",
+     "iso": true,
+     "threads": 4,
+     "crossOriginIsolated": true,
+     "hardwareConcurrency": 20,
+     "webgpu": true,
+     "heapBefore": 4622478,
+     "loadMs": 1449.614999949932,
+     "firstQueryMs": 151.39000004529953,
+     "warm": {
+      "n": 90,
+      "p50": 19.594999969005585,
+      "p95": 30.189999997615814,
+      "max": 36.360000014305115,
+      "min": 11.740000009536743
+     },
+     "cardEmbedMsEach": 32.204500000476834,
+     "heapAfter": 43058769,
+     "parityMinCos": 0.9977144238907312,
+     "visit": "return (cached)",
+     "transferredMB": 3.97,
+     "rssBeforeMB": 511,
+     "rssAfterMB": 749,
+     "rssExtraMB": 238
+    }
+   ],
+   "bytes_model_quantized.onnx": 23848985,
+   "bytes_ort-wasm-simd-threaded.wasm": 3696142
+  },
+  {
+   "cfg": {
+    "name": "webgpu, 1x CPU (desktop)",
+    "device": "webgpu",
+    "throttle": 1,
+    "rounds": 3
+   },
+   "visits": [
+    {
+     "device": "webgpu",
+     "iso": false,
+     "threads": 1,
+     "crossOriginIsolated": false,
+     "hardwareConcurrency": 20,
+     "webgpu": true,
+     "adapter": "intel gen-12hp",
+     "heapBefore": 4996004,
+     "loadMs": 2398.199999988079,
+     "firstQueryMs": 459.30000001192093,
+     "warm": {
+      "n": 90,
+      "p50": 167.89999997615814,
+      "p95": 190.29999995231628,
+      "max": 245.9000000357628,
+      "min": 138.80000001192093
+     },
+     "cardEmbedMsEach": 182.20799999952317,
+     "heapAfter": 10809866,
+     "parityMinCos": 0.9977578835019556,
+     "visit": "first (download)",
+     "transferredMB": 30.97,
+     "rssBeforeMB": 507,
+     "rssAfterMB": 814,
+     "rssExtraMB": 307
+    },
+    {
+     "device": "webgpu",
+     "iso": false,
+     "threads": 1,
+     "crossOriginIsolated": false,
+     "hardwareConcurrency": 20,
+     "webgpu": true,
+     "adapter": "intel gen-12hp",
+     "heapBefore": 5005408,
+     "loadMs": 1067.0999999642372,
+     "firstQueryMs": 354.9000000357628,
+     "warm": {
+      "n": 90,
+      "p50": 183.4000000357628,
+      "p95": 249.39999997615814,
+      "max": 271.19999998807907,
+      "min": 157.5
+     },
+     "cardEmbedMsEach": 241.85600000023842,
+     "heapAfter": 15946954,
+     "parityMinCos": 0.9977578835019556,
+     "visit": "return (cached)",
+     "transferredMB": 6.91,
+     "rssBeforeMB": 547,
+     "rssAfterMB": 823,
+     "rssExtraMB": 276
+    }
+   ],
+   "bytes_model_quantized.onnx": 23848857,
+   "bytes_ort-wasm-simd-threaded.asyncify.wasm": 6625246
+  },
+  {
+   "cfg": {
+    "name": "webgpu, 4x CPU (phone proxy)",
+    "device": "webgpu",
+    "throttle": 4,
+    "rounds": 3
+   },
+   "visits": [
+    {
+     "device": "webgpu",
+     "iso": false,
+     "threads": 1,
+     "crossOriginIsolated": false,
+     "hardwareConcurrency": 20,
+     "webgpu": true,
+     "adapter": "intel gen-12hp",
+     "heapBefore": 5023692,
+     "loadMs": 5304.699999988079,
+     "firstQueryMs": 593.4000000357628,
+     "warm": {
+      "n": 90,
+      "p50": 289.69999998807907,
+      "p95": 1190.699999988079,
+      "max": 2146.100000023842,
+      "min": 194.19999998807907
+     },
+     "cardEmbedMsEach": 424.9560000002384,
+     "heapAfter": 9759538,
+     "parityMinCos": 0.9977578835019556,
+     "visit": "first (download)",
+     "transferredMB": 30.97,
+     "rssBeforeMB": 511,
+     "rssAfterMB": 801,
+     "rssExtraMB": 290
+    },
+    {
+     "device": "webgpu",
+     "iso": false,
+     "threads": 1,
+     "crossOriginIsolated": false,
+     "hardwareConcurrency": 20,
+     "webgpu": true,
+     "adapter": "intel gen-12hp",
+     "heapBefore": 5024496,
+     "loadMs": 3309.300000011921,
+     "firstQueryMs": 552.8999999761581,
+     "warm": {
+      "n": 90,
+      "p50": 254,
+      "p95": 960.1999999880791,
+      "max": 1132,
+      "min": 202.70000004768372
+     },
+     "cardEmbedMsEach": 295.2420000004768,
+     "heapAfter": 15979718,
+     "parityMinCos": 0.9977578835019556,
+     "visit": "return (cached)",
+     "transferredMB": 6.91,
+     "rssBeforeMB": 541,
+     "rssAfterMB": 805,
+     "rssExtraMB": 264
+    }
+   ],
+   "bytes_model_quantized.onnx": 23848857,
+   "bytes_ort-wasm-simd-threaded.asyncify.wasm": 6625246
+  }
+ ]
+}

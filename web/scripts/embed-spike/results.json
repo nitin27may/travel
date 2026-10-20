@@ -1,0 +1,1472 @@
+{
+ "methods": {
+  "a": "parser alone (list)",
+  "af": "parser filters only",
+  "b": "full text (BM25)",
+  "c": "vectors",
+  "d": "hybrid RRF, hard filters",
+  "dsoft": "hybrid RRF, where/what pool",
+  "e": "hybrid RRF, no filters"
+ },
+ "rrfK": 60,
+ "bm25": {
+  "k1": 1.2,
+  "b": 0.75
+ },
+ "totals": {
+  "all": {
+   "n": 30,
+   "ndcg_a": 0.15405852143174428,
+   "recall_a": 0.13499999999999998,
+   "ndcg_af": 0.31990881584295633,
+   "recall_af": 0.2741931216931217,
+   "ndcg_b": 0.5237184646156083,
+   "recall_b": 0.5431349206349207,
+   "ndcg_c": 0.6235566497821885,
+   "recall_c": 0.6155291005291006,
+   "ndcg_d": 0.3378743660661982,
+   "recall_d": 0.2941931216931218,
+   "ndcg_dsoft": 0.5282258045791816,
+   "recall_dsoft": 0.5106746031746032,
+   "ndcg_e": 0.5873953427307318,
+   "recall_e": 0.6004761904761905
+  },
+  "withWords": {
+   "n": 11,
+   "ndcg_a": 0.09090909090909091,
+   "recall_a": 0.09090909090909091,
+   "ndcg_af": 0.5432280756669419,
+   "recall_af": 0.4705266955266955,
+   "ndcg_b": 0.7439419610434116,
+   "recall_b": 0.6822871572871573,
+   "ndcg_c": 0.8127356136784166,
+   "recall_c": 0.7446248196248196,
+   "ndcg_d": 0.6205224178092772,
+   "recall_d": 0.52507215007215,
+   "ndcg_dsoft": 0.6205224178092772,
+   "recall_dsoft": 0.52507215007215,
+   "ndcg_e": 0.7826226912885509,
+   "recall_e": 0.7313492063492064
+  },
+  "parsedFully": {
+   "n": 19,
+   "ndcg_a": 0.19061871805012254,
+   "recall_a": 0.16052631578947368,
+   "ndcg_af": 0.19061871805012254,
+   "recall_af": 0.16052631578947368,
+   "ndcg_b": 0.39622065089424846,
+   "recall_b": 0.4625730994152047,
+   "ndcg_c": 0.514031986473846,
+   "recall_c": 0.5407894736842106,
+   "ndcg_d": 0.17423602032020502,
+   "recall_d": 0.16052631578947368,
+   "ndcg_dsoft": 0.474790923235442,
+   "recall_dsoft": 0.5023391812865498,
+   "ndcg_e": 0.474368983039363,
+   "recall_e": 0.5247076023391813
+  }
+ },
+ "paired": {
+  "all": {
+   "d-a": {
+    "diff": 0.18381584463445388,
+    "lo": 0.06617653256270868,
+    "hi": 0.31220634144346693
+   },
+   "d-af": {
+    "diff": 0.01796555022324187,
+    "lo": -0.02241319807089838,
+    "hi": 0.07712421021465903
+   },
+   "dsoft-af": {
+    "diff": 0.2083169887362254,
+    "lo": 0.07663152982443172,
+    "hi": 0.34222650634832913
+   },
+   "e-b": {
+    "diff": 0.06367687811512364,
+    "lo": 0.010108872184091056,
+    "hi": 0.12028786256151859
+   },
+   "c-b": {
+    "diff": 0.0998381851665802,
+    "lo": 0.012642539876181835,
+    "hi": 0.20122184803820978
+   },
+   "e-c": {
+    "diff": -0.03616130705145655,
+    "lo": -0.10936454838149799,
+    "hi": 0.020816299628735605
+   },
+   "dsoft-b": {
+    "diff": 0.0045073399635733626,
+    "lo": -0.1014938767367465,
+    "hi": 0.10207962927987269
+   }
+  },
+  "withWords": {
+   "d-a": {
+    "diff": 0.5296133269001863,
+    "lo": 0.3029429237480948,
+    "hi": 0.7448249272074464
+   },
+   "d-af": {
+    "diff": 0.07729434214233541,
+    "lo": 0.0006177513174856284,
+    "hi": 0.21467582554207826
+   },
+   "dsoft-af": {
+    "diff": 0.07729434214233541,
+    "lo": 0.0006177513174856284,
+    "hi": 0.21467582554207826
+   },
+   "e-b": {
+    "diff": 0.038680730245139225,
+    "lo": -0.01487512972173158,
+    "hi": 0.11178430421948655
+   },
+   "c-b": {
+    "diff": 0.06879365263500505,
+    "lo": -0.07106656745566244,
+    "hi": 0.2509653166115869
+   },
+   "e-c": {
+    "diff": -0.030112922389865838,
+    "lo": -0.19651142838919142,
+    "hi": 0.08103001145159548
+   },
+   "dsoft-b": {
+    "diff": -0.12341954323413441,
+    "lo": -0.3322754465404266,
+    "hi": 0.04342493229826954
+   }
+  },
+  "parsedFully": {
+   "d-a": {
+    "diff": -0.016382697729917545,
+    "lo": -0.046671732191519176,
+    "hi": 0.005963020303413342
+   },
+   "d-af": {
+    "diff": -0.016382697729917545,
+    "lo": -0.046671732191519176,
+    "hi": 0.005963020303413342
+   },
+   "dsoft-af": {
+    "diff": 0.28417220518531955,
+    "lo": 0.09062511707356687,
+    "hi": 0.4674984647557815
+   },
+   "e-b": {
+    "diff": 0.07814833214511463,
+    "lo": 0.005373348262934975,
+    "hi": 0.15878416465060308
+   },
+   "c-b": {
+    "diff": 0.11781133557959739,
+    "lo": 0.01314933952961526,
+    "hi": 0.23987016111004858
+   },
+   "e-c": {
+    "diff": -0.03966300343448276,
+    "lo": -0.10196710980107258,
+    "hi": 0.012022583840303538
+   },
+   "dsoft-b": {
+    "diff": 0.07857027234119365,
+    "lo": -0.011117437429356853,
+    "hi": 0.1882513690712494
+   }
+  }
+ },
+ "rows": [
+  {
+   "id": 1,
+   "specId": 1,
+   "query": "easy hike with kids near Banff in September",
+   "relevant": 11,
+   "leftover": "",
+   "poolHard": 0,
+   "poolSoft": 17,
+   "chips": [
+    "Easy or a stroll",
+    "Trails and walks",
+    "With kids",
+    "Banff, Alberta",
+    "September"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 0,
+   "recall_b": 0,
+   "ndcg_c": 0.385885022369581,
+   "recall_c": 0.5,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 0.41246504225924924,
+   "recall_dsoft": 0.4,
+   "ndcg_e": 0.33650160785312566,
+   "recall_e": 0.3,
+   "top3_dsoft": [
+    "sulphur-mountain-switchback-trail-hike-up-gondola-down",
+    "mount-fairview",
+    "fenland-loop"
+   ],
+   "top3_c": [
+    "heli-hiking",
+    "sunshine-meadows-to-citadel-pass",
+    "mount-fairview"
+   ],
+   "top3_b": [
+    "sulphur-mountain-switchback-trail-hike-up-gondola-down",
+    "grassi-lakes-easy-route",
+    "burgess-shale-guided-hike-walcott-quarry"
+   ]
+  },
+  {
+   "id": 2,
+   "specId": 2,
+   "query": "waterfall I can reach with a stroller",
+   "relevant": 20,
+   "leftover": "",
+   "poolHard": 1,
+   "poolSoft": 20,
+   "chips": [
+    "Waterfalls and rapids",
+    "Any stroller"
+   ],
+   "notYet": [],
+   "ndcg_a": 0.22732300053290727,
+   "recall_a": 0.1,
+   "ndcg_af": 0.22732300053290727,
+   "recall_af": 0.1,
+   "ndcg_b": 0.39276061088034125,
+   "recall_b": 0.6,
+   "ndcg_c": 0.5100006360852932,
+   "recall_c": 0.7,
+   "ndcg_d": 0.22732300053290727,
+   "recall_d": 0.1,
+   "ndcg_dsoft": 0.5054659301499661,
+   "recall_dsoft": 0.6,
+   "ndcg_e": 0.5107757211693018,
+   "recall_e": 0.6,
+   "top3_dsoft": [
+    "wapta-falls-yoho",
+    "takakkaw-falls",
+    "grand-sault-waterfall"
+   ],
+   "top3_c": [
+    "overlander-falls",
+    "wapta-falls-yoho",
+    "kanarra-falls"
+   ],
+   "top3_b": [
+    "borgarfjordur-waterfalls",
+    "grand-sault-waterfall",
+    "canyon-sainte-anne"
+   ]
+  },
+  {
+   "id": 3,
+   "specId": 3,
+   "query": "lakes in Iceland",
+   "relevant": 1,
+   "leftover": "",
+   "poolHard": 1,
+   "poolSoft": 1,
+   "chips": [
+    "Lakes, rivers and coast",
+    "Iceland"
+   ],
+   "notYet": [],
+   "ndcg_a": 1,
+   "recall_a": 1,
+   "ndcg_af": 1,
+   "recall_af": 1,
+   "ndcg_b": 1,
+   "recall_b": 1,
+   "ndcg_c": 1,
+   "recall_c": 1,
+   "ndcg_d": 1,
+   "recall_d": 1,
+   "ndcg_dsoft": 1,
+   "recall_dsoft": 1,
+   "ndcg_e": 1,
+   "recall_e": 1,
+   "top3_dsoft": [
+    "jokulsarlon"
+   ],
+   "top3_c": [
+    "jokulsarlon",
+    "blue-lagoon-area-lava-fields",
+    "reynisfjara-beach"
+   ],
+   "top3_b": [
+    "jokulsarlon",
+    "dettifoss",
+    "djupalonssandur"
+   ]
+  },
+  {
+   "id": 4,
+   "specId": 4,
+   "query": "hot springs in Iceland in winter",
+   "relevant": 3,
+   "leftover": "",
+   "poolHard": 0,
+   "poolSoft": 0,
+   "chips": [
+    "Hot spring",
+    "Iceland",
+    "Winter, Dec to Feb"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 0,
+   "recall_b": 0,
+   "ndcg_c": 0.6387878864795979,
+   "recall_c": 0.3333333333333333,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 0.18465110945919566,
+   "recall_dsoft": 0.3333333333333333,
+   "ndcg_e": 0.18465110945919566,
+   "recall_e": 0.3333333333333333,
+   "top3_dsoft": [
+    "banff-upper-hot-springs",
+    "radium-hot-springs",
+    "radium-hot-springs-pools"
+   ],
+   "top3_c": [
+    "myvatn-nature-baths",
+    "banff-upper-hot-springs",
+    "blue-lagoon-area-lava-fields"
+   ],
+   "top3_b": [
+    "banff-upper-hot-springs",
+    "miette-hot-springs",
+    "radium-hot-springs-pools"
+   ]
+  },
+  {
+   "id": 5,
+   "specId": 5,
+   "query": "via ferrata for a 12 year old in the Dolomites",
+   "relevant": 4,
+   "leftover": "",
+   "poolHard": 0,
+   "poolSoft": 0,
+   "chips": [
+    "Via ferrata",
+    "Youngest child 12",
+    "Dolomites, South Tyrol"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 0.2807721888661444,
+   "recall_b": 0.25,
+   "ndcg_c": 0,
+   "recall_c": 0,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 0.17714752793103522,
+   "recall_dsoft": 0.25,
+   "ndcg_e": 0.17714752793103522,
+   "recall_e": 0.25,
+   "top3_dsoft": [
+    "dolomites",
+    "mount-norquay-via-ferrata",
+    "lago-di-dobbiaco-walk"
+   ],
+   "top3_c": [
+    "dolomites",
+    "rafting-on-the-rienza",
+    "lago-di-dobbiaco-walk"
+   ],
+   "top3_b": [
+    "mount-norquay-via-ferrata",
+    "dolomites",
+    "cinque-torri"
+   ]
+  },
+  {
+   "id": 6,
+   "specId": 6,
+   "query": "short walk under 3 km with a toddler",
+   "relevant": 15,
+   "leftover": "",
+   "poolHard": 16,
+   "poolSoft": 125,
+   "chips": [
+    "Trails and walks",
+    "Under 3 km",
+    "Toddler (age 2)"
+   ],
+   "notYet": [],
+   "ndcg_a": 0.3151147183262386,
+   "recall_a": 0.2,
+   "ndcg_af": 0.3151147183262386,
+   "recall_af": 0.2,
+   "ndcg_b": 0.24445218882151876,
+   "recall_b": 0.1,
+   "ndcg_c": 0.05263991364757944,
+   "recall_c": 0.1,
+   "ndcg_d": 0.16419170618909443,
+   "recall_d": 0.2,
+   "ndcg_dsoft": 0,
+   "recall_dsoft": 0,
+   "ndcg_e": 0,
+   "recall_e": 0,
+   "top3_dsoft": [
+    "sass-pordoi-and-piz-boe",
+    "dettifoss-walk",
+    "croda-del-becco"
+   ],
+   "top3_c": [
+    "croda-del-becco",
+    "sass-pordoi-and-piz-boe",
+    "dettifoss-walk"
+   ],
+   "top3_b": [
+    "mount-lorette-ponds",
+    "sass-pordoi-and-piz-boe",
+    "elbow-falls"
+   ]
+  },
+  {
+   "id": 7,
+   "specId": 7,
+   "query": "trails under 5 km near Jasper",
+   "relevant": 6,
+   "leftover": "",
+   "poolHard": 7,
+   "poolSoft": 14,
+   "chips": [
+    "Trails and walks",
+    "Up to 6 km (nearest band)",
+    "Jasper, Alberta"
+   ],
+   "notYet": [],
+   "ndcg_a": 0.9807748813038868,
+   "recall_a": 1,
+   "ndcg_af": 0.9807748813038868,
+   "recall_af": 1,
+   "ndcg_b": 0.17241452543849148,
+   "recall_b": 0.3333333333333333,
+   "ndcg_c": 0.4163580633627465,
+   "recall_c": 0.6666666666666666,
+   "ndcg_d": 0.7637779436901709,
+   "recall_d": 1,
+   "ndcg_dsoft": 0.26476031628046787,
+   "recall_dsoft": 0.5,
+   "ndcg_e": 0.26476031628046787,
+   "recall_e": 0.5,
+   "top3_dsoft": [
+    "skyline-trail",
+    "fryatt-valley",
+    "bald-hills"
+   ],
+   "top3_c": [
+    "skyline-trail",
+    "fryatt-valley",
+    "lake-annette-loop"
+   ],
+   "top3_b": [
+    "emerald-lake",
+    "skyline-trail",
+    "miette-mine-trail"
+   ]
+  },
+  {
+   "id": 8,
+   "specId": 8,
+   "query": "half day hike in Zion",
+   "relevant": 5,
+   "leftover": "",
+   "poolHard": 0,
+   "poolSoft": 4,
+   "chips": [
+    "Time: Half a day",
+    "Trails and walks",
+    "Zion, Utah"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 0.6199456492684677,
+   "recall_b": 1,
+   "ndcg_c": 0.7870947872920648,
+   "recall_c": 1,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 0.7912000321891398,
+   "recall_dsoft": 0.8,
+   "ndcg_e": 0.7742959688247153,
+   "recall_e": 1,
+   "top3_dsoft": [
+    "riverside-walk",
+    "narrows-from-the-temple-of-sinawava",
+    "parus-trail"
+   ],
+   "top3_c": [
+    "riverside-walk",
+    "zion-national-park",
+    "narrows-from-the-temple-of-sinawava"
+   ],
+   "top3_b": [
+    "zion-canyon-scenic-drive-by-shuttle",
+    "the-narrows",
+    "riverside-walk"
+   ]
+  },
+  {
+   "id": 9,
+   "specId": 9,
+   "query": "wheelchair accessible sights in Vermont",
+   "relevant": 4,
+   "leftover": "",
+   "poolHard": 0,
+   "poolSoft": 0,
+   "chips": [
+    "Step-free",
+    "Culture",
+    "Vermont, United States"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 0.6515235180333995,
+   "recall_b": 1,
+   "ndcg_c": 0.8963753390648908,
+   "recall_c": 1,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 0.8646067540880734,
+   "recall_dsoft": 1,
+   "ndcg_e": 0.8646067540880734,
+   "recall_e": 1,
+   "top3_dsoft": [
+    "smugglers-notch",
+    "stowe-recreation-path",
+    "burke-mountain-overlook"
+   ],
+   "top3_c": [
+    "covered-bridge-loop",
+    "stowe-recreation-path",
+    "smugglers-notch"
+   ],
+   "top3_b": [
+    "burke-mountain-overlook",
+    "smugglers-notch",
+    "stowe-recreation-path"
+   ]
+  },
+  {
+   "id": 10,
+   "specId": 10,
+   "query": "viewpoint for sunset in the Dolomites",
+   "relevant": 9,
+   "leftover": "",
+   "poolHard": 0,
+   "poolSoft": 0,
+   "chips": [
+    "Viewpoints",
+    "Best time of day: Sunset",
+    "Dolomites, South Tyrol"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 0.3657961033406942,
+   "recall_b": 0.4444444444444444,
+   "ndcg_c": 0.348916132689698,
+   "recall_c": 0.3333333333333333,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 0.4360472520809274,
+   "recall_dsoft": 0.4444444444444444,
+   "ndcg_e": 0.4360472520809274,
+   "recall_e": 0.4444444444444444,
+   "top3_dsoft": [
+    "dolomites",
+    "sunset-point",
+    "lago-di-dobbiaco-walk"
+   ],
+   "top3_c": [
+    "dolomites",
+    "sunset-point",
+    "lago-di-dobbiaco-walk"
+   ],
+   "top3_b": [
+    "dwight-beach-sunset",
+    "sunset-point",
+    "dolomites"
+   ]
+  },
+  {
+   "id": 11,
+   "specId": 11,
+   "query": "hidden gems in Utah",
+   "relevant": 9,
+   "leftover": "",
+   "poolHard": 31,
+   "poolSoft": 31,
+   "chips": [
+    "Utah, United States"
+   ],
+   "notYet": [
+    "hidden gem"
+   ],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 0.03824033292674776,
+   "recall_b": 0.1111111111111111,
+   "ndcg_c": 0,
+   "recall_c": 0,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 0,
+   "recall_dsoft": 0,
+   "ndcg_e": 0,
+   "recall_e": 0,
+   "top3_dsoft": [
+    "the-narrows",
+    "mesa-arch",
+    "narrows-from-the-temple-of-sinawava"
+   ],
+   "top3_c": [
+    "the-narrows",
+    "scout-lookout-angels-landing-chains-view",
+    "narrows-from-the-temple-of-sinawava"
+   ],
+   "top3_b": [
+    "the-narrows",
+    "devils-garden",
+    "mesa-arch"
+   ]
+  },
+  {
+   "id": 12,
+   "specId": 20,
+   "query": "rainy day things to do with kids in Banff",
+   "relevant": 3,
+   "leftover": "",
+   "poolHard": 0,
+   "poolSoft": 15,
+   "chips": [
+    "Indoor or rainy day",
+    "Things to do",
+    "With kids",
+    "Banff, Alberta"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 0.27190644728557356,
+   "recall_b": 0.6666666666666666,
+   "ndcg_c": 0.35443464350586107,
+   "recall_c": 0.6666666666666666,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 0.38031100187470157,
+   "recall_dsoft": 0.6666666666666666,
+   "ndcg_e": 0.38031100187470157,
+   "recall_e": 0.6666666666666666,
+   "top3_dsoft": [
+    "banff-gondola",
+    "banff-horseback-rides",
+    "banff-upper-hot-springs"
+   ],
+   "top3_c": [
+    "banff-horseback-rides",
+    "banff-gondola",
+    "banff-upper-hot-springs"
+   ],
+   "top3_b": [
+    "cadini-di-misurina-viewpoint",
+    "vallunga",
+    "passo-gardena"
+   ]
+  },
+  {
+   "id": 13,
+   "specId": 21,
+   "query": "free things to do near Lake Louise",
+   "relevant": 10,
+   "leftover": "",
+   "poolHard": 0,
+   "poolSoft": 0,
+   "chips": [
+    "Free",
+    "Things to do",
+    "Banff National Park, Alberta (near Lake Louise)"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 0.5167609377314976,
+   "recall_b": 0.4,
+   "ndcg_c": 0.5084998125860609,
+   "recall_c": 0.5,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 0.4153879266270306,
+   "recall_dsoft": 0.4,
+   "ndcg_e": 0.4153879266270306,
+   "recall_e": 0.4,
+   "top3_dsoft": [
+    "lake-louise-sightseeing",
+    "lake-louise-lakeshore",
+    "lake-louise"
+   ],
+   "top3_c": [
+    "lake-louise-sightseeing",
+    "lake-louise",
+    "lake-louise-lakeshore"
+   ],
+   "top3_b": [
+    "lake-louise-lakeshore",
+    "lake-louise-sightseeing",
+    "lake-louise"
+   ]
+  },
+  {
+   "id": 14,
+   "specId": 24,
+   "query": "stroll near Lake Louise",
+   "relevant": 5,
+   "leftover": "",
+   "poolHard": 0,
+   "poolSoft": 0,
+   "chips": [
+    "Trails and walks",
+    "Stroll",
+    "Banff National Park, Alberta (near Lake Louise)"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 0.545924373236733,
+   "recall_b": 0.4,
+   "ndcg_c": 0.5745154706993483,
+   "recall_c": 0.4,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 0.5745154706993483,
+   "recall_dsoft": 0.4,
+   "ndcg_e": 0.5745154706993483,
+   "recall_e": 0.4,
+   "top3_dsoft": [
+    "lake-louise-lakeshore",
+    "lake-louise",
+    "lake-louise-sightseeing"
+   ],
+   "top3_c": [
+    "lake-louise-lakeshore",
+    "lake-louise",
+    "lake-louise-summer-gondola"
+   ],
+   "top3_b": [
+    "lake-louise-lakeshore",
+    "lake-louise-sightseeing",
+    "lake-louise"
+   ]
+  },
+  {
+   "id": 15,
+   "specId": 25,
+   "query": "kid friendly waterfalls in Ontario",
+   "relevant": 1,
+   "leftover": "",
+   "poolHard": 0,
+   "poolSoft": 1,
+   "chips": [
+    "With kids",
+    "Waterfalls and rapids",
+    "Ontario, Canada"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 1,
+   "recall_b": 1,
+   "ndcg_c": 1,
+   "recall_c": 1,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 1,
+   "recall_dsoft": 1,
+   "ndcg_e": 1,
+   "recall_e": 1,
+   "top3_dsoft": [
+    "ragged-falls"
+   ],
+   "top3_c": [
+    "ragged-falls",
+    "sunwapta-falls",
+    "montmorency-falls"
+   ],
+   "top3_b": [
+    "ragged-falls",
+    "dorset-lookout-tower",
+    "dwight-beach-sunset"
+   ]
+  },
+  {
+   "id": 16,
+   "specId": 27,
+   "query": "hard hikes in Chamonix in July",
+   "relevant": 3,
+   "leftover": "",
+   "poolHard": 0,
+   "poolSoft": 3,
+   "chips": [
+    "Hard",
+    "Trails and walks",
+    "Chamonix Valley, Auvergne-Rhone-Alpes",
+    "July"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 0.08860866087646527,
+   "recall_b": 0.3333333333333333,
+   "ndcg_c": 0.8670870086853021,
+   "recall_c": 1,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 0.8670870086853021,
+   "recall_dsoft": 1,
+   "ndcg_e": 0.6608752889268064,
+   "recall_e": 1,
+   "top3_dsoft": [
+    "col-des-montets",
+    "lac-blanc-via-flegere",
+    "plan-de-laiguille"
+   ],
+   "top3_c": [
+    "col-des-montets",
+    "plan-de-laiguille",
+    "lac-blanc-via-flegere"
+   ],
+   "top3_b": [
+    "sulphur-mountain-switchback-trail-hike-up-gondola-down",
+    "croda-del-becco",
+    "burgess-shale-guided-hike-walcott-quarry"
+   ]
+  },
+  {
+   "id": 17,
+   "specId": 29,
+   "query": "waterfalls worth the journey in Patagonia",
+   "relevant": 1,
+   "leftover": "",
+   "poolHard": 20,
+   "poolSoft": 20,
+   "chips": [
+    "Waterfalls and rapids"
+   ],
+   "notYet": [
+    "worth the journey"
+   ],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 0,
+   "recall_b": 0,
+   "ndcg_c": 0,
+   "recall_c": 0,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 0,
+   "recall_dsoft": 0,
+   "ndcg_e": 0,
+   "recall_e": 0,
+   "top3_dsoft": [
+    "grand-sault-waterfall",
+    "takakkaw-falls",
+    "wapta-falls-yoho"
+   ],
+   "top3_c": [
+    "overlander-falls",
+    "grand-sault-waterfall",
+    "laguna-de-los-tres"
+   ],
+   "top3_b": [
+    "borgarfjordur-waterfalls",
+    "grand-sault-waterfall",
+    "canyon-sainte-anne"
+   ]
+  },
+  {
+   "id": 18,
+   "specId": null,
+   "query": "white water rafting",
+   "relevant": 8,
+   "leftover": "",
+   "poolHard": 2,
+   "poolSoft": 2,
+   "chips": [
+    "Rafting, floating and tubing"
+   ],
+   "notYet": [],
+   "ndcg_a": 0.3471734332508546,
+   "recall_a": 0.25,
+   "ndcg_af": 0.3471734332508546,
+   "recall_af": 0.25,
+   "ndcg_b": 0.43918987096175294,
+   "recall_b": 0.25,
+   "ndcg_c": 0.5573123991385173,
+   "recall_c": 0.375,
+   "ndcg_d": 0.40382212613328133,
+   "recall_d": 0.25,
+   "ndcg_dsoft": 0.40382212613328133,
+   "recall_dsoft": 0.25,
+   "ndcg_e": 0.5553380446517281,
+   "recall_e": 0.375,
+   "top3_dsoft": [
+    "rafting-on-the-rienza",
+    "bow-river-float-raft"
+   ],
+   "top3_c": [
+    "kennecott-river-rafting-wrangell-st-elias",
+    "bow-river-float-raft",
+    "rafting-on-the-rienza"
+   ],
+   "top3_b": [
+    "kennecott-river-rafting-wrangell-st-elias",
+    "crypt-lake-boat-shuttle",
+    "white-mountain-national-forest"
+   ]
+  },
+  {
+   "id": 19,
+   "specId": null,
+   "query": "soak in hot springs",
+   "relevant": 8,
+   "leftover": "soak",
+   "poolHard": 5,
+   "poolSoft": 5,
+   "chips": [
+    "Hot spring"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0.7919881425486945,
+   "recall_af": 0.625,
+   "ndcg_b": 0.8818496233930878,
+   "recall_b": 0.875,
+   "ndcg_c": 0.9337110363843132,
+   "recall_c": 0.875,
+   "ndcg_d": 0.7919881425486945,
+   "recall_d": 0.625,
+   "ndcg_dsoft": 0.7919881425486945,
+   "recall_dsoft": 0.625,
+   "ndcg_e": 0.8893047892425298,
+   "recall_e": 0.875,
+   "top3_dsoft": [
+    "banff-upper-hot-springs",
+    "miette-hot-springs",
+    "radium-hot-springs"
+   ],
+   "top3_c": [
+    "banff-upper-hot-springs",
+    "radium-hot-springs",
+    "whiteswan-lake-and-lussier-hot-springs"
+   ],
+   "top3_b": [
+    "banff-upper-hot-springs",
+    "miette-hot-springs",
+    "radium-hot-springs-pools"
+   ]
+  },
+  {
+   "id": 20,
+   "specId": null,
+   "query": "see a glacier up close",
+   "relevant": 15,
+   "leftover": "see up close",
+   "poolHard": 5,
+   "poolSoft": 5,
+   "chips": [
+    "Glacier and alpine"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0.14850605680246012,
+   "recall_af": 0.1,
+   "ndcg_b": 0.6710857691029759,
+   "recall_b": 0.5,
+   "ndcg_c": 0.7191164422767408,
+   "recall_c": 0.6,
+   "ndcg_d": 0.23537653116186522,
+   "recall_d": 0.1,
+   "ndcg_dsoft": 0.23537653116186522,
+   "recall_dsoft": 0.1,
+   "ndcg_e": 0.693998079674401,
+   "recall_e": 0.5,
+   "top3_dsoft": [
+    "athabasca-glacier-guided-ice-walk",
+    "heli-hiking",
+    "burgess-shale-guided-hike-mount-stephen-fossil-beds"
+   ],
+   "top3_c": [
+    "plain-of-six-glaciers-to-teahouse-and-abbot-pass-viewpoint",
+    "athabasca-glacier-guided-ice-walk",
+    "athabasca-glacier-and-columbia-icefield"
+   ],
+   "top3_b": [
+    "athabasca-glacier-guided-ice-walk",
+    "athabasca-glacier-and-columbia-icefield",
+    "mount-edith-cavell-and-cavell-meadows"
+   ]
+  },
+  {
+   "id": 21,
+   "specId": null,
+   "query": "horseback riding",
+   "relevant": 3,
+   "leftover": "horseback",
+   "poolHard": 3,
+   "poolSoft": 3,
+   "chips": [
+    "Riding"
+   ],
+   "notYet": [],
+   "ndcg_a": 1,
+   "recall_a": 1,
+   "ndcg_af": 1,
+   "recall_af": 1,
+   "ndcg_b": 1,
+   "recall_b": 1,
+   "ndcg_c": 1,
+   "recall_c": 1,
+   "ndcg_d": 1,
+   "recall_d": 1,
+   "ndcg_dsoft": 1,
+   "recall_dsoft": 1,
+   "ndcg_e": 1,
+   "recall_e": 1,
+   "top3_dsoft": [
+    "banff-horseback-rides",
+    "jasper-and-waterton-horseback-rides",
+    "brewster-stables-lake-louise-horseback"
+   ],
+   "top3_c": [
+    "banff-horseback-rides",
+    "jasper-and-waterton-horseback-rides",
+    "brewster-stables-lake-louise-horseback"
+   ],
+   "top3_b": [
+    "banff-horseback-rides",
+    "jasper-and-waterton-horseback-rides",
+    "brewster-stables-lake-louise-horseback"
+   ]
+  },
+  {
+   "id": 22,
+   "specId": null,
+   "query": "scenic drive through the mountains",
+   "relevant": 9,
+   "leftover": "through mountains",
+   "poolHard": 9,
+   "poolSoft": 9,
+   "chips": [
+    "Driving and vehicles"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0.8607032987947015,
+   "recall_af": 0.8888888888888888,
+   "ndcg_b": 0.8395285940825821,
+   "recall_b": 0.7777777777777778,
+   "ndcg_c": 0.9040103497751802,
+   "recall_c": 0.7777777777777778,
+   "ndcg_d": 0.8694462953177572,
+   "recall_d": 0.8888888888888888,
+   "ndcg_dsoft": 0.8694462953177572,
+   "recall_dsoft": 0.8888888888888888,
+   "ndcg_e": 0.9284061231191619,
+   "recall_e": 0.8888888888888888,
+   "top3_dsoft": [
+    "icefields-parkway-scenic-drive",
+    "zion-canyon-scenic-drive-by-shuttle",
+    "vermilion-lakes-drive"
+   ],
+   "top3_c": [
+    "million-dollar-highway",
+    "zion-canyon-scenic-drive-by-shuttle",
+    "icefields-parkway-scenic-drive"
+   ],
+   "top3_b": [
+    "million-dollar-highway",
+    "icefields-parkway-scenic-drive",
+    "zion-canyon-scenic-drive-by-shuttle"
+   ]
+  },
+  {
+   "id": 23,
+   "specId": null,
+   "query": "world war one history in the mountains",
+   "relevant": 4,
+   "leftover": "world war one history",
+   "poolHard": 353,
+   "poolSoft": 353,
+   "chips": [],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 0,
+   "recall_b": 0,
+   "ndcg_c": 0.7780158492147935,
+   "recall_c": 0.5,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 0,
+   "recall_dsoft": 0,
+   "ndcg_e": 0,
+   "recall_e": 0,
+   "top3_dsoft": [
+    "sulphur-mountain",
+    "sulphur-mountain-summit-boardwalk",
+    "million-dollar-highway"
+   ],
+   "top3_c": [
+    "monte-piana",
+    "cinque-torri",
+    "sulphur-mountain"
+   ],
+   "top3_b": [
+    "top-of-the-world-provincial-park",
+    "verona",
+    "rome"
+   ]
+  },
+  {
+   "id": 24,
+   "specId": null,
+   "query": "dark sky stargazing",
+   "relevant": 2,
+   "leftover": "dark sky",
+   "poolHard": 3,
+   "poolSoft": 3,
+   "chips": [
+    "Wildlife"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 1,
+   "recall_b": 1,
+   "ndcg_c": 0.7903864795495061,
+   "recall_c": 1,
+   "ndcg_d": 0,
+   "recall_d": 0,
+   "ndcg_dsoft": 0,
+   "recall_dsoft": 0,
+   "ndcg_e": 1,
+   "recall_e": 1,
+   "top3_dsoft": [
+    "elk-rut-viewing-and-bighorn-rut",
+    "penguin-colony-stop",
+    "jasper-wildlife-tours"
+   ],
+   "top3_c": [
+    "jasper-dark-sky-preserve-stargazing",
+    "evening-fitz-roy-glow",
+    "jasper-skytram"
+   ],
+   "top3_b": [
+    "jasper-dark-sky-preserve-stargazing",
+    "sentier-des-cimes-parc-national-du-mont-megantic"
+   ]
+  },
+  {
+   "id": 25,
+   "specId": null,
+   "query": "black sand beach",
+   "relevant": 3,
+   "leftover": "black sand",
+   "poolHard": 3,
+   "poolSoft": 3,
+   "chips": [
+    "Beaches, swimming and pools"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 1,
+   "recall_af": 1,
+   "ndcg_b": 1,
+   "recall_b": 1,
+   "ndcg_c": 0.9469024295259745,
+   "recall_c": 1,
+   "ndcg_d": 1,
+   "recall_d": 1,
+   "ndcg_dsoft": 1,
+   "recall_dsoft": 1,
+   "ndcg_e": 0.9674679834891693,
+   "recall_e": 1,
+   "top3_dsoft": [
+    "diamond-beach",
+    "reynisfjara-beach",
+    "djupalonssandur"
+   ],
+   "top3_c": [
+    "diamond-beach",
+    "reynisfjara-beach",
+    "dwight-beach-sunset"
+   ],
+   "top3_b": [
+    "diamond-beach",
+    "reynisfjara-beach",
+    "djupalonssandur"
+   ]
+  },
+  {
+   "id": 26,
+   "specId": null,
+   "query": "fall colours hike",
+   "relevant": 14,
+   "leftover": "",
+   "poolHard": 7,
+   "poolSoft": 125,
+   "chips": [
+    "Autumn, Sep to Nov",
+    "Trails and walks"
+   ],
+   "notYet": [],
+   "ndcg_a": 0.7513696095384411,
+   "recall_a": 0.5,
+   "ndcg_af": 0.7513696095384411,
+   "recall_af": 0.5,
+   "ndcg_b": 0.8998969593228929,
+   "recall_b": 0.9,
+   "ndcg_c": 0.8687006273965292,
+   "recall_c": 0.7,
+   "ndcg_d": 0.7513696095384411,
+   "recall_d": 0.5,
+   "ndcg_dsoft": 0.7435600430156813,
+   "recall_dsoft": 0.5,
+   "ndcg_e": 0.8777966872814409,
+   "recall_e": 0.7,
+   "top3_dsoft": [
+    "mont-du-dome",
+    "la-crete-trail-mont-sainte-anne",
+    "leperon"
+   ],
+   "top3_c": [
+    "mont-du-dome",
+    "la-crete-trail-mont-sainte-anne",
+    "le-buton-lookout-le-massif-de-charlevoix"
+   ],
+   "top3_b": [
+    "le-buton-lookout-le-massif-de-charlevoix",
+    "stowe",
+    "white-mountain-national-forest"
+   ]
+  },
+  {
+   "id": 27,
+   "specId": null,
+   "query": "walk through a canyon",
+   "relevant": 14,
+   "leftover": "through",
+   "poolHard": 134,
+   "poolSoft": 134,
+   "chips": [
+    "Trails and walks, Landforms"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0,
+   "recall_af": 0,
+   "ndcg_b": 0.6702525738522754,
+   "recall_b": 0.5,
+   "ndcg_c": 0.6245528097251325,
+   "recall_c": 0.5,
+   "ndcg_d": 0.7512266604370578,
+   "recall_d": 0.6,
+   "ndcg_dsoft": 0.7512266604370578,
+   "recall_dsoft": 0.6,
+   "ndcg_e": 0.7512266604370578,
+   "recall_e": 0.6,
+   "top3_dsoft": [
+    "johnston-canyon-walk",
+    "johnston-canyon",
+    "marble-canyon"
+   ],
+   "top3_c": [
+    "johnston-canyon",
+    "johnston-canyon-walk",
+    "the-narrows"
+   ],
+   "top3_b": [
+    "marble-canyon",
+    "johnston-canyon-walk",
+    "marble-canyon-walk"
+   ]
+  },
+  {
+   "id": 28,
+   "specId": null,
+   "query": "wildlife watching",
+   "relevant": 7,
+   "leftover": "watching",
+   "poolHard": 3,
+   "poolSoft": 3,
+   "chips": [
+    "Wildlife"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0.6470638720445796,
+   "recall_af": 0.42857142857142855,
+   "ndcg_b": 0.3795666369105402,
+   "recall_b": 0.2857142857142857,
+   "ndcg_c": 0.7434827146927965,
+   "recall_c": 0.5714285714285714,
+   "ndcg_d": 0.6470638720445796,
+   "recall_d": 0.42857142857142855,
+   "ndcg_dsoft": 0.6470638720445796,
+   "recall_dsoft": 0.42857142857142855,
+   "ndcg_e": 0.7396028866856729,
+   "recall_e": 0.7142857142857143,
+   "top3_dsoft": [
+    "jasper-wildlife-tours",
+    "elk-rut-viewing-and-bighorn-rut",
+    "penguin-colony-stop"
+   ],
+   "top3_c": [
+    "elk-rut-viewing-and-bighorn-rut",
+    "jasper-wildlife-tours",
+    "peyto-lake-lookout-banff"
+   ],
+   "top3_b": [
+    "jasper-wildlife-tours",
+    "cape-cod",
+    "yellowstone-national-park"
+   ]
+  },
+  {
+   "id": 29,
+   "specId": null,
+   "query": "mountain hut or tea house for lunch",
+   "relevant": 6,
+   "leftover": "tea house lunch",
+   "poolHard": 2,
+   "poolSoft": 2,
+   "chips": [
+    "Mountain huts"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0.6000923305194302,
+   "recall_af": 0.3333333333333333,
+   "ndcg_b": 0.8453889490914771,
+   "recall_b": 0.6666666666666666,
+   "ndcg_c": 0.8372447627813858,
+   "recall_c": 0.6666666666666666,
+   "ndcg_d": 0.6000923305194302,
+   "recall_d": 0.3333333333333333,
+   "ndcg_dsoft": 0.6000923305194302,
+   "recall_dsoft": 0.3333333333333333,
+   "ndcg_e": 0.8453889490914771,
+   "recall_e": 0.6666666666666666,
+   "top3_dsoft": [
+    "rifugio-scotoni",
+    "rifugio-nuvolau-and-averau"
+   ],
+   "top3_c": [
+    "lake-agnes-tea-house",
+    "rifugio-scotoni",
+    "rifugio-nuvolau-and-averau"
+   ],
+   "top3_b": [
+    "lake-agnes-tea-house",
+    "rifugio-scotoni",
+    "rifugio-nuvolau-and-averau"
+   ]
+  },
+  {
+   "id": 30,
+   "specId": null,
+   "query": "cable car or gondola up a mountain",
+   "relevant": 12,
+   "leftover": "up mountain",
+   "poolHard": 9,
+   "poolSoft": 9,
+   "chips": [
+    "Lifts and cable cars"
+   ],
+   "notYet": [],
+   "ndcg_a": 0,
+   "recall_a": 0,
+   "ndcg_af": 0.9271551316264937,
+   "recall_af": 0.8,
+   "ndcg_b": 0.8956894250445891,
+   "recall_b": 0.9,
+   "ndcg_c": 0.6626688765367602,
+   "recall_c": 0.7,
+   "ndcg_d": 0.9305527638726646,
+   "recall_d": 0.8,
+   "ndcg_dsoft": 0.9305527638726646,
+   "recall_dsoft": 0.8,
+   "ndcg_e": 0.7934541324345894,
+   "recall_e": 0.8,
+   "top3_dsoft": [
+    "lagazuoi-cable-car-and-tunnels",
+    "aiguille-du-midi",
+    "kicking-horse-mountain-resort-golden-eagle-express-gondola"
+   ],
+   "top3_c": [
+    "lagazuoi-cable-car-and-tunnels",
+    "alpe-di-siusi",
+    "sass-pordoi-and-piz-boe"
+   ],
+   "top3_b": [
+    "lagazuoi-cable-car-and-tunnels",
+    "aiguille-du-midi",
+    "kicking-horse-mountain-resort-golden-eagle-express-gondola"
+   ]
+  }
+ ]
+}
