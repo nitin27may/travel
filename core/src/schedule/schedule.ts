@@ -695,8 +695,9 @@ export function scheduleDay(input: ScheduleDayInput, profile: Profile, opts: Sch
   const rejoin = sel.parallel?.rejoin ?? sel.variant.rejoin ?? null;
   const splitDrawn = profile.split && sel.parallel !== null && rejoin !== null;
   const mainLabel: Lane = splitDrawn ? (sel.variant.key === "main" ? "B" : (sel.variant.key as Lane)) : "all";
-  // the wait for the other adult is part of the day whichever view is shown: a view switch must not change the plan (L3c I-1)
-  if (sel.parallel && rejoin) {
+  // the wait for the other adult is part of the day whichever view is shown: a view switch must not change the plan (L3c I-1).
+  // A version that carries no rejoin of its own (the easy day) has nothing to wait for unless the visitor asks for both lanes.
+  if (sel.parallel && rejoin && (profile.split || sel.variant.rejoin)) {
     const idx = rejoin.afterItem ? stops.findIndex((s) => s.item.id === rejoin.afterItem) : -1;
     const at = idx >= 0 ? idx + 1 : stops.length;
     stops = [...stops.slice(0, at), { item: rejoinItem(input.day, rejoin.place, rejoin.time), addedBy: "author", isRejoin: true }, ...stops.slice(at)];
