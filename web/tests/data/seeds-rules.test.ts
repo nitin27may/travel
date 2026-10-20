@@ -1,4 +1,4 @@
-import { cpSync, mkdirSync, readdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { buildPlaces } from '@/lib/public/places';
@@ -35,58 +35,86 @@ describe('seed rules (3.58)', () => {
     }
   });
 
-  it('builds no page for an empty shell', () => {
-    expect(places().some((p) => p.slug === 'banff-horseback-rides')).toBe(false);
-    expect(realData().getPlace('banff-horseback-rides')).toBeFalsy();
+  it('builds a page for a record that holds something, and none for one that holds only its name and type', () => {
+    // CS7d batch A filled the horseback records, so their pages exist; a bare record added to a copy of the data does not get one
+    expect(realData().getPlace('banff-horseback-rides')).toBeTruthy();
+    const root = cloneRoot((doc) => doc.records.push({ ref: 'legacy/canadian-rockies-sept-2029/adventures/plc-fixture-shell', type: 'animals.ride.horse_ride', layer: 'offer', name: 'Fixture horse ride' }), 'capture');
+    const built = buildPlaces(loadSources({ root }));
+    expect(built.seedSkips.find((x) => x.ref.endsWith('plc-fixture-shell'))?.why).toMatch(/^empty shell/);
+    expect(built.places.some((p) => p.name === 'Fixture horse ride')).toBe(false);
+    expect(built.seedSkips.filter((x) => x.why.startsWith('empty shell')).map((x) => x.ref)).not.toContain('legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride');
   });
 });
 
-/** A repo root whose relevance data is a copy with one more record: `same_place_as` and a not_applicable draw, as CS7d writes a duplicate pair. */
-function dupRoot(secondRef: string, firstRef: string, draw: string = 'not_applicable'): string {
+/** A repo root whose `data/<dir>` is a copy; `edit` changes the Canadian Rockies migrated file of that dir (capture) or adds nothing (relevance). */
+function cloneRoot(edit: (doc: { records: Record<string, unknown>[] }) => void, dir: 'capture' | 'relevance'): string {
   const root = fixtureRoot(manifestWith({}));
   rmSync(path.join(root, 'data'));
   mkdirSync(path.join(root, 'data'));
-  for (const name of readdirSync(path.join(REPO, 'data'))) if (name !== 'relevance') symlinkSync(path.join(REPO, 'data', name), path.join(root, 'data', name));
-  cpSync(path.join(REPO, 'data', 'relevance'), path.join(root, 'data', 'relevance'), { recursive: true });
-  const dir = path.join(root, 'data', 'relevance', 'canadian-rockies-2029');
-  const file = path.join(dir, 'PLC-fixture.json');
-  writeFileSync(file, JSON.stringify({ schema: 'relevance/1', trip: 'canadian-rockies-2029', lane: 'PLC-fixture', researched: '2026-10-19', agent: 'test', model: 'test', sources: [], records: [{ ref: secondRef, same_place_as: firstRef, draw: { state: draw } }] }));
+  for (const name of readdirSync(path.join(REPO, 'data'))) if (name !== dir) symlinkSync(path.join(REPO, 'data', name), path.join(root, 'data', name));
+  cpSync(path.join(REPO, 'data', dir), path.join(root, 'data', dir), { recursive: true });
+  const file = path.join(root, 'data', dir, 'canadian-rockies-2029', dir === 'capture' ? 'migrated.json' : 'PLC-fixture.json');
+  const doc = dir === 'capture' ? (JSON.parse(readFileSync(file, 'utf8')) as { records: Record<string, unknown>[] }) : { schema: 'relevance/1', trip: 'canadian-rockies-2029', lane: 'PLC-fixture', researched: '2026-10-19', agent: 'test', model: 'test', sources: [], records: [] as Record<string, unknown>[] };
+  edit(doc);
+  writeFileSync(file, JSON.stringify(doc));
   return root;
 }
 
-describe('second records of one place (3.55)', () => {
-  const FIRST = 'legacy/canadian-rockies-sept-2029/sights/radium-hot-springs';
-  const SECOND = 'legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs';
-  const real = buildPlaces(loadSources());
-  const fixture = buildPlaces(loadSources({ root: dupRoot(SECOND, FIRST) }));
+/** A root with one more relevance record: `same_place_as` and a draw state, as CS7d writes a duplicate pair. */
+function dupRoot(secondRef: string, firstRef: string, draw: string = 'not_applicable'): string {
+  return cloneRoot((doc) => doc.records.push({ ref: secondRef, same_place_as: firstRef, draw: { state: draw } }), 'relevance');
+}
 
-  it('collapses nothing without a mark', () => {
-    expect(real.bySlug.has('radium-hot-springs')).toBe(true);
-    expect([...real.legacyPaths.values()].includes('radium-hot-springs')).toBe(false);
+describe('second records of one place (3.55)', () => {
+  const real = buildPlaces(loadSources());
+
+  it('collapses the four pairs CS7d marked: one page each, the second slug redirects', () => {
+    const redirects = JSON.parse(readFileSync(path.join(REPO, 'web', 'redirects.json'), 'utf8')) as { from: string; to: string; status: number }[];
+    for (const [from, to] of [
+      ['/places/radium-hot-springs-pools/', '/places/radium-hot-springs/'],
+      ['/places/waterton-red-rock-parkway/', '/places/red-rock-parkway-and-red-rock-canyon/'],
+      ['/places/lake-louise-sightseeing/', '/places/lake-louise-summer-gondola/'],
+      ['/places/canmore-nordic-centre-provincial-park/', '/places/canmore-nordic-centre-summer/'],
+    ]) {
+      expect(redirects.find((r) => r.from === from), from).toEqual({ from, to, status: 301 });
+      expect(real.legacyPaths.get(from)).toBe(to.replace('/places/', '').replace(/\/$/, ''));
+      expect(real.bySlug.has(from.replace('/places/', '').replace(/\/$/, ''))).toBe(false);
+      expect(real.bySlug.has(to.replace('/places/', '').replace(/\/$/, ''))).toBe(true);
+    }
   });
 
-  it('builds one page for the pair and points the second slug at it', () => {
+  it('keeps the two horseback operators as two pages (different operators, about 55 km apart)', () => {
+    expect(real.bySlug.has('banff-horseback-rides')).toBe(true);
+    expect(real.bySlug.has('brewster-stables-lake-louise-horseback')).toBe(true);
+  });
+
+  const FIRST = 'legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride';
+  const SECOND = 'legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse';
+  const fixture = buildPlaces(loadSources({ root: dupRoot(SECOND, FIRST) }));
+
+  it('builds one page for a marked pair and points the second slug at it (fixture)', () => {
     const slug = fixture.byCaptureRef.get(FIRST)!;
-    expect(slug).toBe('radium-hot-springs');
+    expect(slug).toBe('banff-horseback-rides');
     expect(fixture.byCaptureRef.get(SECOND)).toBe(slug);
-    expect([...fixture.legacyPaths].filter(([, to]) => to === slug)).toEqual([['/places/radium-hot-springs-pools/', slug]]);
-    expect(fixture.bySlug.has('radium-hot-springs-pools')).toBe(false);
-    expect(fixture.places.filter((p) => p.name.startsWith('Radium Hot Springs'))).toHaveLength(1);
+    expect(fixture.legacyPaths.get('/places/brewster-stables-lake-louise-horseback/')).toBe(slug);
+    expect(fixture.bySlug.has('brewster-stables-lake-louise-horseback')).toBe(false);
+    expect(fixture.places.length).toBe(real.places.length - 1);
   });
 
   it('lets the second name find the first page, so a trip stop and search land on one entry', () => {
-    expect(fixture.byName.get('radium hot springs pools')).toEqual(['radium-hot-springs']);
-    expect(fixture.byName.get('radium hot springs')).toEqual(['radium-hot-springs']);
+    expect(fixture.byName.get('brewster stables lake louise horseback')).toEqual(['banff-horseback-rides']);
+    expect(fixture.byName.get('banff horseback rides')).toEqual(['banff-horseback-rides']);
   });
 
   it('keeps two pages when same_place_as means an activity at a place (the draw is not not_applicable)', () => {
     const activity = buildPlaces(loadSources({ root: dupRoot(SECOND, FIRST, 'value') }));
-    expect(activity.bySlug.has('radium-hot-springs-pools')).toBe(real.bySlug.has('radium-hot-springs-pools'));
-    expect(activity.legacyPaths.size).toBe(real.legacyPaths.size);
+    expect(activity.places.length).toBe(real.places.length);
+    expect(activity.bySlug.has('brewster-stables-lake-louise-horseback')).toBe(true);
   });
 
   it('writes no redirect when the first record has no page', () => {
     const lone = buildPlaces(loadSources({ root: dupRoot(SECOND, 'trip/patagonia-2027/town:harbour walk') }));
     expect(lone.legacyPaths.size).toBe(real.legacyPaths.size);
+    expect(lone.bySlug.has('brewster-stables-lake-louise-horseback')).toBe(true);
   });
 });
