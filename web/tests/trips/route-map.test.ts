@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { buildTripPageModel } from '@/components/trips/model';
 import { routeSpec } from '@/components/trips/TripRouteMap';
 import { orderRoute } from '@/components/trips/timeline/model';
-import { tripListRows } from '@/app/trips/rows';
 import { groupPins } from '@/lib/map/geo';
 import { getPlace, getTrip, tripSlugs } from '@/lib/public';
 
@@ -64,16 +63,15 @@ describe('trip route map (backlog 4.23)', () => {
 });
 
 describe('one age on the trip page (backlog 4.24)', () => {
-  // Skipped until FIXA's single age source lands: the card still says 5 (typed plan age) while the profile line says 6.
-  // Un-skip after the rebase; the hero chip already reads the card's number (app/trips/[slug]/page.tsx).
-  it.skip('the hero chip, the profile line and the Kids tag show the same N', () => {
-    for (const r of tripListRows()) {
-      const trip = getTrip(r.slug)!;
-      if (trip.schedule?.writtenFor) {
-        const written = /from about (\d+)/.exec(trip.schedule.writtenFor);
-        // the profile line may state the plan's age; when the computed floor is higher the page must not call it a yes
-        if (written && r.ageFit !== null) expect(r.ageFit, `${r.slug}: card ${r.ageFit} vs profile line "${trip.schedule.writtenFor}"`).toBeGreaterThanOrEqual(Number(written[1]));
-      }
+  it('the hero chip, the profile line and the Kids tag show the same N', () => {
+    for (const slug of tripSlugs()) {
+      const trip = getTrip(slug)!;
+      const p = trip.schedule?.defaultProfile;
+      if (p?.party !== 'family' || typeof p.youngest !== 'number') continue;
+      // the hero chip reads trip.ageFit; the profile line and the plan bar read the profile's youngest age
+      expect(trip.ageFit, `${slug}: hero chip vs plan profile`).toBe(p.youngest);
+      const written = /child from about (\d+)/.exec(trip.schedule?.writtenFor ?? '');
+      if (written) expect(Number(written[1]), `${slug}: profile line`).toBe(p.youngest);
     }
   });
 });
