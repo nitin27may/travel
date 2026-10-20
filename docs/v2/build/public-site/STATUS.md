@@ -94,6 +94,8 @@ Stage 7 waits for the owner. Owner decisions Q42-Q49 go to him with the preview,
 
 Conflicts found: C1-C11 in the plan, section 8. TS1 and TS1b are merged (2.50 is done). D2 edits six BACKLOG rows, which this plan left alone.
 
+**Owner instruction (19 Oct, late): stop data research for now.** Data points can be searched later, once we know what data we want. CS7d batch B and further research lanes are paused (rows 3.25, 3.53, 3.61 and the CS7d batch B list stay queued, not started). Finish the UI work only: SHL, PLC, GLB, TRP, LST, the whole-site Opus design review and its fixes, the verifier passes, then merge everything and refresh the preview. He will review afterwards (stage 6). No stage 7 steps without his approval.
+
 ## Merged so far (all verified)
 
 | Lane | Merge | What |
