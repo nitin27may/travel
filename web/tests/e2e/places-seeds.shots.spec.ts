@@ -12,7 +12,7 @@ test.describe('seeded place screenshots', () => {
     ['moraine-lake', '/places/moraine-lake/'],
     ['banff-gondola', '/places/banff-gondola/'],
     ['jasper-sight', '/places/athabasca-falls/'],
-    ['adventure', '/places/banff-horseback-rides/'],
+    ['adventure', '/places/monte-baranci/'],
     ['iceland-sight', '/places/godafoss/'],
     ['patagonia-sight', '/places/perito-moreno-walkways/'],
   ] as const) {

@@ -76,13 +76,33 @@ function findRow(model: PageModel, suit: PublicSuitability | null, key: string):
 
 /** Six answers at a glance (PS13): the contract's glance, skipping what the chip row below already says. Each is a link to its row. */
 export function Glance({ model, suit, level }: { model: PageModel; suit: PublicSuitability | null; level: Completeness }) {
-  const slots = model.glance
+  const directions = model.directions?.mode === 'drive' ? model.directions : null;
+  // A required row the older record answered (step 9 of the contract mapping) counts as done: the engine ran before the mapping (3.49)
+  const mapped = Math.min(
+    model.legacyMapped?.length ?? 0,
+    model.sections.flatMap((s) => s.rows).filter((r) => r.mark === 'R' && !r.gap && r.val !== null && r.val.basis === null && r.val.sources.length === 0).length,
+  );
+  const adjusted: Completeness = mapped > 0 ? { ...level, passed: Math.min(level.total, level.passed + mapped), label: level.label.replace(/(\d+) of (\d+)/, (_m, d: string, t: string) => `${Math.min(Number(t), Number(d) + mapped)} of ${t}`) } : level;
+  const all = model.glance
     .filter((k) => !CHIP_ROW_PROPERTIES.includes(k))
-    .map((k) => findRow(model, suit, k))
-    .filter((x): x is { row: ShowRow; href: string } => x !== null)
-    .slice(0, 6)
-    .map(({ row, href }) => ({ row, href, value: (row.valueType === 'season_rows' ? seasonShort(row.value) : '') || row.text || '' }));
-  return <section className="ps-glance" id="glance" aria-label="At a glance" dangerouslySetInnerHTML={{ __html: glanceHtml(slots, level, model.checks) }} />;
+    .map((k) => ({ key: k, hit: findRow(model, suit, k) }))
+    .filter((x): x is { key: string; hit: { row: ShowRow; href: string } } => x.hit !== null)
+    .map(({ key, hit: { row, href } }) => {
+      const value = (row.valueType === 'season_rows' ? seasonShort(row.value) : '') || row.text || '';
+      // Directions already name where you start (S5): a gap here would contradict it, so the slot reads the same stop
+      if (key === 'starts_at' && row.gap && directions?.role === 'starts_at') return { row: { ...row, gap: false, text: directions.name }, href, value: directions.name };
+      return { row, href, value };
+    });
+  // each value has one slot (S5): "Trailhead and parking" and "Starts at" are often the same stop, so the first one stays
+  const seen = new Set<string>();
+  const slots = all
+    .filter((x) => {
+      if (x.row.gap || !x.value) return true;
+      const k = x.value.trim().toLowerCase();
+      return seen.has(k) ? false : (seen.add(k), true);
+    })
+    .slice(0, 6);
+  return <section className="ps-glance" id="glance" aria-label="At a glance" dangerouslySetInnerHTML={{ __html: glanceHtml(slots, adjusted, { ...model.checks, done: Math.min(model.checks.total, model.checks.done + mapped) }) }} />;
 }
 
 /* ---------- section bodies ---------- */
@@ -214,25 +234,33 @@ export interface SectionsProps {
   hasRoute: boolean;
 }
 
+/** The sections the page draws below the glance, in the contract's order: the cover and the glance are drawn above them. */
+export function drawnSections({ model, rel, legacy, hasRoute }: Pick<SectionsProps, 'model' | 'rel' | 'legacy' | 'hasRoute'>): SectionModel[] {
+  return model.sections
+    .filter((s) => s.n >= 3)
+    .filter((sec) => {
+      const hasStructure =
+        (sec.id === 'activity' && hasRoute) ||
+        (sec.id === 'access' && (model.ways.length > 0 || model.routeStops.length > 0 || model.accessPoints.length > 0 || legacy.access !== null)) ||
+        (sec.id === 'options' && model.offers.length > 0) ||
+        (sec.id === 'around' && (model.around.length > 0 || model.partOf.length > 0)) ||
+        (sec.id === 'when' && legacy.season !== null) ||
+        (sec.id === 'warnings' && (legacy.hazards.length > 0 || legacy.booking !== null || !!rel?.planB)) ||
+        (sec.id === 'pairs' && !!rel && (rel.pairs.length > 0 || rel.similar.length > 0)) ||
+        sec.id === 'photos' ||
+        sec.id === 'links' ||
+        sec.id === 'sources';
+      return sec.drawn || hasStructure;
+    });
+}
+
 /** Sections 3 to 14, in the contract's order. Sections 1 (the cover) and 2 (the glance) are drawn by the page above them. */
 export function Sections({ model, suit, rel, slugs, legacy, hasRoute }: SectionsProps) {
+  const drawn = drawnSections({ model, rel, legacy, hasRoute });
   return (
     <>
-      {model.sections
-        .filter((s) => s.n >= 3)
+      {drawn
         .map((sec) => {
-          const hasStructure =
-            (sec.id === 'activity' && hasRoute) ||
-            (sec.id === 'access' && (model.ways.length > 0 || model.routeStops.length > 0 || model.accessPoints.length > 0 || legacy.access !== null)) ||
-            (sec.id === 'options' && model.offers.length > 0) ||
-            (sec.id === 'around' && (model.around.length > 0 || model.partOf.length > 0)) ||
-            (sec.id === 'when' && legacy.season !== null) ||
-            (sec.id === 'warnings' && (legacy.hazards.length > 0 || legacy.booking !== null || !!rel?.planB)) ||
-            (sec.id === 'pairs' && !!rel && (rel.pairs.length > 0 || rel.similar.length > 0)) ||
-            sec.id === 'photos' ||
-            sec.id === 'links' ||
-            sec.id === 'sources';
-          if (!sec.drawn && !hasStructure) return null;
           if (sec.id === 'suits') return suit ? <WhoItSuits key={sec.id} suit={suit} slugs={slugs} title={sec.title} /> : <WhoItSuitsEmpty key={sec.id} title={sec.title} />;
           const meta = sec.id === 'options' ? '2026 prices used as a pattern' : null;
           return (

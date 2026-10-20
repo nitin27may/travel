@@ -20,6 +20,7 @@ const swatch = (s: LegendItem['style']): ReactNode => {
     case 'route': return <span style={{ ...base, width: 18, height: 2, background: 'var(--ink)' }} />;
     case 'route-pick': return <span style={{ ...base, width: 18, height: 4, background: 'var(--accent)', outline: '1px solid var(--ink)' }} />;
     case 'trail': return <span style={{ ...base, width: 18, height: 3, background: 'var(--ink)' }} />;
+    case 'trail-unconfirmed': return <span style={{ ...base, width: 18, height: 0, borderTop: '3px dashed var(--muted)' }} />;
     case 'straight-estimate': return <span style={{ ...base, width: 18, height: 0, borderTop: '2px dashed var(--ink)', opacity: 0.5 }} />;
     // the same picture as the pin on the map: a surface disc with an ink ring and an ink centre
     case 'place': return (

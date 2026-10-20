@@ -46,7 +46,9 @@ describe('capture-seeded place pages', () => {
     const table = typeTable(REPO);
     const cards = new Map(realData().listPlaces().map((c) => [c.slug, c]));
     for (const p of seeds()) {
-      expect(table.get(cards.get(p.slug)!.type!)?.visitable, p.slug).toBe(true);
+      // a base-town sight override (SIGHT_OVERRIDES) keeps the settlement type but has a page on purpose
+      const overridden = p.slug === 'reykjavik-old-harbour' || p.slug === 'san-telmo-market';
+      expect(overridden || table.get(cards.get(p.slug)!.type!)?.visitable, p.slug).toBe(true);
       expect(p.trips.length, p.slug).toBe(1);
     }
   });

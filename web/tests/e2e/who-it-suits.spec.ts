@@ -5,7 +5,7 @@ test.describe('Who it suits (S1b)', () => {
     await page.goto(`${site.url}/places/larch-valley-to-sentinel-pass/`);
     const chips = page.getByRole('list', { name: 'Who it suits' }).first();
     await expect(chips.locator('li')).not.toHaveCount(0);
-    await expect(page.locator('#suits .ps-meta')).toContainText(/\d+ of \d+ family checks done/);
+    await expect(page.locator('#suits .ps-meta')).toContainText(/\d+ of \d+ key checks/);
     const group = page.locator('#suits details.su-group[data-group="effort"]');
     await expect(group).not.toHaveAttribute('open', '');
     await group.locator(':scope > summary').click();

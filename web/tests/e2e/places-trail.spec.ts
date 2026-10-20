@@ -77,7 +77,7 @@ test.describe('Rockies trail with no track', () => {
     await expect(page.getByText('11.2 km').first()).toBeVisible();
     await expect(page.getByText('Shape estimated from length and climb')).toBeVisible();
     await expect(page.getByText(/No point is stored for this place yet, so there is no map/)).toBeVisible();
-    await expect(page.getByRole('tab')).toHaveText([/Official\s*[1-9]/, /Booking\s*0/, /Route\s*[1-9]/, /Conditions\s*0/, /Report\s*0/]);
+    await expect(page.getByRole('tab')).toHaveText([/Official\s*[1-9]/, /Booking\s*· not checked yet/, /Route\s*[1-9]/, /Conditions\s*· not checked yet/, /Report\s*· not checked yet/]);
     await page.getByRole('tab', { name: /Route/ }).click();
     const alltrails = page.getByRole('tabpanel').locator('li', { hasText: 'AllTrails' });
     await expect(alltrails.getByText('link only')).toBeVisible();

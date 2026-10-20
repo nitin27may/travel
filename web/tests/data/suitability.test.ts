@@ -91,7 +91,7 @@ describe('publicSuitability: the three chips', () => {
     expect(r.chips[2]).toBeNull();
     expect(r.research.done).toBe(0);
     expect(r.research.total).toBeGreaterThan(5);
-    expect(r.research.text).toMatch(/^0 of \d+ family checks done/);
+    expect(r.research.text).toMatch(/^0 of \d+ key checks/);
     // the groups still draw, with gap rows
     const who = r.groups.find((g) => g.id === 'who')!;
     expect(who.rows.some((x) => x.gap && x.text === 'Not checked yet')).toBe(true);
@@ -210,7 +210,7 @@ describe('publicSuitability: rows, groups and the closing line', () => {
 describe('publicSuitability: the research line', () => {
   it('counts R checks done out of all, with the newest read date', () => {
     const r = run('water.river.rafting', RAFT as never);
-    expect(r.research.text).toMatch(/^\d+ of \d+ family checks done · read 12 Oct 2026$/);
+    expect(r.research.text).toMatch(/^\d+ of \d+ key checks(?: · \d+ more not checked yet)? · read 12 Oct 2026$/);
     expect(r.research.done).toBeLessThan(r.research.total);
   });
 
@@ -226,7 +226,7 @@ describe('publicSuitability: the research line', () => {
       if (r.research.level === 'usable_partial') {
         found = true;
         expect(r.research.levelLabel).toBe('Usable, partly unverified');
-        expect(r.research.text).toMatch(/^\d+ of \d+ family checks done · usable, partly unverified/);
+        expect(r.research.text).toMatch(/^\d+ of \d+ key checks(?: · \d+ more not checked yet)? · usable, partly unverified/);
         break;
       }
     }
@@ -266,9 +266,9 @@ describe('publicSuitability: the real data', () => {
     return publicSuitability(w.suit.get(ref)!, { suitMarks: suitMarksFor(contract, cap.rec.type) ?? undefined, slot3: contract.slot3For(cap.rec.type) });
   };
 
-  it('Lake Louise has its seven family checks done (place-page-sections section 4)', () => {
+  it('Lake Louise has its seven key checks (place-page-sections section 4)', () => {
     const r = get('place/lake-louise');
-    expect(r.research.text).toMatch(/^7 of 7 family checks done/);
+    expect(r.research.text).toMatch(/^7 of 7 key checks/);
     expect(r.chips[0]!.kind).toBe('advice');
   });
 

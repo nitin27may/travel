@@ -9,6 +9,12 @@ const RULES: Record<Flag, RegExp> = {
   countries: /^(label|place)_country/,
 };
 
+/** Below this zoom the state and province names are too many to read, on a map that asked to thin its labels (4.6, C6). */
+export const ADMIN_LABEL_MIN_ZOOM = 5;
+
+/** True for the state and province name layers of both basemap styles. */
+export const isStateLabel = (layerId: string, sourceLayer: string): boolean => sourceLayer === 'place' && RULES.regions.test(layerId);
+
 /** True when a symbol layer is a basemap place name the page asked to hide (spec.hideBasemapLabels). */
 export function hideBasemapLabel(layerId: string, sourceLayer: string, flags: MapSpec['hideBasemapLabels']): boolean {
   if (!flags?.length || sourceLayer !== 'place') return false;
