@@ -38,6 +38,8 @@ export interface GlobeSnapshot {
   boundary: 'loaded' | 'none' | null;
   /** The "what is here" popover or sheet, or null. */
   here: HereModel | null;
+  /** At district level: the slugs of the trips whose base point lies inside the district's shape (a trip's own path stops at its state). */
+  districtTrips: string[];
   pins: PinModel[];
   notice: string | null;
 }
@@ -67,7 +69,7 @@ const titleCase = (slug: string): string => slug.split('-').map((w) => w.charAt(
  */
 export class GlobeController {
   private engine: GlobeEngine | null = null;
-  private snap: GlobeSnapshot = { ready: false, failed: null, loading: '', path: [], crumbs: [], selected: null, feature: null, boundary: null, here: null, pins: [], notice: null };
+  private snap: GlobeSnapshot = { ready: false, failed: null, loading: '', path: [], crumbs: [], selected: null, feature: null, boundary: null, here: null, districtTrips: [], pins: [], notice: null };
   private areaToken = 0;
   private adm1: FeatColl | null = null;
   private adm2: FeatColl | null = null;
@@ -422,7 +424,9 @@ export class GlobeController {
         crumbs.push({ label: this.nameFor(resolved, dFeat), path: resolved });
       }
     }
-    this.emit({ path: resolved, crumbs, pins: pinsFor(this.o.data, resolved, this.o.book.facts), loading: '' });
+    // a trip is filed under its base's state; the district that holds the base lists it too
+    const districtTrips = dFeat && resolved.length === 3 ? pinsUnder(this.o.data, resolved.slice(0, 2), 'trip').filter((t) => inFeature(dFeat, [t.lon, t.lat])).map((t) => t.slug) : [];
+    this.emit({ path: resolved, crumbs, districtTrips, pins: pinsFor(this.o.data, resolved, this.o.book.facts), loading: '' });
     if (o.camera) engine.jumpTo(o.camera);
     else if (o.fly && target && path.length === 3) engine.flyToBox(target, { plan: this.plan('district'), maxZoom });
     if (token === this.areaToken) this.intent = null;
