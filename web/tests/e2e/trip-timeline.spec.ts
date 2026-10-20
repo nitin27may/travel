@@ -176,9 +176,9 @@ test.describe('trip timeline (L3c)', () => {
   test('phone: the profile is a line with Edit, opens inline, no horizontal scroll (check 17)', async ({ page, site }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`${site.url}${ROCKIES}`);
-    await expect(page.getByTestId('profile-line')).toBeVisible();
+    await expect(page.locator('.tl-profile-now')).toBeVisible();
     await expect(page.locator('#plan-for-controls')).toBeHidden();
-    await page.getByRole('button', { name: 'Edit' }).click();
+    await page.locator('.tl-profile-edit').click();
     await expect(page.locator('#plan-for-controls')).toBeVisible();
     await page.getByRole('radio', { name: 'Full' }).click();
     await expect(page).toHaveURL(/pace=full/);
@@ -197,7 +197,7 @@ test.describe('trip timeline (L3c)', () => {
         expect(r.violations.map((v) => `${v.id}: ${v.nodes[0]?.html.slice(0, 90)}`), `${size.width} ${label}`).toEqual([]);
       };
       await run('closed');
-      if (size.width < 640) await page.getByRole('button', { name: 'Edit' }).click();
+      if (size.width < 640) await page.locator('.tl-profile-edit').click();
       await page.getByRole('button', { name: 'More' }).click();
       await run('open');
     }

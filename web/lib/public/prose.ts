@@ -89,6 +89,8 @@ export function stripMarkers(input: string, sun?: { sunset: [string, string]; su
     .replace(/\(\s+/g, '(')
     .replace(/\s{2,}/g, ' ')
     .replace(/\bnot known yet(?: not known yet)+/g, 'not known yet')
+    // "4h15" and "1h45" are written the way the page writes a duration: "4 h 15"
+    .replace(/\b(\d{1,2})h(\d{2})\b/g, '$1 h $2')
     .trim();
   return { text: t, chips: [...chips] };
 }

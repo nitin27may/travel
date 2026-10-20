@@ -39,13 +39,13 @@
 .tl-trip { max-width: 62rem; margin: 0 0 var(--s-10); }
 .tl-scale { display: grid; grid-template-columns: 1fr; max-width: 62rem; }
 .tl-scale { display: none; }
-.tl-trip-list { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-4); overflow: hidden; }
+.tl-trip-list { --ticks: none; --cols: 74px minmax(0, 1.3fr) minmax(120px, 1.7fr) 78px 92px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-4); overflow: hidden; }
 .tl-trip-item { border-top: 1px solid var(--line); }
 .tl-trip-item:first-child { border-top: 0; }
 .tl-trip-item[data-base-change]:not(:first-child) { border-top-color: var(--line-2); }
 .tl-trip-base { padding: var(--s-2) var(--s-4) 0; font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
 .tl-trip-row {
-  display: grid; grid-template-columns: 74px minmax(0, 1.2fr) minmax(120px, 1.6fr) minmax(0, 0.9fr) 84px 92px; gap: var(--s-3); align-items: center; min-height: 44px; padding: var(--s-2) var(--s-4);
+  display: grid; grid-template-columns: var(--cols); gap: var(--s-3); align-items: center; min-height: 44px; padding: var(--s-2) var(--s-4);
   color: inherit; text-decoration: none; transition: background-color var(--d-fast);
 }
 .tl-trip-row:hover { background: var(--surface-2); }
@@ -72,7 +72,7 @@
 
 /* ---------- days ---------- */
 .tl-days { display: grid; gap: var(--s-4); }
-.tl-day { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-4); scroll-margin-top: var(--spy-bar-h); transition: border-color var(--d-base); }
+.tl-day { --i: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-4); scroll-margin-top: var(--spy-bar-h); transition: border-color var(--d-base); }
 .tl-day[data-picked] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .tl-day-head { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: var(--s-4); align-items: start; padding: var(--s-4); }
 .tl-thumb { display: grid; place-items: center; width: 96px; height: 68px; border-radius: var(--r-3); overflow: hidden; background: var(--well); color: var(--muted); }
@@ -194,9 +194,9 @@
 
 /* two lanes are drawn side by side from tablet up; on a phone one lane shows at a time */
 @media (max-width: 899px) {
-  .tl-trip-row { grid-template-columns: 74px minmax(0, 1fr) 84px; }
+  .tl-trip-list { --cols: 74px minmax(0, 1fr) auto auto; }
   .tl-trip-row .tl-bar { grid-column: 1 / -1; order: 5; }
-  .tl-trip-v, .tl-trip-drive { display: none; }
+  .tl-trip-v { display: none; }
   .tl-profile-controls { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 639px) {
@@ -260,3 +260,143 @@
 .tl-time[data-block] { font-weight: 500; color: var(--ink-2); font-family: var(--font-body); font-size: 14px; }
 .tl-time[data-block]::before { content: none; }
 @media (max-width: 639px) { .tl-lane-head { display: none; } .tl-time[data-block] { font-size: 12.5px; } }
+
+/* ================= TRP (stage 4) ================= */
+
+/* ---- the whole-trip strip: hour ticks, the drive with a glyph, the version column only when it tells days apart ---- */
+.tl-trip-list[data-version] { --cols: 74px minmax(0, 1.2fr) minmax(120px, 1.6fr) minmax(0, 0.9fr) 78px 92px; }
+.tl-trip-scale { display: grid; grid-template-columns: var(--cols); gap: var(--s-3); padding: var(--s-2) var(--s-4) 0; border-top: 0; }
+.tl-trip-scale:last-child { padding: 0 var(--s-4) var(--s-2); }
+.tl-scale-bar { position: relative; grid-column: 3; height: 16px; font: var(--t-label); color: var(--muted); }
+.tl-trip-list[data-version] .tl-scale-bar { grid-column: 3; }
+.tl-scale-tick { position: absolute; top: 0; transform: translateX(-50%); font: var(--t-meta); color: var(--muted); }
+.tl-bar { background-color: var(--well); background-image: var(--ticks, none); }
+.tl-bar-span { transition: left var(--d-base) var(--e-out), width var(--d-base) var(--e-out); }
+.tl-bar-drive { transition: width var(--d-base) var(--e-out); }
+.tl-trip-drive { display: inline-flex; align-items: center; gap: var(--s-1); overflow: visible; text-overflow: clip; color: var(--ink-2); }
+.tl-trip-drive svg { flex: none; color: var(--muted); }
+@media (max-width: 899px) {
+  .tl-trip-scale { grid-template-columns: 1fr; }
+  .tl-scale-bar { grid-column: 1; }
+  .tl-trip-v { display: none; }
+}
+
+/* ---- the swap when who is going or the pace changes (design 7): out 120 ms, in 200 ms, 20 ms apart for the first five ---- */
+.tl-days[data-swap='out'] .tl-day { opacity: 0; transition: opacity 120ms var(--e-in), border-color var(--d-base); }
+.tl-days[data-swap='in'] .tl-day { animation: tl-fade 200ms var(--e-out) both; animation-delay: calc(var(--i, 0) * 20ms); }
+@media (prefers-reduced-motion: reduce) {
+  .tl-days[data-swap] .tl-day { opacity: 1; animation: none; transition: none; }
+  .tl-bar-span, .tl-bar-drive { transition: none; }
+}
+
+/* ---- "Plan it for" now line, the sticky bar's profile ---- */
+.tl-profile-now { font: var(--t-small); color: var(--ink-2); margin-left: auto; }
+.tl-profile-now b { font-weight: 600; color: var(--ink); }
+.tl-planbar-line { max-width: 20rem; }
+.tl-planbar-who { color: var(--ink); font-weight: 600; }
+
+/* ---- the day header: version chip beside the meta, the sun figures inline, the thumb's glyph ---- */
+.tl-day-chip { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); margin-left: auto; }
+.tl-day-sun { display: inline-flex; align-items: center; gap: var(--s-1); font: var(--t-meta); color: var(--muted); }
+.tl-day-light { display: none; }
+.tl-day-head { grid-template-columns: 96px minmax(0, 1fr); }
+.tl-thumb svg { color: var(--ink-2); }
+.tl-summary-more { display: none; font: var(--t-meta); }
+
+/* ---- where the clock changes (Day 6) ---- */
+.tl-zone { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; position: relative; padding: 6px 0; }
+.tl-zone .tl-node { margin-top: 3px; border-style: dashed; background: var(--surface-2); }
+.tl-zone-text { grid-column: 3 / -1; display: flex; gap: var(--s-2); align-items: flex-start; padding: var(--s-1) var(--s-3); border: 1px dashed var(--line-2); border-radius: var(--r-3); background: var(--surface-2); font: var(--t-meta); color: var(--ink-2); }
+.tl-zone-text svg { flex: none; margin-top: 2px; color: var(--muted); }
+.tl-tz { font: var(--t-meta); color: var(--muted); }
+
+/* ---- the add panel: the cost sits under the name, before the click ---- */
+.tl-add-item { flex-wrap: wrap; padding-top: var(--s-2); padding-bottom: var(--s-2); row-gap: 0; }
+.tl-add-cost { flex: 1 0 100%; font: var(--t-meta); color: var(--muted); padding-bottom: 2px; }
+.tl-add-cost[data-state='late'] { color: var(--warn); }
+.tl-add-item[aria-disabled='true'] { cursor: default; }
+.tl-add-item[aria-disabled='true'] .tl-add-name, .tl-add-item[aria-disabled='true'] svg { opacity: 0.55; }
+.tl-add-item[aria-disabled='true']:hover { background: none; }
+
+/* ---- the version menu: one consequence line and a fit note under each option ---- */
+.tl-menu-item { display: grid; gap: 2px; padding-top: var(--s-2); padding-bottom: var(--s-2); text-align: left; }
+.tl-menu-detail { font: var(--t-meta); color: var(--muted); }
+.tl-menu-warn { font: var(--t-meta); color: var(--warn); }
+
+@media (max-width: 639px) {
+  /* the phone selector is one line: "Planned for Family, 6 · Standard", Change opens it in place */
+  .tl-profile { padding: var(--s-3) var(--s-4); margin-bottom: var(--s-4); }
+  .tl-profile-h { display: none; }
+  .tl-profile-head { flex-wrap: nowrap; align-items: center; justify-content: space-between; }
+  .tl-profile-now { margin-left: 0; }
+  .tl-profile-line { display: none; }
+  .tl-profile-controls[data-open] ~ .tl-profile-line, .tl-profile:has(.tl-profile-controls[data-open]) .tl-profile-line { display: block; }
+  /* the sticky bar names the profile on a phone too: line over the rail */
+  .tl-planbar { flex-wrap: wrap; row-gap: 0; gap: 0 var(--s-3); }
+  .tl-planbar-line { display: block; flex: 1 0 100%; max-width: none; min-height: 28px; line-height: 28px; }
+  .tl-rail-days { flex: 1 0 100%; }
+  /* the day header: thumb, then base, span, sun and chip on one wrapped row; the summary two lines */
+  .tl-day-head { grid-template-columns: 44px minmax(0, 1fr); gap: var(--s-2); padding: var(--s-3) var(--s-3) var(--s-2); }
+  .tl-thumb { width: 44px; height: 44px; }
+  .tl-day-top { gap: 2px var(--s-2); }
+  .tl-day-top .tl-day-span { display: none; }
+  .tl-day-top .tl-day-base { max-width: 9.5rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tl-day-chip { margin-left: auto; flex: 0 1 auto; }
+  .tl-day-chip .tl-vchip { max-width: 10.5rem; }
+  .tl-day-title { font-size: 19px; line-height: 1.15; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+  .tl-day-totals { gap: 0 var(--s-3); }
+  .tl-day-totals span:nth-child(3) { display: none; }
+  .tl-day-body { gap: var(--s-2); padding: 0 var(--s-3) var(--s-3); }
+  .tl-lead, .tl-reason { display: none; }
+  .tl-day-warns .tl-warn { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; margin-left: 0; }
+  .tl-split { padding: var(--s-1) var(--s-2); font: var(--t-meta); gap: var(--s-1); }
+  .tl-split svg { display: none; }
+  .tl-split { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+  .tl-split-btn { margin-left: 0; }
+  /* the day cap line and the split option follow the timeline on a phone, so the first time is near the top of the card */
+  .tl-day-body > * { order: 0; }
+  .tl-day-body > .tl-rail { order: 2; }
+  .tl-day-body > .tl-day-warns, .tl-day-body > .tl-split, .tl-day-body > .tl-lane-bar { order: 3; }
+  .tl-day-body > .tl-lane-toggle { order: 1; }
+  .tl-day-body > .tl-empty, .tl-day-body > .tl-gone, .tl-day-body > .tl-add, .tl-day-body > .tl-day-foot, .tl-day-body > .tl-know { order: 4; }
+  .tl-day-body > .tl-nofit { order: 1; }
+  .tl-summary { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+  .tl-summary[data-open] { display: block; }
+  .tl-summary-more { display: inline; }
+  .tl-zone-text { grid-column: 3 / -1; }
+  .tl-add-item { padding-top: var(--s-2); padding-bottom: var(--s-2); }
+}
+@media print {
+  .tl-trip-scale, .tl-day-chip { display: none; }
+  .tl-days .tl-day { opacity: 1; animation: none; }
+}
+
+/* ---- the map that follows the day (map note 1 and 2) ---- */
+.tl-cols { display: block; }
+.tl-mapcol-close, .tl-mappill { display: none; }
+.tl-mapcol { margin: 0 0 var(--s-8); }
+.tl-mapcol-h { margin-bottom: var(--s-2); }
+.tl-mapcol-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); min-height: 40px; }
+.tl-mapcol-label { font: var(--t-meta); color: var(--ink-2); min-height: 20px; margin: var(--s-1) 0 var(--s-2); }
+.tl-mapcol-note { margin: var(--s-2) 0 0; }
+/* tablet: the map sits above the days, not sticky */
+@media (min-width: 640px) { .tl-cols[data-map] { display: flex; flex-direction: column; } .tl-cols[data-map] .tl-mapcol { order: -1; } .tl-mapcol .trip-map-surface { height: 360px; } }
+@media (min-width: 1024px) {
+  .tl-cols[data-map] { display: grid; grid-template-columns: minmax(0, 680px) minmax(360px, 1fr); gap: var(--s-8); align-items: start; }
+  .tl-cols[data-map] .tl-mapcol { order: 0; position: sticky; top: calc(var(--header-h) + var(--spy-bar-h) + var(--s-4)); align-self: start; margin: 0; }
+  .tl-cols[data-map] .tl-mapcol .trip-map-surface { height: clamp(360px, calc(100dvh - 232px), 720px); }
+  .tl-cols[data-map] .tl-days, .tl-cols[data-map] .trip-sec { max-width: none; }
+}
+@media (min-width: 1024px) and (max-height: 599px) { .tl-cols[data-map] .tl-mapcol { position: static; } .tl-cols[data-map] .tl-mapcol .trip-map-surface { height: 360px; } }
+/* phone: the aside is the sheet; it rests below the screen and slides up over the bottom bar, non-modal, half height */
+@media (max-width: 639px) {
+  .tl-mapcol { position: fixed; left: 0; right: 0; bottom: var(--phone-bottombar-h); z-index: var(--z-tripbar); margin: 0; padding: var(--s-3) var(--s-4) var(--s-3); height: min(50dvh, calc(100dvh - 428px)); min-height: 280px; background: var(--bg); border: 1px solid var(--line); border-bottom: 0; border-radius: 18px 18px 0 0; box-shadow: var(--e-2); transform: translateY(calc(100% + var(--phone-bottombar-h))); visibility: hidden; transition: transform 260ms var(--e-out), visibility 0s linear 260ms; display: flex; flex-direction: column; }
+  .tl-mapcol[data-sheet] { transform: none; visibility: visible; transition: transform 260ms var(--e-out), visibility 0s; }
+  .tl-mapcol .trip-map-surface { height: auto; min-height: 0; flex: 1; }
+  .tl-mapcol-h { display: none; }
+  .tl-mapcol-note, .tl-mapcol .trip-map-key { display: none; }
+  .tl-mapcol-close { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: var(--r-full); background: none; color: var(--ink); cursor: pointer; }
+  .tl-mappill { position: fixed; left: var(--s-4); bottom: calc(var(--phone-bottombar-h) + var(--s-3)); z-index: var(--z-tripbar); display: inline-flex; align-items: center; gap: var(--s-2); height: 44px; padding: 0 var(--s-4); border: 0; border-radius: var(--r-full); background: var(--toast-bg); color: var(--toast-ink); font: var(--t-tab); box-shadow: var(--e-2); cursor: pointer; transition: opacity 200ms var(--e-out); }
+  .tl-mappill[data-hidden] { opacity: 0; pointer-events: none; }
+}
+@media (prefers-reduced-motion: reduce) { .tl-mapcol, .tl-mapcol[data-sheet], .tl-mappill { transition: none; } }
