@@ -22,7 +22,7 @@ import { WORDS, lookupFor, longDate, pval, isRawVal, type PVal, type RawVal, typ
 //    with the search date in its row; pregnancy not_recommended is a value (advice), not a gap.
 
 export type ChipKind = 'rule' | 'advice' | 'value' | 'gap' | 'fits' | 'advice_fail' | 'rule_fail';
-export type Glyph = 'lock' | 'person' | 'walker' | 'clock' | 'wave' | 'stroller' | 'boat' | 'brake' | 'thermometer' | 'kit' | 'check' | 'triangle' | 'none';
+export type Glyph = 'lock' | 'person' | 'walker' | 'gauge' | 'wheel' | 'clock' | 'wave' | 'stroller' | 'boat' | 'brake' | 'thermometer' | 'kit' | 'check' | 'triangle' | 'none';
 
 export interface Chip {
   kind: ChipKind;
@@ -74,7 +74,7 @@ export interface Research {
   level: SuitLevel;
   /** "Usable, partly unverified" for usable_partial (display 9); the plain level name otherwise */
   levelLabel: string;
-  /** "9 of 12 family checks done · read 12 Oct 2026" */
+  /** "13 of 13 key checks · 9 more not checked yet · read 12 Oct 2026" */
   text: string;
   /** the safety-critical limits that are missing or soft, led in the closing line */
   softSafety: string[];
@@ -89,6 +89,10 @@ export interface PublicSuitability {
   groups: SuitGroup[];
   /** the two card chips (D5): kids and effort name */
   card: { kids: Chip | null; effort: Chip | null };
+  /** the stroller and wheelchair answers, as chips at rest when slot 3 does not already show them (S10) */
+  accessChips: Chip[];
+  /** the adult time of the record, the one home of that figure on the page (S4) */
+  adultTime: { text: string; basis: string } | null;
   kidsFrom: number | null;
   familyEffort: { grade: 1 | 2 | 3 | 4 | 5; name: string; sourceGrade: string | null } | null;
   /** true when every R field is missing: the chip row is one gap chip "Family checks not done yet" (the Lake Louise case) */
@@ -178,7 +182,7 @@ const KIT_PATHS_FIXED = ['participation.kit_provided', 'participation.wear', 'wa
 
 const GROUP_TITLE: Record<GroupId, string> = {
   limits: 'Limits and rules',
-  who: 'Who it suits',
+  who: 'For a family',
   effort: 'Effort and time',
   kind: 'Details',
   facilities: 'Facilities',
@@ -443,7 +447,8 @@ function rowFor(c: Ctx, path: string): SuitRow | { missingA: string } | null {
   const base = { key: path, label, val: v, gap: false, honesty };
   if (v.state === 'searched_none') {
     const when = v.searched ? ` · searched ${longDate(v.searched)}` : '';
-    const text = `${c.words.searchedNone}${when} · ask before booking`;
+    // a place with no operator (a free waterfall) has no one to state or ask: the honest words are "Not checked yet" (3.57)
+    const text = c.operated ? `${c.words.searchedNone}${when} · ask before booking` : `${c.words.gap}${when}`;
     return { ...base, text, look: 'sentence', short: `${label.toLowerCase()} not stated` };
   }
   if (v.state === 'none_stated') {
@@ -465,11 +470,26 @@ function rowFor(c: Ctx, path: string): SuitRow | { missingA: string } | null {
   const look: SuitRow['look'] = v.look === 'rule' ? 'rule' : v.look === 'advice' ? 'advice' : 'info';
   // pregnancy ask_doctor / not_recommended are advice, even in the limits group
   const rowLook = path === 'participation.pregnancy' && (v.value === 'ask_doctor' || v.value === 'not_recommended') ? 'advice' : look;
-  return { ...base, text, look: rowLook, short: shortOf(path, label, text) };
+  return { ...base, text, look: rowLook, short: shortOf(path, label, text, v.value) };
 }
 
-function shortOf(path: string, label: string, text: string): string {
+/** "Shuttle 1 Jun – 12 Oct": an access season line in its short form, with no raw key and no cut word (S3). */
+function seasonShort(value: unknown): string {
+  const lines = Array.isArray(value) ? value.filter((l): l is Obj => isObj(l) && typeof l.from === 'string' && typeof l.to === 'string') : [];
+  return lines
+    .map((l) => {
+      const via = typeof l.via === 'string' && l.via !== 'road' ? cap(humanise(l.via)) : '';
+      const status = typeof l.status === 'string' && l.status !== 'open' ? cap(humanise(l.status)) : '';
+      return `${[status || via || 'Open', status && via ? via.toLowerCase() : ''].filter(Boolean).join(' ')} ${mmdd(String(l.from))} – ${mmdd(String(l.to))}`;
+    })
+    .join('; ');
+}
+
+function shortOf(path: string, label: string, text: string, value?: unknown): string {
   switch (path) {
+    case 'access_season': return seasonShort(value) || text;
+    // the hazards and the exposure are the warning line above the groups, and section 3 says them again: the echo never repeats them
+    case 'hazards': case 'exposure': return '';
     case 'toilets': return text === 'none' ? 'no toilets' : `toilets ${text}`;
     case 'water': return text === 'None' ? 'no water' : text.toLowerCase();
     case 'food': return text === 'None' ? 'no food' : `food: ${text.toLowerCase()}`;
@@ -513,6 +533,9 @@ function chipLabel(kind: ChipKind, text: string, basisLabel: string | null, fiel
     default: return text;
   }
 }
+
+/** A lone dashed chip names what is missing (S11). */
+const KIDS_GAP = 'Kids: not checked yet';
 
 function gapChip(c: Ctx, field: string, text?: string): Chip {
   const t = text ?? c.words.gap;
@@ -560,7 +583,7 @@ function limitsChip(c: Ctx): Chip | null {
   const swim = rule('water_safety.swim_ability');
   if (swim && (swim.v === 'tested' || swim.v === 'comfortable')) items.push({ text: 'swim test', field: 'water_safety.swim_ability', basis: swim.basis });
   const adult = rule('adult_required');
-  if (adult && isObj(adult.v) && typeof adult.v.under === 'number') items.push({ text: `adult under ${adult.v.under}`, field: 'adult_required', basis: adult.basis });
+  if (adult && isObj(adult.v) && typeof adult.v.under === 'number') items.push({ text: `Under ${adult.v.under} with an adult`, field: 'adult_required', basis: adult.basis });
   const solo = rule('solo');
   if (solo && isObj(solo.v)) {
     const bits = [typeof solo.v.min_age === 'number' ? `alone from ${solo.v.min_age}` : '', typeof solo.v.min_height_cm === 'number' ? `alone from ${solo.v.min_height_cm} cm` : ''].filter(Boolean);
@@ -630,7 +653,7 @@ function slot2(c: Ctx, loc: Located | null): { chip: Chip | null; effort: { grad
     const base = `${name} · ${source ?? 'our grade'}`;
     const text = time ? `${base} · ${time}` : base;
     return {
-      chip: { kind: 'value', text, textNoTime: base, glyph: 'walker', label: text, field: 'effort.source_grade', extra: 0 },
+      chip: { kind: 'value', text, textNoTime: base, glyph: 'gauge', label: text, field: 'effort.source_grade', extra: 0 },
       effort: { grade, name, sourceGrade: source },
     };
   }
@@ -847,11 +870,7 @@ export function publicSuitability(located: { rec: SuitabilityRecord; file: strin
   const done = Math.max(0, requiredCount - check.missingRequired.length);
   const read = allReads(c);
   const levelLabel = LEVEL_LABEL[check.level];
-  const text =
-    requiredCount === 0
-      ? ''
-      : `${done} of ${requiredCount} family checks done${check.level === 'usable_partial' ? ' · usable, partly unverified' : ''}${read ? ` · read ${longDate(read)}` : ''}`;
-  const research: Research = { done, total: requiredCount, read, level: check.level, levelLabel, text, softSafety: check.softSafety.map((p) => labelOf(p).toLowerCase()) };
+  const research: Research = { done, total: requiredCount, read, level: check.level, levelLabel, text: '', softSafety: check.softSafety.map((p) => labelOf(p).toLowerCase()) };
   const allMissing = requiredCount > 0 && done === 0;
 
   // chips
@@ -861,7 +880,7 @@ export function publicSuitability(located: { rec: SuitabilityRecord; file: strin
   else first = null;
   first ??= limitsChip(c) ?? adviceChip(c, false);
   if (!first && allMissing) first = { kind: 'gap', text: 'Family checks not done yet', glyph: 'none', label: 'Not checked yet: family checks', field: null, extra: 0 };
-  if (!first && (mark('min_age') === 'R' || mark('age_band') === 'R')) first = gapChip(c, mark('age_band') === 'R' ? 'age_band' : 'min_age', operated ? words.gapLimits : words.gap);
+  if (!first && (mark('min_age') === 'R' || mark('age_band') === 'R')) first = gapChip(c, mark('age_band') === 'R' ? 'age_band' : 'min_age', operated ? words.gapLimits : KIDS_GAP);
   const chips: [Chip | null, Chip | null, Chip | null] = [first, allMissing ? null : s2.chip, allMissing ? null : slot3(c, opts.slot3 ?? null)];
 
   // card chips (D5): kids_from and the effort name
@@ -874,8 +893,8 @@ export function publicSuitability(located: { rec: SuitabilityRecord; file: strin
     kids = typeof minRule === 'number' && minRule >= (band?.from ?? 0)
       ? { kind: 'rule', text: `Age ${minRule}+`, glyph: 'lock', label: chipLabel('rule', `Age ${minRule}+`, (val(c, 'min_age')?.basis === 'official_rule' ? 'official rule' : 'operator rule'), 'min_age'), field: 'min_age', extra: 0 }
       : adviceChip(c, false);
-  } else if (mark('min_age') !== 'N' || mark('age_band') !== 'N') kids = gapChip(c, 'age_band');
-  const effortChip: Chip | null = s2.effort ? { kind: 'value', text: s2.effort.name, glyph: 'walker', label: s2.effort.name, field: 'effort.source_grade', extra: 0 } : null;
+  } else if (mark('min_age') !== 'N' || mark('age_band') !== 'N') kids = gapChip(c, 'age_band', KIDS_GAP);
+  const effortChip: Chip | null = s2.effort ? { kind: 'value', text: s2.effort.name, glyph: 'gauge', label: s2.effort.name, field: 'effort.source_grade', extra: 0 } : null;
 
   // groups, in the order of applicability 5.2
   const groups: SuitGroup[] = [];
@@ -904,6 +923,32 @@ export function publicSuitability(located: { rec: SuitabilityRecord; file: strin
   push(group(c, 'facilities', FACILITY_PATHS));
   push(group(c, 'when', WHEN_PATHS));
 
+  // "13 of 13 key checks · 9 more not checked yet": the count says what the visitor sees. The key checks are the required ones; the rest
+  // are the gap rows still drawn in the groups (S1, 3.49).
+  const required = new Set(check.missingRequired);
+  const openRows = groups.flatMap((g) => g.rows).filter((r) => r.gap);
+  // the closing lines list the optional checks the visitor sees as "Not checked yet: a, b, c"; each name is one open check
+  const listed = groups.reduce((n, g) => n + (g.closing ? g.closing.replace(words.closingPrefix, '').split(', ').filter(Boolean).length : 0), 0);
+  const more = openRows.filter((r) => !required.has(r.key)).length + listed;
+  if (requiredCount > 0) {
+    research.text = `${done} of ${requiredCount} key checks${more > 0 ? ` · ${more} more not checked yet` : ''}${check.level === 'usable_partial' ? ' · usable, partly unverified' : ''}${read ? ` · read ${longDate(read)}` : ''}`;
+  }
+
+  // stroller and wheelchair at rest (S10): an answered value is a chip, a gap is not (the group below says what is missing)
+  const shownFields = new Set(chips.filter((x): x is Chip => !!x).map((x) => x.field));
+  const accessChips: Chip[] = [];
+  for (const key of ['stroller', 'wheelchair'] as const) {
+    const x = val(c, key);
+    if (!x || shownFields.has(key) || c.mark(key) === 'N' || (x.state !== 'value' && x.state !== 'no_limit')) continue;
+    const words2 = describe(key, x.v, c);
+    if (!words2) continue;
+    const text = key === 'stroller' ? (/stroller/i.test(words2) ? words2 : `Stroller: ${words2.toLowerCase()}`) : `Wheelchair: ${words2.toLowerCase()}`;
+    accessChips.push({ kind: 'advice', text, glyph: key === 'stroller' ? 'stroller' : 'wheel', label: chipLabel('advice', text, null, key), field: key, extra: 0 });
+  }
+  const adultRaw = at(c, 'adult_time_min');
+  const adultV = isRawVal(adultRaw) ? wrap(c, 'adult_time_min', adultRaw) : null;
+  const adultTime = adultV && adultV.state === 'value' && Array.isArray(adultV.value) && adultV.value.length === 2 ? { text: durRange(adultV.value as [number, number]), basis: adultV.basisLabel || 'our research' } : null;
+
   return {
     ref: rec.ref,
     chips,
@@ -911,6 +956,8 @@ export function publicSuitability(located: { rec: SuitabilityRecord; file: strin
     research,
     groups,
     card: { kids, effort: effortChip },
+    accessChips,
+    adultTime,
     kidsFrom,
     familyEffort: s2.effort,
     allMissing,

@@ -66,7 +66,7 @@ export function CoverRelevance({ rel, slugs, name }: { rel: PublicRelevance; slu
             </span>
           ))}
         </p>
-      ) : rel.pointer ? (
+      ) : rel.pointer && slugs[rel.pointer.ref] ? (
         <p className="rv-pointer">
           <Icon name="navigate" size={14} />
           {rel.pointer.text.split(rel.pointer.name)[0]}

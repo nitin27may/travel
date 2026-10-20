@@ -17,7 +17,7 @@ p.pb { margin: 0; }
 /* ---------- chips ---------- */
 .chs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .ch { display: inline-flex; max-width: 100%; }
-.ci { display: inline-flex; align-items: center; gap: 5px; min-height: 26px; padding: 3px 10px; border: 1px solid var(--line-2); border-radius: var(--r-full); color: var(--ink-2); font: var(--t-chip); font-weight: 500; white-space: nowrap; }
+.ci { display: inline-flex; align-items: center; gap: 5px; line-height: 1.3; min-height: 26px; padding: 3px 10px; border: 1px solid var(--line-2); border-radius: var(--r-full); color: var(--ink-2); font: var(--t-chip); font-weight: 500; white-space: nowrap; }
 .ci > svg { flex: none; }
 .ch[data-kind='rule'] .ci { background: var(--surface-2); border-color: transparent; color: var(--ink); font-weight: 600; }
 .ch[data-kind='advice'] .ci, .ch[data-kind='value'] .ci { background: transparent; }
@@ -46,7 +46,7 @@ p.pb { margin: 0; }
 .gs { display: block; font: var(--t-meta); color: var(--ink-2); min-width: 0; }
 .su-gitem { display: inline; }
 .su-dot { margin: 0 8px; color: var(--line-2); }
-.gs .gc { margin-left: 8px; white-space: normal; border-radius: var(--r-3); }
+.gs .gc { margin: 2px 0 2px 8px; padding: 4px 12px; line-height: 1.35; white-space: normal; border-radius: var(--r-3); }
 .su-group[open] > summary .gs { display: none; }
 .su-gbody { display: grid; gap: 0; padding-bottom: var(--s-2); }
 .su-group > summary::before, details.sr > summary::after { content: ''; width: 16px; height: 16px; align-self: center; background: currentColor; color: var(--ink-2); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 6 6 6-6 6'/%3E%3C/svg%3E") center / 16px no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 6 6 6-6 6'/%3E%3C/svg%3E") center / 16px no-repeat; transition: transform var(--d-base) var(--e-out); }
@@ -169,7 +169,7 @@ details.su-prov[open] > .sp { animation: su-rise var(--d-base) var(--e-out); }
   .su-group > summary { grid-template-columns: 16px minmax(0, 1fr); }
   .gs { grid-column: 2; }
   .ps-grid { grid-template-columns: minmax(0, 1fr); gap: 4px; }
-  .ci { white-space: normal; }
+  .ci { white-space: normal; border-radius: var(--r-3); }
 }
 @media (prefers-reduced-motion: reduce) {
   .su-group > summary::before, details.sr > summary::after, .ga { transition: none; }
@@ -185,6 +185,7 @@ details.su-prov[open] > .sp { animation: su-rise var(--d-base) var(--e-out); }
 /* ---------- card chips: the same three looks, drawn on the generic badge by data-value ---------- */
 .badge-wrap[data-value='rule'] .chip { background: var(--surface-2); border-color: transparent; color: var(--ink); font-weight: 600; }
 .badge-wrap[data-value='rule'] .chip::before { content: ''; width: 13px; height: 13px; flex: none; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 11V8a5 5 0 0 1 10 0v3M5.5 11h13v9h-13zM12 15v2'/%3E%3C/svg%3E") center / 13px no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 11V8a5 5 0 0 1 10 0v3M5.5 11h13v9h-13zM12 15v2'/%3E%3C/svg%3E") center / 13px no-repeat; }
+.badge-wrap[data-value='rule'] .chip > svg { display: none; } /* the lock replaces the person glyph (S9) */
 .badge-wrap[data-value='relevance'] .chip { border-color: var(--ink); color: var(--ink); font-weight: 600; }
 .badge-row { flex-wrap: wrap; }
 
@@ -207,3 +208,16 @@ details.su-prov[open] > .sp { animation: su-rise var(--d-base) var(--e-out); }
 /* the string-built glyphs: one class instead of ten attributes on every svg */
 .gy { width: 13px; height: 13px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
 .gy16 { width: 16px; height: 16px; }
+
+/* ---------- section index (S12): one line of links on a phone, sideways when it overflows ---------- */
+.ps-index { display: none; }
+.ps-index:not([data-ready]) { min-height: 44px; }
+@media (max-width: 639px) {
+  .ps-index { display: block; margin: 0; overflow-x: auto; scrollbar-width: none; }
+  .ps-index::-webkit-scrollbar { display: none; }
+  .ps-index ul { display: flex; gap: var(--s-4); margin: 0; padding: 0; list-style: none; white-space: nowrap; }
+  .ps-index a { display: inline-flex; align-items: center; min-height: 44px; font: var(--t-meta); color: var(--ink); text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 4px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.ps-index) { scroll-behavior: smooth; }
+}

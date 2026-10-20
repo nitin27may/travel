@@ -30,7 +30,7 @@ describe('place pages from the capture contract (S1)', () => {
     expect(text(louise)).not.toMatch(/No data|recorded (?:here )?yet\b/);
   });
   it('shows the three chips, the research line and no effort grade code', () => {
-    expect(louise).toMatch(/\d+ of \d+ family checks done/);
+    expect(louise).toMatch(/\d+ of \d+ key checks/);
     expect(louise).toContain('aria-label="Who it suits"');
     expect(text(louise)).not.toMatch(/\bFE[1-5]\b/);
   });
