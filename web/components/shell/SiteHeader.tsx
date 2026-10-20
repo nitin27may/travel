@@ -19,9 +19,6 @@ export const PUBLIC_TABS = [
   { href: '/globe/', label: 'Globe' },
 ] as const;
 
-/** Window event that opens the header search: the phone bottom bar's Search slot sends it, so there is one search dialog. */
-export const OPEN_SEARCH_EVENT = 'site:open-search';
-
 /** `/trips/` is current on `/trips/` and on every `/trips/<slug>/`. */
 export const isCurrent = (path: string, href: string) => path === href || path.startsWith(href);
 
@@ -44,13 +41,8 @@ export function SiteHeader() {
       startBuffer();
       setSearchOpen(true);
     };
-    const onOpen = () => setSearchOpen(true);
     window.addEventListener('keydown', onKey);
-    window.addEventListener(OPEN_SEARCH_EVENT, onOpen);
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      window.removeEventListener(OPEN_SEARCH_EVENT, onOpen);
-    };
+    return () => window.removeEventListener('keydown', onKey);
   }, []);
 
   return (
