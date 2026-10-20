@@ -1,0 +1,169 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-19-cs7d-overpass",
+  "started": "2026-10-19",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "refs": [
+      "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
+      "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+      "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
+      "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle",
+      "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+      "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge",
+      "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+      "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly",
+      "legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse",
+      "legacy/canadian-rockies-sept-2029/adventures/legacy-trail",
+      "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
+      "legacy/canadian-rockies-sept-2029/sights/berg-lake",
+      "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
+      "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+      "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
+      "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+      "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place",
+      "part/trip/iceland-ring-road-2027/activity:myvatn nature baths#place"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "overpass-api.de",
+      "requests": 29,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/1125504165"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/24823886"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/263386936"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/492008964"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/678717446"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/29546626"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/8763049766"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/4925566921"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/172464366"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/legacy-trail",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:relation/385115"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/678717446"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/berg-lake",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:relation/14912521"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:relation/7214660"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:relation/2228048"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/1123052659"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/1185166549"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/202233167"
+    },
+    {
+      "ref": "part/trip/iceland-ring-road-2027/activity:myvatn nature baths#place",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/513972196"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse",
+      "field": "point",
+      "outcome": "gap",
+      "reason": "no stable or horse_riding feature near Lake Louise in OSM"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
+      "field": "point",
+      "outcome": "gap",
+      "reason": "the Yoho Lake/Iceline lots are unnamed in OSM; which one the hike meets at is not certain"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "field": "point",
+      "outcome": "gap",
+      "reason": "no named heliport near Canmore in OSM (one query failed 502 and was not retried)"
+    }
+  ]
+}

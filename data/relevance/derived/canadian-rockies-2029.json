@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "canadian-rockies-2029",
-  "as_of": "2026-10-19",
+  "as_of": "2026-10-20",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -20,6 +20,204 @@
     "to": "09-22"
   },
   "items": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "offer"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "route",
+      "route_is_attraction": true
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "route",
+      "route_is_attraction": true
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "place"
+    },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
       "draw_suggested": "local",
@@ -1548,6 +1746,17 @@
       },
       "pair_with": [
         {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+          "km": 1.3,
+          "how": "walk",
+          "extra_min": 98,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": false
+        },
+        {
           "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
           "km": 1.3,
           "how": "walk",
@@ -1716,6 +1925,10 @@
       },
       "pair_with": [],
       "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+          "km": 3.6
+        },
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
           "km": 4
@@ -2747,6 +2960,10 @@
       "pair_with": [],
       "pair_pending": [
         {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+          "km": 6.4
+        },
+        {
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
           "km": 8.1
         }
@@ -3413,7 +3630,16 @@
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+            "km": 78.3,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
       "pair_with": [],
@@ -3449,7 +3675,12 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [],
+      "warnings": [
+        {
+          "code": "W_REL_DISTINCTION",
+          "message": "distinction is unique but legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky has the same class within 100 km"
+        }
+      ],
       "layer": "place"
     },
     {
@@ -3655,6 +3886,10 @@
       "pair_with": [],
       "pair_pending": [
         {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+          "km": 1.9
+        },
+        {
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
           "km": 4.1
         },
@@ -3714,6 +3949,10 @@
       },
       "pair_with": [],
       "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+          "km": 1.7
+        },
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
           "km": 3.7
@@ -3776,6 +4015,17 @@
         "same_class": false
       },
       "pair_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+          "km": 1.5,
+          "how": "walk",
+          "extra_min": 104,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": false
+        },
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
           "km": 1.1,
@@ -4179,6 +4429,10 @@
       ],
       "pair_pending": [
         {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+          "km": 3.4
+        },
+        {
           "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
           "km": 4.1
         },
@@ -4398,6 +4652,10 @@
       },
       "pair_with": [],
       "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+          "km": 9.6
+        },
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
           "km": 10.5
@@ -4735,6 +4993,10 @@
       ],
       "pair_pending": [
         {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+          "km": 2.8
+        },
+        {
           "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
           "km": 4
         },
@@ -4985,16 +5247,40 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 4,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+            "km": 78.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
+        "km": 42.4,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
+          "km": 4.8
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
+          "km": 6.4
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -5009,7 +5295,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw; clear weather only drops it one step"
         }
       },
       "role": "filler",
@@ -5021,12 +5307,7 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "peak": {
         "tier": "national",
         "role": "highlight",
@@ -5043,16 +5324,35 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Banff",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+        "km": 45.7,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
+          "km": 1.9
+        },
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+          "km": 3.4
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
+          "km": 9.6
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -5066,25 +5366,20 @@
         },
         "day": {},
         "passing": {
-          "fit": "skip",
-          "reason": "detour unknown"
+          "fit": "worth_it",
+          "reason": "detour 0 min, draw regional"
         }
       },
       "role": "filler",
       "flags": {
         "go_clear_day": false,
         "rainy_day": true,
-        "en_route": false,
+        "en_route": true,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "layer": "place"
     },
     {
@@ -6373,6 +6668,10 @@
         }
       ],
       "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+          "km": 3.4
+        },
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
           "km": 4.1

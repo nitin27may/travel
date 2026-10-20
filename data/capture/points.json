@@ -8,11 +8,47 @@
       "coord_src": "osm",
       "point_source": "OSM node 10809307066 Banff Gondola Lower Terminal (where the ride starts); agent checked, needs a person's check"
     },
+    "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride": {
+      "lat": 51.17507,
+      "lon": -115.58171,
+      "coord_src": "osm",
+      "point_source": "OSM way 1125504165 Warner Stables (horse riding); the operator says rides meet at its stables at the end of Sundance Road, Banff; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa": {
+      "lat": 51.16405,
+      "lon": -115.56146,
+      "coord_src": "osm",
+      "point_source": "OSM way 24823886 Fairmont Banff Springs (Q806429), the hotel the spa is in; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft": {
+      "lat": 51.16741,
+      "lon": -115.5609,
+      "coord_src": "osm",
+      "point_source": "OSM node 263386936 Bow Falls; the operator launches at the base of the falls; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen": {
+      "lat": 51.39798,
+      "lon": -116.49185,
+      "coord_src": "osm",
+      "point_source": "OSM way 492008964 Yoho National Park Visitor Centre, Field, where the Parks Canada hike meets; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer": {
       "lat": 52.22031,
       "lon": -117.22417,
       "coord_src": "osm",
       "point_source": "OSM way 282985047 Columbia Icefield Glacier Discovery Centre (the Ice Explorer check-in); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle": {
+      "lat": 49.05379,
+      "lon": -113.9072,
+      "coord_src": "osm",
+      "point_source": "OSM way 678717446 Waterton Shoreline Cruises, at the Waterton marina where the shuttle leaves; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/elk-rut": {
+      "lat": 51.17508,
+      "lon": -115.57208,
+      "coord_src": "osm",
+      "point_source": "OSM node 29546626 Banff (town, Q58337): the plan's Day 1 stop is the elk rut in Banff townsite, and Parks Canada's elk safety page says elk are seen 'in town'; the rut has no single viewing point; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe": {
       "lat": 51.43971,
@@ -20,11 +56,29 @@
       "coord_src": "osm",
       "point_source": "OSM node 9902888899 (amenity=boat_rental, Canoe Rental) at Emerald Lake; agent checked, needs a person's check"
     },
+    "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge": {
+      "lat": 51.31499,
+      "lon": -116.95739,
+      "coord_src": "osm",
+      "point_source": "OSM node 8763049766 Golden Skybridge (Q113546486); read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky": {
+      "lat": 52.86934,
+      "lon": -118.05812,
+      "coord_src": "osm",
+      "point_source": "OSM node 4925566921 Old Fort Point (viewpoint), one of the four best locations on the Parks Canada Jasper dark-sky page and the one nearest the plan's Day 7 evening at Lake Annette (our choice among the four); read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram": {
       "lat": 52.85134,
       "lon": -118.12371,
       "coord_src": "osm",
       "point_source": "OSM node 263473399 Jasper Skytram station; the lower of the two (node 263473400 is nearer the Whistlers summit, Q22701843 P625 52.82694,-118.13278); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly": {
+      "lat": 51.29761,
+      "lon": -117.04857,
+      "coord_src": "osm",
+      "point_source": "OSM way 172464366 Golden Eagle Express Lower Station, where the ride starts; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe": {
       "lat": 51.41536,
@@ -44,6 +98,12 @@
       "coord_src": "osm",
       "point_source": "OSM way 223576165 (leisure=marina, Lake Minnewanka), the cruise dock; agent checked, needs a person's check"
     },
+    "legacy/canadian-rockies-sept-2029/adventures/legacy-trail": {
+      "lat": 51.21296,
+      "lon": -115.53086,
+      "coord_src": "osm",
+      "point_source": "OSM relation 385115 Cascade Ponds; Parks Canada names the Cascade Ponds Picnic Area the recommended start; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise": {
       "lat": 52.72895,
       "lon": -117.64004,
@@ -56,11 +116,41 @@
       "coord_src": "osm",
       "point_source": "OSM node 2956259306 Canoe Rentals (amenity=boat_rental) at Moraine Lake; agent checked, needs a person's check"
     },
+    "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise": {
+      "lat": 49.05379,
+      "lon": -113.9072,
+      "coord_src": "osm",
+      "point_source": "OSM way 678717446 Waterton Shoreline Cruises, at the Waterton marina where the cruises leave; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/berg-lake": {
+      "lat": 53.14515,
+      "lon": -119.15788,
+      "coord_src": "osm",
+      "point_source": "OSM relation 14912521 Berg Lake (lake, Q316442), bounding-box centre; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park": {
+      "lat": 49.44218,
+      "lon": -114.4098,
+      "coord_src": "osm",
+      "point_source": "OSM relation 7214660 Castle Provincial Park (Q28479055), bounding-box centre of the park; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park": {
+      "lat": 50.47807,
+      "lon": -115.09646,
+      "coord_src": "osm",
+      "point_source": "OSM relation 2228048 Elk Lakes Provincial Park (Q5364041), bounding-box centre of the park; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/sights/natural-bridge": {
       "lat": 51.38181,
       "lon": -116.53024,
       "coord_src": "osm",
       "point_source": "OSM node 1783220701 Natural Bridge (tourism=attraction), Yoho; agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs": {
+      "lat": 50.63486,
+      "lon": -116.03915,
+      "coord_src": "osm",
+      "point_source": "OSM way 1123052659 Radium Hot Springs (natural=hot_spring, the pools); read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/bald-hills": {
       "lat": 52.72667,
@@ -97,6 +187,12 @@
       "lon": -115.13998,
       "coord_src": "osm",
       "point_source": "OSM node 269821248 North Interlakes (amenity=parking); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/kinney-lake": {
+      "lat": 53.04984,
+      "lon": -119.21545,
+      "coord_src": "osm",
+      "point_source": "OSM way 1185166549, the unnamed car park at the end of Kinney Lake Road where the Berg Lake Trail (relation 6035635, way 157610634) begins 125 m away; BC Parks names the start the Berg Lake trailhead; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop": {
       "lat": 52.72667,
@@ -187,6 +283,12 @@
       "lon": -115.57502,
       "coord_src": "osm",
       "point_source": "OSM node 10809307025 (aerialway=station, Banff Gondola Upper Terminal), read 2026-10-19; replaces the Q125749525 P625 point, which is the lower terminal; agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place": {
+      "lat": 51.15086,
+      "lon": -115.56062,
+      "coord_src": "osm",
+      "point_source": "OSM way 202233167 Banff Upper Hot Springs (public bath); read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/bow-lake#parking": {
       "lat": 51.66986,
@@ -415,6 +517,12 @@
       "lon": 6.887,
       "coord_src": "osm",
       "point_source": "OSM node 435438563 (aerialway=station, aerialway:station=top, Aiguille du Midi 2, ele 3777), read 2026-10-19; replaces the Q3088020 P625 point, which is the valley station in Chamonix; agent checked, needs a person's check"
+    },
+    "part/trip/iceland-ring-road-2027/activity:myvatn nature baths#place": {
+      "lat": 65.63042,
+      "lon": -16.84742,
+      "coord_src": "osm",
+      "point_source": "OSM way 513972196 Jarðböðin við Mývatn (Q140586475), the Mývatn Nature Baths; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
     },
     "part/trip/iceland-ring-road-2027/viewpoint:jokulsarlon#parking": {
       "lat": 64.04801,
