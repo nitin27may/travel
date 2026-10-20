@@ -56,7 +56,7 @@ Shared files rule as in the stage 4 plan: `types.ts` additive blocks, coordinato
 | Q51 | Google Maps on the trip route map, MapLibre kept for the globe | Yes |
 | Q52 | Natural features default on or off once fixed | On, with the switch |
 | Q53 | AllTrails: paste direct links, or search links for now | Search links for all, direct links added as supplied |
-| Q50+ | Where filter, nearby, towns layer, planner phasing | The planner's spec lists them |
+| Q50, Q54-Q62 | Where filter, nearby, towns layer, planner phasing | See `features/nearby-and-regions.md` section 8: Q50 Whitby in the public towns layer, Q54 launch scope, Q55 GeoNames towns, Q56 radius, Q57 drive-time bands, Q58 open-data points pass, Q59 guest drafts, Q60 unresearched places signed-in only, Q61 province on Trips, Q62 the `city=` key |
 | Research | Unpause data research for trails and points (items 14, 16, 17) | Yes, but only the trail gap report and points first |
 | Scope | Which items go before his review and which after | FIXF and GLB2 part A before; the rest after go-live except 7 and 13 if he wants them |
 
@@ -69,3 +69,4 @@ No green, non-modal overlays, smooth motion, P8 and P9, no household data, a gap
 | Date | Change |
 |---|---|
 | 2026-10-20 | First version |
+| 2026-10-20 | Planner spec landed (nearby-and-regions.md): audit numbers, phases N0-N3 and P1, questions Q50 and Q54-Q62 |
