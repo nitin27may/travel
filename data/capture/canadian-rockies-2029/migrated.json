@@ -258,6 +258,348 @@
       "kind": "official",
       "read": "2026-10-19",
       "method": "read"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://www.horseback.com/bow-river-ride/",
+      "title": "Bow River Ride",
+      "publisher": "Banff Trail Riders",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.horseback.com/",
+      "title": "Banff Trail Riders",
+      "publisher": "Banff Trail Riders",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://www.brewsteradventures.com/summer-trail-rides",
+      "title": "Summer trail rides",
+      "publisher": "Brewster Adventures",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs",
+      "title": "Banff Upper Hot Springs",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs/heures-hours",
+      "title": "Banff Upper Hot Springs: hours",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs/tarifs-fees",
+      "title": "Banff Upper Hot Springs: fees",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0035",
+      "url": "https://www.banffadventures.com/Things-To-Do/Summer-Activities/Float-Trips/Hoodoo-Float-Tour",
+      "title": "Hoodoo Float Tour",
+      "publisher": "Banff Adventures Unlimited",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0036",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/promenade-de-la-vallee-de-la-bow-bow-valley-parkway",
+      "title": "Bow Valley Parkway",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0037",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/cyclisme-biking/cyclismeroute-roadcycling/heritage-legacy",
+      "title": "Legacy Trail",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0038",
+      "url": "https://www.banff-springs-hotel.com/play/willow-stream-spa/",
+      "title": "Fairmont Spa",
+      "publisher": "Fairmont Banff Springs",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0039",
+      "url": "https://www.banff-springs-hotel.com/offers/fairmont-spa-access/",
+      "title": "Fairmont Thermal Experience",
+      "publisher": "Fairmont Banff Springs",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0040",
+      "url": "https://banffnorquay.com/summer/via-ferrata/routes/",
+      "title": "Via Ferrata routes",
+      "publisher": "Banff Norquay",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0041",
+      "url": "https://banffnorquay.com/summer/via-ferrata/",
+      "title": "Via Ferrata",
+      "publisher": "Banff Norquay",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0042",
+      "url": "https://www.icewalks.com/tours/half-day-tours",
+      "title": "Half day tours",
+      "publisher": "Athabasca Glacier IceWalks",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0043",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/visit/tarifs-fees",
+      "title": "Yoho fees",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0044",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/stephen",
+      "title": "Mount Stephen guided hike",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0045",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/walcott",
+      "title": "Walcott Quarry guided hike",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0046",
+      "url": "https://www.banffjaspercollection.com/attractions/golden-skybridge/hours-rates/",
+      "title": "Golden Skybridge hours and rates",
+      "publisher": "Banff Jasper Collection (Pursuit)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0047",
+      "url": "https://www.banffjaspercollection.com/attractions/golden-skybridge/faqs/",
+      "title": "Golden Skybridge FAQs",
+      "publisher": "Banff Jasper Collection (Pursuit)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0048",
+      "url": "https://www.banffjaspercollection.com/attractions/golden-skybridge/",
+      "title": "Golden Skybridge",
+      "publisher": "Banff Jasper Collection (Pursuit)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0049",
+      "url": "https://kickinghorseresort.com/purchase/summer-lift-tickets/",
+      "title": "Summer lift tickets",
+      "publisher": "Kicking Horse Mountain Resort",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0050",
+      "url": "https://www.skinakiska.com/summer-operations/",
+      "title": "Summer operations",
+      "publisher": "Nakiska Ski Resort",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0051",
+      "url": "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour/",
+      "title": "Three Sisters Peaks Tour",
+      "publisher": "Alpine Helicopters",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0052",
+      "url": "https://canmore.alpinehelicopter.com/",
+      "title": "Canmore helicopter tours",
+      "publisher": "Alpine Helicopters",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0053",
+      "url": "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies",
+      "title": "Heli hiking in the Canadian Rockies",
+      "publisher": "White Mountain Adventures",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0054",
+      "url": "https://yamnuska.com/mountaineering/beginner-mountaineering-courses/mountain-scrambling/",
+      "title": "Mountain scrambling",
+      "publisher": "Yamnuska Mountain Adventures",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0055",
+      "url": "https://bcparks.ca/mount-robson-park/",
+      "title": "Mount Robson Park",
+      "publisher": "BC Parks",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0056",
+      "url": "https://jasperstables.com/",
+      "title": "Jasper Riding Stables",
+      "publisher": "Jasper Riding Stables",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0057",
+      "url": "https://alpinestables.com/",
+      "title": "Alpine Stables",
+      "publisher": "Alpine Stables",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0058",
+      "url": "https://viciouscycleandsnow.ca/",
+      "title": "Vicious Cycle and Snow",
+      "publisher": "Vicious Cycle and Snow",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0059",
+      "url": "https://www.sundogtours.com/package/sunrise-photography-and-wildlife-tour",
+      "title": "Sunrise Wildlife and Ecology of Fire",
+      "publisher": "SunDog Tours",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0060",
+      "url": "https://www.watertoncruise.com/",
+      "title": "Waterton Shoreline Cruise Co.",
+      "publisher": "Waterton Shoreline Cruise Co.",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0061",
+      "url": "https://www.albertaparks.ca/parks/south/castle-pp/",
+      "title": "Castle Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0062",
+      "url": "https://bcparks.ca/elk-lakes-park/",
+      "title": "Elk Lakes Park",
+      "publisher": "BC Parks",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0063",
+      "url": "https://parks.canada.ca/pn-np/ab/waterton/securite-safety/conduire-driving",
+      "title": "Driving in Waterton",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0064",
+      "url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving",
+      "title": "Scenic drives",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0065",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/sources-radium-springs",
+      "title": "Radium Hot Springs",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0066",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/sources-radium-springs/tarifs-fees",
+      "title": "Radium Hot Springs: fees",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
     }
   ],
   "records": [
@@ -1865,7 +2207,107 @@
       "offer_class": "ticket",
       "at": [
         "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place"
-      ]
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0032"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0034"
+          ]
+        }
+      ],
+      "hours": {
+        "v": {
+          "tz": "America/Edmonton",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:00",
+              "close": "22:00"
+            }
+          ],
+          "last_entry": "21:30",
+          "closures": [
+            {
+              "from": "10-13",
+              "to": "early November",
+              "why": "repairs and improvements"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0033"
+        ],
+        "read": "2026-10-19",
+        "quote": "Open daily: 10 am to 10 pm ... Last entry is at 9:30 pm",
+        "note": "hours are subject to change; the closure states no year (page modified 2026-09-28)"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 19.75,
+            "currency": "CAD",
+            "per": "adult"
+          },
+          {
+            "amount": 17.25,
+            "currency": "CAD",
+            "per": "child",
+            "age_from": 3,
+            "age_to": 17,
+            "note": "youth"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 2,
+            "note": "under 3 free"
+          },
+          {
+            "amount": 17.25,
+            "currency": "CAD",
+            "per": "person",
+            "note": "senior"
+          },
+          {
+            "amount": 64.25,
+            "currency": "CAD",
+            "per": "family",
+            "note": "four people of one family, at most two aged 18 or older"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0034"
+        ],
+        "read": "2026-10-19",
+        "quote": "Adult $19.75 ... Youth (ages 3-17) $17.25 ... Family $64.25",
+        "note": "single entry, locker token included; no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD"
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place",
@@ -1875,7 +2317,18 @@
       "origin": {
         "from": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
         "reason": "the place the offer runs at"
-      }
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0032"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
@@ -2158,85 +2611,902 @@
       "ref": "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks",
       "type": "mountain.alpine.glacier_walk",
       "layer": "offer",
-      "name": "Athabasca Glacier guided ice walk (Icewalks)"
+      "name": "Athabasca Glacier guided ice walk (Icewalks)",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.icewalks.com/tours/half-day-tours",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0042"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "05-22",
+            "to": "10-11",
+            "status": "open",
+            "applies_to": "2027",
+            "note": "half-day tour"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0042"
+        ],
+        "read": "2026-10-19",
+        "quote": "May 22 -October 11, 2027",
+        "applies_to": "2027"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 133.32,
+            "currency": "CAD",
+            "per": "adult",
+            "applies_to": "2027",
+            "note": "half day, plus 5% GST"
+          },
+          {
+            "amount": 70.49,
+            "currency": "CAD",
+            "per": "child",
+            "age_from": 7,
+            "age_to": 16,
+            "applies_to": "2027",
+            "note": "half day, plus 5% GST"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0042"
+        ],
+        "read": "2026-10-19",
+        "quote": "Adults: $133.32 CDN, plus 5% GST",
+        "note": "whether a child under 7 may join is not stated",
+        "applies_to": "2027"
+      },
+      "duration_min": {
+        "v": [
+          195,
+          210
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0042"
+        ],
+        "read": "2026-10-19",
+        "quote": "3.25 - 3.5 hours, 5 km (3 miles) round trip"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
       "type": "animals.ride.horse_ride",
       "layer": "offer",
-      "name": "Banff horseback rides (Banff Trail Riders / Warner Stables, Spray River, Bow River, Sulphur Mountain)"
+      "name": "Banff horseback rides (Banff Trail Riders / Warner Stables, Spray River, Bow River, Sulphur Mountain)",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.horseback.com/bow-river-ride/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0029"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "04-01",
+            "to": "10-31",
+            "status": "open",
+            "note": "the page gives months only: \"Apr - Oct\""
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0029"
+        ],
+        "read": "2026-10-19",
+        "quote": "Apr – Oct",
+        "note": "no year and no days on the page"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 102,
+            "currency": "CAD",
+            "per": "person",
+            "note": "Bow River Ride, 1 hour, a \"from\" price"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0030"
+        ],
+        "read": "2026-10-19",
+        "quote": "Bow River Ride ... 1 hour ... from CA $102",
+        "note": "no year on the page; longer rides from $198 (2 h) and $272 (3 h)"
+      },
+      "duration_min": {
+        "v": [
+          60,
+          60
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0029"
+        ],
+        "read": "2026-10-19",
+        "quote": "The tour is a one hour horseback ride."
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
       "type": "water.thermal.spa",
       "layer": "offer",
-      "name": "Fairmont Banff Springs spa"
+      "name": "Fairmont Banff Springs spa",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banff-springs-hotel.com/play/willow-stream-spa/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0038"
+          ]
+        }
+      ],
+      "hours": {
+        "v": {
+          "tz": "America/Edmonton",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "08:00",
+              "close": "20:00"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0038"
+        ],
+        "read": "2026-10-19",
+        "quote": "daily 8:00 a.m. to 8:00 p.m."
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 159,
+            "currency": "CAD",
+            "per": "person",
+            "note": "Fairmont Thermal Experience, 3 hours, non-hotel guests, Monday to Thursday only"
+          },
+          {
+            "amount": 129,
+            "currency": "CAD",
+            "per": "person",
+            "note": "the same for hotel guests"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0039"
+        ],
+        "read": "2026-10-19",
+        "quote": "$129 per person for hotel guests ... $159 for non-hotel guests",
+        "note": "facilities are 18+; from mid-June to mid-September access is for hotel guests or a spa booking"
+      },
+      "duration_min": {
+        "v": [
+          180,
+          180
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0039"
+        ],
+        "read": "2026-10-19",
+        "quote": "three hours"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
       "type": "water.river.float",
       "layer": "offer",
-      "name": "Bow River float / raft"
+      "name": "Bow River float / raft",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffadventures.com/Things-To-Do/Summer-Activities/Float-Trips/Hoodoo-Float-Tour",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0035"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "05-01",
+            "to": "09-30",
+            "status": "open",
+            "note": "months only: \"May - Sep\""
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0035"
+        ],
+        "read": "2026-10-19",
+        "quote": "May - Sep",
+        "note": "no year on the page"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 80,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 16
+          },
+          {
+            "amount": 40,
+            "currency": "CAD",
+            "per": "child",
+            "age_from": 2,
+            "age_to": 15
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0035"
+        ],
+        "read": "2026-10-19",
+        "quote": "Adult (16+) $80, Child (2-15) $40",
+        "note": "no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD"
+      },
+      "duration_min": {
+        "v": [
+          60,
+          60
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0035"
+        ],
+        "read": "2026-10-19",
+        "quote": "1 hour (on water)"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling",
       "type": "wheels.bike.cycle_path",
       "layer": "route",
-      "name": "Bow Valley Parkway cycling (seasonal vehicle closure 17 km)"
+      "name": "Bow Valley Parkway cycling (seasonal vehicle closure 17 km)",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/promenade-de-la-vallee-de-la-bow-bow-valley-parkway",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0036"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "04-30",
+            "to": "06-25",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "personal vehicles kept off the 17 km eastern section (Fireside to Johnston Canyon), 8 am to 8 pm"
+          },
+          {
+            "from": "09-01",
+            "to": "10-06",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "the same restriction in the fall window"
+          }
+        ],
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0036"
+        ],
+        "read": "2026-10-19",
+        "quote": "2026 Dates ... Spring: April 30 to June 25 ... Fall: September 1 to October 6",
+        "note": "the pilot runs 2025-2030; cyclists may not use the section between 8 pm and 8 am",
+        "applies_to": "2026"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
       "type": "mountain.alpine.guided_summit",
       "layer": "offer",
-      "name": "Burgess Shale guided hike: Mount Stephen fossil beds (Parks Canada, Yoho)"
+      "name": "Burgess Shale guided hike: Mount Stephen fossil beds (Parks Canada, Yoho)",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/stephen",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0044"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "06-01",
+            "to": "09-30",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "the page gives months: June to September"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0044"
+        ],
+        "read": "2026-10-19",
+        "quote": "Mount Stephen guided hikes operate from June to September, 2026.",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 101.75,
+            "currency": "CAD",
+            "per": "adult"
+          },
+          {
+            "amount": 69.19,
+            "currency": "CAD",
+            "per": "child",
+            "note": "youth; the fee table gives no age band"
+          },
+          {
+            "amount": 85.47,
+            "currency": "CAD",
+            "per": "person",
+            "note": "senior"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0043"
+        ],
+        "read": "2026-10-19",
+        "quote": "Adult $101.75",
+        "note": "no year on the fee page; a park pass is extra; the Burgess Shale Geoscience Foundation runs its own hikes to the same beds with other prices and ages (burgess-shale.bc.ca); not compared here"
+      },
+      "duration_min": {
+        "v": [
+          450,
+          450
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0044"
+        ],
+        "read": "2026-10-19",
+        "quote": "7:00 am to 2:30 pm"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
       "type": "mountain.alpine.guided_summit",
       "layer": "offer",
-      "name": "Burgess Shale guided hike: Walcott Quarry (Parks Canada, Yoho)"
+      "name": "Burgess Shale guided hike: Walcott Quarry (Parks Canada, Yoho)",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/walcott",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0045"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "07-01",
+            "to": "09-30",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "the page gives months: July to September"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0045"
+        ],
+        "read": "2026-10-19",
+        "quote": "Walcott Quarry guided hikes operate from July to September, 2026.",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 131.0,
+            "currency": "CAD",
+            "per": "adult"
+          },
+          {
+            "amount": 89.08,
+            "currency": "CAD",
+            "per": "child",
+            "note": "youth; the fee table gives no age band"
+          },
+          {
+            "amount": 110.04,
+            "currency": "CAD",
+            "per": "person",
+            "note": "senior"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0043"
+        ],
+        "read": "2026-10-19",
+        "quote": "Adult $131.00",
+        "note": "no year on the fee page; a park pass is extra; the Burgess Shale Geoscience Foundation runs its own hikes to the same beds with other prices and ages (burgess-shale.bc.ca); not compared here"
+      },
+      "duration_min": {
+        "v": [
+          660,
+          660
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0045"
+        ],
+        "read": "2026-10-19",
+        "quote": "Duration: 11 hours (7 am to 6 pm)"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle",
       "type": "water.boat.water_taxi",
       "layer": "offer",
-      "name": "Crypt Lake boat shuttle (Waterton Shoreline Cruises)"
+      "name": "Crypt Lake boat shuttle (Waterton Shoreline Cruises)",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.watertoncruise.com/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0060"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "05-30",
+            "to": "10-12",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "October runs depend on weather"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0060"
+        ],
+        "read": "2026-10-19",
+        "quote": "2026 Season",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 35,
+            "currency": "CAD",
+            "per": "person",
+            "age_from": 3,
+            "applies_to": "2026",
+            "note": "ages 3 and up, excluding GST"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 2,
+            "applies_to": "2026",
+            "note": "infants free"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0060"
+        ],
+        "read": "2026-10-19",
+        "quote": "all ages 3+ $35.00",
+        "note": "one-way or return is not stated; tickets in person only, cards only",
+        "applies_to": "2026"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge",
       "type": "culture.heritage.landmark",
       "layer": "place",
-      "name": "Golden Skybridge (bridges, coaster, zipline)"
+      "name": "Golden Skybridge (bridges, coaster, zipline)",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/golden-skybridge/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0048"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "url": "https://www.banffjaspercollection.com/attractions/golden-skybridge/hours-rates/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0046"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "05-07",
+            "to": "10-11",
+            "status": "open",
+            "applies_to": "2027",
+            "note": "summer season; the Trailglow evening event runs in winter"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0046"
+        ],
+        "read": "2026-10-19",
+        "quote": "2027 Daily Operating Hours",
+        "applies_to": "2027"
+      },
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-19",
+        "tried": [
+          "banffjaspercollection.com Golden Skybridge hours-rates, tickets, home and FAQ pages",
+          "search: Golden Skybridge admission price adult child 2026"
+        ],
+        "note": "prices load in the booking widget and were not readable"
+      },
+      "duration_min": {
+        "v": [
+          120,
+          240
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0047"
+        ],
+        "read": "2026-10-19",
+        "quote": "Adventure Pass ... about 3-4 hours",
+        "note": "Coaster Pass about 2-3 hours"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
       "type": "air.flight.heli_tour",
       "layer": "offer",
-      "name": "Scenic helicopter flights (Three Sisters, Assiniboine, Continental Divide)"
+      "name": "Scenic helicopter flights (Three Sisters, Assiniboine, Continental Divide)",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://canmore.alpinehelicopter.com/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0052"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0051"
+          ]
+        }
+      ],
+      "price": {
+        "v": [
+          {
+            "amount": 339,
+            "currency": "CAD",
+            "per": "person",
+            "note": "Three Sisters Peaks Tour, 25 minutes, plus 5% GST"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0051"
+        ],
+        "read": "2026-10-19",
+        "quote": "$ 339.00 per person",
+        "note": "no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD"
+      },
+      "duration_min": {
+        "v": [
+          25,
+          25
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0051"
+        ],
+        "read": "2026-10-19",
+        "quote": "25 minutes"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
       "type": "mountain.alpine.guided_summit",
       "layer": "offer",
-      "name": "Heli-hiking (Backroads family option etc.)"
+      "name": "Heli-hiking (Backroads family option etc.)",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0053"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "06-15",
+            "to": "10-15",
+            "status": "open",
+            "note": "the highlights say mid-June to mid-October; the 15th is our reading of \"mid\""
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0053"
+        ],
+        "read": "2026-10-19",
+        "quote": "Heli Hiking available mid-June to mid-October (weather permitting)",
+        "note": "the same page's FAQ says mid-June to mid-September",
+        "conflicts": [
+          {
+            "v": [
+              {
+                "from": "06-15",
+                "to": "09-15",
+                "status": "open",
+                "note": "FAQ: 7 days a week from mid-June to mid-September"
+              }
+            ],
+            "basis": "operator_info",
+            "src": [
+              "src-0053"
+            ],
+            "note": "the FAQ on the same page"
+          }
+        ]
+      },
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-19",
+        "tried": [
+          "whitemountainadventures.com heli-hiking page",
+          "search: White Mountain Adventures heli-hiking Canmore"
+        ],
+        "note": "only a $500 deposit is stated"
+      },
+      "duration_min": {
+        "v": [
+          240,
+          240
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0053"
+        ],
+        "read": "2026-10-19",
+        "quote": "4 hours",
+        "note": "2-3 hours of walking"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
       "type": "wheels.bike.cycle_path",
       "layer": "route",
-      "name": "Jasper bike rentals"
+      "name": "Jasper bike rentals",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://viciouscycleandsnow.ca/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0058"
+          ]
+        }
+      ],
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-19",
+        "tried": [
+          "viciouscycleandsnow.ca rentals pages",
+          "search: Jasper bike rentals townsite shop rates"
+        ],
+        "note": "no Jasper prices on the pages"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-waterton-horse",
       "type": "animals.ride.horse_ride",
       "layer": "offer",
-      "name": "Jasper and Waterton horseback rides"
+      "name": "Jasper and Waterton horseback rides",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://jasperstables.com/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0056"
+          ]
+        },
+        {
+          "kind": "official",
+          "url": "https://alpinestables.com/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0057"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour",
       "type": "nature.wildlife.wildlife_tour",
       "layer": "offer",
-      "name": "Jasper wildlife tours (SunDog, Maligne Adventures)"
+      "name": "Jasper wildlife tours (SunDog, Maligne Adventures)",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.sundogtours.com/package/sunrise-photography-and-wildlife-tour",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0059"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "06-01",
+            "to": "09-30",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "months only"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-19",
+        "quote": "June 2026 - September 2026",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 84,
+            "currency": "CAD",
+            "per": "adult",
+            "applies_to": "2026",
+            "note": "plus taxes"
+          },
+          {
+            "amount": 49,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 12,
+            "applies_to": "2026",
+            "note": "age 12 and under, plus taxes"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-19",
+        "quote": "adult $84 plus taxes; children age 12 and under $49",
+        "note": "amounts shown as \"$\" on a Canadian operator page; read as CAD",
+        "applies_to": "2026"
+      },
+      "duration_min": {
+        "v": [
+          180,
+          210
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0059"
+        ],
+        "read": "2026-10-19",
+        "quote": "3 - 3.5 hrs"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-class3-4",
@@ -2253,13 +3523,156 @@
       "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly",
       "type": "ride.lift.gondola",
       "layer": "route",
-      "name": "Kicking Horse Mountain Resort Golden Eagle Express gondola and Grizzly Bear Refuge (Boo)"
+      "name": "Kicking Horse Mountain Resort Golden Eagle Express gondola and Grizzly Bear Refuge (Boo)",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://kickinghorseresort.com/purchase/summer-lift-tickets/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0049"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "05-30",
+            "to": "09-27",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "summer operations"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0049"
+        ],
+        "read": "2026-10-19",
+        "quote": "2026 SUMMER OPERATIONS - MAY 30 - SEPTEMBER 27",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 85,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 18,
+            "age_to": 64,
+            "applies_to": "2026",
+            "note": "gondola and Grizzly Bear Refuge (Adventure Day Pass), 18-64"
+          },
+          {
+            "amount": 72,
+            "currency": "CAD",
+            "per": "child",
+            "age_from": 13,
+            "age_to": 17,
+            "applies_to": "2026",
+            "note": "youth"
+          },
+          {
+            "amount": 42,
+            "currency": "CAD",
+            "per": "child",
+            "age_from": 6,
+            "age_to": 12,
+            "applies_to": "2026"
+          },
+          {
+            "amount": 196,
+            "currency": "CAD",
+            "per": "family",
+            "applies_to": "2026",
+            "note": "at most 6: 2 adults and 4 children or youth"
+          },
+          {
+            "amount": 74,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 18,
+            "age_to": 64,
+            "applies_to": "2026",
+            "note": "gondola only"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0049"
+        ],
+        "read": "2026-10-19",
+        "quote": "Gondola & Grizzly Bear ... 85",
+        "note": "tax not stated; the free age for under-6s is not stated; amounts shown as \"$\" on a Canadian operator page; read as CAD",
+        "applies_to": "2026"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse",
       "type": "animals.ride.horse_ride",
       "layer": "offer",
-      "name": "Brewster Stables Lake Louise horseback"
+      "name": "Brewster Stables Lake Louise horseback",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.brewsteradventures.com/summer-trail-rides",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0031"
+          ]
+        }
+      ],
+      "price": {
+        "v": [
+          {
+            "amount": 205,
+            "currency": "CAD",
+            "per": "person",
+            "note": "Destination Lake Head, about 1.5-2 h"
+          },
+          {
+            "amount": 260,
+            "currency": "CAD",
+            "per": "person",
+            "note": "Lake Agnes Tea House, about 3 h"
+          },
+          {
+            "amount": 325,
+            "currency": "CAD",
+            "per": "person",
+            "note": "Plain of Six Glaciers, about 4 h"
+          },
+          {
+            "amount": 110,
+            "currency": "CAD",
+            "per": "person",
+            "note": "hourly ride, on availability"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0031"
+        ],
+        "read": "2026-10-19",
+        "quote": "Destination Lake Head ... $205.00",
+        "note": "no year on the page (footer 2024); amounts shown as \"$\" on a Canadian operator page; read as CAD"
+      },
+      "season": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-19",
+        "tried": [
+          "brewsteradventures.com summer trail rides page"
+        ],
+        "note": "the page states no season; it says teahouses typically open July 1"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing",
@@ -2273,19 +3686,172 @@
       "ref": "legacy/canadian-rockies-sept-2029/adventures/legacy-trail",
       "type": "wheels.bike.cycle_path",
       "layer": "route",
-      "name": "Legacy Trail Banff to Canmore"
+      "name": "Legacy Trail Banff to Canmore",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/cyclisme-biking/cyclismeroute-roadcycling/heritage-legacy",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0037"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "04-15",
+            "to": "10-15",
+            "status": "open",
+            "note": "the page says \"mid-April to mid-October (weather permitting)\"; the 15th is our reading of \"mid\""
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0037"
+        ],
+        "read": "2026-10-19",
+        "quote": "accessible mid-April to mid-October (weather permitting)"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer",
       "type": "ride.lift.gondola",
       "layer": "route",
-      "name": "Nakiska summer gondola / coaster"
+      "name": "Nakiska summer gondola / coaster",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.skinakiska.com/summer-operations/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0050"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "closed",
+            "applies_to": "2026",
+            "note": "no summer operation: summer 2026 is construction"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0050"
+        ],
+        "read": "2026-10-19",
+        "quote": "In the summer of 2027 Nakiska Ski Resort will open for summer activities.",
+        "note": "the planned summer lift is the Silver Chair (no gondola); dates and prices not announced",
+        "applies_to": "2026"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
       "type": "mountain.ferrata.via_ferrata",
       "layer": "offer",
-      "name": "Mount Norquay Via Ferrata (Explorer, Ridgewalker; also Skyline, Summiteer)"
+      "name": "Mount Norquay Via Ferrata (Explorer, Ridgewalker; also Skyline, Summiteer)",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://banffnorquay.com/summer/via-ferrata/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0041"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "url": "https://banffnorquay.com/summer/via-ferrata/routes/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0040"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "06-12",
+            "to": "10-10",
+            "status": "open",
+            "note": "the Summiteer ends on 3 October"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0040"
+        ],
+        "read": "2026-10-19",
+        "quote": "June 12 to Oct 10",
+        "note": "no year printed; the booking link is dated 2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 199,
+            "currency": "CAD",
+            "per": "person",
+            "note": "Explorer, 2-2.5 h, 12+"
+          },
+          {
+            "amount": 269,
+            "currency": "CAD",
+            "per": "person",
+            "note": "Ridgewalker, 3.5-4 h, 12+"
+          },
+          {
+            "amount": 295,
+            "currency": "CAD",
+            "per": "person",
+            "note": "Alpinist, 4-4.5 h, 14+"
+          },
+          {
+            "amount": 325,
+            "currency": "CAD",
+            "per": "person",
+            "note": "Skyline, 4.5-5 h, 14+"
+          },
+          {
+            "amount": 399,
+            "currency": "CAD",
+            "per": "person",
+            "note": "Summiteer, 5.5-6 h, 14+, lunch included"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0040"
+        ],
+        "read": "2026-10-19",
+        "quote": "Explorer $199",
+        "note": "no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD"
+      },
+      "duration_min": {
+        "v": [
+          120,
+          360
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0040"
+        ],
+        "read": "2026-10-19",
+        "quote": "Explorer 2-2.5 hr ... Summiteer 5.5-6 hr",
+        "note": "the range across the five routes"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs",
@@ -2315,13 +3881,122 @@
       "ref": "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
       "type": "water.boat.cruise",
       "layer": "offer",
-      "name": "Waterton border cruise and Goat Haunt cruise"
+      "name": "Waterton border cruise and Goat Haunt cruise",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.watertoncruise.com/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0060"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "05-02",
+            "to": "10-12",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "Canada-USA Border Cruise; the Goat Haunt landing cruise runs Jun 3 to Sep 20"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0060"
+        ],
+        "read": "2026-10-19",
+        "quote": "May 2-Oct 12, 2026",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 67,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 13,
+            "applies_to": "2026",
+            "note": "Border Cruise, excluding GST"
+          },
+          {
+            "amount": 33,
+            "currency": "CAD",
+            "per": "child",
+            "age_from": 3,
+            "age_to": 12,
+            "applies_to": "2026"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 2,
+            "applies_to": "2026",
+            "note": "infants free"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0060"
+        ],
+        "read": "2026-10-19",
+        "quote": "adult 13+ $67, child 3-12 $33",
+        "note": "Goat Haunt cruise: adult $91, child $46; passports needed only to stay past the 30-minute stop",
+        "applies_to": "2026"
+      },
+      "duration_min": {
+        "v": [
+          75,
+          75
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0060"
+        ],
+        "read": "2026-10-19",
+        "quote": "1 h 15 min"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
       "type": "mountain.alpine.guided_summit",
       "layer": "offer",
-      "name": "Yamnuska guided scrambles (Yamnuska Mountain Adventures)"
+      "name": "Yamnuska guided scrambles (Yamnuska Mountain Adventures)",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://yamnuska.com/mountaineering/beginner-mountaineering-courses/mountain-scrambling/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0054"
+          ]
+        }
+      ],
+      "price": {
+        "v": [
+          {
+            "amount": 499,
+            "currency": "CAD",
+            "per": "person",
+            "note": "Scrambling Skills and Safety, 2 days, plus GST"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0054"
+        ],
+        "read": "2026-10-19",
+        "quote": "$499 CDN per person plus GST",
+        "note": "no year on the page; the course dates field is empty"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter",
@@ -2339,7 +4014,18 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/berg-lake",
       "type": "water.body.lake",
       "layer": "place",
-      "name": "Berg Lake"
+      "name": "Berg Lake",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://bcparks.ca/mount-robson-park/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0055"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
@@ -2351,7 +4037,18 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
       "type": "nature.protected.state_provincial_park",
       "layer": "place",
-      "name": "Castle Provincial Park"
+      "name": "Castle Provincial Park",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/south/castle-pp/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0061"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/elbow-falls",
@@ -2363,7 +4060,18 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
       "type": "nature.protected.state_provincial_park",
       "layer": "place",
-      "name": "Elk Lakes Provincial Park"
+      "name": "Elk Lakes Provincial Park",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://bcparks.ca/elk-lakes-park/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0062"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/lake-magog",
@@ -2399,13 +4107,110 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
       "type": "water.thermal.hot_spring",
       "layer": "place",
-      "name": "Radium Hot Springs"
+      "name": "Radium Hot Springs",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/kootenay/sources-radium-springs",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0065"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "url": "https://parks.canada.ca/pn-np/bc/kootenay/sources-radium-springs/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0066"
+          ]
+        }
+      ],
+      "price": {
+        "v": [
+          {
+            "amount": 19.75,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 18,
+            "age_to": 64
+          },
+          {
+            "amount": 17.25,
+            "currency": "CAD",
+            "per": "child",
+            "age_from": 3,
+            "age_to": 17,
+            "note": "youth"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 2,
+            "note": "under 3 free"
+          },
+          {
+            "amount": 17.25,
+            "currency": "CAD",
+            "per": "person",
+            "note": "senior 65+"
+          },
+          {
+            "amount": 64.25,
+            "currency": "CAD",
+            "per": "family",
+            "note": "four people, at most two aged 18 or older"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0066"
+        ],
+        "read": "2026-10-19",
+        "quote": "Adult 18-64 $19.75",
+        "note": "single entry, locker token included; no year on the page; youth 13 and under need an adult 18+; amounts shown as \"$\" on a Canadian operator page; read as CAD"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
       "type": "wheels.drive.scenic_drive",
       "layer": "route",
-      "name": "Red Rock Parkway and Red Rock Canyon"
+      "name": "Red Rock Parkway and Red Rock Canyon",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0064"
+          ]
+        }
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "05-07",
+            "to": "10-26",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "open to vehicles; pedestrians all year"
+          }
+        ],
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0063"
+        ],
+        "read": "2026-10-19",
+        "quote": "2026 parkway opening date: May 7 ... 2026 parkway closure date: October 26",
+        "note": "the scenic-drives page says closed to motor vehicles from November through May",
+        "applies_to": "2026"
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/smith-dorrien-trail",

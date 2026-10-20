@@ -305,6 +305,33 @@
       }
     },
     {
+      "id": "s-e2252e78f8",
+      "url": "https://alpinestables.com",
+      "title": "Alpine Stables",
+      "publisher": "Alpine Stables",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-waterton-horse",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-8e48e4e1b5",
       "url": "https://api.hieloyaventura.com/api/excurtions",
       "title": "Minitrekking product data (hieloyaventura.com)",
@@ -642,14 +669,115 @@
       }
     },
     {
+      "id": "s-bec80f96f7",
+      "url": "https://banffnorquay.com/summer/via-ferrata",
+      "title": "Via Ferrata",
+      "publisher": "Banff Norquay",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-be5d7eecde",
+      "url": "https://banffnorquay.com/summer/via-ferrata/routes",
+      "title": "Via Ferrata routes",
+      "publisher": "Banff Norquay",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-0a53a5a526",
+      "url": "https://bcparks.ca/elk-lakes-park",
+      "title": "Elk Lakes Park",
+      "publisher": "BC Parks",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-9e703d1294",
       "url": "https://bcparks.ca/mount-robson-park",
       "title": "Mount Robson Provincial Park",
       "publisher": "BC Parks",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/berg-lake",
+          "field": "links"
+        },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view",
@@ -825,6 +953,70 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-d7d9bac135",
+      "url": "https://canmore.alpinehelicopter.com",
+      "title": "Canmore helicopter tours",
+      "publisher": "Alpine Helicopters",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-4cecf74855",
+      "url": "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour",
+      "title": "Three Sisters Peaks Tour",
+      "publisher": "Alpine Helicopters",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+          "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -2600,6 +2792,70 @@
       }
     },
     {
+      "id": "s-719a09d212",
+      "url": "https://jasperstables.com",
+      "title": "Jasper Riding Stables",
+      "publisher": "Jasper Riding Stables",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-waterton-horse",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-7a25c8276a",
+      "url": "https://kickinghorseresort.com/purchase/summer-lift-tickets",
+      "title": "Summer lift tickets",
+      "publisher": "Kicking Horse Mountain Resort",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-3d445aa7be",
       "url": "https://lagazuoi.it/EN/Experience-Focus-on-this-page24-An-accessible-mountain",
       "title": "An accessible mountain",
@@ -3766,6 +4022,38 @@
       }
     },
     {
+      "id": "s-cd0a54b7fc",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/cyclisme-biking/cyclismeroute-roadcycling/heritage-legacy",
+      "title": "Legacy Trail",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/legacy-trail",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/legacy-trail",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-f2be7eff7b",
       "url": "https://parks.canada.ca/pn-np/ab/banff/activ/marchehiver-winterwalking/banff",
       "title": "Winter walking trails in the Banff area",
@@ -4798,14 +5086,51 @@
       }
     },
     {
+      "id": "s-d1d58ceba7",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs",
+      "title": "Banff Upper Hot Springs",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-7cf534b3fb",
       "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs/heures-hours",
       "title": "Banff Upper Hot Springs hours (read through search results)",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+          "field": "hours"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
@@ -4816,12 +5141,44 @@
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 180,
-        "fact_type": "seasons_closures"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-1b04556009",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs/tarifs-fees",
+      "title": "Banff Upper Hot Springs: fees",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+          "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -5043,6 +5400,38 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-ceba3275c2",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/promenade-de-la-vallee-de-la-bow-bow-valley-parkway",
+      "title": "Bow Valley Parkway",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -7201,6 +7590,60 @@
       }
     },
     {
+      "id": "s-60a68064a6",
+      "url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving",
+      "title": "Scenic drives",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-f52956d5eb",
+      "url": "https://parks.canada.ca/pn-np/ab/waterton/securite-safety/conduire-driving",
+      "title": "Driving in Waterton",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-75e59993e6",
       "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/places",
       "title": "Points of interest, Kootenay National Park",
@@ -7494,6 +7937,139 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-af553acf67",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/sources-radium-springs",
+      "title": "Radium Hot Springs",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-0e2ca7c659",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/sources-radium-springs/tarifs-fees",
+      "title": "Radium Hot Springs: fees",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
+          "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-ad10c68725",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/stephen",
+      "title": "Mount Stephen guided hike",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-3ff72e869e",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/walcott",
+      "title": "Walcott Quarry guided hike",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -7955,6 +8531,38 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-1184e829dd",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/visit/tarifs-fees",
+      "title": "Yoho fees",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
+          "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -9740,6 +10348,33 @@
       }
     },
     {
+      "id": "s-108514729b",
+      "url": "https://viciouscycleandsnow.ca",
+      "title": "Vicious Cycle and Snow",
+      "publisher": "Vicious Cycle and Snow",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-db945abf56",
       "url": "https://vtrans.vermont.gov/notch",
       "title": "Smugglers Notch",
@@ -10882,6 +11517,33 @@
       }
     },
     {
+      "id": "s-3859e64469",
+      "url": "https://www.albertaparks.ca/parks/south/castle-pp",
+      "title": "Castle Provincial Park",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-b7294b5a60",
       "url": "https://www.algonquinhighlands.ca/explore-play/parks-and-outdoor-spaces/dorset-scenic-lookout-tower",
       "title": "Dorset Scenic Lookout Tower",
@@ -11623,6 +12285,112 @@
       }
     },
     {
+      "id": "s-bb451083b6",
+      "url": "https://www.banff-springs-hotel.com/offers/fairmont-spa-access",
+      "title": "Fairmont Thermal Experience",
+      "publisher": "Fairmont Banff Springs",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+          "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-4312eea2e7",
+      "url": "https://www.banff-springs-hotel.com/play/willow-stream-spa",
+      "title": "Fairmont Spa",
+      "publisher": "Fairmont Banff Springs",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-4b490c666f",
+      "url": "https://www.banffadventures.com/Things-To-Do/Summer-Activities/Float-Trips/Hoodoo-Float-Tour",
+      "title": "Hoodoo Float Tour",
+      "publisher": "Banff Adventures Unlimited",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-ad1da347fc",
       "url": "https://www.banffadventures.com/things-to-do/family-whitewater-rafting",
       "title": "Banff family whitewater rafting (Hydra River Guides)",
@@ -12023,6 +12791,92 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-2fe61a4e77",
+      "url": "https://www.banffjaspercollection.com/attractions/golden-skybridge",
+      "title": "Golden Skybridge",
+      "publisher": "Banff Jasper Collection (Pursuit)",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-a33c6d0968",
+      "url": "https://www.banffjaspercollection.com/attractions/golden-skybridge/faqs",
+      "title": "Golden Skybridge FAQs",
+      "publisher": "Banff Jasper Collection (Pursuit)",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge",
+          "field": "duration_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-3d7d23094d",
+      "url": "https://www.banffjaspercollection.com/attractions/golden-skybridge/hours-rates",
+      "title": "Golden Skybridge hours and rates",
+      "publisher": "Banff Jasper Collection (Pursuit)",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -12488,6 +13342,38 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-84c27f686a",
+      "url": "https://www.brewsteradventures.com/summer-trail-rides",
+      "title": "Summer trail rides",
+      "publisher": "Brewster Adventures",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse",
+          "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -14109,6 +14995,70 @@
       }
     },
     {
+      "id": "s-920001a5b7",
+      "url": "https://www.horseback.com",
+      "title": "Banff Trail Riders",
+      "publisher": "Banff Trail Riders",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
+          "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-093e8317a4",
+      "url": "https://www.horseback.com/bow-river-ride",
+      "title": "Bow River Ride",
+      "publisher": "Banff Trail Riders",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-05e6bb08da",
       "url": "https://www.iceman.it/en/reservations",
       "title": "Reservations",
@@ -14190,6 +15140,48 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-d90cc53864",
+      "url": "https://www.icewalks.com/tours/half-day-tours",
+      "title": "Half day tours",
+      "publisher": "Athabasca Glacier IceWalks",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -18659,6 +19651,38 @@
       }
     },
     {
+      "id": "s-5c348d483c",
+      "url": "https://www.skinakiska.com/summer-operations",
+      "title": "Summer operations",
+      "publisher": "Nakiska Ski Resort",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-756cc8899f",
       "url": "https://www.snaefellsjokull.is/en/hiking-trails-destinations/travel-and-safety-advice",
       "title": "Travel and safety advice",
@@ -18977,6 +20001,48 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-5ad249ed74",
+      "url": "https://www.sundogtours.com/package/sunrise-photography-and-wildlife-tour",
+      "title": "Sunrise Wildlife and Ecology of Fire",
+      "publisher": "SunDog Tours",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -20126,6 +21192,100 @@
       }
     },
     {
+      "id": "s-c7d410c8a0",
+      "url": "https://www.watertoncruise.com",
+      "title": "Waterton Shoreline Cruise Co.",
+      "publisher": "Waterton Shoreline Cruise Co.",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-825a2d5517",
+      "url": "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies",
+      "title": "Heli hiking in the Canadian Rockies",
+      "publisher": "White Mountain Adventures",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-6b936bfee4",
       "url": "https://www.wikidata.org",
       "title": "Wikidata entity lookups (wbsearchentities, then wbgetentities: label, description, P625)",
@@ -20642,6 +21802,38 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-0d34ba4296",
+      "url": "https://yamnuska.com/mountaineering/beginner-mountaineering-courses/mountain-scrambling",
+      "title": "Mountain scrambling",
+      "publisher": "Yamnuska Mountain Adventures",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+          "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
