@@ -7,7 +7,7 @@ html[data-globe] body { overflow: hidden; height: 100dvh; }
 html[data-globe] .site-footer { display: none; }
 html[data-globe] main.page { padding: 0; max-width: none; flex: 0 0 0; }
 
-.globe-root { --globe-halo-o: 1; --halo-x: calc((100vw - 384px) / 2); --halo-y: calc((100vh - var(--header-h)) / 2); --halo-d: calc(min(100vw - 384px, 100vh - var(--header-h)) * 0.86); --globe-clip-right: 0px; --globe-panel-w: 360px; --globe-panel-gap: calc(var(--globe-panel-w) + 24px); position: fixed; z-index: var(--z-base); left: 0; right: 0; top: var(--header-h); bottom: 0; overflow: hidden; background: var(--well); color: var(--ink); }
+.globe-root { --globe-halo-o: 1; --halo-x: calc((100vw - 384px) / 2); --halo-y: calc((100vh - var(--header-h)) / 2); --halo-d: calc(min(100vw - 384px, 100vh - var(--header-h)) * 0.86); --globe-clip-right: 0px; --globe-card-sheet-h: 50%; --globe-panel-w: 360px; --globe-panel-gap: calc(var(--globe-panel-w) + 24px); position: fixed; z-index: var(--z-base); left: 0; right: 0; top: var(--header-h); bottom: 0; overflow: hidden; background: var(--well); color: var(--ink); }
 @media (max-width: 639px) { .globe-root { bottom: var(--phone-bottombar-h); --halo-x: 50vw; --halo-y: calc((100vh - var(--header-h) - var(--phone-bottombar-h) - 176px) / 2); --halo-d: calc(min(100vw, 100vh - var(--header-h) - var(--phone-bottombar-h) - 176px) * 0.86); } }
 
 /* The placeholder and the atmosphere (spec 6.6, 8.3): an ocean disc with a glow and a 1 px limb, in the static HTML so the world's
