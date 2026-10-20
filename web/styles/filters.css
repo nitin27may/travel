@@ -132,3 +132,147 @@ tr[data-row][data-from='17'] td:first-child::after { content: 'A stretch at ' va
 
 /* card footers: a place with a source line, a check state and a badge reads as one line of separated items */
 .src .foot-sep { color: var(--muted); }
+
+/* The list while its row files load (backlog 3.59): the same grid and height as the rows that replace it, so nothing shifts when they arrive. */
+.list-skeleton { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--card-gap); min-height: 70vh; align-content: start; }
+.list-skeleton[data-view='list'], .list-skeleton[data-view='table'] { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.skeleton-block { display: block; min-height: 20rem; border-radius: var(--r-4); background: var(--surface-2); border: 1px solid var(--line); opacity: 0.7; animation: skeleton-breathe 1.6s ease-in-out infinite; }
+.list-skeleton[data-view='list'] .skeleton-block, .list-skeleton[data-view='table'] .skeleton-block { min-height: 3.25rem; }
+@keyframes skeleton-breathe { 50% { opacity: 0.4; } }
+@media (max-width: 1279px) { .list-skeleton:not([data-view='list']):not([data-view='table']) { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 1023px) { .list-skeleton:not([data-view='list']):not([data-view='table']) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 639px) { .list-skeleton:not([data-view='list']):not([data-view='table']) { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .skeleton-block { animation: none; } }
+.list-failed { display: grid; gap: 12px; justify-items: start; padding: 24px 0; }
+
+/* the card's effort chip wears the page's gauge glyph, as the kids rule chip wears the lock */
+.badge-wrap[data-value='effort'] .chip::before { content: ''; width: 13px; height: 13px; flex: none; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4%2017a8%208%200%201%201%2016%200M12%2017l4-5M7%2017h.01M17%2017h.01'/%3E%3C/svg%3E") center / 13px no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4%2017a8%208%200%201%201%2016%200M12%2017l4-5M7%2017h.01M17%2017h.01'/%3E%3C/svg%3E") center / 13px no-repeat; }
+.badge-wrap[data-value='effort'] .chip > svg { display: none; }
+
+/* a trip above the chosen age fades with the plan as the reason; there is no rule split for trips yet */
+:is(.card, .row)[data-fade-by='plan'][data-from='1'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 1+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='2'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 2+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='3'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 3+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='4'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 4+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='5'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 5+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='6'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 6+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='7'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 7+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='8'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 8+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='9'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 9+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='10'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 10+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='11'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 11+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='12'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 12+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='13'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 13+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='14'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 14+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='15'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 15+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='16'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 16+'; }
+:is(.card, .row)[data-fade-by='plan'][data-from='17'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' \00b7  plan suits 17+'; }
+tr[data-row][data-fade-by='plan'][data-from='1'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 1 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='2'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 2 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='3'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 3 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='4'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 4 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='5'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 5 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='6'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 6 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='7'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 7 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='8'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 8 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='9'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 9 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='10'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 10 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='11'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 11 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='12'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 12 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='13'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 13 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='14'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 14 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='15'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 15 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='16'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 16 and up'; }
+tr[data-row][data-fade-by='plan'][data-from='17'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', plan suits 17 and up'; }
+.age-note { margin: 8px 0 0; font: var(--t-small); }
+
+/* pill menus: the muted "not known yet" row, and Done at the foot (backlog 2.41) */
+.opt-gap { margin: 8px 0 0; padding: 8px 4px 0; border-top: 1px solid var(--line); font: var(--t-small); }
+.popover-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); }
+.pill-done { min-height: var(--touch-min); padding: 0 var(--s-4); }
+
+/* ---------- phone: the full bar scrolls away; a 52 px summary takes its place (lists-stage4-note section 1) ---------- */
+.phone-sticky { display: none; }
+@media (max-width: 639px) {
+  .filter-sticky.bar-phone-flow { position: static; }
+  /* zero height, so it never moves the page; the summary and panel hang from it */
+  .phone-sticky { display: block; position: sticky; top: var(--phone-header-h); z-index: var(--z-sticky); height: 0; margin: 0 calc(var(--margin) * -1); pointer-events: none; }
+  .phone-summary { position: absolute; inset: 0 0 auto 0; height: 52px; padding: var(--s-1) var(--margin); display: flex; align-items: center; gap: var(--s-2); background: var(--surface); border-bottom: var(--b-hairline); opacity: 0; visibility: hidden; transition: opacity var(--d-fast) linear, visibility var(--d-fast); }
+  .phone-sticky[data-show] .phone-summary { opacity: 1; visibility: visible; pointer-events: auto; }
+  .phone-summary-text { flex: 1 1 auto; min-width: 0; margin: 0; font: var(--t-label); color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .phone-summary-count { font: var(--t-mono); color: var(--ink); }
+  .phone-summary-btn { min-height: var(--touch-min); min-width: var(--touch-min); padding: 0 var(--s-2); display: inline-flex; align-items: center; justify-content: center; gap: 4px; background: none; border: 0; color: var(--accent-text); font: var(--t-label); cursor: pointer; }
+  .phone-summary-btn svg { transition: transform var(--d-base) var(--e-out); }
+  .phone-summary-btn[aria-expanded='true'] svg { transform: rotate(180deg); }
+  .phone-panel { position: absolute; inset: 52px 0 auto 0; display: grid; grid-template-rows: 0fr; opacity: 0; visibility: hidden; background: var(--surface); border-radius: 0 0 var(--r-4) var(--r-4); box-shadow: var(--e-2); pointer-events: auto; transition: grid-template-rows var(--d-sheet-close) cubic-bezier(.4,0,1,1), opacity var(--d-sheet-close) linear, visibility var(--d-sheet-close); }
+  .phone-sticky[data-open] .phone-panel { grid-template-rows: 1fr; opacity: 1; visibility: visible; transition: grid-template-rows var(--d-base) var(--e-out), opacity var(--d-base) linear, visibility 0s; }
+  .phone-panel-in { min-height: 0; overflow: hidden; }
+  .phone-panel-body { max-height: 328px; overflow-y: auto; overscroll-behavior: contain; padding: var(--s-3) var(--margin); display: grid; gap: var(--s-3); }
+  .phone-chips { display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; }
+  .phone-chips .chips { display: flex; flex-wrap: wrap; gap: var(--s-2); padding: 0; margin: 0; list-style: none; }
+  .phone-more-n { font: var(--t-label); color: var(--muted); align-self: center; }
+  .phone-pills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-2); }
+  .phone-pills .pill { width: 100%; min-height: var(--touch-min); }
+  .phone-pills .pill-trigger { width: 100%; min-height: var(--touch-min); justify-content: space-between; }
+  .phone-panel-actions { display: flex; gap: var(--s-2); flex-wrap: wrap; align-items: center; }
+  .phone-panel-actions .btn { min-height: var(--touch-min); }
+  .phone-done { margin-left: auto; }
+}
+@media (prefers-reduced-motion: reduce) { .phone-panel, .phone-summary, .phone-summary-btn svg { transition: none !important; } }
+
+/* ---------- the count line: two lines at most, the reasons behind "Why these?" (lists-stage4-note section 4) ---------- */
+.count-block { display: grid; gap: 2px; min-width: 0; align-content: start; }
+.filter-bar .count { font: var(--t-mono); color: var(--ink); }
+.filter-bar .count strong { font: inherit; color: inherit; }
+.filter-bar .count .of, .filter-bar .count .count-qual { font: var(--t-small); color: var(--ink-2); }
+.count-more { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-3); font: var(--t-small); }
+.count-link { display: inline-flex; align-items: center; gap: 3px; min-height: 24px; padding: 0; background: none; border: 0; color: var(--accent-text); font: var(--t-small); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.count-link svg { transition: transform var(--d-base) var(--e-out); }
+.count-link[aria-expanded='true'] svg { transform: rotate(180deg); }
+.count-why { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows var(--d-sheet-close) cubic-bezier(.4,0,1,1), opacity var(--d-sheet-close) linear; }
+.count-why[data-open] { grid-template-rows: 1fr; opacity: 1; transition: grid-template-rows var(--d-base) var(--e-out), opacity var(--d-base) linear; }
+.count-why > ul { min-height: 0; overflow: hidden; margin: 0; padding: 0; list-style: none; font: var(--t-small); color: var(--muted); display: grid; gap: 2px; }
+.count-why[data-open] > ul { padding-top: 4px; }
+@media (prefers-reduced-motion: reduce) { .count-why, .count-link svg { transition: none; } }
+.bar-sentinel { height: 0; }
+.chips-clear { display: inline-flex; align-items: center; }
+@media (max-width: 639px) {
+  /* the count block takes the cell the single-line count had; chips wrap instead of clipping, and Clear all sits with them */
+  .filter-bar .count-block { grid-column: 1 / -1; grid-row: 2; align-self: center; }
+  .filter-bar .seg.seg { grid-column: 1 / -1; grid-row: 3; justify-self: start; }
+  .filter-bar .chips.chips { grid-row: 4; }
+  .filter-bar .chips { flex-wrap: wrap; overflow-x: visible; padding-bottom: 0; }
+  .filter-bar .chip { flex: 0 1 auto; max-width: 100%; }
+}
+.facet-val { margin-left: var(--s-2); color: var(--accent-text); font: var(--t-label); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 12rem; }
+
+/* the Fit column: the age a stretch card starts at, shown only while a chosen age makes the row a stretch */
+.fit-chip { display: none; align-items: center; height: 24px; padding: 0 9px; border: 1px solid var(--line-2); border-radius: var(--r-full); background: var(--surface-2); color: var(--ink-2); font: var(--t-chip); white-space: nowrap; }
+html[data-kid-age='0'] tr[data-row][data-fade~='0'] .fit-chip { display: inline-flex; }
+html[data-kid-age='1'] tr[data-row][data-fade~='1'] .fit-chip { display: inline-flex; }
+html[data-kid-age='2'] tr[data-row][data-fade~='2'] .fit-chip { display: inline-flex; }
+html[data-kid-age='3'] tr[data-row][data-fade~='3'] .fit-chip { display: inline-flex; }
+html[data-kid-age='4'] tr[data-row][data-fade~='4'] .fit-chip { display: inline-flex; }
+html[data-kid-age='5'] tr[data-row][data-fade~='5'] .fit-chip { display: inline-flex; }
+html[data-kid-age='6'] tr[data-row][data-fade~='6'] .fit-chip { display: inline-flex; }
+html[data-kid-age='7'] tr[data-row][data-fade~='7'] .fit-chip { display: inline-flex; }
+html[data-kid-age='8'] tr[data-row][data-fade~='8'] .fit-chip { display: inline-flex; }
+html[data-kid-age='9'] tr[data-row][data-fade~='9'] .fit-chip { display: inline-flex; }
+html[data-kid-age='10'] tr[data-row][data-fade~='10'] .fit-chip { display: inline-flex; }
+html[data-kid-age='11'] tr[data-row][data-fade~='11'] .fit-chip { display: inline-flex; }
+html[data-kid-age='12'] tr[data-row][data-fade~='12'] .fit-chip { display: inline-flex; }
+html[data-kid-age='13'] tr[data-row][data-fade~='13'] .fit-chip { display: inline-flex; }
+html[data-kid-age='14'] tr[data-row][data-fade~='14'] .fit-chip { display: inline-flex; }
+html[data-kid-age='15'] tr[data-row][data-fade~='15'] .fit-chip { display: inline-flex; }
+html[data-kid-age='16'] tr[data-row][data-fade~='16'] .fit-chip { display: inline-flex; }
+html[data-kid-age='17'] tr[data-row][data-fade~='17'] .fit-chip { display: inline-flex; }
+@media (max-width: 639px) {
+  .phone-panel-body { gap: var(--s-2); }
+  .phone-search-btn { min-width: var(--touch-min); padding: 0; }
+  .filter-bar .count-block { gap: 0; }
+  .count-more { min-height: 22px; }
+  .count-link { min-height: 22px; }
+}
+/* the count sits in a block now: the phone grid positions of the old single line must not apply inside it */
+.filter-bar .count-block .count { grid-column: auto; grid-row: auto; display: block; }
+.filter-bar .count-block .count .of, .filter-bar .count-block .count .count-qual { white-space: normal; }

@@ -263,8 +263,10 @@ export function pickedItems(root: string, world: World, slug: string, dayOf: (na
 }
 
 /** Highlights: up to two anchors, by effective draw then by day. A name that repeats another (the route and its payoff) counts once. */
-export function highlightsTag(picks: readonly PickedItem[]): string[] {
-  const anchors = picks.filter((p) => p.anchor).sort((a, b) => a.draw - b.draw || a.day - b.day || a.name.localeCompare(b.name));
+export function highlightsTag(picks: readonly PickedItem[], regionNames: readonly string[] = []): string[] {
+  // a highlight is a place to go, never the region the trip is in ("Dolomites"): drop an anchor that is only the region's own name
+  const regions = new Set(regionNames.map(normName).filter(Boolean));
+  const anchors = picks.filter((p) => p.anchor && !regions.has(normName(p.name))).sort((a, b) => a.draw - b.draw || a.day - b.day || a.name.localeCompare(b.name));
   const out: string[] = [];
   for (const p of anchors) {
     const n = normName(p.name);
@@ -435,7 +437,7 @@ export function buildTripTags(trip: PublicTrip, ctx: TagContext, conflicts: TagC
   const dayOfName = new Map<string, number>();
   for (const d of trip.days) for (const i of d.items) if (!dayOfName.has(normName(i.name))) dayOfName.set(normName(i.name), d.n);
   const picks = pickedItems(ctx.root, ctx.world, trip.slug, (n) => dayOfName.get(normName(n)) ?? null);
-  base.highlights = highlightsTag(picks);
+  base.highlights = highlightsTag(picks, [trip.region, ...trip.region.split(/[,/·]/)]);
   base.activities = activitiesTag(picks, ctx.tagLabel);
 
   // stroller: the easiest variant of each day, the item's capture record by place, then by a name only one record carries

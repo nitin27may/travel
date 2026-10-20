@@ -17,7 +17,7 @@ describe('kid fit labels', () => {
     const kidBadge = (kid: string) => placeBadges({ ...base, kids_from: null, kids_basis: null, kid_fit: kid }).find((b) => b.tone === 'kid');
     // nobody has checked: the dashed "Not checked yet" chip (a muted tone), never a kid label
     expect(kidBadge('unknown')).toBeUndefined();
-    expect(placeBadges({ ...base, kids_from: null, kids_basis: null, kid_fit: 'unknown' }).some((b) => b.value === 'gap' && b.text === 'Not checked yet')).toBe(true);
+    expect(placeBadges({ ...base, kids_from: null, kids_basis: null, kid_fit: 'unknown' }).some((b) => b.value === 'gap' && b.text === 'Kids: not checked yet')).toBe(true);
     expect(kidBadge('yes')?.text).toBe('Easy with kids');
     expect(kidBadge('strong-kid')?.text).toBe('Older or strong kids');
     expect(kidBadge('no')?.text).toBe('Not for kids');

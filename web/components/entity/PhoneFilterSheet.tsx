@@ -6,7 +6,7 @@ import { Icon } from '@/components/ui/Icon';
 import { clearAll } from '@/lib/entities/filter';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { EntityDescriptor, FacetDef, FacetParam, ListState } from '@/lib/entities/types';
-import { FacetBodyControl } from './FacetMenu';
+import { FacetBodyControl, chosenText } from './FacetMenu';
 import { FacetLabel, ViewOptions } from './ViewOptions';
 
 export interface PhoneFilterProps<Row> {
@@ -17,7 +17,8 @@ export interface PhoneFilterProps<Row> {
   /** The facets under "More filters": one collapsed group below the primary ones. */
   more?: FacetDef<Row>[];
   counts: Record<string, FacetCount[]>;
-  shown: number;
+  gaps?: Record<string, number>;
+  shown: number | null;
   filtered: boolean;
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -26,10 +27,10 @@ export interface PhoneFilterProps<Row> {
 }
 
 /** One facet's options with a Done button: it folds the group so the next facet is a tap away (backlog 2.41; the target is 44 px). */
-function FacetBody<Row>({ facet, counts, selected, setFacet }: { facet: FacetDef<Row>; counts: FacetCount[]; selected: string[]; setFacet: (param: FacetParam, values: string[]) => void }) {
+function FacetBody<Row>({ facet, counts, gapN, selected, setFacet }: { facet: FacetDef<Row>; counts: FacetCount[]; gapN?: number; selected: string[]; setFacet: (param: FacetParam, values: string[]) => void }) {
   return (
     <>
-      <FacetBodyControl facet={facet} options={counts} selected={selected} onChange={(v) => setFacet(facet.param, v)} />
+      <FacetBodyControl facet={facet} options={counts} selected={selected} onChange={(v) => setFacet(facet.param, v)} gapN={gapN} />
       <div className="sheet-facet-done">
         <button
           type="button"
@@ -49,7 +50,7 @@ function FacetBody<Row>({ facet, counts, selected, setFacet }: { facet: FacetDef
 }
 
 /** Filters as a full-height bottom sheet on phones (components 2.7); "Show N" is the Apply. Loaded the first time it is opened. */
-export default function PhoneFilterSheet<Row>({ d, state, facets, more = [], counts, shown, filtered, open, onOpenChange, setFacet, onState }: PhoneFilterProps<Row>) {
+export default function PhoneFilterSheet<Row>({ d, state, facets, more = [], counts, gaps = {}, shown, filtered, open, onOpenChange, setFacet, onState }: PhoneFilterProps<Row>) {
   return (
     <BottomSheet
       open={open}
@@ -63,7 +64,7 @@ export default function PhoneFilterSheet<Row>({ d, state, facets, more = [], cou
             Clear all
           </Button>
           <Button variant="primary" className="sheet-apply" onClick={() => onOpenChange(false)}>
-            Show {shown} {shown === 1 ? d.noun.one : d.noun.many}
+            {shown === null ? 'Counting\u2026' : `Show ${shown} ${shown === 1 ? d.noun.one : d.noun.many}`}
           </Button>
         </>
       }
@@ -72,11 +73,11 @@ export default function PhoneFilterSheet<Row>({ d, state, facets, more = [], cou
         <details key={f.param} className="sheet-facet" open={(state.facets[f.param]?.length ?? 0) > 0 || undefined}>
           <summary>
             <span className="summary-label">
-              <FacetLabel label={f.label} n={(state.facets[f.param] ?? []).length} />
+              <FacetLabel label={f.label} n={(state.facets[f.param] ?? []).length} value={chosenText(f, counts[f.param] ?? [], state.facets[f.param] ?? [])} />
             </span>
             <Icon name="chevronDown" size={16} />
           </summary>
-          <FacetBody facet={f} counts={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} setFacet={setFacet} />
+          <FacetBody facet={f} counts={counts[f.param] ?? []} gapN={gaps[f.param]} selected={state.facets[f.param] ?? []} setFacet={setFacet} />
         </details>
       ))}
       {more.length ? (
@@ -91,11 +92,11 @@ export default function PhoneFilterSheet<Row>({ d, state, facets, more = [], cou
             <details key={f.param} className="sheet-facet" open={(state.facets[f.param]?.length ?? 0) > 0 || undefined}>
               <summary>
                 <span className="summary-label">
-                  <FacetLabel label={f.label} n={(state.facets[f.param] ?? []).length} />
+                  <FacetLabel label={f.label} n={(state.facets[f.param] ?? []).length} value={chosenText(f, counts[f.param] ?? [], state.facets[f.param] ?? [])} />
                 </span>
                 <Icon name="chevronDown" size={16} />
               </summary>
-              <FacetBody facet={f} counts={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} setFacet={setFacet} />
+              <FacetBody facet={f} counts={counts[f.param] ?? []} gapN={gaps[f.param]} selected={state.facets[f.param] ?? []} setFacet={setFacet} />
             </details>
           ))}
         </details>

@@ -1,16 +1,16 @@
 'use client';
 
-import { Dialog } from '@base-ui/react/dialog';
 import { useRouter } from 'next/navigation';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Icon, kindIcon } from '@/components/ui/Icon';
-import { countParsed, onSearchGrow, relaxQuery, search, suggest } from '@/lib/client/data';
+import { countParsedAsync, onSearchGrow, relaxQuery, search, suggest } from '@/lib/client/data';
 import type { Suggestion } from '@/lib/search/suggest';
 import { setSink, stopBuffer, takeBuffer } from '@/lib/search/typeahead';
 import { describeCounts } from '@/lib/search/search';
 import { QueryChips } from './QueryChips';
 import { useQueryParse } from './useQueryParse';
 import type { SearchHit, SearchRecord, SearchResult } from '@/lib/search/types';
+import type { DidYouMean, ParsedQuery } from '@/lib/search/parse/types';
 import '@/styles/home.css';
 
 export interface GlobalSearchProps {
@@ -25,8 +25,9 @@ function glyph(r: SearchRecord) {
 }
 
 /**
- * One search over trips, places and areas (components 2.10). A popover under the header on desktop and a
- * full-height sheet on phone. Nothing loads until the first character: the index is split by kind and country, and the
+ * One search over trips, places and areas (components 2.10). A panel under the header on desktop and under the phone header above the
+ * bottom bar. It is not modal (lists-stage4-note section 2): no scrim, no `aria-modal`, no inert page and no trap; the page keeps its scroll.
+ * Esc clears the text and then closes, a click outside or Tab out closes, and focus goes back to the control that opened it. Nothing loads until the first character: the index is split by kind and country, and the
  * parts that can match the query load first (lib/client/data.ts `search`); the rest follow and the answer refreshes. Arrow keys move, Enter opens, Esc clears and then closes.
  */
 export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
@@ -39,8 +40,50 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   const [suggested, setSuggested] = useState<{ q: string; s: Suggestion | null } | null>(null);
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const opener = useRef<Element | null>(null);
+  const [closing, setClosing] = useState(false);
   // the words read as filters (backlog 3.43); the name hits below stay as they were (A1)
   const smart = useQueryParse(q, { enabled: open });
+
+  // the panel eases out before it goes; focus returns to the control that opened it when the visitor asked to close (Esc, Close)
+  const requestClose = (returnFocus: boolean) => {
+    if (closing) return;
+    setClosing(true);
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.setTimeout(() => {
+      onClose();
+      if (returnFocus && opener.current instanceof HTMLElement && opener.current.isConnected) opener.current.focus();
+    }, calm ? 0 : 120);
+  };
+  useEffect(() => {
+    opener.current = document.activeElement;
+    // after the buffer effect below has taken the keys typed so far, as the dialog's initial focus used to
+    const id = requestAnimationFrame(() => inputRef.current?.focus());
+    return () => cancelAnimationFrame(id);
+  }, []);
+  // not modal: a tap outside closes it without being swallowed, and so does 60 px of page scroll on desktop once the box is empty
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: PointerEvent) => {
+      const t = e.target as Element | null;
+      // the header's own search button keeps the panel open (it only ever opens)
+      if (!t || panelRef.current?.contains(t) || t.closest('[aria-keyshortcuts="/"]')) return;
+      requestClose(false);
+    };
+    const startY = window.scrollY;
+    const onScroll = () => {
+      if (window.matchMedia('(min-width: 640px)').matches && !inputRef.current?.value && Math.abs(window.scrollY - startY) > 60) requestClose(false);
+    };
+    window.addEventListener('pointerdown', onDown);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('pointerdown', onDown);
+      window.removeEventListener('scroll', onScroll);
+    };
+    // requestClose reads state that only changes to close
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, closing]);
 
   // keys typed before the input had focus (see typeahead.ts)
   useEffect(() => {
@@ -90,8 +133,27 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   const hits: SearchHit[] = useMemo(() => result?.groups.flatMap((g) => g.hits) ?? [], [result]);
   const parsed = smart.parsed;
   const read = !!parsed && parsed.target !== 'search' && parsed.chips.length > 0 ? parsed : null;
-  const count = useMemo(() => (read ? countParsed(read) : null), [read]);
-  const relax = useMemo(() => (read && count?.n === 0 ? relaxQuery(read) : null), [read, count]);
+  // the count and the "did you mean" come from the list files of the page we are on, so they arrive a moment after the reading
+  const [counted, setCounted] = useState<{ for: ParsedQuery; got: { n: number; unchecked: number } | null } | null>(null);
+  const [relaxed, setRelaxed] = useState<{ for: ParsedQuery; got: DidYouMean | null } | null>(null);
+  useEffect(() => {
+    if (!read) return;
+    let alive = true;
+    void countParsedAsync(read).then((got) => alive && setCounted({ for: read, got }));
+    return () => {
+      alive = false;
+    };
+  }, [read]);
+  const count = read && counted?.for === read ? counted.got : null;
+  useEffect(() => {
+    if (!read || count?.n !== 0) return;
+    let alive = true;
+    void relaxQuery(read).then((got) => alive && setRelaxed({ for: read, got }));
+    return () => {
+      alive = false;
+    };
+  }, [read, count]);
+  const relax = read && count?.n === 0 && relaxed?.for === read ? relaxed.got : null;
   const noun = read?.target === 'trips' ? 'trips' : 'places';
   // the first option opens the list the words describe, then the other readings, then the name hits (smart-search 6.1)
   const lead: { id: string; href: string; kind: 'show' | 'dym'; label: string }[] = useMemo(
@@ -130,21 +192,29 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
       // nothing left of the caret to delete: Backspace takes off the last chip instead
       e.preventDefault();
       smart.remove(read.chips[read.chips.length - 1]!.id);
-    } else if (e.key === 'Escape' && q) {
-      // first Esc clears; the dialog only closes on the next one
+    } else if (e.key === 'Escape') {
+      // first Esc clears the text; Esc on an empty box closes the panel
       e.preventDefault();
       e.stopPropagation();
-      setQ('');
+      if (q) setQ('');
+      else requestClose(true);
     }
   };
 
   let index = lead.length - 1;
   return (
-    <Dialog.Root open={open} onOpenChange={(o) => !o && onClose()}>
-      <Dialog.Portal>
-        <Dialog.Backdrop className="scrim" />
-        <Dialog.Popup className="search-dialog gs" aria-describedby={undefined} initialFocus={inputRef}>
-          <Dialog.Title className="sr-only">Search trips, places and areas</Dialog.Title>
+    <div
+      ref={panelRef}
+      className="search-dialog gs gs-panel"
+      role="search"
+      aria-label="Search trips, places and areas"
+      data-closing={closing || undefined}
+      onBlur={(e) => {
+        // Tab out of the panel closes it; a click elsewhere is the pointerdown above
+        const next = e.relatedTarget as Node | null;
+        if (next && !panelRef.current?.contains(next)) requestClose(false);
+      }}
+    >
           <div className="gs-bar">
             <div className="search">
               <Icon name="search" size={16} />
@@ -170,7 +240,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                 </button>
               ) : null}
             </div>
-            <button type="button" className="gs-close" onClick={onClose}>
+            <button type="button" className="gs-close" onClick={() => requestClose(true)}>
               Close
             </button>
           </div>
@@ -292,8 +362,6 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
               ))
             )}
           </div>
-        </Dialog.Popup>
-      </Dialog.Portal>
-    </Dialog.Root>
+    </div>
   );
 }

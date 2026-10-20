@@ -93,3 +93,24 @@
 /* under 640 px the reading is drawn below the sticky bar, one line, and scrolls away with the page */
 .smart-slot:not(:empty) { margin-top: var(--s-2); }
 .smart-slot .smart-undo { flex-wrap: nowrap; justify-content: space-between; }
+
+/* ---------- the header search is a panel, not a dialog (lists-stage4-note section 2): no scrim, the page stays live ---------- */
+.search-dialog.gs.gs-panel {
+  position: fixed; z-index: var(--z-menu); top: calc(var(--header-h) + var(--s-2)); left: auto; right: max(var(--margin), calc((100vw - var(--max-content)) / 2 + var(--margin))); transform: none;
+  width: min(640px, calc(100vw - 2 * var(--margin))); max-height: min(70vh, 640px);
+  animation: gs-in var(--d-base) var(--e-out) both;
+}
+.search-dialog.gs.gs-panel[data-closing] { animation: gs-out var(--d-fast) cubic-bezier(.4, 0, 1, 1) both; pointer-events: none; }
+@keyframes gs-in { from { opacity: 0; transform: translateY(-8px); } }
+@keyframes gs-out { to { opacity: 0; transform: translateY(-8px); } }
+@media (max-width: 639px) {
+  .search-dialog.gs.gs-panel {
+    inset: var(--phone-header-h) 0 auto 0; width: 100vw; height: auto; max-height: calc(100dvh - var(--phone-header-h) - var(--phone-bottombar-h));
+    border-radius: 0 0 var(--r-4) var(--r-4); border: 0; border-bottom: var(--b-hairline); padding: var(--s-3) var(--margin);
+    animation: gs-in-phone var(--d-sheet) var(--e-out) both;
+  }
+  .search-dialog.gs.gs-panel[data-closing] { animation: gs-out-phone var(--d-fast) cubic-bezier(.4, 0, 1, 1) both; }
+  @keyframes gs-in-phone { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+  @keyframes gs-out-phone { to { clip-path: inset(0 0 100% 0); } }
+}
+@media (prefers-reduced-motion: reduce) { .search-dialog.gs.gs-panel, .search-dialog.gs.gs-panel[data-closing] { animation: none; } }

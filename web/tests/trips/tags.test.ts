@@ -194,15 +194,15 @@ describe('the card chips', () => {
       for (const c of [...suit, ...tags]) expect(c.href, `${r.slug} ${c.key}`).toMatch(/^\/trips\/\?[a-z]+=[^&]+$/);
     }
   });
-  it('Kids from 7 opens the list for a child of 8 (the nearest standard age at or above)', () => {
+  it('Kids from 7 opens the list for a youngest child of 7', () => {
     const r = { ...rows[0]!, ageFit: 7, kidsBasis: 'plan' as const, hike: null as null };
-    expect(tagChips(r).suit[0]).toMatchObject({ label: 'Kids from 7 · our plan', href: '/trips/?kid=8' });
+    expect(tagChips(r).suit[0]).toMatchObject({ label: 'Kids from 7 · our plan', href: '/trips/?kid=7' });
   });
   it('the mono line says what kind of trip it is', () => {
     const base = rows.find((r) => r.depth === 'full')!;
     expect(lengthLine({ ...base, lengthClass: 'day', nights: 0, days: 1, fromHubMin: 85, fromHubApprox: false })).toBe('Day trip · from Toronto 1 h 25');
     expect(lengthLine({ ...base, lengthClass: 'day', nights: 0, days: 1, fromHubMin: 85, fromHubApprox: true })).toBe('Day trip · from Toronto ≈1 h 25');
-    expect(lengthLine({ ...base, lengthClass: 'weekend', nights: 2, days: 3, fromHubMin: null })).toBe('2 nights · a weekend');
+    expect(lengthLine({ ...base, lengthClass: 'weekend', nights: 2, days: 3, fromHubMin: null })).toBe('Weekend · 2 nights');
     expect(lengthLine({ ...base, lengthClass: 'multi-day', nights: 13, days: 14, fromHubMin: null, region: 'Dolomites' })).toBe('13 nights · 14 days · Dolomites');
   });
 });

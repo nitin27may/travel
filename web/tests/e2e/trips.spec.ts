@@ -7,7 +7,7 @@ test.describe('trips list', () => {
   test('keeps cards, pills, the four views and the map camera in the URL', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/`);
     await expect(page.locator('.card').first()).toBeVisible();
-    for (const name of ['Where', 'When', 'Length', 'Kids']) await expect(page.getByRole('button', { name })).toBeVisible();
+    for (const name of ['Where', 'When', 'Length', 'Youngest child']) await expect(page.getByRole('button', { name })).toBeVisible();
     for (const v of ['Cards', 'List', 'Table', 'Map']) await expect(page.getByRole('radio', { name: v })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Finished plans, use as templates' })).toBeVisible();
     await expect(page.locator('.card').first().getByRole('link', { name: 'Public page' })).toHaveAttribute('href', /\/trips\/[a-z0-9-]+\/$/);

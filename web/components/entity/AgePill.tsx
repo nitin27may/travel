@@ -15,9 +15,10 @@ interface PillProps extends ControlProps {
   label: string;
   /** Text for the pill when an old kid-fit value is selected. */
   legacyLabel?: (value: string) => string;
+  note?: string;
 }
 
-export function AgePill({ label, selected, onChange, legacyLabel }: PillProps) {
+export function AgePill({ label, selected, onChange, legacyLabel, note }: PillProps) {
   const active = selected.length > 0;
   const text = !active ? label : isAge(selected[0]) ? `${label} · ${selected[0] === '0' ? 'Baby' : selected[0]}` : `${label} · ${legacyLabel?.(selected[0]!) ?? selected[0]}`;
   return (
@@ -30,7 +31,7 @@ export function AgePill({ label, selected, onChange, legacyLabel }: PillProps) {
         <Popover.Portal>
           <Popover.Positioner sideOffset={6} align="start" className="popover-pos">
             <Popover.Popup className="popover" aria-label={label}>
-              <AgeControl selected={selected} onChange={onChange} />
+              <AgeControl selected={selected} onChange={onChange} note={note} />
             </Popover.Popup>
           </Popover.Positioner>
         </Popover.Portal>

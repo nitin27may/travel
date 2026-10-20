@@ -95,9 +95,15 @@ describe('search records (principle P8): names and areas only', () => {
     const places = new Map(data.listPlaces().map((p) => [`/places/${p.slug}/`, p]));
     const index = buildSearchIndex().filter((r) => r.k === 'place');
     expect(index.length).toBe(places.size);
+    // a page merged into another stays searchable by its old name (the slug of the page that was merged away)
+    const merged = new Map<string, string>();
+    for (const r of data.legacyPlaceRedirects()) {
+      const from = /^\/places\/([a-z0-9-]+)\/$/.exec(r.from)?.[1];
+      if (from && r.to !== r.from) merged.set(r.to, `${merged.get(r.to) ?? ''} ${from.replace(/-/g, ' ')}`);
+    }
     for (const r of index) {
       const p = places.get(r.h)!;
-      const allowed = new Set(normalize([p.kindLabel, p.kind, p.subkind ?? '', ...p.areaChain.map((a) => a.name)].join(' ')).split(' ').filter(Boolean));
+      const allowed = new Set(normalize([p.kindLabel, p.kind, p.subkind ?? '', ...p.areaChain.map((a) => a.name), merged.get(r.h) ?? ''].join(' ')).split(' ').filter(Boolean));
       const extra = normalize(r.x).split(' ').filter((w) => w && !allowed.has(w));
       expect(extra, r.h).toEqual([]);
     }
@@ -132,9 +138,38 @@ describe.skipIf(!existsSync(path.join(OUT, 'index.html')))('the built site holds
     expect(bad).toEqual([]);
   });
   it('every public data file is a search part or geography, and no search part is bigger than 48 KB', () => {
-    const json = files.map(rel).filter((p) => p.endsWith('.json') && !p.startsWith('_next/') && !p.startsWith('globe/') && !p.startsWith('globe-data/')); // globe-data has its own limits in budget.test.ts
-    for (const p of json) expect(p === 'search/manifest.json' || p === 'search/vocab.json' || /^search\/(trip|place|area)-[a-z]{2,4}\/data\.json$/.test(p), p).toBe(true);
+    const json = files.map(rel).filter((p) => p.endsWith('.json') && !p.startsWith('_next/') && !p.startsWith('globe/') && !p.startsWith('globe-data/') && !p.startsWith('list/')); // globe-data has its own limits in budget.test.ts; the list files are checked below
+    for (const p of json) expect(p === 'search/manifest.json' || p === 'search/vocab.json' || /^search\/(trip|place|area)-[a-z]{2,4}\/data\.json$/.test(p) || /^search\/text\/[a-z]{2,3}(-\d+)?\/data\.json$/.test(p), p).toBe(true);
     for (const p of json) expect(readFileSync(path.join(OUT, p)).length, p).toBeLessThan(48 * 1024);
+  });
+  it('the Places list is a manifest and row files by country: no file holds the list, each file is the light rows (3.59, P8)', () => {
+    const list = files.map(rel).filter((p) => p.startsWith('list/'));
+    expect(list).toContain('list/places/manifest.json');
+    const shards = list.filter((p) => /^list\/places\/[a-z]{2,3}(-\d+)?\/data\.json$/.test(p));
+    expect(shards.length + 1).toBe(list.length);
+    const manifest = JSON.parse(readText(path.join(OUT, 'list/places/manifest.json'))) as { total: number; head: number; shards: { id: string; n: number }[] };
+    expect(readFileSync(path.join(OUT, 'list/places/manifest.json')).length).toBeLessThan(32 * 1024);
+    let sum = 0;
+    for (const p of shards) {
+      const rows = JSON.parse(readText(path.join(OUT, p))) as Record<string, unknown>[];
+      sum += rows.length;
+      expect(rows.length, p).toBeLessThanOrEqual(300);
+      // no file holds every row, unless the whole list is one small country
+      if (shards.length > 1) expect(rows.length, p).toBeLessThan(manifest.total);
+      expect(manifest.shards.find((s) => s.id === p.split('/')[2])?.n, p).toBe(rows.length);
+      const keys = keysDeep(rows);
+      for (const k of CONTENT_KEYS.filter((k) => !BAND_NAMED_LIKE_CONTENT.includes(k))) expect(keys.has(k), `${p} key ${k}`).toBe(false);
+      for (const r of rows) expect(Object.keys(r).sort(), `${p} ${String(r.slug)}`).toEqual([...PLACE_ROW_KEYS].sort());
+    }
+    expect(sum).toBe(manifest.total);
+  });
+  it('the Places page carries its first page of rows and the manifest, not the list (3.59)', () => {
+    const text = readText(path.join(OUT, 'places/index.html'));
+    // every row carries `kindLabel` once (a trip reference inside a row has a slug too, so slugs would over-count)
+    const rows = [...text.matchAll(/\\?"kindLabel\\?":/g)].length;
+    expect(rows).toBeLessThanOrEqual(48);
+    expect(rows).toBeGreaterThan(0);
+    expect(/\\?"shards\\?":/.test(text)).toBe(true);
   });
   it('a search file carries no content key', () => {
     for (const f of files.filter((x) => rel(x).startsWith('search/'))) {
@@ -147,7 +182,8 @@ describe.skipIf(!existsSync(path.join(OUT, 'index.html')))('the built site holds
   it('the list pages ship rows with no content key in their payload', () => {
     for (const page of ['places/index.html', 'trips/index.html']) {
       const text = readText(path.join(OUT, page));
-      const exempt = page.startsWith('places') ? BAND_NAMED_LIKE_CONTENT : [];
+      // `hint` is a menu option's one-line meaning in the manifest's counts ("Hidden when you pick an age"), not a fact; rows never carry it (checked above)
+      const exempt = page.startsWith('places') ? [...BAND_NAMED_LIKE_CONTENT, 'hint'] : [];
       for (const k of CONTENT_KEYS.filter((k) => !exempt.includes(k))) expect(new RegExp(`\\\\?"${k}\\\\?":`).test(text), `${page} has "${k}"`).toBe(false);
     }
     // the places payload may name `booking` only as the band: none, recommended, required or null

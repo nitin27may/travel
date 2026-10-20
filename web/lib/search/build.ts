@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { travelRoot } from '@/lib/data/root';
-import { globeIndex, listPlaces, listTrips } from '@/lib/public';
+import { globeIndex, legacyPlaceRedirects, listPlaces, listTrips } from '@/lib/public';
 import type { GlobeNode } from '@/lib/public';
 import { normalize } from './normalize';
 import type { SearchManifest, SearchPartRef, SearchRecord } from './types';
@@ -82,6 +82,13 @@ function locatedRecords(): Located[] {
       },
     });
   }
+  // a second page that was merged into this one no longer exists, so its name is searchable text of the page that kept the place
+  const mergedNames = new Map<string, string[]>();
+  for (const r of legacyPlaceRedirects()) {
+    const from = /^\/places\/([a-z0-9-]+)\/$/.exec(r.from)?.[1];
+    const to = /^\/places\/([a-z0-9-]+)\/$/.exec(r.to)?.[1];
+    if (from && to && from !== to) mergedNames.set(to, [...(mergedNames.get(to) ?? []), from.replace(/-/g, ' ')]);
+  }
   for (const p of listPlaces()) {
     out.push({
       cc: p.areaChain[0]?.slug ?? 'xx',
@@ -90,7 +97,7 @@ function locatedRecords(): Located[] {
         h: `/places/${p.slug}/`,
         n: p.name,
         s: [p.kindLabel, p.areaLabel].filter(Boolean).join(' · '),
-        x: [p.kindLabel, p.kind, p.subkind ?? '', ...p.areaChain.map((a) => a.name)].join(' '),
+        x: [p.kindLabel, p.kind, p.subkind ?? '', ...p.areaChain.map((a) => a.name), ...(mergedNames.get(p.slug) ?? [])].join(' '),
         kind: p.kind,
       },
     });

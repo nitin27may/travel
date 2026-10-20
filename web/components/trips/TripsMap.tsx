@@ -67,7 +67,8 @@ export function TripsMap({ rows }: { rows: TripListRow[] }) {
     const area = pinned
       .filter((x) => x.approx)
       .map((x): Pin => ({ id: x.slug, at: positions.get(x.slug)!, style: 'place', label: `${x.title} (area only)` }));
-    return { pins: [...placed, ...area], members: r.members };
+    // area rings first, so a cluster's count is drawn over a ring that shares its spot (backlog 4.6)
+    return { pins: [...area, ...placed], members: r.members };
   }, [pinned, positions, zoom, selected]);
   const spec = useMemo<MapSpec>(
     () => ({

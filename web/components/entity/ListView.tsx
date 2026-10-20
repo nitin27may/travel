@@ -23,6 +23,7 @@ export function ListView<Row>({ d, groups, state, onOpen }: ViewProps<Row>) {
                   data-focused={state.focus === id || undefined}
                   data-fade={d.fade?.(row)}
                   data-from={d.fadeFrom?.(row)}
+                    data-fade-by={d.fadeFrom?.(row) !== undefined ? d.fadeBy : undefined}
                   title={
                     <OpenLink id={id} state={state} href={d.href(row)} primary={d.primary} onOpen={onOpen} className="row-open">
                       {d.title(row)}
