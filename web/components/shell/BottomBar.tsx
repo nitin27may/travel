@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Icon } from '@/components/ui/Icon';
 import type { IconName } from '@/components/ui/Icon';
-import { isCurrent, OPEN_SEARCH_EVENT } from './SiteHeader';
+import { isCurrent } from './SiteHeader';
 
 const ITEMS: { href: string; label: string; icon: IconName }[] = [
   { href: '/trips/', label: 'Trips', icon: 'cards' },
@@ -23,7 +23,7 @@ export function BottomBar() {
           {i.label}
         </Link>
       ))}
-      <button type="button" aria-haspopup="dialog" onClick={() => window.dispatchEvent(new Event(OPEN_SEARCH_EVENT))}>
+      <button type="button" aria-haspopup="dialog" onClick={() => document.querySelector<HTMLButtonElement>('.site-header [aria-keyshortcuts="/"]')?.click()}>
         <Icon name="search" size={22} />
         Search
       </button>

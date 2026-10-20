@@ -149,6 +149,8 @@ of the trip's photo or name. Never text, never a fill behind text, never on the 
 | vermillion | `#D55E00` | 3.87 | 4.90 | Rockies |
 | none | `--line-2` | | | ideas and done trips |
 
+**Teal** (`--id-teal`, `#0097A7`, hue 187; it was `#009E73`, hue 164, a bluish green, replaced on 19 Oct because the owner's rule is no green anywhere). It is a trip identity colour only: the fourth key of the palette, drawn as a ring, bar or square beside a trip's photo or name when a trip is assigned it (`IDENTITY_KEYS` in `components/ui/Chip.tsx`, read by `Card`, `SideSheet` and `Toast`). Today no trip in the data carries it; it appears in the specimen's Costa Rica sample. It is never used for text, status, the map or the globe.
+
 The keyline is what makes yellow and sky legal on white. Orange and vermillion are near amber and coral;
 they are permitted because identity never fills a control or carries text, so the nearest they come to a
 status is a 10 px square beside a name.
