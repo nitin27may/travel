@@ -148,7 +148,7 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
   }, [sheet]);
   const placed = routeHasPositions(route);
   const mapDayModel = mapDay === null ? null : route.days.find((d) => d.n === mapDay) ?? null;
-  const mapLabel = mapDayModel ? `Map: Day ${mapDayModel.n}${mapDayModel.base ? `, ${mapDayModel.base}` : ''}, ${mapDayModel.points.length} ${mapDayModel.points.length === 1 ? 'stop' : 'stops'}` : `Map: the whole trip${route.unplaced ? `, ${route.unplaced} stops not on the map` : ''}`;
+  const mapLabel = mapDayModel ? `Map: Day ${mapDayModel.n}${mapDayModel.base ? `, ${mapDayModel.base}` : ''}, ${mapDayModel.points.length} ${mapDayModel.points.length === 1 ? 'stop' : 'stops'}${mapDayModel.unplaced ? `, ${mapDayModel.unplaced} not on the map` : ''}` : `Map: the whole trip${route.unplaced ? `, ${route.unplaced} stops not on the map` : ''}`;
 
   // an anchor (`#day-5`, `#trails`) scrolls to its target once the right view is on screen; an empty category goes to the strip
   const goDay = daySpy.goTo;
@@ -180,6 +180,20 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
     });
     return () => publishTimeline(null);
   }, [slug, tlModel, api.state, api.timelines]);
+  // A chip scrolls itself (as a day pick does) so a pick of the section the URL already names still moves the page, and a scroll the
+  // visitor made just before cannot settle afterwards and write its own section over the pick.
+  const pickCat = useCallback(
+    (id: Category) => {
+      const el = model.sections.find((c) => c.id === id)?.count ? document.getElementById(id) : null;
+      catSpy.hold();
+      if (el) {
+        goCat(el, id);
+        ownHash.current = id;
+      }
+      url.go({ view: 'category', hash: id }, 'push');
+    },
+    [model.sections, catSpy, goCat, url],
+  );
   const setProfile = api.setProfile;
   const party = api.state.profile.party;
   useEffect(() => {
@@ -240,7 +254,7 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
             className="trip-seg"
           />
         </div>
-        <CategoryStrip sections={model.sections} active={showCategory ? active : null} sticky={showCategory} onPick={(id) => url.go({ view: 'category', hash: id }, 'push')} />
+        <CategoryStrip sections={model.sections} active={showCategory ? active : null} sticky={showCategory} onPick={pickCat} />
         {model.sections.filter((s) => s.count === 0).map((s) => (
           <span key={s.id} id={s.id} className="anchor-top" />
         ))}
@@ -318,7 +332,7 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
               <MapFamilyProvider family="maplibre">
                 <TripRouteMap ref={map} route={route} picked={paused ? null : mapDay} title={title} />
               </MapFamilyProvider>
-              <p className="trip-sec-note tl-mapcol-note">Lines are straight estimates between stops; road routes come later.{route.unplaced ? ` ${route.unplaced} stops have no map position yet.` : ''}</p>
+              <p className="trip-sec-note tl-mapcol-note">Dashed lines are straight lines between stops, not routes; road routes come later.{route.unplaced ? ` ${route.unplaced} stops have no map position yet.` : ''}</p>
               <RouteKey />
             </>
           )}
@@ -408,7 +422,7 @@ function PlainPlan({ slug, model, title, depth, season }: Props) {
         ) : (
           <>
             <p className="trip-sec-note">
-              Every day&apos;s stops as dots, the bases as signposts. Lines are straight estimates between stops; road routes come later.
+              Every day&apos;s stops as dots, the bases as signposts. Dashed lines are straight lines between stops, not routes; road routes come later.
               {model.route.unplaced ? ` ${model.route.unplaced} stops have no map position yet.` : ''} Pick a day below to follow it.
             </p>
             <MapFamilyProvider family="maplibre">
@@ -438,7 +452,10 @@ function PlainPlan({ slug, model, title, depth, season }: Props) {
             className="trip-seg"
           />
         </div>
-        <CategoryStrip sections={model.sections} active={showCategory ? active : null} sticky={showCategory} onPick={(id) => url.go({ view: 'category', hash: id }, 'push')} />
+        <CategoryStrip sections={model.sections} active={showCategory ? active : null} sticky={showCategory} onPick={(id) => {
+          catSpy.hold();
+          url.go({ view: 'category', hash: id }, 'push');
+        }} />
         {model.sections.filter((s) => s.count === 0).map((s) => (
           <span key={s.id} id={s.id} className="anchor-top" />
         ))}

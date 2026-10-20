@@ -80,6 +80,8 @@ export interface RouteDayModel {
   title: string;
   base: string | null;
   points: RoutePoint[];
+  /** Stops of this day with no map position: counted in the label, never drawn or numbered. */
+  unplaced?: number;
 }
 export interface RouteModel {
   bases: { id: string; name: string; lng: number; lat: number; days: number[] }[];
@@ -215,11 +217,13 @@ function routeOf(trip: PublicTrip, lookup: PlaceLookup): RouteModel {
   const days = trip.days.map((d) => {
     const seen = new Set<string>();
     const points: RoutePoint[] = [];
+    let missing = 0;
     for (const i of d.items) {
       if (!isStop(i)) continue;
       const at = i.placeSlug ? lookup(i.placeSlug)?.point : null;
       if (!at) {
         unplaced += 1;
+        missing += 1;
         continue;
       }
       const key = i.placeSlug as string;
@@ -227,7 +231,7 @@ function routeOf(trip: PublicTrip, lookup: PlaceLookup): RouteModel {
       seen.add(key);
       points.push({ key, name: i.name, lng: at.lon, lat: at.lat, placeSlug: i.placeSlug });
     }
-    return { n: d.n, title: d.title, base: d.base, points };
+    return { n: d.n, title: d.title, base: d.base, points, unplaced: missing };
   });
   return { bases, days, unplaced };
 }
