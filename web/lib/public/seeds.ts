@@ -263,10 +263,17 @@ export interface SeedContext {
 
 export interface SeedBuild { seeds: CaptureSeed[]; skipped: SeedSkip[] }
 
-/** `same_place_as` on a capture record (3.55): the ref of the first record of the same place. CS7d writes it on the second record. */
+/**
+ * The first record of the same place (3.55). CS7d marks a duplicate pair on the second record's relevance record: `same_place_as`
+ * with `draw.state` `not_applicable` (both sides are the one place). A `same_place_as` that has a real draw is the other use of the
+ * field, an activity AT a place (the Maligne cruise at Maligne Lake): two pages, never merged. A capture record may carry the field
+ * too; it is read the same way.
+ */
 export function samePlaceAs(world: World, rec: CaptureRecord): string | null {
-  const to = (rec as CaptureRecord & { same_place_as?: unknown }).same_place_as;
-  if (typeof to !== 'string' || !to) return null;
+  const own = (rec as CaptureRecord & { same_place_as?: unknown }).same_place_as;
+  const rel = world.rel.get(rec.ref)?.rec as ({ same_place_as?: unknown; draw?: { state?: string } } | undefined);
+  const to = typeof own === 'string' && own ? own : rel && typeof rel.same_place_as === 'string' && rel.draw?.state === 'not_applicable' ? rel.same_place_as : null;
+  if (!to) return null;
   const target = primaryRef(world, to);
   return target === rec.ref || !world.cap.has(target) ? null : target;
 }

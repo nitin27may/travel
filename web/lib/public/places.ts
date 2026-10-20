@@ -512,7 +512,7 @@ function logSkippedShells(skipped: readonly SeedSkip[]): void {
   const shells = skipped.filter((x) => x.why.startsWith('empty shell'));
   if (shellsLogged || shells.length === 0 || process.env.NEXT_PHASE !== 'phase-production-build') return;
   shellsLogged = true;
-  console.info(`places: ${shells.length} capture record(s) have no page, empty shells for CS7d: ${shells.map((x) => x.ref).join(', ')}`);
+  console.info(`places: ${shells.length} capture record(s) have no page, empty shells for CS7d: ${shells.map((x) => x.name).join(', ')}`);
 }
 
 /**
