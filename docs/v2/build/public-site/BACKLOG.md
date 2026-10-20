@@ -305,6 +305,9 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | 10.3 | **AllTrails link on every trail (owner, 20 Oct).** Links only, never scraped or used as a data source (standing rule). Every trail page gets an AllTrails entry in Links: the direct trail URL where a person has supplied it or an official source links to it, otherwise a clearly labelled "Search AllTrails" link built from the trail name and area (deterministic, no fetch), opened in a new tab with a note that it is a third-party page. 72 of 128 pages mention AllTrails today (mostly as a not-checked tab). Same slot rules for Komoot and others already in the contract. Q53: will the owner paste direct trail links, or are search links enough | owner | queued (lane PLC2, small) |
 | 10.4 | **One or two photos per trail (owner, 20 Oct).** About 6 of 128 trail pages show an image; the rest show the dark title band. Sources, in order: Wikimedia Commons (sequential, credit and licence shown, our own cache, never parallel searches), photos the owner supplies, official park images only where the licence allows. The hero uses the first photo; a second sits in the gallery. Where none exists the page says so honestly and keeps the band. Needs map points first for Commons geosearch (10.5) | owner | queued (photo pipeline after 10.5; lane CS7 photos) |
 | 10.5 | **Trails with no map point (owner, 20 Oct; the Fenland Loop page says "No point is stored... no map").** 47 of 128 trail pages have no stored point, so they have no map, no directions, no nearby and no globe pin. This is the 8.3 data rule: every trail carries a sourced point (OSM trailhead or route start, Wikidata). Add to the gap report and fill by OSM and Wikidata lookups, sequential with the no-email UA | owner | queued (with 8.3; research when unpaused) |
+| 11.1 | **Header "Sign in" on a site with no login (found 20 Oct).** The public header shows Sign in and the page exists, but nothing can be signed into: a dead end for visitors. Hide it until the planner exists, or keep it with an honest "coming later" note (Q64). Recommended: hide | coordinator | queued (lane SHL, 1 h) |
+| 11.2 | **No way to report a problem (found 20 Oct).** A public site with sourced facts needs a "report a problem" link on every page and in About. No personal email in the page: an issue link first, a form later (Q63). No analytics, which fits the privacy rules; the owner decides if any is wanted | coordinator | queued (lane SHL, 2 h) |
+| 12.1 | **Server-side laundry list (owner, 20 Oct).** A second list of everything that needs login or a backend, started after the public-site list is done: `docs/v2/build/SERVER-SIDE-LAUNDRY-LIST.md` (foundation, the public site's server versions, every planner feature F01 to F17, order, decisions Q65 to Q69). Add new server-side findings as rows 12.x here first | owner | list written; work starts after go-live and the first weeks (MASTER-PLAN phases D and E) |
 
 ## Owner questions open
 
@@ -372,6 +375,13 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | Q61 | Trips: the province level in the Where pill, no city level? Recommended: yes, in N1 | 20 Oct |
 | Q62 | A new `city=` key (a towns-layer id: within the radius of the city, nearest first) rather than reusing `area=`? Recommended: yes; one key per meaning, and old `area=` links keep working | 20 Oct |
 | Q53 | AllTrails on every trail page: will you paste direct trail links for the trails you care about, or are labelled "Search AllTrails" links enough for now? Recommended: search links for all trails now (no fetch, always works), direct links added as you or an official source supply them | 20 Oct |
+| Q63 | Report a problem on every page: an issue link first, a form later, never a personal email in the page? Recommended: yes | 20 Oct |
+| Q64 | The header "Sign in" while no login exists: hide it, or keep it with a "coming later" note? Recommended: hide | 20 Oct |
+| Q65 | Where the backend lives: Supabase cloud free tier (recommended, keep-alive, same schema so self-hosting stays possible), self-hosted Supabase at home (the planner docs' assumption), or Cloudflare Workers, D1 and R2 | 20 Oct |
+| Q66 | Sign-in method: email link plus Google (recommended), passkeys, other | 20 Oct |
+| Q67 | Who may sign in: invite only at first (recommended) or open | 20 Oct |
+| Q68 | Guest planning in memory with a share link before sign-in (same as Q59): yes (recommended) | 20 Oct |
+| Q69 | Household data (people, ages, passports, passes) private to the household, enforced by row-level security: yes (recommended) | 20 Oct |
 
 ## Later: after go-live (planner and data)
 
