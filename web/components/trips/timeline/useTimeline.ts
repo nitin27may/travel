@@ -6,8 +6,16 @@ import type { DayTimeline, Profile, ScheduleItem } from '@travel/core/schedule/t
 import type { TripUrl } from '../useTripUrl';
 import { candidateToItem, type TimelineModel } from './model';
 
+export type Engine = typeof import('@travel/core/schedule/schedule.ts');
+
 export interface TimelineApi {
   state: TimelineUrlState;
+  /** The scheduler once it is loaded; null while the page still shows the server's timelines. */
+  engine: Engine | null;
+  /** True while the URL asks for a profile and the scheduler is still loading: the timelines are not the visitor's yet. */
+  pending: boolean;
+  /** Starts loading the scheduler (a menu or the add panel needs it before any URL change asks for it). */
+  loadEngine: () => void;
   /** One timeline per day, for the profile in the URL. The server's default timelines when the URL has no profile keys. */
   timelines: DayTimeline[];
   /** Days with a version picked by hand, or with a place added. */
@@ -50,15 +58,17 @@ export function useTimeline(model: TimelineModel, url: TripUrl): TimelineApi {
 
   // the scheduler (about 12 kB gzipped) loads only when the URL asks for something other than the plan's own settings
   const plain = url.timeline === '';
-  const [engine, setEngine] = useState<typeof import('@travel/core/schedule/schedule.ts') | null>(null);
+  const [engine, setEngine] = useState<Engine | null>(null);
+  const [wanted, setWanted] = useState(false);
   useEffect(() => {
-    if (plain || engine) return;
+    if ((plain && !wanted) || engine) return;
     let live = true;
     import('@travel/core/schedule/schedule.ts').then((m) => live && setEngine(m));
     return () => {
       live = false;
     };
-  }, [plain, engine]);
+  }, [plain, wanted, engine]);
+  const loadEngine = useCallback(() => setWanted(true), []);
   const timelines = useMemo(() => {
     if (plain || !engine) return model.defaultTimelines;
     return engine.scheduleTrip(
@@ -77,7 +87,7 @@ export function useTimeline(model: TimelineModel, url: TripUrl): TimelineApi {
   const changedDays = useMemo(() => new Set([...Object.keys(state.overrides).map(Number), ...state.added.map((a) => a.day)]), [state]);
 
   return {
-    state, timelines, changedDays, changed: isChanged(state, defaults), droppedAdds, added,
+    state, engine, pending: !plain && !engine, loadEngine, timelines, changedDays, changed: isChanged(state, defaults), droppedAdds, added,
     setProfile: (patch) => {
       const profile = { ...state.profile, ...patch };
       // adults only has no youngest; a family has one (default 6 when it was never set)

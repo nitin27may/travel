@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import { Segmented } from '@/components/ui/Segmented';
 import { Switch } from '@/components/ui/Switch';
+import { usePrefs } from '@/lib/format/prefs';
+import { formatDistance } from '@/lib/format/units';
 import type { TimelineModel } from './model';
 import type { TimelineApi } from './useTimeline';
 
@@ -36,10 +38,10 @@ export function summaryLine(model: TimelineModel, api: TimelineApi): string {
 }
 
 /** "Plan it for": who is going, the youngest's age, the pace; More: adults, longest walk, split (spec 3.1, design 3.2). */
-export function ProfileBar({ model, api }: { model: TimelineModel; api: TimelineApi }) {
+export function ProfileBar({ model, api, edit, setEdit, label }: { model: TimelineModel; api: TimelineApi; edit: boolean; setEdit: (v: boolean) => void; label: string }) {
   const p = api.state.profile;
+  const [prefs] = usePrefs();
   const [more, setMore] = useState(false);
-  const [edit, setEdit] = useState(false);
   const age = p.youngest ?? model.defaultProfile.youngest ?? 6;
   const set = (patch: Partial<Profile>) => api.setProfile(patch);
   const line = summaryLine(model, api);
@@ -48,8 +50,9 @@ export function ProfileBar({ model, api }: { model: TimelineModel; api: Timeline
       <div className="tl-profile-head">
         <h2 id="plan-for-h" className="tl-profile-h">Plan it for</h2>
         <p className="tl-profile-sub">One choice for the whole trip. Any day can still be changed on its own.</p>
-        <Button size="sm" className="tl-profile-edit" aria-expanded={edit} aria-controls="plan-for-controls" onClick={() => setEdit((v) => !v)}>
-          <Icon name="pencil" size={14} /> {edit ? 'Done' : 'Edit'}
+        <p className="tl-profile-now num">Planned for <b>{label}</b></p>
+        <Button size="sm" className="tl-profile-edit" aria-expanded={edit} aria-controls="plan-for-controls" onClick={() => setEdit(!edit)}>
+          <Icon name="pencil" size={14} /> {edit ? 'Done' : 'Change'}
         </Button>
       </div>
       <p className="tl-profile-line" data-testid="profile-line" aria-live="polite">
@@ -130,9 +133,9 @@ export function ProfileBar({ model, api }: { model: TimelineModel; api: Timeline
                 onChange={(v) => set({ walkKm: v === 'any' ? null : Number(v) })}
                 segments={[
                   { value: 'any', label: 'Any' },
-                  { value: '5', label: '5 km' },
-                  { value: '8', label: '8 km' },
-                  { value: '12', label: '12 km' },
+                  { value: '5', label: formatDistance(5, prefs.distance).replace('.0 ', ' ') },
+                  { value: '8', label: formatDistance(8, prefs.distance).replace('.0 ', ' ') },
+                  { value: '12', label: formatDistance(12, prefs.distance).replace('.0 ', ' ') },
                 ]}
               />
             </div>

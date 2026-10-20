@@ -39,6 +39,8 @@ export interface DayRowModel {
   drive: string | null;
   driveIsEstimate: boolean;
   thumb: { url: string; alt: string } | null;
+  /** The icon a day without a photo shows: the kind of its main stop. */
+  glyph: string;
   summary: string | null;
   stops: StopModel[];
   tracks: TrackModel[] | null;
@@ -143,35 +145,49 @@ const tokens = (s: string): Set<string> =>
  * whose section or caption shares the most words with the day (its title and stops count more than its base). Photos not yet
  * used on another row win ties. No match means no photo: the row shows its glyph rather than a wrong picture.
  */
-export function galleryThumb(d: PublicDay, gallery: Photo[], taken: Set<string>): Photo | null {
+export function galleryThumbs(d: PublicDay, gallery: Photo[], taken: Set<string>): Photo[] {
   const strong = tokens([d.title, ...d.items.map((i) => i.name)].join(' '));
   const weak = tokens(d.base ?? '');
-  let best: { p: Photo; score: number } | null = null;
+  const ranked: { p: Photo; score: number }[] = [];
   for (const p of gallery) {
     const hay = tokens(`${p.group ?? ''} ${p.caption}`);
     let score = 0;
     for (const w of strong) if (hay.has(w)) score += 2;
     for (const w of weak) if (hay.has(w)) score += 1;
     if (taken.has(p.file)) score -= 1.5;
-    if (score > 0 && (!best || score > best.score)) best = { p, score };
+    if (score > 0) ranked.push({ p, score });
   }
-  return best?.p ?? null;
+  return ranked.sort((a, b) => b.score - a.score).map((x) => x.p);
+}
+export const galleryThumb = (d: PublicDay, gallery: Photo[], taken: Set<string>): Photo | null => galleryThumbs(d, gallery, taken)[0] ?? null;
+
+/** What a day's photo may repeat (backlog 2.41): never the day before, and no photo on more than two days of a trip. */
+export interface ThumbBook {
+  prev: string | null;
+  uses: Map<string, number>;
+}
+export const MAX_DAYS_PER_PHOTO = 2;
+const photoFree = (book: ThumbBook, url: string): boolean => url !== book.prev && (book.uses.get(url) ?? 0) < MAX_DAYS_PER_PHOTO;
+
+/** The icon of a day's main stop (the first stop that is a row), for a day with no photo. */
+export function dayGlyph(d: PublicDay): string {
+  const k = d.items.find(isStop)?.kind ?? d.items[0]?.kind;
+  return k && ['trail', 'lake', 'viewpoint', 'waterfall', 'sight', 'town', 'lift', 'hut', 'eatery', 'activity', 'valley', 'canyon', 'island', 'park', 'scenic', 'event'].includes(k) ? k : 'mountain';
 }
 
-function dayRow(d: PublicDay, lookup: PlaceLookup, used: Photo[], gallery: Photo[], taken: Set<string>): DayRowModel {
+function dayRow(d: PublicDay, lookup: PlaceLookup, used: Photo[], gallery: Photo[], taken: Set<string>, book: ThumbBook): DayRowModel {
   const stops = d.items.filter(isStop).map(stopOf);
   let thumb: DayRowModel['thumb'] = null;
-  let photo: Photo | null = null;
-  for (const i of d.items) {
-    photo = i.placeSlug ? (lookup(i.placeSlug)?.photo ?? null) : null;
-    if (photo) break;
-  }
-  photo ??= galleryThumb(d, gallery, taken);
+  // the main stop's photo first, then the other stops', then the trip gallery's best matches; a photo the previous day shows, or two days already use, is skipped
+  const own = d.items.flatMap((i) => (i.placeSlug ? [lookup(i.placeSlug)?.photo ?? null] : [])).filter((p): p is Photo => p !== null);
+  const photo = [...own, ...galleryThumbs(d, gallery, taken)].find((p) => photoFree(book, p.url)) ?? null;
   if (photo) {
     thumb = { url: photo.url, alt: '' };
     used.push(photo);
     taken.add(photo.file);
+    book.uses.set(photo.url, (book.uses.get(photo.url) ?? 0) + 1);
   }
+  book.prev = photo?.url ?? null;
   const tracks = d.tracks?.length ? d.tracks.map((t) => ({ id: t.id, label: t.label, title: t.title, stops: t.items.filter(isStop).map(stopOf), notes: t.notes })) : null;
   return {
     n: d.n,
@@ -180,6 +196,7 @@ function dayRow(d: PublicDay, lookup: PlaceLookup, used: Photo[], gallery: Photo
     drive: driveLabel(d.driveMin, d.driveIsEstimate),
     driveIsEstimate: d.driveIsEstimate,
     thumb,
+    glyph: dayGlyph(d),
     summary: d.summary,
     stops,
     tracks,
@@ -251,14 +268,15 @@ export function buildTripPageModel(trip: PublicTrip, lookup: PlaceLookup, nearby
   const used: Photo[] = [];
   const gallery = tripGallery(trip);
   const taken = new Set<string>();
-  const days = trip.depth === 'overview' ? [] : trip.days.map((d) => dayRow(d, lookup, used, gallery, taken));
+  const book: ThumbBook = { prev: null, uses: new Map() };
+  const days = trip.depth === 'overview' ? [] : trip.days.map((d) => dayRow(d, lookup, used, gallery, taken, book));
   const photos = [...(trip.cover ? [trip.cover] : []), ...used, ...gallery];
   const seen = new Set<string>();
   const credits = photos.map(credit).filter((c) => {
     const k = `${c.title}|${c.author}|${c.licence}`;
     return seen.has(k) ? false : (seen.add(k), true);
   });
-  const timeline = buildTimelineModel(trip, new Map(days.map((d) => [d.n, d.thumb ? { url: d.thumb.url } : null])), nearby);
+  const timeline = buildTimelineModel(trip, new Map(days.map((d) => [d.n, { url: d.thumb?.url ?? null, glyph: d.glyph }])), nearby);
   return {
     timeline,
     days,

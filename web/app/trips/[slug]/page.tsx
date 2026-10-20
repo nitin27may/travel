@@ -44,18 +44,21 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
   return (
     <article className="trip-page" data-depth={trip.depth}>
       <TripCover trip={trip} url={url} />
-      <SeasonBand trip={trip} />
       {trip.isDone ? (
         <section className="trip-sec" aria-label="About this plan" data-print="hide">
           <Banner kind="notice">A finished plan, kept as a template. Copy it to plan your own dates.</Banner>
         </section>
       ) : null}
       {trip.depth === 'overview' ? (
-        <section className="trip-sec" aria-label="About this plan">
-          <Banner kind="notice">This plan has not been converted to days yet. Only the overview is here so far.</Banner>
-        </section>
+        <>
+          <SeasonBand trip={trip} />
+          <section className="trip-sec" aria-label="About this plan">
+            <Banner kind="notice">This plan has not been converted to days yet. Only the overview is here so far.</Banner>
+          </section>
+        </>
       ) : (
-        <TripPlan slug={slug} model={model} title={trip.title} depth={trip.depth} />
+        // "Plan it for" comes first, then the season band (Q7): the plan component draws the band where it belongs
+        <TripPlan slug={slug} model={model} title={trip.title} depth={trip.depth} season={<SeasonBand trip={trip} />} />
       )}
       <TripEnd trip={trip} model={model} url={url} />
       <ExportData data={tripExportFor(slug)} />

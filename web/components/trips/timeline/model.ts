@@ -5,7 +5,7 @@ import { haversineM } from '@travel/core/checks/time.ts';
 import type { DayTimeline, ItemKind, Point, Profile, ScheduleDayInput, ScheduleItem } from '@travel/core/schedule/types.ts';
 import { parseHoursRange } from '@/lib/public/quantities';
 import type { KnowGroup } from '@/lib/public/prose';
-import type { DayVariantInfo, ItemSuit, PublicDay, PublicPlaceCard, PublicTrip } from '@/lib/public/types';
+import type { DayVariantInfo, DayZone, ItemSuit, PublicDay, PublicPlaceCard, PublicTrip } from '@/lib/public/types';
 
 /** A place a visitor can add to a day. `key` is what the URL carries: add=5.<key>. */
 export interface AddCandidate {
@@ -29,12 +29,18 @@ export interface TimelineDayModel {
   n: number;
   title: string;
   base: string | null;
+  /** The day's photo, or null. A day with none shows `glyph`: the kind of its main stop, never a bare grey box. */
   thumb: { url: string } | null;
+  glyph: string;
   summary: string | null;
   light: string | null;
   input: ScheduleDayInput;
   variants: DayVariantInfo[];
   know: KnowGroup[];
+  /** A time-zone line crossed this day (Rockies Day 6): the far side reads in local time. */
+  zone?: DayZone;
+  /** The day's last times depend on a flight whose time the plan does not know (Rockies Day 15). */
+  flight?: boolean;
 }
 
 export interface TimelineModel {
@@ -166,13 +172,15 @@ function suitByPlace(trip: PublicTrip): Record<string, ItemSuit> {
 }
 
 /** The whole timeline model, or null for a trip with no days. */
-export function buildTimelineModel(trip: PublicTrip, thumbs: Map<number, { url: string } | null>, nearby: PublicPlaceCard[] = []): TimelineModel | null {
+export function buildTimelineModel(trip: PublicTrip, thumbs: Map<number, { url: string | null; glyph: string }>, nearby: PublicPlaceCard[] = []): TimelineModel | null {
   if (!trip.schedule || trip.depth === 'overview') return null;
   const days: TimelineDayModel[] = [];
   for (const d of trip.days as PublicDay[]) {
     if (!d.scheduleInput) return null;
     days.push({
-      n: d.n, title: d.title, base: d.base, thumb: thumbs.get(d.n) ?? null, summary: d.summaryProse?.plain ?? d.summary, light: d.light, input: d.scheduleInput, variants: d.variants, know: d.know,
+      n: d.n, title: d.title, base: d.base, thumb: thumbs.get(d.n)?.url ? { url: thumbs.get(d.n)!.url! } : null, glyph: thumbs.get(d.n)?.glyph ?? 'mountain',
+      summary: d.summaryProse?.plain ?? d.summary, light: d.light, input: d.scheduleInput, variants: d.variants, know: d.know,
+      ...(d.zone ? { zone: d.zone } : {}), ...(d.flight ? { flight: true } : {}),
     });
   }
   const { addables, addByDay } = candidatesFor(trip, nearby);

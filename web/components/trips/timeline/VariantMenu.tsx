@@ -3,18 +3,36 @@
 import { useEffect, useRef, useState } from 'react';
 import { Icon } from '@/components/ui/Icon';
 
+export interface MenuEntry {
+  label: string;
+  /** What picking it does to the day, from the scheduler: "5.2 km walking · 2 h 30 driving · 07:30 to 20:30". */
+  detail?: string | null;
+  /** Why it does not fit this party; drawn in the warning colour. */
+  warn?: string | null;
+  onSelect: () => void;
+}
+
 interface Props {
   label: string;
   ariaLabel: string;
-  entries: { label: string; onSelect: () => void }[];
+  entries: MenuEntry[];
+  /** Called when the list opens or closes, so the page can work the consequence lines out only when they are wanted. */
+  onOpenChange?: (open: boolean) => void;
 }
 
 /**
  * The per-day version chip (spec 3.6): a button that opens a short list. Arrow keys move, Enter or Space picks, Esc and an outside
  * click close. Written here, not with the L0 Menu, because that one pulls a 21 kB library into every trip page's first load.
  */
-export function VariantMenu({ label, ariaLabel, entries }: Props) {
-  const [open, setOpen] = useState(false);
+export function VariantMenu({ label, ariaLabel, entries, onOpenChange }: Props) {
+  const [open, setOpenState] = useState(false);
+  const setOpen = (v: boolean | ((x: boolean) => boolean)) => {
+    setOpenState((prev) => {
+      const next = typeof v === 'function' ? v(prev) : v;
+      if (next !== prev) queueMicrotask(() => onOpenChange?.(next));
+      return next;
+    });
+  };
   const root = useRef<HTMLDivElement>(null);
   const items = useRef<(HTMLButtonElement | null)[]>([]);
   useEffect(() => {
@@ -47,7 +65,9 @@ export function VariantMenu({ label, ariaLabel, entries }: Props) {
                 if (ev.key === 'ArrowDown') { ev.preventDefault(); move(i, 1); } else if (ev.key === 'ArrowUp') { ev.preventDefault(); move(i, -1); }
               }}
             >
-              {e.label}
+              <span className="tl-menu-label">{e.label}</span>
+              {e.detail ? <span className="tl-menu-detail num">{e.detail}</span> : null}
+              {e.warn ? <span className="tl-menu-warn">{e.warn}</span> : null}
             </button>
           ))}
         </div>
