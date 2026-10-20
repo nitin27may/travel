@@ -1,8 +1,813 @@
 {
   "schema": "snapshot-report/1",
   "note": "Dropped from the public view because it carries a calendar date. Rewrite each as a season, a day number or a rule.",
-  "count": 35,
+  "count": 236,
   "items": [
+    {
+      "where": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre wikidata note",
+      "text": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Canmore Nordic Centre Provincial Park' at 51.09 -115.39; the biathlon venue Q29015671 sits inside it",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk wikidata note",
+      "text": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Columbia Icefield Skywalk, observation deck, footbridge' at 52.259 -117.278",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'waterfall in Jasper National Park, Alberta' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/bow-lake wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'lake in Alberta, Canada' and P625 coordinates within 1 km of the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'historic site in Banff National Park, Alberta, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'glacier in Alberta, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/emerald-lake wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'lake in Columbia-Shuswap Regional District, British Columbia, Canada' and P625 coordinates within 1 km of the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'mountain pass in Alberta, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'mountain road and section of Alberta Highway 93 in Banff and Jasper national parks' and P625 coordinates on the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'valley in Alberta, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'lake in Alberta, Canada (Upper Kananaskis Lake; Lower is Q6693545)' and P625 coordinates within 3 km of the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'lake in British Columbia, Canada' and P625 coordinates within 2 km of the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'lake in Alberta, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island kid_note",
+      "text": "Spirit Island is 14 km up the lake with no road or trail: tour boats or private non-motorized craft only.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'lake in Alberta, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/marble-canyon wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'valley in Regional District of East Kootenay, British Columbia, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/moraine-lake wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'lake in Alberta, Canada (not Q124471170, a lake in California)' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'ponds in Alberta, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'highest mountain in the Canadian Rockies, in British Columbia' and P625 coordinates within 10 km of (the peak, not the deck) the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'waterfall in Mount Robson Provincial Park, British Columbia, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/peyto-lake wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'lake in Alberta, Canada' and P625 coordinates within 1 km of the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'lake in Alberta, Canada' and P625 coordinates within 1 km of the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls effort.drivers.distance_km note",
+      "text": "About 30 m each way to the bridge (Parks Canada), so about 0.1 km return; the lower falls trail is 2.6 km return.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'waterfall in Jasper National Park in Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'waterfalls in British Columbia, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes wikidata note",
+      "text": "9, Alberta, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'group of lakes in Improvement District No.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/sights/wedge-pond wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'pond in Alberta, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog effort.drivers.distance_km note",
+      "text": "trails.json km 52 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog effort.drivers.gain_m note",
+      "text": "trails.json gain_m 1000 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog kid_note",
+      "text": "About 27 km one way (about 54 km return); not for a young child on foot.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/bald-hills age_band note",
+      "text": "10.4 km and 500 m (effort_km 15.4) against our age ceilings (suitability.md 6.2): from 10.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/bears-hump adult_time_min note",
+      "text": "converted from trails.json hours \"1-1.5 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/bears-hump effort.drivers.distance_km note",
+      "text": "trails.json km 2.8 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/bears-hump effort.drivers.gain_m note",
+      "text": "trails.json gain_m 200 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail adult_time_min note",
+      "text": "converted from trails.json hours \"2.5-4 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail effort.drivers.distance_km note",
+      "text": "trails.json km 9.7 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail effort.drivers.gain_m note",
+      "text": "trails.json gain_m 354 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail effort.drivers.distance_km note",
+      "text": "trails.json km 46 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail effort.drivers.gain_m note",
+      "text": "trails.json gain_m 900 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake age_band note",
+      "text": "13.4 km and 730 m (effort_km 20.7) against our age ceilings (suitability.md 6.2): from 13.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/burstall-pass adult_time_min note",
+      "text": "converted from trails.json hours \"5-6 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/burstall-pass effort.drivers.distance_km note",
+      "text": "trails.json km 14.8 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/burstall-pass effort.drivers.gain_m note",
+      "text": "trails.json gain_m 470 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/chester-lake adult_time_min note",
+      "text": "converted from trails.json hours \"3-4 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/chester-lake effort.drivers.distance_km note",
+      "text": "trails.json km 9 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/chester-lake effort.drivers.gain_m note",
+      "text": "trails.json gain_m 315 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop adult_time_min note",
+      "text": "converted from trails.json hours \"5-6 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop effort.drivers.distance_km note",
+      "text": "trails.json km 11.7 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop effort.drivers.gain_m note",
+      "text": "trails.json gain_m 930 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/crypt-lake adult_time_min note",
+      "text": "converted from trails.json hours \"6 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/crypt-lake effort.drivers.distance_km note",
+      "text": "trails.json km 17.2 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/crypt-lake effort.drivers.gain_m note",
+      "text": "trails.json gain_m 675 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop adult_time_min note",
+      "text": "converted from trails.json hours \"30 min\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop effort.drivers.distance_km note",
+      "text": "trails.json km 0.8 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop effort.drivers.gain_m note",
+      "text": "trails.json gain_m 27 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper adult_time_min note",
+      "text": "converted from trails.json hours \"1.5 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper effort.drivers.distance_km note",
+      "text": "trails.json km 4 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper effort.drivers.gain_m note",
+      "text": "trails.json gain_m 30 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint adult_time_min note",
+      "text": "converted from trails.json hours \"1.5 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint effort.drivers.distance_km note",
+      "text": "trails.json km 2.4 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint effort.drivers.gain_m note",
+      "text": "trails.json gain_m 122 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore age_band note",
+      "text": "5.2 km and 5 m (effort_km 5.2) against our age ceilings (suitability.md 6.2): from 6.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline adult_time_min note",
+      "text": "converted from trails.json hours \"7-8 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline effort.drivers.distance_km note",
+      "text": "trails.json km 18.8 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline effort.drivers.gain_m note",
+      "text": "trails.json gain_m 1285 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley effort.drivers.distance_km note",
+      "text": "trails.json km 22 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper age_band note",
+      "text": "3.8 km and 125 m (effort_km 5.0) against our age ceilings (suitability.md 6.2): from 4.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak age_band note",
+      "text": "7.8 km and 810 m (effort_km 15.9) against our age ceilings (suitability.md 6.2): from 13.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/iceline-trail age_band note",
+      "text": "20.3 km and 1090 m (effort_km 31.2) against our age ceilings (suitability.md 6.2): from 13.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop adult_time_min note",
+      "text": "converted from trails.json hours \"1 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop effort.drivers.distance_km note",
+      "text": "trails.json km 2.9 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop effort.drivers.gain_m note",
+      "text": "trails.json gain_m 90 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/lake-agnes adult_time_min note",
+      "text": "converted from trails.json hours \"3-4 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/lake-agnes effort.drivers.distance_km note",
+      "text": "trails.json km 7.8 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/lake-agnes effort.drivers.gain_m note",
+      "text": "trails.json gain_m 495 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'lake in Alberta, Canada' and P625 coordinates within 2 km of the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore age_band note",
+      "text": "4.6 km and 175 m (effort_km 6.3) against our age ceilings (suitability.md 6.2): from 6.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore distinction note",
+      "text": "The Moraine Lake lakeshore (14 km by road) is the same kind of walk.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass age_band note",
+      "text": "11.2 km and 750 m (effort_km 18.7) against our age ceilings (suitability.md 6.2): from 10.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/lillian-lake effort.drivers.distance_km note",
+      "text": "trails.json km 6 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/lillian-lake effort.drivers.gain_m note",
+      "text": "trails.json gain_m 457 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore distinction note",
+      "text": "The Lake Louise lakeshore (14 km by road) is the same kind.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/mount-fairview adult_time_min note",
+      "text": "converted from trails.json hours \"4-5 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/mount-fairview effort.drivers.distance_km note",
+      "text": "trails.json km 10 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/mount-fairview effort.drivers.gain_m note",
+      "text": "trails.json gain_m 990 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint effort.drivers.distance_km note",
+      "text": "trails.json km 0 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint effort.drivers.gain_m note",
+      "text": "trails.json gain_m 250 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop adult_time_min note",
+      "text": "converted from trails.json hours \"30 min\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop effort.drivers.distance_km note",
+      "text": "trails.json km 1 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop effort.drivers.gain_m note",
+      "text": "trails.json gain_m 0 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/opal-hills adult_time_min note",
+      "text": "converted from trails.json hours \"3-4 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/opal-hills effort.drivers.distance_km note",
+      "text": "trails.json km 8.2 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/opal-hills effort.drivers.gain_m note",
+      "text": "trails.json gain_m 460 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/parker-ridge age_band note",
+      "text": "5.4 km and 250 m (effort_km 7.9) against our age ceilings (suitability.md 6.2): from 6.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/parker-ridge wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'Mountain ridge in Banff NP, Alberta, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers age_band note",
+      "text": "11.8 km and 595 m (effort_km 17.8) against our age ceilings (suitability.md 6.2): from 10.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'Plain of Six Glaciers (no English description; the teahouse is Q88380185)' and P625 coordinates within 1 km of the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque age_band note",
+      "text": "4.5 km and 210 m (effort_km 6.6) against our age ceilings (suitability.md 6.2): from 6.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'Alberta, Canada' and P625 coordinates within 1 km of the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/rawson-lake adult_time_min note",
+      "text": "converted from trails.json hours \"3-4 h return\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/rawson-lake effort.drivers.distance_km note",
+      "text": "trails.json km 7.8 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/rawson-lake effort.drivers.gain_m note",
+      "text": "trails.json gain_m 300 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop adult_time_min note",
+      "text": "converted from trails.json hours \"30 min\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop effort.drivers.distance_km note",
+      "text": "trails.json km 0.7 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop effort.drivers.gain_m note",
+      "text": "trails.json gain_m 10 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/ribbon-creek effort.drivers.distance_km note",
+      "text": "trails.json km 8.8 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/ribbon-creek effort.drivers.gain_m note",
+      "text": "trails.json gain_m 0 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/skyline-trail effort.drivers.distance_km note",
+      "text": "Row note: https://www.alltrails.com/trail/canada/alberta/skyline-trail-jasper (search result, 5,413 ft)",
+      "why": "names a link-only platform; its figures and links are never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/skyline-trail effort.drivers.distance_km note",
+      "text": "trails.json km 44 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/skyline-trail effort.drivers.gain_m note",
+      "text": "Row note: https://www.alltrails.com/trail/canada/alberta/skyline-trail-jasper (search result, 5,413 ft)",
+      "why": "names a link-only platform; its figures and links are never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/skyline-trail effort.drivers.gain_m note",
+      "text": "trails.json gain_m 1650 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline age_band note",
+      "text": "8.8 km and 700 m (effort_km 15.8) against our age ceilings (suitability.md 6.2): from 10.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog adult_time_min note",
+      "text": "converted from trails.json hours \"20 min from Magog\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog effort.drivers.distance_km note",
+      "text": "Row note: https://www.alltrails.com/trail/canada/british-columbia/sunburst-and-cerulean-lake-via-lake-magog-campground (4.2 mi, 889 ft; loop including Cerulean Lake)",
+      "why": "names a link-only platform; its figures and links are never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog effort.drivers.distance_km note",
+      "text": "trails.json km 6.8 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog effort.drivers.gain_m note",
+      "text": "Row note: https://www.alltrails.com/trail/canada/british-columbia/sunburst-and-cerulean-lake-via-lake-magog-campground (4.2 mi, 889 ft; loop including Cerulean Lake)",
+      "why": "names a link-only platform; its figures and links are never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog effort.drivers.gain_m note",
+      "text": "trails.json gain_m 271 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass age_band note",
+      "text": "10.2 km and 580 m (effort_km 16.0) against our age ceilings (suitability.md 6.2): from 10.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'Sunshine Meadows (no English description, no coordinates)' and P625 coordinates unchecked against the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe adult_time_min note",
+      "text": "converted from trails.json hours \"4-5.5 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe effort.drivers.distance_km note",
+      "text": "trails.json km 10 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe effort.drivers.gain_m note",
+      "text": "trails.json gain_m 810 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/troll-falls age_band note",
+      "text": "2.8 km and 0 m (effort_km 2.8) against our age ceilings (suitability.md 6.2): from 4.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop adult_time_min note",
+      "text": "converted from trails.json hours \"5-6 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop effort.drivers.distance_km note",
+      "text": "trails.json km 15.7 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop effort.drivers.gain_m note",
+      "text": "trails.json gain_m 0 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail adult_time_min note",
+      "text": "converted from trails.json hours \"1.5 h\" to minutes; not re-read at the source",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail effort.drivers.distance_km note",
+      "text": "trails.json km 4.4 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail effort.drivers.gain_m note",
+      "text": "trails.json gain_m 80 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass age_band note",
+      "text": "8 km and 390 m (effort_km 11.9) against our age ceilings (suitability.md 6.2): from 8.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'mountain pass in Alberta, Canada' and P625 coordinates within 2 km of the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket ext.lift.last_up note",
+      "text": "13 Oct onward read on 18 Oct 2026; 8 Sep-12 Oct read from the same page by the plan research on 12 Oct 2026 (adventures.json), before the page rolled forward",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket wheelchair note",
+      "text": "cabins take most standard wheelchairs and every summit level has a lift, but the summit boardwalk to Sanson's Peak is 368 shallow stairs each way",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket ext.lift.ride_min quote",
+      "text": "The gondola ride itself takes about 15 minutes each way.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "pair legacy/canadian-rockies-sept-2029/sights/peyto-lake to legacy/canadian-rockies-sept-2029/sights/bow-lake",
+      "text": "Bow Lake is the next Parkway stop south, about 10 minutes by road",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "pair legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout to legacy/canadian-rockies-sept-2029/sights/bow-lake",
+      "text": "Bow Lake is the next Parkway stop south, about 10 minutes by road",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "pair trip/iceland-ring-road-2027/sight:geysir to trip/iceland-ring-road-2027/sight:gullfoss",
+      "text": "Gullfoss is about 10 km up the road: the Golden Circle pair",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "pair trip/iceland-ring-road-2027/sight:gullfoss to trip/iceland-ring-road-2027/sight:geysir",
+      "text": "Geysir is about 10 km back down the road: the Golden Circle pair",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top wikidata note",
+      "text": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Banff Gondola, tourist attraction in Banff', at 51.148 -115.556, the Sulphur Mountain lower terminal",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top wikidata note",
+      "text": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Jasper Tramway, aerial tramway in Canada' at 52.85 -118.12 on Whistlers Mountain; the English Wikipedia 'Jasper SkyTram' page has no item link",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top wikidata note",
+      "text": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Lake Louise Ski Resort' at 51.44 -116.16; the summer gondola is the resort's lift and has no item of its own",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'lake in Alberta, Canada' and P625 coordinates within 1 km of the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'group of lakes in Alberta, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'mountain in Alberta, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'valley in Alberta, Canada' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'waterfall in Alberta, Canada' and P625 coordinates within 1 km of the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "part/place/lago-di-limides#walk adult_time_min note",
+      "text": "20-40 min each way.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "part/place/lago-di-limides#walk effort.drivers.distance_km note",
+      "text": "Plan figure; reports give 20-40 min each way from the Falzarego car park (search results).",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "part/place/lago-federa#walk adult_time_min note",
+      "text": "1 h 45 min to 2 h 15 min each way (CAI hut sheet via search result; family blog).",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'valley in Iceland', 63.771 -18.172",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'waterfall surrounded with basalt columns in Iceland', 64.028 -16.975",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/cadini-di-misurina-viewpoint adult_time_min note",
+      "text": "30-40 min each way plus time at the spur.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/cadini-di-misurina-viewpoint effort.drivers.distance_km conflict",
+      "text": "OSM path 117 from Rifugio Auronzo to the approximate viewpoint pin, 2.16 km one way, doubled; the pin is approximate.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/lago-di-landro draw note",
+      "text": "Signals over-score it (relevance.md 2.3): judged regional because it is a roadside photo stop.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/lago-di-limides draw note",
+      "text": "A small pond 20-30 min off the Falzarego road; no designation of its own.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/lago-di-sorapis effort.drivers.gain_m conflict",
+      "text": "One report gives 114 m to the lake one way: the traverse is mostly level.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/lake-louise wikidata note",
+      "text": "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'lake in Alberta, Canada (not Q12826048, the hamlet)' and P625 coordinates at the place; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/monte-piana carrier_ok note",
+      "text": "Path 122 is an old military road; the plateau path is 'slightly uphill, but not difficult'.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "relevance place/lago-di-landro draw",
+      "text": "Signals over-score it (relevance.md 2.3): judged regional because it is a roadside photo stop.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "relevance place/lago-di-limides draw",
+      "text": "A small pond 20-30 min off the Falzarego road; no designation of its own.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
     {
       "where": "trip canadian-rockies-2029 booking closures-after-labour-day",
       "text": "INFERENCE 2029: most services run through 15 Sep; check for Two Jack Main (2 Sep) and Marble Canyon (7 Sep) closings.",
@@ -39,8 +844,28 @@
       "why": "carries a calendar date; rewrite it relative to a day or a season"
     },
     {
+      "where": "trip canadian-rockies-2029 day 1 notes",
+      "text": "Banff lodging availability and price for Sept 2029: not known yet.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
       "where": "trip canadian-rockies-2029 day 1 track C notes",
       "text": "2026 hours 8 Sep-12 Oct 09:00-21:00, last ride up 19:30.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 10 notes",
+      "text": "If Tuesday's forecast is clearly better than Monday's for Moraine, try to swap Days 10 and 11 at the 08:00 release on Sat 15 (change fee 3.50; allowed up to 1 h before departure; seats permitting).",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 11 notes",
+      "text": "Book this date on launch day in mid-April 2029.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 11 notes",
+      "text": "Larch timing for 18 Sep: an estimate.",
       "why": "carries a calendar date; rewrite it relative to a day or a season"
     },
     {
@@ -54,8 +879,18 @@
       "why": "carries a calendar date; rewrite it relative to a day or a season"
     },
     {
+      "where": "trip canadian-rockies-2029 day 11 track B notes",
+      "text": "Canoe: first come, about 160 per hour, mid-June to mid-September, so it may be closed by 18 Sep (not known yet); own boats banned since 2026.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
       "where": "trip canadian-rockies-2029 day 12 track B notes",
       "text": "Canmore groceries (Safeway, Save-On-Foods, the IGA that opened in April 2026): Kananaskis Village has almost none.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 13 track A notes",
+      "text": "2026: Rawson and Sarrail grizzly advisory from 5 Jul, and the Upper Kananaskis Lake circuit (Upper Kananaskis Lake Circuit) closed from North Interlakes to White Spruce for a grizzly with cubs.",
       "why": "carries a calendar date; rewrite it relative to a day or a season"
     },
     {
@@ -67,6 +902,16 @@
       "where": "trip canadian-rockies-2029 day 14 track B notes",
       "text": "Ptarmigan Cirque 4.5 km, 210 m, 2-3 h, starting at 2,206 m; larches turn mid-September to early October (Alberta Parks), so 21 Sep is plausibly early colour (INFERENCE).",
       "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 14 track B notes",
+      "text": "Ptarmigan Cirque 4.5 km, 210 m, 2-3 h, starting at 2,206 m; larches turn mid-September to early October (Alberta Parks), so 21 Sep is plausibly early colour.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 15 notes",
+      "text": "Leave Kananaskis Village at least 3 h before departure (70 min drive plus car return and security).",
+      "why": "household capture note (plan link, stay idea or address); never published"
     },
     {
       "where": "trip canadian-rockies-2029 day 2 track A notes",
@@ -87,6 +932,11 @@
       "where": "trip canadian-rockies-2029 day 2 track B notes",
       "text": "Stewart Canyon bridge is 1.6 km one way if legs remain (2026: trail beyond the bridge closed from 16 Sep).",
       "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 3 item bourgeau-lake",
+      "text": "Drop at 07:00 and collect about 13:30 on the way back from Kootenay.",
+      "why": "household capture note (plan link, stay idea or address); never published"
     },
     {
       "where": "trip canadian-rockies-2029 day 3 track A notes",
@@ -124,6 +974,11 @@
       "why": "household capture note (plan link, stay idea or address); never published"
     },
     {
+      "where": "trip canadian-rockies-2029 day 7 item sulphur-skyline",
+      "text": "Start about 11:30 after the drive.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
       "where": "trip canadian-rockies-2029 day 7 track A notes",
       "text": "Start about 11:30 after the drive.",
       "why": "household capture note (plan link, stay idea or address); never published"
@@ -137,6 +992,16 @@
       "where": "trip canadian-rockies-2029 day 8 track B notes",
       "text": "Stop 3 Columbia Icefield about 11:30: toe of the glacier 1.8 km, 60 m; stay behind signs and ropes (a child died in a crevasse in 1990 and a backcountry skier in May 2026); lunch and full toilets at the Icefield Centre.",
       "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 9 notes",
+      "text": "If the March 2029 Lake O'Hara lottery is won for this date, replace the day with O'Hara.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 9 notes",
+      "text": "Wapta Falls (Wapta Falls, 4.4 km, 80 m; eastbound access only) under cloud; or Golden (40 min from Field): Kicking Horse gondola and the grizzly refuge and Golden Skybridge (Golden Skybridge; the zipline needs 23 kg, so the child fails it; Railrider coaster passenger minimum 92 cm is fine).",
+      "why": "describes the household party; no rewrite rule fits, so the sentence is dropped"
     },
     {
       "where": "trip canadian-rockies-2029 day 9 track A notes",
@@ -177,6 +1042,146 @@
       "where": "trip niagara-day-2026 subtitle",
       "text": "Saturday, August 29, 2026.",
       "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace standing note",
+      "text": "The best-known glacier ice cave in the area; about 200 stairs each way.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "trip/chamonix-mont-blanc-2028/trail:col des montets age_band note",
+      "text": "Official 7 km and 4 h 15 one way, rated Moyenne; GPS tracks put the climb at about 800 m, over the 8-9 ceiling of 9 km and 500 m.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "trip/chamonix-mont-blanc-2028/trail:col des montets kid_note",
+      "text": "The official route to the Aiguillette des Posettes starts at Le Tour, not the Col des Montets: many zigzags up to a ridge, 4 h 15 one way to Vallorcine.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere adult_time_min note",
+      "text": "round trip; 1 h 45 one way",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille age_band note",
+      "text": "Official 5.7 km, +140 m and -523 m one way (effort_km 7.1), inside the 6-7 ceiling for distance and climb; the long descent is the tiring part.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields hazards note",
+      "text": "IMO update of 21 Jul 2026 read through search results; the crack advice is from repo research (route.md).",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'volcanic system in Iceland' (Svartsengi), 63.878 -22.448; the record is the lava landscape around it",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'waterfall in Iceland', 64.703 -20.980",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/sight:dettifoss wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'waterfall', 65.822 -16.388",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/sight:geysir wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'geyser in southwestern Iceland', 64.314 -20.299 (Great Geysir; Strokkur is Q1128186)",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'museum and reconstructed farm in Skagafjordur', 65.611 -19.505",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/sight:godafoss wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'waterfall in Iceland', 65.683 -17.550",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/sight:gullfoss wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'waterfall in Iceland', 64.326 -20.121",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/sight:seljalandsfoss wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'waterfall in Iceland', 63.616 -19.993",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/sight:skogafoss wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'waterfall on the Skoga River in Iceland', 63.530 -19.514",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/town:akureyri botanical garden wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'botanical garden in Akureyri, Iceland', 65.675 -18.093",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/town:reykjavik old harbour wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'harbour in Iceland', 64.153 -21.937",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/trail:djupalonssandur wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'bay in Iceland', 64.752 -23.901",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/trail:thingvellir wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'canyon in Iceland' (Almannagja), 64.261 -21.122; the park is Q107370",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/viewpoint:diamond beach wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'Diamond Beach', 64.053 -16.153 in Iceland (not the Australian, US or Ontario items)",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'glacial lake', 64.070 -16.212",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/viewpoint:kirkjufell wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'mountain in Snaefellsnes peninsula', 64.948 -23.311 (Kirkjufellsfoss is Q2447177)",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'black sand beach in southern Iceland near ...",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view wikidata note",
+      "text": "confirmed by a person-run check (agent, 2026-10-18): 'mountain in Iceland', 64.807 -23.776 (the park is Q738103)",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/patagonia-2027/trail:mirador de los condores adult_time_min note",
+      "text": "The official 3 h is for the whole Cóndores and Águilas circuit (1:30 each way); Cóndores alone is the shorter part.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "trip/patagonia-2027/viewpoint:laguna nimez birds wikidata note",
+      "text": "El Calafate', P131 Lago Argentino department; its P625 (-50.317, -72.633) is about 26 km west of the reserve and needs a person's fix.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle ext.drive.drive_min note",
+      "text": "the shuttle narration says about 40 minutes one way",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "trip/utah-five-parks/viewpoint:dead horse point stroller note",
+      "text": "Overlook Trail, 200 ft one way; the paved spurs beyond the shelter have steeper inclines and slick rock (re-read on the live hiking page, RC)",
+      "why": "household capture note (plan link, stay idea or address); never published"
     }
   ]
 }
