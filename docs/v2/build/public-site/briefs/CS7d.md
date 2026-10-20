@@ -1,5 +1,7 @@
 # CS7d: data batch 4 for the preview (stage 4)
 
+> **Round 2 (20 Oct 2026):** this stage 4 brief is done. The next round for these files is [DATA.md](DATA.md), under [EXECUTION-PLAN.md](../EXECUTION-PLAN.md).
+
 - **Agent:** `travel-researcher` (Opus).
 - **Effort:** about 14 h, in two batches.
 - **Rows:**

@@ -659,6 +659,8 @@ hundred places in a 100 km circle, the browser is fine.
 
 ## 7. Phasing and where it sits in the plan
 
+> **Superseded in part (20 Oct 2026):** the owner moved phase E before go-live (order A, B, E, D, reviews R1 and R2). N0 ships in phase B; N1, N2 and N3 ship in phase E, before go-live, and the "week 1 after go-live" timings below no longer hold. Lane names map as WH to LST2a, WH-C and TR to LST2b, NB to PLC2b and LST2c, DR to META-0, PJ to META-1, PJ-R to DATA D1, TW to META-2, MX unchanged. See [build/public-site/EXECUTION-PLAN.md](../build/public-site/EXECUTION-PLAN.md). E2E specs live in `web/tests/e2e/`, not `web/e2e/`.
+
 **The launch question, honestly.** The owner wants the site reviewed and merged soon: the preview was due about 22-23
 Oct, and go-live about 25-27 Oct (REPORT-2026-10-20 section 5). Anything added now lands between the stage 5 checks and
 the stage 6 preview, needs a design review and a verifier pass, and touches the filter bar the owner is about to review.
@@ -780,4 +782,5 @@ routed "about 25 min" replaces the band wherever a pair exists, and `--check` fa
 
 | Date | Change |
 |---|---|
+| 2026-10-20 | Phasing superseded by the execution plan (E before go-live); lane names mapped; e2e path corrected |
 | 2026-10-20 | First version, from the owner's request of 20 Oct (backlog 8.1-8.6): data audit, the placement rule, the Where pill, Nearby and near mode, the towns layer, the smart trip builder, phases N0-N3 and P1, Q50, Q54-Q62. Same day, after the owner's repeat with a screenshot: the Where control has three levels, Country, State or province, City (a new `city` key, Q62, fed by the towns layer), with parks and areas as a group in the third level; a city selection shows what is near it; the towns layer is built once and shared with the globe's city outlines (row 9.3), with sizes in 5.6. Q51, Q52 and Q53 were taken by rows 9.5, 9.8 and 10.3, so this page's questions are Q50 and Q54-Q62. **Amends** smart-search A6 ("near <place>" uses a radius around the place in N2, not its area) and Q37 (closed by the towns layer); place-page-sections section 11 gains the "Around here" block after the two judged blocks; trip-timeline 3.7's 30 km candidate rule stays for public pages, while the builder uses the near layer. Backlog row 8.3's "62 place pages have no point" is corrected to 121 |

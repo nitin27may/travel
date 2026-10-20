@@ -1,5 +1,7 @@
 # GLB: globe stage-4 fixes (stage 4)
 
+> **Round 2 (20 Oct 2026):** this stage 4 brief is done. The next round for these files is [GLB2.md](GLB2.md), under [EXECUTION-PLAN.md](../EXECUTION-PLAN.md).
+
 - **Agent:** `travel-builder` (Sonnet).
 - **Effort:** about 14 h, in four parts:
   - scoping and framing, 4 h

@@ -1,5 +1,7 @@
 # PLC: place pages, map adapter and page seeds (stage 4)
 
+> **Round 2 (20 Oct 2026):** this stage 4 brief is done. The next round for these files is [PLC2.md](PLC2.md), under [EXECUTION-PLAN.md](../EXECUTION-PLAN.md).
+
 - **Agent:** `travel-builder` (Sonnet).
 - **Effort:** about 16 h, in four parts:
   - place page items, 7 h
