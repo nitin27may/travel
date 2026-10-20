@@ -503,6 +503,10 @@ export function buildPlaces(src: Sources): PlaceBuild {
     addName(p.name, p.slug);
     for (const n of altNames.get(p.slug) ?? []) addName(n, p.slug);
   }
+  // the second record of a merged pair has no page of its own: its name finds the surviving page, so a trip stop that uses it keeps its link (TRP)
+  for (const m of duplicateRedirects) {
+    for (const n of [m.seed.name, ...m.seed.names]) addName(n, m.slug);
+  }
   return { places, bySlug, byProtoId, byLocationId, byCaptureRef, byName, legacyPaths, seedSkips: sb.skipped };
 }
 

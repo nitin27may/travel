@@ -51,7 +51,8 @@ function collectCategories(days: PublicDay[], extra: CategoryItem[]): Record<Cat
     const items = d.tracks ? d.tracks.flatMap((t) => t.items) : d.items;
     for (const it of items) {
       if (!it.category) continue;
-      const key = it.placeSlug ?? `${it.kind}:${normName(it.name)}`;
+      // two names that resolve to one page (a merged duplicate) are still two stops of the trip: each keeps its row, and both link the page
+      const key = it.placeSlug ? `${it.placeSlug}#${normName(it.name)}` : `${it.kind}:${normName(it.name)}`;
       const found = index.get(key);
       if (found) {
         if (!found.days.includes(d.n)) found.days.push(d.n);
@@ -138,12 +139,21 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
 
   // a stop joins its place by capture ref first (data/trips/stop-refs.json), by name only when the stop is not listed there (backlog 3.40)
   const stopRefs = readStopRefs(src.root);
-  const slugForName = (name: string, folder = ''): string | null => {
+  // Kind-aware (3.54, 3.57): when a name belongs to a trail page and a sight or place page, a trail stop takes the trail and any other stop takes the place.
+  const pagesByName = new Map<string, typeof pb.places>();
+  for (const pg of pb.places) pagesByName.set(normName(pg.name), [...(pagesByName.get(normName(pg.name)) ?? []), pg]);
+  const slugForName = (name: string, folder = '', kind?: string): string | null => {
     const ref = stopRefs[folder]?.[normName(name)];
     const byRef = ref ? pb.byCaptureRef.get(ref) : undefined;
     if (byRef) return byRef;
     const hit = pb.byName.get(normName(name));
-    return hit && hit.length === 1 ? hit[0] : null;
+    if (hit?.length === 1) return hit[0]!;
+    if (!kind) return null;
+    // the name lookup leaves out a name two pages share (a trail and its trailhead lake); the stop's own kind tells them apart
+    const wantTrail = kind === 'trail';
+    const same = (hit?.length ? hit.map((slug) => pb.bySlug.get(slug)).filter((p): p is NonNullable<typeof p> => !!p) : (pagesByName.get(normName(name)) ?? []));
+    const fit = same.filter((p) => (p.kind === 'trail') === wantTrail && p.kind !== 'stay');
+    return fit.length === 1 ? fit[0]!.slug : null;
   };
 
   for (const folder of Object.keys(TRIP_SLUGS).sort()) {
@@ -260,7 +270,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
           const name = String(rec.name);
           const stats = kind === 'trail' ? { distanceKm: typeof rec.km === 'number' ? rec.km : null, gainM: typeof rec.gain_m === 'number' ? rec.gain_m : null, hours: rec.hours ? String(rec.hours) : null } : null;
           return {
-            id: `${day.n}-${id}-${n}`, name, kind, subkind, category: categoryOf(kind), foldedInto: null, placeSlug: slugForName(name, folder), time: null, variant: id, durationMin: null,
+            id: `${day.n}-${id}-${n}`, name, kind, subkind, category: categoryOf(kind), foldedInto: null, placeSlug: slugForName(name, folder, kind), time: null, variant: id, durationMin: null,
             note: null, stats, access: null,
           };
         };
@@ -327,7 +337,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
           const sk = STOP_KINDS[s.kind];
           if (!sk) return; // a drive stop is the day's drive, not an item
           items.push({
-            id: `${d.n}-${i + 1}`, name: s.name, kind: sk.kind, subkind: sk.subkind, category: categoryOf(sk.kind), foldedInto: null, placeSlug: slugForName(s.name, folder), time: null,
+            id: `${d.n}-${i + 1}`, name: s.name, kind: sk.kind, subkind: sk.subkind, category: categoryOf(sk.kind), foldedInto: null, placeSlug: slugForName(s.name, folder, sk.kind), time: null,
             variant: null, durationMin: s.durationMin, note: s.note ? undatedSentences(s.note, `${where} day ${d.n} stop`, log) || null : null, stats: null, access: null,
           });
         });
