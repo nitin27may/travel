@@ -40,7 +40,7 @@ test.describe('trip page polish (TRP, stage 4)', () => {
     for (const size of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
       await page.setViewportSize(size);
       await page.goto(`${site.url}${ROCKIES}`);
-      await expect(page.locator('.tl-trip-scale .tl-scale-tick')).toHaveText(['06', '12', '18']);
+      await expect(page.locator('.tl-trip-scale:first-child .tl-scale-tick')).toHaveText(['06', '12', '18']);
       const clipped = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('.tl-trip-drive')].filter((e) => e.scrollWidth > e.clientWidth + 1).length);
       expect(clipped, `${size.width}`).toBe(0);
       const drive = await page.locator('.tl-trip-drive').first().innerText();
