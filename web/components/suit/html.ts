@@ -85,7 +85,7 @@ function panel(val: PVal): string {
   if (val.quote) h += `<blockquote class="sp-quote">${esc(val.quote)}</blockquote>`;
   if (sources.length) {
     h += '<ul class="sp-src" aria-label="Sources, each opens in a new tab">';
-    for (const s of sources) h += `<li><a href="${esc(s.url)}" target="_blank" rel="noreferrer">${esc(sourceTitle(s.title))}</a> · ${esc(s.publisher)}${s.read ? ` · read ${esc(longDate(s.read))}` : ''}</li>`;
+    for (const s of sources) h += `<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(sourceTitle(s.title))}</a> · ${esc(s.publisher)}${s.read ? ` · read ${esc(longDate(s.read))}` : ''}</li>`;
     h += '</ul>';
   }
   if (val.conflicts.length) {
