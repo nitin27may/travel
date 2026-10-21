@@ -193,12 +193,13 @@ test.describe('Where at 390 px', () => {
     await page.locator('.phone-pills .where-pill .pill-trigger').click();
     const menu = page.getByRole('dialog', { name: 'Where' });
     // Alberta is chosen, so the menu opens on its parks and areas; the back row names the province
-    await expect(menu.locator('.where-back')).toHaveText('Alberta');
+    await expect(menu.locator('.where-title')).toHaveText('Alberta');
+    await expect(menu.getByRole('button', { name: 'Back to provinces' })).toBeVisible();
     const rows = menu.getByRole('option');
     await expect(rows.first()).toBeVisible();
     for (const i of [0, 1, 2]) expect((await rows.nth(i).boundingBox())!.height).toBeGreaterThanOrEqual(44);
     await menu.locator('.where-back').click();
-    await expect(menu.locator('.where-back')).toHaveText('Canada');
+    await expect(menu.locator('.where-title')).toHaveText('Canada');
     await expect(menu.getByRole('option', { name: /^All of Canada\b/ })).toBeVisible();
     await menu.locator('.where-back').click();
     await expect(menu.getByRole('option', { name: /^Italy\b/ })).toBeVisible();

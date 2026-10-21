@@ -215,8 +215,10 @@ function hexToRgb(hex: string): string {
 test.describe('list polish (A7b)', () => {
   test('a Kind chosen on its own with nothing in it says so as a fact about the catalogue, with one way out (3.66d)', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?k=food`);
-    await expect(page.getByRole('heading', { name: 'No food here yet' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'No food places here yet' })).toBeVisible();
     await expect(page.getByText(/A gap is not a no/)).toBeVisible();
+    // the count line says "No places", not "0 of 0 food" (review M13)
+    await expect(page.locator('.filter-bar .count')).toHaveText('No places');
     await page.getByRole('button', { name: /^Show all \d+ places$/ }).click();
     await expect(page).not.toHaveURL(/k=food/);
   });
