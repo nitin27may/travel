@@ -18,17 +18,21 @@ test.describe('the trail key-facts strip', () => {
     await expect(link).toHaveAttribute('target', '_blank');
     await expect(link).toHaveAttribute('rel', /noopener/);
     await expect(link).toHaveAttribute('href', /^https:\/\/www\.alltrails\.com\//);
-    await expect(link).toContainText(/third-party site/);
+    await expect(link).toHaveAccessibleName(/third-party site/);
+    await expect(page.locator('#glance')).not.toContainText(/AllTrails/);
   });
 });
 
 test.describe('the cover Directions button', () => {
   test('opens the same two choices as the Directions card in the rail', async ({ page, site }) => {
     await page.goto(`${site.url}/places/banff-gondola/`, { waitUntil: 'networkidle' });
-    await page.locator('.pl-actions').getByRole('button', { name: /Directions/ }).click();
-    const menu = page.getByRole('menu');
-    await expect(menu.getByRole('menuitem', { name: 'Google Maps directions' })).toBeVisible();
-    await expect(menu.getByRole('menuitem', { name: 'Apple Maps' })).toBeVisible();
+    await page.locator('.pl-actions .pl-dir').click();
+    const menu = page.locator('.pl-dirmenu .menu');
+    await expect(page.locator('.pl-dir')).toHaveAttribute('aria-expanded', 'true');
+    await expect(menu.getByRole('link', { name: /Google Maps directions/ })).toBeVisible();
+    await expect(menu.getByRole('link', { name: /Apple Maps/ })).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(menu).toHaveCount(0);
     const card = page.getByRole('region', { name: 'Directions' });
     await expect(card.getByRole('link', { name: /Google Maps directions/ })).toBeVisible();
     await expect(card.getByRole('link', { name: /Apple Maps/ })).toBeVisible();

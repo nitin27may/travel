@@ -247,6 +247,12 @@ export interface GlanceOptions {
   readLine?: string | null;
 }
 
+/** The line beside the completeness chip: "12 of 27 place checks done · read 18 Oct 2026" (the count is dropped when the chip already says it). */
+export function checksText(label: string, checks: { done: number; total: number; read: string | null }): string {
+  const count = checks.total && !/ of \d+(?:,.*)?$/.test(label) ? `${checks.done} of ${checks.total} place checks done` : '';
+  return `${count}${checks.read ? `${count ? ' · ' : ''}read ${longDate(checks.read)}` : ''}`;
+}
+
 export function glanceHtml(slots: GlanceSlotHtml[], level: { level: string; label: string; tooltip: string }, checks: { done: number; total: number; read: string | null }, opts: GlanceOptions = {}): string {
   const source = opts.source !== false;
   const tile = ({ row, href, value, external }: GlanceSlotHtml): string =>
@@ -254,7 +260,8 @@ export function glanceHtml(slots: GlanceSlotHtml[], level: { level: string; labe
       ? `<li><a href="${esc(external.url)}" class="ga ga-ext" target="_blank" rel="noopener noreferrer"><span class="gl">${esc(row.label)}</span><strong class="gv"><span class="ga-u">${esc(external.label)}</span>${glyph('external')}</strong><span class="sr-only"> (opens in a new tab, third-party site)</span></a></li>`
       : `<li${row.gap ? ' data-empty' : ''}><a href="${esc(href)}" class="ga"><span class="gl">${esc(row.label)}</span>${row.gap ? gapChip() : `<strong class="gv">${withUnits(value)}</strong>`}${source && row.val ? `<span class="pb">${esc(stubOf(row.val))}</span>` : ''}${row.val && row.val.conflicts.length ? `<span class="su-honest">${row.val.conflicts.length + 1} values</span>` : ''}</a></li>`;
   const list = slots.length ? `<ul>${slots.map(tile).join('')}</ul>${opts.readLine ? `<p class="pb ps-readline">${esc(opts.readLine)}</p>` : ''}` : '';
-  return `${list}<p class="ps-level"><span class="ps-complete" data-level="${esc(level.level)}" title="${esc(level.tooltip)}">${esc(level.label)}</span><span class="pb">${checks.total && !/ of \d+(?:,.*)?$/.test(level.label) ? `${checks.done} of ${checks.total} place checks done` : ''}${checks.read ? `${checks.total && !/ of \d+(?:,.*)?$/.test(level.label) ? ' · ' : ''}read ${esc(longDate(checks.read))}` : ''}</span></p>`;
+  const t = checksText(level.label, checks);
+  return `${list}<p class="ps-level"><span class="ps-complete" data-level="${esc(level.level)}" title="${esc(level.tooltip)}">${esc(level.label)}</span><span class="pb">${esc(t)}</span></p>`;
 }
 
 const li = (kind: string, glyphName: string, inner: string, cls = 'ps-line'): string => `<li class="${cls}" data-kind="${esc(kind)}">${glyph(glyphName, 16)}<div>${inner}</div></li>`;

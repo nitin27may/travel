@@ -52,7 +52,8 @@ function slot(model: PageModel, suit: PublicSuitability | null, label: string, k
   }
   const anyRow = hits.find((h) => h.hit)?.hit;
   if (fallback) return { row: made(keys[0] ?? label, label, fallback), href: anyRow?.href ?? href, value: fallback };
-  return { row: { ...(anyRow?.row ?? GAP(keys[0] ?? label, label)), label, gap: true, text: null }, href: anyRow?.href ?? href, value: '' };
+  // a gap links to its section, not its row: the row only repeats "Not checked yet", and the short anchor keeps the page small (S13)
+  return { row: { ...(anyRow?.row ?? GAP(keys[0] ?? label, label)), label, gap: true, text: null }, href, value: '' };
 }
 
 export interface TrailStrip {
