@@ -26,13 +26,13 @@ test.describe('theme and fonts', () => {
 });
 
 test.describe('shell', () => {
-  test('public header: three tabs with aria-current, search, theme, Sign in', async ({ page, site }) => {
+  test('public header: three tabs with aria-current, search, theme, and no Sign in while the flag is off', async ({ page, site }) => {
     await page.goto(`${site.url}/places/`);
     const nav = page.getByRole('navigation', { name: 'Main', exact: true });
     await expect(nav.getByRole('link')).toHaveText(['Trips', 'Places', 'Globe']);
     await expect(nav.getByRole('link', { name: 'Places' })).toHaveAttribute('aria-current', 'page');
     await expect(page.getByRole('button', { name: 'Search', exact: true })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Sign in' }).first()).toHaveAttribute('href', '/sign-in/');
+    await expect(page.getByRole('link', { name: 'Sign in' })).toHaveCount(0);
     const header = page.locator('header.site-header');
     expect((await header.boundingBox())?.height).toBe(60);
   });
