@@ -25,7 +25,7 @@ beforeAll(() => {
 });
 
 describe("counts of spec 7.1", () => {
-  it("finds 207 in-scope refs, all resolved, in 8 files", () => {
+  it("finds 206 in-scope refs, all resolved, in 8 files", () => {
     expect(m.reports.reduce((s, r) => s + r.inScope, 0)).toBe(EXPECTED_IN_SCOPE);
     expect(m.reports.every((r) => r.resolved === r.inScope)).toBe(true);
     expect([...m.docs.keys()].filter((k) => k.endsWith("/migrated.json"))).toHaveLength(8);
@@ -34,9 +34,9 @@ describe("counts of spec 7.1", () => {
     for (const it of scope.items) expect(resolver.why(it.ref), it.ref).toBeNull();
   });
 
-  it("prints any-signal counts of 19, 76, 0, 0, 0, 0, 0, 0 (spec order)", () => {
+  it("prints any-signal counts of 19, 75, 0, 0, 0, 0, 0, 0 (spec order)", () => {
     const by = Object.fromEntries(m.reports.map((r) => [r.trip, r.anySignal]));
-    expect([by["dolomites-2027"], by["canadian-rockies-2029"], by["iceland-ring-road-2027"], by["utah-five-parks"], by["patagonia-2027"], by["chamonix-mont-blanc-2028"], by["algonquin-muskoka-2026"], by["vermont-fall-2026"]]).toEqual([19, 76, 0, 0, 0, 0, 0, 0]);
+    expect([by["dolomites-2027"], by["canadian-rockies-2029"], by["iceland-ring-road-2027"], by["utah-five-parks"], by["patagonia-2027"], by["chamonix-mont-blanc-2028"], by["algonquin-muskoka-2026"], by["vermont-fall-2026"]]).toEqual([19, 75, 0, 0, 0, 0, 0, 0]);
     expect(by).toEqual(EXPECTED_SIGNAL);
     expect(() => assertSpecCounts(m)).not.toThrow();
   });

@@ -1,6 +1,6 @@
 // Refs of suitability/1 (spec 5.2) and the scope manifest.
 //
-// data/suitability/scope.json lists the 207 in-scope items of spec section 7 and every place slug. It is dumped from
+// data/suitability/scope.json lists the 206 in-scope items of spec section 7 and every place slug. It is dumped from
 // the public adapter by tools/suitability-scope/dump-scope.test.ts, because core/ cannot import web/.
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";

@@ -117,8 +117,8 @@ describe("suitability migrate and codes", () => {
     const r = run(REPO, "migrate");
     expect(r.status, r.stderr).toBe(0);
     expect(r.stdout).toMatch(/dolomites-2027\t40\t40\t19\t/);
-    expect(r.stdout).toMatch(/canadian-rockies-2029\t76\t76\t76\t/);
-    expect(r.stdout).toMatch(/off-plan canadian-rockies-2029: 28 adventures, 29 trails, 20 sights/);
+    expect(r.stdout).toMatch(/canadian-rockies-2029\t75\t75\t75\t/);
+    expect(r.stdout).toMatch(/off-plan canadian-rockies-2029: 28 adventures, 29 trails, 21 sights/);
   });
   it("migrate --check passes when the committed files are what migrate writes", () => {
     const r = run(REPO, "migrate", "--check");

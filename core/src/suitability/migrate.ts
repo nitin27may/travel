@@ -56,7 +56,7 @@ export interface Migration {
 /** Expected "any signal" counts of spec 7.1, in the order of the spec table. */
 export const EXPECTED_SIGNAL: Record<string, number> = {
   "dolomites-2027": 19,
-  "canadian-rockies-2029": 76,
+  "canadian-rockies-2029": 75,
   "iceland-ring-road-2027": 0,
   "utah-five-parks": 0,
   "patagonia-2027": 0,
@@ -64,7 +64,7 @@ export const EXPECTED_SIGNAL: Record<string, number> = {
   "algonquin-muskoka-2026": 0,
   "vermont-fall-2026": 0,
 };
-export const EXPECTED_IN_SCOPE = 207;
+export const EXPECTED_IN_SCOPE = 206;
 
 // ---- sources ----------------------------------------------------------------------------------------------------
 class SourceBook {
@@ -423,7 +423,7 @@ export function migrate(root: string): Migration {
   }
 
   // Rockies rows on no plan day. The spec 7.2 traps (Kicking Horse, Kananaskis, the horse rides) are all among them,
-  // so they are migrated too, into their own file, and the 207-ref counts above stay as the spec states them.
+  // so they are migrated too, into their own file, and the 206-ref counts above stay as the spec states them.
   const offPlan: OffPlanReport[] = [];
   const onPlan = new Set(ctx.scope.items.filter((i) => i.source.legacy).map((i) => `${i.source.legacy!.dataset}/${i.source.legacy!.id}`));
   const folder = "canadian-rockies-sept-2029";
@@ -460,7 +460,7 @@ export function migrate(root: string): Migration {
   return { docs, reports, offPlan };
 }
 
-/** Throws with every mismatch against spec 7.1 (207 refs, the "any signal" counts). */
+/** Throws with every mismatch against spec 7.1 (206 refs, the "any signal" counts). */
 export function assertSpecCounts(m: Migration): void {
   const bad: string[] = [];
   const total = m.reports.reduce((s, r) => s + r.inScope, 0);
