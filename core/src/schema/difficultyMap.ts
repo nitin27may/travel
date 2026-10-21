@@ -1,7 +1,7 @@
 // data/schema/difficulty-map.json: local grade to terrain grade (plan 3A, extended to every kind by
-// docs/v2/research/suitability.md section 2), extendable without code changes.
+// research/method/suitability.md section 2), extendable without code changes.
 //
-// v1 had no per-row source. v2 rows carry `source` (a URL, or a docs/ path for rows kept from plan 3A) and `read`;
+// v1 had no per-row source. v2 rows carry `source` (a URL, or a docs/ or research/ path for rows kept from plan 3A) and `read`;
 // the validator requires both when schema_version is 2. v1 files still validate: documents.ts fills the columns
 // v1 does not have before the table check.
 import { z } from "zod";
