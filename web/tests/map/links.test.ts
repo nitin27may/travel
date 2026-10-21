@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { appleMapsUrl, directionsUrl, formatPoint, searchUrl } from '@/lib/map/links';
+import { allTrailsLink, appleMapsUrl, directionsUrl, formatPoint, komootSearchUrl, searchUrl } from '@/lib/map/links';
 
 const braies = { lng: 12.08536, lat: 46.69421 };
 
@@ -26,5 +26,19 @@ describe('map links are built from our stored point', () => {
   });
   it('writes a point as lat, lng', () => {
     expect(formatPoint(braies)).toBe('46.69421,12.08536');
+  });
+
+  it('gives AllTrails as the stored page when the record has one, else a labelled search from name and area', () => {
+    const direct = allTrailsLink({ name: 'Fenland Loop', links: [{ kind: 'alltrails', url: 'https://www.alltrails.com/trail/canada/alberta/fenland-trail' }] });
+    expect(direct).toEqual({ url: 'https://www.alltrails.com/trail/canada/alberta/fenland-trail', direct: true, label: 'Open on AllTrails' });
+    const search = allTrailsLink({ name: 'Tre Cime di Lavaredo loop', area: 'Belluno', links: [{ kind: 'official', url: 'https://example.test/' }] });
+    expect(search).toEqual({ url: 'https://www.alltrails.com/search?q=Tre+Cime+di+Lavaredo+loop+Belluno', direct: false, label: 'Search AllTrails' });
+    expect(allTrailsLink({ name: 'Wilcox Pass' }).url).toBe('https://www.alltrails.com/search?q=Wilcox+Pass');
+  });
+  it('ignores an alltrails link that is not an AllTrails page', () => {
+    expect(allTrailsLink({ name: 'X', links: [{ kind: 'alltrails', url: 'https://evil.test/alltrails.com/x' }] }).direct).toBe(false);
+  });
+  it('builds a Komoot search link', () => {
+    expect(komootSearchUrl('Wilcox Pass', 'Banff')).toBe('https://www.komoot.com/discover?q=Wilcox+Pass+Banff');
   });
 });

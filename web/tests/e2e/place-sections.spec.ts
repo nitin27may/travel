@@ -42,14 +42,14 @@ test.describe('place page sections (S1b)', () => {
     for (const size of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
       await page.setViewportSize(size);
       await page.goto(`${site.url}${LOUISE}`);
-      const dir = page.locator('a.pl-dir');
+      const dir = page.locator('.pl-dir');
       await expect(dir).toBeVisible();
       const box = await dir.boundingBox();
       expect(box!.y + box!.height).toBeLessThan(size.height + (size.width < 600 ? 400 : 0));
       await expect(page.getByRole('button', { name: /Save to a trip/ })).not.toHaveClass(/btn-primary.*pl-dir/);
     }
     await page.goto(`${site.url}/places/larch-valley-to-sentinel-pass/`);
-    await expect(page.locator('a.pl-dir')).toHaveCount(0);
+    await expect(page.locator('.pl-dir')).toHaveCount(0);
     await expect(page.getByText(/No private cars on this road/)).toBeVisible();
   });
 

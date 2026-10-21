@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { GapChip, RefLink, RowsHtml, fromRow, fromSuit, type ShowRow } from '@/components/suit/Rows';
+import { GapChip, RefLink, RowsHtml, fromRow, type ShowRow } from '@/components/suit/Rows';
 import { glanceHtml, warningsHtml } from '@/components/suit/html';
 import { WhoItSuits, WhoItSuitsEmpty } from '@/components/suit/WhoItSuits';
 import { CHIP_ROW_PROPERTIES } from '@/lib/public/contract';
@@ -9,6 +9,8 @@ import type { PublicSuitability } from '@/lib/public/suitability';
 import type { Completeness } from '@/lib/public/types';
 import { Nearby } from './Relevance';
 import { seasonShort } from './SeasonGrid';
+import { findRow, readLine, trailStrip, type TrailExtras } from './trailFacts';
+import './glance.css';
 
 // The 14 sections of the capture contract in order (place-page-sections section 2). Each section reads its rows, its structures
 // and its closing line from the page model; the only decisions here are by section id, the contract's own, never by the type of the
@@ -61,21 +63,19 @@ function Rows({ rows, slugs }: { rows: Row[]; slugs: Record<string, string> }) {
 
 /* ---------- the glance strip (section 2) ---------- */
 
-/** The row a glance slot is the echo of: a section row, else a "Who it suits" row. */
-function findRow(model: PageModel, suit: PublicSuitability | null, key: string): { row: ShowRow; href: string } | null {
-  for (const s of model.sections) {
-    const r = s.rows.find((x) => x.key === key);
-    if (r) return { row: fromRow(r), href: `#row-${key}` };
-  }
-  for (const g of suit?.groups ?? []) {
-    const r = g.rows.find((x) => x.key === key);
-    if (r) return { row: fromSuit(r), href: `#su-${key}` };
-  }
-  return null;
+/**
+ * A glance tile holds one answer (P3). A list a section keeps whole ("EUR 13 adult; EUR 0 child; EUR 10 person ...", "Tue-Sun 10:00-18:00; Mon, 1 Jul
+ * to 31 Aug ...") shows its first entry and a count; the section below has all of it, so the hours are printed in full once (R4-PP4, 3.49).
+ */
+export function leadOf(text: string): string {
+  if (/[()]/.test(text)) return text;
+  const parts = text.split(/;\s+/).map((x) => x.trim()).filter(Boolean);
+  const uniq = parts.filter((x, i) => parts.indexOf(x) === i);
+  return uniq.length > 1 ? `${uniq[0]} · +${uniq.length - 1} more` : text;
 }
 
 /** Six answers at a glance (PS13): the contract's glance, skipping what the chip row below already says. Each is a link to its row. */
-export function Glance({ model, suit, level, trailhead = null, isArea = false }: { model: PageModel; suit: PublicSuitability | null; level: Completeness; trailhead?: string | null; isArea?: boolean }) {
+export function Glance({ model, suit, level, trailhead = null, isArea = false, trail = null }: { model: PageModel; suit: PublicSuitability | null; level: Completeness; trailhead?: string | null; isArea?: boolean; trail?: { extras: TrailExtras; place: { name: string; area: string | null; links: ReadonlyArray<{ kind: string; url: string }> } } | null }) {
   const directions = model.directions?.mode === 'drive' ? model.directions : null;
   // A required row the older record answered (step 9 of the contract mapping) counts as done: the engine ran before the mapping (3.49)
   const mapped = Math.min(
@@ -90,7 +90,7 @@ export function Glance({ model, suit, level, trailhead = null, isArea = false }:
     // a range or region has no trailhead, no car park and no lift or road season: those tiles would only say "Not checked yet" about things it cannot have
     .filter((x) => !(isArea && x.hit.row.gap && (x.key === 'access_points' || x.key === 'access_season')))
     .map(({ key, hit: { row, href } }) => {
-      const value = (row.valueType === 'season_rows' ? seasonShort(row.value) : '') || row.text || '';
+      const value = leadOf((row.valueType === 'season_rows' ? seasonShort(row.value) : '') || row.text || '');
       // Directions already name where you start (S5): a gap here would contradict it, so the slot reads the same stop
       if (key === 'starts_at' && row.gap && directions?.role === 'starts_at') return { row: { ...row, gap: false, text: directions.name }, href, value: directions.name };
       // the Directions card names the trailhead it holds: a "Starts at" gap beside it would say the opposite
@@ -106,7 +106,12 @@ export function Glance({ model, suit, level, trailhead = null, isArea = false }:
       return seen.has(k) ? false : (seen.add(k), true);
     })
     .slice(0, 6);
-  return <section className="ps-glance" id="glance" aria-label="At a glance" dangerouslySetInnerHTML={{ __html: glanceHtml(slots, adjusted, { ...model.checks, done: Math.min(model.checks.total, model.checks.done + mapped) }) }} />;
+  // A trail leads with its 14 facts and AllTrails (10.1, 10.3): the same tiles and checks line. A long strip keeps no source line per tile (P6: the
+  // row each tile links to holds it); one line under the strip says when it was read (M14).
+  const strip = trail ? trailStrip(model, suit, trail.extras, trail.place) : null;
+  const shown = strip ? [...strip.slots, { row: { key: 'alltrails', label: 'AllTrails · link only', text: strip.allTrails.label, look: 'info' as const, gap: false, val: null }, href: strip.allTrails.url, value: strip.allTrails.label, external: { url: strip.allTrails.url, label: strip.allTrails.label } }] : slots;
+  const html = glanceHtml(shown, adjusted, { ...model.checks, done: Math.min(model.checks.total, model.checks.done + mapped) }, strip ? { source: false, readLine: readLine(strip.slots) } : {});
+  return <section className="ps-glance" id="glance" aria-label="At a glance" dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
 /* ---------- section bodies ---------- */
