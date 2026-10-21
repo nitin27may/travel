@@ -122,6 +122,7 @@ Status: **done** (shipped), **in force** (a standing rule), **next** (a task is 
 | Plan | Execution plan rewritten after D1-D10; COVERAGE (244 lines, 0 unmapped); this page | none | **done** | EXECUTION-PLAN 1, 21 |
 | Branch cleanup | Remote branches deleted and archived as tags `archive/*`; PR #7 closed | owner, 21 Oct | **done** | HANDOVER 4 |
 | **A** | UI fixes: A1-A14 plus SRV-D (A10); about 75 h | **R1** (owner) | **next: start now** | EXECUTION-PLAN 3, 8 |
+| Cleanup, CLN-1 to CLN-6 | Repo cleanup (owner, 21 Oct): CLN-1 docs and research moves now, beside phase A (it touches no lane-owned file); CLN-2 at R1 entry, once GLB2a and TST release `globe_data.py` and `places-parity.spec.ts`; CLN-3 (retire `prototype/`), CLN-4 (one globe writer) and CLN-5 (folder guard) in the phase B gap, after B1 and B4 and before E2, E12 and E14 take those files again; CLN-6 with backlog 7.11. About 17 h | owner D1-D10; G-B audits CLN-5 | waiting on D1-D10 | [CLEANUP-PLAN.md](CLEANUP-PLAN.md) |
 | **B** | API-0, API-1, API-2, CONS-1, CONS-2, META-0; about 78 h; starts at R1 entry on the frozen preview (Q72) | **G-B** (internal) | waiting on R1 entry | EXECUTION-PLAN 4, 9 |
 | **E** | META-1, META-2, DATA D1-D6, LST2b, LST2c, PLC2b, TRP2, GLB2b, MX, CONS-3; about 161 h | **R2** (owner, Q43) | waiting on G-B (D3, D4 and D6 data may start once META-0 merges) | EXECUTION-PLAN 10, 11 |
 | **D** | Readiness checklist, hosting-agnostic | none | waiting on R2 | EXECUTION-PLAN 13 |
