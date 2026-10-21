@@ -64,7 +64,15 @@
       "url": "https://www.naturalearthdata.com/about/terms-of-use/",
       "licence": "Public domain",
       "attribution": "Made with Natural Earth.",
-      "covers": "Country outlines and the base geography of the globe."
+      "covers": "Country outlines on the globe, its landform, sea and river lines (the line files), and the city rows the globe search reads."
+    },
+    {
+      "id": "world-countries",
+      "name": "world-countries (mledoze/countries)",
+      "url": "https://github.com/mledoze/countries",
+      "licence": "ODbL 1.0 (Open Database Licence); flag images are not covered by it",
+      "attribution": "Contains information from mledoze/countries (world-countries), made available under the Open Database Licence (ODbL) 1.0.",
+      "covers": "Country facts on the globe: names, codes, capital, region and area."
     },
     {
       "id": "geoboundaries",
