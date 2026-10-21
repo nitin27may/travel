@@ -448,6 +448,11 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
               </Link>
             ) : null}
           </div>
+          {shuttleOnly ? (
+            <p className="muted small pl-shuttle-note">
+              No driving directions: no private cars on this road. <a href="#access">Shuttle and bus details</a>
+            </p>
+          ) : null}
         </div>
 
         {model ? (
