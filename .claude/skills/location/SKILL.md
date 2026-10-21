@@ -6,12 +6,13 @@ description: Capture a place, trail, viewpoint, activity or road trip into the s
 # Location capture
 
 The laundry list. Everything Nitin wants to remember goes into `data/locations/locations.json`
-as structured data (schema v2); `data/locations/WISHLIST.md`, the list page `legacy/locations/index.html` and the
+as structured data (schema v3); `data/locations/WISHLIST.md`, the list page `legacy/locations/index.html` and the
 globe's `places.json` are regenerated from it by `locations.py build`. There is one copy, in this
 repo. The Obsidian `Location.md` is retired and points here.
 
 Capture is cheap and fast. Research (hours, prices, trail verification) happens later, when a trip
-adopts the place. Numbers from a social post are stored as `stats` and stay `unverified`.
+adopts the place, through `research/README.md` sections 3a and 3b (the map of the research system).
+Numbers from a social post are stored as `stats` and stay `unverified`.
 
 ## Steps
 
@@ -32,8 +33,8 @@ adopts the place. Numbers from a social post are stored as `stats` and stay `unv
      --source "https://www.instagram.com/p/..." --source-type instagram
    ```
 
-   For five or more places write a batch file in `research/inbox/<date>-<topic>.json` (shape:
-   `{"places": [spec...], "collections": [...]}`, spec keys match the flags) and run `import`.
+   For five or more places write a batch file in `research/inbox/<date>-<topic>.json` (format:
+   `research/formats/README.md`, "Inbox batch") and run `import`.
 4. **Ambiguity.** Exit code 2 prints candidates. Pick by country and description yourself when
    one is obviously right; ask Nitin one question only when two are plausible (two Moss Glen Falls).
    Re-run with `--pick N`.
