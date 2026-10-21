@@ -22,6 +22,9 @@ export function findRow(model: PageModel, suit: PublicSuitability | null, key: s
   return null;
 }
 
+/** The suitability rows the strip already shows (one source, S13): a closed group's header does not repeat them. */
+export const STRIP_KEYS: ReadonlySet<string> = new Set(['effort', 'effort.source_grade', 'effort.drivers.distance_km', 'effort.drivers.gain_m', 'effort.drivers.loss_m', 'effort.drivers.surface', 'adult_time_min', 'ext.trail.shape', 'ext.trail.dogs', 'stroller', 'wheelchair', 'exposure']);
+
 /** Values the page already holds from the older record, used only when the contract row is empty. */
 export interface TrailExtras {
   km: number | null;

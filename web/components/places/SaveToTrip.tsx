@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useState, type FocusEvent, type KeyboardEvent, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, useSyncExternalStore, type FocusEvent, type KeyboardEvent, type ReactNode } from 'react';
 import type { ExportFormat } from '@/components/actions/ExportMenu';
 import { ExportMenuLazy as ExportMenu } from './ExportMenuLazy';
 import { Button } from '@/components/ui/Button';
@@ -46,21 +46,47 @@ export function SaveToTrip({ url, slug, formats, primary = false }: { url: strin
   );
 }
 
+const noSubscribe = () => () => {};
+
 /**
  * The cover Directions button (R4-C1): the same two choices as the Directions card in the rail, Google Maps and Apple Maps, both from our
- * stored point by the one link builder. It lives in this module so the page loads no extra chunk for it (S13). Esc and leaving it close the list.
+ * stored point by the one link builder. It lives in this module so the page loads no extra chunk for it (S13); the server HTML is a plain Google Maps link. Esc and leaving it close the list.
  */
 export function DirectionsChooser({ at, label }: { at: LngLat; label: string }) {
   const [open, setOpen] = useState(false);
+  // the server draws a plain link, which works with no script; once the page is live the same button becomes the chooser
+  const live = useSyncExternalStore(noSubscribe, () => true, () => false);
   const id = useId();
+  const wrap = useRef<HTMLDivElement>(null);
+  // Esc and a press outside close the list wherever focus is: Safari does not focus a button on click, so the wrapper alone would never see the key
+  useEffect(() => {
+    if (!open) return;
+    const key = (e: globalThis.KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    const away = (e: PointerEvent) => !wrap.current?.contains(e.target as Node) && setOpen(false);
+    document.addEventListener('keydown', key);
+    document.addEventListener('pointerdown', away);
+    return () => {
+      document.removeEventListener('keydown', key);
+      document.removeEventListener('pointerdown', away);
+    };
+  }, [open]);
   const onKey = (e: KeyboardEvent<HTMLElement>) => {
     if (e.key === 'Escape') setOpen(false);
   };
   const onBlur = (e: FocusEvent<HTMLElement>) => {
     if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false);
   };
+  if (!live) {
+    return (
+      <div className="pl-dirmenu">
+        <a className="btn btn-primary pl-dir" href={directionsUrl(at)} target="_blank" rel="noopener noreferrer">
+          <Icon name="navigate" size={14} /> Directions<span className="sr-only"> to {label} (opens in a new tab)</span>
+        </a>
+      </div>
+    );
+  }
   return (
-    <div className="pl-dirmenu" onKeyDown={onKey} onBlur={onBlur}>
+    <div className="pl-dirmenu" ref={wrap} onKeyDown={onKey} onBlur={onBlur}>
       <Button variant="primary" className="pl-dir" aria-expanded={open} aria-controls={id} onClick={() => setOpen((o) => !o)}>
         <Icon name="navigate" size={14} /> Directions<span className="sr-only"> to {label}: choose a map app</span>
       </Button>
@@ -147,10 +173,8 @@ export function TrailStripTiles({ tiles, ext, read, level }: { tiles: Tile[]; ex
         ))}
         <li>
           <a href={ext.u} className="ga ga-ext" target="_blank" rel="noopener noreferrer" aria-label={ext.a}>
-            <span className="gl">{ext.l}</span>
-            <strong className="gv">
+            <span className="gl">{ext.l}</span> <strong className="gv">
               <span className="ga-u">{ext.t}</span>
-              <span aria-hidden="true">↗</span>
             </strong>
           </a>
         </li>

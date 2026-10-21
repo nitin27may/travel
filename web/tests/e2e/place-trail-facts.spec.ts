@@ -70,6 +70,16 @@ test.describe('a place with no stored point', () => {
   });
 });
 
+test.describe('the cover Directions button without a script', () => {
+  test.use({ javaScriptEnabled: false });
+  test('is a plain Google Maps directions link', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/banff-gondola/`);
+    const link = page.locator('.pl-actions a.pl-dir');
+    await expect(link).toHaveAttribute('href', /^https:\/\/www\.google\.com\/maps\/dir\//);
+    await expect(link).toHaveAttribute('target', '_blank');
+  });
+});
+
 test.describe('glance tiles hold one answer', () => {
   test('Ötzi shows the lead price and hours with a count, the full hours once in "When to go"', async ({ page, site }) => {
     await page.goto(`${site.url}/places/otzi-south-tyrol-museum-of-archaeology/`, { waitUntil: 'networkidle' });

@@ -534,7 +534,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
         <div className="pl-cols">
           {model ? (
             <div className="pl-main">
-              <Sections model={model} suit={suit} rel={rel} slugs={slugs} legacy={legacy} hasRoute={showProfile || hasTrack} />
+              <Sections model={model} suit={suit} rel={rel} slugs={slugs} legacy={legacy} hasRoute={showProfile || hasTrack} stripped={trail} />
             </div>
           ) : (
           <div className="pl-main">

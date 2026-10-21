@@ -9,7 +9,7 @@ import type { PublicSuitability } from '@/lib/public/suitability';
 import type { Completeness } from '@/lib/public/types';
 import { Nearby } from './Relevance';
 import { seasonShort } from './SeasonGrid';
-import { findRow, readLine, trailStrip, type TrailExtras } from './trailFacts';
+import { findRow, readLine, STRIP_KEYS, trailStrip, type TrailExtras } from './trailFacts';
 import { TrailStripTiles, type Tile } from '../SaveToTrip';
 import './glance.css';
 
@@ -118,7 +118,7 @@ export function Glance({ model, suit, level, trailhead = null, isArea = false, t
       return { l: row.label, h: href, ...(v === undefined ? {} : { v }), ...(c ? { c } : {}) };
     });
     const ext = { l: 'Trail guide · link only', u: strip.allTrails.url, t: strip.allTrails.text, // the accessible name starts with the visible words (WCAG 2.5.3) and is the one place the platform is named
-    a: `Trail guide · link only: ${strip.allTrails.text} on AllTrails (opens in a new tab, third-party site)` };
+    a: `Trail guide · link only ${strip.allTrails.text} on AllTrails (opens in a new tab, third-party site)` };
     return (
       <section className="ps-glance" id="glance" aria-label="At a glance">
         <TrailStripTiles tiles={tiles} ext={ext} read={readLine(strip.slots)} level={{ v: adjusted.level, l: adjusted.label, c: checksText(adjusted.label, checks) }} />
@@ -257,6 +257,8 @@ export interface SectionsProps {
   legacy: LegacySlots;
   /** a trail drawn from the older record: its route block sits in section 5 even where the contract has no row for it */
   hasRoute: boolean;
+  /** the page has the trail key-facts strip: closed groups of "Who it suits" do not repeat its values */
+  stripped?: boolean;
 }
 
 /** The sections the page draws below the glance, in the contract's order: the cover and the glance are drawn above them. */
@@ -280,13 +282,13 @@ export function drawnSections({ model, rel, legacy, hasRoute }: Pick<SectionsPro
 }
 
 /** Sections 3 to 14, in the contract's order. Sections 1 (the cover) and 2 (the glance) are drawn by the page above them. */
-export function Sections({ model, suit, rel, slugs, legacy, hasRoute }: SectionsProps) {
+export function Sections({ model, suit, rel, slugs, legacy, hasRoute, stripped = false }: SectionsProps) {
   const drawn = drawnSections({ model, rel, legacy, hasRoute });
   return (
     <>
       {drawn
         .map((sec) => {
-          if (sec.id === 'suits') return suit ? <WhoItSuits key={sec.id} suit={suit} slugs={slugs} title={sec.title} /> : <WhoItSuitsEmpty key={sec.id} title={sec.title} />;
+          if (sec.id === 'suits') return suit ? <WhoItSuits key={sec.id} suit={suit} slugs={slugs} title={sec.title} hide={stripped ? STRIP_KEYS : undefined} /> : <WhoItSuitsEmpty key={sec.id} title={sec.title} />;
           const meta = sec.id === 'options' ? '2026 prices used as a pattern' : null;
           return (
             <section key={sec.id} className="ps" id={sec.id} aria-labelledby={`h-${sec.id}`}>
