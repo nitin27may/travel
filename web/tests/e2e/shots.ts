@@ -2,6 +2,7 @@ import { mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Page } from '@playwright/test';
+import sharp from 'sharp';
 
 /** The screenshot harness (build plan 4.2): every page a lane owns at 1440 x 900 and 390 x 844, light and dark, 2x. */
 export const SIZES = [
@@ -83,11 +84,38 @@ export async function shoot(
       if (prepare) await prepare(page);
       const file = shotPath(lane, name, size.width, theme);
       mkdirSync(path.dirname(file), { recursive: true });
-      await page.screenshot({ path: file, fullPage });
+      if (fullPage) await fullPageShot(page, file, 2);
+      else await page.screenshot({ path: file });
       written.push(file);
       if (tile) written.push(...(await tiles(page, file)));
       await context.close();
     }
   }
   return written;
+}
+
+/** Chromium cannot capture a surface taller than about 16384 device pixels ("Unable to capture screenshot"), which a long page at 2x passes; under load it failed already near 15000, so strips are cut at 8000. */
+const MAX_DEVICE_PX = 8000;
+
+/**
+ * A full-page screenshot that stays under that limit: one capture when the page fits, otherwise strips stitched into one PNG.
+ * `scale` is the context's deviceScaleFactor.
+ */
+export async function fullPageShot(page: Page, file: string, scale: number): Promise<void> {
+  const width = page.viewportSize()?.width ?? 1440;
+  const total = await page.evaluate(() => document.documentElement.scrollHeight);
+  if (total * scale <= MAX_DEVICE_PX) {
+    await page.screenshot({ path: file, fullPage: true });
+    return;
+  }
+  const step = Math.floor(MAX_DEVICE_PX / scale / 2);
+  const strips: { input: Buffer; top: number; left: number }[] = [];
+  for (let y = 0; y < total; y += step) {
+    const input = await page.screenshot({ fullPage: true, clip: { x: 0, y, width, height: Math.min(step, total - y) } });
+    strips.push({ input, top: Math.round(y * scale), left: 0 });
+  }
+  await sharp({ create: { width: Math.round(width * scale), height: Math.round(total * scale), channels: 4, background: '#ffffff' } })
+    .composite(strips)
+    .png()
+    .toFile(file);
 }

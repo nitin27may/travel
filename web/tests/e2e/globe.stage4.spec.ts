@@ -1,15 +1,13 @@
 import { existsSync, readFileSync, createReadStream, statSync } from 'node:fs';
 import http from 'node:http';
-import os from 'node:os';
 import path from 'node:path';
 import { chromium, type Browser, type Page } from '@playwright/test';
 import sharp from 'sharp';
 import { expect, SITE, test } from './fixtures';
+import { CHROME, GPU_ARGS } from './gpu-chrome';
 
 // Stage-4 globe fixes (lane GLB; review L2b S1 to S10, backlog 3.46, 3.3b). GPU Chromium with real tiles, like the motion spec:
 // the globe needs WebGL, and the scenes below need the style to land. Skipped where there is no GPU Chromium.
-const CHROME = process.env.GPU_CHROME ?? path.join(os.homedir(), '.cache/ms-playwright/chromium-1248/chrome-linux64/chrome');
-const ARGS = ['--use-gl=angle', '--use-angle=gl', '--ignore-gpu-blocklist', '--enable-gpu-rasterization'];
 const VIEWPORTS = [[1440, 900], [1024, 768], [390, 844], [844, 390]] as const;
 
 interface MapLike { getZoom(): number; getCenter(): { lng: number; lat: number }; isMoving(): boolean; jumpTo(o: unknown): void; getPaintProperty(id: string, p: string): unknown }
@@ -57,7 +55,7 @@ test.describe('globe stage 4 (GPU, real tiles)', () => {
   test.skip(!existsSync(CHROME), 'no GPU Chromium at GPU_CHROME');
   test.setTimeout(180_000);
   let browser: Browser;
-  test.beforeAll(async () => { if (existsSync(CHROME)) browser = await chromium.launch({ executablePath: CHROME, args: ARGS }); });
+  test.beforeAll(async () => { if (existsSync(CHROME)) browser = await chromium.launch({ executablePath: CHROME, args: GPU_ARGS }); });
   test.afterAll(async () => { await browser?.close(); });
 
   async function open(url: string, o: { w?: number; h?: number; dark?: boolean } = {}): Promise<Page> {
