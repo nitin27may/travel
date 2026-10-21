@@ -1,4 +1,3 @@
-import { execFileSync } from 'node:child_process';
 import { readdirSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { beforeAll, describe, expect, it } from 'vitest';
@@ -7,13 +6,14 @@ import { isDated } from '@/lib/public/dateless';
 import { nearHome } from '@/lib/public/origin';
 import { describesParty } from '@/lib/public/party';
 import { TRIP_SLUGS } from '@/lib/public/slugs';
-import { FIXTURE_ROOT, TEXT_FILE, WEB, allKeys, readText, walkFiles } from './helpers';
+import { builtOutDir } from './helpers/built';
+import { FIXTURE_ROOT, TEXT_FILE, allKeys, readText, walkFiles } from './helpers';
 
 // Builds the whole app against tests/fixtures/root (three trips: public, unlisted, private, each
 // carrying sentinel values) into .fixture-out, then greps every file that would be published.
-const OUT = path.join(WEB, '.fixture-out');
-// the real export from `next build`, which tests/global-setup.ts also runs first
-const REAL_OUT = path.join(WEB, 'out');
+// both are export-shaped views of a server build (tests/helpers/built.ts): prerendered output, RSC payloads, route-handler bodies, client chunks and public/
+const OUT = builtOutDir('.fixture-out');
+const REAL_OUT = builtOutDir();
 
 const SENTINELS = ['CONF-SENTINEL-7Q', 'NOTE-SENTINEL-PRIVATE', 'CITIZENSHIP-SENTINEL', 'CONTACT-SENTINEL', '+1-555-0100'];
 const PRIVATE_KEYS = ['height_cm', 'weight_kg', 'age_years', 'citizenship', 'confirmation', 'contact', 'price_paid_amount', 'insurer_tel', 'status', 'stayStatus'];
@@ -21,8 +21,7 @@ const PRIVATE_KEYS = ['height_cm', 'weight_kg', 'age_years', 'citizenship', 'con
 let files: string[] = [];
 
 beforeAll(() => {
-  // tests/global-setup.ts builds the fixture app first; build it here only if someone skipped that
-  if (!existsSync(path.join(OUT, 'index.html'))) execFileSync(process.execPath, [path.join(WEB, 'scripts', 'build-fixture.mjs')], { cwd: WEB, stdio: 'pipe' });
+  // tests/global-setup.ts builds the fixture app first; builtOutDir() throws when it did not (a missing build must fail, not skip)
   files = walkFiles(OUT);
 }, 300_000);
 
@@ -128,8 +127,7 @@ describe('no personal place status in public output', () => {
     expect(statusLeaks(OUT)).toEqual([]);
   });
 
-  it('leaves status out of the real build in web/out', () => {
-    if (!existsSync(path.join(REAL_OUT, 'index.html'))) return; // `next build` has not run; global-setup normally builds it
+  it('leaves status out of the real build in the server build', () => {
     const real = walkFiles(REAL_OUT);
     expect(real.some((f) => /__next\..*\.txt$/.test(f))).toBe(true);
     expect(statusLeaks(REAL_OUT)).toEqual([]);
@@ -210,8 +208,7 @@ describe('no household notes, home town or dates in any public file', () => {
   it('scans every file of the fixture build', () => {
     expect(householdLeaks(OUT)).toEqual([]);
   });
-  it('scans every file of the real build in web/out', () => {
-    if (!existsSync(path.join(REAL_OUT, 'index.html'))) return;
+  it('scans every file of the real build in the server build', () => {
     expect(householdLeaks(REAL_OUT)).toEqual([]);
   });
   it('can fail: it sees the home town, a nearby point and a plan note', () => {
@@ -266,8 +263,7 @@ describe('no party description in any public file', () => {
   it('scans every file of the fixture build', () => {
     expect(partyLeaks(OUT)).toEqual([]);
   });
-  it('scans every file of the real build in web/out', () => {
-    if (!existsSync(path.join(REAL_OUT, 'index.html'))) return;
+  it('scans every file of the real build in the server build', () => {
     expect(partyLeaks(REAL_OUT)).toEqual([]);
   });
   it('can fail: every pattern matches its own example', () => {
@@ -314,8 +310,7 @@ describe('no email address or tax-code marker in any public file', () => {
   it('scans every file of the fixture build', () => {
     expect(emailLeaks(OUT)).toEqual([]);
   });
-  it('scans every file of the real build in web/out', () => {
-    if (!existsSync(path.join(REAL_OUT, 'index.html'))) return;
+  it('scans every file of the real build in the server build', () => {
     expect(emailLeaks(REAL_OUT)).toEqual([]);
   });
   it('can fail: every pattern matches its own example', () => {

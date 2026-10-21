@@ -2,7 +2,8 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { citesLinkOnlyPlatform, publicSource } from '@/lib/public/places';
 import { createPublicData } from '@/lib/public';
-import { WEB, readText, walkFiles } from '../helpers';
+import { readText, walkFiles } from '../helpers';
+import { builtOutDir } from '../helpers/built';
 
 /**
  * Backlog 2.31: AllTrails, Komoot, Gaia, Outdooractive, Wikiloc, Strava, Google and Tripadvisor are link-only
@@ -60,7 +61,7 @@ describe('link-only platforms never source a public fact', () => {
 });
 
 describe('built place pages', () => {
-  const OUT = path.join(WEB, 'out');
+  const OUT = builtOutDir();
   const pages = walkFiles(path.join(OUT, 'places')).filter((f) => f.endsWith('index.html'));
 
   it('has pages to check', () => {

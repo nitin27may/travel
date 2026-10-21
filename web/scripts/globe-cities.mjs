@@ -1,10 +1,10 @@
 // City areas for the globe (owner feedback F3, spec 4.2 and 11): the OSM `admin_level=8` boundary of every city or town that holds
 // one of our public places or is a public trip base. Written to public/globe/data/cities-adm8.json with its ODbL credit.
 //
-//   node scripts/globe-cities.mjs [--from <out dir or base url>] [--limit N]
+//   node scripts/globe-cities.mjs [--from <prerendered dir or base url>] [--limit N]
 //
 // Where the points come from: the globe's own light pins (`globe-data/pins/<cc>/data.json`), read from a built export
-// (`out/`, the default) or from a running dev server (`--from http://localhost:3422`). A pin is public by construction, so a
+// (`.next/server/app`, the default) or from a running dev server (`--from http://localhost:3422`). A pin is public by construction, so a
 // city is in the file only because a public place or trip base is in it; the household's home town never is.
 //
 // Overpass and Nominatim are sequential, one request at a time, inside `flock /tmp/travel-overpass.lock` (shared with the
@@ -32,7 +32,7 @@ if (!process.env.GLOBE_CITIES_LOCKED) {
 }
 
 const arg = (name, dflt) => { const i = process.argv.indexOf(name); return i > 0 ? process.argv[i + 1] : dflt; };
-const FROM = arg('--from', path.join(WEB, process.env.NEXT_DIST_DIR || 'out'));
+const FROM = arg('--from', path.join(WEB, process.env.NEXT_DIST_DIR || '.next', 'server', 'app'));
 const LIMIT = Number(arg('--limit', '0'));
 mkdirSync(CACHE, { recursive: true });
 
@@ -62,7 +62,9 @@ async function polite(url, init, gap, retries = 0) {
 
 async function readJson(rel) {
   if (/^https?:/.test(FROM)) return (await fetch(`${FROM}/${rel}`)).json();
-  return JSON.parse(readFileSync(path.join(FROM, rel), 'utf8'));
+  // a server build keeps route-handler output as <file>.body
+  const file = path.join(FROM, rel);
+  return JSON.parse(readFileSync(existsSync(file) ? file : `${file}.body`, 'utf8'));
 }
 
 // ---- the points: every real (not country-centre) public pin ----------------------------------------------------------

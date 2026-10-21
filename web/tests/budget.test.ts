@@ -2,9 +2,10 @@ import { gzipSync } from 'node:zlib';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { WEB, readText, walkFiles } from './helpers';
+import { readText, walkFiles } from './helpers';
+import { builtOutDir } from './helpers/built';
 
-const OUT = path.join(WEB, 'out');
+const OUT = builtOutDir();
 const LIST_BUDGET_KB = 200;
 const PLACE_BUDGET_KB = 180;
 

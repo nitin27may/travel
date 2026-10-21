@@ -1,13 +1,13 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { WEB } from '../helpers';
+import { builtOutDir } from '../helpers/built';
 
-const OUT = path.join(WEB, 'out');
+const OUT = builtOutDir();
 
 // Over the exported site: every place link a trip page draws lands on a page that was built (row 3.54, 3.57: no stop link 404s).
-describe.skipIf(!existsSync(path.join(OUT, 'trips')))('trip page links (web/out)', () => {
-  const trips = existsSync(path.join(OUT, 'trips')) ? readdirSync(path.join(OUT, 'trips')).filter((d) => existsSync(path.join(OUT, 'trips', d, 'index.html'))) : [];
+describe('trip page links (server build)', () => {
+  const trips = readdirSync(path.join(OUT, 'trips')).filter((d) => existsSync(path.join(OUT, 'trips', d, 'index.html')));
   it('every /places/ link on every trip page has a built page', () => {
     const dead: string[] = [];
     let links = 0;

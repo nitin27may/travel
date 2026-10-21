@@ -3,6 +3,7 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { buildSnapshotAllowList } from './allowlist';
 import { REPO, WEB_DIR, realData } from './support';
+import { builtOutDir } from '../helpers/built';
 
 // The prototype's Dolomites data is household data. These tests pull every household value out of the SOURCE
 // file (prototype/src/data/trip.ts), so they need no node_modules, and prove none reaches the snapshot,
@@ -86,8 +87,8 @@ describe('household data never reaches the public output', () => {
     for (const k of PRIVATE_KEYS) expect(allKeys(stripped).has(k), `output key ${k}`).toBe(false);
   });
 
-  it('a built site holds none of them (web/out and the fixture builds, when present)', () => {
-    const dirs = ['out', '.fixture-out', '.fixture-beacon'].map((d) => path.join(WEB_DIR, d)).filter((d) => existsSync(d));
+  it('a built site holds none of them (the server build and the fixture builds, when present)', () => {
+    const dirs = ['.next', '.fixture-out', '.fixture-beacon'].filter((d) => existsSync(path.join(WEB_DIR, d, 'BUILD_ID'))).map((d) => builtOutDir(d));
     const hits: string[] = [];
     for (const dir of dirs) {
       for (const f of walk(dir).filter((f) => /\.(html|txt|json|xml|js|css|map|svg)$/.test(f))) {
