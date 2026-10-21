@@ -23,9 +23,9 @@ test.describe('phone bottom bar Search slot and home order (SHL, backlog 2.41 an
     await context.close();
   });
 
-  test('the sign-in page and its desktop header link stay', async ({ page, site }) => {
+  test('the sign-in page stays reachable and the header shows no Sign in link while the flag is off', async ({ page, site }) => {
     await page.goto(`${site.url}/`);
-    await expect(page.getByRole('link', { name: 'Sign in' }).first()).toHaveAttribute('href', '/sign-in/');
+    await expect(page.getByRole('link', { name: 'Sign in' })).toHaveCount(0);
     expect((await page.goto(`${site.url}/sign-in/`))?.status()).toBe(200);
   });
 
