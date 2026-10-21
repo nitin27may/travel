@@ -50,15 +50,27 @@ describe('publicSuitability: the three chips', () => {
     expect(c.label).toMatch(/^Operator rule:/);
   });
 
-  it('shows a searched-none R limit as "x not stated" and counts it as one of the three values (D3)', () => {
+  it('shows stated limits only: a searched-none R limit is not listed beside stated ones, and "x not stated" shows only when nothing is stated (D3, R4-T4)', () => {
     const rec = {
       kind: 'activity', subkind: 'zipline',
       suitability: { min_age: v(8), min_weight_kg: v(30), max_weight_kg: v(125), min_height_cm: none('searched_none'), max_height_cm: none('searched_none'), participation: { pregnancy: v('not_allowed') } },
     };
     const r = run('air.zip.zipline', rec as never);
-    expect(r.chips[0]!.text).toBe('Minimum age 8 · 30–125 kg · height not stated');
+    expect(r.chips[0]!.text).toBe('Minimum age 8 · 30–125 kg');
     expect(r.chips[0]!.extra).toBe(1);
     expect(r.chips[2]).toMatchObject({ kind: 'gap' }); // braking is R and missing
+  });
+
+  it('a chip of only unstated limits keeps its "not stated" words (nothing stated to show instead)', () => {
+    const rec = { kind: 'activity', subkind: 'zipline', suitability: { min_height_cm: none('searched_none'), max_height_cm: none('searched_none') } };
+    const r = run('air.zip.zipline', rec as never);
+    expect(r.chips[0]!.text).toBe('height not stated');
+  });
+
+  it('an exposure of level none with no fence says nothing: no "Exposure: level None" chip (R4-T2)', () => {
+    const rec = { kind: 'sight', subkind: 'viewpoint', suitability: { exposure: v({ level: 'none', fenced: null }) } };
+    const r = run('land.sight.viewpoint', rec as never, { slot3: 'exposure' } as never);
+    expect(r.chips.map((c) => c?.text ?? '').join('|')).not.toMatch(/level none/i);
   });
 
   it('"No minimum age" is a rule and earns the lock (no_limit)', () => {

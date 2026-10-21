@@ -24,3 +24,10 @@ export const DEPTH_LABEL = { full: 'Full plan', summary: 'Condensed', overview: 
 export const DEPTH_NOTICE = { summary: 'Condensed from the full plan', overview: 'Overview only' } as const;
 
 export const tripHref = (slug: string): string => `/trips/${slug}/`;
+
+const stops = (n: number): string => `${n} ${n === 1 ? 'stop' : 'stops'}`;
+/** A day's map count: "3 stops", "2 stops, 1 not on the map", or "1 stop not on the map" when none is placed (never "0 stops"). */
+export function dayStopsLabel(placed: number, unplaced: number): string {
+  if (placed === 0 && unplaced > 0) return `${stops(unplaced)} not on the map`;
+  return unplaced > 0 ? `${stops(placed)}, ${unplaced} not on the map` : stops(placed);
+}

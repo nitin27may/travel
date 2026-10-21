@@ -397,7 +397,7 @@
   .tl-mapcol-h { display: none; }
   .tl-mapcol-note, .tl-mapcol .trip-map-key { display: none; }
   .tl-mapcol-close { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: var(--r-full); background: none; color: var(--ink); cursor: pointer; }
-  .tl-mappill { position: fixed; left: var(--s-4); bottom: calc(var(--phone-bottombar-h) + var(--s-3)); z-index: var(--z-tripbar); display: inline-flex; align-items: center; gap: var(--s-2); height: 44px; padding: 0 var(--s-4); border: 0; border-radius: var(--r-full); background: var(--toast-bg); color: var(--toast-ink); font: var(--t-tab); box-shadow: var(--e-2); cursor: pointer; transition: opacity 200ms var(--e-out); }
-  .tl-mappill[data-hidden] { opacity: 0; pointer-events: none; }
+  .tl-mappill { position: fixed; left: var(--s-4); bottom: calc(var(--phone-bottombar-h) + var(--s-3)); z-index: var(--z-tripbar); display: inline-flex; align-items: center; gap: var(--s-2); height: 44px; padding: 0 var(--s-4); border: 0; border-radius: var(--r-full); background: var(--toast-bg); color: var(--toast-ink); font: var(--t-tab); box-shadow: var(--e-2); cursor: pointer; transition: opacity 200ms var(--e-out), visibility 0s linear 0s; }
+  .tl-mappill[data-hidden] { opacity: 0; pointer-events: none; visibility: hidden; transition: opacity 200ms var(--e-out), visibility 0s linear 200ms; }
 }
 @media (prefers-reduced-motion: reduce) { .tl-mapcol, .tl-mapcol[data-sheet], .tl-mappill { transition: none; } }
