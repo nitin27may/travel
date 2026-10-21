@@ -1,0 +1,18 @@
+{
+ "rows_with_a_shape": 1332,
+ "old_points_outside_box": 0,
+ "old_points_outside_shape": 108,
+ "old_outside_box_names": [],
+ "new_points_outside_box": 0,
+ "rows": {
+  "physical": 1267,
+  "marine": 294,
+  "river": 349
+ },
+ "line_files": 884,
+ "line_gzip_bytes": {
+  "total": 338914,
+  "max": 1194,
+  "median": 342
+ }
+}
