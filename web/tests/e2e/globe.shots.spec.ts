@@ -1,16 +1,14 @@
 import { chromium } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { test } from './fixtures';
+import { CHROME, GPU_ARGS } from './gpu-chrome';
 import { SIZES, THEMES, setTheme, shotPath } from './shots';
 
 // Screenshots of the globe with real tiles, so it needs the network and a GL-capable Chromium. Off by default:
 //   GLOBE_SHOTS=1 pnpm --dir web e2e tests/e2e/globe.shots.spec.ts
 // Writes test-results/shots/L2/<name>-<width>-<theme>.png and a fly-in frame sequence.
 const LANE = 'L2';
-const CHROME = path.join(os.homedir(), '.cache/ms-playwright/chromium-1248/chrome-linux64/chrome');
-const ARGS = ['--use-gl=angle', '--use-angle=gl', '--ignore-gpu-blocklist', '--enable-gpu-rasterization']; // the real GPU; SwiftShader is about 35x slower
 
 test.describe('globe screenshots', () => {
   test.skip(!process.env.GLOBE_SHOTS, 'set GLOBE_SHOTS=1 (needs network for tiles)');
@@ -29,7 +27,7 @@ test.describe('globe screenshots', () => {
   ];
 
   test('scenes at both sizes in both themes', async ({ site }) => {
-    const browser = await chromium.launch({ executablePath: CHROME, args: ARGS });
+    const browser = await chromium.launch({ executablePath: CHROME, args: GPU_ARGS });
     for (const theme of THEMES) {
       for (const size of SIZES) {
         for (const sc of scenes) {
@@ -52,7 +50,7 @@ test.describe('globe screenshots', () => {
   });
 
   test('fly-in frame sequence: world to Italy', async ({ site }) => {
-    const browser = await chromium.launch({ executablePath: CHROME, args: ARGS });
+    const browser = await chromium.launch({ executablePath: CHROME, args: GPU_ARGS });
     const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, locale: 'en-CA' });
     const page = await ctx.newPage();
     await page.addInitScript(() => { try { localStorage.setItem('travel:v1:globe', JSON.stringify({ spin: false })); } catch { /* none */ } });

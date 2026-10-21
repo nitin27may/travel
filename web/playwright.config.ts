@@ -22,7 +22,8 @@ export default defineConfig({
     { name: 'chromium', use: { ...devices['Desktop Chrome'], ...base, viewport: { width: 1280, height: 900 }, launchOptions: { args: GPU_ARGS } } },
     { name: 'webkit-iphone', testMatch: /(cross-browser|smart-search|trip-day-spy|shell-report)\.spec\.ts/, use: { ...devices['iPhone 14'], ...base } },
     { name: 'webkit-desktop', testMatch: /(cross-browser|smart-search|trip-day-spy|shell-report)\.spec\.ts/, use: { ...devices['Desktop Safari'], ...base, viewport: { width: 1280, height: 900 } } },
-    { name: 'firefox', testMatch: /(cross-browser|smart-search|trip-day-spy|shell-report)\.spec\.ts/, use: { ...devices['Desktop Firefox'], ...base, viewport: { width: 1280, height: 900 } } },
+    // Opt-in (PW_FIREFOX=1): Playwright's Firefox cannot launch on this macOS machine ('Could not find profile folder'), so it only added noise to the full run.
+    ...(process.env.PW_FIREFOX === '1' ? [{ name: 'firefox', testMatch: /(cross-browser|smart-search|trip-day-spy|shell-report)\.spec\.ts/, use: { ...devices['Desktop Firefox'], ...base, viewport: { width: 1280, height: 900 } } }] : []),
   ],
   outputDir: 'test-results',
 });

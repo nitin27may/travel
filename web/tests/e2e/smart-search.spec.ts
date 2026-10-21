@@ -95,7 +95,8 @@ test.describe('header search', () => {
   test('on the Places page the Show option carries the count of the list', async ({ page, site }) => {
     const box = await openHeader(page, site, '/places/');
     await box.fill('lakes in Iceland');
-    await expect(page.getByRole('option').first()).toHaveText(/^Show \d+ places?/);
+    // scoped to the results listbox: the Places page also has a native <select> whose <option>s have the same role
+    await expect(page.getByRole('listbox', { name: 'Results' }).getByRole('option').first()).toHaveText(/^Show \d+ places?/);
   });
 
   test('removing a chip drops its key from the link, and its words do not come back while typing on', async ({ page, site }) => {

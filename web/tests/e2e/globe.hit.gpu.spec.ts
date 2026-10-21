@@ -1,11 +1,10 @@
 import { existsSync } from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { chromium, type Browser } from '@playwright/test';
 import { expect, test } from './fixtures';
+import { CHROME, GPU_ARGS } from './gpu-chrome';
 
 // A search hit for a range or sea opens the globe at its camera with a named marker (`?c=` and `?m=`). Needs the GPU Chromium.
-const CHROME = process.env.GPU_CHROME ?? path.join(os.homedir(), '.cache/ms-playwright/chromium-1248/chrome-linux64/chrome');
 
 test.describe('globe search-hit marker (GPU)', () => {
   test.skip(!existsSync(CHROME), 'no GPU Chromium at GPU_CHROME');
@@ -13,7 +12,7 @@ test.describe('globe search-hit marker (GPU)', () => {
   let browser: Browser;
   test.beforeAll(async () => {
     if (!existsSync(CHROME)) return;
-    browser = await chromium.launch({ executablePath: CHROME, args: ['--use-gl=angle', '--use-angle=gl', '--ignore-gpu-blocklist', '--enable-gpu-rasterization'] });
+    browser = await chromium.launch({ executablePath: CHROME, args: GPU_ARGS });
   });
   test.afterAll(async () => { await browser?.close(); });
 

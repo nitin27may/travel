@@ -97,7 +97,7 @@ test.describe('place page', () => {
     await page.goto(`${site.url}${TRAIL}`);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Tre Cime di Lavaredo loop');
     await expect(page.locator('.pl-kicker')).toHaveText(/Trail · Auronzo · Veneto/);
-    await expect(page.locator('#glance')).toContainText('read 18 Oct 2026');
+    await expect(page.locator('#glance')).toContainText('Read 18 Oct 2026. Sources are in each section.');
     const hazards = await page.locator('#warnings').boundingBox();
     const route = await page.locator('#activity').boundingBox();
     expect((hazards?.y ?? 0) < (route?.y ?? 0)).toBe(true);
