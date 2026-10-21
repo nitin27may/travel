@@ -6,7 +6,7 @@ Status: draft (17 Oct 2026).
 
 Produce the **area guide** that orients someone who has never been: what the place physically is, why
 it is famous (the specific thing), what you cannot get elsewhere, its sub-regions, the numbers, and what
-to know before reading any day. This is the trip-planner skill's mandatory "orientation section",
+to know before reading any day. This is the former trip skill's mandatory "orientation section",
 moved from each trip page into the catalog so every trip in the area reuses it.
 
 Questions:

@@ -7,7 +7,7 @@ description: Capture a place, trail, viewpoint, activity or road trip into the s
 
 The laundry list. Everything Nitin wants to remember goes into `data/locations/locations.json`
 as structured data (schema v3); `data/locations/WISHLIST.md`, the list page `legacy/locations/index.html` and the
-globe's `places.json` are regenerated from it by `locations.py build`. There is one copy, in this
+globe's `places.json` (the list page and globe pins are legacy outputs, removed at backlog 7.11) are regenerated from it by `locations.py build`. There is one copy, in this
 repo. The Obsidian `Location.md` is retired and points here.
 
 Capture is cheap and fast. Research (hours, prices, trail verification) happens later, when a trip
@@ -80,7 +80,7 @@ Numbers from a social post are stored as `stats` and stay `unverified`.
 
 ## Do not
 
-- Do not research hours, prices or trail conditions here; that is the trip-planner's job.
+- Do not research hours, prices or trail conditions here; that is the `research` or `trip` skill's job.
 - Do not write to the Obsidian vault.
 - Do not invent a region or area; leave the hint out and let the resolver answer, then check it.
 - Do not edit `locations.json` by hand. Use `edit`, `visit`, `tag` and `collection`.
