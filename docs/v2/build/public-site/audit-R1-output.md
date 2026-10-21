@@ -61,7 +61,7 @@ Evidence and fix, one line each:
 
 ### 5.2-R1-8 (later) world-countries (CC BY-SA 4.0) is not credited
 
-Evidence: `tools/globe_data.py:64` builds `globe/data/countries.json` (capital, flags and facts for the globe's country card) from the `world-countries` npm data, CC BY-SA 4.0 by `docs/GLOBE-RESEARCH.md:35`. `/about/data/` has no row for it (`grep -i "world-countries\|mledoze" web/out/about/data/index.html` = 0). This predates phase A. GeoNames is not used yet: the city rows come from Natural Earth, so no GeoNames credit is needed today.
+Evidence: `tools/globe_data.py:64` builds `globe/data/countries.json` (capital, flags and facts for the globe's country card) from the `world-countries` npm data, CC BY-SA 4.0 by `research/reports/globe-research-2026-10-16.md:35`. `/about/data/` has no row for it (`grep -i "world-countries\|mledoze" web/out/about/data/index.html` = 0). This predates phase A. GeoNames is not used yet: the city rows come from Natural Earth, so no GeoNames credit is needed today.
 
 Fix: add a `world-countries` row (CC BY-SA 4.0, "Country names, capitals and flags on the globe") to `data/reference/licences.json`. Check it in the full R2 credit audit.
 

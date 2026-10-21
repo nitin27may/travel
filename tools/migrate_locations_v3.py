@@ -4,7 +4,7 @@
     python3 tools/migrate_locations_v3.py --check   # print what would change, write nothing
     python3 tools/migrate_locations_v3.py           # rewrite the store in place
 
-v3 (docs/PLAN-platform.md 2.3A "Locations v3"):
+v3 (docs/archive/v1/PLAN-platform.md 2.3A "Locations v3"):
   * the `tags` table leaves the store for data/vocab/tags.json and gains `kind`
     (style, activity, feature, audience, free);
   * `places` gains the catalog common-block columns it lacked, set to defaults

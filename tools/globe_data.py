@@ -16,7 +16,7 @@
 
 Outputs go under legacy/globe/assets/ (published). Raw downloads are cached in tools/.cache/ (gitignored).
 Every output must stay under 20 MB (Cloudflare Pages limit is 25 MB per file). Stdlib only; mapshaper via npx.
-See docs/GLOBE-RESEARCH.md for sources and licences.
+See research/reports/globe-research-2026-10-16.md for sources and licences.
 """
 from __future__ import annotations
 
