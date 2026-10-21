@@ -7,10 +7,10 @@
  */
 export const reportUrl: string | null = null;
 
-/** The issue-form URL with the page path added as `page` (path only, no query, no hash, nothing else about the visitor). */
+/** The issue-form URL with the page path added as `page` (path only, no query, no hash, nothing else about the visitor). The value is component-encoded, so `&`, `=`, `+` and `%` in a path cannot add or change a key of the form URL; only `/` stays literal. */
 export function reportLink(base: string | null, page: string): string | null {
   if (!base) return null;
   const path = page.split(/[?#]/)[0] ?? '';
   const clean = path.startsWith('/') ? path : '/';
-  return `${base}${base.includes('?') ? '&' : '?'}page=${encodeURI(clean)}`;
+  return `${base}${base.includes('?') ? '&' : '?'}page=${encodeURIComponent(clean).replace(/%2F/g, '/')}`;
 }
