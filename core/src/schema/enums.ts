@@ -128,7 +128,7 @@ export const LOCATION_SOURCE_TYPES = [
   "note",
 ] as const;
 
-// suitability/1 (docs/v2/research/suitability.md). Append only.
+// suitability/1 (research/method/suitability.md). Append only.
 export const SUIT_BASIS = [
   "operator_rule", "official_rule", "official_grade", "official_info", "community", "our_inference",
   // CF: an operator-published fact that is not a rule (hours, altitude, kit, ride time, last up and down, season, food)
@@ -158,7 +158,7 @@ export const SUIT_KIND = [
   "access",
 ] as const;
 
-// suitability applicability (docs/v2/research/suitability-applicability.md section 6.1). Append only.
+// suitability applicability (research/method/suitability-applicability.md section 6.1). Append only.
 /** The profiles of data/schema/suitability-applicability.json. `river_hike` is the 35th: owner decision on Q1 (a hike with water fields). */
 export const SUIT_PROFILE = [
   "hike", "river_hike", "walk", "viewpoint", "lake", "swim", "waterfall", "beach", "drive", "town", "sight", "lift", "boat",
@@ -199,7 +199,7 @@ export const WEATHER_CAUSE = [
   "wind", "lightning", "rain", "river_level", "sea_state", "visibility", "heat", "snow", "fog", "maintenance",
 ] as const;
 
-// capture/1 (docs/v2/research/capture-contract.md; backlog 3a.12). Append only.
+// capture/1 (research/method/capture-contract.md; backlog 3a.12). Append only.
 /** The record layers of CC1. `event` is the dated-occurrence record of K event.md (CC2, `event` domain). */
 export const CAP_LAYER = ["place", "route", "offer", "event"] as const;
 /** Offer classes (2.2): the class decides the offer base contract (3.3). */

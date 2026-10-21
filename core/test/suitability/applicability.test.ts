@@ -1,4 +1,4 @@
-// The applicability file and the rules built on it (docs/v2/research/suitability-applicability.md): the table, its
+// The applicability file and the rules built on it (research/method/suitability-applicability.md): the table, its
 // lookups, suit_level, and the validator codes that read it. The fixtures for each new code are in
 // fixtures/suitability/{broken,warn}; validate.test.ts runs them. These tests cover what a fixture cannot.
 import { readFileSync } from "node:fs";

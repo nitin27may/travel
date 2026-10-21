@@ -107,7 +107,7 @@ describe("automated access (capture contract 9.2)", () => {
     expect(notesFor("https://www.wikidata.org/wiki/Q1").automated).toBe("allowed");
     expect(notesFor("https://overpass-api.de/api").automated).toBe("allowed");
     expect(notesFor("https://parks.canada.ca/x").automated).toBe("unknown");
-    expect(notesFor("docs/v2/research/suitability.md").automated).toBe("allowed");
+    expect(notesFor("research/method/suitability.md").automated).toBe("allowed");
   });
 });
 

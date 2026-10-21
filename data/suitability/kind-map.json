@@ -1,6 +1,6 @@
 {
   "schema": "suitability-kind-map/1",
-  "note": "Reviewed assignment of kind and subkind to every record of data/suitability (docs/v2/research/suitability-applicability.md section 7, M1-M6). The kind and subkind here are MIGRATION values, chosen by name: a research lane may correct one with a reason, here, and then use the new profile's fields. `from` is what the record had before; `name` is for the reviewer and is not read. `split` lists records cut in two.",
+  "note": "Reviewed assignment of kind and subkind to every record of data/suitability (research/method/suitability-applicability.md section 7, M1-M6). The kind and subkind here are MIGRATION values, chosen by name: a research lane may correct one with a reason, here, and then use the new profile's fields. `from` is what the record had before; `name` is for the reviewer and is not read. `split` lists records cut in two.",
   "reviewed": "2026-10-18",
   "entries": [
     {
