@@ -9,6 +9,8 @@ import os from 'node:os';
 import path from 'node:path';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
+// An export-shaped copy of the server build (tests/helpers/built.ts, assembled by global-setup; gitignored), for the specs that serve files
+// directly and read web/redirects.json relative to it. The shared `site` server below is `next start`, not this directory.
 export const SITE = path.join(ROOT, '.site');
 
 export interface Server {
@@ -77,10 +79,11 @@ export const test = base.extend<{ blockRemote: void; allowRemote: boolean }, { s
   // `test.use({ allowRemote: true })` lets a spec reach real tile servers (the cross-browser basemap check)
   allowRemote: [false, { option: true }],
   site: [
+    // One `next start` for the whole run, started by global-setup (or PW_REUSE_SITE=1 with PW_SITE_URL); workers only read its URL.
     async ({}, use) => {
-      const s = await serve(SITE);
-      await use(s);
-      s.stop();
+      const url = process.env.PW_SITE_URL;
+      if (!url) throw new Error('no site: tests/e2e/global-setup.ts starts `next start` and sets PW_SITE_URL');
+      await use({ url, pid: Number(process.env.PW_SITE_PID ?? 0), stop: () => {} });
     },
     { scope: 'worker' },
   ],

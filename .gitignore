@@ -30,6 +30,8 @@ node_modules/
 # web (P3a)
 web/out/
 web/.next/
+web/public/img/
+web/public/og/
 web/.generated/
 web/.fixture-*/
 

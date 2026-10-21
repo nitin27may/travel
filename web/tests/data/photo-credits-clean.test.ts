@@ -1,8 +1,9 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { cleanAuthor } from '@/lib/public/photos';
-import { WEB, walkFiles } from '../helpers';
+import { walkFiles } from '../helpers';
+import { builtOutDir } from '../helpers/built';
 
 // Backlog 2.41: a gallery credit is the author and the licence, never a Commons description sentence.
 describe('cleanAuthor', () => {
@@ -23,12 +24,12 @@ describe('cleanAuthor', () => {
   });
 });
 
-const OUT = path.join(WEB, 'out');
+const OUT = builtOutDir();
 const SENTENCE = /\b(?:this (?:photo|image|picture)|was taken|taken or created|original uploader|photo credit)\b/i;
 
 describe('built pages carry no Commons description as a credit', () => {
-  const files = existsSync(OUT) ? walkFiles(OUT).filter((f) => f.endsWith('index.html')) : [];
-  it.skipIf(files.length === 0)('no author in the credits or the page data reads as a sentence', () => {
+  const files = walkFiles(OUT).filter((f) => f.endsWith('index.html'));
+  it('no author in the credits or the page data reads as a sentence', () => {
     const bad: string[] = [];
     for (const f of files) {
       const html = readFileSync(f, 'utf8').replace(/\\"/g, '"');

@@ -1,9 +1,10 @@
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { WEB, readText, walkFiles } from './helpers';
+import { readText, walkFiles } from './helpers';
+import { builtOutDir } from './helpers/built';
 
-const OUT = path.join(WEB, 'out');
+const OUT = builtOutDir();
 const pages = walkFiles(OUT).filter((f) => f.endsWith('index.html') && !f.includes(`${path.sep}specimen${path.sep}`));
 const imgs = pages.flatMap((f) => [...readText(f).matchAll(/<img\b[^>]*>/g)].map((m) => ({ page: path.relative(OUT, f), tag: m[0] })));
 
