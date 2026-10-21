@@ -2,6 +2,8 @@
 
 Written 21 Oct 2026 by travel-planner (Opus), lane SRV-D of phase A. Read-only: no file other than this one was changed, and nothing was committed. Brief: [briefs/SRV.md](../build/public-site/briefs/SRV.md). Plan: [PLAN.md](../PLAN.md) R-7, [EXECUTION-PLAN.md](../build/public-site/EXECUTION-PLAN.md) 4.2, 4.3, 4.8 and 14.
 
+**Status (21 Oct 2026, evening): owner decided all four recommendations of section 14.** Two tiers (13.1), `entity.id` = `ref` verbatim (13.2), collections and Instagram saves private (13.3), town ids `<cc>-<admin1>-<slug>` such as `ca-on-whitby` (13.4). Recorded in [PLAN.md](../PLAN.md) R-55 and section 5, and in BACKLOG Q73-Q76. Follow-ups: API-1 applies the seven contract changes of subsection "13.1 For API-1" (not to be confused with decision 13.1); META-0 changes nearby spec 3.1 to the town id format; SRV-0 writes M1-M15. This file moves to `/research/reports/schema-diff-2026-10.md` in cleanup CLN-1 ([CLEANUP-PLAN.md](../CLEANUP-PLAN.md)).
+
 **Supersedes in part.** This page replaces the catalogue half of `docs/v2/schema.sql` (the 17 Oct "first-cut PROPOSAL") as the input to SRV-0's migrations. `schema.sql` itself was not edited (this lane is read-only). The coordinator should add a banner to `schema.sql` that points here when SRV-0 starts. Its household and planner half stays valid, with the RLS changes in section 10.
 
 ## Verdict
@@ -304,12 +306,12 @@ Each migration enables RLS and creates its policies in the same file as its tabl
 
 ## 14. Owner decisions
 
-| # | Decision | Recommendation | Trade-off |
-|---|---|---|---|
-| 13.1 | Two tiers (lossless docs plus projections built by core) rather than a fully normalised schema | **Two tiers** | Derived data lives in Postgres and the loader reruns after every change; parity is easy to prove and nothing is lost |
-| 13.2 | `entity.id` is the `ref` verbatim, not a ULID surrogate | **The ref** | Long keys with `:`, `#` and spaces, which every URL must encode. No mapping table, and stable ids hold by construction |
-| 13.3 | `locations.json` collections (5) and Instagram saves (24): private household data, or public curated lists | **Private** | A curated "Five Quebec hikes" list could be a public feature later; public would expose where the household saves things from |
-| 13.4 | Town id format: `town/<cc>/<admin1>/<slug>` (nearby spec 3.1) or `ca-on-whitby` (5.6) | **`<cc>-<admin1>-<slug>`**: one URL-safe token, shorter in `city=` | It differs from the ref style (`kind/...`); towns are reference data, not records, so that is acceptable. META-0 must change spec 3.1 to match |
+| # | Decision | Recommendation | Trade-off | Decided |
+|---|---|---|---|---|
+| 13.1 | Two tiers (lossless docs plus projections built by core) rather than a fully normalised schema | **Two tiers** | Derived data lives in Postgres and the loader reruns after every change; parity is easy to prove and nothing is lost | **Owner, 21 Oct: two tiers** |
+| 13.2 | `entity.id` is the `ref` verbatim, not a ULID surrogate | **The ref** | Long keys with `:`, `#` and spaces, which every URL must encode. No mapping table, and stable ids hold by construction | **Owner, 21 Oct: the ref** |
+| 13.3 | `locations.json` collections (5) and Instagram saves (24): private household data, or public curated lists | **Private** | A curated "Five Quebec hikes" list could be a public feature later; public would expose where the household saves things from | **Owner, 21 Oct: private** |
+| 13.4 | Town id format: `town/<cc>/<admin1>/<slug>` (nearby spec 3.1) or `ca-on-whitby` (5.6) | **`<cc>-<admin1>-<slug>`**: one URL-safe token, shorter in `city=` | It differs from the ref style (`kind/...`); towns are reference data, not records, so that is acceptable. META-0 must change spec 3.1 to match | **Owner, 21 Oct: `ca-on-whitby`** |
 
 ## 15. Overview (target, after M1 to M15)
 

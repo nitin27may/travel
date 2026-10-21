@@ -112,6 +112,9 @@ Status: **done** (shipped), **in force** (a standing rule), **next** (a task is 
 | R-50 | Planner items: school year calendar (F03), person-level items, bookings wallet on stored bookings, Explore map labels, redesign applied to the prototype | TODO 18 Oct; L1, L2, L6 | [SERVER-SIDE-LAUNDRY-LIST.md](build/SERVER-SIDE-LAUNDRY-LIST.md) | later (planner) |
 | R-51 | Server-side decisions: where the backend lives, sign-in method, who may sign in, guest planning, household privacy under RLS | Q65-Q69 | laundry list section 1; SRV-0 runs locally without them | open (server work) |
 | R-52 | Map stack set up by the owner: Google Cloud project, a restricted key with a cap, an ORS key, an R2 bucket | TODO 18 Oct | keys exist on the first machine; restrictions in D item 7; R2 bucket is L5 (planner) | partly done |
+| R-53 | Repo cleanup: no duplicate folders or files; v1 docs archived; `prototype/` retired; one globe writer; a folder-contract guard in check-all | owner 21 Oct; cleanup D1-D10 | CLN-1 to CLN-6 ([CLEANUP-PLAN.md](CLEANUP-PLAN.md)) | next (CLN-1 now) |
+| R-54 | One research home: the root `research/` holds the method, the per-type checklists, output formats and templates, the inbox, what each trip is planning, run notes, audits and reports. Skills and the researcher agent stay in `.claude/` as thin wrappers pointing to `research/README.md` | owner 21 Oct (cleanup D7 replaced by D11) | CLN-1 (moves, map, thin skills), CLN-R (generator and tests write `research/`), CLN-5 (guard rules) | next (CLN-1 now; CLN-R after TRP1 merges) |
+| R-55 | SRV-D schema decisions: two tiers (lossless source docs keyed by `ref`, plus a serving tier written by the same core code as `JsonStore`); `entity.id` is the `ref` verbatim; `locations.json` collections and Instagram saves stay private; town ids are `<cc>-<admin1>-<slug>` (`ca-on-whitby`) | owner 21 Oct (SRV-D 13.1-13.4) | API-1 contract changes (SRV-D 13.1), META-0 (town id in nearby spec 3.1), SRV-0 migrations M1-M15 | decided; feeds B and S |
 
 ## 3. Phases, gates and status (21 Oct 2026)
 
@@ -122,7 +125,7 @@ Status: **done** (shipped), **in force** (a standing rule), **next** (a task is 
 | Plan | Execution plan rewritten after D1-D10; COVERAGE (244 lines, 0 unmapped); this page | none | **done** | EXECUTION-PLAN 1, 21 |
 | Branch cleanup | Remote branches deleted and archived as tags `archive/*`; PR #7 closed | owner, 21 Oct | **done** | HANDOVER 4 |
 | **A** | UI fixes: A1-A14 plus SRV-D (A10); about 75 h | **R1** (owner) | **next: start now** | EXECUTION-PLAN 3, 8 |
-| Cleanup, CLN-1 to CLN-6 | Repo cleanup (owner, 21 Oct): CLN-1 docs and research moves now, beside phase A (it touches no lane-owned file); CLN-2 at R1 entry, once GLB2a and TST release `globe_data.py` and `places-parity.spec.ts`; CLN-3 (retire `prototype/`), CLN-4 (one globe writer) and CLN-5 (folder guard) in the phase B gap, after B1 and B4 and before E2, E12 and E14 take those files again; CLN-6 with backlog 7.11. About 17 h | owner D1-D10; G-B audits CLN-5 | waiting on D1-D10 | [CLEANUP-PLAN.md](CLEANUP-PLAN.md) |
+| Cleanup, CLN-1 to CLN-6 and CLN-R | Repo cleanup and one research home (owner, 21 Oct). CLN-1 now, beside phase A: `docs/v2/research/`, `docs/research/` and the sun audit move into the root `research/` (`method/`, `runs/`, `reports/`, `audits/`); `research/README.md`, `tools.md`, `formats/`, the trip index; thin skills and agents; v1 docs archived; removals D2-D4. It touches no file a running lane owns or has changed (measured in the 7 worktrees). CLN-1a Haiku scan, 1b Sonnet scripted moves, 1c Opus authoring, 1d Sonnet verify. CLN-R after TRP1 merges and before B6 META-0: the capture generator writes `research/types/`, the backlog and tag report move, template tests (Sonnet). CLN-2 at R1 entry; CLN-3, CLN-4, CLN-5 in the phase B gap; CLN-6 with backlog 7.11. About 27 h | cleanup D1-D19 (D17 and D18 open); G-B audits CLN-5 | **next: CLN-1 can start now** | [CLEANUP-PLAN.md](CLEANUP-PLAN.md) |
 | **B** | API-0, API-1, API-2, CONS-1, CONS-2, META-0; about 78 h; starts at R1 entry on the frozen preview (Q72) | **G-B** (internal) | waiting on R1 entry | EXECUTION-PLAN 4, 9 |
 | **E** | META-1, META-2, DATA D1-D6, LST2b, LST2c, PLC2b, TRP2, GLB2b, MX, CONS-3; about 161 h | **R2** (owner, Q43) | waiting on G-B (D3, D4 and D6 data may start once META-0 merges) | EXECUTION-PLAN 10, 11 |
 | **D** | Readiness checklist, hosting-agnostic | none | waiting on R2 | EXECUTION-PLAN 13 |
@@ -184,8 +187,19 @@ Phase A components keep calling today's `data.ts` exports with the same names an
 | Q65-Q69 | Backend location, sign-in method, who may sign in, guest planning, household RLS | Answer when the server work starts; SRV-0 does not need them | none until then |
 | Hosting | Which host (it must run Next.js route handlers); then Q71's domain name | Decide after R2 | Lighthouse numbers stay tunnel numbers until then |
 | R1 items | Approve the home globe mock; the Mount Robson time-zone marker; the default list order | Answered at R1 | none |
+| Cleanup D17 | Move the CLAUDE.md "Current trips" and "Queued" summaries (about 90 lines) into `research/trips/README.md`, leaving one pointer | Yes | A new session must open one file to see every trip; CLAUDE.md shrinks by about a third |
+| Cleanup D18 | Move the trip-planner skill's HTML house format to `legacy/_system/TRIP-PAGE.md`, used only to revise an existing legacy page; new trips get research and data, not a new legacy page | Yes | No new hand-built trip page until the planner or a v2 trip import exists |
 
-Decided and no longer open: Q1-Q64, Q70-Q72, D1-D10, and L7 (21 Oct).
+Decided and no longer open: Q1-Q64, Q70-Q72, D1-D10 (EXECUTION-PLAN), L7 (21 Oct), and these, decided by the owner on 21 Oct:
+
+| Decision | What was decided | Recorded in |
+|---|---|---|
+| SRV-D 13.1 | Two tiers for SRV-0: a lossless source tier (`dataset_file`, `record_doc` keyed by `ref`, `source_local`, `capture_supersede`) and a serving tier (entity, offer, relation, link, media, area, town, `place_row`, `place_page`) written by the loader running the same core code as `JsonStore` | [schema-diff-2026-10.md](research/schema-diff-2026-10.md) 14 (moves to `research/reports/` in CLN-1) |
+| SRV-D 13.2 | `entity.id` is the `ref` verbatim; no ULID surrogate for catalogue rows (ULIDs stay for planner rows a client creates). API-1 adds `ref` to every row and detail | same |
+| SRV-D 13.3 | `locations.json` collections (5) and Instagram saves (24) are private household data: RLS on, no policy, not loaded (M14) | same |
+| SRV-D 13.4 | Town ids are `<cc>-<admin1>-<slug>` (`ca-on-whitby`). META-0 changes nearby spec 3.1 to match | same; [features/nearby-and-regions.md](features/nearby-and-regions.md) 3.1 (META-0) |
+| Cleanup D1-D6, D8-D10 | As recommended: retire `prototype/` after a tag (phase B), remove `.claude/plans/`, `research/places/PRIORITIES.md` and the 75 uncited screenshots after a tag, new folder contract, agent fixes, a check-all folder guard, legacy `PLAN.md` files move at 7.11, no history rewrite | [CLEANUP-PLAN.md](CLEANUP-PLAN.md) 6 |
+| Cleanup D7 to D11 | Not option B. One research home at the root `research/`; skills and agents stay in `.claude/` as thin wrappers (D15); scripts stay with their packages and are indexed in `research/tools.md` (D14) | [CLEANUP-PLAN.md](CLEANUP-PLAN.md) 2, 6 |
 
 ## 6. Superseded statements
 
@@ -217,7 +231,9 @@ Decided and no longer open: Q1-Q64, Q70-Q72, D1-D10, and L7 (21 Oct).
 | [build/SERVER-SIDE-LAUNDRY-LIST.md](build/SERVER-SIDE-LAUNDRY-LIST.md) | Everything that needs login or a backend; Q65-Q69 | current |
 | [design/foundation/principles.md](design/foundation/principles.md) | P1-P9, T1-T5 | current |
 | [design/product-direction-2026-10-18.md](design/product-direction-2026-10-18.md), [design/keep-from-live-site.md](design/keep-from-live-site.md), [design/trip-scope-scenarios.md](design/trip-scope-scenarios.md) | Product order, what to keep, scenario rules | current ("Fable-reviewed" there means the 18 Oct foundation; reviews are Opus now) |
-| [research/capture-contract.md](research/capture-contract.md) | The one data contract | current |
+| [research/capture-contract.md](research/capture-contract.md) | The one data contract | current; moves to `/research/method/capture-contract.md` in CLN-1 (the rewriter updates this link) |
+| [CLEANUP-PLAN.md](CLEANUP-PLAN.md) | The repo layout, the one research home, phases CLN-1 to CLN-6 and CLN-R, the folder contract, cleanup decisions D1-D19 | current (revision 2, 21 Oct) |
+| `/research/README.md` (written in CLN-1) | The map of the research system: jobs, per-type checklists, formats, validators, gaps, merge, the rules that do not bend | after CLN-1 |
 | [TODO.md](TODO.md) | Owner requests, Open and Done | current |
 | [/HANDOVER.md](../../HANDOVER.md) | New-machine setup, commands, what is not in git | current |
 | [build/handover/memory/](build/handover/memory/) | Owner decisions and working rules, with reasons | history; this page wins where they differ |
@@ -246,4 +262,5 @@ More risks: EXECUTION-PLAN 16.
 
 | Date | Change |
 |---|---|
+| 2026-10-21 (evening) | Owner decisions recorded: SRV-D 13.1-13.4 (R-55) and cleanup D1-D10 with D7 replaced by one research home (R-53, R-54); the Cleanup row in section 3 rescheduled (CLN-1 now, CLN-R after TRP1); cleanup D17 and D18 added as open owner decisions |
 | 2026-10-21 | First version: one entry point combining EXECUTION-PLAN, COVERAGE, STATUS, MASTER-PLAN, BACKLOG, STAGE4-plan, OWNER-ROUND1-plan, REPORT-2026-10-20, the build README, the nearby spec, the laundry list and the owner memory; owner headline; R-1 to R-52; banners on the partly superseded files; L7 closed |
