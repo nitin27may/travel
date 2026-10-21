@@ -7,6 +7,8 @@ import dynamic from 'next/dynamic';
 import { GlobalSearch as GlobalSearchType } from '@/components/search/GlobalSearch';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
+import { capabilities as siteCapabilities } from '@/lib/capabilities';
+import type { Capabilities } from '@/lib/capabilities';
 import { startBuffer } from '@/lib/search/typeahead';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -23,10 +25,10 @@ export const PUBLIC_TABS = [
 export const isCurrent = (path: string, href: string) => path === href || path.startsWith(href);
 
 /**
- * Public header (components 1.1): brand, three tabs, search, theme toggle, Sign in. 60 px navy with the 2 px amber rule;
+ * Public header (components 1.1): brand, three tabs, search, theme toggle, and Sign in only when `capabilities.signIn` is on (11.1). 60 px navy with the 2 px amber rule;
  * 56 px on phone, where the tabs move to the bottom bar. Search opens with the icon or with "/" on pages that have no list search.
  */
-export function SiteHeader() {
+export function SiteHeader({ capabilities = siteCapabilities }: { capabilities?: Capabilities }) {
   const path = usePathname() ?? '/';
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -63,9 +65,11 @@ export function SiteHeader() {
             <Icon name="search" size={18} />
           </Button>
           <ThemeToggle />
-          <ButtonLink variant="ghost" href="/sign-in/" className="header-signin">
-            Sign in
-          </ButtonLink>
+          {capabilities.signIn ? (
+            <ButtonLink variant="ghost" href="/sign-in/" className="header-signin">
+              Sign in
+            </ButtonLink>
+          ) : null}
         </div>
       </div>
       {searchOpen ? <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} /> : null}

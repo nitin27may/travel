@@ -1,3 +1,4 @@
+import { reportLink, reportUrl } from '@/lib/config/product';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import { filterRows, facetCounts, gapCounts, gapNotes, matchesRow, scopeTotal } from '@/lib/entities/filter';
 import { searchTexts } from '@/lib/search/fulltext';
@@ -747,4 +748,18 @@ export async function listPlaces(query: ListState, pageSize?: number): Promise<L
   const got = peekPlaces(query, pageSize);
   if (!got) throw new Error('No place list registered');
   return got;
+}
+
+export interface ReportInput {
+  /** The page the visitor was on: a pathname such as `/places/moraine-lake/`. Nothing else is sent. */
+  page: string;
+}
+
+/** `link`: open this URL (today). `submitted`: a server stored the report (`POST /api/v1/report`, same input). `off`: not available yet, render nothing. */
+export type ReportResult = { kind: 'link'; url: string } | { kind: 'submitted'; id: string } | { kind: 'off' };
+
+/** Report a problem on a page (11.2, Q63, Q70). Until a server takes reports it hands back the public feedback form's URL. */
+export async function reportProblem(input: ReportInput): Promise<ReportResult> {
+  const url = reportLink(reportUrl, input.page);
+  return url ? { kind: 'link', url } : { kind: 'off' };
 }
