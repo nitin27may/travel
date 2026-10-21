@@ -35,3 +35,5 @@ On 2026-10-18 Nitin set the order for the travel product.
 - Start this round only after the running tasks finish, so agents don't step on each other.
 - The spec is `docs/v2/design/product-direction-2026-10-18.md`; the queue is `docs/v2/TODO.md`.
 - Related: [[travel-v2-ui-review-loop]], [[travel-app-feedback-2026-10-18]], [[travel-globe-build]].
+
+**Note added 21 Oct 2026:** the branch `claude/serene-goldberg-wtn3di` and the worktree `travel-wt/v2` named above no longer exist. `main` has been the product since 20 Oct; the branch was deleted from the remote on 21 Oct and kept as the tag `archive/claude-serene-goldberg-wtn3di`. The entry point is `docs/v2/PLAN.md`, not STATUS.md. The "he reviews once, at stage 6" rule became two reviews, R1 after the UI fixes and R2 after phase E (owner, 20 Oct).

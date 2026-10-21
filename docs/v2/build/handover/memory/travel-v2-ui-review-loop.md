@@ -34,3 +34,5 @@ The order is:
 - Related: [[travel-platform-plan-then-build-next-week]], [[travel-app-feedback-2026-10-18]], [[model-split-research-on-opus]].
 
 **Model rule (Nitin, 18 Oct 2026):** do not use the Fable model for anything. The travel-design-reviewer agent runs on Opus. Its frontmatter in both repos says `model: opus`.
+
+**Note added 21 Oct 2026:** the branch `claude/serene-goldberg-wtn3di` and `travel-wt/v2` named above no longer exist (archived as the tag `archive/claude-serene-goldberg-wtn3di`; work branches from `main`). Where this note says Fable reviews, read the model rule above: reviews run on `travel-design-reviewer` (Opus), never Fable. Current plan: `docs/v2/PLAN.md`.

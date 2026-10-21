@@ -1,5 +1,7 @@
 # Execution plan: the public site, UI fixes first, then API-over-JSON, then E, then readiness
 
+> **21 Oct 2026:** the entry point is now [docs/v2/PLAN.md](../../PLAN.md) (requirements, order, status, open decisions). This file stays the authority for task-level detail. L7 in section 18 is closed (PR #7 closed 21 Oct; old remote branches archived as `archive/*` tags).
+
 Written 20 Oct 2026 by travel-planner (Opus) for the coordinator; **rewritten the same day** after the owner's decisions on deployment, the API layer and the order of work (1.1). Status lives in [BACKLOG.md](BACKLOG.md); live lane state in [STATUS.md](STATUS.md); briefs in [briefs/](briefs/). Nothing here is started.
 
 **Supersedes:**
@@ -838,7 +840,7 @@ Decided by the owner on 20 Oct after the first version: Q70 (a small public feed
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
 | Q70 follow-up | May the coordinator create the public feedback repo now with `gh` under your account (name `nitin27may/travel-feedback`, issues only, one issue form with the page path prefilled)? A3 merges without the link if not | Yes, before A3 merges | a public repo under your name; visitors need a GitHub account to report until a server form exists |
-| L7 | P4b PR #7 and the parked P3b worktree: close and delete? | Close PR #7 and delete both after `git cherry` shows nothing unmerged, in the Q49 cleanup batch | none once checked |
+| L7 | P4b PR #7 and the parked P3b worktree: close and delete? | **Closed 21 Oct 2026:** PR #7 closed; `phase/p3b`, `phase/p4b`, `claude/serene-goldberg-wtn3di` and the wip branches deleted from the remote and kept as tags `archive/*`; no doc was missing from `main` | none |
 | L9 | Free AI features (embedding search, CLIP photo picks, similar places): go now? | Not now; keep in Phase F and revisit near 1,000 places with summaries | the spike measured no gain at today's size |
 
 Q65 to Q69 stay open in the laundry list; SRV-0 runs locally without them. Every hosting question waits for the hosting decision (13.2).
@@ -892,7 +894,7 @@ Every pending item from every source (BACKLOG, TODO, design reviews and notes, l
 | Dropped | 4 |
 | Done or decided (status was stale, corrected) | 32 |
 | Merged duplicate | 21 |
-| Needs owner decision | 2 (L7, L9) |
+| Needs owner decision | 2 (L7, L9); L7 closed 21 Oct, so 1 (L9) remains |
 | **Total** | **244** |
 | **Unmapped** | **0** |
 
@@ -904,4 +906,5 @@ Every pending item from every source (BACKLOG, TODO, design reviews and notes, l
 |---|---|
 | 2026-10-20 | First version: order A, B, E, D with gates R1 and R2; CONS, META; server-switch column; Q70 to Q72 |
 | 2026-10-20 | Coverage sweep: COVERAGE.md (244 lines, 0 unmapped); phase A gains the visible-defect lines (TRP1, TST, A2b, A4b, A7b, A8b), 42 h to 75 h; DATA D6; calendar to readiness about 20 Nov; new rows 15.1 to 15.6 |
+| 2026-10-21 | Banner pointing to docs/v2/PLAN.md as the entry point; L7 closed (PR #7 closed, branches archived as `archive/*` tags) |
 | 2026-10-20 | Rewrite after the owner's decisions D7 to D10: deployment out of scope, phase D a hosting-agnostic readiness checklist; API-over-JSON now (`CatalogueStore`, `JsonStore`, route handlers, Zod contracts, OpenAPI, `ApiAdapter` default, contract kit); API-over-Supabase defined as SRV-0 after E, with the read-only schema diff SRV-D on day 1; phase A is UI fixes only with R1 straight after; internal gate G-B; calendar to readiness about 19 Nov; Q71 deferred |

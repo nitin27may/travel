@@ -1,5 +1,7 @@
 # Public site build: live status (coordinator handover)
 
+> **21 Oct 2026:** start at [docs/v2/PLAN.md](../../PLAN.md). The sections "Where things are", "Running now (at handover)", "Stage 3 lanes", "Current state (19 Oct)", "Stage 4 plan", "Services", "Enhancements" (phasing) and "Cleanup due" are history and superseded by PLAN.md sections 3 and 4. The integration branch and the `travel-wt/v2` worktree are gone (archived as the tag `archive/claude-serene-goldberg-wtn3di`, 21 Oct), the tunnels are dead, and the keys live in `web/.env.local` of the main checkout (missing on this machine; PLAN.md section 5). "Merged so far", "Key specs" and "Owner decisions in force" still stand.
+
 **20 Oct 2026 (latest): the sequenced plan is [EXECUTION-PLAN.md](EXECUTION-PLAN.md) and every pending item is one line of [COVERAGE.md](COVERAGE.md) (244 lines, 0 unmapped).** Owner decisions: UI fixes first (phase A, every visible defect), then review R1; phase B builds API-over-JSON (`/api/v1/` route handlers over a `CatalogueStore` with `JsonStore`, Zod contracts in `core/src/schema/api/`, OpenAPI, the API adapter as default) and the CONS and META foundations, closed by gate G-B; phase E builds the features on the API; review R2; phase D is a hosting-agnostic readiness checklist. **Deployment is out of scope until the hosting is chosen; the site is no longer a static export** (API-0 removes `output: 'export'`). API-over-Supabase is lane SRV-0 after E, local only, flags off. Q42 to Q64 and Q70 to Q72 decided; still open: creating the public feedback repo, L7, L9 (EXECUTION-PLAN 18). Lane briefs in [briefs/](briefs/): TST, FIXF, SHL2, GLB2, TRP1, LST2, PLC2, SRV, API, CONS, META, DATA, TRP2, MX, GO-LIVE (readiness).
 
 **Another machine or a fresh session: read `/HANDOVER.md` (repo root) first, then `MASTER-PLAN.md` here. Owner memory notes are copied in `docs/v2/build/handover/memory/`.**
@@ -212,3 +214,7 @@ The launch decision is Q54.
 ## Cleanup due
 
 The merged lane worktrees can be removed once the owner agrees (confirm every deletion): v2-L2, L3, L4, PS, S0, S0b, RV0, RVC, CF, SR, RC, INTA, INTB, INTC and CC. Older pre-v2 work: `travel-wt/p3b` (parked) and `travel-wt/p4b` (PR #7 still open).
+
+## Baseline on the macOS machine (21 Oct 2026)
+
+`bash tools/check-all.sh` ends `CHECK-ALL OK` with no `web/.env.local` present (python 175 passed, core 1,437, web 1,268). Playwright WebGL runs on the real GPU: `ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Pro)`, not SwiftShader. On macOS use `--use-angle=metal` (the `gl` flag in the handover is for Linux). `web/.env.local` was created from the root `.env` (mode 600, ignored by git); move it aside before `check-all`. Python tests need pytest: use a `uv` venv outside the repo.

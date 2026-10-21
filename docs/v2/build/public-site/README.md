@@ -1,5 +1,7 @@
 # Build plan: the public read-only site (18 Oct 2026)
 
+> **21 Oct 2026:** this is the 18 Oct wave 1 and 2 build plan, kept as the record. The current plan is [docs/v2/PLAN.md](../../PLAN.md). Superseded here: section 1's "static export" (the site becomes a server build in API-0), section 4.2's worktree rule (work branches from `main`; the `claude/serene-goldberg-wtn3di` branch was deleted 21 Oct and archived as the tag `archive/claude-serene-goldberg-wtn3di`), section 5 (order), section 6 (gates; Fable is never used, reviews run on Opus) and section 7 (decisions, all settled). Sections 2, 3, 4.1 and both Gotchas sections still stand.
+
 Step 1 of the owner's order of work ([product-direction-2026-10-18.md](../../design/product-direction-2026-10-18.md)):
 the public site with no login, on the Trailhead foundation ([design/foundation/](../../design/foundation/)),
 keeping everything in [keep-from-live-site.md](../../design/keep-from-live-site.md), with the map stack from

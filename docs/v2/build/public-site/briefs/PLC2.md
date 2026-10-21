@@ -1,11 +1,13 @@
-# PLC2: trail facts and AllTrails (part a, phase B), Nearby and related (part b, phase E)
+# PLC2: trail facts and AllTrails (part a, phase A), Nearby and related (part b, phase E)
+
+> **Corrected 21 Oct 2026:** part a is phase A (EXECUTION-PLAN tasks A8, A8b, A9), not phase B; part b is E9. Entry point: [docs/v2/PLAN.md](../../../PLAN.md). Worktree paths below are from the first (Linux) machine; use `<repo parent>/travel-wt/` here.
 
 Extends [PLC.md](PLC.md) (stage 4). This brief is self-contained for round 2.
 
 - **Agent:** `travel-builder` (Sonnet).
 - **Effort:** part a 14 h (6 h plus 8 h of place page polish from the coverage sweep); part b 10 h (including review and verification).
 - **Rows:** a: 10.1 (key-facts strip), 10.3 and Q53 (AllTrails search links), and the place polish lines 4.12 (S5 to S13, the far pointer), R4-PP2, R4-PP4, R4-PP5, R4-C1, VI-5 and 3.49 in [COVERAGE.md](../COVERAGE.md). b: 8.2 place part, 8.14 and Q57 (bands), 8.15 (pair collapse), Q56, 13.5 UI part (related places, offers show where they happen).
-- **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) tasks B2, B3, E10; section 6.7 (what the UI needs from the data).
+- **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) tasks A8, A8b, A9, E9 (corrected 21 Oct; was "B2, B3, E10"); section 6.7 (what the UI needs from the data).
 - **Specs:** [nearby-and-regions.md](../../../features/nearby-and-regions.md) 5.1, 5.2, 5.4; [place-page-sections.md](../../../design/place-page-sections.md) section 11; [capture-contract.md](../../../research/capture-contract.md) (`glance`, relations).
 - **Principles:** P2, P3, P6, P8, T3, T5.
 - **Starts:** a day 1 (no API dependency: the page reads `getPlace()` as today); b after gate G-B, META-1 and DATA D1 (points). Part b puts the nearby logic in `core/src/nearby/` (pure) and serves it through `CatalogueStore.nearbyForPlace()` and `GET /api/v1/places/{slug}/nearby`; the page block renders from the same function at build or request time.
