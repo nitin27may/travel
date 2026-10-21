@@ -12,7 +12,7 @@ const ICON: Record<string, string> = {
   warn: 'M12 3 22 21H2zM12 10v5M12 18h.01',
 };
 const svg = (name: string, size: number): string => `<svg class="gy${size === 16 ? ' gy16' : ''}" viewBox="0 0 24 24" aria-hidden="true"><path d="${ICON[name]}"/></svg>`;
-const NEW_TAB = '<span class="sr-only"> (opens in a new tab)</span>';
+const NEW_TAB = '<span class="sr-only"> (new tab)</span>';
 
 /** A figure that rests on a link-only platform is dropped, never printed with its source in brackets (verifier 4). */
 const platformFree = (t: string | null | undefined): string => (t && !/\b(?:alltrails|komoot|tripadvisor)\b/i.test(t) ? t : '');
@@ -23,7 +23,7 @@ const SEE_RECORD = /[;,]?\s*see [a-z0-9]+(?:-[a-z0-9]+)+ (?:sight|trail|adventur
 
 export function factText(rawText: string): string {
   const text = isUrl(rawText) ? rawText : humaniseTokens(rawText).replace(SEE_RECORD, '').replace(/\(\s*\)/g, '').replace(/\s+([.,;)])/g, '$1').trim();
-  if (isUrl(text)) return `<a href="${esc(text)}" target="_blank" rel="noreferrer">${esc(text.replace(/^https?:\/\//, '').replace(/\/$/, ''))}${NEW_TAB}</a>`;
+  if (isUrl(text)) return `<a href="${esc(text)}" target="_blank" rel="noopener noreferrer">${esc(text.replace(/^https?:\/\//, '').replace(/\/$/, ''))}${NEW_TAB}</a>`;
   return phoneParts(observed(publicProvenance(text)))
     .map((p) => (p.tel ? `<a href="tel:${esc(p.tel)}" class="num">${esc(p.text)}</a>` : withUnits(p.text)))
     .join('');
@@ -46,13 +46,13 @@ export function factsDl(facts: readonly Fact[]): string {
 
 function mapLinks(at: { lat: number; lng: number }, label: string): string {
   const l = esc(label);
-  return `<span class="pl-maplinks"><a class="btn btn-sm" href="${esc(searchUrl(label, at))}" target="_blank" rel="noreferrer">Google Maps<span class="sr-only"> for ${l} (opens in a new tab)</span></a><a class="btn btn-sm" href="${esc(directionsUrl(at))}" target="_blank" rel="noreferrer">Directions<span class="sr-only"> to ${l} (opens in a new tab)</span></a><a class="btn btn-sm" href="${esc(appleMapsUrl(at, label))}" target="_blank" rel="noreferrer">Apple Maps<span class="sr-only"> for ${l} (opens in a new tab)</span></a></span>`;
+  return `<span class="pl-maplinks"><a class="btn btn-sm" href="${esc(searchUrl(label, at))}" target="_blank" rel="noopener noreferrer">Google Maps<span class="sr-only"> for ${l} (new tab)</span></a><a class="btn btn-sm" href="${esc(directionsUrl(at))}" target="_blank" rel="noopener noreferrer">Directions<span class="sr-only"> to ${l} (new tab)</span></a><a class="btn btn-sm" href="${esc(appleMapsUrl(at, label))}" target="_blank" rel="noopener noreferrer">Apple Maps<span class="sr-only"> for ${l} (new tab)</span></a></span>`;
 }
 
 function pointSource(p: Pick<AccessPoint, 'pointSource' | 'pointChecked'>): string {
   const info = pointSourceInfo(p);
   const [head, ...rest] = info.text.split(' · ');
-  const first = info.url ? `<a href="${esc(info.url)}" target="_blank" rel="noreferrer">${esc(head)}${NEW_TAB}</a>` : esc(head);
+  const first = info.url ? `<a href="${esc(info.url)}" target="_blank" rel="noopener noreferrer">${esc(head)}${NEW_TAB}</a>` : esc(head);
   return `<span class="pl-prov">${first}${rest.length ? esc(` · ${rest.join(' · ')}`) : ''}</span>`;
 }
 
