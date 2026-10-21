@@ -2,3 +2,7 @@
    primary action (review M19, P7). styles/suitability.css neutralises every primary but .pl-dir; this puts it back for .pl-primary. */
 .pl-cover-body .btn-primary.pl-primary:not(.pl-dir) { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .pl-cover-body .btn-primary.pl-primary:not(.pl-dir):hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); color: var(--accent-ink); }
+
+/* the cover Directions chooser: a button and a short list (R4-C1) */
+.pl-dirmenu { position: relative; }
+.pl-dirmenu > .menu { position: absolute; top: calc(100% + 8px); left: 0; z-index: var(--z-menu); min-width: 14rem; }

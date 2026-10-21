@@ -17,7 +17,6 @@ import { Interactions } from '@/components/suit/Interactions';
 import { accessCard, factText, factsDl } from './sections/legacyHtml';
 import { withUnits } from '@/components/suit/html';
 import { CoverRelevance } from './sections/Relevance';
-import { DirectionsMenuLazy } from './DirectionsMenuLazy';
 import './cover.css';
 import { Glance, Sections, type LegacySlots } from './sections/Sections';
 import { SectionIndex } from './sections/SectionIndex';
@@ -26,7 +25,7 @@ import { LinksTabs } from './LinksTabs';
 import { dedupeMapPoints } from './mapPoints';
 import type { PlaceMapPoint } from './PlaceMap';
 import { PlaceShell } from './PlaceShell';
-import { SaveToTrip } from './SaveToTrip';
+import { DirectionsChooser, SaveToTrip } from './SaveToTrip';
 import { TrailExport } from './TrailExport';
 import { TrailMap } from './TrailMap';
 import { TrailProfile } from './TrailProfile';
@@ -302,10 +301,13 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
   const timeConflict = adultTime && legacyTime && !sameRange(minutesRange(adultTime.text), minutesRange(timeText(legacyTime.value))) ? { adult: adultTime, legacy: legacyTime } : null;
   const activityBlock = showProfile ? (
     <>
-      <p
-        className="pl-route-line num"
-        dangerouslySetInnerHTML={{ __html: withUnits([km !== null ? `${km} km` : null, gain !== null ? `${gain} m ${factByLabel(place.facts, 'Climb') ? 'climb' : 'change'}` : null, routeTime].filter(Boolean).join(' · ')) }}
-      />
+      {/* the trail strip above already says length, climb and time (VI-5: no fact twice) */}
+      {model ? null : (
+        <p
+          className="pl-route-line num"
+          dangerouslySetInnerHTML={{ __html: withUnits([km !== null ? `${km} km` : null, gain !== null ? `${gain} m ${factByLabel(place.facts, 'Climb') ? 'climb' : 'change'}` : null, routeTime].filter(Boolean).join(' · ')) }}
+        />
+      )}
       {timeConflict ? (
         <div className="pl-conflict" data-what="adult-time">
           <Chip kind="caution" icon="warn">
@@ -436,7 +438,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
             </p>
           ) : null}
           <div className="pl-actions">
-            {target ? <DirectionsMenuLazy at={target.at} label={target.label} /> : null}
+            {target ? <DirectionsChooser at={target.at} label={target.label} /> : null}
             <SaveToTrip url={url} slug={place.slug} formats={['gpx']} primary={!target} />
             <TrailExport slug={place.slug} lines={place.lines} />
             <ShareButton url={url} title={place.name} />
@@ -485,9 +487,8 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
           </ul>
           {trail ? (
             <p className="pl-alltrails small">
-              <a href={allTrails.url} target="_blank" rel="noopener noreferrer">
-                {allTrails.label}
-                <span className="sr-only"> (opens in a new tab, third-party site)</span>
+              <a href={allTrails.url} target="_blank" rel="noopener noreferrer" aria-label={`${allTrails.text} on AllTrails (opens in a new tab, third-party site)`}>
+                {allTrails.text}
               </a>{' '}
               <span className="muted">third-party site, link only</span>
             </p>

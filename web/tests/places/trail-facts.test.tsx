@@ -19,7 +19,7 @@ describe('the trail key-facts strip (10.1)', () => {
       const t = tiles(strip(html(slug)));
       if (!data.getPlace(slug)!.sections) continue;
       withStrip++;
-      expect(t.map((x) => x.label), slug).toEqual(['Length', 'Climb', 'High point', 'Adult time', 'Route type', 'Effort', 'Surface', 'Hazards and exposure', 'Dogs', 'Stroller', 'Wheelchair', 'Season', 'Trailhead and parking', 'Route status', 'AllTrails · link only']);
+      expect(t.map((x) => x.label), slug).toEqual(['Length', 'Climb', 'High point', 'Adult time', 'Route type', 'Effort', 'Surface', 'Hazards and exposure', 'Dogs', 'Stroller', 'Wheelchair', 'Season', 'Trailhead and parking', 'Route status', 'Trail guide · link only']);
     }
     expect(withStrip).toBeGreaterThan(0);
   }, 600_000);
@@ -40,10 +40,11 @@ describe('the trail key-facts strip (10.1)', () => {
     expect(h).not.toMatch(/official information · read/);
     expect(h).toMatch(/class="pb ps-readline">Read 18 to 19 Oct 2026\. Sources are in each section\./);
   });
-  it('draws the AllTrails tile as an external link with the outbound glyph and a screen-reader note (M17)', () => {
+  it('draws the AllTrails tile as an external link, named only in its accessible name (M17, privacy rule)', () => {
     const h = strip(html('fenland-loop'));
-    expect(h).toMatch(/<a href="https:\/\/www\.alltrails\.com[^"]*" class="ga ga-ext" target="_blank" rel="noopener noreferrer"><span class="gl">AllTrails · link only<\/span><strong class="gv"><span class="ga-u">[^<]+<\/span><svg/);
-    expect(h).toContain('(opens in a new tab, third-party site)');
+    expect(h).toMatch(/<a href="https:\/\/www\.alltrails\.com[^"]*" class="ga ga-ext" target="_blank" rel="noopener noreferrer" aria-label="Trail guide · link only: (?:Open trail page|Search for this trail) on AllTrails \(opens in a new tab, third-party site\)"><span class="gl">Trail guide · link only<\/span><strong class="gv"><span class="ga-u">(?:Open trail page|Search for this trail)<\/span><span aria-hidden="true">↗<\/span>/);
+    // a link-only platform's name is not page text
+    expect(h.replace(/<[^>]+>/g, ' ')).not.toMatch(/AllTrails/i);
   });
   it('Tre Cime shows its track figures, with no gap in length, climb or time', () => {
     const t = tiles(strip(html('tre-cime-di-lavaredo-loop')));
@@ -57,10 +58,10 @@ describe('the trail key-facts strip (10.1)', () => {
     let direct = 0;
     for (const slug of trails) {
       const h = html(slug);
-      const a = h.match(/<a href="(https:\/\/www\.alltrails\.com[^"]*)"[^>]*target="_blank" rel="noopener noreferrer"[^>]*>([\s\S]*?)<\/a>/);
+      const a = h.match(/<a href="(https:\/\/www\.alltrails\.com[^"]*)"[^>]*target="_blank" rel="noopener noreferrer"[^>]*aria-label="([^"]*)"/) ?? h.match(/<a href="(https:\/\/www\.alltrails\.com[^"]*)" target="_blank" rel="noopener noreferrer" aria-label="([^"]*)"/);
       expect(a, slug).not.toBeNull();
-      expect(a![2], slug).toMatch(/Open on AllTrails|Search AllTrails/);
-      if (/Open on AllTrails/.test(a![2]!)) direct++;
+      expect(a![2], slug).toMatch(/(?:Open trail page|Search for this trail) on AllTrails/);
+      if (/Open trail page/.test(a![2]!)) direct++;
       else expect(a![1], slug).toMatch(/^https:\/\/www\.alltrails\.com\/search\?q=/);
     }
     expect(direct).toBeLessThanOrEqual(trails.length);
