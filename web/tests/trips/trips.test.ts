@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { seasonWindow } from '@/components/trips/TripActions';
-import { driveLabel, lengthLabel } from '@/components/trips/format';
+import { dayStopsLabel, driveLabel, lengthLabel } from '@/components/trips/format';
 import { buildTripPageModel, tripGallery, whenLabel } from '@/components/trips/model';
 import { parseTripUrl } from '@/components/trips/useTripUrl';
 import { tripListRows } from '@/app/trips/rows';
@@ -58,6 +58,17 @@ describe('wording and url', () => {
     expect(lengthLabel(null, null)).toBe('');
     expect(driveLabel(70, true)).toBe('≈1 h 10');
     expect(driveLabel(null, true)).toBeNull();
+  });
+  it('a day with no placed stop says how many are not on the map, never "0 stops" (R4-T2)', () => {
+    expect(dayStopsLabel(0, 1)).toBe('1 stop not on the map');
+    expect(dayStopsLabel(0, 2)).toBe('2 stops not on the map');
+    expect(dayStopsLabel(3, 0)).toBe('3 stops');
+    expect(dayStopsLabel(1, 2)).toBe('1 stop, 2 not on the map');
+  });
+  it('Patagonia has a Patagonia cover, not the Buenos Aires cemetery (R4-T2)', () => {
+    const t = getTrip('patagonia-2027')!;
+    expect(t.cover?.url ?? '').not.toMatch(/Recoleta/i);
+    expect(t.cover?.url ?? '').toMatch(/Fitz|Roy/i);
   });
   it('whenLabel', () => {
     expect(whenLabel([3])).toEqual({ first: 3, rest: null });

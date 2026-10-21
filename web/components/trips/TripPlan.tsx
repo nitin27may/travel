@@ -13,7 +13,7 @@ import '@/styles/timeline.css';
 import { CategoryStrip } from './CategoryStrip';
 import { CategoryView } from './CategoryView';
 import { DayRow } from './DayRow';
-import { DEPTH_NOTICE } from './format';
+import { DEPTH_NOTICE, dayStopsLabel } from './format';
 import { routeHasPositions, type TripPageModel } from './model';
 import { dayOfHash } from './timeline/currentDay';
 import { DayTimeline } from './timeline/DayTimeline';
@@ -148,7 +148,7 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
   }, [sheet]);
   const placed = routeHasPositions(route);
   const mapDayModel = mapDay === null ? null : route.days.find((d) => d.n === mapDay) ?? null;
-  const mapLabel = mapDayModel ? `Map: Day ${mapDayModel.n}${mapDayModel.base ? `, ${mapDayModel.base}` : ''}, ${mapDayModel.points.length} ${mapDayModel.points.length === 1 ? 'stop' : 'stops'}${mapDayModel.unplaced ? `, ${mapDayModel.unplaced} not on the map` : ''}` : `Map: the whole trip${route.unplaced ? `, ${route.unplaced} stops not on the map` : ''}`;
+  const mapLabel = mapDayModel ? `Map: Day ${mapDayModel.n}${mapDayModel.base ? `, ${mapDayModel.base}` : ''}, ${dayStopsLabel(mapDayModel.points.length, mapDayModel.unplaced ?? 0)}` : `Map: the whole trip${route.unplaced ? `, ${route.unplaced} stops not on the map` : ''}`;
 
   // an anchor (`#day-5`, `#trails`) scrolls to its target once the right view is on screen; an empty category goes to the strip
   const goDay = daySpy.goTo;
@@ -339,7 +339,7 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
         </aside>
       </div>
       {placed ? (
-        <button type="button" className="tl-mappill" data-print="hide" data-hidden={sheet || undefined} aria-expanded={sheet} aria-controls="route" onClick={() => setSheet(true)}>
+        <button type="button" className="tl-mappill" data-print="hide" data-hidden={sheet || (!showCategory && dayNow === null) || undefined} aria-expanded={sheet} aria-controls="route" onClick={() => setSheet(true)}>
           <Icon name="map" size={18} /> {mapDay !== null && !paused ? `Map · Day ${mapDay}` : 'Map · All days'}
         </button>
       ) : null}
