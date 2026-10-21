@@ -15,3 +15,5 @@ section.ps-glance > ul { gap: 1px; background: var(--line); }
 /* an outbound tile reads as a link: underlined value and the outbound glyph (the third-party rule) */
 .ga-ext .gv { display: inline-flex; align-items: center; gap: 6px; }
 .ga-ext .ga-u { text-decoration: underline; text-decoration-color: var(--ink); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+/* the outbound arrow is drawn, not typed: it is not text, so the link's name need not repeat it (WCAG 2.5.3) */
+.ga-ext .ga-u::after { content: ' \2197'; text-decoration: none; display: inline-block; }

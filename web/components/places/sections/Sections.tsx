@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { GapChip, RefLink, RowsHtml, fromRow, type ShowRow } from '@/components/suit/Rows';
-import { glanceHtml, warningsHtml } from '@/components/suit/html';
+import { checksText, glanceHtml, warningsHtml } from '@/components/suit/html';
 import { WhoItSuits, WhoItSuitsEmpty } from '@/components/suit/WhoItSuits';
 import { CHIP_ROW_PROPERTIES } from '@/lib/public/contract';
 import type { PublicRelevance } from '@/lib/public/relevance';
@@ -9,7 +9,8 @@ import type { PublicSuitability } from '@/lib/public/suitability';
 import type { Completeness } from '@/lib/public/types';
 import { Nearby } from './Relevance';
 import { seasonShort } from './SeasonGrid';
-import { findRow, readLine, trailStrip, type TrailExtras } from './trailFacts';
+import { findRow, readLine, STRIP_KEYS, trailStrip, type TrailExtras } from './trailFacts';
+import { TrailStripTiles, type Tile } from '../SaveToTrip';
 import './glance.css';
 
 // The 14 sections of the capture contract in order (place-page-sections section 2). Each section reads its rows, its structures
@@ -108,9 +109,24 @@ export function Glance({ model, suit, level, trailhead = null, isArea = false, t
     .slice(0, 6);
   // A trail leads with its 14 facts and AllTrails (10.1, 10.3): the same tiles and checks line. A long strip keeps no source line per tile (P6: the
   // row each tile links to holds it); one line under the strip says when it was read (M14).
+  const checks = { ...model.checks, done: Math.min(model.checks.total, model.checks.done + mapped) };
   const strip = trail ? trailStrip(model, suit, trail.extras, trail.place) : null;
-  const shown = strip ? [...strip.slots, { row: { key: 'alltrails', label: 'AllTrails · link only', text: strip.allTrails.label, look: 'info' as const, gap: false, val: null }, href: strip.allTrails.url, value: strip.allTrails.label, external: { url: strip.allTrails.url, label: strip.allTrails.label } }] : slots;
-  const html = glanceHtml(shown, adjusted, { ...model.checks, done: Math.min(model.checks.total, model.checks.done + mapped) }, strip ? { source: false, readLine: readLine(strip.slots) } : {});
+  if (strip) {
+    const tiles: Tile[] = strip.slots.map(({ row, href, value }) => {
+      const v = row.gap ? undefined : value;
+      const c = row.val?.conflicts.length;
+      return { l: row.label, h: href, ...(v === undefined ? {} : { v }), ...(c ? { c } : {}) };
+    });
+    const ext = { l: 'Trail guide · link only', u: strip.allTrails.url, t: strip.allTrails.text, // the accessible name starts with the visible words (WCAG 2.5.3) and is the one place the platform is named
+    a: `Trail guide · link only ${strip.allTrails.text} on AllTrails (opens in a new tab, third-party site)` };
+    return (
+      <section className="ps-glance" id="glance" aria-label="At a glance">
+        <TrailStripTiles tiles={tiles} ext={ext} read={readLine(strip.slots)} level={{ v: adjusted.level, l: adjusted.label, c: checksText(adjusted.label, checks) }} />
+      </section>
+    );
+  }
+  // no source line per tile here either (P6, S13): the row each tile links to holds it, and the line below says when the record was read
+  const html = glanceHtml(slots, adjusted, checks, { source: false });
   return <section className="ps-glance" id="glance" aria-label="At a glance" dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
@@ -241,6 +257,8 @@ export interface SectionsProps {
   legacy: LegacySlots;
   /** a trail drawn from the older record: its route block sits in section 5 even where the contract has no row for it */
   hasRoute: boolean;
+  /** the page has the trail key-facts strip: closed groups of "Who it suits" do not repeat its values */
+  stripped?: boolean;
 }
 
 /** The sections the page draws below the glance, in the contract's order: the cover and the glance are drawn above them. */
@@ -264,13 +282,13 @@ export function drawnSections({ model, rel, legacy, hasRoute }: Pick<SectionsPro
 }
 
 /** Sections 3 to 14, in the contract's order. Sections 1 (the cover) and 2 (the glance) are drawn by the page above them. */
-export function Sections({ model, suit, rel, slugs, legacy, hasRoute }: SectionsProps) {
+export function Sections({ model, suit, rel, slugs, legacy, hasRoute, stripped = false }: SectionsProps) {
   const drawn = drawnSections({ model, rel, legacy, hasRoute });
   return (
     <>
       {drawn
         .map((sec) => {
-          if (sec.id === 'suits') return suit ? <WhoItSuits key={sec.id} suit={suit} slugs={slugs} title={sec.title} /> : <WhoItSuitsEmpty key={sec.id} title={sec.title} />;
+          if (sec.id === 'suits') return suit ? <WhoItSuits key={sec.id} suit={suit} slugs={slugs} title={sec.title} hide={stripped ? STRIP_KEYS : undefined} /> : <WhoItSuitsEmpty key={sec.id} title={sec.title} />;
           const meta = sec.id === 'options' ? '2026 prices used as a pattern' : null;
           return (
             <section key={sec.id} className="ps" id={sec.id} aria-labelledby={`h-${sec.id}`}>
