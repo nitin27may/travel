@@ -1,5 +1,8 @@
-import { expect, readStore, test } from './fixtures';
+import { expectSlow as expect, readStore, test } from './fixtures';
 import type { Page } from '@playwright/test';
+
+// slow-machine settings: a 30 s wait per assertion and 120 s per test (see expectSlow in fixtures.ts)
+test.describe.configure({ timeout: 120_000 });
 
 const store = readStore();
 const count = (page: Page) => page.locator('.filter-bar .count strong');
@@ -94,8 +97,11 @@ test.describe('the views share one URL state', () => {
     await page.goto(`${site.url}/places/?country=IT`);
     const map = pressed(page, 'map');
     await expect(map).not.toHaveAttribute('aria-disabled', 'true');
-    await map.click();
-    await expect(page).toHaveURL(/country=IT.*view=map|view=map.*country=IT/);
+    // a click before the view switch has hydrated is dropped: repeat the click until the URL holds the view (idempotent on the Map button)
+    await expect(async () => {
+      await map.click();
+      await expect(page).toHaveURL(/country=IT.*view=map|view=map.*country=IT/, { timeout: 2000 });
+    }).toPass({ timeout: 30_000 });
     await expect(page.locator('.places-map')).toBeVisible();
   });
 

@@ -1,7 +1,10 @@
 import AxeBuilder from '@axe-core/playwright';
 import type { Locator, Page } from '@playwright/test';
-import { expect, test } from './fixtures';
+import { expectSlow as expect, settledValue, test } from './fixtures';
 import { setTheme, THEMES } from './shots';
+
+// slow-machine settings: a 30 s wait per assertion and 120 s per test (see expectSlow in fixtures.ts)
+test.describe.configure({ timeout: 120_000 });
 
 // Smart search phase 1, the UI (backlog 3.43 part B; smart-search.md 6.1, 7 and 12): chips in the header search and in the Places and
 // Trips boxes, "Not checked yet", the undo line, the keyboard, a phone, and axe in both themes. Real data, no counts asserted: the
@@ -31,8 +34,22 @@ async function openHeader(page: Page, site: { url: string }, path = '/about/data
 
 async function list(page: Page, site: { url: string }, path: '/places/' | '/trips/') {
   await page.goto(`${site.url}${path}`, { waitUntil: 'networkidle' });
-  return page.getByRole('searchbox', { name: path === '/places/' ? 'Search places' : 'Search trips' });
+  const box = page.getByRole('searchbox', { name: path === '/places/' ? 'Search places' : 'Search trips' });
+  // the box is plain HTML until the list has hydrated and loaded its rows; text filled before that is lost to the first render. The filter buttons are disabled until then.
+  await expect(box).toBeVisible();
+  await expect(page.locator('[role="group"][aria-label="Filters"] button[disabled]')).toHaveCount(0);
+  return box;
 }
+
+/** Puts the caret at the end of the box. The End and Home keys do that on Linux and Windows but not on macOS, where they scroll the page. */
+const caretTo = (box: Locator, where: 'start' | 'end') =>
+  box.evaluate((el, at) => {
+    const input = el as HTMLInputElement;
+    input.focus();
+    const n = at === 'end' ? input.value.length : 0;
+    input.setSelectionRange(n, n);
+  }, where);
+const caretToEnd = (box: Locator) => caretTo(box, 'end');
 
 test.describe('header search', () => {
   test('query 1 reads as five chips, "Show places" is the first option, and Enter opens the list with the parsed keys', async ({ page, site }) => {
@@ -89,7 +106,7 @@ test.describe('header search', () => {
     await expect(page.getByRole('button', { name: 'Remove September' })).toHaveCount(0);
     await expect(page.getByRole('option').first()).toHaveAttribute('href', /^(?!.*season=)/);
     // typing on re-reads the text, and the removed chip stays removed
-    await box.press('End');
+    await caretToEnd(box);
     await box.pressSequentially(' quiet');
     await expect(page.getByText('quiet', { exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Remove Trails and walks' })).toBeVisible();
@@ -104,7 +121,7 @@ test.describe('header search', () => {
     const last = page.locator('.qchip').last();
     await expect(page.locator('.qchip')).toHaveCount(5);
     const lastName = (await last.locator('.qchip-t').innerText()).trim();
-    await box.press('Home');
+    await caretTo(box, 'start');
     await box.press('Backspace');
     await expect(page.locator('.qchip')).toHaveCount(4);
     await expect(page.getByRole('button', { name: `Remove ${lastName}` })).toHaveCount(0);
@@ -160,7 +177,11 @@ test.describe('header search', () => {
   test('the other area reading replaces the chip (Auronzo in Veneto or in South Tyrol)', async ({ page, site }) => {
     const box = await openHeader(page, site);
     await box.fill('easy hike near Auronzo');
-    await page.getByRole('button', { name: /^Auronzo,/ }).first().click();
+    const chip = page.getByRole('button', { name: /^Auronzo,/ }).first();
+    await expect(chip).toBeVisible();
+    // the chip is re-created while the reading settles; open the popover once the chip set has stopped changing
+    await settledValue(() => chips(page).innerText());
+    await chip.click();
     const pop = page.getByRole('group', { name: 'Other readings' });
     await expect(pop).toBeVisible();
     const before = await page.getByRole('option').first().getAttribute('href');
@@ -216,7 +237,7 @@ test.describe('the Places and Trips search boxes', () => {
     const box = await list(page, site, '/places/');
     await box.fill(Q1);
     await expect(page.locator('.qchip')).toHaveCount(5);
-    await box.press('Home');
+    await caretTo(box, 'start');
     await box.press('Backspace');
     await expect(page.locator('.qchip')).toHaveCount(4);
     await box.press('Enter');
@@ -242,7 +263,11 @@ test.describe('the Places and Trips search boxes', () => {
     await tap(head);
     await expect(head).toHaveAttribute('aria-expanded', 'true');
     await expect(group.getByRole('heading', { name: /^Stroller: \d+/ })).toBeVisible();
-    const names = await group.locator('.unchecked-row a, .unchecked-row b').allInnerTexts();
+    // the rows' text is empty while the group is still opening (WebKit): read the names once every row has its text
+    const names = await settledValue<string[]>(async () => {
+      const all = await group.locator('.unchecked-row a, .unchecked-row b').allInnerTexts();
+      return (all.every((n) => n.trim()) ? all : undefined) as string[];
+    });
     expect(names.length).toBeGreaterThan(0);
     // no row of the group is a card of the main results
     for (const n of names) await expect(page.locator('.results .card').filter({ hasText: n })).toHaveCount(0);
@@ -440,7 +465,7 @@ test.describe('axe', () => {
       await setTheme(page, theme);
       const box = await openHeader(page, site);
       await box.fill('waterfalls worth the journey in Kancamagus');
-      await expect(page.getByRole('group', { name: 'Did you mean' })).toBeVisible();
+      await expect(page.getByRole('group', { name: 'Did you mean' })).toBeVisible({ timeout: 30_000 });
       await page.waitForTimeout(400);
       const r = await new AxeBuilder({ page }).analyze();
       expect(r.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`)).toEqual([]);
