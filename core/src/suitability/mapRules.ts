@@ -14,8 +14,8 @@ export function validateDifficultyMapRules(doc: Row, ctx: Ctx): void {
     const rows = Array.isArray(s.mappings) ? (s.mappings as Row[]) : [];
     rows.forEach((m, j) => {
       const src = m.source;
-      if (typeof src !== "string" || !(/^https?:\/\/\S+$/.test(src) || src.startsWith("docs/"))) {
-        err(ctx, "E_SCHEMA", `/systems/${i}/mappings/${j}/source`, `mapping "${String(m.local)}" in "${String(s.id)}" needs a source: a URL, or a docs/ path for a row kept from plan 3A. Example: "https://parks.canada.ca/...".`);
+      if (typeof src !== "string" || !(/^https?:\/\/\S+$/.test(src) || src.startsWith("docs/") || src.startsWith("research/"))) {
+        err(ctx, "E_SCHEMA", `/systems/${i}/mappings/${j}/source`, `mapping "${String(m.local)}" in "${String(s.id)}" needs a source: a URL, or a docs/ or research/ path for a row kept from plan 3A. Example: "https://parks.canada.ca/...".`);
       }
       if (typeof m.read !== "string") {
         err(ctx, "E_SCHEMA", `/systems/${i}/mappings/${j}/read`, `mapping "${String(m.local)}" in "${String(s.id)}" needs the date its source was read. Example: "2026-10-18".`);
