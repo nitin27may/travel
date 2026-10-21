@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ReportAboutItem } from '@/components/shell/ReportLink';
 import { pageMetadata } from '@/lib/site';
 
 export const metadata = pageMetadata({
@@ -26,6 +27,7 @@ export default function AboutPage() {
           <li>
             <Link href="/terms/">Terms and copyright</Link>: what you are welcome to do with the site, and what you are not.
           </li>
+          <ReportAboutItem />
         </ul>
       </div>
     </>
