@@ -151,7 +151,7 @@ export function EmptyState<Row>({ d, state, labelOf, applied, onApplied, uncheck
     return (
       <EmptyBlock
         glyph="search"
-        title={`No ${what} here yet`}
+        title={`No ${what} ${d.noun.many} here yet`}
         why={`Nothing in the catalogue is filed under ${what} so far. A gap is not a no: we simply have not added any.`}
         action={
           <Button variant="primary" onClick={() => onState(lone.without, 'push')}>

@@ -56,8 +56,10 @@ function Row({ label, count, selected, kind, parent, tab, empty, tag, onActivate
       data-empty={empty || undefined}
       onClick={onActivate}
     >
-      <span className="where-mark" aria-hidden="true">
-        {selected ? <Icon name="check" size={13} /> : null}
+      {/* the foundation marks (components 2.5): the same .check-box the Kind and Season menus draw, driven by a hidden input */}
+      <span className={kind === 'check' ? 'check where-check' : 'check check-radio where-check'} aria-hidden="true">
+        <input type={kind === 'check' ? 'checkbox' : 'radio'} checked={selected} readOnly tabIndex={-1} />
+        <span className="check-box">{kind === 'check' ? <Icon name="check" size={13} strokeWidth={2.6} /> : <span className="check-dot" />}</span>
       </span>
       <span className="where-name">
         {label}
@@ -302,13 +304,11 @@ export function WhereBody({ mode, state, counts, loading, shown, labelOf, onPick
       <div className="where-menu where-drill" data-level={level} ref={root}>
         <div className="where-head">
           {level > 0 ? (
-            <button type="button" className="where-back" onClick={() => setLevel((level - 1) as WhereLevel)} aria-label={`Back to ${level === 1 ? 'countries' : noun.many}`}>
-              <Icon name="chevronLeft" size={16} />
-              <span>{parentName}</span>
+            <button type="button" className="btn btn-icon btn-ghost where-back" onClick={() => setLevel((level - 1) as WhereLevel)} aria-label={`Back to ${level === 1 ? 'countries' : noun.many}`}>
+              <Icon name="chevronLeft" size={18} />
             </button>
-          ) : (
-            <span className="where-title">Where</span>
-          )}
+          ) : null}
+          <span className="where-title">{level === 0 ? 'Where' : parentName}</span>
         </div>
         {findBox}
         {find ? (

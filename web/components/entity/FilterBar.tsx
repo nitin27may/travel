@@ -188,16 +188,23 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
       <div className="filter-row filter-row-2">
         <div className="count-block">
           <p className="count" role="status" aria-live="polite" aria-busy={shown === null || undefined}>
-            <strong className="num count-tween" style={shown === null ? undefined : ({ '--count-n': shown } as CSSProperties)}>
-              {shown ?? 'Counting\u2026'}
-            </strong>
-            {shown === null ? null : filtered ? (
-              <span className="of">
-                {' '}
-                of {scope} {scope === 1 && scopeNoun === d.noun.many ? d.noun.one : scopeNoun}
-              </span>
+            {shown === 0 ? (
+              // nothing matched: say so plainly; "0 of 0 food" read as an empty catalogue (review M13)
+              <strong className="num count-none">No {d.noun.many}</strong>
             ) : (
-              <span> {shown === 1 ? d.noun.one : d.noun.many}</span>
+              <>
+                <strong className="num count-tween" style={shown === null ? undefined : ({ '--count-n': shown } as CSSProperties)}>
+                  {shown ?? 'Counting\u2026'}
+                </strong>
+                {shown === null ? null : filtered ? (
+                  <span className="of">
+                    {' '}
+                    of {scope} {scope === 1 && scopeNoun === d.noun.many ? d.noun.one : scopeNoun}
+                  </span>
+                ) : (
+                  <span> {shown === 1 ? d.noun.one : d.noun.many}</span>
+                )}
+              </>
             )}
             {kidAge && /^\d{1,2}$/.test(kidAge) && hasAgeControl ? <span className="count-qual"> &middot; for age {kidAge === '0' ? 'Baby' : kidAge}</span> : null}
           </p>
