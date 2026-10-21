@@ -3,12 +3,12 @@
 Extends [GLB.md](GLB.md) (stage 4). This brief is self-contained for round 2.
 
 - **Agent:** `travel-builder` (Sonnet). Part b's look is designed first by `travel-design-reviewer` (Opus): a note and a mock the owner approves at R1.
-- **Effort:** part a about 15 h; part b about 25 h (note and mock 5 h, build 20 h).
-- **Rows:** part a: 9.7 (Fly here, landform centres), 9.4 (rivers draw a line), 9.8 and Q52 (Natural features switch, default on). Part b: 9.3 (city outlines from the towns layer), 9.2 (home cover globe look).
+- **Effort:** part a about 19 h (15 h plus 4 h of globe and home polish from the coverage sweep); part b about 25 h (note and mock 5 h, build 20 h).
+- **Rows:** part a: 9.7 (Fly here, landform centres), 9.4 (rivers draw a line), 9.8 and Q52 (Natural features switch, default on), and the polish lines R4-H1, R4-H2, 3.65a, 3.65b, VI-1 and the `globe.motion.gpu.spec.ts:270` fixme in [COVERAGE.md](../COVERAGE.md). Part b: 9.3 (city outlines from the towns layer), 9.2 (home cover globe look).
 - **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) tasks A4 to A6 and E13. Causes in [OWNER-ROUND1-plan.md](../OWNER-ROUND1-plan.md) items 2 to 6.
 - **Specs:** [design/globe/spec.md](../../../design/globe/spec.md), [nearby-and-regions.md](../../../features/nearby-and-regions.md) 5.6 (one town list, outlines per city).
 - **Principles:** P1, P3, P5, T5 (honest maps), P8 (geometry is not the catalogue).
-- **Starts:** part a day 1; part b when META-2 (towns) has merged and the owner has approved the mock at R1.
+- **Starts:** part a day 1 (no API dependency: call only the existing boundary functions; `globeLine(id)` is appended with its final signature); part b when gate G-B has closed, META-2 (towns) has merged and the owner has approved the mock at R1. Part b reads through the API (`globeCity` on `CatalogueStore`, `GET /api/v1/globe/city/{id}`).
 - **Opus review:** part a after; part b before (note and mock) and after.
 
 ## Goal
@@ -26,7 +26,8 @@ Every globe pick lands where the card says, a line feature draws its line, a vis
 | Part | Paths |
 |---|---|
 | a and b | `web/components/globe/**`, `web/lib/globe/**`, `web/app/globe/**`, `web/app/globe-data/**`, `web/styles/globe.css`, `web/public/globe/**`, `tools/globe_data.py`, `web/scripts/globe-*.mjs`, `data/reference/globe/**`, `web/lib/public/globe.ts` (not the trip-to-country table, which CONS-3 owns), `web/tests/globe/**`, `web/tests/e2e/globe*.spec.ts` |
-| b only | `web/components/home/CoverGlobe.tsx`, `web/public/globe/city/**` (new), the globe sections of `docs/v2/design/globe/spec.md` |
+| a (polish) | `web/components/home/CoverGlobe.tsx` for the hint and the cluster radius |
+| b only | `web/components/home/CoverGlobe.tsx`, `core/src/catalogue/json/globe-city.ts`, `web/app/api/v1/globe/city/**`, `web/public/globe/city/**` (new), the globe sections of `docs/v2/design/globe/spec.md` |
 | boundary | an appended section `// globe (GLB2)` in `web/lib/client/data.ts` for `globeLine(id)` and `globeCityOutline(townId)`, plus their `DataClient` entries in `contract.ts`; coordinate with LST2 on rebase |
 
 ## Do not touch
@@ -41,14 +42,15 @@ Every globe pick lands where the card says, a line feature draws its line, a vis
 2. **Landform centres.** Audit every landform and water feature row in the gazetteer: its point must lie inside its bbox. Fix the source of the mismatch in `globe_data.py` (point or bbox from different rows, or a lon and lat swap), regenerate, and report the count fixed.
 3. **Rivers and other lines.** A river, range or coast draws its own simplified line (OSM waterway or Natural Earth line, ODbL or public domain, credited), never the parent state. Files per feature, loaded on pick through `globeLine(id)`.
 4. **Natural features switch.** Map options gains "Natural features", default on; off removes rivers, ranges, plains, deltas and seas from search and map picking; `nf=0` in the URL, no storage; search groups places, regions and cities first, features last.
-5. e2e: pick a river, a plain, a delta, a lake and a range from search; assert the camera ends inside each feature's box and a river draws a line; the switch survives a reload of the link.
+5. **Polish (coverage lines).** Check each first and report it if already fixed: the phone hint "Tap a pin to open its country" shows only once pins draw (R4-H1); the cover and `/globe/` use one cluster radius (R4-H2); prewarm sprites and shaders at idle and defer the panel re-render to `moveend` on pitched search picks (3.65a), then record the long-task numbers in the `globe.motion.gpu.spec.ts:270` fixme (keep it fixme with numbers if MapLibre's own tasks still break 100 ms); confirm the data growth (gazetteer +41 KB gzip) does not reach the home page (3.65b); label collisions, the translucent Style panel, cluster overlaps and pins below a 24 px target (VI-1).
+6. e2e: pick a river, a plain, a delta, a lake and a range from search; assert the camera ends inside each feature's box and a river draws a line; the switch survives a reload of the link.
 
 ### Part b
 
-6. **Design first.** The design reviewer writes `docs/v2/design/globe/home-look-note.md` with a mock for 9.2 (sky or space background that works in light and dark, richer ocean, more labels at rest, no green, contrast AA) and a ruling on the city outline style. The owner approves it at R1.
-7. **City outlines.** For each town in `data/reference/towns/` that is listed somewhere (a place within 25 km, a hub or a base; about 300 to 600), fetch the OSM admin boundary by the town's Wikidata QID through Overpass, 20 QIDs a query, sequentially under `flock /tmp/travel-overpass.lock` with the user agent from the one UA module. Simplify to 1 to 3 KB, write `/globe/city/<town-id>.json`. Measure the total first and report it.
-8. **Fallback.** A town with no polygon keeps the ring (casing plus amber) and the card says why.
-9. **Home look.** Build the approved mock in `CoverGlobe.tsx` and the globe tokens (through `theme_tokens.py`).
+7. **Design first.** The design reviewer writes `docs/v2/design/globe/home-look-note.md` with a mock for 9.2 (sky or space background that works in light and dark, richer ocean, more labels at rest, no green, contrast AA) and a ruling on the city outline style. The owner approves it at R1.
+8. **City outlines.** For each town in `data/reference/towns/` that is listed somewhere (a place within 25 km, a hub or a base; about 300 to 600), fetch the OSM admin boundary by the town's Wikidata QID through Overpass, 20 QIDs a query, sequentially under `flock /tmp/travel-overpass.lock` with the user agent from the one UA module. Simplify to 1 to 3 KB, write `/globe/city/<town-id>.json`. Measure the total first and report it.
+9. **Fallback.** A town with no polygon keeps the ring (casing plus amber) and the card says why.
+10. **Home look.** Build the approved mock in `CoverGlobe.tsx` and the globe tokens (through `theme_tokens.py`).
 
 ## Acceptance checks
 
@@ -62,11 +64,12 @@ Every globe pick lands where the card says, a line feature draws its line, a vis
 | 6 | City outline files 1 to 2 KB gzip each; the total and count reported; Pages file count stays inside the limit | P8 |
 | 7 | Home globe matches the approved mock; contrast AA in both themes; the hue scan finds 0% green | 9.2 |
 | 8 | No new literal caught by the hard-coding scan (colours only from tokens) | CONS |
-| 9 | `git diff --name-only` shows only owned paths | |
+| 9 | Polish: the hint, one cluster radius, long-task numbers, home bundle unaffected, targets at least 24 px | coverage |
+| 10 | `git diff --name-only` shows only owned paths | |
 
 ## Server switch
 
-`globeGazetteer()`, `globeCard()`, `globeLine(id)` and `globeCityOutline(townId)` are `DataClient` methods with Zod shapes; today they read per-feature files, later `GET /api/globe/feature/:id`, `/line/:id`, `/city/:id`. The fit model and search ranking are pure modules in `web/lib/globe/`. The `nf`, `c` keys are the same on static and server. Components never fetch a globe file directly.
+`globeGazetteer()`, `globeCard()`, `globeLine(id)` and `globeCityOutline(townId)` are `DataClient` methods with Zod shapes; today they read per-feature files, later `GET /api/v1/globe/feature/:id`, `/line/:id`, `/city/:id`. The fit model and search ranking are pure modules in `web/lib/globe/`. The `nf`, `c` keys are the same on static and server. Components never fetch a globe file directly.
 
 ## Verification
 

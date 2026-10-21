@@ -6,19 +6,20 @@ The one list. Every pending item for the public, read-only site is here, in the 
 
 ## 0. Where we are in one paragraph
 
-The public site is built and on `main` (the old site is tagged `legacy-final`). All stage 3 and stage 4 lanes are merged. The whole-site design review ran and its must-fixes are fixed. The full browser suite ran on a quiet machine: 699 passed, 2 failed, both fixed. A preview is up at https://bbs-increases-festival-ccd.trycloudflare.com (rebuilt from `main` on 20 Oct). Nothing is published: the live site at nks-travel.pages.dev is still the old site. What is left, in the owner's order of 20 Oct: phase A (your bug reports), phase B, your first review (R1), phase E (towns, nearby, the Where city level, the Google trip map, exports and the data passes), your second review (R2), then go-live (D). The sequenced plan is [EXECUTION-PLAN.md](EXECUTION-PLAN.md).
+The public site is built and on `main` (the old site is tagged `legacy-final`). All stage 3 and stage 4 lanes are merged. The whole-site design review ran and its must-fixes are fixed. The full browser suite ran on a quiet machine: 699 passed, 2 failed, both fixed. A preview is up at https://bbs-increases-festival-ccd.trycloudflare.com (rebuilt from `main` on 20 Oct). Nothing is published: the live site at nks-travel.pages.dev is still the old site. What is left, in the owner's order of 20 Oct: phase A (every UI fix), your first review (R1), phase B (API-over-JSON and the foundations), phase E (towns, nearby, the Where city level, the Google trip map, exports and the data passes, on the API), your second review (R2), then a hosting-agnostic readiness checklist (D). Deployment waits for the hosting decision. The sequenced plan is [EXECUTION-PLAN.md](EXECUTION-PLAN.md); the coverage matrix is [COVERAGE.md](COVERAGE.md).
 
 ## 1. The documents this plan links
 
 | Document | What it holds |
 |---|---|
-| [EXECUTION-PLAN.md](EXECUTION-PLAN.md) | The sequenced plan: phases A, B, E, D, gates R1 and R2, lanes, owned files, server switch, calendar |
+| [EXECUTION-PLAN.md](EXECUTION-PLAN.md) | The sequenced plan: phases A, B, E, D and S, gates R1, G-B and R2, the API layer, lanes, owned files, server switch, calendar |
+| [COVERAGE.md](COVERAGE.md) | Every pending item from every source, mapped to its task (244 lines, 0 unmapped) |
 | [STATUS.md](STATUS.md) | The coordinator's live handover: lanes, merges, decisions in force, services |
 | [BACKLOG.md](BACKLOG.md) | Every finding with an ID, stage, status and commit; the owner questions table (Q1 to Q72) |
 | [REPORT-2026-10-20.md](REPORT-2026-10-20.md) | The status report: design state, stage state, remaining steps, merge timing |
 | [STAGE4-plan.md](STAGE4-plan.md) | Stage 4 lanes, the whole-site review, stage 5 cross-model checks, stage 6 preview pass, stage 7 go-live checklist |
 | [OWNER-ROUND1-plan.md](OWNER-ROUND1-plan.md) | The fix plan for everything the owner reported while testing: cause, fix, lane, files, acceptance |
-| [briefs/](briefs/) | One build brief per lane: stage 4 (SHL, PLC, TRP, GLB, LST, CS7d) and round 2 (CONS, FIXF, SHL2, GLB2, LST2, PLC2, META, DATA, TRP2, MX, GO-LIVE) |
+| [briefs/](briefs/) | One build brief per lane: stage 4 (SHL, PLC, TRP, GLB, LST, CS7d) and round 2 (TST, FIXF, SHL2, GLB2, TRP1, LST2, PLC2, API, SRV, CONS, META, DATA, TRP2, MX, GO-LIVE as readiness) |
 | [../../features/nearby-and-regions.md](../../features/nearby-and-regions.md) | Where filter (country, state, city), nearby places, the data rule, the towns layer, the smart trip builder |
 | [../../features/smart-search.md](../../features/smart-search.md) | The query parser, chips, "Not checked yet", the embedding spike verdict |
 | [../../features/trip-timeline.md](../../features/trip-timeline.md) | The trip page timeline, profile and scheduler |
@@ -36,84 +37,89 @@ The public site is built and on `main` (the old site is tagged `legacy-final`). 
 
 ## 2. How to read the tables
 
-**Order (owner, 20 Oct 2026): A, then B, then E, then D.** Phase C is the owner's review and runs twice: **R1** after A and B, **R2** after E; D (go-live) follows R2. The sequenced plan with lanes, files, efforts, gates and the calendar is **[EXECUTION-PLAN.md](EXECUTION-PLAN.md)**. Phase F is later. Status words: done, running, next, waiting (on you), later. Two cross-cutting workstreams start first: **CONS** (consistency, server seams, no hard-coded values) and **META** (metadata for every place and activity); see EXECUTION-PLAN sections 5 and 6.
+**Order (owner, 20 Oct 2026, revised the same day):** phase **A** fixes every UI issue first, then the owner reviews it (**R1**). Phase **B** builds API-over-JSON and the foundations (internal gate **G-B**). Phase **E** builds the features on the API, then the owner reviews again (**R2**). Phase **D** is a hosting-agnostic readiness checklist: **deployment is out of scope until the hosting is chosen**, and the site is no longer a static export. API-over-Supabase is lane **SRV-0**, after E, local only. The sequenced plan with lanes, files, efforts, gates, the server switch and the calendar is **[EXECUTION-PLAN.md](EXECUTION-PLAN.md)**; every pending item from every source is one line of **[COVERAGE.md](COVERAGE.md)** (244 lines, 0 unmapped). Status words: done, running, next, waiting (on you), later.
 
-## 3. Phase A and B: before review R1
-
-| # | Item | Rows | Detail | Lane | Effort | Depends on | Status |
-|---|---|---|---|---|---|---|---|
-| 0 | Typed data client, capability flags, config module, placeholder seams; hard-coding guards and the contract test kit | 13.1 to 13.4 | [EXECUTION-PLAN](EXECUTION-PLAN.md) 5, [briefs/CONS.md](briefs/CONS.md) | CONS-0, CONS-1 | 12 h | none | next |
-| 1 | Home search panel opens clipped (anchor to viewport, not the button) | 9.1 | [round 1 plan](OWNER-ROUND1-plan.md) item 1, [briefs/FIXF.md](briefs/FIXF.md) | FIXF | 2.5 h | none | next |
-| 2 | Globe: "Fly here" does nothing; river draws a state; wrong centre for landforms | 9.7, 9.4 | round 1 plan items 4 and 5, [briefs/GLB2.md](briefs/GLB2.md) | GLB2a | 12 h | none | next |
-| 3 | Globe: switch for natural features (default on) | 9.8, Q52 | round 1 plan item 6 | GLB2a | 3 h | 9.4, 9.7 | next |
-| 4 | Hide the header "Sign in" (no login exists) | 11.1, Q64 | [briefs/SHL2.md](briefs/SHL2.md) | SHL2 | 1 h | CONS-0 | next |
-| 5 | "Report a problem" link (no personal address in the page) | 11.2, Q63, Q70 | briefs/SHL2.md | SHL2 | 2 h | Q70 | next (Q70 decided: public feedback repo to create) |
-| 6 | Where filter: country and state or province, with counts (city level in E) | 8.1, Q54 | [nearby spec](../../features/nearby-and-regions.md) section 4, phase N0; [briefs/LST2.md](briefs/LST2.md) | LST2a | 8 h | CONS-0 | next |
-| 7 | Trail key-facts strip and a Search AllTrails link on every trail | 10.1, 10.3, Q53 | round 1 plan items 13 and 15; [briefs/PLC2.md](briefs/PLC2.md) | PLC2a | 6 h | none | next |
-| 8 | Metadata rule, tiers per kind, validator and gap reports (META-0) | 8.3, 13.5, 3.37 | EXECUTION-PLAN 6; [briefs/META.md](briefs/META.md) | META | 10 h | none | next |
-| 9 | Stage 5 run 1: sweep, output audit, research sample, timeline plausibility, code and security audit, closure | 5.1 to 5.6 | EXECUTION-PLAN 7 | other-model checkers | 1 day | items 0 to 8 merged | next |
-| 10 | Fix whatever stage 5 finds | 5.x-n | | builders | up to 1 day | item 9 | next |
-| 11 | Preview 1, speed numbers, hand-over with the R1 script | 6.3, 2.47 | EXECUTION-PLAN 8.1 | me | half a day | item 10 | next |
-
-## 4. Phase C: your reviews (two gates)
-
-Full gate definitions (entry criteria, checklist, who does what, exit criteria, the round loop and a one-page script for you) are in [EXECUTION-PLAN.md](EXECUTION-PLAN.md) sections 8 (R1) and 10 (R2).
-
-| # | Item | Rows | Detail | Who | Status |
-|---|---|---|---|---|---|
-| 12 | **R1** after A and B: the Rockies trip and "Plan it for", a place page on both layouts, the places list on a phone, the globe, a sentence search, Safari on your iPhone and Mac, dark mode on a phone; plus the A and B changes (search panel, Fly here, rivers, the natural-features switch, Sign in hidden, Report a problem, the Where filter, trail facts, AllTrails links), the home globe mock and the baseline metadata report | 6.1, 6.2, 6.3, 2.47 | EXECUTION-PLAN 8 | you | waiting |
-| 13 | R1 findings go into the backlog first (`6.2-R1-n`), then get fixed in rounds; re-check after each | 6.2 | EXECUTION-PLAN 8.5 | me and builders | |
-| 14 | **R2** after E: the R1 set again, plus towns and cities, the city level in Where, the Nearby block, "near Whitby" with Oshawa and Ajax, the globe city outlines and home look, the Google trip map, Export trip, trail photos, facts and points, activities, the metadata report at 0 unknown; your go-live approval (Q43) | 6.1, 6.2, Q43 | EXECUTION-PLAN 10 | you | waiting |
-| 15 | R2 findings into the backlog first (`6.2-R2-n`), fixed in rounds, re-checked | 6.2 | EXECUTION-PLAN 10.5 | me and builders | |
-
-## 5. Phase E: before review R2 (moved before go-live, owner 20 Oct)
+## 3. Phase A: the UI fixes (before review R1)
 
 | # | Item | Rows | Detail | Lane | Effort | Status |
 |---|---|---|---|---|---|---|
-| 16 | One geo module, thresholds, kind labels, home point module; then slug tables, palettes, UA and endpoints | 13.2 | EXECUTION-PLAN 5.3 | CONS-2, CONS-3 | 16 h | next (at R1 entry) |
-| 17 | Placement migration: join fix, area from the hierarchy, trailheads from held tracks | 8.3, 8.7b | nearby spec 3.5; briefs/META.md | META-1 | 6 h | next |
-| 18 | Towns and cities layer (GeoNames), nearest town derived, Whitby in the towns layer, credit | 8.4, 8.9, 8.10, Q50, Q55 | nearby spec 5.6 | META-2 | 6 h | next |
-| 19 | Points for the rest of the 121 pointless pages (81 of them trails); locations store required tier | 8.8, 10.5, 8.7, Q58 | [briefs/DATA.md](briefs/DATA.md) D1, D2 | DATA | 10 h agent | next |
-| 20 | Trail facts filled from sources; activity basics (where, operator, season, price, limits, window) | 10.2, 13.5, 3.53 part | DATA D3, D4 | DATA | 18 h agent | next |
-| 21 | Trail photos (Commons, credited), then activities and trip stops | 10.4 | DATA D5 | DATA | 10 h agent | next |
-| 22 | Where city level (`city=`), `where-<cc>.json`, province on Trips | 8.1, 8.11, 8.12, Q61, Q62 | nearby spec N1; briefs/LST2.md | LST2b | 12 h | next |
-| 23 | Nearby: "Around here" on place pages, related places, offers show where they happen | 8.2, 8.14, 8.15, Q56, Q57 | nearby spec 5.2; briefs/PLC2.md | PLC2b | 10 h | next |
-| 24 | Near mode in the list, towns strip, parser near rule | 8.2, 8.11, 8.16 | nearby spec 5.3, 5.5; briefs/LST2.md | LST2c | 9 h | next |
-| 25 | Globe: city outlines from the towns layer; home globe look (mock at R1, then build) | 9.3, 9.2 | round 1 plan items 2 and 3; briefs/GLB2.md | GLB2b | 25 h | next |
-| 26 | Trip route map on Google Maps with solid routed legs; visible "Export trip" | 9.5, 9.6, Q51, Q46 | round 1 plan items 10 and 11; [briefs/TRP2.md](briefs/TRP2.md) | TRP2 | 18 h | next |
-| 27 | Drive-time matrix (ORS) for nearby, plus the hub matrix (pulled in from F) | 8.13, 3.12 | nearby spec N3; [briefs/MX.md](briefs/MX.md) | MX | 5 h | next |
-| 28 | Stage 5 run 2 (scoped to E), fixes, preview 2 with the redirect rehearsal | 5.x | EXECUTION-PLAN 7, 10.1 | checkers, me | 2.5 days | next |
+| 1 | Flaky browser tests fixed (wait for settled values) | 3.63, 3.67g | [briefs/TST.md](briefs/TST.md) | TST | 4 h | next |
+| 2 | Home search panel clipped; header Search second tap closes | 9.1, 3.66a | [briefs/FIXF.md](briefs/FIXF.md) | FIXF | 2.5 h | next |
+| 3 | Sign in hidden; Report a problem to the public feedback repo; gallery tile accessible names | 11.1, 11.2, Q70, 15.2 | [briefs/SHL2.md](briefs/SHL2.md) | SHL2 | 4 h | next (the repo must exist before the link turns on) |
+| 4 | Globe: Fly here, rivers draw lines, natural-features switch; globe and home polish | 9.7, 9.4, 9.8, 3.65, 15.3, 15.4 | [briefs/GLB2.md](briefs/GLB2.md) part a | GLB2a | 19 h | next |
+| 5 | Trip page polish: phone map pill, Patagonia, Switzerland, Dolomites day 4, merged-duplicate stop, Rockies markers | 15.5, 3.62b, 3.67d, 3.35 | [briefs/TRP1.md](briefs/TRP1.md) | TRP1 | 8 h | next |
+| 6 | Where pill (country, province, parks and areas) and list polish | 8.1, Q54, 3.62, 3.66, 15.3, 15.4 | [briefs/LST2.md](briefs/LST2.md) part a | LST2a | 16 h | next |
+| 7 | Trail facts strip, AllTrails links, place page polish (4.12 and the review list) | 10.1, 10.3, 4.12, 3.49, 15.3, 15.4 | [briefs/PLC2.md](briefs/PLC2.md) part a | PLC2a | 14 h | next |
+| 8 | Read-only schema diff (risk check for the API and Supabase) | 14.1 | [briefs/SRV.md](briefs/SRV.md) | SRV-D | 3 h | next |
+| 9 | Scoped checks (screenshot sweep, output audit, closure), preview 1 | 5.1, 5.2, 5.6, 2.47 | EXECUTION-PLAN 7, 8.1 | checkers, me | 1 day | next |
 
-## 6. Phase D: go-live (only after you approve at R2)
+## 4. Phase C: your reviews (two gates)
 
-The ordered checklist with a rollback for every step is EXECUTION-PLAN section 12; the brief is [briefs/GO-LIVE.md](briefs/GO-LIVE.md).
+Entry criteria, checklist, roles, exit and the round loop, with a one-page script for you, are in [EXECUTION-PLAN.md](EXECUTION-PLAN.md) sections 8 (R1) and 11 (R2).
 
-| # | Step | Rows | Who | Rollback |
+| # | Item | Rows | Who | Status |
 |---|---|---|---|---|
-| 29 | Approve the preview at R2 exit | 6.1, Q43 | you | n/a |
-| 30 | Remove `/specimen` from the public build | 2.42, 7.8 | me | revert a commit |
-| 31 | Custom domain, bot protection and one rate-limit rule | 7.6, 7.7, Q44, Q71 | you in Cloudflare | toggle off |
-| 32 | `robots.txt` blocks AI crawlers; `_headers`; legacy redirects 302 for a week (including the five with household names) | 7.1, 7.10, 2.46, 2.48, Q45 | me | remove the rules |
-| 33 | Restore the Google key's website restrictions, daily quota, Map ID with POIs off, remove the unused Map ID variable | 7.2, 7.3, Q48 | you; me for the env file | widen again |
-| 34 | `./publish.sh --product --go-live`, check every old and new address, submit the sitemap; post-publish check and Lighthouse | 7.5, 7.11, 7.12 | me, verifier | roll back the Pages deployment |
-| 35 | Day 7: switch the legacy redirects to 301 | 7.10 | me | none after this |
-| 36 | Exports stay per item and public until sign-in; amend the P8 wording | 7.9, Q46 | me (doc) | n/a |
-| 37 | Cleanup: merged worktrees and stale tunnels (with your confirmation); move the files the code still reads from `legacy/` into `data/`, then remove `legacy/` | 7.11, Q49 | me | recreate from branches |
+| 10 | **R1** after phase A: every UI fix and every visible defect in COVERAGE.md phase A, plus the carried-over set (Rockies and "Plan it for", a place page on both layouts, the places list on a phone, the globe, a sentence search, Safari on your iPhone and Mac, dark mode on a phone), the home globe mock, the Mount Robson marker, the default list order, the metadata baseline | 6.1, 6.2, 6.3, 2.47, 13.6, 14.7 | you | waiting |
+| 11 | R1 findings into the backlog first (`6.2-R1-n`), fixed in rounds, re-checked | 6.2 | me and builders | |
+| 12 | **R2** after phase E: R1 again, plus towns and cities, the Where city level, Nearby, "near Whitby" with Oshawa and Ajax, globe city outlines and the home look, the Google trip map, Export trip, trail photos, facts and points, activities, the metadata report at 0 unknown; your approval (Q43) | 6.1, 6.2, Q43 | you | waiting |
+| 13 | R2 findings into the backlog first (`6.2-R2-n`), fixed in rounds, re-checked | 6.2 | me and builders | |
 
-## 7. Phase F: later
+## 5. Phase B: API-over-JSON and the foundations (during R1)
 
-Items pulled forward into A, B or E are listed in EXECUTION-PLAN section 11 (3.37, 3.12, parts of 3.66, 3.67 and 3.53, the globe long-flight profile, Lighthouse).
+| # | Item | Rows | Detail | Lane | Effort | Status |
+|---|---|---|---|---|---|---|
+| 14 | Server build mode (no static export); harness and the tests that read `web/out` | 14.2, 15.1 | [briefs/API.md](briefs/API.md) API-0 | API | 10 h | next |
+| 15 | Zod contracts, `CatalogueStore` with `JsonStore`, route handlers under `/api/v1/`, OpenAPI, the API adapter as default, the contract kit | 14.3, 13.1, 13.4 | API-1 | API | 22 h | next |
+| 16 | Pure modules into `core/` (filters, parser, scrub, export, links) | 14.4 | API-2 | API | 14 h | next |
+| 17 | Hard-coding guards; one geo module, thresholds, kind labels | 13.2, 13.3 | [briefs/CONS.md](briefs/CONS.md) | CONS-1, CONS-2 | 14 h | next |
+| 18 | Metadata rule, tiers per kind, validator and gap reports | 8.3, 13.5, 3.37 | [briefs/META.md](briefs/META.md) META-0 | META | 10 h | next |
+| 19 | Gate G-B: code audit, contract kit, static fallback smoke, quiet e2e | 5.5 | EXECUTION-PLAN 9 | Opus auditor, me | 1 day | next |
+
+## 6. Phase E: features on the API (before review R2)
+
+| # | Item | Rows | Detail | Lane | Effort | Status |
+|---|---|---|---|---|---|---|
+| 20 | Placement migration (join fix, area, trailheads) and the towns layer with Whitby and the GeoNames credit | 8.3, 8.4, 8.7b, 8.9, 8.10 | briefs/META.md | META-1, META-2 | 12 h | next |
+| 21 | Data passes: points (81 trails among the 121 pointless pages), locations required tier, trail facts, activities, trip and stop basics, photos | 8.7, 8.8, 10.2, 10.4, 10.5, 3.9, 3.10, 3.53, 3.61 | [briefs/DATA.md](briefs/DATA.md) D1 to D6 | DATA | 44 h agent | next (D3, D4, D6 start in phase B) |
+| 22 | Where city level, Trips by province | 8.1, 8.11, 8.12 | briefs/LST2.md part b | LST2b | 12 h | next |
+| 23 | Nearby: Around here, related places, offers show where they happen | 8.2, 8.14, 8.15 | briefs/PLC2.md part b | PLC2b | 10 h | next |
+| 24 | Near mode, towns strip, parser near rule | 8.2, 8.11, 8.16 | briefs/LST2.md part c | LST2c | 9 h | next |
+| 25 | Trip route map on Google; Export trip through the API | 9.5, 9.6, 3.67b-c | [briefs/TRP2.md](briefs/TRP2.md) | TRP2 | 18 h | next |
+| 26 | Globe city outlines and the home globe look | 9.2, 9.3 | briefs/GLB2.md part b | GLB2b | 25 h | next |
+| 27 | ORS nearby and hub matrices | 8.13, 3.12 | [briefs/MX.md](briefs/MX.md) | MX | 5 h | next |
+| 28 | Hard-coding burn-down (slug tables, palettes, UA, endpoints, host) | 13.2 | briefs/CONS.md CONS-3 | CONS | 8 h | next |
+| 29 | Full stage 5 run, fixes, preview 2 | 5.1 to 5.6 | EXECUTION-PLAN 7, 11.1 | checkers, me | 3 days | next |
+| 30 | SRV-0: API-over-Supabase locally, contract kit against it (beside R2, flags off) | 14.5 | briefs/SRV.md | SRV | 24 h | later |
+
+## 7. Phase D: readiness (after your approval at R2), hosting-agnostic
+
+The checklist is EXECUTION-PLAN section 13 and [briefs/GO-LIVE.md](briefs/GO-LIVE.md). **Revisit when the hosting is chosen:** the deploy itself, preview environments, the custom domain (Q71), edge protection and rate limits, how redirects and cache rules are expressed, environment variables, rollback (rows 7.4 to 7.7, 7.12, 14.6).
+
+| # | Step | Rows | Who |
+|---|---|---|---|
+| 31 | Your approval of a named commit | Q43 | you |
+| 32 | Privacy over HTML and API output; Whitby only in towns rows and near chips | 5.2, Q50 | Opus auditor |
+| 33 | Redirect policy as data (461 old URLs; 302 for a week after the real deploy, then 301) | 7.1, 7.10, 2.48, Q45 | me |
+| 34 | Robots policy; sitemap clean; `/specimen` removed | 7.6, 7.8, 2.42 | me |
+| 35 | Cache rules (ETag, Cache-Control per path) | 2.46 | me |
+| 36 | Google key restrictions ready, daily quota, Map ID with POIs off, unused Map ID variable removed | 7.2, 7.3, Q48 | you; me for the env file |
+| 37 | No secret in bundles or API output; Lighthouse numbers recorded | 5.5, 2.47 | me, verifier |
+| 38 | Exports per item and public until sign-in; P8 wording | 7.9, Q46 | me |
+| 39 | Cleanup with your confirmation (worktrees, tunnels); later move legacy-read files and remove `legacy/` | Q49, 7.11 | me |
+
+## 7b. Phase F: later
+
+Items pulled into A, B or E are in EXECUTION-PLAN section 12.
 
 | Item | Rows | Detail |
 |---|---|---|
-| Data research batches not needed by E: prices, summaries, seasons for 6 trips, minimum ages beyond the activities, the remaining 8 Dolomites routes, Waterton fares, Walcott dates | 3.61, 3.28, 3.47, 3.49, 3.9 | [capture research backlog](../../research/capture-research-backlog.md) |
-| Short trips (day and weekend outings) and the legacy time import for 8 trips | 3.1c, 3.13, 3.14 | [short-trips.md](../../features/short-trips.md) |
-| Search: full-text "Words" chip, search sizes at 10,000 places | 3.66, 3.51 | polish |
-| Embedding-model search | 3.15 | measured, not worth it yet; revisit near 1,000 places with summaries |
-| Trip page leftovers not in TRP2: scheduler size, Patagonia cover and day map, overview Copy text, Dolomites day-4 limits | 3.67 | polish |
-| Motion tokens in the foundation | 13.2 part | needs a foundation ruling |
-| Smart trip builder (guest draft, then sign-in); placeholder seams exist from CONS-0 | 8.5, 8.6, Q59, Q60 | [nearby spec section 6](../../features/nearby-and-regions.md) |
-| The signed-in planner and the backend (the second product) | F01 to F17 | **[SERVER-SIDE-LAUNDRY-LIST.md](../SERVER-SIDE-LAUNDRY-LIST.md)**: foundation, the public site's server versions, every planner feature, order and the first decisions (Q65 to Q69); the switch-over order is EXECUTION-PLAN section 13. Starts after this master list is done |
+| Data research not needed by E: Walcott dates, the remaining Dolomites routes, Nuvolau chaining | 3.61b, 3.47d, 3.28 | [capture research backlog](../../research/capture-research-backlog.md) |
+| Short trips and the legacy time import | 3.1c, 3.13, 3.14 | [short-trips.md](../../features/short-trips.md) |
+| Search polish: the "Words" chip | 3.66b | polish |
+| Embedding search and free AI features | 3.15, L9 | needs your go (L9); recommended not now |
+| Scheduler bundle trim | 3.67a | budget holds |
+| Smart trip builder (flags and `/plan/` reserved) | 8.5, 8.6, Q59, Q60 | [nearby spec section 6](../../features/nearby-and-regions.md) |
+| The signed-in planner and the backend | F01 to F17, Q65 to Q69 | **[SERVER-SIDE-LAUNDRY-LIST.md](../SERVER-SIDE-LAUNDRY-LIST.md)**; the switch-over order is EXECUTION-PLAN 14.2 |
 
 ## 8. Owner decisions
 
@@ -123,7 +129,7 @@ Items pulled forward into A, B or E are listed in EXECUTION-PLAN section 11 (3.3
 |---|---|---|
 | Q42 | Cloudflare login on your phone, only if it expired | Yes, only if needed |
 | Q43 | Approve the preview for go-live | At R2 exit, after your review rows close |
-| Q44 | Custom domain, so bot protection applies | Yes (name: Q71) |
+| Q44 | Custom domain, so bot protection applies | Yes (name: Q71); deferred with hosting |
 | Q45 | Legacy redirects: 302 for a week, then 301 | Yes |
 | Q46 | Exports per item and public until sign-in | Yes |
 | Q48 | Turn off Google points of interest | Yes |
@@ -132,7 +138,7 @@ Items pulled forward into A, B or E are listed in EXECUTION-PLAN section 11 (3.3
 | Q51 | Google Maps on the trip route map | Yes |
 | Q52 | Natural features default on or off | On, with the switch |
 | Q53 | AllTrails: search links for all, direct links as supplied | Yes |
-| Q54 | Where pill (country, province) at launch, city level after | Yes; with the new order the city level also ships before go-live (in E) |
+| Q54 | Where pill (country, province) at launch, city level after | Yes; the pill ships in phase A, the city level in phase E |
 | Q55 | GeoNames as the towns source | Yes |
 | Q56 | Radius 10, 25, 50, 100 km, cap 100 | Yes |
 | Q57 | Drive-time bands, not exact minutes | Yes |
@@ -141,11 +147,11 @@ Items pulled forward into A, B or E are listed in EXECUTION-PLAN section 11 (3.3
 | Q60 | Unresearched places shown signed-in only | Yes |
 | Q61 | Province level on Trips | Yes |
 | Q62 | The `city=` URL key | Yes |
-| Q63 | Report a problem: an issue link first, never a personal email | Yes (destination: Q70) |
+| Q63 | Report a problem: an issue link first, never a personal email | Yes (destination: the public feedback repo, Q70) |
 | Q64 | The header "Sign in": hide until the planner exists | Hide |
 | Research | Unpause research | Yes, for all phase E data work |
 
-**Open, new (20 Oct):** Q70 where "Report a problem" goes (the repository is private), Q71 the custom domain name, Q72 E starting while you review R1. Recommendations in EXECUTION-PLAN section 18.
+**Decided later on 20 Oct:** Q70 a small public feedback repo with an issue form (still to be created); Q71 register the domain through Cloudflare Registrar, name to come (now deferred with hosting); Q72 start the next phase during R1 (applied to phase B). **Still open:** creating the feedback repo under your account, L7 (close PR #7 and the P3b worktree), L9 (free AI features); recommendations in EXECUTION-PLAN section 18.
 
 **Still open, out of scope:** Q65 to Q69, the server-side decisions (where the backend lives, sign-in method, who may sign in, guest planning, household privacy); see [SERVER-SIDE-LAUNDRY-LIST.md](../SERVER-SIDE-LAUNDRY-LIST.md) section 1. Needed only when the server work starts.
 
@@ -158,4 +164,5 @@ No green. Overlays non-modal, motion smooth. P8: nothing lets one request pull t
 | Date | Change |
 |---|---|
 | 2026-10-20 | First version: all pending public-site items, linked to their plans |
+| 2026-10-20 | Rewritten after the owner's later decisions: UI fixes first with R1 straight after; API-over-JSON in phase B; deployment out of scope, phase D a readiness checklist; SRV-0 after E; COVERAGE.md; Q70 to Q72 decided |
 | 2026-10-20 | Re-ordered to A, B, E, D with review gates R1 and R2 (owner); Q42 to Q64 decided; E moved before go-live; CONS and META workstreams; Q70 to Q72; Q1 to Q62 corrected to Q1 to Q72; links to EXECUTION-PLAN.md |

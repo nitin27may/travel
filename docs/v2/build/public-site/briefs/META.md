@@ -6,7 +6,7 @@
 - **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) section 6 (tiers, the measured audit, acceptance numbers, mechanics), tasks B4, E2, E3. The research batches that fill the data are [DATA.md](DATA.md).
 - **Specs:** [nearby-and-regions.md](../../../features/nearby-and-regions.md) section 3 (the placement block, validator codes, migration) and 5.6 (towns); [capture-contract.md](../../../research/capture-contract.md).
 - **Principles:** P1, P8, P9, T3, T5. A gap is never a yes.
-- **Starts:** META-0 day 1 (phase B, core only); META-1 after CONS-2; META-2 after CONS-2.
+- **Starts:** META-0 at R1 entry (phase B, core only); META-1 and META-2 after gate G-B (the API and CONS-2 are in).
 - **Review:** no design review; travel-verifier. Stage 5 check 5.3 samples the data in run 2.
 
 ## Goal
@@ -25,8 +25,8 @@ Every record of every kind (place, trail, other route, activity, event, stay) ha
 | Sub-lane | Paths |
 |---|---|
 | META-0 | `core/src/schema/capture/properties.ts`, the `point` value schema and the points sidecar schema under `core/src/schema/capture/**`, `core/src/validate/capture.ts`, `core/src/validate/codes.ts`, `core/src/capture/gapsCli.ts`, `core/bin/capture.ts` (the `gaps` modes), `data/capture/gap-budget.json` (new), generated outputs regenerated with `node core/bin/capture.ts build`, `docs/v2/research/capture-contract.md` (new section 3.7 "Placement and tiers"), `.claude/agents/travel-researcher.md` (one checklist line), `core/test/capture/**` |
-| META-1 | `web/lib/public/places.ts` (the point read order only), `core/bin/capture.ts migrate-placement` (new verb), `core/src/capture/migratePlacement.ts` (new), `data/capture/**` (`area_id` writes, trailheads from held tracks), `data/capture/points.json`, `web/tests/data/places*.test.ts` |
-| META-2 | `tools/towns.py` (new), `tools/tests/test_towns.py` (new), `data/reference/towns/**` (new, committed), `core/src/derive/near.ts` (new), the `near_town` derive step in `capture.ts build`, `web/lib/public/origin.ts` (the exemption only), `web/tests/data/public-privacy.test.ts` (the Whitby rule), `web/components/home/AboutData.tsx` (GeoNames credit line) |
+| META-1 | `core/src/catalogue/json/points.ts` (the point read order inside `JsonStore`; `web/lib/public/places.ts` only if the dataset builder still decides the page point, one function), `core/bin/capture.ts migrate-placement` (new verb), `core/src/capture/migratePlacement.ts` (new), `data/capture/**` (`area_id` writes, trailheads from held tracks), `data/capture/points.json`, `web/tests/data/places*.test.ts` |
+| META-2 | `tools/towns.py` (new), `tools/tests/test_towns.py` (new), `data/reference/towns/**` (new, committed), `core/src/derive/near.ts` (new), `core/src/catalogue/json/towns.ts` (the `towns()` store method), the `near_town` derive step in `capture.ts build`, `core/src/privacy/**` (the exemption only; API-2 moved the scrub there), `web/tests/data/public-privacy.test.ts` (the Whitby rule), `web/components/home/AboutData.tsx` (GeoNames credit line) |
 
 ## Do not touch
 
@@ -47,7 +47,7 @@ Every record of every kind (place, trail, other route, activity, event, stay) ha
 ### META-1 (phase E)
 
 8. `E_PLACE_FAR` runs first over every existing point; fix nothing silently: list each hit for DATA D1.
-9. **Join fix.** In `places.ts`, a page reads its point from `data/capture/points.json`, then `data/relevance/inputs/points.json`, by ref, before saying "no point". Report the real gained count (19 by slug suffix, 23 by the spec's ref join).
+9. **Join fix.** In `JsonStore` (and the dataset builder that feeds pages), a page reads its point from `data/capture/points.json`, then `data/relevance/inputs/points.json`, by ref, before saying "no point". Report the real gained count (19 by slug suffix, 23 by the spec's ref join).
 10. **`migrate-placement` (runs once, like `migrate`):** writes `area_id` onto the 346 records without one, from the locations store, then the trip, then the parent through `part_of`, `at` or `starts_at`, then point-in-polygon against the area tree; adds trailheads from the first vertex of a confirmed track (Dolomites only) with `point_role: trailhead`.
 11. Rerun both gap reports; lower `gap-budget.json`.
 
@@ -72,7 +72,7 @@ Every record of every kind (place, trail, other route, activity, event, stay) ha
 
 ## Server switch
 
-The placement block, tiers and validator are Zod schemas and pure checks in `core/`; a Postgres loader and an API validate the same shapes. `near_town` is derived by a pure function a server can run on insert. The point join is one adapter function; a server reads the joined column. No component changes on the switch.
+The placement block, tiers and validator are Zod schemas and pure checks in `core/`; SRV-0's loader and the API validate the same shapes. `towns()` and the point join are `CatalogueStore` concerns, served by `GET /api/v1/towns` and inside every place response, with contract cases. `near_town` is derived by a pure function a server can run on insert. The point join is one adapter function; a server reads the joined column. No component changes on the switch.
 
 ## Verification
 

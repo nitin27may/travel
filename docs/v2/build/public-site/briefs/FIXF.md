@@ -5,7 +5,7 @@
 - **Rows:** 9.1 (clipped panel), 3.66 part (header Search closes on a second tap).
 - **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) task A1. Cause and repro in [OWNER-ROUND1-plan.md](../OWNER-ROUND1-plan.md) item 1.
 - **Principles:** P3 (the way back always visible), P4, P5 (smooth, linked open and close).
-- **Starts:** day 1. **Merges:** after CONS-0, first of phase A.
+- **Starts:** day 1. **Merges:** after TST, first of the UI lanes in phase A. No API dependency: the panel keeps calling today's boundary functions, so the API swap in phase B does not touch it again.
 - **Opus review:** none; travel-verifier only.
 
 ## Goal
@@ -45,7 +45,7 @@ The search panel opens fully inside the viewport, anchored to the viewport and h
 
 ## Server switch
 
-Layout only. The panel calls `search()`, `suggest()` and `parseQuery()` through `web/lib/client/data.ts`, unchanged; a server `GET /api/search?q=` returns the same `SearchResult`. Nothing in this lane reads a file.
+Layout only. The panel calls `search()`, `suggest()` and `parseQuery()` through `web/lib/client/data.ts`, unchanged; a server `GET /api/v1/search?q=` returns the same `SearchResult`. Nothing in this lane reads a file.
 
 ## Verification
 

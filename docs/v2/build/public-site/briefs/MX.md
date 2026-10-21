@@ -6,7 +6,7 @@
 - **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) task E14.
 - **Specs:** [nearby-and-regions.md](../../../features/nearby-and-regions.md) 5.1 and N3; [short-trips.md](../../../features/short-trips.md) 4.1 (the hub matrix); `web/scripts/legs-ors.mjs` (the existing pattern).
 - **Principles:** P8 (the matrix is a build input, never shipped whole), T5.
-- **Starts:** after PLC2b (`nearby.ts`) and LST2c merge.
+- **Starts:** after PLC2b (`core/src/nearby/`) and LST2c merge.
 - **Review:** travel-verifier.
 
 ## Goal
@@ -16,12 +16,12 @@ Where a base or hub and a place within 100 km have a routed drive time, Nearby a
 ## Read first
 
 - `web/scripts/legs-ors.mjs` (sequential, at most 28 requests a minute, `--check`, never prints a key).
-- `web/lib/public/world.ts` `fromHubsOf` (reads `data/outings/from-hubs.json`, absent today), `web/lib/public/nearby.ts`, `core/src/config/nearby.ts`.
+- `web/lib/public/world.ts` `fromHubsOf` (reads `data/outings/from-hubs.json`, absent today), `core/src/nearby/` (PLC2b), `core/src/config/nearby.ts`.
 - `data/relevance/inputs/points.json` `towns` (33 bases) and the hub list in short-trips.md and Q19.
 
 ## Files you own
 
-`web/scripts/nearby-ors.mjs` (new), `data/outings/**` (new: `nearby-ors.json`, `from-hubs.json`), the reader lines in `web/lib/public/nearby.ts` (after PLC2b merges), `web/tests/data/nearby-ors.test.ts` (new), one `--check` line in `tools/check-all.sh`.
+`web/scripts/nearby-ors.mjs` (new), `data/outings/**` (new: `nearby-ors.json`, `from-hubs.json`), the routed-value read in `core/src/nearby/` and `core/src/catalogue/json/nearby.ts` (after PLC2b merges), `web/tests/data/nearby-ors.test.ts` (new), one `--check` line in `tools/check-all.sh`.
 
 ## Do not touch
 
@@ -32,7 +32,7 @@ Everything else. `ORS_API_KEY` is read from the environment only, never printed,
 1. Pairs: every trip base and public hub (Toronto, Hamilton, Ottawa, Montréal, Calgary, Salt Lake City or Las Vegas, Burlington VT, Venice, Bolzano, Geneva, Reykjavik, per Q19) against every place with a non-approximate point within `DAY_TRIP_KM`. Report the cell count (estimate about 1,800 nearby plus the hub-to-trip pairs).
 2. ORS matrix calls, sequential, inside the free-tier limits; store `{from, to, minutes, km, basis: 'routed', fetched}`; only missing pairs are fetched; `--check` exits 1 on a missing pair.
 3. Write `from-hubs.json` in the shape `fromHubsOf` reads.
-4. `nearby.ts` uses a routed value where the pair exists, else the band.
+4. `core/src/nearby/` uses a routed value where the pair exists, else the band; `near()` and `nearbyForPlace()` return `basis: 'routed'` or `'estimate'`.
 
 ## Acceptance checks
 

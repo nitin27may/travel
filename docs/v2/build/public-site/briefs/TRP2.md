@@ -8,7 +8,7 @@ Extends [TRP.md](TRP.md) (stage 4). This brief is self-contained for round 2.
 - **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) task E12.
 - **Specs:** [trip-timeline.md](../../../features/trip-timeline.md), [design/trip-page/stage4-map-note.md](../../../design/trip-page/stage4-map-note.md), [research/map-stack-2026-10-18.md](../../../research/map-stack-2026-10-18.md) (amended by Q51: Google on the trip route map, MapLibre kept for the globe and the trips list map).
 - **Principles:** P2, P5, P7 (copy and export is the 90% action), T2 (works in the field, exports), T5.
-- **Starts:** at R1 entry with the note; build after CONS-2 merges.
+- **Starts:** the note at R1 entry; the build after gate G-B (the API, `core/src/export` and CONS-2 are in) and after TRP1 (phase A) has merged, since it owns the same files.
 - **Opus review:** before (the note) and after.
 
 ## Goal
@@ -23,7 +23,7 @@ The trip route map is Google Maps with our pins and lines: routed legs solid, es
 
 ## Files you own
 
-`web/components/trips/**` except `TripsMap.tsx`, `TripCover.tsx`, `types.ts` and `tags/**`; `web/lib/map/**` except `links.ts` (PLC2) and `palette.ts` (CONS-3 after you merge); `web/lib/export/**`; `web/components/actions/**`; `web/styles/timeline.css` and the trip-page styles; `web/tests/trips/**`, `web/tests/export/**`, `web/tests/map/**` except `links*`; `web/tests/e2e/trip-*.spec.ts`, `export.spec.ts`; the note `docs/v2/design/trip-page/google-map-note.md` (written by the reviewer).
+`web/components/trips/**` except `TripsMap.tsx`, `TripCover.tsx`, `types.ts` and `tags/**`; `web/lib/map/**` except the link-builder shim and `palette.ts` (CONS-3 after you merge); `core/src/export/**` (moved there by API-2), `core/src/schema/api/export.ts`, `web/app/api/v1/export/**`, the export contract cases; `web/lib/export/**` (the shims and client download code); `web/components/actions/**`; `web/styles/timeline.css` and the trip-page styles; `web/tests/trips/**`, `web/tests/export/**`, `web/tests/map/**` except `links*`; `web/tests/e2e/trip-*.spec.ts`, `export.spec.ts`; the note `docs/v2/design/trip-page/google-map-note.md` (written by the reviewer).
 
 ## Do not touch
 
@@ -53,7 +53,7 @@ The trip route map is Google Maps with our pins and lines: routed legs solid, es
 
 ## Server switch
 
-`loadExport(type, slug, format, profile)` is a `DataClient` method with a Zod input (`format`, `p`, overrides) and output; today it builds from the per-item export data, later `GET /api/export/trip/:slug?format=&p=` with rate limits (laundry list item 14). The map reads trip stops and legs from the trip model built by the adapter; routed legs later come from the server's `leg_cache` (item 34) with the same leg shape. URLs (`p`, `split`, `#day-N`) and components are unchanged on the switch.
+`loadExport(type, slug, format, profile)` calls `GET /api/v1/export/trip/{slug}?format=&p=`, which calls `CatalogueStore.getExport()` with the Zod `ExportQuery` and the pure builders in `core/src/export/`. Rate limits come with hosting (laundry list item 14); a `SupabaseStore` passes the same export contract cases. The map reads trip stops and legs from the trip model built by the adapter; routed legs later come from the server's `leg_cache` (item 34) with the same leg shape. URLs (`p`, `split`, `#day-N`) and components are unchanged on the switch.
 
 ## Verification
 
