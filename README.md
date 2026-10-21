@@ -86,5 +86,5 @@ First run of the Playwright suite needs the browser: `pnpm --dir web exec playwr
 ## Where the plan is
 
 `docs/v2/PLAN.md` is the single plan: requirements, order, status and next tasks. The v1 platform plan is
-`docs/PLAN-platform.md` (archived in cleanup CLN-2), and its phase briefs are in `docs/archive/v1/briefs/`
+`docs/archive/v1/PLAN-platform.md` (archived in cleanup CLN-2), and its phase briefs are in `docs/archive/v1/briefs/`
 (index: `docs/archive/v1/briefs/README.md`). Working notes for agents: `CLAUDE.md`.

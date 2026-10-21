@@ -4,7 +4,7 @@ import { ROOT, expectSlow as expect, readStore, test } from './fixtures';
 import type { Page } from '@playwright/test';
 
 // The legacy list page (hash state) and /places/ (query state) must show the same number of places
-// for the same filters. Parameter sets follow docs/PLAN-locations-g5.md 2.4. The legacy page has no
+// for the same filters. Parameter sets follow docs/archive/v1/PLAN-locations-g5.md 2.4. The legacy page has no
 // `season` parameter, so season is tested on the app alone in url-state.spec.ts.
 //
 // The app now lists every public place (the saved ones plus the researched Dolomites places), so each app count is
