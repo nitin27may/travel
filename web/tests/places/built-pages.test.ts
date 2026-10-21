@@ -154,7 +154,8 @@ describe.skipIf(!built)('place page labels that contradicted themselves (REVIEW4
     const h = page('lago-di-sorapis');
     const glance = /<section class="ps-glance"[\s\S]*?<\/section>/.exec(h)![0];
     expect(text(glance)).not.toMatch(/Starts at\s+Not checked yet/);
-    expect(text(glance)).toMatch(/Starts at\s+Passo Tre Croci/);
+    // a trail's strip folds the start into its one "Trailhead and parking" tile (10.1): the same stop, named once
+    expect(text(glance)).toMatch(/(?:Starts at|Trailhead and parking)\s+Passo Tre Croci/);
   });
   it('Akureyri: no "Operating season: Not checked yet" beside a stored opening season', () => {
     const t = text(page('akureyri-botanical-garden'));
