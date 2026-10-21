@@ -77,8 +77,7 @@ Outputs: `data/locations/locations.json` and its generated views. Commands: [too
 5. Write prose findings to `research/trips/<folder>/<lane>.md` and records to `data/capture/<trip-id>/<lane>.json`, with the suitability and relevance sidecars beside them (section 5).
 6. Run the validators (section 6), then `capture.ts gaps --trip <trip-id>` (section 7).
 
-The `trip-planner` skill wraps this job. Its wrapper is not cut down yet: its page-building half waits for cleanup decision D18
-(see section 9, last paragraph).
+The `trip` skill wraps this job. Step 7 writes the trip file and schedule (`data/trips/README.md`, written by TD-0).
 
 ### 3c. Fill the gaps of a trip
 
@@ -98,7 +97,7 @@ The `trip-planner` skill wraps this job. Its wrapper is not cut down yet: its pa
 ### 3e. Photos
 
 1. One runner for the whole machine; never from parallel agents. Contract: [method/lanes/media.md](method/lanes/media.md).
-2. Legacy trip galleries: `tools/gallery/gallery_find.py`, look at the contact sheet, `gallery_pick.py`, then `gallery.py verify` and `inject` ([tools.md](tools.md#photos)).
+2. Trip galleries are data: `tools/gallery/gallery_find.py`, look at the contact sheet, `gallery_pick.py`, then `gallery.py verify` ([tools.md](tools.md#photos)). `inject` is frozen with the legacy pages.
 3. Credits for the new site: `web/scripts/fetch-photo-credits.mjs`; Wikidata images for the globe: `web/scripts/globe-images.mjs`.
 4. Wikimedia Commons only, credited with author and licence, linked to the file page.
 
@@ -250,9 +249,6 @@ This section is the single home of these rules. Skills and agents carry one line
   family in records, sources, quotes or notes. Traveller limits are checked against limits at plan time, never stored on a
   place. `research/` is never published, but `vault-notes/Plan.md` holds household data, so the repository stays private.
 - **Paraphrase.** `quote` is our own words or a short exact phrase, at most 300 characters. Never copy descriptions.
-
-The `trip-planner` skill still carries its own copy of the method rules (its Phase 1). It is cut to a thin wrapper only when
-the owner answers cleanup D18. Until then, where the two differ, this section wins.
 
 ## 10. Scripts
 

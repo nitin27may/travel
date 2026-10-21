@@ -6,7 +6,7 @@ Status: draft (17 Oct 2026; required fields and sources made concrete 18 Oct 202
 ## 1. Purpose
 
 Answer **where to sleep and why**, at two levels: the **base** (which town or valley) and the **property**
-(which hotel, lodge, rental, hut or campsite). The trip-planner skill's rule holds: the famous village
+(which hotel, lodge, rental, hut or campsite). The former trip skill's rule holds: the famous village
 is often the wrong one to sleep in; record elevation, car-free status, how it is reached, tourist tax,
 **when it loses the sun**, overnight temperature (most alpine hotels have no air conditioning),
 day-tripper churn versus evening quiet, last transport up, and the nearest real supermarket.

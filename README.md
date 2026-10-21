@@ -33,10 +33,13 @@ area. Every write validates the store and rebuilds the generated views. Do not e
 
 ## Build and publish
 
-    python3 tools/publish.py --dry-run      # build the app, stage .site/, check every old URL is still there
-    ./publish.sh                            # the same, then deploy to Cloudflare Pages
+The product is `web/` (run it below). `tools/publish.py` is the frozen path of the old site: it merges the app with the legacy
+pages and stages `.site/` for the e2e harness. Deployment waits for the hosting decision (`docs/v2/PLAN.md` R-8); never run
+`./publish.sh` in a mode that deploys.
 
-Publishing runs these steps in order, and stops at the first failure:
+    python3 tools/publish.py --dry-run      # build the app, stage .site/, check every old URL is still there
+
+Staging runs these steps in order, and stops at the first failure:
 
 1. `tools/locations.py build` regenerates the list page, the wishlist and the globe pins.
 2. `tools/hub.py --json` writes the legacy trip list for the app (`web/.generated/legacy-trips.json`).
