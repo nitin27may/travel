@@ -331,6 +331,15 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   // The feature card sits at the click point on a desktop and flips to the side with room, so the highlighted river, sea or peak stays in view
   // (spec 3.2). On a phone or a landscape phone it is a fixed card above the sheet's peek.
   const feature = snap.feature;
+  // A search pick opens its card at the start of the flight; once the camera rests the card is placed again from where the feature is now,
+  // so it clears the Map options card and the panel instead of sitting where the point was before the flight (9.7).
+  const [featTick, setFeatTick] = useState(0);
+  useEffect(() => {
+    if (!engine || !feature) return;
+    const bump = () => setFeatTick((n) => n + 1);
+    engine.map.on('moveend', bump);
+    return () => { engine.map.off('moveend', bump); };
+  }, [engine, feature]);
   useLayoutEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- the marker element only exists after the engine syncs it */
     if (!engine || !feature || phone || short || (feature.lngLat[0] === 0 && feature.lngLat[1] === 0)) { if (engine) engine.syncMarkers('feature', []); setFeatEl(null); return; }
@@ -341,7 +350,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     const m = engine.syncMarkers('feature', [{ key: 'feature', lng: feature.lngLat[0], lat: feature.lngLat[1], anchor: pl?.anchor ?? 'top-left', offset: [pl?.offset[0] ?? 18, pl?.offset[1] ?? 8], className: 'globe-feature-anchor' }]);
     setFeatEl(m.get('feature') ?? null);
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, [engine, feature, phone, short, panelOpen, snap.crumbs.length]);
+  }, [engine, feature, phone, short, panelOpen, cardOpen, featTick, snap.crumbs.length]);
 
   // Wikidata facts load after the card opens; a failed or slow call leaves no rows (spec 4.3).
   const featureKey = feature ? `${feature.sourceLayer}:${feature.name}:${feature.wikidata ?? ''}` : null;
