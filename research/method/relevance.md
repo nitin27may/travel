@@ -12,9 +12,9 @@ Owner direction (18 Oct 2026), summarised:
 This page **sits beside** [suitability.md](suitability.md) and does not change it. Suitability answers "can this party do it?". Relevance answers "is it worth coming for, from where, and in what kind of trip?". They share the value wrapper (`Val`), the refs (suitability 5.2), the sources table and the provenance rules (suitability 3). They do not share a record (decision R1).
 
 It **amends** four pages. Each owner applies the change when its lane is briefed:
-- [features/short-trips.md](../features/short-trips.md) 4.1: `hubs.json` gains one hub per trip region (section 6.6, owner Q3). The "within N h" filter is the day lens of section 6.1.
-- The L3b row in [TODO.md](../TODO.md): "activities rolled up from the trip's places" counts only anchors and highlights (section 6.3), so one filler lake no longer tags a trip "lakes".
-- [design/globe/spec.md](../design/globe/spec.md) 6.5: pins appear by draw tier and zoom, and a merged disc takes the label of its highest-draw member (section 6.4).
+- [features/short-trips.md](../../docs/v2/features/short-trips.md) 4.1: `hubs.json` gains one hub per trip region (section 6.6, owner Q3). The "within N h" filter is the day lens of section 6.1.
+- The L3b row in [TODO.md](../../docs/v2/TODO.md): "activities rolled up from the trip's places" counts only anchors and highlights (section 6.3), so one filler lake no longer tags a trip "lakes".
+- [design/globe/spec.md](../../docs/v2/design/globe/spec.md) 6.5: pins appear by draw tier and zoom, and a merged disc takes the label of its highest-draw member (section 6.4).
 - [lanes/hidden-gems.md](lanes/hidden-gems.md): a `hidden_gem` is now defined by data. It is `standing: top` with a `local` or `regional` draw, plus the lane's own legality and crowd-risk fields. The tag becomes derived (section 3.4).
 
 ## Key decisions

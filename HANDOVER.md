@@ -24,7 +24,7 @@ The new public site (no login: search, globe, trips, places) is built and is **`
 | 10 | `docs/v2/design/foundation/principles.md` | The UX principles P1 to P9 and T1 to T5 |
 | 11 | `docs/v2/build/handover/memory/` | The owner's working memory notes (decisions and rules, with reasons) |
 
-Also: `CLAUDE.md` (repo rules and the agents table), `docs/v2/TODO.md`, `docs/v2/research/capture-contract.md` (the one data contract), `README.md`.
+Also: `CLAUDE.md` (repo rules and the agents table), `docs/v2/TODO.md`, `research/method/capture-contract.md` (the one data contract), `README.md`.
 
 ## 3. Set up a new machine
 

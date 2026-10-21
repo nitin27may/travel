@@ -31,7 +31,7 @@ The data the preview shows is honest, de-duplicated and as complete as the sourc
 
 ## Read first
 
-- [research/capture-contract.md](../../../research/capture-contract.md) (9.7 supersede override), `research/suitability.md`, `research/relevance.md`.
+- [research/capture-contract.md](../../../../../research/method/capture-contract.md) (9.7 supersede override), `research/suitability.md`, `research/relevance.md`.
 - `node core/bin/capture.ts fields --type <id>` for every type you touch, and `capture.ts gaps --trip <trip>`.
 - `CS7c-notes.md`, `research/capture-research-backlog.md`, `research/operator-questions-2026-10-18.md`.
 - BACKLOG 3.9, 3.10, 3.35, 3.47 (as D2 leaves it), 3.50, 3.53, 3.55, 3.58 and 4.15.

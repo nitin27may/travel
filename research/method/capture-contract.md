@@ -47,8 +47,8 @@ Owner direction (18 Oct 2026), summarised:
 
 | Id | Definition site | What it holds | Records today |
 |---|---|---|---|
-| K | `docs/v2/research/kinds/*.md` (15 profiles) | per-kind fields as `attrs.*`, `eligibility.*`, link checklists, D/U/C checks | none; Markdown only, nothing validates it |
-| L | `docs/v2/research/lanes/*.md` (17 lanes) | required output fields per lane, link table (trails), source order | none; Markdown only |
+| K | `research/method/kinds/*.md` (15 profiles) | per-kind fields as `attrs.*`, `eligibility.*`, link checklists, D/U/C checks | none; Markdown only, nothing validates it |
+| L | `research/method/lanes/*.md` (17 lanes) | required output fields per lane, link table (trails), source order | none; Markdown only |
 | S | `core/src/schema/suitability.ts` (shared block plus 18 extensions) | limits, who it suits, effort drivers, times, facilities, hazards, water safety, participation | 214 lane records, 289 migrated |
 | SA | `data/schema/suitability-applicability.json` | R/A/N/op per field for 37 profiles × 148 fields | used by the validator and `suitability.ts fields` |
 | RV | `core/src/schema/relevance.ts`, `data/vocab/relevance-classes.json` (42 classes) | QID, class, draw, standing, distinction, easy payoff, weather, access cost, signals | 209 records |

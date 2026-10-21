@@ -4,7 +4,7 @@ Status: APPROVED by the owner on 2026-10-17 with the plan's recommended answer f
 
 ## 0. Summary, addenda folded in, gaps found (Revised 4)
 
-**Revision 4 (17 Oct 2026):** applies the independent review (`docs/REVIEW-platform-plan.md`, enhancements E1-E33) after checking every repo claim it makes against the tree at commit `1b7eeba` (the review's base) and `5815186` (P1a step 1). Phase briefs ready to hand to a coding agent live in `docs/briefs/` (index: `docs/briefs/README.md`). Where this revision and an older section disagree, the section marked "Revised 4" wins; superseded text was removed rather than left beside the new text.
+**Revision 4 (17 Oct 2026):** applies the independent review (`docs/archive/v1/REVIEW-platform-plan.md`, enhancements E1-E33) after checking every repo claim it makes against the tree at commit `1b7eeba` (the review's base) and `5815186` (P1a step 1). Phase briefs ready to hand to a coding agent live in `docs/archive/v1/briefs/` (index: `docs/archive/v1/briefs/README.md`). Where this revision and an older section disagree, the section marked "Revised 4" wins; superseded text was removed rather than left beside the new text.
 
 ### Revision 4: what changed
 
@@ -74,7 +74,7 @@ Every factual repo claim in the review was re-run. These were wrong or imprecise
 6. Default UI stack: shadcn/ui (Base UI) + TanStack Table + Recharts profile + MapLibre; every entity gets cards, list, table (with an advanced filter panel) and map views from one descriptor, with the filter bar on top and all state in the URL (3B, 4.2).
 7. One operation set serves the UI, the HTTP API, MCP and skills; imports and re-research produce proposals, never silent writes (5).
 8. Phase 1 is read-mostly in the cloud, editable on the owner's machine (and in the browser for new drafts); Phase 2 adds a Worker and remote MCP, with the write path decided first (D28: git-backed writes recommended over D1 with a nightly export) (3C, 5.6; revised 4).
-9. Phase 1 is seventeen sub-phases, each one Sonnet agent and one PR (P5c is Opus): P1a/P1b restructure, P2a/P2b schema, P3a/P3b app and places, P4a/P4b/P4c operations, ingestion and two imports, P5a plan pages, P5b1-P5b3 creation flow, P5c skills and agents, P6 globe and catalog lists, P7 v1 planner, P8 routing with breaks (6.3; revised 4). Briefs are in `docs/briefs/`.
+9. Phase 1 is seventeen sub-phases, each one Sonnet agent and one PR (P5c is Opus): P1a/P1b restructure, P2a/P2b schema, P3a/P3b app and places, P4a/P4b/P4c operations, ingestion and two imports, P5a plan pages, P5b1-P5b3 creation flow, P5c skills and agents, P6 globe and catalog lists, P7 v1 planner, P8 routing with breaks (6.3; revised 4). Briefs are in `docs/archive/v1/briefs/`.
 10. D1-D25 were approved with the recommended answers; revision 4 adds D26-D30 (8.6), each with a recommendation.
 
 ### Where the addenda changed the plan
@@ -1911,7 +1911,7 @@ MCP gains `suggest_breaks` and `search_along_route` (read, Phase 1) and the writ
 
 ## 6. Phases (Revised 4: replaces 6.0-6.2 of revisions 1-3)
 
-Revised 4: the phase list of revisions 1-3 (P1-P6, the 6.1 and 6.2 amendments, P7, P8, P8b) is replaced by the sub-phases below, sized so one agent finishes each in one PR. The old text is in git history at `1b7eeba`. Each sub-phase has a self-contained brief in `docs/briefs/<id>.md`; the index, approvals and models are in `docs/briefs/README.md`.
+Revised 4: the phase list of revisions 1-3 (P1-P6, the 6.1 and 6.2 amendments, P7, P8, P8b) is replaced by the sub-phases below, sized so one agent finishes each in one PR. The old text is in git history at `1b7eeba`. Each sub-phase has a self-contained brief in `docs/archive/v1/briefs/<id>.md`; the index, approvals and models are in `docs/archive/v1/briefs/README.md`.
 
 ### 6.0 Working rules for every phase
 
@@ -2319,7 +2319,7 @@ These rank above R1-R31 for scheduling, because each one stalls the whole effort
 | 7 | R38 | two agents in one checkout both touch `web/package.json` or `web/components/map/**` | `core/` separates schema work from `web/`; 6.4 ownership table; one worktree per agent; append-only shared files; never `git add -A` |
 | 8 | R39 | Phase 2's two-truth design leaves a red export PR and a public site days behind | D28 decided before the Phase 2 plan, recommendation git-backed writes (5.6) |
 | 9 | R40 | external APIs break or throttle (Waymarked Trails already lost its GPX route; Overpass, OpenFreeMap, ORS quotas) | every fetch owner-run with committed outputs; tests never touch the network; a weekly contract check outside the test suite (`python3 tools/trails.py contract`, owner-run) |
-| 10 | R41 | the owner becomes the bottleneck (proposal queues, fixture approvals, screenshots, two plan-page sign-offs) | auto-accept to `stated`; one review packet per PR (summary, counts, the five rows most worth checking, screenshots); approvals batched per phase in `docs/briefs/README.md` |
+| 10 | R41 | the owner becomes the bottleneck (proposal queues, fixture approvals, screenshots, two plan-page sign-offs) | auto-accept to `stated`; one review packet per PR (summary, counts, the five rows most worth checking, screenshots); approvals batched per phase in `docs/archive/v1/briefs/README.md` |
 
 Also real but lower: legacy pages keep being edited while migration runs, so parity targets move (the P5a brief freezes its parity snapshot at the start); the no-spend rule versus the P4c Opus mapping (D29); the `.pages.dev` hostname becomes load-bearing once OG tags exist (14).
 
@@ -2622,7 +2622,7 @@ Repo inputs: `CLAUDE.md`, `AUDIT-2026-10-16.md` 2.1-2.5, `_system/site/PLAN-loca
 
 | Date | Change |
 |---|---|
-| 2026-10-17 | Revision 4: independent review applied (E1-E33, 0 rejected, one applied with a deviation: no `items.offer_id`); review claims re-checked, four wrong and three imprecise (section 0); canonical schema (2.2, 2.3, 2.3A; 2.8 removed); one runtime per concern and the `core/` package (1.5); Zod as the schema source (2.5, D26); phases re-split into P1a-P8 with file ownership (6); product basics (4.13); top-ten risks (8.5); D26-D30 (8.6); phase briefs in `docs/briefs/` |
+| 2026-10-17 | Revision 4: independent review applied (E1-E33, 0 rejected, one applied with a deviation: no `items.offer_id`); review claims re-checked, four wrong and three imprecise (section 0); canonical schema (2.2, 2.3, 2.3A; 2.8 removed); one runtime per concern and the `core/` package (1.5); Zod as the schema source (2.5, D26); phases re-split into P1a-P8 with file ownership (6); product basics (4.13); top-ten risks (8.5); D26-D30 (8.6); phase briefs in `docs/archive/v1/briefs/` |
 | 2026-10-17 | First draft: brief plus addenda 1-4 folded in |
 | 2026-10-17 | Revision 3: section 0B (trip creation experience, routing with breaks); 4.12, 5.8, 6.2, 8.4; P5 split into P5a and P5b; P8 added; D23 replaces D13 |
 | 2026-10-17 | Revision 2: section 0A (catalog, flywheel, coverage, multi-user readiness, no-AI builder, prices and live data); revised 1.1, 1.4, 2.8, 4.11, 6.1, 7.6, 8.3; trails path moved to `data/catalog/trails/` |

@@ -37,7 +37,7 @@ season in Ontario, midges in Scotland), `wildfire_smoke` risk months.
 
 - **Sun, twilight, darkness: `core/src/sun` only** (`node core/bin/sun.ts --lat .. --lon .. --zone ..
   --date ..`). Longitude is positive east; never hand-copy the formula, never take times from memory
-  (research/sun-audit-2026-10-18.md: a sign error shifted four legacy scripts by 8 minutes per degree).
+  (research/audits/sun-audit-2026-10-18.md: a sign error shifted four legacy scripts by 8 minutes per degree).
 - Horizon-aware light (when a valley loses the sun): sun position from core/src/sun plus a DEM horizon
   profile; label as computed.
 - Climate: national meteorological services (Environment Canada, NOAA, MeteoSwiss, met.no, Vedur.is)

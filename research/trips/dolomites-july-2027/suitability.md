@@ -255,7 +255,7 @@ AllTrails and the other route platforms were not used as sources. Cross-check li
 
 ## Correction pass RC (18 Oct 2026, backlog 3a.8 and 3a.10)
 
-- **Wording.** "The plan's age 6/8/12/10" and "The trip plan used 6" now read "an earlier figure of ...". The Rienza operator question now asks "what do you check for children from 6 up to 9?" (also in docs/v2/research/operator-questions-2026-10-18.md).
+- **Wording.** "The plan's age 6/8/12/10" and "The trip plan used 6" now read "an earlier figure of ...". The Rienza operator question now asks "what do you check for children from 6 up to 9?" (also in research/method/operator-questions-2026-10-18.md).
 - **Otzi museum.** The opening and fees page moved to /en/the-museum/opening-times-and-fees and was re-read. "Children under the age of 6 gratis" is an affirmative welcome, so `min_age` is now `no_limit`. The access season (Tue-Sun 10-18, open Mondays in July and August, closed 1 Jan, 1 May and 25 Dec) still matches; its basis is now `operator_info`.
 - **Santa Maddalena.** The Villnoss board PDF is gone. All 8 values (5 suitability, 3 relevance) now cite the IDM Sudtirol church page, which states the gated resident-only road, the Putzen car park and the walk of about 30 min.
 - **Open-Meteo.** The bare API endpoint is replaced by the Elevation API documentation page, with the method in the title: latitude and longitude arrays sampled every 30 m along OSM relation 7302436. Distance values never came from elevation, so the source was removed from the Viel dal Pan, Sorapis and Cadini distances; they rest on the OSM relations.

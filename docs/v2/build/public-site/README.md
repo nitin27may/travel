@@ -5,7 +5,7 @@
 Step 1 of the owner's order of work ([product-direction-2026-10-18.md](../../design/product-direction-2026-10-18.md)):
 the public site with no login, on the Trailhead foundation ([design/foundation/](../../design/foundation/)),
 keeping everything in [keep-from-live-site.md](../../design/keep-from-live-site.md), with the map stack from
-[research/map-stack-2026-10-18.md](../../research/map-stack-2026-10-18.md). It is sized for Sonnet coding
+[research/map-stack-2026-10-18.md](../../../../research/reports/map-stack-2026-10-18.md). It is sized for Sonnet coding
 agents (`travel-builder`) working in parallel lanes with disjoint files.
 
 This page decides where it is built, how the data is served, the lanes and their order, and the gates.
@@ -50,7 +50,7 @@ static pages get plain JSON props.
 | `legacy/canadian-rockies-sept-2029/data/*.json` | Rockies full plan: 15 days with Tracks A/B/C, 62 trails, 48 sights, 43 adventures, 33 bookings, 16 bases | read directly at build |
 | `data/locations/locations.json` (schema v3) + `data/vocab/tags.json` | 64 places of every kind with area chain, status, season, kid fit, sources, honesty fields | existing loader `web/lib/data/places.ts`, wrapped |
 | `legacy/<trip>/gallery/gallery.json` | photos by section with file, caption, author, licence | read directly |
-| `docs/v2/research/kinds/*.md` | per-kind completeness checks | hand-transcribed into `web/lib/public/completeness.ts` for the checks the data can answer |
+| `research/method/kinds/*.md` | per-kind completeness checks | hand-transcribed into `web/lib/public/completeness.ts` for the checks the data can answer |
 
 > **Public trips are dateless (owner, 18 Oct 2026):** every public trip, past or upcoming, is shown as Day 1-N with a season window. Booking windows are rules, not dates. See [../../design/public-trips-dateless.md](../../design/public-trips-dateless.md); LD and L3 must follow it.
 
@@ -142,7 +142,7 @@ requests), into the committed `web/data-snapshots/photo-credits.json`. Never run
 
 ### 2.6 Completeness and honesty
 
-- **Badge** from [research/kinds](../../research/kinds/README.md) section 10: "Draft", "Usable · 7 of 11",
+- **Badge** from [research/kinds](../../../../research/method/kinds/README.md) section 10: "Draft", "Usable · 7 of 11",
   "Complete". The full engine is not built (TODO row "Enforce per-kind completeness"), so LD computes only the
   checks the data can answer (common D1 to D5, U1, U2, C1 to C4, plus each profile's U checks whose fields
   exist) and says so: the tooltip reads "7 of 11 tracked checks pass; 13 checks are not tracked yet". The
@@ -154,7 +154,7 @@ requests), into the committed `web/data-snapshots/photo-credits.json`. Never run
 
 ## 3. Maps
 
-From [research/map-stack-2026-10-18.md](../../research/map-stack-2026-10-18.md):
+From [research/map-stack-2026-10-18.md](../../../../research/reports/map-stack-2026-10-18.md):
 
 | Surface | Map | Directions and distances |
 |---|---|---|

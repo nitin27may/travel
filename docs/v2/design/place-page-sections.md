@@ -13,8 +13,8 @@ ticket offer), `louise` (the near-empty page), `states` (every section's empty, 
 dark, `?clean` hides the dashed blue spec notes, `?pop` opens the badge provenance. Values are illustrative unless this
 page says they come from the data; prices and times are 2026 patterns.
 
-Inputs read: [capture-contract.md](../research/capture-contract.md) 2.5, 2.7, 3, 6; `data/schema/capture/contract.json`
-(14 sections, 236 properties); [relevance.md](../research/relevance.md) 3.2, 3.6, 3.7, 6.2, 7;
+Inputs read: [capture-contract.md](../../../research/method/capture-contract.md) 2.5, 2.7, 3, 6; `data/schema/capture/contract.json`
+(14 sections, 236 properties); [relevance.md](../../../research/method/relevance.md) 3.2, 3.6, 3.7, 6.2, 7;
 [CC-adapter-requests.md](../build/public-site/CC-adapter-requests.md); [principles.md](foundation/principles.md);
 the built `web/components/places/PlacePage.tsx`; the Rockies capture, suitability and derived relevance files.
 

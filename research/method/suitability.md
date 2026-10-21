@@ -308,7 +308,7 @@ The badge counts them like any other check: "Usable · 21 of 30".
 1. its profile has at least 6 R fields and more than 40% of them are soft (`searched_none` or `none_stated`; `no_limit` is firm);
 2. any **safety-critical** R field is soft. Safety-critical means the hard limits (`min_age`, `max_age`, the height and weight limits, `adult_required`, `solo`, `group_min`), every `water_safety` field, `exposure`, and, when the record is operated, an `age_band` that is soft or rests on `our_inference` or `community` instead of the operator.
 
-Otherwise the rules above hold. A field asked by several offers is firm when any offer answers it firmly. A `not_applicable` with a note is outside the share. The level is in the flat copy (`flat.suit_level`) and in `projectFlat`; `checkRecord` also returns `softRequired` and `softSafety` so a surface can name the fields. The label ("usable, partly unverified") is a pending display rule in [suitability-display.md](../design/suitability-display.md) section 9. Kind profiles get a one-line change, "Family checks F1-F12 from suitability.md apply as marked", and their totals are recomputed (S0 step 7).
+Otherwise the rules above hold. A field asked by several offers is firm when any offer answers it firmly. A `not_applicable` with a note is outside the share. The level is in the flat copy (`flat.suit_level`) and in `projectFlat`; `checkRecord` also returns `softRequired` and `softSafety` so a surface can name the fields. The label ("usable, partly unverified") is a pending display rule in [suitability-display.md](../../docs/v2/design/suitability-display.md) section 9. Kind profiles get a one-line change, "Family checks F1-F12 from suitability.md apply as marked", and their totals are recomputed (S0 step 7).
 
 ## 5. Storage
 
@@ -383,7 +383,7 @@ Per-offer blocks sit under `records[].offers[]`, each with `name` and its own `s
 
 ## 6. How it plugs in
 
-### 6.1 Party profile on the trip timeline ([features/trip-timeline.md](../features/trip-timeline.md) 3.11)
+### 6.1 Party profile on the trip timeline ([features/trip-timeline.md](../../docs/v2/features/trip-timeline.md) 3.11)
 
 S0 ships `projectForSchedule(record, offer?) → ScheduleSuitability` in `core/src/suitability/project.ts`. It returns exactly the interface in trip-timeline.md 3.11, plus five fields (a superset):
 
@@ -550,7 +550,7 @@ L3c timeline (parallel) ────────────────┤  own
 - `core/test/suitability/**`, `core/test/fixtures/suitability/**`
 - `data/suitability/README.md`, `data/suitability/<trip>/migrated.json` (8 trips)
 - `data/schema/generated/*` (regenerated, never hand-edited)
-- `docs/v2/research/kinds/*.md`: only the one-line F-check note and the recomputed totals (section 4)
+- `research/method/kinds/*.md`: only the one-line F-check note and the recomputed totals (section 4)
 
 **Must not touch.** `core/src/schedule/**`, `data/schedules/**` (L3c); `prototype/src/data/trails.ts`, `data/catalog/trails/geo/**` (L4b); `web/**` (S1 does the adapter); `legacy/**` (read only); `data/locations/locations.json` (the projection there waits for S1); `docs/v2/features/trip-timeline.md` (its owner applies 6.1 and 6.2).
 

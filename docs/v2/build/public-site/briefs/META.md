@@ -4,7 +4,7 @@
 - **Effort:** META-0 10 h, META-1 6 h, META-2 6 h.
 - **Rows:** 8.3 (placement rule), 8.7 (locations store tiers, validate warnings: in DATA D2), 8.7b (point join), 8.4, 8.9, 8.10 (towns, credit, Whitby exemption), 13.5 (metadata completeness for every kind), 3.37 (point schema, decided here).
 - **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) section 6 (tiers, the measured audit, acceptance numbers, mechanics), tasks B4, E2, E3. The research batches that fill the data are [DATA.md](DATA.md).
-- **Specs:** [nearby-and-regions.md](../../../features/nearby-and-regions.md) section 3 (the placement block, validator codes, migration) and 5.6 (towns); [capture-contract.md](../../../research/capture-contract.md).
+- **Specs:** [nearby-and-regions.md](../../../features/nearby-and-regions.md) section 3 (the placement block, validator codes, migration) and 5.6 (towns); [capture-contract.md](../../../../../research/method/capture-contract.md).
 - **Principles:** P1, P8, P9, T3, T5. A gap is never a yes.
 - **Starts:** META-0 at R1 entry (phase B, core only); META-1 and META-2 after gate G-B (the API and CONS-2 are in).
 - **Review:** no design review; travel-verifier. Stage 5 check 5.3 samples the data in run 2.
@@ -24,7 +24,7 @@ Every record of every kind (place, trail, other route, activity, event, stay) ha
 
 | Sub-lane | Paths |
 |---|---|
-| META-0 | `core/src/schema/capture/properties.ts`, the `point` value schema and the points sidecar schema under `core/src/schema/capture/**`, `core/src/validate/capture.ts`, `core/src/validate/codes.ts`, `core/src/capture/gapsCli.ts`, `core/bin/capture.ts` (the `gaps` modes), `data/capture/gap-budget.json` (new), generated outputs regenerated with `node core/bin/capture.ts build`, `docs/v2/research/capture-contract.md` (new section 3.7 "Placement and tiers"), `.claude/agents/travel-researcher.md` (one checklist line), `core/test/capture/**` |
+| META-0 | `core/src/schema/capture/properties.ts`, the `point` value schema and the points sidecar schema under `core/src/schema/capture/**`, `core/src/validate/capture.ts`, `core/src/validate/codes.ts`, `core/src/capture/gapsCli.ts`, `core/bin/capture.ts` (the `gaps` modes), `data/capture/gap-budget.json` (new), generated outputs regenerated with `node core/bin/capture.ts build`, `research/method/capture-contract.md` (new section 3.7 "Placement and tiers"), `.claude/agents/travel-researcher.md` (one checklist line), `core/test/capture/**` |
 | META-1 | `core/src/catalogue/json/points.ts` (the point read order inside `JsonStore`; `web/lib/public/places.ts` only if the dataset builder still decides the page point, one function), `core/bin/capture.ts migrate-placement` (new verb), `core/src/capture/migratePlacement.ts` (new), `data/capture/**` (`area_id` writes, trailheads from held tracks), `data/capture/points.json`, `web/tests/data/places*.test.ts` |
 | META-2 | `tools/towns.py` (new), `tools/tests/test_towns.py` (new), `data/reference/towns/**` (new, committed), `core/src/derive/near.ts` (new), `core/src/catalogue/json/towns.ts` (the `towns()` store method), the `near_town` derive step in `capture.ts build`, `core/src/privacy/**` (the exemption only; API-2 moved the scrub there), `web/tests/data/public-privacy.test.ts` (the Whitby rule), `web/components/home/AboutData.tsx` (GeoNames credit line) |
 

@@ -36,7 +36,7 @@ licence and attribution metadata from Commons).
   logistics, stays/bases, timing, foliage, parking, geology, costs/fares, bookings, days, hazards,
   gap-closing notes, community day reports. Several folders have `archive/` (superseded plans) and
   `notes/`.
-- `research/sun-audit-2026-10-18.md`: the audit of all published light claims.
+- `research/audits/sun-audit-2026-10-18.md`: the audit of all published light claims.
 - `research/vault-notes/` (imported from Obsidian on 17 Oct 2026):
 
 | File | What | Rows / size |

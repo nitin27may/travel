@@ -8,7 +8,7 @@ Wave 3, stage 3. It runs in parallel with L3c (timeline), L3b (tags and filters)
   - trail page UI (map line, profile, GPX), 4 h
   - tests and shots, 2 h
 - **Backlog:** 3.7, 3.8; the TODO row "Trail maps on every trail page"; the 2.41 item "the pin we stored" wording.
-- **Specs:** [research/lanes/trails.md](../../research/lanes/trails.md) (track, `track_source`, geometry rules), [research/capture-contract.md](../../research/capture-contract.md) 2.7 (routes, `reaches`, `starts_at`) and 9 (crawler rules), [research/map-stack-2026-10-18.md](../../research/map-stack-2026-10-18.md), [design/foundation/](../../design/foundation/) components 4.4 (elevation profile), principles P2, P3, P6, P8, T2, T3, T5.
+- **Specs:** [research/lanes/trails.md](../../../../research/method/lanes/trails.md) (track, `track_source`, geometry rules), [research/capture-contract.md](../../../../research/method/capture-contract.md) 2.7 (routes, `reaches`, `starts_at`) and 9 (crawler rules), [research/map-stack-2026-10-18.md](../../../../research/reports/map-stack-2026-10-18.md), [design/foundation/](../../design/foundation/) components 4.4 (elevation profile), principles P2, P3, P6, P8, T2, T3, T5.
 - **Starts:** now. The one edit in `web/lib/export/build.server.ts` (step 11) waits until L3c merges and you rebase.
 
 ## Goal
@@ -23,7 +23,7 @@ Wave 3, stage 3. It runs in parallel with L3c (timeline), L3b (tags and filters)
 
 ## Read first
 
-- [research/lanes/trails.md](../../research/lanes/trails.md) sections on `track`, `track_source`, `gpx_download` and the gotcha on closed sections.
+- [research/lanes/trails.md](../../../../research/method/lanes/trails.md) sections on `track`, `track_source`, `gpx_download` and the gotcha on closed sections.
 - `web/lib/public/places.ts` (`buildLines`, the trail branch of `buildPlaces`, `byName`), `slugs.ts`, `honesty-overrides.ts`, `sources.ts` (the Rockies `trails.json` read), `types.ts` (`PlaceLine`, `PublicPlace`).
 - `web/lib/public/trips.ts` (`slugForName`): read only, to see how day items find place pages.
 - `core/src/capture/records.ts` (`loadWorld`) and `data/capture/<trip>/*.json` for the route records, their `type`, `starts_at` and `reaches`.

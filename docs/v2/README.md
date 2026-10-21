@@ -1,7 +1,7 @@
 # Travel platform v2: clean-slate design (17 Oct 2026)
 
 Status: **WORKING DRAFT, not final.** Everything here, including choices marked "decided" or "answered", is the current direction and is expected to change as we keep planning. Written as if starting from zero, then mapped back onto what exists.
-It replaces `docs/BLUEPRINT.md` where they disagree; the blueprint's principles mostly survive, but
+It replaces `docs/archive/v1/BLUEPRINT.md` where they disagree; the blueprint's principles mostly survive, but
 several of its mechanisms were too heavy or too fragile (section "What changed from BLUEPRINT.md").
 
 | File | What it decides |
@@ -19,7 +19,7 @@ several of its mechanisms were too heavy or too fragile (section "What changed f
 | [10-sharing.md](10-sharing.md) | Sharing everywhere: objects, audiences, guest links with includes and preview, privacy rules, exports |
 | [07-competitors.md](07-competitors.md) | Wanderlog and TripIt: what to take (plan document, email import), where to beat them |
 
-Inputs read: `docs/BLUEPRINT.md`, `docs/PLAN-platform.md`, the owner's brief of 17 Oct 2026, and the
+Inputs read: `docs/archive/v1/BLUEPRINT.md`, `docs/PLAN-platform.md`, the owner's brief of 17 Oct 2026, and the
 owner's own intent notes in `research/vault-notes/` (Travel Finder overview, UX, data model, agent
 readiness, roadmap; `Travel Preferences.md`; `Plan.md`; the vault trip-planner's intake, discovery and
 budget references). [schema.sql](schema.sql) loads cleanly on Postgres 16 + PostGIS 3 (40 tables; spatial,
@@ -83,6 +83,6 @@ reviewed by the owner; **reviewed**; **building**; **done**.
 |---|---|
 | [features/](features/README.md) | One page per feature area: purpose, user stories, behaviour, data, operations and MCP tools, edge cases, acceptance criteria, milestone |
 | [ux/](ux/README.md) | Navigation and layout rules, one page per screen (desktop and phone), the component inventory, tokens, patterns and states |
-| [research/](research/README.md) | How research works from Claude Code and from any chat client: trip-type profiles, one contract per lane (trails with every link, trailhead and parking; adventure; stays; ...), sources and licences, skills and prompts |
+| [research/](../../research/method/README.md) | How research works from Claude Code and from any chat client: trip-type profiles, one contract per lane (trails with every link, trailhead and parking; adventure; stays; ...), sources and licences, skills and prompts |
 | [mcp/](mcp/README.md) | The MCP server in detail: auth and scopes, every tool with inputs and outputs, resources, prompts, example client sessions |
 | [migration/](migration/README.md) | What exists in this repo today and how each piece becomes catalog entries, trips or templates |

@@ -6,7 +6,7 @@ Extends [TRP.md](TRP.md) (stage 4). This brief is self-contained for round 2.
 - **Effort:** about 18 h (note 2 h, map 9 h, export 5 h, tests and shots 2 h).
 - **Rows:** 9.5 and Q51 (Google trip map), 9.6 and Q46 (Export trip, per item and public), 3.67 part (map hover ring, pin-click scroll).
 - **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) task E12.
-- **Specs:** [trip-timeline.md](../../../features/trip-timeline.md), [design/trip-page/stage4-map-note.md](../../../design/trip-page/stage4-map-note.md), [research/map-stack-2026-10-18.md](../../../research/map-stack-2026-10-18.md) (amended by Q51: Google on the trip route map, MapLibre kept for the globe and the trips list map).
+- **Specs:** [trip-timeline.md](../../../features/trip-timeline.md), [design/trip-page/stage4-map-note.md](../../../design/trip-page/stage4-map-note.md), [research/map-stack-2026-10-18.md](../../../../../research/reports/map-stack-2026-10-18.md) (amended by Q51: Google on the trip route map, MapLibre kept for the globe and the trips list map).
 - **Principles:** P2, P5, P7 (copy and export is the 90% action), T2 (works in the field, exports), T5.
 - **Starts:** the note at R1 entry; the build after gate G-B (the API, `core/src/export` and CONS-2 are in) and after TRP1 (phase A) has merged, since it owns the same files.
 - **Opus review:** before (the note) and after.

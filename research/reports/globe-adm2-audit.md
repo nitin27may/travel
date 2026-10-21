@@ -1,6 +1,6 @@
 # Globe ADM2 audit
 
-Status: done 19 Oct 2026 (lane L2b, step 18). Written by `python3 tools/globe_data.py audit`; this page is the human summary of `web/public/globe/admin/adm2-audit.json`. Spec: [design/globe/spec.md](../design/globe/spec.md) section 11; owner feedback F4 in [owner-feedback-2026-10-18.md](../design/globe/owner-feedback-2026-10-18.md).
+Status: done 19 Oct 2026 (lane L2b, step 18). Written by `python3 tools/globe_data.py audit`; this page is the human summary of `web/public/globe/admin/adm2-audit.json`. Spec: [design/globe/spec.md](../../docs/v2/design/globe/spec.md) section 11; owner feedback F4 in [owner-feedback-2026-10-18.md](../../docs/v2/design/globe/owner-feedback-2026-10-18.md).
 
 ## Why
 
