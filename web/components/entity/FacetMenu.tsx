@@ -8,6 +8,7 @@ import { TAG_KIND_LABELS } from '@/lib/entities/labels';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { FacetDef } from '@/lib/entities/types';
 import { AgeControl } from './AgeControl';
+import { selectionOf, whereSummary } from './whereModel';
 import { lazyComponent } from './lazyComponent';
 
 interface OptionsProps<Row> {
@@ -53,6 +54,24 @@ type AgeProps = ComponentProps<typeof import('./AgePill').AgePill>;
 const LazyAgePill = lazyComponent<AgeProps>(() => import('./AgePill').then((m) => m.AgePill), function AgePlaceholder({ label, selected }: AgeProps) {
   return <PillPlaceholder label={label} options={[]} selected={selected} onChange={() => undefined} />;
 });
+
+type WhereProps = ComponentProps<typeof import('./WhereMenu').WherePill>;
+/** The Where pill before its menu code has loaded: the same size and text, no menu. */
+function WherePlaceholder({ label, state, labelOf }: WhereProps) {
+  const sel = selectionOf(state.facets);
+  const active = sel.country.length > 0;
+  return (
+    <span className="pill where-pill" data-active={active || undefined}>
+      <button type="button" className="pill-trigger" aria-disabled="true" tabIndex={-1}>
+        <span className="pill-text">{whereSummary(label, sel, labelOf)}</span>
+        <Icon name="chevronDown" size={14} />
+      </button>
+      {active ? <span className="pill-x" aria-hidden="true" /> : null}
+    </span>
+  );
+}
+/** Where (country, province, parks and areas) as one pill with a cascading menu. */
+export const WherePopover = lazyComponent<WhereProps>(() => import('./WhereMenu').then((m) => m.WherePill), WherePlaceholder);
 
 /** A facet as a filter pill that opens its options (or, for the Kids facet, a stepper). */
 export function FacetPopover<Row>({ facet, options, selected, onChange, gapN }: OptionsProps<Row>) {

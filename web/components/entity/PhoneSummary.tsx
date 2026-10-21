@@ -3,11 +3,13 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { Chip } from '@/components/ui/Chip';
 import { Icon } from '@/components/ui/Icon';
+import { SearchInput } from '@/components/ui/Input';
 import { activeFilters, clearAll } from '@/lib/entities/filter';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { EntityDescriptor, FacetDef, FacetParam, ListState } from '@/lib/entities/types';
 import { OPEN_FILTERS } from '@/lib/entities/events';
-import { FacetPopover } from './FacetMenu';
+import { FacetPopover, WherePopover } from './FacetMenu';
+import { hasWhere, isWhereParam, selectionOf, whereChips, whereSummary, withWhere } from './whereModel';
 
 export interface PhoneSummaryProps<Row> {
   d: EntityDescriptor<Row>;
@@ -24,7 +26,6 @@ export interface PhoneSummaryProps<Row> {
   reading: { filters: number; undo: () => void } | null;
   setFacet: (param: FacetParam, values: string[]) => void;
   onState: (s: ListState, mode?: 'push' | 'replace') => void;
-  focusSearch: () => void;
 }
 
 /**
@@ -32,13 +33,16 @@ export interface PhoneSummaryProps<Row> {
  * and an Edit button that opens the controls in a panel under it. The panel is not modal: no scrim, no focus trap, the page keeps its scroll;
  * Esc, Done, a tap outside and 48 px of page scroll close it, and focus goes back to Edit (lists-stage4-note section 1).
  */
-export function PhoneSummary<Row>({ d, state, show, shown, counts, gaps, primary, hasMore, labelOf, reading, setFacet, onState, focusSearch }: PhoneSummaryProps<Row>) {
+export function PhoneSummary<Row>({ d, state, show, shown, counts, gaps, primary, hasMore, labelOf, reading, setFacet, onState }: PhoneSummaryProps<Row>) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const edit = useRef<HTMLButtonElement>(null);
   const wrap = useRef<HTMLDivElement>(null);
-  const chips = activeFilters(state, d, labelOf);
-  const n = chips.length;
+  const chips = whereChips(activeFilters(state, d, labelOf), labelOf, hasWhere(d));
+  // Where counts as one filter whatever its depth, and the summary line names it: "116 places · Alberta · 1 filter"
+  const whereName = hasWhere(d) ? whereSummary('', selectionOf(state.facets), labelOf).replace(/^\s*\u00b7\s*/, '') : '';
+  const chipN = chips.length;
+  const n = hasWhere(d) ? chips.filter((c) => !isWhereParam(c.key.split(':')[0]!)).length + (whereName ? 1 : 0) : chipN;
   const isOpen = open && show;
 
   const close = (returnFocus: boolean) => {
@@ -82,6 +86,7 @@ export function PhoneSummary<Row>({ d, state, show, shown, counts, gaps, primary
         <p className="phone-summary-text" role="status" aria-live="polite">
           <span className="num phone-summary-count">{shown === null ? 'Counting…' : `${shown} ${noun}`}</span>
           <span className="phone-summary-sep"> &middot; </span>
+          {whereName && !reading ? <span className="phone-summary-where">{whereName}<span className="phone-summary-sep"> &middot; </span></span> : null}
           <span>{second}</span>
         </p>
         {reading ? (
@@ -97,7 +102,7 @@ export function PhoneSummary<Row>({ d, state, show, shown, counts, gaps, primary
       <div className="phone-panel" id={panelId} inert={!isOpen}>
         <div className="phone-panel-in">
           <div className="phone-panel-body">
-            {n ? (
+            {chipN ? (
               <div className="phone-chips">
                 <ul className="chips" aria-label="Active filters">
                   {chips.slice(0, 3).map((c) => (
@@ -107,33 +112,27 @@ export function PhoneSummary<Row>({ d, state, show, shown, counts, gaps, primary
                       </Chip>
                     </li>
                   ))}
-                  {n > 3 ? <li className="phone-more-n">+{n - 3}</li> : null}
+                  {chipN > 3 ? <li className="phone-more-n">+{chipN - 3}</li> : null}
                 </ul>
               </div>
             ) : null}
+            <SearchInput value={state.q} onChange={(q) => onState({ ...state, q, focus: null }, 'replace')} label={`Filter ${d.noun.many} by name`} placeholder={`Search ${d.noun.many}`} className="phone-search" />
             <div className="phone-pills">
-              {primary.map((f) => (
-                <FacetPopover key={f.param} facet={f} options={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} onChange={(v) => setFacet(f.param, v)} gapN={gaps[f.param]} />
-              ))}
+              {primary.map((f) =>
+                f.control === 'where' ? (
+                  <WherePopover key={f.param} label={f.label} state={state} counts={counts} loading={shown === null} shown={shown} labelOf={labelOf} onPick={(facets) => onState(withWhere(state, facets), 'push')} onSearch={(q) => onState({ ...state, q, focus: null }, 'replace')} />
+                ) : (
+                  <FacetPopover key={f.param} facet={f} options={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} onChange={(v) => setFacet(f.param, v)} gapN={gaps[f.param]} />
+                ),
+              )}
             </div>
             <div className="phone-panel-actions">
-              <button
-                type="button"
-                className="btn phone-search-btn"
-                aria-label="Search the list"
-                onClick={() => {
-                  close(false);
-                  focusSearch();
-                }}
-              >
-                <Icon name="search" size={16} />
-              </button>
               {hasMore ? (
                 <button type="button" className="btn" onClick={() => window.dispatchEvent(new Event(OPEN_FILTERS))}>
                   More filters
                 </button>
               ) : null}
-              {n ? (
+              {chipN ? (
                 <button type="button" className="link-btn" onClick={() => onState(clearAll(state), 'push')}>
                   Clear all
                 </button>
