@@ -204,7 +204,7 @@ export function chipsHtml(chips: readonly (Chip | null)[]): string {
 const ECHO = new Set<string>(['facilities', 'when']);
 const clip = (t: string, n = 64): string => (t.length > n ? `${t.slice(0, n - 1).replace(/[\s,;:·-]+$/, '')}…` : t);
 
-function groupHtml(g: SuitGroup, slugs: Slugs): string {
+function groupHtml(g: SuitGroup, slugs: Slugs, hide?: ReadonlySet<string>): string {
   const values = g.rows.filter((r) => !r.gap);
   if (ECHO.has(g.id)) {
     // Facilities and When you can go are sections of their own (9 and 8): here only their values, with a link, so nothing is said twice (PS1, Q31)
@@ -216,14 +216,15 @@ function groupHtml(g: SuitGroup, slugs: Slugs): string {
     return `<p class="su-echo" data-group="${g.id}"><span class="gt">${esc(g.title)}</span><span class="gs">${echo.join(' · ')}${echo.length && gapLine ? ' ' : ''}${gapLine}</span><a href="#${g.id}">See section</a></p>`;
   }
   const gaps = g.rows.filter((r) => r.gap);
-  const sum = g.open ? '' : `<span class="gs">${values.map((r) => withUnits(clip(r.short))).join(' · ')}${gaps.length || g.closing ? gapChip(clip(g.closing ?? `Not checked yet: ${gaps.map((r) => r.label.toLowerCase()).join(', ')}`, 90)) : ''}</span>`;
+  // a value the page's key-facts strip already shows is not said again in a closed group's header; its row stays in the body
+  const sum = g.open ? '' : `<span class="gs">${values.filter((r) => !hide?.has(r.key)).map((r) => withUnits(clip(r.short))).join(' · ')}${gaps.length || g.closing ? gapChip(clip(g.closing ?? `Not checked yet: ${gaps.map((r) => r.label.toLowerCase()).join(', ')}`, 90)) : ''}</span>`;
   const rows = g.rows.map((r) => rowLine({ ...r, text: r.gap ? null : r.text, gapWording: r.gap && r.text !== GAP_WORDS ? r.text : undefined }, slugs, `su-${r.key}`)).join('');
   return `<details class="su-group" data-group="${g.id}"${g.open ? ' open' : ''}><summary><span class="gt">${esc(g.title)}</span>${sum}</summary><div class="su-gbody">${rows}${closing(g.closing)}</div></details>`;
 }
 
 /** The inside of the "Who it suits" section: head, chips, warning line and the groups. */
-export function suitsInner(suit: PublicSuitability, slugs: Slugs, title: string): string {
-  return `<header class="ph"><h2 id="h-suits">${esc(title)}</h2>${suit.research.text ? `<p class="ps-meta">${esc(suit.research.text)}</p>` : ''}</header>${chipsHtml([...suit.chips, ...suit.accessChips])}${suit.warning ? `<p class="su-warn">${glyph('triangle', 16)}<span>${withUnits(suit.warning)}</span></p>` : ''}${suit.groups.map((g) => groupHtml(g, slugs)).join('')}`;
+export function suitsInner(suit: PublicSuitability, slugs: Slugs, title: string, hide?: ReadonlySet<string>): string {
+  return `<header class="ph"><h2 id="h-suits">${esc(title)}</h2>${suit.research.text ? `<p class="ps-meta">${esc(suit.research.text)}</p>` : ''}</header>${chipsHtml([...suit.chips, ...suit.accessChips])}${suit.warning ? `<p class="su-warn">${glyph('triangle', 16)}<span>${withUnits(suit.warning)}</span></p>` : ''}${suit.groups.map((g) => groupHtml(g, slugs, hide)).join('')}`;
 }
 
 // ---- glance and "Before you go" ---------------------------------------------------------------------------------------------
