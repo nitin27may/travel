@@ -48,7 +48,7 @@ Still open, all "later": Quebec overview stacks two banners; the Dolomites limit
 
 | ID | Question | Recommendation |
 |---|---|---|
-| D18 | Move the trip-planner skill's hand-built-HTML half to `legacy/_system/TRIP-PAGE.md`, so new trips get research and data, not a hand-built page? | Yes |
+| D18 | Superseded 21 Oct: the trip-planner skill's HTML half is retired, not moved; new trips are data only and any HTML change is a web app change. See `docs/v2/SKILLS-AND-DATA-ONLY.md`. Confirm the six points O-1 to O-6 there (BACKLOG Q79 to Q82). | Yes |
 | Q70 follow-up | Create the public feedback repo (last step), and is publishing your GitHub handle in its URL acceptable? | Yes, at the last step |
 | Authorship | "by Nitin" appears on all 14 trip pages. Keep? | Confirm at R2 |
 

@@ -4,7 +4,9 @@ Owner requests, 21 Oct 2026:
 1. "Add one plan to clean up obsolete paths, structure our research folder, maybe at root? then remove from docs folder etc. Think and plan a cleanup so we don't have duplicate folders or files."
 2. (Later the same day, deciding the first version.) "Go with all recommendations D1-D10 except D7. We have two research folders, one in docs and one in root; keep them at one place, together with the skills: skills are in .claude, research in research/. It should have all details: the skill, the scripts it uses, the inbox for raw output, what location/trip it is planning, the schema output format, and what details we need for the relevant type while doing research."
 
-Written by travel-planner (Opus). **Revision 2 (21 Oct 2026, evening). Status: plan approved by the owner; nothing has been moved yet.** Tracked in [TODO.md](TODO.md) and in BACKLOG rows 15.10 and 15.11. Scheduled in [PLAN.md](PLAN.md) section 3, row "Cleanup". Every count, size and reference below was measured on `main` at 6e82404 on 21 Oct 2026 with `git ls-files`, `git grep`, `du` and `shasum`. The lane collisions were measured in the seven `../travel-wt/v2-*` worktrees.
+Owner direction, 21 Oct 2026 (final), which adds phase CLN-7 and retires D18: "All skills should be in a skill folder... we have a research skill and a planning skill; keep them in a proper place so they can be used." And: "We are not getting new HTML. If any HTML change is asked, it will change the web app. Only data will be generated, based on the schema." The decision record is [SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md).
+
+Written by travel-planner (Opus). **Revision 3 (21 Oct 2026, late). Status: approved by the owner. CLN-1 merged (329bb99) and CLN-R merged (a1ceff8); CLN-7 is new and can start now; CLN-2 to CLN-6 as scheduled.** Tracked in [TODO.md](TODO.md) and in BACKLOG rows 15.10 and 15.11. Scheduled in [PLAN.md](PLAN.md) section 3, row "Cleanup". Every count, size and reference below was measured on `main` at 6e82404 on 21 Oct 2026 with `git ls-files`, `git grep`, `du` and `shasum`. The lane collisions were measured in the seven `../travel-wt/v2-*` worktrees.
 
 **Recommendation.** Make the root `research/` the only research home. Everything under `docs/v2/research/` moves there, along with `docs/research/` and `docs/GLOBE-RESEARCH.md`. Inside `research/` there is one folder per question:
 - `method/`: how research is done
@@ -26,6 +28,12 @@ Written by travel-planner (Opus). **Revision 2 (21 Oct 2026, evening). Status: p
 - `docs/v2/research/skills-and-prompts.md` section 2, where it says lane contracts "are read from `docs/v2/research/lanes/`".
 
 These are applied in CLN-1, and each superseded page gets a banner.
+
+**Superseded in revision 3 (21 Oct, late) by [SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md):**
+- D18 (move the trip-planner skill's HTML half to `legacy/_system/TRIP-PAGE.md`). It is retired, and that file is never written.
+- The rows that implement D18: 1.2 `trip-planner`, 2.6 `trip-planner`, 2.8 `TRIP-PAGE.md`, CLN-6 "trip-planner skill step 7", and CLN-5 rule 6.
+
+Each carries a note below.
 
 ```mermaid
 flowchart TB
@@ -98,7 +106,7 @@ The `.git` pack is 94.5 MB. Removing files from the tree does not shrink it. Thi
 | `docs/v2/research/{map-stack-2026-10-18, smart-search-spike, globe-adm2-audit, schema-diff-2026-10}.md`, `map-stack/` (12 jpg) | decision reports | 16 | none | to `research/reports/` (D13) |
 | `docs/research/trails-and-media-2026-10-18.md` | decision report | 1 | `prototype/src/data/trails.ts` comment | to `research/reports/` |
 | `docs/GLOBE-RESEARCH.md` | globe sources and licences | 1 | `tools/globe_data.py:18` (GLB2a owns it in phase A) | to `research/reports/globe-research-2026-10-16.md` (CLN-2) |
-| `.claude/skills/trip-planner/SKILL.md` | research fan-out **and** the legacy HTML house format, 17 KB | 1 | Claude Code | thin wrapper (CLN-1c); HTML half to `legacy/_system/TRIP-PAGE.md` (D18) |
+| `.claude/skills/trip-planner/SKILL.md` | research fan-out **and** the legacy HTML house format, 17 KB | 1 | Claude Code | **superseded 21 Oct (late):** retired in CLN-7; the `trip` and `research` skills replace it and its HTML half is dropped, not moved ([SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 3) |
 | `.claude/skills/location/SKILL.md` | capture procedure, 5.6 KB | 1 | Claude Code | keep the procedure; three pointer edits (CLN-1c) |
 | `.claude/agents/travel-researcher.md` | the researcher's prompt, with the method rules inline | 1 | Claude Code | thin wrapper (CLN-1c) |
 | `tools/locations.py`, `tools/gallery/*`, `core/bin/{capture,suitability,relevance,sources,sun,validate,ops,schedule,mcp}.ts`, `web/scripts/{tracks-osm,legs-ors,commons-cache,fetch-photo-credits,globe-cities,globe-images}.mjs` | the scripts research uses | about 20 | check-all, hooks, tests, `package.json` scripts | stay; indexed in `research/tools.md` (D14) |
@@ -269,15 +277,17 @@ The human-readable per-type guide is `research/types/<domain>.md` (generated, on
 
 **Design (D15).** A skill is a thin wrapper. It carries the frontmatter (name, a description that triggers it), one paragraph on when to use it, the ordered steps as one line each, and a link for every step to the section of `research/README.md` or `research/tools.md` that holds the method. It carries no rule, field list or command flag set that also appears in `research/`. Scripts are called by their real repository path (`python3 tools/locations.py`, `node core/bin/capture.ts`), not copied into the skill folder. Agent prompts keep only one-line safety rules that must hold even when the agent skips reading, each ending with a pointer to the full rule.
 
+> **Superseded in part (21 Oct, late).** The `trip-planner` row below is replaced by CLN-7: the skill is retired, the `trip` and `research` skills replace it (texts in [SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 2.3), and its HTML half is dropped. There is no step 7 and no `TRIP-PAGE.md`. CLN-1c left this skill uncut while D18 was open, so the row was never applied. The other rows stand.
+
 | File | Today | Change (CLN-1c) | Size target |
 |---|---|---|---|
-| `.claude/skills/trip-planner/SKILL.md` | 17 KB: folder layout, rule zero, a 6-lane fan-out with every field, gaps rules, conditions routine, the HTML house format, links, Commons commands, gallery, screenshots, publish, writing style | Keep the name and the trigger. Body: (1) read `research/README.md`; (2) register or update the trip in `research/trips/README.md`; (3) run the lanes for the trip type per `research/README.md` section 3b (the fan-out rules move to `research/method/lanes/README.md` "Running a fan-out"; rule zero and the gaps rules move to `research/README.md` section 9); (4) write findings to `research/trips/<folder>/<lane>.md` and records to `data/capture/<trip-id>/` per `research/formats/`; (5) run the validators in section 6; (6) conditions routine: `research/method/onboarding-and-refresh.md` section 4; (7) only to revise an existing legacy page: `legacy/_system/TRIP-PAGE.md` (the HTML house format, links, photos, gallery, screenshot and publish steps, moved verbatim; D18). The writing-style rules stay in the skill, because they are about the reply, not the method | under 5 KB |
+| `.claude/skills/trip-planner/SKILL.md` (superseded, see the note above) | 17 KB: folder layout, rule zero, a 6-lane fan-out with every field, gaps rules, conditions routine, the HTML house format, links, Commons commands, gallery, screenshots, publish, writing style | Keep the name and the trigger. Body: (1) read `research/README.md`; (2) register or update the trip in `research/trips/README.md`; (3) run the lanes for the trip type per `research/README.md` section 3b (the fan-out rules move to `research/method/lanes/README.md` "Running a fan-out"; rule zero and the gaps rules move to `research/README.md` section 9); (4) write findings to `research/trips/<folder>/<lane>.md` and records to `data/capture/<trip-id>/` per `research/formats/`; (5) run the validators in section 6; (6) conditions routine: `research/method/onboarding-and-refresh.md` section 4; (7) only to revise an existing legacy page: `legacy/_system/TRIP-PAGE.md` (the HTML house format, links, photos, gallery, screenshot and publish steps, moved verbatim; D18). The writing-style rules stay in the skill, because they are about the reply, not the method | under 5 KB |
 | `.claude/skills/location/SKILL.md` | 5.6 KB: capture steps that are the `locations.py` CLI usage | Keep the procedure (it is the tool's usage, written once). Fix "schema v2" to v3. Point the batch format to `research/formats/README.md` "Inbox batch". Add one line: research happens when a trip adopts the place, through `research/README.md` section 3a. "Resolution rules" stay (they describe the tool's behaviour) | about 5.5 KB |
 | `.claude/agents/travel-researcher.md` | reads 3 paths under `docs/v2/research/`; 17 lines of hard rules duplicating the kind README and the sources page | Description: "...to `research/README.md` (method, per-type checklists, formats)". "Before you start": `research/README.md`, then the type checklist (`capture.ts fields --type`), the kind profile, the lane contract, `research/method/sources-and-licences.md`. Output: records in `data/capture/<trip-id>/`, the run record in `data/capture/runs/`, the run note in `research/runs/<run-id>.md`, lane prose in `research/trips/<folder>/`. Keep six one-line safety rules with pointers: no Google coordinates; no invented URLs; limits only from official or operator sources; conflicts recorded, never picked; Overpass and Commons one request at a time, never parallel; nothing in the Obsidian vault. Commit only own paths | under 2.5 KB |
 | `.claude/agents/travel-builder.md`, `travel-design-reviewer.md` | Playwright from `prototype/node_modules`, Linux Chromium path | D6 as in the first version: `pnpm --dir web exec playwright`, browsers from the Playwright cache on this OS | - |
 | `.claude/agents/travel-planner.md`, `travel-verifier.md` | read `docs/v2/research/` in their lists | path only | - |
 
-Future skills from `research/method/skills-and-prompts.md` (research-lane, find-media, check-links, conditions-check) follow the same pattern: one folder in `.claude/skills/`, one section in `research/README.md`.
+Future skills from `research/method/skills-and-prompts.md` (research-lane, find-media, check-links, conditions-check) follow the same pattern: one folder in `.claude/skills/`, one section in `research/README.md`. Revision 3 fixes the current set at `trip`, `research` and `location`. Conditions, photos and link checks are steps of those skills until the MCP research flow exists ([SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) SD-8).
 
 ### 2.7 `research/README.md`: the outline (a spec for CLN-1c)
 
@@ -311,7 +321,7 @@ Written for a researcher who has never seen the repo. Under 400 lines. Every sec
 | `research/trips/README.md` | One row per `research/trips/<folder>`: folder, trip id (`data/capture/<id>`, `data/suitability/<id>`), legacy page, public slug, state (researched, built, published, idea), season window, the 1 to 3 open items. Then (D17) the per-trip summaries now in CLAUDE.md, moved verbatim under one heading per trip. Rule: a new trip gets its row before its first lane file |
 | `docs/README.md` | Two lines: `docs/` holds decisions (`v2/`) and superseded documents (`archive/v1/`); research lives in `/research/README.md` |
 | `docs/v2/research/README.md` (stub) | "Moved to `/research/` on <date> (CLEANUP-PLAN CLN-1)", plus the old-to-new table of section 2.4. Removed at CLN-6 |
-| `legacy/_system/TRIP-PAGE.md` | The HTML house format half of the trip-planner skill, moved verbatim, with a banner: "Legacy page format, frozen until backlog 7.11" (D18) |
+| ~~`legacy/_system/TRIP-PAGE.md`~~ | **Superseded 21 Oct (late): not written.** D18 is retired; the HTML half of the trip-planner skill is dropped ([SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 3) |
 
 ## 3. Phases
 
@@ -329,8 +339,10 @@ Order: docs and research first, then the code-bound research paths, then the v1 
 | CLN-4 | phase B, after A11 | as in the first version | `travel-builder`, **Sonnet**; verifier | 3 h + 1 h |
 | CLN-5 | phase B, after B4 merges, before G-B | both add a check-all line; G-B audits the guard | `travel-builder`, **Sonnet**; G-B audit Opus | 5 h |
 | CLN-6 | with backlog 7.11 | legacy stays until go-live approval | the 7.11 lane | in 7.11 |
+| **CLN-7a** (revision 3) | **now**, beside phase A; merge **before R1 entry** | CLN-2 edits `CLAUDE.md` and `README.md` at R1 entry. No phase A lane, and none of API-0, API-1 or META-0, owns a CLN-7 file | `travel-planner` with the model set to **Sonnet**: every text is written out in the brief, so it is well specified under the CLAUDE.md rubric | 2.5 h |
+| **CLN-7b** | after 7a | independent mechanical proof: sizes, greps, a skill listing | `travel-verifier` on **Haiku** | 0.5 h |
 
-Total: about 27 h. About 10 h of it is new for the one research home: 1b's rewriter, CLN-R, 1c's new files, and one extra hour on the guard.
+Total: about 30 h. About 10 h of it is new for the one research home: 1b's rewriter, CLN-R, 1c's new files, and one extra hour on the guard. CLN-7 adds 3 h.
 
 ### CLN-1: docs and research (now)
 
@@ -348,7 +360,7 @@ Total: about 27 h. About 10 h of it is new for the one research home: 1b's rewri
 | 1.10 | `.claude/plans/` | removed | tag, then `git rm -r` (D2) | |
 | 1.11 | 75 uncited screenshots | removed | list, tag, `git rm` (D4) | |
 | 1.12 | - | - | relink | every string and link in the files of the "CLN-1 rewrite scope" below |
-| 1.13 | - | new files of 2.8, `research/README.md`, `tools.md`, the thin skills and agents, `legacy/_system/TRIP-PAGE.md` | write (1c) | |
+| 1.13 | - | new files of 2.8, `research/README.md`, `tools.md`, the thin skills and agents, `legacy/_system/TRIP-PAGE.md` | write (1c) | `TRIP-PAGE.md` and the trip-planner cut were not done (D18 open), and are superseded by CLN-7 (revision 3) |
 | 1.14 | - | - | edit (D5, D17) | `CLAUDE.md` (5.1 contract, the research pointer, `legacy/peru/` fixed, `prototype/` out of the agents table, the trip summaries moved on D17), `README.md` layout, `research/vault-notes/README.md` (the "move under research/" line and "the real list is `locations/`", which is now `data/locations/`), `docs/v2/design/globe/review.md` line 23 |
 
 **CLN-1 rewrite scope** (files 1b may edit, all measured free of lane ownership on 21 Oct):
@@ -602,11 +614,20 @@ Unchanged from the first version.
   3. `docs/` holds only `README.md`, `v2/` and `archive/`. `docs/v2/research/` holds only `README.md` (the stub) until CLN-6, then must not exist. No file under `docs/` may be named `*research*`, except the stub and files under `docs/archive/`.
   4. Every file in `research/types/` starts with the generator's header line. (`capture.ts build --check` already fails on strays; this rule names the folder in the message.)
   5. Every folder in `research/trips/` has a row in `research/trips/README.md`.
-  6. `.claude/skills/trip-planner/SKILL.md` and `location/SKILL.md` link `research/README.md`; `trip-planner/SKILL.md` is under 6 KB; `.claude/agents/travel-researcher.md` links `research/README.md`.
+  6. (Revised for CLN-7.)
+     - `.claude/skills/` holds exactly `trip`, `research` and `location`, each a regular `SKILL.md` that links `research/README.md`.
+     - `trip` and `research` are at most 2,560 bytes; `location` is under 6 KB.
+     - No symlink exists under `.claude/skills/`.
+     - `.claude/agents/travel-researcher.md` links `research/README.md`.
   7. No two tracked paths share a blob hash, except the allowlist: `.gitkeep`, `core/test/fixtures/**`, the fonts pair, and `legacy/**` until CLN-6.
   8. Every image under `docs/` and `research/reports/` is named by a tracked text file in the same tree, and none is over 1.5 MB. The 4 larger images (`suitability-display/mock/shots`) go into the baseline.
   9. No live file links into `docs/archive/`. Live files are all files except those under `docs/archive/` and `docs/v2/build/handover/memory/`.
   10. Dead paths. Repo-relative paths that start with `core/`, `data/`, `docs/`, `research/`, `tools/`, `web/`, `legacy/` or `prototype/`, in `core/`, `web/`, `tools/`, `data/`, `.claude/`, `research/`, `CLAUDE.md`, `README.md` or `HANDOVER.md`, must exist, and relative Markdown links must resolve. Placeholders (`<slug>`, `*`, `{a,b}`) are skipped. Today's misses (19 links and any path strings) go into the baseline.
+  11. (Added for CLN-7.) **Legacy freeze.** Every tracked file under `legacy/` keeps the blob hash pinned in
+      `tools/tree_contract.json` (`legacy_pins`, written once when CLN-5 lands). A file may disappear, because data moves
+      out by `git mv`, but no file may change or appear. Exempt: the generated outputs that still regenerate,
+      `legacy/locations/index.html` and `legacy/globe/assets/**`, and the CLN-7 banner in `legacy/_system/README.md`
+      (pinned after it). Dropped at CLN-6.
 - **Acceptance.** Green on `main` with the baseline; each rule has a failing fixture; runtime under 2 s.
 - **Verification.** `python3 -m pytest tools/tests -q`, then `bash tools/check-all.sh`. No UI.
 - **Commit rules.** Worktree `v2-CLN5`; message `tools(cleanup/CLN-5): folder contract guard`; own paths; trailer.
@@ -617,11 +638,40 @@ Unchanged from the first version.
 |---|---|
 | `legacy/<folder>/PLAN.md` (12) | `git mv` to `research/trips/<folder>/PLAN.md` before the builders go, so `git log --follow` keeps their history |
 | `legacy/<folder>/*.py`, `gallery/`, `index.html`, `assets/` | tag `archive/legacy-pages-<date>`, then remove |
-| `legacy/globe/`, `legacy/locations/index.html`, `legacy/_system/` (with `TRIP-PAGE.md`) | remove with the legacy outputs of `tools/location_views.py` and their tests; `places.json` going also serves P8 |
+| `legacy/globe/`, `legacy/locations/index.html`, `legacy/_system/` | remove with the legacy outputs of `tools/location_views.py` and their tests; `places.json` going also serves P8. `legacy/_system/site/` is read by `location_views.py` on every `locations.json` write, so it goes last, with that output |
+| Data still under `legacy/` (Rockies `data/*.json`, `gallery/`, the manifest, the meta tags `tools/hub.py` scrapes) | moved first by TD-3 (phase E) and TD-4 (after R2); see [SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 7 for the 25-row inventory and the order |
 | `legacy/MANIFEST.json`, `tools/publish.py`, `tools/hub.py` | per 7.11 steps 6-7 |
 | `docs/v2/research/README.md` (stub) | remove; the guard's rule 3 flips to "must not exist" |
-| trip-planner skill step 7 | removed with `TRIP-PAGE.md` |
-| CLN-5 baseline | drop the `legacy/**` exemptions |
+| ~~trip-planner skill step 7~~ | superseded: the skill is retired in CLN-7, and `TRIP-PAGE.md` is never written |
+| CLN-5 baseline | drop the `legacy/**` exemptions and rule 11 |
+
+### CLN-7: skills consolidation and the no-HTML rule (revision 3, now)
+
+- **Goal.** Skills in the one home Claude Code loads (`.claude/skills/<name>/SKILL.md`) with the final set:
+  - `trip`, which replaces `trip-planner`;
+  - `research`, which is new;
+  - `location`, which is kept.
+
+  `trip-planner` is removed after a tag, the freeze rule is written into CLAUDE.md, and every pointer to the old skill is
+  updated.
+- **Why now.** The owner's direction of 21 Oct, and no running lane owns any of its files.
+- **Owned and forbidden files, steps, acceptance (a) to (f), verification and commit rules.** All in
+  [SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 9.1. That brief is self-contained and is not copied here.
+- **Models by the rubric.**
+  - 7a is `travel-planner` set to Sonnet: the skill texts and the CLAUDE.md text are written out verbatim, so it is well
+    specified.
+  - 7b is `travel-verifier` on Haiku: byte counts, `find -type l`, greps, `relink.py --check` and a fresh-session skill
+    listing.
+  - Escalate 7a to Opus only if a text does not fit the files as they are on the day.
+- **It touches no agent file.** META-0 (B6) owns a line of `travel-researcher.md`, and no agent names `trip-planner`.
+
+The freeze rule CLN-7 writes:
+- **No new HTML.** Nobody edits `legacy/**` except to move data out (TD-3, TD-4) or to add the one CLN-7 banner.
+- A page change is a `web/` change.
+- No new trip gets a `legacy/` folder, PLAN.md, `build_page.py` or manifest entry.
+- `./publish.sh` never deploys.
+
+Full text: [SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 6.
 
 ## 4. Collision map (measured 21 Oct 2026 in the lane worktrees)
 
@@ -662,7 +712,7 @@ Replace the section "Folder contract (layout since 17 Oct 2026)" with:
 
 Replace "Destinations: the laundry list" with three lines: what `data/locations/locations.json` is, "capture with the `location` skill (`research/README.md` 3a)", and "details in `data/locations/README.md`". Keep the hook and `build --check` sentences, since they are repo mechanics.
 
-Replace "Photo galleries" with two lines: "legacy pages carry galleries (`legacy/_system/TRIP-PAGE.md`); photo research is `research/README.md` 3e; never search Commons from parallel agents."
+~~Replace "Photo galleries" with two lines: "legacy pages carry galleries (`legacy/_system/TRIP-PAGE.md`); ..."~~ **Superseded (revision 3):** CLN-7 applies the replacement CLAUDE.md text in [SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 8. That text covers the opening lines, "Destinations", "Shared design system", the legacy sentences of the folder contract, "Photo galleries", "Landing page", "Gotchas" and "Platform".
 
 Replace "Current trips" and "Queued" (D17) with: "Trips: the index, with each trip's state, dates and open items, is `research/trips/README.md`."
 
@@ -682,6 +732,8 @@ In "Capture contract", replace `docs/v2/research/capture/*` with `research/types
 | An audit of published claims | `research/audits/<topic>-YYYY-MM-DD.md` |
 | A new research script | its package (`tools/`, `core/bin/`, `web/scripts/`), plus one row in `research/tools.md` |
 | A new research skill | `.claude/skills/<name>/SKILL.md`, thin, plus a recipe section in `research/README.md` |
+| A new trip | data only: `data/trips/<id>/trip.json` through `node core/bin/ops.ts`, `data/schedules/<id>.json`, records in `data/capture/<id>/` with sidecars, prose in `research/trips/<id>/`; never a `legacy/` folder, PLAN.md or `build_page.py` (revision 3) |
+| A change to how a page looks | `web/` (spec in `docs/v2/`, `travel-builder`, design review, verifier); never `legacy/` (revision 3) |
 | A screenshot cited by a spec | beside the spec, `<spec-folder>/shots/`, under 1.5 MB, JPEG or WebP |
 
 ### 5.3 Naming
@@ -714,8 +766,11 @@ These cleanup decisions are a separate list from EXECUTION-PLAN's D1-D10 of 20 O
 | D14 | Scripts stay with their packages; `research/tools.md` indexes them by real path | decided by this plan | moving a `core/bin/*.ts` breaks its relative imports and tsconfig; `tools/*.py` are bound to hooks, tests and `publish.py` |
 | D15 | Skills and the researcher agent are thin wrappers in `.claude/`; the method is written once in `research/` | decided by this plan | follows from the owner's request and the discovery check (1.6) |
 | D16 | JSON templates in `research/formats/templates/` are validated by a test (CLN-R) | decided by this plan | an untested template rots |
-| D17 | Move the CLAUDE.md "Current trips" and "Queued" summaries (about 90 lines) into `research/trips/README.md`, leaving one pointer | **open: owner** | Recommended: yes. Trade-off: a new session no longer sees every trip's summary without opening one file; CLAUDE.md shrinks by about a third and the summaries sit beside their research |
-| D18 | Move the trip-planner skill's HTML half (house format, links, photos, gallery, screenshot, publish) to `legacy/_system/TRIP-PAGE.md`. The skill uses it only to revise an existing legacy page; a new trip gets research and data, not a new legacy page | **open: owner** | Recommended: yes. Trade-off: no new hand-built trip page until the planner (phase F) or a v2 trip import exists; an upcoming trip gets its research and records, and appears on the new site through the data |
+| D17 | Move the CLAUDE.md "Current trips" and "Queued" summaries (about 90 lines) into `research/trips/README.md`, leaving one pointer | **applied in CLN-1c** (CLAUDE.md "Trips" is the pointer; `research/trips/README.md` holds the summaries); owner confirms at R1 (SKILLS-AND-DATA-ONLY O-5) | Trade-off: a new session must open one file to see every trip's summary |
+| D18 | Move the trip-planner skill's HTML half (house format, links, photos, gallery, screenshot, publish) to `legacy/_system/TRIP-PAGE.md` | **SUPERSEDED 21 Oct (owner direction: no new HTML): retired, not moved.** No `TRIP-PAGE.md`; the skill is replaced by `trip` and `research` in CLN-7 | [SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 3 lists what is retired, what moves into `trip`, and what `research/README.md` already covers |
+| D20 | Skills live only in `.claude/skills/<name>/SKILL.md`. The set is `trip`, `research` and `location`; `trip-planner` is removed after a tag (CLN-7) | **decided 21 Oct (owner direction)** | A root `skills/` folder is not loaded by Claude Code 2.1.306, and a symlink is refused (SKILLS-AND-DATA-ONLY 2.1) |
+| D21 | No new HTML: `legacy/**` is frozen except for moving data out; page changes go to `web/`; enforced by CLN-5 rule 11 | **decided 21 Oct (owner direction)** | A typo on an old page stays until 7.11 |
+| D22 | A trip is data in the existing core trip format (`data/trips/<id>/trip.json` through the ops CLI) plus `data/schedules/<id>.json`. No PLAN.md, `build_page.py` or manifest entry for a new trip | **decided 21 Oct (owner direction)** | The web app cannot render a data-only trip until TD-2 (phase E) |
 | D19 | Keep a stub `docs/v2/research/README.md` with the old-to-new table until CLN-6 | decided by this plan | old links in records still lead somewhere |
 
 `data/catalog/` stays until SRV-0 decides the store layout (a new BACKLOG row in the SRV lane).
@@ -736,6 +791,9 @@ These cleanup decisions are a separate list from EXECUTION-PLAN's D1-D10 of 20 O
 - **Tags first, every time.** Create `archive/cleanup-<phase>-<date>` on the commit just before a removal, and push it with the merge.
 - **One writer per path.** CLN-1 edits `CLAUDE.md`, `HANDOVER.md` and the build docs. The coordinator commits its own edits first.
 - **`research/vault-notes/Plan.md` holds household data.** `research/` is never published, and the repo must stay private while it is there.
+- **`legacy/_system/site/` is not dead.** `tools/location_views.py` reads its template and CSS on every `locations.json` write (the PostToolUse hook). Remove it only with that output, in CLN-6.
+- **The web app still reads `legacy/`.** `MANIFEST.json`, the Rockies `data/*.json`, the 9 `gallery.json` files, and the meta tags `tools/hub.py` scrapes all feed the trips list and pages. Nothing there is removed before TD-3 and TD-4 move it ([SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 7).
+- **Renaming the skill breaks `/trip-planner`.** The `trip` description still matches "plan a trip". `core/test/ops/catalogue.test.ts:115` uses `skill:trip-planner` as a free-text actor string; leave it.
 
 ## 8. Change log
 
@@ -743,3 +801,4 @@ These cleanup decisions are a separate list from EXECUTION-PLAN's D1-D10 of 20 O
 |---|---|
 | 2026-10-21 | First version: inventory, options A-C (B recommended), phases CLN-1 to CLN-6, briefs for CLN-3 to CLN-5, the folder contract, decisions D1-D10 |
 | 2026-10-21 (evening) | Revision 2 after the owner's decisions: D1-D6 and D8-D10 decided as recommended; D7 replaced by D11, one research home at the root `research/`. New: the research tree (2.2), the per-path cost table (2.4), per-type requirements (2.5), the verified skill-discovery rule and thin wrappers (2.6), the `research/README.md` outline (2.7), `tools.md`, `formats/` and the trip index (2.8), phases CLN-1a-d and CLN-R with a model per phase, the measured lane collision map (4), the guard's research rules, decisions D11-D19 (D17 and D18 open for the owner). Corrected: the claim that `research/trips` paths are sha-pinned in data (only fixtures carry `research_refs`) |
+| 2026-10-21 (late) | Revision 3 after the owner's direction "skills in one folder; no new HTML; only data from the schema" ([SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md)). Changes: D18 superseded (retired, not moved); D17 marked applied; D20-D22 added; new phase CLN-7 (skills consolidation, now, Sonnet authoring and Haiku verify); CLN-5 rule 6 revised and rule 11 (legacy freeze) added; CLN-6 rows corrected; 5.1 Photo galleries line superseded; 5.2 rows for a new trip and a page change; status line updated (CLN-1 and CLN-R merged) |
