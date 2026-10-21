@@ -2,7 +2,7 @@
 
 **Moved to the root `research/` on 21 Oct 2026 (CLEANUP-PLAN CLN-1; owner decision D11, one research home).** This folder
 keeps only this page, so that old links in records still lead somewhere. It is removed at CLN-6 (D19). The map of the whole
-research system will be [research/README.md](../../../research/README.md).
+research system is [research/README.md](../../../research/README.md).
 
 ## Old path to new path
 

@@ -1,25 +1,18 @@
 # Travel plans repo
 
-**Start here on a new machine or session: read `docs/v2/PLAN.md` (the single plan: requirements, order, status, next tasks, open decisions), then `HANDOVER.md` (setup), then `docs/v2/build/public-site/EXECUTION-PLAN.md` for task detail and `BACKLOG.md` for row status.** `main` is the new public site (v2); the old site is the tag `legacy-final`; the live site is unchanged until the owner approves go-live.
+**Start here on a new machine or session: read `docs/v2/PLAN.md` (the single plan: requirements, order, status, next tasks, open decisions), then `HANDOVER.md` (setup), then `docs/v2/build/public-site/EXECUTION-PLAN.md` for task detail and `BACKLOG.md` for row status.** `main` is the new public site (v2); the old site is the tag `legacy-final`; the live site is unchanged until the owner approves go-live. For research, `research/README.md`.
 
 Each trip is one folder: `legacy/<slug>/` containing `index.html` (the deliverable) and `PLAN.md`; its research lives in `research/trips/<slug>/`.
 
 **Use the `trip-planner` skill** (`.claude/skills/trip-planner/`) for any new or revised trip plan — it defines the research process, the HTML format and design system, link/photo conventions, and the publish step.
 
-## Destinations: the laundry list — `locations/` (since 16 Oct 2026)
+## Destinations: the laundry list
 
-Every place Nitin wants to remember goes in `data/locations/locations.json` (schema v2) through the
-`location` skill or `python3 tools/locations.py add ...` (Wikidata then Nominatim
-resolve coordinates and the country > region > area chain). Change a place with
-`locations.py edit ID ...` and record a trip there with `locations.py visit add ID --date ...`.
-`locations.py build` (`build --check` to verify) generates two views from one code path: the
-private `data/locations/WISHLIST.md` (full notes) and the published `legacy/locations/index.html` list page,
-plus the globe's pins in `legacy/globe/assets/data/places.json`. Never hand-edit those; a PostToolUse hook
-validates the store and rebuilds them on every write, and `publish.sh` (a wrapper for `tools/publish.py`) runs `build` first and fails
-if it fails. The store is one file until it passes 300 places, when `validate` warns and it can be
-converted to the split layout (one part per country). The Obsidian `Location.md` is retired and
-points here. Capture only; research happens when a trip adopts the place (`trip` field).
-Tests: `python3 -m pytest tools/tests -q`. Details: `data/locations/README.md`.
+`data/locations/locations.json` (schema v3) is the list of every place Nitin wants to remember; capture with the `location`
+skill (`research/README.md` 3a), never by hand-editing the store. Details: `data/locations/README.md`.
+`locations.py build` (`build --check` to verify) regenerates `data/locations/WISHLIST.md`, `legacy/locations/index.html` and
+the globe pins `legacy/globe/assets/data/places.json`; never hand-edit those. A PostToolUse hook validates the store and
+rebuilds them on every write, and `publish.sh` runs `build` first and fails if it fails.
 `python3 tools/publish.py --dry-run` (or `PUBLISH_DRY_RUN=1 ./publish.sh`) stages `.site/` and stops before wrangler.
 
 ## Shared design system — `legacy/_system/` (Phase 0 complete, Aug 29 2026)
@@ -36,14 +29,26 @@ pages are still hand-written HTML (the original plan file for the migration is g
 `docs/archive/v1/AUDIT-2026-10-16.md` section 2.3 for the target). `build.py` still has no CLI
 build command, so each trip supplies its own thin `build_page.py`.
 
-## Folder contract (layout since 17 Oct 2026)
+## Folder contract (since the cleanup, Oct 2026)
 
-`legacy/<slug>/` holds `index.html` (published), `PLAN.md`, `build_page.py` and `gallery/` (`gallery.json` plus
-the spec and picks; `*-candidates.json` is gitignored); `assets/` is the only other thing published (kml, csv, gpx).
-`legacy/_system/`, `legacy/globe/` and `legacy/locations/index.html` are the design system and the two site pages.
-Research is `research/trips/<slug>/` (lane files, `notes/`, `archive/` of superseded plans, never published); the
-gallery tools are `tools/gallery/`; the audit is `docs/archive/v1/AUDIT-2026-10-16.md`. The full layout is `docs/PLAN-platform.md` 1.1.
-`publish.sh` copies `index.html` and `assets/` only, per route in `legacy/MANIFEST.json`.
+Code and every script live in `core/`, `web/` and `tools/`. Authored data the product reads lives in `data/` (records,
+sidecars, run records, locations, vocab). Generated files stay where their tool writes them, carry a "Generated ... Do not
+edit" line, and are rebuilt, never edited: `data/schema/**` (except `difficulty-map.json` and `freshness.json`), the per-type
+checklists `docs/v2/research/capture/**` and the report `docs/v2/research/trip-tag-conflicts.md` (CLN-R moves them to
+`research/types/**` and `research/reports/trip-tag-conflicts.md`), `data/sources/registry.json`, `data/suitability/scope.json`,
+`web/redirects.json`, `web/data-snapshots/**`, `data/locations/WISHLIST.md`. **All research lives in `research/`**, and
+`research/README.md` is its map: the method in `method/` (capture contract, `kinds/`, `lanes/`, suitability, relevance,
+sources and licences), the per-type checklists in `types/` (generated by `capture.ts build` from CLN-R; never add a file
+there), output formats and templates in `formats/`, raw captures in `inbox/`, per-trip findings in `trips/<folder>/` (index:
+`trips/README.md`), run notes in `runs/`, audits in `audits/`, research reports in `reports/`, imported notes in
+`vault-notes/`, the work queue in `backlog.md` (until CLN-R, `docs/v2/research/capture-research-backlog.md`), and the script
+index in `tools.md`. Nothing else goes at the `research/` root. **Decisions** live in `docs/v2/`: plan, TODO, specs, design,
+build briefs, reviews. Superseded documents go to `docs/archive/v1/`, and nothing live links into it. Skills
+(`.claude/skills/`) and agents (`.claude/agents/`) are thin wrappers that point into `research/`; never copy the method into
+them. Removed things live in `archive/*` tags, never in a folder. Commit a screenshot only when a spec or review names it;
+verification shots go to `web/test-results/shots/` (gitignored). `legacy/<folder>/` holds the old pages, their `PLAN.md` and
+builders until backlog 7.11; `publish.sh` copies only `index.html` and `assets/` of each, per route in `legacy/MANIFEST.json`.
+Check-all's "folder contract" stage (CLN-5) will enforce this.
 
 Deploy everything with `./publish.sh` (wrapper for `python3 tools/publish.py`; `--dry-run` stages only) → https://nks-travel.pages.dev/<slug>/
 Cloudflare login on this machine must be `npx wrangler login --device` (localhost callback fails; approval happens on phone).
@@ -53,13 +58,9 @@ Cloudflare login on this machine must be `npx wrangler login --device` (localhos
 The index of every trip, with its state, dates, season window and open items, is `research/trips/README.md` (moved there from this file on 21 Oct 2026). Each trip folder holds its research: `research/trips/<folder>/`.
 
 ## Photo galleries
-Every page carries a photo gallery injected from `legacy/<trip>/gallery/gallery.json` by `tools/gallery/gallery.py`
-(`verify`, `sheet`, `inject`). Find candidates with `tools/gallery/gallery_find.py` (one API request per query,
-cached, contact sheets for you to look at), pick with `tools/gallery/gallery_pick.py`. **Never search Commons from
-parallel agents:** one shared IP, and four agents at once got a 429 that lasted 25+ minutes (2026-10-12).
-Done for switzerland-2027, dolomites-july-2027, costa-rica-feb-2027, chamonix-mont-blanc-sept-2028.
-`build_page.py` trips must call `gallery.inject` at the end of the build or a rebuild erases the gallery.
-The gallery opens in a full-screen lightbox (arrows, keys, swipe). `inject(..., after="trails")` places it after a named section; `--dedupe` drops photos already on the page (off by default).
+
+Legacy pages carry galleries built with `tools/gallery/` (the page procedure stays in the `trip-planner` skill until cleanup
+D18 is answered); photo research is `research/README.md` 3e. Never search Commons from parallel agents.
 
 ## Landing page
 `https://nks-travel.pages.dev/` is generated by `publish.sh` — image cards per trip, sorted by
@@ -70,8 +71,8 @@ page now carries. Add a trip and the card appears; nothing to maintain by hand.
 ## Gotchas
 - `"private": true` on a `legacy/MANIFEST.json` folder takes a page down: `publish.py` stages a noindex
   placeholder and overwrites its `assets/` files (a deploy that merely omits a path leaves it live), and
-  the hub skips it. Seven pages are private since 17 Oct 2026 (the five past trips, Norway, Utah); the
-  next `./publish.sh` applies it. Platform plan: `docs/v2/`, a working draft, not final.
+  the hub skips it. No page is private: the owner made every trip public on 18 Oct 2026 (commit c694021), and the
+  mechanism stays for a future private trip.
 - Renaming a trip folder leaves the OLD path live on Cloudflare Pages (prior deployments'
   assets persist). The hub regenerates correctly, but the stale URL keeps serving. Delete it
   in the Pages dashboard if it matters.
@@ -92,7 +93,7 @@ Sun, twilight and darkness times come from `core/src/sun` (`node core/bin/sun.ts
 
 `web/` is the Next.js app (a static export of home, trips, places, about until lane API-0 makes it a server build with `/api/v1/` route handlers; see `docs/v2/PLAN.md`); `tools/publish.py` merges it with the legacy pages (see README.md). Colour comes only from `web/app/themes.css`, generated by `python3 tools/theme_tokens.py`.
 
-Capture contract (3a.12 steps 1-4, lane CC): `data/vocab/types.json` is the one authored file (the 15-domain, 61-category, 324-id type tree, the suitability profile rows, layer and offer-class rules, marks per node); `core/src/schema/capture/properties.ts` is the property registry. `node core/bin/capture.ts fields --type <id>` is the checklist a researcher or crawler follows, `explain`, `gaps --trip` and `run --check` are the rest; `capture.ts build` writes `data/schema/capture/*`, `docs/v2/research/capture/*` and `data/schema/suitability-applicability.json` (never edit those; `build --check` runs in check-all). Records are place, route, offer or event in `data/capture/<trip>/*.json` (`capture/1`, joined to the suitability and relevance sidecars by ref); a lift's suitability block sits on its `offer/<ref>#ticket`. Gotchas: a new TYPE is one entry in types.json, a new PROPERTY is a registry change; the profile of a record's type must equal the profile of its kind/subkind (E_CAP_TYPE); the 61-record migration ran once (`capture.ts migrate` refuses to run again) and `data/capture/migration-ledger.json` pins that every pre-migration leaf still exists with the same value (new records and leaves are allowed; the count tests cover `migrated.json` only).
+Capture contract (3a.12 steps 1-4, lane CC): `data/vocab/types.json` is the one authored file (the 15-domain, 61-category, 324-id type tree, the suitability profile rows, layer and offer-class rules, marks per node); `core/src/schema/capture/properties.ts` is the property registry. `node core/bin/capture.ts fields --type <id>` is the checklist a researcher or crawler follows, `explain`, `gaps --trip` and `run --check` are the rest; `capture.ts build` writes `data/schema/capture/*`, `docs/v2/research/capture/*` (CLN-R moves it to `research/types/*`) and `data/schema/suitability-applicability.json` (never edit those; `build --check` runs in check-all). Records are place, route, offer or event in `data/capture/<trip>/*.json` (`capture/1`, joined to the suitability and relevance sidecars by ref); a lift's suitability block sits on its `offer/<ref>#ticket`. Gotchas: a new TYPE is one entry in types.json, a new PROPERTY is a registry change; the profile of a record's type must equal the profile of its kind/subkind (E_CAP_TYPE); the 61-record migration ran once (`capture.ts migrate` refuses to run again) and `data/capture/migration-ledger.json` pins that every pre-migration leaf still exists with the same value (new records and leaves are allowed; the count tests cover `migrated.json` only).
 
 Operations (P4a): every write to `data/trips/` is an operation in `core/src/ops/` (`node core/bin/ops.ts <name> --input <file or ->`, or `node core/bin/serve.ts` for the local API); each returns an inverse, and `trip.restore` undoes it. Book-by dates are `core/src/bookings/`, sun times `core/src/sun/`.
 
@@ -104,7 +105,7 @@ Delegate by kind of work. The project agents are in `.claude/agents/`. The v2 pl
 |---|---|---|
 | Plans, specs, feature pages, decisions, build briefs | `travel-planner` | Opus |
 | Research: places, trails, sights, adventures, stays, coordinates, links, booking windows | `travel-researcher` | Opus |
-| Coding and tests in prototype/, web/, core/, tools/ | `travel-builder` | Sonnet |
+| Coding and tests in web/, core/, tools/ | `travel-builder` | Sonnet |
 | UI/UX and design-system review, foundation changes | `travel-design-reviewer` | Opus (not Fable, owner 18 Oct) |
 | Independent checks and visual sweep before reporting done | `travel-verifier` | Sonnet |
 | Quick file search | `explorer` (global) | Haiku |
@@ -125,7 +126,7 @@ Rules: start at the lowest model that fits. Escalate one step when a hand-back s
 
 ## The plan is the source of truth
 
-- Before starting anything, read `docs/v2/PLAN.md`, then `docs/v2/TODO.md` and the spec pages it links: `docs/v2/features/`, `docs/v2/ux/`, `docs/v2/design/`, `docs/v2/research/`. Check whether the work is already planned, half done, or in conflict with a decision.
+- Before starting anything, read `docs/v2/PLAN.md`, then `docs/v2/TODO.md` and the spec pages it links: `docs/v2/features/`, `docs/v2/ux/`, `docs/v2/design/`; for research, `research/README.md`. Check whether the work is already planned, half done, or in conflict with a decision.
 - When work ships, move its row to Done with the commit, and update the spec page if the build differs from it.
 - Any new request from Nitin becomes a new Open row the same day, linked to where it is specified. Write the spec first if none exists.
 - Current priorities are in `docs/v2/design/product-direction-2026-10-18.md`:

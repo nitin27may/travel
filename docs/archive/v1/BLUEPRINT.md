@@ -1,5 +1,7 @@
 # Travel platform: clean-slate blueprint (18 Oct 2026)
 
+> **Archived 21 Oct 2026** (CLEANUP-PLAN CLN-1). Superseded by `docs/v2/PLAN.md`; kept for its ideas. Paths in this page are as they were when it was written.
+
 > **Superseded in part by [docs/v2/](../../v2/README.md) (17 Oct 2026).** Principles kept; mechanisms and stack revised there.
 
 Status: PROPOSAL for the owner. Written from scratch, not from the current repo layout. Section 9 says how the current work migrates into it.

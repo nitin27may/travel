@@ -1,5 +1,7 @@
 # Review of PLAN-platform.md (revision 3, approved 2026-10-17)
 
+> **Archived 21 Oct 2026** (CLEANUP-PLAN CLN-1). Superseded by `docs/v2/PLAN.md`; kept for its ideas. Paths in this page are as they were when it was written.
+
 Independent senior review, 2026-10-17. Scope: is the plan ready to hand to Sonnet coding agents, and where does it need enhancement. The plan was not edited and nothing was implemented. Every repo claim below was checked with commands against `/home/nitin27may/workspace/travel` (pytest, grep, a dry-run publish, a rebuild of all eight `build_page.py` pages); statements I could not verify are marked "inference".
 
 ## 1. Verdict in one page
