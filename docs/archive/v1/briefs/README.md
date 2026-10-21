@@ -1,5 +1,7 @@
 # Phase briefs (platform plan, revision 4)
 
+> **Archived 21 Oct 2026** (CLEANUP-PLAN CLN-1). Superseded by `docs/v2/PLAN.md`; kept for its ideas. Paths in this page are as they were when it was written.
+
 One brief per phase of `docs/PLAN-platform.md` section 6. Each brief is self-contained: paste it to a coding agent with no other context. The plan stays the source of design truth; a brief says exactly what to build, in what order, and how to prove it.
 
 P1a (code and data move) is running from the review's own checklist and has no brief. Its end state is the starting state of P1b: `tools/`, `tools/tests/`, `tools/hooks/`, `data/locations/`, `data/reference/`, `data/schema/legacy/` and `research/places/PRIORITIES.md` in place, all 109 tests green, `.site/` byte-identical; trips, `globe/`, `locations/index.html`, `locations/inbox/` and `_system/` (minus tools and tests) still at their old paths.
