@@ -1,0 +1,70 @@
+{
+"schema_version": 1,
+"id": "example-trip",
+"updated": "2026-10-21",
+"trip": {"slug":"example-trip","title":"Example trip","subtitle":"Two nights at one base: the shape of a public trip as data","status":"planned","primary_style":"adventure","duration_shape":"weekend","movement_shape":"single-base","party_shape":"couple","countries":["CA"],"region_label":"Example region","season_months":[9,10],"season_note":"September and October; say why the window is these months.","nights":2,"origin":"","origin_tz":"America/Toronto","base_currency":"CAD","theme":null,"hero_image":null,"answer_prose":null,"orientation_prose":null,"web_published":false,"visibility":"public","owner_id":"u_owner","shared_with":[],"generated_by":null,"legacy_url":null,"created":"2026-10-21"},
+"profile": {"pace":3,"comfort":"mid","budget_target_amount":null,"budget_target_currency":null,"budget_tier":"mid","must_do":[],"avoid":[],"hiking_ceiling_km":null,"hiking_ceiling_gain_m":null,"max_house_grade":null,"weather_rain":"medium","weather_wind_gust_kmh":null,"weather_cold_c":null,"weather_heat_c":null,"base_preference":"few-long","car_free":false,"transport":["own-car"],"daily_max_drive_min":240,"break_every_min":120,"kids_mode":"none","early_starts":"sometimes","night_driving":false,"lanes_extra":[],"lanes_skip":[],"notes":""},
+"travellers": [],
+"trip_tags": [
+{"tag_id":"adventure"}
+],
+"editions": [],
+"bases": [
+{"id":"example-base","name":"Example town","place_id":null,"stay_id":null,"lodging":null,"night_from":1,"nights":2,"lat":null,"lon":null,"tz":"America/Toronto","elevation_m":null,"why":"Why this town is the base: the drive times it saves.","why_not":"What it costs: the alternative and why it lost."}
+],
+"days": [
+{"n":1,"title":"Arrive and settle in","kind":"travel","base_id":"example-base","summary":"Drive in, check in, an easy evening walk.","prose":null,"flexible_group":null,"decision_rules":[],"plan_b_title":"","plan_b_text":null,"sun_note":null,"day_of_links":[],"accepted_warnings":[]},
+{"n":2,"title":"The main day","kind":"hike","base_id":"example-base","summary":"The day the trip is for; Plan B when the weather turns.","prose":null,"flexible_group":null,"decision_rules":["If the forecast at 07:00 gives rain above 60%, switch to Plan B."],"plan_b_title":"Rain plan","plan_b_text":"What to do instead, and the rule that triggers it.","sun_note":null,"day_of_links":[],"accepted_warnings":[]},
+{"n":3,"title":"Morning, then home","kind":"travel","base_id":null,"summary":"A short morning stop, check out, drive home.","prose":null,"flexible_group":null,"decision_rules":[],"plan_b_title":"","plan_b_text":null,"sun_note":null,"day_of_links":[],"accepted_warnings":[]}
+],
+"day_tracks": [],
+"items": [
+{"id":"d1-checkin","day":1,"track":null,"seq":1,"start":null,"window_start":"15:00","window_end":"18:00","tz":null,"duration_min":30,"type":"checkin","optional":false,"pinned":false,"title":"Check in","place_id":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":"example-base","booking_id":null,"lat":null,"lon":null,"address":null,"leg_id":null,"leg_mode":"drive","leg_km":null,"leg_minutes":null,"leg_basis":"estimate","leg_notes":"From the trip's start point; road times come from data/schedules/legs.","cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"closed_weekdays":[],"needs_daylight":false,"plan_b_item_id":null,"override":null,"notes":"","links":[]},
+{"id":"d2-viewpoint","day":2,"track":null,"seq":1,"start":null,"window_start":null,"window_end":null,"tz":null,"duration_min":60,"type":"sight","optional":false,"pinned":false,"title":"Example viewpoint","place_id":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":null,"booking_id":null,"lat":null,"lon":null,"address":null,"leg_id":null,"leg_mode":"drive","leg_km":null,"leg_minutes":25,"leg_basis":"estimate","leg_notes":"","cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"closed_weekdays":[],"needs_daylight":true,"plan_b_item_id":null,"override":null,"notes":"A sight names its capture record once TD-1 adds items.ref.","links":[]},
+{"id":"d2-lunch","day":2,"track":null,"seq":2,"start":null,"window_start":null,"window_end":null,"tz":null,"duration_min":60,"type":"meal","optional":true,"pinned":false,"title":"Lunch in town","place_id":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":null,"booking_id":null,"lat":null,"lon":null,"address":null,"leg_id":null,"leg_mode":null,"leg_km":null,"leg_minutes":null,"leg_basis":null,"leg_notes":"","cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"closed_weekdays":[],"needs_daylight":false,"plan_b_item_id":null,"override":null,"notes":"","links":[]},
+{"id":"d3-checkout","day":3,"track":null,"seq":1,"start":"10:00","window_start":null,"window_end":null,"tz":null,"duration_min":15,"type":"checkout","optional":false,"pinned":false,"title":"Check out","place_id":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":"example-base","booking_id":null,"lat":null,"lon":null,"address":null,"leg_id":null,"leg_mode":null,"leg_km":null,"leg_minutes":null,"leg_basis":null,"leg_notes":"","cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"closed_weekdays":[],"needs_daylight":false,"plan_b_item_id":null,"override":null,"notes":"","links":[]}
+],
+"trip_trails": [],
+"trip_activities": [],
+"trip_bookings": [],
+"custom_items": [],
+"notes": [],
+"routes": [],
+"hazards": [
+{"id":"h-1","category":"terrain","title":"Example hazard","text":"What can go wrong and where.","severity":1,"days":[2],"trail_ids":[],"place_ids":[],"mitigation":"What to do about it.","src":[]}
+],
+"weather_rules": [
+{"id":"wr-1","day":2,"metric":"precip_prob","op":">","value":60,"at":"07:00","action":"Switch to the Plan B of day 2.","plan_b_day":null}
+],
+"budget": [],
+"fx": [],
+"fare_windows": [],
+"fare_quotes": [],
+"documents": [],
+"emergency": [],
+"packing": [],
+"knowledge": [
+{"id":"k-1","claim":"A claim the plan relies on, stated so it can be checked.","status":"inference","src":[]}
+],
+"questions": [],
+"gotchas": [
+{"id":"g-1","text":"What a visitor must know first, in one sentence.","src":[]}
+],
+"research_refs": [],
+"sources": [],
+"changelog": [
+{"seq":1,"at":"2026-10-21T12:00:00-04:00","actor_id":"agent:trip","actor_via":"skill:trip","op":"trip.create","summary":"Created trip example-trip","refs":["example-trip"]},
+{"seq":2,"at":"2026-10-21T12:00:00-04:00","actor_id":"agent:trip","actor_via":"skill:trip","op":"base.set","summary":"Set 1 base(s): example-base 2n","refs":["example-base"]},
+{"seq":3,"at":"2026-10-21T12:00:00-04:00","actor_id":"agent:trip","actor_via":"skill:trip","op":"day.update","summary":"Updated day 1: title, kind, summary","refs":["day:1"]},
+{"seq":4,"at":"2026-10-21T12:00:00-04:00","actor_id":"agent:trip","actor_via":"skill:trip","op":"day.update","summary":"Updated day 2: title, kind, summary, decision_rules, plan_b_title, plan_b_text","refs":["day:2"]},
+{"seq":5,"at":"2026-10-21T12:00:00-04:00","actor_id":"agent:trip","actor_via":"skill:trip","op":"day.update","summary":"Updated day 3: title, kind, summary","refs":["day:3"]},
+{"seq":6,"at":"2026-10-21T12:00:00-04:00","actor_id":"agent:trip","actor_via":"skill:trip","op":"item.add","summary":"Added item d1-checkin \"Check in\" on day 1","refs":["d1-checkin"]},
+{"seq":7,"at":"2026-10-21T12:00:00-04:00","actor_id":"agent:trip","actor_via":"skill:trip","op":"item.add","summary":"Added item d2-viewpoint \"Example viewpoint\" on day 2","refs":["d2-viewpoint"]},
+{"seq":8,"at":"2026-10-21T12:00:00-04:00","actor_id":"agent:trip","actor_via":"skill:trip","op":"item.add","summary":"Added item d2-lunch \"Lunch in town\" on day 2","refs":["d2-lunch"]},
+{"seq":9,"at":"2026-10-21T12:00:00-04:00","actor_id":"agent:trip","actor_via":"skill:trip","op":"item.add","summary":"Added item d3-checkout \"Check out\" on day 3","refs":["d3-checkout"]},
+{"seq":10,"at":"2026-10-21T12:00:00-04:00","actor_id":"agent:trip","actor_via":"skill:trip","op":"gotcha.add","summary":"Added gotcha g-1","refs":["g-1"]},
+{"seq":11,"at":"2026-10-21T12:00:00-04:00","actor_id":"agent:trip","actor_via":"skill:trip","op":"hazard.upsert","summary":"Added hazard h-1","refs":["h-1"]},
+{"seq":12,"at":"2026-10-21T12:00:00-04:00","actor_id":"agent:trip","actor_via":"skill:trip","op":"weather_rule.upsert","summary":"Added weather rule wr-1","refs":["wr-1"]},
+{"seq":13,"at":"2026-10-21T12:00:00-04:00","actor_id":"agent:trip","actor_via":"skill:trip","op":"knowledge.add","summary":"Added knowledge claim k-1","refs":["k-1"]}
+]
+}
