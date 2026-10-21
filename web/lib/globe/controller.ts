@@ -1,4 +1,4 @@
-import { globeCityAreas, globeLakes } from '@/lib/client/data';
+import { globeCityAreas, globeLakes, globeLine } from '@/lib/client/data';
 import { lakesInWorker } from './geoClient';
 import { distanceKm } from '@/lib/map/geo';
 import { factsLine, languagesLine } from './facts';
@@ -8,7 +8,8 @@ import type { BasemapFeature, Focus, GlobeEngine, HitLayer, HoverInfo, Padding }
 import { flightPlan, featureZoom, isWide, type FlightPlan } from './flight';
 import { featuresWithBoxes, inBox, inFeature, locate, spanLon, type Bbox, type Feat, type FeatColl, type Pt } from './geometry';
 import { areaPathOfPin, boxOfArea, nodeAt, pinsFor, pinsUnder } from './model';
-import { zoomForRank, type SearchHit } from './search';
+import { fitByName, zoomForRank, type SearchHit } from './search';
+import { fitMove, type FeatureFit, type FitMove } from './fit';
 import { ensureCard, ensureCountry } from './store';
 import type { Camera, GlobeCard, GlobeData, PinModel, View } from './types';
 import { cameraQuery, hitSuffix, viewPath } from './url';
@@ -85,8 +86,42 @@ export class GlobeController {
   attach(engine: GlobeEngine): void { this.engine = engine; }
   get state(): GlobeSnapshot { return this.snap; }
   private emit(patch: Partial<GlobeSnapshot>): void {
+    const was = this.snap.feature;
     this.snap = { ...this.snap, ...patch };
     this.o.onChange(this.snap);
+    if (patch.feature !== undefined && patch.feature !== was) void this.syncShape(this.snap.feature);
+  }
+
+  private natural = true;
+  /** The "Natural features" switch (`nf=0`): off removes rivers and seas as map targets and closes a card that is one of them. */
+  setNaturalFeatures(on: boolean): void {
+    this.natural = on;
+    this.engine?.setNaturalFeatures(on);
+    const f = this.snap.feature;
+    if (!on && f && (f.fit || f.sourceLayer === 'waterway' || (f.sourceLayer === 'water_name' && !/lake/.test(f.kind)))) {
+      this.engine?.setFeature(null);
+      this.emit({ feature: null, boundary: null });
+    }
+  }
+
+  /** A picked river's, range's or plain's own line, drawn from its file; nothing for a feature we hold no line for. */
+  private async syncShape(f: BasemapFeature | null): Promise<void> {
+    this.engine?.setFeatureShape(null);
+    if (!f) return;
+    if (!f.fit && f.sourceLayer) await this.resolveFit(f);
+    const id = f.fit?.lineId;
+    if (!id) return;
+    const doc = await globeLine(id);
+    if (doc && this.snap.feature === f) this.engine?.setFeatureShape(doc.geometry);
+  }
+
+  /** The gazetteer row behind a river or sea picked off the basemap, so it gets a fit and a line. */
+  private async resolveFit(f: BasemapFeature): Promise<void> {
+    if (f.fit || (f.sourceLayer !== 'waterway' && f.sourceLayer !== 'water_name')) return;
+    try {
+      const hit = await fitByName(f.name, f.sourceLayer);
+      if (hit && !f.fit) f.fit = hit.fit;
+    } catch { /* no gazetteer: the pick flies to its point */ }
   }
 
   private plan(step: Parameters<typeof flightPlan>[0], o: { approx?: boolean; featureClass?: string } = {}): FlightPlan {
@@ -252,11 +287,26 @@ export class GlobeController {
     this.emit({ boundary: found ? 'loaded' : 'none' });
   }
 
-  /** Fly here on a feature card: the class decides the zoom and whether the camera tilts (spec 5.3 last column). */
-  flyToFeature(f: BasemapFeature): void {
-    const cls = f.sourceLayer === 'waterway' ? 'river' : f.sourceLayer === 'mountain_peak' ? 'peak' : f.sourceLayer === 'park' ? 'park' : f.sourceLayer === 'place' ? 'city' : /lake/.test(f.kind) ? 'lake' : 'sea';
-    this.engine?.setPadding(this.padding());
-    this.engine?.flyToPoint(f.lngLat, featureZoom(cls, 3), { plan: this.plan('feature', { featureClass: cls }) });
+  /** One fit model for every class (backlog 9.7): a point class goes to its zoom, a river or an area fits its own box. */
+  private moveFor(f: BasemapFeature, mode: 'context' | 'tight'): FitMove {
+    const cls = f.fit?.cls ?? (f.sourceLayer === 'waterway' ? 'river' : f.sourceLayer === 'mountain_peak' ? 'peak' : f.sourceLayer === 'park' ? 'park' : f.sourceLayer === 'place' ? 'city' : /lake/.test(f.kind) ? 'lake' : 'sea');
+    const fit: FeatureFit = f.fit ?? { bbox: null, lineId: null, cls, rank: 3 };
+    return fitMove(fit, f.lngLat, mode);
+  }
+
+  private flyMove(m: FitMove, cls: string): void {
+    const engine = this.engine;
+    if (!engine) return;
+    engine.setPadding(this.padding());
+    if (m.type === 'point') { engine.flyToPoint(m.at, m.zoom, { plan: this.plan('feature', { featureClass: cls }) }); return; }
+    // a fitted feature is centred and flat: the subject sits in the middle of the free area so the camera ends inside its box
+    engine.flyToBox(m.box, { plan: { ...this.plan('feature', { featureClass: cls }), pitch: 0, shift: 0, maxDuration: 1600 }, maxZoom: m.maxZoom, wide: m.wide });
+  }
+
+  /** Fly here on a feature card: the class decides the fit. A landform, sea or river with a box fits it tight; the rest go to their zoom. */
+  async flyToFeature(f: BasemapFeature): Promise<void> {
+    await this.resolveFit(f);
+    this.flyMove(this.moveFor(f, 'tight'), f.fit?.cls ?? (f.sourceLayer === 'waterway' ? 'river' : f.sourceLayer === 'mountain_peak' ? 'peak' : f.sourceLayer === 'park' ? 'park' : f.sourceLayer === 'place' ? 'city' : /lake/.test(f.kind) ? 'lake' : 'sea'));
   }
 
   private hereFeatures: BasemapFeature[] = [];
@@ -592,12 +642,15 @@ export class GlobeController {
       engine.afterMove(() => this.onBasemap(city));
       return;
     }
-    // A sea, range or other landform: fly there at a scale that fits its rank and stay on the world level.
+    // A sea, range, river or other landform: fit it with room around it and stay on the world level; Fly here then fits it tight.
     if (this.snap.path.length || this.snap.selected) await this.goArea([], { fly: false });
-    engine.setPadding(this.padding());
-    engine.flyToPoint([a.lng, a.lat], Math.max(3, zoomForRank(a.rank)), { plan: this.plan('feature', { featureClass: 'sea' }) }); // zoom 3 or more so a sea or ocean is clickable on arrival
+    const feat: BasemapFeature = { sourceLayer: '', kind: hit.where || hit.kindLabel.toLowerCase(), name: a.name, extra: '', lngLat: [a.lng, a.lat], wikidata: null, ...(a.fit ? { fit: a.fit } : {}) };
+    const fit: FeatureFit = a.fit ?? { bbox: null, lineId: null, cls: 'sea', rank: a.rank };
+    const move = fitMove(fit, [a.lng, a.lat], 'context');
+    // a point feature keeps the old landing: zoom 3 or more so a sea or ocean is clickable on arrival
+    this.flyMove(move.type === 'point' ? { ...move, zoom: Math.max(3, zoomForRank(a.rank)) } : move, fit.cls);
     // The landform or sea becomes a selection card too: name, kind and the saved places near it.
-    this.emit({ feature: { sourceLayer: '', kind: hit.where || hit.kindLabel.toLowerCase(), name: a.name, extra: '', lngLat: [a.lng, a.lat], wikidata: null } });
+    this.emit({ feature: feat });
   }
 
   private async drillToPoint(cc: string, pt: Pt): Promise<void> {

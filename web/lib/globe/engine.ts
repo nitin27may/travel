@@ -13,7 +13,12 @@ type ML = typeof import('maplibre-gl');
 
 export interface HoverInfo { kicker: string; title: string; sub?: string; sub2?: string; sub3?: string }
 export type HitLayer = 'country' | 'adm1' | 'adm2';
-export interface BasemapFeature { sourceLayer: string; kind: string; name: string; extra: string; lngLat: Pt; wikidata: string | null; /** The point a tile feature sits at (a city's label point), when it is a point. */ at?: Pt }
+export interface BasemapFeature { sourceLayer: string; kind: string; name: string; extra: string; lngLat: Pt; wikidata: string | null; /** The point a tile feature sits at (a city's label point), when it is a point. */ at?: Pt;
+  /** The extent of a landform, sea or river (from the gazetteer row), so Fly here fits it and its own line can be drawn (GLB2). */
+  fit?: FeatureFit }
+
+/** What the gazetteer knows about a feature's extent: the box (west may exceed east's sign across the antimeridian), the line file, the class. */
+export interface FeatureFit { bbox: [number, number, number, number] | null; lineId: string | null; cls: string; rank: number }
 
 export interface Focus { country: number | null; s: number | null; d: number | null }
 export interface Padding { top: number; right: number; bottom: number; left: number }
@@ -87,6 +92,10 @@ export interface GlobeEngine {
   /** The Natural Earth lake polygons (zoom 3 to 8, where the tiles name no lake): `render` is the GeoJSON text a worker wrote. */
   setLakes(render: string): void;
   setFeature(f: BasemapFeature | null): void;
+  /** Draws a picked feature's own simplified line or outline (a river, a range, a plain), or none. */
+  setFeatureShape(g: { type: string; coordinates: unknown } | null): void;
+  /** Natural features off: rivers and seas on the basemap are no longer hover or pick targets (the `nf=0` switch). */
+  setNaturalFeatures(on: boolean): void;
   setPadding(p: Padding): void;
   setSpin(enabled: boolean, worldView: boolean): void;
   /** Stops the spin loop entirely (a cover scrolled out of view) and starts it again. */
@@ -129,6 +138,9 @@ const POLE_CAP = -84.6;
 const NOT_POLAR = ['!=', ['get', 'polar'], true] as never;
 const ZERO_PAD = { top: 0, right: 0, bottom: 0, left: 0 };
 const WIDE_MAX = WIDE_ZOOM.max;
+
+/** Rivers and seas of the basemap: what the "Natural features" switch removes. Lakes, peaks, parks and towns stay. */
+const isNatural = (sourceLayer: string, cls: string): boolean => sourceLayer === 'waterway' || (sourceLayer === 'water_name' && !/lake/.test(cls));
 
 const featureName = (p: Record<string, unknown>): string => String(p['name:en'] || p.name_en || p.name || '');
 
@@ -421,6 +433,11 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     map.addLayer({ id: 'city-fill', type: 'fill', source: 'city', paint: { 'fill-color': pal.accentSel, 'fill-opacity': 0.2 } });
     map.addLayer({ id: 'city-casing', type: 'line', source: 'city', paint: { 'line-color': pal.casingSel, 'line-width': 4.5 } });
     map.addLayer({ id: 'city-line', type: 'line', source: 'city', paint: { 'line-color': pal.accentSel, 'line-width': 2.5 } });
+    // The picked landform's or river's own line (GLB2): casing and amber, a faint fill for an area. Never a state outline.
+    map.addSource('feature-shape', { type: 'geojson', data: shapeData() as never });
+    map.addLayer({ id: 'shape-fill', type: 'fill', source: 'feature-shape', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'fill-color': pal.accentSel, 'fill-opacity': 0.12 } });
+    map.addLayer({ id: 'shape-casing', type: 'line', source: 'feature-shape', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': pal.casingSel, 'line-width': 5, 'line-opacity': 1 } });
+    map.addLayer({ id: 'shape-line', type: 'line', source: 'feature-shape', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': pal.accentSel, 'line-width': 2.5, 'line-opacity': 1 } });
     map.addLayer({
       id: 'adm2-label', type: 'symbol', source: 'adm2', minzoom: 6,
       layout: { 'text-field': ['get', 'name'], 'text-font': fontStack, 'text-size': ['interpolate', ['linear'], ['zoom'], 6, 10, 10, 13], 'text-padding': 8, 'text-transform': 'none' },
@@ -461,6 +478,9 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   }
 
   let cityArea: Feat | null = null;
+  let shape: { type: string; coordinates: unknown } | null = null;
+  let naturalOn = true;
+  const shapeData = () => ({ type: 'FeatureCollection' as const, features: shape ? [{ type: 'Feature' as const, properties: {}, geometry: shape }] : [] });
   let ringAt: Pt | null = null;
   const ringData = () => ({ type: 'FeatureCollection' as const, features: ringAt ? [{ type: 'Feature' as const, properties: {}, geometry: { type: 'Point' as const, coordinates: ringAt } }] : [] });
   let lakesData: unknown = EMPTY;
@@ -615,6 +635,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     const sl = (f: { sourceLayer?: string; layer: { id: string } }): string => (f.layer.id === 'lake-fill' ? 'lakes' : (f.sourceLayer ?? ''));
     const ranked = map.queryRenderedFeatures([[point.x - pad, point.y - pad], [point.x + pad, point.y + pad]], { layers: hitLayers })
       .filter((f) => featureName(f.properties))
+      .filter((f) => naturalOn || !isNatural(sl(f), String(f.properties.class ?? '')))
       .map((f) => ({ f, r: hitRank(z, sl(f), f.properties) }))
       .filter((x): x is { f: typeof x.f; r: number } => x.r !== null);
     ranked.sort((a, b) => a.r - b.r);
@@ -635,7 +656,9 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
 
   const isTouch = (e: { originalEvent?: Event }) => (e.originalEvent as PointerEvent | undefined)?.pointerType === 'touch' || (e.originalEvent?.type ?? '').startsWith('touch');
 
-  const onPin = (e: { originalEvent?: Event }) => !!(e.originalEvent?.target as Element | undefined)?.closest?.('[data-globe-pin]');
+  // A click on a pin or on a card riding the map as a marker (the feature card and its "Fly here") is never a map pick: it used to bubble to the
+  // canvas, so "Fly here" flew and then the same click selected whatever lay under the card, and the camera ended somewhere else (9.7).
+  const onPin = (e: { originalEvent?: Event }) => !!(e.originalEvent?.target as Element | undefined)?.closest?.('[data-globe-pin], .maplibregl-marker');
 
   /** Spec 4.1: below zoom 3 the shapes are the only targets; from 3 up a named point or line within the hit box beats any fill. */
   type Pick = { kind: 'feature'; f: BasemapFeature } | { kind: 'shape'; layer: HitLayer; id: number } | null;
@@ -856,6 +879,8 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     },
     setFocus(f) { focus = f; setHover(null, null); applyFocus(); },
     setFeature(f) { feature = f; applyFeatureHighlight(); },
+    setFeatureShape(g) { shape = g; (map.getSource('feature-shape') as GeoJSONSource | undefined)?.setData(shapeData() as never); },
+    setNaturalFeatures(on) { naturalOn = on; if (!on && hovered && isNatural(hovered.sourceLayer, hovered.kind)) { hovered = null; hideTip(); applyFeatureHighlight(); } },
     setPadding(p) { padding = p; },
     setLakes(render) {
       lakesData = dataOf('lakes', null, render);
