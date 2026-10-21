@@ -10,13 +10,14 @@ import { Icon, kindIcon } from '@/components/ui/Icon';
 import { SeasonStrip } from '@/components/ui/SeasonStrip';
 import { KID_LABELS } from '@/lib/entities/labels';
 import { seasonLabel } from '@/lib/format/season';
-import { appleMapsUrl, directionsUrl, formatPoint } from '@/lib/map/links';
+import { allTrailsLink, appleMapsUrl, directionsUrl, formatPoint, searchUrl } from '@/lib/map/links';
 import type { LngLat } from '@/lib/map/types';
 import type { AccessPoint, Fact, PlaceLine as PlaceLineT, PublicPlace, PublicPlaceCard } from '@/lib/public/types';
 import { Interactions } from '@/components/suit/Interactions';
 import { accessCard, factText, factsDl } from './sections/legacyHtml';
 import { withUnits } from '@/components/suit/html';
 import { CoverRelevance } from './sections/Relevance';
+import { DirectionsMenuLazy } from './DirectionsMenuLazy';
 import { Glance, Sections, type LegacySlots } from './sections/Sections';
 import { SectionIndex } from './sections/SectionIndex';
 import { GalleryLazy } from './GalleryLazy';
@@ -79,7 +80,7 @@ function Coordinates({ p }: { p: AccessPoint }) {
 function MapLinks({ at, label }: { at: LngLat; label: string }) {
   return (
     <span className="pl-maplinks">
-      <a className="btn btn-sm" href={`https://www.google.com/maps/search/?api=1&query=${formatPoint(at)}`} target="_blank" rel="noopener noreferrer">
+      <a className="btn btn-sm" href={searchUrl(label, at)} target="_blank" rel="noopener noreferrer">
         Google Maps<span className="sr-only"> for {label} (opens in a new tab)</span>
       </a>
       <a className="btn btn-sm" href={directionsUrl(at)} target="_blank" rel="noopener noreferrer">
@@ -267,6 +268,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
 
   const hasAccess = !['area', 'town'].includes(place.kind) && place.subkind !== 'range' || Boolean(place.access && (place.access.trailhead || place.access.parking.length));
   const glance = glanceFor(place);
+  const allTrails = allTrailsLink({ name: place.name, area: district?.name ?? state?.name ?? null, links: place.links.flatMap((g) => g.links) });
   const huts = hutFacts(place.facts);
   const access = accessFacts(place.facts).filter((f, i, all) => all.findIndex((g) => g.label === f.label && g.value === f.value) === i);
   const shownLabels = new Set([...glance.filter((g) => g.fact).map((g) => g.fact?.label), ...(showProfile ? huts.map((h) => h.label) : [])]);
@@ -433,11 +435,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
             </p>
           ) : null}
           <div className="pl-actions">
-            {target ? (
-              <a className="btn btn-primary pl-dir" href={directionsUrl(target.at)} target="_blank" rel="noopener noreferrer">
-                <Icon name="navigate" size={14} /> Directions<span className="sr-only"> to {target.label} (opens in a new tab)</span>
-              </a>
-            ) : null}
+            {target ? <DirectionsMenuLazy at={target.at} label={target.label} /> : null}
             <SaveToTrip url={url} slug={place.slug} formats={['gpx']} />
             <TrailExport slug={place.slug} lines={place.lines} />
             <ShareButton url={url} title={place.name} />
@@ -449,7 +447,16 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
           </div>
         </div>
 
-        {model ? <Glance model={model} suit={suit} level={place.completeness} trailhead={place.access?.trailhead?.name ?? null} isArea={place.kind === 'area' || place.subkind === 'range'} /> : null}
+        {model ? (
+          <Glance
+            model={model}
+            suit={suit}
+            level={place.completeness}
+            trailhead={place.access?.trailhead?.name ?? null}
+            isArea={place.kind === 'area' || place.subkind === 'range'}
+            trail={trail ? { extras: { km, gainM: gain, legacyTime: legacyTime ? timeText(legacyTime.value) : null, highPoint: factByLabel(place.facts, 'High point')?.value ?? null, shape: shape ? shape.charAt(0).toUpperCase() + shape.slice(1) : null, trailhead: th?.name ?? null, hasHazards: place.hazards.length > 0, hasTrack }, place: { name: place.name, area: district?.name ?? state?.name ?? null, links: place.links.flatMap((g) => g.links) } } : null}
+          />
+        ) : null}
         {model ? <SectionIndex /> : null}
         {!model ? (
         <section className="pl-glance" aria-label="At a glance">
@@ -475,6 +482,15 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
               </li>
             ))}
           </ul>
+          {trail ? (
+            <p className="pl-alltrails small">
+              <a href={allTrails.url} target="_blank" rel="noopener noreferrer">
+                {allTrails.label}
+                <span className="sr-only"> (opens in a new tab, third-party site)</span>
+              </a>{' '}
+              <span className="muted">third-party site, link only</span>
+            </p>
+          ) : null}
           {place.honesty.length ? (
             <ul className="pl-honesty" aria-label="Data notes">
               {place.honesty.map((h) => (
