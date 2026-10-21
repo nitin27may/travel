@@ -41,7 +41,7 @@ test.describe('Places filters', () => {
     await page.getByRole('button', { name: 'Clear Kind filter' }).click();
     await expect(page).not.toHaveURL(/k=nature/);
     await expect(page).not.toHaveURL(/f\./);
-    await expect(page.locator('.facet-group .pill-trigger')).toHaveText([/^Country/, /^Kind/, /^Season/, /^Youngest child/, /^More filters/]);
+    await expect(page.locator('.facet-group .pill-trigger')).toHaveText([/^Where/, /^Kind/, /^Season/, /^Youngest child/, /^More filters/]);
   });
 
   test('Kids is a stepper with quick ages; a pick lands in the URL and the count line names the age', async ({ page, site }) => {

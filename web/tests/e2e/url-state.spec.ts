@@ -31,9 +31,9 @@ test.describe('the views share one URL state', () => {
     await pressed(page, 'cards').click();
     await expect(page).not.toHaveURL(/view=/);
     await expect(page.locator('.card')).toHaveCount(lakes);
-    // a filter with a pill in the bar shows once, as the pill (REVIEW4 confusing item 5)
-    await expect(page.getByRole('button', { name: 'Clear Country filter' })).toBeVisible();
-    await expect(page.getByRole('button', { name: /Remove filter Country: Canada/ })).toBeHidden();
+    // a filter with a pill in the bar shows once, as the pill (REVIEW4 confusing item 5); Where is the exception: one chip per level stays beside it (LST2 A7)
+    await expect(page.getByRole('button', { name: 'Clear Where filter' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Remove filter Canada' })).toBeVisible();
 
     await pressed(page, 'table').click();
     await page.reload();
@@ -63,16 +63,16 @@ test.describe('the views share one URL state', () => {
     await expect(page).toHaveURL(/k=water\.body/);
     await expect(count(page)).toHaveText(String(lakes));
     expect(lakes).toBeGreaterThan(0);
-    // Region sits under More filters and appears only after a country is chosen
+    // Region is a level of the Where pill (LST2 A7): it appears there once a country is chosen, and never under More filters
     await page.keyboard.press('Escape');
-    await page.getByRole('button', { name: 'More filters' }).click();
-    await expect(page.getByRole('dialog', { name: 'More filters' }).locator('summary', { hasText: 'Region' })).toHaveCount(0);
-    await page.keyboard.press('Escape');
-    await page.getByRole('button', { name: /^Country/ }).click();
-    await page.getByRole('radio', { name: /^Canada/ }).check();
+    await page.getByRole('button', { name: /^Where/ }).click();
+    const where = page.getByRole('dialog', { name: 'Where' });
+    await expect(where.getByRole('listbox', { name: 'Province' })).toHaveCount(0);
+    await where.getByRole('option', { name: /^Canada\b/ }).click();
+    await expect(where.getByRole('listbox', { name: 'Province' })).toBeVisible();
     await page.keyboard.press('Escape');
     await page.getByRole('button', { name: /^More filters/ }).click();
-    await expect(page.getByRole('dialog', { name: 'More filters' }).locator('summary', { hasText: 'Region' })).toBeVisible();
+    await expect(page.getByRole('dialog', { name: 'More filters' }).locator('summary', { hasText: 'Region' })).toHaveCount(0);
   });
 
   test('season filters on the app (the legacy page has no season)', async ({ page, site }) => {
@@ -134,9 +134,9 @@ test.describe('the views share one URL state', () => {
 
   test('old links with Tag, Trip, Region and effort parameters still work', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?country=CA&region=AB&tag=hiking`);
-    await expect(page.getByRole('button', { name: /Remove filter Region: / })).toBeVisible();
+    await expect(page.getByRole('button', { name: /^Remove filter (Alberta|AB)$/ })).toBeVisible();
     await expect(page.getByRole('button', { name: /Remove filter Tag: / })).toBeVisible();
-    await expect(page.getByRole('button', { name: /^More filters · 2/ })).toBeVisible();
+    await expect(page.getByRole('button', { name: /^More filters · 1/ })).toBeVisible();
     // Effort and Stroller are real filters now (L3b): a link that carries them shows them as chips
     await page.goto(`${site.url}/places/?effort=easy&stroller=any`);
     await expect(page.getByRole('button', { name: /Remove filter Effort: / })).toBeVisible();

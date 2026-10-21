@@ -7,13 +7,14 @@ test.describe('places list', () => {
   test('shows four primary filter pills and More filters, and the four views with Map switched on (P4)', async ({ page, site }) => {
     await page.goto(`${site.url}/places/`);
     const pills = page.locator('.facet-group .pill-trigger');
-    await expect(pills).toHaveText([/^Country/, /^Kind/, /^Season/, /^Youngest child/, /^More filters/]);
+    await expect(pills).toHaveText([/^Where/, /^Kind/, /^Season/, /^Youngest child/, /^More filters/]);
     // the rest wait one tap away: Effort and Stroller (L3b) sit under More filters with the others
     for (const name of ['Tag', 'In a public trip', 'Effort', 'Stroller']) await expect(page.locator('.pill-trigger', { hasText: new RegExp(`^${name}`) })).toHaveCount(0);
     await page.getByRole('button', { name: 'More filters' }).click();
     const more = page.getByRole('dialog', { name: 'More filters' });
     for (const name of ['Tag', 'In a public trip', 'Effort', 'Stroller']) await expect(more.locator('summary', { hasText: name })).toBeVisible();
-    await expect(more.getByText(/Region appears once you choose a country; Area once you choose a region/)).toBeVisible();
+    // Region and Area are levels of the Where pill now (LST2 A7), not More filters groups
+    for (const name of ['Region', 'Area']) await expect(more.locator('summary', { hasText: name })).toHaveCount(0);
     await page.keyboard.press('Escape');
     const views = page.getByRole('radiogroup', { name: /view/i });
     await expect(views.getByRole('radio')).toHaveText(['Cards', 'List', 'Table', 'Map']);
@@ -209,3 +210,48 @@ function hexToRgb(hex: string): string {
   const n = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16));
   return `rgb(${n.join(', ')})`.replace(/\s/g, '');
 }
+
+// LST2 A7b: list polish from the coverage sweep
+test.describe('list polish (A7b)', () => {
+  test('a Kind chosen on its own with nothing in it says so as a fact about the catalogue, with one way out (3.66d)', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/?k=food`);
+    await expect(page.getByRole('heading', { name: 'No food places here yet' })).toBeVisible();
+    await expect(page.getByText(/A gap is not a no/)).toBeVisible();
+    // the count line says "No places", not "0 of 0 food" (review M13)
+    await expect(page.locator('.filter-bar .count')).toHaveText('No places');
+    await page.getByRole('button', { name: /^Show all \d+ places$/ }).click();
+    await expect(page).not.toHaveURL(/k=food/);
+  });
+
+  test('the count line tweens to its new value and always carries the settled number in its text (3.66g)', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/?country=CA`);
+    const n = page.locator('.filter-bar .count strong');
+    await expect(n).toHaveText(/^\d+$/);
+    const settled = (await n.innerText()).trim();
+    // the registered integer the overlay draws reaches the same number once the transition is over
+    await expect.poll(() => n.evaluate((el) => getComputedStyle(el).getPropertyValue('--count-n').trim())).toBe(settled);
+    expect(await n.evaluate((el) => getComputedStyle(el).transitionProperty)).toContain('--count-n');
+  });
+
+  test('the count line does not tween under reduced motion', async ({ page, site }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto(`${site.url}/places/?country=CA`);
+    const n = page.locator('.filter-bar .count strong');
+    await expect(n).toHaveText(/^\d+$/);
+    expect(await n.evaluate((el) => getComputedStyle(el).transitionProperty)).not.toContain('--count-n');
+  });
+
+  test.describe('at 390 px', () => {
+    test.use({ viewport: { width: 390, height: 844 }, hasTouch: true });
+    test('the phone filter panel has a search box that writes q (3.66c)', async ({ page, site }) => {
+      await page.goto(`${site.url}/places/`);
+      await expect(page.locator('.filter-bar .count')).toBeVisible();
+      await page.evaluate(() => window.scrollTo(0, 500));
+      await page.getByRole('button', { name: /^Edit/ }).click();
+      const box = page.getByRole('searchbox', { name: 'Filter places by name' });
+      await expect(box).toBeVisible();
+      await box.fill('lake');
+      await expect(page).toHaveURL(/q=lake/);
+    });
+  });
+});

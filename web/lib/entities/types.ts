@@ -116,8 +116,10 @@ export interface FacetDef<Row> {
   };
   /** A sentence for the count line while this facet has a selection, from the rows that match every filter ("4 more are a stretch, shown faded"). */
   note?: (matched: readonly Row[], selected: string[]) => string | null;
-  /** An input other than the option list. `age` is the Kids stepper with quick chips (suitability-display 5). */
-  control?: 'age';
+  /** An input other than the option list. `age` is the Kids stepper with quick chips (suitability-display 5); `where` is the cascading Where menu (country, region, area), which owns the facets marked `inWhere`. */
+  control?: 'age' | 'where';
+  /** The facet is a level of the Where menu: it has no pill, no More-filters group and no sheet group of its own. */
+  inWhere?: boolean;
   /** One muted line at the foot of the control's menu ("Trips above this age fade; none are hidden yet"). */
   controlNote?: string;
 }

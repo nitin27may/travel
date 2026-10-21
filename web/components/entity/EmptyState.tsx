@@ -7,6 +7,7 @@ import { stillApplies, undoState } from '@/lib/search/applied';
 import type { Applied } from '@/lib/search/applied';
 import { countListAsync, parseQuery, relaxQuery, search } from '@/lib/client/data';
 import { activeFilters } from '@/lib/entities/filter';
+import { hasWhere, whereChips } from './whereModel';
 import type { EntityDescriptor, FacetParam, ListState } from '@/lib/entities/types';
 import { decodeState, encodeState } from '@/lib/entities/url';
 import type { ActiveFilter } from '@/lib/entities/filter';
@@ -30,7 +31,7 @@ interface Props<Row> {
  * only Clear all on the page; this block offers it only when no one change would help.
  */
 export function EmptyState<Row>({ d, state, labelOf, applied, onApplied, uncheckedCount = 0, onState }: Props<Row>) {
-  const chips = activeFilters(state, d, labelOf);
+  const chips = whereChips(activeFilters(state, d, labelOf), labelOf, hasWhere(d));
   const live = applied && stillApplies(state, applied) ? applied : null;
   // what each way out would bring back: counted from the list files of the wider scope, so it arrives a moment after the block
   const [ways, setWays] = useState<{ key: string; options: { chip: ActiveFilter; n: number }[]; withoutQuery: number } | null>(null);
@@ -41,7 +42,7 @@ export function EmptyState<Row>({ d, state, labelOf, applied, onApplied, uncheck
   useEffect(() => {
     let alive = true;
     void (async () => {
-      const counted = await Promise.all(activeFilters(state, d, labelOf).map(async (c) => ({ chip: c, n: (await countListAsync(d.type, c.without))?.n ?? 0 })));
+      const counted = await Promise.all(whereChips(activeFilters(state, d, labelOf), labelOf, hasWhere(d)).map(async (c) => ({ chip: c, n: (await countListAsync(d.type, c.without))?.n ?? 0 })));
       const withoutQuery = state.q.trim() ? ((await countListAsync(d.type, { ...state, q: '' }))?.n ?? 0) : 0;
       const options = counted.filter((o) => o.n > 0).sort((a, b) => a.n - b.n).slice(0, 3);
       if (alive) setWays({ key, options, withoutQuery });
@@ -142,6 +143,24 @@ export function EmptyState<Row>({ d, state, labelOf, applied, onApplied, uncheck
   }
   if (nothingToFilter) return <EmptyBlock glyph="search" title={`No ${d.noun.many} yet`} why="When some are added they will show up here." />;
   const [nearest, ...others] = options;
+  // a Kind chosen on its own and nothing in it (3.66d): say so as a fact about the catalogue, not as a failed search
+  const lone = chips.length === 1 && !state.q.trim() && /^(k|kind):/.test(chips[0]!.key) ? chips[0]! : null;
+  if (lone) {
+    const what = lone.label.replace(/^[^:]+:\s*/, '').toLowerCase();
+    const total = nearest?.n ?? 0;
+    return (
+      <EmptyBlock
+        glyph="search"
+        title={`No ${what} ${d.noun.many} here yet`}
+        why={`Nothing in the catalogue is filed under ${what} so far. A gap is not a no: we simply have not added any.`}
+        action={
+          <Button variant="primary" onClick={() => onState(lone.without, 'push')}>
+            {total > 0 ? `Show all ${total} ${noun(total)}` : `Clear ${what}`}
+          </Button>
+        }
+      />
+    );
+  }
   return (
     <EmptyBlock
       glyph="search"
