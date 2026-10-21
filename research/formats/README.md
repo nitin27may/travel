@@ -16,6 +16,7 @@ and a template or a real example. Records and sidecars go to `data/` (the system
 | [Inbox batch](#inbox-batch) | none | `research/inbox/<date>-<topic>.json` | the `import` command of `tools/locations.py` | `python3 tools/locations.py import <file>`, then `validate` | `research/inbox/2026-10-17-gulong-gorge.json` |
 | [Lane findings](#lane-findings-markdown) | Markdown | `research/trips/<folder>/<lane>.md` | this page | none | below |
 | [Run note](#run-note-markdown) | Markdown | `research/runs/<run-id>.md` | this page | none | below; real ones in [../runs/](../runs/CS7b-dolomites-tracks.md) |
+| [Trip file](#trip-file-tripjson) | `schema_version` 1 (no `schema` string) | `data/trips/<trip-id>/trip.json` | `core/src/schema/trip.ts`; contract [data/trips/README.md](../../data/trips/README.md) | `node core/bin/validate.ts <file>`; written only through `node core/bin/ops.ts` | [templates/trip.json](templates/trip.json) |
 
 ## Validating a template
 
@@ -26,15 +27,16 @@ the `schema` key:
 
 ```bash
 T=$(mktemp -d)
-cp research/formats/templates/capture-record.json research/formats/templates/capture-run.json "$T/"
-node core/bin/validate.ts "$T/capture-record.json" "$T/capture-run.json"   # OK: 2 file(s) validated
+cp research/formats/templates/capture-record.json research/formats/templates/capture-run.json research/formats/templates/trip.json "$T/"
+node core/bin/validate.ts "$T/capture-record.json" "$T/capture-run.json" "$T/trip.json"   # OK: 3 file(s) validated
 node core/bin/capture.ts run --check "$T/capture-run.json"                  # OK: 0 error(s), 0 warning(s)
 rm -r "$T"
 ```
 
-`capture-record.json` also prints `W_CAP_BELOW_USABLE` warnings: a template shows the shape, not a complete record. Warnings
-never change the exit code. `core/test/research/templates.test.ts` validates every template with `validateDoc` against its schema string, so
-a schema change that breaks a template fails check-all (cleanup D16).
+`capture-record.json` also prints `W_CAP_BELOW_USABLE` warnings, and `trip.json` prints `W_NO_COORDS` (its placeholder base has
+no coordinates): a template shows the shape, not a complete record. Warnings never change the exit code.
+`core/test/research/templates.test.ts` validates every template with `validateDoc` against its schema string (a trip file,
+which has none, counts as `trip/<schema_version>`), so a schema change that breaks a template fails check-all (cleanup D16).
 
 ## Capture records (`capture/1`)
 
@@ -115,6 +117,51 @@ Every crawl or API run writes one, so the next pass starts where it stopped
 | `scope` | the `types` and `refs` the run covered; every result's ref must be in `scope.refs` when it is given |
 | `hosts[]` | `{host, requests, robots, terms, status}`; a host whose robots or terms forbid automated access cannot report `ok` with requests |
 | `results[]` | `{ref, field, outcome, src?, tried?, host?, reason?}`; `field` is a registry property; `filled` and `conflict` name `src`; `searched_none` lists `tried`; `blocked` names `host` and `reason` |
+
+## Trip file (`trip.json`)
+
+The trip itself, as data: no HTML and no PLAN.md for a new trip (owner, 21 Oct). The contract is
+[data/trips/README.md](../../data/trips/README.md): the files per trip, the ids (a new trip id carries no year), the public
+tables and the planner tables (the allowlist the web adapter reads), the dateless rules, the op sequence, validation and
+what is not yet possible. Read it before writing a trip.
+
+| Key | Rule |
+|---|---|
+| `schema_version`, `id`, `updated` | `1`; the trip id, equal to `trip.slug` and the folder name; the date of the last write |
+| the 30 tables | always present and in `TRIP_TABLES` order (`E_KEY_ORDER`); a table with no rows is `[]`, `trip` and `profile` are objects |
+| public tables | `trip`, `trip_tags`, `bases`, `days`, `day_tracks`, `items`, `trip_trails`, `trip_activities`, `custom_items`, `routes`, `hazards`, `weather_rules`, `knowledge`, `gotchas`, `sources`, each with a column allowlist |
+| planner tables | `profile`, `travellers`, `editions`, `trip_bookings`, `notes`, `budget`, `fx`, `fare_windows`, `fare_quotes`, `documents`, `emergency`, `packing`, `questions`, `research_refs`, `changelog`. Empty in a public trip, except `profile` (required, neutral) and `changelog` (written by the ops) |
+| writes | only through `node core/bin/ops.ts`: `trip.create`, `base.set`, `day.update`, `item.add`, then the rest (data/trips/README.md section 5) |
+
+The template is a two-night, one-base public trip, built by running the op sequence of data/trips/README.md section 5.1
+against a scratch copy of `data/`, so its bytes are exactly what the ops write. Its shape, with most columns of each row cut
+(the file has every column):
+
+```text
+{
+"schema_version": 1, "id": "example-trip", "updated": "2026-10-21",
+"trip": {"slug":"example-trip","title":"Example trip","primary_style":"adventure","duration_shape":"weekend",
+         "movement_shape":"single-base","party_shape":"couple","countries":["CA"],"season_months":[9,10],
+         "season_note":"...","nights":2,"origin":"","origin_tz":"America/Toronto","web_published":false,
+         "visibility":"public","legacy_url":null, ...},
+"profile": { neutral defaults: required by trip.create, never public },
+"travellers": [], "trip_tags": [{"tag_id":"adventure"}], "editions": [],
+"bases": [{"id":"example-base","night_from":1,"nights":2,"tz":"America/Toronto","lat":null,"lon":null, ...}],
+"days": [{"n":1,"kind":"travel", ...}, {"n":2,"kind":"hike","plan_b_title":"Rain plan", ...}, {"n":3, ...}],
+"day_tracks": [],
+"items": [{"id":"d1-checkin","day":1,"seq":1,"type":"checkin","base_id":"example-base", ...},
+          {"id":"d2-viewpoint","day":2,"seq":1,"type":"sight","needs_daylight":true, ...},
+          {"id":"d2-lunch","day":2,"seq":2,"type":"meal","optional":true, ...},
+          {"id":"d3-checkout","day":3,"seq":1,"type":"checkout","start":"10:00", ...}],
+"hazards": [1 row], "weather_rules": [1 row], "knowledge": [1 row], "gotchas": [1 row],
+"sources": [], "changelog": [13 rows, one per op]
+... every other table []
+}
+```
+
+Replace every value. Gotchas the template already respects: `primary_style` must be `adventure` until the other style tags
+exist, `countries` must be in the locations store, and every `src` stays `[]` because no op writes the trip's `sources`
+(data/trips/README.md section 7, gaps 4 to 6). Items name no capture record yet; TD-1 adds that link.
 
 ## Inbox batch
 
