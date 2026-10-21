@@ -1,6 +1,6 @@
 # Public site build: live status (coordinator handover)
 
-**20 Oct 2026: the sequenced plan is [EXECUTION-PLAN.md](EXECUTION-PLAN.md).** Owner order A, B, E, D with reviews R1 (after A and B) and R2 (after E); Q42 to Q64 decided ("go with all recommendations"); research unpaused for phase E; workstreams CONS (server seams, no hard-coding) and META (metadata for every place and activity) start first. New lane briefs: CONS, FIXF, SHL2, GLB2, LST2, PLC2, META, DATA, TRP2, MX, GO-LIVE in [briefs/](briefs/). Open for the owner: Q70 to Q72.
+**20 Oct 2026 (latest): the sequenced plan is [EXECUTION-PLAN.md](EXECUTION-PLAN.md) and every pending item is one line of [COVERAGE.md](COVERAGE.md) (244 lines, 0 unmapped).** Owner decisions: UI fixes first (phase A, every visible defect), then review R1; phase B builds API-over-JSON (`/api/v1/` route handlers over a `CatalogueStore` with `JsonStore`, Zod contracts in `core/src/schema/api/`, OpenAPI, the API adapter as default) and the CONS and META foundations, closed by gate G-B; phase E builds the features on the API; review R2; phase D is a hosting-agnostic readiness checklist. **Deployment is out of scope until the hosting is chosen; the site is no longer a static export** (API-0 removes `output: 'export'`). API-over-Supabase is lane SRV-0 after E, local only, flags off. Q42 to Q64 and Q70 to Q72 decided; still open: creating the public feedback repo, L7, L9 (EXECUTION-PLAN 18). Lane briefs in [briefs/](briefs/): TST, FIXF, SHL2, GLB2, TRP1, LST2, PLC2, SRV, API, CONS, META, DATA, TRP2, MX, GO-LIVE (readiness).
 
 **Another machine or a fresh session: read `/HANDOVER.md` (repo root) first, then `MASTER-PLAN.md` here. Owner memory notes are copied in `docs/v2/build/handover/memory/`.**
 
@@ -9,7 +9,7 @@ Updated 2026-10-18, night, before a context compaction. Read this first after an
 ## Where things are
 
 - **Integration branch:** `claude/serene-goldberg-wtn3di`, worktree `/home/nitin27may/workspace/travel-wt/v2`. Every lane merges here, and the branch is pushed after each merge. HEAD at handover is deef245.
-- **main** (`/home/nitin27may/workspace/travel`) is the published live site. Never run `./publish.sh` from v2. Go-live (stage 7) needs the owner's approval of the preview.
+- **main** (`/home/nitin27may/workspace/travel`) is the product (20 Oct). The live site at nks-travel.pages.dev is still the old site; deployment is out of scope until the hosting is chosen (row 14.6). Never run `./publish.sh` in a deploying mode. Go-live (stage 7) needs the owner's approval of the preview.
 - **Lane worktrees:** `/home/nitin27may/workspace/travel-wt/v2-<lane>`, on branch `public/<lane>`.
 - **The gate on the merged branch is `bash tools/check-all.sh`.** Move `web/.env.local` aside to a mode-600 file first and restore it afterwards, because it sets the google-js family. At handover it passed with 166 python tests, 1,273 core and 486 web.
 

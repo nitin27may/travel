@@ -1,23 +1,23 @@
 # Handover: pick this up on another machine
 
-Written 20 Oct 2026. Read this first, then `docs/v2/build/public-site/EXECUTION-PLAN.md` (the sequenced plan, phases A, B, E, D with owner reviews R1 and R2, added 20 Oct), then `STATUS.md` and `MASTER-PLAN.md` in the same folder. Everything needed to continue is in this repository except the secrets and a few caches listed in section 4.
+Written 20 Oct 2026. Read this first, then `docs/v2/build/public-site/EXECUTION-PLAN.md` (the sequenced plan: UI fixes, review R1, API-over-JSON, features, review R2, readiness; rewritten 20 Oct) and `COVERAGE.md` (every pending item mapped), then `STATUS.md` and `MASTER-PLAN.md` in the same folder. Everything needed to continue is in this repository except the secrets and a few caches listed in section 4.
 
 ## 1. State in one paragraph
 
-The new public site (no login: search, globe, trips, places) is built and is **`main`**. The old hand-built site is preserved at the git tag `legacy-final` (commit `74b97ad`). The live site at https://nks-travel.pages.dev/ is **still the old site**: nothing from this work has been published, and nothing may be until the owner approves after reviewing the preview. All build lanes are merged. What is left, in order: the owner's bug reports and enhancements (logged, not fixed), the independent cross-model checks, the owner's review, go-live, then the nearby and trip-builder work. A second list holds everything that needs login or a server; it starts after all of that.
+The new public site (no login: search, globe, trips, places) is built and is **`main`**. The old hand-built site is preserved at the git tag `legacy-final` (commit `74b97ad`). The live site at https://nks-travel.pages.dev/ is **still the old site**: nothing from this work has been published, and nothing may be until the owner approves after reviewing the preview. All build lanes are merged. What is left, in the owner's order of 20 Oct: phase A fixes every UI issue (his reports plus every visible defect in `COVERAGE.md`), then his review R1; phase B builds API-over-JSON (route handlers under `web/app/api/v1/` over a `CatalogueStore` with a `JsonStore`, shared Zod contracts, OpenAPI) and removes the static export; phase E builds nearby, the Where city level, towns, the Google trip map, exports and the data passes on the API; his review R2; then a hosting-agnostic readiness checklist. **Deployment is out of scope until the hosting is chosen.** API-over-Supabase (SRV-0) is defined for after E, local only. A second list holds everything that needs login or a server.
 
 ## 2. What to read, in this order
 
 | Order | File | Why |
 |---|---|---|
 | 1 | `HANDOVER.md` (this file) | Setup, commands, rules, what is not in git |
-| 1b | `docs/v2/build/public-site/EXECUTION-PLAN.md` and `briefs/` (CONS, FIXF, SHL2, GLB2, LST2, PLC2, META, DATA, TRP2, MX, GO-LIVE) | The agreed order of work, tasks, owned files, review gates, go-live checklist. Open owner questions: Q70 to Q72 |
+| 1b | `docs/v2/build/public-site/EXECUTION-PLAN.md`, `COVERAGE.md` and `briefs/` (TST, FIXF, SHL2, GLB2, TRP1, LST2, PLC2, SRV, API, CONS, META, DATA, TRP2, MX, GO-LIVE as readiness) | The agreed order of work, the API layer, tasks, owned files, review gates, readiness checklist, and every pending item mapped. Open owner questions: EXECUTION-PLAN section 18 |
 | 2 | `docs/v2/build/public-site/STATUS.md` | The coordinator's live handover: merged lanes, decisions in force, services |
 | 3 | `docs/v2/build/public-site/MASTER-PLAN.md` | Every pending public-site item, by phase, with links to its plan |
-| 4 | `docs/v2/build/public-site/BACKLOG.md` | Every finding with an ID, status and commit; the owner questions table (Q1 to Q69) |
+| 4 | `docs/v2/build/public-site/BACKLOG.md` | Every finding with an ID, status and commit; the owner questions table (Q1 to Q72) |
 | 5 | `docs/v2/build/public-site/OWNER-ROUND1-plan.md` | The fix plan for everything the owner reported while testing |
 | 6 | `docs/v2/build/public-site/REPORT-2026-10-20.md` | The status report and merge timing |
-| 7 | `docs/v2/build/public-site/STAGE4-plan.md` and `briefs/` | Stage 4 lanes, stage 5 checks, stage 6 preview pass, stage 7 go-live checklist |
+| 7 | `docs/v2/build/public-site/STAGE4-plan.md` | Stage 4 record; its stage 5 to 7 parts are superseded by the execution plan |
 | 8 | `docs/v2/features/nearby-and-regions.md` | Where filter (country, state, city), nearby places, the location data rule, the smart trip builder |
 | 9 | `docs/v2/build/SERVER-SIDE-LAUNDRY-LIST.md` | The second list: everything that needs login or a backend |
 | 10 | `docs/v2/design/foundation/principles.md` | The UX principles P1 to P9 and T1 to T5 |
@@ -55,16 +55,15 @@ mv /tmp/envlocal web/.env.local 2>/dev/null
 | What | Command |
 |---|---|
 | Full gate | `bash tools/check-all.sh` (env file moved aside) |
-| Build the site | `cd web && pnpm build` (output in `web/out/`) |
+| Build the site | `cd web && pnpm build` (static export into `web/out/` until lane API-0 lands; after it, `pnpm build && pnpm start` runs the server build with the `/api/v1/` handlers) |
 | Dev server | `cd web && pnpm dev` |
 | Unit tests | `cd web && pnpm test` |
-| Browser tests (about 40 minutes for all) | `cd web && pnpm e2e` ; one spec: `pnpm exec playwright test tests/e2e/<file>:<line> --project=chromium` |
+| Browser tests (about 40 minutes for all) | `cd web && pnpm e2e` (stages `.site/` today; against `next start` after API-0) ; one spec: `pnpm exec playwright test tests/e2e/<file>:<line> --project=chromium` |
 | Location tool | `python3 tools/locations.py add\|edit\|validate\|build [--check]` |
 | Capture contract | `node core/bin/capture.ts fields --type <id>`, `gaps [--placement]`, `build [--check]` |
 | Sources | `node core/bin/sources.ts check` ; `build` regenerates the registry |
 | Regenerate derived files | `python3 tools/locations.py build`; `node core/bin/capture.ts build`; `node core/bin/sources.ts build --write`; `node core/bin/suitability.ts migrate --write`; `pnpm --dir web exec vitest run -c ../tools/suitability-scope/vitest.config.mts` (scope manifest); `node web/scripts/snapshot-prototype.mjs` (redirects and snapshot report) |
-| Publish, stage only | `./publish.sh --product --dry-run` (the new site alone, redirects, headers, no deploy) |
-| Publish, real | `./publish.sh --product --go-live` only after the owner approves; default `./publish.sh` is the old mixed mode |
+| Publish | **Out of scope (owner, 20 Oct):** deployment waits for the hosting decision. `./publish.sh --product --dry-run` still stages the old static path; never run a deploying mode. The readiness checklist is EXECUTION-PLAN section 13 |
 
 Never hand-edit generated files (the locations views, `data/schema/**`, `docs/v2/research/capture/**`, `data/sources/registry.json`, `web/redirects.json`, the scope manifest): regenerate them with the tool above, or `check-all` fails.
 
@@ -91,13 +90,14 @@ Never hand-edit generated files (the locations views, `data/schema/**`, `docs/v2
 - **Sources.** AllTrails, Google, Tripadvisor and Komoot are links only, never data sources; coordinates never from Google. OSM, Overpass, Wikidata and Commons calls are strictly sequential (one at a time), Overpass under `flock /tmp/travel-overpass.lock`.
 - **Visual checks** run on a real GPU (Chromium with `--use-gl=angle --use-angle=gl --ignore-gpu-blocklist --enable-gpu-rasterization`); SwiftShader is about 35 times slower, so never judge motion with it. Set dark mode through the site's own theme control. Read every screenshot you take, in tiles for tall pages.
 - **Product rules.** No green anywhere (status colours included). Overlays non-modal, motion smooth. P8: nothing lets one request pull the catalogue. P9: all data goes through `web/lib/client/data.ts`. No household data on the public site (no party, ages, home town, dates, personal status, stay ideas). Public text says who a plan suits, never who travelled. A gap is never a yes. Trips are dateless. Empty place sections stay visible as "Not checked yet". The data model is complete and extensible: a new type is one entry in `data/vocab/types.json`.
-- **Nothing goes live without the owner.** Do not run `./publish.sh` in a way that deploys. `--product` also needs `--go-live`.
+- **Nothing goes live without the owner, and deployment is out of scope until the hosting is chosen.** Do not run `./publish.sh` in a way that deploys.
+- **Server-ready by rule:** every task names its boundary function, its API contract and what stays unchanged at the switch; components never read data files; caps live in the store methods (EXECUTION-PLAN 4.3).
 
 ## 6. Where things are on the site (code map)
 
 | Path | What |
 |---|---|
-| `web/app/**` | Next.js 16 static export: home, trips, places, globe, about, terms, the list and search data routes |
+| `web/app/**` | Next.js 16: home, trips, places, globe, about, terms, the list and search data routes (a static export today; server build with `web/app/api/v1/` handlers after API-0 and API-1) |
 | `web/lib/public/**` | The adapter that reads the JSON data, scrubs it (privacy), and builds trips, places and sections |
 | `web/lib/client/data.ts` | The one data boundary (P9) |
 | `web/lib/search/**` | The query parser and vocabulary; `web/lib/entities/**` the list and filter engine |
@@ -112,14 +112,14 @@ Never hand-edit generated files (the locations views, `data/schema/**`, `docs/v2
 
 1. Run section 3 and confirm `CHECK-ALL OK`.
 2. Read STATUS, MASTER-PLAN and BACKLOG (section 2).
-3. Do **not** start fixes. The owner has asked for the plan to be agreed first. Ask which items of `OWNER-ROUND1-plan.md` go before his review.
+3. Start with phase A of `EXECUTION-PLAN.md` section 3 (the UI fixes). Order is agreed (20 Oct). Lanes: TST, FIXF, SHL2, GLB2a, TRP1, LST2a, PLC2a (disjoint files), SRV-D (read-only diff) in parallel; merge in that order; quiet-machine full e2e (A11) closes the phase. Before A3 merges with the link on, create the public feedback repo (needs the owner's go).
 4. When told to start a lane, write or read its brief in `docs/v2/build/public-site/briefs/`, create a worktree from `main`, delegate per the rules above.
 
-A starting message for a new Claude session: "Read HANDOVER.md, then STATUS.md, MASTER-PLAN.md and BACKLOG.md. Tell me the current state, the next three actions and any decision you need from me. Do not start work."
+A starting message for a new Claude session: "Read HANDOVER.md, EXECUTION-PLAN.md (sections 1 to 3), COVERAGE.md and STATUS.md. Tell me the current state, the next three actions and any decision you need from me. Do not start work."
 
 ## 8. Open owner decisions
 
-All are in `docs/v2/build/public-site/MASTER-PLAN.md` section 8 with recommendations, and in the backlog questions table (Q42 to Q69). Saying "go with the recommendations" settles them.
+Q42 to Q64 and Q70 to Q72 are decided (20 Oct). Still open: creating the public feedback repo under the owner's account, L7 (PR #7 and the P3b worktree) and L9 (free AI features), in EXECUTION-PLAN section 18; Q65 to Q69 wait for the server work; every hosting question waits for the hosting decision.
 
 ## 9. Change log
 
@@ -127,3 +127,4 @@ All are in `docs/v2/build/public-site/MASTER-PLAN.md` section 8 with recommendat
 |---|---|
 | 2026-10-20 | First version |
 | 2026-10-20 | Execution plan for phases A, B, E, D written and linked; the work order is now EXECUTION-PLAN.md |
+| 2026-10-20 | Rewritten for the owner's later decisions: UI fixes first, API-over-JSON, deployment out of scope, SRV-0; COVERAGE.md added |

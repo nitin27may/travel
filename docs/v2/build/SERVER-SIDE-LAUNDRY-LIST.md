@@ -2,6 +2,8 @@
 
 The second list. [MASTER-PLAN.md](public-site/MASTER-PLAN.md) holds the public site with no login. This file holds everything that needs a server, an account or a database: the planner, and the server versions of things the public site does statically today. **It starts after the public-site work and go-live are done** (owner, 20 Oct 2026). Nothing here is started.
 
+**Changed 20 Oct 2026 (owner):** the public site's read paths (items 10 to 14) are now built as **API-over-JSON** in the public-site plan's phase B: route handlers under `web/app/api/v1/` over a `CatalogueStore` interface in `core/` with a `JsonStore`, shared Zod contracts in `core/src/schema/api/`, OpenAPI generated from them, and the API adapter as the default in `DataClient`. The site is no longer a static export, and deployment waits for the hosting decision. **API-over-Supabase** for the catalogue is lane **SRV-0** ([public-site/briefs/SRV.md](public-site/briefs/SRV.md)): local `supabase start`, migrations from a read-only diff of `schema.sql` against the capture contract (SRV-D, done first as a risk check), RLS on every table, a JSON-to-Postgres loader, a `SupabaseStore` passing the same contract kit; scheduled after the public site's phase E, flags off. Sign-in, household data and the planner stay here with their flags off. Plan: [public-site/EXECUTION-PLAN.md](public-site/EXECUTION-PLAN.md) sections 4 and 14.2.
+
 Rules: this file links, it does not hold detail. New items go into `public-site/BACKLOG.md` first (rows 12.x), then here. Specs: the planner pages [features/F01 to F17](../features/README.md), [04-stack.md](../04-stack.md), [08-self-hosted.md](../08-self-hosted.md), [10-sharing.md](../10-sharing.md), [schema.sql](../schema.sql), and principle P9 in [principles.md](../design/foundation/principles.md).
 
 ## 1. Decisions that come first
@@ -20,9 +22,9 @@ Rules: this file links, it does not hold detail. New items go into `public-site/
 |---|---|---|---|---|
 | 1 | Accounts, roles, sign-in and sign-out, session handling | F17 | Q65 to Q67 | Row-level security before any app code touches a table (house rule) |
 | 2 | Database schema: apply `schema.sql`, migrations, generated types | [schema.sql](../schema.sql), [01-domain-model.md](../01-domain-model.md) | Q65 | `supabase migration new`, local first, never direct SQL on remote |
-| 3 | The operation layer as the only writer, with undo and an event log | P4a, `core/src/ops/` | 2 | Already exists locally; becomes the API |
+| 3 | The operation layer as the only writer, with undo and an event log | P4a, `core/src/ops/` | 2 | Already exists locally; becomes the API. Its local paths (`core/bin/serve.ts`, `/api/v1/trips/<slug>`) move to `/api/v1/plan/*` so they never clash with the public read API |
 | 4 | API (`/api`) and the MCP front door (`/mcp`) with OAuth and tokens | F17, [03-mcp-and-research.md](../03-mcp-and-research.md) | 1, 3 | Read-only MCP exists locally today |
-| 5 | Hosting, environments, secrets in a vault, never in the repo | [04-stack.md](../04-stack.md) | Q65 | Keys for Google, ORS, GeoNames stay server-side |
+| 5 | Hosting, environments, secrets in a vault, never in the repo | [04-stack.md](../04-stack.md) | Q65 | Keys for Google, ORS, GeoNames stay server-side. The public site's hosting is also open (deployment out of scope, 20 Oct): one decision for both is cheapest; the host must run Next.js route handlers |
 | 6 | Backups, restore test, retention, export and delete my data | F17 | 2 | Required before real users |
 | 7 | Rate limits, bot protection and abuse controls on the API | public-site row 7.6 | 4 | Edge settings need the custom domain (Q44) |
 | 8 | Observability: logs, errors, health checks, cost alerts | [11-quality-and-delivery.md](../11-quality-and-delivery.md) | 5 | |
@@ -30,18 +32,18 @@ Rules: this file links, it does not hold detail. New items go into `public-site/
 
 ## 3. The public site moves to the server (P9 step by step)
 
-Everything the public site reads goes through `web/lib/client/data.ts`, so each of these replaces a static file with an API call and keeps the file as a cache.
+Everything the public site reads goes through `web/lib/client/data.ts`. **From phase B the "Server version" column is half built:** the endpoints exist over `JsonStore`; the remaining step for each is a `SupabaseStore` method (SRV-0) and a store flip, in the order of EXECUTION-PLAN 14.2.
 
 | # | Item | Today | Server version | Source |
 |---|---|---|---|---|
-| 10 | Places list and filters | Row shards per country, filtered in the browser | `GET /api/places?filters` with paging | [lists note](../design/lists-stage4-note.md) |
-| 11 | Nearby | Shards whose bounding box meets the radius | `GET /api/places?near=&r=` (PostGIS) | [nearby spec](../features/nearby-and-regions.md) 5.7 |
-| 12 | Search | Split lazy index, parser in the browser | Server search with the same parser; semantic ranking if it earns its place | [smart search](../features/smart-search.md), [spike](../research/smart-search-spike.md) |
-| 13 | Globe pins and cards | Per-country and per-card static files | API with the same shapes | globe-data |
-| 14 | Exports (GPX, KML, CSV, calendar) | Built per item at build time | Generated on request, rate limited; sign-in for bulk (P8) | public-site 7.9, Q46 |
+| 10 | Places list and filters | Row shards per country, filtered in the browser | `GET /api/v1/places` with paging (API-1, over JsonStore); SupabaseStore later | [lists note](../design/lists-stage4-note.md) |
+| 11 | Nearby | Shards whose bounding box meets the radius | `GET /api/v1/near` (API-1 and LST2c over JsonStore); PostGIS in SupabaseStore later | [nearby spec](../features/nearby-and-regions.md) 5.7 |
+| 12 | Search | Split lazy index, parser in the browser | `GET /api/v1/search` and `/api/v1/parse` (API-1); semantic ranking if it earns its place | [smart search](../features/smart-search.md), [spike](../research/smart-search-spike.md) |
+| 13 | Globe pins and cards | Per-country and per-card static files | `GET /api/v1/globe/*` (API-1) | globe-data |
+| 14 | Exports (GPX, KML, CSV, calendar) | Built per item at build time | `GET /api/v1/export/{type}/{slug}` (API-1, TRP2); rate limits with hosting; sign-in for bulk (P8) | public-site 7.9, Q46 |
 | 15 | Protect the catalogue | Design rules plus edge limits | Per-user and per-IP quotas, scraping detection | P8 |
 | 16 | Images | Self-hosted renditions built at deploy | Storage bucket and image service | public-site 2.38 |
-| 17 | Source of truth for data | JSON files in the repo | Postgres tables fed from the same capture contract, JSON stays the review format | [capture contract](../research/capture-contract.md) |
+| 17 | Source of truth for data | JSON files in the repo | Postgres tables fed from the same capture contract by SRV-0's loader (stable ids, versions, provenance), JSON stays the review format | [capture contract](../research/capture-contract.md) |
 | 18 | Research pipeline writes through the API | Lanes write JSON | Crawler and researcher jobs with review queue | F16, [onboarding-and-refresh.md](../research/onboarding-and-refresh.md) |
 
 ## 4. The planner features (S1 to S4), from the feature pages
@@ -76,3 +78,4 @@ S0 foundation (items 1 to 9, after Q65 to Q69), then S1 the public site's server
 | Date | Change |
 |---|---|
 | 2026-10-20 | First version, from the planner feature pages and the P9 server-ready path |
+| 2026-10-20 | The public read paths are built as API-over-JSON now (items 10 to 14); SRV-0 defined for the Supabase catalogue store; deployment out of scope; ops paths to `/api/v1/plan/*` |

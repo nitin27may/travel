@@ -3,11 +3,11 @@
 Extends [CS7d.md](CS7d.md) (stage 4 data lane). The research pause is lifted for this work (owner, 20 Oct 2026).
 
 - **Agent:** `travel-researcher` (Opus), one batch per hand-back.
-- **Effort:** D1 points 6 h, D2 locations 4 h, D3 trail facts 10 h, D4 activities 8 h, D5 photos 10 h (agent time).
-- **Rows:** D1: 8.8, 10.5, Q58. D2: 8.7. D3: 10.2. D4: 13.5 activity part, 3.53 part. D5: 10.4.
+- **Effort:** D1 points 6 h, D2 locations 4 h, D3 trail facts 10 h, D4 activities 8 h, D5 photos 10 h, D6 basics 6 h (agent time).
+- **Rows:** D1: 8.8, 10.5, Q58, 3.47e, 3.61c, 3.61d, ST-1 (Rockies base points against Wikidata). D2: 8.7. D3: 10.2, 3.47b, 3.47c, RB-3. D4: 13.5 activity part, 3.53 part, 3.61a, 3.61f, 3.61g, RB-1, the operator questions. D5: 10.4. D6: 3.9, 3.10, 3.53 (usable basics). Lines in [COVERAGE.md](../COVERAGE.md).
 - **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) sections 6 (tiers and acceptance numbers) and 14 (order, counts, request volume); tasks E4 to E8. Schema and gap reports: [META.md](META.md).
 - **Principles:** T1, T3, T4, T5, P8. **A gap is never a yes.**
-- **Starts:** D3 and D4 after META-0; D1 after META-1; D2 after D1 (the Wikidata runner is free); D5 after D1 (Commons geosearch needs points).
+- **Starts:** D3, D4 and D6 after META-0 (during phase B: data only, no API dependency); D1 after META-1; D2 after D1 (the Wikidata runner is free); D5 after D1 (Commons geosearch needs points). The data is served through `JsonStore` and the API without any change to its shape.
 - **Review:** travel-verifier; the stage 5 run 2 check 5.3 samples 80 values across D1 to D5.
 
 ## Goal
@@ -44,7 +44,7 @@ Every public page has a sourced point with its role or a dated search that found
 
 1. From `gaps --placement`: the pages still without a point (about 95 to 100 after the join fix). For each: Wikidata P625 by QID if linked, else a Wikidata name search within the area; then OSM through Overpass by name inside the area bbox (trailheads: `highway=trailhead`, route relation start; lakes and falls: the feature node or way centroid). Record `point_role`, the source row and `point_checked`.
 2. Anything still not found: `searched_none` with the date and what was tried. Mark a centroid or guess `approx: true` with a note.
-3. Fix the `E_PLACE_FAR` hits META-1 listed.
+3. Fix the `E_PLACE_FAR` hits META-1 listed. Also: destination points for Fanes, Pordoi, Cinque Torri, Fiscalina, Vallunga and Federa (3.47e); the Waterton marina point (3.61c); mark the elk rut point `approx` at area level (3.61d); check the Rockies base points that differ from Wikidata (Kananaskis about 2 km, Lake Louise about 4 km) and record which source wins and why (ST-1).
 
 ### D2: locations store (after D1)
 
@@ -54,10 +54,17 @@ Every public page has a sourced point with its role or a dated search that found
 
 5. For the 122 trail pages (gaps: distance 44, gain 45, time 48): first the 12 confirmed OSM tracks (computed, no request), then the official park or operator page (Parks Canada, NPS, the Dolomites park pages), then a marked estimate. Fill shape, surface, dogs, stroller, wheelchair and season where the page states them; `none_stated` where it is silent.
 6. Link set per trail: official state, OSM state, AllTrails direct URL only where an official page or a person links it (otherwise the page builds the search link).
+6b. Track and draw fixes: show the Seekofel gain as a conflict with both sources (3.47b); take the Tre Cime stale second line (path 104, empty geometry) out of the export set (3.47c); move the Tre Cime and Larch Valley draw to the payoff place through the Q41 supersede override (RB-3).
 
 ### D4: activities (after META-0)
 
-7. For the 49 offers: where it happens (`at`, `on` or `starts_at`; 17 have none), operator (`run_by`; 37 missing), season, duration, price, minimum age, height and weight as stated or `none_stated`, booking window and URL, meeting point, accessibility. One page read per operator where possible. New operator questions go into the operator questions file.
+7. Also the Waterton shuttle fare one-way or return (3.61a), the Jasper bike prices read in a browser (3.61f), and CS7d batch B (activity ages and weights, the 2 meeting points, the 2 two-operator records, the 7 river and non-Rockies parts; 3.61g); Kicking Horse put-ins as an operator question (RB-1). For the 49 offers: where it happens (`at`, `on` or `starts_at`; 17 have none), operator (`run_by`; 37 missing), season, duration, price, minimum age, height and weight as stated or `none_stated`, booking window and URL, meeting point, accessibility. One page read per operator where possible. New operator questions go into the operator questions file.
+
+### D6: trip and stop basics (after META-0)
+
+10. Seasons for the 6 trips that show "season not set yet", from the plan's own months or the main sights' access seasons, saying which (3.9).
+11. The 34 texts the dateless rule drops, rewritten as relative wording in the data that feeds the adapter (3.10); any that live in a legacy plan file are listed for the coordinator, not edited.
+12. Summaries and seasons for the anchors and trip stops of the public trips, so `usable` means something (3.53); report the new level distribution.
 
 ### D5: photos (after D1)
 
