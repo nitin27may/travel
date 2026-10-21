@@ -58,15 +58,13 @@ function statsLine(s: { distanceKm: number | null; gainM: number | null; hours: 
 function collectCategories(days: PublicDay[], extra: CategoryItem[]): Record<Category, CategoryItem[]> {
   const cats = emptyCategories();
   const index = new Map<string, CategoryItem>();
-  const firstName = new Map<string, string>();
   for (const d of days) {
     const items = d.tracks ? d.tracks.flatMap((t) => t.items) : d.items;
     for (const it of items) {
       if (!it.category) continue;
-      // two names that resolve to one page (a merged duplicate) are still two stops of the trip: each keeps its row, and both link the page
+      // two names that resolve to one page (a merged duplicate: the sight and the adventure of one place) are one stop of the trip, one row (3.62b)
       const nm = normName(it.name);
-      if (it.placeSlug && !firstName.has(it.placeSlug)) firstName.set(it.placeSlug, nm);
-      const key = it.placeSlug ? (firstName.get(it.placeSlug) === nm ? it.placeSlug : `${it.placeSlug}#${nm}`) : `${it.kind}:${nm}`;
+      const key = it.placeSlug ?? `${it.kind}:${nm}`;
       const found = index.get(key);
       if (found) {
         if (!found.days.includes(d.n)) found.days.push(d.n);
@@ -144,6 +142,14 @@ function readStopRefs(root: string): Record<string, Record<string, string>> {
   return Object.fromEntries(Object.entries(doc.trips ?? {}).map(([folder, stops]) => [folder, Object.fromEntries(Object.entries(stops).map(([n, ref]) => [normName(n), ref]))]));
 }
 
+/** data/trips/covers.json: the trips whose cover is a photo of their own gallery instead of the legacy page hero, by legacy folder (R4-T2, review M8). */
+function readCovers(root: string): Record<string, { from: 'gallery'; index: number }> {
+  const file = path.join(root, 'data', 'trips', 'covers.json');
+  if (!existsSync(file)) return {};
+  const doc = JSON.parse(readFileSync(file, 'utf8')) as { trips?: Record<string, { from?: string; index?: number }> };
+  return Object.fromEntries(Object.entries(doc.trips ?? {}).flatMap(([folder, c]) => (c.from === 'gallery' && Number.isInteger(c.index) && (c.index as number) >= 0 ? [[folder, { from: 'gallery' as const, index: c.index as number }]] : [])));
+}
+
 export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuild {
   const snap = src.snapshot;
   const protoPlace = new Map(snap.places.map((p) => [p.id, p]));
@@ -153,6 +159,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
 
   // a stop joins its place by capture ref first (data/trips/stop-refs.json), by name only when the stop is not listed there (backlog 3.40)
   const stopRefs = readStopRefs(src.root);
+  const covers = readCovers(src.root);
   // Kind-aware (3.54, 3.57): when a name belongs to a trail page and a sight or place page, a trail stop takes the trail and any other stop takes the place.
   const pagesByName = new Map<string, typeof pb.places>();
   for (const pg of pb.places) pagesByName.set(normName(pg.name), [...(pagesByName.get(normName(pg.name)) ?? []), pg]);
@@ -300,7 +307,10 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
           const rec = sights.get(s);
           if (!rec || seen.has(s)) continue;
           seen.add(s);
-          items.push(mk('sight', 'landmark', rec, items.length + 1));
+          // a sight and an adventure that name one page are one stop (3.62b): the adventure, added first, stays
+          const item = mk('sight', 'landmark', rec, items.length + 1);
+          if (item.placeSlug && items.some((o) => o.placeSlug === item.placeSlug)) continue;
+          items.push(item);
         }
         for (const tr of t.trail_ids ?? []) {
           const rec = trails.get(tr);
@@ -317,7 +327,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
         if (d.track_b) tracks.push(trackItems(d, 'B', d.track_b));
         if (d.track_c) tracks.push(trackItems(d, 'C', d.track_c));
         const union: DayItem[] = [];
-        for (const t of tracks) for (const it of t.items) if (!union.some((u) => u.name === it.name)) union.push(it);
+        for (const t of tracks) for (const it of t.items) if (!union.some((u) => u.name === it.name || (it.placeSlug && u.placeSlug === it.placeSlug))) union.push(it);
         return {
           n: d.n, title: undated(d.track_b?.title ?? d.summary, `${where} day ${d.n} title`, log) ?? `Day ${d.n}`, baseId: d.base_id, base: baseName.get(d.base_id) ?? null,
           driveMin: parseDriveMin(d.drive), driveIsEstimate: true, summary: undatedSentences(stripMarkers(d.summary).text, `${where} day ${d.n} summary`, log) || null, items: union, tracks, ...noTimeline(),
@@ -358,6 +368,11 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
         return { n: d.n, title: undated(d.title, `${where} day ${d.n} title`, log) ?? `Day ${d.n}`, baseId: kebab(d.base), base: d.base, driveMin: d.driveMin, driveIsEstimate: true, summary: null, items, tracks: null, ...noTimeline() };
       });
       bases = basesFromRuns(days.map((d) => ({ n: d.n, base: d.base })), nights);
+      // a base that is also a place page with a point is a signpost on the route map, so a day of unplaced stops can frame its base (T5)
+      for (const b of bases) {
+        const hit = pb.byName.get(normName(b.name));
+        if (hit?.length === 1) b.point = pb.bySlug.get(hit[0]!)?.point ?? null;
+      }
       days.forEach((d) => { d.baseId = bases.find((b) => b.days.includes(d.n))?.id ?? null; });
       extraCats = stayRows(bases);
     }
@@ -384,7 +399,9 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
     }
     const heroFile = fileFromUrl(hub?.img);
     const hero = heroFile ? makePhoto(heroFile, src.credits, { width: 1600, caption: title }) : null;
-    const cover = hero ?? (gallery[0] ? { ...gallery[0], url: gallery[0].url.replace(/width=\d+/, 'width=1600'), width: 1600 } : null);
+    // a trip may name a photo of its own gallery as the cover (data/trips/covers.json); otherwise the page hero, then the first gallery photo
+    const chosen = covers[folder]?.from === 'gallery' ? gallery[covers[folder]!.index] : undefined;
+    const cover = (chosen ? { ...chosen, url: chosen.url.replace(/width=\d+/, 'width=1600'), width: 1600 } : null) ?? hero ?? (gallery[0] ? { ...gallery[0], url: gallery[0].url.replace(/width=\d+/, 'width=1600'), width: 1600 } : null);
 
     // ---- honesty and status ----
     const h: Honesty[] = [];

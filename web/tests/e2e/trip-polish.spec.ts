@@ -36,6 +36,60 @@ test.describe('trip page polish (TRP, stage 4)', () => {
     expect(Math.min(...(await still))).toBe(1);
   });
 
+  test('the phone has no floating map pill: Map lives in the sticky day strip and covers nothing (R4-T1, review M7)', async ({ page, site }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`${site.url}${ROCKIES}`);
+    await expect(page.locator('.tl-mappill')).toHaveCount(0);
+    await page.evaluate(() => document.getElementById('day-3')?.scrollIntoView({ block: 'start' }));
+    const btn = page.locator('.tl-planbar .tl-mapbtn');
+    await expect(btn).toBeVisible();
+    const box = (await btn.boundingBox())!;
+    expect(box.height).toBeGreaterThanOrEqual(44);
+    const bar = (await page.locator('.tl-planbar').boundingBox())!;
+    expect(box.y).toBeGreaterThanOrEqual(bar.y - 1);
+    expect(box.y + box.height).toBeLessThanOrEqual(bar.y + bar.height + 1);
+    await expect(btn).toHaveAttribute('aria-controls', 'route');
+  });
+
+  test('Patagonia Day 2 says it has no stops on the map, and no chip reads "level None" (R4-T2)', async ({ page, site }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(`${site.url}/trips/patagonia-2027/#day-2`);
+    // Ushuaia has no map point yet, so the caption says so; a base with a point is framed and picked instead (unit-tested)
+    await expect(page.getByText('Day 2 has no stops on the map')).toBeVisible();
+    await expect(page.getByText(/0 stops/)).toHaveCount(0);
+    await expect(page.getByText(/level none/i)).toHaveCount(0);
+  });
+
+  test('the Switzerland overview says copy only when a Copy button exists, and names the season gap once (R4-T3)', async ({ page, site }) => {
+    await page.goto(`${site.url}/trips/switzerland-2027/`);
+    await expect(page.getByRole('button', { name: /copy to my trips/i })).toHaveCount(0);
+    await expect(page.getByText(/copy it to plan/i)).toHaveCount(0);
+    await expect(page.getByText(/season not set yet/i)).toHaveCount(1);
+    await expect(page.getByText(/^Overview only\. No days and no season are written down yet/)).toHaveCount(1);
+    await expect(page.getByText(/this plan is valid for/i)).toHaveCount(0);
+    await expect(page.getByText(/not been converted to days/i)).toHaveCount(0);
+  });
+
+  test('a limits chip lists stated limits only (R4-T4)', async ({ page, site }) => {
+    await page.goto(`${site.url}/trips/dolomites-2027/#day-4`);
+    await expect(page.getByText(/weight not stated|height not stated/i)).toHaveCount(0);
+    // the chip wraps inside its card instead of running past the right edge (review M5)
+    for (const width of [1024, 390]) {
+      await page.setViewportSize({ width, height: 844 });
+      await settle(page, 400);
+      const over = await page.evaluate(() => {
+        const out: string[] = [];
+        document.querySelectorAll('#day-4 .tl-entry .ci').forEach((c) => {
+          const card = c.closest('.tl-day')!.getBoundingClientRect();
+          const r = c.getBoundingClientRect();
+          if (r.right > card.right + 0.5 || c.scrollWidth > c.clientWidth + 1) out.push(`${c.textContent} ${Math.round(r.right)} > ${Math.round(card.right)}`);
+        });
+        return out;
+      });
+      expect(over, `${width}`).toEqual([]);
+    }
+  });
+
   test('the strip shows 06, 12 and 18 and no truncated drive text at 1440 and 390 (check 5)', async ({ page, site }) => {
     for (const size of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
       await page.setViewportSize(size);
@@ -111,16 +165,17 @@ test.describe('trip page polish (TRP, stage 4)', () => {
     await expect(label).not.toContainText('Paused');
   });
 
-  test('on the phone a "Map · Day N" pill opens the map for that day inline, and Escape closes it (check 7, 13)', async ({ page, site }) => {
+  test('on the phone the strip Map button opens the map for the current day inline, and Escape closes it (check 7, 13)', async ({ page, site }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`${site.url}${ROCKIES}#day-4`);
-    const pill = page.locator('.tl-mappill');
-    await expect(pill).toContainText('Map · Day 4', { timeout: 15_000 });
+    const pill = page.locator('.tl-planbar .tl-mapbtn');
+    await expect(pill).toBeVisible({ timeout: 15_000 });
+    await settle(page, 900);
     const run = async (label: string) => {
       const r = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).exclude('[data-map-family]').analyze();
       expect(r.violations.map((v) => `${v.id}: ${v.nodes[0]?.html.slice(0, 90)}`), label).toEqual([]);
     };
-    await run('pill, map closed');
+    await run('strip, map closed');
     await pill.click();
     await expect(page.locator('#route')).toBeVisible();
     await expect(page.locator('.tl-mapcol-label')).toContainText('Day 4');

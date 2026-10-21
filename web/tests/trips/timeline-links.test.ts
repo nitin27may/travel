@@ -29,12 +29,22 @@ describe('stop-to-page lookup (3.54, 3.57)', () => {
       for (const i of stopsOf(t)) if (i.placeSlug) expect(data.getPlace(i.placeSlug), `${slug}: ${i.name}`).not.toBeNull();
     }
   });
-  it('a page merge never drops a stop: every stop of a day has its own row in the category view', () => {
+  it('a page merge never drops a stop: every stop has a row in the category view, by its page when two names share one (3.62b)', () => {
     for (const slug of data.tripSlugs()) {
       const t = data.getTrip(slug)!;
-      const rows = new Set(Object.values(t.categories).flatMap((c) => c.map((r) => norm(r.name))));
-      for (const i of stopsOf(t)) expect(rows.has(norm(i.name)), `${slug}: ${i.name}`).toBe(true);
+      const rows = Object.values(t.categories).flatMap((c) => c);
+      const names = new Set(rows.map((r) => norm(r.name)));
+      const pages = new Set(rows.map((r) => r.placeSlug).filter(Boolean));
+      for (const i of stopsOf(t)) expect(names.has(norm(i.name)) || (!!i.placeSlug && pages.has(i.placeSlug)), `${slug}: ${i.name}`).toBe(true);
     }
+  });
+  it('the sight and the adventure of one place are one stop of the day and one row (3.62b)', () => {
+    const t = data.getTrip('canadian-rockies-2029')!;
+    const rows = Object.values(t.categories).flatMap((c) => c).filter((r) => r.placeSlug === 'canmore-nordic-centre-summer');
+    expect(rows).toHaveLength(1);
+    expect(rows[0]!.days).toEqual([12]);
+    const slugs = Object.values(t.categories).flatMap((c) => c).map((r) => r.placeSlug).filter(Boolean);
+    expect(new Set(slugs).size, 'no two rows share a page').toBe(slugs.length);
   });
 });
 

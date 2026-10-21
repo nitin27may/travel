@@ -94,7 +94,9 @@ export function routeSpec(route: RouteModel, picked: number | null): MapSpec {
     }
   }
   for (const s of others.values()) pins.push({ id: `stop:${s.key}`, at: s.at, style: 'stop', days: s.days });
-  return { pins, lines, fit: 'all', hideBasemapLabels: ['towns', 'regions'], selectedId: undefined };
+  // a picked day with no placed stop shows its base picked, so the map is not left with nothing selected (T5)
+  const dayBase = day && day.points.length === 0 ? route.bases.find((b) => b.days.includes(day.n)) : undefined;
+  return { pins, lines, fit: 'all', hideBasemapLabels: ['towns', 'regions'], selectedId: dayBase ? `base:${dayBase.id}` : undefined };
 }
 
 /** The route map: every day's stops as 6 px dots, bases as signposts, straight estimate lines; the picked day is numbered. */

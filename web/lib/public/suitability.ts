@@ -606,6 +606,8 @@ function limitsChip(c: Ctx): Chip | null {
   const med = rule('participation.medical');
   if (med && isObj(med.v) && Array.isArray(med.v.excluded) && med.v.excluded.length > 0) bans += 1;
 
+  // stated limits only: an "x not stated" item rides along only when nothing is stated at all (R4-T4)
+  if (items.some((i) => i.basis !== null)) for (let i = items.length - 1; i >= 0; i--) if (items[i]!.basis === null) items.splice(i, 1);
   if (items.length === 0 && bans === 0) return null;
   const shown = items.slice(0, 3);
   const extra = Math.max(0, items.length - 3) + bans;
@@ -728,7 +730,7 @@ function slot3(c: Ctx, key: string | null): Chip | null {
     case 'water_safety.lifeguard': text = describe(key, v, c); glyph = 'person'; break;
     case 'participation.driver': text = describe(key, v, c); glyph = 'person'; break;
     case 'adult_required': text = v === 'none' ? 'No adult needed' : isObj(v) && typeof v.under === 'number' ? `Adult with under-${v.under}s` : isObj(v) && typeof v.ratio === 'number' ? `One adult per ${v.ratio}` : null; glyph = 'person'; break;
-    case 'exposure': text = isObj(v) && v.fenced === 'unfenced' ? 'Unfenced edge' : isObj(v) && v.fenced === 'fenced' ? 'Fenced edge' : null; glyph = 'triangle'; break;
+    case 'exposure': if (isObj(v) && v.level === 'none' && !v.fenced) return null; text = isObj(v) && v.fenced === 'unfenced' ? 'Unfenced edge' : isObj(v) && v.fenced === 'fenced' ? 'Fenced edge' : null; glyph = 'triangle'; break;
     case 'water_safety.lifejacket': text = typeof v === 'string' ? `Life jackets: ${(describe(key, v, c) ?? '').toLowerCase()}` : null; glyph = 'kit'; break;
     case 'water_safety.child_sizes_from_kg': text = typeof v === 'number' ? `Child sizes from ${num(v)} kg` : null; glyph = 'kit'; break;
     default: {

@@ -19,7 +19,7 @@ test.describe('trip timeline (L3c)', () => {
     await page.goto(`${site.url}/trips/switzerland-2027/`);
     await expect(page.locator('#plan-for')).toHaveCount(0);
     await expect(page.locator('li.tl-day')).toHaveCount(0);
-    await expect(page.getByText('This plan has not been converted to days yet.')).toBeVisible();
+    await expect(page.getByText(/^Overview only\. No days and no season/)).toBeVisible();
   });
 
   test('the "Suggested times" banner is present once, and the page is free of research markers (checks 7, 9)', async ({ page, site }) => {
