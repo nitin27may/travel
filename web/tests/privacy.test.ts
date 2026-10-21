@@ -290,6 +290,43 @@ describe('no party description in any public file', () => {
   });
 });
 
+// A public page carries no email address and no Italian tax-code or certified-mail (PEC) marker: a source's publisher
+// string once held a municipality's PEC and C.F. (audit 5.2-R1-4). Framework chunks are code, not prose.
+const EMAIL_PATTERNS: [string, RegExp][] = [
+  ['an email address', /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}/],
+  ['a PEC marker', /\bPEC\b[:\s]/],
+  ['a codice fiscale marker', /\bC\.F\.\s*\d/],
+  ['an Italian tax code', /\b[A-Z]{6}\d{2}[A-EHLMPR-T]\d{2}[A-Z]\d{3}[A-Z]\b/],
+];
+
+export function emailLeaks(root: string): string[] {
+  const hits: string[] = [];
+  const r = (f: string) => path.relative(root, f).split(path.sep).join('/');
+  for (const f of walkFiles(root).filter((x) => TEXTY.test(r(x)) || !path.extname(x))) {
+    if (r(f).startsWith('_next/static/')) continue;
+    const text = readText(f);
+    for (const [label, re] of EMAIL_PATTERNS) if (re.test(text)) hits.push(`${r(f)}: ${label}`);
+  }
+  return hits;
+}
+
+describe('no email address or tax-code marker in any public file', () => {
+  it('scans every file of the fixture build', () => {
+    expect(emailLeaks(OUT)).toEqual([]);
+  });
+  it('scans every file of the real build in web/out', () => {
+    if (!existsSync(path.join(REAL_OUT, 'index.html'))) return;
+    expect(emailLeaks(REAL_OUT)).toEqual([]);
+  });
+  it('can fail: every pattern matches its own example', () => {
+    const examples = ['auronzo.bl@cert.ip-veneto.net', 'footer: PEC auronzo.bl', 'C.F. 83000710257', 'RSSMRA80A01H501U'];
+    for (const e of examples) expect(EMAIL_PATTERNS.some(([, re]) => re.test(e)), e).toBe(true);
+    for (const e of ['Comune di Auronzo di Cadore (auronzo.info)', 'Ask at @the desk', 'PECAN pie', 'Photo by A. Smith, CC BY 4.0']) {
+      expect(EMAIL_PATTERNS.some(([, re]) => re.test(e)), e).toBe(false);
+    }
+  });
+});
+
 // The trip timeline (L3c) says who a plan suits, never who travelled. Its default values (family, a youngest of 6, two adults)
 // are URL-state defaults and must not read as a description of the party in any string the adapter or the scheduler produces.
 describe('no party description in the timeline strings', () => {
