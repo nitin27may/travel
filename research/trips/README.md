@@ -1,18 +1,41 @@
 # Trips: the index
 
-Moved here from `CLAUDE.md` on 21 Oct 2026 (CLEANUP-PLAN decision D17, CLN-1), verbatim. One summary per trip, with its
-state, dates and open items. Folder names under `research/trips/` are the legacy folder names; the capture and suitability
-data use trip ids (for example `dolomites-july-2027` here and `dolomites-2027` in `data/capture/`).
+One row per trip: every folder in `research/trips/` and every trip page in `legacy/`. A new trip gets its row here before
+its first lane file, and uses its trip id for both `research/trips/<id>/` and `data/*/<id>/`. The 13 older folders keep their
+legacy names (data citations and validator examples name them), so the second column maps each folder to its trip id.
 
-> TODO for CLN-1c (authoring): replace this list with the index table of CLEANUP-PLAN 2.8 (one row per folder in
-> `research/trips/`: folder, trip id, data paths, legacy page, public slug, state, season window, open items) and keep the
-> summaries below it. A new trip gets its row before its first lane file. A few summaries are stale (for example the
-> `legacy/peru/` page does not exist and CLAUDE.md's tail is out of date); 1c checks them against the folders.
+State as of 21 Oct 2026. "Built" means a legacy page exists in `legacy/<folder>/index.html`. Since 18 Oct 2026 every legacy
+folder is served and public in `legacy/MANIFEST.json` (commit c694021); the old live site changes only at go-live. The
+public slug is the new site's `/trips/<slug>/` (`web/lib/public/slugs.ts`).
+
+| Research folder | Trip id and data | Legacy page | Public slug | State | Dates and shape | Open items |
+|---|---|---|---|---|---|---|
+| `algonquin-muskoka-oct-2026` | `algonquin-muskoka-2026`: capture, suitability, relevance | built, PLAN.md | `algonquin-muskoka-2026` | past | 10-12 Oct 2026, 2 nights at Dwight (Lake of Bays) from Whitby | none (trip done) |
+| `canadian-rockies-sept-2029` | `canadian-rockies-2029`: capture, suitability, relevance, schedules | built, PLAN.md, `data/*.json` | `canadian-rockies-2029` | planned; published on the old site | 8-22 Sep 2029, 14 nights, Calgary in and out, 5 bases | 9 broken links (1 on the page); no minimum height found for 42 of 43 adventures |
+| `chamonix-mont-blanc-sept-2028` | `chamonix-mont-blanc-2028`: capture, suitability, relevance | built, PLAN.md | `chamonix-mont-blanc-2028` | planned | 1-9 Sep 2028, 8 nights, Les Praz 3 and Argentiere 4 | Mont Blanc tunnel autumn closure; UTMB 2028 dates; no 2028 timetables |
+| `costa-rica-feb-2027` | `costa-rica-2027`: no data yet | built, PLAN.md | `costa-rica-2027` | planned | 13-23 Feb 2027, 10 nights, Rincon de la Vieja, Arenal, Manuel Antonio, Uvita | open-jaw fare; Poas status for Feb 2027; `gaps.md` in the folder |
+| `dolomites-july-2027` | `dolomites-2027`: capture, suitability, relevance, schedules, legs | built, PLAN.md | `dolomites-2027` | planned | 13-26 Jul 2027, Venice in and out, rental car, 4 bases | guide minimum ages; activity prices and limits (GAPs in PLAN.md) |
+| `iceland-ring-road` | `iceland-ring-road-2027`: capture, suitability, relevance | built, PLAN.md | `iceland-ring-road-2027` | planned | 4-15 Sep 2027, 11 nights, camper van, Ring Road and Snaefellsnes | no campsite confirmed open for Sept 2027; all prices 2026 |
+| `niagara-day-aug-2026` | `niagara-day-2026`: no data | built, PLAN.md | `niagara-day-2026` | past | 29 Aug 2026, one day from Whitby | none (trip done) |
+| `norway-summer` | `norway-summer-2028`: no data | built, PLAN.md | `norway-summer-2028` | planned, dates open | summer 2028, 14 nights, Lofoten, Senja, Fjord Norway; window A about 24 Jun-8 Jul | group size; driving legs not routed (GAP) |
+| `patagonia-feb-mar-2027` | `patagonia-2027`: capture, suitability, relevance | built, PLAN.md | `patagonia-2027` | planned; book now | 26 Feb-11 Mar 2027, 13 nights, BA, Ushuaia, El Chalten, El Calafate | flight and Chalten lodging by 31 Oct 2026; Piratour minimum age; hotel prices |
+| `peru` | none | none (research only) | none | idea | no dates; 17-day or 24-26-day shapes in `notes/DAYS.md` | dates and length |
+| `switzerland-2027` | `switzerland-2027`: no data | built, PLAN.md | `switzerland-2027` | planned | 27 Jul-10 Aug 2027, 14 nights, rail, Lucerne, Wengen, Zermatt | the pass choice; the join with the Dolomites trip |
+| `usa-southwest-rockies` | `utah-five-parks`: capture, suitability, relevance | built, PLAN.md | `utah-five-parks` | planned, dates open; published on the old site | 11 days, 10 nights, five Utah parks | dates (hard line 1 October); `notes/CALL-LIST.md` partly stale |
+| `vermont-fall-2026` | `vermont-fall-2026`: capture, suitability, relevance | built, PLAN.md | `vermont-fall-2026` | past | 1-4 Oct 2026, Whitby to Hyde Park VT | none (trip done) |
+| none | `quebec-2026`: no data | built (page only, no PLAN.md) | `quebec-2026` | past | 29 Sep-1 Oct 2026, Whitby to Ile d'Orleans, prologue to Vermont | none (trip done) |
+| none | `new-hampshire-stopover-2026`: no data | built (page only) | `new-hampshire-stopover-2026` | past | 30 Sep-1 Oct 2026, Franconia Notch and the Kancamagus, the day before Vermont | none (trip done) |
+
+"Trip id and data" lists which of `data/capture/<id>/`, `data/suitability/<id>/`, `data/relevance/<id>/` and
+`data/schedules/<id>.json` exist. The summaries below were moved verbatim from `CLAUDE.md` on 21 Oct 2026 (cleanup D17).
+Lines that no longer matched the folders were corrected the same day; each correction is marked "(corrected 21 Oct)".
+"Published" and "not published" below describe the old live site when each summary was written; they were not re-checked
+against the live site.
 
 ## Current trips
 - `legacy/algonquin-muskoka-oct-2026/` — **Sat 10 – Mon 12 Oct 2026 (Canadian Thanksgiving), 2 nights at Port
   Cunnington Lodge, Dwight (Lake of Bays), from Whitby. Built, NOT published.** Theme `autumn`, build with
-  `python3 build_page.py`; PLAN.md + 4 research files. Shape: Sat Huntsville lunch → Solitaire Lake Trail
+  `python3 build_page.py`; PLAN.md + 5 research files (4, plus `suitability.md`; corrected 21 Oct). Shape: Sat Huntsville lunch → Solitaire Lake Trail
   (Echo Rock is back-lit until ~13:30, so afternoon) + Dwight Beach sunset; Sun Track and Tower at 08:00
   (**no tower exists**, the payoff is a Cache Lake ledge, front-lit until ~10:30) → Ragged Falls; Mon Dorset
   tower → Huntsville → leave by 13:30 or after 19:30. **Sunday hangs on the $21 Algonquin day permit, sold
@@ -24,7 +47,7 @@ data use trip ids (for example `dolomites-july-2027` here and `dolomites-2027` i
 - `legacy/quebec-sept-2026/` — Sep 29 – Oct 1, 2026. Prologue leg to Vermont: Whitby → Île d'Orléans
   (2 nights) → Derby Line → Hyde Park. Discussion-stage; Vermont pages NOT changed for it.
 - `legacy/iceland-ring-road/` — **4–15 Sep 2027, 11 nights, ~2,190 km. First camper-van trip.**
-  Built through `legacy/_system/` (theme `alpine-snow`), 3 research files + PLAN.md + `sun-times.py`
+  Built through `legacy/_system/` (theme `alpine-snow`), 4 research files (3, plus `suitability.md`; corrected 21 Oct) + PLAN.md + `sun-times.py`
   and `dark-times.py`. KEF in/out, counter-clockwise Ring Road + Snæfellsnes, 10 campsites,
   no hotels. **Dates were set by arithmetic, not taste: Iceland reaches NO astronomical darkness
   before ~3 Sep** (mid-July doesn't even end civil twilight), so an aurora on a summer van trip is
@@ -40,7 +63,7 @@ data use trip ids (for example `dolomites-july-2027` here and `dolomites-2027` i
   declined. `research/trips/dolomites-july-2027/archive/PLAN-superseded-june.md` keeps the June reasoning.
 
 - `legacy/chamonix-mont-blanc-sept-2028/` — **Fri 1 – Sat 9 Sep 2028, 8 nights (recommended from a 1–14 Sep window), from Toronto.**
-  6 research files + PLAN.md + page built through `legacy/_system/` (theme `alpine-snow`). Shape: Les Praz 3, optional
+  7 research files (6, plus `suitability.md`; corrected 21 Oct) + PLAN.md + page built through `legacy/_system/` (theme `alpine-snow`). Shape: Les Praz 3, optional
   Refuge du Lac Blanc hut night 1, Argentiere 4; valley day hikes, **no full Tour du Mont Blanc** (7-11 days,
   huts close ~20 Sep, bookings open ~15 Oct the year before). Every lift-dependent day is before 9 Sep because
   the 2026 pattern closes Brevent/Planpraz/Bellevue ~13 Sep and a 2028 closing Sunday could be 10 Sep.
@@ -60,7 +83,7 @@ data use trip ids (for example `dolomites-july-2027` here and `dolomites-2027` i
 
 - `legacy/patagonia-feb-mar-2027/` — **Fri 26 Feb – Thu 11 Mar 2027, 13 nights, Toronto, adults plus children 11+. Built, NOT published.**
   Seed was a video (BA, Calafate, Chalten, Ushuaia); route **reversed**: BA 1, Ushuaia 4, El Chalten 4, El Calafate 2, BA 2
-  (penguins a week earlier, walking ramps up, last domestic leg from Calafate). PLAN.md (Opus) + 7 research files + `research/trips/patagonia-feb-mar-2027/sun.md`
+  (penguins a week earlier, walking ramps up, last domestic leg from Calafate). PLAN.md (Opus) + 8 research files (7, plus `suitability.md`; corrected 21 Oct) + `research/trips/patagonia-feb-mar-2027/sun.md`
   (the logistics sun table is wrong, use this one); page via `build_page.py` (theme `alpine-snow`, `photos.py` for hero/cards),
   gallery 42 photos after the trail list. Torres del Paine: NO (day tour swap costs the Chalten spare day). Big Ice 18+, rafting 16+ cut;
   minitrekking 8-65 fits. Urgent: international flight and Chalten lodging by 31 Oct, domestic flights and car 15 Nov, Piratour and
@@ -73,7 +96,7 @@ data use trip ids (for example `dolomites-july-2027` here and `dolomites-2027` i
   Torrey 2, Moab 3, SLC 1; Bryce→Torrey via UT-12 with optional Lower Calf Creek Falls. Dropped
   Page, Antelope, Horseshoe Bend, Monument Valley and the Hanksville badlands (4 nights); every leg
   is paved so AWD is no longer needed. Moab could be 2 nights (10 days) on official figures.
-  Night split is inference: no official source gives days per park (`research-days-*.md`).
+  Night split is inference: no official source gives days per park (`research/trips/usa-southwest-rockies/days-*.md`; corrected 21 Oct).
   The 15-day plan, old page and builder are in `research/trips/usa-southwest-rockies/archive/`.
   `research/trips/usa-southwest-rockies/notes/CALL-LIST.md` is from the 15-day plan and partly stale. Theme `desert`, build with
   `python3 build_page.py`. **Dates open**; the one hard line is 1 October (Narrows dry-suit cold).
@@ -92,8 +115,8 @@ data use trip ids (for example `dolomites-july-2027` here and `dolomites-2027` i
   Romsdalseggen (10–11 km, 970 m up / **1,277 m down**) is the biggest day and fits.
   Via Ferrata Loen: **age 12+, 40–120 kg** — harness limits, not policy, so not negotiable.
   Only open question left is **group size**.
-- Switzerland, 14 nights — folder exists with PLAN.md + 5 research files and a published page.
-- `legacy/peru/` — **research only, no dates, no page yet.** 4 research files + `research/trips/peru/notes/DAYS.md`.
+- `legacy/switzerland-2027/` — Tue 27 Jul – Tue 10 Aug 2027, 14 nights, rail: Lucerne 4, Wengen 5, Zermatt 5 (dates and bases added 21 Oct from its PLAN.md). PLAN.md + 5 research files and a published page.
+- `research/trips/peru/` (corrected 21 Oct: there is no `legacy/peru/` folder; the manifest dropped it) — **research only, no dates, no page yet.** 4 research files + `research/trips/peru/notes/DAYS.md`.
   Triggered by a traveller's Instagram post recommending the Cordillera Huayhuash near Huaraz.
   Verdict: **no honest "see Peru" trip under ~3 weeks**; Huayhuash + Machu Picchu together is
   **24–26 days** door-to-door. Two costed shapes in `DAYS.md` (same notes folder) — **A: 17 days** (Santa Cruz 4-day
