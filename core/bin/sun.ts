@@ -2,7 +2,7 @@
 // Sun and darkness times for a place and date(s). Longitude is positive EAST (Reykjavik is -21.94, Bergen 5.32).
 //   node core/bin/sun.ts --lat 64.15 --lon -21.94 --zone Atlantic/Reykjavik --date 2027-09-08
 //   node core/bin/sun.ts --lat 51.18 --lon -115.57 --zone America/Edmonton --date 2029-09-08 --date 2029-09-15 --json
-// The reference for every sunrise, sunset, twilight and darkness time in the trip plans (see research/sun-audit-2026-10-18.md).
+// The reference for every sunrise, sunset, twilight and darkness time in the trip plans (see research/audits/sun-audit-2026-10-18.md).
 import { fmtClock, sunDay, type SunEvent } from "../src/sun/index.ts";
 
 const USAGE = `Usage: node core/bin/sun.ts --lat <deg> --lon <deg east> --zone <IANA> --date <YYYY-MM-DD> [--date ...] [--json]

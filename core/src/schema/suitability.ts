@@ -1,4 +1,4 @@
-// suitability/1 (docs/v2/research/suitability.md sections 1, 2 and 5.1): who a place suits, with provenance per value.
+// suitability/1 (research/method/suitability.md sections 1, 2 and 5.1): who a place suits, with provenance per value.
 //
 // Subset rule (meta.ts): no refine, transform or lazy schemas here, so the whole file exports to JSON Schema.
 // Cross-field rules (a hard limit needs an operator or official basis, min <= max, units in quotes, refs) live in

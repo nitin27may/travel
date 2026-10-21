@@ -1,6 +1,6 @@
 # data/suitability: who a place suits, with provenance
 
-Sidecar files in the `suitability/1` format. They say whether a trail, activity, lake, sight or town suits a 6-year-old, a baby in a stroller, someone with limited capacity, and how hard it is, with a source and a read date for every value. The spec is `docs/v2/research/suitability.md`; the schema is `core/src/schema/suitability.ts`, exported to `data/schema/generated/schema.json` as `sidecar.suitability`.
+Sidecar files in the `suitability/1` format. They say whether a trail, activity, lake, sight or town suits a 6-year-old, a baby in a stroller, someone with limited capacity, and how hard it is, with a source and a read date for every value. The spec is `research/method/suitability.md`; the schema is `core/src/schema/suitability.ts`, exported to `data/schema/generated/schema.json` as `sidecar.suitability`.
 
 ```
 data/suitability/

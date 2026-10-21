@@ -1,4 +1,4 @@
-// Writes data/suitability/scope.json: the 207 in-scope refs of docs/v2/research/suitability.md section 7, taken
+// Writes data/suitability/scope.json: the 207 in-scope refs of research/method/suitability.md section 7, taken
 // from the public adapter. Run from the repo root:
 //   pnpm --dir web exec vitest run -c ../tools/suitability-scope/vitest.config.mts
 // core/ cannot import web/, so the suitability migration reads this manifest. Re-run it when a trip's items change;

@@ -43,7 +43,7 @@ export interface Result {
   warnings: Issue[];
 }
 
-// suitability/1 codes (docs/v2/research/suitability.md section 9). They live apart from ERROR_CODES because the
+// suitability/1 codes (research/method/suitability.md section 9). They live apart from ERROR_CODES because the
 // broken-fixture test of that list expects one fixture per code in fixtures/broken; these have theirs in
 // fixtures/suitability/broken (one failing file each, enforced by core/test/suitability/validate.test.ts).
 // ---- S0b: suitability applicability (kept in its own block so the relevance lane can add its codes beside it) ----
@@ -90,7 +90,7 @@ export type SuitWarningCode = keyof typeof SUIT_WARNING_CODES;
 export const SUIT_ERROR_LIST = Object.keys(SUIT_ERROR_CODES) as SuitErrorCode[];
 export const SUIT_WARNING_LIST = Object.keys(SUIT_WARNING_CODES) as SuitWarningCode[];
 
-// relevance/1 codes (docs/v2/research/relevance.md sections 2.2 and 5). A block of their own, apart from the E_SUIT_*
+// relevance/1 codes (research/method/relevance.md sections 2.2 and 5). A block of their own, apart from the E_SUIT_*
 // one, with a failing fixture each in fixtures/relevance/broken (enforced by core/test/relevance/validate.test.ts).
 export const REL_ERROR_CODES = {
   E_REL_SCHEMA: "a field is missing, unknown, of the wrong type or outside its enum, or a value state contradicts its v",
@@ -121,7 +121,7 @@ export type RelWarningCode = keyof typeof REL_WARNING_CODES;
 export const REL_ERROR_LIST = Object.keys(REL_ERROR_CODES) as RelErrorCode[];
 export const REL_WARNING_LIST = Object.keys(REL_WARNING_CODES) as RelWarningCode[];
 
-// capture/1 codes (docs/v2/research/capture-contract.md sections 3, 5 and 9; backlog 3a.12 step 3). A block of their own, with a
+// capture/1 codes (research/method/capture-contract.md sections 3, 5 and 9; backlog 3a.12 step 3). A block of their own, with a
 // failing case each in core/test/capture/validate.test.ts. The suitability and relevance codes keep their own blocks.
 export const CAP_ERROR_CODES = {
   E_CAP_SCHEMA: "a field is missing, unknown, of the wrong type or outside its enum, or a value state contradicts its v",

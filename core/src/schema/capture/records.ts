@@ -1,4 +1,4 @@
-// capture/1 (docs/v2/research/capture-contract.md sections 2 and 3): the identity, layer and relations of a place, route, offer
+// capture/1 (research/method/capture-contract.md sections 2 and 3): the identity, layer and relations of a place, route, offer
 // or event, plus the base-contract values no suitability or relevance field holds (hours, season, price, window, links, photos).
 //
 // A third sidecar beside suitability/1 and relevance/1 (they stay the homes of their groups). It joins them by `ref`. The value

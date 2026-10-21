@@ -1,7 +1,7 @@
 import { LEVEL_WORDS, levelLabel } from './levelWord';
 import type { Completeness, CompletenessLevel } from './types';
 
-// Hand-transcribed from docs/v2/research/kinds (README section 10 and each profile). Only the checks the data can
+// Hand-transcribed from research/method/kinds (README section 10 and each profile). Only the checks the data can
 // answer are tracked; the engine (TODO row "Enforce per-kind completeness") replaces this later. Pure function.
 
 /** Profile totals (Draft + Usable + Complete) by place kind, from each profile's "Totals" line. */

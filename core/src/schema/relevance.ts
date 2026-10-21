@@ -1,4 +1,4 @@
-// relevance/1 (docs/v2/research/relevance.md section 2.1): is a place worth the journey, and for which kind of trip.
+// relevance/1 (research/method/relevance.md section 2.1): is a place worth the journey, and for which kind of trip.
 //
 // A separate sidecar from suitability/1 (decision R1). It imports the source-row shape and shares the value wrapper's
 // shape; the only difference is one extra basis, `editorial`. Subset rule (meta.ts): no refine, transform or lazy

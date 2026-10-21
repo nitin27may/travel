@@ -1,7 +1,7 @@
 # data/capture
 
 The capture contract's data (research/method/capture-contract.md, backlog 3a.12). The one authored file of the contract is
-`data/vocab/types.json`; everything under `data/schema/capture/` and `docs/v2/research/capture/` is generated from it
+`data/vocab/types.json`; everything under `data/schema/capture/` and `research/types/` is generated from it
 (`node core/bin/capture.ts build`, checked by `build --check` in `tools/check-all.sh`).
 
 | Path | What | Edited by |
