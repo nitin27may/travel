@@ -770,11 +770,17 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     const w = container.clientWidth, h = container.clientHeight;
     const tr = (map as unknown as { transform?: { isLocationOccluded?(l: unknown): boolean } }).transform;
     let changed = false;
+    // A pin or disc that would sit under the zoom rail is hidden while it is there: the control stays reachable and nothing is nudged off its
+    // place (T5). The side panel still lists everything.
+    const rail = container.closest('.globe-root')?.querySelector('.globe-zoom') as HTMLElement | null;
+    const rr = rail && rail.offsetWidth ? rail.getBoundingClientRect() : null;
+    const cr = container.getBoundingClientRect();
     for (const m of markers.values()) {
       const ll = m.marker.getLngLat();
       const pt = map.project(ll);
       const hidden = pt.x < -20 || pt.y < -20 || pt.x > w + 20 || pt.y > h + 20 || !!tr?.isLocationOccluded?.(ll);
-      const v = hidden ? 'hidden' : '';
+      const underRail = !!rr && m.el.classList.contains('globe-marker') && pt.x + cr.left > rr.left - 14 && pt.x + cr.left < rr.right + 14 && pt.y + cr.top > rr.top - 14 && pt.y + cr.top < rr.bottom + 14;
+      const v = hidden || underRail ? 'hidden' : '';
       if (m.el.style.visibility !== v) { m.el.style.visibility = v; changed = true; }
     }
     if (changed) container.dispatchEvent(new CustomEvent('globe-culled')); // the cover's roving tab stop moves to a pin that can take focus
