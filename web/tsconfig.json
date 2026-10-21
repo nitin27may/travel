@@ -35,13 +35,18 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts",
+    ".fixture-out/types/**/*.ts",
+    ".fixture-out/dev/types/**/*.ts",
+    ".fixture-beacon/types/**/*.ts",
+    ".fixture-beacon/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "out",
     ".next",
-    ".fixture-out", ".fixture-beacon",
+    ".fixture-out",
+    ".fixture-beacon",
     ".generated"
   ]
 }
