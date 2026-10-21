@@ -37,7 +37,7 @@ export function GlobeControls({ prefs, natural, onNatural, style, reducedMotion,
       {prefs.terrain ? (
         <Slider label="Relief" value={prefs.exaggeration} min={0.5} max={2} step={0.1} format={(v) => `${v.toFixed(1)}×`} onValueChange={(exaggeration) => onChange({ exaggeration })} />
       ) : null}
-      <Switch checked={natural} onCheckedChange={onNatural}>Natural features</Switch>
+      <Switch checked={natural} onCheckedChange={onNatural} note="Rivers, seas, ranges and plains, in search and on tap">Natural features</Switch>
       <Switch checked={prefs.spin && !reducedMotion} disabled={reducedMotion} note={reducedMotion ? 'Off: reduced motion' : undefined} onCheckedChange={(spin) => onChange({ spin })}>Auto-spin</Switch>
       {onHide ? <button type="button" className="globe-ctl-hide" onClick={onHide}>Hide controls <kbd>.</kbd></button> : null}
     </div>

@@ -68,8 +68,8 @@ test.describe('globe natural features (GPU, real tiles)', () => {
   test.beforeAll(async () => { site = await serveSite(); if (existsSync(CHROME)) browser = await chromium.launch({ executablePath: CHROME, args: ARGS }); });
   test.afterAll(async () => { await browser?.close(); site?.stop(); });
 
-  async function open(url: string): Promise<Page> {
-    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+  async function open(url: string, vp = { width: 1440, height: 900 }): Promise<Page> {
+    const ctx = await browser.newContext({ viewport: vp, ...(vp.width < 500 ? { hasTouch: true, isMobile: true } : {}) });
     contexts.push(ctx);
     const page = await ctx.newPage();
     await page.addInitScript(() => localStorage.setItem('travel:v1:globe', JSON.stringify({ spin: false })));
@@ -171,5 +171,65 @@ test.describe('globe natural features (GPU, real tiles)', () => {
       else await expect(page.locator('.globe-feature')).toHaveCount(0);
       await page.context().close();
     }
+  });
+
+  test('nf=0: a query that matches only a natural feature says so and Turn on brings it back with the query kept', async () => {
+    const page = await open(`${site.url}/globe/?nf=0`);
+    const search = page.getByRole('combobox', { name: 'Search the globe' });
+    await search.fill('Ganges');
+    await expect(page.getByText('Ganges is a natural feature. Natural features are off.')).toBeVisible();
+    await page.getByRole('button', { name: 'Turn on' }).click();
+    await expect(search).toHaveValue('Ganges');
+    await expect.poll(() => new URL(page.url()).searchParams.get('nf')).toBeNull();
+    await expect(page.getByRole('option').filter({ hasText: 'River' }).first()).toBeVisible();
+  });
+
+  test('desktop: after Fly here the card does not sit on the river it describes', async () => {
+    const page = await open(`${site.url}/globe/`);
+    await page.getByRole('combobox', { name: 'Search the globe' }).fill('Ganges');
+    await page.getByRole('option', { name: /^Ganges\s*River/ }).first().click();
+    await expect(page.locator('.globe-feature')).toBeVisible({ timeout: 40_000 });
+    await rest(page);
+    await page.getByRole('button', { name: 'Fly here' }).click();
+    await rest(page);
+    await expect.poll(async () => (await page.locator('.globe-feature').boundingBox())?.x ?? 0, { timeout: 10_000 }).toBeGreaterThan(0);
+    const covered = await page.evaluate(() => {
+      const m = (document.querySelector('.globe-map') as unknown as { __map: { querySourceFeatures(s: string): { geometry: { coordinates: [number, number][][] } }[]; project(c: [number, number]): { x: number; y: number } } }).__map;
+      const box = document.querySelector('.globe-map')!.getBoundingClientRect();
+      const card = document.querySelector('.globe-feature')!.getBoundingClientRect();
+      let n = 0, total = 0;
+      for (const f of m.querySourceFeatures('feature-shape')) for (const c of (f.geometry.coordinates as unknown as number[]).flat(3).reduce<[number, number][]>((a, v, i) => { if (i % 2) a[a.length - 1].push(v); else a.push([v] as unknown as [number, number]); return a; }, [])) {
+        const p = m.project(c); const x = p.x + box.left, y = p.y + box.top; total++;
+        if (x > card.left && x < card.right && y > card.top && y < card.bottom) n++;
+      }
+      return { n, total };
+    });
+    expect(covered.total).toBeGreaterThan(10);
+    expect(covered.n, `${covered.n} of ${covered.total} river vertices under the card`).toBe(0);
+  });
+
+  test('phone: the feature card is docked at the bottom, the river clear of it', async () => {
+    const page = await open(`${site.url}/globe/`, { width: 390, height: 844 });
+    await page.getByRole('combobox', { name: 'Search the globe' }).fill('Ganges');
+    await page.getByRole('option', { name: /^Ganges\s*River/ }).first().click();
+    await expect(page.locator('.globe-feature')).toBeVisible({ timeout: 40_000 });
+    await rest(page);
+    await page.getByRole('button', { name: 'Fly here' }).click();
+    await rest(page);
+    const card = (await page.locator('.globe-feature').boundingBox())!;
+    expect(card.y, 'docked in the lower part of the screen').toBeGreaterThan(844 * 0.55);
+    expect(card.y + card.height, 'above the bottom bar').toBeLessThanOrEqual(844 - 40);
+    const under = await page.evaluate(() => {
+      const m = (document.querySelector('.globe-map') as unknown as { __map: { querySourceFeatures(s: string): { geometry: { coordinates: [number, number][][] } }[]; project(c: [number, number]): { x: number; y: number } } }).__map;
+      const box = document.querySelector('.globe-map')!.getBoundingClientRect();
+      const card = document.querySelector('.globe-feature')!.getBoundingClientRect();
+      let n = 0;
+      for (const f of m.querySourceFeatures('feature-shape')) for (const c of (f.geometry.coordinates as unknown as number[]).flat(3).reduce<[number, number][]>((a, v, i) => { if (i % 2) a[a.length - 1].push(v); else a.push([v] as unknown as [number, number]); return a; }, [])) {
+        const p = m.project(c); const x = p.x + box.left, y = p.y + box.top;
+        if (x > card.left && x < card.right && y > card.top && y < card.bottom) n++;
+      }
+      return n;
+    });
+    expect(under, 'river vertices under the card').toBe(0);
   });
 });

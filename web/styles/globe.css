@@ -53,7 +53,7 @@ html[data-globe] main.page { padding: 0; max-width: none; flex: 0 0 0; }
 .globe-pin {
   position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0; border-radius: 50%;
   background: var(--globe-pin); color: var(--globe-pin-ink); border: 2px solid var(--map-halo);
-  font: 600 13px/1 var(--font-mono); cursor: pointer; box-sizing: border-box;
+  font: 600 13px/1 var(--font-mono); cursor: pointer; box-sizing: border-box; text-decoration: none; /* a link pin on the home cover must not underline its count (M4) */
   transition: background-color var(--d-fast) var(--e-std), color var(--d-fast) var(--e-std), transform var(--d-fast) var(--e-std);
 }
 span.globe-pin { cursor: default; }
@@ -116,6 +116,8 @@ span.globe-pin { cursor: default; }
 .globe-result { display: flex; flex-direction: column; gap: 2px; min-height: 44px; justify-content: center; padding: 6px 12px; border-radius: var(--r-3); cursor: pointer; }
 .globe-result[data-on='true'], .globe-result:hover { background: var(--surface-2); }
 .globe-result-name { font: 500 15.5px/1.3 var(--font-body); }
+.globe-result-note { cursor: default; }
+.globe-result-act { align-self: flex-start; min-height: 32px; padding: 0 4px; border: 0; background: none; color: var(--accent-text); font: 600 14px/1.2 var(--font-body); text-decoration: underline; cursor: pointer; }
 .globe-result-kind { font: var(--t-meta); color: var(--muted); }
 .globe-result-kind b { color: var(--ink-2); font-weight: 600; }
 
@@ -223,8 +225,12 @@ span.globe-pin { cursor: default; }
   .globe-status { top: 104px; bottom: auto; }
   .globe-card { width: 100%; border: 0; box-shadow: none; border-radius: 0; animation: none; }
   .globe-card-photo { height: 132px; }
-  .globe-feature { left: 8px; right: 8px; top: auto; bottom: calc(var(--phone-bottombar-h) + 246px); width: auto; }
+  /* docked above the bottom bar as the peek sheet (review M1); the list sheet steps aside while it is open and the camera pads by its height */
+  .globe-feature { left: 8px; right: 8px; top: auto; bottom: calc(var(--phone-bottombar-h) + 8px); width: auto; }
   .globe-options-btn { bottom: 188px; }
+  /* a docked feature card owns the bottom: the option and list buttons step aside and the rail rides above it (review M1) */
+  .globe-root:has(.globe-feature) .globe-options-btn, .globe-root:has(.globe-feature) .globe-list-btn { display: none; }
+  .globe-root:has(.globe-feature) .globe-zoom { bottom: calc(var(--phone-bottombar-h) + 150px); }
   .globe-root:has(.globe-card-sheet) .globe-options-btn { display: none; }
   .globe-root:has(.globe-card-sheet) .globe-zoom { top: 96px; bottom: auto; } /* with a card sheet open the rail moves up, so Reset view is never under it */
 }
