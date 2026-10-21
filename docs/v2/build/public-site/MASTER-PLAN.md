@@ -33,7 +33,7 @@ The public site is built and on `main` (the old site is tagged `legacy-final`). 
 | [../../research/capture-contract.md](../../../../research/method/capture-contract.md) | The one data contract: types, properties, placement, supersede rule |
 | [../../research/suitability.md](../../../../research/method/suitability.md), [relevance.md](../../../../research/method/relevance.md), [sources-and-licences.md](../../../../research/method/sources-and-licences.md) | Suitability, relevance, sources and licences |
 | [../../research/smart-search-spike.md](../../../../research/reports/smart-search-spike.md) | The measured embedding test |
-| [../../research/capture-research-backlog.md](../../research/capture-research-backlog.md), [operator-questions-2026-10-18.md](../../../../research/method/operator-questions-2026-10-18.md) | The data research queue and the operator questions |
+| [research/backlog.md](../../../../research/backlog.md), [operator-questions-2026-10-18.md](../../../../research/method/operator-questions-2026-10-18.md) | The data research queue and the operator questions |
 | [../SERVER-SIDE-LAUNDRY-LIST.md](../SERVER-SIDE-LAUNDRY-LIST.md) | The second list: everything that needs login or a server; links F01 to F17 |
 | [../../features/README.md](../../features/README.md), F01 to F17 | The planner product specs |
 
@@ -115,7 +115,7 @@ Items pulled into A, B or E are in EXECUTION-PLAN section 12.
 
 | Item | Rows | Detail |
 |---|---|---|
-| Data research not needed by E: Walcott dates, the remaining Dolomites routes, Nuvolau chaining | 3.61b, 3.47d, 3.28 | [capture research backlog](../../research/capture-research-backlog.md) |
+| Data research not needed by E: Walcott dates, the remaining Dolomites routes, Nuvolau chaining | 3.61b, 3.47d, 3.28 | [capture research backlog](../../../../research/backlog.md) |
 | Short trips and the legacy time import | 3.1c, 3.13, 3.14 | [short-trips.md](../../features/short-trips.md) |
 | Search polish: the "Words" chip | 3.66b | polish |
 | Embedding search and free AI features | 3.15, L9 | needs your go (L9); recommended not now |

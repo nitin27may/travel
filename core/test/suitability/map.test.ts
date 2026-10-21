@@ -10,7 +10,7 @@ const REPO = fileURLToPath(new URL("../../../", import.meta.url));
 const FIX = join(REPO, "core", "test", "fixtures", "suitability");
 const read = (p: string) => JSON.parse(readFileSync(p, "utf8"));
 
-// Every grade of every table in docs/v2/research/suitability.md section 2, with the terrain the spec gives it.
+// Every grade of every table in research/method/suitability.md section 2, with the terrain the spec gives it.
 const TABLE: [GradeSystem, string, number][] = [
   ["sac", "T1", 2], ["sac", "T2", 3], ["sac", "T3", 4], ["sac", "T4", 5], ["sac", "T5", 5], ["sac", "T6", 5],
   ["cai", "T", 1], ["cai", "E", 3], ["cai", "EE", 4], ["cai", "EEA", 5],
@@ -88,5 +88,17 @@ describe("difficulty-map v2", () => {
     bad.modes = null;
     const r = validateDoc(bad, "sidecar", REPO, { kind: "difficulty-map" });
     expect(r.errors.map((e) => e.path).sort()).toEqual(["/modes", "/systems/0/mappings/0/source", "/systems/0/mappings/1/read"].sort());
+  });
+
+  it("accepts a source that is a URL, a docs/ path or a research/ path, and nothing else", () => {
+    const sources = (s0: string, s1: string) => {
+      const doc = structuredClone(read(join(REPO, "data/schema/difficulty-map.json")));
+      doc.systems[0].mappings[0].source = s0;
+      doc.systems[0].mappings[1].source = s1;
+      return validateDoc(doc, "sidecar", REPO, { kind: "difficulty-map" }).errors.map((e) => e.path);
+    };
+    expect(sources("research/method/suitability.md", "docs/v2/plan.md")).toEqual([]);
+    expect(sources("research/method/suitability.md", "https://example.org/x")).toEqual([]);
+    expect(sources("legacy/foo/PLAN.md", "researchers/x.md")).toEqual(["/systems/0/mappings/0/source", "/systems/0/mappings/1/source"]);
   });
 });

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "updated": "2026-10-18",
-  "note": "Which suitability field applies to which kind. R = required for Usable, A = applicable (counts for Complete), N = never asked, shown or counted, op = R when the record is operated, else N. Source: docs/v2/research/suitability-applicability.md section 2. Every profile lists every field path.",
+  "note": "Which suitability field applies to which kind. R = required for Usable, A = applicable (counts for Complete), N = never asked, shown or counted, op = R when the record is operated, else N. Source: research/method/suitability-applicability.md section 2. Every profile lists every field path.",
   "f_labels": {
     "min_age": "F1",
     "max_age": "F1",

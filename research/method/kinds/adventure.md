@@ -8,7 +8,7 @@ Status: draft (18 Oct 2026). Template: [README.md](README.md). Method:
 Something you book and do with an operator, or rent gear for: zipline, via ferrata, rafting,
 canyoning, glacier walk, boat tour or cruise, kayak or canoe rental, mountain coaster, paragliding,
 heli-hike, horse ride, wildlife tour, guided summit, bike park. Stored as `entity.kind = activity`
-with the subkind from `ACTIVITY_TYPE`, plus **one `offer` per product** (research/README.md R5).
+with the subkind from `ACTIVITY_TYPE`, plus **one `offer` per product** (method/README.md R5).
 Produced by the **adventure** lane. Lifts, cable cars and scenic trains have their own profile
 ([lift.md](lift.md)); spas and ticketed hot pools use [swim-spot.md](swim-spot.md).
 

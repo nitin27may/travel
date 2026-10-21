@@ -9,7 +9,7 @@ Something that happens on dates: a festival, market, race, holiday, natural even
 run, foliage peak), or a closure that behaves like an event (the Mont Blanc tunnel's autumn closure, a
 lift-closing Sunday, a pass closed for a bike race). Stored as `entity.kind = event`, subkind
 `festival`, `market`, `sport`, `holiday`, `natural`, `closure`, with one `event_occurrence` row per
-year (research/README.md R6). Produced by the **events and seasonal** lane.
+year (method/README.md R6). Produced by the **events and seasonal** lane.
 
 An event either **is** a reason to go (Diwali, UTMB as a spectator, larches) or **changes** other
 places (prices up, roads closed, hotels full). Both are modelled with `affects` relations to the

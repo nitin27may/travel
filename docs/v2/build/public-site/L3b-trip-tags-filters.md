@@ -64,7 +64,7 @@ Trips get the same filter model as Places, and both lists get facets that come f
 - **L2b:** `web/app/globe/**`, `web/app/globe-data/**`, `web/lib/globe/**`, `web/components/globe/**`, `web/styles/globe.css`, `web/public/globe/**`, `tools/globe_data.py`, the globe section of `web/lib/client/data.ts`.
 - **S1:** `web/lib/public/contract.ts`, `suitability.ts`, `relevance.ts`, `sections.ts`, `party.ts`, `web/components/suit/**`. In `descriptors/place.tsx`, `placeBadges` and the card chips are S1's after this lane merges.
 - **CS7:** `data/capture/**`, `data/suitability/**`, `data/relevance/**` (except reading `derived/`), `data/sources/**`.
-- `data/schema/capture/**`, `docs/v2/research/capture/**` and `data/schema/suitability-applicability.json` are generated: read only. A new facet is a registry change in `core/src/schema/capture/properties.ts`, which is not yours; ask in the hand-back.
+- `data/schema/capture/**`, `research/types/**` and `data/schema/suitability-applicability.json` are generated: read only. A new facet is a registry change in `core/src/schema/capture/properties.ts`, which is not yours; ask in the hand-back.
 - `web/components/ui/**`: ask in the hand-back. New icons go in `web/components/trips/tags/icons.tsx`.
 
 ## Steps

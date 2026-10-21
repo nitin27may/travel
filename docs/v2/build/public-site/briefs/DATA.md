@@ -18,7 +18,7 @@ Every public page has a sourced point with its role or a dated search that found
 
 - EXECUTION-PLAN 6.2 to 6.5 and 14.
 - `node core/bin/capture.ts fields --type <id>` for every type you touch; `capture.ts gaps --placement --trip <t>` and `gaps --tier required --trip <t>` (META-0).
-- `research/capture-research-backlog.md`, `research/method/operator-questions-2026-10-18.md`, `research/runs/CS7d-notes.md`.
+- `research/backlog.md`, `research/method/operator-questions-2026-10-18.md`, `research/runs/CS7d-notes.md`.
 - `tools/gallery/gallery_find.py` and `gallery_pick.py` (cached, one request per query, contact sheets).
 
 ## Rules for every batch
@@ -32,7 +32,7 @@ Every public page has a sourced point with its role or a dated search that found
 
 ## Files you own
 
-`data/capture/points.json`, `data/capture/<trip>/{TF,AC,PH}.json` (new), `data/capture/operators.json`, `data/capture/runs/**`, `data/suitability/<trip>/{TF,AC}.json` (new), `data/locations/locations.json` through `python3 tools/locations.py edit` only, `data/capture/gap-budget.json` (lower only), `research/method/lanes/DATA-notes.md` (new), `research/method/operator-questions-2026-10-18.md`, `research/capture-research-backlog.md`.
+`data/capture/points.json`, `data/capture/<trip>/{TF,AC,PH}.json` (new), `data/capture/operators.json`, `data/capture/runs/**`, `data/suitability/<trip>/{TF,AC}.json` (new), `data/locations/locations.json` through `python3 tools/locations.py edit` only, `data/capture/gap-budget.json` (lower only), `research/method/lanes/DATA-notes.md` (new), `research/method/operator-questions-2026-10-18.md`, `research/backlog.md`.
 
 ## Do not touch
 

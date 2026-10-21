@@ -1,5 +1,5 @@
 // data/schema/suitability-applicability.json: which suitability field applies to which kind
-// (docs/v2/research/suitability-applicability.md). One row per profile, every field path listed, so N is stated.
+// (research/method/suitability-applicability.md). One row per profile, every field path listed, so N is stated.
 //
 // Subset rule (meta.ts): plain shapes only. That a profile list is complete, that each (kind, subkind) pair maps to one
 // profile and that every path of the schema appears live in core/src/validate/applicability.ts.

@@ -30,7 +30,7 @@ Every record of every kind (place, trail, other route, activity, event, stay) ha
 
 ## Do not touch
 
-`web/components/**` other than `AboutData.tsx`, `web/lib/client/**`, `web/lib/entities/**`, `web/lib/search/**` (LST2 builds town parts from your files), `data/vocab/types.json` unless step 2 needs an R mark change (then it is one reviewed commit), `data/schema/**` and `docs/v2/research/capture/**` by hand (regenerate), research data passes (DATA).
+`web/components/**` other than `AboutData.tsx`, `web/lib/client/**`, `web/lib/entities/**`, `web/lib/search/**` (LST2 builds town parts from your files), `data/vocab/types.json` unless step 2 needs an R mark change (then it is one reviewed commit), `data/schema/**` and `research/types/**` by hand (regenerate), research data passes (DATA).
 
 ## Steps
 
