@@ -21,6 +21,12 @@ deliverable is the changeset.
 
 ## 2. The skill set
 
+> **Superseded in part (21 Oct 2026, CLEANUP-PLAN CLN-1, cleanup D11 and D15).** Skills stay in `.claude/skills/<name>/SKILL.md`
+> as thin wrappers; the method they follow is written once in [research/README.md](../README.md) (the map, with one recipe
+> per job and the rules in section 9) and in this folder. Lane contracts are read from `research/method/lanes/`, and the
+> fan-out rules are in [lanes/README.md](lanes/README.md#running-a-fan-out). A new skill gets a recipe section in
+> `research/README.md`. The table below remains the target skill set.
+
 Each skill is a folder under `.claude/skills/` with a `SKILL.md`; lane contracts are read from
 `research/method/lanes/` (or from the MCP resource `lane://<id>` so the skill and the server never
 drift).

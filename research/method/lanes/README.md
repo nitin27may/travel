@@ -81,6 +81,41 @@ checks that make it Draft, Usable or Complete, are in the kind profiles: [../kin
 - **Never** propose content from Google Maps or Places, never scrape AllTrails, never store a
   confirmation code or personal data in the catalog.
 
+## Running a fan-out
+
+Added 21 Oct 2026 (CLEANUP-PLAN CLN-1c). This is the fan-out half of the `trip-planner` skill's Phase 1, written once here;
+the rules every lane obeys are in [research/README.md](../../README.md) section 9.
+
+1. **Scope first.** The trip has its row in [research/trips/README.md](../../trips/README.md) and a trip type from
+   [trip-types.md](../trip-types.md). The lane depth matrix there decides which lanes run and how deep.
+2. **One wave, one message.** Launch the lanes of a wave as concurrent `Agent` calls in a single message. Tell each agent
+   that its output is raw data for another agent to synthesise, not a report for a person, and that every claim needs a
+   source URL and a read date.
+3. **Disjoint files and hosts.** Each lane writes only `research/trips/<folder>/<lane>.md` and
+   `data/{capture,suitability,relevance}/<trip-id>/<lane>.json`. Lanes run in parallel only when they hit disjoint hosts.
+   **Media, Overpass, Nominatim and Commons are one sequential runner for the whole machine**, never part of a parallel wave.
+4. **Model per lane.** A large model for lanes that need judgement (trails, adventure, stays, destination overview); a small
+   one for mechanical lanes (media finding, link checks); see [skills-and-prompts.md](../skills-and-prompts.md) section 3.
+   Give each lane a cap (default 60 records) and a budget; when it runs out it stops and lists the rest as gaps.
+5. **Synthesis.** The planner reads every lane file, then orders each day by constraints, not by the map: the
+   earliest-filling parking first, then light, then crowd windows, then driving efficiency, with a decision rule wherever
+   weather or timing could flip a choice.
+
+The skill's six classic lanes map to these contracts. The extra asks are what earlier trips showed the lane must not miss.
+
+| Classic lane | Contracts | Must not miss |
+|---|---|---|
+| Trails and hikes | [trails](trails.md), [timing-light-and-weather](timing-light-and-weather.md) | distance and gain from an official source; trailhead and car-park points from OSM or the agency; the full link checklist; parking capacity, cost and fill time; recent closures; what you see at the top; whether offline maps need a paid tier; popular routes that cross a closed section |
+| Adventure and activities | [adventure](adventure.md) | price in local currency; minimum age, height and weight (the most often missing fact); booking channel (advance, same-day only, sells out); operating window; weather cancellation and refund terms; hours that contradict the plan's weather strategy |
+| Route and logistics | [road-trips-and-legs](road-trips-and-legs.md), [entry-and-documents](entry-and-documents.md), [fares-and-costs](fares-and-costs.md) | two or three route options with time and tolls; border crossings and wait-time links; documents; fuel price across jurisdictions; signal dead zones; drive times between every pair of stops; sunrise and sunset for the exact dates |
+| Attractions and hours | [sights-and-viewpoints](sights-and-viewpoints.md), [food](food.md) | dates, hours and prices; anything the traveller assumed, checked; closures and reservations; groceries; restaurants with their day-of-week closures; crowd patterns by day and hour |
+| Villages and where to stay | [stays](stays.md), [destination-overview](destination-overview.md) | elevation; car-free or not and how it is reached; tourist tax; when the base loses the sun; overnight temperature (most alpine hotels have no air conditioning); day-tripper churn against evening quiet; last transport up; the nearest real supermarket; the honest trade when the famous village is the wrong place to sleep |
+| Seasonal timing and photography | [timing-light-and-weather](timing-light-and-weather.md), [events-and-seasonal](events-and-seasonal.md), [media](media.md) (sequential) | when the thing they came for peaks, by sub-region; live-condition sources; which spots want sunrise, sunset or overcast; times from `node core/bin/sun.ts` for the actual dates, with sun azimuth and elevation from `sunPosition()` in `core/src/sun` when an alignment matters |
+
+Adapt the lanes to the trip but keep the shape (capability, adventure, logistics, hours, where to stay, timing and light). A
+city trip swaps trails for neighbourhoods and via ferrata for tours, but still needs the age, price and booking limits and
+still answers "which district should we sleep in, and why".
+
 ## The changeset envelope (all lanes)
 
 ```json
