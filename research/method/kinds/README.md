@@ -176,7 +176,7 @@ TripAdvisor, Yelp, Booking.com, Expedia, resellers' limit tables (../sources-and
 ## 8. People limits and the household check
 
 Limits live in `eligibility` on the entity, or on each `offer` when products differ (Norquay via
-ferrata routes 12+ and 14+; research/README.md R5).
+ferrata routes 12+ and 14+; method/README.md R5).
 
 | Key | Format | Notes |
 |---|---|---|

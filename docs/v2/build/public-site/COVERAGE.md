@@ -5,7 +5,7 @@ Companion to [EXECUTION-PLAN.md](EXECUTION-PLAN.md) (section 22). Entry point si
 - every Open row of [docs/v2/TODO.md](../../TODO.md);
 - the review and note files under `docs/v2/design/` (the whole-site review's "Fix soon" list item by item; the lane reviews through the rows that collected them, 4.4 to 4.16);
 - the lane docs here (L0 to L5, LD, LM, S1, CS7, CC, README, verify-integration's "Later" list, STATUS's open and cleanup parts, STAGE4-plan's conflicts C1 to C11, all resolved);
-- `docs/v2/research/capture-research-backlog.md` and `operator-questions-2026-10-18.md`;
+- `research/backlog.md` and `operator-questions-2026-10-18.md`;
 - `docs/v2/features/*.md` open items;
 - the owner memory notes in `docs/v2/build/handover/memory/`;
 - the code: `TODO`, `FIXME` and "known issue" markers in `web/`, `core/`, `tools/` (2 real ones) and every `test.skip`, `fixme` and `skipIf` in the tests (1 fixme, 1 real defect behind a skip, 6 tests that skip when `web/out` is missing, the rest environment guards).

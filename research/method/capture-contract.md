@@ -600,7 +600,7 @@ Columns are domains or category groups; the full matrix per type is in the gener
 | `data/schema/difficulty-map.json` | authored | grade systems to FE |
 | `data/schema/capture/<domain>.json` | generated | every node resolved: its full mark table, the suitability row, sections, links, sources, filters, the D/U/C checks |
 | `data/schema/suitability-applicability.json` | generated (was authored) | unchanged shape, so `suitability.ts` keeps working |
-| `docs/v2/research/capture/<domain>.md` | generated | the checklist a person reads, one table per type |
+| `research/types/<domain>.md` | generated | the checklist a person reads, one table per type |
 | `web/lib/public/contract.ts` | generated | the section map and the facet list the adapter uses (P9: behind the adapter, at build time) |
 
 ### 5.2 The CLI

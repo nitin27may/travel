@@ -1,7 +1,7 @@
 # Moved: research now lives in /research/
 
 **Moved to the root `research/` on 21 Oct 2026 (CLEANUP-PLAN CLN-1; owner decision D11, one research home).** This folder
-keeps only this page, so that old links in records still lead somewhere. It is removed at CLN-6 (D19). The map of the whole
+keeps only this page (all code-bound paths moved in CLN-R), so that old links in records still lead somewhere. It is removed at CLN-6 (D19). The map of the whole
 research system is [research/README.md](../../../research/README.md).
 
 ## Old path to new path
@@ -16,6 +16,9 @@ research system is [research/README.md](../../../research/README.md).
 | `docs/v2/research/README.md` | `research/method/README.md` |
 | `docs/v2/research/capture-contract.md` | `research/method/capture-contract.md` |
 | `docs/v2/research/globe-adm2-audit.md` | `research/reports/globe-adm2-audit.md` |
+| `docs/v2/research/capture/` (15 generated checklists) | `research/types/` |
+| `docs/v2/research/capture-research-backlog.md` | `research/backlog.md` |
+| `docs/v2/research/trip-tag-conflicts.md` | `research/reports/trip-tag-conflicts.md` |
 | `docs/v2/research/kinds/` | `research/method/kinds/` |
 | `docs/v2/research/lanes/` | `research/method/lanes/` |
 | `docs/v2/research/lanes/CS7*.md` (9 run notes) | `research/runs/CS7*.md` |
@@ -34,15 +37,5 @@ research system is [research/README.md](../../../research/README.md).
 | `research/sun-audit-2026-10-18.md` | `research/audits/sun-audit-2026-10-18.md` |
 
 A path ending in `/` is a folder: everything under it moved with the same sub-layout.
-
-## Still here until CLN-R
-
-These three are read or written by code, so they move in CLN-R together with the code that resolves them:
-
-| Path | Why it waits | Goes to |
-|---|---|---|
-| `docs/v2/research/capture/` (15 generated checklists) | written by `core/src/capture/generate.ts` (`DOCS_DIR`), checked by `generate.test.ts` and check-all | `research/types/` |
-| `docs/v2/research/capture-research-backlog.md` | read by `core/test/capture/placement.test.ts` | `research/backlog.md` |
-| `docs/v2/research/trip-tag-conflicts.md` (generated) | written and compared by `web/tests/data/tag-conflicts.test.ts` | `research/reports/trip-tag-conflicts.md` |
 
 Also moved out of `docs/` in the same step: `docs/BLUEPRINT.md`, `docs/REVIEW-platform-plan.md`, `docs/AUDIT-2026-10-16.md` and `docs/briefs/` went to `docs/archive/v1/`.

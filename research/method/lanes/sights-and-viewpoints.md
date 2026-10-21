@@ -124,7 +124,7 @@ fields every sight needs before it can go into a day plan (Usable):
 ## 7. Computed values (mark `agent_inferred`)
 
 - **Light**: `core/src/sun` for the point and `viewpoint_bearing`, giving front-lit, side-lit and
-  back-lit windows per month (research/README.md R12). Never from memory; longitude is positive east.
+  back-lit windows per month (method/README.md R12). Never from memory; longitude is positive east.
 - **Walk from access**: shortest OSM path from the access point to `point`, with gain from a DEM.
 - **Duration** when no source gives one: from the walk plus a stated on-site time, labelled computed.
 - **Access window**: the intersection of the site's hours, the access hours (road ban, last shuttle,

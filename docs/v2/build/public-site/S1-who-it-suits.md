@@ -71,7 +71,7 @@ Part A touches no file another lane owns. Part B edits files that L3c, L4b and L
 - **L2b:** `web/app/globe/**`, `web/app/globe-data/**`, `web/lib/globe/**`, `web/components/globe/**`, `web/lib/public/globe.ts`, `web/lib/client/data.ts`. Keep `Completeness.label` and `level` unchanged in shape: the globe card reads them.
 - **CS7:** `data/**`. You read the data; a wrong value goes in the hand-back for CS7.
 - `core/**`: read only. If the join needs a core change (a missing export), ask in the hand-back.
-- `data/schema/capture/**`, `docs/v2/research/capture/**`, `data/schema/suitability-applicability.json`: generated.
+- `data/schema/capture/**`, `research/types/**`, `data/schema/suitability-applicability.json`: generated.
 - `web/components/ui/**`: the new chip kinds (rule, advice, gap, fits, advice fail, rule fail) live in `web/components/suit/` for now; folding them into `components.md` 2.8 and `ui/` is a coordinator foundation edit (display C9).
 - `data/locations/locations.json`: suitability.md 9.1 asked S1 to write the projected flat columns back through `locations.py edit`. Do not: the adapter reads the sidecars (Q28).
 

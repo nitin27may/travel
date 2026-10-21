@@ -8,7 +8,7 @@ Stage 3, data only. It runs in parallel with every build lane (L3c, L4b, L3b, L2
   - batch 3, the facets L3b's coverage rule hides, 2 h
 - **Backlog:** capture-contract step 7 (3a.12), contract 10.5 step 1, owner Q22 to Q24 (answered by "go with your recommendations" or still open; see "Owner questions"), and L8 for the public trips.
 - **Specs:**
-  - [research/capture-research-backlog.md](../../research/capture-research-backlog.md): the places and relations the migration could not create. **Work through it first.**
+  - [research/backlog.md](../../../../research/backlog.md): the places and relations the migration could not create. **Work through it first.**
   - [research/capture-contract.md](../../../../research/method/capture-contract.md) 2.5 and 2.7 (relations and layers, which facts live where), 3 (the base contract and the per-type deltas), 9 (crawler and scraper rules, provenance per value, the run record), 10.3 and 10.5 (the missing properties and the order).
   - [research/suitability.md](../../../../research/method/suitability.md) 3 (provenance and honesty) and [suitability-applicability.md](../../../../research/method/suitability-applicability.md) 8 (lane instructions); [research/relevance.md](../../../../research/method/relevance.md) 3.7, 5 and 8.2 (relevance for new payoff places).
   - [research/sources-and-licences.md](../../../../research/method/sources-and-licences.md); the capture contract 9.3 User-Agent rule replaces its "contact" wording.
@@ -18,7 +18,7 @@ Stage 3, data only. It runs in parallel with every build lane (L3c, L4b, L3b, L2
 
 Make the public trips' place, route and offer records usable under the contract, so S1's pages show values where research can find them and honest gaps where it cannot.
 
-1. **The research backlog:** every row of capture-research-backlog.md becomes records and relations: Sulphur Mountain's summit, Sanson's Peak and the summit boardwalk; the Tre Cime north-face viewpoint, the mountain, Rifugio Auronzo, Lavaredo and Locatelli with their lodging offers, the Auronzo toll road and its toll; the Moraine Rockpile, its walk, the shuttle stop and the shuttle seat; Sentinel Pass and the Larch Valley meadows; the Kicking Horse put-ins, take-outs and river sections; the Aiguille du Midi terraces and Step into the Void; Johnston Canyon's Lower and Upper Falls and the Ink Pots. Niagara waits: its trip is private and has no days.
+1. **The research backlog:** every row of backlog.md becomes records and relations: Sulphur Mountain's summit, Sanson's Peak and the summit boardwalk; the Tre Cime north-face viewpoint, the mountain, Rifugio Auronzo, Lavaredo and Locatelli with their lodging offers, the Auronzo toll road and its toll; the Moraine Rockpile, its walk, the shuttle stop and the shuttle seat; Sentinel Pass and the Larch Valley meadows; the Kicking Horse put-ins, take-outs and river sections; the Aiguille du Midi terraces and Step into the Void; Johnston Canyon's Lower and Upper Falls and the Ink Pots. Niagara waits: its trip is private and has no days.
 2. **The 26 payoff places** get `point` (OSM or Wikidata P625), `area_id`, `summary`, `links` and `photos`.
 3. **The 52-item placement review** in `data/capture/placement.json` (`review`): for each fact left on a route, decide from the source whether it belongs to the route, the payoff place or the trailhead, and move it or confirm it, with the reason.
 4. **`route_is_attraction` on the flagged routes** (52 per the migration report): keep the flag when the route is itself the experience (a circuit, a scenic drive, a ride), or create the payoff place and move the draw to it (relevance 3.7). Each decision keeps or rewrites `attraction_reason`.
@@ -28,7 +28,7 @@ Make the public trips' place, route and offer records usable under the contract,
 
 ## Read first
 
-- capture-research-backlog.md, then contract 2.5, 2.7, 3, 9 and 10, then the lane instructions in applicability 8 and relevance 8.2.
+- backlog.md, then contract 2.5, 2.7, 3, 9 and 10, then the lane instructions in applicability 8 and relevance 8.2.
 - `data/capture/README.md`, `data/capture/<trip>/migrated.json`, `data/capture/placement.json` (`review`, `route_is_attraction`, `draw_moves`), `data/capture/operators.json`, `data/capture/type-map.json`.
 - `node core/bin/capture.ts fields --type <id>` (the checklist for a type), `fields --ref <ref>` (what a record still lacks), `explain <type>`, `gaps --trip <trip>`, `run --check <file>`.
 - `data/suitability/README.md`, `data/relevance/README.md`, `data/relevance/inputs/points.json`, `data/sources/registry.json`, `core/bin/sources.ts` (`build`, `who`, `due`, `check`, `links`).
@@ -43,7 +43,7 @@ Make the public trips' place, route and offer records usable under the contract,
 | Suitability | values added in place to the existing record's lane file under `data/suitability/<trip>/` (a lane file supersedes `migrated.json` for a ref, so never add a second record for a ref); new records for new refs in `data/suitability/<trip>/CS7.json`; `data/suitability/scope.json` when the scope test regenerates it |
 | Relevance | records for the new payoff places in `data/relevance/<trip>/CS7.json`, edits in place to moved draws, `data/relevance/inputs/points.json` (append), `data/relevance/derived/**` (regenerated by `relevance.ts derive`, never hand-edited) |
 | Sources | `data/sources/registry.json` and `links.json` (regenerated by `sources.ts build` and `links`) |
-| Research docs | `research/runs/CS7-<trip>.md` (new: what was read, decisions, gaps), `docs/v2/research/capture-research-backlog.md` (mark rows done with the commit), `research/method/operator-questions-2026-10-18.md` (append) |
+| Research docs | `research/runs/CS7-<trip>.md` (new: what was read, decisions, gaps), `research/backlog.md` (mark rows done with the commit), `research/method/operator-questions-2026-10-18.md` (append) |
 
 ## Do not touch
 
@@ -53,7 +53,7 @@ Make the public trips' place, route and offer records usable under the contract,
 - **L2b:** `data/reference/globe/**`, `web/public/globe/**`, `tools/globe_data.py`.
 - **S1:** nothing of S1's is under `data/`; do not edit `web/**` at all.
 - `data/vocab/types.json`, `data/vocab/relevance-classes.json`, `core/src/schema/**`: a new type, class or property is a planner and builder change. Propose it in `CS7-<trip>.md` with the record that needs it, and store the record under the nearest existing type with a note.
-- Generated files: `data/schema/**`, `docs/v2/research/capture/**`, `data/schema/suitability-applicability.json`.
+- Generated files: `data/schema/**`, `research/types/**`, `data/schema/suitability-applicability.json`.
 - `data/locations/locations.json` and `research/inbox/`: the household's store; not part of this lane.
 - `legacy/`, `prototype/`: read only.
 
@@ -80,7 +80,7 @@ Make the public trips' place, route and offer records usable under the contract,
 ### Batch 1. Backlog, placement, attraction flags, lakes (merges before S1 Part B's shots)
 
 1. **Before you start**, record `capture.ts gaps --trip <trip>` for the five public trips with days; the hand-back compares against it.
-2. **Backlog rows** (capture-research-backlog.md), one at a time:
+2. **Backlog rows** (backlog.md), one at a time:
    - pick the type with `capture.ts explain`, and fill what `capture.ts fields --type <id>` asks for, R first;
    - give each new record a `part/<parent ref>#<slug>` or `offer/<parent ref>#<product>` ref and store it in `data/capture/<trip>/CS7.json`;
    - store the relations (`reaches`, `passes`, `starts_at`, `part_of`, `at`, `on`) on the record that holds them; `reached_by` is derived and never stored;
@@ -114,7 +114,7 @@ Make the public trips' place, route and offer records usable under the contract,
 
 | # | Check | Against |
 |---|---|---|
-| 1 | Every row of capture-research-backlog.md is done (records and relations stored) or marked with why it cannot be (no source found, private trip) | backlog |
+| 1 | Every row of backlog.md is done (records and relations stored) or marked with why it cannot be (no source found, private trip) | backlog |
 | 2 | All 52 placement `review` items are resolved, each with a reason | placement |
 | 3 | Every flagged route either keeps `route_is_attraction` with a reason that names the experience, or its draw sits on a payoff place it `reaches` | relevance 3.7 |
 | 4 | Every lake record has access points (or `searched_none` with sources), `age_band` and stroller answered | goal 5 |
