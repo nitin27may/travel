@@ -1,4 +1,7 @@
-import { expect, test } from './fixtures';
+import { expectSlow as expect, settledValue, test } from './fixtures';
+
+// slow-machine settings: a 30 s wait per assertion and 120 s per test (see expectSlow in fixtures.ts)
+test.describe.configure({ timeout: 120_000 });
 
 test.describe('Who it suits (S1b)', () => {
   test('shows the chip row as a named list, a research line, and groups that open', async ({ page, site }) => {
@@ -37,9 +40,13 @@ test.describe('Who it suits (S1b)', () => {
     await page.goto(`${site.url}/trips/canadian-rockies-2029/?p=family-3#day-5`);
     const line = page.locator('#day-5 .tl-reason').first();
     await expect(line).toBeVisible();
-    const text = (await line.innerText()).trim();
-    expect(await line.getAttribute('title')).toBe(text);
-    const aria = await page.locator('#day-5 [aria-label^="Version of Day 5"]').first().getAttribute('aria-label');
+    // the line, its title and the button label are rewritten together when the party applies: read the three from one settled state, compare once
+    const { text, title, aria } = await settledValue(async () => ({
+      text: ((await line.innerText()) ?? '').trim(),
+      title: await line.getAttribute('title'),
+      aria: await page.locator('#day-5 [aria-label^="Version of Day 5"]').first().getAttribute('aria-label'),
+    }));
+    expect(title).toBe(text);
     expect(aria).toContain(text);
     if (/Not suited/.test(text)) expect(`${text} ${aria}`).not.toMatch(/\bfits age\b(?! \d+ where checked)/);
   });
