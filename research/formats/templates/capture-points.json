@@ -1,0 +1,12 @@
+{
+  "schema": "capture-points/1",
+  "note": "TEMPLATE. The real file is data/capture/points.json (one file for every trip). Each key is a capture ref; the point is the thing itself, never the access point. Coordinates never come from Google.",
+  "points": {
+    "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#template-viewpoint": {
+      "lat": 51.32000,
+      "lon": -116.18000,
+      "coord_src": "osm",
+      "point_source": "OSM node <id> <name> (what the node is); read 2026-10-21 (lane <id>); agent checked, needs a person's check"
+    }
+  }
+}

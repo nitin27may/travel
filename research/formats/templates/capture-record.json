@@ -1,0 +1,212 @@
+{
+  "schema": "capture/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "TEMPLATE",
+  "researched": "2026-10-21",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://example.org/official-page-of-the-land-manager",
+      "title": "Title of the page as the publisher gives it",
+      "publisher": "The land manager or operator",
+      "kind": "official",
+      "read": "2026-10-21",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://example.org/operator-rates-page",
+      "title": "Rates and hours",
+      "publisher": "The operator",
+      "kind": "operator",
+      "read": "2026-10-21",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#template-viewpoint",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "PLACE: the thing a visitor comes to see",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+        "reason": "Why this record was cut out of its parent (one line)."
+      },
+      "best_time": {
+        "v": [
+          {
+            "slot": "golden_am",
+            "why": "light",
+            "months": [
+              9
+            ]
+          }
+        ],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Computed with node core/bin/sun.ts for the trip dates; say the method."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/official-page-of-the-land-manager",
+          "state": "filled",
+          "on": "2026-10-21",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "searched_none",
+          "query": "the exact search you ran",
+          "on": "2026-10-21"
+        },
+        {
+          "kind": "alltrails",
+          "url": "https://example.org/link-only-platform-page",
+          "state": "found_in_search",
+          "on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#template-walk",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "ROUTE: the way to the place",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+        "reason": "The walk from the shuttle stop to the viewpoint."
+      },
+      "starts_at": [
+        "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop"
+      ],
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#template-viewpoint"
+      ],
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-21",
+        "tried": [
+          "https://example.org/official-page-of-the-land-manager"
+        ],
+        "note": "Say what the page does say. A gap is output, never a guess."
+      }
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#template-canoe-rental",
+      "type": "water.paddle.canoe.rental",
+      "layer": "offer",
+      "name": "OFFER: the product someone sells at the place",
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+        "reason": "The product sold at this place (capture contract 2.4)."
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "boat",
+            "applies_to": "2026",
+            "note": "Replace with the operator's figure."
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-21",
+        "quote": "Short exact phrase or our own words, at most 300 characters.",
+        "applies_to": "2026"
+      },
+      "season": {
+        "v": [
+          {
+            "from": "06-01",
+            "to": "10-12",
+            "status": "open",
+            "applies_to": "2026"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-21",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://example.org/operator-rates-page",
+          "state": "filled",
+          "on": "2026-10-21",
+          "src": [
+            "src-0002"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#template-larch-peak",
+      "type": "event.natural.larch",
+      "layer": "event",
+      "name": "EVENT: a dated occurrence at the place",
+      "part_of": [
+        "legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+        "reason": "The dated occurrence at the place."
+      },
+      "season": {
+        "v": [
+          {
+            "from": "09-15",
+            "to": "10-05",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "Pattern year; a later trip says so."
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-21",
+        "applies_to": "2026",
+        "conflicts": [
+          {
+            "v": [
+              {
+                "from": "09-20",
+                "to": "10-10",
+                "status": "open"
+              }
+            ],
+            "basis": "community",
+            "src": [
+              "src-0002"
+            ],
+            "note": "Record a disagreeing source here; never pick silently."
+          }
+        ]
+      }
+    }
+  ]
+}

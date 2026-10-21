@@ -1,0 +1,23 @@
+{
+  "schema": "capture-run/1",
+  "run": "template-2026-10-21-example-overpass",
+  "started": "2026-10-21",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "types": ["nature.viewpoint.viewpoint", "water.paddle.canoe.rental"],
+    "refs": [
+      "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#template-viewpoint",
+      "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#template-canoe-rental"
+    ]
+  },
+  "hosts": [
+    { "host": "overpass-api.de", "requests": 2, "robots": "none", "terms": "allowed", "status": "ok" },
+    { "host": "example.org", "requests": 0, "robots": "forbidden", "terms": "unknown", "status": "blocked" }
+  ],
+  "results": [
+    { "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#template-viewpoint", "field": "point", "outcome": "filled", "src": "src-0001", "host": "overpass-api.de" },
+    { "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#template-viewpoint", "field": "wikidata", "outcome": "searched_none", "tried": ["https://www.wikidata.org/w/index.php?search=example"] },
+    { "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#template-canoe-rental", "field": "hours", "outcome": "blocked", "host": "example.org", "reason": "robots" }
+  ]
+}
