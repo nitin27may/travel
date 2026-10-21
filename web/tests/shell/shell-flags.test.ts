@@ -46,4 +46,21 @@ describe('Report a problem (11.2)', () => {
     expect(reportLink(null, '/')).toBeNull();
     expect(FORM + reportLink(FORM, '/a/')).not.toMatch(/@/);
   });
+  it('a hostile page path cannot add or alter a key: exactly one page param, base keys intact', () => {
+    const hostile = ['/x&title=x', '/x&labels=bug&template=evil.yml', '/a=b', '/a+b%26c', '/a b', '/caf\u00e9/\u5c71/', '/x#frag&title=y', '/x?title=z&page=2', '/\u0026title=u'];
+    for (const p of hostile) {
+      const url = new URL(reportLink(FORM, p)!);
+      expect([...url.searchParams.keys()]).toEqual(['template', 'page']);
+      expect(url.searchParams.get('template')).toBe('report.yml');
+      expect(url.hash).toBe('');
+      const page = url.searchParams.get('page')!;
+      expect(page.startsWith('/')).toBe(true);
+      expect(page).toBe(p.split(/[?#]/)[0]);
+    }
+  });
+  it('keeps slashes readable and encodes the rest', () => {
+    expect(reportLink(FORM, '/a b/caf\u00e9/')).toBe(`${FORM}&page=/a%20b/caf%C3%A9/`);
+    expect(reportLink(FORM, '/x&title=x')).toBe(`${FORM}&page=/x%26title%3Dx`);
+    expect(reportLink('https://example.test/new', '/x&a=b')).toBe('https://example.test/new?page=/x%26a%3Db');
+  });
 });
