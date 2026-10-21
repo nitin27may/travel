@@ -114,7 +114,7 @@ Valhalla if ORS quotas bite.
 | `research/` Markdown | stays in git as research history | key facts enter as evidence when a trip is rebuilt |
 | `web/` (Next.js list views) | becomes `apps/web` | owner chose Next.js: the app, its components and Playwright tests carry over; static export is dropped for server rendering on Vercel |
 | `publish.sh`, `tools/publish.py` | legacy only | the new app deploys as containers on the home server (`docker compose pull && up -d` from a tagged build) |
-| `docs/PLAN-platform.md` phases P4b, P4c, P5+ | **paused** where they write to the file store | P4c (bulk import into JSON files) would be wasted work; its importers are rewritten against Postgres in M1 |
+| `docs/archive/v1/PLAN-platform.md` (archived) phases P4b, P4c, P5+ | **paused** where they write to the file store | P4c (bulk import into JSON files) would be wasted work; its importers are rewritten against Postgres in M1 |
 
 ## 4. What stays manual for the owner during the move
 

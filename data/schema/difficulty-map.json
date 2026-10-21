@@ -31,43 +31,43 @@
     {"local": "Route", "house": 5, "note": "Unmarked, route-finding", "source": "https://www.parks.canada.ca/voyage-travel/experiences/sports/randonnee-hiking/niveaux-sentiers-trail-ratings", "read": "2026-10-17"}
   ], "note": "Definitions vary by park. Plan 3A table: 2 is Easy (upper) to Moderate, 3 is Moderate (upper) to Difficult. The effort band usually lifts a long Moderate to 3."},
   {"id": "sepaq", "label": "Sepaq and Quebec resorts", "mappings": [
-    {"local": "Facile", "house": 1, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
-    {"local": "Beginner", "house": 1, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
-    {"local": "Intermediaire", "house": 2, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
-    {"local": "Intermediate", "house": 2, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
-    {"local": "Difficile", "house": 3, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
-    {"local": "Advanced", "house": 3, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
-    {"local": "Tres difficile", "house": 4, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
-    {"local": "Expert only", "house": 4, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"}
+    {"local": "Facile", "house": 1, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Beginner", "house": 1, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Intermediaire", "house": 2, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Intermediate", "house": 2, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Difficile", "house": 3, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Advanced", "house": 3, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Tres difficile", "house": 4, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Expert only", "house": 4, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"}
   ], "note": "Grade 5 does not exist in this system. Rows kept from plan 3A."},
   {"id": "nps", "label": "US agency (NPS, state parks)", "mappings": [
     {"local": "Easy", "house": 1, "note": "", "source": "https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm", "read": "2026-10-18"},
     {"local": "Moderate", "house": 2, "note": "", "source": "https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm", "read": "2026-10-18"},
     {"local": "Strenuous", "house": 3, "note": "", "source": "https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm", "read": "2026-10-18"},
     {"local": "Very strenuous", "house": 4, "note": "Agencies that separate very strenuous routes", "source": "https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm", "read": "2026-10-18"},
-    {"local": "Strenuous (very)", "house": 4, "note": "Same as Very strenuous; the v1 spelling", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"}
+    {"local": "Strenuous (very)", "house": 4, "note": "Same as Very strenuous; the v1 spelling", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"}
   ], "note": "No national NPS scale: parks use their own words. Shenandoah's numeric score (sqrt(gain_ft x 2 x miles)) is effort only and feeds the band, not the terrain grade."},
   {"id": "yds", "label": "Yosemite Decimal System", "mappings": [
     {"local": "Class 1", "house": 2, "note": "Trail. A short flat Class 1 on a made surface maps to 1 (the flat row).", "source": "https://en.wikipedia.org/wiki/Yosemite_Decimal_System", "read": "2026-10-18"},
     {"local": "Class 1", "house": 1, "note": "Level made surface", "when": "flat", "source": "https://en.wikipedia.org/wiki/Yosemite_Decimal_System", "read": "2026-10-18"},
-    {"local": "Class 1-2", "house": 3, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Class 1-2", "house": 3, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
     {"local": "Class 2", "house": 4, "note": "Simple scrambling, hands occasionally", "source": "https://en.wikipedia.org/wiki/Yosemite_Decimal_System", "read": "2026-10-18"},
-    {"local": "Class 2-3", "house": 4, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Class 2-3", "house": 4, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
     {"local": "Class 3", "house": 5, "note": "Scrambling, hands needed", "source": "https://en.wikipedia.org/wiki/Yosemite_Decimal_System", "read": "2026-10-18"},
-    {"local": "Class 3-4+", "house": 5, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Class 3-4+", "house": 5, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
     {"local": "Class 4", "house": 5, "note": "Simple climbing, exposure: out of family scope", "source": "https://en.wikipedia.org/wiki/Yosemite_Decimal_System", "read": "2026-10-18"},
     {"local": "Class 5", "house": 5, "note": "Roped climbing: out of family scope", "source": "https://en.wikipedia.org/wiki/Yosemite_Decimal_System", "read": "2026-10-18"}
   ], "note": "The class is set by the hardest move; definitions vary by source."},
   {"id": "uk", "label": "UK and Scotland", "mappings": [
-    {"local": "Easy access", "house": 1, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
-    {"local": "Easy", "house": 1, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
-    {"local": "Moderate", "house": 2, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
-    {"local": "Strenuous", "house": 3, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
-    {"local": "Scramble grade 1", "house": 4, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
-    {"local": "Scramble grade 2-3", "house": 5, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"}
+    {"local": "Easy access", "house": 1, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Easy", "house": 1, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Moderate", "house": 2, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Strenuous", "house": 3, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Scramble grade 1", "house": 4, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Scramble grade 2-3", "house": 5, "note": "", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"}
   ], "note": "Rows kept from plan 3A."},
   {"id": "apn", "label": "Argentine national parks (APN)", "mappings": [
-    {"local": "Medium", "house": 2, "note": "The only APN label the plan has used so far (Senda Costera)", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"}
+    {"local": "Medium", "house": 2, "note": "The only APN label the plan has used so far (Senda Costera)", "source": "docs/archive/v1/PLAN-platform.md#3A", "read": "2026-10-17"}
   ], "note": "Extend as research meets more APN labels."},
   {"id": "dnt", "label": "Norwegian Trekking Association (DNT)", "mappings": [], "note": "Green, blue, red and black are not mapped yet; add them when a Norway trail is researched (out of scope until L3d)."},
   {"id": "other", "label": "Other or unknown system", "mappings": [], "note": "Without a mapping the terrain grade comes from the drivers and the family effort equals the effort band."},

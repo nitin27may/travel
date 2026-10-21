@@ -19,7 +19,7 @@ several of its mechanisms were too heavy or too fragile (section "What changed f
 | [10-sharing.md](10-sharing.md) | Sharing everywhere: objects, audiences, guest links with includes and preview, privacy rules, exports |
 | [07-competitors.md](07-competitors.md) | Wanderlog and TripIt: what to take (plan document, email import), where to beat them |
 
-Inputs read: `docs/archive/v1/BLUEPRINT.md`, `docs/PLAN-platform.md`, the owner's brief of 17 Oct 2026, and the
+Inputs read: `docs/archive/v1/BLUEPRINT.md`, `docs/archive/v1/PLAN-platform.md` (both archived), the owner's brief of 17 Oct 2026, and the
 owner's own intent notes in `research/vault-notes/` (Travel Finder overview, UX, data model, agent
 readiness, roadmap; `Travel Preferences.md`; `Plan.md`; the vault trip-planner's intake, discovery and
 budget references). [schema.sql](schema.sql) loads cleanly on Postgres 16 + PostGIS 3 (40 tables; spatial,
