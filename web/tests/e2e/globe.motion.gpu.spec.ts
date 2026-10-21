@@ -6,8 +6,10 @@ import { expect, test } from './fixtures';
 
 // Motion and first paint on the real GPU with real tiles (spec 8.1, 8.3, 9.1 checks 8, 9, 16, 21, 25; acceptance A9). SwiftShader is about
 // 35x slower, so these never run on it and are skipped where there is no GPU Chromium or no network.
-const CHROME = process.env.GPU_CHROME ?? path.join(os.homedir(), '.cache/ms-playwright/chromium-1248/chrome-linux64/chrome');
-const ARGS = ['--use-gl=angle', '--use-angle=gl', '--ignore-gpu-blocklist', '--enable-gpu-rasterization'];
+// macOS: the bundled Chromium on Metal (Apple GPU); Linux: the Arc GPU through ANGLE's GL backend.
+const MAC = path.join(os.homedir(), 'Library/Caches/ms-playwright/chromium-1248/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing');
+const CHROME = process.env.GPU_CHROME ?? (process.platform === 'darwin' ? MAC : path.join(os.homedir(), '.cache/ms-playwright/chromium-1248/chrome-linux64/chrome'));
+const ARGS = ['--use-gl=angle', `--use-angle=${process.platform === 'darwin' ? 'metal' : 'gl'}`, '--ignore-gpu-blocklist', '--enable-gpu-rasterization'];
 
 interface MapLike { getZoom(): number; getPitch(): number; getCenter(): { lng: number; lat: number }; project(p: [number, number]): { x: number; y: number }; isMoving(): boolean; flyTo: unknown; easeTo: unknown; jumpTo: unknown }
 declare global { interface Window { __frames?: number[]; __long?: [number, number][]; __calls?: string[] } }
@@ -267,6 +269,11 @@ test.describe('globe motion and first paint (GPU, real tiles)', () => {
   // the zoom 3.5 to 5 crossing and at the landing, with or without our terrain ramp, with one DEM source or two, and with every setTerrain call
   // held back until the flight ends. Nothing of ours is in the profile (the long-animation-frame scripts name only maplibre-gl), so there is
   // nothing to defer; the budget stays at 100 ms and the test stays on the books, switched off until the stage-6 re-profile on the preview deploy.
+  // Re-measured 2026-10-21 (GLB2a, Apple M1 Pro on Metal, three cold runs per flight, other lanes loading the machine): search pick to a place,
+  // worst long task 51 / 76 / 55 ms (the 2.5 s one is `FrameRequestCallback` in the maplibre chunk, 50 to 55 ms); World crumb flight 77 / 55 / 65 ms.
+  // Both hold 100 ms here, so the Arc A770M figures above are the open item: the prewarm needs nothing of ours to defer, and the re-profile on the
+  // Arc decides whether this comes off fixme. (The fixture's single-threaded python server resets connections under load, so these were measured
+  // with a threaded static server and a PerformanceObserver on 'longtask', the same observer this spec uses.)
   test.fixme('long flights: a search pick to a place holds the 100 ms long-task budget in three runs (4.7, S11; MapLibre render callback, see the note above)', async ({ site }, info) => {
     const worst: number[] = [];
     for (let i = 0; i < 3; i++) worst.push((await worstLongTask(`${site.url}/globe/`, async (page) => { const q = page.getByRole('combobox', { name: 'Search the globe' }); await q.fill('Adolf Munkel'); await page.getByRole('option').first().click(); }, 6000)).worst);

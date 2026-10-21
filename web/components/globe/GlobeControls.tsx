@@ -8,6 +8,9 @@ import type { StyleKey } from '@/lib/map/maplibre/styles';
 
 interface Props {
   prefs: GlobePrefs;
+  /** Natural features (rivers, ranges, plains, deltas, seas): on unless the link says `nf=0`. */
+  natural: boolean;
+  onNatural(on: boolean): void;
   /** The style actually drawn (auto resolves to relief or dark). */
   style: StyleKey;
   reducedMotion: boolean;
@@ -23,7 +26,7 @@ const SEGMENTS = [
 ] as const;
 
 /** The control card body (components 7.2): style, 3D terrain with the relief slider, auto-spin. Used on the card and in the phone sheet. */
-export function GlobeControls({ prefs, style, reducedMotion, onChange, onHide }: Props) {
+export function GlobeControls({ prefs, natural, onNatural, style, reducedMotion, onChange, onHide }: Props) {
   return (
     <div className="globe-controls">
       <div className="globe-ctl-row">
@@ -34,6 +37,7 @@ export function GlobeControls({ prefs, style, reducedMotion, onChange, onHide }:
       {prefs.terrain ? (
         <Slider label="Relief" value={prefs.exaggeration} min={0.5} max={2} step={0.1} format={(v) => `${v.toFixed(1)}×`} onValueChange={(exaggeration) => onChange({ exaggeration })} />
       ) : null}
+      <Switch checked={natural} onCheckedChange={onNatural} note="Rivers, seas, ranges and plains, in search and on tap">Natural features</Switch>
       <Switch checked={prefs.spin && !reducedMotion} disabled={reducedMotion} note={reducedMotion ? 'Off: reduced motion' : undefined} onCheckedChange={(spin) => onChange({ spin })}>Auto-spin</Switch>
       {onHide ? <button type="button" className="globe-ctl-hide" onClick={onHide}>Hide controls <kbd>.</kbd></button> : null}
     </div>

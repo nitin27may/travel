@@ -34,3 +34,22 @@ export function placeCard(at: { x: number; y: number }, size: { w: number; h: nu
   // the first that overlaps nothing wins, in reading order; otherwise the least bad
   return options.find((o) => o.overlap === 0) ?? options.reduce((a, b) => (b.overlap < a.overlap ? b : a));
 }
+
+/**
+ * Where a fitted feature's card (a river, a plain, a range) goes once the camera rests: the corner of the free area that covers the least
+ * of the feature's own box and of the floating controls, and among equals the one farthest from the box's centre. Never the feature's label
+ * point, which sits on the feature (review phase A, M1). Returns the card's top-left corner in the same coordinates as `free`.
+ */
+export function farCorner(size: { w: number; h: number }, free: Rect, box: Rect | null, occupied: Rect[], inset = 12, points: { x: number; y: number }[] = []): { x: number; y: number } {
+  const w = size.w, h = size.h;
+  const xs = [free.left + inset, free.right - inset - w];
+  const ys = [free.top + inset, free.bottom - inset - h];
+  const centre = box ? { x: (box.left + box.right) / 2, y: (box.top + box.bottom) / 2 } : { x: (free.left + free.right) / 2, y: (free.top + free.bottom) / 2 };
+  let best: { x: number; y: number; cost: number } | null = null;
+  for (const x of xs) for (const y of ys) {
+    const r: Rect = { left: x, top: y, right: x + w, bottom: y + h };
+    const cost = occupied.reduce((n, o) => n + area(r, o), 0) * 4 + (box ? area(r, box) : 0) * 0.2 + points.reduce((n, q) => n + (q.x > r.left && q.x < r.right && q.y > r.top && q.y < r.bottom ? 1 : 0), 0) * 400 - Math.hypot(x + w / 2 - centre.x, y + h / 2 - centre.y) * 0.01;
+    if (!best || cost < best.cost) best = { x, y, cost };
+  }
+  return { x: (best as { x: number; y: number }).x, y: (best as { x: number; y: number }).y };
+}

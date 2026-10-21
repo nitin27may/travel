@@ -13,7 +13,7 @@ import type { GlobeEngine } from '@/lib/globe/engine';
 import { DEFAULT_PREFS, loadPrefs, savePrefs, type GlobePrefs } from '@/lib/globe/prefs';
 import type { SearchHit } from '@/lib/globe/search';
 import type { Camera, GlobeCard, GlobeData, PinModel } from '@/lib/globe/types';
-import { parseCamera, parseView } from '@/lib/globe/url';
+import { parseCamera, parseNatural, parseView, withNatural } from '@/lib/globe/url';
 import { effectiveStyle } from '@/lib/map/maplibre/styles';
 import { pageIsDark } from '@/lib/map/palette';
 import { prefersReducedMotion } from '@/lib/map/reduced-motion';
@@ -28,7 +28,7 @@ import { FeatureCard, SelectionCard, type NearbyPlace } from './SelectionCard';
 import { featureClass, loadFeatureFacts, type FeatureFacts } from '@/lib/globe/wikidata';
 import { distanceKm } from '@/lib/map/geo';
 import { nodeAt } from '@/lib/globe/model';
-import { placeCard, type Rect } from '@/lib/globe/anchor';
+import { farCorner, placeCard, type Rect } from '@/lib/globe/anchor';
 import { landTest } from '@/lib/globe/placement';
 
 const EMPTY: GlobeSnapshot = { ready: false, failed: null, loading: '', path: [], crumbs: [], selected: null, feature: null, boundary: null, here: null, districtTrips: [], pins: [], notice: null };
@@ -87,6 +87,9 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const [book, setBook] = useState<CountryBook | null>(null);
   const [prefs, setPrefs] = useState<GlobePrefs>(DEFAULT_PREFS);
   const [prefsReady, setPrefsReady] = useState(false);
+  // "Natural features" (9.8): on unless the link says `nf=0`. Never stored; the link is the only memory.
+  const [natural, setNatural] = useState(true);
+  const naturalRef = useRef(true);
   const [snap, setSnap] = useState<GlobeSnapshot>(EMPTY);
   const [engine, setEngine] = useState<GlobeEngine | null>(null);
   const [panelWanted, setPanelOpen] = useState(true);
@@ -138,6 +141,8 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     /* eslint-disable react-hooks/set-state-in-effect -- one-time read of browser-only state (localStorage, theme) after mount */
     setPrefs(loadPrefs());
     setPrefsReady(true);
+    naturalRef.current = parseNatural(window.location.search);
+    setNatural(naturalRef.current);
     // The control card is the Map options pill until opened; the open state lasts the session (spec 3.2).
     try { setCardOpenState(sessionStorage.getItem('travel:v1:globe-card') === 'open'); } catch { /* storage unavailable */ }
     // The hint shows once per session, for 4 s, and never after the first gesture.
@@ -150,9 +155,17 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     return () => mo.disconnect();
   }, []);
 
-  const navigate = useCallback((url: string, mode: 'push' | 'replace') => {
+  const navigate = useCallback((raw: string, mode: 'push' | 'replace') => {
+    const url = naturalRef.current ? raw : withNatural(raw, false);
     if (mode === 'push') window.history.pushState(null, '', url);
     else window.history.replaceState(null, '', url);
+  }, []);
+
+  const changeNatural = useCallback((on: boolean) => {
+    naturalRef.current = on;
+    setNatural(on);
+    ctrl.current?.setNaturalFeatures(on);
+    window.history.replaceState(window.history.state, '', withNatural(window.location.pathname + window.location.search + window.location.hash, on));
   }, []);
 
   const layout = useCallback(() => layoutRef.current(), []);
@@ -195,6 +208,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     const c = ctrl.current;
     if (!e || !c) return;
     c.attach(e);
+    c.setNaturalFeatures(naturalRef.current);
     void c.applyView(parseView(window.location.pathname), { camera: parseCamera(window.location.search), fly: true });
   }, []);
 
@@ -317,17 +331,49 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   // The feature card sits at the click point on a desktop and flips to the side with room, so the highlighted river, sea or peak stays in view
   // (spec 3.2). On a phone or a landscape phone it is a fixed card above the sheet's peek.
   const feature = snap.feature;
+  // A search pick opens its card at the start of the flight; once the camera rests the card is placed again from where the feature is now,
+  // so it clears the Map options card and the panel instead of sitting where the point was before the flight (9.7).
+  const [featTick, setFeatTick] = useState(0);
+  useEffect(() => {
+    if (!engine || !feature) return;
+    const bump = () => setFeatTick((n) => n + 1);
+    engine.map.on('moveend', bump);
+    return () => { engine.map.off('moveend', bump); };
+  }, [engine, feature]);
   useLayoutEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- the marker element only exists after the engine syncs it */
     if (!engine || !feature || phone || short || (feature.lngLat[0] === 0 && feature.lngLat[1] === 0)) { if (engine) engine.syncMarkers('feature', []); setFeatEl(null); return; }
     const at = engine.project(feature.lngLat[0], feature.lngLat[1]);
     const w = root.current?.clientWidth ?? window.innerWidth, h = root.current?.clientHeight ?? window.innerHeight;
     const free: Rect = { left: 0, top: chromeBottom(root.current), right: w - (panelOpen ? 384 : 0), bottom: h - 36 };
+    // A fitted feature (river, plain, range) gets its card in the free corner farthest from the feature once the camera rests, never on the
+    // feature itself (review M1); a point feature (peak, town) keeps the card beside its point.
+    const bb = feature.fit?.bbox;
+    if (bb && featTick > 0 && !engine.map.isMoving()) {
+      const sw = engine.map.project([bb[0], bb[1]]), ne = engine.map.project([bb[2], bb[3]]);
+      const box: Rect = { left: Math.min(sw.x, ne.x), right: Math.max(sw.x, ne.x), top: Math.min(sw.y, ne.y), bottom: Math.max(sw.y, ne.y) };
+      // the line's own vertices on screen: the card avoids the line itself, not only its box
+      const r0 = root.current?.getBoundingClientRect();
+      const pts: { x: number; y: number }[] = [];
+      for (const f of engine.map.querySourceFeatures('feature-shape')) {
+        const flat = (f.geometry as unknown as { coordinates: unknown }).coordinates as unknown;
+        const nums = (flat as number[]).flat(4) as number[];
+        for (let i = 0; i + 1 < nums.length; i += 2) { const q = engine.map.project([nums[i], nums[i + 1]]); pts.push({ x: q.x + (r0 ? engine.map.getContainer().getBoundingClientRect().left - r0.left : 0), y: q.y + (r0 ? engine.map.getContainer().getBoundingClientRect().top - r0.top : 0) }); }
+      }
+      const c = farCorner({ w: 300, h: 150 }, free, box, occupiedRects(root.current), 12, pts);
+      const ll = engine.map.unproject([c.x, c.y]);
+      const back = engine.map.project(ll);
+      if (Math.hypot(back.x - c.x, back.y - c.y) < 3) {
+        const mm = engine.syncMarkers('feature', [{ key: 'feature', lng: ll.lng, lat: ll.lat, anchor: 'top-left', offset: [0, 0], className: 'globe-feature-anchor' }]);
+        setFeatEl(mm.get('feature') ?? null);
+        return;
+      }
+    }
     const pl = at ? placeCard(at, { w: 300, h: 250 }, free, occupiedRects(root.current)) : null;
     const m = engine.syncMarkers('feature', [{ key: 'feature', lng: feature.lngLat[0], lat: feature.lngLat[1], anchor: pl?.anchor ?? 'top-left', offset: [pl?.offset[0] ?? 18, pl?.offset[1] ?? 8], className: 'globe-feature-anchor' }]);
     setFeatEl(m.get('feature') ?? null);
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, [engine, feature, phone, short, panelOpen, snap.crumbs.length]);
+  }, [engine, feature, phone, short, panelOpen, cardOpen, featTick, snap.crumbs.length]);
 
   // Wikidata facts load after the card opens; a failed or slow call leaves no rows (spec 4.3).
   const featureKey = feature ? `${feature.sourceLayer}:${feature.name}:${feature.wikidata ?? ''}` : null;
@@ -416,7 +462,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   // Where Canada's census divisions are drawn they carry their source and licence (F4).
   const body = bodyList ? (<>{bodyList}{censusCredit ? <p className="globe-credit">Districts: Statistics Canada, 2021 census divisions, <a href="https://www.statcan.gc.ca/en/reference/licence" target="_blank" rel="noopener noreferrer">Open Government Licence – Canada</a>.</p> : null}</>) : null;
 
-  const controls = <GlobeControls prefs={prefs} style={styleKey} reducedMotion={reduced} onChange={changePrefs} onHide={() => { setOptionsOpen(false); setImmersive(true); }} />;
+  const controls = <GlobeControls prefs={prefs} natural={natural} onNatural={changeNatural} style={styleKey} reducedMotion={reduced} onChange={changePrefs} onHide={() => { setOptionsOpen(false); setImmersive(true); }} />;
 
   return (
     <div ref={root} className="globe-root" data-immersive={immersive ? 'true' : undefined} data-level={level} data-panel={panelOpen && !phone ? 'open' : 'closed'} data-phone={phone ? 'true' : undefined}>
@@ -446,7 +492,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
 
       <div className="globe-top">
         <GlobeCrumbs crumbs={snap.crumbs} canBack={canBack} onBack={() => controller?.back()} onCrumb={(p) => controller?.crumbTo(p)} />
-        {book ? <GlobeSearch book={book} onPick={onPick} /> : null}
+        {book ? <GlobeSearch book={book} features={natural} onTurnOnFeatures={() => changeNatural(true)} onPick={onPick} /> : null}
       </div>
 
       {snap.here ? (
@@ -476,7 +522,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
             boundary={snap.boundary}
             onPick={(k) => { void controller?.selectCard(k); }}
             onClose={() => controller?.back()}
-            onFly={() => controller?.flyToFeature(snap.feature!)}
+            onFly={() => { void controller?.flyToFeature(snap.feature!); }}
           />
         );
         return featEl ? createPortal(fc, featEl) : fc;
@@ -528,7 +574,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
       ) : (
         <>
           <BottomSheet
-            open={sheetOpen && !card}
+            open={sheetOpen && !card && !snap.feature}
             onOpenChange={setSheetOpen}
             title={level === 0 ? 'Countries' : panelTitle}
             snaps={['peek', 'half', 'full']}
