@@ -204,6 +204,18 @@ Delegate by kind of work. The project agents are in `.claude/agents/`. The v2 pl
 
 Every UI round ends with `travel-design-reviewer`, then `travel-verifier`. Parallel agents get disjoint file ownership. Commons searches stay sequential.
 
+### Model by task complexity (owner, 21 Oct 2026)
+
+The table above is the default per agent. The coordinator overrides it per task with the Agent tool's `model` parameter, picking the cheapest model that can do the task well. Never Fable.
+
+| Complexity signal | Model | Examples |
+|---|---|---|
+| Mechanical, no judgement: search, count, list, rename, format, run a command and summarise, link checks | Haiku | find every reference to a folder, grep counts, hash duplicates |
+| Well specified, inside owned files, a brief and acceptance check exist: implement, write tests, verify, screenshot sweep, fill data to a clear contract | Sonnet | phase A lanes, test-race fixes, trail-fact rendering, `travel-verifier` runs |
+| Ambiguous or cross-cutting: no spec yet, a shared contract or new abstraction, more than three interdependent files, privacy or security, a hard algorithm, taste (design review), research that needs judgement, gates and audits | Opus | API-1 contracts and `CatalogueStore`, the globe fit model, schema diffs, plans, design review, public-output and code audits |
+
+Rules: start at the lowest model that fits. Escalate one step when a hand-back shows a judgement error, the same fix fails twice, or the task turns out to touch a shared contract. Step down for mechanical follow-ups (a renamed import, a snapshot update). A builder task that creates a shared contract is Opus even though it is code. Reviews and audits are never below the model that wrote the work. Record the model in each lane's hand-back so the choice can be judged afterwards.
+
 ## The plan is the source of truth
 
 - Before starting anything, read `docs/v2/PLAN.md`, then `docs/v2/TODO.md` and the spec pages it links: `docs/v2/features/`, `docs/v2/ux/`, `docs/v2/design/`, `docs/v2/research/`. Check whether the work is already planned, half done, or in conflict with a decision.
