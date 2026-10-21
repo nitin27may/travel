@@ -3,10 +3,14 @@
 import { BottomSheet } from '@/components/ui/BottomSheet';
 import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
+import { SearchInput } from '@/components/ui/Input';
 import { clearAll } from '@/lib/entities/filter';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { EntityDescriptor, FacetDef, FacetParam, ListState } from '@/lib/entities/types';
 import { FacetBodyControl, chosenText } from './FacetMenu';
+import { WhereBody } from './WhereMenu';
+import { selectionOf, whereSummary, withWhere } from './whereModel';
+import type { WhereParam } from './whereModel';
 import { FacetLabel, ViewOptions } from './ViewOptions';
 
 export interface PhoneFilterProps<Row> {
@@ -23,6 +27,8 @@ export interface PhoneFilterProps<Row> {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   setFacet: (param: FacetParam, values: string[]) => void;
+  /** Value to name, for the Where group's summary and rows. */
+  labelOf: (param: WhereParam, value: string) => string;
   onState: (s: ListState, mode?: 'push' | 'replace') => void;
 }
 
@@ -50,7 +56,7 @@ function FacetBody<Row>({ facet, counts, gapN, selected, setFacet }: { facet: Fa
 }
 
 /** Filters as a full-height bottom sheet on phones (components 2.7); "Show N" is the Apply. Loaded the first time it is opened. */
-export default function PhoneFilterSheet<Row>({ d, state, facets, more = [], counts, gaps = {}, shown, filtered, open, onOpenChange, setFacet, onState }: PhoneFilterProps<Row>) {
+export default function PhoneFilterSheet<Row>({ d, state, facets, more = [], counts, gaps = {}, shown, filtered, open, onOpenChange, setFacet, labelOf, onState }: PhoneFilterProps<Row>) {
   return (
     <BottomSheet
       open={open}
@@ -69,7 +75,19 @@ export default function PhoneFilterSheet<Row>({ d, state, facets, more = [], cou
         </>
       }
     >
-      {facets.map((f) => (
+      <SearchInput value={state.q} onChange={(q) => onState({ ...state, q, focus: null }, 'replace')} label={`Filter ${d.noun.many} by name`} placeholder={`Search ${d.noun.many}`} className="sheet-search" />
+      {facets.map((f) =>
+        f.control === 'where' ? (
+          <details key={f.param} className="sheet-facet where-sheet" open={(state.facets.country?.length ?? 0) > 0 || undefined}>
+            <summary>
+              <span className="summary-label">
+                <FacetLabel label={f.label} n={selectionOf(state.facets).country.length ? 1 : 0} value={whereSummary('', selectionOf(state.facets), labelOf).replace(/^\s*\u00b7\s*/, '') || undefined} />
+              </span>
+              <Icon name="chevronDown" size={16} />
+            </summary>
+            <WhereBody mode="drill" state={state} counts={counts} loading={shown === null} shown={shown} labelOf={labelOf} onPick={(facets) => onState(withWhere(state, facets), 'push')} onSearch={(q) => onState({ ...state, q, focus: null }, 'replace')} onDone={() => undefined} hideFoot />
+          </details>
+        ) : (
         <details key={f.param} className="sheet-facet" open={(state.facets[f.param]?.length ?? 0) > 0 || undefined}>
           <summary>
             <span className="summary-label">
@@ -79,7 +97,8 @@ export default function PhoneFilterSheet<Row>({ d, state, facets, more = [], cou
           </summary>
           <FacetBody facet={f} counts={counts[f.param] ?? []} gapN={gaps[f.param]} selected={state.facets[f.param] ?? []} setFacet={setFacet} />
         </details>
-      ))}
+        ),
+      )}
       {more.length ? (
         <details className="sheet-more" open={more.some((f) => (state.facets[f.param]?.length ?? 0) > 0) || undefined}>
           <summary>

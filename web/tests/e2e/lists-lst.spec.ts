@@ -74,7 +74,7 @@ test.describe('the phone summary (4.8, T2)', () => {
     await expect(summary).toBeVisible();
     const box = (await summary.boundingBox())!;
     expect(box.height / 844).toBeLessThanOrEqual(0.2);
-    await expect(summary).toContainText(/\d+ places? · 3 filters/);
+    await expect(summary).toContainText(/\d+ places? · (Canada · )?3 filters/);
     await summary.getByRole('button', { name: /Edit/ }).click();
     const panel = page.locator('.phone-panel');
     await expect(panel).toBeVisible();

@@ -270,7 +270,6 @@ html[data-kid-age='16'] tr[data-row][data-fade~='16'] .fit-chip { display: inlin
 html[data-kid-age='17'] tr[data-row][data-fade~='17'] .fit-chip { display: inline-flex; }
 @media (max-width: 639px) {
   .phone-panel-body { gap: var(--s-2); }
-  .phone-search-btn { min-width: var(--touch-min); padding: 0; }
   .filter-bar .count-block { gap: 0; }
   .count-more { min-height: 22px; }
   .count-link { min-height: 22px; }
@@ -278,3 +277,57 @@ html[data-kid-age='17'] tr[data-row][data-fade~='17'] .fit-chip { display: inlin
 /* the count sits in a block now: the phone grid positions of the old single line must not apply inside it */
 .filter-bar .count-block .count { grid-column: auto; grid-row: auto; display: block; }
 .filter-bar .count-block .count .of, .filter-bar .count-block .count .count-qual { white-space: normal; }
+
+/* ---------- Where: country, province, parks and areas (nearby-and-regions 4.3 to 4.5). Tokens only. ---------- */
+.where-popover.where-popover { padding: var(--s-3); width: min(52rem, calc(100vw - 2 * var(--s-2))); max-width: none; max-height: min(34rem, 78dvh); }
+.where-menu { display: grid; gap: var(--s-2); min-width: 0; }
+.where-menu .where-find { margin-bottom: 0; }
+.where-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: var(--r-3); min-height: 16rem; }
+.where-col { min-width: 0; padding: var(--s-2); }
+.where-col + .where-col { border-left: 1px solid var(--line); }
+.where-h { margin: 0; display: flex; align-items: baseline; gap: 0.35em; padding: var(--s-1) var(--s-2) var(--s-2); font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: uppercase; color: var(--muted); }
+.where-h span { text-transform: none; letter-spacing: 0; font: var(--t-small); }
+.where-list { display: grid; gap: 0; max-height: 20rem; overflow-y: auto; overscroll-behavior: contain; }
+.where-opt { display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 var(--s-2); border-radius: var(--r-2); cursor: pointer; font: var(--t-body); font-size: 15.5px; color: var(--ink); }
+.where-opt:hover { background: var(--surface-2); }
+.where-opt:focus-visible { outline: var(--focus-ring); outline-offset: -2px; }
+.where-opt[data-selected] { background: var(--accent-soft); color: var(--accent-text); }
+.where-opt[data-kind='all'] { font-weight: 600; }
+.where-opt[data-empty] .where-name { color: var(--muted); }
+.where-opt > svg { flex: none; color: var(--muted); }
+.where-mark { flex: none; display: inline-grid; place-items: center; width: 18px; height: 18px; border: 1.5px solid var(--line-2); background: var(--bg); color: var(--accent-text); }
+.where-opt[data-kind='radio'] .where-mark, .where-opt[data-kind='all'] .where-mark { border-radius: 50%; }
+.where-opt[data-kind='check'] .where-mark { border-radius: 4px; }
+.where-opt[data-selected] .where-mark { border-color: var(--accent); background: var(--accent-soft); }
+.where-name { flex: 1; min-width: 0; display: grid; overflow-wrap: anywhere; }
+.where-tag { font: var(--t-small); font-size: 12.5px; color: var(--muted); }
+.where-opt[data-selected] .where-tag { color: inherit; }
+.where-note { margin: 0; padding: var(--s-2); font: var(--t-small); }
+.where-zero { display: block; width: 100%; margin-top: var(--s-1); padding: var(--s-2); border: 0; background: none; text-align: left; font: var(--t-small); color: var(--muted); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.where-zero:hover { color: var(--ink); }
+.where-foot { margin-top: 0; }
+.where-results { border: 1px solid var(--line); border-radius: var(--r-3); padding: var(--s-2); min-height: 6rem; }
+.where-head { display: flex; align-items: center; min-height: var(--touch-min); }
+.where-title { font: var(--t-card); padding-left: var(--s-1); }
+.where-back { display: inline-flex; align-items: center; gap: 6px; min-height: var(--touch-min); padding: 0 var(--s-2) 0 var(--s-1); border: 0; background: none; color: var(--accent-text); font: var(--t-card); cursor: pointer; }
+.where-level { animation: where-in var(--d-base) var(--e-out); }
+@keyframes where-in { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .where-level { animation: none; } }
+@media (max-width: 639px) {
+  .where-popover.where-popover { width: calc(100vw - 2 * var(--s-2)); padding: var(--s-2); }
+  .where-opt { min-height: var(--touch-min); }
+  .where-list { max-height: 34dvh; }
+  .phone-search.phone-search { width: 100%; max-width: none; }
+  .where-sheet .where-menu { padding-bottom: var(--s-2); }
+}
+
+/* the count line's number tweens to its new value (3.66g, --d-count). The text in the DOM is always the final number, so a screen reader,
+   a copy and a test read the settled value; the overlay only draws the steps on the way. Browsers without @property just show the number. */
+@property --count-n { syntax: '<integer>'; inherits: false; initial-value: 0; }
+.filter-bar .count strong.count-tween[style] { position: relative; display: inline-block; color: transparent; counter-reset: count-n var(--count-n); transition: --count-n var(--d-count) var(--e-out); }
+.filter-bar .count strong.count-tween[style]::after { content: counter(count-n); position: absolute; left: 0; top: 0; color: var(--ink); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .filter-bar .count strong.count-tween[style] { transition: none; } }
+
+.sheet-search { margin-bottom: var(--s-2); }
+
+.sheet-search.sheet-search { width: 100%; max-width: none; }

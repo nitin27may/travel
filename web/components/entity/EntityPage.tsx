@@ -18,6 +18,7 @@ import { registry } from '@/lib/entities/registry';
 import { fallbackLabel } from '@/lib/entities/valueLabels';
 import { activeGroup, groupRows } from '@/lib/entities/sort';
 import type { EntityDescriptor, EntityType, FacetParam, ViewName } from '@/lib/entities/types';
+import { mergeCountries } from './whereModel';
 import { CardsView } from './CardsView';
 import type { DetailSheetProps } from './DetailSheet';
 import { EmptyState } from './EmptyState';
@@ -125,7 +126,11 @@ export function EntityPage<Row>({ type, rows, shards, lede }: Props<Row>) {
     return view === 'map' ? answer.rows : answer.rows.slice((page - 1) * pageSize - answer.offset, page * pageSize - answer.offset);
   }, [answer, view, page, pageSize]);
   const groups = useMemo(() => groupRows(paged, group), [paged, group]);
-  const counts = answer?.counts ?? lastCounts;
+  // the Where menu's country level is the manifest's list, with the exact counts of the countries that are loaded
+  const counts = useMemo(() => {
+    const held = answer?.counts ?? lastCounts;
+    return shards && d.type === 'place' ? mergeCountries(held, manifestCounts(shards).country, state) : held;
+  }, [answer, lastCounts, shards, d, state]);
   const notes = answer?.notes ?? [];
   // value -> label for every facet, from the rows we hold and the options we know, so a chip keeps its name when its rows are filtered out
   const labels = useMemo(() => {
@@ -229,10 +234,6 @@ export function EntityPage<Row>({ type, rows, shards, lede }: Props<Row>) {
             setState(next, 'push');
           }}
           onState={setState}
-          focusSearch={() => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            searchRef.current?.focus({ preventScroll: true });
-          }}
         />
       ) : null}
 

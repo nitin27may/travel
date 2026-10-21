@@ -15,12 +15,29 @@ export function lazyComponent<P extends object>(load: () => Promise<ComponentTyp
     const [Real, setReal] = useState<ComponentType<P> | null>(null);
     useEffect(() => {
       let live = true;
-      pending ??= load().then((c) => {
-        loaded = c;
-      });
-      void pending.then(() => live && setReal(() => loaded));
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      // a chunk that fails to load (a dropped connection) is asked for again, a few times, instead of leaving the placeholder for good
+      const attempt = (n: number) => {
+        pending ??= load().then(
+          (c) => {
+            loaded = c;
+          },
+          (e: unknown) => {
+            pending = null;
+            throw e;
+          },
+        );
+        pending.then(
+          () => live && setReal(() => loaded),
+          () => {
+            if (live && n < 4) timer = setTimeout(() => attempt(n + 1), 400 * (n + 1));
+          },
+        );
+      };
+      attempt(0);
       return () => {
         live = false;
+        if (timer) clearTimeout(timer);
       };
     }, []);
     const View = Real ?? Placeholder;
