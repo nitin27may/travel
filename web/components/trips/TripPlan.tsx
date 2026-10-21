@@ -13,7 +13,7 @@ import '@/styles/timeline.css';
 import { CategoryStrip } from './CategoryStrip';
 import { CategoryView } from './CategoryView';
 import { DayRow } from './DayRow';
-import { DEPTH_NOTICE, dayStopsLabel } from './format';
+import { DEPTH_NOTICE, dayMapCaption } from './format';
 import { routeHasPositions, type TripPageModel } from './model';
 import { dayOfHash } from './timeline/currentDay';
 import { DayTimeline } from './timeline/DayTimeline';
@@ -148,7 +148,8 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
   }, [sheet]);
   const placed = routeHasPositions(route);
   const mapDayModel = mapDay === null ? null : route.days.find((d) => d.n === mapDay) ?? null;
-  const mapLabel = mapDayModel ? `Map: Day ${mapDayModel.n}${mapDayModel.base ? `, ${mapDayModel.base}` : ''}, ${dayStopsLabel(mapDayModel.points.length, mapDayModel.unplaced ?? 0)}` : `Map: the whole trip${route.unplaced ? `, ${route.unplaced} stops not on the map` : ''}`;
+  const mapBase = mapDayModel ? route.bases.some((b) => b.days.includes(mapDayModel.n)) : false;
+  const mapLabel = mapDayModel ? dayMapCaption({ n: mapDayModel.n, base: mapDayModel.base, points: mapDayModel.points.length, unplaced: mapDayModel.unplaced ?? 0 }, mapBase) : `Map: the whole trip${route.unplaced ? `, ${route.unplaced} stops not on the map` : ''}`;
 
   // an anchor (`#day-5`, `#trails`) scrolls to its target once the right view is on screen; an empty category goes to the strip
   const goDay = daySpy.goTo;
@@ -231,7 +232,7 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
       <TimesBanner condensed={tlModel.condensed} />
       {!showCategory ? <TripTimeline model={tlModel} timelines={shown} changedDays={api.changedDays} picked={current} onPick={pickDay} /> : null}
 
-      {!showCategory ? <PlanBar model={tlModel} label={planLabel} active={current} onPick={pickDay} onEdit={editPlan} /> : null}
+      {!showCategory ? <PlanBar model={tlModel} label={planLabel} active={current} onPick={pickDay} onEdit={editPlan} onMap={placed ? () => setSheet(true) : undefined} mapOpen={sheet} /> : null}
 
       <div className="tl-cols" data-map={placed || undefined}>
       <section className="trip-sec" aria-labelledby="in-trip-h" id="in-this-trip">
@@ -254,7 +255,7 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
             className="trip-seg"
           />
         </div>
-        <CategoryStrip sections={model.sections} active={showCategory ? active : null} sticky={showCategory} onPick={pickCat} />
+        <CategoryStrip sections={model.sections} active={showCategory ? active : null} sticky={showCategory} onPick={pickCat} onMap={placed ? () => setSheet(true) : undefined} mapOpen={sheet} />
         {model.sections.filter((s) => s.count === 0).map((s) => (
           <span key={s.id} id={s.id} className="anchor-top" />
         ))}
@@ -338,11 +339,6 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
           )}
         </aside>
       </div>
-      {placed ? (
-        <button type="button" className="tl-mappill" data-print="hide" data-hidden={sheet || (!showCategory && dayNow === null) || undefined} aria-expanded={sheet} aria-controls="route" onClick={() => setSheet(true)}>
-          <Icon name="map" size={18} /> {mapDay !== null && !paused ? `Map · Day ${mapDay}` : 'Map · All days'}
-        </button>
-      ) : null}
     </div>
     </TripSuitProvider>
   );

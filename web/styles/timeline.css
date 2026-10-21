@@ -335,7 +335,7 @@
   /* the sticky bar names the profile on a phone too: line over the rail */
   .tl-planbar { flex-wrap: wrap; row-gap: 0; gap: 0 var(--s-3); }
   .tl-planbar-line { display: block; flex: 1 0 100%; max-width: none; min-height: 28px; line-height: 28px; }
-  .tl-rail-days { flex: 1 0 100%; }
+  .tl-rail-days { flex: 1 1 0; }
   /* the day header: thumb, then base, span, sun and chip on one wrapped row; the summary two lines */
   .tl-day-head { grid-template-columns: 44px minmax(0, 1fr); gap: var(--s-2); padding: var(--s-3) var(--s-3) var(--s-2); }
   .tl-thumb { width: 44px; height: 44px; }
@@ -374,7 +374,7 @@
 
 /* ---- the map that follows the day (map note 1 and 2) ---- */
 .tl-cols { display: block; }
-.tl-mapcol-close, .tl-mappill { display: none; }
+.tl-mapcol-close, .tl-mapbtn { display: none; }
 .tl-mapcol { margin: 0 0 var(--s-8); }
 .tl-mapcol-h { margin-bottom: var(--s-2); }
 .tl-mapcol-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); min-height: 40px; }
@@ -397,7 +397,17 @@
   .tl-mapcol-h { display: none; }
   .tl-mapcol-note, .tl-mapcol .trip-map-key { display: none; }
   .tl-mapcol-close { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: var(--r-full); background: none; color: var(--ink); cursor: pointer; }
-  .tl-mappill { position: fixed; left: var(--s-4); bottom: calc(var(--phone-bottombar-h) + var(--s-3)); z-index: var(--z-tripbar); display: inline-flex; align-items: center; gap: var(--s-2); height: 44px; padding: 0 var(--s-4); border: 0; border-radius: var(--r-full); background: var(--toast-bg); color: var(--toast-ink); font: var(--t-tab); box-shadow: var(--e-2); cursor: pointer; transition: opacity 200ms var(--e-out), visibility 0s linear 0s; }
-  .tl-mappill[data-hidden] { opacity: 0; pointer-events: none; visibility: hidden; transition: opacity 200ms var(--e-out), visibility 0s linear 200ms; }
+  .tl-mapbtn { flex: none; display: inline-flex; align-items: center; gap: var(--s-2); height: 44px; padding: 0 var(--s-3); border: 0; border-radius: var(--r-3); background: none; color: var(--ink); font: var(--t-tab); cursor: pointer; }
+  .tl-mapbtn:hover, .tl-mapbtn[aria-expanded='true'] { background: var(--surface-2); }
+  .tl-mapbtn:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+  .tl-planbar .tl-rail-days { flex: 1 1 0; }
+  .cat-strip[data-mapbtn] { display: flex; align-items: center; gap: var(--s-2); }
+  .cat-strip[data-mapbtn] .cat-strip-scroll { flex: 1 1 0; min-width: 0; }
 }
-@media (prefers-reduced-motion: reduce) { .tl-mapcol, .tl-mapcol[data-sheet], .tl-mappill { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .tl-mapcol, .tl-mapcol[data-sheet] { transition: none; } }
+
+/* a limits chip on a day row takes the full row width and wraps at its " · " joins, the lock glyph staying on the first line (components 2.8) */
+.tl-entry .chs { min-width: 0; max-width: 100%; }
+.tl-entry .ch { min-width: 0; max-width: 100%; }
+.tl-entry .ci { max-width: 100%; white-space: normal; align-items: flex-start; min-height: 0; padding-block: 4px; border-radius: var(--r-3); }
+.tl-entry .ci > svg { margin-top: 2px; }
