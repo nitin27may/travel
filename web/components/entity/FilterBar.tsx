@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useId, useState } from 'react';
 import '@/styles/filters.css';
-import type { ReactElement, RefObject } from 'react';
+import type { CSSProperties, ReactElement, RefObject } from 'react';
 import { Chip } from '@/components/ui/Chip';
 import type { SmartRowProps } from '@/components/search/SmartRow';
 import { Icon } from '@/components/ui/Icon';
@@ -12,7 +12,9 @@ import { activeFilters, clearAll, dropDependents } from '@/lib/entities/filter';
 import type { FacetCount } from '@/lib/entities/filter';
 import { promotedFor, scopeTokens } from '@/lib/entities/facets';
 import type { EntityDescriptor, FacetDef, FacetParam, ListState, ViewName } from '@/lib/entities/types';
-import { FacetPopover } from './FacetMenu';
+import { FacetPopover, WherePopover } from './FacetMenu';
+import { hasWhere, isWhereParam, whereChips, withWhere } from './whereModel';
+import type { WhereParam } from './whereModel';
 import { LazyMoreFilters } from './MoreFilters.lazy';
 import { OPEN_FILTERS, OPEN_UNCHECKED } from '@/lib/entities/events';
 import type { PhoneFilterProps } from './PhoneFilterSheet';
@@ -49,7 +51,7 @@ export const MAX_PROMOTED = 2;
 function visibleFacets<Row>(d: EntityDescriptor<Row>, state: ListState, counts: Record<string, FacetCount[]>): FacetDef<Row>[] {
   // a scoped or guarded facet is in `counts` only while it can split the results (the 60% rule), so absence means hidden
   const guarded = (f: FacetDef<Row>) => f.scoped || f.guard || f.hideIfEmpty;
-  return d.facets.filter((f) => !f.hidden && !f.legacy && (!f.dependsOn || (state.facets[f.dependsOn]?.length ?? 0) > 0) && (!guarded(f) || counts[f.param] !== undefined || (state.facets[f.param]?.length ?? 0) > 0));
+  return d.facets.filter((f) => !f.hidden && !f.legacy && !f.inWhere && (!f.dependsOn || (state.facets[f.dependsOn]?.length ?? 0) > 0) && (!guarded(f) || counts[f.param] !== undefined || (state.facets[f.param]?.length ?? 0) > 0));
 }
 
 /** Primary pills, then the facets the Kind scope promotes into the bar (at most two), then everything else under "More filters". */
@@ -68,7 +70,7 @@ export function partitionFacets<Row>(d: EntityDescriptor<Row>, state: ListState,
 /** More-tier facets that cannot show yet because the facet they depend on has no value (region before a country, area before a region), with that facet's name. */
 function waitingFacets<Row>(d: EntityDescriptor<Row>, state: ListState): { facet: FacetDef<Row>; parent: string }[] {
   return d.facets
-    .filter((f) => !f.hidden && !f.scoped && f.tier === 'more' && f.dependsOn && !(state.facets[f.dependsOn]?.length ?? 0))
+    .filter((f) => !f.hidden && !f.scoped && !f.inWhere && f.tier === 'more' && f.dependsOn && !(state.facets[f.dependsOn]?.length ?? 0))
     .map((facet) => ({ facet, parent: d.facets.find((p) => p.param === facet.dependsOn)?.label ?? facet.dependsOn! }));
 }
 
@@ -113,9 +115,10 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
     window.addEventListener(OPEN_FILTERS, open);
     return () => window.removeEventListener(OPEN_FILTERS, open);
   }, []);
-  const chips = activeFilters(state, d, labelOf);
+  // Where's chips read the bare value ("Canada", "Alberta"), one per level, and stay in the row beside the pill
+  const chips = whereChips(activeFilters(state, d, labelOf), labelOf, hasWhere(d));
   // a filter that has its pill in the bar is shown once, as that pill; the chip row keeps the rest (and shows all of them on a phone)
-  const pilled = new Set<string>(primary.map((f) => f.param));
+  const pilled = new Set<string>(primary.filter((f) => f.control !== 'where').map((f) => f.param));
   // while a reading shows, the list is held: the sentence is not a filter yet, so it adds no "of N" and no Clear all
   const filtered = chips.length > 0 || (!smart?.holding && state.q.trim().length > 0);
   const setFacet = (param: FacetParam, values: string[]) => {
@@ -126,8 +129,12 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
     if (!values.length) dropDependents(next.facets, d, param);
     onState(next, 'push');
   };
+  // one pick in the Where menu, whatever its depth, is one history entry
+  const pickWhere = (facets: ListState['facets']) => onState(withWhere(state, facets), 'push');
+  const whereLabelOf = (param: WhereParam, value: string) => labelOf(param, value);
   const changeView = (view: ViewName) => onState({ ...state, view, focus: null }, 'push');
-  const activeCount = chips.length;
+  // Where counts as one filter whatever its depth (nearby-and-regions 4.4)
+  const activeCount = hasWhere(d) ? chips.filter((c) => !isWhereParam(c.key.split(':')[0]!)).length + (state.facets.country?.length ? 1 : 0) : chips.length;
   // the notes behind "Why these?": everything the count line used to stack, minus the not-checked count that has its own link
   const whyNotes = notes.filter((n) => !/^\d+ not checked yet$/.test(n));
   // a list with no "Not checked yet" group (Trips) still says how many were left out, as plain words
@@ -160,12 +167,16 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
           </button>
         </span>
         {phone && sheetEver ? (
-          <PhoneFilterSheet d={d} state={state} facets={primary} more={more} counts={counts} gaps={gaps} shown={shown} filtered={filtered} open={sheetOpen} onOpenChange={setSheetOpen} setFacet={setFacet} onState={onState} />
+          <PhoneFilterSheet d={d} state={state} facets={primary} more={more} counts={counts} gaps={gaps} labelOf={whereLabelOf} shown={shown} filtered={filtered} open={sheetOpen} onOpenChange={setSheetOpen} setFacet={setFacet} onState={onState} />
         ) : null}
         <div className="facet-group" role="group" aria-label="Filters">
-          {primary.map((f) => (
+          {primary.map((f) =>
+            f.control === 'where' ? (
+              <WherePopover key={f.param} label={f.label} state={state} counts={counts} loading={shown === null} shown={shown} labelOf={whereLabelOf} onPick={pickWhere} onSearch={(q) => onState({ ...state, q, focus: null }, 'replace')} />
+            ) : (
             <FacetPopover key={f.param} facet={f} options={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} onChange={(v) => setFacet(f.param, v)} gapN={gaps[f.param]} />
-          ))}
+            ),
+          )}
           {more.length || waiting.length ? <LazyMoreFilters facets={more} waiting={waiting} counts={counts} gaps={gaps} state={state} setFacet={setFacet} /> : null}
         </div>
 
@@ -177,14 +188,23 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
       <div className="filter-row filter-row-2">
         <div className="count-block">
           <p className="count" role="status" aria-live="polite" aria-busy={shown === null || undefined}>
-            <strong className="num">{shown ?? 'Counting\u2026'}</strong>
-            {shown === null ? null : filtered ? (
-              <span className="of">
-                {' '}
-                of {scope} {scope === 1 && scopeNoun === d.noun.many ? d.noun.one : scopeNoun}
-              </span>
+            {shown === 0 ? (
+              // nothing matched: say so plainly; "0 of 0 food" read as an empty catalogue (review M13)
+              <strong className="num count-none">No {d.noun.many}</strong>
             ) : (
-              <span> {shown === 1 ? d.noun.one : d.noun.many}</span>
+              <>
+                <strong className="num count-tween" style={shown === null ? undefined : ({ '--count-n': shown } as CSSProperties)}>
+                  {shown ?? 'Counting\u2026'}
+                </strong>
+                {shown === null ? null : filtered ? (
+                  <span className="of">
+                    {' '}
+                    of {scope} {scope === 1 && scopeNoun === d.noun.many ? d.noun.one : scopeNoun}
+                  </span>
+                ) : (
+                  <span> {shown === 1 ? d.noun.one : d.noun.many}</span>
+                )}
+              </>
             )}
             {kidAge && /^\d{1,2}$/.test(kidAge) && hasAgeControl ? <span className="count-qual"> &middot; for age {kidAge === '0' ? 'Baby' : kidAge}</span> : null}
           </p>

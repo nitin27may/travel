@@ -193,10 +193,17 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
   fallbackLabel: (p) => p.kindLabel,
   primary: 'link',
   geo: (p) => (p.lat !== null && p.lon !== null ? { lat: p.lat, lon: p.lon } : null),
-  // Four primary filters (principle P4): Country, Kind, Season, Kids. The rest sit under "More filters". Narrowing Kind adds that scope's
+  // Four primary filters (principle P4): Where, Kind, Season, Kids. The rest sit under "More filters". Narrowing Kind adds that scope's
   // facets from the capture contract and promotes up to two of them into the bar (contract 7.1, 7.2).
   facets: [
-    { param: 'country', label: 'Country', type: 'single', options: (p) => [{ value: p.country, label: p.country_name }] },
+    {
+      // Where: country, then region, then area, in one cascading menu (nearby-and-regions 4.3). The keys stay `country`, `region` and `area`.
+      param: 'country',
+      label: 'Where',
+      type: 'single',
+      control: 'where',
+      options: (p) => [{ value: p.country, label: p.country_name }],
+    },
     {
       // domains first, then categories, each with a count (contract 7.1 rule 1)
       param: 'k',
@@ -270,16 +277,17 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
       param: 'region',
       label: 'Region',
       type: 'multi',
-      tier: 'more',
+      inWhere: true,
       dependsOn: 'country',
-      options: (p) => [{ value: p.region, label: p.region_name }],
+      // the other spellings ride in `hint`, so the Where menu's find field matches "AB" and "Alta" with no row data of its own
+      options: (p) => [{ value: p.region, label: p.region_name, hint: p.regionAliases.join(' ') }],
       match: (p, sel) => aliasMatch(p.regionAliases, sel),
     },
     {
       param: 'area',
       label: 'Area',
       type: 'multi',
-      tier: 'more',
+      inWhere: true,
       dependsOn: 'region',
       options: (p) => [{ value: p.area, label: p.area_name }],
       match: (p, sel) => aliasMatch([p.area, p.area_name], sel),
