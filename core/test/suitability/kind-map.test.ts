@@ -76,9 +76,9 @@ describe("counts are preserved", () => {
     for (const ref of before) expect(all().some((r) => r.ref === ref), ref).toBe(true);
     expect(RENAMED.size).toBe(6);
   });
-  it("the 207 in-scope refs, their per-trip counts and the 77 off-plan rows are unchanged", () => {
-    expect(m.reports.reduce((s, r) => s + r.inScope, 0)).toBe(207);
-    expect(m.offPlan.reduce((s, o) => s + o.adventures + o.trails + o.sights, 0)).toBe(77);
+  it("the 206 in-scope refs, their per-trip counts and the 78 off-plan rows (the 77 plus the merged Canmore Nordic Centre sight)", () => {
+    expect(m.reports.reduce((s, r) => s + r.inScope, 0)).toBe(206);
+    expect(m.offPlan.reduce((s, o) => s + o.adventures + o.trails + o.sights, 0)).toBe(78);
     for (const trip of m.reports.map((r) => r.trip)) expect(missingCoverage(REPO, trip), trip).toEqual([]);
   });
   it("every record keeps one ref, once", () => {
