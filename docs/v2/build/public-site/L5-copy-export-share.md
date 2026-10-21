@@ -14,7 +14,7 @@ render your components; you implement them behind the props L0 committed.
 - `docs/v2/design/foundation/patterns.md` 3.7 (copy and export), 3.4 item 1 and 5, 3.6 actions, 4.4 (toasts and
   undo), 1.2 (canonical URLs, anchors, list state).
 - components.md 2.1, 2.4 (date picker with shading), 5.1, 5.2, 5.3, 5.5.
-- `docs/v2/research/map-stack-2026-10-18.md` "What we may store" (only our OSM and official points, ORS geometry;
+- `research/reports/map-stack-2026-10-18.md` "What we may store" (only our OSM and official points, ORS geometry;
   nothing from Google) and kinds README 5 (`point_source`).
 - L0 stubs `web/components/actions/{CopySheet,ExportMenu,ShareButton}.tsx` (props are fixed; changing them needs the
   coordinator); LD `getTrip()`, `getPlace()` types.

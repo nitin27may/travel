@@ -1,8 +1,8 @@
 # Suitability display: "Who it suits" on places, chips on cards and day rows, and the three filters
 
 Status: design, 18 Oct 2026 (travel-design-reviewer). Governs how the suitability data in
-[research/suitability.md](../research/suitability.md) and
-[research/suitability-applicability.md](../research/suitability-applicability.md) is shown. The data model,
+[research/suitability.md](../../../research/method/suitability.md) and
+[research/suitability-applicability.md](../../../research/method/suitability-applicability.md) is shown. The data model,
 the R/A/N matrix and the lanes stay in those two pages; this page owns layout, chip vocabulary, wording,
 colour and the acceptance checks for S1. Mock: [suitability-display/mock/index.html](suitability-display/mock/index.html)
 (`?theme=dark`), screenshots in [suitability-display/mock/shots/](suitability-display/mock/shots/).
@@ -412,7 +412,7 @@ option is a plain phrase with its meaning after a dot; the count line names what
 | C9 | Applicability 5.1 "rule chips are solid" has no token meaning. | Solid = `--surface-2` fill, `--ink` 600, lock; defined in 3.1. | components.md 2.8 gains rule, advice, gap, fits, advice-fail and rule-fail chips (coordinator to schedule with the next foundation round; tokens unchanged) |
 | C10 | Applicability 5.3 says the Kids filter "hides above a hard rule, dims above the band" but gives no label or option values. | Section 5. | applicability 5.3 points here (edited) |
 
-Edits made to [suitability-applicability.md](../research/suitability-applicability.md) in this pass are
+Edits made to [suitability-applicability.md](../../../research/method/suitability-applicability.md) in this pass are
 listed in its change log under 18 Oct 2026 (display rules).
 
 ## 8. Questions for the owner

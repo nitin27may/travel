@@ -30,10 +30,10 @@ The public site is built and on `main` (the old site is tagged `legacy-final`). 
 | [../../design/review-stage4-whole-site.md](../../design/review-stage4-whole-site.md) | The whole-site Opus review |
 | [../../design/lists-stage4-note.md](../../design/lists-stage4-note.md), [trip-page/stage4-map-note.md](../../design/trip-page/stage4-map-note.md) | Design rulings for the lists and the trip map |
 | [../../design/place-page-sections.md](../../design/place-page-sections.md), [suitability-display.md](../../design/suitability-display.md) | Place page layout and "Who it suits" |
-| [../../research/capture-contract.md](../../research/capture-contract.md) | The one data contract: types, properties, placement, supersede rule |
-| [../../research/suitability.md](../../research/suitability.md), [relevance.md](../../research/relevance.md), [sources-and-licences.md](../../research/sources-and-licences.md) | Suitability, relevance, sources and licences |
-| [../../research/smart-search-spike.md](../../research/smart-search-spike.md) | The measured embedding test |
-| [../../research/capture-research-backlog.md](../../research/capture-research-backlog.md), [operator-questions-2026-10-18.md](../../research/operator-questions-2026-10-18.md) | The data research queue and the operator questions |
+| [../../research/capture-contract.md](../../../../research/method/capture-contract.md) | The one data contract: types, properties, placement, supersede rule |
+| [../../research/suitability.md](../../../../research/method/suitability.md), [relevance.md](../../../../research/method/relevance.md), [sources-and-licences.md](../../../../research/method/sources-and-licences.md) | Suitability, relevance, sources and licences |
+| [../../research/smart-search-spike.md](../../../../research/reports/smart-search-spike.md) | The measured embedding test |
+| [../../research/capture-research-backlog.md](../../research/capture-research-backlog.md), [operator-questions-2026-10-18.md](../../../../research/method/operator-questions-2026-10-18.md) | The data research queue and the operator questions |
 | [../SERVER-SIDE-LAUNDRY-LIST.md](../SERVER-SIDE-LAUNDRY-LIST.md) | The second list: everything that needs login or a server; links F01 to F17 |
 | [../../features/README.md](../../features/README.md), F01 to F17 | The planner product specs |
 

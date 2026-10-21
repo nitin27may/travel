@@ -12,7 +12,7 @@ site shows, with visibility enforced and honesty recorded. Wave-2 lanes only imp
 
 - README.md section 2 (sources, depth table, kind mapping, photos, completeness).
 - `docs/v2/design/foundation/patterns.md` 1.2 (slug rules) and 3.4 (kind to category, the rules under the table).
-- `docs/v2/research/kinds/README.md` sections 3, 5, 6, 10 and the U checks in `trail.md`, `lake.md`, `viewpoint.md`,
+- `research/method/kinds/README.md` sections 3, 5, 6, 10 and the U checks in `trail.md`, `lake.md`, `viewpoint.md`,
   `sight.md`, `stay.md`, `adventure.md`, `lift.md`.
 - `web/lib/data/{trips,places,types,root,validate}.ts`, `web/lib/visibility.ts`, `web/lib/views/places.ts`
   (the allow-list), `web/tests/privacy.test.ts`, `web/tests/visibility.test.ts`.

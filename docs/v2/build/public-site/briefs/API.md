@@ -3,7 +3,7 @@
 - **Agent:** `travel-builder` (Sonnet). The interface in step 6 is checked by `travel-planner` (Opus) before handlers are written; the B diff gets an Opus code audit at gate G-B.
 - **Effort:** API-0 10 h, API-1 22 h, API-2 14 h (one lane, serial).
 - **Rows:** 14.2, 14.3, 14.4, 13.1, 13.4, 15.1, 3.66i (10,000-place timings), L3 (completeness engine part).
-- **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) section 4 (shape, the exact `CatalogueStore` interface, endpoints, adapters, contract kit, build changes) and tasks B1 to B3. Input: SRV-D's `docs/v2/research/schema-diff-2026-10.md`.
+- **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) section 4 (shape, the exact `CatalogueStore` interface, endpoints, adapters, contract kit, build changes) and tasks B1 to B3. Input: SRV-D's `research/reports/schema-diff-2026-10.md`.
 - **Principles:** P1, P8 (caps inside the functions), P9 (one boundary, server-shaped state).
 - **Starts:** at R1 entry (the R1 preview is a frozen build). R1 fix rounds win any shared file.
 - **Owner decisions in force:** deployment is out of scope (no static-export assumption); API-over-JSON now; API-over-Supabase later as SRV-0.

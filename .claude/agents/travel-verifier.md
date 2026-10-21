@@ -13,7 +13,7 @@ For the change you are given:
    - the unit tests
    - the Playwright e2e tests
    - `bash tools/check-all.sh` for core/, web/ and data
-2. Screenshot every affected screen at 1440x900 and 390x844, in light and dark, at 2x. Read each one yourself, in tiles for tall pages.
+2. Screenshot every affected screen at 1440x900 and 390x844, in light and dark, at 2x, into `web/test-results/shots/`. Use Playwright from `web/` (`pnpm --dir web exec playwright ...`, or `@playwright/test` from `web/node_modules`), with the browsers from the Playwright cache on this OS (`~/Library/Caches/ms-playwright` on macOS; install with `cd web && pnpm exec playwright install chromium`). Never use `prototype/node_modules` or a hard-coded Chromium path. Read each one yourself, in tiles for tall pages.
 3. Where trip scope is involved, walk the scenarios from `docs/v2/design/trip-scope-scenarios.md` that apply.
 4. Check the screens against `docs/v2/design/foundation/`: tokens, component states and motion.
 
@@ -23,7 +23,11 @@ Report a table of check, then result (pass or fail), then evidence (the output e
 
 Kill any server you start by the PID on its port, never by name.
 
-GPU rendering: this machine (nks-ubuntu) has an Intel Arc A770M. Launch Chromium with `--use-gl=angle --use-angle=gl --ignore-gpu-blocklist --enable-gpu-rasterization` so WebGL maps render on the real GPU (globe idle spin 60 fps, p95 16.8 ms). The SwiftShader flags render vector tiles but run about 35 times slower (1.7 fps on the same scene), so never judge motion, smoothness or frame time under SwiftShader.
+GPU rendering: this machine is a Mac (Apple M1 Pro, Metal). Launch Chromium with `--use-gl=angle --use-angle=metal --ignore-gpu-blocklist --enable-gpu-rasterization` so WebGL maps render on the real GPU. The SwiftShader flags render vector tiles but run about 35 times slower, so never judge motion, smoothness or frame time under SwiftShader.
+
+When you verify a research or data run, check its note in `research/runs/<run-id>.md` against its run record and the validators in `research/README.md` section 6.
+
+Model choice: the coordinator picks the model per task by the "Model by task complexity" rubric in `CLAUDE.md`. Say in your report which model ran the task.
 
 UX principles: read `docs/v2/design/foundation/principles.md` (P1-P7: design for scale, progressive disclosure, a glance then a few clicks, no manual needed, smooth linked open and close, the right metadata at the right moment, the 90% primary goal) before any design, build or review, and cite them by number.
 Also P8 (protect the catalogue: no bulk files, light list data, per-item exports) and P9 (server-ready: one data boundary, no new client-side bulk loads) in the same file.

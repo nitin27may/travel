@@ -17,7 +17,7 @@ vocabularies and lane contracts in the database or `docs/v2/research/`), so they
 | `vocab://difficulty` | house scale 1-5 with mapping from local grades (Parks Canada easy/moderate/difficult, SAC T1-T6, CAI T/E/EE/EEA, YDS classes, APN) | `difficulty_scale` (seeded from `data/schema/difficulty-map.json`) |
 | `rules://freshness` | how long each field family stays fresh (prices 120 days, hours 180, closures 7 in season, booking windows yearly, geometry 3 years) | `freshness_rule` (seeded from `data/schema/freshness.json`) |
 | `rules://sources` | source order per lane, what counts as evidence, licences (OSM ODbL, Wikidata CC0, Commons per image, Google and AllTrails link-only), quoting limits | `docs/v2/research/` sources page |
-| `lane://<lane>` | the lane contract: required fields, optional fields, preferred sources, how to record gaps, examples of a good proposal | `docs/v2/research/lanes/` |
+| `lane://<lane>` | the lane contract: required fields, optional fields, preferred sources, how to record gaps, examples of a good proposal | `research/method/lanes/` |
 | `profile://trip-type/<type>` | trip-type profiles (family, couple, romantic, luxury, adventure, luxury-adventure, road trip, camper van, day trip, weekend, multi-generation, solo): what matters, defaults, lanes to emphasise | `docs/v2/research/` trip types page |
 | `profile://persona/<id>` | the saved views (persona quick-starts) and their filters | `saved_view` |
 

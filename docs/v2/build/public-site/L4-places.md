@@ -18,9 +18,9 @@ Plan: [README.md](README.md). Starts after L0, LD and LM are merged.
 - `docs/v2/design/redesign/trailhead/places.html` and `trail.html` (superseded for colour; links become tabs,
   hazards above the fold: changes-from-preview 3, 18, 23).
 - `docs/v2/design/keep-from-live-site.md` Places section; `docs/v2/design/live-site/places*.png`.
-- `docs/v2/research/map-stack-2026-10-18.md` (place pages: Google JS behind the flag, Embed fallback, MapLibre until
+- `research/reports/map-stack-2026-10-18.md` (place pages: Google JS behind the flag, Embed fallback, MapLibre until
   the key exists; one family per page; Directions = Maps URLs to our points).
-- `docs/v2/research/kinds/README.md` 5, 6, 10; `prototype/src/screens/PlacePage.tsx` and `TrailPanels.tsx` for content
+- `research/method/kinds/README.md` 5, 6, 10; `prototype/src/screens/PlacePage.tsx` and `TrailPanels.tsx` for content
   (not code to copy).
 - LD `listPlaces()`, `getPlace()`, `placeSlugs()`, `legacyPlaceRedirects()`; LM `MapSurface`, `placePageFamily()`,
   `links.ts`.
