@@ -205,7 +205,7 @@ span.globe-pin { cursor: default; }
 .globe-feature-foot { margin: 8px 0 0; font: 400 11.5px/1.3 var(--font-mono); color: var(--muted); }
 .globe-feature-copy { border: 0; background: none; padding: 0; color: var(--ink-2); font: inherit; text-decoration: underline; cursor: pointer; }
 .globe-feature-m { font: var(--t-meta); color: var(--muted); }
-.globe-feature-actions { display: flex; align-items: center; gap: var(--s-3); margin-top: var(--s-2); font: var(--t-meta); }
+.globe-feature-actions { display: flex; align-items: center; gap: var(--s-3); margin-top: var(--s-2); font: var(--t-meta); white-space: nowrap; }
 .globe-feature-x { position: absolute; top: 4px; right: 4px; }
 
 /* ---------- phone ---------- */
@@ -256,7 +256,9 @@ span.globe-pin { cursor: default; }
   .globe-card { width: 280px; }
   .globe-card-photo { height: 64px; } /* the title must sit above the sticky footer without scrolling (review round 3) */
   .globe-card-dock .globe-card-body { padding-top: 8px; gap: 3px; }
-  .globe-feature { top: 56px; width: 240px; }
+  /* docked at the left edge, wide enough that Copy link stays on one line; the camera pads by this width, so the feature sits clear of it */
+  .globe-feature { top: 56px; left: 8px; width: 296px; }
+  .globe-root:has(.globe-feature) .globe-options-btn { display: none; }
   .globe-status { top: 104px; bottom: auto; }
   .globe-root:has(.globe-card-dock) .globe-status { left: calc(300px + (100% - 300px - var(--globe-panel-gap)) / 2); max-width: calc(100% - 300px - var(--globe-panel-gap) - 16px); }
 }
