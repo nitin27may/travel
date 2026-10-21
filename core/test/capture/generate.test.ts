@@ -23,7 +23,7 @@ describe("the generator (step 2)", () => {
     expect(paths.filter((p) => p.startsWith("data/schema/capture/")).length).toBe(domains + 1);
     expect(paths).toContain("data/schema/capture/contract.json");
     expect(paths).toContain("data/schema/suitability-applicability.json");
-    expect(paths.filter((p) => p.startsWith("docs/v2/research/capture/")).length).toBe(domains);
+    expect(paths.filter((p) => p.startsWith("research/types/")).length).toBe(domains);
   });
   it("generates the applicability file in the shape suitability.ts reads: every profile states every path", () => {
     const app = JSON.parse(applicabilityFile(DEFAULT_TYPES).text) as { profiles: Record<string, { fields: Record<string, string>; match: { kind: string; subkind: string }[] }> };

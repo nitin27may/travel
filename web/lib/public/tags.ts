@@ -324,7 +324,7 @@ export interface TagContext {
   tagLabel: (id: string) => string | null;
 }
 
-/** One derived tag of one trip against its hand-typed value, for docs/v2/research/trip-tag-conflicts.md. */
+/** One derived tag of one trip against its hand-typed value, for research/reports/trip-tag-conflicts.md. */
 export interface TagConflict {
   trip: string;
   field: 'kidsFrom' | 'hike';
