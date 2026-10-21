@@ -5,6 +5,7 @@
     python3 tools/globe_data.py admin1          # G2: states/provinces for every country (Natural Earth 10m)
     python3 tools/globe_data.py admin2 [ISO3..] # G2: districts for the priority list (geoBoundaries), mapshaper-simplified
     python3 tools/globe_data.py gazetteer       # G3: search index (countries, admin-1, cities, physical names)
+    python3 tools/globe_data.py features        # GLB2: landform and river boxes, line files, centre audit (web gazetteer patched in place)
     python3 tools/globe_data.py world           # L2b: 110m world, 1,000 largest lakes, mainland_bbox (writes web/public/globe/data)
     python3 tools/globe_data.py canada          # L2b: the 293 Canadian census divisions (StatCan 2021), one file per province
     python3 tools/globe_data.py split           # L2b: USA, India and Brazil districts, one file per state
@@ -241,32 +242,286 @@ def cmd_gazetteer(args) -> int:
     for f in json.loads(raw.read_text(encoding="utf-8"))["features"]:
         p = f["properties"]; lon, lat = f["geometry"]["coordinates"]
         rows.append(["city", p.get("name"), round(lon, 3), round(lat, 3), p.get("adm0_a3"), p.get("adm1name"), p.get("scalerank"), p.get("pop_max")])
-    seen = set()
-    for name, kind in (("ne_10m_geography_regions_points", "physical"), ("ne_10m_geography_regions_polys", "physical"), ("ne_10m_geography_marine_polys", "marine")):
-        try:
-            raw = fetch(f"https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/{name}.geojson", CACHE / f"{name}.geojson")
-            for f in json.loads(raw.read_text(encoding="utf-8"))["features"]:
-                p = {k.lower(): v for k, v in f["properties"].items()}   # the polys file is upper-case
-                if f["geometry"]["type"] == "Point":
-                    lon, lat = f["geometry"]["coordinates"]
-                else:   # polygon: use a cheap centroid of the first ring
-                    ring = f["geometry"]["coordinates"][0] if f["geometry"]["type"] == "Polygon" else f["geometry"]["coordinates"][0][0]
-                    lon = sum(x for x, _ in ring) / len(ring); lat = sum(y for _, y in ring) / len(ring)
-                nm = p.get("name") or p.get("name_en")
-                if not nm or (kind, nm.lower()) in seen:   # the same range appears as a point and a polygon
-                    continue
-                if nm.isupper() and len(nm) > 3:          # Natural Earth capitalises the major features (SAHARA, ALPS)
-                    nm = nm.title()
-                seen.add((kind, nm.lower()))
-                rows.append([kind, nm, round(lon, 3), round(lat, 3), None, p.get("featurecla"), p.get("scalerank")])
-        except Exception as ex:
-            print(f"  {name} skipped: {str(ex)[:80]}", file=sys.stderr)
+    rows += feature_rows()[0]
     rows = [r for r in rows if r[1]]
-    write_json(ASSETS / "data" / "gazetteer.json", rows)
+    # The legacy page's file keeps its 7-column shape: no bounding boxes, no line ids (GLB2).
+    write_json(ASSETS / "data" / "gazetteer.json", [r[:7] if r[0] in ("physical", "marine", "river") else r for r in rows])
     print(f"  gazetteer: {len(rows)} rows", file=sys.stderr)
     # The app's copy carries local names as aliases in column 8 (backlog 4.13, review S7): a visitor types "Firenze" or "Munchen".
     # The legacy file above keeps its shape, so the old page and the adapter's reads are untouched.
     write_json(WEB / "data" / "gazetteer.json", _with_aliases(rows))
+    return 0
+
+
+
+# ----------------------------------------------------------------------------- GLB2 (A4, A5): landform extents and lines
+# Natural Earth regions, marine areas and rivers (public domain). Each landform row now carries its bounding box (column 9) and, for a
+# river or a mapped area, the id of a per-feature file under web/public/globe/line/ (column 10), loaded when the feature is picked.
+NE_RAW = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/"
+AUDIT = ROOT / "data" / "reference" / "globe" / "landform-audit.json"
+NE_CREDIT = "Natural Earth (public domain)"
+
+
+def _parts(geom) -> list[list[list[list[float]]]]:
+    """A geometry as a list of polygons, each a list of rings (outer first)."""
+    if geom["type"] == "Polygon":
+        return [geom["coordinates"]]
+    if geom["type"] == "MultiPolygon":
+        return list(geom["coordinates"])
+    return []
+
+
+def _crosses(lons: list[float]) -> bool:
+    return bool(lons) and max(lons) - min(lons) > 180
+
+
+def _unwrap(parts, shift: bool):
+    """Longitudes below 0 move up by 360 when the shape crosses the antimeridian, so the box and the label point are continuous."""
+    if not shift:
+        return parts
+    return [[[[x + 360 if x < 0 else x, y] for x, y in ring] for ring in poly] for poly in parts]
+
+
+def _norm_lon(x: float) -> float:
+    return x - 360 if x > 180 else x
+
+
+def _pip(ring, x: float, y: float) -> bool:
+    inside = False
+    j = len(ring) - 1
+    for i in range(len(ring)):
+        xi, yi = ring[i][0], ring[i][1]; xj, yj = ring[j][0], ring[j][1]
+        if (yi > y) != (yj > y) and x < (xj - xi) * (y - yi) / (yj - yi) + xi:
+            inside = not inside
+        j = i
+    return inside
+
+
+def _in_poly(poly, x: float, y: float) -> bool:
+    return _pip(poly[0], x, y) and not any(_pip(h, x, y) for h in poly[1:])
+
+
+def _signed_area(ring) -> float:
+    return sum(ring[i][0] * ring[(i + 1) % len(ring)][1] - ring[(i + 1) % len(ring)][0] * ring[i][1] for i in range(len(ring))) / 2
+
+
+def _label_point(parts) -> tuple[float, float]:
+    """A point inside the largest part: its area centroid, else the middle of the widest chord through the centroid's latitude."""
+    big = max(parts, key=lambda p: abs(_signed_area(p[0])))
+    ring = big[0]
+    a = _signed_area(ring)
+    if abs(a) > 1e-12:
+        cx = sum((ring[i][0] + ring[(i + 1) % len(ring)][0]) * (ring[i][0] * ring[(i + 1) % len(ring)][1] - ring[(i + 1) % len(ring)][0] * ring[i][1]) for i in range(len(ring))) / (6 * a)
+        cy = sum((ring[i][1] + ring[(i + 1) % len(ring)][1]) * (ring[i][0] * ring[(i + 1) % len(ring)][1] - ring[(i + 1) % len(ring)][0] * ring[i][1]) for i in range(len(ring))) / (6 * a)
+        if _in_poly(big, cx, cy):
+            return cx, cy
+    else:
+        cy = ring[0][1]
+    xs = sorted(ring[i][0] + (cy - ring[i][1]) * (ring[(i + 1) % len(ring)][0] - ring[i][0]) / (ring[(i + 1) % len(ring)][1] - ring[i][1])
+                for i in range(len(ring)) if (ring[i][1] > cy) != (ring[(i + 1) % len(ring)][1] > cy))
+    chords = [(xs[i], xs[i + 1]) for i in range(0, len(xs) - 1, 2)]
+    lo, hi = max(chords, key=lambda c: c[1] - c[0]) if chords else (ring[0][0], ring[0][0])
+    return (lo + hi) / 2, cy
+
+
+def _dp(pts: list[list[float]], tol: float) -> list[list[float]]:
+    """Douglas-Peucker, iterative (a 10m coastline has thousands of vertices)."""
+    if len(pts) < 3:
+        return pts
+    keep = [False] * len(pts); keep[0] = keep[-1] = True
+    stack = [(0, len(pts) - 1)]
+    while stack:
+        a, b = stack.pop()
+        (x1, y1), (x2, y2) = pts[a][:2], pts[b][:2]
+        dx, dy = x2 - x1, y2 - y1
+        d2 = dx * dx + dy * dy
+        best, idx = -1.0, -1
+        for i in range(a + 1, b):
+            x, y = pts[i][:2]
+            if d2 == 0:
+                d = (x - x1) ** 2 + (y - y1) ** 2
+            else:
+                t = max(0.0, min(1.0, ((x - x1) * dx + (y - y1) * dy) / d2))
+                d = (x - x1 - t * dx) ** 2 + (y - y1 - t * dy) ** 2
+            if d > best:
+                best, idx = d, i
+        if best > tol * tol:
+            keep[idx] = True
+            stack += [(a, idx), (idx, b)]
+    return [p for p, k in zip(pts, keep) if k]
+
+
+def _r(p, nd=2):
+    return [round(p[0], nd), round(p[1], nd)]
+
+
+def _slug(s: str) -> str:
+    import re
+    return re.sub(r"[^a-z0-9]+", "-", _fold(s)).strip("-") or "feature"
+
+
+def _bbox_of(points) -> list[float]:
+    xs = [p[0] for p in points]; ys = [p[1] for p in points]
+    import math
+    # rounded outwards to 0.1 degree, so a point on the shape is never outside its own box
+    return [math.floor(min(xs) * 10) / 10, math.floor(min(ys) * 10) / 10, math.ceil(max(xs) * 10) / 10, math.ceil(max(ys) * 10) / 10]
+
+
+def feature_rows(write_files: bool = False):
+    """Gazetteer rows for landforms, seas and rivers, plus the per-feature line files (written when asked).
+
+    Row: [kind, name, lon, lat, None, featurecla, rank, None, None, [w, s, e, n], line_id or None]. East may pass 180 for a shape that
+    crosses the antimeridian. The label point of a polygon lies inside the polygon (the old rows averaged the vertices of the first ring).
+    """
+    rows: list = []
+    files: dict[str, dict] = {}
+    used_ids: set[str] = set()
+    legacy: dict[tuple, tuple] = {}
+    shapes: dict[tuple, list] = {}   # (kind, name) -> polygons, longitudes unwrapped across the antimeridian
+
+    def uid(name: str, cls: str) -> str:
+        i = _slug(name)
+        if i in used_ids:
+            i = f"{i}-{_slug(cls)}"
+        n = 2
+        base = i
+        while i in used_ids:
+            i = f"{base}-{n}"; n += 1
+        used_ids.add(i)
+        return i
+
+    seen: set[tuple] = set()
+    srcs = (("ne_10m_geography_regions_polys", "physical"), ("ne_10m_geography_marine_polys", "marine"), ("ne_10m_geography_regions_points", "physical"))
+    # polygons first, so a point row of the same name can take the box
+    for name, kind in srcs:
+        raw = fetch(f"{NE_RAW}{name}.geojson", CACHE / f"{name}.geojson")
+        for f in json.loads(raw.read_text(encoding="utf-8"))["features"]:
+            p = {k.lower(): v for k, v in f["properties"].items()}
+            nm = p.get("name") or p.get("name_en")
+            if not nm:
+                continue
+            if nm.isupper() and len(nm) > 3:
+                nm = nm.title()
+            cls = p.get("featurecla")
+            if f["geometry"]["type"] == "Point":
+                lon, lat = f["geometry"]["coordinates"]
+                if (kind, nm.lower()) in seen:
+                    continue   # the polygon of the same name already supplies the row
+                seen.add((kind, nm.lower()))
+                rows.append([kind, nm, round(lon, 3), round(lat, 3), None, cls, p.get("scalerank"), None, None, None, None])
+                continue
+            if (kind, nm.lower()) in seen:
+                continue
+            seen.add((kind, nm.lower()))
+            parts = _parts(f["geometry"])
+            if not parts:
+                continue
+            lons = [x for poly in parts for x, _ in poly[0]]
+            cross = _crosses(lons)
+            up = _unwrap(parts, cross)
+            allpts = [pt for poly in up for pt in poly[0]]
+            box = _bbox_of(allpts)
+            lx, ly = _label_point(up)
+            lon, lat = _norm_lon(lx), ly
+            shapes[(kind, nm)] = up
+            ring0 = parts[0][0]   # what the first build used: the mean of the vertices of the first ring (kept to make the audit reproducible)
+            legacy[(kind, nm)] = (sum(x for x, _ in ring0) / len(ring0), sum(y for _, y in ring0) / len(ring0))
+            rank = p.get("scalerank")
+            row = [kind, nm, round(lon, 3), round(lat, 3), None, cls, rank, None, None, box, None]
+            # A line file for the shapes whose outline says something: ranges, plains, deltas, plateaus, deserts, basins, valleys and the like.
+            # Islands and island groups are drawn by the basemap, seas have no honest edge at this scale, and a shape across the antimeridian
+            # cannot be drawn as one line.
+            if kind == "physical" and cls and cls.lower() not in ("island", "island group", "continent", "geoarea", "pole", "dragons-be-here") and not cross:
+                span = max(box[2] - box[0], box[3] - box[1])
+                tol = max(0.02, span * 0.004)
+                big = max(abs(_signed_area(poly[0])) for poly in parts)
+                keep = [poly for poly in parts if abs(_signed_area(poly[0])) >= big * 0.02]
+                out = []
+                for poly in keep:
+                    ring = _dp(poly[0], tol)
+                    if len(ring) >= 4:
+                        out.append([[_r(q) for q in ring]])
+                if out:
+                    fid = uid(nm, cls)
+                    row[10] = fid
+                    files[fid] = {"id": fid, "name": nm, "kind": "area", "bbox": box, "geometry": {"type": "MultiPolygon", "coordinates": out}, "credit": NE_CREDIT}
+            rows.append(row)
+
+    # rivers: one row and one file per name, the segments joined as a MultiLineString
+    raw = fetch(f"{NE_RAW}ne_10m_rivers_lake_centerlines.geojson", CACHE / "ne_10m_rivers_lake_centerlines.geojson")
+    byname: dict[str, dict] = {}
+    for f in json.loads(raw.read_text(encoding="utf-8"))["features"]:
+        p = f["properties"]
+        nm = p.get("name_en") or p.get("name")
+        if not nm or p.get("featurecla") != "River" or (p.get("scalerank") or 99) > 6:
+            continue
+        e = byname.setdefault(nm, {"rank": p["scalerank"], "lines": []})
+        e["rank"] = min(e["rank"], p["scalerank"])
+        e["lines"] += f["geometry"]["coordinates"]
+    for nm, e in sorted(byname.items()):
+        lines = e["lines"]
+        pts = [q for ln in lines for q in ln]
+        box = _bbox_of(pts)
+        span = max(box[2] - box[0], box[3] - box[1])
+        tol = max(0.01, span * 0.003)
+        simp = [[_r(q) for q in _dp(ln, tol)] for ln in lines if len(ln) >= 2]
+        simp = [ln for ln in simp if len(ln) >= 2]
+        if not simp:
+            continue
+        # a point that lies on the line: the middle vertex of the longest piece
+        longest = max(simp, key=len)
+        mid = longest[len(longest) // 2]
+        fid = uid(nm, "river")
+        rows.append(["river", nm, round(mid[0], 3), round(mid[1], 3), None, "river", int(e["rank"]), None, None, box, fid])
+        files[fid] = {"id": fid, "name": nm, "kind": "line", "bbox": box, "geometry": {"type": "MultiLineString", "coordinates": simp}, "credit": NE_CREDIT}
+    if write_files:
+        outdir = WEB / "line"
+        if outdir.exists():
+            for old in outdir.glob("*.json"):
+                old.unlink()
+        outdir.mkdir(parents=True, exist_ok=True)
+        for fid, doc in files.items():
+            (outdir / f"{fid}.json").write_text(json.dumps(doc, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    return rows, files, shapes, legacy
+
+
+def cmd_features(args) -> int:
+    """GLB2: landform, sea and river rows with a box and a line id; per-feature line files; the centre audit. Patches the web gazetteer in place.
+
+    Reads Natural Earth (cached under tools/.cache), so it needs no other download; the rows of countries, states and cities are untouched.
+    """
+    import gzip
+    gz_path = WEB / "data" / "gazetteer.json"
+    old = json.loads(gz_path.read_text(encoding="utf-8"))
+    rows, files, shapes, legacy = feature_rows(write_files=True)
+    # The audit: every landform and water row whose shape we hold, its OLD point against the exact box and against the polygon itself.
+    outside_box, outside_poly, new_bad, checked = [], [], [], 0
+    for r in rows:
+        sh = shapes.get((r[0], r[1]))
+        if not sh:
+            continue
+        checked += 1
+        pts = [q for poly in sh for q in poly[0]]
+        xs = [q[0] for q in pts]; ys = [q[1] for q in pts]
+        def inside(lon, lat):
+            lon = lon + 360 if (max(xs) > 180 and lon < 0) else lon
+            return min(xs) <= lon <= max(xs) and min(ys) <= lat <= max(ys), any(_in_poly(poly, lon, lat) for poly in sh)
+        o = legacy.get((r[0], r[1]))
+        if o:
+            in_box, in_poly = inside(*o)
+            if not in_box: outside_box.append(r[1])
+            if not in_poly: outside_poly.append(r[1])
+        if not inside(r[2], r[3])[0]: new_bad.append(r[1])
+    audit = {"rows_with_a_shape": checked, "old_points_outside_box": len(outside_box), "old_points_outside_shape": len(outside_poly),
+             "old_outside_box_names": sorted(outside_box), "new_points_outside_box": len(new_bad),
+             "rows": {k: sum(1 for r in rows if r[0] == k) for k in ("physical", "marine", "river")}, "line_files": len(files)}
+    sizes = [len(gzip.compress(json.dumps(d, separators=(",", ":")).encode())) for d in files.values()]
+    audit["line_gzip_bytes"] = {"total": sum(sizes), "max": max(sizes), "median": sorted(sizes)[len(sizes) // 2]}
+    AUDIT.parent.mkdir(parents=True, exist_ok=True)
+    AUDIT.write_text(json.dumps(audit, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    keep = [r for r in old if r[0] not in ("physical", "marine", "river")]
+    write_json(gz_path, keep + rows)
+    print(f"  features: {audit}", file=sys.stderr)
     return 0
 
 
@@ -805,6 +1060,7 @@ def main(argv=None) -> int:
     a2 = sub.add_parser("admin2"); a2.add_argument("iso3", nargs="*"); a2.add_argument("--force", action="store_true"); a2.set_defaults(fn=cmd_admin2)
     sub.add_parser("gazetteer").set_defaults(fn=cmd_gazetteer)
     sub.add_parser("places").set_defaults(fn=cmd_places)
+    sub.add_parser("features").set_defaults(fn=cmd_features)
     sub.add_parser("world").set_defaults(fn=cmd_world)
     sub.add_parser("canada").set_defaults(fn=cmd_canada)
     sub.add_parser("audit").set_defaults(fn=cmd_audit)

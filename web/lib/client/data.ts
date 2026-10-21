@@ -382,7 +382,7 @@ export const globeAdminManifest = (): Promise<GlobeAdminManifest> => geoOnce<Glo
 /** The 1,000 largest lakes as TopoJSON. */
 export const globeLakes = (): Promise<Topology> => geoOnce<Topology>(`${GEO_BASE}lakes-10m.json`);
 
-/** Rows are [kind, name, lon, lat, a3, extra, rank, population]. `part` is reserved for the top and rest split. */
+/** Rows are [kind, name, lon, lat, a3, extra, rank, population, aliases, bbox, lineId]; the last two are set on landforms, seas and rivers. `part` is reserved for the top and rest split. */
 export function globeGazetteer(part: 'all' = 'all'): Promise<(string | number | null)[][]> {
   return geoOnce<(string | number | null)[][]>(`${GEO_BASE}${part === 'all' ? 'gazetteer' : part}.json`);
 }
@@ -412,6 +412,22 @@ export async function globeAdminIsSplit(a3: string, level: GlobeAdminLevel): Pro
 
 /** The OSM city areas (admin level 8) for the cities that hold one of our public places or are a trip base. Small, one file. */
 export const globeCityAreas = (): Promise<{ type: 'FeatureCollection'; credit: string; features: { type: 'Feature'; properties: { id: string; name: string; wd: string | null }; geometry: unknown }[] }> => geoOnce(`${GEO_BASE}cities-adm8.json`);
+
+// globe (GLB2)
+/** One landform's or river's own simplified line or outline, loaded when it is picked (never in bulk). Natural Earth, public domain. */
+export interface GlobeLineFile {
+  id: string;
+  name: string;
+  kind: 'line' | 'area';
+  /** [west, south, east, north]; east may pass 180 for a shape across the antimeridian. */
+  bbox: [number, number, number, number];
+  geometry: { type: 'MultiLineString' | 'MultiPolygon'; coordinates: unknown };
+  credit: string;
+}
+/** The line file behind a gazetteer row's line id, or null when there is none. Static: `/globe/line/<id>.json`; later `GET /api/v1/globe/feature/{id}/line`. */
+export function globeLine(id: string): Promise<GlobeLineFile | null> {
+  return geoOnce<GlobeLineFile>(`/globe/line/${encodeURIComponent(id)}.json`).catch(() => null);
+}
 
 /** The slice of a Wikidata entity the feature cards read. */
 export interface WikidataEntity {
