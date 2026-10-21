@@ -153,6 +153,7 @@ export class GlobeController {
     // A fitted feature's card is docked at the bottom on a phone (its height and 16 px) and the control column is 56 px on the right (review M1).
     if (mode === 'phone' && feature) return { top: 120, right: 24 + 56, bottom: FEATURE_DOCK + 16 + 20, left: 24 };
     if (mode === 'phone') return { top: 120, right: 24, bottom: card ? Math.round(height * 0.5) + 24 : cover.bottom + 20, left: 24 };
+    if (mode === 'landscape' && feature) return { top: 64, right: (cover.right || 8) + 12 + 56, bottom: 24, left: 8 + 296 + 16 };
     if (mode === 'landscape') return { top: 64, right: (cover.right || 8) + 12, bottom: 24, left: card ? 308 : 24 };
     return { top: 90, right: cover.right ? cover.right + 26 : 90, bottom: 80, left: 90 };
   }

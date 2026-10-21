@@ -232,4 +232,31 @@ test.describe('globe natural features (GPU, real tiles)', () => {
     });
     expect(under, 'river vertices under the card').toBe(0);
   });
+
+  test('landscape phone (844 x 390): the card clears the river, Copy link stays on one line, no pin sits under the zoom rail', async () => {
+    const page = await open(`${site.url}/globe/`, { width: 844, height: 390 });
+    await page.getByRole('combobox', { name: 'Search the globe' }).fill('Ganges');
+    await page.getByRole('option', { name: /^Ganges\s*River/ }).first().click();
+    await expect(page.locator('.globe-feature')).toBeVisible({ timeout: 40_000 });
+    await rest(page);
+    await page.getByRole('button', { name: 'Fly here' }).click();
+    await rest(page);
+    const copy = (await page.getByRole('button', { name: 'Copy link' }).boundingBox())!;
+    expect(copy.height, 'Copy link on one line').toBeLessThan(26);
+    const r = await page.evaluate(() => {
+      const m = (document.querySelector('.globe-map') as unknown as { __map: { querySourceFeatures(s: string): { geometry: { coordinates: unknown } }[]; project(c: [number, number]): { x: number; y: number } } }).__map;
+      const box = document.querySelector('.globe-map')!.getBoundingClientRect();
+      const card = document.querySelector('.globe-feature')!.getBoundingClientRect();
+      let under = 0;
+      for (const f of m.querySourceFeatures('feature-shape')) {
+        const nums = (f.geometry.coordinates as number[]).flat(4);
+        for (let i = 0; i + 1 < nums.length; i += 2) { const p = m.project([nums[i], nums[i + 1]]); const x = p.x + box.left, y = p.y + box.top; if (x > card.left && x < card.right && y > card.top && y < card.bottom) under++; }
+      }
+      const rail = document.querySelector('.globe-zoom')!.getBoundingClientRect();
+      const pins = [...document.querySelectorAll('.globe-marker')].filter((e) => getComputedStyle(e).visibility !== 'hidden').filter((e) => { const b = e.getBoundingClientRect(); return b.width && b.right > rail.left && b.left < rail.right && b.bottom > rail.top && b.top < rail.bottom; }).length;
+      return { under, pins };
+    });
+    expect(r.under, 'river vertices under the card').toBe(0);
+    expect(r.pins, 'visible pins under the zoom rail').toBe(0);
+  });
 });
