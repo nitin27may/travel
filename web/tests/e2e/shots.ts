@@ -114,7 +114,7 @@ export async function fullPageShot(page: Page, file: string, scale: number): Pro
     const input = await page.screenshot({ fullPage: true, clip: { x: 0, y, width, height: Math.min(step, total - y) } });
     strips.push({ input, top: Math.round(y * scale), left: 0 });
   }
-  await sharp({ create: { width: Math.round(width * scale), height: Math.round(total * scale), channels: 4, background: '#ffffff' } })
+  await sharp({ create: { width: Math.round(width * scale), height: Math.round(total * scale), channels: 4, background: { r: 255, g: 255, b: 255, alpha: 1 } } })
     .composite(strips)
     .png()
     .toFile(file);
