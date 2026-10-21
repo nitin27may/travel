@@ -197,7 +197,7 @@ test.describe('Where at 390 px', () => {
     await expect(menu.getByRole('button', { name: 'Back to provinces' })).toBeVisible();
     const rows = menu.getByRole('option');
     await expect(rows.first()).toBeVisible();
-    for (const i of [0, 1, 2]) expect((await rows.nth(i).boundingBox())!.height).toBeGreaterThanOrEqual(44);
+    for (const i of [0, 1, 2]) expect(Math.round((await rows.nth(i).boundingBox())!.height)).toBeGreaterThanOrEqual(44); // layout reports 43.99999 for a 44 px row
     await menu.locator('.where-back').click();
     await expect(menu.locator('.where-title')).toHaveText('Canada');
     await expect(menu.getByRole('option', { name: /^All of Canada\b/ })).toBeVisible();
