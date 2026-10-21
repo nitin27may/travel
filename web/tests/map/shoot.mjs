@@ -4,7 +4,6 @@
 //   node tests/map/shoot.mjs <outDir> [baseUrl] [scenes...]
 import { chromium } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 
 const out = process.argv[2] ?? 'map-shots';
@@ -13,7 +12,6 @@ const scenes = process.argv.slice(4).length ? process.argv.slice(4) : ['dolomite
 mkdirSync(out, { recursive: true });
 
 const browser = await chromium.launch({
-  executablePath: path.join(os.homedir(), '.cache/ms-playwright/chromium-1248/chrome-linux64/chrome'),
   args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'],
 });
 const sizes = { desktop: { width: 1440, height: 900 }, phone: { width: 390, height: 844 } };
