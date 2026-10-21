@@ -625,28 +625,6 @@
       }
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre",
-      "kind": "activity",
-      "subkind": "mtb",
-      "suitability": {
-        "kid_note": "GAP"
-      },
-      "flat": {
-        "min_age": null,
-        "max_age": null,
-        "min_height_cm": null,
-        "max_height_cm": null,
-        "min_weight_kg": null,
-        "max_weight_kg": null,
-        "house_grade": null,
-        "kid_fit": "unknown",
-        "accessibility": "unknown",
-        "walk_km": null,
-        "walk_gain_m": null,
-        "suit_level": "draft"
-      }
-    },
-    {
       "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
       "kind": "sight",
       "subkind": "historic_site",

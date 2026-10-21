@@ -1,0 +1,7 @@
+{
+  "schema": "trip-covers/1",
+  "note": "Where a public trip's cover photo comes from when it is not the legacy page hero. Keyed by legacy trip folder. from 'gallery' takes the photo at index in the trip's own gallery (legacy/<folder>/gallery/gallery.json, sections flattened in order). A trip not listed uses its page hero, then the first gallery photo. Patagonia's legacy hero is Recoleta cemetery in Buenos Aires, a stopover, so its cover is the first gallery photo (Fitz Roy at sunrise).",
+  "trips": {
+    "patagonia-feb-mar-2027": { "from": "gallery", "index": 0 }
+  }
+}

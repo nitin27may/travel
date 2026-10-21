@@ -75,3 +75,12 @@ describe('one age on the trip page (backlog 4.24)', () => {
     }
   });
 });
+
+describe('a day with no placed stop (review M9)', () => {
+  it('picks its base on the map instead of leaving nothing selected', async () => {
+    const { routeSpec } = await import('@/components/trips/TripRouteMap');
+    const route = { bases: [{ id: 'b1', name: 'Ushuaia', lng: -68.3, lat: -54.8, days: [2, 3] }], days: [{ n: 2, title: 'Fly', base: 'Ushuaia', points: [], unplaced: 2 }, { n: 3, title: 'Park', base: 'Ushuaia', points: [{ key: 'k', name: 'Bay', lng: -68.4, lat: -54.85, placeSlug: 'bay' }], unplaced: 0 }], unplaced: 2 };
+    expect(routeSpec(route as never, 2).selectedId).toBe('base:b1');
+    expect(routeSpec(route as never, 3).selectedId).toBeUndefined();
+  });
+});

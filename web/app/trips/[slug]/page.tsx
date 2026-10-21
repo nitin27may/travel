@@ -50,12 +50,17 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
         </section>
       ) : null}
       {trip.depth === 'overview' ? (
-        <>
-          <SeasonBand trip={trip} />
-          <section className="trip-sec" aria-label="About this plan">
-            <Banner kind="notice">This plan has not been converted to days yet. Only the overview is here so far.</Banner>
-          </section>
-        </>
+        <section className="trip-sec" aria-label="About this plan">
+          {trip.season ? (
+            <>
+              <SeasonBand trip={trip} />
+              <Banner kind="notice">This plan has not been converted to days yet. Only the overview is here so far.</Banner>
+            </>
+          ) : (
+            // one notice, no "valid for" section: the stats card already says the season is not set (T1, review M6)
+            <Banner kind="notice">Overview only. No days and no season are written down yet, so check the season yourself before you pick dates.</Banner>
+          )}
+        </section>
       ) : (
         // "Plan it for" comes first, then the season band (Q7): the plan component draws the band where it belongs
         <TripPlan slug={slug} model={model} title={trip.title} depth={trip.depth} season={<SeasonBand trip={trip} />} />

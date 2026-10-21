@@ -720,23 +720,6 @@
    }
   },
   {
-   "ref": "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre",
-   "key": "sight:canmore nordic centre provincial park",
-   "trip": "canadian-rockies-2029",
-   "kind": "sight",
-   "name": "Canmore Nordic Centre Provincial Park",
-   "days": [
-    12
-   ],
-   "source": {
-    "legacy": {
-     "folder": "canadian-rockies-sept-2029",
-     "dataset": "sights",
-     "id": "canmore-nordic-centre"
-    }
-   }
-  },
-  {
    "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
    "key": "sight:cave and basin national historic site",
    "trip": "canadian-rockies-2029",

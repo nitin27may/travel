@@ -11,7 +11,7 @@ export function SeasonBand({ trip }: { trip: PublicTrip }) {
     return (
       <section className="trip-season" aria-labelledby="season-h">
         <h2 id="season-h" className="trip-kicker-h">This plan is valid for</h2>
-        <Banner kind="notice">Season not set yet. The months this plan works in have not been written down, so check the season yourself before you pick dates.</Banner>
+        <Banner kind="notice">The months this plan works in have not been written down, so check the season yourself before you pick dates.</Banner>
       </section>
     );
   }
