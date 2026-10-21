@@ -66,7 +66,7 @@ mv /tmp/envlocal web/.env.local 2>/dev/null
 | Regenerate derived files | `python3 tools/locations.py build`; `node core/bin/capture.ts build`; `node core/bin/sources.ts build --write`; `node core/bin/suitability.ts migrate --write`; `pnpm --dir web exec vitest run -c ../tools/suitability-scope/vitest.config.mts` (scope manifest); `node web/scripts/snapshot-prototype.mjs` (redirects and snapshot report) |
 | Publish | **Out of scope (owner, 20 Oct):** deployment waits for the hosting decision. `./publish.sh --product --dry-run` still stages the old static path; never run a deploying mode. The readiness checklist is EXECUTION-PLAN section 13 |
 
-Never hand-edit generated files (the locations views, `data/schema/**`, `docs/v2/research/capture/**`, `data/sources/registry.json`, `web/redirects.json`, the scope manifest): regenerate them with the tool above, or `check-all` fails.
+Never hand-edit generated files (the locations views, `data/schema/**`, `research/types/**`, `data/sources/registry.json`, `web/redirects.json`, the scope manifest): regenerate them with the tool above, or `check-all` fails.
 
 ## 4. What is NOT in git (recreate or copy)
 
@@ -89,7 +89,7 @@ Never hand-edit generated files (the locations views, `data/schema/**`, `docs/v2
 - **Confirm every deletion** with the owner. **Kill servers by PID, never by name** (`pkill -f` has killed other agents' servers).
 - **Never print or commit secrets.** Never put the owner's email in headers, URLs or payloads: the user agent for OSM, Overpass, Wikidata and Commons is `travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)`.
 - **Sources.** AllTrails, Google, Tripadvisor and Komoot are links only, never data sources; coordinates never from Google. OSM, Overpass, Wikidata and Commons calls are strictly sequential (one at a time), Overpass under `flock /tmp/travel-overpass.lock`.
-- **Visual checks** run on a real GPU (Chromium with `--use-gl=angle --use-angle=gl --ignore-gpu-blocklist --enable-gpu-rasterization`); SwiftShader is about 35 times slower, so never judge motion with it. Set dark mode through the site's own theme control. Read every screenshot you take, in tiles for tall pages.
+- **Visual checks** run on a real GPU (Chromium with `--use-gl=angle --use-angle=metal --ignore-gpu-blocklist --enable-gpu-rasterization`); SwiftShader is about 35 times slower, so never judge motion with it. Set dark mode through the site's own theme control. Read every screenshot you take, in tiles for tall pages.
 - **Product rules.** No green anywhere (status colours included). Overlays non-modal, motion smooth. P8: nothing lets one request pull the catalogue. P9: all data goes through `web/lib/client/data.ts`. No household data on the public site (no party, ages, home town, dates, personal status, stay ideas). Public text says who a plan suits, never who travelled. A gap is never a yes. Trips are dateless. Empty place sections stay visible as "Not checked yet". The data model is complete and extensible: a new type is one entry in `data/vocab/types.json`.
 - **Nothing goes live without the owner, and deployment is out of scope until the hosting is chosen.** Do not run `./publish.sh` in a way that deploys.
 - **Server-ready by rule:** every task names its boundary function, its API contract and what stays unchanged at the switch; components never read data files; caps live in the store methods (EXECUTION-PLAN 4.3).

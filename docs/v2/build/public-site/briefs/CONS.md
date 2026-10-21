@@ -33,7 +33,7 @@ CONS-2 and CONS-3 edit files other lanes own. Edit a file only when its owning l
 ## Do not touch
 
 - Component behaviour, layouts, copy. This lane changes where values come from, never what the visitor sees. Screenshots before and after must match.
-- Generated files (`web/app/themes.css`, `data/schema/**`, `docs/v2/research/capture/**`, `web/redirects.json`): regenerate them with their tools.
+- Generated files (`web/app/themes.css`, `data/schema/**`, `research/types/**`, `web/redirects.json`): regenerate them with their tools.
 - `web/.env.local`: never read it into output, never print it.
 
 ## Steps

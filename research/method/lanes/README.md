@@ -167,4 +167,4 @@ brief, the reviewer sees a three-way diff.
 Confidence values on evidence describe the **source**: `official` (government, park agency, the land
 manager), `operator` (the business that runs it), `community` (blogs, forums, trip reports, reviews),
 `agent_inferred` (computed or reasoned by the runner, for example a doubled one-way distance or a light
-window computed with core/src/sun). The entity's **trust** is derived (research/README.md section 4).
+window computed with core/src/sun). The entity's **trust** is derived (method/README.md section 4).

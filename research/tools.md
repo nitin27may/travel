@@ -22,7 +22,7 @@ calls; "offline" means it calls nothing.
 | `node core/bin/capture.ts types [--tree]` | the type tree and its counts | finding a type id | stdout | offline | core tests |
 | `node core/bin/capture.ts gaps --trip <trip-id> [--level usable\|complete] [--json]` | per record, the missing required properties | the brief of a gap-filling pass (README 3c) | stdout | offline | core tests |
 | `node core/bin/capture.ts run --check <file>` | validate a `capture-run/1` record | after every crawl or API run | exit code | offline | check-all "validate every data file" |
-| `node core/bin/capture.ts build [--check]` | write the generated contract files: `data/schema/capture/*`, the per-domain checklists (`docs/v2/research/capture/*` until CLN-R, then `research/types/*`), `data/schema/suitability-applicability.json` | after any change to `data/vocab/types.json` or the property registry | generated files; `--check` exits 1 on drift | offline | check-all "capture contract: generated files match data/vocab/types.json" |
+| `node core/bin/capture.ts build [--check]` | write the generated contract files: `data/schema/capture/*`, the per-domain checklists (`research/types/*`), `data/schema/suitability-applicability.json` | after any change to `data/vocab/types.json` or the property registry | generated files; `--check` exits 1 on drift | offline | check-all "capture contract: generated files match data/vocab/types.json" |
 | `node core/bin/validate.ts <file...>` or `--all` | structural and reference validation of every data family | after writing any data file | one line per problem | offline | check-all "validate every data file"; the PostToolUse hook `tools/hooks/data_changed.sh` for trip, catalog and vocab files |
 
 ## Suitability, relevance and sources

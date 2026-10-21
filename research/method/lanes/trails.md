@@ -34,7 +34,7 @@ Questions the lane must answer:
 | Shuttle stop | `entity` kind `place`, subkind `shuttle_stop` | when access is by shuttle (Moraine Lake) |
 | Shuttle or parking reservation | `offer` kind `shuttle` or `permit` | with booking window and sell-out speed |
 | Relations | `trailhead_of` (trailhead → trail), `parks_for` (parking → trailhead), `serves` (shuttle stop → trailhead), `part_of` (trail section → long route), `alternative_to` (family or Plan B option → trail), `combo_with` (trail ↔ trail or sight) | |
-| Track | `track` (research/README.md R3) | geometry with source and licence |
+| Track | `track` (method/README.md R3) | geometry with source and licence |
 | Links | `entity_link` rows (R2) | section 3 |
 | Conditions | `condition_report` rows (R4) | closures, warnings, restrictions as of the read date |
 

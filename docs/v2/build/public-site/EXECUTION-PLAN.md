@@ -495,7 +495,7 @@ Routes: walk km on 96 of 143, gain on 86. Stays: 5 places, 3 offers. **17 offers
 
 ### 6.6 Mechanics
 
-- A new type is one entry in `data/vocab/types.json`; a new property is a registry change in `core/src/schema/capture/properties.ts`; then `node core/bin/capture.ts build` regenerates `data/schema/**` and `docs/v2/research/capture/**`.
+- A new type is one entry in `data/vocab/types.json`; a new property is a registry change in `core/src/schema/capture/properties.ts`; then `node core/bin/capture.ts build` regenerates `data/schema/**` and `research/types/**`.
 - New fields: `near_town`, `near_town_km`, `geonames_id` (properties); `point_role`, `approx` (point value and sidecar).
 - Validator: `E_PLACE_AREA`, `E_PLACE_ORPHAN`, `W_PLACE_POINT` (error after migration), `W_PLACE_APPROX`, `E_PLACE_FAR`, `W_PLACE_TOWN`, `W_TIER_REQUIRED`. Migrated records warn; new records error.
 - Gap reports: `capture.ts gaps --placement` and `gaps --tier required|enrichment --layer --type`, both with `--json`.

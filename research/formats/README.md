@@ -33,7 +33,7 @@ rm -r "$T"
 ```
 
 `capture-record.json` also prints `W_CAP_BELOW_USABLE` warnings: a template shows the shape, not a complete record. Warnings
-never change the exit code. CLN-R adds a test that validates every template with `validateDoc` against its schema string, so
+never change the exit code. `core/test/research/templates.test.ts` validates every template with `validateDoc` against its schema string, so
 a schema change that breaks a template fails check-all (cleanup D16).
 
 ## Capture records (`capture/1`)
@@ -123,8 +123,7 @@ Five or more places for the location store go in one file, `research/inbox/<date
 `region`, `area`, `kind`, `lat`, `lon`, `tags`, `kid_fit`, `stats`, `notes`, `sources` with `type`, `url`, `note`,
 `screenshot`, `post_date`). There is no dry run: `python3 tools/locations.py import <file>` writes the store, then the hook
 validates and rebuilds. Real examples: `research/inbox/2026-10-17-gulong-gorge.json` (one place),
-`research/inbox/2026-10-19-washington-road-trip.json` (a road trip). A JSON template arrives with CLN-R, tested against the
-keys `import` accepts.
+`research/inbox/2026-10-19-washington-road-trip.json` (a road trip).
 
 ## Lane findings (Markdown)
 

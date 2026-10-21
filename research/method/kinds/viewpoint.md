@@ -27,7 +27,7 @@ that also reaches it, a hut or restaurant at the top.
 | access | `parks_for`, `serves` (from a lift), or `attrs.access_note` | `serves` from the Seceda cable car | |
 | `attrs.walk_from_access` | `{m, min, gain_m, surface, stroller}` | `{min: 15, gain_m: 30, surface: "gravel"}` | |
 | `attrs.viewpoint_bearing` | degrees the main view faces, or a list for a panorama | `[0, 60]` | front-lit or back-lit at the planned hour |
-| `attrs.light` | computed with `core/src/sun` (research/README.md R12): `[{best, until_hhmm, months, note}]` | `{best: "afternoon", note: "back-lit until about 13:30"}` | Echo Rock is back-lit until ~13:30 |
+| `attrs.light` | computed with `core/src/sun` (method/README.md R12): `[{best, until_hhmm, months, note}]` | `{best: "afternoon", note: "back-lit until about 13:30"}` | Echo Rock is back-lit until ~13:30 |
 | `attrs.payoff_check` | our words on whether the marked point has the view | "view is at the promontory, 30-40 min on, not at the hut" | the forested-summit problem |
 | `duration_min`, `duration_max` | minutes on site | `30`, `90` | |
 | `season`, `hours` | the access season and hours (the lift's, the road's) | lift 22 May - 2 Nov 2026 | dawn from a lift that opens at 08:30 is impossible |

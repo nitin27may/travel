@@ -26,7 +26,7 @@ Both sweep lanes are merged (19 Oct). **Stage 3** is running. Run lanes in paral
 - **L3b**, trip tags and filters (step 6, type-aware filters).
 - **L2b**, the globe experience (`design/globe/spec.md`).
 - **L4b**, trail tracks.
-- **Capture contract step 7**, gap-filling research: hours, prices, booking windows, toilets and parking. Work through `research/capture-research-backlog.md` first.
+- **Capture contract step 7**, gap-filling research: hours, prices, booking windows, toilets and parking. Work through `research/backlog.md` first.
 
 ## Stage 3 lanes (briefs written 19 Oct)
 
