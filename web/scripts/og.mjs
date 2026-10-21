@@ -1,7 +1,8 @@
-// Share images: one 1200x630 JPEG per trip and place, written to <export>/og/<kind>/<slug>.jpg after `next build`.
+// Share images: one 1200x630 JPEG per trip and place, written to web/public/og/<kind>/<slug>.jpg (gitignored) after `next build` and before
+// `next start` (the server lists public/ when it starts).
 // Hero photo (a Commons 960 px thumbnail, never the original) under a scrim, title in Big Shoulders, credit line in Plex
-// Mono, colours read from app/themes.css. Needs the export's og-manifest.json (app/og-manifest.json/route.ts), which is
-// deleted afterwards. If the browser or the network is missing, an image still gets written (no photo, or the site
+// Mono, colours read from app/themes.css. Needs the build's prerendered og-manifest.json (app/og-manifest.json/route.ts),
+// which is deleted from the build afterwards (the route itself is API-1's to remove). If the browser or the network is missing, an image still gets written (no photo, or the site
 // default), so every og:image tag points at a file that exists.
 import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -10,13 +11,14 @@ import { cleanAuthor } from './og-text.mjs';
 import { CACHE, thumb } from './commons-cache.mjs';
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const OUT = path.join(WEB, process.env.NEXT_DIST_DIR || 'out');
-const manifestFile = path.join(OUT, 'og-manifest.json');
+const APP = path.join(WEB, process.env.NEXT_DIST_DIR || '.next', 'server', 'app');
+const OUT = path.join(WEB, 'public');
+const manifestFile = path.join(APP, 'og-manifest.json.body');
 // `node scripts/og.mjs --default-only --write-public` redraws just public/og-default.png (no export needed).
 const defaultOnly = process.argv.includes('--default-only');
 if (!defaultOnly && !existsSync(manifestFile)) { console.log('og: no manifest, skipped'); process.exit(0); }
 const items = defaultOnly ? [] : JSON.parse(readFileSync(manifestFile, 'utf8')).items;
-if (!defaultOnly) rmSync(manifestFile);
+if (!defaultOnly) { rmSync(manifestFile); rmSync(path.join(APP, 'og-manifest.json.meta'), { force: true }); }
 
 const themes = readFileSync(path.join(WEB, 'app', 'themes.css'), 'utf8');
 const token = (name) => new RegExp(`${name}:\\s*(#[0-9A-Fa-f]{6})`).exec(themes)?.[1] ?? '';
@@ -71,7 +73,7 @@ if (ctx) {
   await p.setContent(page(DEFAULT, null), { waitUntil: 'load' });
   await p.evaluate(() => document.fonts.ready);
   const png = await p.screenshot({ type: 'png' });
-  if (!defaultOnly) writeFileSync(path.join(OUT, 'og-default.png'), png);
+  // the checked-in public/og-default.png is what the server serves; only --write-public redraws it
   if (process.argv.includes('--write-public')) writeFileSync(path.join(WEB, 'public', 'og-default.png'), png);
   await p.close();
 }

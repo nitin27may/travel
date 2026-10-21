@@ -1,8 +1,9 @@
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { WEB, readText, walkFiles } from './helpers';
+import { readText, walkFiles } from './helpers';
+import { builtOutDir } from './helpers/built';
 
-const OUT = path.join(WEB, 'out');
+const OUT = builtOutDir();
 const HOST = 'nks-travel.pages.dev';
 const pages = walkFiles(OUT).filter((f) => f.endsWith('.html'));
 const rel = (f: string) => path.relative(OUT, f);
@@ -44,7 +45,7 @@ describe('Open Graph and canonical tags', () => {
   });
 
   it('uses SITE_ORIGIN when set (the fixture build uses https://example.test)', () => {
-    const html = readText(path.join(WEB, '.fixture-out', 'places', 'index.html'));
+    const html = readText(path.join(builtOutDir('.fixture-out'), 'places', 'index.html'));
     expect(html).toContain('property="og:url" content="https://example.test/places/"');
     expect(html).not.toContain(HOST);
   });

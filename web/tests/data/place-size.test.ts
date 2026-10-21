@@ -2,11 +2,12 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { WEB_DIR } from './support';
+import { builtOutDir } from '../helpers/built';
 
 // S13: place page HTML stays within +25% of the baseline taken before S1 Part B (tests/data/place-html-baseline.json): the median page and the largest.
-// Reads the real build in web/out; skipped when there is none (the check-all order builds after the tests, so a clean checkout runs it on the second pass).
+// Reads the real build in web/out; fails when there is none (builtOutDir throws; check-all builds first).
 const baseline = JSON.parse(readFileSync(path.join(WEB_DIR, 'tests', 'data', 'place-html-baseline.json'), 'utf8')) as { pages: Record<string, number> };
-const OUT = path.join(WEB_DIR, 'out', 'places');
+const OUT = path.join(builtOutDir(), 'places');
 const BUDGET = 1.25;
 /**
  * No single page grows by more than 50%, except these. They are small pages (about 45 kB before) of fully researched records: every

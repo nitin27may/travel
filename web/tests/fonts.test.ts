@@ -1,8 +1,9 @@
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { WEB, readText, walkFiles } from './helpers';
+import { readText, walkFiles } from './helpers';
+import { builtOutDir } from './helpers/built';
 
-const OUT = path.join(WEB, 'out');
+const OUT = builtOutDir();
 
 describe('fonts are self-hosted', () => {
   it('references fonts.googleapis.com or fonts.gstatic.com from no exported file', () => {

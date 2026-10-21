@@ -1,15 +1,15 @@
-import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { ExportData } from '@/components/actions/ExportData';
 import { placeExportFor, tripExportFor } from '@/lib/export/build.server';
 import { placeSlugs, tripSlugs } from '@/lib/public';
-import { WEB, readText } from '../helpers';
+import { readText } from '../helpers';
+import { builtOutDir } from '../helpers/built';
 
 // Principle P8 (backlog 2.25): an export is the page's own data, never a file at a predictable address.
 
-const OUT = path.join(WEB, 'out');
+const OUT = builtOutDir();
 const jsonOf = (html: string) => {
   const m = /<script type="application\/json" data-export-data="([^"]+)">([\s\S]*?)<\/script>/.exec(html);
   return m ? { key: m[1], data: JSON.parse(m[2].replace(/\\u003c/g, '<')) as { slug: string; type: string } } : null;
@@ -50,7 +50,7 @@ describe('loadExport reads the page, not the network', () => {
   });
 });
 
-describe.skipIf(!existsSync(path.join(OUT, 'index.html')))('the built pages', () => {
+describe('the built pages', () => {
   it('every place page carries its own export and no other', () => {
     for (const slug of placeSlugs()) {
       const html = readText(path.join(OUT, 'places', slug, 'index.html'));

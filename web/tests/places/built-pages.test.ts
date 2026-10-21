@@ -4,17 +4,16 @@ import { describe, expect, it } from 'vitest';
 import { loadWorld } from '@travel/core/capture/records.ts';
 import { loadSupersedes } from '@travel/core/capture/supersede.ts';
 import { accessWords, loadRelevanceContext } from '@/lib/public/relevance';
-import { REPO, WEB_DIR } from '../data/support';
+import { REPO } from '../data/support';
+import { builtOutDir } from '../helpers/built';
 
-// Tests on the BUILT pages (web/out), where the adapter, the section renderers and the data meet. Skipped when there is no build
-// (the check-all order builds after the tests, so a clean checkout runs them on the second pass).
-const OUT = path.join(WEB_DIR, 'out', 'places');
-const built = existsSync(OUT);
+// Tests on the BUILT pages (the server build's prerendered output), where the adapter, the section renderers and the data meet. A missing build fails (builtOutDir throws).
+const OUT = path.join(builtOutDir(), 'places');
 const page = (slug: string): string => readFileSync(path.join(OUT, slug, 'index.html'), 'utf8');
 const text = (h: string): string => h.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&#x27;/g, "'").replace(/\s+/g, ' ');
 const planBLines = (h: string): string[] => [...h.matchAll(/<li class="ps-line rv-planb">([\s\S]*?)<\/li>/g)].map((m) => text(m[1]!).trim());
 
-describe.skipIf(!built)('Plan B on the built pages', () => {
+describe('Plan B on the built pages', () => {
   const world = loadWorld(REPO);
   const ctx = loadRelevanceContext(world, REPO);
   const slugs = readdirSync(OUT).filter((s) => existsSync(path.join(OUT, s, 'index.html')));
@@ -51,7 +50,7 @@ describe.skipIf(!built)('Plan B on the built pages', () => {
   });
 });
 
-describe.skipIf(!built)('a superseded value on the built pages', () => {
+describe('a superseded value on the built pages', () => {
   const file = loadSupersedes(REPO)!;
   const world = loadWorld(REPO, undefined, [], { supersede: false });
   const slugOf = (ref: string): string | null => {
@@ -88,7 +87,7 @@ describe.skipIf(!built)('a superseded value on the built pages', () => {
 
 // ---- FIXB (REVIEW4 4.27, 4.28, and the place-page fix-soon items) ----------------------------------------------------------------
 
-describe.skipIf(!built)('the Dolomites range page (4.27)', () => {
+describe('the Dolomites range page (4.27)', () => {
   const t = (): string => text(page('dolomites'));
   it('is a mountain range, not a viewpoint', () => {
     expect(t()).not.toMatch(/Viewpoint/);
@@ -111,7 +110,7 @@ describe.skipIf(!built)('the Dolomites range page (4.27)', () => {
   });
 });
 
-describe.skipIf(!built)('empty values on the built pages (4.28)', () => {
+describe('empty values on the built pages (4.28)', () => {
   const slugs = readdirSync(OUT).filter((s) => existsSync(path.join(OUT, s, 'index.html')));
   it('the Banff Gondola says its cancellation rule in the gap wording', () => {
     const t = text(page('banff-gondola'));
@@ -149,7 +148,7 @@ describe.skipIf(!built)('empty values on the built pages (4.28)', () => {
   });
 });
 
-describe.skipIf(!built)('place page labels that contradicted themselves (REVIEW4 fix soon)', () => {
+describe('place page labels that contradicted themselves (REVIEW4 fix soon)', () => {
   it('Sorapis: the "Starts at" tile reads the trailhead the Directions card names', () => {
     const h = page('lago-di-sorapis');
     const glance = /<section class="ps-glance"[\s\S]*?<\/section>/.exec(h)![0];

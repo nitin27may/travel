@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { BOOKING_BANDS, BAND_KEYS } from '@travel/core/capture/bandKeys.ts';
@@ -8,8 +8,9 @@ import { tripListRows } from '@/app/trips/rows';
 import { buildSearchIndex, buildSearchParts } from '@/lib/search/build';
 import { normalize } from '@/lib/search/normalize';
 import { createPublicData } from '@/lib/public';
-import { WEB, readText, walkFiles } from '../helpers';
+import { readText, walkFiles } from '../helpers';
 import { placeRows } from '../places/support';
+import { builtOutDir } from '../helpers/built';
 
 // Principle P8 (backlog 2.24): list, search and globe data carry card and filter fields only. Facts, links, suitability
 // values, times and notes stay on the item's own page.
@@ -128,10 +129,10 @@ describe('search records (principle P8): names and areas only', () => {
   });
 });
 
-const OUT = path.join(WEB, 'out');
+const OUT = builtOutDir();
 
-describe.skipIf(!existsSync(path.join(OUT, 'index.html')))('the built site holds no whole-catalogue file (principle P8)', () => {
-  const files = existsSync(OUT) ? walkFiles(OUT) : [];
+describe('the built site holds no whole-catalogue file (principle P8)', () => {
+  const files = walkFiles(OUT);
   const rel = (f: string) => path.relative(OUT, f).split(path.sep).join('/');
 
   it('has no places.json, trips.json, search-index.json or export-data file', () => {

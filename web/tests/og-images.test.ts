@@ -1,9 +1,10 @@
 import { existsSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { WEB, readText } from './helpers';
+import { readText } from './helpers';
+import { builtOutDir } from './helpers/built';
 
-const OUT = path.join(WEB, 'out');
+const OUT = builtOutDir();
 const locs = [...readText(path.join(OUT, 'sitemap.xml')).matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
 
 describe('sitemap and share images', () => {
