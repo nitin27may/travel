@@ -83,7 +83,7 @@ checks that make it Draft, Usable or Complete, are in the kind profiles: [../kin
 
 ## Running a fan-out
 
-Added 21 Oct 2026 (CLEANUP-PLAN CLN-1c). This is the fan-out half of the `trip-planner` skill's Phase 1, written once here;
+Added 21 Oct 2026 (CLEANUP-PLAN CLN-1c). This is the fan-out step of the `trip` skill, written once here;
 the rules every lane obeys are in [research/README.md](../../README.md) section 9.
 
 1. **Scope first.** The trip has its row in [research/trips/README.md](../../trips/README.md) and a trip type from

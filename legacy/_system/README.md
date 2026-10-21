@@ -1,3 +1,5 @@
+> Frozen 21 Oct 2026. Do not build or edit pages with this. The product's design system is `web/app/themes.css` and `docs/v2/design/foundation/`.
+
 # `legacy/_system/` — shared components and themes for trip plans
 
 Built because five hand-authored trip pages had drifted into **two incompatible

@@ -42,9 +42,11 @@ drift).
 | **import-trip** | a legacy trip folder | docs/v2/migration/: read `data/*.json`, PLAN.md tables and research files; propose catalog entities with their sources; create the trip and its items through plan operations | a catalog changeset + a trip |
 | **capture** (successor of the `location` skill) | a place name, a post, a screenshot | resolve identity (Wikidata, then Nominatim), propose a `draft` entity with the source post, add it to the household's wishlist list | a small changeset |
 
-### What replaces the current trip-planner skill
+### What replaces the former trip-planner skill
 
-The current `trip-planner` skill does research **and** builds a static page. In v2:
+> Superseded in part (21 Oct 2026): the old skill is retired (tag `archive/trip-planner-skill-2026-10-21`); `trip`, `research` and `location` replace it, and page building is dropped, not moved. See [docs/v2/SKILLS-AND-DATA-ONLY.md](../../docs/v2/SKILLS-AND-DATA-ONLY.md).
+
+The former `trip-planner` skill did research **and** built a static page. In v2:
 - Its **Phase 1 research fan-out** becomes `research-destination` / `research-lane` (the six lanes it
   names map to trails, adventure, road-trips-and-legs, sights, stays, timing-light; the rest are new).
 - Its **Phase 2 conditions routine** becomes `conditions-check`, run by the worker by default.

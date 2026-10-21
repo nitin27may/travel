@@ -9,7 +9,7 @@ Status: draft (18 Oct 2026). Template: [README.md](README.md). Method:
 A town, village or city a trip passes through or sleeps in. Stored as `entity.kind = place`, subkind
 `town`, `village` or `city`; when people sleep there it carries `attrs.base`. Produced by the
 **destination overview** lane (identity, why go, sub-regions) and the **stays** lane (the base facts
-that decide where to sleep: the trip-planner skill's rule that "the famous village is often the wrong
+that decide where to sleep: the former trip skill's rule that "the famous village is often the wrong
 one to sleep in").
 
 Geography versus place: the town's `area` row holds the polygon and the tree (country > region >
