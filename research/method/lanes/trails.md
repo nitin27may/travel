@@ -68,7 +68,7 @@ query used (for example `wikiloc: searched_none 2026-10-18 "Sorapis" site:wikilo
 "nobody looked". AllTrails pages cannot be opened by the link checker (bot block); record them as
 `found_in_search` with the search date instead of an HTTP status.
 
-The trip-planner skill's rule stays: **AllTrails and an official source, never AllTrails alone.** Where
+The former trip skill's rule stays: **AllTrails and an official source, never AllTrails alone.** Where
 AllTrails and official figures disagree, the official figure is the value and the AllTrails link is shown
 beside it; the difference is noted only if a community source explains it (different start point,
 variant route).

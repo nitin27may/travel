@@ -30,7 +30,7 @@ It **supersedes** three things:
 | K7 | **Child time is stored only when a source states it.** Otherwise it is computed at runtime from the timeline's multipliers and labelled "our rule". | No invented numbers in the data; one place to tune the rule | Few sources state child times, so most child times are computed |
 | K8 | **Enrichment writes sidecar files, `data/suitability/<trip-slug>/<lane>.json`**, keyed by stable refs. It does not edit trail, prototype or schedule files. | Lanes L4b (trail tracks) and L3c (timeline) edit those files at the same time | One extra join in the adapter. The data moves into the catalog when catalog rows exist. |
 | K9 | **The flat catalog columns stay as a projection** of the block (`min_age`, the height and weight limits, `house_grade`, `kid_fit`, `accessibility`, `walk_km`, `walk_gain_m`) | SQL filters and the existing adapter keep working | A derive step must run after every change. The validator fails on drift. |
-| K10 | **AllTrails, Komoot, Gaia, Outdooractive and Wikiloc are never a `src`.** A trail figure needs an official or operator source, or a track plus a DEM. Otherwise it is a gap. | sources-and-licences.md; trip-planner skill: "AllTrails and an official source. Never AllTrails alone." | Utah and Patagonia trails lean on NPS and APN pages, which are thinner |
+| K10 | **AllTrails, Komoot, Gaia, Outdooractive and Wikiloc are never a `src`.** A trail figure needs an official or operator source, or a track plus a DEM. Otherwise it is a gap. | sources-and-licences.md; former trip skill: "AllTrails and an official source. Never AllTrails alone." | Utah and Patagonia trails lean on NPS and APN pages, which are thinner |
 
 ## 1. The shared model
 
