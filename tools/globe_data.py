@@ -107,7 +107,7 @@ def cmd_base(args) -> int:
         (ASSETS / "vendor").mkdir(parents=True, exist_ok=True)
         (ASSETS / "vendor" / name).write_bytes(f.read_bytes())
         print(f"  wrote legacy/globe/assets/vendor/{name} ({f.stat().st_size // 1024} KB)", file=sys.stderr)
-    (ASSETS / "vendor" / "VERSIONS.txt").write_text(f"maplibre-gl {MAPLIBRE} (BSD-3, https://maplibre.org)\nworld-atlas 2 countries-50m (Natural Earth, public domain)\nworld-countries 5 (CC BY-SA 4.0)\n", encoding="utf-8")
+    (ASSETS / "vendor" / "VERSIONS.txt").write_text(f"maplibre-gl {MAPLIBRE} (BSD-3, https://maplibre.org)\nworld-atlas 2 countries-50m (Natural Earth, public domain)\nworld-countries 5 (ODbL 1.0, https://github.com/mledoze/countries)\n", encoding="utf-8")
     return 0
 
 

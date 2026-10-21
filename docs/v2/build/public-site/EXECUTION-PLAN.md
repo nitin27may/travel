@@ -556,7 +556,7 @@ Rows from a failed check: `5.x-R1-n`, `5.x-GB-n`, `5.x-R2-n`.
 | 2 | Globe | Ganges river then Ganges Plain, Fly here; rivers draw lines; Natural features off, link kept | 9.7, 9.4, 9.8 |
 | 3 | Header and footer | no Sign in; Report a problem opens the feedback repo's form with the page | 11.1, 11.2 |
 | 4 | Where filter | Canada, Alberta, Banff National Park; remove Canada | 8.1 |
-| 5 | Trail facts and AllTrails | Fenland Loop strip; Search AllTrails | 10.1, 10.3 |
+| 5 | Trail facts and trail guide link | Fenland Loop strip; the 'Trail guide · link only' tile ("Open trail page" or "Search for this trail"; the platform name stays out of visible text by the privacy rule, it is in the link's accessible name only) | 10.1, 10.3 |
 | 6 | Carried over | Rockies trip and "Plan it for"; Moraine Lake and Capri; places list on a phone; globe deep link reload; sentence search; Safari on iPhone and Mac; dark mode on a phone | 6.1 |
 | 7 | Home globe mock | approve or change | 9.2 |
 | 8 | Metadata baseline | read what E will fill | 13.5 |
@@ -587,7 +587,7 @@ Open the link from the hand-over on your Mac (Safari), then your iPhone (Safari)
 | 2 | `/globe/` | "Ganges": the river, then "Ganges Plain", Fly here; Map options, Natural features off; copy the link to a new tab | nothing moves; a state lights up for a river; the switch is lost |
 | 3 | Header, footer | look for Sign in; use Report a problem | Sign in shows; the link fails |
 | 4 | `/places/` on the phone | Where: Canada, Alberta, Banff National Park; remove Canada | wrong counts; the bar hides what is filtered |
-| 5 | Fenland Loop (any trail) | facts strip; Search AllTrails | a slot missing, a gap hidden, the link broken |
+| 5 | Fenland Loop (any trail) | facts strip; the 'Trail guide' tile: 'Search for this trail' | a slot missing, a gap hidden, the link broken |
 | 6 | Rockies trip | Plan it for a 3-year-old | a time or "does not fit" reads false |
 | 7 | Moraine Lake and Capri | compare | two layouts feel like two sites |
 | 8 | Search | "easy hike with kids near Banff in September" | chips misread it |
