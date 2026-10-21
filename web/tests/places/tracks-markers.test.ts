@@ -2,7 +2,8 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { cleanNote } from '@/lib/public/trail-places';
 import { createPublicData } from '@/lib/public';
-import { WEB, readText, walkFiles } from '../helpers';
+import { readText, walkFiles } from '../helpers';
+import { builtOutDir } from '../helpers/built';
 
 const MARKER = /\b(INFERENCE|CALC|GAP)\b|low confidence|in the dataset/;
 
@@ -21,7 +22,7 @@ describe('research markers never reach a trail page', () => {
     }
   });
   it('every built place page is free of them in its visible text', () => {
-    const pages = walkFiles(path.join(WEB, 'out', 'places')).filter((f) => f.endsWith('index.html'));
+    const pages = walkFiles(path.join(builtOutDir(), 'places')).filter((f) => f.endsWith('index.html'));
     expect(pages.length).toBeGreaterThan(100);
     for (const f of pages) {
       const text = readText(f).replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ');

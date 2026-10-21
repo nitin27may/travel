@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import path from 'node:path';
-import { WEB, readText, walkFiles } from './helpers';
+import { readText, walkFiles } from './helpers';
+import { builtOutDir } from './helpers/built';
 
-const pages = (dir: string) => walkFiles(path.join(WEB, dir)).filter((f) => f.endsWith('.html'));
+const pages = (dist: string) => walkFiles(builtOutDir(dist)).filter((f) => f.endsWith('.html'));
 
 describe('Cloudflare Web Analytics beacon', () => {
   it('is on every exported page when NEXT_PUBLIC_CF_BEACON_TOKEN is set at build', () => {
@@ -16,7 +16,7 @@ describe('Cloudflare Web Analytics beacon', () => {
   });
 
   it('is on no page when the variable is not set', () => {
-    for (const dir of ['.fixture-out', 'out']) {
+    for (const dir of ['.fixture-out', '.next']) {
       for (const f of pages(dir)) {
         const html = readText(f);
         expect(html, f).not.toContain('cloudflareinsights');
