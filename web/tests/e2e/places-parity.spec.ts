@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { ROOT, expect, readStore, test } from './fixtures';
+import { ROOT, expectSlow as expect, readStore, test } from './fixtures';
 import type { Page } from '@playwright/test';
 
 // The legacy list page (hash state) and /places/ (query state) must show the same number of places
@@ -79,7 +79,12 @@ async function appCount(page: Page, base: string, params: string, onlySaved = tr
   await page.goto(`${base}/places/${all ? `?${all}` : ''}`);
   const strong = page.locator('.filter-bar .count strong');
   await expect(strong).toBeVisible();
-  return settled(page, async () => Number((await strong.textContent())?.trim()));
+  // the count grows as the country shards arrive and can sit still between two of them under load: the filter buttons are disabled until every row is in
+  await expect(page.locator('[role="group"][aria-label="Filters"] button[disabled]')).toHaveCount(0);
+  const read = async () => Number((await strong.textContent())?.trim());
+  // `ids=` limits the list to the saved places, so any larger count is the unfiltered list shown before the URL's filters were applied
+  if (onlySaved) await expect.poll(read, { message: 'the URL filters were never applied' }).toBeLessThanOrEqual(store.places.length);
+  return settled(page, read);
 }
 
 test.describe('places parity with the legacy list page', () => {

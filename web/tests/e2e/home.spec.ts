@@ -1,6 +1,9 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test } from './fixtures';
+import { expectSlow as expect, settledValue, test } from './fixtures';
 import { shoot } from './shots';
+
+// slow-machine settings: a 30 s wait per assertion and 120 s per test (see expectSlow in fixtures.ts)
+test.describe.configure({ timeout: 120_000 });
 
 const LANE = 'L1';
 
@@ -44,6 +47,8 @@ test.describe('home', () => {
     const link = page.getByRole('option', { name: /^Show places/ });
     await expect(link).toBeVisible();
     await expect(link).toHaveAttribute('href', /^\/places\/\?(?=.*country=IT)(?=.*k=nature\.trail)/);
+    // the suggestion re-renders as the counts arrive: click once its href has stopped changing
+    await settledValue(() => link.getAttribute('href'));
     await link.click();
     await expect(page).toHaveURL(/\/places\/\?(?=.*country=IT)(?=.*k=nature\.trail)/);
     // "family" is a question until an age is picked: the Youngest child control is not filled with a guess (REVIEW4)
@@ -55,7 +60,8 @@ test.describe('home', () => {
     // the header's own "/" handler skips pages that have a [aria-keyshortcuts="/"] element, and its Search button is one (request to L0), so click
     await page.getByRole('button', { name: 'Search' }).click();
     await page.getByRole('combobox').fill('xyzq');
-    await expect(page.getByText('No trip or place matches')).toBeVisible();
+    // the first character loads the search index (about 35 small files); under load that takes longer than the default wait
+    await expect(page.getByText('No trip or place matches')).toBeVisible({ timeout: 30_000 });
   });
 
   for (const [name, path] of [['home', '/'], ['another page', '/about/data/']] as const) {

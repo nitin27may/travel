@@ -54,7 +54,11 @@ async function waitFor(url: string): Promise<void> {
 /** `python3 -m http.server` on a free port; stopped by its own PID, never by name. */
 export async function serve(dir: string): Promise<Server> {
   const port = await freePort();
-  const child: ChildProcess = spawn('python3', ['-m', 'http.server', String(port), '--bind', '127.0.0.1', '--directory', dir], { stdio: 'ignore' });
+  // `python3 -m http.server` listens with a backlog of 5, so a page that fetches 15 shards at once under load got ERR_CONNECTION_RESET and never finished
+  // loading (the "Counting..." that failed ten specs at 30 s). Same server, a backlog of 256.
+  const code = 'import sys, functools, http.server as h; h.ThreadingHTTPServer.request_queue_size = 256; ' +
+    'h.test(HandlerClass=functools.partial(h.SimpleHTTPRequestHandler, directory=sys.argv[2]), ServerClass=h.ThreadingHTTPServer, port=int(sys.argv[1]), bind="127.0.0.1")';
+  const child: ChildProcess = spawn('python3', ['-c', code, String(port), dir], { stdio: 'ignore' });
   const pid = child.pid as number;
   const url = `http://127.0.0.1:${port}`;
   await waitFor(`${url}/`);
@@ -110,3 +114,27 @@ export interface StoreRows {
 export function readStore(): StoreRows {
   return JSON.parse(readFileSync(path.join(ROOT, 'data', 'locations', 'locations.json'), 'utf8')) as StoreRows;
 }
+
+/**
+ * Waits until `read` returns the same value on two reads `quietMs` apart, then returns it. For values a page writes more than once while it
+ * hydrates or re-renders (a title, a link, a count): the spec compares the settled value, not the first one it saw.
+ */
+export async function settledValue<T>(read: () => Promise<T>, opts: { quietMs?: number; timeout?: number; message?: string } = {}): Promise<T> {
+  const { quietMs = 300, timeout = 10_000, message = 'the value never settled' } = opts;
+  const started = Date.now();
+  let prev = JSON.stringify(await read().catch(() => undefined));
+  for (;;) {
+    await new Promise((r) => setTimeout(r, quietMs));
+    const value = await read().catch(() => undefined);
+    const now = JSON.stringify(value);
+    if (now === prev && value !== undefined) return value as T;
+    if (Date.now() - started > timeout) throw new Error(message);
+    prev = now;
+  }
+}
+
+/**
+ * `expect` with a 30 s wait. Under load (several suites on one machine) a page needs longer than the 10 s default to hydrate and load its rows;
+ * the assertions are the same and still wait for the settled value, they just give a slow machine the time it needs.
+ */
+export const expectSlow = expect.configure({ timeout: 30_000 });

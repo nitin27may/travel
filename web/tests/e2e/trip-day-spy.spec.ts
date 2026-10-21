@@ -1,6 +1,9 @@
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
-import { expect, test } from './fixtures';
+import { expectSlow as expect, test } from './fixtures';
+
+// slow-machine settings: a 30 s wait per assertion and 120 s per test (see expectSlow in fixtures.ts)
+test.describe.configure({ timeout: 120_000 });
 
 // The current day (design 3.4): scroll position decides it, a jump pins it, the URL hash follows with replaceState.
 const TRIPS = ['/trips/canadian-rockies-2029/', '/trips/dolomites-2027/'];
@@ -58,7 +61,7 @@ async function settled(page: Page) {
       const same = y === prev;
       prev = y;
       return same;
-    }, { intervals: [350], timeout: 8000 })
+    }, { intervals: [350], timeout: 20_000 })
     .toBe(true);
 }
 
@@ -77,10 +80,10 @@ for (const size of SIZES) {
             await scrollDayTo(page, n, at);
             await settled(page);
             const p = await probe(page);
-            await expect.poll(async () => (await shown(page)).rail, { timeout: 5000, message: `day ${n} at ${at}` }).toEqual([p.expected]);
-            const now = await shown(page);
-            expect(now.strip, `strip at day ${n}, ${at}`).toEqual([p.expected]);
-            expect(now.day, `day card at day ${n}, ${at}`).toEqual([p.expected]);
+            await expect.poll(async () => (await shown(page)).rail, { timeout: 20_000, message: `day ${n} at ${at}` }).toEqual([p.expected]);
+            // the strip marker and the day card are written a frame after the rail cell: wait for them, not for a moment
+            await expect.poll(async () => (await shown(page)).strip, { timeout: 20_000, message: `strip at day ${n}, ${at}` }).toEqual([p.expected]);
+            await expect.poll(async () => (await shown(page)).day, { timeout: 20_000, message: `day card at day ${n}, ${at}` }).toEqual([p.expected]);
             await expect(page.locator(CELL)).toHaveCount(1);
             await expect.poll(() => page.evaluate(() => location.hash), { message: `hash at day ${n}, ${at}` }).toBe(`#day-${p.expected}`);
             // a day whose top sits at 150 px, or just above the line, is the one in focus (owner report 19 Oct)
@@ -147,8 +150,7 @@ for (const size of SIZES) {
       expect(g.day).toBeLessThanOrEqual(g.bars + 40);
       expect(g.title).toBeGreaterThan(g.bars);
       await expect.poll(() => page.evaluate(() => location.hash)).toBe('#day-10');
-      const now = await shown(page);
-      expect(now).toEqual({ rail: [10], strip: [10], day: [10] });
+      await expect.poll(() => shown(page), { timeout: 20_000 }).toEqual({ rail: [10], strip: [10], day: [10] });
     });
 
     test('the whole-trip strip jumps too, and a rail cell takes Enter from the keyboard', async ({ page, site }) => {
@@ -160,7 +162,7 @@ for (const size of SIZES) {
       await page.keyboard.press('Enter');
       await settled(page);
       await expect(page.locator(CELL)).toHaveText('3');
-      expect((await shown(page)).strip).toEqual([3]);
+      await expect.poll(async () => (await shown(page)).strip).toEqual([3]);
     });
   });
 }
