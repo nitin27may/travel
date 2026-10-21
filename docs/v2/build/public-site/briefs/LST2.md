@@ -1,11 +1,13 @@
-# LST2: the Where filter (part a, phase B), its city level (part b, E) and near mode (part c, E)
+# LST2: the Where filter (part a, phase A), its city level (part b, E) and near mode (part c, E)
+
+> **Corrected 21 Oct 2026:** part a is phase A (EXECUTION-PLAN tasks A7, A7b), not phase B; the plan tasks are A7, A7b, E8 and E10. Entry point: [docs/v2/PLAN.md](../../../PLAN.md). Worktree paths below are from the first (Linux) machine; use `<repo parent>/travel-wt/` here.
 
 Extends [LST.md](LST.md) (stage 4). This brief is self-contained for round 2.
 
 - **Agent:** `travel-builder` (Sonnet).
 - **Effort:** part a 16 h (8 h Where pill plus 8 h of list polish from the coverage sweep), part b 12 h, part c 9 h (each including about 1 h of Opus review and 1 h of verification).
 - **Rows:** a: 8.1 (phase N0), Q54, and the list polish lines R4-P2, R4-P3, 3.62c, 3.62d, 3.66c to 3.66h, VI-2 in [COVERAGE.md](../COVERAGE.md). b: 8.1 city level, 8.11 (`where-<cc>.json`), 8.12 and Q61 (Trips by province), Q62. c: 8.2 list part, 8.11 bbox, 8.16, Q56, Q57, 3.66 part (parser budget).
-- **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) tasks B1, E9, E11.
+- **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) tasks A7, A7b, E8, E10 (corrected 21 Oct; was "B1, E9, E11").
 - **Spec:** [nearby-and-regions.md](../../../features/nearby-and-regions.md) sections 4 and 5 (wireframes, keys, keyboard, empty states, P8 files), phases N0, N1 (WH-C, TR) and N2 (NB list part).
 - **Principles:** P1, P2, P4, P8, P9, T5.
 - **Starts:** a on day 1 (no API dependency: use the existing `listPlaces`, `countList` and facets; no new boundary signature); b after gate G-B (the API is in) and META-2 (towns); c after b and after PLC2b's `core/src/nearby/` merges. Parts are serial: they own the same files. Parts b and c build on `CatalogueStore`: the city facet and counts in `core/src/query/`, near in `core/src/catalogue/json/near.ts`, the handlers under `web/app/api/v1/`.

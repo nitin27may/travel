@@ -1,5 +1,7 @@
 # Master plan: the public site (no login), everything that is left
 
+> **Superseded as the entry point (21 Oct 2026):** read [docs/v2/PLAN.md](../../PLAN.md) first. Sections 0, 2 and 8 (state, order, open decisions) are superseded by PLAN.md sections 3 and 5. Sections 3 to 7b stay as the item list with backlog rows. The preview URL in section 0 is dead. Nothing below is deleted.
+
 The one list. Every pending item for the public, read-only site is here, in the order we will do it, with the backlog row that holds its status and the plan or spec that holds its detail. The planner product (sign-in, saved trips, collaboration) is listed at the end as a separate product.
 
 **Rules for this file.** It never holds detail: it links. A new finding goes into `BACKLOG.md` first, then gets a line here. Status lives in `BACKLOG.md` (the row) and `STATUS.md` (the coordinator's handover). Owner decisions live in section 8. Updated 20 Oct 2026.

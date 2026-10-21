@@ -1,5 +1,7 @@
 # Stage 4 to 7 plan: design polish, cross-model checks, owner preview, go-live
 
+> **21 Oct 2026:** the current plan is [docs/v2/PLAN.md](../../PLAN.md). Sections 4 (stage 5 timing), 5 (stage 6 preview pass) and 6 (stage 7 go-live on Pages) are superseded by PLAN.md section 3 and EXECUTION-PLAN 7, 8, 11 and 13. Section 4's pass rules still define each check. The branch named below (`claude/serene-goldberg-wtn3di`) was deleted on 21 Oct and archived as the tag `archive/claude-serene-goldberg-wtn3di`.
+
 > **Superseded in part (20 Oct 2026):** stage 5 (section 4) and stage 6 (section 5) now run once per review gate, R1 and R2, and the stage 7 checklist (section 6) is replaced by [EXECUTION-PLAN.md](EXECUTION-PLAN.md) sections 7, 8, 10 and 12. The rest stands as the record of stage 4.
 
 Written 19 Oct 2026 by travel-planner (Opus) for the coordinator. Lanes start the moment **D2** (with CS7c inside it) merges onto `claude/serene-goldberg-wtn3di`. Rows are in [BACKLOG.md](BACKLOG.md); live lane state is in [STATUS.md](STATUS.md). Briefs are in [briefs/](briefs/).

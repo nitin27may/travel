@@ -1,6 +1,6 @@
 # Coverage matrix: every pending public-site item and the task that delivers it
 
-Companion to [EXECUTION-PLAN.md](EXECUTION-PLAN.md) (section 22). Swept on 20 Oct 2026, line by line, from:
+Companion to [EXECUTION-PLAN.md](EXECUTION-PLAN.md) (section 22). Entry point since 21 Oct 2026: [docs/v2/PLAN.md](../../PLAN.md). L7 closed 21 Oct; the counts below are as swept on 20 Oct. Swept on 20 Oct 2026, line by line, from:
 - every [BACKLOG.md](BACKLOG.md) row not marked done (stages 2 to 15, the questions table, the Later list);
 - every Open row of [docs/v2/TODO.md](../../TODO.md);
 - the review and note files under `docs/v2/design/` (the whole-site review's "Fix soon" list item by item; the lane reviews through the rows that collected them, 4.4 to 4.16);
@@ -40,7 +40,7 @@ Visible UI defects and polish (marked UI): 84 in all, 55 of them in phase A.
 
 | Line | Item | Recommendation |
 |---|---|---|
-| L7 | P4b PR #7 and the parked P3b worktree | Close PR #7 and delete both, after `git cherry` confirms nothing unmerged; listed with the Q49 cleanup batch |
+| L7 | P4b PR #7 and the parked P3b worktree | **Closed 21 Oct 2026:** PR #7 closed; the old remote branches deleted and archived as `archive/*` tags. Only L9 remains open |
 | L9 | Free AI features (embedding search, CLIP photo picks, similar places) | Not now: keep in Phase F, revisit near 1,000 places with summaries (the spike measured no gain at today's size) |
 
 ## The matrix
@@ -199,7 +199,7 @@ Visible UI defects and polish (marked UI): 84 in all, 55 of them in phase A.
 | 150 | BACKLOG Later | L4 | A person confirms held trail data (Braies P1, Monte Piana, Fanes, Seceda, Nuvolau, Lago d Antorno) | data | R2 optional owner item | C (review gates and checks) | owner |  |
 | 151 | BACKLOG Later | L5 | R2 bucket for offline maps | server-side | Laundry list item 32 | Server side (laundry list) |  |  |
 | 152 | BACKLOG Later | L6 | Prototype: bookings wallet, Explore map labels, person-level items | server-side | Laundry list items 19, 27, 34 | Server side (laundry list) |  |  |
-| 153 | BACKLOG Later | L7 | P4b PR #7 and the parked P3b worktree | decision | Needs owner (confirm close and delete) | Needs owner decision | owner |  |
+| 153 | BACKLOG Later | L7 | P4b PR #7 and the parked P3b worktree | decision | Done 21 Oct: PR #7 closed, branches archived as `archive/*` tags | Needs owner decision (closed 21 Oct) | owner |  |
 | 154 | BACKLOG Later | L8 | Place-page data enrichment (parking, fees, swimming, boats, loops, best time) | data | Required tier in DATA D1 to D6 (E); the rest of the enrichment tier Phase F | E | DATA |  |
 | 155 | BACKLOG Later | L9 | Free AI features (embeddings, CLIP photos, similar places) | decision | Needs owner (proposed, awaiting go) | Needs owner decision | owner |  |
 | 156 | TODO | T1 | Public site execution plan | enhancement | This plan | C (review gates and checks) |  |  |
