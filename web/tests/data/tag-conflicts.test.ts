@@ -4,9 +4,9 @@ import { describe, expect, it } from 'vitest';
 import { createPublicData } from '@/lib/public';
 import { travelRoot } from '@/lib/data/root';
 
-// docs/v2/research/trip-tag-conflicts.md: where the scheduler's Kids from N and Hike effort differ from the plan's own typed values, what
+// research/reports/trip-tag-conflicts.md: where the scheduler's Kids from N and Hike effort differ from the plan's own typed values, what
 // decides each, and whether a gap is involved. Generated: `pnpm --dir web tag-conflicts` rewrites it; this test fails when it is stale.
-const FILE = path.join(travelRoot(), 'docs', 'v2', 'research', 'trip-tag-conflicts.md');
+const FILE = path.join(travelRoot(), 'research', 'reports', 'trip-tag-conflicts.md');
 const TAG = { kidsFrom: 'Kids from N', hike: 'Hike effort' } as const;
 const cell = (v: string | number | null) => (v === null ? 'none' : String(v)).replace(/\|/g, '/');
 

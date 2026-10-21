@@ -1,5 +1,5 @@
 // The applicability file (data/schema/suitability-applicability.json) as typed data, plus the lookups that read it:
-// which profile a record has, and whether a field path is R, A or N for it (docs/v2/research/suitability-applicability.md).
+// which profile a record has, and whether a field path is R, A or N for it (research/method/suitability-applicability.md).
 //
 // Every consumer reads the table through this module: the validator (W_SUIT_NA_FIELD, suit_level), derive (suit_level,
 // the family effort), gates (which checks apply), the projections (N fields are skipped) and the lane briefs (`fields`).

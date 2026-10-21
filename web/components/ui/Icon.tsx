@@ -102,7 +102,7 @@ export function Icon({ name, size = 16, className, ...rest }: IconProps) {
 }
 
 /**
- * Kind to glyph. The fifteen research kinds (docs/v2/research/kinds) plus area and scenic drive, then the
+ * Kind to glyph. The fifteen research kinds (research/method/kinds) plus area and scenic drive, then the
  * kinds today's data still uses (locations.json) so nothing falls back to a pin that has a better glyph.
  */
 export const KIND_ICONS: Record<string, IconName> = {

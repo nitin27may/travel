@@ -122,7 +122,7 @@ describe("the other fixes", () => {
     expect(w.operators.get("operator/hielo-y-aventura-s-a")!.derived_from![0]!.url).toBe("https://hieloyaventura.com/excursiones/minitrekking");
   });
   it("the research backlog names the missing places and relations", () => {
-    const t = readFileSync(join(REPO, "docs/v2/research/capture-research-backlog.md"), "utf8");
+    const t = readFileSync(join(REPO, "research/backlog.md"), "utf8");
     for (const w of ["Sulphur Mountain", "Tre Cime", "Rockpile", "shuttle stop", "Larch Valley"]) expect(t, w).toContain(w);
   });
 });

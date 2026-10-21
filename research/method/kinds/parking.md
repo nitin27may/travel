@@ -8,7 +8,7 @@ section 4 (the parking table there is the source of these fields).
 One parking lot (or one signed stretch of legal roadside parking). Stored as `entity.kind = place`,
 subkind `parking`. Produced by the **trails** lane, and by sights and road-trips for lots that serve
 lakes, viewpoints, towns and lifts. Parking capacity and fill time decide the order of a day
-(research/README.md section 8), so a lot is never a text field on the trail or the lake.
+(method/README.md R1), so a lot is never a text field on the trail or the lake.
 
 One entity per lot the agency or the ground names separately: Rifugio Auronzo has P1, P2, P3 and P4
 in OSM; Lago di Braies has P2 (about 800 m from the lake) to P4 (about 100 m). A park-and-ride for a

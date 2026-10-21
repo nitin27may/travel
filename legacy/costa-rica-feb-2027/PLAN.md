@@ -2,7 +2,7 @@
 
 Party: two adults and a son aged 10. Open-jaw: fly into Liberia (LIR), out of San Jose (SJO).
 Main plan **10 nights, Sat 13 – Tue 23 Feb 2027**. Alternative **8 nights, Sat 13 – Sun 21 Feb** (drops Uvita).
-Source files: `research/*.md` in this folder. Everything priced here is a 2026 figure — no Feb 2027 quote exists for anything.
+Source files: `research/trips/costa-rica-feb-2027/*.md`. Everything priced here is a 2026 figure — no Feb 2027 quote exists for anything.
 
 ## Architecture rules
 

@@ -1,5 +1,5 @@
-// Trail records keyed by place id. Field names follow docs/v2/research/lanes/trails.md and
-// travel/docs/research/trails-and-media-2026-10-18.md section 1 (fallback chain, link-only platforms).
+// Trail records keyed by place id. Field names follow research/method/lanes/trails.md and
+// travel/research/reports/trails-and-media-2026-10-18.md section 1 (fallback chain, link-only platforms).
 // Every researched value carries a source and the date it was read. A value typed in by a person carries
 // `you: true` instead and waits for review (in the real app research proposes and review verifies).
 import { useSyncExternalStore } from "react";

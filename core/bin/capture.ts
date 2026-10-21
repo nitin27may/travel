@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// The capture contract CLI (docs/v2/research/capture-contract.md 5.2): what a record of a type must carry, where each mark comes
+// The capture contract CLI (research/method/capture-contract.md 5.2): what a record of a type must carry, where each mark comes
 // from, the generated outputs and their drift check, the gaps of a trip, and the crawl-run record check.
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
@@ -23,7 +23,7 @@ Commands:
                           aliases and the old kind/subkind pairs. --ref <ref> adds what is still missing on that record.
   explain <type>          where each mark comes from (the node or the ancestor that set it)
   types [--tree]          the counts of the tree (domains, categories, type ids); with --tree print it
-  build [--check]         write the generated files (data/schema/capture/*, the applicability file, docs/v2/research/capture/*);
+  build [--check]         write the generated files (data/schema/capture/*, the applicability file, research/types/*);
                           --check exits 1 on drift. Runs in tools/check-all.sh.
   gaps --trip <trip> [--level usable|complete] [--json]
                           per record, the missing required properties; the brief of a research pass
