@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { createPortal } from 'react-dom';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Icon, kindIcon } from '@/components/ui/Icon';
 import { countParsedAsync, onSearchGrow, relaxText, relaxToResults, search, suggest } from '@/lib/client/data';
@@ -70,9 +71,13 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
     if (!open) return;
     const onDown = (e: PointerEvent) => {
       const t = e.target as Element | null;
-      // the header's own search button keeps the panel open (it only ever opens)
-      if (!t || panelRef.current?.contains(t) || t.closest('[aria-keyshortcuts="/"]')) return;
-      requestClose(false);
+      if (!t || panelRef.current?.contains(t)) return;
+      // a second press on a Search button (header or hero) closes the panel and returns focus to it; the click that follows only
+      // asks to open what is already open, so it ends closed
+      const toggle = t.closest('[aria-keyshortcuts="/"]');
+      // Safari does not focus a button on press, so the opener recorded at mount can be <body>: focus the button that was pressed
+      if (toggle) opener.current = toggle;
+      requestClose(!!toggle);
     };
     const startY = window.scrollY;
     const onScroll = () => {
@@ -222,7 +227,8 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   };
 
   let index = lead.length - 1;
-  return (
+  // portalled to <body>: the hero card is transformed, and a transformed ancestor turns position: fixed into "relative to the card"
+  return createPortal(
     <div
       ref={panelRef}
       className="search-dialog gs gs-panel"
@@ -388,6 +394,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
               ))
             )}
           </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
