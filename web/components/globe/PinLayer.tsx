@@ -150,7 +150,10 @@ export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFo
       const items: ClusterItem[] = [];
       for (const p of pins) {
         const at = engine.project(p.lng, p.lat);
-        if (at) items.push({ id: p.id, x: at.x, y: at.y, lng: p.lng, lat: p.lat, r: radiusOf(p), count: p.count, label: p.label, tier: p.tier, quiet: p.quiet });
+        // A country disc is drawn on the sea beside its land (seaOffset), so it is clustered where it is DRAWN: two discs whose drawn circles
+        // overlap merge, instead of one sitting on the other after the offset (review M2). Pins are never nudged, so no place is misplaced (T5).
+        const off = isLand && p.kind === 'country' ? seaOffset(p.lng, p.lat, isLand, discSize(p.count) / 2 + 8) : null;
+        if (at) items.push({ id: p.id, x: at.x + (off?.[0] ?? 0), y: at.y + (off?.[1] ?? 0), lng: p.lng, lat: p.lat, r: radiusOf(p), count: p.count, label: p.label, tier: p.tier, quiet: p.quiet });
       }
       // the home cover runs the same pass as /globe/ (review S4): two discs that would touch become one link to the globe
       const next = clusterItems(items);
@@ -159,7 +162,7 @@ export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFo
       last.current = key;
       setClusters(next);
     };
-  }, [engine, pins]);
+  }, [engine, pins, isLand]);
 
   useEffect(() => {
     const map = engine.map;

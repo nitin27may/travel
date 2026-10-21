@@ -60,6 +60,9 @@ export interface ControllerOptions {
   book50?: { book: CountryBook; render: string };
 }
 
+/** Height in px of the feature card docked above the bottom bar on a phone. */
+export const FEATURE_DOCK = 150;
+
 export const WORLD_CAMERA = { desktop: { lng: -35, lat: 22, zoom: 1.95 }, phone: { lng: -35, lat: 22, zoom: 1.0 } };
 
 const titleCase = (slug: string): string => slug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
@@ -145,8 +148,10 @@ export class GlobeController {
    * What a flight keeps clear (the free area, spec 3.1): the open side panel, the search and crumb rows, and on a landscape phone
    * the card dock that opens on the left. `card` is true when a selection card is about to open: on the phone it is a half sheet.
    */
-  padding(card = false): Padding {
+  padding(card = false, feature = false): Padding {
     const { height, cover, mode } = this.o.layout();
+    // A fitted feature's card is docked at the bottom on a phone (its height and 16 px) and the control column is 56 px on the right (review M1).
+    if (mode === 'phone' && feature) return { top: 120, right: 24 + 56, bottom: FEATURE_DOCK + 16 + 20, left: 24 };
     if (mode === 'phone') return { top: 120, right: 24, bottom: card ? Math.round(height * 0.5) + 24 : cover.bottom + 20, left: 24 };
     if (mode === 'landscape') return { top: 64, right: (cover.right || 8) + 12, bottom: 24, left: card ? 308 : 24 };
     return { top: 90, right: cover.right ? cover.right + 26 : 90, bottom: 80, left: 90 };
@@ -297,7 +302,7 @@ export class GlobeController {
   private flyMove(m: FitMove, cls: string): void {
     const engine = this.engine;
     if (!engine) return;
-    engine.setPadding(this.padding());
+    engine.setPadding(this.padding(false, true));
     if (m.type === 'point') { engine.flyToPoint(m.at, m.zoom, { plan: this.plan('feature', { featureClass: cls }) }); return; }
     // a fitted feature is centred and flat: the subject sits in the middle of the free area so the camera ends inside its box
     engine.flyToBox(m.box, { plan: { ...this.plan('feature', { featureClass: cls }), pitch: 0, shift: 0, maxDuration: 1600 }, maxZoom: m.maxZoom, wide: m.wide });

@@ -12,11 +12,13 @@ interface Props {
   book: CountryBook;
   /** False when the "Natural features" switch is off: rivers, landforms and seas leave the results. */
   features?: boolean;
+  /** Turns natural features back on from the empty-result row; the query stays. */
+  onTurnOnFeatures?(): void;
   onPick(hit: SearchHit): void;
 }
 
 /** Search a country, state, city, sea or range (components 7.2); saved places and trips come first. `/` focuses it. */
-export function GlobeSearch({ book, features = true, onPick, placeholder = 'Search the globe' }: Props) {
+export function GlobeSearch({ book, features = true, onTurnOnFeatures, onPick, placeholder = 'Search the globe' }: Props) {
   const [q, setQ] = useState('');
   const [open, setOpen] = useState(false);
   const [cursor, setCursor] = useState(0);
@@ -43,6 +45,12 @@ export function GlobeSearch({ book, features = true, onPick, placeholder = 'Sear
     return () => { live = false; };
   }, [q, open]);
   const hits = useMemo(() => (open ? search(q, sources, 12, { features }) : []), [q, sources, open, features]);
+
+  // With the switch off, a query that matches only natural features says so and offers the one way back (P4), instead of an empty list.
+  const hiddenFeature = useMemo(() => {
+    if (features || !open || !q.trim() || hits.length) return null;
+    return search(q, sources, 12, { features: true }).find((h) => h.action.type === 'feature') ?? null;
+  }, [features, open, q, sources, hits.length]);
 
   const warm = () => { void loadGazetteer().then(setGaz).catch(() => undefined); };
   const pick = (h: SearchHit | undefined) => {
@@ -77,6 +85,14 @@ export function GlobeSearch({ book, features = true, onPick, placeholder = 'Sear
           else if (e.key === 'Escape') { if (open) { setOpen(false); e.stopPropagation(); } else input.current?.blur(); }
         }}
       />
+      {hiddenFeature ? (
+        <ul className="globe-results" role="listbox" aria-label="Search results">
+          <li className="globe-result globe-result-note" role="presentation" onMouseDown={(e) => e.preventDefault()}>
+            <span className="globe-result-name">{hiddenFeature.name} is a natural feature. Natural features are off.</span>
+            <button type="button" className="globe-result-act" onClick={() => onTurnOnFeatures?.()}>Turn on</button>
+          </li>
+        </ul>
+      ) : null}
       {open && hits.length ? (
         <ul className="globe-results" role="listbox" id={listId} aria-label="Search results">
           {hits.map((h, i) => (

@@ -28,7 +28,7 @@ import { FeatureCard, SelectionCard, type NearbyPlace } from './SelectionCard';
 import { featureClass, loadFeatureFacts, type FeatureFacts } from '@/lib/globe/wikidata';
 import { distanceKm } from '@/lib/map/geo';
 import { nodeAt } from '@/lib/globe/model';
-import { placeCard, type Rect } from '@/lib/globe/anchor';
+import { farCorner, placeCard, type Rect } from '@/lib/globe/anchor';
 import { landTest } from '@/lib/globe/placement';
 
 const EMPTY: GlobeSnapshot = { ready: false, failed: null, loading: '', path: [], crumbs: [], selected: null, feature: null, boundary: null, here: null, districtTrips: [], pins: [], notice: null };
@@ -346,6 +346,29 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     const at = engine.project(feature.lngLat[0], feature.lngLat[1]);
     const w = root.current?.clientWidth ?? window.innerWidth, h = root.current?.clientHeight ?? window.innerHeight;
     const free: Rect = { left: 0, top: chromeBottom(root.current), right: w - (panelOpen ? 384 : 0), bottom: h - 36 };
+    // A fitted feature (river, plain, range) gets its card in the free corner farthest from the feature once the camera rests, never on the
+    // feature itself (review M1); a point feature (peak, town) keeps the card beside its point.
+    const bb = feature.fit?.bbox;
+    if (bb && featTick > 0 && !engine.map.isMoving()) {
+      const sw = engine.map.project([bb[0], bb[1]]), ne = engine.map.project([bb[2], bb[3]]);
+      const box: Rect = { left: Math.min(sw.x, ne.x), right: Math.max(sw.x, ne.x), top: Math.min(sw.y, ne.y), bottom: Math.max(sw.y, ne.y) };
+      // the line's own vertices on screen: the card avoids the line itself, not only its box
+      const r0 = root.current?.getBoundingClientRect();
+      const pts: { x: number; y: number }[] = [];
+      for (const f of engine.map.querySourceFeatures('feature-shape')) {
+        const flat = (f.geometry as unknown as { coordinates: unknown }).coordinates as unknown;
+        const nums = (flat as number[]).flat(4) as number[];
+        for (let i = 0; i + 1 < nums.length; i += 2) { const q = engine.map.project([nums[i], nums[i + 1]]); pts.push({ x: q.x + (r0 ? engine.map.getContainer().getBoundingClientRect().left - r0.left : 0), y: q.y + (r0 ? engine.map.getContainer().getBoundingClientRect().top - r0.top : 0) }); }
+      }
+      const c = farCorner({ w: 300, h: 150 }, free, box, occupiedRects(root.current), 12, pts);
+      const ll = engine.map.unproject([c.x, c.y]);
+      const back = engine.map.project(ll);
+      if (Math.hypot(back.x - c.x, back.y - c.y) < 3) {
+        const mm = engine.syncMarkers('feature', [{ key: 'feature', lng: ll.lng, lat: ll.lat, anchor: 'top-left', offset: [0, 0], className: 'globe-feature-anchor' }]);
+        setFeatEl(mm.get('feature') ?? null);
+        return;
+      }
+    }
     const pl = at ? placeCard(at, { w: 300, h: 250 }, free, occupiedRects(root.current)) : null;
     const m = engine.syncMarkers('feature', [{ key: 'feature', lng: feature.lngLat[0], lat: feature.lngLat[1], anchor: pl?.anchor ?? 'top-left', offset: [pl?.offset[0] ?? 18, pl?.offset[1] ?? 8], className: 'globe-feature-anchor' }]);
     setFeatEl(m.get('feature') ?? null);
@@ -469,7 +492,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
 
       <div className="globe-top">
         <GlobeCrumbs crumbs={snap.crumbs} canBack={canBack} onBack={() => controller?.back()} onCrumb={(p) => controller?.crumbTo(p)} />
-        {book ? <GlobeSearch book={book} features={natural} onPick={onPick} /> : null}
+        {book ? <GlobeSearch book={book} features={natural} onTurnOnFeatures={() => changeNatural(true)} onPick={onPick} /> : null}
       </div>
 
       {snap.here ? (
@@ -551,7 +574,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
       ) : (
         <>
           <BottomSheet
-            open={sheetOpen && !card}
+            open={sheetOpen && !card && !snap.feature}
             onOpenChange={setSheetOpen}
             title={level === 0 ? 'Countries' : panelTitle}
             snaps={['peek', 'half', 'full']}

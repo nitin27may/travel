@@ -97,3 +97,25 @@ describe('Natural features switch (backlog 9.8, Q52)', () => {
     for (const c of nfQueryCases) expect(withNatural(c.url, c.on)).toBe(c.out);
   });
 });
+
+describe('card corner for a fitted feature (review M1)', () => {
+  it('goes to the free corner that clears the feature box, never its middle', async () => {
+    const { farCorner } = await import('@/lib/globe/anchor');
+    const free = { left: 0, top: 80, right: 1056, bottom: 860 };
+    // a feature filling the left and middle: the card goes to the right-hand side
+    const c = farCorner({ w: 300, h: 150 }, free, { left: 100, top: 300, right: 700, bottom: 700 }, []);
+    expect(c.x).toBeGreaterThan(500);
+    // a corner held by a control is not chosen
+    const c2 = farCorner({ w: 300, h: 150 }, free, { left: 100, top: 300, right: 700, bottom: 700 }, [{ left: 700, top: 80, right: 1056, bottom: 300 }]);
+    expect(c2.y).toBeGreaterThan(300);
+  });
+});
+
+describe('search with natural features off (review M3)', () => {
+  it('finds a natural feature on a second pass, so the empty result can say why', () => {
+    const gaz = [{ row: ['river', 'Ganges', 83, 25, null, 'river', 3, null, null, [78, 22, 90, 31], 'ganges'] as never, n: norm('Ganges') }];
+    const src = { gazetteer: gaz, own: [], countriesByA3: {} };
+    expect(search('Ganges', src, 12, { features: false })).toEqual([]);
+    expect(search('Ganges', src, 12, { features: true })[0].action.type).toBe('feature');
+  });
+});
