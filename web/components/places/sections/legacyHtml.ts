@@ -1,5 +1,5 @@
 import { esc, humaniseTokens, withUnits } from '@/components/suit/html';
-import { appleMapsUrl, directionsUrl, formatPoint } from '@/lib/map/links';
+import { appleMapsUrl, directionsUrl, formatPoint, searchUrl } from '@/lib/map/links';
 import type { AccessPoint, Fact } from '@/lib/public/types';
 import { isUrl, observed, phoneParts, pointAt, pointSourceInfo, publicProvenance, publicText } from '../model';
 
@@ -46,7 +46,7 @@ export function factsDl(facts: readonly Fact[]): string {
 
 function mapLinks(at: { lat: number; lng: number }, label: string): string {
   const l = esc(label);
-  return `<span class="pl-maplinks"><a class="btn btn-sm" href="https://www.google.com/maps/search/?api=1&amp;query=${esc(formatPoint(at))}" target="_blank" rel="noreferrer">Google Maps<span class="sr-only"> for ${l} (opens in a new tab)</span></a><a class="btn btn-sm" href="${esc(directionsUrl(at))}" target="_blank" rel="noreferrer">Directions<span class="sr-only"> to ${l} (opens in a new tab)</span></a><a class="btn btn-sm" href="${esc(appleMapsUrl(at, label))}" target="_blank" rel="noreferrer">Apple Maps<span class="sr-only"> for ${l} (opens in a new tab)</span></a></span>`;
+  return `<span class="pl-maplinks"><a class="btn btn-sm" href="${esc(searchUrl(label, at))}" target="_blank" rel="noreferrer">Google Maps<span class="sr-only"> for ${l} (opens in a new tab)</span></a><a class="btn btn-sm" href="${esc(directionsUrl(at))}" target="_blank" rel="noreferrer">Directions<span class="sr-only"> to ${l} (opens in a new tab)</span></a><a class="btn btn-sm" href="${esc(appleMapsUrl(at, label))}" target="_blank" rel="noreferrer">Apple Maps<span class="sr-only"> for ${l} (opens in a new tab)</span></a></span>`;
 }
 
 function pointSource(p: Pick<AccessPoint, 'pointSource' | 'pointChecked'>): string {

@@ -1,0 +1,4 @@
+/* A place with no stored point has no Directions button (directions start from our coordinates), so Save to a trip is the cover's one
+   primary action (review M19, P7). styles/suitability.css neutralises every primary but .pl-dir; this puts it back for .pl-primary. */
+.pl-cover-body .btn-primary.pl-primary:not(.pl-dir) { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.pl-cover-body .btn-primary.pl-primary:not(.pl-dir):hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); color: var(--accent-ink); }

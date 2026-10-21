@@ -188,6 +188,7 @@ const GLYPH: Record<string, string> = {
   kit: 'M6 8h12l1 12H5zM9 8V6a3 3 0 0 1 6 0v2',
   check: 'm5 12.5 4.5 4.5L19 7.5',
   triangle: 'M12 3 22 21H2zM12 10v5M12 18h.01',
+  external: 'M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5',
 };
 export const glyph = (name: string, size = 13): string => (GLYPH[name] ? `<svg class="gy${size === 16 ? ' gy16' : ''}" viewBox="0 0 24 24" aria-hidden="true"><path d="${GLYPH[name]}"/></svg>` : '');
 
@@ -235,14 +236,24 @@ export interface GlanceSlotHtml {
   href: string;
   /** the value as the strip shows it (a season line is one short sentence) */
   value: string;
+  /** an outbound tile (a third-party link): opens in a new tab, underlined, with the outbound glyph and a note for screen readers */
+  external?: { url: string; label: string };
 }
 
-export function glanceHtml(slots: GlanceSlotHtml[], level: { level: string; label: string; tooltip: string }, checks: { done: number; total: number; read: string | null }): string {
-  const list = slots.length
-    ? `<ul>${slots
-        .map(({ row, href, value }) => `<li${row.gap ? ' data-empty' : ''}><a href="${esc(href)}" class="ga"><span class="gl">${esc(row.label)}</span>${row.gap ? gapChip() : `<strong class="gv">${withUnits(value)}</strong>`}${row.val ? `<span class="pb">${esc(stubOf(row.val))}</span>` : ''}${row.val && row.val.conflicts.length ? `<span class="su-honest">${row.val.conflicts.length + 1} values</span>` : ''}</a></li>`)
-        .join('')}</ul>`
-    : '';
+export interface GlanceOptions {
+  /** false drops the source line from each tile (a long strip: the row holds it one step away, P6); default true */
+  source?: boolean;
+  /** one line under the tiles, in place of the per-tile sources */
+  readLine?: string | null;
+}
+
+export function glanceHtml(slots: GlanceSlotHtml[], level: { level: string; label: string; tooltip: string }, checks: { done: number; total: number; read: string | null }, opts: GlanceOptions = {}): string {
+  const source = opts.source !== false;
+  const tile = ({ row, href, value, external }: GlanceSlotHtml): string =>
+    external
+      ? `<li><a href="${esc(external.url)}" class="ga ga-ext" target="_blank" rel="noopener noreferrer"><span class="gl">${esc(row.label)}</span><strong class="gv"><span class="ga-u">${esc(external.label)}</span>${glyph('external')}</strong><span class="sr-only"> (opens in a new tab, third-party site)</span></a></li>`
+      : `<li${row.gap ? ' data-empty' : ''}><a href="${esc(href)}" class="ga"><span class="gl">${esc(row.label)}</span>${row.gap ? gapChip() : `<strong class="gv">${withUnits(value)}</strong>`}${source && row.val ? `<span class="pb">${esc(stubOf(row.val))}</span>` : ''}${row.val && row.val.conflicts.length ? `<span class="su-honest">${row.val.conflicts.length + 1} values</span>` : ''}</a></li>`;
+  const list = slots.length ? `<ul>${slots.map(tile).join('')}</ul>${opts.readLine ? `<p class="pb ps-readline">${esc(opts.readLine)}</p>` : ''}` : '';
   return `${list}<p class="ps-level"><span class="ps-complete" data-level="${esc(level.level)}" title="${esc(level.tooltip)}">${esc(level.label)}</span><span class="pb">${checks.total && !/ of \d+(?:,.*)?$/.test(level.label) ? `${checks.done} of ${checks.total} place checks done` : ''}${checks.read ? `${checks.total && !/ of \d+(?:,.*)?$/.test(level.label) ? ' · ' : ''}read ${esc(longDate(checks.read))}` : ''}</span></p>`;
 }
 

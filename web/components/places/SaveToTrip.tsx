@@ -11,7 +11,7 @@ import { useToast } from '@/components/ui/Toast';
  * "Save to a trip" for a visitor: the public site has no account, so the button opens a plain note that saving comes with
  * the planner, with Copy link and the GPX export as the things that work today (patterns 3.6, backlog 2.13).
  */
-export function SaveToTrip({ url, slug, formats }: { url: string; slug: string; formats: ExportFormat[] }) {
+export function SaveToTrip({ url, slug, formats, primary = false }: { url: string; slug: string; formats: ExportFormat[]; /** the cover's one primary action, when there is no Directions button */ primary?: boolean }) {
   const [open, setOpen] = useState(false);
   const id = useId();
   const { toast } = useToast();
@@ -25,7 +25,7 @@ export function SaveToTrip({ url, slug, formats }: { url: string; slug: string; 
   };
   return (
     <div className="pl-save">
-      <Button variant="primary" aria-expanded={open} aria-controls={id} onClick={() => setOpen((o) => !o)}>
+      <Button variant="primary" className={primary ? 'pl-primary' : undefined} aria-expanded={open} aria-controls={id} onClick={() => setOpen((o) => !o)}>
         <Icon name="plus" size={15} /> Save to a trip
       </Button>
       {open ? (
