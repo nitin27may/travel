@@ -1,13 +1,11 @@
 import { existsSync } from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { chromium, type Browser } from '@playwright/test';
 import { expect, test } from './fixtures';
+import { CHROME, GPU_ARGS } from './gpu-chrome';
 
 // Trips map clusters re-form after every camera move (L3b round 5, R1). On the real GPU with real tiles, like the globe deep-link spec;
 // skips without the Arc-GPU Chromium or a network.
-const CHROME = process.env.GPU_CHROME ?? path.join(os.homedir(), '.cache/ms-playwright/chromium-1248/chrome-linux64/chrome');
-const ARGS = ['--use-gl=angle', '--use-angle=gl', '--ignore-gpu-blocklist', '--enable-gpu-rasterization'];
 const zoomOf = (url: string) => Number((new URL(url).searchParams.get('c') ?? '').split(',')[2] ?? 'NaN');
 
 test.describe('trips map re-clusters after the camera moves (GPU, real tiles)', () => {
@@ -15,7 +13,7 @@ test.describe('trips map re-clusters after the camera moves (GPU, real tiles)', 
   test.setTimeout(120_000);
   let browser: Browser;
   test.beforeAll(async () => {
-    if (existsSync(CHROME)) browser = await chromium.launch({ executablePath: CHROME, args: ARGS });
+    if (existsSync(CHROME)) browser = await chromium.launch({ executablePath: CHROME, args: GPU_ARGS });
   });
   test.afterAll(async () => { await browser?.close(); });
 

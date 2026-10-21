@@ -1,7 +1,7 @@
 // Behaviour checks against the fixture. Setup as in shoot.mjs; run the dev server with NEXT_PUBLIC_GOOGLE_MAPS_KEY=fake-key.
 // Covers: Google facade loads no script before the click, links use our points, embed iframe, mixed-family errors, theme switch keeps the camera.
 import { chromium } from '@playwright/test';
-const b = await chromium.launch({ executablePath: process.env.HOME+'/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome', args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'] });
+const b = await chromium.launch({ args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'] });
 const base='http://localhost:3402/map-fixture-lm/';
 async function open(q, opts={}) { const ctx = await b.newContext({viewport:{width:1280,height:800}, ...opts}); const p = await ctx.newPage(); const reqs=[]; p.on('request', r=>reqs.push(r.url())); const errs=[]; p.on('pageerror', e=>errs.push(e.message)); p.on('console', m=>{ if(m.type()==='error') errs.push(m.text()); }); await p.goto(base+q); return {p, reqs, errs, ctx}; }
 

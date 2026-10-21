@@ -1,14 +1,12 @@
 import { existsSync } from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { chromium, type Browser, type Page } from '@playwright/test';
 import { expect, test } from './fixtures';
+import { CHROME, GPU_ARGS } from './gpu-chrome';
 
 // Deep links frame their area (backlog 2.29): the camera is checked on the real GPU with real tiles, because the
 // regression lived in the first style load, which the tile-blocked specs never reach. Runs only on the chromium project,
 // on a machine with the Arc-GPU Chromium and network; otherwise it skips.
-const CHROME = process.env.GPU_CHROME ?? path.join(os.homedir(), '.cache/ms-playwright/chromium-1248/chrome-linux64/chrome');
-const ARGS = ['--use-gl=angle', '--use-angle=gl', '--ignore-gpu-blocklist', '--enable-gpu-rasterization'];
 
 const ITALY: [number, number, number, number] = [6.6, 35.5, 18.8, 47.1];
 const SOUTH_TYROL: [number, number, number, number] = [10.3, 46.2, 12.5, 47.2];
@@ -26,7 +24,7 @@ test.describe('globe deep links frame the area (GPU, real tiles)', () => {
   let browser: Browser;
   test.beforeAll(async () => {
     if (!existsSync(CHROME)) return;
-    browser = await chromium.launch({ executablePath: CHROME, args: ARGS });
+    browser = await chromium.launch({ executablePath: CHROME, args: GPU_ARGS });
   });
   test.afterAll(async () => { await browser?.close(); });
 

@@ -58,7 +58,9 @@ test.describe('trip page', () => {
     await page.goto(`${site.url}/trips/patagonia-2027/`);
     await expect(page.getByText('Condensed from the full plan').first()).toBeVisible();
     await page.goto(`${site.url}/trips/switzerland-2027/`);
-    await expect(page.getByText('This plan has not been converted to days yet')).toBeVisible();
+    // an overview with no season carries one notice (TRP1 review M6); the "not converted" banner is only for an overview that has a season
+    await expect(page.getByText('Overview only. No days and no season are written down yet, so check the season yourself before you pick dates.')).toBeVisible();
+    await expect(page.getByText('This plan has not been converted to days yet')).toHaveCount(0);
     await expect(page.locator('.cat-chip')).toHaveCount(0);
     await expect(page.getByText('Season not set yet').first()).toBeVisible();
   });

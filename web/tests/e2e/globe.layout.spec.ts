@@ -1,12 +1,10 @@
 import { chromium } from '@playwright/test';
-import os from 'node:os';
 import path from 'node:path';
 import { expect, test } from './fixtures';
+import { CHROME, GPU_ARGS } from './gpu-chrome';
 
 // Layout checks on the BUILT export (.site). The canvas size check needs WebGL, so it launches Chromium with a software GL
 // backend and aborts remote tiles: the map is created and sized even though the style never arrives.
-const CHROME = path.join(os.homedir(), '.cache/ms-playwright/chromium-1248/chrome-linux64/chrome');
-const GL_REAL = ['--use-gl=angle', '--use-angle=gl', '--ignore-gpu-blocklist', '--enable-gpu-rasterization'];
 const GL = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'];
 
 test.describe('globe layout', () => {
@@ -102,7 +100,7 @@ test.describe('globe layout', () => {
 
   // 9b and 9c of the experience review: a drag at world zoom pans the globe and its release never drills in.
   test('drag at world zoom pans the globe, coasts, and the release does not drill into a country', async ({ site }) => {
-    const browser = await chromium.launch({ executablePath: CHROME, args: GL_REAL });
+    const browser = await chromium.launch({ executablePath: CHROME, args: GPU_ARGS });
     try {
       const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
       const page = await ctx.newPage();
