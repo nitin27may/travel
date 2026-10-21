@@ -1,5 +1,5 @@
 import { fromRow, fromSuit, type ShowRow } from '@/components/suit/Rows';
-import type { GlanceSlotHtml } from '@/components/suit/html';
+import { longDate, type GlanceSlotHtml } from '@/components/suit/html';
 import { allTrailsLink, type AllTrailsLink } from '@/lib/map/links';
 import type { PageModel } from '@/lib/public/sections';
 import type { PublicSuitability } from '@/lib/public/suitability';
@@ -31,7 +31,10 @@ export interface TrailExtras {
   highPoint: string | null;
   shape: string | null;
   trailhead: string | null;
-  hasHazards: boolean;
+  /** the older record's hazards, one short line each: the lines "Before you go" opens with */
+  hazards: string[];
+  /** the first car park the page holds */
+  parking: string | null;
   hasTrack: boolean;
 }
 
@@ -67,7 +70,12 @@ export function trailStrip(model: PageModel, suit: PublicSuitability | null, x: 
   const climb = gainText || lossText ? [gainText ? `${gainText} up` : null, lossText ? `${lossText} down` : null].filter(Boolean).join(' · ') : null;
   const exposure = findRow(model, suit, 'exposure')?.row;
   const exp = exposure && !exposure.gap && exposure.text ? exposure.text : null;
-  const hazard = [exp, x.hasHazards ? 'Hazards listed above' : null].filter(Boolean).join(' · ') || null;
+  // the hazards are drawn below the strip, in "Before you go" (#warnings): name the first and count the rest, never point "above" (M15)
+  const hazardRow = findRow(model, suit, 'hazards')?.row;
+  const found = [...x.hazards, ...(hazardRow && !hazardRow.gap && hazardRow.text ? [hazardRow.text] : [])];
+  const lead = found[0]?.split(/;\s/)[0]?.replace(/\.$/, '') ?? '';
+  const first = lead ? (lead.length > 36 ? `${lead.slice(0, 35).replace(/[\s,;:·-]+$/, '')}…` : lead) : null;
+  const hazard = [exp, first ? `${first}${found.length > 1 ? ` +${found.length - 1}` : ''}` : null].filter(Boolean).join(' · ') || null;
   const slots: GlanceSlotHtml[] = [
     t('Length', ['effort.drivers.distance_km'], x.km !== null ? `${x.km} km` : null),
     t('Climb', ['effort.drivers.gain_m'], climb),
@@ -82,7 +90,7 @@ export function trailStrip(model: PageModel, suit: PublicSuitability | null, x: 
     t('Stroller', ['stroller'], null, '#suits'),
     t('Wheelchair', ['wheelchair'], null, '#suits'),
     t('Season', ['access_season'], null, '#when'),
-    t('Trailhead and parking', ['access_points', 'starts_at'], x.trailhead, '#access'),
+    t('Trailhead and parking', ['access_points', 'starts_at'], x.trailhead ?? x.parking, '#access'),
     t('Route status', ['geometry'], x.hasTrack ? 'Track stored' : null),
   ];
   // exposure and hazards read together; the first row found would hide the other
@@ -92,4 +100,15 @@ export function trailStrip(model: PageModel, suit: PublicSuitability | null, x: 
   // the climb slot reads up and down together even when the contract row holds the climb alone
   if (climb) slots[1] = { row: made('effort.drivers.gain_m', 'Climb', climb, gain ?? null), href: slots[1]!.href, value: climb };
   return { slots, allTrails: allTrailsLink({ name: place.name, area: place.area, links: place.links }) };
+}
+
+/** "Read 18 to 19 Oct 2026. Sources are in each section." from the tiles' own read dates; null when no tile carries one. */
+export function readLine(slots: readonly GlanceSlotHtml[]): string | null {
+  const dates = slots.flatMap((s) => (s.row.val?.read ? [s.row.val.read] : [])).sort();
+  if (!dates.length) return null;
+  const a = longDate(dates[0]!);
+  const b = longDate(dates[dates.length - 1]!);
+  const tail = (t: string) => t.slice(t.indexOf(' '));
+  const range = a === b ? a : tail(a) === tail(b) ? `${a.split(' ')[0]} to ${b}` : `${a} to ${b}`;
+  return `Read ${range}. Sources are in each section.`;
 }

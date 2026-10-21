@@ -9,7 +9,8 @@ import type { PublicSuitability } from '@/lib/public/suitability';
 import type { Completeness } from '@/lib/public/types';
 import { Nearby } from './Relevance';
 import { seasonShort } from './SeasonGrid';
-import { findRow, trailStrip, type TrailExtras } from './trailFacts';
+import { findRow, readLine, trailStrip, type TrailExtras } from './trailFacts';
+import './glance.css';
 
 // The 14 sections of the capture contract in order (place-page-sections section 2). Each section reads its rows, its structures
 // and its closing line from the page model; the only decisions here are by section id, the contract's own, never by the type of the
@@ -105,12 +106,11 @@ export function Glance({ model, suit, level, trailhead = null, isArea = false, t
       return seen.has(k) ? false : (seen.add(k), true);
     })
     .slice(0, 6);
-  // A trail leads with its 14 facts and AllTrails (10.1, 10.3): the same tiles, the same checks line, each value one slot
+  // A trail leads with its 14 facts and AllTrails (10.1, 10.3): the same tiles and checks line. A long strip keeps no source line per tile (P6: the
+  // row each tile links to holds it); one line under the strip says when it was read (M14).
   const strip = trail ? trailStrip(model, suit, trail.extras, trail.place) : null;
-  const shown = strip ? [...strip.slots, { row: { key: 'alltrails', label: 'AllTrails, link only', text: strip.allTrails.label, look: 'info' as const, gap: false, val: null }, href: strip.allTrails.url, value: strip.allTrails.label }] : slots;
-  let html = glanceHtml(shown, adjusted, { ...model.checks, done: Math.min(model.checks.total, model.checks.done + mapped) });
-  // the one outbound tile opens a new tab and says so; glanceHtml draws in-page links, so it is marked here
-  if (strip) html = html.replace(/(<a href="https:\/\/www\.alltrails\.com[^"]*" class="ga")>([\s\S]*?)<\/strong>/, '$1 target="_blank" rel="noopener noreferrer">$2</strong><span class="sr-only"> (opens in a new tab, third-party site)</span>');
+  const shown = strip ? [...strip.slots, { row: { key: 'alltrails', label: 'AllTrails · link only', text: strip.allTrails.label, look: 'info' as const, gap: false, val: null }, href: strip.allTrails.url, value: strip.allTrails.label, external: { url: strip.allTrails.url, label: strip.allTrails.label } }] : slots;
+  const html = glanceHtml(shown, adjusted, { ...model.checks, done: Math.min(model.checks.total, model.checks.done + mapped) }, strip ? { source: false, readLine: readLine(strip.slots) } : {});
   return <section className="ps-glance" id="glance" aria-label="At a glance" dangerouslySetInnerHTML={{ __html: html }} />;
 }
 

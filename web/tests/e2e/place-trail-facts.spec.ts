@@ -35,6 +35,37 @@ test.describe('the cover Directions button', () => {
   });
 });
 
+test.describe('the strip on a phone and the empty cell', () => {
+  test('Fenland at 390 is under about 700 px and its odd last tile spans both columns (M14, M18)', async ({ page, site }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`${site.url}/places/fenland-loop/`, { waitUntil: 'networkidle' });
+    const ul = page.locator('#glance > ul');
+    expect((await ul.boundingBox())!.height).toBeLessThan(760);
+    const last = await page.locator('#glance > ul > li').last().boundingBox();
+    const box = await ul.boundingBox();
+    expect(Math.abs(last!.width - box!.width)).toBeLessThan(4);
+  });
+  test('Ötzi has no empty cell: its last tile reaches the right edge of the grid (M18)', async ({ page, site }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(`${site.url}/places/otzi-south-tyrol-museum-of-archaeology/`, { waitUntil: 'networkidle' });
+    const ul = (await page.locator('#glance > ul').boundingBox())!;
+    const last = (await page.locator('#glance > ul > li').last().boundingBox())!;
+    expect(last.x + last.width).toBeGreaterThan(ul.x + ul.width - 4);
+  });
+});
+
+test.describe('a place with no stored point', () => {
+  test('has no Directions button and Save to a trip is the one primary (M19)', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/fenland-loop/`, { waitUntil: 'networkidle' });
+    await expect(page.locator('.pl-actions').getByRole('button', { name: /Directions/ })).toHaveCount(0);
+    const save = page.getByRole('button', { name: /Save to a trip/ });
+    await expect(save).toHaveClass(/pl-primary/);
+    const bg = await save.evaluate((el) => getComputedStyle(el).backgroundColor);
+    const accent = await page.evaluate(() => { const d = document.createElement('i'); d.style.background = 'var(--accent)'; document.body.append(d); const c = getComputedStyle(d).backgroundColor; d.remove(); return c; });
+    expect(bg).toBe(accent);
+  });
+});
+
 test.describe('glance tiles hold one answer', () => {
   test('Ötzi shows the lead price and hours with a count, the full hours once in "When to go"', async ({ page, site }) => {
     await page.goto(`${site.url}/places/otzi-south-tyrol-museum-of-archaeology/`, { waitUntil: 'networkidle' });

@@ -18,6 +18,7 @@ import { accessCard, factText, factsDl } from './sections/legacyHtml';
 import { withUnits } from '@/components/suit/html';
 import { CoverRelevance } from './sections/Relevance';
 import { DirectionsMenuLazy } from './DirectionsMenuLazy';
+import './cover.css';
 import { Glance, Sections, type LegacySlots } from './sections/Sections';
 import { SectionIndex } from './sections/SectionIndex';
 import { GalleryLazy } from './GalleryLazy';
@@ -436,7 +437,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
           ) : null}
           <div className="pl-actions">
             {target ? <DirectionsMenuLazy at={target.at} label={target.label} /> : null}
-            <SaveToTrip url={url} slug={place.slug} formats={['gpx']} />
+            <SaveToTrip url={url} slug={place.slug} formats={['gpx']} primary={!target} />
             <TrailExport slug={place.slug} lines={place.lines} />
             <ShareButton url={url} title={place.name} />
             {place.point ? (
@@ -454,7 +455,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
             level={place.completeness}
             trailhead={place.access?.trailhead?.name ?? null}
             isArea={place.kind === 'area' || place.subkind === 'range'}
-            trail={trail ? { extras: { km, gainM: gain, legacyTime: legacyTime ? timeText(legacyTime.value) : null, highPoint: factByLabel(place.facts, 'High point')?.value ?? null, shape: shape ? shape.charAt(0).toUpperCase() + shape.slice(1) : null, trailhead: th?.name ?? null, hasHazards: place.hazards.length > 0, hasTrack }, place: { name: place.name, area: district?.name ?? state?.name ?? null, links: place.links.flatMap((g) => g.links) } } : null}
+            trail={trail ? { extras: { km, gainM: gain, legacyTime: legacyTime ? timeText(legacyTime.value) : null, highPoint: factByLabel(place.facts, 'High point')?.value ?? null, shape: shape ? shape.charAt(0).toUpperCase() + shape.slice(1) : null, trailhead: th?.name ?? null, hazards: place.hazards, parking: place.access?.parking[0]?.name ?? factByLabel(place.facts, 'Parking', 'Lot')?.value ?? null, hasTrack }, place: { name: place.name, area: district?.name ?? state?.name ?? null, links: place.links.flatMap((g) => g.links) } } : null}
           />
         ) : null}
         {model ? <SectionIndex /> : null}
