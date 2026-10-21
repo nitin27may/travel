@@ -13,7 +13,7 @@ import type { GlobeEngine } from '@/lib/globe/engine';
 import { DEFAULT_PREFS, loadPrefs, savePrefs, type GlobePrefs } from '@/lib/globe/prefs';
 import type { SearchHit } from '@/lib/globe/search';
 import type { Camera, GlobeCard, GlobeData, PinModel } from '@/lib/globe/types';
-import { parseCamera, parseView } from '@/lib/globe/url';
+import { parseCamera, parseNatural, parseView, withNatural } from '@/lib/globe/url';
 import { effectiveStyle } from '@/lib/map/maplibre/styles';
 import { pageIsDark } from '@/lib/map/palette';
 import { prefersReducedMotion } from '@/lib/map/reduced-motion';
@@ -87,6 +87,9 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const [book, setBook] = useState<CountryBook | null>(null);
   const [prefs, setPrefs] = useState<GlobePrefs>(DEFAULT_PREFS);
   const [prefsReady, setPrefsReady] = useState(false);
+  // "Natural features" (9.8): on unless the link says `nf=0`. Never stored; the link is the only memory.
+  const [natural, setNatural] = useState(true);
+  const naturalRef = useRef(true);
   const [snap, setSnap] = useState<GlobeSnapshot>(EMPTY);
   const [engine, setEngine] = useState<GlobeEngine | null>(null);
   const [panelWanted, setPanelOpen] = useState(true);
@@ -138,6 +141,8 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     /* eslint-disable react-hooks/set-state-in-effect -- one-time read of browser-only state (localStorage, theme) after mount */
     setPrefs(loadPrefs());
     setPrefsReady(true);
+    naturalRef.current = parseNatural(window.location.search);
+    setNatural(naturalRef.current);
     // The control card is the Map options pill until opened; the open state lasts the session (spec 3.2).
     try { setCardOpenState(sessionStorage.getItem('travel:v1:globe-card') === 'open'); } catch { /* storage unavailable */ }
     // The hint shows once per session, for 4 s, and never after the first gesture.
@@ -150,9 +155,17 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     return () => mo.disconnect();
   }, []);
 
-  const navigate = useCallback((url: string, mode: 'push' | 'replace') => {
+  const navigate = useCallback((raw: string, mode: 'push' | 'replace') => {
+    const url = naturalRef.current ? raw : withNatural(raw, false);
     if (mode === 'push') window.history.pushState(null, '', url);
     else window.history.replaceState(null, '', url);
+  }, []);
+
+  const changeNatural = useCallback((on: boolean) => {
+    naturalRef.current = on;
+    setNatural(on);
+    ctrl.current?.setNaturalFeatures(on);
+    window.history.replaceState(window.history.state, '', withNatural(window.location.pathname + window.location.search + window.location.hash, on));
   }, []);
 
   const layout = useCallback(() => layoutRef.current(), []);
@@ -195,6 +208,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     const c = ctrl.current;
     if (!e || !c) return;
     c.attach(e);
+    c.setNaturalFeatures(naturalRef.current);
     void c.applyView(parseView(window.location.pathname), { camera: parseCamera(window.location.search), fly: true });
   }, []);
 
@@ -416,7 +430,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   // Where Canada's census divisions are drawn they carry their source and licence (F4).
   const body = bodyList ? (<>{bodyList}{censusCredit ? <p className="globe-credit">Districts: Statistics Canada, 2021 census divisions, <a href="https://www.statcan.gc.ca/en/reference/licence" target="_blank" rel="noopener noreferrer">Open Government Licence – Canada</a>.</p> : null}</>) : null;
 
-  const controls = <GlobeControls prefs={prefs} style={styleKey} reducedMotion={reduced} onChange={changePrefs} onHide={() => { setOptionsOpen(false); setImmersive(true); }} />;
+  const controls = <GlobeControls prefs={prefs} natural={natural} onNatural={changeNatural} style={styleKey} reducedMotion={reduced} onChange={changePrefs} onHide={() => { setOptionsOpen(false); setImmersive(true); }} />;
 
   return (
     <div ref={root} className="globe-root" data-immersive={immersive ? 'true' : undefined} data-level={level} data-panel={panelOpen && !phone ? 'open' : 'closed'} data-phone={phone ? 'true' : undefined}>
@@ -446,7 +460,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
 
       <div className="globe-top">
         <GlobeCrumbs crumbs={snap.crumbs} canBack={canBack} onBack={() => controller?.back()} onCrumb={(p) => controller?.crumbTo(p)} />
-        {book ? <GlobeSearch book={book} onPick={onPick} /> : null}
+        {book ? <GlobeSearch book={book} features={natural} onPick={onPick} /> : null}
       </div>
 
       {snap.here ? (
@@ -476,7 +490,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
             boundary={snap.boundary}
             onPick={(k) => { void controller?.selectCard(k); }}
             onClose={() => controller?.back()}
-            onFly={() => controller?.flyToFeature(snap.feature!)}
+            onFly={() => { void controller?.flyToFeature(snap.feature!); }}
           />
         );
         return featEl ? createPortal(fc, featEl) : fc;

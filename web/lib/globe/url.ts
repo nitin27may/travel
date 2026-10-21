@@ -49,3 +49,18 @@ export function hitSuffix(search: string): string {
 }
 
 export const sameView = (a: View, b: View): boolean => viewPath(a) === viewPath(b);
+
+/** `nf=0` is the "Natural features" switch turned off; absent means on. Never stored: it lives in the link (9.8). */
+export function parseNatural(search: string): boolean {
+  return new URLSearchParams(search).get('nf') !== '0';
+}
+
+/** A globe URL with `nf=0` added when natural features are off, and nothing when they are on. Keeps the other query keys. */
+export function withNatural(url: string, on: boolean): string {
+  const [pathAndQuery, hash = ''] = url.split('#');
+  const [path, query = ''] = pathAndQuery.split('?');
+  const q = new URLSearchParams(query);
+  if (on) q.delete('nf'); else q.set('nf', '0');
+  const qs = q.toString().replace(/%2C/gi, ',');
+  return `${path}${qs ? `?${qs}` : ''}${hash ? `#${hash}` : ''}`;
+}

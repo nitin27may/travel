@@ -10,11 +10,13 @@ interface Props {
   /** A shorter prompt where the field is narrow (landscape phone). */
   placeholder?: string;
   book: CountryBook;
+  /** False when the "Natural features" switch is off: rivers, landforms and seas leave the results. */
+  features?: boolean;
   onPick(hit: SearchHit): void;
 }
 
 /** Search a country, state, city, sea or range (components 7.2); saved places and trips come first. `/` focuses it. */
-export function GlobeSearch({ book, onPick, placeholder = 'Search the globe' }: Props) {
+export function GlobeSearch({ book, features = true, onPick, placeholder = 'Search the globe' }: Props) {
   const [q, setQ] = useState('');
   const [open, setOpen] = useState(false);
   const [cursor, setCursor] = useState(0);
@@ -40,7 +42,7 @@ export function GlobeSearch({ book, onPick, placeholder = 'Search the globe' }: 
     void run();
     return () => { live = false; };
   }, [q, open]);
-  const hits = useMemo(() => (open ? search(q, sources) : []), [q, sources, open]);
+  const hits = useMemo(() => (open ? search(q, sources, 12, { features }) : []), [q, sources, open, features]);
 
   const warm = () => { void loadGazetteer().then(setGaz).catch(() => undefined); };
   const pick = (h: SearchHit | undefined) => {
