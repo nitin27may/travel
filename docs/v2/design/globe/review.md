@@ -20,7 +20,8 @@ Keep all of this (it is also what keep-from-live-site.md lists):
   atmosphere, hillshade that strengthens with zoom and 3D terrain from zoom 3.5 is the right stack and already costs $0.
 - Drill-down works and is honest: country, then state (Natural Earth 10m), then district (geoBoundaries), with the chosen
   shape kept bright and everything else dimmed, counts of saved places per shape, and "2 not inside a mapped state" when
-  the data does not nest. [live-italy-1440.jpg](shots/live-italy-1440.jpg), [live-state-1440.jpg](shots/live-state-1440.jpg)
+  the data does not nest. [live-italy-1440.jpg](shots/live-italy-1440.jpg) (the file `live-state-1440.jpg` is the same
+  picture under a second name, so no state-level shot exists; corrected 21 Oct 2026, CLEANUP-PLAN 1.5)
 - The hover tooltip for a country has real facts (region, flag, capital, population, saved count).
   [live-hover-brazil.jpg](shots/live-hover-brazil.jpg)
 - Basemap features are first-class: rivers, lakes and seas, peaks, parks and towns can be hovered and selected, with a

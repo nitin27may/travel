@@ -147,8 +147,8 @@ Anything else goes to `q` and is listed as "Not used: <word>".
 | Type words | `data/vocab/types.json`: every node's `label`, its `aliases`, and simple plurals (`-s`, `-es`, `-ies`) | `web/scripts/search-vocab.mjs` |
 | Type widening | `types.json`: a new optional node mark `search: "exact"`. Without it, a type word resolves to its category (A3) | same |
 | Contract facet words | `web/lib/entities/facets/contract-slice.json` labels plus the value labels in `facets/answers.ts` (`TIME_LABELS`, `WALK_LABELS`, `SHAPE_LABELS`, `BEST_TIME_LABELS` ...), plus `core/src/capture/bandKeys.ts` | same |
-| Suitability and effort words | the effort names in `bandKeys.ts` (`EFFORT_NAMES`), and the age, party and access phrases from [suitability.md](../research/suitability.md) 1.2, 1.4 and 6.2, kept in one table `web/lib/search/parse/phrases.ts` | hand-written, reviewed once |
-| Relevance words | the badge names in [relevance.md](../research/relevance.md) R7 and the `hidden_gem` definition | `phrases.ts` |
+| Suitability and effort words | the effort names in `bandKeys.ts` (`EFFORT_NAMES`), and the age, party and access phrases from [suitability.md](../../../research/method/suitability.md) 1.2, 1.4 and 6.2, kept in one table `web/lib/search/parse/phrases.ts` | hand-written, reviewed once |
+| Relevance words | the badge names in [relevance.md](../../../research/method/relevance.md) R7 and the `hidden_gem` definition | `phrases.ts` |
 | Months, seasons, numbers, units | `phrases.ts` (English) | hand-written |
 | Areas | the `area` records of the search index (names, plus the area chain in `x`) and `aliases.ts`. These are the parts the search already loads; the gazetteer is not used | at query time, through `data.ts` |
 | Trip names | the `trip` records of the search index | at query time |
@@ -288,7 +288,7 @@ Components never read `vocab.json`, the vectors or the model. They call these th
 - **Query, option B (server, when a backend exists):** the Supabase Edge built-in `gte-small` (`new Supabase.ai.Session('gte-small')`, `mean_pool: true, normalize: true`) plus pgvector (HNSW, cosine) on the free tier. Vectors for this path are **computed by the same Edge function** in a backfill job, never copied from the Node build, so build and query use one runtime by construction.
 - **Hybrid ranking:** list A is today's full-text search over the rows that pass the parsed filters (in Postgres, `tsvector` with `websearch_to_tsquery`). List B is the vector neighbours of the query among those rows. They are fused with reciprocal rank fusion, `score(d) = sum over lists of 1 / (60 + rank_d)`. When the parse leaves no words over (`q` is empty), ranking is skipped and the list keeps its order.
 
-### 10.2 Spike steps (a builder lane, about 1 day, Sonnet; results written to `docs/v2/research/smart-search-spike.md`)
+### 10.2 Spike steps (a builder lane, about 1 day, Sonnet; results written to `research/reports/smart-search-spike.md`)
 
 1. Pin the model and the library. Embed the 223 public places and trips in Node, and record the time and the shard sizes.
 2. Label the 30 queries of section 3: for each one, the owner or the planner marks the relevant places among the top 30 that any method returns (pooled judging).

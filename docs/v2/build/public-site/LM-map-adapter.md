@@ -1,7 +1,7 @@
 # LM: the map adapter
 
 Wave 1, parallel with L0 and LD. Agent: `travel-builder` (Sonnet). Effort: about 4 hours.
-Plan: [README.md](README.md) section 3. Decision source: `docs/v2/research/map-stack-2026-10-18.md`.
+Plan: [README.md](README.md) section 3. Decision source: `research/reports/map-stack-2026-10-18.md`.
 
 ## Goal
 
@@ -12,7 +12,7 @@ The adapter enforces **one map family per page** (Google Maps Platform terms 3.2
 
 ## Read first
 
-- `docs/v2/research/map-stack-2026-10-18.md` (decision table, "Google terms that make the hybrid legal", gotchas).
+- `research/reports/map-stack-2026-10-18.md` (decision table, "Google terms that make the hybrid legal", gotchas).
 - `docs/v2/design/foundation/tokens.md` 5 (map palette, light and dark), components.md 7.1 (map) and 4.4 (the
   elevation cursor synced to the map), patterns.md 6 (fly-to timings, reduced motion).
 - `prototype/src/map/MapView.tsx` (OpenFreeMap + Mapterhorn wiring, relief) and `legacy/globe/index.html` lines

@@ -36,7 +36,7 @@ There is no A/B/C choice on each day.
 | D7 | Public times are **times of day only**. Sun anchors show a **range across the season window** ("sunset about 19:55 to 20:30") until dates attach | Public trips are dateless ([public-trips-dateless.md](../design/public-trips-dateless.md)) | Anchored times are less precise on the public page |
 | D8 | Validation **reuses the core day-check codes** (`W_OVERLAP`, `W_HOURS`, `W_DAYLIGHT`, `W_PACE`, `W_DRIVE_LIMIT`, `W_EARLY`, `W_CEILING`, `W_FIT`) and adds five `S_` codes | A trip copied into the planner gets the same warnings it had on the public page | `checkDays` works on planner rows, so the scheduler maps its entries to those rows for the check (2.11) |
 | D9 | Research markers (INFERENCE, CALC, GAP, conflict, low confidence) never reach public prose. They become **honesty chips**. Units in prose become quantity tokens rendered through the visitor's unit preference | Prose like "(20:16 CALC)" is internal. "1.9 km" next to "1.2 mi" is wrong | The cleaner is heuristic; a test sweeps every public string |
-| D10 | Drive legs: stored **OpenRouteService** values fetched once at publish time (sequential, server side, key never printed). Fallback: the plan's own minutes, then the base matrix, then straight line × 1.42 marked ≈ | ORS free tier; terms let us store the result ([map-stack](../research/map-stack-2026-10-18.md)) | Trips without coordinates (the Rockies, the summary trips) stay ≈ until points exist |
+| D10 | Drive legs: stored **OpenRouteService** values fetched once at publish time (sequential, server side, key never printed). Fallback: the plan's own minutes, then the base matrix, then straight line × 1.42 marked ≈ | ORS free tier; terms let us store the result ([map-stack](../../../research/reports/map-stack-2026-10-18.md)) | Trips without coordinates (the Rockies, the summary trips) stay ≈ until points exist |
 
 ## 1. The day schedule model
 
@@ -566,7 +566,7 @@ Example: `/trips/canadian-rockies-2029?p=family-4&pace=relaxed&d=5C&add=5.pyrami
 
 The timeline itself is never collapsed. Days are expanded by default; the old collapsed day row becomes the whole-trip timeline's item.
 
-### 3.11 What the profile needs from suitability metadata ([research/suitability.md](../research/suitability.md))
+### 3.11 What the profile needs from suitability metadata ([research/suitability.md](../../../research/method/suitability.md))
 
 The scheduler and `selectVariant` read one normalised record per item. The suitability spec owns the fields, their research, their sources and the grade mappings. This page owns only how the profile uses them. Until that spec lands, the adapter fills what it can (Rockies `min_age`, `child_6yo_ok`, `audience`, km and gain), and the rest stays `null`.
 

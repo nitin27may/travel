@@ -38,13 +38,13 @@ Everything the public site reads goes through `web/lib/client/data.ts`. **From p
 |---|---|---|---|---|
 | 10 | Places list and filters | Row shards per country, filtered in the browser | `GET /api/v1/places` with paging (API-1, over JsonStore); SupabaseStore later | [lists note](../design/lists-stage4-note.md) |
 | 11 | Nearby | Shards whose bounding box meets the radius | `GET /api/v1/near` (API-1 and LST2c over JsonStore); PostGIS in SupabaseStore later | [nearby spec](../features/nearby-and-regions.md) 5.7 |
-| 12 | Search | Split lazy index, parser in the browser | `GET /api/v1/search` and `/api/v1/parse` (API-1); semantic ranking if it earns its place | [smart search](../features/smart-search.md), [spike](../research/smart-search-spike.md) |
+| 12 | Search | Split lazy index, parser in the browser | `GET /api/v1/search` and `/api/v1/parse` (API-1); semantic ranking if it earns its place | [smart search](../features/smart-search.md), [spike](../../../research/reports/smart-search-spike.md) |
 | 13 | Globe pins and cards | Per-country and per-card static files | `GET /api/v1/globe/*` (API-1) | globe-data |
 | 14 | Exports (GPX, KML, CSV, calendar) | Built per item at build time | `GET /api/v1/export/{type}/{slug}` (API-1, TRP2); rate limits with hosting; sign-in for bulk (P8) | public-site 7.9, Q46 |
 | 15 | Protect the catalogue | Design rules plus edge limits | Per-user and per-IP quotas, scraping detection | P8 |
 | 16 | Images | Self-hosted renditions built at deploy | Storage bucket and image service | public-site 2.38 |
-| 17 | Source of truth for data | JSON files in the repo | Postgres tables fed from the same capture contract by SRV-0's loader (stable ids, versions, provenance), JSON stays the review format | [capture contract](../research/capture-contract.md) |
-| 18 | Research pipeline writes through the API | Lanes write JSON | Crawler and researcher jobs with review queue | F16, [onboarding-and-refresh.md](../research/onboarding-and-refresh.md) |
+| 17 | Source of truth for data | JSON files in the repo | Postgres tables fed from the same capture contract by SRV-0's loader (stable ids, versions, provenance), JSON stays the review format | [capture contract](../../../research/method/capture-contract.md) |
+| 18 | Research pipeline writes through the API | Lanes write JSON | Crawler and researcher jobs with review queue | F16, [onboarding-and-refresh.md](../../../research/method/onboarding-and-refresh.md) |
 
 ## 4. The planner features (S1 to S4), from the feature pages
 
