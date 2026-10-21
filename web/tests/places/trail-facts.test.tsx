@@ -19,18 +19,31 @@ describe('the trail key-facts strip (10.1)', () => {
       const t = tiles(strip(html(slug)));
       if (!data.getPlace(slug)!.sections) continue;
       withStrip++;
-      expect(t.map((x) => x.label), slug).toEqual(['Length', 'Climb', 'High point', 'Adult time', 'Route type', 'Effort', 'Surface', 'Hazards and exposure', 'Dogs', 'Stroller', 'Wheelchair', 'Season', 'Trailhead and parking', 'Route status', 'AllTrails, link only']);
+      expect(t.map((x) => x.label), slug).toEqual(['Length', 'Climb', 'High point', 'Adult time', 'Route type', 'Effort', 'Surface', 'Hazards and exposure', 'Dogs', 'Stroller', 'Wheelchair', 'Season', 'Trailhead and parking', 'Route status', 'AllTrails · link only']);
     }
     expect(withStrip).toBeGreaterThan(0);
   }, 600_000);
   it('Fenland Loop says "Not checked yet" for what it lacks and shows what it has', () => {
     const t = tiles(strip(html('fenland-loop')));
     const by = (l: string) => t.find((x) => x.label === l)!.body;
-    for (const l of ['High point', 'Trailhead and parking', 'Route status']) expect(by(l), l).toContain('Not checked yet');
+    for (const l of ['High point', 'Route status']) expect(by(l), l).toContain('Not checked yet');
     expect(by('Length')).toContain('1.9');
     expect(by('Adult time')).toContain('40 min');
     expect(by('Dogs')).toContain('Leash');
-    expect(by('Hazards and exposure')).toContain('Hazards listed');
+    expect(by('Hazards and exposure')).toContain('Mosquitoes');
+    expect(by('Hazards and exposure')).not.toMatch(/above/i);
+    // a parking value the page holds is never shown as a gap (M16)
+    expect(by('Trailhead and parking')).toContain('Townsite lot');
+  });
+  it('keeps no source line in a tile and says once when it was read (M14)', () => {
+    const h = strip(html('fenland-loop'));
+    expect(h).not.toMatch(/official information · read/);
+    expect(h).toMatch(/class="pb ps-readline">Read 18 to 19 Oct 2026\. Sources are in each section\./);
+  });
+  it('draws the AllTrails tile as an external link with the outbound glyph and a screen-reader note (M17)', () => {
+    const h = strip(html('fenland-loop'));
+    expect(h).toMatch(/<a href="https:\/\/www\.alltrails\.com[^"]*" class="ga ga-ext" target="_blank" rel="noopener noreferrer"><span class="gl">AllTrails · link only<\/span><strong class="gv"><span class="ga-u">[^<]+<\/span><svg/);
+    expect(h).toContain('(opens in a new tab, third-party site)');
   });
   it('Tre Cime shows its track figures, with no gap in length, climb or time', () => {
     const t = tiles(strip(html('tre-cime-di-lavaredo-loop')));
