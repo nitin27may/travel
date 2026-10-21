@@ -163,7 +163,7 @@ colour; the only new type use is `--t-time` on the rail. New components the page
 profile selector, day rail, trip strip, timeline entry and leg (shared with 4.3), sun row, add row; they are
 specified in timeline-design 3 and 4 until their components.md sections are written.
 
-**Kind to category.** Six categories, not five: the research kinds (docs/v2/research/kinds/README.md)
+**Kind to category.** Six categories, not five: the research kinds (research/method/kinds/README.md)
 store adventures and lifts as `activity`, not `place`, and they are the items a family checks limits and
 booking windows on, so they get their own chip instead of hiding under Sights. Every one of the fifteen
 kinds maps once:

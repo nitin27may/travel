@@ -1,6 +1,6 @@
 # data/relevance: is it worth the journey, and for which kind of trip
 
-Sidecar files in the `relevance/1` format. Suitability asks "can this party do it?". Relevance asks "is it worth coming for, from where, and in what kind of trip?". The spec is `docs/v2/research/relevance.md`; the schema is `core/src/schema/relevance.ts`, exported to `data/schema/generated/schema.json` as `sidecar.relevance`. It reuses the refs, the value wrapper (plus the basis `editorial`) and the source rules of suitability, in a record of its own.
+Sidecar files in the `relevance/1` format. Suitability asks "can this party do it?". Relevance asks "is it worth coming for, from where, and in what kind of trip?". The spec is `research/method/relevance.md`; the schema is `core/src/schema/relevance.ts`, exported to `data/schema/generated/schema.json` as `sidecar.relevance`. It reuses the refs, the value wrapper (plus the basis `editorial`) and the source rules of suitability, in a record of its own.
 
 ```
 data/relevance/
@@ -33,7 +33,7 @@ node core/bin/relevance.ts codes                    list the codes
 
 ## The file
 
-See `docs/v2/research/relevance.md` section 2.1 and 4 for the record and an abridged example. Small additions to the spec's shapes, all optional:
+See `research/method/relevance.md` section 2.1 and 4 for the record and an abridged example. Small additions to the spec's shapes, all optional:
 
 - `Mention.reach` (`regional`, `national`, `global`): only a `top_list` mention with `national` or `global` reach raises the draw floor (3.1 rule 4). Without it the tool cannot tell a national guide from a regional board.
 - `Designation.wikidata`: the confirmed QID of a parent area. The tool reads its fame, and an `official_highlight` under a world-fame parent gets the national floor (the Narrows inside Zion).

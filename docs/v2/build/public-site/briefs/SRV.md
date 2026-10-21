@@ -14,14 +14,14 @@ Know on day 1 whether the JSON we keep writing loads into `docs/v2/schema.sql` w
 ## Read first
 
 - `docs/v2/schema.sql` (467 lines, 63 tables), `docs/v2/04-stack.md`, `docs/v2/08-self-hosted.md`, `docs/v2/build/SERVER-SIDE-LAUNDRY-LIST.md`.
-- `docs/v2/research/capture-contract.md`, `data/vocab/types.json` (398 nodes, layers and marks), `core/src/schema/capture/properties.ts` (83 properties), the sidecars (`data/capture/points.json`, `data/suitability/**`, `data/relevance/**`, `data/sources/registry.json`), `data/locations/locations.json` (schema v2/v3 tables).
+- `research/method/capture-contract.md`, `data/vocab/types.json` (398 nodes, layers and marks), `core/src/schema/capture/properties.ts` (83 properties), the sidecars (`data/capture/points.json`, `data/suitability/**`, `data/relevance/**`, `data/sources/registry.json`), `data/locations/locations.json` (schema v2/v3 tables).
 - For SRV-0: EXECUTION-PLAN 4.2 and 4.6, `core/src/catalogue/**` and the contract kit (API-1).
 
 ## Files you own
 
 | Sub-lane | Paths |
 |---|---|
-| SRV-D | `docs/v2/research/schema-diff-2026-10.md` (new) |
+| SRV-D | `research/reports/schema-diff-2026-10.md` (new) |
 | SRV-0 | `supabase/**` (new: `config.toml`, `migrations/**`, `seed` scripts if any), `core/src/catalogue/supabase/**` (new), `core/bin/load-catalogue.ts` (new), `core/test/catalogue/supabase.test.ts` (new), the types file that `supabase gen types typescript` writes (path chosen in step 7, never hand-edited) |
 
 ## Do not touch

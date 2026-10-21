@@ -1,6 +1,6 @@
 # Rockies activities: suitability and relevance (lane R2b)
 
-Researched 18 Oct 2026 by travel-researcher (Opus). One pass for both specs: `docs/v2/research/suitability-applicability.md` section 8 and `docs/v2/research/relevance.md` section 8.
+Researched 18 Oct 2026 by travel-researcher (Opus). One pass for both specs: `research/method/suitability-applicability.md` section 8 and `research/method/relevance.md` section 8.
 
 Files written:
 - `data/suitability/canadian-rockies-2029/R2b.json` (suitability/1, 17 records, 36 sources)

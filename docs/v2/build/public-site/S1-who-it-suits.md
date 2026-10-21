@@ -10,9 +10,9 @@ Wave 3, stage 3. It is the last build lane of the stage. Part 0 (design) and Par
 - **Backlog:** 3a.5 (S1), capture-contract step 5 (3a.12), the place-page half of RV1 (3a.6 step d: badge, "Similar nearby", the pointer, Plan B), 2.43 (the party scrub), and [CC-adapter-requests.md](CC-adapter-requests.md) items 1 to 10.
 - **Specs:**
   - [design/suitability-display.md](../../design/suitability-display.md): the layout, chip vocabulary, wording, colour and acceptance checks for "Who it suits", cards and day rows. Its mock is `design/suitability-display/mock/`.
-  - [research/capture-contract.md](../../research/capture-contract.md) section 6 (the 14 sections, renderers by value type, the glance from the contract, other surfaces) and 2.5, 2.7 (relations, layers, which facts live where).
-  - [research/suitability.md](../../research/suitability.md) 3, 4, 6.4, 6.5 and [suitability-applicability.md](../../research/suitability-applicability.md) 5.1, 5.2 (slots per profile, the detail order, gaps, N never drawn).
-  - [research/relevance.md](../../research/relevance.md) 3.2, 3.6, 3.7, 6.2, 7.
+  - [research/capture-contract.md](../../../../research/method/capture-contract.md) section 6 (the 14 sections, renderers by value type, the glance from the contract, other surfaces) and 2.5, 2.7 (relations, layers, which facts live where).
+  - [research/suitability.md](../../../../research/method/suitability.md) 3, 4, 6.4, 6.5 and [suitability-applicability.md](../../../../research/method/suitability-applicability.md) 5.1, 5.2 (slots per profile, the detail order, gaps, N never drawn).
+  - [research/relevance.md](../../../../research/method/relevance.md) 3.2, 3.6, 3.7, 6.2, 7.
   - Principles P2 (with its safety exception), P3, P4, P6, P8, P9 and T1, T3, T4.
 - **Owner rule in force:** empty sections stay visible as markers of missing data. A section with an R or A property for the type and no value shows its gap markers; only a section whose properties are all N for the type is not drawn (contract 6.1, display D8 and D9).
 

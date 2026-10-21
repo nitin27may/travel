@@ -9,9 +9,9 @@ Wave 3, stage 3. It runs in parallel with L3c (timeline), L4b (trail tracks), L2
   - short-trip length classes, the drive pill and the 2.41 filter items, 2 h
 - **Backlog:** 3.2, 3.11, capture-contract step 6 (3a.12), the trips half of 3a.5, and the 2.41 items "a Done button on filter pills" and "trips map clusters at empty centroids".
 - **Specs:**
-  - [research/capture-contract.md](../../research/capture-contract.md) section 7 (type-aware filters: rules, facets by scope, the bands in list rows) and section 8 (a new type is data).
-  - [research/suitability.md](../../research/suitability.md) 6.3 (trip tags and filters), with [suitability-applicability.md](../../research/suitability-applicability.md) 5.3 (the derived values) and [design/suitability-display.md](../../design/suitability-display.md) section 5 (the Kids, Effort and Stroller labels and count lines).
-  - [research/relevance.md](../../research/relevance.md) 6.3 (highlights and activity tags from anchors only).
+  - [research/capture-contract.md](../../../../research/method/capture-contract.md) section 7 (type-aware filters: rules, facets by scope, the bands in list rows) and section 8 (a new type is data).
+  - [research/suitability.md](../../../../research/method/suitability.md) 6.3 (trip tags and filters), with [suitability-applicability.md](../../../../research/method/suitability-applicability.md) 5.3 (the derived values) and [design/suitability-display.md](../../design/suitability-display.md) section 5 (the Kids, Effort and Stroller labels and count lines).
+  - [research/relevance.md](../../../../research/method/relevance.md) 6.3 (highlights and activity tags from anchors only).
   - [features/short-trips.md](../../features/short-trips.md) 2.1 (`lengthClass`) and 3.3 (the Length pill, drive pill, card chip, group by Length).
   - [design/foundation/principles.md](../../design/foundation/principles.md): P1, P3, P4, P8, P9 and T1, T4.
 - **Starts:** now, in its own worktree. Steps 5 and 6 (the two tags that need the scheduler) are done after L3c merges and this lane rebases onto it.

@@ -22,7 +22,7 @@ deliverable is the changeset.
 ## 2. The skill set
 
 Each skill is a folder under `.claude/skills/` with a `SKILL.md`; lane contracts are read from
-`docs/v2/research/lanes/` (or from the MCP resource `lane://<id>` so the skill and the server never
+`research/method/lanes/` (or from the MCP resource `lane://<id>` so the skill and the server never
 drift).
 
 | Skill | Input | Steps | Output |
