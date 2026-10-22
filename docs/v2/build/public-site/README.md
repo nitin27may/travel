@@ -292,6 +292,50 @@ named.
 - **The `web/` green shell has tests that pin it** (no-hex, fonts, places-parity). L0 and L4 update them rather than
   delete them; a deleted test is a review failure.
 
+## Environment variables
+
+Names only, never values. Every name read in `web/`, `core/` or `tools/` is a row here: `tools/cons/hardcode_scan.py` (a check-all step) and `web/tests/cons/env-table.test.ts` fail on a name that is missing. "Public" means the value is inlined into the browser bundle at build time (`NEXT_PUBLIC_*`); everything else stays on the machine. A name listed before its code lands (the phase B data-adapter switches) is allowed; the checks run one direction only. Secrets live in `web/.env.local` (gitignored); never print them.
+
+| Name | Used by | What it does | Public |
+|---|---|---|---|
+| `NEXT_PUBLIC_DATA_ADAPTER` | web (API-1) | Picks the browser data adapter (`api` by default, `static` for the static smoke build). Inlined at build | yes |
+| `CATALOGUE_STORE` | web, core (API-1) | Picks the server catalogue store (`json` now, a database later) | no |
+| `NEXT_PUBLIC_CF_BEACON_TOKEN` | web `app/layout.tsx` | Cloudflare Web Analytics token; no token, no beacon | yes |
+| `NEXT_PUBLIC_PLACE_MAP_FAMILY` | web `lib/map/family.ts` | Map family for place pages (`maplibre` default, `google-js` for the Google fixture) | yes |
+| `NEXT_PUBLIC_GOOGLE_MAPS_KEY` | web `lib/map/family.ts` | Browser key for the Google map family; referrer-restricted | yes |
+| `NEXT_PUBLIC_GOOGLE_MAP_ID` | web `lib/map/family.ts` | Google map style id | yes |
+| `SITE_ORIGIN` | web `lib/site.ts`, `lib/export/share.ts` | Canonical origin for links, sitemap and share images; defaults to the live host | no |
+| `HUB_TODAY` | web `lib/data/root.ts`, `tools/hub.py`, the staging tool | Pins "today" (`YYYY-MM-DD`) for badges, so builds and diffs repeat | no |
+| `TRAVEL_TODAY` | core `bin/mcp.ts`, `src/ops/run.ts` | Pins today for checks, ops and the MCP server | no |
+| `TRAVEL_NOW` | core `src/ops/run.ts` | Pins the operation clock (ISO datetime) | no |
+| `SUITABILITY_TODAY` | core `bin/suitability.ts` | Pins today for the suitability tool | no |
+| `RELEVANCE_TODAY` | core `bin/relevance.ts` | Pins today for the relevance tool | no |
+| `TRAVEL_ROOT` | web `lib/data/root.ts` | Repo root override (the privacy test points it at a fixture tree) | no |
+| `LEGACY_TRIPS_JSON` | web `lib/data/trips.ts` | Path of the legacy trips file; set by the fixture build | no |
+| `LOCATIONS_ROOT` | `tools/locations.py`, `tools/location_views.py`, core `placeBackend.ts` | Root the locations tool reads and writes (tests use a temp tree) | no |
+| `NEXT_DIST_DIR` | web `next.config.ts`, build scripts | Alternate build folder, only for the fixture builds | no |
+| `NEXT_PHASE` | web `lib/public/places.ts` | Set by Next; the build logs shell places once | no |
+| `NODE_ENV` | web | Set by Node and Next; dev-only branches | no |
+| `HOME` | web `scripts/embed-spike` | Home folder, for the spike's browser cache path | no |
+| `ORS_API_KEY` | web `scripts/legs-ors.mjs` | OpenRouteService key for route legs; scripts only, check-all fails if it reaches client output | no |
+| `COMMONS_CACHE` | web `scripts/commons-cache.mjs` | Folder for the Commons image cache (default `web/.og-cache`) | no |
+| `TRACKS_LOCKED` | web `scripts/tracks-osm.mjs` | Set by the script itself once it holds the Overpass lock | no |
+| `GLOBE_IMAGES_LOCKED` | web `scripts/globe-images.mjs` | Set by the script itself once it holds the Commons lock | no |
+| `GLOBE_CITIES_LOCKED` | web `scripts/globe-cities.mjs` | Set by the script itself once it holds its lock | no |
+| `PUBLISH_DRY_RUN` | the staging tool | `1` stages the site and stops before upload | no |
+| `SKIP_WEB_BUILD` | web test and e2e global setup | `1` reuses the existing build instead of building | no |
+| `PW_REUSE_SITE` | web e2e global setup | `1` reuses a running server (with `PW_SITE_URL`) | no |
+| `PW_SITE_URL` | web e2e fixtures | URL of the server the e2e specs use | no |
+| `PW_SITE_PID` | web e2e fixtures | PID of the server global setup started, so teardown kills that PID | no |
+| `PW_FIREFOX` | web `playwright.config.ts` | `1` adds the Firefox project | no |
+| `GPU_CHROME` | web e2e GPU specs | Path of a GPU-capable Chromium | no |
+| `GLOBE_SHOTS` | web e2e `globe.shots.spec.ts` | Folder or switch for globe screenshots | no |
+| `SHOTS_SHL2` | web e2e `shell-report.spec.ts` | Switch for the shell report screenshots | no |
+| `SHOTS_NETWORK` | web e2e `shots.ts` | Lets remote hosts through during screenshots | no |
+| `TRIPS_SHOT_URL` | web e2e `trips.shots.spec.ts` | URL for the trips screenshot spec | no |
+| `UPDATE_FIXTURES` | core tests `ops/util.ts` | `1` rewrites the op fixtures | no |
+| `WRITE_TAG_REPORT` | web `tests/data/tag-conflicts.test.ts` | `1` writes the tag conflict report | no |
+
 ## Change log
 
 | Date | Change |
