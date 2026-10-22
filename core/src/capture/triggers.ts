@@ -18,6 +18,8 @@ export const TRIGGERS = [
   "weather_dependent",
   /** a wildlife area with distance rules */
   "wildlife_area",
+  /** the value is computed by a derive step that exists and has an input (near_town: the towns layer and a non-approximate point; META-2) */
+  "derived",
   /** no condition is named: the mark is advisory */
   "conditional",
 ] as const;

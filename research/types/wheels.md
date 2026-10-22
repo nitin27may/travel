@@ -10,7 +10,7 @@ Records: route, place, offer. Suitability profile `cycle_path` (flag, extension 
 
 **route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
-**place**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
 
 **offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, part_of, on, variants, cancellation, included.
 
@@ -52,7 +52,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: place, offer. Suitability profile `mtb_lift` (always, extension ride). Effort: bike-path, imba, sts, trailforks, whistler. Sources, in order: F O X.
 
-**place**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
 
 **offer (ticket)**: R name, type, summary, access_cost, price, links, at; R? season (operates), hours (operates), window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, part_of, on, run_by, variants, included.
 
@@ -64,7 +64,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: place. Suitability profile `cycle_path` (flag, extension ride). Effort: bike-path, imba, sts, trailforks, whistler. Sources, in order: F O X.
 
-**place**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
 
 Suitability: R age_band, kid_note, effort.source_grade, effort.drivers.distance_km, effort.drivers.gain_m, effort.drivers.surface, adult_time_min, ext.ride.traffic; R when operated none; A limited_capacity_note, effort.drivers.loss_m, effort.drivers.max_grade_pct, toilets, water, food, shade, bail_out, hazards, access_season, ext.ride.bike_hire, ext.ride.min_rider_age, ext.ride.one_way_return, ext.ride.e_bike, ext.ride.kids_bike_sizes.
 
