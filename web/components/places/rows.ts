@@ -1,6 +1,7 @@
 import { placeHref } from '@/lib/data/paths';
-import type { PlaceRow, PlaceTag } from '@/lib/data/types';
-import type { Honesty, PlaceKind, PublicPlaceCard } from '@/lib/public/types';
+import type { PlaceRow } from '@/lib/data/types';
+import type { Honesty, PublicPlaceCard } from '@/lib/public/types';
+import { PLACE_LIST_ROW_KEYS, type PlaceListRow as ContractPlaceListRow } from '@travel/core/schema/api/place.ts';
 
 /** The honesty chip a card shows: the id and the label. The reason is a sentence of its own and stays on the place page. */
 export interface ListHonesty {
@@ -13,83 +14,14 @@ export interface ListHonesty {
  * build time and ships inside the list page, so it must never carry what the place page holds: facts, links,
  * suitability values, times or notes. `tests/data/light-data.test.ts` pins the key list. A place's personal
  * status (idea, planned, visited ...) is household data and is deliberately never read here either.
+ *
+ * The shape is the Zod schema `placeListRow` in core (API-1a, schema diff 13.1 item 2): the type is its `z.infer`, and the key list
+ * below is the schema's keys, so the allowlist has one home. The API's `PlaceRow` is this row plus `ref`.
  */
-export interface PlaceListRow {
-  /** The slug; the list's row id, so `ids=` and `focus=` use slugs. */
-  id: string;
-  slug: string;
-  name: string;
-  kind: PlaceKind;
-  kindLabel: string;
-  /** The kind in `locations.json` (city, park, mountain ...) when the place came from there, so old links with `kind=park` still work. */
-  legacyKind: string | null;
-  country: string;
-  country_name: string;
-  region: string;
-  region_name: string;
-  /** Every spelling of the region the URL may carry: the slug, the name, the legacy code, the ISO code. */
-  regionAliases: string[];
-  area: string;
-  area_name: string;
-  /** The pin, for the map view, the globe link and the map-area filter. */
-  lat: number | null;
-  lon: number | null;
-  /**
-   * Three numbers a visitor reads at a glance (principle P3: how long, how hard), so they stay in the list row and the table:
-   * trail length in km, climb in metres and elevation in metres. They are widely published, so principle P8 does not need
-   * to hide them. Notes, source links, checks, times and suitability values stay on the place page.
-   */
-  km: number | null;
-  gain_m: number | null;
-  elevation_m: number | null;
-  /** 1 to 12. */
-  season: number[];
-  /** The kids chip: strong-kid, yes, no or unknown. */
-  kid_fit: string;
-  tags: PlaceTag[];
-  /** Card cover URL. */
-  image: string | null;
-  /** Every public trip that uses the place. Public trips are dateless, so no dates are carried. */
-  trips: { slug: string; title: string }[];
-  honesty: ListHonesty[];
-  /** The completeness chip: its level and short label. The count of checks and which fail stay on the place page. */
-  completeness: { level: 'draft' | 'usable' | 'complete'; label: string };
-  /** Source types only ("instagram", "official"), for the card's source chip. No address, no date. */
-  sourceTypes: string[];
-  /** Whether the place has stats, and whether they are checked: a chip, never the numbers. */
-  statsState: 'verified' | 'unverified' | null;
-  /** True when the place has research beyond a saved pin. */
-  researched: boolean;
-  added: string;
-  // ---- facet fields (capture contract 7.3; L3b): a type id and bands, all labels. Never a fact with a source (principle P8). ----
-  /** The capture type id (`nature.trail.hike`) or the category its kind implies; the Kind pill and the type-aware facets read it. */
-  type: string | null;
-  /** Effort name (Stroll to Technical), or null where the profile has none or nobody has checked. */
-  effort: string | null;
-  kids_from: number | null;
-  /** `rule` hides the place from a younger child; `advice` only fades its card. */
-  kids_basis: 'rule' | 'advice' | null;
-  time_band: string | null;
-  price_band: string | null;
-  booking: string | null;
-  /** Up to six ids of yes/no facets ("swim", "!dogs"); a gap stores neither. */
-  flags: string[];
-  /** Walk from the car: lt200, 200-600, 600-1500, 1500+ (metres). */
-  walk_band: string | null;
-  /** Trail shape: loop, out-and-back, point-to-point, network. */
-  shape: string | null;
-  /** Best time of day: sunrise, golden_am, morning ... */
-  best_time: string | null;
-  /** The one relevance badge of the card: "Worth the journey", "Worth a detour" or "Local favourite" (relevance 6.2). A label, never a rating or a rank. */
-  badge: string | null;
-}
+export type PlaceListRow = ContractPlaceListRow;
 
-/** Every key a list row may carry. A test compares this with the keys the builder writes. */
-export const PLACE_LIST_KEYS: readonly (keyof PlaceListRow)[] = [
-  'id', 'slug', 'name', 'kind', 'kindLabel', 'legacyKind', 'country', 'country_name', 'region', 'region_name', 'regionAliases', 'area', 'area_name',
-  'lat', 'lon', 'km', 'gain_m', 'elevation_m', 'season', 'kid_fit', 'tags', 'image', 'trips', 'honesty', 'completeness', 'sourceTypes', 'statsState', 'researched', 'added',
-  'type', 'effort', 'kids_from', 'kids_basis', 'time_band', 'price_band', 'booking', 'flags', 'walk_band', 'shape', 'best_time', 'badge',
-];
+/** Every key a list row may carry, derived from the schema. A test compares this with the keys the builder writes. */
+export const PLACE_LIST_KEYS: readonly (keyof PlaceListRow)[] = PLACE_LIST_ROW_KEYS;
 
 /** Joins the adapter cards with the legacy rows through the old place URLs that LD already maps to slugs. */
 export function buildPlaceRows(

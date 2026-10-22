@@ -439,30 +439,5 @@ export function captureSeeds(ctx: SeedContext): SeedBuild {
   return { seeds, skipped };
 }
 
-/** A slug stays readable: at most 60 characters, cut at a word. */
-const shortBase = (slug: string): string => (slug.length <= 60 ? slug : slug.slice(0, 60).replace(/-[^-]*$/, ''));
-
-/**
- * Slugs for the seeds, given the slugs already taken. Existing slugs never move (the public URLs are frozen), so the seeds only fill
- * free names, in ref order: the plain name; then name-district; then name-district-type; then a number.
- */
-export function assignSeedSlugs(seeds: readonly CaptureSeed[], used: Set<string>): Map<string, string> {
-  const out = new Map<string, string>();
-  // a record that is itself a place takes the plain name before a part cut out of another record
-  const rank = (s: CaptureSeed) => (s.ref.startsWith('part/') ? 1 : 0);
-  for (const s of [...seeds].sort((a, b) => rank(a) - rank(b) || a.ref.localeCompare(b.ref))) {
-    const base = shortBase(kebab(s.name)) || 'place';
-    const district = s.areaChain[2]?.slug ?? '';
-    const candidates = [base, district && `${base}-${district}`, district && `${base}-${district}-${kebab(s.typeLabel)}`].filter((c): c is string => !!c);
-    let slug = candidates.find((c) => !used.has(c));
-    if (!slug) {
-      const root = candidates[candidates.length - 1]!;
-      let n = 2;
-      while (used.has(`${root}-${n}`)) n++;
-      slug = `${root}-${n}`;
-    }
-    used.add(slug);
-    out.set(s.ref, slug);
-  }
-  return out;
-}
+// Slug assignment for the seeds moved to core with the slug registry (API-1a, D-B1); re-exported for the callers here.
+export { assignSeedSlugs } from './slugs';
