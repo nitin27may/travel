@@ -14,8 +14,8 @@ export const HONESTY_IDS = [
   "condensed", "overview_only", "drive_estimated", "pattern_2026",
 ] as const;
 export const COMPLETENESS_LEVELS = ["draft", "usable", "complete"] as const;
-/** Where a place's facts came from (the page's origin list, not a citation). */
-export const PLACE_ORIGINS = ["locations", "prototype", "trail", "capture"] as const;
+/** Where a place's facts came from (the page's origin list, not a citation). The owner's private wishlist store is never named (PRIV1). */
+export const PLACE_ORIGINS = ["prototype", "trail", "capture"] as const;
 
 // ---- the list row -----------------------------------------------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ const tripRef = z.strictObject({ slug: apiSlug, title: z.string() });
 const listHonesty = z.strictObject({ id: z.enum(HONESTY_IDS), label: z.string() });
 
 /**
- * One row of the Places list as the site ships it today: card and filter fields only (principle P8, backlog 2.24). Exactly the 41
+ * One row of the Places list as the site ships it today: card and filter fields only (principle P8, backlog 2.24). Exactly the 39
  * keys of `PLACE_LIST_KEYS` in web/components/places/rows.ts, which derives the type and the key list from this schema, and
  * web/tests/data/light-data.test.ts pins them. The descriptions live on the web type's history; the schema is the allowlist.
  */
@@ -56,12 +56,8 @@ export const placeListRowShape = {
   trips: z.array(tripRef),
   honesty: z.array(listHonesty),
   completeness: z.strictObject({ level: z.enum(COMPLETENESS_LEVELS), label: z.string() }),
-  // R-6 pending owner: `sourceTypes` (instagram, note, friend) and `added` (the save date) are household save metadata of the
-  // locations store; the owner rules whether they leave the allowlist or change meaning. Kept as shipped until then.
-  sourceTypes: z.array(z.string()),
   statsState: z.enum(["verified", "unverified"]).nullable(),
   researched: z.boolean(),
-  added: z.string(), // R-6 pending owner
   type: z.string().nullable(),
   effort: z.string().nullable(),
   kids_from: z.number().nullable(),
@@ -105,7 +101,7 @@ export const facetKey = z.string().regex(FACET_KEY_RE);
  * The sort keys of the Places list (review R-4): the descriptor's sorts, each a value rule in core/src/catalogue/sorting.ts. `-key` is
  * descending. Any other key is `invalid_input`. The ordering rule (nulls last both ways, then sortKey(name), then ref) is written there.
  */
-export const PLACE_SORT_KEYS = ["name", "kind", "country", "region", "area", "season", "kid", "elevation", "km", "gain", "sources", "complete", "plan", "added"] as const;
+export const PLACE_SORT_KEYS = ["name", "kind", "country", "region", "area", "season", "kid", "elevation", "km", "gain", "complete", "plan"] as const;
 const sortSpecOf = (keys: readonly string[]) => z.string().regex(new RegExp(`^-?(?:${keys.join("|")})$`));
 export const placeSortSpec = sortSpecOf(PLACE_SORT_KEYS);
 /** The sort keys of the Trips list (core/src/catalogue/sorting.ts TRIP_SORT_VALUES). */

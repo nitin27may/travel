@@ -12,8 +12,8 @@ import { api, REGISTRY } from "../../src/schema/index.ts";
 
 const ROOT = resolve(import.meta.dirname, "..", "..", "..");
 
-/** The 41 keys of the list row the site ships (web/tests/data/light-data.test.ts pins the same list). */
-const SHIPPED_ROW_KEYS = ["id", "slug", "name", "kind", "kindLabel", "legacyKind", "country", "country_name", "region", "region_name", "regionAliases", "area", "area_name", "lat", "lon", "km", "gain_m", "elevation_m", "season", "kid_fit", "tags", "image", "trips", "honesty", "completeness", "sourceTypes", "statsState", "researched", "added", "type", "effort", "kids_from", "kids_basis", "time_band", "price_band", "booking", "flags", "walk_band", "shape", "best_time", "badge"];
+/** The 39 keys of the list row the site ships (web/tests/data/light-data.test.ts pins the same list). */
+const SHIPPED_ROW_KEYS = ["id", "slug", "name", "kind", "kindLabel", "legacyKind", "country", "country_name", "region", "region_name", "regionAliases", "area", "area_name", "lat", "lon", "km", "gain_m", "elevation_m", "season", "kid_fit", "tags", "image", "trips", "honesty", "completeness", "statsState", "researched", "type", "effort", "kids_from", "kids_basis", "time_band", "price_band", "booking", "flags", "walk_band", "shape", "best_time", "badge"];
 /** web/components/trips/types.ts TRIP_LIST_KEYS. */
 const SHIPPED_TRIP_KEYS = ["id", "slug", "title", "depth", "nights", "days", "seasonNotSet", "isDone", "region", "cover", "seasonLabel", "seasonMonths", "country", "countryName", "lat", "lon", "approx", "ageFit", "kidsBasis", "effort", "firstBase", "countries", "continents", "length", "lengthClass", "hike", "hikeBasis", "strollerDays", "activities", "highlights", "around", "perDay", "perDayApprox", "shape", "fromHubMin", "fromHubApprox"];
 

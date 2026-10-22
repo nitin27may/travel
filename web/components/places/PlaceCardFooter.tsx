@@ -1,38 +1,47 @@
 import { Icon } from '@/components/ui/Icon';
-import { sourceLabel } from '@/lib/entities/labels';
 import type { PlaceListRow } from './rows';
 
-const SOURCE_SHORT: Record<string, string> = { instagram: 'Instagram post', official: 'Official site' };
-
-/** Card footer: where the facts came from, whether the numbers are checked, and the two ways on (Place page, Globe). */
+/**
+ * Card footer: whether the facts are researched, whether the numbers are checked, how complete the page is, and the two ways on (Place page, Globe).
+ * It never says where the owner saved a place from: that is private wishlist data (PRIV1). A place with nothing to say here gets no status line at all.
+ */
 export function PlaceCardFooter({ p }: { p: PlaceListRow }) {
-  const first = p.sourceTypes[0];
-  const researched = p.researched;
+  const noSource = p.honesty.some((h) => h.id === 'no_source');
+  const origin = p.researched && !noSource ? 'Researched' : noSource ? 'No source yet' : null;
+  const showComplete = p.completeness.level !== 'draft';
+  const hasStatus = origin !== null || p.statsState !== null || showComplete;
+  const parts: React.ReactNode[] = [];
+  if (origin) {
+    parts.push(
+      <span key="origin" className="src-origin">
+        <Icon name={origin === 'Researched' ? 'link' : 'info'} size={13} />
+        <span>{origin}</span>
+      </span>,
+    );
+  }
+  if (p.statsState) {
+    parts.push(
+      <span key="verify" className="verify" data-ok={p.statsState === 'verified' || undefined}>
+        <Icon name={p.statsState === 'verified' ? 'check' : 'info'} size={12} />
+        {p.statsState === 'verified' ? 'Verified' : 'Unverified'}
+      </span>,
+    );
+  }
+  /* a place with only the basics has no badge: "Draft" is the workshop's word, not the visitor's */
+  if (showComplete) {
+    parts.push(
+      <span key="complete" className="pc-complete" data-level={p.completeness.level}>
+        {p.completeness.label}
+      </span>,
+    );
+  }
   return (
     <>
-      <p className="src" title={first ? sourceLabel(first) : 'No source recorded'}>
-        <Icon name={first ? 'link' : 'info'} size={13} />
-        <span>{first ? (SOURCE_SHORT[first] ?? sourceLabel(first)) : researched && !p.honesty.some((h) => h.id === 'no_source') ? 'Researched' : 'No source yet'}</span>
-        {p.sourceTypes.length > 1 ? <span className="num">+{p.sourceTypes.length - 1}</span> : null}
-        {p.statsState && p.sourceTypes.length > 0 ? (
-          <>
-            <span className="foot-sep" aria-hidden="true"> · </span>
-            <span className="verify" data-ok={p.statsState === 'verified' || undefined}>
-              <Icon name={p.statsState === 'verified' ? 'check' : 'info'} size={12} />
-              {p.statsState === 'verified' ? 'Verified' : 'Unverified'}
-            </span>
-          </>
-        ) : null}
-        {/* a place with only the basics has no badge: "Draft" is the workshop's word, not the visitor's */}
-        {p.completeness.level !== 'draft' ? (
-          <>
-            <span className="foot-sep" aria-hidden="true"> · </span>
-            <span className="pc-complete" data-level={p.completeness.level}>
-              {p.completeness.label}
-            </span>
-          </>
-        ) : null}
-      </p>
+      {hasStatus ? (
+        <p className="src">
+          {parts.flatMap((x, i) => (i === 0 ? [x] : [<span key={`sep${i}`} className="foot-sep" aria-hidden="true"> · </span>, x]))}
+        </p>
+      ) : null}
       <p className="card-links">
         <a href={`/places/${p.slug}/`}>
           Place page<span className="sr-only">: {p.name}</span>

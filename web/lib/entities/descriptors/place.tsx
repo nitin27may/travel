@@ -79,9 +79,6 @@ function col(id: string, header: string, cell: PlaceCol['cell'], text: (p: Place
   } as PlaceCol;
 }
 
-const sourceCount = (p: PlaceListRow) => p.sourceTypes.length;
-const sourceText = (p: PlaceListRow) => (p.sourceTypes.length ? `${p.sourceTypes.length} ${p.sourceTypes.length === 1 ? 'source' : 'sources'}` : 'None yet');
-
 /** The "Fit" cell: the age the advice starts at, shown only while a chosen age makes the place a stretch (filters.css reads the row's data-fade). */
 const fitCell = (p: PlaceListRow) => (p.kids_basis === 'advice' && p.kids_from !== null && p.kids_from >= 1 ? <span className="fit-chip" title={ageLabel('fit', p.kids_from, 'advice')}>{p.kids_from}+</span> : null);
 
@@ -98,7 +95,6 @@ const columns: PlaceCol[] = [
   col('season', 'Season', ({ row }) => seasonLabel(row.original.season) || <span className="dash">&ndash;</span>, (p) => seasonLabel(p.season), { size: 120 }),
   col('kid', 'Kids', ({ row }) => (row.original.kid_fit === 'unknown' ? <span className="dash">&ndash;</span> : KID_LABELS[row.original.kid_fit] ?? row.original.kid_fit), (p) => KID_LABELS[p.kid_fit] ?? p.kid_fit, { size: 150 }),
   col('tags', 'Tags', ({ row }) => row.original.tags.map((t) => t.label).join(', '), (p) => p.tags.map((t) => t.label).join('; '), { size: 220, sort: false }),
-  col('sources', 'Sources', ({ row }) => (row.original.sourceTypes.length ? sourceText(row.original) : <span className="dash">None yet</span>), sourceCount, { size: 110 }),
   col('complete', 'Completeness', ({ row }) => completenessText(row.original), (p) => p.completeness.label, { size: 130 }),
   col('plan', 'Plan', ({ row }) => row.original.trips[0]?.title ?? <span className="dash">&ndash;</span>, (p) => p.trips[0]?.title ?? '', { size: 190 }),
 ];
@@ -309,7 +305,7 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
     scoped: scopedFacets<PlaceListRow>().map((f) => f.param),
   },
   columns,
-  defaultColumns: ['name', 'fit', 'kind', 'area', 'season', 'kid', 'elevation', 'km', 'gain', 'sources', 'complete'],
+  defaultColumns: ['name', 'fit', 'kind', 'area', 'season', 'kid', 'elevation', 'km', 'gain', 'complete'],
   groupBy: [
     { id: 'country', label: 'Country', key: (p) => p.country, title: (p) => p.country_name },
     { id: 'region', label: 'Region', key: (p) => `${p.country}/${p.region}`, title: (p) => p.region_name, subtitle: (p) => p.country_name },
@@ -328,12 +324,10 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
     elevation: { label: 'Elevation', value: (p) => p.elevation_m },
     km: { label: 'Length', value: (p) => p.km },
     gain: { label: 'Climb', value: (p) => p.gain_m },
-    sources: { label: 'Sources', value: (p) => p.sourceTypes.length },
     complete: { label: 'Completeness', value: (p) => COMPLETENESS_RANK[p.completeness.level] },
     plan: { label: 'Plan', value: (p) => p.trips[0]?.title ?? null },
-    added: { label: 'Date added', value: (p) => p.added || null },
   },
-  sortMenu: ['name', 'area', 'kind', 'km', 'gain', 'added'],
+  sortMenu: ['name', 'area', 'kind', 'km', 'gain'],
   defaultSort: (a, b) =>
     a.country_name.localeCompare(b.country_name) || a.region_name.localeCompare(b.region_name) || a.area_name.localeCompare(b.area_name) || a.name.localeCompare(b.name),
   defaultSortLabel: 'Country, then places with photos',

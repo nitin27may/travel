@@ -12,10 +12,11 @@ describe('place list rows', () => {
     expect(new Set(rows.map((r) => r.id)).size).toBe(rows.length);
     expect(rows.every((r) => r.id === r.slug)).toBe(true);
   });
-  it('joins the saved places with their legacy source types and tags', () => {
+  it('joins the saved places with their legacy tags and carries no save metadata', () => {
     const saved = rows.filter((r) => r.legacyKind !== null);
     expect(saved).toHaveLength(loadPlaces().length);
-    expect(saved.some((r) => r.sourceTypes.length > 0)).toBe(true);
+    for (const r of rows) expect(Object.keys(r)).not.toContain('sourceTypes');
+    for (const r of rows) expect(Object.keys(r)).not.toContain('added');
     expect(saved.some((r) => r.tags.length > 0)).toBe(true);
   });
   it('carries no personal status on a row', () => {
