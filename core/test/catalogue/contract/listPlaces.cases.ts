@@ -2,6 +2,7 @@
 import { expect } from "vitest";
 import { API_LIMITS, PLACE_ROW_KEYS, paged, placeRow, type PlaceRow } from "../../../src/schema/api/index.ts";
 import { compareSortable, sortKey } from "../../../src/catalogue/sortKey.ts";
+import { PLACE_SORT_VALUES, compareValues } from "../../../src/catalogue/sorting.ts";
 import { allRows, expectError, expectOk, type ContractCase } from "./kit.ts";
 
 const everyRow = (store: Parameters<ContractCase["run"]>[0]) => allRows<PlaceRow>((n) => store.listPlaces({}, { page: n, pageSize: API_LIMITS.pageSize.max }));
@@ -29,7 +30,7 @@ export const listPlacesCases: ContractCase[] = [
   },
   {
     id: "K2",
-    title: "rows carry exactly the allowlist keys of the PlaceRow schema",
+    title: "rows carry exactly the allowlist keys of the PlaceRow schema (sourceTypes and added: R-6 pending owner)",
     method: "listPlaces",
     async run(store) {
       const rows = await everyRow(store);
@@ -70,6 +71,73 @@ export const listPlacesCases: ContractCase[] = [
         expect(at(a)).toBeGreaterThanOrEqual(0);
         expect(at(b), "the tie breaks by ref").toBe(at(a) + 1);
       }
+    },
+  },
+  {
+    id: "K11.sort",
+    title: "sort=-km orders by km descending with nulls last, ties by sortKey(name) then ref; an unknown sort key is invalid_input",
+    method: "listPlaces",
+    async run(store) {
+      const rows = await allRows<PlaceRow>((n) => store.listPlaces({ sort: ["-km"] }, { page: n, pageSize: API_LIMITS.pageSize.max }));
+      const kms = rows.map((r) => r.km);
+      expect(kms.some((k) => k === null), "the data has rows with no km").toBe(true);
+      const firstNull = kms.indexOf(null);
+      expect(kms.slice(firstNull).every((k) => k === null), "nulls last").toBe(true);
+      for (let i = 1; i < rows.length; i++) {
+        const a = rows[i - 1]!;
+        const b = rows[i]!;
+        const c = compareValues(PLACE_SORT_VALUES.km(a), PLACE_SORT_VALUES.km(b), true);
+        expect(c, `${a.slug} before ${b.slug}`).toBeLessThanOrEqual(0);
+        if (c === 0) expect(compareSortable({ sortKey: sortKey(a.name), ref: a.ref }, { sortKey: sortKey(b.name), ref: b.ref }), `${a.slug} ${b.slug} tie`).toBeLessThan(0);
+      }
+      expect(new Set(kms.filter((k) => k !== null)).size, "the data has a km tie").toBeLessThan(kms.filter((k) => k !== null).length);
+      const asc = await allRows<PlaceRow>((n) => store.listPlaces({ sort: ["km"] }, { page: n, pageSize: API_LIMITS.pageSize.max }));
+      expect(asc.at(-1)!.km, "nulls last ascending too").toBeNull();
+      expectError(await store.listPlaces({ sort: ["password"] }), "invalid_input");
+    },
+  },
+  {
+    id: "K14.ambiguous",
+    title: "a region alias two countries share is invalid_scope with the candidates; a country settles it",
+    method: "listPlaces",
+    async run(store, t) {
+      const { alias, cc } = t.facts.ambiguousRegion!;
+      const r = await store.listPlaces({ facets: { region: [alias] } });
+      expectError(r, "invalid_scope");
+      if (!r.ok) expect((r.error.details?.candidates as string[]).length).toBeGreaterThan(1);
+      expect(expectOk(await store.listPlaces({ facets: { country: [cc], region: [alias] } })).total).toBeGreaterThan(0);
+    },
+  },
+  {
+    id: "listPlaces.ids",
+    title: "ids= resolves a retired or merged slug to its current page; a withdrawn or unknown slug selects nothing",
+    method: "listPlaces",
+    async run(store, t) {
+      const { retired, merged, withdrawn } = t.facts;
+      const got = expectOk(await store.listPlaces({ ids: [retired!.from, merged!.from, withdrawn!, "no-such-place-anywhere"] }));
+      expect(got.items.map((r) => r.slug).sort()).toEqual([retired!.to, merged!.to].sort());
+    },
+  },
+  {
+    id: "listPlaces.tag",
+    title: "a tag facet filters on the row's tag ids (A21)",
+    method: "listPlaces",
+    async run(store, t) {
+      const { id, slugs } = t.facts.tag!;
+      expect(expectOk(await store.listPlaces({ facets: { tag: [id] } })).items.map((r) => r.slug).sort()).toEqual([...slugs].sort());
+      expect(expectOk(await store.listPlaces({ facets: { tag: ["no-such-tag"] } })).total).toBe(0);
+    },
+  },
+  {
+    id: "listPlaces.q",
+    title: "q follows the sortKey rule: accents and case fold the same way as search",
+    method: "listPlaces",
+    async run(store, t) {
+      const [a] = t.facts.sortKeyTie ?? [];
+      if (!a) return;
+      const plain = expectOk(await store.listPlaces({ q: "emerald pool" })).total;
+      expect(plain).toBe(expectOk(await store.listPlaces({ q: "ÉMERALD POOL" })).total);
+      expect(plain).toBeGreaterThanOrEqual(2);
     },
   },
   {

@@ -4,7 +4,7 @@
 //   json          JsonStore on the real data/: lands in API-1b; every case is todo until then (the tables are its target)
 // SRV-0 adds a `supabase` target. A pending or not-applicable case is an `it.todo` that names why, so the count is visible.
 import { describe, expect, it } from "vitest";
-import { StubStore, STUB_RETIRED, STUB_SOURCES, stubData } from "../../src/catalogue/stub/index.ts";
+import { StubStore, STUB_ALIASED, STUB_MERGED, STUB_RETIRED, STUB_SOURCES, STUB_TRIP_RETIRED, STUB_WITHDRAWN, stubData } from "../../src/catalogue/stub/index.ts";
 import { CONTRACT_TABLES, type ContractFacts, type ContractTarget } from "./contract/index.ts";
 
 const PHASE_E_NEAR = "phase E, N2 (nearby-and-regions.md section 7): near and nearbyForPlace answer not_available until then";
@@ -13,6 +13,12 @@ const stubFacts: ContractFacts = {
   placeSlug: "glacier-lake",
   tripSlug: "stub-rockies-loop",
   retired: { from: STUB_RETIRED.from, to: STUB_RETIRED.to },
+  merged: { from: STUB_MERGED.slug, to: STUB_MERGED.to },
+  withdrawn: STUB_WITHDRAWN.slug,
+  former: { ref: STUB_ALIASED.former, slug: STUB_ALIASED.slug },
+  tripRetired: { from: STUB_TRIP_RETIRED.from, to: STUB_TRIP_RETIRED.to },
+  ambiguousRegion: { alias: "Highlands", cc: "IT" },
+  tag: { id: "family", slugs: ["glacier-lake"] },
   approxSlugs: ["black-sand-arch"],
   sortKeyTie: ["place/emerald-pool-ab", "place/emerald-pool-bc"],
   region: { cc: "CA", canonical: "alberta", aliases: ["CA-AB", "AB", "Alberta", "Alta"] },
@@ -38,6 +44,7 @@ export const TARGETS: ContractTarget[] = [
     make: () => new StubStore(),
     makeChanged: changed,
     rowReads: (s) => (s as StubStore).rowReads,
+    registry: () => stubData().registry,
     facts: stubFacts,
     notApplicable: { "K10.mtime": IN_MEMORY },
   },
@@ -46,6 +53,7 @@ export const TARGETS: ContractTarget[] = [
     make: () => new StubStore({ layers: { near: false, towns: false, nearby: false } }),
     makeChanged: changed,
     rowReads: (s) => (s as StubStore).rowReads,
+    registry: () => stubData().registry,
     facts: { ...stubFacts, town: { id: "ca-ab-canmore", layer: false } },
     pending: Object.fromEntries([...CONTRACT_TABLES.near!, ...CONTRACT_TABLES.nearbyForPlace!].map((c) => [`${c.method}:${c.id}`, PHASE_E_NEAR])),
     notApplicable: { "K10.mtime": IN_MEMORY },

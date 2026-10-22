@@ -4,7 +4,7 @@
 import type {
   ApiCitation, ApiPoint, ApiVal, GlobeCity, GlobeFeature, GlobeLine, PlaceDetail, PlaceRow, SearchRecord, Town, TripDetail, TripRow,
 } from "../../schema/api/index.ts";
-import { assignPlaceSlugs, emptyRegistry, renameSlug, type SlugRegistry } from "../slugs.ts";
+import { aliasKey, assignPlaceSlugs, emptyRegistry, mergeKey, renameSlug, withdrawKey, type SlugRegistry } from "../slugs.ts";
 
 export interface StubPlace {
   row: PlaceRow;
@@ -43,9 +43,9 @@ export const STUB_SOURCES: ApiCitation[] = [
 const REGIONS: SlugRegistry["regions"] = {
   "ca/alberta": { name: "Alberta", aliases: ["AB", "Alberta", "Alta", "CA-AB", "alberta"] },
   "ca/british-columbia": { name: "British Columbia", aliases: ["BC", "British Columbia", "CA-BC", "british-columbia"] },
-  "it/south-tyrol": { name: "South Tyrol", aliases: ["Alto Adige", "IT-32", "South Tyrol", "south-tyrol"] },
+  "it/south-tyrol": { name: "South Tyrol", aliases: ["Alto Adige", "Highlands", "IT-32", "South Tyrol", "south-tyrol"] },
   "it/veneto": { name: "Veneto", aliases: ["IT-34", "Veneto", "veneto"] },
-  "is/south-iceland": { name: "South Iceland", aliases: ["IS-8", "South Iceland", "south-iceland"] },
+  "is/south-iceland": { name: "South Iceland", aliases: ["Highlands", "IS-8", "South Iceland", "south-iceland"] },
 };
 
 interface Spec {
@@ -75,7 +75,7 @@ const SPECS: Spec[] = [
   { ref: "route/larch-basin", name: "Larch Basin", kind: "trail", type: "nature.trail.hike", cc: "CA", region: "alberta", area: "bow-valley", lat: 51.3271, lon: -116.1858, role: "trailhead", licence: "ODbL", season: [7, 8, 9], km: 8.6, gain: 535, badge: "Worth the journey", trip: "stub-rockies-loop" },
   { ref: "place/glacier-lake", name: "Glacier Lake", kind: "lake", type: "water.body.lake", cc: "CA", region: "alberta", area: "bow-valley", lat: 51.3217, lon: -116.1860, role: "centre", licence: "ODbL", season: [6, 7, 8, 9], trip: "stub-rockies-loop" },
   { ref: "place/summit-gondola", name: "Summit Gondola", kind: "lift", type: "ride.lift.gondola", cc: "CA", region: "alberta", area: "bow-valley", lat: 51.1490, lon: -115.5732, role: "route_start", licence: "ODbL", trip: "stub-rockies-loop" },
-  { ref: "loc:CA/AB/bow-valley/canyon-walk", name: "Canyon Walk", kind: "trail", type: "nature.trail.walk", cc: "CA", region: "alberta", area: "bow-valley", lat: 51.2453, lon: -115.8394, role: "trailhead", licence: "ODbL", km: 2.4, gain: 120 },
+  { ref: "loc:CA/AB/bow-valley/canyon-walk", name: "Canyon Walk", kind: "trail", type: "nature.trail.walk", cc: "CA", region: "alberta", area: "bow-valley", lat: 51.2453, lon: -115.8394, role: "trailhead", licence: "ODbL", km: 3.7, gain: 120 },
   { ref: "proto:hoodoo-view", name: "Hoodoo Viewpoint", kind: "viewpoint", type: "nature.viewpoint", cc: "CA", region: "alberta", area: "bow-valley", lat: 51.1720, lon: -115.5402, role: null, licence: "unknown" },
   { ref: "place/emerald-pool-ab", name: "Émerald Pool", kind: "lake", type: "water.body.pool", cc: "CA", region: "alberta", area: "kananaskis", lat: 50.9010, lon: -115.1560, role: "centre", licence: "ODbL" },
   { ref: "place/emerald-pool-bc", name: "Emerald Pool", kind: "lake", type: "water.body.pool", cc: "CA", region: "british-columbia", area: "yoho", lat: 51.4433, lon: -116.5313, role: "centre", licence: "ODbL" },
@@ -96,6 +96,17 @@ const SPECS: Spec[] = [
 
 /** The retired slug: Larch Basin was renamed once, so its first slug answers with the current one. */
 export const STUB_RETIRED = { from: "larch-basin", to: "larch-basin-trail", ref: "route/larch-basin" } as const;
+/** A trip renamed once: its first slug answers with the current one (R-18). */
+export const STUB_TRIP_RETIRED = { from: "stub-alps-holiday", to: "stub-alps-week" } as const;
+/** A key replaced by `alias` (R-2): the former ref resolves to the same page. */
+export const STUB_ALIASED = { former: "proto:natural-bridge-v1", now: "loc:CA/BC/yoho/natural-bridge", slug: "natural-bridge" } as const;
+/** Records with a slug but no page: one merged into Glacier Lake (R-1), one withdrawn (R-3). */
+export const STUB_MERGED = { ref: "place/glacier-lake-shore", into: "place/glacier-lake", slug: "glacier-lake-shore", to: "glacier-lake" } as const;
+export const STUB_WITHDRAWN = { ref: "loc:CA/AB/bow-valley/old-lookout", slug: "old-lookout" } as const;
+const STUB_GONE = [
+  { ref: STUB_MERGED.ref, name: "Glacier Lake Shore", area: "bow-valley" },
+  { ref: STUB_WITHDRAWN.ref, name: "Old Lookout", area: "bow-valley" },
+];
 
 const words = (s: string): string => s.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
@@ -177,10 +188,10 @@ function rowOf(d: PlaceDetail, sp: Spec): PlaceRow {
     ref: d.ref, id: d.slug, slug: d.slug, name: d.name, kind: d.kind, kindLabel: d.kindLabel, legacyKind: null,
     country: sp.cc, country_name: COUNTRY[sp.cc], region: sp.region, region_name: REGIONS[regionKey]!.name, regionAliases: REGIONS[regionKey]!.aliases,
     area: sp.area, area_name: words(sp.area), lat: d.point?.lat ?? null, lon: d.point?.lon ?? null, km: sp.km ?? null, gain_m: sp.gain ?? null,
-    elevation_m: null, season: d.season, kid_fit: "unknown", tags: [], image: null, trips: d.trips, honesty: d.honesty.map((h) => ({ id: h.id, label: h.label })),
+    elevation_m: null, season: d.season, kid_fit: "unknown", tags: sp.ref === "place/glacier-lake" ? [{ id: "family", label: "Family", kind: "audience" }] : [], image: null, trips: d.trips, honesty: d.honesty.map((h) => ({ id: h.id, label: h.label })),
     completeness: { level: d.completeness.level, label: d.completeness.label }, sourceTypes: [], statsState: sp.km ? "unverified" : null,
     researched: !sp.ref.startsWith("loc:"), added: "", type: sp.type, effort: null, kids_from: null, kids_basis: null, time_band: null, price_band: null,
-    booking: null, flags: [], walk_band: null, shape: null, best_time: null, badge: d.badge,
+    booking: null, flags: [], walk_band: null, shape: null, best_time: null, badge: d.badge, approx: d.point?.approx ?? false,
   };
 }
 
@@ -235,13 +246,24 @@ const TOWNS: [string, string, number, number, number, string | null][] = [
 
 /** Builds the fixture. Deterministic: two calls give equal data, so two StubStores share a revision. */
 export function stubData(): StubData {
-  const keyed = SPECS.map((sp) => ({ key: sp.ref, name: sp.name, areaSlug: sp.area }));
+  // Natural Bridge was first pinned under an older key, then aliased (R-2): the old ref still resolves through formerKeys
+  const firstKey = (ref: string) => (ref === STUB_ALIASED.now ? STUB_ALIASED.former : ref);
+  const keyed = [...SPECS.map((sp) => ({ key: firstKey(sp.ref), name: sp.name, areaSlug: sp.area })), ...STUB_GONE.map((g) => ({ key: g.ref, name: g.name, areaSlug: g.area }))];
   const first = assignPlaceSlugs(keyed);
-  let registry: SlugRegistry = { ...emptyRegistry(), places: Object.fromEntries([...first].sort()), regions: REGIONS };
+  let registry: SlugRegistry = {
+    ...emptyRegistry(),
+    places: { slugs: Object.fromEntries([...first].sort()), retired: {}, merged: {}, withdrawn: {} },
+    trips: { slugs: Object.fromEntries(TRIPS.map((t) => [`trip/${t.slug}`, t.slug === STUB_TRIP_RETIRED.to ? STUB_TRIP_RETIRED.from : t.slug])), retired: {}, merged: {}, withdrawn: {} },
+    regions: REGIONS,
+  };
   registry = renameSlug(registry, STUB_RETIRED.ref, STUB_RETIRED.to);
+  registry = renameSlug(registry, `trip/${STUB_TRIP_RETIRED.to}`, STUB_TRIP_RETIRED.to);
+  registry = aliasKey(registry, STUB_ALIASED.former, STUB_ALIASED.now);
+  registry = mergeKey(registry, STUB_MERGED.ref, STUB_MERGED.into);
+  registry = withdrawKey(registry, STUB_WITHDRAWN.ref);
   const tripTitles = new Map<string, string>(TRIPS.map((t) => [t.slug, t.title]));
   const places = SPECS.map((sp) => {
-    const detail = detailOf(sp, registry.places[sp.ref]!, tripTitles);
+    const detail = detailOf(sp, registry.places.slugs[sp.ref]!, tripTitles);
     return { detail, row: rowOf(detail, sp) };
   });
   const trips = TRIPS.map((t) => tripOf(t, places));

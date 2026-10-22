@@ -6,6 +6,7 @@ import { z } from "zod";
 import { describe, expect, it } from "vitest";
 import * as S from "../../src/schema/api/index.ts";
 import { CATALOGUE_CONTRACT, CATALOGUE_METHODS } from "../../src/catalogue/store.ts";
+import { PLACE_SORT_VALUES, TRIP_SORT_VALUES } from "../../src/catalogue/sorting.ts";
 import { StubStore } from "../../src/catalogue/stub/index.ts";
 import { api, REGISTRY } from "../../src/schema/index.ts";
 
@@ -17,9 +18,21 @@ const SHIPPED_ROW_KEYS = ["id", "slug", "name", "kind", "kindLabel", "legacyKind
 const SHIPPED_TRIP_KEYS = ["id", "slug", "title", "depth", "nights", "days", "seasonNotSet", "isDone", "region", "cover", "seasonLabel", "seasonMonths", "country", "countryName", "lat", "lon", "approx", "ageFit", "kidsBasis", "effort", "firstBase", "countries", "continents", "length", "lengthClass", "hike", "hikeBasis", "strollerDays", "activities", "highlights", "around", "perDay", "perDayApprox", "shape", "fromHubMin", "fromHubApprox"];
 
 describe("allowlists (schema diff 13.1 items 1 and 2)", () => {
-  it("the shipped row is today's 41 keys; the API row adds ref and nothing else", () => {
+  it("the shipped row is today's 41 keys; the API row adds ref and approx (R-17) and nothing else", () => {
     expect(S.PLACE_LIST_ROW_KEYS).toEqual(SHIPPED_ROW_KEYS);
-    expect([...S.PLACE_ROW_KEYS].sort()).toEqual([...SHIPPED_ROW_KEYS, "ref"].sort());
+    expect([...S.PLACE_ROW_KEYS].sort()).toEqual([...SHIPPED_ROW_KEYS, "ref", "approx"].sort());
+  });
+  it("sort keys are an allowlist with a value rule each (R-4)", () => {
+    expect([...S.PLACE_SORT_KEYS].sort()).toEqual(Object.keys(PLACE_SORT_VALUES).sort());
+    expect([...S.TRIP_SORT_KEYS].sort()).toEqual(Object.keys(TRIP_SORT_VALUES).sort());
+    expect(S.placeQuery.safeParse({ sort: ["-km", "name"] }).success).toBe(true);
+    expect(S.placeQuery.safeParse({ sort: ["password"] }).success).toBe(false);
+    expect(S.tripQuery.safeParse({ sort: ["-nights"] }).success).toBe(true);
+    expect(S.tripQuery.safeParse({ sort: ["km"] }).success).toBe(false);
+  });
+  it("a detail's notes are always empty (R-16)", () => {
+    expect(S.placeDetail.shape.notes.safeParse("").success).toBe(true);
+    expect(S.placeDetail.shape.notes.safeParse("Hotel idea").success).toBe(false);
   });
   it("the trip row is web's 36 keys plus ref", () => {
     expect([...S.TRIP_ROW_KEYS].sort()).toEqual([...SHIPPED_TRIP_KEYS, "ref"].sort());
@@ -29,9 +42,9 @@ describe("allowlists (schema diff 13.1 items 1 and 2)", () => {
     expect(row).not.toBeNull();
     expect(S.placeRow.safeParse(row).success).toBe(true);
     expect(S.placeRow.safeParse({ ...row, notes: "x" }).success).toBe(false);
-    const { ref: _r, ...noRef } = row!;
-    expect(S.placeRow.safeParse(noRef).success).toBe(false);
-    expect(S.placeListRow.safeParse(noRef).success).toBe(true);
+    const { ref: _r, approx: _a, ...shipped } = row!;
+    expect(S.placeRow.safeParse(shipped).success).toBe(false);
+    expect(S.placeListRow.safeParse(shipped).success).toBe(true);
   });
 });
 
@@ -49,6 +62,7 @@ describe("round trips: every StubStore answer parses with its method's output sc
     ["search", () => store.search({ q: "lake" })],
     ["listTrips", () => store.listTrips({})],
     ["getTrip", () => store.getTrip("stub-alps-week")],
+    ["getTrip", () => store.getTrip("stub-alps-holiday")],
     ["getExport", () => store.getExport({ type: "trip", slug: "stub-rockies-loop", format: "kml" })],
     ["globeTree", () => store.globeTree()],
     ["globePins", () => store.globePins("it")],
@@ -79,6 +93,7 @@ describe("JSON Schema (the OpenAPI input of API-1b)", () => {
   for (const [method, c] of Object.entries(CATALOGUE_CONTRACT)) {
     it(`${method} input and output convert`, () => {
       if (c.input) expect(() => z.toJSONSchema(c.input, { io: "input" })).not.toThrow();
+      if ("query" in c && c.query) expect(() => z.toJSONSchema(c.query, { io: "input" })).not.toThrow();
       expect(() => z.toJSONSchema(c.output, { io: "output" })).not.toThrow();
     });
   }

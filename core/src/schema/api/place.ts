@@ -56,10 +56,12 @@ export const placeListRowShape = {
   trips: z.array(tripRef),
   honesty: z.array(listHonesty),
   completeness: z.strictObject({ level: z.enum(COMPLETENESS_LEVELS), label: z.string() }),
+  // R-6 pending owner: `sourceTypes` (instagram, note, friend) and `added` (the save date) are household save metadata of the
+  // locations store; the owner rules whether they leave the allowlist or change meaning. Kept as shipped until then.
   sourceTypes: z.array(z.string()),
   statsState: z.enum(["verified", "unverified"]).nullable(),
   researched: z.boolean(),
-  added: z.string(),
+  added: z.string(), // R-6 pending owner
   type: z.string().nullable(),
   effort: z.string().nullable(),
   kids_from: z.number().nullable(),
@@ -76,10 +78,11 @@ export const placeListRowShape = {
 export const placeListRow = z.strictObject(placeListRowShape);
 
 /**
- * `PlaceRow`: the API's list row. The shipped row plus `ref` (D-B2; schema diff 13.1 items 1 and 2), and nothing else: these 42 keys are
- * the allowlist `respond()` checks every row against (contract case K2).
+ * `PlaceRow`: the API's list row. The shipped row plus `ref` (D-B2; schema diff 13.1 items 1 and 2) and `approx` (review R-17: the pin
+ * is a centroid or a guess, so a map draws it as approximate, T5), and nothing else: these 43 keys are the allowlist `respond()` checks
+ * every row against (contract case K2). The shipped row gains `approx` when the list map needs it.
  */
-export const placeRow = z.strictObject({ ...placeListRowShape, ref: apiRef });
+export const placeRow = z.strictObject({ ...placeListRowShape, ref: apiRef, approx: z.boolean() });
 
 /** The keys of a row, in schema order: the allowlist. */
 export const PLACE_ROW_KEYS = Object.keys(placeRow.shape) as (keyof typeof placeRow.shape)[];
@@ -98,8 +101,16 @@ export const PLACE_FACET_KEYS = [
 export const FACET_KEY_RE = new RegExp(`^(?:${PLACE_FACET_KEYS.join("|")}|f\\.[a-z][a-z0-9_]*)$`);
 export const facetKey = z.string().regex(FACET_KEY_RE);
 
-/** A sort key of the descriptor, `-` for descending (`name`, `-km`). */
-export const sortSpec = z.string().regex(/^-?[a-z][a-z0-9_]*$/);
+/**
+ * The sort keys of the Places list (review R-4): the descriptor's sorts, each a value rule in core/src/catalogue/sorting.ts. `-key` is
+ * descending. Any other key is `invalid_input`. The ordering rule (nulls last both ways, then sortKey(name), then ref) is written there.
+ */
+export const PLACE_SORT_KEYS = ["name", "kind", "country", "region", "area", "season", "kid", "elevation", "km", "gain", "sources", "complete", "plan", "added"] as const;
+const sortSpecOf = (keys: readonly string[]) => z.string().regex(new RegExp(`^-?(?:${keys.join("|")})$`));
+export const placeSortSpec = sortSpecOf(PLACE_SORT_KEYS);
+/** The sort keys of the Trips list (core/src/catalogue/sorting.ts TRIP_SORT_VALUES). */
+export const TRIP_SORT_KEYS = ["title", "nights", "length", "depth", "country"] as const;
+export const tripSortSpec = sortSpecOf(TRIP_SORT_KEYS);
 
 /** [west, south, east, north] in degrees. */
 export const apiBbox = z.tuple([z.number().min(-180).max(180), z.number().min(-90).max(90), z.number().min(-180).max(180), z.number().min(-90).max(90)]);
@@ -113,7 +124,7 @@ export const apiBbox = z.tuple([z.number().min(-180).max(180), z.number().min(-9
 export const placeQuery = z.strictObject({
   q: z.string().max(API_LIMITS.query.textChars).optional(),
   facets: z.record(facetKey, z.array(z.string().min(1).max(120)).max(API_LIMITS.query.valuesPerKey)).optional(),
-  sort: z.array(sortSpec).max(API_LIMITS.query.sortKeys).optional(),
+  sort: z.array(placeSortSpec).max(API_LIMITS.query.sortKeys).optional(),
   bbox: apiBbox.optional(),
   /** a hand-picked set (`ids=`): slugs */
   ids: z.array(apiSlug).max(API_LIMITS.query.ids).optional(),
@@ -439,7 +450,8 @@ export const placeDetail = z.strictObject({
   seasonNote: z.string().nullable(),
   photos: z.array(photo),
   wikidata: z.string().nullable(),
-  notes: z.string(),
+  /** always empty: the locations store's notes are private (schema diff 8; review R-16). A public notes field needs its own spec. */
+  notes: z.literal(""),
   minAge: z.number().nullable(),
   booking: z.string().nullable(),
   sections: pageModel.nullable(),
