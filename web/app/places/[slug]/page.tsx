@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { ExportData } from '@/components/actions/ExportData';
 import '@/components/places/families';
 import { summaryOrKind } from '@/components/places/model';
@@ -7,6 +7,7 @@ import { placeExportFor } from '@/lib/export/build.server';
 import { getPlace, listPlaces, placeSlugs } from '@/lib/public';
 import { normName } from '@/lib/public/places';
 import { ogImageFor } from '@/lib/og';
+import { currentSlugOf, retiredSlugs } from '@/lib/server/moved';
 import { absoluteUrl, pageMetadata } from '@/lib/site';
 import '@/styles/places.css';
 import '@/styles/suitability.css';
@@ -14,7 +15,7 @@ import '@/styles/suitability.css';
 export const dynamicParams = false;
 
 export function generateStaticParams(): { slug: string }[] {
-  return placeSlugs().map((slug) => ({ slug }));
+  return [...placeSlugs(), ...retiredSlugs('places')].map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -32,7 +33,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function PlaceRoute({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const place = getPlace(slug);
-  if (!place) notFound();
+  if (!place) {
+    const now = currentSlugOf(slug, 'places');
+    if (now) permanentRedirect(`/places/${now}/`);
+    notFound();
+  }
   const district = place.areaChain.find((a) => a.level === 'district');
   const state = place.areaChain.find((a) => a.level === 'state');
   const inside = listPlaces()
