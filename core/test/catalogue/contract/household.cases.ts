@@ -1,14 +1,14 @@
 // K7: no household string and no private key in any output of any method. The web runner adds the 2 km home-point check and runs the
 // same scan over the handlers' responses (after respond()'s scrub).
 import { expect } from "vitest";
-import { API_LIMITS, type PlaceRow, type TripRow } from "../../../src/schema/api/index.ts";
+import { API_LIMITS, EXPORT_FORMATS, type PlaceRow, type TripRow } from "../../../src/schema/api/index.ts";
 import { allRows, expectOk, householdHits, type ContractCase } from "./kit.ts";
 import { everyDetail } from "./getPlace.cases.ts";
 
 export const householdCases: ContractCase[] = [
   {
     id: "K7",
-    title: "no household string or private key in lists, details, trips, search, globe, nearby or exports",
+    title: "no household string or private key in the output of any method, every export format included",
     method: "all",
     async run(store, t) {
       const hits: string[] = [];
@@ -23,9 +23,21 @@ export const householdCases: ContractCase[] = [
       scan(expectOk(await store.search({ q: "a", limit: API_LIMITS.searchLimit.max })), "search");
       scan(expectOk(await store.globeTree()), "globeTree");
       scan(expectOk(await store.globePins(t.facts.pinCountry)), "globePins");
-      const nearby = await store.nearbyForPlace(t.facts.placeSlug);
-      if (nearby.ok) scan(nearby.data, "nearbyForPlace");
-      scan(expectOk(await store.getExport({ type: "trip", slug: t.facts.tripSlug, format: "csv" })), "getExport");
+      // every method (R-14); a method not built on this target answers an error, which carries no data
+      const maybe = (r: { ok: boolean; data?: unknown }, where: string) => r.ok && scan(r.data, where);
+      maybe(await store.nearbyForPlace(t.facts.placeSlug), "nearbyForPlace");
+      maybe(await store.near({ near: t.facts.near.token, r: API_LIMITS.nearRadius.max }, { pageSize: API_LIMITS.pageSize.max }), "near");
+      maybe(await store.towns({ city: t.facts.town.id, r: API_LIMITS.nearRadius.max }), "towns");
+      maybe(await store.globeCity(t.facts.town.id), "globeCity");
+      scan(expectOk(await store.parse({ q: `${t.facts.region.aliases[0]} lakes` })), "parse");
+      for (const p of places) scan(expectOk(await store.globeCard(`place:${p.slug}`)), `globeCard ${p.slug}`);
+      for (const tr of trips) scan(expectOk(await store.globeCard(`trip:${tr.slug}`)), `globeCard ${tr.slug}`);
+      scan(expectOk(await store.globeFeature(t.facts.featureId)), "globeFeature");
+      scan(expectOk(await store.globeLine(t.facts.featureId)), "globeLine");
+      for (const format of EXPORT_FORMATS) {
+        scan(expectOk(await store.getExport({ type: "place", slug: t.facts.exportPlace, format })), `getExport place ${format}`);
+        for (const tr of trips) scan(expectOk(await store.getExport({ type: "trip", slug: tr.slug, format })), `getExport ${tr.slug} ${format}`);
+      }
       expect(hits).toEqual([]);
       // the scan is live: a planted household string is found
       expect(householdHits({ notes: "Hotel idea near the lake" }, "probe").length).toBe(1);

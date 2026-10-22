@@ -1,7 +1,7 @@
 // getExport: K6 one item per export, the licence guard, the shape.
 import { expect } from "vitest";
-import { EXPORT_FORMATS, exportFile } from "../../../src/schema/api/index.ts";
-import { expectError, expectOk, type ContractCase } from "./kit.ts";
+import { API_LIMITS, EXPORT_FORMATS, exportFile, type PlaceRow } from "../../../src/schema/api/index.ts";
+import { allRows, expectError, expectOk, type ContractCase } from "./kit.ts";
 
 export const getExportCases: ContractCase[] = [
   {
@@ -13,9 +13,13 @@ export const getExportCases: ContractCase[] = [
       expectError(await store.getExport({ type: "place", slug: `${slug},${t.facts.placeSlug}`, format: "gpx" }), "invalid_input");
       expectError(await store.getExport({ type: "place", slug: "no-such-place-anywhere", format: "gpx" }), "not_found");
       expectError(await store.getExport({ type: "trip", slug, format: "gpx" }), "not_found");
+      // one item (R-21): the file is named for the slug, and no other listed place's name is in it
       const gpx = expectOk(await store.getExport({ type: "place", slug, format: "gpx" }));
       expect(gpx.filename.startsWith(slug)).toBe(true);
-      expect(gpx.body.match(/<wpt /g)?.length ?? 0).toBeLessThanOrEqual(1 + gpx.skipped);
+      const own = expectOk(await store.getPlace(slug));
+      const ownName = "name" in own ? own.name : "";
+      const rows = await allRows<PlaceRow>((n) => store.listPlaces({}, { page: n, pageSize: API_LIMITS.pageSize.max }));
+      for (const r of rows) if (r.slug !== slug && !ownName.includes(r.name) && !r.name.includes(ownName)) expect(gpx.body, r.name).not.toContain(`>${r.name}<`);
     },
   },
   {

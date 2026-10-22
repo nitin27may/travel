@@ -25,6 +25,21 @@ export const countPlacesCases: ContractCase[] = [
     },
   },
   {
+    id: "countPlaces.semantics",
+    title: "options count with every other key applied, a selected value with no rows shows 0, options run count-descending (A22)",
+    method: "countPlaces",
+    async run(store, t) {
+      const cc = t.facts.region.cc;
+      const got = expectOk(await store.countPlaces({ facets: { country: [cc], kind: ["lake", "no-such-kind"] } }));
+      // the country options ignore the country filter itself, so every country still shows
+      const all = expectOk(await store.countPlaces({ facets: { kind: ["lake", "no-such-kind"] } }));
+      expect(got.facets.country).toEqual(all.facets.country);
+      expect(got.facets.kind!.find((o) => o.value === "no-such-kind")?.count).toBe(0);
+      for (const opts of Object.values(got.facets)) for (let i = 1; i < opts.length; i++) expect(opts[i - 1]!.count).toBeGreaterThanOrEqual(opts[i]!.count);
+      expect(got.n).toBe(expectOk(await store.listPlaces({ facets: { country: [cc], kind: ["lake", "no-such-kind"] } })).total);
+    },
+  },
+  {
     id: "K14",
     title: "every region alias counts the same rows",
     method: "countPlaces",

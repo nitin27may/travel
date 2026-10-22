@@ -2,18 +2,20 @@
 // method and every cap of the contract, so the contract kit runs green on it today and a JsonStore or SupabaseStore can be held to the
 // same cases. It is also the data behind web's StubAdapter for unit tests (API-1b).
 //
-// It is a reference implementation of the RULES, not of the product: filters, the parser and the export bodies are deliberately small.
+// It is a reference implementation of the RULES, not of the product: the parser and the export bodies are deliberately small, and it
+// evaluates only the facet keys it can read off a row. Any other key answers `not_available` (store.ts A21), never an ignored filter.
 import type { z } from "zod";
 import * as S from "../../schema/api/index.ts";
-import { haversineKm } from "../../relevance/fit.ts";
-import { revisionOf } from "../revision.ts";
+import { compareByDistance, measure, within, type Measure } from "../distance.ts";
+import { revisionOf, servedSnapshot } from "../revision.ts";
 import { fail, ok, type Result } from "../result.ts";
-import { kebab, movedTo, resolveRegion } from "../slugs.ts";
-import { compareCodePoints, compareSortable, sortKey } from "../sortKey.ts";
+import { currentSlug, isWithdrawn, kebab, movedTo, resolveRegion } from "../slugs.ts";
+import { PLACE_SORT_VALUES, TRIP_SORT_VALUES, sortRows } from "../sorting.ts";
+import { PLACE_TEXT, TRIP_TEXT, compareCodePoints, matchesText, sortKey } from "../sortKey.ts";
 import type { CatalogueStore } from "../store.ts";
 import { stubData, stubSearchRecords, type StubData, type StubPlace, type StubTrip } from "./fixture.ts";
 
-export { stubData, STUB_RETIRED, STUB_SOURCES, type StubData } from "./fixture.ts";
+export { stubData, STUB_ALIASED, STUB_MERGED, STUB_RETIRED, STUB_SOURCES, STUB_TRIP_RETIRED, STUB_WITHDRAWN, type StubData } from "./fixture.ts";
 
 export interface StubOptions {
   data?: StubData;
@@ -31,25 +33,20 @@ function check<T>(schema: z.ZodType<T>, input: unknown): { ok: true; value: T } 
   return { ok: false, error: { code: "invalid_input", message: "The request does not match the contract.", details: { issues } } };
 }
 
-const BEARINGS = S.BEARINGS;
-function bearingOf(from: { lat: number; lon: number }, to: { lat: number; lon: number }): (typeof S.BEARINGS)[number] {
-  const rad = (x: number) => (x * Math.PI) / 180;
-  const y = Math.sin(rad(to.lon - from.lon)) * Math.cos(rad(to.lat));
-  const x = Math.cos(rad(from.lat)) * Math.sin(rad(to.lat)) - Math.sin(rad(from.lat)) * Math.cos(rad(to.lat)) * Math.cos(rad(to.lon - from.lon));
-  const deg = ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
-  return BEARINGS[Math.round(deg / 45) % 8]!;
-}
-
-/** The nearby spec 5.1 bands: a walk under 1.2 km, then the timeline's drive estimate (straight line x 1.42 plus 1.5 km under 60 km; 46 km/h, 72 above 60 km; plus 3 min). */
-function bandOf(km: number): (typeof S.NEAR_BANDS)[number] {
-  if (km < 1.2) return "walk";
-  const road = km * 1.42 + (km < 60 ? 1.5 : 0);
-  const min = (road / (km < 60 ? 46 : 72)) * 60 + 3;
-  return min < 15 ? "lt15" : min < 30 ? "15-30" : min < 60 ? "30-60" : "60-120";
-}
-
 /** Rows a licence lets us hand out in a file. */
 const OPEN_LICENCES = new Set(["ODbL", "ours", "CC0"]);
+
+/** The facet keys the stub reads off a row, and how (store.ts A21). `f.<x>` reads the row field `x` when the row has one. */
+const ROW_FACETS: Record<string, (r: S.PlaceRow) => readonly string[]> = {
+  area: (r) => [r.area],
+  kind: (r) => [r.kind, r.legacyKind ?? ""],
+  season: (r) => r.season.map(String),
+  trip: (r) => r.trips.map((t) => t.slug),
+  tag: (r) => r.tags.map((t) => t.id),
+  effort: (r) => (r.effort ? [r.effort] : []),
+  shape: (r) => (r.shape ? [r.shape] : []),
+};
+
 
 export class StubStore implements CatalogueStore {
   readonly data: StubData;
@@ -63,9 +60,17 @@ export class StubStore implements CatalogueStore {
   constructor(opts: StubOptions = {}) {
     this.data = opts.data ?? stubData();
     this.layers = { near: true, towns: true, nearby: true, ...opts.layers };
-    this.rev = revisionOf({ data: { ...this.data, registry: undefined }, slugs: this.data.registry });
-    this.bySlug = new Map(this.data.places.map((p) => [p.row.slug, p]));
-    this.tripBySlug = new Map(this.data.trips.map((t) => [t.row.slug, t]));
+    const d = this.data;
+    this.rev = revisionOf(servedSnapshot({
+      dataset: { places: d.places, trips: d.trips, countryNames: d.countryNames, reportUrl: d.reportUrl },
+      slugs: d.registry,
+      globe: { continents: d.continents, features: d.features, lines: d.lines, cities: d.cities },
+      towns: d.towns,
+      vocab: { regions: d.registry.regions },
+      citations: d.citations,
+    }));
+    this.bySlug = new Map(d.places.map((p) => [p.row.slug, p]));
+    this.tripBySlug = new Map(d.trips.map((t) => [t.row.slug, t]));
   }
 
   async revision(): Promise<string> {
@@ -79,58 +84,41 @@ export class StubStore implements CatalogueStore {
     return this.data.places.map((p) => p.row);
   }
 
-  /** Rows matching the query; `skip` leaves one facet key out (for facet counts). `city` is handled by the caller. */
-  private filterRows(rows: S.PlaceRow[], q: S.PlaceQuery, skip?: string): S.PlaceRow[] {
-    const facets = Object.entries(q.facets ?? {}).filter(([k]) => k !== skip && k !== "city");
+  /**
+   * Rows matching the query (store.ts A16, A19, A20, A21); `skip` leaves one facet key out (for facet counts). `city` is handled by the
+   * caller. An error when a region alias is ambiguous or a facet key cannot be evaluated here.
+   */
+  private filterRows(rows: S.PlaceRow[], q: S.PlaceQuery, skip?: string): S.PlaceRow[] | S.ApiError {
+    const facets = Object.entries(q.facets ?? {}).filter(([k, v]) => k !== skip && k !== "city" && v.length);
     const countries = (q.facets?.country ?? []).map((c) => c.toLowerCase());
-    const regionKeys = new Set((q.facets?.region ?? []).flatMap((v) => resolveRegion(this.data.registry, v, countries)));
-    const words = (q.q ?? "").toLowerCase().trim();
-    return rows.filter((r) => {
-      for (const [key, values] of facets) {
-        if (!values.length) continue;
-        if (key === "country" && !values.some((v) => v.toUpperCase() === r.country)) return false;
-        else if (key === "region" && !regionKeys.has(`${r.country.toLowerCase()}/${r.region}`)) return false;
-        else if (key === "area" && !values.includes(r.area)) return false;
-        else if (key === "kind" && !values.includes(r.kind) && !values.includes(r.legacyKind ?? "")) return false;
-        else if (key === "k" && !values.some((v) => r.type === v || (r.type ?? "").startsWith(`${v}.`))) return false;
-        else if (key === "season" && !values.some((v) => r.season.includes(Number(v)))) return false;
-        else if (key === "trip" && !r.trips.some((t) => values.includes(t.slug))) return false;
-        else if (!["country", "region", "area", "kind", "k", "season", "trip"].includes(key)) {
-          const field = key.startsWith("f.") ? key.slice(2) : key;
-          const have = (r as Record<string, unknown>)[field];
-          if (have === undefined) continue;
-          const list = Array.isArray(have) ? have.map(String) : [String(have)];
-          if (!values.some((v) => list.includes(v))) return false;
-        }
+    const regionKeys = new Set<string>();
+    for (const v of q.facets?.region ?? []) {
+      const hits = resolveRegion(this.data.registry, v, countries);
+      if (hits.length > 1) return { code: "invalid_scope", message: `The region "${v}" names regions in more than one country; add a country.`, details: { candidates: hits } };
+      for (const h of hits) regionKeys.add(h);
+    }
+    const tests: ((r: S.PlaceRow) => boolean)[] = [];
+    for (const [key, values] of facets) {
+      if (key === "country") tests.push((r) => values.some((v) => v.toUpperCase() === r.country));
+      else if (key === "region") tests.push((r) => regionKeys.has(`${r.country.toLowerCase()}/${r.region}`));
+      else if (key === "k") tests.push((r) => values.some((v) => r.type === v || (r.type ?? "").startsWith(`${v}.`)));
+      else {
+        const read = ROW_FACETS[key] ?? (key.startsWith("f.") && key.slice(2) in rows[0]! ? (r: S.PlaceRow) => [String((r as Record<string, unknown>)[key.slice(2)])] : null);
+        if (!read) return { code: "not_available", message: `The stub cannot evaluate the facet "${key}"; the query engine (core/src/query) lands in API-2.` };
+        tests.push((r) => values.some((v) => read(r).includes(v)));
       }
-      if (words && ![r.name, r.area_name, r.region_name].some((s) => s.toLowerCase().includes(words))) return false;
-      if (q.ids?.length && !q.ids.includes(r.slug)) return false;
+    }
+    const ids = q.ids?.length ? new Set(q.ids.map((id) => currentSlug(this.data.registry, id)).filter((s): s is string => !!s)) : null;
+    return rows.filter((r) => {
+      if (!tests.every((t) => t(r))) return false;
+      if (!matchesText(q.q, PLACE_TEXT(r))) return false;
+      if (ids && !ids.has(r.slug)) return false;
       if (q.bbox) {
         const [w, s, e, n] = q.bbox;
         if (r.lat === null || r.lon === null || r.lat < s || r.lat > n || r.lon < w || r.lon > e) return false;
       }
       return true;
     });
-  }
-
-  /** The sort of every paged method (D-B5): the asked keys, then sortKey(name), then ref, in code-point order. */
-  private sortRows<T extends { name: string; ref: string }>(rows: T[], sort: readonly string[] = []): T[] {
-    const keyed = rows.map((row) => ({ row, sortKey: sortKey(row.name), ref: row.ref }));
-    keyed.sort((a, b) => {
-      for (const spec of sort) {
-        const desc = spec.startsWith("-");
-        const f = desc ? spec.slice(1) : spec;
-        const x = (a.row as Record<string, unknown>)[f];
-        const y = (b.row as Record<string, unknown>)[f];
-        if (x === y) continue;
-        if (x === null || x === undefined) return 1;
-        if (y === null || y === undefined) return -1;
-        const c = typeof x === "number" && typeof y === "number" ? x - y : compareCodePoints(sortKey(String(x)), sortKey(String(y)));
-        if (c !== 0) return desc ? -c : c;
-      }
-      return compareSortable(a, b);
-    });
-    return keyed.map((k) => k.row);
   }
 
   /** One page of sorted rows, with the page-size cap (case K1). */
@@ -143,47 +131,58 @@ export class StubStore implements CatalogueStore {
     return ok({ items, total: rows.length, page: n, pageSize, nextPage: start + pageSize < rows.length ? n + 1 : null }, this.rev);
   }
 
+  /** The city filter of a list (nearby spec 4.2): within the nearby radius of the town, by the distance rule. */
+  private cityFilter(rows: S.PlaceRow[], city: string | undefined): S.PlaceRow[] | S.ApiError {
+    if (!city) return rows;
+    if (!this.layers.towns) return { code: "not_available", message: "The city filter needs the towns layer, which is not built yet (META-2)." };
+    const town = this.data.towns.find((t) => t.id === city);
+    if (!town) return { code: "not_found", message: "No town has that id." };
+    return rows.filter((r) => r.lat !== null && r.lon !== null && !r.approx && within(measure(town, { lat: r.lat, lon: r.lon }), S.API_LIMITS.nearby.radius));
+  }
+
+  private matching(q: S.PlaceQuery, skip?: string): S.PlaceRow[] | S.ApiError {
+    const rows = this.filterRows(this.scanRows(), q, skip);
+    return Array.isArray(rows) ? this.cityFilter(rows, skip === "city" ? undefined : q.facets?.city?.[0]) : rows;
+  }
+
   async listPlaces(q: S.PlaceQuery, page?: S.ApiPage): Promise<Result<S.Paged<S.PlaceRow>>> {
     const qi = check(S.placeQuery, q);
     if (!qi.ok) return qi;
     const pi = check(S.apiPage, page ?? {});
     if (!pi.ok) return pi;
-    if (q.facets?.city?.length && !this.layers.towns) return fail("not_available", "The city filter needs the towns layer, which is not built yet (META-2).");
-    let rows = this.filterRows(this.scanRows(), qi.value);
-    if (q.facets?.city?.length) {
-      const town = this.data.towns.find((t) => t.id === q.facets!.city![0]);
-      if (!town) return fail("not_found", "No town has that id.");
-      rows = rows.filter((r) => r.lat !== null && r.lon !== null && !this.isApprox(r.slug) && haversineKm(town, { lat: r.lat, lon: r.lon }) <= S.API_LIMITS.nearby.radius);
-    }
-    return this.page(this.sortRows(rows, qi.value.sort), pi.value);
-  }
-
-  private isApprox(slug: string): boolean {
-    return this.bySlug.get(slug)?.detail.point?.approx === true;
+    const rows = this.matching(qi.value);
+    if (!Array.isArray(rows)) return { ok: false, error: rows };
+    return this.page(sortRows(rows, qi.value.sort ?? [], PLACE_SORT_VALUES, (r) => r.name), pi.value);
   }
 
   async countPlaces(q: S.PlaceQuery): Promise<Result<S.FacetCounts>> {
     const qi = check(S.placeQuery, q);
     if (!qi.ok) return qi;
-    if (q.facets?.city?.length && !this.layers.towns) return fail("not_available", "The city filter needs the towns layer, which is not built yet (META-2).");
-    const all = this.scanRows();
-    const matched = this.filterRows(all, qi.value);
+    const matched = this.matching(qi.value);
+    if (!Array.isArray(matched)) return { ok: false, error: matched };
     const facets: S.FacetCounts["facets"] = {};
-    const tally = (key: string, value: (r: S.PlaceRow) => string, label: (r: S.PlaceRow) => string) => {
+    // store.ts A22: options counted with every OTHER key applied; a selected value with no rows shows with 0
+    const tally = (key: string, value: (r: S.PlaceRow) => string, label: (r: S.PlaceRow) => string): S.ApiError | null => {
+      const rows = this.matching(qi.value, key);
+      if (!Array.isArray(rows)) return rows;
       const by = new Map<string, S.FacetCount>();
-      for (const r of this.filterRows(all, qi.value, key)) {
+      for (const r of rows) {
         const v = value(r);
         if (!v) continue;
         const had = by.get(v);
         by.set(v, { value: v, label: label(r), count: (had?.count ?? 0) + 1 });
       }
+      for (const v of qi.value.facets?.[key] ?? []) if (key !== "region" && !by.has(v)) by.set(v, { value: v, label: v, count: 0 });
       facets[key] = [...by.values()].sort((a, b) => b.count - a.count || compareCodePoints(sortKey(a.label), sortKey(b.label)));
+      return null;
     };
-    tally("country", (r) => r.country, (r) => r.country_name);
-    tally("region", (r) => r.region, (r) => r.region_name);
-    tally("kind", (r) => r.kind, (r) => r.kindLabel);
-    const scope = this.filterRows(all, { facets: { ...(q.facets?.country ? { country: q.facets.country } : {}), ...(q.facets?.k ? { k: q.facets.k } : {}) } }).length;
-    return ok({ n: matched.length, unchecked: 0, scope, total: all.length, facets, gaps: {}, notes: [] }, this.rev);
+    for (const [key, value, label] of [["country", (r: S.PlaceRow) => r.country, (r: S.PlaceRow) => r.country_name], ["region", (r: S.PlaceRow) => r.region, (r: S.PlaceRow) => r.region_name], ["kind", (r: S.PlaceRow) => r.kind, (r: S.PlaceRow) => r.kindLabel]] as const) {
+      const err = tally(key, value, label);
+      if (err) return { ok: false, error: err };
+    }
+    const scoped = this.filterRows(this.data.places.map((p) => p.row), { facets: { ...(q.facets?.country ? { country: q.facets.country } : {}), ...(q.facets?.k ? { k: q.facets.k } : {}) } });
+    const scope = Array.isArray(scoped) ? scoped.length : 0;
+    return ok({ n: matched.length, unchecked: 0, scope, total: this.data.places.length, facets, gaps: {}, notes: [] }, this.rev);
   }
 
   async getPlace(slug: string): Promise<Result<S.PlaceLookup>> {
@@ -191,6 +190,7 @@ export class StubStore implements CatalogueStore {
     if (!si.ok) return si;
     const moved = movedTo(this.data.registry, slug);
     if (moved) return ok({ moved: moved.slug, ref: moved.key }, this.rev);
+    if (isWithdrawn(this.data.registry, slug)) return fail("not_found", "That place has been withdrawn.");
     const p = this.bySlug.get(slug);
     return p ? ok(p.detail, this.rev) : fail("not_found", "No place has that slug.");
   }
@@ -211,23 +211,24 @@ export class StubStore implements CatalogueStore {
     if (point.approx) return ok({ ...base, state: "approx_point", basis }, this.rev);
     const measured = others
       .filter((o) => !o.detail.point!.approx)
-      .map((o) => ({ o, km: haversineKm(point, o.detail.point!) }))
-      .map((x) => ({ ...x, sortKey: sortKey(x.o.detail.name), ref: x.o.detail.ref }))
-      .sort((a, b) => a.km - b.km || compareSortable(a, b));
-    const within = measured.filter((x) => x.km <= limits.radius);
-    const items: S.NearbyItem[] = within.slice(0, limits.list).map(({ o, km }) => ({
+      .map((o) => ({ o, m: measure(point, o.detail.point!), name: o.detail.name, ref: o.detail.ref }))
+      .map((x) => ({ ...x, distanceKm: x.m.distanceKm }))
+      .sort(compareByDistance);
+    const inside = measured.filter((x) => within(x.m, limits.radius));
+    const items: S.NearbyItem[] = inside.slice(0, limits.list).map(({ o, m }) => ({
       ref: o.detail.ref, slug: o.detail.slug, name: o.detail.name, kind: o.detail.kind, kindLabel: o.detail.kindLabel,
-      distanceKm: Math.round(km * 10) / 10, bearing: bearingOf(point, o.detail.point!), band: bandOf(km), basis: "estimate", badge: o.detail.badge,
+      distanceKm: m.distanceKm, bearing: m.bearing, band: m.band, basis: "estimate", badge: o.detail.badge,
     }));
     const towns = this.layers.towns
       ? this.data.towns
-          .map((t) => ({ t, km: haversineKm(point, t) }))
-          .sort((a, b) => a.km - b.km || compareCodePoints(a.t.id, b.t.id))
+          .map((t) => ({ t, m: measure(point, t), name: t.name, ref: t.id }))
+          .map((x) => ({ ...x, distanceKm: x.m.distanceKm }))
+          .sort(compareByDistance)
           .slice(0, 3)
-          .map(({ t, km }) => ({ id: t.id, name: t.name, distanceKm: Math.round(km * 10) / 10, bearing: bearingOf(point, t) }))
+          .map(({ t, m }) => ({ id: t.id, name: t.name, distanceKm: m.distanceKm, bearing: m.bearing }))
       : [];
-    const dayTrips = measured.filter((x) => x.km > limits.radius && x.km <= limits.dayTrips).length;
-    return ok({ ...base, state: "ok", items, more: Math.max(0, within.length - limits.list), dayTrips: { count: dayTrips, r: limits.dayTrips }, towns, basis }, this.rev);
+    const dayTrips = measured.filter((x) => !within(x.m, limits.radius) && within(x.m, limits.dayTrips)).length;
+    return ok({ ...base, state: "ok", items, more: Math.max(0, inside.length - limits.list), dayTrips: { count: dayTrips, r: limits.dayTrips }, towns, basis }, this.rev);
   }
 
   /** A near centre, resolved through indexes only (no row scan, case K4). */
@@ -240,7 +241,7 @@ export class StubStore implements CatalogueStore {
     if (!near) return fail("invalid_scope", "A near query needs a centre: `near` (place:<slug> or area:<id>) or `city` (a town id).");
     const [kind, id] = [near.slice(0, near.indexOf(":")), near.slice(near.indexOf(":") + 1)];
     if (kind === "place") {
-      const p = this.bySlug.get(id);
+      const p = this.bySlug.get(currentSlug(this.data.registry, id) ?? id);
       const pt = p?.detail.point;
       if (!p || !pt) return fail("not_found", "No place with a point has that slug.");
       if (pt.approx) return fail("not_found", "That place's point is approximate, so no distance can be measured from it.");
@@ -271,20 +272,21 @@ export class StubStore implements CatalogueStore {
     const centre = c.data;
     const { r, clamped } = this.radius(qi.value.r, centre.kind);
     const rows = this.filterRows(this.scanRows(), qi.value);
+    if (!Array.isArray(rows)) return { ok: false, error: rows };
     let excludedApprox = 0;
-    const hits: (S.NearRow & { sortKey: string })[] = [];
+    const hits: (S.NearRow & { m: Measure })[] = [];
     for (const row of rows) {
       if (row.lat === null || row.lon === null) continue;
-      if (this.isApprox(row.slug)) {
+      if (row.approx) {
         excludedApprox++;
         continue;
       }
-      const km = haversineKm(centre, { lat: row.lat, lon: row.lon });
-      if (km > r) continue;
-      hits.push({ ...row, distanceKm: Math.round(km * 10) / 10, bearing: bearingOf(centre, { lat: row.lat, lon: row.lon }), band: bandOf(km), basis: "estimate", sortKey: sortKey(row.name) });
+      const m = measure(centre, { lat: row.lat, lon: row.lon });
+      if (!within(m, r)) continue;
+      hits.push({ ...row, distanceKm: m.distanceKm, bearing: m.bearing, band: m.band, basis: "estimate", m });
     }
-    hits.sort((a, b) => a.distanceKm - b.distanceKm || compareSortable(a, b));
-    const paged = this.page(hits.map(({ sortKey: _s, ...row }) => row), pi.value);
+    hits.sort(compareByDistance);
+    const paged = this.page(hits.map(({ m: _m, ...row }) => row), pi.value);
     if (!paged.ok) return paged;
     return ok({ ...paged.data, centre, r, clamped, basis: { distance: "straight_line", excludedApprox } }, this.rev);
   }
@@ -295,7 +297,7 @@ export class StubStore implements CatalogueStore {
     if (!this.layers.towns) return fail("not_available", "The towns layer is not built yet (META-2).");
     const v = qi.value;
     const cap = S.API_LIMITS.towns.max;
-    const withPlaces = (t: S.Town): S.Town => ({ ...t, places: this.data.places.filter((p) => p.detail.point && !p.detail.point.approx && haversineKm(t, p.detail.point) <= S.API_LIMITS.nearby.radius).length });
+    const withPlaces = (t: S.Town): S.Town => ({ ...t, places: this.data.places.filter((p) => p.detail.point && !p.detail.point.approx && within(measure(t, p.detail.point), S.API_LIMITS.nearby.radius)).length });
     if (v.prefix !== undefined) {
       if (!v.cc || !v.region) return fail("invalid_scope", "A town prefix needs a country (`cc`) and a region: towns load by region, never the world.");
       const keys = resolveRegion(this.data.registry, v.region, v.cc);
@@ -311,10 +313,11 @@ export class StubStore implements CatalogueStore {
     if (!c.ok) return c;
     const { r } = this.radius(v.r, c.data.kind);
     const hits = this.data.towns
-      .map((t) => ({ t, km: haversineKm(c.data, t) }))
-      .filter((x) => x.km <= r && x.t.id !== v.city)
-      .sort((a, b) => a.km - b.km || compareCodePoints(a.t.id, b.t.id));
-    return ok({ items: hits.slice(0, cap).map(({ t, km }) => ({ ...withPlaces(t), distanceKm: Math.round(km * 10) / 10, bearing: bearingOf(c.data, t) })), truncated: hits.length > cap }, this.rev);
+      .map((t) => ({ t, m: measure(c.data, t), name: t.name, ref: t.id }))
+      .map((x) => ({ ...x, distanceKm: x.m.distanceKm }))
+      .filter((x) => within(x.m, r) && x.t.id !== v.city)
+      .sort(compareByDistance);
+    return ok({ items: hits.slice(0, cap).map(({ t, m }) => ({ ...withPlaces(t), distanceKm: m.distanceKm, bearing: m.bearing })), truncated: hits.length > cap }, this.rev);
   }
 
   // ---- search ------------------------------------------------------------------------------------------------------------------
@@ -353,7 +356,7 @@ export class StubStore implements CatalogueStore {
     const want = sortKey(qi.value.q);
     const records = stubSearchRecords(this.data).filter((r) => !qi.value.scope?.kind || r.k === qi.value.scope.kind);
     const scored = records
-      .map((record) => ({ record, score: !want ? 0 : sortKey(record.n).startsWith(want) ? 2 : sortKey(`${record.n} ${record.x}`).includes(want) ? 1 : 0 }))
+      .map((record) => ({ record, score: !want ? 0 : sortKey(record.n).startsWith(want) ? 2 : matchesText(qi.value.q, [record.n, record.x]) ? 1 : 0 }))
       .filter((h) => h.score > 0)
       .sort((a, b) => b.score - a.score || compareCodePoints(sortKey(a.record.n), sortKey(b.record.n)) || compareCodePoints(a.record.h, b.record.h));
     const group = (id: "trips" | "places" | "areas", k: "trip" | "place" | "area", label: string) => {
@@ -372,17 +375,19 @@ export class StubStore implements CatalogueStore {
     const pi = check(S.apiPage, page ?? {});
     if (!pi.ok) return pi;
     const countries = (qi.value.facets?.country ?? []).map((c) => c.toUpperCase());
-    const words = (qi.value.q ?? "").toLowerCase().trim();
+    const unsupported = Object.keys(qi.value.facets ?? {}).find((k) => k !== "country");
+    if (unsupported) return fail("not_available", `The stub cannot evaluate the trip facet "${unsupported}"; the query engine lands in API-2.`);
     const rows = this.data.trips
       .map((t) => t.row)
-      .filter((r) => (!countries.length || r.countries.some((c) => countries.includes(c.code))) && (!words || r.title.toLowerCase().includes(words)));
-    const sorted = this.sortRows(rows.map((r) => ({ ...r, name: r.title })), qi.value.sort).map(({ name: _n, ...r }) => r);
-    return this.page(sorted, pi.value);
+      .filter((r) => (!countries.length || r.countries.some((c) => countries.includes(c.code))) && matchesText(qi.value.q, TRIP_TEXT(r)));
+    return this.page(sortRows(rows, qi.value.sort ?? [], TRIP_SORT_VALUES, (r) => r.title), pi.value);
   }
 
-  async getTrip(slug: string, profile?: S.TripProfile): Promise<Result<S.TripDetail>> {
+  async getTrip(slug: string, profile?: S.TripProfile): Promise<Result<S.TripLookup>> {
     const si = check(S.tripSlugInput, profile ? { slug, profile } : { slug });
     if (!si.ok) return si;
+    const moved = movedTo(this.data.registry, slug, "trips");
+    if (moved) return ok({ moved: moved.slug, ref: moved.key }, this.rev);
     const t = this.tripBySlug.get(slug);
     return t ? ok(t.detail, this.rev) : fail("not_found", "No public trip has that slug.");
   }
@@ -443,7 +448,7 @@ export class StubStore implements CatalogueStore {
     const rows = this.scanRows();
     const node = (cc: string): S.GlobeTree["continents"][number]["countries"][number] => {
       const mine = rows.filter((r) => r.country.toLowerCase() === cc);
-      const exact = mine.filter((r) => r.lat !== null && !this.isApprox(r.slug));
+      const exact = mine.filter((r) => r.lat !== null && !r.approx);
       const regions = [...new Set(mine.map((r) => r.region))].sort(compareCodePoints);
       return {
         slug: cc, name: this.data.countryNames[cc] ?? cc.toUpperCase(), places: mine.length, trips: this.data.trips.filter((t) => t.row.country.toLowerCase() === cc).length,

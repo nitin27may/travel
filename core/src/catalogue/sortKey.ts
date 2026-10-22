@@ -36,3 +36,19 @@ export function sortByName<T extends { name: string; ref: string }>(rows: readon
     .sort(compareSortable)
     .map((x) => x.row);
 }
+
+/**
+ * The free-text `q` rule of every list and of search (review R-11): a row matches when sortKey(q) is a substring of sortKey of its text
+ * fields joined by one space. Places match on name, area and region; trips on title, region and country; search records on name and match
+ * text. SupabaseStore stores that key as a column computed by core (`search_key`) and tests `position(sortKey(q) in search_key) > 0`.
+ */
+export const textKey = (fields: readonly (string | null | undefined)[]): string => sortKey(fields.filter(Boolean).join(" "));
+
+export function matchesText(q: string | undefined, fields: readonly (string | null | undefined)[]): boolean {
+  const want = sortKey(q ?? "");
+  return !want || textKey(fields).includes(want);
+}
+
+/** The text fields `q` reads, per row kind: written once so every store indexes the same words. */
+export const PLACE_TEXT = (r: { name: string; area_name: string; region_name: string }): string[] => [r.name, r.area_name, r.region_name];
+export const TRIP_TEXT = (r: { title: string; region: string; countryName: string }): string[] => [r.title, r.region, r.countryName];

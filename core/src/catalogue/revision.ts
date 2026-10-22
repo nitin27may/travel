@@ -35,7 +35,33 @@ function encode(v: unknown, path: string): string {
   }
 }
 
-/** The revision of a served dataset: SHA-256 hex of `canonicalJson({ data, slugs })`. */
-export function revisionOf(served: { data: unknown; slugs: unknown }): string {
-  return createHash("sha256").update(canonicalJson({ data: served.data, slugs: served.slugs })).digest("hex");
+/**
+ * Everything a store serves, as one object (review R-7). The revision hashes THIS, so an edit to any input moves every ETag:
+ *   dataset    the public dataset (places, trips, their pages; for JsonStore the object createPublicData() builds)
+ *   slugs      the slug registry (data/catalogue/slugs.json)
+ *   globe      every globe file the store reads for globeTree/Pins/Card/Feature/Line/City (index, pins, cards, gazetteer, lines)
+ *   towns      the towns layer (data/reference/towns/*.json), null until META-2
+ *   vocab      the parser vocabulary (search-vocab/1), the search index parts
+ *   citations  the source-registry entries the details cite (data/sources/registry.json, as served)
+ * JsonStore builds it once per load from what it holds in memory (parsed JSON, not file bytes, so no mtime or whitespace moves it).
+ * SupabaseStore's loader builds the same object from the same files, writes `revisionOf()` to `catalogue_meta` in the SAME transaction
+ * as the projections, and the store reads it in the same snapshot as the data (review R-8, store.ts).
+ */
+export interface ServedSnapshot {
+  dataset: unknown;
+  slugs: unknown;
+  globe: unknown;
+  towns: unknown;
+  vocab: unknown;
+  citations: unknown;
+}
+
+/** A snapshot with every input named; a missing layer is null, never absent, so adding it later visibly changes the hash. */
+export function servedSnapshot(parts: Partial<ServedSnapshot> & Pick<ServedSnapshot, "dataset" | "slugs">): ServedSnapshot {
+  return { dataset: parts.dataset, slugs: parts.slugs, globe: parts.globe ?? null, towns: parts.towns ?? null, vocab: parts.vocab ?? null, citations: parts.citations ?? null };
+}
+
+/** The revision of a served snapshot: SHA-256 hex of its canonical JSON. */
+export function revisionOf(served: ServedSnapshot): string {
+  return createHash("sha256").update(canonicalJson(served)).digest("hex");
 }
