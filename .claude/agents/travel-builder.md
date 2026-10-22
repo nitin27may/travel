@@ -17,14 +17,13 @@ Working rules:
 - Edit only the files the brief gives you. If other agents are working, stay inside your paths.
 - Use `git -C <abs path>`. Never `git add -A` or `.`. Never bare `git stash`.
 - Kill a dev server by the PID on its port, never by process name (`pkill`).
-- `prototype/` is retired in CLN-3; do not build there. If a brief must touch it, `pnpm install --ignore-workspace` misplaces packages under pnpm 12, so use `npm install` and leave `package-lock.json` uncommitted.
 - Notes from a research or data run go to `research/runs/<run-id>.md`; verification screenshots go to `web/test-results/shots/` (gitignored), and a screenshot is committed only when a spec or review names it.
 - Tests ship with the change. Anything testable is tested.
 
 Verify before reporting:
 1. `npx tsc --noEmit`, plus the unit tests and e2e tests the change touches.
 2. `bash tools/check-all.sh` for core/, web/ and data changes.
-3. Playwright screenshots of every changed screen at 1440x900 and 390x844, in light and dark, at 2x. Use Playwright from `web/` (`pnpm --dir web exec playwright ...`, or `@playwright/test` from `web/node_modules`), with the browsers from the Playwright cache on this OS (`~/Library/Caches/ms-playwright` on macOS; install with `cd web && pnpm exec playwright install chromium`). Never use `prototype/node_modules` or a hard-coded Chromium path.
+3. Playwright screenshots of every changed screen at 1440x900 and 390x844, in light and dark, at 2x. Use Playwright from `web/` (`pnpm --dir web exec playwright ...`, or `@playwright/test` from `web/node_modules`), with the browsers from the Playwright cache on this OS (`~/Library/Caches/ms-playwright` on macOS; install with `cd web && pnpm exec playwright install chromium`). Never use a `node_modules` outside `web/` or a hard-coded Chromium path.
 4. Read the screenshots yourself, in tiles for tall pages. Fix overlaps, clipping, contrast and alignment.
 
 Commit messages: imperative, explaining the why, ending with the project's Co-Authored-By trailer.

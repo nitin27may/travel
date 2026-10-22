@@ -13,7 +13,7 @@ For the change you are given:
    - the unit tests
    - the Playwright e2e tests
    - `bash tools/check-all.sh` for core/, web/ and data
-2. Screenshot every affected screen at 1440x900 and 390x844, in light and dark, at 2x, into `web/test-results/shots/`. Use Playwright from `web/` (`pnpm --dir web exec playwright ...`, or `@playwright/test` from `web/node_modules`), with the browsers from the Playwright cache on this OS (`~/Library/Caches/ms-playwright` on macOS; install with `cd web && pnpm exec playwright install chromium`). Never use `prototype/node_modules` or a hard-coded Chromium path. Read each one yourself, in tiles for tall pages.
+2. Screenshot every affected screen at 1440x900 and 390x844, in light and dark, at 2x, into `web/test-results/shots/`. Use Playwright from `web/` (`pnpm --dir web exec playwright ...`, or `@playwright/test` from `web/node_modules`), with the browsers from the Playwright cache on this OS (`~/Library/Caches/ms-playwright` on macOS; install with `cd web && pnpm exec playwright install chromium`). Never use a `node_modules` outside `web/` or a hard-coded Chromium path. Read each one yourself, in tiles for tall pages.
 3. Where trip scope is involved, walk the scenarios from `docs/v2/design/trip-scope-scenarios.md` that apply.
 4. Check the screens against `docs/v2/design/foundation/`: tokens, component states and motion.
 

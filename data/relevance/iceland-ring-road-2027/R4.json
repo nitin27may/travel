@@ -326,7 +326,7 @@
     },
     {
       "id": "src-0041",
-      "url": "prototype/src/data/public-trips.ts",
+      "url": "data/seed/prototype/public-trips.ts",
       "title": "Iceland public trip days (stop durations)",
       "publisher": "this repo",
       "kind": "computed",

@@ -271,7 +271,7 @@ The ceilings match the Rockies child notes. "Too long and steep for a 6 year old
 1. **Stored ORS** (`basis: 'routed'`): `web/scripts/legs-ors.mjs` reads `ORS_API_KEY` from `web/.env.local`. It never prints, logs or commits the key. It runs sequentially, at most 30 requests a minute, and only for consecutive item pairs with coordinates. The output is committed to `data/schedules/legs/<slug>.json`, with distance, minutes, the profile (`driving-car` or `foot-hiking`), the date fetched and the attribution. A `--check` mode fails when a pair is missing, and the build never calls ORS.
 2. **The plan's minutes** (`plan`): "about 1 h each way", the prototype's `driveMin`, legacy leg cells. They are parsed by the adapter and kept ≈ when the plan itself marked them INFERENCE.
 3. **The base matrix** (`matrix`): Rockies `bases.json` `drive_times_min`. It is ≈.
-4. **Straight line** (`estimate`): the prototype's rule (`prototype/src/lib/geo.ts`):
+4. **Straight line** (`estimate`): the prototype's rule (`src/lib/geo.ts` of the retired prototype, tag `archive/prototype-2026-10-22`):
    - under 1.2 km: a walk, at distance × 1.3 and 4.5 km/h;
    - over that: distance × 1.42 (+1.5 km under 60 km), at 46 km/h (72 over 60 km), +3 min.
    It is always ≈ with the "Drive time estimated" chip.
