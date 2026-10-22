@@ -5,5 +5,5 @@ const web = fileURLToPath(new URL('../../', import.meta.url));
 export default {
   root: web,
   resolve: { alias: { '@': web } },
-  test: { include: [fileURLToPath(new URL('./dump.test.ts', import.meta.url))], testTimeout: 120000 },
+  test: { include: [fileURLToPath(new URL('./*.test.ts', import.meta.url))], testTimeout: 120000 },
 };
