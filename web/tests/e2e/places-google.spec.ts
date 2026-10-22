@@ -2,8 +2,7 @@ import { execFile } from 'node:child_process';
 import { rmSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { builtOutDir } from '../helpers/built';
-import { expect, serve, test, type Server } from './fixtures';
+import { expect, startNext, test, type Server } from './fixtures';
 
 // Builds the site once with the Google place-page family switched on and a FAKE key, then checks that the page shows
 // the click-to-load facade (our points as text, links built from our coordinates) and that no MapLibre and no Google
@@ -26,8 +25,8 @@ test.describe('place page on the google-js family with a fake key', () => {
       }, (_e, _out, err) => resolve({ code: child.exitCode, err: String(err).slice(-800) }));
     });
     expect(status.code, status.err).toBe(0);
-    // a server build is not export-shaped: serve the helper's view of it
-    server = await serve(builtOutDir(DIST));
+    // the list page reads /api/v1/places, so the fixture build runs under `next start`, as in production
+    server = await startNext(DIST);
   });
   test.afterAll(() => {
     server?.stop();
