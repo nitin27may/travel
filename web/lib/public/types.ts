@@ -8,22 +8,11 @@ import type { TripTags } from './tags';
 import type { PageModel } from './sections';
 import type { Chip, PublicSuitability } from './suitability';
 import type { PublicRelevance } from './relevance';
+import type { Category, Depth, Point } from '@travel/core/export/publicTypes.ts';
 
-/** The six trip categories, in the fixed order patterns 3.4 requires. */
-export const CATEGORIES = ['stays', 'trails', 'sights', 'activities', 'food', 'logistics'] as const;
-export type Category = (typeof CATEGORIES)[number];
+export { CATEGORIES, CATEGORY_LABEL } from '@travel/core/export/publicTypes.ts';
+export type { Category, Depth, Point } from '@travel/core/export/publicTypes.ts';
 
-export const CATEGORY_LABEL: Record<Category, string> = {
-  stays: 'Stays',
-  trails: 'Trails',
-  sights: 'Sights',
-  activities: 'Activities',
-  food: 'Food',
-  logistics: 'Logistics',
-};
-
-/** How much a trip holds: full day-by-day plan, a condensed stop list, or a card only. */
-export type Depth = 'full' | 'summary' | 'overview';
 export type TripVisibility = 'public' | 'unlisted';
 
 /** Canonical place kinds. Data kinds that are not among the fifteen research kinds map onto these. */
@@ -65,17 +54,6 @@ export interface Photo {
   sourceUrl: string;
   /** The gallery section the photo sits in (a place or theme), when it has one. */
   group: string | null;
-}
-
-export interface Point {
-  lat: number;
-  lon: number;
-  /** osm_node:<id>, osm_way:<id>, osm_relation:<id>, wikidata:<QID>, official:<url>, manual_pin or prototype_approx. Never Google. */
-  pointSource: string;
-  /** Who looked at the pin, or null when nobody has. */
-  pointChecked: string | null;
-  /** Licence of the source geometry, for the export guard. */
-  sourceLicence: string;
 }
 
 export interface AccessPoint extends Point {
