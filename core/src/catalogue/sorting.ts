@@ -30,11 +30,8 @@ export const PLACE_SORT_VALUES = {
   elevation: (r: PlaceRow): SortValue => r.elevation_m,
   km: (r: PlaceRow): SortValue => r.km,
   gain: (r: PlaceRow): SortValue => r.gain_m,
-  // R-6 pending owner: `sources` and `added` read the household's save metadata; they go with the row fields if the owner drops them
-  sources: (r: PlaceRow): SortValue => r.sourceTypes.length,
   complete: (r: PlaceRow): SortValue => COMPLETENESS_RANK[r.completeness.level] ?? null,
   plan: (r: PlaceRow): SortValue => r.trips[0]?.title ?? null,
-  added: (r: PlaceRow): SortValue => r.added || null,
 } as const;
 
 /** Trips: the sort keys of the trip list descriptor. */

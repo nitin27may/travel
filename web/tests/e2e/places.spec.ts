@@ -52,9 +52,11 @@ test.describe('places list', () => {
     await expect(page.locator('article.card a[href="/globe/place/lake-louise/"]').first()).toHaveAttribute('href', '/globe/place/lake-louise/');
   });
 
-  test('a saved Instagram place shows its source and a count of the rest', async ({ page, site }) => {
+  test('a place the owner saved from Instagram never says so, and has no source count (PRIV1)', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?q=buton`);
-    await expect(page.locator('article.card .src', { hasText: 'Instagram post' }).first()).toContainText('+1');
+    await expect(page.locator('article.card').first()).toBeVisible();
+    await expect(page.locator('article.card .src', { hasText: /Instagram|Saved|Official site/ })).toHaveCount(0);
+    await expect(page.locator('article.card .src .num')).toHaveCount(0);
   });
 
   test('every researched trail is listed, with no workshop word on its card', async ({ page, site }) => {
@@ -76,6 +78,15 @@ test.describe('places list', () => {
     await expect(page.getByRole('columnheader', { name: /Length/ })).toBeAttached();
     await expect(page.getByRole('columnheader', { name: /Climb/ })).toBeAttached();
     await expect(page.getByRole('columnheader', { name: /Completeness/ })).toBeAttached();
+    // the owner's wishlist saves are private: no Sources or Date added column, and an old sort link degrades to the default order (PRIV1)
+    await expect(page.getByRole('columnheader', { name: /Sources|Date added/ })).toHaveCount(0);
+    await page.getByRole('button', { name: 'Columns' }).click();
+    await expect(page.getByRole('dialog').or(page.getByRole('menu')).getByText(/^(Sources|Date added)$/)).toHaveCount(0);
+    await page.keyboard.press('Escape');
+    await page.goto(`${site.url}/places/?view=table&sort=added&dir=desc`);
+    await expect(page.getByRole('columnheader', { name: /Elevation/ })).toBeVisible();
+    await page.goto(`${site.url}/places/?sort=sources`);
+    await expect(page.locator('article.card').first()).toBeVisible();
   });
 
   test('the Map view opens with the filters kept and the camera in the URL', async ({ page, site }) => {

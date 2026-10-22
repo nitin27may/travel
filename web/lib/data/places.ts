@@ -148,7 +148,6 @@ export function loadPlaces(root = travelRoot()): PlaceRow[] {
       location_status: p.location_status,
       wikidata: p.wikidata ?? null,
       sources: sourcesOf.get(p.id) ?? [],
-      added: p.added ?? '',
     };
   });
   rows.sort(
