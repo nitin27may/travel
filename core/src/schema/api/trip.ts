@@ -2,7 +2,8 @@
 // PublicTrip; web/components/trips/types.ts TripListRow). Public trips are dateless templates: no calendar date in any field.
 import { z } from "zod";
 import { apiPoint, apiSlug } from "./common.ts";
-import { HONESTY_IDS, PLACE_CATEGORIES, placeQuery } from "./place.ts";
+import { API_LIMITS } from "./limits.ts";
+import { HONESTY_IDS, PLACE_CATEGORIES, placeQuery, tripSortSpec } from "./place.ts";
 
 export const TRIP_DEPTHS = ["full", "summary", "overview"] as const;
 
@@ -70,7 +71,7 @@ export const tripRow = z.strictObject({
 export const TRIP_ROW_KEYS = Object.keys(tripRow.shape) as (keyof typeof tripRow.shape)[];
 
 /** `TripQuery`: the Trips list's URL state, the same keys as Places (EXECUTION-PLAN 4.3 rule 3). */
-export const tripQuery = placeQuery;
+export const tripQuery = placeQuery.extend({ sort: z.array(tripSortSpec).max(API_LIMITS.query.sortKeys).optional() });
 
 /**
  * The profile a trip detail is scheduled for: the timeline's URL keys (core/src/schedule/profileCodec.ts PROFILE_KEYS), as strings.
@@ -234,7 +235,13 @@ export const tripDetail = z.strictObject({
 
 export const tripSlugInput = z.strictObject({ slug: apiSlug, profile: tripProfile.optional() });
 
+/** A retired trip slug (review R-18): getTrip answers the current one, and the handler answers 308. */
+export const movedTrip = z.strictObject({ moved: apiSlug, ref: tripRefId });
+/** What getTrip returns: the trip, or where it moved. */
+export const tripLookup = z.union([tripDetail, movedTrip]);
+
 export type TripRow = z.infer<typeof tripRow>;
 export type TripQuery = z.infer<typeof tripQuery>;
 export type TripProfile = z.infer<typeof tripProfile>;
 export type TripDetail = z.infer<typeof tripDetail>;
+export type TripLookup = z.infer<typeof tripLookup>;
