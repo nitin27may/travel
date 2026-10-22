@@ -9,6 +9,7 @@ import { buildGlobeFiles } from '@/lib/globe/data';
 import { buildSearchParts } from '@/lib/search/build';
 import { createSearcher } from '@/lib/search/search';
 import { tripExportFor, placeExportFor } from '@/lib/export/build.server';
+import { withRenditions } from '@/lib/server/images';
 import { createJsonSource } from '@/lib/server/source';
 
 // The ApiAdapter over a store in memory (no network): what the browser's adapter returns, checked against what the StaticAdapter's
@@ -18,13 +19,13 @@ vi.stubEnv('NEXT_PUBLIC_DATA_ADAPTER', 'api');
 const real = createApiClient(callsFromStore(new JsonStore(createJsonSource()), true));
 
 describe('ApiAdapter over JsonStore', () => {
-  it('builds each country file exactly as the build writes it (rows, keys and default order)', async () => {
+  it('builds each country file as the build writes it, photos as the rendition the build rewrote them to (rows, keys and default order)', async () => {
     const files = placeShards().files;
     const ids = Object.keys(files).filter((id) => id !== 'xx');
     expect(ids.length).toBeGreaterThan(2);
     for (const id of ids) {
       const got = await real.shardRows('place', id, placeDescriptor as never);
-      expect(JSON.parse(JSON.stringify(got)), id).toEqual(JSON.parse(JSON.stringify(files[id])));
+      expect(JSON.parse(JSON.stringify(got)), id).toEqual(JSON.parse(JSON.stringify(withRenditions(files[id]))));
     }
   });
 

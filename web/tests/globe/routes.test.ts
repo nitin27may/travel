@@ -10,12 +10,16 @@ describe('globe routes', () => {
     expect(GlobePage()).toBeNull();
     expect(metadata.title).toBeTruthy();
   });
-  for (const [name, mod] of [['path', globePath], ['place', globePlace], ['trip', globeTrip]] as const) {
+  for (const [name, mod] of [['place', globePlace], ['trip', globeTrip]] as const) {
     it(`/globe/${name}: pre-renders at least one param and refuses unknown ones`, () => {
       expect(mod.generateStaticParams().length).toBeGreaterThan(0);
       expect(mod.dynamicParams).toBe(false);
     });
   }
+  it('/globe/path: pre-renders the levels with content and renders any other level on request (server mode; tests/e2e/globe.levels.spec.ts)', () => {
+    expect(globePath.generateStaticParams().length).toBeGreaterThan(0);
+    expect(globePath.dynamicParams).toBe(true);
+  });
   it('a place URL is noindex (the place has its own indexed page)', async () => {
     const m = await globePlace.generateMetadata({ params: Promise.resolve({ slug: 'lago-di-braies' }) });
     expect(m.robots).toEqual({ index: false, follow: false });

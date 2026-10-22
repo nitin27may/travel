@@ -63,6 +63,13 @@ for (const [enc, url] of used) {
   }
 }
 
+// The map the API reads (lib/server/images.ts): API responses are made at request time, after this rewrite of the prerendered output,
+// so they take their photo URLs from this record (Commons file name -> content key) and never carry a Commons URL.
+const MAP = path.join(WEB, '.generated', 'image-map.json');
+mkdirSync(path.dirname(MAP), { recursive: true });
+const decoded = (enc) => decodeURIComponent(enc.replace(/&#x27;|&#39;/g, "'"));
+writeFileSync(MAP, JSON.stringify(Object.fromEntries([...keyOf].map(([enc, key]) => [decoded(enc), key]).sort()), null, 1) + '\n');
+
 let rewritten = 0;
 for (const f of files) {
   const text = readFileSync(f, 'utf8');

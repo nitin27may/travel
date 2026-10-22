@@ -5,6 +5,7 @@ import { getExportCases } from "./getExport.cases.ts";
 import { getPlaceCases } from "./getPlace.cases.ts";
 import { globeCases } from "./globe.cases.ts";
 import { handlerCases } from "./handler.cases.ts";
+import { imageCases } from "./images.cases.ts";
 import { householdCases } from "./household.cases.ts";
 import { listPlacesCases } from "./listPlaces.cases.ts";
 import { nearCases } from "./near.cases.ts";
@@ -31,6 +32,7 @@ export const CONTRACT_TABLES: Record<string, ContractCase[]> = {
   globe: globeCases,
   report: reportCases,
   household: householdCases,
+  images: imageCases,
   handler: handlerCases,
 };
 
