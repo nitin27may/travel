@@ -148,8 +148,8 @@ export async function runSnapshot(seed, loadAdapter, check) {
 function main() {
   const check = process.argv.includes('--check');
   const vitest = path.join(WEB, 'node_modules', '.bin', 'vitest');
-  const r = spawnSync(vitest, ['run', '-c', path.join(HERE, 'snapshot', 'vitest.config.mts')], {
-    cwd: WEB, stdio: 'inherit', env: { ...process.env, SNAPSHOT_CHECK: check ? '1' : '' },
+  const r = spawnSync(vitest, ['run', '-c', path.join(HERE, 'snapshot', 'vitest.config.mts'), check ? 'check.test' : 'write.test'], {
+    cwd: WEB, stdio: 'inherit',
   });
   if (r.status !== 0) {
     if (check) console.error('stale or failed. Run `pnpm --dir web snapshot` and commit.');
