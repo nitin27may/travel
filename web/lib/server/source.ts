@@ -19,6 +19,7 @@ import { createSearcher, type Searcher } from '@/lib/search/search';
 import type { SearchRecord } from '@/lib/search/types';
 import vocabJson from '../../public/search/vocab.json';
 import { engineFor } from './engine';
+import { withRenditions } from './images';
 import { exportFileOf } from './exports';
 import { isApproxPoint, placeDetailOf } from './placeDetail';
 import { registryIds } from './sources';
@@ -61,10 +62,10 @@ export function createJsonSource(opts: ServerSourceOptions = {}): JsonSource {
     rows.map((r): PlaceRow => {
       const ref = refBySlug.get(r.slug);
       if (!ref) throw new Error(`place ${r.slug} has no ref`);
-      return { ...r, ref, approx: isApproxPoint(data.getPlace(r.slug)?.point) };
+      return withRenditions({ ...r, ref, approx: isApproxPoint(data.getPlace(r.slug)?.point) });
     }),
   );
-  const tripRows: TripRow[] = tripListRows(data.listTrips()).map((r) => ({ ...r, ref: `trip/${r.slug}` }) as TripRow);
+  const tripRows: TripRow[] = tripListRows(data.listTrips()).map((r) => withRenditions({ ...r, ref: `trip/${r.slug}` }) as TripRow);
 
   const places = new Map<string, PlaceDetail>();
   const trips = new Map<string, TripDetail>();
@@ -107,7 +108,7 @@ export function createJsonSource(opts: ServerSourceOptions = {}): JsonSource {
         const ref = refBySlug.get(slug);
         if (!p || !ref) return null;
         const card = cards.get(slug);
-        d = placeDetailOf(p, ref, ids, { type: card?.type ?? null, badge: card?.badge ?? null });
+        d = withRenditions(placeDetailOf(p, ref, ids, { type: card?.type ?? null, badge: card?.badge ?? null }));
         places.set(slug, d);
       }
       return d;
@@ -120,7 +121,7 @@ export function createJsonSource(opts: ServerSourceOptions = {}): JsonSource {
         const t = data.getTrip(slug);
         const card = tripCards.get(slug);
         if (!t || !card) return null;
-        d = tripDetailOf(t, card);
+        d = withRenditions(tripDetailOf(t, card));
         trips.set(slug, d);
       }
       return d;
@@ -137,7 +138,7 @@ export function createJsonSource(opts: ServerSourceOptions = {}): JsonSource {
     globe: {
       tree: () => buildGlobeFiles().tree,
       pins: (cc) => buildGlobeFiles().pins[cc] ?? null,
-      card: (key) => buildGlobeFiles().cards[key.replace(':', '/')] ?? null,
+      card: (key) => withRenditions(buildGlobeFiles().cards[key.replace(':', '/')] ?? null),
       feature: (id) => gazetteer().get(id) ?? null,
       line: (id) => readGlobeLine(id) as GlobeLine | null,
     },
@@ -147,7 +148,7 @@ export function createJsonSource(opts: ServerSourceOptions = {}): JsonSource {
       const cited = new Map<string, unknown>();
       for (const row of placeRows) for (const [id, c] of Object.entries(this.placeDetail(row.slug)?.citations ?? {})) cited.set(id, c);
       return {
-        globe: { tree: files.tree, pins: files.pins, cards: files.cards, gazetteer: readGazetteer(), lines: globeLineIds().map((id) => readGlobeLine(id)) },
+        globe: { tree: files.tree, pins: files.pins, cards: withRenditions(files.cards), gazetteer: readGazetteer(), lines: globeLineIds().map((id) => readGlobeLine(id)) },
         vocab: vocabJson,
         citations: [...cited].sort(([a], [b]) => (a < b ? -1 : 1)).map(([, c]) => c),
         towns: null,
