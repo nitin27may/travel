@@ -56,7 +56,9 @@ Numbers from a social post are stored as `stats` and stay `unverified`.
    and source notes stay private; the public pages never show them.
 7. **Finish.** Every write rebuilds the views, and the hook runs `validate` then `build` after any
    Write or Edit on the store. Run `locations.py build --check` before committing: it must print
-   `up to date`. Commit and push (`locations: add <n> places (<topic>)`). Reply with one line per place:
+   `up to date`. The suitability migration reads the store's
+   `updated` date, so also run `node core/bin/suitability.ts migrate --write` and commit what it changes
+   (`migrate --check` must pass; check-all fails otherwise). Commit and push (`locations: add <n> places (<topic>)`). Reply with one line per place:
    name, resolved chain (Canada > Quebec > Charlevoix), kind, and anything unresolved.
 
 ## Resolution rules
