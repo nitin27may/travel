@@ -8,6 +8,9 @@ import { undatedTitle } from './dateless';
 import { groupLinks, trailSeeds, type TrailSeed } from './trail-places';
 import { assignSeedSlugs, captureSeeds, type CaptureSeed, type SeedSkip } from './seeds';
 import { primaryRef } from '@travel/core/capture/records.ts';
+import { SLUG_REGISTRY_PATH, emptyRegistry, parseRegistry, type SlugRegistry } from '@travel/core/catalogue/slugs.ts';
+import { existsSync, readFileSync } from 'node:fs';
+import path from 'node:path';
 import { publicWorld } from './world';
 import { applyLegacySupersedes } from './superseded';
 import { loadTracks, readDate, totalsDiffer, withTrack } from './tracks';
@@ -30,6 +33,16 @@ export interface PlaceBuild {
   legacyPaths: Map<string, string>;
   /** Capture records that look like places but got no page, and why (backlog 3.48). For the build report and the tests. */
   seedSkips: SeedSkip[];
+  /** page slug -> its `ref` (D-B2): the capture ref, `loc:<id>` or `proto:<id>`. Kept for the API; never put on a public page. */
+  refBySlug: Map<string, string>;
+  /** every identity key that got a slug -> the slug, merged records included: what data/catalogue/slugs.json pins (D-B1) */
+  slugByRef: Map<string, string>;
+}
+
+/** The pinned slug registry (D-B1). A root without one (a test fixture) assigns every slug as before the registry. */
+export function readSlugRegistry(root: string): SlugRegistry {
+  const file = path.join(root, SLUG_REGISTRY_PATH);
+  return existsSync(file) ? parseRegistry(readFileSync(file, 'utf8')) : emptyRegistry();
 }
 
 export const normName = (s: string): string =>
@@ -433,10 +446,13 @@ export function buildPlaces(src: Sources): PlaceBuild {
   const isSeed = (r: Rec) => !!r.captureRef && seedOf.has(r.captureRef);
 
   // ---- slugs: the pages that existed before keep theirs; the seeds fill free names ----
-  const key = (r: Rec) => (r.captureRef ? `trail:${r.captureRef}` : r.locationId ? `loc:${r.locationId}` : `proto:${r.protoId}`);
-  const slugs = assignPlaceSlugs(recs.filter((r) => !isSeed(r)).map((r) => ({ key: key(r), name: r.name, areaSlug: r.areaChain[2]?.slug ?? '' })));
-  const seedSlugs = assignSeedSlugs([...seedOf.values()], new Set(slugs.values()));
-  const slugOf = (r: Rec): string => (isSeed(r) ? seedSlugs.get(r.captureRef!)! : slugs.get(key(r))!);
+  // the identity key is the page's ref (D-B2); `order` keeps the key form of before the registry, so an empty registry gives the same slugs
+  const refOf = (r: Rec): string => r.captureRef ?? (r.locationId ? `loc:${r.locationId}` : `proto:${r.protoId}`);
+  const orderOf = (r: Rec): string => (r.captureRef ? `trail:${r.captureRef}` : refOf(r));
+  const registry = readSlugRegistry(src.root);
+  const slugs = assignPlaceSlugs(recs.filter((r) => !isSeed(r)).map((r) => ({ key: refOf(r), order: orderOf(r), name: r.name, areaSlug: r.areaChain[2]?.slug ?? '' })), registry);
+  const seedSlugs = assignSeedSlugs([...seedOf.values()], new Set(slugs.values()), registry);
+  const slugOf = (r: Rec): string => (isSeed(r) ? seedSlugs.get(r.captureRef!)! : slugs.get(refOf(r))!);
   const duplicateRedirects = merged.pairs.map((m) => ({ from: `/places/${seedSlugs.get(m.seed.ref)!}/`, slug: slugOf(m.survivor), seed: m.seed }));
 
   applyLegacySupersedes(recs, publicWorld(src.root), normName);
@@ -486,6 +502,13 @@ export function buildPlaces(src: Sources): PlaceBuild {
       legacyPaths.set(`/places/${r.locationId.split('/').map(encodeURIComponent).join('/')}/`, slug);
     }
   }
+  // a slug retired by `slugs.ts rename` answers with the slug its key holds now (D-B1)
+  for (const [slug, k] of Object.entries(registry.retired)) {
+    const now = slugs.get(k) ?? seedSlugs.get(k);
+    if (now && bySlug.has(now)) legacyPaths.set(`/places/${slug}/`, now);
+  }
+  const refBySlug = new Map(recs.map((r) => [slugOf(r), refOf(r)]));
+  const slugByRef = new Map<string, string>([...slugs, ...seedSlugs]);
   const byName = new Map<string, string[]>();
   const skipName = new Set([...notByName].map((ref) => byCaptureRef.get(ref)));
   const altNames = new Map(recs.map((r) => [slugOf(r), r.altNames ?? []]));
@@ -507,7 +530,7 @@ export function buildPlaces(src: Sources): PlaceBuild {
   for (const m of duplicateRedirects) {
     for (const n of [m.seed.name, ...m.seed.names]) addName(n, m.slug);
   }
-  return { places, bySlug, byProtoId, byLocationId, byCaptureRef, byName, legacyPaths, seedSkips: sb.skipped };
+  return { places, bySlug, byProtoId, byLocationId, byCaptureRef, byName, legacyPaths, seedSkips: sb.skipped, refBySlug, slugByRef };
 }
 
 let shellsLogged = false;

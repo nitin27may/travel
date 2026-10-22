@@ -31,45 +31,7 @@ export const PUBLIC_TRIP_FOLDER: Record<string, string> = {
   'p-chamonix': 'chamonix-mont-blanc-sept-2028',
 };
 
-export function kebab(s: string): string {
-  return s
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .replace(/&/g, ' and ')
-    .toLowerCase()
-    .replace(/['’]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-export interface SlugInput {
-  key: string;
-  name: string;
-  areaSlug: string;
-}
-
-/**
- * Stable slugs for a set of places. Inputs are processed in key order, so the result does not depend on the
- * order places were read in. Names that collide all get their area appended; a remaining collision gets -2, -3.
- */
-export function assignPlaceSlugs(items: SlugInput[]): Map<string, string> {
-  const sorted = [...items].sort((a, b) => a.key.localeCompare(b.key));
-  const byBase = new Map<string, SlugInput[]>();
-  for (const it of sorted) {
-    const base = kebab(it.name) || 'place';
-    byBase.set(base, [...(byBase.get(base) ?? []), it]);
-  }
-  const out = new Map<string, string>();
-  const used = new Set<string>();
-  for (const [base, group] of [...byBase].sort((a, b) => a[0].localeCompare(b[0]))) {
-    for (const it of group) {
-      let slug = group.length > 1 && it.areaSlug ? `${base}-${it.areaSlug}` : base;
-      let n = 2;
-      const root = slug;
-      while (used.has(slug)) slug = `${root}-${n++}`;
-      used.add(slug);
-      out.set(it.key, slug);
-    }
-  }
-  return out;
-}
+// The slug rules and the assignment live in core (API-1a, D-B1): one implementation for the dataset builder, the stores and
+// `node core/bin/slugs.ts`, which pins every slug in data/catalogue/slugs.json.
+export { kebab, assignPlaceSlugs, assignSeedSlugs } from '@travel/core/catalogue/slugs.ts';
+export type { SlugInput, SeedSlugInput, SlugRegistry } from '@travel/core/catalogue/slugs.ts';
