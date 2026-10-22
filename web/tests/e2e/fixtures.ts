@@ -13,6 +13,24 @@ export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 // directly and read web/redirects.json relative to it. The shared `site` server below is `next start`, not this directory.
 export const SITE = path.join(ROOT, '.site');
 
+/**
+ * For the specs that serve the export-shaped `.site` copy as plain files (globe.stage4, globe.features.gpu): that copy has no /api/v1, which the
+ * ApiAdapter (the default data path since API-1b) reads. They test the globe UI, not the transport, so every /api/ and /globe-data/ request is
+ * forwarded to the shared `next start` server (PW_SITE_URL) and answered by the real handlers. Returns true when it handled the request.
+ */
+export function forwardData(req: http.IncomingMessage, res: http.ServerResponse): boolean {
+  const url = req.url ?? '/';
+  if (!/^\/(api|globe-data)\//.test(url)) return false;
+  const target = new URL(url, process.env.PW_SITE_URL);
+  const up = http.request(target, { method: req.method, headers: { ...req.headers, host: target.host } }, (r) => {
+    res.writeHead(r.statusCode ?? 502, r.headers);
+    r.pipe(res);
+  });
+  up.on('error', () => { res.writeHead(502); res.end(); });
+  req.pipe(up);
+  return true;
+}
+
 export interface Server {
   url: string;
   pid: number;
@@ -64,6 +82,26 @@ export async function serve(dir: string): Promise<Server> {
   const pid = child.pid as number;
   const url = `http://127.0.0.1:${port}`;
   await waitFor(`${url}/`);
+  return { url, pid, stop: () => process.kill(pid) };
+}
+
+/** `next start` over a fixture build in `distDir` (a spec that builds its own variant), on a free port; stopped by its own PID. */
+export async function startNext(distDir: string): Promise<Server> {
+  const port = await freePort();
+  const web = path.join(ROOT, 'web');
+  const child: ChildProcess = spawn(process.execPath, [path.join(web, 'node_modules', 'next', 'dist', 'bin', 'next'), 'start', '-p', String(port), '-H', '127.0.0.1'], {
+    cwd: web,
+    stdio: 'ignore',
+    env: { ...process.env, NEXT_DIST_DIR: distDir, NODE_ENV: 'production' },
+  });
+  const pid = child.pid as number;
+  const url = `http://127.0.0.1:${port}`;
+  try {
+    await waitFor(`${url}/`);
+  } catch (e) {
+    process.kill(pid);
+    throw e;
+  }
   return { url, pid, stop: () => process.kill(pid) };
 }
 
