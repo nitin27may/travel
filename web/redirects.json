@@ -160,11 +160,6 @@
     "status": 301
   },
   {
-    "from": "/places/IT/veneto/belluno/dolomites/",
-    "to": "/places/dolomites/",
-    "status": 301
-  },
-  {
     "from": "/places/IT/trentino-alto-adige/provincia-di-trento/trento/",
     "to": "/places/trento/",
     "status": 301
@@ -172,6 +167,11 @@
   {
     "from": "/places/IT/tuscany/firenze/florence/",
     "to": "/places/florence/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/veneto/belluno/dolomites/",
+    "to": "/places/dolomites/",
     "status": 301
   },
   {

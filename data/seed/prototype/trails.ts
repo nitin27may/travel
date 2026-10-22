@@ -2,7 +2,6 @@
 // travel/research/reports/trails-and-media-2026-10-18.md section 1 (fallback chain, link-only platforms).
 // Every researched value carries a source and the date it was read. A value typed in by a person carries
 // `you: true` instead and waits for review (in the real app research proposes and review verifies).
-import { useSyncExternalStore } from "react";
 
 export type Conf = "official" | "operator" | "community" | "inferred";
 export interface Conflict { v: string; src: string; conf: Conf; read: string }
@@ -1045,39 +1044,3 @@ for (const id of new Set([...Object.keys(ACCESS), ...Object.keys(RESEARCH)])) {
     parking: a?.parking ?? base.parking,
   };
 }
-
-// ---- session store: edits survive navigating away and back ---------------------------------------------------------
-let state: Record<string, TrailRecord> = {};
-const subs = new Set<() => void>();
-const emit = () => { state = { ...state }; subs.forEach(s => s()); };
-export function getTrail(id: string): TrailRecord { return state[id] ?? TRAILS[id] ?? EMPTY(); }
-function mutate(id: string, fn: (r: TrailRecord) => TrailRecord) {
-  const base = state[id] ?? TRAILS[id] ?? EMPTY();
-  state[id] = fn({ ...base, facts: { ...base.facts }, hazards: [...base.hazards], links: [...base.links] });
-  emit();
-}
-export function useTrail(id: string): TrailRecord {
-  useSyncExternalStore(s => { subs.add(s); return () => { subs.delete(s); }; }, () => state);
-  return getTrail(id);
-}
-export const mine = (v: string): Fact => ({ v, you: true, added: "today" });
-export function saveFacts(id: string, changes: Record<string, string>) {
-  mutate(id, r => {
-    for (const [k, v] of Object.entries(changes)) {
-      const old = r.facts[k];
-      if (v.trim() === "") { delete r.facts[k]; continue; }
-      if (old && old.v === v.trim()) continue;
-      r.facts[k] = mine(v.trim());
-    }
-    return r;
-  });
-}
-export function addLink(id: string, l: Omit<TrailLink, "id" | "you" | "checked_at">) {
-  mutate(id, r => ({ ...r, links: [...r.links, { ...l, id: `u${Date.now()}`, you: true }] }));
-}
-export function removeLink(id: string, linkId: string) { mutate(id, r => ({ ...r, links: r.links.filter(l => l.id !== linkId) })); }
-export function addHazard(id: string, text: string) { mutate(id, r => ({ ...r, hazards: [...r.hazards, mine(text)] })); }
-export function removeHazard(id: string, i: number) { mutate(id, r => ({ ...r, hazards: r.hazards.filter((_, j) => j !== i) })); }
-export function sendFactForReview(id: string, key: string) { mutate(id, r => { if (r.facts[key]) r.facts[key] = { ...r.facts[key], sent: true }; return r; }); }
-export function sendHazardForReview(id: string, i: number) { mutate(id, r => { r.hazards[i] = { ...r.hazards[i], sent: true }; return r; }); }
-export function sendLinkForReview(id: string, linkId: string) { mutate(id, r => ({ ...r, links: r.links.map(l => l.id === linkId ? { ...l, sent: true } : l) })); }

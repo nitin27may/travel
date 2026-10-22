@@ -42,6 +42,8 @@ step "relevance derived files are current"
 node "$ROOT/core/bin/relevance.ts" derive --check --root "$ROOT"
 step "source registry is current and valid (sources/1; derived from the lane files)"
 node "$ROOT/core/bin/sources.ts" check --root "$ROOT"
+step "prototype snapshot is current (CLN-3: web/data-snapshots and web/redirects.json match data/seed/prototype)"
+pnpm --dir "$ROOT/web" snapshot:check
 step "no new hard-coded values (CONS-1 ratchet: colours, slugs, hosts, user agents, thresholds, env names)"
 python3 "$ROOT/tools/cons/hardcode_scan.py" --check
 

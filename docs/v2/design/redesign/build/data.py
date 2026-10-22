@@ -1,6 +1,6 @@
 """Content shared by every direction's previews.
 
-Source of truth: prototype/src/data/trip.ts, places.ts, trips.ts, trails.ts and
+Source of truth: data/seed/prototype/trip.ts, places.ts, trails.ts (trips.ts went with the retired prototype, tag archive/prototype-2026-10-22) and
 docs/v2/design/trip-scope-scenarios.md (the household on 18 Oct 2026). Elora and Patagonia
 details that the prototype does not hold are marked as examples in the previews.
 """

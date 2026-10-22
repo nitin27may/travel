@@ -1,5 +1,7 @@
 # Clickable prototype (working draft, 18 Oct 2026)
 
+> **Retired 22 Oct 2026 (CLN-3).** The `prototype/` folder is gone. Restore it with `git checkout archive/prototype-2026-10-22 -- prototype`. Its four data files live in `data/seed/prototype/`; the snapshot script reads them there. The run steps below apply to the restored folder only.
+
 Published privately: https://claude.ai/artifact/CXW1R6aixJEy3Lmufx16Hv (rebuild with `pnpm build:artifact`, then republish `dist-single/artifact.html` with the two relief images).
 
 `prototype/` is a throwaway front-end that tests the experience, the rendering libraries and the

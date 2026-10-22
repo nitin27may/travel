@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// Snapshots the prototype's data files (prototype/src/data/{trip,places,trails,public-trips}.ts) into
-// web/data-snapshots/prototype.json so the web build never needs prototype/node_modules.
+// Snapshots the prototype's data files (data/seed/prototype/{trip,places,trails,public-trips}.ts) into
+// web/data-snapshots/prototype.json so the web build needs nothing else. The seed files are loaded by vitest (scripts/snapshot/), no bundler.
 //
 //   node web/scripts/snapshot-prototype.mjs           write the snapshot (and web/redirects.json)
 //   node web/scripts/snapshot-prototype.mjs --check   exit 1 if either file would change
@@ -8,15 +8,14 @@
 // PRIVACY: prototype TRIP is household data (travellers, ages, booking codes, costs, phones, emails,
 // addresses, seats, payments, attachments, tasks, lists). It goes through an allow-list below. Anything not
 // named here never reaches the snapshot. Do not widen it without a reason and a privacy-test update.
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import os from 'node:os';
+import { spawnSync } from 'node:child_process';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const WEB = path.resolve(HERE, '..');
 const ROOT = path.resolve(WEB, '..');
-const PROTO = path.join(ROOT, 'prototype');
 const OUT = path.join(WEB, 'data-snapshots', 'prototype.json');
 
 /** Recursively sort object keys so the file is stable. */
@@ -101,58 +100,8 @@ export function snapshotPublicTrips(PUBLIC_TRIPS, travellers) {
   });
 }
 
-function needRolldown() {
-  const entry = path.join(PROTO, 'node_modules', 'rolldown', 'dist', 'index.mjs');
-  if (!existsSync(entry)) {
-    console.error('prototype/node_modules is missing. Run `npm install` in prototype/ (see docs/v2/design/prototype.md), then re-run.');
-    process.exit(1);
-  }
-  return entry;
-}
-
-/** Bundles a TypeScript entry with the prototype's rolldown, then imports the bundle. `alias` maps module names. */
-async function bundleAndImport(entry, alias, tmp) {
-  const { build } = await import(pathToFileURL(needRolldown()).href);
-  const outFile = path.join(tmp, `bundle-${path.basename(entry)}.mjs`);
-  await build({ input: entry, platform: 'node', logLevel: 'silent', resolve: { alias }, output: { file: outFile, format: 'esm' } });
-  return import(pathToFileURL(outFile).href + `?t=${Date.now()}`);
-}
-
-async function loadPrototypeModules() {
-  const tmp = mkdtempSync(path.join(os.tmpdir(), 'snap-proto-'));
-  try {
-    const stub = path.join(tmp, 'react-stub.mjs');
-    writeFileSync(stub, 'export const useSyncExternalStore = (_s, get) => get();\nexport const useMemo = (f) => f();\nexport default {};\n');
-    const d = (f) => path.join(PROTO, 'src', 'data', f);
-    const entry = path.join(tmp, 'entry.ts');
-    writeFileSync(entry, [
-      `export { TRIP } from ${JSON.stringify(d('trip.ts'))};`,
-      `export { PLACES } from ${JSON.stringify(d('places.ts'))};`,
-      `export { TRAILS, ACCESS, CHECK_KINDS, LINK_KINDS, LINK_GROUPS, FIELDS, GROUPS, DIFFICULTY } from ${JSON.stringify(d('trails.ts'))};`,
-      `export { PUBLIC_TRIPS } from ${JSON.stringify(d('public-trips.ts'))};`,
-    ].join('\n'));
-    return await bundleAndImport(entry, { react: stub }, tmp);
-  } finally {
-    rmSync(tmp, { recursive: true, force: true });
-  }
-}
-
-/** Runs the adapter (bundled with rolldown) for the generated files that depend on it. */
-async function adapterOutputs(snapshotDropped) {
-  const tmp = mkdtempSync(path.join(os.tmpdir(), 'snap-adapter-'));
-  const prevCwd = process.cwd();
-  try {
-    process.chdir(WEB); // the data loaders resolve the repo root and .generated from cwd = web/
-    const mod = await bundleAndImport(path.join(WEB, 'lib', 'public', 'cli.ts'), { '@': WEB }, tmp);
-    return { redirects: JSON.stringify(mod.buildRedirects(), null, 2) + '\n', report: JSON.stringify(mod.buildReport(snapshotDropped), null, 2) + '\n' };
-  } finally {
-    process.chdir(prevCwd);
-    rmSync(tmp, { recursive: true, force: true });
-  }
-}
-
-export async function buildSnapshot() {
-  const m = await loadPrototypeModules();
+/** Builds the snapshot object from the seed modules (loaded by the vitest run in scripts/snapshot/). */
+export function buildSnapshot(m) {
   const dropped = [];
   return sortKeys({
     schema: 'prototype-snapshot/1',
@@ -182,24 +131,31 @@ function emit(file, text, check) {
   return differs;
 }
 
-async function main() {
-  const check = process.argv.includes('--check');
-  const snapshot = await buildSnapshot();
+/** Writes or checks the three generated files. Called from the vitest run, which can import the seed .ts files. */
+export async function runSnapshot(seed, loadAdapter, check) {
+  const snapshot = buildSnapshot(seed);
   const stale = [];
   if (emit(OUT, JSON.stringify(snapshot, null, 2) + '\n', check)) stale.push(path.relative(ROOT, OUT));
 
   // redirects.json and the report come from the adapter, which reads the snapshot just written above
-  const out = await adapterOutputs(snapshot.dropped ?? []);
-  if (emit(path.join(WEB, 'redirects.json'), out.redirects, check)) stale.push('web/redirects.json');
-  if (emit(path.join(WEB, 'data-snapshots', 'snapshot-report.json'), out.report, check)) stale.push('web/data-snapshots/snapshot-report.json');
+  const mod = await loadAdapter();
+  const outs = { redirects: JSON.stringify(mod.buildRedirects(), null, 2) + '\n', report: JSON.stringify(mod.buildReport(snapshot.dropped ?? []), null, 2) + '\n' };
+  if (emit(path.join(WEB, 'redirects.json'), outs.redirects, check)) stale.push('web/redirects.json');
+  if (emit(path.join(WEB, 'data-snapshots', 'snapshot-report.json'), outs.report, check)) stale.push('web/data-snapshots/snapshot-report.json');
+  return stale;
+}
 
-  if (check && stale.length) {
-    console.error(`stale: ${stale.join(', ')}. Run \`pnpm --dir web snapshot\` and commit.`);
-    process.exit(1);
+function main() {
+  const check = process.argv.includes('--check');
+  const vitest = path.join(WEB, 'node_modules', '.bin', 'vitest');
+  const r = spawnSync(vitest, ['run', '-c', path.join(HERE, 'snapshot', 'vitest.config.mts'), check ? 'check.test' : 'write.test'], {
+    cwd: WEB, stdio: 'inherit',
+  });
+  if (r.status !== 0) {
+    if (check) console.error('stale or failed. Run `pnpm --dir web snapshot` and commit.');
+    process.exit(r.status ?? 1);
   }
-  console.log(check ? 'snapshot is current' : `wrote ${stale.length ? stale.join(', ') : 'nothing (already current)'}`);
+  console.log(check ? 'snapshot is current' : 'snapshot written');
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  main().catch((e) => { console.error(e); process.exit(1); });
-}
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();
