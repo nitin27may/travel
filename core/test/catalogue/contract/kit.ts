@@ -17,6 +17,18 @@ export interface ContractFacts {
   tripSlug: string;
   /** a slug retired by `slugs.ts rename`, and the slug it answers with now */
   retired?: { from: string; to: string };
+  /** the slug of a merged record, and its survivor's slug (R-1, case K9.merged) */
+  merged?: { from: string; to: string };
+  /** a withdrawn slug (R-3, case K9.withdrawn) */
+  withdrawn?: string;
+  /** a ref replaced by `alias`, and the slug it still resolves to (R-2, case K8.former) */
+  former?: { ref: string; slug: string };
+  /** a retired trip slug and its current slug (R-18) */
+  tripRetired?: { from: string; to: string };
+  /** a region alias two countries share, the countries, and one country that settles it (R-20, case K14.ambiguous) */
+  ambiguousRegion?: { alias: string; cc: string };
+  /** a tag id and the slugs that carry it (R-23, case listPlaces.tag) */
+  tag?: { id: string; slugs: string[] };
   /** every place whose point is marked approximate (case K16: approx is true for these and only these) */
   approxSlugs: string[];
   /** two refs whose names share a sort key, in the order the tiebreak must give (case K11) */
@@ -45,6 +57,8 @@ export interface ContractTarget {
   makeChanged?(): CatalogueStore | Promise<CatalogueStore>;
   /** touch every data file's mtime without changing a byte (case K10); absent for an in-memory store */
   touch?(): void;
+  /** the slug registry the store serves from (cases K8.former) */
+  registry?(): import("../../../src/catalogue/slugs.ts").SlugRegistry;
   /** how many row or shard reads the store has made so far (case K4) */
   rowReads?(store: CatalogueStore): number;
   facts: ContractFacts;

@@ -5,21 +5,25 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  SLUG_REGISTRY_PATH, aliasKey, emptyRegistry, parseRegistry, registryDrift, registryText, renameSlug, updateRegistry,
+  SLUG_REGISTRY_PATH, aliasKey, emptyRegistry, mergeKey, parseRegistry, registryDrift, registryText, renameSlug, updateRegistry, withdrawKey,
   type SlugRegistry, type SlugSnapshot,
 } from "../src/catalogue/slugs.ts";
 
 const USAGE = `Usage: node core/bin/slugs.ts <command> [options]
 
-data/catalogue/slugs.json pins every place slug and every canonical region value (D-B1, D-B3). A pinned slug never changes
-silently; these commands are the only ways to change the file.
+data/catalogue/slugs.json pins every place and trip slug, their history and every canonical region value (D-B1, D-B3). A pinned
+slug never changes silently; these commands are the only ways to change the file.
 
 Commands:
   build                     pin every new key and region the dataset builder assigns today; never changes a pinned slug
   --check | check           fail when the builder and the registry disagree: a pinned slug would change, a pinned key or region
                             has no record (run alias), or a key or region is not pinned yet (run build)
-  rename <key> <slug>       give a key a new slug; the old slug is retired and answers 308 to the new one
-  alias <old-key> <new-key> carry a slug over to a new identity key (a merge, a locations place gaining a capture record)
+  rename <key> <slug>       give a place or trip key a new slug; the old slug is retired and answers 308 to the new one
+  alias <old-key> <new-key> carry a slug over to a new identity key (a locations place gaining a capture record, a trip import);
+                            the old key stays in formerKeys so an old ref still resolves
+  merge <key> <survivor>    a place merged into another page (same_place_as): its slug answers 308 to the survivor's
+  withdraw <key>            a place or trip gone with no successor: its slug stays reserved and answers not_found; build restores it
+                            when the record comes back
 
 Options:
   --root <dir>        repository root (default: two levels above this file)
@@ -60,16 +64,21 @@ function snapshot(root: string, argv: string[]): SlugSnapshot {
 
 function build(root: string, argv: string[]): number {
   const prev = readRegistry(root) ?? emptyRegistry();
-  const { registry, added, problems } = updateRegistry(prev, snapshot(root, argv));
+  const { registry, added, problems, warnings } = updateRegistry(prev, snapshot(root, argv));
+  for (const w of warnings) err(`WARN ${w}`);
   if (problems.length) {
     for (const p of problems) err(`ERROR ${p}`);
     err(`${SLUG_REGISTRY_PATH} not written: settle the problems above first`);
     return 1;
   }
   writeRegistry(root, registry);
-  out(`wrote ${SLUG_REGISTRY_PATH}: ${Object.keys(registry.places).length} keys, ${Object.keys(registry.regions).length} regions, ${Object.keys(registry.retired).length} retired; ${added.length} newly pinned`);
+  out(`wrote ${SLUG_REGISTRY_PATH}: ${summary(registry)}; ${added.length} entries added`);
   return 0;
 }
+
+const n = (r: object): number => Object.keys(r).length;
+const summary = (r: SlugRegistry): string =>
+  `${n(r.places.slugs)} place slugs (${n(r.places.merged)} merged, ${n(r.places.retired)} retired, ${n(r.places.withdrawn)} withdrawn), ${n(r.trips.slugs)} trip slugs, ${n(r.formerKeys)} former keys, ${n(r.regions)} regions`;
 
 function check(root: string, argv: string[]): number {
   const reg = readRegistry(root);
@@ -77,12 +86,13 @@ function check(root: string, argv: string[]): number {
     err(`${SLUG_REGISTRY_PATH} does not exist; run: node core/bin/slugs.ts build`);
     return 1;
   }
-  const drift = registryDrift(reg, snapshot(root, argv));
+  const { drift, warnings } = registryDrift(reg, snapshot(root, argv));
+  for (const w of warnings) err(`WARN ${w}`);
   if (drift.length) {
     for (const d of drift) err(`DRIFT ${d}`);
     return 1;
   }
-  out(`OK: ${Object.keys(reg.places).length} slugs and ${Object.keys(reg.regions).length} regions pinned, ${Object.keys(reg.retired).length} retired`);
+  out(`OK: ${summary(reg)}`);
   return 0;
 }
 
@@ -106,6 +116,8 @@ export function main(argv: string[]): number {
     const rest = argv.filter((a, i) => !a.startsWith("--") && !["--root", "--snapshot"].includes(argv[i - 1] ?? ""));
     if (cmd === "rename" && rest.length === 3) return edit(root, (r) => renameSlug(r, rest[1]!, rest[2]!), `${rest[1]} is now ${rest[2]}; its old slug answers 308`);
     if (cmd === "alias" && rest.length === 3) return edit(root, (r) => aliasKey(r, rest[1]!, rest[2]!), `${rest[2]} carries the slug of ${rest[1]}`);
+    if (cmd === "merge" && rest.length === 3) return edit(root, (r) => mergeKey(r, rest[1]!, rest[2]!), `${rest[1]} is merged into ${rest[2]}; its slug answers 308`);
+    if (cmd === "withdraw" && rest.length === 2) return edit(root, (r) => withdrawKey(r, rest[1]!), `${rest[1]} is withdrawn; its slug stays reserved`);
   } catch (e) {
     err(e instanceof Error ? e.message : String(e));
     return 1;

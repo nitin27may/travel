@@ -37,6 +37,8 @@ export interface PlaceBuild {
   refBySlug: Map<string, string>;
   /** every identity key that got a slug -> the slug, merged records included: what data/catalogue/slugs.json pins (D-B1) */
   slugByRef: Map<string, string>;
+  /** merged record ref -> the surviving page's ref (`same_place_as`): what the registry's `places.merged` pins (R-1) */
+  mergedRefs: Map<string, string>;
 }
 
 /** The pinned slug registry (D-B1). A root without one (a test fixture) assigns every slug as before the registry. */
@@ -503,12 +505,14 @@ export function buildPlaces(src: Sources): PlaceBuild {
     }
   }
   // a slug retired by `slugs.ts rename` answers with the slug its key holds now (D-B1)
-  for (const [slug, k] of Object.entries(registry.retired)) {
-    const now = slugs.get(k) ?? seedSlugs.get(k);
+  for (const [slug, k] of Object.entries(registry.places.retired)) {
+    const target = registry.places.merged[k] ?? k;
+    const now = slugs.get(target) ?? seedSlugs.get(target);
     if (now && bySlug.has(now)) legacyPaths.set(`/places/${slug}/`, now);
   }
   const refBySlug = new Map(recs.map((r) => [slugOf(r), refOf(r)]));
   const slugByRef = new Map<string, string>([...slugs, ...seedSlugs]);
+  const mergedRefs = new Map(merged.pairs.map((m) => [m.seed.ref, refOf(m.survivor)]));
   const byName = new Map<string, string[]>();
   const skipName = new Set([...notByName].map((ref) => byCaptureRef.get(ref)));
   const altNames = new Map(recs.map((r) => [slugOf(r), r.altNames ?? []]));
@@ -530,7 +534,7 @@ export function buildPlaces(src: Sources): PlaceBuild {
   for (const m of duplicateRedirects) {
     for (const n of [m.seed.name, ...m.seed.names]) addName(n, m.slug);
   }
-  return { places, bySlug, byProtoId, byLocationId, byCaptureRef, byName, legacyPaths, seedSkips: sb.skipped, refBySlug, slugByRef };
+  return { places, bySlug, byProtoId, byLocationId, byCaptureRef, byName, legacyPaths, seedSkips: sb.skipped, refBySlug, slugByRef, mergedRefs };
 }
 
 let shellsLogged = false;

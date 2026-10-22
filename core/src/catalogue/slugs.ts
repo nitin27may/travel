@@ -1,11 +1,13 @@
 // Place slugs and the pinned slug registry (D-B1; schema diff risk 2), plus the canonical value of the `region` URL key (D-B3).
 //
 // Before the registry, every build computed every slug from the whole set: a new place with a clashing name renamed an existing page
-// (`moss-glen-falls` became `moss-glen-falls-stowe`). Now `data/catalogue/slugs.json` (`catalogue-slugs/1`) pins each identity key to its
+// (`moss-glen-falls` became `moss-glen-falls-stowe`). Now `data/catalogue/slugs.json` (`catalogue-slugs/2`) pins each identity key to its
 // slug. A pinned key keeps its slug forever, even when its name changes. A new key gets the computed slug and skips every pinned and
 // retired slug, so a newcomer whose name clashes takes the suffix and the incumbent is never renamed. A slug changes only through
 // `slugs.ts rename <key> <slug>` (the old slug is retired and answers 308 to the new one) or `slugs.ts alias <old-key> <new-key>` (an
-// identity change carries the slug over). The registry is read by the dataset builder and the stores, never served.
+// identity change carries the slug over and the old key is kept in `formerKeys`). `merge` records a merged record whose slug answers
+// 308 to the survivor, and `withdraw` tombstones a key that is gone (its slug stays reserved and answers not_found). Trips have their
+// own space with the same rules. The registry is read by the dataset builder and the stores, never served.
 //
 // Pure: no file system here. The reader lives with the builder (web/lib/public/places.ts) and core/bin/slugs.ts.
 import { z } from "zod";
@@ -47,60 +49,110 @@ export interface SeedSlugInput {
 
 // ---- the registry ------------------------------------------------------------------------------------------------------------------
 
-export const SLUG_REGISTRY_SCHEMA = "catalogue-slugs/1";
+export const SLUG_REGISTRY_SCHEMA = "catalogue-slugs/2";
 /** Repository-relative path of the registry. */
 export const SLUG_REGISTRY_PATH = "data/catalogue/slugs.json";
 
 /** The key of a region in the registry: lower-case country code, a slash, the region's canonical slug (`ca/alberta`). */
 export const REGION_KEY_RE = /^[a-z]{2}\/[a-z0-9]+(?:-[a-z0-9]+)*$/;
+/** The key of a trip: `trip/<trip id>` (store.ts A4). Place keys under a trip carry more segments (`trip/<id>/<kind>:<name>`). */
+export const TRIP_KEY_RE = /^trip\/[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+const slug = z.string().regex(SLUG_RE);
+const key = z.string().min(1);
+
+/**
+ * One URL space (`/places/` or `/trips/`): its pinned slugs and their history. A slug is unique across `slugs`, `retired` and
+ * `withdrawn` of its space; the two spaces are separate URL paths, so a trip and a place may share a slug.
+ */
+const slugSpace = z.strictObject({
+  /** identity key -> slug, for every key that has a slug now */
+  slugs: z.record(key, slug),
+  /** a slug no longer used -> the key that holds the page now; it answers 308 to that key's current slug */
+  retired: z.record(slug, key),
+  /** a record merged into another (`same_place_as`, R-1) -> the surviving key; its slug answers 308 to the survivor's slug */
+  merged: z.record(key, key),
+  /** a key withdrawn with no successor (R-3) -> its slug, which stays reserved and answers not_found; `build` restores it when the record returns */
+  withdrawn: z.record(key, slug),
+});
+export type SlugSpace = z.infer<typeof slugSpace>;
+export type SpaceName = "places" | "trips";
 
 export const slugRegistry = z.strictObject({
   schema: z.literal(SLUG_REGISTRY_SCHEMA),
   note: z.string().optional(),
-  /** identity key -> slug, for every key that has been given a slug (pages, and merged records whose slug redirects) */
-  places: z.record(z.string().min(1), z.string().regex(SLUG_RE)),
+  places: slugSpace,
+  trips: slugSpace,
+  /**
+   * An identity key that `alias` replaced -> the key that carries its slug now (R-2). Chains are collapsed, so one lookup resolves an
+   * old ref. SupabaseStore's loader writes this section into `entity_alias (alias, ref)` (schema diff M5).
+   */
+  formerKeys: z.record(key, key),
   /** region key -> its English name and every spelling a URL may carry (the slug, the name, the ISO 3166-2 code, the legacy code) */
   regions: z.record(z.string().regex(REGION_KEY_RE), z.strictObject({ name: z.string().min(1), aliases: z.array(z.string().min(1)) })),
-  /** a slug no longer used -> the key that holds the page now; it answers 308 to that key's slug */
-  retired: z.record(z.string().regex(SLUG_RE), z.string().min(1)),
 });
 export type SlugRegistry = z.infer<typeof slugRegistry>;
 
 export const SLUG_REGISTRY_NOTE =
-  "Pinned place slugs and canonical region values (D-B1, D-B3). Read by the dataset builder and the stores, never served. Change it only with node core/bin/slugs.ts (build, rename, alias); --check runs in check-all.";
+  "Pinned place and trip slugs, their history (retired, merged, withdrawn, former keys) and canonical region values (D-B1, D-B3). Read by the dataset builder and the stores, never served. Change it only with node core/bin/slugs.ts (build, rename, alias, merge, withdraw); --check runs in check-all.";
 
-export const emptyRegistry = (): SlugRegistry => ({ schema: SLUG_REGISTRY_SCHEMA, note: SLUG_REGISTRY_NOTE, places: {}, regions: {}, retired: {} });
+const emptySpace = (): SlugSpace => ({ slugs: {}, retired: {}, merged: {}, withdrawn: {} });
+export const emptyRegistry = (): SlugRegistry => ({ schema: SLUG_REGISTRY_SCHEMA, note: SLUG_REGISTRY_NOTE, places: emptySpace(), trips: emptySpace(), formerKeys: {}, regions: {} });
 
-/** Every slug a newcomer may not take: the pinned ones and the retired ones. */
-export function reservedSlugs(reg: SlugRegistry): Set<string> {
-  return new Set([...Object.values(reg.places), ...Object.keys(reg.retired)]);
+/** The space that holds a key (pinned or withdrawn), or null. */
+export function spaceOf(reg: SlugRegistry, k: string): SpaceName | null {
+  for (const name of ["places", "trips"] as const) if (k in reg[name].slugs || k in reg[name].withdrawn) return name;
+  return null;
 }
 
-/** Problems inside the registry itself: two keys on one slug, a retired slug still in use, a retired slug pointing at no pinned key. */
+/** Every slug a newcomer of a space may not take: pinned, retired and withdrawn ones. */
+export function reservedSlugs(reg: SlugRegistry, space: SpaceName = "places"): Set<string> {
+  const s = reg[space];
+  return new Set([...Object.values(s.slugs), ...Object.keys(s.retired), ...Object.values(s.withdrawn)]);
+}
+
+/** Problems inside the registry itself. Empty when it is consistent. */
 export function registryProblems(reg: SlugRegistry): string[] {
-  const out: string[] = [];
   const parsed = slugRegistry.safeParse(reg);
   if (!parsed.success) return parsed.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`);
-  const owner = new Map<string, string>();
-  for (const [key, slug] of Object.entries(reg.places)) {
-    const had = owner.get(slug);
-    if (had) out.push(`slug ${slug} is pinned to two keys: ${had} and ${key}`);
-    else owner.set(slug, key);
+  const out: string[] = [];
+  for (const name of ["places", "trips"] as const) {
+    const s = reg[name];
+    const owner = new Map<string, string>();
+    for (const [k, sl] of [...Object.entries(s.slugs), ...Object.entries(s.withdrawn)]) {
+      const had = owner.get(sl);
+      if (had) out.push(`${name}: slug ${sl} is pinned to two keys: ${had} and ${k}`);
+      else owner.set(sl, k);
+      if (k in s.slugs && k in s.withdrawn) out.push(`${name}: ${k} is both pinned and withdrawn`);
+    }
+    for (const [sl, k] of Object.entries(s.retired)) {
+      if (owner.has(sl)) out.push(`${name}: retired slug ${sl} is also pinned to ${owner.get(sl)}`);
+      if (!(k in s.slugs) && !(k in s.withdrawn)) out.push(`${name}: retired slug ${sl} points at ${k}, which has no slug`);
+    }
+    for (const [k, survivor] of Object.entries(s.merged)) {
+      if (!(k in s.slugs)) out.push(`${name}: merged key ${k} has no slug`);
+      if (!(survivor in s.slugs)) out.push(`${name}: ${k} is merged into ${survivor}, which has no slug`);
+      if (survivor in s.merged) out.push(`${name}: ${k} is merged into ${survivor}, which is merged itself (collapse the chain)`);
+    }
   }
-  for (const [slug, key] of Object.entries(reg.retired)) {
-    if (owner.has(slug)) out.push(`retired slug ${slug} is also pinned to ${owner.get(slug)}`);
-    if (!(key in reg.places)) out.push(`retired slug ${slug} points at ${key}, which has no slug`);
+  for (const [old, now] of Object.entries(reg.formerKeys)) {
+    if (spaceOf(reg, old)) out.push(`former key ${old} still has a slug`);
+    if (!spaceOf(reg, now)) out.push(`former key ${old} points at ${now}, which has no slug`);
+    if (now in reg.formerKeys) out.push(`former key ${old} points at ${now}, which is a former key itself (collapse the chain)`);
   }
   return out;
 }
 
 // ---- assignment ----------------------------------------------------------------------------------------------------------------
 
+/** The slug a key keeps: its pinned slug, or the slug it held when it was withdrawn (restored when the record returns). */
+const pinnedSlug = (s: SlugSpace, k: string): string | undefined => s.slugs[k] ?? s.withdrawn[k];
+
 /**
  * Slugs for a set of places (patterns 1.2): the kebab name; names that collide among the newcomers all get their area appended; a
- * remaining collision gets -2, -3. With a registry, a pinned key keeps its slug, and a newcomer whose name is reserved (pinned or retired)
- * takes the area suffix first, then a number. Inputs are ordered by `order ?? key` in code-point order, so the result does not depend on
- * the order places were read in.
+ * remaining collision gets -2, -3. With a registry, a pinned key keeps its slug, and a newcomer whose name is reserved (pinned, retired
+ * or withdrawn) takes the area suffix first, then a number. Inputs are ordered by `order ?? key` in code-point order, so the result does
+ * not depend on the order places were read in.
  */
 export function assignPlaceSlugs(items: readonly SlugInput[], registry: SlugRegistry = emptyRegistry()): Map<string, string> {
   const out = new Map<string, string>();
@@ -108,7 +160,7 @@ export function assignPlaceSlugs(items: readonly SlugInput[], registry: SlugRegi
   const used = new Set<string>(reserved);
   const free: SlugInput[] = [];
   for (const it of items) {
-    const pinned = registry.places[it.key];
+    const pinned = pinnedSlug(registry.places, it.key);
     if (pinned) out.set(it.key, pinned);
     else free.push(it);
   }
@@ -121,19 +173,19 @@ export function assignPlaceSlugs(items: readonly SlugInput[], registry: SlugRegi
   }
   for (const [base, group] of [...byBase].sort((a, b) => compareCodePoints(a[0], b[0]))) {
     for (const it of group) {
-      let slug = (group.length > 1 || reserved.has(base)) && it.areaSlug ? `${base}-${it.areaSlug}` : base;
+      let s = (group.length > 1 || reserved.has(base)) && it.areaSlug ? `${base}-${it.areaSlug}` : base;
       let n = 2;
-      const root = slug;
-      while (used.has(slug)) slug = `${root}-${n++}`;
-      used.add(slug);
-      out.set(it.key, slug);
+      const root = s;
+      while (used.has(s)) s = `${root}-${n++}`;
+      used.add(s);
+      out.set(it.key, s);
     }
   }
   return out;
 }
 
 /** A slug stays readable: at most 60 characters, cut at a word. */
-const shortBase = (slug: string): string => (slug.length <= 60 ? slug : slug.slice(0, 60).replace(/-[^-]*$/, ""));
+const shortBase = (s: string): string => (s.length <= 60 ? s : s.slice(0, 60).replace(/-[^-]*$/, ""));
 
 /**
  * Slugs for the capture records that get a page, given the slugs already taken (`used`). A pinned ref keeps its slug; the others fill
@@ -145,7 +197,7 @@ export function assignSeedSlugs(seeds: readonly SeedSlugInput[], used: Set<strin
   for (const s of reservedSlugs(registry)) used.add(s);
   const free: SeedSlugInput[] = [];
   for (const s of seeds) {
-    const pinned = registry.places[s.ref];
+    const pinned = pinnedSlug(registry.places, s.ref);
     if (pinned) {
       out.set(s.ref, pinned);
       used.add(pinned);
@@ -156,27 +208,61 @@ export function assignSeedSlugs(seeds: readonly SeedSlugInput[], used: Set<strin
     const base = shortBase(kebab(s.name)) || "place";
     const district = s.areaChain[2]?.slug ?? "";
     const candidates = [base, district && `${base}-${district}`, district && `${base}-${district}-${kebab(s.typeLabel)}`].filter((c): c is string => !!c);
-    let slug = candidates.find((c) => !used.has(c));
-    if (!slug) {
+    let sl = candidates.find((c) => !used.has(c));
+    if (!sl) {
       const root = candidates[candidates.length - 1]!;
       let n = 2;
       while (used.has(`${root}-${n}`)) n++;
-      slug = `${root}-${n}`;
+      sl = `${root}-${n}`;
     }
-    used.add(slug);
-    out.set(s.ref, slug);
+    used.add(sl);
+    out.set(s.ref, sl);
   }
   return out;
 }
 
 // ---- lookups -------------------------------------------------------------------------------------------------------------------
 
-/** Where a retired slug points now: the current slug of the key that replaced it, or null when the slug is not retired. */
-export function movedTo(reg: SlugRegistry, slug: string): { slug: string; key: string } | null {
-  const key = reg.retired[slug];
-  if (!key) return null;
-  const current = reg.places[key];
-  return current ? { slug: current, key } : null;
+/**
+ * Where a slug that is not a live page points now (cases K9, K9.merged): a retired slug answers its key's current slug; the slug of a
+ * merged record answers its survivor's slug (R-1). Null for a live page, a withdrawn slug and an unknown slug.
+ */
+export function movedTo(reg: SlugRegistry, slugIn: string, space: SpaceName = "places"): { slug: string; key: string } | null {
+  const s = reg[space];
+  const live = (k: string): { slug: string; key: string } | null => {
+    const target = s.merged[k] ?? k;
+    const sl = s.slugs[target];
+    return sl ? { slug: sl, key: target } : null;
+  };
+  const retiredKey = s.retired[slugIn];
+  if (retiredKey) return live(retiredKey);
+  for (const [k, survivor] of Object.entries(s.merged)) if (s.slugs[k] === slugIn) return live(survivor);
+  return null;
+}
+
+/** True when a slug belongs to a withdrawn key: it stays reserved and answers not_found (R-3). */
+export function isWithdrawn(reg: SlugRegistry, slugIn: string, space: SpaceName = "places"): boolean {
+  return Object.values(reg[space].withdrawn).includes(slugIn);
+}
+
+/**
+ * The current key and slug behind any ref a client ever held (R-2): a former key resolves through `formerKeys`, a merged key through its
+ * survivor. Null for an unknown or withdrawn ref.
+ */
+export function resolveRef(reg: SlugRegistry, ref: string): { key: string; slug: string; space: SpaceName } | null {
+  let k = reg.formerKeys[ref] ?? ref;
+  const space = spaceOf(reg, k);
+  if (!space) return null;
+  k = reg[space].merged[k] ?? k;
+  const sl = reg[space].slugs[k];
+  return sl ? { key: k, slug: sl, space } : null;
+}
+
+/** The current slug for a slug a client holds: itself when live, the target of a retired or merged slug, null when gone (R-19). */
+export function currentSlug(reg: SlugRegistry, slugIn: string, space: SpaceName = "places"): string | null {
+  const moved = movedTo(reg, slugIn, space);
+  if (moved) return moved.slug;
+  return Object.values(reg[space].slugs).includes(slugIn) ? slugIn : null;
 }
 
 const norm = (s: string): string => kebab(s);
@@ -184,30 +270,36 @@ const norm = (s: string): string => kebab(s);
 /**
  * The canonical value of a `region` URL value (D-B3, contract case K14): every alias (the slug, the English name, the ISO 3166-2
  * code `CA-AB`, the code `AB`, an old name) answers with the region's canonical slug. `cc` (ISO alpha-2, any case) narrows the search
- * to one country, which settles a code shared by two countries. Returns the matching region keys (`ca/alberta`); empty when nothing
- * matches.
+ * to one country. Returns every matching region key (`ca/alberta`) in code-point order; empty when nothing matches. More than one match
+ * means the alias is shared across countries (R-20): a store answers `invalid_scope` with the candidates in `details` unless `country`
+ * settles it.
  */
 export function resolveRegion(reg: SlugRegistry, value: string, cc?: string | readonly string[]): string[] {
   const want = norm(value);
   if (!want) return [];
   const ccs = (typeof cc === "string" ? [cc] : (cc ?? [])).map((c) => c.toLowerCase());
   const hits: string[] = [];
-  for (const [key, r] of Object.entries(reg.regions)) {
-    if (ccs.length && !ccs.includes(key.slice(0, 2))) continue;
-    const slug = key.slice(3);
-    if ([slug, r.name, ...r.aliases].some((a) => norm(a) === want)) hits.push(key);
+  for (const [k, r] of Object.entries(reg.regions)) {
+    if (ccs.length && !ccs.includes(k.slice(0, 2))) continue;
+    const sl = k.slice(3);
+    if ([sl, r.name, ...r.aliases].some((a) => norm(a) === want)) hits.push(k);
   }
   return hits.sort(compareCodePoints);
 }
 
 /** The slug half of a region key. */
-export const regionSlugOf = (key: string): string => key.slice(3);
+export const regionSlugOf = (k: string): string => k.slice(3);
 
 // ---- building, checking and changing the registry (core/bin/slugs.ts) -----------------------------------------------------------
 
-/** What the dataset builder assigns today: every key that got a slug, and every region rows carry. */
+/** What the dataset builder assigns today. */
 export interface SlugSnapshot {
+  /** every place key that got a slug (pages and merged records) */
   places: Record<string, string>;
+  /** merged place key -> surviving key, as the builder applies `same_place_as` */
+  merged: Record<string, string>;
+  /** every trip key (`trip/<id>`) -> its slug */
+  trips: Record<string, string>;
   regions: Record<string, { name: string; aliases: string[] }>;
 }
 
@@ -216,91 +308,166 @@ const sortedRecord = <V>(r: Record<string, V>): Record<string, V> =>
 
 const uniqueSorted = (xs: readonly string[]): string[] => [...new Set(xs)].sort(compareCodePoints);
 
-/**
- * The registry after a build: every pinned entry kept as it is, every new key and region of the snapshot pinned with the slug the
- * builder gave it, region aliases merged. Fails (returns problems) when a pinned key or region is gone: that needs an explicit
- * `alias`, never a silent drop.
- */
-export function updateRegistry(prev: SlugRegistry, snap: SlugSnapshot): { registry: SlugRegistry; added: string[]; problems: string[] } {
-  const problems = [...registryProblems(prev), ...missing(prev, snap)];
-  const places: Record<string, string> = { ...prev.places };
-  const added: string[] = [];
-  for (const [key, slug] of Object.entries(snap.places)) {
-    if (key in places) {
-      if (places[key] !== slug) problems.push(`${key}: the builder gave ${slug}, the registry pins ${places[key]}`);
-      continue;
-    }
-    places[key] = slug;
-    added.push(key);
-  }
-  const regions: SlugRegistry["regions"] = {};
-  for (const key of uniqueSorted([...Object.keys(prev.regions), ...Object.keys(snap.regions)])) {
-    const a = prev.regions[key];
-    const b = snap.regions[key];
-    if (!a) added.push(`region ${key}`);
-    regions[key] = { name: a?.name ?? b!.name, aliases: uniqueSorted([...(a?.aliases ?? []), ...(b?.aliases ?? [])]) };
-  }
-  const registry: SlugRegistry = { schema: SLUG_REGISTRY_SCHEMA, ...(prev.note ? { note: prev.note } : {}), places: sortedRecord(places), regions, retired: sortedRecord(prev.retired) };
-  problems.push(...registryProblems(registry));
-  return { registry, added, problems };
-}
+const sortedSpace = (s: SlugSpace): SlugSpace => ({ slugs: sortedRecord(s.slugs), retired: sortedRecord(s.retired), merged: sortedRecord(s.merged), withdrawn: sortedRecord(s.withdrawn) });
 
-function missing(reg: SlugRegistry, snap: SlugSnapshot): string[] {
+/** Pinned keys the snapshot no longer has (a blocking problem: alias, merge or withdraw them), per space. */
+function missingKeys(reg: SlugRegistry, snap: SlugSnapshot): string[] {
   const out: string[] = [];
-  for (const key of Object.keys(reg.places)) {
-    if (!(key in snap.places)) out.push(`${key} (slug ${reg.places[key]}) has no record any more: run \`node core/bin/slugs.ts alias ${JSON.stringify(key)} <new-key>\` to carry its slug over`);
-  }
-  for (const key of Object.keys(reg.regions)) {
-    if (!(key in snap.regions)) out.push(`region ${key} has no place any more: its canonical value would vanish from URLs; rename it in the registry or restore the region`);
+  for (const [name, now] of [["places", snap.places], ["trips", snap.trips]] as const) {
+    for (const [k, sl] of Object.entries(reg[name].slugs)) {
+      if (k in now) continue;
+      out.push(`${k} (slug ${sl}) has no record any more: run \`node core/bin/slugs.ts alias ${JSON.stringify(k)} <new-key>\` for an identity change, \`merge\` for a merge, or \`withdraw\` when it is gone for good`);
+    }
   }
   return out;
+}
+
+/** Pinned regions with no place any more: a warning, never a failure (R-20). The region stays pinned so its canonical value survives. */
+function emptiedRegions(reg: SlugRegistry, snap: SlugSnapshot): string[] {
+  return Object.keys(reg.regions).filter((k) => !(k in snap.regions)).map((k) => `region ${k} has no place now; it stays pinned so its URL value survives`);
+}
+
+export interface RegistryUpdate {
+  registry: SlugRegistry;
+  added: string[];
+  problems: string[];
+  warnings: string[];
+}
+
+/**
+ * The registry after a build: every pinned entry kept as it is; every new key, merge, trip and region of the snapshot pinned; a
+ * withdrawn key whose record came back restored with its old slug; region aliases merged. A pinned key that is gone is a problem: it
+ * needs an explicit `alias`, `merge` or `withdraw`, never a silent drop.
+ */
+export function updateRegistry(prev: SlugRegistry, snap: SlugSnapshot): RegistryUpdate {
+  const problems = [...registryProblems(prev), ...missingKeys(prev, snap)];
+  const added: string[] = [];
+  const next: SlugRegistry = { ...prev, places: structuredClone(prev.places), trips: structuredClone(prev.trips), formerKeys: { ...prev.formerKeys } };
+  for (const [name, now] of [["places", snap.places], ["trips", snap.trips]] as const) {
+    const s = next[name];
+    for (const [k, sl] of Object.entries(now)) {
+      if (k in s.slugs) {
+        if (s.slugs[k] !== sl) problems.push(`${k}: the builder gave ${sl}, the registry pins ${s.slugs[k]}`);
+        continue;
+      }
+      if (k in s.withdrawn) {
+        if (s.withdrawn[k] !== sl) problems.push(`${k}: the builder gave ${sl}, the withdrawn slug is ${s.withdrawn[k]}`);
+        delete s.withdrawn[k];
+        added.push(`${k} (restored)`);
+      } else added.push(k);
+      s.slugs[k] = sl;
+    }
+  }
+  for (const [k, survivor] of Object.entries(snap.merged)) {
+    const had = next.places.merged[k];
+    if (had === undefined) {
+      next.places.merged[k] = survivor;
+      added.push(`merge ${k}`);
+    } else if (had !== survivor) problems.push(`${k}: the builder merges it into ${survivor}, the registry into ${had}`);
+  }
+  const regions: SlugRegistry["regions"] = {};
+  for (const k of uniqueSorted([...Object.keys(prev.regions), ...Object.keys(snap.regions)])) {
+    const a = prev.regions[k];
+    const b = snap.regions[k];
+    if (!a) added.push(`region ${k}`);
+    regions[k] = { name: a?.name ?? b!.name, aliases: uniqueSorted([...(a?.aliases ?? []), ...(b?.aliases ?? [])]) };
+  }
+  const registry: SlugRegistry = { schema: SLUG_REGISTRY_SCHEMA, note: prev.note ?? SLUG_REGISTRY_NOTE, places: sortedSpace(next.places), trips: sortedSpace(next.trips), formerKeys: sortedRecord(next.formerKeys), regions };
+  problems.push(...registryProblems(registry));
+  return { registry, added, problems, warnings: emptiedRegions(prev, snap) };
 }
 
 /**
  * Drift between the registry and what the builder assigns (`slugs.ts --check`, check-all step "catalogue slugs are pinned"): a pinned
- * slug that would change, a pinned key or region with no record (needs `alias`), a key or region the registry does not pin yet (needs
- * `build`), and the registry's own problems. Empty when they agree.
+ * slug that would change, a pinned key with no record, a key, merge, trip or region the registry does not pin yet, and the registry's own
+ * problems. `warnings` (an emptied region) never fail the check.
  */
-export function registryDrift(reg: SlugRegistry, snap: SlugSnapshot): string[] {
-  const out = [...registryProblems(reg), ...missing(reg, snap)];
-  for (const [key, slug] of Object.entries(snap.places)) {
-    const pinned = reg.places[key];
-    if (pinned === undefined) out.push(`${key} (slug ${slug}) is not pinned: run \`node core/bin/slugs.ts build\``);
-    else if (pinned !== slug) out.push(`${key}: the builder gives ${slug}, the registry pins ${pinned}`);
-  }
-  for (const [key, r] of Object.entries(snap.regions)) {
-    const pinned = reg.regions[key];
-    if (!pinned) out.push(`region ${key} is not pinned: run \`node core/bin/slugs.ts build\``);
-    else {
-      const gone = r.aliases.filter((a) => !pinned.aliases.includes(a));
-      if (gone.length) out.push(`region ${key}: aliases ${gone.join(", ")} are not in the registry: run \`node core/bin/slugs.ts build\``);
+export function registryDrift(reg: SlugRegistry, snap: SlugSnapshot): { drift: string[]; warnings: string[] } {
+  const out = [...registryProblems(reg), ...missingKeys(reg, snap)];
+  for (const [name, now] of [["places", snap.places], ["trips", snap.trips]] as const) {
+    for (const [k, sl] of Object.entries(now)) {
+      const pinned = reg[name].slugs[k];
+      if (pinned === undefined) out.push(`${k} (slug ${sl}) is not pinned${k in reg[name].withdrawn ? " (it is withdrawn and has come back)" : ""}: run \`node core/bin/slugs.ts build\``);
+      else if (pinned !== sl) out.push(`${k}: the builder gives ${sl}, the registry pins ${pinned}`);
     }
   }
-  return out;
+  for (const [k, survivor] of Object.entries(snap.merged)) {
+    if (reg.places.merged[k] !== survivor) out.push(`merge ${k} -> ${survivor} is not in the registry: run \`node core/bin/slugs.ts build\``);
+  }
+  for (const [k, survivor] of Object.entries(reg.places.merged)) {
+    if (snap.merged[k] !== survivor && k in snap.places) out.push(`the registry merges ${k} into ${survivor}, the builder does not`);
+  }
+  for (const [k, r] of Object.entries(snap.regions)) {
+    const pinned = reg.regions[k];
+    if (!pinned) out.push(`region ${k} is not pinned: run \`node core/bin/slugs.ts build\``);
+    else {
+      const gone = r.aliases.filter((a) => !pinned.aliases.includes(a));
+      if (gone.length) out.push(`region ${k}: aliases ${gone.join(", ")} are not in the registry: run \`node core/bin/slugs.ts build\``);
+    }
+  }
+  return { drift: out, warnings: emptiedRegions(reg, snap) };
 }
 
-/** `rename <key> <slug>`: the key takes a new slug; the old one is retired and answers 308 to it. */
-export function renameSlug(reg: SlugRegistry, key: string, slug: string): SlugRegistry {
-  const old = reg.places[key];
-  if (!old) throw new Error(`${key} has no slug to rename`);
-  if (!SLUG_RE.test(slug)) throw new Error(`${slug} is not a slug (lower-case words joined by hyphens)`);
-  if (old === slug) throw new Error(`${key} already has the slug ${slug}`);
-  if (reservedSlugs(reg).has(slug) && reg.retired[slug] !== key) throw new Error(`${slug} is pinned or retired already`);
-  const retired = { ...reg.retired, [old]: key };
-  delete retired[slug];
+function need(reg: SlugRegistry, k: string): SpaceName {
+  const space = spaceOf(reg, k);
+  if (!space || !(k in reg[space].slugs)) throw new Error(`${k} has no slug`);
+  return space;
+}
+
+/** `rename <key> <slug>`: the key takes a new slug; the old one is retired and answers 308 to it. Works for a place or a trip key. */
+export function renameSlug(reg: SlugRegistry, k: string, newSlug: string): SlugRegistry {
+  const space = spaceOf(reg, k);
+  if (!space || !(k in reg[space].slugs)) throw new Error(`${k} has no slug to rename`);
+  const s = reg[space];
+  const old = s.slugs[k]!;
+  if (!SLUG_RE.test(newSlug)) throw new Error(`${newSlug} is not a slug (lower-case words joined by hyphens)`);
+  if (old === newSlug) throw new Error(`${k} already has the slug ${newSlug}`);
+  if (reservedSlugs(reg, space).has(newSlug) && s.retired[newSlug] !== k) throw new Error(`${newSlug} is pinned, retired or withdrawn already`);
+  const retired = { ...s.retired, [old]: k };
+  delete retired[newSlug];
   // a slug retired earlier for this key now points at the same key's new slug: no chain of redirects
-  return { ...reg, places: sortedRecord({ ...reg.places, [key]: slug }), retired: sortedRecord(retired) };
+  return { ...reg, [space]: sortedSpace({ ...s, slugs: { ...s.slugs, [k]: newSlug }, retired }) };
 }
 
-/** `alias <old-key> <new-key>`: an identity change (a merge, a locations place gaining a capture record) carries the slug over. */
+/**
+ * `alias <old-key> <new-key>`: an identity change (a locations place gaining a capture record, a trip import) carries the slug over.
+ * The old key is remembered in `formerKeys`, so an old ref still resolves (R-2); chains are collapsed.
+ */
 export function aliasKey(reg: SlugRegistry, oldKey: string, newKey: string): SlugRegistry {
-  const slug = reg.places[oldKey];
-  if (!slug) throw new Error(`${oldKey} has no slug`);
-  if (newKey in reg.places) throw new Error(`${newKey} has a slug already (${reg.places[newKey]}); rename one of them first`);
-  const places = { ...reg.places, [newKey]: slug };
-  delete places[oldKey];
-  const retired = Object.fromEntries(Object.entries(reg.retired).map(([s, k]) => [s, k === oldKey ? newKey : k]));
-  return { ...reg, places: sortedRecord(places), retired: sortedRecord(retired) };
+  const space = need(reg, oldKey);
+  if (spaceOf(reg, newKey)) throw new Error(`${newKey} has a slug already; rename one of them first`);
+  const s = reg[space];
+  const swap = (k: string) => (k === oldKey ? newKey : k);
+  const slugs = Object.fromEntries(Object.entries(s.slugs).map(([k, v]) => [swap(k), v]));
+  const retired = Object.fromEntries(Object.entries(s.retired).map(([sl, k]) => [sl, swap(k)]));
+  const merged = Object.fromEntries(Object.entries(s.merged).map(([k, v]) => [swap(k), swap(v)]));
+  const formerKeys = Object.fromEntries([...Object.entries(reg.formerKeys).map(([o, n]) => [o, n === oldKey ? newKey : n]), [oldKey, newKey]]);
+  return { ...reg, [space]: sortedSpace({ ...s, slugs, retired, merged }), formerKeys: sortedRecord(formerKeys) };
+}
+
+/** `merge <key> <survivor>`: a record merged into another page; its slug answers 308 to the survivor's (R-1). */
+export function mergeKey(reg: SlugRegistry, k: string, survivor: string): SlugRegistry {
+  if (need(reg, k) !== "places" || need(reg, survivor) !== "places") throw new Error("merge joins two place keys");
+  if (k === survivor) throw new Error("a key cannot merge into itself");
+  const target = reg.places.merged[survivor] ?? survivor;
+  const merged = Object.fromEntries([...Object.entries(reg.places.merged).map(([a, b]) => [a, b === k ? target : b]), [k, target]]);
+  return { ...reg, places: sortedSpace({ ...reg.places, merged }) };
+}
+
+/**
+ * `withdraw <key>`: a place or trip gone with no successor (deleted, or its trip made private). Its slug stays reserved and answers
+ * not_found; `build` restores it when the record comes back (R-3).
+ */
+export function withdrawKey(reg: SlugRegistry, k: string): SlugRegistry {
+  const space = need(reg, k);
+  const s = reg[space];
+  if (Object.values(s.merged).includes(k)) throw new Error(`${k} is the survivor of a merge; merge or withdraw the merged records first`);
+  const slugs = { ...s.slugs };
+  const sl = slugs[k]!;
+  delete slugs[k];
+  const merged = { ...s.merged };
+  delete merged[k];
+  return { ...reg, [space]: sortedSpace({ ...s, slugs, merged, withdrawn: { ...s.withdrawn, [k]: sl } }) };
 }
 
 /** The file text: stable key order, one entry per line, so a diff shows exactly what moved. */
@@ -308,9 +475,10 @@ export function registryText(reg: SlugRegistry): string {
   const ordered: SlugRegistry = {
     schema: reg.schema,
     ...(reg.note ? { note: reg.note } : {}),
-    places: sortedRecord(reg.places),
+    places: sortedSpace(reg.places),
+    trips: sortedSpace(reg.trips),
+    formerKeys: sortedRecord(reg.formerKeys),
     regions: Object.fromEntries(Object.entries(sortedRecord(reg.regions)).map(([k, r]) => [k, { name: r.name, aliases: uniqueSorted(r.aliases) }])),
-    retired: sortedRecord(reg.retired),
   };
   return `${JSON.stringify(ordered, null, 1)}\n`;
 }

@@ -1,13 +1,12 @@
 // The caps of the public API (EXECUTION-PLAN 4.2, principle P8: caps live inside the store methods and are tested there).
 //
 // One object, so a cap is written once: the store implementations (StubStore now, JsonStore in API-1b, SupabaseStore in SRV-0) and
-// the contract kit read it from here. Input schemas validate SHAPE only (a positive integer, a known key); the store enforces the caps
-// and answers `too_large` (413), or clamps where the contract says so (`near` radius). That keeps one rule per cap: a handler never
-// answers 400 for a number the store would have answered 413 for.
+// the contract kit read it from here. Two classes of cap (store.ts A1, review R-9):
+//   - RESULT-SIZE caps (`pageSize`, `searchLimit`): the input schema carries shape only, and the store answers `too_large` (413) with
+//     `details.max`. The near radius is the one clamp (`clamped: true`); `towns` and the nearby list cut and say so.
+//   - REQUEST-SIZE caps (`query.*`, `reportText`): the input schema carries them as `.max()`, so they answer `invalid_input` (400) with
+//     the failing path and `details`; a request this large is malformed, not a request for too many rows.
 //
-// Names carry no `_KM` or `_MS` suffix on purpose: these are API limits read through one object, not loose module constants
-// (CONS-1 ratchet, tools/cons/hardcode_scan.py).
-
 export const API_LIMITS = {
   /** Every paged method: rows per page. Above `max` the store answers `too_large`; absent means `default` (components 8.5: 48 cards). */
   pageSize: { default: 48, max: 100 },
