@@ -1,0 +1,358 @@
+{
+ "top_level_folders": [
+  ".claude",
+  "core",
+  "data",
+  "docs",
+  "legacy",
+  "research",
+  "tools",
+  "web"
+ ],
+ "research_root_files": [
+  "README.md",
+  "backlog.md",
+  "tools.md"
+ ],
+ "research_root_dirs": [
+  "method",
+  "types",
+  "formats",
+  "inbox",
+  "trips",
+  "runs",
+  "audits",
+  "reports",
+  "vault-notes"
+ ],
+ "docs_root": [
+  "README.md",
+  "v2",
+  "archive"
+ ],
+ "skills": {
+  "trip": 2560,
+  "research": 2560,
+  "location": 6144
+ },
+ "duplicate_allow": {
+  "paths": [
+   ".gitkeep",
+   "docs/v2/design/redesign/fonts/OFL-*.txt"
+  ]
+ },
+ "legacy_exempt": [
+  "legacy/locations/index.html",
+  "legacy/globe/assets/*"
+ ],
+ "baseline": {
+  "10": [
+   {
+    "key": "core/bin/validate.ts::data/trips/x/trip.json",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "core/src/capture/placementBlock.ts::data/reference/towns",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "core/src/catalogue/distance.ts::core/src/geo",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "core/src/catalogue/json/source.ts::core/src/query",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "core/src/catalogue/store.ts::core/src/catalogue/supabase",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "core/src/catalogue/store.ts::core/src/query",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "core/src/catalogue/stub/index.ts::core/src/query",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "core/src/relevance/inputsCheck.ts::data/relevance/inputs/hub-matrix.json",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "core/src/relevance/inputsCheck.ts::data/relevance/inputs/private-origin.local.json",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "core/src/validate/index.ts::data/catalog/backlog.json",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "core/src/validate/trip.ts::core/bin/migrate.ts",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "data/locations/README.md::research/inbox/2026-10-16-quebec-hikes.json",
+    "reason": "documentation example or since-moved path present when the guard landed (22 Oct); fix when the doc is next edited"
+   },
+   {
+    "key": "data/locations/README.md::research/inbox/FILE",
+    "reason": "documentation example or since-moved path present when the guard landed (22 Oct); fix when the doc is next edited"
+   },
+   {
+    "key": "data/locations/WISHLIST.md::../canadian-rockies-sept-2029/",
+    "reason": "generated file (locations.py build) with relative links to legacy trip folders that are not siblings; fixed in the generator, not by hand"
+   },
+   {
+    "key": "data/locations/WISHLIST.md::../dolomites-july-2027/",
+    "reason": "generated file (locations.py build) with relative links to legacy trip folders that are not siblings; fixed in the generator, not by hand"
+   },
+   {
+    "key": "data/locations/WISHLIST.md::../new-hampshire-stopover-2026/",
+    "reason": "generated file (locations.py build) with relative links to legacy trip folders that are not siblings; fixed in the generator, not by hand"
+   },
+   {
+    "key": "data/locations/WISHLIST.md::../usa-southwest-rockies/",
+    "reason": "generated file (locations.py build) with relative links to legacy trip folders that are not siblings; fixed in the generator, not by hand"
+   },
+   {
+    "key": "data/locations/WISHLIST.md::../vermont-fall-2026/",
+    "reason": "generated file (locations.py build) with relative links to legacy trip folders that are not siblings; fixed in the generator, not by hand"
+   },
+   {
+    "key": "data/schedules/README.md::web/tests/trips/timeline-data.test.ts",
+    "reason": "documentation example or since-moved path present when the guard landed (22 Oct); fix when the doc is next edited"
+   },
+   {
+    "key": "data/trips/README.md::web/lib/public/data-trips.ts",
+    "reason": "documentation example or since-moved path present when the guard landed (22 Oct); fix when the doc is next edited"
+   },
+   {
+    "key": "research/method/kinds/trail.md::prototype/src/data/trails.ts",
+    "reason": "mentions prototype/src/data/trails.ts, removed by CLN-3; the doc is repointed in the CLN-R/CLN-6 clean-up of method pages"
+   },
+   {
+    "key": "research/method/relevance.md::data/outings/from-hubs.json",
+    "reason": "documentation example or since-moved path present when the guard landed (22 Oct); fix when the doc is next edited"
+   },
+   {
+    "key": "research/method/relevance.md::data/relevance/inputs/private-origin.local.json",
+    "reason": "documentation example or since-moved path present when the guard landed (22 Oct); fix when the doc is next edited"
+   },
+   {
+    "key": "research/method/suitability.md::prototype/src/data/trails.ts",
+    "reason": "mentions prototype/src/data/trails.ts, removed by CLN-3; the doc is repointed in the CLN-R/CLN-6 clean-up of method pages"
+   },
+   {
+    "key": "research/reports/trails-and-media-2026-10-18.md::core/src/migrate/trip-v2.ts",
+    "reason": "research report from 18 Oct that names planned or since-renamed files; kept as written"
+   },
+   {
+    "key": "research/reports/trails-and-media-2026-10-18.md::data/design/tokens.json",
+    "reason": "research report from 18 Oct that names planned or since-renamed files; kept as written"
+   },
+   {
+    "key": "research/reports/trails-and-media-2026-10-18.md::data/reference/actors.json",
+    "reason": "research report from 18 Oct that names planned or since-renamed files; kept as written"
+   },
+   {
+    "key": "research/reports/trails-and-media-2026-10-18.md::docs/design/",
+    "reason": "research report from 18 Oct that names planned or since-renamed files; kept as written"
+   },
+   {
+    "key": "research/runs/CS7-canadian-rockies-2029.md::data/capture/runs/api-2026-10-18-cs7",
+    "reason": "documentation example or since-moved path present when the guard landed (22 Oct); fix when the doc is next edited"
+   },
+   {
+    "key": "research/trips/README.md::legacy/peru/",
+    "reason": "trip research note written before the v2 layout; names the old legacy/<trip>/data or research/ paths as history; kept as written"
+   },
+   {
+    "key": "research/trips/README.md::research/trips/usa-southwest-rockies/days",
+    "reason": "trip research note written before the v2 layout; names the old legacy/<trip>/data or research/ paths as history; kept as written"
+   },
+   {
+    "key": "research/trips/canadian-rockies-sept-2029/adventure.md::data/adventures.json",
+    "reason": "trip research note written before the v2 layout; names the old legacy/<trip>/data or research/ paths as history; kept as written"
+   },
+   {
+    "key": "research/trips/canadian-rockies-sept-2029/days.md::data/bases.json",
+    "reason": "trip research note written before the v2 layout; names the old legacy/<trip>/data or research/ paths as history; kept as written"
+   },
+   {
+    "key": "research/trips/canadian-rockies-sept-2029/days.md::data/trails.json",
+    "reason": "trip research note written before the v2 layout; names the old legacy/<trip>/data or research/ paths as history; kept as written"
+   },
+   {
+    "key": "research/trips/canadian-rockies-sept-2029/logistics-stays.md::data/bases.json",
+    "reason": "trip research note written before the v2 layout; names the old legacy/<trip>/data or research/ paths as history; kept as written"
+   },
+   {
+    "key": "research/trips/canadian-rockies-sept-2029/trails-national.md::data/national.json",
+    "reason": "trip research note written before the v2 layout; names the old legacy/<trip>/data or research/ paths as history; kept as written"
+   },
+   {
+    "key": "research/trips/canadian-rockies-sept-2029/trails-provincial.md::data/provincial.json",
+    "reason": "trip research note written before the v2 layout; names the old legacy/<trip>/data or research/ paths as history; kept as written"
+   },
+   {
+    "key": "research/trips/usa-southwest-rockies/notes/BRAINSTORM.md::research/bookings.md",
+    "reason": "trip research note written before the v2 layout; names the old legacy/<trip>/data or research/ paths as history; kept as written"
+   },
+   {
+    "key": "research/trips/usa-southwest-rockies/notes/BRAINSTORM.md::research/trails.md",
+    "reason": "trip research note written before the v2 layout; names the old legacy/<trip>/data or research/ paths as history; kept as written"
+   },
+   {
+    "key": "research/trips/vermont-fall-2026/notes/OPTIONS-viewpoints.md::research/gaps-and-viewpoints.md",
+    "reason": "trip research note written before the v2 layout; names the old legacy/<trip>/data or research/ paths as history; kept as written"
+   },
+   {
+    "key": "research/vault-notes/travel-finder/Travel Finder — Architecture & Stack.md::data/auth/storage",
+    "reason": "imported note kept as written (research/vault-notes); the strings are template placeholders or the author's own paths"
+   },
+   {
+    "key": "research/vault-notes/vault-trip-planner-skill/assets/day-trip-template.md::DAY-ROUTE-LINK",
+    "reason": "imported note kept as written (research/vault-notes); the strings are template placeholders or the author's own paths"
+   },
+   {
+    "key": "research/vault-notes/vault-trip-planner-skill/assets/day-trip-template.md::PIN-LINK",
+    "reason": "imported note kept as written (research/vault-notes); the strings are template placeholders or the author's own paths"
+   },
+   {
+    "key": "research/vault-notes/vault-trip-planner-skill/assets/trip-itinerary-template.md::DAY-1-ROUTE-LINK",
+    "reason": "imported note kept as written (research/vault-notes); the strings are template placeholders or the author's own paths"
+   },
+   {
+    "key": "research/vault-notes/vault-trip-planner-skill/assets/trip-itinerary-template.md::PIN-LINK",
+    "reason": "imported note kept as written (research/vault-notes); the strings are template placeholders or the author's own paths"
+   },
+   {
+    "key": "tools/globe_data.py::data/countries-110m.json",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "tools/globe_data.py::data/countries.json",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "tools/globe_data.py::data/lakes-10m.json",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "tools/locations.py::research/inbox/batch.json",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "web/lib/public/world.ts::data/outings/from-hubs.json",
+    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   }
+  ],
+  "3": [
+   {
+    "key": "docs/v2/03-mcp-and-research.md",
+    "reason": "docs file whose name contains 'research' but is about the product's research features or a design benchmark, not the research system; rename belongs to the planner (not listed in the plan; found by the guard on 22 Oct)"
+   },
+   {
+    "key": "docs/v2/build/public-site/CS7-capture-gap-research.md",
+    "reason": "docs file whose name contains 'research' but is about the product's research features or a design benchmark, not the research system; rename belongs to the planner (not listed in the plan; found by the guard on 22 Oct)"
+   },
+   {
+    "key": "docs/v2/design/trip-page/research-benchmark-raw.md",
+    "reason": "docs file whose name contains 'research' but is about the product's research features or a design benchmark, not the research system; rename belongs to the planner (not listed in the plan; found by the guard on 22 Oct)"
+   },
+   {
+    "key": "docs/v2/mcp/tools-research.md",
+    "reason": "docs file whose name contains 'research' but is about the product's research features or a design benchmark, not the research system; rename belongs to the planner (not listed in the plan; found by the guard on 22 Oct)"
+   }
+  ],
+  "7": [
+   {
+    "key": "docs/v2/design/globe/shots/live-italy-1440.jpg|docs/v2/design/globe/shots/live-state-1440.jpg",
+    "reason": "two copies of one screenshot (live-italy and live-state); not in the plan allowlist, found by the guard on 22 Oct; delete one and fix the link in docs/v2/design/globe"
+   }
+  ],
+  "8": [
+   {
+    "key": "docs/v2/design/redesign/shots/current/discover-light.webp",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   },
+   {
+    "key": "docs/v2/design/redesign/shots/current/explore-light.webp",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   },
+   {
+    "key": "docs/v2/design/redesign/shots/current/new-light.webp",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   },
+   {
+    "key": "docs/v2/design/redesign/shots/current/templates-light.webp",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   },
+   {
+    "key": "docs/v2/design/suitability-display/mock/shots/desktop-dark.png",
+    "reason": "over 1.5 MB: the plan names suitability-display mock shots as the known exception (CLN-5 rule 8)"
+   },
+   {
+    "key": "docs/v2/design/suitability-display/mock/shots/desktop-light.png",
+    "reason": "over 1.5 MB: the plan names suitability-display mock shots as the known exception (CLN-5 rule 8)"
+   },
+   {
+    "key": "docs/v2/design/suitability-display/mock/shots/phone-dark.png",
+    "reason": "over 1.5 MB: the plan names suitability-display mock shots as the known exception (CLN-5 rule 8)"
+   },
+   {
+    "key": "docs/v2/design/suitability-display/mock/shots/phone-light.png",
+    "reason": "over 1.5 MB: the plan names suitability-display mock shots as the known exception (CLN-5 rule 8)"
+   },
+   {
+    "key": "docs/v2/design/trip-page/mock/shots/desktop-adults-profile.png",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   },
+   {
+    "key": "docs/v2/design/trip-page/mock/shots/desktop-dark-day1.png",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   },
+   {
+    "key": "docs/v2/design/trip-page/mock/shots/desktop-dolomites-day3.png",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   },
+   {
+    "key": "docs/v2/design/trip-page/mock/shots/desktop-light-day1.png",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   },
+   {
+    "key": "docs/v2/design/trip-page/mock/shots/desktop-light-day2-sticky-map.png",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   },
+   {
+    "key": "docs/v2/design/trip-page/mock/shots/desktop-light-top.png",
+    "reason": "1.55 MB mock shot in trip-page/mock/shots, also unnamed by basename; not in the plan list, found by the guard on 22 Oct; recompress or drop"
+   },
+   {
+    "key": "docs/v2/design/trip-page/mock/shots/phone-dark-day1.png",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   },
+   {
+    "key": "docs/v2/design/trip-page/mock/shots/phone-easy-profile.png",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   },
+   {
+    "key": "docs/v2/design/trip-page/mock/shots/phone-light-day1-sticky.png",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   },
+   {
+    "key": "docs/v2/design/trip-page/mock/shots/phone-light-day1-timeline.png",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   },
+   {
+    "key": "docs/v2/design/trip-page/mock/shots/phone-light-top.png",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   },
+   {
+    "key": "research/reports/map-stack/braies-z14-openfreemap-positron.jpg",
+    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
+   }
+  ]
+ }
+}
