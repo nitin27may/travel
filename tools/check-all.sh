@@ -46,6 +46,8 @@ step "prototype snapshot is current (CLN-3: web/data-snapshots and web/redirects
 pnpm --dir "$ROOT/web" snapshot:check
 step "no new hard-coded values (CONS-1 ratchet: colours, slugs, hosts, user agents, thresholds, env names)"
 python3 "$ROOT/tools/cons/hardcode_scan.py" --check
+step "folder contract (CLN-5: research root, docs root, skills, duplicates, dead paths, legacy freeze)"
+python3 "$ROOT/tools/tree_check.py"
 
 if [[ -f "$ROOT/web/package.json" ]]; then
   # Server mode (`next build` then `next start`, API-0): the build runs BEFORE the tests, which read its prerendered output through
