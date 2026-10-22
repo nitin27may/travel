@@ -114,9 +114,10 @@ describe('sort and group', () => {
     expect(byDefault[0].country_name <= byDefault[N - 1].country_name).toBe(true);
     const byName = sortRows(rows, decodeState('sort=name'), d);
     expect(byName.map((r) => r.name)).toEqual([...byName.map((r) => r.name)].sort((a, b) => a.localeCompare(b, 'en', { numeric: true, sensitivity: 'base' })));
-    const desc = sortRows(rows, decodeState('sort=-sources'), d);
-    const counts = desc.map((r) => r.sourceTypes.length);
-    expect(counts).toEqual([...counts].sort((a, b) => b - a));
+    // keys that were retired with the owner's save metadata (PRIV1): an old link or saved view falls back to the default order, no crash
+    for (const old of ['sources', '-sources', 'added', '-added']) {
+      expect(sortRows(rows, decodeState(`sort=${old}`), d).map((r) => r.id), old).toEqual(byDefault.map((r) => r.id));
+    }
     for (const [key, field] of [['elevation', 'elevation_m'], ['km', 'km'], ['gain', 'gain_m']] as const) {
       const vals = sortRows(rows, decodeState(`sort=-${key}`), d).map((r) => r[field]).filter((v): v is number => v !== null);
       expect(vals.length, key).toBeGreaterThan(3);

@@ -26,10 +26,6 @@
     "count": 4,
     "reason": "CONS-3: core/src/net/endpoints.ts and tools/net.py"
    },
-   "web/components/entity/PlaceSections.tsx": {
-    "count": 1,
-    "reason": "CONS-3: core/src/net/endpoints.ts and tools/net.py"
-   },
    "web/components/globe/SelectionCard.tsx": {
     "count": 1,
     "reason": "CONS-3: core/src/net/endpoints.ts and tools/net.py"

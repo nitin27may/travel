@@ -5,6 +5,7 @@
 
 /* ---------- list: card footer ---------- */
 .src { flex-wrap: wrap; }
+.src-origin { display: contents; }
 .pc-complete { margin-left: auto; font: var(--t-chip); color: var(--ink-2); }
 .pc-complete[data-level='draft'] { color: var(--muted); }
 
