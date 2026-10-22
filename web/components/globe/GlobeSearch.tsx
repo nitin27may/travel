@@ -53,6 +53,15 @@ export function GlobeSearch({ book, features = true, onTurnOnFeatures, onPick, p
   }, [features, open, q, sources, hits.length]);
 
   const warm = () => { void loadGazetteer().then(setGaz).catch(() => undefined); };
+  // Enter before the gazetteer (14k rows) has arrived has nothing to pick yet: wait for it, then take the first hit for the query as typed.
+  const pickWhenLoaded = () => {
+    const term = q;
+    void loadGazetteer().then((g) => {
+      setGaz(g);
+      if (input.current?.value !== term) return; // the visitor kept typing; the list is theirs again
+      pick(search(term, { ...sources, gazetteer: g }, 12, { features })[0]);
+    }).catch(() => undefined);
+  };
   const pick = (h: SearchHit | undefined) => {
     if (!h) return;
     setQ(h.name); setOpen(false); input.current?.blur();
@@ -81,7 +90,7 @@ export function GlobeSearch({ book, features = true, onTurnOnFeatures, onPick, p
         onKeyDown={(e) => {
           if (e.key === 'ArrowDown') { setCursor((c) => Math.min(hits.length - 1, c + 1)); e.preventDefault(); }
           else if (e.key === 'ArrowUp') { setCursor((c) => Math.max(0, c - 1)); e.preventDefault(); }
-          else if (e.key === 'Enter') pick(hits[cursor] ?? hits[0]);
+          else if (e.key === 'Enter') { const h = hits[cursor] ?? hits[0]; if (h) pick(h); else if (q.trim() && !gaz.length) pickWhenLoaded(); }
           else if (e.key === 'Escape') { if (open) { setOpen(false); e.stopPropagation(); } else input.current?.blur(); }
         }}
       />
