@@ -12,7 +12,7 @@
     "area_id": {"label":"Area","group":"identity","value":"ref","gap":"Not recorded","section":"cover","display":["rest","card"],"home":{"in":"capture","path":"area_id"}},
     "wikidata": {"label":"Wikidata","group":"identity","value":"qid","gap":"Not linked to Wikidata yet","section":"sources","display":["detail"],"home":{"in":"relevance","path":"wikidata"}},
     "osm_ref": {"label":"OpenStreetMap","group":"identity","value":"text","gap":"Not linked to OpenStreetMap yet","section":"links","display":["detail"],"home":{"in":"capture","path":"osm_ref"}},
-    "near_town": {"label":"Nearest town","group":"identity","value":"ref","gap":"Nearest town not worked out yet","section":"access","display":["rest"],"trigger":"derived","home":{"in":"capture","path":"near_town"},"layers":["place","route"]},
+    "near_town": {"label":"Nearest town","group":"identity","value":"ref","gap":"Nearest town not worked out yet","section":"access","display":["rest"],"home":{"in":"capture","path":"near_town"},"layers":["place","route"]},
     "near_town_km": {"label":"Distance to the nearest town","group":"identity","value":"number","unit":"km","gap":"Not recorded","section":"access","display":["detail"],"home":{"in":"capture","path":"near_town_km"},"layers":["place","route"]},
     "geonames_id": {"label":"GeoNames","group":"identity","value":"text","gap":"Not linked to GeoNames yet","section":"sources","display":["detail"],"home":{"in":"capture","path":"geonames_id"},"layers":["place"]},
     "summary": {"label":"Summary","group":"identity","value":"text","gap":"Summary not written yet","section":"cover","display":["rest","card"],"home":{"in":"relevance","path":"why"}},

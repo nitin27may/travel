@@ -18,7 +18,7 @@ Links: official; R? none; A hours_rates, booking, accessibility.
 
 Records: place, offer. Suitability profile `sight` (never). Effort: none, time is shown. Sources, in order: O.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of.
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
 
@@ -30,7 +30,7 @@ Links: official; R? none; A hours_rates, booking, accessibility.
 
 Records: place, offer. Suitability profile `play` (flag). Effort: none, time is shown. Sources, in order: O.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, best_time, access_points, transit, pairs_with, closures, photos, part_of.
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, best_time, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
 

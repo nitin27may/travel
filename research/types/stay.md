@@ -8,7 +8,7 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 Records: place, offer. Suitability profile `stay` (never). Effort: none, time is shown. Sources, in order: O F.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, window, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, links; R? none; A names, osm_ref, geonames_id, access_points, transit, window, pairs_with, photos, part_of.
 
 **offer (lodging)**: R name, type, summary, access_cost, price, links, at, check_in_out, cost_band; R? none; A names, transit, window, pairs_with, photos, part_of, on, run_by, cancellation.
 
@@ -20,7 +20,7 @@ Links: official; R? none; A booking, terms, accessibility.
 
 Records: place, offer. Suitability profile `stay` (never). Effort: none, time is shown. Sources, in order: O F.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, window, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, links; R? none; A names, osm_ref, geonames_id, access_points, transit, window, pairs_with, photos, part_of.
 
 **offer (lodging)**: R name, type, summary, access_cost, price, links, at, check_in_out, cost_band; R? none; A names, transit, window, pairs_with, photos, part_of, on, run_by, cancellation.
 
@@ -32,7 +32,7 @@ Links: official; R? none; A booking, terms, accessibility.
 
 Records: place, offer. Suitability profile `stay` (never). Effort: none, time is shown. Sources, in order: O F.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, window, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, links; R? none; A names, osm_ref, geonames_id, access_points, transit, window, pairs_with, photos, part_of.
 
 **offer (lodging)**: R name, type, summary, access_cost, price, links, at, check_in_out, cost_band; R? none; A names, transit, window, pairs_with, photos, part_of, on, run_by, cancellation.
 
@@ -44,7 +44,7 @@ Links: official; R? none; A booking, terms, accessibility.
 
 Records: place, offer. Suitability profile `stay` (never). Effort: none, time is shown. Sources, in order: O F.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, links; R? near_town (derived); A names, osm_ref, geonames_id, access_points, transit, window, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, links; R? none; A names, osm_ref, geonames_id, access_points, transit, window, pairs_with, photos, part_of.
 
 **offer (lodging)**: R name, type, summary, access_cost, price, links, at, check_in_out, cost_band; R? none; A names, transit, window, pairs_with, photos, part_of, on, run_by, cancellation.
 

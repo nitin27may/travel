@@ -8,9 +8,9 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 Records: route, place, offer. Suitability profile `cycle_path` (flag, extension ride). Effort: bike-path, imba, sts, trailforks, whistler. Sources, in order: F O X.
 
-**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? near_town (derived), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
+**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
-**place**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
 
 **offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, part_of, on, variants, cancellation, included.
 
@@ -22,7 +22,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: route. Suitability profile `cycle_path` (flag, extension ride). Effort: bike-path, imba, sts, trailforks, whistler. Sources, in order: F O X.
 
-**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? near_town (derived), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
+**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
 Suitability: R age_band, kid_note, effort.source_grade, effort.drivers.distance_km, effort.drivers.gain_m, effort.drivers.surface, adult_time_min, ext.ride.traffic; R when operated none; A limited_capacity_note, effort.drivers.loss_m, effort.drivers.max_grade_pct, toilets, water, food, shade, bail_out, hazards, access_season, ext.ride.bike_hire, ext.ride.min_rider_age, ext.ride.one_way_return, ext.ride.e_bike, ext.ride.kids_bike_sizes.
 
@@ -32,7 +32,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: route. Suitability profile `cycle_path` (flag, extension ride). Effort: bike-path, imba, sts, trailforks, whistler. Sources, in order: F O X.
 
-**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? near_town (derived), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
+**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
 Suitability: R age_band, kid_note, effort.source_grade, effort.drivers.distance_km, effort.drivers.gain_m, effort.drivers.surface, adult_time_min, ext.ride.traffic; R when operated none; A limited_capacity_note, effort.drivers.loss_m, effort.drivers.max_grade_pct, toilets, water, food, shade, bail_out, hazards, access_season, ext.ride.bike_hire, ext.ride.min_rider_age, ext.ride.one_way_return, ext.ride.e_bike, ext.ride.kids_bike_sizes.
 
@@ -42,7 +42,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: route. Suitability profile `mtb_xc` (never, extension ride). Effort: bike-path, imba, sts, trailforks, whistler. Sources, in order: F O X.
 
-**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? near_town (derived), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
+**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
 Suitability: R age_band, kid_note, effort.source_grade, effort.drivers.distance_km, effort.drivers.gain_m, adult_time_min; R when operated none; A limited_capacity_note, effort.drivers.surface, effort.drivers.loss_m, effort.drivers.max_grade_pct, water, shade, bail_out, signal, exposure, altitude_m, hazards, access_season, ext.ride.bike_hire, ext.ride.traffic, ext.ride.min_rider_age, ext.ride.one_way_return, ext.ride.lift_served, ext.ride.e_bike, ext.ride.kids_bike_sizes, ext.ride.skills_park.
 
@@ -52,7 +52,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: place, offer. Suitability profile `mtb_lift` (always, extension ride). Effort: bike-path, imba, sts, trailforks, whistler. Sources, in order: F O X.
 
-**place**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
 
 **offer (ticket)**: R name, type, summary, access_cost, price, links, at; R? season (operates), hours (operates), window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, part_of, on, run_by, variants, included.
 
@@ -64,7 +64,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: place. Suitability profile `cycle_path` (flag, extension ride). Effort: bike-path, imba, sts, trailforks, whistler. Sources, in order: F O X.
 
-**place**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
 
 Suitability: R age_band, kid_note, effort.source_grade, effort.drivers.distance_km, effort.drivers.gain_m, effort.drivers.surface, adult_time_min, ext.ride.traffic; R when operated none; A limited_capacity_note, effort.drivers.loss_m, effort.drivers.max_grade_pct, toilets, water, food, shade, bail_out, hazards, access_season, ext.ride.bike_hire, ext.ride.min_rider_age, ext.ride.one_way_return, ext.ride.e_bike, ext.ride.kids_bike_sizes.
 
@@ -94,7 +94,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: route, offer. Suitability profile `drive` (never, extension drive). Effort: none, time is shown. Sources, in order: F O X.
 
-**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? near_town (derived), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
+**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
 **offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, part_of, on, variants, cancellation, included.
 
@@ -106,7 +106,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: route. Suitability profile `drive` (never, extension drive). Effort: none, time is shown. Sources, in order: F O X.
 
-**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? near_town (derived), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
+**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
 Suitability: R on_site_min, access_season, ext.drive.vehicle_limits, ext.drive.road_surface, ext.drive.drive_min; R when operated none; A kid_note, accessible_toilet, toilets, food, signal, exposure, altitude_m, hazards, ext.drive.fuel_gap_km, ext.drive.winding.
 
@@ -116,7 +116,7 @@ Links: official; R? none; A conditions, map_sheet, trailforks, gpx_download, sta
 
 Records: route. Suitability profile `drive` (never, extension drive). Effort: none, time is shown. Sources, in order: F O X.
 
-**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? near_town (derived), price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
+**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? price (sells), window (bookable), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
 Suitability: R on_site_min, access_season, ext.drive.vehicle_limits, ext.drive.road_surface, ext.drive.drive_min; R when operated none; A kid_note, accessible_toilet, toilets, food, signal, exposure, altitude_m, hazards, ext.drive.fuel_gap_km, ext.drive.winding.
 
