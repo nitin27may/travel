@@ -3,7 +3,7 @@ import http from 'node:http';
 import os from 'node:os';
 import path from 'node:path';
 import { chromium, type Browser, type BrowserContext, type Page } from '@playwright/test';
-import { expect, SITE, test } from './fixtures';
+import { expect, forwardData, SITE, test } from './fixtures';
 
 // GLB2 part a (backlog 9.7, 9.4, 9.8): Fly here moves the camera for every feature class and ends inside the feature's box; a river draws
 // its own line; the Natural features switch (`nf=0`) removes the features from search and picking and survives a reload of the link.
@@ -20,6 +20,7 @@ async function serveSite(): Promise<{ url: string; stop: () => void }> {
     return statSync(f).isDirectory() ? (existsSync(path.join(f, 'index.html')) ? path.join(f, 'index.html') : null) : f;
   };
   const server = http.createServer((req, res) => {
+    if (forwardData(req, res)) return;
     const pathname = new URL(req.url ?? '/', 'http://x').pathname;
     // /globe/<anything> is one page on the host (the /globe/* rewrite in web/redirects.json)
     const f = file(pathname) ?? (pathname.startsWith('/globe/') ? file('/globe/') : null) ?? file('/404.html');

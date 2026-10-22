@@ -163,8 +163,8 @@ test.describe('Where pill (N0)', () => {
     expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)).toEqual([]);
   });
 
-  test('"Counting…" shows while the country file loads, in the count line and in the province column', async ({ page, site }) => {
-    await page.route(/\/list\/places\/ca(-\d+)?\/data\.json/, async (route) => {
+  test('"Counting…" shows while the country rows load, in the count line and in the province column', async ({ page, site }) => {
+    await page.route(/\/api\/v1\/places\/\?(?=.*country=CA)/, async (route) => {
       await new Promise((r) => setTimeout(r, 5000));
       await route.continue();
     });

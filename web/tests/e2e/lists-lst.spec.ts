@@ -5,24 +5,36 @@ import { expect, test } from './fixtures';
 // Real data; the assertions read structure, never a count.
 
 test.describe('list shards (3.59)', () => {
-  test('the places page serves its first page; a deep link with a filter and a page renders after its files load, with no layout shift', async ({ page, site }) => {
-    const files: string[] = [];
-    page.on('request', (r) => /\/list\/places\//.test(r.url()) && files.push(r.url()));
+  // Transport (API-1b): the page's rows come from /api/v1/places/?country=CC, one request per country (pageSize=100, more pages as the total needs).
+  const PLACES_API = /\/api\/v1\/places\/\?/;
+  const countriesOf = (urls: string[]) => [...new Set(urls.map((u) => new URL(u).searchParams.get('country')))];
+  test('the places page serves its first page; a deep link with a filter and a page renders after its rows load, with no layout shift', async ({ page, site }) => {
+    const reads: string[] = [];
+    page.on('request', (r) => PLACES_API.test(r.url()) && reads.push(r.url()));
     await page.goto(`${site.url}/places/`, { waitUntil: 'networkidle' });
     await expect(page.locator('.card')).toHaveCount(48);
-    expect(files, 'the first page needs no file').toEqual([]);
+    expect(reads, 'the first page is in the HTML and needs no read').toEqual([]);
+    await page.addInitScript(() => {
+      const w = window as unknown as { __cls: number };
+      w.__cls = 0;
+      new PerformanceObserver((l) => { for (const e of l.getEntries() as unknown as { value: number; hadRecentInput: boolean }[]) if (!e.hadRecentInput) w.__cls += e.value; }).observe({ type: 'layout-shift', buffered: true });
+    });
     await page.goto(`${site.url}/places/?q=lake&page=2`, { waitUntil: 'networkidle' });
     await expect(page.locator('.filter-bar .count strong')).toHaveText(/^\d+$/);
-    expect(files.length, 'a text search reads every file, progressively').toBeGreaterThan(1);
+    expect(countriesOf(reads).length, 'a text search reads every country, progressively').toBeGreaterThan(1);
     expect(await page.locator('.card').count()).toBeGreaterThan(0);
+    expect(await page.evaluate(() => (window as unknown as { __cls: number }).__cls), 'the deep link settles without layout shift').toBeLessThan(0.1);
   });
-  test('a country reads its own files only', async ({ page, site }) => {
+  test('a country reads its own rows only', async ({ page, site }) => {
+    const reads: string[] = [];
     const files: string[] = [];
-    page.on('request', (r) => /\/list\/places\/[^/]+\/data\.json/.test(r.url()) && files.push(r.url()));
+    page.on('request', (r) => PLACES_API.test(r.url()) && reads.push(r.url()));
+    page.on('request', (r) => /\/list\/places\//.test(r.url()) && files.push(r.url()));
     await page.goto(`${site.url}/places/?country=IT`, { waitUntil: 'networkidle' });
     await expect(page.locator('.filter-bar .count strong')).toHaveText(/^\d+$/);
-    expect(files.every((u) => /\/list\/places\/it(-\d+)?\//.test(u)), files.join(' ')).toBe(true);
-    expect(files.length).toBeGreaterThan(0);
+    expect(reads.length, 'the country is read from the API').toBeGreaterThan(0);
+    expect(countriesOf(reads), reads.join(' ')).toEqual(['IT']);
+    expect(files, 'the build files are not read by default').toEqual([]);
   });
   test('the first four cards of the default order have photos (3.56)', async ({ page, site }) => {
     await page.goto(`${site.url}/places/`);
