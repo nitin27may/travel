@@ -258,7 +258,7 @@ export function placementFindings(pw: PlacementWorld, rec: CaptureRecord): Findi
         code: "E_PLACE_ORPHAN",
         key: rec.layer === "event" ? "part_of" : "at",
         message: named.length === 0
-          ? `${rec.ref} says nowhere where it happens. An ${rec.layer} inherits its placement: give ${fields} naming the place or route it happens at. Example: "at": ["legacy/canadian-rockies-sept-2029/sights/moraine-lake"].`
+          ? `${rec.ref} says nowhere where it happens. An ${rec.layer} inherits its placement: give ${fields} naming the place or route it happens at. Example: "at": ["legacy/<trip>/sights/<place>"].`
           : `${rec.ref} names ${named.join(", ")} in ${fields}, but none of them is a place or route with a placement. Point it at the place or route itself (capture contract 3.7).`,
       });
     }
