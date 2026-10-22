@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import type { Located } from '@travel/core/capture/records.ts';
+import { normaliseUrl, sourceId } from '@travel/core/sources/normalize.ts';
 import { HOUSEHOLD_TEXT, type DropLog } from './dateless';
 import { publicOrigin } from './origin';
 import { dropResearch, hasMarker, stripMarkers } from './prose';
@@ -80,6 +81,13 @@ const LINK_ONLY = /(?:alltrails|komoot|gaia ?gps|gaiagps|outdooractive|wikiloc|t
 
 const tableCache = new Map<string, Map<string, SourceRow>>();
 
+/**
+ * The registry id (data/sources/registry.json) of a source row, taken from its url as the lane file wrote it. The page scrub later blanks
+ * the url and title of an own-repo source in place, so the API reads the id from here (API-1b, review R-10), never from the row's text.
+ * A side table, not a field: the row is serialised into the page, and the id would add bytes to every place page.
+ */
+export const registryIdOf = new WeakMap<object, string>();
+
 /** The source table of a sidecar file, by id. Read once per file. */
 export function sourceTable(file: string): Map<string, SourceRow> {
   const hit = tableCache.get(file);
@@ -88,7 +96,11 @@ export function sourceTable(file: string): Map<string, SourceRow> {
   if (file && existsSync(file)) {
     try {
       const doc = JSON.parse(readFileSync(file, 'utf8')) as { sources?: SourceRow[] };
-      for (const s of doc.sources ?? []) if (!LINK_ONLY.test(s.url) && !LINK_ONLY.test(s.publisher)) out.set(s.id, s);
+      for (const s of doc.sources ?? []) {
+        if (LINK_ONLY.test(s.url) || LINK_ONLY.test(s.publisher)) continue;
+        out.set(s.id, s);
+        registryIdOf.set(s, sourceId(normaliseUrl(s.url)));
+      }
     } catch {
       /* an unreadable file has no sources; the value still shows its basis */
     }
