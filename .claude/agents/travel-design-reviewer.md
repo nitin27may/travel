@@ -7,7 +7,7 @@ model: opus
 
 You own the Trailhead design foundation: `docs/v2/design/foundation/`, which covers tokens, components, patterns and the specimen.
 
-Render what you review, at 2x, at 1440 and 390, in light and dark, with dark mode set through the site's own theme control. Use Playwright from `web/` (`pnpm --dir web exec playwright ...`, or `@playwright/test` from `web/node_modules`), with the browsers from the Playwright cache on this OS (`~/Library/Caches/ms-playwright` on macOS; install with `cd web && pnpm exec playwright install chromium`). Never use `prototype/node_modules` or a hard-coded Chromium path. Read tall pages in tiles. Never judge from code alone. Shots go to `web/test-results/shots/` unless a review names them.
+Render what you review, at 2x, at 1440 and 390, in light and dark, with dark mode set through the site's own theme control. Use Playwright from `web/` (`pnpm --dir web exec playwright ...`, or `@playwright/test` from `web/node_modules`), with the browsers from the Playwright cache on this OS (`~/Library/Caches/ms-playwright` on macOS; install with `cd web && pnpm exec playwright install chromium`). Never use a `node_modules` outside `web/` or a hard-coded Chromium path. Read tall pages in tiles. Never judge from code alone. Shots go to `web/test-results/shots/` unless a review names them.
 
 Review against:
 - the foundation

@@ -23,6 +23,143 @@
       }
     },
     {
+      "id": "s-1209bb84cb",
+      "url": "data/seed/prototype/public-trips.ts",
+      "title": "Iceland public trip days (stop durations)",
+      "publisher": "this repo",
+      "kind": "reference",
+      "first_read": "2026-10-18",
+      "last_read": "2026-10-18",
+      "used_by": [
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/sight:geysir",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/sight:godafoss",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/sight:gullfoss",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/sight:namaskard",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/town:hofn harbour",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/town:reykjavik old harbour",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/town:seydisfjordur",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+          "field": "suitability.adult_time_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
+          "field": "suitability.adult_time_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Our own file in this repository.",
+      "terms_note": "Not a web source; there is no link to check.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "local",
+        "checked": null
+      }
+    },
+    {
       "id": "s-7f716c7628",
       "url": "https://5torri.it",
       "title": "Benvenuti alle 5 Torri",
@@ -24511,143 +24648,6 @@
         {
           "file": "data/suitability/vermont-fall-2026/R6.json",
           "ref": "trip/vermont-fall-2026/sight:covered bridge loop",
-          "field": "suitability.on_site_min"
-        }
-      ],
-      "licence_note": "Our own file in this repository.",
-      "terms_note": "Not a web source; there is no link to check.",
-      "automated": "allowed",
-      "recheck": {
-        "cadence_days": 730,
-        "fact_type": "grades_geography"
-      },
-      "link": {
-        "status": "local",
-        "checked": null
-      }
-    },
-    {
-      "id": "s-f3a33d8008",
-      "url": "prototype/src/data/public-trips.ts",
-      "title": "Iceland public trip days (stop durations)",
-      "publisher": "this repo",
-      "kind": "reference",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
-      "used_by": [
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/sight:geysir",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/sight:godafoss",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/sight:gullfoss",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/sight:namaskard",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/town:hofn harbour",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/town:reykjavik old harbour",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/town:seydisfjordur",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
-          "field": "suitability.adult_time_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
-          "field": "suitability.adult_time_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
           "field": "suitability.on_site_min"
         }
       ],

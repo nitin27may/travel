@@ -67,7 +67,7 @@ describe("legs (spec 2.5)", () => {
     expect(resolveLeg({ ids: ["a"], point: null }, { ids: ["b"], point: null }, [])).toMatchObject({ minutes: 10, km: null, basis: "estimate" });
   });
   it("matches the prototype rule for three pairs", () => {
-    // prototype/src/lib/geo.ts: under 1.2 km walk x1.3 at 4.5 km/h; else x1.42 (+1.5 km under 60 km) at 46 or 72 km/h, +3 min
+    // the retired prototype geo.ts (tag archive/prototype-2026-10-22): under 1.2 km walk x1.3 at 4.5 km/h; else x1.42 (+1.5 km under 60 km) at 46 or 72 km/h, +3 min
     const P = (lat: number, lon: number) => ({ lat, lon });
     const walk = estimateLeg(P(46.5405, 12.1357), P(46.5415, 12.1367));
     const d1 = haversineM(P(46.5405, 12.1357), P(46.5415, 12.1367)) / 1000;
