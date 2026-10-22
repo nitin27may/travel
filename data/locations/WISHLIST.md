@@ -1,6 +1,6 @@
 # Wishlist
 
-Generated from `data/locations/locations.json` on 2026-10-19. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
+Generated from `data/locations/locations.json` on 2026-10-22. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
 
 74 places in 7 countries, 5 collections. By status: idea 66, planned 8.
 
@@ -29,7 +29,7 @@ Legend: kind · season · status · stats from the source post are unverified un
   - <sub>CA/QC/charlevoix/le-buton</sub>
 #### Côte-de-Beaupré
 
-- **Canyon Sainte-Anne** · canyon · May,Jun,Jul,Aug,Sep,Oct · idea · kids: yes · [map](https://maps.google.com/?q=47.07255,-70.87476) [wd](https://www.wikidata.org/wiki/Q609933) · #family #suspension-bridge #waterfall
+- **Canyon Sainte-Anne** · canyon · May,Jun,Jul,Aug,Sep,Oct · idea · kids: yes · waterfall_m 74 · suspension_bridges 3 · highest_bridge_m 60 · air_canyon_m 90 · air_canyon_kmh 50 · air_canyon_extra_cad 11 · trail_km 3 · lookouts 8 · adult_cad 15 · child_6_17_cad 10 · under_5_cad 0 · parking_cad 0 (unverified) · [map](https://maps.google.com/?q=47.07255,-70.87476) [wd](https://www.wikidata.org/wiki/Q609933) · #family #suspension-bridge #viewpoint #waterfall
   - 74 m waterfall with suspension bridges across the gorge (from memory, unverified). About 40 min east of Quebec City; combine with Montmorency Falls and Ile d'Orleans. Check opening dates, fees and kids' rules.
   - <sub>CA/QC/cote-de-beaupre/canyon-sainte-anne</sub>
 - **La Crête trail, Mont-Sainte-Anne** · trail · Sep,Oct · idea · [map](https://maps.google.com/?q=47.0756,-70.9036) · #fall-colours #hiking #views
