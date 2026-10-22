@@ -63,7 +63,7 @@ mv /tmp/envlocal web/.env.local 2>/dev/null
 | Location tool | `python3 tools/locations.py add\|edit\|validate\|build [--check]` |
 | Capture contract | `node core/bin/capture.ts fields --type <id>`, `gaps [--placement]`, `build [--check]` |
 | Sources | `node core/bin/sources.ts check` ; `build` regenerates the registry |
-| Regenerate derived files | `python3 tools/locations.py build`; `node core/bin/capture.ts build`; `node core/bin/sources.ts build --write`; `node core/bin/suitability.ts migrate --write`; `pnpm --dir web exec vitest run -c ../tools/suitability-scope/vitest.config.mts` (scope manifest); `node web/scripts/snapshot-prototype.mjs` (redirects and snapshot report) |
+| Regenerate derived files | `python3 tools/locations.py build`; `node core/bin/capture.ts build`; `node core/bin/sources.ts build --write`; `node core/bin/suitability.ts migrate --write`; `pnpm --dir web exec vitest run -c ../tools/suitability-scope/vitest.config.mts` (scope manifest); `pnpm --dir web snapshot` (redirects and snapshot report, from `data/seed/prototype/`; no `prototype/node_modules` needed since CLN-3) |
 | Publish | **Out of scope (owner, 20 Oct):** deployment waits for the hosting decision. `./publish.sh --product --dry-run` still stages the old static path; never run a deploying mode. The readiness checklist is EXECUTION-PLAN section 13 |
 
 Never hand-edit generated files (the locations views, `data/schema/**`, `research/types/**`, `data/sources/registry.json`, `web/redirects.json`, the scope manifest): regenerate them with the tool above, or `check-all` fails.

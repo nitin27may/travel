@@ -6,9 +6,9 @@ import { REPO, WEB_DIR, realData } from './support';
 import { builtOutDir } from '../helpers/built';
 
 // The prototype's Dolomites data is household data. These tests pull every household value out of the SOURCE
-// file (prototype/src/data/trip.ts), so they need no node_modules, and prove none reaches the snapshot,
+// file (data/seed/prototype/trip.ts), so they need no node_modules, and prove none reaches the snapshot,
 // the adapter output or a built site.
-const tripSource = readFileSync(path.join(REPO, 'prototype', 'src', 'data', 'trip.ts'), 'utf8');
+const tripSource = readFileSync(path.join(REPO, 'data', 'seed', 'prototype', 'trip.ts'), 'utf8');
 
 function quoted(re: RegExp): string[] {
   return [...tripSource.matchAll(re)].map((m) => m[1]);
