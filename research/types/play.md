@@ -8,7 +8,7 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 Records: place. Suitability profile `play` (flag). Effort: none, time is shown. Sources, in order: F O D C.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
 
 Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season; R when operated min_age, adult_required; A carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, signal, exposure, hazards.
 
@@ -18,7 +18,7 @@ Links: official; R? none; A hours_rates, booking, osm, commons.
 
 Records: place. Suitability profile `play` (flag, extension water). Effort: none, time is shown. Sources, in order: F O D C.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
 
 Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season; R when operated min_age, adult_required; A carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, signal, exposure, hazards.
 
@@ -28,7 +28,7 @@ Links: official; R? none; A hours_rates, booking, osm, commons.
 
 Records: place, offer. Suitability profile `theme_park` (always). Effort: none, time is shown. Sources, in order: F O D C.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
 
@@ -40,7 +40,7 @@ Links: official; R? none; A hours_rates, booking, osm, commons.
 
 Records: place, offer. Suitability profile `coaster` (always, extension coaster). Effort: none, time is shown. Sources, in order: F O D C.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
 
@@ -52,7 +52,7 @@ Links: official; R? none; A hours_rates, booking, osm, commons.
 
 Records: place, offer. Suitability profile `zipline` (always, extension zip). Effort: none, time is shown. Sources, in order: F O D C.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
 
 **offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable); A names, transit, pairs_with, closures, photos, part_of, on, variants, cancellation, included.
 
@@ -64,7 +64,7 @@ Links: official; R? none; A hours_rates, booking, osm, commons.
 
 Records: place, offer. Suitability profile `theme_park` (always). Effort: none, time is shown. Sources, in order: F O D C.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
 
 **offer (experience)**: R name, type, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, at, run_by, duration_min, activity_min, book_url; R? window (bookable); A names, transit, pairs_with, closures, photos, part_of, on, variants, cancellation, included.
 
@@ -76,7 +76,7 @@ Links: official; R? none; A hours_rates, booking, osm, commons.
 
 Records: place, offer. Suitability profile `play` (flag). Effort: none, time is shown. Sources, in order: F O D C.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, access_points, transit, pairs_with, closures, photos, part_of.
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
 
