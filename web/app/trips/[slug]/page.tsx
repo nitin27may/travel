@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { ExportData } from '@/components/actions/ExportData';
 import { Banner } from '@/components/ui/Banner';
 import { SeasonBand } from '@/components/trips/SeasonBand';
@@ -10,13 +10,14 @@ import type { PlaceLookup } from '@/components/trips/model';
 import { tripExportFor } from '@/lib/export/build.server';
 import { getPlace, getTrip, listPlaces, tripSlugs } from '@/lib/public';
 import { ogImageFor } from '@/lib/og';
+import { currentSlugOf, retiredSlugs } from '@/lib/server/moved';
 import { absoluteUrl, pageMetadata } from '@/lib/site';
 
 export const dynamicParams = false;
 
 export function generateStaticParams(): { slug: string }[] {
   // `output: export` refuses an empty list (the privacy fixture has no trips), so one placeholder keeps the build valid
-  const slugs = tripSlugs();
+  const slugs = [...tripSlugs(), ...retiredSlugs('trips')];
   return (slugs.length ? slugs : ['none']).map((slug) => ({ slug }));
 }
 
@@ -36,6 +37,8 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const trip = getTrip(slug);
   if (!trip) {
+    const now = currentSlugOf(slug, 'trips');
+    if (now) permanentRedirect(`/trips/${now}/`);
     if (tripSlugs().length) notFound();
     return <p className="muted">No published trips in this build.</p>;
   }

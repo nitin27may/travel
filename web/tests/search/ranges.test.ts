@@ -11,6 +11,9 @@ import type { SearchRecord } from '@/lib/search/types';
 import { loadVocab, searchRecords } from './support';
 import { placeRows } from '../places/support';
 
+// These tests pin the StaticAdapter (the files the build wrote); the API default has its own tests in tests/api.
+vi.stubEnv('NEXT_PUBLIC_DATA_ADAPTER', 'static');
+
 // REVIEW4 4.20, 4.21 and 4.29: a place word resolves to every area that carries it, a range word to the places of the trips that name it,
 // a leftover word never filters, and a reading that gives nothing is relaxed instead of shown as "0 places" under neat chips.
 

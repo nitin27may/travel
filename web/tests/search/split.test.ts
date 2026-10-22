@@ -3,6 +3,9 @@ import { buildSearchIndex, buildSearchParts } from '@/lib/search/build';
 import { createSearcher } from '@/lib/search/search';
 import type { SearchRecord } from '@/lib/search/types';
 
+// These tests pin the StaticAdapter (the files the build wrote); the API default has its own tests in tests/api.
+vi.stubEnv('NEXT_PUBLIC_DATA_ADAPTER', 'static');
+
 // Backlog 2.20: the index is split by kind and country and each part loads on demand (principle P1).
 
 const whole = buildSearchIndex();

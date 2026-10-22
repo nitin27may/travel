@@ -10,6 +10,9 @@ import { filterRows } from '@/lib/entities/filter';
 import { decodeState } from '@/lib/entities/url';
 import { searchRecords } from './support';
 
+// These tests pin the StaticAdapter (the files the build wrote); the API default has its own tests in tests/api.
+vi.stubEnv('NEXT_PUBLIC_DATA_ADAPTER', 'static');
+
 // P9 and acceptance 7: the parser is reached through lib/client/data.ts, costs one new request (vocab.json) on the first query, and sends
 // nothing to a third party.
 
@@ -46,9 +49,12 @@ describe('parseQuery (lib/client/data.ts)', () => {
 
   it('the parser is its own chunk: data.ts imports it lazily, so the first load of a page does not carry it', async () => {
     const { readFileSync } = await import('node:fs');
-    const text = readFileSync(new URL('../../lib/client/data.ts', import.meta.url), 'utf8');
-    expect(text).not.toMatch(/^import .*search\/parse\/parse['"]/m);
-    expect(text).toMatch(/import\('@\/lib\/search\/parse\/parse'\)/);
+    // the parser is called by the StaticAdapter (the API runs it on the server); neither the data module nor the adapters import it eagerly
+    for (const f of ['data', 'static', 'api']) {
+      const text = readFileSync(new URL(`../../lib/client/${f}.ts`, import.meta.url), 'utf8');
+      expect(text, f).not.toMatch(/^import .*search\/parse\/parse['"]/m);
+    }
+    expect(readFileSync(new URL('../../lib/client/static.ts', import.meta.url), 'utf8')).toMatch(/import\('@\/lib\/search\/parse\/parse'\)/);
   });
 });
 

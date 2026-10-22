@@ -10,6 +10,8 @@ import { WEB, walkFiles } from '../helpers';
 const SOURCE_DIRS = ['app', 'components', 'lib'];
 const SOURCE = /\.(ts|tsx|mjs)$/;
 const THE_MODULE = 'lib/client/data.ts';
+/** The adapters behind the data module (API-1b): they are where the reads happen, so they are the data boundary too. */
+const ADAPTERS = ['lib/client/api.ts', 'lib/client/static.ts'];
 
 /**
  * The few other places that call fetch(), each for something that is not catalogue data. A new entry needs a reason.
@@ -44,11 +46,11 @@ describe('the client data boundary (principle P9)', () => {
 
   it('only the data module and the listed geography loaders call fetch()', () => {
     const callers = all.filter((s) => /\bfetch\s*\(/.test(s.text)).map((s) => s.rel).sort();
-    expect(callers).toEqual([THE_MODULE, ...Object.keys(NOT_CATALOGUE)].sort());
+    expect(callers).toEqual([THE_MODULE, ...ADAPTERS, ...Object.keys(NOT_CATALOGUE)].sort());
   });
 
   it('no module but the data module names a catalogue data URL', () => {
-    const hits = all.filter((s) => s.rel !== THE_MODULE && CATALOGUE_URL.test(s.text)).map((s) => s.rel);
+    const hits = all.filter((s) => s.rel !== THE_MODULE && !ADAPTERS.includes(s.rel) && CATALOGUE_URL.test(s.text)).map((s) => s.rel);
     // the server routes that write the files live under app/search, app/globe-data and app/list
     expect(hits.filter((h) => !h.startsWith('app/search/') && !h.startsWith('app/globe-data/') && !h.startsWith('app/list/'))).toEqual([]);
   });
