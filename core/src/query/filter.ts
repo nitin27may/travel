@@ -1,0 +1,236 @@
+import { ageLabel } from '../format/age.ts';
+import { FACET_PARAMS, isScopedParam } from './types.ts';
+import { fallbackLabel } from './valueLabels.ts';
+import type { EntityDescriptorBase, FacetDef, FacetParam, ListState } from './types.ts';
+import { facetShows, scopeOf } from './facets/index.ts';
+
+const lc = (s: string) => s.toLocaleLowerCase('en');
+
+// the lower-cased search text of a row, made once: a text search runs it for every row, several times a keystroke (10,000 rows, backlog 2.41)
+let lastQ = '';
+let lastWords: string[] = [];
+/** The words of a query, split once: the same string is tested against every row. */
+const wordsOf = (q: string): string[] => {
+  if (q !== lastQ) {
+    lastQ = q;
+    lastWords = lc(q).split(/\s+/).filter(Boolean);
+  }
+  return lastWords;
+};
+const hayCache = new WeakMap<object, string>();
+const hayOf = <Row,>(row: Row, d: EntityDescriptorBase<Row>): string => {
+  if (typeof row !== 'object' || row === null) return lc(d.search(row));
+  let h = hayCache.get(row);
+  if (h === undefined) hayCache.set(row, (h = lc(d.search(row))));
+  return h;
+};
+
+export function parseBbox(bbox: string | null): [number, number, number, number] | null {
+  if (!bbox) return null;
+  const n = bbox.split(',').map(Number);
+  if (n.length !== 4 || n.some((x) => !Number.isFinite(x))) return null;
+  return [n[0], n[1], n[2], n[3]];
+}
+
+function facetMatches<Row>(row: Row, facet: FacetDef<Row>, selected: string[]): boolean {
+  if (!selected.length) return true;
+  if (facet.match) return facet.match(row, selected);
+  const have = new Set(facet.options(row).map((o) => o.value));
+  const wanted = facet.type === 'single' ? selected.slice(0, 1) : selected;
+  return wanted.some((v) => have.has(v));
+}
+
+/** One pure filter. `ignore` skips one facet (used to count a facet's own options) or 'q'. */
+export function matchesRow<Row>(row: Row, state: ListState, d: EntityDescriptorBase<Row>, ignore?: FacetParam | 'q'): boolean {
+  if (state.ids.length && !state.ids.includes(d.id(row))) return false;
+  if (d.hiddenByDefault?.(row, state, ignore)) return false;
+  for (const facet of d.facets) {
+    if (facet.param === ignore || facet.hidden) continue;
+    if (!facetMatches(row, facet, state.facets[facet.param] ?? [])) return false;
+  }
+  const box = parseBbox(state.bbox);
+  if (box) {
+    const g = d.geo(row);
+    if (!g || g.lon < box[0] || g.lat < box[1] || g.lon > box[2] || g.lat > box[3]) return false;
+  }
+  if (ignore !== 'q' && state.q.trim()) {
+    const hay = hayOf(row, d);
+    if (!wordsOf(state.q).every((w) => hay.includes(w))) return false;
+  }
+  return true;
+}
+
+export function filterRows<Row>(rows: readonly Row[], state: ListState, d: EntityDescriptorBase<Row>): Row[] {
+  return rows.filter((r) => matchesRow(r, state, d));
+}
+
+export interface FacetCount {
+  value: string;
+  label: string;
+  count: number;
+  group?: string;
+  hint?: string;
+}
+
+/**
+ * For each facet, the options with the number of rows that would match if that facet alone were
+ * cleared. A selected value that has no rows still appears with count 0, so it can be switched off.
+ */
+export function facetCounts<Row>(rows: readonly Row[], state: ListState, d: EntityDescriptorBase<Row>): Record<string, FacetCount[]> {
+  const out: Record<string, FacetCount[]> = {};
+  const scope = scopeOf(d, rows, state);
+  for (const facet of d.facets) {
+    if (facet.hidden || !facetShows(facet, scope)) continue;
+    const counts = new Map<string, FacetCount>();
+    for (const row of rows) {
+      if (!matchesRow(row, state, d, facet.param)) continue;
+      const seen = new Set<string>();
+      for (const o of facet.options(row)) {
+        if (seen.has(o.value)) continue;
+        seen.add(o.value);
+        const hit = counts.get(o.value);
+        if (hit) hit.count += 1;
+        else counts.set(o.value, { value: o.value, label: o.label, count: 1, group: o.group, hint: o.hint });
+      }
+    }
+    for (const v of state.facets[facet.param] ?? []) {
+      if (counts.has(v)) continue;
+      // a value no row carries is named from the facets' own tables, never shown as its code
+      let label = fallbackLabel(facet.param, v);
+      for (const row of rows) {
+        const hit = facet.options(row).find((o) => o.value === v);
+        if (hit) {
+          label = hit.label;
+          break;
+        }
+      }
+      counts.set(v, { value: v, label, count: 0 });
+    }
+    const order = facet.order ?? [];
+    const groups = facet.groupOrder ?? [];
+    const last = facet.last ?? [];
+    out[facet.param] = [...counts.values()].sort((a, b) => {
+      if (groups.length) {
+        const ga = groups.indexOf(a.group ?? '');
+        const gb = groups.indexOf(b.group ?? '');
+        if (ga !== gb) return (ga === -1 ? 999 : ga) - (gb === -1 ? 999 : gb);
+      }
+      const la = last.includes(a.value);
+      if (la !== last.includes(b.value)) return la ? 1 : -1;
+      const ia = order.indexOf(a.value);
+      const ib = order.indexOf(b.value);
+      if (ia !== -1 || ib !== -1) return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+      return b.count - a.count || a.label.localeCompare(b.label);
+    });
+  }
+  return out;
+}
+
+/**
+ * For each facet that has a "not known" state (`gap`), how many rows that match every other filter are in it. The facet's menu says
+ * "27 not known yet, hidden when you pick one" from this, whether or not the facet has a selection.
+ */
+export function gapCounts<Row>(rows: readonly Row[], state: ListState, d: EntityDescriptorBase<Row>): Record<string, number> {
+  const out: Record<string, number> = {};
+  for (const facet of d.facets) {
+    const gap = facet.gap;
+    if (!gap || facet.hidden) continue;
+    let n = 0;
+    for (const row of rows) {
+      if (!matchesRow(row, state, d, facet.param)) continue;
+      if (gap.isGap ? gap.isGap(row, []) : facet.options(row).some((o) => o.value === gap.value)) n += 1;
+    }
+    if (n > 0) out[facet.param] = n;
+  }
+  return out;
+}
+
+/** Facets whose selection defines the scope of a list: the Kind, and the country. The count line's "of N" counts the rows inside it. */
+export const SCOPE_PARAMS: readonly FacetParam[] = ['k', 'kind', 'country'];
+
+/** The rows inside the scope of a query (its Kind and country, nothing else): the denominator of the count line. */
+export function scopeTotal<Row>(rows: readonly Row[], state: ListState, d: EntityDescriptorBase<Row>): number {
+  const facets: ListState['facets'] = {};
+  for (const p of SCOPE_PARAMS) if (state.facets[p]?.length) facets[p] = state.facets[p];
+  const scoped = { ...state, q: '', facets, bbox: null, f: null, sv: null, ids: [] as string[] };
+  return rows.filter((r) => matchesRow(r, scoped, d)).length;
+}
+
+/** Clearing a facet also clears every facet that depends on it, transitively (country, then region, then area). */
+export function dropDependents<Row>(facets: ListState['facets'], d: EntityDescriptorBase<Row>, param: FacetParam): void {
+  // clearing the Kind removes the scope's facets and keeps the base ones (contract 7.1 rule 5)
+  if ((param === 'k' || param === 'kind') && !(facets.k?.length ?? 0) && !(facets.kind?.length ?? 0)) {
+    for (const f of d.facets) if (f.scoped) delete facets[f.param];
+  }
+  for (const child of d.facets) {
+    if (child.dependsOn === param) {
+      delete facets[child.param];
+      dropDependents(facets, d, child.param);
+    }
+  }
+}
+
+export interface ActiveFilter {
+  key: string;
+  label: string;
+  /** State with just this filter removed. */
+  without: ListState;
+}
+
+/** Chips: one per selected facet value, plus the globe set and the map area. */
+export function activeFilters<Row>(state: ListState, d: EntityDescriptorBase<Row>, labelOf: (param: FacetParam, value: string) => string): ActiveFilter[] {
+  const out: ActiveFilter[] = [];
+  const params: FacetParam[] = [...FACET_PARAMS, ...d.facets.map((f) => f.param).filter(isScopedParam)];
+  for (const param of params) {
+    const facet = d.facets.find((f) => f.param === param);
+    if (!facet || facet.hidden) continue;
+    for (const v of state.facets[param] ?? []) {
+      const rest = (state.facets[param] ?? []).filter((x) => x !== v);
+      const facets = { ...state.facets };
+      if (rest.length) facets[param] = rest;
+      else delete facets[param];
+      if (!rest.length) dropDependents(facets, d, param);
+      // the Kids control reads "Youngest child 6", whichever list it is on
+      const label = facet.control === 'age' ? (/^\d{1,2}$/.test(v) ? ageLabel('control', Number(v)) : labelOf(param, v)) : `${facet.label}: ${labelOf(param, v)}`;
+      out.push({ key: `${param}:${v}`, label, without: { ...state, facets, focus: null } });
+    }
+  }
+  if (state.ids.length) {
+    out.push({ key: 'ids', label: `From the globe: ${state.label || `${state.ids.length} places`}`, without: { ...state, ids: [], label: null, focus: null } });
+  }
+  if (state.bbox) out.push({ key: 'bbox', label: 'Map area', without: { ...state, bbox: null, focus: null } });
+  if (state.f) out.push({ key: 'f', label: 'Advanced filter', without: { ...state, f: null, focus: null } });
+  return out;
+}
+
+export function clearAll(state: ListState): ListState {
+  return { ...state, q: '', facets: {}, bbox: null, f: null, sv: null, ids: [], label: null, focus: null };
+}
+
+/**
+ * Rows a selection left out only because they are "not checked yet" (the facet's `gap` value): they match every other filter,
+ * but the facet has a selection without that value. The count line names them so a hidden gap is never a silent loss.
+ */
+export function gapNotes<Row>(rows: readonly Row[], state: ListState, d: EntityDescriptorBase<Row>): string[] {
+  const out: string[] = [];
+  for (const facet of d.facets) {
+    const gap = facet.gap;
+    const selected = state.facets[facet.param] ?? [];
+    if (facet.note && selected.length && !facet.hidden) {
+      const line = facet.note(rows.filter((r) => matchesRow(r, state, d)), selected);
+      if (line) out.push(line);
+    }
+    if (!gap || facet.hidden || !selected.length || selected.includes(gap.value)) continue;
+    let n = 0;
+    for (const row of rows) {
+      if (!matchesRow(row, state, d, facet.param)) continue;
+      if (gap.isGap ? gap.isGap(row, selected) : facet.options(row).some((o) => o.value === gap.value)) n += 1;
+    }
+    if (n > 0) out.push(`${n} ${gap.note}`);
+  }
+  // facets the Kind brings but too few results answer: say so instead of showing an empty filter
+  const scope = scopeOf(d, rows, state);
+  if (scope.note) out.push(scope.note);
+  out.push(...scope.guardNotes);
+  return out;
+}
