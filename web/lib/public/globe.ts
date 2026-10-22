@@ -27,8 +27,8 @@ export const TRIP_COUNTRY: Record<string, { cc: string; a3: string }> = {
 
 type GazRow = [string, string, number, number, string | null, ...unknown[]];
 
-function readGazetteer(root: string): GazRow[] {
-  const file = path.join(root, 'legacy', 'globe', 'assets', 'data', 'gazetteer.json');
+function readGazetteer(): GazRow[] {
+  const file = path.join(GLOBE_PUBLIC(), 'data', 'gazetteer.json');
   return existsSync(file) ? (JSON.parse(readFileSync(file, 'utf8')) as GazRow[]) : [];
 }
 
@@ -149,7 +149,7 @@ export function canonicalRegions(places: PublicPlace[]): { region: Map<string, {
 }
 
 export function buildGlobe(root: string, places: PublicPlace[], trips: PublicTrip[], listedFolders: Map<string, string>): GlobeIndex {
-  const gaz = readGazetteer(root);
+  const gaz = readGazetteer();
   const basePoints = readBasePoints(root);
   const tiers = readDrawTiers(root);
   const folderOf = new Map([...listedFolders].map(([f, s]) => [s, f]));
