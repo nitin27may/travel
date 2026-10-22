@@ -1,6 +1,4 @@
-import { toSearchParams } from '@travel/core/catalogue/httpCodec.ts';
 import type { ParseInput, ParsedQuery, PlaceQuery, PlaceRow, ReportResult as ApiReportResult, SearchQuery, SearchResult as ApiSearchResult, GlobeCardFile as ApiGlobeCard, GlobeTree as ApiGlobeTree, LightPin as ApiLightPin, ExportFile, Paged } from '@travel/core/schema/api/index.ts';
-import { PLACE_LIST_ROW_KEYS } from '@travel/core/schema/api/place.ts';
 import { reportLink, reportUrl } from '@/lib/config/product';
 import { defaultOrder } from '@/lib/entities/sort';
 import { SHARD_ROWS } from '@/lib/entities/shards';
@@ -69,9 +67,12 @@ async function readOrNull<T>(method: string, url: string): Promise<T | null> {
 }
 
 export function fetchCalls(): ApiCalls {
+  // the list's URL keys (core/src/catalogue/httpCodec.ts, which carries the schemas, so the browser writes the few it needs itself)
   const list = (q: PlaceQuery, page: { page?: number; pageSize?: number }) => {
-    const p = toSearchParams(q, page);
-    if (page.page === 1) p.delete('page');
+    const p = new URLSearchParams();
+    for (const [k, v] of Object.entries(q.facets ?? {})) if (v.length) p.set(k, v.join(','));
+    if (page.page && page.page > 1) p.set('page', String(page.page));
+    if (page.pageSize) p.set('pageSize', String(page.pageSize));
     return p;
   };
   return {
@@ -115,11 +116,23 @@ const API_PAGE = 100;
  * The country's rows as a list file: every page of `/places?country=`, cut back to the light list row, in the list's default order,
  * then the part the file id names (SHARD_ROWS rows). The file the build writes is exactly this, so the list engine in data.ts sees no difference.
  */
-async function countryRows(calls: ApiCalls, cc: string, d: EntityDescriptor<never>): Promise<unknown[]> {
+async function countryRows(calls: ApiCalls, cc: string, d: EntityDescriptor<never>, expected?: number): Promise<unknown[]> {
   const query: PlaceQuery = { facets: { country: [cc.toUpperCase()] } };
-  const first = await calls.listPlaces(query, { pageSize: API_PAGE });
-  const rest = await Promise.all(Array.from({ length: Math.max(0, Math.ceil(first.total / API_PAGE) - 1) }, (_, i) => calls.listPlaces(query, { page: i + 2, pageSize: API_PAGE })));
-  const rows = [first, ...rest].flatMap((p) => p.items).sort((a, b) => (a.ref < b.ref ? 1 : a.ref > b.ref ? -1 : 0)) /* ties of the default order keep the order the rows come in; this is the order the build's rows have, pinned by tests/api/adapters.test.ts */.map((r) => Object.fromEntries(PLACE_LIST_ROW_KEYS.map((k) => [k, r[k]])));
+  // the manifest says how many rows the country has, so every page goes out at once; a count that has moved is made up afterwards
+  const asked = Math.max(1, Math.ceil((expected ?? 1) / API_PAGE));
+  const pages = await Promise.all(Array.from({ length: asked }, (_, i) => calls.listPlaces(query, { page: i + 1, pageSize: API_PAGE })));
+  const first = pages[0]!;
+  const more = await Promise.all(Array.from({ length: Math.max(0, Math.ceil(first.total / API_PAGE) - asked) }, (_, i) => calls.listPlaces(query, { page: asked + i + 1, pageSize: API_PAGE })));
+  const rest = [...pages.slice(1), ...more];
+  // ties of the default order keep the order the rows come in; this is the order the build's rows have (pinned by tests/api/adapters.test.ts)
+  const byRefDesc = [first, ...rest].flatMap((p) => p.items).sort((a, b) => (a.ref < b.ref ? 1 : a.ref > b.ref ? -1 : 0));
+  // the light list row is the API row without the two keys the API adds (`ref`, `approx`)
+  const rows = byRefDesc.map((r) => {
+    const row: Record<string, unknown> = { ...r };
+    delete row.ref;
+    delete row.approx;
+    return row;
+  });
   return defaultOrder(rows, d as unknown as EntityDescriptor<unknown>);
 }
 
@@ -201,14 +214,14 @@ export function createApiClient(calls: ApiCalls): DataClient {
       const r = await calls.report(input.page);
       return r ?? { kind: 'off' };
     },
-    async shardRows(type, id, d) {
+    async shardRows(type, id, d, expected) {
       const m = /^([a-z]{2})(?:-(\d+))?$/.exec(id);
       // a row with no country has no country filter to ask for: its file stays a static one
       if (type !== 'place' || !m || m[1] === 'xx') return staticClient.shardRows(type, id, d);
       const cc = m[1]!;
       let all = countries.get(cc);
       if (!all) {
-        all = countryRows(calls, cc, d);
+        all = countryRows(calls, cc, d, expected);
         all.catch(() => countries.delete(cc));
         countries.set(cc, all);
       }

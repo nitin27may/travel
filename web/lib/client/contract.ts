@@ -60,8 +60,11 @@ export interface DataClient {
   globeCard(key: string): Promise<GlobeCardFile | null>;
   globeLine(id: string): Promise<GlobeLineFile | null>;
   reportProblem(input: ReportInput): Promise<ReportResult>;
-  /** The rows of one list file (a country, or one 300-row part of a large one) in the list's default order. `d` is the list's descriptor. */
-  shardRows(type: 'place' | 'trip', id: string, d: EntityDescriptor<never>): Promise<readonly unknown[]>;
+  /**
+   * The rows of one list file (a country, or one 300-row part of a large one) in the list's default order. `d` is the list's descriptor and
+   * `countryRows` the number of rows the list's manifest says that country has, so an adapter can ask for all of them at once.
+   */
+  shardRows(type: 'place' | 'trip', id: string, d: EntityDescriptor<never>, countryRows?: number): Promise<readonly unknown[]>;
   /** One full-text file (backlog 3.60). */
   textIndex(id: string): Promise<TextIndex>;
 }

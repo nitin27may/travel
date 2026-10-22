@@ -3,7 +3,7 @@
   "info": {
     "title": "Trip plans catalogue API",
     "version": "1",
-    "description": "Read-only catalogue API (API-1b). Generated from core/src/schema/api; do not edit by hand."
+    "description": "Read-only catalogue API (API-1b). Generated from core/src/schema/api; do not edit by hand. The site sets trailingSlash, so every path is served with a trailing slash (a request without one is redirected with 308)."
   },
   "servers": [
     {

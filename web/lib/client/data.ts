@@ -14,7 +14,6 @@ import type { Chip, DidYouMean, ParseOptions, ParsedQuery, VocabFile } from '@/l
 import type { SearchManifest, SearchPartRef, SearchRecord, SearchResult } from '@/lib/search/types';
 import type { Suggestion } from '@/lib/search/suggest';
 import type { TextIndex } from '@/lib/search/fulltext';
-import { apiClient } from './api';
 import type { DataClient, GlobeLineFile, GlobeScope, ReportInput, ReportResult, SearchScope } from './contract';
 import { getJson, staticClient } from './static';
 import type { FacetCount } from '@/lib/entities/filter';
@@ -36,7 +35,17 @@ import type { TripListRow } from '@/components/trips/types';
 export type { GlobeLineFile, GlobeScope, ReportInput, ReportResult, SearchScope };
 
 // The adapter is chosen when the site is built (NEXT_PUBLIC_DATA_ADAPTER is inlined): the API by default, the prerendered files with `static`.
-const client = (): DataClient => (process.env.NEXT_PUBLIC_DATA_ADAPTER === 'static' ? staticClient : apiClient);
+// The ApiAdapter loads as its own chunk on the first call, so the JS every page starts with does not grow (budget.test.ts); every call it
+// serves already returns a promise. `onSearchGrow` is the one synchronous member: the API never answers in parts, so it never fires.
+const lazyApi = new Proxy({} as DataClient, {
+  get:
+    (_t, name: string) =>
+    (...args: unknown[]) =>
+      import('./api').then((m) => (m.apiClient as unknown as Record<string, (...a: unknown[]) => unknown>)[name]!(...args)),
+});
+// start the chunk as the page loads, so the first list or search call does not wait for it
+if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_DATA_ADAPTER !== 'static') void import('./api');
+const client = (): DataClient => (process.env.NEXT_PUBLIC_DATA_ADAPTER === 'static' ? staticClient : lazyApi);
 
 // ---------------------------------------------------------------- search, globe, export, report: calls on the adapter
 
@@ -58,7 +67,7 @@ export function loadSearchRecords(scope: SearchScope = {}, onRecords?: (soFar: S
 }
 /** Called when more parts have arrived after an answer, so a caller can ask again. Returns the way to stop listening. */
 export function onSearchGrow(fn: () => void): () => void {
-  return client().onSearchGrow(fn);
+  return staticClient.onSearchGrow(fn);
 }
 /** Search, in the shape a server answers: `search(q, scope, limit)`. `partial` says more may arrive; `onSearchGrow` fires when it does. */
 export function search(q: string, scope: SearchScope = {}, limit?: number): Promise<SearchResult> {
@@ -443,11 +452,18 @@ export function listManifest(type: EntityType): ListManifest | null {
   return registered.get(type)?.shards?.manifest ?? null;
 }
 
+/** Rows the manifest gives the country of a file: all the files of that country together. */
+function countryRowsOf(type: EntityType, id: string): number | undefined {
+  const m = registered.get(type)?.shards?.manifest;
+  const cc = m?.shards.find((s) => s.id === id)?.cc;
+  return m && cc ? m.shards.filter((s) => s.cc === cc).reduce((n, s) => n + s.n, 0) : undefined;
+}
+
 function loadShard(type: EntityType, id: string): Promise<readonly unknown[]> {
   const key = shardKey(type, id);
   let p = shardPromises.get(key);
   if (!p) {
-    p = client().shardRows(type as 'place' | 'trip', id, registered.get(type)!.d).then(
+    p = client().shardRows(type as 'place' | 'trip', id, registered.get(type)!.d, countryRowsOf(type, id)).then(
       (rows) => {
         shardLoaded.set(key, rows);
         return rows;

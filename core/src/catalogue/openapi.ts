@@ -59,7 +59,7 @@ export function buildOpenApi(): Json {
   paths["/api/v1/openapi.json"] = { get: { operationId: "openapi", summary: "this document", responses: { "200": { description: "ok", content: { "application/json": { schema: { type: "object" } } } } } } };
   return {
     openapi: "3.1.0",
-    info: { title: "Trip plans catalogue API", version: "1", description: "Read-only catalogue API (API-1b). Generated from core/src/schema/api; do not edit by hand." },
+    info: { title: "Trip plans catalogue API", version: "1", description: "Read-only catalogue API (API-1b). Generated from core/src/schema/api; do not edit by hand. The site sets trailingSlash, so every path is served with a trailing slash (a request without one is redirected with 308)." },
     servers: [{ url: "/" }],
     paths,
     components: { schemas: components },
