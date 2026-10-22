@@ -86,6 +86,14 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "area_id", group: "identity", label: "Area", value: "ref", section: "cover", display: ["rest", "card"], base: "R", home: cap("area_id") }),
   def({ key: "wikidata", group: "identity", label: "Wikidata", value: "qid", section: "sources", display: ["detail"], base: "R", gap: "Not linked to Wikidata yet", home: rel("wikidata") }),
   def({ key: "osm_ref", group: "identity", label: "OpenStreetMap", value: "text", section: "links", display: ["detail"], base: "A", gap: "Not linked to OpenStreetMap yet", home: cap("osm_ref") }),
+  // Placement (3.7, META-0). The nearest town is derived from the towns layer (META-2); a researcher overrides it only with the town the
+  // operator names. Offers and events inherit placement through at, on and starts_at, so these sit on places and routes only.
+  // near_town is R once it can be derived: the `derived` condition is unknown (listed, not counted) until META-2 ships the towns layer and
+  // the derive step, so no page drops a level for a field no researcher fills. W_PLACE_TOWN reports it meanwhile.
+  // near_town_km travels inside the near_town row (the derive step writes both; W_PLACE_TOWN checks both), so it is never asked alone.
+  def({ key: "near_town", group: "identity", label: "Nearest town", value: "ref", section: "access", display: ["rest"], base: "R?", trigger: "derived", gap: "Nearest town not worked out yet", home: cap("near_town"), layers: ["place", "route"] }),
+  def({ key: "near_town_km", group: "identity", label: "Distance to the nearest town", value: "number", unit: "km", section: "access", display: ["detail"], base: "N", home: cap("near_town_km"), layers: ["place", "route"] }),
+  def({ key: "geonames_id", group: "identity", label: "GeoNames", value: "text", section: "sources", display: ["detail"], base: "A", gap: "Not linked to GeoNames yet", home: cap("geonames_id"), layers: ["place"] }),
   def({ key: "summary", group: "identity", label: "Summary", value: "text", section: "cover", display: ["rest", "card"], base: "R", gap: "Summary not written yet", home: rel("why") }),
 
   // When

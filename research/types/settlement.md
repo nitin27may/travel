@@ -8,7 +8,7 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 Records: place. Suitability profile `town` (never). Effort: none, time is shown. Sources, in order: F T D X.
 
-**place**: R name, type, point, area_id, wikidata, summary, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? none; A names, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, wikidata, summary, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived); A names, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
 
 Suitability: R stroller, wheelchair; R when operated none; A kid_note, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, on_site_min, toilets, baby_change.
 
@@ -18,7 +18,7 @@ Links: official; R? none; A tourism_board, timetable, wikidata, wikipedia, wikiv
 
 Records: place. Suitability profile `area` (never, extension area). Effort: none, time is shown. Sources, in order: F T D X.
 
-**place**: R name, type, point, area_id, wikidata, summary, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? none; A names, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, wikidata, summary, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived); A names, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
 
 Suitability: R kid_note, on_site_min, hazards, access_season; R when operated none; A group_min, stroller, stroller_extent, wheelchair, accessible_toilet, limited_capacity_note, toilets, water, food, signal, picnic, baby_change, altitude_m, ext.area.pass, ext.area.access_road, ext.area.stay_on_site, ext.area.child_trails.
 
