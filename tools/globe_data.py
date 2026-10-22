@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the data and vendored libraries behind globe/index.html.
+"""Build the globe's data under web/public/globe (the app's only copy).
 
     python3 tools/globe_data.py base            # G1: country facts, 50m country polygons, vendored MapLibre
     python3 tools/globe_data.py admin1          # G2: states/provinces for every country (Natural Earth 10m)
@@ -11,10 +11,10 @@
     python3 tools/globe_data.py split           # L2b: USA, India and Brazil districts, one file per state
     python3 tools/globe_data.py audit           # L2b: audit every ADM2 file; a failing country falls back to ADM1 only
     python3 tools/globe_data.py check           # L2b: rebuild the files above from the cached sources and fail on any difference
-    python3 tools/globe_data.py places          # G5: saved-place pins (legacy/globe/assets/data/places.json), plus the list page and WISHLIST.md
+    python3 tools/globe_data.py places          # G5: saved-place pins (legacy/globe/assets/data/places.json, which location_views owns), plus the list page and WISHLIST.md
     python3 tools/globe_data.py all
 
-Outputs go under legacy/globe/assets/ (published). Raw downloads are cached in tools/.cache/ (gitignored).
+Outputs go under web/public/globe/ only (CLN-4); the one exception is `places`, whose pins file is owned by location_views. Raw downloads are cached in tools/.cache/ (gitignored).
 Every output must stay under 20 MB (Cloudflare Pages limit is 25 MB per file). Stdlib only; mapshaper via npx.
 See research/reports/globe-research-2026-10-16.md for sources and licences.
 """
@@ -29,7 +29,8 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ASSETS = ROOT / "legacy" / "globe" / "assets"
+# The one writer target and the only place the app reads (CLN-4). The legacy page's copy under legacy/globe/assets is frozen.
+WEB = ROOT / "web" / "public" / "globe"
 CACHE = ROOT / "tools" / ".cache"
 UA = {"User-Agent": "travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)"}
 MAPLIBRE = "6.14.0"
@@ -90,24 +91,17 @@ def cmd_base(args) -> int:
             "currencies": [v.get("name") for v in (c.get("currencies") or {}).values()][:2],
             "tld": (c.get("tld") or [None])[0], "wiki": c.get("name", {}).get("common"),
         }
-    write_json(ASSETS / "data" / "countries.json", facts)
+    write_json(WEB / "data" / "countries.json", facts)
     # keep the small code map used elsewhere in sync
     write_json(ROOT / "data" / "reference" / "countries.json", {k: {"a2": v["a2"], "a3": v["a3"], "name": v["name"]} for k, v in facts.items()})
 
     # 2. country polygons for hover and click (TopoJSON, 50m)
     src = fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json", CACHE / "countries-50m.json")
-    (ASSETS / "data").mkdir(parents=True, exist_ok=True)
-    (ASSETS / "data" / "countries-50m.json").write_bytes(src.read_bytes())
-    print(f"  wrote legacy/globe/assets/data/countries-50m.json ({src.stat().st_size // 1024} KB)", file=sys.stderr)
+    (WEB / "data").mkdir(parents=True, exist_ok=True)
+    (WEB / "data" / "countries-50m.json").write_bytes(src.read_bytes())
+    print(f"  wrote web/public/globe/data/countries-50m.json ({src.stat().st_size // 1024} KB)", file=sys.stderr)
 
-    # 3. vendored MapLibre (ESM build, its worker chunks and CSS), pinned. v6 loads the worker
-    #    from maplibre-gl-worker.mjs next to the main module, so all three must sit together.
-    for name in ("maplibre-gl.mjs", "maplibre-gl-worker.mjs", "maplibre-gl-shared.mjs", "maplibre-gl.css"):
-        f = fetch(f"https://unpkg.com/maplibre-gl@{MAPLIBRE}/dist/{name}", CACHE / f"maplibre-{MAPLIBRE}-{name}")
-        (ASSETS / "vendor").mkdir(parents=True, exist_ok=True)
-        (ASSETS / "vendor" / name).write_bytes(f.read_bytes())
-        print(f"  wrote legacy/globe/assets/vendor/{name} ({f.stat().st_size // 1024} KB)", file=sys.stderr)
-    (ASSETS / "vendor" / "VERSIONS.txt").write_text(f"maplibre-gl {MAPLIBRE} (BSD-3, https://maplibre.org)\nworld-atlas 2 countries-50m (Natural Earth, public domain)\nworld-countries 5 (ODbL 1.0, https://github.com/mledoze/countries)\n", encoding="utf-8")
+    # The vendored MapLibre build is not written any more (CLN-4): the app takes maplibre-gl from npm and the frozen legacy page keeps its own copy.
     return 0
 
 
@@ -131,7 +125,7 @@ def cmd_admin1(args) -> int:
                            "type": p.get("type_en"), "region": p.get("region"), "wd": p.get("wikidataid"), "gn": p.get("gn_id"),
                            "lat": p.get("latitude"), "lon": p.get("longitude")}
         by.setdefault(iso3, []).append(f)
-    out_dir = ASSETS / "admin"; out_dir.mkdir(parents=True, exist_ok=True)
+    out_dir = WEB / "admin"; out_dir.mkdir(parents=True, exist_ok=True)
     manifest = json.loads((out_dir / "index.json").read_text()) if (out_dir / "index.json").exists() else {}
     for iso3, feats in sorted(by.items()):
         tmp = CACHE / "adm1" / f"{iso3}.geojson"; tmp.parent.mkdir(parents=True, exist_ok=True)
@@ -153,7 +147,7 @@ def cmd_admin2(args) -> int:
             listing = json.loads(r.read().decode("utf-8"))
         iso3s = sorted({row["boundaryISO"] for row in listing if row.get("boundaryISO")})
         print(f"  {len(iso3s)} countries with ADM2 on geoBoundaries", file=sys.stderr)
-    out_dir = ASSETS / "admin"; out_dir.mkdir(parents=True, exist_ok=True)
+    out_dir = WEB / "admin"; out_dir.mkdir(parents=True, exist_ok=True)
     manifest = json.loads((out_dir / "index.json").read_text()) if (out_dir / "index.json").exists() else {}
     for iso3 in iso3s:
         out = out_dir / f"{iso3}-ADM2.json"
@@ -229,7 +223,7 @@ def _whole_adm2(a3: str) -> Path | None:
 def cmd_gazetteer(args) -> int:
     """Search index: countries, admin-1, populated places, physical features. Compact rows: [kind, name, lon, lat, iso3, extra]."""
     rows = []
-    facts = json.loads((ASSETS / "data" / "countries.json").read_text(encoding="utf-8"))
+    facts = json.loads((WEB / "data" / "countries.json").read_text(encoding="utf-8"))
     for ccn3, c in facts.items():
         if c.get("latlng"):
             rows.append(["country", c["name"], round(c["latlng"][1], 3), round(c["latlng"][0], 3), c["a3"], c.get("capital")])
@@ -244,11 +238,8 @@ def cmd_gazetteer(args) -> int:
         rows.append(["city", p.get("name"), round(lon, 3), round(lat, 3), p.get("adm0_a3"), p.get("adm1name"), p.get("scalerank"), p.get("pop_max")])
     rows += feature_rows()[0]
     rows = [r for r in rows if r[1]]
-    # The legacy page's file keeps its 7-column shape: no bounding boxes, no line ids (GLB2).
-    write_json(ASSETS / "data" / "gazetteer.json", [r[:7] if r[0] in ("physical", "marine", "river") else r for r in rows])
     print(f"  gazetteer: {len(rows)} rows", file=sys.stderr)
-    # The app's copy carries local names as aliases in column 8 (backlog 4.13, review S7): a visitor types "Firenze" or "Munchen".
-    # The legacy file above keeps its shape, so the old page and the adapter's reads are untouched.
+    # Local names go in as aliases in column 8 (backlog 4.13, review S7): a visitor types "Firenze" or "Munchen".
     write_json(WEB / "data" / "gazetteer.json", _with_aliases(rows))
     return 0
 
@@ -581,7 +572,6 @@ def _with_aliases(rows: list) -> list:
     return out
 
 # ----------------------------------------------------------------------------- L2b: web/public/globe
-WEB = ROOT / "web" / "public" / "globe"
 
 # Countries whose largest polygon is the wrong frame for "the country" (spec 11): lon/lat boxes written by hand.
 MAINLAND_OVERRIDES = {

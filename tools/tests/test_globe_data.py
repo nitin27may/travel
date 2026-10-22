@@ -1,11 +1,12 @@
-"""Offline checks on the globe's built data (legacy/globe/assets). Run: python3 -m pytest tools/tests -q
+"""Offline checks on the globe's built data (web/public/globe; the pins file stays under legacy/globe/assets). Run: python3 -m pytest tools/tests -q
 These guard the publish: every file the page fetches must exist, parse, and stay under the Pages limit."""
 import json
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-ASSETS = ROOT / "legacy" / "globe" / "assets"
+ASSETS = ROOT / "web" / "public" / "globe"          # the one writer target (CLN-4)
+LEGACY = ROOT / "legacy" / "globe" / "assets"       # frozen: the old page's vendor files and the pins file location_views writes
 PAGE = ROOT / "legacy" / "globe" / "index.html"
 LIMIT = 20 * 1024 * 1024
 
@@ -16,9 +17,9 @@ def _json(p: Path):
 
 def test_vendor_files_present_and_pinned():
     for name in ("maplibre-gl.mjs", "maplibre-gl-worker.mjs", "maplibre-gl-shared.mjs", "maplibre-gl.css"):
-        assert (ASSETS / "vendor" / name).exists(), name
-    assert (ASSETS / "vendor" / "maplibre-gl.mjs").stat().st_size > 500_000
-    assert "maplibre-gl 6." in (ASSETS / "vendor" / "VERSIONS.txt").read_text()
+        assert (LEGACY / "vendor" / name).exists(), name
+    assert (LEGACY / "vendor" / "maplibre-gl.mjs").stat().st_size > 500_000
+    assert "maplibre-gl 6." in (LEGACY / "vendor" / "VERSIONS.txt").read_text()
 
 
 def test_country_facts_cover_world_atlas_ids():
@@ -37,12 +38,16 @@ def test_admin_manifest_matches_files_and_sizes():
     assert len(manifest) >= 180
     adm1 = sum(1 for v in manifest.values() if "adm1" in v)
     adm2 = sum(1 for v in manifest.values() if "adm2" in v)
-    assert adm1 >= 240 and adm2 >= 170, (adm1, adm2)
+    assert adm1 >= 240 and adm2 >= 150, (adm1, adm2)   # the L2b audit drops ADM2 for countries whose file fails it (155 today)
     for iso3, levels in manifest.items():
         for lvl, meta in levels.items():
-            f = ASSETS / "admin" / meta["file"]
-            assert f.exists(), f"{iso3} {lvl} listed but missing"
-            assert f.stat().st_size < LIMIT, f"{f.name} over the 20 MB ceiling"
+            # a split country (CAN, USA, IND, BRA) has no whole file: one part per state, listed under "parts"
+            files = [meta["file"]] if meta.get("file") else list((meta.get("parts") or {}).values())
+            assert files, f"{iso3} {lvl} lists no file"
+            for name in files:
+                f = ASSETS / "admin" / name
+                assert f.exists(), f"{iso3} {lvl} listed but missing"
+                assert f.stat().st_size < LIMIT, f"{f.name} over the 20 MB ceiling"
             assert meta["n"] >= 1
 
 
@@ -62,7 +67,8 @@ def test_india_drill_path_exists():
     adm1 = _json(ASSETS / "admin" / manifest["IND"]["adm1"]["file"])
     names = {g["properties"]["name"] for g in next(iter(adm1["objects"].values()))["geometries"]}
     assert "Maharashtra" in names
-    adm2 = _json(ASSETS / "admin" / manifest["IND"]["adm2"]["file"])
+    ind2 = manifest["IND"]["adm2"]
+    adm2 = _json(ASSETS / "admin" / (ind2.get("file") or ind2["parts"]["IN-MH"]))
     names2 = {g["properties"]["name"] for g in next(iter(adm2["objects"].values()))["geometries"]}
     assert "Mumbai Suburban" in names2
 
@@ -89,7 +95,7 @@ def test_page_references_only_files_that_exist():
 
 
 def test_places_json_contract_and_counts():
-    doc = _json(ASSETS / "data" / "places.json")
+    doc = _json(LEGACY / "data" / "places.json")
     assert doc["schema"] == "globe-places/1"
     places = doc["places"]
     assert doc["count"] == len(places) > 0
