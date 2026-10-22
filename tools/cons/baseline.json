@@ -126,6 +126,10 @@
    }
   },
   "earth-radius": {
+   "core/src/privacy/origin.ts": {
+    "count": 1,
+    "reason": "CONS-2: replaced by core/src/geo/distance.ts and tools/geo.py"
+   },
    "core/src/relevance/fit.ts": {
     "count": 1,
     "reason": "CONS-2: replaced by core/src/geo/distance.ts and tools/geo.py"
@@ -137,10 +141,6 @@
    "web/lib/map/geo.ts": {
     "count": 1,
     "reason": "CONS-2 replaces the 8 distance copies with core/src/geo/distance.ts"
-   },
-   "web/lib/public/origin.ts": {
-    "count": 1,
-    "reason": "CONS-2: replaced by core/src/geo/distance.ts and tools/geo.py"
    },
    "web/lib/public/places.ts": {
     "count": 1,
