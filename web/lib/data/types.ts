@@ -51,7 +51,6 @@ export interface PlaceRow {
   location_status: string;
   wikidata: string | null;
   sources: PlaceSource[];
-  added: string;
 }
 
 export interface TripRow {

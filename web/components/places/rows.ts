@@ -69,10 +69,8 @@ export function buildPlaceRows(
       honesty: c.honesty.map((h) => ({ id: h.id, label: h.label })),
       // the list never carries the workshop's word "Draft": the label is Basics only, Early research, Partly checked or Checked
       completeness: { level: c.completeness.level, label: c.completeness.label },
-      sourceTypes: old ? old.sources.map((s) => s.type) : [],
       statsState: hasStats ? (old?.stats_verified ? 'verified' : 'unverified') : null,
       researched: c.sources.some((o) => o !== 'locations'),
-      added: old?.added ?? '',
       type: c.type,
       effort: c.bands.effort,
       kids_from: c.bands.kids_from,

@@ -421,3 +421,43 @@ describe('internal words on the built pages', () => {
     expect(bad).toEqual([]);
   });
 });
+
+// PRIV1 (owner decision, 21-22 Oct 2026): the owner's wishlist saves are private. `sourceTypes` (where a place was saved from: instagram,
+// note, friend) and `added` (the date it was saved) stay in data/locations/locations.json and never reach a public file. The Places table
+// has no Sources or Date added column and the sort menu no Date added entry.
+const SAVE_KEY = /\\?"(sourceTypes|added)\\?"\s*:/;
+const SAVE_ORIGIN = /\\?"(?:type|sourceTypes)\\?"\s*:\s*\[?\s*\\?"(?:instagram|friend)\\?"/i;
+// the table's column and sort entries are `("sources","Sources",...)` and `{label:"Sources"}` in the client chunk; the About page heading "Sources" is not one
+const SAVE_COLUMN = /Date added|\\?"sources\\?"\s*,\s*\\?"Sources\\?"|label\\?"?\s*:\s*\\?"Sources\\?"/;
+
+function saveMetadataLeaks(root: string): string[] {
+  const hits: string[] = [];
+  for (const f of walkFiles(root)) {
+    if (!TEXT_FILE.test(f)) continue;
+    const text = readText(f);
+    const r = path.relative(root, f).split(path.sep).join('/');
+    for (const [name, re] of [['key', SAVE_KEY], ['source-type value', SAVE_ORIGIN], ['column header', SAVE_COLUMN]] as const) {
+      const m = re.exec(text);
+      if (m) hits.push(`${r}: save ${name} ${JSON.stringify(text.slice(Math.max(0, m.index - 20), m.index + 50))}`);
+    }
+  }
+  return hits;
+}
+
+describe('no wishlist save metadata in any public file (PRIV1)', () => {
+  it('the real build has no sourceTypes or added key, no instagram source type, no Sources or Date added column', () => {
+    expect(saveMetadataLeaks(REAL_OUT)).toEqual([]);
+  });
+  it('the fixture build has none either', () => {
+    expect(saveMetadataLeaks(OUT)).toEqual([]);
+  });
+  it('can fail: it sees each of the three shapes', () => {
+    expect(SAVE_KEY.test('{"sourceTypes":["note"]}')).toBe(true);
+    expect(SAVE_KEY.test('{\\"added\\":\\"2026-10-16\\"}')).toBe(true);
+    expect(SAVE_KEY.test('{"addedBy":"author"}')).toBe(false);
+    expect(SAVE_ORIGIN.test('{"type":"instagram"}')).toBe(true);
+    expect(SAVE_COLUMN.test('{"label":"Date added"}')).toBe(true);
+    expect(SAVE_COLUMN.test('h("sources","Sources",({row})=>1)')).toBe(true);
+    expect(SAVE_COLUMN.test('{"children":"Sources"}')).toBe(false);
+  });
+});

@@ -14,17 +14,6 @@ export const KID_HINTS: Record<string, string> = {
   unknown: 'Nobody has assessed it yet; hidden when you pick another option',
 };
 
-export const SOURCE_LABELS: Record<string, string> = {
-  instagram: 'Saved Instagram post',
-  official: 'Official site',
-  wikidata: 'Wikidata',
-  web: 'Web page',
-};
-
-export function sourceLabel(type: string): string {
-  return SOURCE_LABELS[type] ?? cap(type);
-}
-
 /** Tag kinds in the order the UI shows them: style first, then activity, feature, audience, the rest. */
 export const TAG_KIND_ORDER = ['style', 'activity', 'feature', 'audience', 'free'];
 export const TAG_KIND_LABELS: Record<string, string> = { style: 'Style', activity: 'Activity', feature: 'Feature', audience: 'Audience', free: 'Other' };
