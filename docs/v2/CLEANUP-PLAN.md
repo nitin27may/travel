@@ -631,6 +631,15 @@ Unchanged from the first version.
 - **Acceptance.** Green on `main` with the baseline; each rule has a failing fixture; runtime under 2 s.
 - **Verification.** `python3 -m pytest tools/tests -q`, then `bash tools/check-all.sh`. No UI.
 - **Commit rules.** Worktree `v2-CLN5`; message `tools(cleanup/CLN-5): folder contract guard`; own paths; trailer.
+- **Built (22 Oct 2026, branch `public/CLN5`).** `tools/tree_check.py` (about 1 s), its allowlists and baseline in `tools/tree_contract.json`
+  (88 entries, a reason on each: 50 rule 10, 20 rule 8, 4 rule 3, 1 rule 7), the rule 11 pins in `tools/legacy-freeze.json` (112 files; the
+  pins live there, not in `tree_contract.json`), and `tools/tests/test_tree_check.py`. Differences from the text above: the file list is
+  tracked plus untracked-not-ignored, so a stray file fails before it is staged; rule 7 covers `docs/` and `research/` (not `legacy/`, which rule 11
+  pins); rule 10 scans `.md`/code outside tests and fixtures, skips `data/**/*.json` values and `legacy/<trip>/<kind>/<name>` ids (C17), and
+  checks links with `tools/relink.py`'s reading rules; `prototype` is no longer an allowed top-level folder (CLN-3 merged).
+  `python3 tools/tree_check.py --write --reason "<why>"` refreshes the pins and appends the reason to the `raised` log.
+  Not-in-the-plan findings that sit in the baseline for the planner: 4 `docs/` files named `*research*`, the duplicate pair
+  `docs/v2/design/globe/shots/live-{italy,state}-1440.jpg`, 1 image over 1.5 MB beyond the 4 the plan names, and 15 images no text file names by basename.
 
 ### CLN-6: legacy hand-off (with backlog 7.11)
 
