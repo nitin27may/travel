@@ -2,6 +2,7 @@ import { execFile } from 'node:child_process';
 import { rmSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { builtOutDir } from '../helpers/built';
 import { expect, serve, test, type Server } from './fixtures';
 
 // Builds the site once with the Google place-page family switched on and a FAKE key, then checks that the page shows
@@ -25,7 +26,8 @@ test.describe('place page on the google-js family with a fake key', () => {
       }, (_e, _out, err) => resolve({ code: child.exitCode, err: String(err).slice(-800) }));
     });
     expect(status.code, status.err).toBe(0);
-    server = await serve(path.join(WEB, DIST));
+    // a server build is not export-shaped: serve the helper's view of it
+    server = await serve(builtOutDir(DIST));
   });
   test.afterAll(() => {
     server?.stop();
