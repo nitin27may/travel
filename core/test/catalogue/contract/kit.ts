@@ -112,6 +112,9 @@ export const HOUSEHOLD_TEXT: readonly RegExp[] = [/whitby/i, /planned as/i, /hot
 /** `sourceTypes` and `added` are the owner's wishlist save metadata (where a place was saved from, and when): private since PRIV1, so no store may emit them. */
 export const PRIVATE_KEYS: readonly string[] = ["status", "height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added"];
 
+/** The values of a place's personal status (web PLACE_STATUSES): the household's, never published. */
+const PLACE_STATUS_WORDS: readonly string[] = ["idea", "shortlisted", "planned", "visited", "dropped"];
+
 /** Household strings and private keys in one output; empty when clean. */
 export function householdHits(out: unknown, where: string): string[] {
   const hits: string[] = [];
@@ -121,7 +124,9 @@ export function householdHits(out: unknown, where: string): string[] {
     if (Array.isArray(x)) x.forEach((y, i) => walk(y, `${p}[${i}]`));
     else if (x && typeof x === "object") {
       for (const [k, y] of Object.entries(x)) {
-        if (PRIVATE_KEYS.includes(k)) hits.push(`${where}${p}.${k}: private key`);
+        // `status` is also a plain word in public data (an access window "open"); it is the household's place status only with a status value
+        const own = k !== "status" || (typeof y === "string" && PLACE_STATUS_WORDS.includes(y));
+        if (own && PRIVATE_KEYS.includes(k)) hits.push(`${where}${p}.${k}: private key`);
         walk(y, `${p}.${k}`);
       }
     }
