@@ -83,6 +83,8 @@ if [[ -f "$ROOT/web/package.json" ]]; then
   if [[ "$code" != 200 ]]; then echo "next start did not answer GET / with 200 (got $code)" >&2; exit 1; fi
 fi
 
+step "OpenAPI is current (API-1b: data/schema/generated/openapi.json matches the contract schemas)"
+node "$ROOT/core/bin/openapi.ts" --check --root "$ROOT"
 step "catalogue slugs are pinned (API-1a, D-B1: data/catalogue/slugs.json matches what the dataset builder assigns)"
 node "$ROOT/core/bin/slugs.ts" --check --root "$ROOT"
 
