@@ -33,6 +33,10 @@ export interface PublicDataInternals {
   trips: PublicTrip[];
   /** Hand-typed Kids from and Hike effort that the scheduler's value replaced, where they differ. */
   tagReport: TagConflict[];
+  /** page slug -> the page's identity key (its `ref`: a capture ref, `loc:<id>` or `proto:<id>`), D-B2. JsonStore reads it for every row and detail. */
+  refBySlug: Map<string, string>;
+  /** identity key -> slug, merged records included: what data/catalogue/slugs.json pins (D-B1). */
+  slugByRef: Map<string, string>;
 }
 
 /**
@@ -88,12 +92,15 @@ export function createPublicData(opts: SourceOptions = {}): PublicData & { inter
     globeIndex: () => globe,
     globePaths: () => globePathsOf(globe),
     legacyPlaceRedirects: () => [...pb.legacyPaths].map(([from, slug]) => ({ from, to: `/places/${slug}/` })).sort((a, b) => a.from.localeCompare(b.from)),
-    internals: { dropped: log.items, places: pb.places, trips: tb.trips, tagReport },
+    internals: { dropped: log.items, places: pb.places, trips: tb.trips, tagReport, refBySlug: pb.refBySlug, slugByRef: pb.slugByRef },
   };
 }
 
 let shared: ReturnType<typeof createPublicData> | null = null;
 const data = () => (shared ??= createPublicData());
+
+/** The one dataset of this process: the pages, the prerendered JSON routes and the API store (web/lib/server/store.ts) all read it, so none can disagree. */
+export const sharedPublicData = (): ReturnType<typeof createPublicData> => data();
 
 export const listTrips = (): PublicTripCard[] => data().listTrips();
 export const getTrip = (slug: string): PublicTrip | null => data().getTrip(slug);

@@ -1,11 +1,13 @@
 // The contract kit's store runner (EXECUTION-PLAN 4.6; PHASE-B-START section 6): every case table against every target.
 //   stub          StubStore with every layer: the reference, green now
 //   stub-before-E StubStore with the phase E layers off: what JsonStore answers until E (K15's not_available branch)
-//   json          JsonStore on the real data/: lands in API-1b; every case is todo until then (the tables are its target)
+//   json          JsonStore on the real data/: runs in web/tests/api/contract-store.test.ts, because the dataset is built by web code and core
+//                 never imports web (API-1b). The same tables, the same runner (contract/run.ts).
 // SRV-0 adds a `supabase` target. A pending or not-applicable case is an `it.todo` that names why, so the count is visible.
 import { describe, expect, it } from "vitest";
 import { StubStore, STUB_ALIASED, STUB_MERGED, STUB_RETIRED, STUB_SOURCES, STUB_TRIP_RETIRED, STUB_WITHDRAWN, stubData } from "../../src/catalogue/stub/index.ts";
 import { CONTRACT_TABLES, type ContractFacts, type ContractTarget } from "./contract/index.ts";
+import { runContractTargets } from "./contract/run.ts";
 
 const PHASE_E_NEAR = "phase E, N2 (nearby-and-regions.md section 7): near and nearbyForPlace answer not_available until then";
 
@@ -58,37 +60,9 @@ export const TARGETS: ContractTarget[] = [
     pending: Object.fromEntries([...CONTRACT_TABLES.near!, ...CONTRACT_TABLES.nearbyForPlace!].map((c) => [`${c.method}:${c.id}`, PHASE_E_NEAR])),
     notApplicable: { "K10.mtime": IN_MEMORY },
   },
-  {
-    name: "json",
-    make: () => {
-      throw new Error("JsonStore lands in API-1b");
-    },
-    facts: stubFacts,
-    pending: { "*": "API-1b: JsonStore (core/src/catalogue/json) over the real data/; these tables are its target" },
-  },
 ];
 
-const HANDLER_ONLY = "runs through respond() in web/tests/api/contract.test.ts (API-1b)";
-
-/** Why a case does not run on a target, or null when it runs. */
-function notRun(t: ContractTarget, method: string, id: string, layer: string | undefined): string | null {
-  if (layer === "handler") return HANDLER_ONLY;
-  return t.pending?.["*"] ?? t.pending?.[`${method}:${id}`] ?? t.pending?.[id] ?? t.notApplicable?.[id] ?? null;
-}
-
-for (const t of TARGETS) {
-  describe(`contract on ${t.name}`, () => {
-    for (const [table, cases] of Object.entries(CONTRACT_TABLES)) {
-      describe(table, () => {
-        for (const c of cases) {
-          const why = notRun(t, c.method, c.id, c.layer);
-          if (why) it.todo(`${c.id} ${c.title} [not run: ${why}]`);
-          else it(`${c.id} ${c.title}`, async () => c.run(await t.make(), t), 60_000);
-        }
-      });
-    }
-  });
-}
+runContractTargets(TARGETS);
 
 describe("contract kit bookkeeping", () => {
   it("every start-sheet case K1 to K19 has at least one table entry", () => {

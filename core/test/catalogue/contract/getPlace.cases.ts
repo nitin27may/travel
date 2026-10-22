@@ -128,7 +128,7 @@ export const getPlaceCases: ContractCase[] = [
       const vals = (await everyDetail(store)).flatMap((d) => collectVals(d).map((v) => ({ ...v, slug: d.slug })));
       expect(vals.length, "the data holds sourced values").toBeGreaterThan(0);
       // provenanceProblems with every id allowed reports shape and enum problems only
-      const ids = new Set(vals.flatMap((v) => [...((v.val.src as string[] | undefined) ?? [])]));
+      const ids = new Set(vals.flatMap((v) => [...((v.val.src as string[] | undefined) ?? []), ...(((v.val.conflicts as { src: string[] }[] | undefined) ?? []).flatMap((c) => c.src))]));
       for (const v of vals) expect(provenanceProblems(v.val, ids), `${v.slug} ${v.path}`).toEqual([]);
     },
   },

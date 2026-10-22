@@ -8,6 +8,9 @@ import type { ListState } from '@/lib/entities/types';
 import { decodeState, emptyState } from '@/lib/entities/url';
 import { placeRows } from '../places/support';
 
+// These tests pin the StaticAdapter (the files the build wrote); the API default has its own tests in tests/api.
+vi.stubEnv('NEXT_PUBLIC_DATA_ADAPTER', 'static');
+
 // Backlog 3.59 and 3.56 (principles P1, P8, P9): the Places list is not inlined whole; its rows are files by country, loaded for the query.
 
 const real = placeRows();

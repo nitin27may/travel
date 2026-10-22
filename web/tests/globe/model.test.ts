@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { slugify, resolveFeature } from '@/lib/globe/admin';
 import { discSize, groupColocated, nodeAt, pinsFor } from '@/lib/globe/model';
 import { norm, ownHit, search } from '@/lib/globe/search';
@@ -8,6 +8,9 @@ import { buildGlobeData } from '@/lib/globe/data';
 import { bbox, type FeatColl } from '@/lib/globe/geometry';
 import type { CountryFacts } from '@/lib/globe/types';
 import { listTrips } from '@/lib/public';
+
+// This test pins the StaticAdapter (the files the build wrote); the API default has its own tests in tests/api.
+vi.stubEnv('NEXT_PUBLIC_DATA_ADAPTER', 'static');
 
 const facts: Record<string, CountryFacts> = { '380': { a2: 'IT', a3: 'ITA', name: 'Italy', latlng: [42.8, 12.8], flag: 'x' } };
 const data = buildGlobeData();

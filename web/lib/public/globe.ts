@@ -25,9 +25,9 @@ export const TRIP_COUNTRY: Record<string, { cc: string; a3: string }> = {
   'niagara-day-aug-2026': { cc: 'ca', a3: 'CAN' },
 };
 
-type GazRow = [string, string, number, number, string | null, ...unknown[]];
+export type GazRow = [string, string, number, number, string | null, ...unknown[]];
 
-function readGazetteer(): GazRow[] {
+export function readGazetteer(): GazRow[] {
   const file = path.join(GLOBE_PUBLIC(), 'data', 'gazetteer.json');
   return existsSync(file) ? (JSON.parse(readFileSync(file, 'utf8')) as GazRow[]) : [];
 }
@@ -90,6 +90,20 @@ function tripPin(trip: PublicTrip, folder: string, places: PublicPlace[], gaz: G
 }
 
 const GLOBE_PUBLIC = () => path.join(process.cwd(), 'public', 'globe');
+
+/** The ids of the landform and river lines the globe ships (`public/globe/line/<id>.json`). Read by the API store (`globeLine`), which never builds a path from a request. */
+let lineIds: string[] | null = null;
+export function globeLineIds(): string[] {
+  if (lineIds) return lineIds;
+  const dir = path.join(GLOBE_PUBLIC(), 'line');
+  return (lineIds = existsSync(dir) ? readdirSync(dir).filter((n) => n.endsWith('.json')).map((n) => n.slice(0, -5)).sort() : []);
+}
+
+/** One line or outline file by id, or null. The id must be one `globeLineIds` returned. */
+export function readGlobeLine(id: string): unknown | null {
+  if (!globeLineIds().includes(id)) return null;
+  return JSON.parse(readFileSync(path.join(GLOBE_PUBLIC(), 'line', `${id}.json`), 'utf8'));
+}
 
 /** The Natural Earth admin-1 shapes of a country (ISO alpha-3), with their boxes; null when the build has no such file. */
 function adminShapes(a3: string): Feat[] | null {

@@ -8,6 +8,9 @@ import { createSearcher } from '@/lib/search/search';
 import { createPublicData } from '@/lib/public';
 import { placeRows } from '../places/support';
 
+// These tests pin the StaticAdapter (the files the build wrote); the API default has its own tests in tests/api.
+vi.stubEnv('NEXT_PUBLIC_DATA_ADAPTER', 'static');
+
 // Backlog 3.60 (SQ2s): the words the parser leaves over are looked up in the text a place card shows, instead of an empty list.
 // Also the search alias of a merged duplicate page (PLC hand-back).
 
