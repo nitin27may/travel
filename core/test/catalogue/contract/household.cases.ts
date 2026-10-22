@@ -30,8 +30,9 @@ export const householdCases: ContractCase[] = [
       maybe(await store.towns({ city: t.facts.town.id, r: API_LIMITS.nearRadius.max }), "towns");
       maybe(await store.globeCity(t.facts.town.id), "globeCity");
       scan(expectOk(await store.parse({ q: `${t.facts.region.aliases[0]} lakes` })), "parse");
-      for (const p of places) scan(expectOk(await store.globeCard(`place:${p.slug}`)), `globeCard ${p.slug}`);
-      for (const tr of trips) scan(expectOk(await store.globeCard(`trip:${tr.slug}`)), `globeCard ${tr.slug}`);
+      // a place with no point has no pin and so no card (not_found); every card that exists is scanned
+      for (const p of places) maybe(await store.globeCard(`place:${p.slug}`), `globeCard ${p.slug}`);
+      for (const tr of trips) maybe(await store.globeCard(`trip:${tr.slug}`), `globeCard ${tr.slug}`);
       scan(expectOk(await store.globeFeature(t.facts.featureId)), "globeFeature");
       scan(expectOk(await store.globeLine(t.facts.featureId)), "globeLine");
       for (const format of EXPORT_FORMATS) {

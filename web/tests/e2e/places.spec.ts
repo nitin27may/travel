@@ -28,7 +28,10 @@ test.describe('places list', () => {
     for (const label of ['Nature', 'Water', 'Trails and walks']) await expect(menu.getByText(label, { exact: false }).first()).toBeAttached();
     await menu.getByLabel(/^Trails and walks/).check();
     await expect(page).toHaveURL(/k=nature\.trail/);
-    expect(Number(await page.locator('.filter-bar .count strong').innerText())).toBeGreaterThan(0);
+    // the rows of every country load before the count is a number ("Counting…" until then); read it once it is
+    const count = page.locator('.filter-bar .count strong');
+    await expect(count).toHaveText(/^\d+$/);
+    expect(Number(await count.innerText())).toBeGreaterThan(0);
   });
 
   test('cards show the area chain, chips, honesty markers, source counts, footer links and group headings with counts', async ({ page, site }) => {

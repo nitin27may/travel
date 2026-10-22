@@ -62,7 +62,7 @@ export const listPlacesCases: ContractCase[] = [
       const rows = await everyRow(store);
       const expected = rows.map((r) => ({ r, sortKey: sortKey(r.name), ref: r.ref })).sort(compareSortable).map((x) => x.r.ref);
       expect(rows.map((r) => r.ref)).toEqual(expected);
-      const size = Math.max(1, Math.floor(rows.length / 3));
+      const size = Math.min(API_LIMITS.pageSize.max, Math.max(1, Math.floor(rows.length / 3)));
       const p2 = expectOk(await store.listPlaces({}, { page: 2, pageSize: size }));
       expect(p2.items[0]?.ref).toBe(rows[size]?.ref);
       if (t.facts.sortKeyTie) {
@@ -135,8 +135,10 @@ export const listPlacesCases: ContractCase[] = [
     async run(store, t) {
       const [a] = t.facts.sortKeyTie ?? [];
       if (!a) return;
-      const plain = expectOk(await store.listPlaces({ q: "emerald pool" })).total;
-      expect(plain).toBe(expectOk(await store.listPlaces({ q: "ÉMERALD POOL" })).total);
+      // the name two rows share (the tie of case K11), asked plainly and with accents and capitals
+      const name = (await everyRow(store)).find((r) => r.ref === a)!.name;
+      const plain = expectOk(await store.listPlaces({ q: sortKey(name) })).total;
+      expect(plain).toBe(expectOk(await store.listPlaces({ q: name.toUpperCase().replace(/E/g, "É") })).total);
       expect(plain).toBeGreaterThanOrEqual(2);
     },
   },

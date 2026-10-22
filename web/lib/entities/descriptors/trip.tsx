@@ -1,6 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import { Icon } from '@/components/ui/Icon';
-import dynamic from 'next/dynamic';
+import { TripsMapLazy } from '@/components/trips/TripsMapLazy';
 import { DEPTH_LABEL, DEPTH_NOTICE, tripHref } from '@/components/trips/format';
 import type { TripListRow } from '@/components/trips/types';
 import type { TripRow } from '@/lib/data/types';
@@ -30,9 +30,6 @@ export function publicTripBadges(t: TripListRow): Badge[] {
   if (t.depth !== 'full') out.push({ text: DEPTH_NOTICE[t.depth], tone: 'warn', icon: 'info', title: t.depth === 'summary' ? 'A shorter day list with the main stops' : 'No day list yet; this is an overview' });
   return out;
 }
-
-// the map view (MapLibre wrapper, camera and card) loads only when the Map view is chosen, so the list pages stay inside the JS budget
-const TripsMap = dynamic(() => import('@/components/trips/TripsMap').then((m) => m.TripsMap), { ssr: false });
 
 const PHASE_TITLE = { plan: 'Published plans', done: 'Finished plans, use as templates' } as const;
 const phase = (t: TripListRow) => (t.isDone ? 'done' : 'plan');
@@ -232,5 +229,5 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
   ),
   ops: {},
   emptyHint: 'Try removing a filter, or search for a different name.',
-  renderMap: (rows) => <TripsMap rows={rows} />,
+  renderMap: (rows) => <TripsMapLazy rows={rows} />,
 };

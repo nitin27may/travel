@@ -7,6 +7,9 @@ import { placeSlugs, tripSlugs } from '@/lib/public';
 import { readText } from '../helpers';
 import { builtOutDir } from '../helpers/built';
 
+// These tests pin the StaticAdapter (the files the build wrote); the API default has its own tests in tests/api.
+vi.stubEnv('NEXT_PUBLIC_DATA_ADAPTER', 'static');
+
 // Principle P8 (backlog 2.25): an export is the page's own data, never a file at a predictable address.
 
 const OUT = builtOutDir();

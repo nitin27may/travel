@@ -1,8 +1,6 @@
-import { reportLink, reportUrl } from '@/lib/config/product';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import { filterRows, facetCounts, gapCounts, gapNotes, matchesRow, scopeTotal } from '@/lib/entities/filter';
 import { searchTexts } from '@/lib/search/fulltext';
-import type { TextIndex } from '@/lib/search/fulltext';
 import { isPlain, manifestCounts, pageWindow, shardsForScope } from '@/lib/entities/shards';
 import type { ListManifest } from '@/lib/entities/shards';
 import { emptyState } from '@/lib/entities/url';
@@ -10,15 +8,14 @@ import { sortRows } from '@/lib/entities/sort';
 import { uncheckedRows } from '@/lib/entities/gaps';
 import type { UncheckedGroup } from '@/lib/entities/gaps';
 import type { EntityDescriptor, EntityType, FacetParam, ListState } from '@/lib/entities/types';
-import { queryTokens } from '@/lib/search/aliases';
 import { hrefFor } from '@/lib/search/parse/href';
 import { mergeSets, withoutChips } from '@/lib/search/parse/pick';
 import type { Chip, DidYouMean, ParseOptions, ParsedQuery, VocabFile } from '@/lib/search/parse/types';
-import { createSearcher } from '@/lib/search/search';
-import type { Searcher } from '@/lib/search/search';
-import { suggest as suggestFrom } from '@/lib/search/suggest';
-import type { Suggestion } from '@/lib/search/suggest';
 import type { SearchManifest, SearchPartRef, SearchRecord, SearchResult } from '@/lib/search/types';
+import type { Suggestion } from '@/lib/search/suggest';
+import type { TextIndex } from '@/lib/search/fulltext';
+import type { DataClient, GlobeLineFile, GlobeScope, ReportInput, ReportResult, SearchScope } from './contract';
+import { getJson, staticClient } from './static';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { CountryFacts, GlobeCardFile, GlobeTree, LightPin } from '@/lib/globe/types';
 import type { Topology } from '@/lib/globe/geometry';
@@ -34,134 +31,90 @@ import type { TripListRow } from '@/components/trips/types';
 
 // ---------------------------------------------------------------- search
 
-let manifestPromise: Promise<SearchManifest> | null = null;
-const partPromises = new Map<string, Promise<SearchRecord[]>>();
 
-async function getJson<T>(url: string): Promise<T> {
-  const r = await fetch(url);
-  if (!r.ok) throw new Error(`${url}: ${r.status}`);
-  return (await r.json()) as T;
-}
+export type { GlobeLineFile, GlobeScope, ReportInput, ReportResult, SearchScope };
+
+// The adapter is chosen when the site is built (NEXT_PUBLIC_DATA_ADAPTER is inlined): the API by default, the prerendered files with `static`.
+// The ApiAdapter loads as its own chunk on the first call, so the JS every page starts with does not grow (budget.test.ts); every call it
+// serves already returns a promise. `onSearchGrow` is the one synchronous member: the API never answers in parts, so it never fires.
+const lazyApi = new Proxy({} as DataClient, {
+  get:
+    (_t, name: string) =>
+    (...args: unknown[]) =>
+      import('./api').then((m) => (m.apiClient as unknown as Record<string, (...a: unknown[]) => unknown>)[name]!(...args)),
+});
+// start the chunk as the page loads, so the first list or search call does not wait for it
+if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_DATA_ADAPTER !== 'static') void import('./api');
+const client = (): DataClient => (process.env.NEXT_PUBLIC_DATA_ADAPTER === 'static' ? staticClient : lazyApi);
+
+// ---------------------------------------------------------------- search, globe, export, report: calls on the adapter
 
 /** The list of search parts. Retries on the next call after a failure. */
 export function searchManifest(): Promise<SearchManifest> {
-  manifestPromise ??= getJson<SearchManifest>('/search/manifest.json').catch((e) => {
-    manifestPromise = null;
-    throw e;
-  });
-  return manifestPromise;
+  return client().searchManifest();
 }
-
 /** One part of the index: the records of one kind in one country. Cached per page view; retries after a failure. */
 export function searchPart(id: string): Promise<SearchRecord[]> {
-  let p = partPromises.get(id);
-  if (!p) {
-    p = getJson<SearchRecord[]>(`/search/${encodeURIComponent(id)}/data.json`).catch((e) => {
-      partPromises.delete(id);
-      throw e;
-    });
-    partPromises.set(id, p);
-  }
-  return p;
+  return client().searchPart(id);
 }
-
-export interface SearchScope {
-  kind?: SearchRecord['k'];
-  /** Lower-case ISO alpha-2. */
-  country?: string;
-}
-
 /** The parts a scope needs, from the manifest. */
-export async function searchParts(scope: SearchScope = {}): Promise<SearchPartRef[]> {
-  const { parts } = await searchManifest();
-  return parts.filter((p) => (!scope.kind || p.k === scope.kind) && (!scope.country || p.cc === scope.country.toLowerCase()));
+export function searchParts(scope: SearchScope = {}): Promise<SearchPartRef[]> {
+  return client().searchParts(scope);
 }
-
-/**
- * Loads the records of a scope (everything by default). `onRecords` fires as each part arrives, with all records so far,
- * so a search can answer from the first part while the rest load. Rejects if any part fails.
- */
-export async function loadSearchRecords(scope: SearchScope = {}, onRecords?: (soFar: SearchRecord[]) => void): Promise<SearchRecord[]> {
-  const refs = await searchParts(scope);
-  const have: SearchRecord[] = [];
-  await Promise.all(
-    refs.map((ref) =>
-      searchPart(ref.id).then((records) => {
-        have.push(...records);
-        onRecords?.([...have]);
-      }),
-    ),
-  );
-  return have;
+/** Loads the records of a scope (everything by default). `onRecords` fires as each part arrives. Rejects if any part fails. */
+export function loadSearchRecords(scope: SearchScope = {}, onRecords?: (soFar: SearchRecord[]) => void): Promise<SearchRecord[]> {
+  return client().loadSearchRecords(scope, onRecords);
 }
-
-/** Can this part hold a match for the query? Every word must start like some word of the part (aliases applied). */
-function mayMatch(ref: SearchPartRef, words: string[]): boolean {
-  if (!ref.w || !words.length) return true;
-  const w = ref.w;
-  return words.every((t) => {
-    const g = t.slice(0, 3);
-    return w.some((x) => x.startsWith(g));
-  });
-}
-
-const loadedParts = new Map<string, SearchRecord[]>();
-const growListeners = new Set<() => void>();
-let searcherCache: { count: number; searcher: Searcher } | null = null;
-let restLoading: Promise<void> | null = null;
-
-const searcherOver = (): Searcher => {
-  const count = [...loadedParts.values()].reduce((n, p) => n + p.length, 0);
-  if (!searcherCache || searcherCache.count !== count) searcherCache = { count, searcher: createSearcher([...loadedParts.values()].flat()) };
-  return searcherCache.searcher;
-};
-
 /** Called when more parts have arrived after an answer, so a caller can ask again. Returns the way to stop listening. */
 export function onSearchGrow(fn: () => void): () => void {
-  growListeners.add(fn);
-  return () => growListeners.delete(fn);
+  return staticClient.onSearchGrow(fn);
+}
+/** Search, in the shape a server answers: `search(q, scope, limit)`. `partial` says more may arrive; `onSearchGrow` fires when it does. */
+export function search(q: string, scope: SearchScope = {}, limit?: number): Promise<SearchResult> {
+  return client().search(q, scope, limit);
+}
+/** What to offer when `search` found nothing, in the shape a server answers: `suggest(q, scope)`. */
+export function suggest(q: string, scope: SearchScope = {}): Promise<Suggestion | null> {
+  return client().suggest(q, scope);
+}
+/** The parser's words (`vocab.json`, labels only). */
+export function searchVocab(): Promise<VocabFile> {
+  return client().searchVocab();
+}
+/** Reads a human query as filters, in the shape a server answers (`GET /api/v1/parse?q=&target=`). */
+export function parseQuery(q: string, opts?: ParseOptions): Promise<ParsedQuery> {
+  return client().parseQuery(q, opts);
 }
 
 /**
- * Search, in the shape a server answers: `search(q, scope, limit)`. Loads the parts that can match the query first and
- * answers from them; the other parts of the scope load afterwards (a typo or a mid-word match may be in one), `partial` says
- * so, and `onSearchGrow` fires when they land. Nothing loads before the first keystroke.
+ * The export data of one trip or place. There is no way to ask for a list of items' exports (principle P8): one item per call. Rejects
+ * when there is none, as it would for a failed request.
  */
-export async function search(q: string, scope: SearchScope = {}, limit?: number): Promise<SearchResult> {
-  const words = queryTokens(q);
-  const refs = await searchParts(scope);
-  const first = refs.filter((r) => mayMatch(r, words));
-  const rest = refs.filter((r) => !first.includes(r));
-  await Promise.all(first.map((r) => searchPart(r.id).then((records) => void loadedParts.set(r.id, records))));
-  const pending = rest.filter((r) => !loadedParts.has(r.id));
-  if (pending.length && !restLoading) {
-    restLoading = Promise.all(pending.map((r) => searchPart(r.id).then((records) => void loadedParts.set(r.id, records))))
-      .then(() => growListeners.forEach((f) => f()))
-      .catch(() => undefined)
-      .finally(() => {
-        restLoading = null;
-      });
-  }
-  const inScope = new Set(refs.map((r) => r.id));
-  const searcher = scope.kind || scope.country ? createSearcher([...loadedParts].filter(([id]) => inScope.has(id)).flatMap(([, v]) => v)) : searcherOver();
-  return { ...searcher.search(q, limit), partial: pending.length > 0 };
+export function loadExport(type: 'trip', slug: string): Promise<TripExport>;
+export function loadExport(type: 'place', slug: string): Promise<PlaceExport>;
+export function loadExport(type: 'trip' | 'place', slug: string): Promise<TripExport | PlaceExport> {
+  return client().loadExport(type, slug);
 }
 
-/**
- * What to offer when `search` found nothing, in the shape a server answers: `suggest(q, scope)`. It needs every part of the
- * scope (a country is read from the area records, and the fallback counts matches per word), so it waits for them all.
- * The component never holds the record list; it asks here and shows the answer.
- */
-export async function suggest(q: string, scope: SearchScope = {}): Promise<Suggestion | null> {
-  const refs = await searchParts(scope);
-  await Promise.all(refs.map((r) => searchPart(r.id).then((records) => void loadedParts.set(r.id, records))));
-  const inScope = new Set(refs.map((r) => r.id));
-  const records = [...loadedParts].filter(([id]) => inScope.has(id)).flatMap(([, v]) => v);
-  const searcher = createSearcher(records);
-  return suggestFrom(q, records, (t) => {
-    const r = searcher.search(t);
-    return r.counts.trips + r.counts.places + r.counts.areas;
-  });
+/** The area tree with counts. No pins. */
+export function globeTree(): Promise<GlobeTree> {
+  return client().globeTree();
+}
+/** The light pins of a scope: name, kind, slug, position and area path. Cached per page view; retries after a failure. */
+export function globePins(scope: GlobeScope = {}): Promise<LightPin[]> {
+  return client().globePins(scope);
+}
+/** The card and pin behind one `kind:slug` key, or null when it is not on the globe. Cached per page view. */
+export function globeCard(key: string): Promise<GlobeCardFile | null> {
+  return client().globeCard(key);
+}
+/** The line file behind a gazetteer row's line id, or null when there is none. */
+export function globeLine(id: string): Promise<GlobeLineFile | null> {
+  return client().globeLine(id);
+}
+/** Report a problem on a page (11.2, Q63, Q70): the public feedback form's URL, or nothing while reporting is off. */
+export function reportProblem(input: ReportInput): Promise<ReportResult> {
+  return client().reportProblem(input);
 }
 
 /**
@@ -269,80 +222,9 @@ export const listTrips = (query: ListState): ListResult<TripListRow> => listEnti
 
 // ---------------------------------------------------------------- exports
 
-/**
- * The export data of one trip or place: the JSON the page carries for itself (a `script` tag written by
- * `components/actions/ExportData`). There is no file at a predictable address and no way to ask for another
- * item's export (principle P8). Rejects when the page carries none, as it would for a failed request.
- */
-export function loadExport(type: 'trip', slug: string): Promise<TripExport>;
-export function loadExport(type: 'place', slug: string): Promise<PlaceExport>;
-export function loadExport(type: 'trip' | 'place', slug: string): Promise<TripExport | PlaceExport> {
-  if (typeof document === 'undefined') return Promise.reject(new Error('No export data outside a page'));
-  const tag = [...document.querySelectorAll('script[data-export-data]')].find((s) => s.getAttribute('data-export-data') === `${type}:${slug}`);
-  if (!tag?.textContent) return Promise.reject(new Error(`No export data for ${slug}`));
-  try {
-    return Promise.resolve(JSON.parse(tag.textContent) as TripExport | PlaceExport);
-  } catch (e) {
-    return Promise.reject(e instanceof Error ? e : new Error(String(e)));
-  }
-}
 
 // ---------------------------------------------------------------- globe
 
-// The globe's data, split so a page never carries it (backlog 2.39): the area tree first (counts and a centre per country),
-// then the light pins of one country when it opens, then one card when a pin is selected. Files today; a server later.
-
-let treePromise: Promise<GlobeTree> | null = null;
-const pinPromises = new Map<string, Promise<LightPin[]>>();
-const cardPromises = new Map<string, Promise<GlobeCardFile | null>>();
-
-/** The area tree with counts. No pins. Retries on the next call after a failure. */
-export function globeTree(): Promise<GlobeTree> {
-  treePromise ??= getJson<GlobeTree>('/globe-data/index.json').catch((e) => {
-    treePromise = null;
-    throw e;
-  });
-  return treePromise;
-}
-
-export interface GlobeScope {
-  /** Lower-case ISO alpha-2. Without it, every country (the whole list; ask for one country when you can). */
-  country?: string;
-}
-
-/** The light pins of a scope: name, kind, slug, position and area path. Cached per page view; retries after a failure. */
-export async function globePins(scope: GlobeScope = {}): Promise<LightPin[]> {
-  const ccs = scope.country ? [scope.country.toLowerCase()] : (await globeTree()).continents.flatMap((c) => c.countries.map((n) => n.slug));
-  const parts = await Promise.all(
-    ccs.map((cc) => {
-      let p = pinPromises.get(cc);
-      if (!p) {
-        p = getJson<LightPin[]>(`/globe-data/pins/${encodeURIComponent(cc)}/data.json`).catch((e) => {
-          pinPromises.delete(cc);
-          throw e;
-        });
-        pinPromises.set(cc, p);
-      }
-      return p;
-    }),
-  );
-  return parts.flat();
-}
-
-/** The card and pin behind one `kind:slug` key, or null when it is not on the globe. Cached per page view. */
-export function globeCard(key: string): Promise<GlobeCardFile | null> {
-  const [kind, slug] = key.split(':');
-  if ((kind !== 'place' && kind !== 'trip') || !slug) return Promise.resolve(null);
-  let p = cardPromises.get(key);
-  if (!p) {
-    p = getJson<GlobeCardFile | null>(`/globe-data/card/${kind}/${encodeURIComponent(slug)}/data.json`).catch(() => {
-      cardPromises.delete(key);
-      return null;
-    });
-    cardPromises.set(key, p);
-  }
-  return p;
-}
 
 // ---------------------------------------------------------------- globe reference geo (2.49)
 
@@ -413,21 +295,6 @@ export async function globeAdminIsSplit(a3: string, level: GlobeAdminLevel): Pro
 /** The OSM city areas (admin level 8) for the cities that hold one of our public places or are a trip base. Small, one file. */
 export const globeCityAreas = (): Promise<{ type: 'FeatureCollection'; credit: string; features: { type: 'Feature'; properties: { id: string; name: string; wd: string | null }; geometry: unknown }[] }> => geoOnce(`${GEO_BASE}cities-adm8.json`);
 
-// globe (GLB2)
-/** One landform's or river's own simplified line or outline, loaded when it is picked (never in bulk). Natural Earth, public domain. */
-export interface GlobeLineFile {
-  id: string;
-  name: string;
-  kind: 'line' | 'area';
-  /** [west, south, east, north]; east may pass 180 for a shape across the antimeridian. */
-  bbox: [number, number, number, number];
-  geometry: { type: 'MultiLineString' | 'MultiPolygon'; coordinates: unknown };
-  credit: string;
-}
-/** The line file behind a gazetteer row's line id, or null when there is none. Static: `/globe/line/<id>.json`; later `GET /api/v1/globe/feature/{id}/line`. */
-export function globeLine(id: string): Promise<GlobeLineFile | null> {
-  return geoOnce<GlobeLineFile>(`/globe/line/${encodeURIComponent(id)}.json`).catch(() => null);
-}
 
 /** The slice of a Wikidata entity the feature cards read. */
 export interface WikidataEntity {
@@ -449,29 +316,6 @@ export async function globeWikidata(qid: string, signal?: AbortSignal): Promise<
   return e && !e.missing ? e : null;
 }
 
-// ---------------------------------------------------------------- smart search (backlog 3.43, smart-search.md section 9.1)
-
-let vocabPromise: Promise<VocabFile> | null = null;
-
-/** The parser's words (`vocab.json`, labels only). Loaded on the first parse and kept for the page view; retries after a failure. */
-export function searchVocab(): Promise<VocabFile> {
-  vocabPromise ??= getJson<VocabFile>('/search/vocab.json').catch((e) => {
-    vocabPromise = null;
-    throw e;
-  });
-  return vocabPromise;
-}
-
-/**
- * Reads a human query as filters, in the shape a server answers (`GET /api/parse?q=&target=` later): the same call with the same
- * result. Today it runs in the browser from `vocab.json` and the search parts the search already loads, so a query leaves no
- * request of its own (H7) and nothing is sent to a third party.
- */
-export async function parseQuery(q: string, opts?: ParseOptions): Promise<ParsedQuery> {
-  // the parser is its own chunk: it loads on the first query, never with the first paint of a page
-  const [vocab, records, { parse }] = await Promise.all([searchVocab(), loadSearchRecords(), import('@/lib/search/parse/parse')]);
-  return parse(q, vocab, records, opts);
-}
 
 /**
  * The Places answer split by honesty (H1): the rows that pass, and the rows that fail only on a gap of a constraint, per constraint.
@@ -608,11 +452,18 @@ export function listManifest(type: EntityType): ListManifest | null {
   return registered.get(type)?.shards?.manifest ?? null;
 }
 
+/** Rows the manifest gives the country of a file: all the files of that country together. */
+function countryRowsOf(type: EntityType, id: string): number | undefined {
+  const m = registered.get(type)?.shards?.manifest;
+  const cc = m?.shards.find((s) => s.id === id)?.cc;
+  return m && cc ? m.shards.filter((s) => s.cc === cc).reduce((n, s) => n + s.n, 0) : undefined;
+}
+
 function loadShard(type: EntityType, id: string): Promise<readonly unknown[]> {
   const key = shardKey(type, id);
   let p = shardPromises.get(key);
   if (!p) {
-    p = getJson<unknown[]>(`/list/${type}s/${encodeURIComponent(id)}/data.json`).then(
+    p = client().shardRows(type as 'place' | 'trip', id, registered.get(type)!.d, countryRowsOf(type, id)).then(
       (rows) => {
         shardLoaded.set(key, rows);
         return rows;
@@ -650,7 +501,7 @@ const textPromises = new Map<string, Promise<void>>();
 function loadText(id: string): Promise<void> {
   let p = textPromises.get(id);
   if (!p) {
-    p = getJson<TextIndex>(`/search/text/${encodeURIComponent(id)}/data.json`).then(
+    p = client().textIndex(id).then(
       (ix) => void textLoaded.set(id, ix),
       () => void textLoaded.set(id, null),
     );
@@ -766,16 +617,3 @@ export async function listPlaces(query: ListState, pageSize?: number): Promise<L
   return got;
 }
 
-export interface ReportInput {
-  /** The page the visitor was on: a pathname such as `/places/moraine-lake/`. Nothing else is sent. */
-  page: string;
-}
-
-/** `link`: open this URL (today). `submitted`: a server stored the report (`POST /api/v1/report`, same input). `off`: not available yet, render nothing. */
-export type ReportResult = { kind: 'link'; url: string } | { kind: 'submitted'; id: string } | { kind: 'off' };
-
-/** Report a problem on a page (11.2, Q63, Q70). Until a server takes reports it hands back the public feedback form's URL. */
-export async function reportProblem(input: ReportInput): Promise<ReportResult> {
-  const url = reportLink(reportUrl, input.page);
-  return url ? { kind: 'link', url } : { kind: 'off' };
-}

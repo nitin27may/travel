@@ -17,6 +17,9 @@ const GROUPS: { id: SearchGroupId; k: SearchRecord['k']; label: string; limit: n
   { id: 'areas', k: 'area', label: 'Areas', limit: 5 },
 ];
 
+/** Hits a group shows when the caller names no limit. The API answers the contract's one default and a client trims to these, so the dropdown reads as it always has. */
+export const GROUP_DEFAULT_LIMIT: Record<SearchGroupId, number> = Object.fromEntries(GROUPS.map((g) => [g.id, g.limit])) as Record<SearchGroupId, number>;
+
 /** Below this a fuzzy (typo) match is noise. */
 const FUZZY_MIN = 0.42;
 

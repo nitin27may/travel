@@ -139,6 +139,9 @@ describe('directions', () => {
 
 import { cardImageSources } from '@/lib/globe/cardImage';
 
+// These tests pin the StaticAdapter (the files the build wrote); the API default has its own tests in tests/api.
+vi.stubEnv('NEXT_PUBLIC_DATA_ADAPTER', 'static');
+
 describe('card payload and photo weight (review S10, principle P8)', () => {
   const cards = Object.values(buildGlobeData().cards);
   const CARD_KEYS = ['key', 'kind', 'slug', 'title', 'kindLabel', 'glyph', 'areaLabel', 'summary', 'facts', 'usedIn', 'image', 'badge', 'approx', 'href'];
