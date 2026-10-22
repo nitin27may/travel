@@ -23,6 +23,7 @@ Safety rules that hold even if you skip the reading (full rules: `research/READM
 - When sources disagree, record both as a conflict; never pick one.
 - Overpass, Nominatim and Commons: one request at a time, never from parallel agents.
 - Never put travel material in the Obsidian notes vault.
+- Every record you add or touch leaves with its placement block and its required tier answered (rule and commands: `research/method/capture-contract.md` 3.7); attach `capture.ts gaps --placement --trip <trip>` to the hand-back.
 
 Run the section 6 validators, report each record's completeness and its gaps, and commit only your own paths with
 `git -C <abs path> add <paths>`.

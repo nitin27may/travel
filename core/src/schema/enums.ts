@@ -230,3 +230,8 @@ export const CAP_SECTION = [
   "cover", "glance", "warnings", "suits", "activity", "options", "access", "when", "facilities", "around", "pairs", "photos", "links", "sources",
 ] as const;
 export const RUN_OUTCOME = ["filled", "searched_none", "gap", "blocked", "conflict"] as const;
+/**
+ * META-0 (capture contract 3.7): what a stored point stands for. Directions and distances use it: a trail's point is its trailhead,
+ * a lift's is its lower station (route_start), a summit's is the top. Defined once here; the API's detail point imports it. Append only.
+ */
+export const POINT_ROLE = ["centre", "trailhead", "entrance", "parking", "meeting", "summit", "route_start"] as const;

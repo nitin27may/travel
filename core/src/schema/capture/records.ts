@@ -10,6 +10,7 @@ import * as E from "../enums.ts";
 import { sourceRow, val } from "../suitability.ts";
 import { date, json, pattern, table, text } from "../meta.ts";
 import { TYPE_ID_RE } from "./typesFile.ts";
+import { GEONAMES_ID_RE, nearTownValue } from "./points.ts";
 
 const mmdd = z.string().regex(/^(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/);
 const hhmm = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/);
@@ -115,6 +116,10 @@ export const capRecord = z.strictObject({
   attraction_reason: z.string().min(1).optional(),
   area_id: z.string().min(1).optional(),
   osm_ref: z.string().regex(/^(node|way|relation)\/\d+$/).optional(),
+  // placement (3.7, META-0): the nearest town is derived (META-2) and may be overridden by the town the operator names
+  geonames_id: val(z.string().regex(GEONAMES_ID_RE)).optional(),
+  near_town: val(nearTownValue).optional(),
+  near_town_km: val(z.number().min(0)).optional(),
   // relations (2.5); `reached_by` is derived and is rejected (E_CAP_REL_DERIVED)
   reaches: z.array(ref).optional(),
   passes: z.array(passesRel).optional(),

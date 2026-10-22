@@ -12,6 +12,9 @@ import { applicabilityFile } from "../capture/generate.ts";
 import { completeness } from "../capture/engine.ts";
 import { loadWorld } from "../capture/records.ts";
 import { checkSupersedes } from "../capture/supersedeCheck.ts";
+import { inStore, levelOf, severityOf } from "../capture/gapBudget.ts";
+import { loadPlacement, placementFindings } from "../capture/placementBlock.ts";
+import { recordTier } from "../capture/tiers.ts";
 import type { SupersedesFile } from "../schema/capture/records.ts";
 import type { World } from "../capture/records.ts";
 import { resolveNode } from "../capture/resolve.ts";
@@ -226,6 +229,11 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
   // the whole world with this document in it, for the completeness engine
   const full = world ?? loadWorld(root, ctx.file, [d]);
   const resolver = new RefResolver(root);
+  // the placement block and the tiers (3.7): severity by the gap budget's pinned refs, the file's place in the store, the towns layer
+  const pw = loadPlacement(root, full);
+  const sev = severityOf(root, pw.townsLayer);
+  const store = inStore(root, ctx.file);
+  const emit = (code: string, refs: string[], path: string, message: string): void => (levelOf(code, refs, store, sev) === "error" ? E_(code, path, message) : W(code, path, message));
   const ids = new Set<string>();
   d.sources.forEach((s, i) => {
     if (ids.has(s.id)) E_("E_CAP_SRC", `/sources/${i}/id`, `source id "${s.id}" appears twice. Give each source its own id. Example: "src-0002".`);
@@ -292,7 +300,7 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
       if (a === r.ref) E_("E_CAP_REF", `${base}/aliases`, `alias "${a}" is the record's own ref.`);
     }
     // values: sources and states
-    const vals: [string, unknown][] = [["season", r.season], ["best_window", r.best_window], ["best_time", r.best_time], ["hours", r.hours], ["duration_min", r.duration_min], ["activity_min", r.activity_min], ["price", r.price], ["window", r.window], ["book_url", r.book_url]];
+    const vals: [string, unknown][] = [["geonames_id", r.geonames_id], ["near_town", r.near_town], ["near_town_km", r.near_town_km], ["season", r.season], ["best_window", r.best_window], ["best_time", r.best_time], ["hours", r.hours], ["duration_min", r.duration_min], ["activity_min", r.activity_min], ["price", r.price], ["window", r.window], ["book_url", r.book_url]];
     for (const [k, v] of vals) {
       if (!v) continue;
       const x = v as { v: unknown; state: string; basis: string | null; src: string[]; on?: string; tried?: string[] };
@@ -315,6 +323,15 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
         const miss = [...c.missingBase, ...c.conditionalMissing];
         if (miss.length > 0) W("W_CAP_BELOW_USABLE", base, `${r.type} (${r.layer}) is ${c.level}: ${miss.length} required propert${miss.length > 1 ? "ies" : "y"} unanswered (${miss.slice(0, 6).join(", ")}${miss.length > 6 ? `, +${miss.length - 6} more` : ""}), and ${c.missingSuitability.length} in the suitability block. Run: node core/bin/capture.ts fields --ref ${r.ref}`);
       }
+    }
+    // the placement block (3.7): area chain, point with its role, nearest town; offers and events through at, on, starts_at
+    const own = [r.ref, ...(r.aliases ?? [])];
+    for (const f of placementFindings(pw, r)) emit(f.code, own, `${base}/${f.key}`, f.message);
+    // the required tier of the record's kind: the R marks of its type, read by the same engine (placement keys are reported above)
+    const tier = recordTier(full, r.ref);
+    if (tier && tier.requiredMissing.length > 0) {
+      const miss = tier.requiredMissing;
+      emit("W_TIER_REQUIRED", own, base, `${r.type} (${tier.kind.replace("_", " ")}) leaves ${miss.length} of the ${tier.required.length} keys of its required tier unanswered: ${miss.slice(0, 6).join(", ")}${miss.length > 6 ? `, +${miss.length - 6} more` : ""}. Give each a value, or searched_none with "on" and "tried"; a gap is never a yes. Run: node core/bin/capture.ts fields --ref ${r.ref}`);
     }
     // present but not asked
     const rl = node.layers[r.layer];

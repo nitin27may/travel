@@ -138,9 +138,11 @@ describe("capture/1 sidecars (step 3)", () => {
   it("W_CAP_BELOW_USABLE: the completeness engine names the required properties no value answers; a complete-enough record has none", () => {
     const r = root();
     const res = run(r, capDoc([lake()]));
-    expect(warns(res)).toEqual(["W_CAP_BELOW_USABLE"]);
-    expect(res.warnings[0]!.message).toMatch(/water\.body\.lake \(place\) is draft: \d+ required propert/);
-    expect(res.warnings[0]!.message).toContain("capture.ts fields --ref place/lago-di-braies");
+    // the placement and tier codes (placement-block.test.ts) also warn on this bare record; the capture block has one warning
+    expect(warns(res).filter((c) => c.startsWith("W_CAP_"))).toEqual(["W_CAP_BELOW_USABLE"]);
+    const below = res.warnings.find((w) => w.code === "W_CAP_BELOW_USABLE")!;
+    expect(below.message).toMatch(/water\.body\.lake \(place\) is draft: \d+ required propert/);
+    expect(below.message).toContain("capture.ts fields --ref place/lago-di-braies");
   });
 });
 

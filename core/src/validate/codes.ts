@@ -163,3 +163,22 @@ export type CapErrorCode = keyof typeof CAP_ERROR_CODES;
 export type CapWarningCode = keyof typeof CAP_WARNING_CODES;
 export const CAP_ERROR_LIST = Object.keys(CAP_ERROR_CODES) as CapErrorCode[];
 export const CAP_WARNING_LIST = Object.keys(CAP_WARNING_CODES) as CapWarningCode[];
+// The placement block and the tiers (META-0, research/method/capture-contract.md 3.7; nearby spec 3.4). A block of their own beside
+// the capture codes, each with a failing case in core/test/capture/placement-block.test.ts. Severity is not in the name: a record
+// pinned in data/capture/gap-budget.json (it existed when the rule landed) warns, a new record in data/capture errors, a draft
+// outside the store warns; W_PLACE_TOWN warns for everyone until the towns layer exists (META-2).
+export const PLACE_ERROR_CODES = {
+  E_PLACE_AREA: "a place or route has no area_id, or its area_id is not an area, region or country of the locations store",
+  E_PLACE_ORPHAN: "an offer or event whose at, on and starts_at (an event's part_of) all fail to reach a place or route",
+  E_PLACE_FAR: "a point lies more than 25 km outside the box of the locations-store places of its area (a wrong area or a swapped lat and lon)",
+} as const;
+export const PLACE_WARNING_CODES = {
+  W_PLACE_POINT: "a place or route has no point in either points sidecar (a route may use the point of its starts_at); an error once strict after the migration",
+  W_PLACE_APPROX: "a point is marked approx with no approx_note saying why",
+  W_PLACE_TOWN: "a place or route with a non-approximate point has no near_town (or a town without near_town_km); derived by META-2",
+  W_TIER_REQUIRED: "a key of the record's required tier (the R marks of its type, R? whose condition holds, the suitability R paths) has no value and no dated searched_none",
+} as const;
+export type PlaceErrorCode = keyof typeof PLACE_ERROR_CODES;
+export type PlaceWarningCode = keyof typeof PLACE_WARNING_CODES;
+export const PLACE_ERROR_LIST = Object.keys(PLACE_ERROR_CODES) as PlaceErrorCode[];
+export const PLACE_WARNING_LIST = Object.keys(PLACE_WARNING_CODES) as PlaceWarningCode[];

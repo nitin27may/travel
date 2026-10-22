@@ -576,6 +576,101 @@ Columns are domains or category groups; the full matrix per type is in the gener
 | photo | A | A | A | A | A | A | A | A | A | A | A | A | A | A | A | A | A | A | A | N |
 | part_of / passes / reaches | R? | R? | A | A | A | A | A | R (at or on) | R | R | R | A | R? | A | A | A | A | A | A | R (parks_for) |
 
+### 3.7 Placement and tiers (META-0, 21 Oct 2026)
+
+**The researcher rule.** Every record you add or touch leaves with its placement block (its area, its point with the point's role and source, and no approximate point unless you say why) and with its required tier answered: a value, or `searched_none` with the date and the pages tried. Before hand-back, run `node core/bin/capture.ts gaps --placement --trip <trip>` and `gaps --tier required --trip <trip>` and attach both to the lane note. A gap is never a yes. The researcher agent and every research brief point here instead of restating it.
+
+#### 3.7.1 The placement block
+
+Every place and route carries the block. Offers and events carry no point of their own: they inherit placement through `at`, `on` or `starts_at` (an event also through `part_of`), and the rule is met when that chain reaches a place or route. "Placement" here is not `data/capture/placement.json` (`capture-placement/1`, where facts sit between layers).
+
+| Field | Home | Mark | Rule |
+|---|---|---|---|
+| `area_id` | the record (`capture/1`) | R | `CC/REGION/area-slug`, an id of the areas (or, coarser, the regions) of `data/locations/locations.json`. Country and region are read from it, never stored again. Source order: the locations store, the trip, the parent through `part_of`, `at` or `starts_at`, then point-in-polygon (META-1) |
+| `point` | `data/capture/points.json` (`capture-points/1`), keyed by ref; read first, then `data/relevance/inputs/points.json` | R | `{lat, lon, coord_src, point_source}`; `coord_src` is `osm`, `wikidata`, `official` or `manual`. Never from Google (T5). Decision 3.37: the point stays in the sidecar keyed by ref. A route with no row of its own is placed by the point of its `starts_at` |
+| `point_role` | with the point | R (default by type) | `POINT_ROLE` in `core/src/schema/enums.ts`, defined once: `centre`, `trailhead`, `entrance`, `parking`, `meeting`, `summit`, `route_start`. A row without one reads as the default of its type: a trail or trek `trailhead`, any other route `route_start` (a lift's lower station), a summit `summit`, a car park `parking`, a start `trailhead`, a museum, heritage site, show cave, park or zoo `entrance`, anything else `centre`, an offer's own meeting point `meeting` |
+| `approx`, `approx_note` | with the point | R when approximate | `approx: true` only for a centroid or a guess, and then `approx_note` says why and what would fix it. An approximate point counts for Where, never for a distance (T5); the API's detail point carries `pointRole` and `approx` (contract case K16) |
+| `near_town`, `near_town_km` | the record | R in the placement block; registry mark N until META-2 | Derived by META-2 from the towns layer: the nearest settlement of at least 1,000 people within 50 km of a non-approximate point, else the value `none_within_50km` (never a gap). Both are `Val`s with basis `our_inference` and a note naming the derive step. A researcher overrides them only with the town the operator names, with its source |
+| `geonames_id` | the record | A; R for `settlement.*` | GeoNames feature id as text (`"6177869"`), a `Val`, so `searched_none` is possible |
+
+**Town id (owner Q76).** `<cc>-<admin1>-<slug>`, for example `ca-on-whitby`, matching `^[a-z]{2}-[a-z0-9]+-[a-z0-9-]+$`. `<cc>` is the lower-case ISO 3166-1 alpha-2 code. `<admin1>` is the lower-case ISO 3166-2 subdivision suffix (`on`, `ab`, `bz`), **not** the GeoNames admin1 code (Ontario is `08` in `admin1CodesASCII`), so META-2 maps one to the other; a country with no ISO subdivision uses `00`. `<slug>` is the ASCII kebab of the GeoNames name.
+
+**Why the registry marks `near_town` N until META-2.** Until META-2 ships the towns layer and the derive step, no researcher can fill it, and a gap line on every place page would tell a reader nothing (the median place page also sits at its S13 size budget, +25%). So the registry mark is N: pages and page levels do not count it. The placement block still asks for it: `fields` prints it, `W_PLACE_TOWN` reports every record without it and the gap budget counts them. META-2 sets the mark to R (the trigger `derived` is already in `core/src/capture/triggers.ts`) in the commit that derives the values. `near_town_km` stays N for good: it travels inside the `near_town` row and `W_PLACE_TOWN` checks both.
+
+#### 3.7.2 The tiers per kind
+
+The tiers are the resolved marks of `data/vocab/types.json`, read by the one completeness engine (5.3), not a second list. **Required:** the R marks, the R? marks whose condition holds, and the suitability R paths; each answered by a value or by `searched_none` with the date. **Enrichment:** the A marks, filled when sources allow. The placement keys are reported by the placement codes, not by the tier code.
+
+| Kind (EXECUTION-PLAN 6.2) | Required tier | Enrichment tier |
+|---|---|---|
+| Every record | stable `ref`, `type`, `layer`, `name`, the file's `schema`, provenance per value (`src`, `on`, basis) | n/a |
+| Place | placement block, Wikidata QID or `searched_none`, OSM id or `searched_none`, official link state, season or all year, summary, photo or "No licensed photo yet" | GeoNames id (R for towns), bbox or geometry for areas, elevation, hours, price, best time, toilets and parking, second photo, Wikipedia, tourism board |
+| Trail | placement with `point_role: trailhead` (`starts_at`), `area_id`, distance, gain, adult time, route shape, effort with the source grade, route status, season, link set (official, AllTrails direct or search, OSM) | loss, high point, surface, hazards, dogs, stroller, wheelchair, parking, GPX (licence), Komoot, two photos, child time |
+| Other route | start (and `ends_at`), `area_id`, length or ride time, season, official link | geometry, photos |
+| Activity or offer | where it happens (`at`, `on` or `starts_at`), operator (`run_by`), season, duration, price or `searched_none`, minimum age, height and weight as stated or `none_stated`, booking window or "no booking", booking URL, meeting point, official link | accessibility, cancellation, kit, photo, variants, nearby (derived) |
+| Event | name, type, season, where (`at` or `part_of`) | hours, price, window |
+| Stay (huts and refuges that are destinations) | placement, operator, season, booking URL and window | photo, facilities |
+
+**Checked against the marks (21 Oct 2026).** Resolved with `capture.ts fields` on `water.body.lake`, `nature.viewpoint.viewpoint`, `water.falls.waterfall`, `culture.heritage.monument`, `nature.protected.national_park`, `settlement.town`, `nature.trail.hike`, `ride.lift.gondola`, `wheels.drive.scenic_drive`, the offers of `water.river.rafting`, `water.paddle.canoe.rental` and `ride.lift.gondola`, `event.natural.larch` and `stay.mountain.hut`. Where the plan says R and the marks do not:
+
+| Kind | Field | Plan | Marks today | Proposal |
+|---|---|---|---|---|
+| Place | `osm_ref` | R (or `searched_none`) | A | R on the place layer. Needs `osm_ref` as a `Val` (it is a bare string today), so `searched_none` can be stored |
+| Place | `season` | season or "all year" | N on lake, viewpoint, waterfall | R? `operates`, or read "all year" from `access_season`; owner call |
+| Place | `photos` | photo or "No licensed photo yet" | A | Keep A for Usable; EXECUTION-PLAN 6.5 check 8 counts it for trails only |
+| Trail | `ext.trail.shape` | R | A (suitability) | R in the `hike` profile row |
+| Trail | AllTrails and OSM links | R (the link set) | A | `links.R` on `nature.trail`: `official`, `osm`; AllTrails as `R?` (link only, `found_in_search` allowed) |
+| Trail | `season` | R | N (the trail answers `access_season`, R) | none: `access_season` is the trail's season |
+| Other route | `ends_at` | R for point-to-point routes | N on lifts and drives | `R?` with a new trigger `point_to_point` |
+| Other route | length or ride time | R | lift `ext.lift.ride_min` A; drive `ext.drive.drive_min` R | R on lifts |
+| Offer (ticket, access) | `run_by` | R | A | R on `offer.ticket` and `offer.access` |
+| Offer (rental) | `duration_min`, `window`, `book_url` | R | N | `window` R? `bookable`; `book_url` A; duration stays N (a rental is by the hour, in its price) |
+| Offer | meeting point | R | no property (`starts_at` is N on offers) | `starts_at` A on `offer.experience`, read as the meeting point |
+| Offer | `min_height_cm` | as stated or `none_stated` | N on rafting | none: the profile decides which limits a kind has |
+| Event | where | `at` or `part_of` | `at` does not exist on events; `part_of` A | `part_of` R on the event layer; `E_PLACE_ORPHAN` already enforces "where" |
+| Stay | operator, booking URL, window | R | `run_by` N on the place and A on the lodging offer, `book_url` N, `window` A | R on `offer.lodging` for `run_by` and `window`; `book_url` A |
+
+Only one mark change is made with META-0: `geonames_id: R` on the `settlement` domain (brief step 1). Each proposal above changes what pages count as Usable, so it is one reviewed commit to `types.json` (then `capture.ts build`), decided by the owner or the design reviewer, not by a builder.
+
+#### 3.7.3 Validator codes and severity
+
+| Code | When |
+|---|---|
+| `E_PLACE_AREA` | a place or route with no `area_id`, or one that is not an area, region or country of the locations store |
+| `E_PLACE_ORPHAN` | an offer or event whose `at`, `on`, `starts_at` (an event's `part_of`) all fail to reach a place or route (directly, through another offer, or through a ref with a point) |
+| `W_PLACE_POINT` | a place or route with no point in either sidecar (a route may use its start's point) |
+| `W_PLACE_APPROX` | `approx: true` with no `approx_note` |
+| `E_PLACE_FAR` | the point lies more than 25 km outside the box of the locations-store places of its area (judged only when at least two places define the box; a record's own place is left out) |
+| `W_PLACE_TOWN` | a non-approximate point and no `near_town`, or a town without `near_town_km` |
+| `W_TIER_REQUIRED` | a key of the required tier unanswered |
+
+Severity is not in the name. **A record pinned in `data/capture/gap-budget.json`** (it existed when the rule landed, 394 refs on 21 Oct) **warns**; **a new record in `data/capture/<trip>/` errors** from day one, so the gap cannot grow; a document validated outside the store (a template, a proposal) only warns. `W_PLACE_TOWN` warns for everyone until the towns layer exists. A code listed in the budget's `strict` errors on pinned records too: META-1 adds `W_PLACE_POINT` there after the migration (nearby spec 3.5 step 6). The thresholds (25 km, 50 km, 1,000 people) are `PLACEMENT_RULES` in `core/src/capture/placementBlock.ts`, defined once.
+
+#### 3.7.4 Gap reports and the budget
+
+```
+node core/bin/capture.ts fields --type nature.trail.hike                 # the placement block first, with the role for the type
+node core/bin/capture.ts gaps --placement [--trip <trip>] [--json]        # per trip: records, no area, no point, approximate, no nearest town, outside its area; then each record with a hint
+node core/bin/capture.ts gaps --tier required|enrichment [--layer <l>] [--type <prefix>] [--trip <trip>] [--json]
+                                                                          # the EXECUTION-PLAN 6.4 matrix, then per kind each tier key asked, answered, missing
+node core/bin/capture.ts gaps --budget --check                            # check-all: fails when a count rose
+node core/bin/capture.ts gaps --budget --write [--reason "<why>"]         # lowers the counts; a rise needs a written reason, logged in `raised`
+```
+
+`data/capture/gap-budget.json` (`capture-gap-budget/1`) holds the records per code, the unanswered required keys (`W_TIER_REQUIRED.keys`), the pinned refs, the `strict` codes, the `raised` log and the measured `baseline` (never checked). Counts may only fall: a DATA lane that fills gaps lowers them with `--write` in the same commit. The 6.4 matrix uses the 20 Oct audit's column definitions (own point, `osm_ref`, a filled Wikidata link, a stated minimum age) so a rerun lines up with it; the tier keys read the contract's homes.
+
+#### 3.7.5 Stable ids, versions and provenance
+
+So the JSON loads into the two-tier catalogue of the schema diff (owner Q73) without reshaping:
+
+- `ref` never changes. A rename is a new record with `same_place_as` (or `aliases`) and a redirect; the public slug follows the slug registry (PHASE-B-START D-B1). A pinned record keeps its pin through its aliases. A ref that looks like a path (`legacy/canadian-rockies-sept-2029/adventures/banff-gondola`) is an id, never rewritten.
+- Every file carries `schema` (`capture/1`, `capture-points/1`, `capture-gap-budget/1`, ...).
+- Every value carries `src`, `on` or `read`, and a basis (or, for a point, `coord_src` and `point_source`). The migration ledger rule holds: every pre-migration leaf still exists with the same value.
+
+#### 3.7.6 Baseline (21 Oct 2026, `main` 36e4da7)
+
+359 pages, 121 with no point (81 of them trails); 394 capture records (place 201, route 143, offer 49, event 1). Budget counts: `E_PLACE_AREA` 296, `E_PLACE_ORPHAN` 17, `W_PLACE_POINT` 84, `W_PLACE_APPROX` 0, `E_PLACE_FAR` 0, `W_PLACE_TOWN` 260, `W_TIER_REQUIRED` 385 records (3,875 keys). The EXECUTION-PLAN 6.5 "before" values are in the budget file's `baseline`.
+
 ## 4. What the owner's examples look like under the contract
 
 | Example | Records and types | Notes |
@@ -970,6 +1065,8 @@ Per record, aim at Usable under the contract. Hours, prices, windows and toilets
 - **Facet thresholds move with data.** A facet that hides at 59% coverage appears after one research pass. That is intended; the count line explains it.
 - **Generated files are not edited.** `suitability-applicability.json` stops being hand-edited from step 2; a PR that edits it fails `build --check`.
 - **Commons and Nominatim stay single-runner across agents**, even when the research pass fans out by trip.
+- **A new record errors where a pinned one warns (3.7.3).** Never add a ref to `pinned.refs` to quiet a new record; fill the block, or say `searched_none` with the date.
+- **Two "placements".** `data/capture/placement.json` moves facts between layers; the placement block of 3.7 is the area, point and nearest town. Do not merge them.
 
 ## 13. Owner questions
 
@@ -988,3 +1085,4 @@ Per record, aim at Usable under the contract. Hours, prices, windows and toilets
 | 2026-10-18 | Verifier fixes (lane CC). (1) The minitrekking runs `at` the Perito Moreno walkways, as its `same_place_as` says. (2) Placement: 20 facts moved from routes and tickets to payoff places and top stations (altitude, food, shade, the toilets of a payoff, the services at a lift's arrival), each in the same lane file so src ids keep their meaning; 12 places and stations got a suitability record (a station is kind `access`, subkind `station`, profile `access`, which now takes facilities, altitude and wheelchair as A). A fact stays on the route unless its source text says it is about the endpoint; 52 such cases, hazards and exposure included, are in `data/capture/placement.json` `review` for the next research pass. The lift profile's altitude_m is A: it is the top station's. The two duplicated values on Lagazuoi `#tunnels` were removed and are kept verbatim in the same file; the ledger test counts them. (3) Draw lives on the place a visitor comes to see: five lifts' relevance records moved to their top stations; the Montenvers train keeps its own (a scenic train); 52 routes that keep a relevance record carry `route_is_attraction` with a reason, Tre Cime with spec example 4 (see relevance.md 3.7); derive reads the layer and gives a route with no judgement the draw of the place it reaches. (4) The ten new profile rows are marked `review: design`, with the verifier's fixes (play operated flag with min_age and adult_required R when operated; climb drivers are the pitch or route height and gain is for the approach; canyoning bail_out and adult_time_min A and on_site_min R; motor_water weights and swim ability A; dive and surf current_or_tide A; access wheelchair A). (5) The tree counts in the tests now come from `types.json`. (6) The stubs sights/banff-gondola and sights/canmore-nordic-centre are aliases of their real records (their lane records stay, so the ledger holds). (7) Kicking Horse is one offer per operator `on` its river, each with `run_by`, `variant_of` the family float, which keeps the variants. (8) Hielo y Aventura's `derived_from` URL is its public page. (9) The missing places and relations are in capture-research-backlog.md. |
 | 2026-10-19 | 9.7 added (lane CS7c, Q41): the supersede override for pre-migration values, as a spec for a builder; the file, its rules, the read order and the tests. |
 | 2026-10-19 | Engine plumbing (lane D2). (1) `geometry` has a home (`tracks`, data/tracks) and a `readProperty` case: a route with a confirmed, stitched track that names its ref in `refs` answers it; a held-back track is a gap with the reason "route not confirmed" (3.3 asks for "geometry or searched_none" and is silent on confirmation; `UNCONFIRMED_TRACK_COUNTS` in `core/src/capture/tracks.ts` flips the rule). (2) 9.7 built, first entries Sorapis climb and distance and the Track and Tower grade. (3) A relevance record may carry `plan_b_pick` `{ref, reason, src}`, which wins over the derived Plan B (named so because `plan_b` is a derived key the validator refuses to read from a record). (4) `ext.water.swimming` gains `discouraged`, shown as "Swimming discouraged"; it counts as not swimmable for the swim flag. (5) Track fetcher: `start` in `data/tracks/inputs.json` replaces the stored trailhead for the cut. (6) Area `IT/trentino-alto-adige/bolzano` (Bolzano, the autonomous province) added to the area table of `data/locations/locations.json`; source Wikidata Q15124 "South Tyrol" (ISO 3166-2 IT-BZ, OSM relation 47046), read 19 Oct 2026. `area_id` set on Lago di Braies, Lago di Landro, the Otzi museum, Passo Gardena, La Val and Santa Maddalena. |
+| 2026-10-21 | 3.7 added (lane META-0, Opus): the placement block (`area_id`, the point with `point_role` and `approx`, `near_town` asked by the placement codes and marked N in the registry until META-2 derives it, `geonames_id`), the town id `<cc>-<admin1>-<slug>` (Q76) with the ISO admin1 rule, the tiers per kind checked against the marks (14 differences proposed, one applied: `geonames_id` R on settlements), the codes `E_PLACE_*`, `W_PLACE_*`, `W_TIER_REQUIRED` with severity by `data/capture/gap-budget.json`, the gap reports and the budget gate, stable ids, and the 21 Oct baseline. |

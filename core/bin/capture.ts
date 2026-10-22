@@ -13,6 +13,7 @@ import { loadWorld } from "../src/capture/records.ts";
 import { countsOf, loadTypes, resolveWord, treeOf } from "../src/capture/tree.ts";
 import { TRIGGERS } from "../src/capture/triggers.ts";
 import { validateFile } from "../src/validate/index.ts";
+import { defaultPointRole, PLACEMENT_RULES } from "../src/capture/placementBlock.ts";
 
 const USAGE = `Usage: node core/bin/capture.ts <command> [options]
 
@@ -27,9 +28,16 @@ Commands:
                           --check exits 1 on drift. Runs in tools/check-all.sh.
   gaps --trip <trip> [--level usable|complete] [--json]
                           per record, the missing required properties; the brief of a research pass
+  gaps --placement [--trip <trip>] [--json]
+                          the placement block per trip (area, point with its role, nearest town), then the records and a hint
+  gaps --tier required|enrichment [--layer <l>] [--type <prefix>] [--trip <trip>] [--json]
+                          the per-kind matrix (EXECUTION-PLAN 6.4 columns) and each tier key asked, answered and missing
+  gaps --budget --check | --write [--reason "<why>"]
+                          data/capture/gap-budget.json: --check exits 1 when a gap count rose (runs in tools/check-all.sh);
+                          --write lowers the counts, and raises one only with a written reason
   place [--write]         apply data/capture/placement.json (facts and draw to the layer that causes them); runs once
   run --check <file>      validate a crawl run record (capture-run/1)
-  codes                   list the E_CAP_* and W_CAP_* codes
+  codes                   list the E_CAP_*, W_CAP_*, E_PLACE_*, W_PLACE_* and W_TIER_* codes
 
 Options:
   --root <dir>   repository root (default: two levels above this file)
@@ -60,6 +68,25 @@ function typeArg(argv: string[], root: string): string | null {
 
 interface FieldRow { key: string; mark: string; label: string; group: string; section: string; gap: string; trigger?: string; unit?: string; value: string }
 
+/** The placement block a record of this type must leave with (capture contract 3.7), first in `fields`. */
+export function placementBlock(node: ResolvedNode, layers: Layer[]): Record<string, unknown> {
+  const per: Record<string, unknown> = {};
+  for (const l of layers) {
+    if (l === "offer" || l === "event") {
+      per[l] = { inherits: l === "event" ? "at or part_of" : "at, on or starts_at", rule: "names the place or route it happens at; that record carries the block (E_PLACE_ORPHAN)", own_point: l === "offer" ? "only a meeting point the operator names (point_role meeting)" : "none" };
+      continue;
+    }
+    per[l] = {
+      area_id: "R. CC/REGION/area-slug, an id of the locations store's areas; country and region are read from it. From the locations store, then the trip, then the parent (part_of, at, starts_at) (E_PLACE_AREA)",
+      point: { mark: "R", role: defaultPointRole(node.id, l), home: "data/capture/points.json by ref", fields: "lat, lon, coord_src (osm, wikidata, official, manual), point_source, point_role", sources: "D: OSM node or way, Wikidata P625; F: the land manager's page; manual last. Never Google (W_PLACE_POINT)" },
+      approx: "true only for a centroid or a guess, with approx_note saying why (W_PLACE_APPROX); it counts for Where, never for distances",
+      near_town: `computed (META-2): the nearest settlement of at least ${PLACEMENT_RULES.townMinPopulation} people within ${PLACEMENT_RULES.townRadiusKm} km, as a town id like ca-on-whitby, with near_town_km; override only when the operator names a town (W_PLACE_TOWN)`,
+      far: `a point more than ${PLACEMENT_RULES.farKm} km outside its area is an error (E_PLACE_FAR)`,
+    };
+  }
+  return { note: "Every record you add or touch leaves with this block (capture contract 3.7). New records error on a gap; records pinned in data/capture/gap-budget.json warn.", layers: per };
+}
+
 export function fieldsReport(node: ResolvedNode, layer: Layer | null): Record<string, unknown> {
   const layers = layer ? [layer] : node.records;
   const per: Record<string, unknown> = {};
@@ -77,6 +104,7 @@ export function fieldsReport(node: ResolvedNode, layer: Layer | null): Record<st
     return { key, mark, label: d.label, group: d.group, section: d.section, gap: d.gap, value: d.value, ...(d.unit ? { unit: d.unit } : {}) };
   });
   return {
+    placement: placementBlock(node, layers),
     type: node.id, label: node.label, records: node.records, profile: node.profile, operated: node.operated, extension: node.ext,
     effort_scales: node.effort.scales, relevance_class: node.relevance_class, sources_in_order: node.sources, slot3: node.display.slot3,
     links: node.links, layers: per, suitability: { R: suit("R"), "R when operated": suit("op"), A: suit("A") },
@@ -86,6 +114,17 @@ export function fieldsReport(node: ResolvedNode, layer: Layer | null): Record<st
 
 function printFields(rep: Record<string, unknown>): void {
   const r = rep as { type: string; label: string; records: string[]; profile: string | null; operated: string; extension: string | null; effort_scales: string[]; sources_in_order: string[]; slot3: string | null; links: { R: string[]; "R?": string[]; A: string[] }; layers: Record<string, { offer_class: string | null; carries_suitability: boolean; R: FieldRow[]; "R?": FieldRow[]; A: FieldRow[] }>; suitability: { R: FieldRow[]; "R when operated": FieldRow[]; A: FieldRow[] } };
+  const pb = (rep as { placement: { layers: Record<string, Record<string, unknown>> } }).placement;
+  out("Placement (every record)");
+  for (const [l, b] of Object.entries(pb.layers)) {
+    if ("inherits" in b) {
+      out(`   ${l}: inherits through ${String(b.inherits)}; ${String(b.rule)}`);
+      continue;
+    }
+    const pt = b.point as { role: string; sources: string };
+    out(`   ${l}: area_id R · point R, role ${pt.role} (data/capture/points.json; ${pt.sources}) · approx only with a note · near_town computed, override only when the operator names a town`);
+  }
+  out("");
   out(`${r.type}  ${r.label}`);
   out(`records: ${r.records.join(", ")}; suitability profile: ${r.profile ?? "none"} (${r.operated}${r.extension ? `, extension ${r.extension}` : ""}); effort scales: ${r.effort_scales.join(", ") || "none"}; sources in order: ${r.sources_in_order.join(" ") || "none"}${r.slot3 ? `; slot 3: ${r.slot3}` : ""}`);
   const line = (rows: FieldRow[]): string => rows.map((x) => `${x.key}${x.trigger ? ` [${x.trigger}]` : ""}`).join(", ") || "-";
@@ -203,6 +242,9 @@ async function main(argv: string[]): Promise<number> {
       const { CAP_ERROR_LIST, CAP_WARNING_LIST, CAP_ERROR_CODES, CAP_WARNING_CODES } = await import("../src/validate/codes.ts");
       for (const c of CAP_ERROR_LIST) out(`${c}\t${CAP_ERROR_CODES[c]}`);
       for (const c of CAP_WARNING_LIST) out(`${c}\t${CAP_WARNING_CODES[c]}`);
+      const { PLACE_ERROR_LIST, PLACE_WARNING_LIST, PLACE_ERROR_CODES, PLACE_WARNING_CODES } = await import("../src/validate/codes.ts");
+      for (const c of PLACE_ERROR_LIST) out(`${c}\t${PLACE_ERROR_CODES[c]}`);
+      for (const c of PLACE_WARNING_LIST) out(`${c}\t${PLACE_WARNING_CODES[c]}`);
       return 0;
     }
     default:
@@ -212,7 +254,8 @@ async function main(argv: string[]): Promise<number> {
 }
 
 void existsSync; void readFileSync; void dirname; void join; void TRIGGERS; void suitMark;
-main(process.argv.slice(2)).then((c) => process.exit(c), (e) => {
+// exitCode, not exit(): a large --json report piped to another process must be flushed before node ends
+main(process.argv.slice(2)).then((c) => void (process.exitCode = c), (e) => {
   err(String(e instanceof Error ? e.stack ?? e.message : e));
   process.exit(1);
 });
