@@ -27,6 +27,8 @@ import { suitability_applicability } from "./suitabilityApplicability.ts";
 export { TRIP_TABLES } from "./trip.ts";
 export { LOCATION_TABLES, LOCATION_FILE_TABLES } from "./locations.ts";
 export * from "./meta.ts";
+/** The public API contracts (EXECUTION-PLAN 4.2). A namespace, so no API name collides with a table name; not registered as tables. */
+export * as api from "./api/index.ts";
 
 /** catalog tables in the order they appear in a file of the same name */
 export const CATALOG_TABLES: Table[] = [
