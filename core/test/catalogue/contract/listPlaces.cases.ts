@@ -30,7 +30,7 @@ export const listPlacesCases: ContractCase[] = [
   },
   {
     id: "K2",
-    title: "rows carry exactly the allowlist keys of the PlaceRow schema (sourceTypes and added: R-6 pending owner)",
+    title: "rows carry exactly the allowlist keys of the PlaceRow schema (39 keys; the owner's save metadata, sourceTypes and added, is not among them)",
     method: "listPlaces",
     async run(store) {
       const rows = await everyRow(store);

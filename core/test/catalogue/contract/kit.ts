@@ -109,7 +109,8 @@ export async function allRows<T>(page: (n: number) => Promise<Result<{ items: T[
  * home point, which core does not hold).
  */
 export const HOUSEHOLD_TEXT: readonly RegExp[] = [/whitby/i, /planned as/i, /hotel idea/i, /CONF-SENTINEL-7Q/, /NOTE-SENTINEL-PRIVATE/, /CITIZENSHIP-SENTINEL/, /CONTACT-SENTINEL/, /\+1-555-0100/];
-export const PRIVATE_KEYS: readonly string[] = ["status", "height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status"];
+/** `sourceTypes` and `added` are the owner's wishlist save metadata (where a place was saved from, and when): private since PRIV1, so no store may emit them. */
+export const PRIVATE_KEYS: readonly string[] = ["status", "height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added"];
 
 /** Household strings and private keys in one output; empty when clean. */
 export function householdHits(out: unknown, where: string): string[] {
