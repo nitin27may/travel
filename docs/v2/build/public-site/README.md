@@ -314,6 +314,7 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `LEGACY_TRIPS_JSON` | web `lib/data/trips.ts` | Path of the legacy trips file; set by the fixture build | no |
 | `LOCATIONS_ROOT` | `tools/locations.py`, `tools/location_views.py`, core `placeBackend.ts` | Root the locations tool reads and writes (tests use a temp tree) | no |
 | `NEXT_DIST_DIR` | web `next.config.ts`, build scripts | Alternate build folder, only for the fixture builds | no |
+| `NEXT_RUNTIME` | web `instrumentation.ts` | Set by Next (`nodejs` or `edge`); the store is warmed at start only on the Node runtime | no |
 | `NEXT_PHASE` | web `lib/public/places.ts` | Set by Next; the build logs shell places once | no |
 | `NODE_ENV` | web | Set by Node and Next; dev-only branches | no |
 | `HOME` | web `scripts/embed-spike` | Home folder, for the spike's browser cache path | no |
