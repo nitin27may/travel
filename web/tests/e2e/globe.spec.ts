@@ -69,7 +69,17 @@ test.describe('globe page', () => {
     await q.fill('braies');
     await expect(page.getByRole('option').first()).toBeVisible();
     await q.fill('Italy');
-    await expect(page.getByRole('option').first()).toContainText('Italy');
+    // Wait for the settled answer to the latest query: the stale 'braies' row also reads "... Italy" in its kind line, so match the name.
+    await expect(page.getByRole('option').first().locator('.globe-result-name')).toHaveText(/Italy$/);
+    await q.press('Enter');
+    await expect(page).toHaveURL(/\/globe\/it\//);
+  });
+
+  test('Enter before the gazetteer has arrived still goes to the typed place', async ({ page, site }) => {
+    await page.route('**/globe/data/gazetteer.json', async (r) => { await new Promise((ok) => setTimeout(ok, 1500)); await r.continue(); });
+    await page.goto(`${site.url}/globe/`);
+    const q = page.getByRole('combobox', { name: 'Search the globe' });
+    await q.fill('Italy');
     await q.press('Enter');
     await expect(page).toHaveURL(/\/globe\/it\//);
   });
