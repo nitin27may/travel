@@ -26,5 +26,6 @@ it('dumps the slug snapshot', () => {
     regions[key] = { name: had?.name ?? r.region_name, aliases: [...new Set([...(had?.aliases ?? []), ...r.regionAliases])] };
   }
   mkdirSync(path.dirname(OUT), { recursive: true });
-  writeFileSync(OUT, `${JSON.stringify({ places: Object.fromEntries(pb.slugByRef), regions }, null, 1)}\n`);
+  const trips = Object.fromEntries(data.tripSlugs().map((slug) => [`trip/${slug}`, slug]));
+  writeFileSync(OUT, `${JSON.stringify({ places: Object.fromEntries(pb.slugByRef), merged: Object.fromEntries(pb.mergedRefs), trips, regions }, null, 1)}\n`);
 });
