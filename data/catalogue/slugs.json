@@ -1,0 +1,698 @@
+{
+ "schema": "catalogue-slugs/1",
+ "note": "Pinned place slugs and canonical region values (D-B1, D-B3). Read by the dataset builder and the stores, never served. Change it only with node core/bin/slugs.ts (build, rename, alias); --check runs in check-all.",
+ "places": {
+  "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks": "athabasca-glacier-guided-ice-walk",
+  "legacy/canadian-rockies-sept-2029/adventures/banff-gondola": "banff-gondola",
+  "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride": "banff-horseback-rides",
+  "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa": "fairmont-banff-springs-spa",
+  "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft": "bow-river-float-raft",
+  "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling": "bow-valley-parkway-cycling",
+  "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen": "burgess-shale-guided-hike-mount-stephen-fossil-beds",
+  "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott": "burgess-shale-guided-hike-walcott-quarry",
+  "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre": "canmore-nordic-centre-summer",
+  "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle": "crypt-lake-boat-shuttle",
+  "legacy/canadian-rockies-sept-2029/adventures/elk-rut": "elk-rut-viewing-and-bighorn-rut",
+  "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk": "columbia-icefield-skywalk",
+  "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge": "golden-skybridge",
+  "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore": "scenic-helicopter-flights",
+  "legacy/canadian-rockies-sept-2029/adventures/heli-hiking": "heli-hiking",
+  "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental": "jasper-bike-rentals",
+  "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky": "jasper-dark-sky-preserve-stargazing",
+  "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram": "jasper-skytram",
+  "legacy/canadian-rockies-sept-2029/adventures/jasper-waterton-horse": "jasper-and-waterton-horseback-rides",
+  "legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour": "jasper-wildlife-tours",
+  "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly": "kicking-horse-mountain-resort-golden-eagle-express-gondola",
+  "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola": "lake-louise-summer-gondola",
+  "legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse": "brewster-stables-lake-louise-horseback",
+  "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing": "lake-louise-sightseeing",
+  "legacy/canadian-rockies-sept-2029/adventures/legacy-trail": "legacy-trail-banff-to-canmore",
+  "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer": "nakiska-summer-gondola-coaster",
+  "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata": "mount-norquay-via-ferrata",
+  "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs": "radium-hot-springs-pools",
+  "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway": "waterton-red-rock-parkway",
+  "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail": "sulphur-mountain-switchback-trail-hike-up-gondola-down",
+  "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise": "waterton-border-cruise-and-goat-haunt-cruise",
+  "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble": "yamnuska-guided-scrambles",
+  "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter": "mount-assiniboine-helicopter-access",
+  "legacy/canadian-rockies-sept-2029/sights/athabasca-falls": "athabasca-falls",
+  "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp": "beauvais-lake-provincial-park",
+  "legacy/canadian-rockies-sept-2029/sights/berg-lake": "berg-lake",
+  "legacy/canadian-rockies-sept-2029/sights/bow-lake": "bow-lake",
+  "legacy/canadian-rockies-sept-2029/sights/cameron-lake": "cameron-lake",
+  "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park": "castle-provincial-park",
+  "legacy/canadian-rockies-sept-2029/sights/cave-and-basin": "cave-and-basin-national-historic-site",
+  "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier": "athabasca-glacier-and-columbia-icefield",
+  "legacy/canadian-rockies-sept-2029/sights/elbow-falls": "elbow-falls",
+  "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park": "elk-lakes-provincial-park",
+  "legacy/canadian-rockies-sept-2029/sights/emerald-lake": "emerald-lake",
+  "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit": "highwood-pass-and-hwy-40-corridor",
+  "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive": "icefields-parkway-scenic-drive",
+  "legacy/canadian-rockies-sept-2029/sights/johnston-canyon": "johnston-canyon",
+  "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use": "upper-and-lower-kananaskis-lakes",
+  "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view": "kinney-lake-mount-robson",
+  "legacy/canadian-rockies-sept-2029/sights/lake-magog": "lake-magog-and-assiniboine-core-area",
+  "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka": "lake-minnewanka",
+  "legacy/canadian-rockies-sept-2029/sights/maligne-canyon": "maligne-canyon",
+  "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island": "maligne-lake-and-spirit-island",
+  "legacy/canadian-rockies-sept-2029/sights/marble-canyon": "marble-canyon",
+  "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs": "miette-hot-springs",
+  "legacy/canadian-rockies-sept-2029/sights/moraine-lake": "moraine-lake",
+  "legacy/canadian-rockies-sept-2029/sights/mount-edith-cavell": "mount-edith-cavell-and-cavell-meadows",
+  "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds": "mount-lorette-ponds",
+  "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint": "mount-robson-visitor-centre-viewpoint",
+  "legacy/canadian-rockies-sept-2029/sights/natural-bridge": "natural-bridge",
+  "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view": "overlander-falls",
+  "legacy/canadian-rockies-sept-2029/sights/paint-pots": "paint-pots",
+  "legacy/canadian-rockies-sept-2029/sights/peyto-lake": "peyto-lake-lookout-banff",
+  "legacy/canadian-rockies-sept-2029/sights/pyramid-lake": "pyramid-lake",
+  "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs": "radium-hot-springs",
+  "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway": "red-rock-parkway-and-red-rock-canyon",
+  "legacy/canadian-rockies-sept-2029/sights/smith-dorrien-trail": "smith-dorrien-spray-trail",
+  "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls": "sunwapta-falls",
+  "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls": "takakkaw-falls",
+  "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp": "top-of-the-world-provincial-park",
+  "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes": "vermilion-lakes-drive",
+  "legacy/canadian-rockies-sept-2029/sights/wapta-falls": "wapta-falls-yoho",
+  "legacy/canadian-rockies-sept-2029/sights/wedge-pond": "wedge-pond",
+  "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs": "whiteswan-lake-and-lussier-hot-springs",
+  "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog": "mount-shark-to-lake-magog",
+  "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail": "athabasca-falls-walk",
+  "legacy/canadian-rockies-sept-2029/trails/bald-hills": "bald-hills",
+  "legacy/canadian-rockies-sept-2029/trails/bears-hump": "bears-hump",
+  "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail": "beauvais-lake-trail",
+  "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail": "berg-lake-trail",
+  "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake": "bourgeau-lake",
+  "legacy/canadian-rockies-sept-2029/trails/burstall-pass": "burstall-pass",
+  "legacy/canadian-rockies-sept-2029/trails/cavell-meadows": "cavell-meadows",
+  "legacy/canadian-rockies-sept-2029/trails/chester-lake": "chester-lake",
+  "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop": "cory-pass-loop",
+  "legacy/canadian-rockies-sept-2029/trails/crypt-lake": "crypt-lake",
+  "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop": "elbow-falls-loop",
+  "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper": "elk-lakes-lower-and-upper",
+  "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint": "elk-lakes-viewpoint-trail",
+  "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore": "emerald-lakeshore",
+  "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline": "emerald-triangle-via-wapta-highline",
+  "legacy/canadian-rockies-sept-2029/trails/fenland-loop": "fenland-loop",
+  "legacy/canadian-rockies-sept-2029/trails/fryatt-valley": "fryatt-valley",
+  "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper": "grassi-lakes-easy-route",
+  "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak": "ha-ling-peak",
+  "legacy/canadian-rockies-sept-2029/trails/iceline-trail": "iceline-trail",
+  "legacy/canadian-rockies-sept-2029/trails/interlakes-trail": "interlakes-trail-upper-and-lower-lake",
+  "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail": "miette-mine-trail",
+  "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop": "johnson-lake-loop",
+  "legacy/canadian-rockies-sept-2029/trails/kinney-lake": "kinney-lake",
+  "legacy/canadian-rockies-sept-2029/trails/lake-agnes": "lake-agnes-tea-house",
+  "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop": "lake-annette-loop",
+  "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore": "lake-louise-lakeshore",
+  "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass": "larch-valley-to-sentinel-pass",
+  "legacy/canadian-rockies-sept-2029/trails/lillian-lake": "lillian-lake",
+  "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk": "marble-canyon-walk",
+  "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop": "mary-schaffer-loop",
+  "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop": "moose-lake-loop",
+  "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore": "moraine-lakeshore",
+  "legacy/canadian-rockies-sept-2029/trails/mount-fairview": "mount-fairview",
+  "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint": "indefatigable-bench-viewpoint",
+  "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop": "mount-lorette-ponds-loop",
+  "legacy/canadian-rockies-sept-2029/trails/opal-hills": "opal-hills-loop",
+  "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail": "overlander-falls-trail",
+  "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk": "paint-pots-walk",
+  "legacy/canadian-rockies-sept-2029/trails/parker-ridge": "parker-ridge",
+  "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout": "peyto-lake-lookout",
+  "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers": "plain-of-six-glaciers-to-teahouse-and-abbot-pass-viewpoint",
+  "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque": "ptarmigan-cirque",
+  "legacy/canadian-rockies-sept-2029/trails/rawson-lake": "rawson-lake",
+  "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop": "red-rock-canyon-loop",
+  "legacy/canadian-rockies-sept-2029/trails/ribbon-creek": "ribbon-creek",
+  "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout": "rockwall-lookout-rockwall-fen",
+  "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge": "sarrail-ridge",
+  "legacy/canadian-rockies-sept-2029/trails/skyline-trail": "skyline-trail",
+  "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline": "sulphur-skyline",
+  "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog": "sunburst-lake-to-lake-magog",
+  "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass": "sunshine-meadows-to-citadel-pass",
+  "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk": "takakkaw-falls-walk",
+  "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe": "tent-ridge-horseshoe",
+  "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk": "toe-of-athabasca-glacier",
+  "legacy/canadian-rockies-sept-2029/trails/troll-falls": "troll-falls",
+  "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop": "upper-kananaskis-lake-circuit",
+  "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail": "wapta-falls",
+  "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop": "wedge-pond-loop",
+  "legacy/canadian-rockies-sept-2029/trails/wilcox-pass": "wilcox-pass",
+  "loc:CA/AB/banff-national-park/lake-louise": "lake-louise",
+  "loc:CA/QC/bas-saint-laurent-gaspesie/chute-du-grand-sault": "grand-sault-waterfall",
+  "loc:CA/QC/charlevoix/le-buton": "le-buton-lookout-le-massif-de-charlevoix",
+  "loc:CA/QC/cote-de-beaupre/canyon-sainte-anne": "canyon-sainte-anne",
+  "loc:CA/QC/cote-de-beaupre/la-crete": "la-crete-trail-mont-sainte-anne",
+  "loc:CA/QC/cote-de-beaupre/montmorency-falls": "montmorency-falls",
+  "loc:CA/QC/eastern-townships/montagne-de-marbre": "mont-saddle-and-montagne-de-marbre-loop",
+  "loc:CA/QC/eastern-townships/sentier-des-cimes": "sentier-des-cimes-parc-national-du-mont-megantic",
+  "loc:CA/QC/forillon-national-park/cap-bon-ami": "cap-bon-ami",
+  "loc:CA/QC/forillon-national-park/cap-gaspe": "cap-gaspe",
+  "loc:CA/QC/forillon-national-park/mont-saint-alban": "mont-saint-alban",
+  "loc:CA/QC/forillon-national-park/sentier-la-chute": "sentier-la-chute",
+  "loc:CA/QC/haute-gaspesie/la-martre-lighthouse": "la-martre-lighthouse",
+  "loc:CA/QC/haute-gaspesie/mont-saint-pierre": "mont-saint-pierre",
+  "loc:CA/QC/parc-national-de-la-gaspesie/lac-aux-americains": "lac-aux-americains",
+  "loc:CA/QC/parc-national-de-la-gaspesie/mont-xalibu": "mont-xalibu",
+  "loc:CA/QC/parc-national-de-la-jacques-cartier/l-eperon": "leperon",
+  "loc:CA/QC/parc-national-du-bic/pic-champlain": "pic-champlain",
+  "loc:CA/QC/perce/bonaventure-island": "bonaventure-island",
+  "loc:CA/QC/perce/perce-rock": "perce-rock",
+  "loc:CA/QC/saint-narcisse-de-rimouski/canyon-des-portes-de-l-enfer": "canyon-des-portes-de-lenfer",
+  "loc:CA/QC/zec-des-martres/mont-du-dome": "mont-du-dome",
+  "loc:CN/GD/qingyuan/qq-canyon-racer": "qq-canyon-racer-mountain-coaster-gulong-gorge",
+  "loc:FR/ile-de-france/grand-paris/paris": "paris",
+  "loc:FR/provence-alpes-cote-d-azur/alpes-de-haute-provence/provence": "provence",
+  "loc:IN/sikkim/mangan-district/gurudongmar-lake": "gurudongmar-lake",
+  "loc:IT/campania/campania/amalfi-coast": "sorrento-and-the-amalfi-coast",
+  "loc:IT/campania/napoli/capri": "capri",
+  "loc:IT/lazio/roma-capitale/rome": "rome",
+  "loc:IT/lombardy/como/lake-como": "lake-como",
+  "loc:IT/lombardy/milano/milan": "milan",
+  "loc:IT/trentino-alto-adige/provincia-di-trento/trento": "trento",
+  "loc:IT/tuscany/firenze/florence": "florence",
+  "loc:IT/veneto/belluno/dolomites": "dolomites",
+  "loc:IT/veneto/venetian-province/venice": "venice",
+  "loc:IT/veneto/verona/verona": "verona",
+  "loc:US/AK/wrangell-st-elias-national-park/kennecott": "kennecott-river-rafting-wrangell-st-elias",
+  "loc:US/AZ/coconino-county/page": "page",
+  "loc:US/AZ/havasupai-reservation/havasu-falls": "havasupai-havasu-falls",
+  "loc:US/AZ/navajo-nation/monument-valley": "monument-valley",
+  "loc:US/CO/la-plata-county/durango": "durango",
+  "loc:US/CO/manitou-springs/manitou-incline": "manitou-incline",
+  "loc:US/CO/san-juan-mountains/million-dollar-highway": "million-dollar-highway",
+  "loc:US/CO/san-juan-mountains/ouray": "ouray",
+  "loc:US/CO/summit-county/breckenridge": "breckenridge",
+  "loc:US/MA/barnstable-county/cape-cod": "cape-cod",
+  "loc:US/NH/grafton-county/white-mountain-national-forest": "white-mountain-national-forest",
+  "loc:US/NY/finger-lakes/watkins-glen-state-park": "watkins-glen-state-park",
+  "loc:US/NY/seneca-county/finger-lakes": "finger-lakes",
+  "loc:US/UT/grand-county/arches-national-park": "arches-national-park",
+  "loc:US/UT/great-salt-lake/stansbury-island": "stansbury-island",
+  "loc:US/UT/hanksville/bentonite-hills": "bentonite-hills",
+  "loc:US/UT/hanksville/factory-butte": "factory-butte",
+  "loc:US/UT/hanksville/long-dong-silver": "long-dong-silver-spire",
+  "loc:US/UT/kanarraville/kanarra-falls": "kanarra-falls",
+  "loc:US/UT/kane-county/bryce-canyon-national-park": "bryce-canyon-national-park",
+  "loc:US/UT/san-juan-county/canyonlands-national-park": "canyonlands-national-park",
+  "loc:US/UT/washington-county/zion-national-park": "zion-national-park",
+  "loc:US/VT/lamoille-county/stowe": "stowe",
+  "loc:US/WA/chelan-county/lake-wenatchee": "lake-wenatchee",
+  "loc:US/WA/chelan-county/leavenworth": "leavenworth",
+  "loc:US/WA/columbia-river-gorge-national-scenic-area/columbia-river-gorge": "columbia-river-gorge",
+  "loc:US/WA/jefferson-county/olympic-peninsula": "olympic-peninsula",
+  "loc:US/WA/king-county/baker-snoqualmie-national-forest": "mount-baker-snoqualmie-national-forest",
+  "loc:US/WA/lake-chelan-national-recreation-area/lake-chelan": "lake-chelan",
+  "loc:US/WA/mount-bakersnoqualmie-national-forest/mount-baker-wilderness": "mount-baker-wilderness",
+  "loc:US/WA/mount-st-helens-national-volcanic-monument/mount-st-helens": "mount-st-helens",
+  "loc:US/WA/pierce-county/mount-rainier-national-park": "mount-rainier-national-park",
+  "loc:US/WA/whatcom-county/north-cascades-national-park": "north-cascades-national-park",
+  "loc:US/WY/park-county/yellowstone-national-park": "yellowstone-national-park",
+  "loc:US/WY/teton-county/grand-teton-national-park": "grand-teton-national-park",
+  "loc:VN/hanoi/thanh-pho-ha-noi/hanoi": "hanoi",
+  "loc:VN/lao-cai/sa-pa/sa-pa": "sapa",
+  "loc:VN/quang-ninh/quang-ninh/ha-long-bay": "ha-long-bay",
+  "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sansons-peak": "sansons-peak",
+  "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain": "sulphur-mountain",
+  "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk": "sulphur-mountain-summit-boardwalk",
+  "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place": "banff-upper-hot-springs",
+  "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre": "canmore-nordic-centre-provincial-park",
+  "part/legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft#place": "kananaskis-river",
+  "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place": "kicking-horse-river",
+  "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-lower-canyon": "kicking-horse-river-lower-canyon",
+  "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-upper-section": "kicking-horse-river-upper-section",
+  "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots": "ink-pots",
+  "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots-trail": "ink-pots-trail",
+  "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#lower-falls": "johnston-canyon-lower-falls",
+  "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#upper-falls": "johnston-canyon-upper-falls",
+  "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk": "johnston-canyon-walk",
+  "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile": "moraine-lake-rockpile",
+  "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile-loop": "moraine-lake-rockpile-loop",
+  "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff": "grassi-lakes",
+  "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#larch-valley": "larch-valley",
+  "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass": "sentinel-pass",
+  "part/place/funbob-monte-baranci#place": "monte-baranci",
+  "part/place/lagazuoi-cable-car-and-tunnels#tunnels": "lagazuoi-tunnels",
+  "part/place/lago-di-braies#walk": "lago-di-braies-walk",
+  "part/place/lago-di-dobbiaco#walk": "lago-di-dobbiaco-walk",
+  "part/place/lago-di-limides#walk": "lago-di-limides-walk",
+  "part/place/lago-federa#walk": "lago-federa-walk",
+  "part/place/rafting-on-the-rienza#place": "rienza",
+  "part/place/tre-cime-di-lavaredo-loop#north-face-viewpoint": "tre-cime-north-face-viewpoint-by-rifugio-locatelli",
+  "part/place/tre-cime-di-lavaredo-loop#toll-road": "strada-per-il-rifugio-auronzo",
+  "part/place/tre-cime-di-lavaredo-loop#tre-cime": "tre-cime-di-lavaredo",
+  "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#step-into-the-void": "step-into-the-void",
+  "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit": "aiguille-du-midi-summit-terraces",
+  "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff": "lac-blanc",
+  "part/trip/iceland-ring-road-2027/activity:myvatn nature baths#place": "myvatn-nature-baths",
+  "part/trip/iceland-ring-road-2027/sight:dettifoss#walk": "dettifoss-walk",
+  "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff": "svartifoss",
+  "part/trip/patagonia-2027/lake:beagle channel boat#place": "beagle-channel",
+  "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff": "the-narrows",
+  "part/trip/utah-five-parks/viewpoint:grand view point#walk": "grand-view-point-walk",
+  "proto:antorno": "lago-dantorno",
+  "proto:bolzano": "bolzano",
+  "proto:braies": "lago-di-braies",
+  "proto:cadini": "cadini-di-misurina-viewpoint",
+  "proto:carezza": "lago-di-carezza",
+  "proto:cinque-torri": "cinque-torri",
+  "proto:cortina": "cortina-dampezzo",
+  "proto:dobbiaco": "dobbiaco",
+  "proto:drava": "drava-cycle-path-to-lienz",
+  "proto:fanes-falls": "cascate-di-fanes",
+  "proto:federa": "lago-federa",
+  "proto:fiscalina": "val-fiscalina",
+  "proto:funbob": "funbob-monte-baranci",
+  "proto:funes": "santa-maddalena-val-di-funes",
+  "proto:la-val": "la-val",
+  "proto:lagazuoi": "lagazuoi-cable-car-and-tunnels",
+  "proto:lago-dobbiaco": "lago-di-dobbiaco",
+  "proto:landro": "lago-di-landro",
+  "proto:limides": "lago-di-limides",
+  "proto:misurina": "lago-di-misurina",
+  "proto:monte-piana": "monte-piana",
+  "proto:munkel": "adolf-munkel-weg",
+  "proto:nuvolau": "rifugio-nuvolau-and-averau",
+  "proto:ortisei": "ortisei",
+  "proto:otzi": "otzi-south-tyrol-museum-of-archaeology",
+  "proto:passo-gardena": "passo-gardena",
+  "proto:pordoi": "sass-pordoi-and-piz-boe",
+  "proto:puflatsch": "bullaccia-and-the-witches-benches",
+  "proto:rafting": "rafting-on-the-rienza",
+  "proto:san-candido": "san-candido",
+  "proto:san-vito": "san-vito-di-cadore",
+  "proto:santa-cristina": "santa-cristina",
+  "proto:scotoni": "rifugio-scotoni",
+  "proto:seceda": "seceda-ridge",
+  "proto:seekofel": "croda-del-becco",
+  "proto:selva": "selva-di-val-gardena",
+  "proto:siusi": "alpe-di-siusi",
+  "proto:sorapis": "lago-di-sorapis",
+  "proto:tre-cime": "tre-cime-di-lavaredo-loop",
+  "proto:vallunga": "vallunga",
+  "proto:viel-dal-pan": "viel-dal-pan",
+  "trip/algonquin-muskoka-2026/sight:ragged falls": "ragged-falls",
+  "trip/algonquin-muskoka-2026/trail:solitaire lake trail": "solitaire-lake-trail",
+  "trip/algonquin-muskoka-2026/trail:track and tower trail": "track-and-tower-trail",
+  "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower": "dorset-lookout-tower",
+  "trip/algonquin-muskoka-2026/viewpoint:dwight beach sunset": "dwight-beach-sunset",
+  "trip/chamonix-mont-blanc-2028/lake:lac des gaillands": "lac-des-gaillands",
+  "trip/chamonix-mont-blanc-2028/lake:lac du chatelard": "lac-du-chatelard",
+  "trip/chamonix-mont-blanc-2028/lift:aiguille du midi": "aiguille-du-midi",
+  "trip/chamonix-mont-blanc-2028/lift:montenvers train": "montenvers-train",
+  "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks": "emosson-dam-and-dinosaur-tracks",
+  "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace": "grotte-de-la-mer-de-glace",
+  "trip/chamonix-mont-blanc-2028/trail:col des montets": "col-des-montets",
+  "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere": "lac-blanc-via-flegere",
+  "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille": "plan-de-laiguille",
+  "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection": "mont-blanc-reflection",
+  "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields": "blue-lagoon-area-lava-fields",
+  "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls": "borgarfjordur-waterfalls",
+  "trip/iceland-ring-road-2027/sight:dettifoss": "dettifoss",
+  "trip/iceland-ring-road-2027/sight:geysir": "geysir",
+  "trip/iceland-ring-road-2027/sight:glaumbaer turf farm": "glaumbaer-turf-farm",
+  "trip/iceland-ring-road-2027/sight:godafoss": "godafoss",
+  "trip/iceland-ring-road-2027/sight:gullfoss": "gullfoss",
+  "trip/iceland-ring-road-2027/sight:namaskard": "namaskard",
+  "trip/iceland-ring-road-2027/sight:seljalandsfoss": "seljalandsfoss",
+  "trip/iceland-ring-road-2027/sight:skogafoss": "skogafoss",
+  "trip/iceland-ring-road-2027/town:akureyri botanical garden": "akureyri-botanical-garden",
+  "trip/iceland-ring-road-2027/town:reykjavik old harbour": "reykjavik-old-harbour",
+  "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar": "arnarstapi-to-hellnar",
+  "trip/iceland-ring-road-2027/trail:djupalonssandur": "djupalonssandur",
+  "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon": "fjadrargljufur-canyon",
+  "trip/iceland-ring-road-2027/trail:skaftafell svartifoss": "skaftafell-svartifoss",
+  "trip/iceland-ring-road-2027/trail:thingvellir": "thingvellir",
+  "trip/iceland-ring-road-2027/viewpoint:diamond beach": "diamond-beach",
+  "trip/iceland-ring-road-2027/viewpoint:jokulsarlon": "jokulsarlon",
+  "trip/iceland-ring-road-2027/viewpoint:kirkjufell": "kirkjufell",
+  "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach": "reynisfjara-beach",
+  "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view": "snaefellsjokull-view",
+  "trip/patagonia-2027/sight:penguin colony stop": "penguin-colony-stop",
+  "trip/patagonia-2027/sight:perito moreno walkways": "perito-moreno-walkways",
+  "trip/patagonia-2027/town:san telmo market": "san-telmo-market",
+  "trip/patagonia-2027/trail:chorrillo del salto": "chorrillo-del-salto",
+  "trip/patagonia-2027/trail:coastal path": "coastal-path",
+  "trip/patagonia-2027/trail:laguna capri": "laguna-capri",
+  "trip/patagonia-2027/trail:laguna de los tres": "laguna-de-los-tres",
+  "trip/patagonia-2027/trail:laguna esmeralda": "laguna-esmeralda",
+  "trip/patagonia-2027/trail:mirador de las aguilas": "mirador-de-las-aguilas",
+  "trip/patagonia-2027/trail:mirador de los condores": "mirador-de-los-condores",
+  "trip/patagonia-2027/viewpoint:evening fitz roy glow": "evening-fitz-roy-glow",
+  "trip/patagonia-2027/viewpoint:laguna nimez birds": "laguna-nimez-birds",
+  "trip/patagonia-2027/viewpoint:lapataia bay": "lapataia-bay",
+  "trip/utah-five-parks/sight:fruita orchards": "fruita-orchards",
+  "trip/utah-five-parks/sight:goblin valley": "goblin-valley",
+  "trip/utah-five-parks/sight:temple square": "temple-square",
+  "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle": "zion-canyon-scenic-drive-by-shuttle",
+  "trip/utah-five-parks/trail:angels landing chains view or scout lookout": "scout-lookout-angels-landing-chains-view",
+  "trip/utah-five-parks/trail:delicate arch trail": "delicate-arch-trail",
+  "trip/utah-five-parks/trail:devils garden": "devils-garden",
+  "trip/utah-five-parks/trail:hickman bridge": "hickman-bridge",
+  "trip/utah-five-parks/trail:lower calf creek falls": "lower-calf-creek-falls",
+  "trip/utah-five-parks/trail:mesa arch": "mesa-arch",
+  "trip/utah-five-parks/trail:narrows from the temple of sinawava": "narrows-from-the-temple-of-sinawava",
+  "trip/utah-five-parks/trail:navajo loop and queens garden": "navajo-loop-and-queens-garden",
+  "trip/utah-five-parks/trail:pa rus trail": "parus-trail",
+  "trip/utah-five-parks/trail:riverside walk": "riverside-walk",
+  "trip/utah-five-parks/trail:upheaval dome": "upheaval-dome",
+  "trip/utah-five-parks/trail:windows section": "windows-section",
+  "trip/utah-five-parks/viewpoint:bryce amphitheatre rim": "bryce-amphitheatre-rim",
+  "trip/utah-five-parks/viewpoint:dead horse point": "dead-horse-point",
+  "trip/utah-five-parks/viewpoint:grand view point": "grand-view-point",
+  "trip/utah-five-parks/viewpoint:sunset point": "sunset-point",
+  "trip/vermont-fall-2026/sight:covered bridge loop": "covered-bridge-loop",
+  "trip/vermont-fall-2026/trail:stowe recreation path": "stowe-recreation-path",
+  "trip/vermont-fall-2026/viewpoint:burke mountain overlook": "burke-mountain-overlook",
+  "trip/vermont-fall-2026/viewpoint:smugglers notch": "smugglers-notch"
+ },
+ "regions": {
+  "ar/buenos-aires": {
+   "name": "Buenos Aires",
+   "aliases": [
+    "Buenos Aires",
+    "buenos-aires"
+   ]
+  },
+  "ar/santa-cruz": {
+   "name": "Santa Cruz",
+   "aliases": [
+    "Santa Cruz",
+    "santa-cruz"
+   ]
+  },
+  "ar/tierra-del-fuego": {
+   "name": "Tierra del Fuego",
+   "aliases": [
+    "Tierra del Fuego",
+    "tierra-del-fuego"
+   ]
+  },
+  "ca/alberta": {
+   "name": "Alberta",
+   "aliases": [
+    "AB",
+    "Alberta",
+    "CA-AB",
+    "alberta"
+   ]
+  },
+  "ca/british-columbia": {
+   "name": "British Columbia",
+   "aliases": [
+    "British Columbia",
+    "british-columbia"
+   ]
+  },
+  "ca/ontario": {
+   "name": "Ontario",
+   "aliases": [
+    "Ontario",
+    "ontario"
+   ]
+  },
+  "ca/quebec": {
+   "name": "Quebec",
+   "aliases": [
+    "CA-QC",
+    "QC",
+    "Quebec",
+    "quebec"
+   ]
+  },
+  "ch/valais": {
+   "name": "Valais",
+   "aliases": [
+    "Valais",
+    "valais"
+   ]
+  },
+  "cn/guangdong": {
+   "name": "Guangdong",
+   "aliases": [
+    "CN-GD",
+    "GD",
+    "Guangdong",
+    "guangdong"
+   ]
+  },
+  "fr/auvergne-rhone-alpes": {
+   "name": "Auvergne-Rhone-Alpes",
+   "aliases": [
+    "Auvergne-Rhone-Alpes",
+    "auvergne-rhone-alpes"
+   ]
+  },
+  "fr/ile-de-france": {
+   "name": "Île-de-France",
+   "aliases": [
+    "FR-ile-de-france",
+    "ile-de-france",
+    "Île-de-France"
+   ]
+  },
+  "fr/provence-alpes-cote-dazur": {
+   "name": "Provence-Alpes-Côte d'Azur",
+   "aliases": [
+    "FR-provence-alpes-cote-d-azur",
+    "Provence-Alpes-Côte d'Azur",
+    "provence-alpes-cote-d-azur",
+    "provence-alpes-cote-dazur"
+   ]
+  },
+  "in/sikkim": {
+   "name": "Sikkim",
+   "aliases": [
+    "IN-sikkim",
+    "Sikkim",
+    "sikkim"
+   ]
+  },
+  "is/capital-region": {
+   "name": "Capital Region",
+   "aliases": [
+    "Capital Region",
+    "capital-region"
+   ]
+  },
+  "is/north-iceland": {
+   "name": "North Iceland",
+   "aliases": [
+    "North Iceland",
+    "north-iceland"
+   ]
+  },
+  "is/northeast-iceland": {
+   "name": "Northeast Iceland",
+   "aliases": [
+    "Northeast Iceland",
+    "northeast-iceland"
+   ]
+  },
+  "is/northwest-iceland": {
+   "name": "Northwest Iceland",
+   "aliases": [
+    "Northwest Iceland",
+    "northwest-iceland"
+   ]
+  },
+  "is/south-iceland": {
+   "name": "South Iceland",
+   "aliases": [
+    "South Iceland",
+    "south-iceland"
+   ]
+  },
+  "is/southwest-iceland": {
+   "name": "Southwest Iceland",
+   "aliases": [
+    "Southwest Iceland",
+    "southwest-iceland"
+   ]
+  },
+  "is/west-iceland": {
+   "name": "West Iceland",
+   "aliases": [
+    "West Iceland",
+    "west-iceland"
+   ]
+  },
+  "it/campania": {
+   "name": "Campania",
+   "aliases": [
+    "Campania",
+    "IT-campania",
+    "campania"
+   ]
+  },
+  "it/lazio": {
+   "name": "Lazio",
+   "aliases": [
+    "IT-lazio",
+    "Lazio",
+    "lazio"
+   ]
+  },
+  "it/lombardy": {
+   "name": "Lombardy",
+   "aliases": [
+    "IT-lombardy",
+    "Lombardy",
+    "lombardy"
+   ]
+  },
+  "it/south-tyrol": {
+   "name": "South Tyrol",
+   "aliases": [
+    "South Tyrol",
+    "south-tyrol"
+   ]
+  },
+  "it/trentino": {
+   "name": "Trentino",
+   "aliases": [
+    "Trentino",
+    "trentino"
+   ]
+  },
+  "it/trentino-alto-adige": {
+   "name": "Trentino-Alto Adige",
+   "aliases": [
+    "IT-trentino-alto-adige",
+    "Trentino-Alto Adige",
+    "trentino-alto-adige"
+   ]
+  },
+  "it/tuscany": {
+   "name": "Tuscany",
+   "aliases": [
+    "IT-tuscany",
+    "Tuscany",
+    "tuscany"
+   ]
+  },
+  "it/veneto": {
+   "name": "Veneto",
+   "aliases": [
+    "IT-veneto",
+    "Veneto",
+    "veneto"
+   ]
+  },
+  "us/alaska": {
+   "name": "Alaska",
+   "aliases": [
+    "AK",
+    "Alaska",
+    "US-AK",
+    "alaska"
+   ]
+  },
+  "us/arizona": {
+   "name": "Arizona",
+   "aliases": [
+    "AZ",
+    "Arizona",
+    "US-AZ",
+    "arizona"
+   ]
+  },
+  "us/colorado": {
+   "name": "Colorado",
+   "aliases": [
+    "CO",
+    "Colorado",
+    "US-CO",
+    "colorado"
+   ]
+  },
+  "us/massachusetts": {
+   "name": "Massachusetts",
+   "aliases": [
+    "MA",
+    "Massachusetts",
+    "US-MA",
+    "massachusetts"
+   ]
+  },
+  "us/new-hampshire": {
+   "name": "New Hampshire",
+   "aliases": [
+    "NH",
+    "New Hampshire",
+    "US-NH",
+    "new-hampshire"
+   ]
+  },
+  "us/new-york": {
+   "name": "New York",
+   "aliases": [
+    "NY",
+    "New York",
+    "US-NY",
+    "new-york"
+   ]
+  },
+  "us/utah": {
+   "name": "Utah",
+   "aliases": [
+    "US-UT",
+    "UT",
+    "Utah",
+    "utah"
+   ]
+  },
+  "us/vermont": {
+   "name": "Vermont",
+   "aliases": [
+    "US-VT",
+    "VT",
+    "Vermont",
+    "vermont"
+   ]
+  },
+  "us/washington": {
+   "name": "Washington",
+   "aliases": [
+    "US-WA",
+    "WA",
+    "Washington",
+    "washington"
+   ]
+  },
+  "us/wyoming": {
+   "name": "Wyoming",
+   "aliases": [
+    "US-WY",
+    "WY",
+    "Wyoming",
+    "wyoming"
+   ]
+  },
+  "vn/hanoi": {
+   "name": "Hanoi",
+   "aliases": [
+    "Hanoi",
+    "VN-hanoi",
+    "hanoi"
+   ]
+  },
+  "vn/lao-cai": {
+   "name": "Lào Cai",
+   "aliases": [
+    "Lào Cai",
+    "VN-lao-cai",
+    "lao-cai"
+   ]
+  },
+  "vn/quang-ninh": {
+   "name": "Quảng Ninh",
+   "aliases": [
+    "Quảng Ninh",
+    "VN-quang-ninh",
+    "quang-ninh"
+   ]
+  }
+ },
+ "retired": {}
+}
