@@ -3,7 +3,7 @@ import http from 'node:http';
 import path from 'node:path';
 import { chromium, type Browser, type Page } from '@playwright/test';
 import sharp from 'sharp';
-import { expect, SITE, test } from './fixtures';
+import { expect, forwardData, SITE, test } from './fixtures';
 import { CHROME, GPU_ARGS } from './gpu-chrome';
 
 // Stage-4 globe fixes (lane GLB; review L2b S1 to S10, backlog 3.46, 3.3b). GPU Chromium with real tiles, like the motion spec:
@@ -29,6 +29,7 @@ async function serveWithRewrites(dir: string): Promise<{ url: string; stop: () =
     return statSync(f).isDirectory() ? (existsSync(path.join(f, 'index.html')) ? path.join(f, 'index.html') : null) : f;
   };
   const server = http.createServer((req, res) => {
+    if (forwardData(req, res)) return;
     const pathname = new URL(req.url ?? '/', 'http://x').pathname;
     let f = file(pathname);
     let status = 200;
