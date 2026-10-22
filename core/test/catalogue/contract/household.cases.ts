@@ -41,6 +41,8 @@ export const householdCases: ContractCase[] = [
       expect(hits).toEqual([]);
       // the scan is live: a planted household string is found
       expect(householdHits({ notes: "Hotel idea near the lake" }, "probe").length).toBe(1);
+      // the owner's save metadata is a private key (PRIV1): a store that emits it fails
+      expect(householdHits({ sourceTypes: ["instagram"], added: "2026-10-16" }, "probe").length).toBe(2);
     },
   },
 ];

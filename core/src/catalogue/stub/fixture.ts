@@ -143,7 +143,7 @@ function detailOf(sp: Spec, slug: string, tripTitles: Map<string, string>): Plac
     completeness: { level: rich ? "usable" : "draft", passed: rich ? 7 : 2, total: 11, notTracked: 13, failed: [], label: rich ? "Usable · 7 of 11" : "Basics only", tooltip: "" },
     honesty: sp.approx ? [{ id: "location_unconfirmed", label: "Location approximate", reason: "The pin is a centroid, not the spot." }] : [],
     stats: { distanceKm: sp.km ?? null, gainM: sp.gain ?? null, hours: null },
-    sources: [sp.ref.startsWith("loc:") ? "locations" : sp.ref.startsWith("proto:") ? "prototype" : "capture"],
+    sources: sp.ref.startsWith("loc:") ? [] : [sp.ref.startsWith("proto:") ? "prototype" : "capture"],
     elevationM: null,
     access: rich ? { trailhead: { ...point, pointRole: "trailhead", name: "Larch Basin trailhead", note: null, elevationM: 1885 }, parking: [{ ...point, lat: 51.3262, pointRole: "parking", name: "Upper lot", note: null, elevationM: 1880, fee: null, capacity: "about 300 cars" }] } : null,
     lines: [],
@@ -189,8 +189,8 @@ function rowOf(d: PlaceDetail, sp: Spec): PlaceRow {
     country: sp.cc, country_name: COUNTRY[sp.cc], region: sp.region, region_name: REGIONS[regionKey]!.name, regionAliases: REGIONS[regionKey]!.aliases,
     area: sp.area, area_name: words(sp.area), lat: d.point?.lat ?? null, lon: d.point?.lon ?? null, km: sp.km ?? null, gain_m: sp.gain ?? null,
     elevation_m: null, season: d.season, kid_fit: "unknown", tags: sp.ref === "place/glacier-lake" ? [{ id: "family", label: "Family", kind: "audience" }] : [], image: null, trips: d.trips, honesty: d.honesty.map((h) => ({ id: h.id, label: h.label })),
-    completeness: { level: d.completeness.level, label: d.completeness.label }, sourceTypes: [], statsState: sp.km ? "unverified" : null,
-    researched: !sp.ref.startsWith("loc:"), added: "", type: sp.type, effort: null, kids_from: null, kids_basis: null, time_band: null, price_band: null,
+    completeness: { level: d.completeness.level, label: d.completeness.label }, statsState: sp.km ? "unverified" : null,
+    researched: !sp.ref.startsWith("loc:"), type: sp.type, effort: null, kids_from: null, kids_basis: null, time_band: null, price_band: null,
     booking: null, flags: [], walk_band: null, shape: null, best_time: null, badge: d.badge, approx: d.point?.approx ?? false,
   };
 }
