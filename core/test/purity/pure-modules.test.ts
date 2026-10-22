@@ -68,6 +68,16 @@ describe("moved modules are pure (no React, Next, fs or web imports)", () => {
     }
   }
 
+  // Each pure directory says so to the bundler: with `sideEffects: false` an unused import is dropped from a page's start bundle. Without it the
+  // trip page start bundle grew by 0.8 KB gzip (the chunk packing changed) and tipped web/tests/budget.test.ts over 200 KB.
+  for (const dir of PURE_DIRS) {
+    it(`${dir}/package.json marks the directory side-effect free`, () => {
+      const pkg = JSON.parse(readFileSync(path.join(SRC, dir, "package.json"), "utf8")) as { type?: string; sideEffects?: unknown };
+      expect(pkg.sideEffects).toBe(false);
+      expect(pkg.type).toBe("module");
+    });
+  }
+
   it("the detector catches a planted import", () => {
     expect(violations(`import fs from 'node:fs';`)).toHaveLength(1);
     expect(violations(`import { useState } from 'react';`)).toHaveLength(1);
