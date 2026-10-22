@@ -14,3 +14,20 @@ export function reportLink(base: string | null, page: string): string | null {
   const clean = path.startsWith('/') ? path : '/';
   return `${base}${base.includes('?') ? '&' : '?'}page=${encodeURIComponent(clean).replace(/%2F/g, '/')}`;
 }
+
+/**
+ * CONS-1: product thresholds that were literals in more than one place. These are the single source; `components/ui/Pager.tsx`,
+ * `lib/entities/shards.ts` and `tests/budget.test.ts` still hold their own copies until their owners switch to these imports, and
+ * `tests/cons/product.test.ts` fails if a copy drifts from the value here.
+ */
+
+/** Rows per page for each list view (P8: the page size is capped in one place, so a server can cap it too). */
+export const PAGE_SIZE = { cards: 48, list: 48, table: 100, map: 48 } as const;
+
+/** Rows in the first, always-loaded head of a list shard. */
+export const HEAD_ROWS = 48;
+
+/** Gzipped first-load JavaScript ceilings, in KB, and the largest globe page's HTML (budget.test.ts holds the checks). */
+export const LIST_JS_BUDGET_KB = 200;
+export const PLACE_JS_BUDGET_KB = 180;
+export const GLOBE_HTML_BUDGET_KB = 200;

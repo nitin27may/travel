@@ -42,6 +42,8 @@ step "relevance derived files are current"
 node "$ROOT/core/bin/relevance.ts" derive --check --root "$ROOT"
 step "source registry is current and valid (sources/1; derived from the lane files)"
 node "$ROOT/core/bin/sources.ts" check --root "$ROOT"
+step "no new hard-coded values (CONS-1 ratchet: colours, slugs, hosts, user agents, thresholds, env names)"
+python3 "$ROOT/tools/cons/hardcode_scan.py" --check
 
 if [[ -f "$ROOT/web/package.json" ]]; then
   # Server mode (`next build` then `next start`, API-0): the build runs BEFORE the tests, which read its prerendered output through
