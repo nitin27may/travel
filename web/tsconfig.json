@@ -39,7 +39,9 @@
     ".fixture-out/types/**/*.ts",
     ".fixture-out/dev/types/**/*.ts",
     ".fixture-beacon/types/**/*.ts",
-    ".fixture-beacon/dev/types/**/*.ts"
+    ".fixture-beacon/dev/types/**/*.ts",
+    ".fixture-google/types/**/*.ts",
+    ".fixture-google/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
@@ -47,6 +49,7 @@
     ".next",
     ".fixture-out",
     ".fixture-beacon",
+    ".fixture-google",
     ".generated"
   ]
 }
