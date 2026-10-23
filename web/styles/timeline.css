@@ -64,6 +64,7 @@
 :root { --spy-bar-h: 52px; }
 .tl-planbar { position: sticky; top: var(--header-h); z-index: var(--z-sticky); display: flex; align-items: center; gap: var(--s-4); min-height: 52px; margin: 0 calc(var(--s-1) * -1) var(--s-4); padding: var(--s-2) var(--s-1); background: var(--bg); border-bottom: 1px solid var(--line); }
 .tl-planbar-export { display: none; flex: none; margin-left: auto; }
+.tl-planbar-export .btn { height: 36px; }
 @media (min-width: 1024px) { .tl-planbar-export { display: block; } }
 .tl-planbar-line { flex: none; font: var(--t-meta); color: var(--ink-2); max-width: 16rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tl-rail-days { display: flex; gap: var(--s-1); overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; min-width: 0; padding: 2px 0; }
