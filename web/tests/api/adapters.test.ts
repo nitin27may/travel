@@ -117,10 +117,24 @@ describe('ApiAdapter evaluates on the server what the browser evaluated', () => 
     }
   });
 
-  it('leaves free text to the list: the server\'s text rule is not the list\'s, so a text state is not counted there', async () => {
-    expect(await real.countPlaces!(state({ q: 'lake' }))).toBeNull();
-    expect(await real.countPlaces!(emptyState(), { q: 'lake', facets: {} })).toBeNull();
-    expect(await real.uncheckedGroups!(state({ q: 'lake', facets: { kid: ['yes'] } }))).toBeNull();
+  it('counts free text on the server by the list\'s own word rule (HYG, review API3-R-7), the same n the rows beside it show', async () => {
+    const texts: ListState[] = [
+      state({ q: 'lake' }),
+      state({ q: 'National  PARK' }),
+      state({ q: 'lake', facets: { country: ['CA'] } }),
+      state({ q: 'falls', facets: { kid: ['yes'] } }),
+    ];
+    for (const s of texts) {
+      const got = await real.countPlaces!(s);
+      expect(got?.n, JSON.stringify([s.q, s.facets])).toBe(filterRows(rows, s, d).length);
+      expect(got?.unchecked, JSON.stringify([s.q, s.facets])).toBe(uncheckedRows(rows, s, d).reduce((n, g) => n + g.rows.length, 0));
+    }
+    const parsed = { q: 'lake', facets: { country: ['CA'] } };
+    expect((await real.countPlaces!(emptyState(), parsed))?.n).toBe(filterRows(rows, state({ q: 'lake', facets: parsed.facets }), d).length);
+    const s = state({ q: 'lake', facets: { kid: ['yes'] } });
+    const local = uncheckedRows(rows, s, d);
+    const got = await real.uncheckedGroups!(s);
+    expect(got?.map((g) => [g.param, [...g.slugs].sort()])).toEqual(local.map((g) => [g.param, g.rows.map((r) => r.slug).sort()]));
   });
 
   it('refuses a state it cannot read (an advanced filter, a saved view), so the browser evaluates it', async () => {

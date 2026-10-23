@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 // API-2: the modules moved out of web/ are pure. They run in a route handler, at build and in a server, so none of them may import
 // React, Next, the filesystem or anything from web/. I/O stays in the store. Each directory below is scanned file by file.
 const SRC = fileURLToPath(new URL("../../src", import.meta.url));
-export const PURE_DIRS = ["query", "parse", "privacy", "export", "links", "format"];
+export const PURE_DIRS = ["query", "search", "parse", "privacy", "export", "links", "format"];
 
 const FORBIDDEN: { name: string; test: (spec: string) => boolean }[] = [
   { name: "react", test: (s) => s === "react" || s.startsWith("react/") || s.startsWith("react-dom") },

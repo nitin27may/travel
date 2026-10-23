@@ -1,5 +1,6 @@
 // Every case table, by store method (EXECUTION-PLAN 4.6). Runners import CONTRACT_TABLES; a new method gets a new table here.
 import type { ContractCase } from "./kit.ts";
+import { corpusCases } from "./corpus.cases.ts";
 import { countPlacesCases } from "./countPlaces.cases.ts";
 import { countsParsedCases } from "./countsParsed.cases.ts";
 import { exportFormatsCases } from "./exportFormats.cases.ts";
@@ -50,6 +51,8 @@ export const CONTRACT_TABLES: Record<string, ContractCase[]> = {
   tripLegs: tripLegsCases,
   // API-3c (review API3-R-1): K29
   echo: echoCases,
+  // HYG (review API3-R-7, PHASE-E-START 15.27): K28
+  corpus: corpusCases,
 };
 
 export * from "./kit.ts";

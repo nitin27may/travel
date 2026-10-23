@@ -8,6 +8,7 @@ import { describe, expect, it } from "vitest";
 import { StubStore, STUB_ALIASED, STUB_MERGED, STUB_RETIRED, STUB_SOURCES, STUB_TRIP_RETIRED, STUB_WITHDRAWN, stubData, type StubData, type StubOptions } from "../../src/catalogue/stub/index.ts";
 import { CONTRACT_TABLES, type ContractFacts, type ContractTarget, type Planted } from "./contract/index.ts";
 import { runContractTargets } from "./contract/run.ts";
+import { STUB_CARD_ORDER } from "./contract/cardOrder.golden.ts";
 
 const PHASE_E_NEAR = "phase E, N2 (nearby-and-regions.md section 7): near and nearbyForPlace answer not_available until then";
 
@@ -33,6 +34,7 @@ const stubFacts: ContractFacts = {
   // API-3 facts for K23 (the stub's empty season is a gap) and K27 (the loop has two legs with geometry)
   gap: { key: "season", value: "7" },
   legs: { trip: "stub-rockies-loop", geometry: true },
+  cardOrder: { exact: true, cases: STUB_CARD_ORDER },
 };
 
 /** A StubStore over the fixture with `p` planted (cases K26, globePins.cap): towns and outlines added, a country's pins cloned up to n. */
@@ -89,10 +91,10 @@ export const TARGETS: ContractTarget[] = [
 const tally = runContractTargets(TARGETS);
 
 describe("contract kit bookkeeping", () => {
-  it("every start-sheet case K1 to K27 and K29 has at least one table entry (K28 is HYG's)", () => {
+  it("every start-sheet case K1 to K29 has at least one table entry", () => {
     const ids = new Set(Object.values(CONTRACT_TABLES).flat().map((c) => c.id.split(".")[0]));
     for (let k = 1; k <= 27; k++) expect(ids.has(`K${k}`), `K${k}`).toBe(true);
-    expect(ids.has("K29"), "K29").toBe(true);
+    for (const k of [28, 29]) expect(ids.has(`K${k}`), `K${k}`).toBe(true);
   });
   it("no case is left awaiting an implementation step (API-3b filled them all)", () => {
     for (const t of tally) expect(t.awaiting, t.name).toEqual([]);

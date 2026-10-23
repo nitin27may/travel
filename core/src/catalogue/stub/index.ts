@@ -8,6 +8,7 @@ import type { z } from "zod";
 import * as S from "../../schema/api/index.ts";
 import { compareByDistance, measure, within, type Measure } from "../distance.ts";
 import { cardHitsOf } from "../cards.ts";
+import { buildTextIndex, cardText, queryTerms, searchTexts } from "../../search/bm25.ts";
 import { publicTownLayer, safeLine, type PublicGazetteer, type PublicTownsHolder } from "../../privacy/towns.ts";
 import { printText } from "../printText.ts";
 import { approxNote } from "../../export/licence.ts";
@@ -15,7 +16,8 @@ import { revisionOf, servedSnapshot } from "../revision.ts";
 import { fail, ok, type Result } from "../result.ts";
 import { currentSlug, isWithdrawn, kebab, movedTo, resolveRegion } from "../slugs.ts";
 import { PLACE_SORT_VALUES, TRIP_SORT_VALUES, sortRows } from "../sorting.ts";
-import { PLACE_TEXT, TRIP_TEXT, compareCodePoints, matchesText, sortKey } from "../sortKey.ts";
+import { compareCodePoints, matchesText, sortKey } from "../sortKey.ts";
+import { matchesFreeText, placeHaystack, tripHaystack } from "../../query/text.ts";
 import { mergeParsed, type CatalogueStore } from "../store.ts";
 import { uncheckedPageOf, type UncheckedGroupRows } from "../unchecked.ts";
 import { stubData, stubSearchRecords, type StubData, type StubPlace, type StubTrip } from "./fixture.ts";
@@ -59,21 +61,6 @@ const ROW_FACETS: Record<string, (r: S.PlaceRow) => readonly string[]> = {
 const GAP_FACETS: { key: string; label: string; note: string; isGap: (r: S.PlaceRow) => boolean }[] = [
   { key: "season", label: "Season", note: "not checked yet", isGap: (r) => r.season.length === 0 },
 ];
-
-// ---- card text and terms (store.ts A28): the stub's own copy of the rule, so a SQL store reproduces it from the contract, not from web ----
-const STOP = new Set(["a", "an", "the", "and", "or", "of", "in", "on", "at", "to", "for", "with", "by", "from", "is", "are", "it", "its", "this", "that", "as", "be", "near", "into", "than", "up", "out"]);
-function stem(w: string): string {
-  if (w.length > 6 && w.endsWith("ing")) return w.slice(0, -3);
-  if (w.length > 4 && w.endsWith("ies")) return `${w.slice(0, -3)}y`;
-  if (w.length > 4 && /(ses|xes|ches|shes)$/.test(w)) return w.slice(0, -2);
-  if (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) return w.slice(0, -1);
-  return w;
-}
-const termsOf = (text: string): string[] =>
-  text.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 1 && !STOP.has(w)).map(stem);
-
-/** Distinct and in first-seen order: what a query is read as. */
-const distinct = (xs: string[]): string[] => [...new Set(xs)];
 
 export class StubStore implements CatalogueStore, PublicTownsHolder {
   readonly data: StubData;
@@ -149,7 +136,7 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
     const ids = q.ids?.length ? new Set(q.ids.map((id) => currentSlug(this.data.registry, id)).filter((s): s is string => !!s)) : null;
     return rows.filter((r) => {
       if (!tests.every((t) => t(r))) return false;
-      if (!matchesText(q.q, PLACE_TEXT(r))) return false;
+      if (!matchesFreeText(q.q, r, placeHaystack)) return false;
       if (ids && !ids.has(r.slug)) return false;
       if (q.bbox) {
         const [w, s, e, n] = q.bbox;
@@ -271,30 +258,14 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
     const { q: words, limit: _limit, ...filters } = qi.value;
     const rows = this.matching(filters);
     if (!Array.isArray(rows)) return { ok: false, error: rows };
-    const query = distinct(termsOf(words));
+    const query = queryTerms(words);
     if (!query.length) return ok(cardHitsOf([], [], limit), this.rev);
-    // BM25 (k1 1.2, b 0.75) over the cards of the query's country scope; a card must hold at least half of the distinct terms (A28)
+    // BM25 over the cards of the query's country scope (A28; the one scorer, core/src/search/bm25.ts)
     const countries = new Set((filters.facets?.country ?? []).map((c) => c.toUpperCase()));
     const scope = this.data.places.filter((p) => !countries.size || countries.has(p.row.country));
-    const docs = new Map(scope.map((p) => [p.row.ref, termsOf([p.detail.name, p.detail.kindLabel, ...p.detail.areaChain.map((a) => a.name), p.detail.summary, ...p.row.tags.map((t) => t.label)].join(" "))]));
-    const avg = [...docs.values()].reduce((n, d) => n + d.length, 0) / (docs.size || 1) || 1;
-    const df = new Map(query.map((t) => [t, [...docs.values()].filter((d) => d.includes(t)).length]));
-    const need = Math.ceil(query.length / 2);
-    const scored: { row: S.PlaceRow; score: number }[] = [];
-    for (const row of rows) {
-      const doc = docs.get(row.ref);
-      if (!doc) continue;
-      let score = 0;
-      let held = 0;
-      for (const t of query) {
-        const tf = doc.filter((x) => x === t).length;
-        if (!tf) continue;
-        held++;
-        const d = df.get(t)!;
-        score += (Math.log(1 + (docs.size - d + 0.5) / (d + 0.5)) * tf * 2.2) / (tf + 1.2 * (0.25 + (0.75 * doc.length) / avg));
-      }
-      if (held >= need) scored.push({ row, score });
-    }
+    const index = buildTextIndex(scope.map((p) => ({ id: p.row.ref, text: cardText({ name: p.detail.name, kindLabel: p.detail.kindLabel, areaChain: p.detail.areaChain, summary: p.detail.summary, tags: p.row.tags.map((t) => t.label) }) })));
+    const score = new Map(searchTexts([index], words, Number.MAX_SAFE_INTEGER).map((h) => [h.id, h.score]));
+    const scored = rows.flatMap((row) => (score.has(row.ref) ? [{ row, score: score.get(row.ref)! }] : []));
     return ok(cardHitsOf(scored, query, limit), this.rev);
   }
 
@@ -492,7 +463,7 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
     if (unsupported) return fail("not_available", `The stub cannot evaluate the trip facet "${unsupported}"; the query engine lands in API-2.`);
     const rows = this.data.trips
       .map((t) => t.row)
-      .filter((r) => (!countries.length || r.countries.some((c) => countries.includes(c.code))) && matchesText(qi.value.q, TRIP_TEXT(r)));
+      .filter((r) => (!countries.length || r.countries.some((c) => countries.includes(c.code))) && matchesFreeText(qi.value.q, r, tripHaystack));
     return this.page(sortRows(rows, qi.value.sort ?? [], TRIP_SORT_VALUES, (r) => r.title), pi.value);
   }
 

@@ -18,8 +18,9 @@ import { staticClient } from './static';
 //
 // What the API does not carry stays on the static files, named here: the bulk search parts and manifest (a bulk read is not an API
 // call, P8), the parser's vocabulary file (the server holds it) and the reference geography the globe draws (Natural Earth and OSM files,
-// not catalogue data). The counts of a parse or a list state, the "not checked yet" rows and the card-text search are the server's since
-// API-3 (`countPlaces`, `uncheckedGroups`, `cardRank` below); the browser no longer evaluates them for this adapter.
+// not catalogue data). The counts of a parse or a list state (free text included: one word rule, store.ts A16), the "not checked yet" rows and the
+// card-text search are the server's since API-3 and HYG (`countPlaces`, `uncheckedGroups`, `cardRank` below); the browser evaluates
+// them only for an advanced filter or a saved view, and for the StaticAdapter, with the same core function.
 
 /** What the adapter asks of a server, one method per call it makes. A missing item is `null`. */
 export interface ApiCalls {
@@ -221,13 +222,12 @@ export function createApiClient(calls: ApiCalls): DataClient {
       return p;
     },
     async countPlaces(state, parsed) {
-      // Free text stays the list's: the server's `q` rule is a substring of name, area and region (store.ts A16, case K11) and the list's is every
-      // word of a wider haystack, so a server count of a text state would disagree with the rows beside it. core/src/query unifies the two (API-2).
-      if ((parsed ? parsed.q : state.q).trim()) return null;
+      // Free text is the server's too: its `q` is the list's word rule (store.ts A16, core/src/query/text.ts), so a count and the rows beside
+      // it agree. Only an advanced filter or a saved view (the browser's own grammar) is left to the browser.
       const base = placeQueryOf(state);
       if (!base) return null;
       try {
-        const q: CountQuery = parsed ? { ...base, parsed: { q: '', facets: Object.fromEntries(Object.entries(parsed.facets).filter(([, v]) => v?.length).map(([k, v]) => [k, [...v!]])) } } : base;
+        const q: CountQuery = parsed ? { ...base, parsed: { q: parsed.q.trim(), facets: Object.fromEntries(Object.entries(parsed.facets).filter(([, v]) => v?.length).map(([k, v]) => [k, [...v!]])) } } : base;
         const got = await calls.countPlaces(q);
         return { n: got.n, unchecked: got.unchecked };
       } catch {
@@ -235,7 +235,7 @@ export function createApiClient(calls: ApiCalls): DataClient {
       }
     },
     async uncheckedGroups(state, only) {
-      const q = state.q.trim() ? null : placeQueryOf(state);
+      const q = placeQueryOf(state);
       if (!q) return null;
       try {
         const query: UncheckedQuery = { ...q, ...(only?.length ? { only: [...only] } : {}) };
