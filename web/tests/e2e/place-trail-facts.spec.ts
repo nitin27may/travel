@@ -60,7 +60,7 @@ test.describe('the strip on a phone and the empty cell', () => {
 
 test.describe('a place with no stored point', () => {
   test('has no Directions button and Save to a trip is the one primary (M19)', async ({ page, site }) => {
-    await page.goto(`${site.url}/places/fenland-loop/`, { waitUntil: 'networkidle' });
+    await page.goto(`${site.url}/places/iceline-trail/`, { waitUntil: 'networkidle' });
     await expect(page.locator('.pl-actions').getByRole('button', { name: /Directions/ })).toHaveCount(0);
     const save = page.getByRole('button', { name: /Save to a trip/ });
     await expect(save).toHaveClass(/pl-primary/);
