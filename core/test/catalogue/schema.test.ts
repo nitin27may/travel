@@ -18,9 +18,9 @@ const SHIPPED_ROW_KEYS = ["id", "slug", "name", "kind", "kindLabel", "legacyKind
 const SHIPPED_TRIP_KEYS = ["id", "slug", "title", "depth", "nights", "days", "seasonNotSet", "isDone", "region", "cover", "seasonLabel", "seasonMonths", "country", "countryName", "lat", "lon", "approx", "ageFit", "kidsBasis", "effort", "firstBase", "countries", "continents", "length", "lengthClass", "hike", "hikeBasis", "strollerDays", "activities", "highlights", "around", "perDay", "perDayApprox", "shape", "fromHubMin", "fromHubApprox"];
 
 describe("allowlists (schema diff 13.1 items 1 and 2)", () => {
-  it("the shipped row is today's 41 keys; the API row adds ref and approx (R-17) and nothing else", () => {
+  it("the shipped row is today's 41 keys; the API row adds ref, approx (R-17) and nearTown (store.ts A35) and nothing else", () => {
     expect(S.PLACE_LIST_ROW_KEYS).toEqual(SHIPPED_ROW_KEYS);
-    expect([...S.PLACE_ROW_KEYS].sort()).toEqual([...SHIPPED_ROW_KEYS, "ref", "approx"].sort());
+    expect([...S.PLACE_ROW_KEYS].sort()).toEqual([...SHIPPED_ROW_KEYS, "ref", "approx", "nearTown"].sort());
   });
   it("sort keys are an allowlist with a value rule each (R-4)", () => {
     expect([...S.PLACE_SORT_KEYS].sort()).toEqual(Object.keys(PLACE_SORT_VALUES).sort());
@@ -42,7 +42,8 @@ describe("allowlists (schema diff 13.1 items 1 and 2)", () => {
     expect(row).not.toBeNull();
     expect(S.placeRow.safeParse(row).success).toBe(true);
     expect(S.placeRow.safeParse({ ...row, notes: "x" }).success).toBe(false);
-    const { ref: _r, approx: _a, ...shipped } = row!;
+    // the API row is the shipped row plus ref, approx and nearTown (store.ts A35)
+    const { ref: _r, approx: _a, nearTown: _n, ...shipped } = row!;
     expect(S.placeRow.safeParse(shipped).success).toBe(false);
     expect(S.placeListRow.safeParse(shipped).success).toBe(true);
   });
@@ -85,7 +86,9 @@ describe("round trips: every StubStore answer parses with its method's output sc
     });
   }
   it("covers every method", () => {
-    expect(new Set([...calls.map(([m]) => m), "revision"])).toEqual(new Set(CATALOGUE_METHODS));
+    // API-3a: the methods whose StubStore answer is the 3b skeleton join this list in API-3b (store.ts, 3b hand-off)
+    const awaiting3b = ["listUnchecked", "searchCards", "tripLegs"];
+    expect(new Set([...calls.map(([m]) => m), "revision", ...awaiting3b])).toEqual(new Set(CATALOGUE_METHODS));
   });
 });
 
