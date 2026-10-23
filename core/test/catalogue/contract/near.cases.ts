@@ -26,11 +26,15 @@ export const nearCases: ContractCase[] = [
   },
   {
     id: "K2",
-    title: "near rows carry the PlaceRow allowlist plus distanceKm, bearing, band and basis, nothing else",
+    title: "near rows carry the PlaceRow allowlist plus distanceKm, bearing, band, basis and minutes, nothing else (A35)",
     method: "near",
     async run(store, t) {
       const got = expectOk(await store.near({ near: t.facts.near.token, r: API_LIMITS.nearRadius.max }));
-      for (const r of got.items) expect(Object.keys(r).sort()).toEqual([...PLACE_ROW_KEYS, "distanceKm", "bearing", "band", "basis"].sort());
+      for (const r of got.items) {
+        expect(Object.keys(r).sort()).toEqual([...PLACE_ROW_KEYS, "distanceKm", "bearing", "band", "basis", "minutes"].sort());
+        // minutes only with a routed basis (A35): an estimate never carries a number of minutes
+        if (r.basis === "estimate") expect(r.minutes).toBeNull();
+      }
     },
   },
   {

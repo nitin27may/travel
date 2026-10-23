@@ -40,3 +40,36 @@ describe('core URL codec against web decodeState/encodeState', () => {
     });
   }
 });
+
+// API-3a: the codec rules of store.ts A25 and A31 (audit GB-A-12)
+describe('core URL codec: parsed counts, unchecked, cards, and the stricter reads', () => {
+  const dec = (method: Parameters<typeof fromSearchParams>[0], qs: string) => fromSearchParams(method, new URLSearchParams(qs));
+  it('reads r only as a plain decimal', () => {
+    expect(dec('near', 'near=place:x&r=12.5')).toMatchObject({ ok: true, args: { q: { r: 12.5 } } });
+    for (const r of ['0x10', '1e2', '-5', 'Infinity', '12,5', ' 7']) {
+      expect(dec('near', `near=place:x&r=${encodeURIComponent(r)}`).ok, `near r=${r}`).toBe(false);
+      expect(dec('towns', `city=ca-ab-canmore&r=${encodeURIComponent(r)}`).ok, `towns r=${r}`).toBe(false);
+    }
+  });
+  it('refuses a repeated f.<facet> or parsed.<key>, like every other key', () => {
+    expect(dec('listPlaces', 'f.swim=yes&f.swim=no')).toMatchObject({ ok: false, error: { code: 'invalid_input' } });
+    expect(dec('countPlaces', 'parsed.kind=lake&parsed.kind=trail')).toMatchObject({ ok: false, error: { code: 'invalid_input' } });
+    expect(dec('countPlaces', 'parsed.nope=1')).toMatchObject({ ok: false, error: { code: 'invalid_input' } });
+    expect(dec('listPlaces', 'parsed.kind=lake')).toMatchObject({ ok: false, error: { code: 'invalid_input' } });
+  });
+  it('round-trips a parsed count, an empty parse included', () => {
+    for (const q of [
+      { facets: { country: ['CA'] }, parsed: { q: 'larch', facets: { kind: ['lake'], 'f.swim': ['yes'] } } },
+      { q: 'words', facets: { country: ['CA'] }, parsed: {} },
+      { facets: { country: ['CA'] } },
+    ] as PlaceQuery[]) {
+      expect(fromSearchParams('countPlaces', toSearchParams(q))).toEqual({ ok: true, args: { method: 'countPlaces', q, page: {} } });
+    }
+  });
+  it('reads only= for listUnchecked and limit= for searchCards, and refuses a sort on cards', () => {
+    expect(dec('listUnchecked', 'season=7&only=season,kid')).toEqual({ ok: true, args: { method: 'listUnchecked', q: { facets: { season: ['7'] }, only: ['season', 'kid'] }, page: {} } });
+    expect(dec('searchCards', 'q=larch&country=CA&limit=10')).toEqual({ ok: true, args: { method: 'searchCards', q: { q: 'larch', facets: { country: ['CA'] }, limit: 10 } } });
+    expect(dec('searchCards', 'q=larch&sort=name').ok).toBe(false);
+    expect(dec('searchCards', 'country=CA').ok).toBe(false);
+  });
+});

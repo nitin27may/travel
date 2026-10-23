@@ -1,7 +1,7 @@
 // getExport: K6 one item per export, the licence guard, the shape.
 import { expect } from "vitest";
 import { API_LIMITS, EXPORT_FORMATS, exportFile, type PlaceRow } from "../../../src/schema/api/index.ts";
-import { allRows, expectError, expectOk, type ContractCase } from "./kit.ts";
+import { allRows, expectError, expectOk, okOrSkeleton, type ContractCase } from "./kit.ts";
 
 export const getExportCases: ContractCase[] = [
   {
@@ -29,8 +29,10 @@ export const getExportCases: ContractCase[] = [
     async run(store, t) {
       for (const format of EXPORT_FORMATS) {
         for (const [type, slug] of [["place", t.facts.exportPlace], ["trip", t.facts.tripSlug]] as const) {
-          const f = expectOk(await store.getExport({ type, slug, format }), `${type} ${format}`);
-          expect(exportFile.safeParse(f).success, `${type} ${format}`).toBe(true);
+          // `json` is the API-3b skeleton until K20 lands; every other format must answer
+          const f = okOrSkeleton(await store.getExport({ type, slug, format }), `${type} ${format}`);
+          if (f === null && format !== "json") throw new Error(`${type} ${format} answered the skeleton`);
+          if (f) expect(exportFile.safeParse(f).success, `${type} ${format}`).toBe(true);
         }
       }
     },

@@ -1,6 +1,12 @@
 // Every case table, by store method (EXECUTION-PLAN 4.6). Runners import CONTRACT_TABLES; a new method gets a new table here.
 import type { ContractCase } from "./kit.ts";
 import { countPlacesCases } from "./countPlaces.cases.ts";
+import { countsParsedCases } from "./countsParsed.cases.ts";
+import { exportFormatsCases } from "./exportFormats.cases.ts";
+import { searchCardsCases } from "./searchCards.cases.ts";
+import { townGuardCases } from "./townGuard.cases.ts";
+import { tripLegsCases } from "./tripLegs.cases.ts";
+import { uncheckedCases } from "./unchecked.cases.ts";
 import { getExportCases } from "./getExport.cases.ts";
 import { getPlaceCases } from "./getPlace.cases.ts";
 import { globeCases } from "./globe.cases.ts";
@@ -34,6 +40,13 @@ export const CONTRACT_TABLES: Record<string, ContractCase[]> = {
   household: householdCases,
   images: imageCases,
   handler: handlerCases,
+  // API-3a (PHASE-E-START section 7): K20 to K27, each `awaits` its API-3b step where 3b fills it
+  exportFormats: exportFormatsCases,
+  countsParsed: countsParsedCases,
+  unchecked: uncheckedCases,
+  searchCards: searchCardsCases,
+  townGuard: townGuardCases,
+  tripLegs: tripLegsCases,
 };
 
 export * from "./kit.ts";
