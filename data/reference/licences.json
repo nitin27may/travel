@@ -1,6 +1,6 @@
 {
   "schema": "licences/1",
-  "updated": "2026-10-19",
+  "updated": "2026-10-23",
   "sources": [
     {
       "id": "osm",
@@ -113,6 +113,14 @@
       "licence": "Open Government Licence – Canada",
       "attribution": "Contains information licensed under the Open Government Licence – Canada (Statistics Canada, 2021 Census boundary files).",
       "covers": "The census division boundaries for Canada on the globe."
+    },
+    {
+      "id": "geonames",
+      "name": "GeoNames",
+      "url": "https://www.geonames.org/",
+      "licence": "Creative Commons Attribution 4.0 (CC BY 4.0)",
+      "attribution": "Contains data from GeoNames, CC BY 4.0",
+      "covers": "The towns and cities layer: the names, positions and populations of places of 1,000 people or more, used for the nearest town of a place and for the city filter, shown as GeoNames has them."
     }
   ],
   "privacy": "Never published: traveller ages, heights, weights and citizenship; booking confirmations and contacts; prices paid; inbox captures; the research tree."

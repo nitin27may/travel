@@ -373,6 +373,22 @@
       "ref": "place/tre-cime-di-lavaredo-loop",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "it-34-auronzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3182671, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 11.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Tre Cime di Lavaredo loop",
       "route_is_attraction": true,
       "attraction_reason": "The loop is the experience (spec 2.7.1 example 4). The mountain, the north-face viewpoint and the three huts now exist as places (CS7); the world draw also belongs on the mountain and the viewpoint once a relevance edit is allowed.",
@@ -447,6 +463,22 @@
       "ref": "place/cadini-di-misurina-viewpoint",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 12.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Cadini di Misurina viewpoint",
       "reaches": [
         "part/place/cadini-di-misurina-viewpoint#payoff"
@@ -466,6 +498,22 @@
       "area_id": "IT/veneto/belluno",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-auronzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3182671, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 10.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Cadini di Misurina viewpoint",
       "origin": {
         "from": "place/cadini-di-misurina-viewpoint",
@@ -510,6 +558,22 @@
       "ref": "place/lago-di-sorapis",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 5.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago di Sorapis",
       "reaches": [
         "part/place/lago-di-sorapis#payoff"
@@ -547,6 +611,22 @@
       "area_id": "IT/veneto/belluno",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-san-vito",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3167182, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 6.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago di Sorapis",
       "origin": {
         "from": "place/lago-di-sorapis",
@@ -591,6 +671,22 @@
       "ref": "place/cinque-torri",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 7.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Cinque Torri",
       "route_is_attraction": true,
       "attraction_reason": "A walk through restored WWI trenches among the five towers: the open-air museum circuit is the experience.",
@@ -638,6 +734,22 @@
       "ref": "place/monte-piana",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 11.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Monte Piana",
       "route_is_attraction": true,
       "attraction_reason": "A walk through WWI trenches and tunnels on the plateau: the circuit is the experience.",
@@ -673,6 +785,22 @@
       "ref": "place/croda-del-becco",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "it-32-monguelfo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3173140, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 6.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Croda del Becco",
       "reaches": [
         "part/place/croda-del-becco#payoff"
@@ -708,6 +836,22 @@
       "ref": "part/place/croda-del-becco#payoff",
       "type": "nature.summit.summit",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-monguelfo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3173140, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 9.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Croda del Becco",
       "origin": {
         "from": "place/croda-del-becco",
@@ -752,6 +896,22 @@
       "ref": "place/val-fiscalina",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "it-32-san-candido",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3168508, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 9.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Val Fiscalina",
       "route_is_attraction": true,
       "attraction_reason": "A flat valley walk under the Croda dei Toni: the valley walk is the experience.",
@@ -786,6 +946,22 @@
       "ref": "part/place/lago-federa#walk",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 5.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago Federa walk",
       "starts_at": [
         "place/lago-federa"
@@ -809,6 +985,22 @@
       "ref": "place/cascate-di-fanes",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 7.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Cascate di Fanes",
       "reaches": [
         "part/place/cascate-di-fanes#payoff"
@@ -826,6 +1018,22 @@
       "ref": "part/place/cascate-di-fanes#payoff",
       "type": "water.falls.waterfall",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 7.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Cascate di Fanes",
       "origin": {
         "from": "place/cascate-di-fanes",
@@ -879,6 +1087,22 @@
       "ref": "place/adolf-munkel-weg",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "it-32-funes-villnoess",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6534780, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 6.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Adolf Munkel Weg",
       "route_is_attraction": true,
       "attraction_reason": "A balcony path under the Odle north faces: the traverse is the experience.",
@@ -922,6 +1146,22 @@
       "ref": "place/alpe-di-siusi",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "it-32-siusi",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3166483, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 4.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Alpe di Siusi",
       "route_is_attraction": true,
       "attraction_reason": "A walk across the high pasture under the Sassolungo: the meadows walk is the experience.",
@@ -953,6 +1193,22 @@
       "ref": "place/bullaccia-and-the-witches-benches",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "it-32-castelrotto",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3179493, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 4.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Bullaccia and the Witches' Benches",
       "reaches": [
         "part/place/bullaccia-and-the-witches-benches#payoff"
@@ -985,6 +1241,22 @@
       "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-castelrotto",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3179493, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 4.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Bullaccia and the Witches' Benches",
       "origin": {
         "from": "place/bullaccia-and-the-witches-benches",
@@ -1038,6 +1310,22 @@
       "ref": "place/vallunga",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "it-32-selva",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3166784, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 1.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Vallunga",
       "route_is_attraction": true,
       "attraction_reason": "A gentle valley walk under steep walls: the valley walk is the experience.",
@@ -1054,6 +1342,22 @@
       "ref": "place/viel-dal-pan",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "it-32-canazei",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3180883, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 3.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Viel dal Pan",
       "route_is_attraction": true,
       "attraction_reason": "A balcony path with the Marmolada in view the whole way: the traverse is the experience.",
@@ -1089,6 +1393,22 @@
       "ref": "place/sass-pordoi-and-piz-boe",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "it-32-canazei",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3180883, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Sass Pordoi and Piz Boè",
       "reaches": [
         "part/place/sass-pordoi-and-piz-boe#payoff"
@@ -1132,6 +1452,22 @@
       "area_id": "IT/trentino-alto-adige/provincia-di-trento",
       "type": "nature.summit.summit",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-canazei",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3180883, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 5.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Sass Pordoi and Piz Boè",
       "origin": {
         "from": "place/sass-pordoi-and-piz-boe",
@@ -1157,6 +1493,22 @@
       "area_id": "IT/veneto/belluno",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "it-34-livinallongo-del-col-di-lana",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3174663, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 6.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lagazuoi tunnels",
       "starts_at": [
         "place/lagazuoi-cable-car-and-tunnels"
@@ -1174,6 +1526,22 @@
       "ref": "place/seceda-ridge",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "it-32-santa-cristina-valgardena",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3167680, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 3.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Seceda ridge",
       "reaches": [
         "part/place/seceda-ridge#payoff"
@@ -1203,6 +1571,22 @@
       "ref": "part/place/seceda-ridge#payoff",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-santa-cristina-valgardena",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3167680, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 4.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Seceda ridge",
       "origin": {
         "from": "place/seceda-ridge",
@@ -1259,6 +1643,22 @@
       "ref": "part/place/lago-di-dobbiaco#walk",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "it-32-dobbiaco",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177571, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 2.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago di Dobbiaco walk",
       "starts_at": [
         "place/lago-di-dobbiaco"
@@ -1269,6 +1669,22 @@
       "area_id": "IT/veneto/belluno",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "it-34-livinallongo-del-col-di-lana",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3174663, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 6.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago di Limides walk",
       "starts_at": [
         "place/lago-di-limides"
@@ -1278,6 +1694,22 @@
       "ref": "place/lago-di-braies",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-monguelfo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3173140, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 7.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "area_id": "IT/trentino-alto-adige/bolzano",
       "name": "Lago di Braies",
       "links": [
@@ -1343,12 +1775,44 @@
       "ref": "place/lago-di-carezza",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-nova-levante",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3172192, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 3.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago di Carezza"
     },
     {
       "ref": "place/lago-di-landro",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-dobbiaco",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177571, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 11,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "area_id": "IT/trentino-alto-adige/bolzano",
       "name": "Lago di Landro",
       "links": [
@@ -1384,6 +1848,22 @@
       "ref": "place/lago-dantorno",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 11.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago d'Antorno",
       "links": [
         {
@@ -1417,18 +1897,66 @@
       "ref": "place/lago-di-dobbiaco",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-dobbiaco",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177571, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 2.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago di Dobbiaco"
     },
     {
       "ref": "place/lago-di-misurina",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 10.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago di Misurina"
     },
     {
       "ref": "place/lago-di-limides",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-livinallongo-del-col-di-lana",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3174663, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 6.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago di Limides",
       "links": [
         {
@@ -1454,12 +1982,44 @@
       "ref": "place/lago-federa",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago Federa"
     },
     {
       "ref": "place/passo-gardena",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-selva",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3166784, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 3.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "area_id": "IT/trentino-alto-adige/bolzano",
       "name": "Passo Gardena",
       "links": [
@@ -1495,6 +2055,22 @@
       "ref": "place/santa-maddalena-val-di-funes",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-funes-villnoess",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6534780, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 3.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "area_id": "IT/trentino-alto-adige/bolzano",
       "name": "Santa Maddalena, Val di Funes",
       "links": [
@@ -1530,24 +2106,88 @@
       "ref": "place/bolzano",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-bolzano",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3181913, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 1.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Bolzano"
     },
     {
       "ref": "place/cortina-dampezzo",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Cortina d'Ampezzo"
     },
     {
       "ref": "place/dobbiaco",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-dobbiaco",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177571, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Dobbiaco"
     },
     {
       "ref": "place/la-val",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-la-valle-wengen",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6534567, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "area_id": "IT/trentino-alto-adige/bolzano",
       "name": "La Val",
       "links": [
@@ -1566,36 +2206,132 @@
       "ref": "place/ortisei",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-ortisei",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3171891, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Ortisei"
     },
     {
       "ref": "place/san-candido",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-san-candido",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3168508, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "San Candido"
     },
     {
       "ref": "place/san-vito-di-cadore",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-san-vito",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3167182, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "San Vito di Cadore"
     },
     {
       "ref": "place/santa-cristina",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-santa-cristina-valgardena",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3167680, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 1.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Santa Cristina"
     },
     {
       "ref": "place/selva-di-val-gardena",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-selva",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3166784, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Selva di Val Gardena"
     },
     {
       "ref": "place/otzi-south-tyrol-museum-of-archaeology",
       "type": "culture.museum.museum",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-bolzano",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3181913, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 1.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "area_id": "IT/trentino-alto-adige/bolzano",
       "name": "Ötzi, South Tyrol Museum of Archaeology",
       "links": [
@@ -1759,6 +2495,22 @@
       "area_id": "IT/veneto/belluno",
       "type": "nature.protected.nature_reserve",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 8.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Dolomites"
     },
     {
@@ -1912,6 +2664,22 @@
       "ref": "part/place/funbob-monte-baranci#place",
       "type": "play.amusement.alpine_coaster",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-san-candido",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3168508, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 1.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Monte Baranci",
       "origin": {
         "from": "place/funbob-monte-baranci",
@@ -1952,6 +2720,22 @@
       "ref": "place/drava-cycle-path-to-lienz",
       "type": "wheels.bike.cycle_path",
       "layer": "route",
+      "near_town": {
+        "v": "at-2-neu-feffernitz",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 11819586, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 3.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Drava cycle path to Lienz",
       "route_is_attraction": true,
       "attraction_reason": "A downhill cycle path along the Drava: the ride is the experience.",
@@ -1977,6 +2761,22 @@
       "ref": "place/lagazuoi-cable-car-and-tunnels",
       "type": "ride.lift.cable_car",
       "layer": "route",
+      "near_town": {
+        "v": "it-34-livinallongo-del-col-di-lana",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3174663, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 6.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lagazuoi cable car and tunnels",
       "reaches": [
         "part/place/lagazuoi-cable-car-and-tunnels#top"
@@ -2008,6 +2808,22 @@
       "area_id": "IT/veneto/belluno",
       "type": "access.transit.station",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-livinallongo-del-col-di-lana",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3174663, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 5.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lagazuoi cable car and tunnels top station",
       "origin": {
         "from": "place/lagazuoi-cable-car-and-tunnels",

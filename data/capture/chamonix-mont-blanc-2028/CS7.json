@@ -21,6 +21,22 @@
       "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit",
       "type": "nature.summit.summit",
       "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 5.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Aiguille du Midi summit terraces",
       "osm_ref": "node/167075493",
       "origin": {
@@ -55,6 +71,22 @@
       "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#step-into-the-void",
       "type": "culture.heritage.landmark",
       "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 5.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Step into the Void (Le Pas dans le Vide)",
       "names": {
         "fr": "Le Pas dans le Vide"
@@ -95,6 +127,22 @@
       "ref": "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#parking",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 1.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lac des Gaillands car park",
       "osm_ref": "way/232431306",
       "parks_for": [
@@ -117,6 +165,22 @@
       "ref": "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop",
       "type": "access.transit.transit_stop",
       "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 1.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Les Gaillands bus stop",
       "serves": [
         "trip/chamonix-mont-blanc-2028/lake:lac des gaillands"

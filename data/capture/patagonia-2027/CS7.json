@@ -11,6 +11,22 @@
       "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#parking",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "ar-z-el-chalten",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6690180, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 3.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Chorrillo del Salto car park",
       "osm_ref": "way/747061337",
       "parks_for": [
@@ -33,6 +49,22 @@
       "ref": "part/trip/patagonia-2027/trail:mirador de los condores#trailhead",
       "type": "access.start.trailhead",
       "layer": "place",
+      "near_town": {
+        "v": "ar-z-el-chalten",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6690180, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Mirador de los Cóndores trailhead",
       "origin": {
         "from": "trip/patagonia-2027/trail:mirador de los condores",
