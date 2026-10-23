@@ -43,7 +43,9 @@
     ".fixture-google/types/**/*.ts",
     ".fixture-google/dev/types/**/*.ts",
     ".fixture-trip-google/types/**/*.ts",
-    ".fixture-trip-google/dev/types/**/*.ts"
+    ".fixture-trip-google/dev/types/**/*.ts",
+    ".fixture-trip-routes/types/**/*.ts",
+    ".fixture-trip-routes/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
@@ -53,6 +55,7 @@
     ".fixture-beacon",
     ".fixture-google",
     ".fixture-trip-google",
+    ".fixture-trip-routes",
     ".generated"
   ]
 }
