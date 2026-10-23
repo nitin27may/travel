@@ -99,6 +99,7 @@
 .key-swatch[data-key='stop'] { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--ink); color: var(--surface); font: 600 11.5px/1 var(--font-mono); }
 .key-swatch[data-key='stops'] { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
 .key-swatch[data-key='base'] { width: 14px; height: 14px; border-radius: 4px; background: var(--ink); }
+.key-swatch[data-key='base'][data-pick] { background: var(--accent); outline: 1px solid var(--map-casing); }
 .key-swatch[data-key='estimate'] { width: 24px; height: 0; border-top: 2.5px dashed var(--ink); }
 .key-swatch[data-key='road'] { width: 24px; height: 3.5px; background: var(--accent); outline: 1px solid var(--map-casing); }
 .key-swatch[data-key='other'] { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); opacity: 0.5; }

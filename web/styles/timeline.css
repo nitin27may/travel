@@ -440,6 +440,10 @@
   /* the last row of the last day can be scrolled above the sheet */
   .tl-cols[data-sheet-open] { padding-bottom: var(--sheet-h); }
   .tl-mapbox { flex: 1 1 auto; min-height: 0; }
+  /* the one-line key and the Map key toggle share a row, so the map keeps the height */
+  .trip-map-key { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 var(--s-3); }
+  .trip-map-key .trip-map-key-toggle { margin-top: 0; }
+  .trip-map-key .trip-map-key-note { order: 3; flex-basis: 100%; }
   .tl-mapbox .trip-map-surface { height: auto; min-height: 0; }
   .tl-mapbox .trip-map-surface > div { min-height: 0; }
   .tl-mapph { height: 100%; }
