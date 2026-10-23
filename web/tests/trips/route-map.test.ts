@@ -74,6 +74,20 @@ describe('trip route map: which stops are pins (map note 4.1, backlog 4.23)', ()
     ]);
   });
 
+  it('the road test removes exactly these five visit titles from the default timelines (all roads), and never a trail: a new false positive fails here', () => {
+    const removed = new Set<string>();
+    for (const { m } of models) {
+      if (!m.timeline) continue;
+      for (const tl of m.timeline.defaultTimelines) for (const e of tl.entries) {
+        if (['visit', 'trail'].includes(e.kind) && isRoadLike(e.title)) {
+          expect(e.kind, e.title).toBe('visit');
+          removed.add(e.title);
+        }
+      }
+    }
+    expect([...removed].sort()).toEqual(['Eastfjords coast road', 'Scenic drive', 'Vermilion Lakes Drive', 'Zion Canyon Scenic Drive by shuttle', 'Zion-Mt Carmel Highway']);
+  });
+
   it('Rockies day 8 has no Icefields Parkway pin and numbers its stops north to south', () => {
     const rk = by('canadian-rockies-2029');
     if (!rk) return;

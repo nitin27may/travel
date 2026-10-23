@@ -22,7 +22,7 @@
 }
 
 /* ---------- the trip route map on Google (map note 4.2, 10): pins are elements, drawn from tokens ---------- */
-.tp-hit { position: relative; display: inline-grid; place-items: center; }
+.tp-hit { position: relative; display: inline-flex; align-items: center; }
 .tp {
   position: relative; box-sizing: border-box; min-width: 22px; height: 22px; border-radius: 11px; border: 2px solid var(--surface);
   background: var(--ink); color: var(--surface); box-shadow: 0 1px 2px var(--map-shade);
@@ -37,11 +37,13 @@
 .tp-dot { box-sizing: border-box; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--surface); background: var(--map-stop); }
 .tp-dot[data-dim] { opacity: 0.5; }
 .tp-label {
-  position: absolute; left: calc(50% + 15px); top: 50%; transform: translateY(-50%); white-space: nowrap; pointer-events: none;
+  flex: none; padding: 0 5px; white-space: nowrap; pointer-events: none;
   font: 600 12px/1.2 var(--font-mono, ui-monospace, monospace); color: var(--ink-2);
   text-shadow: 0 0 3px var(--map-halo), 0 0 3px var(--map-halo), 0 0 3px var(--map-halo);
 }
-.tp-label-base { left: calc(50% + 17px); font: var(--t-sign-s); letter-spacing: var(--t-sign-s-tracking); color: var(--ink); }
+.tp-label-base { font: var(--t-sign-s); letter-spacing: var(--t-sign-s-tracking); color: var(--ink); padding: 0 7px; }
+/* the hidden twin of the label: it keeps the disc at the middle of the marker's box */
+.tp-mirror { visibility: hidden; text-shadow: none; }
 /* hover and focus ring: a 2 px gap, a 2 px accent ring, a 1 px casing edge; it fades in rather than popping */
 .tp::after {
   content: ''; position: absolute; inset: -2px; border-radius: inherit; pointer-events: none; opacity: 0;
@@ -49,7 +51,7 @@
 }
 .tp-hit[data-ring] .tp::after { opacity: 1; }
 /* a coarse pointer gets a 36 px target around the 22 px disc */
-@media (pointer: coarse) { .tp-hit[data-numbered] { width: 36px; height: 36px; } }
+@media (pointer: coarse) { .tp-hit[data-numbered] { min-width: 36px; min-height: 36px; justify-content: center; } }
 .map-surface[data-trip-map] [data-map-controls] button { min-width: 34px; height: 34px; }
 @media (pointer: coarse) { .map-surface[data-trip-map] [data-map-controls] button { min-width: 44px; height: 44px; } }
 .gtm-state {

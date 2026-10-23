@@ -78,6 +78,10 @@ describe('the key shows only what is drawn (map note 5.2)', () => {
   it('All days has no numbered stop and no "Other days"', () => {
     expect(keyOf(routeSpec({ bases, models, picked: null })).items.map((i) => i.id)).toEqual(['stops', 'base', 'estimate']);
   });
+  it('the base swatch is the picked (amber) one when the picked base is drawn, ink when the day has none', () => {
+    expect(keyOf(routeSpec({ bases, models, picked: 3 })).items.find((i) => i.id === 'base')!.pick).toBe(true);
+    expect(keyOf(routeSpec({ bases, models, picked: null })).items.find((i) => i.id === 'base')!.pick).toBe(false);
+  });
   it('a routed leg adds "Road route" and switches the sentence; all routed has none', () => {
     const geometry = { 'leg:2:1': [{ lng: 10, lat: 40 }, { lng: 10.3, lat: 40.3 }], 'leg:2:end': [{ lng: 10.3, lat: 40.3 }, { lng: 10, lat: 40 }] };
     const all = keyOf(routeSpec({ bases, models, picked: 2, geometry }));
@@ -103,6 +107,9 @@ describe('the label row counts what is drawn (map note 4.1, 6.3)', () => {
     const none: DayMap = { day: 5, pins: [], entryPin: new Map(), unplaced: [{ id: 'x', name: 'X' }], missing: 1 };
     expect(labelOf({ day: 5, baseName: 'Banff', baseOnMap: true, model: none, trip }).text).toBe('Day 5 · Banff · no stop has a map position · showing the base');
     expect(labelOf({ day: 5, baseName: 'Banff', baseOnMap: false, model: none, trip }).text).toBe('Day 5 · no stop has a map position yet · showing the whole trip');
+  });
+  it('compact (phone sheet) keeps the count and drops the words the segment already says', () => {
+    expect(labelOf({ day: null, baseName: null, baseOnMap: false, model: null, trip, compact: true }).text).toBe('9 stops on the map');
   });
   it('All days', () => {
     expect(labelOf({ day: null, baseName: null, baseOnMap: false, model: null, trip }).text).toBe('All days · the whole trip · 9 stops on the map');

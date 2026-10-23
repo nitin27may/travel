@@ -42,7 +42,7 @@ export function RouteKey({ state }: { state: KeyState }) {
       <ul id="trip-map-key-list" className="trip-map-key-list" aria-label="Map key">
         {items.map((k) => (
           <li key={k.id}>
-            <span className="key-swatch" data-key={k.id} aria-hidden="true">{k.id === 'stop' ? '1' : null}</span>
+            <span className="key-swatch" data-key={k.id} data-pick={k.pick || undefined} aria-hidden="true">{k.id === 'stop' ? '1' : null}</span>
             {k.label}
           </li>
         ))}
@@ -196,7 +196,8 @@ export default function TripRouteMap({ route, models, picked, paused, dayNow, on
 
   // ---- the text around the map ----
   const trip = useMemo(() => ({ stops: base.pins.filter((p) => p.style === 'stop').length, missing: models.reduce((n, m) => n + m.missing, 0) }), [base.pins, models]);
-  const label = labelOf({ day: picked, baseName: route.days.find((d) => d.n === picked)?.base ?? null, baseOnMap: !!night, model: day, trip, paused: paused && picked === null });
+  const label = labelOf({ day: picked, // the day card names the base; on a phone the one-line label keeps the count instead
+    baseName: narrow && day?.pins.length ? null : (route.days.find((d) => d.n === picked)?.base ?? null), baseOnMap: !!night, model: day, trip, paused: paused && picked === null, compact: narrow });
   const key = useMemo(() => keyOf(base), [base]);
   const unplaced = picked === null ? models.flatMap((m) => m.unplaced.map((u) => ({ ...u, day: m.day }))) : (day?.unplaced ?? []).map((u) => ({ ...u, day: picked }));
   const dir = day ? dayDirections(day.day, day.pins.map((p) => p.at), morning ? { lng: morning.lng, lat: morning.lat } : null, night ? { lng: night.lng, lat: night.lat } : null) : null;
@@ -215,7 +216,7 @@ export default function TripRouteMap({ route, models, picked, paused, dayNow, on
         </span>
         {label.missing > 0 ? (
           <span className="tl-mapcol-missing">
-            {' · '}
+            {'\u00a0·\u00a0'}
             {unplaced.length ? (
               <button type="button" className="tl-reset" aria-expanded={listOpen} aria-controls="tl-nomap-list" onClick={() => setListOpen((v) => !v)}>
                 {label.missing} not on the map
