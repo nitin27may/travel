@@ -24,6 +24,15 @@ function schemaOf(name: string, schema: z.ZodType, components: Record<string, Js
   return out.js;
 }
 
+/**
+ * Paths whose route differs from the contract's `http` string. The contract names `GET /api/v1/globe/card/{key}` with the key
+ * `place:<slug>`; the route is two segments, because a colon in a path segment is a poor URL (audit GB-A-6). The contract is unchanged; the document
+ * says where the route is. `web/tests/api/openapi-routes.test.ts` holds this table to the route files.
+ */
+const ROUTE_OF: Partial<Record<CatalogueMethod, { path: string; params: Record<string, z.ZodType> }>> = {
+  globeCard: { path: "/api/v1/globe/card/{kind}/{slug}", params: { kind: z.enum(["place", "trip"]), slug: S.apiSlug } },
+};
+
 const pascal = (m: string): string => m[0]!.toUpperCase() + m.slice(1);
 
 export function buildOpenApi(): Json {
@@ -32,9 +41,19 @@ export function buildOpenApi(): Json {
   const errorBody = { content: { "application/json": { schema: { type: "object", required: ["error"], properties: { error: { $ref: "#/components/schemas/ApiError" } } } } } };
   for (const m of Object.keys(CATALOGUE_CONTRACT).sort() as CatalogueMethod[]) {
     const c = CATALOGUE_CONTRACT[m] as { http: string; query?: z.ZodObject; input: z.ZodType | null; output: z.ZodType };
-    const [verb, rawPath] = c.http.split(" ") as [string, string];
-    const path = rawPath.replace(/\{(\w+)\}/g, "{$1}");
-    const params: Json[] = [...rawPath.matchAll(/\{(\w+)\}/g)].map((x) => ({ name: x[1], in: "path", required: true, schema: { type: "string" } }));
+    const [verb, contractPath] = c.http.split(" ") as [string, string];
+    const rawPath = ROUTE_OF[m]?.path ?? contractPath;
+    const path = rawPath;
+    // each path parameter carries the pattern of the input schema that checks it
+    const shape = (c.input && "shape" in c.input ? (c.input as z.ZodObject).shape : {}) as Record<string, z.ZodType>;
+    const paramSchema = (name: string): Json => {
+      const sch = ROUTE_OF[m]?.params[name] ?? shape[name];
+      if (!sch) return { type: "string" };
+      const js = z.toJSONSchema(sch, { target: "draft-2020-12", unrepresentable: "any" }) as Json;
+      delete js.$schema;
+      return js;
+    };
+    const params: Json[] = [...rawPath.matchAll(/\{(\w+)\}/g)].map((x) => ({ name: x[1], in: "path", required: true, schema: paramSchema(x[1]!) }));
     if (c.query) {
       for (const key of Object.keys(c.query.shape)) params.push({ name: key, in: "query", required: false, schema: { type: "string" } });
     }

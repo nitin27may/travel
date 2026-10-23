@@ -8,6 +8,7 @@ import { expect } from "vitest";
 import type { CatalogueMethod, CatalogueStore } from "../../../src/catalogue/store.ts";
 import type { Result } from "../../../src/catalogue/result.ts";
 import type { ApiErrorCode } from "../../../src/schema/api/index.ts";
+import { privacyHits } from "../../../src/privacy/detect.ts";
 
 /** What a case needs to know about a target's data, so the same case runs on the fixture and on the real catalogue. */
 export interface ContractFacts {
@@ -104,33 +105,16 @@ export async function allRows<T>(page: (n: number) => Promise<Result<{ items: T[
 // ---- household strings (case K7) --------------------------------------------------------------------------------------------------
 
 /**
- * The privacy test's list (web/tests/privacy.test.ts and web/tests/data/public-privacy.test.ts): the home town, household capture notes,
- * the private trip fields as keys, and the sentinels its fixture plants. The web runner adds the 2 km home-point check (it needs the
- * home point, which core does not hold).
+ * Case K7 runs the one detector (core/src/privacy/detect.ts: the home town, planning notes, addresses, private keys, status words and a
+ * point near home as an object, an array or a number pair in text), so respond(), this kit and the web privacy test cannot drift. The
+ * sentinels below are what the privacy test's fixture plants; they exist only in tests.
  */
-export const HOUSEHOLD_TEXT: readonly RegExp[] = [/whitby/i, /planned as/i, /hotel idea/i, /CONF-SENTINEL-7Q/, /NOTE-SENTINEL-PRIVATE/, /CITIZENSHIP-SENTINEL/, /CONTACT-SENTINEL/, /\+1-555-0100/];
-/** `sourceTypes` and `added` are the owner's wishlist save metadata (where a place was saved from, and when): private since PRIV1, so no store may emit them. */
-export const PRIVATE_KEYS: readonly string[] = ["status", "height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added"];
+const SENTINELS: readonly RegExp[] = [/CONF-SENTINEL-7Q/, /NOTE-SENTINEL-PRIVATE/, /CITIZENSHIP-SENTINEL/, /CONTACT-SENTINEL/, /\+1-555-0100/];
 
-/** The values of a place's personal status (web PLACE_STATUSES): the household's, never published. */
-const PLACE_STATUS_WORDS: readonly string[] = ["idea", "shortlisted", "planned", "visited", "dropped"];
-
-/** Household strings and private keys in one output; empty when clean. */
+/** Household strings, private keys and points near home in one output; empty when clean. A hit names a path and a reason, never a coordinate. */
 export function householdHits(out: unknown, where: string): string[] {
-  const hits: string[] = [];
+  const hits = privacyHits(out).map((h) => `${where}${h.where.slice(1)}: ${h.why}`);
   const text = JSON.stringify(out);
-  for (const re of HOUSEHOLD_TEXT) if (re.test(text)) hits.push(`${where}: ${re}`);
-  const walk = (x: unknown, p: string): void => {
-    if (Array.isArray(x)) x.forEach((y, i) => walk(y, `${p}[${i}]`));
-    else if (x && typeof x === "object") {
-      for (const [k, y] of Object.entries(x)) {
-        // `status` is also a plain word in public data (an access window "open"); it is the household's place status only with a status value
-        const own = k !== "status" || (typeof y === "string" && PLACE_STATUS_WORDS.includes(y));
-        if (own && PRIVATE_KEYS.includes(k)) hits.push(`${where}${p}.${k}: private key`);
-        walk(y, `${p}.${k}`);
-      }
-    }
-  };
-  walk(out, "");
+  for (const re of SENTINELS) if (re.test(text)) hits.push(`${where}: ${re}`);
   return hits;
 }

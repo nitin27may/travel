@@ -5,6 +5,7 @@ import { JsonStore } from '@travel/core/catalogue/json/index.ts';
 import { householdHits } from '../../../core/test/catalogue/contract/kit';
 import { respond } from '@/lib/server/respond';
 import { nearHome } from '@/lib/public/origin';
+import { HOME_PROBE } from '../../../core/test/privacy/probe';
 import { HandlerStore } from './handlerStore';
 import { PHASE_E, jsonTarget } from './targets';
 
@@ -34,7 +35,7 @@ describe('respond() fails closed', () => {
     for (const body of [{ continents: [], sourceTypes: ['instagram'] }, { continents: [], added: '2026-10-16' }]) {
       expect((await respond('globeTree', new Request('http://api.test/api/v1/globe/tree/'), {}, poisoned(body))).status).toBe(500);
     }
-    expect((await respond('globeTree', new Request('http://api.test/api/v1/globe/tree/'), {}, poisoned({ at: { lat: 43.88, lon: -78.94 } }))).status).toBe(500);
+    expect((await respond('globeTree', new Request('http://api.test/api/v1/globe/tree/'), {}, poisoned({ at: { lat: HOME_PROBE.lat, lon: HOME_PROBE.lon } }))).status).toBe(500);
   });
   it('blocks a row with a key outside the allowlist', async () => {
     const store = { revision: async () => 'a'.repeat(64), listPlaces: async () => ({ ok: true, data: { items: [{ slug: 'x', notes: 'y' }], total: 1, page: 1, pageSize: 48, nextPage: null }, revision: 'a'.repeat(64) }) } as never;
@@ -58,5 +59,31 @@ describe('K7 home point on the real data (C6)', () => {
       expect(d.ok && 'visibility' in d.data ? d.data.visibility : 'public', t.slug).toBe('public');
       expect(householdHits(d, t.slug)).toEqual([]);
     }
+  });
+});
+
+describe('respond() request limits and headers', () => {
+  const big = 'x'.repeat(5000);
+  it('refuses an oversized report body before holding it, as invalid_input (GB-A-2)', async () => {
+    const res = await respond('report', new Request('http://api.test/api/v1/report/', { method: 'POST', body: JSON.stringify({ page: '/places/x/', text: big }) }), {}, new JsonStore(source));
+    expect(res.status).toBe(400);
+    expect(JSON.parse(await res.text()).error.code).toBe('invalid_input');
+  });
+  it('refuses a body whose declared length is over the cap without reading it', async () => {
+    const req = new Request('http://api.test/api/v1/report/', { method: 'POST', headers: { 'content-length': '99999999' }, body: '{"page":"/x/"}' });
+    expect((await respond('report', req, {}, new JsonStore(source))).status).toBe(400);
+  });
+  it('refuses a query key on a path-only endpoint, and a report with one (GB-A-1)', async () => {
+    const store = new JsonStore(source);
+    expect((await respond('health', new Request('http://api.test/api/v1/health/?x=1'), {}, store)).status).toBe(400);
+    expect((await respond('report', new Request('http://api.test/api/v1/report/?x=1', { method: 'POST', body: '{"page":"/x/"}' }), {}, store)).status).toBe(400);
+  });
+  it('sends an export as the JSON envelope without a content-disposition (GB-A-3)', async () => {
+    const store = new JsonStore(source);
+    const slug = source.placeRows[0]!.slug;
+    const res = await respond('getExport', new Request(`http://api.test/api/v1/export/place/${slug}/?format=gpx`), { type: 'place', slug }, store);
+    expect(res.status).toBe(200);
+    expect(res.headers.get('content-type')).toContain('application/json');
+    expect(res.headers.get('content-disposition')).toBeNull();
   });
 });

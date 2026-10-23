@@ -4,6 +4,8 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import { loadPlaces } from '@/lib/data/places';
 import { isDated } from '@/lib/public/dateless';
 import { nearHome } from '@/lib/public/origin';
+import { HOME_TOWN_RE } from '@travel/core/privacy/home.ts';
+import { northOfHome } from '../../core/test/privacy/probe';
 import { describesParty } from '@/lib/public/party';
 import { TRIP_SLUGS } from '@/lib/public/slugs';
 import { builtOutDir } from './helpers/built';
@@ -165,8 +167,10 @@ function householdLeaks(root: string): string[] {
     const text = readText(f);
     const name = r(f);
     const add = (what: string) => hits.push(`${name}: ${what}`);
-    if (/whitby/i.test(text)) add('home town "Whitby"');
-    for (const pt of homePoints(text)) add(`a point within 2 km of home (${pt})`);
+    if (HOME_TOWN_RE.test(text)) add('home town "Whitby"');
+    // a count, never the point: a failing log must not print where the household lives
+    const near = homePoints(text).length;
+    if (near) add(`${near} point(s) within the home exclusion radius`);
     if (name.startsWith('_next/static/')) continue;
     if (/planned as/i.test(text)) add('"Planned as"');
     if (/hotel idea/i.test(text)) add('"Hotel idea"');
@@ -212,10 +216,12 @@ describe('no household notes, home town or dates in any public file', () => {
     expect(householdLeaks(REAL_OUT)).toEqual([]);
   });
   it('can fail: it sees the home town, a nearby point and a plan note', () => {
-    expect(homePoints('{"lat":43.8812,"lon":-78.9431}')).toHaveLength(1);
+    const close = northOfHome(0.3);
+    const far = northOfHome(30);
+    expect(homePoints(`{"lat":${close.lat.toFixed(4)},"lon":${close.lon.toFixed(4)}}`)).toHaveLength(1);
     expect(homePoints('{"lat":43.6532,"lon":-79.3832}')).toHaveLength(0);
-    expect(homePoints('<trkpt lat="43.8801" lon="-78.9395">')).toHaveLength(1);
-    expect(nearHome(43.9, -78.94)).toBe(false);
+    expect(homePoints(`<trkpt lat="${close.lat.toFixed(4)}" lon="${close.lon.toFixed(4)}">`)).toHaveLength(1);
+    expect(nearHome(far.lat, far.lon)).toBe(false);
   });
   it('lists a place used by two public trips with both counted (fixture visits)', () => {
     const env = { ...process.env };

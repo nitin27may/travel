@@ -6,6 +6,7 @@
 //   others:      locations.json > Wikidata P625 > snapshot OSM parking > snapshot approx
 // Google is never a source. A point with no coordinate anywhere is left out and listed in the report.
 import { existsSync, readFileSync } from "node:fs";
+import { HOME_TOWN_RE } from "../privacy/home.ts";
 import { join } from "node:path";
 import { sidecarFiles, readJson as readJsonFile } from "../capture/records.ts";
 import type { CaptureDoc } from "../schema/capture/records.ts";
@@ -60,7 +61,6 @@ export const SNAPSHOT_TRIP: Record<string, string> = {
   "p-chamonix": "chamonix-mont-blanc-2028",
 };
 /** Day bases that are the household's own town, never a catalogue base (relevance.md rule 7). */
-const PRIVATE_BASES = new Set(["whitby"]);
 
 const norm = (s: string): string =>
   s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, " ").trim();
@@ -185,7 +185,7 @@ export function buildPoints(src: Sources, windows: Record<string, { from: string
   for (const pt of src.snapshot?.publicTrips ?? []) {
     const trip = SNAPSHOT_TRIP[pt.id];
     if (!trip) continue;
-    const baseNames = [...new Set(pt.days.map((d) => d.base).filter((b): b is string => !!b))].map((b) => b.replace(/ area$/i, "")).filter((b) => !PRIVATE_BASES.has(norm(b)) && !/ to /.test(b));
+    const baseNames = [...new Set(pt.days.map((d) => d.base).filter((b): b is string => !!b))].map((b) => b.replace(/ area$/i, "")).filter((b) => !HOME_TOWN_RE.test(norm(b)) && !/ to /.test(b));
     // the Dolomites days also name their base town as a snapshot place id
     const baseTowns = pt.id === "p-dolomites" ? [...new Set((src.snapshot?.trip?.days ?? []).map((d) => d.baseTown).filter((b): b is string => !!b))].map((id) => snapBy.get(id)?.name).filter((n): n is string => !!n) : [];
     const resolved: (Pt & { name: string })[] = [];

@@ -4,8 +4,13 @@
 export async function register(): Promise<void> {
   if (process.env.NEXT_RUNTIME !== 'nodejs') return;
   try {
-    const { getStore } = await import('@/lib/server/store');
-    await getStore().revision();
+    const { getStore, setStore } = await import('@/lib/server/store');
+    try {
+      await getStore().revision();
+    } catch (e) {
+      setStore(null); // the next request builds a fresh store instead of finding this one
+      throw e;
+    }
   } catch (e) {
     console.error('catalogue store could not be warmed at start:', e);
   }

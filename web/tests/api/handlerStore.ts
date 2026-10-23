@@ -85,4 +85,9 @@ const ROUTES: [RegExp, EndpointName, string[]][] = [
   [/^\/api\/v1\/trips\/?$/, 'listTrips', []],
   [/^\/api\/v1\/trips\/([^/]+)\/?$/, 'getTrip', ['slug']],
   [/^\/api\/v1\/globe\/tree\/?$/, 'globeTree', []],
+  [/^\/api\/v1\/globe\/pins\/([^/]+)\/?$/, 'globePins', ['cc']],
+  [/^\/api\/v1\/globe\/card\/([^/]+)\/([^/]+)\/?$/, 'globeCard', ['kind', 'slug']],
+  [/^\/api\/v1\/globe\/feature\/([^/]+)\/line\/?$/, 'globeLine', ['id']],
+  [/^\/api\/v1\/globe\/feature\/([^/]+)\/?$/, 'globeFeature', ['id']],
+  [/^\/api\/v1\/globe\/city\/([^/]+)\/?$/, 'globeCity', ['townId']],
 ];
