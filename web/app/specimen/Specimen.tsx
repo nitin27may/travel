@@ -246,7 +246,7 @@ export function Specimen() {
           </div>
           <div className="row-flex">
             <Chip kind="toBook">To book</Chip><Chip kind="caution">Window open</Chip><Chip kind="urgent">Opens Mon 19 Oct</Chip><Chip kind="caution" icon="clock">Due Sat 31 Oct</Chip><Chip kind="held">Held</Chip><Chip kind="ok">Booked</Chip><Chip kind="ok">Ages 10+ fits</Chip><Chip kind="idea">Idea</Chip>
-            <Chip kind="honest">Unverified</Chip><Chip kind="honest">No source yet</Chip><Chip kind="honest">Location unconfirmed</Chip><Chip kind="honest">Dates open</Chip><Chip kind="notice" icon="wifiOff">Offline</Chip><Chip kind="notice">Read-only</Chip><Chip kind="trip" identity="blue" photo={P1}>Dolomites</Chip>
+            <Chip kind="honest">Unverified</Chip><Chip kind="honest">No details available</Chip><Chip kind="honest">Location unconfirmed</Chip><Chip kind="honest">Dates open</Chip><Chip kind="notice" icon="wifiOff">Offline</Chip><Chip kind="notice">Read-only</Chip><Chip kind="trip" identity="blue" photo={P1}>Dolomites</Chip>
           </div>
           <div className="row-flex">
             <Segmented label="View" value={seg} onChange={setSeg} segments={[{ value: 'cards', label: 'Cards', icon: 'cards' }, { value: 'list', label: 'List', icon: 'list' }, { value: 'table', label: 'Table', icon: 'table' }, { value: 'map', label: 'Map', icon: 'map', disabled: true, title: 'Map view arrives in the next release' }]} />
@@ -314,7 +314,7 @@ export function Specimen() {
           <Card variant="place" idea fallbackIcon="waterfall" fallbackLabel="Waterfall" title="Grand-Sault waterfall" meta="Bas-Saint-Laurent / Gaspésie (to confirm), Quebec, Canada"
             chips={<div className="chips"><Chip kind="kind" icon="waterfall">Waterfall</Chip><Chip kind="idea">Idea</Chip><Chip kind="honest">Location unconfirmed</Chip></div>}
             summary="Gaspésie road trip stop 4. Several waterfalls share this name and the post does not say which."
-            footer={<><span className="src">No source yet</span><span className="card-links"><a href="#cards">Place page</a><a href="#cards">Globe</a></span></>} />
+            footer={<><span className="src">No details available</span><span className="card-links"><a href="#cards">Place page</a><a href="#cards">Globe</a></span></>} />
           <Card variant="publicTrip" selected photo={P1} title="Dolomites" meta="3 – 16 May 2031 · 13 nights · Italy · 4 bases" chips={<div className="chips"><Chip>Soon</Chip></div>} summary="Fourteen days built backwards from what governs them." />
           <CardSkeleton />
         </div>
@@ -360,7 +360,7 @@ export function Specimen() {
             <tbody>
               <tr className="grp-row"><th colSpan={6} scope="rowgroup"><span className="grp-toggle"><Icon name="chevronRight" size={14} className="grp-caret" /><span className="gh-title">Italy</span><span className="gh-count num">10 of 10</span></span></th></tr>
               <tr data-row><td><span className="cell-name">Lago di Braies</span></td><td><span className="cell-icon"><Icon name="lake" size={14} />Lake</span></td><td>Braies, South Tyrol</td><td>Jun to Oct</td><td data-align="right">1,496 m</td></tr>
-              <tr data-row><td><span className="cell-name">Lago di Carezza</span> <Chip kind="honest">No source yet</Chip></td><td><span className="cell-icon"><Icon name="lake" size={14} />Lake</span></td><td>Val d&apos;Ega, South Tyrol</td><td>May to Oct</td><td data-align="right">1,520 m</td></tr>
+              <tr data-row><td><span className="cell-name">Lago di Carezza</span> <Chip kind="honest">No details available</Chip></td><td><span className="cell-icon"><Icon name="lake" size={14} />Lake</span></td><td>Val d&apos;Ega, South Tyrol</td><td>May to Oct</td><td data-align="right">1,520 m</td></tr>
               <tr data-row><td><span className="cell-name">Seceda ridge</span></td><td><span className="cell-icon"><Icon name="eye" size={14} />Viewpoint</span></td><td>Val Gardena, South Tyrol</td><td>Jun to Oct</td><td data-align="right">2,519 m</td></tr>
               <tr className="grp-row"><th colSpan={6} scope="rowgroup"><span className="grp-toggle"><Icon name="chevronRight" size={14} className="grp-caret" /><span className="gh-title">Canada</span><span className="gh-count num">22 · collapsed</span></span></th></tr>
             </tbody>

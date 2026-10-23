@@ -193,7 +193,7 @@ so (removable chips show ×).
 | held | neutral outline, clock icon |
 | booked, done | `--ok-soft`, `--ok` text, check |
 | idea | 1 px **dashed** `--line-2`, `--muted` |
-| honesty: Unverified, No source yet, Location unconfirmed, Dates open, Sources disagree | 1 px dashed `--crit`, `--crit` text, triangle; on a suitability row, never in the three slots |
+| honesty: Unverified, No details available, Location unconfirmed, Dates open, Sources disagree | 1 px dashed `--crit`, `--crit` text, triangle; on a suitability row, never in the three slots |
 | notice (Offline, Read-only, Template) | `--info-soft`, `--info`, icon |
 | trip identity | 20 px photo in the ring plus name, or the 10 px square plus name; never colour alone |
 
@@ -250,7 +250,7 @@ States: hover photo scales 1.03 over 400 ms `--e-out` and the border becomes `--
 card; selected (in map view sync) 2 px `--accent` border; done trips desaturate the photo 40%; idea cards
 use a dashed border; loading skeleton (6.6); empty photo shows the kind glyph (22 px `--ink`) on `--well`.
 
-Place card footer: "No source yet" or "Instagram post +1" left (mono 11.5), "Place page · Globe" right.
+Place card footer: "No details available" or "Instagram post +1" left (mono 11.5), "Place page · Globe" right.
 
 ### 3.2 List rows
 

@@ -82,7 +82,7 @@ export function HomePlaceCard({ place }: { place: PublicPlaceCard }) {
       summary={publicSummary(place)}
       footer={
         <>
-          <span className="src">{place.honesty.some((h) => h.id === 'no_source') ? 'No source yet' : ''}</span>
+          <span className="src">{place.honesty.some((h) => h.id === 'no_source') ? 'No details available' : ''}</span>
           <span className="card-links">
             <Link href={`/places/${place.slug}/`}>Place page</Link>
             {cc ? <Link href={`/globe/${cc}/`}>Globe</Link> : null}
