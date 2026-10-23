@@ -372,30 +372,81 @@
   .tl-days .tl-day { opacity: 1; animation: none; }
 }
 
-/* ---- the map that follows the day (map note 1 and 2) ---- */
-.tl-cols { display: block; }
+/* ---- the map that follows the day (google-map-note 3) ---- */
+/* The sheet's height: half the screen, but days stay visible between the sticky strip and the sheet (phone note 3.2). */
+.tl-cols { display: block; --sheet-h: max(280px, min(50dvh, calc(100dvh - 428px))); }
 .tl-mapcol-close, .tl-mapbtn { display: none; }
 .tl-mapcol { margin: 0 0 var(--s-8); }
 .tl-mapcol-h { margin-bottom: var(--s-2); }
-.tl-mapcol-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); min-height: 40px; }
-.tl-mapcol-label { font: var(--t-meta); color: var(--ink-2); min-height: 20px; margin: var(--s-1) 0 var(--s-2); }
-.tl-mapcol-note { margin: var(--s-2) 0 0; }
-/* tablet: the map sits above the days, not sticky */
-@media (min-width: 640px) { .tl-cols[data-map] { display: flex; flex-direction: column; } .tl-cols[data-map] .tl-mapcol { order: -1; } .tl-mapcol .trip-map-surface { height: 360px; } }
+.tl-mapcol-bar { flex: none; display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); min-height: 40px; }
+.tl-mapcol-label { flex: none; font: var(--t-meta); color: var(--ink-2); min-height: 20px; margin: var(--s-1) 0 var(--s-2); }
+.tl-mapcol-label:focus { outline: none; }
+.tl-mapcol-label:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.tl-nomap-list { flex: none; display: grid; gap: 2px; max-height: 9rem; overflow-y: auto; margin: 0 0 var(--s-2); padding: var(--s-2) var(--s-3); list-style: none; border: 1px solid var(--line); border-radius: var(--r-3); background: var(--surface); font: var(--t-meta); }
+.tl-nomap-list .tl-reset { text-align: left; min-height: 28px; }
+.trip-map-key { flex: none; }
+.tl-mapbox { display: flex; flex-direction: column; }
+.tl-mapbox .trip-map-surface { flex: 1 1 auto; }
+.tl-mapph { display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: var(--r-4); background: var(--well); color: var(--muted); font: var(--t-meta); height: 360px; }
+.tl-mapcol-actions { flex: none; display: flex; align-items: center; min-height: 36px; margin: var(--s-2) 0 0; font: var(--t-meta); }
+.tl-directions { color: var(--ink); font-weight: 500; text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 3px; }
+.tl-directions:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.tl-directions-off { color: var(--muted); }
+.tl-facade { display: grid; align-content: center; gap: var(--s-3); min-height: 320px; padding: var(--s-4); border: 1px solid var(--line); border-radius: var(--r-4); background: var(--well); }
+.tl-facade-list { display: grid; gap: var(--s-1); margin: 0; padding: 0; list-style: none; font: var(--t-meta); color: var(--ink-2); }
+.tl-facade-load { justify-self: start; min-height: 36px; padding: 0 var(--s-4); border: 1px solid var(--ink); border-radius: var(--r-3); background: var(--surface); color: var(--ink); font: var(--t-chip); cursor: pointer; }
+
+/* the number on a row is the number on its pin; both ring together when the pointer is on either */
+.tl-badge { position: relative; flex: none; display: inline-grid; place-items: center; box-sizing: border-box; min-width: 20px; height: 20px; padding: 0 4px; margin-right: calc(6px - var(--s-2)); border: 0; border-radius: 10px; background: var(--ink); color: var(--surface); font: 600 11.5px/1 var(--font-mono); cursor: pointer; }
+.tl-badge::before { content: ''; position: absolute; inset: -6px; }
+@media (pointer: coarse) { .tl-badge::before { inset: -12px; } }
+.tl-badge[aria-disabled='true'] { background: var(--surface-2); color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--line-2); }
+.tl-badge:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.tl-entry { transition: background-color var(--d-base); }
+.tl-entry[data-hover], .tl-entry[data-flash] { background: var(--surface-2); border-radius: var(--r-3); }
+.tl-entry[data-hover] .tl-badge { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--map-select-ring), 0 0 0 5px var(--map-casing); }
+.tl-entry { scroll-margin-top: var(--spy-bar-h); }
+.tl-title[tabindex]:focus { outline: var(--focus-ring); outline-offset: var(--focus-offset); border-radius: var(--r-2); }
+.tl-nomap { font: var(--t-meta); color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .tl-entry { transition: none; } }
+
+/* desktop: the column is fitted to the viewport, so the map's bottom strip (Google's logo and terms) is never below the fold */
 @media (min-width: 1024px) {
   .tl-cols[data-map] { display: grid; grid-template-columns: minmax(0, 680px) minmax(360px, 1fr); gap: var(--s-8); align-items: start; }
-  .tl-cols[data-map] .tl-mapcol { order: 0; position: sticky; top: calc(var(--header-h) + var(--spy-bar-h) + var(--s-4)); align-self: start; margin: 0; }
-  .tl-cols[data-map] .tl-mapcol .trip-map-surface { height: clamp(360px, calc(100dvh - 232px), 720px); }
+  .tl-cols[data-map] .tl-mapcol {
+    position: sticky; top: calc(var(--header-h) + var(--spy-bar-h) + var(--s-4)); align-self: start; margin: 0;
+    height: calc(100dvh - var(--header-h) - var(--spy-bar-h) - 2 * var(--s-4)); display: flex; flex-direction: column;
+  }
+  .tl-cols[data-map] .tl-mapbox { flex: 1 1 auto; min-height: 320px; max-height: 720px; }
+  .tl-cols[data-map] .tl-mapbox .trip-map-surface { height: auto; min-height: 320px; }
+  .tl-cols[data-map] .tl-mapph { height: 100%; }
   .tl-cols[data-map] .tl-days, .tl-cols[data-map] .trip-sec { max-width: none; }
 }
-@media (min-width: 1024px) and (max-height: 599px) { .tl-cols[data-map] .tl-mapcol { position: static; } .tl-cols[data-map] .tl-mapcol .trip-map-surface { height: 360px; } }
-/* phone: the aside is the sheet; it rests below the screen and slides up over the bottom bar, non-modal, half height */
-@media (max-width: 639px) {
-  .tl-mapcol { position: fixed; left: 0; right: 0; bottom: var(--phone-bottombar-h); z-index: var(--z-tripbar); margin: 0; padding: var(--s-3) var(--s-4) var(--s-3); height: min(50dvh, calc(100dvh - 428px)); min-height: 280px; background: var(--bg); border: 1px solid var(--line); border-bottom: 0; border-radius: 18px 18px 0 0; box-shadow: var(--e-2); transform: translateY(calc(100% + var(--phone-bottombar-h))); visibility: hidden; transition: transform 260ms var(--e-out), visibility 0s linear 260ms; display: flex; flex-direction: column; }
+/* a short window: the column scrolls with the page and the map has a fixed height */
+@media (min-width: 1024px) and (max-height: 639px) {
+  .tl-cols[data-map] .tl-mapcol { position: static; height: auto; }
+  .tl-cols[data-map] .tl-mapbox { flex: none; }
+  .tl-cols[data-map] .tl-mapbox .trip-map-surface { height: 360px; }
+}
+/* phone and tablet: the aside is a sheet; it rests below the screen and slides up, non-modal, half height; the page keeps scrolling under it */
+@media (max-width: 1023px) {
+  .tl-mapcol {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-tripbar); margin: 0 auto; width: min(100%, 720px); padding: var(--s-3) var(--s-4) var(--s-3); height: var(--sheet-h);
+    background: var(--bg); border: 1px solid var(--line); border-bottom: 0; border-radius: 18px 18px 0 0; box-shadow: var(--e-2);
+    transform: translateY(calc(100% + var(--phone-bottombar-h))); visibility: hidden; transition: transform 260ms var(--e-out), visibility 0s linear 260ms;
+    display: flex; flex-direction: column;
+  }
   .tl-mapcol[data-sheet] { transform: none; visibility: visible; transition: transform 260ms var(--e-out), visibility 0s; }
-  .tl-mapcol .trip-map-surface { height: auto; min-height: 0; flex: 1; }
+  /* the last row of the last day can be scrolled above the sheet */
+  .tl-cols[data-sheet-open] { padding-bottom: var(--sheet-h); }
+  .tl-mapbox { flex: 1 1 auto; min-height: 0; }
+  .tl-mapbox .trip-map-surface { height: auto; min-height: 0; }
+  .tl-mapbox .trip-map-surface > div { min-height: 0; }
+  .tl-mapph { height: 100%; }
   .tl-mapcol-h { display: none; }
-  .tl-mapcol-note, .tl-mapcol .trip-map-key { display: none; }
+  .tl-mapcol-label { display: flex; white-space: nowrap; }
+  .tl-mapcol-text { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .tl-mapcol-missing { flex: none; }
   .tl-mapcol-close { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: var(--r-full); background: none; color: var(--ink); cursor: pointer; }
   .tl-mapbtn { flex: none; display: inline-flex; align-items: center; gap: var(--s-2); height: 44px; padding: 0 var(--s-3); border: 0; border-radius: var(--r-3); background: none; color: var(--ink); font: var(--t-tab); cursor: pointer; }
   .tl-mapbtn:hover, .tl-mapbtn[aria-expanded='true'] { background: var(--surface-2); }
@@ -404,7 +455,16 @@
   .cat-strip[data-mapbtn] { display: flex; align-items: center; gap: var(--s-2); }
   .cat-strip[data-mapbtn] .cat-strip-scroll { flex: 1 1 0; min-width: 0; }
 }
-@media (prefers-reduced-motion: reduce) { .tl-mapcol, .tl-mapcol[data-sheet] { transition: none; } }
+@media (max-width: 639px) {
+  .tl-mapcol { bottom: var(--phone-bottombar-h); width: 100%; }
+  .tl-cols[data-sheet-open] { padding-bottom: calc(var(--sheet-h) + var(--phone-bottombar-h)); }
+}
+/* reduced motion: the sheet fades instead of sliding */
+@media (prefers-reduced-motion: reduce) {
+  .tl-mapcol, .tl-mapcol[data-sheet] { transition: opacity 200ms linear; transform: none; }
+  .tl-mapcol { opacity: 0; }
+  .tl-mapcol[data-sheet] { opacity: 1; }
+}
 
 /* a limits chip on a day row takes the full row width and wraps at its " · " joins, the lock glyph staying on the first line (components 2.8) */
 .tl-entry .chs { min-width: 0; max-width: 100%; }

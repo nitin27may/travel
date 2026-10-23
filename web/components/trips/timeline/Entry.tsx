@@ -11,6 +11,8 @@ import { formatDistance, formatElevation } from '@/lib/format/units';
 import { EntrySuit } from '@/components/suit/TripSuit';
 import { TlIcon, type TlIconName } from './icons';
 import { CONF_LABEL, fixedLabel, honestyLabel, KIND_WORD, MODE_WORD, SOURCE_LABEL, timeSpeech, timeText } from './labels';
+import { entryKey } from '../mapPins';
+import { useMapLink } from './MapLink';
 import { FLIGHT_NOTE } from './marks';
 import { Prose } from './Prose';
 
@@ -80,6 +82,11 @@ interface Props {
 export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last }: Props) {
   const [open, setOpen] = useState(false);
   const [prefs] = usePrefs();
+  const link = useMapLink();
+  const ek = entryKey(e.day, e.id);
+  const num = link?.numbers.get(ek);
+  const pinId = link?.pins.get(ek);
+  const inert = link ? link.mapDay !== e.day : false;
   const quiet = QUIET.has(e.kind);
   const href = place(e.at);
   const slot = fixedLabel(e);
@@ -102,6 +109,8 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last }: Pr
       data-optional={e.optional || undefined}
       data-lane-off={laneOff || undefined}
       data-inside={e.insideOf ? '' : undefined}
+      data-entry={`${e.day}:${e.id}`}
+      data-pin={pinId}
     >
       <span className="tl-time num" data-conf={e.time.confidence} data-block={e.block ? '' : undefined}>
         <span aria-hidden="true">{e.block ?? timeText(e)}</span>
@@ -113,10 +122,23 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff, last }: Pr
         <p className="tl-head">
           <span className="sr-only">{sr}. </span>
           <span className="tl-glyph" aria-hidden="true"><Glyph e={e} /></span>
+          {num !== undefined && pinId ? (
+            <button
+              type="button"
+              className="tl-badge num"
+              data-pin-badge
+              aria-label={`Show stop ${num} on the map`}
+              aria-disabled={inert || undefined}
+              onClick={() => link?.show(e.day, pinId)}
+            >
+              {num}
+            </button>
+          ) : null}
           <span className="tl-title">
             {href && !quiet ? <a href={href}>{e.title}</a> : e.title}
           </span>
           {dur ? <span className="tl-dur num" aria-hidden="true">{dur}</span> : null}
+          {link?.missing.has(ek) ? <span className="tl-nomap num">· not on the map</span> : null}
           {!quiet && e.kind !== 'leg' ? <EntrySuit slug={e.at?.placeSlug} title={e.title} kind={e.kind} /> : null}
           {e.addedBy === 'visitor' ? <Chip kind="idea" icon={false}>You added this</Chip> : null}
           {e.optional ? <Chip kind="neutral" icon={false}>Optional</Chip> : null}

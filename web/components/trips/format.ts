@@ -24,21 +24,3 @@ export const DEPTH_LABEL = { full: 'Full plan', summary: 'Condensed', overview: 
 export const DEPTH_NOTICE = { summary: 'Condensed from the full plan', overview: 'Overview only' } as const;
 
 export const tripHref = (slug: string): string => `/trips/${slug}/`;
-
-const stops = (n: number): string => `${n} ${n === 1 ? 'stop' : 'stops'}`;
-/** A day's map count: "3 stops", "2 stops, 1 not on the map", or "1 stop not on the map" when none is placed (never "0 stops"). */
-export function dayStopsLabel(placed: number, unplaced: number): string {
-  if (placed === 0 && unplaced > 0) return `${stops(unplaced)} not on the map`;
-  return unplaced > 0 ? `${stops(placed)}, ${unplaced} not on the map` : stops(placed);
-}
-
-/** The map caption of a picked day. A day with no placed stop frames its base when the base has a point, and says so; with no base point it says the day has no mapped stops. */
-export function dayMapCaption(day: { n: number; base: string | null; points: number; unplaced: number }, baseOnMap: boolean): string {
-  const head = `Map: Day ${day.n}${day.base ? `, ${day.base}` : ''}`;
-  if (day.points === 0 && day.unplaced > 0) {
-    return baseOnMap
-      ? `${head}. ${day.unplaced} ${day.unplaced === 1 ? 'stop is' : 'stops are'} not on the map, so the base is shown`
-      : `Day ${day.n} has no stops on the map`;
-  }
-  return `${head}, ${dayStopsLabel(day.points, day.unplaced)}`;
-}

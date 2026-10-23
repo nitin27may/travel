@@ -26,3 +26,21 @@ describe('map family resolution', () => {
     expect(placePageFamily({}, 'google-js')).toBe('maplibre');
   });
 });
+
+describe('the trip page family (map note 2.1)', () => {
+  it('is google-js only with BOTH the key and the Map ID, else maplibre; never the demo Map ID', async () => {
+    const { tripPageFamily } = await import('@/lib/map/family');
+    expect(tripPageFamily({ key: 'k', mapId: 'm' }, undefined)).toBe('google-js');
+    expect(tripPageFamily({ key: 'k' }, undefined)).toBe('maplibre');
+    expect(tripPageFamily({ mapId: 'm' }, undefined)).toBe('maplibre');
+    expect(tripPageFamily({}, undefined)).toBe('maplibre');
+  });
+  it('the test override wins, and a Google override still needs a key', async () => {
+    const { tripPageFamily } = await import('@/lib/map/family');
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    expect(tripPageFamily({ key: 'k', mapId: 'm' }, 'maplibre')).toBe('maplibre');
+    expect(tripPageFamily({ key: 'k' }, 'google-js')).toBe('google-js');
+    expect(tripPageFamily({}, 'google-js')).toBe('maplibre');
+    expect(tripPageFamily({ key: 'k', mapId: 'm' }, 'bing')).toBe('google-js');
+  });
+});

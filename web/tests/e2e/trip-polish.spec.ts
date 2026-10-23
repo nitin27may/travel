@@ -55,7 +55,7 @@ test.describe('trip page polish (TRP, stage 4)', () => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(`${site.url}/trips/patagonia-2027/#day-2`);
     // Ushuaia has no map point yet, so the caption says so; a base with a point is framed and picked instead (unit-tested)
-    await expect(page.getByText('Day 2 has no stops on the map')).toBeVisible();
+    await expect(page.locator('.tl-mapcol-label')).toContainText('Day 2 · no stop has a map position yet · showing the whole trip');
     await expect(page.getByText(/0 stops/)).toHaveCount(0);
     await expect(page.getByText(/level none/i)).toHaveCount(0);
   });
@@ -161,7 +161,7 @@ test.describe('trip page polish (TRP, stage 4)', () => {
     await page.evaluate(() => document.getElementById('day-11')!.scrollIntoView());
     await settle(page, 1500);
     await expect(label).toContainText('Paused');
-    await label.getByRole('button').click();
+    await label.getByRole('button', { name: /Follow Day/ }).click();
     await expect(label).not.toContainText('Paused');
   });
 
