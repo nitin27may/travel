@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
+import { haversineKm } from '@travel/core/geo/distance.ts';
 import { travelRoot } from '@/lib/data/root';
 import { globeIndex, legacyPlaceRedirects, listPlaces, listTrips } from '@/lib/public';
 import type { GlobeNode } from '@/lib/public';
@@ -82,15 +83,10 @@ function locatedRecords(): Located[] {
     for (const t of p.trips) (tripPlaces.get(t.slug) ?? tripPlaces.set(t.slug, []).get(t.slug)!).push({ path: chain.slice(0, 3).join('/'), lat: p.point.lat, lon: p.point.lon });
   }
   const median = (v: number[]) => [...v].sort((x, y) => x - y)[Math.floor(v.length / 2)]!;
-  const km = (a: { lat: number; lon: number }, b: { lat: number; lon: number }) => {
-    const r = Math.PI / 180;
-    const h = Math.sin(((b.lat - a.lat) * r) / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(((b.lon - a.lon) * r) / 2) ** 2;
-    return 12742 * Math.asin(Math.sqrt(h));
-  };
   const tripAreas = new Map<string, Set<string>>();
   for (const [slug, list] of tripPlaces) {
     const mid = { lat: median(list.map((x) => x.lat)), lon: median(list.map((x) => x.lon)) };
-    tripAreas.set(slug, new Set(list.filter((x) => km(mid, x) <= RANGE_KM).map((x) => x.path)));
+    tripAreas.set(slug, new Set(list.filter((x) => haversineKm(mid, x) <= RANGE_KM).map((x) => x.path)));
   }
   for (const t of listTrips()) {
     out.push({

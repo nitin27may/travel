@@ -24,7 +24,6 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
-import math
 import os
 import re
 import sys
@@ -38,6 +37,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import location_views as V  # noqa: E402
+from geo import haversine_km  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 Paths = V.Paths
@@ -159,14 +159,6 @@ def slugify(s: str) -> str:
     s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode()
     s = re.sub(r"[^a-zA-Z0-9]+", "-", s).strip("-").lower()
     return s or "x"
-
-
-def haversine_km(a_lat, a_lon, b_lat, b_lon) -> float:
-    r = 6371.0
-    p1, p2 = math.radians(a_lat), math.radians(b_lat)
-    dp, dl = math.radians(b_lat - a_lat), math.radians(b_lon - a_lon)
-    h = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
-    return 2 * r * math.asin(math.sqrt(h))
 
 
 def make_id(country: str, region: str, area: str, name: str) -> str:

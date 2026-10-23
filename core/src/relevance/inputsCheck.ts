@@ -8,12 +8,12 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { isAllowedHub } from "./hubs.ts";
-import { haversineKm } from "./fit.ts";
+import { HOME_RADIUS_KM } from "../config/nearby.ts";
+import { haversineKm } from "../geo/distance.ts";
 
 export interface InputIssue { code: string; file: string; path: string; message: string }
 
 export const PRIVATE_ORIGIN_FILE = "private-origin.local.json";
-export const PRIVATE_RADIUS_KM = 2;
 
 const LINK_ONLY = /(alltrails|komoot|gaia|outdooractive|wikiloc|trailforks|strava|google|tripadvisor|yelp|booking\.com)/i;
 const HOUSEHOLD_KEYS = /^(origin|home|household|home_address|private_origin|start_address|address|home_lat|home_lon|party|kids|children|ages)$/i;
@@ -47,8 +47,8 @@ export function checkInputs(root: string): InputIssue[] {
   const out: InputIssue[] = [];
   const origin = loadPrivateOrigin(root);
   const near = (file: string, path: string, p: { lat: number; lon: number }, what: string): void => {
-    if (origin && haversineKm(origin, p) <= PRIVATE_RADIUS_KM) {
-      out.push({ code: "E_REL_HOUSEHOLD", file, path, message: `${what} lies within ${PRIVATE_RADIUS_KM} km of a private origin. Day-trip fit uses public hubs only; remove or move it to the public hub.` });
+    if (origin && haversineKm(origin, p) <= HOME_RADIUS_KM) {
+      out.push({ code: "E_REL_HOUSEHOLD", file, path, message: `${what} lies within ${HOME_RADIUS_KM} km of a private origin. Day-trip fit uses public hubs only; remove or move it to the public hub.` });
     }
   };
 

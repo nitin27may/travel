@@ -4,7 +4,8 @@
 import { describe, expect, it } from "vitest";
 import { badgeFor, deriveAll } from "../../src/relevance/derive.ts";
 import type { Derived, DeriveInput, HubMatrix, PlaceFacts, Signals, Town } from "../../src/relevance/derive.ts";
-import { approxMinutes, drawSuggested, gate, haversineKm } from "../../src/relevance/fit.ts";
+import { haversineKm } from "../../src/geo/distance.ts";
+import { approxMinutes, drawSuggested, gate } from "../../src/relevance/fit.ts";
 import { rec } from "./helpers.ts";
 
 const HUB: HubMatrix["hubs"][number] = { id: "toronto", name: "Toronto City Hall", lat: 43.6534, lon: -79.3841, public: true };

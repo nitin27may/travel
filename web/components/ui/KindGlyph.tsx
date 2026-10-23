@@ -1,27 +1,15 @@
 import { Icon, kindIcon } from './Icon';
 import type { IconName } from './Icon';
 import { cx } from './cx';
+import { kindLabel } from '@/lib/entities/labels';
 
 /** The fifteen research kinds plus area and scenic drive (components 3.1); anything else falls back to a pin. */
-export const KIND_LABELS: Record<string, string> = {
-  trail: 'Trail',
-  trailhead: 'Trailhead',
-  parking: 'Parking',
-  viewpoint: 'Viewpoint',
-  lake: 'Lake',
-  waterfall: 'Waterfall',
-  sight: 'Sight',
-  town: 'Town',
-  adventure: 'Adventure',
-  lift: 'Lift',
-  hut: 'Hut',
-  stay: 'Stay',
-  eatery: 'Eatery',
-  swim_spot: 'Swim spot',
-  event: 'Event',
-  area: 'Area',
-  scenic_drive: 'Scenic drive',
-};
+export const GLYPH_KINDS = [
+  'trail', 'trailhead', 'parking', 'viewpoint', 'lake', 'waterfall', 'sight', 'town', 'adventure', 'lift', 'hut', 'stay', 'eatery', 'swim_spot', 'event',
+  'area', 'scenic_drive',
+] as const;
+/** Kind to label, read from data/vocab/types.json through lib/entities/labels.ts. */
+export const KIND_LABELS: Record<string, string> = Object.fromEntries(GLYPH_KINDS.map((k) => [k, kindLabel(k)]));
 
 interface Props {
   kind?: string;

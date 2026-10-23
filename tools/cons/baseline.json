@@ -2,7 +2,7 @@
  "notes": [
   "Counts are per (rule, file); a count may only fall. --check fails on a rise or a new file. --write tightens after a fix and keeps reasons and these notes.",
   "Not scanned: tests and fixtures (magic ids in tests are a later row), data/ values (a ref is an id, not a path), generated files, web/public. Only the env-table rule reads tests.",
-  "Intentional, outside the rules above: the MapLibre worker fetch in web/components/map/MapLibreMap.tsx (checked by web/tests/data/boundary.test.ts); the household home point module core/src/privacy/home.ts while the repo is private (CONS-2); unit constants in web/lib/format/units.ts; the 308 and port numbers of the e2e harness."
+  "Intentional, outside the rules above: the MapLibre worker fetch in web/components/map/MapLibreMap.tsx (checked by web/tests/data/boundary.test.ts); the household home point module core/src/privacy/home.ts, the one place the home point lives while the repo is private (CONS-2; the scanner has no rule that sees coordinates, so it is listed here: it moves to a secret before any repository visibility change); unit constants in web/lib/format/units.ts; the 308 and port numbers of the e2e harness."
  ],
  "rules": {
   "api-host": {
@@ -126,69 +126,49 @@
    }
   },
   "earth-radius": {
-   "core/src/privacy/origin.ts": {
+   "core/src/geo/distance.ts": {
     "count": 1,
-    "reason": "CONS-2: replaced by core/src/geo/distance.ts and tools/geo.py"
+    "reason": "The single earth-radius constant (CONS-2). Every TypeScript distance caller imports it."
    },
-   "core/src/relevance/fit.ts": {
+   "tools/geo.py": {
     "count": 1,
-    "reason": "CONS-2: replaced by core/src/geo/distance.ts and tools/geo.py"
-   },
-   "tools/locations.py": {
-    "count": 1,
-    "reason": "CONS-2: replaced by core/src/geo/distance.ts and tools/geo.py"
-   },
-   "web/lib/map/geo.ts": {
-    "count": 1,
-    "reason": "CONS-2 replaces the 8 distance copies with core/src/geo/distance.ts"
-   },
-   "web/lib/public/places.ts": {
-    "count": 1,
-    "reason": "CONS-2: replaced by core/src/geo/distance.ts and tools/geo.py"
-   },
-   "web/scripts/legs-ors.mjs": {
-    "count": 1,
-    "reason": "CONS-2: replaced by core/src/geo/distance.ts and tools/geo.py"
+    "reason": "The Python mirror of core/src/geo/distance.ts; tools/tests/test_geo_parity.py pins it to the same table."
    }
   },
   "kind-label-map": {
-   "web/components/trips/timeline/model.ts": {
-    "count": 1,
-    "reason": "CONS-2: labels read from types.json via web/lib/entities/labels.ts"
-   },
-   "web/components/ui/KindGlyph.tsx": {
-    "count": 1,
-    "reason": "CONS-2: labels read from types.json via web/lib/entities/labels.ts"
-   },
    "web/lib/public/suitability.ts": {
     "count": 1,
-    "reason": "CONS-2: labels read from types.json via web/lib/entities/labels.ts"
+    "reason": "KIND_TITLE is the heading of a suitability extension block, keyed by the extension discriminator (a vocabulary of the suitability schema), not a place-kind label map."
    }
   },
   "km-constant": {
-   "core/src/relevance/derive.ts": {
-    "count": 4,
-    "reason": "CONS-2 (nearby thresholds to core/src/config/nearby.ts) or a single-module constant"
+   "core/src/config/nearby.ts": {
+    "count": 6,
+    "reason": "The single source of the nearby, walk and drive-band numbers (CONS-2); the radii read API_LIMITS in core/src/schema/api/limits.ts."
    },
-   "core/src/relevance/inputsCheck.ts": {
+   "core/src/geo/distance.ts": {
     "count": 1,
-    "reason": "CONS-2 (nearby thresholds to core/src/config/nearby.ts) or a single-module constant"
+    "reason": "EARTH_RADIUS_KM, the single earth-radius constant (see earth-radius)."
+   },
+   "core/src/relevance/derive.ts": {
+    "count": 2,
+    "reason": "Single-module constants (WALK_KM 1.5 for the walkable pair test, SAME_POINT_KM); NEAR_KM and the 100 km day-trip cap now come from core/src/config/nearby.ts."
+   },
+   "tools/geo.py": {
+    "count": 4,
+    "reason": "The Python mirror of core/src/geo/distance.ts and core/src/config/nearby.ts; the parity test pins the band numbers to nearby.ts."
    },
    "web/components/trips/timeline/model.ts": {
     "count": 1,
-    "reason": "CONS-2 (nearby thresholds to core/src/config/nearby.ts) or a single-module constant"
+    "reason": "Single-module constant with its own meaning (not the 25 km near or the 100 km day-trip threshold), kept on purpose (CONS-2)."
    },
    "web/lib/public/quantities.ts": {
     "count": 1,
-    "reason": "CONS-2 (nearby thresholds to core/src/config/nearby.ts) or a single-module constant"
-   },
-   "web/lib/public/relevance.ts": {
-    "count": 1,
-    "reason": "CONS-2 (nearby thresholds to core/src/config/nearby.ts) or a single-module constant"
+    "reason": "Single-module constant with its own meaning (not the 25 km near or the 100 km day-trip threshold), kept on purpose (CONS-2)."
    },
    "web/lib/search/build.ts": {
     "count": 1,
-    "reason": "CONS-2 (nearby thresholds to core/src/config/nearby.ts) or a single-module constant"
+    "reason": "Single-module constant with its own meaning (not the 25 km near or the 100 km day-trip threshold), kept on purpose (CONS-2)."
    }
   },
   "ms-constant": {

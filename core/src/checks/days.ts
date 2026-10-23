@@ -2,7 +2,8 @@
 // into each track's timeline. One function serves the validator, the hooks, the editor panel and the planner.
 import type { DayWarning, WarnCode } from "./codes.ts";
 import type { DayCheckCtx, Row } from "./context.ts";
-import { fmtDuration, fmtMin, haversineM, isoWeekday, sameOffsets, toMin } from "./time.ts";
+import { haversineM } from "../geo/distance.ts";
+import { fmtDuration, fmtMin, isoWeekday, sameOffsets, toMin } from "./time.ts";
 
 const PACE_MIN = [300, 420, 540, 660, 780];
 const TRACKS = ["A", "B", "C"];

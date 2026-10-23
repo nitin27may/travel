@@ -8,6 +8,7 @@ import { undatedTitle } from './dateless';
 import { groupLinks, trailSeeds, type TrailSeed } from './trail-places';
 import { assignSeedSlugs, captureSeeds, type CaptureSeed, type SeedSkip } from './seeds';
 import { primaryRef } from '@travel/core/capture/records.ts';
+import { haversineM } from '@travel/core/geo/distance.ts';
 import { SLUG_REGISTRY_PATH, emptyRegistry, parseRegistry, type SlugRegistry } from '@travel/core/catalogue/slugs.ts';
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -49,15 +50,6 @@ export function readSlugRegistry(root: string): SlugRegistry {
 
 export const normName = (s: string): string =>
   s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-
-function metres(a: { lat: number; lon: number }, b: { lat: number; lon: number }): number {
-  const R = 6371000;
-  const rad = Math.PI / 180;
-  const dLat = (b.lat - a.lat) * rad;
-  const dLon = (b.lon - a.lon) * rad;
-  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(dLon / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
-}
 
 /** "Jun-Oct; Rifugio open in July" -> [6..10]. Empty when no month range is written. */
 export function parseSeasonMonths(text: string): number[] {
@@ -391,7 +383,7 @@ export function buildPlaces(src: Sources): PlaceBuild {
   // ---- de-duplicate: same Wikidata id, or the same normalised name within 300 m ----
   for (const pr of protoRecs) {
     const twin = recs.find(
-      (r) => r.locationId && ((pr.wikidata && r.wikidata === pr.wikidata) || (normName(r.name) === normName(pr.name) && r.point && pr.point && metres(r.point, pr.point) <= 300)),
+      (r) => r.locationId && ((pr.wikidata && r.wikidata === pr.wikidata) || (normName(r.name) === normName(pr.name) && r.point && pr.point && haversineM(r.point, pr.point) <= 300)),
     );
     if (!twin) {
       recs.push(pr);

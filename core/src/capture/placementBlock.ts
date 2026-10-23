@@ -11,7 +11,7 @@ import { POINT_ROLE } from "../schema/enums.ts";
 import { capturePointsFile, CAPTURE_POINTS_SCHEMA_ID, NEAR_TOWN_NONE, relevancePointRow } from "../schema/capture/points.ts";
 import type { PointRole } from "../schema/capture/points.ts";
 import type { CaptureRecord } from "../schema/capture/records.ts";
-import { haversineKm } from "../relevance/fit.ts";
+import { haversineKm } from "../geo/distance.ts";
 import { readJson } from "./records.ts";
 import type { World } from "./records.ts";
 
