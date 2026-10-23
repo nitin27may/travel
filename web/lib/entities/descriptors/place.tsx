@@ -1,4 +1,5 @@
 import '@/styles/suitability.css';
+import { placeHaystack } from '@travel/core/query/text.ts';
 import type { ColumnDef } from '@tanstack/react-table';
 import { PlaceCardFooter } from '@/components/places/PlaceCardFooter';
 import { Elevation, Stat } from '@/components/entity/cells';
@@ -333,7 +334,7 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
   defaultSortLabel: 'Country, then places with photos',
   // 3.56: inside a country the places with a photo lead, and countries that have a photo come before those with none
   defaultTier: { tier: (p) => p.country, lead: (p) => p.image !== null },
-  search: (p) => [p.name, p.area_name, p.region_name, p.country_name, p.tags.map((t) => t.label).join(' '), p.kindLabel, p.kind].join(' '),
+  search: placeHaystack,
   href: (p) => `/places/${p.slug}/`,
   detail: [],
   ops: {},
