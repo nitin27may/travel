@@ -22,6 +22,8 @@ const Loading = () => (
 const MapLibreMap = dynamic(() => import('./MapLibreMap'), { ssr: false, loading: Loading });
 const GoogleJsMap = dynamic(() => import('./GoogleJsMap'), { ssr: false, loading: Loading });
 const GoogleEmbedMap = dynamic(() => import('./GoogleEmbedMap'), { ssr: false, loading: Loading });
+// The trip route map on Google (load on view, numbered pins, linked to the day list). Place pages never load this chunk.
+const GoogleTripMap = dynamic(() => import('./GoogleTripMap'), { ssr: false, loading: Loading });
 
 export interface MapSurfaceProps {
   spec: MapSpec;
@@ -30,6 +32,8 @@ export interface MapSurfaceProps {
   label: string;
   onSelect?: (id: string | null) => void;
   onCamera?: (c: CameraState) => void;
+  /** The id of the pin under the pointer or focus, or null. Only the trip map reports it. */
+  onHover?: (id: string | null) => void;
   className?: string;
 }
 
@@ -37,7 +41,7 @@ export class MixedFamilyError extends Error {
   constructor(msg: string) { super(msg); this.name = 'MixedFamilyError'; }
 }
 
-export const MapSurface = forwardRef<MapHandle, MapSurfaceProps>(function MapSurface({ spec, family, label, onSelect, onCamera, className }, ref) {
+export const MapSurface = forwardRef<MapHandle, MapSurfaceProps>(function MapSurface({ spec, family, label, onSelect, onCamera, onHover, className }, ref) {
   const page = useContext(FamilyContext);
   const resolved = resolveFamily(family ?? page ?? 'maplibre');
   const others = useFamilyGuard(resolved);
@@ -59,7 +63,7 @@ export const MapSurface = forwardRef<MapHandle, MapSurfaceProps>(function MapSur
   }
 
   const props = { spec, label, onSelect, onCamera, className, handleRef: ref as Ref<MapHandle> };
-  if (resolved === 'google-js') return <GoogleJsMap {...props} />;
+  if (resolved === 'google-js') return spec.load === 'visible' ? <GoogleTripMap {...props} onHover={onHover} /> : <GoogleJsMap {...props} />;
   if (resolved === 'google-embed') return <GoogleEmbedMap {...props} />;
   return <MapLibreMap {...props} />;
 });

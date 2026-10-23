@@ -39,3 +39,9 @@ const defaultLoader: GoogleLoader = ({ key }: GoogleLoadOptions) => {
 export function loadGoogleMaps(opts: GoogleLoadOptions): Promise<GoogleMapsApi> {
   return (override ?? defaultLoader)(opts);
 }
+
+/** "Try again" after a refused or timed-out script: forget the stuck request and the script tag so the next load asks Google again. */
+export function resetGoogleLoader(): void {
+  pending = null;
+  if (typeof document !== 'undefined') document.getElementById(GOOGLE_SCRIPT_ID)?.remove();
+}

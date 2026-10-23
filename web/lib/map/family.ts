@@ -36,5 +36,15 @@ export function placePageFamily(env: GoogleEnv = googleEnv(), raw: string | unde
   return resolveFamily(isMapFamily(raw) ? raw : 'maplibre', env);
 }
 
+/**
+ * The family for the trip page's route map. Google when BOTH the browser key and the Map ID are set (the shared Map ID has the owner's
+ * style: POIs off, no green); MapLibre otherwise. It never falls back to `DEMO_MAP_ID`, which draws every business and is for testing only.
+ * NEXT_PUBLIC_TRIP_MAP_FAMILY overrides it in tests (a Google family still needs a key).
+ */
+export function tripPageFamily(env: GoogleEnv = googleEnv(), raw: string | undefined = process.env.NEXT_PUBLIC_TRIP_MAP_FAMILY): MapFamily {
+  if (isMapFamily(raw)) return resolveFamily(raw, env);
+  return env.key && env.mapId ? 'google-js' : 'maplibre';
+}
+
 /** Test hook: lets the fallback warning fire again. */
 export function resetFamilyWarning(): void { warned = false; }
