@@ -76,7 +76,6 @@ export const globeCases: ContractCase[] = [
     id: "globePins.cap",
     title: "a country with more than 2,000 pins answers too_large with details.max, never a cut list (A36, GB-A-10)",
     method: "globePins",
-    awaits: { step: "API-3b step 11 (A36: the pins cap)", failsWith: /expected too_large/ },
     async run(_store, t) {
       expect(t.plant, "the target must plant pins").toBeDefined();
       const cc = t.facts.pinCountry;

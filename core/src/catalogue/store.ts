@@ -1,47 +1,8 @@
 // `CatalogueStore`: the one read interface of the public catalogue (EXECUTION-PLAN 4.2; PHASE-B-START sections 5 and 6).
 //
-// ==== 3b HAND-OFF (API-3a, 23 Oct 2026, Opus; for the Sonnet pass in this worktree) ====================================================
-// API-3a wrote the contract below (A25 to A39), the codec, the OpenAPI, the town guard and the detector exemption, and the case tables
-// K20 to K27. Every case 3b fills is registered with `awaits` (core/test/catalogue/contract/kit.ts): it runs, must FAIL with the reason
-// named, and turns red the day it passes, so the marker is removed in the same commit as the code. Per case, what to implement and where:
-//   K20 json export        JsonStore.getExport: drop the `json` not_available line; web/lib/server/exports.ts adds `json` (the model,
-//                          licence-guarded per A26, EXPORT_FILE mime and ext). StubStore.getExport: a model built from the fixture.
-//   K21 print text/plain   exports.ts and StubStore: `print` = the A26 plain-text layout, EXPORT_FILE.print mime, `.txt`, PRINT_GAP for
-//                          gaps. Then web/lib/client/api.ts loadExport reads `json` (not `print`); EXPORT_MODEL_FORMAT goes.
-//   K22 parsed counts      JsonStore/StubStore.countPlaces: `mergeParsed(q, q.parsed)` (below) first, then the same count. ApiAdapter:
-//                          countParsed/countList call GET /api/v1/places/counts with `parsed.*` (web/lib/client/{api,contract,data}.ts,
-//                          `// API-3` section); StaticAdapter keeps its local count.
-//   K23 listUnchecked      JsonStore: ListEngine gains `unchecked(rows, f, only)` (web/lib/server/engine.ts over uncheckedRows; group
-//                          order = the order of that query's countPlaces facet keys, A27); page it with the A15 sort. StubStore: the
-//                          same over ROW_FACETS (gap = a null field; season [] is a gap), and its countPlaces fills `gaps` and
-//                          `unchecked` by A25 (it answers {} and 0 today). Respond: UNCHECKED_ROW allowlist (done).
-//   K24 searchCards        JsonSource gains `cards(q, rows, scopeRows)` (web: lib/search/fulltext.ts BM25 over cardText, A28; or move
-//                          terms/stem/searchTexts into a new core search module, coordinator's call). JsonStore: cap, filters, order, `terms`.
-//                          StubStore: the A28 rule over its own card text. ApiAdapter's full-text pass calls it; StaticAdapter keeps
-//                          textIndex files.
-//   K25 globe card path    green in 3a (contract `path`, OpenAPI from it, no override). Nothing to do.
-//   K26 town guard         StubStore: run `safeTown` on every town and `safeOutline` on every city outline in the constructor (the
-//                          fixture's planted towns come through `StubOptions.data`). JsonStore needs nothing until META-2 loads towns
-//                          through the same two calls (META-2's loader, json/towns.ts); on the json target K26 checks the
-//                          not_available branch until META-2 turns facts.town.layer on and the target plants towns.
-//   K27 tripLegs           a new legs.ts beside json/index.ts (core/src/catalogue/json/): read data/schedules/legs/<trip>.json (JsonSource gains
-//                          `legsFile(slug)`), map pair keys to legStopKey via the trip detail's stops, run `safeOutline` on each
-//                          geometry, cap at API_LIMITS.tripLegs.max. JsonStore.tripLegs calls it; StubStore gets two fixture legs.
-//                          A trip with no file answers `{legs: [], fetched: null}`.
-//   A30 revision timing    JsonSource gains `revisionInputs()` (web/lib/server/source.ts: the files createPublicData reads, the slug
-//                          registry, vocab, globe files; buildId from .next/BUILD_ID or TRAVEL_BUILD_ID, else "dev"); JsonStore.revision
-//                          = inputRevision(...) cached per process, retried on failure. web/tests/api/targets.ts makeChanged must then
-//                          change an INPUT hash (wrap revisionInputs), and web/tests/api/revision-timing.test.ts flips its last
-//                          assertion to `toBeLessThan(TARGET_MS)` and records the figure (G-B: 2.9 s; 3a measured 2.8 s).
-//   A36 pins cap           JsonStore/StubStore.globePins: above API_LIMITS.globePins.max answer too_large with details.max.
-//   step 12                web/tests/e2e/api-default.spec.ts: parsed counts, unchecked rows and the text search read /api/v1/.
-//   bookkeeping            remove each `awaits` with its code; then core/test/catalogue/contract.test.ts's "awaiting API-3b" list
-//                          becomes [] and core/test/catalogue/schema.test.ts's `awaiting3b` list goes (round-trip calls added);
-//                          AWAITS_3B (below) is deleted when nothing answers it.
-//   other                  web/lib/client/stub.ts (not an API-3 file; ask the coordinator) gains the new calls for the StubAdapter.
-//                          core/test/catalogue/json-store.test.ts builds a JsonSource literal: when the optional members become
-//                          required, add them there (not an API-3 file either).
-// ======================================================================================================================================
+// API-3b (23 Oct 2026) filled A25 to A39 in JsonStore, StubStore and the route handlers: parsed counts (mergeParsed), listUnchecked, searchCards,
+// tripLegs (json/legs.ts), the json and print exports, the revision from inputs (A30), the pins cap (A36) and the town guard at load (A33).
+// Where each lives: JsonStore core/src/catalogue/json/index.ts over a JsonSource (web/lib/server/source.ts); StubStore core/src/catalogue/stub/.
 //
 //   route handler -> respond() -> CatalogueStore
 //                                   |-- StubStore      (core/src/catalogue/stub, tests; API-1a)
@@ -426,8 +387,4 @@ export function mergeParsed(q: S.CountQuery, parsed: S.ParsedScope | undefined =
   return { ...rest, ...(parsed.q ? { q: parsed.q } : {}), ...(Object.keys(merged).length ? { facets: merged } : {}) };
 }
 
-/** The skeleton answer of a method API-3a wrote and API-3b implements (3b hand-off above): the kit's `awaits` cases match it. 3b deletes it. */
-export const AWAITS_3B = (what: string): string => `${what} is in the contract (API-3a) and is implemented in API-3b.`;
-
-/** Path words under /api/v1/places/ that a place slug may never take (A38). */
-export const RESERVED_API_WORDS = ["counts", "unchecked", "cards"] as const;
+export { RESERVED_API_WORDS } from "./slugs.ts";

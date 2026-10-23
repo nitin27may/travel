@@ -1,8 +1,7 @@
-// Export formats (D-E6, store.ts A26): K20 the `json` model, K21 the `print` file. Both are API-3a contract and API-3b code: until 3b they
-// run and must fail for the reason in `awaits`.
+// Export formats (D-E6, store.ts A26): K20 the `json` model, K21 the `print` file.
 import { expect } from "vitest";
 import { EXPORT_FILE, PRINT_GAP, exportModel, type ExportModel } from "../../../src/schema/api/index.ts";
-import { SKELETON, expectOk, okOrSkeleton, type ContractCase } from "./kit.ts";
+import { expectOk, type ContractCase } from "./kit.ts";
 
 const items = (t: Parameters<ContractCase["run"]>[1]) => [["place", t.facts.exportPlace], ["trip", t.facts.tripSlug]] as const;
 
@@ -17,7 +16,6 @@ export const exportFormatsCases: ContractCase[] = [
     id: "K20",
     title: "format=json is the export model: EXPORT_FILE's mime, <slug>.json, a body that parses as exportModel for the same item",
     method: "getExport",
-    awaits: { step: "API-3b step 11 (K20: the json export)", failsWith: SKELETON },
     async run(store, t) {
       for (const [type, slug] of items(t)) {
         const f = expectOk(await store.getExport({ type, slug, format: "json" }), `${type} json`);
@@ -40,7 +38,6 @@ export const exportFormatsCases: ContractCase[] = [
     id: "K21",
     title: "format=print is a plain-text file: text/plain; charset=utf-8, <slug>.txt, no JSON, no null or undefined, gaps read 'Not checked yet'",
     method: "getExport",
-    awaits: { step: "API-3b step 11 (K21: the print file)", failsWith: /text\/plain; charset=utf-8/ },
     async run(store, t) {
       for (const [type, slug] of items(t)) {
         const f = expectOk(await store.getExport({ type, slug, format: "print" }), `${type} print`);
@@ -51,11 +48,9 @@ export const exportFormatsCases: ContractCase[] = [
         expect(() => JSON.parse(f.body), "a print body does not parse as JSON").toThrow();
         expect(f.body).not.toMatch(/\b(?:null|undefined|NaN)\b/);
         // every laid-out gap of the item reads the site's gap words (A26)
-        const model = okOrSkeleton(await store.getExport({ type, slug, format: "json" }), `${type} json`);
-        if (model) {
-          const gaps = gapsOf(exportModel.parse(JSON.parse(model.body)));
-          if (gaps) expect(f.body.split(PRINT_GAP).length - 1, `${type} gaps`).toBeGreaterThanOrEqual(gaps);
-        }
+        const model = expectOk(await store.getExport({ type, slug, format: "json" }), `${type} json`);
+        const gaps = gapsOf(exportModel.parse(JSON.parse(model.body)));
+        if (gaps) expect(f.body.split(PRINT_GAP).length - 1, `${type} gaps`).toBeGreaterThanOrEqual(gaps);
       }
     },
   },

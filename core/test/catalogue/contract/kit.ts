@@ -116,9 +116,6 @@ export interface Awaits {
   on?: readonly string[];
 }
 
-/** The skeleton answer's words (core/src/catalogue/store.ts AWAITS_3B): what an `awaits` case of API-3b fails with. */
-export const SKELETON = /implemented in API-3b/;
-
 // ---- assertions ---------------------------------------------------------------------------------------------------------------
 
 export function expectOk<T>(r: Result<T>, what = "result"): T {
@@ -129,15 +126,6 @@ export function expectOk<T>(r: Result<T>, what = "result"): T {
 export function expectError(r: Result<unknown>, code: ApiErrorCode, what = "result"): void {
   expect(r.ok, `${what}: expected ${code}, got ok`).toBe(false);
   if (!r.ok) expect(r.error.code, `${what}: ${r.error.message}`).toBe(code);
-}
-
-/**
- * The data of an ok result, or null when the method is still the API-3b skeleton (not_available with AWAITS_3B's words); any other
- * error fails. Lets a sweep (K7, getExport.shape) cover a method the moment it lands without failing before it does.
- */
-export function okOrSkeleton<T>(r: Result<T>, what = "result"): T | null {
-  if (!r.ok && r.error.code === "not_available" && /implemented in API-3b/.test(r.error.message)) return null;
-  return expectOk(r, what);
 }
 
 /** Every row of a paged list method, page by page at the largest page size. */

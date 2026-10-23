@@ -2,7 +2,7 @@
 // same scan over the handlers' responses (after respond()'s scrub).
 import { expect } from "vitest";
 import { API_LIMITS, EXPORT_FORMATS, type PlaceRow, type TripRow } from "../../../src/schema/api/index.ts";
-import { allRows, expectOk, householdHits, okOrSkeleton, type ContractCase } from "./kit.ts";
+import { allRows, expectOk, householdHits, type ContractCase } from "./kit.ts";
 import { everyDetail } from "./getPlace.cases.ts";
 
 export const householdCases: ContractCase[] = [
@@ -26,11 +26,8 @@ export const householdCases: ContractCase[] = [
       scan(trips, "listTrips");
       for (const tr of trips) scan(expectOk(await store.getTrip(tr.slug)), `getTrip ${tr.slug}`);
       scan(expectOk(await store.countPlaces({})), "countPlaces");
-      // API-3: the new methods, each the moment it lands (the 3b skeleton carries nothing)
-      const sk = (r: Parameters<typeof okOrSkeleton>[0], where: string) => {
-        const d = okOrSkeleton(r, where);
-        if (d !== null) scan(d, where);
-      };
+      // API-3: the new methods
+      const sk = (r: Parameters<typeof expectOk>[0], where: string) => scan(expectOk(r, where), where);
       sk(await store.countPlaces({ facets: { country: [t.facts.region.cc] }, parsed: { q: "", facets: { kind: ["lake"] } } }), "countPlaces parsed");
       sk(await store.listUnchecked(t.facts.gap ? { facets: { [t.facts.gap.key]: [t.facts.gap.value] } } : {}, { pageSize: API_LIMITS.pageSize.max }), "listUnchecked");
       sk(await store.searchCards({ q: "lake" }), "searchCards");
@@ -51,9 +48,8 @@ export const householdCases: ContractCase[] = [
       scan(expectOk(await store.globeFeature(t.facts.featureId)), "globeFeature");
       scan(expectOk(await store.globeLine(t.facts.featureId)), "globeLine");
       for (const format of EXPORT_FORMATS) {
-        const one = format === "json" ? sk : (r: Parameters<typeof okOrSkeleton>[0], where: string) => scan(expectOk(r, where), where);
-        one(await store.getExport({ type: "place", slug: t.facts.exportPlace, format }), `getExport place ${format}`);
-        for (const tr of trips) one(await store.getExport({ type: "trip", slug: tr.slug, format }), `getExport ${tr.slug} ${format}`);
+        sk(await store.getExport({ type: "place", slug: t.facts.exportPlace, format }), `getExport place ${format}`);
+        for (const tr of trips) sk(await store.getExport({ type: "trip", slug: tr.slug, format }), `getExport ${tr.slug} ${format}`);
       }
       expect(hits).toEqual([]);
       expect(origin, "a wishlist or prototype origin key (loc:, proto:) in a served body (A24)").toEqual([]);

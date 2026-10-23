@@ -40,7 +40,7 @@ export const CONTRACT_TABLES: Record<string, ContractCase[]> = {
   household: householdCases,
   images: imageCases,
   handler: handlerCases,
-  // API-3a (PHASE-E-START section 7): K20 to K27, each `awaits` its API-3b step where 3b fills it
+  // API-3 (PHASE-E-START section 7): K20 to K27
   exportFormats: exportFormatsCases,
   countsParsed: countsParsedCases,
   unchecked: uncheckedCases,
