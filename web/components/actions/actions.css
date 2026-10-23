@@ -61,3 +61,17 @@
 .trav-select { height: 38px; padding: 0 8px; border: 1px solid var(--line-2); border-radius: var(--r-2); background: var(--surface); color: var(--ink); font: var(--t-mono); min-width: 120px; }
 .copy-foot { display: flex; align-items: center; gap: var(--s-3); width: 100%; }
 .copy-note { margin: 0; flex: 1; min-width: 0; font: var(--t-small); color: var(--ink-2); }
+
+/* ---------- the print view of a trip (TripPrintView): off the screen, and the only thing on the paper while it prints ---------- */
+.print-model { display: none; }
+@media print {
+  html[data-print-model] body > *:not([data-print-model-root]) { display: none !important; }
+  html[data-print-model] .print-model { display: block; color: var(--ink); font: 10.5pt/1.4 var(--font-body, sans-serif); }
+  .print-model h1 { margin: 0 0 4pt; font-size: 18pt; }
+  .print-model h2 { margin: 12pt 0 4pt; font-size: 12.5pt; break-after: avoid; }
+  .print-model ol { margin: 0; padding-left: 16pt; }
+  .print-model li { margin: 0 0 4pt; break-inside: avoid; }
+  .print-model-note { display: block; color: var(--muted); }
+  .print-model-link { display: block; color: var(--muted); font-size: 9pt; word-break: break-all; }
+  .print-model-source { margin-top: 14pt; padding-top: 6pt; border-top: 0.5pt solid var(--line-2); font-size: 8.5pt; color: var(--muted); }
+}

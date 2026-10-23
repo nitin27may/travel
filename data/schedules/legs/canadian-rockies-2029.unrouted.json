@@ -1,0 +1,36 @@
+{
+ "schema": "trip-legs-unrouted/1",
+ "trip": "canadian-rockies-2029",
+ "pairs": [
+  {
+   "from": "14-B-3",
+   "to": "14-B-4",
+   "reason": "the route is over 5 times the straight line"
+  },
+  {
+   "from": "5-B-2",
+   "to": "5-B-3",
+   "reason": "no road or path within reach of a stop"
+  },
+  {
+   "from": "5-B-5",
+   "to": "5-B-2",
+   "reason": "no road or path within reach of a stop"
+  },
+  {
+   "from": "6-B-2",
+   "to": "6-B-3",
+   "reason": "no road or path within reach of a stop"
+  },
+  {
+   "from": "6-B-4",
+   "to": "6-B-2",
+   "reason": "no road or path within reach of a stop"
+  },
+  {
+   "from": "6-C-2",
+   "to": "6-C-1",
+   "reason": "no road or path within reach of a stop"
+  }
+ ]
+}

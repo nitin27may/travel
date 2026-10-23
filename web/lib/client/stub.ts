@@ -32,6 +32,10 @@ export function callsFromStore(store: CatalogueStore, reportOn = true): ApiCalls
     globeCard: (key) => orNull(store.globeCard(key)),
     globeLine: (id) => orNull(store.globeLine(id)) as never,
     exportFile: async (type, slug, format) => unwrap(await store.getExport({ type, slug, format })),
+    tripLegs: async (slug) => {
+      const r = await store.tripLegs(slug);
+      return r.ok && !('moved' in r.data) ? r.data : null;
+    },
     report: async (page) => {
       if (!reportOn) return null;
       return orNull(store.report({ page }));

@@ -345,7 +345,7 @@ describe('the data files (data/schedules)', () => {
     const have = new Set(legs.legs.flatMap((l) => [`${l.from}|${l.to}`, `${l.to}|${l.from}`]));
     const missing = dolomitesLegPairs(snap.trip.days, snap.places).filter(([a, b]) => !have.has(`${a}|${b}`));
     expect(missing).toEqual([]);
-    expect(legs.schema).toBe('trip-legs/1');
+    expect(['trip-legs/1', 'trip-legs/2']).toContain(legs.schema as string);
     expect(legs.attribution).toMatch(/OpenRouteService/);
     for (const l of legs.legs) expect(l.minutes).toBeGreaterThan(0);
   });

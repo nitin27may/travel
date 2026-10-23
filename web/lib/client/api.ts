@@ -1,4 +1,4 @@
-import type { CardHits, CardQuery, CountQuery, FacetCounts, ParseInput, ParsedQuery, PlaceQuery, PlaceRow, ReportResult as ApiReportResult, SearchQuery, SearchResult as ApiSearchResult, GlobeCardFile as ApiGlobeCard, GlobeTree as ApiGlobeTree, LightPin as ApiLightPin, ExportFile, Paged, UncheckedPage, UncheckedQuery } from '@travel/core/schema/api/index.ts';
+import type { CardHits, CardQuery, CountQuery, FacetCounts, ParseInput, ParsedQuery, PlaceQuery, PlaceRow, ReportResult as ApiReportResult, SearchQuery, SearchResult as ApiSearchResult, GlobeCardFile as ApiGlobeCard, GlobeTree as ApiGlobeTree, LightPin as ApiLightPin, ExportFile, Paged, TripLegs as ApiTripLegs, UncheckedPage, UncheckedQuery } from '@travel/core/schema/api/index.ts';
 import { reportLink, reportUrl } from '@/lib/config/product';
 import { defaultOrder } from '@/lib/entities/sort';
 import { SHARD_ROWS } from '@/lib/entities/shards';
@@ -36,6 +36,8 @@ export interface ApiCalls {
   globeLine(id: string): Promise<GlobeLineFile | null>;
   exportFile(type: 'trip' | 'place', slug: string, format: 'json'): Promise<ExportFile>;
   report(page: string): Promise<ApiReportResult | null>;
+  /** tripLegs (TRP2b): null for a trip the server does not list. */
+  tripLegs(slug: string): Promise<ApiTripLegs | null>;
 }
 
 // ---- the browser's calls ----------------------------------------------------------------------------------------------------------
@@ -129,6 +131,7 @@ export function fetchCalls(): ApiCalls {
     },
     globeLine: (id) => readOrNull('globeLine', at(`/globe/feature/${seg(id)}/line`)),
     exportFile: (type, slug, format) => read('getExport', at(`/export/${type}/${seg(slug)}`, new URLSearchParams({ format }))),
+    tripLegs: (slug) => readOrNull('tripLegs', at(`/trips/${seg(slug)}/legs`)),
     report: async (page) => {
       const r = await fetch(at('/report'), { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ page }) });
       if (r.status === 501) return null;
@@ -189,6 +192,7 @@ function placeQueryOf(state: ListState): PlaceQuery | null {
 
 export function createApiClient(calls: ApiCalls): DataClient {
   const exports = new Map<string, Promise<TripExport | PlaceExport>>();
+  const legs = new Map<string, Promise<ApiTripLegs | null>>();
   let tree: Promise<GlobeTree> | null = null;
   const pins = new Map<string, Promise<LightPin[]>>();
   const cards = new Map<string, Promise<GlobeCardFile | null>>();
@@ -209,6 +213,16 @@ export function createApiClient(calls: ApiCalls): DataClient {
       const areas = (await Promise.all(words.filter((w) => w.length >= 3).map((w) => search(w, { ...scope, kind: 'area' }, 50)))).flatMap((r) => r.groups.flatMap((g) => g.hits.map((h) => h.record as SearchRecord)));
       const counts = new Map(await Promise.all(words.map(async (w) => { const r = await search(w, scope); return [w, r.counts.trips + r.counts.places + r.counts.areas] as const; })));
       return suggestFrom(q, areas, (w) => counts.get(w) ?? 0);
+    },
+    // tripLegs (TRP2b): one request per trip per page view; a failure is forgotten so the next mount asks again
+    tripLegs(slug) {
+      let p = legs.get(slug);
+      if (!p) {
+        p = calls.tripLegs(slug);
+        p.catch(() => legs.delete(slug));
+        legs.set(slug, p);
+      }
+      return p;
     },
     parseQuery: (q, opts) => calls.parse({ q: q.slice(0, SEARCH_MAX), ...(opts?.target ? { target: opts.target } : {}), ...(opts?.dropped?.length ? { dropped: [...opts.dropped] } : {}) }),
     loadExport(type, slug) {
