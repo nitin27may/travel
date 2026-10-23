@@ -100,9 +100,9 @@ export const globeLine = z.strictObject({
 });
 
 /**
- * One city's outline (row 9.3, GLB2; OSM admin level 8, ODbL), by town id. A town with no polygon keeps the ring (`geometry` null). An
- * outline the town guard refuses (`safeGeometry`, store.ts A33: a vertex within the household radius) is served as the ring too, with
- * the same credit and no other sign, so a refused outline looks like a missing one.
+ * One city's outline (row 9.3, GLB2; OSM admin level 8, ODbL), by town id. A town with no polygon keeps the ring (`geometry` null). Every
+ * outline is served exactly as the loaded public data holds it, the home town's included (store.ts A33, owner ruling Q87): the
+ * detector accepts its vertices only as the gazetteer's own.
  */
 export const globeCity = z.strictObject({
   id: apiTownId,

@@ -1,6 +1,7 @@
 import { toSearchParams } from '@travel/core/catalogue/httpCodec.ts';
 import { fail, ok, type Result } from '@travel/core/catalogue/result.ts';
 import type { CatalogueStore } from '@travel/core/catalogue/store.ts';
+import { gazetteerOf, type PublicTownsHolder } from '@travel/core/privacy/towns.ts';
 import * as S from '@travel/core/schema/api/index.ts';
 import { respond, type EndpointName } from '@/lib/server/respond';
 
@@ -17,8 +18,11 @@ function listParams(q: S.PlaceQuery | S.NearQuery | S.CountQuery | S.UncheckedQu
   return p;
 }
 
-export class HandlerStore implements CatalogueStore {
+export class HandlerStore implements CatalogueStore, PublicTownsHolder {
   constructor(private readonly inner: CatalogueStore) {}
+
+  /** The inner store's gazetteer, which respond() reads too (store.ts A33): the kit scans with what the handler scanned with. */
+  publicTowns = () => gazetteerOf(this.inner);
 
   /** A raw GET through respond(), for the handler-layer cases (K18, K19). */
   request = async (path: string, init: { headers?: Record<string, string> } = {}): Promise<{ status: number; headers: Headers; text: string }> => {
@@ -87,6 +91,8 @@ const ROUTES: [RegExp, EndpointName, string[]][] = [
   [/^\/api\/v1\/places\/([^/]+)\/nearby\/?$/, 'nearbyForPlace', ['slug']],
   [/^\/api\/v1\/places\/([^/]+)\/?$/, 'getPlace', ['slug']],
   [/^\/api\/v1\/near\/?$/, 'near', []],
+  [/^\/api\/v1\/search\/?$/, 'search', []],
+  [/^\/api\/v1\/parse\/?$/, 'parse', []],
   [/^\/api\/v1\/trips\/?$/, 'listTrips', []],
   [/^\/api\/v1\/trips\/([^/]+)\/legs\/?$/, 'tripLegs', ['slug']],
   [/^\/api\/v1\/trips\/([^/]+)\/?$/, 'getTrip', ['slug']],

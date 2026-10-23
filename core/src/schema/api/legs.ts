@@ -125,8 +125,8 @@ export const legStopKey = z.string().min(1).max(120);
 
 /**
  * One routed leg. Only legs the file routes are listed; a pair the map draws with no leg here is a straight-line estimate, dashed
- * and labelled (T5). `geometry` is null when the file has none for the pair, or when the town guard's line rule refused it
- * (`safeGeometry`, store.ts A33): the leg then draws dashed too, with its km and minutes kept.
+ * and labelled (T5). `geometry` is null when the file has none for the pair, or when `safeLine` refused it (core/src/privacy/towns.ts,
+ * store.ts A34: a vertex within the household radius): the leg then draws dashed too, with its km and minutes kept.
  */
 export const tripLeg = z.strictObject({
   day: z.int().min(0),

@@ -2,6 +2,7 @@ import { fromSearchParams } from '@travel/core/catalogue/httpCodec.ts';
 import { httpStatus, type Result } from '@travel/core/catalogue/result.ts';
 import type { CatalogueStore } from '@travel/core/catalogue/store.ts';
 import { API_LIMITS, PLACE_ROW_KEYS, TRIP_ROW_KEYS, globeCardKey, reportInput, type ApiError } from '@travel/core/schema/api/index.ts';
+import { gazetteerOf } from '@travel/core/privacy/towns.ts';
 import { privacyHits, rowOutsideAllowlist } from './privacy';
 import { getStore } from './store';
 
@@ -34,6 +35,9 @@ interface Endpoint {
 }
 
 const query = (req: Request) => new URL(req.url).searchParams;
+
+/** The request's own strings: every query parameter value, which is all a search, parse or card-search echo may repeat (A40). */
+const requestText = (req: Request): string[] => [...query(req).values()].filter((v) => v.length > 0);
 
 /** An endpoint whose input is its path alone refuses any query key, as the codec does for the others (audit GB-A-1): a stray key filters nothing and would only make a new cache key. */
 const pathOnly = (run: Run): Run => (s, r, p) => {
@@ -135,7 +139,9 @@ export async function respond(name: EndpointName, req: Request, params: Record<s
     // the answer is the JSON envelope (filename, mime, body); it is not the file, so it carries no content-disposition (audit GB-A-3)
     // fail closed: a body with a household string, a private key or a row key outside the allowlist is never sent
     const stray = ep.rows ? rowOutsideAllowlist(data.items, ep.rows) : null;
-    const hits = privacyHits(data);
+    // the detector reads a town's point as public only when it is the loaded gazetteer's own (store.ts A33), and does not read the
+    // request's own words back as household text where an echo key repeats them (A40, review API3-R-1)
+    const hits = privacyHits(data, 20, { gazetteer: await gazetteerOf(store), echo: requestText(req) });
     if (stray || hits.length) {
       console.error(`api privacy detector blocked ${name}:`, stray ? `row key ${stray} is not in the allowlist` : JSON.stringify(hits.slice(0, 5)));
       return failure({ code: 'internal', message: 'The response could not be served.' });

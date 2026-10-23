@@ -89,9 +89,10 @@ export const TARGETS: ContractTarget[] = [
 const tally = runContractTargets(TARGETS);
 
 describe("contract kit bookkeeping", () => {
-  it("every start-sheet case K1 to K27 has at least one table entry (K28 is HYG's)", () => {
+  it("every start-sheet case K1 to K27 and K29 has at least one table entry (K28 is HYG's)", () => {
     const ids = new Set(Object.values(CONTRACT_TABLES).flat().map((c) => c.id.split(".")[0]));
     for (let k = 1; k <= 27; k++) expect(ids.has(`K${k}`), `K${k}`).toBe(true);
+    expect(ids.has("K29"), "K29").toBe(true);
   });
   it("no case is left awaiting an implementation step (API-3b filled them all)", () => {
     for (const t of tally) expect(t.awaiting, t.name).toEqual([]);

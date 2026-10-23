@@ -4,10 +4,11 @@
 // by its pair keys through the source's `pairKeyOf`, finds the file's leg for that pair (either direction) and answers it under the
 // stop keys. A pair the file has no leg for is simply absent (the map draws it as a dashed estimate, T5).
 //
-// Every geometry passes `safeOutline` here, at load, so a polyline that touches the household radius is served as no geometry (the
-// leg then draws dashed with its km and minutes kept: A33 rule 3). The mapping runs in the loader's code, never at SQL time (A34 parity).
+// Every geometry passes `safeLine` here, at load, so a polyline that touches the household radius is served as no geometry (the leg
+// then draws dashed with its km and minutes kept: A34). A route line is not public gazetteer data, so the town identity rule of A33
+// does not apply to it (open item API3-R-5: a refused leg is itself a diff signal). The mapping runs in the loader's code, never at SQL time (A34 parity).
 import { decodePolyline5, encodePolyline5, type TripDetail, type TripLeg, type TripLegs, type TripLegsFile } from "../../schema/api/index.ts";
-import { safeOutline } from "../../privacy/towns.ts";
+import { safeLine } from "../../privacy/towns.ts";
 
 /** What a source hands over for a trip that has a legs file. */
 export interface LegsSource {
@@ -18,10 +19,10 @@ export interface LegsSource {
 
 type FileLeg = TripLegsFile["legs"][number] & { geometry?: string };
 
-/** The geometry of a file leg in the direction it is asked, run through the town guard; null when it has none or the guard refuses it. */
+/** The geometry of a file leg in the direction it is asked, run through `safeLine`; null when it has none or it touches the household radius. */
 function geometryOf(leg: FileLeg, reversed: boolean): string | null {
   if (!leg.geometry) return null;
-  const guarded = safeOutline(leg.geometry);
+  const guarded = safeLine(leg.geometry);
   if (guarded === null) return null;
   if (!reversed) return guarded;
   const pts = decodePolyline5(guarded);
