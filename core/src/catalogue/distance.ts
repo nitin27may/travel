@@ -6,7 +6,8 @@
 //   inclusion  = the UNROUNDED distance <= r
 //   distanceKm = the distance rounded to 0.1 km (what a row shows)
 //   order      = distanceKm (rounded), then sortKey(name), then ref, in code-point order
-import { bandOf, bearing8, haversineKm } from "../geo/distance.ts";
+import { bandOf } from "../geo/bands.ts";
+import { bearing8, haversineKm } from "../geo/distance.ts";
 import type { LatLon } from "../geo/distance.ts";
 import type { BEARINGS, NEAR_BANDS } from "../schema/api/nearby.ts";
 import { compareCodePoints, sortKey } from "./sortKey.ts";
