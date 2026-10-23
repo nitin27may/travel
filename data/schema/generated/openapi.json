@@ -445,7 +445,11 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "trip",
+                "place"
+              ]
             }
           },
           {
@@ -453,7 +457,10 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
             }
           },
           {
@@ -682,7 +689,10 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
             }
           }
         ],
@@ -4527,7 +4537,10 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
             }
           },
           {
@@ -7188,17 +7201,32 @@
         }
       }
     },
-    "/api/v1/globe/card/{key}": {
+    "/api/v1/globe/card/{kind}/{slug}": {
       "get": {
         "operationId": "globeCard",
         "summary": "globeCard",
         "parameters": [
           {
-            "name": "key",
+            "name": "kind",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "place",
+                "trip"
+              ]
+            }
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
             }
           }
         ],
@@ -7604,7 +7632,9 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "maxLength": 120,
+              "pattern": "^[a-z]{2}-[a-z0-9]+-[a-z0-9-]+$"
             }
           }
         ],
@@ -7760,7 +7790,10 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
             }
           }
         ],
@@ -7983,7 +8016,10 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
             }
           }
         ],
@@ -8176,7 +8212,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "pattern": "^[a-z]{2}$"
             }
           }
         ],
@@ -10847,7 +10884,10 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
             }
           }
         ],
