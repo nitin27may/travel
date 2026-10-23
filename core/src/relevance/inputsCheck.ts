@@ -2,14 +2,15 @@
 // it, because a household origin could hide in either file.
 //
 // - hubs must be public AND on the allowlist (hubs.ts);
-// - no point, town or hub may lie within 2 km of a private origin (relevance.md 5 rule 7). The origin comes from
-//   data/relevance/inputs/private-origin.local.json, which is gitignored and never committed. Absent: skipped quietly;
+// - no point, town or hub may lie within 2 km of a private origin (relevance.md 5 rule 7). The household point is
+//   core/src/privacy/home.ts (nearHome); data/relevance/inputs/private-origin.local.json, gitignored, may add a second origin;
 // - every point carries a `coord_src`, and it is never Google (R6).
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { isAllowedHub } from "./hubs.ts";
 import { HOME_RADIUS_KM } from "../config/nearby.ts";
 import { haversineKm } from "../geo/distance.ts";
+import { nearHome } from "../privacy/home.ts";
 
 export interface InputIssue { code: string; file: string; path: string; message: string }
 
@@ -47,7 +48,8 @@ export function checkInputs(root: string): InputIssue[] {
   const out: InputIssue[] = [];
   const origin = loadPrivateOrigin(root);
   const near = (file: string, path: string, p: { lat: number; lon: number }, what: string): void => {
-    if (origin && haversineKm(origin, p) <= HOME_RADIUS_KM) {
+    // the household point is in core/src/privacy/home.ts; the local file is only an extra origin (a second address), absent on most machines
+    if (nearHome(p.lat, p.lon) || (origin && haversineKm(origin, p) <= HOME_RADIUS_KM)) {
       out.push({ code: "E_REL_HOUSEHOLD", file, path, message: `${what} lies within ${HOME_RADIUS_KM} km of a private origin. Day-trip fit uses public hubs only; remove or move it to the public hub.` });
     }
   };
