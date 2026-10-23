@@ -1,8 +1,8 @@
 // What the trip page hands the timeline components (trip-timeline spec 2.1, 3.7). Plain JSON, built on the server from the public
 // dataset: the scheduler inputs per day, the default profile's timelines, and the pre-filtered list of places a visitor may add
 // to a day (never the whole catalogue: principle P8). Nothing here reads a file.
-import { haversineM } from '@travel/core/geo/distance.ts';
 import type { DayTimeline, ItemKind, Point, Profile, ScheduleDayInput, ScheduleItem } from '@travel/core/schedule/types.ts';
+import { haversineM } from '@travel/core/geo/distance.ts';
 import { kindLabel } from '@/lib/entities/labels';
 import { parseHoursRange } from '@/lib/public/quantities';
 import type { KnowGroup } from '@/lib/public/prose';
