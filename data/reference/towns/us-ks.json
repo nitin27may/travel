@@ -1,0 +1,7 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"ks":"Kansas"},"rows":[
+["us-ks-kansas-city","Kansas City",39.11417,-94.62746,152933,"ks","Kansas City",4273837],
+["us-ks-olathe","Olathe",38.8814,-94.81913,134305,"ks","Olathe",4276614],
+["us-ks-overland-park","Overland Park",38.98223,-94.67079,186515,"ks","Overland Park",4276873],
+["us-ks-topeka","Topeka",39.04833,-95.67804,125963,"ks","Topeka",4280539],
+["us-ks-wichita","Wichita",37.69224,-97.33754,396119,"ks","Wichita",4281730]
+]}

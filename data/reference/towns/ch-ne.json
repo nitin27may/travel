@@ -1,0 +1,15 @@
+{"schema":"towns-part/1","cc":"ch","admin1":{"ne":"Neuchâtel"},"rows":[
+["ch-ne-bevaix","Bevaix",46.92958,6.8147,3866,"ne","Bevaix",2661531],
+["ch-ne-boudry","Boudry",46.94991,6.83757,4886,"ne","Boudry",2661429],
+["ch-ne-cornaux","Cornaux",47.0396,7.01872,1557,"ne","Cornaux",2661114],
+["ch-ne-cortaillod","Cortaillod",46.94306,6.8444,4410,"ne","Cortaillod",2661110],
+["ch-ne-couvet","Couvet",46.92525,6.6327,2811,"ne","Couvet",2661086],
+["ch-ne-cressier","Cressier",47.04907,7.03455,1912,"ne","Cressier",2661076],
+["ch-ne-fleurier","Fleurier",46.90224,6.58253,3681,"ne","Fleurier",2660758],
+["ch-ne-gorgier","Gorgier",46.90143,6.77985,1832,"ne","Gorgier",2660557],
+["ch-ne-le-landeron","Le Landeron",47.05702,7.07052,4278,"ne","Le Landeron",2659963],
+["ch-ne-les-ponts-de-martel","Les Ponts-de-Martel",46.99735,6.73059,1278,"ne","Les Ponts-de-Martel",2659917],
+["ch-ne-marin-epagnier","Marin-Epagnier",47.01017,6.99941,4087,"ne","Marin-Epagnier",8468977],
+["ch-ne-saint-aubin-sauges","Saint-Aubin-Sauges",46.89419,6.77251,2476,"ne","Saint-Aubin-Sauges",2658880],
+["ch-ne-travers","Travers",46.94018,6.67595,1233,"ne","Travers",2658328]
+]}

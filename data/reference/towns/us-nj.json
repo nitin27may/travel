@@ -1,0 +1,7 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"nj":"New Jersey"},"rows":[
+["us-nj-edison","Edison",40.51872,-74.4121,102548,"nj","Edison",5097529],
+["us-nj-elizabeth","Elizabeth",40.66399,-74.2107,129007,"nj","Elizabeth",5097598],
+["us-nj-jersey-city","Jersey City",40.72816,-74.07764,264290,"nj","Jersey City",5099836],
+["us-nj-newark","Newark",40.73566,-74.17237,281944,"nj","Newark",5101798],
+["us-nj-paterson","Paterson",40.91677,-74.17181,147754,"nj","Paterson",5102466]
+]}

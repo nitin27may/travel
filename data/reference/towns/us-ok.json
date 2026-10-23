@@ -1,0 +1,6 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"ok":"Oklahoma"},"rows":[
+["us-ok-broken-arrow","Broken Arrow",36.0526,-95.79082,106563,"ok","Broken Arrow",4531405],
+["us-ok-norman","Norman",35.22257,-97.43948,128026,"ok","Norman",4543762],
+["us-ok-oklahoma-city","Oklahoma City",35.46756,-97.51643,681054,"ok","Oklahoma City",4544349],
+["us-ok-tulsa","Tulsa",36.15398,-95.99277,413066,"ok","Tulsa",4553433]
+]}

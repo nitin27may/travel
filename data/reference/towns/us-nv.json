@@ -1,0 +1,10 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"nv":"Nevada"},"rows":[
+["us-nv-enterprise","Enterprise",36.02525,-115.24194,108481,"nv","Enterprise",5503766],
+["us-nv-henderson","Henderson",36.0397,-114.98194,285667,"nv","Henderson",5505411],
+["us-nv-las-vegas","Las Vegas",36.17497,-115.13722,641903,"nv","Las Vegas",5506956],
+["us-nv-north-las-vegas","North Las Vegas",36.19886,-115.1175,234807,"nv","North Las Vegas",5509403],
+["us-nv-paradise","Paradise",36.09719,-115.14666,223167,"nv","Paradise",5509952],
+["us-nv-reno","Reno",39.52963,-119.8138,264165,"nv","Reno",5511077],
+["us-nv-spring-valley","Spring Valley",36.10803,-115.245,178395,"nv","Spring Valley",5512909],
+["us-nv-sunrise-manor","Sunrise Manor",36.21108,-115.07306,189372,"nv","Sunrise Manor",5513343]
+]}

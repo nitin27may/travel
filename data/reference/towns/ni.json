@@ -1,0 +1,18 @@
+{"schema":"towns-part/1","cc":"ni","admin1":{"00":"Rivas Department"},"rows":[
+["ni-00-altagracia","Altagracia",11.56615,-85.5784,2771,"00","Altagracia",3620930],
+["ni-00-buenos-aires","Buenos Aires",11.46916,-85.81661,1692,"00","Buenos Aires",3620603],
+["ni-00-cardenas","Cárdenas",11.19639,-85.5089,1204,"00","Cardenas",3620479],
+["ni-00-chinandega","Chinandega",12.62951,-87.13133,126387,"00","Chinandega",3620381],
+["ni-00-leon","León",12.43527,-86.87862,144538,"00","Leon",3618030],
+["ni-00-managua","Managua",12.13282,-86.2504,973087,"00","Managua",3617763],
+["ni-00-masaya","Masaya",11.97316,-86.09587,130113,"00","Masaya",3617723],
+["ni-00-matagalpa","Matagalpa",12.92795,-85.91906,109089,"00","Matagalpa",3617708],
+["ni-00-moyogalpa","Moyogalpa",11.54006,-85.69795,3940,"00","Moyogalpa",3617569],
+["ni-00-potosi","Potosí",11.49416,-85.8568,5222,"00","Potosi",3617187],
+["ni-00-rivas","Rivas",11.43977,-85.82749,30000,"00","Rivas",3617052],
+["ni-00-san-carlos","San Carlos",11.12711,-84.77794,13451,"00","San Carlos",3616911],
+["ni-00-san-jorge","San Jorge",11.45584,-85.80308,7158,"00","San Jorge",3616794],
+["ni-00-san-juan-del-sur","San Juan del Sur",11.25292,-85.87049,7790,"00","San Juan del Sur",3616726],
+["ni-00-san-miguelito","San Miguelito",11.40255,-84.89991,4181,"00","San Miguelito",3616659],
+["ni-00-tola","Tola",11.43927,-85.93891,2638,"00","Tola",3616019]
+]}

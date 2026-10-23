@@ -1,0 +1,10 @@
+{"schema":"towns-part/1","cc":"it","admin1":{"45":"Emilia-Romagna"},"rows":[
+["it-45-bologna","Bologna",44.49381,11.33875,394843,"45","Bologna",3181928],
+["it-45-ferrara","Ferrara",44.83804,11.62057,132009,"45","Ferrara",3177090],
+["it-45-forli","Forlì",44.22177,12.04144,116696,"45","Forli",3176746],
+["it-45-modena","Modena",44.64783,10.92539,184732,"45","Modena",3173331],
+["it-45-parma","Parma",44.79935,10.32618,198292,"45","Parma",3171457],
+["it-45-piacenza","Piacenza",45.05242,9.69342,103607,"45","Piacenza",3171058],
+["it-45-reggio-nell-emilia","Reggio nell'Emilia",44.69825,10.63125,171944,"45","Reggio nell'Emilia",3169522],
+["it-45-rimini","Rimini",44.05755,12.56528,148688,"45","Rimini",3169361]
+]}

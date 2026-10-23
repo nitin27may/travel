@@ -1,0 +1,8 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"ga":"Georgia"},"rows":[
+["us-ga-athens","Athens",33.96095,-83.37794,127315,"ga","Athens",4180386],
+["us-ga-atlanta","Atlanta",33.749,-84.38798,510823,"ga","Atlanta",4180439],
+["us-ga-columbus","Columbus",32.46098,-84.98771,206922,"ga","Columbus",4188985],
+["us-ga-sandy-springs","Sandy Springs",33.92427,-84.37854,105330,"ga","Sandy Springs",4221333],
+["us-ga-savannah","Savannah",32.08354,-81.09983,147780,"ga","Savannah",4221552],
+["us-ga-south-fulton","South Fulton",33.59259,-84.67294,107436,"ga","South Fulton",12541728]
+]}

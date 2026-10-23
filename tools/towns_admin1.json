@@ -1,0 +1,434 @@
+{
+ "_note": "GeoNames admin1 code -> [ISO 3166-2 subdivision suffix, the GeoNames name that code must have]. 'identity' means GeoNames already uses the ISO suffix. A country with no entry gets '00' in town ids (nearby spec 3.1). tools/towns.py fails when a tabled country meets a code that is not listed or whose GeoNames name differs, so a wrong mapping cannot pass silently. Mapping tables are per subdivision, never per town.",
+ "countries": {
+  "US": "identity",
+  "CH": "identity",
+  "LI": "identity",
+  "CA": {
+   "01": [
+    "ab",
+    "Alberta"
+   ],
+   "02": [
+    "bc",
+    "British Columbia"
+   ],
+   "03": [
+    "mb",
+    "Manitoba"
+   ],
+   "04": [
+    "nb",
+    "New Brunswick"
+   ],
+   "05": [
+    "nl",
+    "Newfoundland and Labrador"
+   ],
+   "07": [
+    "ns",
+    "Nova Scotia"
+   ],
+   "08": [
+    "on",
+    "Ontario"
+   ],
+   "09": [
+    "pe",
+    "Prince Edward Island"
+   ],
+   "10": [
+    "qc",
+    "Quebec"
+   ],
+   "11": [
+    "sk",
+    "Saskatchewan"
+   ],
+   "12": [
+    "yt",
+    "Yukon"
+   ],
+   "13": [
+    "nt",
+    "Northwest Territories"
+   ],
+   "14": [
+    "nu",
+    "Nunavut"
+   ]
+  },
+  "IT": {
+   "01": [
+    "65",
+    "Abruzzo"
+   ],
+   "02": [
+    "77",
+    "Basilicate"
+   ],
+   "03": [
+    "78",
+    "Calabria"
+   ],
+   "04": [
+    "72",
+    "Campania"
+   ],
+   "05": [
+    "45",
+    "Emilia-Romagna"
+   ],
+   "06": [
+    "36",
+    "Friuli Venezia Giulia"
+   ],
+   "07": [
+    "62",
+    "Lazio"
+   ],
+   "08": [
+    "42",
+    "Liguria"
+   ],
+   "09": [
+    "25",
+    "Lombardy"
+   ],
+   "10": [
+    "57",
+    "The Marches"
+   ],
+   "11": [
+    "67",
+    "Molise"
+   ],
+   "12": [
+    "21",
+    "Piedmont"
+   ],
+   "13": [
+    "75",
+    "Apulia"
+   ],
+   "14": [
+    "88",
+    "Sardinia"
+   ],
+   "15": [
+    "82",
+    "Sicily"
+   ],
+   "16": [
+    "52",
+    "Tuscany"
+   ],
+   "17": [
+    "32",
+    "Trentino-Alto Adige"
+   ],
+   "18": [
+    "55",
+    "Umbria"
+   ],
+   "19": [
+    "23",
+    "Aosta Valley"
+   ],
+   "20": [
+    "34",
+    "Veneto"
+   ]
+  },
+  "FR": {
+   "11": [
+    "idf",
+    "Île-de-France"
+   ],
+   "24": [
+    "cvl",
+    "Centre-Val de Loire"
+   ],
+   "27": [
+    "bfc",
+    "Bourgogne-Franche-Comté"
+   ],
+   "28": [
+    "nor",
+    "Normandy"
+   ],
+   "32": [
+    "hdf",
+    "Hauts-de-France"
+   ],
+   "44": [
+    "ges",
+    "Grand Est"
+   ],
+   "52": [
+    "pdl",
+    "Pays de la Loire"
+   ],
+   "53": [
+    "bre",
+    "Brittany"
+   ],
+   "75": [
+    "naq",
+    "New Aquitaine"
+   ],
+   "76": [
+    "occ",
+    "Occitanie"
+   ],
+   "84": [
+    "ara",
+    "Auvergne-Rhône-Alpes"
+   ],
+   "93": [
+    "pac",
+    "Provence-Alpes-Côte d'Azur"
+   ],
+   "94": [
+    "cor",
+    "Corsica"
+   ]
+  },
+  "AT": {
+   "01": [
+    "1",
+    "Burgenland"
+   ],
+   "02": [
+    "2",
+    "Carinthia"
+   ],
+   "03": [
+    "3",
+    "Lower Austria"
+   ],
+   "04": [
+    "4",
+    "Upper Austria"
+   ],
+   "05": [
+    "5",
+    "Salzburg"
+   ],
+   "06": [
+    "6",
+    "Styria"
+   ],
+   "07": [
+    "7",
+    "Tyrol"
+   ],
+   "08": [
+    "8",
+    "Vorarlberg"
+   ],
+   "09": [
+    "9",
+    "Vienna"
+   ]
+  },
+  "DE": {
+   "01": [
+    "bw",
+    "Baden-Wurttemberg"
+   ],
+   "02": [
+    "by",
+    "Bavaria"
+   ],
+   "03": [
+    "hb",
+    "Bremen"
+   ],
+   "04": [
+    "hh",
+    "Hamburg"
+   ],
+   "05": [
+    "he",
+    "Hesse"
+   ],
+   "06": [
+    "ni",
+    "Lower Saxony"
+   ],
+   "07": [
+    "nw",
+    "North Rhine-Westphalia"
+   ],
+   "08": [
+    "rp",
+    "Rheinland-Pfalz"
+   ],
+   "09": [
+    "sl",
+    "Saarland"
+   ],
+   "10": [
+    "sh",
+    "Schleswig-Holstein"
+   ],
+   "11": [
+    "bb",
+    "Brandenburg"
+   ],
+   "12": [
+    "mv",
+    "Mecklenburg-Vorpommern"
+   ],
+   "13": [
+    "sn",
+    "Saxony"
+   ],
+   "14": [
+    "st",
+    "Saxony-Anhalt"
+   ],
+   "15": [
+    "th",
+    "Thuringia"
+   ],
+   "16": [
+    "be",
+    "State of Berlin"
+   ]
+  },
+  "IS": {
+   "38": [
+    "7",
+    "East"
+   ],
+   "39": [
+    "1",
+    "Capital Region"
+   ],
+   "40": [
+    "6",
+    "Northeast"
+   ],
+   "41": [
+    "5",
+    "Northwest"
+   ],
+   "42": [
+    "8",
+    "South"
+   ],
+   "43": [
+    "2",
+    "Southern Peninsula"
+   ],
+   "44": [
+    "4",
+    "Westfjords"
+   ],
+   "45": [
+    "3",
+    "West"
+   ]
+  },
+  "AR": {
+   "01": [
+    "b",
+    "Buenos Aires"
+   ],
+   "02": [
+    "k",
+    "Catamarca"
+   ],
+   "03": [
+    "h",
+    "Chaco"
+   ],
+   "04": [
+    "u",
+    "Chubut"
+   ],
+   "05": [
+    "x",
+    "Cordoba"
+   ],
+   "06": [
+    "w",
+    "Corrientes"
+   ],
+   "07": [
+    "c",
+    "Buenos Aires F.D."
+   ],
+   "08": [
+    "e",
+    "Entre Rios"
+   ],
+   "09": [
+    "p",
+    "Formosa"
+   ],
+   "10": [
+    "y",
+    "Jujuy"
+   ],
+   "11": [
+    "l",
+    "La Pampa"
+   ],
+   "12": [
+    "f",
+    "La Rioja"
+   ],
+   "13": [
+    "m",
+    "Mendoza"
+   ],
+   "14": [
+    "n",
+    "Misiones"
+   ],
+   "15": [
+    "q",
+    "Neuquen"
+   ],
+   "16": [
+    "r",
+    "Rio Negro"
+   ],
+   "17": [
+    "a",
+    "Salta"
+   ],
+   "18": [
+    "j",
+    "San Juan"
+   ],
+   "19": [
+    "d",
+    "San Luis"
+   ],
+   "20": [
+    "z",
+    "Santa Cruz"
+   ],
+   "21": [
+    "s",
+    "Santa Fe"
+   ],
+   "22": [
+    "g",
+    "Santiago del Estero"
+   ],
+   "23": [
+    "v",
+    "Tierra del Fuego"
+   ],
+   "24": [
+    "t",
+    "Tucuman"
+   ]
+  }
+ }
+}

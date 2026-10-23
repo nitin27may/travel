@@ -1,0 +1,11 @@
+{"schema":"towns-part/1","cc":"ch","admin1":{"ur":"Uri"},"rows":[
+["ch-ur-altdorf","Altdorf",46.88042,8.64441,9401,"ur","Altdorf",2661780],
+["ch-ur-andermatt","Andermatt",46.63565,8.59388,1258,"ur","Andermatt",2661750],
+["ch-ur-attinghausen","Attinghausen",46.86255,8.63036,1515,"ur","Attinghausen",2661693],
+["ch-ur-burglen","Bürglen",46.87565,8.66539,3996,"ur","Burglen",2661316],
+["ch-ur-erstfeld","Erstfeld",46.81885,8.65052,3876,"ur","Erstfeld",2660863],
+["ch-ur-flueelen","Flüelen",46.90478,8.62396,2000,"ur","Flueelen",2660751],
+["ch-ur-schattdorf","Schattdorf",46.8655,8.65465,4860,"ur","Schattdorf",2658749],
+["ch-ur-seedorf","Seedorf",46.88199,8.61611,1522,"ur","Seedorf",2658654],
+["ch-ur-silenen","Silenen",46.7891,8.67325,2243,"ur","Silenen",2658592]
+]}

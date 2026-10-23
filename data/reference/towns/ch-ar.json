@@ -1,0 +1,12 @@
+{"schema":"towns-part/1","cc":"ch","admin1":{"ar":"Appenzell Ausserrhoden"},"rows":[
+["ch-ar-buhler","Bühler",47.37348,9.42507,1612,"ar","Buhler",2661343],
+["ch-ar-gais","Gais",47.3615,9.45356,2778,"ar","Gais",2660681],
+["ch-ar-herisau","Herisau",47.38615,9.27916,15744,"ar","Herisau",2660365],
+["ch-ar-rehetobel","Rehetobel",47.42611,9.483,1779,"ar","Rehetobel",2659082],
+["ch-ar-schwellbrunn","Schwellbrunn",47.35255,9.24894,1517,"ar","Schwellbrunn",2658669],
+["ch-ar-speicher","Speicher",47.4109,9.44335,3985,"ar","Speicher",2658537],
+["ch-ar-teufen","Teufen",47.3908,9.38644,5683,"ar","Teufen",2658397],
+["ch-ar-trogen","Trogen",47.40782,9.46498,1618,"ar","Trogen",2658307],
+["ch-ar-urnasch","Urnäsch",47.31669,9.2795,2304,"ar","Urnasch",2658223],
+["ch-ar-waldstatt","Waldstatt",47.35627,9.28345,1722,"ar","Waldstatt",2658066]
+]}

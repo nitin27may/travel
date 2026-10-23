@@ -1,0 +1,11 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"nc":"North Carolina"},"rows":[
+["us-nc-cary","Cary",35.79154,-78.78112,159769,"nc","Cary",4459467],
+["us-nc-charlotte","Charlotte",35.22709,-80.84313,911311,"nc","Charlotte",4460243],
+["us-nc-durham","Durham",35.99403,-78.89862,257636,"nc","Durham",4464368],
+["us-nc-fayetteville","Fayetteville",35.05266,-78.87836,201963,"nc","Fayetteville",4466033],
+["us-nc-greensboro","Greensboro",36.07264,-79.79198,285342,"nc","Greensboro",4469146],
+["us-nc-high-point","High Point",35.95569,-80.00532,110268,"nc","High Point",4471025],
+["us-nc-raleigh","Raleigh",35.7721,-78.63861,482295,"nc","Raleigh",4487042],
+["us-nc-wilmington","Wilmington",34.23556,-77.94604,115933,"nc","Wilmington",4499379],
+["us-nc-winston-salem","Winston-Salem",36.09986,-80.24422,241218,"nc","Winston-Salem",4499612]
+]}

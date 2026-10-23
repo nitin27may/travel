@@ -1,0 +1,6 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"in":"Indiana"},"rows":[
+["us-in-evansville","Evansville",37.97476,-87.55585,119943,"in","Evansville",4257227],
+["us-in-fort-wayne","Fort Wayne",41.1306,-85.12886,260326,"in","Fort Wayne",4920423],
+["us-in-indianapolis","Indianapolis",39.76838,-86.15804,887642,"in","Indianapolis",4259418],
+["us-in-south-bend","South Bend",41.68338,-86.25001,101516,"in","South Bend",4926563]
+]}
