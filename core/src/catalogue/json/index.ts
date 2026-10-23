@@ -57,6 +57,10 @@ export class JsonStore implements CatalogueStore {
         slugs: s.registry,
         ...s.snapshot(),
       }));
+    }).catch((e) => {
+      // a failure while the snapshot is built is not the store's answer for life: the next call builds it again (audit GB-A-5)
+      this.revPromise = null;
+      throw e;
     });
     return this.revPromise;
   }
