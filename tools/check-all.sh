@@ -27,6 +27,10 @@ step "capture contract: generated files match data/vocab/types.json"
 node "$ROOT/core/bin/capture.ts" build --check --root "$ROOT"
 step "capture gap budget: no placement or tier gap count rose (data/capture/gap-budget.json)"
 node "$ROOT/core/bin/capture.ts" gaps --budget --check --root "$ROOT"
+step "towns layer is the GeoNames dump verbatim (META-2: tools/towns.py --check re-derives from the cached download, or checks the manifest hashes offline)"
+python3 "$ROOT/tools/towns.py" --check
+step "nearest town: every exact point has its near_town (META-2: capture.ts derive-near --check)"
+node "$ROOT/core/bin/capture.ts" derive-near --check --root "$ROOT" >/dev/null
 step "validate every data file"
 node "$ROOT/core/bin/validate.ts" --all --root "$ROOT"
 step "search vocabulary: no dead words, no unruled double meaning, vocab.json current"

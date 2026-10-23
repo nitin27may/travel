@@ -13,7 +13,7 @@ GeoNames' own numbers. Rules that keep it so:
     as the dump has them. Nothing is edited, added or rounded; a row the dump does not hold cannot appear.
   * The filter is mechanical and the same for every country and every town; no town name, id or coordinate is written in this
     file or in any file it reads: feature class P, not a section/historical/abandoned/destroyed code, population of at least
-    POPULATION_MIN, and EITHER within RADIUS_KM of an anchor (a public point of the catalogue, rounded; anchors.json) OR a large
+    POPULATION_MIN, and EITHER within ANCHOR_RADIUS of an anchor (a public point of the catalogue, rounded; anchors.json) OR a large
     city (population of at least HUB_POPULATION_MIN) in a country that holds an anchor-radius town.
   * The manifest records the source URLs, the download date, the licence (GeoNames, CC BY 4.0) and the SHA-256 of each downloaded
     file, the filter, the anchors file's hash, and each part's size and SHA-256.
@@ -65,7 +65,7 @@ FEATURE_CLASS = "P"
 # section of a populated place, historical, abandoned, destroyed, historical capital: not places a visitor can be near today
 EXCLUDED_FEATURE_CODES = ("PPLX", "PPLH", "PPLQ", "PPLW", "PPLCH")
 POPULATION_MIN = 1000  # near_town counts settlements of at least this many people (capture contract 3.7)
-RADIUS_KM = 100  # a town within this distance of an anchor is kept, so a point near a border still finds the town across it
+ANCHOR_RADIUS = 100  # a town within this distance of an anchor is kept, so a point near a border still finds the town across it
 HUB_POPULATION_MIN = 100_000  # large cities are kept in every country that holds an anchor-radius town (short-trip hubs, nearby spec Q55)
 ANCHOR_DECIMALS = 2  # anchors are public points rounded to about a kilometre
 GZIP_BUDGET = 20_000  # bytes per part, gzip level 9 (nearby spec 5.6)
@@ -204,13 +204,13 @@ class Grid:
         self.by_lat: dict[int, list[list[float]]] = {}
         for a in anchors:
             self.by_lat.setdefault(int(a[0] // 1), []).append(a)
-        self.reach = int(RADIUS_KM / 100) + 2  # degrees of latitude: 111 km each, so +2 is a safe margin for the radius
+        self.reach = int(ANCHOR_RADIUS / 100) + 2  # degrees of latitude: 111 km each, so +2 is a safe margin for the radius
 
     def near(self, lat: float, lon: float) -> bool:
         base = int(lat // 1)
         for b in range(base - self.reach, base + self.reach + 1):
             for a in self.by_lat.get(b, ()):
-                if haversine_km(lat, lon, a[0], a[1]) <= RADIUS_KM:
+                if haversine_km(lat, lon, a[0], a[1]) <= ANCHOR_RADIUS:
                     return True
         return False
 
@@ -324,7 +324,7 @@ def manifest_of(meta: dict[str, dict], anchors_bytes: bytes, parts: dict[str, by
             "feature_class": FEATURE_CLASS,
             "excluded_feature_codes": list(EXCLUDED_FEATURE_CODES),
             "population_min": POPULATION_MIN,
-            "radius_km": RADIUS_KM,
+            "radius_km": ANCHOR_RADIUS,
             "hub_population_min": HUB_POPULATION_MIN,
             "anchors": {"file": "anchors.json", "count": len(json.loads(anchors_bytes)), "decimals": ANCHOR_DECIMALS, "sha256": sha256(anchors_bytes), "from": [f"{p}#{k}" for p, k in ANCHOR_SOURCES]},
             "admin1_table": {"file": "tools/towns_admin1.json", "sha256": sha256(ADMIN1_TABLE.read_bytes())},
