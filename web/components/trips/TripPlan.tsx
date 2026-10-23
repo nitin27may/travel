@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { MapFamilyProvider } from '@/components/map/MapFamilyProvider';
 import { Banner } from '@/components/ui/Banner';
@@ -7,17 +8,19 @@ import { Chip } from '@/components/ui/Chip';
 import { Icon } from '@/components/ui/Icon';
 import { Segmented } from '@/components/ui/Segmented';
 import { publishTimeline, registerYoungest } from '@/lib/export/timelineState';
-import type { MapHandle } from '@/lib/map/types';
+import { tripPageFamily } from '@/lib/map/family';
 import type { Category } from '@/lib/public/types';
 import '@/styles/timeline.css';
 import { CategoryStrip } from './CategoryStrip';
 import { CategoryView } from './CategoryView';
 import { DayRow } from './DayRow';
-import { DEPTH_NOTICE, dayMapCaption } from './format';
+import { DEPTH_NOTICE } from './format';
+import { dayMapFromRoute, dayMapOf, entryKey, mapBus, pointLookup } from './mapPins';
 import { routeHasPositions, type TripPageModel } from './model';
 import { dayOfHash } from './timeline/currentDay';
 import { DayTimeline } from './timeline/DayTimeline';
-import { orderRoute, timeOfRow } from './timeline/model';
+import { MapLinkContext, type MapLinkValue } from './timeline/MapLink';
+import { timeOfRow } from './timeline/model';
 import { PlanBar } from './timeline/PlanBar';
 import { ProfileBar } from './timeline/ProfileBar';
 import { TripSuitProvider } from '@/components/suit/TripSuit';
@@ -25,8 +28,17 @@ import { TripTimeline } from './timeline/TripTimeline';
 import { useScrollSpy } from './timeline/useScrollSpy';
 import { useTimeline } from './timeline/useTimeline';
 import { useSwap } from './timeline/useSwap';
-import { dayFitIds, RouteKey, TripRouteMap } from './TripRouteMap';
 import { useTripUrl } from './useTripUrl';
+
+// The map column is its own chunk: it loads after the page, and the trip page's start JS does not carry it (D-E9).
+const TripRouteMap = dynamic(() => import('./TripRouteMap'), {
+  ssr: false,
+  loading: () => (
+    <div role="status" className="trip-map-surface tl-mapph">
+      Loading the map
+    </div>
+  ),
+});
 
 interface Props {
   slug: string;
@@ -73,14 +85,13 @@ export function TripPlan({ slug, model, title, depth, season }: Props) {
   return <TimelinePlan slug={slug} model={model} title={title} depth={depth} season={season} tlModel={tlModel} url={url} />;
 }
 
-function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
+function TimelinePlan({ slug, model, depth, season, tlModel, url }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
   const api = useTimeline(tlModel, url);
   const [edit, setEdit] = useState(false);
   const pr = api.state.profile;
   const swap = useSwap(api.timelines, `${pr.party}|${pr.youngest}|${pr.pace}|${pr.adults}|${pr.walkKm}`, api.pending);
   const shown = swap.shown;
   const showCategory = url.view === 'category';
-  const map = useRef<MapHandle>(null);
   // the hash this page wrote itself while following the scroll or jumping; the hash effect must not scroll to it again
   const ownHash = useRef<string | null>(null);
 
@@ -117,40 +128,42 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
   const current = showCategory ? null : daySpy.current;
   const active = showCategory ? catSpy.current : null;
 
-  const route = useMemo(() => orderRoute(model.route, shown), [model.route, shown]);
+  const route = model.route;
+  // the pins of each day, numbered in the order of the day list; the rows and the map both read this
+  const pointOf = useMemo(() => pointLookup(route), [route]);
+  const maps = useMemo(() => shown.map((t) => dayMapOf(t, pointOf)), [shown, pointOf]);
 
   // The map follows the settled current day: the whole trip until Day 1 reaches the focus line, then that day, 350 ms after the scroll settles.
   // "All days" pauses following; "Follow Day N", a rail or strip click, or the Day segment resumes it.
   const [mapDay, setMapDay] = useState<number | null>(null);
   const [paused, setPaused] = useState(false);
   const [sheet, setSheet] = useState(false);
+  const [sheetSeen, setSheetSeen] = useState(false);
+  const opener = useRef<HTMLElement | null>(null);
+  const openSheet = useCallback(() => {
+    opener.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setSheet(true);
+    setSheetSeen(true);
+  }, []);
+  const closeSheet = useCallback(() => {
+    setSheet(false);
+    opener.current?.focus({ preventScroll: true });
+  }, []);
   const dayNow = showCategory ? null : daySpy.reached;
   useEffect(() => {
     if (paused) return;
     const t = window.setTimeout(() => setMapDay(dayNow), 350);
     return () => window.clearTimeout(t);
   }, [paused, dayNow]);
-  const first = useRef(true);
-  useEffect(() => {
-    if (first.current) {
-      first.current = false;
-      return;
-    }
-    map.current?.fit(mapDay === null ? undefined : dayFitIds(route, mapDay));
-  }, [mapDay, route]);
   useEffect(() => {
     if (!sheet) return;
     const esc = (e: globalThis.KeyboardEvent) => {
-      if (e.key === 'Escape') setSheet(false);
+      if (e.key === 'Escape') closeSheet();
     };
     window.addEventListener('keydown', esc);
     return () => window.removeEventListener('keydown', esc);
-  }, [sheet]);
+  }, [sheet, closeSheet]);
   const placed = routeHasPositions(route);
-  const mapDayModel = mapDay === null ? null : route.days.find((d) => d.n === mapDay) ?? null;
-  const mapBase = mapDayModel ? route.bases.some((b) => b.days.includes(mapDayModel.n)) : false;
-  const mapLabel = mapDayModel ? dayMapCaption({ n: mapDayModel.n, base: mapDayModel.base, points: mapDayModel.points.length, unplaced: mapDayModel.unplaced ?? 0 }, mapBase) : `Map: the whole trip${route.unplaced ? `, ${route.unplaced} stops not on the map` : ''}`;
-
   // an anchor (`#day-5`, `#trails`) scrolls to its target once the right view is on screen; an empty category goes to the strip
   const goDay = daySpy.goTo;
   const goCat = catSpy.goTo;
@@ -204,8 +217,8 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
 
   // A pick scrolls itself (lock, sticky offsets, pin) and writes the hash; the hash effect skips a hash it did not receive from outside.
   const pickDay = useCallback(
-    (n: number) => {
-      const el = document.getElementById(`day-${n}`);
+    (n: number, entry?: string) => {
+      const el = (entry ? document.querySelector<HTMLElement>(`[data-entry="${CSS.escape(entry)}"]`) : null) ?? document.getElementById(`day-${n}`);
       if (el) goDay(el, n);
       ownHash.current = `day-${n}`;
       setPaused(false);
@@ -217,6 +230,47 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
     () => model.sections.map((s) => ({ ...s, rows: s.rows.map((r) => ({ ...r, time: timeOfRow(r, r.days[0] ?? 0, shown) ?? r.time })) })),
     [model.sections, shown],
   );
+  // the day list's side of the link to the map: numbers on the rows, "not on the map", and what a press on a number does
+  const shownDay = paused ? null : mapDay;
+  const live = useRef({ shownDay, sheet });
+  useEffect(() => {
+    live.current = { shownDay, sheet };
+  });
+  const link = useMemo<MapLinkValue>(() => {
+    const numbers = new Map<string, number>();
+    const pins = new Map<string, string>();
+    const missing = new Set<string>();
+    for (const m of maps) {
+      for (const pin of m.pins) for (const id of pin.entryIds) {
+        numbers.set(entryKey(m.day, id), pin.n);
+        pins.set(entryKey(m.day, id), pin.id);
+      }
+      for (const u of m.unplaced) missing.add(entryKey(m.day, u.id));
+    }
+    return {
+      numbers,
+      pins,
+      missing,
+      mapDay: shownDay,
+      show: (day, pinId) => {
+        // another day's number picks that day; this day's number rings its pin, opening the sheet first on a phone or tablet
+        if (day !== live.current.shownDay) {
+          pickDay(day);
+          return;
+        }
+        if (window.matchMedia('(max-width: 1023px)').matches && !live.current.sheet) openSheet();
+        mapBus.emit({ type: 'ring', pin: pinId });
+      },
+    };
+  }, [maps, shownDay, pickDay, openSheet]);
+  // a row under the pointer or in focus rings its pin on the map: events on the map's bus, not React state, so the list does not re-render
+  const hoverRow = useCallback((e: React.SyntheticEvent, on: boolean) => {
+    const li = (e.target as HTMLElement).closest<HTMLElement>('li.tl-entry[data-pin]');
+    if (!li || Number(li.dataset.entry?.split(':')[0]) !== live.current.shownDay) return;
+    const to = (e as React.MouseEvent).relatedTarget as Node | null;
+    if (!on && to && li.contains(to)) return;
+    mapBus.emit({ type: 'hover', pin: on ? (li.dataset.pin ?? null) : null });
+  }, []);
   const p = api.state.profile;
   const planLabel = profileLabel(p);
   const editPlan = useCallback(() => {
@@ -226,15 +280,16 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
 
   return (
     <TripSuitProvider value={{ byPlace: tlModel.suit, youngest: p.party === 'family' ? p.youngest : null }}>
+    <MapLinkContext.Provider value={placed ? link : null}>
     <div className="tl-wrap">
       <ProfileBar model={tlModel} api={api} edit={edit} setEdit={setEdit} label={planLabel} />
       {season}
       <TimesBanner condensed={tlModel.condensed} />
       {!showCategory ? <TripTimeline model={tlModel} timelines={shown} changedDays={api.changedDays} picked={current} onPick={pickDay} /> : null}
 
-      {!showCategory ? <PlanBar model={tlModel} label={planLabel} active={current} onPick={pickDay} onEdit={editPlan} onMap={placed ? () => setSheet(true) : undefined} mapOpen={sheet} /> : null}
+      {!showCategory ? <PlanBar model={tlModel} label={planLabel} active={current} onPick={pickDay} onEdit={editPlan} onMap={placed ? () => (sheet ? closeSheet() : openSheet()) : undefined} mapOpen={sheet} /> : null}
 
-      <div className="tl-cols" data-map={placed || undefined}>
+      <div className="tl-cols" data-map={placed || undefined} data-sheet-open={sheet || undefined}>
       <section className="trip-sec" aria-labelledby="in-trip-h" id="in-this-trip">
         <h2 id="in-trip-h" className="trip-h">In this trip</h2>
         {depth === 'summary' ? (
@@ -255,14 +310,14 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
             className="trip-seg"
           />
         </div>
-        <CategoryStrip sections={model.sections} active={showCategory ? active : null} sticky={showCategory} onPick={pickCat} onMap={placed ? () => setSheet(true) : undefined} mapOpen={sheet} />
+        <CategoryStrip sections={model.sections} active={showCategory ? active : null} sticky={showCategory} onPick={pickCat} onMap={placed ? () => (sheet ? closeSheet() : openSheet()) : undefined} mapOpen={sheet} />
         {model.sections.filter((s) => s.count === 0).map((s) => (
           <span key={s.id} id={s.id} className="anchor-top" />
         ))}
         {showCategory ? (
           <CategoryView sections={sections} />
         ) : (
-          <ol className="tl-days" data-swap={swap.phase}>
+          <ol className="tl-days" data-swap={swap.phase} onMouseOver={(e) => hoverRow(e, true)} onMouseOut={(e) => hoverRow(e, false)} onFocus={(e) => hoverRow(e, true)} onBlur={(e) => hoverRow(e, false)}>
             {tlModel.days.map((d, di) => {
               const tl = shown.find((t) => t.day === d.n)!;
               const mine = api.added[d.n] ?? [];
@@ -317,29 +372,29 @@ function TimelinePlan({ slug, model, title, depth, season, tlModel, url }: Props
                     { value: 'day', label: mapDay === null ? 'Day' : `Day ${mapDay}`, disabled: !showCategory && dayNow === null && mapDay === null },
                   ]}
                 />
-                <button type="button" className="tl-mapcol-close" onClick={() => setSheet(false)} aria-label="Close map">
+                <button type="button" className="tl-mapcol-close" onClick={closeSheet} aria-label="Close map">
                   <Icon name="close" size={16} />
                 </button>
               </div>
-              <p className="tl-mapcol-label num" aria-live="polite">
-                {paused ? (
-                  <>
-                    Paused · <button type="button" className="tl-reset" onClick={() => setPaused(false)}>{dayNow !== null ? `Follow Day ${dayNow}` : 'Follow the days'}</button>
-                  </>
-                ) : (
-                  mapLabel
-                )}
-              </p>
-              <MapFamilyProvider family="maplibre">
-                <TripRouteMap ref={map} route={route} picked={paused ? null : mapDay} title={title} />
+              <MapFamilyProvider family={tripPageFamily()}>
+                <TripRouteMap
+                  route={route}
+                  models={maps}
+                  picked={shownDay}
+                  paused={paused}
+                  dayNow={dayNow}
+                  onResume={() => setPaused(false)}
+                  sheet={sheet}
+                  sheetSeen={sheetSeen}
+                  onPickDay={pickDay}
+                />
               </MapFamilyProvider>
-              <p className="trip-sec-note tl-mapcol-note">Dashed lines are straight lines between stops, not routes; road routes come later.{route.unplaced ? ` ${route.unplaced} stops have no map position yet.` : ''}</p>
-              <RouteKey />
             </>
           )}
         </aside>
       </div>
     </div>
+    </MapLinkContext.Provider>
     </TripSuitProvider>
   );
 }
@@ -358,7 +413,6 @@ function PlainPlan({ slug, model, title, depth, season }: Props) {
   });
   const active = showCategory ? catSpy.current : null;
   const goCat = catSpy.goTo;
-  const map = useRef<MapHandle>(null);
   const quiet = useRef(false);
 
   const pick = useCallback((n: number) => {
@@ -370,14 +424,7 @@ function PlainPlan({ slug, model, title, depth, season }: Props) {
     setSeenDay(url.day);
     if (url.day !== null && model.days.some((d) => d.n === url.day)) pick(url.day);
   }
-  const first = useRef(true);
-  useEffect(() => {
-    if (first.current) {
-      first.current = false;
-      return;
-    }
-    if (picked !== null) map.current?.fit(dayFitIds(model.route, picked));
-  }, [picked, model.route]);
+  const maps = useMemo(() => model.route.days.map(dayMapFromRoute), [model.route.days]);
   useEffect(() => {
     if (!url.hash) return;
     if (quiet.current) {
@@ -421,10 +468,9 @@ function PlainPlan({ slug, model, title, depth, season }: Props) {
               Every day&apos;s stops as dots, the bases as signposts. Dashed lines are straight lines between stops, not routes; road routes come later.
               {model.route.unplaced ? ` ${model.route.unplaced} stops have no map position yet.` : ''} Pick a day below to follow it.
             </p>
-            <MapFamilyProvider family="maplibre">
-              <TripRouteMap ref={map} route={model.route} picked={picked} title={title} />
+            <MapFamilyProvider family={tripPageFamily()}>
+              <TripRouteMap route={model.route} models={maps} picked={picked} paused={false} dayNow={picked} onResume={() => undefined} sheet={false} sheetSeen onPickDay={pick} />
             </MapFamilyProvider>
-            <RouteKey />
           </>
         )}
       </section>

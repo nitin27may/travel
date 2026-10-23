@@ -89,17 +89,19 @@
 .trip-h { font: var(--t-section); text-transform: uppercase; padding-bottom: var(--s-2); border-bottom: 1px solid var(--line); margin-bottom: var(--s-3); }
 .trip-sec-note { font: var(--t-small); color: var(--muted); margin-bottom: var(--s-3); max-width: 46rem; }
 .trip-map-surface { height: 460px; min-height: 320px; }
-.trip-map-key { margin-top: var(--s-2); font: var(--t-small); color: var(--ink-2); }
-.trip-map-key-list { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); list-style: none; margin: 0; padding: 0; }
-.trip-map-key-list[hidden] { display: none; }
+.trip-map-key { margin: 0 0 var(--s-2); font: var(--t-small); color: var(--ink-2); }
+.trip-map-key-list { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1) var(--s-4); list-style: none; margin: 0; padding: 0; }
 .trip-map-key-list li { display: inline-flex; align-items: center; gap: var(--s-2); }
-.trip-map-key-toggle { min-height: 32px; padding: 0 var(--s-3); border: 1px solid var(--line-2); border-radius: var(--r-full); background: var(--surface); color: var(--ink); font: var(--t-chip); }
-.trip-map-key-toggle + .trip-map-key-list { margin-top: var(--s-2); }
+.trip-map-key-note { margin: var(--s-1) 0 0; font: var(--t-meta); color: var(--muted); max-width: 46rem; }
+.trip-map-key-toggle { min-height: 32px; margin-top: var(--s-2); padding: 0 var(--s-3); border: 1px solid var(--line-2); border-radius: var(--r-full); background: var(--surface); color: var(--ink); font: var(--t-chip); }
+/* each swatch is the picture of what the map draws */
 .key-swatch { display: inline-block; flex: none; }
-.key-swatch[data-key='base'] { width: 12px; height: 12px; border-radius: 3px; background: var(--ink); }
-.key-swatch[data-key='stop'] { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
-.key-swatch[data-key='est'] { width: 22px; height: 0; border-top: 2px dashed var(--ink-2); }
-.key-swatch[data-key='pick'] { width: 12px; height: 12px; border-radius: 50%; background: var(--ink); }
+.key-swatch[data-key='stop'] { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--ink); color: var(--surface); font: 600 11.5px/1 var(--font-mono); }
+.key-swatch[data-key='stops'] { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
+.key-swatch[data-key='base'] { width: 14px; height: 14px; border-radius: 4px; background: var(--ink); }
+.key-swatch[data-key='estimate'] { width: 24px; height: 0; border-top: 2.5px dashed var(--ink); }
+.key-swatch[data-key='road'] { width: 24px; height: 3.5px; background: var(--accent); outline: 1px solid var(--map-casing); }
+.key-swatch[data-key='other'] { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); opacity: 0.5; }
 .trip-depth { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); margin-bottom: var(--s-3); font: var(--t-mono); }
 .trip-end .trip-actions { margin-top: var(--s-3); }
 .trip-attribution { margin-top: var(--s-4); font: var(--t-small); color: var(--muted); max-width: 52rem; }
