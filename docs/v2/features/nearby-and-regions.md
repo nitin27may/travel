@@ -506,26 +506,35 @@ This extends section 11 of place-page-sections.md. Its two existing blocks stay 
 
 ### 5.6 The towns and cities layer (8.4)
 
-- **Source.** GeoNames `cities1000` (CC BY 4.0, credited on /about/data/), plus our 33 trip bases and the short-trip hubs.
-  It is filtered at build time to settlements within 100 km of any public place point, plus every hub (Q55). Natural Earth
-  stays the globe's gazetteer and is not reused for towns (2.4).
-- **Script.** `tools/towns.py` downloads once, caches under the globe tools cache and writes
-  `data/reference/towns/<cc>.json`, committed and regenerable. Each row is `[id, name, lat, lon, pop, admin1, ascii]`. The
-  id is `<cc>-<admin1>-<slug>`, for example `ca-on-whitby`.
-- **Size.** An estimated 1,500 to 3,000 rows today, about 60 to 120 KB raw over all countries. Each region part is
-  estimated at 2 to 15 KB gzip; the budget is 20 KB gzip a part, and the build fails above it. At 10,000 places the
-  filter radius bounds it: towns grow with the places, not with the world.
-- **How Whitby, Oshawa and Ajax resolve.** All three are in `cities1000` (populations of about 138k, 175k and 126k), in
-  Ontario admin-1 `08`, so they land in the part `town-ca-on`. Whitby to Oshawa is 6.2 km E and to Ajax 8.1 km WSW
-  (centres from public sources, to be replaced by the GeoNames points).
+- **Source.** GeoNames `cities1000` (CC BY 4.0, credited on /about/data/ and in About the data on the home page). Natural Earth stays
+  the globe's gazetteer and is not reused for towns (2.4).
+- **Script and filter (built, META-2).** `tools/towns.py build` downloads `cities1000.zip` and `admin1CodesASCII.txt` once (cached under
+  `tools/.cache/geonames`, gitignored, a `mkdir` lock, the project user agent) and writes `data/reference/towns/**` from the dump
+  VERBATIM: the name, ASCII name, latitude, longitude and population are the dump's own, never edited, rounded or added to. One
+  mechanical filter for every country, naming no town: feature class P without the section, historical, abandoned and destroyed codes;
+  population of at least 1,000; and either within 100 km of an anchor (a public point of the catalogue, rounded to about 1 km,
+  `anchors.json`) or a city of at least 100,000 people in a country that holds such a town (the short-trip hubs of Q55). The manifest
+  records the source URLs, the download date, the licence, the SHA-256 of each download and of every part, and the filter.
+  `tools/towns.py --check` re-derives from the cached download and fails on any difference (with no cache it verifies the parts against
+  the manifest); `web/tests/data/public-privacy.test.ts` scans the files against the dump. 4,173 towns in 105 parts. Each row is
+  `[id, name, lat, lon, pop, admin1, ascii, geonames id]`; the id is `<cc>-<admin1>-<slug>` (`ca-on-whitby`), the admin1 the ISO 3166-2
+  suffix from `tools/towns_admin1.json` (each entry carries the GeoNames name it must match; a country without a table uses `00`).
+  A duplicate slug in one admin1 keeps the lower GeoNames id plain and the others take `-<geonames id>`.
+- **Size.** A country is one part (`ca.json`); a country over 20 KB gzip is split per admin1 (`it-34.json`); a single admin1 over the
+  budget fails the build. Largest part today: 16.3 KB gzip.
+- **`near_town` (built, META-2).** `core/src/derive/near.ts` is the pure derivation (nearest of 1,000+ people within 50 km, else
+  `none_within_50km`); `capture.ts derive-near` writes it onto the capture records (capture contract 3.7.1).
+- **How Whitby, Oshawa and Ajax resolve.** All three are in `cities1000` (populations of about 139k, 175k and 120k), in
+  Ontario (GeoNames admin-1 `08`, ISO `on`), so they are `ca-on-whitby`, `ca-on-oshawa` and `ca-on-ajax` in the part `ca.json`. Whitby to Oshawa is 6.2 km E and to Ajax 8.1 km WSW
+  (centres from public sources, replaced by the GeoNames points).
 - **Uses.** `near_town` derivation, the Where city level (4.2), the towns strip, the parser, the planner's base
   picker (6), and the globe's city outlines (row 9.3).
 - **Built once, shared with the globe's city outlines (9.3).** The globe outlines a state when one is picked, but a city
   falls back to a ring, because OSM admin-level-8 polygons were prebuilt for only 45 cities (`cities-adm8.json`, 120 KB).
   Row 9.3 outlines every city of the towns layer, so both rows read the same list and the same ids:
-  - **One script, one list.** `tools/towns.py` writes `data/reference/towns/<cc>.json`. Each row carries a Wikidata QID
-    where GeoNames links one, and the QID joins it to the OSM boundary relation. GLB2's outline step reads that file;
-    it never builds its own city list.
+  - **One script, one list.** `tools/towns.py` writes `data/reference/towns/<cc>.json`. Each row carries its GeoNames id (the dump
+    holds no Wikidata QID: GLB2b joins a town to its OSM boundary relation through the GeoNames id, Wikidata property P1566, or by
+    name and position, and records how). GLB2's outline step reads that file; it never builds its own city list.
   - **Points and outlines are separate files.** The points (5.7) are small and load with the parser or the Where menu.
     The outlines are larger and load only when a city is picked on the globe.
   - **Outline scope and size (estimates for GLB2 to measure first).** Outline only the towns that are listed somewhere:
