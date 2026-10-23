@@ -19,7 +19,7 @@ export interface TripMapProps extends MapFamilyProps {
   onHover?: (id: string | null) => void;
 }
 
-const LOAD_TIMEOUT_MS = 10_000;
+const loadTimeout = 10_000;
 const DEFAULT_PAD = 48;
 const LABEL_MIN_WIDTH = 560;
 const LABEL_MAX_CHARS = 24;
@@ -36,7 +36,8 @@ const shorten = (s: string): string => (s.length > LABEL_MAX_CHARS ? `${s.slice(
 
 function rgbaParts(c: string): { color: string; opacity: number } {
   const m = /^rgba\(\s*(\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)$/.exec(c);
-  return m ? { color: `rgb(${m[1]}, ${m[2]}, ${m[3]})`, opacity: Number(m[4]) } : { color: c, opacity: 1 };
+  // the colour as #rrggbb with the alpha apart: a polyline takes no alpha in its colour
+  return m ? { color: `#${[m[1], m[2], m[3]].map((n) => Number(n).toString(16).padStart(2, '0')).join('')}`, opacity: Number(m[4]) } : { color: c, opacity: 1 };
 }
 
 interface Rec { id: string; mk: GMarker; node: HTMLElement }
@@ -139,7 +140,7 @@ export default function GoogleTripMap({ spec, label, onSelect, onHover, handleRe
       if (dead) return;
       setFailure('The map could not load. Every stop is in the day list, and Directions still works.');
       setPhase('failed');
-    }, LOAD_TIMEOUT_MS);
+    }, loadTimeout);
     (async () => {
       try {
         if (!env.key) throw new Error('no key');

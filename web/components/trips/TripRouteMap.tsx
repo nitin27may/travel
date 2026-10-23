@@ -29,7 +29,7 @@ function saveData(): boolean {
   return !!c?.saveData || window.matchMedia('(prefers-reduced-data: reduce)').matches;
 }
 
-const RING_MS = 1500;
+const ringMs = 1500;
 
 /** The key above the map: only what the map draws in this view, then one sentence about the lines. On a phone, one line and "Map key" for the rest. */
 export function RouteKey({ state }: { state: KeyState }) {
@@ -154,7 +154,7 @@ export default function TripRouteMap({ route, models, picked, paused, dayNow, on
         setHover({ pin, leg: null });
         const at = base.pins.find((p) => p.id === pin)?.at;
         if (at) handle.current?.flyTo(at);
-        timer = window.setTimeout(() => { ringing.current = false; setHover(null); }, RING_MS);
+        timer = window.setTimeout(() => { ringing.current = false; setHover(null); }, ringMs);
       };
       go();
     };

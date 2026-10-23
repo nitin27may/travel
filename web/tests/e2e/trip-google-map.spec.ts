@@ -1,5 +1,5 @@
 import { execFile } from 'node:child_process';
-import { existsSync, rmSync } from 'node:fs';
+import { rmSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Page } from '@playwright/test';
@@ -30,11 +30,6 @@ test.describe('trip route map on the google-js family with a fake key and Map ID
   const errors: string[] = [];
 
   test.beforeAll(async () => {
-    // PW_REUSE_FIXTURE=1 reuses the last fixture build (repeat runs of unchanged code); a normal run always builds fresh
-    if (process.env.PW_REUSE_FIXTURE === '1' && existsSync(path.join(WEB, DIST, 'BUILD_ID'))) {
-      server = await startNext(DIST);
-      return;
-    }
     rmSync(path.join(WEB, DIST), { recursive: true, force: true });
     const status = await new Promise<{ code: number | null; err: string }>((resolve) => {
       const child = execFile(process.execPath, [path.join(WEB, 'node_modules', 'next', 'dist', 'bin', 'next'), 'build'], {
