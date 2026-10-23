@@ -64,8 +64,16 @@
 // A15 Sort (R-4): `sort` takes only PLACE_SORT_KEYS or TRIP_SORT_KEYS (anything else is `invalid_input`); values and the ordering rule
 //     (numbers numerically, strings by sortKey, nulls LAST in both directions, then sortKey(name) ascending, then ref ascending) live in
 //     sorting.ts, which every store calls or reproduces with stored keys (case K11.sort).
-// A16 Free text (R-11): `q` matches when sortKey(q) is a substring of sortKey of the row's text fields (sortKey.ts matchesText,
-//     PLACE_TEXT, TRIP_TEXT), in lists and in search alike.
+// A16 Free text (R-11, amended 23 Oct 2026 by HYG on review API3-R-7). ONE rule for the `q` of listPlaces, countPlaces, listUnchecked,
+//     listTrips and the filters of searchCards: a row matches when EVERY word of q (lower case, split on white space) is a substring of
+//     the row's HAYSTACK, lower-cased and NOT accent-folded, exactly what the browser list has always done (core/src/query/text.ts:
+//     queryWords, placeHaystack, tripHaystack, matchesFreeText). A place's haystack is name, area, region, country name, tag labels,
+//     kind label and kind; a trip's is title, region, country name and first base. It replaces the first wording of A16 (sortKey(q) a
+//     substring of sortKey of name, area and region, accents folded), which no page ever used: it made the server count 20 where the
+//     list showed 22 for "lake", and it is why 3b kept free-text states in the browser. The ApiAdapter no longer does (api.ts);
+//     only an advanced filter or a saved view, which are the browser's grammar, still count locally. `search` (typeahead) is its own
+//     rule and keeps sortKey (sortKey.ts matchesText). SupabaseStore: the loader writes the haystack lower-cased in a column, SQL
+//     prefilters with `ILIKE ALL` over the words (escaped), core confirms with `matchesFreeText`. Case K28 holds every store to it.
 // A17 Distance (R-12): distance.ts is the rule: core haversine, inclusion on the unrounded km, `distanceKm` rounded to 0.1, order by
 //     rounded distance then sortKey(name) then ref. SQL may only prefilter; core computes the values.
 // A18 Privacy (R-15): the scrub happens before data reaches a store (the dataset builder now, the loader later); a store returns
@@ -137,91 +145,27 @@
 //     (allowlist PLACE_ROW_KEYS + `gap`). `groups` (key, label, note, count) is complete on every page; `total` = sum of counts =
 //     countPlaces(q).unchecked when `only` is absent. A query that selects no key with a gap state answers an empty page, not an error.
 //     Parity: the same per-row gap flags as A25, so SQL selects them with the A15 ORDER BY and LIMIT/OFFSET.
-// A28 Card search (D-E7). `searchCards(q)`: places whose CARD TEXT holds the words, best first, every other filter of q applied. The rule
-//     is the site's full-text pass (web/lib/search/fulltext.ts), written here so a SQL store can reproduce it:
-//     - card text = name, kind label, the area chain's names, the one-line summary and the tag labels;
-//     - terms = normalize() (web/lib/search/normalize.ts: NFD, accents dropped, lower case), split on [^a-z0-9]+, words of 2+ characters,
-//       the STOP list dropped, `stem` applied (-ing over 6 letters, -ies, -ses/-xes/-ches/-shes, a plural -s not -ss);
-//     - score = BM25 (k1 1.2, b 0.75; idf = ln(1 + (N - df + 0.5) / (df + 0.5))) over the rows of the query's COUNTRY scope (every row
-//       with no country), so a place scores the same however the catalogue is split; a row must hold at least ceil(distinct terms / 2);
+// A28 Card search (D-E7; amended 23 Oct 2026 by HYG on review API3-R-8). `searchCards(q)`: places whose CARD TEXT holds the words, best
+//     first, every other filter of q applied. The rule is ONE module, core/src/search/bm25.ts (terms, buildTextIndex, searchTexts), which
+//     JsonSource, StubStore and the browser's static files import; a SQL store reproduces it from these definitions:
+//     - card text = name, kind label, the area chain's names, the one-line summary and the tag LABELS (definition 2: labels, never ids);
+//     - terms = normalize() (core/src/parse/normalize.ts: NFD, accents dropped, ss for the sharp s, lower case), split on [^a-z0-9]+,
+//       words of 2+ characters, the STOP list dropped, `stem` applied (-ing over 6 letters, -ies, -ses/-xes/-ches/-shes, a plural -s not -ss);
+//     - definition 1, document length: the number of terms of a card AFTER stop words and stemming, repeats counted (it is `len` of the
+//       index and the |d| of BM25; the average is the mean over the documents indexed in the scope);
+//     - definition 3, N: the number of cards INDEXED in the query's scope; a place with no card text is not a document, adds nothing to N,
+//       to df or to the average, and can never be a hit;
+//     - definition 4, distinct terms: the query's terms are made distinct (first seen first) BEFORE the minimum-match rule, so "lake lake
+//       lake boat" has two terms, needs one, and scores each term once;
+//     - score = BM25 (k1 1.2, b 0.75; idf = ln(1 + (N - df + 0.5) / (df + 0.5)); a term adds idf * tf * (k1 + 1) / (tf + k1 * (1 - b +
+//       b * |d| / avg))) over the cards of the query's COUNTRY scope (every row with no country), so a place scores the same however the
+//       catalogue is split; a row must hold at least ceil(distinct terms / 2);
 //     - order: score descending, compared after rounding to 6 decimals (so a SQL sum and a JS sum agree), then sortKey(name), then ref
-//       (A15; the static fallback breaks ties by slug today and moves to this rule in 3b);
+//       (A15);
 //     - at most API_LIMITS.cards.max rows, no paging (`total` and `truncated` say how many more); `terms` echoes the query's terms.
-//     Parity: the loader writes the terms per row (core function), SQL holds the postings; the stop list and stemmer are data for it.
-// A29 Globe card path (GB-A-6 settled). The contract's path is `GET /api/v1/globe/card/{kind}/{slug}` with `path: globeCardPath`, and
-//     OpenAPI reads it like any path (the ROUTE_OF override is gone). The STORE method keeps `globeCard(key)` with `<kind>:<slug>`: the
-//     card carries that key, and every caller (the adapters, the kit) already speaks it; `globeCardKey(kind, slug)` is the one join
-//     the handler makes (case K25).
-// A30 Revision from inputs (D-E4; supersedes A8 for JsonStore). `revision()` = inputRevision({buildId, files}): SHA-256 of the build id
-//     and the content hash of every input file the store reads (the files the dataset builder reads, the slug registry, the vocabulary,
-//     the globe files, later the towns and legs files), computed once per process and cached; a failed computation is retried (GB-A-5).
-//     K10 holds: one build and the same files give one revision in any process; a changed input changes it; an mtime never does. A code
-//     change moves every ETag through the build id, which is correct. Caveats: (1) a private input (the wishlist) moves the public ETag
-//     when it changes, which says when it changed and nothing else; (2) StubStore, which has no files, keeps the snapshot hash (A8);
-//     (3) SupabaseStore's loader computes the same inputRevision from the same files and writes it to `catalogue_meta` in the projections'
-//     transaction (A8b unchanged), so JsonStore and SupabaseStore of one build agree. Target: the first call under 300 ms at 10,000
-//     places (web/tests/api/revision-timing.test.ts).
-// A31 Codec looseness (GB-A-12). `r` is read by a decimal pattern (`^\d+(\.\d+)?$`; `0x10`, `1e2`, `-5` and `Infinity` are
-//     invalid_input); a repeated `f.<facet>` or `parsed.<key>` is refused like every other repeated key; the export `profile` is
-//     documented as accepted and ignored (export.ts) rather than applied, because no export layout shows profile-dependent times yet.
-// A32 Moves keep the query (GB-A-13). A 308 for a moved place, trip or trip's legs carries the request's query string to the new URL, so
-//     `?p=family` survives the redirect. tripLegs answers `{moved, ref}` for a retired trip slug like getTrip (R-18).
-// A33 Towns are public data, shown exactly (owner ruling 23 Oct 2026, Q87 reopened, FINAL; supersedes D-E3 and API-3a's safe geometry).
-//     Every town, the home town included, is served exactly as the loaded public gazetteer holds it (GeoNames points, OSM outlines):
-//     nothing moved, nothing dropped, nothing flagged. The household's location stays private because no served output holds a point
-//     of the household's, not because public points are distorted. A loader calls `publicTownLayer(towns, outlines)`
-//     (core/src/privacy/towns.ts; `safeTown`/`safeOutline` are the identity under TOWN_POLICY "public") and serves its rows; the same
-//     call gives the `PublicGazetteer` the store exposes through `publicTowns()` (PublicTownsHolder), which respond() and the kit pass
-//     to the detector. The detector (detect.ts) accepts a point within the household radius ONLY in an object whose `id` or `key` is a
-//     gazetteer town id and whose `lat`/`lon` equal that town's gazetteer point exactly (the file's own numbers), and a coordinate pair
-//     only inside such an object when it is exactly a vertex of that town's gazetteer outline; every other point within the radius
-//     still fails closed (a place, a moved centre, a planted point under a real town id, another town's point, an id the gazetteer does
-//     not hold). The home-town TEXT rule is lifted only for a gazetteer id under id/key/value/nearTown/townId or in a `city` array (that
-//     string only), for a name or label (at most 80 characters, no digit) of an object whose id, key, value or chip `set.city` is a
-//     gazetteer id and which holds that town's gazetteer name, and for `city=<gazetteer id>` in an href (review API3-R-2: a place row's
-//     `nearTown` exempts nothing but itself). With no gazetteer nothing is exempt. The guard names no town.
-//     Residual, stated plainly: the site shows nothing about towns that GeoNames and OpenStreetMap do not already show, so comparing
-//     the layer with them reveals nothing; no rule depends on where home is, so no output changes because home is near a town. What
-//     stays private is everything below the public data: the household point, trip origins, planning notes. The trust root is the
-//     gazetteer FILE: a row hand-edited to a household point would be served and accepted, so META-2 writes the file only from the
-//     GeoNames dump (open item below). `TOWN_POLICY = "exclude"` remains a documented product switch (the town is left out, `city=`
-//     answers `not_found`); it is NOT safer: a missing town is a diff against GeoNames. Route lines are not gazetteer data and keep
-//     their refusal (`safeLine`, A34). Cases K26 (a planted fixture town 0.5 km from home and a neighbour's outline reaching 1.5 km:
-//     served exactly, clean with the gazetteer, refused without it; a moved, swapped or planted point refused) and K26.exemption.
-// A34 Trip legs (D-E5). `tripLegs(slug)`, `GET /api/v1/trips/{slug}/legs`: the routed legs of one public trip from its
-//     `trip-legs/2` file (legs.ts; /1 still read), keyed by the public stop keys of getTrip's detail (a day item id or `base:<id>`), never
-//     by the file's pair keys. Geometry is an encoded polyline, precision 5, simplified to about 30 m, at most
-//     API_LIMITS.tripLegs.polylineChars per leg; more than API_LIMITS.tripLegs.max legs is `too_large`. A trip with no file answers no
-//     legs (`fetched: null`); an unknown or unlisted trip `not_found`; a retired slug `{moved}` (A32). `attribution` is shown wherever a
-//     geometry is drawn. Every geometry passes `safeLine` at load (towns.ts), and the detector decodes it on the way out (A39, K27).
-//     Parity: the mapping from file pairs to stop keys runs in the loader (core code), so SupabaseStore serves a stored `trip_legs`
-//     projection and never maps at request time.
-// A35 Row keys (LST2b, MX). `PlaceRow.nearTown`: the record's nearest town id (META-2's `near_town`) or null; the only new row key
-//     (K2: the shipped row's keys plus ref, approx, nearTown). The shipped list row keeps its 41 keys until LST2b adds `nearTown` (and `approx`) there with web/tests/data/light-data.test.ts;
-//     until then the ApiAdapter drops `ref`, `approx` and `nearTown` when it rebuilds a list file. Near rows and nearby items gain
-//     `minutes`: routed minutes when `basis` is `routed`, else null (null everywhere until MX writes a matrix), so MX needs no contract
-//     change. Near rows' allowlist is PLACE_ROW_KEYS + distanceKm, bearing, band, basis, minutes.
-// A36 Pins cap (GB-A-10, R-25). `globePins(cc)` answers `too_large` with `details.max` when the country holds more than
-//     API_LIMITS.globePins.max (2,000) pins; never a cut list, because a globe that silently drops pins misleads. Tiling by box is the
-//     follow-up if a country ever passes it.
-// A37 Towns say when they clamp (R-26). TownList carries `clamped` exactly as NearPage does.
-// A38 Reserved words. `counts`, `unchecked` and `cards` are path words under /api/v1/places/, so a place slug equal to one of them
-//     would be shadowed there (the page route is unaffected). No place holds one today (case listPlaces.reserved); the slug assigner
-//     must refuse them (request to the slugs.ts owner: add RESERVED_API_WORDS to reservedSlugs).
-// A39 Encoded lines are read by the detector. A string under `geometry` that is a well-formed polyline is decoded and every vertex is
-//     tested like a coordinate, so a leg cannot carry a point near home past respond() inside an encoding (detect.ts). Extended by
-//     API-3c (review API3-R-6): a string that parses as a JSON object or array (the `json` export body) is walked as that structure
-//     too, so a polyline or a `{lat, lon}` inside an export body is read like any other; the raw text is still read when the
-//     structure finds nothing (number pairs in separate fields).
-// A40 Echoes are not an oracle (API-3c, review API3-R-1; GB-A-8 closed). `search.query`, `parse.q`, `parse.unused`, `parse.notYet`
-//     and `searchCards.terms` repeat the visitor's words. respond() passes the request's own strings (every query parameter value)
-//     to the detector, which does not apply its TEXT rules (home town, planning note, address, origin key, number pairs in text) to a
-//     string under one of those keys, or to an href query parameter, whose folded form is contained in a request string. The same
-//     words in any other field, and an echo key holding words the request did not send, still fail closed; structured points and
-//     private keys are always read. So `GET /api/v1/search?q=<any town name>` answers 200 for every town alike, and "hotel ideas",
-//     "base camp: x", "100 Queen Street" or a typed coordinate pair near home answer 200 too (case K29, through respond()).
-//
-// ---- API-3c (23 Oct 2026, Opus): carried forward, NOT done here (review-API3-2026-10-23.md) ------------------------------------
+//     Parity: the loader writes the postings (term, ref, tf), each card's length, and per country scope the card count and the total length;
+//     SQL returns the postings of the query's terms in scope and core scores them with `searchTexts`, so the sum order is the same. Case
+//     K24.order pins ten queries on the stub fixture (whole answer) and on the real data (relative order of the pinned slugs).
 //
 // Done in API-3c: R-1 (A40), R-2 and R-3 (A33), R-6 (A39). Open, with owners:
 //   R-4  META-2: JsonStore's towns loader calls `publicTownLayer()` and implements `publicTowns()` from the same rows; every static
@@ -230,8 +174,9 @@
 //        privacy test scans `data/reference/towns/**`. GLB2b: a served city outline must be the gazetteer's outline exactly (simplify
 //        BEFORE the loader builds the gazetteer, or the detector refuses the vertices).
 //   R-5  TRP2b: count refused legs (`safeLine` null) at fetch and load, print the count only; the owner decides if it is above 0.
-//   R-7  LST2b / HYG: one `q` rule (amend A16, core matcher, K28 corpus, drop the client text fallback).
-//   R-8  API-4 or LST2b: one BM25 module in core, A28 definitions, K24.order.
+//   R-7  DONE in HYG (A16 amended, core/src/query/text.ts, K28, the ApiAdapter's text fallbacks dropped); the advanced filter and saved
+//        view fallbacks stay: they are the browser's grammar, not in the contract.
+//   R-8  DONE in HYG (A28 amended, core/src/search/bm25.ts, K24.order).
 //   R-9  TRP2b: legs and lines read once per source, beside the revision (A8b).
 //   R-10 SRV-0: TRAVEL_BUILD_ID override and a production error on `dev`.
 //   R-11 SRV-0: `catalogue_meta.data_revision`; revision = SHA-256(app build id, data revision).

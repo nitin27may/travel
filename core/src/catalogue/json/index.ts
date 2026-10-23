@@ -17,7 +17,8 @@ import { fail, ok, type Result } from "../result.ts";
 import type { PublicGazetteer, PublicTownsHolder } from "../../privacy/towns.ts";
 import { currentSlug, isWithdrawn, movedTo, regionSlugOf, resolveRegion } from "../slugs.ts";
 import { PLACE_SORT_VALUES, TRIP_SORT_VALUES, sortRows } from "../sorting.ts";
-import { PLACE_TEXT, TRIP_TEXT, compareCodePoints, matchesText, sortKey } from "../sortKey.ts";
+import { compareCodePoints, sortKey } from "../sortKey.ts";
+import { matchesFreeText, placeHaystack, tripHaystack } from "../../query/text.ts";
 import { mergeParsed, type CatalogueStore } from "../store.ts";
 import { uncheckedPageOf } from "../unchecked.ts";
 import { noLegs, tripLegsOf } from "./legs.ts";
@@ -91,14 +92,14 @@ export class JsonStore implements CatalogueStore, PublicTownsHolder {
   }
 
   /**
-   * The rows a list query keeps before the engine runs, and the filter the engine gets (A16, A19, A20, A21): `q` by the sortKey rule,
+   * The rows a list query keeps before the engine runs, and the filter the engine gets (A16, A19, A20, A21): `q` by the list's word rule (A16, core/src/query/text.ts),
    * `ids` through the registry, `region` to its canonical slug, `city` refused until the towns layer exists. An error for an ambiguous
    * region alias and for a facet key the engine cannot evaluate.
    */
   private prepare<Row extends { slug: string }>(
     rows: readonly Row[],
     q: S.PlaceQuery,
-    text: (r: Row) => string[],
+    hay: (r: Row) => string,
     engine: JsonSource["placeEngine"] | JsonSource["tripEngine"],
     space: "places" | "trips",
   ): { rows: Row[]; filter: ListFilter } | S.ApiError {
@@ -124,7 +125,7 @@ export class JsonStore implements CatalogueStore, PublicTownsHolder {
       } else facets[key] = values;
     }
     const ids = q.ids?.length ? new Set(q.ids.map((id) => currentSlug(this.source.registry, id, space)).filter((s): s is string => !!s)) : null;
-    let kept = rows.filter((r) => (!ids || ids.has(r.slug)) && matchesText(q.q, text(r)));
+    let kept = rows.filter((r) => (!ids || ids.has(r.slug)) && matchesFreeText(q.q, r, hay));
     if (city !== null) {
       // the city filter (nearby spec 4.2): places within the nearby radius of the town, exact points only
       const inCity = this.layer()!.cityRows(kept as unknown as S.PlaceRow[], city);
@@ -139,7 +140,7 @@ export class JsonStore implements CatalogueStore, PublicTownsHolder {
     if (!qi.ok) return qi;
     const pi = check(S.apiPage, page ?? {});
     if (!pi.ok) return pi;
-    const prep = this.prepare(this.source.placeRows, qi.value, PLACE_TEXT, this.source.placeEngine, "places");
+    const prep = this.prepare(this.source.placeRows, qi.value, placeHaystack, this.source.placeEngine, "places");
     if ("code" in prep) return { ok: false, error: prep };
     const matched = this.source.placeEngine.match(prep.rows, prep.filter);
     return this.page(sortRows(matched, qi.value.sort ?? [], PLACE_SORT_VALUES, (r) => r.name), pi.value);
@@ -150,7 +151,7 @@ export class JsonStore implements CatalogueStore, PublicTownsHolder {
     if (!qi.ok) return qi;
     // a parsed count is the count of the query the parse opens (A25, case K22)
     const merged = mergeParsed(qi.value);
-    const prep = this.prepare(this.source.placeRows, merged, PLACE_TEXT, this.source.placeEngine, "places");
+    const prep = this.prepare(this.source.placeRows, merged, placeHaystack, this.source.placeEngine, "places");
     if ("code" in prep) return { ok: false, error: prep };
     const engine = this.source.placeEngine;
     const matched = engine.match(prep.rows, prep.filter);
@@ -173,7 +174,7 @@ export class JsonStore implements CatalogueStore, PublicTownsHolder {
     const pageSize = pi.value.pageSize ?? S.API_LIMITS.pageSize.default;
     if (pageSize > S.API_LIMITS.pageSize.max) return fail("too_large", `pageSize is at most ${S.API_LIMITS.pageSize.max}.`, { max: S.API_LIMITS.pageSize.max });
     const { only, ...plain } = qi.value;
-    const prep = this.prepare(this.source.placeRows, plain, PLACE_TEXT, this.source.placeEngine, "places");
+    const prep = this.prepare(this.source.placeRows, plain, placeHaystack, this.source.placeEngine, "places");
     if ("code" in prep) return { ok: false, error: prep };
     const groups = this.source.placeEngine.unchecked(prep.rows, prep.filter, only);
     return ok(uncheckedPageOf(groups, qi.value.sort ?? [], pi.value.page ?? 1, pageSize), await this.revision());
@@ -186,7 +187,7 @@ export class JsonStore implements CatalogueStore, PublicTownsHolder {
     if (limit > S.API_LIMITS.cards.max) return fail("too_large", `limit is at most ${S.API_LIMITS.cards.max}.`, { max: S.API_LIMITS.cards.max });
     // `q` is the card words here, so the substring rule of a list does not apply; every other filter does
     const { q: words, limit: _limit, ...filters } = qi.value;
-    const prep = this.prepare(this.source.placeRows, filters, PLACE_TEXT, this.source.placeEngine, "places");
+    const prep = this.prepare(this.source.placeRows, filters, placeHaystack, this.source.placeEngine, "places");
     if ("code" in prep) return { ok: false, error: prep };
     const rows = this.source.placeEngine.match(prep.rows, prep.filter);
     // BM25 runs over the query's country scope, so a place scores the same however the catalogue is split (A28)
@@ -252,7 +253,7 @@ export class JsonStore implements CatalogueStore, PublicTownsHolder {
     if (!qi.ok) return qi;
     const pi = check(S.apiPage, page ?? {});
     if (!pi.ok) return pi;
-    const prep = this.prepare(this.source.tripRows, qi.value, TRIP_TEXT, this.source.tripEngine, "trips");
+    const prep = this.prepare(this.source.tripRows, qi.value, tripHaystack, this.source.tripEngine, "trips");
     if ("code" in prep) return { ok: false, error: prep };
     const matched = this.source.tripEngine.match(prep.rows, prep.filter);
     return this.page(sortRows(matched, qi.value.sort ?? [], TRIP_SORT_VALUES, (r) => r.title), pi.value);
