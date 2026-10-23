@@ -1,10 +1,18 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useEffect, useRef } from 'react';
+import type { ExportFormat } from '@/components/actions/ExportMenu';
 import { Icon } from '@/components/ui/Icon';
 import type { TimelineModel } from './model';
 
+// Export trip at the right end of the bar from 1024 px (map note): the menu is its own chunk, so the bar's start JS does not carry it
+const ExportMenu = dynamic(() => import('@/components/actions/ExportMenu').then((m) => m.ExportMenu), { ssr: false });
+const EXPORT_FORMATS: ExportFormat[] = ['pdf', 'ics', 'gpx', 'kml', 'csv'];
+
 interface Props {
+  /** The trip's slug, for its export. */
+  slug: string;
   model: TimelineModel;
   /** The short profile line, e.g. "Standard pace". */
   label: string;
@@ -27,7 +35,7 @@ export function MapButton({ onClick, open }: { onClick: () => void; open?: boole
 }
 
 /** Sticky under the header while the days scroll: the profile in a few words and a rail of day numbers (design 3.4). */
-export function PlanBar({ model, label, active, onPick, onEdit, onMap, mapOpen }: Props) {
+export function PlanBar({ slug, model, label, active, onPick, onEdit, onMap, mapOpen }: Props) {
   const rail = useRef<HTMLOListElement>(null);
   useEffect(() => {
     const el = rail.current?.querySelector<HTMLElement>('[data-active]');
@@ -60,6 +68,9 @@ export function PlanBar({ model, label, active, onPick, onEdit, onMap, mapOpen }
         ))}
       </ol>
       {onMap ? <MapButton onClick={onMap} open={mapOpen} /> : null}
+      <div className="tl-planbar-export" data-print="hide">
+        <ExportMenu target={{ type: 'trip', slug }} formats={EXPORT_FORMATS} size="sm" />
+      </div>
     </nav>
   );
 }

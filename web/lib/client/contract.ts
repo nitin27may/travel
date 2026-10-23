@@ -1,3 +1,4 @@
+import type { TripLegs } from '@travel/core/schema/api/index.ts';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import type { EntityDescriptor, FacetParam, ListState } from '@/lib/entities/types';
 import type { GlobeCardFile, GlobeTree, LightPin } from '@/lib/globe/types';
@@ -60,6 +61,12 @@ export interface DataClient {
   globeCard(key: string): Promise<GlobeCardFile | null>;
   globeLine(id: string): Promise<GlobeLineFile | null>;
   reportProblem(input: ReportInput): Promise<ReportResult>;
+  /**
+   * The routed legs of one public trip (`GET /api/v1/trips/{slug}/legs/`, TRP2b): read when the trip's map mounts, never with the trip. A trip with no
+   * legs file answers an empty list. Resolves to null when the adapter has no such endpoint (the static files) or the trip is unknown: the map then draws
+   * dashed estimates only.
+   */
+  tripLegs(slug: string): Promise<TripLegs | null>;
   /**
    * The rows of one list file (a country, or one 300-row part of a large one) in the list's default order. `d` is the list's descriptor and
    * `countryRows` the number of rows the list's manifest says that country has, so an adapter can ask for all of them at once.

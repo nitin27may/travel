@@ -283,6 +283,8 @@ export function textIndex(id: string): Promise<TextIndex> {
 export const staticClient: DataClient = {
   searchManifest, searchPart, searchParts, loadSearchRecords, onSearchGrow, search, suggest, searchVocab, parseQuery,
   loadExport: loadExport as DataClient['loadExport'],
+  // tripLegs (TRP2b): the static files carry no legs
+  tripLegs: () => Promise.resolve(null),
   globeTree, globePins, globeCard, globeLine, reportProblem,
   shardRows: (type, id) => shardRows(type, id),
   textIndex,

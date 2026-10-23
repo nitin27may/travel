@@ -287,7 +287,7 @@ function TimelinePlan({ slug, model, depth, season, tlModel, url }: Props & { tl
       <TimesBanner condensed={tlModel.condensed} />
       {!showCategory ? <TripTimeline model={tlModel} timelines={shown} changedDays={api.changedDays} picked={current} onPick={pickDay} /> : null}
 
-      {!showCategory ? <PlanBar model={tlModel} label={planLabel} active={current} onPick={pickDay} onEdit={editPlan} onMap={placed ? () => (sheet ? closeSheet() : openSheet()) : undefined} mapOpen={sheet} /> : null}
+      {!showCategory ? <PlanBar slug={slug} model={tlModel} label={planLabel} active={current} onPick={pickDay} onEdit={editPlan} onMap={placed ? () => (sheet ? closeSheet() : openSheet()) : undefined} mapOpen={sheet} /> : null}
 
       <div className="tl-cols" data-map={placed || undefined} data-sheet-open={sheet || undefined}>
       <section className="trip-sec" aria-labelledby="in-trip-h" id="in-this-trip">
@@ -378,7 +378,9 @@ function TimelinePlan({ slug, model, depth, season, tlModel, url }: Props & { tl
               </div>
               <MapFamilyProvider family={tripPageFamily()}>
                 <TripRouteMap
+                  slug={slug}
                   route={route}
+                  dayRows={model.days}
                   models={maps}
                   picked={shownDay}
                   paused={paused}
@@ -469,7 +471,7 @@ function PlainPlan({ slug, model, title, depth, season }: Props) {
               {model.route.unplaced ? ` ${model.route.unplaced} stops have no map position yet.` : ''} Pick a day below to follow it.
             </p>
             <MapFamilyProvider family={tripPageFamily()}>
-              <TripRouteMap route={model.route} models={maps} picked={picked} paused={false} dayNow={picked} onResume={() => undefined} sheet={false} sheetSeen onPickDay={pick} />
+              <TripRouteMap slug={slug} route={model.route} dayRows={model.days} models={maps} picked={picked} paused={false} dayNow={picked} onResume={() => undefined} sheet={false} sheetSeen onPickDay={pick} />
             </MapFamilyProvider>
           </>
         )}
