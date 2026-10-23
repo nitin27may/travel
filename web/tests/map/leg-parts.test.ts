@@ -5,7 +5,7 @@ import type { Line } from '@/lib/map/types';
 
 const pal = fallbackPalette('light');
 const line = (style: Line['style']): Line => ({ id: 'leg:1:2', style, coords: [{ lng: 0, lat: 0 }, { lng: 1, lat: 1 }] });
-type Dash = { strokeOpacity: number; icons: { icon: { scale: number; strokeColor: string } }[] };
+type Dash = { strokeOpacity: number; icons: { icon: { scale: number; strokeWeight: number; strokeColor: string } }[] };
 type Solid = { strokeWeight: number; strokeColor: string; strokeOpacity: number };
 
 describe('how a leg is drawn on Google (map note 5.1)', () => {
@@ -13,13 +13,16 @@ describe('how a leg is drawn on Google (map note 5.1)', () => {
     const [halo, ink] = legParts(line('straight-estimate'), pal, 'rgb(1, 2, 3)', true, false) as Dash[];
     expect(halo!.strokeOpacity).toBe(0);
     expect(ink!.strokeOpacity).toBe(0);
-    expect(ink!.icons[0]!.icon.scale).toBe(1.25);
-    expect(halo!.icons[0]!.icon.scale).toBeGreaterThan(ink!.icons[0]!.icon.scale);
+    // the thickness is the weight (not an 8 px bead); the halo is 1 px wider each side; the dash itself is about 8 px long
+    expect(ink!.icons[0]!.icon.strokeWeight).toBe(2.5);
+    expect(halo!.icons[0]!.icon.strokeWeight).toBe(4.5);
+    expect(ink!.icons[0]!.icon.scale).toBe(2.75);
+    expect(halo!.icons[0]!.icon.scale).toBe(3.25);
     expect(ink!.icons[0]!.icon.strokeColor).toBe(pal.route);
     expect(ink!.icons[0]!.icon.strokeColor).not.toBe(pal.routePick);
   });
   it('is 2 px in All days', () => {
-    expect((legParts(line('straight-estimate'), pal, 'x', false, false) as Dash[])[1]!.icons[0]!.icon.scale).toBe(1);
+    expect((legParts(line('straight-estimate'), pal, 'x', false, false) as Dash[])[1]!.icons[0]!.icon.strokeWeight).toBe(2);
   });
   it('hovered, the same dashes turn accent over the casing and stay dashed', () => {
     const [halo, ink] = legParts(line('straight-estimate'), pal, 'rgb(1, 2, 3)', true, true) as Dash[];

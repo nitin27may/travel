@@ -23,6 +23,7 @@ const loadTimeout = 10_000;
 const DEFAULT_PAD = 48;
 const LABEL_MIN_WIDTH = 560;
 const LABEL_MAX_CHARS = 24;
+const DASH_SCALE = 2.75;
 const HOUSE = 'M12 3 3 10.5V21h6v-6h6v6h6V10.5L12 3Z';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -43,6 +44,16 @@ function rgbaParts(c: string): { color: string; opacity: number } {
 interface Rec { id: string; mk: GMarker; node: HTMLElement }
 interface LineRec { id: string; line: Line; parts: GPolyline[] }
 
+/**
+ * A label inside the marker's own box, so Google's collision rule hides the basemap labels under our text and not only under the disc.
+ * A hidden copy of the text sits on the other side, so the disc stays at the centre of the box and therefore on the anchor point.
+ */
+function withLabel(hit: HTMLElement, mark: HTMLElement, label: HTMLElement): void {
+  const mirror = el(`${label.className} tp-mirror`, label.textContent ?? '');
+  mirror.setAttribute('aria-hidden', 'true');
+  hit.replaceChildren(mirror, mark, label);
+}
+
 /** The pin as an element. Colours and sizes live in map.css on tokens, so the page theme styles it and nothing is hard-coded here. */
 function pinContent(p: Pin, o: { picked: boolean; wide: boolean }): HTMLElement {
   const hit = el('tp-hit');
@@ -55,7 +66,7 @@ function pinContent(p: Pin, o: { picked: boolean; wide: boolean }): HTMLElement 
     if (nums.length > 1 || String(nums[0] ?? '').length > 1) d.dataset.pill = '';
     hit.dataset.numbered = '';
     hit.append(d);
-    if (o.wide && !p.quiet && p.label && !p.numbers) hit.append(el('tp-label', shorten(p.label)));
+    if (o.wide && !p.quiet && p.label && !p.numbers) withLabel(hit, d, el('tp-label', shorten(p.label)));
   } else if (p.style === 'base') {
     const b = el('tp-base');
     if (o.picked) b.dataset.pick = '';
@@ -70,7 +81,8 @@ function pinContent(p: Pin, o: { picked: boolean; wide: boolean }): HTMLElement 
     svg.append(path);
     b.append(svg);
     hit.append(b);
-    if (o.picked && p.label) hit.append(el('tp-label tp-label-base', shorten(p.label)));
+    // like stop labels, only on a map wide enough to keep it clear of the controls (note 4.2): the label row already names the base
+    if (o.picked && o.wide && p.label) withLabel(hit, b, el('tp-label tp-label-base', shorten(p.label)));
   } else {
     const d = el('tp-dot');
     if (p.dim) d.dataset.dim = '';
@@ -94,10 +106,11 @@ function tooltip(p: Pin): string {
 /** The polylines that make up one leg. An estimate is dashed ink with a halo and is never amber or solid; amber over a casing is a routed picked day. */
 export function legParts(l: Line, pal: MapPalette, casing: string, emphasised: boolean, hot: boolean): Record<string, unknown>[] {
   const halo = rgbaParts(pal.halo);
+  // A symbol's strokeWeight is in pixels and is not scaled: it is the line's thickness. The dash's length is the symbol's own path (2 x scale), so a 2.5 px line gets a path of about 8 px.
   const dash = (weight: number, color: string, opacity: number, z: number, extra: number) => ({
     strokeOpacity: 0,
     zIndex: z,
-    icons: [{ icon: { path: 'M 0,-1 0,1', strokeOpacity: opacity, strokeColor: color, scale: (weight + extra) / 2, strokeWeight: 8 + extra }, offset: '0', repeat: '14px' }],
+    icons: [{ icon: { path: 'M 0,-1 0,1', strokeOpacity: opacity, strokeColor: color, scale: DASH_SCALE + extra / 4, strokeWeight: weight + extra }, offset: '0', repeat: '14px' }],
   });
   const solid = (weight: number, color: string, opacity: number, z: number) => ({ strokeColor: color, strokeOpacity: opacity, strokeWeight: weight, zIndex: z });
   if (l.style === 'route-pick') return [solid(5.5, casing, 1, 1), solid(3.5, hot ? pal.accent : pal.routePick, 1, 2)];
@@ -120,6 +133,7 @@ export default function GoogleTripMap({ spec, label, onSelect, onHover, handleRe
   const lineRecs = useRef<LineRec[]>([]);
   const cam = useRef<{ center: { lat: number; lng: number }; zoom: number } | null>(null);
   const fitSeq = useRef(0);
+  const fitBox = useRef<{ w: number; h: number } | null>(null);
   const specRef = useRef(spec);
   const cbs = useRef({ onSelect, onHover });
   const [phase, setPhase] = useState<'loading' | 'ready' | 'failed'>('loading');
@@ -176,6 +190,7 @@ export default function GoogleTripMap({ spec, label, onSelect, onHover, handleRe
     const b = boundsOf(pts);
     if (!b) return;
     const seq = ++fitSeq.current;
+    fitBox.current = box.current ? { w: box.current.clientWidth, h: box.current.clientHeight } : null;
     const pad: Padding = s.fitPadding ?? { top: DEFAULT_PAD, right: DEFAULT_PAD, bottom: DEFAULT_PAD, left: DEFAULT_PAD };
     const cap = s.maxZoom;
     const reduced = prefersReducedMotion();
@@ -228,10 +243,17 @@ export default function GoogleTripMap({ spec, label, onSelect, onHover, handleRe
     });
     map.current = m;
     let checked = false;
+    let refitted = false;
     const idle = m.addListener('idle', () => {
       const c = m.getCenter();
       const z = m.getZoom();
       if (c && z !== undefined) cam.current = { center: { lat: c.lat(), lng: c.lng() }, zoom: z };
+      // the first fit can run before the column has its final height: fit once more when the box has changed since
+      const fb = fitBox.current;
+      if (!refitted && fb && box.current && (Math.abs(box.current.clientWidth - fb.w) > 2 || Math.abs(box.current.clientHeight - fb.h) > 2)) {
+        refitted = true;
+        fitTo();
+      }
       // a Map ID that is not a vector JavaScript one cannot draw our pins: say so instead of leaving a map without them
       if (!checked) {
         checked = true;
