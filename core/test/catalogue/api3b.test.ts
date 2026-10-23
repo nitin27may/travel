@@ -7,6 +7,7 @@ import { uncheckedPageOf } from "../../src/catalogue/unchecked.ts";
 import { printText } from "../../src/catalogue/printText.ts";
 import { PRINT_GAP, decodePolyline5, encodePolyline5, type ExportModel, type PlaceRow, type TripDetail, type TripLegsFile } from "../../src/schema/api/index.ts";
 import { privacyHits } from "../../src/privacy/detect.ts";
+import { gazetteerOf } from "../../src/privacy/towns.ts";
 import { northOfHome } from "../privacy/probe.ts";
 
 const row = (name: string, ref = `place/${name.toLowerCase()}`, over: Partial<PlaceRow> = {}): PlaceRow => ({ ...stubData().places[0]!.row, name, ref, slug: ref.slice(6), id: ref.slice(6), ...over });
@@ -109,16 +110,21 @@ describe("StubStore API-3 rules", () => {
     expect(c.data.notes).toEqual([`${c.data.unchecked} not checked yet`]);
     expect(c.data.gaps.season).toBeGreaterThanOrEqual(c.data.unchecked);
   });
-  it("moves a town whose centre is inside the household radius, and drops the outline that touches it, in the constructor", async () => {
+  it("serves a town whose centre and outline are inside the household radius exactly as loaded, and says which gazetteer it loaded (A33, Q87)", async () => {
     const d = stubData();
     const near = northOfHome(0.5);
+    const geometry = { type: "Polygon", coordinates: [[[near.lon, near.lat], [near.lon + 0.01, near.lat], [near.lon, near.lat + 0.01], [near.lon, near.lat]]] };
     d.towns.push({ id: "ca-zz-planted", name: "Planted", lat: near.lat, lon: near.lon, pop: 5000, cc: "ca", region: null, places: null, distanceKm: null, bearing: null });
-    d.cities.push({ id: "ca-zz-planted", name: "Planted", geometry: { type: "Polygon", coordinates: [[[near.lon, near.lat], [near.lon + 0.01, near.lat], [near.lon, near.lat + 0.01], [near.lon, near.lat]]] }, credit: "OpenStreetMap contributors (ODbL)" });
+    d.cities.push({ id: "ca-zz-planted", name: "Planted", geometry, credit: "OpenStreetMap contributors (ODbL)" });
     const store = new StubStore({ data: d });
+    const gazetteer = await gazetteerOf(store);
     const city = await store.globeCity("ca-zz-planted");
-    expect(city.ok && city.data.geometry).toBeNull();
+    expect(city.ok && city.data.geometry).toEqual(geometry);
+    expect(privacyHits(city, 20, { gazetteer })).toEqual([]);
     const towns = await store.towns({ near: "place:glacier-lake", r: 100 });
-    if (towns.ok) for (const t of towns.data.items) expect(privacyHits(t)).toEqual([]);
+    if (!towns.ok) throw new Error(towns.error.message);
+    for (const t of towns.data.items) expect(privacyHits(t, 20, { gazetteer })).toEqual([]);
+    expect(await gazetteerOf(new StubStore({ data: d, layers: { towns: false } }))).toBeNull();
   });
   it("answers the pins cap with too_large and the max, never a cut list (A36)", async () => {
     const d = stubData();

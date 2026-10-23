@@ -1,20 +1,27 @@
 // THE PRIVACY DETECTOR: what no served output may hold, in one place (audit G-B, GB-A-7). `respond()` runs it on every API body and fails
 // closed; the contract kit's K7 and the web privacy test run it too, so the three lists cannot drift. It only LOOKS: the scrub that
-// removes these things runs where the data is built (origin.ts, party.ts, dateless.ts, towns.ts). Hits name a path and a reason, never
-// the value, and never a coordinate.
+// removes these things runs where the data is built (origin.ts, party.ts, dateless.ts). Hits name a path and a reason, never the value,
+// and never a coordinate.
 //
-// The typed exemption (D-E3, store.ts A33; owner decision Q87). The towns layer serves every town, the home town included, so its NAME
-// may appear in the places where any town's name appears, and nowhere else. The exemption is by SHAPE, never by name, and lifts only
-// the home-town TEXT rule; every other rule (coordinates, planning notes, addresses, private keys, origin refs) still runs there:
-//   - a town id: a string matching TOWN_ID_RE held under `id`, `key`, `value`, `nearTown` or `townId`, or inside an array under `city`
-//     (a towns row's id, a near centre's key, a city facet option, a row's nearest town, a parse's `city` facet);
-//   - a town's name or chip label: a string under `name` or `label`, of at most 80 characters with no digit, in an object that holds a
-//     town id as above (or a `set.city` town id, a parse chip), and whose folded text contains that town id's own name part;
-//   - a link: the `city=<town id>` parameters of a string under `href` are not read as text.
-// Encoded polylines (a string under `geometry`, store.ts A34, A39) are decoded and every vertex is tested like any coordinate.
-import { TOWN_ID_RE } from "../schema/capture/points.ts";
+// Three liftings, each as narrow as it can be (store.ts A33, A39, A40; owner ruling Q87 of 23 Oct 2026):
+//   1. PUBLIC TOWNS, by identity with the loaded gazetteer (`opts.gazetteer`, towns.ts). Without a gazetteer nothing is lifted.
+//      - A point within the household radius is accepted only in an object whose `id` or `key` is a gazetteer town id AND whose
+//        `lat`/`lon` are exactly that town's gazetteer point; a coordinate pair only inside such an object AND exactly a vertex of
+//        that town's gazetteer outline. Anything else within the radius fails: a place, a moved centre, a planted point under a real
+//        town id, an id the gazetteer does not hold.
+//      - The home-town TEXT rule is lifted for a gazetteer town id under `id`, `key`, `value`, `nearTown` or `townId`, or in a `city`
+//        array (the string itself only), and for a `name` or `label` of at most 80 characters with no digit in an object whose `id`,
+//        `key`, `value` or chip `set.city` is a gazetteer id, when the label holds that town's gazetteer name (review API3-R-2: a place
+//        row's `nearTown` makes nothing else exempt). The `city=<gazetteer id>` parameters of an `href` are not read as text.
+//   2. ECHOES of the request (`opts.echo`, the request's own strings; review API3-R-1). A string under `query`, `q`, `unused`,
+//      `notYet` or `terms` (or an array under one), or an `href` query parameter, whose folded text is contained in one of the
+//      request's strings is not read as text: it carries nothing the request did not bring, and refusing it would make the search box
+//      an oracle (one word answering 500). Every other field holding the same words is still read.
+//   3. Nothing else. Encoded polylines under `geometry` are decoded (A34, A39), and a string that is JSON (the `json` export body) is
+//      also parsed and walked, so a line or a point inside it is read like any other (review API3-R-6).
 import { decodePolyline5, POLYLINE5_RE } from "../schema/api/legs.ts";
 import { HOME_TOWN_RE, nearHome } from "./home.ts";
+import type { PublicGazetteer } from "./towns.ts";
 
 /** The household's planning notes: a plan link, a stay idea, a base camp (dateless.ts HOUSEHOLD_TEXT, without its loose address rule). */
 export const PLANNING_NOTE = /\bplanned as\b|\b(?:hotel|stay|lodging|airbnb|accommodation|campsite|hut)\s+(?:idea|ideas|choice|pick|booked)\b|\bbase camp:/i;
@@ -30,12 +37,16 @@ export const ORIGIN_REF = /\b(?:loc|proto):[^\s"]/;
 /** Keys that carry household data in any output (the owner's save metadata since PRIV1, traveller details, payments). */
 export const PRIVATE_KEYS: readonly string[] = ["height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added"];
 
-/** Keys whose value may be a town id (the typed exemption, A33). */
-export const TOWN_ID_KEYS: readonly string[] = ["id", "key", "value", "nearTown", "townId"];
+/** Keys whose gazetteer town id makes the object a town: its point, outline, `name` and `label` are read against that town (A33). */
+export const TOWN_OWNER_KEYS: readonly string[] = ["id", "key", "value"];
+/** Keys whose value may be a gazetteer town id, exempt for that string only (a row's nearest town, a reference): never an owner (R-2). */
+export const TOWN_REF_KEYS: readonly string[] = ["nearTown", "townId"];
 /** Keys whose value may be a town's name or a chip label naming it (A33). */
 export const TOWN_NAME_KEYS: readonly string[] = ["name", "label"];
 /** The longest town name or chip label the exemption lifts. */
 export const TOWN_LABEL_MAX = 80;
+/** Keys that echo the request's own words (search `query`, parse `q`, `unused`, `notYet`, card search `terms`; A40). */
+export const ECHO_KEYS: readonly string[] = ["query", "q", "unused", "notYet", "terms"];
 
 export interface Hit {
   where: string;
@@ -43,35 +54,21 @@ export interface Hit {
 }
 
 export interface DetectOptions {
-  /** the typed town exemption (A33); on by default, off to test the raw rules */
-  townSlots?: boolean;
+  /** the loaded public gazetteer (towns.ts); absent or null: no town is exempt from anything */
+  gazetteer?: PublicGazetteer | null;
+  /** the request's own strings (query parameter values): what an echo key may repeat */
+  echo?: readonly string[];
 }
 
 const NUM_PAIR = /(-?\d{1,3}\.\d{2,})\D{1,12}?(-?\d{1,3}\.\d{2,})/g;
+/** How deep a JSON string inside a JSON string is followed. */
+const JSON_DEPTH = 3;
 const isNum = (x: unknown): x is number => typeof x === "number" && Number.isFinite(x);
-const isTownId = (x: unknown): x is string => typeof x === "string" && TOWN_ID_RE.test(x);
-/** Letters and digits only, lower case, accents folded: how a label and a town id's name part are compared. */
+/** Letters and digits only, lower case, accents folded: how labels, names and echoes are compared. */
 const fold = (s: string): string => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "");
-/** The name part of a town id `<cc>-<admin1>-<slug>`, folded. */
-const townNamePart = (id: string): string => fold(id.split("-").slice(2).join("-"));
 
 /** True when a pair of numbers is a point near home, in either order (lat, lon or lon, lat). */
 const pairNearHome = (a: number, b: number): boolean => nearHome(a, b) || nearHome(b, a);
-
-/** The town ids an object holds in an id slot or a parse chip's `set.city`: what makes its `name` and `label` a town label slot. */
-function townIdsOf(o: Record<string, unknown>): string[] {
-  const ids = TOWN_ID_KEYS.map((k) => o[k]).filter(isTownId);
-  const set = o.set as Record<string, unknown> | undefined;
-  if (set && typeof set === "object" && Array.isArray(set.city)) ids.push(...set.city.filter(isTownId));
-  return ids;
-}
-
-/** Is this string the town's own name or a short chip label holding it (A33)? */
-function isTownLabel(text: string, ids: readonly string[]): boolean {
-  if (!ids.length || text.length > TOWN_LABEL_MAX || /\d/.test(text)) return false;
-  const f = fold(text);
-  return ids.some((id) => f.includes(townNamePart(id)));
-}
 
 /** Text and number pairs inside a string: an export body (GPX attributes, KML coordinates, CSV, the json model) is one string. */
 function textHits(text: string, at: string, hits: Hit[], homeTownText = true): void {
@@ -94,39 +91,112 @@ function polylineHits(text: string, at: string, hits: Hit[]): boolean {
   return true;
 }
 
+/** The parsed value of a string that is a JSON object or array (an export body), else undefined. */
+function jsonOf(text: string): unknown {
+  const t = text.trimStart();
+  if (t[0] !== "{" && t[0] !== "[") return undefined;
+  try {
+    return JSON.parse(text);
+  } catch {
+    return undefined;
+  }
+}
+
+/** Where a string or array sits: the key it is under, the gazetteer towns of the object around it, and what it inherits from an array. */
+interface Ctx {
+  key: string | null;
+  /** gazetteer town ids of the nearest enclosing town object, inherited by its geometry: what an outline vertex is read against */
+  owners: readonly string[];
+  /** gazetteer town ids of the object that holds this string directly (its id, key, value or chip set.city): what a label is read against */
+  labelOwners: readonly string[];
+  /** inside an array under `city` */
+  city: boolean;
+  /** inside an array under an echo key */
+  echo: boolean;
+  /** JSON strings followed so far */
+  depth: number;
+}
+
 /** What a body must not hold, with the JSON path of each hit. Empty when clean. */
 export function privacyHits(body: unknown, limit = 20, opts: DetectOptions = {}): Hit[] {
-  const slots = opts.townSlots !== false;
+  const gz = opts.gazetteer ?? null;
+  const echoes = (opts.echo ?? []).map(fold).filter(Boolean);
   const hits: Hit[] = [];
-  const walk = (x: unknown, at: string, key: string | null, owner: string[] | null): void => {
-    if (hits.length >= limit) return;
-    if (typeof x === "string") {
-      // owner: the town ids of the object holding this string (name and label slots), or of the `city` array it sits in
-      let homeTownText = true;
-      if (slots && key !== null) {
-        if ((TOWN_ID_KEYS.includes(key) || key === "city") && isTownId(x)) homeTownText = false;
-        else if (TOWN_NAME_KEYS.includes(key) && owner && isTownLabel(x, owner)) homeTownText = false;
-        else if (key === "href") x = x.replace(/([?&])city=[^&#]*/g, "$1");
+  const inGz = (x: unknown): x is string => !!gz && typeof x === "string" && gz.has(x);
+  const isEcho = (s: string): boolean => {
+    const f = fold(s);
+    return echoes.some((e) => e.includes(f));
+  };
+  /** Is this string a town's own name or a short chip label holding it? */
+  const isTownLabel = (text: string, owners: readonly string[]): boolean => {
+    if (!owners.length || text.length > TOWN_LABEL_MAX || /\d/.test(text)) return false;
+    const f = fold(text);
+    return owners.some((id) => {
+      const n = fold(gz?.name(id) ?? "");
+      return n.length > 0 && f.includes(n);
+    });
+  };
+  /** An href with the parameters that carry nothing of ours removed: `city=<gazetteer id>`, and any value the request itself sent. */
+  const hrefText = (href: string): string =>
+    href.replace(/([?&])([^=&#]*)=([^&#]*)/g, (all, sep: string, name: string, raw: string) => {
+      let v = raw;
+      try {
+        v = decodeURIComponent(raw.replace(/\+/g, " "));
+      } catch {
+        return all;
       }
+      return (name === "city" && inGz(v)) || (echoes.length && isEcho(v)) ? sep : all;
+    });
+
+  const walk = (x: unknown, at: string, c: Ctx): void => {
+    if (hits.length >= limit) return;
+    const { key } = c;
+    if (typeof x === "string") {
+      // an echo of the request's own words carries nothing the request did not bring (A40)
+      if ((c.echo || (key !== null && ECHO_KEYS.includes(key))) && isEcho(x)) return;
+      let homeTownText = true;
+      let text = x;
+      if ((c.city || (key !== null && (TOWN_OWNER_KEYS.includes(key) || TOWN_REF_KEYS.includes(key)))) && inGz(x)) homeTownText = false;
+      else if (key !== null && TOWN_NAME_KEYS.includes(key) && isTownLabel(x, c.labelOwners)) homeTownText = false;
+      else if (key === "href") text = hrefText(x);
       // a line is geometry, not words: its characters could spell anything, so it is decoded and never read as text
-      if (key === "geometry" && polylineHits(x as string, at, hits)) return;
-      textHits(x as string, at, hits, homeTownText);
+      if (key === "geometry" && polylineHits(x, at, hits)) return;
+      // a JSON body (the json export) is read as the structure it is (R-6); the raw text is still read when that finds nothing, for
+      // number pairs the structure holds in separate fields
+      if (c.depth < JSON_DEPTH) {
+        const parsed = jsonOf(x);
+        const before = hits.length;
+        if (parsed !== undefined) walk(parsed, `${at}<json>`, { key: null, owners: [], labelOwners: [], city: false, echo: false, depth: c.depth + 1 });
+        if (hits.length > before) return;
+      }
+      textHits(text, at, hits, homeTownText);
     } else if (Array.isArray(x)) {
-      // a coordinate: [lon, lat] or [lat, lon], with an optional height
-      if ((x.length === 2 || x.length === 3) && isNum(x[0]) && isNum(x[1]) && pairNearHome(x[0], x[1])) hits.push({ where: at, why: "a coordinate near the home town" });
-      else x.forEach((y, i) => walk(y, `${at}[${i}]`, key === "city" ? "city" : null, null));
+      // a coordinate: [lon, lat] or [lat, lon], with an optional height; public only as an exact vertex of the owning town's outline
+      if ((x.length === 2 || x.length === 3) && isNum(x[0]) && isNum(x[1]) && pairNearHome(x[0], x[1])) {
+        if (!(gz && c.owners.some((id) => gz.isVertex(id, x[0] as number, x[1] as number)))) hits.push({ where: at, why: "a coordinate near the home town" });
+      } else {
+        const inner: Ctx = { key: null, owners: c.owners, labelOwners: [], city: key === "city" || c.city, echo: (key !== null && ECHO_KEYS.includes(key)) || c.echo, depth: c.depth };
+        x.forEach((y, i) => walk(y, `${at}[${i}]`, inner));
+      }
     } else if (x && typeof x === "object") {
       const o = x as Record<string, unknown>;
-      if (isNum(o.lat) && isNum(o.lon) && nearHome(o.lat, o.lon)) hits.push({ where: at, why: "a point near the home town" });
-      const ids = slots ? townIdsOf(o) : [];
+      const own = TOWN_OWNER_KEYS.map((k) => o[k]).filter(inGz);
+      const set = o.set as Record<string, unknown> | undefined;
+      if (set && typeof set === "object" && Array.isArray(set.city)) own.push(...set.city.filter(inGz));
+      // an object with no town of its own sits inside its parent's for outline vertices (a GeoJSON geometry inside a city outline),
+      // never for labels or points
+      const owners = own.length ? own : c.owners;
+      if (isNum(o.lat) && isNum(o.lon) && nearHome(o.lat, o.lon) && !(gz && own.some((id) => gz.isPoint(id, o.lat as number, o.lon as number)))) {
+        hits.push({ where: at, why: "a point near the home town" });
+      }
       for (const [k, y] of Object.entries(o)) {
         if (PRIVATE_KEYS.includes(k) || (k === "status" && typeof y === "string" && STATUS_WORDS.includes(y))) hits.push({ where: `${at}.${k}`, why: "a private key" });
         // a map keyed by ref (refSlugs, citations) would carry an origin key as a key; the path omits the key so the hit cannot leak it
         if (ORIGIN_REF.test(k)) hits.push({ where: `${at}[key]`, why: "a private origin key (wishlist or prototype id)" });
-        walk(y, `${at}.${k}`, k, ids);
+        walk(y, `${at}.${k}`, { key: k, owners, labelOwners: own, city: false, echo: false, depth: c.depth });
       }
     }
   };
-  walk(body, "$", null, null);
+  walk(body, "$", { key: null, owners: [], labelOwners: [], city: false, echo: false, depth: 0 });
   return hits;
 }

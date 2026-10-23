@@ -135,13 +135,16 @@ population and admin-1 codes. From the sizes on GeoNames, the subset within 100 
 tests fail on the string. A public towns layer that holds Whitby, and a chip "Within 25 km of Whitby", would trip both.
 This is owner question Q50.
 
-**Settled (API-3a, 23 Oct 2026; owner decisions Q50 and Q87).** The home town is served like any town, with safe
-geometry, and is never excluded. The rule is the town guard (5.6, "Privacy") and it is generic: it runs on every town and
-names none. In short: no served point lies within the 2 km household radius, a guarded town's row carries the public
-gazetteer fields only (no flag, no distance to home), and the privacy detector lets the home town's NAME appear only where
-any town's name appears (a towns row's id and name, a near or city chip). The contract is `core/src/catalogue/store.ts`
-A33; the code is `core/src/privacy/towns.ts` and the typed exemption in `core/src/privacy/detect.ts`; contract case K26
-plants a town inside the radius and proves no method answers 500 for it.
+**Settled (owner ruling 23 Oct 2026, Q87 reopened, FINAL; API-3c).** The home town is in the towns layer like any town,
+shown exactly as the public GeoNames and OSM data show it: nothing moved, nothing dropped, nothing flagged. The site then
+reveals nothing that the public maps do not already show. The household stays private because the site never publishes a
+point of the household's, not because it changes public ones. The privacy check accepts a town's point only when it
+equals the loaded public gazetteer point for that town id; any other point within 2 km of home still fails closed. The
+rule is generic and names no town (5.6, "Privacy"). The contract is `core/src/catalogue/store.ts` A33; the code is
+`core/src/privacy/towns.ts` (`publicTownLayer`, `publicGazetteer`) and `core/src/privacy/detect.ts`; contract case K26
+plants a town 0.5 km from home and proves it is served unchanged, with no 500, and that only the identity rule lets it
+through. API-3a's moved centre and dropped outlines are withdrawn: a diff against GeoNames would have shown which town was
+changed, which said more about home than the public data does (review API3-R-3).
 
 ## 3. The data rule (8.3): one placement block on every record
 
@@ -532,36 +535,39 @@ This extends section 11 of place-page-sections.md. Its two existing blocks stay 
     Per-city files beat per-country parts here: a pick needs one outline, never the country's.
   - **Fallback.** A town without an OSM polygon keeps the ring, and the card says why.
   - **P8.** The geometry is ODbL, not catalogue, so the limit is the payload, not the catalogue.
-- **Privacy: the town guard (API-3a, 23 Oct 2026; Q50 option (a), owner decision Q87: safe geometry, not exclusion).**
-  The fact to hide is where the household lives, below the town. "Whitby is a town" is public, so the home town is in the
-  layer like Oshawa and Ajax, and "near Whitby" works. Without a guard the detector would answer 500 for exactly the one
-  town whose centre or outline lies within 2 km of home, and iterating town ids would find it (audit GB-A-8). So:
-  1. **At load, every town, never by name.** The towns loader (META-2) passes every row through `safeTown()` and every
-     outline through `safeOutline()` in `core/src/privacy/towns.ts` before a store holds it (store.ts A18). The file names
-     no town; a test greps it for the home town's pattern and for coordinates.
-  2. **A centre outside the 2 km radius is served as it is.** A centre inside it is replaced by the town's Wikidata point
-     when that point is outside, else by the point at a fixed offset of 2 x radius + radius / 4 (4.5 km) due north (then
-     east, west, south). The offset does not depend on where home is, so the served centre gives the home point away to
-     nobody. ("The nearest point just outside the radius" was rejected: with the public centre it solves for home.)
-  3. **An outline or line with any vertex within the radius is the ring** (`geometry: null`), exactly like a town OSM has
-     no polygon for; a route leg with such a vertex is drawn as a dashed estimate.
-  4. **Nothing marks a guarded town.** The towns row is a strict schema of public gazetteer fields (`id`, `name`, `lat`,
-     `lon`, `pop`, `cc`, `region`, `places`, and the distance and bearing from the asked centre); no "moved" or
-     "approximate" flag, no distance to home. `near(city=)`, `towns()` and the Where city level measure from the served
-     centre, so "near Whitby" is measured from a point up to 4.5 km from the gazetteer centre; at a 25 km radius that is
-     the accepted cost.
-  5. **The typed exemption.** The detector (`core/src/privacy/detect.ts`) lifts only its home-town TEXT rule, by shape:
-     a town id under `id`, `key`, `value`, `nearTown` or `townId`, or in a `city` array; a town's name or chip label of at
-     most 80 characters with no digit, beside such an id and holding its name part; the `city=` parameters of an `href`.
-     Coordinates, planning notes, addresses and private keys are still checked there, and prose anywhere still fails on
-     the name. respond(), contract case K7 and the web privacy test run the same detector.
-  6. **Residual risk, for the owner.** Anyone who compares the layer with public GeoNames and OSM data can see that one
-     town's centre or outline differs, which says "the household lives within about 2 km of this town's centre or
-     border". That is the town-level fact Q50 accepted; the address stays hidden. If that is too much, `TOWN_POLICY =
-     "exclude"` in `towns.ts` is the one-line switch to option (b) (the town is left out and `city=<its id>` answers
-     `not_found` like any unknown id).
-  Proof: contract case K26 plants a town 0.5 km from home with an outline around it, and a neighbour whose outline reaches
-  within 1.5 km, and requires every town method to answer without a 500, a moved centre, two rings and a clean K7 scan.
+- **Privacy: public towns, shown exactly (owner ruling 23 Oct 2026, Q87 reopened, FINAL; API-3c, replacing API-3a's
+  safe geometry).** The fact to hide is where the household lives. That a town exists, where its centre is and where its
+  border runs is public: GeoNames and OSM publish it. So the home town is in the layer like Oshawa and Ajax, at its public
+  centre with its public outline, and "near Whitby" works.
+  1. **At load, every town, never by name.** The towns loader (META-2) calls `publicTownLayer(towns, outlines)` in
+     `core/src/privacy/towns.ts` before a store holds the rows (store.ts A18). It serves the rows as loaded (`safeTown` and
+     `safeOutline` are the identity) and builds the `PublicGazetteer` from the same rows. The store exposes it through
+     `publicTowns()`, and respond() and the contract kit hand it to the detector. Neither file names a town; a test greps
+     both for the home town's pattern and for coordinates.
+  2. **Nothing is moved, dropped or flagged.** No rule depends on where home is, so no town's output changes because home
+     is near it. Distances from a town ("within 25 km of Whitby") are measured from its true public centre.
+  3. **The detector accepts public towns by identity only.** A point within 2 km of home passes only in an object whose
+     `id` or `key` is a gazetteer town id and whose `lat`/`lon` equal that town's gazetteer point exactly; a coordinate
+     pair only as an exact vertex of that town's gazetteer outline. A place's point, a moved centre, another town's point,
+     a planted point under a real town id, or an id the gazetteer does not hold still answers 500.
+  4. **The name.** The home-town text rule is lifted only for a gazetteer town id (under `id`, `key`, `value`, `nearTown`,
+     `townId` or in a `city` array, that string only), a short name or chip label of an object whose `id`, `key`, `value`
+     or chip `set.city` is a gazetteer id and that holds its gazetteer name, and `city=<id>` in an href. A place whose
+     `nearTown` is the home town is exempt in that field only; its name is still read (review API3-R-2).
+  5. **The search box is not an oracle.** Search, parse and card search echo the visitor's words. The detector does not
+     read an echo of the request's own strings as household text, so searching for any town's name, the home town's
+     included, answers 200 like every other (store.ts A40, case K29).
+  6. **Residual risk, for the owner.** The site shows nothing about towns beyond what the free GeoNames and OSM files
+     show, so comparing them reveals nothing. What stays private is everything below that: the household point, trip
+     origins and planning notes, which the scrub and the detector keep out. The one trust root is the towns FILE: a row
+     edited by hand to a household point would be served and accepted, so `tools/towns.py` writes it from the GeoNames dump
+     verbatim (META-2). `TOWN_POLICY = "exclude"` is still a documented switch, but it is a product choice, not a privacy
+     one: a missing town is itself a diff against GeoNames.
+  7. **Route lines are not towns.** A routed leg is not public gazetteer data, so a leg with a vertex within 2 km of home
+     is still served with no geometry (`safeLine`, store.ts A34; review API3-R-5 is open for TRP2b).
+  Proof: contract case K26 plants a town 0.5 km from home with an outline around it and a neighbour whose outline reaches
+  within 1.5 km, and requires every town method to serve them exactly, with no 500 and a clean K7 scan with the store's
+  gazetteer; the same outputs without the gazetteer, and a moved, swapped or planted point with it, must fail.
 
 ### 5.7 Files, sizes and how P8 holds
 
@@ -818,6 +824,7 @@ routed "about 25 min" replaces the band wherever a pair exists, and `--check` fa
 
 | Date | Change |
 |---|---|
+| 2026-10-23 | 2.4 and 5.6 (API-3c, Opus; owner ruling Q87 reopened, FINAL): towns are shown exactly as GeoNames and OSM show them, the home town included; the detector accepts a town point or outline vertex near home only when it is the loaded gazetteer's own (store.ts A33); the moved centre, the 4.5 km offset, the dropped outlines and the flag question are withdrawn, with the leak statements; echoes of the visitor's words are not read as household text (A40, K29); `nearTown` exempts only itself |
 | 2026-10-23 | 2.4 and 5.6 (API-3a, Opus): the town guard settles Q50 and records Q87 (safe geometry, not exclusion): every town through `safeTown`/`safeOutline` at load, a fixed 4.5 km offset instead of D-E3's "nearest point outside" (which would leak the home point), no flag on a guarded row, the typed detector exemption, and the residual town-level risk with its one-line switch. Contract: store.ts A33, case K26 |
 | 2026-10-21 | 3.1 (META-0): the town id is `<cc>-<admin1>-<slug>` (Q76, `ca-on-whitby`) with the ISO admin1 rule; `point_role` gains `route_start` and is the one `POINT_ROLE` enum; `approx` carries `approx_note`; `near_town` is asked by `W_PLACE_TOWN` and marked N in the registry until META-2 derives it. The rules, codes and gap reports are in capture contract 3.7 |
 | 2026-10-20 | 5.7 superseded in part: the default path is API-over-JSON with caps in the store methods; the static files are the fallback; `nearby` moves to `core/src/nearby/` |

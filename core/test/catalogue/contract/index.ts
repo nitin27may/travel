@@ -5,6 +5,7 @@ import { countsParsedCases } from "./countsParsed.cases.ts";
 import { exportFormatsCases } from "./exportFormats.cases.ts";
 import { searchCardsCases } from "./searchCards.cases.ts";
 import { townGuardCases } from "./townGuard.cases.ts";
+import { echoCases } from "./echo.cases.ts";
 import { tripLegsCases } from "./tripLegs.cases.ts";
 import { uncheckedCases } from "./unchecked.cases.ts";
 import { getExportCases } from "./getExport.cases.ts";
@@ -47,6 +48,8 @@ export const CONTRACT_TABLES: Record<string, ContractCase[]> = {
   searchCards: searchCardsCases,
   townGuard: townGuardCases,
   tripLegs: tripLegsCases,
+  // API-3c (review API3-R-1): K29
+  echo: echoCases,
 };
 
 export * from "./kit.ts";
