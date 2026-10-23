@@ -1,10 +1,11 @@
-import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
-  SLUG_REGISTRY_PATH, aliasKey, assignPlaceSlugs, assignSeedSlugs, currentSlug, emptyRegistry, isWithdrawn, kebab, mergeKey, movedTo,
-  parseRegistry, registryDrift, registryProblems, registryText, renameSlug, resolveRef, resolveRegion, updateRegistry, withdrawKey,
+  ORIGIN_KEYS_PATH, SLUG_REGISTRY_PATH, aliasKey, assignPlaceSlugs, assignSeedSlugs, currentSlug, emptyOriginKeys, emptyRegistry, isWithdrawn,
+  kebab, mergeKey, migrateOrigins, movedTo, originDrift, originKeysText, originProblems, parseOriginKeys, parseRegistry, registryDrift,
+  registryProblems, registryText, renameSlug, reoriginKey, resolveRef, resolveRegion, updateOriginKeys, updateRegistry, withdrawKey,
   type SlugRegistry, type SlugSnapshot, type SlugSpace,
 } from "../../src/catalogue/slugs.ts";
 import { main } from "../../bin/slugs.ts";
@@ -22,6 +23,7 @@ describe("kebab (patterns 1.2, moved from web)", () => {
 });
 
 describe("assignPlaceSlugs", () => {
+  // an unpinned wishlist or prototype page is assigned under its private origin key, in memory only (A24); pinned keys are refs
   const a = { key: "loc:a", name: "Moss Glen Falls", areaSlug: "stowe" };
   const b = { key: "loc:b", name: "Moss Glen Falls", areaSlug: "granville" };
   const c = { key: "proto:c", name: "Bow Lake", areaSlug: "banff" };
@@ -34,17 +36,17 @@ describe("assignPlaceSlugs", () => {
     expect(one.get("proto:c")).toBe("bow-lake");
   });
   it("a pinned key keeps its slug, even when its name changes", () => {
-    expect(assignPlaceSlugs([{ ...c, name: "Bow Lake Lodge" }], reg({ "proto:c": "bow-lake" })).get("proto:c")).toBe("bow-lake");
+    expect(assignPlaceSlugs([{ ...c, key: "place/bow-lake", name: "Bow Lake Lodge" }], reg({ "place/bow-lake": "bow-lake" })).get("place/bow-lake")).toBe("bow-lake");
   });
   it("a newcomer whose name clashes with a pinned slug takes the suffix; the incumbent is never renamed (D-B1)", () => {
-    const got = assignPlaceSlugs([a, b], reg({ "loc:a": "moss-glen-falls" }));
-    expect(got.get("loc:a")).toBe("moss-glen-falls");
+    const got = assignPlaceSlugs([{ ...a, key: "place/moss-glen-falls" }, b], reg({ "place/moss-glen-falls": "moss-glen-falls" }));
+    expect(got.get("place/moss-glen-falls")).toBe("moss-glen-falls");
     expect(got.get("loc:b")).toBe("moss-glen-falls-granville");
   });
   it("a newcomer never takes a retired or withdrawn slug; a withdrawn key that comes back gets its slug again", () => {
-    expect(assignPlaceSlugs([c], reg({ "loc:x": "bow-lake-new" }, { retired: { "bow-lake": "loc:x" } })).get("proto:c")).toBe("bow-lake-banff");
-    expect(assignPlaceSlugs([c], reg({}, { withdrawn: { "loc:gone": "bow-lake" } })).get("proto:c")).toBe("bow-lake-banff");
-    expect(assignPlaceSlugs([c], reg({}, { withdrawn: { "proto:c": "bow-lake-old" } })).get("proto:c")).toBe("bow-lake-old");
+    expect(assignPlaceSlugs([c], reg({ "place/x": "bow-lake-new" }, { retired: { "bow-lake": "place/x" } })).get("proto:c")).toBe("bow-lake-banff");
+    expect(assignPlaceSlugs([c], reg({}, { withdrawn: { "place/gone": "bow-lake" } })).get("proto:c")).toBe("bow-lake-banff");
+    expect(assignPlaceSlugs([{ ...c, key: "place/bow-lake-old" }], reg({}, { withdrawn: { "place/bow-lake-old": "bow-lake-old" } })).get("place/bow-lake-old")).toBe("bow-lake-old");
   });
   it("orders unpinned keys by `order` when given, so the key form of before the registry still decides", () => {
     const got = assignPlaceSlugs([{ key: "a-ref", order: "b", name: "Same", areaSlug: "" }, { key: "z-ref", order: "a", name: "Same", areaSlug: "" }]);
@@ -77,6 +79,12 @@ describe("the registry", () => {
     expect(registryProblems(reg({ a: "x" }, {}, { formerKeys: { a: "a2" } })).join()).toMatch(/still has a slug/);
     expect(registryProblems(reg({ a: "Not A Slug" })).length).toBeGreaterThan(0);
     expect(registryProblems(reg({ a: "x" }))).toEqual([]);
+    // A24: the registry may be published, so a private origin key anywhere in it is a problem, and the message never quotes the key
+    for (const bad of [reg({ "loc:CA/secret": "x" }), reg({ "place/x": "x" }, { withdrawn: { "proto:secret": "y" } }), reg({ "place/x": "x" }, {}, { formerKeys: { "loc:secret": "place/x" } })]) {
+      const p = registryProblems(bad).join("\n");
+      expect(p).toMatch(/private origin key/);
+      expect(p).not.toMatch(/secret/);
+    }
   });
 
   it("update pins new keys, merges and trips, keeps pinned ones, merges region aliases, and refuses a vanished key", () => {
@@ -145,16 +153,20 @@ describe("the registry", () => {
   });
 
   it("alias carries a slug to a new key, keeps the old one in formerKeys, and collapses chains (R-2)", () => {
-    const r = renameSlug(reg({ "loc:a": "x" }), "loc:a", "x2");
-    const one = aliasKey(r, "loc:a", "place/a");
-    expect(one.places.slugs).toEqual({ "place/a": "x2" });
-    expect(one.places.retired).toEqual({ x: "place/a" });
-    expect(one.formerKeys).toEqual({ "loc:a": "place/a" });
-    const two = aliasKey(one, "place/a", "place/a2");
-    expect(two.formerKeys).toEqual({ "loc:a": "place/a2", "place/a": "place/a2" });
-    expect(resolveRef(two, "loc:a")).toEqual({ key: "place/a2", slug: "x2", space: "places" });
+    // a wishlist page (`place/x`, A24) gains a capture record, which is later renamed
+    const r = renameSlug(reg({ "place/x": "x" }), "place/x", "x2");
+    const one = aliasKey(r, "place/x", "route/a");
+    expect(one.places.slugs).toEqual({ "route/a": "x2" });
+    expect(one.places.retired).toEqual({ x: "route/a" });
+    expect(one.formerKeys).toEqual({ "place/x": "route/a" });
+    const two = aliasKey(one, "route/a", "route/a2");
+    expect(two.formerKeys).toEqual({ "place/x": "route/a2", "route/a": "route/a2" });
+    expect(resolveRef(two, "place/x")).toEqual({ key: "route/a2", slug: "x2", space: "places" });
     expect(registryProblems(two)).toEqual([]);
-    expect(() => aliasKey(two, "loc:a", "place/b")).toThrow(/has no slug/);
+    expect(() => aliasKey(two, "place/x", "route/b")).toThrow(/has no slug/);
+    // A24: an origin key never enters the registry, not even as a former key
+    expect(() => aliasKey(two, "route/a2", "loc:CA/x")).toThrow(/origin key/);
+    expect(() => aliasKey(reg({ "proto:x": "x" }), "proto:x", "place/x")).toThrow(/origin key/);
   });
 
   it("withdraw tombstones a key: its slug stays reserved, answers nothing, and build restores it (R-3)", () => {
@@ -218,6 +230,56 @@ describe("data/catalogue/slugs.json, as committed", () => {
   it("holds no household string: refs carry nothing private (G-B 12)", () => {
     expect(text).not.toMatch(/whitby/i);
   });
+  it("names no wishlist or prototype origin: no loc: or proto: anywhere, the pages with no capture record are place/<slug> (A24)", () => {
+    expect(text).not.toMatch(/\b(?:loc|proto):/);
+    const origins = parseOriginKeys(readFileSync(join(ROOT, ORIGIN_KEYS_PATH), "utf8"));
+    expect(originProblems(origins, r)).toEqual([]);
+    expect(originKeysText(origins)).toBe(readFileSync(join(ROOT, ORIGIN_KEYS_PATH), "utf8"));
+    const refs = Object.values(origins.keys);
+    expect(refs.length).toBe(115);
+    // minted from the first pinned slug; none renamed yet, so every one still equals its slug
+    for (const ref of refs) expect(r.places.slugs[ref], ref).toBe(ref.slice("place/".length));
+  });
+});
+
+describe("the private origin keys (A24)", () => {
+  const registry = reg({ "place/alpha": "alpha", "place/beta": "beta", "route/c": "gamma" });
+  const o = { ...emptyOriginKeys(), keys: { "loc:CA/x/alpha": "place/alpha", "proto:beta": "place/beta" } };
+  it("checks against the registry: a ref the registry lacks, two origins on one ref; messages never quote an origin", () => {
+    expect(originProblems(o, registry)).toEqual([]);
+    const bad = { ...o, keys: { ...o.keys, "loc:secret": "place/alpha", "proto:secret2": "place/nowhere" } };
+    const p = originProblems(bad, registry).join("\n");
+    expect(p).toMatch(/two origins share the ref place\/alpha/);
+    expect(p).toMatch(/place\/nowhere is not a place key/);
+    expect(p).not.toMatch(/secret/);
+    // a former key still counts: the page became a capture page and the old ref resolves through formerKeys
+    expect(originProblems(o, aliasKey(registry, "place/beta", "route/b"))).toEqual([]);
+  });
+  it("update pins new origins and refuses a changed one; drift names the missing pin", () => {
+    const s = { ...snap({ "place/alpha": "alpha" }), origins: { "loc:CA/x/alpha": "place/alpha", "loc:new": "place/new" } };
+    const u = updateOriginKeys(o, s);
+    expect(u.problems).toEqual([]);
+    expect(u.added).toBe(1);
+    expect(u.originKeys.keys["loc:new"]).toBe("place/new");
+    expect(updateOriginKeys(o, { ...s, origins: { "proto:beta": "place/other" } }).problems.join()).toMatch(/pinned to place\/beta/);
+    expect(originDrift(o, s, registry).join()).toMatch(/origin of place\/new is not pinned/);
+  });
+  it("reorigin moves a pin and keeps the ref; migrate rekeys loc:/proto: keys to place/<slug> without former keys", () => {
+    const moved = reoriginKey(o, "loc:CA/x/alpha", "loc:CA/y/alpha");
+    expect(moved.keys).toEqual({ "loc:CA/y/alpha": "place/alpha", "proto:beta": "place/beta" });
+    expect(() => reoriginKey(o, "loc:none", "loc:z")).toThrow(/not pinned/);
+    expect(() => reoriginKey(o, "loc:CA/x/alpha", "place/z")).toThrow(/must start/);
+    const legacy: SlugRegistry = { ...emptyRegistry(), places: space({ "loc:CA/x/alpha": "alpha", "proto:b": "beta-two", "route/c": "gamma" }, { retired: { beta: "proto:b" }, merged: { "route/c": "loc:CA/x/alpha" } }) };
+    const m = migrateOrigins(legacy);
+    expect(m.moved).toBe(2);
+    expect(m.registry.places.slugs).toEqual({ "place/alpha": "alpha", "place/beta-two": "beta-two", "route/c": "gamma" });
+    expect(m.registry.places.retired).toEqual({ beta: "place/beta-two" });
+    expect(m.registry.places.merged).toEqual({ "route/c": "place/alpha" });
+    expect(m.registry.formerKeys).toEqual({});
+    expect(m.originKeys.keys).toEqual({ "loc:CA/x/alpha": "place/alpha", "proto:b": "place/beta-two" });
+    expect(registryText(m.registry)).not.toMatch(/\b(?:loc|proto):/);
+    expect(() => migrateOrigins({ ...legacy, places: space({ "loc:a": "alpha", "place/alpha": "other" }) })).toThrow(/registry key already/);
+  });
 });
 
 describe("node core/bin/slugs.ts", () => {
@@ -228,8 +290,9 @@ describe("node core/bin/slugs.ts", () => {
     writeFileSync(f, JSON.stringify(s));
     return f;
   };
-  const base = snap({ "loc:a": "alpha", "proto:b": "beta" }, { regions: { "ca/alberta": { name: "Alberta", aliases: ["AB"] } } });
+  const base = snap({ "place/alpha": "alpha", "place/beta": "beta" }, { regions: { "ca/alberta": { name: "Alberta", aliases: ["AB"] } }, origins: { "loc:CA/x/alpha": "place/alpha", "proto:b": "place/beta" } });
   const read = (root: string) => parseRegistry(readFileSync(join(root, SLUG_REGISTRY_PATH), "utf8"));
+  const readOrigins = (root: string) => parseOriginKeys(readFileSync(join(root, ORIGIN_KEYS_PATH), "utf8"));
 
   it("build writes the registry; --check passes; a new key fails --check until build; a vanished key needs alias", () => {
     const root = tmpRoot();
@@ -237,23 +300,35 @@ describe("node core/bin/slugs.ts", () => {
     expect(main(["--check", "--root", root, "--snapshot", s1])).toBe(1);
     expect(main(["build", "--root", root, "--snapshot", s1])).toBe(0);
     expect(main(["--check", "--root", root, "--snapshot", s1])).toBe(0);
-    expect(main(["--check", "--root", root, "--snapshot", file(root, { ...base, places: { ...base.places, "loc:c": "gamma" } })])).toBe(1);
-    const s3 = file(root, { ...base, places: { "place/a": "alpha", "proto:b": "beta" } });
+    expect(readOrigins(root).keys).toEqual(base.origins);
+    expect(readFileSync(join(root, SLUG_REGISTRY_PATH), "utf8")).not.toMatch(/\b(?:loc|proto):/);
+    expect(main(["--check", "--root", root, "--snapshot", file(root, { ...base, places: { ...base.places, "place/gamma": "gamma" } })])).toBe(1);
+    // a new wishlist place: the ref is pinned in the registry and its origin in the private file, both by build
+    const s2 = file(root, { ...base, places: { ...base.places, "place/gamma": "gamma" }, origins: { ...base.origins, "loc:CA/x/gamma": "place/gamma" } });
+    expect(main(["build", "--root", root, "--snapshot", s2])).toBe(0);
+    expect(main(["--check", "--root", root, "--snapshot", s2])).toBe(0);
+    // an origin pinned in the registry but missing from the private file fails --check
+    expect(main(["--check", "--root", root, "--snapshot", file(root, { ...base, places: { ...base.places, "place/gamma": "gamma" }, origins: { ...base.origins, "loc:CA/x/other": "place/gamma" } })])).toBe(1);
+    // the wishlist page gains a capture record: alias, and the old ref resolves through formerKeys
+    const s3 = file(root, { ...base, places: { "route/a": "alpha", "place/beta": "beta", "place/gamma": "gamma" }, origins: { "proto:b": "place/beta", "loc:CA/x/gamma": "place/gamma" } });
     expect(main(["--check", "--root", root, "--snapshot", s3])).toBe(1);
     expect(main(["build", "--root", root, "--snapshot", s3])).toBe(1);
-    expect(main(["alias", "loc:a", "place/a", "--root", root])).toBe(0);
+    expect(main(["alias", "place/alpha", "route/a", "--root", root])).toBe(0);
     expect(main(["--check", "--root", root, "--snapshot", s3])).toBe(0);
-    expect(read(root).formerKeys).toEqual({ "loc:a": "place/a" });
+    expect(read(root).formerKeys).toEqual({ "place/alpha": "route/a" });
+    expect(main(["alias", "loc:CA/x/gamma", "route/g", "--root", root])).toBe(1);
   });
 
   it("rename and merge redirect; a survivor cannot be withdrawn", () => {
     const root = tmpRoot();
     expect(main(["build", "--root", root, "--snapshot", file(root, base)])).toBe(0);
-    expect(main(["rename", "proto:b", "beta-two", "--root", root])).toBe(0);
-    expect(movedTo(read(root), "beta")).toEqual({ slug: "beta-two", key: "proto:b" });
-    expect(main(["merge", "proto:b", "loc:a", "--root", root])).toBe(0);
-    expect(movedTo(read(root), "beta-two")).toEqual({ slug: "alpha", key: "loc:a" });
-    expect(main(["withdraw", "loc:a", "--root", root])).toBe(1);
+    expect(main(["rename", "place/beta", "beta-two", "--root", root])).toBe(0);
+    expect(movedTo(read(root), "beta")).toEqual({ slug: "beta-two", key: "place/beta" });
+    // the ref is minted once: a rename keeps it, and --check agrees once the builder gives the new slug under the same ref
+    expect(main(["--check", "--root", root, "--snapshot", file(root, { ...base, places: { "place/alpha": "alpha", "place/beta": "beta-two" } })])).toBe(0);
+    expect(main(["merge", "place/beta", "place/alpha", "--root", root])).toBe(0);
+    expect(movedTo(read(root), "beta-two")).toEqual({ slug: "alpha", key: "place/alpha" });
+    expect(main(["withdraw", "place/alpha", "--root", root])).toBe(1);
     expect(main(["rename", "nope", "x", "--root", root])).toBe(1);
     expect(main(["frobnicate", "--root", root])).toBe(2);
   });
@@ -261,11 +336,28 @@ describe("node core/bin/slugs.ts", () => {
   it("withdraw lets a vanished key pass --check, and build restores it when it returns", () => {
     const root = tmpRoot();
     expect(main(["build", "--root", root, "--snapshot", file(root, base)])).toBe(0);
-    const without = file(root, { ...base, places: { "loc:a": "alpha" } });
+    const without = file(root, { ...base, places: { "place/alpha": "alpha" }, origins: { "loc:CA/x/alpha": "place/alpha" } });
     expect(main(["--check", "--root", root, "--snapshot", without])).toBe(1);
-    expect(main(["withdraw", "proto:b", "--root", root])).toBe(0);
+    expect(main(["withdraw", "place/beta", "--root", root])).toBe(0);
     expect(main(["--check", "--root", root, "--snapshot", without])).toBe(0);
     expect(main(["build", "--root", root, "--snapshot", file(root, base)])).toBe(0);
-    expect(read(root).places.slugs["proto:b"]).toBe("beta");
+    expect(read(root).places.slugs["place/beta"]).toBe("beta");
+  });
+
+  it("reorigin keeps the ref when a wishlist id changes; migrate-origins runs once", () => {
+    const root = tmpRoot();
+    expect(main(["build", "--root", root, "--snapshot", file(root, base)])).toBe(0);
+    const moved = file(root, { ...base, origins: { "loc:CA/y/alpha": "place/alpha", "proto:b": "place/beta" } });
+    expect(main(["--check", "--root", root, "--snapshot", moved])).toBe(1);
+    expect(main(["reorigin", "loc:CA/x/alpha", "loc:CA/y/alpha", "--root", root])).toBe(0);
+    expect(main(["--check", "--root", root, "--snapshot", moved])).toBe(0);
+    expect(main(["migrate-origins", "--root", root])).toBe(1);
+    const legacy = tmpRoot();
+    const old: SlugRegistry = { ...emptyRegistry(), places: space({ "loc:CA/x/alpha": "alpha", "proto:b": "beta" }), regions: { "ca/alberta": { name: "Alberta", aliases: ["AB"] } } };
+    mkdirSync(join(legacy, "data", "catalogue"), { recursive: true });
+    writeFileSync(join(legacy, SLUG_REGISTRY_PATH), JSON.stringify(old));
+    expect(main(["migrate-origins", "--root", legacy])).toBe(0);
+    expect(main(["--check", "--root", legacy, "--snapshot", file(legacy, base)])).toBe(0);
+    expect(readOrigins(legacy).keys).toEqual(base.origins);
   });
 });

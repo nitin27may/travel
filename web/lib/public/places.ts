@@ -9,7 +9,7 @@ import { groupLinks, trailSeeds, type TrailSeed } from './trail-places';
 import { assignSeedSlugs, captureSeeds, type CaptureSeed, type SeedSkip } from './seeds';
 import { primaryRef } from '@travel/core/capture/records.ts';
 import { haversineM } from '@travel/core/geo/distance.ts';
-import { SLUG_REGISTRY_PATH, emptyRegistry, parseRegistry, type SlugRegistry } from '@travel/core/catalogue/slugs.ts';
+import { ORIGIN_KEYS_PATH, SLUG_REGISTRY_PATH, emptyOriginKeys, emptyRegistry, parseOriginKeys, parseRegistry, placeRefOf, type OriginKeys, type SlugRegistry } from '@travel/core/catalogue/slugs.ts';
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { publicWorld } from './world';
@@ -34,12 +34,23 @@ export interface PlaceBuild {
   legacyPaths: Map<string, string>;
   /** Capture records that look like places but got no page, and why (backlog 3.48). For the build report and the tests. */
   seedSkips: SeedSkip[];
-  /** page slug -> its `ref` (D-B2): the capture ref, `loc:<id>` or `proto:<id>`. Kept for the API; never put on a public page. */
+  /** page slug -> its `ref` (D-B2, A24): the capture ref, else `place/<slug>`. Kept for the API; never put on a public page. */
   refBySlug: Map<string, string>;
   /** every identity key that got a slug -> the slug, merged records included: what data/catalogue/slugs.json pins (D-B1) */
   slugByRef: Map<string, string>;
+  /**
+   * PRIVATE (A24): the origin key (`loc:<id>`, `proto:<id>`) of every page with no capture record -> its `place/<slug>` ref. Only the
+   * slug snapshot dump reads it, to maintain the private origin keys file; nothing served or published may.
+   */
+  originRefs: Map<string, string>;
   /** merged record ref -> the surviving page's ref (`same_place_as`): what the registry's `places.merged` pins (R-1) */
   mergedRefs: Map<string, string>;
+}
+
+/** The private origin keys (A24): which `place/<slug>` ref a wishlist or prototype page holds. A root without the file mints them. */
+export function readOriginKeys(root: string): OriginKeys {
+  const file = path.join(root, ORIGIN_KEYS_PATH);
+  return existsSync(file) ? parseOriginKeys(readFileSync(file, 'utf8')) : emptyOriginKeys();
 }
 
 /** The pinned slug registry (D-B1). A root without one (a test fixture) assigns every slug as before the registry. */
@@ -440,13 +451,18 @@ export function buildPlaces(src: Sources): PlaceBuild {
   const isSeed = (r: Rec) => !!r.captureRef && seedOf.has(r.captureRef);
 
   // ---- slugs: the pages that existed before keep theirs; the seeds fill free names ----
-  // the identity key is the page's ref (D-B2); `order` keeps the key form of before the registry, so an empty registry gives the same slugs
-  const refOf = (r: Rec): string => r.captureRef ?? (r.locationId ? `loc:${r.locationId}` : `proto:${r.protoId}`);
-  const orderOf = (r: Rec): string => (r.captureRef ? `trail:${r.captureRef}` : refOf(r));
+  // the identity key is the page's ref (D-B2): the capture ref, else the `place/<slug>` the private origin keys pin (A24). An origin not
+  // pinned yet is assigned under its origin key, in memory only, and its ref is minted from the slug it gets. `order` keeps the key form
+  // of before the registry, so an empty registry gives the same slugs.
+  const originOf = (r: Rec): string => (r.locationId ? `loc:${r.locationId}` : `proto:${r.protoId}`);
+  const origins = readOriginKeys(src.root).keys;
+  const keyOf = (r: Rec): string => r.captureRef ?? origins[originOf(r)] ?? originOf(r);
+  const orderOf = (r: Rec): string => (r.captureRef ? `trail:${r.captureRef}` : originOf(r));
   const registry = readSlugRegistry(src.root);
-  const slugs = assignPlaceSlugs(recs.filter((r) => !isSeed(r)).map((r) => ({ key: refOf(r), order: orderOf(r), name: r.name, areaSlug: r.areaChain[2]?.slug ?? '' })), registry);
+  const slugs = assignPlaceSlugs(recs.filter((r) => !isSeed(r)).map((r) => ({ key: keyOf(r), order: orderOf(r), name: r.name, areaSlug: r.areaChain[2]?.slug ?? '' })), registry);
   const seedSlugs = assignSeedSlugs([...seedOf.values()], new Set(slugs.values()), registry);
-  const slugOf = (r: Rec): string => (isSeed(r) ? seedSlugs.get(r.captureRef!)! : slugs.get(refOf(r))!);
+  const slugOf = (r: Rec): string => (isSeed(r) ? seedSlugs.get(r.captureRef!)! : slugs.get(keyOf(r))!);
+  const refOf = (r: Rec): string => r.captureRef ?? origins[originOf(r)] ?? placeRefOf(slugOf(r));
   const duplicateRedirects = merged.pairs.map((m) => ({ from: `/places/${seedSlugs.get(m.seed.ref)!}/`, slug: slugOf(m.survivor), seed: m.seed }));
 
   applyLegacySupersedes(recs, publicWorld(src.root), normName);
@@ -503,8 +519,10 @@ export function buildPlaces(src: Sources): PlaceBuild {
     if (now && bySlug.has(now)) legacyPaths.set(`/places/${slug}/`, now);
   }
   const refBySlug = new Map(recs.map((r) => [slugOf(r), refOf(r)]));
-  const slugByRef = new Map<string, string>([...slugs, ...seedSlugs]);
+  const slugByRef = new Map<string, string>([...recs.filter((r) => !isSeed(r)).map((r): [string, string] => [refOf(r), slugOf(r)]), ...seedSlugs]);
   const mergedRefs = new Map(merged.pairs.map((m) => [m.seed.ref, refOf(m.survivor)]));
+  const originRefs = new Map(recs.filter((r) => !r.captureRef).map((r) => [originOf(r), refOf(r)]));
+  assertRefsDistinct(refBySlug, slugByRef, byCaptureRef);
   const byName = new Map<string, string[]>();
   const skipName = new Set([...notByName].map((ref) => byCaptureRef.get(ref)));
   const altNames = new Map(recs.map((r) => [slugOf(r), r.altNames ?? []]));
@@ -526,7 +544,26 @@ export function buildPlaces(src: Sources): PlaceBuild {
   for (const m of duplicateRedirects) {
     for (const n of [m.seed.name, ...m.seed.names]) addName(n, m.slug);
   }
-  return { places, bySlug, byProtoId, byLocationId, byCaptureRef, byName, legacyPaths, seedSkips: sb.skipped, refBySlug, slugByRef, mergedRefs };
+  return { places, bySlug, byProtoId, byLocationId, byCaptureRef, byName, legacyPaths, seedSkips: sb.skipped, refBySlug, slugByRef, mergedRefs, originRefs };
+}
+
+/**
+ * A24's invariants, checked on every build: one ref per page and one page per ref (a `place/<slug>` ref is never the capture ref of
+ * another page, nor of a merged record), and no private origin key as a ref. A failure names slugs and refs, never an origin key.
+ */
+function assertRefsDistinct(refBySlug: Map<string, string>, slugByRef: Map<string, string>, byCaptureRef: Map<string, string>): void {
+  const problems: string[] = [];
+  const pageOf = new Map<string, string>();
+  for (const [slug, ref] of refBySlug) {
+    if (/^(?:loc|proto):/.test(ref)) problems.push(`${slug}: its ref is a private origin key`);
+    const had = pageOf.get(ref);
+    if (had) problems.push(`${had} and ${slug} share the ref ${ref}`);
+    pageOf.set(ref, slug);
+    const capturePage = byCaptureRef.get(ref);
+    if (capturePage !== undefined && capturePage !== slug) problems.push(`${slug}: its ref ${ref} is the capture ref of ${capturePage}`);
+    if (slugByRef.get(ref) !== slug) problems.push(`${slug}: the ref ${ref} pins ${slugByRef.get(ref) ?? 'no slug'}`);
+  }
+  if (problems.length) throw new Error(`place refs are not distinct (store.ts A24): ${problems.join('; ')}`);
 }
 
 let shellsLogged = false;

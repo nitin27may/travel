@@ -172,6 +172,8 @@ function householdLeaks(root: string): string[] {
     const near = homePoints(text).length;
     if (near) add(`${near} point(s) within the home exclusion radius`);
     if (name.startsWith('_next/static/')) continue;
+    // store.ts A24: a ref names no wishlist or prototype origin (client chunks are skipped: minified code writes `{loc:e}`)
+    if (/\b(?:loc|proto):[^\s"]/.test(text)) add('a wishlist or prototype origin key (loc:, proto:)');
     if (/planned as/i.test(text)) add('"Planned as"');
     if (/hotel idea/i.test(text)) add('"Hotel idea"');
     if (/"(?:summary|note|subtitle|standfirst)":"[^"]*https?:\/\//.test(text)) add('a URL inside a summary');
@@ -221,6 +223,7 @@ describe('no household notes, home town or dates in any public file', () => {
     expect(homePoints(`{"lat":${close.lat.toFixed(4)},"lon":${close.lon.toFixed(4)}}`)).toHaveLength(1);
     expect(homePoints('{"lat":43.6532,"lon":-79.3832}')).toHaveLength(0);
     expect(homePoints(`<trkpt lat="${close.lat.toFixed(4)}" lon="${close.lon.toFixed(4)}">`)).toHaveLength(1);
+    expect(/\b(?:loc|proto):[^\s"]/.test('{"ref":"loc:CA/AB/x"}') && !/\b(?:loc|proto):[^\s"]/.test('{"ref":"place/x","n":"wikiloc:1"}')).toBe(true);
     expect(nearHome(far.lat, far.lon)).toBe(false);
   });
   it('lists a place used by two public trips with both counted (fixture visits)', () => {

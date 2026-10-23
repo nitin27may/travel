@@ -2,7 +2,7 @@
 // until META-2 builds the towns layer, `near`, `towns` and a `city=` query answer `not_available` (contract cases K3, K4, K5, K15,
 // K17 are pending with the task that fills them).
 import { z } from "zod";
-import { apiRef, apiSlug, apiTownId, paged } from "./common.ts";
+import { apiPlaceRef, apiSlug, apiTownId, paged } from "./common.ts";
 import { PLACE_KINDS, placeQuery, placeRow } from "./place.ts";
 
 /** Eight compass points, from the centre to the place (nearby spec 5.1). */
@@ -102,7 +102,7 @@ export const townList = z.strictObject({ items: z.array(town), truncated: z.bool
 
 /** One place of the "Around here" block: the fields a card already shows (P8 allowlist). */
 export const nearbyItem = z.strictObject({
-  ref: apiRef,
+  ref: apiPlaceRef,
   slug: apiSlug,
   name: z.string(),
   kind: z.enum(PLACE_KINDS),
@@ -120,7 +120,7 @@ export const nearbyItem = z.strictObject({
  * no point or an approximate one (`state`), and approximate neighbours are never listed (case K17).
  */
 export const nearbyBlock = z.strictObject({
-  ref: apiRef,
+  ref: apiPlaceRef,
   slug: apiSlug,
   state: z.enum(["ok", "no_point", "approx_point"]),
   radius: z.number().positive(),

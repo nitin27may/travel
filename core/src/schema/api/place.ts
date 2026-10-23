@@ -2,7 +2,7 @@
 // (EXECUTION-PLAN 4.2; schema diff 13.1 items 1 to 5).
 import { z } from "zod";
 import { API_LIMITS } from "./limits.ts";
-import { apiCountry, apiPoint, apiRef, apiSlug } from "./common.ts";
+import { apiCountry, apiPlaceRef, apiPoint, apiRef, apiSlug } from "./common.ts";
 import { apiAnyVal, apiCitation, apiSourceId } from "./val.ts";
 
 // ---- vocabularies the public model uses (web/lib/public/types.ts holds the same lists; web typecheck ties them, see rows.ts) ----
@@ -78,7 +78,7 @@ export const placeListRow = z.strictObject(placeListRowShape);
  * is a centroid or a guess, so a map draws it as approximate, T5), and nothing else: these 43 keys are the allowlist `respond()` checks
  * every row against (contract case K2). The shipped row gains `approx` when the list map needs it.
  */
-export const placeRow = z.strictObject({ ...placeListRowShape, ref: apiRef, approx: z.boolean() });
+export const placeRow = z.strictObject({ ...placeListRowShape, ref: apiPlaceRef, approx: z.boolean() });
 
 /** The keys of a row, in schema order: the allowlist. */
 export const PLACE_ROW_KEYS = Object.keys(placeRow.shape) as (keyof typeof placeRow.shape)[];
@@ -414,7 +414,7 @@ const relevance = z.strictObject({
  * fields `type` and `badge` ride along so a client needs no second call.
  */
 export const placeDetail = z.strictObject({
-  ref: apiRef,
+  ref: apiPlaceRef,
   slug: apiSlug,
   name: z.string(),
   kind: z.enum(PLACE_KINDS),
@@ -459,7 +459,7 @@ export const placeDetail = z.strictObject({
 });
 
 /** A retired slug (D-B1): getPlace answers the current one, and the handler answers 308 (case K9). */
-export const movedPlace = z.strictObject({ moved: apiSlug, ref: apiRef });
+export const movedPlace = z.strictObject({ moved: apiSlug, ref: apiPlaceRef });
 
 /** What getPlace returns: the detail, or where it moved. */
 export const placeLookup = z.union([placeDetail, movedPlace]);

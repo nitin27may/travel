@@ -124,10 +124,12 @@ async function countryRows(calls: ApiCalls, cc: string, d: EntityDescriptor<neve
   const first = pages[0]!;
   const more = await Promise.all(Array.from({ length: Math.max(0, Math.ceil(first.total / API_PAGE) - asked) }, (_, i) => calls.listPlaces(query, { page: asked + i + 1, pageSize: API_PAGE })));
   const rest = [...pages.slice(1), ...more];
-  // ties of the default order keep the order the rows come in; this is the order the build's rows have (pinned by tests/api/adapters.test.ts)
-  const byRefDesc = [first, ...rest].flatMap((p) => p.items).sort((a, b) => (a.ref < b.ref ? 1 : a.ref > b.ref ? -1 : 0));
+  // ties of the default order keep the order the rows come in, and the build's rows come in slug order (buildPlaces sorts the pages by
+  // slug with localeCompare), so the same pre-order gives the build's order exactly (pinned by tests/api/adapters.test.ts). Never the
+  // ref: refs are opaque ids that may change (store.ts A24), and a visible order must not hang on them.
+  const bySlug = [first, ...rest].flatMap((p) => p.items).sort((a, b) => a.slug.localeCompare(b.slug));
   // the light list row is the API row without the two keys the API adds (`ref`, `approx`)
-  const rows = byRefDesc.map((r) => {
+  const rows = bySlug.map((r) => {
     const row: Record<string, unknown> = { ...r };
     delete row.ref;
     delete row.approx;
