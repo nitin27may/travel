@@ -11,12 +11,21 @@ import { TOWN_ID_RE } from "../capture/points.ts";
 // ---- identity ------------------------------------------------------------------------------------------------------------------
 
 /**
- * The stable id of a row or detail (D-B2, owner Q74: `entity.id` is the ref). The capture ref verbatim when the page is built from a
- * capture record (`route/johnston-canyon`, `place/moraine-lake`, refs with spaces, `:` and `#` occur), otherwise the key the adapter
- * already uses: `loc:<locations id>` or `proto:<prototype id>`. Any URL that carries one encodes it.
+ * A ref inside a page model (a section, a suitability or relevance block, an access point, a payoff link): the capture or research
+ * ref the block was drawn from, verbatim. Some research refs are plain names (`Lake Louise`), so this carries length rules only.
  */
 export const REF_MAX = 160;
-export const apiRef = z.string().min(1).max(REF_MAX).meta({ description: "Stable id: the capture ref, or loc:<id> / proto:<id>" });
+export const apiRef = z.string().min(1).max(REF_MAX).meta({ description: "The capture or research ref a block was drawn from, verbatim" });
+
+/**
+ * The stable id of a row or detail (D-B2, owner Q74: `entity.id` is the ref). The capture ref verbatim when the page is built from a
+ * capture record (`route/johnston-canyon`, `part/...#centre`, `trip/<id>/sight:ragged falls`: spaces, `:` and `#` occur), otherwise
+ * `place/<slug>`, minted once from the page's first pinned slug (store.ts A24). Every page ref is a lower-case layer word, a slash, then
+ * the rest, so a ref names no private origin; the privacy detector (core/src/privacy/detect.ts) enforces the same on every body. Any URL
+ * that carries one encodes it.
+ */
+export const REF_RE = /^[a-z][a-z0-9-]*\/./;
+export const apiPlaceRef = apiRef.regex(REF_RE).meta({ description: "Stable id of a place: its capture ref (<layer>/...), or place/<slug> for a page built from no capture record" });
 
 /** A URL slug: lower-case words joined by single hyphens (patterns 1.2). */
 export const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;

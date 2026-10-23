@@ -5,8 +5,9 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  SLUG_REGISTRY_PATH, aliasKey, emptyRegistry, mergeKey, parseRegistry, registryDrift, registryText, renameSlug, updateRegistry, withdrawKey,
-  type SlugRegistry, type SlugSnapshot,
+  ORIGIN_KEYS_PATH, SLUG_REGISTRY_PATH, aliasKey, emptyOriginKeys, emptyRegistry, mergeKey, migrateOrigins, originDrift, originKeysText, parseOriginKeys,
+  parseRegistry, registryDrift, registryText, renameSlug, reoriginKey, updateOriginKeys, updateRegistry, withdrawKey,
+  type OriginKeys, type SlugRegistry, type SlugSnapshot,
 } from "../src/catalogue/slugs.ts";
 
 const USAGE = `Usage: node core/bin/slugs.ts <command> [options]
@@ -24,6 +25,13 @@ Commands:
   merge <key> <survivor>    a place merged into another page (same_place_as): its slug answers 308 to the survivor's
   withdraw <key>            a place or trip gone with no successor: its slug stays reserved and answers not_found; build restores it
                             when the record comes back
+  reorigin <old> <new>      a wishlist or prototype id changed (loc:<id>, proto:<id>): the page keeps its place/<slug> ref; edits only
+                            the PRIVATE ${ORIGIN_KEYS_PATH} (A24)
+  migrate-origins           once (REF1): rekey every loc:/proto: key of the registry to place/<slug> and move the origin to the
+                            private file; refuses to run on a registry that has none
+
+A page with no capture record has the ref place/<slug>; its origin is kept only in the private ${ORIGIN_KEYS_PATH}, which
+build and --check maintain next to the registry (store.ts A24).
 
 Options:
   --root <dir>        repository root (default: two levels above this file)
@@ -40,6 +48,17 @@ const err = (s: string): void => void process.stderr.write(`${s}\n`);
 function readRegistry(root: string): SlugRegistry | null {
   const p = join(root, SLUG_REGISTRY_PATH);
   return existsSync(p) ? parseRegistry(readFileSync(p, "utf8")) : null;
+}
+
+function readOrigins(root: string): OriginKeys {
+  const p = join(root, ORIGIN_KEYS_PATH);
+  return existsSync(p) ? parseOriginKeys(readFileSync(p, "utf8")) : emptyOriginKeys();
+}
+
+function writeOrigins(root: string, o: OriginKeys): void {
+  const p = join(root, ORIGIN_KEYS_PATH);
+  mkdirSync(dirname(p), { recursive: true });
+  writeFileSync(p, originKeysText(o));
 }
 
 function writeRegistry(root: string, reg: SlugRegistry): void {
@@ -64,15 +83,18 @@ function snapshot(root: string, argv: string[]): SlugSnapshot {
 
 function build(root: string, argv: string[]): number {
   const prev = readRegistry(root) ?? emptyRegistry();
-  const { registry, added, problems, warnings } = updateRegistry(prev, snapshot(root, argv));
+  const snap = snapshot(root, argv);
+  const { registry, added, problems, warnings } = updateRegistry(prev, snap);
+  const origins = updateOriginKeys(readOrigins(root), snap);
   for (const w of warnings) err(`WARN ${w}`);
-  if (problems.length) {
-    for (const p of problems) err(`ERROR ${p}`);
+  if (problems.length || origins.problems.length) {
+    for (const p of [...problems, ...origins.problems]) err(`ERROR ${p}`);
     err(`${SLUG_REGISTRY_PATH} not written: settle the problems above first`);
     return 1;
   }
   writeRegistry(root, registry);
-  out(`wrote ${SLUG_REGISTRY_PATH}: ${summary(registry)}; ${added.length} entries added`);
+  if (snap.origins || existsSync(join(root, ORIGIN_KEYS_PATH))) writeOrigins(root, origins.originKeys);
+  out(`wrote ${SLUG_REGISTRY_PATH}: ${summary(registry)}; ${added.length} entries added; ${origins.added} origin(s) pinned privately`);
   return 0;
 }
 
@@ -86,7 +108,9 @@ function check(root: string, argv: string[]): number {
     err(`${SLUG_REGISTRY_PATH} does not exist; run: node core/bin/slugs.ts build`);
     return 1;
   }
-  const { drift, warnings } = registryDrift(reg, snapshot(root, argv));
+  const snap = snapshot(root, argv);
+  const { drift: regDrift, warnings } = registryDrift(reg, snap);
+  const drift = [...regDrift, ...originDrift(readOrigins(root), snap, reg)];
   for (const w of warnings) err(`WARN ${w}`);
   if (drift.length) {
     for (const d of drift) err(`DRIFT ${d}`);
@@ -118,6 +142,27 @@ export function main(argv: string[]): number {
     if (cmd === "alias" && rest.length === 3) return edit(root, (r) => aliasKey(r, rest[1]!, rest[2]!), `${rest[2]} carries the slug of ${rest[1]}`);
     if (cmd === "merge" && rest.length === 3) return edit(root, (r) => mergeKey(r, rest[1]!, rest[2]!), `${rest[1]} is merged into ${rest[2]}; its slug answers 308`);
     if (cmd === "withdraw" && rest.length === 2) return edit(root, (r) => withdrawKey(r, rest[1]!), `${rest[1]} is withdrawn; its slug stays reserved`);
+    if (cmd === "reorigin" && rest.length === 3) {
+      writeOrigins(root, reoriginKey(readOrigins(root), rest[1]!, rest[2]!));
+      out(`the page keeps its ref under the new origin (${ORIGIN_KEYS_PATH}); run \`node core/bin/slugs.ts --check\``);
+      return 0;
+    }
+    if (cmd === "migrate-origins" && rest.length === 1) {
+      const reg = readRegistry(root);
+      if (!reg) {
+        err(`${SLUG_REGISTRY_PATH} does not exist`);
+        return 1;
+      }
+      const m = migrateOrigins(reg, readOrigins(root));
+      if (m.moved === 0) {
+        err("the registry holds no origin key: nothing to migrate");
+        return 1;
+      }
+      writeRegistry(root, m.registry);
+      writeOrigins(root, m.originKeys);
+      out(`rekeyed ${m.moved} origin keys to place/<slug>; their origins are in ${ORIGIN_KEYS_PATH} (A24)`);
+      return 0;
+    }
   } catch (e) {
     err(e instanceof Error ? e.message : String(e));
     return 1;

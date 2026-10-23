@@ -8,11 +8,17 @@ import { everyDetail } from "./getPlace.cases.ts";
 export const householdCases: ContractCase[] = [
   {
     id: "K7",
-    title: "no household string or private key in the output of any method, every export format included",
+    title: "no household string, private key or wishlist origin (loc:, proto:) in the output of any method, every export format included",
     method: "all",
     async run(store, t) {
       const hits: string[] = [];
-      const scan = (out: unknown, where: string) => hits.push(...householdHits(out, where));
+      // A24: besides the detector (which reports a private origin key as a hit), every output's JSON text is searched for `loc:` and
+      // `proto:` directly, so a store cannot hide an origin key from the walk (in a key, an escaped string or an export body)
+      const origin: string[] = [];
+      const scan = (out: unknown, where: string) => {
+        hits.push(...householdHits(out, where));
+        if (/\b(?:loc|proto):/.test(JSON.stringify(out) ?? "")) origin.push(where);
+      };
       const places = await allRows<PlaceRow>((n) => store.listPlaces({}, { page: n, pageSize: API_LIMITS.pageSize.max }));
       scan(places, "listPlaces");
       scan(await everyDetail(store), "getPlace");
@@ -40,6 +46,11 @@ export const householdCases: ContractCase[] = [
         for (const tr of trips) scan(expectOk(await store.getExport({ type: "trip", slug: tr.slug, format })), `getExport ${tr.slug} ${format}`);
       }
       expect(hits).toEqual([]);
+      expect(origin, "a wishlist or prototype origin key (loc:, proto:) in a served body (A24)").toEqual([]);
+      // the scan is live: a planted origin ref is found, as a value and as a map key, and a place/<slug> ref is not
+      expect(householdHits({ items: [{ ref: "loc:CA/AB/x/y" }] }, "probe").length).toBe(1);
+      expect(householdHits({ refSlugs: { "proto:x": "x" } }, "probe").length).toBe(1);
+      expect(householdHits({ items: [{ ref: "place/lake-louise" }] }, "probe")).toEqual([]);
       // the scan is live: a planted household string is found
       expect(householdHits({ notes: "Hotel idea near the lake" }, "probe").length).toBe(1);
       // the owner's save metadata is a private key (PRIV1): a store that emits it fails

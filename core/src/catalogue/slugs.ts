@@ -9,6 +9,11 @@
 // 308 to the survivor, and `withdraw` tombstones a key that is gone (its slug stays reserved and answers not_found). Trips have their
 // own space with the same rules. The registry is read by the dataset builder and the stores, never served.
 //
+// Origin keys (store.ts A24, REF1): a page with no capture record comes from the owner's wishlist or the old prototype. Its key, and so
+// its public `ref`, is `place/<slug>`, minted from the slug it got when it was first pinned. Its origin (`loc:<locations id>` or
+// `proto:<prototype id>`) is linked to that ref ONLY in the private file ORIGIN_KEYS_PATH, next to the wishlist itself; the registry
+// may be published, so `registryProblems` refuses any origin key in it, and `aliasKey` never writes one into `formerKeys`.
+//
 // Pure: no file system here. The reader lives with the builder (web/lib/public/places.ts) and core/bin/slugs.ts.
 import { z } from "zod";
 import { SLUG_RE } from "../schema/api/common.ts";
@@ -28,7 +33,10 @@ export function kebab(s: string): string {
 }
 
 export interface SlugInput {
-  /** the identity key: the page's `ref` (D-B2): a capture ref, `loc:<id>` or `proto:<id>` */
+  /**
+   * the identity key: the page's `ref` (D-B2, A24): a capture ref or a pinned `place/<slug>`. A wishlist or prototype page that is not
+   * pinned yet passes its private origin key here; it never leaves the builder (the ref is minted from the slug this returns).
+   */
   key: string;
   name: string;
   areaSlug: string;
@@ -57,6 +65,15 @@ export const SLUG_REGISTRY_PATH = "data/catalogue/slugs.json";
 export const REGION_KEY_RE = /^[a-z]{2}\/[a-z0-9]+(?:-[a-z0-9]+)*$/;
 /** The key of a trip: `trip/<trip id>` (store.ts A4). Place keys under a trip carry more segments (`trip/<id>/<kind>:<name>`). */
 export const TRIP_KEY_RE = /^trip\/[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+/**
+ * A private origin key: where a page with no capture record came from (`loc:<locations id>`, `proto:<prototype id>`). It names the
+ * owner's wishlist, so it lives only in ORIGIN_KEYS_PATH and in the builder's memory (A24).
+ */
+export const ORIGIN_KEY_RE = /^(?:loc|proto):\S/;
+/** The ref of a page with no capture record: `place/<the slug it was first pinned with>` (A24). */
+export const PLACE_REF_RE = /^place\/[a-z0-9]+(?:-[a-z0-9]+)*$/;
+export const placeRefOf = (slugIn: string): string => `place/${slugIn}`;
 
 const slug = z.string().regex(SLUG_RE);
 const key = z.string().min(1);
@@ -111,11 +128,29 @@ export function reservedSlugs(reg: SlugRegistry, space: SpaceName = "places"): S
   return new Set([...Object.values(s.slugs), ...Object.keys(s.retired), ...Object.values(s.withdrawn)]);
 }
 
+/** The sections of a registry that hold a private origin key, once per key (A24). Empty for a registry that may be published. */
+function originKeysIn(reg: SlugRegistry): string[] {
+  const hits: string[] = [];
+  const isOrigin = (k: string) => ORIGIN_KEY_RE.test(k);
+  for (const name of ["places", "trips"] as const) {
+    const s = reg[name];
+    for (const k of Object.keys(s.slugs)) if (isOrigin(k)) hits.push(`${name}.slugs`);
+    for (const k of Object.values(s.retired)) if (isOrigin(k)) hits.push(`${name}.retired`);
+    for (const [k, v] of Object.entries(s.merged)) if (isOrigin(k) || isOrigin(v)) hits.push(`${name}.merged`);
+    for (const k of Object.keys(s.withdrawn)) if (isOrigin(k)) hits.push(`${name}.withdrawn`);
+  }
+  for (const [k, v] of Object.entries(reg.formerKeys)) if (isOrigin(k) || isOrigin(v)) hits.push("formerKeys");
+  return hits;
+}
+
 /** Problems inside the registry itself. Empty when it is consistent. */
 export function registryProblems(reg: SlugRegistry): string[] {
   const parsed = slugRegistry.safeParse(reg);
   if (!parsed.success) return parsed.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`);
   const out: string[] = [];
+  // A24: the registry may be published, so it never holds a private origin key (the message names where, never the key)
+  const origin = originKeysIn(reg);
+  if (origin.length) out.push(`${origin.length} private origin key(s) (loc/proto) in ${[...new Set(origin)].join(", ")}: run \`node core/bin/slugs.ts migrate-origins\` (A24)`);
   for (const name of ["places", "trips"] as const) {
     const s = reg[name];
     const owner = new Map<string, string>();
@@ -301,6 +336,11 @@ export interface SlugSnapshot {
   /** every trip key (`trip/<id>`) -> its slug */
   trips: Record<string, string>;
   regions: Record<string, { name: string; aliases: string[] }>;
+  /**
+   * PRIVATE: every origin key of a page with no capture record -> the `place/<slug>` ref the builder gave it (A24). The snapshot file is
+   * local (web/.generated, gitignored); only ORIGIN_KEYS_PATH keeps this section.
+   */
+  origins?: Record<string, string>;
 }
 
 const sortedRecord = <V>(r: Record<string, V>): Record<string, V> =>
@@ -316,7 +356,8 @@ function missingKeys(reg: SlugRegistry, snap: SlugSnapshot): string[] {
   for (const [name, now] of [["places", snap.places], ["trips", snap.trips]] as const) {
     for (const [k, sl] of Object.entries(reg[name].slugs)) {
       if (k in now) continue;
-      out.push(`${k} (slug ${sl}) has no record any more: run \`node core/bin/slugs.ts alias ${JSON.stringify(k)} <new-key>\` for an identity change, \`merge\` for a merge, or \`withdraw\` when it is gone for good`);
+      const origin = PLACE_REF_RE.test(k) ? ` (for a wishlist or prototype page whose id changed: \`reorigin <old origin key> <new origin key>\`)` : "";
+      out.push(`${k} (slug ${sl}) has no record any more: run \`node core/bin/slugs.ts alias ${JSON.stringify(k)} <new-key>\` for an identity change${origin}, \`merge\` for a merge, or \`withdraw\` when it is gone for good`);
     }
   }
   return out;
@@ -434,6 +475,8 @@ export function renameSlug(reg: SlugRegistry, k: string, newSlug: string): SlugR
  * The old key is remembered in `formerKeys`, so an old ref still resolves (R-2); chains are collapsed.
  */
 export function aliasKey(reg: SlugRegistry, oldKey: string, newKey: string): SlugRegistry {
+  // A24: an origin key never enters the registry, and so never formerKeys; an origin id that changed is `reoriginKey`
+  for (const k of [oldKey, newKey]) if (ORIGIN_KEY_RE.test(k)) throw new Error("a private origin key (loc/proto) cannot be a registry key: use reorigin for a wishlist or prototype id that changed (A24)");
   const space = need(reg, oldKey);
   if (spaceOf(reg, newKey)) throw new Error(`${newKey} has a slug already; rename one of them first`);
   const s = reg[space];
@@ -486,4 +529,126 @@ export function registryText(reg: SlugRegistry): string {
 /** Parses the file text; throws with the schema's own message on a malformed registry. */
 export function parseRegistry(text: string): SlugRegistry {
   return slugRegistry.parse(JSON.parse(text));
+}
+
+// ---- the private origin keys (A24) ----------------------------------------------------------------------------------------------
+
+export const ORIGIN_KEYS_SCHEMA = "catalogue-origin-keys/1";
+/**
+ * Repository-relative path of the private origin keys: next to the wishlist store, which holds the same fact, and never read by a
+ * served route, never published, never copied into the registry.
+ */
+export const ORIGIN_KEYS_PATH = "data/locations/page-keys.json";
+export const ORIGIN_KEYS_NOTE =
+  "PRIVATE (store.ts A24). The origin of every place page with no capture record (loc:<locations id>, proto:<prototype id>) -> its public ref place/<slug>. Read only by the dataset builder; never served, never published, never copied into data/catalogue/slugs.json. Change it only with node core/bin/slugs.ts (build, reorigin, migrate-origins).";
+
+export const originKeys = z.strictObject({
+  schema: z.literal(ORIGIN_KEYS_SCHEMA),
+  note: z.string().optional(),
+  /** origin key -> the `place/<slug>` ref minted for it; never changes once written (a rename keeps the ref, A24) */
+  keys: z.record(z.string().regex(ORIGIN_KEY_RE), z.string().regex(PLACE_REF_RE)),
+});
+export type OriginKeys = z.infer<typeof originKeys>;
+
+export const emptyOriginKeys = (): OriginKeys => ({ schema: ORIGIN_KEYS_SCHEMA, note: ORIGIN_KEYS_NOTE, keys: {} });
+
+export function parseOriginKeys(text: string): OriginKeys {
+  return originKeys.parse(JSON.parse(text));
+}
+
+export function originKeysText(o: OriginKeys): string {
+  return `${JSON.stringify({ schema: o.schema, note: o.note ?? ORIGIN_KEYS_NOTE, keys: sortedRecord(o.keys) }, null, 1)}\n`;
+}
+
+/**
+ * Problems between the origin keys and the registry: two origins sharing one ref, and a ref the registry does not hold (pinned,
+ * withdrawn, merged, or a former key after `alias`). Messages name refs, never origin keys, so a log line cannot leak one.
+ */
+export function originProblems(o: OriginKeys, reg: SlugRegistry): string[] {
+  const out: string[] = [];
+  const parsed = originKeys.safeParse(o);
+  if (!parsed.success) return parsed.error.issues.map((i) => `origin keys ${i.path.length > 1 ? "entry" : i.path.join(".")}: ${i.message}`);
+  const seen = new Set<string>();
+  for (const ref of Object.values(o.keys)) {
+    if (seen.has(ref)) out.push(`origin keys: two origins share the ref ${ref}`);
+    seen.add(ref);
+    if (spaceOf(reg, ref) !== "places" && !(ref in reg.formerKeys)) out.push(`origin keys: ${ref} is not a place key of the registry`);
+  }
+  return out;
+}
+
+/** The origin keys after a build: every new origin pinned to the ref the builder minted; an origin pinned to another ref is a problem. */
+export function updateOriginKeys(prev: OriginKeys, snap: SlugSnapshot): { originKeys: OriginKeys; added: number; problems: string[] } {
+  const keys = { ...prev.keys };
+  const problems: string[] = [];
+  let added = 0;
+  for (const [origin, ref] of Object.entries(snap.origins ?? {})) {
+    if (!ORIGIN_KEY_RE.test(origin) || !PLACE_REF_RE.test(ref)) problems.push(`the builder gave an origin a ref that is not place/<slug>: ${ref}`);
+    else if (keys[origin] === undefined) {
+      keys[origin] = ref;
+      added++;
+    } else if (keys[origin] !== ref) problems.push(`the builder gave ${ref} to an origin pinned to ${keys[origin]}`);
+  }
+  return { originKeys: { schema: ORIGIN_KEYS_SCHEMA, note: prev.note ?? ORIGIN_KEYS_NOTE, keys: sortedRecord(keys) }, added, problems };
+}
+
+/** Drift between the origin keys and the builder (`slugs.ts --check`): an origin not pinned yet, or pinned to another ref. */
+export function originDrift(o: OriginKeys, snap: SlugSnapshot, reg: SlugRegistry): string[] {
+  const out = [...originProblems(o, reg)];
+  for (const [origin, ref] of Object.entries(snap.origins ?? {})) {
+    if (o.keys[origin] === undefined) out.push(`the origin of ${ref} is not pinned in ${ORIGIN_KEYS_PATH}: run \`node core/bin/slugs.ts build\``);
+    else if (o.keys[origin] !== ref) out.push(`the builder gives ${ref} to an origin pinned to ${o.keys[origin]}`);
+  }
+  return out;
+}
+
+/**
+ * `reorigin <old origin key> <new origin key>`: a wishlist or prototype id changed (an area moved, a prototype id renamed); the page
+ * keeps its ref and its slug. The private counterpart of `alias`, which never touches the registry.
+ */
+export function reoriginKey(o: OriginKeys, oldKey: string, newKey: string): OriginKeys {
+  const ref = o.keys[oldKey];
+  if (ref === undefined) throw new Error("the old origin key is not pinned");
+  if (!ORIGIN_KEY_RE.test(newKey)) throw new Error("the new origin key must start loc: or proto:");
+  if (o.keys[newKey] !== undefined) throw new Error(`the new origin key is pinned already (to ${o.keys[newKey]})`);
+  const keys = { ...o.keys, [newKey]: ref };
+  delete keys[oldKey];
+  return { ...o, keys: sortedRecord(keys) };
+}
+
+/**
+ * `migrate-origins` (REF1, once): every origin key of the registry is rekeyed to `place/<its slug>` and moved to the origin keys. No
+ * formerKeys entry is written: the old refs were only ever in responses of an API that was never deployed, and a former key would
+ * publish the fact the rekey hides (A24). Refuses when a `place/<slug>` ref is a key already.
+ */
+export function migrateOrigins(reg: SlugRegistry, prev: OriginKeys = emptyOriginKeys()): { registry: SlugRegistry; originKeys: OriginKeys; moved: number } {
+  const map = new Map<string, string>();
+  for (const name of ["places", "trips"] as const) {
+    for (const [k, sl] of [...Object.entries(reg[name].slugs), ...Object.entries(reg[name].withdrawn)]) {
+      if (!ORIGIN_KEY_RE.test(k)) continue;
+      if (name !== "places") throw new Error("an origin key in the trips space");
+      const ref = placeRefOf(sl);
+      if (spaceOf(reg, ref) || ref in reg.formerKeys) throw new Error(`${ref} is a registry key already`);
+      map.set(k, ref);
+    }
+  }
+  for (const [k, v] of Object.entries(reg.formerKeys)) if (ORIGIN_KEY_RE.test(k) || (ORIGIN_KEY_RE.test(v) && !map.has(v))) throw new Error("formerKeys holds an origin key with no slug: settle it by hand first");
+  const swap = (k: string) => map.get(k) ?? k;
+  const s = reg.places;
+  const places = sortedSpace({
+    slugs: Object.fromEntries(Object.entries(s.slugs).map(([k, v]) => [swap(k), v])),
+    retired: Object.fromEntries(Object.entries(s.retired).map(([sl, k]) => [sl, swap(k)])),
+    merged: Object.fromEntries(Object.entries(s.merged).map(([k, v]) => [swap(k), swap(v)])),
+    withdrawn: Object.fromEntries(Object.entries(s.withdrawn).map(([k, v]) => [swap(k), v])),
+  });
+  const formerKeys = sortedRecord(Object.fromEntries(Object.entries(reg.formerKeys).map(([k, v]) => [k, swap(v)])));
+  const keys = { ...prev.keys };
+  for (const [origin, ref] of map) {
+    if (keys[origin] !== undefined && keys[origin] !== ref) throw new Error(`an origin is pinned to ${keys[origin]} already, not ${ref}`);
+    keys[origin] = ref;
+  }
+  const registry: SlugRegistry = { ...reg, places, formerKeys };
+  const problems = registryProblems(registry);
+  if (problems.length) throw new Error(problems.join("; "));
+  return { registry, originKeys: { schema: ORIGIN_KEYS_SCHEMA, note: prev.note ?? ORIGIN_KEYS_NOTE, keys: sortedRecord(keys) }, moved: map.size };
 }
