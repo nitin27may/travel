@@ -1,3 +1,4 @@
+import { retiredSlugs } from '@/lib/server/moved';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import PlaceRoute, * as route from '@/app/places/[slug]/page';
@@ -17,8 +18,11 @@ const html = (slug: string): string => {
 
 describe('the place route', () => {
   it('builds one page per place slug, nothing else, and no placeholder', () => {
-    expect(route.generateStaticParams().map((p) => p.slug)).toEqual(data.placeSlugs());
-    expect(route.generateStaticParams().some((p) => p.slug === 'stub')).toBe(false);
+    // the pages, then the slugs that redirect to one (a retired or merged slug answers 308 on the server build, audit GB-B-4)
+    const slugs = route.generateStaticParams().map((p) => p.slug);
+    expect(slugs.slice(0, data.placeSlugs().length)).toEqual(data.placeSlugs());
+    expect(slugs.slice(data.placeSlugs().length)).toEqual(retiredSlugs('places'));
+    expect(slugs.some((s) => s === 'stub')).toBe(false);
     expect(route.dynamicParams).toBe(false);
   });
   it('renders through the route and sets metadata from the place', async () => {

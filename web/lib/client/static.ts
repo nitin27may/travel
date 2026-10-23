@@ -196,12 +196,21 @@ export async function globePins(scope: GlobeScope = {}): Promise<LightPin[]> {
 }
 
 /** The card and pin behind one `kind:slug` key, or null when it is not on the globe. Cached per page view. */
+/**
+ * The site never reads a photo from Commons in the browser. The build's image step rewrites a card's photo to a rendition; a build that
+ * skipped it (a static-fallback build made with `next build` alone) would leave the Commons URL, which a card then leaves out (audit G-B).
+ */
+export function noHotlink(file: GlobeCardFile | null): GlobeCardFile | null {
+  if (!file?.card.image || !/^https?:\/\//.test(file.card.image.url)) return file;
+  return { ...file, card: { ...file.card, image: null } };
+}
+
 export function globeCard(key: string): Promise<GlobeCardFile | null> {
   const [kind, slug] = key.split(':');
   if ((kind !== 'place' && kind !== 'trip') || !slug) return Promise.resolve(null);
   let p = cardPromises.get(key);
   if (!p) {
-    p = getJson<GlobeCardFile | null>(`/globe-data/card/${kind}/${encodeURIComponent(slug)}/data.json`).catch(() => {
+    p = getJson<GlobeCardFile | null>(`/globe-data/card/${kind}/${encodeURIComponent(slug)}/data.json`).then(noHotlink).catch(() => {
       cardPromises.delete(key);
       return null;
     });
