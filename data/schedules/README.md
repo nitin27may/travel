@@ -7,7 +7,8 @@ plan chose, a booked slot, a rejoin point, a leg the plan states. A trip with no
 
 ```
 data/schedules/<trip-slug>.json         overrides, schema trip-schedule/1
-data/schedules/legs/<trip-slug>.json    stored road times, schema trip-legs/1 (written by web/scripts/legs-ors.mjs)
+data/schedules/legs/<trip-slug>.json    stored road times and route lines, schema trip-legs/2 (written by web/scripts/legs-ors.mjs)
+data/schedules/legs/<trip-slug>.unrouted.json   pairs the script could not draw as a route, with the reason (same script)
 ```
 
 Both are read by `web/lib/public/timeline.ts` at build time. They are never published as files; the timelines built from them are.
@@ -69,21 +70,44 @@ means "the same site": no leg is drawn. A pair with no leg here falls back to th
 Times are suggestions unless `confidence` is `fixed`. An authored time is `suggested` with source `plan` and is pinned: the
 scheduler bends the day around it. Sun-relative times are `anchored`.
 
-## `trip-legs/1`
+## `trip-legs/2`
+
+Written only by `web/scripts/legs-ors.mjs`, never by hand. `trip-legs/1` (no geometry) is still read.
 
 ```jsonc
 {
-  "schema": "trip-legs/1",
+  "schema": "trip-legs/2",
   "trip": "dolomites-2027",
-  "fetched": "2026-10-18",                    // the only date in these files: the header, for the attribution
-  "attribution": "Road times from OpenRouteService (openrouteservice.org), route data from OpenStreetMap contributors (ODbL).",
-  "legs": [ { "from": "san-candido", "to": "tre-cime", "profile": "driving-car", "mode": "drive", "km": 30.7, "minutes": 48 } ]
+  "fetched": "2026-10-23",                    // the only date in these files: the header, for the attribution
+  "attribution": "Road times and route lines from OpenRouteService (openrouteservice.org), route data from OpenStreetMap contributors (ODbL).",
+  "simplifiedM": 30,                          // Douglas-Peucker tolerance of every geometry, in metres
+  "legs": [ { "from": "san-candido", "to": "tre-cime", "profile": "driving-car", "mode": "drive", "km": 30.7, "minutes": 48,
+              "geometry": "_p~iF~ps|U..." } ]  // Google encoded polyline, precision 5; at most 40,000 characters a leg, 400 legs a trip
 }
 ```
 
-`from` and `to` are prototype place ids. The pairs are the consecutive stops of every day and variant (`web/lib/public/legs-pairs.ts`);
-each ends at the place's trailhead or first car park when the data has one. Fill and check the cache with `web/scripts/legs-ors.mjs`
-(see its header). The build never calls OpenRouteService, and the key never leaves the `Authorization` header.
+`from` and `to` are the file's pair keys: a prototype place id for the Dolomites, a day item id for the Rockies, a base id for a base. The
+pairs are the consecutive stops of every day and variant of the trip route model, asked the way the store asks (`web/scripts/legs/pairs.ts`),
+and each ends at the place's trailhead or first car park when the data has one, so a route can stop short of its pin (the map draws a dashed
+stub for the rest). The API serves the legs under the public stop keys (`GET /api/v1/trips/{slug}/legs/`), never these keys.
+
+`<trip>.unrouted.json` (`trip-legs-unrouted/1`) lists the pairs that get no route and why: `no road or path within reach of a stop` (a
+boat trip, a viewpoint off the network) or `the route is over 5 times the straight line` (a closed road or a wrong pin). The map draws those as
+the dashed estimate. `--check` accepts a missing pair only when it is listed there.
+
+```
+node web/scripts/legs-ors.mjs                  fetch the missing pairs of every trip with a schedule (needs ORS_API_KEY)
+node web/scripts/legs-ors.mjs --trip <slug>    one trip
+node web/scripts/legs-ors.mjs --check          no network, no key: schema, caps, pair coverage, nothing within the household radius
+node web/scripts/legs-ors.mjs --list           the pairs and how many are in the file
+node web/scripts/legs-ors.mjs --refetch        ask again for every pair (bypasses tools/.cache/legs-ors)
+node web/scripts/legs-ors.mjs --key-file <p>   read ORS_API_KEY from that file instead of web/.env.local
+```
+
+The key comes from `ORS_API_KEY` in the environment or `web/.env.local`; it goes only in the `Authorization` header to the ORS host and is
+never printed, cached or written to a data file. Requests are sequential, at most 28 a minute, one per missing pair; responses are cached
+under `tools/.cache/legs-ors/` (gitignored). A leg whose line passes within the household radius is written without geometry and only the
+count is printed. The build never calls OpenRouteService. `web/tests/data/legs-files.test.ts` runs `--check` in the unit gate.
 
 ## Not placed
 
