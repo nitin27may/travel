@@ -1,4 +1,4 @@
-import type { GLatLngLiteral, GMap, GMarker, GPolyline, GoogleMapsApi } from './google-js/types';
+import type { GLatLngLiteral, GMap, GPadding, GMarker, GPolyline, GoogleMapsApi } from './google-js/types';
 
 /** Records every call so the Google families are testable without a key or a network. */
 export class FakeGoogle {
@@ -7,6 +7,9 @@ export class FakeGoogle {
   markers: GMarker[] = [];
   polylines: Record<string, unknown>[] = [];
   loads = 0;
+  /** Map listeners by event name; `emit('idle')` runs them. */
+  listeners: Record<string, (() => void)[]> = {};
+  emit(ev: string): void { (this.listeners[ev] ?? []).forEach((f) => f()); }
 
   private rec(fn: string, ...args: unknown[]) { this.calls.push({ fn, args }); }
 
@@ -24,8 +27,11 @@ export class FakeGoogle {
       setZoom(z: number) { self.rec('setZoom', z); this.z = z; }
       getZoom() { return this.z; }
       getCenter() { return { lat: () => this.c.lat, lng: () => this.c.lng }; }
-      fitBounds(b: unknown, padding?: number) { self.rec('fitBounds', b, padding); }
-      addListener(ev: string) { self.rec('addListener', ev); return { remove: () => undefined }; }
+      fitBounds(b: unknown, padding?: number | GPadding) { self.rec('fitBounds', b, padding); }
+      moveCamera(o: { center?: GLatLngLiteral; zoom?: number }) { self.rec('moveCamera', o); if (o.center) this.c = o.center; if (typeof o.zoom === 'number') this.z = o.zoom; }
+      getBounds() { return { contains: () => true }; }
+      getMapCapabilities() { return { isAdvancedMarkersAvailable: !!this.opts.mapId }; }
+      addListener(ev: string, fn?: () => void) { self.rec('addListener', ev); (self.listeners[ev] ??= []).push(fn ?? (() => undefined)); return { remove: () => undefined }; }
     }
     class FakeMarker implements GMarker {
       position: GLatLngLiteral | null; map: GMap | null; content: HTMLElement | null; title?: string;
@@ -38,6 +44,7 @@ export class FakeGoogle {
     class FakePolyline implements GPolyline {
       constructor(o: Record<string, unknown>) { self.rec('Polyline', o); self.polylines.push(o); }
       setMap(m: GMap | null) { self.rec('Polyline.setMap', m); }
+      setOptions(o: Record<string, unknown>) { self.rec('Polyline.setOptions', o); }
     }
     class FakeBounds { pts: GLatLngLiteral[] = []; extend(p: GLatLngLiteral) { this.pts.push(p); } }
     return { Map: FakeMap, Polyline: FakePolyline, LatLngBounds: FakeBounds, marker: { AdvancedMarkerElement: FakeMarker } };

@@ -302,6 +302,7 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `CATALOGUE_STORE` | web, core (API-1) | Picks the server catalogue store (`json` now, a database later) | no |
 | `NEXT_PUBLIC_CF_BEACON_TOKEN` | web `app/layout.tsx` | Cloudflare Web Analytics token; no token, no beacon | yes |
 | `NEXT_PUBLIC_PLACE_MAP_FAMILY` | web `lib/map/family.ts` | Map family for place pages (`maplibre` default, `google-js` for the Google fixture) | yes |
+| `NEXT_PUBLIC_TRIP_MAP_FAMILY` | web `lib/map/family.ts` | Test override of the trip route map family. Unset, the trip map is Google when both the key and the Map ID are set, else MapLibre | yes |
 | `NEXT_PUBLIC_GOOGLE_MAPS_KEY` | web `lib/map/family.ts` | Browser key for the Google map family; referrer-restricted | yes |
 | `NEXT_PUBLIC_GOOGLE_MAP_ID` | web `lib/map/family.ts` | Google map style id | yes |
 | `SITE_ORIGIN` | web `lib/site.ts`, `lib/export/share.ts` | Canonical origin for links, sitemap and share images; defaults to the live host | no |

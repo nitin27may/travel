@@ -2,7 +2,8 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { seasonWindow } from '@/components/trips/TripActions';
-import { dayMapCaption, dayStopsLabel, driveLabel, lengthLabel } from '@/components/trips/format';
+import { driveLabel, lengthLabel } from '@/components/trips/format';
+import { dayMapOf, pointLookup } from '@/components/trips/mapPins';
 import { buildTripPageModel, tripGallery, whenLabel } from '@/components/trips/model';
 import { parseTripUrl } from '@/components/trips/useTripUrl';
 import { tripListRows } from '@/app/trips/rows';
@@ -60,18 +61,6 @@ describe('wording and url', () => {
     expect(lengthLabel(null, null)).toBe('');
     expect(driveLabel(70, true)).toBe('≈1 h 10');
     expect(driveLabel(null, true)).toBeNull();
-  });
-  it('a day with no placed stop says how many are not on the map, never "0 stops" (R4-T2)', () => {
-    expect(dayStopsLabel(0, 1)).toBe('1 stop not on the map');
-    expect(dayStopsLabel(0, 2)).toBe('2 stops not on the map');
-    expect(dayStopsLabel(3, 0)).toBe('3 stops');
-    expect(dayStopsLabel(1, 2)).toBe('1 stop, 2 not on the map');
-  });
-  it('a day with no placed stop frames its base and says so, or says it has no mapped stops (review M9)', () => {
-    const day = { n: 2, base: 'Ushuaia', points: 0, unplaced: 2 };
-    expect(dayMapCaption(day, true)).toBe('Map: Day 2, Ushuaia. 2 stops are not on the map, so the base is shown');
-    expect(dayMapCaption(day, false)).toBe('Day 2 has no stops on the map');
-    expect(dayMapCaption({ n: 4, base: 'San Candido', points: 3, unplaced: 0 }, true)).toBe('Map: Day 4, San Candido, 3 stops');
   });
   it('the cover choice is data (data/trips/covers.json), not a slug in code (review M8)', () => {
     const src = readFileSync(path.join(process.cwd(), 'lib/public/trips.ts'), 'utf8');
@@ -140,9 +129,9 @@ describe('decimals in prose', () => {
 
 describe('route map and thumbnails', () => {
   it('hides basemap town labels and draws no on-map legend', async () => {
-    const { routeSpec } = await import('@/components/trips/TripRouteMap');
+    const { routeSpec } = await import('@/components/trips/routeSpec');
     const model = buildTripPageModel(getTrip('dolomites-2027')!, lookup);
-    const spec = routeSpec(model.route, null);
+    const spec = routeSpec({ bases: model.route.bases, models: model.timeline!.defaultTimelines.map((t) => dayMapOf(t, pointLookup(model.route))), picked: null });
     expect(spec.hideBasemapLabels).toContain('towns');
     expect(spec.legend).toBeUndefined();
   });

@@ -16,6 +16,7 @@ export interface MapFamilyProps {
   label: string;
   onSelect?: (id: string | null) => void;
   onCamera?: (c: CameraState) => void;
+  onHover?: (id: string | null) => void;
   handleRef?: Ref<MapHandle>;
   className?: string;
 }
