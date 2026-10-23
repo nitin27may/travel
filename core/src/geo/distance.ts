@@ -4,10 +4,7 @@
 //
 // Pure: no I/O, no framework, no clock. Points are `{ lat, lon }` in degrees, longitude positive east.
 // Type-only: the zod-bearing contract file stays out of the client bundle (the const below is checked against it by its type).
-import type { BEARINGS, NEAR_BANDS } from "../schema/api/nearby.ts";
-import {
-  DRIVE_BAND_EDGES_MIN, DRIVE_PADDING_MIN, FAST_KMH, ROAD_EXTRA_KM, ROAD_FACTOR, SHORT_DRIVE_KM, SLOW_KMH, WALK_KM,
-} from "../config/nearby.ts";
+import type { BEARINGS } from "../schema/api/nearby.ts";
 
 export interface LatLon {
   lat: number;
@@ -39,19 +36,6 @@ export function bearing8(from: LatLon, to: LatLon): (typeof BEARINGS)[number] {
   const x = Math.cos(from.lat * RAD) * Math.sin(to.lat * RAD) - Math.sin(from.lat * RAD) * Math.cos(to.lat * RAD) * Math.cos((to.lon - from.lon) * RAD);
   const deg = (((Math.atan2(y, x) * 180) / Math.PI) + 360) % 360;
   return POINTS[Math.round(deg / 45) % 8]!;
-}
-
-/**
- * The time band of a straight-line distance (nearby spec 5.1): a walk under `WALK_KM`, then the timeline's drive estimate (straight line
- * times `ROAD_FACTOR`, plus `ROAD_EXTRA_KM` under `SHORT_DRIVE_KM`; `SLOW_KMH`, or `FAST_KMH` above; plus `DRIVE_PADDING_MIN`).
- */
-export function bandOf(km: number): (typeof NEAR_BANDS)[number] {
-  if (km < WALK_KM) return "walk";
-  const short = km < SHORT_DRIVE_KM;
-  const road = km * ROAD_FACTOR + (short ? ROAD_EXTRA_KM : 0);
-  const min = (road / (short ? SLOW_KMH : FAST_KMH)) * 60 + DRIVE_PADDING_MIN;
-  const [a, b, c] = DRIVE_BAND_EDGES_MIN;
-  return min < a ? "lt15" : min < b ? "15-30" : min < c ? "30-60" : "60-120";
 }
 
 /** A box in degrees. `west > east` means it crosses the antimeridian. */

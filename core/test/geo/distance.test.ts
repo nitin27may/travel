@@ -3,7 +3,8 @@
 // means the visitor-facing distances, bearings and bands did not move. The Python mirror reads the same table (tools/tests/test_geo_parity.py).
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { EARTH_RADIUS_KM, bandOf, bboxHas, bboxOf, bearing8, circleMeetsBbox, haversineKm, haversineM } from "../../src/geo/distance.ts";
+import { bandOf } from "../../src/geo/bands.ts";
+import { EARTH_RADIUS_KM, bboxHas, bboxOf, bearing8, circleMeetsBbox, haversineKm, haversineM } from "../../src/geo/distance.ts";
 import { AREA_DEFAULT_R, DAY_TRIP_KM, HOME_RADIUS_KM, NEAR_KM, RADIUS_CAP, RADIUS_PRESETS } from "../../src/config/nearby.ts";
 import { API_LIMITS } from "../../src/schema/api/limits.ts";
 
