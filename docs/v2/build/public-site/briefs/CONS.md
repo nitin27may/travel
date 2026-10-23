@@ -4,6 +4,8 @@
 
 > **Revised 21 Oct (start sheet).** Order, models, worktrees, ports and preconditions come from [PHASE-B-START.md](../PHASE-B-START.md): CONS-1 runs in slot 1 (after API-0, beside META-0), CONS-2 in slot 5 (after API-2). Changes in this brief: macOS worktree paths and the Metal GPU flag; models by the 21 Oct rubric (both B sub-lanes Sonnet; the CONS-2 privacy step is audited by Opus at G-B); the check-all anchor for the scan line; the README section CONS-1 adds; the slug table rows of CONS-3 now respect the slug registry API-1a creates (decision D-B1); the pre-flight grep is a Haiku task.
 
+> **Revised 23 Oct (phase E start sheet).** CONS-1 and CONS-2 are merged (phase B). CONS-3 runs from [PHASE-E-START.md](../PHASE-E-START.md) in seat B on Fri 30 to Sat 31 Oct, Sonnet, about 6 h. Changes in this brief: **step 9 (the trip slug tables) is deferred to after R2**, because it runs after TD-2 and TD-1 to TD-3 now move after R2 (decision D-E11, owner Q80); list those findings in `baseline.json` with the reason "TD-2 after R2". CONS-3 starts only after TRP2b (palette, the UA line of `legs-ors.mjs`, collision E15) and META-1 (`web/lib/public/places.ts`, E10) have merged, and before GLB2b starts (the trip-to-country table in `web/lib/public/globe.ts` and the UA lines of `globe-cities.mjs` and `tools/globe_data.py`, E19); if GLB2b has started, those lines wait for its merge. `core/src/geo/**` and `core/src/config/nearby.ts` are frozen in E (E8). The UA string itself does not change. Worktree `/Users/nks/workspace/travel-wt/v2-CONS3`, branch `public/CONS3`, port 3486.
+
 - **Agents and models:** `travel-builder` on **Sonnet** for CONS-1 and CONS-2 (guards and consolidation with parity tests, well specified). Escalate one step to Opus only if a hand-back shows a judgement error. The consistency table (step 8) is ruled by `travel-design-reviewer` (**Opus**) before CONS-2 closes. The re-measurement of EXECUTION-PLAN 5.3 before each sub-lane is a **Haiku** `explorer` task (grep counts). CONS-3 (phase E) is Sonnet.
 - **Effort:** about 23 h: CONS-1 6 h plus 0.5 h verify (phase B, slot 1), CONS-2 8 h plus 1 h ruling and 0.5 h verify (phase B, slot 5, closed at G-B), CONS-3 8 h (phase E, burn-down).
 - **Rows:** 13.2 (hard-coding), 13.3 (consistency). 13.1 and 13.4 are API-1.
@@ -70,7 +72,7 @@ CONS-2 and CONS-3 edit files other lanes own. Edit a file only when its owning l
 | 2 | The boundary test and the scan pass in check-all |
 | 3 | A test commit adding `rgb(0 128 0)`, `'dolomites-july-2027'` in a component, or `const X_KM = 25` fails check-all |
 | 4 | After CONS-2: `6371` only in the two geo modules; 25 km defined once; the home radius defined once; the geo parity test passes 20 of 20 |
-| 5 | After CONS-3: the baseline holds only the intentional exceptions |
+| 5 | After CONS-3: the baseline holds only the intentional exceptions, plus the trip slug-table rows deferred with TD-2 (reason written, 23 Oct) |
 | 6 | Screenshots at 1440 and 390, light and dark, of home, a trip, a place and the globe match the pre-lane shots (pixel diff under 0.1%) |
 | 7 | `git diff --name-only` shows only owned paths |
 
@@ -84,7 +86,7 @@ The modules this lane creates (`core/src/geo`, `core/src/config`, `core/src/priv
 
 ## Commit rules
 
-- Worktree: `git -C /Users/nks/workspace/travel worktree add /Users/nks/workspace/travel-wt/v2-CONS1 -b public/CONS1 main` (one branch per sub-lane: `public/CONS1`, `public/CONS2`, `public/CONS3`), then `pnpm install --frozen-lockfile` at the worktree root. Dev port 3467.
+- Worktree for CONS-3: `git -C /Users/nks/workspace/travel worktree add /Users/nks/workspace/travel-wt/v2-CONS3 -b public/CONS3 main`, then `pnpm install --frozen-lockfile` at the worktree root. Dev port 3486 (CONS-1 and CONS-2 used 3467 in phase B).
 - One commit per step group: `web(public/CONS): ...`, `core(CONS): ...`, `tools(CONS): ...`.
 - Stage owned paths only with `git -C <worktree> add <paths>`, never `-A`. End each message with the Co-Authored-By trailer your harness provides.
 - Rebase onto `main` before hand-back; keep every other lane's check-all line. Do not push. Kill any server you start by its PID.

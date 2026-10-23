@@ -4,6 +4,8 @@ Extends [CS7d.md](CS7d.md) (stage 4 data lane). The research pause is lifted for
 
 > **Revised 21 Oct (start sheet).** [PHASE-B-START.md](../PHASE-B-START.md) decision D-B8: D3, D4 and D6 now start **after gate G-B**, not during phase B, because they are Opus research and the weekly usage allowance is nearly spent (owner may override: B-2). Changes in this brief: run notes go to `research/runs/` (the research home, CLN-1); paths `research/method/...` and `research/backlog.md`; the `point_role` values and the town id format are the ones META-0 defines (`POINT_ROLE`, `ca-on-whitby`); every `src` must resolve to a registry id because the API emits registry ids only (D-B4); refs never change and slugs are pinned (D-B1); the Haiku model for mechanical checks; macOS paths and the venv for pytest.
 
+> **Revised 23 Oct (phase E start sheet).** [PHASE-E-START.md](../PHASE-E-START.md) runs the batches after the 25 Oct usage reset and only as the allowance allows, and splits them into a **minimum viable data set for R2** (section 9 there, about 20 h of Opus) and the rest, which moves to the readiness checklist (owner decision Q90). Before R2: **D1** in full (Wed 28 to Thu 29 Oct, after META-1), **D6a** seasons for the 6 trips only (Fri 30 Oct), **D3a** trail facts for the Rockies trails on the plan's days and the five R2 trails `fenland-loop`, `johnston-canyon-walk`, `larch-valley`, `tre-cime-di-lavaredo-loop`, `lake-agnes-tea-house` (Sat 31 Oct), **D4a** where every offer happens (the 17 without a place) plus the Rockies offers on the plan's days (Sun 1 Nov, after the second reset), **D5a** photos for the five R2 trails and the Rockies trip-day stops (Mon 2 Nov). After R2: D2, and the rest of D3 to D6. Worktrees and branches are per batch (`v2-DATA-D1`, `public/DATA-D1`; `v2-DATA-D3a`, `public/DATA-D3a` and so on). Rules added: refs are opaque `place/<slug>` for wishlist places once REF1 merges (never write a `loc:` key); a batch that would push the place-size median over +25% commits the over-budget records on its branch unmerged and lists them for the owner's R2 ruling (D-E8, Q88); researchers work through the `research` skill (`.claude/skills/research/SKILL.md`, which points into `research/README.md`), places through the `location` skill (`.claude/skills/location/SKILL.md`), never the retired `trip-planner`; a trip is data, never a legacy page (`legacy/**` is frozen). Paths on this Mac: the method in `research/method/`, the per-type checklists in `research/types/` (generated, never edited), run notes in `research/runs/`, the research backlog in `research/backlog.md`. EXECUTION-PLAN E3 still names `research/method/lanes/DATA-notes.md`; the run notes go to `research/runs/DATA-<batch>-<trip>.md`.
+
 - **Agents and models:** `travel-researcher` on **Opus**, one batch per hand-back (research that needs judgement). Mechanical follow-ups inside a batch (counting gaps, re-running the gap reports, checking that every `src` resolves, run-record overlap checks) go to a **Haiku** `explorer`. `travel-verifier` (Sonnet) per batch. Record the model in each hand-back.
 - **Effort:** D1 points 6 h, D2 locations 4 h, D3 trail facts 10 h, D4 activities 8 h, D5 photos 10 h, D6 basics 6 h (agent time).
 - **Rows:** D1: 8.8, 10.5, Q58, 3.47e, 3.61c, 3.61d, ST-1 (Rockies base points against Wikidata). D2: 8.7. D3: 10.2, 3.47b, 3.47c, RB-3. D4: 13.5 activity part, 3.53 part, 3.61a, 3.61f, 3.61g, RB-1, the operator questions. D5: 10.4. D6: 3.9, 3.10, 3.53 (usable basics). Lines in [COVERAGE.md](../COVERAGE.md).
@@ -79,12 +81,13 @@ Every public page has a sourced point with its role or a dated search that found
 
 | # | Check |
 |---|---|
-| 1 | EXECUTION-PLAN 6.5 rows 2, 3, 5, 6 to 10 and 12 met, or each miss listed with a reason |
+| 1 | Before R2 (revised 23 Oct): the rows of PHASE-E-START section 9 met (6.5 rows 2, 3, 5, 6, 11, 12; the five R2 trails; seasons for the 6 trips). After R2, for readiness: 6.5 rows 7 to 10 in full. Each miss listed with a reason |
 | 2 | `bash tools/check-all.sh` passes (venv on `PATH`); `gap-budget.json` only went down |
 | 3 | Every new value has a source row, a date and a basis; every `src` resolves to a registry id; 0 values from link-only platforms |
 | 4 | Run records show no overlapping calls to one service |
 | 5 | No household data in any file you wrote |
 | 6 | No `ref` renamed; `node core/bin/slugs.ts --check` still green |
+| 7 | The place-size test is green, or the over-budget records sit unmerged on the branch and are listed (D-E8) |
 
 ## Server switch
 
