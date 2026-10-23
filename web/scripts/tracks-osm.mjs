@@ -16,6 +16,7 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { EARTH_RADIUS_KM, haversineM } from '@travel/core/geo/distance.ts';
 
 export const SCHEMA = 'trail-track/1';
 export const USER_AGENT = 'travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)';
@@ -33,15 +34,12 @@ const MAX_REQUESTS = 200;
 
 /* ------------------------------------------------------------------ geometry helpers (pure) */
 
-const R = 6371008.8;
+const R = EARTH_RADIUS_KM * 1000;
 const rad = Math.PI / 180;
 
-/** Great-circle distance in metres between two [lon, lat] points. */
+/** Great-circle distance in metres between two [lon, lat] points (the one implementation is core/src/geo/distance.ts). */
 export function haversine(a, b) {
-  const dLat = (b[1] - a[1]) * rad;
-  const dLon = (b[0] - a[0]) * rad;
-  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a[1] * rad) * Math.cos(b[1] * rad) * Math.sin(dLon / 2) ** 2;
-  return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
+  return haversineM({ lat: a[1], lon: a[0] }, { lat: b[1], lon: b[0] });
 }
 
 export function lengthM(line) {

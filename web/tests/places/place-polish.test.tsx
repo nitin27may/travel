@@ -4,7 +4,7 @@ import { minutesRange, PlacePage } from '@/components/places/PlacePage';
 import { luminance, fallbackPalette, readPalette } from '@/lib/map/palette';
 import { ADMIN_LABEL_MIN_ZOOM, hideBasemapLabel, isStateLabel } from '@/lib/map/maplibre/labels';
 import { createPublicData } from '@/lib/public';
-import { NEARBY_MAX_KM } from '@/lib/public/relevance';
+import { NEAR_KM } from '@travel/core/config/nearby.ts';
 import { closingWord } from '@/lib/public/sections';
 
 // Stage 4, lane PLC: the S1b review items (4.9, 4.12, 3.49, 3.57) and the map adapter (3.31, 4.2, 4.6).
@@ -96,7 +96,7 @@ describe('pointers and Nearby (4.12)', () => {
   it('lists no Nearby pair or stand-in further than about 25 km', () => {
     for (const slug of data.placeSlugs()) {
       const r = data.getPlace(slug)!.relevance;
-      for (const x of [...(r?.pairs ?? []), ...(r?.similar ?? [])]) expect(x.km ?? 0, `${slug} ${x.name}`).toBeLessThanOrEqual(NEARBY_MAX_KM);
+      for (const x of [...(r?.pairs ?? []), ...(r?.similar ?? [])]) expect(x.km ?? 0, `${slug} ${x.name}`).toBeLessThanOrEqual(NEAR_KM);
     }
   });
 });
