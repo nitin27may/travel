@@ -1,5 +1,7 @@
 # Phase B start sheet: API-over-JSON and the foundations
 
+> **Status: Done 23 Oct 2026.** Every lane in this sheet is merged and gate G-B passed at main 653407f (merge commits: API-0 5729b04, META-0 c1f841c, CONS-1 62e9bc7, API-1a 9205299 and e87f520, API-1b 39f0c7d, API-1c 8dbc01f, API-2 58af5d7, CONS-2 99418db, GBFIX 653407f). Deferred items: BACKLOG 15.20 to 15.31. The sections below are history.
+
 Written 21 Oct 2026 by travel-planner (Opus) so phase B can start the moment the owner says go. Docs only; nothing here is started.
 
 **Authority.** This sheet decides the order, the models, the worktrees, the preconditions, the collisions and the rollback for phase B and for the cleanup lanes that run in the phase B gap (CLN-2, CLN-3, CLN-4, CLN-5) plus TD-0. [EXECUTION-PLAN.md](EXECUTION-PLAN.md) section 4 stays the authority for the API shape (store interface, endpoints, error codes, caps). The lane briefs ([API](briefs/API.md), [CONS](briefs/CONS.md), [META](briefs/META.md), [DATA](briefs/DATA.md)) were revised the same day to match this sheet. [PLAN.md](../../PLAN.md) section 3 points here.
@@ -352,3 +354,4 @@ G-B is an internal gate. The owner gets one page and about 15 minutes; no browsi
 | Date | Change |
 |---|---|
 | 2026-10-21 | First version: lane order in seven slots of at most two lanes, models by the 21 Oct rubric (API-1 split into 1a Opus and 1b Sonnet; META-0 Opus), worktrees and ports, collisions C1 to C21, preconditions, decisions D-B1 to D-B8 (slug registry, refs, canonical region and city values, `apiVal`, sort key, revision, renditions before the build, DATA after G-B), contract cases K1 to K19, check-all order, G-B checks 1 to 17, rollback, about 108.5 agent-hours, owner decisions B-1 to B-4 |
+| 2026-10-23 | Phase B done and G-B passed at main 653407f: status banner added, BACKLOG rows 14.2, 14.3, 14.4, 15.1 and the B parts of 13.1, 13.2, 13.4, 13.5 marked done with commits |
