@@ -9,6 +9,10 @@ export interface Pin {
   /** Keeps the label for assistive tech and the fan-out, but draws no text beside the pin (crowded pins, numbered clusters). */
   quiet?: boolean;
   number?: number;
+  /** A combined pill ("2·3"): the numbers of the stops that overlap here at the current zoom. Drawn instead of `number` when set. */
+  numbers?: number[];
+  /** Another day's stop while one day is picked: drawn at half strength and never numbered. */
+  dim?: boolean;
   days?: number[];
   kind?: string;
 }
@@ -33,6 +37,14 @@ export interface MapSpec {
   /** Report every camera move (a fly-to, wheel zoom, keys), not only drags: a page that clusters by zoom must re-cluster after all of them. */
   reportAllMoves?: boolean;
   hideBasemapLabels?: ('towns' | 'regions' | 'countries')[];
+  /** `click` (the default, every place page) puts a button in front of the Google map; `visible` loads it when it scrolls into view (the trip map). */
+  load?: 'click' | 'visible';
+  /** The pin to ring and the leg to colour, applied without redrawing the pins and lines (a hover from the day list). */
+  hover?: { pin?: string | null; leg?: string | null } | null;
+  /** Pixels a fit keeps clear of the map's own controls and attribution. */
+  fitPadding?: { top: number; right: number; bottom: number; left: number };
+  /** The closest a fit may zoom (a single stop is centred at this zoom). */
+  maxZoom?: number;
 }
 export type FlyTarget = LngLat | { bounds: [LngLat, LngLat] };
 export interface MapHandle {
