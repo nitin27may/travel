@@ -62,6 +62,8 @@ export interface ContractFacts {
   gap?: { key: string; value: string };
   /** a word of card text and a place whose card holds it (case K24) */
   cardWord?: { word: string; slug: string };
+  /** ten fixed card queries and the slugs they rank, best first; `exact` pins the whole answer, otherwise the slugs keep their relative order inside the hits (case K24.order) */
+  cardOrder?: { exact: boolean; cases: Record<string, string[]> };
   /** a trip with a legs file, and whether its legs carry geometry (case K27) */
   legs?: { trip: string; geometry: boolean };
   /** an unlisted trip's slug: never served by any method (cases K7, K27) */

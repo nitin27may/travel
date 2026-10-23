@@ -44,6 +44,28 @@ export const searchCardsCases: ContractCase[] = [
     },
   },
   {
+    id: "K24.order",
+    title: "ten fixed queries rank in the golden order: BM25 with document length, distinct terms and label tags, ties by sortKey(name) then ref (A28)",
+    method: "searchCards",
+    async run(store, t) {
+      const golden = t.facts.cardOrder;
+      expect(golden, "the target names its golden order").toBeDefined();
+      const queries = Object.entries(golden!.cases);
+      expect(queries.length).toBe(10);
+      for (const [q, want] of queries) {
+        const got = expectOk(await store.searchCards({ q, limit: API_LIMITS.cards.max }), q).items.map((r) => r.slug);
+        if (golden!.exact) {
+          expect(got, `"${q}"`).toEqual(want);
+          continue;
+        }
+        // the real catalogue grows: the pinned slugs must all still rank, in the pinned relative order
+        const at = want.map((slug) => got.indexOf(slug));
+        expect(at.filter((i) => i < 0), `"${q}": pinned slugs that no longer rank`).toEqual([]);
+        expect([...at].sort((a, b) => a - b), `"${q}": the pinned slugs changed their relative order`).toEqual(at);
+      }
+    },
+  },
+  {
     id: "K24.caps",
     title: "a limit above 50 is too_large; an empty q and a sort are invalid_input",
     method: "searchCards",

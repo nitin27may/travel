@@ -153,16 +153,23 @@ export const listPlacesCases: ContractCase[] = [
   },
   {
     id: "listPlaces.q",
-    title: "q follows the sortKey rule: accents and case fold the same way as search",
+    title: "q is the list's word rule (A16): every word, in any order, case ignored, over the wider haystack",
     method: "listPlaces",
     async run(store, t) {
       const [a] = t.facts.sortKeyTie ?? [];
       if (!a) return;
-      // the name two rows share (the tie of case K11), asked plainly and with accents and capitals
-      const name = (await everyRow(store)).find((r) => r.ref === a)!.name;
-      const plain = expectOk(await store.listPlaces({ q: sortKey(name) })).total;
-      expect(plain).toBe(expectOk(await store.listPlaces({ q: name.toUpperCase().replace(/E/g, "É") })).total);
-      expect(plain).toBeGreaterThanOrEqual(2);
+      // the name two rows share (the tie of case K11), asked plainly, shouted and with its words reversed
+      const row = (await everyRow(store)).find((r) => r.ref === a)!;
+      const plain = expectOk(await store.listPlaces({ q: row.name })).total;
+      // the pair of K11 differs by an accent, which this rule does not fold (the list never did), so only one of the two is named
+      expect(plain).toBeGreaterThanOrEqual(1);
+      expect(expectOk(await store.listPlaces({ q: row.name.toUpperCase() })).total).toBe(plain);
+      expect(expectOk(await store.listPlaces({ q: row.name.split(/\s+/).reverse().join("  ") })).total).toBe(plain);
+      // the haystack is wider than the name: the country's name narrows the same rows, and never widens them
+      const withCountry = expectOk(await store.listPlaces({ q: `${row.name} ${row.country_name}` }));
+      expect(withCountry.total).toBeGreaterThanOrEqual(1);
+      expect(withCountry.total).toBeLessThanOrEqual(plain);
+      expect(withCountry.items.map((r) => r.ref)).toContain(a);
     },
   },
   {
