@@ -14,7 +14,17 @@ function renditions(): Map<string, string> {
   if (map) return map;
   const file = path.join(process.cwd(), '.generated', 'image-map.json');
   map = new Map(existsSync(file) ? Object.entries(JSON.parse(readFileSync(file, 'utf8')) as Record<string, string>) : []);
+  // Without the map every photo is left out of every response and nothing else says why (audit GB-A-14): say it once per process. The
+  // build's own prerender runs before scripts/images.mjs writes the map, so that phase stays quiet.
+  if (!map.size && process.env.NEXT_PHASE !== 'phase-production-build') {
+    console.error(`[images] ${file} is missing or empty: API responses carry no photos. Run the web build (scripts/images.mjs writes it).`);
+  }
   return map;
+}
+
+/** Forgets the loaded map so the next read looks at the file again (tests only). */
+export function resetRenditionsForTest(): void {
+  map = null;
 }
 
 /** The rendition URL for a Commons photo URL, at the width nearest above the one asked, or null when there is none. */
