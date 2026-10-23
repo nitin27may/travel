@@ -1,4 +1,5 @@
-import type { ExportFile, ExportQuery } from '@travel/core/schema/api/index.ts';
+import { printText } from '@travel/core/catalogue/printText.ts';
+import { EXPORT_FILE, type ExportFile, type ExportModel, type ExportQuery } from '@travel/core/schema/api/index.ts';
 import { toCsv } from '@/lib/entities/csv';
 import { tripCsv } from '@/lib/export/csv';
 import { buildPlaceExport, buildTripExport } from '@/lib/export/build.server';
@@ -6,23 +7,25 @@ import { buildGpx } from '@/lib/export/gpx';
 import { buildKml } from '@/lib/export/kml';
 import { approxNote, attributionFor, checkPoint, lineExportable } from '@/lib/export/licence';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
+import type { Point } from '@travel/core/export/publicTypes.ts';
 import type { PublicPlace, PublicTrip } from '@/lib/public';
 
 // One export file for one item, from the model the page's own export data is made of (lib/export/build.server.ts, whose licence guard
 // every format passes). The files are the ones the browser builds today, so a download from the API and a download from the page agree.
 //
-// `print` is the printable MODEL: the structured export (waypoints, stops, lines) as JSON, which is what the browser's file builders
-// and the Export menu's counts read. The page prints itself with the browser's print sheet, so no server-side print file exists; the
-// contract has no `json` format, and this is the one place that says so (hand-back: proposed change EXPORT_FORMATS += "json").
-export const EXPORT_MODEL_FORMAT = 'print' as const;
+// `json` is the export MODEL (store.ts A26, D-E6): the structured export (waypoints, stops, lines) the Export menu's counts and the browser's
+// file builders read, with the licence guard inside it (a waypoint whose point is not ours is left out and counted in `skipped`; a stop keeps
+// its row with `point: null`). `print` is the same model laid out as plain text for paper (core/src/catalogue/printText.ts).
+/** The five fields of the contract's export point: a source point can carry more (a name, a note), and the model's schema is strict. */
+const exportPoint = (p: Point) => ({ lat: p.lat, lon: p.lon, pointSource: p.pointSource, pointChecked: p.pointChecked ?? null, sourceLicence: p.sourceLicence });
 
-const EXT: Record<ExportQuery['format'], [ext: string, mime: string]> = {
-  gpx: ['gpx', 'application/gpx+xml'],
-  kml: ['kml', 'application/vnd.google-earth.kml+xml'],
-  csv: ['csv', 'text/csv'],
-  ics: ['ics', 'text/calendar'],
-  print: ['print.json', 'application/json'],
-};
+/** The model as the contract has it: points cut to the contract's five fields, and a stop whose point fails the guard keeps its row with no point. */
+function contractModel(model: TripExport | PlaceExport): ExportModel {
+  const waypoints = model.waypoints.map((w) => ({ ...w, point: exportPoint(w.point) }));
+  if (model.type === 'place') return { ...model, waypoints } as ExportModel;
+  const stops = model.stops.map((s) => ({ ...s, point: s.point && checkPoint(s.point).ok ? exportPoint(s.point) : null }));
+  return { ...model, waypoints, stops } as ExportModel;
+}
 
 const geo = (d: TripExport | PlaceExport) => ({ title: d.title, url: d.url, waypoints: d.waypoints, lines: d.lines, skipped: d.skipped });
 
@@ -35,6 +38,7 @@ function placeCsv(d: PlaceExport): string {
 }
 
 export function exportFileOf(q: ExportQuery, lookup: { place(slug: string): PublicPlace | null; trip(slug: string): PublicTrip | null }): ExportFile | null {
+  const format = q.format;
   const place = q.type === 'place' ? lookup.place(q.slug) : null;
   const trip = q.type === 'trip' ? lookup.trip(q.slug) : null;
   if (!place && !trip) return null;
@@ -44,13 +48,14 @@ export function exportFileOf(q: ExportQuery, lookup: { place(slug: string): Publ
   const approx = ok.filter((w) => approxNote(w.point)).length;
   const tracks = model.lines.filter((l) => lineExportable(l) && l.geometry.length >= 2);
   const source = attributionFor(ok.map((w) => w.point), tracks).join(' ');
-  const [ext, mime] = EXT[q.format];
+  const { ext, mime } = EXPORT_FILE[format];
   const body: Record<ExportQuery['format'], () => string> = {
     gpx: () => buildGpx(geo(model)).xml,
     kml: () => buildKml(geo(model)).xml,
     csv: () => (model.type === 'trip' ? tripCsv(model) : placeCsv(model)),
     ics: () => emptyCalendar(model.title),
-    print: () => JSON.stringify(model),
+    json: () => JSON.stringify(contractModel(model)),
+    print: () => printText(contractModel(model), { area: place?.areaLabel ?? null }),
   };
-  return { filename: `${q.slug}.${ext}`, mime, body: body[q.format](), source, skipped, approx };
+  return { filename: `${q.slug}.${ext}`, mime, body: body[format](), source, skipped, approx };
 }

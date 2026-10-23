@@ -1,10 +1,10 @@
-import { readdirSync, statSync, utimesSync } from 'node:fs';
+import { existsSync, readdirSync, statSync, utimesSync } from 'node:fs';
 import path from 'node:path';
 import { JsonStore } from '@travel/core/catalogue/json/index.ts';
 import type { JsonSource } from '@travel/core/catalogue/json/source.ts';
 import { registryProblems, type SlugRegistry } from '@travel/core/catalogue/slugs.ts';
 import { sortKey } from '@travel/core/catalogue/sortKey.ts';
-import type { ContractFacts, ContractTarget } from '../../../core/test/catalogue/contract/index.ts';
+import type { ContractFacts, ContractTarget, Planted } from '../../../core/test/catalogue/contract/index.ts';
 import { travelRoot } from '@/lib/data/root';
 import { createJsonSource } from '@/lib/server/source';
 import { registryIds } from '@/lib/server/sources';
@@ -63,6 +63,10 @@ export function jsonTarget(): { target: ContractTarget; reads: () => number; sou
   for (const r of base.placeRows) bySortKey.set(sortKey(r.name), [...(bySortKey.get(sortKey(r.name)) ?? []), r.ref]);
   const tie = [...bySortKey.values()].find((v) => v.length >= 2)?.sort();
   const alberta = registry.regions['ca/alberta']!;
+  // a public trip with a legs file (K27; API-3a): the file names no trip in this test
+  const legsDir = path.join(travelRoot(), 'data', 'schedules', 'legs');
+  const legsSlugs = existsSync(legsDir) ? readdirSync(legsDir).filter((n) => n.endsWith('.json')).map((n) => n.replace(/\.json$/, '')) : [];
+  const legsTrip = base.tripRows.find((t) => legsSlugs.includes(t.slug))?.slug;
   const facts: ContractFacts = {
     placeSlug: a!.slug,
     tripSlug: full.slug,
@@ -82,14 +86,29 @@ export function jsonTarget(): { target: ContractTarget; reads: () => number; sou
     registryIds: registryIds(travelRoot()),
     featureId: base.globe.feature('abay') ? 'abay' : 'abay',
     pinCountry: 'ca',
+    // K23: a key with a gap state and a value that is not the gap option itself (`kid=unknown` IS the gap, so it leaves nothing unchecked)
+    gap: { key: 'effort', value: 'moderate' },
+    // API-3a (K27): routed legs from the file; geometry arrives with TRP2b's trip-legs/2 fetch
+    ...(legsTrip ? { legs: { trip: legsTrip, geometry: false } } : {}),
+  };
+  /** A store with `p` planted (K26, globePins.cap): a country's pins cloned up to n. Towns cannot be planted before META-2 loads a layer here. */
+  const plant = (p: Planted): JsonStore => {
+    const src = wrap(base);
+    if (!p.pins) return new JsonStore(src);
+    const { cc, n } = p.pins;
+    const pins = base.globe.pins(cc) ?? [];
+    const many = Array.from({ length: Math.max(n, pins.length) }, (_, i) => (i < pins.length ? pins[i]! : { ...pins[0]!, slug: `${pins[0]!.slug}-p${i}` }));
+    return new JsonStore({ ...src, globe: { ...src.globe, pins: (c: string) => (c === cc ? many : base.globe.pins(c)) } });
   };
   const target: ContractTarget = {
     name: 'json',
     make: () => new JsonStore(spy()),
-    makeChanged: () => new JsonStore(wrap(base, base.placeRows.map((r, i) => (i === 0 ? { ...r, name: `${r.name} (renamed)` } : r)))),
+    // K10: one INPUT file's hash changes (the revision is computed from the inputs, A30), not a served value
+    makeChanged: () => new JsonStore({ ...wrap(base), revisionInputs: () => { const i = base.revisionInputs(); return { ...i, files: i.files.map((f, n) => (n === 0 ? { ...f, sha256: '0'.repeat(64) } : f)) }; } }),
     touch: () => touchAll(path.join(travelRoot(), 'data')),
     registry: () => registry,
     rowReads: () => reads,
+    plant,
     facts,
   };
   return { target, reads: () => reads, source: base };

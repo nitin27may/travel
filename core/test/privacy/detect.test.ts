@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { privacyHits } from "../../src/privacy/detect.ts";
+import { HOME_TOWN_RE } from "../../src/privacy/home.ts";
+import { encodePolyline5 } from "../../src/schema/api/legs.ts";
 import { HOME_PROBE, northOfHome } from "./probe.ts";
 
 describe("privacy detector", () => {
@@ -29,6 +31,19 @@ describe("privacy detector", () => {
     expect(whys({ refSlugs: { "proto:x": "x" } })).toEqual([origin]);
     expect(JSON.stringify(privacyHits({ refSlugs: { "loc:CA/AB/secret": "x" } }))).not.toContain("secret");
     expect(whys({ ref: "place/lake-louise", note: "wikiloc: 12345 tracks", s: "proto: ", t: "prototype_approx", u: "trip/x/sight:ragged falls" })).toEqual([]);
+  });
+  it("lifts the home-town text rule only in the typed town slots (A33), and keeps it with townSlots off", () => {
+    const word = HOME_TOWN_RE.source.replace(/[^a-z]/gi, "").toLowerCase();
+    const row = { items: [{ id: `ca-zz-${word}`, name: word.toUpperCase() }] };
+    expect(privacyHits(row)).toEqual([]);
+    expect(privacyHits(row, 20, { townSlots: false }).map((h) => h.why)).toEqual(["the home town", "the home town"]);
+    // a sentence is never a slot, and a planning note in a name slot is still found
+    expect(privacyHits({ items: [{ id: `ca-zz-${word}`, name: `Hotel idea in ${word}` }] }).map((h) => h.why)).toEqual(["a household planning note"]);
+  });
+  it("decodes an encoded line under `geometry` and finds a vertex near home, and never reads its characters as words (A39)", () => {
+    const p = northOfHome(0.5);
+    expect(privacyHits({ geometry: encodePolyline5([[-116.1, 51.3], [p.lon, p.lat]]) }).map((h) => h.why)).toEqual(["a coordinate near the home town in an encoded line"]);
+    expect(privacyHits({ geometry: encodePolyline5([[-116.1, 51.3], [-116.2, 51.4]]) })).toEqual([]);
   });
   it("leaves a far point alone, and a hit names no coordinate", () => {
     const far = northOfHome(30);

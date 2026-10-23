@@ -18,6 +18,19 @@ export const townsCases: ContractCase[] = [
     },
   },
   {
+    id: "towns.clamped",
+    title: "a radius above the cap says clamped: true, one within it clamped: false, a prefix lookup clamped: false (R-26, A37)",
+    method: "towns",
+    async run(store, t) {
+      const big = await store.towns({ city: t.facts.town.id, r: 500 });
+      if (!t.facts.town.layer) return expectError(big, "not_available");
+      expect(expectOk(big).clamped).toBe(true);
+      expect(expectOk(await store.towns({ city: t.facts.town.id, r: 50 })).clamped).toBe(false);
+      const { cc, aliases } = t.facts.region;
+      expect(expectOk(await store.towns({ prefix: "a", cc, region: aliases[0]! })).clamped).toBe(false);
+    },
+  },
+  {
     id: "towns.scope",
     title: "a prefix without a region is invalid_scope; no centre and no prefix is invalid_scope",
     method: "towns",

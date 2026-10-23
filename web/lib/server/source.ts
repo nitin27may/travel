@@ -1,7 +1,8 @@
-import type { JsonSource, SearchScope } from '@travel/core/catalogue/json/source.ts';
+import type { LegsSource } from '@travel/core/catalogue/json/legs.ts';
+import type { CardMatches, JsonSource, SearchScope } from '@travel/core/catalogue/json/source.ts';
 import { readSlugRegistry } from '@/lib/public/places';
 import type { SlugRegistry } from '@travel/core/catalogue/slugs.ts';
-import type { GlobeFeature, GlobeLine, ParseInput, ParsedQuery, PlaceDetail, PlaceRow, SearchResult, TripDetail, TripRow } from '@travel/core/schema/api/index.ts';
+import { tripLegsFile, type GlobeFeature, type GlobeLine, type ParseInput, type ParsedQuery, type PlaceDetail, type PlaceRow, type SearchResult, type TripDetail, type TripRow } from '@travel/core/schema/api/index.ts';
 import { placeShards } from '@/app/places/shards';
 import { tripListRows } from '@/app/trips/rows';
 import { reportLink, reportUrl } from '@/lib/config/product';
@@ -11,7 +12,10 @@ import { tripDescriptor } from '@/lib/entities/descriptors/trip';
 import { buildGlobeFiles } from '@/lib/globe/data';
 import { sharedPublicData } from '@/lib/public';
 import type { PublicData } from '@/lib/public';
-import { globeLineIds, readGazetteer, readGlobeLine } from '@/lib/public/globe';
+import { readGazetteer, readGlobeLine } from '@/lib/public/globe';
+import { readLegsFile } from '@/lib/public/timeline';
+import snapshotJson from '../../data-snapshots/prototype.json';
+import { buildTextIndex, cardText, searchTexts, terms, type TextIndex } from '@/lib/search/fulltext';
 import { parse } from '@/lib/search/parse/parse';
 import type { ParseOptions, VocabFile } from '@/lib/search/parse/types';
 import { buildSearchParts } from '@/lib/search/build';
@@ -22,6 +26,7 @@ import { engineFor } from './engine';
 import { withRenditions } from './images';
 import { exportFileOf } from './exports';
 import { isApproxPoint, placeDetailOf } from './placeDetail';
+import { revisionInputs } from './inputs';
 import { registryIds } from './sources';
 import { tripDetailOf } from './tripDetail';
 
@@ -62,7 +67,8 @@ export function createJsonSource(opts: ServerSourceOptions = {}): JsonSource {
     rows.map((r): PlaceRow => {
       const ref = refBySlug.get(r.slug);
       if (!ref) throw new Error(`place ${r.slug} has no ref`);
-      return withRenditions({ ...r, ref, approx: isApproxPoint(data.getPlace(r.slug)?.point) });
+      // nearTown: null until META-2 derives `near_town` and the row builder carries it (store.ts A35)
+      return withRenditions({ ...r, ref, approx: isApproxPoint(data.getPlace(r.slug)?.point), nearTown: null });
     }),
   );
   const tripRows: TripRow[] = tripListRows(data.listTrips()).map((r) => withRenditions({ ...r, ref: `trip/${r.slug}` }) as TripRow);
@@ -97,6 +103,25 @@ export function createJsonSource(opts: ServerSourceOptions = {}): JsonSource {
     });
     return byId;
   });
+
+  // ---- card search (store.ts A28) ---------------------------------------------------------------------------------------------
+  // BM25 over the card text of the query's country scope, the rule of the site's full-text pass (lib/search/fulltext.ts). The index of a
+  // scope is built on its first use and kept; the stemmer and stop list stay here until core needs them (a SupabaseStore loader).
+  const textIndexes = new Map<string, TextIndex>();
+  const textIndexOf = (scope: readonly PlaceRow[]): TextIndex => {
+    const key = `${scope.length}|${[...new Set(scope.map((r) => r.country))].sort().join(',')}`;
+    let ix = textIndexes.get(key);
+    if (!ix) {
+      ix = buildTextIndex(scope.flatMap((r) => (cards.get(r.slug) ? [{ id: r.slug, text: cardText(cards.get(r.slug)!) }] : [])));
+      textIndexes.set(key, ix);
+    }
+    return ix;
+  };
+
+  // ---- trip legs (store.ts A34) ------------------------------------------------------------------------------------------------
+  // The Dolomites file keys its pairs by prototype place id; the public stop keys are the prototype's item ids (`i2`) and `base:<town>`.
+  const protoPlaceOfItem = new Map<string, string>();
+  for (const day of snapshotJson.trip.days) for (const it of day.items) protoPlaceOfItem.set(it.id, it.placeId);
 
   return {
     registry,
@@ -134,6 +159,21 @@ export function createJsonSource(opts: ServerSourceOptions = {}): JsonSource {
     search(q: string, scope: SearchScope, limit: number): SearchResult {
       return { ...searcherFor(scope).search(q, limit), partial: false } as SearchResult;
     },
+    cards(q, rows, scope): CardMatches {
+      const score = new Map(searchTexts([textIndexOf(scope)], q, Number.MAX_SAFE_INTEGER).map((h) => [h.id, h.score]));
+      return { terms: [...new Set(terms(q))], hits: rows.flatMap((row) => (score.has(row.slug) ? [{ row, score: score.get(row.slug)! }] : [])) };
+    },
+    legsFile(slug): LegsSource | null {
+      const raw = readLegsFile(root, slug);
+      const parsed = raw ? tripLegsFile.safeParse(raw) : null;
+      if (!parsed?.success) return null;
+      const protoTrip = slug === snapshotJson.trip.id;
+      return {
+        file: parsed.data,
+        pairKeyOf: (stopKey) => (stopKey.startsWith('base:') ? stopKey.slice(5) : protoTrip ? (protoPlaceOfItem.get(stopKey) ?? null) : stopKey),
+      };
+    },
+    revisionInputs: () => revisionInputs(root),
     exportFile: (q) => exportFileOf(q, { place: (s) => data.getPlace(s), trip: (s) => (tripCards.has(s) ? data.getTrip(s) : null) }),
     globe: {
       tree: () => buildGlobeFiles().tree,
@@ -143,16 +183,5 @@ export function createJsonSource(opts: ServerSourceOptions = {}): JsonSource {
       line: (id) => readGlobeLine(id) as GlobeLine | null,
     },
     reportLink: (page) => reportLink(reportUrl, page),
-    snapshot() {
-      const files = buildGlobeFiles();
-      const cited = new Map<string, unknown>();
-      for (const row of placeRows) for (const [id, c] of Object.entries(this.placeDetail(row.slug)?.citations ?? {})) cited.set(id, c);
-      return {
-        globe: { tree: files.tree, pins: files.pins, cards: withRenditions(files.cards), gazetteer: readGazetteer(), lines: globeLineIds().map((id) => readGlobeLine(id)) },
-        vocab: vocabJson,
-        citations: [...cited].sort(([a], [b]) => (a < b ? -1 : 1)).map(([, c]) => c),
-        towns: null,
-      };
-    },
   };
 }

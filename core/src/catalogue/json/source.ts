@@ -8,7 +8,9 @@
 // error codes. The pieces that are the web app's today (the filter engine, the smart-search parser, the searcher, the export
 // builders) arrive as functions here and move into core with API-2.
 import type * as S from "../../schema/api/index.ts";
+import type { RevisionInputs } from "../revision.ts";
 import type { SlugRegistry } from "../slugs.ts";
+import type { LegsSource } from "./legs.ts";
 
 /** The filter part of a list query, after the store has resolved `region`, `ids` and `q` itself. `facets` hold only keys the engine knows. */
 export interface ListFilter {
@@ -35,6 +37,17 @@ export interface ListEngine<Row> {
   match(rows: readonly Row[], f: ListFilter): Row[];
   /** `rows` already passed `q`, `ids` and `region`; `all` is the whole list (the scope count ignores everything but Kind and country). */
   counts(rows: readonly Row[], f: ListFilter, all: readonly Row[]): EngineCounts;
+  /**
+   * The rows left out only because their value for a selected key is a gap (store.ts A27), group by group in the engine's facet order;
+   * a row sits once, in the first group it qualifies for. `rows` already passed `q`, `ids` and `region`. `only` limits the keys.
+   */
+  unchecked(rows: readonly Row[], f: ListFilter, only?: readonly string[]): { key: string; label: string; note: string; rows: Row[] }[];
+}
+
+/** The ranked candidates of a card search (store.ts A28): the rows holding the words, with their BM25 score, and the terms the words were read as. */
+export interface CardMatches {
+  terms: string[];
+  hits: { row: S.PlaceRow; score: number }[];
 }
 
 /** One searchable group of records for the searcher: the records of one kind (and optionally one country). */
@@ -63,8 +76,25 @@ export interface JsonSource {
   /** Name search over the records of a scope; `limit` is the hits per group, already within the cap. */
   search(q: string, scope: SearchScope, limit: number): S.SearchResult;
 
-  /** One export file for one item, or null when the item does not exist (or is not public). */
+  /** One export file for one item, or null when the item does not exist (or is not public). Every format, `json` (the model) and `print` (text) included. */
   exportFile(q: S.ExportQuery): S.ExportFile | null;
+
+  /**
+   * Card search (store.ts A28): of `rows` (the places that passed every other filter), those whose card text holds the words of `q`,
+   * scored by BM25 over `scope` (the rows of the query's country scope, whatever else it filters), so a place scores the same however
+   * the catalogue is split. The stemmer, the stop list and the term rule stay behind the source (they move into core with API-2 if
+   * SupabaseStore needs them); the order, the cap and the counts are the store's (cards.ts).
+   */
+  cards(q: string, rows: readonly S.PlaceRow[], scope: readonly S.PlaceRow[]): CardMatches;
+
+  /** The legs file of a trip with its pair-key mapping (legs.ts), or null when the trip has none. */
+  legsFile(slug: string): LegsSource | null;
+
+  /**
+   * The files the store is built from, each with its content hash, and the build id (store.ts A30). The revision is `inputRevision()` of
+   * this, so it costs a pass over the input files and not over every built detail. Called once per process; a failure is retried.
+   */
+  revisionInputs(): RevisionInputs;
 
   globe: {
     tree(): S.GlobeTree;
@@ -78,10 +108,4 @@ export interface JsonSource {
 
   /** The feedback form's URL for a page path, or null when reporting is off. */
   reportLink(page: string): string | null;
-
-  /**
-   * The served inputs the dataset does not hold, as parsed content (store.ts A8): the globe files, the parser vocabulary, the cited
-   * source entries and the towns layer (null until META-2). The store adds the rows and details itself.
-   */
-  snapshot(): { globe: unknown; vocab: unknown; citations: unknown; towns: unknown };
 }

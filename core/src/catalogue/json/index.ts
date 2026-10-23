@@ -3,18 +3,22 @@
 // (principle P8: inside the methods), the sort and paging rule, region/`ids`/`q` resolution, the error codes and the revision.
 //
 // Until phase E fills them, `near`, `nearbyForPlace`, `towns`, `city=` and `globeCity` answer `not_available` (cases K3, K4, K5, K15,
-// K17 are pending on this target with the task that fills them).
+// K17 are pending on this target with the task that fills them). Parsed counts, listUnchecked, searchCards, tripLegs and the json
+// export (API-3b) are implemented here over the source's members.
 import type { z } from "zod";
 import * as S from "../../schema/api/index.ts";
 import { scheduleTrip } from "../../schedule/schedule.ts";
 import { parseTimelineUrl } from "../../schedule/profileCodec.ts";
 import type { DayTimeline, Profile, ScheduleDayInput } from "../../schedule/types.ts";
-import { revisionOf, servedSnapshot } from "../revision.ts";
+import { cardHitsOf } from "../cards.ts";
+import { inputRevision } from "../revision.ts";
 import { fail, ok, type Result } from "../result.ts";
 import { currentSlug, isWithdrawn, movedTo, regionSlugOf, resolveRegion } from "../slugs.ts";
 import { PLACE_SORT_VALUES, TRIP_SORT_VALUES, sortRows } from "../sorting.ts";
 import { PLACE_TEXT, TRIP_TEXT, compareCodePoints, matchesText, sortKey } from "../sortKey.ts";
-import type { CatalogueStore } from "../store.ts";
+import { mergeParsed, type CatalogueStore } from "../store.ts";
+import { uncheckedPageOf } from "../unchecked.ts";
+import { noLegs, tripLegsOf } from "./legs.ts";
 import type { JsonSource, ListFilter } from "./source.ts";
 
 export type { JsonSource, ListEngine, ListFilter, EngineCounts, SearchScope } from "./source.ts";
@@ -46,19 +50,13 @@ export class JsonStore implements CatalogueStore {
 
   // ---- revision ----------------------------------------------------------------------------------------------------------------
 
-  /** The content hash of everything served (A8): rows, details, the registry, the globe, the vocabulary and the cited sources. */
+  /**
+   * The revision from inputs (A30): SHA-256 of the build id and the content hash of every input file the source reads, computed once
+   * per store. Not a pass over every built detail, which cost 2.9 s at 10,000 places.
+   */
   revision(): Promise<string> {
-    this.revPromise ??= Promise.resolve().then(() => {
-      const s = this.source;
-      const placeDetails = s.placeRows.map((r) => s.placeDetail(r.slug));
-      const tripDetails = s.tripRows.map((r) => s.tripDetail(r.slug));
-      return revisionOf(servedSnapshot({
-        dataset: { placeRows: s.placeRows, placeDetails, tripRows: s.tripRows, tripDetails },
-        slugs: s.registry,
-        ...s.snapshot(),
-      }));
-    }).catch((e) => {
-      // a failure while the snapshot is built is not the store's answer for life: the next call builds it again (audit GB-A-5)
+    this.revPromise ??= Promise.resolve().then(() => inputRevision(this.source.revisionInputs())).catch((e) => {
+      // a failure while the inputs are read is not the store's answer for life: the next call reads them again (audit GB-A-5)
       this.revPromise = null;
       throw e;
     });
@@ -121,10 +119,12 @@ export class JsonStore implements CatalogueStore {
     return this.page(sortRows(matched, qi.value.sort ?? [], PLACE_SORT_VALUES, (r) => r.name), pi.value);
   }
 
-  async countPlaces(q: S.PlaceQuery): Promise<Result<S.FacetCounts>> {
-    const qi = check(S.placeQuery, q);
+  async countPlaces(q: S.CountQuery): Promise<Result<S.FacetCounts>> {
+    const qi = check(S.countQuery, q);
     if (!qi.ok) return qi;
-    const prep = this.prepare(this.source.placeRows, qi.value, PLACE_TEXT, this.source.placeEngine, "places");
+    // a parsed count is the count of the query the parse opens (A25, case K22)
+    const merged = mergeParsed(qi.value);
+    const prep = this.prepare(this.source.placeRows, merged, PLACE_TEXT, this.source.placeEngine, "places");
     if ("code" in prep) return { ok: false, error: prep };
     const engine = this.source.placeEngine;
     const matched = engine.match(prep.rows, prep.filter);
@@ -137,6 +137,37 @@ export class JsonStore implements CatalogueStore {
       ]),
     );
     return ok({ n: matched.length, unchecked: c.unchecked, scope: c.scope, total: this.source.placeRows.length, facets, gaps: c.gaps, notes: c.notes }, await this.revision());
+  }
+
+  async listUnchecked(q: S.UncheckedQuery, page?: S.ApiPage): Promise<Result<S.UncheckedPage>> {
+    const qi = check(S.uncheckedQuery, q);
+    if (!qi.ok) return qi;
+    const pi = check(S.apiPage, page ?? {});
+    if (!pi.ok) return pi;
+    const pageSize = pi.value.pageSize ?? S.API_LIMITS.pageSize.default;
+    if (pageSize > S.API_LIMITS.pageSize.max) return fail("too_large", `pageSize is at most ${S.API_LIMITS.pageSize.max}.`, { max: S.API_LIMITS.pageSize.max });
+    const { only, ...plain } = qi.value;
+    const prep = this.prepare(this.source.placeRows, plain, PLACE_TEXT, this.source.placeEngine, "places");
+    if ("code" in prep) return { ok: false, error: prep };
+    const groups = this.source.placeEngine.unchecked(prep.rows, prep.filter, only);
+    return ok(uncheckedPageOf(groups, qi.value.sort ?? [], pi.value.page ?? 1, pageSize), await this.revision());
+  }
+
+  async searchCards(q: S.CardQuery): Promise<Result<S.CardHits>> {
+    const qi = check(S.cardQuery, q);
+    if (!qi.ok) return qi;
+    const limit = qi.value.limit ?? S.API_LIMITS.cards.default;
+    if (limit > S.API_LIMITS.cards.max) return fail("too_large", `limit is at most ${S.API_LIMITS.cards.max}.`, { max: S.API_LIMITS.cards.max });
+    // `q` is the card words here, so the substring rule of a list does not apply; every other filter does
+    const { q: words, limit: _limit, ...filters } = qi.value;
+    const prep = this.prepare(this.source.placeRows, filters, PLACE_TEXT, this.source.placeEngine, "places");
+    if ("code" in prep) return { ok: false, error: prep };
+    const rows = this.source.placeEngine.match(prep.rows, prep.filter);
+    // BM25 runs over the query's country scope, so a place scores the same however the catalogue is split (A28)
+    const countries = new Set((qi.value.facets?.country ?? []).map((c) => c.toLowerCase()));
+    const scope = countries.size ? this.source.placeRows.filter((r) => countries.has(r.country.toLowerCase())) : this.source.placeRows;
+    const found = this.source.cards(words, rows, scope);
+    return ok(cardHitsOf(found.hits, found.terms, limit), await this.revision());
   }
 
   async getPlace(slug: string): Promise<Result<S.PlaceLookup>> {
@@ -208,6 +239,19 @@ export class JsonStore implements CatalogueStore {
     return ok(this.scheduled(d, si.value.profile), await this.revision());
   }
 
+  async tripLegs(slug: string): Promise<Result<S.TripLegsLookup>> {
+    const si = check(S.tripLegsInput, { slug });
+    if (!si.ok) return si;
+    const moved = movedTo(this.source.registry, slug, "trips");
+    if (moved) return ok({ moved: moved.slug, ref: moved.key }, await this.revision());
+    const detail = this.tripBySlug.has(slug) ? this.source.tripDetail(slug) : null;
+    if (!detail) return fail("not_found", "No public trip has that slug.");
+    const file = this.source.legsFile(slug);
+    const legs = file ? tripLegsOf(detail, file) : noLegs(detail);
+    if (legs.legs.length > S.API_LIMITS.tripLegs.max) return fail("too_large", `A trip has at most ${S.API_LIMITS.tripLegs.max} legs.`, { max: S.API_LIMITS.tripLegs.max });
+    return ok(legs, await this.revision());
+  }
+
   /**
    * The detail's days scheduled for a profile (the timeline's URL keys). An unknown value falls back to the plan's own setting, as the
    * page does. Visitor additions (`add`) need the place pages and are not applied here.
@@ -242,7 +286,9 @@ export class JsonStore implements CatalogueStore {
   async globePins(cc: string): Promise<Result<S.LightPin[]>> {
     const ci = check(S.globePinsInput, { cc });
     if (!ci.ok) return ci;
-    return ok(this.source.globe.pins(cc) ?? [], await this.revision());
+    const pins = this.source.globe.pins(cc) ?? [];
+    if (pins.length > S.API_LIMITS.globePins.max) return fail("too_large", `A country answers at most ${S.API_LIMITS.globePins.max} pins.`, { max: S.API_LIMITS.globePins.max });
+    return ok(pins, await this.revision());
   }
 
   async globeCard(key: string): Promise<Result<S.GlobeCardFile>> {

@@ -131,7 +131,23 @@ export function countParsed(parsed: ParsedQuery): { n: number; unchecked: number
 /** `countParsed`, loading the list files the parse is scoped to first (at most `maxFiles` of them; a wider scope stays uncounted). */
 export async function countParsedAsync(parsed: ParsedQuery, maxFiles = 3): Promise<{ n: number; unchecked: number } | null> {
   if (parsed.target === 'search') return null;
+  // the API counts a parse in one request (`parsed.*` on /places/counts, store.ts A25); only a page that holds the list asks, as before
+  if (parsed.target !== 'trips' && registered.has('place')) {
+    const got = await serverCount(emptyState(), { q: parsed.q, facets: parsed.facets });
+    if (got) return got;
+  }
   return countListAsync(parsed.target === 'trips' ? 'trip' : 'place', { ...emptyState(), q: parsed.q, facets: parsed.facets }, maxFiles);
+}
+
+/** The server's count of a Places state, or null when this adapter has none or cannot answer the state (the browser then counts, as it always has). */
+async function serverCount(query: ListState, parsed?: { q: string; facets: ListState['facets'] }): Promise<{ n: number; unchecked: number } | null> {
+  const ask = client().countPlaces;
+  if (typeof ask !== 'function') return null;
+  try {
+    return await ask.call(client(), query, parsed);
+  } catch {
+    return null;
+  }
 }
 
 /** The same count for any list state of a registered list: the list box asks it with the reading merged into the filters already set. */
@@ -141,7 +157,7 @@ export function countList(type: EntityType, query: ListState): { n: number; unch
   if (type === 'place') {
     // the unfiltered list is its manifest's total: no file needs to load for it
     if (hit.shards && isPlain(query)) return { n: hit.shards.manifest.total, unchecked: 0 };
-    const got = peekPlacesChecked(query);
+    const got = peekPlacesChecked(query, undefined, undefined, true);
     return got ? { n: got.rows.length, unchecked: got.unchecked.reduce((a, g) => a + g.rows.length, 0) } : null;
   }
   return { n: filterRows(hit.rows as readonly unknown[], query, hit.d as unknown as EntityDescriptor<unknown>).length, unchecked: 0 };
@@ -151,6 +167,10 @@ export function countList(type: EntityType, query: ListState): { n: number; unch
 export async function countListAsync(type: EntityType, query: ListState, maxFiles = Infinity): Promise<{ n: number; unchecked: number } | null> {
   const hit = registered.get(type);
   if (!hit) return null;
+  if (type === 'place') {
+    const got = await serverCount(query);
+    if (got) return got;
+  }
   if (hit.shards && !isPlain(query)) {
     const missing = shardsForScope(hit.shards.manifest, query).filter((r) => !shardLoaded.has(shardKey(type, r.id)));
     if (missing.length > maxFiles) return null;
@@ -324,6 +344,7 @@ export async function globeWikidata(qid: string, signal?: AbortSignal): Promise<
  */
 export async function listPlacesChecked(query: ListState, parsed?: readonly FacetParam[], pageSize?: number): Promise<PlacesAnswer> {
   await ensureShards('place', query, pageSize);
+  if (!(pageSize && isPlain(query))) await loadUnchecked(query, parsed);
   const got = peekPlacesChecked(query, parsed, pageSize);
   if (!got) throw new Error('The place list is not loaded');
   return got;
@@ -488,11 +509,39 @@ export async function ensureShards(type: EntityType, query: ListState, pageSize?
   // words the name, area and tags do not hold: the full-text files of the scope answer them (3.60)
   if (type === 'place' && query.q.trim() && !(pageSize && isPlain(query))) {
     const rows = rowsFor(type, query) as readonly PlaceListRow[] | null;
-    if (rows && !filterRows(rows, query, hit.d as unknown as EntityDescriptor<PlaceListRow>).length) await Promise.all(refs.map((r) => loadText(r.id)));
+    if (rows && !filterRows(rows, query, hit.d as unknown as EntityDescriptor<PlaceListRow>).length && !(await loadCardRank(query))) await Promise.all(refs.map((r) => loadText(r.id)));
   }
 }
 
 // ---- the full-text pass (3.60) ----
+
+// The server ranks the cards when the adapter can (GET /api/v1/places/cards, store.ts A28): the slugs, best first, for the state's words and
+// filters. A state it cannot rank is remembered as null and the files above answer it.
+const cardRanks = new Map<string, Map<string, number> | null>();
+const cardPromises = new Map<string, Promise<boolean>>();
+const stateKey = (q: ListState): string => JSON.stringify([q.q.trim(), q.facets, q.bbox, q.ids, q.f, q.sv]);
+
+/** Asks the server to rank the cards of a state; true when it did (and `fullText` will use the ranking). */
+function loadCardRank(query: ListState): Promise<boolean> {
+  const key = stateKey(query);
+  const ask = client().cardRank;
+  if (typeof ask !== 'function') return Promise.resolve(false);
+  let p = cardPromises.get(key);
+  if (!p) {
+    p = ask.call(client(), query).then(
+      (slugs) => {
+        cardRanks.set(key, slugs ? new Map(slugs.map((s, i) => [s, i])) : null);
+        return !!slugs;
+      },
+      () => {
+        cardRanks.set(key, null);
+        return false;
+      },
+    );
+    cardPromises.set(key, p);
+  }
+  return p;
+}
 
 const textLoaded = new Map<string, TextIndex | null>();
 const textPromises = new Map<string, Promise<void>>();
@@ -515,6 +564,8 @@ function loadText(id: string): Promise<void> {
  * passing every other filter. 'wait' while a file of the scope is on its way; null when no place holds the words.
  */
 function fullText(rows: readonly PlaceListRow[], query: ListState, d: EntityDescriptor<PlaceListRow>, refs: readonly { id: string }[]): PlaceListRow[] | 'wait' {
+  const ranked = cardRanks.get(stateKey(query));
+  if (ranked) return rows.filter((r) => ranked.has(r.slug) && matchesRow(r, query, d, 'q')).sort((a, b) => ranked.get(a.slug)! - ranked.get(b.slug)!);
   const indexes: TextIndex[] = [];
   for (const r of refs) {
     if (!textLoaded.has(r.id)) return 'wait';
@@ -600,13 +651,50 @@ export function peekPlaces(query: ListState, pageSize?: number): ListResult<Plac
 }
 
 /** `peekPlaces` split by honesty (H1). The plain list has nothing unchecked. */
-export function peekPlacesChecked(query: ListState, parsed?: readonly FacetParam[], pageSize?: number): PlacesAnswer | null {
+/** `local` evaluates in the browser even for an adapter that asks the server: the synchronous counts (`countList`) have no request to wait on. */
+export function peekPlacesChecked(query: ListState, parsed?: readonly FacetParam[], pageSize?: number, local = false): PlacesAnswer | null {
   const got = peekPlaces(query, pageSize);
   if (!got) return null;
   const hit = registered.get('place')!;
   if (got.offset > 0 || (hit.shards && pageSize && isPlain(query))) return { ...got, unchecked: [] };
   const rows = rowsFor('place', query) as readonly PlaceListRow[];
+  const key = uncheckedKey(query, parsed);
+  if (!selectsAny(query)) return { ...got, unchecked: [] };
+  if (!local && serverUnchecked(query)) {
+    // the server decides which rows are "not checked yet"; this only dresses its slugs with the rows already loaded, in their order
+    const groups = uncheckedCache.get(key);
+    if (groups === undefined) return null;
+    if (groups) return { ...got, unchecked: groups.map((g) => ({ param: g.param, label: g.label, note: g.note, rows: rows.filter((r) => g.slugs.has(r.slug)) })).filter((g) => g.rows.length) };
+  }
   return { ...got, unchecked: uncheckedRows(rows, query, hit.d as unknown as EntityDescriptor<PlaceListRow>, parsed) };
+}
+
+// ---- "not checked yet" rows from the server (store.ts A27) ----
+
+type ServerGroup = { param: FacetParam; label: string; note: string; slugs: Set<string> };
+/** null: the server could not answer this state, so the browser evaluates it (an advanced filter, a facet the engine does not publish). */
+const uncheckedCache = new Map<string, ServerGroup[] | null>();
+const uncheckedPromises = new Map<string, Promise<void>>();
+const uncheckedKey = (q: ListState, parsed?: readonly FacetParam[]): string => `${stateKey(q)}|${parsed?.join(',') ?? ''}`;
+const selectsAny = (q: ListState): boolean => Object.values(q.facets).some((v) => v?.length);
+/** True when this adapter evaluates "not checked yet" on the server and the state is one it can read. */
+const serverUnchecked = (q: ListState): boolean => typeof client().uncheckedGroups === 'function' && !q.f && !q.sv;
+
+/** Asks the server for the unchecked groups of a state (once); a failure is remembered as "evaluate here". */
+function loadUnchecked(query: ListState, parsed?: readonly FacetParam[]): Promise<void> {
+  if (!selectsAny(query) || !serverUnchecked(query)) return Promise.resolve();
+  const key = uncheckedKey(query, parsed);
+  let p = uncheckedPromises.get(key);
+  if (!p) {
+    p = client()
+      .uncheckedGroups!(query, parsed)
+      .then(
+        (groups) => void uncheckedCache.set(key, groups ? groups.map((g) => ({ ...g, slugs: new Set(g.slugs) })) : null),
+        () => void uncheckedCache.set(key, null),
+      );
+    uncheckedPromises.set(key, p);
+  }
+  return p;
 }
 
 /** The Places list for a query, in the shape a server answers: `listPlaces(query)`. Loads the files the query is scoped to first. */

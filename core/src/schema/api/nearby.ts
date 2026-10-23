@@ -44,6 +44,8 @@ export const nearRow = z.strictObject({
   bearing: z.enum(BEARINGS),
   band: z.enum(NEAR_BANDS),
   basis: z.enum(DRIVE_BASIS),
+  /** routed drive minutes from the centre when `basis` is `routed` (a stored ORS matrix, MX), else null: never an estimate (store.ts A35) */
+  minutes: z.number().min(0).nullable(),
 });
 
 /** The centre a near answer is measured from. */
@@ -66,7 +68,12 @@ export const nearPage = z.strictObject({
   basis: nearBasis,
 });
 
-/** A town of the towns layer (nearby spec 5.6; rows `[id, name, lat, lon, pop, admin1, ascii]` of data/reference/towns/<cc>.json). */
+/**
+ * A town of the towns layer (nearby spec 5.6; rows `[id, name, lat, lon, pop, admin1, ascii]` of data/reference/towns/<cc>.json).
+ * Every town is served through the town guard (core/src/privacy/towns.ts `safeTown`, store.ts A33) at load: no centre lies within the
+ * household radius, and the row carries only public gazetteer fields, so no town is marked and none is left out. The schema is strict
+ * on purpose: a town row may never gain a field derived from the household (a distance to home, a "moved" flag).
+ */
 export const town = z.strictObject({
   id: apiTownId,
   name: z.string(),
@@ -97,8 +104,11 @@ export const townQuery = z.strictObject({
   region: z.string().min(1).max(120).optional(),
 });
 
-/** At most API_LIMITS.towns.max rows; `truncated` says more matched. */
-export const townList = z.strictObject({ items: z.array(town), truncated: z.boolean() });
+/**
+ * At most API_LIMITS.towns.max rows; `truncated` says more matched. `clamped` is true when the asked radius was above
+ * API_LIMITS.nearRadius.max and was clamped to it, as in `near` (review R-26; always false for a prefix lookup).
+ */
+export const townList = z.strictObject({ items: z.array(town), truncated: z.boolean(), clamped: z.boolean() });
 
 /** One place of the "Around here" block: the fields a card already shows (P8 allowlist). */
 export const nearbyItem = z.strictObject({
@@ -111,6 +121,8 @@ export const nearbyItem = z.strictObject({
   bearing: z.enum(BEARINGS),
   band: z.enum(NEAR_BANDS),
   basis: z.enum(DRIVE_BASIS),
+  /** routed drive minutes when `basis` is `routed`, else null (store.ts A35) */
+  minutes: z.number().min(0).nullable(),
   badge: z.string().nullable(),
 });
 

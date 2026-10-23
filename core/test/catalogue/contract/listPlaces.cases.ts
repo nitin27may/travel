@@ -1,6 +1,7 @@
 // listPlaces: K1 page size, K2 allowlist, K8 ref, K11 order and paging, K14 region aliases, K15 city, plus the output shape.
 import { expect } from "vitest";
-import { API_LIMITS, PLACE_ROW_KEYS, paged, placeRow, type PlaceRow } from "../../../src/schema/api/index.ts";
+import { API_LIMITS, PLACE_ROW_KEYS, apiTownId, paged, placeRow, type PlaceRow } from "../../../src/schema/api/index.ts";
+import { RESERVED_API_WORDS } from "../../../src/catalogue/store.ts";
 import { compareSortable, sortKey } from "../../../src/catalogue/sortKey.ts";
 import { PLACE_SORT_VALUES, compareValues } from "../../../src/catalogue/sorting.ts";
 import { allRows, expectError, expectOk, type ContractCase } from "./kit.ts";
@@ -30,15 +31,37 @@ export const listPlacesCases: ContractCase[] = [
   },
   {
     id: "K2",
-    title: "rows carry exactly the allowlist keys of the PlaceRow schema (39 keys; the owner's save metadata, sourceTypes and added, is not among them)",
+    title: "rows carry exactly the allowlist keys of the PlaceRow schema (the shipped row's keys plus ref, approx and nearTown, A35; the owner's save metadata, sourceTypes and added, is not among them)",
     method: "listPlaces",
     async run(store) {
       const rows = await everyRow(store);
       expect(rows.length).toBeGreaterThan(0);
+      expect(PLACE_ROW_KEYS).toContain("nearTown");
       for (const r of rows) {
         expect(Object.keys(r).sort(), r.slug).toEqual([...PLACE_ROW_KEYS].sort());
         expect(placeRow.safeParse(r).success, r.slug).toBe(true);
       }
+    },
+  },
+  {
+    id: "listPlaces.nearTown",
+    title: "nearTown is a town id or null; on a target with the towns layer each one resolves (A35)",
+    method: "listPlaces",
+    async run(store, t) {
+      const rows = await everyRow(store);
+      const ids = new Set(rows.map((r) => r.nearTown).filter((x): x is string => x !== null));
+      for (const id of ids) expect(apiTownId.safeParse(id).success, id).toBe(true);
+      for (const r of rows) if (r.approx) expect(r.nearTown, `${r.slug} is approximate`).toBeNull();
+      if (t.facts.town.layer) for (const id of ids) expect((await store.towns({ city: id })).ok, id).toBe(true);
+    },
+  },
+  {
+    id: "listPlaces.reserved",
+    title: "no place holds a slug that is a path word under /api/v1/places/ (counts, unchecked, cards: A38)",
+    method: "listPlaces",
+    async run(store) {
+      const slugs = new Set((await everyRow(store)).map((r) => r.slug));
+      for (const w of RESERVED_API_WORDS) expect(slugs.has(w), w).toBe(false);
     },
   },
   {

@@ -99,7 +99,11 @@ export const globeLine = z.strictObject({
   credit: z.string(),
 });
 
-/** One city's outline (row 9.3, GLB2; OSM admin level 8, ODbL), by town id. A town with no polygon keeps the ring (`geometry` null). */
+/**
+ * One city's outline (row 9.3, GLB2; OSM admin level 8, ODbL), by town id. A town with no polygon keeps the ring (`geometry` null). An
+ * outline the town guard refuses (`safeGeometry`, store.ts A33: a vertex within the household radius) is served as the ring too, with
+ * the same credit and no other sign, so a refused outline looks like a missing one.
+ */
 export const globeCity = z.strictObject({
   id: apiTownId,
   name: z.string(),
@@ -109,6 +113,14 @@ export const globeCity = z.strictObject({
 
 export const globePinsInput = z.strictObject({ cc: z.string().regex(/^[a-z]{2}$/) });
 export const globeCardInput = z.strictObject({ key: z.string().regex(/^(?:place|trip):[a-z0-9]+(?:-[a-z0-9]+)*$/) });
+/**
+ * The globe card's URL path (store.ts A29, audit GB-A-6): two segments, `/api/v1/globe/card/{kind}/{slug}`, because a colon in a path
+ * segment is a poor URL. The store keeps the card key `<kind>:<slug>` (the card carries it as `card.key`); `globeCardKey` is the one join.
+ */
+export const GLOBE_CARD_KINDS = ["place", "trip"] as const;
+export const globeCardPath = z.strictObject({ kind: z.enum(GLOBE_CARD_KINDS), slug: apiSlug });
+/** The store key of a card path. A malformed part gives a key the store refuses with `invalid_input`. */
+export const globeCardKey = (kind: string, slug: string): string => `${kind}:${slug}`;
 export const globeIdInput = z.strictObject({ id: z.string().min(1).max(120).regex(/^[A-Za-z0-9][A-Za-z0-9_.-]*$/) });
 export const globeCityInput = z.strictObject({ townId: apiTownId });
 

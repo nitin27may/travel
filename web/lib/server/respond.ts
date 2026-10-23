@@ -1,7 +1,7 @@
 import { fromSearchParams } from '@travel/core/catalogue/httpCodec.ts';
 import { httpStatus, type Result } from '@travel/core/catalogue/result.ts';
 import type { CatalogueStore } from '@travel/core/catalogue/store.ts';
-import { API_LIMITS, PLACE_ROW_KEYS, TRIP_ROW_KEYS, reportInput, type ApiError } from '@travel/core/schema/api/index.ts';
+import { API_LIMITS, PLACE_ROW_KEYS, TRIP_ROW_KEYS, globeCardKey, reportInput, type ApiError } from '@travel/core/schema/api/index.ts';
 import { privacyHits, rowOutsideAllowlist } from './privacy';
 import { getStore } from './store';
 
@@ -18,7 +18,9 @@ const CACHE = {
 } as const;
 
 const PLACE_ROW = new Set<string>(PLACE_ROW_KEYS);
-const NEAR_ROW = new Set<string>([...PLACE_ROW_KEYS, 'distanceKm', 'bearing', 'band', 'basis']);
+const NEAR_ROW = new Set<string>([...PLACE_ROW_KEYS, 'distanceKm', 'bearing', 'band', 'basis', 'minutes']);
+/** listUnchecked rows: a Places row plus the key it is a gap for (store.ts A27). */
+const UNCHECKED_ROW = new Set<string>([...PLACE_ROW_KEYS, 'gap']);
 const TRIP_ROW = new Set<string>(TRIP_ROW_KEYS);
 
 type Run = (store: CatalogueStore, req: Request, p: Record<string, string>) => Promise<Result<unknown>>;
@@ -71,6 +73,9 @@ export const ENDPOINTS = {
   health: { cache: CACHE.none, run: pathOnly(async (s) => ({ ok: true, data: { status: 'ok', revision: await s.revision() }, revision: await s.revision() })) },
   listPlaces: { cache: CACHE.data, rows: PLACE_ROW, run: (s, r, p) => decoded('listPlaces', r, p, (st, a) => (a.method === 'listPlaces' ? st.listPlaces(a.q, a.page) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
   countPlaces: { cache: CACHE.data, run: (s, r, p) => decoded('countPlaces', r, p, (st, a) => (a.method === 'countPlaces' ? st.countPlaces(a.q) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
+  // API-3 (store.ts A27, A28)
+  listUnchecked: { cache: CACHE.data, rows: UNCHECKED_ROW, run: (s, r, p) => decoded('listUnchecked', r, p, (st, a) => (a.method === 'listUnchecked' ? st.listUnchecked(a.q, a.page) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
+  searchCards: { cache: CACHE.data, rows: PLACE_ROW, run: (s, r, p) => decoded('searchCards', r, p, (st, a) => (a.method === 'searchCards' ? st.searchCards(a.q) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
   getPlace: { cache: CACHE.data, run: pathOnly((s, _r, p) => s.getPlace(p.slug ?? '')), movedTo: (slug) => `/api/v1/places/${slug}/` },
   nearbyForPlace: { cache: CACHE.data, run: pathOnly((s, _r, p) => s.nearbyForPlace(p.slug ?? '')) },
   near: { cache: CACHE.data, rows: NEAR_ROW, run: (s, r, p) => decoded('near', r, p, (st, a) => (a.method === 'near' ? st.near(a.q, a.page) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
@@ -79,10 +84,12 @@ export const ENDPOINTS = {
   search: { cache: CACHE.data, run: (s, r, p) => decoded('search', r, p, (st, a) => (a.method === 'search' ? st.search(a.q) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
   listTrips: { cache: CACHE.data, rows: TRIP_ROW, run: (s, r, p) => decoded('listTrips', r, p, (st, a) => (a.method === 'listTrips' ? st.listTrips(a.q, a.page) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
   getTrip: { cache: CACHE.data, run: (s, r, p) => decoded('getTrip', r, p, (st, a) => (a.method === 'getTrip' ? st.getTrip(a.slug, a.profile) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s), movedTo: (slug) => `/api/v1/trips/${slug}/` },
+  // API-3 (store.ts A34)
+  tripLegs: { cache: CACHE.data, run: pathOnly((s, _r, p) => s.tripLegs(p.slug ?? '')), movedTo: (slug) => `/api/v1/trips/${slug}/legs/` },
   getExport: { cache: CACHE.export, run: (s, r, p) => decoded('getExport', r, p, (st, a) => (a.method === 'getExport' ? st.getExport(a.q) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
   globeTree: { cache: CACHE.globe, run: pathOnly((s) => s.globeTree()) },
   globePins: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globePins(p.cc ?? '')) },
-  globeCard: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globeCard(`${p.kind ?? ''}:${p.slug ?? ''}`)) },
+  globeCard: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globeCard(globeCardKey(p.kind ?? '', p.slug ?? ''))) },
   globeFeature: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globeFeature(p.id ?? '')) },
   globeLine: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globeLine(p.id ?? '')) },
   globeCity: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globeCity(p.townId ?? '')) },
@@ -122,7 +129,8 @@ export async function respond(name: EndpointName, req: Request, params: Record<s
     if (!result.ok) return failure(result.error);
     const etag = `"${result.revision}"`;
     const data = result.data as Record<string, unknown>;
-    if (ep.movedTo && data && typeof data.moved === 'string') return json(308, { moved: data.moved, ref: data.ref }, { location: ep.movedTo(data.moved), 'cache-control': ep.cache, etag });
+    // a move keeps the query (store.ts A32, audit GB-A-13): `?p=family` survives the redirect
+    if (ep.movedTo && data && typeof data.moved === 'string') return json(308, { moved: data.moved, ref: data.ref }, { location: `${ep.movedTo(data.moved)}${new URL(req.url).search}`, 'cache-control': ep.cache, etag });
     const headers: Record<string, string> = { 'cache-control': ep.cache, ...(ep.cache === CACHE.none ? {} : { etag }) };
     // the answer is the JSON envelope (filename, mime, body); it is not the file, so it carries no content-disposition (audit GB-A-3)
     // fail closed: a body with a household string, a private key or a row key outside the allowlist is never sent
