@@ -6,7 +6,7 @@ import type { HonestyId } from '@/lib/public';
 const MARKERS: { id: HonestyId; label: string; means: string }[] = [
   { id: 'location_unconfirmed', label: 'Location unconfirmed', means: 'The pin is approximate; nobody has stood there yet.' },
   { id: 'unverified', label: 'Unverified', means: 'A fact we read in one place and have not checked.' },
-  { id: 'no_source', label: 'No source yet', means: 'Nothing we can link to backs it.' },
+  { id: 'no_source', label: 'No details available', means: 'We have no details for this place yet.' },
   { id: 'condensed', label: 'Condensed from the full plan', means: 'The days are a short list of stops, not the whole plan.' },
   { id: 'overview_only', label: 'Overview only', means: 'No day-by-day plan yet; the page has the cover, season and photos.' },
   { id: 'drive_estimated', label: 'Drive time estimated', means: 'A straight line scaled to the road, shown with a tilde.' },

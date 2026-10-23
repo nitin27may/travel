@@ -7,7 +7,7 @@ const TEXT: Record<HonestyId, string> = {
   low_confidence: 'Low confidence',
   location_unconfirmed: 'Location unconfirmed',
   unverified: 'Unverified',
-  no_source: 'No source yet',
+  no_source: 'No details available',
   dates_open: 'Dates open',
   condensed: 'Condensed from the full plan',
   overview_only: 'Overview only',

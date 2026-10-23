@@ -42,7 +42,7 @@ test.describe('places list', () => {
     // a place's personal status is household data and never shows on the public site
     for (const word of ['Idea', 'Shortlisted', 'Planned', 'Visited', 'Dropped']) await expect(card.getByText(word, { exact: true })).toHaveCount(0);
     await expect(card.getByText('Location unconfirmed')).toBeVisible();
-    await expect(card.getByText('No source yet').first()).toBeVisible();
+    await expect(card.getByText('No details available').first()).toBeVisible();
     await expect(card.getByRole('link', { name: /^Place page/ })).toHaveAttribute('href', '/places/grand-sault-waterfall/');
     // no stored position, so no Globe link (it would open on nothing)
     await expect(card.getByRole('link', { name: /^Globe/ })).toHaveCount(0);

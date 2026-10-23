@@ -7,7 +7,7 @@ import type { PlaceListRow } from './rows';
  */
 export function PlaceCardFooter({ p }: { p: PlaceListRow }) {
   const noSource = p.honesty.some((h) => h.id === 'no_source');
-  const origin = p.researched && !noSource ? 'Researched' : noSource ? 'No source yet' : null;
+  const origin = p.researched && !noSource ? 'Researched' : noSource ? 'No details available' : null;
   const showComplete = p.completeness.level !== 'draft';
   const hasStatus = origin !== null || p.statsState !== null || showComplete;
   const parts: React.ReactNode[] = [];
