@@ -2,6 +2,8 @@
 
 > **Corrected 21 Oct 2026:** part a is phase A (EXECUTION-PLAN tasks A7, A7b), not phase B; the plan tasks are A7, A7b, E8 and E10. Entry point: [docs/v2/PLAN.md](../../../PLAN.md). Worktree paths below are from the first (Linux) machine; use `<repo parent>/travel-wt/` here.
 
+> **Revised 23 Oct (phase E start sheet).** Part a is merged (phase A). Parts b and c run from [PHASE-E-START.md](../PHASE-E-START.md) in seat A: **LST2b** Wed 28 to Fri 30 Oct (after META-2 and API-3), **LST2c** Fri 30 to Sat 31 Oct (after LST2b and PLC2b). Changes in this brief: **no contract edits here** (decision D-E2, collision E2): API-3 adds the row key `nearTown` and states the `city` facet semantics, so part b no longer owns `core/src/schema/api/places.ts`, and part c no longer owns `core/src/schema/api/near.ts` (the near schema exists since API-1a); a missing field is a request to the coordinator for an API-3 follow-up. Part c no longer owns `core/src/catalogue/json/towns.ts` (META-2 owns it; collision E9) and reads it. Each part replaces only its own `not_available` line in `core/src/catalogue/json/index.ts` with one call into its own file (`json/places-city.ts` for b, `json/near.ts` for c; collision E1). Client methods go in an appended `// near (LST2c)` section of `web/lib/client/data.ts` after API-3's section (E6). Part c removes the pending entry for the `near` table from the three contract runners (`core/test/catalogue/contract.test.ts`, `web/tests/api/contract-store.test.ts`, `web/tests/api/contract.test.ts`); the cases live in `core/test/catalogue/contract/near.cases.ts`, not `web/tests/cons/contract/near.test.ts`. Counts with a parsed query come from API-3's `countPlaces({parsed})`, so the parser near rule (part c) builds on it. The static fallback's `where-<cc>.json` is a route under `web/app/list/places/`; there is no static export any more, so "shards" means the fallback adapter's part files. Worktrees `/Users/nks/workspace/travel-wt/v2-LST2b` (port 3481) and `v2-LST2c` (port 3483); the Linux paths below are history. GPU flag on macOS: `--use-angle=metal`. Python tests through the venv.
+
 Extends [LST.md](LST.md) (stage 4). This brief is self-contained for round 2.
 
 - **Agent:** `travel-builder` (Sonnet).
@@ -28,8 +30,8 @@ A visitor narrows Places by country, province, then city or park, with counts at
 | Part | Paths |
 |---|---|
 | a | `web/components/entity/**`, `web/lib/entities/types.ts`, `web/lib/entities/descriptors/place.tsx`, `web/styles/filters.css`, `web/components/places/rows.ts`, `PlacesMap.tsx`, `PlaceCardFooter.tsx`, `cluster.ts`, `web/components/trips/TripsMap.tsx`, `TripCover.tsx`, `web/lib/search/aliases.ts`, `web/tests/entities/where.test.ts` (new), `web/tests/e2e/places-where.spec.ts` (new), `places.spec.ts`, `lists-lst.spec.ts`, `trips-filters.spec.ts` (not `smart-search.spec.ts` or `places-parity.spec.ts`, which TST owns in phase A) |
-| b | part a's files plus `web/lib/entities/descriptors/trip.tsx`, `core/src/query/**` (the city facet and counts, moved there by API-2), `core/src/schema/api/places.ts` (city fields), `core/src/catalogue/json/places.ts` (city counts), `web/app/list/places/**` (the static fallback's `where-<cc>.json`), `web/lib/public/tags.ts` (trip regions from stops), `web/tests/data/light-data.test.ts`, `web/tests/entities/**`, the matching contract cases |
-| c | part b's files plus `web/components/entity/NearChip.tsx` (new), the towns strip component, `core/src/catalogue/json/near.ts` and `towns.ts`, `core/src/schema/api/near.ts`, `web/app/api/v1/near/**`, `web/app/api/v1/towns/**`, `core/src/parse/**` (the near rule), `web/lib/search/build.ts` (town parts for the static fallback), `web/components/places/PlacesMap.tsx` (centre ring and circle), `web/tests/search/**`, `web/tests/cons/contract/near.test.ts`, `web/tests/e2e/places-near.spec.ts` (new) |
+| b | part a's files plus `web/lib/entities/descriptors/trip.tsx`, `core/src/query/**` (the city facet and counts, moved there by API-2; after API-3 merges), `core/src/catalogue/json/places-city.ts` (new: city filter and counts) and the `city=` line in `json/index.ts` (not `core/src/schema/api/places.ts`: API-3 since 23 Oct), `web/app/list/places/**` (the static fallback's `where-<cc>.json`), `web/lib/public/tags.ts` (trip regions from stops), `web/tests/data/light-data.test.ts`, `web/tests/entities/**`, the matching contract cases |
+| c | part b's files plus `web/components/entity/NearChip.tsx` (new), the towns strip component, `core/src/catalogue/json/near.ts` (new) and the `near` line in `json/index.ts`, `core/src/parse/**` (the near rule), `web/lib/search/build.ts` (town parts for the static fallback), `web/components/places/PlacesMap.tsx` (centre ring and circle), the `// near (LST2c)` section of `web/lib/client/data.ts`, `web/tests/search/**`, the pending entries for `near` in the three contract runners, `web/tests/e2e/places-near.spec.ts` (new). Read only since 23 Oct: `core/src/catalogue/json/towns.ts` (META-2), `core/src/schema/api/**` (API-3); the route files under `web/app/api/v1/near/` and `towns/` exist and need no edit |
 
 ## Do not touch
 
@@ -49,7 +51,7 @@ A visitor narrows Places by country, province, then city or park, with counts at
 
 6. The third column gains "Cities and towns": towns of the region with at least one place within `NEAR_KM`, counts within that radius, from `where-<cc>.json` written at build by the same function the boundary exposes.
 7. `city=<town-id>` (Q62) sets country and region; results within the radius, nearest first; removing the region removes the city; `area=banff` links keep working (one row where an area is the municipality).
-8. Rows gain one allowlist key `near_town`; update `light-data.test.ts` by that key only.
+8. Rows gain one allowlist key, `nearTown` in the API row (added by API-3) and `near_town` in the static row; update `light-data.test.ts` by that key only.
 9. Trips Where gains the province level from each trip's stops; no city level on Trips.
 
 ### Part c (NB list part)
@@ -87,7 +89,7 @@ Typecheck, lint, unit tests, your specs only (`places-where`, `places-near`, `sm
 
 ## Commit rules
 
-Worktrees `/home/nitin27may/workspace/travel-wt/v2-LST2a`, `v2-LST2b`, `v2-LST2c` (branches `public/LST2a` and so on, each from `main` after the previous merges), port 3464. Commits per step group `web(public/LST2): ...`. Owned paths only with `git -C <worktree> add <paths>`, never `-A`; Co-Authored-By trailer; rebase onto `main`; do not push.
+Worktrees `/Users/nks/workspace/travel-wt/v2-LST2b` (port 3481) and `/Users/nks/workspace/travel-wt/v2-LST2c` (port 3483), branches `public/LST2b` and `public/LST2c`, each from `main` after the previous merges (`git -C /Users/nks/workspace/travel worktree add /Users/nks/workspace/travel-wt/v2-LST2b -b public/LST2b main`, then `pnpm install --frozen-lockfile` at the worktree root). Part a used `v2-LST2a`, now merged. Commits per step group `web(public/LST2): ...`. Owned paths only with `git -C <worktree> add <paths>`, never `-A`; Co-Authored-By trailer; rebase onto `main`; do not push.
 
 ## Hand-back
 
