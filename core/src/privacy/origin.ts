@@ -1,20 +1,17 @@
 import { publicParty } from './party.ts';
 import type { DropLog } from './dateless.ts';
+import { HOME_TOWN, PUBLIC_START_CITY, nearHome } from './home.ts';
 
-// The household's home town is household data. Public output names the trip's public starting city instead.
-
-/** Default public starting city, and its centre, used wherever the home town or a point near it would show. */
-export const PUBLIC_START_CITY = { name: 'Toronto', lat: 43.6532, lon: -79.3832 } as const;
-
-const HOME = /whitby/gi;
-const HOME_POINT = { lat: 10.5, lon: -140.5, radiusKm: 2 } as const;
+// The household's home town is household data. Public output names the trip's public starting city instead. The home point and the
+// town pattern live in ./home.ts (the one baselined exception while the repo is private).
+export { PUBLIC_START_CITY, nearHome } from './home.ts';
 
 /**
  * The text with the household party rewritten and the home town replaced by the public starting city, keeping the case
  * ("Whitby" or "whitby"). With a `log`, every sentence the party scrub drops is reported under `where`.
  */
 export function publicOrigin(text: string, where?: string, log?: DropLog): string {
-  const replaced = publicParty(text, where, log).replace(HOME, (m) => (m === m.toLowerCase() ? PUBLIC_START_CITY.name.toLowerCase() : PUBLIC_START_CITY.name));
+  const replaced = publicParty(text, where, log).replace(HOME_TOWN, (m) => (m === m.toLowerCase() ? PUBLIC_START_CITY.name.toLowerCase() : PUBLIC_START_CITY.name));
   return dropSelfLegs(replaced, where, log);
 }
 
@@ -30,13 +27,6 @@ function dropSelfLegs(text: string, where?: string, log?: DropLog): string {
     else kept.push(s);
   }
   return kept.join('').trim();
-}
-
-export function nearHome(lat: number, lon: number): boolean {
-  const dLat = ((lat - HOME_POINT.lat) * Math.PI) / 180;
-  const dLon = ((lon - HOME_POINT.lon) * Math.PI) / 180;
-  const a = Math.sin(dLat / 2) ** 2 + Math.cos((HOME_POINT.lat * Math.PI) / 180) * Math.cos((lat * Math.PI) / 180) * Math.sin(dLon / 2) ** 2;
-  return 2 * 6371 * Math.asin(Math.sqrt(a)) <= HOME_POINT.radiusKm;
 }
 
 /** Scrubs a built value in place: every string, and any {lat, lon} point near home (moved to the public starting city). */
