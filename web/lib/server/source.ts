@@ -62,7 +62,8 @@ export function createJsonSource(opts: ServerSourceOptions = {}): JsonSource {
     rows.map((r): PlaceRow => {
       const ref = refBySlug.get(r.slug);
       if (!ref) throw new Error(`place ${r.slug} has no ref`);
-      return withRenditions({ ...r, ref, approx: isApproxPoint(data.getPlace(r.slug)?.point) });
+      // nearTown: null until META-2 derives `near_town` and the row builder carries it (store.ts A35)
+      return withRenditions({ ...r, ref, approx: isApproxPoint(data.getPlace(r.slug)?.point), nearTown: null });
     }),
   );
   const tripRows: TripRow[] = tripListRows(data.listTrips()).map((r) => withRenditions({ ...r, ref: `trip/${r.slug}` }) as TripRow);

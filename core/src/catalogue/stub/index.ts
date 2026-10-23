@@ -12,7 +12,7 @@ import { fail, ok, type Result } from "../result.ts";
 import { currentSlug, isWithdrawn, kebab, movedTo, resolveRegion } from "../slugs.ts";
 import { PLACE_SORT_VALUES, TRIP_SORT_VALUES, sortRows } from "../sorting.ts";
 import { PLACE_TEXT, TRIP_TEXT, compareCodePoints, matchesText, sortKey } from "../sortKey.ts";
-import type { CatalogueStore } from "../store.ts";
+import { AWAITS_3B, type CatalogueStore } from "../store.ts";
 import { stubData, stubSearchRecords, type StubData, type StubPlace, type StubTrip } from "./fixture.ts";
 
 export { stubData, STUB_ALIASED, STUB_MERGED, STUB_RETIRED, STUB_SOURCES, STUB_TRIP_RETIRED, STUB_WITHDRAWN, type StubData } from "./fixture.ts";
@@ -155,9 +155,11 @@ export class StubStore implements CatalogueStore {
     return this.page(sortRows(rows, qi.value.sort ?? [], PLACE_SORT_VALUES, (r) => r.name), pi.value);
   }
 
-  async countPlaces(q: S.PlaceQuery): Promise<Result<S.FacetCounts>> {
-    const qi = check(S.placeQuery, q);
+  async countPlaces(q: S.CountQuery): Promise<Result<S.FacetCounts>> {
+    const qi = check(S.countQuery, q);
     if (!qi.ok) return qi;
+    // 3b (K22): count mergeParsed(qi.value) instead
+    if (qi.value.parsed) return fail("not_available", AWAITS_3B("A parsed count"));
     const matched = this.matching(qi.value);
     if (!Array.isArray(matched)) return { ok: false, error: matched };
     const facets: S.FacetCounts["facets"] = {};
@@ -183,6 +185,20 @@ export class StubStore implements CatalogueStore {
     const scoped = this.filterRows(this.data.places.map((p) => p.row), { facets: { ...(q.facets?.country ? { country: q.facets.country } : {}), ...(q.facets?.k ? { k: q.facets.k } : {}) } });
     const scope = Array.isArray(scoped) ? scoped.length : 0;
     return ok({ n: matched.length, unchecked: 0, scope, total: this.data.places.length, facets, gaps: {}, notes: [] }, this.rev);
+  }
+
+  async listUnchecked(q: S.UncheckedQuery, page?: S.ApiPage): Promise<Result<S.UncheckedPage>> {
+    const qi = check(S.uncheckedQuery, q);
+    if (!qi.ok) return qi;
+    const pi = check(S.apiPage, page ?? {});
+    if (!pi.ok) return pi;
+    return fail("not_available", AWAITS_3B("listUnchecked"));
+  }
+
+  async searchCards(q: S.CardQuery): Promise<Result<S.CardHits>> {
+    const qi = check(S.cardQuery, q);
+    if (!qi.ok) return qi;
+    return fail("not_available", AWAITS_3B("searchCards"));
   }
 
   async getPlace(slug: string): Promise<Result<S.PlaceLookup>> {
@@ -217,7 +233,7 @@ export class StubStore implements CatalogueStore {
     const inside = measured.filter((x) => within(x.m, limits.radius));
     const items: S.NearbyItem[] = inside.slice(0, limits.list).map(({ o, m }) => ({
       ref: o.detail.ref, slug: o.detail.slug, name: o.detail.name, kind: o.detail.kind, kindLabel: o.detail.kindLabel,
-      distanceKm: m.distanceKm, bearing: m.bearing, band: m.band, basis: "estimate", badge: o.detail.badge,
+      distanceKm: m.distanceKm, bearing: m.bearing, band: m.band, basis: "estimate", minutes: null, badge: o.detail.badge,
     }));
     const towns = this.layers.towns
       ? this.data.towns
@@ -283,7 +299,7 @@ export class StubStore implements CatalogueStore {
       }
       const m = measure(centre, { lat: row.lat, lon: row.lon });
       if (!within(m, r)) continue;
-      hits.push({ ...row, distanceKm: m.distanceKm, bearing: m.bearing, band: m.band, basis: "estimate", m });
+      hits.push({ ...row, distanceKm: m.distanceKm, bearing: m.bearing, band: m.band, basis: "estimate", minutes: null, m });
     }
     hits.sort(compareByDistance);
     const paged = this.page(hits.map(({ m: _m, ...row }) => row), pi.value);
@@ -306,18 +322,18 @@ export class StubStore implements CatalogueStore {
       const hits = this.data.towns
         .filter((t) => keys.includes(`${t.cc}/${t.region}`) && kebab(t.name).startsWith(want))
         .sort((a, b) => compareCodePoints(sortKey(a.name), sortKey(b.name)) || compareCodePoints(a.id, b.id));
-      return ok({ items: hits.slice(0, cap).map(withPlaces), truncated: hits.length > cap }, this.rev);
+      return ok({ items: hits.slice(0, cap).map(withPlaces), truncated: hits.length > cap, clamped: false }, this.rev);
     }
     if (!v.near && !v.city) return fail("invalid_scope", "Towns need a centre (`near` or `city`) or a prefix with a country and a region.");
     const c = this.centre(v.near, v.city);
     if (!c.ok) return c;
-    const { r } = this.radius(v.r, c.data.kind);
+    const { r, clamped } = this.radius(v.r, c.data.kind);
     const hits = this.data.towns
       .map((t) => ({ t, m: measure(c.data, t), name: t.name, ref: t.id }))
       .map((x) => ({ ...x, distanceKm: x.m.distanceKm }))
       .filter((x) => within(x.m, r) && x.t.id !== v.city)
       .sort(compareByDistance);
-    return ok({ items: hits.slice(0, cap).map(({ t, m }) => ({ ...withPlaces(t), distanceKm: m.distanceKm, bearing: m.bearing })), truncated: hits.length > cap }, this.rev);
+    return ok({ items: hits.slice(0, cap).map(({ t, m }) => ({ ...withPlaces(t), distanceKm: m.distanceKm, bearing: m.bearing })), truncated: hits.length > cap, clamped }, this.rev);
   }
 
   // ---- search ------------------------------------------------------------------------------------------------------------------
@@ -392,12 +408,21 @@ export class StubStore implements CatalogueStore {
     return t ? ok(t.detail, this.rev) : fail("not_found", "No public trip has that slug.");
   }
 
+  async tripLegs(slug: string): Promise<Result<S.TripLegsLookup>> {
+    const si = check(S.tripLegsInput, { slug });
+    if (!si.ok) return si;
+    return fail("not_available", AWAITS_3B("tripLegs"));
+  }
+
   // ---- exports -----------------------------------------------------------------------------------------------------------------
 
   async getExport(q: S.ExportQuery): Promise<Result<S.ExportFile>> {
     const qi = check(S.exportQuery, q);
     if (!qi.ok) return qi;
-    const { type, slug, format } = qi.value;
+    const { type, slug } = qi.value;
+    // 3b (K20): the export model
+    if (qi.value.format === "json") return fail("not_available", AWAITS_3B("The json export"));
+    const format = qi.value.format;
     const places = type === "place" ? [this.bySlug.get(slug)].filter((p): p is StubPlace => !!p) : (this.tripBySlug.get(slug)?.places ?? []).map((s) => this.bySlug.get(s)!).filter(Boolean);
     const title = type === "place" ? this.bySlug.get(slug)?.detail.name : this.tripBySlug.get(slug)?.detail.title;
     if (!title) return fail("not_found", `No public ${type} has that slug.`);
@@ -418,7 +443,7 @@ export class StubStore implements CatalogueStore {
     }
     const label = (p: (typeof points)[number]) => (p.approx ? `${p.name} (location approximate)` : p.name);
     const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
-    const bodies: Record<S.ExportQuery["format"], [string, string, string]> = {
+    const bodies: Record<Exclude<S.ExportFormat, "json">, [string, string, string]> = {
       csv: ["csv", "text/csv", ["name,lat,lon,approximate", ...points.map((p) => `"${p.name.replace(/"/g, '""')}",${p.lat},${p.lon},${p.approx}`)].join("\n")],
       gpx: ["gpx", "application/gpx+xml", `<?xml version="1.0"?><gpx version="1.1" creator="stub">${points.map((p) => `<wpt lat="${p.lat}" lon="${p.lon}"><name>${esc(label(p))}</name></wpt>`).join("")}</gpx>`],
       kml: ["kml", "application/vnd.google-earth.kml+xml", `<?xml version="1.0"?><kml><Document><name>${esc(title)}</name>${points.map((p) => `<Placemark><name>${esc(label(p))}</name><Point><coordinates>${p.lon},${p.lat}</coordinates></Point></Placemark>`).join("")}</Document></kml>`],

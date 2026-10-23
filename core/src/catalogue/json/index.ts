@@ -3,7 +3,8 @@
 // (principle P8: inside the methods), the sort and paging rule, region/`ids`/`q` resolution, the error codes and the revision.
 //
 // Until phase E fills them, `near`, `nearbyForPlace`, `towns`, `city=` and `globeCity` answer `not_available` (cases K3, K4, K5, K15,
-// K17 are pending on this target with the task that fills them).
+// K17 are pending on this target with the task that fills them). The API-3a skeletons (parsed counts, listUnchecked, searchCards,
+// tripLegs, the json export) answer AWAITS_3B until API-3b (store.ts, 3b hand-off).
 import type { z } from "zod";
 import * as S from "../../schema/api/index.ts";
 import { scheduleTrip } from "../../schedule/schedule.ts";
@@ -14,7 +15,7 @@ import { fail, ok, type Result } from "../result.ts";
 import { currentSlug, isWithdrawn, movedTo, regionSlugOf, resolveRegion } from "../slugs.ts";
 import { PLACE_SORT_VALUES, TRIP_SORT_VALUES, sortRows } from "../sorting.ts";
 import { PLACE_TEXT, TRIP_TEXT, compareCodePoints, matchesText, sortKey } from "../sortKey.ts";
-import type { CatalogueStore } from "../store.ts";
+import { AWAITS_3B, type CatalogueStore } from "../store.ts";
 import type { JsonSource, ListFilter } from "./source.ts";
 
 export type { JsonSource, ListEngine, ListFilter, EngineCounts, SearchScope } from "./source.ts";
@@ -121,9 +122,11 @@ export class JsonStore implements CatalogueStore {
     return this.page(sortRows(matched, qi.value.sort ?? [], PLACE_SORT_VALUES, (r) => r.name), pi.value);
   }
 
-  async countPlaces(q: S.PlaceQuery): Promise<Result<S.FacetCounts>> {
-    const qi = check(S.placeQuery, q);
+  async countPlaces(q: S.CountQuery): Promise<Result<S.FacetCounts>> {
+    const qi = check(S.countQuery, q);
     if (!qi.ok) return qi;
+    // 3b (K22): count mergeParsed(qi.value) instead
+    if (qi.value.parsed) return fail("not_available", AWAITS_3B("A parsed count"));
     const prep = this.prepare(this.source.placeRows, qi.value, PLACE_TEXT, this.source.placeEngine, "places");
     if ("code" in prep) return { ok: false, error: prep };
     const engine = this.source.placeEngine;
@@ -137,6 +140,20 @@ export class JsonStore implements CatalogueStore {
       ]),
     );
     return ok({ n: matched.length, unchecked: c.unchecked, scope: c.scope, total: this.source.placeRows.length, facets, gaps: c.gaps, notes: c.notes }, await this.revision());
+  }
+
+  async listUnchecked(q: S.UncheckedQuery, page?: S.ApiPage): Promise<Result<S.UncheckedPage>> {
+    const qi = check(S.uncheckedQuery, q);
+    if (!qi.ok) return qi;
+    const pi = check(S.apiPage, page ?? {});
+    if (!pi.ok) return pi;
+    return fail("not_available", AWAITS_3B("listUnchecked"));
+  }
+
+  async searchCards(q: S.CardQuery): Promise<Result<S.CardHits>> {
+    const qi = check(S.cardQuery, q);
+    if (!qi.ok) return qi;
+    return fail("not_available", AWAITS_3B("searchCards"));
   }
 
   async getPlace(slug: string): Promise<Result<S.PlaceLookup>> {
@@ -208,6 +225,13 @@ export class JsonStore implements CatalogueStore {
     return ok(this.scheduled(d, si.value.profile), await this.revision());
   }
 
+  async tripLegs(slug: string): Promise<Result<S.TripLegsLookup>> {
+    const si = check(S.tripLegsInput, { slug });
+    if (!si.ok) return si;
+    // 3b (K27): moved -> {moved, ref}; a live trip -> json/legs.ts over its trip-legs file
+    return fail("not_available", AWAITS_3B("tripLegs"));
+  }
+
   /**
    * The detail's days scheduled for a profile (the timeline's URL keys). An unknown value falls back to the plan's own setting, as the
    * page does. Visitor additions (`add`) need the place pages and are not applied here.
@@ -228,6 +252,8 @@ export class JsonStore implements CatalogueStore {
     const qi = check(S.exportQuery, q);
     if (!qi.ok) return qi;
     const { type, slug } = qi.value;
+    // 3b (K20): the json export model through the source
+    if (qi.value.format === "json") return fail("not_available", AWAITS_3B("The json export"));
     const live = type === "place" ? this.placeBySlug.has(slug) : this.tripBySlug.has(slug);
     const file = live ? this.source.exportFile(qi.value) : null;
     return file ? ok(file, await this.revision()) : fail("not_found", `No public ${type} has that slug.`);
