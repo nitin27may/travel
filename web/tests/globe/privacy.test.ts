@@ -4,12 +4,14 @@ import { describe, expect, it } from 'vitest';
 import { bbox, inBox, inFeature, type Feat, type Geom } from '@/lib/globe/geometry';
 import { nearHome } from '@/lib/public/origin';
 import { describesParty } from '@/lib/public/party';
+import { HOME_PROBE } from '../../../core/test/privacy/probe';
 import { WEB } from '../helpers';
 
 // A10: nothing under web/public/globe or data/reference/globe singles out the household's town, its home point, or who travelled.
 const GLOBE = path.join(WEB, 'public', 'globe');
 const REF = path.join(WEB, '..', 'data', 'reference', 'globe');
-const HOME: [number, number] = [-78.94, 43.88];
+// read out of core/src/privacy/home.ts, never typed here
+const HOME: [number, number] = [HOME_PROBE.lon, HOME_PROBE.lat];
 
 describe('the globe files carry no household data (A10)', () => {
   it('has no city area that holds the home point, and no city is named after the home town', () => {
