@@ -8,7 +8,7 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 Records: route, offer. Suitability profile `lift` (always, extension lift). Effort: none, time is shown. Sources, in order: O T.
 
-**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, reaches, geometry, starts_at; R? closures (status_page), part_of (part_of_something); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
+**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, reaches, geometry, starts_at; R? near_town (derived), closures (status_page), part_of (part_of_something); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, on; R? window (bookable), closures (status_page), part_of (part_of_something); A names, best_window, best_time, transit, pairs_with, photos, at, run_by, variants, included.
 
@@ -20,7 +20,7 @@ Links: official; R? none; A hours_rates, booking, status, timetable, webcam.
 
 Records: route, offer. Suitability profile `lift` (always, extension lift). Effort: none, time is shown. Sources, in order: O T.
 
-**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, reaches, geometry, starts_at; R? closures (status_page), part_of (part_of_something); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
+**route**: R name, type, point, area_id, summary, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, reaches, geometry, starts_at; R? near_town (derived), closures (status_page), part_of (part_of_something); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, on; R? window (bookable), closures (status_page), part_of (part_of_something); A names, best_window, best_time, transit, pairs_with, photos, at, run_by, variants, included.
 
@@ -32,7 +32,7 @@ Links: official; R? none; A hours_rates, booking, status, timetable, webcam.
 
 Records: place, offer. Suitability profile `lift` (always, extension lift). Effort: none, time is shown. Sources, in order: O T.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable), closures (status_page), part_of (part_of_something); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos.
+**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable), closures (status_page), part_of (part_of_something); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos.
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable), closures (status_page), part_of (part_of_something); A names, best_window, best_time, transit, pairs_with, photos, on, run_by, variants, included.
 

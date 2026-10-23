@@ -1,0 +1,21 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"co":"Colorado"},"rows":[
+["us-co-arvada","Arvada",39.80276,-105.08748,115368,"co","Arvada",5412199],
+["us-co-aurora","Aurora",39.72943,-104.83192,359407,"co","Aurora",5412347],
+["us-co-boulder","Boulder",40.01499,-105.27055,106803,"co","Boulder",5574991],
+["us-co-centennial","Centennial",39.57916,-104.87692,109741,"co","Centennial",5416541],
+["us-co-clifton","Clifton",39.09193,-108.44898,19889,"co","Clifton",5417258],
+["us-co-colorado-springs","Colorado Springs",38.83388,-104.82136,456568,"co","Colorado Springs",5417598],
+["us-co-denver","Denver",39.73915,-104.9847,729019,"co","Denver",5419384],
+["us-co-fort-collins","Fort Collins",40.58526,-105.08442,170924,"co","Fort Collins",5577147],
+["us-co-fruita","Fruita",39.15887,-108.72899,12795,"co","Fruita",5422534],
+["us-co-fruitvale","Fruitvale",39.08165,-108.49676,7675,"co","Fruitvale",5422557],
+["us-co-grand-junction","Grand Junction",39.06387,-108.55065,60358,"co","Grand Junction",5423573],
+["us-co-greeley","Greeley",40.42331,-104.70913,108795,"co","Greeley",5577592],
+["us-co-lakewood","Lakewood",39.70471,-105.08137,152597,"co","Lakewood",5427946],
+["us-co-loma","Loma",39.19581,-108.81316,1293,"co","Loma",5429120],
+["us-co-orchard-mesa","Orchard Mesa",39.048,-108.529,6836,"co","Orchard Mesa",5433549],
+["us-co-pueblo","Pueblo",38.25445,-104.60914,109412,"co","Pueblo",5435464],
+["us-co-redlands","Redlands",39.07887,-108.63565,8685,"co","Redlands",5436099],
+["us-co-thornton","Thornton",39.86804,-104.97192,133451,"co","Thornton",5441492],
+["us-co-westminster","Westminster",39.83665,-105.0372,116317,"co","Westminster",5443910]
+]}

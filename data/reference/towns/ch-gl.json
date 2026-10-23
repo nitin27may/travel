@@ -1,0 +1,13 @@
+{"schema":"towns-part/1","cc":"ch","admin1":{"gl":"Glarus"},"rows":[
+["ch-gl-bilten","Bilten",47.14995,9.02551,2011,"gl","Bilten",2661503],
+["ch-gl-ennenda","Ennenda",47.03363,9.07888,2699,"gl","Ennenda",2660893],
+["ch-gl-glarus","Glarus",47.04057,9.06804,12425,"gl","Glarus",2660594],
+["ch-gl-linthal","Linthal",46.92127,8.99799,1080,"gl","Linthal",2659878],
+["ch-gl-luchsingen","Luchsingen",46.9664,9.03715,1119,"gl","Luchsingen",2659839],
+["ch-gl-mollis","Mollis",47.08878,9.07242,3014,"gl","Mollis",2659636],
+["ch-gl-nafels","Näfels",47.09775,9.06361,3978,"gl","Nafels",2659516],
+["ch-gl-netstal","Netstal",47.06337,9.05734,2900,"gl","Netstal",2659497],
+["ch-gl-niederurnen","Niederurnen",47.12598,9.05428,3657,"gl","Niederurnen",2659451],
+["ch-gl-oberurnen","Oberurnen",47.11412,9.05866,1932,"gl","Oberurnen",7302536],
+["ch-gl-schwanden","Schwanden",46.99541,9.0701,2541,"gl","Schwanden",2658684]
+]}

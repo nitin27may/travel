@@ -1,0 +1,7 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"or":"Oregon"},"rows":[
+["us-or-eugene","Eugene",44.05207,-123.08675,176654,"or","Eugene",5725846],
+["us-or-gresham","Gresham",45.49818,-122.43148,110553,"or","Gresham",5729485],
+["us-or-hillsboro","Hillsboro",45.52289,-122.98983,102347,"or","Hillsboro",5731371],
+["us-or-portland","Portland",45.52345,-122.67621,652503,"or","Portland",5746545],
+["us-or-salem","Salem",44.9429,-123.0351,175535,"or","Salem",5750162]
+]}

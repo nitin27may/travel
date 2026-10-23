@@ -4,6 +4,7 @@ import { JsonStore } from '@travel/core/catalogue/json/index.ts';
 import type { JsonSource } from '@travel/core/catalogue/json/source.ts';
 import { registryProblems, type SlugRegistry } from '@travel/core/catalogue/slugs.ts';
 import { sortKey } from '@travel/core/catalogue/sortKey.ts';
+import type { TownRow } from '@travel/core/derive/townsData.ts';
 import type { ContractFacts, ContractTarget, Planted } from '../../../core/test/catalogue/contract/index.ts';
 import { travelRoot } from '@/lib/data/root';
 import { createJsonSource } from '@/lib/server/source';
@@ -81,7 +82,8 @@ export function jsonTarget(): { target: ContractTarget; reads: () => number; sou
     ...(tie ? { sortKeyTie: [tie[0]!, tie[1]!] as [string, string] } : {}),
     region: { cc: 'CA', canonical: 'alberta', aliases: [alberta.name, 'AB', 'CA-AB', ...alberta.aliases.filter((x) => x !== PLANT.ambiguous && x !== 'alberta' && x !== 'AB' && x !== 'CA-AB' && x !== alberta.name).slice(0, 1)] },
     near: { token: `place:${a!.slug}`, unknown: 'place:no-such-place-anywhere' },
-    town: { id: 'ca-ab-canmore', layer: false },
+    // the towns layer is the real one (META-2: data/reference/towns); near, globeCity and nearbyForPlace answer not_available until LST2c, GLB2b and PLC2b
+    town: { id: 'ca-ab-canmore', layer: true, notYet: ['near', 'globeCity', 'nearbyForPlace'] },
     exportPlace: a!.slug,
     registryIds: registryIds(travelRoot()),
     featureId: base.globe.feature('abay') ? 'abay' : 'abay',
@@ -91,9 +93,12 @@ export function jsonTarget(): { target: ContractTarget; reads: () => number; sou
     // API-3a (K27): routed legs from the file; geometry arrives with TRP2b's trip-legs/2 fetch
     ...(legsTrip ? { legs: { trip: legsTrip, geometry: false } } : {}),
   };
-  /** A store with `p` planted (K26, globePins.cap): a country's pins cloned up to n. Towns cannot be planted before META-2 loads a layer here. */
+  /** A store with `p` planted (K26, globePins.cap): towns added to the real layer, a country's pins cloned up to n. */
   const plant = (p: Planted): JsonStore => {
-    const src = wrap(base);
+    const withTowns = wrap(base);
+    const src: JsonSource = p.towns?.length
+      ? { ...withTowns, towns: () => [...(base.towns?.() ?? []), ...p.towns!.map((t): TownRow => ({ id: t.id, name: t.name, lat: t.lat, lon: t.lon, pop: t.pop ?? 0, admin1: t.id.split('-')[1]!, ascii: t.name, geonamesId: 0, cc: t.cc, admin1Name: null }))] }
+      : withTowns;
     if (!p.pins) return new JsonStore(src);
     const { cc, n } = p.pins;
     const pins = base.globe.pins(cc) ?? [];

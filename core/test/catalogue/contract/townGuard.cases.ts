@@ -61,26 +61,38 @@ export const townGuardCases: ContractCase[] = [
       expect({ lat: served!.lat, lon: served!.lon }, "a town is served at its gazetteer point, unmoved").toEqual({ lat: p.home.lat, lon: p.home.lon });
       expect(Object.keys(served!).sort(), "a town row carries no extra field").toEqual(Object.keys(townSchema.shape).sort());
       outputs.push(["towns", around]);
+      // a method a later lane fills still answers not_available, and says so (kit.ts ContractFacts.town.notYet)
+      const notYet = new Set(t.facts.town.notYet ?? []);
       // near(city=) measures from the public centre
-      const near = expectOk(await store.near({ city: p.home.id, r: 25 }), "near");
-      expect({ lat: near.centre.lat, lon: near.centre.lon }, "near(city=) measures from the gazetteer point").toEqual({ lat: p.home.lat, lon: p.home.lon });
-      outputs.push(["near", near]);
+      if (notYet.has("near")) expectError(await store.near({ city: p.home.id, r: 25 }), "not_available");
+      else {
+        const near = expectOk(await store.near({ city: p.home.id, r: 25 }), "near");
+        expect({ lat: near.centre.lat, lon: near.centre.lon }, "near(city=) measures from the gazetteer point").toEqual({ lat: p.home.lat, lon: p.home.lon });
+        outputs.push(["near", near]);
+      }
       // the outlines are the public ones, not rings
-      for (const c of p.cities!) {
-        const city = expectOk(await store.globeCity(c.id), `globeCity ${c.id}`);
-        expect(city.geometry, `${c.id}: an outline is served exactly as loaded`).toEqual(c.geometry);
-        outputs.push([`globeCity ${c.id}`, city]);
+      if (notYet.has("globeCity")) expectError(await store.globeCity(p.home.id), "not_available");
+      else {
+        for (const c of p.cities!) {
+          const city = expectOk(await store.globeCity(c.id), `globeCity ${c.id}`);
+          expect(city.geometry, `${c.id}: an outline is served exactly as loaded`).toEqual(c.geometry);
+          outputs.push([`globeCity ${c.id}`, city]);
+        }
       }
       // the city filter and its counts answer, and the nearby block's towns too
       outputs.push(["listPlaces city", expectOk(await store.listPlaces({ facets: { city: [p.home.id] } }), "listPlaces city")]);
       outputs.push(["countPlaces city", expectOk(await store.countPlaces({ facets: { city: [p.home.id] } }), "countPlaces city")]);
-      outputs.push(["nearbyForPlace", expectOk(await store.nearbyForPlace(t.facts.placeSlug), "nearbyForPlace")]);
+      if (notYet.has("nearbyForPlace")) expectError(await store.nearbyForPlace(t.facts.placeSlug), "not_available");
+      else outputs.push(["nearbyForPlace", expectOk(await store.nearbyForPlace(t.facts.placeSlug), "nearbyForPlace")]);
       const hits = outputs.flatMap(([where, out]) => householdHits(out, where, { gazetteer }));
       expect(hits, "K7's scan over the planted outputs, with the store's gazetteer").toEqual([]);
       // the identity rule is what lets the public points through: without the gazetteer the same outputs fail closed
-      const homeCity = outputs.find(([w]) => w === `globeCity ${p.home.id}`)![1] as GlobeCity;
+      // the outline the store would serve is the planted one, exactly (globeCity above checked that where it answers)
+      const homeCity = p.cities!.find((c) => c.id === p.home.id)!;
       expect(householdHits(around, "towns").length, "without the gazetteer a town centre near home is refused").toBeGreaterThan(0);
-      expect(householdHits(homeCity, "globeCity").length, "without the gazetteer an outline near home is refused").toBeGreaterThan(0);
+      // outlines are loaded with GLB2b; until then the gazetteer holds none and an outline vertex near home is refused either way
+      const outlines = !notYet.has("globeCity");
+      if (outlines) expect(householdHits(homeCity, "globeCity").length, "without the gazetteer an outline near home is refused").toBeGreaterThan(0);
       // a planted attacker point near home that is NOT the gazetteer point is refused, under the town's own id or any other
       const moved = { ...served!, lat: served!.lat + 0.2 / 111.19 };
       expect(nearHome(moved.lat, moved.lon)).toBe(true);
@@ -88,6 +100,7 @@ export const townGuardCases: ContractCase[] = [
       expect(householdHits({ items: [{ ...served!, id: "ca-zz-not-in-gazetteer" }] }, "unknown id", { gazetteer }).length, "the public point under an id the gazetteer does not hold").toBeGreaterThan(0);
       expect(householdHits({ items: [{ slug: "x", name: "x", lat: served!.lat, lon: served!.lon }] }, "place", { gazetteer }).length, "the public point as a place's point").toBe(1);
       expect(householdHits({ centre: { kind: "town", key: p.neighbour.id, name: p.neighbour.name, lat: served!.lat, lon: served!.lon } }, "swapped", { gazetteer }).length, "one town's point under another town's id").toBe(1);
+      if (!outlines) return;
       const ring = (homeCity.geometry as { coordinates: number[][][] }).coordinates[0]!;
       const planted = northOfHome(0.3);
       const tampered = { ...homeCity, geometry: { type: "Polygon", coordinates: [[...ring.slice(0, 2), [planted.lon, planted.lat], ...ring.slice(2)]] } };

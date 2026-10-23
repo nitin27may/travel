@@ -111,6 +111,13 @@ export const CHIP_ROW_PROPERTIES: readonly string[] = [
 /** The hazards that decide the day. When "Who it suits" is drawn they are its warning line, not a row of "Before you go" (PS7, X2). */
 export const WARNING_LINE_PROPERTIES: readonly string[] = ['hazards', 'exposure'];
 
+/**
+ * Properties the registry asks of a record but a page never draws: the nearest town is derived (capture.ts derive-near) for the API's
+ * `nearTown` and the Where city counts, and a row for it on every place page would grow the median page past its size budget (META-2).
+ * The property stays in the engine's checks; it only stays out of the page sections.
+ */
+export const HIDDEN_FROM_PAGE: ReadonlySet<string> = new Set(['near_town', 'near_town_km']);
+
 export const GLANCE_SLOTS = 6;
 
 export interface Contract {
@@ -167,7 +174,7 @@ export function createContract(file: ContractFile, domains: Record<string, Domai
     const n = node(typeId);
     const rl = n?.layers?.[layer];
     if (!n || !rl) return out;
-    for (const [key, m] of Object.entries(rl.base)) if (m !== 'N' && properties[key]) out.set(key, m);
+    for (const [key, m] of Object.entries(rl.base)) if (m !== 'N' && properties[key] && !HIDDEN_FROM_PAGE.has(key)) out.set(key, m);
     const addSuit = (): void => {
       for (const [key, m] of Object.entries(n.suitability ?? {})) {
         if (!properties[key] || out.has(key)) continue;

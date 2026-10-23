@@ -102,7 +102,7 @@ export const globeCases: ContractCase[] = [
     method: "globeCity",
     async run(store, t) {
       const r = await store.globeCity(t.facts.town.id);
-      if (!t.facts.town.layer) return expectError(r, "not_available");
+      if (!t.facts.town.layer || t.facts.town.notYet?.includes("globeCity")) return expectError(r, "not_available");
       expect(r.ok || (!r.ok && r.error.code === "not_found")).toBe(true);
     },
   },

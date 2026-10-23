@@ -1,0 +1,8 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"oh":"Ohio"},"rows":[
+["us-oh-akron","Akron",41.08144,-81.51901,197542,"oh","Akron",5145476],
+["us-oh-cincinnati","Cincinnati",39.12711,-84.51439,311097,"oh","Cincinnati",4508722],
+["us-oh-cleveland","Cleveland",41.4995,-81.69541,365379,"oh","Cleveland",5150529],
+["us-oh-columbus","Columbus",39.96118,-82.99879,913175,"oh","Columbus",4509177],
+["us-oh-dayton","Dayton",39.75895,-84.19161,135512,"oh","Dayton",4509884],
+["us-oh-toledo","Toledo",41.66394,-83.55521,265638,"oh","Toledo",5174035]
+]}

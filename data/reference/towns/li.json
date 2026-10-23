@@ -1,0 +1,15 @@
+{"schema":"towns-part/1","cc":"li","admin1":{"01":"Balzers","02":"Eschen","03":"Gamprin","04":"Mauren","06":"Ruggell","07":"Schaan","08":"Schellenberg","09":"Triesen","10":"Triesenberg","11":"Vaduz"},"rows":[
+["li-01-balzers","Balzers",47.06661,9.50355,4628,"01","Balzers",3042073],
+["li-01-maels","Mäls",47.06105,9.49568,1350,"01","Maels",3315349],
+["li-02-eschen","Eschen",47.21071,9.52223,4459,"02","Eschen",3042068],
+["li-02-nendeln","Nendeln",47.19846,9.543,1407,"02","Nendeln",3042052],
+["li-03-bendern","Bendern",47.21199,9.50678,1664,"03","Bendern",3042072],
+["li-03-gamprin","Gamprin",47.22038,9.50935,1663,"03","Gamprin",3042062],
+["li-04-mauren","Mauren",47.21805,9.5442,4404,"04","Mauren",3042055],
+["li-06-ruggell","Ruggell",47.23799,9.5254,2295,"06","Ruggell",3042046],
+["li-07-schaan","Schaan",47.16498,9.50867,5998,"07","Schaan",3042041],
+["li-08-schellenberg","Schellenberg",47.23123,9.54678,1091,"08","Schellenberg",3042037],
+["li-09-triesen","Triesen",47.10752,9.52815,5230,"09","Triesen",3042035],
+["li-10-triesenberg","Triesenberg",47.11815,9.54197,2643,"10","Triesenberg",3042033],
+["li-11-vaduz","Vaduz",47.14151,9.52154,5197,"11","Vaduz",3042030]
+]}

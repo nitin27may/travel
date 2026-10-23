@@ -1,6 +1,9 @@
+import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { readTownsFiles, TOWNS_DIR } from '@travel/core/derive/townsData.ts';
+import { HOME_TOWN_RE, nearHome } from '@travel/core/privacy/home.ts';
 import { buildSnapshotAllowList } from './allowlist';
 import { REPO, WEB_DIR, realData } from './support';
 import { builtOutDir } from '../helpers/built';
@@ -97,5 +100,54 @@ describe('household data never reaches the public output', () => {
       }
     }
     expect(hits).toEqual([]);
+  });
+});
+
+// The towns layer is the trust root of the town rule (store.ts A33): the site serves a town exactly as the public gazetteer has it and the
+// privacy detector accepts a point near home only when it equals the file's own value. So the file must be GeoNames' numbers and nothing else.
+describe('the towns files are the GeoNames dump, verbatim (META-2)', () => {
+  const layer = readTownsFiles(REPO); // throws when a part's bytes differ from the manifest's SHA-256
+  const dump = path.join(REPO, 'tools', '.cache', 'geonames', 'cities1000.zip');
+
+  it('records the source, the download date, the licence and the hash of the download', () => {
+    const src = layer.manifest.source;
+    expect(src.licence.id).toBe('CC BY 4.0');
+    expect(src.downloaded).toMatch(/^\d{4}-\d\d-\d\d$/);
+    for (const f of Object.values(src.files)) {
+      expect(f.url.startsWith('https://download.geonames.org/')).toBe(true);
+      expect(f.sha256).toMatch(/^[0-9a-f]{64}$/);
+    }
+  });
+
+  it('holds only the dump\'s own columns: a point has the dump\'s five decimals at most, the name is only in id, name and ascii', () => {
+    for (const r of layer.rows) {
+      for (const n of [r.lat, r.lon]) expect(String(n).split('.')[1]?.length ?? 0, r.id).toBeLessThanOrEqual(5);
+      expect(Number.isInteger(r.geonamesId) && r.geonamesId > 0, r.id).toBe(true);
+    }
+    // the household town may be named in a row's id, name and ascii name (public GeoNames data) and nowhere else in the layer
+    for (const f of readdirSync(path.join(REPO, TOWNS_DIR)).filter((n) => n.endsWith('.json') && n !== 'manifest.json' && n !== 'anchors.json')) {
+      const doc = JSON.parse(readFileSync(path.join(REPO, TOWNS_DIR, f), 'utf8')) as { admin1: Record<string, string | null>; rows: unknown[][] };
+      expect(JSON.stringify(doc.admin1), f).not.toMatch(HOME_TOWN_RE);
+      for (const row of doc.rows) expect([row[2], row[3], row[4], row[5], row[7]].map(String).join(' '), `${f} ${row[0]}`).not.toMatch(HOME_TOWN_RE);
+    }
+    for (const n of ['manifest.json', 'anchors.json']) {
+      const text = readFileSync(path.join(REPO, TOWNS_DIR, n), 'utf8');
+      // the manifest lists parts and hashes; the anchors are rounded public points of places, none of them the household's
+      expect(text, n).not.toMatch(HOME_TOWN_RE);
+    }
+    const anchors = JSON.parse(readFileSync(path.join(REPO, TOWNS_DIR, 'anchors.json'), 'utf8')) as [number, number][];
+    expect(anchors.filter(([la, lo]) => nearHome(la, lo)).length).toBe(0);
+  });
+
+  it.runIf(existsSync(dump))('every point is a row of the downloaded GeoNames file, unchanged (a point the dump does not hold fails)', () => {
+    const txt = execFileSync('unzip', ['-p', dump, 'cities1000.txt'], { maxBuffer: 1 << 28 }).toString('utf8');
+    const rows = new Map<number, string[]>();
+    for (const line of txt.split('\n')) if (line) rows.set(Number(line.split('\t')[0]), line.split('\t'));
+    const bad: string[] = [];
+    for (const r of layer.rows) {
+      const f = rows.get(r.geonamesId);
+      if (!f || f[1] !== r.name || Number(f[4]) !== r.lat || Number(f[5]) !== r.lon || Number(f[14]) !== r.pop || f[8].toLowerCase() !== r.cc) bad.push(r.id);
+    }
+    expect(bad).toEqual([]);
   });
 });

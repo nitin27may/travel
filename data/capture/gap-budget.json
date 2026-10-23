@@ -1,6 +1,6 @@
 {
   "schema": "capture-gap-budget/1",
-  "note": "The gap budget of the placement block and the tiers (research/method/capture-contract.md 3.7). `counts` are today's records per code (W_TIER_REQUIRED.keys: required keys unanswered over all records); `node core/bin/capture.ts gaps --budget --check` (tools/check-all.sh) fails when one rises. Counts may only fall: lower them with `gaps --budget --write`; a rise needs `--reason`, which is logged in `raised`. `pinned.refs` are the records that existed when the rule landed: their findings warn, every new record in data/capture errors. A code in `strict` errors on pinned records too (W_PLACE_POINT after META-1). `baseline` is the measured record of 21 Oct, never checked.",
+  "note": "The gap budget of the placement block and the tiers (research/method/capture-contract.md 3.7). `counts` are today's records per code (W_TIER_REQUIRED.keys: required keys unanswered over all records); `node core/bin/capture.ts gaps --budget --check` (tools/check-all.sh) fails when one rises. Counts may only fall: lower them with `gaps --budget --write`; a rise needs `--reason`, which is logged in `raised`. `pinned.refs` are the records that existed when the rule landed: their findings warn, every new record in data/capture errors. A code in `strict` errors on pinned records too (W_PLACE_POINT after META-1). `baseline` is the measured record of 21 Oct, never checked. Lowered by lane META-2 (23 Oct): W_PLACE_TOWN 259 to 0, because `capture.ts derive-near` wrote near_town and near_town_km on every record with a non-approximate point.",
   "updated": "2026-10-23",
   "strict": [],
   "counts": {
@@ -9,7 +9,7 @@
     "W_PLACE_POINT": 84,
     "W_PLACE_APPROX": 0,
     "E_PLACE_FAR": 0,
-    "W_PLACE_TOWN": 259,
+    "W_PLACE_TOWN": 0,
     "W_TIER_REQUIRED": 385,
     "W_TIER_REQUIRED.keys": 3875
   },

@@ -1,0 +1,7 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"la":"Louisiana"},"rows":[
+["us-la-baton-rouge","Baton Rouge",30.44332,-91.18747,227470,"la","Baton Rouge",4315588],
+["us-la-lafayette","Lafayette",30.22409,-92.01984,121374,"la","Lafayette",4330145],
+["us-la-metairie","Metairie",29.98409,-90.15285,138481,"la","Metairie",4333177],
+["us-la-new-orleans","New Orleans",29.95465,-90.07507,362701,"la","New Orleans",4335045],
+["us-la-shreveport","Shreveport",32.52515,-93.75018,187593,"la","Shreveport",4341513]
+]}

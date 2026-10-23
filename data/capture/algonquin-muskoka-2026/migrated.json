@@ -30,18 +30,66 @@
       "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
       "type": "water.falls.waterfall",
       "layer": "place",
+      "near_town": {
+        "v": "ca-on-huntsville",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5978765, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 25.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Ragged Falls"
     },
     {
       "ref": "trip/algonquin-muskoka-2026/town:huntsville",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "ca-on-huntsville",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5978765, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Huntsville"
     },
     {
       "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-on-huntsville",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5978765, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 17.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Solitaire Lake Trail",
       "route_is_attraction": true,
       "attraction_reason": "The loop round Solitaire Lake is the experience: a lake circuit with a lookout on the way, not a walk to one named payoff.",

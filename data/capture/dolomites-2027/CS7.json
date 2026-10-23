@@ -104,6 +104,22 @@
       "area_id": "IT/veneto/belluno",
       "type": "nature.landform.mountain",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-auronzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3182671, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 11.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Tre Cime di Lavaredo",
       "names": {
         "it": "Tre Cime di Lavaredo",
@@ -139,6 +155,22 @@
       "area_id": "IT/veneto/belluno",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-san-candido",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3168508, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 10.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Tre Cime north-face viewpoint by Rifugio Locatelli",
       "osm_ref": "node/12091634369",
       "origin": {
@@ -165,6 +197,22 @@
       "area_id": "IT/veneto/belluno",
       "type": "stay.mountain.hut",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-auronzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3182671, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 11.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Rifugio Auronzo",
       "origin": {
         "from": "place/tre-cime-di-lavaredo-loop",
@@ -204,6 +252,22 @@
       "area_id": "IT/veneto/belluno",
       "type": "stay.mountain.hut",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-auronzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3182671, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 10.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Rifugio Lavaredo",
       "origin": {
         "from": "place/tre-cime-di-lavaredo-loop",
@@ -243,6 +307,22 @@
       "area_id": "IT/veneto/belluno",
       "type": "stay.mountain.hut",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-san-candido",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3168508, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 10.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Dreizinnenhütte / Rifugio Antonio Locatelli",
       "origin": {
         "from": "place/tre-cime-di-lavaredo-loop",
@@ -457,6 +537,22 @@
       "area_id": "IT/veneto/belluno",
       "type": "wheels.drive.mountain_pass",
       "layer": "route",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 12.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Strada per il Rifugio Auronzo (Tre Cime toll road)",
       "osm_ref": "way/25487506",
       "reaches": [
@@ -489,6 +585,22 @@
       "area_id": "IT/veneto/belluno",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-auronzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3182671, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 11.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Parcheggio Rifugio Auronzo",
       "osm_ref": "way/74709399",
       "parks_for": [
@@ -638,6 +750,22 @@
       "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-monguelfo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3173140, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 6.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago di Braies P4 car park",
       "osm_ref": "way/442280371",
       "parks_for": [
@@ -669,6 +797,22 @@
       "ref": "part/place/lago-di-carezza#parking",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-nova-levante",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3172192, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 3.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Karersee - Lago di Carezza car park",
       "osm_ref": "relation/19117506",
       "parks_for": [
@@ -692,6 +836,22 @@
       "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-dobbiaco",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177571, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 10.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago di Landro car park",
       "osm_ref": "way/437446697",
       "parks_for": [
@@ -715,6 +875,22 @@
       "area_id": "IT/veneto/belluno",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 11.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago d'Antorno car park",
       "osm_ref": "way/234899048",
       "parks_for": [
@@ -737,6 +913,22 @@
       "ref": "part/place/lago-di-dobbiaco#parking",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "it-32-dobbiaco",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177571, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 2.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Toblacher See car park",
       "osm_ref": "way/75384548",
       "parks_for": [
@@ -759,6 +951,22 @@
       "ref": "part/place/lago-di-misurina#parking",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-cortina-d-ampezzo",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3177952, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 9.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lago di Misurina car park",
       "osm_ref": "way/178543599",
       "parks_for": [
@@ -848,6 +1056,22 @@
       "ref": "place/rifugio-nuvolau-and-averau",
       "type": "stay.mountain.hut",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-livinallongo-del-col-di-lana",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3174663, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 7.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Rifugio Nuvolau and Averau",
       "osm_ref": "way/200226208",
       "origin": {
@@ -905,6 +1129,22 @@
       "ref": "place/rifugio-scotoni",
       "type": "stay.mountain.hut",
       "layer": "place",
+      "near_town": {
+        "v": "it-34-livinallongo-del-col-di-lana",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3174663, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 8.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Rifugio Scotoni",
       "osm_ref": "way/229003439",
       "origin": {

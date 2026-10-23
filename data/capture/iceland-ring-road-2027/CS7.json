@@ -21,6 +21,14 @@
       "ref": "part/trip/iceland-ring-road-2027/viewpoint:jokulsarlon#parking",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+      },
       "name": "Jökulsárlón parking",
       "osm_ref": "way/298932452",
       "parks_for": [
