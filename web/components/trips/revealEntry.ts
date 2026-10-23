@@ -2,7 +2,7 @@
 // The row scrolls to the focus line, takes a fill for 1.5 s and its title takes focus. It is NOT expanded: expanding pushes every later row
 // down under the reader's eye (note section 14, change 3).
 
-const FLASH_MS = 1500;
+const flashMs = 1500;
 
 /** `key` is "<day>:<entry id>", the value of the row's data-entry. */
 export function revealEntry(key: string): void {
@@ -18,7 +18,7 @@ export function revealEntry(key: string): void {
     window.addEventListener('pointerdown', clear, { once: true });
     window.addEventListener('keydown', clear, { once: true });
   } else {
-    window.setTimeout(() => li.removeAttribute('data-flash'), FLASH_MS);
+    window.setTimeout(() => li.removeAttribute('data-flash'), flashMs);
   }
   const title = li.querySelector<HTMLElement>('.tl-title a') ?? li.querySelector<HTMLElement>('.tl-title');
   if (title) {
