@@ -3,13 +3,16 @@
 // The route map column: label row, key, the map, Directions (map note 3 to 10). This whole file is a dynamic chunk of the trip page
 // (TripPlan loads it with next/dynamic), so none of it counts against the page's start JS (D-E9).
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import type { TripLegs } from '@travel/core/schema/api/index.ts';
 import { MapSurface } from '@/components/map/MapSurface';
+import { tripLegs } from '@/lib/client/data';
 import { tripPageFamily } from '@/lib/map/family';
 import { registerPageFamily } from '@/lib/map/registry';
 import type { MapHandle } from '@/lib/map/types';
 import { dayDirections } from './directions';
+import { hasRoutedLegs, legGeometry } from './legGeometry';
 import { dayBases, mapBus, type DayMap } from './mapPins';
-import type { RouteModel } from './model';
+import type { DayRowModel, RouteModel } from './model';
 import { keyOf, labelOf, routeSpec, type KeyState } from './routeSpec';
 import { revealEntry } from './revealEntry';
 
@@ -58,7 +61,11 @@ export function RouteKey({ state }: { state: KeyState }) {
 }
 
 export interface TripRouteMapProps {
+  /** The trip's slug: the routed legs are read for it when the map mounts. */
+  slug: string;
   route: RouteModel;
+  /** The day rows: each stop's item id and place, which is how a routed leg finds its pins. */
+  dayRows: DayRowModel[];
   models: DayMap[];
   /** The day the map shows, or null for All days. */
   picked: number | null;
@@ -74,7 +81,7 @@ export interface TripRouteMapProps {
   onPickDay: (n: number, entry?: string) => void;
 }
 
-export default function TripRouteMap({ route, models, picked, paused, dayNow, onResume, sheet, sheetSeen, onPickDay }: TripRouteMapProps) {
+export default function TripRouteMap({ slug, route, dayRows, models, picked, paused, dayNow, onResume, sheet, sheetSeen, onPickDay }: TripRouteMapProps) {
   const family = tripPageFamily();
   const google = family === 'google-js';
   const narrow = useNarrow();
@@ -89,7 +96,15 @@ export default function TripRouteMap({ route, models, picked, paused, dayNow, on
   const ringing = useRef(false);
   const [saving] = useState(() => saveData());
 
-  const base = useMemo(() => routeSpec({ bases: route.bases, models, picked, wide }), [route.bases, models, picked, wide]);
+  const [legs, setLegs] = useState<TripLegs | null>(null);
+  // routed legs by the map's leg id; none until the legs arrive (or ever, for a trip with no legs file), and then every step is a dashed estimate
+  const slugOf = useMemo(() => {
+    const by = new Map<string, string>();
+    for (const d of dayRows) for (const s of [...d.stops, ...(d.tracks ?? []).flatMap((t) => t.stops)]) if (s.placeSlug) by.set(s.id, s.placeSlug);
+    return (k: string) => by.get(k) ?? null;
+  }, [dayRows]);
+  const geometry = useMemo(() => (legs ? legGeometry(legs.legs, models, route.bases, slugOf) : undefined), [legs, models, route.bases, slugOf]);
+  const base = useMemo(() => routeSpec({ bases: route.bases, models, picked, geometry, wide }), [route.bases, models, picked, geometry, wide]);
   const spec = useMemo(() => ({ ...base, hover }), [base, hover]);
   const day = picked === null ? null : models.find((m) => m.day === picked) ?? null;
   const { morning, night } = picked === null ? { morning: undefined, night: undefined } : dayBases(route.bases, picked);
@@ -118,6 +133,14 @@ export default function TripRouteMap({ route, models, picked, paused, dayNow, on
   const seen = inView || typeof IntersectionObserver === 'undefined';
   const armed = !google || ((!narrow || sheetSeen) && seen);
   const mount = !google || (armed && (!saving || forced));
+
+  // ---- the routed legs: one request when the map mounts, never with the trip (D-E5). A failure leaves the estimates ----
+  useEffect(() => {
+    if (!mount) return;
+    let live = true;
+    tripLegs(slug).then((r) => live && setLegs(r)).catch(() => undefined);
+    return () => { live = false; };
+  }, [mount, slug]);
 
   // ---- the camera follows the day; the first fit is made when the map is created ----
   const lastFit = useRef<string | null>(null);
@@ -247,6 +270,11 @@ export default function TripRouteMap({ route, models, picked, paused, dayNow, on
       ) : null}
       <RouteKey state={key} />
       <div ref={box} className="tl-mapbox">
+        {mount && geometry && hasRoutedLegs(geometry) && base.lines.some((l) => l.style === 'route' || l.style === 'route-pick') ? (
+          <p className="tl-credit num" data-testid="route-credit" title={legs?.attribution || undefined}>
+            Route geometry © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>
+          </p>
+        ) : null}
         {mount ? (
           <MapSurface ref={handle} spec={spec} label={picked === null ? 'Route map, all days' : `Route map, Day ${picked}`} className="trip-map-surface" onHover={onHover} onSelect={onSelect} />
         ) : armed && saving ? (

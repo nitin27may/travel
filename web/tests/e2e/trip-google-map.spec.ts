@@ -22,6 +22,13 @@ async function withFake(page: Page, requests?: string[]) {
     return route.fulfill({ status: 200, contentType: 'text/javascript', body: FAKE_GOOGLE_JS });
   });
 }
+/** The trip's legs with no geometry kept: every step of the map is then a dashed estimate (the legs endpoint answers the real file, emptied). */
+export async function withoutRoutedLegs(page: Page) {
+  await page.route(/\/api\/v1\/trips\/[^/]+\/legs\//, async (route) => {
+    const res = await route.fetch();
+    await route.fulfill({ response: res, json: { ...(await res.json()), legs: [] } });
+  });
+}
 const ready = (page: Page) => expect(page.locator('[data-trip-map][data-phase="ready"]')).toBeVisible({ timeout: 20_000 });
 
 test.describe('trip route map on the google-js family with a fake key and Map ID', () => {
@@ -65,8 +72,9 @@ test.describe('trip route map on the google-js family with a fake key and Map ID
     expect(o.mapId).not.toBe('DEMO_MAP_ID');
   });
 
-  test('the pins are the numbered rows of the day, the key says what is drawn, and the label counts agree', async ({ page }) => {
+  test('the pins are the numbered rows of the day, the key says what is drawn, and the label counts agree (no routed legs)', async ({ page }) => {
     await withFake(page);
+    await withoutRoutedLegs(page);
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(`${server.url}${ROCKIES}#day-8`);
     await ready(page);
@@ -112,6 +120,10 @@ test.describe('trip route map on the google-js family with a fake key and Map ID
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(`${server.url}${ROCKIES}#day-8`);
     await ready(page);
+    // the routed legs arrive after the map is ready and redraw its lines once; the hover is judged after that
+    await expect(page.locator('.tl-mapcol-label')).toContainText('Day 8');
+    await expect(page.getByTestId('route-credit')).toBeVisible();
+    await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
     const before = await fg(page);
     const row = page.locator('#day-8 li.tl-entry[data-pin]').nth(1);
     const pin = await row.getAttribute('data-pin');
@@ -139,6 +151,10 @@ test.describe('trip route map on the google-js family with a fake key and Map ID
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(`${server.url}${ROCKIES}#day-8`);
     await ready(page);
+    // the routed legs arrive after the map is ready and redraw its overlays once
+    await expect(page.locator('.tl-mapcol-label')).toContainText('Day 8');
+    await expect(page.getByTestId('route-credit')).toBeVisible();
+    await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
     const stops = await page.locator('[data-fake-marker][data-clickable]').evaluateAll((els) => els.map((e) => e.querySelector('.tp')?.textContent));
     expect(stops).toEqual(['1', '2']);
     await page.locator('[data-fake-marker][data-clickable]').first().focus();

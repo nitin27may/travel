@@ -63,3 +63,12 @@
   min-height: 36px; padding: 0 var(--s-4); border: 1px solid var(--ink); border-radius: var(--r-3); background: var(--surface); color: var(--ink);
   font: var(--t-chip); cursor: pointer;
 }
+
+/* the ODbL credit for routed legs (map note 8): top left of the map, shown only while a routed leg is drawn */
+.tl-mapbox { position: relative; }
+.tl-credit {
+  position: absolute; top: var(--s-2); left: var(--s-2); z-index: 11; margin: 0; padding: 2px 6px; border-radius: 6px;
+  background: color-mix(in srgb, var(--surface) 88%, transparent); color: var(--muted); font: 500 11.5px/1.4 var(--font-mono, ui-monospace, monospace);
+  pointer-events: auto; max-width: calc(100% - 76px); /* clear of the controls at the top right */
+}
+.tl-credit a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }

@@ -28,7 +28,7 @@ const ExportMenu = dynamic(() => import('@/components/actions/ExportMenu').then(
   ssr: false,
   loading: () => (
     <Button disabled>
-      <Icon name="download" size={15} /> Export
+      <Icon name="download" size={15} /> Export trip
     </Button>
   ),
 });
@@ -63,7 +63,7 @@ export function TripActions({ slug, title, nights, days, url, hasDays, seasonMon
           <Icon name="layers" size={15} /> {done ? 'Use as a template' : 'Copy to my trips'}
         </Button>
       ) : null}
-      <ExportMenu target={{ type: 'trip', slug }} formats={hasDays ? FORMATS : ['pdf']} />
+      <ExportMenu target={{ type: 'trip', slug }} formats={hasDays ? FORMATS : ['pdf']} label="Export trip" />
       <ShareButton url={url} title={title} />
       {hasDays && sheetEver ? <CopySheet trip={{ slug, title, nights, days, window: seasonWindow(seasonMonths) }} open={copying} onClose={() => setCopying(false)} /> : null}
     </div>
