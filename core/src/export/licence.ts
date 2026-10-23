@@ -15,11 +15,14 @@ export type Verdict = { ok: true; attribution: string; approximate: boolean } | 
 const OSM = /^osm_(node|way|relation):\d+$/;
 const WIKIDATA = /^wikidata:Q\d+$/;
 const OFFICIAL = /^official:https?:\/\/\S+$/;
+/** A routed leg of a trip (TRP2b): `route:<trip>:<day>:<n>`, a line OpenRouteService drew over OpenStreetMap data. Licensed ODbL, credited with its router. */
+const ROUTE = /^route:[a-z0-9-]+:\d+:\d+$/;
 const FOREIGN = /google|gmaps|maps\.app|apple|bing|here\.com|tomtom/i;
 /** Licences that allow reuse with attribution. "unknown" and anything not on this list is a refusal for official data. */
 const OPEN_LICENCE = /^(ODbL|CC0|CC-BY(-SA)?(-\d(\.\d)?)?|OGL.*|Open Government.*|PDDL|own)$/i;
 
 export const OSM_ATTRIBUTION = '© OpenStreetMap contributors, ODbL 1.0 (https://www.openstreetmap.org/copyright)';
+export const ROUTING_ATTRIBUTION = 'Road routes by OpenRouteService (openrouteservice.org)';
 
 export function checkPoint(p: Pick<Point, 'pointSource' | 'sourceLicence'> | null | undefined): Verdict {
   if (!p) return { ok: false, reason: 'no point' };
@@ -50,7 +53,7 @@ export interface LineLike {
 export function lineExportable(l: LineLike): boolean {
   if (!l.exportable) return false;
   if (FOREIGN.test(l.ref) || FOREIGN.test(l.licence)) return false;
-  if (OSM.test(l.ref)) return l.licence === 'ODbL';
+  if (OSM.test(l.ref) || ROUTE.test(l.ref)) return l.licence === 'ODbL';
   if (/^official:/.test(l.ref)) return OPEN_LICENCE.test(l.licence);
   return false;
 }
@@ -70,7 +73,13 @@ export function attributionFor(points: Pick<Point, 'pointSource' | 'sourceLicenc
     const v = checkPoint(p);
     if (v.ok && !v.approximate) out.add(v.attribution);
   }
-  for (const l of lines) if (lineExportable(l)) out.add(OSM.test(l.ref) ? OSM_ATTRIBUTION : `${l.ref} (${l.licence})`);
+  for (const l of lines) {
+    if (!lineExportable(l)) continue;
+    if (ROUTE.test(l.ref)) {
+      out.add(OSM_ATTRIBUTION);
+      out.add(ROUTING_ATTRIBUTION);
+    } else out.add(OSM.test(l.ref) ? OSM_ATTRIBUTION : `${l.ref} (${l.licence})`);
+  }
   return [...out];
 }
 
@@ -85,5 +94,5 @@ export function approxNote(p: Pick<Point, 'pointSource' | 'sourceLicence'>): str
  * read. `label` is "OpenStreetMap relation 3985745, read 2026-10-19".
  */
 export function trackNotice(lines: (LineLike & { label: string })[]): string[] {
-  return lines.filter(lineExportable).map((l) => `Route line: ${l.label}. ${OSM.test(l.ref) ? 'Data © OpenStreetMap contributors, ODbL 1.0, https://www.openstreetmap.org/copyright' : l.licence}.`);
+  return lines.filter(lineExportable).map((l) => `Route line: ${l.label}. ${OSM.test(l.ref) || ROUTE.test(l.ref) ? 'Data © OpenStreetMap contributors, ODbL 1.0, https://www.openstreetmap.org/copyright' : l.licence}.${ROUTE.test(l.ref) ? ` ${ROUTING_ATTRIBUTION}.` : ''}`);
 }
