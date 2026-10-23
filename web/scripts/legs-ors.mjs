@@ -13,6 +13,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { haversineKm } from '@travel/core/geo/distance.ts';
 import { dolomitesLegPairs, routingPoint } from '../lib/public/legs-pairs.ts';
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -68,14 +69,7 @@ if (!key) {
   process.exit(missing.length ? 1 : 0);
 }
 
-const straightKm = (a, b) => {
-  const R = 6371;
-  const rad = Math.PI / 180;
-  const dLat = (b.lat - a.lat) * rad;
-  const dLon = (b.lng - a.lng) * rad;
-  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(dLon / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
-};
+const straightKm = (a, b) => haversineKm({ lat: a.lat, lon: a.lng }, { lat: b.lat, lon: b.lng });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function route(a, b, radius = 5000) {

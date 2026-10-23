@@ -28,15 +28,6 @@ export function isoWeekday(iso: string): number {
   return w === 0 ? 7 : w;
 }
 
-export function haversineM(a: { lat: number; lon: number }, b: { lat: number; lon: number }): number {
-  const R = 6371008.8;
-  const rad = Math.PI / 180;
-  const dLat = (b.lat - a.lat) * rad;
-  const dLon = (b.lon - a.lon) * rad;
-  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(dLon / 2) ** 2;
-  return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
-}
-
 /** UTC offset of a zone in minutes at a given instant */
 export function zoneOffsetMin(zone: string, at: Date): number {
   const part = new Intl.DateTimeFormat("en", { timeZone: zone, timeZoneName: "longOffset" }).formatToParts(at).find((p) => p.type === "timeZoneName")?.value ?? "GMT";

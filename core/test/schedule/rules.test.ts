@@ -3,7 +3,8 @@ import { ACTIVE_BUDGET_MIN, ageRules, DURATION_RULES, resolveDuration, walkCeili
 import { estimateLeg, resolveLeg, samePlace } from "../../src/schedule/legs.ts";
 import { anchorTime, sunReference } from "../../src/schedule/sun.ts";
 import { sunDay } from "../../src/sun/index.ts";
-import { fmtMin, haversineM } from "../../src/checks/time.ts";
+import { haversineM } from "../../src/geo/distance.ts";
+import { fmtMin } from "../../src/checks/time.ts";
 import { family, item, profile } from "./helpers.ts";
 
 describe("duration rules (spec 2.3)", () => {
