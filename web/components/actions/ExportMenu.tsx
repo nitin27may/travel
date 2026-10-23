@@ -10,6 +10,7 @@ import { tripLegs } from '@/lib/client/data';
 import { downloadGpx, downloadKml, downloadTripCsv, loadExport } from '@/lib/export/client';
 import type { Generated } from '@/lib/export/client';
 import { checkPoint } from '@/lib/export/licence';
+import { getTimeline } from '@/lib/export/timelineState';
 import { routeLines } from '@/lib/export/routes';
 import type { ExportLine, PlaceExport, TripExport } from '@/lib/export/types';
 import '@/styles/print.css';
@@ -112,9 +113,11 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
       entries.push({ label: 'Calendar: pick dates first', icon: 'calendar', disabled: true, shortcut: 'Copy to my trips' });
     } else if (f === 'gpx' || f === 'kml') {
       const word = f.toUpperCase();
+      // plain words for what each file opens in (trips only; a place keeps the short form)
+      const use = target.type === 'trip' ? (f === 'gpx' ? ' (GPS or hiking app)' : ' (Google Earth or My Maps)') : '';
       const none = wptCount === 0;
       entries.push({
-        label: none ? `${word}: no licensed points` : wptCount === null ? word : `${word}: ${plural(wptCount, 'point')}`,
+        label: none ? `${word}: no licensed points` : wptCount === null ? `${word}${use}` : `${word}${use}: ${plural(wptCount, 'point')}`,
         icon: 'download',
         disabled: none,
         onSelect: () => void run(f === 'gpx' ? downloadGpx : downloadKml),
@@ -123,7 +126,7 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
       if (target.type === 'trip') {
         if (isOverview) continue;
         const n = data?.type === 'trip' ? data.stops.length : null;
-        entries.push({ label: n === null ? 'CSV' : `CSV: ${plural(n, 'stop')}`, icon: 'download', onSelect: () => void run((d) => downloadTripCsv(d as TripExport)) });
+        entries.push({ label: n === null ? 'CSV (spreadsheet)' : `CSV (spreadsheet): ${plural(n, 'stop')}`, icon: 'download', onSelect: () => void run((d) => downloadTripCsv(d as TripExport)) });
       }
     }
   }
@@ -137,9 +140,11 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
           </>
         }
         triggerClassName={size === 'sm' ? 'btn btn-sm' : 'btn'}
+        triggerLabel={size === 'sm' && target.type === 'trip' ? 'Export trip' : undefined}
+        align={size === 'sm' ? 'end' : 'start'}
         entries={entries}
       />
-      {printing ? createPortal(<TripPrintView data={printing} />, document.body) : null}
+      {printing ? createPortal(<TripPrintView data={printing} session={getTimeline(printing.slug)} />, document.body) : null}
     </span>
   );
 }
