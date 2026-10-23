@@ -13,7 +13,7 @@ import { expect } from "vitest";
 import type { CatalogueMethod, CatalogueStore } from "../../../src/catalogue/store.ts";
 import type { Result } from "../../../src/catalogue/result.ts";
 import type { ApiErrorCode } from "../../../src/schema/api/index.ts";
-import { privacyHits } from "../../../src/privacy/detect.ts";
+import { privacyHits, type DetectOptions } from "../../../src/privacy/detect.ts";
 import type { GlobeCity, Town } from "../../../src/schema/api/index.ts";
 
 /** What a case needs to know about a target's data, so the same case runs on the fixture and on the real catalogue. */
@@ -148,9 +148,13 @@ export async function allRows<T>(page: (n: number) => Promise<Result<{ items: T[
  */
 const SENTINELS: readonly RegExp[] = [/CONF-SENTINEL-7Q/, /NOTE-SENTINEL-PRIVATE/, /CITIZENSHIP-SENTINEL/, /CONTACT-SENTINEL/, /\+1-555-0100/];
 
-/** Household strings, private keys and points near home in one output; empty when clean. A hit names a path and a reason, never a coordinate. */
-export function householdHits(out: unknown, where: string): string[] {
-  const hits = privacyHits(out).map((h) => `${where}${h.where.slice(1)}: ${h.why}`);
+/**
+ * Household strings, private keys and points near home in one output; empty when clean. A hit names a path and a reason, never a
+ * coordinate. `opts` is what respond() passes: the store's loaded gazetteer (`gazetteerOf(store)`, A33) and the request's own strings
+ * (A40); without them nothing is exempt, which is the strictest reading.
+ */
+export function householdHits(out: unknown, where: string, opts: DetectOptions = {}): string[] {
+  const hits = privacyHits(out, 20, opts).map((h) => `${where}${h.where.slice(1)}: ${h.why}`);
   const text = JSON.stringify(out);
   for (const re of SENTINELS) if (re.test(text)) hits.push(`${where}: ${re}`);
   return hits;

@@ -1,82 +1,107 @@
-// The town guard (core/src/privacy/towns.ts, store.ts A33): generic over every town, never naming one, never leaking the home point.
+// The towns layer (core/src/privacy/towns.ts, store.ts A33; owner ruling Q87 of 23 Oct 2026): every town as the public gazetteer has it,
+// accepted by the detector by identity; route lines keep their refusal. Never names a town, never prints the home point.
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { HOME_RADIUS_KM } from "../../src/config/nearby.ts";
-import { haversineKm } from "../../src/geo/distance.ts";
-import { HOME_TOWN_RE, nearHome } from "../../src/privacy/home.ts";
+import { HOME_TOWN_RE } from "../../src/privacy/home.ts";
 import { privacyHits } from "../../src/privacy/detect.ts";
-import { TOWN_POLICY, guardOffset, safeGeometry, safeOutline, safeTown } from "../../src/privacy/towns.ts";
+import { TOWN_POLICY, gazetteerOf, lineClearOfHome, publicGazetteer, publicTownLayer, safeLine, safeOutline, safeTown } from "../../src/privacy/towns.ts";
 import { encodePolyline5 } from "../../src/schema/api/legs.ts";
-import { HOME_PROBE, northOfHome } from "./probe.ts";
+import { northOfHome } from "./probe.ts";
 
 const SRC = readFileSync(new URL("../../src/privacy/towns.ts", import.meta.url), "utf8");
+const DETECT = readFileSync(new URL("../../src/privacy/detect.ts", import.meta.url), "utf8");
+const ring = (c: { lat: number; lon: number }, d: number) => [[[c.lon - d, c.lat - d], [c.lon + d, c.lat - d], [c.lon + d, c.lat + d], [c.lon - d, c.lat - d]]];
 
-describe("safeTown", () => {
-  it("is the owner's Q87 policy: safe geometry, not exclusion", () => {
-    expect(TOWN_POLICY).toBe("safe-geometry");
+describe("safeTown and safeOutline: the identity", () => {
+  it("is the owner's Q87 ruling: show every town as the public data does", () => {
+    expect(TOWN_POLICY).toBe("public");
   });
-  it("serves a centre outside the radius as it is", () => {
-    const far = northOfHome(HOME_RADIUS_KM + 0.1);
-    expect(safeTown(far)).toEqual({ ...far, moved: false });
-  });
-  it("moves a centre inside the radius to its Wikidata point when that point is outside", () => {
-    const alt = northOfHome(6);
-    expect(safeTown({ ...northOfHome(0.3), alt })).toEqual({ ...alt, moved: true });
-  });
-  it("otherwise moves it a fixed 2 x radius + radius / 4 due north, outside the radius wherever home is inside it", () => {
-    for (const km of [0, 0.2, 1, 1.99]) {
-      for (const deg of [0, 45, 90, 135, 180, 225, 270, 315]) {
-        // a centre `km` from home on bearing `deg`, with a Wikidata point that is inside the radius too
-        const c = { lat: HOME_PROBE.lat + (km / 111.19) * Math.cos((deg * Math.PI) / 180), lon: HOME_PROBE.lon + ((km / 111.19) * Math.sin((deg * Math.PI) / 180)) / Math.cos((HOME_PROBE.lat * Math.PI) / 180) };
-        if (!nearHome(c.lat, c.lon)) continue;
-        const got = safeTown({ ...c, alt: HOME_PROBE })!;
-        expect(got.moved).toBe(true);
-        expect(nearHome(got.lat, got.lon), `${km} km at ${deg}`).toBe(false);
-        expect(haversineKm(c, got)).toBeCloseTo(guardOffset(), 6);
-        // due north of the centre, whatever the direction of home: the moved point does not depend on where home lies
-        expect(got.lon).toBeCloseTo(c.lon, 9);
-        expect(got.lat).toBeGreaterThan(c.lat);
-      }
+  it("serves every centre unchanged, inside the radius too, and every outline unchanged", () => {
+    for (const km of [0, 0.3, HOME_RADIUS_KM - 0.1, HOME_RADIUS_KM + 0.1, 30]) {
+      const c = northOfHome(km);
+      expect(safeTown(c)).toEqual(c);
     }
-  });
-  it("leaks nothing finer than the guard bit: two centres the same distance from different home directions move by the same vector", () => {
-    const a = northOfHome(0.5);
-    const b = { lat: HOME_PROBE.lat - 0.5 / 111.19, lon: HOME_PROBE.lon };
-    const ma = safeTown(a)!;
-    const mb = safeTown(b)!;
-    expect(ma.lat - a.lat).toBeCloseTo(mb.lat - b.lat, 3);
-    expect(ma.lon - a.lon).toBeCloseTo(mb.lon - b.lon, 9);
-  });
-});
-
-describe("safeGeometry and safeOutline", () => {
-  const ring = (c: { lat: number; lon: number }, d: number) => [[[c.lon - d, c.lat - d], [c.lon + d, c.lat - d], [c.lon + d, c.lat + d], [c.lon - d, c.lat - d]]];
-  it("refuses an outline with any vertex within the radius, in either axis order, at any depth", () => {
-    const near = northOfHome(1);
-    expect(safeGeometry({ type: "Polygon", coordinates: ring(northOfHome(30), 0.05) })).toBe(true);
-    expect(safeGeometry({ type: "MultiPolygon", coordinates: [ring(northOfHome(30), 0.05), [[[near.lon, near.lat], [0, 0], [1, 1]]]] })).toBe(false);
-    expect(safeGeometry([[near.lat, near.lon]])).toBe(false);
-    expect(safeOutline({ type: "Polygon", coordinates: ring(northOfHome(1), 0.001) })).toBeNull();
-    const ok = { type: "Polygon", coordinates: ring(northOfHome(30), 0.05) };
-    expect(safeOutline(ok)).toBe(ok);
+    const g = { type: "Polygon", coordinates: ring(northOfHome(0.5), 0.01) };
+    expect(safeOutline(g)).toBe(g);
     expect(safeOutline(null)).toBeNull();
   });
-  it("reads an encoded line too", () => {
-    const near = northOfHome(0.5);
-    expect(safeGeometry(encodePolyline5([[-116.1, 51.3], [near.lon, near.lat]]))).toBe(false);
-    expect(safeGeometry(encodePolyline5([[-116.1, 51.3], [-116.2, 51.4]]))).toBe(true);
-  });
-  it("agrees with the detector: what it serves, respond() serves", () => {
-    for (const g of [{ coordinates: ring(northOfHome(30), 0.05) }, { coordinates: ring(northOfHome(1), 0.001) }]) {
-      expect(safeGeometry(g)).toBe(privacyHits(g).length === 0);
-    }
+  it("'exclude' is the documented product switch: it drops a centre inside the radius and keeps the rest", () => {
+    expect(safeTown(northOfHome(0.3), "exclude")).toBeNull();
+    expect(safeTown(northOfHome(30), "exclude")).toEqual(northOfHome(30));
   });
 });
 
-describe("the guard names no town", () => {
+describe("publicGazetteer and publicTownLayer", () => {
+  const near = { id: "ca-zz-planted-a", name: "Planted A", ...northOfHome(0.5) };
+  const far = { id: "ca-zz-planted-b", name: "Planted B", ...northOfHome(40) };
+  const outline = { id: near.id, geometry: { type: "Polygon", coordinates: ring(northOfHome(0.5), 0.01) } };
+  it("holds the loaded points and outline vertices, exactly", () => {
+    const g = publicGazetteer([near, far], [outline]);
+    expect(g.size).toBe(2);
+    expect(g.has(near.id) && g.has(far.id) && !g.has("ca-zz-other")).toBe(true);
+    expect(g.name(near.id)).toBe("Planted A");
+    expect(g.isPoint(near.id, near.lat, near.lon)).toBe(true);
+    expect(g.isPoint(near.id, near.lat + 1e-9, near.lon)).toBe(false);
+    expect(g.isPoint(far.id, near.lat, near.lon)).toBe(false);
+    const v = outline.geometry.coordinates[0]![0]!;
+    expect(g.isVertex(near.id, v[0]!, v[1]!)).toBe(true);
+    expect(g.isVertex(near.id, v[1]!, v[0]!)).toBe(false);
+    expect(g.isVertex(far.id, v[0]!, v[1]!)).toBe(false);
+  });
+  it("serves the layer as loaded and builds the gazetteer from the same rows", () => {
+    const layer = publicTownLayer([near, far], [outline, { id: "ca-zz-no-town", geometry: null }]);
+    expect(layer.towns).toEqual([near, far]);
+    expect(layer.outlines).toEqual([outline]);
+    expect(layer.gazetteer.isPoint(near.id, near.lat, near.lon)).toBe(true);
+    const ex = publicTownLayer([near, far], [outline], "exclude");
+    expect(ex.towns).toEqual([far]);
+    expect(ex.outlines).toEqual([]);
+    expect(ex.gazetteer.has(near.id)).toBe(false);
+  });
+  it("the detector accepts a served town by identity and nothing else", () => {
+    const { gazetteer } = publicTownLayer([near], [outline]);
+    expect(privacyHits({ items: [near] }, 20, { gazetteer })).toEqual([]);
+    expect(privacyHits({ id: near.id, name: near.name, geometry: outline.geometry }, 20, { gazetteer })).toEqual([]);
+    expect(privacyHits({ items: [near] }).length).toBe(1);
+    expect(privacyHits({ items: [{ ...near, lat: near.lat + 0.001 }] }, 20, { gazetteer }).length).toBe(1);
+  });
+  it("gazetteerOf reads a store's PublicTownsHolder, and is null for a store without one", async () => {
+    const g = publicGazetteer([far]);
+    expect(await gazetteerOf({ publicTowns: () => g })).toBe(g);
+    expect(await gazetteerOf({ publicTowns: async () => g })).toBe(g);
+    expect(await gazetteerOf({})).toBeNull();
+    expect(await gazetteerOf(null)).toBeNull();
+  });
+});
+
+describe("safeLine: route lines are not gazetteer data and keep their refusal (A34)", () => {
+  it("refuses a line with any vertex within the radius, in either axis order, at any depth", () => {
+    const near = northOfHome(1);
+    expect(lineClearOfHome({ type: "Polygon", coordinates: ring(northOfHome(30), 0.05) })).toBe(true);
+    expect(lineClearOfHome({ type: "MultiPolygon", coordinates: [ring(northOfHome(30), 0.05), [[[near.lon, near.lat], [0, 0], [1, 1]]]] })).toBe(false);
+    expect(lineClearOfHome([[near.lat, near.lon]])).toBe(false);
+    const ok = { type: "LineString", coordinates: [[-116.1, 51.3], [-116.2, 51.4]] };
+    expect(safeLine(ok)).toBe(ok);
+    expect(safeLine(null)).toBeNull();
+  });
+  it("reads an encoded line too, and agrees with the detector", () => {
+    const near = northOfHome(0.5);
+    expect(safeLine(encodePolyline5([[-116.1, 51.3], [near.lon, near.lat]]))).toBeNull();
+    const clear = encodePolyline5([[-116.1, 51.3], [-116.2, 51.4]]);
+    expect(safeLine(clear)).toBe(clear);
+    for (const g of [{ coordinates: ring(northOfHome(30), 0.05) }, { coordinates: ring(northOfHome(1), 0.001) }]) expect(lineClearOfHome(g)).toBe(privacyHits(g).length === 0);
+  });
+});
+
+describe("the towns code and the detector name no town", () => {
+  const code = (src: string) => src.split("\n").filter((l) => !/^\s*\/\//.test(l)).join("\n");
   it("towns.ts holds neither the home town's name nor a coordinate", () => {
-    const code = SRC.split("\n").filter((l) => !/^\s*\/\//.test(l)).join("\n");
     expect(HOME_TOWN_RE.test(SRC)).toBe(false);
-    expect(code).not.toMatch(/-?\d{1,3}\.\d{3,}/);
+    expect(code(SRC)).not.toMatch(/-?\d{1,3}\.\d{3,}/);
+  });
+  it("detect.ts holds neither the home town's name nor a coordinate (the word comes from home.ts)", () => {
+    expect(HOME_TOWN_RE.test(DETECT)).toBe(false);
+    expect(code(DETECT)).not.toMatch(/-?\d{1,3}\.\d{3,}/);
   });
 });
