@@ -1,8 +1,9 @@
 // What the trip page hands the timeline components (trip-timeline spec 2.1, 3.7). Plain JSON, built on the server from the public
 // dataset: the scheduler inputs per day, the default profile's timelines, and the pre-filtered list of places a visitor may add
 // to a day (never the whole catalogue: principle P8). Nothing here reads a file.
-import { haversineM } from '@travel/core/checks/time.ts';
+import { haversineM } from '@travel/core/geo/distance.ts';
 import type { DayTimeline, ItemKind, Point, Profile, ScheduleDayInput, ScheduleItem } from '@travel/core/schedule/types.ts';
+import { kindLabel } from '@/lib/entities/labels';
 import { parseHoursRange } from '@/lib/public/quantities';
 import type { KnowGroup } from '@/lib/public/prose';
 import type { DayVariantInfo, DayZone, ItemSuit, PublicDay, PublicPlaceCard, PublicTrip } from '@/lib/public/types';
@@ -61,7 +62,8 @@ export interface TimelineModel {
   suit: Record<string, ItemSuit>;
 }
 
-const KIND_LABEL: Record<string, string> = { trail: 'Trail', lake: 'Lake', viewpoint: 'Viewpoint', waterfall: 'Waterfall', sight: 'Sight', town: 'Town', activity: 'Activity', lift: 'Lift', area: 'Area', eatery: 'Eatery' };
+/** The stop kinds a candidate card names; any other sub reads "Stop". The words come from types.json through kindLabel. */
+const LABELLED_SUBS: ReadonlySet<string> = new Set(['trail', 'lake', 'viewpoint', 'waterfall', 'sight', 'town', 'activity', 'lift', 'area', 'eatery']);
 
 /** The scheduler's item for a candidate. Pure, so the browser can place it by cheapest insertion. */
 export function candidateToItem(c: AddCandidate): ScheduleItem {
@@ -85,7 +87,7 @@ function fromItem(it: ScheduleItem, group: AddCandidate['group'], km: number | n
   if (it.kind === 'meal' || it.kind === 'break' || it.kind === 'rest' || it.kind === 'checkin' || it.kind === 'checkout') return null;
   return {
     key: it.placeSlug ?? it.id, name: it.title, kind: it.kind, sub: it.sub, placeSlug: it.placeSlug, point: it.point, durationMin: it.durationMin, durationRange: it.durationRange,
-    stats: it.stats, label: it.kind === 'trail' ? 'Trail' : KIND_LABEL[it.sub ?? ''] ?? 'Stop', km, group,
+    stats: it.stats, label: it.kind === 'trail' ? kindLabel('trail') : LABELLED_SUBS.has(it.sub ?? '') ? kindLabel(it.sub!) : 'Stop', km, group,
   };
 }
 

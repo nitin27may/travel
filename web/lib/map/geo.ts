@@ -1,3 +1,4 @@
+import { haversineKm } from '@travel/core/geo/distance.ts';
 import type { Line, LngLat, MapSpec, Pin } from './types';
 
 export type Bounds = [LngLat, LngLat];
@@ -24,10 +25,7 @@ export function flyDuration(km: number): number {
 }
 
 export function distanceKm(a: LngLat, b: LngLat): number {
-  const r = Math.PI / 180;
-  const dLat = (b.lat - a.lat) * r, dLng = (b.lng - a.lng) * r;
-  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLng / 2) ** 2;
-  return 6371 * 2 * Math.asin(Math.min(1, Math.sqrt(h)));
+  return haversineKm({ lat: a.lat, lon: a.lng }, { lat: b.lat, lon: b.lng });
 }
 
 export interface PinGroup {

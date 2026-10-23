@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { incomingOf, primaryRef, type World } from '@travel/core/capture/records.ts';
+import { NEAR_KM } from '@travel/core/config/nearby.ts';
 import type { RelevanceRecord } from '@travel/core/schema/relevance.ts';
 import { travelRoot } from '../data/root';
 import { BASIS_LABEL, TextScrub, lookupFor, longDate, readOf, type SourceRow } from './vals';
@@ -211,8 +212,7 @@ export interface RelevanceOptions {
   showNotJudged?: boolean;
 }
 
-/** "Nearby" means near: a pair or a stand-in further than this is not listed (the S1b review caps it at about 25 km). */
-export const NEARBY_MAX_KM = 25;
+// "Nearby" means near: a pair or a stand-in further than NEAR_KM (core/src/config/nearby.ts) is not listed (the S1b review caps it at about 25 km).
 const MAX_SIMILAR = 3;
 const MAX_PAIRS = 3;
 
@@ -337,14 +337,14 @@ export function publicRelevance(ctx: RelevanceContext, rawRef: string, opts: Rel
   const nearRefs = new Set((item?.substitutes.near ?? []).map((s) => s.ref));
   const skip = relatedRefs(ctx, ref);
   const similarAll = (item?.substitutes.near ?? []).filter((s) => !skip.has(primaryRef(w, s.ref)));
-  const similar = similarAll.filter((x) => (x.km ?? 0) <= NEARBY_MAX_KM).slice(0, MAX_SIMILAR).map((s) => asSimilar(s, planBRef));
+  const similar = similarAll.filter((x) => (x.km ?? 0) <= NEAR_KM).slice(0, MAX_SIMILAR).map((s) => asSimilar(s, planBRef));
   const similarArea = (item?.substitutes.area ?? []).filter((s) => !nearRefs.has(s.ref) && !skip.has(primaryRef(w, s.ref))).map((s) => asSimilar(s, planBRef));
 
   // pairs: hand-picked first (derive already sorts them so), never a way, payoff, part or the start of this record
   const pairs: PairPlace[] = [];
   for (const p of item?.pair_with ?? []) {
     const target = primaryRef(w, p.ref);
-    if (skip.has(target) || (p.km ?? 0) > NEARBY_MAX_KM) continue;
+    if (skip.has(target) || (p.km ?? 0) > NEAR_KM) continue;
     const startsHere = (w.cap.get(target)?.rec.starts_at ?? []).some((r) => primaryRef(w, r) === ref);
     pairs.push({
       ref: p.ref,
