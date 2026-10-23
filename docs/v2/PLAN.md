@@ -120,7 +120,7 @@ Status: **done** (shipped), **in force** (a standing rule), **next** (a task is 
 | R-56 | **No new HTML; the web app is the only product; only data is generated, from the schema.** A trip is `data/trips/<id>/trip.json` written through the ops CLI, plus `data/schedules/<id>.json` and the `capture/1` records with their sidecars. A page change is a `web/` change. `legacy/` is frozen except for moving data out. The web app must render a data-only trip (gaps G1-G6) | owner 21 Oct (direction 2) | CLN-7 (the rule); TD-0 (B); TD-1, TD-2, TD-3 (E); TD-4, TD-6 (after R2, with 7.11) ([SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 5) | in force; CLN-7 next; TD tasks scheduled |
 | R-57 | **All skills in one skills folder**, research and planning included: `.claude/skills/` with `trip` (replaces `trip-planner`), `research` (new) and `location`. Cleanup D18 is superseded: the HTML half of `trip-planner` is retired, not moved | owner 21 Oct (direction 1) | CLN-7a (Sonnet), CLN-7b (Haiku) | next (now, before R1 entry) |
 
-## 3. Phases, gates and status (21 Oct 2026)
+## 3. Phases, gates and status (23 Oct 2026)
 
 | Step | What | Gate | Status | Detail |
 |---|---|---|---|---|
@@ -128,18 +128,20 @@ Status: **done** (shipped), **in force** (a standing rule), **next** (a task is 
 | main is the product | v2 fast-forwarded to `main`; old site tagged `legacy-final` (74b97ad); live site unchanged | owner, 20 Oct | **done** | HANDOVER 1 |
 | Plan | Execution plan rewritten after D1-D10; COVERAGE (244 lines, 0 unmapped); this page | none | **done** | EXECUTION-PLAN 1, 21 |
 | Branch cleanup | Remote branches deleted and archived as tags `archive/*`; PR #7 closed | owner, 21 Oct | **done** | HANDOVER 4 |
-| **A** | UI fixes: A1-A14 plus SRV-D (A10); about 75 h | **R1** (owner) | **next: start now** | EXECUTION-PLAN 3, 8 |
+| **A** | UI fixes: A1-A14 plus SRV-D (A10); about 75 h | **R1** (owner) | **done (merged); R1 entry done; the owner's review R1 is still open** (preview 1 on :3440; the tunnel is not started and needs the owner's go) | EXECUTION-PLAN 3, 8; [R1-HANDOVER.md](build/public-site/R1-HANDOVER.md) |
 | Cleanup, CLN-1 to CLN-6 and CLN-R | Repo cleanup and one research home (owner, 21 Oct). CLN-1 now, beside phase A: `docs/v2/research/`, `docs/research/` and the sun audit move into the root `research/` (`method/`, `runs/`, `reports/`, `audits/`); `research/README.md`, `tools.md`, `formats/`, the trip index; thin skills and agents; v1 docs archived; removals D2-D4. It touches no file a running lane owns or has changed (measured in the 7 worktrees). CLN-1a Haiku scan, 1b Sonnet scripted moves, 1c Opus authoring, 1d Sonnet verify. CLN-R after TRP1 merges and before B6 META-0: the capture generator writes `research/types/`, the backlog and tag report move, template tests (Sonnet). CLN-2 at R1 entry; CLN-3, CLN-4, CLN-5 in the phase B gap; CLN-6 with backlog 7.11. **CLN-7 (revision 3): skills consolidation and the no-HTML rule.** It runs now, beside phase A, and merges before R1 entry, because CLN-2 edits `CLAUDE.md` and `README.md`. It touches no file of a phase A lane, API-0, API-1 or META-0. 7a is `travel-planner` on Sonnet, 7b is `travel-verifier` on Haiku. About 30 h in total | cleanup D1-D22 (D18 superseded, D17 applied); G-B audits CLN-5 | **CLN-1 and CLN-R done (329bb99, a1ceff8); next: CLN-7 now, CLN-2 at R1 entry** | [CLEANUP-PLAN.md](CLEANUP-PLAN.md) |
 | Trip data (TD, R-56) | The web app renders trips written as data. TD-0: the trip data contract and template (docs, Opus, 3 h), in phase B beside the B lanes. TD-1: `items.ref`, sub-regions and the cover format in the core trip schema (`travel-builder` on Opus, 6 h). TD-2: trip pages from `data/trips/<id>/trip.json` (Sonnet, 11 h with review). TD-3: galleries and covers move to `data/trips/` (Sonnet, 5 h). TD-1 to TD-3 are one serial E lane: after G-B, because META-0 owns `core/src/validate/codes.ts` in B; TD-2 after B2 and E1, and before CONS-3 edits `sources.ts` and `slugs.ts`. TD-4 (import the 14 old trips, 24 h) and TD-6 (the orientation block, 8 h) come after R2, with 7.11 | TD-2 ends with design review and verifier | TD-0 waits on CLN-7; TD-1 on G-B | [SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 5, 9 |
-| **B** | API-0, API-1 (1a contract on Opus, 1b implementation on Sonnet), API-2, CONS-1, CONS-2, META-0 (Opus); about 88 h, plus about 20.5 h of cleanup (CLN-2 to CLN-5) and TD-0 in the second seat of each slot. Seven slots of at most two lanes, because the weekly usage allowance is nearly spent: slot 0 API-0 (Sonnet; before the 25 Oct reset only if R1 fixes leave room), then META-0 with CONS-1, API-1a with CLN-4, API-1b with CLN-3, API-2 with CLN-5, CONS-2 with TD-0, then G-B. DATA D3, D4 and D6 move to after G-B. Starts on the owner's go; R1 entry is done (Q72) | **G-B** (internal) | **ready to start; waiting on the owner's go (B-1)** | [PHASE-B-START.md](build/public-site/PHASE-B-START.md) (order, models, collisions, preconditions, rollback); EXECUTION-PLAN 4, 9 |
-| **E** | META-1, META-2, DATA D1-D6, LST2b, LST2c, PLC2b, TRP2, GLB2b, MX, CONS-3; about 161 h | **R2** (owner, Q43) | waiting on G-B (D3, D4 and D6 data may start once META-0 merges) | EXECUTION-PLAN 10, 11 |
+| **B** | API-0, API-1 (1a contract on Opus, 1b implementation on Sonnet), API-2, CONS-1, CONS-2, META-0 (Opus); about 88 h, plus about 20.5 h of cleanup (CLN-2 to CLN-5) and TD-0 in the second seat of each slot. Seven slots of at most two lanes, because the weekly usage allowance is nearly spent: slot 0 API-0 (Sonnet; before the 25 Oct reset only if R1 fixes leave room), then META-0 with CONS-1, API-1a with CLN-4, API-1b with CLN-3, API-2 with CLN-5, CONS-2 with TD-0, then G-B. DATA D3, D4 and D6 move to after G-B. Starts on the owner's go; R1 entry is done (Q72) | **G-B** (internal) | **done 23 Oct 2026; G-B PASSED at main 653407f** (CHECK-ALL OK; full e2e 745 passed, 27 skipped, 0 failed on Chromium; pixel diff against preview 1: 0 unexplained; sitemap 380 URLs, 0 slug changes; static fallback smoke 335 passed with 2 named failures, one expects `/api/v1`, one fixed by GBFIX; API p50 2.5 to 4.7 ms on 359 places; in-process 10,000-place clone: list 21 ms, filtered count about 60 ms, first call 2.9 s). Merged: API-0, META-0, CONS-1, API-1a with its fix round, API-1b, API-1c, API-2, CONS-2, GBFIX; cleanup CLN-1, CLN-R, CLN-2, CLN-3 (`prototype/` retired, tag `archive/prototype-2026-10-22`), CLN-4, CLN-5, CLN-7; TD-0; PRIV1; E2E, E2E2; GLB2d. Audits: [audit-GB-output.md](build/public-site/audit-GB-output.md) (pass with fixes; its one must was fixed in GBFIX), [review-API1a-contract.md](build/public-site/review-API1a-contract.md); verifier [verify-GB.md](build/public-site/verify-GB.md). Deferrals are BACKLOG 15.20 to 15.31 | [PHASE-B-START.md](build/public-site/PHASE-B-START.md) (order, models, collisions, preconditions, rollback); EXECUTION-PLAN 4, 9 |
+| **E** | META-1, META-2, DATA D1-D6, LST2b, LST2c, PLC2b, TRP2, GLB2b, MX, CONS-3; about 161 h | **R2** (owner, Q43) | **next, after the owner's R1 review** (G-B passed; D3, D4 and D6 data start after G-B, Q84) | EXECUTION-PLAN 10, 11 |
 | **D** | Readiness checklist, hosting-agnostic | none | waiting on R2 | EXECUTION-PLAN 13 |
 | **S** | SRV-0: `SupabaseStore` locally, contract kit green, flags off; off the R2 critical path | contract kit | waiting on E features | EXECUTION-PLAN 4.8 |
 | Hosting | Choose a host that runs Next.js route handlers, then deploy, domain, edge rules | owner | not scheduled | EXECUTION-PLAN 13.2 |
 
 Calendar (EXECUTION-PLAN 17): about 23 working days to readiness, about 396 h. Day 1 is the day the phase A lanes start. The 20 Oct estimate of "readiness about 20 Nov" assumed 21 Oct as day 1. This machine still needs its env file and a green check-all first (section 4, task 1), so count from the real start day.
 
-## 4. The first 10 tasks to start now
+## 4. The first 10 tasks (phase A, history) and what is next
+
+What is next (23 Oct 2026): section 4.4. The table below is the phase A start list, all merged.
 
 Every lane works from its brief in [briefs/](build/public-site/briefs/). Tasks 2 to 9 run in parallel on disjoint files. Merge order: TST, FIXF, SHL2, GLB2a, TRP1, LST2a, PLC2a.
 
@@ -186,6 +188,18 @@ Phase A components keep calling today's `data.ts` exports with the same names an
 
 Phase A is merged and R1 entry is done, so the first-10 table above is history. Phase B starts from [PHASE-B-START.md](build/public-site/PHASE-B-START.md): the slot order with models, worktrees and ports, the owned-file collisions with CLN-2 to CLN-5 and TD-0 and the rule for each, the hard preconditions, the contract cases K1 to K19, the server-build check-all and e2e harness, rollback per lane, about 108.5 agent-hours, the G-B checks and the go/no-go list. It also decides the slug-stability rule (a pinned slug registry), refs on every row, the canonical `region` value (`alberta`, as shipped), one API provenance schema that emits registry source ids, the sort key and a content revision. The owner decides B-1 to B-4 there.
 
+### 4.4 What is next (23 Oct 2026)
+
+Phase B is done and G-B passed at `main` 653407f. In order:
+
+| # | Next | Who | Notes |
+|---|---|---|---|
+| 1 | Owner review R1 on preview 1 (`127.0.0.1:3440`, commit 92d74d1) | owner | The tunnel is not started and needs the owner's go. Pending owner decisions are in section 5 |
+| 2 | Before META-2: BACKLOG 15.21 (Q50 home-town rule for the towns layer) | `travel-builder` (Sonnet) | The fail-closed 500 is a home-town oracle once towns load |
+| 3 | Phase E: META-1, META-2, DATA D1-D6, LST2b, LST2c, PLC2b, TRP2, GLB2b, MX, CONS-3 | per [EXECUTION-PLAN.md](build/public-site/EXECUTION-PLAN.md) 10, 11 | Pick new branch names (the R1 fix lane names collide). Phase E items from the G-B deferrals: BACKLOG 15.23, 15.27 to 15.29 |
+| 4 | R2: decide the place-size budget (+25% median) or lazy sections | owner | BACKLOG 15.30 |
+| 5 | Go-live checklist additions | owner | Maps key referrer restriction (15.25), rate limit on `/api/v1/*` (15.22) |
+
 ## 5. Open owner decisions (only the open ones)
 
 | ID | Decision | Recommendation | Trade-off |
@@ -201,6 +215,11 @@ Phase A is merged and R1 entry is done, so the first-10 table above is history. 
 | O-3 | The two HTML-only past trips (Quebec, New Hampshire stopover): import overview data at TD-4, or drop them from the new site | Import overview data | About 1 h of TD-4 |
 | O-5 (cleanup D17) | Confirm D17 as applied: CLAUDE.md "Trips" already points to `research/trips/README.md` | Yes | none |
 | O-6 | Rename `trip-planner` to `trip` | Yes | `/trip-planner` stops working; "plan a trip" still triggers `trip` |
+| GB-B-3 (`loc:` ref ruling) | The 74 `loc:<id>` refs reveal which places came from the owner's wishlist. Use opaque `place/<slug>` refs through the pinned slug registry? ([BACKLOG](build/public-site/BACKLOG.md) 15.24) | Yes; a contract change (Opus), best done before the contract is public | Existing consumers of the refs change; the registry must stay pinned |
+| GB-C-6 | The home-point module holds two decimal places, so the 2 km circle is off-centre by up to several hundred metres. Keep or offset? (15.26) | Owner choice | Precision of the privacy circle against how well the home point is hidden |
+| Q83, Q84 | Slot 0 timing and DATA D3, D4, D6 timing (BACKLOG) | Q83 is moot (phase B ran); Q84 stands: after G-B, so now | none |
+
+Answered since 21 Oct: Q85 (slugs stay first-come and `region=alberta` stays, unless the owner objects), Q86 (the `prototype/` deletion was confirmed and done in CLN-3), D17 and D18 follow-ups (applied in CLN-1c and CLN-7), the private-saves question (PRIV1, decided 22 Oct: the owner's wishlist saves `sourceTypes` and `added` are removed from all public output). Q79 to Q82 (O-1, O-2, O-3, O-6) have no recorded answer in BACKLOG; the rows above stay open.
 
 Decided and no longer open: Q1-Q64, Q70-Q72, D1-D10 (EXECUTION-PLAN), L7 (21 Oct), and these, decided by the owner on 21 Oct:
 
@@ -278,6 +297,7 @@ More risks: EXECUTION-PLAN 16.
 
 | Date | Change |
 |---|---|
+| 2026-10-23 | Phase B done and G-B passed at main 653407f: section 3 (A, B, G-B and E rows), section 4.4 (what is next), section 5 (GB-B-3, GB-C-6, answered decisions). BACKLOG rows 14.2, 14.3, 14.4, 15.1 and the B parts of 13.1, 13.2, 13.4, 13.5 closed; deferrals added as 15.20 to 15.31 |
 | 2026-10-21 (late) | The owner's direction "skills in one folder; no new HTML; only data from the schema": rules "No new HTML" and "Skills" in section 1; R-56 and R-57; R-53 and R-54 statuses (CLN-1 and CLN-R merged); the Cleanup row with CLN-7 and a new "Trip data (TD)" row in section 3; D17 and D18 moved out of the open decisions (D17 applied, D18 superseded), with O-1, O-2, O-3, O-5 and O-6 added; two superseded statements; [SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) added to section 7 |
 | 2026-10-21 (evening) | Owner decisions recorded: SRV-D 13.1-13.4 (R-55) and cleanup D1-D10 with D7 replaced by one research home (R-53, R-54); the Cleanup row in section 3 rescheduled (CLN-1 now, CLN-R after TRP1); cleanup D17 and D18 added as open owner decisions |
 | 2026-10-21 | First version: one entry point combining EXECUTION-PLAN, COVERAGE, STATUS, MASTER-PLAN, BACKLOG, STAGE4-plan, OWNER-ROUND1-plan, REPORT-2026-10-20, the build README, the nearby spec, the laundry list and the owner memory; owner headline; R-1 to R-52; banners on the partly superseded files; L7 closed |
