@@ -194,6 +194,8 @@ function rowOf(d: PlaceDetail, sp: Spec): PlaceRow {
     completeness: { level: d.completeness.level, label: d.completeness.label }, statsState: sp.km ? "unverified" : null,
     researched: sp.origin !== "wishlist", type: sp.type, effort: null, kids_from: null, kids_basis: null, time_band: null, price_band: null,
     booking: null, flags: [], walk_band: null, shape: null, best_time: null, badge: d.badge, approx: d.point?.approx ?? false,
+    // 3b (A35): the nearest fixture town within 50 km, as META-2 derives `near_town`; null until then
+    nearTown: null,
   };
 }
 

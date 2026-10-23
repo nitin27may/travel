@@ -38,6 +38,20 @@ export const profileHttpQuery = z.strictObject({ p: str.optional(), pace: str.op
 
 export const exportHttpQuery = profileHttpQuery.extend({ format: str.optional() });
 
+/**
+ * `GET /api/v1/places/counts` (store.ts A25): the list parameters, plus the parse to merge first as `parsed.q` and `parsed.<facet key>`
+ * (comma lists, `parsed.f.<facet>` for a scoped facet). The `parsed.<facet>` keys are matched by PARSED_KEY_RE, not listed; any
+ * `parsed.` key present makes the request a parsed count, and `parsed.q` absent means the parse left no words.
+ */
+export const countsHttpQuery = listHttpQuery.extend({ "parsed.q": str.optional() });
+export const PARSED_PREFIX = "parsed.";
+
+/** `GET /api/v1/places/unchecked` (A27): the list parameters plus `only`, a comma list of facet keys. */
+export const uncheckedHttpQuery = listHttpQuery.extend({ only: str.optional() });
+
+/** `GET /api/v1/places/cards` (A28): the list parameters (`q` required by the store) plus `limit`. `sort` is refused: cards come best first. */
+export const cardsHttpQuery = listHttpQuery.omit({ sort: true, dir: true, page: true, pageSize: true }).extend({ limit: str.optional() });
+
 /** Keys a page URL carries for the page alone (view, grouping, columns, saved view, focus, the label of an ids list): the codec drops them. */
 export const PAGE_ONLY_KEYS = ["view", "group", "cols", "f", "sv", "focus", "label"] as const;
 

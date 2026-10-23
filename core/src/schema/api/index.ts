@@ -8,6 +8,7 @@ export * from "./nearby.ts";
 export * from "./search.ts";
 export * from "./trip.ts";
 export * from "./export.ts";
+export * from "./legs.ts";
 export * from "./globe.ts";
 export * from "./report.ts";
 export * from "./http.ts";
