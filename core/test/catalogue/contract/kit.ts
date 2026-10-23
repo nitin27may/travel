@@ -44,8 +44,12 @@ export interface ContractFacts {
   region: { cc: string; canonical: string; aliases: string[] };
   /** a near token that resolves, one that does not (cases K3, K4) */
   near: { token: string; unknown: string };
-  /** a town id for `city=` (case K15), and whether the towns layer exists on this target */
-  town: { id: string; layer: boolean };
+  /**
+   * a town id for `city=` (case K15), and whether the towns layer exists on this target. `notYet` names the town-centred methods that
+   * still answer `not_available` on a target whose layer exists, because a later lane fills them (K26 then asserts that answer, so the day
+   * the lane lands the case fails until the name is removed): `near` (LST2c), `globeCity` (GLB2b), `nearbyForPlace` (PLC2b).
+   */
+  town: { id: string; layer: boolean; notYet?: ("near" | "globeCity" | "nearbyForPlace")[] };
   /** a place whose export is a single item with a point we may hand out */
   exportPlace: string;
   /** source registry ids: every `src` in output must be one of these (case K12) */

@@ -7,6 +7,7 @@
 // source must not decide: input validation, the caps, the sort and paging rules, region and `ids` resolution, the revision, the
 // error codes. The pieces that are the web app's today (the filter engine, the smart-search parser, the searcher, the export
 // builders) arrive as functions here and move into core with API-2.
+import type { TownRow } from "../../derive/townsData.ts";
 import type * as S from "../../schema/api/index.ts";
 import type { RevisionInputs } from "../revision.ts";
 import type { SlugRegistry } from "../slugs.ts";
@@ -105,6 +106,12 @@ export interface JsonSource {
     feature(id: string): S.GlobeFeature | null;
     line(id: string): S.GlobeLine | null;
   };
+
+  /**
+   * The rows of the towns layer (data/reference/towns, written only by tools/towns.py from the GeoNames dump; META-2), or absent when this
+   * source has none: `towns`, `city=` and the gazetteer then answer `not_available`. The store serves them exactly as given (store.ts A33).
+   */
+  towns?(): readonly TownRow[];
 
   /** The feedback form's URL for a page path, or null when reporting is off. */
   reportLink(page: string): string | null;

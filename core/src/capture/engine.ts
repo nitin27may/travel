@@ -12,6 +12,7 @@ import { answerOf, isOperated, loadApplicability } from "../suitability/applicab
 import type { Located, Profile } from "../suitability/applicability.ts";
 import { checkRecord } from "../suitability/level.ts";
 import type { RecordCheck, SuitLevel } from "../suitability/level.ts";
+import { canDeriveNearTown } from "./placementBlock.ts";
 import { incomingOf } from "./records.ts";
 import { GEOMETRY_GAP_REASON, tracksByRef, UNCONFIRMED_TRACK_COUNTS } from "./tracks.ts";
 import type { World } from "./records.ts";
@@ -146,6 +147,7 @@ export function evalTrigger(world: World, name: Trigger | string, ref: string, n
       return suit || rel ? false : null;
     }
     case "wildlife_area": return suit?.ext?.kind === "wildlife" ? true : null;
+    case "derived": return canDeriveNearTown(world, cap);
     case "weather_dependent": return suit?.suitability.participation?.weather_cancel ? true : null;
     default: return null;
   }
