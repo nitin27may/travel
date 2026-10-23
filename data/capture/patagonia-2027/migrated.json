@@ -106,24 +106,80 @@
       "ref": "trip/patagonia-2027/sight:penguin colony stop",
       "type": "nature.wildlife.viewing_spot",
       "layer": "place",
+      "near_town": {
+        "v": "cl-00-puerto-williams",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3874926, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 14.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Penguin colony stop"
     },
     {
       "ref": "trip/patagonia-2027/sight:perito moreno walkways",
       "type": "culture.heritage.landmark",
       "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+      },
       "name": "Perito Moreno walkways"
     },
     {
       "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "ar-c-buenos-aires",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3435910, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 2.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Palermo and Recoleta walk"
     },
     {
       "ref": "trip/patagonia-2027/town:san telmo market",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "ar-c-buenos-aires",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3435910, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "San Telmo market"
     },
     {
@@ -142,12 +198,44 @@
       "ref": "trip/patagonia-2027/town:village and cafes",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "ar-z-el-chalten",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6690180, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Village and cafes"
     },
     {
       "ref": "trip/patagonia-2027/viewpoint:lapataia bay",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "ar-v-ushuaia",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3833367, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 15.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lapataia Bay"
     },
     {
@@ -160,6 +248,22 @@
       "ref": "trip/patagonia-2027/viewpoint:laguna nimez birds",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "ar-z-el-calafate",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3858677, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 25.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Laguna Nimez birds"
     },
     {
@@ -195,6 +299,22 @@
       "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "ar-z-el-chalten",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6690180, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 9.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Laguna de los Tres",
       "origin": {
         "from": "trip/patagonia-2027/trail:laguna de los tres",
@@ -284,6 +404,22 @@
       "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "ar-z-el-chalten",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6690180, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 4.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Laguna Capri",
       "origin": {
         "from": "trip/patagonia-2027/trail:laguna capri",
@@ -329,6 +465,22 @@
       "ref": "trip/patagonia-2027/trail:mirador de los condores",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ar-z-el-chalten",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6690180, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Mirador de los Condores",
       "reaches": [
         "part/trip/patagonia-2027/trail:mirador de los condores#payoff"
@@ -361,6 +513,22 @@
       "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "ar-z-el-chalten",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6690180, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 1.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Mirador de los Condores",
       "origin": {
         "from": "trip/patagonia-2027/trail:mirador de los condores",
@@ -406,6 +574,22 @@
       "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ar-z-el-chalten",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6690180, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Mirador de las Aguilas",
       "reaches": [
         "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff"
@@ -438,6 +622,22 @@
       "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "ar-z-el-chalten",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6690180, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 2.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Mirador de las Aguilas",
       "origin": {
         "from": "trip/patagonia-2027/trail:mirador de las aguilas",
@@ -483,6 +683,22 @@
       "ref": "trip/patagonia-2027/trail:chorrillo del salto",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ar-z-el-chalten",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6690180, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 3.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Chorrillo del Salto",
       "reaches": [
         "part/trip/patagonia-2027/trail:chorrillo del salto#payoff"
@@ -515,6 +731,22 @@
       "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
       "type": "water.falls.waterfall",
       "layer": "place",
+      "near_town": {
+        "v": "ar-z-el-chalten",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6690180, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 4.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Chorrillo del Salto",
       "origin": {
         "from": "trip/patagonia-2027/trail:chorrillo del salto",
@@ -594,6 +826,22 @@
       "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "ar-v-ushuaia",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3833367, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 17.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Laguna Esmeralda",
       "origin": {
         "from": "trip/patagonia-2027/trail:laguna esmeralda",

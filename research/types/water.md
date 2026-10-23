@@ -8,7 +8,7 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 Records: place. Suitability profile `lake` (never, extension water). Effort: none, time is shown. Sources, in order: F O T D X C.
 
-**place**: R name, type, point, area_id, wikidata, summary, best_time, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, best_window, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, wikidata, summary, best_time, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, best_window, transit, pairs_with, photos, part_of.
 
 Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, walk_m, access_season; R when operated none; A carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, effort.drivers.distance_km, effort.drivers.gain_m, effort.drivers.surface, effort.drivers.loss_m, toilets, food, shade, picnic, exposure, altitude_m, hazards, water_safety.entry, water_safety.water_temp_c, ext.water.swimming.
 
@@ -18,9 +18,9 @@ Links: official; R? none; A conditions, booking, timetable, osm, wikidata, wikip
 
 Records: place, route. Suitability profile `river` (never, extension paddle). Effort: none, time is shown. Sources, in order: F O T D X C.
 
-**place**: R name, type, point, area_id, wikidata, summary, best_time, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, best_window, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, wikidata, summary, best_time, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, best_window, transit, pairs_with, photos, part_of.
 
-**route**: R name, type, point, area_id, wikidata, summary, best_time, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? price (sells), window (bookable), closures (status_page); A names, osm_ref, best_window, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
+**route**: R name, type, point, area_id, wikidata, summary, best_time, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, geometry, starts_at; R? near_town (derived), price (sells), window (bookable), closures (status_page); A names, osm_ref, best_window, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
 Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, hazards, walk_m, access_season, water_safety.current_or_tide; R when operated none; A carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, effort.drivers.distance_km, effort.drivers.surface, effort.drivers.loss_m, toilets, food, shade, exposure, altitude_m, water_safety.class, water_safety.swim_ability, water_safety.entry, water_safety.water_temp_c, water_safety.lifeguard, ext.paddle.class_at_level, ext.paddle.sections.
 
@@ -30,7 +30,7 @@ Links: official; R? none; A conditions, booking, timetable, osm, wikidata, wikip
 
 Records: place. Suitability profile `river` (never, extension paddle). Effort: none, time is shown. Sources, in order: F O T D X C.
 
-**place**: R name, type, point, area_id, wikidata, summary, best_time, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, best_window, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, wikidata, summary, best_time, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, best_window, transit, pairs_with, photos, part_of.
 
 Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, hazards, walk_m, access_season, water_safety.current_or_tide; R when operated none; A carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, effort.drivers.distance_km, effort.drivers.surface, effort.drivers.loss_m, toilets, food, shade, exposure, altitude_m, water_safety.class, water_safety.swim_ability, water_safety.entry, water_safety.water_temp_c, water_safety.lifeguard, ext.paddle.class_at_level, ext.paddle.sections.
 
@@ -40,7 +40,7 @@ Links: official; R? none; A conditions, booking, timetable, osm, wikidata, wikip
 
 Records: place. Suitability profile `waterfall` (never). Effort: none, time is shown. Sources, in order: F O T D X C.
 
-**place**: R name, type, point, area_id, wikidata, summary, best_window, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, point, area_id, wikidata, summary, best_window, access_points, access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, geonames_id, best_time, transit, pairs_with, photos, part_of.
 
 Suitability: R age_band, kid_note, carrier_ok, stroller, wheelchair, effort.drivers.distance_km, on_site_min, exposure, walk_m, access_season; R when operated none; A group_min, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, effort.source_grade, effort.drivers.gain_m, effort.drivers.surface, effort.drivers.fixed_aids, effort.drivers.loss_m, adult_time_min, toilets, food, picnic, altitude_m, hazards, water_safety.current_or_tide.
 
@@ -50,7 +50,7 @@ Links: official; R? none; A conditions, booking, timetable, osm, wikidata, wikip
 
 Records: place, offer. Suitability profile `beach` (never, extension water). Effort: none, time is shown. Sources, in order: O F T D C.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, best_window, best_time, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
 
@@ -62,7 +62,7 @@ Links: official; R? none; A hours_rates, booking, conditions, status, osm, commo
 
 Records: place. Suitability profile `beach` (never, extension water). Effort: none, time is shown. Sources, in order: O F T D C.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
 
 Suitability: R age_band, kid_note, on_site_min, toilets, hazards, walk_m, water_safety.lifeguard, water_safety.entry, water_safety.current_or_tide, ext.water.swimming; R when operated none; A adult_required, stroller, stroller_extent, wheelchair, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, effort.drivers.distance_km, effort.drivers.surface, food, shade, change_rooms, showers, picnic, baby_change, exposure, water_safety.water_temp_c, access_season.
 
@@ -72,7 +72,7 @@ Links: official; R? none; A hours_rates, booking, conditions, status, osm, commo
 
 Records: place. Suitability profile `swim` (never, extension water). Effort: none, time is shown. Sources, in order: O F T D C.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
 
 Suitability: R age_band, kid_note, on_site_min, toilets, hazards, water_safety.lifeguard, water_safety.entry, water_safety.water_temp_c, water_safety.current_or_tide, access_season, ext.water.swimming; R when operated none; A adult_required, stroller, stroller_extent, wheelchair, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, effort.drivers.distance_km, effort.drivers.surface, food, shade, change_rooms, showers, picnic, baby_change, exposure, walk_m, water_safety.swim_ability, ext.water.clarity, ext.water.floats_required_under.
 
@@ -82,7 +82,7 @@ Links: official; R? none; A hours_rates, booking, conditions, status, osm, commo
 
 Records: place. Suitability profile `swim` (never, extension water). Effort: none, time is shown. Sources, in order: O F T D C.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
 
 Suitability: R age_band, kid_note, on_site_min, toilets, hazards, water_safety.lifeguard, water_safety.entry, water_safety.water_temp_c, water_safety.current_or_tide, access_season, ext.water.swimming; R when operated none; A adult_required, stroller, stroller_extent, wheelchair, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, effort.drivers.distance_km, effort.drivers.surface, food, shade, change_rooms, showers, picnic, baby_change, exposure, walk_m, water_safety.swim_ability, ext.water.clarity, ext.water.floats_required_under.
 
@@ -92,7 +92,7 @@ Links: official; R? none; A hours_rates, booking, conditions, status, osm, commo
 
 Records: place, offer. Suitability profile `swim` (never, extension water). Effort: none, time is shown. Sources, in order: O F T D C.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, best_window, best_time, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
 
@@ -104,7 +104,7 @@ Links: official; R? none; A hours_rates, booking, conditions, status, osm, commo
 
 Records: place, offer. Suitability profile `swim` (never, extension water). Effort: none, time is shown. Sources, in order: O F T D C.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, best_window, best_time, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
 
@@ -116,7 +116,7 @@ Links: official; R? none; A hours_rates, booking, conditions, status, osm, commo
 
 Records: place, offer. Suitability profile `hot_spring` (always, extension water). Effort: none, time is shown. Sources, in order: O F T D C.
 
-**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, point, area_id, summary, season, hours, access_points, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? near_town (derived), window (bookable); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, best_window, best_time, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
 
@@ -130,7 +130,7 @@ Records: offer, route. Suitability profile `canoe_kayak` (flag, extension paddle
 
 **offer (experience)**: R name, type, summary, season, hours, access_cost, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_window, best_time, transit, pairs_with, closures, photos, part_of, on, variants, cancellation, included.
 
-**route**: R name, type, area_id, summary, access_points, access_cost, price, window, links, geometry, starts_at; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, osm_ref, best_window, best_time, transit, pairs_with, closures, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
+**route**: R name, type, area_id, summary, access_points, access_cost, price, window, links, geometry, starts_at; R? near_town (derived), class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, osm_ref, best_window, best_time, transit, pairs_with, closures, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
 Suitability: R min_age, adult_required, age_band, kid_note, on_site_min, water_safety.class, water_safety.lifejacket, water_safety.child_sizes_from_kg, water_safety.water_temp_c, access_season, ext.paddle.craft, ext.paddle.wind_exposure, ext.paddle.craft_capacity, ext.paddle.guided; R when operated none; A min_weight_kg, max_weight_kg, limit_reason, wheelchair, limited_capacity_note, effort.drivers.distance_km, toilets, hazards, water_safety.swim_ability, water_safety.current_or_tide, participation.guide, participation.kit_provided, participation.wear, participation.waiver, participation.weather_cancel, ext.paddle.on_water_min, ext.paddle.portages.
 
@@ -142,7 +142,7 @@ Records: offer, route. Suitability profile `sup` (flag, extension paddle). Effor
 
 **offer (experience)**: R name, type, summary, season, hours, access_cost, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_window, best_time, transit, pairs_with, closures, photos, part_of, on, variants, cancellation, included.
 
-**route**: R name, type, area_id, summary, access_points, access_cost, price, window, links, geometry, starts_at; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, osm_ref, best_window, best_time, transit, pairs_with, closures, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
+**route**: R name, type, area_id, summary, access_points, access_cost, price, window, links, geometry, starts_at; R? near_town (derived), class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, osm_ref, best_window, best_time, transit, pairs_with, closures, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
 Suitability: R min_age, adult_required, age_band, kid_note, on_site_min, water_safety.class, water_safety.lifejacket, water_safety.child_sizes_from_kg, water_safety.swim_ability, water_safety.water_temp_c, ext.paddle.craft, ext.paddle.wind_exposure, ext.paddle.guided; R when operated none; A min_weight_kg, max_weight_kg, limit_reason, effort.drivers.distance_km, toilets, hazards, water_safety.current_or_tide, access_season, participation.guide, participation.kit_provided, participation.wear, participation.waiver, participation.weather_cancel, ext.paddle.on_water_min, ext.paddle.craft_capacity.
 
@@ -252,7 +252,7 @@ Links: official; R? none; A booking, hours_rates, terms, waiver, safety, status,
 
 Records: place, offer. Suitability profile `lake` (never, extension water). Effort: none, time is shown. Sources, in order: O F T.
 
-**place**: R name, type, area_id, summary, season, hours, access_points, access_cost, price, window, links; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, area_id, summary, season, hours, access_points, access_cost, price, window, links; R? near_town (derived), class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
 
 **offer (experience)**: R name, type, summary, season, hours, access_cost, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, best_window, best_time, transit, pairs_with, closures, photos, part_of, on, variants, cancellation, included.
 
@@ -264,7 +264,7 @@ Links: official; R? none; A booking, hours_rates, terms, waiver, safety, status,
 
 Records: place. Suitability profile `lake` (never, extension water). Effort: none, time is shown. Sources, in order: O F T.
 
-**place**: R name, type, area_id, summary, season, hours, access_points, access_cost, price, window, links; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
+**place**: R name, type, area_id, summary, season, hours, access_points, access_cost, price, window, links; R? near_town (derived), class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional); A names, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, closures, photos, part_of.
 
 Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, walk_m, access_season; R when operated none; A carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, effort.drivers.distance_km, effort.drivers.gain_m, effort.drivers.surface, effort.drivers.loss_m, toilets, food, shade, picnic, exposure, altitude_m, hazards, water_safety.entry, water_safety.water_temp_c, ext.water.swimming.
 

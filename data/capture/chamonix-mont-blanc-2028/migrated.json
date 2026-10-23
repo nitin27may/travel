@@ -49,6 +49,22 @@
       "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lac des Gaillands"
     },
     {
@@ -70,6 +86,22 @@
       "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
       "type": "access.transit.station",
       "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 5.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Aiguille du Midi top station",
       "origin": {
         "from": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
@@ -111,6 +143,22 @@
       "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
       "type": "ride.lift.rack_railway",
       "layer": "route",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Montenvers train",
       "reaches": [
         "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top"
@@ -148,18 +196,66 @@
       "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
       "type": "culture.heritage.dam",
       "layer": "place",
+      "near_town": {
+        "v": "ch-vs-salvan",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2658847, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 8.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Emosson dam and dinosaur tracks"
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
       "type": "culture.under.show_cave",
       "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 4.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Grotte de la Mer de Glace"
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Chamonix old town"
     },
     {
@@ -172,18 +268,66 @@
       "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 2.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Les Praz village"
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "ch-vs-martigny-combe",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2659750, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 10.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Vallorcine"
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ch-vs-martigny-combe",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2659750, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 10.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Col des Montets",
       "route_is_attraction": true,
       "attraction_reason": "A ridge walk whose view of Mont Blanc and the Glacier du Tour is the whole way, not one point.",
@@ -235,6 +379,22 @@
       "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 6.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lac Blanc",
       "origin": {
         "from": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
@@ -304,6 +464,22 @@
       "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 6.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Mont Blanc reflection"
     }
   ]

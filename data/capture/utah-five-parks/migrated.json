@@ -159,6 +159,22 @@
       "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
       "type": "nature.landform.canyon",
       "layer": "place",
+      "near_town": {
+        "v": "us-ut-toquerville",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5548621, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 30.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "The Narrows",
       "origin": {
         "from": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
@@ -186,6 +202,22 @@
       "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "us-ut-laverkin",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5541693, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 29.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Scout Lookout (Angels Landing chains view)",
       "route_is_attraction": true,
       "attraction_reason": "The payoff is Scout Lookout, a named point. Create the place and move the draw; until then the route carries it.",
@@ -225,6 +257,22 @@
       "ref": "trip/utah-five-parks/trail:riverside walk",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "us-ut-toquerville",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5548621, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 30.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Riverside Walk",
       "route_is_attraction": true,
       "attraction_reason": "A paved stroll to where the canyon closes in: the walk is the experience.",
@@ -245,6 +293,22 @@
       "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
       "type": "wheels.drive.scenic_drive",
       "layer": "route",
+      "near_town": {
+        "v": "us-ut-hildale",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5540444, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 28,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Zion Canyon Scenic Drive by shuttle",
       "route_is_attraction": true,
       "attraction_reason": "The shuttle ride up the canyon floor is the experience (a scenic drive)."
@@ -273,6 +337,22 @@
       "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
       "type": "nature.landform.canyon",
       "layer": "place",
+      "near_town": {
+        "v": "us-ut-panguitch",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5544525, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 33.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Navajo Loop and Queens Garden",
       "origin": {
         "from": "trip/utah-five-parks/trail:navajo loop and queens garden",
@@ -300,12 +380,44 @@
       "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "us-ut-panguitch",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5544525, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 33.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Bryce amphitheatre rim"
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:sunset point",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "us-ut-panguitch",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5544525, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 32.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Sunset Point"
     },
     {
@@ -332,6 +444,14 @@
       "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
       "type": "water.falls.waterfall",
       "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+      },
       "name": "Lower Calf Creek Falls",
       "origin": {
         "from": "trip/utah-five-parks/trail:lower calf creek falls",
@@ -379,6 +499,14 @@
       "ref": "trip/utah-five-parks/trail:hickman bridge",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+      },
       "name": "Hickman Bridge",
       "route_is_attraction": true,
       "attraction_reason": "The payoff is Hickman Bridge, a named natural bridge. Create the place and move the draw; until then the route carries it.",
@@ -398,12 +526,36 @@
       "ref": "trip/utah-five-parks/sight:fruita orchards",
       "type": "culture.heritage.historic_site",
       "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+      },
       "name": "Fruita orchards"
     },
     {
       "ref": "trip/utah-five-parks/trail:delicate arch trail",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "us-ut-moab",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 19.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Delicate Arch trail",
       "route_is_attraction": true,
       "attraction_reason": "The payoff is Delicate Arch, a named arch. Create the place and move the draw; until then the route carries it.",
@@ -424,6 +576,22 @@
       "ref": "trip/utah-five-parks/trail:devils garden",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "us-ut-moab",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 26.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Devils Garden",
       "route_is_attraction": true,
       "attraction_reason": "A string of arches along sandstone fins: the walk past them is the experience.",
@@ -463,6 +631,22 @@
       "ref": "trip/utah-five-parks/trail:mesa arch",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "us-ut-moab",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 34.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Mesa Arch",
       "route_is_attraction": true,
       "attraction_reason": "The payoff is Mesa Arch, a named arch. Create the place and move the draw; until then the route carries it.",
@@ -483,6 +667,22 @@
       "ref": "trip/utah-five-parks/trail:upheaval dome",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "us-ut-moab",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 36.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Upheaval Dome",
       "route_is_attraction": true,
       "attraction_reason": "The payoff is the Upheaval Dome overlook. Create the place and move the draw; until then the route carries it.",
@@ -503,6 +703,22 @@
       "ref": "trip/utah-five-parks/viewpoint:grand view point",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "us-ut-moab",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 38.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Grand View Point"
     },
     {
@@ -522,24 +738,80 @@
       "ref": "trip/utah-five-parks/viewpoint:dead horse point",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "us-ut-moab",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 17.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Dead Horse Point"
     },
     {
       "ref": "trip/utah-five-parks/sight:goblin valley",
       "type": "nature.protected.state_provincial_park",
       "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+      },
       "name": "Goblin Valley"
     },
     {
       "ref": "trip/utah-five-parks/town:main street moab",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "us-ut-moab",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 0.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Main Street Moab"
     },
     {
       "ref": "trip/utah-five-parks/sight:temple square",
       "type": "culture.heritage.landmark",
       "layer": "place",
+      "near_town": {
+        "v": "us-ut-salt-lake-city",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5780993, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 1.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Temple Square"
     }
   ]
