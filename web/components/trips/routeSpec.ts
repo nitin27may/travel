@@ -114,17 +114,18 @@ export const KEY_LABEL = {
 export const KEY_NO_ROUTE = "Road routes are not drawn yet. Lines join each day's stops in order; use Directions for the drive.";
 export const KEY_SOME_ROUTE = 'Road routes from OpenStreetMap. A straight line means no route is stored for that leg.';
 
-export interface KeyState { items: (LegendItem & { dim?: boolean })[]; sentence: string | null }
+export interface KeyState { items: (LegendItem & { dim?: boolean; pick?: boolean })[]; sentence: string | null }
 
 /** Only what the map draws in this view, in the note's order. */
-export function keyOf(spec: Pick<MapSpec, 'pins' | 'lines'>): KeyState {
+export function keyOf(spec: Pick<MapSpec, 'pins' | 'lines' | 'selectedId'>): KeyState {
   const has = (f: (p: Pin) => boolean) => spec.pins.some(f);
   const estimate = spec.lines.some((l) => l.style === 'straight-estimate');
   const routed = spec.lines.some((l) => l.style === 'route' || l.style === 'route-pick');
   const items: KeyState['items'] = [];
   if (has((p) => p.style === 'stop-numbered')) items.push({ id: 'stop', label: KEY_LABEL.stop, style: 'stop-numbered' });
   else if (has((p) => p.style === 'stop' && !p.dim)) items.push({ id: 'stops', label: KEY_LABEL.stops, style: 'stop' });
-  if (has((p) => p.style === 'base')) items.push({ id: 'base', label: KEY_LABEL.base, style: 'base' });
+  // the base of the picked day is drawn amber with its casing: the key shows what the map shows
+  if (has((p) => p.style === 'base')) items.push({ id: 'base', label: KEY_LABEL.base, style: 'base', pick: has((p) => p.style === 'base' && p.id === spec.selectedId) });
   if (estimate) items.push({ id: 'estimate', label: KEY_LABEL.estimate, style: 'straight-estimate' });
   if (routed) items.push({ id: 'road', label: KEY_LABEL.road, style: 'route-pick' });
   if (has((p) => p.style === 'stop' && !!p.dim)) items.push({ id: 'other', label: KEY_LABEL.other, style: 'stop', dim: true });
@@ -144,10 +145,13 @@ export interface LabelInput {
   trip: { stops: number; missing: number };
   /** Paused on All days: the label then also says which day Follow resumes. */
   paused?: boolean;
+  /** A phone or tablet sheet: one line, so the count comes first and the words that repeat the segment are left out. */
+  compact?: boolean;
 }
 
 /** The sentence before the "N not on the map" button, and the count the button carries. Both counts come from the same model as the pins. */
 export function labelOf(i: LabelInput): { text: string; missing: number } {
+  if (i.day === null && i.compact) return { text: stops(i.trip.stops), missing: i.trip.missing };
   if (i.day === null) return { text: `${i.paused ? '' : 'All days · '}the whole trip · ${stops(i.trip.stops)}`, missing: i.trip.missing };
   const head = `Day ${i.day}${i.baseName ? ` · ${i.baseName}` : ''}`;
   const m = i.model;
