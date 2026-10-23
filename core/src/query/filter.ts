@@ -3,27 +3,7 @@ import { FACET_PARAMS, isScopedParam } from './types.ts';
 import { fallbackLabel } from './valueLabels.ts';
 import type { EntityDescriptorBase, FacetDef, FacetParam, ListState } from './types.ts';
 import { facetShows, scopeOf } from './facets/index.ts';
-
-const lc = (s: string) => s.toLocaleLowerCase('en');
-
-// the lower-cased search text of a row, made once: a text search runs it for every row, several times a keystroke (10,000 rows, backlog 2.41)
-let lastQ = '';
-let lastWords: string[] = [];
-/** The words of a query, split once: the same string is tested against every row. */
-const wordsOf = (q: string): string[] => {
-  if (q !== lastQ) {
-    lastQ = q;
-    lastWords = lc(q).split(/\s+/).filter(Boolean);
-  }
-  return lastWords;
-};
-const hayCache = new WeakMap<object, string>();
-const hayOf = <Row,>(row: Row, d: EntityDescriptorBase<Row>): string => {
-  if (typeof row !== 'object' || row === null) return lc(d.search(row));
-  let h = hayCache.get(row);
-  if (h === undefined) hayCache.set(row, (h = lc(d.search(row))));
-  return h;
-};
+import { matchesFreeText } from './text.ts';
 
 export function parseBbox(bbox: string | null): [number, number, number, number] | null {
   if (!bbox) return null;
@@ -53,10 +33,7 @@ export function matchesRow<Row>(row: Row, state: ListState, d: EntityDescriptorB
     const g = d.geo(row);
     if (!g || g.lon < box[0] || g.lat < box[1] || g.lon > box[2] || g.lat > box[3]) return false;
   }
-  if (ignore !== 'q' && state.q.trim()) {
-    const hay = hayOf(row, d);
-    if (!wordsOf(state.q).every((w) => hay.includes(w))) return false;
-  }
+  if (ignore !== 'q' && !matchesFreeText(state.q, row, d.search)) return false;
   return true;
 }
 

@@ -1,4 +1,5 @@
 import type { ColumnDef } from '@tanstack/react-table';
+import { tripHaystack } from '@travel/core/query/text.ts';
 import { Icon } from '@/components/ui/Icon';
 import { TripsMapLazy } from '@/components/trips/TripsMapLazy';
 import { DEPTH_LABEL, DEPTH_NOTICE, tripHref } from '@/components/trips/format';
@@ -217,7 +218,7 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
   fadeBy: 'plan',
   fadeFrom: (t) => (t.ageFit !== null && t.ageFit >= 1 ? t.ageFit : undefined),
   fade: (t) => (t.ageFit !== null && t.ageFit >= 1 ? Array.from({ length: Math.min(t.ageFit, 18) }, (_, i) => i).join(' ') : undefined),
-  search: (t) => [t.title, t.region, t.countryName, t.firstBase ?? ''].join(' '),
+  search: tripHaystack,
   href: (t) => tripHref(t.slug),
   detail: [],
   actions: (t) => (

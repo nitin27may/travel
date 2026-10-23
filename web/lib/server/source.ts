@@ -106,8 +106,8 @@ export function createJsonSource(opts: ServerSourceOptions = {}): JsonSource {
   });
 
   // ---- card search (store.ts A28) ---------------------------------------------------------------------------------------------
-  // BM25 over the card text of the query's country scope, the rule of the site's full-text pass (lib/search/fulltext.ts). The index of a
-  // scope is built on its first use and kept; the stemmer and stop list stay here until core needs them (a SupabaseStore loader).
+  // BM25 over the card text of the query's country scope (core/src/search/bm25.ts, store.ts A28). The index of a
+  // scope is built on its first use and kept.
   const textIndexes = new Map<string, TextIndex>();
   const textIndexOf = (scope: readonly PlaceRow[]): TextIndex => {
     const key = `${scope.length}|${[...new Set(scope.map((r) => r.country))].sort().join(',')}`;
