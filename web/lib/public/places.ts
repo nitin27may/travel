@@ -6,13 +6,15 @@ import { fileFromUrl, makePhoto } from './photos';
 import { CATEGORY_OF_KIND, PROTOTYPE_AREAS, kindLabel, mapLocationKind, mapPrototypeKind } from './taxonomy';
 import { undatedTitle } from './dateless';
 import { groupLinks, trailSeeds, type TrailSeed } from './trail-places';
-import { assignSeedSlugs, captureSeeds, type CaptureSeed, type SeedSkip } from './seeds';
+import { assignSeedSlugs, captureSeeds, ownPoint, type CaptureSeed, type SeedSkip } from './seeds';
 import { primaryRef } from '@travel/core/capture/records.ts';
+import { loadPoints, type PointRow } from '@travel/core/capture/placementBlock.ts';
 import { haversineM } from '@travel/core/geo/distance.ts';
 import { ORIGIN_KEYS_PATH, SLUG_REGISTRY_PATH, emptyOriginKeys, emptyRegistry, parseOriginKeys, parseRegistry, placeRefOf, type OriginKeys, type SlugRegistry } from '@travel/core/catalogue/slugs.ts';
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { publicWorld } from './world';
+import deferred from './join-deferred.json';
 import { applyLegacySupersedes } from './superseded';
 import { loadTracks, readDate, totalsDiffer, withTrack } from './tracks';
 import { folderVisibility, type ProtoFact, type ProtoPlace, type ProtoTrail, type Sources } from './sources';
@@ -57,6 +59,41 @@ export function readOriginKeys(root: string): OriginKeys {
 export function readSlugRegistry(root: string): SlugRegistry {
   const file = path.join(root, SLUG_REGISTRY_PATH);
   return existsSync(file) ? parseRegistry(readFileSync(file, 'utf8')) : emptyRegistry();
+}
+
+const pointRows = new Map<string, Map<string, PointRow>>();
+
+/**
+ * Records the join holds back, with the reason on each row of join-deferred.json: three for the S13 size gate (a point adds the map card,
+ * the directions links and the export waypoint, about 3.7 kB, drawn twice; the median of the place pages sits at +24.97% against +25%, and
+ * these pages would tip it or pass +50%), and one whose row is a car park, not the place. Keyed by capture ref, never by slug.
+ */
+export const JOIN_HELD_BACK: ReadonlySet<string> = new Set(deferred.rows.map((r) => r.ref));
+
+/**
+ * The one place a page gets a point from the capture sidecars (META-1, collision E1; capture contract 3.7.1). Read order:
+ *   1. the page's own builder: a point it already holds (a locations-store row, a prototype trailhead, a trail's payoff) is kept as it is,
+ *      so no pin that is on a page today moves;
+ *   2. data/capture/points.json, by the record's ref, then by any alias of it;
+ *   3. data/relevance/inputs/points.json, by the same refs (core's `loadPoints` merges the two, the capture file first).
+ * A row marked `approx` never gives a page point (an approximate point counts for Where, never for a pin or a distance, T5), and a row
+ * counts only when `ownPoint` accepts its source: the record's own OpenStreetMap node, way or relation, or its Wikidata P625. A derived
+ * trailhead ("trailhead ... at <ref>"), a prototype guess and a locations copy are not the record's own point. The locations store itself
+ * is step 0 of `buildPlaces`: a place that has a store row carries the store's point already. `JOIN_HELD_BACK` holds back four records.
+ */
+export function joinPoint(root: string, ref: string, held: Point | null): Point | null {
+  if (held || JOIN_HELD_BACK.has(ref)) return held;
+  let rows = pointRows.get(root);
+  if (!rows) pointRows.set(root, (rows = loadPoints(root).points));
+  const world = publicWorld(root);
+  const primary = primaryRef(world, ref);
+  for (const r of [ref, primary, ...(world.cap.get(primary)?.rec.aliases ?? [])]) {
+    const row = rows.get(r);
+    if (!row || row.approx) continue;
+    const p = ownPoint(row);
+    if (p) return p;
+  }
+  return null;
 }
 
 export const normName = (s: string): string =>
@@ -443,7 +480,7 @@ export function buildPlaces(src: Sources): PlaceBuild {
   for (const seed of sb.seeds) {
     if (!folderTrips.has(seed.tripFolder)) continue;
     seedOf.set(seed.ref, seed);
-    recs.push(recFromCapture(seed, folderTrips.get(seed.tripFolder)!));
+    recs.push(recFromCapture(seed, folderTrips.get(seed.tripFolder)!, src.root));
   }
   // ---- second records of a place that already has a page (`same_place_as`, backlog 3.55): one page, the second slug redirects to it ----
   const merged = collapseDuplicates(recs, [...seedOf.values()], world);
@@ -630,7 +667,7 @@ function recFromSeed(seed: TrailSeed, src: Sources, trip: TripRef): Rec {
     category: CATEGORY_OF_KIND.trail,
     areaChain: seed.areaChain,
     areaLabel: seed.areaLabel,
-    point: seed.point,
+    point: joinPoint(src.root, seed.ref, seed.point),
     season: [],
     kidFit: 'unknown',
     summary: '',
@@ -663,7 +700,7 @@ function recFromSeed(seed: TrailSeed, src: Sources, trip: TripRef): Rec {
 }
 
 /** A page for a capture record that no older source covers: its sections, suitability and relevance come from the record (S1), so only the identity is set here. */
-function recFromCapture(seed: CaptureSeed, trip: TripRef): Rec {
+function recFromCapture(seed: CaptureSeed, trip: TripRef, root: string): Rec {
   return {
     locationId: null,
     protoId: null,
@@ -677,7 +714,7 @@ function recFromCapture(seed: CaptureSeed, trip: TripRef): Rec {
     category: CATEGORY_OF_KIND[seed.kind],
     areaChain: seed.areaChain,
     areaLabel: seed.areaLabel,
-    point: seed.point,
+    point: joinPoint(root, seed.ref, seed.point),
     season: [],
     kidFit: 'unknown',
     summary: seed.summary,
