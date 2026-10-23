@@ -50,7 +50,8 @@ export function dayMapOf(tl: Pick<DayTimeline, 'day' | 'entries'>, pointOf: Poin
   const unplaced: DayMap['unplaced'] = [];
   for (const e of tl.entries) {
     if (!STOP_KINDS.has(e.kind) || e.insideOf) continue;
-    if (isRoadLike(e.title)) continue;
+    // a road is a stop of kind visit (a scenic drive); a trail is never one, whatever its name says
+    if (e.kind === 'visit' && isRoadLike(e.title)) continue;
     const at = pointOf(e.at?.placeSlug ?? null) ?? (e.at?.point ? { lng: e.at.point.lon, lat: e.at.point.lat } : null);
     if (!at) {
       // a place the visitor added has no position record to wait for, so it is not counted as missing
