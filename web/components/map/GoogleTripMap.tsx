@@ -177,9 +177,14 @@ export default function GoogleTripMap({ spec, label, onSelect, onHover, handleRe
   useEffect(() => {
     const f = frame.current;
     if (!f || typeof ResizeObserver === 'undefined') return;
-    const ro = new ResizeObserver(() => setWide(f.clientWidth >= LABEL_MIN_WIDTH));
+    // the state change moves labels, which can resize the observed frame: do it a frame later, outside the observer callback
+    let raf = 0;
+    const ro = new ResizeObserver(() => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => setWide(f.clientWidth >= LABEL_MIN_WIDTH));
+    });
     ro.observe(f);
-    return () => ro.disconnect();
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
   }, []);
 
   const fitTo = useCallback((ids?: string[]) => {

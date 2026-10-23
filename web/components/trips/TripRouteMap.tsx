@@ -106,9 +106,14 @@ export default function TripRouteMap({ route, models, picked, paused, dayNow, on
   useEffect(() => {
     const el = box.current;
     if (!el || typeof ResizeObserver === 'undefined') return;
-    const ro = new ResizeObserver(() => setWide(el.clientWidth >= 560));
+    // a frame later, outside the observer callback, so a width-driven re-render cannot trigger the loop error
+    let raf = 0;
+    const ro = new ResizeObserver(() => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => setWide(el.clientWidth >= 560));
+    });
     ro.observe(el);
-    return () => ro.disconnect();
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
   }, []);
   const seen = inView || typeof IntersectionObserver === 'undefined';
   const armed = !google || ((!narrow || sheetSeen) && seen);
