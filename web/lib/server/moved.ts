@@ -9,8 +9,14 @@ const registry = (() => {
   return () => (r ??= readSlugRegistry(travelRoot()));
 })();
 
-/** The retired slugs of a space: pre-rendered as redirects. */
-export const retiredSlugs = (space: SpaceName): string[] => Object.keys(registry()[space].retired);
+/**
+ * The slugs that redirect: the retired ones and the ones pinned to a merged record (its page is the survivor's, `places.merged`, R-1).
+ * Pre-rendered as redirects, so `next start` answers them as the API does (audit GB-B-4); a static host has them in web/redirects.json.
+ */
+export const retiredSlugs = (space: SpaceName): string[] => {
+  const s = registry()[space];
+  return [...Object.keys(s.retired), ...Object.keys(s.merged).map((k) => s.slugs[k]).filter((x): x is string => !!x)];
+};
 
 /** The current slug of a retired one, or null. */
 export const currentSlugOf = (slug: string, space: SpaceName): string | null => movedTo(registry(), slug, space)?.slug ?? null;

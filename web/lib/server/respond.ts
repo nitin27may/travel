@@ -32,6 +32,33 @@ interface Endpoint {
 }
 
 const query = (req: Request) => new URL(req.url).searchParams;
+
+/** An endpoint whose input is its path alone refuses any query key, as the codec does for the others (audit GB-A-1): a stray key filters nothing and would only make a new cache key. */
+const pathOnly = (run: Run): Run => (s, r, p) => {
+  const keys = [...new Set(query(r).keys())];
+  return keys.length ? Promise.resolve(bad({ code: 'invalid_input', message: `This endpoint takes no query parameter: ${keys.join(', ')}.`, details: { unknown: keys } })) : run(s, r, p);
+};
+
+/** The body of a POST as text, read in pieces up to `max` bytes: null when it is longer (audit GB-A-2). */
+async function boundedText(r: Request, max: number): Promise<string | null> {
+  const declared = Number(r.headers.get('content-length'));
+  if (Number.isFinite(declared) && declared > max) return null;
+  const reader = r.body?.getReader();
+  if (!reader) return '';
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > max) {
+      await reader.cancel();
+      return null;
+    }
+    chunks.push(value);
+  }
+  return Buffer.concat(chunks).toString('utf8');
+}
 const bad = (error: ApiError): Result<never> => ({ ok: false, error });
 
 /** The decoded store call of a GET, or the `invalid_input` the codec found. */
@@ -41,11 +68,11 @@ async function decoded(method: Parameters<typeof fromSearchParams>[0], req: Requ
 }
 
 export const ENDPOINTS = {
-  health: { cache: CACHE.none, run: async (s) => ({ ok: true, data: { status: 'ok', revision: await s.revision() }, revision: await s.revision() }) },
+  health: { cache: CACHE.none, run: pathOnly(async (s) => ({ ok: true, data: { status: 'ok', revision: await s.revision() }, revision: await s.revision() })) },
   listPlaces: { cache: CACHE.data, rows: PLACE_ROW, run: (s, r, p) => decoded('listPlaces', r, p, (st, a) => (a.method === 'listPlaces' ? st.listPlaces(a.q, a.page) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
   countPlaces: { cache: CACHE.data, run: (s, r, p) => decoded('countPlaces', r, p, (st, a) => (a.method === 'countPlaces' ? st.countPlaces(a.q) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
-  getPlace: { cache: CACHE.data, run: (s, _r, p) => s.getPlace(p.slug ?? ''), movedTo: (slug) => `/api/v1/places/${slug}/` },
-  nearbyForPlace: { cache: CACHE.data, run: (s, _r, p) => s.nearbyForPlace(p.slug ?? '') },
+  getPlace: { cache: CACHE.data, run: pathOnly((s, _r, p) => s.getPlace(p.slug ?? '')), movedTo: (slug) => `/api/v1/places/${slug}/` },
+  nearbyForPlace: { cache: CACHE.data, run: pathOnly((s, _r, p) => s.nearbyForPlace(p.slug ?? '')) },
   near: { cache: CACHE.data, rows: NEAR_ROW, run: (s, r, p) => decoded('near', r, p, (st, a) => (a.method === 'near' ? st.near(a.q, a.page) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
   towns: { cache: CACHE.data, run: (s, r, p) => decoded('towns', r, p, (st, a) => (a.method === 'towns' ? st.towns(a.q) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
   parse: { cache: CACHE.data, run: (s, r, p) => decoded('parse', r, p, (st, a) => (a.method === 'parse' ? st.parse(a.q) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
@@ -53,17 +80,18 @@ export const ENDPOINTS = {
   listTrips: { cache: CACHE.data, rows: TRIP_ROW, run: (s, r, p) => decoded('listTrips', r, p, (st, a) => (a.method === 'listTrips' ? st.listTrips(a.q, a.page) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
   getTrip: { cache: CACHE.data, run: (s, r, p) => decoded('getTrip', r, p, (st, a) => (a.method === 'getTrip' ? st.getTrip(a.slug, a.profile) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s), movedTo: (slug) => `/api/v1/trips/${slug}/` },
   getExport: { cache: CACHE.export, run: (s, r, p) => decoded('getExport', r, p, (st, a) => (a.method === 'getExport' ? st.getExport(a.q) : Promise.resolve(bad({ code: 'internal', message: 'codec mismatch' }))), s) },
-  globeTree: { cache: CACHE.globe, run: (s) => s.globeTree() },
-  globePins: { cache: CACHE.globe, run: (s, _r, p) => s.globePins(p.cc ?? '') },
-  globeCard: { cache: CACHE.globe, run: (s, _r, p) => s.globeCard(`${p.kind ?? ''}:${p.slug ?? ''}`) },
-  globeFeature: { cache: CACHE.globe, run: (s, _r, p) => s.globeFeature(p.id ?? '') },
-  globeLine: { cache: CACHE.globe, run: (s, _r, p) => s.globeLine(p.id ?? '') },
-  globeCity: { cache: CACHE.globe, run: (s, _r, p) => s.globeCity(p.townId ?? '') },
+  globeTree: { cache: CACHE.globe, run: pathOnly((s) => s.globeTree()) },
+  globePins: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globePins(p.cc ?? '')) },
+  globeCard: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globeCard(`${p.kind ?? ''}:${p.slug ?? ''}`)) },
+  globeFeature: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globeFeature(p.id ?? '')) },
+  globeLine: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globeLine(p.id ?? '')) },
+  globeCity: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globeCity(p.townId ?? '')) },
   report: {
     cache: CACHE.none,
-    run: async (s, r) => {
-      const text = await r.text();
-      if (text.length > API_LIMITS.reportText.max + 1000) return bad({ code: 'too_large', message: 'The report is too long.', details: { max: API_LIMITS.reportText.max } });
+    run: pathOnly(async (s, r) => {
+      // a request-size cap answers invalid_input (store.ts A1); the body is read in pieces and never held beyond the cap
+      const text = await boundedText(r, API_LIMITS.reportText.max + 1000);
+      if (text === null) return bad({ code: 'invalid_input', message: 'The report is too long.', details: { max: API_LIMITS.reportText.max } });
       let json: unknown;
       try {
         json = JSON.parse(text);
@@ -72,7 +100,7 @@ export const ENDPOINTS = {
       }
       const parsed = reportInput.safeParse(json);
       return parsed.success ? s.report(parsed.data) : bad({ code: 'invalid_input', message: 'The request does not match the contract.', details: { issues: parsed.error.issues.map((i) => ({ path: i.path.join('.'), message: i.message })) } });
-    },
+    }),
   },
 } satisfies Record<string, Endpoint>;
 
@@ -96,7 +124,7 @@ export async function respond(name: EndpointName, req: Request, params: Record<s
     const data = result.data as Record<string, unknown>;
     if (ep.movedTo && data && typeof data.moved === 'string') return json(308, { moved: data.moved, ref: data.ref }, { location: ep.movedTo(data.moved), 'cache-control': ep.cache, etag });
     const headers: Record<string, string> = { 'cache-control': ep.cache, ...(ep.cache === CACHE.none ? {} : { etag }) };
-    if (name === 'getExport') headers['content-disposition'] = `attachment; filename="${(data as { filename: string }).filename}"`;
+    // the answer is the JSON envelope (filename, mime, body); it is not the file, so it carries no content-disposition (audit GB-A-3)
     // fail closed: a body with a household string, a private key or a row key outside the allowlist is never sent
     const stray = ep.rows ? rowOutsideAllowlist(data.items, ep.rows) : null;
     const hits = privacyHits(data);

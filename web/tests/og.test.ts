@@ -14,6 +14,7 @@ describe('Open Graph and canonical tags', () => {
     const bad: string[] = [];
     for (const f of pages) {
       const html = readText(f);
+      if (html.includes('NEXT_REDIRECT')) continue; // a retired or merged slug: a redirect, not a page
       for (const p of ['og:title', 'og:description', 'og:image', 'og:url']) if (!html.includes(`property="${p}"`)) bad.push(`${rel(f)}: ${p}`);
       if (!html.includes('name="twitter:card" content="summary_large_image"')) bad.push(`${rel(f)}: twitter:card`);
       if (!/<link rel="canonical" href="https:\/\/[^"]+"/.test(html)) bad.push(`${rel(f)}: canonical`);

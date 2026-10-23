@@ -10,6 +10,12 @@ export const dynamicParams = true;
 
 // Next matches a request path to a pre-rendered one without regard to case, and caches what it renders under that entry: /globe/CA/ontario/
 // must therefore render the same page as /globe/ca/ontario/, never a 404 that would be cached over it. So the shape is tested in lower case.
+/** The levels with content (the pre-rendered ones), as `cc/state/district` keys. */
+const registered = (() => {
+  let set: Set<string> | null = null;
+  return () => (set ??= new Set(globePaths().map((p) => p.join('/'))));
+})();
+
 const COUNTRY = /^[a-z]{2}$/;
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const isLevel = (path: string[]): boolean => {
@@ -25,12 +31,15 @@ export function generateStaticParams(): { path: string[] }[] {
 
 export async function generateMetadata({ params }: { params: Promise<{ path: string[] }> }) {
   const { path } = await params;
-  if (!isLevel(path) && path[0] !== 'stub') return { robots: { index: false, follow: false } };
+  const key = path.map((s) => s.toLowerCase()).join('/');
+  // only a level with content has a title and may be indexed; any other well-formed path gets the plain shell and says noindex, and never
+  // echoes the path it was asked for into the page (audit GB-A-4)
+  if (!registered().has(key)) return { ...pageMetadata({ title: 'Globe', description: 'Saved places and published trips on the globe.', path: '/globe/' }), robots: { index: false, follow: false } };
   const where = path.map((s) => titleFromSlug(s.toLowerCase())).join(', ');
   return pageMetadata({
-    title: `Globe: ${path.length === 1 ? path[0].toUpperCase() : where}`,
+    title: `Globe: ${path.length === 1 ? path[0]!.toUpperCase() : where}`,
     description: `Saved places and published trips in ${where} on the globe.`,
-    path: `/globe/${path.map((s) => s.toLowerCase()).join('/')}/`,
+    path: `/globe/${key}/`,
   });
 }
 
