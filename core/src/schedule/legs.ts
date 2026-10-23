@@ -1,6 +1,6 @@
 // Leg resolution (spec 2.5): stored ORS, then the plan's minutes, then the base matrix, then a straight line scaled to a
 // road time (the prototype rule, ported from the retired prototype, tag archive/prototype-2026-10-22, src/lib/geo.ts), then a 10 minute local move.
-import { haversineM } from "../checks/time.ts";
+import { haversineM } from "../geo/distance.ts";
 import { LOCAL_MOVE_MIN } from "./rules.ts";
 import type { Point, ResolvedLeg, StoredLeg } from "./types.ts";
 

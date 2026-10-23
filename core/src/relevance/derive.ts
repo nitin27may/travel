@@ -3,9 +3,11 @@
 import type { DrawTier, RelevanceRecord } from "../schema/relevance.ts";
 import {
   FAILING_COSTS, THRESHOLDS, accessLoad, approxMinutes, atLeast, badgeOf, dayTripFit, drawSuggested, effectiveDraw, flagsOf,
-  haversineKm, passingFit, roleOf, tierIdx, vacationFit, weekendFit,
+  passingFit, roleOf, tierIdx, vacationFit, weekendFit,
 } from "./fit.ts";
 import type { AccessLoad, Badge, Fit, Flags, Role, Thresholds } from "./fit.ts";
+import { haversineKm } from "../geo/distance.ts";
+import { DAY_TRIP_KM, NEAR_KM } from "../config/nearby.ts";
 import { isAllowedHub } from "./hubs.ts";
 import { staleFields } from "./stale.ts";
 import { suggestFor } from "./suggest.ts";
@@ -119,8 +121,6 @@ export interface Derived {
   warnings: { code: string; message: string }[];
 }
 
-const NEAR_KM = 25;
-const AREA_KM = 100;
 
 const WALK_KM = 1.5;
 const PAIR_DRIVE_MIN = 15;
@@ -257,8 +257,8 @@ export function deriveAll(input: DeriveInput): Derived[] {
     const gated = sameClass.filter(alike);
     const near = gated.filter((o) => o.km <= NEAR_KM).map((o) => subOf(r, o.rec, o.km)).sort(subSort);
     // plan b reads the ungated list: a roadside stop beats a 3 h lake on time by design (Peyto for Moraine)
-    const areaAll = sameClass.filter((o) => o.km <= AREA_KM).map((o) => subOf(r, o.rec, o.km)).sort(bySort);
-    const area = gated.filter((o) => o.km <= AREA_KM).map((o) => subOf(r, o.rec, o.km)).sort(subSort);
+    const areaAll = sameClass.filter((o) => o.km <= DAY_TRIP_KM).map((o) => subOf(r, o.rec, o.km)).sort(bySort);
+    const area = gated.filter((o) => o.km <= DAY_TRIP_KM).map((o) => subOf(r, o.rec, o.km)).sort(subSort);
 
 
     // far pointer: nearest within farKm with a draw at least two tiers higher; same class preferred
@@ -309,7 +309,7 @@ export function deriveAll(input: DeriveInput): Derived[] {
 
     // distinction check
     if (j.distinction === "unique" && area.length > 0) {
-      warnings.push({ code: "W_REL_DISTINCTION", message: `distinction is unique but ${area[0]!.ref} has the same class within ${AREA_KM} km` });
+      warnings.push({ code: "W_REL_DISTINCTION", message: `distinction is unique but ${area[0]!.ref} has the same class within ${DAY_TRIP_KM} km` });
     }
 
     const out: Derived = {
