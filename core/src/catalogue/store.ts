@@ -2,6 +2,7 @@
 //
 // API-3b (23 Oct 2026) filled A25 to A39 in JsonStore, StubStore and the route handlers: parsed counts (mergeParsed), listUnchecked, searchCards,
 // tripLegs (json/legs.ts), the json and print exports, the revision from inputs (A30), the pins cap (A36) and the town guard at load (A33).
+// API-3c (23 Oct 2026) rewrote A33 (towns shown exactly, accepted by gazetteer identity), extended A39 and added A40 (echoes).
 // Where each lives: JsonStore core/src/catalogue/json/index.ts over a JsonSource (web/lib/server/source.ts); StubStore core/src/catalogue/stub/.
 //
 //   route handler -> respond() -> CatalogueStore
@@ -165,30 +166,34 @@
 //     documented as accepted and ignored (export.ts) rather than applied, because no export layout shows profile-dependent times yet.
 // A32 Moves keep the query (GB-A-13). A 308 for a moved place, trip or trip's legs carries the request's query string to the new URL, so
 //     `?p=family` survives the redirect. tripLegs answers `{moved, ref}` for a retired trip slug like getTrip (R-18).
-// A33 The town guard (D-E3 as amended; owner decision Q87: safe geometry, not exclusion). Every town is served through
-//     core/src/privacy/towns.ts at LOAD: `safeTown` keeps a centre outside the household radius, replaces one inside it with the town's
-//     Wikidata point when that is outside, else with the point at a FIXED offset (2 x radius + radius / 4 due north, then E, W, S);
-//     `safeOutline` serves an outline or a line only when no coordinate lies within the radius (else the ring, or a dashed leg).
-//     Amendments to D-E3, with why:
-//     - D-E3's fallback "the nearest point 0.5 km outside the radius" is REFUSED: that point lies on the line from home through the
-//       centre at a known distance, so the public centre and the served one give the home point back. The fixed offset does not
-//       depend on where home is; what leaks is one bit per town (guarded or not, and whether the Wikidata point was inside).
-//     - D-E3's "the row is marked approx" is DROPPED: a flag on one town among thousands names the home town to anyone reading the
-//       layer. A guarded row carries the public gazetteer fields only (`town` is strict, nearby.ts), and a refused outline is a ring
-//       like any town OSM has no polygon for.
-//     - Residual risk for the owner: an observer who compares the layer with public GeoNames and OSM data can still see that one
-//       town's centre or outline differs, which says "the household lives within about 2 km of this town's centre or border". That
-//       is the town-level fact Q50 accepted (a "near <home town>" search works); the address-level fact stays hidden. `TOWN_POLICY = "exclude"` is
-//       the one-line switch if the owner prefers exclusion.
-//     The detector's typed exemption (detect.ts) lifts ONLY the home-town text rule, by shape: a town id under id/key/value/nearTown/
-//     townId or in a `city` array, a town's name or chip label (at most 80 characters, no digit) beside such an id and holding its name
-//     part, and `city=` parameters of an href. No method answers 500 for a town (case K26), and K7 runs with the exemption on.
+// A33 Towns are public data, shown exactly (owner ruling 23 Oct 2026, Q87 reopened, FINAL; supersedes D-E3 and API-3a's safe geometry).
+//     Every town, the home town included, is served exactly as the loaded public gazetteer holds it (GeoNames points, OSM outlines):
+//     nothing moved, nothing dropped, nothing flagged. The household's location stays private because no served output holds a point
+//     of the household's, not because public points are distorted. A loader calls `publicTownLayer(towns, outlines)`
+//     (core/src/privacy/towns.ts; `safeTown`/`safeOutline` are the identity under TOWN_POLICY "public") and serves its rows; the same
+//     call gives the `PublicGazetteer` the store exposes through `publicTowns()` (PublicTownsHolder), which respond() and the kit pass
+//     to the detector. The detector (detect.ts) accepts a point within the household radius ONLY in an object whose `id` or `key` is a
+//     gazetteer town id and whose `lat`/`lon` equal that town's gazetteer point exactly (the file's own numbers), and a coordinate pair
+//     only inside such an object when it is exactly a vertex of that town's gazetteer outline; every other point within the radius
+//     still fails closed (a place, a moved centre, a planted point under a real town id, another town's point, an id the gazetteer does
+//     not hold). The home-town TEXT rule is lifted only for a gazetteer id under id/key/value/nearTown/townId or in a `city` array (that
+//     string only), for a name or label (at most 80 characters, no digit) of an object whose id, key, value or chip `set.city` is a
+//     gazetteer id and which holds that town's gazetteer name, and for `city=<gazetteer id>` in an href (review API3-R-2: a place row's
+//     `nearTown` exempts nothing but itself). With no gazetteer nothing is exempt. The guard names no town.
+//     Residual, stated plainly: the site shows nothing about towns that GeoNames and OpenStreetMap do not already show, so comparing
+//     the layer with them reveals nothing; no rule depends on where home is, so no output changes because home is near a town. What
+//     stays private is everything below the public data: the household point, trip origins, planning notes. The trust root is the
+//     gazetteer FILE: a row hand-edited to a household point would be served and accepted, so META-2 writes the file only from the
+//     GeoNames dump (open item below). `TOWN_POLICY = "exclude"` remains a documented product switch (the town is left out, `city=`
+//     answers `not_found`); it is NOT safer: a missing town is a diff against GeoNames. Route lines are not gazetteer data and keep
+//     their refusal (`safeLine`, A34). Cases K26 (a planted fixture town 0.5 km from home and a neighbour's outline reaching 1.5 km:
+//     served exactly, clean with the gazetteer, refused without it; a moved, swapped or planted point refused) and K26.exemption.
 // A34 Trip legs (D-E5). `tripLegs(slug)`, `GET /api/v1/trips/{slug}/legs`: the routed legs of one public trip from its
 //     `trip-legs/2` file (legs.ts; /1 still read), keyed by the public stop keys of getTrip's detail (a day item id or `base:<id>`), never
 //     by the file's pair keys. Geometry is an encoded polyline, precision 5, simplified to about 30 m, at most
 //     API_LIMITS.tripLegs.polylineChars per leg; more than API_LIMITS.tripLegs.max legs is `too_large`. A trip with no file answers no
 //     legs (`fetched: null`); an unknown or unlisted trip `not_found`; a retired slug `{moved}` (A32). `attribution` is shown wherever a
-//     geometry is drawn. Every geometry passes `safeOutline` at load, and the detector decodes it on the way out (A39, case K27).
+//     geometry is drawn. Every geometry passes `safeLine` at load (towns.ts), and the detector decodes it on the way out (A39, K27).
 //     Parity: the mapping from file pairs to stop keys runs in the loader (core code), so SupabaseStore serves a stored `trip_legs`
 //     projection and never maps at request time.
 // A35 Row keys (LST2b, MX). `PlaceRow.nearTown`: the record's nearest town id (META-2's `near_town`) or null; the only new row key
@@ -204,7 +209,37 @@
 //     would be shadowed there (the page route is unaffected). No place holds one today (case listPlaces.reserved); the slug assigner
 //     must refuse them (request to the slugs.ts owner: add RESERVED_API_WORDS to reservedSlugs).
 // A39 Encoded lines are read by the detector. A string under `geometry` that is a well-formed polyline is decoded and every vertex is
-//     tested like a coordinate, so a leg cannot carry a point near home past respond() inside an encoding (detect.ts).
+//     tested like a coordinate, so a leg cannot carry a point near home past respond() inside an encoding (detect.ts). Extended by
+//     API-3c (review API3-R-6): a string that parses as a JSON object or array (the `json` export body) is walked as that structure
+//     too, so a polyline or a `{lat, lon}` inside an export body is read like any other; the raw text is still read when the
+//     structure finds nothing (number pairs in separate fields).
+// A40 Echoes are not an oracle (API-3c, review API3-R-1; GB-A-8 closed). `search.query`, `parse.q`, `parse.unused`, `parse.notYet`
+//     and `searchCards.terms` repeat the visitor's words. respond() passes the request's own strings (every query parameter value)
+//     to the detector, which does not apply its TEXT rules (home town, planning note, address, origin key, number pairs in text) to a
+//     string under one of those keys, or to an href query parameter, whose folded form is contained in a request string. The same
+//     words in any other field, and an echo key holding words the request did not send, still fail closed; structured points and
+//     private keys are always read. So `GET /api/v1/search?q=<any town name>` answers 200 for every town alike, and "hotel ideas",
+//     "base camp: x", "100 Queen Street" or a typed coordinate pair near home answer 200 too (case K29, through respond()).
+//
+// ---- API-3c (23 Oct 2026, Opus): carried forward, NOT done here (review-API3-2026-10-23.md) ------------------------------------
+//
+// Done in API-3c: R-1 (A40), R-2 and R-3 (A33), R-6 (A39). Open, with owners:
+//   R-4  META-2: JsonStore's towns loader calls `publicTownLayer()` and implements `publicTowns()` from the same rows; every static
+//        towns file is written from that output; META-2's towns script writes `data/reference/towns/**` only from the GeoNames dump,
+//        verbatim, with the dump's checksum (the file is A33's trust root); K26 runs on the json target with planted towns; the web
+//        privacy test scans `data/reference/towns/**`. GLB2b: a served city outline must be the gazetteer's outline exactly (simplify
+//        BEFORE the loader builds the gazetteer, or the detector refuses the vertices).
+//   R-5  TRP2b: count refused legs (`safeLine` null) at fetch and load, print the count only; the owner decides if it is above 0.
+//   R-7  LST2b / HYG: one `q` rule (amend A16, core matcher, K28 corpus, drop the client text fallback).
+//   R-8  API-4 or LST2b: one BM25 module in core, A28 definitions, K24.order.
+//   R-9  TRP2b: legs and lines read once per source, beside the revision (A8b).
+//   R-10 SRV-0: TRAVEL_BUILD_ID override and a production error on `dev`.
+//   R-11 SRV-0: `catalogue_meta.data_revision`; revision = SHA-256(app build id, data revision).
+//   R-12 LST2b: unchecked slugs in one capped request, or page on demand, and surface the cut.
+//   R-13 TRP2b: `tripLegs.totalChars` cap; validate legs files in check-all and log at load.
+//   R-14 META-2, TRP2b, LST2c: the kit gaps (K23 only-on-gap row, K27 planted near-home leg on json, K10 read-coverage spy, json
+//        K3/K4/K5/K15/K17, towns.clamped on a real layer).
+//   R-15..R-18 (later): revision-input dotfiles, reserved path words derived, rate limit over /api/v1/* (GB-A-9). R-16 is moot (A33).
 //
 // ---- Carried to API-1b (review of 22 Oct; must be done there, not deferred further) --------------------------------------------
 //
