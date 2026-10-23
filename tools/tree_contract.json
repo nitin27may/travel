@@ -56,23 +56,7 @@
     "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
    },
    {
-    "key": "core/src/catalogue/distance.ts::core/src/geo",
-    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
-   },
-   {
-    "key": "core/src/catalogue/json/source.ts::core/src/query",
-    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
-   },
-   {
     "key": "core/src/catalogue/store.ts::core/src/catalogue/supabase",
-    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
-   },
-   {
-    "key": "core/src/catalogue/store.ts::core/src/query",
-    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
-   },
-   {
-    "key": "core/src/catalogue/stub/index.ts::core/src/query",
     "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
    },
    {
