@@ -11,6 +11,14 @@
       "covers": "The place catalog, trail and route lines derived from OpenStreetMap, and geocoding through Nominatim."
     },
     {
+      "id": "openrouteservice",
+      "name": "OpenRouteService",
+      "url": "https://openrouteservice.org/terms-of-service/",
+      "licence": "Routes computed from OpenStreetMap data, ODbL 1.0",
+      "attribution": "Road routes: OpenRouteService (openrouteservice.org), from OpenStreetMap data, ODbL.",
+      "covers": "The road and path routes drawn on a trip's map and written into its GPX and KML files, and the drive and walk times between stops."
+    },
+    {
       "id": "wikidata",
       "name": "Wikidata",
       "url": "https://www.wikidata.org/wiki/Wikidata:Licensing",
