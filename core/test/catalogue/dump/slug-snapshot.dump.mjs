@@ -1,5 +1,5 @@
 // Writes web/.generated/slug-snapshot.json (gitignored): every identity key the dataset builder gave a slug, and every region the
-// Places rows carry with its spellings. `node core/bin/slugs.ts` compares it with data/catalogue/slugs.json (D-B1, D-B3).
+// Places rows carry with its spellings, and (PRIVATE, A24) the origin of every page with no capture record. `node core/bin/slugs.ts` compares it with data/catalogue/slugs.json (D-B1, D-B3).
 // Named *.dump.mjs so neither core's nor web's own test run picks it up, and plain JS so core's typecheck (which cannot resolve web's
 // `@/` imports) skips it.
 import { mkdirSync, writeFileSync } from 'node:fs';
@@ -27,5 +27,5 @@ it('dumps the slug snapshot', () => {
   }
   mkdirSync(path.dirname(OUT), { recursive: true });
   const trips = Object.fromEntries(data.tripSlugs().map((slug) => [`trip/${slug}`, slug]));
-  writeFileSync(OUT, `${JSON.stringify({ places: Object.fromEntries(pb.slugByRef), merged: Object.fromEntries(pb.mergedRefs), trips, regions }, null, 1)}\n`);
+  writeFileSync(OUT, `${JSON.stringify({ places: Object.fromEntries(pb.slugByRef), merged: Object.fromEntries(pb.mergedRefs), trips, regions, origins: Object.fromEntries(pb.originRefs) }, null, 1)}\n`);
 });

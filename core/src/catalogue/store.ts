@@ -22,13 +22,14 @@
 //     what web/tests/data/light-data.test.ts pins, and nothing in the site reads it yet. web/components/places/rows.ts derives its type
 //     and PLACE_LIST_KEYS from `placeListRow`; the API allowlist is PLACE_ROW_KEYS. API-1b's StaticAdapter adds `ref` when it maps a
 //     shipped row to a PlaceRow (the dataset's refBySlug has it).
-// A3  `ref` of a place is its identity key: the capture ref verbatim when the page is built from a capture record, else `loc:<id>`,
-//     else `proto:<id>` (D-B2). A locations or prototype page that is merely MATCHED to a capture record (facets by name or proto id)
-//     keeps `loc:`/`proto:`: the match depends on the slug, so it cannot be the identity the slug hangs on. When such a page becomes a
-//     capture page, `slugs.ts alias` carries its slug over (D-B1's identity change).
+// A3  `ref` of a place is its identity key: the capture ref verbatim when the page is built from a capture record, else `place/<slug>`
+//     (amended by A24; it was `loc:<id>` / `proto:<id>`, D-B2). A locations or prototype page that is merely MATCHED to a capture record
+//     (facets by name or proto id) keeps its `place/<slug>`: the match depends on the slug, so it cannot be the identity the slug hangs
+//     on. When such a page becomes a capture page, `slugs.ts alias place/<slug> <capture ref>` carries its slug over (D-B1's identity
+//     change) and the old ref stays resolvable through `formerKeys`.
 // A4  `ref` of a trip is `trip/<trip id>` (the capture and trip-file id, which is also the public slug); trip-scoped refs already read
 //     `trip/<id>/<item key>`.
-// A5  The slug registry (`catalogue-slugs/2`) keys are those refs: 363 place keys today (359 pages plus 4 merged records, recorded in
+// A5  The slug registry (`catalogue-slugs/2`) keys are those refs (never a private origin key, A24): 363 place keys today (359 pages plus 4 merged records, recorded in
 //     `places.merged` so their slugs answer 308 to the survivor, R-1), the trips in their own space (R-18), `formerKeys` for every key
 //     `alias` replaced (R-2; SupabaseStore loads it as `entity_alias`), and `withdrawn` tombstones (R-3). Its `regions` section pins
 //     `<cc>/<region slug>` with the region's spellings; region aliases resolve through `resolveRegion` (D-B3). `city` takes a town id
@@ -79,6 +80,26 @@
 //     whose value for `key` is unknown that match every other key.
 // A23 Volume (R-24): the caps bound one response, not a client. Paging every list and reading every detail can still copy the catalogue,
 //     as EXECUTION-PLAN's risk "P8 by API" accepts; a rate limit comes with hosting.
+// A24 Origin refs (REF1, owner ruling 23 Oct 2026, audit GB-B-3): no public output may tell which places come from the owner's wishlist.
+//     - Rule. A page built from no capture record (74 from data/locations, 41 from the old prototype) has the ref `place/<slug>`, minted
+//       ONCE from the slug it held when first pinned. The registry pins that key like any other, so a later `rename` changes the slug
+//       and keeps the ref (stable, opaque). Capture pages keep their capture ref; trips stay `trip/<slug>` (A4).
+//     - Private side. The link `loc:<id>` / `proto:<id>` -> `place/<slug>` lives only in data/locations/page-keys.json (ORIGIN_KEYS_PATH),
+//       next to the wishlist that already holds the same fact. Only the dataset builder reads it, and only `slugs.ts build`, `reorigin`
+//       and `migrate-origins` write it. data/catalogue/slugs.json may be published, so `registryProblems` refuses any origin key in it
+//       and `aliasKey` refuses one. A wishlist id that changes is `slugs.ts reorigin <old> <new>`: the page keeps ref and slug.
+//     - No former keys for the old refs. `migrate-origins` rekeyed the 115 `loc:`/`proto:` keys with NO formerKeys entries. That is safe:
+//       those refs existed only in responses of an API that was never deployed (the live site is the legacy one), saved views, shares
+//       and `ids=` carry slugs (A19), and the slugs did not change. A former-key entry would have published the fact the rekey hides.
+//     - Later capture record. `slugs.ts alias place/<slug> <capture ref>`; `place/<slug>` stays in formerKeys and resolves (R-2): a
+//       public-safe string. Where the capture migration already named a matched record `place/<slug>` (43 of the 115), the page ref
+//       equals that record's ref: the same place, one identity.
+//     - Guards. The builder fails when two pages share a ref, a `place/<slug>` is another page's capture ref, or a ref is an origin key
+//       (places.ts assertRefsDistinct). `apiRef` requires `<layer>/...`, and the privacy detector (ORIGIN_REF) fails respond() closed on
+//       any `loc:`/`proto:` value or map key; case K7 asserts it for every method, and the web privacy test for every published file.
+//     - Known residue (not refs, owner to rule): web/redirects.json and the page routes keep the 74 old `/places/<cc>/<region>/<area>/
+//       <place>/` redirects, which only wishlist places have; and a row or detail with `sources: []` / `researched: false` is a
+//       wishlist-only page. Both are visible behaviour, out of REF1's scope.
 //
 // ---- Carried to API-1b (review of 22 Oct; must be done there, not deferred further) --------------------------------------------
 //

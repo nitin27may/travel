@@ -20,6 +20,16 @@ describe("privacy detector", () => {
     expect(privacyHits({ body: `<gpx><wpt lat="${p.lat.toFixed(5)}" lon="${p.lon.toFixed(5)}"><name>x</name></wpt></gpx>` }).length).toBe(1);
     expect(privacyHits({ body: `<kml><coordinates>${p.lon.toFixed(5)},${p.lat.toFixed(5)},0 ${HOME_PROBE.lon.toFixed(1)},9.0</coordinates></kml>` }).length).toBe(1);
   });
+  it("finds a private origin key (store.ts A24) as a value, inside text and as a map key, and leaves wikiloc and place refs alone", () => {
+    const whys = (x: unknown) => privacyHits(x).map((h) => h.why);
+    const origin = "a private origin key (wishlist or prototype id)";
+    expect(whys({ ref: "loc:CA/AB/x/y" })).toEqual([origin]);
+    expect(whys({ ref: "proto:braies" })).toEqual([origin]);
+    expect(whys({ body: '{"items":[{"ref":"loc:IT/x"}]}' })).toEqual([origin]);
+    expect(whys({ refSlugs: { "proto:x": "x" } })).toEqual([origin]);
+    expect(JSON.stringify(privacyHits({ refSlugs: { "loc:CA/AB/secret": "x" } }))).not.toContain("secret");
+    expect(whys({ ref: "place/lake-louise", note: "wikiloc: 12345 tracks", s: "proto: ", t: "prototype_approx", u: "trip/x/sight:ragged falls" })).toEqual([]);
+  });
   it("leaves a far point alone, and a hit names no coordinate", () => {
     const far = northOfHome(30);
     expect(privacyHits({ lat: far.lat, lon: far.lon, g: [[far.lon, far.lat]], body: `lat="${far.lat.toFixed(5)}" lon="${far.lon.toFixed(5)}" and more text here` })).toEqual([]);
