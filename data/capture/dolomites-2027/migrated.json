@@ -463,6 +463,7 @@
     },
     {
       "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
+      "area_id": "IT/veneto/belluno",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "name": "Cadini di Misurina viewpoint",
@@ -543,6 +544,7 @@
     },
     {
       "ref": "part/place/lago-di-sorapis#payoff",
+      "area_id": "IT/veneto/belluno",
       "type": "water.body.lake",
       "layer": "place",
       "name": "Lago di Sorapis",
@@ -1127,6 +1129,7 @@
     },
     {
       "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
+      "area_id": "IT/trentino-alto-adige/provincia-di-trento",
       "type": "nature.summit.summit",
       "layer": "place",
       "name": "Sass Pordoi and Piz Boè",
@@ -1151,6 +1154,7 @@
     },
     {
       "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+      "area_id": "IT/veneto/belluno",
       "type": "nature.trail.walk",
       "layer": "route",
       "name": "Lagazuoi tunnels",
@@ -1235,6 +1239,7 @@
     },
     {
       "ref": "part/place/lago-di-braies#walk",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "nature.trail.walk",
       "layer": "route",
       "name": "Lago di Braies walk",
@@ -1261,6 +1266,7 @@
     },
     {
       "ref": "part/place/lago-di-limides#walk",
+      "area_id": "IT/veneto/belluno",
       "type": "nature.trail.walk",
       "layer": "route",
       "name": "Lago di Limides walk",
@@ -1750,6 +1756,7 @@
     },
     {
       "ref": "place/dolomites",
+      "area_id": "IT/veneto/belluno",
       "type": "nature.protected.nature_reserve",
       "layer": "place",
       "name": "Dolomites"
@@ -1998,6 +2005,7 @@
     },
     {
       "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
+      "area_id": "IT/veneto/belluno",
       "type": "access.transit.station",
       "layer": "place",
       "name": "Lagazuoi cable car and tunnels top station",

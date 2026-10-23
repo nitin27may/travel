@@ -2035,6 +2035,7 @@
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+      "area_id": "CA/AB/banff-national-park",
       "type": "access.transit.station",
       "layer": "place",
       "name": "Banff Gondola (Sulphur Mountain summit) top station",
