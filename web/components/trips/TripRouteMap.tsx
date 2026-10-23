@@ -4,6 +4,7 @@
 // (TripPlan loads it with next/dynamic), so none of it counts against the page's start JS (D-E9).
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import type { TripLegs } from '@travel/core/schema/api/index.ts';
+import { OSM_COPYRIGHT_URL } from '@travel/core/export/licence.ts';
 import { MapSurface } from '@/components/map/MapSurface';
 import { tripLegs } from '@/lib/client/data';
 import { tripPageFamily } from '@/lib/map/family';
@@ -39,13 +40,14 @@ export function RouteKey({ state }: { state: KeyState }) {
   const narrow = useNarrow();
   const [asked, setAsked] = useState(false);
   const open = !narrow || asked;
-  const items = open ? state.items : state.items.filter((i) => i.id === 'estimate' || i.id === 'road').slice(0, 1);
+  // collapsed on a phone: one line, and the amber one when it is drawn, because it is the loudest line on the map
+  const items = open ? state.items : [state.items.find((i) => i.id === 'road') ?? state.items.find((i) => i.id === 'estimate')].filter((i): i is NonNullable<typeof i> => !!i);
   return (
     <div className="trip-map-key" data-print="hide">
       <ul id="trip-map-key-list" className="trip-map-key-list" aria-label="Map key">
         {items.map((k) => (
           <li key={k.id}>
-            <span className="key-swatch" data-key={k.id} data-pick={k.pick || undefined} aria-hidden="true">{k.id === 'stop' ? '1' : null}</span>
+            <span className="key-swatch" data-key={k.id} data-pick={k.pick || undefined} data-all={k.style === 'route' || undefined} aria-hidden="true">{k.id === 'stop' ? '1' : null}</span>
             {k.label}
           </li>
         ))}
@@ -272,7 +274,8 @@ export default function TripRouteMap({ slug, route, dayRows, models, picked, pau
       <div ref={box} className="tl-mapbox">
         {mount && geometry && hasRoutedLegs(geometry) && base.lines.some((l) => l.style === 'route' || l.style === 'route-pick') ? (
           <p className="tl-credit num" data-testid="route-credit" title={legs?.attribution || undefined}>
-            Route geometry © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>
+            {wide ? 'Route lines © ' : 'Routes © '}
+            <a href={OSM_COPYRIGHT_URL} target="_blank" rel="noopener noreferrer">{wide ? 'OpenStreetMap contributors' : 'OpenStreetMap'}</a>
           </p>
         ) : null}
         {mount ? (

@@ -18,7 +18,8 @@ export interface Pin {
 }
 /** `trail-unconfirmed` is a stored line a person has not confirmed: dashed in the muted ink, never the estimate style (that one is for straight legs). */
 export type LineStyle = 'route' | 'route-pick' | 'trail' | 'trail-unconfirmed' | 'straight-estimate';
-export interface Line { id: string; coords: LngLat[]; style: LineStyle }
+/** `mode` is how a routed leg is travelled (TRP2b): a walk is keyed "Road or path route". Absent on every other line. */
+export interface Line { id: string; coords: LngLat[]; style: LineStyle; mode?: 'drive' | 'walk' }
 export interface LegendItem { id: string; label: string; style: PinStyle | LineStyle }
 export interface MapSpec {
   pins: Pin[];
