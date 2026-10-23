@@ -213,8 +213,8 @@ describe("the point and the town (3.7, 3.37)", () => {
     expect(capRecord.safeParse({ ...base, near_town: v("town/ca/on/whitby") }).success).toBe(false);
     expect(capRecord.safeParse({ ...base, geonames_id: v("Q123") }).success).toBe(false);
   });
-  it("the registry: near_town N until META-2 derives it (the placement codes ask for it), near_town_km rides with it, geonames_id A (R on settlements)", () => {
-    expect(PROPERTY_BY_KEY.get("near_town")).toMatchObject({ group: "identity", base: "N", gap: "Nearest town not worked out yet", layers: ["place", "route"] });
+  it("the registry: near_town R? with the trigger derived (META-2: required where the towns layer and an exact point give it an input), near_town_km rides with it, geonames_id A (R on settlements)", () => {
+    expect(PROPERTY_BY_KEY.get("near_town")).toMatchObject({ group: "identity", base: "R?", trigger: "derived", gap: "Nearest town not worked out yet", layers: ["place", "route"] });
     expect(PROPERTY_BY_KEY.get("near_town_km")).toMatchObject({ base: "N", unit: "km" });
     expect(PROPERTY_BY_KEY.get("geonames_id")).toMatchObject({ base: "A", layers: ["place"] });
     const town = JSON.parse(readFileSync(join(REPO, "data/schema/capture/settlement.json"), "utf8"));
