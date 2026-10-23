@@ -5,7 +5,10 @@ import { JsonStore } from '@travel/core/catalogue/json/index.ts';
 import { householdHits } from '../../../core/test/catalogue/contract/kit';
 import { respond } from '@/lib/server/respond';
 import { nearHome } from '@/lib/public/origin';
-import { HOME_PROBE } from '../../../core/test/privacy/probe';
+import { HOME_PROBE, northOfHome } from '../../../core/test/privacy/probe';
+import { echoProbes } from '../../../core/test/catalogue/contract/echo.cases';
+import { cap, homeWord } from '../../../core/test/catalogue/contract/townGuard.cases';
+import { publicGazetteer } from '@travel/core/privacy/towns.ts';
 import { HandlerStore } from './handlerStore';
 import { PHASE_E, jsonTarget } from './targets';
 
@@ -26,10 +29,10 @@ runContractTargets([through], { handlerLayer: true });
 describe('respond() fails closed', () => {
   const poisoned = (body: unknown) => ({ revision: async () => 'a'.repeat(64), globeTree: async () => ({ ok: true, data: body, revision: 'a'.repeat(64) }) }) as never;
   it('never sends a body with the home town, and never rewrites it', async () => {
-    const res = await respond('globeTree', new Request('http://api.test/api/v1/globe/tree/'), {}, poisoned({ continents: [{ name: 'Whitby' }] }));
+    const res = await respond('globeTree', new Request('http://api.test/api/v1/globe/tree/'), {}, poisoned({ continents: [{ name: cap(homeWord) }] }));
     const text = await res.text();
     expect(res.status).toBe(500);
-    expect(text).not.toMatch(/whitby/i);
+    expect(text.toLowerCase()).not.toContain(homeWord);
     expect(JSON.parse(text).error.code).toBe('internal');
   });
   it('never sends a private key or a point near the home point', async () => {
@@ -37,6 +40,31 @@ describe('respond() fails closed', () => {
       expect((await respond('globeTree', new Request('http://api.test/api/v1/globe/tree/'), {}, poisoned(body))).status).toBe(500);
     }
     expect((await respond('globeTree', new Request('http://api.test/api/v1/globe/tree/'), {}, poisoned({ at: { lat: HOME_PROBE.lat, lon: HOME_PROBE.lon } }))).status).toBe(500);
+  });
+  it('answers an echo of the request with 200 and the same words anywhere else with 500 (K29, store.ts A40)', async () => {
+    const REV = 'a'.repeat(64);
+    const searching = (data: (q: string) => unknown) => ({ revision: async () => REV, search: async (q: { q: string }) => ({ ok: true, data: data(q.q), revision: REV }) }) as never;
+    const result = (query: string, hit?: string) => ({ counts: { trips: 0, places: hit ? 1 : 0, areas: 0 }, groups: hit ? [{ id: 'places', label: 'Places', total: 1, hits: [{ n: hit }] }] : [], query, partial: false });
+    for (const q of echoProbes()) {
+      const req = () => new Request(`http://api.test/api/v1/search/?q=${encodeURIComponent(q)}`);
+      expect((await respond('search', req(), {}, searching((asked) => result(asked)))).status).toBe(200);
+      // the request's words in a field the request did not fill
+      expect((await respond('search', req(), {}, searching((asked) => result(asked, asked)))).status).toBe(500);
+      // an echo key holding words the request did not send
+      const other = new Request('http://api.test/api/v1/search/?q=lake');
+      expect((await respond('search', other, {}, searching(() => result(q)))).status).toBe(500);
+    }
+  });
+  it('reads a town point near home as public only when it is the store gazetteer point (store.ts A33)', async () => {
+    const REV = 'a'.repeat(64);
+    const p = northOfHome(0.5);
+    const town = { id: `ca-zz-${homeWord}`, name: cap(homeWord), lat: p.lat, lon: p.lon, pop: 1, cc: 'ca', region: null, places: null, distanceKm: 1, bearing: 'N' };
+    const gz = publicGazetteer([town]);
+    const store = (row: typeof town, withGazetteer = true) => ({ revision: async () => REV, towns: async () => ({ ok: true, data: { items: [row], truncated: false, clamped: false }, revision: REV }), ...(withGazetteer ? { publicTowns: () => gz } : {}) }) as never;
+    const req = () => new Request(`http://api.test/api/v1/towns/?near=place:x`);
+    expect((await respond('towns', req(), {}, store(town))).status).toBe(200);
+    expect((await respond('towns', req(), {}, store({ ...town, lat: town.lat + 0.001 }))).status).toBe(500);
+    expect((await respond('towns', req(), {}, store(town, false))).status).toBe(500);
   });
   it('blocks a row with a key outside the allowlist', async () => {
     const store = { revision: async () => 'a'.repeat(64), listPlaces: async () => ({ ok: true, data: { items: [{ slug: 'x', notes: 'y' }], total: 1, page: 1, pageSize: 48, nextPage: null }, revision: 'a'.repeat(64) }) } as never;
