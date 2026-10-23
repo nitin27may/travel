@@ -2,14 +2,13 @@
 import { expect } from "vitest";
 import { mergeParsed } from "../../../src/catalogue/store.ts";
 import { facetCounts, type CountQuery } from "../../../src/schema/api/index.ts";
-import { SKELETON, expectError, expectOk, type ContractCase } from "./kit.ts";
+import { expectError, expectOk, type ContractCase } from "./kit.ts";
 
 export const countsParsedCases: ContractCase[] = [
   {
     id: "K22",
     title: "countPlaces({...q, parsed}) equals countPlaces and listPlaces of mergeParsed(q, parsed): n, unchecked and every facet",
     method: "countPlaces",
-    awaits: { step: "API-3b step 11 (K22: parsed counts)", failsWith: SKELETON },
     async run(store, t) {
       const { cc, aliases } = t.facts.region;
       // a real parse of the target's own words, merged into a query that already filters

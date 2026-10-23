@@ -7,12 +7,17 @@
 import type { z } from "zod";
 import * as S from "../../schema/api/index.ts";
 import { compareByDistance, measure, within, type Measure } from "../distance.ts";
+import { cardHitsOf } from "../cards.ts";
+import { safeOutline, safeTown } from "../../privacy/towns.ts";
+import { printText } from "../printText.ts";
+import { approxNote } from "../../export/licence.ts";
 import { revisionOf, servedSnapshot } from "../revision.ts";
 import { fail, ok, type Result } from "../result.ts";
 import { currentSlug, isWithdrawn, kebab, movedTo, resolveRegion } from "../slugs.ts";
 import { PLACE_SORT_VALUES, TRIP_SORT_VALUES, sortRows } from "../sorting.ts";
 import { PLACE_TEXT, TRIP_TEXT, compareCodePoints, matchesText, sortKey } from "../sortKey.ts";
-import { AWAITS_3B, type CatalogueStore } from "../store.ts";
+import { mergeParsed, type CatalogueStore } from "../store.ts";
+import { uncheckedPageOf, type UncheckedGroupRows } from "../unchecked.ts";
 import { stubData, stubSearchRecords, type StubData, type StubPlace, type StubTrip } from "./fixture.ts";
 
 export { stubData, STUB_ALIASED, STUB_MERGED, STUB_RETIRED, STUB_SOURCES, STUB_TRIP_RETIRED, STUB_WITHDRAWN, type StubData } from "./fixture.ts";
@@ -47,6 +52,28 @@ const ROW_FACETS: Record<string, (r: S.PlaceRow) => readonly string[]> = {
   shape: (r) => (r.shape ? [r.shape] : []),
 };
 
+/**
+ * The facet keys that have a gap state ("not checked yet", store.ts A25) and what a gap is on a row: the stub's `season` has one, an
+ * empty season being "nobody has looked" (a known answer is a list of months). Group order is this order.
+ */
+const GAP_FACETS: { key: string; label: string; note: string; isGap: (r: S.PlaceRow) => boolean }[] = [
+  { key: "season", label: "Season", note: "not checked yet", isGap: (r) => r.season.length === 0 },
+];
+
+// ---- card text and terms (store.ts A28): the stub's own copy of the rule, so a SQL store reproduces it from the contract, not from web ----
+const STOP = new Set(["a", "an", "the", "and", "or", "of", "in", "on", "at", "to", "for", "with", "by", "from", "is", "are", "it", "its", "this", "that", "as", "be", "near", "into", "than", "up", "out"]);
+function stem(w: string): string {
+  if (w.length > 6 && w.endsWith("ing")) return w.slice(0, -3);
+  if (w.length > 4 && w.endsWith("ies")) return `${w.slice(0, -3)}y`;
+  if (w.length > 4 && /(ses|xes|ches|shes)$/.test(w)) return w.slice(0, -2);
+  if (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) return w.slice(0, -1);
+  return w;
+}
+const termsOf = (text: string): string[] =>
+  text.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 1 && !STOP.has(w)).map(stem);
+
+/** Distinct and in first-seen order: what a query is read as. */
+const distinct = (xs: string[]): string[] => [...new Set(xs)];
 
 export class StubStore implements CatalogueStore {
   readonly data: StubData;
@@ -58,7 +85,14 @@ export class StubStore implements CatalogueStore {
   private readonly tripBySlug: Map<string, StubTrip>;
 
   constructor(opts: StubOptions = {}) {
-    this.data = opts.data ?? stubData();
+    const given = opts.data ?? stubData();
+    // A33: every town and city outline passes the guard at load, so no method can serve a centre or an outline inside the household radius
+    const towns = given.towns.flatMap((t) => {
+      const safe = safeTown(t);
+      return safe ? [{ ...t, lat: safe.lat, lon: safe.lon }] : [];
+    });
+    const cities = given.cities.filter((c) => towns.some((t) => t.id === c.id)).map((c) => ({ ...c, geometry: safeOutline(c.geometry) }));
+    this.data = { ...given, towns, cities };
     this.layers = { near: true, towns: true, nearby: true, ...opts.layers };
     const d = this.data;
     this.rev = revisionOf(servedSnapshot({
@@ -155,17 +189,32 @@ export class StubStore implements CatalogueStore {
     return this.page(sortRows(rows, qi.value.sort ?? [], PLACE_SORT_VALUES, (r) => r.name), pi.value);
   }
 
+  /** Rows that fail ONLY on a gap of a selected key, grouped by key in GAP_FACETS order; a row sits in the first group it qualifies for (A25, A27). */
+  private uncheckedGroups(q: S.PlaceQuery, only?: readonly string[]): UncheckedGroupRows[] | S.ApiError {
+    const seen = new Set<string>();
+    const groups: UncheckedGroupRows[] = [];
+    for (const g of GAP_FACETS) {
+      if (!(q.facets?.[g.key]?.length) || (only && !only.includes(g.key))) continue;
+      const others = this.matching(q, g.key);
+      if (!Array.isArray(others)) return others;
+      const rows = others.filter((r) => g.isGap(r) && !seen.has(r.ref));
+      for (const r of rows) seen.add(r.ref);
+      groups.push({ key: g.key, label: g.label, note: g.note, rows });
+    }
+    return groups;
+  }
+
   async countPlaces(q: S.CountQuery): Promise<Result<S.FacetCounts>> {
     const qi = check(S.countQuery, q);
     if (!qi.ok) return qi;
-    // 3b (K22): count mergeParsed(qi.value) instead
-    if (qi.value.parsed) return fail("not_available", AWAITS_3B("A parsed count"));
-    const matched = this.matching(qi.value);
+    // a parsed count is the count of the query the parse opens (A25, case K22)
+    const query = mergeParsed(qi.value);
+    const matched = this.matching(query);
     if (!Array.isArray(matched)) return { ok: false, error: matched };
     const facets: S.FacetCounts["facets"] = {};
     // store.ts A22: options counted with every OTHER key applied; a selected value with no rows shows with 0
     const tally = (key: string, value: (r: S.PlaceRow) => string, label: (r: S.PlaceRow) => string): S.ApiError | null => {
-      const rows = this.matching(qi.value, key);
+      const rows = this.matching(query, key);
       if (!Array.isArray(rows)) return rows;
       const by = new Map<string, S.FacetCount>();
       for (const r of rows) {
@@ -174,17 +223,27 @@ export class StubStore implements CatalogueStore {
         const had = by.get(v);
         by.set(v, { value: v, label: label(r), count: (had?.count ?? 0) + 1 });
       }
-      for (const v of qi.value.facets?.[key] ?? []) if (key !== "region" && !by.has(v)) by.set(v, { value: v, label: v, count: 0 });
-      facets[key] = [...by.values()].sort((a, b) => b.count - a.count || compareCodePoints(sortKey(a.label), sortKey(b.label)));
+      for (const v of query.facets?.[key] ?? []) if (key !== "region" && !by.has(v)) by.set(v, { value: v, label: v, count: 0 });
+      facets[key] = [...by.values()].sort((a, b) => b.count - a.count || compareCodePoints(sortKey(a.label), sortKey(b.label)) || compareCodePoints(a.value, b.value));
       return null;
     };
     for (const [key, value, label] of [["country", (r: S.PlaceRow) => r.country, (r: S.PlaceRow) => r.country_name], ["region", (r: S.PlaceRow) => r.region, (r: S.PlaceRow) => r.region_name], ["kind", (r: S.PlaceRow) => r.kind, (r: S.PlaceRow) => r.kindLabel]] as const) {
       const err = tally(key, value, label);
       if (err) return { ok: false, error: err };
     }
-    const scoped = this.filterRows(this.data.places.map((p) => p.row), { facets: { ...(q.facets?.country ? { country: q.facets.country } : {}), ...(q.facets?.k ? { k: q.facets.k } : {}) } });
+    const scoped = this.filterRows(this.data.places.map((p) => p.row), { facets: { ...(query.facets?.country ? { country: query.facets.country } : {}), ...(query.facets?.k ? { k: query.facets.k } : {}) } });
     const scope = Array.isArray(scoped) ? scoped.length : 0;
-    return ok({ n: matched.length, unchecked: 0, scope, total: this.data.places.length, facets, gaps: {}, notes: [] }, this.rev);
+    // gaps: per key with a gap state, the rows in it that match every other key; unchecked: the rows that fail only on a gap of a selected key
+    const gaps: Record<string, number> = {};
+    for (const g of GAP_FACETS) {
+      const rows = this.matching(query, g.key);
+      if (!Array.isArray(rows)) return { ok: false, error: rows };
+      gaps[g.key] = rows.filter(g.isGap).length;
+    }
+    const groups = this.uncheckedGroups(query);
+    if (!Array.isArray(groups)) return { ok: false, error: groups };
+    const unchecked = groups.reduce((n, g) => n + g.rows.length, 0);
+    return ok({ n: matched.length, unchecked, scope, total: this.data.places.length, facets, gaps, notes: unchecked ? [`${unchecked} not checked yet`] : [] }, this.rev);
   }
 
   async listUnchecked(q: S.UncheckedQuery, page?: S.ApiPage): Promise<Result<S.UncheckedPage>> {
@@ -192,13 +251,47 @@ export class StubStore implements CatalogueStore {
     if (!qi.ok) return qi;
     const pi = check(S.apiPage, page ?? {});
     if (!pi.ok) return pi;
-    return fail("not_available", AWAITS_3B("listUnchecked"));
+    const pageSize = pi.value.pageSize ?? S.API_LIMITS.pageSize.default;
+    if (pageSize > S.API_LIMITS.pageSize.max) return fail("too_large", `pageSize is at most ${S.API_LIMITS.pageSize.max}.`, { max: S.API_LIMITS.pageSize.max });
+    const { only, ...plain } = qi.value;
+    const groups = this.uncheckedGroups(plain, only);
+    if (!Array.isArray(groups)) return { ok: false, error: groups };
+    return ok(uncheckedPageOf(groups, plain.sort ?? [], pi.value.page ?? 1, pageSize), this.rev);
   }
 
   async searchCards(q: S.CardQuery): Promise<Result<S.CardHits>> {
     const qi = check(S.cardQuery, q);
     if (!qi.ok) return qi;
-    return fail("not_available", AWAITS_3B("searchCards"));
+    const limit = qi.value.limit ?? S.API_LIMITS.cards.default;
+    if (limit > S.API_LIMITS.cards.max) return fail("too_large", `limit is at most ${S.API_LIMITS.cards.max}.`, { max: S.API_LIMITS.cards.max });
+    const { q: words, limit: _limit, ...filters } = qi.value;
+    const rows = this.matching(filters);
+    if (!Array.isArray(rows)) return { ok: false, error: rows };
+    const query = distinct(termsOf(words));
+    if (!query.length) return ok(cardHitsOf([], [], limit), this.rev);
+    // BM25 (k1 1.2, b 0.75) over the cards of the query's country scope; a card must hold at least half of the distinct terms (A28)
+    const countries = new Set((filters.facets?.country ?? []).map((c) => c.toUpperCase()));
+    const scope = this.data.places.filter((p) => !countries.size || countries.has(p.row.country));
+    const docs = new Map(scope.map((p) => [p.row.ref, termsOf([p.detail.name, p.detail.kindLabel, ...p.detail.areaChain.map((a) => a.name), p.detail.summary, ...p.row.tags.map((t) => t.label)].join(" "))]));
+    const avg = [...docs.values()].reduce((n, d) => n + d.length, 0) / (docs.size || 1) || 1;
+    const df = new Map(query.map((t) => [t, [...docs.values()].filter((d) => d.includes(t)).length]));
+    const need = Math.ceil(query.length / 2);
+    const scored: { row: S.PlaceRow; score: number }[] = [];
+    for (const row of rows) {
+      const doc = docs.get(row.ref);
+      if (!doc) continue;
+      let score = 0;
+      let held = 0;
+      for (const t of query) {
+        const tf = doc.filter((x) => x === t).length;
+        if (!tf) continue;
+        held++;
+        const d = df.get(t)!;
+        score += (Math.log(1 + (docs.size - d + 0.5) / (d + 0.5)) * tf * 2.2) / (tf + 1.2 * (0.25 + (0.75 * doc.length) / avg));
+      }
+      if (held >= need) scored.push({ row, score });
+    }
+    return ok(cardHitsOf(scored, query, limit), this.rev);
   }
 
   async getPlace(slug: string): Promise<Result<S.PlaceLookup>> {
@@ -408,21 +501,83 @@ export class StubStore implements CatalogueStore {
     return t ? ok(t.detail, this.rev) : fail("not_found", "No public trip has that slug.");
   }
 
+  /** The fixture's legs: from the base to the first stop, then stop to stop, two at most, each a straight line through its midpoint (a stand-in for a routed one). */
+  private legsOf(t: StubTrip): S.TripLeg[] {
+    const stops = t.detail.days.flatMap((day) => day.items.map((it) => ({ day: day.n, key: it.id, point: it.placeSlug ? this.bySlug.get(it.placeSlug)?.detail.point ?? null : null })));
+    const base = t.detail.bases[0];
+    const chain = [...(base?.point ? [{ day: 1, key: `base:${base.id}`, point: base.point }] : []), ...stops].filter((x) => x.point);
+    const legs: S.TripLeg[] = [];
+    for (let i = 0; i + 1 < chain.length && legs.length < 2; i++) {
+      const [a, b] = [chain[i]!, chain[i + 1]!];
+      const mid: [number, number] = [(a.point!.lon + b.point!.lon) / 2 + 0.01, (a.point!.lat + b.point!.lat) / 2];
+      const geometry = safeOutline(S.encodePolyline5([[a.point!.lon, a.point!.lat], mid, [b.point!.lon, b.point!.lat]]));
+      legs.push({ day: b.day, from: a.key, to: b.key, mode: "drive", km: Math.round(measure(a.point!, b.point!).distanceKm * 13) / 10, minutes: 30 + i * 15, geometry });
+    }
+    return legs;
+  }
+
   async tripLegs(slug: string): Promise<Result<S.TripLegsLookup>> {
     const si = check(S.tripLegsInput, { slug });
     if (!si.ok) return si;
-    return fail("not_available", AWAITS_3B("tripLegs"));
+    const moved = movedTo(this.data.registry, slug, "trips");
+    if (moved) return ok({ moved: moved.slug, ref: moved.key }, this.rev);
+    const t = this.tripBySlug.get(slug);
+    if (!t) return fail("not_found", "No public trip has that slug.");
+    const legs = this.legsOf(t);
+    return ok({ ref: t.detail.ref, slug, legs, attribution: legs.length ? "Stub fixture legs. Map data: OpenStreetMap contributors (ODbL)." : "", fetched: legs.length ? "2026-10-01" : null }, this.rev);
   }
 
   // ---- exports -----------------------------------------------------------------------------------------------------------------
+
+  /** The export model of one item (A26): the licence guard leaves a point out of the waypoints and counts it; a stop keeps its row with `point: null`. */
+  private exportModel(type: "place" | "trip", slug: string): S.ExportModel | null {
+    const exportPoint = (p: S.ApiPoint): NonNullable<S.ExportModel["waypoints"][number]["point"]> => ({ lat: p.lat, lon: p.lon, pointSource: p.pointSource, pointChecked: p.pointChecked, sourceLicence: p.sourceLicence });
+    const open = (p: S.ApiPoint | null | undefined): p is S.ApiPoint => !!p && OPEN_LICENCES.has(p.sourceLicence);
+    if (type === "place") {
+      const p = this.bySlug.get(slug);
+      if (!p) return null;
+      const pt = p.detail.point;
+      const waypoints = open(pt) ? [{ id: `place:0:${slug}`, name: p.detail.name, kind: p.detail.kind, role: "place" as const, day: null, note: null, url: `/places/${slug}/`, point: exportPoint(pt) }] : [];
+      return { type: "place", slug, title: p.detail.name, url: `/places/${slug}/`, kind: p.detail.kind, waypoints, lines: [], skipped: pt && !open(pt) ? 1 : 0 };
+    }
+    const t = this.tripBySlug.get(slug);
+    if (!t) return null;
+    const stops: Extract<S.ExportModel, { type: "trip" }>["stops"] = [];
+    const waypoints: S.ExportModel["waypoints"] = [];
+    let skipped = 0;
+    let order = 0;
+    for (const day of t.detail.days) {
+      for (const it of day.items) {
+        const place = it.placeSlug ? this.bySlug.get(it.placeSlug) : undefined;
+        const pt = place?.detail.point ?? null;
+        if (pt && !open(pt)) skipped++;
+        stops.push({
+          day: day.n, order: order++, id: it.id, name: it.name, kind: it.kind, category: it.category, area: place?.detail.areaLabel ?? null, time: it.time, durationMin: it.durationMin,
+          lane: null, note: it.note, placeSlug: it.placeSlug, links: [], point: open(pt) ? exportPoint(pt) : null,
+        });
+        if (open(pt)) waypoints.push({ id: `stop:${day.n}:${it.placeSlug}`, name: it.name, kind: it.kind, role: "stop", day: day.n, note: it.note, url: `/places/${it.placeSlug}/`, point: exportPoint(pt) });
+      }
+    }
+    return {
+      type: "trip", slug, title: t.detail.title, url: `/trips/${slug}/`, depth: t.detail.depth, nights: t.detail.nights ?? 0,
+      days: t.detail.days.map((d) => ({ n: d.n, title: d.title, base: d.base })), stops, waypoints, lines: [], tz: null, seasonLabel: t.detail.season?.label ?? null, skipped,
+    };
+  }
 
   async getExport(q: S.ExportQuery): Promise<Result<S.ExportFile>> {
     const qi = check(S.exportQuery, q);
     if (!qi.ok) return qi;
     const { type, slug } = qi.value;
-    // 3b (K20): the export model
-    if (qi.value.format === "json") return fail("not_available", AWAITS_3B("The json export"));
     const format = qi.value.format;
+    if (format === "json" || format === "print") {
+      const model = this.exportModel(type, slug);
+      if (!model) return fail("not_found", `No public ${type} has that slug.`);
+      const approx = model.waypoints.filter((w) => approxNote(w.point) !== null).length;
+      const source = model.waypoints.some((w) => w.point.sourceLicence === "ODbL") ? "Map data: OpenStreetMap contributors (ODbL)" : "";
+      const area = model.type === "place" ? this.bySlug.get(slug)?.detail.areaLabel ?? null : null;
+      const body = format === "json" ? JSON.stringify(model) : printText(model, { area });
+      return ok({ filename: `${slug}.${S.EXPORT_FILE[format].ext}`, mime: S.EXPORT_FILE[format].mime, body, source, skipped: model.skipped, approx }, this.rev);
+    }
     const places = type === "place" ? [this.bySlug.get(slug)].filter((p): p is StubPlace => !!p) : (this.tripBySlug.get(slug)?.places ?? []).map((s) => this.bySlug.get(s)!).filter(Boolean);
     const title = type === "place" ? this.bySlug.get(slug)?.detail.name : this.tripBySlug.get(slug)?.detail.title;
     if (!title) return fail("not_found", `No public ${type} has that slug.`);
@@ -443,15 +598,13 @@ export class StubStore implements CatalogueStore {
     }
     const label = (p: (typeof points)[number]) => (p.approx ? `${p.name} (location approximate)` : p.name);
     const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
-    const bodies: Record<Exclude<S.ExportFormat, "json">, [string, string, string]> = {
-      csv: ["csv", "text/csv", ["name,lat,lon,approximate", ...points.map((p) => `"${p.name.replace(/"/g, '""')}",${p.lat},${p.lon},${p.approx}`)].join("\n")],
-      gpx: ["gpx", "application/gpx+xml", `<?xml version="1.0"?><gpx version="1.1" creator="stub">${points.map((p) => `<wpt lat="${p.lat}" lon="${p.lon}"><name>${esc(label(p))}</name></wpt>`).join("")}</gpx>`],
-      kml: ["kml", "application/vnd.google-earth.kml+xml", `<?xml version="1.0"?><kml><Document><name>${esc(title)}</name>${points.map((p) => `<Placemark><name>${esc(label(p))}</name><Point><coordinates>${p.lon},${p.lat}</coordinates></Point></Placemark>`).join("")}</Document></kml>`],
-      ics: ["ics", "text/calendar", ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//stub//EN", `X-WR-CALNAME:${title}`, "END:VCALENDAR"].join("\r\n")],
-      print: ["txt", "text/plain", [title, ...points.map(label)].join("\n")],
+    const bodies: Record<Exclude<S.ExportFormat, "json" | "print">, string> = {
+      csv: ["name,lat,lon,approximate", ...points.map((p) => `"${p.name.replace(/"/g, '""')}",${p.lat},${p.lon},${p.approx}`)].join("\n"),
+      gpx: `<?xml version="1.0"?><gpx version="1.1" creator="stub">${points.map((p) => `<wpt lat="${p.lat}" lon="${p.lon}"><name>${esc(label(p))}</name></wpt>`).join("")}</gpx>`,
+      kml: `<?xml version="1.0"?><kml><Document><name>${esc(title)}</name>${points.map((p) => `<Placemark><name>${esc(label(p))}</name><Point><coordinates>${p.lon},${p.lat}</coordinates></Point></Placemark>`).join("")}</Document></kml>`,
+      ics: ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//stub//EN", `X-WR-CALNAME:${title}`, "END:VCALENDAR"].join("\r\n"),
     };
-    const [ext, mime, body] = bodies[format];
-    return ok({ filename: `${slug}.${ext}`, mime, body, source: odbl ? "Map data: OpenStreetMap contributors (ODbL)" : "", skipped, approx }, this.rev);
+    return ok({ filename: `${slug}.${S.EXPORT_FILE[format].ext}`, mime: S.EXPORT_FILE[format].mime, body: bodies[format], source: odbl ? "Map data: OpenStreetMap contributors (ODbL)" : "", skipped, approx }, this.rev);
   }
 
   // ---- globe -------------------------------------------------------------------------------------------------------------------
@@ -491,7 +644,9 @@ export class StubStore implements CatalogueStore {
   async globePins(cc: string): Promise<Result<S.LightPin[]>> {
     const ci = check(S.globePinsInput, { cc });
     if (!ci.ok) return ci;
-    return ok(this.pins().filter((p) => p.path[0] === cc), this.rev);
+    const pins = this.pins().filter((p) => p.path[0] === cc);
+    if (pins.length > S.API_LIMITS.globePins.max) return fail("too_large", `A country answers at most ${S.API_LIMITS.globePins.max} pins.`, { max: S.API_LIMITS.globePins.max });
+    return ok(pins, this.rev);
   }
 
   async globeCard(key: string): Promise<Result<S.GlobeCardFile>> {

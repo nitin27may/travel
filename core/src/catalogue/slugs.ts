@@ -122,10 +122,13 @@ export function spaceOf(reg: SlugRegistry, k: string): SpaceName | null {
   return null;
 }
 
-/** Every slug a newcomer of a space may not take: pinned, retired and withdrawn ones. */
+/** Path words under /api/v1/places/ that a place slug may never take (store.ts A38): `/places/counts` would be shadowed by the counts route. */
+export const RESERVED_API_WORDS = ["counts", "unchecked", "cards"] as const;
+
+/** Every slug a newcomer of a space may not take: pinned, retired and withdrawn ones, and for places the API's path words (A38). */
 export function reservedSlugs(reg: SlugRegistry, space: SpaceName = "places"): Set<string> {
   const s = reg[space];
-  return new Set([...Object.values(s.slugs), ...Object.keys(s.retired), ...Object.values(s.withdrawn)]);
+  return new Set([...Object.values(s.slugs), ...Object.keys(s.retired), ...Object.values(s.withdrawn), ...(space === "places" ? RESERVED_API_WORDS : [])]);
 }
 
 /** The sections of a registry that hold a private origin key, once per key (A24). Empty for a registry that may be published. */

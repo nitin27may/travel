@@ -3,9 +3,9 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
-  ORIGIN_KEYS_PATH, SLUG_REGISTRY_PATH, aliasKey, assignPlaceSlugs, assignSeedSlugs, currentSlug, emptyOriginKeys, emptyRegistry, isWithdrawn,
+  ORIGIN_KEYS_PATH, RESERVED_API_WORDS, SLUG_REGISTRY_PATH, aliasKey, assignPlaceSlugs, assignSeedSlugs, currentSlug, emptyOriginKeys, emptyRegistry, isWithdrawn,
   kebab, mergeKey, migrateOrigins, movedTo, originDrift, originKeysText, originProblems, parseOriginKeys, parseRegistry, registryDrift,
-  registryProblems, registryText, renameSlug, reoriginKey, resolveRef, resolveRegion, updateOriginKeys, updateRegistry, withdrawKey,
+  registryProblems, registryText, renameSlug, reoriginKey, reservedSlugs, resolveRef, resolveRegion, updateOriginKeys, updateRegistry, withdrawKey,
   type SlugRegistry, type SlugSnapshot, type SlugSpace,
 } from "../../src/catalogue/slugs.ts";
 import { main } from "../../bin/slugs.ts";
@@ -66,6 +66,23 @@ describe("assignSeedSlugs", () => {
   });
   it("never takes a reserved slug of the registry", () => {
     expect(assignSeedSlugs([seed("n", "Bow Lake")], new Set(), reg({ other: "bow-lake" })).get("n")).toBe("bow-lake-lakes");
+  });
+});
+
+describe("reserved API words (A38)", () => {
+  const seed = (ref: string, name: string, district = "lakes") => ({ ref, name, areaChain: [{ slug: "ca" }, { slug: "ab" }, { slug: district }], typeLabel: "Lake" });
+  it("reservedSlugs holds counts, unchecked and cards for places only", () => {
+    for (const w of RESERVED_API_WORDS) {
+      expect(reservedSlugs(reg({}), "places").has(w)).toBe(true);
+      expect(reservedSlugs(reg({}), "trips").has(w)).toBe(false);
+    }
+  });
+  it("a newcomer named like a path word gets another slug", () => {
+    const out = assignSeedSlugs([seed("a", "Counts"), seed("b", "Unchecked"), seed("c", "Cards", "ridge")], new Set());
+    for (const w of RESERVED_API_WORDS) expect([...out.values()], w).not.toContain(w);
+  });
+  it("a rename cannot take a path word", () => {
+    expect(() => renameSlug(reg({ a: "x" }), "a", "counts")).toThrow(/pinned, retired or withdrawn/);
   });
 });
 

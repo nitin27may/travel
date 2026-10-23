@@ -1,7 +1,7 @@
 // Trip legs (D-E5, store.ts A34): K27. One trip's routed legs, keyed by its detail's own stop keys, every coordinate through the detector.
 import { expect } from "vitest";
 import { API_LIMITS, decodePolyline5, encodePolyline5, tripLegsLookup, type TripDetail } from "../../../src/schema/api/index.ts";
-import { SKELETON, expectError, expectOk, householdHits, type ContractCase } from "./kit.ts";
+import { expectError, expectOk, householdHits, type ContractCase } from "./kit.ts";
 
 /** Every stop key a leg may name (legs.ts legStopKey): day and track item ids, and `base:<id>`. */
 function stopKeys(d: TripDetail): Set<string> {
@@ -18,7 +18,6 @@ export const tripLegsCases: ContractCase[] = [
     id: "K27",
     title: "tripLegs answers per trip with stop keys of its detail and decodable lines, not_found for an unknown or unlisted trip, moved for a retired slug",
     method: "tripLegs",
-    awaits: { step: "API-3b step 11 (K27: tripLegs)", failsWith: SKELETON },
     async run(store, t) {
       const slugs = [...new Set([t.facts.tripSlug, ...(t.facts.legs ? [t.facts.legs.trip] : [])])];
       for (const slug of slugs) {

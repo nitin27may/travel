@@ -30,7 +30,7 @@ const stubFacts: ContractFacts = {
   registryIds: new Set(STUB_SOURCES.map((s) => s.id)),
   featureId: "ne-range-1",
   pinCountry: "ca",
-  // API-3a facts for K23 and K27 (3b makes the stub's empty season a gap and gives the loop two legs with geometry)
+  // API-3 facts for K23 (the stub's empty season is a gap) and K27 (the loop has two legs with geometry)
   gap: { key: "season", value: "7" },
   legs: { trip: "stub-rockies-loop", geometry: true },
 };
@@ -93,10 +93,8 @@ describe("contract kit bookkeeping", () => {
     const ids = new Set(Object.values(CONTRACT_TABLES).flat().map((c) => c.id.split(".")[0]));
     for (let k = 1; k <= 27; k++) expect(ids.has(`K${k}`), `K${k}`).toBe(true);
   });
-  it("the cases awaiting API-3b are the ones its hand-off lists (core/src/catalogue/store.ts), and each names its step", () => {
-    const stub = tally.find((x) => x.name === "stub")!;
-    expect(stub.awaiting.map((a) => a.id.split(":")[1]!.split(".")[0]).filter((v, i, a) => a.indexOf(v) === i).sort()).toEqual(["K20", "K21", "K22", "K23", "K24", "K26", "K27", "globePins"].sort());
-    for (const a of stub.awaiting) expect(a.step, a.id).toMatch(/^API-3b step 11/);
+  it("no case is left awaiting an implementation step (API-3b filled them all)", () => {
+    for (const t of tally) expect(t.awaiting, t.name).toEqual([]);
   });
   it("case ids are unique within a table", () => {
     for (const [table, cases] of Object.entries(CONTRACT_TABLES)) expect(new Set(cases.map((c) => c.id)).size, table).toBe(cases.length);

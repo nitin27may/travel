@@ -61,7 +61,10 @@ describe("round trips: every StubStore answer parses with its method's output sc
     ["towns", () => store.towns({ city: "ca-ab-canmore" })],
     ["parse", () => store.parse({ q: "alberta lakes" })],
     ["search", () => store.search({ q: "lake" })],
+    ["listUnchecked", () => store.listUnchecked({ facets: { season: ["7"] } })],
+    ["searchCards", () => store.searchCards({ q: "glacier lake" })],
     ["listTrips", () => store.listTrips({})],
+    ["tripLegs", () => store.tripLegs("stub-rockies-loop")],
     ["getTrip", () => store.getTrip("stub-alps-week")],
     ["getTrip", () => store.getTrip("stub-alps-holiday")],
     ["getExport", () => store.getExport({ type: "trip", slug: "stub-rockies-loop", format: "kml" })],
@@ -86,9 +89,7 @@ describe("round trips: every StubStore answer parses with its method's output sc
     });
   }
   it("covers every method", () => {
-    // API-3a: the methods whose StubStore answer is the 3b skeleton join this list in API-3b (store.ts, 3b hand-off)
-    const awaiting3b = ["listUnchecked", "searchCards", "tripLegs"];
-    expect(new Set([...calls.map(([m]) => m), "revision", ...awaiting3b])).toEqual(new Set(CATALOGUE_METHODS));
+    expect(new Set([...calls.map(([m]) => m), "revision"])).toEqual(new Set(CATALOGUE_METHODS));
   });
 });
 

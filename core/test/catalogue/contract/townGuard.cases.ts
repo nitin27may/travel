@@ -25,7 +25,7 @@ export function plantedTowns(): Planted & { home: Town; neighbour: Town } {
   const home = at(northOfHome(0.5), `ca-zz-${homeWord}`, cap(homeWord));
   const neighbour = at(northOfHome(12), "ca-zz-planted-neighbour", "Planted Neighbour");
   const cities: GlobeCity[] = [
-    { id: home.id, name: home.name, geometry: { type: "Polygon", coordinates: square(northOfHome(0.5), 3) }, credit: "OpenStreetMap contributors (ODbL)" },
+    { id: home.id, name: home.name, geometry: { type: "Polygon", coordinates: square(northOfHome(0.5), 1) }, credit: "OpenStreetMap contributors (ODbL)" },
     { id: neighbour.id, name: neighbour.name, geometry: { type: "Polygon", coordinates: [[...square(northOfHome(12), 4)[0]!.slice(0, 4), [northOfHome(1.5).lon, northOfHome(1.5).lat], square(northOfHome(12), 4)[0]![0]!]] }, credit: "OpenStreetMap contributors (ODbL)" },
   ];
   return { towns: [home, neighbour], cities, home, neighbour };
@@ -36,7 +36,6 @@ export const townGuardCases: ContractCase[] = [
     id: "K26",
     title: "no town makes a method answer 500 or carry a point near home: a planted town inside the radius is served with a moved centre and a ring",
     method: "towns",
-    awaits: { step: "API-3b step 11 (K26: safeTown and safeOutline at load)", failsWith: /household radius|near the home town/, on: ["stub"] },
     async run(_store, t) {
       expect(t.plant, "the target must plant towns for K26").toBeDefined();
       const p = plantedTowns();
