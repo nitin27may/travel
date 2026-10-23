@@ -1,8 +1,9 @@
 {
- "schema": "trip-legs/1",
+ "schema": "trip-legs/2",
  "trip": "dolomites-2027",
- "fetched": "2026-10-19",
- "attribution": "Road times from OpenRouteService (openrouteservice.org), route data from OpenStreetMap contributors (ODbL).",
+ "fetched": "2026-10-23",
+ "attribution": "Road times and route lines from OpenRouteService (openrouteservice.org), route data from OpenStreetMap contributors (ODbL).",
+ "simplifiedM": 30,
  "legs": [
   {
    "from": "antorno",
@@ -10,7 +11,8 @@
    "profile": "foot-hiking",
    "mode": "walk",
    "km": 2.1,
-   "minutes": 25
+   "minutes": 25,
+   "geometry": "{nk{GqgyiAxIwIbFErD|DbCi@rIlJiB}Bm@kJ_GcKe\\}LwI}K"
   },
   {
    "from": "bolzano",
@@ -18,7 +20,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 272.8,
-   "minutes": 160
+   "minutes": 160,
+   "geometry": "srxzGawhdAhTBm@rDdF~B`Ynj@bFtPdO|kA|IhXr[fh@`HpG|Cw@|D_H~M`N|@zE_EfSz@dF~K{ArFlB~\\~b@fOvLfWjFlUwClf@sZ`f@mc@lViKbTw@dfA`Kt{DvxBpxBv^fk@Vnc@tDpr@~Rxw@jd@bsAl]bx@nj@d}@~jAt|BvfB`g@~SxtAlShr@f^po@`o@pq@h~@vGdN~Tvs@veAznE~c@n`BrHtO|QdOhoB`x@xyAprBvxBxqAnfAtdAhmAx[jpAvf@dU^pv@gXzn@iGhz@}Q`NmIthAedAfKmF|`AyIzkAgWxr@pGb\\_C~UiKlq@ik@no@{PlTeCl~@NzzBjHxe@`Qpq@pl@zLxFvgC`SvThEtn@fUhPhKrfBhoBvHnRfCzU_@rSqFni@|Bf`@vy@~jB~Vfa@`sAhaAjk@vv@jUvOpy@z[n~@pMj_A|g@lKd@z^{D~f@nIhUmDbZaLxz@uAnw@eI~c@{[bWiMjZkXdp@m\\|LiCbr@tHxZlShkA|a@hOfR`_@nx@rjA~y@~NtPxz@~bC`Nf}@d[bv@vRlYvpAlz@jf@~a@rdAvf@tl@~}@tO|OnjAb[fhAlp@pm@nSnaAbp@hg@~a@z[n]z{AlnA|t@~s@ji@zYf_Anx@ji@bYxMjOhInRlDrPzKreAdJ`YrM|SbNxL~PzHtxAhUjT|HbMvNvi@`mAvOlO|X`FpkAyItoAqRldAx@zW_JheA{q@po@alAzq@qo@nNaV`u@owB|Kac@j]uxC~U}|AnNy^fz@yvA|NaRnQuMvvAmi@~MkApPzA|SpVrHkB|@{Ee@uQrSamAzb@spDvCeh@lCckBqu@ayPmz@ebF_c@kiBaEkg@hOcbGj[glChd@cdKO}fAyCwd@e_AilGexBa|GgN{u@eKc]qv@onA_\\k|@{d@wn@}hAmnB_gD{`EmMe^cNow@m`AmxDqBeQq@sbCdNgmDq@woAqFm~ArAkZh}AedIls@{uC~_@euBb\\onArwAirGx\\kpDbs@gqDno@c`Jhm@wrFr]_zAnc@{zAl}@_vBrDm^k@uNkvIais@kGcNeLiHeZwNag@{KqK{Ful@ws@ub@{N}k@i\\a`BkzCoj@{rAsFmsAUwy@pC}l@fI_j@fPgi@hXsf@zbAaeAtOsNxC]yCyNwA}[hP{W"
   },
   {
    "from": "braies",
@@ -26,7 +29,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 31.6,
-   "minutes": 40
+   "minutes": 40,
+   "geometry": "y_`|GalwhAaNyAaMgHyHTuJsHwLwCuF{TqGwh@_Uu[cCwYkEwPbLm_@eF}Qv@ya@u[izAuc@oFc_@CwJdD_TfYqf@nOzSmbBtD_KvEi^|IaRMk[`Dcm@Uu`@jBuT@em@lCaTnOqo@lGqh@_A{WjNqdAeCaT}HuSIcHtZiwAk@y{@kMyf@\\cPcEyP|A}BkB}b@uFgNgC_UlFqDlCqQfOgIjIai@jQs[nFad@jI_Gd@{H~F}JbBaMzRa_@zJs_@IePfOkmAv\\_~@jJka@jJ}PpMoIlEoNzIkIbYer@dVuPdb@vUv]m@`\\tSlXt_@dP|C"
   },
   {
    "from": "cadini",
@@ -34,7 +38,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 27.4,
-   "minutes": 39
+   "minutes": 39,
+   "geometry": "arm{Gyb|iAoADc@gHzBqC|GbB~AkAfKxFpC|VxUbHD~KpJ~Ld\\|LLnDhAy@rDhHjDzZhL`I__@jBuUzHgJmBsIvBwGhb@rLnYeUwA{EkC_DfBcJrRaOnNyPlZ}JzYvHqIcFrNue@fl@mPlFoPma@iMgGaQmPsUiDkMsIgUdEuPaJg[iBq]rVkYjAqDhCeEfL}L}@eNvL}x@lOoXmCuq@oOeMQsWdEiTuByFtEoV|EgWcD{LbCgIdHiLL}DqCoEiLoF}Am`@tAqIeGqQkEiLdNeOxAiYgCsGoOa@_OvR{aAzEsMP_o@qAoTgLgb@\\cPcEyP|A}BkB}b@uFgNaDoXNoH_C}F"
   },
   {
    "from": "cinque-torri",
@@ -42,7 +47,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 14.5,
-   "minutes": 19
+   "minutes": 19,
+   "geometry": "et|zGmdnhAqC|FyEoJoFyVeHizAvCm_@Di_@fDkLlAwa@zAqCqBq^iGyFpC{LjE{AhD}QVcWkBgIvAoCwAcIyDd@h@sFeD@yBwJhAyIpDwA\\gKkDiF{BrAcAeQdBCgDaFaDKtBaItFDgBkHsIaM|GoDuA{A|BuBlCvGrBJuAwIsEwHrIzJrD^gDgBcGy_@qPt@}PyGkY`BeIuKqSkKmIjFaKoDiHFaF{QqDQjXuJfD_Ep@{BaBsCz@_FfNsTnFaSiNyIfCdEqPz\\"
   },
   {
    "from": "cinque-torri",
@@ -50,7 +56,8 @@
    "profile": "foot-hiking",
    "mode": "walk",
    "km": 2,
-   "minutes": 46
+   "minutes": 46,
+   "geometry": "{r|zGkdnhAzElf@{@jPxB~@lD}@t@wQ~Jo]zM\\"
   },
   {
    "from": "cortina",
@@ -58,7 +65,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 44,
-   "minutes": 55
+   "minutes": 55,
+   "geometry": "y|`{G_gaiAzEtL_C~HvBrEkErFsXhKxDA`FzQhHG`KnDlIkFpSjKdItKjYaB|PxGpPu@bGx_@fDfBsD_@sI{JrEvHtAvIsBKmCwG}BtBtAzA}GnDrI`MfBjHuFEuB`I`DJfD`FeBBbAdQzBsAjDhF]fKqDvAiAxIxBvJdDAi@rFxDe@vAbIwAnCjBfIWbWiD|QkEzAqCzLhGxFpBp^{ApCmAva@gDjLEh_@wCl_@vEdmA|H|c@eCw@~DrLaDgD`Dva@hBbDbCcA}A~F`HnEeCdIwGl@nBv[kD{CQfJpD`KeGrLbGdRnC|_@w@~EoHxAgF`KcDnWeEpMwLjRgQxd@o[pIoEaE|DlRgG}EAzN`BdHaJ_KgTnF_J`OgNlt@oUyC_CoM_K_I_HtBiIqGvDhKgDeEgCl@cCwBpSr[~Cf^~F|HeMsCiG{GaV`Uyc@dlAmM|e@[dJcFrDoElTsFfBsCnUmEjFaDrW_JjOkSfH{U|j@}Ca@uGdFcCpR_Kp\\zCjDkE|IT~GsF?_AjBfCbO_XtJaIe@eNfMuTtAkFuCwMpNiGBgGhGiMrDmNTqBpHoMlC_[~@mD{AmE|AiHsA}E`H?yFlBaFuGvInBmJqGC{LtP_KyBwHfEiI_OeI}DqKCgGqP}NsJcY_DiQ{HsYoFoHkMaUoKmR_ToEnCiBa]tAeGoAyCzBeHgD`Bp@uH_B{AnBUnEmSXsUoCbHeETkBfJ{CRf@sLfDyGiBqI"
   },
   {
    "from": "cortina",
@@ -66,7 +74,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 16.8,
-   "minutes": 20
+   "minutes": 20,
+   "geometry": "y|`{G_gaiAzEtL_C~HvBrEkErFsXhKxDA`FzQhHG`KnDlIkFpSjKdItKjYaB|PxGpPu@bGx_@fDfBsD_@sI{JrEvHtAvIsBKmCwG}BtBtAzA}GnDrI`MfBjHuFEuB`I`DJfD`FeBBbAdQzBsAjDhF]fKqDvAiAxIxBvJdDAi@rFxDe@vAbIwAnCjBfIWbWiD|QkEzAqCzLhGxFpBp^{ApCmAva@gDjLEh_@wCl_@vEdmA|H|c@eCw@~DrLaDgD`Dva@hBbDbCcA}A~F`HnEeCdIwGl@nBv[kD{CQfJpD`KeGrLbGdRnC|_@w@~EoHxAoGvM"
   },
   {
    "from": "cortina",
@@ -74,15 +83,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 16.3,
-   "minutes": 19
-  },
-  {
-   "from": "cortina",
-   "to": "sorapis",
-   "profile": "driving-car",
-   "mode": "drive",
-   "km": 8.9,
-   "minutes": 13
+   "minutes": 19,
+   "geometry": "y|`{G_gaiAzEtL_C~HvBrEkErFsXhKxDA`FzQhHG`KnDlIkFpSjKdItKjYaB|PxG`Qk@rFn_@fD`CsDy@sI{JrEvHtAvIsBKmCwG}BtBtAzAwFdAc@fCbKvOtEsAEbPjI`KhAfIrPz]H~W`JtMtBzTxFsC{B`IvKm@eBp@`B~AqAjFbDtGoA~@|QbJfMbUzD`RxLh@l@fEpCaCe@bCpCYo@nB~YcExGzBp@sCnCl@g@xBlE]vGzI_A|BdDf@|@lCaCd@fKlIzClM|FbEoElAnH|NiV~@tDtDeCZaCpFlJKzQlYjH?bDwG`MuEb@vRdEmCr@pAkEjR"
   },
   {
    "from": "drava",
@@ -90,7 +92,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 2.7,
-   "minutes": 7
+   "minutes": 7,
+   "geometry": "mag|Gok_jAIfQbCv@zCtL`OTQvDhEvA{AhIdGzDbE~Lj@zUfCiMj@nDtGvEbJx["
   },
   {
    "from": "fiscalina",
@@ -98,7 +101,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 11.7,
-   "minutes": 16
+   "minutes": 16,
+   "geometry": "ury{Gk~kjAeP}CmXu_@a\\uSw]l@eb@wUeVtPcYdr@{IjImEnNqMnIkJ|PkJja@}[v{@yAfSoHf_@wCb[HdP{Jr_@{R`_@cB`M_G|Je@zHkI~FoF`d@kQr[kI`i@gOfIiBaAeHvJuBoE"
   },
   {
    "from": "funbob",
@@ -106,7 +110,8 @@
    "profile": "foot-hiking",
    "mode": "walk",
    "km": 1.6,
-   "minutes": 19
+   "minutes": 19,
+   "geometry": "u|d|Gyp{iAcJy[uGwEk@iI_BtCSqFaCo@aCkLuJfJkAg@a@uG"
   },
   {
    "from": "funes",
@@ -114,7 +119,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 33.6,
-   "minutes": 38
+   "minutes": 38,
+   "geometry": "kdt{GkspfASqEaFlGiHXfGxJpEvBzGfA`DuHr@nCmBlK_OnIyFpMiA`XmE`P_Cry@zDlUfDjFhEdg@eA`VvD~P{B~^jFhMpG@hBrB_B~OpE`FlIz[{Jli@hCrPmFvN~Dd]oFvc@oObWz@dKiCbDqKlAaEbH{DfZa@dg@oF`FkA~HwFtC`F|ReP~h@m@xVaIdHk@xD{E`CsBzOsHhL`HhYpLvU`MbNlPxLd@oAnBpArJfl@jVpd@jHAnCpTpOne@zWnWrHhPzGzGdL?`JvJvDNzJxLjKn@pWrQzS|GzVtOxI~@dEuF`FeOhCuYjJ{\\}@qf@nHsSsC_UtByMvGyGtBePiEgUpCy]iDyMxDuKScIpCoE?cOsFyUwHeHlDeOwIuF}AcEpGeTnK_H~@_DuBa]iGeIpDeEvIuB~B}HcH}Ps@iHdAuAvOb@bI{V`PqOhE{O|HnBnMeF~BsL|GsBfHkNd\\mYda@eh@}Css@vAkdBoE~F"
   },
   {
    "from": "la-val",
@@ -122,7 +128,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 26.4,
-   "minutes": 38
+   "minutes": 38,
+   "geometry": "yzw{Gm{xgAhBpIgDxGg@rLzCSjBgJdEUnCcHYrUoElSoBT~AzAq@tHfDaB{BdHnAxCuAdGhB`]nEoClR~S`UnKnHjMrYnFhQzHbY~C|NrJfGpPpKBdI|DhI~NvHgE~JxBzLuPpGBoBlJtGwImB`F?xF|EaHl[nAt`@oDbDmI|[{D`HwGvGMhMgNjFtCjScAnOyM`Id@jVeJjNfDfCbL`RfUpOt[`JbAxLjJ|QbB`HnR|RlDbPfUpKpFfN`Yn^~SjEra@Xp\\oC`JfEdY?hM{@b@qBgHaETkEl`@nE~W`CxGnIvHnAhMrF~Ls@pNaBqNu@b^dDb]qK_RhHrj@yEsLtCdVtHlDuA~A_CkAnA|CjFn@oFnCpGnCcDbCsDi@|Ad\\wCwFg@tP`CzCwDlAyDyM\\nSqDHM|GxJlMc@hIdEdKh@qI"
   },
   {
    "from": "lagazuoi",
@@ -130,7 +137,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 2.3,
-   "minutes": 3
+   "minutes": 3,
+   "geometry": "ii}zG_xghA{BxTeEpMwLjRiRlf@mZ|GcDuEmIzB"
   },
   {
    "from": "landro",
@@ -138,7 +146,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 15.9,
-   "minutes": 21
+   "minutes": 21,
+   "geometry": "wis{Gk|siAyTfEuPaJm]}Ak[fVkYjAqDhCeEfL}L}@eNvL}x@lOoXmCmr@sOwOEiT|DiTuByFtEoV|EgWcD{LbCcLpHoLe@kHsOoF}Am`@tAqIeG_QkE{LdNeOxAiYgCeHaQa@wJhSqdAzEsMP_o@qAoTgLgb@\\cPcEyP|A}BkB}b@uFgNaDoXNoH_C}F"
   },
   {
    "from": "limides",
@@ -146,7 +155,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 15.7,
-   "minutes": 20
+   "minutes": 20,
+   "geometry": "gn|zGeklhAeB~@HqEcG{B|A_GcCbAiBcDaDwa@`DfD_EsLdCv@}H}c@wEemAvCm_@Di_@fDkLlAwa@zAqCqBq^iGyFpC{LtDu@jBkHnBs_@oBoKvAoC_A{GqEAh@sFeD@cCcLdBkI~Cy@\\gKkDiF{BrAcAeQdBCgDaFaDKdBsHbGYyL{U|GoDuA{A|BuBlCvGrBJuAwIsEwHrIzJrD^gDgBcGy_@qPt@}PyGkY`BeIuKqSkKmIjFaKoDiHFaF{QqDQjXuJfD_Ep@{BaBsCz@_FfNsTnFaSiNyIfCdEqPz\\"
   },
   {
    "from": "monte-piana",
@@ -154,7 +164,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 16.4,
-   "minutes": 22
+   "minutes": 22,
+   "geometry": "g}k{GwxziAvI|KpL~BbOnIA|ChAy@rDhHjDzZ|G~FrNhAdOdMrSBxs@fe@jWb@EfEhD\\dCvMlElCzA~FhLlOhAbGjIpBbJtOjE|`@wFjm@aGxNxG|PjEbC_ArV|AfZ_Gn\\MrU|DnE\\kIjAO~Rxt@fFqFDlUzDpHrClQv@jYdDbN|Ax[dAtAvC{CrAdA{Dl^`BTxA_IpAUx@|RpEoHpDtQvL`CCnPcGfExExExBlKoBbEkBkDoBTNrFdB~BuArFfAdE}DOeCnFtCbUhJtZlFhGiAtGvBzBg@hHnAfG}@fB"
   },
   {
    "from": "munkel",
@@ -162,7 +173,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 49.8,
-   "minutes": 53
+   "minutes": 53,
+   "geometry": "aps{Gi~xfAgEbXtBp[s@jWmGdZpAbOvDxJtHzd@CfXgFhSmQpQmQfGsJiDaFbCzMrF|B|PtHrLvMhEpCqHzAxAoBtL_OnIyFpMiA`XmE`P_Cry@zDlUfDjFhEdg@eA`VvD~P{B~^jFhMpG@hBrB_B~OpE`FlIz[{Jli@hCrPmFvN~Dd]oFvc@oObWz@dKiCbDqKlAaEbH{DfZa@dg@oF`FkA~HwFtC`F|ReP~h@m@xVaIdHk@xD{E`CsBzOcH~MpGrWzMlWd]fZ`@cCuSmLMgBdQfIzH`I|K~o@zVdd@tWz|@jPtTnM~[xE|FlThKhNtSnZpZ`ZnKxT|QxxApXlcA`r@np@jF`Se@h`@lGpLpIjV|^tKpGdTdE~YgHhQnDvoAbsAhP~]tRfTnUdL|}@dbAlVlQ|Kxg@nTjU`Mh\\zj@dbAnQxo@rOzVdChLvA~_@fQnf@FxLiBrKia@|kA|E`DtCeFhAoO{@p_@|Evn@cHnVrCdv@mBrp@bNvlAAjMcCdVqDZmJta@aB[y@`Gp@dK_NrCAjEeNg@\\fGfDXAaC"
   },
   {
    "from": "nuvolau",
@@ -170,7 +182,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 17.4,
-   "minutes": 19
+   "minutes": 19,
+   "geometry": "wruzGsgqhAjEkRs@qAeElCc@wRaMtEcDvGkH?{QmYmJJ`CqFdC[uDuDhV_AoH}NnEmA}FcE{CmMgKmI`Ce@}@mCeDg@~@}BwG{ImE\\f@yBoCm@q@rCyG{B_ZbEn@oBqCXd@cCqC`Cm@gEyLi@{DaRgMcUuQwIfAkAcDuGpAkFaB_BdBq@wKl@zBaIeG~BiBgTaJuMI_XsP{]iAgIwG_GkA}Hf@cIeA}@yClBn@dEoFSwBnHbD\\fD`FeBBbAdQzBsAjDhF]fK_Dx@eBjIbCbLdDAi@rFpE@rAve@aE|ZkEzAqCzLhGxFpBp^{ApCmAva@gDjLEh_@wCl_@dHhzAnFxVxEnJpC}F"
   },
   {
    "from": "ortisei",
@@ -178,7 +191,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 37.7,
-   "minutes": 42
+   "minutes": 42,
+   "geometry": "}pg{GqpffAnE_GwAjdB|Crs@ea@dh@e\\lYeUr_@oMdF}HoBiEzOaPpOcIzVwOc@eAtAr@hHbH|P_C|HwItBqDdEhGdItB`]_A~CoK~GqGdT|AbEvItFmDdOvHdHrFxU?bOqCnERbIyDtKhDxMqCx]hEfUuBdPwGxGuBxMrC~ToHrS|@pf@kJz\\iCtYaFdOeEtFyI_A{VuO{S}GqWsQkKo@{JyLwDOaJwJ{LSeGgGsHiP{WoWqOoe@oCqTkH@kVqd@sJgl@cU{LaMcNqLwUaHiYrHiLrB{OzEaCj@yD`IeHl@yVdP_i@aF}RvFuCjA_InFaF`@eg@zDgZ`EcHpKmAhCcD{@eKnOcWnFwc@_Ee]lFwNiCsPzJmi@mI{[qEaF~A_PiBsBqGAkFiMzB__@wD_QdAaViEeg@gDkF{DmU~Bsy@lEaPhAaXxFqM~NoInBuL{AyAqCpHwMiEuHsL}B}P{MsF`FcCrJhDlQgGlQqQfFiSBgXuH{d@wDyJqAcOlGeZr@kWuBq[fEcX"
   },
   {
    "from": "ortisei",
@@ -186,7 +200,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 30.3,
-   "minutes": 47
+   "minutes": 47,
+   "geometry": "}pg{GqpffAnE_Gdh@_|AfO}s@nBqVpMmZ[{L~KgS@cNbDeKbBcUnLkLhBeGDsHmDiPfBcUu@yIoTuZl@q_@fGe[kEwP|JkNnBu_@vLkVtEwZvHi@tGaNjTeMrFaS`LhFwJyRIuSfDzOpJtInj@bDhNoJ|CqIsJd@fHaFvBwKz@m[tHoEdEtVdK}@vIhG|TvAxBfGsE`QjAzOzd@|QzObR|DnOvNdTb@bIbIfDbAwAcA{H}EoLrFoVsBkHfCuEh@iJ`OwReAcBjG]sDaBg@oF|C}Bh@nEt@oIsFeKxCyGwJ_ZmAu]lAlGxL`Pi@cPjKtR`Fx@xB`E_Qoj@xCoGrEyAjI~DfM@`LvJNhCwAs@b@tDfIzDtCaEzJpAdUqFzK`FhBkD`DbDhFZxJuGmNvAqDiRmD`@eCmFuAtCeEWoGrDyBgCgAoHtDxFrIqJMiUtCgDjBjAzCeCeIkInEU{OuFjCwKyD_@rEcGwBP|AuFoBv@bBoNkDpEn@kLaM_@iF{G"
   },
   {
    "from": "ortisei",
@@ -194,7 +209,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 3.9,
-   "minutes": 12
+   "minutes": 12,
+   "geometry": "}pg{GqpffAnE_GoAfc@gGoGuBmU{DvGyFgKcDjSiAyi@wBcR{Om_@wKm`A"
   },
   {
    "from": "ortisei",
@@ -202,7 +218,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 20.4,
-   "minutes": 30
+   "minutes": 30,
+   "geometry": "}pg{GqpffAnE_GuAzc@~ApJiAr[nBhA|DvUrEp^J`OlPj[{KbHsHpU_AnPcDe@aBjBxBt@oD|OGbJkB^iBhIP|JyBnKt@`GoVeF{GpJ`GnfBoGnJ{AlMj@bB|E[~EbC~BkJlBAbDhXbJ|NhBpWpLbWhEj]wAnQ`MbSrA}J|FqJfDh@g@oJbDQrC`UdO~SdFlOnGvGdKpDlTkLhBiMCeTbBsGfJ{GrEQnH}IpOcBgJsHpPn@xAvGbG`I~F{R`Ki@hD_MqF`HyHcCtGIzFsP`Eqa@uJz\\{BLfIio@tG}J}@oInBkHmJrBrBcB~@sGgF`A_J}OfHeZrBmUc@eMeLhA?rA"
   },
   {
    "from": "ortisei",
@@ -210,7 +227,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 30.2,
-   "minutes": 47
+   "minutes": 47,
+   "geometry": "}pg{GqpffAnE_Gdh@_|AfO}s@nBqVpMmZ[{L~KgS@cNbDeKbBcUnLkLhBeGDsHmDiPfBcUu@yIoTuZl@q_@fGe[kEwP|JkNnBu_@vLkVtEwZvHi@tGaNjTeMrFaS`LhFwJyRIuSfDzOpJtInj@bDhNoJ|CqIsJd@fHaFvBwKz@m[tHoEdEtVdK}@vIhG|TvAxBfGsE`QjAzOzd@|QzObR|DnOvNdTb@bIbIfDbAwAcA{H}EoLrFoVsBkHfCuEh@iJ`OwReAcBjG]sDaBg@oF|C}Bh@nEt@oIsFeKxCyGwJ_ZmAu]lAlGxL`Pi@cPjKtR`Fx@xB`E_Qoj@xCoGrEyAjI~DfM@`LvJNhCwAs@b@tDfIzDtCaEzJpAdUqFzK`FhBkD`DbDhFZxJuGmNvAqDiRmD`@eCmFuAtCeEWkHpDiD_LxDbFvHyHDoV|CyDjBjAzCeCeIkInEU_PsGnCyJyD_@rEcGwBP|AuFoBv@bBoNqDtDt@oKfHaX"
   },
   {
    "from": "otzi",
@@ -218,7 +236,8 @@
    "profile": "foot-hiking",
    "mode": "walk",
    "km": 0.7,
-   "minutes": 8
+   "minutes": 8,
+   "geometry": "_zxzGcogdAPiChGaB[kWmBsG"
   },
   {
    "from": "passo-gardena",
@@ -226,7 +245,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 18.3,
-   "minutes": 29
+   "minutes": 29,
+   "geometry": "iqb{Gg`agAlEnEd@vEvAcGXlHcD~FzHqDp@sI|CwDnJrN~EHbFrIjGvUvAvWhNnp@oHhVhVfCaKf[gE~Ak@rNdC_IpEv@`IwEpCtAtHqLmBpSgH`FrJe@}CpIyIzGyQ~AcKmDwIt@uIgCeFeG}CgP?`TvJxRaLiFsF`SkTdMuG`NeIbAgE|YwLjVoBt_@kKxPxEhNgGd[m@p_@nTtZt@xI}B~UbElOErHiBdGoLjLcBbUcDdKAbN_LfSZzLqMlZoBpVgO|s@eh@~{AoE~F"
   },
   {
    "from": "puflatsch",
@@ -234,7 +254,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 20.8,
-   "minutes": 31
+   "minutes": 31,
+   "geometry": "u_b{Gke|eArO|C~RoB`@vNqBzSsHfXjJzQfFaA_ArGsBbBlJsBoBjH|@nIuG|JgIho@zBMtJ{\\aEpa@{FrPuGHxHbCpFaHgCdKcLbB_GzRcGaIyAwGqPo@fJrHqObBoH|IsEPgJzGcBrGBdTiBhMmTjLeKqDoGwGeFmOeO_TsCaUcDPf@nJgDi@}FpJsA|JaMcSvAoQiEk]qLcWiBqWcJ}NcDiXmB@_CjJ_FcC}EZk@cBzAmMnGoJaGofBzGqJnVdFu@aGxBoKQ}JhBiIjB_@FcJnD}OyBu@`BkBbDd@~@oPrHqUzKcHmPk[KaOsEq^}DwUoBiA~@alAoE~F"
   },
   {
    "from": "san-candido",
@@ -242,7 +263,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 24.9,
-   "minutes": 34
+   "minutes": 34,
+   "geometry": "amf|Gcl}iA~B|FOnH`DnXtFfNjB|b@}A|BbExP]bPjMxf@j@x{@eA~GxGlEdGnt@KpWqDz[dOyAzLeN~PjEpIdGl`@uAxEnAdFvL|DpChLMfIeHzLcCfWbDnV}ExFuEhTtBrWeEdMPtq@nOnXlC|x@mOdNwL|L|@dEgLpDiCjYkAp]sVf[hBtP`JfUeEjMrI|V|DvOxOhMfGnPla@fRmGzc@gk@bFsNwHpI|J{YxPmZ`OoNfKwSzBcAzEjCdUvAsLoYvGib@rIwBfJlBtU{H~^kBiLaIkD{ZsDiHiAx@@}CcOoI{FY"
   },
   {
    "from": "san-candido",
@@ -250,7 +272,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 20.4,
-   "minutes": 26
+   "minutes": 26,
+   "geometry": "amf|Gcl}iA~B|FOnH`DnXtFfNjB|b@}A|BbExP]bPjMxf@j@x{@c\\t|A|Lj^VlI}H~|@gCfJx@~XuGf]LdIoOpo@mC`TAdm@kBtTTt`@aDbm@Lj[mBlG}ErCua@ptCjg@iP~SgYvJeDb_@Bpb@xFx\\~yAw@xa@dF|QcLl_@jEvPbCvY~Tt[pGvh@tFzTvLvCtJrHxHU`MfH`NxA"
   },
   {
    "from": "san-candido",
@@ -258,7 +281,8 @@
    "profile": "foot-hiking",
    "mode": "walk",
    "km": 1,
-   "minutes": 11
+   "minutes": 11,
+   "geometry": "wlf|Gco}iAIsEeCOKmCsC_BkFyXcCw@HgQ"
   },
   {
    "from": "san-candido",
@@ -266,7 +290,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 20.4,
-   "minutes": 26
+   "minutes": 26,
+   "geometry": "amf|Gcl}iA~B|FOnH`DnXtFfNjB|b@}A|BbExP]bPjMxf@j@x{@c\\t|A|Lj^VlI}H~|@gCfJx@~XuGf]LdIoOpo@mC`TAdm@kBtTTt`@aDbm@Lj[mBlG}ErCua@ptCjg@iP~SgYvJeDb_@Bpb@xFx\\~yAw@xa@dF|QcLl_@jEvPbCvY~Tt[pGvh@tFzTvLvCtJrHxHU`MfH`NxA"
   },
   {
    "from": "san-candido",
@@ -274,7 +299,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 30.7,
-   "minutes": 48
+   "minutes": 48,
+   "geometry": "amf|Gcl}iA~B|FOnH`DnXtFfNjB|b@}A|BbExP]bPjMxf@j@x{@eA~GxGlEdGnt@KpWqDz[dOyAzLeN~PjEpIdGl`@uAxEnAdFvL|DpChLMfIeHzLcCfWbDnV}ExFuEhTtBrWeEdMPtq@nOnXlC|x@mOdNwL|L|@dEgLpDiCjYkAp]sVf[hBtP`JfUeEjMrI|V|DvOxOhMfGnPla@fRmGzc@gk@bFsNwHpI|J{YxPmZ`OoNfKwSzBcAzEjCdUvAsLoYvGib@rIwBfJlBtU{H~^kBiLaIkD{ZsDiHiAx@MoDe\\}LqJ_ME_LyUcHqC}VgKyF_BjA}GcBwBtBTvE}FtArAuF{Bw@SwSkFdG`Dc`@sCwUpHg^aDn@tCiOuBArEkIwFfCyFkC_@_GxByGqUxSLqL"
   },
   {
    "from": "scotoni",
@@ -282,7 +308,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 20.4,
-   "minutes": 26
+   "minutes": 26,
+   "geometry": "m_`{GurdhAlI{BbDtElZ}GhRmf@vLkRdEqMbDoWfFaK`HmApAeC{Ccc@cGeRdGsLqDaKPgJjDzCoBw[vGm@dCeIaHoE|A_GcCbAiBcDaDwa@`DfD_EsLdCv@}H}c@wEemAvCm_@Di_@fDkLlAwa@zAqCqBq^iGyFpC{LjE{AhD}QVcWkBgIvAoCwAcIyDd@h@sFeD@yBwJhAyIpDwA\\gKkDiF{BrAcAeQdBCgDaFaDKtBaItFDgBkHsIaM|GoDuA{A|BuBlCvGrBJuAwIsEwHrIzJrD^gDgBcGy_@qPt@}PyGkY`BeIuKqSkKmIjFaKoDiHFaF{QqDQjXuJfD_Ep@{BaBsCz@_FfNsTnFaSiNyIfCdEqPz\\"
   },
   {
    "from": "seceda",
@@ -290,7 +317,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 35.8,
-   "minutes": 47
+   "minutes": 47,
+   "geometry": "koi{GebkfAvKl`AfM~VtDdWzAeFhDfXxCoBp@jHlFpD~B|WzHbLkAxx@pDrq@ya@dj@e\\lYeUr_@oMdF}HoBiEzOaPpOcIzVwOc@eAtAr@hHbH|P_C|HwItBqDdEhGdItB`]_A~CoK~GqGdT|AbEvItFmDdOvHdHrFxU?bOqCnERbIyDtKhDxMqCx]hEfUuBdPwGxGuBxMrC~ToHrS|@pf@kJz\\iCtYaJfU_LK{VuO{S}GqWsQkKo@{JyLwDOaJwJ}In@cJkIsHiPwY}ZuMab@oCqTkH@sFiNkIiKwEeLgI_i@cU{LaMcNqLwUaHiYrHiLrB{OzEaCj@yD`IeHl@yVdP_i@aF}RvFuCjA_InFaF`@eg@zDgZ`EcHpKmAhCcD{@eKnOcWnFwc@_Ee]lFwNiCsPzJmi@mI{[qEaF~A_PiBsBqGAkFiMzB__@wD_QdAaViEeg@gDkF{DmU~Bsy@lEaPhAaXxFqM~NoIlBmKs@oCaDtH{GgAqEwBgGyJhHY`FmGRpE"
   },
   {
    "from": "seekofel",
@@ -298,7 +326,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 21.1,
-   "minutes": 28
+   "minutes": 28,
+   "geometry": "y_`|GalwhAaNyAaMgHyHTuJsHwLwCuF{TqGwh@_Uu[cCwYkEwPbLm_@eF}Qv@ya@u[izAuc@oFc_@CwJdD_TfYqf@nOzSmbBtD_KvEi^|IaRMk[`Dcm@Uu`@jBuT@em@lCaTnOqo@lGqh@_A{WjNqdA}@cM{ImV{@kI|ZgzAk@y{@kMyf@\\cPcEyP|A}B_BiPvKLuHef@p@}GzAhBdA_M|I`KbJx["
   },
   {
    "from": "siusi",
@@ -306,7 +335,17 @@
    "profile": "foot-hiking",
    "mode": "walk",
    "km": 1.8,
-   "minutes": 21
+   "minutes": 21,
+   "geometry": "wha{Gg}{eAwA}BaCd@|@vJmB|JiCsCeG`KoEcCyEwJ_DJcAdF{PeR"
+  },
+  {
+   "from": "sorapis",
+   "to": "cortina",
+   "profile": "driving-car",
+   "mode": "drive",
+   "km": 8.3,
+   "minutes": 10,
+   "geometry": "__d{GqwniAqFhWMrU|DnE\\kIjAO~Rxt@fFqFDlUzDpHrClQv@jYdDbN|Ax[dAtAvC{CrAdAeEr]jBn@xA_IpAUx@|RpEoHpDtQvL`CCnPcGfExExExBlKoBbEkBkDoBTNrFdB~BuArFfAdE}DOeCnFtCbUhJtZlFhGiAtGvBzBg@hHnAfG}@fB"
   },
   {
    "from": "tre-cime",
@@ -314,7 +353,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 4.1,
-   "minutes": 10
+   "minutes": 10,
+   "geometry": "k|n{Gks`jAkChPnYqWyBxG^~FxFjCvFgCsEjItB@uChO`Do@mHp\\nClWaDb`@jFeGRvSzBv@sAtF|FuAxAdB"
   },
   {
    "from": "vce",
@@ -322,7 +362,8 @@
    "profile": "driving-car",
    "mode": "drive",
    "km": 166.2,
-   "minutes": 137
+   "minutes": 137,
+   "geometry": "_qwtGigkjA{PzUxBre@mA`HetAvvAgRl\\uPff@uI~c@yDpb@eAlc@j@tpA}E`^sFjKoK|Icc@dNcRh@ehCsO}LcG{IyJme@yfAuJoNiLqH{tDi^}kAm[sMyHog@we@cs@}]ujBgHyN|AyJzE{k@`o@cQbNgy@h]y{@bEerAhq@mRjE{r@pCadAvf@qsAnKqbAnSgUB}y@mVmr@yXyz@uOkvCk_BaiAsz@kpBySk[sKo}@s{@sPqRuWwc@uP{LsmAwPaq@tLmWx@wdB_ZkVjIsZlg@gj@`n@qOv_@kM`o@qKvOgL~D_e@U_MjDew@ldAa\\fSaWjXiZ|Mg`@p\\mN~B{VmDeIl@gUhUuZnEqU`^}GjEcaBdJwr@mJeZkOsk@y{@im@_j@oZyv@kIuLkx@me@_w@q[}u@u}@uc@kp@uNkLgY{LuT\\eSjJaVbRcZdHoXrVkNhW{J`Fwk@yAyu@rZcvDha@yGu@mZcQyY~@_YgBq_@vTav@|V{NnIcJvKaSv`@e^fe@qVhVgQfIaO`Ba|@Og]bHyL`OuHEoh@kNq[vKsLd@mr@_Wu[yZ{V_GiRpD}[a[_WnD_a@wAiZmIeXmOiI|GoU[eN`Gy]oA{KmJaSaGaBuDw@}R_SkPwu@|@kQqPszBsR}Z}GuF}E}Pu]yKoHsb@cBkk@iXeYcGiGiEmYwa@uZmBwWoLaOiU{U_NmIkJsPmb@sd@m^_F]sVtGqFiAgbAgk@_Ni^a_@sQcH`@ik@rd@aY}NaMePiOyKaFdAyA`DwAx_@}BxEfFlK|Ch]WbXyFnVfArAu@|EvBpgAdKfPkAjHdBbHQhMoAxGrFjO`Bbi@cGpW\\lJaEfKaFpBmCbGh@rBjFwAjHhEnGoEjGuMrGfBxDpXlAdYpEfKdEnRnAtR`EtJ|Gxg@^lQ{AzKqKpO_C^gAhNkNoByCtAT|ClLhNgEtQmDf`@_FdKaDzYoEhF`EzR]pNqQ~NqKd[yH~Kf@dUgFfSuIxFoNl^eThZo[jPqJCuFvHWtPsC`I{RrNoI|LiYrN_QaEoEh@_YbZ_IbEyGWiExDaPdAiEqAsB~DuDN_`@oJwTfJuZlj@wp@lc@iLd_@oYx`@}NhH}FnHeEpN_C~_@_N~UaX|WiDxLmPpSeJbCuKtPuLt_@u@pOqOpO{_@hCaVvL{HwHy_@tFkMiFcGtDsJ{EfCdEeQn`@iQ{HgJhCeEvImItDyIxQsG~BgF_BuIv@{F`Hcc@|S}PfP{QbFiOrNk}Anc@kXkGoU_@}JtB{E`E{EjPmYdHwDw@{CbHf@wIpBoBfPiAkGyH|BeHV{\\uDiOiAcWmBwG_Aqv@{Fgk@_JaN{DqUwOm`@kA}RoFyPuc@ur@yK}^W_U}CyUwO_c@kFuXkGoGwAyFnAee@rJof@gBiOnKgh@h@eMuBeTkSsb@oG_BcRuQ}V}DyMuI"
   }
  ]
 }
