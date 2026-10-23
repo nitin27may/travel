@@ -1,0 +1,9 @@
+{"schema":"towns-part/1","cc":"ch","admin1":{"ow":"Obwalden"},"rows":[
+["ch-ow-alpnach","Alpnach",46.94227,8.2718,5218,"ow","Alpnach",2661789],
+["ch-ow-engelberg","Engelberg",46.82107,8.40133,4181,"ow","Engelberg",2660902],
+["ch-ow-giswil","Giswil",46.83333,8.18065,3563,"ow","Giswil",2660604],
+["ch-ow-kerns","Kerns",46.90121,8.27514,5217,"ow","Kerns",2660171],
+["ch-ow-lungern","Lungern",46.78578,8.15984,1921,"ow","Lungern",2659828],
+["ch-ow-sachseln","Sachseln",46.86718,8.23344,4511,"ow","Sachseln",2658894],
+["ch-ow-sarnen","Sarnen",46.89611,8.24531,10368,"ow","Sarnen",2658786]
+]}

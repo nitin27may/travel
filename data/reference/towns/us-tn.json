@@ -1,0 +1,9 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"tn":"Tennessee"},"rows":[
+["us-tn-chattanooga","Chattanooga",35.04563,-85.30968,181099,"tn","Chattanooga",4612862],
+["us-tn-clarksville","Clarksville",36.52977,-87.35945,166722,"tn","Clarksville",4613868],
+["us-tn-east-chattanooga","East Chattanooga",35.06535,-85.24912,154024,"tn","East Chattanooga",4619947],
+["us-tn-knoxville","Knoxville",35.96064,-83.92074,190740,"tn","Knoxville",4634946],
+["us-tn-memphis","Memphis",35.14953,-90.04898,633104,"tn","Memphis",4641239],
+["us-tn-murfreesboro","Murfreesboro",35.84562,-86.39027,165430,"tn","Murfreesboro",4644312],
+["us-tn-nashville","Nashville",36.16589,-86.78444,689447,"tn","Nashville",4644585]
+]}

@@ -1,0 +1,8 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"ma":"Massachusetts"},"rows":[
+["us-ma-boston","Boston",42.35843,-71.05977,653833,"ma","Boston",4930956],
+["us-ma-cambridge","Cambridge",42.3751,-71.10561,110402,"ma","Cambridge",4931972],
+["us-ma-lowell","Lowell",42.63342,-71.31617,110699,"ma","Lowell",4942618],
+["us-ma-new-bedford","New Bedford",41.63526,-70.92701,101079,"ma","New Bedford",4945121],
+["us-ma-springfield","Springfield",42.10148,-72.58981,154341,"ma","Springfield",4951788],
+["us-ma-worcester","Worcester",42.26259,-71.80229,206518,"ma","Worcester",4956184]
+]}

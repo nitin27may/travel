@@ -1,0 +1,11 @@
+{"schema":"towns-part/1","cc":"ch","admin1":{"ti":"Ticino"},"rows":[
+["ch-ti-acquarossa","Acquarossa",46.45473,8.94261,1808,"ti","Acquarossa",2661865],
+["ch-ti-airolo","Airolo",46.52855,8.61189,1559,"ti","Airolo",2661830],
+["ch-ti-biasca","Biasca",46.35972,8.96965,5885,"ti","Biasca",2661524],
+["ch-ti-bodio","Bodio",46.37808,8.90991,1001,"ti","Bodio",2661463],
+["ch-ti-cevio","Cevio",46.31479,8.60332,1844,"ti","Cevio",2661231],
+["ch-ti-faido","Faido",46.477,8.80125,1512,"ti","Faido",2660830],
+["ch-ti-lavertezzo","Lavertezzo",46.25893,8.83756,1168,"ti","Lavertezzo",2659988],
+["ch-ti-lodrino","Lodrino",46.30016,8.97986,1526,"ti","Lodrino",2659864],
+["ch-ti-malvaglia","Malvaglia",46.40588,8.9819,1290,"ti","Malvaglia",2659775]
+]}

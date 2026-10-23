@@ -1,0 +1,5 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"pa":"Pennsylvania"},"rows":[
+["us-pa-allentown","Allentown",40.60843,-75.49018,120207,"pa","Allentown",5178127],
+["us-pa-philadelphia","Philadelphia",39.95238,-75.16362,1573916,"pa","Philadelphia",4560349],
+["us-pa-pittsburgh","Pittsburgh",40.44062,-79.99589,304391,"pa","Pittsburgh",5206379]
+]}

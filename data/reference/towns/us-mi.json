@@ -1,0 +1,8 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"mi":"Michigan"},"rows":[
+["us-mi-ann-arbor","Ann Arbor",42.27756,-83.74088,117070,"mi","Ann Arbor",4984247],
+["us-mi-detroit","Detroit",42.33143,-83.04575,645705,"mi","Detroit",4990729],
+["us-mi-grand-rapids","Grand Rapids",42.96336,-85.66809,195097,"mi","Grand Rapids",4994358],
+["us-mi-lansing","Lansing",42.73253,-84.55553,112644,"mi","Lansing",4998830],
+["us-mi-sterling-heights","Sterling Heights",42.58031,-83.0302,132052,"mi","Sterling Heights",5011148],
+["us-mi-warren","Warren",42.49044,-83.01304,134056,"mi","Warren",5014051]
+]}

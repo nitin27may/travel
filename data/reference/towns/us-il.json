@@ -1,0 +1,11 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"il":"Illinois"},"rows":[
+["us-il-aurora","Aurora",41.76058,-88.32007,200661,"il","Aurora",4883817],
+["us-il-chicago","Chicago",41.85003,-87.65005,2664452,"il","Chicago",4887398],
+["us-il-elgin","Elgin",42.03725,-88.28119,112111,"il","Elgin",4890864],
+["us-il-joliet","Joliet",41.52519,-88.0834,147861,"il","Joliet",4898015],
+["us-il-naperville","Naperville",41.78586,-88.14729,147100,"il","Naperville",4903279],
+["us-il-north-peoria","North Peoria",40.71754,-89.58426,113004,"il","North Peoria",4903976],
+["us-il-peoria","Peoria",40.69365,-89.58899,115070,"il","Peoria",4905687],
+["us-il-rockford","Rockford",42.27113,-89.094,148278,"il","Rockford",4907959],
+["us-il-springfield","Springfield",39.80172,-89.64371,114394,"il","Springfield",4250542]
+]}

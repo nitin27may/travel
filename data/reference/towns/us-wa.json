@@ -1,0 +1,11 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"wa":"Washington"},"rows":[
+["us-wa-bellevue","Bellevue",47.61038,-122.20068,139820,"wa","Bellevue",5786882],
+["us-wa-everett","Everett",47.97898,-122.20208,108010,"wa","Everett",5793933],
+["us-wa-kent","Kent",47.38093,-122.23484,126952,"wa","Kent",5799625],
+["us-wa-renton","Renton",47.48288,-122.21707,100242,"wa","Renton",5808189],
+["us-wa-seattle","Seattle",47.60621,-122.33207,780995,"wa","Seattle",5809844],
+["us-wa-spokane","Spokane",47.65966,-117.42908,229447,"wa","Spokane",5811696],
+["us-wa-tacoma","Tacoma",47.25288,-122.44429,222906,"wa","Tacoma",5812944],
+["us-wa-tri-cities","Tri-Cities",46.2454,-119.19617,244036,"wa","Tri-Cities",7289169],
+["us-wa-vancouver","Vancouver",45.63873,-122.66149,196442,"wa","Vancouver",5814616]
+]}
