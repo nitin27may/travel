@@ -33,7 +33,7 @@ export interface PublicDataInternals {
   trips: PublicTrip[];
   /** Hand-typed Kids from and Hike effort that the scheduler's value replaced, where they differ. */
   tagReport: TagConflict[];
-  /** page slug -> the page's identity key (its `ref`: a capture ref, `loc:<id>` or `proto:<id>`), D-B2. JsonStore reads it for every row and detail. */
+  /** page slug -> the page's identity key (its `ref`: a capture ref, else `place/<slug>`), D-B2, A24. JsonStore reads it for every row and detail. */
   refBySlug: Map<string, string>;
   /** identity key -> slug, merged records included: what data/catalogue/slugs.json pins (D-B1). */
   slugByRef: Map<string, string>;
