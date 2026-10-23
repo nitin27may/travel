@@ -2,7 +2,7 @@
 
 import { Popover } from '@base-ui/react/popover';
 import { useEffect, useId, useRef, useState } from 'react';
-import type { KeyboardEvent, ReactNode } from 'react';
+import type { FocusEvent, KeyboardEvent, ReactNode } from 'react';
 import { Icon } from '@/components/ui/Icon';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { ListState } from '@/lib/entities/types';
@@ -101,7 +101,9 @@ export function WhereBody({ mode, state, counts, loading, shown, labelOf, onPick
   const findId = useId();
 
   const countries = counts.country ?? [];
-  const regionsReady = !loading && counts.region !== undefined;
+  // while a pick is being counted the rows that are already drawn stay (their numbers update in place): replacing them with
+  // "Counting…" unmounts the focused row and a keyboard user loses their place
+  const regionsReady = counts.region !== undefined && (!loading || counts.region.length > 0);
   const regions = country && regionsReady ? counts.region! : [];
   const areas = sel.region.length && regionsReady ? counts.area ?? [] : [];
   const regionsSplit = splitZero(regions, sel.region);
@@ -121,6 +123,22 @@ export function WhereBody({ mode, state, counts, loading, shown, labelOf, onPick
     if (!target) return;
     target.focus();
     pending.current = null;
+  });
+
+  // counts arrive from the API after a pick and the deeper lists are replaced by "Counting…" meanwhile, which unmounts the focused row:
+  // remember the last focused row (its list and name) and put focus back on the same row when the list is drawn again
+  const lastFocus = useRef<{ level: string; label: string } | null>(null);
+  const noteFocus = (e: FocusEvent<HTMLDivElement>) => {
+    const t = e.target as HTMLElement;
+    const lv = t.closest<HTMLElement>('.where-list')?.dataset.level;
+    lastFocus.current = t.getAttribute('role') === 'option' && lv ? { level: lv, label: t.querySelector('.where-name')?.firstChild?.textContent ?? '' } : null;
+  };
+  useEffect(() => {
+    const last = lastFocus.current;
+    const r = root.current;
+    if (!last || !r || pending.current !== null || document.activeElement !== document.body) return;
+    const opts = Array.from(r.querySelectorAll<HTMLElement>(`.where-list[data-level="${last.level}"] [role="option"]`));
+    opts.find((o) => o.querySelector('.where-name')?.firstChild?.textContent === last.label)?.focus();
   });
 
   const focusLevel = (l: WhereLevel) => {
@@ -301,7 +319,7 @@ export function WhereBody({ mode, state, counts, loading, shown, labelOf, onPick
   if (mode === 'drill') {
     const parentName = level === 1 ? countryName : level === 2 ? regionsLabel : '';
     return (
-      <div className="where-menu where-drill" data-level={level} ref={root}>
+      <div className="where-menu where-drill" data-level={level} ref={root} onFocus={noteFocus} onPointerDown={() => { lastFocus.current = null; }}>
         <div className="where-head">
           {level > 0 ? (
             <button type="button" className="btn btn-icon btn-ghost where-back" onClick={() => setLevel((level - 1) as WhereLevel)} aria-label={`Back to ${level === 1 ? 'countries' : noun.many}`}>
@@ -324,7 +342,7 @@ export function WhereBody({ mode, state, counts, loading, shown, labelOf, onPick
   }
 
   return (
-    <div className="where-menu where-columns" ref={root}>
+    <div className="where-menu where-columns" ref={root} onFocus={noteFocus} onPointerDown={() => { lastFocus.current = null; }}>
       {findBox}
       {find ? (
         results
