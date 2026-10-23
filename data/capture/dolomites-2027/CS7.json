@@ -101,6 +101,7 @@
   "records": [
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#tre-cime",
+      "area_id": "IT/veneto/belluno",
       "type": "nature.landform.mountain",
       "layer": "place",
       "name": "Tre Cime di Lavaredo",
@@ -135,6 +136,7 @@
     },
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#north-face-viewpoint",
+      "area_id": "IT/veneto/belluno",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "name": "Tre Cime north-face viewpoint by Rifugio Locatelli",
@@ -160,6 +162,7 @@
     },
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo",
+      "area_id": "IT/veneto/belluno",
       "type": "stay.mountain.hut",
       "layer": "place",
       "name": "Rifugio Auronzo",
@@ -198,6 +201,7 @@
     },
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo",
+      "area_id": "IT/veneto/belluno",
       "type": "stay.mountain.hut",
       "layer": "place",
       "name": "Rifugio Lavaredo",
@@ -236,6 +240,7 @@
     },
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli",
+      "area_id": "IT/veneto/belluno",
       "type": "stay.mountain.hut",
       "layer": "place",
       "name": "Dreizinnenhütte / Rifugio Antonio Locatelli",
@@ -449,6 +454,7 @@
     },
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#toll-road",
+      "area_id": "IT/veneto/belluno",
       "type": "wheels.drive.mountain_pass",
       "layer": "route",
       "name": "Strada per il Rifugio Auronzo (Tre Cime toll road)",
@@ -480,6 +486,7 @@
     },
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#auronzo-car-park",
+      "area_id": "IT/veneto/belluno",
       "type": "access.park.parking",
       "layer": "place",
       "name": "Parcheggio Rifugio Auronzo",
@@ -628,6 +635,7 @@
     },
     {
       "ref": "part/place/lago-di-braies#parking",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "access.park.parking",
       "layer": "place",
       "name": "Lago di Braies P4 car park",
@@ -681,6 +689,7 @@
     },
     {
       "ref": "part/place/lago-di-landro#parking",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "access.park.parking",
       "layer": "place",
       "name": "Lago di Landro car park",
@@ -703,6 +712,7 @@
     },
     {
       "ref": "part/place/lago-dantorno#parking",
+      "area_id": "IT/veneto/belluno",
       "type": "access.park.parking",
       "layer": "place",
       "name": "Lago d'Antorno car park",

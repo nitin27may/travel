@@ -769,6 +769,12 @@
       "coord_src": "osm",
       "point_source": "OSM way 442280371 centroid (amenity=parking); agent checked, needs a person's check"
     },
+    "part/place/lago-di-braies#walk": {
+      "lat": 46.69896,
+      "lon": 12.08547,
+      "coord_src": "osm",
+      "point_source": "OSM relation 12043472, first vertex of the stored track data/tracks/braies.json (ODbL), read 2026-10-19; the track starts 6 m from the trailhead the record names (lane META-1)"
+    },
     "part/place/lago-di-carezza#parking": {
       "lat": 46.41177,
       "lon": 11.5754,
@@ -798,6 +804,12 @@
       "lon": 12.2236,
       "coord_src": "wikidata",
       "point_source": "Q15410555 P625"
+    },
+    "part/place/lago-federa#walk": {
+      "lat": 46.50586,
+      "lon": 12.07888,
+      "coord_src": "osm",
+      "point_source": "OSM relation 3170182, first vertex of the stored track data/tracks/federa.json (ODbL), read 2026-10-19; the track starts 2 m from the trailhead the record names (lane META-1)"
     },
     "part/place/lake-louise#parking": {
       "lat": 51.41501,
