@@ -6,6 +6,7 @@ import { registryProblems, type SlugRegistry } from '@travel/core/catalogue/slug
 import { sortKey } from '@travel/core/catalogue/sortKey.ts';
 import type { TownRow } from '@travel/core/derive/townsData.ts';
 import type { ContractFacts, ContractTarget, Planted } from '../../../core/test/catalogue/contract/index.ts';
+import { REAL_CARD_ORDER } from '../../../core/test/catalogue/contract/cardOrder.golden.ts';
 import { travelRoot } from '@/lib/data/root';
 import { createJsonSource } from '@/lib/server/source';
 import { registryIds } from '@/lib/server/sources';
@@ -91,6 +92,7 @@ export function jsonTarget(): { target: ContractTarget; reads: () => number; sou
     // K23: a key with a gap state and a value that is not the gap option itself (`kid=unknown` IS the gap, so it leaves nothing unchecked)
     gap: { key: 'effort', value: 'moderate' },
     // API-3a (K27): routed legs from the file; geometry arrives with TRP2b's trip-legs/2 fetch
+    cardOrder: { exact: false, cases: REAL_CARD_ORDER },
     ...(legsTrip ? { legs: { trip: legsTrip, geometry: false } } : {}),
   };
   /** A store with `p` planted (K26, globePins.cap): towns added to the real layer, a country's pins cloned up to n. */
