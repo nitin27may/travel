@@ -24,5 +24,6 @@ export function engineFor<Row>(d: EntityDescriptor<Row>): ListEngine<Row> {
         unchecked: uncheckedRows(rows, state, d).reduce((n, g) => n + g.rows.length, 0),
       };
     },
+    unchecked: (rows, f, only) => uncheckedRows(rows, stateOf(f), d, only as FacetParam[] | undefined).map((g) => ({ key: g.param, label: g.label, note: g.note, rows: g.rows })),
   };
 }
