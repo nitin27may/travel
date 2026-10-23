@@ -718,7 +718,7 @@
                           "minLength": 1,
                           "maxLength": 160,
                           "pattern": "^[a-z][a-z0-9-]*\\/.",
-                          "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                          "description": "Stable id of a place: its capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
                         },
                         "slug": {
                           "type": "string",
@@ -1668,8 +1668,7 @@
                                   "type": "string",
                                   "minLength": 1,
                                   "maxLength": 160,
-                                  "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                  "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                  "description": "The capture or research ref a block was drawn from, verbatim"
                                 },
                                 "type": {
                                   "type": "string"
@@ -1901,8 +1900,7 @@
                                                     "type": "string",
                                                     "minLength": 1,
                                                     "maxLength": 160,
-                                                    "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                                    "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                                    "description": "The capture or research ref a block was drawn from, verbatim"
                                                   },
                                                   "name": {
                                                     "type": "string"
@@ -2028,8 +2026,7 @@
                                           "type": "string",
                                           "minLength": 1,
                                           "maxLength": 160,
-                                          "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                          "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                          "description": "The capture or research ref a block was drawn from, verbatim"
                                         },
                                         "name": {
                                           "type": "string"
@@ -2055,8 +2052,7 @@
                                           "type": "string",
                                           "minLength": 1,
                                           "maxLength": 160,
-                                          "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                          "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                          "description": "The capture or research ref a block was drawn from, verbatim"
                                         },
                                         "name": {
                                           "type": "string"
@@ -2082,8 +2078,7 @@
                                         "type": "string",
                                         "minLength": 1,
                                         "maxLength": 160,
-                                        "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                        "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                        "description": "The capture or research ref a block was drawn from, verbatim"
                                       },
                                       "name": {
                                         "type": "string"
@@ -2105,8 +2100,7 @@
                                         "type": "string",
                                         "minLength": 1,
                                         "maxLength": 160,
-                                        "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                        "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                        "description": "The capture or research ref a block was drawn from, verbatim"
                                       },
                                       "name": {
                                         "type": "string"
@@ -2132,8 +2126,7 @@
                                         "type": "string",
                                         "minLength": 1,
                                         "maxLength": 160,
-                                        "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                        "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                        "description": "The capture or research ref a block was drawn from, verbatim"
                                       },
                                       "name": {
                                         "type": "string"
@@ -2163,8 +2156,7 @@
                                         "type": "string",
                                         "minLength": 1,
                                         "maxLength": 160,
-                                        "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                        "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                        "description": "The capture or research ref a block was drawn from, verbatim"
                                       },
                                       "name": {
                                         "type": "string"
@@ -2203,8 +2195,7 @@
                                         "type": "string",
                                         "minLength": 1,
                                         "maxLength": 160,
-                                        "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                        "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                        "description": "The capture or research ref a block was drawn from, verbatim"
                                       },
                                       "name": {
                                         "type": "string"
@@ -2240,8 +2231,7 @@
                                         "type": "string",
                                         "minLength": 1,
                                         "maxLength": 160,
-                                        "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                        "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                        "description": "The capture or research ref a block was drawn from, verbatim"
                                       },
                                       "name": {
                                         "type": "string"
@@ -2264,8 +2254,7 @@
                                                 "type": "string",
                                                 "minLength": 1,
                                                 "maxLength": 160,
-                                                "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                                "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                                "description": "The capture or research ref a block was drawn from, verbatim"
                                               },
                                               "name": {
                                                 "type": "string"
@@ -2291,8 +2280,7 @@
                                                 "type": "string",
                                                 "minLength": 1,
                                                 "maxLength": 160,
-                                                "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                                "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                                "description": "The capture or research ref a block was drawn from, verbatim"
                                               },
                                               "name": {
                                                 "type": "string"
@@ -2508,8 +2496,7 @@
                                                     "type": "string",
                                                     "minLength": 1,
                                                     "maxLength": 160,
-                                                    "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                                    "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                                    "description": "The capture or research ref a block was drawn from, verbatim"
                                                   },
                                                   "name": {
                                                     "type": "string"
@@ -2590,8 +2577,7 @@
                                                 "type": "string",
                                                 "minLength": 1,
                                                 "maxLength": 160,
-                                                "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                                "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                                "description": "The capture or research ref a block was drawn from, verbatim"
                                               },
                                               "name": {
                                                 "type": "string"
@@ -2617,8 +2603,7 @@
                                               "type": "string",
                                               "minLength": 1,
                                               "maxLength": 160,
-                                              "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                              "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                              "description": "The capture or research ref a block was drawn from, verbatim"
                                             },
                                             "name": {
                                               "type": "string"
@@ -2641,8 +2626,7 @@
                                                       "type": "string",
                                                       "minLength": 1,
                                                       "maxLength": 160,
-                                                      "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                                      "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                                      "description": "The capture or research ref a block was drawn from, verbatim"
                                                     },
                                                     "name": {
                                                       "type": "string"
@@ -2742,8 +2726,7 @@
                                               "type": "string",
                                               "minLength": 1,
                                               "maxLength": 160,
-                                              "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                              "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                              "description": "The capture or research ref a block was drawn from, verbatim"
                                             },
                                             "name": {
                                               "type": "string"
@@ -2793,8 +2776,7 @@
                                                     "type": "string",
                                                     "minLength": 1,
                                                     "maxLength": 160,
-                                                    "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                                    "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                                    "description": "The capture or research ref a block was drawn from, verbatim"
                                                   },
                                                   "name": {
                                                     "type": "string"
@@ -2896,8 +2878,7 @@
                                   "type": "string",
                                   "minLength": 1,
                                   "maxLength": 160,
-                                  "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                  "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                  "description": "The capture or research ref a block was drawn from, verbatim"
                                 },
                                 "chips": {
                                   "type": "array",
@@ -3559,15 +3540,13 @@
                                   "type": "string",
                                   "minLength": 1,
                                   "maxLength": 160,
-                                  "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                  "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                  "description": "The capture or research ref a block was drawn from, verbatim"
                                 },
                                 "judgedRef": {
                                   "type": "string",
                                   "minLength": 1,
                                   "maxLength": 160,
-                                  "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                  "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                  "description": "The capture or research ref a block was drawn from, verbatim"
                                 },
                                 "fromPayoff": {
                                   "type": "boolean"
@@ -3581,8 +3560,7 @@
                                           "type": "string",
                                           "minLength": 1,
                                           "maxLength": 160,
-                                          "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                          "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                          "description": "The capture or research ref a block was drawn from, verbatim"
                                         },
                                         "name": {
                                           "type": "string"
@@ -3866,8 +3844,7 @@
                                         "type": "string",
                                         "minLength": 1,
                                         "maxLength": 160,
-                                        "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                        "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                        "description": "The capture or research ref a block was drawn from, verbatim"
                                       },
                                       "name": {
                                         "type": "string"
@@ -3889,8 +3866,7 @@
                                         "type": "string",
                                         "minLength": 1,
                                         "maxLength": 160,
-                                        "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                        "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                        "description": "The capture or research ref a block was drawn from, verbatim"
                                       },
                                       "name": {
                                         "type": "string"
@@ -3960,8 +3936,7 @@
                                         "type": "string",
                                         "minLength": 1,
                                         "maxLength": 160,
-                                        "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                        "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                        "description": "The capture or research ref a block was drawn from, verbatim"
                                       },
                                       "name": {
                                         "type": "string"
@@ -4031,8 +4006,7 @@
                                         "type": "string",
                                         "minLength": 1,
                                         "maxLength": 160,
-                                        "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                        "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                        "description": "The capture or research ref a block was drawn from, verbatim"
                                       },
                                       "name": {
                                         "type": "string"
@@ -4138,8 +4112,7 @@
                                           "type": "string",
                                           "minLength": 1,
                                           "maxLength": 160,
-                                          "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                          "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                          "description": "The capture or research ref a block was drawn from, verbatim"
                                         },
                                         "name": {
                                           "type": "string"
@@ -4181,8 +4154,7 @@
                                           "type": "string",
                                           "minLength": 1,
                                           "maxLength": 160,
-                                          "pattern": "^[a-z][a-z0-9-]*\\/.",
-                                          "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                                          "description": "The capture or research ref a block was drawn from, verbatim"
                                         },
                                         "name": {
                                           "type": "string"
@@ -4444,7 +4416,7 @@
                           "minLength": 1,
                           "maxLength": 160,
                           "pattern": "^[a-z][a-z0-9-]*\\/.",
-                          "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                          "description": "Stable id of a place: its capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
                         }
                       },
                       "required": [
@@ -9144,7 +9116,7 @@
                             "minLength": 1,
                             "maxLength": 160,
                             "pattern": "^[a-z][a-z0-9-]*\\/.",
-                            "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                            "description": "Stable id of a place: its capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
                           },
                           "approx": {
                             "type": "boolean"
@@ -10617,7 +10589,7 @@
                             "minLength": 1,
                             "maxLength": 160,
                             "pattern": "^[a-z][a-z0-9-]*\\/.",
-                            "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                            "description": "Stable id of a place: its capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
                           },
                           "approx": {
                             "type": "boolean"
@@ -10943,7 +10915,7 @@
                       "minLength": 1,
                       "maxLength": 160,
                       "pattern": "^[a-z][a-z0-9-]*\\/.",
-                      "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                      "description": "Stable id of a place: its capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
                     },
                     "slug": {
                       "type": "string",
@@ -10973,7 +10945,7 @@
                             "minLength": 1,
                             "maxLength": 160,
                             "pattern": "^[a-z][a-z0-9-]*\\/.",
-                            "description": "Stable id: the capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
+                            "description": "Stable id of a place: its capture ref (<layer>/...), or place/<slug> for a page built from no capture record"
                           },
                           "slug": {
                             "type": "string",
