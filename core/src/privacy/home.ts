@@ -17,6 +17,9 @@ export const PUBLIC_START_CITY = { name: 'Toronto', lat: 43.6532, lon: -79.3832 
 /** The home town as it appears in text; the scrub replaces it with the public starting city. */
 export const HOME_TOWN = /whitby/gi;
 
+/** The same pattern without the global flag, for `test()` (a global regex keeps a position between calls). Detectors and checks import this one. */
+export const HOME_TOWN_RE = /whitby/i;
+
 const HOME_POINT = { lat: 10.5, lon: -140.5 } as const;
 
 /** True when the point lies within the household exclusion radius (`HOME_RADIUS_KM`) of the home point. */

@@ -1,5 +1,6 @@
 // Pins core/src/privacy/home.ts: the only module that holds the household point, with the exclusion radius from config/nearby.ts.
 // The test reads the point out of the source text so it never types it, and no assertion message prints it.
+import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { HOME_RADIUS_KM } from "../../src/config/nearby.ts";
@@ -40,5 +41,25 @@ describe("privacy/home", () => {
   });
   it("replaces the home town in text, keeping case", () => {
     expect(publicOrigin("Drive from Whitby, then whitby again")).toBe(`Drive from ${PUBLIC_START_CITY.name}, then ${PUBLIC_START_CITY.name.toLowerCase()} again`);
+  });
+});
+
+describe("the home point is typed in one file", () => {
+  it("no other tracked file holds both values of the point (audit GB-C-1)", () => {
+    const root = new URL("../../..", import.meta.url).pathname;
+    const files = execFileSync("git", ["ls-files", "-z"], { cwd: root, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 }).split("\0").filter(Boolean);
+    const lat = new RegExp(`(?<![\\d.])${m?.[1]?.replace(".", "\\.")}(?![\\d])`);
+    const lon = new RegExp(`(?<![\\d.])${m?.[2]?.replace(".", "\\.")}(?![\\d])`);
+    const holders = files.filter((f) => {
+      if (f === "core/src/privacy/home.ts" || /\.(png|webp|jpg|woff2|ico|pdf)$/.test(f) || f.startsWith("web/public/globe/")) return false;
+      let text: string;
+      try {
+        text = readFileSync(`${root}${f}`, "utf8");
+      } catch {
+        return false;
+      }
+      return lat.test(text) && lon.test(text);
+    });
+    expect(holders).toEqual([]);
   });
 });

@@ -60,6 +60,22 @@ export const handlerCases: ContractCase[] = [
     },
   },
   {
+    id: "K18.pathonly",
+    title: "an endpoint whose input is its path alone refuses a query key with 400 invalid_input (through respond())",
+    method: "handler",
+    layer: "handler",
+    async run(store, t) {
+      const { request } = requester(store);
+      const slug = t.facts.placeSlug;
+      for (const path of ["/api/v1/health/", `/api/v1/places/${slug}/`, `/api/v1/places/${slug}/nearby/`, "/api/v1/globe/tree/", `/api/v1/globe/pins/${t.facts.pinCountry}/`, `/api/v1/globe/card/place/${slug}/`, `/api/v1/globe/feature/${t.facts.featureId}/`, `/api/v1/globe/feature/${t.facts.featureId}/line/`]) {
+        expect((await request(path)).status, `${path} without a query is not refused for that reason`).not.toBe(400);
+        const stray = await request(`${path}?anything=1`);
+        expect(stray.status, `${path}?anything=1`).toBe(400);
+        expect(JSON.parse(stray.text).error.code).toBe("invalid_input");
+      }
+    },
+  },
+  {
     id: "K19",
     title: "If-None-Match with the current revision answers 304 with no body; another revision answers 200 (through respond())",
     method: "handler",
