@@ -1,3 +1,4 @@
+import type { TripLegs } from '@travel/core/schema/api/index.ts';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import { filterRows, facetCounts, gapCounts, gapNotes, matchesRow, scopeTotal } from '@/lib/entities/filter';
 import { searchTexts } from '@/lib/search/fulltext';
@@ -94,6 +95,11 @@ export function loadExport(type: 'trip', slug: string): Promise<TripExport>;
 export function loadExport(type: 'place', slug: string): Promise<PlaceExport>;
 export function loadExport(type: 'trip' | 'place', slug: string): Promise<TripExport | PlaceExport> {
   return client().loadExport(type, slug);
+}
+
+/** The routed legs of one public trip, read when its map mounts (D-E5, TRP2b). Null when there is no such endpoint or trip: the map then draws estimates. */
+export function tripLegs(slug: string): Promise<TripLegs | null> {
+  return client().tripLegs(slug);
 }
 
 /** The area tree with counts. No pins. */

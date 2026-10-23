@@ -1,15 +1,19 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Icon } from '@/components/ui/Icon';
 import { Menu } from '@/components/ui/Menu';
 import type { MenuEntry } from '@/components/ui/Menu';
 import { useToast } from '@/components/ui/Toast';
+import { tripLegs } from '@/lib/client/data';
 import { downloadGpx, downloadKml, downloadTripCsv, loadExport } from '@/lib/export/client';
 import type { Generated } from '@/lib/export/client';
 import { checkPoint } from '@/lib/export/licence';
-import type { PlaceExport, TripExport } from '@/lib/export/types';
+import { routeLines } from '@/lib/export/routes';
+import type { ExportLine, PlaceExport, TripExport } from '@/lib/export/types';
 import '@/styles/print.css';
+import { TripPrintView } from './TripPrintView';
 
 export type ExportFormat = 'pdf' | 'ics' | 'gpx' | 'kml' | 'csv';
 
@@ -17,18 +21,24 @@ export type ExportFormat = 'pdf' | 'ics' | 'gpx' | 'kml' | 'csv';
 export interface ExportMenuProps {
   target: { type: 'trip' | 'place'; slug?: string };
   formats: ExportFormat[];
+  /** The button's words: "Export trip" at the top of a trip page, "Export" in its plan bar. */
+  label?: string;
+  /** `sm` is the 36 px secondary button of the plan bar. */
+  size?: 'sm' | 'md';
 }
 
 const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
 
 /**
- * Export menu (components 5.2). Each entry names what it holds. Everything is generated in the browser from the
- * page's own data: PDF is the print stylesheet, GPX and KML pass the licence guard, CSV is one row per stop.
- * The calendar is not offered here for a public trip, because the public trip has no dates: it lives in Copy to my trips.
+ * Export menu (components 5.2). Each entry names what it holds, in plain words. Everything is generated in the browser from the page's own
+ * data: a trip prints from its `json` export model, GPX and KML pass the licence guard and carry the trip's routed legs as lines when it has
+ * them, CSV is one row per stop. The calendar is not offered here for a public trip, because the public trip has no dates: it lives in Copy
+ * to my trips. The routed legs are read once, when a route file is asked for (they are the map's request too, so it is the same answer).
  */
-export function ExportMenu({ target, formats }: ExportMenuProps) {
+export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: ExportMenuProps) {
   const { toast } = useToast();
   const [data, setData] = useState<TripExport | PlaceExport | null>(null);
+  const [printing, setPrinting] = useState<TripExport | null>(null);
   const needsData = !!target.slug;
 
   useEffect(() => {
@@ -41,18 +51,54 @@ export function ExportMenu({ target, formats }: ExportMenuProps) {
     };
   }, [needsData, target.slug, target.type]);
 
+  // Printing: the trip's own print view is mounted, the page is hidden for the print, and both go away when the dialog closes.
+  useEffect(() => {
+    if (!printing) return;
+    const root = document.documentElement;
+    root.setAttribute('data-print-model', '');
+    const done = () => {
+      root.removeAttribute('data-print-model');
+      setPrinting(null);
+    };
+    window.addEventListener('afterprint', done, { once: true });
+    const frame = requestAnimationFrame(() => requestAnimationFrame(() => window.print()));
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('afterprint', done);
+      root.removeAttribute('data-print-model');
+    };
+  }, [printing]);
+
+  const model = useCallback(async () => data ?? (target.type === 'trip' ? await loadExport('trip', target.slug!) : await loadExport('place', target.slug!)), [data, target.slug, target.type]);
+
   const run = useCallback(
-    async (make: (d: TripExport | PlaceExport) => Generated) => {
+    async (make: (d: TripExport | PlaceExport, routes: ExportLine[]) => Generated) => {
       try {
-        const d = data ?? (target.type === 'trip' ? await loadExport('trip', target.slug!) : await loadExport('place', target.slug!));
-        const r = make(d);
+        const d = await model();
+        // the routed legs only for a trip, and only for a file that can hold a line; a failed read leaves the points alone
+        const routes = d.type === 'trip' ? routeLines(await tripLegs(d.slug).catch(() => null), d) : [];
+        const r = make(d, routes);
         toast({ message: `Downloaded ${r.name} · ${r.summary}` });
       } catch {
         toast({ message: 'Could not build that file. Try again.' });
       }
     },
-    [data, target.slug, target.type, toast],
+    [model, toast],
   );
+
+  const print = useCallback(async () => {
+    if (target.type !== 'trip') {
+      window.print();
+      return;
+    }
+    try {
+      const d = await model();
+      if (d.type === 'trip') setPrinting(d);
+      else window.print();
+    } catch {
+      toast({ message: 'Could not build that file. Try again.' });
+    }
+  }, [model, target.type, toast]);
 
   const wptCount = data ? data.waypoints.filter((w) => checkPoint(w.point).ok).length : null;
   const entries: MenuEntry[] = [];
@@ -60,7 +106,7 @@ export function ExportMenu({ target, formats }: ExportMenuProps) {
 
   for (const f of formats) {
     if (f === 'pdf') {
-      entries.push({ label: 'PDF: print this page', icon: 'download', onSelect: () => window.print() });
+      entries.push({ label: target.type === 'trip' ? 'Print or save as PDF' : 'PDF: print this page', icon: 'download', onSelect: () => void print() });
     } else if (f === 'ics') {
       if (target.type !== 'trip' || isOverview) continue;
       entries.push({ label: 'Calendar: pick dates first', icon: 'calendar', disabled: true, shortcut: 'Copy to my trips' });
@@ -87,12 +133,13 @@ export function ExportMenu({ target, formats }: ExportMenuProps) {
       <Menu
         trigger={
           <>
-            <Icon name="download" size={15} /> Export
+            <Icon name="download" size={15} /> {label}
           </>
         }
-        triggerClassName="btn"
+        triggerClassName={size === 'sm' ? 'btn btn-sm' : 'btn'}
         entries={entries}
       />
+      {printing ? createPortal(<TripPrintView data={printing} />, document.body) : null}
     </span>
   );
 }
