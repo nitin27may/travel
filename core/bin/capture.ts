@@ -35,6 +35,9 @@ Commands:
   gaps --budget --check | --write [--reason "<why>"]
                           data/capture/gap-budget.json: --check exits 1 when a gap count rose (runs in tools/check-all.sh);
                           --write lowers the counts, and raises one only with a written reason
+  migrate-placement [--write | --check] [--json]
+                          fill area_id (locations store, Wikidata, parent; never a guess) and trailheads from held tracks; idempotent,
+                          dry run by default, --check exits 1 while there is something to write
   place [--write]         apply data/capture/placement.json (facts and draw to the layer that causes them); runs once
   run --check <file>      validate a crawl run record (capture-run/1)
   codes                   list the E_CAP_*, W_CAP_*, E_PLACE_*, W_PLACE_* and W_TIER_* codes
@@ -232,6 +235,10 @@ async function main(argv: string[]): Promise<number> {
     case "migrate": {
       const { migrateCommand } = await import("../src/capture/migrateCli.ts");
       return migrateCommand(argv, root, out, err);
+    }
+    case "migrate-placement": {
+      const { migratePlacementCommand } = await import("../src/capture/migratePlacementCli.ts");
+      return migratePlacementCommand(argv, root, out, err);
     }
     case "place": {
       const { placeCommand } = await import("../src/capture/placementCli.ts");
