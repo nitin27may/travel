@@ -1,5 +1,7 @@
 # SRV: the schema diff (SRV-D, phase A, read-only) and API-over-Supabase (SRV-0, after E, local only)
 
+> **Revised 23 Oct (phase E start sheet).** SRV-D is done (`research/reports/schema-diff-2026-10.md`, owner decisions Q73 to Q76). SRV-0 stays after the E features merge and off the R2 critical path; [PHASE-E-START.md](../PHASE-E-START.md) does not schedule it inside the phase E usage window. Changes in this brief: the contract SRV-0 implements now includes the phase E methods and cases from API-3 (`tripLegs`, `listUnchecked`, `searchCards`, `countPlaces` with `parsed`, the `json` export format, the town guard; cases K20 to K28) and the opaque `place/<slug>` refs from REF1; the revision is computed from inputs (D-E4), which a loader reproduces by hashing the files it loads; preconditions added: BACKLOG 15.27 (the engine parity corpus K28, done in lane HYG) and GB-A-11 (validate each detail against its output schema at load, because SRV-0 loads data at runtime) and API1a-R-13 (the core runner's home-point check reads the point from `core/src/privacy/home.ts` through the shared detector, never from a committed copy). Worktree `/Users/nks/workspace/travel-wt/v2-SRV0`, branch `public/SRV0`. Supabase rules unchanged: RLS first, `supabase migration new`, local only, regenerate types after every schema change, confirm before anything remote.
+
 - **Agent:** SRV-D `travel-planner` (Opus); SRV-0 `travel-builder` (Sonnet).
 - **Effort:** SRV-D 3 h; SRV-0 24 h.
 - **Rows:** 14.1 (SRV-D), 14.5 (SRV-0); laundry list items 2, 10 to 17.
@@ -65,7 +67,7 @@ SRV-D: a verifier spot-checks 20 mappings against the files. SRV-0: `pnpm --dir 
 
 ## Commit rules
 
-Worktree `/home/nitin27may/workspace/travel-wt/v2-SRV` (branches `public/SRVD`, `public/SRV0`, from `main`). Commits: `docs(v2): schema diff against the capture contract (SRV-D)`, `core(SRV): ...`, `supabase(SRV): ...`. Owned paths only with `git -C <worktree> add <paths>`, never `-A`; Co-Authored-By trailer; do not push.
+Worktree `/Users/nks/workspace/travel-wt/v2-SRV0` (branch `public/SRV0`, from `main`: `git -C /Users/nks/workspace/travel worktree add /Users/nks/workspace/travel-wt/v2-SRV0 -b public/SRV0 main`, then `pnpm install --frozen-lockfile` at the worktree root). SRV-D is done. Commits: `docs(v2): schema diff against the capture contract (SRV-D)`, `core(SRV): ...`, `supabase(SRV): ...`. Owned paths only with `git -C <worktree> add <paths>`, never `-A`; Co-Authored-By trailer; do not push.
 
 ## Hand-back
 

@@ -2,6 +2,8 @@
 
 > **Corrected 21 Oct 2026:** part a is phase A (EXECUTION-PLAN tasks A8, A8b, A9), not phase B; part b is E9. Entry point: [docs/v2/PLAN.md](../../../PLAN.md). Worktree paths below are from the first (Linux) machine; use `<repo parent>/travel-wt/` here.
 
+> **Revised 23 Oct (phase E start sheet).** Part a is merged (phase A). Part b runs from [PHASE-E-START.md](../PHASE-E-START.md) in seat B on Thu 29 to Fri 30 Oct, after META-1, DATA D1 and API-3. Changes in this brief: **Around here and In the same park are lazy** (decision D-E8; the place-size budget of +25% median is the binding limit, BACKLOG 15.30): the page renders one summary line at build ("8 places within 25 km · nearest 2.6 km", under 300 bytes of HTML) and loads the list from `nearbyForPlace` through the API when the section opens (P2, P8). This supersedes step 6's "under 2 KB of HTML a page" and nearby spec 5.2's build-time block. "Where it happens" on offer pages stays in the HTML (one line). The branch is `public/PLC2b-E` (`public/PLC2b` was used by an R1 fix round); worktree `/Users/nks/workspace/travel-wt/v2-PLC2b-E`, port 3482. `core/src/schema/api/nearby.ts` already exists (API-1a) and is API-3's in E; a change is a request (collision E2). The store method goes in a new `core/src/catalogue/json/nearby.ts` with one line in `json/index.ts` (collision E1); the route file `web/app/api/v1/places/[slug]/nearby/route.ts` exists. Use `core/src/geo/` (`haversineKm`, `bearing8`, `bandOf` in `bands.ts`) and `core/src/catalogue/distance.ts` (the pinned distance rule: `distanceKm = round1(haversineKm)`, inclusion on the unrounded value); do not edit `core/src/geo/**` or `core/src/config/**` (E8). Remove the pending entry for the `nearbyForPlace` table from the three contract runners. Approximate points never enter a distance (K17). GPU flag on macOS: `--use-angle=metal`.
+
 Extends [PLC.md](PLC.md) (stage 4). This brief is self-contained for round 2.
 
 - **Agent:** `travel-builder` (Sonnet).
@@ -29,7 +31,7 @@ A trail page answers length, climb, time, route type and suitability at a glance
 | Part | Paths |
 |---|---|
 | a | `web/components/places/**` except `rows.ts`, `PlacesMap.tsx`, `PlaceCardFooter.tsx`, `cluster.ts`; `web/lib/public/sections.ts`, `contract.ts`; `web/lib/map/links.ts` (the one builder for derived links: directions, Google Maps URL, AllTrails search, Komoot search); `web/tests/places/**`, `web/tests/map/links*.test.ts`, `web/tests/e2e/place*.spec.ts`, `places-trail.spec.ts` |
-| b | part a's place files plus `core/src/nearby/**` (new, pure), `core/src/catalogue/json/nearby.ts`, `core/src/schema/api/nearby.ts`, `web/app/api/v1/places/[slug]/nearby/**`, `web/components/places/sections/Nearby.tsx` (new), `core/test/nearby/**` (new), the nearby contract cases, `web/tests/e2e/place-nearby.spec.ts` (new) |
+| b | part a's place files plus `core/src/nearby/**` (new, pure), `core/src/catalogue/json/nearby.ts` (new) and the `nearbyForPlace` line in `json/index.ts`, the `// nearby (PLC2b)` section of `web/lib/client/data.ts`, `web/components/places/sections/Nearby.tsx` (new), `core/test/nearby/**` (new), the pending entries for `nearbyForPlace` in the three contract runners, `web/tests/e2e/place-nearby.spec.ts` (new). Not `core/src/schema/api/nearby.ts` (API-3 in E) |
 
 ## Do not touch
 
@@ -58,7 +60,7 @@ A trail page answers length, climb, time, route type and suitability at a glance
 | 1 | a: Fenland Loop shows every slot with "Not checked yet" for gaps; Tre Cime shows its track figures |
 | 2 | a: every trail page (122) has an AllTrails link; the test asserts the builder is the only place AllTrails, Google Maps and directions URLs are formed |
 | 3 | b: Moraine Lake lists Larch Valley about 2.6 km SW and Lake Louise about 10 km N with bands; pairs collapse; no approximate point used |
-| 4 | b: the block is under 2 KB on every page (test over the build); the place page JS stays inside its budget |
+| 4 | b (revised 23 Oct): the summary line is under 300 bytes of HTML on every page and the list loads on open (test over the build and an e2e network assertion); the place-size test stays green with the median not raised; the place page JS stays inside its budget |
 | 5 | b: every offer page names its place; a gondola page shows "Where it happens" |
 | 6 | Screenshots at 1440 and 390, light and dark: Fenland Loop, Tre Cime, Moraine Lake, a gondola offer, an empty Around here |
 | 7 | `git diff --name-only` shows only owned paths |
@@ -73,7 +75,7 @@ Typecheck, lint, unit tests, your specs only, `bash tools/check-all.sh` with `we
 
 ## Commit rules
 
-Worktrees `/home/nitin27may/workspace/travel-wt/v2-PLC2a` and `v2-PLC2b` (branches `public/PLC2a`, `public/PLC2b`, from `main`), port 3465. Commits per step: `web(public/PLC2): ...`. Owned paths only, `git -C <worktree> add <paths>`, never `-A`; Co-Authored-By trailer; rebase; do not push.
+Worktree `/Users/nks/workspace/travel-wt/v2-PLC2b-E`, branch `public/PLC2b-E` from `main` (`git -C /Users/nks/workspace/travel worktree add /Users/nks/workspace/travel-wt/v2-PLC2b-E -b public/PLC2b-E main`, then `pnpm install --frozen-lockfile` at the worktree root), port 3482. Part a used `v2-PLC2a`, now merged. Commits per step: `web(public/PLC2): ...`. Owned paths only, `git -C <worktree> add <paths>`, never `-A`; Co-Authored-By trailer; rebase; do not push.
 
 ## Hand-back
 
