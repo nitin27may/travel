@@ -18,8 +18,8 @@ export function AboutData() {
     <section className="home-about" aria-labelledby="home-about-h">
       <h2 id="home-about-h" className="home-h2">About the data</h2>
       <p className="home-about-lede">
-        Places come from OpenStreetMap, Wikidata and official park and operator pages; photographs come from Wikimedia Commons and
-        carry their author and licence. Every fact keeps where it was read. Where we are unsure, the page says so with a dashed marker
+        Places come from OpenStreetMap, Wikidata and official park and operator pages; towns and cities come from GeoNames (CC BY 4.0), shown as GeoNames has them;
+        photographs come from Wikimedia Commons and carry their author and licence. Every fact keeps where it was read. Where we are unsure, the page says so with a dashed marker
         instead of guessing, and each place carries a badge for how many of its checks pass: Draft, Usable or Complete.{' '}
         <Link href="/about/data/">Sources and licences</Link>
       </p>
