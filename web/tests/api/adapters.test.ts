@@ -2,9 +2,16 @@ import { describe, expect, it, vi } from 'vitest';
 import { JsonStore } from '@travel/core/catalogue/json/index.ts';
 import { StubStore } from '@travel/core/catalogue/stub/index.ts';
 import { placeShards } from '@/app/places/shards';
+import type { PlaceListRow } from '@/components/places/rows';
 import { createApiClient } from '@/lib/client/api';
 import { createStubClient, callsFromStore } from '@/lib/client/stub';
 import { placeDescriptor } from '@/lib/entities/descriptors/place';
+import { filterRows, matchesRow } from '@/lib/entities/filter';
+import { uncheckedRows } from '@/lib/entities/gaps';
+import { emptyState } from '@/lib/entities/url';
+import type { ListState } from '@/lib/entities/types';
+import { placeTextShards } from '@/app/places/shards';
+import { searchTexts } from '@/lib/search/fulltext';
 import { buildGlobeFiles } from '@/lib/globe/data';
 import { buildSearchParts } from '@/lib/search/build';
 import { createSearcher } from '@/lib/search/search';
@@ -71,6 +78,64 @@ describe('ApiAdapter over JsonStore', () => {
     const client = createApiClient({ ...callsFromStore(new StubStore()), report: ask });
     expect(await client.reportProblem({ page: '/places/x/' })).toEqual({ kind: 'off' });
     expect(ask).not.toHaveBeenCalled();
+  });
+});
+
+// The server's evaluation against the browser's, over the same rows: the swap changes no number, no unchecked row and no ranking (API-3, P9).
+describe('ApiAdapter evaluates on the server what the browser evaluated', () => {
+  const rows = Object.entries(placeShards().files).filter(([id]) => id !== 'xx').flatMap(([, r]) => r) as unknown as PlaceListRow[];
+  const d = placeDescriptor as never;
+  const state = (over: Partial<ListState>): ListState => ({ ...emptyState(), ...over });
+  const states: ListState[] = [
+    state({ facets: { country: ['IT'] } }),
+    state({ facets: { country: ['CA'], kind: ['lake'] } }),
+    state({ facets: { effort: ['moderate'] } }),
+    state({ facets: { kid: ['yes'] } }),
+    state({ facets: { country: ['CA'], stroller: ['all-terrain'] } }),
+  ];
+
+  it('counts a state like filterRows does, and the unchecked rows like uncheckedRows does', async () => {
+    for (const s of states) {
+      const got = await real.countPlaces!(s);
+      expect(got?.n, JSON.stringify(s.facets)).toBe(filterRows(rows, s, d).length);
+      expect(got?.unchecked, JSON.stringify(s.facets)).toBe(uncheckedRows(rows, s, d).reduce((n, g) => n + g.rows.length, 0));
+    }
+  });
+
+  it('counts a parse merged into nothing like the state it opens', async () => {
+    const parsed = { q: '', facets: { country: ['IT'], kind: ['trail'] } };
+    const got = await real.countPlaces!(emptyState(), parsed);
+    expect(got?.n).toBe(filterRows(rows, state({ facets: parsed.facets }), d).length);
+  });
+
+  it('lists the unchecked slugs per constraint, in the browser\'s group order', async () => {
+    for (const s of states) {
+      const local = uncheckedRows(rows, s, d);
+      const got = await real.uncheckedGroups!(s);
+      expect(got?.map((g) => [g.param, [...g.slugs].sort()]), JSON.stringify(s.facets)).toEqual(local.map((g) => [g.param, g.rows.map((r) => r.slug).sort()]));
+      expect(got?.map((g) => [g.label, g.note])).toEqual(local.map((g) => [g.label, g.note]));
+    }
+  });
+
+  it('leaves free text to the list: the server\'s text rule is not the list\'s, so a text state is not counted there', async () => {
+    expect(await real.countPlaces!(state({ q: 'lake' }))).toBeNull();
+    expect(await real.countPlaces!(emptyState(), { q: 'lake', facets: {} })).toBeNull();
+    expect(await real.uncheckedGroups!(state({ q: 'lake', facets: { kid: ['yes'] } }))).toBeNull();
+  });
+
+  it('refuses a state it cannot read (an advanced filter, a saved view), so the browser evaluates it', async () => {
+    expect(await real.countPlaces!(state({ f: 'x', facets: { country: ['IT'] } }))).toBeNull();
+    expect(await real.uncheckedGroups!(state({ sv: 'mine', facets: { country: ['IT'] } }))).toBeNull();
+    expect(await real.cardRank!(state({ f: 'x', q: 'lake' }))).toBeNull();
+  });
+
+  it('ranks the cards like the full-text pass, best first', async () => {
+    const words = 'turquoise';
+    const s = state({ q: words });
+    const local = searchTexts(Object.values(placeTextShards()), words).filter((h) => rows.some((r) => r.slug === h.id && matchesRow(r, s, d, 'q')));
+    const got = await real.cardRank!(s);
+    expect(got).toEqual(local.map((h) => h.id));
+    expect(got!.length).toBeGreaterThan(0);
   });
 });
 

@@ -1,8 +1,8 @@
-import type { ParseInput, ParsedQuery, PlaceQuery, PlaceRow, ReportResult as ApiReportResult, SearchQuery, SearchResult as ApiSearchResult, GlobeCardFile as ApiGlobeCard, GlobeTree as ApiGlobeTree, LightPin as ApiLightPin, ExportFile, Paged } from '@travel/core/schema/api/index.ts';
+import type { CardHits, CardQuery, CountQuery, FacetCounts, ParseInput, ParsedQuery, PlaceQuery, PlaceRow, ReportResult as ApiReportResult, SearchQuery, SearchResult as ApiSearchResult, GlobeCardFile as ApiGlobeCard, GlobeTree as ApiGlobeTree, LightPin as ApiLightPin, ExportFile, Paged, UncheckedPage, UncheckedQuery } from '@travel/core/schema/api/index.ts';
 import { reportLink, reportUrl } from '@/lib/config/product';
 import { defaultOrder } from '@/lib/entities/sort';
 import { SHARD_ROWS } from '@/lib/entities/shards';
-import type { EntityDescriptor } from '@/lib/entities/types';
+import type { EntityDescriptor, FacetParam, ListState } from '@/lib/entities/types';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import type { GlobeCardFile, GlobeTree, LightPin } from '@/lib/globe/types';
 import { normalize } from '@/lib/search/normalize';
@@ -17,19 +17,23 @@ import { staticClient } from './static';
 // adapter over either. In development and tests a response is parsed with its contract schema before it is used.
 //
 // What the API does not carry stays on the static files, named here: the bulk search parts and manifest (a bulk read is not an API
-// call, P8), the full-text files of the list (the contract has no card-text search), the parser's vocabulary file (the server holds it) and
-// the reference geography the globe draws (Natural Earth and OSM files, not catalogue data).
+// call, P8), the parser's vocabulary file (the server holds it) and the reference geography the globe draws (Natural Earth and OSM files,
+// not catalogue data). The counts of a parse or a list state, the "not checked yet" rows and the card-text search are the server's since
+// API-3 (`countPlaces`, `uncheckedGroups`, `cardRank` below); the browser no longer evaluates them for this adapter.
 
 /** What the adapter asks of a server, one method per call it makes. A missing item is `null`. */
 export interface ApiCalls {
   search(q: SearchQuery): Promise<ApiSearchResult>;
   parse(input: ParseInput): Promise<ParsedQuery>;
   listPlaces(q: PlaceQuery, page: { page?: number; pageSize?: number }): Promise<Paged<PlaceRow>>;
+  countPlaces(q: CountQuery): Promise<FacetCounts>;
+  listUnchecked(q: UncheckedQuery, page: { page?: number; pageSize?: number }): Promise<UncheckedPage>;
+  searchCards(q: CardQuery): Promise<CardHits>;
   globeTree(): Promise<ApiGlobeTree>;
   globePins(cc: string): Promise<ApiLightPin[]>;
   globeCard(key: string): Promise<ApiGlobeCard | null>;
   globeLine(id: string): Promise<GlobeLineFile | null>;
-  exportFile(type: 'trip' | 'place', slug: string, format: 'print'): Promise<ExportFile>;
+  exportFile(type: 'trip' | 'place', slug: string, format: 'json'): Promise<ExportFile>;
   report(page: string): Promise<ApiReportResult | null>;
 }
 
@@ -68,9 +72,16 @@ async function readOrNull<T>(method: string, url: string): Promise<T | null> {
 
 export function fetchCalls(): ApiCalls {
   // the list's URL keys (core/src/catalogue/httpCodec.ts, which carries the schemas, so the browser writes the few it needs itself)
-  const list = (q: PlaceQuery, page: { page?: number; pageSize?: number }) => {
+  const filters = (q: PlaceQuery) => {
     const p = new URLSearchParams();
+    if (q.q) p.set('q', q.q);
     for (const [k, v] of Object.entries(q.facets ?? {})) if (v.length) p.set(k, v.join(','));
+    if (q.bbox) p.set('bbox', q.bbox.join(','));
+    if (q.ids?.length) p.set('ids', q.ids.join(','));
+    return p;
+  };
+  const list = (q: PlaceQuery, page: { page?: number; pageSize?: number }) => {
+    const p = filters(q);
     if (page.page && page.page > 1) p.set('page', String(page.page));
     if (page.pageSize) p.set('pageSize', String(page.pageSize));
     return p;
@@ -90,6 +101,25 @@ export function fetchCalls(): ApiCalls {
       return read('parse', at('/parse', p));
     },
     listPlaces: (q, page) => read('listPlaces', at('/places', list(q, page))),
+    countPlaces: (q) => {
+      const p = filters(q);
+      if (q.parsed) {
+        p.set('parsed.q', q.parsed.q ?? '');
+        for (const [k, v] of Object.entries(q.parsed.facets ?? {})) if (v.length) p.set(`parsed.${k}`, v.join(','));
+      }
+      return read('countPlaces', at('/places/counts', p));
+    },
+    listUnchecked: (q, page) => {
+      const p = list(q, page);
+      if (q.only?.length) p.set('only', q.only.join(','));
+      return read('listUnchecked', at('/places/unchecked', p));
+    },
+    searchCards: (q) => {
+      const p = filters(q);
+      p.set('q', q.q);
+      if (q.limit) p.set('limit', String(q.limit));
+      return read('searchCards', at('/places/cards', p));
+    },
     globeTree: () => read('globeTree', at('/globe/tree')),
     globePins: (cc) => read('globePins', at(`/globe/pins/${seg(cc)}`)),
     globeCard: (key) => {
@@ -111,6 +141,8 @@ export function fetchCalls(): ApiCalls {
 
 const SEARCH_MAX = 200;
 const API_PAGE = 100;
+/** The most pages of "not checked yet" rows one list state reads (1,000 rows); the group counts are complete whatever this cuts. */
+const UNCHECKED_PAGES = 10;
 
 /**
  * The country's rows as a list file: every page of `/places?country=`, cut back to the light list row, in the list's default order,
@@ -138,6 +170,20 @@ async function countryRows(calls: ApiCalls, cc: string, d: EntityDescriptor<neve
     return row;
   });
   return defaultOrder(rows, d as unknown as EntityDescriptor<unknown>);
+}
+
+/** The API's place query for a list state, or null when the server cannot evaluate it: an advanced filter (`f`) or a saved view (`sv`) is the browser's grammar. */
+function placeQueryOf(state: ListState): PlaceQuery | null {
+  if (state.f || state.sv) return null;
+  const facets: Record<string, string[]> = {};
+  for (const [k, v] of Object.entries(state.facets)) if (v?.length) facets[k] = k === 'country' ? v.map((x) => x.toUpperCase()) : [...v];
+  const bbox = state.bbox ? state.bbox.split(',').map(Number) : null;
+  return {
+    ...(state.q.trim() ? { q: state.q.trim() } : {}),
+    ...(Object.keys(facets).length ? { facets } : {}),
+    ...(bbox && bbox.length === 4 && bbox.every(Number.isFinite) ? { bbox: bbox as [number, number, number, number] } : {}),
+    ...(state.ids.length ? { ids: [...state.ids] } : {}),
+  };
 }
 
 export function createApiClient(calls: ApiCalls): DataClient {
@@ -168,11 +214,49 @@ export function createApiClient(calls: ApiCalls): DataClient {
       const key = `${type}:${slug}`;
       let p = exports.get(key);
       if (!p) {
-        p = calls.exportFile(type, slug, 'print').then((f) => JSON.parse(f.body) as TripExport | PlaceExport);
+        p = calls.exportFile(type, slug, 'json').then((f) => JSON.parse(f.body) as TripExport | PlaceExport);
         p.catch(() => exports.delete(key));
         exports.set(key, p);
       }
       return p;
+    },
+    async countPlaces(state, parsed) {
+      // Free text stays the list's: the server's `q` rule is a substring of name, area and region (store.ts A16, case K11) and the list's is every
+      // word of a wider haystack, so a server count of a text state would disagree with the rows beside it. core/src/query unifies the two (API-2).
+      if ((parsed ? parsed.q : state.q).trim()) return null;
+      const base = placeQueryOf(state);
+      if (!base) return null;
+      try {
+        const q: CountQuery = parsed ? { ...base, parsed: { q: '', facets: Object.fromEntries(Object.entries(parsed.facets).filter(([, v]) => v?.length).map(([k, v]) => [k, [...v!]])) } } : base;
+        const got = await calls.countPlaces(q);
+        return { n: got.n, unchecked: got.unchecked };
+      } catch {
+        return null;
+      }
+    },
+    async uncheckedGroups(state, only) {
+      const q = state.q.trim() ? null : placeQueryOf(state);
+      if (!q) return null;
+      try {
+        const query: UncheckedQuery = { ...q, ...(only?.length ? { only: [...only] } : {}) };
+        const first = await calls.listUnchecked(query, { pageSize: API_PAGE });
+        const pages = Math.min(UNCHECKED_PAGES, Math.ceil(first.total / API_PAGE));
+        const rest = await Promise.all(Array.from({ length: Math.max(0, pages - 1) }, (_, i) => calls.listUnchecked(query, { page: i + 2, pageSize: API_PAGE })));
+        const rows = [first, ...rest].flatMap((p) => p.items);
+        return first.groups.map((g) => ({ param: g.key as FacetParam, label: g.label, note: g.note, slugs: rows.filter((r) => r.gap === g.key).map((r) => r.slug) }));
+      } catch {
+        return null;
+      }
+    },
+    async cardRank(state) {
+      const q = placeQueryOf(state);
+      if (!q?.q) return null;
+      try {
+        const { q: words, ...filters } = q;
+        return (await calls.searchCards({ ...filters, q: words })).items.map((r) => r.slug);
+      } catch {
+        return null;
+      }
     },
     globeTree() {
       tree ??= (calls.globeTree() as unknown as Promise<GlobeTree>).catch((e) => {

@@ -86,6 +86,8 @@ export function jsonTarget(): { target: ContractTarget; reads: () => number; sou
     registryIds: registryIds(travelRoot()),
     featureId: base.globe.feature('abay') ? 'abay' : 'abay',
     pinCountry: 'ca',
+    // K23: a key with a gap state and a value that is not the gap option itself (`kid=unknown` IS the gap, so it leaves nothing unchecked)
+    gap: { key: 'effort', value: 'moderate' },
     // API-3a (K27): routed legs from the file; geometry arrives with TRP2b's trip-legs/2 fetch
     ...(legsTrip ? { legs: { trip: legsTrip, geometry: false } } : {}),
   };
@@ -101,7 +103,8 @@ export function jsonTarget(): { target: ContractTarget; reads: () => number; sou
   const target: ContractTarget = {
     name: 'json',
     make: () => new JsonStore(spy()),
-    makeChanged: () => new JsonStore(wrap(base, base.placeRows.map((r, i) => (i === 0 ? { ...r, name: `${r.name} (renamed)` } : r)))),
+    // K10: one INPUT file's hash changes (the revision is computed from the inputs, A30), not a served value
+    makeChanged: () => new JsonStore({ ...wrap(base), revisionInputs: () => { const i = base.revisionInputs(); return { ...i, files: i.files.map((f, n) => (n === 0 ? { ...f, sha256: '0'.repeat(64) } : f)) }; } }),
     touch: () => touchAll(path.join(travelRoot(), 'data')),
     registry: () => registry,
     rowReads: () => reads,

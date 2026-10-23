@@ -58,6 +58,40 @@ test.describe('reads go to /api/v1/ by default', () => {
     expect(rec.files()).toEqual([]);
   });
 
+  test('a parse is counted by the API: the header search asks /api/v1/places/counts with the parse, not the browser', async ({ page, site }) => {
+    const rec = recorder(page);
+    await page.goto(`${site.url}/places/`, { waitUntil: 'networkidle' });
+    for (let attempt = 0; attempt < 3; attempt++) {
+      await page.getByRole('button', { name: 'Search' }).first().click();
+      try {
+        await expect(page.getByRole('combobox', { name: 'Search trips, places and areas' })).toBeFocused({ timeout: 10_000 });
+        break;
+      } catch {
+        // not hydrated yet: press again
+      }
+    }
+    await page.getByRole('combobox', { name: 'Search trips, places and areas' }).fill('hot springs in Iceland');
+    await expect.poll(() => rec.api().some((p) => p.startsWith('/api/v1/places/counts/') && p.includes('parsed.'))).toBe(true);
+    expect(rec.files()).toEqual([]);
+  });
+
+  test('"not checked yet" rows come from the API: a Kids filter asks /api/v1/places/unchecked', async ({ page, site }) => {
+    const rec = recorder(page);
+    await page.goto(`${site.url}/places/?kid=yes`, { waitUntil: 'networkidle' });
+    await expect(page.locator('.filter-bar .count-more')).toContainText(/\d+ not checked yet/);
+    await expect.poll(() => rec.api().some((p) => p.startsWith('/api/v1/places/unchecked/') && p.includes('kid=yes'))).toBe(true);
+    expect(rec.files()).toEqual([]);
+  });
+
+  test('a sentence search ranks the cards on the API: words no name holds ask /api/v1/places/cards, not the full-text files', async ({ page, site }) => {
+    const rec = recorder(page);
+    await page.goto(`${site.url}/places/?q=turquoise`, { waitUntil: 'networkidle' });
+    await expect(page.locator('main')).toContainText(/matched on descriptions/);
+    await expect.poll(() => rec.api().some((p) => p.startsWith('/api/v1/places/cards/') && p.includes('q=turquoise'))).toBe(true);
+    // the full-text files live under /search/text/: none is read
+    expect(rec.files()).toEqual([]);
+  });
+
   test('a place: no data file is read', async ({ page, site }) => {
     const rec = recorder(page);
     await page.goto(`${site.url}/places/lago-di-limides/`, { waitUntil: 'networkidle' });

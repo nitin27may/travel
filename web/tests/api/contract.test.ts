@@ -86,12 +86,13 @@ describe('respond() request limits and headers', () => {
     expect(moved.status).toBe(308);
     expect(moved.headers.get('location')).toBe(`/api/v1/trips/${to}/?p=family&split=1`);
   });
-  it('answers 501 with the skeleton words for the API-3b methods, never 500 (API-3a)', async () => {
+  it('answers the API-3 reads with 200 and the contract shapes (parsed counts, unchecked rows, card search, trip legs)', async () => {
     const store = new HandlerStore(target.make() as JsonStore);
-    for (const path of ['/api/v1/places/unchecked/?season=7', '/api/v1/places/cards/?q=lake', `/api/v1/trips/${target.facts.tripSlug}/legs/`, '/api/v1/places/counts/?parsed.kind=lake']) {
+    const word = source.placeRows[0]!.name.split(/[^A-Za-z]+/).sort((a, b) => b.length - a.length)[0]!;
+    for (const path of ['/api/v1/places/unchecked/?season=7', `/api/v1/places/cards/?q=${encodeURIComponent(word)}`, `/api/v1/trips/${target.facts.tripSlug}/legs/`, '/api/v1/places/counts/?parsed.kind=lake']) {
       const res = await store.request(path);
-      expect(res.status, path).toBe(501);
-      expect(JSON.parse(res.text).error.message, path).toMatch(/API-3b/);
+      expect(res.status, path).toBe(200);
+      expect(JSON.parse(res.text), path).toBeTypeOf('object');
     }
   });
   it('sends an export as the JSON envelope without a content-disposition (GB-A-3)', async () => {
