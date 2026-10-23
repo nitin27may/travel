@@ -1,0 +1,5 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"mn":"Minnesota"},"rows":[
+["us-mn-minneapolis","Minneapolis",44.97997,-93.26384,410939,"mn","Minneapolis",5037649],
+["us-mn-rochester","Rochester",44.02163,-92.4699,112225,"mn","Rochester",5043473],
+["us-mn-saint-paul","Saint Paul",44.94441,-93.09327,303176,"mn","Saint Paul",5045360]
+]}

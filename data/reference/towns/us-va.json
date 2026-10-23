@@ -1,0 +1,12 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"va":"Virginia"},"rows":[
+["us-va-alexandria","Alexandria",38.80484,-77.04692,159467,"va","Alexandria",4744091],
+["us-va-arlington","Arlington",38.88101,-77.10428,207627,"va","Arlington",4744709],
+["us-va-chesapeake","Chesapeake",36.81904,-76.27494,235429,"va","Chesapeake",4752186],
+["us-va-east-hampton","East Hampton",37.03737,-76.33161,147993,"va","East Hampton",4756955],
+["us-va-hampton","Hampton",37.02987,-76.34522,137148,"va","Hampton",4762894],
+["us-va-newport-news","Newport News",36.98038,-76.42975,186247,"va","Newport News",4776024],
+["us-va-norfolk","Norfolk",36.84681,-76.28522,238005,"va","Norfolk",4776222],
+["us-va-richmond","Richmond",37.55376,-77.46026,226610,"va","Richmond",4781708],
+["us-va-roanoke","Roanoke",37.27097,-79.94143,100011,"va","Roanoke",4782167],
+["us-va-virginia-beach","Virginia Beach",36.85293,-75.97799,454808,"va","Virginia Beach",4791259]
+]}

@@ -1,0 +1,11 @@
+{"schema":"towns-part/1","cc":"ch","admin1":{"zg":"Zug"},"rows":[
+["ch-zg-baar","Baar",47.19625,8.52954,20546,"zg","Baar",2661653],
+["ch-zg-cham","Cham",47.18213,8.46358,16719,"zg","Cham",2661228],
+["ch-zg-hunenberg","Hünenberg",47.17536,8.42497,9032,"zg","Hunenberg",2660292],
+["ch-zg-menzingen","Menzingen",47.17764,8.59215,3878,"zg","Menzingen",2659686],
+["ch-zg-rotkreuz","Rotkreuz",47.14283,8.4314,10439,"zg","Rotkreuz",2658950],
+["ch-zg-steinhausen","Steinhausen",47.1951,8.48581,8509,"zg","Steinhausen",2658483],
+["ch-zg-unterageri","Unterägeri",47.13645,8.5853,7973,"zg","Unterageri",2658264],
+["ch-zg-walchwil","Walchwil",47.10169,8.51693,3268,"zg","Walchwil",2658075],
+["ch-zg-zug","Zug",47.17242,8.51745,30542,"zg","Zug",2657908]
+]}

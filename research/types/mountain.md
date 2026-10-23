@@ -8,7 +8,7 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 Records: route, offer. Suitability profile `ferrata` (flag, extension ferrata). Effort: schall, huesler, cai-ferrata, osm-ferrata. Sources, in order: O F C.
 
-**route**: R name, type, area_id, summary, access_points, access_cost, price, window, links, geometry, starts_at; R? point (conditional), class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
+**route**: R name, type, area_id, summary, access_points, access_cost, price, window, links, geometry, starts_at; R? point (conditional), near_town (derived), class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional), closures (status_page); A names, wikidata, osm_ref, best_window, best_time, transit, pairs_with, photos, part_of, passes, high_point_m, turnaround_points, gpx_licence, snow_free_window.
 
 **offer (experience)**: R name, type, summary, season, hours, access_cost, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, part_of, on, variants, cancellation, included.
 
@@ -20,7 +20,7 @@ Links: official; R? none; A booking, terms, waiver, conditions, map_sheet, trip_
 
 Records: place, offer. Suitability profile `climb` (flag). Effort: yds-rock, french, uiaa. Sources, in order: O F C.
 
-**place**: R name, type, area_id, summary, season, hours, access_points, access_cost, price, window, links; R? point (conditional), class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, area_id, summary, season, hours, access_points, access_cost, price, window, links; R? point (conditional), near_town (derived), class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
 
 **offer (experience)**: R name, type, summary, season, hours, access_cost, price, window, links, at, run_by, duration_min, activity_min, book_url; R? class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional), closures (status_page); A names, best_window, best_time, transit, pairs_with, photos, part_of, on, variants, cancellation, included.
 
@@ -32,7 +32,7 @@ Links: official; R? none; A booking, terms, waiver, conditions, map_sheet, trip_
 
 Records: place. Suitability profile `climb` (flag). Effort: yds-rock, french, uiaa. Sources, in order: O F C.
 
-**place**: R name, type, area_id, summary, season, hours, access_points, access_cost, price, window, links; R? point (conditional), class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, area_id, summary, season, hours, access_points, access_cost, price, window, links; R? point (conditional), near_town (derived), class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
 
 Suitability: R min_age, adult_required, age_band, kid_note, effort.source_grade, adult_time_min, exposure, hazards, walk_m, access_season; R when operated participation.guide, participation.kit_provided, participation.wear, participation.fitness, participation.waiver, participation.weather_cancel; A min_height_cm, max_height_cm, min_weight_kg, max_weight_kg, limit_reason, carrier_ok, wheelchair, limited_capacity_note, effort.drivers.distance_km, effort.drivers.gain_m, effort.drivers.loss_m, on_site_min, toilets, shade, bail_out, signal, altitude_m, participation.min_shoe_eu, participation.medical, participation.pregnancy.
 
@@ -42,7 +42,7 @@ Links: official; R? none; A booking, terms, waiver, conditions, map_sheet, trip_
 
 Records: place. Suitability profile `climb` (flag). Effort: yds-rock, french, uiaa. Sources, in order: O F C.
 
-**place**: R name, type, area_id, summary, season, hours, access_points, access_cost, price, window, links; R? point (conditional), class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, area_id, summary, season, hours, access_points, access_cost, price, window, links; R? point (conditional), near_town (derived), class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
 
 Suitability: R min_age, adult_required, age_band, kid_note, effort.source_grade, adult_time_min, exposure, hazards, walk_m, access_season; R when operated participation.guide, participation.kit_provided, participation.wear, participation.fitness, participation.waiver, participation.weather_cancel; A min_height_cm, max_height_cm, min_weight_kg, max_weight_kg, limit_reason, carrier_ok, wheelchair, limited_capacity_note, effort.drivers.distance_km, effort.drivers.gain_m, effort.drivers.loss_m, on_site_min, toilets, shade, bail_out, signal, altitude_m, participation.min_shoe_eu, participation.medical, participation.pregnancy.
 
@@ -52,7 +52,7 @@ Links: official; R? none; A booking, terms, waiver, conditions, map_sheet, trip_
 
 Records: place. Suitability profile `climb` (flag). Effort: font, v-scale. Sources, in order: O F C.
 
-**place**: R name, type, area_id, summary, season, hours, access_points, access_cost, price, window, links; R? point (conditional), class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
+**place**: R name, type, area_id, summary, season, hours, access_points, access_cost, price, window, links; R? point (conditional), near_town (derived), class_key (conditional), draw (conditional), standing (conditional), distinction (conditional), easy_payoff (conditional), weather (conditional), why (conditional), signals (conditional), closures (status_page); A names, wikidata, osm_ref, geonames_id, best_window, best_time, transit, pairs_with, photos, part_of.
 
 Suitability: R min_age, adult_required, age_band, kid_note, effort.source_grade, adult_time_min, exposure, hazards, walk_m, access_season; R when operated participation.guide, participation.kit_provided, participation.wear, participation.fitness, participation.waiver, participation.weather_cancel; A min_height_cm, max_height_cm, min_weight_kg, max_weight_kg, limit_reason, carrier_ok, wheelchair, limited_capacity_note, effort.drivers.distance_km, effort.drivers.gain_m, effort.drivers.loss_m, on_site_min, toilets, shade, bail_out, signal, altitude_m, participation.min_shoe_eu, participation.medical, participation.pregnancy.
 

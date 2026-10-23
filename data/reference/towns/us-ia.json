@@ -1,0 +1,5 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"ia":"Iowa"},"rows":[
+["us-ia-cedar-rapids","Cedar Rapids",42.00833,-91.64407,130405,"ia","Cedar Rapids",4850751],
+["us-ia-davenport","Davenport",41.52364,-90.57764,102582,"ia","Davenport",4853423],
+["us-ia-des-moines","Des Moines",41.60054,-93.60911,214133,"ia","Des Moines",4853828]
+]}

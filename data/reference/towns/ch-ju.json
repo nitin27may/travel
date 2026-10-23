@@ -1,0 +1,13 @@
+{"schema":"towns-part/1","cc":"ch","admin1":{"ju":"Jura"},"rows":[
+["ch-ju-alle","Alle",47.42542,7.13018,1693,"ju","Alle",2661814],
+["ch-ju-bassecourt","Bassecourt",47.33808,7.24373,3305,"ju","Bassecourt",2661601],
+["ch-ju-courfaivre","Courfaivre",47.33461,7.28186,1508,"ju","Courfaivre",2661100],
+["ch-ju-courgenay","Courgenay",47.40483,7.12522,2106,"ju","Courgenay",2661099],
+["ch-ju-courrendlin","Courrendlin",47.33853,7.37243,2314,"ju","Courrendlin",2661096],
+["ch-ju-courroux","Courroux",47.36069,7.37371,3085,"ju","Courroux",2661095],
+["ch-ju-courtetelle","Courtételle",47.34074,7.31827,2248,"ju","Courtetelle",2661089],
+["ch-ju-delemont","Delémont",47.36493,7.34453,12682,"ju","Delemont",2661035],
+["ch-ju-glovelier","Glovelier",47.33534,7.20556,1199,"ju","Glovelier",2660579],
+["ch-ju-moutier","Moutier",47.27818,7.36951,7721,"ju","Moutier",2659568],
+["ch-ju-vicques","Vicques",47.35,7.41342,1741,"ju","Vicques",2658137]
+]}

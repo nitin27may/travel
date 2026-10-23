@@ -1,0 +1,14 @@
+{"schema":"towns-part/1","cc":"ch","admin1":{"sh":"Schaffhausen"},"rows":[
+["ch-sh-beringen","Beringen",47.69763,8.57431,3216,"sh","Beringen",2661554],
+["ch-sh-hallau","Hallau",47.69648,8.45827,2000,"sh","Hallau",2660418],
+["ch-sh-loehningen","Löhningen",47.70121,8.55236,1124,"sh","Loehningen",6695944],
+["ch-sh-neuhausen","Neuhausen",47.68579,8.61474,10019,"sh","Neuhausen",2659485],
+["ch-sh-neunkirch","Neunkirch",47.69012,8.49981,2289,"sh","Neunkirch",2659478],
+["ch-sh-ramsen","Ramsen",47.70797,8.80949,1316,"sh","Ramsen",2659109],
+["ch-sh-schaffhausen","Schaffhausen",47.69732,8.63493,36587,"sh","Schaffhausen",2658761],
+["ch-sh-schleitheim","Schleitheim",47.74818,8.48213,1723,"sh","Schleitheim",2658726],
+["ch-sh-stein-am-rhein","Stein am Rhein",47.65933,8.85964,3224,"sh","Stein am Rhein",2658489],
+["ch-sh-stetten","Stetten",47.74025,8.66298,1065,"sh","Stetten",6695938],
+["ch-sh-thayngen","Thayngen",47.74717,8.70724,4120,"sh","Thayngen",2658387],
+["ch-sh-wilchingen","Wilchingen",47.66745,8.46774,2193,"sh","Wilchingen",2657992]
+]}

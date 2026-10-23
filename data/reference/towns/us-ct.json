@@ -1,0 +1,8 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"ct":"Connecticut"},"rows":[
+["us-ct-bridgeport","Bridgeport",41.17923,-73.18945,147629,"ct","Bridgeport",5282804],
+["us-ct-hartford","Hartford",41.76371,-72.68509,121054,"ct","Hartford",4835797],
+["us-ct-new-haven","New Haven",41.30815,-72.92816,130322,"ct","New Haven",4839366],
+["us-ct-north-stamford","North Stamford",41.13815,-73.54346,121230,"ct","North Stamford",4839745],
+["us-ct-stamford","Stamford",41.05343,-73.53873,128874,"ct","Stamford",4843564],
+["us-ct-waterbury","Waterbury",41.55815,-73.0515,108802,"ct","Waterbury",4845193]
+]}

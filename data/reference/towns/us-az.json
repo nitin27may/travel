@@ -1,0 +1,18 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"az":"Arizona"},"rows":[
+["us-az-beaver-dam","Beaver Dam",36.89942,-113.93274,1962,"az","Beaver Dam",5552905],
+["us-az-centennial-park","Centennial Park",36.95381,-112.98132,1264,"az","Centennial Park",7315166],
+["us-az-chandler","Chandler",33.30616,-111.84125,260828,"az","Chandler",5289282],
+["us-az-colorado-city","Colorado City",36.99026,-112.97577,4832,"az","Colorado City",5290463],
+["us-az-fredonia","Fredonia",36.94554,-112.52659,1322,"az","Fredonia",5295349],
+["us-az-gilbert","Gilbert",33.35283,-111.78903,247542,"az","Gilbert",5295903],
+["us-az-glendale","Glendale",33.53865,-112.18599,240126,"az","Glendale",5295985],
+["us-az-mesa","Mesa",33.42227,-111.82264,471825,"az","Mesa",5304391],
+["us-az-peoria","Peoria",33.5806,-112.23738,190985,"az","Peoria",5308480],
+["us-az-phoenix","Phoenix",33.44838,-112.07404,1650070,"az","Phoenix",5308655],
+["us-az-scenic","Scenic",36.79359,-114.01275,1643,"az","Scenic",7315184],
+["us-az-scottsdale","Scottsdale",33.50921,-111.89903,236839,"az","Scottsdale",5313457],
+["us-az-surprise","Surprise",33.63059,-112.33322,143148,"az","Surprise",5316428],
+["us-az-tempe","Tempe",33.41477,-111.90931,175826,"az","Tempe",5317058],
+["us-az-tempe-junction","Tempe Junction",33.41421,-111.94348,158368,"az","Tempe Junction",5317071],
+["us-az-tucson","Tucson",32.22174,-110.92648,542629,"az","Tucson",5318313]
+]}

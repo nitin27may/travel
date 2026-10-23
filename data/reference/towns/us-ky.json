@@ -1,0 +1,6 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"ky":"Kentucky"},"rows":[
+["us-ky-lexington","Lexington",37.98869,-84.47772,320347,"ky","Lexington",4297983],
+["us-ky-lexington-fayette","Lexington-Fayette",38.0498,-84.45855,314488,"ky","Lexington-Fayette",4297999],
+["us-ky-louisville","Louisville",38.25424,-85.75941,624444,"ky","Louisville",4299276],
+["us-ky-meads","Meads",38.41258,-82.70905,288649,"ky","Meads",4300488]
+]}

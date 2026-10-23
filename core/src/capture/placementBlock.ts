@@ -165,6 +165,20 @@ export function ownPointOf(pw: PlacementWorld, ref: string): PointRow | null {
   return null;
 }
 
+const derivable = new WeakMap<World, { points: Map<string, PointRow>; towns: boolean }>();
+
+/**
+ * Whether `near_town` can be derived for a record: the towns layer exists and the record has a point that is not approximate (its own, or
+ * a route's start). The `derived` trigger of the registry reads it, so the property is required exactly where the derive step has an input.
+ */
+export function canDeriveNearTown(world: World, rec: CaptureRecord): boolean {
+  let c = derivable.get(world);
+  if (!c) derivable.set(world, (c = { points: loadPoints(world.root).points, towns: hasTownsLayer(world.root) }));
+  if (!c.towns || (rec.layer !== "place" && rec.layer !== "route")) return false;
+  const hit = pointOf({ world, points: c.points } as PlacementWorld, rec);
+  return !!hit && !hit.point.approx;
+}
+
 /** The point a record is placed by: its own, or (a route) the point of where it starts. */
 export function pointOf(pw: PlacementWorld, rec: CaptureRecord): { point: PointRow; via: string | null } | null {
   const own = ownPointOf(pw, rec.ref);

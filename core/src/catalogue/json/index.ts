@@ -2,8 +2,9 @@
 // (./source.ts), so core never imports web. This class owns what the contract owns (store.ts A1 to A23): input validation, the caps
 // (principle P8: inside the methods), the sort and paging rule, region/`ids`/`q` resolution, the error codes and the revision.
 //
-// Until phase E fills them, `near`, `nearbyForPlace`, `towns`, `city=` and `globeCity` answer `not_available` (cases K3, K4, K5, K15,
-// K17 are pending on this target with the task that fills them). Parsed counts, listUnchecked, searchCards, tripLegs and the json
+// Until phase E fills them, `near`, `nearbyForPlace` and `globeCity` answer `not_available` (cases K3, K4, K5, K17 are pending on this
+// target with the task that fills them). `towns`, `city=` and the gazetteer (`publicTowns()`) come from the source's towns layer (META-2,
+// json/towns.ts); a source with no towns layer answers `not_available` for them as before. Parsed counts, listUnchecked, searchCards, tripLegs and the json
 // export (API-3b) are implemented here over the source's members.
 import type { z } from "zod";
 import * as S from "../../schema/api/index.ts";
@@ -13,12 +14,14 @@ import type { DayTimeline, Profile, ScheduleDayInput } from "../../schedule/type
 import { cardHitsOf } from "../cards.ts";
 import { inputRevision } from "../revision.ts";
 import { fail, ok, type Result } from "../result.ts";
+import type { PublicGazetteer, PublicTownsHolder } from "../../privacy/towns.ts";
 import { currentSlug, isWithdrawn, movedTo, regionSlugOf, resolveRegion } from "../slugs.ts";
 import { PLACE_SORT_VALUES, TRIP_SORT_VALUES, sortRows } from "../sorting.ts";
 import { PLACE_TEXT, TRIP_TEXT, compareCodePoints, matchesText, sortKey } from "../sortKey.ts";
 import { mergeParsed, type CatalogueStore } from "../store.ts";
 import { uncheckedPageOf } from "../unchecked.ts";
 import { noLegs, tripLegsOf } from "./legs.ts";
+import { NO_TOWNS, TownsLayer } from "./towns.ts";
 import type { JsonSource, ListFilter } from "./source.ts";
 
 export type { JsonSource, ListEngine, ListFilter, EngineCounts, SearchScope } from "./source.ts";
@@ -33,10 +36,9 @@ function check<T>(schema: z.ZodType<T>, input: unknown): { ok: true; value: T } 
   return { ok: false, error: { code: "invalid_input", message: "The request does not match the contract.", details: { issues } } };
 }
 
-const NO_TOWNS = "The towns layer is not built yet (META-2), so towns, city filters and near mode are not available.";
-
-export class JsonStore implements CatalogueStore {
+export class JsonStore implements CatalogueStore, PublicTownsHolder {
   private revPromise: Promise<string> | null = null;
+  private townsLayer: TownsLayer | null | undefined;
   private readonly placeBySlug: Map<string, S.PlaceRow>;
   private readonly tripBySlug: Map<string, S.TripRow>;
 
@@ -46,6 +48,19 @@ export class JsonStore implements CatalogueStore {
     this.source = source;
     this.placeBySlug = new Map(source.placeRows.map((r) => [r.slug, r]));
     this.tripBySlug = new Map(source.tripRows.map((r) => [r.slug, r]));
+  }
+
+  // ---- the towns layer (META-2) ------------------------------------------------------------------------------------------------
+
+  /** The towns layer the source holds, loaded once through `publicTownLayer` (towns.ts); null when the source has none. */
+  private layer(): TownsLayer | null {
+    if (this.townsLayer === undefined) this.townsLayer = this.source.towns ? new TownsLayer(this.source.towns(), this.source.registry, () => this.source.placeRows) : null;
+    return this.townsLayer;
+  }
+
+  /** The gazetteer this store loaded, for respond() and the contract kit to hand to the privacy detector (store.ts A33). */
+  publicTowns(): PublicGazetteer | null {
+    return this.layer()?.gazetteer ?? null;
   }
 
   // ---- revision ----------------------------------------------------------------------------------------------------------------
@@ -89,9 +104,14 @@ export class JsonStore implements CatalogueStore {
   ): { rows: Row[]; filter: ListFilter } | S.ApiError {
     const facets: Record<string, string[]> = {};
     const countries = (q.facets?.country ?? []).map((c) => c.toLowerCase());
+    let city: string | null = null;
     for (const [key, values] of Object.entries(q.facets ?? {})) {
       if (!values.length) continue;
-      if (key === "city") return { code: "not_available", message: NO_TOWNS };
+      if (key === "city") {
+        if (!this.layer()) return { code: "not_available", message: NO_TOWNS };
+        city = values[0]!;
+        continue;
+      }
       if (!engine.knows(key)) return { code: "not_available", message: `This store cannot evaluate the facet "${key}".` };
       if (key === "region" && space === "places") {
         const slugs = new Set<string>();
@@ -104,7 +124,13 @@ export class JsonStore implements CatalogueStore {
       } else facets[key] = values;
     }
     const ids = q.ids?.length ? new Set(q.ids.map((id) => currentSlug(this.source.registry, id, space)).filter((s): s is string => !!s)) : null;
-    const kept = rows.filter((r) => (!ids || ids.has(r.slug)) && matchesText(q.q, text(r)));
+    let kept = rows.filter((r) => (!ids || ids.has(r.slug)) && matchesText(q.q, text(r)));
+    if (city !== null) {
+      // the city filter (nearby spec 4.2): places within the nearby radius of the town, exact points only
+      const inCity = this.layer()!.cityRows(kept as unknown as S.PlaceRow[], city);
+      if (!inCity.ok) return inCity.error;
+      kept = inCity.data as unknown as Row[];
+    }
     return { rows: kept, filter: { facets, ...(q.bbox ? { bbox: q.bbox } : {}) } };
   }
 
@@ -197,7 +223,10 @@ export class JsonStore implements CatalogueStore {
   async towns(q: S.TownQuery): Promise<Result<S.TownList>> {
     const qi = check(S.townQuery, q);
     if (!qi.ok) return qi;
-    return fail("not_available", NO_TOWNS);
+    const layer = this.layer();
+    if (!layer) return fail("not_available", NO_TOWNS);
+    const got = layer.list(qi.value, (slug) => this.placeBySlug.get(currentSlug(this.source.registry, slug) ?? slug));
+    return got.ok ? ok(got.data, await this.revision()) : { ok: false, error: got.error };
   }
 
   // ---- search ------------------------------------------------------------------------------------------------------------------

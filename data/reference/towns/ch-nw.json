@@ -1,0 +1,11 @@
+{"schema":"towns-part/1","cc":"ch","admin1":{"nw":"Nidwalden"},"rows":[
+["ch-nw-beckenried","Beckenried",46.96653,8.47575,3050,"nw","Beckenried",2661585],
+["ch-nw-buochs","Buochs",46.97398,8.42279,5524,"nw","Buochs",2661328],
+["ch-nw-dallenwil","Dallenwil",46.9242,8.38785,1738,"nw","Dallenwil",2661053],
+["ch-nw-emmetten","Emmetten",46.95658,8.51467,1232,"nw","Emmetten",2660907],
+["ch-nw-ennetburgen","Ennetbürgen",46.98423,8.41003,4226,"nw","Ennetburgen",2660892],
+["ch-nw-hergiswil","Hergiswil",46.98429,8.30944,5437,"nw","Hergiswil",2660367],
+["ch-nw-stans","Stans",46.95805,8.36609,8393,"nw","Stans",2658504],
+["ch-nw-stansstad","Stansstad",46.9768,8.33553,4471,"nw","Stansstad",2658502],
+["ch-nw-wolfenschiessen","Wolfenschiessen",46.90322,8.39423,2080,"nw","Wolfenschiessen",2657961]
+]}

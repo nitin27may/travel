@@ -1,0 +1,7 @@
+{"schema":"towns-part/1","cc":"us","admin1":{"al":"Alabama"},"rows":[
+["us-al-birmingham","Birmingham",33.52066,-86.80249,196357,"al","Birmingham",4049979],
+["us-al-huntsville","Huntsville",34.7304,-86.58594,215006,"al","Huntsville",4068590],
+["us-al-mobile","Mobile",30.69436,-88.04305,183289,"al","Mobile",4076598],
+["us-al-montgomery","Montgomery",32.36681,-86.29997,195287,"al","Montgomery",4076784],
+["us-al-tuscaloosa","Tuscaloosa",33.20984,-87.56917,111338,"al","Tuscaloosa",4094455]
+]}

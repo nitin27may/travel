@@ -66,6 +66,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain",
       "type": "nature.summit.summit",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 5.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Sulphur Mountain",
       "area_id": "CA/AB/banff-national-park",
       "origin": {
@@ -100,6 +116,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sansons-peak",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 3.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Sanson's Peak",
       "area_id": "CA/AB/banff-national-park",
       "osm_ref": "node/12244949797",
@@ -138,6 +170,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
       "type": "nature.trail.nature_walk.boardwalk",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 3.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Sulphur Mountain summit boardwalk",
       "area_id": "CA/AB/banff-national-park",
       "starts_at": [
@@ -166,6 +214,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sky-bistro",
       "type": "food.eat.restaurant",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 3.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Sky Bistro",
       "area_id": "CA/AB/banff-national-park",
       "osm_ref": "node/678977497",
@@ -198,6 +262,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop",
       "type": "access.transit.shuttle_stop",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 45.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Moraine Lake shuttle stop",
       "area_id": "CA/AB/banff-national-park",
       "osm_ref": "node/13240062778",
@@ -230,6 +310,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 45.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Moraine Lake Rockpile",
       "area_id": "CA/AB/banff-national-park",
       "osm_ref": "node/348002838",
@@ -265,6 +361,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile-loop",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 45.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Moraine Lake Rockpile loop",
       "area_id": "CA/AB/banff-national-park",
       "starts_at": [
@@ -402,6 +514,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 48.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Sentinel Pass",
       "area_id": "CA/AB/banff-national-park",
       "osm_ref": "node/2706106443",
@@ -437,6 +565,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#larch-valley",
       "type": "nature.landform.valley",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 48.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Larch Valley",
       "area_id": "CA/AB/banff-national-park",
       "origin": {
@@ -465,6 +609,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#lower-falls",
       "type": "water.falls.waterfall",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 20.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Johnston Canyon Lower Falls",
       "area_id": "CA/AB/banff-national-park",
       "osm_ref": "node/3005639506",
@@ -497,6 +657,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#upper-falls",
       "type": "water.falls.waterfall",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 20.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Johnston Canyon Upper Falls",
       "area_id": "CA/AB/banff-national-park",
       "osm_ref": "node/3005649801",
@@ -529,6 +705,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots",
       "type": "water.body.pond_reservoir",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 21,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Ink Pots",
       "area_id": "CA/AB/banff-national-park",
       "osm_ref": "node/1366399455",
@@ -668,6 +860,14 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/bow-lake#parking",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+      },
       "name": "Bow Lake day-use parking",
       "osm_ref": "relation/18335545",
       "parks_for": [
@@ -691,6 +891,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "ca-bc-golden",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 33.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Emerald Lake parking",
       "osm_ref": "way/230454536",
       "parks_for": [
@@ -713,6 +929,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-jasper-park-lodge",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 32.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Maligne Lake parking",
       "osm_ref": "relation/21018594",
       "parks_for": [
@@ -735,6 +967,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds#parking",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 21.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Mount Lorette Ponds parking",
       "osm_ref": "way/261038378",
       "parks_for": [
@@ -757,6 +1005,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/pyramid-lake#parking",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-jasper-park-lodge",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 4.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Pyramid Lake parking",
       "osm_ref": "way/1282422641",
       "parks_for": [
@@ -779,6 +1043,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 27.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Wedge Pond parking",
       "osm_ref": "way/262156429",
       "parks_for": [
@@ -801,6 +1081,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/lake-minnewanka#parking",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+      },
+      "near_town_km": {
+        "v": 9.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lake Minnewanka parking",
       "osm_ref": "way/48295612",
       "parks_for": [
@@ -824,6 +1120,14 @@
       "ref": "part/place/lake-louise#parking",
       "type": "access.park.parking",
       "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+      },
       "name": "Lake Louise Lakeshore parking",
       "osm_ref": "way/26752321",
       "parks_for": [
@@ -918,6 +1222,14 @@
       "ref": "part/place/lake-louise#shuttle-stop",
       "type": "access.transit.shuttle_stop",
       "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-23",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+      },
       "name": "Lake Louise Lakeshore shuttle stop",
       "area_id": "CA/AB/banff-national-park",
       "osm_ref": "node/12164756005",
