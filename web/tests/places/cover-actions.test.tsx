@@ -25,7 +25,7 @@ describe('the cover has exactly one primary action (M19, P7)', () => {
     expect(saveIsPrimary(cover(h))).toBe(false);
   });
   it('a place with no stored point has no Directions and Save to a trip is the primary', () => {
-    const h = html('fenland-loop');
+    const h = html('iceline-trail');
     expect(hasDirections(cover(h))).toBe(false);
     expect(saveIsPrimary(cover(h))).toBe(true);
     expect(h).toContain('No point is stored yet, so there are no directions.');

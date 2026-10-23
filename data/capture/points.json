@@ -583,6 +583,22 @@
       "lon": 11.9984,
       "coord_src": "osm",
       "point_source": "OSM way 229003439 Ütia de Scotoni - Rifugio Scotoni centroid (tourism=alpine_hut); the prototype pin is about 1.9 km south; agent checked, needs a person's check"
+    },
+    "part/place/lago-di-braies#walk": {
+      "lat": 46.69896,
+      "lon": 12.085465,
+      "coord_src": "osm",
+      "point_source": "OSM relation 12043472, first vertex of the stored track data/tracks/braies.json (ODbL), read 2026-10-19; the track starts 6 m from the trailhead the record names (lane META-1)",
+      "point_role": "trailhead",
+      "approx": true,
+      "approx_note": "The stored track is not confirmed (listed in UNCONFIRMED_TRAIL_DATA), so its first vertex is where the relation was cut, not a surveyed trailhead. Fix: confirm the route, or read the trailhead node (OSM highway=trailhead)."
+    },
+    "part/place/lago-federa#walk": {
+      "lat": 46.505857,
+      "lon": 12.078883,
+      "coord_src": "osm",
+      "point_source": "OSM relation 3170182, first vertex of the stored track data/tracks/federa.json (ODbL), read 2026-10-19; the track starts 2 m from the trailhead the record names (lane META-1)",
+      "point_role": "trailhead"
     }
   }
 }
