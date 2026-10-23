@@ -24,15 +24,6 @@ function schemaOf(name: string, schema: z.ZodType, components: Record<string, Js
   return out.js;
 }
 
-/**
- * Paths whose route differs from the contract's `http` string. The contract names `GET /api/v1/globe/card/{key}` with the key
- * `place:<slug>`; the route is two segments, because a colon in a path segment is a poor URL (audit GB-A-6). The contract is unchanged; the document
- * says where the route is. `web/tests/api/openapi-routes.test.ts` holds this table to the route files.
- */
-const ROUTE_OF: Partial<Record<CatalogueMethod, { path: string; params: Record<string, z.ZodType> }>> = {
-  globeCard: { path: "/api/v1/globe/card/{kind}/{slug}", params: { kind: z.enum(["place", "trip"]), slug: S.apiSlug } },
-};
-
 const pascal = (m: string): string => m[0]!.toUpperCase() + m.slice(1);
 
 export function buildOpenApi(): Json {
@@ -40,20 +31,19 @@ export function buildOpenApi(): Json {
   const paths: Record<string, Json> = {};
   const errorBody = { content: { "application/json": { schema: { type: "object", required: ["error"], properties: { error: { $ref: "#/components/schemas/ApiError" } } } } } };
   for (const m of Object.keys(CATALOGUE_CONTRACT).sort() as CatalogueMethod[]) {
-    const c = CATALOGUE_CONTRACT[m] as { http: string; query?: z.ZodObject; input: z.ZodType | null; output: z.ZodType };
-    const [verb, contractPath] = c.http.split(" ") as [string, string];
-    const rawPath = ROUTE_OF[m]?.path ?? contractPath;
-    const path = rawPath;
-    // each path parameter carries the pattern of the input schema that checks it
-    const shape = (c.input && "shape" in c.input ? (c.input as z.ZodObject).shape : {}) as Record<string, z.ZodType>;
+    const c = CATALOGUE_CONTRACT[m] as { http: string; query?: z.ZodObject; path?: z.ZodObject; input: z.ZodType | null; output: z.ZodType };
+    const [verb, path] = c.http.split(" ") as [string, string];
+    // each path parameter carries the pattern of the schema that checks it: the contract's `path` schema when the URL's segments are
+    // not the input's keys (globeCard, store.ts A29), else the input schema
+    const shape = (c.path ? c.path.shape : c.input && "shape" in c.input ? (c.input as z.ZodObject).shape : {}) as Record<string, z.ZodType>;
     const paramSchema = (name: string): Json => {
-      const sch = ROUTE_OF[m]?.params[name] ?? shape[name];
+      const sch = shape[name];
       if (!sch) return { type: "string" };
       const js = z.toJSONSchema(sch, { target: "draft-2020-12", unrepresentable: "any" }) as Json;
       delete js.$schema;
       return js;
     };
-    const params: Json[] = [...rawPath.matchAll(/\{(\w+)\}/g)].map((x) => ({ name: x[1], in: "path", required: true, schema: paramSchema(x[1]!) }));
+    const params: Json[] = [...path.matchAll(/\{(\w+)\}/g)].map((x) => ({ name: x[1], in: "path", required: true, schema: paramSchema(x[1]!) }));
     if (c.query) {
       for (const key of Object.keys(c.query.shape)) params.push({ name: key, in: "query", required: false, schema: { type: "string" } });
     }
@@ -61,11 +51,13 @@ export function buildOpenApi(): Json {
     const op: Json = {
       operationId: m,
       summary: m,
-      description: c.query && "q" in c.query.shape && "country" in c.query.shape ? `Facets are comma lists; a narrowed Kind adds f.<facet> parameters (pattern ${S.FACET_KEY_RE.source}).` : undefined,
+      description: c.query && "q" in c.query.shape && "country" in c.query.shape
+        ? `Facets are comma lists; a narrowed Kind adds f.<facet> parameters (pattern ${S.FACET_KEY_RE.source}).${m === "countPlaces" ? ` A parse to merge first (store.ts A25) is sent as parsed.q and parsed.<facet> parameters (the facet part matches the same pattern).` : ""}`
+        : undefined,
       parameters: params,
       responses: {
         "200": { description: "ok", headers: { ETag: { schema: { type: "string" } } }, content: { "application/json": { schema: schemaOf(pascal(m), o, components) } } },
-        ...(m === "getPlace" || m === "getTrip" ? { "308": { description: "the slug moved; Location is the current URL" } } : {}),
+        ...(m === "getPlace" || m === "getTrip" || m === "tripLegs" ? { "308": { description: "the slug moved; Location is the current URL, with the query kept" } } : {}),
         ...Object.fromEntries([400, 404, 413, 501, 500].map((s) => [String(s), { description: STATUS_TEXT[s], ...errorBody }])),
         ...(c.http.startsWith("GET") && m !== "revision" ? { "304": { description: "If-None-Match matched the revision" } } : {}),
       },

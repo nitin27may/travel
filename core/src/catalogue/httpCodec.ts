@@ -4,16 +4,21 @@
 //
 // Decoding rules: comma lists; `country` upper-cased; `f.<facet>` keys taken by FACET_KEY_RE; a single `sort` key with `dir=desc` becomes
 // `-key` (`dir=asc` drops a leading `-`); `bbox` is `w,s,e,n`; `page` and `pageSize` are positive integers; empty values are absent.
-// The page-only keys (PAGE_ONLY_KEYS) are dropped; any other unknown key is `invalid_input`, so a typo never filters silently.
+// The page-only keys (PAGE_ONLY_KEYS) are dropped; any other unknown key is `invalid_input`, so a typo never filters silently. A key given
+// twice is refused, `f.<facet>` and `parsed.<key>` included (store.ts A31); `r` is a decimal number (`^\d+(\.\d+)?$`, A31).
+// `countPlaces` also reads the parse to merge (`parsed.q`, `parsed.<facet>`, A25), `listUnchecked` reads `only`, `searchCards` `limit`.
 // The decoded object is then checked by the method's input schema, so every refusal is the store's own `invalid_input`.
 import type { z } from "zod";
 import * as S from "../schema/api/index.ts";
 
-export type HttpMethod = "listPlaces" | "countPlaces" | "near" | "listTrips" | "towns" | "search" | "parse" | "getTrip" | "getExport";
+export type HttpMethod = "listPlaces" | "countPlaces" | "listUnchecked" | "searchCards" | "near" | "listTrips" | "towns" | "search" | "parse" | "getTrip" | "getExport";
 
 /** The store call a request decodes to. */
 export type DecodedArgs =
-  | { method: "listPlaces" | "countPlaces"; q: S.PlaceQuery; page: S.ApiPage }
+  | { method: "listPlaces"; q: S.PlaceQuery; page: S.ApiPage }
+  | { method: "countPlaces"; q: S.CountQuery; page: S.ApiPage }
+  | { method: "listUnchecked"; q: S.UncheckedQuery; page: S.ApiPage }
+  | { method: "searchCards"; q: S.CardQuery }
   | { method: "listTrips"; q: S.TripQuery; page: S.ApiPage }
   | { method: "near"; q: S.NearQuery; page: S.ApiPage }
   | { method: "towns"; q: S.TownQuery }
@@ -29,7 +34,9 @@ const invalid = (message: string, details?: Record<string, unknown>): Decoded =>
 
 const HTTP_SCHEMA: Record<HttpMethod, z.ZodObject> = {
   listPlaces: S.listHttpQuery,
-  countPlaces: S.listHttpQuery,
+  countPlaces: S.countsHttpQuery,
+  listUnchecked: S.uncheckedHttpQuery,
+  searchCards: S.cardsHttpQuery,
   listTrips: S.listHttpQuery,
   near: S.nearHttpQuery,
   towns: S.townsHttpQuery,
@@ -39,7 +46,7 @@ const HTTP_SCHEMA: Record<HttpMethod, z.ZodObject> = {
   getExport: S.exportHttpQuery,
 };
 
-const LIST_METHODS = new Set<HttpMethod>(["listPlaces", "countPlaces", "listTrips", "near"]);
+const LIST_METHODS = new Set<HttpMethod>(["listPlaces", "countPlaces", "listUnchecked", "searchCards", "listTrips", "near"]);
 const NORMALISE: Record<string, (v: string) => string> = { country: (v) => v.toUpperCase() };
 
 function isBad(x: unknown): x is { bad: string } {
@@ -49,6 +56,12 @@ function isBad(x: unknown): x is { bad: string } {
 function posInt(v: string | undefined, name: string): number | undefined | { bad: string } {
   if (v === undefined || v === "") return undefined;
   return /^[1-9]\d*$/.test(v) ? Number(v) : { bad: `${name} must be a positive integer` };
+}
+
+/** A radius in km: a plain decimal (A31, audit GB-A-12), never `0x10`, `1e2`, `-5` or `Infinity`. Zero passes here and the schema refuses it. */
+function decimal(v: string | undefined, name: string): number | undefined | { bad: string } {
+  if (v === undefined || v === "") return undefined;
+  return /^\d+(?:\.\d+)?$/.test(v) ? Number(v) : { bad: `${name} must be a decimal number of km` };
 }
 
 /** The list part of a query: free text, facets, sort, bbox and ids, as decodeState reads them. */
@@ -76,25 +89,49 @@ function listQuery(flat: Record<string, string | undefined>, scoped: Record<stri
   return q;
 }
 
-/** Splits URL parameters into the method's flat keys and the scoped `f.<facet>` keys; refuses unknown keys and repeated keys. */
-function split(method: HttpMethod, params: URLSearchParams): { flat: Record<string, string>; scoped: Record<string, string[]> } | { bad: string; details?: Record<string, unknown> } {
+interface Split {
+  flat: Record<string, string>;
+  scoped: Record<string, string[]>;
+  /** countPlaces: the `parsed.<facet>` keys (A25), and whether any `parsed.` key was present */
+  parsed: Record<string, string[]>;
+  hasParsed: boolean;
+}
+
+/** Splits URL parameters into the method's flat keys, the scoped `f.<facet>` keys and the parse's keys; refuses unknown and repeated keys. */
+function split(method: HttpMethod, params: URLSearchParams): Split | { bad: string; details?: Record<string, unknown> } {
   const known = new Set(Object.keys(HTTP_SCHEMA[method].shape));
-  const flat: Record<string, string> = {};
-  const scoped: Record<string, string[]> = {};
+  const out: Split = { flat: {}, scoped: {}, parsed: {}, hasParsed: false };
+  const seen = new Set<string>();
   const unknown: string[] = [];
   for (const [k, v] of params) {
     if ((S.PAGE_ONLY_KEYS as readonly string[]).includes(k)) continue;
+    // every key once: a second `f.season` or `parsed.kind` would silently replace the first (A31, audit GB-A-12)
+    if (seen.has(k)) return { bad: `${k} appears twice; use one comma list` };
+    seen.add(k);
     if (LIST_METHODS.has(method) && k.startsWith("f.") && S.FACET_KEY_RE.test(k)) {
       const values = csv(v);
-      if (values.length) scoped[k] = values;
+      if (values.length) out.scoped[k] = values;
+      continue;
+    }
+    if (method === "countPlaces" && k.startsWith(S.PARSED_PREFIX) && k !== "parsed.q") {
+      const key = k.slice(S.PARSED_PREFIX.length);
+      if (!S.FACET_KEY_RE.test(key)) {
+        unknown.push(k);
+        continue;
+      }
+      out.hasParsed = true;
+      const values = csv(v).map((x) => (NORMALISE[key] ? NORMALISE[key](x) : x));
+      if (values.length) out.parsed[key] = values;
       continue;
     }
     if (!known.has(k)) unknown.push(k);
-    else if (k in flat) return { bad: `${k} appears twice; use one comma list` };
-    else flat[k] = v;
+    else {
+      if (k === "parsed.q") out.hasParsed = true;
+      out.flat[k] = v;
+    }
   }
   if (unknown.length) return { bad: `unknown query parameter: ${unknown.join(", ")}`, details: { unknown } };
-  return { flat, scoped };
+  return out;
 }
 
 const profileOf = (flat: Record<string, string>): S.TripProfile | undefined => {
@@ -136,20 +173,41 @@ export function fromSearchParams(method: HttpMethod, params: URLSearchParams, pa
       if (flat.near) nq.near = flat.near;
       const city = lq.facets?.city?.[0];
       if (city) nq.city = city;
-      if (flat.r) nq.r = Number(flat.r);
+      const r = decimal(flat.r, "r");
+      if (isBad(r)) return fail(r);
+      if (r !== undefined) nq.r = r;
       const q = checked(S.nearQuery, nq);
       return isBad(q) ? fail(q) : { ok: true, args: { method, q, page } };
+    }
+    if (method === "countPlaces") {
+      const cq: S.CountQuery = { ...lq };
+      if (parts.hasParsed) cq.parsed = { ...(flat["parsed.q"] ? { q: flat["parsed.q"] } : {}), ...(Object.keys(parts.parsed).length ? { facets: parts.parsed } : {}) };
+      const q = checked(S.countQuery, cq);
+      return isBad(q) ? fail(q) : { ok: true, args: { method, q, page } };
+    }
+    if (method === "listUnchecked") {
+      const only = csv(flat.only);
+      const q = checked(S.uncheckedQuery, { ...lq, ...(only.length ? { only } : {}) });
+      return isBad(q) ? fail(q) : { ok: true, args: { method, q, page } };
+    }
+    if (method === "searchCards") {
+      const limit = posInt(flat.limit, "limit");
+      if (isBad(limit)) return fail(limit);
+      const q = checked(S.cardQuery, { ...lq, q: lq.q ?? "", ...(limit !== undefined ? { limit } : {}) });
+      return isBad(q) ? fail(q) : { ok: true, args: { method, q } };
     }
     if (method === "listTrips") {
       const q = checked(S.tripQuery, lq);
       return isBad(q) ? fail(q) : { ok: true, args: { method, q, page } };
     }
     const q = checked(S.placeQuery, lq);
-    return isBad(q) ? fail(q) : { ok: true, args: { method: method as "listPlaces" | "countPlaces", q, page } };
+    return isBad(q) ? fail(q) : { ok: true, args: { method: "listPlaces", q, page } };
   }
   switch (method) {
     case "towns": {
-      const q = checked(S.townQuery, { ...flat, ...(flat.r ? { r: Number(flat.r) } : {}) });
+      const r = decimal(flat.r, "r");
+      if (isBad(r)) return fail(r);
+      const q = checked(S.townQuery, { ...flat, ...(r !== undefined ? { r } : {}) });
       return isBad(q) ? fail(q) : { ok: true, args: { method, q } };
     }
     case "search": {
@@ -179,8 +237,11 @@ export function fromSearchParams(method: HttpMethod, params: URLSearchParams, pa
   }
 }
 
-/** The inverse for the list methods: a PlaceQuery (or NearQuery) and a page as URL parameters, in encodeState's canonical order. */
-export function toSearchParams(q: S.PlaceQuery | S.NearQuery, page: S.ApiPage = {}): URLSearchParams {
+/**
+ * The inverse for the list methods: a PlaceQuery (or NearQuery, CountQuery, UncheckedQuery, CardQuery) and a page as URL parameters, in
+ * encodeState's canonical order, then the method's own keys (`near`, `r`, `parsed.*`, `only`, `limit`).
+ */
+export function toSearchParams(q: S.PlaceQuery | S.NearQuery | S.CountQuery | S.UncheckedQuery | S.CardQuery, page: S.ApiPage = {}): URLSearchParams {
   const p = new URLSearchParams();
   if (q.q) p.set("q", q.q);
   for (const k of S.PLACE_FACET_KEYS) {
@@ -192,7 +253,7 @@ export function toSearchParams(q: S.PlaceQuery | S.NearQuery, page: S.ApiPage = 
     if (v.length) p.set(k, v.join(","));
   }
   if (q.bbox) p.set("bbox", q.bbox.join(","));
-  const sort = q.sort ?? [];
+  const sort = ("sort" in q ? q.sort : undefined) ?? [];
   if (sort.length === 1) {
     p.set("sort", sort[0]!.replace(/^-/, ""));
     p.set("dir", sort[0]!.startsWith("-") ? "desc" : "asc");
@@ -202,5 +263,13 @@ export function toSearchParams(q: S.PlaceQuery | S.NearQuery, page: S.ApiPage = 
   if (q.ids?.length) p.set("ids", q.ids.join(","));
   if ("near" in q && q.near) p.set("near", q.near);
   if ("r" in q && q.r !== undefined) p.set("r", String(q.r));
+  if ("parsed" in q && q.parsed) {
+    if (q.parsed.q) p.set("parsed.q", q.parsed.q);
+    for (const [k, v] of Object.entries(q.parsed.facets ?? {}).sort(([a], [b]) => (a < b ? -1 : 1))) if (v.length) p.set(`${S.PARSED_PREFIX}${k}`, v.join(","));
+    // an empty parse still makes a parsed count: it clears `q`, so it is sent as an empty `parsed.q`
+    if (!q.parsed.q && !Object.keys(q.parsed.facets ?? {}).length) p.set("parsed.q", "");
+  }
+  if ("only" in q && q.only?.length) p.set("only", q.only.join(","));
+  if ("limit" in q && q.limit !== undefined) p.set("limit", String(q.limit));
   return p;
 }

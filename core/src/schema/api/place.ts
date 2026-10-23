@@ -2,7 +2,7 @@
 // (EXECUTION-PLAN 4.2; schema diff 13.1 items 1 to 5).
 import { z } from "zod";
 import { API_LIMITS } from "./limits.ts";
-import { apiCountry, apiPlaceRef, apiPoint, apiRef, apiSlug } from "./common.ts";
+import { apiCountry, apiPlaceRef, apiPoint, apiRef, apiSlug, apiTownId, paged } from "./common.ts";
 import { apiAnyVal, apiCitation, apiSourceId } from "./val.ts";
 
 // ---- vocabularies the public model uses (web/lib/public/types.ts holds the same lists; web typecheck ties them, see rows.ts) ----
@@ -74,11 +74,21 @@ export const placeListRowShape = {
 export const placeListRow = z.strictObject(placeListRowShape);
 
 /**
- * `PlaceRow`: the API's list row. The shipped row plus `ref` (D-B2; schema diff 13.1 items 1 and 2) and `approx` (review R-17: the pin
- * is a centroid or a guess, so a map draws it as approximate, T5), and nothing else: these 43 keys are the allowlist `respond()` checks
- * every row against (contract case K2). The shipped row gains `approx` when the list map needs it.
+ * `PlaceRow`: the API's list row. The shipped row plus `ref` (D-B2; schema diff 13.1 items 1 and 2), `approx` (review R-17: the pin
+ * is a centroid or a guess, so a map draws it as approximate, T5) and `nearTown` (API-3, store.ts A35), and nothing else: these keys
+ * are the allowlist `respond()` checks every row against (contract case K2). The shipped row gains `approx` and `nearTown` when the list
+ * page needs them (LST2b); until then the ApiAdapter drops all three when it rebuilds a shipped list file.
  */
-export const placeRow = z.strictObject({ ...placeListRowShape, ref: apiPlaceRef, approx: z.boolean() });
+export const placeRow = z.strictObject({
+  ...placeListRowShape,
+  ref: apiPlaceRef,
+  approx: z.boolean(),
+  /**
+   * The town id of the record's nearest town (capture `near_town`, derived by META-2 from the towns layer), or null: not derived yet, no
+   * town of 1,000 people within 50 km (`none_within_50km`), or an approximate point. The Where filter's city level reads it (LST2b).
+   */
+  nearTown: apiTownId.nullable(),
+});
 
 /** The keys of a row, in schema order: the allowlist. */
 export const PLACE_ROW_KEYS = Object.keys(placeRow.shape) as (keyof typeof placeRow.shape)[];
@@ -149,6 +159,73 @@ export const facetCounts = z.strictObject({
   gaps: z.record(z.string(), z.int().min(0)),
   /** extra words for the count line ("12 not checked yet") */
   notes: z.array(z.string()),
+});
+
+// ---- parsed counts, "not checked yet" rows and card search (D-E7, API-3; store.ts A25, A27, A28) ---------------------------------
+
+/**
+ * The part of a `ParsedQuery` (search.ts) a count needs: the words the parser left over and the facets it wrote. `mergeParsed` in
+ * store.ts is the one merge rule (A25): `parsed.q` REPLACES `q` (absent is the empty string), and each facet key of `parsed.facets`
+ * REPLACES that key of `facets` (key-level, as the smart row's preview merges today); every other key of the query is kept.
+ */
+export const parsedScope = z.strictObject({
+  q: z.string().max(API_LIMITS.query.textChars).optional(),
+  facets: z.record(facetKey, z.array(z.string().min(1).max(120)).max(API_LIMITS.query.valuesPerKey)).optional(),
+});
+
+/** `countPlaces` input: a list query plus, optionally, a parse to merge into it first (A25, case K22). */
+export const countQuery = placeQuery.extend({ parsed: parsedScope.optional() });
+
+/**
+ * `UncheckedQuery` (listUnchecked): a list query, and optionally `only`, the facet keys whose gaps to list (the constraints a parse
+ * wrote; absent means every selected key that has a gap state). A key in `only` that the query does not select lists nothing.
+ */
+export const uncheckedQuery = placeQuery.extend({
+  only: z.array(facetKey).max(API_LIMITS.unchecked.onlyKeys).optional(),
+});
+
+/** A row left out only because its value for one selected key is a gap: a Places row plus that key (`gap`). Allowlist: PLACE_ROW_KEYS + `gap`. */
+export const uncheckedRow = z.strictObject({ ...placeRow.shape, gap: facetKey });
+
+/** One constraint's "not checked yet" group: the facet key, its label and gap words, and how many rows it holds across every page. */
+export const uncheckedGroup = z.strictObject({
+  key: facetKey,
+  label: z.string(),
+  /** the facet's own words for the gap ("not checked yet") */
+  note: z.string(),
+  count: z.int().min(0),
+});
+
+/**
+ * `UncheckedPage` (listUnchecked, A27): one page of the rows left out only because of a gap (honesty rule H1), group by group in
+ * `groups` order, each group in the list's sort order (A15). A row appears once, under the first group it is a gap for. `groups` is
+ * the same on every page; `total` equals the sum of the group counts and equals `countPlaces(q).unchecked` (case K23).
+ */
+export const uncheckedPage = z.strictObject({
+  ...paged(uncheckedRow).shape,
+  groups: z.array(uncheckedGroup),
+});
+
+/**
+ * `CardQuery` (searchCards, A28): the words to look for in card text, plus any list filter the rows must also pass. `q` is required;
+ * there is no `sort` (cards come best first).
+ * `limit` defaults to API_LIMITS.cards.default; above API_LIMITS.cards.max the answer is `too_large`.
+ */
+export const cardQuery = placeQuery.omit({ sort: true }).extend({
+  q: z.string().min(1).max(API_LIMITS.query.textChars),
+  limit: z.int().min(1).optional(),
+});
+
+/**
+ * `CardHits` (searchCards): at most `limit` rows, best first; `total` counts every match (the rows past the cut are a count, never a
+ * second page, P8); `truncated` is `total > items.length`. Rows carry exactly PLACE_ROW_KEYS (case K24).
+ */
+export const cardHits = z.strictObject({
+  items: z.array(placeRow),
+  total: z.int().min(0),
+  truncated: z.boolean(),
+  /** the terms the query was read as (after normalising, stop words and stemming), so a client can say what was searched */
+  terms: z.array(z.string()),
 });
 
 // ---- the detail: the page model ------------------------------------------------------------------------------------------------
@@ -471,6 +548,13 @@ export type PlaceRow = z.infer<typeof placeRow>;
 export type PlaceQuery = z.infer<typeof placeQuery>;
 export type FacetCount = z.infer<typeof facetCount>;
 export type FacetCounts = z.infer<typeof facetCounts>;
+export type ParsedScope = z.infer<typeof parsedScope>;
+export type CountQuery = z.infer<typeof countQuery>;
+export type UncheckedQuery = z.infer<typeof uncheckedQuery>;
+export type UncheckedRow = z.infer<typeof uncheckedRow>;
+export type UncheckedPage = z.infer<typeof uncheckedPage>;
+export type CardQuery = z.infer<typeof cardQuery>;
+export type CardHits = z.infer<typeof cardHits>;
 export type PlaceDetail = z.infer<typeof placeDetail>;
 export type MovedPlace = z.infer<typeof movedPlace>;
 export type PlaceLookup = z.infer<typeof placeLookup>;

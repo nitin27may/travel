@@ -65,3 +65,44 @@ export function servedSnapshot(parts: Partial<ServedSnapshot> & Pick<ServedSnaps
 export function revisionOf(served: ServedSnapshot): string {
   return createHash("sha256").update(canonicalJson(served)).digest("hex");
 }
+
+// ---- the revision from inputs (D-E4, API-3; store.ts A30) ---------------------------------------------------------------------
+//
+// Hashing what a store SERVES costs one pass over every built detail (2.9 s on the first call at 10,000 places, verify-GB 16). The
+// revision is instead the hash of what the store is BUILT FROM: the build id (which changes with any code change, so a code change that
+// moves an output moves the ETag) and the content hash of every input file the store reads. Same build, same files: same revision in
+// any process. Content only, never an mtime (case K10).
+
+/** One input file of a store: a repository-relative path with forward slashes, and the SHA-256 hex of its bytes. */
+export interface RevisionInput {
+  path: string;
+  sha256: string;
+}
+
+/** What a JSON-backed store's revision is computed from (A30). */
+export interface RevisionInputs {
+  /** the build's id: Next's BUILD_ID, or `TRAVEL_BUILD_ID`, or the fixed `dev` outside a build (A30) */
+  buildId: string;
+  files: RevisionInput[];
+}
+
+/** SHA-256 hex of a file's bytes, the `sha256` of a RevisionInput. */
+export function fileSha256(bytes: Uint8Array | string): string {
+  return createHash("sha256").update(bytes).digest("hex");
+}
+
+/**
+ * The revision of a build and its inputs: SHA-256 of the canonical JSON `{buildId, files}` with the files sorted by path in code-point
+ * order. A path listed twice, a non-relative path or a malformed hash is an error, so a loader cannot hash an input set it did not mean.
+ */
+export function inputRevision(inputs: RevisionInputs): string {
+  const seen = new Set<string>();
+  for (const f of inputs.files) {
+    if (seen.has(f.path)) throw new Error(`inputRevision: ${f.path} is listed twice`);
+    if (f.path.startsWith("/") || f.path.includes("\\") || f.path.split("/").includes("..")) throw new Error(`inputRevision: ${f.path} is not a repository-relative path`);
+    if (!/^[0-9a-f]{64}$/.test(f.sha256)) throw new Error(`inputRevision: ${f.path} has no SHA-256`);
+    seen.add(f.path);
+  }
+  const files = [...inputs.files].sort((a, b) => compareCodePoints(a.path, b.path)).map((f) => ({ path: f.path, sha256: f.sha256 }));
+  return createHash("sha256").update(canonicalJson({ buildId: inputs.buildId, files })).digest("hex");
+}

@@ -135,6 +135,14 @@ population and admin-1 codes. From the sizes on GeoNames, the subset within 100 
 tests fail on the string. A public towns layer that holds Whitby, and a chip "Within 25 km of Whitby", would trip both.
 This is owner question Q50.
 
+**Settled (API-3a, 23 Oct 2026; owner decisions Q50 and Q87).** The home town is served like any town, with safe
+geometry, and is never excluded. The rule is the town guard (5.6, "Privacy") and it is generic: it runs on every town and
+names none. In short: no served point lies within the 2 km household radius, a guarded town's row carries the public
+gazetteer fields only (no flag, no distance to home), and the privacy detector lets the home town's NAME appear only where
+any town's name appears (a towns row's id and name, a near or city chip). The contract is `core/src/catalogue/store.ts`
+A33; the code is `core/src/privacy/towns.ts` and the typed exemption in `core/src/privacy/detect.ts`; contract case K26
+plants a town inside the radius and proves no method answers 500 for it.
+
 ## 3. The data rule (8.3): one placement block on every record
 
 ### 3.1 The block
@@ -524,10 +532,36 @@ This extends section 11 of place-page-sections.md. Its two existing blocks stay 
     Per-city files beat per-country parts here: a pick needs one outline, never the country's.
   - **Fallback.** A town without an OSM polygon keeps the ring, and the card says why.
   - **P8.** The geometry is ODbL, not catalogue, so the limit is the payload, not the catalogue.
-- **Privacy.** `origin.ts` scrubs "whitby" in every public string and moves points within 2 km of home. Two options are
-  in Q50: (a) exempt the towns parts and the near chip from the scrub, with a test that "Whitby" appears only as a town
-  row and in near-mode chips; or (b) keep Whitby out of the public layer and give "near Whitby" to the signed-in planner
-  only. The recommendation is (a): the household fact is "our trips start from Whitby", not "Whitby is a town".
+- **Privacy: the town guard (API-3a, 23 Oct 2026; Q50 option (a), owner decision Q87: safe geometry, not exclusion).**
+  The fact to hide is where the household lives, below the town. "Whitby is a town" is public, so the home town is in the
+  layer like Oshawa and Ajax, and "near Whitby" works. Without a guard the detector would answer 500 for exactly the one
+  town whose centre or outline lies within 2 km of home, and iterating town ids would find it (audit GB-A-8). So:
+  1. **At load, every town, never by name.** The towns loader (META-2) passes every row through `safeTown()` and every
+     outline through `safeOutline()` in `core/src/privacy/towns.ts` before a store holds it (store.ts A18). The file names
+     no town; a test greps it for the home town's pattern and for coordinates.
+  2. **A centre outside the 2 km radius is served as it is.** A centre inside it is replaced by the town's Wikidata point
+     when that point is outside, else by the point at a fixed offset of 2 x radius + radius / 4 (4.5 km) due north (then
+     east, west, south). The offset does not depend on where home is, so the served centre gives the home point away to
+     nobody. ("The nearest point just outside the radius" was rejected: with the public centre it solves for home.)
+  3. **An outline or line with any vertex within the radius is the ring** (`geometry: null`), exactly like a town OSM has
+     no polygon for; a route leg with such a vertex is drawn as a dashed estimate.
+  4. **Nothing marks a guarded town.** The towns row is a strict schema of public gazetteer fields (`id`, `name`, `lat`,
+     `lon`, `pop`, `cc`, `region`, `places`, and the distance and bearing from the asked centre); no "moved" or
+     "approximate" flag, no distance to home. `near(city=)`, `towns()` and the Where city level measure from the served
+     centre, so "near Whitby" is measured from a point up to 4.5 km from the gazetteer centre; at a 25 km radius that is
+     the accepted cost.
+  5. **The typed exemption.** The detector (`core/src/privacy/detect.ts`) lifts only its home-town TEXT rule, by shape:
+     a town id under `id`, `key`, `value`, `nearTown` or `townId`, or in a `city` array; a town's name or chip label of at
+     most 80 characters with no digit, beside such an id and holding its name part; the `city=` parameters of an `href`.
+     Coordinates, planning notes, addresses and private keys are still checked there, and prose anywhere still fails on
+     the name. respond(), contract case K7 and the web privacy test run the same detector.
+  6. **Residual risk, for the owner.** Anyone who compares the layer with public GeoNames and OSM data can see that one
+     town's centre or outline differs, which says "the household lives within about 2 km of this town's centre or
+     border". That is the town-level fact Q50 accepted; the address stays hidden. If that is too much, `TOWN_POLICY =
+     "exclude"` in `towns.ts` is the one-line switch to option (b) (the town is left out and `city=<its id>` answers
+     `not_found` like any unknown id).
+  Proof: contract case K26 plants a town 0.5 km from home with an outline around it, and a neighbour whose outline reaches
+  within 1.5 km, and requires every town method to answer without a 500, a moved centre, two rings and a clean K7 scan.
 
 ### 5.7 Files, sizes and how P8 holds
 
@@ -784,6 +818,7 @@ routed "about 25 min" replaces the band wherever a pair exists, and `--check` fa
 
 | Date | Change |
 |---|---|
+| 2026-10-23 | 2.4 and 5.6 (API-3a, Opus): the town guard settles Q50 and records Q87 (safe geometry, not exclusion): every town through `safeTown`/`safeOutline` at load, a fixed 4.5 km offset instead of D-E3's "nearest point outside" (which would leak the home point), no flag on a guarded row, the typed detector exemption, and the residual town-level risk with its one-line switch. Contract: store.ts A33, case K26 |
 | 2026-10-21 | 3.1 (META-0): the town id is `<cc>-<admin1>-<slug>` (Q76, `ca-on-whitby`) with the ISO admin1 rule; `point_role` gains `route_start` and is the one `POINT_ROLE` enum; `approx` carries `approx_note`; `near_town` is asked by `W_PLACE_TOWN` and marked N in the registry until META-2 derives it. The rules, codes and gap reports are in capture contract 3.7 |
 | 2026-10-20 | 5.7 superseded in part: the default path is API-over-JSON with caps in the store methods; the static files are the fallback; `nearby` moves to `core/src/nearby/` |
 | 2026-10-20 | Phasing superseded by the execution plan (E before go-live); lane names mapped; e2e path corrected |

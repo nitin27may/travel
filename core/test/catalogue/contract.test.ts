@@ -5,8 +5,8 @@
 //                 never imports web (API-1b). The same tables, the same runner (contract/run.ts).
 // SRV-0 adds a `supabase` target. A pending or not-applicable case is an `it.todo` that names why, so the count is visible.
 import { describe, expect, it } from "vitest";
-import { StubStore, STUB_ALIASED, STUB_MERGED, STUB_RETIRED, STUB_SOURCES, STUB_TRIP_RETIRED, STUB_WITHDRAWN, stubData } from "../../src/catalogue/stub/index.ts";
-import { CONTRACT_TABLES, type ContractFacts, type ContractTarget } from "./contract/index.ts";
+import { StubStore, STUB_ALIASED, STUB_MERGED, STUB_RETIRED, STUB_SOURCES, STUB_TRIP_RETIRED, STUB_WITHDRAWN, stubData, type StubData, type StubOptions } from "../../src/catalogue/stub/index.ts";
+import { CONTRACT_TABLES, type ContractFacts, type ContractTarget, type Planted } from "./contract/index.ts";
 import { runContractTargets } from "./contract/run.ts";
 
 const PHASE_E_NEAR = "phase E, N2 (nearby-and-regions.md section 7): near and nearbyForPlace answer not_available until then";
@@ -30,7 +30,29 @@ const stubFacts: ContractFacts = {
   registryIds: new Set(STUB_SOURCES.map((s) => s.id)),
   featureId: "ne-range-1",
   pinCountry: "ca",
+  // API-3 facts for K23 (the stub's empty season is a gap) and K27 (the loop has two legs with geometry)
+  gap: { key: "season", value: "7" },
+  legs: { trip: "stub-rockies-loop", geometry: true },
 };
+
+/** A StubStore over the fixture with `p` planted (cases K26, globePins.cap): towns and outlines added, a country's pins cloned up to n. */
+function plantStub(layers?: StubOptions["layers"]) {
+  return (p: Planted): StubStore => {
+    const d: StubData = stubData();
+    if (p.towns) d.towns.push(...p.towns);
+    if (p.cities) d.cities.push(...p.cities);
+    if (p.pins) {
+      const cc = p.pins.cc.toUpperCase();
+      const seed = d.places.find((x) => x.row.country === cc && x.detail.point)!;
+      const have = d.places.filter((x) => x.row.country === cc && x.detail.point).length + d.trips.filter((x) => x.row.country === cc).length;
+      for (let i = 0; i < p.pins.n - have; i++) {
+        const slug = `${seed.row.slug}-p${i}`;
+        d.places.push({ row: { ...seed.row, id: slug, slug, ref: `place/${slug}` }, detail: { ...seed.detail, slug, ref: `place/${slug}` } });
+      }
+    }
+    return new StubStore({ data: d, ...(layers ? { layers } : {}) });
+  };
+}
 
 const changed = () => {
   const d = stubData();
@@ -47,6 +69,7 @@ export const TARGETS: ContractTarget[] = [
     makeChanged: changed,
     rowReads: (s) => (s as StubStore).rowReads,
     registry: () => stubData().registry,
+    plant: plantStub(),
     facts: stubFacts,
     notApplicable: { "K10.mtime": IN_MEMORY },
   },
@@ -56,18 +79,22 @@ export const TARGETS: ContractTarget[] = [
     makeChanged: changed,
     rowReads: (s) => (s as StubStore).rowReads,
     registry: () => stubData().registry,
+    plant: plantStub({ near: false, towns: false, nearby: false }),
     facts: { ...stubFacts, town: { id: "ca-ab-canmore", layer: false } },
     pending: Object.fromEntries([...CONTRACT_TABLES.near!, ...CONTRACT_TABLES.nearbyForPlace!].map((c) => [`${c.method}:${c.id}`, PHASE_E_NEAR])),
     notApplicable: { "K10.mtime": IN_MEMORY },
   },
 ];
 
-runContractTargets(TARGETS);
+const tally = runContractTargets(TARGETS);
 
 describe("contract kit bookkeeping", () => {
-  it("every start-sheet case K1 to K19 has at least one table entry", () => {
+  it("every start-sheet case K1 to K27 has at least one table entry (K28 is HYG's)", () => {
     const ids = new Set(Object.values(CONTRACT_TABLES).flat().map((c) => c.id.split(".")[0]));
-    for (let k = 1; k <= 19; k++) expect(ids.has(`K${k}`), `K${k}`).toBe(true);
+    for (let k = 1; k <= 27; k++) expect(ids.has(`K${k}`), `K${k}`).toBe(true);
+  });
+  it("no case is left awaiting an implementation step (API-3b filled them all)", () => {
+    for (const t of tally) expect(t.awaiting, t.name).toEqual([]);
   });
   it("case ids are unique within a table", () => {
     for (const [table, cases] of Object.entries(CONTRACT_TABLES)) expect(new Set(cases.map((c) => c.id)).size, table).toBe(cases.length);

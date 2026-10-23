@@ -1,5 +1,5 @@
 import type { PlaceExport, TripExport } from '@/lib/export/types';
-import type { EntityDescriptor } from '@/lib/entities/types';
+import type { EntityDescriptor, FacetParam, ListState } from '@/lib/entities/types';
 import type { GlobeCardFile, GlobeTree, LightPin } from '@/lib/globe/types';
 import type { TextIndex } from '@/lib/search/fulltext';
 import type { ParseOptions, ParsedQuery, VocabFile } from '@/lib/search/parse/types';
@@ -67,4 +67,15 @@ export interface DataClient {
   shardRows(type: 'place' | 'trip', id: string, d: EntityDescriptor<never>, countryRows?: number): Promise<readonly unknown[]>;
   /** One full-text file (backlog 3.60). */
   textIndex(id: string): Promise<TextIndex>;
+
+  // ---- API-3: the server's evaluation (P9) ---------------------------------------------------------------------------------------
+  // The ApiAdapter has these three and answers them from /api/v1/; the StaticAdapter does not, and data.ts evaluates the same in the
+  // browser over the files it loaded. Each resolves to null when the server cannot answer the state (an advanced filter `f`, a saved
+  // view `sv`, a facet the server's engine does not publish): data.ts then evaluates locally, as before.
+  /** How many places a list state opens, and how many more are listed apart as "not checked yet"; with `parsed`, the count of the state with that parse merged in. */
+  countPlaces?(state: ListState, parsed?: { q: string; facets: ListState['facets'] }): Promise<{ n: number; unchecked: number } | null>;
+  /** The slugs left out only because of a gap, per constraint, in the server's group order. `only` limits the constraints (the ones a parse wrote). */
+  uncheckedGroups?(state: ListState, only?: readonly FacetParam[]): Promise<{ param: FacetParam; label: string; note: string; slugs: string[] }[] | null>;
+  /** The slugs whose card text holds the words of `state.q`, best first, with every other filter of the state applied (at most 50). */
+  cardRank?(state: ListState): Promise<string[] | null>;
 }
