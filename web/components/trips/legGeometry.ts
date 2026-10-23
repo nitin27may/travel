@@ -20,15 +20,18 @@ const placeKey = (pinId: string): string[] => {
   return slug && !slug.includes(',') ? [`place:${slug}`] : [];
 };
 
+/** A routed leg's path, in the direction of the chain step, and how it is travelled. */
+export interface RoutedPath { path: LngLat[]; mode: 'drive' | 'walk' }
+
 /** Geometry by the map's leg id (`leg:<day>:<n>`, `leg:<day>:end`) for every step of every day that a routed leg covers. */
-export function legGeometry(legs: readonly Leg[], models: readonly DayMap[], bases: readonly RouteBase[], slugOf: (stopKey: string) => string | null = () => null): Record<string, LngLat[]> {
+export function legGeometry(legs: readonly Leg[], models: readonly DayMap[], bases: readonly RouteBase[], slugOf: (stopKey: string) => string | null = () => null): Record<string, RoutedPath> {
   const norm = (k: string): string => {
     const s = k.startsWith('base:') ? null : slugOf(k);
     return s ? `place:${s}` : k;
   };
   const byPair = new Map<string, Leg>();
   for (const l of legs) if (l.geometry && !byPair.has(`${l.day}|${norm(l.from)}|${norm(l.to)}`)) byPair.set(`${l.day}|${norm(l.from)}|${norm(l.to)}`, l);
-  const out: Record<string, LngLat[]> = {};
+  const out: Record<string, RoutedPath> = {};
   if (!byPair.size) return out;
   for (const m of models) {
     if (!m.pins.length) continue;
@@ -47,7 +50,7 @@ export function legGeometry(legs: readonly Leg[], models: readonly DayMap[], bas
           const leg = fwd ?? back;
           const line = leg?.geometry ? decodePolyline5(leg.geometry) : null;
           if (!line || line.length < 2 || out[y.id]) continue;
-          out[y.id] = back ? [...line].reverse() : line;
+          out[y.id] = { path: back ? [...line].reverse() : line, mode: leg!.mode };
         }
       }
     }
@@ -56,4 +59,4 @@ export function legGeometry(legs: readonly Leg[], models: readonly DayMap[], bas
 }
 
 /** True when at least one leg carries a geometry: the map then shows the credit. */
-export const hasRoutedLegs = (geometry: Record<string, LngLat[]>): boolean => Object.keys(geometry).length > 0;
+export const hasRoutedLegs = (geometry: Record<string, RoutedPath>): boolean => Object.keys(geometry).length > 0;

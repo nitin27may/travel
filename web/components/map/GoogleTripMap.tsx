@@ -345,7 +345,7 @@ export default function GoogleTripMap({ spec, label, onSelect, onHover, handleRe
     const casing = normaliseColour(box.current ? getComputedStyle(box.current).getPropertyValue('--map-casing').trim() : '', pal.ink);
     const emphasised = recs.current.some((r) => r.node.dataset.numbered !== undefined);
     for (const r of lineRecs.current) {
-      const parts = legParts(r.line, pal, casing, emphasised, r.id === hoverLeg);
+      const parts = legParts(r.line, pal, casing, emphasised, hoverLeg !== null && (r.id === hoverLeg || r.id.startsWith(`${hoverLeg}:`)));
       r.parts.forEach((p, i) => p.setOptions?.(parts[i]!));
     }
   }, [hoverPin, hoverLeg, gen, pins, lines, selectedId, wide, dark]);

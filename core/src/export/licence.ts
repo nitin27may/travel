@@ -21,7 +21,8 @@ const FOREIGN = /google|gmaps|maps\.app|apple|bing|here\.com|tomtom/i;
 /** Licences that allow reuse with attribution. "unknown" and anything not on this list is a refusal for official data. */
 const OPEN_LICENCE = /^(ODbL|CC0|CC-BY(-SA)?(-\d(\.\d)?)?|OGL.*|Open Government.*|PDDL|own)$/i;
 
-export const OSM_ATTRIBUTION = '© OpenStreetMap contributors, ODbL 1.0 (https://www.openstreetmap.org/copyright)';
+export const OSM_COPYRIGHT_URL = 'https://www.openstreetmap.org/copyright';
+export const OSM_ATTRIBUTION = `© OpenStreetMap contributors, ODbL 1.0 (${OSM_COPYRIGHT_URL})`;
 export const ROUTING_ATTRIBUTION = 'Road routes by OpenRouteService (openrouteservice.org)';
 
 export function checkPoint(p: Pick<Point, 'pointSource' | 'sourceLicence'> | null | undefined): Verdict {
@@ -94,5 +95,5 @@ export function approxNote(p: Pick<Point, 'pointSource' | 'sourceLicence'>): str
  * read. `label` is "OpenStreetMap relation 3985745, read 2026-10-19".
  */
 export function trackNotice(lines: (LineLike & { label: string })[]): string[] {
-  return lines.filter(lineExportable).map((l) => `Route line: ${l.label}. ${OSM.test(l.ref) || ROUTE.test(l.ref) ? 'Data © OpenStreetMap contributors, ODbL 1.0, https://www.openstreetmap.org/copyright' : l.licence}.${ROUTE.test(l.ref) ? ` ${ROUTING_ATTRIBUTION}.` : ''}`);
+  return lines.filter(lineExportable).map((l) => `Route line: ${l.label}. ${OSM.test(l.ref) || ROUTE.test(l.ref) ? `Data © OpenStreetMap contributors, ODbL 1.0, ${OSM_COPYRIGHT_URL}` : l.licence}.${ROUTE.test(l.ref) ? ` ${ROUTING_ATTRIBUTION}.` : ''}`);
 }

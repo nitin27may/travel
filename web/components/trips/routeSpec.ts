@@ -1,5 +1,7 @@
 // The trip route map's spec, key and label (map note 4, 5, 6). Lives in the map's own chunk: the trip page's start JS does not carry it.
+import { haversineM } from '@travel/core/geo/distance.ts';
 import type { LegendItem, Line, LngLat, MapSpec, Pin } from '@/lib/map/types';
+import type { RoutedPath } from './legGeometry';
 import { cellOf, dayBases, type DayMap } from './mapPins';
 
 export interface RouteBase { id: string; name: string; lng: number; lat: number; days: number[] }
@@ -23,7 +25,11 @@ export function legIds(m: DayMap, hasMorning: boolean, hasNight: boolean): strin
   return hasNight ? [...ids, `leg:${m.day}:end`] : ids;
 }
 
-function dayLegs(m: DayMap, bases: RouteBase[], geometry: Record<string, LngLat[]> | undefined, picked: boolean): Line[] {
+/** A routed line ends at the stop's trailhead or car park, which can be km from its pin: past this gap a dashed stub joins the two (T5). */
+export const STUB_GAP_M = 50;
+const gapM = (a: LngLat, b: LngLat): number => haversineM({ lat: a.lat, lon: a.lng }, { lat: b.lat, lon: b.lng });
+
+function dayLegs(m: DayMap, bases: RouteBase[], geometry: Record<string, RoutedPath> | undefined, picked: boolean): Line[] {
   const { morning, night } = dayBases(bases, m.day);
   const chain: (LngLat | null)[] = [morning ? at(morning) : null, ...m.pins.map((p) => p.at), night ? at(night) : null];
   if (!m.pins.length) return [];
@@ -34,7 +40,16 @@ function dayLegs(m: DayMap, bases: RouteBase[], geometry: Record<string, LngLat[
     // chain index 1..N are the pins; the last entry is the night base
     const id = i <= m.pins.length ? `leg:${m.day}:${i}` : `leg:${m.day}:end`;
     const g = geometry?.[id];
-    lines.push({ id, coords: g ?? [from, to], style: g ? (picked ? 'route-pick' : 'route') : 'straight-estimate' });
+    if (!g) {
+      lines.push({ id, coords: [from, to], style: 'straight-estimate' });
+      return;
+    }
+    const first = g.path[0]!;
+    const last = g.path[g.path.length - 1]!;
+    // the route's own ends are the car park or trailhead; the pins are where the family goes, so the rest is drawn as the estimate it is
+    if (gapM(from, first) > STUB_GAP_M) lines.push({ id: `${id}:a`, coords: [from, first], style: 'straight-estimate' });
+    lines.push({ id, coords: g.path, style: picked ? 'route-pick' : 'route', mode: g.mode });
+    if (gapM(last, to) > STUB_GAP_M) lines.push({ id: `${id}:b`, coords: [last, to], style: 'straight-estimate' });
   });
   return lines;
 }
@@ -53,7 +68,7 @@ export interface SpecInput {
   /** The day the map shows, or null for All days. */
   picked: number | null;
   /** Encoded-away road geometry by leg id; none exists yet for any trip, so every leg is a labelled straight estimate. */
-  geometry?: Record<string, LngLat[]>;
+  geometry?: Record<string, RoutedPath>;
   wide?: boolean;
 }
 
@@ -109,10 +124,11 @@ export const KEY_LABEL = {
   base: 'Base for the night',
   estimate: 'Straight line, not a route',
   road: 'Road route',
+  roadOrPath: 'Road or path route',
   other: 'Other days',
 } as const;
 export const KEY_NO_ROUTE = "Road routes are not drawn yet. Lines join each day's stops in order; use Directions for the drive.";
-export const KEY_SOME_ROUTE = 'Road routes from OpenStreetMap. A straight line means no route is stored for that leg.';
+export const KEY_SOME_ROUTE = "Road routes from OpenStreetMap data run to each stop's car park or trailhead. A straight line has no road route stored, often because the stop is reached on foot, by lift or by boat.";
 
 export interface KeyState { items: (LegendItem & { dim?: boolean; pick?: boolean })[]; sentence: string | null }
 
@@ -120,14 +136,16 @@ export interface KeyState { items: (LegendItem & { dim?: boolean; pick?: boolean
 export function keyOf(spec: Pick<MapSpec, 'pins' | 'lines' | 'selectedId'>): KeyState {
   const has = (f: (p: Pin) => boolean) => spec.pins.some(f);
   const estimate = spec.lines.some((l) => l.style === 'straight-estimate');
-  const routed = spec.lines.some((l) => l.style === 'route' || l.style === 'route-pick');
+  const routedLines = spec.lines.filter((l) => l.style === 'route' || l.style === 'route-pick');
+  const routed = routedLines.length > 0;
   const items: KeyState['items'] = [];
   if (has((p) => p.style === 'stop-numbered')) items.push({ id: 'stop', label: KEY_LABEL.stop, style: 'stop-numbered' });
   else if (has((p) => p.style === 'stop' && !p.dim)) items.push({ id: 'stops', label: KEY_LABEL.stops, style: 'stop' });
   // the base of the picked day is drawn amber with its casing: the key shows what the map shows
   if (has((p) => p.style === 'base')) items.push({ id: 'base', label: KEY_LABEL.base, style: 'base', pick: has((p) => p.style === 'base' && p.id === spec.selectedId) });
   if (estimate) items.push({ id: 'estimate', label: KEY_LABEL.estimate, style: 'straight-estimate' });
-  if (routed) items.push({ id: 'road', label: KEY_LABEL.road, style: 'route-pick' });
+  // the swatch is the line the map draws: amber with a casing for the picked day, thin ink for All days; a walk says so
+  if (routed) items.push({ id: 'road', label: routedLines.some((l) => l.mode === 'walk') ? KEY_LABEL.roadOrPath : KEY_LABEL.road, style: routedLines.some((l) => l.style === 'route-pick') ? 'route-pick' : 'route' });
   if (has((p) => p.style === 'stop' && !!p.dim)) items.push({ id: 'other', label: KEY_LABEL.other, style: 'stop', dim: true });
   return { items, sentence: routed ? (estimate ? KEY_SOME_ROUTE : null) : KEY_NO_ROUTE };
 }

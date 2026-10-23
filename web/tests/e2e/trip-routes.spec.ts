@@ -74,13 +74,13 @@ test.describe('routed legs and Export trip on the Google family (fake key)', () 
     const solid = l.filter((x) => x.op === 1 && x.icons === 0);
     expect(solid.map((x) => x.weight).sort()).toEqual([3.5, 5.5]); // amber over its casing, the picked day
     expect(solid.find((x) => x.weight === 3.5)!.colour).not.toBe(solid.find((x) => x.weight === 5.5)!.colour);
-    expect(l.filter((x) => x.op === 0)).toEqual([]); // day 8's one step is routed: no dashed estimate beside it
+    // a route that stops short of its pin gets a dashed stub; whatever is dashed is an estimate, never solid
+    for (const x of l.filter((y) => y.op === 0)) expect(x.icons).toBe(1);
     const key = page.locator('.trip-map-key');
     await expect(key).toContainText('Road route');
-    await expect(key).not.toContainText('Straight line, not a route');
     await expect(key).not.toContainText('Road routes are not drawn yet');
     const chip = page.getByTestId('route-credit');
-    await expect(chip).toHaveText('Route geometry © OpenStreetMap contributors');
+    await expect(chip).toHaveText('Route lines © OpenStreetMap contributors');
     await expect(chip.getByRole('link', { name: 'OpenStreetMap contributors' })).toHaveAttribute('href', 'https://www.openstreetmap.org/copyright');
     await expect(chip).toHaveAttribute('title', /OpenRouteService/);
     const [c, m] = await Promise.all([chip.boundingBox(), page.locator('.tl-mapbox').boundingBox()]);
@@ -125,7 +125,7 @@ test.describe('routed legs and Export trip on the Google family (fake key)', () 
     const key = page.locator('.trip-map-key');
     await expect(key).toContainText('Road route');
     await expect(key).toContainText('Straight line, not a route');
-    await expect(key).toContainText('Road routes from OpenStreetMap. A straight line means no route is stored for that leg.');
+    await expect(key).toContainText(/car park or trailhead.*on foot, by lift or by boat/);
     await expect(page.getByTestId('route-credit')).toBeVisible();
     const l = await lines(page);
     expect(l.some((x) => x.op === 1)).toBe(true);
@@ -138,9 +138,9 @@ test.describe('routed legs and Export trip on the Google family (fake key)', () 
     await page.goto(`${server.url}${ROCKIES}#day-8`);
     await ready(page);
     await expect(top(page)).toBeVisible();
-    await expect(page.locator('.tl-planbar').getByRole('button', { name: 'Export', exact: true })).toBeVisible();
+    await expect(page.locator('.tl-planbar').getByRole('button', { name: 'Export trip', exact: true })).toBeVisible();
     const open = async (name: RegExp) => {
-      await page.locator('.tl-planbar').getByRole('button', { name: 'Export', exact: true }).click();
+      await page.locator('.tl-planbar').getByRole('button', { name: 'Export trip', exact: true }).click();
       return Promise.all([page.waitForEvent('download'), page.getByRole('menuitem', { name }).click()]);
     };
     const parse = (xml: string) => page.evaluate((s) => {
@@ -166,12 +166,12 @@ test.describe('routed legs and Export trip on the Google family (fake key)', () 
     expect(readFileSync((await csv.path())!, 'utf8')).toContain('Day,Time,Name,Kind,Category,Area,Lat,Lon,Approximate,Links');
 
     for (const text of [gpxText]) expect(text).not.toMatch(/whitby/i);
-    await page.locator('.tl-planbar').getByRole('button', { name: 'Export', exact: true }).click();
+    await page.locator('.tl-planbar').getByRole('button', { name: 'Export trip', exact: true }).click();
     await expect(page.getByRole('menuitem', { name: /^Calendar/ })).toBeDisabled();
     await expect(page.getByRole('menuitem', { name: 'Print or save as PDF' })).toBeVisible();
   });
 
-  test('Print renders the print view from the export model, with the gaps written out, and removes it afterwards', async ({ page }) => {
+  test('Print renders the print view from the export model, with the times of the page, and removes it afterwards', async ({ page }) => {
     await withFake(page);
     await page.addInitScript(() => {
       (window as unknown as { __printed: unknown[] }).__printed = [];
@@ -192,7 +192,9 @@ test.describe('routed legs and Export trip on the Google family (fake key)', () 
     expect(printed.parent).toBe('BODY');
     expect(printed.text).toContain('Day 1: ');
     expect(printed.text).toContain('Day 15: ');
-    expect(printed.text).toContain('Not checked yet');
+    expect(printed.text).toContain('Planned for ');
+    expect(printed.text).not.toMatch(/Lane [ABC]/);
+    expect(printed.text).toMatch(/\d\d:\d\d · /);
     expect(printed.text).toContain('Source: Trip Plans');
     expect(printed.text).not.toMatch(/whitby/i);
     await expect(page.getByTestId('trip-print-view')).toHaveCount(0);
@@ -204,6 +206,6 @@ test.describe('routed legs and Export trip on the Google family (fake key)', () 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`${server.url}${ROCKIES}#day-8`);
     await expect(top(page)).toBeVisible();
-    await expect(page.locator('.tl-planbar').getByRole('button', { name: 'Export', exact: true })).toBeHidden();
+    await expect(page.locator('.tl-planbar').getByRole('button', { name: 'Export trip', exact: true })).toBeHidden();
   });
 });
