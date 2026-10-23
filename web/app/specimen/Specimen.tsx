@@ -167,7 +167,7 @@ export function Specimen() {
           <div><span className="lab">leave 78</span><span className="d-78">08:10</span></div>
           <div><span className="lab">body 16, body-l 19</span><span>Three valley bases, early starts at the famous lakes, a Sass Pordoi day. <span className="s-body-l">A rental car throughout.</span></span></div>
           <div><span className="lab">title 17, note 15.5</span><span><b className="s-title">Lago di Braies</b> <span className="s-note">Sunrise 05:32; alpenglow on the Seekofel first</span></span></div>
-          <div><span className="lab">mono 13, meta 12.5, cap 11.5</span><span className="row-flex"><span className="m-mono">Save to Patagonia</span><span className="m-meta">13 – 26 Jul 2027 · 13 nights · Italy</span><span className="m-cap">In progress · soonest first</span><span className="m-time">11:30</span><span className="m-tab">tab 13.5</span></span></div>
+          <div><span className="lab">mono 13, meta 12.5, cap 11.5</span><span className="row-flex"><span className="m-mono">Save to Patagonia</span><span className="m-meta">3 – 16 May 2031 · 13 nights · Italy</span><span className="m-cap">In progress · soonest first</span><span className="m-time">11:30</span><span className="m-tab">tab 13.5</span></span></div>
         </div>
       </Section>
 
@@ -201,10 +201,10 @@ export function Specimen() {
         <div className="two">
           <Field label="Property">{(p) => <Input {...p} placeholder="Search the catalogue or type a name" />}</Field>
           <Field label="Airline and route">{(p) => <Input {...p} defaultValue="Air Canada · YYZ → EZE" autoFocus={false} />}</Field>
-          <Field label="Departs, Toronto time" help="Arrives Sat 27 Feb 11:05 Buenos Aires · +1">{(p) => <Input {...p} mono defaultValue="Fri 26 Feb 2027 23:50" />}</Field>
+          <Field label="Departs, Toronto time" help="Arrives Tue 6 May 09:20 Lisbon · +1">{(p) => <Input {...p} mono defaultValue="Mon 5 May 2031 08:10" />}</Field>
           <Field label="Total" error="Use digits only: 5,400">{(p) => <Input {...p} mono error defaultValue="CAD 5,4OO" />}</Field>
           <Field label="Confirmation code">{(p) => <Input {...p} mono readOnly defaultValue="•••• ••••" suffix="Reveal" />}</Field>
-          <Field label="Travellers">{(p) => <Input {...p} disabled defaultValue="2 adults, 1 child" />}</Field>
+          <Field label="Travellers">{(p) => <Input {...p} disabled defaultValue="3" />}</Field>
           <Field label="Distance">{(p) => <Input {...p} mono defaultValue="12.5" suffix="km" />}</Field>
           <Field label="Checking the code">{(p) => <Input {...p} mono loading defaultValue="HB-5521" />}</Field>
           <Field label="Group by">{(p) => (<Select {...p} defaultValue="when"><option value="when">When</option><option value="country">Country</option></Select>)}</Field>
@@ -241,7 +241,7 @@ export function Specimen() {
             <Tag>filter pills: default, active, hover, focus (open one for the menu with counts and search)</Tag>
           </div>
           <div className="row-flex">
-            <Chip>In 131 days</Chip><Chip kind="trip" identity="orange">Booking</Chip><Chip kind="kind" icon="trail">Trail</Chip><Chip>Jun to Oct</Chip><Chip>Kid friendly</Chip><Chip kind="active" onRemove={() => undefined} removeLabel="Remove filter Plan: Dolomites">Plan: Dolomites</Chip>
+            <Chip>Soon</Chip><Chip kind="trip" identity="orange">Booking</Chip><Chip kind="kind" icon="trail">Trail</Chip><Chip>Jun to Oct</Chip><Chip>Kid friendly</Chip><Chip kind="active" onRemove={() => undefined} removeLabel="Remove filter Plan: Dolomites">Plan: Dolomites</Chip>
             <Tag>neutral, phase with identity, kind, active filter</Tag>
           </div>
           <div className="row-flex">
@@ -308,14 +308,14 @@ export function Specimen() {
 
       <Section id="cards" title="CARDS">
         <div className="cards4">
-          <Card variant="trip" identity="orange" photo={P2} title="Patagonia" meta="26 Feb – 11 Mar 2027 · 13 nights · Argentina · 4 bases · Ushuaia first"
-            chips={<div className="chips"><Chip>In 131 days</Chip><Chip kind="trip" identity="orange">Booking</Chip></div>} summary="Thirteen nights: Ushuaia and the penguins first, then El Chaltén and Fitz Roy, then Perito Moreno."
+          <Card variant="trip" identity="orange" photo={P2} title="Patagonia" meta="9 – 22 Jun 2031 · 13 nights · Argentina · 4 bases · Ushuaia first"
+            chips={<div className="chips"><Chip>Soon</Chip><Chip kind="trip" identity="orange">Booking</Chip></div>} summary="Thirteen nights: Ushuaia and the penguins first, then El Chaltén and Fitz Roy, then Perito Moreno."
             footer={<span className="src"><Icon name="clock" size={14} /> Book the flight · Sat 31 Oct</span>} />
           <Card variant="place" idea fallbackIcon="waterfall" fallbackLabel="Waterfall" title="Grand-Sault waterfall" meta="Bas-Saint-Laurent / Gaspésie (to confirm), Quebec, Canada"
             chips={<div className="chips"><Chip kind="kind" icon="waterfall">Waterfall</Chip><Chip kind="idea">Idea</Chip><Chip kind="honest">Location unconfirmed</Chip></div>}
             summary="Gaspésie road trip stop 4. Several waterfalls share this name and the post does not say which."
             footer={<><span className="src">No source yet</span><span className="card-links"><a href="#cards">Place page</a><a href="#cards">Globe</a></span></>} />
-          <Card variant="publicTrip" selected photo={P1} title="Dolomites" meta="13 – 26 Jul 2027 · 13 nights · Italy · 4 bases" chips={<div className="chips"><Chip>In 268 days</Chip></div>} summary="Fourteen days built backwards from what governs them." />
+          <Card variant="publicTrip" selected photo={P1} title="Dolomites" meta="3 – 16 May 2031 · 13 nights · Italy · 4 bases" chips={<div className="chips"><Chip>Soon</Chip></div>} summary="Fourteen days built backwards from what governs them." />
           <CardSkeleton />
         </div>
         <Tag>trip card (identity bar) · place card without photo · selected (map sync) · skeleton</Tag>
