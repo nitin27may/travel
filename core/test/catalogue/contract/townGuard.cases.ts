@@ -1,15 +1,18 @@
-// The town guard (D-E3 as amended, store.ts A33; owner decision Q87): K26. A town planted INSIDE the household radius, with an outline
-// that touches it, and a neighbour whose outline touches it, are served by every town method without a 500, with a moved centre and
-// rings, and every output passes the detector (K7's scan). The home town's name comes from the home module's own pattern, so no test
-// types it; the point comes from the probe (core/test/privacy/probe.ts), so none types that either.
+// The towns layer and privacy (store.ts A33; owner ruling Q87 of 23 Oct 2026, FINAL): K26. Every town is served exactly as the public
+// gazetteer holds it: a planted fixture town whose centre and outline lie inside the household radius, and a neighbour whose outline
+// reaches into it, are served by every town method with the planted numbers unchanged, no 500, and a clean K7 scan WITH the store's
+// gazetteer. The detector's identity rule is the only thing that lets them through: the same outputs without the gazetteer fail, and a
+// planted attacker point near home that is not a gazetteer point fails with it. The home town's name comes from the home module's own
+// pattern, so no test types it; the point comes from the probe (core/test/privacy/probe.ts), so none types that either.
 import { expect } from "vitest";
-import { nearHome, HOME_TOWN_RE } from "../../../src/privacy/home.ts";
+import { HOME_TOWN_RE, nearHome } from "../../../src/privacy/home.ts";
+import { gazetteerOf, publicGazetteer, type PublicGazetteer } from "../../../src/privacy/towns.ts";
 import { town as townSchema, type GlobeCity, type Town } from "../../../src/schema/api/index.ts";
 import { northOfHome } from "../../privacy/probe.ts";
 import { expectError, expectOk, householdHits, type ContractCase, type Planted } from "./kit.ts";
 
-const homeWord = HOME_TOWN_RE.source.replace(/[^a-z]/gi, "").toLowerCase();
-const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+export const homeWord = HOME_TOWN_RE.source.replace(/[^a-z]/gi, "").toLowerCase();
+export const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 /** A square ring of side ~2 x `km` around a point, as a GeoJSON polygon's coordinates ([lon, lat]). */
 function square(c: { lat: number; lon: number }, km: number): [number, number][][] {
@@ -34,14 +37,12 @@ export function plantedTowns(): Planted & { home: Town; neighbour: Town } {
 export const townGuardCases: ContractCase[] = [
   {
     id: "K26",
-    title: "no town makes a method answer 500 or carry a point near home: a planted town inside the radius is served with a moved centre and a ring",
+    title: "every town is served exactly as the gazetteer holds it, a planted town inside the radius included, with no 500, and only the identity rule lets it through",
     method: "towns",
     async run(_store, t) {
       expect(t.plant, "the target must plant towns for K26").toBeDefined();
       const p = plantedTowns();
       const store = await t.plant!(p);
-      const hits: string[] = [];
-      const scan = (out: unknown, where: string) => hits.push(...householdHits(out, where));
       if (!t.facts.town.layer) {
         // before the towns layer every town method answers not_available, which carries nothing
         expectError(await store.towns({ city: p.home.id }), "not_available");
@@ -49,51 +50,79 @@ export const townGuardCases: ContractCase[] = [
         expectError(await store.globeCity(p.home.id), "not_available");
         return;
       }
-      // the towns around the neighbour hold the home town: by id and name (the typed exemption), never at its own centre
+      const gazetteer = await gazetteerOf(store);
+      expect(gazetteer, "a store with a towns layer says which gazetteer it loaded (PublicTownsHolder)").not.toBeNull();
+      const outputs: [string, unknown][] = [];
+      // the towns around the neighbour hold the home town, at its public centre, with no extra field
       const around = expectOk(await store.towns({ city: p.neighbour.id, r: 50 }), "towns");
       const served = around.items.find((x) => x.id === p.home.id);
       expect(served, "the home town is served like any town (Q87: not excluded)").toBeDefined();
       expect(townSchema.safeParse(served).success).toBe(true);
-      expect(nearHome(served!.lat, served!.lon), "a town centre within the household radius was served").toBe(false);
-      expect(Object.keys(served!).sort(), "a guarded row carries no extra field").toEqual(Object.keys(townSchema.shape).sort());
-      for (const x of around.items) expect(nearHome(x.lat, x.lon), `${x.id}: a town centre within the household radius was served`).toBe(false);
-      scan(around, "towns");
-      // near(city=) measures from the served centre and answers
+      expect({ lat: served!.lat, lon: served!.lon }, "a town is served at its gazetteer point, unmoved").toEqual({ lat: p.home.lat, lon: p.home.lon });
+      expect(Object.keys(served!).sort(), "a town row carries no extra field").toEqual(Object.keys(townSchema.shape).sort());
+      outputs.push(["towns", around]);
+      // near(city=) measures from the public centre
       const near = expectOk(await store.near({ city: p.home.id, r: 25 }), "near");
-      expect(nearHome(near.centre.lat, near.centre.lon), "a near centre within the household radius was served").toBe(false);
-      scan(near, "near");
-      // the outlines that touch the radius are rings
-      for (const town of [p.home, p.neighbour]) {
-        const city = expectOk(await store.globeCity(town.id), `globeCity ${town.id}`);
-        expect(city.geometry, `${town.id}: an outline touching the household radius was served`).toBeNull();
-        scan(city, `globeCity ${town.id}`);
+      expect({ lat: near.centre.lat, lon: near.centre.lon }, "near(city=) measures from the gazetteer point").toEqual({ lat: p.home.lat, lon: p.home.lon });
+      outputs.push(["near", near]);
+      // the outlines are the public ones, not rings
+      for (const c of p.cities!) {
+        const city = expectOk(await store.globeCity(c.id), `globeCity ${c.id}`);
+        expect(city.geometry, `${c.id}: an outline is served exactly as loaded`).toEqual(c.geometry);
+        outputs.push([`globeCity ${c.id}`, city]);
       }
       // the city filter and its counts answer, and the nearby block's towns too
-      scan(expectOk(await store.listPlaces({ facets: { city: [p.home.id] } }), "listPlaces city"), "listPlaces city");
-      scan(expectOk(await store.countPlaces({ facets: { city: [p.home.id] } }), "countPlaces city"), "countPlaces city");
-      scan(expectOk(await store.nearbyForPlace(t.facts.placeSlug), "nearbyForPlace"), "nearbyForPlace");
-      expect(hits, "K7's scan over the planted outputs").toEqual([]);
+      outputs.push(["listPlaces city", expectOk(await store.listPlaces({ facets: { city: [p.home.id] } }), "listPlaces city")]);
+      outputs.push(["countPlaces city", expectOk(await store.countPlaces({ facets: { city: [p.home.id] } }), "countPlaces city")]);
+      outputs.push(["nearbyForPlace", expectOk(await store.nearbyForPlace(t.facts.placeSlug), "nearbyForPlace")]);
+      const hits = outputs.flatMap(([where, out]) => householdHits(out, where, { gazetteer }));
+      expect(hits, "K7's scan over the planted outputs, with the store's gazetteer").toEqual([]);
+      // the identity rule is what lets the public points through: without the gazetteer the same outputs fail closed
+      const homeCity = outputs.find(([w]) => w === `globeCity ${p.home.id}`)![1] as GlobeCity;
+      expect(householdHits(around, "towns").length, "without the gazetteer a town centre near home is refused").toBeGreaterThan(0);
+      expect(householdHits(homeCity, "globeCity").length, "without the gazetteer an outline near home is refused").toBeGreaterThan(0);
+      // a planted attacker point near home that is NOT the gazetteer point is refused, under the town's own id or any other
+      const moved = { ...served!, lat: served!.lat + 0.2 / 111.19 };
+      expect(nearHome(moved.lat, moved.lon)).toBe(true);
+      expect(householdHits({ items: [moved] }, "moved", { gazetteer }).length, "a moved centre under a real town id").toBe(1);
+      expect(householdHits({ items: [{ ...served!, id: "ca-zz-not-in-gazetteer" }] }, "unknown id", { gazetteer }).length, "the public point under an id the gazetteer does not hold").toBeGreaterThan(0);
+      expect(householdHits({ items: [{ slug: "x", name: "x", lat: served!.lat, lon: served!.lon }] }, "place", { gazetteer }).length, "the public point as a place's point").toBe(1);
+      expect(householdHits({ centre: { kind: "town", key: p.neighbour.id, name: p.neighbour.name, lat: served!.lat, lon: served!.lon } }, "swapped", { gazetteer }).length, "one town's point under another town's id").toBe(1);
+      const ring = (homeCity.geometry as { coordinates: number[][][] }).coordinates[0]!;
+      const planted = northOfHome(0.3);
+      const tampered = { ...homeCity, geometry: { type: "Polygon", coordinates: [[...ring.slice(0, 2), [planted.lon, planted.lat], ...ring.slice(2)]] } };
+      expect(householdHits(tampered, "tampered outline", { gazetteer }).length, "a vertex near home that the gazetteer outline does not hold").toBe(1);
     },
   },
   {
     id: "K26.exemption",
-    title: "the detector lifts only the home-town text rule, only in a town's id and name and a city chip, never for a point",
+    title: "the detector lifts the home-town text rule only for gazetteer towns' ids, names and chips, and accepts no point by shape",
     method: "all",
     async run() {
       const id = `ca-zz-${homeWord}`;
       const name = cap(homeWord);
-      // the shapes the exemption covers
-      expect(householdHits({ items: [{ id, name, lat: 50, lon: -100 }] }, "towns")).toEqual([]);
-      expect(householdHits({ centre: { kind: "town", key: id, name, lat: 50, lon: -100 } }, "near")).toEqual([]);
-      expect(householdHits({ facets: { city: [{ value: id, label: name, count: 3 }] } }, "counts")).toEqual([]);
-      expect(householdHits({ chips: [{ id: "near", label: `Near ${name}`, set: { city: [id] }, words: [0, 2] }], facets: { city: [id] }, href: `/places/?city=${id}` }, "parse")).toEqual([]);
-      expect(householdHits({ items: [{ slug: "x", nearTown: id }] }, "row")).toEqual([]);
-      // and nothing else: prose, a name with no town id beside it, a label that is a sentence, a point near home
-      expect(householdHits({ summary: `A walk out of ${name}` }, "prose").length).toBe(1);
-      expect(householdHits({ items: [{ id: "some-place", name }] }, "place").length).toBe(1);
-      expect(householdHits({ items: [{ id, name: `${name} 123 Main Street` }] }, "address").length).toBeGreaterThan(0);
-      expect(householdHits({ items: [{ id, name, ...northOfHome(0.5) }] }, "point").length).toBe(1);
-      expect(householdHits({ href: `/places/?q=${homeWord}` }, "href").length).toBe(1);
+      const far = { lat: 50, lon: -100 };
+      const gazetteer: PublicGazetteer = publicGazetteer([{ id, name, ...far }]);
+      const g = { gazetteer };
+      // the shapes the exemption covers, for a town the gazetteer holds
+      expect(householdHits({ items: [{ id, name, ...far }] }, "towns", g)).toEqual([]);
+      expect(householdHits({ centre: { kind: "town", key: id, name, ...far } }, "near", g)).toEqual([]);
+      expect(householdHits({ facets: { city: [{ value: id, label: name, count: 3 }] } }, "counts", g)).toEqual([]);
+      expect(householdHits({ chips: [{ id: "near", label: `Near ${name}`, set: { city: [id] }, words: [0, 2] }], facets: { city: [id] }, href: `/places/?city=${id}` }, "parse", g)).toEqual([]);
+      expect(householdHits({ towns: [{ id, name, distanceKm: 3, bearing: "N" }] }, "nearby", g)).toEqual([]);
+      // a row's nearTown is exempt for its own string only (review API3-R-2)
+      expect(householdHits({ items: [{ slug: "x", name: "Lake", nearTown: id }] }, "row", g)).toEqual([]);
+      expect(householdHits({ items: [{ slug: "x", name: `${name} Harbour`, nearTown: id }] }, "row name", g).length, "a place name holding the town's name beside nearTown").toBe(1);
+      expect(householdHits({ items: [{ slug: "x", name: `${name} Harbour`, townId: id }] }, "row townId", g).length).toBe(1);
+      // only gazetteer ids: a town-shaped id the gazetteer does not hold exempts nothing, and with no gazetteer nothing is exempt
+      expect(householdHits({ items: [{ id: `st-${homeWord}-x`, name: `${name} X` }] }, "shape", g).length).toBe(2);
+      expect(householdHits({ items: [{ id, name, ...far }] }, "no gazetteer").length).toBe(2);
+      // and nothing else: prose, a name with no town id beside it, a label that is a sentence, a point near home, an href's q
+      expect(householdHits({ summary: `A walk out of ${name}` }, "prose", g).length).toBe(1);
+      expect(householdHits({ items: [{ id: "some-place", name }] }, "place", g).length).toBe(1);
+      expect(householdHits({ items: [{ id, name: `${name} 123 Main Street` }] }, "address", g).length).toBeGreaterThan(0);
+      expect(householdHits({ items: [{ id, name, ...northOfHome(0.5) }] }, "point", g).length).toBe(1);
+      expect(householdHits({ href: `/places/?q=${homeWord}` }, "href", g).length).toBe(1);
     },
   },
 ];

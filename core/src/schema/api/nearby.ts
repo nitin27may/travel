@@ -70,9 +70,9 @@ export const nearPage = z.strictObject({
 
 /**
  * A town of the towns layer (nearby spec 5.6; rows `[id, name, lat, lon, pop, admin1, ascii]` of data/reference/towns/<cc>.json).
- * Every town is served through the town guard (core/src/privacy/towns.ts `safeTown`, store.ts A33) at load: no centre lies within the
- * household radius, and the row carries only public gazetteer fields, so no town is marked and none is left out. The schema is strict
- * on purpose: a town row may never gain a field derived from the household (a distance to home, a "moved" flag).
+ * Every town is served exactly as the public gazetteer holds it (core/src/privacy/towns.ts `publicTownLayer`, store.ts A33, owner
+ * ruling Q87): nothing moved, dropped or flagged, and the row carries only public gazetteer fields. The schema is strict on purpose: a
+ * town row may never gain a field derived from the household (a distance to home, a "moved" flag).
  */
 export const town = z.strictObject({
   id: apiTownId,

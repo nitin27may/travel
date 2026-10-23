@@ -8,7 +8,7 @@ import type { z } from "zod";
 import * as S from "../../schema/api/index.ts";
 import { compareByDistance, measure, within, type Measure } from "../distance.ts";
 import { cardHitsOf } from "../cards.ts";
-import { safeOutline, safeTown } from "../../privacy/towns.ts";
+import { publicTownLayer, safeLine, type PublicGazetteer, type PublicTownsHolder } from "../../privacy/towns.ts";
 import { printText } from "../printText.ts";
 import { approxNote } from "../../export/licence.ts";
 import { revisionOf, servedSnapshot } from "../revision.ts";
@@ -75,24 +75,23 @@ const termsOf = (text: string): string[] =>
 /** Distinct and in first-seen order: what a query is read as. */
 const distinct = (xs: string[]): string[] => [...new Set(xs)];
 
-export class StubStore implements CatalogueStore {
+export class StubStore implements CatalogueStore, PublicTownsHolder {
   readonly data: StubData;
   readonly layers: { near: boolean; towns: boolean; nearby: boolean };
   /** Row scans so far: case K4 checks that an unknown centre is refused before any row is read. */
   rowReads = 0;
   private readonly rev: string;
+  private readonly gazetteer: PublicGazetteer;
   private readonly bySlug: Map<string, StubPlace>;
   private readonly tripBySlug: Map<string, StubTrip>;
 
   constructor(opts: StubOptions = {}) {
     const given = opts.data ?? stubData();
-    // A33: every town and city outline passes the guard at load, so no method can serve a centre or an outline inside the household radius
-    const towns = given.towns.flatMap((t) => {
-      const safe = safeTown(t);
-      return safe ? [{ ...t, lat: safe.lat, lon: safe.lon }] : [];
-    });
-    const cities = given.cities.filter((c) => towns.some((t) => t.id === c.id)).map((c) => ({ ...c, geometry: safeOutline(c.geometry) }));
-    this.data = { ...given, towns, cities };
+    // A33 (owner ruling Q87, 23 Oct): every town and outline is served exactly as the public rows were loaded, and the gazetteer the
+    // detector reads is built from the same rows, so a served town point is accepted only when it is that public point
+    const layer = publicTownLayer(given.towns, given.cities);
+    this.gazetteer = layer.gazetteer;
+    this.data = { ...given, towns: layer.towns, cities: layer.outlines };
     this.layers = { near: true, towns: true, nearby: true, ...opts.layers };
     const d = this.data;
     this.rev = revisionOf(servedSnapshot({
@@ -109,6 +108,11 @@ export class StubStore implements CatalogueStore {
 
   async revision(): Promise<string> {
     return this.rev;
+  }
+
+  /** The loaded public gazetteer (towns.ts), for the detector in respond() and the contract kit; null when the towns layer is off. */
+  publicTowns(): PublicGazetteer | null {
+    return this.layers.towns ? this.gazetteer : null;
   }
 
   // ---- places ------------------------------------------------------------------------------------------------------------------
@@ -510,7 +514,7 @@ export class StubStore implements CatalogueStore {
     for (let i = 0; i + 1 < chain.length && legs.length < 2; i++) {
       const [a, b] = [chain[i]!, chain[i + 1]!];
       const mid: [number, number] = [(a.point!.lon + b.point!.lon) / 2 + 0.01, (a.point!.lat + b.point!.lat) / 2];
-      const geometry = safeOutline(S.encodePolyline5([[a.point!.lon, a.point!.lat], mid, [b.point!.lon, b.point!.lat]]));
+      const geometry = safeLine(S.encodePolyline5([[a.point!.lon, a.point!.lat], mid, [b.point!.lon, b.point!.lat]]));
       legs.push({ day: b.day, from: a.key, to: b.key, mode: "drive", km: Math.round(measure(a.point!, b.point!).distanceKm * 13) / 10, minutes: 30 + i * 15, geometry });
     }
     return legs;
