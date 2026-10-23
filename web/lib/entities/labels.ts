@@ -1,20 +1,16 @@
-import types from '../../../data/vocab/types.json';
+import KIND_TYPE_LABELS from './kind-labels.json';
 
 export const cap = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
 
-interface TypeNode { id: string; level: string; label: string }
-
-/** Type-level nodes of data/vocab/types.json by their last id segment: `water.body.lake` answers to the kind `lake`. */
-const TYPE_LABEL = new Map<string, string>();
-for (const n of (types as { nodes: TypeNode[] }).nodes) if (n.level === 'type') TYPE_LABEL.set(n.id.slice(n.id.lastIndexOf('.') + 1), n.label);
-
 /**
  * The visitor-facing label of a place kind (CONS-2): the label of the matching type in data/vocab/types.json ("Swim spot", "Scenic drive",
- * "Trailhead"). A kind with no type of its own (trail, sight, area, lift, eatery, ...) is its own name, capitalised: the types.json
- * nodes of those are categories ("Lifts and cable cars"), not the singular a card shows. The one helper for glyph rows, timeline stops and the specimen.
+ * "Trailhead"), through kind-labels.json, the few words derived from it by `node web/scripts/kind-labels.mjs` (the client bundle must not
+ * carry the 122 KB type tree; tests/entities/kind-labels.test.ts fails when the file drifts). A kind with no type of its own (trail, sight,
+ * area, lift, eatery, ...) is its own name, capitalised: the types.json nodes of those are categories ("Lifts and cable cars"), not the
+ * singular a card shows. The one helper for glyph rows, timeline stops and the specimen.
  */
 export function kindLabel(kind: string): string {
-  return TYPE_LABEL.get(kind) ?? cap(kind.replace(/_/g, ' '));
+  return (KIND_TYPE_LABELS as Record<string, string>)[kind] ?? cap(kind.replace(/_/g, ' '));
 }
 
 /** The kids options, easiest first. Each has a plain meaning that the filter menu shows under the name. */
