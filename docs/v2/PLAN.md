@@ -190,6 +190,14 @@ Phase A is merged and R1 entry is done, so the first-10 table above is history. 
 
 ### 4.4 What is next (23 Oct 2026)
 
+**Owner update, 23 Oct (sequential closure approved):** finish half-done work before
+opening the next lane. The current branch's detailed queue and acceptance checks are
+in [REMAINING-CLOSURE-PLAN.md](build/public-site/REMAINING-CLOSURE-PLAN.md):
+TRP2b2, API/HYG review loose ends, LST2b, then CONS-3. Decisions A29 to A40
+are already restored in main (`47bf9ab`), not a remaining task. The TRP2b2
+re-review approves a preview only; go-live/server gaps remain explicit. The branch
+has not been integrated into main.
+
 Phase B is done and G-B passed at `main` 653407f. In order:
 
 | # | Next | Who | Notes |

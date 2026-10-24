@@ -2,7 +2,7 @@
 
 Written 23 Oct 2026 (evening) at `main` 2d6e4b5. This is the first file a person or a fresh Claude session reads. It says what the product is, how to run it on this Mac, the rules, the traps, what is running, what comes next and what the owner still has to decide. The long tables (every trap with its fix, the lane plan with owned files, the readiness checklist, the SRV-0 parity list, the index of every document) are in [docs/v2/HANDOVER-DETAIL-2026-10-23.md](docs/v2/HANDOVER-DETAIL-2026-10-23.md).
 
-**The plan pages lag `main` by four merges.** `docs/v2/PLAN.md`, `TODO.md`, `STATUS.md` and BACKLOG 15.34 to 15.39 still say "main at 91c9cd6; META-2 and TRP2b in progress". Since then META-2, HYG and TRP2b have merged (section 1). Where they disagree, `git log` and this file win, until a docs lane brings them up to date.
+**Update after this handover was written:** FIXDOC merged at `47bf9ab`, restoring A29 to A40 with a guard test and syncing plan progress. On the current session branch, the owner approved finishing half-done work sequentially. Start from [REMAINING-CLOSURE-PLAN.md](docs/v2/build/public-site/REMAINING-CLOSURE-PLAN.md) for that queue and TRP2b2's preview-versus-go-live boundary. Those session changes are not yet integrated into main. The dated counts, service state and calendar below remain historical; verify live state before acting.
 
 ## 1. State on 23 Oct 2026
 
