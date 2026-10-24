@@ -281,7 +281,7 @@ Decided and no longer open: Q1-Q64, Q70-Q72, D1-D10 (EXECUTION-PLAN), L7 (21 Oct
 | [SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) | The skills home and set, with their texts; the `trip-planner` disposition; trip-as-data walkthrough; gaps G1-G8 and tasks TD-0 to TD-6 with briefs; the no-HTML freeze rule; the redundancy inventory and removal order; the proposed CLAUDE.md text; the CLN-7 brief | current (21 Oct, late) |
 | [/research/README.md](../../research/README.md) | The map of the research system: jobs, per-type checklists, formats, validators, gaps, merge, the rules that do not bend | current (CLN-1, 329bb99) |
 | [TODO.md](TODO.md) | Owner requests, Open and Done | current |
-| [/HANDOVER.md](../../HANDOVER.md) | New-machine setup, commands, what is not in git | current |
+| [/HANDOVER.md](../../HANDOVER.md) and [HANDOVER-DETAIL-2026-10-23.md](HANDOVER-DETAIL-2026-10-23.md) | The entry document: current state, setup, rules with reasons, traps, services, the plan forward, open decisions, usage; the detail file holds the gate and generators, every trap, the lane table and calendar, readiness, SRV-0 parity and the document index | current (23 Oct, evening; status here lags it) |
 | [build/handover/memory/](build/handover/memory/) | Owner decisions and working rules, with reasons | history; this page wins where they differ |
 | [README.md](README.md) and 01-11 | The planner product and platform draft | working draft; not the public site's plan |
 
