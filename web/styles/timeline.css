@@ -377,7 +377,7 @@
 
 /* ---- the map that follows the day (google-map-note 3) ---- */
 /* The sheet's height: half the screen, but days stay visible between the sticky strip and the sheet (phone note 3.2). */
-.tl-cols { display: block; --sheet-h: max(280px, min(50dvh, calc(100dvh - 428px))); }
+.tl-cols { display: block; --sheet-h: max(300px, min(52dvh, calc(100dvh - 408px))); }
 .tl-mapcol-close, .tl-mapbtn { display: none; }
 .tl-mapcol { margin: 0 0 var(--s-8); }
 .tl-mapcol-h { margin-bottom: var(--s-2); }
@@ -447,6 +447,18 @@
   .trip-map-key { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 var(--s-3); }
   .trip-map-key .trip-map-key-toggle { margin-top: 0; }
   .trip-map-key .trip-map-key-note { order: 3; flex-basis: 100%; }
+  /* the opened key is a panel over the top of the map, so the map keeps its height (review B3); it stops short of the zoom column */
+  .trip-map-key { position: relative; z-index: 13; } /* above the map's own credit chip and controls, which the panel must not sit under */
+  .trip-map-key-panel {
+    position: absolute; z-index: 6; top: calc(100% + 2px); left: 0; right: 64px; max-height: 260px; overflow-y: auto; overscroll-behavior: contain;
+    display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-2); padding: var(--s-3);
+    background: var(--surface); color: var(--ink); border: 1px solid var(--line-2); border-radius: var(--r-3); box-shadow: var(--e-2);
+  }
+  .trip-map-key-panel .trip-map-key-list { flex-direction: column; align-items: flex-start; gap: var(--s-2); }
+  .trip-map-key-panel .trip-map-key-note { margin: 0; order: 0; flex-basis: auto; }
+  .trip-map-key-more, .trip-map-key-close { min-height: 36px; padding: 0 var(--s-3); border: 1px solid var(--line-2); border-radius: var(--r-full); background: var(--surface); color: var(--ink); font: var(--t-chip); cursor: pointer; }
+  .trip-map-key-more { min-height: 28px; padding: 0 var(--s-2); }
+  .trip-map-key-toggle:focus-visible, .trip-map-key-more:focus-visible, .trip-map-key-close:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
   .tl-mapbox .trip-map-surface { height: auto; min-height: 0; }
   .tl-mapbox .trip-map-surface > div { min-height: 0; }
   .tl-mapph { height: 100%; }

@@ -112,7 +112,7 @@ test.describe('reads go to /api/v1/ by default', () => {
     await page.goto(`${site.url}/specimen/`, { waitUntil: 'networkidle' });
     await expect.poll(() => rec.api().some((p) => p.startsWith('/api/v1/export/trip/'))).toBe(true);
     await page.getByRole('button', { name: 'Export', exact: true }).click();
-    const [gpx] = await Promise.all([page.waitForEvent('download'), page.getByRole('menuitem', { name: /^GPX/ }).click()]);
+    const [gpx] = await Promise.all([page.waitForEvent('download'), page.getByRole('menuitem', { name: /^For a GPS or hiking app \(GPX\)/ }).click()]);
     expect(gpx.suggestedFilename()).toBe('dolomites-2027.gpx');
     expect(rec.files()).toEqual([]);
   });

@@ -34,6 +34,11 @@ describe('how a leg is drawn on Google (map note 5.1)', () => {
     expect(amber).toMatchObject({ strokeColor: pal.routePick, strokeWeight: 3.5, strokeOpacity: 1 });
     expect(casing).toMatchObject({ strokeColor: 'rgb(1, 2, 3)', strokeWeight: 5.5 });
   });
+  it('hovered, a routed picked leg is thicker (7 px casing, 5 px amber), since amber is already its colour', () => {
+    const [casing, amber] = legParts(line('route-pick'), pal, 'rgb(1, 2, 3)', true, true) as Solid[];
+    expect(amber).toMatchObject({ strokeColor: pal.accent, strokeWeight: 5 });
+    expect(casing).toMatchObject({ strokeColor: 'rgb(1, 2, 3)', strokeWeight: 7 });
+  });
   it('a routed leg in All days is 2 px ink with a halo', () => {
     const [halo, ink] = legParts(line('route'), pal, 'x', false, false) as Solid[];
     expect(ink).toMatchObject({ strokeColor: pal.route, strokeWeight: 2 });

@@ -53,3 +53,24 @@ describe('routed legs onto the map\'s lines (D-E5)', () => {
     expect(routeSpec({ bases, models, picked: null, geometry: g }).lines.find((l) => l.id === 'leg:1:2')!.style).toBe('route');
   });
 });
+
+describe('a place and its trail page at one point (review B4): exact coordinates only', () => {
+  // the stored legs key the stop by its place item; the day's pin was made from the trail page of the same spot
+  const slugs: Record<string, string> = { i1: 'marble-canyon', i2: 'takakkaw-falls' };
+  const slugOf = (k: string) => slugs[k] ?? null;
+  const m = [model(1, [[10.1, 40.1, 'trail-1'], [10.2, 40.2, 'trail-2']])];
+  m[0]!.pins[0]!.id = 'stop:1:marble-canyon-walk';
+  m[0]!.pins[1]!.id = 'stop:1:takakkaw-falls-walk';
+  const stored = [leg(1, 'i1', 'i2', line([[10.1, 40.1], [10.2, 40.2]]))];
+  const at = (p: Record<string, { lng: number; lat: number }>) => (s: string | null) => (s ? p[s] ?? null : null);
+  it('joins when the place and the trail page have exactly the same catalogue point', () => {
+    const same = at({ 'marble-canyon': { lng: 10.1, lat: 40.1 }, 'takakkaw-falls': { lng: 10.2, lat: 40.2 } });
+    expect(Object.keys(legGeometry(stored, m, [], slugOf, same))).toEqual(['leg:1:2']);
+  });
+  it('does not join by name, by distance or when a side has no point', () => {
+    expect(legGeometry(stored, m, [], slugOf)).toEqual({});
+    expect(legGeometry(stored, m, [], slugOf, at({ 'marble-canyon': { lng: 10.1, lat: 40.1 } }))).toEqual({});
+    const near = at({ 'marble-canyon': { lng: 10.10001, lat: 40.1 }, 'takakkaw-falls': { lng: 10.2, lat: 40.2 } });
+    expect(legGeometry(stored, m, [], slugOf, near)).toEqual({});
+  });
+});
