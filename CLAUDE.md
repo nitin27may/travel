@@ -1,6 +1,6 @@
 # Travel plans repo
 
-**Start here on a new machine or session: read `docs/v2/PLAN.md` (the single plan: requirements, order, status, next tasks, open decisions), then `HANDOVER.md` (setup), then `docs/v2/build/public-site/EXECUTION-PLAN.md` for task detail and `BACKLOG.md` for row status.** `main` is the new public site (v2); the old site is the tag `legacy-final`; the live site is unchanged until the owner approves go-live. For research, `research/README.md`.
+**Start here on a new machine or session: read `HANDOVER.md` (current state, setup, rules, traps, services, plan forward, open decisions; detail in `docs/v2/HANDOVER-DETAIL-2026-10-23.md`), then `docs/v2/PLAN.md` (the single plan: requirements, order, status, next tasks, open decisions), then `docs/v2/build/public-site/EXECUTION-PLAN.md` for task detail and `BACKLOG.md` for row status.** `main` is the new public site (v2); the old site is the tag `legacy-final`; the live site is unchanged until the owner approves go-live. For research, `research/README.md`.
 
 Each trip is **data**:
 - `data/trips/<id>/trip.json`, written only through `node core/bin/ops.ts`;
