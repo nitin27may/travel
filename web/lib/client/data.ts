@@ -99,8 +99,16 @@ export function loadExport(type: 'trip' | 'place', slug: string): Promise<TripEx
 
 /** The routed legs of one public trip, read when its map mounts (D-E5, TRP2b). Null when there is no such endpoint or trip: the map then draws estimates. */
 export function tripLegs(slug: string): Promise<TripLegs | null> {
-  return client().tripLegs(slug);
+  // one request per page view: the map and the export menu both read the legs; a failed read is forgotten so a later ask retries
+  let p = legsAsked.get(slug);
+  if (!p) {
+    p = client().tripLegs(slug);
+    legsAsked.set(slug, p);
+    p.catch(() => legsAsked.delete(slug));
+  }
+  return p;
 }
+const legsAsked = new Map<string, Promise<TripLegs | null>>();
 
 /** The area tree with counts. No pins. */
 export function globeTree(): Promise<GlobeTree> {

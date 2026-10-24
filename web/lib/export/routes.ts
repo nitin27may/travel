@@ -2,32 +2,35 @@
 // The browser joins these to the trip's export model when a KML or GPX is made; nothing is stored in the model, so the page and the API's
 // export carry no geometry (P8: a trip page does not grow by its routes). A leg the privacy guard refused has no geometry and so no line.
 import type { TripLegs } from '@travel/core/schema/api/index.ts';
-import { decodePolyline5 } from '@/lib/map/polyline';
+import { routedSteps } from '@/components/trips/legGeometry';
+import { dayMapOf, pointLookup } from '@/components/trips/mapPins';
+import type { TimelineSession } from './timelineState';
 import type { ExportLine, TripExport } from './types';
 
 const TITLE_MODE = { drive: 'drive', walk: 'walk' } as const;
 
-/** The name of a stop key of the trip detail: a day item's id, or `base:<id>`. */
-function namer(model: TripExport): (key: string) => string {
-  const stops = new Map(model.stops.map((s) => [s.id, s.name]));
-  // a base waypoint's id is `base:<day>:<base id>`
-  const bases = new Map(model.waypoints.filter((w) => w.role === 'base').map((w) => [w.id.split(':').slice(2).join(':'), w.name]));
-  return (key) => (key.startsWith('base:') ? (bases.get(key.slice(5)) ?? 'the base') : (stops.get(key) ?? 'a stop'));
-}
-
-export function routeLines(legs: Pick<TripLegs, 'legs'> | null, model: TripExport): ExportLine[] {
-  if (!legs) return [];
-  const name = namer(model);
+/**
+ * The routes of the trip as the page shows it (review SHOULD-6, B1). One track per drawn step that a stored leg covers: the SAME join the map
+ * uses (`routedSteps`: the day's chain of morning base, pins in timeline order, night base), so the file holds exactly the lines the map
+ * draws as routes and never a drive the day does not make. A day with versions exports the chosen version's steps, named by it ("Day 8,
+ * Family day: ..."). Legs with an end that is not a pin (the airport legs of a first or last day) are not in the file, as they are not on
+ * the map. Without the page's timeline and route there is no way to know the order, so the file has no routes.
+ */
+export function routeLines(legs: Pick<TripLegs, 'legs'> | null, model: TripExport, session: Pick<TimelineSession, 'timelines' | 'route'> | null = null): ExportLine[] {
+  if (!legs || !session?.route) return [];
+  const route = session.route;
+  const slugs = new Map(model.stops.flatMap((s) => (s.placeSlug ? [[s.id, s.placeSlug] as const] : [])));
+  const pointOf = pointLookup(route);
+  const maps = session.timelines.map((t) => dayMapOf(t, pointOf));
+  const label = new Map(session.timelines.map((t) => [t.day, t.variant.key === 'main' ? null : t.variant.label]));
   const out: ExportLine[] = [];
-  for (const l of legs.legs) {
-    const line = l.geometry ? decodePolyline5(l.geometry) : null;
-    if (!line || line.length < 2) continue;
+  for (const s of routedSteps(legs.legs, maps, route.bases, (k) => slugs.get(k) ?? null, pointOf)) {
     out.push({
-      ref: `route:${model.slug}:${l.day}:${out.length + 1}`,
-      label: `Day ${l.day}: ${name(l.from)} to ${name(l.to)} (${TITLE_MODE[l.mode]}, ${l.km} km, ${l.minutes} min)`,
+      ref: `route:${model.slug}:${s.day}:${out.length + 1}`,
+      label: `Day ${s.day}${label.get(s.day) ? `, ${label.get(s.day)}` : ''}: ${s.from} to ${s.to} (${TITLE_MODE[s.mode]}, ${s.leg.km} km, ${s.leg.minutes} min)`,
       exportable: true,
       licence: 'ODbL',
-      geometry: line.map((p) => [p.lng, p.lat]),
+      geometry: s.path.map((p) => [p.lng, p.lat]),
     });
   }
   return out;

@@ -4,6 +4,7 @@
 // as the profile, the overrides and the additions change; the sheet reads it when it opens. A module store, because the sheet
 // is rendered outside the timeline's component tree. Nothing here is stored: a reload starts from the URL again.
 import type { DayTimeline, Profile } from '@travel/core/schedule/types.ts';
+import type { RouteModel } from '@/components/trips/model';
 
 export interface TimelineSession {
   slug: string;
@@ -12,8 +13,12 @@ export interface TimelineSession {
   overrides: Record<number, string>;
   added: { day: number; placeSlug: string }[];
   timelines: DayTimeline[];
+  /** The same days with the page's display marks applied (a time-zone line shifts the clock, a flight-tied time reads "about"): what the page's rows say, for the print. */
+  display?: DayTimeline[];
   /** Where each day's sun times are computed, for the real dates of a copy. */
   sunPoints: Record<number, { lat: number; lon: number } | null>;
+  /** The map's own route model (bases and placed points), so a route file is made from the same chain as the map. */
+  route?: RouteModel;
 }
 
 let current: TimelineSession | null = null;

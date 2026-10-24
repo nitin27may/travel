@@ -1,4 +1,6 @@
+import { fmtHM } from '@travel/core/schedule/rules.ts';
 import type { TimelineEntry } from '@travel/core/schedule/types.ts';
+import { timeText } from '@/components/trips/timeline/labels';
 import type { TimelineSession } from '@/lib/export/timelineState';
 import { sourceLine } from '@/lib/export/licence';
 import type { ExportStop, TripExport } from '@/lib/export/types';
@@ -15,21 +17,32 @@ export function profileLine(p: TimelineSession['profile']): string {
   return `${p.party === 'adults' ? 'Adults' : `Family, ${p.youngest}`} · ${p.pace[0]!.toUpperCase()}${p.pace.slice(1)}`;
 }
 
-interface Row { key: string; time: string | null; name: string; stop: ExportStop | null }
+interface Row { key: string; time: string | null; name: string; duration: string | null; note: string | null; stop: ExportStop | null }
 
-/** One day's rows. With the page's timeline, the times and the chosen version are the page's own; without it, the plan's stops as written, untimed. */
-function rowsOf(day: number, stops: ExportStop[], session: TimelineSession | null): { rows: Row[]; version: string | null } {
-  const tl = session?.timelines.find((t) => t.day === day);
-  if (!tl) return { rows: stops.filter((s) => s.day === day).map((s) => ({ key: s.id, time: s.time, name: s.name, stop: s })), version: null };
+/** The time as the page words it: "~08:45" for a suggested time (T3), "about 08:45" tied to the sun, "07:30 PT" over a time-zone line, the part of the day on a condensed plan. */
+export function printTime(e: TimelineEntry, blocks: boolean): string | null {
+  if (blocks) return e.block ?? null;
+  if (e.block) return e.block;
+  return `${e.time.confidence === 'suggested' ? `~${e.start}` : timeText(e)}${e.tz.length <= 3 ? ` ${e.tz}` : ''}`;
+}
+
+/**
+ * One day's rows. With the page's timeline, every printed field is the timeline entry's own (time, duration in the page's formatter, note),
+ * the stop only adds its area, links and a note the entry has none of; without it, the plan's stops as written, untimed.
+ */
+function rowsOf(day: number, stops: ExportStop[], session: TimelineSession | null): { rows: Row[]; version: string | null; travel: boolean } {
+  const tl = (session?.display ?? session?.timelines)?.find((t) => t.day === day);
+  const plain = (s: ExportStop): Row => ({ key: s.id, time: null, name: s.name, duration: s.durationMin ? `${s.durationMin} min` : null, note: s.note, stop: s });
+  if (!tl) return { rows: stops.filter((s) => s.day === day).map(plain), version: null, travel: false };
   const mine = stops.filter((s) => s.day === day);
-  const entries: TimelineEntry[] = tl.entries.filter((e) => PRINTED.has(e.kind) && !e.insideOf);
-  const rows = entries.map((e) => ({
-    key: e.id,
-    time: tl.blocks ? (e.block ?? null) : e.start,
-    name: e.title,
-    stop: mine.find((s) => s.placeSlug && s.placeSlug === e.at?.placeSlug) ?? null,
-  }));
-  return { rows, version: tl.variant.key === 'main' ? null : tl.variant.label };
+  const of = (e: TimelineEntry): Row => {
+    const stop = mine.find((s) => s.placeSlug && s.placeSlug === e.at?.placeSlug) ?? null;
+    return { key: e.id, time: printTime(e, tl.blocks), name: e.title, duration: e.durationMin > 0 ? fmtHM(e.durationMin) : null, note: e.time.note ?? stop?.note ?? null, stop };
+  };
+  const rows = tl.entries.filter((e) => PRINTED.has(e.kind) && !e.insideOf).map(of);
+  // a day with no visit (a travel day) prints its travel, not a missing-fact marker
+  if (!rows.length) return { rows: tl.entries.filter((e) => e.kind === 'leg' && !e.insideOf).map(of), version: tl.variant.key === 'main' ? null : tl.variant.label, travel: true };
+  return { rows, version: tl.variant.key === 'main' ? null : tl.variant.label, travel: false };
 }
 
 /**
@@ -46,7 +59,7 @@ export function TripPrintView({ data, session = null }: { data: TripExport; sess
       </p>
       {session ? <p>Planned for {profileLine(session.profile)}</p> : null}
       {data.days.map((d) => {
-        const { rows, version } = rowsOf(d.n, data.stops, session);
+        const { rows, version, travel } = rowsOf(d.n, data.stops, session);
         return (
           <section key={d.n} className="print-model-day">
             <h2>
@@ -61,13 +74,13 @@ export function TripPrintView({ data, session = null }: { data: TripExport; sess
                     {r.time ? <b>{r.time} · </b> : null}
                     {r.name}
                     {r.stop?.area ? `, ${r.stop.area}` : ''}
-                    {r.stop?.durationMin ? ` · ${r.stop.durationMin} min` : ''}
-                    {r.stop?.note ? <span className="print-model-note"> {r.stop.note}</span> : null}
+                    {r.duration ? ` · ${r.duration}` : ''}
+                    {r.note ? <span className="print-model-note"> {r.note}</span> : null}
                     {r.stop?.links[0] ? <span className="print-model-link">{r.stop.links[0]}</span> : null}
                   </li>
                 ))}
               </ol>
-            ) : (
+            ) : travel ? null : (
               <p>{GAP}</p>
             )}
           </section>

@@ -7,6 +7,7 @@ import { Banner } from '@/components/ui/Banner';
 import { Chip } from '@/components/ui/Chip';
 import { Icon } from '@/components/ui/Icon';
 import { Segmented } from '@/components/ui/Segmented';
+import { flightEntries, localEntries } from './timeline/marks';
 import { publishTimeline, registerYoungest } from '@/lib/export/timelineState';
 import { tripPageFamily } from '@/lib/map/family';
 import type { Category } from '@/lib/public/types';
@@ -190,10 +191,11 @@ function TimelinePlan({ slug, model, depth, season, tlModel, url }: Props & { tl
   useEffect(() => {
     publishTimeline({
       slug, profile: api.state.profile, defaults: { ...tlModel.defaultProfile, adults: 2 }, overrides: api.state.overrides, added: api.state.added.map((a) => ({ day: a.day, placeSlug: a.slug })),
-      timelines: api.timelines, sunPoints: Object.fromEntries(tlModel.days.map((d) => [d.n, d.input.sunPoint])),
+      timelines: api.timelines, display: api.timelines.map((t) => { const d = tlModel.days.find((x) => x.n === t.day); return { ...t, entries: localEntries(flightEntries(t.entries, d?.flight), d?.zone) }; }),
+      sunPoints: Object.fromEntries(tlModel.days.map((d) => [d.n, d.input.sunPoint])), route: model.route,
     });
     return () => publishTimeline(null);
-  }, [slug, tlModel, api.state, api.timelines]);
+  }, [slug, tlModel, api.state, api.timelines, model.route]);
   // A chip scrolls itself (as a day pick does) so a pick of the section the URL already names still moves the page, and a scroll the
   // visitor made just before cannot settle afterwards and write its own section over the pick.
   const pickCat = useCallback(
