@@ -2,6 +2,12 @@
 
 > **Status (23 Oct 2026, main 27e55e7): under way; META-2, HYG and TRP2b are merged, fix round TRP2b2 in progress. See STATUS.md.**
 
+> **Sequential closure update:** main reached `47bf9ab` (FIXDOC, A29 to A40
+> restored). The owner approved the queue in
+> [REMAINING-CLOSURE-PLAN.md](REMAINING-CLOSURE-PLAN.md). TRP2b2's preview
+> fixes and re-review are on the session branch; main integration is still pending.
+> The old calendar below is not a fresh delivery estimate.
+
 Written 23 Oct 2026 by travel-planner (Opus) so phase E can start the moment the owner says go. Docs only; nothing here is started.
 
 **Authority.** This sheet decides the order, the models, the worktrees and ports, the collisions, the preconditions, the rollback, the calendar and the owner milestones for phase E. [EXECUTION-PLAN.md](EXECUTION-PLAN.md) section 4 stays the authority for the API shape, section 6 for the metadata tiers and section 11 for gate R2, except where this sheet amends them (listed below). The lane briefs ([TRP2](briefs/TRP2.md), [META](briefs/META.md), [DATA](briefs/DATA.md), [LST2](briefs/LST2.md), [PLC2](briefs/PLC2.md), [GLB2](briefs/GLB2.md), [MX](briefs/MX.md), [CONS](briefs/CONS.md), [SRV](briefs/SRV.md)) were revised the same day to match it. Two lanes have no brief file of their own and are specified in full in section 15 (API-3) and section 16 (HYG, M1). [PLAN.md](../../PLAN.md) section 3 and 4.5 point here.
