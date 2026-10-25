@@ -42,3 +42,6 @@ data/relevance/inputs/private-origin.local.json
 web/AGENTS.md
 .neon
 .vercel
+
+# Google OAuth client downloads hold secrets
+client_secret_*.json
