@@ -13,6 +13,12 @@ with Neon Postgres row-level security, plus the operation layer's own checks.
 > PLAN R-70 to R-75. Q103 there asks whether sign-up may open for these light features while the planner stays
 > invite-only (question 2 below).
 
+> **Amended 25 Oct 2026 (Google and Apple sign-in):** Google sign-in and sign-up are specified in
+> [google-and-apple-sign-in.md](google-and-apple-sign-in.md) (PLAN R-81 to R-85). It supersedes the edge case below on
+> linking by email: Google links to an existing account only when that account's email is verified; an unverified
+> email/password account is never linked implicitly (CVE-2026-53516). Apple is deferred (Neon Managed Auth does not offer
+> it; Q117). Magic link and passkeys stay here.
+
 **Status (R-60, Oct 2026).** Built: the account foundation only, namely email/password sign-up,
 sign-in and sign-out, server-verified sessions, and private `planner_draft` CRUD under RLS with
 cross-user isolation and live invalidation (content-free `planner_draft_signal`, the one
@@ -88,7 +94,7 @@ MCP: no account-management tools; authorisation happens through OAuth or tokens.
 ## Edge cases
 
 - Magic link (planned) opened on a different device: works and asks to confirm the device.
-- A user signs in with Google using the same email as a magic-link account: linked to the same user.
+- A user signs in with Google using the same email as a magic-link account: linked to the same user. **Superseded 25 Oct 2026:** linked only when the existing account's email is verified; otherwise refused, and the user links Google from Account after signing in ([google-and-apple-sign-in.md](google-and-apple-sign-in.md) section 5).
 - Token leaked: revocation takes effect on the next request; tokens are hashed at rest.
 - OAuth server unavailable for MCP clients: tokens only, as planned.
 
