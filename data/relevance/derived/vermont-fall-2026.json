@@ -186,7 +186,9 @@
       "far_pointer": null,
       "pair_with": [],
       "pair_pending": [],
-      "part_of": [],
+      "part_of": [
+        "place/stowe"
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -311,6 +313,52 @@
           "reason": "draw national, standing good, distinction rare"
         }
       },
+      "layer": "place"
+    },
+    {
+      "ref": "place/stowe",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 38,
+      "detour_basis": "base",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [
+        "trip/vermont-fall-2026/trail:stowe recreation path"
+      ],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 38 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
       "layer": "place"
     }
   ]

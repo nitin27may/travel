@@ -1,5 +1,17 @@
 {"schema":"towns-part/1","cc":"us","admin1":{"pa":"Pennsylvania"},"rows":[
 ["us-pa-allentown","Allentown",40.60843,-75.49018,120207,"pa","Allentown",5178127],
+["us-pa-athens","Athens",41.9573,-76.518,3255,"pa","Athens",5178651],
+["us-pa-blossburg","Blossburg",41.67952,-77.06386,1516,"pa","Blossburg",5180948],
+["us-pa-canton","Canton",41.65646,-76.85329,1920,"pa","Canton",5183169],
+["us-pa-elkland","Elkland",41.98618,-77.31081,1779,"pa","Elkland",5188549],
+["us-pa-galeton","Galeton",41.73312,-77.64193,1124,"pa","Galeton",5190743],
+["us-pa-mansfield","Mansfield",41.8073,-77.07747,3432,"pa","Mansfield",5199710],
 ["us-pa-philadelphia","Philadelphia",39.95238,-75.16362,1573916,"pa","Philadelphia",4560349],
-["us-pa-pittsburgh","Pittsburgh",40.44062,-79.99589,304391,"pa","Pittsburgh",5206379]
+["us-pa-pittsburgh","Pittsburgh",40.44062,-79.99589,304391,"pa","Pittsburgh",5206379],
+["us-pa-sayre","Sayre",41.97896,-76.5155,5424,"pa","Sayre",5211037],
+["us-pa-south-waverly","South Waverly",41.99757,-76.53717,1025,"pa","South Waverly",5213126],
+["us-pa-towanda","Towanda",41.76758,-76.44272,2812,"pa","Towanda",5215859],
+["us-pa-troy","Troy",41.78591,-76.78801,1269,"pa","Troy",5216182],
+["us-pa-wellsboro","Wellsboro",41.74868,-77.30053,3290,"pa","Wellsboro",5218450],
+["us-pa-westfield","Westfield",41.91924,-77.53887,1052,"pa","Westfield",5218969]
 ]}

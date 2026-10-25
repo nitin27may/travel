@@ -1,0 +1,1453 @@
+{
+  "schema": "relevance-derived/1",
+  "trip": "catalogue",
+  "as_of": "2026-10-25",
+  "thresholds": {
+    "version": 2,
+    "languages": {
+      "world": 25,
+      "national": 10,
+      "regional": 2
+    },
+    "views": {
+      "world": 40000,
+      "national": 10000,
+      "regional": 2000
+    }
+  },
+  "window": null,
+  "items": [
+    {
+      "ref": "place/yellowstone-national-park",
+      "draw_suggested": "national",
+      "effective_draw": "world",
+      "access_load": "easy",
+      "detour_min": 1078,
+      "detour_basis": "town",
+      "detour_town": "Salt Lake City",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw world, standing top"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 1078 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/grand-teton-national-park",
+      "draw_suggested": "national",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 868,
+      "detour_basis": "town",
+      "detour_town": "Salt Lake City",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 868 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/mount-rainier-national-park",
+      "draw_suggested": "national",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 1582,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 1582 min is over 30"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/north-cascades-national-park",
+      "draw_suggested": "national",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 1146,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "place/mount-baker-snoqualmie-national-forest",
+            "km": 86.9,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 1146 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/watkins-glen-state-park",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 902,
+      "detour_basis": "town",
+      "detour_town": "Dwight",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 902 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/mount-baker-snoqualmie-national-forest",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 1346,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "place/north-cascades-national-park",
+            "km": 86.9,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 1346 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/mount-baker-wilderness",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 1198,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "draw regional, standing good; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 1198 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/columbia-river-gorge",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "plan",
+      "detour_min": 1846,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/monument-valley",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 446,
+      "detour_basis": "town",
+      "detour_town": "Moab",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 446 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/havasupai-havasu-falls",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "plan",
+      "detour_min": 260,
+      "detour_basis": "town",
+      "detour_town": "Springdale",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/kanarra-falls",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "plan",
+      "detour_min": 102,
+      "detour_basis": "town",
+      "detour_town": "Springdale",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
+        "km": 31.4,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/manitou-incline",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "hard",
+      "detour_min": 978,
+      "detour_basis": "town",
+      "detour_town": "Moab",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "draw regional, standing good; hard access drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; hard access drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/million-dollar-highway",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 432,
+      "detour_basis": "town",
+      "detour_town": "Moab",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 432 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/bentonite-hills",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 64,
+      "detour_basis": "town",
+      "detour_town": "Torrey",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "place/factory-butte",
+            "km": 20.5,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/factory-butte",
+            "km": 20.5,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/long-dong-silver-spire",
+            "km": 26,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 64 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/long-dong-silver-spire",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 128,
+      "detour_basis": "town",
+      "detour_town": "Torrey",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "place/factory-butte",
+            "km": 8.6,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/factory-butte",
+            "km": 8.6,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/bentonite-hills",
+            "km": 26,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 128 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/factory-butte",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 114,
+      "detour_basis": "town",
+      "detour_town": "Torrey",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "place/long-dong-silver-spire",
+            "km": 8.6,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/bentonite-hills",
+            "km": 20.5,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/long-dong-silver-spire",
+            "km": 8.6,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/bentonite-hills",
+            "km": 20.5,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 114 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "plan",
+      "detour_min": 4282,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/mount-st-helens",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "hard",
+      "detour_min": 1774,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; hard access drops it one step; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/stansbury-island",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 128,
+      "detour_basis": "town",
+      "detour_town": "Salt Lake City",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 128 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/lake-wenatchee",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 1264,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "place/lake-chelan",
+            "km": 54.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (1264)"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 1264 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/lake-chelan",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 1184,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "place/lake-wenatchee",
+            "km": 54.6,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 1184 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/page",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 254,
+      "detour_basis": "town",
+      "detour_town": "Bryce Canyon",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 254 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/durango",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 500,
+      "detour_basis": "town",
+      "detour_town": "Moab",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 500 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/ouray",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 426,
+      "detour_basis": "town",
+      "detour_town": "Moab",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 426 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/breckenridge",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 778,
+      "detour_basis": "town",
+      "detour_town": "Moab",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 778 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/leavenworth",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 1302,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 1302 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/cape-cod",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 910,
+      "detour_basis": "town",
+      "detour_town": "Hyde Park",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, but distinction common: an anchor needs unique or rare, or a world draw"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 910 min is over 30"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/finger-lakes",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 836,
+      "detour_basis": "town",
+      "detour_town": "Dwight",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 836 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/olympic-peninsula",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 1632,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 1632 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    }
+  ]
+}
