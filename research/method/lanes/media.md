@@ -27,8 +27,12 @@ shows the right place), `role`.
 
 ## 5. Sources, in order
 
-Wikimedia Commons (search by category and by coordinates); official agencies with open licences (Parks
-Canada, NPS public domain); the owner's own photos; user uploads (moderated).
+Wikimedia Commons (search by category and by coordinates); Openverse; Flickr (CC0, CC BY, CC BY-SA, no known
+copyright restrictions; through Openverse only, no Flickr key); Geograph; official agencies with open licences (Parks Canada, NPS public domain);
+Unsplash and Pexels (their own licence, recorded as the licence; not used until the owner confirms, because section 6
+rejects non-free licences: DATA-ROADMAP DD-3); the owner's own photos; user uploads
+(moderated). Widened 25 Oct 2026, see `docs/v2/build/public-site/briefs/DATA-LOC.md` section 4. A file with no
+reuse licence is never taken because it is publicly visible.
 
 ## 6. Rules
 

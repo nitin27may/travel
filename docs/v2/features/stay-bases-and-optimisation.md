@@ -3,7 +3,13 @@
 Status: spec, 25 Oct 2026, written by travel-planner (Opus) from the owner's request of the same day. Nothing here is
 built. Tracked as PLAN R-76 to R-80, BACKLOG 15.76 to 15.80, TODO row 2026-10-25. Research batches: DATA D9-R and D9 in
 [build/public-site/briefs/DATA.md](../build/public-site/briefs/DATA.md), prompts in
-[DATA-AGENT-PROMPTS.md](../build/public-site/briefs/DATA-AGENT-PROMPTS.md). Owner questions Q109 to Q116 (section 18).
+[DATA-AGENT-PROMPTS.md](../build/public-site/briefs/DATA-AGENT-PROMPTS.md). Owner questions Q109 to Q116 and Q-BASE-1 (section 18).
+
+**The single stay-bases spec (unified 25 Oct 2026).** The DATA-L1 page `trip-bases-and-stays.md` (PLAN R-112, was R-70 on
+`public/DATA-L1`) is merged into this page and is now a pointer. Its research,
+[base-strategies.md](../../../research/trips/canadian-rockies-sept-2029/base-strategies.md) (computed OSRM drive times for
+10 Rockies strategies), is the worked example in section 3.6; where the two pages disagreed, section 3.7 says which side
+was kept and why. Tracking: [DATA-ROADMAP.md](../build/public-site/DATA-ROADMAP.md).
 
 **Relation to other pages (read with them; this page does not edit them):**
 
@@ -14,6 +20,7 @@ built. Tracked as PLAN R-76 to R-80, BACKLOG 15.76 to 15.80, TODO row 2026-10-25
 | [trip-timeline.md](trip-timeline.md) | The scheduler runs a strategy as a patched schedule input: bases per day, day order, legs. The 30 km nearby rule (3.7) follows the strategy's bases. No scheduler rule changes | No |
 | [F02](F02-trip-creation-and-trip-types.md) (base strategy question), [F12](F12-templates-reuse-and-adaptation.md) (drop a base reachable as a day trip) | The evaluator in section 9.4 is the one F02 drafting and F12 adaptation call later | No |
 | [F06](F06-plan-document-lists-and-days.md), [F08](F08-reservations-and-wallet.md) | A booked stay sets the night base in the planner; a strategy is only a proposal there, never a booking | No |
+| [trip-bases-and-stays.md](trip-bases-and-stays.md) (DATA-L1, R-112) and its research [base-strategies.md](../../../research/trips/canadian-rockies-sept-2029/base-strategies.md) | Superseded by this page; its facts, decisions and numbers are in 3.6 and 3.7 | Yes: replaced by a pointer stub |
 | Privacy rule "no stay ideas" (PLAN section 1, HANDOVER rules, PRIV1) | Kept. Section 6 defines exactly what is public base guidance and what is a private stay choice | No |
 
 ## The owner's request (25 Oct 2026, dictated, lightly cleaned)
@@ -130,10 +137,17 @@ From `legacy/canadian-rockies-sept-2029/data/itinerary.json` (`base_id` per day)
 |---|---|---|---|---|---|
 | `as-planned` | As planned | Banff 2 · Lake Louise 1 · Jasper 4 · Lake Louise 4 · Kananaskis Village 3 | 5 / 4 | as written | the plan |
 | `fewer-moves` | Fewer moves, same route | Banff 3 · Jasper 4 · Lake Louise 4 · Kananaskis Village 3 | 4 / 3 | as written | rule M2 (one-night stop) |
-| `three-bases` | Three bases, Jasper first | Jasper 4 · Golden 4 · Banff 6 | 3 / 2 | reordered (3.4) | the owner's proposal |
-| `three-bases-canmore` | Three bases, lower cost | Jasper 4 · Golden 4 · Canmore 6 | 3 / 2 | as `three-bases` | the owner's Canmore point |
+| `three-bases` | Three bases, Jasper first | Jasper 5 · Lake Louise 4 · Banff 5 | 3 / 2 | reordered (3.4) | the owner's proposal with Lake Louise in place of Golden (3.6, strategy S3; DD-2) |
+| `three-bases-canmore` | Three bases, lower cost | Jasper 5 · Lake Louise 4 · Canmore 5 | 3 / 2 | as `three-bases` | the owner's Canmore point (3.6, S3c) |
 
-Swaps any strategy may use: `canmore-for-banff` (Canmore instead of Banff), `golden-for-lake-louise` (Golden instead of
+**Revised 25 Oct (DD-2, pending the owner's word on Q114).** The first version had Golden as the middle base (Jasper 4 ·
+Golden 4 · Banff 6), as the owner proposed. The computed comparison in 3.6 shows Golden costs about 5.6 h more day-trip
+driving than Lake Louise (33.0 h against 27.4 h) because it is off the Icefields Parkway, so Lake Louise is the middle base
+of both three-base strategies and the owner's Golden version stays visible as the swap `golden-for-lake-louise` with its
+minus. D9-R researches both, so nothing is lost if the owner prefers Golden; the night splits are placeholders until D9-R.
+
+Swaps any strategy may use (applied to `three-bases`, `golden-for-lake-louise` is the owner's original Jasper, Golden, Banff
+plan): `canmore-for-banff` (Canmore instead of Banff), `golden-for-lake-louise` (Golden instead of
 Lake Louise village), `canmore-for-kananaskis` (Canmore instead of Kananaskis Village). Rejected and shown only as a
 one-line "checked, does not fit" in the tab: **one base** (no single town reaches the Jasper days inside a day-trip
 limit: Canmore to Jasper is 235 min ≈ each way in the matrix).
@@ -150,7 +164,9 @@ section 3).
 estimates rounded to 5 min with no routing source, except Calgary-Banff about 90 (Rome2Rio), Banff-Lake Louise about 40
 (Canadream) and Lake Louise-Jasper 232 km (icefieldsparkway.com). They are shown here only to frame the research. D9-R
 replaces them with routed legs (ORS) before anything is published, and the evaluator computes the totals. **No price in
-this section is a researched value; none is published until D9-R sources it.**
+this section is a researched value; none is published until D9-R sources it.** The DATA-L1 research of 25 Oct (3.6)
+replaces these matrix values as the framing numbers: computed OSRM minutes, free-flow, no stops, read 25 Oct. Where the two
+differ (Calgary to Banff 110 computed against about 90 in the matrix; Lake Louise to Jasper 216 against 175), use 3.6.
 
 | Strategy | Plus (to verify in D9-R) | Minus (to verify in D9-R) |
 |---|---|---|
@@ -168,6 +184,10 @@ post-fire, occupancy about 96% in summer 2026 (search summary), book 9 to 12 mon
 Radium and Invermere observe Mountain time, Valemount and Mount Robson Pacific (INFERENCE, to verify).
 
 ### 3.4 Day map for "Three bases, Jasper first" (proposed shape; D9-R confirms or rejects)
+
+Written for the first version's Golden middle base. With Lake Louise as the middle base (3.2, DD-2), new days 5 to 8 run
+from Lake Louise, the "about 55 min each way more" rows fall away, and the table below becomes the day map of the
+`golden-for-lake-louise` swap. D9-R writes both maps.
 
 | New day | Night base | Content from plan day | What changes (matrix ≈, to be routed) |
 |---|---|---|---|
@@ -207,6 +227,70 @@ each with a reason. The validator rejects a strategy that loses an item silently
    Valemount as swaps only if they pass the day-trip limit.
 8. The open jaw: one-way rental fee policy from at least two rental operators' terms (a policy, not a quote), and whether
    Edmonton to Calgary one-way is offered.
+9. From the DATA-L1 facts table (3.6), still to verify on the official page before any value is stored: Canmore is outside
+   Banff National Park and the Canmore Nordic Centre needs an Alberta Kananaskis Conservation Pass to park (Alberta Parks,
+   Parks Canada); Canmore parking (blogs disagree: `none_stated` until a Town of Canmore page is read); Jasper rooms after
+   the 2024 fire (about 77% back, secondary news only: Tourism Jasper or Parks Canada); an official source for Canmore and
+   Lake Louise village rates, else `searched_none`. The Banff 2025 average daily rate (453 CAD at 70% occupancy, Town of
+   Banff report of 24 Mar 2026 via the Rocky Mountain Outlook) is an `official_stat` per room, not a band in the 9.3 unit,
+   so it can appear only as a separate dated area line if the owner allows it (Q113, folded from Q-BASE-3).
+10. Re-run the 3.6 numbers for the final strategy set (S3, S3c, the Golden swap, Fewer moves) from the routed legs, and keep
+    the OSRM run (`research/runs/rockies-bases-osrm-2026-10-25.json`) as the cross-check.
+
+### 3.6 Computed comparison (DATA-L1 research, 25 Oct 2026)
+
+Source: [base-strategies.md](../../../research/trips/canadian-rockies-sept-2029/base-strategies.md) and its run record
+`research/runs/rockies-bases-osrm-2026-10-25.json`. One call to the public OSRM `/table` service on OSM road data, read 25
+Oct 2026: free-flow minutes, no stops, no traffic, no roadworks, mark `computed`, labelled "typical drive, no stops" with
+the read date. Base points from the GeoNames towns layer and Wikidata; stop points from D1 (many `approx`, which moves a
+time by minutes, not hours). Day-trip drive is the round trip from the base to the main stop of each of the plan's 15 day
+sections: a comparison number, not a promise for the day. Area-level only; the private notes (`logistics-stays.md`, the
+legacy plan) were read for the question, never as a source.
+
+Calgary airport to each base, one way: Canmore 94, Banff 110, Lake Louise 155, Golden 221, Jasper 364 min. Between bases:
+Canmore to Banff 30, Banff to Lake Louise 54, Lake Louise to Golden 72, Lake Louise to Jasper 216, Golden to Jasper 278,
+Jasper to Hinton 69, Jasper to Valemount 104, Kananaskis Village to Canmore 51 min.
+
+| Strategy (night split is illustrative) | Check-ins | Base to base | Longest transfer | Day-trip drive | Spec id |
+|---|---|---|---|---|---|
+| S0 the plan: Banff 2, Lake Louise 1, Jasper 4, Lake Louise 4, Kananaskis Village 3 | 5 | 806 min | 218 | 23.6 h | `as-planned` |
+| S1 Jasper 5, Golden 4, Banff 5 (the owner's idea) | 3 | 876 | 364 | 33.0 h | `three-bases` with `golden-for-lake-louise` |
+| S3 Jasper 5, Lake Louise 4, Banff 5 | 3 | 748 | 364 | 27.4 h | `three-bases` |
+| S3c the same with Canmore for Banff | 3 | 748 | 364 | 27.8 h | `three-bases-canmore` |
+| S4 Banff 5, Jasper 5, Lake Louise 4 (start south, end at Lake Louise) | 3 | 747 | 263 | 27.4 h | checked; fails M5 (Lake Louise 155 min from the airport) |
+| S5 two bases: Jasper 5, Banff 9 | 2 | 742 | 364 | 33.9 h | checked: 10.3 h more day-trip driving than the plan, 6.5 h more than S3 |
+| S6 Canmore 3, Jasper 5, Lake Louise 3, Canmore 3 | 4 | 762 | 284 | 27.8 h | candidate if Kananaskis is reached as day trips from Canmore |
+
+(The research file also has S1c, S2 and S5c; none beats the rows above.)
+
+What the numbers say:
+
+1. Three bases is a good idea; Golden is the wrong middle base for this plan. It is off the Icefields Parkway (278 min to
+   Jasper, 357 min round trip to the Icefield) and suits only a Yoho and Kootenay heavy plan or a full Lake Louise.
+2. Jasper, Lake Louise, Banff (or Canmore) cuts check-ins from 5 to 3 for 3.8 h more day-trip driving over the trip, about
+   15 minutes a day. It is the M4 candidate (the evaluator confirms the per-day cap from routed legs).
+3. The Calgary leg decides the ends. Calgary to Jasper is 364 min, a poor first day after a flight: say so as a minus on any
+   Jasper-first strategy (or answer it with the open-jaw note). The nearest bases to the airport are Canmore (94), Banff
+   (110) and Kananaskis Village; ending there keeps the last day easy (M5).
+4. Canmore for Banff: 16 min nearer the airport, 40 min more round trip to Lake Louise and to Moraine, 50 min less to Ha
+   Ling; 0.4 h more over the trip in the three-base shape. Its case is price and quiet, and the price gap is blog-only, so
+   the card says "usually cheaper than Banff; check your dates" with no number, or "Cost not compared yet" (rule S4).
+5. The plan as written is reasonable: five check-ins pay for a Kananaskis finish that no other base serves in under 3 h.
+
+### 3.7 Where the two specs disagreed, and what this page keeps
+
+| Topic | trip-bases-and-stays.md (DATA-L1) | This page | Kept, and why |
+|---|---|---|---|
+| Data file | `data/stays/<trip>.json`, `trip-stays/1` | `data/base-plans/<trip>.json`, `trip-base-plans/1` (9.2) | **This page.** It carries the review gate, day maps, `left_out`, swaps and the validator rules; the DATA, STY and API tasks already point at it. `data/stays/` is not created |
+| Stored drive numbers | `reach` and `transfer_min` stored in the file, marked computed | derived by the evaluator from routed legs at request time (D2, 9.1) | **This page.** One home per fact, no drift; the per-base reach table the overview's Base filter needs (DATA-L1 B6) becomes an evaluator output, not a stored field |
+| Routing source | OSRM public demo, ORS later | ORS through STY-L | **ORS for stored legs** (the existing legs script, key and checks). The OSRM run stays as research evidence and a cross-check (roadmap DD-5) |
+| Tab name | "Where to base" | "Where to stay" | **This page.** Already linked from the overview spec 3.2 and the TODO row |
+| Three-base candidates | Jasper, Lake Louise, Banff (or Canmore) recommended; Golden rejected | Jasper, Golden, Banff (the owner's) | **The research's shape**, with Golden kept as a swap (3.2; DD-2, Q114) |
+| Night counts | 5 / 4 / 5, "illustrative" | 4 / 4 / 6 | Neither is final: D9-R sets the split from the day content |
+| Prices | one dated area-level average rate, if the owner agrees (Q-BASE-3) | town price bands with basis and n, comparable bands only (9.3, Q113) | **This page**, with Q-BASE-3 folded into Q113: an ADR is an `official_stat` per room and is never compared with a band |
+| Card layout | strip of plan bases plus stay-set cards in a row | comparison table, segmented control, base cards (7.2, 7.3) | **This page** for the layout; DATA-L1's at-rest totals line ("5 check-ins, longest drive 3 h 38 min") is the same idea as 7.1 and its "area swap note" wording joins the 5.3 examples |
+| Owner questions | Q-BASE-1 (easy return a rule?), Q-BASE-2 (alternatives or a new default), Q-BASE-3 (rates) | Q114, Q113 | Q-BASE-2 is Q114; Q-BASE-3 is folded into Q113; Q-BASE-1 is new and listed in section 18 |
+| Steps | ST-1 to ST-4 | D9-R, STY-Ca to STY-1, STY-R and STY-V, D9 | ST-1 is now part of D9-R (3.5 item 9); ST-2 is STY-Ca, STY-E, STY-Cb and STY-1; ST-3 is STY-R and STY-V; ST-4 is D9 |
 
 ## 4. How the same model fits the other trips
 
@@ -475,7 +559,7 @@ overrides the strategy for its nights.
 | A property's check-in, min stay, rates (research only, never public) | `stay.*` capture records only if the owner allows (Q109), else research prose | the property layer exists in the type tree |
 | Which towns this trip may use, the default stays, strategies, swaps, day maps, plus and minus, `left_out`, `requires`, review state | `data/base-plans/<trip-id>.json` (`trip-base-plans/1`) | trip-specific |
 | Road minutes and km between bases, base and stops | `data/schedules/legs/<trip-id>.json` (`trip-legs/2`, extended pairs, STY-L) | the one routed-legs store |
-| Counts, drive per day, deltas, totals, cost ranges, messages | derived by `core/src/stays` at request time; never stored | no drift |
+| Counts, drive per day, deltas, totals, cost ranges, messages, and the per-base reach table (round-trip minutes from each base to each scheduled area, which the overview's Base filter also reads) | derived by `core/src/stays` at request time; never stored | no drift; one computation for both views (DATA-L1 B6, 3.7) |
 
 ### 9.2 `trip-base-plans/1`
 
@@ -648,12 +732,15 @@ response. Contract changes go through the API lane (one author, Opus) and append
 
 | Batch | What | Files it owns | Model | Effort | Starts |
 |---|---|---|---|---|---|
-| D9-R | Rockies: the 7 base towns' facts, points, the 4 strategies and 3 swaps, the day map for three bases, the open-jaw note, gaps | `data/base-plans/canadian-rockies-2029.json`, `research/trips/canadian-rockies-sept-2029/stay-bases.md`, `research/runs/DATA-D9-canadian-rockies-2029.md`, `data/capture/runs/DATA-D9-*.json`; after STY-P: `data/capture/canadian-rockies-2029/BS.json` and its sidecars | Opus researcher | 6 h | on the owner's go (Q115); waits for the Banff agent's hand-back so it builds on it, not beside it |
+| D9-R | Rockies: the 7 base towns' facts, points, the 4 strategies and 3 swaps, the day map for three bases, the open-jaw note, gaps | `data/base-plans/canadian-rockies-2029.json`, `research/trips/canadian-rockies-sept-2029/stay-bases.md`, `research/runs/DATA-D9-canadian-rockies-2029.md`, `data/capture/runs/DATA-D9-*.json`; after STY-P: `data/capture/canadian-rockies-2029/BS.json` and its sidecars | Opus researcher | 6 h | on the owner's go (Q115); the Banff agent handed back on 25 Oct (`base-strategies.md`, 3.6), so D9-R builds on that file |
 | D9-R legs | ORS routing of the strategy pairs | `data/schedules/legs/canadian-rockies-2029.json` through the script | Sonnet builder runs STY-L's script (ORS key, sequential) | 1 h | after STY-L |
 | D9 | Dolomites (2.5 h), Utah (2 h), Chamonix (1.5 h), Patagonia (1 h), Iceland, Algonquin, Vermont (0.5 h each, to confirm silence) | the same files per trip | Opus | about 8.5 h | after STY-C freezes the shape |
 | D9-H | gap counts, `src` resolution, overlap checks | none | Haiku `explorer` | 1 h | inside each batch |
 
 ## 14. What the Banff research agent should add (so its output fits)
+
+**Status 25 Oct:** the agent handed back `research/trips/canadian-rockies-sept-2029/base-strategies.md` (DATA-L1, R-112)
+without the per-town section below. D9-R collects these 12 fields itself, in this order, into `stay-bases.md`.
 
 The agent is writing under `research/trips/canadian-rockies-sept-2029/`. Ask it to end its file with one section per town
 (Banff first, then whichever of Lake Louise village, Canmore, Golden, Jasper, Kananaskis Village and Calgary it covered),
@@ -774,7 +861,10 @@ records early (Q115).
 | A11 | Screenshots at 1440 and 390 in light and dark: the at-rest line, the tab with the comparison, a strategy picked in Day by day with chips, a base card open, the map in Bases mode | design review |
 | A12 | First-use walk (P4): a visitor with no help finds "Other ways to stay", compares, picks one and returns to "As planned" | P4 |
 
-## 18. Open owner questions (Q109 to Q116)
+## 18. Open owner questions (Q109 to Q116, Q-BASE-1)
+
+From DATA-L1: Q-BASE-2 (alternatives beside the plan, or a new default) is Q114; Q-BASE-3 (may an area average rate appear) is folded into Q113.
+
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
@@ -785,6 +875,7 @@ records early (Q115).
 | Q113 | Price band basis: accept an operator sample (at least 5 operator rate pages, dated, the list kept private) as a public "≈" band, or official statistics only? | Accept the operator sample, labelled Estimate | Provenance shows the method and count, not the hotels (T3 is weaker); official statistics alone would leave most towns blank |
 | Q114 | Your three-base Rockies plan (Jasper, Golden, Banff): an alternative beside the published plan, or the new default? | Alternative first; decide on the default after D9-R's routed numbers | The published plan keeps five check-ins until you decide |
 | Q115 | Start D9-R (Rockies, 6 h Opus) after the Banff agent hands back, and STY-P (2 h Opus) in the gap before OVR so D9-R can write records? | Yes to both | Uses this week's Opus allowance before R-61 finishes |
+| Q-BASE-1 | Is an easy Calgary return a rule (the last base within 2 h of the airport, so Lake Louise at 155 min cannot be last) or a preference that only drives message M5? (from DATA-L1) | A preference: M5 states it; no strategy is rejected for it | A Lake Louise finish stays possible and is shown with its minus |
 | Q116 | At rest, one line in the trip strip plus at most two messages, never a banner or pop-up? | Yes | Some visitors will not open the tab and never see the comparison |
 
 ## 19. Gotchas
@@ -812,12 +903,18 @@ records early (Q115).
 - **Private research next door.** `research/trips/dolomites-july-2027/stays.md` and `stays-august.md` hold named
   properties and a household budget. D9 may read them for town-level conclusions only and must cite public sources
   for anything it publishes.
-- **The Banff agent is writing now.** Do not write under `research/trips/canadian-rockies-sept-2029/` until it hands back;
-  D9-R builds on its file.
+- **The Banff agent has handed back** (25 Oct, `base-strategies.md`). D9-R may write `stay-bases.md` in that folder and
+  builds on the 3.6 numbers; it does not rewrite `base-strategies.md`, which stays the dated research record.
+- **Golden is off the Icefields Parkway.** A three-base plan with Golden costs about 5.6 h more day-trip driving than one
+  with Lake Louise; never present it without that minus.
+- **Calgary to Jasper is 364 min** (computed). Never put Jasper first without saying so on the card.
+- **OSRM minutes are free-flow.** No stops, traffic, roadworks or seasonal closures; label them "typical drive, no stops"
+  with the read date and never as a posted time.
 - **`base.set` replaces all bases.** Never write a strategy into `trip.json` through it.
 
 ## Change log
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (unified) | Merged with `trip-bases-and-stays.md` (DATA-L1, R-112), which is now a pointer: the OSRM comparison as 3.6, the disagreements and choices as 3.7, three-base candidates with Lake Louise in the middle and Golden as a swap (DD-2, pending Q114), 3.5 items 9 and 10, the reach table as an evaluator output, Q-BASE-1, Banff agent hand-back noted, new gotchas |
 | 2026-10-25 | First version from the owner's request of the same day: decisions D1 to D10, the Rockies worked example (four ways to stay, three swaps, the Jasper-first day map), the other trips, message rules M1 to M7 and silence rules S1 to S7, the privacy line, the trip page design, tweaks, `trip-base-plans/1`, the town `base` properties, the evaluator, the API, the gap analysis, batches D9-R and D9, the Banff agent checklist, tasks STY-P to STY-2V, conflicts C1 to C8, questions Q109 to Q116 |
