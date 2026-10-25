@@ -1,0 +1,438 @@
+{
+  "schema": "capture-run/1",
+  "run": "data-d4a-2026-10-25-rockies-offers",
+  "started": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "refs": [
+      "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks",
+      "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
+      "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+      "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
+      "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle",
+      "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+      "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+      "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
+      "legacy/canadian-rockies-sept-2029/adventures/jasper-waterton-horse",
+      "legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour",
+      "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+      "legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse",
+      "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
+      "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+      "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+      "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs",
+      "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
+      "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+      "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter",
+      "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
+      "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "www.icewalks.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "horseback.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.banff-springs-hotel.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.banffadventures.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "parks.canada.ca",
+      "requests": 5,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.watertoncruise.com",
+      "requests": 3,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "partial"
+    },
+    {
+      "host": "canmore.alpinehelicopter.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.whitemountainadventures.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "jasperstables.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "alpinestables.com",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.sundogtours.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.brewsteradventures.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "banffnorquay.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "yamnuska.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "assiniboinelodge.com",
+      "requests": 3,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.banffjaspercollection.com",
+      "requests": 7,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "partial"
+    },
+    {
+      "host": "www.skilouise.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.chateau-lake-louise.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "morainelake.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "crmr.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "mudsweatandgears.ca",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "us.booking.bike.rent",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "overpass-api.de",
+      "requests": 1,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "blocked"
+    },
+    {
+      "host": "overpass.private.coffee",
+      "requests": 1,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "blocked"
+    }
+  ],
+  "results": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0067"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0068"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0073"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-waterton-horse",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0076"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0078"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0079"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0082"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0073"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
+      "field": "starts_at",
+      "outcome": "filled",
+      "src": "src-0072"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0083"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+      "field": "at",
+      "outcome": "gap",
+      "reason": "no capture place for the Fairmont Banff Springs; a new place needs a point in data/capture/points.json (D1b's file)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "field": "at",
+      "outcome": "gap",
+      "reason": "no capture place for the Bow Falls launch"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "field": "at",
+      "outcome": "gap",
+      "reason": "no capture place for Field or the Yoho Visitor Centre, and no BC region in the locations store"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "field": "at",
+      "outcome": "gap",
+      "reason": "no capture place for the Canmore heliport"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+      "field": "at",
+      "outcome": "gap",
+      "reason": "no capture place for the Canmore heliport"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+      "field": "at",
+      "outcome": "gap",
+      "reason": "no capture place for Mount Norquay"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+      "field": "at",
+      "outcome": "gap",
+      "reason": "no capture place in Canmore; the course moves between scrambles"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle",
+      "field": "price",
+      "outcome": "conflict",
+      "reason": "one fare under a table of departures and pick-ups; one-way or return not stated (operator question D4a-1)",
+      "src": "src-0073"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
+      "field": "price",
+      "outcome": "filled",
+      "reason": "read in a browser in the booking widget",
+      "src": "src-0096"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
+      "field": "price",
+      "outcome": "searched_none",
+      "tried": [
+        "www.banffjaspercollection.com ticket page"
+      ],
+      "reason": "fares load in the booking widget by date"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
+      "field": "price",
+      "outcome": "searched_none",
+      "tried": [
+        "www.banffjaspercollection.com ticket page"
+      ],
+      "reason": "fares load in the booking widget by date"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+      "field": "price",
+      "outcome": "searched_none",
+      "tried": [
+        "www.banffjaspercollection.com ticket page"
+      ],
+      "reason": "fares load in the booking widget by date"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
+      "field": "price",
+      "outcome": "searched_none",
+      "tried": [
+        "www.banffjaspercollection.com ticket page"
+      ],
+      "reason": "fares load in the booking widget by date"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "field": "price",
+      "outcome": "searched_none",
+      "tried": [
+        "www.banffjaspercollection.com ticket page"
+      ],
+      "reason": "fares load in the booking widget by date"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+      "field": "price",
+      "outcome": "searched_none",
+      "tried": [
+        "https://crmr.com/activities/canoeing/"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+      "field": "run_by",
+      "outcome": "gap",
+      "reason": "The Boathouse Trading Co. has no page of its own found"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+      "field": "starts_at",
+      "outcome": "gap",
+      "reason": "operator question (RB-1)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+      "field": "starts_at",
+      "outcome": "blocked",
+      "host": "overpass-api.de",
+      "reason": "Overpass timed out, the mirror answered 502; the operator's address is in the run note for the coordinator"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "field": "starts_at",
+      "outcome": "blocked",
+      "host": "overpass-api.de",
+      "reason": "Overpass timed out, the mirror answered 502; the operator's address is in the run note for the coordinator"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+      "field": "starts_at",
+      "outcome": "blocked",
+      "host": "overpass-api.de",
+      "reason": "Overpass timed out, the mirror answered 502; the operator's address is in the run note for the coordinator"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks",
+      "field": "starts_at",
+      "outcome": "blocked",
+      "host": "overpass-api.de",
+      "reason": "Overpass timed out, the mirror answered 502; the operator's address is in the run note for the coordinator"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "field": "starts_at",
+      "outcome": "blocked",
+      "host": "overpass-api.de",
+      "reason": "Overpass timed out, the mirror answered 502; the operator's address is in the run note for the coordinator"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "field": "starts_at",
+      "outcome": "blocked",
+      "host": "overpass-api.de",
+      "reason": "Overpass timed out, the mirror answered 502; the operator's address is in the run note for the coordinator"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+      "field": "starts_at",
+      "outcome": "blocked",
+      "host": "overpass-api.de",
+      "reason": "Overpass timed out, the mirror answered 502; the operator's address is in the run note for the coordinator"
+    }
+  ]
+}

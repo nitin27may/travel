@@ -1,6 +1,6 @@
 {
   "schema": "capture-operators/1",
-  "updated": "2026-10-18",
+  "updated": "2026-10-25",
   "operators": [
     {
       "ref": "operator/3-zinnen-dolomites-lift-operator",
@@ -16,6 +16,58 @@
       ]
     },
     {
+      "ref": "operator/alpine-helicopters",
+      "name": "Alpine Helicopters",
+      "url": "https://canmore.alpinehelicopter.com/",
+      "derived_from": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "src": "src-0074",
+          "publisher": "Alpine Helicopters",
+          "url": "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/banff-norquay",
+      "name": "Banff Norquay",
+      "url": "https://banffnorquay.com/",
+      "derived_from": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "src": "src-0080",
+          "publisher": "Banff Norquay",
+          "url": "https://banffnorquay.com/via-ferrata/via-ferrata-routes/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/banff-trail-riders",
+      "name": "Banff Trail Riders",
+      "url": "https://horseback.com/",
+      "derived_from": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "src": "src-0068",
+          "publisher": "Banff Trail Riders",
+          "url": "https://horseback.com/tours/bow-river-ride/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/brewster-adventures",
+      "name": "Brewster Adventures",
+      "url": "https://www.brewsteradventures.com/",
+      "derived_from": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "src": "src-0079",
+          "publisher": "Brewster Adventures",
+          "url": "https://www.brewsteradventures.com/summer-trail-rides"
+        }
+      ]
+    },
+    {
       "ref": "operator/chinook-rafting",
       "name": "Chinook Rafting",
       "url": "https://www.chinookrafting.com/",
@@ -25,6 +77,19 @@
           "src": "src-0006",
           "publisher": "Chinook Rafting",
           "url": "https://www.chinookrafting.com/faqs/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/fairmont-banff-springs",
+      "name": "Fairmont Banff Springs",
+      "url": "https://www.banff-springs-hotel.com/",
+      "derived_from": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "src": "src-0069",
+          "publisher": "Fairmont Banff Springs",
+          "url": "https://www.banff-springs-hotel.com/wellness/spa/"
         }
       ]
     },
@@ -68,6 +133,19 @@
       ]
     },
     {
+      "ref": "operator/icewalks",
+      "name": "Icewalks",
+      "url": "https://www.icewalks.com/",
+      "derived_from": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "src": "src-0067",
+          "publisher": "Icewalks",
+          "url": "https://www.icewalks.com/tours/half-day-tours"
+        }
+      ]
+    },
+    {
       "ref": "operator/lagazuoi-s-p-a",
       "name": "Lagazuoi S.p.A.",
       "url": "https://lagazuoi.it/",
@@ -90,6 +168,45 @@
           "src": "src-0014",
           "publisher": "Lake Louise Ski Resort",
           "url": "https://www.skilouise.com/explore-summer/sightseeing-gondola/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/moraine-lake-lodge",
+      "name": "Moraine Lake Lodge",
+      "url": "https://morainelake.com/",
+      "derived_from": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "src": "src-0093",
+          "publisher": "Moraine Lake Lodge",
+          "url": "https://morainelake.com/day-visits/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/mount-assiniboine-lodge",
+      "name": "Mount Assiniboine Lodge",
+      "url": "https://assiniboinelodge.com/",
+      "derived_from": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "src": "src-0084",
+          "publisher": "Mount Assiniboine Lodge",
+          "url": "https://assiniboinelodge.com/helicopter-faqs"
+        }
+      ]
+    },
+    {
+      "ref": "operator/parks-canada",
+      "name": "Parks Canada",
+      "url": "https://parks.canada.ca/",
+      "derived_from": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "src": "src-0071",
+          "publisher": "Parks Canada",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/stephen"
         }
       ]
     },
@@ -132,6 +249,45 @@
       ]
     },
     {
+      "ref": "operator/sundog-tours",
+      "name": "SunDog Tours",
+      "url": "https://www.sundogtours.com/",
+      "derived_from": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "src": "src-0078",
+          "publisher": "SunDog Tours",
+          "url": "https://www.sundogtours.com/package/sunrise-photography-and-wildlife-tour"
+        }
+      ]
+    },
+    {
+      "ref": "operator/waterton-shoreline-cruise",
+      "name": "Waterton Shoreline Cruise Co.",
+      "url": "https://www.watertoncruise.com/",
+      "derived_from": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "src": "src-0073",
+          "publisher": "Waterton Shoreline Cruise Co.",
+          "url": "https://www.watertoncruise.com/2026.php"
+        }
+      ]
+    },
+    {
+      "ref": "operator/white-mountain-adventures",
+      "name": "White Mountain Adventures",
+      "url": "https://www.whitemountainadventures.com/",
+      "derived_from": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "src": "src-0075",
+          "publisher": "White Mountain Adventures",
+          "url": "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies"
+        }
+      ]
+    },
+    {
       "ref": "operator/wild-water-adventures",
       "name": "Wild Water Adventures",
       "url": "https://wildwater.com/",
@@ -141,6 +297,19 @@
           "src": "src-0001",
           "publisher": "Wild Water Adventures",
           "url": "https://wildwater.com/kicking-horse-rafting-trips/gentle/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/yamnuska-mountain-adventures",
+      "name": "Yamnuska Mountain Adventures",
+      "url": "https://yamnuska.com/",
+      "derived_from": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "src": "src-0081",
+          "publisher": "Yamnuska Mountain Adventures",
+          "url": "https://yamnuska.com/mountaineering/beginner-mountaineering-courses/mountain-scrambling/"
         }
       ]
     }
