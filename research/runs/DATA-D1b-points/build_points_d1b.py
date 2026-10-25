@@ -181,10 +181,8 @@ def step6():
     put(R + "sights/cameron-lake", 49.0094, -114.051, "wikidata", "centre",
         "Wikidata Q3214786 P625 (Cameron Lake); OSM relation 8299848 Cameron Lake (natural=water, the Canadian lake) has its centre at 49.0092,-114.05106, "
         "25 m away, so the two agree. The D1 conflict compared Wikidata with OSM way 588314114, an NHD polygon of the small part south of the border")
-    put("trip/utah-five-parks/viewpoint:grand view point", 38.310154, -109.856773, "osm", "centre",
-        "OSM node 6806471756 Grand View Point Overlook (tourism=viewpoint) at the road end; NPS https://www.nps.gov/places/grand-view-point.htm: 'Grand View "
-        "Point lies at the southernmost end of the Island in the Sky scenic drive'. Wikidata Q62073199 P625 38.32221,-109.84901 (from GNIS 1435608) lies "
-        "1.4 km north-east on another pull-out (parking ways 1190800607 and 1239515667) and is kept as the conflicting value")
+    # The viewpoint record itself keeps its Wikidata point: data/capture/migration-ledger.json pins it (core/test/capture/migration.test.ts),
+    # so the OSM overlook (node 6806471756, 38.310154,-109.856773) is a coordinator item, not a row here. See the run note, step 6.
     must_exist("part/trip/utah-five-parks/viewpoint:grand view point#walk")
     put("part/trip/utah-five-parks/viewpoint:grand view point#walk", 38.3108, -109.85661, "osm", "trailhead",
         "OSM node 6806471755 Grand View Trail Trailhead (highway=trailhead) at the road end, beside the Grand View Point Parking (relation 15336057); NPS "

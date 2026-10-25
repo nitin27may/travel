@@ -1212,13 +1212,6 @@
       "point_source": "OSM node 4835435421 The Windows Trailhead (highway=trailhead), 20 m from the board 'Windows Trails' (node 7921541650); NPS https://www.nps.gov/places/the-windows-section-trailhead.htm lists parking and a trailhead at the Windows Section; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
       "point_role": "trailhead"
     },
-    "trip/utah-five-parks/viewpoint:grand view point": {
-      "lat": 38.310154,
-      "lon": -109.856773,
-      "coord_src": "osm",
-      "point_source": "OSM node 6806471756 Grand View Point Overlook (tourism=viewpoint) at the road end; NPS https://www.nps.gov/places/grand-view-point.htm: 'Grand View Point lies at the southernmost end of the Island in the Sky scenic drive'. Wikidata Q62073199 P625 38.32221,-109.84901 (from GNIS 1435608) lies 1.4 km north-east on another pull-out (parking ways 1190800607 and 1239515667) and is kept as the conflicting value; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
-      "point_role": "centre"
-    },
     "trip/vermont-fall-2026/sight:covered bridge loop": {
       "lat": 44.88728,
       "lon": -72.64011,

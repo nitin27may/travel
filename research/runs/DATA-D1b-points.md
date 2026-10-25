@@ -28,7 +28,7 @@ before evidence (the folder contract forbids a second copy). The after-snapshots
 |---|---|---|
 | `W_PLACE_POINT` (records with no point) | 6 | **1** (Lac du Chatelard) |
 | Approximate points | 41 | **13** (each with an `approx_note`; `W_PLACE_APPROX` 0) |
-| Points in `data/capture/points.json` | 179 | 186 (5 new records, 2 capture overrides of relevance-input points: the Grand View Point viewpoint and the Fanes route start) |
+| Points in `data/capture/points.json` | 179 | 185 (5 new records, 1 capture override of a relevance-input point: the Fanes route start) |
 | Exact points corrected that D1 had not marked approx | - | 4 (Upper Kananaskis Lake loop, Elbow Falls loop, Canmore Nordic Centre, Miette Hot Springs) |
 | Required tier, `gaps --tier required` matrix: routes with a point | 130 of 143 (trails 105 of 118) | 135 of 143 (trails 110 of 118) |
 | Required tier, places with a point | 200 of 201 | 200 of 201 |
@@ -176,9 +176,11 @@ The open ones are added to `research/method/operator-questions-2026-10-18.md` un
    (https://www.nps.gov/places/grand-view-point.htm): "Grand View Point lies at the southernmost end of the Island in the Sky
    scenic drive". At the road end OSM maps the Grand View Point Overlook (node 6806471756), the trailhead (node 6806471755) and
    the parking (relation 15336057). Wikidata Q62073199 (P625 from GNIS 1435608) sits 1.4 km north-east on two unnamed pull-outs.
-   Ruling: the walk keeps the OSM trailhead; **the viewpoint record `trip/utah-five-parks/viewpoint:grand view point` also moves
-   to the OSM overlook** (it read the Wikidata point from `data/relevance/inputs/points.json`); the Wikidata value is the
-   conflicting value in both `point_source` rows. A Wikidata edit is a person's job, not ours.
+   Ruling: the walk keeps the OSM trailhead (its `point_source` now cites NPS). The viewpoint record
+   `trip/utah-five-parks/viewpoint:grand view point` should move to the OSM overlook (node 6806471756, 38.310154,-109.856773),
+   but its Wikidata point is pinned by `data/capture/migration-ledger.json`, and `core/test/capture/migration.test.ts` fails when a
+   pinned point changes. So the record keeps the Wikidata point, the run record logs the conflict, and moving it is a coordinator
+   item (DECISIONS NEEDED 5). A Wikidata edit is a person's job, not ours.
 2. **Cameron Lake (Waterton).** No real conflict. D1 compared Wikidata Q3214786 with OSM way 588314114, which is an NHD polygon of
    the small US part of the lake (latitudes 48.9975 to 48.9989). The lake itself is OSM relation 8299848 (`wikidata=Q3214786`),
    centre 49.00920,-114.05106, 25 m from the Wikidata point. Ruling: Wikidata kept, the OSM relation agrees, approx lifted.
@@ -214,7 +216,7 @@ area's polygon, since 100 m has no meaning there.
 | 13 | Navajo Loop and Queens Garden | OSM trailhead 10 m from the Sunset Point overlook (operator Bryce Canyon NP); the NPS trail pages returned 404 | pass |
 | 14 | Rafting on the Rienza | OSM pitch re-read; the operator names the St. Sigmund sports zone | pass (the spot inside the zone is an open question) |
 | 15 | Tent Ridge Horseshoe | OSM track vertex on Mount Shark Road re-read; no official source exists | pass on OSM only |
-| 16 | Grand View Point viewpoint | OSM overlook re-read; NPS puts it at the road end | pass |
+| 16 | Grand View Point viewpoint | (sampled while it held the OSM overlook; that override was later withdrawn for the ledger, see step 6). The overlook node re-read matches NPS's road end | pass |
 | 17 | Sulphur Mountain trail | OSM lot re-read, 18 m; tourism board names it | pass |
 | 18 | Aiguille du Midi valley station | OSM station re-read; Wikidata 15 m | pass |
 | 19 | Berg Lake Trail | OSM lot at the end of Kinney Lake Road; BC Parks names that road end | pass |
@@ -262,6 +264,18 @@ a point in `points.json` but still counts as an orphan, because an offer's place
 3. **Mount Indefatigable viewpoint** (Rockies trail): every source says the trail was decommissioned in 2005; keep it on a family
    plan only after Alberta Parks answers (operator question).
 4. **Federa** relation: the walk names the lake in `starts_at`; moving it to `reaches` is a record fix for the Dolomites owner.
+5. **Grand View Point viewpoint**: the pre-migration point (Wikidata Q62073199) is wrong by 1.4 km per NPS and OSM, but the
+   migration ledger pins it. Either the ledger gets a reviewed exception for corrected points, or the coordinator records the OSM
+   overlook through whatever supersede route the owner approves.
+
+## Builder items from the gate
+
+- `core/test/capture/placement-block.test.ts` ("gaps --placement --trip prints the per-trip table and the records with a hint")
+  expects a Rockies record with no point and the hint "track start". Berg Lake and Fryatt were the last two; with them filled
+  the Rockies report has no such line. The test pins a data gap and needs a fixture or a looser assertion (outside this lane).
+- `web/.og-cache` does not exist in a fresh worktree (it is ignored), so the folder-contract test fails on the mentions in
+  `HANDOVER.md`, `research/tools.md`, `tools/handover-cache.sh` and `web/scripts/commons-cache.mjs`. I created the empty folder
+  (with a `.keep`, ignored by git) in this worktree only.
 
 ## Not verified
 

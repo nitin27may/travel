@@ -1100,7 +1100,7 @@
       "pair_pending": [
         {
           "ref": "trip/utah-five-parks/viewpoint:grand view point",
-          "km": 8.7
+          "km": 7.4
         }
       ],
       "part_of": [],
@@ -1231,7 +1231,7 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 96,
+      "detour_min": 92,
       "detour_basis": "town",
       "detour_town": "Moab",
       "from_hubs": {},
@@ -1239,7 +1239,7 @@
         "near": [
           {
             "ref": "trip/utah-five-parks/viewpoint:dead horse point",
-            "km": 24.3,
+            "km": 22.8,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
@@ -1249,7 +1249,7 @@
         "area": [
           {
             "ref": "trip/utah-five-parks/viewpoint:dead horse point",
-            "km": 24.3,
+            "km": 22.8,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
@@ -1261,7 +1261,7 @@
       "pair_with": [
         {
           "ref": "trip/utah-five-parks/trail:mesa arch",
-          "km": 8.7,
+          "km": 7.4,
           "how": "drive",
           "extra_min": 150,
           "on_site_min": 150,
@@ -1288,7 +1288,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 96 min is over 30"
+          "reason": "detour 92 min is over 30"
         }
       },
       "role": "highlight",
@@ -1316,7 +1316,7 @@
         "near": [
           {
             "ref": "trip/utah-five-parks/viewpoint:grand view point",
-            "km": 24.3,
+            "km": 22.8,
             "draw": "regional",
             "standing": "top",
             "access_cost": [],
@@ -1326,7 +1326,7 @@
         "area": [
           {
             "ref": "trip/utah-five-parks/viewpoint:grand view point",
-            "km": 24.3,
+            "km": 22.8,
             "draw": "regional",
             "standing": "top",
             "access_cost": [],
@@ -1683,7 +1683,7 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 96,
+      "detour_min": 92,
       "detour_basis": "town",
       "detour_town": "Moab",
       "from_hubs": {},
@@ -1691,7 +1691,7 @@
         "near": [
           {
             "ref": "trip/utah-five-parks/viewpoint:dead horse point",
-            "km": 24.3,
+            "km": 22.8,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
@@ -1701,7 +1701,7 @@
         "area": [
           {
             "ref": "trip/utah-five-parks/viewpoint:dead horse point",
-            "km": 24.3,
+            "km": 22.8,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
@@ -1713,7 +1713,7 @@
       "pair_with": [
         {
           "ref": "trip/utah-five-parks/trail:mesa arch",
-          "km": 8.7,
+          "km": 7.4,
           "how": "drive",
           "extra_min": 150,
           "on_site_min": 150,
@@ -1740,7 +1740,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 96 min is over 30"
+          "reason": "detour 92 min is over 30"
         }
       },
       "role": "highlight",

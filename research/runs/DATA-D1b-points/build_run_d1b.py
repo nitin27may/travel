@@ -71,8 +71,8 @@ if "4" in STEPS:
     filled("place/cascate-di-fanes", "osm:node/470623991", OV, "official start: the park information point; beats the snapshot trailhead at Pian de Loa")
 if "6" in STEPS:
     filled(R + "sights/cameron-lake", "wikidata:Q3214786", WD, "no conflict: OSM relation 8299848 agrees within 25 m; D1 compared an NHD fragment")
-    filled("trip/utah-five-parks/viewpoint:grand view point", "osm:node/6806471756", OV,
-           "conflict kept: Wikidata Q62073199 P625 is 1.4 km north-east; NPS puts the point at the road end", outcome="conflict")
+    res.append({"ref": "trip/utah-five-parks/viewpoint:grand view point", "field": "point", "outcome": "conflict", "src": ["wikidata:Q62073199", "osm:node/6806471756"],
+                "reason": "Wikidata P625 is 1.4 km north-east of the overlook NPS puts at the road end; the Wikidata point is pinned by the migration ledger, so it stays and the OSM overlook is a coordinator item"})
     filled("part/trip/utah-five-parks/viewpoint:grand view point#walk", "osm:node/6806471755", OV, "ruling: OSM wins, NPS confirms the road end", outcome="conflict")
     filled(R + "trails/cory-pass-loop", "osm:node/508583984", OV, "ruling: the OSM lot is the legacy 'Fireside picnic area' (community guides; no official wording read)")
 if "7" in STEPS:

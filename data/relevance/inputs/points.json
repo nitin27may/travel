@@ -2072,10 +2072,10 @@
       "point_source": "Q129470 P625"
     },
     "trip/utah-five-parks/viewpoint:grand view point": {
-      "lat": 38.31015,
-      "lon": -109.85677,
-      "coord_src": "osm",
-      "point_source": "OSM node 6806471756 Grand View Point Overlook (tourism=viewpoint) at the road end; NPS https://www.nps.gov/places/grand-view-point.htm: 'Grand View Point lies at the southernmost end of the Island in the Sky scenic drive'. Wikidata Q62073199 P625 38.32221,-109.84901 (from GNIS 1435608) lies 1.4 km north-east on another pull-out (parking ways 1190800607 and 1239515667) and is kept as the conflicting value; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "lat": 38.32221,
+      "lon": -109.84901,
+      "coord_src": "wikidata",
+      "point_source": "Q62073199 P625"
     },
     "trip/utah-five-parks/viewpoint:sunset point": {
       "lat": 37.62276,

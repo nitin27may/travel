@@ -493,9 +493,11 @@
       "ref": "trip/utah-five-parks/viewpoint:grand view point",
       "field": "point",
       "outcome": "conflict",
-      "host": "overpass-api.de",
-      "src": "osm:node/6806471756",
-      "reason": "conflict kept: Wikidata Q62073199 P625 is 1.4 km north-east; NPS puts the point at the road end"
+      "src": [
+        "wikidata:Q62073199",
+        "osm:node/6806471756"
+      ],
+      "reason": "Wikidata P625 is 1.4 km north-east of the overlook NPS puts at the road end; the Wikidata point is pinned by the migration ledger, so it stays and the OSM overlook is a coordinator item"
     },
     {
       "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",

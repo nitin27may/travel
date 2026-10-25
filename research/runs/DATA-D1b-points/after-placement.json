@@ -7378,12 +7378,12 @@
       "trip": "utah-five-parks",
       "area_id": null,
       "point": {
-        "lat": 38.310154,
-        "lon": -109.856773,
+        "lat": 38.32221,
+        "lon": -109.84901,
         "role": "centre",
-        "role_stated": true,
+        "role_stated": false,
         "approx": false,
-        "from": "capture",
+        "from": "relevance",
         "via": null
       },
       "role": "centre",
