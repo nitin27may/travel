@@ -1,5 +1,7 @@
 # S23. Settings: household, notifications, connected clients, tokens
 
+**Status (R-60, Oct 2026):** this remains a future settings design, not a built screen. The current account foundation has email/password sign-in and private drafts; household setup, notifications, connected MCP clients, tokens, offline storage, export and deletion are not implemented. The OAuth provider and file-storage provider are not selected.
+
 ## Purpose
 Everything personal in one place: household (S17), notification channels and quiet hours, connected
 MCP clients and their scopes, personal access tokens (the fallback for clients without OAuth), the
@@ -55,8 +57,9 @@ Scopes always as sentences, same text as the consent screen.
 Toggles are switches with labels; token value has a copy button announced on success.
 
 ## Data and operations
-`notification_pref`, `push_subscription`, `calendar_feed`, OAuth clients and tokens (Supabase Auth
-OAuth server), personal tokens table (hashed), email-in address; export job.
+`notification_pref`, `push_subscription`, `calendar_feed`, OAuth clients and tokens (OAuth provider
+not selected), personal tokens table (hashed), email-in address; export job. These are proposed
+surfaces, not current Neon account capabilities.
 
 ## Acceptance criteria
 1. Revoking a client stops its next request.

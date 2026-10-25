@@ -1,7 +1,19 @@
 # 11. Quality, delivery and operations (working draft)
 
-How the platform is tested, released and kept running on the home server. Complements 05-roadmap.md
-(what to build) and 08-self-hosted.md (where it runs).
+How the platform is tested, released and kept running. Complements 05-roadmap.md (what to build) and
+04-stack.md (what it runs on).
+
+> **Status, 24 Oct 2026 (R-60).** The home-server operations below were written for the self-hosted Supabase plan
+> (08-self-hosted.md), now **historical**: Neon Postgres, Managed Better Auth and Neon Realtime are selected and
+> provisioned; Vercel is selected for frontend hosting (project setup/deployment after merge-ready, PLAN R-61), while
+> object storage, functions, the worker and the backup mechanism are **not selected**. Read
+> sections 2, 3, 4 and 6 as proposals to adapt for Vercel; the test layers, the release gates, backup
+> retention and restore tests, and the security routine remain requirements. What exists today: ten checksummed
+> migrations, RLS on 86 application tables and the ledger (the content-free `planner_draft_signal` is the one
+> coordinator-approved exception, with no app grants), email and password accounts, and a private account draft whose
+> real-service E2E (14 checks, including cross-user isolation) passed in an earlier independent run recorded, not rerun,
+> in the final verification ([NEON-VERIFICATION.md](build/public-site/NEON-VERIFICATION.md)). The child-branch DB
+> integration suite is **blocked** (no `TEST_DATABASE_URL`), so its cases count as skipped, not passed.
 
 ## 1. Test layers
 
@@ -26,9 +38,9 @@ a bug fix lands with the test that would have caught it.
 
 | Env | Where | Data |
 |---|---|---|
-| dev | laptop: Supabase CLI stack or Docker compose, Next.js dev server | seed: 64 places, Banff catalog sample, three trips |
+| dev | laptop: Next.js dev server against a Neon development branch (the Supabase CLI and compose stacks are historical) | seed: 64 places, Banff catalog sample, three trips (no loader yet) |
 | test | CI containers | created per run |
-| home (production) | the Ubuntu box, behind the Cloudflare Tunnel | real |
+| production | Neon for data, auth and realtime; the app host is not selected (the Ubuntu box behind a Cloudflare Tunnel is the historical plan) | real |
 | preview (optional) | a second compose project on the same box on another port, for trying a branch with a copy of last night's backup | restored copy |
 
 ## 3. CI and release
@@ -37,7 +49,7 @@ a bug fix lands with the test that would have caught it.
    contract snapshots, build.
 2. On merge to `main`: build container images (`web`, `worker`), tag with the commit, push to GitHub
    Container Registry.
-3. Release on the home server: `backup now` → `docker compose pull` → run migrations (they must be
+3. Release (written for the historical home server; adapt to the chosen host): `backup now` → `docker compose pull` → run migrations (they must be
    additive or come with a written down-path) → `up -d` → smoke check `/health`, sign-in, one MCP call.
    One script (`infra/release.sh`), run by hand at first.
 4. Rollback: previous image tags plus the backup taken in step 3.
@@ -62,21 +74,22 @@ within two hours.
 
 ## 6. Security routine
 
-Monthly: update images (backup first), review Supabase and Next.js advisories, rotate the MCP personal
-tokens that are older than 90 days, check that Studio is not reachable from outside. Secrets live only in
-the server's `.env` (mode 600) and GitHub Actions secrets; none in the repo.
+Monthly: update images (backup first), review Neon, Better Auth and Next.js advisories, rotate the MCP personal
+tokens that are older than 90 days, check that no admin console or owner database connection is reachable from
+the browser or the public internet. Secrets live only in an ignored local env file, the chosen host's secret store
+and GitHub Actions secrets; none in the repo.
 
 ## 7. M0 broken into tasks
 
 | # | Task | Done when |
 |---|---|---|
 | 0.1 | Monorepo layout (`apps/web`, `apps/worker`, `packages/domain`, `packages/db`, `packages/ui`, `infra/`) | `pnpm -r typecheck` passes |
-| 0.2 | Dev stack: Supabase local + PostGIS, seed script | `pnpm dev` shows a page reading one seeded place |
-| 0.3 | Drizzle schema and first migration from `schema.sql`; RLS policies | migration applies on an empty stack; RLS tests pass with two users |
+| 0.2 | Dev stack: Neon development branch + PostGIS (was Supabase local, historical), seed script | `pnpm dev` shows a page reading one seeded place (seed not built) |
+| 0.3 | Migrations from `schema.sql` and the schema diff (built as plain SQL with a checksummed runner, not Drizzle); RLS policies | migration applies on an empty stack; RLS tests pass with two users (done for the account draft only; membership policies to come) |
 | 0.4 | `defineOp` registry, `op_event`, inverses, idempotent replay; ops: create_trip, add_item, move_item, add_note, undo | ops tests green on Postgres |
-| 0.5 | Hono API at `/api/ops/*` with OpenAPI; Supabase Auth session in Next.js | a signed-in user creates a trip through the API |
+| 0.5 | Hono API at `/api/ops/*` with OpenAPI; Managed Better Auth session in Next.js (session done; was Supabase Auth) | a signed-in user creates a trip through the API (not yet: only a private draft) |
 | 0.6 | MCP at `/mcp`: `search`, `get`, `create_trip`, `edit_trip`; personal access tokens | Claude Code adds an item to a trip with a token |
-| 0.7 | OAuth 2.1 spike on the pinned self-hosted auth image (or Cloud) | Claude's connector signs in, or the gap is written down with the token fallback |
-| 0.8 | Realtime: private channel per trip, broadcast after commit, client reducer | two browsers see each other's moves |
-| 0.9 | Home server: compose with rotated secrets, tunnel, Studio LAN-only, backup + restore test, health checks | the M0 exit test in 05-roadmap.md passes on the real box |
+| 0.7 | OAuth 2.1 spike for MCP on Managed Better Auth (the self-hosted auth image is historical) | Claude's connector signs in, or the gap is written down with the token fallback |
+| 0.8 | Realtime: private channel per trip, broadcast after commit, client reducer (today only a per-user draft signal with authenticated re-fetch) | two browsers see each other's moves |
+| 0.9 | Production host (not selected; the home server is historical): rotated secrets, no public admin surface, backup + restore test, health checks | the M0 exit test in 05-roadmap.md passes in production |
 | 0.10 | CI pipeline (section 3, steps 1-2) | green on `main` |

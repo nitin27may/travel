@@ -1,13 +1,23 @@
 # 04. Stack and architecture: the decisions, argued
 
-> **Current stack (working draft, 17 Oct 2026).** Sections 1.1-1.9 are the reasoning record and still
-> describe Neon, Better Auth, Vercel and Cloudflare Workers; **08-self-hosted.md replaced those.** Today:
-> self-hosted Supabase (Postgres + PostGIS, Auth with OAuth 2.1 for MCP, Realtime, Storage) on the home
-> server or Supabase Cloud; Next.js 16 with Hono at `/api` and `/mcp`, in a container; a Node worker
-> container (reminders, jobs, email import, backups); Cloudflare Tunnel for public HTTPS. Section 2's rows
-> for language, Zod, Drizzle, the operation layer, UI kit, client data, dnd-kit, fractional ordering,
-> maps, routing, geocoding, search, weather, email, push, tests and monorepo still hold; its rows for DB
-> driver, hosting, scheduling, files and live co-editing are superseded by 08.
+> **Current stack (updated 24 Oct 2026, R-60).** Selected and provisioned: **Neon** Postgres, **Neon Managed Better
+> Auth** and **Neon Realtime** (owner, 24 Oct; [NEON-SETUP.md](build/public-site/NEON-SETUP.md)). Ten migrations are
+> applied ([NEON-MIGRATIONS.md](build/public-site/NEON-MIGRATIONS.md)): 86 application tables plus the migration ledger
+> have RLS; the one exception is the content-free `planner_draft_signal`, with no app-role grants, approved by the
+> coordinator. Implemented and verified on the uncommitted session branch (PLAN R-58): email and password accounts, a private account draft (create, rename, delete, persistence)
+> and live invalidation by a sealed per-user Realtime signal followed by an authenticated, RLS-scoped re-fetch. **Not
+> implemented:** the household and trip planner, collaboration and presence, MCP OAuth, and the catalogue in Postgres
+> (public reads still use `JsonStore`; a `PostgresStore` and its loader are proposed). **Not selected:** frontend
+> hosting, object storage, serverless functions and jobs; the rows below that name them are proposals.
+>
+> **Historical (superseded).** The 17 Oct self-hosted Supabase decision (08-self-hosted.md: Postgres, Auth with OAuth 2.1
+> for MCP, Realtime and Storage on the home server or Supabase Cloud; Next.js and a worker in containers; Cloudflare
+> Tunnel) replaced the earlier Neon, Better Auth, Vercel and Cloudflare Workers answers, and is itself superseded for the
+> database, auth and realtime by the Neon choice. Sections 1.1-1.9 are the reasoning record. Section 2's rows for
+> language, Zod, the operation layer, UI kit, client data, dnd-kit, fractional ordering, maps, routing, geocoding,
+> search, weather, email, push and tests still hold as direction. The Drizzle and DB-driver rows are superseded by
+> what was built: plain SQL migrations through a checksummed runner (`core/bin/db-migrate.ts`) and `pg`. Its rows for
+> hosting, scheduling, files and live co-editing are proposals until chosen.
 
 Every choice below is open source or free at our scale, and each says what we give up. Prices and
 limits were checked on 17 Oct 2026 from secondary sources that partly disagree; recheck the vendor's
@@ -129,8 +139,12 @@ adds openCypher to Postgres without a second system.
 ### 1.7 Decided 17 Oct 2026
 
 > **Revised the same day: self-hosted Supabase on the owner's home server** (08-self-hosted.md). That
-> replaces the Neon, Better Auth, Cloudflare-room and Vercel answers below; sections 1.1-1.9 stay as
+> replaced the Neon, Better Auth, Cloudflare-room and Vercel answers below; sections 1.1-1.9 stay as
 > the reasoning record. The rest of this file (section 2 onward) still applies except the rows 08 lists.
+>
+> **Superseded 24 Oct 2026 (owner):** Neon Postgres, Neon Managed Better Auth and Neon Realtime are selected and
+> provisioned; the self-hosted Supabase decision is historical. Hosting, storage, functions and the live co-editing
+> design are not decided by that choice (see the banner at the top).
 
 | Question | Owner's answer |
 |---|---|
@@ -303,7 +317,10 @@ and its tests carry straight over, and the most mature React server framework.
 
 1. Authorisation in the operation layer (who may run this op on this trip), **and** row-level
    security in Postgres as a second wall: each request runs in a transaction that sets
-   `app.user_id`; policies check `trip_member` and `household_member`.
+   `app.user_id`; policies check `trip_member` and `household_member`. Built so far (24 Oct): the
+   transaction-local `app.user_id`, a non-owner `NOBYPASSRLS` runtime role, and an owner policy on
+   `planner_draft` only; trip and household tables are RLS-enabled with no policy (deny) until their
+   membership policies are written and tested.
 2. MCP tokens carry scopes: `catalog:read`, `trips:read`, `trips:write`, `research:propose`,
    `review` (moderators only). Research scopes can only create changesets.
 3. People data (ages, heights, passport expiry, attachments) is never returned by public or link

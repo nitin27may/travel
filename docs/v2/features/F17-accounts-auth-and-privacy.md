@@ -3,8 +3,17 @@
 ## Purpose
 
 Know who is planning, keep each household's and trip's data private, let chat clients act for a
-user safely, and let anyone take their data out or delete it. Built on self-hosted Supabase Auth
-with row-level security, plus the operation layer's own checks.
+user safely, and let anyone take their data out or delete it. Built on Managed Better Auth (Neon)
+with Neon Postgres row-level security, plus the operation layer's own checks.
+
+**Status (R-60, Oct 2026).** Built: the account foundation only, namely email/password sign-up,
+sign-in and sign-out, server-verified sessions, and private `planner_draft` CRUD under RLS with
+cross-user isolation and live invalidation (content-free `planner_draft_signal`, the one
+coordinator-approved non-RLS relation, then an authenticated RLS re-fetch). Not built: magic link,
+Google, passkeys/MFA, household onboarding and membership policies, global and per-trip roles, the
+signed-out draft import, MCP OAuth and consent, personal access tokens, settings, export and delete.
+Those stay requirements below. Whether sign-up is open or invite-only is still open (question 2); a
+working sign-up path does not settle it.
 
 ## User stories
 
@@ -18,19 +27,19 @@ with row-level security, plus the operation layer's own checks.
 
 ### Sign-in
 
-1. Supabase Auth: email magic link (SMTP via Resend or a relay), Google sign-in, optional passkeys/MFA when the self-hosted auth version supports them. Sessions as Supabase JWTs; refresh handled by supabase-js.
-2. First sign-in creates `app_user` (trigger on `auth.users`), and offers household setup (F01).
-3. Signed-out use: Explore, entity pages, templates and a local draft trip (stored in the browser); "Sign in to keep this" imports the draft as a trip.
+1. Managed Better Auth. Built: email and password. Planned: email magic link (with an email sender still to choose), Google sign-in, optional passkeys/MFA when the managed service supports them. Sessions are server-verified Better Auth sessions; the browser never holds a database credential.
+2. First sign-in creates `app_user` and offers household setup (F01). Planned: the `app_user`, `household_member` and `trip_member` tables are migrated but deny-by-default with no membership policies yet; today's private drafts are keyed to the server-verified Better Auth user id.
+3. Signed-out use: Explore, entity pages, templates and a local draft trip (stored in the browser); "Sign in to keep this" imports the draft as a trip (planned; guest drafts and import are not built).
 
 ### Roles and authorisation
 
 4. Global roles on `app_user.role`: user, researcher (can run research and propose), moderator (can review), admin (everything).
 5. Per-trip roles in `trip_member` (owner, editor, viewer) and per-household roles in `household_member` (owner, adult).
-6. Two walls: the operation layer checks the actor's rights for each op before running it; Postgres RLS (policies on every table keyed by `auth.uid()`) enforces the same rules. Operations run with the caller's JWT, never the service role, except system jobs in the worker (reminders, staleness), which run with a dedicated service identity and only call system operations.
+6. Two walls: the operation layer checks the actor's rights for each op before running it; Postgres RLS (policies on every private-content application table keyed by the server-verified user id that the server binds per transaction, as `planner_draft` already does) enforces the same rules. The sole content-free `planner_draft_signal` exception has no app-role grants and is scoped by its sealed per-user query. Operations run as the caller, never with a privileged role, except system jobs in the worker (reminders, staleness), which run with a dedicated service identity and only call system operations.
 
 ### MCP authorisation
 
-7. Primary: Supabase Auth's OAuth 2.1 server (verify on the pinned self-hosted image in M0). Consent screen (ours) names the client and the scopes in plain words.
+7. Primary: an OAuth 2.1 server for MCP clients (planned; whether Managed Better Auth provides it or another component does is to be verified before M0 closes). Consent screen (ours) names the client and the scopes in plain words.
 8. Fallback: **personal access tokens** created in Settings (name, scopes, expiry, last used), sent as a bearer header by clients that support headers (Claude Code). Revocable at any time.
 9. Scopes: `catalog:read`, `trips:read`, `trips:write`, `reservations:read` (codes), `people:read` (passport dates, heights, weights; off by default), `research:propose`, `review`, `admin`.
 10. Every MCP operation records the client in `op_event`; Settings shows connected clients with last activity and a revoke button.
@@ -43,7 +52,7 @@ with row-level security, plus the operation layer's own checks.
 14. Logs never contain secrets or people data (structured logging with a deny-list).
 15. **Export**: one-click export of all the user's data (households they own, trips, reservations with codes, tasks, expenses, memories, attachments) as JSON plus files in a zip.
 16. **Delete**: deletes the account, households they own (with a warning listing other members), trips they own (other members are offered ownership transfer first), memberships elsewhere, tokens; anonymises their authored changesets (kept for catalog history as "deleted user").
-17. Backups (08-self-hosted.md) are encrypted offsite; a deleted account disappears from backups as they rotate (stated in the privacy note).
+17. Backups (08-self-hosted.md; backup plan on Neon still to be written) are encrypted offsite; a deleted account disappears from backups as they rotate (stated in the privacy note).
 
 ### Settings
 
@@ -55,7 +64,7 @@ See [10-sharing.md](../10-sharing.md). This page defines the privacy classes tha
 
 ## Data touched
 
-`auth.users`, `app_user`, `household_member`, `trip_member`, `mcp_token`, `notification_pref`, `push_subscription`, `op_event`, every table's RLS policies.
+Better Auth user and session tables (managed by Neon Auth), `app_user`, `household_member`, `trip_member`, `mcp_token`, `notification_pref`, `push_subscription`, `op_event`, `planner_draft` and `planner_draft_signal` (built). Private-content application tables use RLS; the signal table is the single documented non-RLS exception.
 
 ### Schema additions
 
@@ -71,14 +80,14 @@ MCP: no account-management tools; authorisation happens through OAuth or tokens.
 
 ## Edge cases
 
-- Magic link opened on a different device: works (Supabase default) and asks to confirm the device.
+- Magic link (planned) opened on a different device: works and asks to confirm the device.
 - A user signs in with Google using the same email as a magic-link account: linked to the same user.
 - Token leaked: revocation takes effect on the next request; tokens are hashed at rest.
-- OAuth server unavailable on the self-hosted image: tokens only, as planned.
+- OAuth server unavailable for MCP clients: tokens only, as planned.
 
 ## Acceptance criteria
 
-1. RLS test suite: for every table, a user who is not a member reads zero rows and writes nothing; viewers cannot read secrets or people data.
+1. RLS test suite: for every private-content table, a user who is not a member reads zero rows and writes nothing; viewers cannot read secrets or people data. For `planner_draft_signal`, verify the app role has no direct grants and sealed queries cannot expose another user's signal.
 2. An MCP token without `reservations:read` receives reservations without codes; with it, codes are included.
 3. Export produces a zip that restores into a fresh account with the same trips (round-trip test).
 4. Deleting a user removes their personal data and leaves catalog history attributed to "deleted user".
@@ -86,9 +95,9 @@ MCP: no account-management tools; authorisation happens through OAuth or tokens.
 
 ## Milestone
 
-M0 (auth, app_user, roles, RLS baseline, tokens, OAuth spike), M3 (settings for notifications), M5 (export and delete).
+M0 (auth, app_user, roles, RLS baseline, tokens, OAuth spike; only the email/password and private-draft foundation is done), M3 (settings for notifications), M5 (export and delete).
 
 ## Open questions
 
-1. Passkeys in year one? Default: only if the pinned self-hosted auth supports them without extra services.
+1. Passkeys in year one? Default: only if Managed Better Auth supports them without extra services.
 2. Allow sign-up by anyone, or invite-only while family first? Default: invite-only until M5.

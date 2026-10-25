@@ -74,7 +74,7 @@ The trip route map is Google Maps with our pins and lines: pins numbered in day 
 
 ## Server switch
 
-The map reads trip stops from the route model `getTrip` serves and legs from `tripLegs(slug)` (`GET /api/v1/trips/{slug}/legs/`); routed legs later come from the server's `leg_cache` (laundry list item 34) in the same leg shape. `loadExport(type, slug, format, profile)` calls `GET /api/v1/export/trip/{slug}?format=&p=`, which calls `CatalogueStore.getExport()` with the pure builders in `core/src/export/`. A `SupabaseStore` passes the same cases. URLs (`p`, `split`, `#day-N`) and components do not change on the switch.
+The map reads trip stops from the route model `getTrip` serves and legs from `tripLegs(slug)` (`GET /api/v1/trips/{slug}/legs/`); routed legs later come from the server's `leg_cache` (laundry list item 34) in the same leg shape. `loadExport(type, slug, format, profile)` calls `GET /api/v1/export/trip/{slug}?format=&p=`, which calls `CatalogueStore.getExport()` with the pure builders in `core/src/export/`. A proposed `PostgresStore` (SRV-0, not implemented) passes the same cases, including the privacy scrub. URLs (`p`, `split`, `#day-N`) and components do not change on the switch.
 
 ## Verification
 

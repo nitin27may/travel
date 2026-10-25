@@ -6,6 +6,8 @@
 > restored). The owner approved the queue in
 > [REMAINING-CLOSURE-PLAN.md](REMAINING-CLOSURE-PLAN.md). TRP2b2's preview
 > fixes and re-review are on the session branch; main integration is still pending.
+
+> **Backend provider (24 Oct, PLAN R-58, R-60):** the later catalogue store is a proposed `PostgresStore` on Neon Postgres, not a `SupabaseStore`. It is not implemented; `JsonStore` serves and the parity gate below is unchanged.
 > The old calendar below is not a fresh delivery estimate.
 
 Written 23 Oct 2026 by travel-planner (Opus) so phase E can start the moment the owner says go. Docs only; nothing here is started.
@@ -219,7 +221,7 @@ Each is the planner's call, with its trade-off. The owner can veto any of them a
 | D-E4 | **Revision from inputs.** `revision()` = SHA-256 of the build id plus the sorted content hashes of every input file the store reads (data files and the slug registry), computed once per process and cached; a failed computation is retried (GB-A-5 kept). K10 holds: the same data in two processes of one build gives the same revision, a changed value changes it, an mtime does not | A code change with no data change also changes every ETag, through the build id; that is correct. The first call drops from 2.9 s (hashing every built detail at 10,000 places) to a file-hash pass |
 | D-E5 | **Trip legs as their own method.** `tripLegs(slug)`, `GET /api/v1/trips/{slug}/legs/`, read when the map mounts, not in `getTrip`. Data file `trip-legs/2` adds an optional encoded polyline per leg (precision 5, simplified to about 30 m), the ORS and OSM attribution kept in the file | One more request when the map opens (P2, P8). The trip detail and the trip page HTML do not grow |
 | D-E6 | **Export formats.** `json` joins `EXPORT_FORMATS` and carries the structured model the client reads; `print` becomes a `text/plain` printable file. The on-page print view is rendered by the browser from `json` | One more enum value in a contract that is not public yet; renaming later would cost more (GB-D-2) |
-| D-E7 | **The browser stops evaluating lists itself.** `countPlaces` takes an optional `parsed` input (from `parse`) and counts in that scope on the server; `listUnchecked(q, page)` returns the rows whose value for a filtered key is a gap ("Not checked yet"); `searchCards(q)` searches card text (name, summary, area, kind label, tags), at most 50 rows. The `StaticAdapter` keeps its local evaluation as the fallback. API-3a names the final signatures | Three methods more for `SupabaseStore` to implement. Without them G-B check 1 keeps three listed exceptions and P9 is not met for search |
+| D-E7 | **The browser stops evaluating lists itself.** `countPlaces` takes an optional `parsed` input (from `parse`) and counts in that scope on the server; `listUnchecked(q, page)` returns the rows whose value for a filtered key is a gap ("Not checked yet"); `searchCards(q)` searches card text (name, summary, area, kind label, tags), at most 50 rows. The `StaticAdapter` keeps its local evaluation as the fallback. API-3a names the final signatures | Three methods more for the proposed `PostgresStore` to implement. Without them G-B check 1 keeps three listed exceptions and P9 is not met for search |
 | D-E8 | **Place-size budget: lazy sections, data fills in place.** New place-page sections in E render a summary line at build (Around here: "8 places within 25 km · nearest 2.6 km"; In the same park: the count) and load the list from the API when opened (P2, P8). Data batches fill existing slots, where a value replaces a "Not checked yet" marker. If a data batch would still push the median over +25%, the lane commits the over-budget records on its branch unmerged, lists them, and they wait for the owner's ruling at R2 (Q88). Nobody raises `BUDGET` before R2 | Crawlers see fewer internal links on place pages; one request on open. Builders are never blocked: the rule is decided now, and only the over-budget data waits |
 | D-E9 | **Trip page start JS: net zero.** TRP2a and TRP2b add no bytes to `/trips/[slug]` start JS: map code lives in the map's dynamic chunk, the export menu loads on open. If a lane cannot hold the budget, HYG lands 15.31 (`sideEffects: false` in core, about 11 KB) with a full quiet e2e before the lane merges | The 0.75 KB headroom stays; 15.31 runs only when needed, because it needs a quiet machine |
 | D-E10 | **R2 needs the minimum viable data set (section 9), not every 6.5 row.** Rows 7 to 10 in full move to the readiness checklist | R2 shows fewer photos and filled facts; every gap is honest ("Not checked yet"). Saves about 24 h of Opus before R2 (Q90) |
@@ -245,7 +247,7 @@ API-3a writes the new tables in `core/test/catalogue/contract/`; the lanes that 
 | K27 | `tripLegs` answers per trip, `not_found` for an unknown or unlisted trip, every coordinate passes the detector | `tripLegs` | API-3 |
 | K28 | Engine parity corpus (C5, 15.27): `listPlaces` and `countPlaces` on every store equal `core/src/query` over 30 queries | paged methods | HYG |
 
-R2 needs the kit green on `JsonStore`, `StubStore` and the handlers with **0 pending cases**. `SupabaseStore` cases stay not-applicable until SRV-0.
+R2 needs the kit green on `JsonStore`, `StubStore` and the handlers with **0 pending cases**. Proposed `PostgresStore` cases stay not-applicable until SRV-0.
 
 ## 8. Acceptance
 
@@ -459,7 +461,7 @@ M1 hand-over (one page): the URL; three things to look at (Google roads and name
 | 6 | No visible change: home, places with a sentence search, a trip and a place match `main` at 1440 and 390, light and dark (pixel diff under 0.1%) |
 | 7 | `git diff --name-only` shows only owned paths |
 
-**Server switch.** Every new method is a `CatalogueStore` method with a Zod input and output and contract cases; `SupabaseStore` implements the same cases in SRV-0. URLs and components do not change on the switch.
+**Server switch.** Every new method is a `CatalogueStore` method with a Zod input and output and contract cases; the proposed `PostgresStore` implements the same cases in SRV-0. URLs and components do not change on the switch.
 
 **Verification.** `pnpm --dir core typecheck && pnpm --dir core test`, `pnpm --dir web typecheck && pnpm --dir web lint && pnpm --dir web test` (with `SKIP_WEB_BUILD=1` after a build), your own e2e specs only (`api-default.spec.ts`, `export.spec.ts`), then `PATH=<venv>/bin:$PATH bash tools/check-all.sh` with `web/.env.local` moved aside (mode 600) and restored. Playwright screenshots at 1440 and 390, light and dark, set through the site's theme control, on the project's `GPU_ARGS`, into `web/test-results/shots/API3/`, read in tiles. Never touch ports 3440 or 3476.
 

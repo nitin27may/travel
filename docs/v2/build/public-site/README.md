@@ -2,6 +2,8 @@
 
 > **21 Oct 2026:** this is the 18 Oct wave 1 and 2 build plan, kept as the record. The current plan is [docs/v2/PLAN.md](../../PLAN.md). Superseded here: section 1's "static export" (the site becomes a server build in API-0), section 4.2's worktree rule (work branches from `main`; the `claude/serene-goldberg-wtn3di` branch was deleted 21 Oct and archived as the tag `archive/claude-serene-goldberg-wtn3di`), section 5 (order), section 6 (gates; Fable is never used, reviews run on Opus) and section 7 (decisions, all settled). Sections 2, 3, 4.1 and both Gotchas sections still stand.
 
+> **24 Oct 2026 (PLAN R-58, R-60):** the backend provider is Neon: Postgres, Managed Better Auth and Neon Realtime back the private account integration (email/password sign-in, private drafts, live invalidation), independently verified on the uncommitted session branch. The public site still reads the catalogue through `JsonStore`; a proposed `PostgresStore` (SRV-0) with loader, per-method parity, privacy checks and rollback is not implemented. Hosting, storage, serverless functions and jobs are not selected. The `DATABASE_URL`, `NEON_*` and `TEST_DATABASE_URL` names in the environment table serve that account integration and the DB tests only; no Supabase setup applies.
+
 Step 1 of the owner's order of work ([product-direction-2026-10-18.md](../../design/product-direction-2026-10-18.md)):
 the public site with no login, on the Trailhead foundation ([design/foundation/](../../design/foundation/)),
 keeping everything in [keep-from-live-site.md](../../design/keep-from-live-site.md), with the map stack from
@@ -338,12 +340,24 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `TRIPS_SHOT_URL` | web e2e `trips.shots.spec.ts` | URL for the trips screenshot spec | no |
 | `UPDATE_FIXTURES` | core tests `ops/util.ts` | `1` rewrites the op fixtures | no |
 | `WRITE_TAG_REPORT` | web `tests/data/tag-conflicts.test.ts` | `1` writes the tag conflict report | no |
+| `DATABASE_URL` | web `lib/server/neon-env.ts`, core | Pooled Neon Postgres connection string for the app runtime | no |
+| `DATABASE_URL_UNPOOLED` | core `bin/db-migrate.ts` | Direct (unpooled) Neon connection used to run migrations as the schema owner | no |
+| `NEON_APP_ROLE` | web `scripts/neon-probe.mjs` | Name of the non-owner application role the probe connects as | no |
+| `NEON_AUTH_BASE_URL` | web `lib/server/neon-env.ts` | Base URL of the Neon Auth service the server verifies sessions against | no |
+| `NEON_AUTH_COOKIE_SECRET` | web `lib/server/neon-env.ts` | Secret that signs/verifies the session cookie | no |
+| `NEON_REALTIME_URL` | web `lib/server/neon-env.ts` | Neon Realtime endpoint the browser connects to for the live signal stream | no |
+| `NEON_REALTIME_SECRET` | web `lib/server/neon-env.ts` | Server secret that seals Realtime queries; never reaches the browser | no |
+| `NEON_E2E` | web `scripts/neon-e2e.mjs` | `1` runs the real Neon auth/CRUD/live/isolation end-to-end check | no |
+| `PW_E2E_URL` | web `scripts/neon-e2e.mjs` | URL of the running app the Neon e2e check drives | no |
+| `TEST_DATABASE_URL` | core `test/db/integration.test.ts` | Connection string for the isolated branch the DB integration tests run against; unset, they skip | no |
+| `NEXT_PUBLIC_SIGN_IN` | web `lib/capabilities.ts` | `1` enables the account sign-in capability in the browser bundle | yes |
 
 ## Change log
 
 | Date | Change |
 |---|---|
 | 2026-10-18 | First version. Supersedes recommendation.md section 6 steps 11 and 12. |
+| 2026-10-24 | R-60: banner naming Neon (R-58) as the backend provider, the proposed `PostgresStore` and the scope of the Neon environment names |
 
 ## Gotchas
 

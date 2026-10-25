@@ -39,7 +39,7 @@ The public site is built and on `main` (the old site is tagged `legacy-final`). 
 
 ## 2. How to read the tables
 
-**Order (owner, 20 Oct 2026, revised the same day):** phase **A** fixes every UI issue first, then the owner reviews it (**R1**). Phase **B** builds API-over-JSON and the foundations (internal gate **G-B**). Phase **E** builds the features on the API, then the owner reviews again (**R2**). Phase **D** is a hosting-agnostic readiness checklist: **deployment is out of scope until the hosting is chosen**, and the site is no longer a static export. API-over-Supabase is lane **SRV-0**, after E, local only. The sequenced plan with lanes, files, efforts, gates, the server switch and the calendar is **[EXECUTION-PLAN.md](EXECUTION-PLAN.md)**; every pending item from every source is one line of **[COVERAGE.md](COVERAGE.md)** (244 lines, 0 unmapped). Status words: done, running, next, waiting (on you), later.
+**Order (owner, 20 Oct 2026, revised the same day):** phase **A** fixes every UI issue first, then the owner reviews it (**R1**). Phase **B** builds API-over-JSON and the foundations (internal gate **G-B**). Phase **E** builds the features on the API, then the owner reviews again (**R2**). Phase **D** is a hosting-agnostic readiness checklist: **deployment is out of scope until the hosting is chosen**, and the site is no longer a static export. API-over-Postgres is lane **SRV-0**, after E: a proposed `PostgresStore` on Neon Postgres (provider revised from Supabase 24 Oct, PLAN R-58), not implemented; `JsonStore` serves. The sequenced plan with lanes, files, efforts, gates, the server switch and the calendar is **[EXECUTION-PLAN.md](EXECUTION-PLAN.md)**; every pending item from every source is one line of **[COVERAGE.md](COVERAGE.md)** (244 lines, 0 unmapped). Status words: done, running, next, waiting (on you), later.
 
 ## 3. Phase A: the UI fixes (before review R1)
 
@@ -52,7 +52,7 @@ The public site is built and on `main` (the old site is tagged `legacy-final`). 
 | 5 | Trip page polish: phone map pill, Patagonia, Switzerland, Dolomites day 4, merged-duplicate stop, Rockies markers | 15.5, 3.62b, 3.67d, 3.35 | [briefs/TRP1.md](briefs/TRP1.md) | TRP1 | 8 h | next |
 | 6 | Where pill (country, province, parks and areas) and list polish | 8.1, Q54, 3.62, 3.66, 15.3, 15.4 | [briefs/LST2.md](briefs/LST2.md) part a | LST2a | 16 h | next |
 | 7 | Trail facts strip, AllTrails links, place page polish (4.12 and the review list) | 10.1, 10.3, 4.12, 3.49, 15.3, 15.4 | [briefs/PLC2.md](briefs/PLC2.md) part a | PLC2a | 14 h | next |
-| 8 | Read-only schema diff (risk check for the API and Supabase) | 14.1 | [briefs/SRV.md](briefs/SRV.md) | SRV-D | 3 h | next |
+| 8 | Read-only schema diff (risk check for the API and the later Postgres store) | 14.1 | [briefs/SRV.md](briefs/SRV.md) | SRV-D | 3 h | next |
 | 9 | Scoped checks (screenshot sweep, output audit, closure), preview 1 | 5.1, 5.2, 5.6, 2.47 | EXECUTION-PLAN 7, 8.1 | checkers, me | 1 day | next |
 
 ## 4. Phase C: your reviews (two gates)
@@ -91,7 +91,7 @@ Entry criteria, checklist, roles, exit and the round loop, with a one-page scrip
 | 27 | ORS nearby and hub matrices | 8.13, 3.12 | [briefs/MX.md](briefs/MX.md) | MX | 5 h | next |
 | 28 | Hard-coding burn-down (slug tables, palettes, UA, endpoints, host) | 13.2 | briefs/CONS.md CONS-3 | CONS | 8 h | next |
 | 29 | Full stage 5 run, fixes, preview 2 | 5.1 to 5.6 | EXECUTION-PLAN 7, 11.1 | checkers, me | 3 days | next |
-| 30 | SRV-0: API-over-Supabase locally, contract kit against it (beside R2, flags off) | 14.5 | briefs/SRV.md | SRV | 24 h | later |
+| 30 | SRV-0: API-over-Postgres, proposed `PostgresStore` on a Neon child branch with loader, per-method contract kit, privacy checks and rollback (beside R2, flags off; not implemented) | 14.5 | briefs/SRV.md | SRV | 24 h | later |
 
 ## 7. Phase D: readiness (after your approval at R2), hosting-agnostic
 

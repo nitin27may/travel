@@ -247,3 +247,95 @@ the one primary action per view (`changes-from-preview.md` 1), never on status a
 - No client-side bulk load; the draft list is a per-user live subscription through the one data
   boundary (P8/P9).
 - No hard-coded private data to make the demo pass; identity always from the server session.
+
+---
+
+## Post-implementation review — ship/hold
+
+Reviewer: Fable (design foundation owner). Model: **Opus**. Date: 24 Oct 2026. No other agents
+launched; no code or app changes made; this file is the only edit.
+
+Scope: the built account path in the worktree — `web/app/sign-in/`, `web/app/sign-up/`,
+`web/app/account/` (`page.tsx`, `AccountDrafts.tsx`, `SignOutButton.tsx`), `web/app/account.css`,
+`web/components/auth/AuthForm.tsx`, `web/components/shell/AccountNav.tsx` — against the approved
+design above and the Trailhead foundation. Grounded in render: the twelve shots in
+`web/test-results/shots/{sign-in,sign-up,account-signed-in}-{1440x900,390x844}-{light,dark}.png`,
+read at 2x, 1440 and 390, light and dark (dark via the site's own toggle — confirmed in the shots).
+No server was live on :3000, so I read the committed renders plus the source for the states the
+error shot does not exercise. The signed-in account shots show the **service-error state** because
+the Realtime/Postgres tables are still being wired in app lane `b095e1b1`; per the brief I do **not**
+treat that missing-table render as the final account UI, only as the error branch, and the error
+branch itself renders correctly.
+
+### Decision: **SHIP.** No blockers in the bounded service path.
+
+Every ruling from the approved design is implemented and renders correctly. No new colour, no green,
+no amber-at-rest, no planner nav. Contrast pairs are unchanged from the approved table and all pass
+AA; the build introduces no new pairs.
+
+### Verified against the approved findings
+
+- **C1 (status never green/amber).** `account.css` `.live-dot { background: var(--muted) }` plus the
+  word "Live" in `.draft-status` (`--muted` mono). No `--ok`, no green, no amber. `--muted` on
+  `--surface` 6.94:1 light / 7.45:1 dark, AA/AAA. Pass.
+- **C2 (destructive confirm + undo; sign-out plain and unloading).** Delete is a two-step inline
+  confirm with a **danger** button, then `toast({ actionLabel: 'Undo' })` that re-creates the exact
+  row (`AccountDrafts.onDelete`). Sign-out is a **secondary** button (`SignOutButton`, and the header
+  menu entry) that calls `signOut()` then `leaveSession()` for a full page change that unloads
+  prior-user state. Pass. Per the brief, ordinary sign-out needs no confirmation and draft delete is
+  safely confirmed-and-undoable — both satisfied.
+- **C3 (fail closed).** `AccountPage` renders `SignedOut` when `capabilities.signIn` is off;
+  `AccountBody` awaits `getUser()` and renders `SignedOut` (a sign-in prompt, never a list) when
+  there is no session; `export const dynamic = 'force-dynamic'` and `connection()` keep the page off
+  the build/cache. Anonymous never sees a draft row. Pass.
+- **I1 (wrong credentials vs unreachable service).** `AuthForm.classify()` splits 5xx/0/network
+  codes to a **notice** banner ("Sign-in is unavailable right now…") from credential failures to an
+  **urgent** banner ("We couldn't sign you in…"). The banner is focused on failure for announcement.
+  Pass.
+- **I2 (reduced signed-in header).** `AccountNav` renders tabs Trips / Places / Globe unchanged and
+  a right cluster of search, theme, then an avatar **menu** with exactly **Account** and **Sign
+  out** — no bell, no trip chip, no Home tab. Confirmed in the signed-in shots (avatar disc "E",
+  `--ink` on `--surface` with a 1 px `--line-2` keyline, 3.67:1 / 3.42:1 non-text). Pass.
+- **I3 (honest verification).** Sign-up success reads "Account created. Sign in to continue." and
+  only mentions email verification conditionally; it promises no mail. Pass.
+- **I4 (polite live region, announced changes).** An `sr-only aria-live="polite"` region announces
+  "Draft '…' added", "Renamed to …", "Draft removed. Undo available." Pass.
+- **Title/metadata polish (P-1, P-2, P-3).** "ACCOUNT · N drafts" count in mono (shown only when
+  loaded, correctly absent in the error state); `savedLabel` renders mono one-line "Saved … · … ago";
+  `.account-page { max-width: 40rem }` holds the reading column. Pass.
+- **Motion (P5).** `draft-settle` runs once on row mount (keyed rows do not remount on re-sort) and
+  is disabled under `prefers-reduced-motion`. Pass.
+
+### Non-blocking polish (log for the fold-in, do not hold the ship)
+
+1. **Row-actions trigger is a text ellipsis, not an icon.** `AccountDrafts` uses `&hellip;` as the
+   menu trigger glyph where the approved spec named a row-menu icon button. It is a 44 px
+   `btn-icon` with `aria-label="Draft actions"`, so it is accessible and sized; swap to a kebab/row
+   icon when folding the account template into `components.md`. Polish.
+2. **Two live regions.** Both the `sr-only` announcer and the `<ul aria-live="polite">` are live.
+   The announcer carries the exact phrases; the list being live as well can double-announce on
+   re-sort. Drop `aria-live` from the `<ul>` and keep the announcer as the single source. Polish.
+3. **"Try again" is a link, not a Button.** The page-level error state (`ErrorState` "We couldn't
+   load your drafts.") uses a `Link` where 6.3 named a Retry button. Clear and accessible as built;
+   align to the button form in the template fold-in. Polish.
+4. **Sign-up "Name" is optional with no help line.** It falls back to the email as the display name
+   (`name || email`). Acceptable; add a one-line help ("Optional.") when folding the form into the
+   foundation so the missing required dot reads as intentional. Polish.
+
+None of these lose state, mislead a planning or travelling family, or touch colour, so they are
+polish, not blockers.
+
+### Foundation fold-in still owed (tracked, not part of this ship)
+
+The approved `/account/` template and the reduced signed-in header variant must still be folded into
+`components.md` 1.1 and `patterns.md` (new 4.0 "Account"), keeping `tokens.md`, `tokens.json`,
+`components.md`, `patterns.md`, `specimen.html` and `changes-from-preview.md` in step. No token
+changes are needed. This is a documentation task after the backend lands, not a ship gate for the
+account path.
+
+### Bottom line
+
+Ship the account path. The service-error render in the signed-in shots is the backend-in-progress
+branch and is itself correct; re-shoot the loaded list, empty, reconnecting and live-insert states
+once `b095e1b1` wires the tables, and confirm the muted "Live" dot and the undo toast against render
+before the foundation fold-in.

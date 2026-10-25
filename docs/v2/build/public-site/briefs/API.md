@@ -26,11 +26,11 @@ Later, unchanged: R-24 (written as A23), R-25 (a `globePins` cap when 3.66 is me
 - **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) section 4 (shape, the exact `CatalogueStore` interface, endpoints, adapters, build changes) and tasks B1 to B3; [PHASE-B-START.md](../PHASE-B-START.md) sections 5 (decisions), 6 (contract cases K1 to K19) and 7 (check-all and harness). Input: [research/reports/schema-diff-2026-10.md](../../../../../research/reports/schema-diff-2026-10.md), subsection 13.1 "For API-1" and sections 12 and 13.
 - **Principles:** P1, P8 (caps inside the functions), P9 (one boundary, server-shaped state).
 - **Starts:** API-0 in slot 0 (R1 entry is done; the R1 preview is a frozen build on port 3440). API-1a in slot 2, API-1b in slot 3, API-2 in slot 4. R1 fix rounds win any shared file.
-- **Owner decisions in force:** deployment is out of scope (no static-export assumption); API-over-JSON now; API-over-Supabase later as SRV-0; two tiers, `entity.id` = `ref`, locations collections private, town ids `ca-on-whitby` (Q73 to Q76).
+- **Owner decisions in force:** deployment is out of scope (no static-export assumption); API-over-JSON now; API-over-Postgres later as SRV-0 (proposed `PostgresStore` on Neon, provider revised 24 Oct, PLAN R-58; not implemented); two tiers, `entity.id` = `ref`, locations collections private, town ids `ca-on-whitby` (Q73 to Q76).
 
 ## Goal
 
-The browser reads every list, count, search, detail, globe and export through `/api/v1/` route handlers by default. The handlers are thin: they validate with shared Zod contracts, call a `CatalogueStore`, and pass every response through one `respond()` that scrubs, checks the allowlist, sets the ETag and maps errors. `JsonStore` serves the repo JSON now; a `SupabaseStore` later implements the same interface and the contract kit proves parity. Every row and detail carries a stable `ref` and a slug that never changes silently. A visitor sees nothing change.
+The browser reads every list, count, search, detail, globe and export through `/api/v1/` route handlers by default. The handlers are thin: they validate with shared Zod contracts, call a `CatalogueStore`, and pass every response through one `respond()` that scrubs, checks the allowlist, sets the ETag and maps errors. `JsonStore` serves the repo JSON now; a proposed `PostgresStore` later implements the same interface and the contract kit proves parity per method before any switch. Every row and detail carries a stable `ref` and a slug that never changes silently. A visitor sees nothing change.
 
 ## Read first
 
@@ -118,7 +118,7 @@ Component files and their layouts (phase A's components must not change again); 
 
 ## Server switch
 
-This lane is the switch. A later `SupabaseStore` implements `CatalogueStore`; the handlers, `respond()`, the adapters, the components, the URLs and the tests stay unchanged, and the contract kit proves parity (SRV-0). The slug registry, the sort key and the content revision are what let `SupabaseStore` return the same pages, slugs and ETags: SRV-0's loader copies `data/catalogue/slugs.json` and stores the sort key.
+This lane is the switch. A later, proposed `PostgresStore` (not implemented; `JsonStore` keeps serving and stays the rollback) implements `CatalogueStore`; the handlers, `respond()`, the adapters, the components, the URLs and the tests stay unchanged, and the contract kit proves parity (SRV-0). The slug registry, the sort key and the content revision are what let the proposed `PostgresStore` return the same pages, slugs and ETags: SRV-0's loader copies `data/catalogue/slugs.json` and stores the sort key.
 
 ## Verification
 

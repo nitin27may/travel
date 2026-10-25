@@ -3,13 +3,21 @@
 Vertical slices: each ends with something a person can use end to end, on real data, deployed.
 Sizes are relative (S, M, L) because the pace depends on how many agent sessions run in parallel.
 
+> **Status, 24 Oct 2026 (R-60).** This roadmap was written for the 17 Oct self-hosted Supabase decision, which is now
+> **historical**. The owner selected Neon for Postgres, Managed Better Auth and Realtime; those are provisioned, with ten
+> migrations applied and RLS on 86 application tables plus the ledger (one content-free signal table excepted;
+> [NEON-MIGRATIONS.md](build/public-site/NEON-MIGRATIONS.md)). Of M0, only email and password accounts and a private
+> account draft with live re-fetch exist; the rest of M0 to M7 is unbuilt. Hosting, storage, functions, the worker and
+> backups are not selected; where the milestones below name Supabase, Docker or the home server, read them as the
+> superseded proposal, while their exit tests and requirements still stand. Current order: [PLAN.md](PLAN.md).
+
 ## 1. Repo layout (new code beside the old, nothing deleted until replaced)
 
 ```
 apps/
-  web/              Next.js 16 app (container on the home server); Hono API + MCP at /api and /mcp (grows out of today's web/)
+  web/              Next.js 16 app (host not selected); Hono API + MCP at /api and /mcp (grows out of today's web/)
   worker/           Node container: reminders, staleness, digests, email import
-infra/              docker compose override for self-hosted Supabase + web, worker, backup, cloudflared (08-self-hosted.md)
+infra/              (historical proposal) docker compose override for self-hosted Supabase + web, worker, backup, cloudflared (08-self-hosted.md)
 packages/
   domain/           ops registry, Zod schemas, checks, planner, sun, book-by, tasks (grows out of core/)
   db/               Drizzle schema + migrations (from docs/v2/schema.sql), seed, test helpers
@@ -23,16 +31,22 @@ docs/v2/            this plan
 ## 2. Milestones
 
 ### M0. Foundations (M)
-- Monorepo packages above; self-hosted Supabase in Docker on the home server (08-self-hosted.md) with
-  secrets rotated, Studio LAN-only, Cloudflare Tunnel for `app.<domain>`; a second local stack for
-  development; Drizzle migrations from `schema.sql`.
-- Supabase Auth (email magic link + Google), roles on `app_user`, user admin in Studio and `/admin`; `household`, `person`; RLS policies on every table, tested with two users.
+- Monorepo packages above; a Neon project with secrets outside the repo (done; this replaces the superseded
+  self-hosted Supabase stack of 08-self-hosted.md); development and tests on Neon child branches (planned: the
+  child-branch DB integration suite is blocked until `TEST_DATABASE_URL` exists); versioned SQL migrations (done: ten
+  migrations from the `schema.sql` proposal plus the accepted schema diff). App hosting and a public URL are not
+  selected.
+- Accounts on Neon Managed Better Auth (done: email and password; magic link and Google still open, Q66), roles on
+  `app_user`, user admin in `/admin`; `household`, `person`; RLS on the 86 private-content application tables and
+  migration ledger (done, deny by default), with the content-free `planner_draft_signal` as the one
+  coordinator-approved non-RLS exception. Household membership policies are not tested (not yet: only the account
+  draft has an owner policy, cross-user isolation verified).
 - `defineOp` registry with `op_event`, inverse, idempotent `client_op_id`; first ops: create trip,
   add item, move item, add note, undo.
 - API at `/api/ops/*` with the OpenAPI spec; MCP at `/mcp` exposing `search`, `get`, `create_trip`,
   `edit_trip` with OAuth; tested from Claude.
 - CI: typecheck, lint, ops tests against a throwaway Postgres + PostGIS container, migration check (apply on a copy of the latest backup).
-- Nightly `pg_dump` (database, auth, storage schemas) and storage volume copy to an offsite bucket; one restore test.
+- Nightly `pg_dump` (database and auth data) and a copy of stored files to an offsite location; one restore test (mechanism not chosen; Neon's own restore window does not replace the restore test).
 
 **Exit:** sign in on a phone, create a trip, add a custom item; from Claude, add an item to the same
 trip and see it appear in the app with "added by Claude" and a working undo.
@@ -56,7 +70,7 @@ went through review; search "lakes under 8 km, kids 9+" returns the right things
 - Day checks with one-tap fixes; the deterministic "Draft my days" preview.
 - Universal **+**: catalog search, custom item, pasted link, dropped pin.
 - Day-trip flow from home with drive-time ranking (ORS + `leg_cache`).
-- Read-only share link; invite an editor; **live co-editing**: Supabase Realtime private channel per trip broadcasting committed ops, presence avatars on items, gap recovery by version.
+- Read-only share link; invite an editor; **live co-editing**: a private per-trip channel broadcasting committed ops, presence avatars on items, gap recovery by version (transport to be designed; today Neon Realtime is used only to invalidate a user's own account draft, followed by an authenticated re-fetch).
 
 **Exit:** two phones open the same trip; a move on one shows on the other in under a second, and
 the owner rebuilds the **Canadian Rockies 2029** trip in the app (14 nights, 3 tracks per
@@ -66,7 +80,7 @@ day) faster than editing the legacy page, and the result's day checks match what
 - Reservations (09-reservations.md): forms per kind, segments, travellers, secrets, anchored items, night bases, flight and car bounds on days; to-book placeholders with tasks; the booking timeline; the wallet.
 - Offers with booking windows; `opens_at`/`book_by` for to-book reservations.
 - Tasks: generated (bookings, windows, document rules for Canadian citizens, packing templates) and manual.
-- Reminders: Web Push, email, ICS feed and per-deadline `.ics`; the worker container polls due reminders every 30 s; Inbox.
+- Reminders: Web Push, email, ICS feed and per-deadline `.ics`; a scheduled worker polls due reminders every 30 s (runtime not selected); Inbox.
 - Email import (07-competitors.md 4): forward a confirmation, get a booking and item; schema.org markup first.
 - Readiness bar and the phase-aware trip dashboard; the travel year view with long weekends.
 
@@ -112,8 +126,8 @@ Valhalla if ORS quotas bite.
 | `legacy/canadian-rockies-sept-2029/data/*.json` | a real trip + catalog rows | importer in M1, rebuilt and checked in M2 |
 | Other legacy pages (hand-written HTML) | stay live on Cloudflare Pages at their URLs | rebuilt as trips only when the trip is next revised; no bulk conversion |
 | `research/` Markdown | stays in git as research history | key facts enter as evidence when a trip is rebuilt |
-| `web/` (Next.js list views) | becomes `apps/web` | owner chose Next.js: the app, its components and Playwright tests carry over; static export is dropped for server rendering on Vercel |
-| `publish.sh`, `tools/publish.py` | legacy only | the new app deploys as containers on the home server (`docker compose pull && up -d` from a tagged build) |
+| `web/` (Next.js list views) | becomes `apps/web` | owner chose Next.js: the app, its components and Playwright tests carry over; static export is dropped for server rendering; Vercel selected as host, deployment after merge-ready (PLAN R-61) |
+| `publish.sh`, `tools/publish.py` | legacy only | the new app deploys on Vercel after merge-ready; these scripts remain the frozen old-site path (the home-server containers plan is historical) |
 | `docs/archive/v1/PLAN-platform.md` (archived) phases P4b, P4c, P5+ | **paused** where they write to the file store | P4c (bulk import into JSON files) would be wasted work; its importers are rewritten against Postgres in M1 |
 
 ## 4. What stays manual for the owner during the move

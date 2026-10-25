@@ -63,7 +63,7 @@ Every tool's input is a Zod schema exported as JSON Schema; every output is comp
 
 ## 3. Auth for MCP clients
 
-- Remote MCP over Streamable HTTP at `/mcp` (through the Cloudflare Tunnel), OAuth 2.1 with PKCE via Supabase Auth's OAuth 2.1 server, with personal access tokens as the fallback (08-self-hosted.md section 5; mcp/README.md).
+- Remote MCP over Streamable HTTP at `/mcp`, OAuth 2.1 with PKCE, with personal access tokens as the fallback (mcp/README.md). **Not built.** The 17 Oct plan (Supabase Auth's OAuth 2.1 server through the Cloudflare Tunnel, 08-self-hosted.md section 5) is superseded: accounts are now Neon Managed Better Auth, where only email and password sign-in is implemented, and the MCP OAuth provider and the public host are still to be chosen and proven (laundry list Q65, Q66).
   Clients register by **Client ID Metadata Documents** (the newer MCP profile) or, where a client still
   needs it, dynamic client registration, which we switch on deliberately.
 - The consent screen names the client and the scopes in plain words ("Claude will be able to read
