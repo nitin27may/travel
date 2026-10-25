@@ -457,7 +457,27 @@
         ],
         "note": "The toll road needs an online slot; when slots are released is an operator question."
       },
-      "area_id": "IT/veneto/belluno"
+      "area_id": "IT/veneto/belluno",
+      "photos": [
+        {
+          "file": "File:Tre cime di Lavaredo dietro al Rifugio Locatelli.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Mirko Barsanti",
+          "attribution": "Mirko Barsanti, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Tre_cime_di_Lavaredo_dietro_al_Rifugio_Locatelli.jpg",
+          "width": 5344,
+          "height": 3008
+        },
+        {
+          "file": "File:Tre Cime di Lavaredo - panoramio (2).jpg",
+          "licence": "CC BY 3.0",
+          "author": "Pavel Špindler",
+          "attribution": "Pavel Špindler, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Tre_Cime_di_Lavaredo_-_panoramio_(2).jpg",
+          "width": 4928,
+          "height": 3264
+        }
+      ]
     },
     {
       "ref": "place/cadini-di-misurina-viewpoint",
