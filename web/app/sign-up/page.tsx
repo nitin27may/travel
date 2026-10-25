@@ -1,6 +1,7 @@
 import { ButtonLink } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
-import { AuthFormLazy } from '@/components/auth/AuthFormLazy';
+import { SignInCardLazy } from '@/components/auth/AuthLazy';
+import { authFlags, turnstileSiteKey } from '@/lib/auth/flags';
 import { capabilities } from '@/lib/capabilities';
 import { pageMetadata } from '@/lib/site';
 
@@ -29,10 +30,10 @@ export default function SignUp() {
   return (
     <div className="auth-page">
       <header className="auth-head">
-        <h1>Create account</h1>
+        <h1>Create an account</h1>
         <p className="auth-sub">Start saving your trip drafts.</p>
       </header>
-      <AuthFormLazy mode="sign-up" />
+      <SignInCardLazy mode="sign-up" codeOn={authFlags.signInCode} siteKey={turnstileSiteKey} />
     </div>
   );
 }

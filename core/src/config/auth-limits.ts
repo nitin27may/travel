@@ -67,6 +67,10 @@ export const AUTH_GUARD = {
 export const TURNSTILE = {
   url: "https://challenges.cloudflare.com/turnstile/v0/siteverify",
   timeoutMs: 3000,
+  /** The widget script the sign-in card loads on first focus (explicit rendering). */
+  widgetScript: "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit",
+  /** How long the card waits for a widget token before sending without one (the guard then refuses with a clear message). */
+  tokenWaitMs: 15000,
   /** The widget's action on every mail-sending call and on sign-up. */
   action: "auth_send",
   /**
@@ -75,3 +79,13 @@ export const TURNSTILE = {
    */
   testSecrets: ["1x0000000000000000000000000000000AA", "2x0000000000000000000000000000000AA", "3x0000000000000000000000000000000AA"],
 } as const;
+
+/**
+ * The emailed code as the sign-in card presents it (EML-1). Neon's codes are 6 digits and live 5 minutes (EML-0 U9: the row TTL is
+ * 300 s, not the 15 minutes of Neon's docs) and die after 3 wrong tries. The card waits `resendAfterS` before offering a new one,
+ * the same as the per-address send window, so the button never offers a send the guard would refuse.
+ */
+export const EMAIL_CODE = { length: 6, lifetimeMin: 5, resendAfterS: 60, attempts: 3 } as const;
+
+/** Passwords the card accepts (Better Auth's defaults: at least 8, at most 128 characters). */
+export const PASSWORD = { minLength: 8, maxLength: 128 } as const;
