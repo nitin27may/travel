@@ -1,0 +1,121 @@
+{
+  "schema": "relevance/1",
+  "trip": "vermont-fall-2026",
+  "lane": "BA-us",
+  "researched": "2026-10-25",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.wikidata.org/wiki/Special:EntityData",
+      "title": "Wikidata entity data (labels, descriptions, P625, P2044, P402, P856, sitelinks)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-us"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.gostowe.com/",
+      "title": "Go Stowe",
+      "publisher": "Stowe Area Association",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/stowe",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q550498",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: town in Lamoille County, Vermont; its P625 equals the stored point."
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-25",
+        "note": "Tourism board (Stowe Area Association) lists waterfalls, scenic drives, covered bridges and says October puts fall on full display."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The board's site names Stowe Mountain Resort and its Gondola SkyRide."
+      },
+      "standing_scope": "Vermont mountain towns",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Other Vermont resort towns are within 60 km."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the village and recreation path are in town."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A year-round town; the foliage is best in clear weather."
+      },
+      "why": "A Vermont mountain town of waterfalls, covered bridges and a recreation path, busy in October for foliage.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "A town: no entry permit or booking applies to the town itself."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no designation read on the official or tourism pages"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    }
+  ]
+}

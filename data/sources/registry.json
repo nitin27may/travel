@@ -7,8 +7,8 @@
       "title": "locations store",
       "publisher": "this repo",
       "kind": "reference",
-      "first_read": "2026-10-22",
-      "last_read": "2026-10-22",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
       "used_by": [],
       "licence_note": "Our own file in this repository.",
       "terms_note": "Not a web source; there is no link to check.",
@@ -1411,6 +1411,113 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-10f5041f2f",
+      "url": "https://coloradosprings.gov/incline",
+      "title": "Manitou Incline",
+      "publisher": "City of Colorado Springs Parks",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/manitou-incline#hiawatha-gardens-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/manitou-incline",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/manitou-incline",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/manitou-incline",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/manitou-incline",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/manitou-incline",
+          "field": "window"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/manitou-incline",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/manitou-incline",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/manitou-incline",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/manitou-incline",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/manitou-incline",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/manitou-incline",
+          "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/manitou-incline",
+          "field": "suitability.effort.source_grade"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/manitou-incline",
+          "field": "suitability.group_min"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/manitou-incline",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/manitou-incline",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/manitou-incline",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -3082,6 +3189,73 @@
       }
     },
     {
+      "id": "s-dea1ce1d6c",
+      "url": "https://havasupaireservations.com/faqs",
+      "title": "FAQs - Havasupai Reservations",
+      "publisher": "Havasupai Tribe (reservation office)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/havasupai-havasu-falls#hualapai-hilltop-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/havasupai-havasu-falls",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/havasupai-havasu-falls",
+          "field": "price"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/havasupai-havasu-falls",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/havasupai-havasu-falls",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/havasupai-havasu-falls",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/havasupai-havasu-falls",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/havasupai-havasu-falls",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/havasupai-havasu-falls",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-0faf3c0d2f",
       "url": "https://horseback.com/tours/bow-river-ride",
       "title": "Bow River Ride - 1 Hr",
@@ -3201,6 +3375,83 @@
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-2146ae32b6",
+      "url": "https://kanarrafalls.com",
+      "title": "Kanarra Falls",
+      "publisher": "Town of Kanarraville (permit office)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/kanarra-falls#town-parking-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/kanarra-falls",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/kanarra-falls",
+          "field": "price"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/kanarra-falls",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/kanarra-falls",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/kanarra-falls",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/kanarra-falls",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/kanarra-falls",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/kanarra-falls",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/kanarra-falls",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/kanarra-falls",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "unchecked",
@@ -3684,6 +3935,110 @@
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-0f8be10ab4",
+      "url": "https://navajonationparks.org/tribal-parks/monument-valley",
+      "title": "Monument Valley Navajo Tribal Park",
+      "publisher": "Navajo Nation Parks and Recreation",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/monument-valley#visitor-center-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/monument-valley",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/monument-valley",
+          "field": "price"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/monument-valley",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/monument-valley",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/monument-valley",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/monument-valley",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/monument-valley",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-a08974c6b9",
+      "url": "https://olympicpeninsula.org",
+      "title": "Olympic Peninsula",
+      "publisher": "Olympic Peninsula Tourism Commission",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/olympic-peninsula",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/olympic-peninsula",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/olympic-peninsula",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/olympic-peninsula",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "unchecked",
@@ -9259,6 +9614,192 @@
       }
     },
     {
+      "id": "s-a3c4c3e739",
+      "url": "https://parks.ny.gov/parks/watkinsglen/details.aspx",
+      "title": "Watkins Glen State Park details",
+      "publisher": "New York State Office of Parks, Recreation and Historic Preservation",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/watkins-glen-state-park#main-entrance-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/watkins-glen-state-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/watkins-glen-state-park",
+          "field": "price"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/watkins-glen-state-park",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/watkins-glen-state-park",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/watkins-glen-state-park",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/watkins-glen-state-park",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/watkins-glen-state-park",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c5f8be22f9",
+      "url": "https://parks.wa.gov/find-parks/state-parks/lake-chelan-state-park",
+      "title": "Lake Chelan State Park",
+      "publisher": "Washington State Parks",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/lake-chelan#state-park-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/lake-chelan#state-park-lot",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/lake-chelan",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/lake-chelan",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/lake-chelan",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/lake-chelan",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/lake-chelan",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/lake-chelan",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-053fd40a1b",
+      "url": "https://parks.wa.gov/find-parks/state-parks/lake-wenatchee-state-park",
+      "title": "Lake Wenatchee State Park",
+      "publisher": "Washington State Parks",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/lake-wenatchee#day-use-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/lake-wenatchee#day-use-lot",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/lake-wenatchee",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/lake-wenatchee",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/lake-wenatchee",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/lake-wenatchee",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/lake-wenatchee",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/lake-wenatchee",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-d8d590aa02",
       "url": "https://piratour.net/producto/caminata-en-isla-martillo-version-terrestre",
       "title": "Caminata en Pingüinera (Isla Martillo) (redirected to the version terrestre page, same product; re-read)",
@@ -10943,6 +11484,38 @@
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
           "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c4f1cc7942",
+      "url": "https://visitouray.com",
+      "title": "Visit Ouray",
+      "publisher": "City of Ouray",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/ouray",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/ouray",
+          "field": "draw"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -14033,6 +14606,93 @@
       }
     },
     {
+      "id": "s-313020e12d",
+      "url": "https://www.blm.gov/sites/default/files/docs/2026-04/Blue%20Valley_Burpee%20Quary.pdf",
+      "title": "Cow Dung Road & Blue Valley Spire (self-guided tour sheet)",
+      "publisher": "Bureau of Land Management, Henry Mountain Field Station",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/bentonite-hills#cow-dung-road-approx",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/bentonite-hills",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/long-dong-silver-spire",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/bentonite-hills",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/bentonite-hills",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/long-dong-silver-spire",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/long-dong-silver-spire",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/bentonite-hills",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/bentonite-hills",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/long-dong-silver-spire",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/long-dong-silver-spire",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/long-dong-silver-spire",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/long-dong-silver-spire",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-79e6f96c22",
       "url": "https://www.blm.gov/sites/default/files/documents/files/BLMUtahLowerCalfCreekFalls.pdf",
       "title": "Lower Calf Creek Falls Trail brochure",
@@ -14107,6 +14767,53 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-a26be8ef47",
+      "url": "https://www.blm.gov/visit/factory-butte-recreation-area",
+      "title": "Factory Butte Recreation Area",
+      "publisher": "Bureau of Land Management",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/factory-butte#ohv-area-approx",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/factory-butte",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/factory-butte",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/factory-butte",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/factory-butte",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -14222,6 +14929,38 @@
       "recheck": {
         "cadence_days": 90,
         "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-1a3e4655fc",
+      "url": "https://www.capecodchamber.org",
+      "title": "Cape Cod Chamber of Commerce",
+      "publisher": "Cape Cod Chamber of Commerce",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/cape-cod",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/cape-cod",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
@@ -14501,6 +15240,85 @@
       "link": {
         "status": "redirect",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-7209c064c1",
+      "url": "https://www.cityofpage.org",
+      "title": "City of Page, Arizona",
+      "publisher": "City of Page",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/page",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-4ee323499b",
+      "url": "https://www.codot.gov/news/2025/march/us550-red-mountain-pass-close-monday-march24",
+      "title": "US 550 Red Mountain Pass to close at 3 p.m. on Monday, March 24",
+      "publisher": "Colorado Department of Transportation",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/million-dollar-highway",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/million-dollar-highway",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/million-dollar-highway",
+          "field": "price"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/million-dollar-highway",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/million-dollar-highway",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/million-dollar-highway",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -15425,6 +16243,65 @@
       }
     },
     {
+      "id": "s-5325c9f5c5",
+      "url": "https://www.durango.org",
+      "title": "Visit Durango",
+      "publisher": "Durango Area Tourism Office",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/durango",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/durango",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-89235b6999",
+      "url": "https://www.durangoco.gov",
+      "title": "City of Durango",
+      "publisher": "City of Durango",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/durango",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-2e00e26f59",
       "url": "https://www.earthlagoon.is",
       "title": "Earth Lagoon Myvatn (formerly Myvatn Nature Baths)",
@@ -15830,6 +16707,387 @@
       }
     },
     {
+      "id": "s-668686aa8d",
+      "url": "https://www.fingerlakes.org",
+      "title": "Finger Lakes Tourism Alliance",
+      "publisher": "Finger Lakes Tourism Alliance",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/finger-lakes",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/finger-lakes",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/finger-lakes",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-60ffbdca21",
+      "url": "https://www.fs.usda.gov/r06/columbiarivergorge/passes",
+      "title": "Passes - Columbia River Gorge National Scenic Area",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/columbia-river-gorge",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/columbia-river-gorge",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/columbia-river-gorge",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/columbia-river-gorge",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/columbia-river-gorge",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/columbia-river-gorge",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-bcc877b354",
+      "url": "https://www.fs.usda.gov/r06/giffordpinchot/recreation/mount-st-helens-summit",
+      "title": "Mount St. Helens Summit - Gifford Pinchot National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/mount-st-helens",
+          "field": "window"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-st-helens",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-st-helens",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-st-helens",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-a35596f571",
+      "url": "https://www.fs.usda.gov/r06/mbs",
+      "title": "Mount Baker-Snoqualmie National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/mount-baker-snoqualmie-national-forest#franklin-falls-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/mount-baker-snoqualmie-national-forest",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-baker-snoqualmie-national-forest",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-baker-snoqualmie-national-forest",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-baker-snoqualmie-national-forest",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/mount-baker-snoqualmie-national-forest",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-672ac8bbe1",
+      "url": "https://www.fs.usda.gov/r06/mbs/recreation/artist-point-trailhead",
+      "title": "Artist Point Trailhead - Mount Baker-Snoqualmie National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/mount-baker-wilderness#artist-point-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/mount-baker-wilderness",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-baker-snoqualmie-national-forest",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-baker-wilderness",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-baker-wilderness",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-baker-wilderness",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/mount-baker-wilderness",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/mount-baker-wilderness",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-cde0ef276d",
+      "url": "https://www.fs.usda.gov/r09/whitemountain/passes",
+      "title": "Recreation passes - White Mountain National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/new-hampshire-stopover-2026/BA-us.json",
+          "ref": "place/white-mountain-national-forest",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/new-hampshire-stopover-2026/R9-us.json",
+          "ref": "place/white-mountain-national-forest",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/new-hampshire-stopover-2026/R9-us.json",
+          "ref": "place/white-mountain-national-forest",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/new-hampshire-stopover-2026/R9-us.json",
+          "ref": "place/white-mountain-national-forest",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/new-hampshire-stopover-2026/R9-us.json",
+          "ref": "place/white-mountain-national-forest",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-72da36f2e8",
+      "url": "https://www.fs.usda.gov/r09/whitemountain/recreation/lincoln-woods-trailhead",
+      "title": "Lincoln Woods Trailhead - White Mountain National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/new-hampshire-stopover-2026/BA-us.json",
+          "ref": "part/place/white-mountain-national-forest#lincoln-woods-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/new-hampshire-stopover-2026/BA-us.json",
+          "ref": "part/place/white-mountain-national-forest#lincoln-woods-lot",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/new-hampshire-stopover-2026/BA-us.json",
+          "ref": "place/white-mountain-national-forest",
+          "field": "price"
+        },
+        {
+          "file": "data/relevance/new-hampshire-stopover-2026/R9-us.json",
+          "ref": "place/white-mountain-national-forest",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/new-hampshire-stopover-2026/R9-us.json",
+          "ref": "place/white-mountain-national-forest",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-d151d50f30",
+      "url": "https://www.fs.usda.gov/visit/destination/johnston-ridge-observatory",
+      "title": "Johnston Ridge Observatory",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/mount-st-helens#johnston-ridge-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/mount-st-helens",
+          "field": "links"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/mount-st-helens",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/mount-st-helens",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-ed3e2aa211",
       "url": "https://www.glaumbaer.is/en/visit/hours-admission",
       "title": "Opening hours and admission",
@@ -15859,6 +17117,70 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-ba3c09e768",
+      "url": "https://www.gobreck.com",
+      "title": "Go Breck",
+      "publisher": "Breckenridge Tourism Office",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/breckenridge",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/breckenridge",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-31fc6b6a61",
+      "url": "https://www.gostowe.com",
+      "title": "Go Stowe",
+      "publisher": "Stowe Area Association",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/vermont-fall-2026/BA-us.json",
+          "ref": "place/stowe",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/vermont-fall-2026/R9-us.json",
+          "ref": "place/stowe",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -16178,6 +17500,38 @@
       }
     },
     {
+      "id": "s-9c5163a838",
+      "url": "https://www.leavenworth.org",
+      "title": "Leavenworth, Washington",
+      "publisher": "Leavenworth Chamber of Commerce",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/leavenworth",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/leavenworth",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-0aca4c0334",
       "url": "https://www.linexo.de/magazin/radrouten-touren/drauradweg-die-schoenste-fahrradroute-durch-oesterreich",
       "title": "Alles über den Drauradweg auf linexo.de (confirms the asphalt surface only)",
@@ -16390,6 +17744,90 @@
       }
     },
     {
+      "id": "s-1689e9b661",
+      "url": "https://www.nps.gov/arch/learn/news/news02182026.htm",
+      "title": "Arches National Park lifts entry reservation requirement for 2026",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/arches-national-park",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/arches-national-park",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/usa-southwest-rockies/R9-us.json",
+          "ref": "place/arches-national-park",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-2bc88b628d",
+      "url": "https://www.nps.gov/arch/planyourvisit/basicinfo.htm",
+      "title": "Basic Information - Arches National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "part/place/arches-national-park#visitor-center-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/arches-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/arches-national-park",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/usa-southwest-rockies/R9-us.json",
+          "ref": "place/arches-national-park",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/usa-southwest-rockies/R9-us.json",
+          "ref": "place/arches-national-park",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-29cab1ba85",
       "url": "https://www.nps.gov/arch/planyourvisit/conditions.htm",
       "title": "Current Conditions (last updated 18 Mar 2026)",
@@ -16484,6 +17922,33 @@
       }
     },
     {
+      "id": "s-b29a630624",
+      "url": "https://www.nps.gov/arch/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Arches National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/arches-national-park",
+          "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-b10e7eedb4",
       "url": "https://www.nps.gov/arch/planyourvisit/hiking.htm",
       "title": "Hiking",
@@ -16513,6 +17978,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-8a516ab5d5",
+      "url": "https://www.nps.gov/arch/planyourvisit/hours.htm",
+      "title": "Operating Hours & Seasons - Arches National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/suitability/usa-southwest-rockies/R9-us.json",
+          "ref": "place/arches-national-park",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -16764,6 +18256,90 @@
       }
     },
     {
+      "id": "s-61c18cc724",
+      "url": "https://www.nps.gov/brca/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Bryce Canyon National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/bryce-canyon-national-park",
+          "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-62253c8c6e",
+      "url": "https://www.nps.gov/brca/planyourvisit/hours.htm",
+      "title": "Operating Hours & Seasons - Bryce Canyon National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "part/place/bryce-canyon-national-park#visitor-center-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/bryce-canyon-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/bryce-canyon-national-park",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/bryce-canyon-national-park",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/bryce-canyon-national-park",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/usa-southwest-rockies/R9-us.json",
+          "ref": "place/bryce-canyon-national-park",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/usa-southwest-rockies/R9-us.json",
+          "ref": "place/bryce-canyon-national-park",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-adf5965bb3",
       "url": "https://www.nps.gov/brca/planyourvisit/qgnavajocombo.htm",
       "title": "Queen's Garden/Navajo Combination Loop (last updated 22 May 2024)",
@@ -16937,6 +18513,122 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-d1d18ec5f0",
+      "url": "https://www.nps.gov/caco/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Cape Cod National Seashore",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/cape-cod",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/cape-cod",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c932e0201d",
+      "url": "https://www.nps.gov/cany/planyourvisit/basicinfo.htm",
+      "title": "Basic Information - Canyonlands National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "part/place/canyonlands-national-park#island-in-the-sky-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/canyonlands-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/suitability/usa-southwest-rockies/R9-us.json",
+          "ref": "place/canyonlands-national-park",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/usa-southwest-rockies/R9-us.json",
+          "ref": "place/canyonlands-national-park",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-f5ffc99318",
+      "url": "https://www.nps.gov/cany/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Canyonlands National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/canyonlands-national-park",
+          "field": "price"
+        },
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/canyonlands-national-park",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/canyonlands-national-park",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/canyonlands-national-park",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -17266,6 +18958,226 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-0871fd3471",
+      "url": "https://www.nps.gov/grte/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Grand Teton National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/grand-teton-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/grand-teton-national-park",
+          "field": "price"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/grand-teton-national-park",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/grand-teton-national-park",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-5f1ec06d1f",
+      "url": "https://www.nps.gov/grte/planyourvisit/roads.htm",
+      "title": "Park Roads - Grand Teton National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/grand-teton-national-park#moose-visitor-center-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/grand-teton-national-park",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/grand-teton-national-park",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/grand-teton-national-park",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-015ad96799",
+      "url": "https://www.nps.gov/mora/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Mount Rainier National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/mount-rainier-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/mount-rainier-national-park",
+          "field": "price"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-rainier-national-park",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-rainier-national-park",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-44f749c6d6",
+      "url": "https://www.nps.gov/mora/planyourvisit/road-status.htm",
+      "title": "Road Status - Mount Rainier National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/mount-rainier-national-park#paradise-upper-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-rainier-national-park",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/mount-rainier-national-park",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/mount-rainier-national-park",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-9ffaa3e5b2",
+      "url": "https://www.nps.gov/noca/planyourvisit/fees.htm",
+      "title": "Fees & Passes - North Cascades National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/north-cascades-national-park#visitor-center-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/north-cascades-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/north-cascades-national-park",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/north-cascades-national-park",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/north-cascades-national-park",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/north-cascades-national-park",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -18131,6 +20043,117 @@
       }
     },
     {
+      "id": "s-10a4540258",
+      "url": "https://www.nps.gov/wrst/planyourvisit/index.htm",
+      "title": "Plan Your Visit - Wrangell-St. Elias National Park & Preserve",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-0531123e5b",
+      "url": "https://www.nps.gov/yell/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Yellowstone National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/yellowstone-national-park",
+          "field": "price"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/yellowstone-national-park",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-30ce0c81e2",
+      "url": "https://www.nps.gov/yell/planyourvisit/parkroads.htm",
+      "title": "Park Roads - Yellowstone National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/yellowstone-national-park#old-faithful-west-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/yellowstone-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/yellowstone-national-park",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/yellowstone-national-park",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/yellowstone-national-park",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-81b0f98e66",
       "url": "https://www.nps.gov/zion/learn/news/zionroadrepaved.htm",
       "title": "Zion National Park's Red Roads Get Repaved (7 Sep 2013)",
@@ -18286,6 +20309,85 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-7c132056cd",
+      "url": "https://www.nps.gov/zion/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Zion National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/zion-national-park",
+          "field": "price"
+        },
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/zion-national-park",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-afefac3bd1",
+      "url": "https://www.nps.gov/zion/planyourvisit/safety.htm",
+      "title": "Safety - Zion National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "part/place/zion-national-park#visitor-center-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/zion-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/zion-national-park",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/usa-southwest-rockies/R9-us.json",
+          "ref": "place/zion-national-park",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/usa-southwest-rockies/R9-us.json",
+          "ref": "place/zion-national-park",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -18768,6 +20870,158 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-0a3aeb02ff",
+      "url": "https://www.openstreetmap.org",
+      "title": "OpenStreetMap data via the Overpass API",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/bentonite-hills#cow-dung-road-approx",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/columbia-river-gorge#beacon-rock-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/factory-butte#ohv-area-approx",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/grand-teton-national-park#moose-visitor-center-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/havasupai-havasu-falls#hualapai-hilltop-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/kanarra-falls#town-parking-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/kennecott-river-rafting-wrangell-st-elias#mccarthy-road-end-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/lake-chelan#state-park-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/lake-wenatchee#day-use-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/long-dong-silver-spire#trailhead-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/manitou-incline#hiawatha-gardens-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/monument-valley#visitor-center-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/mount-baker-snoqualmie-national-forest#franklin-falls-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/mount-baker-wilderness#artist-point-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/mount-rainier-national-park#paradise-upper-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/mount-st-helens#johnston-ridge-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/north-cascades-national-park#visitor-center-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/watkins-glen-state-park#main-entrance-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "part/place/yellowstone-national-park#old-faithful-west-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/mount-st-helens",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/new-hampshire-stopover-2026/BA-us.json",
+          "ref": "part/place/white-mountain-national-forest#lincoln-woods-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "part/place/arches-national-park#visitor-center-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "part/place/bryce-canyon-national-park#visitor-center-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "part/place/canyonlands-national-park#island-in-the-sky-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "part/place/zion-national-park#visitor-center-lot",
+          "field": "links"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/mount-st-helens",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -20650,6 +22904,70 @@
       }
     },
     {
+      "id": "s-a0fbc5550f",
+      "url": "https://www.steliasguides.com/trips/raft-flightsee",
+      "title": "Alaska Raft & Flightsee",
+      "publisher": "St. Elias Alpine Guides",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-814dde60f2",
+      "url": "https://www.stowevt.gov",
+      "title": "Town of Stowe, Vermont",
+      "publisher": "Town of Stowe",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/vermont-fall-2026/BA-us.json",
+          "ref": "place/stowe",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-fc797da9c9",
       "url": "https://www.stowevt.gov/Departments/Parks-Recreation/Parks-Facilities/Stowe-Recreation-Path",
       "title": "Stowe Recreation Path | Town of Stowe",
@@ -22137,6 +24455,85 @@
       }
     },
     {
+      "id": "s-834e06b261",
+      "url": "https://www.visitpageaz.com",
+      "title": "Visit Page, Arizona",
+      "publisher": "Page Lake Powell Tourism (Visit Page)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/page",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/page",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-f878ee7220",
+      "url": "https://www.visitutah.com/places-to-go/parks-outdoors/great-salt-lake/pink-lake-at-stansbury-island",
+      "title": "Pink Lake at Stansbury Island",
+      "publisher": "Utah Office of Tourism (Visit Utah)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/stansbury-island",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/stansbury-island",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/stansbury-island",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/stansbury-island",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-us.json",
+          "ref": "place/stansbury-island",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-c7d410c8a0",
       "url": "https://www.watertoncruise.com",
       "title": "Waterton Shoreline Cruise Co.",
@@ -22748,12 +25145,362 @@
     {
       "id": "s-1ea794006d",
       "url": "https://www.wikidata.org/wiki/Special:EntityData",
-      "title": "Wikidata entity lookups (wbsearchentities then wbgetentities, description and coordinates checked)",
-      "publisher": "Wikidata",
-      "kind": "official",
+      "title": "Wikidata entity data (labels, descriptions, P625, P2044, P402, P856, sitelinks)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-25",
       "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/bentonite-hills",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/breckenridge",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/breckenridge",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/cape-cod",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/cape-cod",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/columbia-river-gorge",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/durango",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/durango",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/factory-butte",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/finger-lakes",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/finger-lakes",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/grand-teton-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/havasupai-havasu-falls",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/kanarra-falls",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/lake-chelan",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/lake-wenatchee",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/leavenworth",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/leavenworth",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/manitou-incline",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/million-dollar-highway",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/monument-valley",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/mount-baker-snoqualmie-national-forest",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/mount-baker-wilderness",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/mount-rainier-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/mount-st-helens",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/north-cascades-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/olympic-peninsula",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/olympic-peninsula",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/ouray",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/ouray",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/page",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/page",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/stansbury-island",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/watkins-glen-state-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-us.json",
+          "ref": "place/yellowstone-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/new-hampshire-stopover-2026/BA-us.json",
+          "ref": "place/white-mountain-national-forest",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/arches-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/bryce-canyon-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/canyonlands-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/usa-southwest-rockies/BA-us.json",
+          "ref": "place/zion-national-park",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/vermont-fall-2026/BA-us.json",
+          "ref": "place/stowe",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/vermont-fall-2026/BA-us.json",
+          "ref": "place/stowe",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/breckenridge",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/cape-cod",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/columbia-river-gorge",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/durango",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/factory-butte",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/finger-lakes",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/grand-teton-national-park",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/havasupai-havasu-falls",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/lake-chelan",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/lake-wenatchee",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/leavenworth",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/manitou-incline",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/million-dollar-highway",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/monument-valley",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-baker-snoqualmie-national-forest",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-baker-wilderness",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-rainier-national-park",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/mount-st-helens",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/north-cascades-national-park",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/olympic-peninsula",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/ouray",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/page",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/stansbury-island",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/watkins-glen-state-park",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/yellowstone-national-park",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-us.json",
+          "ref": "place/yellowstone-national-park",
+          "field": "wikidata"
+        },
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
           "ref": "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
@@ -22867,6 +25614,36 @@
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
           "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/new-hampshire-stopover-2026/R9-us.json",
+          "ref": "place/white-mountain-national-forest",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/arches-national-park",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/bryce-canyon-national-park",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/canyonlands-national-park",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/usa-southwest-rockies/R9-us.json",
+          "ref": "place/zion-national-park",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/vermont-fall-2026/R9-us.json",
+          "ref": "place/stowe",
           "field": "wikidata"
         }
       ],

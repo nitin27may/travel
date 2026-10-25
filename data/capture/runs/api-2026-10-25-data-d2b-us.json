@@ -1,0 +1,949 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-25-data-d2b-us",
+  "started": "2026-10-25",
+  "agent": "travel-researcher (DATA-D2b-us)",
+  "model": "sonnet",
+  "scope": {
+    "refs": [
+      "place/arches-national-park",
+      "place/bryce-canyon-national-park",
+      "place/canyonlands-national-park",
+      "place/zion-national-park",
+      "place/yellowstone-national-park",
+      "place/grand-teton-national-park",
+      "place/mount-rainier-national-park",
+      "place/north-cascades-national-park",
+      "place/watkins-glen-state-park",
+      "place/white-mountain-national-forest",
+      "place/mount-baker-snoqualmie-national-forest",
+      "place/mount-baker-wilderness",
+      "place/columbia-river-gorge",
+      "place/monument-valley",
+      "place/havasupai-havasu-falls",
+      "place/kanarra-falls",
+      "place/manitou-incline",
+      "place/million-dollar-highway",
+      "place/bentonite-hills",
+      "place/long-dong-silver-spire",
+      "place/factory-butte",
+      "place/kennecott-river-rafting-wrangell-st-elias",
+      "place/mount-st-helens",
+      "place/stansbury-island",
+      "place/lake-wenatchee",
+      "place/lake-chelan",
+      "place/page",
+      "place/durango",
+      "place/ouray",
+      "place/breckenridge",
+      "place/leavenworth",
+      "place/stowe",
+      "place/cape-cod",
+      "place/finger-lakes",
+      "place/olympic-peninsula",
+      "part/place/arches-national-park#visitor-center-lot",
+      "part/place/bryce-canyon-national-park#visitor-center-lot",
+      "part/place/canyonlands-national-park#island-in-the-sky-lot",
+      "part/place/zion-national-park#visitor-center-lot",
+      "part/place/yellowstone-national-park#old-faithful-west-lot",
+      "part/place/grand-teton-national-park#moose-visitor-center-lot",
+      "part/place/mount-rainier-national-park#paradise-upper-lot",
+      "part/place/north-cascades-national-park#visitor-center-lot",
+      "part/place/watkins-glen-state-park#main-entrance-lot",
+      "part/place/white-mountain-national-forest#lincoln-woods-lot",
+      "part/place/mount-baker-snoqualmie-national-forest#franklin-falls-lot",
+      "part/place/mount-baker-wilderness#artist-point-lot",
+      "part/place/columbia-river-gorge#beacon-rock-lot",
+      "part/place/monument-valley#visitor-center-lot",
+      "part/place/havasupai-havasu-falls#hualapai-hilltop-lot",
+      "part/place/kanarra-falls#town-parking-lot",
+      "part/place/manitou-incline#hiawatha-gardens-lot",
+      "part/place/bentonite-hills#cow-dung-road-approx",
+      "part/place/long-dong-silver-spire#trailhead-lot",
+      "part/place/factory-butte#ohv-area-approx",
+      "part/place/kennecott-river-rafting-wrangell-st-elias#mccarthy-road-end-lot",
+      "part/place/mount-st-helens#johnston-ridge-lot",
+      "part/place/lake-wenatchee#day-use-lot",
+      "part/place/lake-chelan#state-park-lot"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "www.wikidata.org",
+      "requests": 10,
+      "robots": "none",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "overpass-api.de",
+      "requests": 3,
+      "robots": "none",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "epqs.nationalmap.gov",
+      "requests": 36,
+      "robots": "none",
+      "terms": "allowed",
+      "status": "partial"
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "requests": 4,
+      "robots": "none",
+      "terms": "allowed",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "place/arches-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q223969"
+      ]
+    },
+    {
+      "ref": "part/place/arches-national-park#visitor-center-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:relation/17161840"
+      ]
+    },
+    {
+      "ref": "place/arches-national-park",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q223969"
+      ]
+    },
+    {
+      "ref": "place/bryce-canyon-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q219562"
+      ]
+    },
+    {
+      "ref": "part/place/bryce-canyon-national-park#visitor-center-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:relation/17216953"
+      ]
+    },
+    {
+      "ref": "place/bryce-canyon-national-park",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q219562"
+      ]
+    },
+    {
+      "ref": "place/canyonlands-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q541856"
+      ]
+    },
+    {
+      "ref": "part/place/canyonlands-national-park#island-in-the-sky-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:relation/15336112"
+      ]
+    },
+    {
+      "ref": "place/canyonlands-national-park",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q541856"
+      ]
+    },
+    {
+      "ref": "place/zion-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q205325"
+      ]
+    },
+    {
+      "ref": "part/place/zion-national-park#visitor-center-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:relation/7206475"
+      ]
+    },
+    {
+      "ref": "place/zion-national-park",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q205325"
+      ]
+    },
+    {
+      "ref": "place/yellowstone-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q351"
+      ]
+    },
+    {
+      "ref": "part/place/yellowstone-national-park#old-faithful-west-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:relation/14238986"
+      ]
+    },
+    {
+      "ref": "place/yellowstone-national-park",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q351"
+      ]
+    },
+    {
+      "ref": "place/grand-teton-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q222695"
+      ]
+    },
+    {
+      "ref": "part/place/grand-teton-national-park#moose-visitor-center-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:way/1074969530"
+      ]
+    },
+    {
+      "ref": "place/grand-teton-national-park",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q222695"
+      ]
+    },
+    {
+      "ref": "place/mount-rainier-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q944329"
+      ]
+    },
+    {
+      "ref": "part/place/mount-rainier-national-park#paradise-upper-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:way/970437613"
+      ]
+    },
+    {
+      "ref": "place/mount-rainier-national-park",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q944329"
+      ]
+    },
+    {
+      "ref": "place/north-cascades-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q1163799"
+      ]
+    },
+    {
+      "ref": "part/place/north-cascades-national-park#visitor-center-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:relation/17713933"
+      ]
+    },
+    {
+      "ref": "place/north-cascades-national-park",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q1163799"
+      ]
+    },
+    {
+      "ref": "place/watkins-glen-state-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q7974703"
+      ]
+    },
+    {
+      "ref": "part/place/watkins-glen-state-park#main-entrance-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:way/236760432"
+      ]
+    },
+    {
+      "ref": "place/watkins-glen-state-park",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q7974703"
+      ]
+    },
+    {
+      "ref": "place/white-mountain-national-forest",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q2566939"
+      ]
+    },
+    {
+      "ref": "part/place/white-mountain-national-forest#lincoln-woods-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:relation/1649688"
+      ]
+    },
+    {
+      "ref": "place/white-mountain-national-forest",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q2566939"
+      ]
+    },
+    {
+      "ref": "place/mount-baker-snoqualmie-national-forest",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q3079176"
+      ]
+    },
+    {
+      "ref": "part/place/mount-baker-snoqualmie-national-forest#franklin-falls-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:way/1220646074"
+      ]
+    },
+    {
+      "ref": "place/mount-baker-snoqualmie-national-forest",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q3079176"
+      ]
+    },
+    {
+      "ref": "place/mount-baker-wilderness",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q3326014"
+      ]
+    },
+    {
+      "ref": "part/place/mount-baker-wilderness#artist-point-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:way/96495723"
+      ]
+    },
+    {
+      "ref": "place/mount-baker-wilderness",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q3326014"
+      ]
+    },
+    {
+      "ref": "place/columbia-river-gorge",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q1112581"
+      ]
+    },
+    {
+      "ref": "part/place/columbia-river-gorge#beacon-rock-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:way/455598750"
+      ]
+    },
+    {
+      "ref": "place/columbia-river-gorge",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q1112581"
+      ]
+    },
+    {
+      "ref": "place/monument-valley",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q192017"
+      ]
+    },
+    {
+      "ref": "part/place/monument-valley#visitor-center-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:way/106361462"
+      ]
+    },
+    {
+      "ref": "place/monument-valley",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q192017"
+      ]
+    },
+    {
+      "ref": "place/havasupai-havasu-falls",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q5683183"
+      ]
+    },
+    {
+      "ref": "part/place/havasupai-havasu-falls#hualapai-hilltop-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:way/116860348"
+      ]
+    },
+    {
+      "ref": "place/havasupai-havasu-falls",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q5683183"
+      ]
+    },
+    {
+      "ref": "place/kanarra-falls",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "host": "www.wikidata.org",
+      "tried": [
+        "Wikidata wbsearchentities 'Kanarra Falls' (no result, 2026-10-25)",
+        "Wikidata 'Kanarraville' returns only the town Q483692, not the falls"
+      ]
+    },
+    {
+      "ref": "part/place/kanarra-falls#town-parking-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:way/376881912"
+      ]
+    },
+    {
+      "ref": "place/kanarra-falls",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:node/1833434208"
+      ]
+    },
+    {
+      "ref": "place/manitou-incline",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q6750238"
+      ]
+    },
+    {
+      "ref": "part/place/manitou-incline#hiawatha-gardens-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:way/477032968"
+      ]
+    },
+    {
+      "ref": "place/manitou-incline",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q6750238"
+      ]
+    },
+    {
+      "ref": "place/million-dollar-highway",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q123916209"
+      ]
+    },
+    {
+      "ref": "place/million-dollar-highway",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q123916209"
+      ]
+    },
+    {
+      "ref": "place/bentonite-hills",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "host": "www.wikidata.org",
+      "tried": [
+        "Wikidata wbsearchentities 'Bentonite Hills' (no result, 2026-10-25)"
+      ]
+    },
+    {
+      "ref": "part/place/bentonite-hills#cow-dung-road-approx",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:node/3227293628"
+      ]
+    },
+    {
+      "ref": "place/bentonite-hills",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:node/3227293628"
+      ]
+    },
+    {
+      "ref": "place/long-dong-silver-spire",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "host": "www.wikidata.org",
+      "tried": [
+        "Wikidata wbsearchentities 'Long Dong Silver Spire' and 'Blue Valley Spire' (no result, 2026-10-25)"
+      ]
+    },
+    {
+      "ref": "part/place/long-dong-silver-spire#trailhead-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:way/1535726923"
+      ]
+    },
+    {
+      "ref": "place/long-dong-silver-spire",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:way/1535726923"
+      ]
+    },
+    {
+      "ref": "place/factory-butte",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q20714583"
+      ]
+    },
+    {
+      "ref": "part/place/factory-butte#ohv-area-approx",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:relation/13852886"
+      ]
+    },
+    {
+      "ref": "place/factory-butte",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q20714583"
+      ]
+    },
+    {
+      "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q995915"
+      ]
+    },
+    {
+      "ref": "part/place/kennecott-river-rafting-wrangell-st-elias#mccarthy-road-end-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:way/461639604"
+      ]
+    },
+    {
+      "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q995915"
+      ]
+    },
+    {
+      "ref": "place/mount-st-helens",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q4675"
+      ]
+    },
+    {
+      "ref": "part/place/mount-st-helens#johnston-ridge-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:way/1228806284"
+      ]
+    },
+    {
+      "ref": "place/mount-st-helens",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q4675"
+      ]
+    },
+    {
+      "ref": "place/stansbury-island",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q7600177"
+      ]
+    },
+    {
+      "ref": "place/stansbury-island",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q7600177"
+      ]
+    },
+    {
+      "ref": "place/lake-wenatchee",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q7172855"
+      ]
+    },
+    {
+      "ref": "part/place/lake-wenatchee#day-use-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:node/2882303259"
+      ]
+    },
+    {
+      "ref": "place/lake-wenatchee",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q7172855"
+      ]
+    },
+    {
+      "ref": "place/lake-chelan",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q1115201"
+      ]
+    },
+    {
+      "ref": "part/place/lake-chelan#state-park-lot",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:relation/11634351"
+      ]
+    },
+    {
+      "ref": "place/lake-chelan",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q1115201"
+      ]
+    },
+    {
+      "ref": "place/page",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q79940"
+      ]
+    },
+    {
+      "ref": "place/page",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": [
+        "osm:node/150978518"
+      ]
+    },
+    {
+      "ref": "place/durango",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q1012665"
+      ]
+    },
+    {
+      "ref": "place/durango",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q1012665"
+      ]
+    },
+    {
+      "ref": "place/ouray",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q1759444"
+      ]
+    },
+    {
+      "ref": "place/ouray",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q1759444"
+      ]
+    },
+    {
+      "ref": "place/breckenridge",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q904354"
+      ]
+    },
+    {
+      "ref": "place/breckenridge",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q904354"
+      ]
+    },
+    {
+      "ref": "place/leavenworth",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q1025813"
+      ]
+    },
+    {
+      "ref": "place/leavenworth",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q1025813"
+      ]
+    },
+    {
+      "ref": "place/stowe",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q550498"
+      ]
+    },
+    {
+      "ref": "place/stowe",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q550498"
+      ]
+    },
+    {
+      "ref": "place/cape-cod",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q49152"
+      ]
+    },
+    {
+      "ref": "place/cape-cod",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q49152"
+      ]
+    },
+    {
+      "ref": "place/finger-lakes",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q1416994"
+      ]
+    },
+    {
+      "ref": "place/finger-lakes",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q1416994"
+      ]
+    },
+    {
+      "ref": "place/olympic-peninsula",
+      "field": "wikidata",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q780293"
+      ]
+    },
+    {
+      "ref": "place/olympic-peninsula",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": [
+        "wikidata:Q780293"
+      ]
+    }
+  ]
+}

@@ -1229,6 +1229,425 @@
       "coord_src": "osm",
       "point_source": "OSM way 204763538 Stowe Recreational Path, its village end (the southernmost vertex of the 30 mapped ways); Town of Stowe https://www.stowevt.gov/Departments/Parks-Recreation/Parks-Facilities/Stowe-Recreation-Path: the path runs 'from Stowe Village to Topnotch Resort'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
       "point_role": "trailhead"
+    },
+    "place/arches-national-park": {
+      "lat": 38.72806,
+      "lon": -109.54,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q223969 P625, read 2026-10-25; a point inside the park, not an entrance",
+      "point_role": "centre"
+    },
+    "part/place/arches-national-park#visitor-center-lot": {
+      "lat": 38.61629,
+      "lon": -109.62057,
+      "coord_src": "osm",
+      "point_source": "OSM relation/17161840 amenity=parking fee=no, 60 m from the OSM Arches National Park Visitor Center (way/1246899184); read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/bryce-canyon-national-park": {
+      "lat": 37.64,
+      "lon": -112.17,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q219562 P625, read 2026-10-25; a point inside the park, not an entrance",
+      "point_role": "centre"
+    },
+    "part/place/bryce-canyon-national-park#visitor-center-lot": {
+      "lat": 37.63996,
+      "lon": -112.17027,
+      "coord_src": "osm",
+      "point_source": "OSM relation/17216953 amenity=parking fee=no access=customers, beside the OSM Bryce Canyon National Park Visitors Center (way/131697989); read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/canyonlands-national-park": {
+      "lat": 38.1669,
+      "lon": -109.76,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q541856 P625, read 2026-10-25; a point inside the park, not an entrance",
+      "point_role": "centre"
+    },
+    "part/place/canyonlands-national-park#island-in-the-sky-lot": {
+      "lat": 38.45998,
+      "lon": -109.82051,
+      "coord_src": "osm",
+      "point_source": "OSM relation/15336112 amenity=parking fee=no capacity=42 name 'Island in the Sky Visitor Center Parking'; read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/zion-national-park": {
+      "lat": 37.20262,
+      "lon": -112.98785,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q205325 P625, read 2026-10-25; a point inside the park, not an entrance",
+      "point_role": "centre"
+    },
+    "part/place/zion-national-park#visitor-center-lot": {
+      "lat": 37.19934,
+      "lon": -112.98713,
+      "coord_src": "osm",
+      "point_source": "OSM relation/7206475 amenity=parking fee=no, 15 m from the OSM Zion shuttle bus station at the visitor center (node/6582877986); read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/yellowstone-national-park": {
+      "lat": 44.6,
+      "lon": -110.5,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q351 P625, read 2026-10-25; a point inside the park, not an entrance",
+      "point_role": "centre"
+    },
+    "part/place/yellowstone-national-park#old-faithful-west-lot": {
+      "lat": 44.45794,
+      "lon": -110.83073,
+      "coord_src": "osm",
+      "point_source": "OSM relation/14238986 amenity=parking fee=no name 'West Parking', 150 m from the OSM Old Faithful Visitor Center (way/198653447); read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/grand-teton-national-park": {
+      "lat": 43.83333,
+      "lon": -110.70083,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q222695 P625, read 2026-10-25; a point inside the park, not an entrance",
+      "point_role": "centre"
+    },
+    "part/place/grand-teton-national-park#moose-visitor-center-lot": {
+      "lat": 43.65479,
+      "lon": -110.71812,
+      "coord_src": "osm",
+      "point_source": "OSM way/1074969530 amenity=parking, 160 m north of the OSM Craig Thomas Discovery and Visitor Center (way/325323599); read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/mount-rainier-national-park": {
+      "lat": 46.85,
+      "lon": -121.75,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q944329 P625, read 2026-10-25; a point on the mountain, not an entrance",
+      "point_role": "centre"
+    },
+    "part/place/mount-rainier-national-park#paradise-upper-lot": {
+      "lat": 46.78571,
+      "lon": -121.73557,
+      "coord_src": "osm",
+      "point_source": "OSM way/970437613 amenity=parking fee=no name 'Paradise Upper Parking Lot', about 100 m from the OSM Jackson Visitor Center (way/180649580); read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/north-cascades-national-park": {
+      "lat": 48.48306,
+      "lon": -120.91139,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1163799 P625, read 2026-10-25; a point inside the park, not an entrance",
+      "point_role": "centre"
+    },
+    "part/place/north-cascades-national-park#visitor-center-lot": {
+      "lat": 48.66596,
+      "lon": -121.26797,
+      "coord_src": "osm",
+      "point_source": "OSM relation/17713933 amenity=parking, about 40 m from the OSM North Cascades National Park Visitor Center (way/184708189); read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/watkins-glen-state-park": {
+      "lat": 42.3771,
+      "lon": -76.8717,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q7974703 P625, read 2026-10-25; sits at the park's village entrance next to the main car park (OSM way 236760432)",
+      "point_role": "entrance"
+    },
+    "part/place/watkins-glen-state-park#main-entrance-lot": {
+      "lat": 42.3767108,
+      "lon": -76.8716903,
+      "coord_src": "osm",
+      "point_source": "OSM way/236760432 amenity=parking fee=yes operator New York State OPRHP; read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/mount-baker-snoqualmie-national-forest": {
+      "lat": 47.766,
+      "lon": -121.378,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q3079176 P625, read 2026-10-25; a point inside the forest",
+      "point_role": "centre"
+    },
+    "part/place/mount-baker-snoqualmie-national-forest#franklin-falls-lot": {
+      "lat": 47.41288,
+      "lon": -121.44073,
+      "coord_src": "osm",
+      "point_source": "OSM way/1220646074 amenity=parking fee=yes operator U.S. Forest Service, about 100 m from the OSM Franklin Falls Trailhead (node/6329932943); read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/mount-baker-wilderness": {
+      "lat": 48.8081,
+      "lon": -121.743,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q3326014 P625, read 2026-10-25; a point inside the wilderness",
+      "point_role": "centre"
+    },
+    "part/place/mount-baker-wilderness#artist-point-lot": {
+      "lat": 48.84684,
+      "lon": -121.69278,
+      "coord_src": "osm",
+      "point_source": "OSM way/96495723 amenity=parking fee=yes capacity=150 operator US Forest Service name 'Artist Point Trailhead'; read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/columbia-river-gorge": {
+      "lat": 45.70472,
+      "lon": -121.79167,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1112581 P625, read 2026-10-25; a point on the river inside the scenic area",
+      "point_role": "centre"
+    },
+    "part/place/columbia-river-gorge#beacon-rock-lot": {
+      "lat": 45.62803,
+      "lon": -122.02308,
+      "coord_src": "osm",
+      "point_source": "OSM way/455598750 amenity=parking fee=yes, 140 m from the OSM Beacon Rock Trail (relation/18052461); read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/monument-valley": {
+      "lat": 36.98333,
+      "lon": -110.1,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q192017 P625, read 2026-10-25; the stored point, 1.5 km from the visitor center",
+      "point_role": "centre"
+    },
+    "part/place/monument-valley#visitor-center-lot": {
+      "lat": 36.98296,
+      "lon": -110.11255,
+      "coord_src": "osm",
+      "point_source": "OSM way/106361462 amenity=parking capacity=240 name 'Monument Valley parking', beside the OSM Monument Valley Visitor Center (node/1183476415); read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/havasupai-havasu-falls": {
+      "lat": 36.255,
+      "lon": -112.69778,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q5683183 P625, read 2026-10-25; matches OSM node 602137131 Havasu Falls (attraction)",
+      "point_role": "centre"
+    },
+    "part/place/havasupai-havasu-falls#hualapai-hilltop-lot": {
+      "lat": 36.15925,
+      "lon": -112.7092,
+      "coord_src": "osm",
+      "point_source": "OSM way/116860348 amenity=parking name 'Hualapai Hilltop', the trailhead for the Havasupai trail; read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/kanarra-falls": {
+      "lat": 37.5377,
+      "lon": -113.15261,
+      "coord_src": "osm",
+      "point_source": "OSM node 1833434208 'Lower Kanarra Falls' (natural=waterfall), the same position as the stored point; read 2026-10-25",
+      "point_role": "centre"
+    },
+    "part/place/kanarra-falls#town-parking-lot": {
+      "lat": 37.53777,
+      "lon": -113.17565,
+      "coord_src": "osm",
+      "point_source": "OSM way/376881912 amenity=parking fee=yes name 'Town Parking Lot', at the OSM Kanarra Creek Falls Trailhead (node/5822521699); read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/manitou-incline": {
+      "lat": 38.8568,
+      "lon": -104.932,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q6750238 P625, read 2026-10-25; the trail base area",
+      "point_role": "centre"
+    },
+    "part/place/manitou-incline#hiawatha-gardens-lot": {
+      "lat": 38.85813,
+      "lon": -104.90967,
+      "coord_src": "osm",
+      "point_source": "OSM way/477032968 amenity=parking fee=yes capacity=100 operator City of Manitou Springs name 'Hiawatha Gardens Parking'; read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/million-dollar-highway": {
+      "lat": 37.91523,
+      "lon": -107.70055,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q123916209 P625, read 2026-10-25; a point on US 550 between Silverton and Ouray",
+      "point_role": "centre"
+    },
+    "place/bentonite-hills": {
+      "lat": 38.36167,
+      "lon": -111.12797,
+      "coord_src": "osm",
+      "point_source": "OSM node 3227293628 'Bentonite Hills' (tourism=viewpoint), the same position as the stored point; read 2026-10-25",
+      "point_role": "centre"
+    },
+    "part/place/bentonite-hills#cow-dung-road-approx": {
+      "lat": 38.36167,
+      "lon": -111.12797,
+      "coord_src": "osm",
+      "point_source": "OSM node/3227293628 tourism=viewpoint name 'Bentonite Hills'; read 2026-10-25",
+      "point_role": "parking",
+      "approx": true,
+      "approx_note": "No car park is mapped; this is the OSM viewpoint node. The BLM sheet says to park at the designated viewing area about 3.2 miles down Cow Dung Road (at the Mars Desert Research Station) and gives no coordinates."
+    },
+    "place/long-dong-silver-spire": {
+      "lat": 38.3938,
+      "lon": -110.83222,
+      "coord_src": "osm",
+      "point_source": "Store point from the Nominatim resolver (OpenStreetMap), run 2026-10-16; it lies about 1.3 km north of OSM way 1535726923 'Long Dong Silver Trailhead Parking', consistent with the BLM 1.6 mile round trip; read 2026-10-25",
+      "point_role": "centre",
+      "approx": true,
+      "approx_note": "Resolver position, not an OSM node of the spire; a person should confirm it against the BLM sheet's trailhead."
+    },
+    "part/place/long-dong-silver-spire#trailhead-lot": {
+      "lat": 38.38224,
+      "lon": -110.83882,
+      "coord_src": "osm",
+      "point_source": "OSM way/1535726923 amenity=parking surface=dirt name 'Long Dong Silver Trailhead Parking'; read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/factory-butte": {
+      "lat": 38.43694,
+      "lon": -110.91361,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q20714583 P625, read 2026-10-25; the butte, matches OSM node 356672676 Factory Butte (natural=peak)",
+      "point_role": "centre"
+    },
+    "part/place/factory-butte#ohv-area-approx": {
+      "lat": 38.44146,
+      "lon": -110.91689,
+      "coord_src": "osm",
+      "point_source": "OSM relation/13852886 landuse OHV area (centre); read 2026-10-25",
+      "point_role": "parking",
+      "approx": true,
+      "approx_note": "No car park is mapped; this is the centre of the BLM Factory Butte OHV area. The BLM page names a restroom and kiosks at Factory Butte but gives no coordinates; a person should place the real parking."
+    },
+    "place/kennecott-river-rafting-wrangell-st-elias": {
+      "lat": 61.4861,
+      "lon": -142.889,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q995915 P625 (Kennecott townsite), read 2026-10-25; matches OSM node 654578203 Kennecott Mines National Historic Landmark. The trip itself starts at the operator's base in McCarthy (OSM place node 150916666, about 7 km away).",
+      "point_role": "centre"
+    },
+    "part/place/kennecott-river-rafting-wrangell-st-elias#mccarthy-road-end-lot": {
+      "lat": 61.43437,
+      "lon": -142.94361,
+      "coord_src": "osm",
+      "point_source": "OSM way/461639604 amenity=parking fee=yes, 100 m from the OSM West Fork Kennicott River gauge at McCarthy (node/12067017967); read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/mount-st-helens": {
+      "lat": 46.20028,
+      "lon": -122.18944,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q4675 P625, read 2026-10-25; the volcano summit area",
+      "point_role": "summit"
+    },
+    "part/place/mount-st-helens#johnston-ridge-lot": {
+      "lat": 46.2776,
+      "lon": -122.2164,
+      "coord_src": "osm",
+      "point_source": "OSM way/1228806284 amenity=parking surface=asphalt, about 260 m from the OSM Johnston Ridge Observatory (way/53166846); read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/stansbury-island": {
+      "lat": 40.8297,
+      "lon": -112.498,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q7600177 P625, read 2026-10-25; the island, about 1 km from OSM node 356674282",
+      "point_role": "centre"
+    },
+    "place/lake-wenatchee": {
+      "lat": 47.82267,
+      "lon": -120.7772,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q7172855 P625, read 2026-10-25; the lake",
+      "point_role": "centre"
+    },
+    "part/place/lake-wenatchee#day-use-lot": {
+      "lat": 47.81214,
+      "lon": -120.72039,
+      "coord_src": "osm",
+      "point_source": "OSM node/2882303259 amenity=parking fee=yes name 'Day Use Parking' at the state park; read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/lake-chelan": {
+      "lat": 47.84111,
+      "lon": -120.04639,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1115201 P625, read 2026-10-25; the lake",
+      "point_role": "centre"
+    },
+    "part/place/lake-chelan#state-park-lot": {
+      "lat": 47.87338,
+      "lon": -120.19672,
+      "coord_src": "osm",
+      "point_source": "OSM relation/11634351 amenity=parking, 45 m from the OSM Lake Chelan State Park Camp Store (node/7894784174); read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/page": {
+      "lat": 36.91483,
+      "lon": -111.45729,
+      "coord_src": "osm",
+      "point_source": "OSM node 150978518 'Page' (place=city), the same position as the stored point; read 2026-10-25",
+      "point_role": "centre"
+    },
+    "place/durango": {
+      "lat": 37.2753,
+      "lon": -107.88,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1012665 P625, read 2026-10-25",
+      "point_role": "centre"
+    },
+    "place/ouray": {
+      "lat": 38.0233,
+      "lon": -107.672,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1759444 P625, read 2026-10-25; matches OSM node 151877085 Ouray (place=village)",
+      "point_role": "centre"
+    },
+    "place/breckenridge": {
+      "lat": 39.48165,
+      "lon": -106.03835,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q904354 P625, read 2026-10-25",
+      "point_role": "centre"
+    },
+    "place/leavenworth": {
+      "lat": 47.5964,
+      "lon": -120.665,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1025813 P625, read 2026-10-25",
+      "point_role": "centre"
+    },
+    "place/cape-cod": {
+      "lat": 41.68889,
+      "lon": -70.29694,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q49152 P625, read 2026-10-25; a point on the peninsula",
+      "point_role": "centre"
+    },
+    "place/finger-lakes": {
+      "lat": 42.66667,
+      "lon": -76.83333,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1416994 P625, read 2026-10-25; a point in the lake district",
+      "point_role": "centre"
+    },
+    "place/olympic-peninsula": {
+      "lat": 47.79833,
+      "lon": -123.61806,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q780293 P625, read 2026-10-25; a point on the peninsula",
+      "point_role": "centre"
+    },
+    "place/white-mountain-national-forest": {
+      "lat": 44.1,
+      "lon": -71.4,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q2566939 P625, read 2026-10-25; a point inside the forest",
+      "point_role": "centre"
+    },
+    "part/place/white-mountain-national-forest#lincoln-woods-lot": {
+      "lat": 44.06354,
+      "lon": -71.5881,
+      "coord_src": "osm",
+      "point_source": "OSM relation/1649688 amenity=parking fee=yes name 'Lincoln Woods Trailhead Parking'; read 2026-10-25",
+      "point_role": "parking"
+    },
+    "place/stowe": {
+      "lat": 44.46533,
+      "lon": -72.68456,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q550498 P625, read 2026-10-25",
+      "point_role": "centre"
     }
   }
 }

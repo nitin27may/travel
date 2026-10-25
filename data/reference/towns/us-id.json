@@ -1,3 +1,11 @@
 {"schema":"towns-part/1","cc":"us","admin1":{"id":"Idaho"},"rows":[
-["us-id-boise","Boise",43.6135,-116.20345,235684,"id","Boise",5586437]
+["us-id-ashton","Ashton",44.07158,-111.44829,1051,"id","Ashton",5584299],
+["us-id-boise","Boise",43.6135,-116.20345,235684,"id","Boise",5586437],
+["us-id-driggs","Driggs",43.72325,-111.11133,1689,"id","Driggs",5591399],
+["us-id-iona","Iona",43.5263,-111.93302,2056,"id","Iona",5596741],
+["us-id-rexburg","Rexburg",43.82602,-111.78969,27663,"id","Rexburg",5605242],
+["us-id-rigby","Rigby",43.67241,-111.91497,4029,"id","Rigby",5605321],
+["us-id-saint-anthony","Saint Anthony",43.9663,-111.68218,3542,"id","Saint Anthony",5606187],
+["us-id-sugar-city","Sugar City",43.87297,-111.7483,1328,"id","Sugar City",5609169],
+["us-id-victor","Victor",43.6027,-111.11133,1961,"id","Victor",5611251]
 ]}

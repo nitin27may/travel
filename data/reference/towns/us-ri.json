@@ -1,3 +1,25 @@
 {"schema":"towns-part/1","cc":"us","admin1":{"ri":"Rhode Island"},"rows":[
-["us-ri-providence","Providence",41.82399,-71.41283,190934,"ri","Providence",5224151]
+["us-ri-barrington","Barrington",41.74066,-71.30866,16669,"ri","Barrington",5220798],
+["us-ri-bristol","Bristol",41.67705,-71.26616,22795,"ri","Bristol",5221077],
+["us-ri-central-falls","Central Falls",41.89066,-71.39228,19303,"ri","Central Falls",5221341],
+["us-ri-cranston","Cranston",41.77982,-71.43728,81073,"ri","Cranston",5221659],
+["us-ri-cumberland","Cumberland",41.96677,-71.43284,34843,"ri","Cumberland",5221703],
+["us-ri-east-greenwich","East Greenwich",41.66038,-71.45589,13682,"ri","East Greenwich",5221875],
+["us-ri-east-providence","East Providence",41.81371,-71.37005,47408,"ri","East Providence",5221931],
+["us-ri-jamestown","Jamestown",41.49705,-71.36728,5755,"ri","Jamestown",5222866],
+["us-ri-lincoln","Lincoln",41.92111,-71.435,21670,"ri","Lincoln",8531960],
+["us-ri-melville","Melville",41.58705,-71.28338,1320,"ri","Melville",5223324],
+["us-ri-middletown","Middletown",41.54566,-71.29144,17303,"ri","Middletown",5223358],
+["us-ri-narragansett","Narragansett",41.4501,-71.4495,15868,"ri","Narragansett",5223505],
+["us-ri-newport","Newport",41.4901,-71.31283,24232,"ri","Newport",5223593],
+["us-ri-newport-east","Newport East",41.51579,-71.28752,11769,"ri","Newport East",7257658],
+["us-ri-north-kingstown","North Kingstown",41.5501,-71.46617,28042,"ri","North Kingstown",5223672],
+["us-ri-north-providence","North Providence",41.8501,-71.46617,33835,"ri","North Providence",5223681],
+["us-ri-pawtucket","Pawtucket",41.87871,-71.38256,71591,"ri","Pawtucket",5223869],
+["us-ri-portsmouth","Portsmouth",41.60232,-71.25033,17756,"ri","Portsmouth",5224082],
+["us-ri-providence","Providence",41.82399,-71.41283,190934,"ri","Providence",5224151],
+["us-ri-tiverton","Tiverton",41.62594,-71.21338,7557,"ri","Tiverton",5225245],
+["us-ri-valley-falls","Valley Falls",41.90677,-71.39061,11547,"ri","Valley Falls",5225388],
+["us-ri-warren","Warren",41.73038,-71.28255,11280,"ri","Warren",5225502],
+["us-ri-warwick","Warwick",41.7001,-71.41617,81699,"ri","Warwick",5225507]
 ]}

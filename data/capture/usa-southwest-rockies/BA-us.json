@@ -1,0 +1,616 @@
+{
+  "schema": "capture/1",
+  "trip": "usa-southwest-rockies",
+  "lane": "BA-us",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.nps.gov/arch/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Arches National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.nps.gov/arch/planyourvisit/basicinfo.htm",
+      "title": "Basic Information - Arches National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.wikidata.org/wiki/Special:EntityData",
+      "title": "Wikidata entity data (labels, descriptions, P625, P2044, P402, P856, sitelinks)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-us"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.openstreetmap.org/",
+      "title": "OpenStreetMap data via the Overpass API",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-us"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.nps.gov/brca/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Bryce Canyon National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.nps.gov/brca/planyourvisit/hours.htm",
+      "title": "Operating Hours & Seasons - Bryce Canyon National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.nps.gov/cany/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Canyonlands National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.nps.gov/cany/planyourvisit/basicinfo.htm",
+      "title": "Basic Information - Canyonlands National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.nps.gov/zion/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Zion National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.nps.gov/zion/planyourvisit/safety.htm",
+      "title": "Safety - Zion National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/arches-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ut-moab",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 17.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Arches National Park",
+      "area_id": "US/UT/grand-county",
+      "osm_ref": "relation/5868384",
+      "price": {
+        "v": [
+          {
+            "amount": 30,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "private non-commercial vehicle with all occupants"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "quote": "Admits one private, non-commercial vehicle",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/arch/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/5868384",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Arches_National_Park",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q223969",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/arches-national-park#visitor-center-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ut-moab",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 7.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Arches visitor center car park",
+      "area_id": "US/UT/grand-county",
+      "parks_for": [
+        "place/arches-national-park"
+      ],
+      "osm_ref": "relation/17161840",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/arch/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/17161840",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/bryce-canyon-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ut-panguitch",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5544525, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 31,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Bryce Canyon National Park",
+      "area_id": "US/UT/kane-county",
+      "osm_ref": "relation/4716641",
+      "price": {
+        "v": [
+          {
+            "amount": 35,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "private non-commercial vehicle with all occupants; validity not stated on the page"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-25",
+        "quote": "Admits one private, non-commercial vehicle",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/brca/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/4716641",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Bryce_Canyon_National_Park",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q219562",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/bryce-canyon-national-park#visitor-center-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ut-panguitch",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5544525, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 31,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Bryce Canyon visitor center car park",
+      "area_id": "US/UT/kane-county",
+      "parks_for": [
+        "place/bryce-canyon-national-park"
+      ],
+      "osm_ref": "relation/17216953",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/brca/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/17216953",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/canyonlands-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ut-moab",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 48.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Canyonlands National Park",
+      "area_id": "US/UT/san-juan-county",
+      "osm_ref": "relation/13624591",
+      "price": {
+        "v": [
+          {
+            "amount": 30,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "private non-commercial vehicle with all occupants; validity not stated on the page"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0007"
+        ],
+        "read": "2026-10-25",
+        "quote": "Admits one private, non-commercial vehicle",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/cany/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0008"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/13624591",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Canyonlands_National_Park",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q541856",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/canyonlands-national-park#island-in-the-sky-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ut-moab",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 26.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Island in the Sky Visitor Center Parking",
+      "area_id": "US/UT/san-juan-county",
+      "parks_for": [
+        "place/canyonlands-national-park"
+      ],
+      "osm_ref": "relation/15336112",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/cany/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0008"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/15336112",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/zion-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ut-hildale",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5540444, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 22.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Zion National Park",
+      "area_id": "US/UT/washington-county",
+      "osm_ref": "relation/5758583",
+      "price": {
+        "v": [
+          {
+            "amount": 35,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "private non-commercial vehicle with all occupants; valid 1 to 7 days"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0009"
+        ],
+        "read": "2026-10-25",
+        "quote": "Admits private, non-commercial vehicle",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/zion/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0010"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/5758583",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Zion_National_Park",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q205325",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/zion-national-park#visitor-center-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ut-hildale",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5540444, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 21.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Zion Canyon Visitor Center car park",
+      "area_id": "US/UT/washington-county",
+      "parks_for": [
+        "place/zion-national-park"
+      ],
+      "osm_ref": "relation/7206475",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/zion/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0010"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/7206475",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    }
+  ]
+}

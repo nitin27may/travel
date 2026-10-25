@@ -1,0 +1,98 @@
+{
+  "schema": "suitability/1",
+  "trip": "new-hampshire-stopover-2026",
+  "lane": "BA-us",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.fs.usda.gov/r09/whitemountain/recreation/lincoln-woods-trailhead",
+      "title": "Lincoln Woods Trailhead - White Mountain National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.fs.usda.gov/r09/whitemountain/passes",
+      "title": "Recreation passes - White Mountain National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/white-mountain-national-forest",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Most land is free to use; some trailheads and day-use lots need a recreation pass, bought at self-serve pay stations.",
+        "on_site_min": {
+          "v": [
+            240,
+            480
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: a day on one trail or road corridor; the forest pages give no visit time."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "other",
+              "note": "Lincoln Woods Trail is closed from 15 June to November 2026 for restoration; parking and the suspension bridge stay open",
+              "season": "2026"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-25"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Forest open all year; fee sites that are not maintained in winter charge no winter fee"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "note": "The pass page says fee sites without winter maintenance have no fee in winter; no forest-wide closure dates found.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

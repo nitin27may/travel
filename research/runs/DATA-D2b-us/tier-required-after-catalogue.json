@@ -1,0 +1,243 @@
+{
+  "tier": "required",
+  "filter": {
+    "layer": null,
+    "type": null,
+    "trip": "catalogue"
+  },
+  "matrix": [
+    {
+      "row": "place",
+      "cells": {
+        "records": 48,
+        "area_id": 48,
+        "point": 48,
+        "osm_id": 47,
+        "wikidata": 26,
+        "official": 44,
+        "photos": 0,
+        "season": 3,
+        "where": 0,
+        "operator": 0,
+        "price": 12,
+        "duration": 0,
+        "window": 6,
+        "min_age": 0
+      }
+    }
+  ],
+  "kinds": [
+    {
+      "kind": "place",
+      "records": 48,
+      "complete": 48,
+      "keys": [
+        {
+          "key": "access_cost",
+          "asked": 29,
+          "answered": 29,
+          "missing": 0
+        },
+        {
+          "key": "access_points",
+          "asked": 14,
+          "answered": 14,
+          "missing": 0
+        },
+        {
+          "key": "access_season",
+          "asked": 18,
+          "answered": 18,
+          "missing": 0
+        },
+        {
+          "key": "age_band",
+          "asked": 10,
+          "answered": 10,
+          "missing": 0
+        },
+        {
+          "key": "best_time",
+          "asked": 2,
+          "answered": 2,
+          "missing": 0
+        },
+        {
+          "key": "best_window",
+          "asked": 2,
+          "answered": 2,
+          "missing": 0
+        },
+        {
+          "key": "carrier_ok",
+          "asked": 2,
+          "answered": 2,
+          "missing": 0
+        },
+        {
+          "key": "class_key",
+          "asked": 29,
+          "answered": 29,
+          "missing": 0
+        },
+        {
+          "key": "distinction",
+          "asked": 29,
+          "answered": 29,
+          "missing": 0
+        },
+        {
+          "key": "draw",
+          "asked": 29,
+          "answered": 29,
+          "missing": 0
+        },
+        {
+          "key": "easy_payoff",
+          "asked": 29,
+          "answered": 29,
+          "missing": 0
+        },
+        {
+          "key": "effort.drivers.distance_km",
+          "asked": 2,
+          "answered": 2,
+          "missing": 0
+        },
+        {
+          "key": "exposure",
+          "asked": 8,
+          "answered": 8,
+          "missing": 0
+        },
+        {
+          "key": "geonames_id",
+          "asked": 8,
+          "answered": 8,
+          "missing": 0
+        },
+        {
+          "key": "hazards",
+          "asked": 8,
+          "answered": 8,
+          "missing": 0
+        },
+        {
+          "key": "hours",
+          "asked": 3,
+          "answered": 3,
+          "missing": 0
+        },
+        {
+          "key": "kid_note",
+          "asked": 21,
+          "answered": 21,
+          "missing": 0
+        },
+        {
+          "key": "links",
+          "asked": 48,
+          "answered": 48,
+          "missing": 0
+        },
+        {
+          "key": "name",
+          "asked": 48,
+          "answered": 48,
+          "missing": 0
+        },
+        {
+          "key": "on_site_min",
+          "asked": 21,
+          "answered": 21,
+          "missing": 0
+        },
+        {
+          "key": "parks_for",
+          "asked": 19,
+          "answered": 19,
+          "missing": 0
+        },
+        {
+          "key": "price",
+          "asked": 11,
+          "answered": 11,
+          "missing": 0
+        },
+        {
+          "key": "season",
+          "asked": 3,
+          "answered": 3,
+          "missing": 0
+        },
+        {
+          "key": "signals",
+          "asked": 29,
+          "answered": 29,
+          "missing": 0
+        },
+        {
+          "key": "standing",
+          "asked": 29,
+          "answered": 29,
+          "missing": 0
+        },
+        {
+          "key": "stroller",
+          "asked": 21,
+          "answered": 21,
+          "missing": 0
+        },
+        {
+          "key": "summary",
+          "asked": 29,
+          "answered": 29,
+          "missing": 0
+        },
+        {
+          "key": "type",
+          "asked": 48,
+          "answered": 48,
+          "missing": 0
+        },
+        {
+          "key": "walk_m",
+          "asked": 10,
+          "answered": 10,
+          "missing": 0
+        },
+        {
+          "key": "weather",
+          "asked": 29,
+          "answered": 29,
+          "missing": 0
+        },
+        {
+          "key": "wheelchair",
+          "asked": 21,
+          "answered": 21,
+          "missing": 0
+        },
+        {
+          "key": "why",
+          "asked": 29,
+          "answered": 29,
+          "missing": 0
+        },
+        {
+          "key": "wikidata",
+          "asked": 29,
+          "answered": 29,
+          "missing": 0
+        },
+        {
+          "key": "window",
+          "asked": 5,
+          "answered": 5,
+          "missing": 0
+        }
+      ]
+    }
+  ],
+  "records": []
+}

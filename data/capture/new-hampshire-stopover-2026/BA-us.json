@@ -1,0 +1,197 @@
+{
+  "schema": "capture/1",
+  "trip": "new-hampshire-stopover-2026",
+  "lane": "BA-us",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.fs.usda.gov/r09/whitemountain/recreation/lincoln-woods-trailhead",
+      "title": "Lincoln Woods Trailhead - White Mountain National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.fs.usda.gov/r09/whitemountain/passes",
+      "title": "Recreation passes - White Mountain National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.wikidata.org/wiki/Special:EntityData",
+      "title": "Wikidata entity data (labels, descriptions, P625, P2044, P402, P856, sitelinks)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-us"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.openstreetmap.org/",
+      "title": "OpenStreetMap data via the Overpass API",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-us"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/white-mountain-national-forest",
+      "type": "nature.protected.forest",
+      "layer": "place",
+      "near_town": {
+        "v": "us-nh-north-conway",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5090347, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 22.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "White Mountain National Forest",
+      "area_id": "US/NH/grafton-county",
+      "osm_ref": "relation/331880",
+      "price": {
+        "v": [
+          {
+            "amount": 5,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "day-use recreation fee at pay-station sites such as Lincoln Woods; most forest land is free"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "quote": "$5 per vehicle per day",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.fs.usda.gov/r09/whitemountain",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/331880",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/White_Mountain_National_Forest",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q2566939",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/white-mountain-national-forest#lincoln-woods-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-nh-woodstock",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5094939, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 12.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Lincoln Woods Trailhead Parking",
+      "area_id": "US/NH/grafton-county",
+      "parks_for": [
+        "place/white-mountain-national-forest"
+      ],
+      "osm_ref": "relation/1649688",
+      "price": {
+        "v": [
+          {
+            "amount": 5,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "recreation fee per vehicle per day at this trailhead"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "quote": "$5 per vehicle per day",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.fs.usda.gov/r09/whitemountain/recreation/lincoln-woods-trailhead",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/1649688",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    }
+  ]
+}
