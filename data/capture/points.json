@@ -1229,6 +1229,82 @@
       "coord_src": "osm",
       "point_source": "OSM way 204763538 Stowe Recreational Path, its village end (the southernmost vertex of the 30 mapped ways); Town of Stowe https://www.stowevt.gov/Departments/Parks-Recreation/Parks-Facilities/Stowe-Recreation-Path: the path runs 'from Stowe Village to Topnotch Resort'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
       "point_role": "trailhead"
+    },
+    "place/paris": {
+      "lat": 48.85667,
+      "lon": 2.35222,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q90 P625 (48.8567, 2.3522), the city centre; OSM relation 7444 is the administrative boundary; read 2026-10-25 (lane DATA-D2b-int)",
+      "point_role": "centre"
+    },
+    "place/hanoi": {
+      "lat": 21.0245,
+      "lon": 105.84117,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1858 P625 (21.0245, 105.84117), the city centre by Hoan Kiem Lake; read 2026-10-25 (lane DATA-D2b-int)",
+      "point_role": "centre"
+    },
+    "place/sapa": {
+      "lat": 22.33556,
+      "lon": 103.84194,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1000140 P625 (22.3356, 103.8419), the town centre; read 2026-10-25 (lane DATA-D2b-int)",
+      "point_role": "centre"
+    },
+    "place/ha-long-bay": {
+      "lat": 20.9,
+      "lon": 107.2,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q190128 P625 (20.9, 107.2) at 1 arc-minute precision; the bay spans about 1,500 km2 (OSM relation 19465352); read 2026-10-25 (lane DATA-D2b-int)",
+      "point_role": "centre",
+      "approx": true,
+      "approx_note": "A centroid of a large bay at 1 arc-minute precision; the cruise boarding points are the ports (see the dock record). Counts for Where, never for a distance."
+    },
+    "part/place/ha-long-bay#ha-long-international-port": {
+      "lat": 20.953275,
+      "lon": 107.05571,
+      "coord_src": "osm",
+      "point_source": "OSM node 12759133301 'Cang tau khach quoc te Ha Long' (amenity=ferry_terminal), the Bai Chay passenger port; vietnam.travel names Tuan Chau and Bai Chay as the cruise ports; read 2026-10-25 (lane DATA-D2b-int)",
+      "point_role": "meeting"
+    },
+    "place/gurudongmar-lake": {
+      "lat": 28.02,
+      "lon": 88.71,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q2264090 P625 (28.02, 88.71); OSM way 192611012 (natural=water) centres at 28.0271, 88.7101; read 2026-10-25 (lane DATA-D2b-int)",
+      "point_role": "centre"
+    },
+    "part/place/gurudongmar-lake#road-end": {
+      "lat": 28.0192731,
+      "lon": 88.7091447,
+      "coord_src": "osm",
+      "point_source": "OSM node 12133881062 'Gurudongmar Tso Monastry' beside the lake; OSM maps no car park, so this is where the road ends only by inference; read 2026-10-25 (lane DATA-D2b-int)",
+      "point_role": "parking",
+      "approx": true,
+      "approx_note": "OSM has no parking or road-end node at the lake; the monastery node is the nearest mapped stop. A person with the route or a photo should place the road end."
+    },
+    "place/provence": {
+      "lat": 44.0,
+      "lon": 6.0,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q101081 P625 (44.0, 6.0) at 1 arc-minute precision, a regional centroid; read 2026-10-25 (lane DATA-D2b-int)",
+      "point_role": "centre",
+      "approx": true,
+      "approx_note": "A centroid for a historical region with no single place; use the town pages for any distance."
+    },
+    "place/qq-canyon-racer-mountain-coaster-gulong-gorge": {
+      "lat": 23.7831114,
+      "lon": 112.9517294,
+      "coord_src": "osm",
+      "point_source": "OSM way 1424946284 'Xia dao fei che' (highway=raceway), one segment of the mapped coaster track in the Gulong Gorge scenic area; the stored store point is 150 m away; read 2026-10-25 (lane DATA-D2b-int)",
+      "point_role": "centre"
+    },
+    "part/place/qq-canyon-racer-mountain-coaster-gulong-gorge#car-park": {
+      "lat": 23.775564,
+      "lon": 112.9567708,
+      "coord_src": "osm",
+      "point_source": "OSM way 696058893 'Gu long xia lv you jing qu da xing ting che chang' (amenity=parking), the scenic-area car park about 650 m from the coaster track; read 2026-10-25 (lane DATA-D2b-int)",
+      "point_role": "parking"
     }
   }
 }

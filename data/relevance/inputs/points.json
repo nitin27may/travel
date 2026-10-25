@@ -1069,6 +1069,18 @@
       "coord_src": "osm",
       "point_source": "OSM node 1825738077 Haunold - Monte Baranci chairlift top station, where the Funbob run starts; agent checked, needs a person's check"
     },
+    "part/place/gurudongmar-lake#road-end": {
+      "lat": 28.01927,
+      "lon": 88.70914,
+      "coord_src": "osm",
+      "point_source": "OSM node 12133881062 'Gurudongmar Tso Monastry' beside the lake; OSM maps no car park, so this is where the road ends only by inference; read 2026-10-25 (lane DATA-D2b-int)"
+    },
+    "part/place/ha-long-bay#ha-long-international-port": {
+      "lat": 20.95328,
+      "lon": 107.05571,
+      "coord_src": "osm",
+      "point_source": "OSM node 12759133301 'Cang tau khach quoc te Ha Long' (amenity=ferry_terminal), the Bai Chay passenger port; vietnam.travel names Tuan Chau and Bai Chay as the cruise ports; read 2026-10-25 (lane DATA-D2b-int)"
+    },
     "part/place/lagazuoi-cable-car-and-tunnels#top": {
       "lat": 46.51921,
       "lon": 12.00851,
@@ -1140,6 +1152,12 @@
       "lon": -116.21364,
       "coord_src": "osm",
       "point_source": "OSM node 12164756005 (bus stop named Parks Canada Shuttle); agent checked, needs a person's check"
+    },
+    "part/place/qq-canyon-racer-mountain-coaster-gulong-gorge#car-park": {
+      "lat": 23.77556,
+      "lon": 112.95677,
+      "coord_src": "osm",
+      "point_source": "OSM way 696058893 'Gu long xia lv you jing qu da xing ting che chang' (amenity=parking), the scenic-area car park about 650 m from the coaster track; read 2026-10-25 (lane DATA-D2b-int)"
     },
     "part/place/rafting-on-the-rienza#place": {
       "lat": 46.80997,
@@ -1429,6 +1447,24 @@
       "coord_src": "prototype",
       "point_source": "snapshot place funbob (approximate)"
     },
+    "place/gurudongmar-lake": {
+      "lat": 28.02,
+      "lon": 88.71,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q2264090 P625 (28.02, 88.71); OSM way 192611012 (natural=water) centres at 28.0271, 88.7101; read 2026-10-25 (lane DATA-D2b-int)"
+    },
+    "place/ha-long-bay": {
+      "lat": 20.9,
+      "lon": 107.2,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q190128 P625 (20.9, 107.2) at 1 arc-minute precision; the bay spans about 1,500 km2 (OSM relation 19465352); read 2026-10-25 (lane DATA-D2b-int)"
+    },
+    "place/hanoi": {
+      "lat": 21.0245,
+      "lon": 105.84117,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1858 P625 (21.0245, 105.84117), the city centre by Hoan Kiem Lake; read 2026-10-25 (lane DATA-D2b-int)"
+    },
     "place/la-val": {
       "lat": 46.65772,
       "lon": 11.92433,
@@ -1519,11 +1555,29 @@
       "coord_src": "wikidata",
       "point_source": "Q1755973 P625"
     },
+    "place/paris": {
+      "lat": 48.85667,
+      "lon": 2.35222,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q90 P625 (48.8567, 2.3522), the city centre; OSM relation 7444 is the administrative boundary; read 2026-10-25 (lane DATA-D2b-int)"
+    },
     "place/passo-gardena": {
       "lat": 46.55,
       "lon": 11.80944,
       "coord_src": "wikidata",
       "point_source": "Q1416427 P625"
+    },
+    "place/provence": {
+      "lat": 44,
+      "lon": 6,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q101081 P625 (44.0, 6.0) at 1 arc-minute precision, a regional centroid; read 2026-10-25 (lane DATA-D2b-int)"
+    },
+    "place/qq-canyon-racer-mountain-coaster-gulong-gorge": {
+      "lat": 23.78311,
+      "lon": 112.95173,
+      "coord_src": "osm",
+      "point_source": "OSM way 1424946284 'Xia dao fei che' (highway=raceway), one segment of the mapped coaster track in the Gulong Gorge scenic area; the stored store point is 150 m away; read 2026-10-25 (lane DATA-D2b-int)"
     },
     "place/rafting-on-the-rienza": {
       "lat": 46.796,
@@ -1566,6 +1620,12 @@
       "lon": 11.71862,
       "coord_src": "wikidata",
       "point_source": "Q33481488 P625"
+    },
+    "place/sapa": {
+      "lat": 22.33556,
+      "lon": 103.84194,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1000140 P625 (22.3356, 103.8419), the town centre; read 2026-10-25 (lane DATA-D2b-int)"
     },
     "place/sass-pordoi-and-piz-boe": {
       "lat": 46.50028,

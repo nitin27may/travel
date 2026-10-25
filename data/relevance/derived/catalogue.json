@@ -1,0 +1,537 @@
+{
+  "schema": "relevance-derived/1",
+  "trip": "catalogue",
+  "as_of": "2026-10-25",
+  "thresholds": {
+    "version": 2,
+    "languages": {
+      "world": 25,
+      "national": 10,
+      "regional": 2
+    },
+    "views": {
+      "world": 40000,
+      "national": 10000,
+      "regional": 2000
+    }
+  },
+  "window": null,
+  "items": [
+    {
+      "ref": "place/paris",
+      "draw_suggested": "local",
+      "effective_draw": "world",
+      "access_load": "easy",
+      "detour_min": 1000,
+      "detour_basis": "town",
+      "detour_town": "Geneva",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw world, standing top"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 1000 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/hanoi",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 20898,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 20898 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/sapa",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 20290,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 20290 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/ha-long-bay",
+      "draw_suggested": "local",
+      "effective_draw": "world",
+      "access_load": "plan",
+      "detour_min": 21162,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw world, standing top"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/gurudongmar-lake",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "plan",
+      "detour_min": 16526,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (16526); clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Local favourite",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/provence",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 552,
+      "detour_basis": "town",
+      "detour_town": "Les Praz",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (552)"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 552 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Local favourite",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 21594,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 21594 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "part/place/ha-long-bay#ha-long-international-port",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 21126,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "place/ha-long-bay",
+        "km": 16.1,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 21126 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "part/place/gurudongmar-lake#road-end",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 16524,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "place/gurudongmar-lake",
+          "km": 0.1,
+          "how": "walk",
+          "extra_min": 64,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "local",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 16524 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "offer/place/qq-canyon-racer-mountain-coaster-gulong-gorge#ticket",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "offer"
+    },
+    {
+      "ref": "part/place/qq-canyon-racer-mountain-coaster-gulong-gorge#car-park",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 21596,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 21596 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    }
+  ]
+}

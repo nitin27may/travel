@@ -7,8 +7,8 @@
       "title": "locations store",
       "publisher": "this repo",
       "kind": "reference",
-      "first_read": "2026-10-22",
-      "last_read": "2026-10-22",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
       "used_by": [],
       "licence_note": "Our own file in this repository.",
       "terms_note": "Not a web source; there is no link to check.",
@@ -2753,6 +2753,60 @@
       }
     },
     {
+      "id": "s-2e6539b3c8",
+      "url": "https://en.parisinfo.com/practical-paris/planning-your-stay-in-paris/climate",
+      "title": "Paris weather month by month (search extract; page answered 403 on the read date)",
+      "publisher": "Paris Convention and Visitors Bureau",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/paris",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-7556b1c785",
+      "url": "https://en.parisinfo.com/what-to-see-in-paris/visiting-paris-with-a-disability/info/guides/transport-and-disability-getting-around-paris/adapted-public-transport/adapted-metros-in-the-paris-area",
+      "title": "Adapted metros in the Paris area (search extract; page answered 403 on the read date)",
+      "publisher": "Paris Convention and Visitors Bureau",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/suitability/catalogue/R9-int.json",
+          "ref": "place/paris",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-33d862a777",
       "url": "https://en.vedur.is/about-imo/news/ground-uplift-and-magma-accumulation-continue-beneath-svartsengi",
       "title": "Ground uplift and magma accumulation continue beneath Svartsengi (read through search results; the fetched page showed only the site banner)",
@@ -2995,6 +3049,65 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-f28328067e",
+      "url": "https://halongtourism.com.vn",
+      "title": "Ha Long tourism information site (contact page read; no ticket prices)",
+      "publisher": "Ha Long tourism information centre",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/ha-long-bay",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/ha-long-bay",
+          "field": "access_cost"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-08781ae2dd",
+      "url": "https://hanoi.gov.vn",
+      "title": "Hanoi People's Committee portal (official website listed on Wikidata P856)",
+      "publisher": "Hanoi People's Committee",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/hanoi",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -9759,6 +9872,33 @@
       }
     },
     {
+      "id": "s-12d35e4239",
+      "url": "https://sikkimtourism.gov.in/Public/TravellerEssentials/pap",
+      "title": "Protected Area Permit (PAP) (page text did not load on the read date)",
+      "publisher": "Sikkim Tourism Department",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/gurudongmar-lake",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-e6fced1ec4",
       "url": "https://skiburke.com/plan-your-trip/area-activities",
       "title": "Area activities",
@@ -10943,6 +11083,134 @@
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
           "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-d50cb8ce9b",
+      "url": "https://vietnam.travel/places-to-go/northern-vietnam/ha-long",
+      "title": "Ha Long",
+      "publisher": "Viet Nam National Authority of Tourism",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/ha-long-bay",
+          "field": "best_time"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/ha-long-bay",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/ha-long-bay",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-int.json",
+          "ref": "place/ha-long-bay",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-int.json",
+          "ref": "place/ha-long-bay",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-8700ca7e52",
+      "url": "https://vietnam.travel/places-to-go/northern-vietnam/sapa",
+      "title": "Sapa",
+      "publisher": "Viet Nam National Authority of Tourism",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/sapa",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-dca4597c9e",
+      "url": "https://vietnam.travel/places-to-go/red-river-delta/ha-noi",
+      "title": "Ha Noi",
+      "publisher": "Viet Nam National Authority of Tourism",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/hanoi",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-929456a79b",
+      "url": "https://vietnamtourism.vn/en/index.php/news/items/13451",
+      "title": "Sa Pa resort town recognised as national tourism site (headline seen in a search listing; page not opened)",
+      "publisher": "Viet Nam National Authority of Tourism",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/sapa",
+          "field": "signals.designations"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -14531,6 +14799,68 @@
       }
     },
     {
+      "id": "s-ce361f87aa",
+      "url": "https://www.dahepiao.com/lvyounews1/20250403508376.html",
+      "title": "Gulong Gorge ticket prices and opening hours, April 2025 (reseller page)",
+      "publisher": "Dahepiao (ticket reseller)",
+      "kind": "agency",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "offer/place/qq-canyon-racer-mountain-coaster-gulong-gorge#ticket",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "offer/place/qq-canyon-racer-mountain-coaster-gulong-gorge#ticket",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "offer/place/qq-canyon-racer-mountain-coaster-gulong-gorge#ticket",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+          "field": "season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-int.json",
+          "ref": "offer/place/qq-canyon-racer-mountain-coaster-gulong-gorge#ticket",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-int.json",
+          "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-28c67b8388",
       "url": "https://www.disabili.com/viaggi/speciali-viaggi-a-tempo-libero/speciale-vacanze-estate/-sp-17235",
       "title": "DOLOMITI - Passeggiate accessibili | Disabili.com",
@@ -15859,6 +16189,65 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-63f1ec8edc",
+      "url": "https://www.gulongxia.com",
+      "title": "Gulong Gorge scenic area home page: opening hours, contact, address",
+      "publisher": "Qingyuan Qingxin Gulong Gorge Eco-tourism Entertainment Co.",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "offer/place/qq-canyon-racer-mountain-coaster-gulong-gorge#ticket",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-23b0d3fbfe",
+      "url": "https://www.gulongxia.com/html/cn/picshow-358-368.html",
+      "title": "Canyon QQ Racer (峡道QQ飞车), attraction page on the operator website",
+      "publisher": "Qingyuan Qingxin Gulong Gorge Eco-tourism Entertainment Co.",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "offer/place/qq-canyon-racer-mountain-coaster-gulong-gorge#ticket",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -18798,6 +19187,60 @@
       }
     },
     {
+      "id": "s-01c95b033c",
+      "url": "https://www.openstreetmap.org/node/12133881062",
+      "title": "Gurudongmar Tso Monastery (OSM node 12133881062)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "part/place/gurudongmar-lake#road-end",
+          "field": "links"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-79b7616c6d",
+      "url": "https://www.openstreetmap.org/node/12759133301",
+      "title": "Ha Long International Passenger Port (OSM node 12759133301)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "part/place/ha-long-bay#ha-long-international-port",
+          "field": "links"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-581a9fe307",
       "url": "https://www.openstreetmap.org/node/1485292613",
       "title": "Dwight (OSM place=locality, wikidata Q1521274)",
@@ -18911,6 +19354,33 @@
       }
     },
     {
+      "id": "s-3632f8416e",
+      "url": "https://www.openstreetmap.org/relation/12540572",
+      "title": "Phuong Sa Pa (OSM relation 12540572)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/sapa",
+          "field": "links"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-aea8f07ba3",
       "url": "https://www.openstreetmap.org/relation/1657839",
       "title": "CAI path 122, Lago d'Antorno - Capanna Carducci (cai_scale E)",
@@ -18945,6 +19415,92 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-c1cea740d7",
+      "url": "https://www.openstreetmap.org/relation/1903516",
+      "title": "Hanoi (OSM relation 1903516)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/hanoi",
+          "field": "links"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-2af1c4b631",
+      "url": "https://www.openstreetmap.org/relation/19465352",
+      "title": "Ha Long Bay - Cat Ba Archipelago (OSM relation 19465352)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/ha-long-bay",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/ha-long-bay",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-e6f366235e",
+      "url": "https://www.openstreetmap.org/relation/21425205",
+      "title": "Imperial Citadel of Thang Long (UNESCO) (OSM relation 21425205)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/hanoi",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -19267,6 +19823,87 @@
       }
     },
     {
+      "id": "s-14e7868d78",
+      "url": "https://www.openstreetmap.org/relation/7444",
+      "title": "Paris (OSM relation 7444)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/paris",
+          "field": "links"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-3f0dcfb949",
+      "url": "https://www.openstreetmap.org/way/1424946284",
+      "title": "Canyon racer track (raceway), Gulong Gorge (OSM way 1424946284)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+          "field": "links"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-cf33b77ea3",
+      "url": "https://www.openstreetmap.org/way/192611012",
+      "title": "Gurudongmar lake (OSM way 192611012)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/gurudongmar-lake",
+          "field": "links"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-b43eb4eef7",
       "url": "https://www.openstreetmap.org/way/24836168",
       "title": "Rawson Lake Trail (OSM ways 24836168, 181184079, 181184081)",
@@ -19315,6 +19952,33 @@
       }
     },
     {
+      "id": "s-34dbdc96db",
+      "url": "https://www.openstreetmap.org/way/696058893",
+      "title": "Gulong Gorge scenic area car park (OSM way 696058893)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "part/place/qq-canyon-racer-mountain-coaster-gulong-gorge#car-park",
+          "field": "links"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-f3c7ab274b",
       "url": "https://www.openstreetmap.org/way/753718984",
       "title": "OpenStreetMap ways of the Rawson Lake and Sarrail Ridge trails",
@@ -19332,6 +19996,97 @@
       "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
       "terms_note": "Public servers: sequential requests, identified client.",
       "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-9a61b0362e",
+      "url": "https://www.openstreetmap.org/way/958588265",
+      "title": "Paris, Banks of the Seine (UNESCO) (OSM way 958588265)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/paris",
+          "field": "signals.designations"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-3f12afc002",
+      "url": "https://www.outlooktraveller.com/destinations/india/all-you-need-to-know-about-sikkims-gurudongmar-lake",
+      "title": "All You Need To Know About Sikkim's Gurudongmar Lake (updated 12 Jul 2023)",
+      "publisher": "Outlook Traveller",
+      "kind": "editorial",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/gurudongmar-lake",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-int.json",
+          "ref": "place/gurudongmar-lake",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-int.json",
+          "ref": "place/gurudongmar-lake",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-7319823e08",
+      "url": "https://www.paris.fr",
+      "title": "Ville de Paris (official website listed on Wikidata P856)",
+      "publisher": "Ville de Paris",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/paris",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
@@ -19647,6 +20402,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-19"
+      }
+    },
+    {
+      "id": "s-c36165ae2c",
+      "url": "https://www.provenceweb.fr/e/mag/terroir/lavande.htm",
+      "title": "Lavender in Provence",
+      "publisher": "ProvenceWeb (regional portal)",
+      "kind": "editorial",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/provence",
+          "field": "best_window"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -20389,6 +21171,38 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-a2a44b5d24",
+      "url": "https://www.sikkim.gov.in/media/news-announcement/news-info?name=Tourism%20Resumes%20in%20North%20Sikkim%20with%20Key%20Destinations%20Welcoming%20Visitors%20from%20September",
+      "title": "Tourism Resumes in North Sikkim with Key Destinations Welcoming Visitors from September (7 Sep 2025)",
+      "publisher": "Government of Sikkim (IPR)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/gurudongmar-lake",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-int.json",
+          "ref": "place/gurudongmar-lake",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -22552,6 +23366,80 @@
       }
     },
     {
+      "id": "s-e8f679656c",
+      "url": "https://www.wikidata.org/wiki/Q1000140",
+      "title": "Sa Pa (Wikidata Q1000140)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/sapa",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/sapa",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/sapa",
+          "field": "wikidata"
+        }
+      ],
+      "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
+      "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-2cbd52988e",
+      "url": "https://www.wikidata.org/wiki/Q101081",
+      "title": "Provence (Wikidata Q101081)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/provence",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/provence",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/provence",
+          "field": "wikidata"
+        }
+      ],
+      "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
+      "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-bac76ded8d",
       "url": "https://www.wikidata.org/wiki/Q145948",
       "title": "Svolvaer (Wikidata P625)",
@@ -22564,6 +23452,85 @@
           "file": "data/trips/base-points.json",
           "ref": "trip/norway-summer",
           "field": "point"
+        }
+      ],
+      "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
+      "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-a0198a66f3",
+      "url": "https://www.wikidata.org/wiki/Q1858",
+      "title": "Hanoi (Wikidata Q1858)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/hanoi",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/hanoi",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/hanoi",
+          "field": "wikidata"
+        }
+      ],
+      "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
+      "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-cd7946682a",
+      "url": "https://www.wikidata.org/wiki/Q190128",
+      "title": "Ha Long Bay (Wikidata Q190128)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/ha-long-bay",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/ha-long-bay",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/ha-long-bay",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/ha-long-bay",
+          "field": "wikidata"
         }
       ],
       "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
@@ -22638,6 +23605,48 @@
       }
     },
     {
+      "id": "s-8d4040e4f0",
+      "url": "https://www.wikidata.org/wiki/Q2264090",
+      "title": "Gurudongmar Lake (Wikidata Q2264090)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/gurudongmar-lake",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/gurudongmar-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/gurudongmar-lake",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-int.json",
+          "ref": "place/gurudongmar-lake",
+          "field": "suitability.altitude_m"
+        }
+      ],
+      "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
+      "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-92fee4e924",
       "url": "https://www.wikidata.org/wiki/Q4191",
       "title": "Lucerne (Wikidata P625)",
@@ -22704,6 +23713,43 @@
           "file": "data/trips/base-points.json",
           "ref": "trip/chamonix-mont-blanc-sept-2028",
           "field": "point"
+        }
+      ],
+      "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
+      "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-38b9f2148e",
+      "url": "https://www.wikidata.org/wiki/Q90",
+      "title": "Paris (Wikidata Q90)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/paris",
+          "field": "geonames_id"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/paris",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-int.json",
+          "ref": "place/paris",
+          "field": "wikidata"
         }
       ],
       "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
@@ -22937,6 +23983,58 @@
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
           "field": "window"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c2ab05e41b",
+      "url": "https://you.ctrip.com/sight/qingyuan517/5139702.html",
+      "title": "Gulong Gorge opening hours (search extract; reseller page, not opened)",
+      "publisher": "Ctrip (travel reseller)",
+      "kind": "agency",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "offer/place/qq-canyon-racer-mountain-coaster-gulong-gorge#ticket",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+          "field": "season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-int.json",
+          "ref": "offer/place/qq-canyon-racer-mountain-coaster-gulong-gorge#ticket",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-int.json",
+          "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+          "field": "suitability.access_season"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
