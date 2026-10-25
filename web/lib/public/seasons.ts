@@ -1,66 +1,29 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
+import { tripSeasonFile, type TripSeasonFile } from '@travel/core/schema/seasons.ts';
 import { DropLog, undated, undatedSentences } from './dateless';
 import type { Season } from './types';
 
 /**
- * data/seasons/<trip>.json (schema trip-season-basic/1, written by the D6a data lane): the season of a trip that has no seed season. Read at build
- * time through the adapter, so no page loads it (P8, P9). Each field is `{ value, basis, ... }`; `basis: "plan"` means the value is only the plan's
- * own window, not a researched season, and the reason line must say so.
+ * data/seasons/<trip>.json (schema trip-season-basic/1, owned by core/src/schema/seasons.ts): the season of a trip that has no seed season. Read at
+ * build time through the adapter, so no page loads it (P8, P9). `months.basis === "plan"` means the window is only the one the plan was written
+ * for, not a researched season; the Season then carries `basis: 'plan'` and every surface says so.
  */
-export const SEASON_SCHEMA = 'trip-season-basic/1';
 
-interface Field<T> { value: T; basis: string }
-
-export interface SeasonFile {
-  schema: typeof SEASON_SCHEMA;
-  trip: string;
-  season: {
-    months: Field<number[]>;
-    label: Field<string>;
-    why: Field<string>;
-    weather: { tempC: Field<string>; rain: Field<string>; daylight: Field<string>; notes: Field<string>[] };
-  };
-}
-
-const isObj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v);
-
-function field<T>(v: unknown, what: string, file: string, ok: (x: unknown) => x is T): Field<T> {
-  if (!isObj(v) || !ok(v.value) || typeof v.basis !== 'string' || !v.basis) throw new Error(`${file}: season.${what} must be { value, basis }`);
-  return { value: v.value, basis: v.basis };
-}
-const isStr = (x: unknown): x is string => typeof x === 'string' && x.trim().length > 0;
-const isMonths = (x: unknown): x is number[] => Array.isArray(x) && x.length > 0 && x.every((m) => Number.isInteger(m) && m >= 1 && m <= 12);
-
-/** Checks the shape of one file; throws with the file name so a bad file fails the build. */
-export function parseSeasonFile(raw: unknown, file: string): SeasonFile {
-  if (!isObj(raw) || raw.schema !== SEASON_SCHEMA) throw new Error(`${file}: schema must be ${SEASON_SCHEMA}`);
-  if (typeof raw.trip !== 'string') throw new Error(`${file}: trip must be a string`);
-  const s = raw.season;
-  if (!isObj(s) || !isObj(s.weather)) throw new Error(`${file}: season and season.weather are required`);
-  const w = s.weather;
-  const notes = w.notes;
-  if (!Array.isArray(notes)) throw new Error(`${file}: season.weather.notes must be a list`);
-  return {
-    schema: SEASON_SCHEMA,
-    trip: raw.trip,
-    season: {
-      months: field(s.months, 'months', file, isMonths),
-      label: field(s.label, 'label', file, isStr),
-      why: field(s.why, 'why', file, isStr),
-      weather: {
-        tempC: field(w.tempC, 'weather.tempC', file, isStr),
-        rain: field(w.rain, 'weather.rain', file, isStr),
-        daylight: field(w.daylight, 'weather.daylight', file, isStr),
-        notes: notes.map((n, i) => field(n && isObj(n) ? { value: n.text, basis: n.basis } : n, `weather.notes[${i}]`, file, isStr)),
-      },
-    },
-  };
+/** Parses one file with the core schema; throws with the file name so a bad file fails the build. */
+export function parseSeasonFile(raw: unknown, file: string, slug: string): TripSeasonFile {
+  const res = tripSeasonFile.safeParse(raw);
+  if (!res.success) {
+    const i = res.error.issues[0]!;
+    throw new Error(`${file}: season file is not trip-season-basic/1 at /${i.path.join('/')}: ${i.message}`);
+  }
+  if (res.data.trip !== slug) throw new Error(`${file}: "trip" is "${res.data.trip}" but the file is for "${slug}"`);
+  return res.data;
 }
 
 /**
  * The season of `slug` from data/seasons/<slug>.json, in the adapter's Season shape, or null when there is no file. Texts go through the dateless
- * rule like every other public text. A season that is only the plan's own window (`basis: "plan"`) always says so in the reason line.
+ * rule like every other public text.
  */
 export function readSeason(root: string, slug: string, log: DropLog, monthsLabel: (months: number[]) => string): Season | null {
   const file = path.join(root, 'data', 'seasons', `${slug}.json`);
@@ -71,19 +34,18 @@ export function readSeason(root: string, slug: string, log: DropLog, monthsLabel
   } catch (e) {
     throw new Error(`${file}: not valid JSON (${(e as Error).message})`);
   }
-  const { season: s } = parseSeasonFile(raw, file);
+  const { season: s } = parseSeasonFile(raw, file, slug);
   const where = `trip ${slug}`;
-  let why = undatedSentences(s.why.value, `${where} season reason`, log);
-  if (s.months.basis === 'plan' && !/\bplan\b|\bplan's\b/i.test(why)) why = `This is the plan's own window. ${why}`.trim();
   return {
+    basis: s.months.basis === 'plan' ? 'plan' : 'researched',
     months: s.months.value,
     label: undated(s.label.value, `${where} season label`, log) ?? monthsLabel(s.months.value),
-    why,
+    why: undatedSentences(s.why.value, `${where} season reason`, log),
     weather: {
       tempC: s.weather.tempC.value,
       rain: undatedSentences(s.weather.rain.value, `${where} weather`, log),
       daylight: undatedSentences(s.weather.daylight.value, `${where} weather`, log),
-      notes: s.weather.notes.map((n) => undatedSentences(n.value, `${where} weather note`, log)).filter(Boolean),
+      notes: s.weather.notes.map((n) => undatedSentences(n.text, `${where} weather note`, log)).filter(Boolean),
     },
   };
 }

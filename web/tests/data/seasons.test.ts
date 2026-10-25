@@ -11,7 +11,7 @@ const SIX = ['costa-rica-2027', 'new-hampshire-stopover-2026', 'niagara-day-2026
 const d = realData();
 const field = (value: unknown, basis = 'plan') => ({ value, basis });
 const doc = (over: Record<string, unknown> = {}) => ({
-  schema: 'trip-season-basic/1', trip: 't',
+  schema: 'trip-season-basic/1', trip: 't', windows: [],
   season: {
     months: field([2]), label: field('Mid-February'), why: field('Deep dry season.', 'official'),
     weather: { tempC: field('17 to 36 C', 'official'), rain: field('Dry.', 'official'), daylight: field('11 hours.', 'computed'), notes: [{ text: 'Bring a hat.', basis: 'official' }] },
@@ -36,8 +36,11 @@ describe('data/seasons through the adapter', () => {
     expect(t.season!.why.length).toBeGreaterThan(10);
   });
 
-  it('a season that is only the plan\'s own window says so', () => {
-    for (const slug of SIX) expect(d.internals.trips.find((x) => x.slug === slug)!.season!.why).toMatch(/\bplan\b|plan's/i);
+  it('every one of the six is marked as the plan\'s own window (basis plan)', () => {
+    for (const slug of SIX) expect(d.internals.trips.find((x) => x.slug === slug)!.season!.basis).toBe('plan');
+  });
+  it('a seed season is researched', () => {
+    for (const t of d.internals.trips.filter((x) => x.season && !SIX.includes(x.slug))) expect(t.season!.basis).toBe('researched');
   });
 
   it('a trip with a seed season keeps it (no file is read)', () => {
@@ -65,9 +68,12 @@ describe('readSeason', () => {
     const s = readSeason(rootWith('t', doc()), 't', new DropLog(), monthsLabel)!;
     expect(s).toMatchObject({ months: [2], label: 'Mid-February', weather: { tempC: '17 to 36 C', notes: ['Bring a hat.'] } });
   });
-  it('prefixes a plan-only reason that does not say so', () => {
-    const s = readSeason(rootWith('t', doc()), 't', new DropLog(), monthsLabel)!;
-    expect(s.why).toBe("This is the plan's own window. Deep dry season.");
+  it('carries the basis: plan for a plan-only window, researched otherwise', () => {
+    expect(readSeason(rootWith('t', doc()), 't', new DropLog(), monthsLabel)!.basis).toBe('plan');
+    expect(readSeason(rootWith('t', doc({ months: field([2], 'official') })), 't', new DropLog(), monthsLabel)!.basis).toBe('researched');
+  });
+  it('leaves the reason line as written (the marker comes from the basis, not from a word in the text)', () => {
+    expect(readSeason(rootWith('t', doc()), 't', new DropLog(), monthsLabel)!.why).toBe('Deep dry season.');
   });
   it('drops a dated text and falls back to the months for the label', () => {
     const log = new DropLog();
@@ -76,17 +82,11 @@ describe('readSeason', () => {
     expect(log.items.length).toBe(1);
   });
   it('a malformed file fails with the file name', () => {
-    expect(() => readSeason(rootWith('t', doc({ months: field([13]) })), 't', new DropLog(), monthsLabel)).toThrow(/t\.json: season\.months/);
+    expect(() => readSeason(rootWith('t', doc({ months: field([13]) })), 't', new DropLog(), monthsLabel)).toThrow(/t\.json: season file is not trip-season-basic\/1 at \/season\/months/);
     expect(() => readSeason(rootWith('t', '{oops'), 't', new DropLog(), monthsLabel)).toThrow(/t\.json: not valid JSON/);
-    expect(() => parseSeasonFile({ schema: 'x' }, 'f.json')).toThrow(/f\.json: schema/);
+    expect(() => parseSeasonFile({ schema: 'x' }, 'f.json', 'f')).toThrow(/f\.json: season file is not/);
   });
-});
-
-describe('the six season files after the review fixes', () => {
-  it('the two labels read as windows, not days or draft notes', () => {
-    expect(d.internals.trips.find((t) => t.slug === 'new-hampshire-stopover-2026')!.season!.label).toBe('Two days at the turn of September and October');
-    const no = d.internals.trips.find((t) => t.slug === 'norway-summer-2028')!.season!;
-    expect(no.label).toBe('Last week of June into early July');
-    expect(no.why).toMatch(/^The window the plan was written for, dates still open: /);
+  it('a file whose trip is not its name fails (a copied file would show another trip\'s season)', () => {
+    expect(() => readSeason(rootWith('other', doc()), 'other', new DropLog(), monthsLabel)).toThrow(/"trip" is "t" but the file is for "other"/);
   });
 });

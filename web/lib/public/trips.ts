@@ -199,6 +199,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
     const subtitle = [undatedSentences(pub?.summary ?? hub?.subtitle ?? '', `${where} subtitle`, log), suitabilityFromTitle(rawTitle)].filter(Boolean).join(' ');
     const seedSeason: Season | null = pub
       ? {
+          basis: 'researched' as const,
           months: pub.season.months,
           label: undated(pub.season.label, `${where} season label`, log) ?? monthsLabel(pub.season.months),
           why: undatedSentences(pub.season.why, `${where} season reason`, log),
