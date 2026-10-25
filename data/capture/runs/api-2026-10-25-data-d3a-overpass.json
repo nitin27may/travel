@@ -1,0 +1,26 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-25-data-d3a-overpass",
+  "started": "2026-10-25",
+  "agent": "travel-researcher (DATA-D3a)",
+  "model": "opus",
+  "scope": {
+    "types": ["nature.trail.hike", "nature.trail.walk"],
+    "refs": [
+      "legacy/canadian-rockies-sept-2029/trails/rawson-lake",
+      "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+      "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+      "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail"
+    ]
+  },
+  "hosts": [
+    { "host": "overpass-api.de", "requests": 3, "robots": "none", "terms": "allowed", "status": "partial" }
+  ],
+  "results": [
+    { "ref": "legacy/canadian-rockies-sept-2029/trails/rawson-lake", "field": "effort.drivers.distance_km", "outcome": "conflict", "src": ["osm:way/24836168", "osm:way/181184079", "osm:way/181184081"], "host": "overpass-api.de", "reason": "OSM ways named Rawson Lake Trail sum to 2.47 km one way from the trailhead node; Alberta Parks gives 3.9 km one way including the Upper Lake Trail approach. Kept as a conflict in data/suitability/canadian-rockies-2029/TF.json." },
+    { "ref": "legacy/canadian-rockies-sept-2029/trails/rawson-lake", "field": "effort.drivers.surface", "outcome": "filled", "src": ["osm:way/24836168", "osm:way/181184079", "osm:way/181184081"], "host": "overpass-api.de" },
+    { "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge", "field": "effort.drivers.distance_km", "outcome": "filled", "src": ["osm:way/24836168", "osm:way/181184079", "osm:way/181184081", "osm:way/181184076", "osm:way/753718984"], "host": "overpass-api.de", "reason": "Marked estimate, 4.68 km one way from the Rawson Lake Trailhead to the Sarrail Ridge peak node 7042108468. The record is in R2a.json (not this lane's file), so the value is a patch for the coordinator in research/runs/DATA-D3a/patch-proposals.json." },
+    { "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail", "field": "effort.drivers.distance_km", "outcome": "searched_none", "tried": ["Overpass: highway ways and route=hiking relations named Interlakes within 7 km of 50.62,-115.135 (only North Interlakes Loop Road and Interlakes Campground Road, both roads)"], "host": "overpass-api.de" },
+    { "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail", "field": "effort.drivers.distance_km", "outcome": "blocked", "host": "overpass-api.de", "reason": "HTTP 502 on two attempts (19:05 and 19:06 UTC, 25 Oct 2026); stopped for this run" }
+  ]
+}
