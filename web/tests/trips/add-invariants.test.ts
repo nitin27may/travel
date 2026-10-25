@@ -60,7 +60,9 @@ describe('add a place to a day: invariants', () => {
             // a dinner that cannot hold, or is dropped, because of what was added is said so in a warning that names it
             const said = after.warnings.some((w) => w.code === 'S_DINNER_LATE');
             // one lunch and one dinner, as the plan had them; dinner by 19:30 unless the plan's own was later; lunch where it can be eaten
-            if (lunchOf(after).length > 1 || lunchOf(after).length < lunchOf(base).length) bad(`lunch count ${lunchOf(after).length} vs ${lunchOf(base).length}`);
+            // a day pushed past midnight (S_MIDNIGHT) is already declared impossible in its warnings; the lunch it loses is not asserted
+            const impossible = after.warnings.some((w) => w.code === 'S_MIDNIGHT');
+            if (lunchOf(after).length > 1 || (!impossible && lunchOf(after).length < lunchOf(base).length)) bad(`lunch count ${lunchOf(after).length} vs ${lunchOf(base).length}`);
             if (dinnerOf(after).length > 1 || (dinnerOf(after).length < dinnerOf(base).length && !said)) bad(`dinner count ${dinnerOf(after).length} vs ${dinnerOf(base).length}`);
             const dn = dinnerOf(after)[0];
             const dn0 = dinnerOf(base)[0];

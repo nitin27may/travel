@@ -68,9 +68,9 @@ describe('every surface that draws an age calls it', () => {
 // The Rockies: the card said "Kids from 5", the hero "Ages 5+", and the plan "from about 6". One stated age now feeds all three.
 describe('one stated age for a plan (the Rockies)', () => {
   const data = createPublicData();
-  it('the hero, the card and the plan bar agree on 6', () => {
+  it('the hero, the card and the plan bar agree on 6, while the page opens on a youngest of 10', () => {
     const trip = data.getTrip('canadian-rockies-2029')!;
-    expect(trip.schedule!.defaultProfile.youngest).toBe(6);
+    expect(trip.schedule!.defaultProfile.youngest).toBe(10);
     expect(trip.ageFit).toBe(6);
     const row = tripListRows().find((r) => r.slug === 'canadian-rockies-2029')!;
     expect(row.ageFit).toBe(6);

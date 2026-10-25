@@ -90,9 +90,9 @@ export function useTimeline(model: TimelineModel, url: TripUrl): TimelineApi {
     state, engine, pending: !plain && !engine, loadEngine, timelines, changedDays, changed: isChanged(state, defaults), droppedAdds, added,
     setProfile: (patch) => {
       const profile = { ...state.profile, ...patch };
-      // adults only has no youngest; a family has one (default 6 when it was never set)
+      // adults only has no youngest; a family has one (default 10 when it was never set)
       if (profile.party === 'adults') profile.youngest = null;
-      else profile.youngest ??= defaults.youngest ?? 6;
+      else profile.youngest ??= defaults.youngest ?? 10;
       write({ ...state, profile });
     },
     setVariant: (day, key) => {

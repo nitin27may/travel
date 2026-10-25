@@ -21,7 +21,7 @@ Both are read by `web/lib/public/timeline.ts` at build time. They are never publ
   is a suitability statement ("families with a child from about 6", "adults"), never a description of who travelled.
 - **Every key resolves.** An item key is a record id in the trip's datasets (Rockies: `trails.json`, `sights.json`,
   `adventures.json`) or an entry inserted by the plan. A test fails on a key that resolves to neither.
-- **Review with the CLI.** `node core/bin/schedule.ts --input <scheduleInput.json> --day 5 --profile family-6 --pace standard --split`
+- **Review with the CLI.** `node core/bin/schedule.ts --input <scheduleInput.json> --day 5 --profile family-10 --pace standard --split`
   prints a day as a table (time, confidence, lane, kind, title, duration, source).
 
 ## `trip-schedule/1`
@@ -30,7 +30,7 @@ Both are read by `web/lib/public/timeline.ts` at build time. They are never publ
 {
   "schema": "trip-schedule/1",
   "trip": "canadian-rockies-2029",
-  "defaultProfile": { "party": "family", "youngest": 6, "pace": "standard", "adults": 2 },   // the URL-state default, not a description
+  "defaultProfile": { "party": "family", "youngest": 10, "pace": "standard", "adults": 2 },   // the URL-state default, not a description
   "writtenFor": "families with a child from about 6",                                          // public: who the plan suits
   "tz": "America/Edmonton",
   "season": { "from": [9, 8], "to": [9, 22] },                                                // sun range window, month and day

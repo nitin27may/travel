@@ -95,7 +95,7 @@ const profileOf = (f: ScheduleFile | null, fallback: Partial<Profile> = {}): Pro
   ...(f
     ? {
         party: f.defaultProfile.party,
-        youngest: f.defaultProfile.party === 'family' ? (f.defaultProfile.youngest ?? 6) : null,
+        youngest: f.defaultProfile.party === 'family' ? (f.defaultProfile.youngest ?? 10) : null,
         pace: f.defaultProfile.pace ?? 'standard',
         adults: f.defaultProfile.adults ?? 2,
       }

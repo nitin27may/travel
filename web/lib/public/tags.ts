@@ -152,7 +152,7 @@ export interface HikeResult {
  * Hike effort: the maximum family effort of the trails with a known effort in the variant the default FAMILY profile picks on each day
  * (FE 1-2 easy, 3 moderate, 4-5 strenuous). An adults-only variant is never the family's, so it cannot set the tag.
  */
-export function hikeEffortTag(days: readonly ScheduleDayInput[], effortOf: (item: ScheduleItem) => number | null, profile: Profile = familyProfile(8)): HikeResult {
+export function hikeEffortTag(days: readonly ScheduleDayInput[], effortOf: (item: ScheduleItem) => number | null, profile: Profile = familyProfile(10)): HikeResult {
   let max: number | null = null;
   let decider: string | null = null;
   let unknown = 0;
@@ -414,7 +414,7 @@ export function buildTripTags(trip: PublicTrip, ctx: TagContext, conflicts: TagC
       gap: kids.unknown.length ? `${base.kidsBasis === 'floor' ? `shown as the proven floor ${kids.fitAge} (the plan says ${trip.ageFit}); ` : ''}${kids.unknown.length} item(s) with no age or distance on record, e.g. ${kids.unknown.slice(0, 3).map((u) => `${u.item} (day ${u.day})`).join('; ')}; the scheduler's fit age ${kids.fitAge} rests on them` : kids.fitAge === null ? 'no age fits every day' : 'none',
     });
   }
-  const profile: Profile = trip.schedule?.defaultProfile.party === 'family' ? trip.schedule.defaultProfile : familyProfile(8);
+  const profile: Profile = trip.schedule?.defaultProfile.party === 'family' ? trip.schedule.defaultProfile : familyProfile(10);
   // the trip tag rests on distance, gain and grades; exposure or surface alone is a hazard on the place, not effort
   const hike = hikeEffortTag(inputs, (item) => {
     const s = suitOf(item);

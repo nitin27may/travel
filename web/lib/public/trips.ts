@@ -33,7 +33,11 @@ import {
  */
 export function statedAge(typed: number | null, schedule: TripSchedule | null): number | null {
   const p = schedule?.defaultProfile;
-  return p?.party === 'family' && typeof p.youngest === 'number' ? p.youngest : typed;
+  if (p?.party !== 'family' || typeof p.youngest !== 'number') return typed;
+  // The default setting (the youngest the page opens on) is not the age the plan suits from: the plan states that in `writtenFor`
+  // ("families with a child from about 6"). Falls back to the default only when the sentence names no age.
+  const written = /\bfrom about (\d{1,2})\b/.exec(schedule?.writtenFor ?? '');
+  return written ? Number(written[1]) : p.youngest;
 }
 
 export interface TripBuild {
