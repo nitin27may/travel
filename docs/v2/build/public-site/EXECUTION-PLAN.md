@@ -925,6 +925,7 @@ Every pending item from every source (BACKLOG, TODO, design reviews and notes, l
 
 | Date | Change |
 |---|---|
+| 2026-10-25 | New owner requests specified after phase E planning: R-62 to R-67 trip overview, best-time windows, thumbnails and customisation ([trip-overview-and-customisation.md](../../features/trip-overview-and-customisation.md), brief [OVR.md](briefs/OVR.md), data batches D7, D8, D5b in [DATA.md](briefs/DATA.md)); R-70 to R-75 favourites, place suggestions and trip requests ([visitor-suggestions-and-favourites.md](../../features/visitor-suggestions-and-favourites.md)). Both follow the closure queue and R-59 for `web/components/trips/**`. 14.2 row 4 is refined: stored reports go into the shared intake table, not a separate reports table. |
 | 2026-10-24 | R-60: provider is Neon (R-58). Banner added; D9, phase S, 3, 4, 4.8, 5.2, 14.2 and 15 now name the proposed `PostgresStore`, Neon child-branch testing and the existing migrations; Supabase CLI, Docker and generated-types steps removed as historical. Parity, privacy and rollback gates unchanged; API contracts unchanged |
 | 2026-10-20 | First version: order A, B, E, D with gates R1 and R2; CONS, META; server-switch column; Q70 to Q72 |
 | 2026-10-20 | Coverage sweep: COVERAGE.md (244 lines, 0 unmapped); phase A gains the visible-defect lines (TRP1, TST, A2b, A4b, A7b, A8b), 42 h to 75 h; DATA D6; calendar to readiness about 20 Nov; new rows 15.1 to 15.6 |
