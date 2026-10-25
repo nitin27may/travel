@@ -1,10 +1,13 @@
 {"schema":"towns-part/1","cc":"ch","admin1":{"gr":"Grisons"},"rows":[
+["ch-gr-arosa","Arosa",46.77793,9.67621,2307,"gr","Arosa",2661712],
 ["ch-gr-bonaduz","Bonaduz",46.81103,9.39821,2654,"gr","Bonaduz",2661453],
 ["ch-gr-breil","Breíl",46.76986,9.06036,1344,"gr","Breil",2661414],
 ["ch-gr-brusio","Brusio",46.25953,10.12385,1152,"gr","Brusio",2661365],
 ["ch-gr-cazis","Cazis",46.7194,9.43271,1641,"gr","Cazis",2661242],
+["ch-gr-celerina","Celerina",46.51217,9.85794,1241,"gr","Celerina",2661241],
 ["ch-gr-chur","Chur",46.84986,9.53287,35373,"gr","Chur",2661169],
 ["ch-gr-churwalden","Churwalden",46.78143,9.54377,1214,"gr","Churwalden",2661167],
+["ch-gr-davos","Davos",46.80429,9.83723,10898,"gr","Davos",2661039],
 ["ch-gr-disentis","Disentis",46.70341,8.8509,2193,"gr","Disentis",2661009],
 ["ch-gr-domat","Domat",46.83483,9.45075,6817,"gr","Domat",2661001],
 ["ch-gr-felsberg","Felsberg",46.84566,9.47588,2088,"gr","Felsberg",2660802],
@@ -13,10 +16,16 @@
 ["ch-gr-ilanz","Ilanz",46.77413,9.20461,2321,"gr","Ilanz",2660275],
 ["ch-gr-laax","Laax",46.80452,9.25787,1252,"gr","Laax",2660083],
 ["ch-gr-landquart","Landquart",46.95,9.56667,8886,"gr","Landquart",2660042],
+["ch-gr-lenzerheide","Lenzerheide",46.72215,9.55905,2610,"gr","Lenzerheide",2659950],
 ["ch-gr-maienfeld","Maienfeld",47.00472,9.53115,2435,"gr","Maienfeld",2659787],
 ["ch-gr-malans","Malans",46.98096,9.57527,2051,"gr","Malans",2659784],
+["ch-gr-mesocco","Mesocco",46.3939,9.23333,1262,"gr","Mesocco",2659676],
+["ch-gr-pontresina","Pontresina",46.4955,9.90126,1863,"gr","Pontresina",2659172],
+["ch-gr-poschiavo","Poschiavo",46.32441,10.05823,3428,"gr","Poschiavo",2659165],
 ["ch-gr-rhaezuens","Rhäzüns",46.79891,9.39764,1257,"gr","Rhaezuens",2659064],
+["ch-gr-samedan","Samedan",46.53399,9.87276,2700,"gr","Samedan",2658846],
 ["ch-gr-scuol","Scuol",46.79671,10.29804,2184,"gr","Scuol",2658660],
+["ch-gr-st-moritz","St. Moritz",46.49937,9.84327,4952,"gr","St. Moritz",2658813],
 ["ch-gr-tamins","Tamins",46.82964,9.40648,1160,"gr","Tamins",2658427],
 ["ch-gr-thusis","Thusis",46.69724,9.43938,2572,"gr","Thusis",2658371],
 ["ch-gr-trimmis","Trimmis",46.90075,9.5612,2831,"gr","Trimmis",2658311],
@@ -24,5 +33,6 @@
 ["ch-gr-untervaz","Untervaz",46.9275,9.53422,2303,"gr","Untervaz",2658232],
 ["ch-gr-vals-platz","Vals Platz",46.61647,9.18025,1006,"gr","Vals Platz",2658191],
 ["ch-gr-zernez","Zernez",46.69862,10.09268,1053,"gr","Zernez",2657926],
-["ch-gr-zizers","Zizers",46.93575,9.56491,3009,"gr","Zizers",2657916]
+["ch-gr-zizers","Zizers",46.93575,9.56491,3009,"gr","Zizers",2657916],
+["ch-gr-zuoz","Zuoz",46.60206,9.95965,1209,"gr","Zuoz",2657898]
 ]}

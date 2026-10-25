@@ -1,5 +1,15 @@
 {"schema":"towns-part/1","cc":"it","admin1":{"75":"Apulia"},"rows":[
+["it-75-accadia","Accadia",41.15768,15.331,2262,"75","Accadia",3183557],
 ["it-75-bari","Bari",41.12066,16.86982,316491,"75","Bari",3182351],
+["it-75-biccari","Biccari",41.39736,15.19644,2443,"75","Biccari",3182056],
+["it-75-bovino","Bovino",41.24916,15.33948,3335,"75","Bovino",3181644],
+["it-75-candela","Candela",41.13601,15.51537,2197,"75","Candela",3180874],
+["it-75-castelluccio-valmaggiore","Castelluccio Valmaggiore",41.3429,15.19944,1284,"75","Castelluccio Valmaggiore",3179563],
+["it-75-deliceto","Deliceto",41.22289,15.38447,3660,"75","Deliceto",3177629],
 ["it-75-foggia","Foggia",41.45845,15.55188,137032,"75","Foggia",3176885],
+["it-75-orsara-di-puglia","Orsara di Puglia",41.28163,15.26765,2522,"75","Orsara di Puglia",3171914],
+["it-75-rocchetta-sant-antonio","Rocchetta Sant'Antonio",41.10326,15.45993,1870,"75","Rocchetta Sant'Antonio",3169109],
+["it-75-roseto-valfortore","Roseto Valfortore",41.37544,15.09824,1145,"75","Roseto Valfortore",3168935],
+["it-75-sant-agata-di-puglia","Sant'Agata di Puglia",41.15127,15.37968,1769,"75","Sant'Agata di Puglia",3167646],
 ["it-75-taranto","Taranto",40.46438,17.24707,198585,"75","Taranto",3165926]
 ]}

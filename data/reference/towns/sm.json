@@ -1,0 +1,10 @@
+{"schema":"towns-part/1","cc":"sm","admin1":{"00":"San Marino"},"rows":[
+["sm-00-acquaviva","Acquaviva",43.94593,12.4185,1530,"00","Acquaviva",3183500],
+["sm-00-borgo-maggiore","Borgo Maggiore",43.94193,12.44738,6424,"00","Borgo Maggiore",3181793],
+["sm-00-cailungo","Cailungo",43.95186,12.4536,2076,"00","Cailungo",8199067],
+["sm-00-domagnano","Domagnano",43.94961,12.46828,3161,"00","Domagnano",3177542],
+["sm-00-fiorentino","Fiorentino",43.91001,12.45738,2510,"00","Fiorentino",3176966],
+["sm-00-murata","Murata",43.92015,12.45146,1580,"00","Murata",7302190],
+["sm-00-san-marino","San Marino",43.93667,12.44639,4500,"00","San Marino",3168070],
+["sm-00-valdragone","Valdragone",43.94021,12.45622,6983,"00","Valdragone",8199071]
+]}
