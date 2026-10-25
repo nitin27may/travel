@@ -120,7 +120,7 @@
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": 14,
+      "detour_min": 6,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -450,7 +450,7 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 52,
+      "detour_min": 60,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -539,7 +539,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 52 min is over 30"
+          "reason": "detour 60 min is over 30"
         }
       },
       "role": "highlight",
@@ -560,7 +560,7 @@
       "draw_suggested": "local",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": 48,
+      "detour_min": 54,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -646,7 +646,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 48 min is over 30"
+          "reason": "detour 54 min is over 30"
         }
       },
       "role": "highlight",
@@ -846,7 +846,7 @@
       "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": 0,
+      "detour_min": 10,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -966,7 +966,7 @@
       "draw_suggested": "local",
       "effective_draw": "world",
       "access_load": "plan",
-      "detour_min": 20,
+      "detour_min": 24,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -1240,7 +1240,7 @@
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "plan",
-      "detour_min": 8,
+      "detour_min": 18,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -2177,7 +2177,7 @@
       "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": 26,
+      "detour_min": 28,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -2285,7 +2285,7 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 66,
+      "detour_min": 70,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -2346,7 +2346,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 66 min is over 30"
+          "reason": "detour 70 min is over 30"
         }
       },
       "role": "highlight",
@@ -2520,7 +2520,7 @@
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": 78,
+      "detour_min": 80,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -2579,7 +2579,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 78 min is over 30"
+          "reason": "detour 80 min is over 30"
         }
       },
       "role": "highlight",
@@ -2599,7 +2599,7 @@
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": 52,
+      "detour_min": 60,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -2699,7 +2699,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 52 min is over 30"
+          "reason": "detour 60 min is over 30"
         }
       },
       "role": "highlight",
@@ -2876,7 +2876,7 @@
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "plan",
-      "detour_min": 26,
+      "detour_min": 28,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -3194,7 +3194,7 @@
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "plan",
-      "detour_min": 0,
+      "detour_min": 10,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -3427,7 +3427,7 @@
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 64,
+      "detour_min": 66,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -3484,7 +3484,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 64 min is over 30"
+          "reason": "detour 66 min is over 30"
         }
       },
       "role": "highlight",
@@ -3504,7 +3504,7 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 52,
+      "detour_min": 60,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -3548,7 +3548,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 52 min is over 30"
+          "reason": "detour 60 min is over 30"
         }
       },
       "role": "filler",
@@ -3691,7 +3691,7 @@
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": 48,
+      "detour_min": 54,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -3723,7 +3723,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 48 min is over 30"
+          "reason": "detour 54 min is over 30"
         }
       },
       "role": "anchor",
@@ -3807,7 +3807,7 @@
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": 98,
+      "detour_min": 100,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -3857,7 +3857,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 98 min is over 30"
+          "reason": "detour 100 min is over 30"
         }
       },
       "role": "anchor",
@@ -4319,7 +4319,7 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 66,
+      "detour_min": 70,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -4380,7 +4380,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 66 min is over 30"
+          "reason": "detour 70 min is over 30"
         }
       },
       "role": "highlight",
@@ -4700,7 +4700,7 @@
       "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 14,
+      "detour_min": 6,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -4891,7 +4891,7 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 2,
+      "detour_min": 8,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -4964,7 +4964,7 @@
         "day": {},
         "passing": {
           "fit": "worth_it",
-          "reason": "detour 2 min, draw regional"
+          "reason": "detour 8 min, draw regional"
         }
       },
       "role": "highlight",
@@ -4984,7 +4984,7 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": 24,
+      "detour_min": 26,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -5060,7 +5060,7 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 54,
+      "detour_min": 62,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -5127,7 +5127,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 54 min is over 30"
+          "reason": "detour 62 min is over 30"
         }
       },
       "role": "highlight",
@@ -6023,7 +6023,7 @@
       "draw_suggested": "local",
       "effective_draw": "world",
       "access_load": "plan",
-      "detour_min": 20,
+      "detour_min": 24,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -6373,7 +6373,7 @@
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 64,
+      "detour_min": 66,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -6430,7 +6430,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 64 min is over 30"
+          "reason": "detour 66 min is over 30"
         }
       },
       "role": "highlight",
@@ -6507,7 +6507,7 @@
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": 98,
+      "detour_min": 100,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -6557,7 +6557,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 98 min is over 30"
+          "reason": "detour 100 min is over 30"
         }
       },
       "role": "anchor",
@@ -6578,7 +6578,7 @@
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": 48,
+      "detour_min": 54,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -6610,7 +6610,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 48 min is over 30"
+          "reason": "detour 54 min is over 30"
         }
       },
       "role": "anchor",
@@ -6991,7 +6991,7 @@
       "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 14,
+      "detour_min": 6,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},

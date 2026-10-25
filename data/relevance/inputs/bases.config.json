@@ -22,6 +22,16 @@
     },
     {
       "trip": "canadian-rockies-2029",
+      "name": "Lake Louise",
+      "lat": 51.42497,
+      "lon": -116.17754,
+      "country": "Canada",
+      "admin": "Alberta (Banff National Park); the hamlet, OSM place=hamlet node 2665400241 (read 2026-10-25), Wikidata Q12826048 agrees within 300 m, not the lake Q1367398",
+      "check": "stay base is the hamlet; the lake item Q1367398 is the wrong entity for a base (DATA-D1 ruling, research/runs/DATA-D1-points.md)",
+      "coord_src": "nominatim"
+    },
+    {
+      "trip": "canadian-rockies-2029",
       "name": "Kananaskis Village",
       "qid": "Q6360620",
       "country": "Canada",

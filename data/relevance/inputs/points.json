@@ -2247,10 +2247,10 @@
     {
       "id": "lake-louise",
       "name": "Lake Louise",
-      "lat": 51.41167,
-      "lon": -116.22806,
+      "lat": 51.42497,
+      "lon": -116.17754,
       "has_stay": true,
-      "coord_src": "wikidata"
+      "coord_src": "nominatim"
     },
     {
       "id": "les-praz",
