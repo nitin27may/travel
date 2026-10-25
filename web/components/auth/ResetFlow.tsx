@@ -144,7 +144,7 @@ export function ResetFlow({ siteKey }: { siteKey: string | null }) {
   if (step === 'done') {
     const next = returnPathFromSearch(window.location.search);
     return (
-      <div className="auth-card">
+      <div className="auth-card auth-done">
         <div className="auth-step" role="status">
           <StepHeading focus={moved}>Your password is set</StepHeading>
           <p className="auth-lead">For your safety you were signed out everywhere. Sign in with your new password.</p>

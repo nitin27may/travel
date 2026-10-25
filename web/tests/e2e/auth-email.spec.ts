@@ -360,6 +360,8 @@ test('after a reset whose sign-in fails, says the password is set and to sign in
   await pw(page).fill('a-new-long-password');
   await page.getByRole('button', { name: 'Set password' }).click();
   await expect(page.getByRole('heading', { name: 'Your password is set' })).toBeFocused();
+  // The page sub-line describes the steps still to come, so it goes once they are done (EML-V F2).
+  await expect(page.getByText('We email you a code, then you choose a new password.', { exact: false })).toBeHidden();
   await expect(page.locator('.auth-card').getByRole('link', { name: 'Sign in' })).toHaveAttribute('href', '/sign-in/?next=%2Ftrips%2F');
 });
 
@@ -396,13 +398,32 @@ test('refuses a malformed address before any call', async ({ page }) => {
 test('fits a phone: no sideways scroll, 44 px targets on every step', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 700 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await mockAuth(page);
+  await mockAuth(page, { 'sign-in/email-otp': () => ({ status: 403, body: { code: 'TOO_MANY_ATTEMPTS' } }) });
   const fits = async () => {
+    await page.locator('.auth-card').waitFor();
     await page.waitForTimeout(200); // let the 120 ms step fade settle before measuring
     const wide = await page.evaluate(() =>
       [...document.querySelectorAll('body *')].filter((el) => el.getBoundingClientRect().right > window.innerWidth + 0.5).map((el) => `${el.tagName}.${el.className}`).slice(0, 5),
     );
     expect(wide).toEqual([]);
+    // Nothing inside the card may cross the card's inner edge (EML-V F1: the code field spilled 3 px at 320 px).
+    const spill = await page.evaluate(() => {
+      const card = document.querySelector('.auth-card') as HTMLElement;
+      const box = card.getBoundingClientRect();
+      const cs = getComputedStyle(card);
+      const left = box.left + parseFloat(cs.borderLeftWidth) + parseFloat(cs.paddingLeft) - 0.5;
+      const right = box.right - parseFloat(cs.borderRightWidth) - parseFloat(cs.paddingRight) + 0.5;
+      return [...card.querySelectorAll('*')]
+        // Text actions bleed their 44 px hit area 8 px into the padding on purpose (their text aligns with the column).
+        .filter((el) => !el.closest('.auth-turnstile') && !el.closest('.auth-link') && !el.classList.contains('sr-only') && el.getClientRects().length > 0)
+        .filter((el) => {
+          const r = el.getBoundingClientRect();
+          return r.width > 0 && (r.right > right || r.left < left);
+        })
+        .map((el) => `${el.tagName}.${el.className}`)
+        .slice(0, 5);
+    });
+    expect(spill).toEqual([]);
     for (const el of await page.locator('.auth-card button:visible, .auth-card a:visible').all()) {
       const box = await el.boundingBox();
       expect(box?.height ?? 0, (await el.textContent()) ?? '').toBeGreaterThanOrEqual(43.9); // 44 px, allowing WebKit's sub-pixel rounding
@@ -414,6 +435,9 @@ test('fits a phone: no sideways scroll, 44 px targets on every step', async ({ p
   await page.getByRole('button', { name: 'Continue' }).click();
   await fits();
   await page.getByRole('button', { name: 'Email me a code' }).click();
+  await fits();
+  await page.getByLabel('Code').fill('000000');
+  await expect(page.getByLabel('Code')).toBeDisabled(); // the dead state, with the wait in the error
   await fits();
   await page.getByRole('button', { name: 'Use my password instead' }).click();
   await fits();

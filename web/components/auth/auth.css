@@ -62,7 +62,13 @@
 @media (min-width: 640px) {
   .auth-card .input { min-height: 42px; }
 }
-.auth-code input { font-size: 20px; letter-spacing: 0.3em; }
+/* The field and its wrapper may shrink below the input's intrinsic width (letter-spacing widens it; EML-V F1 at 320 px). */
+.auth-card .field { grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.auth-card .input { max-width: 100%; }
+.auth-code input { width: 100%; min-width: 0; font-size: 20px; letter-spacing: 0.3em; }
+@media (max-width: 359px) {
+  .auth-code input { letter-spacing: 0.2em; }
+}
 
 .auth-card .auth-actions .btn,
 .auth-choices .btn { width: 100%; min-height: var(--touch-min); }
@@ -91,7 +97,8 @@
 .auth-address .auth-link { margin: 0; }
 
 .auth-password { display: flex; gap: var(--s-2); }
-.auth-password .input { flex: 1; }
+.auth-password .input { flex: 1; min-width: 0; }
+.auth-password input { width: 100%; min-width: 0; }
 .auth-show { flex: none; min-height: 46px; min-width: var(--touch-min); }
 @media (min-width: 640px) {
   .auth-show { min-height: 42px; }
@@ -101,3 +108,7 @@
 .auth-turnstile { margin-top: var(--s-3); }
 /* A banner outside the step (the Turnstile challenge line) keeps the step's rhythm. */
 .auth-card > .ban { margin-top: var(--s-4); }
+
+/* The reset page's server-rendered sub-line explains the steps ("We email you a code, then you choose a new password"); once the
+   password is set it no longer applies, so the done state hides it and its own card says what happened (EML-V F2). */
+.auth-page:has(.auth-done) .auth-head .auth-sub { display: none; }
