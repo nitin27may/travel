@@ -1308,3 +1308,27 @@ Built as specified in section 13 and "Decision 25 Oct", with these differences a
 - **Copy:** codes expire after **5 minutes** on Neon (EML-0 U9), not 15; EML-1's card copy and any Phase 1 text must say 5.
 - **Deploy order:** EML-Q fails closed without `TURNSTILE_SECRET_KEY` and a token, and today's `AuthForm` sends no token, so EML-Q and
   EML-1 deploy together, after O-E2, O-E3 and migration 0011 on production (owner approval).
+
+## EML-1 build notes (25 Oct 2026, Opus, branch `public/EML-1`)
+
+Built for Phase 1 as sections 3 to 5 say, with these differences and findings:
+
+- **Flags live in `web/lib/auth/flags.ts`, not `web/lib/capabilities.ts`.** The capabilities object is imported by the client
+  header on every page; a new property would grow every page's start JS, and the trip and place pages have almost no headroom.
+  The sign-in pages are server pages and pass the flags to the lazy card as props. The rule "no link without the code option" is
+  tested there.
+- **The card calls `/api/auth/*` with plain `fetch`**, not the Better Auth browser client: it needs the guard's `code`,
+  `Retry-After` and the `x-turnstile-token` header. A success is followed by a full page load to the checked `next`
+  (`web/lib/auth/return-path.ts`, Google spec 7.4) or `/account/`, so the account page needs no change to follow `next` for
+  code and password sign-in (Google still returns through `/account/`, GSI-1).
+- **No name at sign-up** (rule E8): the card sends `name: ''` and has no name field.
+- **Reset signs in again.** The guard's revocation signs out this browser too, so after `/email-otp/reset-password` the card signs
+  in with the new password; if that fails it shows "Your password is set ... sign in with your new password".
+- **Reset for an account with no password (A6):** upstream Better Auth 1.7.6 `resetPasswordEmailOTP` creates a `credential`
+  account when none exists (and marks the address verified), so `/sign-in/reset/` is also how a code-only user sets a first
+  password. Not confirmed live on Neon's fork: it needs a real code (EML-E).
+- **Copy:** every expiry line says 5 minutes. "Or use Google" is left out of the quota and send-failure copy until GSI-1 adds
+  the button. A wait under 90 s reads "Please wait a minute, then try again." (a second sign-up within 60 s).
+- **Turnstile** loads on the first focus of the email field, renders "interaction-only" and hands out one token per call.
+- **Not covered by e2e:** the card with `NEXT_PUBLIC_SIGN_IN_CODE` off (unit-tested through the flags only); the real widget and
+  real codes (owner, EML-E).

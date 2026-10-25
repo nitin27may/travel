@@ -351,6 +351,9 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `PW_E2E_URL` | web `scripts/neon-e2e.mjs` | URL of the running app the Neon e2e check drives | no |
 | `TEST_DATABASE_URL` | core `test/db/integration.test.ts` | Connection string for the isolated branch the DB integration tests run against; unset, they skip | no |
 | `NEXT_PUBLIC_SIGN_IN` | web `lib/capabilities.ts` | `1` enables the account sign-in capability in the browser bundle | yes |
+| `NEXT_PUBLIC_SIGN_IN_CODE` | web `lib/auth/flags.ts` | `1` (with `NEXT_PUBLIC_SIGN_IN`) offers "Email me a code" on the sign-in card (email spec 11.1). Off by default until the owner turns it on | yes |
+| `NEXT_PUBLIC_SIGN_IN_LINK` | web `lib/auth/flags.ts` | Phase 2: `1` (with `NEXT_PUBLIC_SIGN_IN_CODE`) would offer a magic link; nothing reads it yet | yes |
+| `AUTH_SHOTS_DIR` | web e2e `auth-email.shots.spec.ts` | Folder the opt-in sign-in card screenshots are written to; unset, the spec skips | no |
 | `RESEND_API_KEY` | web `lib/server/mailer.ts` | Send-only Resend key for owner alerts (EML-M). Unset, the mailer is disabled and refuses every send | no |
 | `OWNER_EMAIL` | web `lib/server/mailer.ts` | The owner's address, which must be the Resend account's own address (the sandbox delivers nowhere else). The only recipient allowed while `MAIL_FROM` is unset; unset, every alert is refused | no |
 | `MAIL_FROM` | web `lib/server/mailer.ts` | Our verified sender (Phase 2, after a mail domain). Unset in Phase 1: the sandbox sender and owner-only recipients | no |

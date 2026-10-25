@@ -47,7 +47,9 @@
     ".fixture-trip-routes/types/**/*.ts",
     ".fixture-trip-routes/dev/types/**/*.ts",
     ".fixture-trp2b2-shots/types/**/*.ts",
-    ".fixture-trp2b2-shots/dev/types/**/*.ts"
+    ".fixture-trp2b2-shots/dev/types/**/*.ts",
+    ".fixture-auth/types/**/*.ts",
+    ".fixture-auth/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
