@@ -552,9 +552,9 @@
             "src-0006",
             "src-0007"
           ],
-          "note": "About 1 km and 368 shallow steps each way: any age, the youngest carried."
+          "note": "About 1 km and 368 shallow steps in each direction: any age, the youngest carried."
         },
-        "kid_note": "A ridge boardwalk from the gondola's upper terminal toward Sanson's Peak, with 368 shallow steps each way. It now ends at a viewpoint between the Cosmic Ray Station and the old weather observatory.",
+        "kid_note": "A ridge boardwalk from the gondola's upper terminal toward Sanson's Peak, with 368 shallow steps in each direction. It now ends at a viewpoint between the Cosmic Ray Station and the old weather observatory.",
         "carrier_ok": {
           "v": true,
           "state": "value",
@@ -572,7 +572,7 @@
             "src-0007"
           ],
           "quote": "we do not recommend strollers",
-          "note": "The operator says this of the cabins and mountaintop facilities; the boardwalk has 368 steps each way."
+          "note": "The operator says this of the cabins and mountaintop facilities; the boardwalk has 368 steps in each direction."
         },
         "stroller_extent": {
           "scope": "whole"
@@ -584,7 +584,7 @@
           "src": [
             "src-0007"
           ],
-          "quote": "the summit boardwalk is not as it consists of 368 shallow stairs each way",
+          "quote": "the summit boardwalk is not as it consists of 368 shallow stairs",
           "note": "The gondola and the summit building are wheelchair accessible; the boardwalk is not."
         },
         "effort": {
@@ -627,7 +627,7 @@
               "src": [],
               "on": "2026-10-25",
               "tried": [
-                "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs/ (368 shallow stairs each way; no metres)",
+                "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs/ (368 shallow stairs in each direction; no metres)",
                 "https://parks.canada.ca/pn-np/ab/banff/activ/marchehiver-winterwalking/banff (no gain for the boardwalk)"
               ],
               "note": "The steps go up and down along the ridge; no published climb in metres."

@@ -1,7 +1,7 @@
 {
   "schema": "snapshot-report/1",
   "note": "Dropped from the public view because it carries a calendar date. Rewrite each as a season, a day number or a rule.",
-  "count": 231,
+  "count": 229,
   "items": [
     {
       "where": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre wikidata note",
@@ -369,18 +369,13 @@
       "why": "agent or review-queue process note; never published"
     },
     {
-      "where": "legacy/canadian-rockies-sept-2029/trails/lake-agnes adult_time_min note",
-      "text": "converted from trails.json hours \"3-4 h\" to minutes; not re-read at the source",
+      "where": "legacy/canadian-rockies-sept-2029/trails/lake-agnes age_band note",
+      "text": "7.8 km and 495 m (effort_km 12.75) against the age gates of suitability.md 6.2: over the 6-7 ceiling (6 km, 350 m), inside the 8-9 ceiling (9 km, 500 m, 14).",
       "why": "agent or review-queue process note; never published"
     },
     {
-      "where": "legacy/canadian-rockies-sept-2029/trails/lake-agnes effort.drivers.distance_km note",
-      "text": "trails.json km 7.8 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
-      "why": "agent or review-queue process note; never published"
-    },
-    {
-      "where": "legacy/canadian-rockies-sept-2029/trails/lake-agnes effort.drivers.gain_m note",
-      "text": "trails.json gain_m 495 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "where": "legacy/canadian-rockies-sept-2029/trails/lake-agnes carrier_ok note",
+      "text": "495 m of climb is over the carrying-adult ceiling of suitability.md 6.2 (8 km, 400 m).",
       "why": "agent or review-queue process note; never published"
     },
     {
@@ -504,18 +499,13 @@
       "why": "agent or review-queue process note; never published"
     },
     {
-      "where": "legacy/canadian-rockies-sept-2029/trails/rawson-lake adult_time_min note",
-      "text": "converted from trails.json hours \"3-4 h return\" to minutes; not re-read at the source",
+      "where": "legacy/canadian-rockies-sept-2029/trails/rawson-lake age_band note",
+      "text": "7.8 km and 320 m (effort_km 11.0) against the age gates of suitability.md 6.2: over the 6-7 ceiling (6 km), inside the 8-9 ceiling (9 km, 500 m, 14).",
       "why": "agent or review-queue process note; never published"
     },
     {
-      "where": "legacy/canadian-rockies-sept-2029/trails/rawson-lake effort.drivers.distance_km note",
-      "text": "trails.json km 7.8 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
-      "why": "agent or review-queue process note; never published"
-    },
-    {
-      "where": "legacy/canadian-rockies-sept-2029/trails/rawson-lake effort.drivers.gain_m note",
-      "text": "trails.json gain_m 300 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "where": "legacy/canadian-rockies-sept-2029/trails/rawson-lake carrier_ok note",
+      "text": "7.8 km and 320 m is inside the carrying-adult ceiling of suitability.md 6.2 (8 km, 400 m, effort 12).",
       "why": "agent or review-queue process note; never published"
     },
     {
