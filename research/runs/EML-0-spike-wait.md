@@ -79,3 +79,8 @@ The Resend key is only in the production env file, which EML-0 may not use. Deci
 ## Decision: child settings
 
 All child settings are restored to the baseline (run notes). No decision is needed unless you want something left on.
+
+
+## W1 result (owner, 25 Oct 2026)
+
+Five mails arrived, as expected (no mail to the aliases that should have had none). The reset-by-code mail was seen in the Inbox, sender display name "Neon Auth", body names "Travel Planner", code in a boxed block, Gmail showed its Copy code card. Gmail also showed "Images in this message are hidden. This message appears suspicious" on that mail (shared development sender, no own domain). Folder of the other four and their subjects: not reported; treat as Inbox unless the owner says otherwise.
