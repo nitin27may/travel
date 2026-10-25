@@ -42,7 +42,7 @@ export function ProfileBar({ model, api, edit, setEdit, label }: { model: Timeli
   const p = api.state.profile;
   const [prefs] = usePrefs();
   const [more, setMore] = useState(false);
-  const age = p.youngest ?? model.defaultProfile.youngest ?? 6;
+  const age = p.youngest ?? model.defaultProfile.youngest ?? 10;
   const set = (patch: Partial<Profile>) => api.setProfile(patch);
   const line = summaryLine(model, api);
   return (

@@ -62,7 +62,9 @@ describe('which trips get a timeline', () => {
 describe('Rockies: the profile picks the version of each day (spec 3.3)', () => {
   it('the default (a family) gets the family version on every day, with split options on the split days', () => {
     const tl = rockies.schedule!.timelines;
-    expect(tl.every((t) => t.variant.key === 'B')).toBe(true);
+    // The default youngest is 10 (owner, 25 Oct 2026). At 10 the adults' walk on Day 6 fits the age band, so it is the one version shown there
+    // (select.ts: an adults' variant is eligible for a family when it fits the youngest and the ceiling). At 6 it was B on every day.
+    expect(tl.filter((t) => t.variant.key !== 'B').map((t) => `${t.day}${t.variant.key}`)).toEqual(['6A']);
     for (const n of [2, 5, 7, 9, 10, 11, 13]) {
       const t = tl.find((x) => x.day === n)!;
       const note = t.notes.find((x) => x.kind === 'split-option');
@@ -70,7 +72,9 @@ describe('Rockies: the profile picks the version of each day (spec 3.3)', () => 
       expect(note!.text).toMatch(/^Split option: /);
     }
     // the days with only an optional Track A say so more quietly
-    for (const n of [3, 4, 6, 8, 12]) expect(tl.find((x) => x.day === n)!.notes.find((x) => x.kind === 'split-option')!.text).toMatch(/^Optional split: /);
+    for (const n of [3, 4, 8, 12]) expect(tl.find((x) => x.day === n)!.notes.find((x) => x.kind === 'split-option')!.text).toMatch(/^Optional split: /);
+    // Day 6 shows the adults' walk to a youngest of 10, so there is nothing to split off
+    expect(tl.find((x) => x.day === 6)!.notes.find((x) => x.kind === 'split-option')).toBeUndefined();
     expect(tl.find((x) => x.day === 14)!.notes.find((x) => x.kind === 'split-option')).toBeUndefined();
   });
   it('adults get the adults\' hike on every day that has one, and no split row', () => {
@@ -246,9 +250,9 @@ describe('review round three', () => {
 describe('review round two', () => {
   it('only the genuinely long Rockies days warn about the cap at the default profile', () => {
     const capped = rockies.schedule!.timelines.filter((t) => t.warnings.some((w) => w.code === 'S_DAY_CAP')).map((t) => t.day);
-    // 4 is the Icefields Parkway move day; 13 carries the optional Rawson Lake. Days 2 and 5 pass the cap by 5 to 15 minutes once the wait for
-    // the other adult is scheduled in every view (L3c I-1: a view switch must not change the plan). Day 7 stays under.
-    expect(capped, capped.join()).toEqual([2, 4, 5, 13]);
+    // 4 is the Icefields Parkway move day. At the default youngest of 10 (6 before 25 Oct 2026) days 5 and 13 fit under the cap, where at 6 they
+    // passed it by 5 to 15 minutes (the trail multiplier falls from 1.6 to 1.0); Day 2 still passes it with the wait for the other adult.
+    expect(capped, capped.join()).toEqual([2, 4]);
     expect(scheduleDay(day(rockies, 5).scheduleInput!, P(), { variant: 'C' }).warnings.some((w) => w.code === 'S_DAY_CAP')).toBe(false);
   });
   it('the adults version of Day 5 takes its title from its own version and keeps the on-trail lunch before the drive back', () => {

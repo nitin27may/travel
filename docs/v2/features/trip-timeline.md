@@ -352,7 +352,7 @@ These are for things the rules cannot know: a time the owner chose, a slot, a re
 {
   "schema": "trip-schedule/1",
   "trip": "canadian-rockies-2029",
-  "defaultProfile": { "party": "family", "youngest": 6, "pace": "standard", "adults": 2 },
+  "defaultProfile": { "party": "family", "youngest": 10, "pace": "standard", "adults": 2 },
   "writtenFor": "2 adults and a 6 year old",
   "variants": {
     "A": { "label": "Adults' hike", "audience": "adults" },
@@ -419,7 +419,7 @@ The validation runs on every `DayTimeline` and per lane. It produces warnings, n
 
 | Control | Values | Default |
 |---|---|---|
-| Who is going | **Adults** · **Family** with "youngest child" (0 to 17, a stepper; ages shown as "6 years") | the trip's `defaultProfile` (Rockies: family, 6), else adults |
+| Who is going | **Adults** · **Family** with "youngest child" (0 to 17, a stepper; ages shown as "6 years") | the trip's `defaultProfile` (Rockies: family, 10), else adults |
 | Pace | **Relaxed** · **Standard** · **Full** | standard |
 | Adults | 1 · 2 or more (inside "More"; only matters for split days) | 2 |
 | Longest walk | Any · 5 · 8 · 12 km (inside "More") | from the youngest age (2.4) |
@@ -757,7 +757,7 @@ Sources checked on 18 Oct 2026:
 1. Every full and summary trip page shows a whole-trip timeline (Day 1 to N) and a per-day timeline with times. Overview pages show neither.
 2. Each time shows its confidence and, expanded, its source. The banner "Suggested times" is present.
 3. Changing the profile changes the variant, times and warnings on every affected day, in place, with URL state. Back restores the previous profile.
-4. `/trips/canadian-rockies-2029?p=adults` shows Track A on every day that has one. The default (`family-6`) shows B, with split options on the 7 split days. `?p=family-3` shows the no-fit chip on every day whose easiest variant exceeds a 3 year old.
+4. `/trips/canadian-rockies-2029?p=adults` shows Track A on every day that has one. The default (`family-10`) shows B, with split options on the 7 split days. `?p=family-3` shows the no-fit chip on every day whose easiest variant exceeds a 3 year old.
 5. A per-day override and an added item survive reload and a shared link, and re-flow the day with the diff marked.
 6. No public string contains INFERENCE, CALC, GAP or "low confidence". Prose quantities follow the unit preference.
 7. The validation fixtures pass. The scheduler and `checkDays` agree on shared codes.
