@@ -803,6 +803,7 @@
     },
     {
       "ref": "place/croda-del-becco",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -854,6 +855,7 @@
     },
     {
       "ref": "part/place/croda-del-becco#payoff",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "nature.summit.summit",
       "layer": "place",
       "near_town": {
@@ -964,6 +966,7 @@
     },
     {
       "ref": "part/place/lago-federa#walk",
+      "area_id": "IT/veneto/belluno",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -1003,6 +1006,7 @@
     },
     {
       "ref": "place/cascate-di-fanes",
+      "area_id": "IT/veneto/belluno",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -1036,6 +1040,7 @@
     },
     {
       "ref": "part/place/cascate-di-fanes#payoff",
+      "area_id": "IT/veneto/belluno",
       "type": "water.falls.waterfall",
       "layer": "place",
       "near_town": {
@@ -1105,6 +1110,7 @@
     },
     {
       "ref": "place/adolf-munkel-weg",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -1328,6 +1334,7 @@
     },
     {
       "ref": "place/vallunga",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -1937,6 +1944,7 @@
     },
     {
       "ref": "place/lago-di-misurina",
+      "area_id": "IT/veneto/belluno",
       "type": "water.body.lake",
       "layer": "place",
       "near_town": {
@@ -2000,6 +2008,7 @@
     },
     {
       "ref": "place/lago-federa",
+      "area_id": "IT/veneto/belluno",
       "type": "water.body.lake",
       "layer": "place",
       "near_town": {
@@ -2124,6 +2133,7 @@
     },
     {
       "ref": "place/bolzano",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -2146,6 +2156,7 @@
     },
     {
       "ref": "place/cortina-dampezzo",
+      "area_id": "IT/veneto/belluno",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -2268,6 +2279,7 @@
     },
     {
       "ref": "place/san-vito-di-cadore",
+      "area_id": "IT/veneto/belluno",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {

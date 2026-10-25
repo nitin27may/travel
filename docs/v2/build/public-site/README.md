@@ -350,6 +350,9 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `NEON_E2E` | web `scripts/neon-e2e.mjs` | `1` runs the real Neon auth/CRUD/live/isolation end-to-end check | no |
 | `PW_E2E_URL` | web `scripts/neon-e2e.mjs` | URL of the running app the Neon e2e check drives | no |
 | `TEST_DATABASE_URL` | core `test/db/integration.test.ts` | Connection string for the isolated branch the DB integration tests run against; unset, they skip | no |
+| `LOCAL_DATABASE_URL` | core `bin/db-local.ts`, `src/db/localTarget.ts` | Points the `pnpm db:*` scripts at another local database; checked by the production guard, never `DATABASE_URL` | no |
+| `LOCAL_DB_ENV_FILE` | core `src/db/localTarget.ts` | Path of the generated local-database credentials file (default `~/.config/travel/local-db.env`, mode 600, outside the repo) | no |
+| `LOCAL_DB_RESET_TEST` | core `test/db/localReset.test.ts` | Set to 1 to run the opt-in `db:reset` idempotency test (it destroys the local volume) | no |
 | `NEXT_PUBLIC_SIGN_IN` | web `lib/capabilities.ts` | `1` enables the account sign-in capability in the browser bundle | yes |
 | `NEXT_PUBLIC_SIGN_IN_CODE` | web `lib/auth/flags.ts` | `1` (with `NEXT_PUBLIC_SIGN_IN`) offers "Email me a code" on the sign-in card (email spec 11.1). Off by default until the owner turns it on | yes |
 | `NEXT_PUBLIC_SIGN_IN_LINK` | web `lib/auth/flags.ts` | Phase 2: `1` (with `NEXT_PUBLIC_SIGN_IN_CODE`) would offer a magic link; nothing reads it yet | yes |

@@ -856,7 +856,7 @@ Retention: 5.2 and the visitor spec table; `intake_purge()` (definer, at most on
 CLI, no cron) also deletes expired tokens, `unconfirmed` items older than 7 days with their contacts, and contacts of
 items closed more than 30 days ago.
 
-**Migration numbering.** 0011 is reserved by CUS-C, and the visitor spec expects 0012 (`account_favourite`) and 0013
+**Migration numbering.** 0011 is taken by EML-1 (`quota`); numbers are assigned at merge, so the customisation migration (`custom-draft`), the visitor spec's `account_favourite` and the intake migration take the next free numbers in merge order
 (intake). This spec **does not add a migration**: it widens the planned intake migration before it exists, so the
 intake migration takes the next free number when FBK-C runs (expected 0013, or later if the Google and Apple sign-in
 spec reserves one first). The runner refuses out-of-order files; renumber before applying, never after.

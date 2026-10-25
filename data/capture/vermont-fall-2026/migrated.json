@@ -80,6 +80,7 @@
     },
     {
       "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
+      "area_id": "US/VT/lamoille-county",
       "type": "nature.trail.walk",
       "layer": "route",
       "near_town": {

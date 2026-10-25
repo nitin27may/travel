@@ -408,9 +408,9 @@ the row. RIS-J converts the 185 rows and keeps every pre-migration ledger leaf (
 
 ### 4.3 What must be built for the load (SRV-0, not built today)
 
-1. **A migration, numbered at build time.** 0011 is reserved by CUS-C and 0012 and 0013 are expected for favourites and
-   feedback, so this is 0014 or later; the runner refuses an out-of-order file, so take the next free number when RIS-M
-   runs. Additive only: `meta jsonb not null default '{}'` with its checks on the 27 tables of 3.3 (`track.meta` gets the
+1. **A migration, numbered at build time.** 0011 is taken by EML-1 (`quota`); migration numbers are assigned at merge (the customisation, favourites and
+   feedback migrations take numbers in merge order, so take the next free number when RIS-M runs; the runner refuses an
+   out-of-order file). Additive only: `meta jsonb not null default '{}'` with its checks on the 27 tables of 3.3 (`track.meta` gets the
    checks); `notes_private text` on `entity`, `offer`, `operator`; `track.attrs jsonb`; `record_doc.family` widened to
    `capture`, `suitability`, `relevance`, `trip-windows`, `trip-base-plans`, `trip-season`, `capture-splits`; a new
    `load_run` table (`id`, `started_at`, `finished_at`, `git_commit`, `files jsonb` path to sha256, `counts jsonb`, `status`,
@@ -727,3 +727,4 @@ becomes a Val), `W_QUOTE_LONG` 36, `W_KEEP_UNREAD` 19, `W_NORM_PRIVACY` 3, `W_NO
 | 2026-10-25 | First version (travel-planner, Opus): measured inventory, keep-or-drop rule K1 to K7, RowMeta contract, the pipeline S0 to S9, the audit of D1, D1b, D3a, D4a, D6a, D7-R, D9-R and the prose, tasks RIS-C to RIS-T, Q170 to Q177, conflicts C1 to C11 |
 | 2026-10-25 | RIS-C built (travel-builder, Opus), branch `public/RIS-C`. Differences from 5.3: the family schemas hold `meta` as an open slot (`rowMetaSlot`) and the keep pass checks it against the strict `rowMeta`, so a fault reports as `E_META_*` rather than the family's schema code; extra codes `E_META_SCHEMA` (wrong type, no `schema_version`, unknown freshness class), `E_META_PRIVACY` (origin key, household text, email, secret, HTML), `W_META_SIZE` (above 1 KB) and `E_CAP_CHANGESET`; `privacy_class: private` outside a private table reports as `E_META_RAWREF`; `doc` joins `PRIVATE_KEYS` with `meta` and `notes_private` (RI-6); `E_NOTE_LONG` and `E_SUMMARY_LONG` run in warn mode with counts pinned in `core/test/schema/keep-budget.json` until RIS-J; the 43 homeless properties are TODO data in `data/vocab/homeless-properties.json`; `capture-changeset/1` has no `meta` (5.3 lists none). Trip-level families and tracks have no core schema yet, so their `meta` is checked once their validators exist (RIS-N, OVR-Ca, STY-Ca, D6a-W) |
 | 2026-10-25 | RIS-N built (travel-builder, Sonnet), branch `public/RIS-N`: `core/bin/normalise.ts` and `core/src/normalise/**`, section 11 |
+| 2026-10-25 | Superseded in part by [local-database-and-seed-sync.md](local-database-and-seed-sync.md) (travel-planner, Opus): Neon Free storage is 1 GB per project, not 0.5 GB (sections 1.1, 9, 10); "0011 is reserved by CUS-C" in 4.3 is stale, because EML-1's `0011_quota.sql` took 0011, and migrations are numbered at merge (R-146, Q186); RIS-L's engine, target guard and reference tables move to LOCAL-C and LOCAL-2 (about 7 h of RIS-L remains); RIS-T gains the sync tests of that page's 6.6. The rest of this page stands |

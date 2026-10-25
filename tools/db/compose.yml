@@ -1,0 +1,32 @@
+# Local database for development and tests (docs/v2/features/local-database-usage.md).
+# Start it with `pnpm db:up`, which creates the password file and passes it with --env-file; do not run
+# `docker compose` directly without that flag. Loopback only; a named volume survives `db:down`.
+name: travel-localdb
+
+services:
+  db:
+    build:
+      context: .
+    image: travel-pg18:local
+    container_name: travel-localdb
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: neondb
+      POSTGRES_PASSWORD: ${LOCAL_DB_SUPERUSER_PASSWORD:?run pnpm db:up}
+      OWNER_PASSWORD: ${LOCAL_DB_PASSWORD:?run pnpm db:up}
+    ports:
+      - "127.0.0.1:${LOCAL_DB_PORT:-54329}:5432"
+    volumes:
+      # Postgres 18 images keep PGDATA under /var/lib/postgresql/18/, so the volume mounts one level up.
+      - travel_pg18:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U neondb_owner -d neondb"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+      start_period: 5s
+
+volumes:
+  travel_pg18:
+    name: travel_pg18

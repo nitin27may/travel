@@ -1,0 +1,3520 @@
+{
+ "note": "Frozen 25 Oct 2026 from the repository (capture.ts derive-area loader) for the hold-out accuracy test of core/src/capture/deriveArea.ts: the place and route records of the three trips that had authored area_id values (their refs, sourced points, nearest towns, parents and authored areas), the locations-store labels within 50 km of them (area and point only, rounded to 4 decimals), the towns they name with their registry region, and the region of each area. Do not edit; refreeze only with a reason in the test.",
+ "subjects": [
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.14785,
+    "lon": -115.55562,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.170138,
+    "lon": -115.65467,
+    "approx": true
+   },
+   "town": null,
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.0925,
+    "lon": -115.39,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [
+    "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.17508,
+    "lon": -115.57208,
+    "approx": true
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.25917,
+    "lon": -117.27806,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.31499,
+    "lon": -116.95739,
+    "approx": false
+   },
+   "town": "ca-bc-golden",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.87541,
+    "lon": -118.08094,
+    "approx": false
+   },
+   "town": "ca-ab-jasper",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.86934,
+    "lon": -118.05812,
+    "approx": false
+   },
+   "town": "ca-ab-jasper",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.85134,
+    "lon": -118.12371,
+    "approx": false
+   },
+   "town": "ca-ab-jasper",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.29761,
+    "lon": -117.04857,
+    "approx": false
+   },
+   "town": "ca-bc-golden",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.44214,
+    "lon": -116.16119,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.44214,
+    "lon": -116.16119,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/legacy-trail",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.21296,
+    "lon": -115.53086,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.94254,
+    "lon": -115.15173,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 49.077444,
+    "lon": -113.8793,
+    "approx": false
+   },
+   "town": "ca-ab-cardston",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.14857,
+    "lon": -115.55824,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.66444,
+    "lon": -117.88377,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 49.4142,
+    "lon": -114.115,
+    "approx": false
+   },
+   "town": "ca-ab-pincher-creek",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/berg-lake",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 53.14515,
+    "lon": -119.15788,
+    "approx": false
+   },
+   "town": "ca-bc-valemount",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.66444,
+    "lon": -116.44861,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 49.0094,
+    "lon": -114.051,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 49.44218,
+    "lon": -114.4098,
+    "approx": false
+   },
+   "town": "ca-ab-blairmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.16944,
+    "lon": -115.59111,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.19083,
+    "lon": -117.25528,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/elbow-falls",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.86769,
+    "lon": -114.77899,
+    "approx": false
+   },
+   "town": "ca-ab-cochrane",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.47807,
+    "lon": -115.09646,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.444,
+    "lon": -116.531,
+    "approx": false
+   },
+   "town": "ca-bc-golden",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.5994,
+    "lon": -114.988,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.55908,
+    "lon": -117.69103,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/jasper-townsite",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.8731,
+    "lon": -118.082,
+    "approx": false
+   },
+   "town": "ca-ab-jasper",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.25001,
+    "lon": -115.83543,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.6181,
+    "lon": -115.154,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 53.0825,
+    "lon": -119.19278,
+    "approx": false
+   },
+   "town": "ca-bc-valemount",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/lake-magog",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.90222,
+    "lon": -115.6325,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.25806,
+    "lon": -115.37306,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-canyon",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.9203,
+    "lon": -118.011,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.66444,
+    "lon": -117.53361,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.18667,
+    "lon": -116.12528,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 53.130345,
+    "lon": -117.769788,
+    "approx": false
+   },
+   "town": "ca-ab-hinton",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.3225,
+    "lon": -116.18556,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/mount-edith-cavell",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.68257,
+    "lon": -118.04998,
+    "approx": false
+   },
+   "town": "ca-ab-jasper",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.96944,
+    "lon": -115.10778,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 53.11056,
+    "lon": -119.15667,
+    "approx": false
+   },
+   "town": "ca-bc-valemount",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.38181,
+    "lon": -116.53024,
+    "approx": false
+   },
+   "town": "ca-bc-golden",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 53.0333,
+    "lon": -119.2,
+    "approx": false
+   },
+   "town": "ca-bc-valemount",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/paint-pots",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.16992,
+    "lon": -116.14761,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.725,
+    "lon": -116.52222,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/prince-of-wales-hotel",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 49.0589,
+    "lon": -113.904,
+    "approx": false
+   },
+   "town": "ca-ab-cardston",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.9225,
+    "lon": -118.096,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.63486,
+    "lon": -116.03915,
+    "approx": false
+   },
+   "town": "ca-bc-radium-hot-springs",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 49.13166,
+    "lon": -114.0263,
+    "approx": true
+   },
+   "town": null,
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/smith-dorrien-trail",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.89389,
+    "lon": -115.285,
+    "approx": true
+   },
+   "town": null,
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.53233,
+    "lon": -117.64463,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.49972,
+    "lon": -116.47278,
+    "approx": false
+   },
+   "town": "ca-bc-golden",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 49.847,
+    "lon": -115.442,
+    "approx": false
+   },
+   "town": "ca-bc-elkford",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.17806,
+    "lon": -115.59889,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/wapta-falls",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.187,
+    "lon": -116.576,
+    "approx": false
+   },
+   "town": "ca-bc-golden",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/waterton-townsite",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 49.05092,
+    "lon": -113.90702,
+    "approx": false
+   },
+   "town": "ca-ab-cardston",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.87278,
+    "lon": -115.14917,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.135184,
+    "lon": -115.57688,
+    "approx": false
+   },
+   "town": "ca-bc-elkford",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.859,
+    "lon": -115.37868,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.66444,
+    "lon": -117.88377,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.72667,
+    "lon": -117.64458,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/bears-hump",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 49.060782,
+    "lon": -113.908353,
+    "approx": false
+   },
+   "town": "ca-ab-cardston",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 49.41671,
+    "lon": -114.11183,
+    "approx": false
+   },
+   "town": "ca-ab-pincher-creek",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 53.049836,
+    "lon": -119.215447,
+    "approx": false
+   },
+   "town": "ca-bc-valemount",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.16816,
+    "lon": -115.73106,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/burstall-pass",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.79077,
+    "lon": -115.30362,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.68736,
+    "lon": -118.055639,
+    "approx": false
+   },
+   "town": "ca-ab-jasper",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/chester-lake",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.79054,
+    "lon": -115.3006,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.17381,
+    "lon": -115.65467,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 49.031121,
+    "lon": -113.894211,
+    "approx": false
+   },
+   "town": "ca-ab-cardston",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.867767,
+    "lon": -114.781998,
+    "approx": false
+   },
+   "town": "ca-ab-cochrane",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.551024,
+    "lon": -115.07094,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.551024,
+    "lon": -115.07094,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.444,
+    "lon": -116.531,
+    "approx": false
+   },
+   "town": "ca-bc-golden",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.444,
+    "lon": -116.531,
+    "approx": false
+   },
+   "town": "ca-bc-golden",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.18421,
+    "lon": -115.58261,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.648889,
+    "lon": -117.89998,
+    "approx": false
+   },
+   "town": "ca-ab-jasper",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.08122,
+    "lon": -115.39447,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.06174,
+    "lon": -115.41863,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.49972,
+    "lon": -116.47278,
+    "approx": false
+   },
+   "town": "ca-bc-golden",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.63157,
+    "lon": -115.13998,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 53.1299,
+    "lon": -117.771,
+    "approx": false
+   },
+   "town": "ca-ab-hinton",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.199584,
+    "lon": -115.490354,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 53.04984,
+    "lon": -119.21545,
+    "approx": false
+   },
+   "town": "ca-bc-valemount",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/lake-agnes",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.41167,
+    "lon": -116.22806,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.9016,
+    "lon": -118.04827,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.41167,
+    "lon": -116.22806,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.3225,
+    "lon": -116.18556,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.861178,
+    "lon": -115.176195,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.18667,
+    "lon": -116.12528,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.72667,
+    "lon": -117.64458,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.72131,
+    "lon": -117.64221,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.3225,
+    "lon": -116.18556,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/mount-fairview",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.41167,
+    "lon": -116.22806,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.63157,
+    "lon": -115.13998,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.96944,
+    "lon": -115.10778,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/opal-hills",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.731616,
+    "lon": -117.631954,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 53.02818,
+    "lon": -119.23067,
+    "approx": false
+   },
+   "town": "ca-bc-valemount",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.16992,
+    "lon": -116.14761,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.18083,
+    "lon": -117.09222,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.71673,
+    "lon": -116.49876,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.3936,
+    "lon": -116.2726,
+    "approx": false
+   },
+   "town": "ca-bc-golden",
+   "parents": [],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.60291,
+    "lon": -114.98171,
+    "approx": false
+   },
+   "town": "ca-ab-turner-valley",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/rawson-lake",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.60709,
+    "lon": -115.1328,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 49.130849,
+    "lon": -114.025955,
+    "approx": false
+   },
+   "town": "ca-ab-pincher-creek",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/ribbon-creek",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.93274,
+    "lon": -115.14858,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.68633,
+    "lon": -115.11493,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.60709,
+    "lon": -115.1328,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.725769,
+    "lon": -117.645369,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 53.1299,
+    "lon": -117.771,
+    "approx": false
+   },
+   "town": "ca-ab-hinton",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.90443,
+    "lon": -115.63918,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.11493,
+    "lon": -115.76374,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.49972,
+    "lon": -116.47278,
+    "approx": false
+   },
+   "town": "ca-bc-golden",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.846824,
+    "lon": -115.357044,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.21262,
+    "lon": -117.23292,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.94213,
+    "lon": -115.14946,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.631545,
+    "lon": -115.139913,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.20409,
+    "lon": -116.58525,
+    "approx": false
+   },
+   "town": "ca-bc-golden",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.87278,
+    "lon": -115.14917,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.25002,
+    "lon": -117.23558,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sansons-peak",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.14706,
+    "lon": -115.57836,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+    "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sky-bistro",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.14475,
+    "lon": -115.57502,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+    "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.12361,
+    "lon": -115.55556,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/adventures/banff-gondola"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.14448,
+    "lon": -115.57502,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+    "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.14448,
+    "lon": -115.57502,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+    "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.15086,
+    "lon": -115.56062,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.090249,
+    "lon": -115.385509,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.8515,
+    "lon": -118.124,
+    "approx": false
+   },
+   "town": "ca-ab-jasper",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft#place",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.09465,
+    "lon": -115.0619,
+    "approx": true
+   },
+   "town": null,
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.3,
+    "lon": -116.983,
+    "approx": true
+   },
+   "town": null,
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-lower-canyon",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.3,
+    "lon": -116.983,
+    "approx": true
+   },
+   "town": null,
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-upper-section",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.3,
+    "lon": -116.983,
+    "approx": true
+   },
+   "town": null,
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.24283,
+    "lon": -116.66093,
+    "approx": false
+   },
+   "town": "ca-bc-golden",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.4419,
+    "lon": -116.161,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/bow-lake#parking",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.66986,
+    "lon": -116.44804,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/bow-lake"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.43895,
+    "lon": -116.54119,
+    "approx": false
+   },
+   "town": "ca-bc-golden",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/emerald-lake"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.27857,
+    "lon": -115.82358,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/johnston-canyon"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots-trail",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.24556,
+    "lon": -115.83979,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/johnston-canyon"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#lower-falls",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.25486,
+    "lon": -115.83732,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/johnston-canyon"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#upper-falls",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.26186,
+    "lon": -115.83128,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/johnston-canyon"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.24556,
+    "lon": -115.83979,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/johnston-canyon"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/lake-minnewanka#parking",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.24852,
+    "lon": -115.50038,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.72667,
+    "lon": -117.64458,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.32786,
+    "lon": -116.18069,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile-loop",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.32897,
+    "lon": -116.18179,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+    "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.32897,
+    "lon": -116.18179,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds#parking",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.96904,
+    "lon": -115.11027,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/pyramid-lake#parking",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.92376,
+    "lon": -118.09542,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/pyramid-lake"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.87389,
+    "lon": -115.14649,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/sights/wedge-pond"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.1356,
+    "lon": -115.79,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.07222,
+    "lon": -115.40694,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.06417,
+    "lon": -115.39972,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#larch-valley",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.33329,
+    "lon": -116.21888,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.34055,
+    "lon": -116.2219,
+    "approx": false
+   },
+   "town": "ca-ab-banff",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.59942,
+    "lon": -115.15976,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 53.1157,
+    "lon": -117.74485,
+    "approx": false
+   },
+   "town": "ca-ab-jasper-park-lodge",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 52.20748,
+    "lon": -117.23449,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 50.94806,
+    "lon": -115.14444,
+    "approx": false
+   },
+   "town": "ca-ab-canmore",
+   "parents": [
+    "legacy/canadian-rockies-sept-2029/trails/troll-falls"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.56397,
+    "lon": 11.6159,
+    "approx": false
+   },
+   "town": "it-32-castelrotto",
+   "parents": [
+    "place/bullaccia-and-the-witches-benches"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.57928,
+    "lon": 12.28729,
+    "approx": false
+   },
+   "town": "it-34-auronzo",
+   "parents": [
+    "place/cadini-di-misurina-viewpoint"
+   ],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "part/place/cascate-di-fanes#payoff",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.593995,
+    "lon": 12.083459,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [
+    "place/cascate-di-fanes"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/place/croda-del-becco#payoff",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.67522,
+    "lon": 12.07278,
+    "approx": false
+   },
+   "town": "it-32-monguelfo",
+   "parents": [
+    "place/croda-del-becco"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/place/funbob-monte-baranci#place",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.71811,
+    "lon": 12.27879,
+    "approx": false
+   },
+   "town": "it-32-san-candido",
+   "parents": [
+    "place/funbob-monte-baranci"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.51921,
+    "lon": 12.00851,
+    "approx": false
+   },
+   "town": "it-34-livinallongo-del-col-di-lana",
+   "parents": [
+    "place/lagazuoi-cable-car-and-tunnels"
+   ],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.52751,
+    "lon": 12.00892,
+    "approx": false
+   },
+   "town": "it-34-livinallongo-del-col-di-lana",
+   "parents": [
+    "place/lagazuoi-cable-car-and-tunnels"
+   ],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "part/place/lago-dantorno#parking",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.59104,
+    "lon": 12.26322,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [
+    "place/lago-dantorno"
+   ],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "part/place/lago-di-braies#parking",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.70039,
+    "lon": 12.0847,
+    "approx": false
+   },
+   "town": "it-32-monguelfo",
+   "parents": [
+    "place/lago-di-braies"
+   ],
+   "authored": "IT/trentino-alto-adige/bolzano"
+  },
+  {
+   "ref": "part/place/lago-di-braies#walk",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.69896,
+    "lon": 12.085465,
+    "approx": true
+   },
+   "town": null,
+   "parents": [
+    "place/lago-di-braies"
+   ],
+   "authored": "IT/trentino-alto-adige/bolzano"
+  },
+  {
+   "ref": "part/place/lago-di-carezza#parking",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.41177,
+    "lon": 11.5754,
+    "approx": false
+   },
+   "town": "it-32-nova-levante",
+   "parents": [
+    "place/lago-di-carezza"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/place/lago-di-dobbiaco#parking",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.70631,
+    "lon": 12.22027,
+    "approx": false
+   },
+   "town": "it-32-dobbiaco",
+   "parents": [
+    "place/lago-di-dobbiaco"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/place/lago-di-dobbiaco#walk",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.70306,
+    "lon": 12.21917,
+    "approx": false
+   },
+   "town": "it-32-dobbiaco",
+   "parents": [
+    "place/lago-di-dobbiaco"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/place/lago-di-landro#parking",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.63258,
+    "lon": 12.23004,
+    "approx": false
+   },
+   "town": "it-32-dobbiaco",
+   "parents": [
+    "place/lago-di-landro"
+   ],
+   "authored": "IT/trentino-alto-adige/bolzano"
+  },
+  {
+   "ref": "part/place/lago-di-limides#walk",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.51181,
+    "lon": 12.02289,
+    "approx": false
+   },
+   "town": "it-34-livinallongo-del-col-di-lana",
+   "parents": [
+    "place/lago-di-limides"
+   ],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "part/place/lago-di-misurina#parking",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.57951,
+    "lon": 12.2522,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [
+    "place/lago-di-misurina"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/place/lago-di-sorapis#payoff",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.5204,
+    "lon": 12.2236,
+    "approx": false
+   },
+   "town": "it-34-san-vito",
+   "parents": [
+    "place/lago-di-sorapis"
+   ],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "part/place/lago-federa#walk",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.505857,
+    "lon": 12.078883,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [
+    "place/lago-federa"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/place/lake-louise#parking",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.41501,
+    "lon": -116.21343,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [
+    "place/lake-louise"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/place/lake-louise#shuttle-stop",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.41616,
+    "lon": -116.21364,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [
+    "place/lake-louise"
+   ],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "part/place/rafting-on-the-rienza#place",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.809965,
+    "lon": 11.792573,
+    "approx": false
+   },
+   "town": "it-32-terento",
+   "parents": [
+    "place/rafting-on-the-rienza"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.509012,
+    "lon": 11.828232,
+    "approx": false
+   },
+   "town": "it-32-canazei",
+   "parents": [
+    "place/sass-pordoi-and-piz-boe"
+   ],
+   "authored": "IT/trentino-alto-adige/provincia-di-trento"
+  },
+  {
+   "ref": "part/place/seceda-ridge#payoff",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.60059,
+    "lon": 11.72579,
+    "approx": false
+   },
+   "town": "it-32-santa-cristina-valgardena",
+   "parents": [
+    "place/seceda-ridge"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/place/tre-cime-di-lavaredo-loop#auronzo-car-park",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.61356,
+    "lon": 12.29439,
+    "approx": false
+   },
+   "town": "it-34-auronzo",
+   "parents": [
+    "place/tre-cime-di-lavaredo-loop"
+   ],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "part/place/tre-cime-di-lavaredo-loop#north-face-viewpoint",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.63817,
+    "lon": 12.30926,
+    "approx": false
+   },
+   "town": "it-32-san-candido",
+   "parents": [
+    "place/tre-cime-di-lavaredo-loop"
+   ],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.61222,
+    "lon": 12.29417,
+    "approx": false
+   },
+   "town": "it-34-auronzo",
+   "parents": [
+    "place/tre-cime-di-lavaredo-loop"
+   ],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.61833,
+    "lon": 12.31222,
+    "approx": false
+   },
+   "town": "it-34-auronzo",
+   "parents": [
+    "place/tre-cime-di-lavaredo-loop"
+   ],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.63694,
+    "lon": 12.31056,
+    "approx": false
+   },
+   "town": "it-32-san-candido",
+   "parents": [
+    "place/tre-cime-di-lavaredo-loop"
+   ],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "part/place/tre-cime-di-lavaredo-loop#toll-road",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.59985,
+    "lon": 12.26997,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [
+    "place/tre-cime-di-lavaredo-loop"
+   ],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "part/place/tre-cime-di-lavaredo-loop#tre-cime",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.61861,
+    "lon": 12.30556,
+    "approx": false
+   },
+   "town": "it-34-auronzo",
+   "parents": [
+    "place/tre-cime-di-lavaredo-loop"
+   ],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 37.82913,
+    "lon": -111.41992,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [
+    "trip/utah-five-parks/trail:lower calf creek falls"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 37.30669,
+    "lon": -112.94769,
+    "approx": false
+   },
+   "town": "us-ut-toquerville",
+   "parents": [
+    "trip/utah-five-parks/trail:narrows from the temple of sinawava"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 37.62165,
+    "lon": -112.15575,
+    "approx": false
+   },
+   "town": "us-ut-panguitch",
+   "parents": [
+    "trip/utah-five-parks/trail:navajo loop and queens garden"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 38.3108,
+    "lon": -109.85661,
+    "approx": false
+   },
+   "town": "us-ut-moab",
+   "parents": [
+    "trip/utah-five-parks/viewpoint:grand view point"
+   ],
+   "authored": null
+  },
+  {
+   "ref": "place/adolf-munkel-weg",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.63567,
+    "lon": 11.76576,
+    "approx": false
+   },
+   "town": "it-32-funes-villnoess",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/alpe-di-siusi",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.54236,
+    "lon": 11.617,
+    "approx": false
+   },
+   "town": "it-32-siusi",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/bolzano",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.49811,
+    "lon": 11.35478,
+    "approx": false
+   },
+   "town": "it-32-bolzano",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/bullaccia-and-the-witches-benches",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.55184,
+    "lon": 11.61718,
+    "approx": false
+   },
+   "town": "it-32-castelrotto",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/cadini-di-misurina-viewpoint",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.605,
+    "lon": 12.27,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "place/cascate-di-fanes",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.593809,
+    "lon": 12.112955,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/cinque-torri",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.50925,
+    "lon": 12.05397,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "place/cortina-dampezzo",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.53833,
+    "lon": 12.13735,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/croda-del-becco",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.69898,
+    "lon": 12.08554,
+    "approx": false
+   },
+   "town": "it-32-monguelfo",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/dobbiaco",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.73543,
+    "lon": 12.22428,
+    "approx": false
+   },
+   "town": "it-32-dobbiaco",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/dolomites",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.61306,
+    "lon": 12.16306,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "place/drava-cycle-path-to-lienz",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.6697,
+    "lon": 13.722,
+    "approx": false
+   },
+   "town": "at-2-neu-feffernitz",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/la-val",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.65772,
+    "lon": 11.92433,
+    "approx": false
+   },
+   "town": "it-32-la-valle-wengen",
+   "parents": [],
+   "authored": "IT/trentino-alto-adige/bolzano"
+  },
+  {
+   "ref": "place/lagazuoi-cable-car-and-tunnels",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.52751,
+    "lon": 12.00892,
+    "approx": false
+   },
+   "town": "it-34-livinallongo-del-col-di-lana",
+   "parents": [],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "place/lago-dantorno",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.5951,
+    "lon": 12.2654,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "place/lago-di-braies",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.69361,
+    "lon": 12.085,
+    "approx": false
+   },
+   "town": "it-32-monguelfo",
+   "parents": [],
+   "authored": "IT/trentino-alto-adige/bolzano"
+  },
+  {
+   "ref": "place/lago-di-carezza",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.40917,
+    "lon": 11.575,
+    "approx": false
+   },
+   "town": "it-32-nova-levante",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/lago-di-dobbiaco",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.70306,
+    "lon": 12.21917,
+    "approx": false
+   },
+   "town": "it-32-dobbiaco",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/lago-di-landro",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.63,
+    "lon": 12.23194,
+    "approx": false
+   },
+   "town": "it-32-dobbiaco",
+   "parents": [],
+   "authored": "IT/trentino-alto-adige/bolzano"
+  },
+  {
+   "ref": "place/lago-di-limides",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.51181,
+    "lon": 12.02289,
+    "approx": false
+   },
+   "town": "it-34-livinallongo-del-col-di-lana",
+   "parents": [],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "place/lago-di-misurina",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.58194,
+    "lon": 12.25389,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/lago-di-sorapis",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.55605,
+    "lon": 12.20487,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "place/lago-federa",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.4881,
+    "lon": 12.1045,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/lake-louise",
+   "trip": "canadian-rockies-2029",
+   "point": {
+    "lat": 51.41167,
+    "lon": -116.22806,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": "CA/AB/banff-national-park"
+  },
+  {
+   "ref": "place/monte-piana",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.61528,
+    "lon": 12.23944,
+    "approx": false
+   },
+   "town": "it-34-cortina-d-ampezzo",
+   "parents": [],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "place/ortisei",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.57521,
+    "lon": 11.67214,
+    "approx": false
+   },
+   "town": "it-32-ortisei",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/otzi-south-tyrol-museum-of-archaeology",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.49986,
+    "lon": 11.34953,
+    "approx": false
+   },
+   "town": "it-32-bolzano",
+   "parents": [],
+   "authored": "IT/trentino-alto-adige/bolzano"
+  },
+  {
+   "ref": "place/passo-gardena",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.55,
+    "lon": 11.80944,
+    "approx": false
+   },
+   "town": "it-32-selva",
+   "parents": [],
+   "authored": "IT/trentino-alto-adige/bolzano"
+  },
+  {
+   "ref": "place/rifugio-nuvolau-and-averau",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.49524,
+    "lon": 12.04573,
+    "approx": false
+   },
+   "town": "it-34-livinallongo-del-col-di-lana",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/rifugio-scotoni",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.5531,
+    "lon": 11.9984,
+    "approx": false
+   },
+   "town": "it-34-livinallongo-del-col-di-lana",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/san-candido",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.73287,
+    "lon": 12.27917,
+    "approx": false
+   },
+   "town": "it-32-san-candido",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/san-vito-di-cadore",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.45897,
+    "lon": 12.20574,
+    "approx": false
+   },
+   "town": "it-34-san-vito",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/santa-cristina",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.55907,
+    "lon": 11.71549,
+    "approx": false
+   },
+   "town": "it-32-santa-cristina-valgardena",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/santa-maddalena-val-di-funes",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.63845,
+    "lon": 11.71862,
+    "approx": false
+   },
+   "town": "it-32-funes-villnoess",
+   "parents": [],
+   "authored": "IT/trentino-alto-adige/bolzano"
+  },
+  {
+   "ref": "place/sass-pordoi-and-piz-boe",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.50028,
+    "lon": 11.80775,
+    "approx": false
+   },
+   "town": "it-32-canazei",
+   "parents": [],
+   "authored": "IT/trentino-alto-adige/provincia-di-trento"
+  },
+  {
+   "ref": "place/seceda-ridge",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.59794,
+    "lon": 11.72435,
+    "approx": false
+   },
+   "town": "it-32-santa-cristina-valgardena",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/selva-di-val-gardena",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.55575,
+    "lon": 11.76056,
+    "approx": false
+   },
+   "town": "it-32-selva",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/tre-cime-di-lavaredo-loop",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.61203,
+    "lon": 12.29648,
+    "approx": false
+   },
+   "town": "it-34-auronzo",
+   "parents": [
+    "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo"
+   ],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "place/val-fiscalina",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.66684,
+    "lon": 12.35448,
+    "approx": false
+   },
+   "town": "it-32-san-candido",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/vallunga",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.56395,
+    "lon": 11.77359,
+    "approx": false
+   },
+   "town": "it-32-selva",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "place/viel-dal-pan",
+   "trip": "dolomites-2027",
+   "point": {
+    "lat": 46.48742,
+    "lon": 11.81296,
+    "approx": false
+   },
+   "town": "it-32-canazei",
+   "parents": [],
+   "authored": "IT/veneto/belluno"
+  },
+  {
+   "ref": "trip/utah-five-parks/sight:fruita orchards",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 38.28331,
+    "lon": -111.24648,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "trip/utah-five-parks/sight:goblin valley",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 38.5667,
+    "lon": -110.71,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "trip/utah-five-parks/sight:temple square",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 40.77056,
+    "lon": -111.8925,
+    "approx": false
+   },
+   "town": "us-ut-salt-lake-city",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 37.25556,
+    "lon": -112.95472,
+    "approx": false
+   },
+   "town": "us-ut-hildale",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "trip/utah-five-parks/town:main street moab",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 38.5725,
+    "lon": -109.54972,
+    "approx": false
+   },
+   "town": "us-ut-moab",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 37.2694,
+    "lon": -112.948,
+    "approx": false
+   },
+   "town": "us-ut-laverkin",
+   "parents": [],
+   "authored": "US/UT/washington-county"
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:delicate arch trail",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 38.74361,
+    "lon": -109.49944,
+    "approx": false
+   },
+   "town": "us-ut-moab",
+   "parents": [],
+   "authored": "US/UT/grand-county"
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:devils garden",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 38.8039,
+    "lon": -109.614,
+    "approx": false
+   },
+   "town": "us-ut-moab",
+   "parents": [],
+   "authored": "US/UT/grand-county"
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:hickman bridge",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 38.28981,
+    "lon": -111.23438,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 37.79569,
+    "lon": -111.41365,
+    "approx": false
+   },
+   "town": "none_within_50km",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:mesa arch",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 38.38806,
+    "lon": -109.86361,
+    "approx": false
+   },
+   "town": "us-ut-moab",
+   "parents": [],
+   "authored": "US/UT/san-juan-county"
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 37.28533,
+    "lon": -112.9478,
+    "approx": false
+   },
+   "town": "us-ut-laverkin",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 37.6227,
+    "lon": -112.16613,
+    "approx": false
+   },
+   "town": "us-ut-panguitch",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:pa rus trail",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 37.201783,
+    "lon": -112.986777,
+    "approx": false
+   },
+   "town": "us-ut-hildale",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:riverside walk",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 37.29189,
+    "lon": -112.94679,
+    "approx": false
+   },
+   "town": "us-ut-toquerville",
+   "parents": [],
+   "authored": "US/UT/washington-county"
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:upheaval dome",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 38.42455,
+    "lon": -109.92925,
+    "approx": false
+   },
+   "town": "us-ut-moab",
+   "parents": [],
+   "authored": "US/UT/san-juan-county"
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:windows section",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 38.687113,
+    "lon": -109.536636,
+    "approx": false
+   },
+   "town": "us-ut-moab",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 37.62637,
+    "lon": -112.15075,
+    "approx": false
+   },
+   "town": "us-ut-panguitch",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "trip/utah-five-parks/viewpoint:dead horse point",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 38.50582,
+    "lon": -109.73317,
+    "approx": false
+   },
+   "town": "us-ut-moab",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "trip/utah-five-parks/viewpoint:grand view point",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 38.32221,
+    "lon": -109.84901,
+    "approx": false
+   },
+   "town": "us-ut-moab",
+   "parents": [],
+   "authored": null
+  },
+  {
+   "ref": "trip/utah-five-parks/viewpoint:sunset point",
+   "trip": "utah-five-parks",
+   "point": {
+    "lat": 37.62276,
+    "lon": -112.16603,
+    "approx": false
+   },
+   "town": "us-ut-panguitch",
+   "parents": [],
+   "authored": null
+  }
+ ],
+ "storeLabels": [
+  {
+   "area": "CA/AB/banff-national-park",
+   "lat": 51.4117,
+   "lon": -116.2281,
+   "town": "none_within_50km",
+   "from": "locations store"
+  },
+  {
+   "area": "IT/veneto/belluno",
+   "lat": 46.6131,
+   "lon": 12.1631,
+   "town": "it-34-cortina-d-ampezzo",
+   "from": "locations store"
+  },
+  {
+   "area": "US/UT/grand-county",
+   "lat": 38.7281,
+   "lon": -109.54,
+   "town": "us-ut-moab",
+   "from": "locations store"
+  },
+  {
+   "area": "US/UT/hanksville",
+   "lat": 38.3617,
+   "lon": -111.128,
+   "town": "none_within_50km",
+   "from": "locations store"
+  },
+  {
+   "area": "US/UT/hanksville",
+   "lat": 38.4369,
+   "lon": -110.9136,
+   "town": "none_within_50km",
+   "from": "locations store"
+  },
+  {
+   "area": "US/UT/hanksville",
+   "lat": 38.3938,
+   "lon": -110.8322,
+   "town": "none_within_50km",
+   "from": "locations store"
+  },
+  {
+   "area": "US/UT/kanarraville",
+   "lat": 37.5377,
+   "lon": -113.1526,
+   "town": "us-ut-cedar-city",
+   "from": "locations store"
+  },
+  {
+   "area": "US/UT/kane-county",
+   "lat": 37.64,
+   "lon": -112.17,
+   "town": "us-ut-panguitch",
+   "from": "locations store"
+  },
+  {
+   "area": "US/UT/san-juan-county",
+   "lat": 38.1669,
+   "lon": -109.76,
+   "town": "us-ut-moab",
+   "from": "locations store"
+  },
+  {
+   "area": "US/UT/washington-county",
+   "lat": 37.2026,
+   "lon": -112.9878,
+   "town": "us-ut-hildale",
+   "from": "locations store"
+  }
+ ],
+ "towns": {
+  "at-2-neu-feffernitz": {
+   "lat": 46.68772,
+   "lon": 13.67914,
+   "region": "unregistered:AT-2 (Carinthia)"
+  },
+  "ca-ab-banff": {
+   "lat": 51.17622,
+   "lon": -115.56982,
+   "region": "CA/AB"
+  },
+  "ca-ab-blairmore": {
+   "lat": 49.60002,
+   "lon": -114.4353,
+   "region": "CA/AB"
+  },
+  "ca-ab-canmore": {
+   "lat": 51.08335,
+   "lon": -115.35206,
+   "region": "CA/AB"
+  },
+  "ca-ab-cardston": {
+   "lat": 49.19998,
+   "lon": -113.3019,
+   "region": "CA/AB"
+  },
+  "ca-ab-cochrane": {
+   "lat": 51.18341,
+   "lon": -114.46871,
+   "region": "CA/AB"
+  },
+  "ca-ab-hinton": {
+   "lat": 53.40009,
+   "lon": -117.58567,
+   "region": "CA/AB"
+  },
+  "ca-ab-jasper": {
+   "lat": 52.87946,
+   "lon": -118.08041,
+   "region": "CA/AB"
+  },
+  "ca-ab-jasper-park-lodge": {
+   "lat": 52.88633,
+   "lon": -118.05625,
+   "region": "CA/AB"
+  },
+  "ca-ab-pincher-creek": {
+   "lat": 49.48328,
+   "lon": -113.95195,
+   "region": "CA/AB"
+  },
+  "ca-ab-turner-valley": {
+   "lat": 50.66681,
+   "lon": -114.2853,
+   "region": "CA/AB"
+  },
+  "ca-bc-elkford": {
+   "lat": 50.01529,
+   "lon": -114.92348,
+   "region": "unregistered:CA-BC (British Columbia)"
+  },
+  "ca-bc-golden": {
+   "lat": 51.29995,
+   "lon": -116.9689,
+   "region": "unregistered:CA-BC (British Columbia)"
+  },
+  "ca-bc-radium-hot-springs": {
+   "lat": 50.61667,
+   "lon": -116.06878,
+   "region": "unregistered:CA-BC (British Columbia)"
+  },
+  "ca-bc-valemount": {
+   "lat": 52.83329,
+   "lon": -119.2525,
+   "region": "unregistered:CA-BC (British Columbia)"
+  },
+  "it-32-bolzano": {
+   "lat": 46.49067,
+   "lon": 11.33982,
+   "region": "IT/trentino-alto-adige"
+  },
+  "it-32-canazei": {
+   "lat": 46.47627,
+   "lon": 11.76929,
+   "region": "IT/trentino-alto-adige"
+  },
+  "it-32-castelrotto": {
+   "lat": 46.56662,
+   "lon": 11.56098,
+   "region": "IT/trentino-alto-adige"
+  },
+  "it-32-dobbiaco": {
+   "lat": 46.72878,
+   "lon": 12.22225,
+   "region": "IT/trentino-alto-adige"
+  },
+  "it-32-funes-villnoess": {
+   "lat": 46.64282,
+   "lon": 11.67828,
+   "region": "IT/trentino-alto-adige"
+  },
+  "it-32-la-valle-wengen": {
+   "lat": 46.65763,
+   "lon": 11.92399,
+   "region": "IT/trentino-alto-adige"
+  },
+  "it-32-monguelfo": {
+   "lat": 46.75774,
+   "lon": 12.10556,
+   "region": "IT/trentino-alto-adige"
+  },
+  "it-32-nova-levante": {
+   "lat": 46.42899,
+   "lon": 11.53942,
+   "region": "IT/trentino-alto-adige"
+  },
+  "it-32-ortisei": {
+   "lat": 46.57603,
+   "lon": 11.67176,
+   "region": "IT/trentino-alto-adige"
+  },
+  "it-32-san-candido": {
+   "lat": 46.7324,
+   "lon": 12.27855,
+   "region": "IT/trentino-alto-adige"
+  },
+  "it-32-santa-cristina-valgardena": {
+   "lat": 46.56299,
+   "lon": 11.73216,
+   "region": "IT/trentino-alto-adige"
+  },
+  "it-32-selva": {
+   "lat": 46.55472,
+   "lon": 11.76038,
+   "region": "IT/trentino-alto-adige"
+  },
+  "it-32-siusi": {
+   "lat": 46.54133,
+   "lon": 11.55868,
+   "region": "IT/trentino-alto-adige"
+  },
+  "it-32-terento": {
+   "lat": 46.82992,
+   "lon": 11.78288,
+   "region": "IT/trentino-alto-adige"
+  },
+  "it-34-auronzo": {
+   "lat": 46.5592,
+   "lon": 12.42456,
+   "region": "IT/veneto"
+  },
+  "it-34-cortina-d-ampezzo": {
+   "lat": 46.5369,
+   "lon": 12.13903,
+   "region": "IT/veneto"
+  },
+  "it-34-livinallongo-del-col-di-lana": {
+   "lat": 46.48162,
+   "lon": 11.95399,
+   "region": "IT/veneto"
+  },
+  "it-34-san-vito": {
+   "lat": 46.46278,
+   "lon": 12.20608,
+   "region": "IT/veneto"
+  },
+  "us-ut-cedar-city": {
+   "lat": 37.67748,
+   "lon": -113.06189,
+   "region": "US/UT"
+  },
+  "us-ut-hildale": {
+   "lat": 37.0036,
+   "lon": -112.96688,
+   "region": "US/UT"
+  },
+  "us-ut-laverkin": {
+   "lat": 37.20109,
+   "lon": -113.26967,
+   "region": "US/UT"
+  },
+  "us-ut-moab": {
+   "lat": 38.57332,
+   "lon": -109.54984,
+   "region": "US/UT"
+  },
+  "us-ut-panguitch": {
+   "lat": 37.82276,
+   "lon": -112.43576,
+   "region": "US/UT"
+  },
+  "us-ut-salt-lake-city": {
+   "lat": 40.76078,
+   "lon": -111.89105,
+   "region": "US/UT"
+  },
+  "us-ut-toquerville": {
+   "lat": 37.25332,
+   "lon": -113.28467,
+   "region": "US/UT"
+  }
+ },
+ "areaRegion": {
+  "CA/AB/banff-national-park": "CA/AB",
+  "IT/trentino-alto-adige/bolzano": "IT/trentino-alto-adige",
+  "IT/trentino-alto-adige/provincia-di-trento": "IT/trentino-alto-adige",
+  "IT/veneto/belluno": "IT/veneto",
+  "US/UT/grand-county": "US/UT",
+  "US/UT/hanksville": "US/UT",
+  "US/UT/kanarraville": "US/UT",
+  "US/UT/kane-county": "US/UT",
+  "US/UT/san-juan-county": "US/UT",
+  "US/UT/washington-county": "US/UT"
+ }
+}

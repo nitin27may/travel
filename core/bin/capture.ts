@@ -41,6 +41,11 @@ Commands:
   derive-near [--write | --check] [--json]
                           write near_town and near_town_km on every place and route with an exact point, from the towns layer
                           (data/reference/towns, tools/towns.py); idempotent, never touches an override, dry run by default
+  derive-area [--write | --check] [--trip <trip>] [--accuracy] [--json]
+                          set area_id on places and routes from their parent, else from their sourced point against the areas of
+                          the locations store (never an id the store lacks; data/capture/derived-areas.json records what it wrote);
+                          idempotent, never touches an authored area_id, dry run by default, --check exits 1 while a record the
+                          rule can place has none; --accuracy prints the hold-out test on the records that already have one
   place [--write]         apply data/capture/placement.json (facts and draw to the layer that causes them); runs once
   run --check <file>      validate a crawl run record (capture-run/1)
   codes                   list the E_CAP_*, W_CAP_*, E_PLACE_*, W_PLACE_* and W_TIER_* codes
@@ -242,6 +247,10 @@ async function main(argv: string[]): Promise<number> {
     case "migrate-placement": {
       const { migratePlacementCommand } = await import("../src/capture/migratePlacementCli.ts");
       return migratePlacementCommand(argv, root, out, err);
+    }
+    case "derive-area": {
+      const { deriveAreaCommand } = await import("../src/capture/deriveAreaCli.ts");
+      return deriveAreaCommand(argv, root, out, err);
     }
     case "derive-near": {
       const { deriveNearCommand } = await import("../src/capture/deriveNearCli.ts");

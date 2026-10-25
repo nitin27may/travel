@@ -49,7 +49,7 @@ Answers to the clarifying questions (owner, final):
 | D5 | The overview has **three scopes**: In this plan, Also researched for this trip, Nearby you could add | The owner asked "how many trails there are for that trip": the Rockies plan uses 33 trails but 62 were researched; "all possible nearby things" is the third scope | More rows than the plan; counts per scope keep it readable (P2) |
 | D6 | Overview rows come from **one new store method per trip** (`tripItems`, `tripItemCounts`), light rows only, paged and capped | P8 (light rows, no bulk), P9 (one boundary); the trip page start JS is at 199.2 of 200 KB | A new contract in the API lane (one author, Opus) before any UI |
 | D7 | Nearby candidates reuse the trip-timeline 3.7 rule: catalogue places with a page and an exact point **within 30 km straight line of a base the trip uses**, served by the existing `near` method | Existing decision (timeline 3.7; nearby spec 6.4 keeps 30 km for public trip pages); no second distance rule | 30 km misses some day trips; the "Day trips" link to near mode at 100 km covers them |
-| D8 | Customisation is a **delta on the public template**, stored in `planner_draft` (new columns, migration 0011), not F06 `trip_item` rows | `planner_draft` already has RLS, cross-user isolation and live invalidation proven against Neon; F06 tables need membership policies (Q69, open) | A delta is a stop-gap; F12's "Use this trip" converts it into a full plan later |
+| D8 | Customisation is a **delta on the public template**, stored in `planner_draft` (new columns, migration `custom-draft`, number assigned at merge), not F06 `trip_item` rows | `planner_draft` already has RLS, cross-user isolation and live invalidation proven against Neon; F06 tables need membership policies (Q69, open) | A delta is a stop-gap; F12's "Use this trip" converts it into a full plan later |
 | D9 | Photos: **Commons first, no Flickr now.** NPS public-domain images are allowed where a page is NPS (Utah). Everything else shows "No licensed photo yet" | A Flickr API key now appears to need a paid Pro account (section 7), which breaks the free-tier rule (R-4); the 18 Oct media report already set Flickr to "No for now" (its Q8) | Fewer candidates where Commons is thin (Kananaskis, Patagonia trails) |
 | D10 | An owner photo choice is an **override that research never replaces**, kept in its own file until the catalogue cutover, then as `media` rows | A D5 rerun must not undo a person's pick; the deployed app cannot write repo files | The admin console screen waits for the PostgresStore cutover and F17 roles (section 6.3) |
 
@@ -480,7 +480,7 @@ The checks are the existing codes (timeline 2.11), shown where the change happen
 
 ### 5.6 How it maps onto `planner_draft` and the F06 plan document
 
-Migration 0011 (task CUS-C) adds nullable columns to `planner_draft`, under the same owner-predicate RLS:
+Migration `custom-draft` (task CUS-C; number assigned at merge, 0011 is EML-1's `quota`) adds nullable columns to `planner_draft`, under the same owner-predicate RLS:
 
 | Column | Type | Holds |
 |---|---|---|
