@@ -10,6 +10,12 @@
 //
 // It creates safe synthetic users (…@travel-e2e.invalid), never disables email verification, never
 // prints secrets, and at the end deletes only the drafts of the synthetic users it created.
+//
+// Required verification (O-E1, email spec 16): a password sign-up no longer signs in, and the guarded proxy wants a Turnstile
+// token for sign-up that a script cannot solve. So a synthetic user is created at Neon Auth directly (NEON_AUTH_BASE_URL, with
+// the app's origin), marked verified in neon_auth.user over the owner connection (the address is .invalid: no mail can reach it,
+// and none is asked for), then signed in through the app's own proxy with its password, which sets the app's session cookie.
+// No email is sent at any step. Never run it against production without the owner (it writes synthetic users there).
 import { chromium } from '@playwright/test';
 import { Client } from 'pg';
 import { randomUUID } from 'node:crypto';
@@ -34,7 +40,8 @@ function check(name, cond) {
 }
 
 function uniqueUser(tag) {
-  return { email: `e2e+${tag}-${randomUUID().slice(0, 8)}@travel-e2e.invalid`, password: `Str0ngPass-${randomUUID()}!`, name: `E2E ${tag}` };
+  // No name (rule E8): nothing a person types reaches an auth email, and the card no longer asks for one.
+  return { email: `e2e+${tag}-${randomUUID().slice(0, 8)}@travel-e2e.invalid`, password: `Str0ngPass-${randomUUID()}!`, name: '' };
 }
 
 /** Preflight: the schema lane must have shipped the shared table before a live-draft run can pass. */
@@ -54,19 +61,45 @@ async function requireTable() {
   }
 }
 
-/** Create an account through the real auth service; returns the new user id. Throws on failure. */
+/**
+ * Create a verified synthetic account and sign it in on `context`; returns the user id. Throws on failure.
+ * 1. sign-up at Neon Auth directly (the guard would ask for Turnstile); 2. mark it verified (only `@travel-e2e.invalid` rows);
+ * 3. sign in through the app's guarded proxy (password: no Turnstile), which sets the app's session cookie on `context`.
+ */
 async function apiSignUp(context, user) {
-  const res = await context.request.post(`${BASE}/api/auth/sign-up/email/`, { headers: { 'Content-Type': 'application/json', Origin: BASE }, data: user });
-  if (!res.ok()) throw new Error(`sign-up failed (${res.status()}) for ${user.email}`);
-  const body = await res.json();
-  return body.user.id;
+  const auth = process.env.NEON_AUTH_BASE_URL;
+  if (!auth) throw new Error('NEON_AUTH_BASE_URL not in env (run via with-root-env.mjs)');
+  const up = await fetch(`${auth}/sign-up/email`, { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: BASE }, body: JSON.stringify(user) });
+  if (!up.ok) throw new Error(`sign-up failed (${up.status})`);
+  const db = new Client({ connectionString: process.env.DATABASE_URL });
+  await db.connect();
+  let id;
+  try {
+    const r = await db.query(
+      `update neon_auth."user" set "emailVerified" = true where lower(email) = lower($1) and email like '%@travel-e2e.invalid' returning id`,
+      [user.email],
+    );
+    id = r.rows[0]?.id;
+  } finally {
+    await db.end();
+  }
+  if (!id) throw new Error('synthetic user not found after sign-up');
+  const res = await context.request.post(`${BASE}/api/auth/sign-in/email/`, { headers: { 'Content-Type': 'application/json', Origin: BASE }, data: { email: user.email, password: user.password } });
+  if (!res.ok()) throw new Error(`sign-in failed (${res.status()})`);
+  return String(id);
 }
 
-/** Sign in through the actual /sign-in/ UI and wait for the account page. Proves the form, not just the API. */
+/** Sign in through the actual /sign-in/ card (email, then "Use my password") and wait for the account page. */
 async function uiSignIn(page, user) {
   await page.goto(`${BASE}/sign-in/`, { waitUntil: 'networkidle' });
   await page.getByLabel('Email').fill(user.email);
-  await page.getByLabel('Password').fill(user.password);
+  await page.getByRole('button', { name: 'Continue' }).click();
+  // With the code option off the card goes straight to the password step.
+  const usePassword = page.getByRole('button', { name: 'Use my password' });
+  const field = page.locator('input[name="password"]');
+  await Promise.race([usePassword.waitFor({ timeout: TIMEOUT }), field.waitFor({ timeout: TIMEOUT })]);
+  if (await usePassword.isVisible()) await usePassword.click();
+  await field.fill(user.password);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.waitForURL(`${BASE}/account/`, { timeout: TIMEOUT });
 }

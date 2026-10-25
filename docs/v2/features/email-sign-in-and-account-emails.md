@@ -219,6 +219,7 @@ list domains), which is what we want for an app secret.
 | U11 | Whether the Resend sandbox can send to `delivered@resend.dev` | Automated checks before the domain |
 | U12 | The `user.created` `auth_provider` value for code and link sign-ups | Welcome mail trigger |
 | U13 | Whether Vercel Deployment Protection covers the production alias (Neon's calls would get 401) | Webhook delivery |
+| U14 | Whether Neon's own rate limiter (`/sign-in/email` 429 after 5 fast attempts, EML-0 R1) keys on the client or on our server: the SDK proxy forwards no client IP, so one visitor's mistakes could slow everyone (found in EML-Q, 25 Oct; a risk for EML-E, no workaround now) | Password sign-in for all visitors |
 
 ## 1. User stories
 
@@ -351,7 +352,8 @@ the card shows less; the full address stays in the "Change" field.
 ### 3.4 Accessibility and budgets
 
 - Real `<form>` per step; Enter submits; labels on every field; errors tied with `aria-describedby`; the step heading
-  receives focus on change; reduced motion swaps steps without animation (P5).
+  receives focus on change, except on the code step, where focus goes into the code field because paste and autofill need
+  field focus (the field describes the lead and the masked address, and messages go through the card's live region; EML-R S1); reduced motion swaps steps without animation (P5).
 - Targets 44 px (`--touch-min`) at 390 px; no horizontal scroll at 320 px.
 - The card stays inside the lazy auth chunk (`AuthFormLazy.tsx`): public start JS +0 B; `budget.test.ts` and
   `place-size.test` unchanged (P8, P9). Turnstile loads only on the sign-in pages, on the first focus of the email
@@ -1280,3 +1282,54 @@ N1 and the "15 minutes" in the T1, T2 and T4 copy; the CLI has no setting for it
 - **U5: reset by code works but does not revoke earlier sessions.** EML-1 must revoke other sessions after a reset (for example through our own sign-out of all sessions) or the owner accepts the risk. New owner decision.
 - **U2: Disable Sign Up does NOT stop sign-in by code from creating an account.** Any invite-only or planner gate must be our own server-side check; do not rely on the Neon flag. Open sign-up by code is therefore the real behaviour in Phase 1 (Q146 yes becomes a fact, not a choice).
 - Details and evidence: `research/runs/EML-0-spike-wait.md` (W2 result).
+
+## EML-M and EML-Q build notes (25 Oct 2026, Opus, branch `public/EML-1`)
+
+Built as specified in section 13 and "Decision 25 Oct", with these differences and findings:
+
+- **Session revocation after a reset by code** (EML-0 W2): Neon Auth's revoke endpoints need a session of the user, which the reset
+  flow does not have, so the guard deletes the account's `neon_auth.session` rows created before the reset, over the app's existing
+  pooled (owner) connection, only after Neon answered 200 to `/email-otp/reset-password` (`web/lib/auth/revoke.ts`). Verified on the
+  child branch: the old cookie's `get-session` is null at once; a later session survives. The app's own session-data cookie can show
+  the old device signed in for up to about 5 minutes. The current browser's session is revoked too, so EML-1 signs in after a reset.
+  A failed delete still answers 200 (the password is already changed) and alerts the owner (`auth-revoke-failed`).
+- **Environment names** (coordinator, 25 Oct): the spec's `TURNSTILE_SECRET_KEY` (server) and
+  `NEXT_PUBLIC_TURNSTILE_SITE_KEY` (widget) of O-E2. The quota HMAC secret is `AUTH_QUOTA_SECRET` (O-E3).
+- **Sign-up** takes from the per-IP sign-up bucket and also from the per-address and global send buckets (with Require Verification on
+  it sends a code), so a second sign-up for one address within 60 s answers 429.
+- **Turnstile test secrets** answer hostname `example.com` and no action (probed 25 Oct), so the guard skips those two checks for
+  them and refuses them in production.
+- **Blocked in v1** (404 before Neon): `/reset-password` (link reset), `/change-email`, `/email-otp/change-email`,
+  `/email-otp/request-email-change`; `type: change-email` on the send route is a 400.
+- **Answers for EML-1** are listed at the top of `web/lib/auth/guard.ts` (`RATE_LIMITED`, `TURNSTILE_FAILED`, `SEND_FAILED`, ...).
+- **Finding: Neon's limiter sees our server, not the visitor.** The SDK proxy forwards no client IP, so Neon's `/sign-in/email` 429
+  (5 fast wrong passwords, EML-0 R1) is likely keyed on the Vercel function's address and could slow every visitor at once. Our
+  per-address and per-IP buckets sit in front of it; not confirmed with load (no load tests, Decision 25 Oct). Recorded as unknown
+  U14 below, a risk for EML-E; no workaround now (coordinator, 25 Oct).
+- **Copy:** codes expire after **5 minutes** on Neon (EML-0 U9), not 15; EML-1's card copy and any Phase 1 text must say 5.
+- **Deploy order:** EML-Q fails closed without `TURNSTILE_SECRET_KEY` and a token, and today's `AuthForm` sends no token, so EML-Q and
+  EML-1 deploy together, after O-E2, O-E3 and migration 0011 on production (owner approval).
+
+## EML-1 build notes (25 Oct 2026, Opus, branch `public/EML-1`)
+
+Built for Phase 1 as sections 3 to 5 say, with these differences and findings:
+
+- **Flags live in `web/lib/auth/flags.ts`, not `web/lib/capabilities.ts`.** The capabilities object is imported by the client
+  header on every page; a new property would grow every page's start JS, and the trip and place pages have almost no headroom.
+  The sign-in pages are server pages and pass the flags to the lazy card as props. The rule "no link without the code option" is
+  tested there.
+- **The card calls `/api/auth/*` with plain `fetch`**, not the Better Auth browser client: it needs the guard's `code`,
+  `Retry-After` and the `x-turnstile-token` header. A success is followed by a full page load to the checked `next`
+  (`web/lib/auth/return-path.ts`, Google spec 7.4) or `/account/`, so the account page needs no change to follow `next` for
+  code and password sign-in (Google still returns through `/account/`, GSI-1).
+- **No name at sign-up** (rule E8): the card sends `name: ''` and has no name field.
+- **Reset signs in again.** The guard's revocation signs out this browser too, so after `/email-otp/reset-password` the card signs
+  in with the new password; if that fails it shows "Your password is set ... sign in with your new password".
+- **Reset for an account with no password (A6):** upstream Better Auth 1.7.6 `resetPasswordEmailOTP` creates a `credential`
+  account when none exists (and marks the address verified), so `/sign-in/reset/` is also how a code-only user sets a first
+  password. Not confirmed live on Neon's fork: it needs a real code (EML-E).
+- **Copy:** every expiry line says 5 minutes. "Or use Google" is left out of the quota and send-failure copy until GSI-1 adds
+  the button. A wait under 90 s reads "Please wait a minute, then try again." (a second sign-up within 60 s).
+- **Turnstile** loads on the first focus of the email field, renders "interaction-only" and hands out one token per call.
+- **Not covered by e2e:** the card with `NEXT_PUBLIC_SIGN_IN_CODE` off (unit-tested through the flags only); the real widget and
+  real codes (owner, EML-E).

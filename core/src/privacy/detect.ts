@@ -48,6 +48,33 @@ export const TRIPLESS_REF = new RegExp(`\\btrip/${TRIPLESS_LANE}\\b`);
  */
 export const PRIVATE_KEYS: readonly string[] = ["height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added", "meta", "notes_private", "doc"];
 
+/**
+ * Keys whose values never go into a server log (email spec 5.1, F17 item 14): sign-in codes, tokens, passwords, addresses, names, IPs,
+ * cookies and signatures. The auth guard (web/lib/auth/guard.ts) drops these keys before it logs, and its log-scan test asserts that no
+ * address, code or IP appears in the captured logs.
+ */
+export const LOG_DENY_KEYS: readonly string[] = [
+  "otp",
+  "otp_code",
+  "token",
+  "link_url",
+  "password",
+  "newPassword",
+  "currentPassword",
+  "email",
+  "newEmail",
+  "name",
+  "ip",
+  "x-real-ip",
+  "x-forwarded-for",
+  "x-turnstile-token",
+  "cf-turnstile-response",
+  "x-neon-signature",
+  "cookie",
+  "set-cookie",
+  "authorization",
+];
+
 /** Keys whose gazetteer town id makes the object a town: its point, outline, `name` and `label` are read against that town (A33). */
 export const TOWN_OWNER_KEYS: readonly string[] = ["id", "key", "value"];
 /** Keys whose value may be a gazetteer town id, exempt for that string only (a row's nearest town, a reference): never an owner (R-2). */

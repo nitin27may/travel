@@ -1,0 +1,114 @@
+/* The sign-in card (email spec 3; components 2.1, 2.2, 5.4). Tokens only, no colour values. Loaded with the lazy card chunk, so
+   pages without the card never download it. Mobile first: one column, 44 px targets, inputs 16 px. */
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  background: var(--surface);
+}
+@media (min-width: 640px) {
+  .auth-card { padding: var(--s-6); }
+}
+
+.auth-step {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s-4);
+  animation: auth-step-in var(--d-base) var(--e-out);
+}
+@keyframes auth-step-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .auth-step { animation: auth-fade 120ms linear; }
+}
+@keyframes auth-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.auth-step-title {
+  font: var(--t-title);
+  color: var(--ink);
+}
+.auth-step-title:focus { outline: none; }
+.auth-step-title:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+
+.auth-lead { font: var(--t-body); color: var(--ink-2); }
+.auth-lead + .auth-address { margin-top: calc(-1 * var(--s-2)); }
+.auth-note,
+.auth-help { font: var(--t-small); color: var(--muted); }
+
+.auth-address {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  min-height: var(--touch-min);
+  padding: 0 var(--s-1) 0 var(--s-3);
+  border-radius: var(--r-3);
+  background: var(--well);
+  color: var(--ink);
+  font: var(--t-body);
+}
+.auth-masked { font: var(--t-mono); font-size: 13.5px; overflow-wrap: anywhere; }
+
+.auth-card .input { background: var(--bg); min-height: 46px; }
+@media (min-width: 640px) {
+  .auth-card .input { min-height: 42px; }
+}
+/* The field and its wrapper may shrink below the input's intrinsic width (letter-spacing widens it; EML-V F1 at 320 px). */
+.auth-card .field { grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.auth-card .input { max-width: 100%; }
+.auth-code input { width: 100%; min-width: 0; font-size: 20px; letter-spacing: 0.3em; }
+@media (max-width: 359px) {
+  .auth-code input { letter-spacing: 0.2em; }
+}
+
+.auth-card .auth-actions .btn,
+.auth-choices .btn { width: 100%; min-height: var(--touch-min); }
+.auth-choices { display: grid; gap: var(--s-3); }
+
+.auth-alt-actions { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); margin-top: calc(-1 * var(--s-2)); }
+
+/* Text actions: Change, Forgot password?, Send a new code. 44 px tall, accent text, never a fill. */
+.auth-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  padding: 0 var(--s-2);
+  margin: 0 calc(-1 * var(--s-2));
+  border: 0;
+  border-radius: var(--r-3);
+  background: none;
+  color: var(--accent-text);
+  font: var(--t-mono);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.auth-link:hover:not(:disabled) { color: var(--ink); }
+.auth-link:disabled { color: var(--muted); text-decoration: none; cursor: default; }
+.auth-address .auth-link { margin: 0; }
+
+.auth-password { display: flex; gap: var(--s-2); }
+.auth-password .input { flex: 1; min-width: 0; }
+.auth-password input { width: 100%; min-width: 0; }
+.auth-show { flex: none; min-height: 46px; min-width: var(--touch-min); }
+@media (min-width: 640px) {
+  .auth-show { min-height: 42px; }
+}
+
+.auth-turnstile:empty { display: none; }
+.auth-turnstile { margin-top: var(--s-3); }
+/* A banner outside the step (the Turnstile challenge line) keeps the step's rhythm. */
+.auth-card > .ban { margin-top: var(--s-4); }
+
+/* The reset page's server-rendered sub-line explains the steps ("We email you a code, then you choose a new password"); once the
+   password is set it no longer applies, so the done state hides it and its own card says what happened (EML-V F2). */
+.auth-page:has(.auth-done) .auth-head .auth-sub { display: none; }

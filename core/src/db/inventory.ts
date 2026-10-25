@@ -110,6 +110,8 @@ export const NEW_TABLES: readonly string[] = [
   "collection_place",
   // planner_draft integration contract (NEON-SETUP.md)
   "planner_draft",
+  // auth guard quotas and the owner-alert budget (migration 0011, EML-Q): RLS on, no policy, reached only through definer functions
+  "quota_bucket",
 ] as const;
 
 /** Every application table that the migrations create. */

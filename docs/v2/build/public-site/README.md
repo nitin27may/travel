@@ -354,6 +354,18 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `LOCAL_DB_ENV_FILE` | core `src/db/localTarget.ts` | Path of the generated local-database credentials file (default `~/.config/travel/local-db.env`, mode 600, outside the repo) | no |
 | `LOCAL_DB_RESET_TEST` | core `test/db/localReset.test.ts` | Set to 1 to run the opt-in `db:reset` idempotency test (it destroys the local volume) | no |
 | `NEXT_PUBLIC_SIGN_IN` | web `lib/capabilities.ts` | `1` enables the account sign-in capability in the browser bundle | yes |
+| `NEXT_PUBLIC_SIGN_IN_CODE` | web `lib/auth/flags.ts` | `1` (with `NEXT_PUBLIC_SIGN_IN`) offers "Email me a code" on the sign-in card (email spec 11.1). Off by default until the owner turns it on | yes |
+| `NEXT_PUBLIC_SIGN_IN_LINK` | web `lib/auth/flags.ts` | Phase 2: `1` (with `NEXT_PUBLIC_SIGN_IN_CODE`) would offer a magic link; nothing reads it yet | yes |
+| `AUTH_SHOTS_DIR` | web e2e `auth-email.shots.spec.ts` | Folder the opt-in sign-in card screenshots are written to; unset, the spec skips | no |
+| `AUTH_SHOTS_ONLY` | web e2e `auth-email.shots.spec.ts` | A pattern of state names to shoot (for example `^(04|13|2\d|3\d)-`); unset, every state | no |
+| `RESEND_API_KEY` | web `lib/server/mailer.ts` | Send-only Resend key for owner alerts (EML-M). Unset, the mailer is disabled and refuses every send | no |
+| `OWNER_EMAIL` | web `lib/server/mailer.ts` | The owner's address, which must be the Resend account's own address (the sandbox delivers nowhere else). The only recipient allowed while `MAIL_FROM` is unset; unset, every alert is refused | no |
+| `MAIL_FROM` | web `lib/server/mailer.ts` | Our verified sender (Phase 2, after a mail domain). Unset in Phase 1: the sandbox sender and owner-only recipients | no |
+| `AUTH_QUOTA_SECRET` | web `lib/auth/guard.ts` | Secret (at least 16 characters, `openssl rand -base64 32`) for the HMAC quota keys of addresses and IPs. Unset in production, every guarded auth call answers 503 (fail closed) | no |
+| `TURNSTILE_SECRET_KEY` | web `lib/auth/guard.ts`, `lib/server/turnstile.ts` | Cloudflare Turnstile secret, checked on every call that sends a sign-in email and on sign-up. Unset in production: those calls answer 503; Cloudflare's test secrets are refused in production | no |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | web `app/sign-in/page.tsx`, `app/sign-up/page.tsx`, `app/sign-in/reset/page.tsx` | Cloudflare Turnstile site key for the widget on the sign-in pages, passed to the lazy card; unset, no widget loads (local runs) | yes |
+| `AUTH_GUARD` | web `lib/auth/guard.ts` | `off` is the rollback switch (email spec 11.2): the guard forwards without Turnstile, quotas or counters, still trims addresses, rewrites answers and revokes sessions after a reset | no |
+| `VERCEL_ENV` | core `mail/outbox.ts`, web `lib/server/mailer.ts` | Set by Vercel (`production`, `preview`, `development`); `production` refuses the test-only outbox mail adapter | no |
 
 ## Change log
 
