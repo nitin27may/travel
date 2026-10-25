@@ -1,5 +1,7 @@
 # Plan tools
 
+Access levels and annotations for every tool here: [auth-and-sign-in.md](auth-and-sign-in.md) 14.3 (25 Oct 2026).
+
 Scopes `trips:read` (reads) and `trips:write` (writes). A user sees and changes only trips where they
 are a `trip_member`; viewers can read, not write. Every write accepts `client_op_id` and optional
 `base_version`, returns the new `version`, `warnings[]` and app URLs.
@@ -207,6 +209,10 @@ members. The sharing model (link scopes, audiences, include toggles, expiry, PIN
 `docs/v2/10-sharing.md`; this tool is its MCP door.
 
 **Scope.** `trips:write` (members with role owner or editor only).
+
+> **Proposed 25 Oct 2026 (Q196, Q198; [auth-and-sign-in.md](auth-and-sign-in.md) 14.3):** split into `list_shares`
+> (read) and `share_trip` (write), and have every guest or public link and every invite ask for approval on our site;
+> `confirmed_by_user` from the client would no longer be enough. Pending the owner's answer.
 
 | Field | Type | Req. | Meaning |
 |---|---|---|---|

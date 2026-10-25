@@ -9,6 +9,13 @@ OAuth provider are not selected (R-60, Oct 2026; the Cloudflare Tunnel plan in 0
 > untrusted text, privacy on outputs, origins and CORS, local testing) adds to the mitigations below. Neon has fixed
 > OAuth scopes only, so "scopes" in T1 and T2 read as **capabilities** stored in our database. Last verified 25 Oct 2026
 > against main f2dee4b.
+>
+> **Access levels, 25 Oct 2026:** [auth-and-sign-in.md](auth-and-sign-in.md) section 14 adds per-app access levels (read
+> only by default), add-ons for codes and people (off by default), per-app and global tool kill lists, an allow list of
+> client ids, a global pause and an env kill switch, and approval on our site for sharing, publishing and merging. It
+> answers T2 (over-broad tokens) and operational rule 5 (consent for writes from new clients). MCP-S reviews it against
+> 14.1 (B1 to B15).
+
 It touches private family data (ages, travel dates, where the house will be empty, booking codes) and
 it accepts writes from software that reads untrusted web pages. That combination is the risk.
 

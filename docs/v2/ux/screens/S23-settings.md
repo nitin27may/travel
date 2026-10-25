@@ -1,5 +1,10 @@
 # S23. Settings: household, notifications, connected clients, tokens
 
+> **Amended 25 Oct 2026:** the "Connected apps" and "Tokens" parts are superseded by one page, Account, Connected apps and
+> access (`/account/connected-apps/`), in [auth-and-sign-in.md](../../mcp/auth-and-sign-in.md) section 14.6: a named access
+> level per app instead of scope lists, add-ons for codes, people and removals, Revoke that also clears the consent at
+> Neon, Pause all, a default level for new apps and an activity view. Built by MCP-U. The other sections here are unchanged.
+
 **Status (R-60, Oct 2026):** this remains a future settings design, not a built screen. The current account foundation has email/password sign-in and private drafts; household setup, notifications, connected MCP clients, tokens, offline storage, export and deletion are not implemented. The OAuth provider and file-storage provider are not selected.
 
 ## Purpose

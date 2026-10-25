@@ -21,6 +21,25 @@ need the planner; none of them runs today. Section 0 is how to connect now and a
 Use the trailing slash in every URL above: the site redirects `/mcp` to `/mcp/`, and the OAuth resource must match the
 URL exactly. A Vercel preview URL does not work for MCP (Vercel Authentication blocks clients).
 
+### Choosing what an app can do (after MCP-U; [auth-and-sign-in.md](auth-and-sign-in.md) section 14)
+
+Claude Code, step by step:
+
+1. `claude mcp add --transport http travel https://travel-beta-tan.vercel.app/mcp/private/`
+2. In Claude Code, `/mcp`, choose `travel`, Authenticate. The browser opens our sign-in page; sign in.
+3. The consent page names "Claude Code", shows a localhost caution, and offers **My plans, read** (selected) or **Public
+   catalogue, read only**. Choose and press Allow.
+4. Back in Claude Code, ask "What can you do with my travel account?" The client calls `whoami`, which returns the level,
+   the add-ons and the settings URL.
+5. To give more, open `https://travel-beta-tan.vercel.app/account/connected-apps/`, Change access on the Claude Code row,
+   pick a level, confirm the dialog, Save. The next call uses the new level; no new sign-in is needed.
+6. To cut it off, Revoke on the same row. The next call gets `403` ("Access for this app is off"). To connect again,
+   `claude mcp remove travel`, then steps 1 to 3.
+
+What to expect: a tool outside the level comes back as a tool error `forbidden` with `needed_level` and `settings_url`; a
+change that needs approval comes back as `needs_confirmation` with an `approve_url` on our site (planner era). A personal
+access token is created at its level and cannot be raised later; create a new one instead.
+
 ---
 
 ## 1. A family plans 4 days in Banff
