@@ -3301,7 +3301,7 @@
               "src": [
                 "src-0055"
               ],
-              "note": "Marked estimate, not an official figure. Computed from OSM ways 24836168, 181184079, 181184081 (Rawson Lake Trail) and 181184076, 753718984 (Sarrail Ridge Trail): 4.68 km one way from the Rawson Lake Trailhead node 269822212 to the Sarrail Ridge peak node 7042108468, doubled. Overpass run api-2026-10-25-data-d3a-overpass. No official page exists (searched 18 Oct by R2a).",
+              "note": "Estimate, not official: 4.68 km one way along the OSM Rawson Lake and Sarrail Ridge trails (trailhead node 269822212 to peak node 7042108468), doubled. Run api-2026-10-25-data-d3a-overpass; way ids in research/runs/DATA-D3a/patch-proposals.json. No official page exists.",
               "conflicts": [
                 {
                   "v": 11.3,
