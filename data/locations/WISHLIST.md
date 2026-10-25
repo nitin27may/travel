@@ -1,6 +1,6 @@
 # Wishlist
 
-Generated from `data/locations/locations.json` on 2026-10-22. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
+Generated from `data/locations/locations.json` on 2026-10-25. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
 
 74 places in 7 countries, 5 collections. By status: idea 66, planned 8.
 
@@ -208,70 +208,70 @@ Legend: kind · season · status · stats from the source post are unverified un
 
 #### Wrangell-St. Elias National Park
 
-- **Kennecott River rafting (Wrangell-St. Elias)** · activity · Jun,Jul,Aug · idea · [map](https://maps.google.com/?q=61.4861,-142.889) [wd](https://www.wikidata.org/wiki/Q995915) · #adventure #dream-trip #rafting #wilderness
+- **Kennecott River rafting (Wrangell-St. Elias)** · activity · Jun,Jul,Aug · idea · [map](https://maps.google.com/?q=61.4861,-142.889) [wd](https://www.wikidata.org/wiki/Q995915) [official](https://epqs.nationalmap.gov/v1/json) · #adventure #dream-trip #rafting #wilderness
   - Dream trip. World-class rafting, pristine wilderness. Requires planning well in advance; consider a guided expedition. 7+ days.
   - <sub>US/AK/wrangell-st-elias-national-park/kennecott</sub>
 ### Arizona
 
 #### Coconino County
 
-- **Page** · town · season ? · idea · [map](https://maps.google.com/?q=36.91483,-111.45729) · #road-trip-stop
+- **Page** · town · season ? · idea · [map](https://maps.google.com/?q=36.91483,-111.45729) [wd](https://www.wikidata.org/wiki/Q79940) [article](https://www.wikidata.org/wiki/Q79940) · #road-trip-stop
   - Stop 1 of the AZ-UT-CO-WY road trip post. Base for Antelope Canyon and Horseshoe Bend.
   - <sub>US/AZ/coconino-county/page</sub>
 #### Havasupai Reservation
 
-- **Havasupai (Havasu Falls)** · waterfall · Mar,Apr,May,Sep,Oct · idea · kids: strong-kid · miles_round_trip 35+ (Hualapai Hilltop to the Confluence, per the post) (unverified) · [map](https://maps.google.com/?q=36.255,-112.69778) [wd](https://www.wikidata.org/wiki/Q5683183) · #adventure #camping #hiking #permit
+- **Havasupai (Havasu Falls)** · waterfall · Mar,Apr,May,Sep,Oct · idea · kids: strong-kid · miles_round_trip 35+ (Hualapai Hilltop to the Confluence, per the post) (unverified) · [map](https://maps.google.com/?q=36.255,-112.69778) [wd](https://www.wikidata.org/wiki/Q5683183) [official](https://epqs.nationalmap.gov/v1/json) · #adventure #camping #hiking #permit
   - Red rock canyon walls, lush waterfalls and clear pools at the bottom of the Grand Canyon. From memory (unverified): permits required, sell out fast, open months ahead; the hike in to the village and campground is long, so check what is realistic with a 10-year-old. Check the official Havasupai Tribe site. Fits the Utah and Arizona parks ideas.
   - <sub>US/AZ/havasupai-reservation/havasu-falls</sub>
 #### Navajo Nation
 
-- **Monument Valley** · valley · season ? · idea · [map](https://maps.google.com/?q=36.98333,-110.1) [wd](https://www.wikidata.org/wiki/Q192017) · #photography #scenic-drive
+- **Monument Valley** · valley · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · idea · [map](https://maps.google.com/?q=36.98333,-110.1) [wd](https://www.wikidata.org/wiki/Q192017) [article](https://www.wikidata.org/wiki/Q192017) · #photography #scenic-drive
   - Stop 10 of the road trip post. Tribal park, fee and hours to check.
   - <sub>US/AZ/navajo-nation/monument-valley</sub>
 ### Colorado
 
 #### La Plata County
 
-- **Durango** · town · season ? · idea · [map](https://maps.google.com/?q=37.2753,-107.88) [wd](https://www.wikidata.org/wiki/Q1012665) · #railway
+- **Durango** · town · season ? · idea · [map](https://maps.google.com/?q=37.2753,-107.88) [wd](https://www.wikidata.org/wiki/Q1012665) [article](https://www.wikidata.org/wiki/Q1012665) · #railway
   - Stop 11 of the road trip post. Durango and Silverton narrow-gauge railroad.
   - <sub>US/CO/la-plata-county/durango</sub>
 #### Manitou Springs
 
-- **Manitou Incline** · trail · May,Jun,Jul,Aug,Sep,Oct · idea · kids: strong-kid · steps about 2,700 · gain_ft about 2,000 · miles 1 (unverified) · [map](https://maps.google.com/?q=38.8568,-104.932) [wd](https://www.wikidata.org/wiki/Q6750238) · #adventure #hiking #stairs #views
+- **Manitou Incline** · trail · May,Jun,Jul,Aug,Sep,Oct · idea · kids: strong-kid · steps about 2,700 · gain_ft about 2,000 · miles 1 (unverified) · [map](https://maps.google.com/?q=38.8568,-104.932) [wd](https://www.wikidata.org/wiki/Q6750238) [official](https://epqs.nationalmap.gov/v1/json) · #adventure #hiking #stairs #views
   - Steep stair climb on an old railway bed with views over Colorado Springs (figures from memory, unverified). Very strenuous, starts about 6,500 ft; check age limits for the kids. A reservation was required in recent years; check current rules and fee. Usual way down is the Barr Trail. Combine with Garden of the Gods and Pikes Peak.
   - <sub>US/CO/manitou-springs/manitou-incline</sub>
 #### San Juan Mountains
 
-- **Million Dollar Highway** · drive · season ? · idea · [map](https://maps.google.com/?q=37.91523,-107.70055) [wd](https://www.wikidata.org/wiki/Q123916209) · #mountain-pass #scenic-drive
+- **Million Dollar Highway** · drive · season ? · idea · [map](https://maps.google.com/?q=37.91523,-107.70055) [wd](https://www.wikidata.org/wiki/Q123916209) [official](https://epqs.nationalmap.gov/v1/json) · #mountain-pass #scenic-drive
   - Stop 12 of the road trip post. US 550 between Silverton and Ouray; exposed drops, no guardrails in places (from memory).
   - <sub>US/CO/san-juan-mountains/million-dollar-highway</sub>
-- **Ouray** · town · season ? · idea · [map](https://maps.google.com/?q=38.0233,-107.672) [wd](https://www.wikidata.org/wiki/Q1759444) · #hot-springs #mountain
+- **Ouray** · town · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · idea · [map](https://maps.google.com/?q=38.0233,-107.672) [wd](https://www.wikidata.org/wiki/Q1759444) [article](https://www.wikidata.org/wiki/Q1759444) · #hot-springs #mountain
   - Stop 13 of the road trip post.
   - <sub>US/CO/san-juan-mountains/ouray</sub>
 #### Summit County
 
-- **Breckenridge** · town · season ? · idea · [map](https://maps.google.com/?q=39.48165,-106.03835) [wd](https://www.wikidata.org/wiki/Q904354) · #mountain #ski-resort
+- **Breckenridge** · town · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · idea · [map](https://maps.google.com/?q=39.48165,-106.03835) [wd](https://www.wikidata.org/wiki/Q904354) [article](https://www.wikidata.org/wiki/Q904354) · #mountain #ski-resort
   - Stop 14 of the road trip post.
   - <sub>US/CO/summit-county/breckenridge</sub>
 ### Massachusetts
 
 #### Barnstable County
 
-- **Cape Cod** · region · Jun,Jul,Aug · idea · [map](https://maps.google.com/?q=41.68889,-70.29694) [wd](https://www.wikidata.org/wiki/Q49152) · #beach #family #lighthouse #whale-watching
+- **Cape Cod** · region · Jun,Jul,Aug · idea · [map](https://maps.google.com/?q=41.68889,-70.29694) [wd](https://www.wikidata.org/wiki/Q49152) [article](https://www.wikidata.org/wiki/Q49152) · #beach #family #lighthouse #whale-watching
   - Beaches, whale watching, seafood, lighthouses. Book whale watching in advance. 3-4 days.
   - <sub>US/MA/barnstable-county/cape-cod</sub>
 ### New Hampshire
 
 #### Grafton County
 
-- **White Mountain National Forest** · park · Sep,Oct · planned · [map](https://maps.google.com/?q=44.1,-71.4) [wd](https://www.wikidata.org/wiki/Q2566939) [trip](../new-hampshire-stopover-2026/) · #fall-colours #hiking
+- **White Mountain National Forest** · park · Sep,Oct · planned · [map](https://maps.google.com/?q=44.1,-71.4) [wd](https://www.wikidata.org/wiki/Q2566939) [official](https://epqs.nationalmap.gov/v1/json) [trip](../new-hampshire-stopover-2026/) · #fall-colours #hiking
   - Kancamagus Highway is a must-drive; mountain hikes, fall colours.
   - <sub>US/NH/grafton-county/white-mountain-national-forest</sub>
 ### New York
 
 #### Finger Lakes
 
-- **Watkins Glen State Park** · park · May,Jun,Jul,Aug,Sep,Oct · idea · kids: yes · [map](https://maps.google.com/?q=42.3771,-76.8717) [wd](https://www.wikidata.org/wiki/Q7974703) · #family #gorge #hiking #waterfall
+- **Watkins Glen State Park** · park · May,Jun,Jul,Aug,Sep,Oct · idea · kids: yes · [map](https://maps.google.com/?q=42.3771,-76.8717) [wd](https://www.wikidata.org/wiki/Q7974703) [official](https://epqs.nationalmap.gov/v1/json) [official](https://epqs.nationalmap.gov/v1/json) · #family #gorge #hiking #waterfall
   - Gorge trail with stone steps, tunnels and many waterfalls (from memory, unverified). Gorge trail is seasonal, roughly mid May to late Oct. Check open trails and parking fee on NY State Parks. Pairs with the Vermont and New Hampshire fall trips.
   - <sub>US/NY/finger-lakes/watkins-glen-state-park</sub>
 #### Seneca County
@@ -283,65 +283,65 @@ Legend: kind · season · status · stats from the source post are unverified un
 
 #### Grand County
 
-- **Arches National Park** · park · season ? · planned · [map](https://maps.google.com/?q=38.72806,-109.54) [wd](https://www.wikidata.org/wiki/Q223969) [trip](../usa-southwest-rockies/) · #arches #national-park
+- **Arches National Park** · park · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · planned · [map](https://maps.google.com/?q=38.72806,-109.54) [wd](https://www.wikidata.org/wiki/Q223969) [official](https://epqs.nationalmap.gov/v1/json) [trip](../usa-southwest-rockies/) · #arches #national-park
   - Stop 8 of the road trip post; already in the Utah parks plan.
   - <sub>US/UT/grand-county/arches-national-park</sub>
 #### Great Salt Lake
 
-- **Stansbury Island** · island · season ? · idea · [map](https://maps.google.com/?q=40.8297,-112.498) [wd](https://www.wikidata.org/wiki/Q7600177) · #lake #photography #remote
+- **Stansbury Island** · island · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · idea · [map](https://maps.google.com/?q=40.8297,-112.498) [wd](https://www.wikidata.org/wiki/Q7600177) [article](https://www.wikidata.org/wiki/Q7600177) · #lake #photography #remote
   - Stop 17 of the road trip post. Great Salt Lake; access by causeway (from memory).
   - <sub>US/UT/great-salt-lake/stansbury-island</sub>
 #### Hanksville
 
-- **Bentonite Hills** · place · season ? · idea · [map](https://maps.google.com/?q=38.36167,-111.12797) · #badlands #photography #remote
+- **Bentonite Hills** · place · season ? · idea · [map](https://maps.google.com/?q=38.36167,-111.12797) [official](https://epqs.nationalmap.gov/v1/json) · #badlands #photography #remote
   - Stop 5 of the road trip post. Remote, unpaved access; check road conditions.
   - <sub>US/UT/hanksville/bentonite-hills</sub>
-- **Factory Butte** · mountain · season ? · idea · [map](https://maps.google.com/?q=38.43694,-110.91361) [wd](https://www.wikidata.org/wiki/Q20714583) · #badlands #photography #remote
+- **Factory Butte** · mountain · season ? · idea · [map](https://maps.google.com/?q=38.43694,-110.91361) [wd](https://www.wikidata.org/wiki/Q20714583) [official](https://epqs.nationalmap.gov/v1/json) · #badlands #photography #remote
   - Stop 6 of the road trip post. Remote; check road conditions.
   - <sub>US/UT/hanksville/factory-butte</sub>
-- **Long Dong Silver Spire** · mountain · season ? · idea · [map](https://maps.google.com/?q=38.3938,-110.83222) · #photography #remote #spire
+- **Long Dong Silver Spire** · mountain · season ? · idea · [map](https://maps.google.com/?q=38.3938,-110.83222) [official](https://epqs.nationalmap.gov/v1/json) · #photography #remote #spire
   - Stop 7 of the road trip post. Sandstone spire near Hanksville; exact location to confirm.
   - <sub>US/UT/hanksville/long-dong-silver</sub>
 #### Kanarraville
 
-- **Kanarra Falls** · waterfall · season ? · idea · [map](https://maps.google.com/?q=37.5377,-113.15261) · #permit #slot-canyon
+- **Kanarra Falls** · waterfall · season ? · idea · [map](https://maps.google.com/?q=37.5377,-113.15261) [official](https://epqs.nationalmap.gov/v1/json) · #permit #slot-canyon
   - Stop 3 of the road trip post. Permit-limited slot canyon walk (from memory, unverified).
   - <sub>US/UT/kanarraville/kanarra-falls</sub>
 #### Kane County
 
-- **Bryce Canyon National Park** · park · season ? · planned · [map](https://maps.google.com/?q=37.64,-112.17) [wd](https://www.wikidata.org/wiki/Q219562) [trip](../usa-southwest-rockies/) · #hoodoos #national-park
+- **Bryce Canyon National Park** · park · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · planned · [map](https://maps.google.com/?q=37.64,-112.17) [wd](https://www.wikidata.org/wiki/Q219562) [official](https://epqs.nationalmap.gov/v1/json) [trip](../usa-southwest-rockies/) · #hoodoos #national-park
   - Stop 4 of the road trip post; already in the Utah parks plan.
   - <sub>US/UT/kane-county/bryce-canyon-national-park</sub>
 #### San Juan County
 
-- **Canyonlands National Park** · park · season ? · planned · [map](https://maps.google.com/?q=38.1669,-109.76) [wd](https://www.wikidata.org/wiki/Q541856) [trip](../usa-southwest-rockies/) · #canyon #national-park
+- **Canyonlands National Park** · park · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · planned · [map](https://maps.google.com/?q=38.1669,-109.76) [wd](https://www.wikidata.org/wiki/Q541856) [official](https://epqs.nationalmap.gov/v1/json) [trip](../usa-southwest-rockies/) · #canyon #national-park
   - Stop 9 of the road trip post; already in the Utah parks plan.
   - <sub>US/UT/san-juan-county/canyonlands-national-park</sub>
 #### Washington County
 
-- **Zion National Park** · park · season ? · planned · [map](https://maps.google.com/?q=37.20262,-112.98785) [wd](https://www.wikidata.org/wiki/Q205325) [trip](../usa-southwest-rockies/) · #hiking #national-park
+- **Zion National Park** · park · season ? · planned · [map](https://maps.google.com/?q=37.20262,-112.98785) [wd](https://www.wikidata.org/wiki/Q205325) [official](https://epqs.nationalmap.gov/v1/json) [trip](../usa-southwest-rockies/) · #hiking #national-park
   - Stop 2 of the road trip post; already in the Utah parks plan.
   - <sub>US/UT/washington-county/zion-national-park</sub>
 ### Vermont
 
 #### Lamoille County
 
-- **Stowe** · town · Sep,Oct · planned · [map](https://maps.google.com/?q=44.46533,-72.68456) [wd](https://www.wikidata.org/wiki/Q550498) [trip](../vermont-fall-2026/) · #fall-colours #scenic-drive #villages
+- **Stowe** · town · Sep,Oct · planned · [map](https://maps.google.com/?q=44.46533,-72.68456) [wd](https://www.wikidata.org/wiki/Q550498) [article](https://www.wikidata.org/wiki/Q550498) [trip](../vermont-fall-2026/) · #fall-colours #scenic-drive #villages
   - Peak fall foliage, charming villages, covered bridges. Best late Sep to mid Oct; combine with the White Mountains. Planned as vermont-fall-2026 (1-4 Oct 2026).
   - <sub>US/VT/lamoille-county/stowe</sub>
 ### Washington
 
 #### Chelan County
 
-- **Lake Wenatchee** · lake · season ? · idea · [map](https://maps.google.com/?q=47.82267,-120.7772) [wd](https://www.wikidata.org/wiki/Q7172855) · #road-trip-stop
+- **Lake Wenatchee** · lake · season ? · idea · [map](https://maps.google.com/?q=47.82267,-120.7772) [wd](https://www.wikidata.org/wiki/Q7172855) [article](https://www.wikidata.org/wiki/Q7172855) · #road-trip-stop
   - Washington State road trip, add-on if there is time. Placeholder from a saved post, unverified.
   - <sub>US/WA/chelan-county/lake-wenatchee</sub>
-- **Leavenworth** · town · season ? · idea · [map](https://maps.google.com/?q=47.5964,-120.665) [wd](https://www.wikidata.org/wiki/Q1025813) · #road-trip-stop #villages
+- **Leavenworth** · town · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · idea · [map](https://maps.google.com/?q=47.5964,-120.665) [wd](https://www.wikidata.org/wiki/Q1025813) [article](https://www.wikidata.org/wiki/Q1025813) · #road-trip-stop #villages
   - Washington State road trip, add-on if there is time. Placeholder from a saved post, unverified.
   - <sub>US/WA/chelan-county/leavenworth</sub>
 #### Columbia River Gorge National Scenic Area
 
-- **Columbia River Gorge** · canyon · season ? · idea · [map](https://maps.google.com/?q=45.70472,-121.79167) [wd](https://www.wikidata.org/wiki/Q1112581) · #gorge #road-trip-stop #views #waterfall
+- **Columbia River Gorge** · canyon · season ? · idea · [map](https://maps.google.com/?q=45.70472,-121.79167) [wd](https://www.wikidata.org/wiki/Q1112581) [official](https://epqs.nationalmap.gov/v1/json) · #gorge #road-trip-stop #views #waterfall
   - Washington State road trip, add-on if there is time (the post says the Washington side). Placeholder from a saved post, unverified.
   - <sub>US/WA/columbia-river-gorge-national-scenic-area/columbia-river-gorge</sub>
 #### Jefferson County
@@ -351,44 +351,44 @@ Legend: kind · season · status · stats from the source post are unverified un
   - <sub>US/WA/jefferson-county/olympic-peninsula</sub>
 #### King County
 
-- **Mount Baker-Snoqualmie National Forest** · park · season ? · idea · [map](https://maps.google.com/?q=47.766,-121.378) [wd](https://www.wikidata.org/wiki/Q3079176) · #hiking #lake #road-trip-stop #waterfall
+- **Mount Baker-Snoqualmie National Forest** · park · season ? · idea · [map](https://maps.google.com/?q=47.766,-121.378) [wd](https://www.wikidata.org/wiki/Q3079176) [official](https://epqs.nationalmap.gov/v1/json) · #hiking #lake #road-trip-stop #waterfall
   - Washington State road trip stop 3 (the post says Baker-Snoqualmie National Forest). Franklin Falls (very short hike), Barclay Lake (easy hike), visit Skykomish and Index. Placeholder from a saved post, unverified.
   - <sub>US/WA/king-county/baker-snoqualmie-national-forest</sub>
 #### Lake Chelan National Recreation Area
 
-- **Lake Chelan** · lake · season ? · idea · [map](https://maps.google.com/?q=47.84111,-120.04639) [wd](https://www.wikidata.org/wiki/Q1115201) · #boat #road-trip-stop
+- **Lake Chelan** · lake · season ? · idea · [map](https://maps.google.com/?q=47.84111,-120.04639) [wd](https://www.wikidata.org/wiki/Q1115201) [article](https://www.wikidata.org/wiki/Q1115201) · #boat #road-trip-stop
   - Washington State road trip, add-on if there is time (the post says Lake Chelan / Stehekin; Stehekin is at the head of the lake). Placeholder from a saved post, unverified.
   - <sub>US/WA/lake-chelan-national-recreation-area/lake-chelan</sub>
 #### Mount Baker–Snoqualmie National Forest
 
-- **Mount Baker Wilderness** · park · season ? · idea · [map](https://maps.google.com/?q=48.8081,-121.743) [wd](https://www.wikidata.org/wiki/Q3326014) · #hiking #road-trip-stop #scenic-drive #views
+- **Mount Baker Wilderness** · park · Jul,Aug,Sep,Oct · idea · [map](https://maps.google.com/?q=48.8081,-121.743) [wd](https://www.wikidata.org/wiki/Q3326014) [official](https://epqs.nationalmap.gov/v1/json) · #hiking #road-trip-stop #scenic-drive #views
   - Washington State road trip stop 1. Artist Point (drive-up viewpoint), Huntoon Point (short hike), Chain Lakes Loop (moderate day hike). Placeholder from a saved post; stops and hike labels as posted, unverified.
   - <sub>US/WA/mount-bakersnoqualmie-national-forest/mount-baker-wilderness</sub>
 #### Mount St. Helens National Volcanic Monument
 
-- **Mount St. Helens** · mountain · season ? · idea · [map](https://maps.google.com/?q=46.20028,-122.18944) [wd](https://www.wikidata.org/wiki/Q4675) · #road-trip-stop #views
+- **Mount St. Helens** · mountain · May,Jun,Jul,Aug,Sep,Oct · idea · [map](https://maps.google.com/?q=46.20028,-122.18944) [wd](https://www.wikidata.org/wiki/Q4675) [article](https://www.wikidata.org/wiki/Q4675) · #road-trip-stop #views
   - Washington State road trip, add-on if there is time. Placeholder from a saved post, unverified.
   - <sub>US/WA/mount-st-helens-national-volcanic-monument/mount-st-helens</sub>
 #### Pierce County
 
-- **Mount Rainier National Park** · park · Sep,Oct · idea · [map](https://maps.google.com/?q=46.85,-121.75) [wd](https://www.wikidata.org/wiki/Q944329) · #fall-colours #hiking #mountain #national-park #scenic
+- **Mount Rainier National Park** · park · Jul,Aug,Sep · idea · [map](https://maps.google.com/?q=46.85,-121.75) [wd](https://www.wikidata.org/wiki/Q944329) [official](https://epqs.nationalmap.gov/v1/json) · #fall-colours #hiking #mountain #national-park #scenic
   - Owner pick for autumn colour.
   - <sub>US/WA/pierce-county/mount-rainier-national-park</sub>
 #### Whatcom County
 
-- **North Cascades National Park** · park · season ? · idea · [map](https://maps.google.com/?q=48.48306,-120.91139) [wd](https://www.wikidata.org/wiki/Q1163799) · #hiking #lake #national-park #road-trip-stop #views
+- **North Cascades National Park** · park · season ? · idea · [map](https://maps.google.com/?q=48.48306,-120.91139) [wd](https://www.wikidata.org/wiki/Q1163799) [official](https://epqs.nationalmap.gov/v1/json) · #hiking #lake #national-park #road-trip-stop #views
   - Washington State road trip stop 2. Rent a canoe on Ross Lake; hike the Maple Pass loop for sunset (labelled a challenging hike in the post); Diablo Lake vista point. Placeholder from a saved post, unverified.
   - <sub>US/WA/whatcom-county/north-cascades-national-park</sub>
 ### Wyoming
 
 #### Park County
 
-- **Yellowstone National Park** · park · season ? · idea · [map](https://maps.google.com/?q=44.6,-110.5) [wd](https://www.wikidata.org/wiki/Q351) · #geysers #national-park #wildlife
+- **Yellowstone National Park** · park · Apr,May,Jun,Jul,Aug,Sep,Oct · idea · [map](https://maps.google.com/?q=44.6,-110.5) [wd](https://www.wikidata.org/wiki/Q351) [article](https://www.wikidata.org/wiki/Q351) · #geysers #national-park #wildlife
   - Stop 16 of the road trip post. Also covered in usa-southwest-rockies research (yellowstone-supplement).
   - <sub>US/WY/park-county/yellowstone-national-park</sub>
 #### Teton County
 
-- **Grand Teton National Park** · park · season ? · idea · [map](https://maps.google.com/?q=43.83333,-110.70083) [wd](https://www.wikidata.org/wiki/Q222695) · #hiking #mountain #national-park
+- **Grand Teton National Park** · park · May,Jun,Jul,Aug,Sep,Oct · idea · [map](https://maps.google.com/?q=43.83333,-110.70083) [wd](https://www.wikidata.org/wiki/Q222695) [official](https://epqs.nationalmap.gov/v1/json) · #hiking #mountain #national-park
   - Stop 15 of the road trip post. Also covered in usa-southwest-rockies research (family-teton).
   - <sub>US/WY/teton-county/grand-teton-national-park</sub>
 ## Vietnam
