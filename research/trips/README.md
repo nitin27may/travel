@@ -14,7 +14,7 @@ public slug is the new site's `/trips/<slug>/` (`web/lib/public/slugs.ts`).
 | `canadian-rockies-sept-2029` | `canadian-rockies-2029`: capture, suitability, relevance, schedules | built, PLAN.md, `data/*.json` | `canadian-rockies-2029` | planned; published on the old site | 8-22 Sep 2029, 14 nights, Calgary in and out, 5 bases | 9 broken links (1 on the page); no minimum height found for 42 of 43 adventures |
 | `chamonix-mont-blanc-sept-2028` | `chamonix-mont-blanc-2028`: capture, suitability, relevance | built, PLAN.md | `chamonix-mont-blanc-2028` | planned | 1-9 Sep 2028, 8 nights, Les Praz 3 and Argentiere 4 | Mont Blanc tunnel autumn closure; UTMB 2028 dates; no 2028 timetables |
 | `costa-rica-feb-2027` | `costa-rica-2027`: no data yet | built, PLAN.md | `costa-rica-2027` | planned | 13-23 Feb 2027, 10 nights, Rincon de la Vieja, Arenal, Manuel Antonio, Uvita | open-jaw fare; Poas status for Feb 2027; `gaps.md` in the folder |
-| `dolomites-july-2027` | `dolomites-2027`: capture, suitability, relevance, schedules, legs | built, PLAN.md | `dolomites-2027` | planned | 13-26 Jul 2027, Venice in and out, rental car, 4 bases | guide minimum ages; activity prices and limits (GAPs in PLAN.md) |
+| `dolomites-july-2027` | `dolomites-2027`: capture, suitability, relevance, schedules, legs | built, PLAN.md | `dolomites-2027` | planned | 13-26 Jul 2027, Venice in and out, rental car | review: keep 14-day mountain trip; 3-base split preferred; no multi-night hut trek by default; Venice only if adding 3 calendar days for 2 full days; see review files; activity/data GAPs |
 | `iceland-ring-road` | `iceland-ring-road-2027`: capture, suitability, relevance | built, PLAN.md | `iceland-ring-road-2027` | planned | 4-15 Sep 2027, 11 nights, camper van, Ring Road and Snaefellsnes | no campsite confirmed open for Sept 2027; all prices 2026 |
 | `niagara-day-aug-2026` | `niagara-day-2026`: no data | built, PLAN.md | `niagara-day-2026` | past | 29 Aug 2026, one day from Whitby | none (trip done) |
 | `norway-summer` | `norway-summer-2028`: no data | built, PLAN.md | `norway-summer-2028` | planned, dates open | summer 2028, 14 nights, Lofoten, Senja, Fjord Norway; window A about 24 Jun-8 Jul | group size; driving legs not routed (GAP) |
@@ -60,7 +60,22 @@ against the live site.
   Sept 2027**; all prices are 2026.
 - `legacy/dolomites-july-2027/` — Jul 13–26, 2027, YYZ→Venice, rental car, 4 bases. Dates moved
   back from 26 Jun so the high routes and all lifts are open; hut-to-hut considered and
-  declined. `research/trips/dolomites-july-2027/archive/PLAN-superseded-june.md` keeps the June reasoning.
+  declined. The private stay research recommends **San Candido 4n · San Vito di Cadore 4n · Val Gardena 5n**;
+  the 2-base alternative is Alta Pusteria 7n + Val Gardena 6n. The owner has not confirmed the split.
+  See [`stays.md`](dolomites-july-2027/stays.md) for the shortlist and dated booking actions, and
+  [`stays-august.md`](dolomites-july-2027/stays-august.md) for the Aug 17–30 comparison (recommendation: keep July).
+  Book the flexible South-Tyrol apartments by **Dec 2026** (hard stop ~Feb 2027); reserve a refundable automatic now.
+  The 14-day audit finds the signature highlights are covered, but the draft is overstacked, has no true rest/weather
+  day, and only partial Fanes coverage. Recommendation: keep a base-based trip, simplify several days and protect slack;
+  a 3-night / 4-walking-day AV1 traverse is a demanding alternative that sacrifices Sorapis and other central days, not
+  a default for a first family trip. If adding a city, add Venice only by extending the whole trip by 3 calendar days
+  for 2 full days; do not trade away 3 mountain days inside the 14-day cap. Research:
+  [`coverage-audit.md`](dolomites-july-2027/coverage-audit.md), [`hut-trek-options.md`](dolomites-july-2027/hut-trek-options.md),
+  [`italy-extension.md`](dolomites-july-2027/italy-extension.md). **Unresolved before booking:** choose the 13-night
+  base split; decide whether one hut night or a traverse is a family priority; refresh 2027 hut/transport/access rules;
+  close family suitability and itinerary weather-plan gaps. The existing 76 capture records remain mostly draft
+  (68 below usable; 34 without area, 1 without point); see the capture gap command before treating catalog data as complete.
+  `research/trips/dolomites-july-2027/archive/PLAN-superseded-june.md` keeps the June reasoning.
 
 - `legacy/chamonix-mont-blanc-sept-2028/` — **Fri 1 – Sat 9 Sep 2028, 8 nights (recommended from a 1–14 Sep window), from Toronto.**
   7 research files (6, plus `suitability.md`; corrected 21 Oct) + PLAN.md + page built through `legacy/_system/` (theme `alpine-snow`). Shape: Les Praz 3, optional
