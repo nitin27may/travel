@@ -24,7 +24,7 @@ contributions.
 2. Changeset view: each change as a diff (old → new) per field, with its evidence (source URL, publisher, read date, quote, confidence), the trust it would get, and conflicts with existing evidence.
 3. Actions per change: accept, edit then accept, reject (with a note), merge with an existing entity (duplicate detection by name similarity, distance under 300 m, same Wikidata/OSM id). Bulk: accept all low-risk changes (new entities with an official source; media with a free licence).
 4. Accepting writes the entity fields, evidence rows, relations and media, bumps versions, recomputes `fresh_until`, coverage and search indexes; all as one operation with an inverse (roll back a bad import).
-5. Live updates on the queue via Realtime Postgres Changes (admin-only screen).
+5. Live updates on the queue (admin-only screen). Not built; the transport must be designed on Neon (the only live path today is the content-free account-draft signal, which does not cover this), and the earlier Realtime Postgres Changes design is historical.
 
 ### Research jobs
 
@@ -48,11 +48,11 @@ contributions.
 
 ### Users and roles
 
-14. User list (from Supabase Auth): roles (user, researcher, moderator, admin), last sign-in, MCP clients authorised, revoke sessions and tokens. Studio remains available on the LAN for deeper work.
+14. User list (from Managed Better Auth users joined to `app_user`): roles (user, researcher, moderator, admin), last sign-in, MCP clients authorised, revoke sessions and tokens. Not built: no admin user, role or session management exists yet (R-60, Oct 2026). Deeper database work uses the Neon console, not an in-app tool.
 
 ### Operations health
 
-15. Panels: reminder worker status (last run, failures), email and push delivery failures, routing quota used, backup last success and last restore test, link-checker results, Storage use.
+15. Panels: reminder worker status (last run, failures), email and push delivery failures, routing quota used, backup last success and last restore test, link-checker results, object storage use (provider not selected).
 
 ## Data touched
 

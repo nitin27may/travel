@@ -4,7 +4,7 @@
 
 - **Agent:** the coordinator; `travel-verifier` (Sonnet) for the checks; an Opus auditor for the privacy item. The owner does the Google console steps.
 - **Effort:** about 6 h.
-- **Rows:** 2.46, 2.47, 2.48, 7.1 to 7.3, 7.8 to 7.10, 14.6, Q43, Q45, Q46, Q48. Deferred to the hosting decision: 7.4 to 7.7, 7.12, Q44, Q71.
+- **Rows:** 2.46, 2.47, 2.48, 7.1 to 7.3, 7.8 to 7.10, 14.6, Q43, Q45, Q46, Q48. Vercel is selected; project setup/deployment wait for merge-ready under R-61. Rows 7.4 to 7.7 and 7.12 require Vercel-specific review; Q44/Q71 custom domain remain open.
 - **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) section 13.
 - **Principles:** P8, T3, T5.
 - **Starts:** only after the owner's Q43 approval of a named commit at R2 exit.
@@ -63,4 +63,4 @@ On `main`, one commit per step that changes files: `web: remove /specimen from t
 
 ## Hand-back
 
-The audit file, the redirect mapping test result, the cache test, the key and quota state, the Lighthouse table, and the list of steps waiting for the hosting decision.
+The audit file, the redirect mapping test result, the cache test, the key and quota state, the Lighthouse table, and the list of steps still waiting on Vercel deployment or custom-domain decisions.

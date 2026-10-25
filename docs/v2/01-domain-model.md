@@ -1,6 +1,11 @@
 # 01. Domain model
 
-The DDL is in [schema.sql](schema.sql). This file explains the shapes and the rules that DDL alone does not show.
+The first-cut DDL proposal is in [schema.sql](schema.sql), now a historical, non-executable proposal. The applied Neon
+schema is the ten migrations in `core/src/db/migrations/` (inventory and deviations:
+[NEON-MIGRATIONS.md](build/public-site/NEON-MIGRATIONS.md)); identities are text Managed Better Auth user ids, not
+`auth.users`. This file explains the shapes and the rules that DDL alone does not show. Applying the tables is not the
+same as building the features: household, trip and planner tables are deny-by-default under RLS, and only the private
+account draft (`planner_draft`) is live today.
 
 ## 1. Four areas
 
@@ -89,9 +94,10 @@ This is all the graph the product needs; see 04-stack.md for why it is not a gra
 
 ### 2.6 `media`
 
-Entity, storage (Commons URL or a Supabase Storage key), width, height, licence, author, attribution text, source
+Entity, storage (Commons URL or an object-storage key), width, height, licence, author, attribution text, source
 URL, caption, role (hero, gallery, map, user), status (proposed, approved, hidden), perceptual hash to
-catch duplicates. Commons is linked (their thumbnails), not copied; user uploads go to Supabase Storage.
+catch duplicates. Commons is linked (their thumbnails), not copied; user uploads go to object storage once a
+provider is chosen (not selected; the 17 Oct Supabase Storage choice is superseded).
 
 ### 2.7 `leg_cache`
 
@@ -237,7 +243,8 @@ timeline, so "Columbus Day weekend: fall colours" is visible in January.
 ### 3.8 `trip_member`
 
 user (or pending email invite), role owner, editor, viewer; optionally linked to a traveller. Rights
-come from here; the database enforces them again with row-level security (04-stack.md).
+come from here; the database enforces them again with row-level security (04-stack.md). Today the trip tables have
+RLS enabled with no policy or app grant (deny), so membership-authorised trip access is still to be built.
 
 ## 4. Research
 

@@ -1,4 +1,9 @@
 -- Travel platform v2: first-cut schema (PROPOSAL, 17 Oct 2026). Explained in 01-domain-model.md.
+-- HISTORICAL PROPOSAL, not executable production migrations. The owner selected Neon + Managed
+-- Better Auth on 24 Oct. Authoritative migrations: core/src/db/migrations/*.sql; inventory and
+-- deviations: docs/v2/build/public-site/NEON-MIGRATIONS.md. Never run this auth.users test stub
+-- against Neon; the managed neon_auth schema is provider-owned. The accepted catalogue changes
+-- are documented in research/reports/schema-diff-2026-10.md.
 -- Postgres + PostGIS on self-hosted Supabase (decided 17 Oct 2026, 08-self-hosted.md). Supabase Auth owns
 -- auth.users; app_user is our profile row keyed by the same uuid (created by a trigger on auth.users).
 -- The stub below lets this file load on plain Postgres for tests; on Supabase auth.users already exists.

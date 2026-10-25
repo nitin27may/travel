@@ -7,8 +7,18 @@ object to its feature page, and specifies collaboration and live editing in deta
 ## Purpose
 
 Plan together in real time like Wanderlog (decided: live co-editing), share a read-only view with
-grandparents, and always know who changed what. Built on the operation layer plus Supabase Realtime
-broadcast and presence (08-self-hosted.md 4), not on a separate sync engine.
+grandparents, and always know who changed what. Built on the operation layer, not on a separate sync
+engine.
+
+**Status (R-60, Oct 2026): proposed, not implemented.** The backend is Neon Postgres, Managed Better
+Auth and Neon Realtime. The only live path built today is account-draft invalidation: a write to the
+user's private `planner_draft` bumps a content-free, per-user `planner_draft_signal` row (the one
+coordinator-approved non-RLS relation), and the client re-fetches its drafts through an
+authenticated, RLS-scoped read. That signal carries no content, ordering, actor or presence, so it
+does not solve collaboration. Trip membership, roles, op broadcast, version ordering, catch-up,
+rollback, presence, activity feed and guest links below are future requirements; their transport and
+channel authorisation must be designed on Neon (the earlier Supabase Realtime broadcast/presence
+design in 08-self-hosted.md 4 is historical) and must keep private trip content behind RLS.
 
 ## User stories
 
@@ -27,12 +37,12 @@ broadcast and presence (08-self-hosted.md 4), not on a separate sync engine.
 
 ### Live editing
 
-3. A client sends an operation; the server commits it (op layer, RLS), inserts `op_event`, increments `trip.version`, and broadcasts `{op, input, result, version, actor, client}` on the private Realtime channel `trip:<id>`.
+3. A client sends an operation; the server commits it (op layer, RLS), inserts `op_event`, increments `trip.version`, and notifies the other members' clients of `{op, input, result, version, actor, client}` for that trip (transport to be designed on Neon; no private content may travel on a non-RLS path).
 4. Other clients apply the op with the shared reducer (same code as optimistic updates and offline replay). If a client sees a version gap, it asks for `ops since N`; if the gap exceeds 200 ops, it refetches the trip.
 5. **Optimistic updates**: the acting client applies immediately; on server rejection it rolls back with a short message ("Item was deleted by Priya").
-6. **Ordering and conflicts**: the server is the order of record; moves use fractional keys; field edits are last-writer-wins per field; text notes being edited by two people at once show a soft warning ("Priya is editing this note"). Upgrade path: Yjs per note field over the same channel.
+6. **Ordering and conflicts**: the server is the order of record; moves use fractional keys; field edits are last-writer-wins per field; text notes being edited by two people at once show a soft warning ("Priya is editing this note"). Upgrade path: Yjs per note field over the same live transport.
 7. **Presence**: avatars at the top (who has the trip open), a small avatar on the item someone is editing, and the day someone is viewing in the outline.
-8. Channel authorisation: RLS on `realtime.messages` allows joining `trip:<id>` only for members.
+8. Live-channel authorisation: only members of a trip can receive its live updates or presence; a non-member, or a member removed mid-session, receives nothing further (mechanism to be designed on Neon and tested like RLS).
 
 ### Sharing outward (summary of 10-sharing.md)
 
@@ -63,7 +73,7 @@ broadcast and presence (08-self-hosted.md 4), not on a separate sync engine.
 
 ## Data touched
 
-`trip_member`, `op_event`, `trip.version`, `realtime.messages` policies, `share_link` (new), all trip tables via ops.
+`trip_member`, `op_event`, `trip.version`, live-channel membership authorisation (design pending on Neon), `share_link` (new), all trip tables via ops.
 
 ### Schema additions
 
@@ -80,7 +90,7 @@ MCP: changes made by a client broadcast like any other; `get_trip` returns `vers
 ## Edge cases
 
 - Offline edits replayed after a teammate's conflicting change: ops are intent-based and mostly commute; non-commuting ones (edit of a deleted item) are rejected and listed in a "couldn't apply" tray with copy-to-clipboard.
-- Realtime disconnected (home server unreachable): the client shows "live updates paused" and polls on reconnect.
+- Live updates disconnected (server unreachable): the client shows "live updates paused" and polls on reconnect.
 - A viewer link opened after the trip ended: still works until revoked; shows "past trip".
 - Rapid drags (10 ops/s) by one user: client coalesces moves of the same item within 300 ms into one op.
 
@@ -94,7 +104,7 @@ MCP: changes made by a client broadcast like any other; `get_trip` returns `vers
 
 ## Milestone
 
-M2 (members, roles, live broadcast, presence, viewer link, activity feed). Yjs notes only if needed.
+M2 (members, roles, live broadcast, presence, viewer link, activity feed), not started. Yjs notes only if needed.
 
 ## Open questions
 

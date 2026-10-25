@@ -5,8 +5,9 @@ write a detailed plan, then finish them one by one. Execution approved the same 
 
 This is a closure queue under [PHASE-E-START.md](PHASE-E-START.md), not a replacement
 for its contracts, lane ownership or R2 criteria. Finish a queue item before starting
-the next. No deployment, legacy deletion or merge into the main checkout is authorized
-by this document.
+the next. The owner selected Vercel and directed project setup/deployment once the
+branch is merge-ready (PLAN R-61); this document does not authorize deployment before
+that gate, legacy deletion or merge into the main checkout.
 
 ## 1. State established before execution
 
@@ -21,6 +22,14 @@ TRP2b2 was the only confirmed active unfinished lane: four commits on
 `da3760a` on this session branch. They are not on `main` until separately integrated.
 
 ## 2. Closure queue
+
+**Owner sequencing update, 24 Oct:** finish the currently active
+[Neon integration](NEON-SETUP.md), reconcile its specs, then create/configure Vercel
+and deploy when the branch is merge-ready (R-61). Continue the remaining queue below
+after deployment. Then take up [trip navigation links and base-aware day
+routes](TRIP-NAVIGATION-PLAN.md) (BACKLOG 15.48). The navigation request is planned,
+not an instruction to interrupt the active backend work or start another UI
+implementation now.
 
 | Order | Item | Existing foundation | Remaining work and exit |
 |---|---|---|---|

@@ -1,6 +1,7 @@
 # MCP security: threat model and mitigations
 
-The MCP endpoint is public (through the Cloudflare Tunnel) so that remote chat clients can reach it.
+The MCP endpoint will be public so that remote chat clients can reach it. It is not built yet, and its hosting and
+OAuth provider are not selected (R-60, Oct 2026; the Cloudflare Tunnel plan in 08-self-hosted.md is historical).
 It touches private family data (ages, travel dates, where the house will be empty, booking codes) and
 it accepts writes from software that reads untrusted web pages. That combination is the risk.
 
@@ -28,10 +29,10 @@ it accepts writes from software that reads untrusted web pages. That combination
 | T7 | **Cross-user access** | guessing trip ids | ids are ULIDs (not guessable) **and** every operation runs as the caller under row-level security; `not_found` for invisible objects (no existence leak) |
 | T8 | **Replay and duplicate writes** | retries create two flights | `client_op_id` unique per actor; repeated calls return the first result |
 | T9 | **Stolen device token** | a PAT copied from a laptop | tokens stored hashed server-side; shown once; scoped; IP and client recorded per use; unusual-use email ("new client used your token from …") |
-| T10 | **Malicious attachments** | a client attaches a crafted file | MIME and size checks, stored in private Storage, never rendered inline from an untrusted origin, served via signed URLs with `Content-Disposition: attachment` for non-images |
+| T10 | **Malicious attachments** | a client attaches a crafted file | MIME and size checks, stored in private object storage (provider not selected), never rendered inline from an untrusted origin, served via signed URLs with `Content-Disposition: attachment` for non-images |
 | T11 | **Server-side request forgery** | `add_from_url` or `attach {url}` pointed at the home network | URL fetching only over HTTPS to public addresses; private and link-local ranges blocked; size and time limits; no redirects to private ranges |
 | T13 | **Leaky share links** | a guest link forwarded beyond the grandparents, or a link that shows more than intended | links are scoped (day, list, item...), expire by default, can carry a PIN, never include codes, attachments, ages or home address; open count and last opened are shown; revoke is instant; creating guest or public links needs `confirmed_by_user` and is logged in the activity feed |
-| T12 | **Home server exposure** | the tunnel exposes more than `/mcp` and the app | tunnel routes only the web container; Studio, Postgres and the Supabase gateway admin routes are not routed; service-role key never leaves the server |
+| T12 | **Infrastructure exposure** | a future public host exposes more than `/mcp` and the app | a deployment must expose only the web app's routes; no database console, direct Postgres access or admin route is selected or authorised today; database owner and service credentials never leave the server or reach a browser bundle. (Historical: the home-server tunnel, Supabase Studio and gateway admin routes in 08-self-hosted.md) |
 
 ## Operational rules
 

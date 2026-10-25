@@ -1,8 +1,11 @@
 # Migration: from this repo to the v2 platform
 
-Status: **draft** (17 Oct 2026). Planning only; nothing here has been run.
+Status: **draft** (17 Oct 2026; provider note updated 24 Oct 2026). Planning only; nothing here has been run.
 
-The v2 platform starts fresh (self-hosted Supabase, Next.js, operations as the only writer). This
+The v2 platform starts fresh (Next.js, operations as the only writer; data, accounts and realtime on Neon since the
+owner's 24 Oct 2026 choice, which supersedes the self-hosted Supabase plan of 17 Oct). Neon's ten schema migrations are
+applied but **no catalogue or trip data is loaded**: the public catalogue still reads `JsonStore`, and the importers
+below are unbuilt. This
 repo holds two years of research and 13 built trip pages. Migration means: **every fact worth keeping
 becomes a catalog entry with its source, every trip becomes a v2 trip (and most become curated
 templates), and every published URL keeps working** until its replacement exists.

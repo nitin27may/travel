@@ -34,7 +34,7 @@ the tools people already use (Google Maps, Apple Maps, calendars, GPS apps, Goog
 
 ### Offline tiles
 
-11. Per-trip PMTiles extract (F13), from a Protomaps planet build or regional extracts, served from Supabase Storage or the home server; downloaded to Cache Storage.
+11. Per-trip PMTiles extract (F13), from a Protomaps planet build or regional extracts, served from object storage (provider not selected; R-60 selected Neon only for Postgres, auth and live updates) or the web host (also not selected); downloaded to Cache Storage. Not built.
 
 ### Exports
 
@@ -53,7 +53,7 @@ See [10-sharing.md](../10-sharing.md). Exports are a sharing audience of their o
 
 ## Data touched
 
-`leg_cache`, `entity.shape`, `media`, `trip_item`, `reservation_segment`, `calendar_feed`, `offline_package`, Storage (tiles).
+`leg_cache`, `entity.shape`, `media`, `trip_item`, `reservation_segment`, `calendar_feed`, `offline_package`, object storage for tiles (provider not selected).
 
 ### Schema additions
 

@@ -1,6 +1,15 @@
-# 08. Self-hosted Supabase on the home server (decided 17 Oct 2026)
+# 08. Self-hosted Supabase on the home server (decided 17 Oct 2026; historical, superseded 24 Oct 2026)
 
-**Decision:** run the whole platform on the owner's Ubuntu machine with Docker: self-hosted Supabase
+> **Superseded (owner, 24 Oct 2026).** The database, auth and realtime now run on **Neon** (Postgres, Managed Better
+> Auth, Realtime), selected and provisioned; see [NEON-SETUP.md](build/public-site/NEON-SETUP.md) and the banner in
+> [04-stack.md](04-stack.md). Nothing in this file is deployed: no home server, Supabase stack, Studio, tunnel, worker
+> container or backup job exists. It is kept as the decision record. Its **requirements still apply** to whatever is
+> chosen next: offline Today mode, ICS alarms as a reminder backstop, rotated secrets with no service key in a browser,
+> no admin console exposed publicly, offsite backups with a monthly restore test, pinned upgrades, uptime alerts, and a
+> documented way out. Hosting, object storage, functions and the worker runtime are **not selected**; do not read the
+> Supabase, Docker or Cloudflare Tunnel answers below as current.
+
+**Decision (historical):** run the whole platform on the owner's Ubuntu machine with Docker: self-hosted Supabase
 (Postgres + PostGIS, Auth, Realtime, Storage, Studio) plus our own containers. Audience: the family.
 This replaces Neon, Better Auth, R2, the Cloudflare trip rooms and Vercel from 04-stack.md section 1.7;
 everything else in 04 stands. Section 1.8a's objections (a second vendor beside Neon, an auth bridge,

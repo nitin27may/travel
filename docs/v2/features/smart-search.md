@@ -4,7 +4,7 @@ Status: spec written 19 Oct 2026 (travel-planner, Opus). Phase 1 is ready for a 
 
 Supersedes:
 - the "natural-language search" item in backlog 2.41;
-- the all-MiniLM-L6-v2 model named in the 3.15 row. The model is **gte-small** (384 dims), because Supabase Edge ships the same model built in (L9), so one model can serve both the browser and a later server;
+- the all-MiniLM-L6-v2 model named in the 3.15 row. The model is **gte-small** (384 dims), because Supabase Edge ships the same model built in (L9), so one model can serve both the browser and a later server (R-60, Oct 2026: Supabase Edge is now a historical alternative; the backend is Neon and no server inference runtime is chosen, but the model choice stands);
 - the hand-written `KIND_WORDS` and `KID_WORDS` tables in `web/lib/search/suggest.ts`. The parser replaces them, and its vocabulary comes from data.
 
 ## 1. Goal
@@ -16,7 +16,7 @@ The work comes in three phases:
 | Phase | What | Runtime cost | Decision |
 |---|---|---|---|
 | 1 | A deterministic query parser that maps words to existing URL filter keys, shows them as chips, and puts results it could not check on a separate "not checked yet" list | none (a few KB of vocabulary) | build it (lane SQ1) |
-| 2 | Semantic ranking with gte-small embeddings, as a hybrid of full-text and vector search fused by reciprocal rank fusion | none in money. The browser path downloads a model of about 34 MB once; the server path uses the Supabase free tier | spike first, then decide (section 10) |
+| 2 | Semantic ranking with gte-small embeddings, as a hybrid of full-text and vector search fused by reciprocal rank fusion | none in money. The browser path downloads a model of about 34 MB once; a server path needs an inference runtime that is not chosen (the Supabase free tier was the historical candidate) | spike first, then decide (section 10) |
 | 3 | Photo CLIP at build, "feels like this" similar places, pipeline helpers | build time only | later, under L9 |
 
 Principles cited: P1 (design for 10,000 places: the vocabulary is data and the vectors are sharded), P3 (a glance, then a few clicks: one query replaces five pill choices), P4 (no manual needed: chips explain the parse), P6 (the right metadata: unknowns are labelled), P8 (no bulk catalogue), P9 (one data boundary).
@@ -221,7 +221,7 @@ The present `suggest()` fallback (the single word with the most matches) stays a
 | H4 | **The parser never infers a fact from a word.** "easy" filters on our effort answer; it never makes a place easy. Words that have no filter yet (relevance) are shown as not used, not approximated by a ranking |
 | H5 | **Phase 2 results are labelled as similar, never as matches.** Semantic ranking only reorders rows that already pass the parsed filters, plus an optional "Similar in meaning" group. It never moves a row past a filter, a rule or a gap (a vector that is close to "stroller" proves nothing about strollers) |
 | H6 | **Bands are named.** When a number is rounded to a band, the chip says so (A10) |
-| H7 | **No query leaves the device in phase 1.** In phase 2, the browser path keeps the query local. The server path sends it to our own Supabase function only, and nothing is logged with an identity |
+| H7 | **No query leaves the device in phase 1.** In phase 2, the browser path keeps the query local. The server path sends it to our own server function only (runtime not chosen), and nothing is logged with an identity |
 
 ## 8. Performance and size budgets
 
@@ -249,7 +249,7 @@ New functions, each in the shape of a future API call:
 /** Reads a human query as filters. Today: vocab.json plus the area parts, in the browser. Later: GET /api/parse?q=&target= */
 export async function parseQuery(q: string, opts?: { target?: 'places' | 'trips' }): Promise<ParsedQuery>;
 
-/** Phase 2 only. Orders the ids that already passed the filters by meaning. Today: the browser model plus vector shards. Later: a Supabase Edge function. */
+/** Phase 2 only. Orders the ids that already passed the filters by meaning. Today: the browser model plus vector shards. Later: a server function (inference runtime not chosen). */
 export async function rankByMeaning(q: string, ids: string[], scope: SearchScope): Promise<{ id: string; score: number }[]>;
 
 /** The list answer split by honesty (H1): rows that pass, and rows that fail only on a gap of a parsed constraint. */
@@ -285,7 +285,7 @@ Components never read `vocab.json`, the vectors or the model. They call these th
 - **One model:** `Supabase/gte-small` (384 dims, mean pooling, L2 normalised, max 512 tokens, no query prefix).
 - **Build:** `web/scripts/embed.mjs` uses transformers.js in Node, with the version pinned exactly. It embeds the public card text (9.2) per place and trip, then writes the int8 shards and `data/search/model.json` (`model`, `hf revision` commit hash, `transformers.js` version, `dtype`, `pooling`, `normalize`, `dims`, and a checksum of the ONNX file).
 - **Query, option A (browser):** transformers.js on WASM, and WebGPU when present, loads the same pinned files lazily. It embeds the query, reads the shards in scope and scores dot products.
-- **Query, option B (server, when a backend exists):** the Supabase Edge built-in `gte-small` (`new Supabase.ai.Session('gte-small')`, `mean_pool: true, normalize: true`) plus pgvector (HNSW, cosine) on the free tier. Vectors for this path are **computed by the same Edge function** in a backfill job, never copied from the Node build, so build and query use one runtime by construction.
+- **Query, option B (server, when a backend exists):** historical alternative, not selected. R-60 (Oct 2026) chose Neon for Postgres, auth and live updates only; no server inference runtime or functions host is chosen, so option B must be re-specified before it is tested. As written: the Supabase Edge built-in `gte-small` (`new Supabase.ai.Session('gte-small')`, `mean_pool: true, normalize: true`) plus pgvector (HNSW, cosine) on the free tier. Vectors for this path are **computed by the same Edge function** in a backfill job, never copied from the Node build, so build and query use one runtime by construction. That one-runtime rule holds for any future option B.
 - **Hybrid ranking:** list A is today's full-text search over the rows that pass the parsed filters (in Postgres, `tsvector` with `websearch_to_tsquery`). List B is the vector neighbours of the query among those rows. They are fused with reciprocal rank fusion, `score(d) = sum over lists of 1 / (60 + rank_d)`. When the parse leaves no words over (`q` is empty), ranking is skipped and the list keeps its order.
 
 ### 10.2 Spike steps (a builder lane, about 1 day, Sonnet; results written to `research/reports/smart-search-spike.md`)
@@ -294,7 +294,7 @@ Components never read `vocab.json`, the vectors or the model. They call these th
 2. Label the 30 queries of section 3: for each one, the owner or the planner marks the relevant places among the top 30 that any method returns (pooled judging).
 3. Run four methods per query: (a) the parser alone, in the list's default order; (b) the parser plus full text; (c) the parser plus vector; (d) the parser plus RRF of (b) and (c). Score nDCG@10 and recall@10.
 4. In the browser on a real mid-range Android phone (the owner's, or a Pixel 6a class phone) and on desktop, measure: model bytes transferred, cold load time, warm p50 and p95 per query, and peak memory. Do it once on WASM and once on WebGPU where available.
-5. Parity: embed 50 card texts in Node and in the browser, and require cosine at least 0.999. If a free Supabase project is available, embed the same 50 with the Edge built-in and record the cosine against Node (expected under 1, which is why option B re-embeds), plus warm and cold latency and CPU time per call.
+5. Parity: embed 50 card texts in Node and in the browser, and require cosine at least 0.999. Optional, historical option B only: if a free Supabase project is available, embed the same 50 with the Edge built-in and record the cosine against Node (expected under 1, which is why option B re-embeds), plus warm and cold latency and CPU time per call.
 
 ### 10.3 Pass and fail thresholds
 
@@ -331,10 +331,10 @@ The decision goes into this page as a dated section, with the numbers. If both A
 
 ## 13. Gotchas
 
-- **Supabase free projects pause after 7 days with no activity.** The first request after a pause fails until someone restores the project in the dashboard, which takes minutes. With under 100 users a pause is likely. The browser path or the parser must always be the fallback: `rankByMeaning` falls back to the parser's order on any error or after 800 ms. Do not depend on a keep-alive ping, because it is one more thing to break.
+- **Supabase free projects pause after 7 days with no activity** (historical, applies only to the unselected Supabase Edge option B). The first request after a pause fails until someone restores the project in the dashboard, which takes minutes. With under 100 users a pause is likely. Whatever server runtime is chosen, the browser path or the parser must always be the fallback: `rankByMeaning` falls back to the parser's order on any error or after 800 ms. Do not depend on a keep-alive ping, because it is one more thing to break.
 - **Pin the model.** Pin the Hugging Face repo by commit hash (not `main`), transformers.js by exact version, and the dtype (`q8`), pooling and normalisation. A silent upgrade of any one of them changes the vectors, and old shards then rank as nonsense without an error. The shard header carries the model fingerprint, and the query side refuses a shard whose fingerprint differs from its own.
-- **Build and query models must be identical.** Node transformers.js and browser transformers.js with the same files agree. The Supabase built-in gte-small is a different runtime with its own tokeniser and quantisation build, and it is not pinnable by us. So option B re-embeds the catalogue with the Edge function itself and never mixes vectors from Node.
-- **CPU limits.** Supabase Edge Functions allow about 2 s of CPU per request (and 256 MB of memory) on the free tier. Embedding one short query fits; embedding the catalogue in one call does not, so the backfill runs in batches of 20 or so. On phones, WASM inference blocks the thread, so it must run in a Web Worker.
+- **Build and query models must be identical.** Node transformers.js and browser transformers.js with the same files agree. The Supabase built-in gte-small (historical option B) is a different runtime with its own tokeniser and quantisation build, and it is not pinnable by us. So option B re-embeds the catalogue with the Edge function itself and never mixes vectors from Node.
+- **CPU limits** (Supabase figures are historical, for the unselected option B). Supabase Edge Functions allow about 2 s of CPU per request (and 256 MB of memory) on the free tier. Embedding one short query fits; embedding the catalogue in one call does not, so the backfill runs in batches of 20 or so; any future server runtime needs the same check. On phones, WASM inference blocks the thread, so it must run in a Web Worker.
 - **Cloudflare Pages caps a single file at 25 MiB.** The gte-small ONNX file is bigger, so it cannot be served from the site. Options: the Hugging Face CDN (a third-party request that carries no query text) or an R2 bucket (L5 already plans one). This is decided in the spike (Q38).
 - **Aliases that are ordinary words.** `tram`, `slot` and `stroll` are both aliases and plain English. The build check lists them, and A2 and A4 decide them. Every new alias is a promise that the word means that type.
 - **The 60% rule hides facets the parse may still apply** (dogs and shape on trails today, 3.25). The parse applies them anyway, and the not-checked group makes the thinness visible. That is honest, but expect a lot of "not checked yet" until CS7 batch 2 fills the data.
@@ -348,6 +348,6 @@ The decision goes into this page as a dated section, with the numbers. If both A
 | Q35 | Relevance words ("worth the journey", "hidden gem") have no filter. Add the one relevance badge label to the list row (it is a chip label, inside the P8 allowlist) and a `rel=` key, once RV1 derives badges? | Yes, after RV1. Until then, the parser shows these words as not used yet |
 | Q36 | Distances: keep the existing length and climb bands, with chips that name the band ("Up to 6 km"), or add exact `km=` and `gain=` range keys? | Bands in phase 1. Add range keys only if the owner finds the rounding confusing on the built site |
 | Q37 | "near Toronto", where the town is not in our area tree: ignore it (as now), or ship a small build-time list of towns within 100 km of our places, with a radius `bbox`? | Ship the small list (under 10 KB gzip) in a phase 1 follow-up, with a 40 km radius named on the chip ("Within 40 km of Toronto") |
-| Q38 | Phase 2 query side: the browser model (34 MB once, model hosted on Hugging Face or R2) now, or wait for a server? | Decide after the spike. If the browser passes, ship it, with the model on R2, and switch to Supabase Edge only when a backend exists for other reasons (the 7-day pause makes a search-only project fragile) |
+| Q38 | Phase 2 query side: the browser model (34 MB once, model hosted on Hugging Face or R2) now, or wait for a server? | Decide after the spike. If the browser passes, ship it, with the model on R2, and switch to Supabase Edge only when a backend exists for other reasons (the 7-day pause makes a search-only project fragile). R-60 (Oct 2026): the backend is Neon and no server inference runtime is chosen, so Supabase Edge is a historical alternative; the browser-first recommendation stands |
 | Q39 | Run the parser in both the header search and the Places and Trips search boxes? | Yes. On the list pages it writes the normal filter keys, with a one-line undo to plain text |
 | Q40 | "with kids" with no age: set `kid=yes` on Places (the older kid-fit chip) and ask for an age on Trips? | Changed 20 Oct 2026 (REVIEW4): ask on both lists. The Youngest child pill is an age control, so "Easy with kids" never fills it; the question chip offers the ages in one click and sets nothing until one is picked. `kid=yes` still works in old links, and `DECISIONS.kidsWithoutAge.places = 'yes'` restores it |
