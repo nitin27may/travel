@@ -150,6 +150,22 @@
       "ref": "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "is-6-laugar",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 8643948, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 45.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Dettifoss walk",
       "reaches": [
         "trip/iceland-ring-road-2027/sight:dettifoss"
@@ -389,6 +405,22 @@
       "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "is-3-olafsvik",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3414079, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 15,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Arnarstapi to Hellnar",
       "route_is_attraction": true,
       "attraction_reason": "A coastal path past sea arches and bird cliffs: the walk itself is the experience.",
@@ -430,6 +462,14 @@
       "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
       "name": "Fjadrargljufur canyon",
       "reaches": [
         "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff"
@@ -508,6 +548,14 @@
       "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
       "name": "Skaftafell Svartifoss",
       "reaches": [
         "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff"

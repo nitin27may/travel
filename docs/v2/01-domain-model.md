@@ -1,5 +1,9 @@
 # 01. Domain model
 
+> Last verified 25 Oct 2026 against main f2dee4b ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). "oauth clients" under PEOPLE
+> below is now `mcp_client_grant` plus the existing `mcp_token` ([mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md) 7); the
+> OAuth clients themselves live in Neon Managed Better Auth.
+
 The first-cut DDL proposal is in [schema.sql](schema.sql), now a historical, non-executable proposal. The applied Neon
 schema is the ten migrations in `core/src/db/migrations/` (inventory and deviations:
 [NEON-MIGRATIONS.md](build/public-site/NEON-MIGRATIONS.md)); identities are text Managed Better Auth user ids, not

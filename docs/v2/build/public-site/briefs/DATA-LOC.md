@@ -1,6 +1,6 @@
 # DATA-LOC: every location has the basics, whether or not a trip uses it (L1 to L5; D2b; extends D3 and D5)
 
-Status: spec, 25 Oct 2026 (owner request). Nothing in this brief is built yet. Rows: PLAN R-110, BACKLOG 15.110 (renumbered
+Status: spec, 25 Oct 2026 (owner request). L1 is built on `public/DATA-L1b` (25 Oct 2026, travel-builder, Opus): the section 5 tools, the trip-less lane `catalogue` (DD-8) and the strict photo licences (DD-3); the rest is not built yet. Rows: PLAN R-110, BACKLOG 15.110 (renumbered
 on 25 Oct from R-68 and 3.68 on `public/DATA-L1`; the old title's "D7" was a batch label that collides with D7 best-time
 windows and is dropped: the batches here are L1 to L5, and L2 runs as DATA D2b). State and order: [DATA-ROADMAP.md](../DATA-ROADMAP.md). Owner words, summarised: widen the search; every
 location (city, lake, nature, trail, activity) should carry basic facts even when no trip plans it; images for every location, from wherever
@@ -69,16 +69,15 @@ Order, one runner, one request at a time (the Commons 429 rule in `method/lanes/
 2. Openverse (one API over Flickr, Geograph, museum and agency collections; filter `license` to CC0, PDM, BY, BY-SA).
 3. Flickr, CC0 / CC BY / CC BY-SA / "no known copyright restrictions" only (through Openverse only; no Flickr key, Q-LOC-2).
 4. Geograph (CC BY-SA, UK), US National Park Service and other public-domain government media, Parks Canada and agency pages that state an open licence.
-5. Unsplash and Pexels: free to use under their own licence, not Creative Commons. Allowed, with the licence text and photographer recorded as the licence.
+5. ~~Unsplash and Pexels~~: not taken (DD-3). Their licences are not Creative Commons and forbid building a similar collection.
 6. The owner's own photos.
 
 Record per photo: file page URL, author, licence (from the file's metadata), width at least 1600 for a hero, search date, `subject_check`. Reject
-"all rights reserved" and "no derivatives" files (we resize and crop). "Non-commercial" (NC) files are allowed while the site earns nothing and the
-licence is recorded, so they can be dropped in one query if that ever changes. **Conflict, not settled (DATA-ROADMAP DD-3):** D5b in DATA.md and its prompt allow only CC BY, CC BY-SA, CC0 and public
+"all rights reserved" and "no derivatives" files (we resize and crop). "Non-commercial" (NC) files are refused too (DD-3 below). **The conflict this section had (DATA-ROADMAP DD-3):** D5b in DATA.md and its prompt allow only CC BY, CC BY-SA, CC0 and public
 domain ("never NC, ND or all rights reserved"), and `research/method/lanes/media.md` section 6 rejects non-free licences,
-which covers NC and the Unsplash and Pexels licences. Q-LOC-4 accepted this section without naming either. Until the owner
-rules, every photo batch follows the D5b allowlist; NC files and items 5 (Unsplash, Pexels) are proposals. This needs `tools/gallery/` to learn Openverse, Flickr and Geograph (builder work, section 7). It also changes README 3e item 4
-and `method/lanes/media.md` section 5; both are edited with this brief.
+which covers NC and the Unsplash and Pexels licences. Q-LOC-4 accepted this section without naming either.
+**Decided 25 Oct 2026 (DD-3, owner "all recommended"): the allowlist stays strict** (CC BY, CC BY-SA, CC0, public domain); NC files and items 5 (Unsplash, Pexels) are not taken, and the capture validator refuses any other licence on a stored photo (`E_CAP_PHOTO_LICENCE`, built in L1). This needs `tools/gallery/` to learn Openverse, Flickr and Geograph (builder work, section 7). README 3e item 4
+and `method/lanes/media.md` sections 5 and 6 say the same (edited in L1).
 
 ## 5. Easy way to add a location
 
@@ -88,7 +87,7 @@ Today `locations.py add` resolves one place at a time, and `edit` has no flag fo
    second, and prints the ones that came back ambiguous.
 2. `locations.py basics --report` lists every place by missing basics layer (section 2) so the researcher works the worst first. This is the table in section 1 as a command.
 3. `edit` gains `--wikidata`, `--elevation-m`, `--image`, and a `capture` sub-command that opens (or creates) the place's capture record for parking, links and booking.
-4. A place with no trip gets its capture records in a trip-less lane (proposed `data/capture/wishlist/`, trip id `wishlist`), using the same schema, so the
+4. A place with no trip gets its capture records in a trip-less lane (built in L1 as `data/capture/catalogue/`, trip id `catalogue`: a neutral id, DD-8, held in one constant `TRIPLESS_LANE` in `core/src/capture/lane.ts`; rules in `research/method/capture-contract.md` 3.8), using the same schema, so the
    validators, gap reports, suitability sidecars and the Neon load treat them like any trip's. Refs for these places are opaque `place/<slug>` refs from the pinned slug registry (DATA.md, REF1; never write a new
    `loc:` key). **To verify in step 1:** that the validators accept a lane
    that is not in `data/trips/` (the page-key file `data/locations/page-keys.json` already gives such places a `loc:<id>` ref).
@@ -112,5 +111,5 @@ the Wikidata lock; L3 with D5a and D5b as one photo runner (never two agents on 
 
 - **Q-LOC-1** DECIDED 25 Oct (owner): link-only. AllTrails is a link; no value is typed in or taken from it. Values come from official pages and our own OSM tracks.
 - **Q-LOC-2** DECIDED 25 Oct (owner): no Flickr key (the owner reports it needs a paid account). Flickr photos come through Openverse, which indexes Flickr CC images with no key; the direct Flickr API is not used.
-- **Q-LOC-3** DECIDED 25 Oct (owner): yes, the `wishlist` trip-less lane (section 5.4), so the Neon tables stay one set.
+- **Q-LOC-3** DECIDED 25 Oct (owner): yes, a trip-less lane (section 5.4), so the Neon tables stay one set. Named `catalogue`, not `wishlist` (DD-8, applied in L1), so no id says which places came from the owner's list.
 - **Q-LOC-4** DECIDED 25 Oct (owner): keep README 3e widened as in section 4.

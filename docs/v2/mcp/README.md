@@ -5,6 +5,14 @@ deployment, now historical). **R-60 (Oct 2026):** the backend is Neon (Postgres,
 email/password, Realtime). The remote MCP endpoint, its hosting, and its OAuth provider are not
 selected or built; everything below is the target design. This folder is the reference a developer builds from and a chat client reads.
 
+> **Sign-in designed 25 Oct 2026 ([auth-and-sign-in.md](auth-and-sign-in.md), PLAN R-123 to R-129).** It supersedes
+> sections 2 and 3 where they differ: hosting is Vercel; the public endpoint is `https://travel-beta-tan.vercel.app/mcp/`
+> with no sign-in and the private one `.../mcp/private/`; the OAuth server is Neon Managed Better Auth's OAuth provider
+> plugin (client ID metadata documents, DCR off, EdDSA JWTs bound to our URL), pending the MCP-0 spike; personal access
+> tokens stay for headless clients. Neon offers fixed OAuth scopes only, so the scope names below are kept as
+> **capabilities** held in our database (auth-and-sign-in.md 5.1). Nothing is built. The local stdio server
+> (`core/bin/mcp.ts`, 15 read tools) is the only MCP that exists. Last verified 25 Oct 2026 against main f2dee4b.
+
 | Page | Contents |
 |---|---|
 | [tools-explore.md](tools-explore.md) | `search`, `get`, `area_guide`, `plan_drive`, `sun`, `weather` |
@@ -17,6 +25,7 @@ selected or built; everything below is the target design. This folder is the ref
 | [resources-and-prompts.md](resources-and-prompts.md) | resources (schemas, vocabularies, lane contracts) and prompts (recipes) |
 | [client-recipes.md](client-recipes.md) | worked example sessions, call by call |
 | [security.md](security.md) | threat model and mitigations |
+| [auth-and-sign-in.md](auth-and-sign-in.md) | how each MCP surface signs in (stdio, public, private), Neon OAuth, personal access tokens, capabilities over RLS, build order |
 
 ## 1. Principles
 
@@ -65,7 +74,7 @@ selected or built; everything below is the target design. This folder is the ref
 
 | Method | For | How |
 |---|---|---|
-| **OAuth 2.1 (provider not selected)** | Claude, ChatGPT and other remote connectors | discovery at `/.well-known/oauth-authorization-server`; PKCE; dynamic client registration switched on deliberately (or client ID metadata documents); our own sign-in and consent screens. **Not built.** Whether Managed Better Auth or another component provides the OAuth server is to be verified in M0 (the Supabase Auth OAuth server in 08-self-hosted.md 5 is historical) |
+| **OAuth 2.1 (Neon Managed Better Auth OAuth provider, proposed 25 Oct)** | Claude, ChatGPT and other remote connectors | our protected resource metadata names Neon's issuer; client ID metadata documents, DCR off; PKCE; our own sign-in and consent pages; JWT verified by JWKS with exact `iss` and `aud` ([auth-and-sign-in.md](auth-and-sign-in.md) 4.3, 5). **Not built**; MCP-0 spike first (the Supabase Auth OAuth server in 08-self-hosted.md 5 is historical) |
 | **Personal access token** | Claude Code, scripts, the owner's research runs | created in Settings → Connected apps, shown once, stored hashed; sent as `Authorization: Bearer`; has the same scopes; expiry 90 days by default |
 
 The consent screen lists the client name, the scopes in plain words, and what is never shared

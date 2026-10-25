@@ -18,7 +18,7 @@ describe('place refs name no wishlist or prototype origin (A24)', () => {
 
   it('every page ref is a capture ref or place/<slug>, distinct, and never an origin key', () => {
     const refs = [...pb.refBySlug.values()];
-    expect(refs.length).toBe(359);
+    expect(refs.length).toBe(355); // 359 before DATA-D4a folded five offers into their places
     expect(new Set(refs).size).toBe(refs.length);
     for (const [slug, ref] of pb.refBySlug) {
       expect(ref, slug).toMatch(REF_RE);

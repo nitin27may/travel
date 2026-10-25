@@ -666,10 +666,40 @@ So the JSON loads into the two-tier catalogue of the schema diff (owner Q73) wit
 - `ref` never changes. A rename is a new record with `same_place_as` (or `aliases`) and a redirect; the public slug follows the slug registry (PHASE-B-START D-B1). A pinned record keeps its pin through its aliases. A ref that looks like a path (`legacy/canadian-rockies-sept-2029/adventures/banff-gondola`) is an id, never rewritten.
 - Every file carries `schema` (`capture/1`, `capture-points/1`, `capture-gap-budget/1`, ...).
 - Every value carries `src`, `on` or `read`, and a basis (or, for a point, `coord_src` and `point_source`). The migration ledger rule holds: every pre-migration leaf still exists with the same value.
+- Planned (25 Oct 2026, not built): every record also carries an optional row-level `meta` block (RowMeta: run id, file and
+  hash, review state, licence, last checked), points move from the free-text `point_source` to a structured `point_src`
+  (`capture-points/2`), and a value only enters a record when it passes the keep-or-drop rule. See
+  [catalogue-intake-and-storage.md](../../docs/v2/features/catalogue-intake-and-storage.md) sections 2 and 3.
 
 #### 3.7.6 Baseline (21 Oct 2026, `main` 36e4da7)
 
 359 pages, 121 with no point (81 of them trails); 394 capture records (place 201, route 143, offer 49, event 1). Budget counts: `E_PLACE_AREA` 296, `E_PLACE_ORPHAN` 17, `W_PLACE_POINT` 84, `W_PLACE_APPROX` 0, `E_PLACE_FAR` 0, `W_PLACE_TOWN` 260, `W_TIER_REQUIRED` 385 records (3,875 keys). The EXECUTION-PLAN 6.5 "before" values are in the budget file's `baseline`.
+
+### 3.8 The trip-less lane (DATA-LOC L1, 25 Oct 2026)
+
+A place in the locations store that no trip uses still carries capture records, so it can have the basics tier
+(DATA-LOC section 2) before a trip adopts it. Its records live in the trip-less lane: `data/capture/catalogue/<lane>.json`, with a
+`catalogue/` folder under `data/suitability/` and `data/relevance/` beside it, each file with `"trip": "catalogue"`. The schema, the
+refs, the relations, the placement block, the tiers and the gap budget are the trip rules: the validators find lanes by folder and
+never need `data/trips/<id>/`, so `validate.ts --all`, `capture.ts gaps --trip catalogue` (with `--placement`, `--tier`) and
+the gap budget treat the lane like a trip. A lane record is a new record: its placement and tier findings are errors from the
+first write, so fill each required key or give a dated `searched_none` before committing.
+
+The lane's own rules, code `E_CAP_LANE` (`core/src/validate/lane.ts`, on all three sidecar families):
+
+1. A file in a `catalogue/` folder says `"trip": "catalogue"`, and a file that says so sits in one.
+2. Every record hangs off a stored place: its ref, unwrapped from `part/` and `offer/`, is `place/<slug>` pinned in
+   `data/catalogue/slugs.json` (REF1), the ref of the place's page. Never a new `loc:` key; a merged ref gives way to its survivor
+   and a withdrawn one is refused. `locations.py basics --report` prints each place's ref.
+3. No private origin key (`loc:`, `proto:`) anywhere in a lane file (PRIV1, store.ts A24).
+
+The id `catalogue` is neutral on purpose (owner decision DD-8): it must not say which places came from the owner's list. It is one
+constant, `TRIPLESS_LANE` in `core/src/capture/lane.ts` (the Python tools read it from there), so renaming it is moving three
+folders and changing the `trip` of their files. It is never served: the privacy detector refuses it as a trip value or a
+`trip/catalogue` ref in any API body or published file. A place tied to a trip keeps its records in that trip's lane.
+
+Photos on any capture record keep the media allowlist (`E_CAP_PHOTO_LICENCE`, `core/src/capture/photoLicence.ts`): CC BY,
+CC BY-SA, CC0 or public domain only (DD-3).
 
 ## 4. What the owner's examples look like under the contract
 
@@ -1086,3 +1116,4 @@ Per record, aim at Usable under the contract. Hours, prices, windows and toilets
 | 2026-10-19 | 9.7 added (lane CS7c, Q41): the supersede override for pre-migration values, as a spec for a builder; the file, its rules, the read order and the tests. |
 | 2026-10-19 | Engine plumbing (lane D2). (1) `geometry` has a home (`tracks`, data/tracks) and a `readProperty` case: a route with a confirmed, stitched track that names its ref in `refs` answers it; a held-back track is a gap with the reason "route not confirmed" (3.3 asks for "geometry or searched_none" and is silent on confirmation; `UNCONFIRMED_TRACK_COUNTS` in `core/src/capture/tracks.ts` flips the rule). (2) 9.7 built, first entries Sorapis climb and distance and the Track and Tower grade. (3) A relevance record may carry `plan_b_pick` `{ref, reason, src}`, which wins over the derived Plan B (named so because `plan_b` is a derived key the validator refuses to read from a record). (4) `ext.water.swimming` gains `discouraged`, shown as "Swimming discouraged"; it counts as not swimmable for the swim flag. (5) Track fetcher: `start` in `data/tracks/inputs.json` replaces the stored trailhead for the cut. (6) Area `IT/trentino-alto-adige/bolzano` (Bolzano, the autonomous province) added to the area table of `data/locations/locations.json`; source Wikidata Q15124 "South Tyrol" (ISO 3166-2 IT-BZ, OSM relation 47046), read 19 Oct 2026. `area_id` set on Lago di Braies, Lago di Landro, the Otzi museum, Passo Gardena, La Val and Santa Maddalena. |
 | 2026-10-21 | 3.7 added (lane META-0, Opus): the placement block (`area_id`, the point with `point_role` and `approx`, `near_town` asked by the placement codes and marked N in the registry until META-2 derives it, `geonames_id`), the town id `<cc>-<admin1>-<slug>` (Q76) with the ISO admin1 rule, the tiers per kind checked against the marks (14 differences proposed, one applied: `geonames_id` R on settlements), the codes `E_PLACE_*`, `W_PLACE_*`, `W_TIER_REQUIRED` with severity by `data/capture/gap-budget.json`, the gap reports and the budget gate, stable ids, and the 21 Oct baseline. |
+| 2026-10-25 | 3.8 added (DATA-LOC L1, travel-builder, Opus): the trip-less lane `catalogue` (DD-8) with its rules `E_CAP_LANE`, and the photo licence allowlist `E_CAP_PHOTO_LICENCE` (DD-3 kept strict). No record moved and no count changed. |

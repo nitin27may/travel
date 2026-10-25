@@ -5,13 +5,13 @@
   "strict": [],
   "counts": {
     "E_PLACE_AREA": 277,
-    "E_PLACE_ORPHAN": 17,
-    "W_PLACE_POINT": 6,
+    "E_PLACE_ORPHAN": 7,
+    "W_PLACE_POINT": 1,
     "W_PLACE_APPROX": 0,
     "E_PLACE_FAR": 0,
     "W_PLACE_TOWN": 0,
-    "W_TIER_REQUIRED": 385,
-    "W_TIER_REQUIRED.keys": 3875
+    "W_TIER_REQUIRED": 384,
+    "W_TIER_REQUIRED.keys": 3777
   },
   "raised": [],
   "baseline": {

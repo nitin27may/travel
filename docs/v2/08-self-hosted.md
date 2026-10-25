@@ -7,7 +7,9 @@
 > chosen next: offline Today mode, ICS alarms as a reminder backstop, rotated secrets with no service key in a browser,
 > no admin console exposed publicly, offsite backups with a monthly restore test, pinned upgrades, uptime alerts, and a
 > documented way out. Hosting, object storage, functions and the worker runtime are **not selected**; do not read the
-> Supabase, Docker or Cloudflare Tunnel answers below as current.
+> Supabase, Docker or Cloudflare Tunnel answers below as current. (Last verified 25 Oct 2026 against main f2dee4b:
+> hosting is now Vercel, project `travel`, R-61; object storage, functions and the worker are still not selected. MCP
+> over a tunnel, section 5, is replaced by [mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md).)
 
 **Decision (historical):** run the whole platform on the owner's Ubuntu machine with Docker: self-hosted Supabase
 (Postgres + PostGIS, Auth, Realtime, Storage, Studio) plus our own containers. Audience: the family.

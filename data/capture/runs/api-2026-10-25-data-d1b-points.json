@@ -1,0 +1,540 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-25-data-d1b-points",
+  "started": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "claude-opus-5.5",
+  "scope": {
+    "refs": [
+      "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling",
+      "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
+      "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
+      "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
+      "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
+      "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
+      "legacy/canadian-rockies-sept-2029/trails/bears-hump",
+      "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
+      "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+      "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
+      "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+      "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
+      "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
+      "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
+      "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
+      "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
+      "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
+      "legacy/canadian-rockies-sept-2029/trails/opal-hills",
+      "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
+      "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
+      "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+      "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+      "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
+      "part/place/cascate-di-fanes#payoff",
+      "part/place/rafting-on-the-rienza#place",
+      "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+      "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+      "place/cascate-di-fanes",
+      "trip/chamonix-mont-blanc-2028/lake:lac du chatelard",
+      "trip/chamonix-mont-blanc-2028/town:chamonix market",
+      "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+      "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+      "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+      "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+      "trip/patagonia-2027/trail:coastal path",
+      "trip/patagonia-2027/trail:laguna capri",
+      "trip/patagonia-2027/trail:laguna de los tres",
+      "trip/patagonia-2027/trail:laguna esmeralda",
+      "trip/utah-five-parks/trail:pa rus trail",
+      "trip/utah-five-parks/trail:windows section",
+      "trip/utah-five-parks/viewpoint:grand view point",
+      "trip/vermont-fall-2026/trail:stowe recreation path"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "bcparks.ca",
+      "requests": 4,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "cortina.dolomiti.org",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "en.chamonix.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "overpass-api.de",
+      "requests": 77,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "parks.canada.ca",
+      "requests": 10,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "prismic-io.s3.amazonaws.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "snaefellsjokull.is",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "turismoushuaia.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "wildwater.com",
+      "requests": 3,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.albertaparks.ca",
+      "requests": 12,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.algonquinhighlands.ca",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.argentina.gob.ar",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.banfflakelouise.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.chinookrafting.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.dreizinnen.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.nps.gov",
+      "requests": 9,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.rafting-club-activ.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.stowevt.gov",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.tourisme-haute-savoie.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.vatnajokulsthjodgardur.is",
+      "requests": 5,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.wikidata.org",
+      "requests": 10,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/1185166549",
+      "reason": "trailhead wording from https://bcparks.ca/mount-robson-park/berg-lake-trail/"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:node/2520427794",
+      "reason": "road distances from the Parks Canada Fryatt and Geraldine pages"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna de los tres",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:node/7069713837",
+      "reason": "the PNLG zona norte leaflet puts the lake on the Fitz Roy path"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/567999991",
+      "reason": "start wording from https://turismoushuaia.com/actividad/laguna-esmeralda/"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:windows section",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:node/4835435421"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lake:lac du chatelard",
+      "field": "point",
+      "outcome": "searched_none",
+      "tried": [
+        "Overpass 2026-10-25: every feature named like 'telard' in 45.80,6.70,46.20,7.10 (52 hits, no water body)",
+        "Wikidata wbsearchentities fr 2026-10-25: 'Lac du Châtelard', 'Lac de Châtelard', 'lac Châtelard' (no result)",
+        "Wikidata full-text search 2026-10-25: 'Châtelard lac' (a mountain, a railway company)",
+        "D1 2026-10-25: Nominatim, Wikidata within 20 km; the stop came from the 18 Oct prototype seed list, not the legacy plan"
+      ],
+      "reason": "the place is not known to exist; the run note proposes dropping the stop or marking it same_place_as"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/24306334",
+      "reason": "approx lifted: the tourism board names the Upper Hot Springs parking area"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bears-hump",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:node/1814165734",
+      "reason": "the D1 point was 1.1 km off; Parks Canada: across the Entrance Road from the Prince of Wales access road"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:relation/20689592",
+      "reason": "Parks Canada: the end of the Cavell Road"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/185604526",
+      "reason": "Parks Canada: the trailhead at Crypt Landing"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/102439897",
+      "reason": "the D1 point was 4.6 km off; BC Parks names the trailhead parking lot"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/102439897",
+      "reason": "same trailhead"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/1180102518",
+      "reason": "official trailhead wording not read (the Parks Canada table is built in the browser)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
+      "field": "point",
+      "outcome": "filled",
+      "src": "albertaparks:galatea-creek",
+      "reason": "official point from the Alberta Parks trail report map"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/opal-hills",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/1532999492",
+      "reason": "Parks Canada: the north-east corner of the farthest lot"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/1059104807",
+      "reason": "Parks Canada: the upper parking lot"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/1241750492",
+      "reason": "Parks Canada: 50 m right of the Bald Hills Trail"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/24836693",
+      "reason": "OSM only; no official page exists"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/32162365",
+      "reason": "the start on Highway 5, not the canyon at the end"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:node/2368067925",
+      "reason": "the record is a hot spring: the spring, not the park"
+    },
+    {
+      "ref": "part/place/rafting-on-the-rienza#place",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/42881996",
+      "reason": "the operator names the St. Sigmund sports zone"
+    },
+    {
+      "ref": "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/1531241656",
+      "reason": "park page: car park west of Dettifoss"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:relation/2569238",
+      "reason": "tourism board: Place du Mont Blanc"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:node/31000524",
+      "reason": "tourism board: from the cable car station"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+      "field": "point",
+      "outcome": "filled",
+      "src": "snaefellsjokull:trail-28-gpx",
+      "reason": "the park's own GPX"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:relation/20613921",
+      "reason": "the canyon car park"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+      "field": "point",
+      "outcome": "filled",
+      "src": "vatnajokull:s2-gpx",
+      "reason": "the park's own GPX; 32 m from the D1 point"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:coastal path",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/68895189",
+      "reason": "park page: starts at the Ensenada Zaratiegui car park"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna capri",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:node/7069713837",
+      "reason": "the Fitz Roy path trailhead"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:pa rus trail",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/14326805",
+      "reason": "NPS: starts at the Zion Canyon Visitor Center"
+    },
+    {
+      "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/204763538",
+      "reason": "town page: from Stowe Village"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/1431795407",
+      "reason": "still approx: the closure gate is not mapped"
+    },
+    {
+      "ref": "part/place/cascate-di-fanes#payoff",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:node/9861910524",
+      "reason": "the falls; the official route ends at the belvedere 130 m away"
+    },
+    {
+      "ref": "place/cascate-di-fanes",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:node/470623991",
+      "reason": "official start: the park information point; beats the snapshot trailhead at Pian de Loa"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": "wikidata:Q3214786",
+      "reason": "no conflict: OSM relation 8299848 agrees within 25 m; D1 compared an NHD fragment"
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:grand view point",
+      "field": "point",
+      "outcome": "conflict",
+      "src": [
+        "wikidata:Q62073199",
+        "osm:node/6806471756"
+      ],
+      "reason": "Wikidata P625 is 1.4 km north-east of the overlook NPS puts at the road end; the Wikidata point is pinned by the migration ledger, so it stays and the OSM overlook is a coordinator item"
+    },
+    {
+      "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+      "field": "point",
+      "outcome": "conflict",
+      "host": "overpass-api.de",
+      "src": "osm:node/6806471755",
+      "reason": "ruling: OSM wins, NPS confirms the road end"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:node/508583984",
+      "reason": "ruling: the OSM lot is the legacy 'Fireside picnic area' (community guides; no official wording read)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+      "field": "point",
+      "outcome": "filled",
+      "src": "albertaparks:upper-lake",
+      "reason": "found beside the sample: the D1 point was a trail junction 770 m from the official trailhead"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
+      "field": "point",
+      "outcome": "filled",
+      "src": "albertaparks:elbow-falls-interpretive",
+      "reason": "person-check sample: the D1 OSM lot node was 113 m from the official trailhead"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/360559335",
+      "reason": "person-check sample: the D1 Wikidata park point was 400 m from the lodge"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/232706538",
+      "reason": "class re-check: the Wikidata point was 95 m from the pools"
+    }
+  ]
+}

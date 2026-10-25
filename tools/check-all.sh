@@ -33,6 +33,8 @@ step "nearest town: every exact point has its near_town (META-2: capture.ts deri
 node "$ROOT/core/bin/capture.ts" derive-near --check --root "$ROOT" >/dev/null
 step "validate every data file"
 node "$ROOT/core/bin/validate.ts" --all --root "$ROOT"
+step "normaliser budget: no count of what the research JSON still needs to reach the storage contract rose (RIS-N; RIS-J brings it to zero)"
+node "$ROOT/core/bin/normalise.ts" --budget --check --root "$ROOT"
 step "search vocabulary: no dead words, no unruled double meaning, vocab.json current"
 node "$ROOT/web/scripts/search-vocab.mjs" --check
 step "suitability scope manifest matches the public adapter"

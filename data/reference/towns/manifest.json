@@ -41,9 +41,9 @@
   "hub_population_min": 100000,
   "anchors": {
    "file": "anchors.json",
-   "count": 291,
+   "count": 299,
    "decimals": 2,
-   "sha256": "6bc4d36640ddfb39115df6796d894fbd08b9047647a360dc44ad8d18eca38477",
+   "sha256": "2da09e81481a98f7f8b7b4e72226986dd31015abfb03347fa11c8e43265370c9",
    "from": [
     "data/capture/points.json#points",
     "data/relevance/inputs/points.json#points",
@@ -69,9 +69,9 @@
  ],
  "totals": {
   "parts": 105,
-  "rows": 4222,
-  "bytes": 362217,
-  "gzip": 141004
+  "rows": 4223,
+  "bytes": 362288,
+  "gzip": 141029
  },
  "parts": [
   {
@@ -137,10 +137,10 @@
     "qc",
     "sk"
    ],
-   "rows": 237,
-   "bytes": 20964,
-   "gzip": 7851,
-   "sha256": "d9239e24e4579408be7e503a402fc02134cb2c0ca4d5811b73010b69ceff8704"
+   "rows": 238,
+   "bytes": 21035,
+   "gzip": 7876,
+   "sha256": "873db6c56822af7e3daf17c41199ca225d8f597ed68ec4404d5c138f3702305c"
   },
   {
    "file": "ch-ag.json",

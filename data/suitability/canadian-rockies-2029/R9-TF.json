@@ -1,0 +1,320 @@
+{
+  "schema": "suitability/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "TF",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "title": "Hiking: Banff National Park (Lake Louise and Moraine Lake trail tables)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/etat-sentiers-trail-conditions",
+      "title": "Trail conditions: Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+      "title": "Parks Canada shuttle to Lake Louise and Moraine Lake",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/louise",
+      "title": "Lake Louise (top 10): teahouse hikes",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://parks.canada.ca/pn-np/mtn/ours-bears/gestion-management/ours-bears",
+      "title": "Bear management: seasonal access restrictions",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/marchehiver-winterwalking/banff",
+      "title": "Winter walking trails in the Banff area",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs/",
+      "title": "Banff Gondola frequently asked questions",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/",
+      "title": "Banff Gondola",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rawson-lake/",
+      "title": "Rawson Lake trail report",
+      "publisher": "Alberta Parks (Kananaskis Country)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.albertaparks.ca/albertaparks-ca/visit-our-parks/regulations/pets-in-parks/",
+      "title": "Pets in parks",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.openstreetmap.org/way/24836168",
+      "title": "Rawson Lake Trail (OSM ways 24836168, 181184079, 181184081)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d3a-overpass"
+    }
+  ],
+  "records": [
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile-loop",
+      "kind": "trail",
+      "subkind": "walk",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "https://parks.canada.ca/pn-np/mtn/ours-bears/gestion-management/ours-bears (lists 'Moraine Lake Area Trails' under seasonal access restrictions with no dates and no trail list)",
+            "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/etat-sentiers-trail-conditions"
+          ],
+          "note": "Whether the Rockpile loop falls under the Moraine Lake area restriction is not stated."
+        },
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "0.7 km and 35 m: any age, the youngest carried."
+        },
+        "kid_note": "A short loop up the rockpile at the outlet of Moraine Lake to the classic view of the Ten Peaks. Parks Canada asks visitors not to climb on the rocks.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "0.7 km and 35 m."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking (Rockpile row: no stroller note)"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking (no accessible parking at the lake; an accessible shuttle runs; the loop itself is not described)"
+          ]
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "parks-canada",
+              "value": "Easy"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0001"
+            ],
+            "quote": "Easy"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 0.7,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "0.7 km loop"
+            },
+            "gain_m": {
+              "v": 35,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "35 m gain, 35 m loss"
+            },
+            "loss_m": {
+              "v": 35,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "35 m loss"
+            },
+            "surface": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-25",
+              "tried": [
+                "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking"
+              ]
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            30,
+            30
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "30 minutes round trip"
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "A short loop on a rockpile; the warning is about leaving the trail onto the boulders."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Do not climb on the rocks of the rockpile"
+            },
+            {
+              "category": "wildlife",
+              "note": "Bear country"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001",
+            "src-0005"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "06-01",
+              "to": "10-12",
+              "status": "open",
+              "via": "shuttle",
+              "note": "Parks Canada shuttle to Moraine Lake; a reservation is required (2026 dates)."
+            },
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "closed",
+              "via": "road",
+              "note": "Moraine Lake Road is closed to personal vehicles year-round."
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003",
+            "src-0001"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "loop",
+        "navigation": {
+          "v": "signed_junctions",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "note": "Parks Canada: start on the Consolation Lakes Trail and turn right at the first junction."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 0.7,
+        "walk_gain_m": 35,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

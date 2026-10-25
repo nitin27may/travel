@@ -1,0 +1,4179 @@
+{
+ "schema": "d5a-photo-ledger/1",
+ "run": "api-2026-10-25-data-d5a-photos",
+ "searched_on": "2026-10-25",
+ "note": "One entry per pick. source_url is the Commons file page. found_by gives the query or the geosearch point and the distance from it; geotag is the file's own coordinate where Commons holds one. subject_check is the researcher's note that it shows the right place. The photos are the 7 fields written to the capture record (file, licence, author, attribution, source_url, width, height).",
+ "picks": [
+  {
+   "pick": "fenland",
+   "stop_ids": [
+    "fenland-loop"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/fenland-loop"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "File title names the Fenland trail; boardwalk bridge and creek in forest, Banff townsite; geotag 272 m and 328 m from the record point",
+   "photos": [
+    {
+     "file": "File:Banff Fenland Trail - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Banff_Fenland_Trail_-_panoramio.jpg",
+     "author": "Yoshio Kohara",
+     "licence": "CC BY 3.0",
+     "width": 2560,
+     "height": 1651,
+     "taken": "Taken on 9 September 2005",
+     "geotag": {
+      "lat": 51.183466,
+      "lon": -115.57889
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.18421",
+       "-115.58261"
+      ],
+      "radius_m": 1000,
+      "key": "fenland",
+      "dist_m": 272
+     }
+    },
+    {
+     "file": "File:Banff Fenland Trek - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Banff_Fenland_Trek_-_panoramio.jpg",
+     "author": "Yoshio Kohara",
+     "licence": "CC BY 3.0",
+     "width": 2560,
+     "height": 1621,
+     "taken": "Taken on 9 September 2005",
+     "geotag": {
+      "lat": 51.18126,
+      "lon": -115.582838
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.18421",
+       "-115.58261"
+      ],
+      "radius_m": 1000,
+      "key": "fenland",
+      "dist_m": 328
+     }
+    }
+   ]
+  },
+  {
+   "pick": "vermilion-lakes",
+   "stop_ids": [
+    "vermilion-lakes"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Vermilion Lakes (Vermillion spelling in the first title); lake, marsh and mountains, summer; geotagged within 600 m of the drive start",
+   "photos": [
+    {
+     "file": "File:Vermillion Lakes Banff Alberta Canada (36020088283).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Vermillion_Lakes_Banff_Alberta_Canada_(36020088283).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2017-08-26 10:22",
+     "geotag": {
+      "lat": 51.181622,
+      "lon": -115.603905
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.1781",
+       "-115.5989"
+      ],
+      "radius_m": 1000,
+      "key": "vermilion-lakes",
+      "dist_m": 524
+     }
+    },
+    {
+     "file": "File:Vermilion Lakes and Eagle Mountain.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Vermilion_Lakes_and_Eagle_Mountain.jpg",
+     "author": "Ymblanter",
+     "licence": "CC BY-SA 4.0",
+     "width": 5816,
+     "height": 3840,
+     "taken": "15 August 2019, 18:05:37 −08:00",
+     "geotag": {
+      "lat": 51.182285,
+      "lon": -115.603306
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.1781",
+       "-115.5989"
+      ],
+      "radius_m": 1000,
+      "key": "vermilion-lakes",
+      "dist_m": 558
+     }
+    }
+   ]
+  },
+  {
+   "pick": "banff-gondola",
+   "stop_ids": [
+    "banff-gondola"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/adventures/banff-gondola"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Gondola cabin on its cable above the Sulphur Mountain forest; view of Banff townsite from the summit station, geotagged 16 m from the summit point",
+   "photos": [
+    {
+     "file": "File:Canada, Banff, Sulphur mountain cable car - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Canada,_Banff,_Sulphur_mountain_cable_car_-_panoramio.jpg",
+     "author": "David Broad",
+     "licence": "CC BY 3.0",
+     "width": 1612,
+     "height": 1092,
+     "taken": "15 November 2011 (original upload date)",
+     "geotag": {
+      "lat": 51.14449,
+      "lon": -115.574863
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.1445",
+       "-115.575"
+      ],
+      "radius_m": 1000,
+      "key": "banff-gondola",
+      "dist_m": 10
+     }
+    },
+    {
+     "file": "File:Banff from above (2726479526).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Banff_from_above_(2726479526).jpg",
+     "author": "RAF-YYC from Calgary, Canada",
+     "licence": "CC BY-SA 2.0",
+     "width": 3888,
+     "height": 2592,
+     "taken": "2008-06-28 19:23",
+     "geotag": {
+      "lat": 51.144625,
+      "lon": -115.575098
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.1445",
+       "-115.575"
+      ],
+      "radius_m": 1000,
+      "key": "banff-gondola",
+      "dist_m": 16
+     }
+    }
+   ]
+  },
+  {
+   "pick": "minnewanka",
+   "stop_ids": [
+    "lake-minnewanka-cruise"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Cruise dock and boathouse on Lake Minnewanka with boats; geotag within 150 m of the cruise point; summer, no people in the foreground",
+   "photos": [
+    {
+     "file": "File:Lake Minnewanka boat pier 20240821 2.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Minnewanka_boat_pier_20240821_2.jpg",
+     "author": "DXR",
+     "licence": "CC BY-SA 4.0",
+     "width": 6934,
+     "height": 4623,
+     "taken": "2024-08-21",
+     "geotag": {
+      "lat": 51.24797402685,
+      "lon": -115.49667346887
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.2475",
+       "-115.4967"
+      ],
+      "radius_m": 1000,
+      "key": "minnewanka",
+      "dist_m": 53
+     }
+    },
+    {
+     "file": "File:Banff National Park (AB, Canada), Lake Minnewanka -- 2022 -- 2308.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Banff_National_Park_(AB,_Canada),_Lake_Minnewanka_--_2022_--_2308.jpg",
+     "author": "Dietmar Rabich",
+     "licence": "CC BY-SA 4.0",
+     "width": 6658,
+     "height": 4439,
+     "taken": "Taken on 17 June 2022, 14:58",
+     "geotag": {
+      "lat": 51.246792,
+      "lon": -115.49843
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.2475",
+       "-115.4967"
+      ],
+      "radius_m": 1000,
+      "key": "minnewanka",
+      "dist_m": 144
+     }
+    }
+   ]
+  },
+  {
+   "pick": "upper-hot-springs",
+   "stop_ids": [
+    "banff-upper-hot-springs"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Upper Springs Bathhouse exterior, Banff (the pool complex); geotag 22 m from the point; only licensed image of the site found in the 1 km search",
+   "photos": [
+    {
+     "file": "File:Upper Springs Bathhouse from SE.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Upper_Springs_Bathhouse_from_SE.jpg",
+     "author": "Odysseus1479",
+     "licence": "CC BY-SA 3.0",
+     "width": 2800,
+     "height": 1750,
+     "taken": "2013-09-19 16:19:02",
+     "geotag": {
+      "lat": 51.1508,
+      "lon": -115.561
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.1506",
+       "-115.561"
+      ],
+      "radius_m": 1000,
+      "key": "upper-hot-springs",
+      "dist_m": 22
+     }
+    }
+   ]
+  },
+  {
+   "pick": "cave-basin",
+   "stop_ids": [
+    "cave-and-basin"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/cave-and-basin"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Cave pool with the opening above (the hot spring cave) and the bath house pavilion exterior; both geotagged within 55 m of the site point",
+   "photos": [
+    {
+     "file": "File:Visiting the Cave and basin Historical site. (22287866814).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Visiting_the_Cave_and_basin_Historical_site._(22287866814).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2015-11-07 05:17",
+     "geotag": {
+      "lat": 51.169233,
+      "lon": -115.590752
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.1694",
+       "-115.5911"
+      ],
+      "radius_m": 1000,
+      "key": "cave-basin",
+      "dist_m": 31
+     }
+    },
+    {
+     "file": "File:Cave and Basin Bath House - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Cave_and_Basin_Bath_House_-_panoramio.jpg",
+     "author": "Kiwibirdman",
+     "licence": "CC BY 3.0",
+     "width": 2560,
+     "height": 1920,
+     "taken": "Taken on 12 March 2005",
+     "geotag": {
+      "lat": 51.169173,
+      "lon": -115.591707
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.1694",
+       "-115.5911"
+      ],
+      "radius_m": 1000,
+      "key": "cave-basin",
+      "dist_m": 49
+     }
+    }
+   ]
+  },
+  {
+   "pick": "johnston",
+   "stop_ids": [
+    "johnston-canyon-walk",
+    "johnston-canyon"
+   ],
+   "refs": [
+    "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+    "legacy/canadian-rockies-sept-2029/sights/johnston-canyon"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Lower Falls (pool below the falls) and a platform view of the Upper Falls, the two payoffs of the walk; geotagged 19 m from the lower falls point and 94 m from the upper falls point (OSM waterfall nodes)",
+   "photos": [
+    {
+     "file": "File:Johnston Canyon-Lower Falls.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Johnston_Canyon-Lower_Falls.jpg",
+     "author": "Florian Fuchs",
+     "licence": "CC BY 3.0",
+     "width": 2000,
+     "height": 1225,
+     "taken": "2012-08-23",
+     "geotag": {
+      "lat": 51.254738779956,
+      "lon": -115.83713277997
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.25486",
+       "-115.83732"
+      ],
+      "radius_m": 1000,
+      "key": "jc_lower",
+      "dist_m": 19
+     }
+    },
+    {
+     "file": "File:Upper Falls, Johnston Canyon, view from platform 20240822 2.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Upper_Falls,_Johnston_Canyon,_view_from_platform_20240822_2.jpg",
+     "author": "DXR",
+     "licence": "CC BY-SA 4.0",
+     "width": 8256,
+     "height": 5504,
+     "taken": "2024-08-22",
+     "geotag": {
+      "lat": 51.2614484038,
+      "lon": -115.83009488882
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.26186",
+       "-115.83128"
+      ],
+      "radius_m": 1000,
+      "key": "jc_upper",
+      "dist_m": 94
+     }
+    }
+   ]
+  },
+  {
+   "pick": "larch",
+   "stop_ids": [
+    "larch-valley",
+    "larch-valley-sentinel-pass"
+   ],
+   "refs": [
+    "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#larch-valley",
+    "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Larch Valley with golden larches and the Ten Peaks behind; titles name Larch Valley, no geotag on the files, subject from title and description; the geosearch around the point found only Sentinel Pass files, so these came from a text search 'Larch Valley Banff'",
+   "photos": [
+    {
+     "file": "File:Larch Valley, Alberta, Canada.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Larch_Valley,_Alberta,_Canada.jpg",
+     "author": "Paul Anthony Stewart",
+     "licence": "CC BY-SA 4.0",
+     "width": 3872,
+     "height": 2592,
+     "taken": "2016-09-25 00:27:40",
+     "geotag": null,
+     "found_by": {
+      "method": "text or geosearch result, looked up by title (see research note)",
+      "key": null
+     }
+    },
+    {
+     "file": "File:Larch Valley.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Larch_Valley.jpg",
+     "author": "Nancymcmillan",
+     "licence": "CC BY-SA 4.0",
+     "width": 3264,
+     "height": 2447,
+     "taken": "2015-09-26 10:10:02",
+     "geotag": null,
+     "found_by": {
+      "method": "text or geosearch result, looked up by title (see research note)",
+      "key": null
+     }
+    }
+   ]
+  },
+  {
+   "pick": "tre",
+   "stop_ids": [
+    "tre-cime-di-lavaredo-loop"
+   ],
+   "refs": [
+    "place/tre-cime-di-lavaredo-loop"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "The three peaks from the loop trail with Rifugio Locatelli below (23 m from the viewpoint point) and the south-side view of the peaks (214 m from the Tre Cime point); summer",
+   "photos": [
+    {
+     "file": "File:Tre cime di Lavaredo dietro al Rifugio Locatelli.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Tre_cime_di_Lavaredo_dietro_al_Rifugio_Locatelli.jpg",
+     "author": "Mirko Barsanti",
+     "licence": "CC BY-SA 4.0",
+     "width": 5344,
+     "height": 3008,
+     "taken": "2017-07-25",
+     "geotag": {
+      "lat": 46.63824,
+      "lon": 12.308979
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "46.63817",
+       "12.30926"
+      ],
+      "radius_m": 1000,
+      "key": "tre_view",
+      "dist_m": 23
+     }
+    },
+    {
+     "file": "File:Tre Cime di Lavaredo - panoramio (2).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Tre_Cime_di_Lavaredo_-_panoramio_(2).jpg",
+     "author": "Pavel Špindler",
+     "licence": "CC BY 3.0",
+     "width": 4928,
+     "height": 3264,
+     "taken": "Taken on 19 August 2012",
+     "geotag": {
+      "lat": 46.636771,
+      "lon": 12.31119
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "46.63817",
+       "12.30926"
+      ],
+      "radius_m": 1000,
+      "key": "tre_view",
+      "dist_m": 214
+     }
+    }
+   ]
+  },
+  {
+   "pick": "agnes",
+   "stop_ids": [
+    "lake-agnes-tea-house"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/lake-agnes"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "The tea house on the shore of Lake Agnes (13 m from a point taken from the files own geotags, the record has the Lake Louise lakeshore trailhead as its only point) and the lake with its cirque; summer",
+   "photos": [
+    {
+     "file": "File:Lake Agnes Tea House - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Agnes_Tea_House_-_panoramio.jpg",
+     "author": "qwesy qwesy",
+     "licence": "CC BY 3.0",
+     "width": 1944,
+     "height": 1458,
+     "taken": "Taken on 16 August 2007",
+     "geotag": {
+      "lat": 51.414357,
+      "lon": -116.24887
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.4144",
+       "-116.2487"
+      ],
+      "radius_m": 1000,
+      "key": "agnes",
+      "dist_m": 13
+     }
+    },
+    {
+     "file": "File:Lake Agnes, Banff National Park, Canada (54881458499).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Agnes,_Banff_National_Park,_Canada_(54881458499).jpg",
+     "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+     "licence": "CC BY-SA 4.0",
+     "width": 10404,
+     "height": 5852,
+     "taken": "Taken on 27 August 2025, 10:40",
+     "geotag": {
+      "lat": 51.416108,
+      "lon": -116.244192
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.4144",
+       "-116.2487"
+      ],
+      "radius_m": 1000,
+      "key": "agnes",
+      "dist_m": 366
+     }
+    }
+   ]
+  },
+  {
+   "pick": "marble-canyon",
+   "stop_ids": [
+    "marble-canyon-walk",
+    "marble-canyon"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+    "legacy/canadian-rockies-sept-2029/sights/marble-canyon"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Turquoise Tokumm Creek gorge, Marble Canyon (Kootenay NP); titles and descriptions name Marble Canyon; geotagged within 100 m of the canyon point",
+   "photos": [
+    {
+     "file": "File:Marble Canyon, Kootenay National Park, British Columbia, 2025-07-11 02.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Marble_Canyon,_Kootenay_National_Park,_British_Columbia,_2025-07-11_02.jpg",
+     "author": "Chris Woodrich",
+     "licence": "CC BY-SA 4.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2025-07-11 19:23:20",
+     "geotag": {
+      "lat": 51.186668,
+      "lon": -116.125405
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.1867",
+       "-116.1253"
+      ],
+      "radius_m": 1000,
+      "key": "marble-canyon",
+      "dist_m": 8
+     }
+    },
+    {
+     "file": "File:River at base of Marble Canyon - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:River_at_base_of_Marble_Canyon_-_panoramio.jpg",
+     "author": "Shane Smith",
+     "licence": "CC BY-SA 3.0",
+     "width": 3264,
+     "height": 2448,
+     "taken": "Taken on 11 July 2013",
+     "geotag": {
+      "lat": 51.186756,
+      "lon": -116.125362
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.1867",
+       "-116.1253"
+      ],
+      "radius_m": 1000,
+      "key": "marble-canyon",
+      "dist_m": 8
+     }
+    }
+   ]
+  },
+  {
+   "pick": "bow-lake",
+   "stop_ids": [
+    "bow-lake"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/bow-lake"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Bow Lake with Bow Peak and the reflection, summer; titles name Bow Lake; geotagged within 100 m of the lake point",
+   "photos": [
+    {
+     "file": "File:D6A 9449 - Bow Lake (9779924165).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:D6A_9449_-_Bow_Lake_(9779924165).jpg",
+     "author": "Gary",
+     "licence": "CC BY-SA 2.0",
+     "width": 2048,
+     "height": 1367,
+     "taken": "2013-09-04 09:57",
+     "geotag": {
+      "lat": 51.667647,
+      "lon": -116.446984
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.6644",
+       "-116.4486"
+      ],
+      "radius_m": 1000,
+      "key": "bow-lake",
+      "dist_m": 378
+     }
+    },
+    {
+     "file": "File:Bow Lake - panoramio - Jack Borno.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Bow_Lake_-_panoramio_-_Jack_Borno.jpg",
+     "author": "Jack Borno",
+     "licence": "CC BY-SA 3.0",
+     "width": 2982,
+     "height": 2236,
+     "taken": "Taken on 21 August 2005",
+     "geotag": {
+      "lat": 51.667658,
+      "lon": -116.447868
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.6644",
+       "-116.4486"
+      ],
+      "radius_m": 1000,
+      "key": "bow-lake",
+      "dist_m": 366
+     }
+    }
+   ]
+  },
+  {
+   "pick": "peyto-lookout",
+   "stop_ids": [
+    "peyto-lake-lookout",
+    "peyto-lake"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+    "legacy/canadian-rockies-sept-2029/sights/peyto-lake"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Peyto Lake seen from the Bow Summit lookout (turquoise lake in the Mistaya valley, no crowd in frame); titles name Peyto Lake; geotagged near the lookout point",
+   "photos": [
+    {
+     "file": "File:Peyto Lake, Banff National Park, Canada (54881418663).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Peyto_Lake,_Banff_National_Park,_Canada_(54881418663).jpg",
+     "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+     "licence": "CC BY-SA 4.0",
+     "width": 8256,
+     "height": 4644,
+     "taken": "Taken on 24 August 2025, 16:08",
+     "geotag": {
+      "lat": 51.716669,
+      "lon": -116.498623
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.7167",
+       "-116.4988"
+      ],
+      "radius_m": 1000,
+      "key": "peyto-lookout",
+      "dist_m": 13
+     }
+    },
+    {
+     "file": "File:Peyto Lake Valley.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Peyto_Lake_Valley.jpg",
+     "author": "Darren Kirby",
+     "licence": "CC BY-SA 3.0",
+     "width": 3008,
+     "height": 2000,
+     "taken": "2008-07-14",
+     "geotag": {
+      "lat": 51.716288,
+      "lon": -116.506662
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.7167",
+       "-116.4988"
+      ],
+      "radius_m": 1000,
+      "key": "peyto-lookout",
+      "dist_m": 544
+     }
+    }
+   ]
+  },
+  {
+   "pick": "skywalk",
+   "stop_ids": [
+    "glacier-skywalk"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Glacier Skywalk cantilevered over the Sunwapta valley with Mount Athabasca; titles name the Skywalk; geotagged near the Skywalk point",
+   "photos": [
+    {
+     "file": "File:Columbia Icefield Skywalk -- Jasper National Park Alberta September 2019 (49422476482).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Columbia_Icefield_Skywalk_--_Jasper_National_Park_Alberta_September_2019_(49422476482).jpg",
+     "author": "Ron Cogswell from Arlington, Virginia, USA",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2019-09-06 15:01",
+     "geotag": {
+      "lat": 52.26117,
+      "lon": -117.279868
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.2592",
+       "-117.2781"
+      ],
+      "radius_m": 1000,
+      "key": "skywalk",
+      "dist_m": 250
+     }
+    },
+    {
+     "file": "File:Glacier Skywalk Over the Sunwapta River -- Athabasca Glacier Jasper National Park, Alberta September 2019 (49440408223).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Glacier_Skywalk_Over_the_Sunwapta_River_--_Athabasca_Glacier_Jasper_National_Park,_Alberta_September_2019_(49440408223).jpg",
+     "author": "Ron Cogswell from Arlington, Virginia, USA",
+     "licence": "CC BY 2.0",
+     "width": 5599,
+     "height": 3721,
+     "taken": "2019-09-06 15:02",
+     "geotag": {
+      "lat": 52.26117,
+      "lon": -117.279868
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.2592",
+       "-117.2781"
+      ],
+      "radius_m": 1000,
+      "key": "skywalk",
+      "dist_m": 250
+     }
+    }
+   ]
+  },
+  {
+   "pick": "maligne-cruise",
+   "stop_ids": [
+    "maligne-lake-cruise"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Spirit Island, the cruise's destination (title; geotag 52.6551,-117.5146 on Maligne Lake) and the Maligne Lake boat house with autumn larches (September); the Spirit Island geotag is 14 km from the record point at the dock, which is the lake itself",
+   "photos": [
+    {
+     "file": "File:Spirit Island -- Maligne Lake Jasper National Park Alberta (Canada) September 2019 (49143633606).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Spirit_Island_--_Maligne_Lake_Jasper_National_Park_Alberta_(Canada)_September_2019_(49143633606).jpg",
+     "author": "Ron Cogswell from Arlington, Virginia, USA",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2019-09-09 13:17",
+     "geotag": [
+      52.655144,
+      -117.514572
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Spirit Island Maligne Lake",
+      "key": "spirit-island"
+     }
+    },
+    {
+     "file": "File:'Maligne Lake Boat House' -- Jasper, Alberta, Canada September 2019 (49124100058).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:%27Maligne_Lake_Boat_House%27_--_Jasper,_Alberta,_Canada_September_2019_(49124100058).jpg",
+     "author": "Ron Cogswell from Arlington, Virginia, USA",
+     "licence": "CC BY 2.0",
+     "width": 5966,
+     "height": 3558,
+     "taken": "2019-09-09 14:15",
+     "geotag": {
+      "lat": 52.727975,
+      "lon": -117.63628
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.7289",
+       "-117.64"
+      ],
+      "radius_m": 1000,
+      "key": "maligne-cruise",
+      "dist_m": 271
+     }
+    }
+   ]
+  },
+  {
+   "pick": "bald-hills",
+   "stop_ids": [
+    "mary-schaffer-loop"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Maligne Lake and Samson Peak (lake view from the shore at the start of the loop), summer; titles name Maligne Lake; geotagged within 200 m of the trailhead point; shows the lake the loop circles, not the trail itself",
+   "photos": [
+    {
+     "file": "File:Maligne Lake and Samson Peak, Jasper National Park, Canada (54880321502).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Maligne_Lake_and_Samson_Peak,_Jasper_National_Park,_Canada_(54880321502).jpg",
+     "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+     "licence": "CC BY-SA 4.0",
+     "width": 7478,
+     "height": 4206,
+     "taken": "Taken on 23 August 2025, 14:47",
+     "geotag": {
+      "lat": 52.724913,
+      "lon": -117.641081
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.7267",
+       "-117.6446"
+      ],
+      "radius_m": 1000,
+      "key": "bald-hills",
+      "dist_m": 309
+     }
+    },
+    {
+     "file": "File:By ovedc - Maligne Lake - 02.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:By_ovedc_-_Maligne_Lake_-_02.jpg",
+     "author": "Ovedc",
+     "licence": "CC BY-SA 4.0",
+     "width": 5312,
+     "height": 2988,
+     "taken": "2017-08-06 15:01:55",
+     "geotag": {
+      "lat": 52.728333,
+      "lon": -117.639722
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.7267",
+       "-117.6446"
+      ],
+      "radius_m": 1000,
+      "key": "bald-hills",
+      "dist_m": 375
+     }
+    }
+   ]
+  },
+  {
+   "pick": "moose-lake",
+   "stop_ids": [
+    "moose-lake-loop"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Moose Lake pond view (title '20130701 28 Moose Lake', Jasper) and the Maligne Lake south-shore view 20130701 33 taken the same day; geotagged within the 1 km search of the loop point",
+   "photos": [
+    {
+     "file": "File:20130701 28 Moose Lake (11779626985).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:20130701_28_Moose_Lake_(11779626985).jpg",
+     "author": "David Wilson from Oak Park, Illinois, USA",
+     "licence": "CC BY 2.0",
+     "width": 2816,
+     "height": 2112,
+     "taken": "2013-07-01 00:00",
+     "geotag": {
+      "lat": 52.717088,
+      "lon": -117.644617
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.7213",
+       "-117.6422"
+      ],
+      "radius_m": 1000,
+      "key": "moose-lake",
+      "dist_m": 496
+     }
+    },
+    {
+     "file": "File:20130701 33 Maligne Lake (11789195994).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:20130701_33_Maligne_Lake_(11789195994).jpg",
+     "author": "David Wilson from Oak Park, Illinois, USA",
+     "licence": "CC BY 2.0",
+     "width": 2816,
+     "height": 2112,
+     "taken": "2013-07-01 00:00",
+     "geotag": {
+      "lat": 52.717088,
+      "lon": -117.644617
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.7213",
+       "-117.6422"
+      ],
+      "radius_m": 1000,
+      "key": "moose-lake",
+      "dist_m": 496
+     }
+    }
+   ]
+  },
+  {
+   "pick": "pyramid",
+   "stop_ids": [
+    "pyramid-lake"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/pyramid-lake"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Pyramid Lake with Pyramid Mountain and the island footbridge in the distance (summer) and the lake in the morning; titles name Pyramid Lake; geotagged near the lake point",
+   "photos": [
+    {
+     "file": "File:2025-06-10-192856 CAN Alberta Western Alberta (Jasper) 1172.0.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:2025-06-10-192856_CAN_Alberta_Western_Alberta_(Jasper)_1172.0.jpg",
+     "author": "Hansueli Krapf",
+     "licence": "CC BY-SA 4.0",
+     "width": 8256,
+     "height": 5504,
+     "taken": "2025-06-10",
+     "geotag": {
+      "lat": 52.92425195,
+      "lon": -118.09599103
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.9225",
+       "-118.096"
+      ],
+      "radius_m": 1000,
+      "key": "pyramid",
+      "dist_m": 195
+     }
+    },
+    {
+     "file": "File:Pyramid Lake in the morning.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Pyramid_Lake_in_the_morning.jpg",
+     "author": "Sergey Pesterev",
+     "licence": "CC BY-SA 4.0",
+     "width": 6232,
+     "height": 4159,
+     "taken": "2017-09-27 13:13:26",
+     "geotag": {
+      "lat": 52.924869,
+      "lon": -118.095561
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.9225",
+       "-118.096"
+      ],
+      "radius_m": 1000,
+      "key": "pyramid",
+      "dist_m": 265
+     }
+    }
+   ]
+  },
+  {
+   "pick": "overlander-geo",
+   "stop_ids": [
+    "mount-robson-viewpoint"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Mount Robson Visitor Centre with Mount Robson behind it, and Mount Robson from the valley meadow; titles name Mount Robson / the Visitor Centre; geotagged within the 1 km search of the overlander-falls point (which lies close to the visitor centre) and the viewpoint record is the visitor centre",
+   "photos": [
+    {
+     "file": "File:Mount Robson Visitor Centre.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Robson_Visitor_Centre.jpg",
+     "author": "-JvL-",
+     "licence": "CC BY 2.0",
+     "width": 4896,
+     "height": 2752,
+     "taken": "2014-07-09 18:35:28",
+     "geotag": {
+      "lat": 53.034855,
+      "lon": -119.229537
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "53.0282",
+       "-119.2307"
+      ],
+      "radius_m": 1000,
+      "key": "overlander",
+      "dist_m": 744
+     }
+    },
+    {
+     "file": "File:Mount Robson, BC, Canada (54880316942).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Robson,_BC,_Canada_(54880316942).jpg",
+     "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+     "licence": "CC BY-SA 4.0",
+     "width": 8219,
+     "height": 4623,
+     "taken": "Taken on 22 August 2025, 15:47",
+     "geotag": {
+      "lat": 53.035608,
+      "lon": -119.228862
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "53.0282",
+       "-119.2307"
+      ],
+      "radius_m": 1000,
+      "key": "overlander",
+      "dist_m": 833
+     }
+    }
+   ]
+  },
+  {
+   "pick": "skytram",
+   "stop_ids": [
+    "jasper-skytram"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Jasper Tramway cabin over the forest of Whistlers Mountain and the tram line above Jasper townsite (summer 2025); titles name the Tramway; geotagged within the 1 km search of the SkyTram point",
+   "photos": [
+    {
+     "file": "File:Jasper Tramway - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Jasper_Tramway_-_panoramio.jpg",
+     "author": "qwesy qwesy",
+     "licence": "CC BY 3.0",
+     "width": 1944,
+     "height": 1492,
+     "taken": "Taken on 14 August 2007",
+     "geotag": {
+      "lat": 52.850785,
+      "lon": -118.123757
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.8513",
+       "-118.1237"
+      ],
+      "radius_m": 1000,
+      "key": "skytram",
+      "dist_m": 57
+     }
+    },
+    {
+     "file": "File:2025-06-10-235629 CAN Alberta Western Alberta (Jasper) 1808.3.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:2025-06-10-235629_CAN_Alberta_Western_Alberta_(Jasper)_1808.3.jpg",
+     "author": "Hansueli Krapf",
+     "licence": "CC BY-SA 4.0",
+     "width": 8256,
+     "height": 5504,
+     "taken": "2025-06-10",
+     "geotag": {
+      "lat": 52.84320941,
+      "lon": -118.12525185
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.8513",
+       "-118.1237"
+      ],
+      "radius_m": 1000,
+      "key": "skytram",
+      "dist_m": 906
+     }
+    }
+   ]
+  },
+  {
+   "pick": "athabasca-falls",
+   "stop_ids": [
+    "athabasca-falls"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/athabasca-falls"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Athabasca Falls from the viewing platform area (sunny and overcast); titles name Athabasca Falls; geotagged within 1 km of the falls point",
+   "photos": [
+    {
+     "file": "File:2025-06-09-002050 CAN Alberta Western Alberta (Jasper) 1158.1.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:2025-06-09-002050_CAN_Alberta_Western_Alberta_(Jasper)_1158.1.jpg",
+     "author": "Hansueli Krapf",
+     "licence": "CC BY-SA 4.0",
+     "width": 7656,
+     "height": 5104,
+     "taken": "2025-06-09",
+     "geotag": {
+      "lat": 52.66425496,
+      "lon": -117.88371419
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.6644",
+       "-117.8838"
+      ],
+      "radius_m": 1000,
+      "key": "athabasca-falls",
+      "dist_m": 17
+     }
+    },
+    {
+     "file": "File:MK04324 Athabasca Falls (Jasper NP).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:MK04324_Athabasca_Falls_(Jasper_NP).jpg",
+     "author": "Martin Kraft",
+     "licence": "CC BY-SA 3.0",
+     "width": 3464,
+     "height": 2309,
+     "taken": "2013-10-01 17:56:49",
+     "geotag": {
+      "lat": 52.664283333333,
+      "lon": -117.88406388889
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.6644",
+       "-117.8838"
+      ],
+      "radius_m": 1000,
+      "key": "athabasca-falls",
+      "dist_m": 22
+     }
+    }
+   ]
+  },
+  {
+   "pick": "sunwapta",
+   "stop_ids": [
+    "sunwapta-falls"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Sunwapta Falls river and falls (title names it); geotagged within 1 km of the falls point",
+   "photos": [
+    {
+     "file": "File:The Sunwapta Falls.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:The_Sunwapta_Falls.jpg",
+     "author": "Migueldalugdugan",
+     "licence": "CC BY-SA 4.0",
+     "width": 4032,
+     "height": 3024,
+     "taken": "2019-06-09 12:37:21",
+     "geotag": {
+      "lat": 52.532069,
+      "lon": -117.645028
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.5323",
+       "-117.6446"
+      ],
+      "radius_m": 1000,
+      "key": "sunwapta",
+      "dist_m": 39
+     }
+    },
+    {
+     "file": "File:2025-06-08-183257 CAN Alberta Western Alberta (Jasper) 1380.4.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:2025-06-08-183257_CAN_Alberta_Western_Alberta_(Jasper)_1380.4.jpg",
+     "author": "Hansueli Krapf",
+     "licence": "CC BY-SA 4.0",
+     "width": 8256,
+     "height": 5504,
+     "taken": "2025-06-08",
+     "geotag": {
+      "lat": 52.53217312,
+      "lon": -117.64516703
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.5323",
+       "-117.6446"
+      ],
+      "radius_m": 1000,
+      "key": "sunwapta",
+      "dist_m": 41
+     }
+    }
+   ]
+  },
+  {
+   "pick": "toe-glacier",
+   "stop_ids": [
+    "toe-glacier-walk"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Toe of the Athabasca Glacier with the meltwater stream and moraine, from the walk's payoff area; titles name the Athabasca Glacier; geotagged near the toe point (September 2026 file shows the current extent)",
+   "photos": [
+    {
+     "file": "File:Athabasca Glacier 2025.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Athabasca_Glacier_2025.jpg",
+     "author": "Douglaspperkins",
+     "licence": "CC BY-SA 4.0",
+     "width": 5472,
+     "height": 3648,
+     "taken": "2025-08-12 10:18:42",
+     "geotag": {
+      "lat": 52.207388,
+      "lon": -117.234934
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.2075",
+       "-117.2345"
+      ],
+      "radius_m": 1000,
+      "key": "toe-glacier",
+      "dist_m": 32
+     }
+    },
+    {
+     "file": "File:Athabasca Glacier in September 2026.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Athabasca_Glacier_in_September_2026.jpg",
+     "author": "Aude",
+     "licence": "CC BY-SA 4.0",
+     "width": 5712,
+     "height": 3213,
+     "taken": "2026-09-20 13:13:46",
+     "geotag": {
+      "lat": 52.206469,
+      "lon": -117.233833
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.2075",
+       "-117.2345"
+      ],
+      "radius_m": 1000,
+      "key": "toe-glacier",
+      "dist_m": 123
+     }
+    }
+   ]
+  },
+  {
+   "pick": "ice-explorer-1",
+   "stop_ids": [
+    "columbia-icefield-ice-explorer"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Brewster Ice Explorer coaches on the Athabasca Glacier (title names Ice Explorers; vehicle livery Columbia Icefield); geotagged near the toe point 1 km from the Ice Explorer terminal point",
+   "photos": [
+    {
+     "file": "File:'Ice Explorers' Approaching the Athabasca Glacier -- Jasper National Park Alberta September 2019 (49421973251).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:%27Ice_Explorers%27_Approaching_the_Athabasca_Glacier_--_Jasper_National_Park_Alberta_September_2019_(49421973251).jpg",
+     "author": "Ron Cogswell from Arlington, Virginia, USA",
+     "licence": "CC BY 2.0",
+     "width": 5489,
+     "height": 3787,
+     "taken": "2019-09-06 14:20",
+     "geotag": {
+      "lat": 52.208237,
+      "lon": -117.235879
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.2075",
+       "-117.2345"
+      ],
+      "radius_m": 1000,
+      "key": "toe-glacier",
+      "dist_m": 125
+     }
+    },
+    {
+     "file": "File:Brewster 'Ice Explore' -43 on the Athabasca Glacier -- Jasper National Park Alberta September 2019 (49421509233).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Brewster_%27Ice_Explore%27_-43_on_the_Athabasca_Glacier_--_Jasper_National_Park_Alberta_September_2019_(49421509233).jpg",
+     "author": "Ron Cogswell from Arlington, Virginia, USA",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2019-09-06 14:12",
+     "geotag": {
+      "lat": 52.208237,
+      "lon": -117.235879
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.2075",
+       "-117.2345"
+      ],
+      "radius_m": 1000,
+      "key": "toe-glacier",
+      "dist_m": 125
+     }
+    }
+   ]
+  },
+  {
+   "pick": "athabasca-glacier-sight",
+   "stop_ids": [
+    "columbia-icefield-athabasca-glacier"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Athabasca Glacier from the foreland (title names it) and the glacier toe in 2025; geotagged within 1 km of the Athabasca Glacier / toe points",
+   "photos": [
+    {
+     "file": "File:Athabasca Glacier (14942484663).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Athabasca_Glacier_(14942484663).jpg",
+     "author": "Norton Ip from Hong Kong",
+     "licence": "CC BY-SA 2.0",
+     "width": 5616,
+     "height": 3744,
+     "taken": "2014-09-29 13:28",
+     "geotag": {
+      "lat": 52.20863,
+      "lon": -117.234578
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.2126",
+       "-117.2329"
+      ],
+      "radius_m": 1000,
+      "key": "athabasca-glacier",
+      "dist_m": 456
+     }
+    },
+    {
+     "file": "File:Athabasca Glacier 2025.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Athabasca_Glacier_2025.jpg",
+     "author": "Douglaspperkins",
+     "licence": "CC BY-SA 4.0",
+     "width": 5472,
+     "height": 3648,
+     "taken": "2025-08-12 10:18:42",
+     "geotag": {
+      "lat": 52.207388,
+      "lon": -117.234934
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "52.2075",
+       "-117.2345"
+      ],
+      "radius_m": 1000,
+      "key": "toe-glacier",
+      "dist_m": 32
+     }
+    }
+   ]
+  },
+  {
+   "pick": "takakkaw",
+   "stop_ids": [
+    "takakkaw-falls",
+    "takakkaw-falls-walk"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+    "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Takakkaw Falls from the walk's viewing area (titles name it); geotagged within 1 km of the falls point",
+   "photos": [
+    {
+     "file": "File:Takakkaw Falls, Yoho National Park, British Columbia, 2025-07-11 10.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Takakkaw_Falls,_Yoho_National_Park,_British_Columbia,_2025-07-11_10.jpg",
+     "author": "Chris Woodrich",
+     "licence": "CC BY-SA 4.0",
+     "width": 5552,
+     "height": 3701,
+     "taken": "2025-07-11 14:19:04",
+     "geotag": {
+      "lat": 51.498718,
+      "lon": -116.477555
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.4997",
+       "-116.4728"
+      ],
+      "radius_m": 1000,
+      "key": "takakkaw",
+      "dist_m": 347
+     }
+    },
+    {
+     "file": "File:Takakkaw Falls - Yoho - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Takakkaw_Falls_-_Yoho_-_panoramio.jpg",
+     "author": "Jack Borno",
+     "licence": "CC BY-SA 3.0",
+     "width": 4288,
+     "height": 2848,
+     "taken": "Taken on 3 July 2010",
+     "geotag": {
+      "lat": 51.4973678589,
+      "lon": -116.479354858
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.4997",
+       "-116.4728"
+      ],
+      "radius_m": 1000,
+      "key": "takakkaw",
+      "dist_m": 523
+     }
+    }
+   ]
+  },
+  {
+   "pick": "emerald-canoe",
+   "stop_ids": [
+    "emerald-lake-canoe"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Red rental canoes at the Emerald Lake dock (panoramio file, title names Emerald Lake) and the lake with Mount Burgess; geotagged within 1 km of the boathouse point",
+   "photos": [
+    {
+     "file": "File:Emerald Lake - Yoho National park - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Emerald_Lake_-_Yoho_National_park_-_panoramio.jpg",
+     "author": "Jack Borno",
+     "licence": "CC BY-SA 3.0",
+     "width": 3072,
+     "height": 2304,
+     "taken": "Taken on 28 June 2006",
+     "geotag": {
+      "lat": 51.440179,
+      "lon": -116.54181
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.4397",
+       "-116.5413"
+      ],
+      "radius_m": 1000,
+      "key": "emerald-canoe",
+      "dist_m": 64
+     }
+    },
+    {
+     "file": "File:Emerald Lake and Mount Burgess (49464729952).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Emerald_Lake_and_Mount_Burgess_(49464729952).jpg",
+     "author": "Bernd Thaller from Graz, Austria",
+     "licence": "CC BY 2.0",
+     "width": 7470,
+     "height": 4202,
+     "taken": "2019-08-05 16:25",
+     "geotag": {
+      "lat": 51.439813,
+      "lon": -116.54057
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.4397",
+       "-116.5413"
+      ],
+      "radius_m": 1000,
+      "key": "emerald-canoe",
+      "dist_m": 52
+     }
+    }
+   ]
+  },
+  {
+   "pick": "emerald-shore",
+   "stop_ids": [
+    "emerald-lakeshore"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Emerald Lake with Mount Burgess and the lake from the shore (titles name Emerald Lake); geotagged within 1 km of the lakeshore point",
+   "photos": [
+    {
+     "file": "File:Emerald Lake and Mount Burgess (49464729952).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Emerald_Lake_and_Mount_Burgess_(49464729952).jpg",
+     "author": "Bernd Thaller from Graz, Austria",
+     "licence": "CC BY 2.0",
+     "width": 7470,
+     "height": 4202,
+     "taken": "2019-08-05 16:25",
+     "geotag": {
+      "lat": 51.439813,
+      "lon": -116.54057
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.4397",
+       "-116.5413"
+      ],
+      "radius_m": 1000,
+      "key": "emerald-canoe",
+      "dist_m": 52
+     }
+    },
+    {
+     "file": "File:Emerald Lake (15900205010).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Emerald_Lake_(15900205010).jpg",
+     "author": "Kevin He",
+     "licence": "CC BY-SA 2.0",
+     "width": 4608,
+     "height": 3072,
+     "taken": "2014-07-01 18:46",
+     "geotag": {
+      "lat": 51.4402,
+      "lon": -116.540006
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.4397",
+       "-116.5413"
+      ],
+      "radius_m": 1000,
+      "key": "emerald-canoe",
+      "dist_m": 106
+     }
+    }
+   ]
+  },
+  {
+   "pick": "natural-bridge",
+   "stop_ids": [
+    "natural-bridge"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/natural-bridge"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Natural Bridge rock arch over the Kicking Horse River, Yoho (titles name it); geotagged within 1 km of the point",
+   "photos": [
+    {
+     "file": "File:Natural Bridge, Yoho NP, west view 20240825 3.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Natural_Bridge,_Yoho_NP,_west_view_20240825_3.jpg",
+     "author": "DXR",
+     "licence": "CC BY-SA 4.0",
+     "width": 8256,
+     "height": 5504,
+     "taken": "2024-08-25",
+     "geotag": {
+      "lat": 51.38163223525,
+      "lon": -116.53045513241
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.3818",
+       "-116.5302"
+      ],
+      "radius_m": 1000,
+      "key": "natural-bridge",
+      "dist_m": 26
+     }
+    },
+    {
+     "file": "File:The natural bridge over the rapids at Yoho - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:The_natural_bridge_over_the_rapids_at_Yoho_-_panoramio.jpg",
+     "author": "Doktor Ellis",
+     "licence": "CC BY-SA 3.0",
+     "width": 3264,
+     "height": 1952,
+     "taken": "Taken on 26 July 2014",
+     "geotag": {
+      "lat": 51.382272,
+      "lon": -116.529867
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.3818",
+       "-116.5302"
+      ],
+      "radius_m": 1000,
+      "key": "natural-bridge",
+      "dist_m": 57
+     }
+    }
+   ]
+  },
+  {
+   "pick": "ll-shore",
+   "stop_ids": [
+    "lake-louise-lakeshore",
+    "lake-louise"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+    "place/lake-louise"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Lake Louise from the north-west shore trail with Victoria Glacier peaks, and the lake with the boathouse across it; titles name Lake Louise; geotagged within 1 km of the lakeshore point",
+   "photos": [
+    {
+     "file": "File:Lake Louise, view from northwest shore 20240823 1.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Louise,_view_from_northwest_shore_20240823_1.jpg",
+     "author": "DXR",
+     "licence": "CC BY-SA 4.0",
+     "width": 7378,
+     "height": 4919,
+     "taken": "2024-08-23",
+     "geotag": {
+      "lat": 51.415764397015,
+      "lon": -116.22709132549
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.4117",
+       "-116.2281"
+      ],
+      "radius_m": 1000,
+      "key": "ll-shore",
+      "dist_m": 457
+     }
+    },
+    {
+     "file": "File:Lake Louise 路易斯湖 - panoramio (2).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Louise_%E8%B7%AF%E6%98%93%E6%96%AF%E6%B9%96_-_panoramio_(2).jpg",
+     "author": "lienyuan lee",
+     "licence": "CC BY 3.0",
+     "width": 2048,
+     "height": 1536,
+     "taken": "Taken on 9 September 2001",
+     "geotag": {
+      "lat": 51.412698,
+      "lon": -116.232369
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.4117",
+       "-116.2281"
+      ],
+      "radius_m": 1000,
+      "key": "ll-shore",
+      "dist_m": 316
+     }
+    }
+   ]
+  },
+  {
+   "pick": "ll-canoe",
+   "stop_ids": [
+    "lake-louise-canoe"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Red canoes at the Lake Louise dock and the canoe boathouse (title: Canoes for Rent, Lake Louise, September 2019); geotagged within 1 km of the canoe point",
+   "photos": [
+    {
+     "file": "File:Louise lake.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Louise_lake.jpg",
+     "author": "Prabh17",
+     "licence": "CC BY-SA 4.0",
+     "width": 2048,
+     "height": 1536,
+     "taken": "Taken on 8 July 2020, 13:30:03",
+     "geotag": {
+      "lat": 51.415528,
+      "lon": -116.2164
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.4154",
+       "-116.2165"
+      ],
+      "radius_m": 1000,
+      "key": "ll-canoe",
+      "dist_m": 16
+     }
+    },
+    {
+     "file": "File:Canoes for Rent -- Lake Louise Alberta, Canada September 2019 (50072483293).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Canoes_for_Rent_--_Lake_Louise_Alberta,_Canada_September_2019_(50072483293).jpg",
+     "author": "Ron Cogswell from Arlington, Virginia, USA",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2019-09-10 16:56",
+     "geotag": {
+      "lat": 51.415454,
+      "lon": -116.216919
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.4154",
+       "-116.2165"
+      ],
+      "radius_m": 1000,
+      "key": "ll-canoe",
+      "dist_m": 30
+     }
+    }
+   ]
+  },
+  {
+   "pick": "ll-gondola",
+   "stop_ids": [
+    "lake-louise-gondola"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Lake Louise Sightseeing Gondola (title names it) above the base area in September, and the gondola line over the base; geotagged within 1 km of the gondola point",
+   "photos": [
+    {
+     "file": "File:Lake Louise Ski Lift and Gondola Alberta (CA) September 2019 (50073038876).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Louise_Ski_Lift_and_Gondola_Alberta_(CA)_September_2019_(50073038876).jpg",
+     "author": "Ron Cogswell from Arlington, Virginia, USA",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2019-09-11 11:38",
+     "geotag": {
+      "lat": 51.443034,
+      "lon": -116.16114
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.4421",
+       "-116.1612"
+      ],
+      "radius_m": 1000,
+      "key": "ll-gondola",
+      "dist_m": 104
+     }
+    },
+    {
+     "file": "File:Lake Louise Sightseeing Gondola - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Louise_Sightseeing_Gondola_-_panoramio.jpg",
+     "author": "Yoshio Kohara",
+     "licence": "CC BY 3.0",
+     "width": 2592,
+     "height": 1553,
+     "taken": "Taken on 25 September 2005",
+     "geotag": {
+      "lat": 51.440447,
+      "lon": -116.159917
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.4421",
+       "-116.1612"
+      ],
+      "radius_m": 1000,
+      "key": "ll-gondola",
+      "dist_m": 204
+     }
+    }
+   ]
+  },
+  {
+   "pick": "moraine-rockpile",
+   "stop_ids": [
+    "moraine-lake",
+    "moraine-lakeshore"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+    "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Moraine Lake with the Valley of the Ten Peaks from the Rockpile viewpoint (title names Moraine Lake); geotagged within 1 km of the Rockpile point",
+   "photos": [
+    {
+     "file": "File:Moraine Lake, Banff National Park, Canada (54880344222).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Moraine_Lake,_Banff_National_Park,_Canada_(54880344222).jpg",
+     "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+     "licence": "CC BY-SA 4.0",
+     "width": 13678,
+     "height": 7694,
+     "taken": "Taken on 26 August 2025, 13:57",
+     "geotag": {
+      "lat": 51.327788,
+      "lon": -116.180684
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.3279",
+       "-116.1807"
+      ],
+      "radius_m": 1000,
+      "key": "moraine-rockpile",
+      "dist_m": 12
+     }
+    },
+    {
+     "file": "File:Beautiful Moraine - Flickr - Tiomax80.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Beautiful_Moraine_-_Flickr_-_Tiomax80.jpg",
+     "author": "Tiomax80",
+     "licence": "CC BY 4.0",
+     "width": 6048,
+     "height": 4024,
+     "taken": "Taken on 16 July 2026, 09:27",
+     "geotag": {
+      "lat": 51.327842,
+      "lon": -116.180559
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.3279",
+       "-116.1807"
+      ],
+      "radius_m": 1000,
+      "key": "moraine-rockpile",
+      "dist_m": 12
+     }
+    }
+   ]
+  },
+  {
+   "pick": "moraine-canoe",
+   "stop_ids": [
+    "moraine-lake-canoe"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Moraine Lake canoe docks with rental canoes and a canoe on the lake (titles name Moraine Lake); geotagged within 1 km of the canoe point",
+   "photos": [
+    {
+     "file": "File:Moraine Lake Alberta Canada canoe docks.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Moraine_Lake_Alberta_Canada_canoe_docks.jpg",
+     "author": "WikiPedant",
+     "licence": "CC BY-SA 4.0",
+     "width": 4608,
+     "height": 2592,
+     "taken": "2015-09-01 16:48:10",
+     "geotag": {
+      "lat": 51.326882,
+      "lon": -116.182705
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.3269",
+       "-116.1829"
+      ],
+      "radius_m": 1000,
+      "key": "moraine-canoe",
+      "dist_m": 14
+     }
+    },
+    {
+     "file": "File:Moraine Lake (3866528154).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Moraine_Lake_(3866528154).jpg",
+     "author": "Phil Whitehouse from London, United Kingdom",
+     "licence": "CC BY 2.0",
+     "width": 3648,
+     "height": 2736,
+     "taken": "21 August 2009, 22:30 (according to Exif data)",
+     "geotag": {
+      "lat": 51.327799,
+      "lon": -116.182994
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "51.3269",
+       "-116.1829"
+      ],
+      "radius_m": 1000,
+      "key": "moraine-canoe",
+      "dist_m": 100
+     }
+    }
+   ]
+  },
+  {
+   "pick": "lorette",
+   "stop_ids": [
+    "mount-lorette-ponds"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Mount Lorette Ponds in September-October colour with the footbridge (titles name the ponds); geotagged within 1 km of the parking point",
+   "photos": [
+    {
+     "file": "File:Lorette ponds Kananaskis Alberta Canada (29810545081).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lorette_ponds_Kananaskis_Alberta_Canada_(29810545081).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2016-09-18 14:37",
+     "geotag": {
+      "lat": 50.969535,
+      "lon": -115.107954
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "50.9694",
+       "-115.1078"
+      ],
+      "radius_m": 1000,
+      "key": "lorette",
+      "dist_m": 18
+     }
+    },
+    {
+     "file": "File:Lorette Ponds - Kananaskis - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lorette_Ponds_-_Kananaskis_-_panoramio.jpg",
+     "author": "Jack Borno",
+     "licence": "CC BY-SA 3.0",
+     "width": 4118,
+     "height": 2735,
+     "taken": "Taken on 26 September 2010",
+     "geotag": {
+      "lat": 50.9677467346,
+      "lon": -115.109642029
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "50.9694",
+       "-115.1078"
+      ],
+      "radius_m": 1000,
+      "key": "lorette",
+      "dist_m": 225
+     }
+    }
+   ]
+  },
+  {
+   "pick": "interlakes",
+   "stop_ids": [
+    "interlakes-trail"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/interlakes-trail"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Upper Kananaskis Lake with mountains in summer (titles name Upper Kananaskis Lake; the Interlakes trail runs between the Upper and Lower lakes); geotagged within 1 km of the trail point",
+   "photos": [
+    {
+     "file": "File:Upper Kananaskis lake (36000875896).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Upper_Kananaskis_lake_(36000875896).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2017-07-15 16:47",
+     "geotag": {
+      "lat": 50.633648,
+      "lon": -115.143005
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "50.6316",
+       "-115.14"
+      ],
+      "radius_m": 1000,
+      "key": "interlakes",
+      "dist_m": 311
+     }
+    },
+    {
+     "file": "File:Upper Kananaskis Lake walk round Aug 2015 (19983994723).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Upper_Kananaskis_Lake_walk_round_Aug_2015_(19983994723).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2015-08-11 06:02",
+     "geotag": {
+      "lat": 50.625672,
+      "lon": -115.144271
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "50.6316",
+       "-115.14"
+      ],
+      "radius_m": 1000,
+      "key": "interlakes",
+      "dist_m": 725
+     }
+    }
+   ]
+  },
+  {
+   "pick": "kan-lakes",
+   "stop_ids": [
+    "kananaskis-lakes-day-use"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Upper Kananaskis Lake with its islet (title: A trip to the lakes, Upper Kananaskis) and the lake in summer; geotagged within 1 km of the day-use point",
+   "photos": [
+    {
+     "file": "File:A trip to the lakes (29155224512).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:A_trip_to_the_lakes_(29155224512).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2016-08-21 11:52",
+     "geotag": {
+      "lat": 50.617449,
+      "lon": -115.158004
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "50.6181",
+       "-115.154"
+      ],
+      "radius_m": 1000,
+      "key": "kan-lakes",
+      "dist_m": 292
+     }
+    },
+    {
+     "file": "File:Upper Kananaskis lake (36000875896).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Upper_Kananaskis_lake_(36000875896).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2017-07-15 16:47",
+     "geotag": {
+      "lat": 50.633648,
+      "lon": -115.143005
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "50.6316",
+       "-115.14"
+      ],
+      "radius_m": 1000,
+      "key": "interlakes",
+      "dist_m": 311
+     }
+    }
+   ]
+  },
+  {
+   "pick": "ptarmigan",
+   "stop_ids": [
+    "ptarmigan-cirque"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Ptarmigan Cirque (title) with the trail bench view; geotagged within 1 km of the cirque point",
+   "photos": [
+    {
+     "file": "File:Ptarmigan Cirque.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Ptarmigan_Cirque.jpg",
+     "author": "Khoshhat",
+     "licence": "CC BY-SA 4.0",
+     "width": 5472,
+     "height": 3648,
+     "taken": "2023-09-22 12:37:23",
+     "geotag": {
+      "lat": 50.60645,
+      "lon": -114.980567
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "50.6029",
+       "-114.9817"
+      ],
+      "radius_m": 1000,
+      "key": "ptarmigan",
+      "dist_m": 403
+     }
+    },
+    {
+     "file": "File:HBM Happy Bench Monday (35469456653).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:HBM_Happy_Bench_Monday_(35469456653).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2017-07-29 12:28",
+     "geotag": {
+      "lat": 50.602566,
+      "lon": -114.984068
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "50.6029",
+       "-114.9817"
+      ],
+      "radius_m": 1000,
+      "key": "ptarmigan",
+      "dist_m": 171
+     }
+    }
+   ]
+  },
+  {
+   "pick": "highwood",
+   "stop_ids": [
+    "highwood-pass-summit"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Storm Mountain from Highwood Pass with the boardwalk trail, summer; geotagged within about 0.5 km of the Highwood Pass point (found in the Ptarmigan Cirque 1 km search, whose centre is 0.6 km from the pass point); the other files near the pass are winter road views",
+   "photos": [
+    {
+     "file": "File:Storm Mountain from Highwood Pass.jpeg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Storm_Mountain_from_Highwood_Pass.jpeg",
+     "author": "Ingo Schwarze",
+     "licence": "CC BY 4.0",
+     "width": 4000,
+     "height": 3000,
+     "taken": "2015-07-09 12:45:42",
+     "geotag": {
+      "lat": 50.599,
+      "lon": -114.994
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "50.6029",
+       "-114.9817"
+      ],
+      "radius_m": 1000,
+      "key": "ptarmigan",
+      "dist_m": 970
+     }
+    }
+   ]
+  },
+  {
+   "pick": "wedge-pond",
+   "stop_ids": [
+    "wedge-pond",
+    "wedge-pond-loop"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+    "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Wedge Pond with Wedge Mountain behind (titles name it), summer and autumn larches; geotagged within 1 km of the pond point",
+   "photos": [
+    {
+     "file": "File:Wedge pond Kananaskis Alberta Canada (27576208153).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Wedge_pond_Kananaskis_Alberta_Canada_(27576208153).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2016-07-03 16:36",
+     "geotag": {
+      "lat": 50.872792,
+      "lon": -115.148906
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "50.8728",
+       "-115.1492"
+      ],
+      "radius_m": 1000,
+      "key": "wedge-pond",
+      "dist_m": 21
+     }
+    },
+    {
+     "file": "File:A visit to Wedge pond Kananaskis Alberta Canada (29789522671).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:A_visit_to_Wedge_pond_Kananaskis_Alberta_Canada_(29789522671).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2016-09-18 14:07",
+     "geotag": {
+      "lat": 50.873957,
+      "lon": -115.147715
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "50.8728",
+       "-115.1492"
+      ],
+      "radius_m": 1000,
+      "key": "wedge-pond",
+      "dist_m": 166
+     }
+    }
+   ]
+  },
+  {
+   "pick": "wilcox-t",
+   "stop_ids": [
+    "wilcox-pass"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/wilcox-pass"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Wilcox Pass trail with the Columbia Icefield glaciers in view (summer); titles name Wilcox Pass; file 0 geotagged 52.2269,-117.2023 on the trail (about 1.9 km from the record point 52.25,-117.2356, the record point is the trailhead area)",
+   "photos": [
+    {
+     "file": "File:20130630 30 Wilcox Pass Trail (11659532956).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:20130630_30_Wilcox_Pass_Trail_(11659532956).jpg",
+     "author": "David Wilson from Oak Park, Illinois, USA",
+     "licence": "CC BY 2.0",
+     "width": 2816,
+     "height": 2112,
+     "taken": "2013-06-30 00:00",
+     "geotag": [
+      52.22693,
+      -117.20227
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Wilcox Pass Jasper",
+      "key": "wilcox"
+     }
+    },
+    {
+     "file": "File:Columbia Icefield from the Wilcox Pass trail.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Columbia_Icefield_from_the_Wilcox_Pass_trail.jpg",
+     "author": "Frank Kovalchek from Anchorage, Alaska, USA",
+     "licence": "CC BY 2.0",
+     "width": 3396,
+     "height": 1940,
+     "taken": "2009-11-15 17:28",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Wilcox Pass Jasper",
+      "key": "wilcox"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "kinney-t",
+   "stop_ids": [
+    "kinney-lake"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/kinney-lake"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Kinney Lake with Mount Whitehorn reflected (titles name Kinney Lake); geotagged 53.0764,-119.1843 and 53.0747,-119.1846 on the lake, about 1.2 km from the record point 53.0498,-119.2155 (the trailhead end)",
+   "photos": [
+    {
+     "file": "File:Lake Kinney mit Mount Whitehorn.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Kinney_mit_Mount_Whitehorn.jpg",
+     "author": "Florian Fuchs",
+     "licence": "CC BY 3.0",
+     "width": 4928,
+     "height": 3264,
+     "taken": "2012-08-19",
+     "geotag": [
+      53.07643579,
+      -119.18426808
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Kinney Lake Mount Robson",
+      "key": "kinney"
+     }
+    },
+    {
+     "file": "File:Mount Robson Provincial Park - Kinney Lake.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Robson_Provincial_Park_-_Kinney_Lake.jpg",
+     "author": "Don McIntosh",
+     "licence": "CC BY-SA 4.0",
+     "width": 3264,
+     "height": 1836,
+     "taken": "2017-05-28 09:37:02",
+     "geotag": [
+      53.074744,
+      -119.184623
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Kinney Lake Mount Robson",
+      "key": "kinney"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "sunshine-t",
+   "stop_ids": [
+    "sunshine-meadows-citadel-pass"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Sunshine Meadows with Rock Isle Lake and the meadow plateau (titles name Sunshine Meadows, Banff); geotagged near 51.09,-115.76, within about 3 km of the record point at Sunshine Village; Citadel Pass itself is not shown",
+   "photos": [
+    {
+     "file": "File:Sunshine Meadows - Banff - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Sunshine_Meadows_-_Banff_-_panoramio.jpg",
+     "author": "Jack Borno",
+     "licence": "CC BY-SA 3.0",
+     "width": 1822,
+     "height": 1214,
+     "taken": "Taken on 20 July 2006",
+     "geotag": [
+      51.099388,
+      -115.771151
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Sunshine Meadows Banff",
+      "key": "sunshine"
+     }
+    },
+    {
+     "file": "File:Sunshine Meadows - Banff - Lookout - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Sunshine_Meadows_-_Banff_-_Lookout_-_panoramio.jpg",
+     "author": "Jack Borno",
+     "licence": "CC BY-SA 3.0",
+     "width": 3072,
+     "height": 2048,
+     "taken": "Taken on 20 July 2006",
+     "geotag": [
+      51.08149,
+      -115.752611
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Sunshine Meadows Banff",
+      "key": "sunshine"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "overlander-t",
+   "stop_ids": [
+    "overlander-falls-trail"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Overlander Falls on the Fraser River (titles name it); the first file is geotagged 53.0299,-119.2053 on the falls; the second has no geotag",
+   "photos": [
+    {
+     "file": "File:Overlander Falls, BC, Canada (54881430869).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Overlander_Falls,_BC,_Canada_(54881430869).jpg",
+     "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+     "licence": "CC BY-SA 4.0",
+     "width": 6765,
+     "height": 3805,
+     "taken": "Taken on 22 August 2025, 16:14",
+     "geotag": [
+      53.029922,
+      -119.205273
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Overlander Falls Mount Robson",
+      "key": "overlander"
+     }
+    },
+    {
+     "file": "File:Overlander Falls Fraser River.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Overlander_Falls_Fraser_River.jpg",
+     "author": "User:Roland Neave",
+     "licence": "CC BY 3.0",
+     "width": 4005,
+     "height": 2661,
+     "taken": "29 November 2006 (according to Exif data)",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Overlander Falls Mount Robson",
+      "key": "overlander"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "miette-t",
+   "stop_ids": [
+    "miette-hot-springs"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
+    "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Source of the hot spring and the trail to the spring head at Miette (titles name Miette Hot Springs); no geotag on either; no licensed image of the pools themselves was found, so these show the spring source, not the pools",
+   "photos": [
+    {
+     "file": "File:Source of the spring 1, Miette Hot Springs, Jasper AB.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Source_of_the_spring_1,_Miette_Hot_Springs,_Jasper_AB.jpg",
+     "author": "Jon Eeuwes",
+     "licence": "CC BY-SA 4.0",
+     "width": 6016,
+     "height": 4016,
+     "taken": "2018-09-01 12:43:45",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Miette Hot Springs Jasper",
+      "key": "miette"
+     }
+    },
+    {
+     "file": "File:Trail to the head, Miette Hot Springs, Jasper, AB.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Trail_to_the_head,_Miette_Hot_Springs,_Jasper,_AB.jpg",
+     "author": "Jon Eeuwes",
+     "licence": "CC BY-SA 4.0",
+     "width": 6016,
+     "height": 4016,
+     "taken": "2018-09-01 11:52:54",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Miette Hot Springs Jasper",
+      "key": "miette"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "skyline-t",
+   "stop_ids": [
+    "sulphur-skyline"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Utopia Mountain from Sulphur Skyline (title); geotagged 53.1154,-117.7440, at the payoff point of the trail record (53.1157,-117.7448); only one licensed image found",
+   "photos": [
+    {
+     "file": "File:Utopia Mountain from Sulphur Skyline.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Utopia_Mountain_from_Sulphur_Skyline.jpg",
+     "author": "dvs",
+     "licence": "CC BY 2.0",
+     "width": 2048,
+     "height": 1536,
+     "taken": "2018-08-01 12:29:41",
+     "geotag": [
+      53.115411,
+      -117.744003
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Sulphur Skyline Jasper",
+      "key": "skyline"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "parker-t",
+   "stop_ids": [
+    "parker-ridge"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/parker-ridge"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Saskatchewan Glacier seen from Parker Ridge Trail and the Icefields Parkway from Parker Ridge (titles name Parker Ridge, the trail's payoff view); the second is geotagged 52.1833,-117.1143, 0.9 km from the record point; the first has no geotag",
+   "photos": [
+    {
+     "file": "File:Saskatchewan Glacier from Parker Ridge Trail.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Saskatchewan_Glacier_from_Parker_Ridge_Trail.jpg",
+     "author": "amanderson2",
+     "licence": "CC BY 2.0",
+     "width": 5184,
+     "height": 3888,
+     "taken": "2018-09-10 11:00:17",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Parker Ridge Icefields Parkway",
+      "key": "parker"
+     }
+    },
+    {
+     "file": "File:Icefileds Parkway seen from Parker Ridge, Banff National Park, Canada (54880326907).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Icefileds_Parkway_seen_from_Parker_Ridge,_Banff_National_Park,_Canada_(54880326907).jpg",
+     "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+     "licence": "CC BY-SA 4.0",
+     "width": 8256,
+     "height": 4644,
+     "taken": "Taken on 24 August 2025, 13:14",
+     "geotag": [
+      52.183344,
+      -117.114331
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Parker Ridge Icefields Parkway",
+      "key": "parker"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "ha-ling-t",
+   "stop_ids": [
+    "ha-ling-peak"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Ha Ling Peak (title) from Quarry Lake and the peak ridge near the summit (title: Ha Ling Peak aka Chinaman Peak); no geotag; titles and descriptions name the peak; the 1 km geosearch only found East End of Rundle files",
+   "photos": [
+    {
+     "file": "File:Ha-Ling Peak & Mount Lawrance Grassi, from Quarry Lake.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Ha-Ling_Peak_%26_Mount_Lawrance_Grassi,_from_Quarry_Lake.jpg",
+     "author": "Mule hollandaise",
+     "licence": "CC0",
+     "width": 4032,
+     "height": 2268,
+     "taken": "2020-07-22 10:42:35",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Ha Ling Peak Canmore",
+      "key": "ha-ling"
+     }
+    },
+    {
+     "file": "File:Ha Ling Peak aka Chinaman Peak (15810090790).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Ha_Ling_Peak_aka_Chinaman_Peak_(15810090790).jpg",
+     "author": "Wilson Hui from Calgary, Canada",
+     "licence": "CC BY 2.0",
+     "width": 1920,
+     "height": 1080,
+     "taken": "Taken on 6 September 2014, 13:03",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Ha Ling Peak Canmore",
+      "key": "ha-ling"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "grassi-t",
+   "stop_ids": [
+    "grassi-lakes-upper"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Lower Grassi Lakes and the Grassi Lakes waterfall (descriptions name them), autumn; the first is geotagged 51.0725,-115.4067, 1.2 km from the record point",
+   "photos": [
+    {
+     "file": "File:Grassi Lakes road trip Canmore Alberta Canada (10277672766).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Grassi_Lakes_road_trip_Canmore_Alberta_Canada_(10277672766).jpg",
+     "author": "Thank you for visiting my page. from Calgary, Canada",
+     "licence": "CC BY 2.0",
+     "width": 5184,
+     "height": 3456,
+     "taken": "2013-10-14 10:51",
+     "geotag": [
+      51.072468,
+      -115.406656
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Grassi Lakes Canmore",
+      "key": "grassi"
+     }
+    },
+    {
+     "file": "File:Grassi Lakes road trip Canmore Alberta Canada (10277600894).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Grassi_Lakes_road_trip_Canmore_Alberta_Canada_(10277600894).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 5184,
+     "height": 3456,
+     "taken": "2013-10-14 11:19",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Grassi Lakes Canmore",
+      "key": "grassi"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "rawson-t",
+   "stop_ids": [
+    "rawson-lake"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/rawson-lake"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Rawson Lake with the snow-dusted cirque, October 2015 (title names Rawson Lake); no geotag; shows an early-snow state, a September visit may be snow-free; the other Rawson files are forest or deep winter",
+   "photos": [
+    {
+     "file": "File:Rawson Lake Kananaskis Alberta Canada October 2015 (22100846781).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Rawson_Lake_Kananaskis_Alberta_Canada_October_2015_(22100846781).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2015-10-04 08:09",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Rawson Lake Kananaskis",
+      "key": "rawson"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "sarrail-geo",
+   "stop_ids": [
+    "sarrail-ridge"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Upper Kananaskis Lake and Mount Indefatigable from above (title), the view from the ridge side of the lake; geotagged within 1 km of the Sarrail payoff point; snow patches visible; not certain it is taken from Sarrail Ridge itself",
+   "photos": [
+    {
+     "file": "File:.Upper Kananaskis Lake & Mount Indefatigable 03.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:.Upper_Kananaskis_Lake_%26_Mount_Indefatigable_03.jpg",
+     "author": "Khoshhat",
+     "licence": "CC BY 4.0",
+     "width": 5472,
+     "height": 3648,
+     "taken": "2026-06-13 10:19:19",
+     "geotag": {
+      "lat": 50.596536,
+      "lon": -115.165153
+     },
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       "50.5994",
+       "-115.1598"
+      ],
+      "radius_m": 1000,
+      "key": "sarrail-payoff",
+      "dist_m": 494
+     }
+    }
+   ]
+  },
+  {
+   "pick": "iceline-t",
+   "stop_ids": [
+    "iceline-trail"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/iceline-trail"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Views from the Iceline Trail to Yoho Glacier and a small glacier with its tarn (titles name the Iceline Trail); geotagged 51.5044,-116.5163 and 51.5011,-116.5137 on the trail",
+   "photos": [
+    {
+     "file": "File:View from Iceline Trail towards Yoho Glacier, Yoho National Park, Canada (54881443029).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:View_from_Iceline_Trail_towards_Yoho_Glacier,_Yoho_National_Park,_Canada_(54881443029).jpg",
+     "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+     "licence": "CC BY-SA 4.0",
+     "width": 8256,
+     "height": 4644,
+     "taken": "Taken on 25 August 2025, 11:56",
+     "geotag": [
+      51.504402,
+      -116.516312
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Iceline Trail Yoho",
+      "key": "iceline"
+     }
+    },
+    {
+     "file": "File:Small Glacier at Iceline Trail, Yoho National Park, Canada (54881422148).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Small_Glacier_at_Iceline_Trail,_Yoho_National_Park,_Canada_(54881422148).jpg",
+     "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+     "licence": "CC BY-SA 4.0",
+     "width": 8256,
+     "height": 4644,
+     "taken": "Taken on 25 August 2025, 13:39",
+     "geotag": [
+      51.501086,
+      -116.513673
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Iceline Trail Yoho",
+      "key": "iceline"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "six-t",
+   "stop_ids": [
+    "plain-of-six-glaciers"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Plain of Six Glaciers Teahouse (title; geotagged 51.3934,-116.2730, 30 m from the record point) and the Plain of the Six Glaciers (title; geotagged 51.3876,-116.2814)",
+   "photos": [
+    {
+     "file": "File:Plain of Six Glaciers Teahouse.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Plain_of_Six_Glaciers_Teahouse.jpg",
+     "author": "Florian Fuchs",
+     "licence": "CC BY 3.0",
+     "width": 2000,
+     "height": 1248,
+     "taken": "2012-08-15",
+     "geotag": [
+      51.39338735,
+      -116.27298355
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Plain of the Six Glaciers Lake Louise",
+      "key": "six-glaciers"
+     }
+    },
+    {
+     "file": "File:Plain of the Six Glaciers.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Plain_of_the_Six_Glaciers.jpg",
+     "author": "Florian Fuchs",
+     "licence": "CC BY 3.0",
+     "width": 7220,
+     "height": 4516,
+     "taken": "Taken on 15 August 2012, 10:00:05",
+     "geotag": [
+      51.387595,
+      -116.281435
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Plain of the Six Glaciers Lake Louise",
+      "key": "six-glaciers"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "bald-t",
+   "stop_ids": [
+    "bald-hills"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/bald-hills"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Maligne Lake from the Bald Hills (title MaligneLakeBaldHills, public domain; and Bald Hills, Jasper CC BY 2.0, description: Samson Peak, Maligne Lake); no geotags; titles name the Bald Hills",
+   "photos": [
+    {
+     "file": "File:MaligneLakeBaldHills.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:MaligneLakeBaldHills.JPG",
+     "author": "Erik Lizee - Free to All",
+     "licence": "Public domain",
+     "width": 2816,
+     "height": 2112,
+     "taken": "2007",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Bald Hills Jasper Maligne",
+      "key": "bald-hills"
+     }
+    },
+    {
+     "file": "File:Bald Hills, Jasper.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Bald_Hills,_Jasper.jpg",
+     "author": "Jess Wood",
+     "licence": "CC BY 2.0",
+     "width": 3809,
+     "height": 1985,
+     "taken": "2016-09-22 21:27:03",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Bald Hills Jasper Maligne",
+      "key": "bald-hills"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "elk-t",
+   "stop_ids": [
+    "elk-rut"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/adventures/elk-rut"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Elk bull in autumn grass and elk at dusk beside a road, Banff National Park (titles and descriptions name Banff NP); no geotags; the 1 km search at the Banff townsite point found only town files, so these are from a text search; they show the animal, not a particular rut-viewing spot",
+   "photos": [
+    {
+     "file": "File:Elk-Wapiti - Banff.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Elk-Wapiti_-_Banff.jpg",
+     "author": "Jakub Fryš",
+     "licence": "CC BY-SA 4.0",
+     "width": 4928,
+     "height": 3264,
+     "taken": "2019-03-28 18:04:55",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Cervus canadensis Banff National Park",
+      "key": "elk3"
+     }
+    },
+    {
+     "file": "File:Elk Banff National Park.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Elk_Banff_National_Park.jpg",
+     "author": "Naturedata",
+     "licence": "CC0",
+     "width": 3504,
+     "height": 2336,
+     "taken": "2007-08-27 22:27:13",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Cervus canadensis Banff National Park",
+      "key": "elk3"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "paint-pots-t",
+   "stop_ids": [
+    "paint-pots-walk"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Ochre pools at the Paint Pots, Kootenay NP (titles name the Paint Pots); the first is geotagged 51.17,-116.154, 0.5 km from the record point",
+   "photos": [
+    {
+     "file": "File:Kootenay.Paint.Pots.ocker.P1023048.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Kootenay.Paint.Pots.ocker.P1023048.jpg",
+     "author": "Membeth",
+     "licence": "CC0",
+     "width": 5184,
+     "height": 3888,
+     "taken": "2019-09-19 16:48:10",
+     "geotag": [
+      51.17,
+      -116.154
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Paint Pots Kootenay National Park",
+      "key": "paint-pots2"
+     }
+    },
+    {
+     "file": "File:Kootenay Paint Pots.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Kootenay_Paint_Pots.jpg",
+     "author": "Kimon Berlin, user:Gribeco",
+     "licence": "CC BY-SA 4.0",
+     "width": 3504,
+     "height": 2336,
+     "taken": "Taken on 28 July 2007",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Paint Pots Kootenay National Park",
+      "key": "paint-pots2"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "annette-t",
+   "stop_ids": [
+    "lake-annette-loop"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Lake Annette (title, pre-fire) and Annette Lake after the 2024 wildfire (June 2025; geotagged 52.8995,-118.0457, 0.3 km from the record point): shows the burnt shore the loop now passes; both kept so the page does not promise the old forest",
+   "photos": [
+    {
+     "file": "File:Lake Annette.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Annette.jpg",
+     "author": "Andrea Belvedere",
+     "licence": "CC BY 2.0",
+     "width": 5916,
+     "height": 3944,
+     "taken": "Taken on 28 August 2017, 10:34:42",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Lake Annette Jasper",
+      "key": "annette2"
+     }
+    },
+    {
+     "file": "File:2025-06-11-193214 CAN Alberta Western Alberta (Jasper) 1014.4-Pano.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:2025-06-11-193214_CAN_Alberta_Western_Alberta_(Jasper)_1014.4-Pano.jpg",
+     "author": "Hansueli Krapf",
+     "licence": "CC BY-SA 4.0",
+     "width": 21099,
+     "height": 3939,
+     "taken": "2025-06-11",
+     "geotag": [
+      52.89951258,
+      -118.04570336
+     ],
+     "found_by": {
+      "method": "text search",
+      "query": "Lake Annette Jasper",
+      "key": "annette2"
+     }
+    }
+   ]
+  },
+  {
+   "pick": "dark-t",
+   "stop_ids": [
+    "jasper-dark-sky"
+   ],
+   "refs": [
+    "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky"
+   ],
+   "searched_on": "2026-10-25",
+   "subject_check": "Milky Way over The Whistlers, Jasper (title and description); no geotag; one licensed image found",
+   "photos": [
+    {
+     "file": "File:Milky Way over The Whistlers.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Milky_Way_over_The_Whistlers.jpg",
+     "author": "Fresh.waffles",
+     "licence": "CC BY-SA 4.0",
+     "width": 6016,
+     "height": 4016,
+     "taken": "2018-10-13 21:34:24",
+     "geotag": null,
+     "found_by": {
+      "method": "text search",
+      "query": "night sky Jasper National Park Milky Way",
+      "key": "dark-sky2"
+     }
+    }
+   ]
+  }
+ ],
+ "gaps": [
+  {
+   "stop_id": "troll-falls",
+   "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "geosearch 1 km around 50.9421,-115.1495 (13 results, 10 usable)",
+    "text search 'Troll Falls Kananaskis' (15 results, 9 usable)",
+    "text search 'Troll Falls summer' (40 results, 0 usable)"
+   ],
+   "why": "every licensed file is a winter or frozen-fall view (wrong season for September)"
+  },
+  {
+   "stop_id": "canmore-nordic-centre",
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "geosearch 1 km around 51.0902,-115.3855 (9 results, 0 on the centre)",
+    "text search 'Canmore Nordic Centre' (9 results, 7 usable, all winter, biathlon or snow-making)",
+    "text search 'Canmore Nordic Centre mountain bike trails' (0 results)"
+   ],
+   "why": "no summer photo of the centre under an allowed licence"
+  },
+  {
+   "stop_id": "rockwall-lookout",
+   "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "geosearch 1 km around 50.6863,-115.1149 (19 results, none on the Rockwall)",
+    "text search 'Rockwall Kananaskis Highway 40' (0 results)",
+    "text search 'Rockwall Lookout Kananaskis' (0 results)"
+   ],
+   "why": "nothing on Commons names the lookout"
+  },
+  {
+   "stop_id": "jasper-miette-mine-trail",
+   "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "text search 'Miette Mine trail Jasper' (13 results, 0 usable)",
+    "text search 'Miette Hot Springs Jasper' (28 results; spring and road files only, used on the hot springs record instead)"
+   ],
+   "why": "no file of the mine trail"
+  },
+  {
+   "stop_id": "citadel-pass",
+   "ref": "(part of sunshine-meadows-citadel-pass)",
+   "status": "Citadel Pass itself not shown; the Sunshine Meadows photos stand in",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "text search 'Citadel Pass Banff' (40 results, 0 usable)",
+    "text search 'Citadel Pass Sunshine' (40 results, 0 usable)"
+   ],
+   "why": "the trail record shows the meadows (Rock Isle Lake), not the pass"
+  }
+ ],
+ "stops_without_a_record": [
+  {
+   "stop_id": "bear-spray-groceries",
+   "why": "no capture record exists for this stop (errand, meal or a lift with no record); not a photo target"
+  },
+  {
+   "stop_id": "sunshine-gondola",
+   "why": "no capture record exists for this stop (errand, meal or a lift with no record); not a photo target"
+  },
+  {
+   "stop_id": "saskatchewan-crossing",
+   "why": "no capture record exists for this stop (errand, meal or a lift with no record); not a photo target"
+  },
+  {
+   "stop_id": "jasper-errands",
+   "why": "no capture record exists for this stop (errand, meal or a lift with no record); not a photo target"
+  },
+  {
+   "stop_id": "icefield-lunch",
+   "why": "no capture record exists for this stop (errand, meal or a lift with no record); not a photo target"
+  },
+  {
+   "stop_id": "canmore-groceries",
+   "why": "no capture record exists for this stop (errand, meal or a lift with no record); not a photo target"
+  }
+ ],
+ "queries": [
+  {
+   "key": "agnes",
+   "method": "geosearch",
+   "point": [
+    51.4144,
+    -116.2487
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 45,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "annette",
+   "method": "geosearch",
+   "point": [
+    52.9016,
+    -118.0483
+   ],
+   "radius_m": 1000,
+   "results": 14,
+   "usable": 13,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "athabasca-falls",
+   "method": "geosearch",
+   "point": [
+    52.6644,
+    -117.8838
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 27,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "athabasca-glacier",
+   "method": "geosearch",
+   "point": [
+    52.2126,
+    -117.2329
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 40,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "bald-hills",
+   "method": "geosearch",
+   "point": [
+    52.7267,
+    -117.6446
+   ],
+   "radius_m": 1000,
+   "results": 34,
+   "usable": 24,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "banff-gondola",
+   "method": "geosearch",
+   "point": [
+    51.1445,
+    -115.575
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 48,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "bourgeau",
+   "method": "geosearch",
+   "point": [
+    51.1682,
+    -115.7311
+   ],
+   "radius_m": 1000,
+   "results": 1,
+   "usable": 1,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "bow-lake",
+   "method": "geosearch",
+   "point": [
+    51.6644,
+    -116.4486
+   ],
+   "radius_m": 1000,
+   "results": 30,
+   "usable": 25,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "cave-basin",
+   "method": "geosearch",
+   "point": [
+    51.1694,
+    -115.5911
+   ],
+   "radius_m": 1000,
+   "results": 49,
+   "usable": 49,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "dark-sky",
+   "method": "geosearch",
+   "point": [
+    52.8693,
+    -118.0581
+   ],
+   "radius_m": 1000,
+   "results": 3,
+   "usable": 3,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "elk-rut",
+   "method": "geosearch",
+   "point": [
+    51.1751,
+    -115.5721
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 38,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "emerald-canoe",
+   "method": "geosearch",
+   "point": [
+    51.4397,
+    -116.5413
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 34,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "emerald-shore",
+   "method": "geosearch",
+   "point": [
+    51.444,
+    -116.531
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 41,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "fenland",
+   "method": "geosearch",
+   "point": [
+    51.18421,
+    -115.58261
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 44,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "grassi",
+   "method": "geosearch",
+   "point": [
+    51.0812,
+    -115.3945
+   ],
+   "radius_m": 1000,
+   "results": 29,
+   "usable": 26,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "ha-ling",
+   "method": "geosearch",
+   "point": [
+    51.0617,
+    -115.4186
+   ],
+   "radius_m": 1000,
+   "results": 10,
+   "usable": 10,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "highwood",
+   "method": "geosearch",
+   "point": [
+    50.5994,
+    -114.988
+   ],
+   "radius_m": 1000,
+   "results": 34,
+   "usable": 33,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "ice-explorer",
+   "method": "geosearch",
+   "point": [
+    52.2203,
+    -117.2242
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 46,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "interlakes",
+   "method": "geosearch",
+   "point": [
+    50.6316,
+    -115.14
+   ],
+   "radius_m": 1000,
+   "results": 35,
+   "usable": 32,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "jc_lower",
+   "method": "geosearch",
+   "point": [
+    51.25486,
+    -115.83732
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 32,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "jc_upper",
+   "method": "geosearch",
+   "point": [
+    51.26186,
+    -115.83128
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 34,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "kan-lakes",
+   "method": "geosearch",
+   "point": [
+    50.6181,
+    -115.154
+   ],
+   "radius_m": 1000,
+   "results": 30,
+   "usable": 27,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "kinney",
+   "method": "geosearch",
+   "point": [
+    53.0498,
+    -119.2155
+   ],
+   "radius_m": 1000,
+   "results": 4,
+   "usable": 1,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "larch",
+   "method": "geosearch",
+   "point": [
+    51.33329,
+    -116.21888
+   ],
+   "radius_m": 1000,
+   "results": 5,
+   "usable": 5,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "ll-canoe",
+   "method": "geosearch",
+   "point": [
+    51.4154,
+    -116.2165
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 37,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "ll-gondola",
+   "method": "geosearch",
+   "point": [
+    51.4421,
+    -116.1612
+   ],
+   "radius_m": 1000,
+   "results": 22,
+   "usable": 17,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "ll-shore",
+   "method": "geosearch",
+   "point": [
+    51.4117,
+    -116.2281
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 41,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "lorette",
+   "method": "geosearch",
+   "point": [
+    50.9694,
+    -115.1078
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 50,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "maligne-cruise",
+   "method": "geosearch",
+   "point": [
+    52.7289,
+    -117.64
+   ],
+   "radius_m": 1000,
+   "results": 38,
+   "usable": 28,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "marble-canyon",
+   "method": "geosearch",
+   "point": [
+    51.1867,
+    -116.1253
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 31,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "miette",
+   "method": "geosearch",
+   "point": [
+    53.1303,
+    -117.7698
+   ],
+   "radius_m": 1000,
+   "results": 0,
+   "usable": 0,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "minnewanka",
+   "method": "geosearch",
+   "point": [
+    51.2475,
+    -115.4967
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 44,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "moose-lake",
+   "method": "geosearch",
+   "point": [
+    52.7213,
+    -117.6422
+   ],
+   "radius_m": 1000,
+   "results": 40,
+   "usable": 30,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "moraine-canoe",
+   "method": "geosearch",
+   "point": [
+    51.3269,
+    -116.1829
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 32,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "moraine-rockpile",
+   "method": "geosearch",
+   "point": [
+    51.3279,
+    -116.1807
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 40,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "natural-bridge",
+   "method": "geosearch",
+   "point": [
+    51.3818,
+    -116.5302
+   ],
+   "radius_m": 1000,
+   "results": 20,
+   "usable": 16,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "nordic",
+   "method": "geosearch",
+   "point": [
+    51.0902,
+    -115.3855
+   ],
+   "radius_m": 1000,
+   "results": 10,
+   "usable": 9,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "overlander",
+   "method": "geosearch",
+   "point": [
+    53.0282,
+    -119.2307
+   ],
+   "radius_m": 1000,
+   "results": 22,
+   "usable": 8,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "paint-pots",
+   "method": "geosearch",
+   "point": [
+    51.1699,
+    -116.1476
+   ],
+   "radius_m": 1000,
+   "results": 6,
+   "usable": 4,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "parker",
+   "method": "geosearch",
+   "point": [
+    52.1808,
+    -117.0922
+   ],
+   "radius_m": 1000,
+   "results": 6,
+   "usable": 5,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "peyto-lake",
+   "method": "geosearch",
+   "point": [
+    51.725,
+    -116.5222
+   ],
+   "radius_m": 1000,
+   "results": 12,
+   "usable": 9,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "peyto-lookout",
+   "method": "geosearch",
+   "point": [
+    51.7167,
+    -116.4988
+   ],
+   "radius_m": 1000,
+   "results": 48,
+   "usable": 39,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "ptarmigan",
+   "method": "geosearch",
+   "point": [
+    50.6029,
+    -114.9817
+   ],
+   "radius_m": 1000,
+   "results": 30,
+   "usable": 29,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "pyramid",
+   "method": "geosearch",
+   "point": [
+    52.9225,
+    -118.096
+   ],
+   "radius_m": 1000,
+   "results": 36,
+   "usable": 32,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "robson-vp",
+   "method": "geosearch",
+   "point": [
+    53.1106,
+    -119.1567
+   ],
+   "radius_m": 1000,
+   "results": 1,
+   "usable": 0,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "rockwall",
+   "method": "geosearch",
+   "point": [
+    50.6863,
+    -115.1149
+   ],
+   "radius_m": 1000,
+   "results": 19,
+   "usable": 19,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "sarrail-payoff",
+   "method": "geosearch",
+   "point": [
+    50.5994,
+    -115.1598
+   ],
+   "radius_m": 1000,
+   "results": 7,
+   "usable": 7,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "six-glaciers",
+   "method": "geosearch",
+   "point": [
+    51.3936,
+    -116.2726
+   ],
+   "radius_m": 1000,
+   "results": 12,
+   "usable": 5,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "skyline-payoff",
+   "method": "geosearch",
+   "point": [
+    53.1157,
+    -117.7448
+   ],
+   "radius_m": 1000,
+   "results": 1,
+   "usable": 1,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "skytram",
+   "method": "geosearch",
+   "point": [
+    52.8513,
+    -118.1237
+   ],
+   "radius_m": 1000,
+   "results": 15,
+   "usable": 14,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "skywalk",
+   "method": "geosearch",
+   "point": [
+    52.2592,
+    -117.2781
+   ],
+   "radius_m": 1000,
+   "results": 28,
+   "usable": 23,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "sunshine",
+   "method": "geosearch",
+   "point": [
+    51.1149,
+    -115.7637
+   ],
+   "radius_m": 1000,
+   "results": 1,
+   "usable": 1,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "sunwapta",
+   "method": "geosearch",
+   "point": [
+    52.5323,
+    -117.6446
+   ],
+   "radius_m": 1000,
+   "results": 27,
+   "usable": 14,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "takakkaw",
+   "method": "geosearch",
+   "point": [
+    51.4997,
+    -116.4728
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 35,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "toe-glacier",
+   "method": "geosearch",
+   "point": [
+    52.2075,
+    -117.2345
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 40,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "tre_cime",
+   "method": "geosearch",
+   "point": [
+    46.61861,
+    12.30556
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 47,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "tre_view",
+   "method": "geosearch",
+   "point": [
+    46.63817,
+    12.30926
+   ],
+   "radius_m": 1000,
+   "results": 50,
+   "usable": 40,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "troll-falls",
+   "method": "geosearch",
+   "point": [
+    50.9421,
+    -115.1495
+   ],
+   "radius_m": 1000,
+   "results": 13,
+   "usable": 10,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "upper-hot-springs",
+   "method": "geosearch",
+   "point": [
+    51.1506,
+    -115.561
+   ],
+   "radius_m": 1000,
+   "results": 38,
+   "usable": 28,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "vermilion-lakes",
+   "method": "geosearch",
+   "point": [
+    51.1781,
+    -115.5989
+   ],
+   "radius_m": 1000,
+   "results": 46,
+   "usable": 41,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "wedge-pond",
+   "method": "geosearch",
+   "point": [
+    50.8728,
+    -115.1492
+   ],
+   "radius_m": 1000,
+   "results": 22,
+   "usable": 22,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "wilcox",
+   "method": "geosearch",
+   "point": [
+    52.25,
+    -117.2356
+   ],
+   "radius_m": 1000,
+   "results": 1,
+   "usable": 1,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "annette2",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Lake Annette Jasper",
+   "results": 40,
+   "usable": 9,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "bald-hills",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Bald Hills Jasper Maligne",
+   "results": 12,
+   "usable": 3,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "bourgeau",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Bourgeau Lake",
+   "results": 40,
+   "usable": 8,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "citadel",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Citadel Pass Banff",
+   "results": 40,
+   "usable": 0,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "citadel2",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Citadel Pass Sunshine",
+   "results": 40,
+   "usable": 0,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "dark-sky",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Jasper Dark Sky Preserve",
+   "results": 40,
+   "usable": 0,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "dark-sky2",
+   "method": "text search (list=search, namespace 6)",
+   "query": "night sky Jasper National Park Milky Way",
+   "results": 6,
+   "usable": 1,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "elk",
+   "method": "text search (list=search, namespace 6)",
+   "query": "elk rut Banff",
+   "results": 14,
+   "usable": 0,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "elk2",
+   "method": "text search (list=search, namespace 6)",
+   "query": "elk bull Banff townsite",
+   "results": 5,
+   "usable": 0,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "elk3",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Cervus canadensis Banff National Park",
+   "results": 23,
+   "usable": 14,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "grassi",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Grassi Lakes Canmore",
+   "results": 40,
+   "usable": 33,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "ha-ling",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Ha Ling Peak Canmore",
+   "results": 40,
+   "usable": 28,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "iceline",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Iceline Trail Yoho",
+   "results": 33,
+   "usable": 27,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "kinney",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Kinney Lake Mount Robson",
+   "results": 40,
+   "usable": 16,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "miette-mine",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Miette Mine trail Jasper",
+   "results": 13,
+   "usable": 0,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "miette",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Miette Hot Springs Jasper",
+   "results": 28,
+   "usable": 5,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "nordic",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Canmore Nordic Centre",
+   "results": 9,
+   "usable": 7,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "nordic2",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Canmore Nordic Centre mountain bike trails",
+   "results": 0,
+   "usable": 0,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "overlander",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Overlander Falls Mount Robson",
+   "results": 36,
+   "usable": 5,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "paint-pots",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Ochre Beds Paint Pots Kootenay",
+   "results": 0,
+   "usable": 0,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "paint-pots2",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Paint Pots Kootenay National Park",
+   "results": 40,
+   "usable": 13,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "paint-pots3",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Ochre Beds Kootenay",
+   "results": 19,
+   "usable": 0,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "parker",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Parker Ridge Icefields Parkway",
+   "results": 6,
+   "usable": 6,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "rawson",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Rawson Lake Kananaskis",
+   "results": 21,
+   "usable": 19,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "rockwall",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Rockwall Kananaskis Highway 40",
+   "results": 0,
+   "usable": 0,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "rockwall2",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Rockwall Lookout Kananaskis",
+   "results": 0,
+   "usable": 0,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "six-glaciers",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Plain of the Six Glaciers Lake Louise",
+   "results": 40,
+   "usable": 7,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "skyline",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Sulphur Skyline Jasper",
+   "results": 14,
+   "usable": 1,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "spirit-island",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Spirit Island Maligne Lake",
+   "results": 40,
+   "usable": 33,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "sunshine",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Sunshine Meadows Banff",
+   "results": 40,
+   "usable": 6,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "troll",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Troll Falls Kananaskis",
+   "results": 15,
+   "usable": 9,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "troll2",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Troll Falls summer",
+   "results": 40,
+   "usable": 0,
+   "searched_on": "2026-10-25"
+  },
+  {
+   "key": "wilcox",
+   "method": "text search (list=search, namespace 6)",
+   "query": "Wilcox Pass Jasper",
+   "results": 40,
+   "usable": 23,
+   "searched_on": "2026-10-25"
+  }
+ ]
+}

@@ -63,7 +63,8 @@ describe("the migrated files validate", () => {
       const r = validateDoc(d, "sidecar", REPO, { kind: "suitability" });
       expect(r.errors, `${rel}: ${JSON.stringify(r.errors.slice(0, 2))}`).toEqual([]);
       // every migrated record is draft (nothing was researched) and a few carry a migrated figure on a kind that does not ask for it
-      const other = r.warnings.filter((w) => !["W_SUIT_CONFLICT", "W_SUIT_BELOW_USABLE", "W_SUIT_NA_FIELD"].includes(w.code));
+      // the keep rule's text limits run in warn mode with their own budget (core/test/schema/keep-budget.json) until RIS-J
+      const other = r.warnings.filter((w) => !["W_SUIT_CONFLICT", "W_SUIT_BELOW_USABLE", "W_SUIT_NA_FIELD", "E_NOTE_LONG", "W_QUOTE_LONG"].includes(w.code));
       expect(other, rel).toEqual([]);
     }
   });

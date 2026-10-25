@@ -141,6 +141,9 @@ export const CAP_ERROR_CODES = {
   E_CAP_DRAW_LAYER: "a route has a relevance record (draw and class) without route_is_attraction and a reason, or the flag is on a record that is not a route; draw belongs to the place a visitor comes to see",
   E_CAP_RUN: "a crawl run record is inconsistent: a result without a ref or field in scope, a blocked result without a reason, a searched_none without the pages tried",
   E_CAP_OPERATORS: "an operators file has a duplicate ref or an operator without a name and a URL",
+  E_CAP_LANE: "a file of the trip-less lane (core/src/capture/lane.ts) breaks its rules: the folder and the trip id disagree, a record is not about a pinned place/<slug> ref, or a private origin key (loc:, proto:) is in it; checked on its capture, suitability and relevance files",
+  E_CAP_PHOTO_LICENCE: "a photo's licence is not on the allowlist (CC BY, CC BY-SA, CC0, public domain; DD-3): NC, ND, all rights reserved and the Unsplash and Pexels licences are refused",
+  E_CAP_CHANGESET: "a capture-changeset/1 change targets a file that is not a lane file, gives a value for remove or none for set and add, cites a source the changeset does not list, or repeats a change",
 } as const;
 export const CAP_WARNING_CODES = {
   W_CAP_NA_FIELD: "a value is stored for a property that the type's contract marks N (never asked)",
@@ -178,6 +181,34 @@ export const PLACE_WARNING_CODES = {
   W_PLACE_TOWN: "a place or route with a non-approximate point has no near_town (or a town without near_town_km); derived by META-2",
   W_TIER_REQUIRED: "a key of the record's required tier (the R marks of its type, R? whose condition holds, the suitability R paths) has no value and no dated searched_none",
 } as const;
+// The keep-or-drop rule and RowMeta (docs/v2/features/catalogue-intake-and-storage.md 2, 3.1 and 3.3; RIS-C). A block of their
+// own, each with a failing case in core/test/schema/keep-meta-codes.test.ts. Codes that existing data already trips (a long Val.note)
+// run in warn mode until RIS-J rewrites the files: core/src/validate/keep.ts KEEP_ENFORCEMENT, with the counts pinned by
+// core/test/schema/keep-budget.json (counts may only fall).
+export const KEEP_ERROR_CODES = {
+  E_KEEP_UNKNOWN: "a record key that is not a registry property, a schema key of its file family, or a reserved RowMeta key",
+  E_SUMMARY_LONG: "a public summary is longer than 160 characters",
+  E_NOTE_LONG: "a Val.note (public, served through apiVal) is longer than 280 characters",
+} as const;
+export const KEEP_WARNING_CODES = {
+  W_KEEP_UNREAD: "a trip-level file key that no adapter reads (listed by normalise.ts --check for review; RIS-N)",
+  W_QUOTE_LONG: "a Val.quote is longer than 120 characters: still served (owner Q174 keeps 300), flagged for the owner's review",
+} as const;
+export const META_ERROR_CODES = {
+  E_META_KEY: "a meta block holds a key RowMeta does not reserve, or a reserved key on a table it is not allowed on",
+  E_META_SCHEMA: "a meta block is not an object, has no schema_version, or a key has the wrong type or an unknown freshness class",
+  E_META_SIZE: "a meta block is larger than 4 KB",
+  E_META_RAWREF: "raw_ref (a path into research/inbox/) or privacy_class private on a row of a table that is not private",
+  E_META_SN_PROP: "a meta.searched_none entry names a registry property; a property's own search is its Val",
+  E_META_PRIVACY: "a meta block holds a private origin key, a household note, an email address, a secret or page HTML",
+} as const;
+export const META_WARNING_CODES = {
+  W_META_SIZE: "a meta block is larger than 1 KB: usually prose that belongs in the research archive",
+} as const;
+export const KEEP_ERROR_LIST = Object.keys(KEEP_ERROR_CODES) as (keyof typeof KEEP_ERROR_CODES)[];
+export const KEEP_WARNING_LIST = Object.keys(KEEP_WARNING_CODES) as (keyof typeof KEEP_WARNING_CODES)[];
+export const META_ERROR_LIST = Object.keys(META_ERROR_CODES) as (keyof typeof META_ERROR_CODES)[];
+export const META_WARNING_LIST = Object.keys(META_WARNING_CODES) as (keyof typeof META_WARNING_CODES)[];
 export type PlaceErrorCode = keyof typeof PLACE_ERROR_CODES;
 export type PlaceWarningCode = keyof typeof PLACE_WARNING_CODES;
 export const PLACE_ERROR_LIST = Object.keys(PLACE_ERROR_CODES) as PlaceErrorCode[];

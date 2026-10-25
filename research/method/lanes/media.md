@@ -27,12 +27,12 @@ shows the right place), `role`.
 
 ## 5. Sources, in order
 
-Wikimedia Commons (search by category and by coordinates); Openverse; Flickr (CC0, CC BY, CC BY-SA, no known
-copyright restrictions; through Openverse only, no Flickr key); Geograph; official agencies with open licences (Parks Canada, NPS public domain);
-Unsplash and Pexels (their own licence, recorded as the licence; not used until the owner confirms, because section 6
-rejects non-free licences: DATA-ROADMAP DD-3); the owner's own photos; user uploads
-(moderated). Widened 25 Oct 2026, see `docs/v2/build/public-site/briefs/DATA-LOC.md` section 4. A file with no
-reuse licence is never taken because it is publicly visible.
+Wikimedia Commons (search by category and by coordinates); Openverse (`license` filtered to cc0, pdm, by, by-sa); Flickr
+(CC0, CC BY, CC BY-SA, no known copyright restrictions; through Openverse only, no Flickr key); Geograph; official agencies
+with open licences (Parks Canada, NPS public domain); the owner's own photos; user uploads (moderated). Widened 25 Oct 2026,
+see `docs/v2/build/public-site/briefs/DATA-LOC.md` section 4. Unsplash and Pexels are not sources: their licences are not
+Creative Commons and forbid building a similar collection (DD-3, kept strict on 25 Oct 2026). A file with no reuse licence is
+never taken because it is publicly visible.
 
 ## 6. Rules
 
@@ -42,8 +42,11 @@ reuse licence is never taken because it is publicly visible.
 - Cheapest model for finding; a person or a larger model looks at the contact sheet before approval.
 - Reject: watermarks, wrong valley or wrong season, people in the foreground, grey weather (unless the
   point is weather), images under 1600 px wide for hero and gallery.
-- Licence from metadata; CC BY and CC BY-SA require attribution shown with the image; non-free licences
-  are rejected.
+- Licence from metadata, and only these: CC BY, CC BY-SA (any version or port), CC0, public domain (a US government work,
+  the Public Domain Mark). NC, ND, all rights reserved and the Unsplash and Pexels licences are rejected (DD-3). CC BY and
+  CC BY-SA require attribution shown with the image. The allowlist is one list in code, `core/src/capture/photoLicence.ts`; the
+  capture validator refuses a stored photo outside it (`E_CAP_PHOTO_LICENCE`), and `tools/gallery/gallery.py` keeps its own
+  `OK_LICENSE` for the legacy galleries.
 - Commons images are linked (their thumbnails), not copied.
 
 ## 7. Leave empty

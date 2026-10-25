@@ -65,7 +65,7 @@ working sign-up path does not settle it.
 
 ### MCP authorisation
 
-7. Primary: an OAuth 2.1 server for MCP clients (planned; whether Managed Better Auth provides it or another component does is to be verified before M0 closes). Consent screen (ours) names the client and the scopes in plain words.
+7. Primary: an OAuth 2.1 server for MCP clients (planned; whether Managed Better Auth provides it or another component does is to be verified before M0 closes). Consent screen (ours) names the client and the scopes in plain words. **Designed 25 Oct 2026 in [mcp/auth-and-sign-in.md](../mcp/auth-and-sign-in.md) (R-123 to R-129):** Neon Managed Better Auth's OAuth provider plugin (CIMD, DCR off, EdDSA JWTs with our URL as audience), pending the MCP-0 spike; Neon's scopes are fixed, so the scopes in item 9 are capabilities held in `mcp_client_grant` and checked with the role on every call; personal access tokens (item 8) default to 30 days, 90 at most (Q163).
 8. Fallback: **personal access tokens** created in Settings (name, scopes, expiry, last used), sent as a bearer header by clients that support headers (Claude Code). Revocable at any time.
 9. Scopes: `catalog:read`, `trips:read`, `trips:write`, `reservations:read` (codes), `people:read` (passport dates, heights, weights; off by default), `research:propose`, `review`, `admin`.
 10. Every MCP operation records the client in `op_event`; Settings shows connected clients with last activity and a revoke button.

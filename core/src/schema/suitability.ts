@@ -7,6 +7,7 @@
 import { z } from "zod";
 import * as E from "./enums.ts";
 import { json, pattern, table, text, date } from "./meta.ts";
+import { rowMetaSlot } from "./rowMeta.ts";
 
 const isoDate = z.iso.date();
 const srcIds = z.array(z.string());
@@ -28,6 +29,8 @@ export function val<T extends z.ZodType>(inner: T) {
     on: isoDate.optional(),
     applies_to: z.string().regex(/^\d{4}$/).optional(),
     conflicts: z.array(z.strictObject({ v: inner, basis, src: srcIds, note: z.string().optional() })).optional(),
+    /** the value is our estimate (basis our_inference, the method in `note`): the "Estimate" chip reads this flag, never the note text */
+    estimate: z.boolean().optional(),
   });
 }
 
@@ -380,6 +383,7 @@ export const record = z.strictObject({
   offers: z.array(offer).optional(),
   hints: z.array(hint).optional(),
   flat: flat.optional(),
+  meta: rowMetaSlot.optional(),
 });
 
 export const sourceRow = z.strictObject({
@@ -420,6 +424,7 @@ export type SuitVal<T> = {
   on?: string;
   applies_to?: string;
   conflicts?: { v: T; basis: (typeof E.SUIT_BASIS)[number]; src: string[]; note?: string }[];
+  estimate?: boolean;
 };
 export type SuitabilityBlock = z.infer<typeof suitabilityBlock>;
 export type SuitabilityRecord = z.infer<typeof record>;

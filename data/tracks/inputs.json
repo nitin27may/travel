@@ -60,10 +60,10 @@
       }
     },
     "fanes-falls": {
-      "source": "CS7c, 19 Oct 2026: no destination needed (end offset 125 m). The pin is the Sant'Uberto car park; the official walk starts at Pian de Loa past the closed road (CS7b 3.38), 325 m from relation 1641053. A start-point override (code change) would release it. Start point (D2, 19 Oct 2026): Pian de Loa, OSM node 1398755040 (place=locality), where cortina.dolomiti.org starts the walk, past the closed road from Sant'Uberto.",
+      "source": "CS7c, 19 Oct 2026: no destination needed (end offset 125 m). The pin is the Sant'Uberto car park; the official walk starts at Pian de Loa past the closed road (CS7b 3.38), 325 m from relation 1641053. A start-point override (code change) would release it. Start point (D2, 19 Oct 2026): Pian de Loa, OSM node 1398755040 (place=locality), where cortina.dolomiti.org starts the walk, past the closed road from Sant'Uberto. Moved 25 Oct 2026 (DATA-D1b): the Cortina tourism board route page starts and finishes at the Ampezzo Dolomites park information point, OSM node 470623991 (46.593809, 12.112955), 2 km before Pian de Loa; the start is that node.",
       "start": {
-        "lat": 46.60141,
-        "lon": 12.09661
+        "lat": 46.593809,
+        "lon": 12.112955
       }
     }
   }

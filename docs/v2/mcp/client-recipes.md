@@ -4,6 +4,23 @@ Each recipe shows the user's request, the calls a well-behaved client makes, and
 user. Arguments are abbreviated (`…`) where they repeat earlier pages. These recipes double as
 acceptance tests for M0-M5: each should run end to end against a seeded database.
 
+Last verified 25 Oct 2026 against main f2dee4b. Recipes 1 to 10 use the target tool set of [README.md](README.md) and
+need the planner; none of them runs today. Section 0 is how to connect now and after the sign-in tasks of
+[auth-and-sign-in.md](auth-and-sign-in.md).
+
+## 0. Connecting a client (current setup)
+
+| Surface | Works | How |
+|---|---|---|
+| Local stdio (owner) | **today** | Claude Code in the repo root loads `.mcp.json` (`node core/bin/mcp.ts`); no credential. Check with `/mcp` in Claude Code, or `npx @modelcontextprotocol/inspector node core/bin/mcp.ts` |
+| Public remote, no sign-in | after MCP-1 and a production deploy | Claude Code: `claude mcp add --transport http travel-public https://travel-beta-tan.vercel.app/mcp/`. claude.ai: Settings, Connectors, Add custom connector, the same URL, no authentication |
+| Private remote, OAuth | after MCP-O, O-M2 and MCP-E | claude.ai or Desktop: add a custom connector with `https://travel-beta-tan.vercel.app/mcp/private/` and leave the client id empty (Claude identifies itself with its metadata document); sign in on our page, choose what it may do, Allow. Claude Code: `claude mcp add --transport http travel https://travel-beta-tan.vercel.app/mcp/private/`, then `/mcp` and Authenticate (a loopback browser sign-in) |
+| Private remote, personal access token | after MCP-T and MCP-2 | create a token on `/account/` (Access tokens), store it in your shell's secret store as `TRAVEL_PAT`, then `claude mcp add --transport http travel https://travel-beta-tan.vercel.app/mcp/private/ --header "Authorization: Bearer $TRAVEL_PAT"`. Never paste the token into chat or commit it; in a shared `.mcp.json` use an environment reference, not the value (check that your Claude Code version expands `${TRAVEL_PAT}` in headers) |
+| Local development of the remote routes | MCP-0 onward | `npm run dev` in `web/`, child branch values only, `http://localhost:3000/mcp/` and `/mcp/private/`; the MCP Inspector at `http://localhost:6274` is on the origin allowlist |
+
+Use the trailing slash in every URL above: the site redirects `/mcp` to `/mcp/`, and the OAuth resource must match the
+URL exactly. A Vercel preview URL does not work for MCP (Vercel Authentication blocks clients).
+
 ---
 
 ## 1. A family plans 4 days in Banff

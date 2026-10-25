@@ -82,6 +82,22 @@
       "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "us-vt-stowe",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5241611, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Stowe Recreation Path",
       "route_is_attraction": true,
       "attraction_reason": "A paved riverside path of any length: the path is the experience.",

@@ -63,20 +63,20 @@ Visible UI defects and polish (marked UI): 84 in all, 55 of them in phase A.
 | 14 | BACKLOG | 3.35c | Rockies Day 15 flight-dependent times | polish | Dropped: "Depends on your flight" is the honest dateless answer | Dropped |  |  |
 | 15 | BACKLOG | 3.37 | Point as a record property | decision | META-0 decision: point stays in the sidecar with role and approx | B (API and foundations) | META |  |
 | 16 | BACKLOG | 3.47a | Puflatsch track 27% short of official | data | No change: inside the 40% rule and exported with its figure (recorded) | Dropped |  |  |
-| 17 | BACKLOG | 3.47b | Seekofel gain conflict 1467 against 1314 m | data | DATA D3: show as a conflict with both sources | E | DATA |  |
-| 18 | BACKLOG | 3.47c | Tre Cime stale second line marked exportable | bug | DATA D3: drop the empty line from the export set | E | DATA | UI |
+| 17 | BACKLOG | 3.47b | Seekofel gain conflict 1467 against 1314 m | data | DATA D3: show as a conflict with both sources | E | DATA | INT2 25 Oct: kept `searched, none published`; the computed track (1,467 m) and the earlier 1,314 m are shown as a conflict only; the choice stays with the owner |
+| 18 | BACKLOG | 3.47c | Tre Cime stale second line marked exportable | bug | DATA D3: drop the empty line from the export set | E | DATA | UI; INT2 25 Oct: not data; needs the `withTrack` change or the seed text edit (D3a patch proposals, code_requests) |
 | 19 | BACKLOG | 3.47d | Nuvolau relations do not chain; 8 remaining Dolomites routes | data | Phase F: remaining route research | F (later) |  |  |
 | 20 | BACKLOG | 3.47e | Fanes, Pordoi, Cinque Torri, Fiscalina, Vallunga, Federa destination points | data | DATA D1 (destination points as points with role); routes themselves Phase F | E | DATA |  |
 | 21 | BACKLOG | 3.47f | Rockies PLAN.md line 199 old wording | polish | Phase F: legacy research file, retired with 7.11 | F (later) |  |  |
 | 22 | BACKLOG | 3.49 | Otzi price glance; checks count rule | bug | PLC2a check first (task A8b); price from CS7c | A (UI fixes) | PLC2a | UI |
 | 23 | BACKLOG | 3.53 | Research levels all early; usable basics for anchors and stops | data | META acceptance (points) plus DATA D6 (summary, season) | E | DATA |  |
-| 24 | BACKLOG | 3.61a | Waterton shuttle fare one-way or return | data | DATA D4 | E | DATA |  |
+| 24 | BACKLOG | 3.61a | Waterton shuttle fare one-way or return | data | DATA D4 | E | DATA | D4a 25 Oct: re-read, one 35 CAD fare, one-way or return still unknown; operator question D4a-1 |
 | 25 | BACKLOG | 3.61b | Walcott page 2025 dates under a 2026 heading | data | Phase F: not needed by E | F (later) |  |  |
 | 26 | BACKLOG | 3.61c | Waterton marina point not verified | data | DATA D1 | E | DATA |  |
 | 27 | BACKLOG | 3.61d | Elk rut point is the Banff town node | data | DATA D1: mark approx, area-level | E | DATA | UI |
 | 28 | BACKLOG | 3.61e | Audit AllTrails and Komoot links in output are link-only | data | Stage 5 check 5.2 (R1 and R2) | C (review gates and checks) | Opus auditor |  |
-| 29 | BACKLOG | 3.61f | Jasper bike prices load by script | data | DATA D4 (browser re-read) | E | DATA |  |
-| 30 | BACKLOG | 3.61g | Batch B: activity ages and weights, meeting points, two-operator records, river parts | data | DATA D4 | E | DATA |  |
+| 29 | BACKLOG | 3.61f | Jasper bike prices load by script | data | DATA D4 (browser re-read) | E | DATA | D4a 25 Oct: done, prices read in a browser (hardtail 20, kids 20, electric cruiser 50 CAD per hour, tax not shown) |
+| 30 | BACKLOG | 3.61g | Batch B: activity ages and weights, meeting points, two-operator records, river parts | data | DATA D4 | E | DATA | D4a 25 Oct: ages and weights for 12 off-plan offers in `R9-AC.json`; the Jasper and Waterton horse record split and the river parts remain |
 | 31 | BACKLOG | 3.62a | Light trips map green pixels re-measure | polish | R1 screenshot sweep (hue scan) and R2 entry | C (review gates and checks) | verifier | UI |
 | 32 | BACKLOG | 3.62b | Merged duplicate drops a Rockies stop; re-pin 207 to 206 | bug | TRP1 (task A13) | A (UI fixes) | TRP1 | UI |
 | 33 | BACKLOG | 3.62c | Search cannot show a merged duplicate (add alias) | bug | LST2a (task A7b) | A (UI fixes) | LST2a | UI |
@@ -163,7 +163,7 @@ Visible UI defects and polish (marked UI): 84 in all, 55 of them in phase A.
 | 114 | BACKLOG | 9.7 | Fly here does nothing | bug | EXECUTION-PLAN 3 and 10 | A (UI fixes) | GLB2a | UI |
 | 115 | BACKLOG | 9.8 | Natural features switch | enhancement | EXECUTION-PLAN 3 and 10 | A (UI fixes) | GLB2a | UI |
 | 116 | BACKLOG | 10.1 | Trail key-facts strip | enhancement | PLC2a (A8) | A (UI fixes) | PLC2a | UI |
-| 117 | BACKLOG | 10.2 | Trail data completeness | data | META-0 gap report, DATA D3 | E | DATA |  |
+| 117 | BACKLOG | 10.2 | Trail data completeness | data | META-0 gap report, DATA D3 | E | DATA | D3a 25 Oct: see BACKLOG 10.2; INT2 holds three records back for the page-size budget |
 | 118 | BACKLOG | 10.3 | AllTrails link on every trail | enhancement | PLC2a (A9) | A (UI fixes) | PLC2a | UI |
 | 119 | BACKLOG | 10.4 | Trail photos | data | DATA D5 | E | DATA | UI |
 | 120 | BACKLOG | 10.5 | Trails with no point (81 of 122) | data | DATA D1 | E | DATA | UI |
@@ -174,7 +174,7 @@ Visible UI defects and polish (marked UI): 84 in all, 55 of them in phase A.
 | 125 | BACKLOG | 13.2 | No hard-coded values | enhancement | CONS-1, CONS-2 (B), CONS-3 (E) | B (API and foundations) | CONS |  |
 | 126 | BACKLOG | 13.3 | Consistency rules | enhancement | CONS-2 and every design round; R1 and R2 checklist | B (API and foundations) | CONS |  |
 | 127 | BACKLOG | 13.4 | Server switch per item; contract kit | enhancement | API-1 (B2) | B (API and foundations) | API |  |
-| 128 | BACKLOG | 13.5 | Metadata for every place and activity | data | META-0 (B), META-1, META-2, DATA (E) | B (API and foundations) | META |  |
+| 128 | BACKLOG | 13.5 | Metadata for every place and activity | data | META-0 (B), META-1, META-2, DATA (E) | B (API and foundations) | META | D4a 25 Oct: orphans 17 to 7; see BACKLOG 13.5 |
 | 129 | BACKLOG | 13.6 | Phase C as two gates | process | Sections 8 and 11 | C (review gates and checks) | coordinator |  |
 | 130 | BACKLOG | 14.1 | SRV-D: schema.sql against the capture contract (read-only) | enhancement | EXECUTION-PLAN 4, 13 | A (UI fixes) | SRV |  |
 | 131 | BACKLOG | 14.2 | API-0: server build mode and harness | enhancement | EXECUTION-PLAN 4, 13 | B (API and foundations) | API |  |
@@ -269,9 +269,9 @@ Visible UI defects and polish (marked UI): 84 in all, 55 of them in phase A.
 | 220 | design files | trip-page/stage4-map-note.md | Must and stage-4 items | polish | Rowed as 4.4 to 4.16 (done); remainders are 3.62 to 3.67 and 4.12 (above); closure proven by check 5.6 before R1 and R2 | C (review gates and checks) | verifier |  |
 | 221 | design files | place-page-sections.md | Must and stage-4 items | polish | Rowed as 4.4 to 4.16 (done); remainders are 3.62 to 3.67 and 4.12 (above); closure proven by check 5.6 before R1 and R2 | C (review gates and checks) | verifier |  |
 | 222 | design files | suitability-display.md | Must and stage-4 items | polish | Rowed as 4.4 to 4.16 (done); remainders are 3.62 to 3.67 and 4.12 (above); closure proven by check 5.6 before R1 and R2 | C (review gates and checks) | verifier |  |
-| 223 | research | RB-1 | Kicking Horse put-ins and take-outs not published | data | DATA D4 plus an operator question | E | DATA |  |
+| 223 | research | RB-1 | Kicking Horse put-ins and take-outs not published | data | DATA D4 plus an operator question | E | DATA | D4a 25 Oct: still open, operator question D4a-2 (same as D1b's) |
 | 224 | research | RB-2 | Niagara relations not done (no days) | data | Phase F, with L3d (3.1c) | F (later) |  |  |
-| 225 | research | RB-3 | Tre Cime and Larch Valley draw moves wait on the ledger | data | DATA D3 with the Q41 supersede override | E | DATA |  |
+| 225 | research | RB-3 | Tre Cime and Larch Valley draw moves wait on the ledger | data | DATA D3 with the Q41 supersede override | E | DATA | D3a 25 Oct: Larch Valley already done; Tre Cime needs a lane owner for two relevance records (left listed) |
 | 226 | research | OQ | Operator questions (45 rows) for the owner to send | decision | Q14 decided; DATA D4 records replies and adds new questions; the owner sends them | E | DATA, owner |  |
 | 227 | features | nearby-and-regions | Where, Nearby, towns, data rule, builder | enhancement | E (and SB1 in Phase F) | E | several | UI |
 | 228 | features | smart-search phase 2-3 | Embedding search, CLIP | enhancement | Phase F (3.15, L9) | F (later) |  |  |

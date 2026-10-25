@@ -1,5 +1,9 @@
 # Execution plan: the public site, UI fixes first, then API-over-JSON, then E, then readiness
 
+> **Last verified 25 Oct 2026 against main f2dee4b** ([audit](../../MASTER-PLAN-AUDIT-2026-10-25.md)). Task detail below
+> stands. Status cells older than 25 Oct lag [PLAN.md](../../PLAN.md): hosting is Vercel (13.2), R-58 is merged, D6a is
+> merged, the 25 Oct features (R-62 to R-129) have their own task tables in their specs and are not repeated here.
+
 > **21 Oct 2026:** the entry point is now [docs/v2/PLAN.md](../../PLAN.md) (requirements, order, status, open decisions). This file stays the authority for task-level detail. L7 in section 18 is closed (PR #7 closed 21 Oct; old remote branches archived as `archive/*` tags).
 
 > **24 Oct 2026 (R-58, R-60):** the backend provider is Neon (Postgres, Managed Better Auth, Neon Realtime), not Supabase. The later catalogue store is a proposed `PostgresStore` on Neon Postgres; its loader, per-method contract parity, privacy checks and rollback are still ahead, and `JsonStore` serves the public catalogue. The private account integration is independently verified on the uncommitted session branch and is not a catalogue migration. Hosting, object storage, serverless functions and jobs are not selected. Earlier Supabase CLI, local Docker and generated-types instructions are historical; see PLAN R-58 and [NEON-SETUP.md](NEON-SETUP.md).
@@ -310,7 +314,7 @@ API-2 moves the pure modules into `core/` with re-export shims in `web/` so impo
 | Lane | When | What | Owns | Effort |
 |---|---|---|---|---|
 | **SRV-D** | Phase A, day 1 (read-only) | Diff `docs/v2/schema.sql` against the capture contract and the sidecars: tables and columns for place, route, offer, event, points with role, relations, links with state and date, photos with licence, suitability flats, relevance, sources, towns; gaps and proposed changes; the risk list for API-1's contracts | `research/reports/schema-diff-2026-10.md` | 3 h |
-| **SRV-0** | After E features merge (day 16 to 22), beside stage 5 and R2, flags off; it must not block R2 | Start from the Neon migrations already applied (`core/src/db/migrations/`, `core/bin/db-migrate.ts`); any catalogue change is a new additive migration tested on an isolated Neon child branch first; RLS on every private-content and catalogue table before any code (the existing `planner_draft_signal` is the single documented content-free exception), public read policies for the catalogue; a JSON-to-Postgres loader (`core/bin/load-catalogue.ts`) that loads `data/**` unchanged (stable ids, versions, provenance) into the child branch; a proposed `PostgresStore` implementing `CatalogueStore`; the contract kit run against it per method, with privacy checks and rollback to `JsonStore`. Not implemented yet | `core/src/catalogue/postgres/**` (new), `core/bin/load-catalogue.ts`, `core/test/catalogue/postgres.test.ts` (skipped unless `TEST_DATABASE_URL` points at a disposable child branch; a skip is not a pass), new migrations only if needed | 24 h |
+| **SRV-0** | After E features merge (day 16 to 22), beside stage 5 and R2, flags off; it must not block R2 | Start from the Neon migrations already applied (`core/src/db/migrations/`, `core/bin/db-migrate.ts`); any catalogue change is a new additive migration tested on an isolated Neon child branch first; RLS on every private-content and catalogue table before any code (the existing `planner_draft_signal` is the single documented content-free exception), public read policies for the catalogue; a JSON-to-Postgres loader (`core/bin/load-catalogue.ts`) that loads `data/**` unchanged (stable ids, versions, provenance) into the child branch; a proposed `PostgresStore` implementing `CatalogueStore`; the contract kit run against it per method, with privacy checks and rollback to `JsonStore`. Not implemented yet. **Refined 25 Oct:** the loader reads only files that pass `normalise.ts --check` and `validate.ts --all`, writes the RowMeta `meta`, `evidence` and `load_run` rows, and never loads prose ([catalogue-intake-and-storage.md](../../features/catalogue-intake-and-storage.md) 4; tasks RIS-L and RIS-T add about 4 h) | `core/src/catalogue/postgres/**` (new), `core/bin/load-catalogue.ts`, `core/test/catalogue/postgres.test.ts` (skipped unless `TEST_DATABASE_URL` points at a disposable child branch; a skip is not a pass), new migrations only if needed | 24 h |
 
 Household authorization, further sign-in methods and the planner stay in the [laundry list](../SERVER-SIDE-LAUNDRY-LIST.md) with their flags off. Q65 is answered for the database, identity and realtime (Neon, PLAN R-58); Vercel is selected as frontend host (R-61), while storage and functions stay unselected. Email/password sign-in and private account drafts exist (R-58) but do not serve the public catalogue.
 
@@ -739,6 +743,14 @@ The loop of 8.5 with `FIX-R2-<lane>`. **R2 exits** when no must row is open and 
 | 12 | Docs updated for the single product (STATUS, MASTER-PLAN, BACKLOG, CLAUDE.md, README) | 7.11 | coordinator | docs match | n/a |
 
 ### 13.2 Vercel deployment (owner selected 24 Oct; setup waits for merge-ready)
+
+> **Last verified 25 Oct 2026 against main f2dee4b** ([audit](../../MASTER-PLAN-AUDIT-2026-10-25.md)): the project
+> `travel` exists (root `web`, Node 22, env vars for Production and Preview, Preview on production values by the owner's
+> one-environment decision); a preview deployed READY behind Vercel Authentication; the production alias
+> `https://travel-beta-tan.vercel.app` has no deployment and is the one trusted domain on the production Neon branch.
+> Custom domain: none for now (owner 25 Oct). The rate-limit item below must share Hobby's single WAF rate-limit rule
+> with the MCP endpoints ([mcp/auth-and-sign-in.md](../../mcp/auth-and-sign-in.md) 6.4). The "do not create a project"
+> sentence is history.
 
 Vercel is selected for the Next.js server build. R-61 / BACKLOG 15.50 owns
 creating the project and deploying the approved merge-ready commit; do not

@@ -62,17 +62,17 @@ listed was checked against this page on 25 Oct and corrected where it was out of
 | Batch | What | State | Branch / worktree | Owner | Model | Effort | Depends on | Acceptance check | Next action | Prompt |
 |---|---|---|---|---|---|---|---|---|---|---|
 | D1 | Points for the 84 records with none | **merged** (`public/DATA-D1`, integrated by `public/DATA-D1-integrate`) | `v2-DATA-D1`, `v2-DATA-D1-integrate` (frozen) | travel-researcher | ran on Sonnet (brief said Opus) | 6 h | META-1 | `W_PLACE_POINT` 84 to 6; `E_PLACE_FAR` 0 | none; D1b reviews its rulings on Opus | D1 (marked done) |
-| D1b | Points follow-up: 6 with none, 41 `approx`, 3 payoff parts, Fanes track, 5 operator questions, 3 conflicts, 20-point check | **in progress** (another agent; only before-snapshots, no commits) | `v2-DATA-D1b`, `public/DATA-D1b` | travel-researcher | Opus | about 4 h (planner estimate) | D1 merged (yes) | `W_PLACE_POINT` at most 6, each a dated search; approx points down from 41, trailheads and meeting points first; 18 of 20 sampled points within 100 m | let it finish; coordinator merges, re-runs `gaps --placement` and updates section 1 | D1b |
+| D1b | Points follow-up: 6 with none, 41 `approx`, 3 payoff parts, Fanes track, 5 operator questions, 3 conflicts, 20-point check | **done** (`public/DATA-D1b`, integrated by `public/DATA-D1b-integrate`, 25 Oct; five decisions open in the run note; merge to main waits for the coordinator) | `v2-DATA-D1b`, `public/DATA-D1b` | travel-researcher | Opus | about 4 h (planner estimate) | D1 merged (yes) | `W_PLACE_POINT` at most 6, each a dated search; approx points down from 41, trailheads and meeting points first; 18 of 20 sampled points within 100 m | let it finish; coordinator merges, re-runs `gaps --placement` and updates section 1 | D1b |
 | D2b (DATA-LOC L2) | Basics tier for the 74 stored places | not started | `v2-DATA-D2b`, `public/DATA-D2b` | travel-researcher | Opus | about 6 h | L1; D1b (frees `points.json` and the Wikidata lock) | every place has each basics layer or `searched_none`; `basics --report` before and after | wait for L1 and D1b | D2b (added 25 Oct) |
 | L1 (DATA-LOC tools) | `quick-add`, `basics --report`, `edit` flags, the trip-less lane | not started | `v2-DATA-LOC-L1`, `public/DATA-LOC-L1` | travel-builder | Opus (capture contract) | about 5 h | none | commands work; a `wishlist` record validates; no count changes | start on the owner's go (DD-7); lane id kept renameable (DD-8) | L1 (added 25 Oct) |
 | L3 (DATA-LOC photos) | Photos for the 74, wider sources | not started | with D5a/D5b runner | travel-researcher | Opus picks, Haiku runs | in D5b's 12 h | `tools/gallery/` Openverse and Geograph support (builder, not yet briefed); DD-3 | every place has a licensed photo or "No licensed photo yet" with a date | wait for DD-3 and D1b | D5a/D5b rules apply |
 | L4, L5 (DATA-LOC) | Cross-check; grow the list | not started | later | verifier; researcher | Sonnet; Opus | 2 h; open | L2, L3; L1 | one `gaps --basics` report; conflicts recorded | after L2 and L3 | DATA-LOC section 6 |
-| D3a | Trail facts: Rockies plan-day trails and the 5 R2 trails | not started | `v2-DATA-D3a`, `public/DATA-D3a` | travel-researcher | Opus; Haiku checks; Sonnet verify | 5 h + 1 h | none | the five R2 trails and Rockies plan-day trails have distance, gain, time, shape or `searched_none`; `gaps --tier required` falls | start now beside D1b (R2 bar) | D3a |
+| D3a | Trail facts: Rockies plan-day trails and the 5 R2 trails | **done** (`public/DATA-D3a`, integrated by `public/DATA-INT2`, 25 Oct; 4 trail records written, 3 held back for the place-size budget, part of the Johnston and Tre Cime patches too; `W_TIER_REQUIRED.keys` 3,875 to 3,777 with D4a; merge to main waits for the coordinator) | `v2-DATA-D3a`, `public/DATA-D3a` | travel-researcher | Opus; Haiku checks; Sonnet verify | 5 h + 1 h | none | the five R2 trails and Rockies plan-day trails have distance, gain, time, shape or `searched_none`; `gaps --tier required` falls | start now beside D1b (R2 bar) | D3a |
 | D3 | Trail facts for the rest (122 pages minus D3a) and store trails | not started | per trip | travel-researcher | Opus | about 10 h | D3a; after R2 (Q90) | `gaps --tier required` per trip falls; no link-only values | after R2 | D3 (added 25 Oct) |
-| D4a | Where the 17 Rockies offers happen; Rockies plan-day offers | not started | `v2-DATA-D4a`, `public/DATA-D4a` | travel-researcher | Opus; Sonnet verify | 4 h + 0.5 h | none | `E_PLACE_ORPHAN` 17 to 0; plan-day offers have operator, season, price or `none_stated` | start now beside D1b (R2 bar) | D4a |
+| D4a | Where the 17 Rockies offers happen; Rockies plan-day offers | **done** (`public/DATA-D4a`, integrated by `public/DATA-INT2`, 25 Oct; `E_PLACE_ORPHAN` 17 to 7, the 7 need new place records; five offer pages fold into their places and their slugs are withdrawn) | `v2-DATA-D4a`, `public/DATA-D4a` | travel-researcher | Opus; Sonnet verify | 4 h + 0.5 h | none | `E_PLACE_ORPHAN` 17 to 0; plan-day offers have operator, season, price or `none_stated` | start now beside D1b (R2 bar) | D4a |
 | D5a | Photos for the 5 R2 trails and Rockies plan-day stops | not started | `v2-DATA-D5a`, `public/DATA-D5a` | travel-researcher | Opus; Sonnet verify | 3 h + 0.5 h | D1b (final points); no other Commons agent | each target has a licensed photo or a dated "No licensed photo yet"; Commons run records do not overlap | after D1b | D5a |
 | D5b | Thumbnails for all 118 trails, then plan-day stops | not started | `v2-DATA-D5b` | Haiku explorer runs, Opus picks | Haiku + Opus | 12 h | D1b, D5a; DD-3 for any source beyond Commons and NPS | each trail has a photo or `searched_none`; licences on the allowlist | after D5a | D5b |
-| D6a | Seasons for the 6 trips with none; dated seed texts | **done**, not merged | `v2-DATA-D6a`, `public/DATA-D6a` (tip e8e43fe) | travel-researcher (files say Opus; commits co-authored by Copilot) | Opus | 2 h | none | checks in section 7 all pass | owner go to merge (DD-4); then D6a-W; then the 3.10 list | D6a (marked done) |
+| D6a | Seasons for the 6 trips with none; dated seed texts | **merged** (c3ae77c, 25 Oct; audit) | `v2-DATA-D6a`, `public/DATA-D6a` (tip e8e43fe) | travel-researcher (files say Opus; commits co-authored by Copilot) | Opus | 2 h | none | checks in section 7 all pass | owner go to merge (DD-4); then D6a-W; then the 3.10 list | D6a (marked done) |
 | D6a-W | Show the D6a seasons on the six trips (BACKLOG 15.113) | not started | `v2-D6aW`, `public/D6aW` | travel-builder, then design reviewer and verifier | Sonnet | 2 h + review | D6a merged | "Season not set yet" gone for the six trips; screenshots 1440 and 390, light and dark | after DD-4 | D6a-W (added 25 Oct) |
 | D7-R | Rockies best-time windows, the pattern | not started | `v2-DATA-D7R`, `public/DATA-D7R` | travel-researcher | Opus | 4 h | none (validated by hand until OVR-Ca); writes `data/windows/` (DD-1) | 2 to 4 windows, every plus and minus sourced or inference-noted, no calendar date, default sun equals the schedule | start on the owner's go (Q100, DD-7) | D7-R (path updated) |
 | D7 | Windows for the other 13 trips | not started | per trip | travel-researcher | Opus | about 16 h | OVR-Ca (validator); Q99 for the 6 overview trips | same as D7-R, validator passes | after OVR-Ca | D7 |
@@ -96,7 +96,7 @@ flowchart LR
   D1["D1 points<br/>merged"]:::done
   BANFF["Rockies bases research<br/>done (DATA-L1)"]:::done
   D6A["D6a seasons<br/>done, not merged"]:::done
-  D1B["D1b points follow-up<br/>in progress"]:::batch
+  D1B["D1b points follow-up<br/>done"]:::batch
   D3A["D3a trail facts"]:::batch
   D4A["D4a activities"]:::batch
   D7R["D7-R Rockies windows"]:::batch
@@ -172,6 +172,34 @@ append only.
 Merge order (coordinator): this branch (`public/DATA-RECON`) first, so new batches branch from a `main` that has the stay
 research and the `data/windows/` path; then D6a on the owner's go; then each batch as it hands back, re-running
 `gaps --budget --check`, `sources.ts check` and `check-all.sh` after each.
+
+## 4b. Completion standard for every location, tied to a trip or not (owner, 25 Oct 2026: "capture as much as we can; we do not have to miss it")
+
+Scope: all 74 places in `data/locations/locations.json` (66 tied to no trip, 8 tied to one: US 35, CA 22, IT 10, VN 3, FR 2, CN 1, IN 1; 12 parks, 8 towns, 8 cities, 7 trails, 7 mountains, 6 lakes, 5 regions, 4 waterfalls, 4 islands, 3 viewpoints, 3 canyons, 2 activities, 2 places, and 1 each lighthouse, valley, drive) and every place later added through the `location` skill. They go through the same capture contract as trip records, in the trip-less lane `catalogue` (DD-8; built by L1).
+
+A location is **done** only when each of these is a sourced value or a dated `searched_none` (a gap is never a yes):
+1. Identity and place: name, kind, area chain, a point with its role, nearest town (derived), Wikidata QID, elevation, one own-words summary.
+2. Image: one licensed photo (strict licences, DD-3) or "No licensed photo yet" with the search date.
+3. When: season months and closures, best time of year (a window if it has trip use), hazards.
+4. By kind: trail (distance, gain, shape, surface, difficulty on a named scale, time, dogs, stroller, wheelchair, trailhead and parking points, links); a place reached by car (parking point, fee, capacity note, shuttle or permit rule); an activity or lift (operator, season, duration, price, minimum age, height and weight limits, booking need, booking URL and window); a town or city (what it is good for, transport, a base-town fact row if it could serve as a base); a park (entry fee or pass, main trailheads, official page).
+5. Suitability for families and the effort level, and the relevance sidecars (never a "yes" from a gap).
+6. Links (official pages, OSM, Wikipedia or Wikidata; AllTrails, Google, Tripadvisor and Komoot as links only), source rows with read dates.
+7. Privacy: nothing may reveal that a place came from the owner's private list (PRIV1); no household data; the saved-post laundry list stays private.
+
+**How the research runs** (D2b, Opus judgement plus Sonnet fills, after L1 and D1b; both are done or in progress):
+- **Split by country so runs are disjoint and sequential per service:** D2b-US (35), D2b-CA (22), D2b-IT (10), D2b-INT (VN 3, FR 2, CN 1, IN 1 = 7). One lane file per split under the `catalogue` lane; writing through `python3 tools/locations.py edit` and the capture commands only.
+- **Order inside a split:** points and areas first (Wikidata then OSM; Overpass sparingly), then official pages for fees, seasons and trail numbers, then suitability, then photos (D5 batch after the points are final).
+- **Done check per split:** `node core/bin/capture.ts gaps --tier required` for the lane shows every place complete or searched_none; the count of "records with the required tier complete" must rise to 74 of 74 for the lane, not stay at 7 of 196 for places; no gap count rises; a 10-value sample check against the sources passes at least 9 of 10; an Opus pass reviews a sample of 10 per split.
+- **Maintenance:** the `location` skill's capture step runs this standard for every new place, so the list never falls behind again.
+
+## 4c. What a batch stores, and how it reaches Postgres (owner, 25 Oct 2026)
+
+Every batch follows [catalogue-intake-and-storage.md](../../features/catalogue-intake-and-storage.md): store a value only
+when it passes the keep-or-drop rule (section 2: decision, display, filter, check, money, proof, freshness); facts a batch
+finds for records it does not own go into a changeset file (`data/capture/changesets/<run>.json`, once RIS-C lands), operator
+questions into the run record as `ask` outcomes, and reasoning stays in the run note. Its section 5 lists what D1, D1b,
+D3a, D4a, D6a, D7-R and D9-R produced that no record holds yet; task RIS-A promotes it. Q175 asks that D2b start after RIS-C
+and RIS-N so the 74 places are born compliant.
 
 ## 5. Request volume and one runner per service
 

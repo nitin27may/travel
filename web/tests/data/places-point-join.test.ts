@@ -24,10 +24,10 @@ describe('the point join (places.ts joinPoint)', () => {
     expect(pointOf('rawson-lake')).toMatchObject({ pointSource: 'osm_node:269822212', sourceLicence: 'ODbL' });
     expect(pointOf('lago-federa-walk')).toMatchObject({ pointSource: 'osm_relation:3170182', sourceLicence: 'ODbL' });
   });
-  it('counts: 58 of 359 pages have no point (was 121 at META-0, 98 before DATA-D1), 45 of them trails (was 81 at META-0, 58 before DATA-D1)', () => {
-    expect(places.length).toBe(359);
-    expect(places.filter((p) => !p.point).length).toBe(58);
-    expect(places.filter((p) => !p.point && p.kind === 'trail').length).toBe(45);
+  it('counts: 35 of 355 pages have no point (was 121 at META-0, 98 before DATA-D1, 58 before DATA-D1b, 38 before DATA-D4a folded five offers into places), 25 of them trails (was 81 at META-0, 58 before DATA-D1, 45 before DATA-D1b)', () => {
+    expect(places.length).toBe(355);
+    expect(places.filter((p) => !p.point).length).toBe(35);
+    expect(places.filter((p) => !p.point && p.kind === 'trail').length).toBe(25);
   });
   it('holds back four records (three for the size gate, the Toe car park row), by capture ref, and nothing else', () => {
     expect(JOIN_HELD_BACK.size).toBe(DEFERRED.length);

@@ -190,11 +190,6 @@
     "status": 301
   },
   {
-    "from": "/places/radium-hot-springs-pools/",
-    "to": "/places/radium-hot-springs/",
-    "status": 301
-  },
-  {
     "from": "/places/US/AK/wrangell-st-elias-national-park/kennecott/",
     "to": "/places/kennecott-river-rafting-wrangell-st-elias/",
     "status": 301
