@@ -1,0 +1,23 @@
+{
+  "codes": [
+    "E_PLACE_AREA",
+    "E_PLACE_ORPHAN",
+    "W_PLACE_POINT",
+    "W_PLACE_APPROX",
+    "E_PLACE_FAR",
+    "W_PLACE_TOWN"
+  ],
+  "summaries": [
+    {
+      "trip": "catalogue",
+      "records": 48,
+      "no_area": 0,
+      "no_point": 0,
+      "approximate": 3,
+      "no_town": 0,
+      "outside_area": 0,
+      "orphans": 0
+    }
+  ],
+  "records": []
+}
