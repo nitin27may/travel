@@ -28,8 +28,8 @@ with Neon Postgres row-level security, plus the operation layer's own checks.
 > **Amended 25 Oct 2026 (email sign-in and account emails):** magic link, sign-in by emailed code, required email
 > verification by code, reset by code and the account emails are specified in
 > [email-sign-in-and-account-emails.md](email-sign-in-and-account-emails.md) (PLAN R-100 to R-107). It supersedes Sign-in
-> item 1's "email sender still to choose" (Neon's shared sender for codes now; our templates through Neon webhooks and
-> Resend after a mail domain) and the edge case "magic link opened on a different device asks to confirm the device"
+> item 1's "email sender still to choose" (Neon's shared sender for every account email in Phase 1; after a mail
+> domain, Resend as Neon's SMTP sender, and our templates through Neon webhooks only if the owner chooses, Q149) and the edge case "magic link opened on a different device asks to confirm the device"
 > (it works on any device; the confirm step is a button on `/sign-in/link/`; links last 15 minutes, once).
 
 **Status (R-60, Oct 2026).** Built: the account foundation only, namely email/password sign-up,
