@@ -674,9 +674,56 @@ child branch; a skip is not a pass):
 - The D3a and D4a counts are from their branch tips (9dd60a8, 62b5d74); they may change before merge.
 - The prose mention counts in 1.3 are grep lines, not facts.
 
+## 11. Build notes: RIS-N (the normaliser, 25 Oct 2026)
+
+Built by travel-builder (Sonnet), branch `public/RIS-N`. New files only: `core/src/normalise/**`, `core/bin/normalise.ts`,
+`core/test/normalise/**` (with `normalise-budget.json` and frozen golden fixtures), one stage in `tools/check-all.sh` and one row
+in `research/tools.md`. No data file was written.
+
+**What shipped.** `node core/bin/normalise.ts --check | --report | --write [--family <f>] [--file <path>] [--run <id>]`, plus
+`--budget --check | --update`, `dupes` and `prose-links`. `--check` lists every change and finding and exits 1 on a change or an
+error (read-only); `--report` prints counts per family and rule and exits 0; `--write` changes only the normalised values, because
+`jsonPatch.ts` rewrites a file in place (Python floats such as `6.0`, inline objects and `[lon, lat]` pairs keep their bytes, and
+the result is parsed and compared with the intended document before it is written). A second `--write` changes no byte (tests on
+fixture copies and on a slice of real data). The rules are S1 to S4 of 4.1: basis vocabulary, season Vals, `point_source` to
+`point_src` with a `meta` block (capture-points/2; `legacy` holds the whole old string for a ledger-pinned ref or text over 300
+characters), `origin` to `meta.origin`, `Val.estimate` from a note that says "estimate" (basis `our_inference`, not denied), units
+to SI with `meta.original`, price year, dates, currency, names and language tags; area chain and town ids are delegated to
+`migrate-placement` and `derive-near` (never a guess). After the rules it reports (never changes) `E_NOTE_LONG`, `W_QUOTE_LONG`,
+`E_SUMMARY_LONG`, `E_KEEP_UNKNOWN`, `E_META_*`, `W_KEEP_UNREAD` for trip-level keys, the privacy detector, and conflicts
+(`I_NORM_CONFLICT_KEPT`, `W_NORM_CONFLICT` when two readings collide, `W_NORM_CONFLICT_SHOWN` when the shown value is weaker than a
+losing reading). Refusals: a private-list origin (`loc:`, `proto:`), household text, an address, an email or a block over 4 KB is
+never copied into `meta` (`E_NORM_REFUSED`); a suitability or relevance record is left whole if a rule would lose or change one of
+its leaves (`E_NORM_LEDGER`, the ledger rule per record). Library API (`core/src/normalise/index.ts`): `normaliseText`,
+`planNormalise`, `applyReport`, `parsePointSource`, `patchText`, `findDuplicates`, `checkProseLinks`, `stampImportedFrom`.
+
+**The baseline for RIS-J** (`--report` on `main` 4c063c5, also pinned in `core/test/normalise/normalise-budget.json`; `check-all`
+runs `--budget --check`, so a count may only fall, and RIS-J switches the stage to a plain `--check` when it reaches zero):
+basis 165 (windows 55, base plans 39, seasons 71, with method on 42 of them), season shapes 36, point rows 185 in 1 file, `origin`
+106 of 107 (one refused), `estimate` 9, price year 12, meta blocks started 133 (capture records 116, suitability records 9, one per trip-level file 8). Findings: `E_NORM_REFUSED` 1, `E_NOTE_LONG` 21 (20 today plus the Norway daylight note, which
+becomes a Val), `W_QUOTE_LONG` 36, `W_KEEP_UNREAD` 19, `W_NORM_PRIVACY` 3, `W_NORM_CONFLICT_SHOWN` 3; `dupes` lists 15 pairs for review.
+
+**Differences from the spec text.**
+- `capture.ts dupes` and `capture.ts prose-links` are `normalise.ts dupes` and `normalise.ts prose-links`: `core/bin/capture.ts` is
+  shared with RIS-S, so no edit was made there; a two-line alias can follow RIS-S.
+- The normaliser does not write `meta.imported_from`: the sha256 of a file cannot sit inside the file it hashes. The loader stamps it
+  (`stampImportedFrom`, 3.3 `stamp: "loader"`).
+- `plan` (a season's own months) maps to `our_inference` with method `owner`, not `editorial` as 4.2 says: `editorial` is not a
+  SUIT_BASIS value. `method` is written as a key on trip-level claims (they are not rows with a `meta`), and as the note of a season Val.
+- A point row whose text names no read date (77 of 185) gets `--read-default` (2026-10-18, the day the first points were read) and
+  the work tag `read-date-imputed`, so the guess can be searched for and replaced.
+
+**What RIS-J needs before `--write`.**
+1. Hand-edit the one refused record (`canadian-rockies-2029/CS7.json` records/16: its `origin.reason` holds a street address, which `meta` never holds); the three `W_NORM_PRIVACY` hits are business addresses read by the planning-note rule.
+2. Teach `core/src/relevance/points.ts` (the capture-to-inputs merge) and `migratePlacement.ts` (its trailhead writer) the `point_src` shape; today they copy or write `point_source`, which a /2 row no longer has (the web adapters read `point_source` from the merged inputs file).
+3. Agree the seasons Val shape with D6a-W (`web/lib/public/seasons.ts` and `core/src/schema/seasons.ts` read `{value, basis, src, on}` today): run `--write --family capture,suitability,points` first and the trip-level families only when their schemas accept both shapes.
+4. Shorten the long notes and quotes by hand (judgement, so never automatic), then flip `E_NOTE_LONG` and `E_SUMMARY_LONG` to `error` in `KEEP_ENFORCEMENT`, and lower `keep-budget.json` and `normalise-budget.json` (`--budget --update`).
+5. Replace `READ_KEYS` in `core/src/normalise/tripLevel.ts` with the schemas of OVR-C, STY-Ca and D6a-W when they land; review the 19 `W_KEEP_UNREAD` keys (`batch`, `validation_note`, `*_note`) with the owner of each file.
+
 ## Change log
 
 | Date | Change |
 |---|---|
 | 2026-10-25 | First version (travel-planner, Opus): measured inventory, keep-or-drop rule K1 to K7, RowMeta contract, the pipeline S0 to S9, the audit of D1, D1b, D3a, D4a, D6a, D7-R, D9-R and the prose, tasks RIS-C to RIS-T, Q170 to Q177, conflicts C1 to C11 |
 | 2026-10-25 | RIS-C built (travel-builder, Opus), branch `public/RIS-C`. Differences from 5.3: the family schemas hold `meta` as an open slot (`rowMetaSlot`) and the keep pass checks it against the strict `rowMeta`, so a fault reports as `E_META_*` rather than the family's schema code; extra codes `E_META_SCHEMA` (wrong type, no `schema_version`, unknown freshness class), `E_META_PRIVACY` (origin key, household text, email, secret, HTML), `W_META_SIZE` (above 1 KB) and `E_CAP_CHANGESET`; `privacy_class: private` outside a private table reports as `E_META_RAWREF`; `doc` joins `PRIVATE_KEYS` with `meta` and `notes_private` (RI-6); `E_NOTE_LONG` and `E_SUMMARY_LONG` run in warn mode with counts pinned in `core/test/schema/keep-budget.json` until RIS-J; the 43 homeless properties are TODO data in `data/vocab/homeless-properties.json`; `capture-changeset/1` has no `meta` (5.3 lists none). Trip-level families and tracks have no core schema yet, so their `meta` is checked once their validators exist (RIS-N, OVR-Ca, STY-Ca, D6a-W) |
+| 2026-10-25 | RIS-N built (travel-builder, Sonnet), branch `public/RIS-N`: `core/bin/normalise.ts` and `core/src/normalise/**`, section 11 |
