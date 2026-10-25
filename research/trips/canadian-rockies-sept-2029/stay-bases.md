@@ -9,7 +9,7 @@ Public-safe: town level only. No property names, party, ages, home town, budget 
 private lane file `logistics-stays.md` was read for the question only and is not cited for any value.
 
 **Until STY-P lands the `base` property group, the town facts live here in the spec 9.3 / section 14 field order, not in
-`data/capture/canadian-rockies-2029/BS.json`.**
+the Rockies `BS.json` capture lane file.**
 
 Marks: VERIFIED (read on the named page on the read date), COMPUTED (ORS routing, read 25 Oct 2026), INFERENCE (our
 reasoning, says so), GAP / `searched_none` (what was tried). Every ORS number is free-flow driving with no stops, no
