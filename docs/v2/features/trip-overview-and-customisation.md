@@ -689,6 +689,14 @@ batch: `travel-verifier` on Sonnet.
 | Q99 | Research windows for the 6 overview trips too (no days yet)? | Yes, about 6 h of Opus; windows do not need days | Usage allowance spent on trips that cannot be customised yet |
 | Q100 | Start D7-R (Rockies windows, 4 h Opus) now in the data seat, beside the closure queue, or after it? | Now: it touches only data and becomes the pattern for the contract | Uses this week's Opus allowance before R-61 finishes |
 
+Owner answers, 25 Oct (second round, in the data seat):
+
+- **Q93:** no Flickr now (the owner also reads a key as needing a paid account). Flickr photos reach us only through Openverse (DATA-LOC section 4), never the direct API.
+- **Q96:** the add-on and overview list is public; add and remove need a plan (the default stands).
+- **Verdict word:** shown on each window card (`best`, `good`, `workable`, section 2.2), marked as our judgement.
+- **Day count:** "fix it": the card and page show the schedule's own count (Rockies: 15 day sections, arrival and departure days named, the "14 days" wording corrected everywhere); never a typed count.
+- **AllTrails:** link-only (DATA-LOC section 3); no value is typed in from it.
+
 ## 11. Gotchas
 
 - **Trip page start JS has under 1 KB of headroom** (199.2 of 200 KB). Any overview code in the start bundle breaks the
