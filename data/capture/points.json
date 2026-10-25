@@ -1229,6 +1229,89 @@
       "coord_src": "osm",
       "point_source": "OSM way 204763538 Stowe Recreational Path, its village end (the southernmost vertex of the 30 mapped ways); Town of Stowe https://www.stowevt.gov/Departments/Parks-Recreation/Parks-Facilities/Stowe-Recreation-Path: the path runs 'from Stowe Village to Topnotch Resort'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
       "point_role": "trailhead"
+    },
+    "place/lake-como": {
+      "lat": 46.0,
+      "lon": 9.26667,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q15523 (46.0, 9.26667), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check",
+      "point_role": "centre",
+      "approx": true,
+      "approx_note": "Wikidata P625 is rounded to 46.0 N, 9.26667 E; the OSM relation centre is 45.9917, 9.2279 (about 3 km away). A lake of this size has no single point."
+    },
+    "place/sorrento-and-the-amalfi-coast": {
+      "lat": 40.63333,
+      "lon": 14.6,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q212214 (40.63333, 14.6), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check",
+      "point_role": "centre",
+      "approx": true,
+      "approx_note": "Wikidata P625 is rounded to 40.63333, 14.6; the OSM boundary centre is 40.6646, 14.5997. A stretch of coast has no single point."
+    },
+    "place/capri": {
+      "lat": 40.55,
+      "lon": 14.23333,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q173292 (40.55, 14.23333), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check",
+      "point_role": "centre",
+      "approx": true,
+      "approx_note": "Wikidata P625 is rounded to 40.55, 14.23333; the OSM island centre is 40.5489, 14.2310. An island has no single point."
+    },
+    "place/rome": {
+      "lat": 41.89306,
+      "lon": 12.48278,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q220 (41.89306, 12.48278), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check",
+      "point_role": "centre"
+    },
+    "place/milan": {
+      "lat": 45.46694,
+      "lon": 9.19,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q490 (45.46694, 9.19), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check",
+      "point_role": "centre"
+    },
+    "place/trento": {
+      "lat": 46.06667,
+      "lon": 11.11667,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q3376 (46.06667, 11.11667), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check",
+      "point_role": "centre"
+    },
+    "place/florence": {
+      "lat": 43.77139,
+      "lon": 11.25417,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q2044 (43.77139, 11.25417), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check",
+      "point_role": "centre"
+    },
+    "place/verona": {
+      "lat": 45.43861,
+      "lon": 10.99278,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q2028 (45.43861, 10.99278), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check",
+      "point_role": "centre"
+    },
+    "place/venice": {
+      "lat": 45.43972,
+      "lon": 12.33194,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q641 (45.43972, 12.33194), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check",
+      "point_role": "centre"
+    },
+    "part/place/lake-como#parking": {
+      "lat": 45.8058211,
+      "lon": 9.0874098,
+      "coord_src": "osm",
+      "point_source": "OSM way 316776513 Autosilo Via Auguadri centroid (amenity=parking, parking=multi-storey, fee=yes, capacity=800, operator CSU); read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check",
+      "point_role": "parking"
+    },
+    "part/place/capri#ferry": {
+      "lat": 40.5562792,
+      "lon": 14.2420827,
+      "coord_src": "osm",
+      "point_source": "OSM node 3711590228 (amenity=ferry_terminal, unnamed) at the main harbour; read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check",
+      "point_role": "entrance"
     }
   }
 }

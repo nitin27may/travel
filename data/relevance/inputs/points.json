@@ -1051,6 +1051,12 @@
       "coord_src": "wikidata",
       "point_source": "Q476378 P625"
     },
+    "part/place/capri#ferry": {
+      "lat": 40.55628,
+      "lon": 14.24208,
+      "coord_src": "osm",
+      "point_source": "OSM node 3711590228 (amenity=ferry_terminal, unnamed) at the main harbour; read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check"
+    },
     "part/place/cascate-di-fanes#payoff": {
       "lat": 46.594,
       "lon": 12.08346,
@@ -1128,6 +1134,12 @@
       "lon": 12.07888,
       "coord_src": "osm",
       "point_source": "OSM relation 3170182, first vertex of the stored track data/tracks/federa.json (ODbL), read 2026-10-19; the track starts 2 m from the trailhead the record names (lane META-1)"
+    },
+    "part/place/lake-como#parking": {
+      "lat": 45.80582,
+      "lon": 9.08741,
+      "coord_src": "osm",
+      "point_source": "OSM way 316776513 Autosilo Via Auguadri centroid (amenity=parking, parking=multi-storey, fee=yes, capacity=800, operator CSU); read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check"
     },
     "part/place/lake-louise#parking": {
       "lat": 51.41501,
@@ -1381,6 +1393,12 @@
       "coord_src": "prototype",
       "point_source": "snapshot place cadini (approximate)"
     },
+    "place/capri": {
+      "lat": 40.55,
+      "lon": 14.23333,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q173292 (40.55, 14.23333), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check"
+    },
     "place/cascate-di-fanes": {
       "lat": 46.59381,
       "lon": 12.11296,
@@ -1422,6 +1440,12 @@
       "lon": 13.722,
       "coord_src": "wikidata",
       "point_source": "Q1255895 P625"
+    },
+    "place/florence": {
+      "lat": 43.77139,
+      "lon": 11.25417,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q2044 (43.77139, 11.25417), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check"
     },
     "place/funbob-monte-baranci": {
       "lat": 46.725,
@@ -1495,11 +1519,23 @@
       "coord_src": "wikidata",
       "point_source": "Q3825692 P625"
     },
+    "place/lake-como": {
+      "lat": 46,
+      "lon": 9.26667,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q15523 (46.0, 9.26667), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check"
+    },
     "place/lake-louise": {
       "lat": 51.41167,
       "lon": -116.22806,
       "coord_src": "wikidata",
       "point_source": "locations.json CA/AB/banff-national-park/lake-louise"
+    },
+    "place/milan": {
+      "lat": 45.46694,
+      "lon": 9.19,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q490 (45.46694, 9.19), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check"
     },
     "place/monte-piana": {
       "lat": 46.61528,
@@ -1543,6 +1579,12 @@
       "coord_src": "osm",
       "point_source": "OSM way 229003439 Ütia de Scotoni - Rifugio Scotoni centroid (tourism=alpine_hut); the prototype pin is about 1.9 km south; agent checked, needs a person's check"
     },
+    "place/rome": {
+      "lat": 41.89306,
+      "lon": 12.48278,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q220 (41.89306, 12.48278), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check"
+    },
     "place/san-candido": {
       "lat": 46.73287,
       "lon": 12.27917,
@@ -1585,11 +1627,23 @@
       "coord_src": "wikidata",
       "point_source": "Q499129 P625"
     },
+    "place/sorrento-and-the-amalfi-coast": {
+      "lat": 40.63333,
+      "lon": 14.6,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q212214 (40.63333, 14.6), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check"
+    },
     "place/tre-cime-di-lavaredo-loop": {
       "lat": 46.61203,
       "lon": 12.29648,
       "coord_src": "osm",
       "point_source": "snapshot trailhead of tre-cime osm_node 2430381561"
+    },
+    "place/trento": {
+      "lat": 46.06667,
+      "lon": 11.11667,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q3376 (46.06667, 11.11667), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check"
     },
     "place/val-fiscalina": {
       "lat": 46.66684,
@@ -1602,6 +1656,18 @@
       "lon": 11.77359,
       "coord_src": "osm",
       "point_source": "snapshot trailhead of vallunga osm_node 6635822140"
+    },
+    "place/venice": {
+      "lat": 45.43972,
+      "lon": 12.33194,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q641 (45.43972, 12.33194), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check"
+    },
+    "place/verona": {
+      "lat": 45.43861,
+      "lon": 10.99278,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q2028 (45.43861, 10.99278), read 2026-10-25 (lane DATA-D2b-it); agent checked, needs a person's check"
     },
     "place/viel-dal-pan": {
       "lat": 46.48742,
