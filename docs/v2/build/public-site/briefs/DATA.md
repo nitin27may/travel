@@ -10,6 +10,7 @@
 > - **New research not yet in the plan** (committed 25 Oct): `research/trips/dolomites-july-2027/` `coverage-audit.md`, `stays.md`, `stays-august.md`, `hut-trek-options.md`, `italy-extension.md`. Prose research only. Turn it into capture records through the `research` skill, and read `coverage-audit.md` first for the Dolomites gaps.
 > - **Not related to this brief:** the Neon account work, Vercel setup (R-61) and the data-layer cutover. Data files stay the source of truth until `PostgresStore` exists.
 > - **Owner request 25 Oct (basics for every location, wider photo sources, easy adding):** specified in [DATA-LOC.md](DATA-LOC.md) (PLAN R-62, BACKLOG 3.68). It widens D5's photo sources and extends D2 and D3.
+> - **Owner request 25 Oct (trip timing windows, trip inventory, trail thumbnails):** specified in [trip-timing-and-inventory.md](../../../features/trip-timing-and-inventory.md) (PLAN R-63, BACKLOG 3.69). Extends D6a (seasons) and D5a (thumbnails); its research step TIM-1 follows D6a.
 > - **Copy-paste prompts per batch:** [DATA-AGENT-PROMPTS.md](DATA-AGENT-PROMPTS.md).
 > - **New batches, 25 Oct (owner request: best time to go, trip overview, thumbnails):** D7 best-time windows (D7-R Rockies first, then 13 trips), D8 overview facts (access season per item, booking needed, durations, effort), D5b thumbnails for all 118 trails. Spec and the measured gaps: [trip-overview-and-customisation.md](../../../features/trip-overview-and-customisation.md) sections 2 and 8. BACKLOG 15.56; PLAN R-67.
 
