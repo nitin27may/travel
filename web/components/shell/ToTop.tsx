@@ -56,7 +56,11 @@ export function ToTop() {
     scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
     const main = document.getElementById('main');
     if (main) {
-      if (!main.hasAttribute('tabindex')) main.tabIndex = -1;
+      if (!main.hasAttribute('tabindex')) {
+        main.tabIndex = -1;
+        // main is a landmark, not a control: drop the tabindex once focus leaves so later clicks and the skip link do not focus it
+        main.addEventListener('blur', () => main.removeAttribute('tabindex'), { once: true });
+      }
       main.focus({ preventScroll: true });
     }
   };

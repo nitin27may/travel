@@ -103,6 +103,33 @@ test.describe('back-to-top on a phone', () => {
     await expect(btn).toBeVisible();
   });
 
+  test('keyboard Enter returns to the top with no focus line across the page, and main drops focusability after', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/lake-louise/`, { waitUntil: 'networkidle' });
+    await scrollTo(page, 2000);
+    const btn = page.getByRole('button', { name: 'Back to top' });
+    await expect(btn).toBeVisible();
+    await btn.focus();
+    await page.keyboard.press('Enter');
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+    await expect(page.locator('main#main')).toBeFocused();
+    expect(await page.locator('main#main').evaluate((m) => getComputedStyle(m).outlineStyle)).toBe('none');
+    await page.keyboard.press('Tab');
+    await expect(page.locator('main#main')).not.toBeFocused();
+    await expect(page.locator('main#main')).not.toHaveAttribute('tabindex', /.*/);
+  });
+
+  test('the skip link still moves focus to the content with the keyboard', async ({ page, site, browserName }) => {
+    test.skip(browserName === 'webkit', 'Safari does not Tab to links by default');
+    await page.goto(`${site.url}/places/lake-louise/`, { waitUntil: 'networkidle' });
+    await page.keyboard.press('Tab');
+    await expect(page.locator('.skip-link')).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(page).toHaveURL(/#main$/);
+    await page.keyboard.press('Tab');
+    const inMain = await page.evaluate(() => !!document.activeElement?.closest('main'));
+    expect(inMain).toBe(true);
+    expect(await page.locator('main#main').evaluate((m) => getComputedStyle(m).outlineStyle)).toBe('none');
+  });
 });
 
 test.describe('back-to-top at desktop width', () => {

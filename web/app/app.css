@@ -45,6 +45,8 @@ html.theme-fade img { transition: none !important; }
 
 .skip-link { position: absolute; left: var(--s-2); top: -4rem; z-index: var(--z-toast); background: var(--accent); color: var(--accent-ink); padding: var(--s-3) var(--s-4); border-radius: var(--r-3); font: var(--t-mono); }
 .skip-link:focus { top: var(--s-2); }
+/* main is a landmark and a programmatic focus target (skip link, back-to-top), not a control: no ring across the page */
+#main:focus { outline: none; }
 
 /* ---------- site header and bottom bar (components 1.1, 1.4) ---------- */
 .site-header {
