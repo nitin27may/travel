@@ -1,0 +1,727 @@
+{
+  "schema": "suitability/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "AC",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher (DATA-D4a)",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "legacy/canadian-rockies-sept-2029/data/adventures.json",
+      "title": "adventures.json of the Rockies plan",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://horseback.com/tours/bow-river-ride/",
+      "title": "Bow River Ride - 1 Hr",
+      "publisher": "Banff Trail Riders",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.brewsteradventures.com/summer-trail-rides",
+      "title": "Summer Trail Rides",
+      "publisher": "Brewster Adventures",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.banff-springs-hotel.com/wellness/spa/",
+      "title": "Fairmont Spa",
+      "publisher": "Fairmont Banff Springs",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.banffadventures.com/things-to-do/float-trips/",
+      "title": "Bow River Float Trip (Hoodoo)",
+      "publisher": "Banff Adventures",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/stephen",
+      "title": "Mount Stephen guided hike",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/walcott",
+      "title": "Walcott Quarry guided hike",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies",
+      "title": "Heli-hiking in the Canadian Rockies",
+      "publisher": "White Mountain Adventures",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://banffnorquay.com/via-ferrata/via-ferrata-routes/",
+      "title": "Via Ferrata Routes",
+      "publisher": "Banff Norquay",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.icewalks.com/tours/half-day-tours",
+      "title": "Classic Half Day Tours",
+      "publisher": "Icewalks",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour/",
+      "title": "Three Sisters Peaks Tour",
+      "publisher": "Alpine Helicopters",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.watertoncruise.com/2026.php",
+      "title": "2026 Season",
+      "publisher": "Waterton Shoreline Cruise Co.",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks",
+      "kind": "activity",
+      "subkind": "glacier-walk",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "https://www.icewalks.com/tours/half-day-tours"
+          ],
+          "note": "The tour page prices children 7 to 16 and does not say whether a child under 7 may join."
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"unknown\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
+      "kind": "activity",
+      "subkind": "horse",
+      "suitability": {
+        "min_age": {
+          "v": 8,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "quote": "Riders must be at least 8 years old."
+        },
+        "max_weight_kg": {
+          "v": 104,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "quote": "Riders must weigh less than 230lbs / 104kg, fully dressed",
+          "note": "a maximum, weighed on the stable's scales if needed"
+        },
+        "limit_reason": "policy",
+        "adult_required": {
+          "v": {
+            "under": 18
+          },
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "quote": "Riders aged 17 and under must be accompanied on the ride by a legal guardian."
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": 8,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": 104,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse",
+      "kind": "activity",
+      "subkind": "horse",
+      "suitability": {
+        "min_age": {
+          "v": 8,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0003"
+          ],
+          "read": "2026-10-25",
+          "quote": "All riders must be at least 52\"(132 cm) tall and 8 years old.",
+          "note": "the page also sets a minimum height of 132 cm, which the horse profile has no field for"
+        },
+        "max_weight_kg": {
+          "v": 104,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0003"
+          ],
+          "read": "2026-10-25",
+          "quote": "The maximum weight limit is 230 lbs (104 kg).",
+          "note": "re-read 2026-10-25; an older search snippet said 250 lb (CS7d), not an operator page"
+        },
+        "limit_reason": "policy"
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": 8,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": 104,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+      "kind": "activity",
+      "subkind": "spa",
+      "suitability": {
+        "min_age": {
+          "v": 18,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-25",
+          "quote": "Guests must be 18 years or older."
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"unknown\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": 18,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "no",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "kind": "activity",
+      "subkind": "float",
+      "suitability": {
+        "min_age": {
+          "v": 2,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-25",
+          "quote": "The minimum age is 2 yrs to join a tour."
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"unknown\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": 2,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "kind": "activity",
+      "subkind": "guided-hike",
+      "suitability": {
+        "min_age": {
+          "v": 8,
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-25",
+          "quote": "Children under 8 are not allowed on the Mount Stephen hike",
+          "note": "children and youth up to and including 15 must be with an adult"
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": 8,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
+      "kind": "activity",
+      "subkind": "guided-hike",
+      "suitability": {
+        "min_age": {
+          "v": 10,
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "quote": "Children under 10 are not allowed on the Walcott Quarry hike",
+          "note": "children and youth up to and including 15 must be with an adult"
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": 10,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+      "kind": "activity",
+      "subkind": "heli-hike",
+      "suitability": {
+        "min_age": {
+          "v": 8,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-25",
+          "quote": "Min Age: 8"
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": 8,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+      "kind": "activity",
+      "subkind": "via-ferrata",
+      "suitability": {
+        "min_age": {
+          "v": 12,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-25",
+          "quote": "12+",
+          "note": "Explorer and Ridgewalker 12+; Alpinist, Skyline and Summiteer 14+"
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": 12,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "no",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "kind": "activity",
+      "subkind": "heli",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour/"
+          ],
+          "note": "The tour page and its FAQ state no minimum age."
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle",
+      "kind": "activity",
+      "subkind": "boat-shuttle",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "https://www.watertoncruise.com/2026.php"
+          ],
+          "note": "No minimum age is stated; the fare table lists infants 0 to 2 as free."
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
+      "kind": "activity",
+      "subkind": "cruise",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "https://www.watertoncruise.com/2026.php"
+          ],
+          "note": "No minimum age is stated; the fare table lists infants 0 to 2 as free."
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    }
+  ]
+}
