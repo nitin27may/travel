@@ -351,6 +351,10 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `PW_E2E_URL` | web `scripts/neon-e2e.mjs` | URL of the running app the Neon e2e check drives | no |
 | `TEST_DATABASE_URL` | core `test/db/integration.test.ts` | Connection string for the isolated branch the DB integration tests run against; unset, they skip | no |
 | `NEXT_PUBLIC_SIGN_IN` | web `lib/capabilities.ts` | `1` enables the account sign-in capability in the browser bundle | yes |
+| `RESEND_API_KEY` | web `lib/server/mailer.ts` | Send-only Resend key for owner alerts (EML-M). Unset, the mailer is disabled and refuses every send | no |
+| `OWNER_EMAIL` | web `lib/server/mailer.ts` | The owner's address, which must be the Resend account's own address (the sandbox delivers nowhere else). The only recipient allowed while `MAIL_FROM` is unset; unset, every alert is refused | no |
+| `MAIL_FROM` | web `lib/server/mailer.ts` | Our verified sender (Phase 2, after a mail domain). Unset in Phase 1: the sandbox sender and owner-only recipients | no |
+| `VERCEL_ENV` | core `mail/outbox.ts`, web `lib/server/mailer.ts` | Set by Vercel (`production`, `preview`, `development`); `production` refuses the test-only outbox mail adapter | no |
 
 ## Change log
 
