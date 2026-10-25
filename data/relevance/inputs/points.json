@@ -1585,6 +1585,12 @@
       "coord_src": "wikidata",
       "point_source": "Wikidata Q3224379 P625 (Le Massif, the ski resort the lookout belongs to; rounded to 0.01 degree); read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
     },
+    "place/mont-du-dome": {
+      "lat": 47.7,
+      "lon": -70.63333,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/zec-des-martres/mont-du-dome"
+    },
     "place/mont-saint-alban": {
       "lat": 48.81261,
       "lon": -64.22782,
@@ -1704,6 +1710,12 @@
       "lon": 11.76056,
       "coord_src": "wikidata",
       "point_source": "Q499129 P625"
+    },
+    "place/sentier-la-chute": {
+      "lat": 48.84296,
+      "lon": -64.26511,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/forillon-national-park/sentier-la-chute"
     },
     "place/tre-cime-di-lavaredo-loop": {
       "lat": 46.61203,

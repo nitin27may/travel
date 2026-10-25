@@ -167,6 +167,51 @@
       "kind": "operator",
       "read": "2026-10-25",
       "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://baliseqc.ca/upload/Cartes/LR0105_02.pdf",
+      "title": "Carte des sentiers de randonnée pédestre, Mont-Sainte-Anne (LR0105)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://mont-sainte-anne.com/randonnee-pedestre-et-acces-au-sommet/",
+      "title": "Randonnée pédestre et accès au sommet - Mont-Sainte-Anne",
+      "publisher": "Station touristique Mont-Sainte-Anne",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://baliseqc.ca/hiver/explorer/quebec/parc-national-de-la-jacques-cartier-LR0113",
+      "title": "Parc national de la Jacques-Cartier - Balise Québec",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://baliseqc.ca/upload/Cartes/LR0144_04.pdf",
+      "title": "Carte des sentiers, Parc national du Mont-Mégantic (LR0144)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE11_SentiersFrontaliers_Boucle_1j.pdf",
+      "title": "Boucle des sommets frontaliers (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
     }
   ],
   "records": [
@@ -1881,6 +1926,1129 @@
         "walk_km": null,
         "walk_gain_m": null,
         "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/sentier-la-chute",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Parks Canada Forillon hiking page",
+            "Parks Canada Forillon hours page"
+          ],
+          "note": "No group-size rule is stated for this trail."
+        },
+        "age_band": {
+          "v": {
+            "from": 5,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "1 km loop, 90 m gain, 30 to 45 minutes, with some steep slopes and stairs (park page); no source gives an age."
+        },
+        "kid_note": "A 1 km loop with steep slopes and stairs; a red chair waits at the foot of the 17 m waterfall. The trail joins the Le Castor, Le Ruisseau and Le Pic-bois network. Bikes are not allowed on this trail.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "No rule against carriers found; stairs and steep slopes noted by the park."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "quote": "does have some steep slopes and stairs",
+          "note": "Stairs and steep slopes rule out a stroller."
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "parks-canada",
+              "value": "Moderate"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0007"
+            ],
+            "read": "2026-10-25",
+            "quote": "Moderate hiking trails",
+            "note": "The park lists the trail under its Moderate heading."
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 1,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0007"
+              ],
+              "read": "2026-10-25",
+              "quote": "Length: 1 km (loop)"
+            },
+            "gain_m": {
+              "v": 90,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0007"
+              ],
+              "read": "2026-10-25",
+              "quote": "Elevation gain: 90 m"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            30,
+            45
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "quote": "Duration: 30 - 45 mins"
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "A wooded valley trail; no exposure is mentioned."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "some steep slopes and stairs"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "quote": "does have some steep slopes and stairs"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-30",
+              "to": "10-13",
+              "status": "open",
+              "via": "trail",
+              "note": "2026 operating season: the fee periods run 30 May to 13 Oct"
+            },
+            {
+              "from": "10-14",
+              "to": "12-31",
+              "status": "limited",
+              "via": "trail",
+              "note": "park accessible all year but trails and facilities are not maintained off season; gates close after the first snow"
+            },
+            {
+              "from": "01-01",
+              "to": "05-29",
+              "status": "limited",
+              "via": "trail",
+              "note": "same off-season rule"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008",
+            "src-0009"
+          ],
+          "read": "2026-10-25",
+          "quote": "the park remains accessible all year round. Hiking trails and infrastructures are not maintained during off-season",
+          "note": "Fee periods 30 May to 24 Jun and 2 Sep to 13 Oct (shoulder) and 25 Jun to 1 Sep (peak).",
+          "applies_to": "2026"
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "A hiking trail on steep or uneven ground; no accessibility listing was found on the pages read."
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "loop",
+        "navigation": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Parks Canada Forillon hiking page"
+          ],
+          "note": "The page does not describe waymarking."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "quote": "Dogs and other pets must be kept on a leash at all times on the trails"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": 1,
+        "walk_gain_m": 90,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "place/la-crete-trail-mont-sainte-anne",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "mont-sainte-anne.com hiking page"
+          ],
+          "note": "No group-size rule is stated."
+        },
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0019",
+            "src-0020"
+          ],
+          "read": "2026-10-25",
+          "note": "An ascent trail of 2.9 km taking 2 hours (map); the page gives 625 m of climb for the ascent trails as a group; no source gives an age."
+        },
+        "kid_note": "One of the ascent trails (the page gives 625 m of climb for the group of ascent trails; La Crête's own gain is not published). Dogs on a leash are allowed. Lift options: hike up and ride down, or both ways.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0020"
+          ],
+          "read": "2026-10-25",
+          "note": "No rule against carriers found."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0020"
+          ],
+          "read": "2026-10-25",
+          "note": "A mountain ascent trail; the station's easy options are the summit trails and the lift."
+        },
+        "effort": {
+          "source_grade": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-25",
+            "tried": [
+              "mont-sainte-anne.com hiking page",
+              "Rando Québec map LR0105 (grades are colours)"
+            ],
+            "note": "The map draws grades as colours that the text does not give."
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 2.9,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0019"
+              ],
+              "read": "2026-10-25",
+              "quote": "La Crête 2,9 2h"
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-25",
+              "tried": [
+                "mont-sainte-anne.com hiking page",
+                "Rando Québec map LR0105"
+              ],
+              "note": "The page gives 625 m for the ascent trails together, not for La Crête alone."
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            120,
+            120
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-25",
+          "quote": "La Crête 2,9 2h"
+        },
+        "exposure": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "mont-sainte-anne.com hiking page"
+          ],
+          "note": "Not described."
+        },
+        "hazards": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "mont-sainte-anne.com hiking page"
+          ],
+          "note": "No hazards are listed on the page."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "06-19",
+              "to": "10-12",
+              "status": "limited",
+              "via": "lift",
+              "note": "lift access daily 19 Jun to 30 Aug, Fri-Sun from 31 Aug to 12 Oct and Mon 12 Oct (2026); the foot trails' own dates are not stated; the mountain was closed for winter preparation when read"
+            }
+          ],
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0020"
+          ],
+          "read": "2026-10-25",
+          "quote": "31 août au 12 octobre Vendredi à dimanche 10h à 16h",
+          "applies_to": "2026"
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "A hiking trail on steep or uneven ground; no accessibility listing was found on the pages read."
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "point-to-point",
+        "navigation": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "mont-sainte-anne.com hiking page"
+          ],
+          "note": "Waymarking is not described."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0020"
+          ],
+          "read": "2026-10-25",
+          "quote": "ils doivent être tenus en laisse en tout temps"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "strong-kid",
+        "accessibility": "none",
+        "walk_km": 2.9,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "place/leperon",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Jacques-Cartier page"
+          ],
+          "note": "No group rule shown."
+        },
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0021"
+          ],
+          "read": "2026-10-25",
+          "note": "5.4 km loop, 366 m, rated intermediate (Rando Québec); no source gives an age."
+        },
+        "kid_note": "A self-guided interpretation loop, intermediate, with a steep start.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0021"
+          ],
+          "read": "2026-10-25",
+          "note": "No rule against carriers found."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0021"
+          ],
+          "read": "2026-10-25",
+          "note": "Intermediate forest loop with 366 m of climb."
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "sepaq",
+              "value": "Intermediate"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0021"
+            ],
+            "read": "2026-10-25",
+            "quote": "5,4 km 366 m Boucle Intermédiaire"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 5.4,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0021"
+              ],
+              "read": "2026-10-25",
+              "quote": "5,4 km"
+            },
+            "gain_m": {
+              "v": 366,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0021"
+              ],
+              "read": "2026-10-25",
+              "quote": "366 m",
+              "note": "Rando Québec lists 366 m beside the length in the summer row."
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Jacques-Cartier page",
+            "sepaq.com (403 challenge)"
+          ],
+          "note": "No walking time published."
+        },
+        "exposure": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Jacques-Cartier page"
+          ],
+          "note": "Not described."
+        },
+        "hazards": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Jacques-Cartier page"
+          ],
+          "note": "Not described."
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Jacques-Cartier page (lists the trail Open in summer and winter)",
+            "sepaq.com (403 challenge)"
+          ],
+          "note": "Dates not published."
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "A hiking trail on steep or uneven ground; no accessibility listing was found on the pages read."
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "loop",
+        "navigation": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Jacques-Cartier page"
+          ],
+          "note": "Not described."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "strong-kid",
+        "accessibility": "none",
+        "walk_km": 5.4,
+        "walk_gain_m": 366,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "place/sentier-des-cimes-parc-national-du-mont-megantic",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec map LR0144"
+          ],
+          "note": "No group rule shown."
+        },
+        "age_band": {
+          "v": {
+            "from": 10,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0022"
+          ],
+          "read": "2026-10-25",
+          "note": "11.6 km loop of 3 to 5 hours rated intermediate to difficult (Rando Québec map); no source gives an age."
+        },
+        "kid_note": "A long ridge loop, intermediate to difficult.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0022"
+          ],
+          "read": "2026-10-25",
+          "note": "No rule against carriers found."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0022"
+          ],
+          "read": "2026-10-25",
+          "note": "A long mountain loop."
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "sepaq",
+              "value": "Intermediate"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0022"
+            ],
+            "read": "2026-10-25",
+            "quote": "Sentier des Cimes 11,6 km 3h à 5h Intermédiaire/difficile",
+            "note": "The map gives a double grade; the lower, intermediate, is recorded and the upper is in this note."
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 11.6,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0022"
+              ],
+              "read": "2026-10-25",
+              "quote": "La boucle du Sentier des Cimes 11,6 km"
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-25",
+              "tried": [
+                "Rando Québec map LR0144",
+                "sepaq.com (403 challenge)"
+              ],
+              "note": "No gain on the map."
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            180,
+            300
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0022"
+          ],
+          "read": "2026-10-25",
+          "quote": "3h à 5h"
+        },
+        "exposure": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec map LR0144"
+          ],
+          "note": "Not described."
+        },
+        "hazards": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec map LR0144"
+          ],
+          "note": "Not described."
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec map LR0144",
+            "sepaq.com (403 challenge)"
+          ],
+          "note": "Dates not published on a page read."
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "A hiking trail on steep or uneven ground; no accessibility listing was found on the pages read."
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "loop",
+        "navigation": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec map LR0144"
+          ],
+          "note": "Not described."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "strong-kid",
+        "accessibility": "none",
+        "walk_km": 11.6,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec sheet"
+          ],
+          "note": "No group rule shown."
+        },
+        "age_band": {
+          "v": {
+            "from": 12,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0023"
+          ],
+          "read": "2026-10-25",
+          "note": "17.8 km, 953 m of climb, about 9 hours, rated advanced (Rando Québec); no source gives an age."
+        },
+        "kid_note": "Advanced full-day loop with several hard climbs and descents; the sheet suggests two days using the Petit Lac Danger platforms. Dry toilets at the car park and the lake. Dogs on a leash are welcome.",
+        "carrier_ok": {
+          "v": false,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0023"
+          ],
+          "read": "2026-10-25",
+          "note": "Advanced terrain with several difficult climbs; no rule found, so this is our reading."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0023"
+          ],
+          "read": "2026-10-25",
+          "note": "Advanced mountain loop."
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "sepaq",
+              "value": "Advanced"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0023"
+            ],
+            "read": "2026-10-25",
+            "quote": "NIVEAU AVANCÉ"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 17.8,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0023"
+              ],
+              "read": "2026-10-25",
+              "quote": "1 JOUR — 17,8 KM"
+            },
+            "gain_m": {
+              "v": 953,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0023"
+              ],
+              "read": "2026-10-25",
+              "quote": "DÉNIVELÉ 953 M"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            540,
+            540
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0023"
+          ],
+          "read": "2026-10-25",
+          "quote": "DURÉE ENVIRON 9 HEURES"
+        },
+        "exposure": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec sheet"
+          ],
+          "note": "Not described."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "other",
+              "note": "closed during the big-game hunting period; ask the network for dates"
+            }
+          ],
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0023"
+          ],
+          "read": "2026-10-25",
+          "quote": "fermé pendant la période de chasse au gros gibier"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "limited",
+              "via": "trail",
+              "note": "recommended all year; closed during the big-game hunting period (dates from the network)"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0023"
+          ],
+          "read": "2026-10-25",
+          "quote": "Période recommandée : toute l'année"
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "A hiking trail on steep or uneven ground; no accessibility listing was found on the pages read."
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "loop",
+        "navigation": {
+          "v": "waymarked",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0023"
+          ],
+          "read": "2026-10-25",
+          "quote": "BALISAGE SF1 (ROUGE), SF2 ET SF 5 (BLEUE)"
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0023"
+          ],
+          "read": "2026-10-25",
+          "quote": "Les chiens en laisse sont les bienvenus."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 4,
+        "kid_fit": "no",
+        "accessibility": "none",
+        "walk_km": 17.8,
+        "walk_gain_m": 953,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "place/mont-du-dome",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Plein air à la carte Mont du Dôme page"
+          ],
+          "note": "No group rule shown."
+        },
+        "age_band": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Plein air à la carte Mont du Dôme page"
+          ],
+          "note": "No length, gain or grade on a page read, so no age can be reasoned."
+        },
+        "kid_note": "The trail starts linear, then forms a loop with three summits (Dôme, Orignal, Mont Saint-Michel). Length and climb are not published on a page read.",
+        "carrier_ok": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Plein air à la carte Mont du Dôme page"
+          ],
+          "note": "Not described."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Plein air à la carte Mont du Dôme page"
+          ],
+          "note": "Not described."
+        },
+        "effort": {
+          "source_grade": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-25",
+            "tried": [
+              "Plein air à la carte Mont du Dôme page",
+              "Traversée de Charlevoix (traverseedecharlevoix.qc.ca) not readable in this pass"
+            ],
+            "note": "No grade found."
+          },
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-25",
+              "tried": [
+                "Plein air à la carte Mont du Dôme page",
+                "OSM relation 9288133 (no distance tag)"
+              ],
+              "note": "No length on a page read; the OSM relation could be measured later."
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-25",
+              "tried": [
+                "Plein air à la carte Mont du Dôme page"
+              ],
+              "note": "No gain on a page read."
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Plein air à la carte Mont du Dôme page"
+          ],
+          "note": "No time on a page read."
+        },
+        "exposure": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Plein air à la carte Mont du Dôme page"
+          ],
+          "note": "Not described."
+        },
+        "hazards": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Plein air à la carte Mont du Dôme page"
+          ],
+          "note": "Not described."
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Plein air à la carte Mont du Dôme page"
+          ],
+          "note": "No dates given."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Plein air à la carte Mont du Dôme page"
+          ],
+          "note": "Not described."
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "loop",
+        "navigation": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Plein air à la carte Mont du Dôme page"
+          ],
+          "note": "Not described."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
       }
     }
   ]

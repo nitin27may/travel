@@ -7,8 +7,8 @@
       "title": "locations store",
       "publisher": "this repo",
       "kind": "reference",
-      "first_read": "2026-10-22",
-      "last_read": "2026-10-22",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
       "used_by": [],
       "licence_note": "Our own file in this repository.",
       "terms_note": "Not a web source; there is no link to check.",
@@ -971,6 +971,167 @@
       }
     },
     {
+      "id": "s-1b43bf51e8",
+      "url": "https://baliseqc.ca/hiver/explorer/quebec/parc-national-de-la-jacques-cartier-LR0113",
+      "title": "Parc national de la Jacques-Cartier - Balise Québec",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/leperon",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/leperon",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/leperon",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/leperon",
+          "field": "suitability.carrier_ok"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/leperon",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/leperon",
+          "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/leperon",
+          "field": "suitability.effort.source_grade"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/leperon",
+          "field": "suitability.stroller"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-2b5294e544",
+      "url": "https://baliseqc.ca/upload/Cartes/LR0105_02.pdf",
+      "title": "Carte des sentiers de randonnée pédestre, Mont-Sainte-Anne (LR0105)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/la-crete-trail-mont-sainte-anne",
+          "field": "suitability.adult_time_min"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/la-crete-trail-mont-sainte-anne",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/la-crete-trail-mont-sainte-anne",
+          "field": "suitability.effort.drivers.distance_km"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-7deb3a5a43",
+      "url": "https://baliseqc.ca/upload/Cartes/LR0144_04.pdf",
+      "title": "Carte des sentiers, Parc national du Mont-Mégantic (LR0144)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/sentier-des-cimes-parc-national-du-mont-megantic",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/sentier-des-cimes-parc-national-du-mont-megantic",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-des-cimes-parc-national-du-mont-megantic",
+          "field": "suitability.adult_time_min"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-des-cimes-parc-national-du-mont-megantic",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-des-cimes-parc-national-du-mont-megantic",
+          "field": "suitability.carrier_ok"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-des-cimes-parc-national-du-mont-megantic",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-des-cimes-parc-national-du-mont-megantic",
+          "field": "suitability.effort.source_grade"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-des-cimes-parc-national-du-mont-megantic",
+          "field": "suitability.stroller"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-70db7abc78",
       "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE06_ParcNationalBic_Murailles_1j.pdf",
       "title": "Sentier Les Murailles, Parc national du Bic (prêt-à-partir)",
@@ -1048,6 +1209,88 @@
           "file": "data/suitability/catalogue/R9-ca.json",
           "ref": "place/pic-champlain",
           "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-80457367e4",
+      "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE11_SentiersFrontaliers_Boucle_1j.pdf",
+      "title": "Boucle des sommets frontaliers (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+          "field": "ext.navigation"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+          "field": "suitability.adult_time_min"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+          "field": "suitability.carrier_ok"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+          "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+          "field": "suitability.effort.source_grade"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+          "field": "suitability.stroller"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -3982,6 +4225,58 @@
       "recheck": {
         "cadence_days": 90,
         "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c6ec5d8a16",
+      "url": "https://mont-sainte-anne.com/randonnee-pedestre-et-acces-au-sommet",
+      "title": "Randonnée pédestre et accès au sommet - Mont-Sainte-Anne",
+      "publisher": "Station touristique Mont-Sainte-Anne",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/la-crete-trail-mont-sainte-anne",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/la-crete-trail-mont-sainte-anne",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/la-crete-trail-mont-sainte-anne",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/la-crete-trail-mont-sainte-anne",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/la-crete-trail-mont-sainte-anne",
+          "field": "suitability.carrier_ok"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/la-crete-trail-mont-sainte-anne",
+          "field": "suitability.stroller"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
       },
       "link": {
         "status": "unchecked",
@@ -9809,6 +10104,16 @@
           "field": "signals.designations"
         },
         {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/sentier-la-chute",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/sentier-la-chute",
+          "field": "signals.designations"
+        },
+        {
           "file": "data/suitability/catalogue/R9-ca.json",
           "ref": "place/cap-bon-ami",
           "field": "suitability.age_band"
@@ -9897,6 +10202,56 @@
           "file": "data/suitability/catalogue/R9-ca.json",
           "ref": "place/mont-saint-alban",
           "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-la-chute",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-la-chute",
+          "field": "suitability.adult_time_min"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-la-chute",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-la-chute",
+          "field": "suitability.carrier_ok"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-la-chute",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-la-chute",
+          "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-la-chute",
+          "field": "suitability.effort.source_grade"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-la-chute",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-la-chute",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-la-chute",
+          "field": "suitability.stroller"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -9966,6 +10321,11 @@
           "file": "data/suitability/catalogue/R9-ca.json",
           "ref": "place/mont-saint-alban",
           "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-la-chute",
+          "field": "suitability.access_season"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -10017,6 +10377,11 @@
         {
           "file": "data/suitability/catalogue/R9-ca.json",
           "ref": "place/mont-saint-alban",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/sentier-la-chute",
           "field": "suitability.access_season"
         }
       ],
@@ -20412,6 +20777,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-1fbfb3247a",
+      "url": "https://www.pleinairalacarte.com/en/qc/charlevoix-en/mont-du-dome-trail",
+      "title": "Mont du Dôme trail - Plein air à la carte",
+      "publisher": "Plein air à la carte (relays the Traversée de Charlevoix)",
+      "kind": "community",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/mont-du-dome",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {

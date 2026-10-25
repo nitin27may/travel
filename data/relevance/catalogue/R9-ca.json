@@ -120,6 +120,51 @@
       "kind": "operator",
       "read": "2026-10-25",
       "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://mont-sainte-anne.com/randonnee-pedestre-et-acces-au-sommet/",
+      "title": "Randonnée pédestre et accès au sommet - Mont-Sainte-Anne",
+      "publisher": "Station touristique Mont-Sainte-Anne",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://baliseqc.ca/hiver/explorer/quebec/parc-national-de-la-jacques-cartier-LR0113",
+      "title": "Parc national de la Jacques-Cartier - Balise Québec",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://baliseqc.ca/upload/Cartes/LR0144_04.pdf",
+      "title": "Carte des sentiers, Parc national du Mont-Mégantic (LR0144)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE11_SentiersFrontaliers_Boucle_1j.pdf",
+      "title": "Boucle des sommets frontaliers (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://www.pleinairalacarte.com/en/qc/charlevoix-en/mont-du-dome-trail/",
+      "title": "Mont du Dôme trail - Plein air à la carte",
+      "publisher": "Plein air à la carte (relays the Traversée de Charlevoix)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "read"
     }
   ],
   "records": [
@@ -1427,6 +1472,556 @@
             "src-0013"
           ],
           "read": "2026-10-25"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/sentier-la-chute",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q139862201",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Sentier La Chute', instance of hiking trail, in Gaspé, P625 50 m from the OSM car park way 1054288320 named as the trailhead by Parks Canada; needs a person's check"
+      },
+      "class_key": "trail/forest-loop",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-25",
+        "note": "Inside Forillon National Park (national park designation, parent); no headline of its own beyond the red chair at the fall."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A short loop to the park's 17 m waterfall."
+      },
+      "standing_scope": "Forillon National Park",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Other short forest and waterfall loops exist in the park; not compared further."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "1 km loop of 30 to 45 minutes with steep slopes and stairs."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A forest valley trail."
+      },
+      "why": "A short steep forest loop to a 17 m waterfall, with a red chair at its foot, in Forillon.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Park admission applies (adult CAD 10 peak 2026); no permit or booking."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Forillon National Park",
+              "scope": "parent",
+              "wikidata": "Q1437338"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-25"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/la-crete-trail-mont-sainte-anne",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search 'La Crête Mont-Sainte-Anne' (en, fr), 2026-10-25: no item for the trail"
+        ]
+      },
+      "class_key": "trail/lookout",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0014"
+        ],
+        "read": "2026-10-25",
+        "note": "Operator headline: hiking trails to the 360-degree summit tower; no designation of its own."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "One of seven ascent trails to the summit."
+      },
+      "standing_scope": "Mont-Sainte-Anne",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Six other ascent trails reach the same summit."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "An ascent trail of 2.9 km, about 2 hours; the lift is the easy way up."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A summit view."
+      },
+      "why": "One of seven foot trails up Mont-Sainte-Anne to a summit tower with a 360-degree view; 2.9 km, about 2 hours.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Daily hiking fee 2026: adult CAD 17, age 7 to 17 CAD 14, family CAD 28, 6 and under free (taxes extra); free for residents of three local towns."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "No designation of its own found on the pages read for this place."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/leperon",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search 'L'Éperon Jacques-Cartier' (en, fr), 2026-10-25: no item for the trail"
+        ]
+      },
+      "class_key": "trail/forest-loop",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0015"
+        ],
+        "read": "2026-10-25",
+        "note": "Inside Parc national de la Jacques-Cartier (provincial park designation, parent); no headline of its own."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "One of the park's six self-guided interpretation trails."
+      },
+      "standing_scope": "Parc national de la Jacques-Cartier",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Five other self-guided trails in the same park."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A 5.4 km loop with 366 m of climb."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A forest trail."
+      },
+      "why": "A self-guided forest loop of 5.4 km with 366 m of climb and valley viewpoints in Parc national de la Jacques-Cartier.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Park access is paid; sepaq.com was not readable, so the 2026 rate is not recorded."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Parc national de la Jacques-Cartier",
+              "scope": "parent",
+              "wikidata": "Q1631583"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "read": "2026-10-25"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/sentier-des-cimes-parc-national-du-mont-megantic",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q1751092",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Q1751092 is Parc national du Mont-Mégantic (national park, P625 45.4569,-71.1625 equal to the store point); there is no item for the trail, so the park is the parent item"
+      },
+      "class_key": "trail/alpine-loop",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0016"
+        ],
+        "read": "2026-10-25",
+        "note": "Inside Parc national du Mont-Mégantic (provincial park designation, parent), a dark-sky reserve per the park's own pages (not read)."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "One of the park's long loops."
+      },
+      "standing_scope": "Parc national du Mont-Mégantic",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The park has two shorter loops on the same map (2.5 and 6.4 km)."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "An 11.6 km loop of 3 to 5 hours."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A ridge walk."
+      },
+      "why": "An 11.6 km ridge loop of 3 to 5 hours in Parc national du Mont-Mégantic, rated intermediate to difficult.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Park access is paid; sepaq.com was not readable, so the 2026 rate is not recorded."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Parc national du Mont-Mégantic",
+              "scope": "parent",
+              "wikidata": "Q1751092"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0016"
+          ],
+          "read": "2026-10-25"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q21428295",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Q21428295 is Marble Mountain (mountain on the Canada-US border, P2044 923 m, P625 equal to the store point); there is no item for the loop, so the mountain is the parent item"
+      },
+      "class_key": "trail/alpine-loop",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0017"
+        ],
+        "read": "2026-10-25",
+        "note": "Rando Québec lists the loop among its ready-to-go routes (official federation headline); no designation of its own."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A demanding summit loop on the Canada-US border."
+      },
+      "standing_scope": "Eastern Townships",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Two border summits on one loop (Marble Mountain 920 m and Mont Saddle 970 m)."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A full-day loop of 17.8 km and 953 m."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Summit views."
+      },
+      "why": "A demanding 17.8 km loop over two border summits, Marble Mountain and Mont Saddle, about 9 hours.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Access is paid by voluntary contribution or membership; parking free; closed during the big-game hunting period."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "No designation of its own found on the pages read for this place."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/mont-du-dome",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q62523385",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'mont du Dôme' (French only), instance of mountain, P2044 975 m, P625 equal to the store point; the trail climbs this mountain"
+      },
+      "class_key": "trail/alpine-loop",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0018"
+        ],
+        "read": "2026-10-25",
+        "note": "Relayed by Plein air à la carte from the Traversée de Charlevoix, which builds and maintains the trail; no designation or headline found."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A summit trail with three summits maintained by the Traversée de Charlevoix."
+      },
+      "standing_scope": "Charlevoix",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The Traversée de Charlevoix network has other summit trails (the Sommet, Pic de l'Aigle)."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A summit loop; the length is not published on a page read."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Summit views."
+      },
+      "why": "A summit trail with three summits and views toward the St. Lawrence, in the Zec des Martres.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A daily access fee is paid at the Zec des Martres or to the Traversée (amount not confirmed on a page read); parking on Route 381 at km 23.2."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "No designation of its own found on the pages read for this place."
         },
         "editorial": {
           "v": null,
