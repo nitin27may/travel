@@ -2,8 +2,8 @@
 // chromium and webkit-iphone against the flagged build `.fixture-auth`; skips when that build is missing.
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
-import type { Server } from './fixtures';
-import { authBuildPresent, GOOD_CODE, GOOD_PASSWORD, mockAuth, startAuthSite } from './auth-mock';
+import { startNext, type Server } from './fixtures';
+import { AUTH_DIST_NOCODE, authBuildPresent, GOOD_CODE, GOOD_PASSWORD, mockAuth, noCodeBuildPresent, startAuthSite } from './auth-mock';
 
 const SENDER_NOTE =
   "The email comes from Neon Auth (auth@mail.myneon.app), the service that runs our sign-in. If it isn't in your inbox within a minute, check your spam or junk folder.";
@@ -18,6 +18,8 @@ test.afterAll(() => site?.stop());
 
 /** The password field (its label also carries the required mark, so it is found by name). */
 const pw = (page: Page) => page.locator('.auth-card input[name="password"]');
+/** The card's one polite live region (review M2). */
+const live = (page: Page) => page.locator('.auth-card p[aria-live="polite"]');
 
 async function toChooser(page: Page, path = '/sign-in/', email = '  Nitin@Example.com ') {
   await page.goto(`${site.url}${path}`);
@@ -32,8 +34,13 @@ test('signs in with an emailed code: masked address, sender note, 5-minute copy,
   await expect(page.getByText('n…@example.com')).toBeVisible();
   await page.getByRole('button', { name: 'Email me a code' }).click();
 
-  const heading = page.getByRole('heading', { name: 'Check your email' });
-  await expect(heading).toBeFocused();
+  // Focus goes into the code field, so a paste or autofill works at once (review S1); the field describes the lead and address.
+  await expect(page.getByRole('heading', { name: 'Check your email' })).toBeVisible();
+  await expect(page.getByLabel('Code')).toBeFocused();
+  const described = (await page.getByLabel('Code').getAttribute('aria-describedby'))!.split(' ');
+  const descriptions = await Promise.all(described.map((id) => page.locator(`[id="${id}"]`).textContent()));
+  expect(descriptions.join(' ')).toContain('We sent a 6-digit code to');
+  expect(descriptions.join(' ')).toContain('n…@example.com');
   await expect(page.getByText(SENDER_NOTE)).toBeVisible();
   await expect(page.getByText('The code works once, for 5 minutes.')).toBeVisible();
   await expect(page.getByText(/15 minutes/)).toHaveCount(0);
@@ -46,7 +53,6 @@ test('signs in with an emailed code: masked address, sender note, 5-minute copy,
   const code = page.getByLabel('Code');
   await expect(code).toHaveAttribute('autocomplete', 'one-time-code');
   await expect(code).toHaveAttribute('inputmode', 'numeric');
-  await code.focus();
   await page.evaluate(async (text) => {
     const el = document.activeElement as HTMLInputElement;
     const data = new DataTransfer();
@@ -73,31 +79,65 @@ test('walks the code path with the keyboard only', async ({ page, browserName })
   await page.keyboard.press('Tab');
   await expect(page.getByRole('button', { name: 'Email me a code' })).toBeFocused();
   await page.keyboard.press('Enter');
-  await expect(page.getByRole('heading', { name: 'Check your email' })).toBeFocused();
-  await page.getByLabel('Code').focus();
+  await expect(page.getByLabel('Code')).toBeFocused();
   await page.keyboard.type(GOOD_CODE);
   await page.waitForURL(`${site.url}/account/`);
 });
 
-test('shows each code error in place, tied to the field', async ({ page }) => {
-  const answers = [
-    { status: 400, body: { code: 'INVALID_OTP' } },
-    { status: 400, body: { code: 'OTP_EXPIRED' } },
-    { status: 403, body: { code: 'TOO_MANY_ATTEMPTS' } },
-  ];
-  await mockAuth(page, { 'sign-in/email-otp': (_b, n) => answers[n - 1] });
+test('a wrong code is announced and selected, so typing replaces it (review M2, S7)', async ({ page }) => {
+  await mockAuth(page, { 'sign-in/email-otp': () => ({ status: 400, body: { code: 'INVALID_OTP' } }) });
   await toChooser(page);
   await page.getByRole('button', { name: 'Email me a code' }).click();
   const code = page.getByLabel('Code');
-  for (const [i, message] of ["That code didn't work. Check it, or send a new one.", 'That code has expired. Send a new one.', 'Too many tries. Send a new code.'].entries()) {
-    await code.fill('');
-    await code.fill('000000');
-    await expect(page.getByText(message)).toBeVisible();
-    const describedBy = await code.getAttribute('aria-describedby');
-    expect(await page.locator(`[id="${describedBy}"]`).textContent()).toContain(message);
-    if (i > 0) await expect(code).toHaveValue('');
-  }
+  await code.fill('000000');
+  const message = "That code didn't work. Check it, or send a new one.";
+  await expect(page.getByText(message)).toBeVisible();
+  await expect(live(page)).toHaveText(message);
+  const describedBy = (await code.getAttribute('aria-describedby'))!.split(' ');
+  const texts = await Promise.all(describedBy.map((id) => page.locator(`[id="${id}"]`).textContent()));
+  expect(texts.join(' ')).toContain(message);
+  expect(await code.evaluate((el: HTMLInputElement) => [el.selectionStart, el.selectionEnd])).toEqual([0, 6]);
+  await page.keyboard.type('1');
+  await expect(code).toHaveValue('1');
 });
+
+for (const [dead, status, lead] of [
+  ['TOO_MANY_ATTEMPTS', 403, 'Too many tries.'],
+  ['OTP_EXPIRED', 400, 'That code has expired.'],
+] as const) {
+  test(`after ${dead} the code is dead until a new one is sent, then a resend is acknowledged (review M4, M5)`, async ({ page }) => {
+    await page.clock.install();
+    const calls = await mockAuth(page, { 'sign-in/email-otp': (b) => (b.otp === GOOD_CODE ? undefined : { status, body: { code: dead } }) });
+    await toChooser(page);
+    await page.getByRole('button', { name: 'Email me a code' }).click();
+    const code = page.getByLabel('Code');
+    await code.fill('000000');
+    await expect(code).toBeDisabled();
+    await expect(code).toHaveValue('');
+    await expect(page.getByRole('button', { name: 'Sign in' })).toHaveCount(0);
+    const resend = page.locator('.auth-actions').getByRole('button', { name: /^Send a new code \(in 0:[0-5]\d\)$/ });
+    await expect(resend).toBeDisabled();
+    await expect(page.getByText(new RegExp(`${lead} You can send a new code in 0:[0-5]\\d\\.`))).toBeVisible();
+    await expect(live(page)).toContainText(lead);
+
+    await page.clock.fastForward(61_000);
+    const ready = page.locator('.auth-actions').getByRole('button', { name: 'Send a new code' });
+    await expect(ready).toBeEnabled();
+    await expect(page.getByText(`${lead} Send a new code.`)).toBeVisible();
+    await expect(live(page)).toHaveText('You can send a new code now.');
+    await ready.click();
+
+    const resent = 'We sent a new code to n…@example.com. Use the newest email.';
+    await expect(page.locator('.auth-card .ban-notice')).toHaveText(resent);
+    await expect(live(page)).toHaveText(resent);
+    await expect(code).toBeEnabled();
+    await expect(code).toHaveValue('');
+    await expect(code).toBeFocused();
+    expect(calls.filter((c) => c.path === 'email-otp/send-verification-otp')).toHaveLength(2);
+    await code.fill(GOOD_CODE);
+    await page.waitForURL(`${site.url}/account/`);
+  });
+}
 
 test('asks for six digits before sending a short code', async ({ page }) => {
   const calls = await mockAuth(page);
@@ -109,10 +149,8 @@ test('asks for six digits before sending a short code', async ({ page }) => {
   expect(calls.some((c) => c.path === 'sign-in/email-otp')).toBe(false);
 });
 
-test('says to wait a minute, or how long, from Retry-After; and when sending fails', async ({ page }) => {
+test('says when sending fails, on the sign-in page with the password as the way out', async ({ page }) => {
   const answers = [
-    { status: 429, body: { code: 'RATE_LIMITED' }, headers: { 'retry-after': '42' } },
-    { status: 429, body: { code: 'RATE_LIMITED' }, headers: { 'retry-after': '900' } },
     { status: 503, body: { code: 'SEND_FAILED' } },
     { status: 503, body: { code: 'SEND_UNAVAILABLE' } },
     { status: 403, body: { code: 'TURNSTILE_FAILED' } },
@@ -122,17 +160,82 @@ test('says to wait a minute, or how long, from Retry-After; and when sending fai
   await toChooser(page);
   const send = page.getByRole('button', { name: 'Email me a code' });
   for (const text of [
-    'Please wait a minute, then try again.',
-    "You've asked for several codes. Wait 15 minutes, or use your password.",
     "We couldn't send the email. Try again shortly, or use your password.",
     "We couldn't send the email. Try again shortly, or use your password.",
     "We couldn't confirm this browser. Please try again.",
     'Sign-in is unavailable right now. Try again shortly.',
   ]) {
     await send.click();
-    await expect(page.locator('.auth-card').getByRole('alert').or(page.getByRole('status')).filter({ hasText: text })).toBeVisible();
+    await expect(page.locator('.auth-card .ban')).toHaveText(text);
+    // Notices are read through the one live region, not a status node that arrives full (review M2).
+    await expect(live(page)).toHaveText(text);
   }
-  await expect(page.getByRole('heading', { name: 'How do you want to sign in?' })).toBeVisible();
+});
+
+test('a 429 holds "Email me a code" with the time left, promotes the password, and ends with an announcement (review M3)', async ({ page }) => {
+  await page.clock.install();
+  const calls = await mockAuth(page, { 'email-otp/send-verification-otp': (_b, n) => (n === 1 ? { status: 429, body: { code: 'RATE_LIMITED' }, headers: { 'retry-after': '42' } } : undefined) });
+  await toChooser(page);
+  await page.getByRole('button', { name: 'Email me a code' }).click();
+  await expect(page.locator('.auth-card').getByRole('alert')).toHaveText('Please wait a minute, then try again.');
+  const held = page.getByRole('button', { name: /^Email me a code \(in 0:4[0-2]\)$/ });
+  await expect(held).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Use my password' })).toHaveClass(/btn-primary/);
+  await expect(page.getByRole('button', { name: 'Use my password' })).toBeEnabled();
+  await page.clock.fastForward(43_000);
+  await expect(page.getByRole('button', { name: 'Email me a code' })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Email me a code' })).toHaveClass(/btn-primary/);
+  await expect(page.locator('.auth-card').getByRole('alert')).toHaveCount(0);
+  await expect(live(page)).toHaveText('You can ask for a code now.');
+  await page.getByRole('button', { name: 'Email me a code' }).click();
+  await expect(page.getByLabel('Code')).toBeFocused();
+  expect(calls.filter((c) => c.path === 'email-otp/send-verification-otp')).toHaveLength(2);
+});
+
+test('a long wait reads in minutes, and editing the address drops it', async ({ page }) => {
+  await mockAuth(page, { 'email-otp/send-verification-otp': (b) => (b.email === 'nitin@example.com' ? { status: 429, body: { code: 'RATE_LIMITED' }, headers: { 'retry-after': '900' } } : undefined) });
+  await toChooser(page);
+  await page.getByRole('button', { name: 'Email me a code' }).click();
+  await expect(page.locator('.auth-card').getByRole('alert')).toHaveText("You've asked for several codes. Wait 15 minutes, or use your password.");
+  await expect(page.getByRole('button', { name: /^Email me a code \(in 1[45] min\)$/ })).toBeDisabled();
+  await page.getByRole('button', { name: 'Change email address' }).click();
+  await page.getByLabel('Email').fill('other@example.com');
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await expect(page.getByRole('button', { name: 'Email me a code' })).toBeEnabled();
+});
+
+test('the same address again within a minute goes straight back to the code step (review S6)', async ({ page }) => {
+  const calls = await mockAuth(page);
+  await toChooser(page);
+  await page.getByRole('button', { name: 'Email me a code' }).click();
+  await expect(page.getByLabel('Code')).toBeFocused();
+  await page.getByRole('button', { name: 'Change email address' }).click();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await page.getByRole('button', { name: 'Email me a code' }).click();
+  await expect(page.getByLabel('Code')).toBeFocused();
+  await expect(page.getByRole('button', { name: /Send a new code \(in 0:[0-5]\d\)/ })).toBeDisabled();
+  expect(calls.filter((c) => c.path === 'email-otp/send-verification-otp')).toHaveLength(1);
+});
+
+test('the chooser help belongs to the code button only (review S3)', async ({ page }) => {
+  await mockAuth(page);
+  await toChooser(page, '/sign-up/', 'new@example.com');
+  const code = page.getByRole('button', { name: 'Email me a code' });
+  const help = page.getByText('No password needed: we email you a 6-digit code.');
+  await expect(help).toBeVisible();
+  expect(await code.getAttribute('aria-describedby')).toBe(await help.getAttribute('id'));
+});
+
+test('Turnstile asking for a person says so and shows the box (review S5)', async ({ page }) => {
+  await mockAuth(page, {}, { turnstile: 'challenge' });
+  await toChooser(page);
+  await expect(page.locator('.auth-card .ban')).toHaveText('Tick the box below to continue.');
+  await expect(live(page)).toHaveText('Tick the box below to continue.');
+  await expect(page.locator('.fake-turnstile-box')).toBeInViewport();
+  await page.evaluate(() => (window as unknown as { __solveTurnstile: () => void }).__solveTurnstile());
+  await expect(page.locator('.auth-card .ban')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Email me a code' }).click();
+  await expect(page.getByLabel('Code')).toBeFocused();
 });
 
 test('signs in with a password, and remembers it as the first choice next time', async ({ page }) => {
@@ -164,7 +267,9 @@ test('an unverified password account goes to the code step to confirm the email'
   await page.getByRole('button', { name: 'Use my password' }).click();
   await pw(page).fill(GOOD_PASSWORD);
   await page.getByRole('button', { name: 'Sign in' }).click();
-  await expect(page.getByText('Confirm your email first. We sent a code to')).toBeVisible();
+  // "Confirm your email first." is its own sentence, so "to" never sits alone on a line (review S2).
+  await expect(page.getByText('Confirm your email first.', { exact: true })).toBeVisible();
+  await expect(page.getByText('We sent a 6-digit code to', { exact: true })).toBeVisible();
   await page.getByLabel('Code').fill(GOOD_CODE);
   await page.waitForURL(`${site.url}/account/`);
   expect(calls.some((c) => c.path === 'email-otp/verify-email' && c.body.otp === GOOD_CODE)).toBe(true);
@@ -180,7 +285,7 @@ test('sign-up with a password sends no name, then confirms the email by code', a
   await expect(page.getByText('Use at least 8 characters.').last()).toBeVisible();
   await pw(page).fill('a-long-new-password');
   await page.getByRole('button', { name: 'Create account' }).click();
-  await expect(page.getByRole('heading', { name: 'Check your email' })).toBeFocused();
+  await expect(page.getByLabel('Code')).toBeFocused();
   const signUp = calls.find((c) => c.path === 'sign-up/email');
   expect(signUp?.body).toEqual({ email: 'new@example.com', password: 'a-long-new-password', name: '' });
   expect(signUp?.turnstile).toMatch(/^cf-token-/);
@@ -189,13 +294,40 @@ test('sign-up with a password sends no name, then confirms the email by code', a
   expect(calls.some((c) => c.path === 'email-otp/verify-email')).toBe(true);
 });
 
-test('a second sign-up within a minute is told to wait a minute', async ({ page }) => {
+test('a second sign-up within a minute is told to wait a minute, with the time on the button (review M3)', async ({ page }) => {
   await mockAuth(page, { 'sign-up/email': () => ({ status: 429, body: { code: 'RATE_LIMITED' }, headers: { 'retry-after': '37' } }) });
   await toChooser(page, '/sign-up/', 'new@example.com');
   await page.getByRole('button', { name: 'Create a password' }).click();
   await pw(page).fill('a-long-new-password');
   await page.getByRole('button', { name: 'Create account' }).click();
   await expect(page.locator('.auth-card').getByRole('alert')).toHaveText('Please wait a minute, then try again.');
+  await expect(page.getByRole('button', { name: /^Create account \(in 0:3[0-7]\)$/ })).toBeDisabled();
+  await expect(page.getByRole('button', { name: /^Email me a code instead \(in 0:3[0-7]\)$/ })).toBeDisabled();
+});
+
+test('the sign-up password step offers the code too (review S4)', async ({ page }) => {
+  const calls = await mockAuth(page);
+  await toChooser(page, '/sign-up/', 'new@example.com');
+  await page.getByRole('button', { name: 'Create a password' }).click();
+  await page.getByRole('button', { name: 'Email me a code instead' }).click();
+  await expect(page.getByLabel('Code')).toBeFocused();
+  expect(calls.find((c) => c.path === 'email-otp/send-verification-otp')?.body).toEqual({ email: 'new@example.com', type: 'sign-in' });
+});
+
+test('the reset page offers no way out it cannot keep, and holds its button through a wait (review M1, M3)', async ({ page }) => {
+  await mockAuth(page, {
+    'email-otp/request-password-reset': (_b, n) =>
+      n === 1 ? { status: 429, body: { code: 'RATE_LIMITED' }, headers: { 'retry-after': '900' } } : { status: 503, body: { code: 'SEND_FAILED' } },
+  });
+  await page.goto(`${site.url}/sign-in/reset/`);
+  await page.getByLabel('Email').fill('nitin@example.com');
+  await page.getByRole('button', { name: 'Email me a code' }).click();
+  await expect(page.locator('.auth-card').getByRole('alert')).toHaveText("You've asked for several codes. Wait 15 minutes, then try again.");
+  await expect(page.getByRole('button', { name: /^Email me a code \(in 1[45] min\)$/ })).toBeDisabled();
+  await page.getByLabel('Email').fill('other@example.com');
+  await page.getByRole('button', { name: 'Email me a code' }).click();
+  await expect(page.locator('.auth-card .ban')).toHaveText("We couldn't send the email. Try again shortly.");
+  await expect(page.locator('.auth-card')).not.toContainText('use your password');
 });
 
 test('resets a password by code, signs straight in, and hands the address over from "Forgot password?"', async ({ page }) => {
@@ -206,7 +338,7 @@ test('resets a password by code, signs straight in, and hands the address over f
   await page.waitForURL(`${site.url}/sign-in/reset/`);
   await expect(page.getByLabel('Email')).toHaveValue('nitin@example.com');
   await page.getByRole('button', { name: 'Email me a code' }).click();
-  await expect(page.getByRole('heading', { name: 'Check your email' })).toBeFocused();
+  await expect(page.getByLabel('Code')).toBeFocused();
   await expect(page.getByText(SENDER_NOTE)).toBeVisible();
   await page.getByLabel('Code').fill(GOOD_CODE);
   // Six digits do not submit here: the new password comes first.
@@ -219,16 +351,16 @@ test('resets a password by code, signs straight in, and hands the address over f
   expect(calls.find((c) => c.path === 'email-otp/request-password-reset')?.turnstile).toMatch(/^cf-token-/);
 });
 
-test('after a reset whose sign-in fails, says the password is set and to sign in', async ({ page }) => {
+test('after a reset whose sign-in fails, says the password is set and to sign in, keeping next (review S8)', async ({ page }) => {
   await mockAuth(page, { 'sign-in/email': () => ({ status: 503, body: { code: 'GUARD_UNAVAILABLE' } }) });
-  await page.goto(`${site.url}/sign-in/reset/`);
+  await page.goto(`${site.url}/sign-in/reset/?next=%2Ftrips%2F`);
   await page.getByLabel('Email').fill('nitin@example.com');
   await page.getByRole('button', { name: 'Email me a code' }).click();
   await page.getByLabel('Code').fill(GOOD_CODE);
   await pw(page).fill('a-new-long-password');
   await page.getByRole('button', { name: 'Set password' }).click();
   await expect(page.getByRole('heading', { name: 'Your password is set' })).toBeFocused();
-  await expect(page.locator('.auth-card').getByRole('link', { name: 'Sign in' })).toHaveAttribute('href', '/sign-in/');
+  await expect(page.locator('.auth-card').getByRole('link', { name: 'Sign in' })).toHaveAttribute('href', '/sign-in/?next=%2Ftrips%2F');
 });
 
 test('follows a checked next, and refuses a hostile one', async ({ page }) => {
@@ -257,14 +389,16 @@ test('"Change" goes back to the email with the address kept and focused', async 
 test('refuses a malformed address before any call', async ({ page }) => {
   const calls = await mockAuth(page);
   await toChooser(page, '/sign-in/', 'not an address');
-  await expect(page.getByText('Enter an email address, like name@example.com.')).toBeVisible();
+  await expect(page.locator('.auth-card .field-error')).toHaveText('Enter an email address, like name@example.com.');
   expect(calls.filter((c) => c.path !== 'get-session')).toHaveLength(0);
 });
 
 test('fits a phone: no sideways scroll, 44 px targets on every step', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 700 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await mockAuth(page);
   const fits = async () => {
+    await page.waitForTimeout(200); // let the 120 ms step fade settle before measuring
     const wide = await page.evaluate(() =>
       [...document.querySelectorAll('body *')].filter((el) => el.getBoundingClientRect().right > window.innerWidth + 0.5).map((el) => `${el.tagName}.${el.className}`).slice(0, 5),
     );
@@ -283,4 +417,38 @@ test('fits a phone: no sideways scroll, 44 px targets on every step', async ({ p
   await fits();
   await page.getByRole('button', { name: 'Use my password instead' }).click();
   await fits();
+});
+
+test.describe('with the code option off (NEXT_PUBLIC_SIGN_IN_CODE unset)', () => {
+  test.skip(!noCodeBuildPresent(), 'needs web/.fixture-auth-nocode (see tests/e2e/auth-mock.ts)');
+  let off: Server;
+  test.beforeAll(async () => {
+    off = await startNext(AUTH_DIST_NOCODE);
+  });
+  test.afterAll(() => off?.stop());
+
+  test('sign-in goes from the email straight to the password, with no code option', async ({ page }) => {
+    await mockAuth(page);
+    await page.goto(`${off.url}/sign-in/`);
+    await expect(page.getByRole('link', { name: 'Create an account' })).toBeVisible();
+    await page.getByLabel('Email').fill('nitin@example.com');
+    await page.getByRole('button', { name: 'Continue' }).click();
+    await expect(page.getByRole('heading', { name: 'Enter your password' })).toBeFocused();
+    await expect(page.getByText(/Email me a code/)).toHaveCount(0);
+    await pw(page).fill(GOOD_PASSWORD);
+    await page.getByRole('button', { name: 'Sign in' }).click();
+    await page.waitForURL(`${off.url}/account/`);
+  });
+
+  test('sign-up goes straight to creating a password, then confirms the email by code', async ({ page }) => {
+    await mockAuth(page);
+    await page.goto(`${off.url}/sign-up/`);
+    await page.getByLabel('Email').fill('new@example.com');
+    await page.getByRole('button', { name: 'Continue' }).click();
+    await expect(page.getByRole('heading', { name: 'Create a password' })).toBeFocused();
+    await expect(page.getByText(/Email me a code/)).toHaveCount(0);
+    await pw(page).fill('a-long-new-password');
+    await page.getByRole('button', { name: 'Create account' }).click();
+    await expect(page.getByLabel('Code')).toBeFocused();
+  });
 });

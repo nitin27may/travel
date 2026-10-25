@@ -59,11 +59,24 @@ const TURNSTILE_JS = `window.turnstile = { n: 0, cb: null,
   reset() { const t = 'cf-token-' + (++this.n); setTimeout(() => this.cb && this.cb(t), 20); },
   remove() { this.cb = null; } };`;
 
+/** Fake Turnstile that asks for a person first: no token until the test calls `window.__solveTurnstile()`. */
+const TURNSTILE_CHALLENGE_JS = `window.turnstile = { n: 0, o: null,
+  render(el, o) { this.o = o; const box = document.createElement('div'); box.className = 'fake-turnstile-box'; box.textContent = 'Verify you are human'; box.style.height = '65px'; el.appendChild(box);
+    setTimeout(() => o['before-interactive-callback'] && o['before-interactive-callback'](), 20); return 'w1'; },
+  reset() { const t = 'cf-token-' + (++this.n); setTimeout(() => this.o && this.o.callback(t), 20); },
+  remove() { this.o = null; } };
+window.__solveTurnstile = () => { const o = window.turnstile.o; o['after-interactive-callback'] && o['after-interactive-callback'](); o.callback('cf-token-solved'); };`;
+
+/** Directories of the two flagged fixture builds: code option on (the default) and off. */
+export const AUTH_DIST_NOCODE = '.fixture-auth-nocode';
+export const noCodeBuildPresent = (): boolean => existsSync(path.join(ROOT, 'web', AUTH_DIST_NOCODE, 'BUILD_ID'));
+
 /** Mock the proxy and Turnstile on this page. `overrides[path]` answers first; `undefined` falls back to the default. */
-export async function mockAuth(page: Page, overrides: Record<string, Override> = {}): Promise<AuthCallLog[]> {
+export async function mockAuth(page: Page, overrides: Record<string, Override> = {}, opts: { turnstile?: 'pass' | 'challenge' } = {}): Promise<AuthCallLog[]> {
   const calls: AuthCallLog[] = [];
   const counts = new Map<string, number>();
-  await page.route('https://challenges.cloudflare.com/**', (route: Route) => route.fulfill({ status: 200, contentType: 'text/javascript', body: TURNSTILE_JS }));
+  const js = opts.turnstile === 'challenge' ? TURNSTILE_CHALLENGE_JS : TURNSTILE_JS;
+  await page.route('https://challenges.cloudflare.com/**', (route: Route) => route.fulfill({ status: 200, contentType: 'text/javascript', body: js }));
   await page.route('**/api/auth/**', async (route: Route, request: Request) => {
     const url = new URL(request.url());
     const p = url.pathname.replace(/^\/api\/auth\//, '').replace(/\/$/, '');

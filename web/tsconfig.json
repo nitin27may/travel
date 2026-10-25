@@ -49,7 +49,9 @@
     ".fixture-trp2b2-shots/types/**/*.ts",
     ".fixture-trp2b2-shots/dev/types/**/*.ts",
     ".fixture-auth/types/**/*.ts",
-    ".fixture-auth/dev/types/**/*.ts"
+    ".fixture-auth/dev/types/**/*.ts",
+    ".fixture-auth-nocode/types/**/*.ts",
+    ".fixture-auth-nocode/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
