@@ -50,7 +50,7 @@ change first (`core/src/schema/capture/properties.ts`), never a free-text blob.
   the 66 untied trails and every trail kind in the store.
 - AllTrails stays a **link**: `links.alltrails` holds the URL where an official page or a person links it. We do not fetch its pages, store its
   ratings, reviews, counts or ranks, or take its coordinates (README 7; it blocks bots and its terms forbid scraping). Same for Komoot, Gaia, Wikiloc.
-- **Owner decision needed (Q-LOC-1):** if you read a trail's AllTrails page yourself, may we store the four basic numbers you type in (length, gain,
+- **Decided (Q-LOC-1: no, link-only):** if you read a trail's AllTrails page yourself, may we store the four basic numbers you type in (length, gain,
   difficulty label, time) as `basis: owner_stated`, flagged "source: owner read AllTrails", never ratings or reviews? Default until you answer: no.
   Official pages and the OSM track are tried first for every trail, so this only fills what both leave empty.
 
@@ -65,7 +65,7 @@ Order, one runner, one request at a time (the Commons 429 rule in `method/lanes/
 
 1. Wikimedia Commons (geosearch 1 km, category, Wikidata P18).
 2. Openverse (one API over Flickr, Geograph, museum and agency collections; filter `license` to CC0, PDM, BY, BY-SA).
-3. Flickr, CC0 / CC BY / CC BY-SA / "no known copyright restrictions" only (free API key needed: Q-LOC-2).
+3. Flickr, CC0 / CC BY / CC BY-SA / "no known copyright restrictions" only (through Openverse only; no Flickr key, Q-LOC-2).
 4. Geograph (CC BY-SA, UK), US National Park Service and other public-domain government media, Parks Canada and agency pages that state an open licence.
 5. Unsplash and Pexels: free to use under their own licence, not Creative Commons. Allowed, with the licence text and photographer recorded as the licence.
 6. The owner's own photos.
@@ -102,7 +102,7 @@ at a time, never two agents on Commons), then L4.
 
 ## 7. Open decisions
 
-- **Q-LOC-1** Store hand-typed AllTrails basics as `owner_stated`? (section 3; default no)
-- **Q-LOC-2** Flickr API key: create a free non-commercial key and put it in the local environment (never in a file); Openverse works with a keyless anonymous rate limit.
-- **Q-LOC-3** The `wishlist` trip-less lane for untied places (section 5.4), or a second table. Recommended: the lane, so the Neon tables stay one set.
-- **Q-LOC-4** README 3e widened as in section 4: edited with this brief; revert it if you want Commons only.
+- **Q-LOC-1** DECIDED 25 Oct (owner): link-only. AllTrails is a link; no value is typed in or taken from it. Values come from official pages and our own OSM tracks.
+- **Q-LOC-2** DECIDED 25 Oct (owner): no Flickr key (the owner reports it needs a paid account). Flickr photos come through Openverse, which indexes Flickr CC images with no key; the direct Flickr API is not used.
+- **Q-LOC-3** DECIDED 25 Oct (owner): yes, the `wishlist` trip-less lane (section 5.4), so the Neon tables stay one set.
+- **Q-LOC-4** DECIDED 25 Oct (owner): keep README 3e widened as in section 4.

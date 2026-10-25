@@ -1,6 +1,6 @@
 # Trip timing and the trip inventory: when to go, everything on a trip, filters, add-ons (TIM, INV)
 
-Status: spec, 25 Oct 2026. Written from the owner's request of 25 Oct (this session). Nothing in it is built. Example trip: Canadian Rockies
+Status: spec, 25 Oct 2026; owner decisions Q-TIM-1 to 3 answered. Written from the owner's request of 25 Oct (this session). Nothing in it is built. Example trip: Canadian Rockies
 (`canadian-rockies-2029`). It extends, and does not replace: [trip-timeline.md](trip-timeline.md) (days and the scheduler),
 [nearby-and-regions.md](nearby-and-regions.md) (what is near, Q60: nothing unresearched is suggested), F06 and F07 (customising the plan) and
 [DATA-LOC.md](../build/public-site/briefs/DATA-LOC.md) (basics and photos for every location). UI work goes through `travel-builder`, then
@@ -104,7 +104,7 @@ Where a value is `none_stated` the card says "not stated", never a guess; a filt
   item moves back to "Not in the plan"; it is not lost.
 - Customising by a visitor (their plan) is private household data and stays out of the public files.
 
-Owner Q-TIM-1: should the public site show the add-on pool to a signed-out visitor, or only to a signed-in planner? Recommended: the **list** is public (it is the
+Owner Q-TIM-1 (decided: yes): the **list** is public (it is the catalogue); **add and remove** need a plan.
 catalogue), the **add and remove** need a plan.
 
 ## 5. Data to capture
@@ -148,6 +148,6 @@ Cards never hot-link a third-party image: renditions are built from the stored f
 
 ## 8. Open decisions
 
-- **Q-TIM-1** Public add-on list, add and remove behind a plan (section 4)? Recommended yes.
-- **Q-TIM-2** Day count: the owner says 14 days, the schedule holds 15 day sections (arrival day included). Which does the trip card show? Recommended: the schedule's own count with the arrival and departure day named.
-- **Q-TIM-3** Windows are our judgement on sourced facts (2.2). Confirm that a verdict word ("best", "avoid") is wanted on the card, or only the pros, the cons and `open_share`.
+- **Q-TIM-1** DECIDED 25 Oct (owner): yes. The add-on list is public; add and remove need a plan.
+- **Q-TIM-2** DECIDED 25 Oct (owner: "fix it"): the trip card and page show one count that matches the data. The schedule holds 15 day sections (arrival and departure days included), so the card reads "15 days" with the arrival and departure days named, and the "14 days" wording is corrected wherever it appears. Day count is derived from the schedule, never typed.
+- **Q-TIM-3** DECIDED 25 Oct (owner): show the verdict word (`best`, `good`, `trade-off`, `avoid`) on each window card, with the pros, cons and `open_share` under it. The word is marked as our judgement.
