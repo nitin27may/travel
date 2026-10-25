@@ -1,0 +1,237 @@
+{
+  "schema": "trip-base-plans/1",
+  "trip": "canadian-rockies-2029",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "nights": 14,
+  "gateway": { "in": "calgary-airport", "out": "calgary-airport" },
+  "note": "DATA-D9R draft. No validator yet (STY-Ca): checked by hand against stay-bases-and-optimisation.md 9.5, see research/runs/DATA-D9R-canadian-rockies-2029.md. Town facts stay in research/trips/canadian-rockies-sept-2029/stay-bases.md until STY-P (BS.json). Drive numbers in plus and minus texts are ORS reads made on the researched day (the ORS legs file in research/runs/DATA-D9R/), free-flow, no stops; the evaluator recomputes them from STY-L legs.",
+  "bases": {
+    "banff": { "ref": "place/banff", "ref_status": "proposed: no settlement record yet (STY-P, BS.json)", "town": "ca-ab-banff" },
+    "lake-louise": { "ref": "place/lake-louise-village", "ref_status": "proposed: no settlement record yet; place/lake-louise is the lake", "town": null },
+    "jasper": { "ref": "legacy/canadian-rockies-sept-2029/sights/jasper-townsite", "ref_status": "existing settlement.town record", "town": "ca-ab-jasper" },
+    "kananaskis-village": { "ref": "place/kananaskis-village", "ref_status": "proposed: no settlement record yet (STY-P, BS.json)", "town": null },
+    "canmore": { "ref": "place/canmore", "ref_status": "proposed: no settlement record yet (STY-P, BS.json)", "town": "ca-ab-canmore" },
+    "golden": { "ref": "place/golden", "ref_status": "proposed: no settlement record yet (STY-P, BS.json)", "town": "ca-bc-golden" },
+    "calgary-airport": { "ref": "place/calgary-international-airport", "ref_status": "proposed: no record yet", "gateway": true },
+    "edmonton-airport": { "ref": "place/edmonton-international-airport", "ref_status": "proposed: no record yet; open-jaw note only", "gateway": true }
+  },
+  "default": "as-planned",
+  "sources": [
+    { "id": "s-86d9197647", "url": "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes", "publisher": "Parks Canada", "read": "2026-10-25" },
+    { "id": "s-1a9a52f111", "url": "https://www.alberta.ca/kananaskis-conservation-pass", "publisher": "Government of Alberta", "read": "2026-10-25" },
+    { "id": "s-f8eff36d4c", "url": "https://www.explorecanmore.ca/faqs/", "publisher": "Tourism Canmore Kananaskis", "read": "2026-10-25" },
+    { "id": "s-29bd666371", "url": "https://www.explorecanmore.ca/all-accommodations/", "publisher": "Tourism Canmore Kananaskis", "read": "2026-10-25" },
+    { "id": "s-d130768b74", "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise", "publisher": "Parks Canada", "read": "2026-10-25" },
+    { "id": "s-12ac75cce7", "url": "https://www.golden.ca/node/1555", "publisher": "Town of Golden", "read": "2026-10-25" },
+    { "id": "s-cbdc2c70ee", "url": "https://www.icbc.com/assets/pa/16mtE3iZQB3yOu57owU6FQ/seatbelt-fact-sheet.pdf", "publisher": "ICBC", "read": "2026-10-25" },
+    { "id": "s-f53259079d", "url": "https://www.alberta.ca/child-seats", "publisher": "Government of Alberta", "read": "2026-10-25" },
+    { "id": "s-e6a5dabbee", "url": "https://www.tourismgolden.com/accommodations/hotels", "publisher": "Tourism Golden", "read": "2026-10-25" },
+    { "id": "s-6f3ef692ee", "url": "https://www.enterprise.ca/en/car-rental-faqs/canada-general/car-rental-drop-charge.html", "publisher": "Enterprise Rent-A-Car Canada", "read": "2026-10-25" },
+    { "id": "s-e225000a3e", "url": "https://www.hertz.ca/rentacar/productservice/index.jsp?targetPage=caonewayrentals.jsp&selectedRegion=Canada", "publisher": "Hertz Canada", "read": "2026-10-25" },
+    { "id": "s-e28ae8127d", "url": "https://www.jasper.travel/where-to-stay/", "publisher": "Tourism Jasper", "read": "2026-10-25" },
+    { "id": "s-b8c8ccf20c", "url": "https://openrouteservice.org/", "publisher": "HeiGIT openrouteservice (OSM data)", "read": "2026-10-25" }
+  ],
+  "strategies": [
+    {
+      "id": "as-planned",
+      "label": "As planned",
+      "kind": "planned",
+      "review": "approved",
+      "suits": "Shortest daily drives; a Kananaskis finish close to the airport",
+      "stays": [
+        { "base": "banff", "nights": [1, 2] },
+        { "base": "lake-louise", "nights": [3, 3] },
+        { "base": "jasper", "nights": [4, 7] },
+        { "base": "lake-louise", "nights": [8, 11] },
+        { "base": "kananaskis-village", "nights": [12, 14] }
+      ]
+    },
+    {
+      "id": "fewer-moves",
+      "label": "Fewer moves, same route",
+      "kind": "fewer_moves",
+      "review": "draft",
+      "suits": "Families who would rather drive a little more than pack for one night",
+      "stays": [
+        { "base": "banff", "nights": [1, 3] },
+        { "base": "jasper", "nights": [4, 7] },
+        { "base": "lake-louise", "nights": [8, 11] },
+        { "base": "kananaskis-village", "nights": [12, 14] }
+      ],
+      "plus": [
+        { "text": "One check-in fewer and no one-night stay", "factor": "moves", "basis": "computed" },
+        { "text": "Lake Louise once instead of twice", "factor": "moves", "basis": "computed" }
+      ],
+      "minus": [
+        { "text": "Day 4 starts in Banff: about 45 min ≈ more on the longest drive day (242 against 197 min)", "factor": "drive", "basis": "computed", "note": "ORS Banff-Jasper 242 min, Lake Louise-Jasper 197 min" },
+        { "text": "Day 3 ends back in Banff: about 6 min ≈ more from Paint Pots (47 against 41 min)", "factor": "drive", "basis": "computed", "note": "ORS Paint Pots parking to Banff 47 min, to Lake Louise 41 min" }
+      ],
+      "unknown": [
+        { "text": "Whether Banff has rooms for a third night when a one-night Lake Louise stay is dropped", "searched": "2026-10-25", "tried": "no availability source is public; a booking question, not a research one" }
+      ]
+    },
+    {
+      "id": "three-bases",
+      "label": "Three bases, Jasper first",
+      "kind": "fewer_moves",
+      "review": "draft",
+      "suits": "Families who prefer fewer packing days and accept a long first day",
+      "stays": [
+        { "base": "jasper", "nights": [1, 4] },
+        { "base": "lake-louise", "nights": [5, 9] },
+        { "base": "banff", "nights": [10, 14] }
+      ],
+      "day_map": [
+        { "n": 1, "from": 1, "keep": ["bear-spray-groceries"], "note": "Arrival: Calgary airport to Jasper; errands before leaving the Bow Valley" },
+        { "n": 2, "from": 5 },
+        { "n": 3, "from": 6 },
+        { "n": 4, "from": 7 },
+        { "n": 5, "from": 8, "note": "Parkway south, Jasper to Lake Louise, as written" },
+        { "n": 6, "from": 4, "note": "Parkway north stops as an out-and-back from Lake Louise" },
+        { "n": 7, "from": 9 },
+        { "n": 8, "from": 10 },
+        { "n": 9, "from": 11 },
+        { "n": 10, "from": 3, "note": "Transfer day, Lake Louise to Banff, the plan's stops in their order" },
+        { "n": 11, "from": 2 },
+        { "n": 12, "from": 12, "note": "Canmore as a day trip from Banff" },
+        { "n": 13, "from": 13, "note": "Kananaskis Lakes as a day trip from Banff" },
+        { "n": 14, "from": 14, "note": "Highwood Pass as a day trip from Banff" },
+        { "n": 15, "from": 15, "note": "Troll Falls on the way to the airport" }
+      ],
+      "left_out": [
+        { "item": "fenland-loop", "from_day": 1, "why": "Day 1 drives to Jasper; no Banff evening is free in this order", "basis": "our_inference", "note": "every Banff-night day already holds a whole plan day (D9: no merging of days)" },
+        { "item": "vermilion-lakes", "from_day": 1, "why": "Day 1 drives to Jasper; the sunset hour is spent on the Parkway", "basis": "our_inference", "note": "as fenland-loop" },
+        { "item": "elk-rut", "from_day": 1, "why": "Day 1 drives to Jasper; optional item with no free Banff evening", "basis": "our_inference", "note": "as fenland-loop" },
+        { "item": "banff-gondola", "from_day": 1, "why": "Kept on Day 11 (plan Day 2, easy day), so only the Day 1 copy goes", "basis": "our_inference", "note": "plan Day 2 variant C also lists banff-gondola" }
+      ],
+      "plus": [
+        { "text": "Two fewer check-ins than the plan (3 against 5)", "factor": "moves", "basis": "computed" },
+        { "text": "Lake Louise once; the last five nights 102 min ≈ from the airport", "factor": "moves", "basis": "computed", "note": "ORS Banff to Calgary airport 102 min" },
+        { "text": "About 48 min ≈ less base-to-base driving over the trip (680 against 728 min)", "factor": "drive", "basis": "computed", "note": "ORS legs incl. the airport legs" }
+      ],
+      "minus": [
+        { "text": "Day 1 drives Calgary to Jasper after a flight: about 5 h 33 ≈ with no stops", "factor": "drive", "basis": "computed", "note": "ORS Calgary airport to Jasper 333 min, 421 km" },
+        { "text": "About 3.5 h ≈ more day-trip driving over the trip than the plan (24.8 against 21.3 h)", "factor": "drive", "basis": "computed", "note": "research/runs/DATA-D9R/ors-day-trip-totals.json" },
+        { "text": "Kananaskis days from Banff: Kananaskis Lakes about 197 min ≈ round trip against 92", "factor": "drive", "basis": "computed", "note": "ORS round trips Banff and Kananaskis Village to the Rawson Lake area" },
+        { "text": "Icefield area two days running (Days 5 and 6); the Parkway is driven three times", "factor": "drive", "basis": "our_inference", "note": "Day 1 north via the Parkway (ORS route), Day 5 south, Day 6 out and back" },
+        { "text": "Three Banff evening items from the plan's Day 1 do not fit", "factor": "access", "basis": "our_inference", "note": "see left_out" }
+      ],
+      "requires": [
+        { "text": "Open jaw could shorten Day 1: Edmonton airport to Jasper about 269 min ≈ against 333", "factor": "gateway", "basis": "computed", "note": "ORS Edmonton airport (Wikidata Q269588) to Jasper 269 min, 392 km" },
+        { "text": "One-way rental fees vary: one operator shows any drop charge when you reserve", "factor": "gateway", "basis": "operator", "src": ["s-6f3ef692ee"], "on": "2026-10-25" },
+        { "text": "Another operator states no separate drop-off fee on most one-way rentals in Canada", "factor": "gateway", "basis": "operator", "src": ["s-e225000a3e"], "on": "2026-10-25" }
+      ],
+      "unknown": [
+        { "text": "Whether Edmonton airport to Calgary airport one-way is offered, and its fee", "searched": "2026-10-25", "tried": "Enterprise Canada and Hertz Canada one-way pages: policy only, no route list, fee by quote" },
+        { "text": "Highwood Pass day from Banff: drive time not routed", "searched": "2026-10-25", "tried": "not in the ORS matrix; pair listed for STY-L" }
+      ]
+    },
+    {
+      "id": "three-bases-canmore",
+      "label": "Three bases, lower cost",
+      "kind": "lower_cost",
+      "review": "draft",
+      "suits": "Fewer packing days, a base outside the park, kitchens and big groceries",
+      "stays": [
+        { "base": "jasper", "nights": [1, 4] },
+        { "base": "lake-louise", "nights": [5, 9] },
+        { "base": "canmore", "nights": [10, 14] }
+      ],
+      "day_map": [
+        { "n": 1, "from": 1, "keep": ["bear-spray-groceries"], "note": "Arrival: Calgary airport to Jasper; errands before leaving the Bow Valley" },
+        { "n": 2, "from": 5 },
+        { "n": 3, "from": 6 },
+        { "n": 4, "from": 7 },
+        { "n": 5, "from": 8, "note": "Parkway south, Jasper to Lake Louise, as written" },
+        { "n": 6, "from": 4, "note": "Parkway north stops as an out-and-back from Lake Louise" },
+        { "n": 7, "from": 9 },
+        { "n": 8, "from": 10 },
+        { "n": 9, "from": 11 },
+        { "n": 10, "from": 3, "note": "Transfer day, Lake Louise to Canmore, the plan's stops in their order" },
+        { "n": 11, "from": 2, "note": "Banff and Sunshine as a day trip from Canmore" },
+        { "n": 12, "from": 12 },
+        { "n": 13, "from": 13, "note": "Kananaskis Lakes as a day trip from Canmore" },
+        { "n": 14, "from": 14, "note": "Highwood Pass as a day trip from Canmore" },
+        { "n": 15, "from": 15, "note": "Troll Falls on the way to the airport" }
+      ],
+      "left_out": [
+        { "item": "fenland-loop", "from_day": 1, "why": "Day 1 drives to Jasper; no Banff evening is free in this order", "basis": "our_inference", "note": "as three-bases" },
+        { "item": "vermilion-lakes", "from_day": 1, "why": "Day 1 drives to Jasper; the sunset hour is spent on the Parkway", "basis": "our_inference", "note": "as three-bases" },
+        { "item": "elk-rut", "from_day": 1, "why": "Day 1 drives to Jasper; optional item with no free Banff evening", "basis": "our_inference", "note": "as three-bases" },
+        { "item": "banff-gondola", "from_day": 1, "why": "Kept on Day 11 (plan Day 2, easy day), so only the Day 1 copy goes", "basis": "our_inference", "note": "as three-bases" }
+      ],
+      "plus": [
+        { "text": "Two fewer check-ins than the plan (3 against 5)", "factor": "moves", "basis": "computed" },
+        { "text": "Last base outside the national park: no park pass needed to sleep there", "factor": "rules", "basis": "official", "src": ["s-86d9197647", "s-f8eff36d4c"], "on": "2026-10-25" },
+        { "text": "Last five nights about 87 min ≈ from the airport", "factor": "drive", "basis": "computed", "note": "ORS Canmore to Calgary airport 87 min" },
+        { "text": "Kananaskis Lakes about 166 min ≈ round trip from Canmore against 197 from Banff", "factor": "drive", "basis": "computed", "note": "ORS matrix" }
+      ],
+      "minus": [
+        { "text": "Day 1 drives Calgary to Jasper after a flight: about 5 h 33 ≈ with no stops", "factor": "drive", "basis": "computed", "note": "ORS Calgary airport to Jasper 333 min" },
+        { "text": "About 4 h ≈ more day-trip driving over the trip than the plan (25.3 against 21.3 h)", "factor": "drive", "basis": "computed", "note": "research/runs/DATA-D9R/ors-day-trip-totals.json" },
+        { "text": "Banff-town items about 30 min ≈ each way; a park pass is still needed to enter the park each day", "factor": "rules", "basis": "official", "src": ["s-86d9197647"], "on": "2026-10-25", "note": "ORS Canmore-Banff 30 min" },
+        { "text": "Cost not compared yet: no sourced price band for Canmore or Banff", "factor": "cost", "basis": "our_inference", "note": "every band searched_none (see researched) (stay-bases.md field 4)" }
+      ],
+      "requires": [
+        { "text": "Open jaw could shorten Day 1: Edmonton airport to Jasper about 269 min ≈ against 333", "factor": "gateway", "basis": "computed", "note": "ORS" }
+      ]
+    }
+  ],
+  "swaps": [
+    {
+      "id": "canmore-for-banff",
+      "replace": "banff",
+      "with": "canmore",
+      "review": "draft",
+      "plus": [
+        { "text": "Outside the national park: no park pass needed to sleep in the town", "factor": "rules", "basis": "official", "src": ["s-86d9197647", "s-f8eff36d4c"], "on": "2026-10-25" },
+        { "text": "Lodging list includes vacation rentals, motels, hostels and campgrounds", "factor": "lodging", "basis": "official", "src": ["s-29bd666371"], "on": "2026-10-25" },
+        { "text": "About 15 min ≈ nearer the airport (87 against 102 min)", "factor": "drive", "basis": "computed", "note": "ORS" }
+      ],
+      "minus": [
+        { "text": "About 30 min ≈ each way to Banff's sights; Lake Louise about 20 min ≈ further each way", "factor": "drive", "basis": "computed", "note": "ORS Canmore-Banff 30, Canmore-Lake Louise 68 against Banff-Lake Louise 48 min" },
+        { "text": "Park pass still needed for every day in the park; trailheads near town need the Kananaskis pass", "factor": "rules", "basis": "official", "src": ["s-86d9197647", "s-1a9a52f111"], "on": "2026-10-25" },
+        { "text": "Cost not compared yet: no sourced price band for either town", "factor": "cost", "basis": "our_inference", "note": "every band searched_none (see researched)" }
+      ]
+    },
+    {
+      "id": "golden-for-lake-louise",
+      "replace": "lake-louise",
+      "with": "golden",
+      "review": "draft",
+      "note": "On three-bases this is the owner's Jasper, Golden, Banff plan (DD-2, Q114).",
+      "plus": [
+        { "text": "A larger town: hotels, motels, cabins, lodges, rentals, hostels and camping listed", "factor": "lodging", "basis": "official", "src": ["s-e6a5dabbee"], "on": "2026-10-25" },
+        { "text": "Same clock as Alberta: Golden keeps Mountain time", "factor": "rules", "basis": "official", "src": ["s-12ac75cce7"], "on": "2026-10-25" },
+        { "text": "Yoho is close: Field about 47 min ≈ from Golden", "factor": "drive", "basis": "computed", "note": "ORS Golden-Field 47 min against Lake Louise-Field 24 min" }
+      ],
+      "minus": [
+        { "text": "Off the Icefields Parkway: Golden to Jasper about 256 min ≈ against 197 from Lake Louise", "factor": "drive", "basis": "computed", "note": "ORS" },
+        { "text": "About 5.3 h ≈ more day-trip driving on three-bases (30.1 against 24.8 h)", "factor": "drive", "basis": "computed", "note": "research/runs/DATA-D9R/ors-day-trip-totals.json" },
+        { "text": "First Moraine shuttle is 06:30 at the Park and Ride, about 70 min ≈ from Golden", "factor": "access", "basis": "official", "src": ["s-d130768b74"], "on": "2026-10-25", "note": "ORS Golden to the Lake Louise Park and Ride 70 min; leave by about 05:20" },
+        { "text": "Golden is in BC: a booster seat until age 9 or 145 cm; Alberta has no booster rule", "factor": "rules", "basis": "official", "src": ["s-cbdc2c70ee", "s-f53259079d"], "on": "2026-10-25" },
+        { "text": "Cost not compared yet: no sourced price band for either town", "factor": "cost", "basis": "our_inference", "note": "every band searched_none (see researched)" }
+      ]
+    },
+    {
+      "id": "canmore-for-kananaskis",
+      "replace": "kananaskis-village",
+      "with": "canmore",
+      "review": "draft",
+      "plus": [
+        { "text": "More lodging types than Kananaskis Village, and the plan's Canmore day is local", "factor": "lodging", "basis": "official", "src": ["s-29bd666371"], "on": "2026-10-25" },
+        { "text": "Outside the national park and no Kananaskis pass needed in the townsite", "factor": "rules", "basis": "official", "src": ["s-1a9a52f111", "s-f8eff36d4c"], "on": "2026-10-25" }
+      ],
+      "minus": [
+        { "text": "Kananaskis Lakes about 166 min ≈ round trip from Canmore against 92 from the village", "factor": "drive", "basis": "computed", "note": "ORS matrix" },
+        { "text": "Troll Falls about 44 min ≈ from Canmore against 5 min from the village", "factor": "drive", "basis": "computed", "note": "ORS" }
+      ]
+    }
+  ],
+  "checked_not_fit": [
+    { "kind": "one_base", "text": "No single base reaches the Jasper days in a day trip: Maligne Lake is 503 min ≈ round trip from Lake Louise", "basis": "computed", "note": "ORS matrix: best single base is Lake Louise at 52.3 h of day trips against 21.3 h for the plan" },
+    { "kind": "two_bases", "text": "Jasper and Banff only: about 9.7 h ≈ more day-trip driving than the plan for one more check-in saved", "basis": "computed", "note": "ORS totals 31.0 h against 21.3 h (S5)" }
+  ]
+}
