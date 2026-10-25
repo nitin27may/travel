@@ -3,7 +3,7 @@
  "source": {
   "name": "GeoNames",
   "dump": "cities1000 (populated places of at least 1,000 people, and seats of administrative divisions) and admin1CodesASCII",
-  "downloaded": "2026-10-23",
+  "downloaded": "2026-10-25",
   "licence": {
    "name": "Creative Commons Attribution 4.0",
    "id": "CC BY 4.0",
@@ -14,15 +14,15 @@
   "files": {
    "admin1CodesASCII.txt": {
     "url": "https://download.geonames.org/export/dump/admin1CodesASCII.txt",
-    "last_modified": "Fri, 23 Oct 2026 01:55:51 GMT",
-    "bytes": 151583,
-    "sha256": "55153d45d5347e658eed69c1064563e929c6e199d51ed0649a61d2e629711d44"
+    "last_modified": "Sun, 25 Oct 2026 11:10:34 GMT",
+    "bytes": 151571,
+    "sha256": "2e4867f5397acb056ea26377601b57af37cb4c81399770225018e9e439e91ad3"
    },
    "cities1000.zip": {
     "url": "https://download.geonames.org/export/dump/cities1000.zip",
-    "last_modified": "Fri, 23 Oct 2026 01:55:51 GMT",
-    "bytes": 11079596,
-    "sha256": "aeaa67103f17d50342321857ee1046b7a4b3de4c05ad2bb77d3cad561e1b5b4a"
+    "last_modified": "Sun, 25 Oct 2026 11:10:34 GMT",
+    "bytes": 11082462,
+    "sha256": "b5542441a467eeb6a761e3c10ce27fd25115dc255b96bd6702963a3542889ab2"
    }
   }
  },
@@ -41,9 +41,9 @@
   "hub_population_min": 100000,
   "anchors": {
    "file": "anchors.json",
-   "count": 245,
+   "count": 291,
    "decimals": 2,
-   "sha256": "3949c0aff42c658727a7f882f9aeb3f57c526471a37122ae08d4105cf9c79283",
+   "sha256": "6bc4d36640ddfb39115df6796d894fbd08b9047647a360dc44ad8d18eca38477",
    "from": [
     "data/capture/points.json#points",
     "data/relevance/inputs/points.json#points",
@@ -69,9 +69,9 @@
  ],
  "totals": {
   "parts": 105,
-  "rows": 4173,
-  "bytes": 357927,
-  "gzip": 139613
+  "rows": 4222,
+  "bytes": 362217,
+  "gzip": 141004
  },
  "parts": [
   {
@@ -119,10 +119,10 @@
     "8",
     "9"
    ],
-   "rows": 298,
-   "bytes": 24798,
-   "gzip": 8864,
-   "sha256": "c493a5273311c8759792dae9a2ccef20549aa36f48954f47fa0015330f0f221f"
+   "rows": 300,
+   "bytes": 24939,
+   "gzip": 8914,
+   "sha256": "1e4f4ca29252464216ace929bd31333b552ea07728b66dc832adf6bf4c5ce9a7"
   },
   {
    "file": "ca.json",
@@ -137,10 +137,10 @@
     "qc",
     "sk"
    ],
-   "rows": 196,
-   "bytes": 17266,
-   "gzip": 6680,
-   "sha256": "d343ba26bd07720951205714d3299305fc51af54eee3ae3b8cad3a5dec2a8798"
+   "rows": 237,
+   "bytes": 20964,
+   "gzip": 7851,
+   "sha256": "d9239e24e4579408be7e503a402fc02134cb2c0ca4d5811b73010b69ceff8704"
   },
   {
    "file": "ch-ag.json",
@@ -471,10 +471,10 @@
     "st",
     "th"
    ],
-   "rows": 180,
-   "bytes": 15179,
-   "gzip": 5925,
-   "sha256": "0d2f8dd4c0642223961e34db26937ac3aaaddadbedbad166219549eb1432206f"
+   "rows": 184,
+   "bytes": 15485,
+   "gzip": 6039,
+   "sha256": "80fc12f58bbfe181b280e4437b30847cd68ad9dc74584c8a5509e2a6b61acd02"
   },
   {
    "file": "fr.json",
@@ -794,10 +794,10 @@
    "admin1": [
     "az"
    ],
-   "rows": 16,
-   "bytes": 1395,
-   "gzip": 640,
-   "sha256": "35392b1952e99754bee82c7c00ad1c5b162c864781f3a771065e9fa4fdb12a9d"
+   "rows": 17,
+   "bytes": 1463,
+   "gzip": 669,
+   "sha256": "fa18ff87e093c200abee9cf60c7a87b2761c434a1830eb8170e9221b8024ba27"
   },
   {
    "file": "us-ca.json",
@@ -1256,10 +1256,10 @@
    "admin1": [
     "vt"
    ],
-   "rows": 54,
-   "bytes": 4565,
-   "gzip": 1701,
-   "sha256": "b2d1461738f626f54d2fc8179fa478bb65934ded6c20ce67b6d3b0b104e25fb4"
+   "rows": 55,
+   "bytes": 4642,
+   "gzip": 1728,
+   "sha256": "44d1a2174afd83a14724d242aa4ec1138f6a4647083a3c24ba0633f3dca40413"
   },
   {
    "file": "us-wa.json",

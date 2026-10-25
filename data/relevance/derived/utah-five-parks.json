@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "utah-five-parks",
-  "as_of": "2026-10-20",
+  "as_of": "2026-10-25",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -81,6 +81,10 @@
         {
           "ref": "trip/utah-five-parks/trail:riverside walk",
           "km": 2.5
+        },
+        {
+          "ref": "trip/utah-five-parks/trail:pa rus trail",
+          "km": 8
         }
       ],
       "part_of": [],
@@ -118,22 +122,59 @@
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 6,
+      "detour_basis": "town",
+      "detour_town": "Springdale",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/trail:riverside walk",
+            "km": 10.4,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "shuttle_only"
+            ],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/trail:riverside walk",
+            "km": 10.4,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "shuttle_only"
+            ],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+        "km": 8,
+        "draw": "national",
+        "same_class": false
+      },
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+          "km": 8
+        },
+        {
+          "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
+          "km": 11.9
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+          "fit": "if_nearby",
+          "reason": "draw local, standing good"
         },
         "weekend": {
           "fit": "skip",
@@ -142,24 +183,19 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
-      "role": "local_only",
+      "role": "filler",
       "flags": {
         "go_clear_day": false,
-        "rainy_day": false,
+        "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "layer": "route",
       "route_is_attraction": true
     },
@@ -173,8 +209,26 @@
       "detour_town": "Springdale",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/trail:pa rus trail",
+            "km": 10.4,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/trail:pa rus trail",
+            "km": 10.4,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": {
         "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
@@ -255,6 +309,10 @@
         {
           "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
           "km": 5.7
+        },
+        {
+          "ref": "trip/utah-five-parks/trail:pa rus trail",
+          "km": 6.4
         }
       ],
       "part_of": [],

@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "patagonia-2027",
-  "as_of": "2026-10-20",
+  "as_of": "2026-10-25",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -57,6 +57,10 @@
         {
           "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
           "km": 6.2
+        },
+        {
+          "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+          "km": 9.5
         },
         {
           "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
@@ -135,6 +139,10 @@
           "km": 2.3
         },
         {
+          "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+          "km": 4.7
+        },
+        {
           "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
           "km": 5.6
         },
@@ -209,7 +217,19 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+          "km": 1,
+          "how": "walk",
+          "extra_min": 90,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "pair_pending": [
         {
           "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
@@ -293,6 +313,10 @@
       "pair_with": [],
       "pair_pending": [
         {
+          "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+          "km": 2.4
+        },
+        {
           "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
           "km": 6.7
         },
@@ -360,6 +384,10 @@
           "km": 2.3
         },
         {
+          "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+          "km": 4.3
+        },
+        {
           "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
           "km": 5.3
         },
@@ -406,22 +434,59 @@
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "El Chalten",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
-      "pair_with": [],
-      "pair_pending": [],
-      "part_of": [],
+      "far_pointer": {
+        "ref": "trip/patagonia-2027/town:village and cafes",
+        "km": 0,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [
+        {
+          "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
+          "km": 1,
+          "how": "walk",
+          "extra_min": 50,
+          "on_site_min": 20,
+          "on_site_estimated": true,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [
+        {
+          "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
+          "km": 2.4
+        },
+        {
+          "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
+          "km": 4.3
+        },
+        {
+          "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
+          "km": 4.7
+        },
+        {
+          "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+          "km": 9.5
+        }
+      ],
+      "part_of": [
+        "trip/patagonia-2027/town:village and cafes"
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown); clear weather only drops it one step"
+          "reason": "draw local, standing good; clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -430,7 +495,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw; clear weather only drops it one step"
         }
       },
       "role": "local_only",
@@ -442,12 +507,7 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "layer": "place"
     },
     {
@@ -550,8 +610,9 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 28,
+      "detour_basis": "town",
+      "detour_town": "Ushuaia",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -559,7 +620,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "trip/patagonia-2027/viewpoint:lapataia bay",
+          "km": 4.2
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -574,7 +640,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "highlight",
@@ -586,12 +652,7 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "layer": "route",
       "route_is_attraction": true
     },
@@ -846,6 +907,14 @@
             "standing": "good",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "trip/patagonia-2027/town:cafe and bookshops",
+            "km": 1.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
           }
         ],
         "area": [
@@ -853,6 +922,14 @@
             "ref": "trip/patagonia-2027/town:san telmo market",
             "km": 3.8,
             "draw": "national",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/patagonia-2027/town:cafe and bookshops",
+            "km": 1.3,
+            "draw": "local",
             "standing": "good",
             "access_cost": [],
             "family_effort": null
@@ -909,6 +986,14 @@
             "standing": "good",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "trip/patagonia-2027/town:cafe and bookshops",
+            "km": 2.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
           }
         ],
         "area": [
@@ -916,6 +1001,14 @@
             "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
             "km": 3.8,
             "draw": "national",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/patagonia-2027/town:cafe and bookshops",
+            "km": 2.5,
+            "draw": "local",
             "standing": "good",
             "access_cost": [],
             "family_effort": null
@@ -959,22 +1052,62 @@
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Buenos Aires",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
+            "km": 1.3,
+            "draw": "national",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/patagonia-2027/town:san telmo market",
+            "km": 2.5,
+            "draw": "national",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
+            "km": 1.3,
+            "draw": "national",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/patagonia-2027/town:san telmo market",
+            "km": 2.5,
+            "draw": "national",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
+        "km": 1.3,
+        "draw": "national",
+        "same_class": true
+      },
       "pair_with": [],
       "pair_pending": [],
       "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+          "fit": "if_nearby",
+          "reason": "draw local, standing good"
         },
         "weekend": {
           "fit": "skip",
@@ -983,24 +1116,19 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
-      "role": "local_only",
+      "role": "filler",
       "flags": {
         "go_clear_day": false,
-        "rainy_day": false,
+        "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "layer": "place"
     },
     {
@@ -1008,8 +1136,9 @@
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 2,
+      "detour_basis": "town",
+      "detour_town": "Ushuaia",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -1022,8 +1151,8 @@
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+          "fit": "if_nearby",
+          "reason": "draw local, standing good"
         },
         "weekend": {
           "fit": "skip",
@@ -1032,10 +1161,10 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
-      "role": "local_only",
+      "role": "filler",
       "flags": {
         "go_clear_day": false,
         "rainy_day": false,
@@ -1044,12 +1173,7 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "layer": "place"
     },
     {
@@ -1093,7 +1217,9 @@
           "km": 4.7
         }
       ],
-      "part_of": [],
+      "part_of": [
+        "trip/patagonia-2027/viewpoint:evening fitz roy glow"
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1159,6 +1285,10 @@
         {
           "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
           "km": 6.2
+        },
+        {
+          "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+          "km": 9.5
         },
         {
           "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
@@ -1238,6 +1368,10 @@
           "km": 2.3
         },
         {
+          "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+          "km": 4.7
+        },
+        {
           "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
           "km": 5.6
         },
@@ -1313,7 +1447,19 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+          "km": 1,
+          "how": "walk",
+          "extra_min": 90,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "pair_pending": [
         {
           "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
@@ -1398,6 +1544,10 @@
       "pair_with": [],
       "pair_pending": [
         {
+          "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+          "km": 2.4
+        },
+        {
           "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
           "km": 6.7
         },
@@ -1464,6 +1614,10 @@
         {
           "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
           "km": 2.3
+        },
+        {
+          "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+          "km": 4.3
         },
         {
           "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",

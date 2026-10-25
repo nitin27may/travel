@@ -139,6 +139,22 @@
       "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
       "type": "nature.trail.river_hike",
       "layer": "route",
+      "near_town": {
+        "v": "us-ut-laverkin",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5541693, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 30,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Narrows from the Temple of Sinawava",
       "reaches": [
         "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff"
@@ -164,15 +180,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5548621, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5548621, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 30.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "The Narrows",
@@ -207,15 +223,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5541693, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5541693, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 29.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Scout Lookout (Angels Landing chains view)",
@@ -262,15 +278,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5548621, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5548621, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 30.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Riverside Walk",
@@ -298,15 +314,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5540444, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5540444, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 28,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Zion Canyon Scenic Drive by shuttle",
@@ -317,6 +333,22 @@
       "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "us-ut-panguitch",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5544525, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 32.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Navajo Loop and Queens Garden",
       "reaches": [
         "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff"
@@ -342,15 +374,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5544525, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5544525, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 33.3,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Navajo Loop and Queens Garden",
@@ -385,15 +417,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5544525, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5544525, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 33.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Bryce amphitheatre rim"
@@ -407,15 +439,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5544525, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5544525, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 32.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Sunset Point"
@@ -424,6 +456,14 @@
       "ref": "trip/utah-five-parks/trail:lower calf creek falls",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
       "name": "Lower Calf Creek Falls",
       "reaches": [
         "part/trip/utah-five-parks/trail:lower calf creek falls#payoff"
@@ -449,8 +489,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Lower Calf Creek Falls",
       "origin": {
@@ -504,8 +544,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Hickman Bridge",
       "route_is_attraction": true,
@@ -531,8 +571,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Fruita orchards"
     },
@@ -545,15 +585,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 19.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Delicate Arch trail",
@@ -581,15 +621,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 26.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Devils Garden",
@@ -636,15 +676,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 34.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Mesa Arch",
@@ -672,15 +712,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 36.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Upheaval Dome",
@@ -708,15 +748,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 38.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Grand View Point"
@@ -725,6 +765,22 @@
       "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "us-ut-moab",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 39.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Grand View Point walk",
       "reaches": [
         "trip/utah-five-parks/viewpoint:grand view point"
@@ -743,15 +799,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 17.6,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Dead Horse Point"
@@ -765,8 +821,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Goblin Valley"
     },
@@ -779,15 +835,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 0.1,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Main Street Moab"
@@ -801,15 +857,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5780993, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5780993, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 1.1,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Temple Square"

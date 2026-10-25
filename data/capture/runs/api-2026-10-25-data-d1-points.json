@@ -1,0 +1,815 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-25-data-d1-points",
+  "started": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "claude-sonnet-5.5",
+  "scope": {
+    "refs": [
+      "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+      "trip/iceland-ring-road-2027/sight:namaskard",
+      "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+      "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+      "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+      "part/place/rafting-on-the-rienza#place",
+      "trip/algonquin-muskoka-2026/trail:track and tower trail",
+      "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
+      "trip/algonquin-muskoka-2026/viewpoint:dwight beach sunset",
+      "trip/chamonix-mont-blanc-2028/lake:lac du chatelard",
+      "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+      "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top",
+      "trip/chamonix-mont-blanc-2028/town:chamonix market",
+      "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+      "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+      "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "trip/utah-five-parks/trail:pa rus trail",
+      "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "trip/utah-five-parks/trail:lower calf creek falls",
+      "trip/utah-five-parks/trail:windows section",
+      "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+      "trip/vermont-fall-2026/sight:covered bridge loop",
+      "trip/vermont-fall-2026/trail:stowe recreation path",
+      "part/trip/patagonia-2027/lake:beagle channel boat#place",
+      "trip/patagonia-2027/town:cafe and bookshops",
+      "trip/patagonia-2027/town:harbour walk",
+      "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+      "trip/patagonia-2027/trail:laguna de los tres",
+      "trip/patagonia-2027/trail:laguna capri",
+      "trip/patagonia-2027/trail:coastal path",
+      "trip/patagonia-2027/trail:laguna esmeralda",
+      "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+      "legacy/canadian-rockies-sept-2029/sights/paint-pots",
+      "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
+      "part/legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft#place",
+      "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
+      "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling",
+      "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
+      "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing",
+      "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer",
+      "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
+      "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
+      "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
+      "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
+      "legacy/canadian-rockies-sept-2029/sights/elbow-falls",
+      "legacy/canadian-rockies-sept-2029/sights/lake-magog",
+      "legacy/canadian-rockies-sept-2029/sights/maligne-canyon",
+      "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
+      "legacy/canadian-rockies-sept-2029/sights/mount-edith-cavell",
+      "legacy/canadian-rockies-sept-2029/sights/prince-of-wales-hotel",
+      "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
+      "legacy/canadian-rockies-sept-2029/sights/smith-dorrien-trail",
+      "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp",
+      "legacy/canadian-rockies-sept-2029/sights/wapta-falls",
+      "legacy/canadian-rockies-sept-2029/sights/waterton-townsite",
+      "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
+      "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog",
+      "legacy/canadian-rockies-sept-2029/trails/bears-hump",
+      "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail",
+      "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
+      "legacy/canadian-rockies-sept-2029/trails/burstall-pass",
+      "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+      "legacy/canadian-rockies-sept-2029/trails/chester-lake",
+      "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
+      "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+      "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
+      "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
+      "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
+      "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
+      "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
+      "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
+      "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint",
+      "legacy/canadian-rockies-sept-2029/trails/opal-hills",
+      "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
+      "legacy/canadian-rockies-sept-2029/trails/ribbon-creek",
+      "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
+      "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog",
+      "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+      "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+      "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail",
+      "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots-trail",
+      "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-upper-section",
+      "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-lower-canyon",
+      "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base",
+      "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
+      "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+      "part/place/cascate-di-fanes#payoff",
+      "part/place/sass-pordoi-and-piz-boe#payoff"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "www.wikidata.org",
+      "requests": 124,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "requests": 69,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "api.openstreetmap.org",
+      "requests": 82,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "overpass-api.de",
+      "requests": 0,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "blocked"
+    },
+    {
+      "host": "www.rafting-club-activ.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: the falls, not the west car park the park page names (research/trips/iceland-ring-road/suitability.md); fix = car park node or a person's check",
+      "src": "wikidata:Q210280"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:namaskard",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": "wikidata:Q2006297"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: village centre at the Arnarstapi end, not the path start; Hellnar Q1366915 is 64.75,-23.65",
+      "src": "wikidata:Q774048"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: information board at the canyon; no highway=trailhead node is mapped",
+      "src": "osm:node/3726212118"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: visitor centre; the start named on the park's S2 trail page was not re-read for this point",
+      "src": "osm:way/200175906"
+    },
+    {
+      "ref": "part/place/rafting-on-the-rienza#place",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: the village node; the sports zone is not mapped in OSM",
+      "src": "osm:node/537070690"
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:way/338153829"
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/2944856296"
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/viewpoint:dwight beach sunset",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:way/659376476"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lake:lac du chatelard",
+      "field": "point",
+      "outcome": "searched_none",
+      "tried": [
+        "Nominatim: Lac du Châtelard, Chamonix and Vallorcine (nothing)",
+        "Wikidata search within 20 km (nothing); research/trips/chamonix-mont-blanc-sept-2028/suitability.md line 29 says the only Lac du Châtelard is at Névache, so the place may not exist"
+      ]
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/31000525"
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/283313364"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: town centre; the market site is not named in the research",
+      "src": "wikidata:Q83236"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/275376985"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: the mid-station area; the walk's own start is not stated",
+      "src": "wikidata:Q19947633"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/5724346323"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:pa rus trail",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: a mapped vertex of the path, not a trailhead node; the path starts near the visitor centre",
+      "src": "osm:way/14326805"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/5247557309"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/490738940"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:windows section",
+      "field": "point",
+      "outcome": "searched_none",
+      "tried": [
+        "Nominatim: Windows Section, Arches National Park (nothing for two queries, 2026-10-25)"
+      ]
+    },
+    {
+      "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+      "field": "point",
+      "outcome": "conflict",
+      "host": "api.openstreetmap.org",
+      "reason": "Wikidata and OSM differ (Grand View Point 1.4 km, Cameron Lake 1.2 km); the choice and the reason are in the point_source",
+      "src": "osm:node/6806471755"
+    },
+    {
+      "ref": "trip/vermont-fall-2026/sight:covered bridge loop",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: mean of the bridge points, an area-level centre for the loop; the drive's own start is not stated",
+      "src": [
+        "osm:way/1038791200",
+        "osm:way/967879573",
+        "osm:way/1028147668",
+        "osm:way/1038791204",
+        "osm:way/1028142995"
+      ]
+    },
+    {
+      "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: a mapped way of the path in the village; the gostowe.com page lists four parking areas and no single start",
+      "src": "osm:way/204763538"
+    },
+    {
+      "ref": "part/trip/patagonia-2027/lake:beagle channel boat#place",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: centroid of the channel; the boat's departure point is not stated",
+      "src": "wikidata:Q202671"
+    },
+    {
+      "ref": "trip/patagonia-2027/town:cafe and bookshops",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: city level; the suitability notes name Palermo, Recoleta and San Telmo, not one street",
+      "src": "wikidata:Q1486"
+    },
+    {
+      "ref": "trip/patagonia-2027/town:harbour walk",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: a point on the waterfront footway; the walk has no stated start",
+      "src": "osm:way/745788839"
+    },
+    {
+      "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: village level; the plan names no viewpoint for the glow",
+      "src": "wikidata:Q1323978"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna de los tres",
+      "field": "point",
+      "outcome": "searched_none",
+      "tried": [
+        "Wikidata search: Laguna de los Tres (no item with P625 found)",
+        "Nominatim: Laguna de los Tres, El Chaltén (nothing)",
+        "OSM API bbox scan around Poincenot / Fitz Roy: trail ways only, no named lake node"
+      ]
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna capri",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: the lake, which is the trail's destination; no trailhead node is mapped",
+      "src": "osm:node/12697849001"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:coastal path",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: the bay at the mapped end of the Senda Costera; which end the park page counts as the start was not re-read",
+      "src": "osm:node/11237179525"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+      "field": "point",
+      "outcome": "searched_none",
+      "tried": [
+        "Nominatim: Laguna Esmeralda, Ushuaia (only a street of that name)",
+        "Wikidata search (no P625)",
+        "OSM API bbox scan around Valle de Andorra: no lake node"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:way/764291434"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/paint-pots",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:way/234163234"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: the river's point at Golden; the rafted section lies upstream, between the river base and the Park Bridge, and no section point was found",
+      "src": "wikidata:Q1337358"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft#place",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: a point on the river; no raft put-in was found in OSM or named on a read operator page",
+      "src": "wikidata:Q3433709"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": "wikidata:Q1003855"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: a point on the parkway, not the closure gate; the gate positions were not read",
+      "src": "osm:way/160691667"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/13225697445"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:way/1263557754"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:way/1327131488"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: the canyon at the end of the parkway, not the start on Hwy 5",
+      "src": "wikidata:Q22589340"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: the car park nearest the mapped path; no trailhead node is mapped",
+      "src": "osm:way/24306334"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": "wikidata:Q3364703"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
+      "field": "point",
+      "outcome": "conflict",
+      "host": "www.wikidata.org",
+      "reason": "Wikidata and OSM differ (Grand View Point 1.4 km, Cameron Lake 1.2 km); the choice and the reason are in the point_source",
+      "src": "wikidata:Q3214786"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/elbow-falls",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/2960428931"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/lake-magog",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": "wikidata:Q1557774"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-canyon",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": "wikidata:Q6743519"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": "wikidata:Q14874867"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/mount-edith-cavell",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/349118023"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/prince-of-wales-hotel",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": "wikidata:Q3145638"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: the canyon at the end of the parkway; the drive has no single point",
+      "src": "wikidata:Q22589340"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/smith-dorrien-trail",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: the park the road runs through; the road is a line and has no single point",
+      "src": "wikidata:Q3364735"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": "wikidata:Q7824710"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/wapta-falls",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": "wikidata:Q37367"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/waterton-townsite",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/9174974666"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: the park point; the hot springs are 2.5 km away and are a separate stop",
+      "src": "wikidata:Q14874788"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:way/171641445"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bears-hump",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: the information point near the visitor centre, not a trailhead node",
+      "src": "osm:way/1125051515"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:way/459887166"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
+      "field": "point",
+      "outcome": "searched_none",
+      "tried": [
+        "Nominatim: Berg Lake Trailhead, Mount Robson (2026-10-25)",
+        "OSM API bbox scan around Berg Lake / Kinney Lake lot: no trailhead or parking node (CS7b found the same)",
+        "Wikidata search: Berg Lake item has a point but the trailhead has no item"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/burstall-pass",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:way/262485800"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: midpoint of the first mapped trail way; no trailhead node is mapped",
+      "src": "osm:way/1514037767"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/chester-lake",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:way/375083514"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/508583984"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: the lake, the trail's destination; the Crypt Landing dock (the legacy trailhead) is not mapped",
+      "src": "wikidata:Q22546207"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/270030306"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: a park label node; the Elk Lakes trailhead is not mapped, and the first mapped trail way (362802175) is 1.8 km north",
+      "src": "osm:node/3067784923"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: a park label node; the Elk Lakes trailhead is not mapped, and the first mapped trail way (362802175) is 1.8 km north",
+      "src": "osm:node/3067784923"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
+      "field": "point",
+      "outcome": "searched_none",
+      "tried": [
+        "Nominatim: Fryatt trailhead, Fryatt Creek (nothing)",
+        "OSM API bbox scan near Athabasca Falls / Hwy 93A: Fryatt Creek trail ways only, no trailhead node",
+        "Wikidata search: Fryatt Valley (no P625)"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: the lake; the loop's trailhead is not mapped (the nearest stop is the Johnson Lake bus stop, node 13461323849, 500 m away)",
+      "src": "osm:way/40021099"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: the lake; the legacy trailhead (Galatea Day Use, Hwy 40) is not mapped and the Galatea Lakes Tr ways near Hwy 40 are 5 km east",
+      "src": "osm:way/604096200"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/269821248"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/opal-hills",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: midpoint of a mapped loop way; no trailhead node is mapped",
+      "src": "osm:way/1532999492"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: a mapped way of the loop at the canyon; no trailhead node is mapped",
+      "src": "osm:way/24818808"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ribbon-creek",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/3686938459"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: a viewpoint label at the lake end; no trailhead node is mapped",
+      "src": "osm:node/5156308323"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/815130880"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "approx: a mapped way of the route; no Tent Ridge trailhead is mapped (legacy trailhead: Tent Ridge trailhead, Smith-Dorrien)",
+      "src": "osm:way/24836693"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:node/269822623"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:way/658732269"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots-trail",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:way/764291434"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-upper-section",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: the river's point at Golden; the rafted section lies upstream, between the river base and the Park Bridge, and no section point was found",
+      "src": "wikidata:Q1337358"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-lower-canyon",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "reason": "approx: the river's point at Golden; the rafted section lies upstream, between the river base and the Park Bridge, and no section point was found",
+      "src": "wikidata:Q1337358"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "src": "osm:way/1545703289"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
+      "field": "point",
+      "outcome": "filled",
+      "host": "api.openstreetmap.org",
+      "reason": "moved from the cruise company's building to the marina node (3.61c)",
+      "src": "osm:node/270866424"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+      "field": "point",
+      "outcome": "filled",
+      "reason": "marked approx at area level (3.61d)",
+      "src": "osm:node/29546626"
+    },
+    {
+      "ref": "part/place/cascate-di-fanes#payoff",
+      "field": "point",
+      "outcome": "filled",
+      "reason": "destination = last vertex of the stored OSM track",
+      "src": "osm:relation/1641053"
+    },
+    {
+      "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
+      "field": "point",
+      "outcome": "filled",
+      "reason": "destination = last vertex of the stored OSM track",
+      "src": "osm:relation/7302480"
+    }
+  ]
+}

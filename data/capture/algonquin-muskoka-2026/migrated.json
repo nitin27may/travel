@@ -35,15 +35,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5978765, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5978765, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 25.1,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Ragged Falls"
@@ -57,15 +57,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5978765, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5978765, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 0,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Huntsville"
@@ -79,15 +79,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5978765, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5978765, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 17.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Solitaire Lake Trail",
@@ -109,6 +109,22 @@
       "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-on-united-townships-of-dysart-dudley-harcourt-guilford-harburn-bruton-havelock-eyre-and-clyde",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 13680011, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 42,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Track and Tower Trail",
       "route_is_attraction": true,
       "attraction_reason": "The draw is the open ledge over Cache Lake (the lookout; no tower exists). Create the lookout place and move the draw to it; until then the route carries it.",
@@ -128,12 +144,44 @@
       "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "ca-on-huntsville",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5978765, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 26.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Dorset lookout tower"
     },
     {
       "ref": "trip/algonquin-muskoka-2026/viewpoint:dwight beach sunset",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "near_town": {
+        "v": "ca-on-huntsville",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5978765, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 16,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Dwight Beach sunset"
     }
   ]

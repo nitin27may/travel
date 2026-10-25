@@ -106,15 +106,16 @@ describe('publicRelevance: routes take the draw from their payoff (CC-adapter 3)
 
 describe('publicRelevance: Nearby, worth adding', () => {
   it('lists a hand-picked pair first with its reason, and a pair with no point shows with no distance', () => {
-    let nullKm: ReturnType<typeof publicRelevance>['pairs'][number] | undefined;
-    for (const ref of ctx.derived.keys()) {
-      const hit = publicRelevance(ctx, ref).pairs.find((p) => p.km === null);
-      if (hit) {
-        nullKm = hit;
-        break;
-      }
-    }
-    expect(nullKm, 'the data holds a hand-picked pair with no point').toBeDefined();
+    // DATA-D1 gave every hand-picked pair a point, so the data no longer holds a pair with no distance. The rule is tested on a copy of one
+    // real item whose first hand-picked pair has its distance fields removed, which is what a pair with a missing point looks like to the page.
+    const ref = [...ctx.derived.entries()].find(([, it]) => (it.pair_with ?? []).some((p) => p.hand_picked === true && p.reason))?.[0];
+    expect(ref, 'the data holds an item with a hand-picked pair').toBeDefined();
+    const item = ctx.derived.get(ref!)!;
+    const target = item.pair_with!.find((p) => p.hand_picked === true && p.reason)!;
+    const stripped = { ...item, pair_with: item.pair_with!.map((p) => (p === target ? { ...p, km: undefined, extra_min: undefined, how: undefined } : p)) };
+    const ctx2 = { ...ctx, derived: new Map(ctx.derived).set(ref!, stripped as typeof item) };
+    const nullKm = publicRelevance(ctx2, ref!).pairs.find((p) => p.ref === target.ref);
+    expect(nullKm, 'the stripped pair is still listed').toBeDefined();
     expect(nullKm!.handPicked).toBe(true);
     expect(nullKm!.reason).toBeTruthy();
     expect(nullKm!.km).toBeNull();

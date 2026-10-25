@@ -71,15 +71,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 5.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Sulphur Mountain",
@@ -121,15 +121,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 3.3,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Sanson's Peak",
@@ -175,15 +175,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 3.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Sulphur Mountain summit boardwalk",
@@ -219,15 +219,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 3.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Sky Bistro",
@@ -267,15 +267,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 45.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Moraine Lake shuttle stop",
@@ -315,15 +315,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 45.7,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Moraine Lake Rockpile",
@@ -366,15 +366,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 45.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Moraine Lake Rockpile loop",
@@ -519,15 +519,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 48.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Sentinel Pass",
@@ -570,15 +570,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 48.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Larch Valley",
@@ -614,15 +614,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 20.6,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Johnston Canyon Lower Falls",
@@ -662,15 +662,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 20.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Johnston Canyon Upper Falls",
@@ -710,15 +710,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 21,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Ink Pots",
@@ -756,6 +756,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots-trail",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 20.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Ink Pots trail",
       "area_id": "CA/AB/banff-national-park",
       "passes": [
@@ -833,6 +849,22 @@
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base",
       "type": "access.start.meeting_point",
       "layer": "place",
+      "near_town": {
+        "v": "ca-bc-golden",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 22.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Wild Water Adventures River Base",
       "origin": {
         "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
@@ -865,8 +897,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Bow Lake day-use parking",
       "osm_ref": "relation/18335545",
@@ -896,15 +928,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 33.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Emerald Lake parking",
@@ -934,15 +966,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 32.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Maligne Lake parking",
@@ -972,15 +1004,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 21.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Mount Lorette Ponds parking",
@@ -1010,15 +1042,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 4.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Pyramid Lake parking",
@@ -1048,15 +1080,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 27.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Wedge Pond parking",
@@ -1086,15 +1118,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 9.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lake Minnewanka parking",
@@ -1125,8 +1157,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Lake Louise Lakeshore parking",
       "osm_ref": "way/26752321",
@@ -1227,8 +1259,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Lake Louise Lakeshore shuttle stop",
       "area_id": "CA/AB/banff-national-park",

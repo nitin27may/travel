@@ -26,8 +26,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Jökulsárlón parking",
       "osm_ref": "way/298932452",
