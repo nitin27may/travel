@@ -1,7 +1,7 @@
 {
   "schema": "snapshot-report/1",
   "note": "Dropped from the public view because it carries a calendar date. Rewrite each as a season, a day number or a rule.",
-  "count": 236,
+  "count": 231,
   "items": [
     {
       "where": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre wikidata note",
@@ -1006,31 +1006,6 @@
     {
       "where": "trip canadian-rockies-2029 day 9 track A notes",
       "text": "Fair with deadfall and snow at high elevation on 5 Oct 2026.",
-      "why": "carries a calendar date; rewrite it relative to a day or a season"
-    },
-    {
-      "where": "trip canadian-rockies-2029 weather note",
-      "text": "Larch gold peaks about 20 Sep to 5 Oct",
-      "why": "carries a calendar date; rewrite it relative to a day or a season"
-    },
-    {
-      "where": "trip chamonix-mont-blanc-2028 season reason",
-      "text": "Brevent and Planpraz lifts close about 13 September.",
-      "why": "carries a calendar date; rewrite it relative to a day or a season"
-    },
-    {
-      "where": "trip chamonix-mont-blanc-2028 weather note",
-      "text": "Huts close about 20 September",
-      "why": "carries a calendar date; rewrite it relative to a day or a season"
-    },
-    {
-      "where": "trip iceland-ring-road-2027 season label",
-      "text": "4 to 22 September",
-      "why": "carries a calendar date; rewrite it relative to a day or a season"
-    },
-    {
-      "where": "trip iceland-ring-road-2027 season reason",
-      "text": "Dark enough for aurora from early September, while most campsites stay open until about 15 September.",
       "why": "carries a calendar date; rewrite it relative to a day or a season"
     },
     {
