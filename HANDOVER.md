@@ -51,14 +51,7 @@ Everything below the line is dated history; verify it against `git log` first.**
    (a Vercel preview, after R-61), or give the script an HTTPS local origin, or a test-only build flag reviewed as a
    security change. Do not loosen the guard to make a test pass. Five synthetic `e2e+...@travel-e2e.invalid` users
    were created in production Neon Auth during the attempt; they own no drafts.
-3. **R-61 Vercel (BACKLOG 15.50): not started.** Create the project (root
-   directory `web`, pnpm workspace, Node >= 22), owner enters encrypted env vars
-   (`DATABASE_URL`, `NEON_AUTH_BASE_URL`, `NEON_AUTH_COOKIE_SECRET`,
-   `NEON_REALTIME_URL`, `NEON_REALTIME_SECRET`, `NEXT_PUBLIC_SIGN_IN`,
-   `SITE_ORIGIN`, Google Maps keys and map families), add the Vercel domain to the
-   Neon Auth and Realtime trusted origins, deploy a preview, verify sign-in,
-   drafts and live updates, then production only after owner approval of a named
-   commit (Q43). Plan: [EXECUTION-PLAN 13.2](docs/v2/build/public-site/EXECUTION-PLAN.md).
+3. **R-61 Vercel (BACKLOG 15.50): project created 25 Oct, env vars and deploy pending.** Project `travel` (`prj_h6vEEPn5fQ8JQSBp2SfSKvyTqrhy`, team `nitin27mays-projects`), linked locally (`.vercel/`, ignored). Set: framework Next.js, root directory `web`, files outside the root included (for `core`), Node 22.x, build command `pnpm run build`. No git connection, no env vars, no deployment. Owner still enters encrypted env vars (`DATABASE_URL`, `NEON_AUTH_BASE_URL`, `NEON_AUTH_COOKIE_SECRET`, `NEON_REALTIME_URL`, `NEON_REALTIME_SECRET`, `NEXT_PUBLIC_SIGN_IN=1`, `SITE_ORIGIN`, Google Maps keys and map families, `ORS_API_KEY` if needed at build), adds the Vercel domain to the Neon Auth and Realtime trusted origins, then a preview deploy is verified (this also unblocks item 2, which needs an HTTPS origin). Production only after owner approval of a named commit (Q43). Risk: `web/.og-cache` is git-ignored, so a Vercel build re-fetches Commons photos one at a time (slow, 429 risk); check the first build. Plan: [EXECUTION-PLAN 13.2](docs/v2/build/public-site/EXECUTION-PLAN.md).
 4. **Data layer not cut over.** The public catalogue still serves from `JsonStore`.
    No `PostgresStore`, catalogue loader run, parity tests or cutover.
 5. **Owner security decision pending.** `planner_draft_signal` (migration 0010) is
