@@ -99,7 +99,7 @@ The `trip` skill wraps this job. Step 7 writes the trip file and schedule (`data
 1. One runner for the whole machine; never from parallel agents. Contract: [method/lanes/media.md](method/lanes/media.md).
 2. Trip galleries are data: `tools/gallery/gallery_find.py`, look at the contact sheet, `gallery_pick.py`, then `gallery.py verify` ([tools.md](tools.md#photos)). `inject` is frozen with the legacy pages.
 3. Credits for the new site: `web/scripts/fetch-photo-credits.mjs`; Wikidata images for the globe: `web/scripts/globe-images.mjs`.
-4. Wikimedia Commons only, credited with author and licence, linked to the file page.
+4. Sources, in order (owner, 25 Oct 2026; spec [DATA-LOC.md](../docs/v2/build/public-site/briefs/DATA-LOC.md) section 4): Wikimedia Commons, Openverse, Flickr (CC0, CC BY, CC BY-SA, no known copyright restrictions), Geograph, public-domain agency media (NPS, Parks Canada pages that state an open licence), Unsplash and Pexels (their own licence, recorded as such), the owner's photos. Every photo is credited with author and licence and linked to its file page. Never take a file only because it is publicly visible: all rights reserved and no-derivatives files are out. One runner, one request at a time, for every service.
 
 ### 3f. The pre-trip conditions check
 
