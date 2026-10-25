@@ -209,7 +209,7 @@
       "lat": 49.0094,
       "lon": -114.051,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q3214786 P625 (Cameron Lake); OSM way 588314114 Cameron Lake centroid is 48.99837,-114.0539, 1.2 km away, so the two disagree and Wikidata is kept for the lake point; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q3214786 P625 (Cameron Lake); OSM relation 8299848 Cameron Lake (natural=water, the Canadian lake) has its centre at 49.0092,-114.05106, 25 m away, so the two agree. The D1 conflict compared Wikidata with OSM way 588314114, an NHD polygon of the small part south of the border; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre": {
       "lat": 51.0925,
@@ -515,7 +515,7 @@
       "lat": 51.17381,
       "lon": -115.65467,
       "coord_src": "osm",
-      "point_source": "OSM node 508583984 Cory Pass Trail Parking on Hwy 1A (legacy trailhead: Fireside picnic area; the lot's name and the legacy name were not shown to be the same place); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM node 508583984 Cory Pass Trail Parking, at the end of an unpaved access road (ways 32092152, 32093536) off Highway 1A by its east end; the Cory Pass Trail way 24831440 starts 23 m from it. The legacy name 'Fireside picnic area' is the same place: Parks Canada's Bow Valley Parkway page names Fireside Day-use Area at the parkway's east end, and hiking guides describe the Cory Pass start as the Fireside lot about 1 km up an access road from Highway 1A, with the trail across the creek (no official page with the trailhead wording was read); read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/crypt-lake": {
       "lat": 49.03112,
@@ -1349,7 +1349,7 @@
       "lat": 38.3108,
       "lon": -109.85661,
       "coord_src": "osm",
-      "point_source": "OSM node 6806471755 Grand View Trail Trailhead (highway=trailhead), at the road end; Wikidata Q62073199 P625 38.32221,-109.84901 sits 1.4 km north-east and does not agree, so OSM wins; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM node 6806471755 Grand View Trail Trailhead (highway=trailhead) at the road end, beside the Grand View Point Parking (relation 15336057); NPS https://www.nps.gov/places/grand-view-point.htm puts the overlook and trailhead at the southernmost end of the scenic drive, so OSM wins; Wikidata Q62073199 P625 38.32221,-109.84901 (from GNIS) is 1.4 km north-east and is the conflicting value; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "place/adolf-munkel-weg": {
       "lat": 46.63567,
@@ -2072,10 +2072,10 @@
       "point_source": "Q129470 P625"
     },
     "trip/utah-five-parks/viewpoint:grand view point": {
-      "lat": 38.32221,
-      "lon": -109.84901,
-      "coord_src": "wikidata",
-      "point_source": "Q62073199 P625"
+      "lat": 38.31015,
+      "lon": -109.85677,
+      "coord_src": "osm",
+      "point_source": "OSM node 6806471756 Grand View Point Overlook (tourism=viewpoint) at the road end; NPS https://www.nps.gov/places/grand-view-point.htm: 'Grand View Point lies at the southernmost end of the Island in the Sky scenic drive'. Wikidata Q62073199 P625 38.32221,-109.84901 (from GNIS 1435608) lies 1.4 km north-east on another pull-out (parking ways 1190800607 and 1239515667) and is kept as the conflicting value; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "trip/utah-five-parks/viewpoint:sunset point": {
       "lat": 37.62276,

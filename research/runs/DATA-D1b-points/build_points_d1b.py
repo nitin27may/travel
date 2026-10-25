@@ -185,6 +185,17 @@ def step6():
         "OSM node 6806471756 Grand View Point Overlook (tourism=viewpoint) at the road end; NPS https://www.nps.gov/places/grand-view-point.htm: 'Grand View "
         "Point lies at the southernmost end of the Island in the Sky scenic drive'. Wikidata Q62073199 P625 38.32221,-109.84901 (from GNIS 1435608) lies "
         "1.4 km north-east on another pull-out (parking ways 1190800607 and 1239515667) and is kept as the conflicting value")
+    must_exist("part/trip/utah-five-parks/viewpoint:grand view point#walk")
+    put("part/trip/utah-five-parks/viewpoint:grand view point#walk", 38.3108, -109.85661, "osm", "trailhead",
+        "OSM node 6806471755 Grand View Trail Trailhead (highway=trailhead) at the road end, beside the Grand View Point Parking (relation 15336057); NPS "
+        "https://www.nps.gov/places/grand-view-point.htm puts the overlook and trailhead at the southernmost end of the scenic drive, so OSM wins; "
+        "Wikidata Q62073199 P625 38.32221,-109.84901 (from GNIS) is 1.4 km north-east and is the conflicting value")
+    must_exist(R + "trails/cory-pass-loop")
+    put(R + "trails/cory-pass-loop", 51.17381, -115.65467, "osm", "parking",
+        "OSM node 508583984 Cory Pass Trail Parking, at the end of an unpaved access road (ways 32092152, 32093536) off Highway 1A by its east end; the "
+        "Cory Pass Trail way 24831440 starts 23 m from it. The legacy name 'Fireside picnic area' is the same place: Parks Canada's Bow Valley Parkway page "
+        "names Fireside Day-use Area at the parkway's east end, and hiking guides describe the Cory Pass start as the Fireside lot about 1 km up an access "
+        "road from Highway 1A, with the trail across the creek (no official page with the trailhead wording was read)")
 
 
 def step7():
@@ -193,7 +204,7 @@ def step7():
     put(R + "trails/upper-kananaskis-lake-loop", 50.631545, -115.139913, "official", "trailhead",
         "Alberta Parks trail report Upper Lake https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/upper-lake/ "
         "(its map's trailhead point 'North Interlakes', Day Use; the other is 'Upper Lake' at 50.612362,-115.117752); OSM node 269821248 North Interlakes "
-        "(amenity=parking) is 5 m away. The D1 point, OSM node 269822623 Upper Lake Circuit Junction, is a trail junction 780 m west")
+        "(amenity=parking) is 5 m away. The D1 point, OSM node 269822623 Upper Lake Circuit Junction, is a trail junction 770 m west")
 
 
 STEPS = {"1": step1, "2": step2, "4": step4, "6": step6, "7": step7}

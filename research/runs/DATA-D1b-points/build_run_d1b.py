@@ -73,8 +73,10 @@ if "6" in STEPS:
     filled(R + "sights/cameron-lake", "wikidata:Q3214786", WD, "no conflict: OSM relation 8299848 agrees within 25 m; D1 compared an NHD fragment")
     filled("trip/utah-five-parks/viewpoint:grand view point", "osm:node/6806471756", OV,
            "conflict kept: Wikidata Q62073199 P625 is 1.4 km north-east; NPS puts the point at the road end", outcome="conflict")
+    filled("part/trip/utah-five-parks/viewpoint:grand view point#walk", "osm:node/6806471755", OV, "ruling: OSM wins, NPS confirms the road end", outcome="conflict")
+    filled(R + "trails/cory-pass-loop", "osm:node/508583984", OV, "ruling: the OSM lot is the legacy 'Fireside picnic area' (community guides; no official wording read)")
 if "7" in STEPS:
-    filled(R + "trails/upper-kananaskis-lake-loop", "albertaparks:upper-lake", "", "person-check sample: the D1 point was a trail junction 780 m from the official trailhead")
+    filled(R + "trails/upper-kananaskis-lake-loop", "albertaparks:upper-lake", "", "person-check sample: the D1 point was a trail junction 770 m from the official trailhead")
 
 for r in res:
     if not r.get("host"):

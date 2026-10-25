@@ -9,10 +9,12 @@
       "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling",
       "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
       "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
+      "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
       "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
       "legacy/canadian-rockies-sept-2029/trails/bears-hump",
       "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
       "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+      "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
       "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
       "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
       "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
@@ -27,6 +29,7 @@
       "part/place/lago-di-braies#walk",
       "part/place/rafting-on-the-rienza#place",
       "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+      "part/trip/utah-five-parks/viewpoint:grand view point#walk",
       "place/cascate-di-fanes",
       "trip/chamonix-mont-blanc-2028/lake:lac du chatelard",
       "trip/chamonix-mont-blanc-2028/town:chamonix market",
@@ -40,6 +43,7 @@
       "trip/patagonia-2027/trail:laguna esmeralda",
       "trip/utah-five-parks/trail:pa rus trail",
       "trip/utah-five-parks/trail:windows section",
+      "trip/utah-five-parks/viewpoint:grand view point",
       "trip/vermont-fall-2026/trail:stowe recreation path"
     ]
   },
@@ -465,6 +469,38 @@
       "host": "overpass-api.de",
       "src": "osm:node/470623991",
       "reason": "official start: the park information point; beats the snapshot trailhead at Pian de Loa"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
+      "field": "point",
+      "outcome": "filled",
+      "host": "www.wikidata.org",
+      "src": "wikidata:Q3214786",
+      "reason": "no conflict: OSM relation 8299848 agrees within 25 m; D1 compared an NHD fragment"
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:grand view point",
+      "field": "point",
+      "outcome": "conflict",
+      "host": "overpass-api.de",
+      "src": "osm:node/6806471756",
+      "reason": "conflict kept: Wikidata Q62073199 P625 is 1.4 km north-east; NPS puts the point at the road end"
+    },
+    {
+      "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+      "field": "point",
+      "outcome": "conflict",
+      "host": "overpass-api.de",
+      "src": "osm:node/6806471755",
+      "reason": "ruling: OSM wins, NPS confirms the road end"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:node/508583984",
+      "reason": "ruling: the OSM lot is the legacy 'Fireside picnic area' (community guides; no official wording read)"
     }
   ]
 }

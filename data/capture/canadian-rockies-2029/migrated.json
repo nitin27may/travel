@@ -5320,6 +5320,14 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
       "name": "Cameron Lake"
     },
     {

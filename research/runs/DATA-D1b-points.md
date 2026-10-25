@@ -153,9 +153,28 @@ falls node).
 | D1 question | Result | Source (read 25 Oct) |
 |---|---|---|
 | 1. Dettifoss: which car park, and a trailhead node? | **Answered.** The park's D1 trail starts at the "car park west of Dettifoss", 1 km to the viewpoint; that car park is OSM way 1531241656 (toilets node 6646954959 beside it). The walk row now holds it; no separate trailhead node is needed | vatnajokulsthjodgardur.is `.../jokulsargljufur/dettifoss-d1` and `.../dettifoss` |
-| 2. Mount Indefatigable: is the route open? | **Open question.** No official page states it. OSM node 3762652045 is tagged "Indefatigable Trail Decomissioned 2005"; the Alberta Parks Peter Lougheed trail-report index lists 27 trails and no Indefatigable; Wikipedia and trip reports say it was decommissioned in 2005 for grizzly habitat and is discouraged. The row's point (North Interlakes lot, node 269821248) is right: it is 5 m from the official North Interlakes trailhead point | albertaparks.ca trail reports, Peter Lougheed index |
+| 2. Mount Indefatigable: is the route open? | **Open question.** No official page states it. OSM node 3762652045 is tagged "Indefatigable Trail Decomissioned 2005"; the Alberta Parks Peter Lougheed trail-report index lists 28 trails and no Indefatigable; Wikipedia and trip reports say it was decommissioned in 2005 for grizzly habitat and is discouraged. The row's point (North Interlakes lot, node 269821248) is right: it is 5 m from the official North Interlakes trailhead point | albertaparks.ca trail reports, Peter Lougheed index |
 | 3. Kicking Horse and Kananaskis put-ins | **Open question** for both. Wild Water's Gentle page says guests meet at the River Base and ride a bus to a put-in "inside the Yoho National Park boundary", no place named. Chinook Rafting's FAQ names only the meeting point, Chinook Rafting Riverbase on Highway 1X, which OSM maps as way 1302746691 (51.13811,-115.05127); the Kananaskis offer has no meeting-point part to hold it (lane D4a) | wildwater.com/kicking-horse-rafting-trips/gentle/, chinookrafting.com/faqs/ |
 | 4. Rienza rafting station | **Partly answered.** The operator's contact page: "Meeting point Rienz / Eisack: Sports zone St. Sigmund". OSM maps the St. Sigmund sports ground (pitches 42881996, 1134655979, 1134655980); the row moved there from the village node, 800 m east, and is no longer approx. The exact spot in the zone stays a question | rafting-club-activ.com/en/contact/ |
 | 5. Lillian Lake and Burstall Pass trailheads | **Answered.** The Alberta Parks trail-report maps carry official trailhead points: Galatea day use 50.861178,-115.176195 (Lillian Lake now uses it) and Burstall Pass day use 50.790503,-115.303701 (the D1 OSM lot is 30 m from it) | albertaparks.ca trail reports Galatea Creek, Burstall Pass |
 
 The open ones are added to `research/method/operator-questions-2026-10-18.md` under "Added by lane DATA-D1b".
+
+## Step 6: final rulings on the three source conflicts (read 25 Oct)
+
+1. **Grand View Point (Canyonlands).** OSM wins, and the conflict reaches further than the walk. NPS
+   (https://www.nps.gov/places/grand-view-point.htm): "Grand View Point lies at the southernmost end of the Island in the Sky
+   scenic drive". At the road end OSM maps the Grand View Point Overlook (node 6806471756), the trailhead (node 6806471755) and
+   the parking (relation 15336057). Wikidata Q62073199 (P625 from GNIS 1435608) sits 1.4 km north-east on two unnamed pull-outs.
+   Ruling: the walk keeps the OSM trailhead; **the viewpoint record `trip/utah-five-parks/viewpoint:grand view point` also moves
+   to the OSM overlook** (it read the Wikidata point from `data/relevance/inputs/points.json`); the Wikidata value is the
+   conflicting value in both `point_source` rows. A Wikidata edit is a person's job, not ours.
+2. **Cameron Lake (Waterton).** No real conflict. D1 compared Wikidata Q3214786 with OSM way 588314114, which is an NHD polygon of
+   the small US part of the lake (latitudes 48.9975 to 48.9989). The lake itself is OSM relation 8299848 (`wikidata=Q3214786`),
+   centre 49.00920,-114.05106, 25 m from the Wikidata point. Ruling: Wikidata kept, the OSM relation agrees, approx lifted.
+3. **Cory Pass.** The OSM lot and the legacy "Fireside picnic area" are the same place. OSM node 508583984 Cory Pass Trail
+   Parking sits at the end of an unpaved access road off Highway 1A by its east end, and the Cory Pass Trail way starts 23 m from
+   it. Parks Canada's Bow Valley Parkway page names Fireside Day-use Area at that end of the parkway. Hiking guides (thebanffblog,
+   hikebiketravel, 10adventures, read as search results only) describe the start as the Fireside lot about 1 km up an access road
+   from Highway 1A, with the trail across the creek. Ruling: the OSM point stands, with role `parking`. No official page gives the
+   trailhead wording (the Banff day-hikes table is built in the browser: GAP in step 2).
