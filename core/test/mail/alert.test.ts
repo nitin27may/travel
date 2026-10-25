@@ -34,6 +34,7 @@ const events: AlertEvent[] = [
   { kind: "auth-sender-refused", status: 429, refusedToday: 1 },
   { kind: "auth-send-failures", failures: 3 },
   { kind: "auth-global-cap", limit: 30, window: "day" },
+  { kind: "auth-revoke-failed", failures: 1 },
 ];
 
 describe("renderAlert", () => {
@@ -43,7 +44,7 @@ describe("renderAlert", () => {
     expect(r!.subject.length).toBeLessThanOrEqual(SUBJECT_MAX);
     expect(r!.subject).toMatch(/^\[Trip Plans alert\] /);
     expect(r!.text).not.toMatch(/<[a-z]/i);
-    expect(r!.text).toContain("quota stats");
+    expect(r!.text).toContain("node core/bin/quota.ts stats");
   });
 
   it("refuses fields that are not whole numbers, so no string can ride in a count", () => {

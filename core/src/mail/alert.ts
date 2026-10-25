@@ -15,7 +15,9 @@ export type AlertEvent =
   /** Code sends failed (Neon refused, or never answered) this many times in the current hour. */
   | { kind: "auth-send-failures"; failures: number }
   /** Our own global cap on code sends was reached. */
-  | { kind: "auth-global-cap"; limit: number; window: "hour" | "day" };
+  | { kind: "auth-global-cap"; limit: number; window: "hour" | "day" }
+  /** A password was reset by code but the sessions from before the reset could not be revoked. */
+  | { kind: "auth-revoke-failed"; failures: number };
 
 export type AlertKind = AlertEvent["kind"];
 
@@ -24,6 +26,7 @@ export const ALERT_WINDOW_S: Readonly<Record<AlertKind, number>> = {
   "auth-sender-refused": DAY_S,
   "auth-send-failures": HOUR_S,
   "auth-global-cap": DAY_S,
+  "auth-revoke-failed": HOUR_S,
 };
 
 export type BudgetClaim = { allowed: true; firstToday: boolean; droppedYesterday: number } | { allowed: false; reason: "duplicate" | "cap" };
@@ -80,6 +83,14 @@ export function renderAlert(event: AlertEvent, droppedYesterday = 0): { subject:
         "This is usually a bot that passed Turnstile. People can still sign in with a password or Google.",
       ];
       break;
+    case "auth-revoke-failed":
+      if (!whole(event.failures)) return null;
+      title = "Sessions not revoked after a reset";
+      lines = [
+        `A password was reset by code, but the sessions from before the reset could not be signed out (${event.failures} this hour).`,
+        "Those devices stay signed in until their session expires. Check the database connection and the guard logs (event revoke_failed).",
+      ];
+      break;
     default:
       return null;
   }
@@ -90,7 +101,7 @@ export function renderAlert(event: AlertEvent, droppedYesterday = 0): { subject:
     ...lines,
     "",
     ...dropped,
-    "Counts: run the quota stats command.",
+    "Counts: node core/bin/quota.ts stats",
     "",
     "Sent by the Trip Plans auth guard. Alerts carry counts only, never a visitor's address or text.",
     "",
