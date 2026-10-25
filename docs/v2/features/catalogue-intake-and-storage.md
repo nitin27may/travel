@@ -408,9 +408,9 @@ the row. RIS-J converts the 185 rows and keeps every pre-migration ledger leaf (
 
 ### 4.3 What must be built for the load (SRV-0, not built today)
 
-1. **A migration, numbered at build time.** 0011 is reserved by CUS-C and 0012 and 0013 are expected for favourites and
-   feedback, so this is 0014 or later; the runner refuses an out-of-order file, so take the next free number when RIS-M
-   runs. Additive only: `meta jsonb not null default '{}'` with its checks on the 27 tables of 3.3 (`track.meta` gets the
+1. **A migration, numbered at build time.** 0011 is taken by EML-1 (`quota`); migration numbers are assigned at merge (the customisation, favourites and
+   feedback migrations take numbers in merge order, so take the next free number when RIS-M runs; the runner refuses an
+   out-of-order file). Additive only: `meta jsonb not null default '{}'` with its checks on the 27 tables of 3.3 (`track.meta` gets the
    checks); `notes_private text` on `entity`, `offer`, `operator`; `track.attrs jsonb`; `record_doc.family` widened to
    `capture`, `suitability`, `relevance`, `trip-windows`, `trip-base-plans`, `trip-season`, `capture-splits`; a new
    `load_run` table (`id`, `started_at`, `finished_at`, `git_commit`, `files jsonb` path to sha256, `counts jsonb`, `status`,

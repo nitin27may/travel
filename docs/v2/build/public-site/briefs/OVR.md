@@ -27,7 +27,7 @@ Written 25 Oct 2026 by travel-planner (Opus). Spec: [features/trip-overview-and-
 | OVR-3 | Thumbnails: `pickPhotos(ref)` in core, rows and expanded timeline entries, credits list, placeholder | `travel-builder` | Sonnet | 4 h | OVR-2; D5b partly merged |
 | OVR-R | Design review of OVR-1 to OVR-3 | `travel-design-reviewer` | Opus | 3 h | each part |
 | OVR-V | Independent verification | `travel-verifier` | Sonnet | 3 h | review |
-| CUS-C | Migration 0011 (`planner_draft` columns), Zod `trip-custom/1`, account route contract, scheduler `removeItem` contract, RLS and isolation tests | `travel-builder` | Opus (privacy, shared contract) | 6 h | phase 1 preview; R-61 |
+| CUS-C | Migration `custom-draft` (`planner_draft` columns; number assigned at merge), Zod `trip-custom/1`, account route contract, scheduler `removeItem` contract, RLS and isolation tests | `travel-builder` | Opus (privacy, shared contract) | 6 h | phase 1 preview; R-61 |
 | CUS-1 | Customise flow, `/t/<id>/`, add, remove, move, Maybe, nearby scope actions, undo, autosave with revision | `travel-builder` | Sonnet | 20 h | CUS-C |
 | CUS-2 | Real-service E2E on the Vercel HTTPS preview (sign in, customise, reload, isolation) | `travel-verifier` | Sonnet | 3 h | CUS-1; R-61 preview |
 | CUS-R | Design review and privacy audit | `travel-design-reviewer` | Opus | 3 h | CUS-1 |
@@ -147,7 +147,7 @@ test), `planner_draft_signal` (content-free; no content may be added), the root 
 
 ### Steps
 
-1. **CUS-C (Opus).** Migration 0011 adds `source_trip`, `source_revision`, `doc jsonb`, `revision int` to `planner_draft`
+1. **CUS-C (Opus).** Migration `custom-draft` (number assigned at merge) adds `source_trip`, `source_revision`, `doc jsonb`, `revision int` to `planner_draft`
    under the existing owner-predicate policies; run locally and on the child branch `srv-migrate-verify`, never on the
    production branch without the owner. Zod `trip-custom/1` (spec 5.6) with a 64 KB cap. Account route contract: `GET`,
    `PATCH` with `If-Match: <revision>` (409 on a stale revision), same-origin guard unchanged. Scheduler `removeItem(day,

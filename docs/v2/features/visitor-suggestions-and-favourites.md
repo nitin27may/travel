@@ -435,7 +435,7 @@ re-derives the point from an allowed source (research README section 9: never fr
 
 ### 8.1 Proposed migrations (descriptions, not SQL files)
 
-Numbering: 0011 is reserved by the customisation spec (CUS-C). These take the next free numbers at build time
+Numbering: 0011 is taken by EML-1 (`quota`); numbers are assigned at merge. These take the next free numbers at build time
 (expected 0012 and 0013). The runner refuses an out-of-order insert, so whichever lands second renumbers before it is
 applied anywhere.
 
@@ -758,7 +758,7 @@ ruling does not block favourites because they use no Realtime.
 - **Vercel preview URLs change per deploy**; a Turnstile widget holds 10 hostnames. Use the stable branch alias or the
   test keys on previews.
 - **Vercel Cron calls with GET.** Do not add a purge cron; retention runs inside the definer functions and the CLI.
-- **Migration numbers.** 0011 is reserved by CUS-C; the runner refuses out-of-order files. Renumber before applying,
+- **Migration numbers.** 0011 is taken by EML-1 (`quota`); numbers are assigned at merge and the runner refuses out-of-order files. Renumber before applying,
   never after.
 - **`reportInput` says no personal data is kept.** When REP-1 stores reports, the stored free text is personal data
   under the same retention and redaction rules; update that comment.
