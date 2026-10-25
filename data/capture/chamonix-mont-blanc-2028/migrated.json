@@ -294,6 +294,22 @@
       "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
       "type": "settlement.town",
       "layer": "place",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Chamonix market"
     },
     {
@@ -487,6 +503,22 @@
       "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "fr-ara-chamonix-mont-blanc",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3027301, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 2.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Plan de l'Aiguille",
       "route_is_attraction": true,
       "attraction_reason": "A balcony path under the Aiguilles: the traverse itself is the experience.",

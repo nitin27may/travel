@@ -38,10 +38,10 @@ if "1" in STEPS:
 if "2" in STEPS:
     for ref, src, why in [
         (R + "adventures/sulphur-mountain-trail", "osm:way/24306334", "approx lifted: the tourism board names the Upper Hot Springs parking area"),
-        (R + "trails/bears-hump", "osm:node/1814165734", "the D1 point was 1.2 km off; Parks Canada: across the Entrance Road from the Prince of Wales access road"),
+        (R + "trails/bears-hump", "osm:node/1814165734", "the D1 point was 1.1 km off; Parks Canada: across the Entrance Road from the Prince of Wales access road"),
         (R + "trails/cavell-meadows", "osm:relation/20689592", "Parks Canada: the end of the Cavell Road"),
         (R + "trails/crypt-lake", "osm:way/185604526", "Parks Canada: the trailhead at Crypt Landing"),
-        (R + "trails/elk-lakes-lower-upper", "osm:way/102439897", "the D1 point was 3 km off; BC Parks names the trailhead parking lot"),
+        (R + "trails/elk-lakes-lower-upper", "osm:way/102439897", "the D1 point was 4.6 km off; BC Parks names the trailhead parking lot"),
         (R + "trails/elk-lakes-viewpoint", "osm:way/102439897", "same trailhead"),
         (R + "trails/johnson-lake-loop", "osm:way/1180102518", "official trailhead wording not read (the Parks Canada table is built in the browser)"),
         (R + "trails/lillian-lake", "albertaparks:galatea-creek", "official point from the Alberta Parks trail report map"),

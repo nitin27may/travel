@@ -74,7 +74,7 @@
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": 518,
+      "detour_min": 534,
       "detour_basis": "town",
       "detour_town": "Calgary",
       "from_hubs": {},
@@ -99,7 +99,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 518 min is over 30"
+          "reason": "detour 534 min is over 30"
         }
       },
       "role": "local_only",

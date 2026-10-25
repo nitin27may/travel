@@ -84,7 +84,7 @@
         },
         {
           "ref": "trip/utah-five-parks/trail:pa rus trail",
-          "km": 8
+          "km": 8.3
         }
       ],
       "part_of": [],
@@ -130,7 +130,7 @@
         "near": [
           {
             "ref": "trip/utah-five-parks/trail:riverside walk",
-            "km": 10.4,
+            "km": 10.6,
             "draw": "regional",
             "standing": "good",
             "access_cost": [
@@ -142,7 +142,7 @@
         "area": [
           {
             "ref": "trip/utah-five-parks/trail:riverside walk",
-            "km": 10.4,
+            "km": 10.6,
             "draw": "regional",
             "standing": "good",
             "access_cost": [
@@ -154,7 +154,7 @@
       },
       "far_pointer": {
         "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
-        "km": 8,
+        "km": 8.3,
         "draw": "national",
         "same_class": false
       },
@@ -162,11 +162,11 @@
       "pair_pending": [
         {
           "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
-          "km": 8
+          "km": 8.3
         },
         {
           "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
-          "km": 11.9
+          "km": 12.2
         }
       ],
       "part_of": [],
@@ -212,7 +212,7 @@
         "near": [
           {
             "ref": "trip/utah-five-parks/trail:pa rus trail",
-            "km": 10.4,
+            "km": 10.6,
             "draw": "local",
             "standing": "good",
             "access_cost": [],
@@ -222,7 +222,7 @@
         "area": [
           {
             "ref": "trip/utah-five-parks/trail:pa rus trail",
-            "km": 10.4,
+            "km": 10.6,
             "draw": "local",
             "standing": "good",
             "access_cost": [],
@@ -312,7 +312,7 @@
         },
         {
           "ref": "trip/utah-five-parks/trail:pa rus trail",
-          "km": 6.4
+          "km": 6.6
         }
       ],
       "part_of": [],

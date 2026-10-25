@@ -197,7 +197,7 @@
       "pair_with": [
         {
           "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "km": 2.7,
+          "km": 2.5,
           "how": "drive",
           "extra_min": 150,
           "on_site_min": 150,
@@ -499,7 +499,7 @@
         "near": [
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
-            "km": 0,
+            "km": 0.4,
             "draw": "local",
             "standing": "good",
             "access_cost": [],
@@ -525,7 +525,7 @@
         "area": [
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
-            "km": 0,
+            "km": 0.4,
             "draw": "local",
             "standing": "good",
             "access_cost": [],
@@ -619,7 +619,7 @@
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": 6,
+      "detour_min": 4,
       "detour_basis": "town",
       "detour_town": "Les Praz",
       "from_hubs": {},
@@ -627,7 +627,7 @@
         "near": [
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-            "km": 0,
+            "km": 0.4,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
@@ -635,7 +635,7 @@
           },
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
-            "km": 2.3,
+            "km": 1.9,
             "draw": "local",
             "standing": "good",
             "access_cost": [],
@@ -643,7 +643,7 @@
           },
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
-            "km": 13.4,
+            "km": 13.1,
             "draw": "local",
             "standing": "good",
             "access_cost": [],
@@ -653,7 +653,7 @@
         "area": [
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-            "km": 0,
+            "km": 0.4,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
@@ -661,7 +661,7 @@
           },
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
-            "km": 2.3,
+            "km": 1.9,
             "draw": "local",
             "standing": "good",
             "access_cost": [],
@@ -669,7 +669,7 @@
           },
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
-            "km": 13.4,
+            "km": 13.1,
             "draw": "local",
             "standing": "good",
             "access_cost": [],
@@ -679,16 +679,16 @@
       },
       "far_pointer": {
         "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-        "km": 0,
+        "km": 0.4,
         "draw": "national",
         "same_class": true
       },
       "pair_with": [
         {
           "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "km": 0.5,
+          "km": 0.4,
           "how": "walk",
-          "extra_min": 105,
+          "extra_min": 101,
           "on_site_min": 90,
           "on_site_estimated": true,
           "draw": "national",
@@ -699,23 +699,23 @@
       "pair_pending": [
         {
           "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
-          "km": 1.9
+          "km": 2.2
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
-          "km": 4.2
+          "km": 3.9
         },
         {
           "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-          "km": 5
+          "km": 5.2
         },
         {
           "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
-          "km": 6.9
+          "km": 6.5
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
-          "km": 6.9
+          "km": 6.5
         }
       ],
       "part_of": [],
@@ -768,7 +768,7 @@
           },
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
-            "km": 2.3,
+            "km": 1.9,
             "draw": "local",
             "standing": "good",
             "access_cost": [],
@@ -794,7 +794,7 @@
           },
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
-            "km": 2.3,
+            "km": 1.9,
             "draw": "local",
             "standing": "good",
             "access_cost": [],
@@ -901,7 +901,7 @@
           },
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
-            "km": 13.4,
+            "km": 13.1,
             "draw": "local",
             "standing": "good",
             "access_cost": [],
@@ -927,7 +927,7 @@
           },
           {
             "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
-            "km": 13.4,
+            "km": 13.1,
             "draw": "local",
             "standing": "good",
             "access_cost": [],
@@ -998,7 +998,7 @@
         "near": [
           {
             "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-            "km": 13.4,
+            "km": 13.7,
             "draw": "regional",
             "standing": "top",
             "access_cost": [
@@ -1011,7 +1011,7 @@
         "area": [
           {
             "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-            "km": 13.4,
+            "km": 13.7,
             "draw": "regional",
             "standing": "top",
             "access_cost": [
@@ -1154,7 +1154,7 @@
         "near": [
           {
             "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
-            "km": 13.4,
+            "km": 13.7,
             "draw": "regional",
             "standing": "good",
             "access_cost": [],
@@ -1164,7 +1164,7 @@
         "area": [
           {
             "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
-            "km": 13.4,
+            "km": 13.7,
             "draw": "regional",
             "standing": "good",
             "access_cost": [],
@@ -1174,14 +1174,14 @@
       },
       "far_pointer": {
         "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-        "km": 2.7,
+        "km": 2.5,
         "draw": "world",
         "same_class": false
       },
       "pair_with": [
         {
           "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "km": 2.3,
+          "km": 2.5,
           "how": "drive",
           "extra_min": 90,
           "on_site_min": 90,
@@ -1196,23 +1196,23 @@
       "pair_pending": [
         {
           "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-          "km": 2.7
+          "km": 2.5
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
-          "km": 3.3
+          "km": 3.2
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
-          "km": 3.8
+          "km": 4
         },
         {
           "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
-          "km": 8.8
+          "km": 9
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
-          "km": 8.8
+          "km": 9
         }
       ],
       "part_of": [],
@@ -1362,7 +1362,7 @@
       "pair_with": [
         {
           "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "km": 2.7,
+          "km": 2.5,
           "how": "drive",
           "extra_min": 150,
           "on_site_min": 150,

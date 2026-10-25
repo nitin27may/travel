@@ -50,3 +50,46 @@ holds as `trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks`. 
 stop from day 6, or, if the owner meant the ponds at the Col des Montets or Lac d'Emosson, mark
 `trip/chamonix-mont-blanc-2028/lake:lac du chatelard` `same_place_as` the record it meant. Until then it stays the one
 `W_PLACE_POINT`. (DECISIONS NEEDED 1.)
+
+## Step 2: the 41 approximate points
+
+Ranked by how much a wrong point hurts: trailheads and meeting points first (a family drives there), then route starts, then
+places, then area centres. 26 were replaced in this step and 2 more in steps 4 and 6 (Fanes payoff, Cameron Lake), so **28 of 41
+are now sourced single points and 13 stay approximate** with a note. Several D1 points were not just vague but at the wrong place: Bear's Hump (1.1 km), the two Elk Lakes trails (4.6 km), Lussier Hot Springs (2.9 km); the trail rows that held the destination lake instead of the trailhead (Lillian, Crypt, Capri) were 3.4 to 5.1 km from the start.
+
+| Rank | Record | Was (D1) | Now | Source of the location rule |
+|---|---|---|---|---|
+| 1 | Bear's Hump (trail) | townsite visitor centre | trail's first vertex at Highway 5, **1.1 km north** | Parks Canada walks page: across the Entrance Road from the Prince of Wales access road |
+| 2 | Elk Lakes, Lower and Upper; Elk Lakes viewpoint (trails) | park label node | the trailhead car park at the end of the Elk River FSR, **4.6 km north-east** | BC Parks Elk Lakes page (trailhead parking lot, 1 km to the nearest lake) |
+| 3 | Lillian Lake (trail) | the lake | Galatea day use, **official point** from the Alberta Parks map (OSM lot 40 m away), 5.1 km east of the lake | Alberta Parks Galatea Creek trail report |
+| 4 | Crypt Lake (trail) | the lake | Crypt Landing (trail's lakeshore vertex), 5.1 km north-west | Parks Canada day hikes: trailhead at Crypt Landing |
+| 5 | Cavell Meadows (trail) | a trail way midpoint | upper lot at the end of Cavell Road | Parks Canada Cavell page: trailhead at the end of the Cavell Road |
+| 6 | Opal Hills (trail) | a loop way midpoint | the loop's start at the north-east corner of the upper lots | Parks Canada Maligne page |
+| 7 | Skyline Trail | viewpoint label | where the trail leaves the Bald Hills track by the big lot | Parks Canada Maligne page |
+| 8 | Red Rock Canyon loop (trail) | a loop way | the upper lot | Parks Canada walks page: upper parking lot |
+| 9 | Tent Ridge Horseshoe (trail) | a track midpoint | the track's end on Mount Shark Road | OSM only (no official page); in the person-check queue |
+| 10 | Sulphur Mountain trail | (same lot) | approx lifted | Banff & Lake Louise Tourism: Upper Hot Springs parking area |
+| 11 | Johnson Lake loop | the lake | the car park at the end of Johnson Lake Road | OSM; the official table could not be read by script (GAP below) |
+| 12 | Dettifoss walk | the falls (Wikidata) | the west car park, 1.3 km from the D1 point, 1 km walk to the viewpoint | Vatnajokull D1 page: starting point car park west of Dettifoss |
+| 13 | Arnarstapi to Hellnar | village centre | the Arnarstapi end of the **park's own GPX** (620 m from D1) | Snaefellsjokull trail 28 page and GPX |
+| 14 | Skaftafell Svartifoss | visitor centre | first point of the **park's own S2 GPX** (32 m) | Vatnajokull S2 page: starting point Skaftafellsstofa |
+| 15 | Fjadrargljufur | information board | the Parka car park at the canyon | OSM |
+| 16 | Laguna Capri | the lake | the Fitz Roy path trailhead | PNLG leaflet |
+| 17 | Coastal path (Senda Costera) | the bay node | the Ensenada Zaratiegui car park | Parques Nacionales trail page: "nace en el estacionamiento de Ensenada Zaratiegui" |
+| 18 | Pa'rus Trail | a mid vertex | the south end by the visitor centre | NPS Pa'rus page |
+| 19 | Stowe Recreation Path | a way centre | the village end | Town of Stowe page |
+| 20 | Plan de l'Aiguille walk | the area (Wikidata) | the cable car station | Chamonix tourism Grand Balcon Nord page |
+| 21 | Rafting on the Rienza (meeting) | St. Sigmund village node | the St. Sigmund sports ground, 800 m west | Rafting Club Activ contact page: Sports zone St. Sigmund |
+| 22 | Lago di Braies walk | first vertex of an unconfirmed track | the map board on the north shore, 8 m away | OSM; a loop has no single start |
+| 23 | Red Rock Parkway (drive, adventure) | the canyon at the end | the start on Highway 5 | Parks Canada driving page |
+| 24 | Chamonix market | town centre | Place du Mont Blanc | Haute-Savoie tourism markets page |
+| 25 | Whiteswan Lake and Lussier Hot Springs | the park point | **the spring**, 2.9 km away (the record's type is a hot spring) | OSM, Wikidata agree |
+
+Kept approximate (13), each with its note: Bow Valley Parkway cycling (moved to the parkway's east end; the gate is not mapped and
+the page names Fireside Day-use Area, about 400 m away), the elk rut (area level), the Red Rock Parkway sight and the Smith-Dorrien
+drive (a road has no single point), the Kananaskis River and the three Kicking Horse River rows (rivers; the put-ins are not
+published, step 5), the Beagle Channel (a channel), Buenos Aires cafes and bookshops, the Ushuaia harbour walk, the Fitz Roy glow
+(the plan names no viewpoint), and the Montgomery covered bridge loop (a mean of five bridges).
+
+GAP: the Parks Canada Banff day-hikes table (parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/banff) is built in the browser,
+so its trailhead lines for Johnson Lake and Cory Pass were not read; a person can read them in a browser.

@@ -74,7 +74,7 @@ def step2():
     put(R + "trails/bears-hump", 49.060782, -113.908353, "osm", "trailhead",
         "OSM node 1814165734, the first vertex of Bear's Hump Trail (way 170265434), 60 m from Highway 5 (the Entrance Road) at the crest of the hill; "
         "Parks Canada https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/randonee-hiking/promenades-walks: 'Trailhead: Across the Entrance Road "
-        "from the Prince of Wales Hotel access road'. The D1 point (the townsite visitor centre, 1.2 km south) was wrong")
+        "from the Prince of Wales Hotel access road'. The D1 point (the townsite visitor centre, 1.1 km south) was wrong")
     put(R + "trails/cavell-meadows", 52.68736, -118.055639, "osm", "parking",
         "OSM relation 20689592 Mount Edith Cavell (upper lot) at the end of Mount Edith Cavell Road; Parks Canada https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/cavell "
         "gives 'Trailhead: The end of the Cavell Road' for trails 41 and 42")
@@ -85,7 +85,7 @@ def step2():
         put(ref, 50.551024, -115.07094, "osm", "parking",
             "OSM way 102439897 (amenity=parking) at the end of the Elk River Forest Service Road, beside the Elk Lakes Cabin (way 173689739, Alpine Club of "
             "Canada) where Lower Elk Lake Trail (way 573768002) starts; BC Parks https://bcparks.ca/elk-lakes-park/ names the Elk Lakes trailhead parking lot "
-            "and says the nearest lake is a 1 km walk. The D1 point (a park label node 3 km south-west) was wrong")
+            "and says the nearest lake is a 1 km walk. The D1 point (a park label node 4.6 km south-west) was wrong")
     put(R + "trails/johnson-lake-loop", 51.199584, -115.490354, "osm", "parking",
         "OSM way 1180102518 (amenity=parking) at the end of Johnson Lake Road, beside the Johnson Lake bus stop (node 13461323849); the Parks Canada "
         "Banff day-hikes table did not load for a script, so the official trailhead wording was not read")
@@ -112,7 +112,7 @@ def step2():
         "and ends at Red Rock Canyon'")
     put(R + "sights/whiteswan-lussier-hot-springs", 50.135184, -115.57688, "osm", "centre",
         "OSM node 2368067925 Lussier Hot Springs (natural=spring); Wikidata Q6705238 P625 50.1352,-115.577 agrees within 10 m. The record's type is a hot "
-        "spring, so the point is the spring; the D1 point was the Whiteswan Lake park point 2.5 km away")
+        "spring, so the point is the spring; the D1 point was the Whiteswan Lake park point 2.9 km away")
     put(R + "adventures/bow-valley-parkway-cycling", 51.170138, -115.65467, "osm", "route_start",
         "OSM way 1431795407 Bow Valley Parkway (ref 1A), its eastern end; Parks Canada https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/promenade-de-la-vallee-de-la-bow-bow-valley-parkway "
         "names the 17 km section 'between Fireside Day-use Area and Johnston Canyon' and tells riders to park at the Banff train station",

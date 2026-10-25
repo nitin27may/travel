@@ -27,13 +27,13 @@
       "point_source": "OSM node 263386936 Bow Falls; the operator launches at the base of the falls; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling": {
-      "lat": 51.19265,
-      "lon": -115.73569,
+      "lat": 51.170138,
+      "lon": -115.65467,
       "coord_src": "osm",
-      "point_source": "OSM way 160691667 Bow Valley Parkway (highway=secondary); Wikidata Q111270263 has no P625; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
+      "point_source": "OSM way 1431795407 Bow Valley Parkway (ref 1A), its eastern end; Parks Canada https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/promenade-de-la-vallee-de-la-bow-bow-valley-parkway names the 17 km section 'between Fireside Day-use Area and Johnston Canyon' and tells riders to park at the Banff train station; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
       "point_role": "route_start",
       "approx": true,
-      "approx_note": "a point on the parkway, not the closure gate; the gate positions were not read"
+      "approx_note": "the parkway's east end; the closure gate is not mapped and the page names Fireside Day-use Area, about 400 m north, as the section's end"
     },
     "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen": {
       "lat": 51.39798,
@@ -150,22 +150,18 @@
       "point_role": "meeting"
     },
     "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway": {
-      "lat": 49.13166,
-      "lon": -114.0263,
-      "coord_src": "wikidata",
-      "point_source": "Wikidata Q22589340 P625 (Red Rock Canyon, the parkway's end); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "route_start",
-      "approx": true,
-      "approx_note": "the canyon at the end of the parkway, not the start on Hwy 5"
+      "lat": 49.077444,
+      "lon": -113.8793,
+      "coord_src": "osm",
+      "point_source": "OSM way 32162365 Red Rock Parkway, its first vertex where it leaves Highway 5 (way 170281670); 14.05 km of mapped parkway to Red Rock Canyon; Parks Canada https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving: the parkway 'travels 15 km up the Blakiston Valley and ends at Red Rock Canyon'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "route_start"
     },
     "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail": {
       "lat": 51.14857,
       "lon": -115.55824,
       "coord_src": "osm",
-      "point_source": "OSM way 24306334 Banff Upper Hot Springs (amenity=parking), 250 m from the first mapped Sulphur Mountain path way; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "parking",
-      "approx": true,
-      "approx_note": "the car park nearest the mapped path; no trailhead node is mapped"
+      "point_source": "OSM way 24306334 Banff Upper Hot Springs (amenity=parking); Banff & Lake Louise Tourism https://www.banfflakelouise.com/experiences/sulphur-mountain-trail gives 'Trailhead: Banff Upper Hot Springs parking area'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "parking"
     },
     "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise": {
       "lat": 49.05398,
@@ -309,13 +305,11 @@
       "point_role": "centre"
     },
     "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs": {
-      "lat": 50.1192,
-      "lon": -115.545,
-      "coord_src": "wikidata",
-      "point_source": "Wikidata Q14874788 P625 (Whiteswan Lake Provincial Park); Lussier Hot Springs Q6705238 P625 50.1352,-115.577 (OSM node 2368067925 agrees) is 2.5 km north-west; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "centre",
-      "approx": true,
-      "approx_note": "the park point; the hot springs are 2.5 km away and are a separate stop"
+      "lat": 50.135184,
+      "lon": -115.57688,
+      "coord_src": "osm",
+      "point_source": "OSM node 2368067925 Lussier Hot Springs (natural=spring); Wikidata Q6705238 P625 50.1352,-115.577 agrees within 10 m. The record's type is a hot spring, so the point is the spring; the D1 point was the Whiteswan Lake park point 2.9 km away; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "centre"
     },
     "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog": {
       "lat": 50.859,
@@ -331,13 +325,11 @@
       "point_source": "OSM relation 21018594 Maligne Lake Parking (the trailhead the record names); Bald Hills Trail is relation 7467684; agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/bears-hump": {
-      "lat": 49.05052,
-      "lon": -113.9094,
+      "lat": 49.060782,
+      "lon": -113.908353,
       "coord_src": "osm",
-      "point_source": "OSM way 1125051515 Waterton Lakes National Park (tourism=information) by the townsite; the legacy trail data names the Waterton Visitor Centre as the trailhead; Bear's Hump Trail way 170265434 starts about 1 km north; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "the information point near the visitor centre, not a trailhead node"
+      "point_source": "OSM node 1814165734, the first vertex of Bear's Hump Trail (way 170265434), 60 m from Highway 5 (the Entrance Road) at the crest of the hill; Parks Canada https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/randonee-hiking/promenades-walks: 'Trailhead: Across the Entrance Road from the Prince of Wales Hotel access road'. The D1 point (the townsite visitor centre, 1.1 km south) was wrong; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
     },
     "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail": {
       "lat": 49.41671,
@@ -367,13 +359,11 @@
       "point_role": "parking"
     },
     "legacy/canadian-rockies-sept-2029/trails/cavell-meadows": {
-      "lat": 52.68316,
-      "lon": -118.04783,
+      "lat": 52.68736,
+      "lon": -118.055639,
       "coord_src": "osm",
-      "point_source": "OSM way 1514037767 Cavell Meadows Trail, the first mapped way by the pond (legacy trailhead: Cavell Road); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "midpoint of the first mapped trail way; no trailhead node is mapped"
+      "point_source": "OSM relation 20689592 Mount Edith Cavell (upper lot) at the end of Mount Edith Cavell Road; Parks Canada https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/cavell gives 'Trailhead: The end of the Cavell Road' for trails 41 and 42; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "parking"
     },
     "legacy/canadian-rockies-sept-2029/trails/chester-lake": {
       "lat": 50.79054,
@@ -390,13 +380,11 @@
       "point_role": "parking"
     },
     "legacy/canadian-rockies-sept-2029/trails/crypt-lake": {
-      "lat": 49.00139,
-      "lon": -113.84111,
-      "coord_src": "wikidata",
-      "point_source": "Wikidata Q22546207 P625 (Crypt Lake); OSM way 82676125 agrees within 40 m; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "centre",
-      "approx": true,
-      "approx_note": "the lake, the trail's destination; the Crypt Landing dock (the legacy trailhead) is not mapped"
+      "lat": 49.031121,
+      "lon": -113.894211,
+      "coord_src": "osm",
+      "point_source": "OSM way 185604526 Crypt Lake Trail, its vertex at the Upper Waterton Lake shore (the landing; the dock itself is not mapped); Parks Canada https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/randonee-hiking/journee-day: a 15-minute boat ride 'brings you to the trailhead at Crypt Landing'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
     },
     "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop": {
       "lat": 50.86756,
@@ -406,22 +394,18 @@
       "point_role": "parking"
     },
     "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper": {
-      "lat": 50.52424,
-      "lon": -115.1207,
+      "lat": 50.551024,
+      "lon": -115.07094,
       "coord_src": "osm",
-      "point_source": "OSM node 3067784923 Elk Lakes Park (leisure=nature_reserve), the node at the park's southern end; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "a park label node; the Elk Lakes trailhead is not mapped, and the first mapped trail way (362802175) is 1.8 km north"
+      "point_source": "OSM way 102439897 (amenity=parking) at the end of the Elk River Forest Service Road, beside the Elk Lakes Cabin (way 173689739, Alpine Club of Canada) where Lower Elk Lake Trail (way 573768002) starts; BC Parks https://bcparks.ca/elk-lakes-park/ names the Elk Lakes trailhead parking lot and says the nearest lake is a 1 km walk. The D1 point (a park label node 4.6 km south-west) was wrong; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "parking"
     },
     "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint": {
-      "lat": 50.52424,
-      "lon": -115.1207,
+      "lat": 50.551024,
+      "lon": -115.07094,
       "coord_src": "osm",
-      "point_source": "OSM node 3067784923 Elk Lakes Park (leisure=nature_reserve), the node at the park's southern end; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "a park label node; the Elk Lakes trailhead is not mapped, and the first mapped trail way (362802175) is 1.8 km north"
+      "point_source": "OSM way 102439897 (amenity=parking) at the end of the Elk River Forest Service Road, beside the Elk Lakes Cabin (way 173689739, Alpine Club of Canada) where Lower Elk Lake Trail (way 573768002) starts; BC Parks https://bcparks.ca/elk-lakes-park/ names the Elk Lakes trailhead parking lot and says the nearest lake is a 1 km walk. The D1 point (a park label node 4.6 km south-west) was wrong; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "parking"
     },
     "legacy/canadian-rockies-sept-2029/trails/fenland-loop": {
       "lat": 51.18421,
@@ -455,13 +439,11 @@
       "point_source": "OSM node 269821248 North Interlakes (amenity=parking); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop": {
-      "lat": 51.19705,
-      "lon": -115.48385,
+      "lat": 51.199584,
+      "lon": -115.490354,
       "coord_src": "osm",
-      "point_source": "OSM way 40021099 Johnson Lake (natural=water), Wikidata Q1702469 P625 51.1969,-115.484 agrees; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "centre",
-      "approx": true,
-      "approx_note": "the lake; the loop's trailhead is not mapped (the nearest stop is the Johnson Lake bus stop, node 13461323849, 500 m away)"
+      "point_source": "OSM way 1180102518 (amenity=parking) at the end of Johnson Lake Road, beside the Johnson Lake bus stop (node 13461323849); the Parks Canada Banff day-hikes table did not load for a script, so the official trailhead wording was not read; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "parking"
     },
     "legacy/canadian-rockies-sept-2029/trails/kinney-lake": {
       "lat": 53.04984,
@@ -470,13 +452,11 @@
       "point_source": "OSM way 1185166549, the unnamed car park at the end of Kinney Lake Road where the Berg Lake Trail (relation 6035635, way 157610634) begins 125 m away; BC Parks names the start the Berg Lake trailhead; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/lillian-lake": {
-      "lat": 50.86461,
-      "lon": -115.24883,
-      "coord_src": "osm",
-      "point_source": "OSM way 604096200 Lillian Lake Trail at the lake; Wikidata Q22431073 P625 50.86361,-115.25056 agrees; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "centre",
-      "approx": true,
-      "approx_note": "the lake; the legacy trailhead (Galatea Day Use, Hwy 40) is not mapped and the Galatea Lakes Tr ways near Hwy 40 are 5 km east"
+      "lat": 50.861178,
+      "lon": -115.176195,
+      "coord_src": "official",
+      "point_source": "Alberta Parks trail report Galatea Creek https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/kananaskis-valley/galatea-creek/ (its map's trailhead point 'Galatea', Day Use); OSM way 262156419 (amenity=parking) is 40 m away, beside Galatea Lakes Tr way 24851694; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
     },
     "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop": {
       "lat": 52.72667,
@@ -498,13 +478,11 @@
       "point_role": "parking"
     },
     "legacy/canadian-rockies-sept-2029/trails/opal-hills": {
-      "lat": 52.73582,
-      "lon": -117.62623,
+      "lat": 52.731616,
+      "lon": -117.631954,
       "coord_src": "osm",
-      "point_source": "OSM way 1532999492 Opal Hills Loop (legacy trailhead: Maligne Lake Road); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "midpoint of a mapped loop way; no trailhead node is mapped"
+      "point_source": "OSM way 1532999492 Opal Hills Loop (operator Parks Canada, ref 22), its vertex at the north-east corner of the upper Maligne Lake lots (relations 21018591 to 21018593); Parks Canada https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/maligne: the farthest of the three lots, 'The trail begins at the northeast corner'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
     },
     "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail": {
       "lat": 53.02818,
@@ -531,13 +509,11 @@
       "point_source": "OSM node 269822212 Rawson Lake Trailhead (highway=trailhead), Upper Kananaskis Lake; agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop": {
-      "lat": 49.13089,
-      "lon": -114.0271,
+      "lat": 49.130849,
+      "lon": -114.025955,
       "coord_src": "osm",
-      "point_source": "OSM way 24818808 Red Rock Canyon Trail; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "a mapped way of the loop at the canyon; no trailhead node is mapped"
+      "point_source": "OSM way 1059104807 (amenity=parking) at the end of Red Rock Parkway, beside the start of Red Rock Canyon Trail (way 24818808); the other lot (way 1059104806) is 270 m south. Parks Canada promenades-walks page: 'Trailhead: Red Rock Canyon upper parking lot'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "parking"
     },
     "legacy/canadian-rockies-sept-2029/trails/ribbon-creek": {
       "lat": 50.93274,
@@ -559,13 +535,11 @@
       "point_source": "OSM node 269822212 Rawson Lake Trailhead (highway=trailhead), Upper Kananaskis Lake; agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/skyline-trail": {
-      "lat": 52.72565,
-      "lon": -117.6429,
+      "lat": 52.725769,
+      "lon": -117.645369,
       "coord_src": "osm",
-      "point_source": "OSM node 5156308323 Skyline trail (3days) (tourism=viewpoint) at the Maligne Lake outlet; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "a viewpoint label at the lake end; no trailhead node is mapped"
+      "point_source": "OSM way 1241750492 Skyline Trail (operator Parks Canada, ref 100), its first vertex where it leaves the Bald Hills Trail beside the Maligne Lake Parking lot (relation 21018594, 100 m); Parks Canada maligne page: park as for the Bald Hills Trail and take the trail 50 m to the right, 'This is the Skyline Trail'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
     },
     "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog": {
       "lat": 50.90443,
@@ -581,13 +555,11 @@
       "point_source": "OSM way 285056656 Sunshine Base Station (gondola base, where the day starts; the meadows are reached by gondola); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe": {
-      "lat": 50.83283,
-      "lon": -115.36819,
+      "lat": 50.846824,
+      "lon": -115.357044,
       "coord_src": "osm",
-      "point_source": "OSM way 24836693 Tent Ridge Track (the peak is node 2687421271 at 50.82,-115.3736); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "a mapped way of the route; no Tent Ridge trailhead is mapped (legacy trailhead: Tent Ridge trailhead, Smith-Dorrien)"
+      "point_source": "OSM way 24836693 Tent Ridge Track, its vertex on Mount Shark Road (way 32219782); no official page (Alberta Parks has no Tent Ridge trail report), so the start rests on OSM alone; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
     },
     "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk": {
       "lat": 52.21262,
@@ -839,13 +811,11 @@
       "point_source": "OSM way 442280371 centroid (amenity=parking); agent checked, needs a person's check"
     },
     "part/place/lago-di-braies#walk": {
-      "lat": 46.69896,
-      "lon": 12.085465,
+      "lat": 46.699504,
+      "lon": 12.085094,
       "coord_src": "osm",
-      "point_source": "OSM relation 12043472, first vertex of the stored track data/tracks/braies.json (ODbL), read 2026-10-19; the track starts 6 m from the trailhead the record names (lane META-1)",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "The stored track is not confirmed (listed in UNCONFIRMED_TRAIL_DATA), so its first vertex is where the relation was cut, not a surveyed trailhead. Fix: confirm the route, or read the trailhead node (OSM highway=trailhead)."
+      "point_source": "OSM node 12978036296 (tourism=information, map) on the north shore beside the Hotel Pragser Wildsee board (node 6554128438), 8 m from the first vertex of the stored track; the walk is a loop, so this is where it is joined, not a surveyed start; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
     },
     "part/place/lago-di-carezza#parking": {
       "lat": 46.41177,
@@ -891,13 +861,11 @@
       "point_source": "OSM node 12164756005 (bus stop named Parks Canada Shuttle); agent checked, needs a person's check"
     },
     "part/place/rafting-on-the-rienza#place": {
-      "lat": 46.81113,
-      "lon": 11.80289,
+      "lat": 46.809965,
+      "lon": 11.792573,
       "coord_src": "osm",
-      "point_source": "OSM node 537070690 Sankt Sigmund - San Sigismondo (place node); Rafting Club Activ FAQ https://www.rafting-club-activ.com/en/faq/ names the Rienz meeting point as its rafting station in the St. Sigmund sports zone, Kiens; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "meeting",
-      "approx": true,
-      "approx_note": "the village node; the sports zone is not mapped in OSM"
+      "point_source": "OSM way 42881996 Fussballplatz St. Sigmund (leisure=pitch), the sports ground of San Sigismondo with the pitches 1134655979 and 1134655980; Rafting Club Activ https://www.rafting-club-activ.com/en/contact/ gives 'Meeting point Rienz / Eisack: Sports zone St. Sigmund'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "meeting"
     },
     "part/place/sass-pordoi-and-piz-boe#payoff": {
       "lat": 46.509012,
@@ -992,13 +960,11 @@
       "point_source": "OSM way 513972196 Jarðböðin við Mývatn (Q140586475), the Mývatn Nature Baths; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
     },
     "part/trip/iceland-ring-road-2027/sight:dettifoss#walk": {
-      "lat": 65.82192,
-      "lon": -16.38817,
-      "coord_src": "wikidata",
-      "point_source": "Wikidata Q210280 P625 (Dettifoss); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "centre",
-      "approx": true,
-      "approx_note": "the falls, not the west car park the park page names (research/trips/iceland-ring-road/suitability.md); fix = car park node or a person's check"
+      "lat": 65.811437,
+      "lon": -16.400243,
+      "coord_src": "osm",
+      "point_source": "OSM way 1531241656 (amenity=parking) west of the falls, toilets node 6646954959 90 m north; Vatnajokull National Park D1 page https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss-d1: 'Starting point: Car park west of Dettifoss', and the Dettifoss page says 1 km from the parking lot to the viewpoint; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "parking"
     },
     "part/trip/iceland-ring-road-2027/viewpoint:jokulsarlon#parking": {
       "lat": 64.04801,
@@ -1105,13 +1071,11 @@
       "point_role": "entrance"
     },
     "trip/chamonix-mont-blanc-2028/town:chamonix market": {
-      "lat": 45.92222,
-      "lon": 6.86889,
-      "coord_src": "wikidata",
-      "point_source": "Wikidata Q83236 P625 (Chamonix-Mont-Blanc); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "centre",
-      "approx": true,
-      "approx_note": "town centre; the market site is not named in the research"
+      "lat": 45.924773,
+      "lon": 6.871946,
+      "coord_src": "osm",
+      "point_source": "OSM relation 2569238 Place du Mont Blanc (highway=pedestrian); Haute-Savoie tourism https://www.tourisme-haute-savoie.com/en/markets-in-haute-savoie/ lists the Chamonix market at Place du Mont Blanc, 8am to 1pm; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "centre"
     },
     "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere": {
       "lat": 45.96034,
@@ -1121,13 +1085,11 @@
       "point_role": "trailhead"
     },
     "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille": {
-      "lat": 45.90344,
-      "lon": 6.88758,
-      "coord_src": "wikidata",
-      "point_source": "Wikidata Q19947633 P625 (Plan de l'Aiguille); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "centre",
-      "approx": true,
-      "approx_note": "the mid-station area; the walk's own start is not stated"
+      "lat": 45.90165,
+      "lon": 6.884819,
+      "coord_src": "osm",
+      "point_source": "OSM node 31000524 Aiguille du Midi 1 (aerialway=station), the Plan de l'Aiguille station, 50 m from the guidepost 'Plan de l'Aiguille' (node 3626512712); Chamonix tourism https://en.chamonix.com/spring-hikes/grand-balcon-nord-plan-de-l-aiguille-du-midi-montenvers: 'From the cable car station, head down towards the Refuge du Plan de l'Aiguille'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
     },
     "trip/iceland-ring-road-2027/sight:namaskard": {
       "lat": 65.64722,
@@ -1137,31 +1099,25 @@
       "point_role": "centre"
     },
     "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar": {
-      "lat": 64.76988,
-      "lon": -23.62232,
-      "coord_src": "wikidata",
-      "point_source": "Wikidata Q774048 P625 (Arnarstapi village); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "village centre at the Arnarstapi end, not the path start; Hellnar Q1366915 is 64.75,-23.65"
+      "lat": 64.764553,
+      "lon": -23.625787,
+      "coord_src": "official",
+      "point_source": "Snaefellsjokull National Park trail 28 GPX https://snaefellsjokull.is/storage/585/Arnarstapi-Hellnar.gpx (linked from the trail page https://snaefellsjokull.is/en/gonguleid/arnarstapi-hellnar-2), its Arnarstapi end; the Hellnar end is 64.751782,-23.645262; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
     },
     "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon": {
-      "lat": 63.7712,
-      "lon": -18.17144,
+      "lat": 63.770332,
+      "lon": -18.171777,
       "coord_src": "osm",
-      "point_source": "OSM node 3726212118 Fjaðrárgljúfur (tourism=information, the board at the canyon); Wikidata Q956845 P625 63.77125,-18.17194 is 40 m away; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "information board at the canyon; no highway=trailhead node is mapped"
+      "point_source": "OSM relation 20613921 (amenity=parking, operator Parka, https://parka.is/pay/fjadrargljufur/) beside the toilets (way 368777102) at the canyon; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "parking"
     },
     "trip/iceland-ring-road-2027/trail:skaftafell svartifoss": {
-      "lat": 64.01667,
-      "lon": -16.96633,
-      "coord_src": "osm",
-      "point_source": "OSM way 200175906 Skaftafellsstofa (the visitor centre); Svartifoss Q1145786 P625 is 64.0277,-16.97525, 1.2 km away; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "visitor centre; the start named on the park's S2 trail page was not re-read for this point"
+      "lat": 64.016471,
+      "lon": -16.966816,
+      "coord_src": "official",
+      "point_source": "Vatnajokull National Park S2 GPX (linked from https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/svartifoss-sjonarsker-sel-s2), its first point; the page gives 'Starting point Skaftafellsstofa', and the D1 visitor-centre point (OSM way 200175906) is 32 m away; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
     },
     "trip/patagonia-2027/town:cafe and bookshops": {
       "lat": -34.59972,
@@ -1182,22 +1138,18 @@
       "approx_note": "a point on the waterfront footway; the walk has no stated start"
     },
     "trip/patagonia-2027/trail:coastal path": {
-      "lat": -54.84655,
-      "lon": -68.48073,
+      "lat": -54.846367,
+      "lon": -68.480848,
       "coord_src": "osm",
-      "point_source": "OSM node 11237179525 Bahia Ensenada Zaratiegui (tourism=attraction); the Senda Costera ways (641314494 and others) run from here; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "the bay at the mapped end of the Senda Costera; which end the park page counts as the start was not re-read"
+      "point_source": "OSM way 68895189 (amenity=parking) at Ensenada Zaratiegui, beside the board node 6039887716 where the Senda Costera ways start; Parques Nacionales https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/senderos-del-parque-nacional-tierra-del-fuego: the Costera path 'nace en el estacionamiento de Ensenada Zaratiegui'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "parking"
     },
     "trip/patagonia-2027/trail:laguna capri": {
-      "lat": -49.30485,
-      "lon": -72.93608,
+      "lat": -49.320282,
+      "lon": -72.894965,
       "coord_src": "osm",
-      "point_source": "OSM node 12697849001 Laguna Capri (tourism=attraction); Wikidata Q124360343 P625 -49.3049,-72.936 agrees within 10 m; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "centre",
-      "approx": true,
-      "approx_note": "the lake, which is the trail's destination; no trailhead node is mapped"
+      "point_source": "OSM node 7069713837 (highway=trailhead) at the north end of El Chalten, beside the 'Senda al Fitz Roy' map board; the PNLG leaflet puts Laguna Capri on the Fitz Roy path (4 km, 1:45 one way); read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
     },
     "trip/patagonia-2027/trail:laguna de los tres": {
       "lat": -49.320282,
@@ -1244,13 +1196,11 @@
       "point_role": "trailhead"
     },
     "trip/utah-five-parks/trail:pa rus trail": {
-      "lat": 37.20308,
-      "lon": -112.98322,
+      "lat": 37.201783,
+      "lon": -112.986777,
       "coord_src": "osm",
-      "point_source": "OSM way 14326805 Pa'rus Trail (highway=cycleway), a vertex 400 m from Zion Canyon Visitor Center node 6465537815; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "a mapped vertex of the path, not a trailhead node; the path starts near the visitor centre"
+      "point_source": "OSM way 14326805 Pa'rus Trail (operator National Park Service), its south end by the Zion Canyon Visitor Center; NPS https://www.nps.gov/thingstodo/hike-pa-rus-trail.htm: 'Start from either the Zion Canyon Visitor Center (shuttle stop #1) or from Canyon Junction'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
     },
     "trip/utah-five-parks/trail:windows section": {
       "lat": 38.687113,
@@ -1269,13 +1219,11 @@
       "approx_note": "mean of the bridge points, an area-level centre for the loop; the drive's own start is not stated"
     },
     "trip/vermont-fall-2026/trail:stowe recreation path": {
-      "lat": 44.46631,
-      "lon": -72.68512,
+      "lat": 44.466091,
+      "lon": -72.685036,
       "coord_src": "osm",
-      "point_source": "OSM way 204763538 Stowe Recreational Path (highway=cycleway) at Stowe village; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
-      "point_role": "trailhead",
-      "approx": true,
-      "approx_note": "a mapped way of the path in the village; the gostowe.com page lists four parking areas and no single start"
+      "point_source": "OSM way 204763538 Stowe Recreational Path, its village end (the southernmost vertex of the 30 mapped ways); Town of Stowe https://www.stowevt.gov/Departments/Parks-Recreation/Parks-Facilities/Stowe-Recreation-Path: the path runs 'from Stowe Village to Topnotch Resort'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
     }
   }
 }
