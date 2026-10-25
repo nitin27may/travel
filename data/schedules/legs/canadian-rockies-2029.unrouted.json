@@ -31,6 +31,16 @@
    "from": "6-C-2",
    "to": "6-C-1",
    "reason": "no road or path within reach of a stop"
+  },
+  {
+   "from": "7-B-1",
+   "to": "7-B-2",
+   "reason": "no road or path within reach of a stop"
+  },
+  {
+   "from": "7-B-4",
+   "to": "7-B-1",
+   "reason": "no road or path within reach of a stop"
   }
  ]
 }

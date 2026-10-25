@@ -1,7 +1,7 @@
 {
  "schema": "trip-legs/2",
  "trip": "canadian-rockies-2029",
- "fetched": "2026-10-23",
+ "fetched": "2026-10-25",
  "attribution": "Road times and route lines from OpenRouteService (openrouteservice.org), route data from OpenStreetMap contributors (ODbL).",
  "simplifiedM": 30,
  "legs": [
@@ -85,6 +85,15 @@
    "km": 24.8,
    "minutes": 27,
    "geometry": "{gxwHn_`bUbC|NzDgCwXtQgVdm@oNno@gBtfAiTffAaChaA}Fbl@oMd^oNzVcHvk@_DjHxCvH~Flf@|XdgAsJjqA}@j}AhCzGhOfHzDrHx^hgCbFtQhN~Xn@b[fHt`@jCncArTnq@df@v`ArNzOvY~e@fG|FpWjJzt@lgAhZr]xYre@lMj^|QlQ|Tji@jFfZxk@`cAtM`c@fXdm@fHbj@"
+  },
+  {
+   "from": "3-B-2",
+   "to": "3-B-3",
+   "profile": "driving-car",
+   "mode": "drive",
+   "km": 2.7,
+   "minutes": 3,
+   "geometry": "ielwHhkwcUbTtSr|@jwAbSdf@_FYnApA"
   },
   {
    "from": "3-B-4",
