@@ -116,6 +116,31 @@ Suitability limits for the plan-day offers live in R2b (another lane's file); th
    `R<n>*.json` beside the migration output, so `AC.json` failed check-all. Renamed (reversible with `git mv`); D3a (`TF`)
    and D8-R (`OV`) will meet the same test. Either the test learns the DATA lane names or the briefs say `R<n>-<lane>`.
 
+6. **Five offer pages fold into their place pages.** The public adapter shows an offer `at` a place that has a page on that
+   page (`web/lib/public/seeds.ts`, pass 2), so placing these offers removes five pages: `athabasca-glacier-guided-ice-walk`
+   (now under the Athabasca Glacier), `banff-horseback-rides` (under Cave and Basin), `brewster-stables-lake-louise-horseback`
+   (under Lake Louise), `radium-hot-springs-pools` (under Radium Hot Springs, its CS7d duplicate) and
+   `mount-assiniboine-helicopter-access` (under Lake Magog). That is the built rule and what "where it happens" asks for, but
+   it moves public URLs, and slugs are the coordinator's (`data/catalogue/slugs.json` is never edited by a batch). The
+   least clear fold is Banff horseback under Cave and Basin (the ride passes it; the stables are at the end of Sundance Road);
+   revert that one `at` if the owner prefers the page.
+
+## Coordinator steps at merge (check-all fails on the branch until these run)
+
+1. `node core/bin/sources.ts build` (30 + 11 new source rows; with it, `sources.ts check` passes: 419 sources, 0 errors, checked
+   in the worktree and restored).
+2. `node core/bin/slugs.ts merge` for the five refs of decision 6 into their place refs, then `node core/bin/slugs.ts --check`.
+3. `pnpm --dir web snapshot` (only `web/redirects.json` is stale) and the suitability scope test, which rewrites
+   `data/suitability/scope.json` (the five slugs leave the scope list).
+4. The migration count test (below) for a builder.
+
+Check-all on the branch, 25 Oct: python tests, locations, core typecheck, MCP, ops, schema, capture contract, gap budget,
+towns, near-town, validate (63 files, 0 errors), vocabulary, suitability (0 errors), relevance and derive, hard-code scan,
+folder contract, OpenAPI pass. Core tests: 3 of 2,019 fail, all named here (operator and `run_by` counts, registry drift
+before step 1; the lane-name test passed after the rename). Stopped stages: suitability scope, snapshot and slugs (steps 2
+and 3). The web typecheck, lint, build, tests and server stage did not run (check-all stops at the first failure; this
+batch changes no web code). `web/.env.local` does not exist in this worktree, so nothing was moved aside.
+
 ## Requests for builders
 
 - `core/test/capture/migration.test.ts` pins the operators at 10 and the records with `run_by` at 12. This batch adds 13
