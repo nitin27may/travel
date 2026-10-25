@@ -72,6 +72,12 @@ helpers and the shared selected-plan route model. No parallel route builder.
 
 ### 3. One-base and changed-base behavior
 
+> **Related (25 Oct 2026):** researched, read-only ways to stay per trip (fewer moves, lower cost, one base) are
+> specified in [stay-bases-and-optimisation.md](../../features/stay-bases-and-optimisation.md) (R-76 to R-80). They use
+> the same recomputation as this section through one evaluator (`core/src/stays/`), but are authored and precomputed, so
+> they do not need the planner backend; the visitor's own base edits below stay signed in, as written here (that spec,
+> section 16 C2 and C3). Nothing in this section is changed.
+
 **Expected behavior:** choosing one stay as the base makes day trips start and
 finish there, unless a day explicitly ends elsewhere. That changes driving legs,
 distances, drive durations, departure/return times, map geometry and navigation
