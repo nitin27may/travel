@@ -204,7 +204,7 @@
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": 38,
+      "detour_min": 40,
       "detour_basis": "town",
       "detour_town": "Banff",
       "from_hubs": {},
@@ -212,7 +212,7 @@
         "near": [
           {
             "ref": "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre",
-            "km": 0,
+            "km": 0.4,
             "draw": "regional",
             "standing": "good",
             "access_cost": [],
@@ -220,7 +220,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
-            "km": 0,
+            "km": 0.4,
             "draw": "regional",
             "standing": "good",
             "access_cost": [],
@@ -228,7 +228,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
-            "km": 16.9,
+            "km": 17.3,
             "draw": "local",
             "standing": "good",
             "access_cost": [],
@@ -238,7 +238,7 @@
         "area": [
           {
             "ref": "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre",
-            "km": 0,
+            "km": 0.4,
             "draw": "regional",
             "standing": "good",
             "access_cost": [],
@@ -246,7 +246,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
-            "km": 0,
+            "km": 0.4,
             "draw": "regional",
             "standing": "good",
             "access_cost": [],
@@ -254,7 +254,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
-            "km": 16.9,
+            "km": 17.3,
             "draw": "local",
             "standing": "good",
             "access_cost": [],
@@ -264,7 +264,7 @@
       },
       "far_pointer": {
         "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-        "km": 14.1,
+        "km": 14.5,
         "draw": "national",
         "same_class": false
       },
@@ -289,7 +289,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 38 min is over 30"
+          "reason": "detour 40 min is over 30"
         }
       },
       "role": "local_only",
@@ -1806,7 +1806,7 @@
           },
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
-            "km": 16.9,
+            "km": 17.3,
             "draw": "local",
             "standing": "ordinary",
             "access_cost": [],
@@ -1832,7 +1832,7 @@
           },
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
-            "km": 16.9,
+            "km": 17.3,
             "draw": "local",
             "standing": "ordinary",
             "access_cost": [],
@@ -4486,7 +4486,7 @@
           },
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
-            "km": 0,
+            "km": 0.4,
             "draw": "local",
             "standing": "ordinary",
             "access_cost": [],
@@ -4512,7 +4512,7 @@
           },
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
-            "km": 0,
+            "km": 0.4,
             "draw": "local",
             "standing": "ordinary",
             "access_cost": [],
@@ -5611,7 +5611,7 @@
           },
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
-            "km": 0,
+            "km": 0.4,
             "draw": "local",
             "standing": "ordinary",
             "access_cost": [],
@@ -5637,7 +5637,7 @@
           },
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
-            "km": 0,
+            "km": 0.4,
             "draw": "local",
             "standing": "ordinary",
             "access_cost": [],

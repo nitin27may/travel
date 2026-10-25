@@ -76,7 +76,10 @@ if "6" in STEPS:
     filled("part/trip/utah-five-parks/viewpoint:grand view point#walk", "osm:node/6806471755", OV, "ruling: OSM wins, NPS confirms the road end", outcome="conflict")
     filled(R + "trails/cory-pass-loop", "osm:node/508583984", OV, "ruling: the OSM lot is the legacy 'Fireside picnic area' (community guides; no official wording read)")
 if "7" in STEPS:
-    filled(R + "trails/upper-kananaskis-lake-loop", "albertaparks:upper-lake", "", "person-check sample: the D1 point was a trail junction 770 m from the official trailhead")
+    filled(R + "trails/upper-kananaskis-lake-loop", "albertaparks:upper-lake", "", "found beside the sample: the D1 point was a trail junction 770 m from the official trailhead")
+    filled(R + "trails/elbow-falls-loop", "albertaparks:elbow-falls-interpretive", "", "person-check sample: the D1 OSM lot node was 113 m from the official trailhead")
+    filled("part/" + R + "adventures/canmore-nordic-centre#centre", "osm:way/360559335", OV, "person-check sample: the D1 Wikidata park point was 400 m from the lodge")
+    filled(R + "sights/miette-hot-springs", "osm:way/232706538", OV, "class re-check: the Wikidata point was 95 m from the pools")
 
 for r in res:
     if not r.get("host"):

@@ -3731,7 +3731,7 @@
         "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
-        "v": 2.8,
+        "v": 2.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
@@ -5467,7 +5467,7 @@
         "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5975503, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
-        "v": 32.5,
+        "v": 32.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
@@ -5950,7 +5950,7 @@
         "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5924618, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
-        "v": 41.5,
+        "v": 41.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],

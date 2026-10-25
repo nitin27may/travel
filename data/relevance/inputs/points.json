@@ -320,10 +320,10 @@
       "point_source": "Q6755166 P625"
     },
     "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs": {
-      "lat": 53.1299,
-      "lon": -117.771,
-      "coord_src": "wikidata",
-      "point_source": "Wikidata Q14874867 P625 (Miette Hot Springs); OSM node 3705593955 agrees within 150 m; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "lat": 53.13035,
+      "lon": -117.76979,
+      "coord_src": "osm",
+      "point_source": "OSM way 232706538 Miette Hot Springs (leisure=swimming_pool), the pools; the D1 point, Wikidata Q14874867 P625 53.1299,-117.771, is 95 m away (re-check of the Wikidata-for-a-facility class after the sample); read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/sights/moraine-lake": {
       "lat": 51.3225,
@@ -524,10 +524,10 @@
       "point_source": "OSM way 185604526 Crypt Lake Trail, its vertex at the Upper Waterton Lake shore (the landing; the dock itself is not mapped); Parks Canada https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/randonee-hiking/journee-day: a 15-minute boat ride 'brings you to the trailhead at Crypt Landing'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop": {
-      "lat": 50.86756,
-      "lon": -114.78357,
-      "coord_src": "osm",
-      "point_source": "OSM node 270030306 Elbow Falls (amenity=parking); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "lat": 50.86777,
+      "lon": -114.782,
+      "coord_src": "official",
+      "point_source": "Alberta Parks trail report Elbow Falls Interpretive https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/elbow-valley/elbow-falls-interpretive/ (its map's trailhead point 'Elbow Falls', Day Use); the D1 point, OSM node 270030306 Elbow Falls (amenity=parking), is 113 m west (failed the person-check sample); read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper": {
       "lat": 50.55102,
@@ -800,10 +800,10 @@
       "point_source": "OSM way 184249543 North Parking Lot, the public lot nearest the Troll Falls path (way 371535509); the OSM lot is not named Stoney; agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop": {
-      "lat": 50.63245,
-      "lon": -115.15074,
-      "coord_src": "osm",
-      "point_source": "OSM node 269822623 Upper Lake Circuit Junction (highway=trailhead); the North Interlakes lot (node 269821248) is 700 m east; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "lat": 50.63155,
+      "lon": -115.13991,
+      "coord_src": "official",
+      "point_source": "Alberta Parks trail report Upper Lake https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/upper-lake/ (its map's trailhead point 'North Interlakes', Day Use; the other is 'Upper Lake' at 50.612362,-115.117752); OSM node 269821248 North Interlakes (amenity=parking) is 5 m away. The D1 point, OSM node 269822623 Upper Lake Circuit Junction, is a trail junction 770 m west; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail": {
       "lat": 51.20409,
@@ -854,10 +854,10 @@
       "point_source": "OSM way 202233167 Banff Upper Hot Springs (public bath); read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre": {
-      "lat": 51.0925,
-      "lon": -115.39,
-      "coord_src": "wikidata",
-      "point_source": "Wikidata Q1003855 P625 (Canmore Nordic Centre Provincial Park); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "lat": 51.09025,
+      "lon": -115.38551,
+      "coord_src": "osm",
+      "point_source": "OSM way 360559335 Canmore Nordic Centre Day Lodge (1988 Olympic Way), beside the stadium (node 1193545911) and the ROAM stops; the record's type is a Nordic centre, so the point is the centre's lodge. The D1 point, Wikidata Q1003855 P625 51.0925,-115.39 (the provincial park), is 400 m north-west (failed the person-check sample); read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top": {
       "lat": 52.8515,

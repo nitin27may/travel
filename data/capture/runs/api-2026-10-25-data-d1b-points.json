@@ -10,12 +10,14 @@
       "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
       "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
       "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
+      "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
       "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
       "legacy/canadian-rockies-sept-2029/trails/bears-hump",
       "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
       "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
       "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
       "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+      "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
       "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
       "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
       "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
@@ -25,6 +27,8 @@
       "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
       "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
       "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+      "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+      "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
       "part/place/cascate-di-fanes#payoff",
       "part/place/lago-di-braies#walk",
       "part/place/rafting-on-the-rienza#place",
@@ -71,7 +75,7 @@
     },
     {
       "host": "overpass-api.de",
-      "requests": 73,
+      "requests": 77,
       "robots": "allowed",
       "terms": "allowed",
       "status": "ok"
@@ -113,7 +117,14 @@
     },
     {
       "host": "www.albertaparks.ca",
-      "requests": 11,
+      "requests": 12,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.algonquinhighlands.ca",
+      "requests": 1,
       "robots": "unknown",
       "terms": "unknown",
       "status": "ok"
@@ -148,7 +159,7 @@
     },
     {
       "host": "www.nps.gov",
-      "requests": 6,
+      "requests": 9,
       "robots": "unknown",
       "terms": "unknown",
       "status": "ok"
@@ -501,6 +512,36 @@
       "host": "overpass-api.de",
       "src": "osm:node/508583984",
       "reason": "ruling: the OSM lot is the legacy 'Fireside picnic area' (community guides; no official wording read)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+      "field": "point",
+      "outcome": "filled",
+      "src": "albertaparks:upper-lake",
+      "reason": "found beside the sample: the D1 point was a trail junction 770 m from the official trailhead"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
+      "field": "point",
+      "outcome": "filled",
+      "src": "albertaparks:elbow-falls-interpretive",
+      "reason": "person-check sample: the D1 OSM lot node was 113 m from the official trailhead"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/360559335",
+      "reason": "person-check sample: the D1 Wikidata park point was 400 m from the lodge"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "osm:way/232706538",
+      "reason": "class re-check: the Wikidata point was 95 m from the pools"
     }
   ]
 }

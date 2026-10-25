@@ -41,9 +41,9 @@
   "hub_population_min": 100000,
   "anchors": {
    "file": "anchors.json",
-   "count": 300,
+   "count": 299,
    "decimals": 2,
-   "sha256": "247a68b42de28a8c5e8b080b23ac4e75939a9dfd7bd15cb2262b9a6e086a7da4",
+   "sha256": "c3a14b13d14e75c1734d9de7ba5886e82319eca2942deeefe3f8aab4c53eeba1",
    "from": [
     "data/capture/points.json#points",
     "data/relevance/inputs/points.json#points",

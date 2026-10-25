@@ -205,6 +205,20 @@ def step7():
         "Alberta Parks trail report Upper Lake https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/upper-lake/ "
         "(its map's trailhead point 'North Interlakes', Day Use; the other is 'Upper Lake' at 50.612362,-115.117752); OSM node 269821248 North Interlakes "
         "(amenity=parking) is 5 m away. The D1 point, OSM node 269822623 Upper Lake Circuit Junction, is a trail junction 770 m west")
+    must_exist(R + "trails/elbow-falls-loop")
+    put(R + "trails/elbow-falls-loop", 50.867767, -114.781998, "official", "trailhead",
+        "Alberta Parks trail report Elbow Falls Interpretive https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/elbow-valley/elbow-falls-interpretive/ "
+        "(its map's trailhead point 'Elbow Falls', Day Use); the D1 point, OSM node 270030306 Elbow Falls (amenity=parking), is 113 m west (failed the "
+        "person-check sample)")
+    must_exist("part/" + R + "adventures/canmore-nordic-centre#centre")
+    put("part/" + R + "adventures/canmore-nordic-centre#centre", 51.090249, -115.385509, "osm", "centre",
+        "OSM way 360559335 Canmore Nordic Centre Day Lodge (1988 Olympic Way), beside the stadium (node 1193545911) and the ROAM stops; the record's type is "
+        "a Nordic centre, so the point is the centre's lodge. The D1 point, Wikidata Q1003855 P625 51.0925,-115.39 (the provincial park), is 400 m "
+        "north-west (failed the person-check sample)")
+    must_exist(R + "sights/miette-hot-springs")
+    put(R + "sights/miette-hot-springs", 53.130345, -117.769788, "osm", "centre",
+        "OSM way 232706538 Miette Hot Springs (leisure=swimming_pool), the pools; the D1 point, Wikidata Q14874867 P625 53.1299,-117.771, is 95 m away "
+        "(re-check of the Wikidata-for-a-facility class after the sample)")
 
 
 STEPS = {"1": step1, "2": step2, "4": step4, "6": step6, "7": step7}

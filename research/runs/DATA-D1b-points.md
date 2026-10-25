@@ -7,7 +7,9 @@ needs a person's check. Before-snapshots: `before-budget.txt`, `before-build-che
 `research/runs/DATA-D1b-points/`, taken by the earlier agent on the pre-merge branch. The merge was a fast-forward to `main`,
 which already held D1, so the numbers did not change and they were not re-taken. The placement and tier snapshots it took were
 byte-identical to D1's `research/runs/DATA-D1-points/after-placement.json` and `after-tier.json`, so those two files are the
-before evidence (the folder contract forbids a second copy); my after-snapshots sit beside the script.
+before evidence (the folder contract forbids a second copy). The after-snapshots (`after-placement.json`, `after-tier.json`,
+`after-budget.txt`) sit beside the script; `capture.ts build --check` and `locations.py validate` gave the same output as before
+("OK: the generated capture files match data/vocab/types.json", "ok"), so no after copy of those is kept.
 
 ## Method and limits
 
@@ -24,9 +26,17 @@ before evidence (the folder contract forbids a second copy); my after-snapshots 
 
 | | before | after |
 |---|---|---|
-| `W_PLACE_POINT` (records with no point) | 6 | (filled in at the end) |
-| Approximate points | 41 | |
-| Points in `data/capture/points.json` | 179 | |
+| `W_PLACE_POINT` (records with no point) | 6 | **1** (Lac du Chatelard) |
+| Approximate points | 41 | **13** (each with an `approx_note`; `W_PLACE_APPROX` 0) |
+| Points in `data/capture/points.json` | 179 | 186 (5 new records, 2 capture overrides of relevance-input points: the Grand View Point viewpoint and the Fanes route start) |
+| Exact points corrected that D1 had not marked approx | - | 4 (Upper Kananaskis Lake loop, Elbow Falls loop, Canmore Nordic Centre, Miette Hot Springs) |
+| Required tier, `gaps --tier required` matrix: routes with a point | 130 of 143 (trails 105 of 118) | 135 of 143 (trails 110 of 118) |
+| Required tier, places with a point | 200 of 201 | 200 of 201 |
+| Required tier complete (place, trail, other route, offer, event, stay) | 7, 1, 0, 1, 0, 0 | unchanged |
+| `W_TIER_REQUIRED` | 385 records, 3875 keys | unchanged (the point is a placement key, not a tier key) |
+| `E_PLACE_AREA`, `E_PLACE_ORPHAN` | 277, 17 | unchanged (findings below; not fixed) |
+
+Gap budget: `W_PLACE_POINT` lowered 6 to 1 with `gaps --budget --write`; nothing rose.
 
 ## Step 1: the six `searched_none` records
 
@@ -178,3 +188,93 @@ The open ones are added to `research/method/operator-questions-2026-10-18.md` un
    hikebiketravel, 10adventures, read as search results only) describe the start as the Fireside lot about 1 km up an access road
    from Highway 1A, with the trail across the creek. Ruling: the OSM point stands, with role `parking`. No official page gives the
    trailhead wording (the Banff day-hikes table is built in the browser: GAP in step 2).
+
+## Step 7: person-check sample
+
+Population: the 77 rows in `data/capture/points.json` written by D1 or D1b that are not approximate. Seed **20261025**, drawn with
+Python's `random.seed(20261025); random.sample(sorted(population), 20)`. Each point was re-read in OSM (Overpass, one query for all
+18 OSM elements) and compared with the land manager's own coordinate where one exists (the Alberta Parks trail-report maps) or
+with the land manager's description of the place. For an area record (a park, a nature reserve), "right" means inside the
+area's polygon, since 100 m has no meaning there.
+
+| # | Record | Check | Result |
+|---|---|---|---|
+| 1 | Cascate di Fanes route start | OSM node 470623991 re-read; the tourism board names the park information point as the start | pass |
+| 2 | Lago di Braies walk | OSM node 12978036296 re-read, 0 m | pass |
+| 3 | Elbow Falls loop | Alberta Parks official trailhead point 50.867767,-114.781998 against the D1 OSM lot node | **fail, 113 m** |
+| 4 | Chester Lake | Alberta Parks official point, 31 m | pass |
+| 5 | Dorset lookout tower | OSM node 2944856296 is the tower itself (`man_made=tower`) | pass |
+| 6 | Lake Magog (nature reserve) | the Wikidata point lies inside the OSM lake polygon (way 355375756) | pass |
+| 7 | Dettifoss walk | OSM car park re-read; the park page names the car park west of the falls | pass |
+| 8 | Johnston Canyon walk | OSM lot re-read, 23 m | pass |
+| 9 | Lussier Hot Springs | OSM spring and Wikidata, 10 m | pass |
+| 10 | Waterton townsite | OSM `place=hamlet` node re-read in the townsite (Wikidata, 516 m west, is the outlier) | pass |
+| 11 | Beauvais Lake Provincial Park | inside the OSM park polygon (way 428126248) | pass |
+| 12 | Canmore Nordic Centre (`snow.ski.nordic_centre`) | the D1 Wikidata park point against the OSM Day Lodge | **fail, 401 m** |
+| 13 | Navajo Loop and Queens Garden | OSM trailhead 10 m from the Sunset Point overlook (operator Bryce Canyon NP); the NPS trail pages returned 404 | pass |
+| 14 | Rafting on the Rienza | OSM pitch re-read; the operator names the St. Sigmund sports zone | pass (the spot inside the zone is an open question) |
+| 15 | Tent Ridge Horseshoe | OSM track vertex on Mount Shark Road re-read; no official source exists | pass on OSM only |
+| 16 | Grand View Point viewpoint | OSM overlook re-read; NPS puts it at the road end | pass |
+| 17 | Sulphur Mountain trail | OSM lot re-read, 18 m; tourism board names it | pass |
+| 18 | Aiguille du Midi valley station | OSM station re-read; Wikidata 15 m | pass |
+| 19 | Berg Lake Trail | OSM lot at the end of Kinney Lake Road; BC Parks names that road end | pass |
+| 20 | Ribbon Creek | Alberta Parks official point, 55 m | pass |
+
+**18 of 20 pass** (the target). The two failures come from two source classes, and both classes were re-checked:
+
+- **An OSM car-park node standing for a trailhead** (Elbow Falls: the node is the lot, the official trailhead is the trail's
+  start 113 m east). Re-check against every other Alberta Parks official point: Burstall Pass 30 m, Chester Lake 31 m, Ribbon
+  Creek 55 m, North Interlakes (Mount Indefatigable row) 5 m, all pass. Corrected: Elbow Falls loop now holds the official point.
+- **A Wikidata P625 standing for a facility** (Canmore Nordic Centre: the item is the provincial park, the record is the
+  Nordic centre). Re-check of the other D1 Wikidata points on facilities: Prince of Wales Hotel 55 m from the OSM building, Miette
+  Hot Springs 95 m from the OSM pools. Corrected: the Nordic centre now holds the OSM Day Lodge, and Miette the OSM pools (inside
+  100 m but on the edge). Natural features from Wikidata (lakes, falls, canyon, parks) were not counted as this class.
+
+Found beside the sample: **Upper Kananaskis Lake loop** held OSM node 269822623 "Upper Lake Circuit Junction", a trail junction
+770 m west of the official North Interlakes trailhead; it now holds the Alberta Parks point (the legacy plan names North
+Interlakes).
+
+## Findings for the roadmap (reported, not fixed)
+
+**E_PLACE_AREA 277.** All 277 are records with no `area_id` at all (none has an `area_id` the store does not know). By trip:
+Rockies 136, Dolomites 34, Iceland 29, Patagonia 26, Chamonix 21, Utah 19, Algonquin 6, Vermont 6. By layer: places 162, routes
+115 (72 of the routes are legacy Rockies refs). `capture.ts migrate-placement` (dry run) finds a source for none of them: the
+locations store holds only the wishlist places, Wikidata gives no area, and no parent has an area to inherit. Now that 343 of 344
+places and routes have a point, the cheap fix is a derived `area_id` from the point, the way `derive-near` derives the town: a
+point-in-area lookup against the locations store's areas (and the national or provincial park boundaries), written only when one
+area contains the point and recorded with basis `our_inference`. That is a builder task (a new derive command and its tests),
+then a data run. Until then, `E_PLACE_AREA` stays at 277.
+
+**E_PLACE_ORPHAN 17.** All 17 are Rockies offers that say nowhere where they happen (no `at`, `on` or `starts_at`): Athabasca
+icewalks, Banff horse ride, Banff Springs spa, Bow River raft, the two Burgess Shale hikes, the Crypt Lake shuttle, the Canmore
+heli flight, heli hiking, the Jasper-Waterton horse ride record, the Jasper wildlife tour, the Lake Louise horse ride, the Norquay
+via ferrata, Radium Hot Springs, the Waterton cruise, the Yamnuska scramble and the Assiniboine Lodge helicopter. This is
+batch D4a's first goal (lane AC). Two points found here help it: the Waterton cruise meets at the Waterton Harbour marina (the
+D1 row) and Chinook Rafting meets at its Riverbase on Highway 1X (OSM way 1302746691). Note that the Waterton cruise already has
+a point in `points.json` but still counts as an orphan, because an offer's place comes from `at`, not from its own point.
+
+## DECISIONS NEEDED
+
+1. **Lac du Chatelard** (Chamonix day 6): drop the stop, or mark it `same_place_as` the place that was meant. No ref deleted.
+2. **Cinque Torri, Val Fiscalina and Vallunga payoff parts**: the routes are `route_is_attraction`, so no payoff is expected. If
+   the owner wants destination places anyway, a lane needs ownership of the parent records (to add `reaches`) and the required
+   tier for three new places. The sourced points are in step 3.
+3. **Mount Indefatigable viewpoint** (Rockies trail): every source says the trail was decommissioned in 2005; keep it on a family
+   plan only after Alberta Parks answers (operator question).
+4. **Federa** relation: the walk names the lake in `starts_at`; moving it to `reaches` is a record fix for the Dolomites owner.
+
+## Not verified
+
+- Every point is agent checked; none has a person's check.
+- Johnson Lake and Cory Pass: the official trailhead wording was not read (the Parks Canada Banff table is built in the browser).
+- Tent Ridge rests on OSM alone; Navajo Loop on OSM and the NPS-operated overlook node (NPS pages 404).
+- The Rienz meeting spot inside the St. Sigmund sports zone, and the Kicking Horse and Kananaskis put-ins.
+- Requests outside the fetcher's log: two WebFetch reads (the PNLG leaflet PDF on argentina.gob.ar and the Parks Canada Banff
+  day-hikes page) and a handful of web searches used to find official page addresses; the run record counts only the logged
+  fetcher requests.
+
+## Derived files
+
+After each data step: `python3 tools/towns.py build` (one GeoNames download, 25 Oct; the moved anchors added one town, Kaslo BC, to the layer),
+`node core/bin/capture.ts derive-near --write` (rewrote `near_town` and `near_town_km` in the capture files whose records got or
+changed a point), `node core/bin/relevance.ts points --build` and `derive --write`. These files carry those rewrites only.
