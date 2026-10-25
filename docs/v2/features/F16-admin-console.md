@@ -5,6 +5,12 @@
 > [trip-overview-and-customisation.md](trip-overview-and-customisation.md) section 6. Until the catalogue cutover and the
 > F17 roles exist, the owner uses a local pin command (PHO-0); the console screen is PHO-1 (BACKLOG 15.55).
 
+> **Amended 25 Oct 2026 (visitor suggestions):** visitor place suggestions, trip requests and (later) stored reports
+> land in one private table, `visitor_submission`, with the states new, duplicate, rejected, spam, researching and
+> added ([visitor-suggestions-and-favourites.md](visitor-suggestions-and-favourites.md) sections 5, 9). Until the
+> console and F17 roles exist the owner moderates with a local CLI (`core/bin/intake.ts`, INT-3); the console tab is
+> INT-5 (BACKLOG 15.75). This is the "user requests" input of the backlog (item 10) and part of moderation (item 13).
+
 ## Purpose
 
 The owner's workshop for growing the catalog and publishing curated trips: review what research

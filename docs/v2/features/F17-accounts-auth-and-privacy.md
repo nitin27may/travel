@@ -6,6 +6,13 @@ Know who is planning, keep each household's and trip's data private, let chat cl
 user safely, and let anyone take their data out or delete it. Built on Managed Better Auth (Neon)
 with Neon Postgres row-level security, plus the operation layer's own checks.
 
+> **Amended 25 Oct 2026 (favourites and suggestions):** two planned private tables join this page's export and delete
+> rules: `account_favourite` (owner-predicate RLS, like `planner_draft`) and the submitter's rows of
+> `visitor_submission` (read through a security-invoker view). Sign-out deletes the browser's account cache of
+> favourites. Spec: [visitor-suggestions-and-favourites.md](visitor-suggestions-and-favourites.md) sections 4.4, 8, 11;
+> PLAN R-70 to R-75. Q103 there asks whether sign-up may open for these light features while the planner stays
+> invite-only (question 2 below).
+
 **Status (R-60, Oct 2026).** Built: the account foundation only, namely email/password sign-up,
 sign-in and sign-out, server-verified sessions, and private `planner_draft` CRUD under RLS with
 cross-user isolation and live invalidation (content-free `planner_draft_signal`, the one

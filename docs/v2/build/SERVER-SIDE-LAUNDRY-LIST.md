@@ -70,6 +70,7 @@ Everything the public site reads goes through `web/lib/client/data.ts`. **From p
 | 34 | Maps, routing and exports in the planner (drive times cached, tracks, offline tiles) | [F15](../features/F15-maps-routing-and-exports.md) | M1 to M4 | Q51, ORS |
 | 35 | Admin console: review queue, research jobs, coverage, publishing, moderation | [F16](../features/F16-admin-console.md) | M1, M5, M6 | 17, 18 |
 | 36 | The public Sign in button, Save to a trip, and trip import from the public site | public-site 11.1 | with 1 | 1 |
+| 37 | Favourites synced to the account; place suggestions and trip requests with quotas and moderation (local favourites need no server and ship first) | [visitor-suggestions-and-favourites.md](../features/visitor-suggestions-and-favourites.md), public-site 15.70 to 15.75 | with 1 | 1, 7, R-61 |
 
 ## 5. Order
 
@@ -82,3 +83,4 @@ S0 foundation (items 1 to 9, after Q65 to Q69), then S1 the public site's server
 | 2026-10-20 | First version, from the planner feature pages and the P9 server-ready path |
 | 2026-10-20 | The public read paths are built as API-over-JSON now (items 10 to 14); SRV-0 defined for the Supabase catalogue store; deployment out of scope; ops paths to `/api/v1/plan/*` |
 | 2026-10-24 | R-60: Neon (Postgres, Managed Better Auth, Realtime) recorded as the selected backend; Supabase options and workflow marked historical; Q65-Q69 status, items 1, 2, 5 and 30 and the store names (proposed `PostgresStore`) updated; hosting, storage and functions still open |
+| 2026-10-25 | Item 37 added: favourites sync, suggestions and trip requests (PLAN R-70 to R-75) |
