@@ -1,0 +1,4 @@
+Tier: required · trip catalogue
+
+Per layer (EXECUTION-PLAN 6.4 columns; records answering each)
+layer         records area_id point osm_id wikidata official photos season where operator price duration window min_age

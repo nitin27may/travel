@@ -1,0 +1,126 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-25-data-d2b-int",
+  "started": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "scope": {
+    "refs": [
+      "place/paris",
+      "place/hanoi",
+      "place/sapa",
+      "place/ha-long-bay",
+      "place/gurudongmar-lake",
+      "place/provence",
+      "place/qq-canyon-racer-mountain-coaster-gulong-gorge"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "www.wikidata.org",
+      "requests": 4,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "overpass-api.de",
+      "requests": 10,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "place/paris",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "wikidata:Q90"
+    },
+    {
+      "ref": "place/hanoi",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "wikidata:Q1858"
+    },
+    {
+      "ref": "place/sapa",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "wikidata:Q1000140"
+    },
+    {
+      "ref": "place/ha-long-bay",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "wikidata:Q190128"
+    },
+    {
+      "ref": "place/gurudongmar-lake",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "wikidata:Q2264090"
+    },
+    {
+      "ref": "place/provence",
+      "field": "geonames_id",
+      "outcome": "filled",
+      "src": "wikidata:Q101081"
+    },
+    {
+      "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "src": "wikidata:search",
+      "tried": [
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities (Gulong Gorge, Gulongxia, QQ Speed Canyon Racer)"
+      ]
+    },
+    {
+      "ref": "place/paris",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/7444"
+    },
+    {
+      "ref": "place/hanoi",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/1903516"
+    },
+    {
+      "ref": "place/sapa",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/12540572"
+    },
+    {
+      "ref": "place/ha-long-bay",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/19465352"
+    },
+    {
+      "ref": "place/gurudongmar-lake",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/192611012"
+    },
+    {
+      "ref": "place/provence",
+      "field": "osm_ref",
+      "outcome": "searched_none",
+      "src": "osm:overpass",
+      "tried": [
+        "https://overpass-api.de/api/interpreter (name=Provence, place=region or locality: one locality node in Italy)"
+      ]
+    },
+    {
+      "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/1424946284"
+    }
+  ]
+}

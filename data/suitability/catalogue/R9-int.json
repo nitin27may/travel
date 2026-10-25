@@ -1,0 +1,855 @@
+{
+  "schema": "suitability/1",
+  "trip": "catalogue",
+  "lane": "R9-int",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0005",
+      "url": "https://www.wikidata.org/wiki/Q2264090",
+      "title": "Gurudongmar Lake (Wikidata Q2264090)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://en.parisinfo.com/what-to-see-in-paris/visiting-paris-with-a-disability/info/guides/transport-and-disability-getting-around-paris/adapted-public-transport/adapted-metros-in-the-paris-area",
+      "title": "Adapted metros in the Paris area (search extract; page answered 403 on the read date)",
+      "publisher": "Paris Convention and Visitors Bureau",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://vietnam.travel/places-to-go/northern-vietnam/ha-long",
+      "title": "Ha Long",
+      "publisher": "Viet Nam National Authority of Tourism",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://www.outlooktraveller.com/destinations/india/all-you-need-to-know-about-sikkims-gurudongmar-lake",
+      "title": "All You Need To Know About Sikkim's Gurudongmar Lake (updated 12 Jul 2023)",
+      "publisher": "Outlook Traveller",
+      "kind": "press",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://www.sikkim.gov.in/media/news-announcement/news-info?name=Tourism+Resumes+in+North+Sikkim+with+Key+Destinations+Welcoming+Visitors+from+September",
+      "title": "Tourism Resumes in North Sikkim with Key Destinations Welcoming Visitors from September (7 Sep 2025)",
+      "publisher": "Government of Sikkim (IPR)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://www.dahepiao.com/lvyounews1/20250403508376.html",
+      "title": "Gulong Gorge ticket prices and opening hours, April 2025 (reseller page)",
+      "publisher": "Dahepiao (ticket reseller)",
+      "kind": "reseller",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://you.ctrip.com/sight/qingyuan517/5139702.html",
+      "title": "Gulong Gorge opening hours (search extract; reseller page, not opened)",
+      "publisher": "Ctrip (travel reseller)",
+      "kind": "reseller",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/paris",
+      "kind": "town",
+      "subkind": "city",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Paved pavements and quays; many metro stations only have stairs. No survey found.",
+          "estimate": true
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "note": "Per the tourist office, only metro line 14 is fully step-free; tram lines and RER A and B are; check each station before travel."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/hanoi",
+      "kind": "town",
+      "subkind": "city",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Lakeside promenades and the French Quarter are paved; Old Quarter pavements are often blocked. No survey found.",
+          "estimate": true
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "Hoan Kiem Lake promenade and the French Quarter; Old Quarter pavements are crowded"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Uneven, crowded pavements in the Old Quarter; no accessibility survey found.",
+          "estimate": true
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/sapa",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The town centre and lake promenade are paved but steep in places. No survey found.",
+          "estimate": true
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "the town centre; village and rice-terrace paths are not stroller ground"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Steep streets and steps; no accessibility survey found.",
+          "estimate": true
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/ha-long-bay",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Cruises take babies and children; check the boat's own child rules and life jackets.",
+          "estimate": true
+        },
+        "kid_note": "Boat day or overnight trip; the water, steps on boats and storm days are the things to check with the operator.",
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "On boats and quays strollers are impractical; no rule found.",
+          "estimate": true
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Boat boarding is by gangway or tender; no accessibility statement found.",
+          "estimate": true
+        },
+        "on_site_min": {
+          "v": [
+            300,
+            1440
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A day cruise is about 5 to 6 hours and an overnight cruise one night; typical products, not a published rule.",
+          "estimate": true
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "vietnam.travel Ha Long (read 2026-10-25): no walking distance",
+            "halongtourism.com.vn (read 2026-10-25): none"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "boat",
+              "note": "Cruises run year round; boat trips can be suspended in storms or strong wind"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0024"
+          ],
+          "quote": "summer is hot with the chance of storms",
+          "note": "Tourism authority lists no closed season; summer is the storm season."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wind",
+              "note": "Summer storms can suspend boat trips",
+              "season": "summer"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0024"
+          ],
+          "quote": "summer is hot with the chance of storms"
+        }
+      },
+      "ext": {
+        "kind": "water",
+        "swimming": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "vietnam.travel Ha Long (read 2026-10-25): no swimming rule",
+            "halongtourism.com.vn (read 2026-10-25): none"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/gurudongmar-lake",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Outlook Traveller 2023 (read 2026-10-25): advises a doctor's check, no age",
+            "Sikkim Tourism PAP page (read 2026-10-25): text did not load"
+          ]
+        },
+        "kid_note": "Lake at about 5,100 to 5,400 m: sources advise seeing a doctor first and carrying medicines; checkpoint closes entry at 11 am.",
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Lakeshore at altitude with no paved path known.",
+          "estimate": true
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No accessibility statement found.",
+          "estimate": true
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Visits are short because of the altitude and the morning entry cut-off.",
+          "estimate": true
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "OSM (read 2026-10-25): no car park or path mapped at the lake",
+            "Outlook Traveller 2023 (read 2026-10-25): no walking distance"
+          ]
+        },
+        "altitude_m": {
+          "v": 5148,
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0005"
+          ],
+          "note": "Wikidata P2044.",
+          "conflicts": [
+            {
+              "v": 5425,
+              "basis": "community",
+              "src": [
+                "src-0028"
+              ],
+              "note": "Outlook Traveller gives 17,800 feet; OSM way 192611012 has ele=5100."
+            }
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "limited",
+              "via": "road",
+              "note": "Lachen route closed after the Oct 2023 flood; reopening promised for the next tourist season; verify before planning"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0029"
+          ],
+          "quote": "while Lachen will reopen in the next tourist season",
+          "note": "Government of Sikkim release of 7 Sep 2025 reopened Lachung, Yumthang and Zero Point; Lachen (the base for this lake) was to follow. Status after that not found.",
+          "applies_to": "2025"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "altitude",
+              "note": "About 5,100 to 5,400 m; altitude sickness risk, see a doctor first"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0028"
+          ],
+          "quote": "Consult a doctor before making your plans, and have all required medications close at hand."
+        }
+      },
+      "ext": {
+        "kind": "water",
+        "swimming": {
+          "v": "unsafe",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Sacred glacial lake at about 5,100 m, frozen part of the year; not a swimming site.",
+          "estimate": true
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "none",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/provence",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "not_applicable",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A region of many towns and villages; see the individual place pages."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "not_applicable",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A region of many towns and villages; see the individual place pages."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+      "kind": "activity",
+      "subkind": "coaster",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com and dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "min_height_cm": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com and dahepiao.com (read 2026-10-25): 1.2 m is the free-entry height, not a ride limit"
+          ]
+        },
+        "max_height_cm": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "min_weight_kg": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "max_weight_kg": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "adult_required": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "solo": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "age_band": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "kid_note": "Rider limits are not published on any page read; ask the operator before bringing children.",
+        "on_site_min": {
+          "v": [
+            60,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A 3.68 km track plus the walk from the car park; the scenic area has other paid attractions.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Listed as open all year; summer rain and heat can close the ride"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0032",
+            "src-0033"
+          ],
+          "note": "Reseller listings, April 2025."
+        },
+        "participation": {
+          "pregnancy": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-25",
+            "tried": [
+              "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+            ]
+          },
+          "weather_cancel": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-25",
+            "tried": [
+              "gulongxia.com and dahepiao.com (read 2026-10-25): no cancellation policy stated"
+            ]
+          }
+        }
+      },
+      "ext": {
+        "kind": "coaster",
+        "max_riders": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "max_load_kg": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "driver_rule": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "offer/place/qq-canyon-racer-mountain-coaster-gulong-gorge#ticket",
+      "kind": "activity",
+      "subkind": "coaster",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com and dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "min_height_cm": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com and dahepiao.com (read 2026-10-25): 1.2 m is the free-entry height, not a ride limit"
+          ]
+        },
+        "max_height_cm": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "min_weight_kg": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "max_weight_kg": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "adult_required": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "solo": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "age_band": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "kid_note": "Rider limits are not published on any page read; ask the operator before bringing children.",
+        "on_site_min": {
+          "v": [
+            60,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A 3.68 km track plus the walk from the car park; the scenic area has other paid attractions.",
+          "estimate": true
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Listed as open all year; summer rain and heat can close the ride"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0032",
+            "src-0033"
+          ],
+          "note": "Reseller listings, April 2025."
+        },
+        "participation": {
+          "pregnancy": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-25",
+            "tried": [
+              "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+            ]
+          },
+          "weather_cancel": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-25",
+            "tried": [
+              "gulongxia.com and dahepiao.com (read 2026-10-25): no cancellation policy stated"
+            ]
+          }
+        }
+      },
+      "ext": {
+        "kind": "coaster",
+        "max_riders": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "max_load_kg": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        },
+        "driver_rule": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "gulongxia.com attraction and home pages, dahepiao.com (read 2026-10-25): not stated"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
+    }
+  ]
+}
