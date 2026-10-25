@@ -4755,6 +4755,13 @@
                             {
                               "type": "object",
                               "properties": {
+                                "basis": {
+                                  "type": "string",
+                                  "enum": [
+                                    "plan",
+                                    "researched"
+                                  ]
+                                },
                                 "months": {
                                   "type": "array",
                                   "items": {
@@ -4798,6 +4805,7 @@
                                 }
                               },
                               "required": [
+                                "basis",
                                 "months",
                                 "label",
                                 "why",
@@ -9640,6 +9648,20 @@
                               "null"
                             ]
                           },
+                          "seasonBasis": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "plan",
+                                  "researched"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
                           "seasonMonths": {
                             "type": "array",
                             "items": {
@@ -9873,6 +9895,7 @@
                           "region",
                           "cover",
                           "seasonLabel",
+                          "seasonBasis",
                           "seasonMonths",
                           "country",
                           "countryName",

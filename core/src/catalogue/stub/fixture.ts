@@ -211,7 +211,7 @@ function tripOf(t: (typeof TRIPS)[number], places: StubPlace[]): StubTrip {
   const detail: TripDetail = {
     ref: `trip/${t.slug}`, slug: t.slug, title: t.title, subtitle: `${t.nights} nights`, depth: "full", visibility: "public", nights: t.nights, daysCount: t.nights + 1,
     seasonNotSet: false, isDone: false, region: COUNTRY[t.cc], cover: null,
-    season: { months: [7, 8], label: "July and August", why: "Lifts and high trails open.", weather: { tempC: "10 to 24", rain: "some", daylight: "15 h", notes: [] } },
+    season: { basis: "researched", months: [7, 8], label: "July and August", why: "Lifts and high trails open.", weather: { tempC: "10 to 24", rain: "some", daylight: "15 h", notes: [] } },
     firstBase: "Base one", legacyUrl: `/trips/${t.slug}/`, honesty: [],
     tags: { countries: [t.cc.toLowerCase()], continents: [t.cc === "CA" ? "north-america" : "europe"], length: "4-8", when: [7, 8], kidsFrom: null, kidsBasis: null, hike: "moderate", hikeBasis: "plan", stroller: null, activities: [], highlights: [mine[0]!.detail.name], around: ["rental-car"], perDay: "1-2", perDayApprox: true, shape: "road-trip" },
     lengthClass: "multi-day", fromHubs: [], schedule: null,
@@ -226,7 +226,7 @@ function tripOf(t: (typeof TRIPS)[number], places: StubPlace[]): StubTrip {
   };
   const row: TripRow = {
     ref: detail.ref, id: t.slug, slug: t.slug, title: t.title, depth: "full", nights: t.nights, days: t.nights + 1, seasonNotSet: false, isDone: false,
-    region: COUNTRY[t.cc], cover: null, seasonLabel: "July and August", seasonMonths: [7, 8], country: t.cc, countryName: COUNTRY[t.cc],
+    region: COUNTRY[t.cc], cover: null, seasonLabel: "July and August", seasonBasis: "researched", seasonMonths: [7, 8], country: t.cc, countryName: COUNTRY[t.cc],
     lat: first.lat, lon: first.lon, approx: false, ageFit: null, kidsBasis: null, effort: "moderate", firstBase: "Base one",
     countries: [{ code: t.cc, name: COUNTRY[t.cc] }], continents: detail.tags.continents, length: "4-8", lengthClass: "multi-day",
     hike: "moderate", hikeBasis: "plan", strollerDays: null, activities: [], highlights: detail.tags.highlights, around: ["rental-car"],

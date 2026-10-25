@@ -42,6 +42,8 @@ export const tripRow = z.strictObject({
   region: z.string(),
   cover: z.string().nullable(),
   seasonLabel: z.string().nullable(),
+  /** "plan": the label is only the window the plan was written for (other months and opening dates not checked). */
+  seasonBasis: z.enum(["plan", "researched"]).nullable(),
   seasonMonths: z.array(z.int().min(1).max(12)),
   country: z.string().regex(/^(?:[A-Z]{2})?$/),
   countryName: z.string(),
@@ -205,6 +207,7 @@ export const tripDetail = z.strictObject({
   region: z.string(),
   cover: photo.nullable(),
   season: z.strictObject({
+    basis: z.enum(["plan", "researched"]),
     months: z.array(z.int().min(1).max(12)),
     label: z.string(),
     why: z.string(),
