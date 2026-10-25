@@ -1,11 +1,13 @@
-# DATA-LOC: every location has the basics, whether or not a trip uses it (D7, D2b, D5b)
+# DATA-LOC: every location has the basics, whether or not a trip uses it (L1 to L5; D2b; extends D3 and D5)
 
-Status: spec, 25 Oct 2026 (owner request, this session). Nothing in this brief is built yet. Owner words, summarised: widen the search; every
+Status: spec, 25 Oct 2026 (owner request). Nothing in this brief is built yet. Rows: PLAN R-110, BACKLOG 15.110 (renumbered
+on 25 Oct from R-68 and 3.68 on `public/DATA-L1`; the old title's "D7" was a batch label that collides with D7 best-time
+windows and is dropped: the batches here are L1 to L5, and L2 runs as DATA D2b). State and order: [DATA-ROADMAP.md](../DATA-ROADMAP.md). Owner words, summarised: widen the search; every
 location (city, lake, nature, trail, activity) should carry basic facts even when no trip plans it; images for every location, from wherever
 licensed images can be found; trail facts (length, gain, difficulty) with links; parking when a place needs a car; booking when an activity
 needs one; the same record shape must load into Neon Postgres; make adding locations easy.
 
-Read with [DATA.md](DATA.md) (batches D1 to D6) and [research/README.md](../../../../research/README.md) 3e. The rules there stay: data only, a
+Read with [DATA.md](DATA.md) (batches D1 to D6) and [research/README.md](../../../../../research/README.md) 3e. The rules there stay: data only, a
 source row, a read date and a basis for every value, `searched_none` for a gap, link-only platforms never a source of a stored value.
 
 ## 1. What the store holds today (25 Oct, `data/locations/locations.json`)
@@ -72,7 +74,10 @@ Order, one runner, one request at a time (the Commons 429 rule in `method/lanes/
 
 Record per photo: file page URL, author, licence (from the file's metadata), width at least 1600 for a hero, search date, `subject_check`. Reject
 "all rights reserved" and "no derivatives" files (we resize and crop). "Non-commercial" (NC) files are allowed while the site earns nothing and the
-licence is recorded, so they can be dropped in one query if that ever changes. This needs `tools/gallery/` to learn Openverse, Flickr and Geograph (builder work, section 7). It also changes README 3e item 4
+licence is recorded, so they can be dropped in one query if that ever changes. **Conflict, not settled (DATA-ROADMAP DD-3):** D5b in DATA.md and its prompt allow only CC BY, CC BY-SA, CC0 and public
+domain ("never NC, ND or all rights reserved"), and `research/method/lanes/media.md` section 6 rejects non-free licences,
+which covers NC and the Unsplash and Pexels licences. Q-LOC-4 accepted this section without naming either. Until the owner
+rules, every photo batch follows the D5b allowlist; NC files and items 5 (Unsplash, Pexels) are proposals. This needs `tools/gallery/` to learn Openverse, Flickr and Geograph (builder work, section 7). It also changes README 3e item 4
 and `method/lanes/media.md` section 5; both are edited with this brief.
 
 ## 5. Easy way to add a location
@@ -84,7 +89,8 @@ Today `locations.py add` resolves one place at a time, and `edit` has no flag fo
 2. `locations.py basics --report` lists every place by missing basics layer (section 2) so the researcher works the worst first. This is the table in section 1 as a command.
 3. `edit` gains `--wikidata`, `--elevation-m`, `--image`, and a `capture` sub-command that opens (or creates) the place's capture record for parking, links and booking.
 4. A place with no trip gets its capture records in a trip-less lane (proposed `data/capture/wishlist/`, trip id `wishlist`), using the same schema, so the
-   validators, gap reports, suitability sidecars and the Neon load treat them like any trip's. **To verify in step 1:** that the validators accept a lane
+   validators, gap reports, suitability sidecars and the Neon load treat them like any trip's. Refs for these places are opaque `place/<slug>` refs from the pinned slug registry (DATA.md, REF1; never write a new
+   `loc:` key). **To verify in step 1:** that the validators accept a lane
    that is not in `data/trips/` (the page-key file `data/locations/page-keys.json` already gives such places a `loc:<id>` ref).
 
 ## 6. Steps
@@ -97,8 +103,10 @@ Today `locations.py add` resolves one place at a time, and `edit` has no flag fo
 | L4 | Cross-check pass: the store against capture records, points, tracks and the relevance sidecars; one `gaps --basics` report; conflicts recorded, none picked silently | verifier | L2, L3 |
 | L5 | Grow the list: the saved-post captures and the plan's named but unresearched places (`research/inbox/`), through `quick-add` then L2 | researcher | L1 |
 
-Run order with the DATA batches: D1 (done, `public/DATA-D1`), then L1 and D6a/D3a/D4a in parallel on disjoint files, then L2 and D5a/L3 (one photo runner
-at a time, never two agents on Commons), then L4.
+Run order with the DATA batches (updated 25 Oct; the tracked version is [DATA-ROADMAP.md](../DATA-ROADMAP.md)): D1 (merged), D1b (in
+progress), then L1 beside D3a, D4a, D7-R, D8-R and D9-R on disjoint files; L2 (D2b) after L1 and after D1b frees `points.json` and
+the Wikidata lock; L3 with D5a and D5b as one photo runner (never two agents on Commons or Openverse); then L4. L3 waits for the
+`tools/gallery/` Openverse and Geograph support (builder work, section 4); until then photo batches use Commons and NPS only.
 
 ## 7. Open decisions
 

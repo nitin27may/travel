@@ -43,7 +43,7 @@ Answers to the clarifying questions (owner, final):
 | # | Decision | Why | Trade-off |
 |---|---|---|---|
 | D1 | Three deliverables in one effort, shipped in order: **(a)** best-time windows and the trip overview, public; **(b)** customisation, signed in; **(c)** the admin photo console | Product direction puts the public site first; (a) needs no account, no new backend and no data-layer cutover | Customisation waits for (a) and for the R-61 HTTPS preview, about two weeks later |
-| D2 | Windows are **per-trip data** in a new file `data/seasons/<trip-id>.json` (`trip-windows/1`), not prose and not a trip table yet | The 14 trips are still legacy-backed (TD-4 is after R2); a sidecar keyed by trip id works for every trip today and folds into `trip.json` at TD-1/TD-4 | One more per-trip file until TD-4; the TD-2 allowlist must classify it then |
+| D2 | Windows are **per-trip data** in a new file `data/windows/<trip-id>.json` (`trip-windows/1`; moved from `data/seasons/` on 25 Oct, see 2.2), not prose and not a trip table yet | The 14 trips are still legacy-backed (TD-4 is after R2); a sidecar keyed by trip id works for every trip today and folds into `trip.json` at TD-1/TD-4 | One more per-trip file until TD-4; the TD-2 allowlist must classify it then |
 | D3 | A window is a **start week of a month** ("last week of June"), plus a month-day pair for the sun range, never a calendar date | Dateless rule (PLAN section 1); the schedule files already use month-day pairs for sun times only | "Week" is coarse; holidays that move (Labour Day) are written as rules, not dates |
 | D4 | The overview **replaces** the By category view (`view=all`; `view=category` stays as an alias) | One inventory view, not two that drift; the six categories survive as its tabs | The view's code moves into a lazy chunk, so the first open costs one request and one chunk |
 | D5 | The overview has **three scopes**: In this plan, Also researched for this trip, Nearby you could add | The owner asked "how many trails there are for that trip": the Rockies plan uses 33 trails but 62 were researched; "all possible nearby things" is the third scope | More rows than the plan; counts per scope keep it readable (P2) |
@@ -62,7 +62,7 @@ flowchart LR
   classDef infra fill:#5A6772,stroke:#3E4850,color:#FFFFFF
   classDef err fill:#9B2C2C,stroke:#6E1F1F,color:#FFFFFF
 
-  D7["DATA D7<br/>best-time windows<br/>data/seasons/"]:::data
+  D7["DATA D7<br/>best-time windows<br/>data/windows/"]:::data
   D8["DATA D8<br/>item season, booking,<br/>duration, effort"]:::data
   D5b["DATA D5b<br/>trail thumbnails<br/>Commons"]:::ext
   C["OVR-C<br/>contract: trip-windows/1,<br/>tripItems, counts"]:::core
@@ -142,7 +142,14 @@ researched fact.)
 
 ### 2.2 Data shape: `trip-windows/1`
 
-File: `data/seasons/<trip-id>.json`, one per trip, keyed by the trip id used in `data/capture/` (section 8.1). Written
+**Folder changed 25 Oct 2026 (DATA-ROADMAP decision DD-1, reversible until D7-R writes a file).** DATA D6a wrote
+`data/seasons/<trip>.json` for the six trips with no season under a different schema, `trip-season-basic/1`: one window
+(the plan's own, `verdict: null`) plus a `season` block in the adapter's Season shape and climate-station `points`. A
+`trip-windows/1` validator over that folder would reject those files (`E_WIN_COUNT`), and D7 would overwrite them. So the
+windows live in their own folder; `data/seasons/` stays the trip's basic season (BACKLOG 3.9, 15.113). Where both files
+exist for a trip, the windows file's default window must agree with the season file's months (`E_WIN_SUN` reads both).
+
+File: `data/windows/<trip-id>.json`, one per trip, keyed by the trip id used in `data/capture/` (section 8.1). Written
 by research (DATA D7), validated by a Zod schema in core (`core/src/schema/windows.ts`, task OVR-C) and by check-all.
 Never published as a file; the trip page and the API read it through the store.
 
@@ -588,7 +595,7 @@ Q8: "No for now"); nothing is superseded.
 
 ### 8.1 Trip ids
 
-Capture ids (`data/capture/<id>/`, used with `--trip`, `data/seasons/<id>.json` and run notes) differ from the research
+Capture ids (`data/capture/<id>/`, used with `--trip`, `data/windows/<id>.json`, `data/seasons/<id>.json` and run notes) differ from the research
 folders:
 
 | Capture and seasons id | Research folder (`research/trips/`) | Depth on the site |
@@ -650,8 +657,8 @@ copy-paste prompts in [DATA-AGENT-PROMPTS.md](../build/public-site/briefs/DATA-A
 
 | Batch | What | Files it owns | Model | Effort | Starts |
 |---|---|---|---|---|---|
-| D7-R | Rockies windows, the pattern | `data/seasons/canadian-rockies-2029.json`, `research/trips/canadian-rockies-sept-2029/timing-windows.md`, `research/runs/DATA-D7-canadian-rockies-2029.md`, `data/capture/runs/DATA-D7-*.json` | Opus researcher | 4 h | on the owner's go; no code dependency (validated by hand against 2.2 until OVR-C lands) |
-| D7 | windows for the other 13 trips | `data/seasons/<id>.json`, `research/trips/<folder>/timing-windows.md`, run notes | Opus | about 16 h (7 day trips at 1.5 h, 6 overview trips at 1 h) | after OVR-Ca freezes the schema |
+| D7-R | Rockies windows, the pattern | `data/windows/canadian-rockies-2029.json`, `research/trips/canadian-rockies-sept-2029/timing-windows.md`, `research/runs/DATA-D7-canadian-rockies-2029.md`, `data/capture/runs/DATA-D7-*.json` | Opus researcher | 4 h | on the owner's go; no code dependency (validated by hand against 2.2 until OVR-C lands) |
+| D7 | windows for the other 13 trips | `data/windows/<id>.json`, `research/trips/<folder>/timing-windows.md`, run notes | Opus | about 16 h (7 day trips at 1.5 h, 6 overview trips at 1 h) | after OVR-Ca freezes the schema |
 | D8-R | Rockies overview facts: access season per item for each window, booking normalised with sources, durations for sights and activities, family effort for trails | `data/capture/canadian-rockies-2029/OV.json`, `data/suitability/canadian-rockies-2029/OV.json`, run notes | Opus | 8 h | beside D3a/D4a (disjoint lane files) |
 | D8 | the same for the other 7 day trips | `data/capture/<id>/OV.json`, sidecars | Opus | about 8 h | after D8-R |
 | D5b | a thumbnail for all 118 trails, then every stop on a plan day, then the overview's Also researched items | `data/capture/<id>/PH.json`, run notes | Haiku for `gallery_find` runs (mechanical, one runner); Opus for picks | 2 h Haiku + 10 h Opus | after D1 merges (geosearch needs points); D5a's five R2 trails first |
@@ -724,4 +731,5 @@ Owner answers, 25 Oct (second round, in the data seat):
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (data roadmap) | Best-time windows move from `data/seasons/` to `data/windows/` because D6a's `trip-season-basic/1` files use `data/seasons/` (DATA-ROADMAP DD-1); 2.2 explains the two files |
 | 2026-10-25 | First version from the owner's request and answers of 25 Oct: decisions D1 to D10, windows (`trip-windows/1`), the overview with scopes and filters, thumbnails, customisation as a delta in `planner_draft`, admin photo update, the Flickr check, the data-gap analysis with batches D7, D8, D5b, D5f, questions Q93 to Q100 |

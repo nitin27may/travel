@@ -1,5 +1,8 @@
 # Rockies: where to base (strategy research, 25 Oct 2026)
 
+Spec: `docs/v2/features/stay-bases-and-optimisation.md` sections 3.6 and 3.7 (PLAN R-112). The questions at the end are
+now Q-BASE-1 there, Q114 (was Q-BASE-2) and Q113 (Q-BASE-3 folded in).
+
 Question (owner, 25 Oct): would three bases (Jasper, Golden, Banff) cut check-ins and make the return to Calgary
 easy? Is Canmore a cheaper option than Banff or Lake Louise village? What should the trip page say about it?
 
