@@ -81,3 +81,12 @@ describe('readSeason', () => {
     expect(() => parseSeasonFile({ schema: 'x' }, 'f.json')).toThrow(/f\.json: schema/);
   });
 });
+
+describe('the six season files after the review fixes', () => {
+  it('the two labels read as windows, not days or draft notes', () => {
+    expect(d.internals.trips.find((t) => t.slug === 'new-hampshire-stopover-2026')!.season!.label).toBe('Two days at the turn of September and October');
+    const no = d.internals.trips.find((t) => t.slug === 'norway-summer-2028')!.season!;
+    expect(no.label).toBe('Last week of June into early July');
+    expect(no.why).toMatch(/^The window the plan was written for, dates still open: /);
+  });
+});

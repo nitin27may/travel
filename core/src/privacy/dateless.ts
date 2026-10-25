@@ -6,9 +6,9 @@ import { publicOrigin } from './origin.ts';
 
 const MONTH = '(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)';
 const WEEKDAY = '(?:Mon|Tue|Tues|Wed|Thu|Thur|Thurs|Fri|Sat|Sun)(?:day|sday|nesday|rsday|urday)?';
-/** ISO date, "15 Jun", "10-12 Oct", "Jun 15", "February 2027", "Tue 15". A year on its own ("2026 price") is fine. */
+/** ISO date, "15 Jun", "10-12 Oct", "Jun 15", "February 2027", "Tue 15", and the same days in words ("first of October", "last day of September"). A year on its own ("2026 price") is fine. */
 export const DATE_TEXT = new RegExp(
-  `\\d{4}-\\d{2}-\\d{2}|\\b\\d{1,2}(?:st|nd|rd|th)?\\s*(?:[-–]\\s*\\d{1,2}\\s*)?${MONTH}\\b|\\b${MONTH}\\.?\\s+\\d{1,2}\\b|\\b${MONTH}\\s+\\d{4}\\b|\\b${WEEKDAY}\\.?,?\\s+\\d{1,2}\\b`,
+  `\\d{4}-\\d{2}-\\d{2}|\\b\\d{1,2}(?:st|nd|rd|th)?\\s*(?:[-–]\\s*\\d{1,2}\\s*)?${MONTH}\\b|\\b${MONTH}\\.?\\s+\\d{1,2}\\b|\\b${MONTH}\\s+\\d{4}\\b|\\b${WEEKDAY}\\.?,?\\s+\\d{1,2}\\b|\\b(?:first|last)\\s+day\\s+of\\s+${MONTH}\\b|\\b(?:first|last|\\d{1,2}(?:st|nd|rd|th))\\s+of\\s+${MONTH}\\b`,
   'i',
 );
 
