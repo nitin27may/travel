@@ -34,7 +34,7 @@ export function HomeTripCard({ trip, priority }: { trip: PublicTripCard; priorit
       chips={
         <ul className="badge-row" aria-label="Details">
           <li>
-            <Chip kind="neutral" icon="calendar" title={trip.season?.why}>
+            <Chip kind="neutral" icon="calendar" title={trip.season?.why} wrap>
               {trip.season ? trip.season.label : 'Season not set yet'}
             </Chip>
           </li>

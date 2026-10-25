@@ -167,6 +167,9 @@
   color: var(--ink-2); font: var(--t-chip); white-space: nowrap; max-width: 100%;
 }
 .chip > svg { flex: none; }
+/* a chip whose text is a claim that must be read whole (a trip's season) wraps instead of being cut; the glyph stays on the first line */
+.chip-wrap { height: auto; min-height: 24px; padding-block: 5px; align-items: flex-start; white-space: normal; text-align: left; line-height: 1.3; border-radius: var(--r-3); overflow-wrap: anywhere; }
+.chip-wrap > svg { margin-top: 1px; }
 .chip-active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent-text); }
 .chip-caution { border-color: transparent; background: var(--warn-soft); color: var(--warn); }
 .chip-urgent { border-color: transparent; background: var(--crit-soft); color: var(--crit); }

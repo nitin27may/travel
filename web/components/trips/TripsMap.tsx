@@ -129,7 +129,7 @@ export function TripsMap({ rows }: { rows: TripListRow[] }) {
               </h3>
               <p className="trips-map-meta">{[lengthLabel(trip.nights, trip.days), trip.region].filter(Boolean).join(' · ')}</p>
               <p className="trips-map-chips">
-                <Chip kind={trip.seasonLabel ? 'neutral' : 'honest'} icon="calendar">
+                <Chip kind={trip.seasonLabel ? 'neutral' : 'honest'} icon="calendar" wrap>
                   {trip.seasonLabel ?? 'Season not set yet'}
                 </Chip>
                 {trip.depth !== 'full' ? <Chip kind="honest">{DEPTH_NOTICE[trip.depth]}</Chip> : null}

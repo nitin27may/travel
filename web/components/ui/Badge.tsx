@@ -24,7 +24,7 @@ export function BadgePill({ badge }: { badge: BadgeData }) {
   const kind = chipKind(badge);
   return (
     <span className="badge-wrap" data-tone={badge.tone} data-value={badge.value}>
-      <Chip kind={kind} icon={kind === 'honest' ? 'warn' : ((badge.icon as IconName | undefined) ?? false)} title={badge.title}>
+      <Chip kind={kind} icon={kind === 'honest' ? 'warn' : ((badge.icon as IconName | undefined) ?? false)} title={badge.title} wrap={badge.tone === 'season'}>
         {badge.text}
       </Chip>
     </span>

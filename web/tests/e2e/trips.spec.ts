@@ -76,6 +76,27 @@ test.describe('trip page', () => {
       expect(r.violations.map((v) => `${v.id}: ${v.nodes[0]?.html.slice(0, 80)}`), path).toEqual([]);
     }
   });
+  test('the season chip is readable whole on every list card and on the map card (D6a-W: no clipped season)', async ({ page, site }) => {
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`${site.url}/trips/?view=cards`);
+      const clipped = await page.evaluate(() =>
+        [...document.querySelectorAll('.chip')].filter((c) => c.scrollWidth > c.clientWidth + 1 || c.getBoundingClientRect().right > (c.closest('li, article')?.getBoundingClientRect().right ?? 1e9) + 1).map((c) => c.textContent),
+      );
+      expect(clipped, `cards at ${width}`).toEqual([]);
+      await expect(page.locator('.chip-wrap').filter({ hasText: 'Last week of June into early July' }).first()).toBeVisible();
+      // the map card for the Norway trip keeps its meta line and the button inside the card
+      await page.goto(`${site.url}/trips/?view=map`);
+      await page.locator('[data-pin-id="norway-summer-2028"]').first().dispatchEvent('click');
+      const card = page.locator('.trips-map-card');
+      await expect(card).toBeVisible();
+      const box = (await card.boundingBox())!;
+      const button = (await card.getByRole('link', { name: /Open the plan/ }).boundingBox())!;
+      expect(button.x + button.width, `button inside the card at ${width}`).toBeLessThanOrEqual(box.x + box.width + 1);
+      expect(await card.evaluate((el) => el.scrollWidth <= el.clientWidth + 1), `card does not overflow at ${width}`).toBe(true);
+      await expect(card.locator('.chip-wrap')).toContainText('Last week of June into early July');
+    }
+  });
   test('private trips have no page', async ({ page, site }) => {
     const res = await page.goto(`${site.url}/trips/some-private-trip/`);
     expect(res?.status()).toBe(404);
