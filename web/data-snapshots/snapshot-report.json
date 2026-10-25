@@ -1,7 +1,7 @@
 {
   "schema": "snapshot-report/1",
   "note": "Dropped from the public view because it carries a calendar date. Rewrite each as a season, a day number or a rule.",
-  "count": 229,
+  "count": 233,
   "items": [
     {
       "where": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre wikidata note",
@@ -369,13 +369,18 @@
       "why": "agent or review-queue process note; never published"
     },
     {
-      "where": "legacy/canadian-rockies-sept-2029/trails/lake-agnes age_band note",
-      "text": "7.8 km and 495 m (effort_km 12.75) against the age gates of suitability.md 6.2: over the 6-7 ceiling (6 km, 350 m), inside the 8-9 ceiling (9 km, 500 m, 14).",
+      "where": "legacy/canadian-rockies-sept-2029/trails/lake-agnes adult_time_min note",
+      "text": "converted from trails.json hours \"3-4 h\" to minutes; not re-read at the source",
       "why": "agent or review-queue process note; never published"
     },
     {
-      "where": "legacy/canadian-rockies-sept-2029/trails/lake-agnes carrier_ok note",
-      "text": "495 m of climb is over the carrying-adult ceiling of suitability.md 6.2 (8 km, 400 m).",
+      "where": "legacy/canadian-rockies-sept-2029/trails/lake-agnes effort.drivers.distance_km note",
+      "text": "trails.json km 7.8 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/lake-agnes effort.drivers.gain_m note",
+      "text": "trails.json gain_m 495 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
       "why": "agent or review-queue process note; never published"
     },
     {
@@ -499,13 +504,18 @@
       "why": "agent or review-queue process note; never published"
     },
     {
-      "where": "legacy/canadian-rockies-sept-2029/trails/rawson-lake age_band note",
-      "text": "7.8 km and 320 m (effort_km 11.0) against the age gates of suitability.md 6.2: over the 6-7 ceiling (6 km), inside the 8-9 ceiling (9 km, 500 m, 14).",
+      "where": "legacy/canadian-rockies-sept-2029/trails/rawson-lake adult_time_min note",
+      "text": "converted from trails.json hours \"3-4 h return\" to minutes; not re-read at the source",
       "why": "agent or review-queue process note; never published"
     },
     {
-      "where": "legacy/canadian-rockies-sept-2029/trails/rawson-lake carrier_ok note",
-      "text": "7.8 km and 320 m is inside the carrying-adult ceiling of suitability.md 6.2 (8 km, 400 m, effort 12).",
+      "where": "legacy/canadian-rockies-sept-2029/trails/rawson-lake effort.drivers.distance_km note",
+      "text": "trails.json km 7.8 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/rawson-lake effort.drivers.gain_m note",
+      "text": "trails.json gain_m 300 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
       "why": "agent or review-queue process note; never published"
     },
     {
@@ -532,6 +542,11 @@
       "where": "legacy/canadian-rockies-sept-2029/trails/ribbon-creek effort.drivers.gain_m note",
       "text": "trails.json gain_m 0 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read.",
       "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge effort.drivers.distance_km note",
+      "text": "Computed from OSM ways 24836168, 181184079, 181184081 (Rawson Lake Trail) and 181184076, 753718984 (Sarrail Ridge Trail): 4.68 km one way from the Rawson Lake Trailhead node 269822212 to the Sarrail Ridge peak node 7042108468, doubled.",
+      "why": "household capture note (plan link, stay idea or address); never published"
     },
     {
       "where": "legacy/canadian-rockies-sept-2029/trails/skyline-trail effort.drivers.distance_km note",
@@ -761,6 +776,11 @@
     {
       "where": "place/cadini-di-misurina-viewpoint effort.drivers.distance_km conflict",
       "text": "OSM path 117 from Rifugio Auronzo to the approximate viewpoint pin, 2.16 km one way, doubled; the pin is approximate.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/croda-del-becco effort.drivers.gain_m conflict",
+      "text": "Computed, not published: the confirmed OSM track (relation 1155861, Lago di Braies to the summit, cut at the destination) gives 1,467 m up and 213 m down one way (7.31 km).",
       "why": "household capture note (plan link, stay idea or address); never published"
     },
     {
