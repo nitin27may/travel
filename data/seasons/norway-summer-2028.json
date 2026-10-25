@@ -1,0 +1,70 @@
+{
+  "schema": "trip-season-basic/1",
+  "schema_note": "One window only, the plan's recommended one. trip-windows/1 (overview spec 2.2) needs 2 to 4 windows, so this file keeps the same field names under trip-season-basic/1 and adds a `season` block in the adapter's Season shape. The plan names a second candidate later in summer; it was not researched here, so it is not a window in this file.",
+  "trip": "norway-summer-2028",
+  "legacy_folder": "norway-summer",
+  "researched": "2026-10-25",
+  "agent": "DATA-D6a",
+  "model": "opus",
+  "length_days": 15,
+  "default": "plan",
+  "months_basis": "plan_months",
+  "months_basis_note": "The plan's own recommended window. The plan says summer with exact dates open and recommends about two weeks from the last week of June into early July (its Window A), chosen for midnight sun across the Arctic stops and to fall before the Norwegian common holiday weeks; it keeps a later candidate (Window B) as a fallback.",
+  "sources": [
+    { "id": "s-bc722473fe", "url": "https://www.ncei.noaa.gov/data/oceans/archive/arc0216/0253808/1.1/data/0-data/Region-6-WMO-Normals-9120/Norway/CSV/BERGEN_FLORIDA_01317.csv", "title": "WMO Climate Normals 1991-2020, Bergen - Florida (01317)", "publisher": "World Meteorological Organization, archived by NOAA NCEI (accession 0253808)", "kind": "official", "read": "2026-10-25" },
+    { "id": "s-66e99dfe26", "url": "https://www.ncei.noaa.gov/data/oceans/archive/arc0216/0253808/1.1/data/0-data/Region-6-WMO-Normals-9120/Norway/CSV/TROMSO_01026.csv", "title": "WMO Climate Normals 1991-2020, Tromso (01026)", "publisher": "World Meteorological Organization, archived by NOAA NCEI (accession 0253808)", "kind": "official", "read": "2026-10-25" },
+    { "id": "s-261e547171", "url": "https://www.ncei.noaa.gov/data/oceans/archive/arc0216/0253808/1.1/data/0-data/Region-6-WMO-Normals-9120/Norway/CSV/LEKNES_LUFTHAVN_01141.csv", "title": "WMO Climate Normals 1991-2020, Leknes Lufthavn (01141)", "publisher": "World Meteorological Organization, archived by NOAA NCEI (accession 0253808)", "kind": "official", "read": "2026-10-25" },
+    { "id": "s-4e034d5d62", "url": "https://www.ncei.noaa.gov/data/oceans/archive/arc0216/0253808/1.1/data/0-data/Region-6-WMO-Normals-9120/Norway/CSV/REINE_85660.csv", "title": "WMO Climate Normals 1991-2020, Reine (85660)", "publisher": "World Meteorological Organization, archived by NOAA NCEI (accession 0253808)", "kind": "official", "read": "2026-10-25" },
+    { "id": "s-0a89108e8b", "url": "https://www.ncei.noaa.gov/data/oceans/archive/arc0216/0253808/1.1/data/0-data/Region-6-WMO-Normals-9120/Norway/CSV/ANDALSNES_61350.csv", "title": "WMO Climate Normals 1991-2020, Andalsnes (61350)", "publisher": "World Meteorological Organization, archived by NOAA NCEI (accession 0253808)", "kind": "official", "read": "2026-10-25" },
+    { "id": "s-f63a803989", "url": "core/bin/sun.ts", "title": "Sun calculator (sunrise, sunset, twilight)", "publisher": "this repo", "kind": "computed", "read": "2026-10-25" }
+  ],
+  "points": [
+    { "id": "bergen", "name": "Bergen - Florida climate station", "lat": 60.3831, "lon": 5.3328, "elev_m": 12, "zone": "Europe/Oslo", "src": ["s-bc722473fe"], "note": "Station coordinates as printed in the WMO file (60 22 59 N, 05 19 58 E)." },
+    { "id": "leknes", "name": "Leknes airport climate station (Lofoten)", "lat": 68.155, "lon": 13.615, "elev_m": 26, "zone": "Europe/Oslo", "src": ["s-261e547171"], "note": "Station coordinates as printed in the WMO file (68 09 18 N, 13 36 54 E)." },
+    { "id": "tromso", "name": "Tromso climate station", "lat": 69.6536, "lon": 18.9367, "elev_m": 100, "zone": "Europe/Oslo", "src": ["s-66e99dfe26"], "note": "Station coordinates as printed in the WMO file (69 39 13 N, 18 56 12 E)." }
+  ],
+  "season": {
+    "months": { "value": [6, 7], "basis": "plan", "note": "The plan's recommended window; exact dates are still open in the plan." },
+    "label": { "value": "Last week of June into early July (dates still open)", "basis": "plan" },
+    "why": { "value": "The plan's recommended window: the sun does not set at the Lofoten and Tromso stations and the fjord coast has no real night.", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" },
+    "weather": {
+      "tempC": { "value": "10 to 20 C in Bergen, 6 to 16 C in Tromso; Lofoten daily mean about 10 to 13 C", "basis": "official", "src": ["s-bc722473fe", "s-66e99dfe26", "s-261e547171"], "on": "2026-10-25", "note": "WMO 1991-2020, mean daily min to max, June / July: Bergen 10.1/12.4 to 17.7/19.6; Tromso 6.2/9.1 to 13.0/16.3. Leknes publishes only the daily mean: 9.7/12.7." },
+      "rain": { "value": "Wet in Bergen, 13 to 15 rain days a month; about 11 in Tromso; Lofoten and Andalsnes about 90 to 100 mm a month", "basis": "official", "src": ["s-bc722473fe", "s-66e99dfe26", "s-4e034d5d62", "s-0a89108e8b"], "on": "2026-10-25", "note": "June / July precipitation and days >= 1 mm: Bergen 132.3/157.5 mm, 13/15 days; Tromso 58/72.5 mm, 11/11 days; Reine 91.3/95.7 mm (days not published); Andalsnes 97.2/89.3 mm (days not published)." },
+      "daylight": { "value": "Midnight sun in Lofoten and Tromso; in Bergen sunrise about 04:10 to 04:30, sunset about 23:00 to 23:10", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25", "note": "core/bin/sun.ts for the first and last day of the recommended window: Leknes and Tromso 'sun never sets' on both; Bergen sunrise 04:11 to 04:26, sunset 23:11 to 23:01, day 19h01m to 18h35m, no nautical night. Both days fall after the solstice, so the days between are as light or lighter." },
+      "notes": [
+        { "text": "Bergen is the wettest stop, with rain on about half the days", "basis": "official", "src": ["s-bc722473fe"], "on": "2026-10-25" },
+        { "text": "No darkness at any station, so northern lights are not possible in this window", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" }
+      ]
+    }
+  },
+  "windows": [
+    {
+      "id": "plan",
+      "label": "Last week of June into early July",
+      "start": { "month": 6, "week": "last" },
+      "sun": { "from": [6, 24], "to": [7, 8] },
+      "sun_note": "The plan's recommended window boundaries; the plan's exact dates are still open.",
+      "verdict": null,
+      "verdict_note": "Not set: only this window was researched in this batch; the plan's comparison with its later candidate is not re-checked here.",
+      "best_for": "Midnight sun on the Arctic stops and all-night light on the fjords",
+      "crowd": null,
+      "plus": [
+        { "text": "Midnight sun at the Lofoten and Tromso stations", "factor": "light", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" },
+        { "text": "About 19 hours of daylight even in Bergen, with no real night", "factor": "light", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" },
+        { "text": "Tromso has fewer rain days than Bergen, about 11 a month", "factor": "weather", "basis": "official", "src": ["s-66e99dfe26", "s-bc722473fe"], "on": "2026-10-25" }
+      ],
+      "minus": [
+        { "text": "Bergen gets rain on about half the days in this window", "factor": "weather", "basis": "official", "src": ["s-bc722473fe"], "on": "2026-10-25" },
+        { "text": "Cool in the north: Tromso afternoons about 13 to 16 C", "factor": "weather", "basis": "official", "src": ["s-66e99dfe26"], "on": "2026-10-25" },
+        { "text": "No darkness, which can make sleep hard for some", "factor": "light", "basis": "our_inference", "note": "Follows from the computed sun times (no civil night in Lofoten and Tromso); the effect on sleep is our reading.", "src": ["s-f63a803989"], "on": "2026-10-25" }
+      ],
+      "events": [],
+      "affects": [],
+      "unknown": [
+        { "text": "Normal highs and lows for Lofoten", "searched": "2026-10-25", "tried": "WMO 1991-2020 files for Leknes, Svolvaer and Reine: Leknes and Svolvaer give only the daily mean, Reine only precipitation." },
+        { "text": "Crowd level and the Norwegian common holiday weeks from an official source", "searched": "2026-10-25", "tried": "Not researched in this batch; the trip's timing research computes the holiday weeks and flags the official dates as a gap." },
+        { "text": "Opening dates of the plan's buses, ferries and roads in the trip year", "searched": "2026-10-25", "tried": "Not re-read in this batch; the trip research cites operator dates for an earlier year only." }
+      ]
+    }
+  ]
+}
