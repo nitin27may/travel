@@ -122,9 +122,9 @@ describe("capture/1 sidecars (step 3)", () => {
     expect(codes(run(r, capDoc([lake()], { sources: [src({ url: "https://www.alltrails.com/trail/x" })] })))).toEqual(["E_CAP_LINK_ONLY"]);
     expect(codes(run(r, capDoc([lake({ links: [{ kind: "official", url: "https://www.google.com/maps/x", state: "filled" }] })])))).toEqual(["E_CAP_LINK_ONLY"]);
   });
-  it("E_CAP_SCHEMA: an unknown field, and a value state that contradicts its v", () => {
+  it("E_CAP_SCHEMA: a value state that contradicts its v (an unknown field is E_KEEP_UNKNOWN since RIS-C)", () => {
     const r = root();
-    expect(codes(run(r, capDoc([lake({ colour: "blue" })])))).toEqual(["E_CAP_SCHEMA"]);
+    expect(codes(run(r, capDoc([lake({ colour: "blue" })])))).toEqual(["E_KEEP_UNKNOWN"]);
     expect(codes(run(r, capDoc([lake({ season: { v: null, state: "value", basis: "operator_info", src: [] } })])))).toEqual(["E_CAP_SCHEMA", "E_CAP_SRC"]);
     expect(codes(run(r, capDoc([lake({ links: [{ kind: "google-maps", state: "filled" }] })])))).toEqual(["E_CAP_SCHEMA"]);
   });

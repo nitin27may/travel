@@ -1861,6 +1861,9 @@
                                                         ],
                                                         "additionalProperties": false
                                                       }
+                                                    },
+                                                    "estimate": {
+                                                      "type": "boolean"
                                                     }
                                                   },
                                                   "required": [
@@ -2457,6 +2460,9 @@
                                                         ],
                                                         "additionalProperties": false
                                                       }
+                                                    },
+                                                    "estimate": {
+                                                      "type": "boolean"
                                                     }
                                                   },
                                                   "required": [
@@ -3249,6 +3255,9 @@
                                                         ],
                                                         "additionalProperties": false
                                                       }
+                                                    },
+                                                    "estimate": {
+                                                      "type": "boolean"
                                                     }
                                                   },
                                                   "required": [

@@ -40,6 +40,14 @@ export interface FilterDef {
   promote?: Record<string, 1 | 2>;
 }
 
+/**
+ * The keep-or-drop rule (docs/v2/features/catalogue-intake-and-storage.md 2; owner Q170, 25 Oct 2026): a value is stored only when it
+ * serves at least one of these. K1 decision, K2 display, K3 filter, K4 check, K5 money, K6 proof, K7 freshness.
+ */
+export const KEEP_REASONS = ["decision", "display", "filter", "check", "money", "proof", "freshness"] as const;
+export type Keep = (typeof KEEP_REASONS)[number];
+export const KEEP_CODE: Readonly<Record<Keep, string>> = { decision: "K1", display: "K2", filter: "K3", check: "K4", money: "K5", proof: "K6", freshness: "K7" };
+
 export interface PropertyDef {
   key: string;
   group: Group;
@@ -58,6 +66,8 @@ export interface PropertyDef {
   filter?: FilterDef;
   /** the record layers that can carry it; absent means all */
   layers?: ("place" | "route" | "offer" | "event")[];
+  /** the keep reasons K1 to K7 the property serves (never empty: the registry test fails an empty list); see keepOf */
+  keep: Keep[];
 }
 
 const GAP_DEFAULT = "Not recorded";
@@ -65,12 +75,50 @@ const GAP_DEFAULT = "Not recorded";
 interface Row {
   key: string; group: Group; label: string; value: ValueType; section: SectionId; display: Display[]; base: Mark;
   unit?: string; gap?: string; trigger?: string; home?: Home; filter?: FilterDef; layers?: PropertyDef["layers"];
+  /** an explicit keep list; absent: derived by keepOf */
+  keep?: Keep[];
 }
-const def = (r: Row): PropertyDef => ({
-  key: r.key, group: r.group, label: r.label, value: r.value, ...(r.unit ? { unit: r.unit } : {}), gap: r.gap ?? GAP_DEFAULT,
-  section: r.section, display: r.display, base: r.base, ...(r.trigger ? { trigger: r.trigger } : {}),
-  home: r.home ?? { in: "none" }, ...(r.filter ? { filter: r.filter } : {}), ...(r.layers ? { layers: r.layers } : {}),
-});
+
+// ---- keep: the default for every property, derived from what the registry already says (spec 2, "How it is tested") ----
+// K2 display: every display level is a place the value is shown (rest, card, detail; filter shows it as a facet).
+// K3 filter: a filter role, or a display level `filter`.
+// K4 check: Rest! (the safety tier a page keeps at rest, P2), the limits and safety groups, the R? triggers a day check or booking-by
+//    date reads (operates, bookable, sells, status_page), and the keys the checks read directly (CHECK_KEYS).
+// K5 money: a price list, or a key of MONEY_KEYS.
+// K1 decision: a base mark R or R? (the required tier of 3.2 is what a visitor needs to choose), the when/time/effort/limits/suits groups,
+//    and DECISION_KEYS.
+// K6 proof: the identity links that prove a place is the place (QIDs, OSM, GeoNames), source links and the evidence of fame.
+// K7 freshness: none today; read dates, applies_to and review state are Val and RowMeta fields, not properties.
+// An explicit `keep` on a row replaces the derived list (none does today; RIS-H adds homes and may add lists).
+const CHECK_TRIGGERS: ReadonlySet<string> = new Set(["operates", "bookable", "sells", "status_page", "derived", "no_door_access"]);
+const CHECK_KEYS: ReadonlySet<string> = new Set(["point", "near_town", "near_town_km", "access_cost", "window", "hours", "season", "access_season", "closures", "check_in_out", "last_transport", "fills_by", "ext.lift.last_up", "ext.lift.last_down", "participation.weather_cancel", "participation.medical", "participation.waiver", "geometry"]);
+const MONEY_KEYS: ReadonlySet<string> = new Set(["price", "access_cost", "cost_band", "deposit", "cancellation", "included", "tourist_tax", "variants", "ext.area.pass"]);
+const DECISION_GROUPS: ReadonlySet<Group> = new Set(["when", "time", "effort", "limits", "suits", "safety", "water", "participation", "offer"]);
+const DECISION_KEYS: ReadonlySet<string> = new Set(["transit", "reservation", "book_url", "pairs_with", "combo_with", "alternative_to", "parks_for", "visit_mode", "indoor", "why_stay", "groceries", "crowds", "queue_note"]);
+const PROOF_KEYS: ReadonlySet<string> = new Set(["wikidata", "osm_ref", "geonames_id", "links", "signals", "gpx_licence"]);
+
+export function keepOf(p: Omit<PropertyDef, "keep">): Keep[] {
+  const k = new Set<Keep>();
+  if (p.base === "R" || p.base === "R?" || DECISION_GROUPS.has(p.group) || DECISION_KEYS.has(p.key)) k.add("decision");
+  if (p.display.length > 0) k.add("display");
+  if (p.filter || p.display.includes("filter")) k.add("filter");
+  if (p.display.includes("rest!") || p.group === "limits" || p.group === "safety" || (p.trigger && CHECK_TRIGGERS.has(p.trigger)) || CHECK_KEYS.has(p.key)) k.add("check");
+  if (p.value === "price_list" || MONEY_KEYS.has(p.key)) k.add("money");
+  if (PROOF_KEYS.has(p.key)) k.add("proof");
+  return KEEP_REASONS.filter((r) => k.has(r));
+}
+
+const def = (r: Row): PropertyDef => {
+  const p: Omit<PropertyDef, "keep"> = {
+    key: r.key, group: r.group, label: r.label, value: r.value, ...(r.unit ? { unit: r.unit } : {}), gap: r.gap ?? GAP_DEFAULT,
+    section: r.section, display: r.display, base: r.base, ...(r.trigger ? { trigger: r.trigger } : {}),
+    home: r.home ?? { in: "none" }, ...(r.filter ? { filter: r.filter } : {}), ...(r.layers ? { layers: r.layers } : {}),
+  };
+  return { ...p, keep: r.keep ?? keepOf(p) };
+};
+
+/** The properties whose keep list is empty: the registry test requires none (spec 2). Takes a list so a test can feed a bad one. */
+export const emptyKeep = (props: readonly PropertyDef[]): string[] => props.filter((p) => !Array.isArray(p.keep) || p.keep.length === 0 || p.keep.some((x) => !(KEEP_REASONS as readonly string[]).includes(x))).map((p) => p.key);
 const cap = (field: string): Home => ({ in: "capture", path: field });
 const rel = (field: string): Home => ({ in: "relevance", path: field });
 

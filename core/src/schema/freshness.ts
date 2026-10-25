@@ -1,4 +1,6 @@
-// data/schema/freshness.json: the freshness policy of plan 0A.1.
+// data/schema/freshness.json: the freshness policy of plan 0A.1. Version 2 (RIS-C, conflict C4 of
+// docs/v2/features/catalogue-intake-and-storage.md): `fields` are property registry keys (core/src/schema/capture/properties.ts),
+// no longer v1 table columns, so a stale scan can read them; each key sits in at most one class (core/test/schema/keep.test.ts).
 import { z } from "zod";
 import { date, int, json, table } from "./meta.ts";
 
@@ -13,7 +15,7 @@ const klass = z.strictObject({
 });
 
 export const freshness = table("freshness", {
-  schema_version: int({ min: 1, max: 1 }),
+  schema_version: int({ min: 1, max: 2 }),
   updated: date(),
   classes: json(z.array(klass)),
 }, { family: "sidecar", pk: [], single: true, ui: { label: "Freshness policy" } });

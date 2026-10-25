@@ -9,8 +9,10 @@ import { validateRelevance } from "./relevance.ts";
 import { validateSourcesRules } from "./sources.ts";
 import { validateCapture, validateCaptureOperators, validateCaptureRun, validateCaptureSupersedes, validateCaptureTypes } from "./capture.ts";
 import { validateDifficultyMapRules } from "../suitability/mapRules.ts";
+import { validateCaptureChangeset } from "./changeset.ts";
+import { keepFindings } from "./keep.ts";
 
-export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability" | "suitability-applicability" | "relevance" | "sources" | "capture" | "capture-types" | "capture-operators" | "capture-run" | "capture-supersedes";
+export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability" | "suitability-applicability" | "relevance" | "sources" | "capture" | "capture-types" | "capture-operators" | "capture-run" | "capture-supersedes" | "capture-changeset";
 
 const TABLE_OF: Record<DocumentKind, string> = {
   "research-sidecar": "research_sidecar",
@@ -27,23 +29,36 @@ const TABLE_OF: Record<DocumentKind, string> = {
   "capture-operators": "capture_operators",
   "capture-run": "capture_run",
   "capture-supersedes": "capture_supersedes",
+  "capture-changeset": "capture_changeset",
 };
+
+/** The families the keep rule and RowMeta check after their own validator (core/src/validate/keep.ts). */
+const KEEP_KINDS: ReadonlySet<DocumentKind> = new Set(["suitability", "relevance", "capture", "capture-operators"]);
+
+/** Keep and meta findings, once the family's own validator found the structure sound: errors or warnings by KEEP_ENFORCEMENT. */
+function keepPass(doc: unknown, ctx: Ctx): void {
+  if (ctx.schemaBroken) return;
+  for (const f of keepFindings(doc, ctx.refs.root)) (f.warning ? ctx.warnings : ctx.errors).push({ code: f.code, path: f.path, message: f.message });
+}
 
 export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): void {
   const t = tableOf("sidecar", TABLE_OF[kind]);
   if (kind === "suitability") {
     // its own error codes (E_SUIT_*): the generic table check would report everything as E_SCHEMA
     validateSuitability(doc, ctx);
+    keepPass(doc, ctx);
     return;
   }
   if (kind === "relevance") {
     // its own error codes (E_REL_*)
     validateRelevance(doc, ctx);
+    keepPass(doc, ctx);
     return;
   }
   if (kind === "capture") {
     // its own error codes (E_CAP_*)
     validateCapture(doc, ctx);
+    keepPass(doc, ctx);
     return;
   }
   if (kind === "capture-types") {
@@ -52,10 +67,15 @@ export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): vo
   }
   if (kind === "capture-operators") {
     validateCaptureOperators(doc, ctx);
+    keepPass(doc, ctx);
     return;
   }
   if (kind === "capture-supersedes") {
     validateCaptureSupersedes(doc, ctx);
+    return;
+  }
+  if (kind === "capture-changeset") {
+    validateCaptureChangeset(doc, ctx);
     return;
   }
   if (kind === "capture-run") {
