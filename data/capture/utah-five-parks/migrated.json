@@ -137,6 +137,7 @@
   "records": [
     {
       "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "area_id": "US/UT/washington-county",
       "type": "nature.trail.river_hike",
       "layer": "route",
       "near_town": {
@@ -173,6 +174,7 @@
     },
     {
       "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
+      "area_id": "US/UT/washington-county",
       "type": "nature.landform.canyon",
       "layer": "place",
       "near_town": {
@@ -252,6 +254,7 @@
     },
     {
       "ref": "trip/utah-five-parks/trail:pa rus trail",
+      "area_id": "US/UT/washington-county",
       "type": "nature.trail.walk",
       "layer": "route",
       "near_town": {
@@ -323,6 +326,7 @@
     },
     {
       "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
+      "area_id": "US/UT/washington-county",
       "type": "wheels.drive.scenic_drive",
       "layer": "route",
       "near_town": {
@@ -347,6 +351,7 @@
     },
     {
       "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "area_id": "US/UT/kane-county",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -383,6 +388,7 @@
     },
     {
       "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
+      "area_id": "US/UT/kane-county",
       "type": "nature.landform.canyon",
       "layer": "place",
       "near_town": {
@@ -426,6 +432,7 @@
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+      "area_id": "US/UT/kane-county",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {
@@ -448,6 +455,7 @@
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:sunset point",
+      "area_id": "US/UT/kane-county",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {
@@ -666,6 +674,7 @@
     },
     {
       "ref": "trip/utah-five-parks/trail:windows section",
+      "area_id": "US/UT/grand-county",
       "type": "nature.trail.walk",
       "layer": "route",
       "near_town": {
@@ -773,6 +782,7 @@
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:grand view point",
+      "area_id": "US/UT/san-juan-county",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {
@@ -795,6 +805,7 @@
     },
     {
       "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+      "area_id": "US/UT/san-juan-county",
       "type": "nature.trail.walk",
       "layer": "route",
       "near_town": {

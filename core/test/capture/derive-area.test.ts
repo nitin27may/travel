@@ -228,4 +228,10 @@ describe("the real data", () => {
     expect(fam.known).toBeGreaterThan(0);
     expect(fam.precision).toBeGreaterThanOrEqual(AREA_DERIVATION.minPrecision);
   });
+  it("has every area the rule can place written, and every derived value in the ledger: nothing left to write", () => {
+    const plan = planAreaDerivation(REPO);
+    expect(plan.problems).toEqual([]);
+    expect(plan.changes).toEqual([]);
+    expect(plan.writes).toEqual([]);
+  });
 });

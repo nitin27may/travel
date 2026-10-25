@@ -949,6 +949,7 @@
     },
     {
       "ref": "part/place/lago-di-misurina#parking",
+      "area_id": "IT/veneto/belluno",
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {
@@ -1054,6 +1055,7 @@
     },
     {
       "ref": "place/rifugio-nuvolau-and-averau",
+      "area_id": "IT/veneto/belluno",
       "type": "stay.mountain.hut",
       "layer": "place",
       "near_town": {
@@ -1127,6 +1129,7 @@
     },
     {
       "ref": "place/rifugio-scotoni",
+      "area_id": "IT/veneto/belluno",
       "type": "stay.mountain.hut",
       "layer": "place",
       "near_town": {
