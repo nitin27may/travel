@@ -98,7 +98,7 @@ request without Host is rejected. Missing-Origin behavior is unchanged.
 | Full repository regression | PASS (builder run) | `bash tools/check-all.sh`: CHECK-ALL OK; web 1811 passed |
 | Runtime origin probe | PASS (builder run) | Credential-free Next dev server, **16/16**; both account endpoints and loopback hosts, spoofed forwarded schemes do not bypass policy |
 | Final independent review | PASS for the origin fix | Reconfirmed 73/73 route tests, web typecheck and the scheme/authority rules; no visual surface changed |
-| Child-branch DB integration | BLOCKED | No safe `TEST_DATABASE_URL`; 7 integration cases remain unverified |
+| Child-branch DB integration | PASS (25 Oct) | `core/test/db` against child branch `srv-migrate-verify` (`br-damp-breeze-b41mtvn5`), never production: 4 files, 29 tests passed, 0 skipped. Connection string came from `neon connection-string` and was not printed or stored |
 
 No production Neon access, migrations, deployment, commit or push occurred for
 this follow-up. The earlier real-service 14/14 evidence was not rerun.

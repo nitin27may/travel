@@ -41,11 +41,7 @@ Everything below the line is dated history; verify it against `git log` first.**
 
 ### Not done (in detail)
 
-1. **Child-branch DB integration tests: BLOCKED.** `core/test/db/integration.test.ts`
-   skips 7 cases without `TEST_DATABASE_URL`. Needs a connection string for the
-   `srv-migrate-verify` child branch (never production), then
-   `TEST_DATABASE_URL=... npx vitest run core/test/db`. Merged without it on the
-   owner's "merge everything" instruction; it is the first item to close.
+1. **Child-branch DB integration tests: DONE (25 Oct).** `core/test/db` passed 29/29 with 0 skipped against `srv-migrate-verify`. Repeat with `TEST_DATABASE_URL="$(neon connection-string br-damp-breeze-b41mtvn5 --project-id damp-queen-64719841)" pnpm --dir core exec vitest run test/db` (the `neon` CLI is signed in on this Mac).
 2. **Real-service Neon E2E not rerun after the origin fix.** The 14/14 run predates
    `web/lib/server/same-origin.ts`. Rerun `web/scripts/neon-e2e.mjs` against a
    configured build.
@@ -75,7 +71,7 @@ Everything below the line is dated history; verify it against `git log` first.**
 
 ### Next, in order
 
-1. Close items 1 and 2 above (needs a child-branch `TEST_DATABASE_URL`).
+1. Close item 2 above (item 1 is done).
 2. R-61 Vercel setup and preview deploy (item 3); production waits for the owner.
 3. Closure queue, then R-59, then the data-layer cutover.
 
