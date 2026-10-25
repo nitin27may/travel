@@ -1,0 +1,243 @@
+{
+  "schema": "suitability/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "R2a",
+  "researched": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0046",
+      "url": "legacy/canadian-rockies-sept-2029/data/trails.json",
+      "title": "trails.json of the Rockies plan (secondary figures from its research)",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0054",
+      "url": "https://www.albertaparks.ca/albertaparks-ca/visit-our-parks/regulations/pets-in-parks/",
+      "title": "Pets in Parks | Alberta Parks",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0055",
+      "url": "https://www.openstreetmap.org/way/753718984",
+      "title": "OpenStreetMap ways of the Rawson Lake and Sarrail Ridge trails",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api"
+    }
+  ],
+  "records": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "Alberta Parks trail report for this trail (a group size limit of 15 is a maximum, no minimum is stated)",
+            "Alberta Parks Kananaskis advisories and public safety page (no group minimum listed)"
+          ],
+          "note": "No minimum group size is published. Alberta Parks has used a minimum of four on other trails in bear seasons (trip research), so check the trail report before going."
+        },
+        "age_band": {
+          "v": {
+            "from": 13,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0046"
+          ],
+          "note": "The plan's figures (11.3 km and 675 m, from blogs) fit the 10-12 ceilings, but the final gully is close to 400 m in just over 1 km on loose ground: from 13 (our judgement)."
+        },
+        "kid_note": "Past Rawson Lake, a steep, slippery gully climbs to an exposed ridge. Not for children; Rawson Lake itself is the family turnaround.",
+        "carrier_ok": {
+          "v": false,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0046"
+          ],
+          "note": "Steep loose gully."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0046"
+          ],
+          "note": "Steep gully."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "effort": {
+          "source_grade": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "albertaparks.ca Peter Lougheed trail reports (no Sarrail Ridge page found)",
+              "Alberta Parks Rawson Lake trail report (search)"
+            ]
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 9.4,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0055"
+              ],
+              "note": "Estimate, not official: 4.68 km one way along the OSM Rawson Lake and Sarrail Ridge trails (trailhead node 269822212 to peak node 7042108468), doubled. Run api-2026-10-25-data-d3a-overpass; way ids in research/runs/DATA-D3a/patch-proposals.json. No official page exists.",
+              "conflicts": [
+                {
+                  "v": 11.3,
+                  "basis": "community",
+                  "src": [
+                    "src-0046"
+                  ],
+                  "note": "the plan's figure from thebanffblog.com and travelbanffcanada.com"
+                }
+              ],
+              "read": "2026-10-25"
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "albertaparks.ca Peter Lougheed trail reports (no Sarrail Ridge page)",
+                "Alberta Parks Kananaskis advisories page"
+              ],
+              "note": "No official figure.",
+              "conflicts": [
+                {
+                  "v": 675,
+                  "basis": "community",
+                  "src": [
+                    "src-0046"
+                  ],
+                  "note": "the plan's figure from the same blogs"
+                }
+              ]
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            205,
+            305
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0046"
+          ],
+          "note": "Naismith on the plan's 11.3 km and 675 m (community figures)."
+        },
+        "exposure": {
+          "v": {
+            "level": "significant",
+            "fenced": "unfenced",
+            "where": "the steep gully and the ridge"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0046"
+          ],
+          "note": "From the plan's research (trip reports)."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Steep, slippery gully above Rawson Lake"
+            },
+            {
+              "category": "wildlife",
+              "note": "Grizzly advisories at Rawson Lake in recent summers (trip research)"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0046"
+          ]
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "Alberta Parks annual road closures page (Kananaskis Lakes Trail not listed)",
+            "Alberta Parks Peter Lougheed park page (no season)"
+          ],
+          "note": "Kananaskis Conservation Pass required to park (Alberta Parks)."
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "albertaparks.ca Peter Lougheed trail reports (no page for the ridge)",
+            "Alberta Parks Rawson Lake listing (search)"
+          ],
+          "note": "The ridge section is not an official trail."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0054"
+          ],
+          "read": "2026-10-19",
+          "quote": "All pets are required to be leashed    no more than 2 metres, or caged, at all times while in Provincial Parks, Wildland Provincial Parks and Provincial Recreation Areas.",
+          "note": "Alberta provincial-park rule (leash of 2 m or less); no trail-specific ban found on the Kananaskis trail pages."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 4,
+        "kid_fit": "no",
+        "accessibility": "unknown",
+        "walk_km": 9.4,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+{
+  "schema": "trip-base-plans/1",
+  "trip": "canadian-rockies-2029",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "nights": 14,
+  "gateway": {
+    "in": "calgary-airport",
+    "out": "calgary-airport"
+  },
+  "note": "DATA-D9R draft. No validator yet (STY-Ca): checked by hand against stay-bases-and-optimisation.md 9.5, see research/runs/DATA-D9R-canadian-rockies-2029.md. Town facts stay in research/trips/canadian-rockies-sept-2029/stay-bases.md until STY-P (BS.json). Drive numbers in plus and minus texts are ORS reads made on the researched day (the ORS legs file in research/runs/DATA-D9R/), free-flow, no stops; the evaluator recomputes them from STY-L legs.",
+  "bases": {
+    "banff": {
+      "ref": "place/banff",
+      "ref_status": "proposed: no settlement record yet (STY-P, BS.json)",
+      "town": "ca-ab-banff"
+    },
+    "lake-louise": {
+      "ref": "place/lake-louise-village",
+      "ref_status": "proposed: no settlement record yet; place/lake-louise is the lake",
+      "town": null
+    },
+    "jasper": {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/jasper-townsite",
+      "ref_status": "existing settlement.town record",
+      "town": "ca-ab-jasper"
+    },
+    "kananaskis-village": {
+      "ref": "place/kananaskis-village",
+      "ref_status": "proposed: no settlement record yet (STY-P, BS.json)",
+      "town": null
+    },
+    "canmore": {
+      "ref": "place/canmore",
+      "ref_status": "proposed: no settlement record yet (STY-P, BS.json)",
+      "town": "ca-ab-canmore"
+    },
+    "golden": {
+      "ref": "place/golden",
+      "ref_status": "proposed: no settlement record yet (STY-P, BS.json)",
+      "town": "ca-bc-golden"
+    },
+    "calgary-airport": {
+      "ref": "place/calgary-international-airport",
+      "ref_status": "proposed: no record yet",
+      "gateway": true
+    },
+    "edmonton-airport": {
+      "ref": "place/edmonton-international-airport",
+      "ref_status": "proposed: no record yet; open-jaw note only",
+      "gateway": true
+    }
+  },
+  "default": "as-planned",
+  "sources": [
+    {
+      "id": "s-86d9197647",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes",
+      "publisher": "Parks Canada",
+      "read": "2026-10-25"
+    },
+    {
+      "id": "s-1a9a52f111",
+      "url": "https://www.alberta.ca/kananaskis-conservation-pass",
+      "publisher": "Government of Alberta",
+      "read": "2026-10-25"
+    },
+    {
+      "id": "s-f8eff36d4c",
+      "url": "https://www.explorecanmore.ca/faqs/",
+      "publisher": "Tourism Canmore Kananaskis",
+      "read": "2026-10-25"
+    },
+    {
+      "id": "s-29bd666371",
+      "url": "https://www.explorecanmore.ca/all-accommodations/",
+      "publisher": "Tourism Canmore Kananaskis",
+      "read": "2026-10-25"
+    }
+  ],
+  "strategies": [
+    {
+      "id": "as-planned",
+      "label": "As planned",
+      "kind": "planned",
+      "review": "approved",
+      "suits": "Shortest daily drives; a Kananaskis finish close to the airport",
+      "stays": [
+        {
+          "base": "banff",
+          "nights": [
+            1,
+            2
+          ]
+        },
+        {
+          "base": "lake-louise",
+          "nights": [
+            3,
+            3
+          ]
+        },
+        {
+          "base": "jasper",
+          "nights": [
+            4,
+            7
+          ]
+        },
+        {
+          "base": "lake-louise",
+          "nights": [
+            8,
+            11
+          ]
+        },
+        {
+          "base": "kananaskis-village",
+          "nights": [
+            12,
+            14
+          ]
+        }
+      ]
+    }
+  ],
+  "swaps": [
+    {
+      "id": "canmore-for-banff",
+      "replace": "banff",
+      "with": "canmore",
+      "review": "draft",
+      "plus": [
+        {
+          "text": "Outside the national park: no park pass needed to sleep in the town",
+          "factor": "rules",
+          "basis": "official",
+          "src": [
+            "s-86d9197647",
+            "s-f8eff36d4c"
+          ],
+          "on": "2026-10-25"
+        },
+        {
+          "text": "Lodging list includes vacation rentals, motels, hostels and campgrounds",
+          "factor": "lodging",
+          "basis": "official",
+          "src": [
+            "s-29bd666371"
+          ],
+          "on": "2026-10-25"
+        },
+        {
+          "text": "About 15 min ≈ nearer the airport (87 against 102 min)",
+          "factor": "drive",
+          "basis": "computed",
+          "note": "ORS"
+        }
+      ],
+      "minus": [
+        {
+          "text": "About 30 min ≈ each way to Banff's sights; Lake Louise about 20 min ≈ further each way",
+          "factor": "drive",
+          "basis": "computed",
+          "note": "ORS Canmore-Banff 30, Canmore-Lake Louise 68 against Banff-Lake Louise 48 min"
+        },
+        {
+          "text": "Park pass still needed for every day in the park; trailheads near town need the Kananaskis pass",
+          "factor": "rules",
+          "basis": "official",
+          "src": [
+            "s-86d9197647",
+            "s-1a9a52f111"
+          ],
+          "on": "2026-10-25"
+        },
+        {
+          "text": "Cost not compared yet: no sourced price band for either town",
+          "factor": "cost",
+          "basis": "our_inference",
+          "note": "every band searched_none (see researched)"
+        }
+      ]
+    }
+  ],
+  "checked_not_fit": [
+    {
+      "kind": "one_base",
+      "text": "No single base reaches the Jasper days in a day trip: Maligne Lake is 503 min ≈ round trip from Lake Louise",
+      "basis": "computed",
+      "note": "ORS matrix: best single base is Lake Louise at 52.3 h of day trips against 21.3 h for the plan"
+    },
+    {
+      "kind": "two_bases",
+      "text": "Jasper and Banff only: about 9.7 h ≈ more day-trip driving than the plan for one more check-in saved",
+      "basis": "computed",
+      "note": "ORS totals 31.0 h against 21.3 h (S5)"
+    }
+  ]
+}

@@ -1,0 +1,306 @@
+{
+  "schema": "capture/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "C0-migrated",
+  "researched": "2026-10-18",
+  "agent": "core/bin/capture.ts migrate",
+  "model": "none",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "title": "Day hikes in Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/canmore-and-area/ha-ling/",
+      "title": "Ha Ling trail report",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs",
+      "title": "Banff Upper Hot Springs",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs/heures-hours",
+      "title": "Banff Upper Hot Springs: hours",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs/tarifs-fees",
+      "title": "Banff Upper Hot Springs: fees",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+      "type": "water.body.lake",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 16,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Bourgeau Lake",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+        "reason": "payoff of the trail"
+      },
+      "area_id": "CA/AB/banff-national-park",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q17511214",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Bourgeau Lake 02.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Khoshhat",
+          "attribution": "Khoshhat, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bourgeau_Lake_02.jpg",
+          "width": 5472,
+          "height": 3648
+        },
+        {
+          "file": "File:Bourgeau Lake 01.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Khoshhat",
+          "attribution": "Khoshhat, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bourgeau_Lake_01.jpg",
+          "width": 5472,
+          "height": 3648
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff",
+      "type": "nature.summit.summit",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Ha Ling Peak",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+        "reason": "payoff of the trail"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/canmore-and-area/ha-ling/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q5636437",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Canmore & Fairholme Range seen from Ha Ling Peak.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Khoshhat",
+          "attribution": "Khoshhat, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Canmore_%26_Fairholme_Range_seen_from_Ha_Ling_Peak.jpg",
+          "width": 4608,
+          "height": 2592
+        },
+        {
+          "file": "File:Ha Ling Peak and Mount Lawrence Grassi 01.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Khoshhat",
+          "attribution": "Khoshhat, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Ha_Ling_Peak_and_Mount_Lawrence_Grassi_01.jpg",
+          "width": 5472,
+          "height": 3648
+        }
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+      "type": "water.thermal.hot_spring",
+      "layer": "offer",
+      "name": "Banff Upper Hot Springs",
+      "offer_class": "ticket",
+      "at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0032"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0034"
+          ]
+        }
+      ],
+      "hours": {
+        "v": {
+          "tz": "America/Edmonton",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:00",
+              "close": "22:00"
+            }
+          ],
+          "last_entry": "21:30",
+          "closures": [
+            {
+              "from": "10-13",
+              "to": "early November",
+              "why": "repairs and improvements"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0033"
+        ],
+        "read": "2026-10-19",
+        "quote": "Open daily: 10 am to 10 pm ... Last entry is at 9:30 pm",
+        "note": "hours are subject to change; the closure states no year (page modified 2026-09-28)"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 19.75,
+            "currency": "CAD",
+            "per": "adult"
+          },
+          {
+            "amount": 17.25,
+            "currency": "CAD",
+            "per": "child",
+            "age_from": 3,
+            "age_to": 17,
+            "note": "youth"
+          },
+          {
+            "amount": 0.0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 2,
+            "note": "under 3 free"
+          },
+          {
+            "amount": 17.25,
+            "currency": "CAD",
+            "per": "person",
+            "note": "senior"
+          },
+          {
+            "amount": 64.25,
+            "currency": "CAD",
+            "per": "family",
+            "note": "four people of one family, at most two aged 18 or older"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0034"
+        ],
+        "read": "2026-10-19",
+        "quote": "Adult $19.75 ... Youth (ages 3-17) $17.25 ... Family $64.25",
+        "note": "single entry, locker token included; no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD"
+      },
+      "run_by": "operator/parks-canada",
+      "photos": [
+        {
+          "file": "File:Upper Springs Bathhouse from SE.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Odysseus1479",
+          "attribution": "Odysseus1479, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Upper_Springs_Bathhouse_from_SE.jpg",
+          "width": 2800,
+          "height": 1750
+        }
+      ]
+    }
+  ]
+}
