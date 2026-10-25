@@ -101,6 +101,13 @@ describe('trips list', () => {
     expect(publicTripBadges(unset).map((b) => b.text)).toContain('Season not set yet');
     expect(publicTripBadges(rows.find((r) => r.depth === 'summary')!).some((b) => /Condensed/.test(b.text))).toBe(true);
   });
+  it('a plan-only season says "our plan" on its chip and a researched one does not', () => {
+    const planOnly = rows.find((r) => r.slug === 'quebec-2026')!;
+    expect(planOnly.seasonBasis).toBe('plan');
+    expect(publicTripBadges(planOnly).find((b) => b.tone === 'season')!.text).toBe('Last days of September into early October · our plan');
+    const seeded = rows.find((r) => r.seasonBasis === 'researched')!;
+    expect(publicTripBadges(seeded).find((b) => b.tone === 'season')!.text).toBe(seeded.seasonLabel);
+  });
   it('card text has no calendar dates', () => {
     for (const r of rows) {
       const t = [tripDescriptor.title(r), tripDescriptor.subtitle?.(r), tripDescriptor.summary?.(r), ...publicTripBadges(r).map((b) => b.text)].join(' ');

@@ -49,14 +49,12 @@ interface ChipProps {
   removeLabel?: string;
   title?: string;
   className?: string;
-  /** The text wraps (a season label) instead of staying on one line; never truncated. */
-  wrap?: boolean;
 }
 
-export function Chip({ kind = 'neutral', icon, children, identity, photo, onRemove, removeLabel, title, className, wrap }: ChipProps) {
+export function Chip({ kind = 'neutral', icon, children, identity, photo, onRemove, removeLabel, title, className }: ChipProps) {
   const glyph = icon === false ? null : (icon ?? DEFAULT_ICON[kind]);
   return (
-    <span className={cx('chip', `chip-${kind}`, wrap && 'chip-wrap', className)} data-kind={kind} title={title}>
+    <span className={cx('chip', `chip-${kind}`, className)} data-kind={kind} title={title}>
       {kind === 'trip' && photo ? (
         // eslint-disable-next-line @next/next/no-img-element -- decorative 20 px ring photo
         <img className="chip-photo" src={photo} alt="" style={{ ['--tc' as string]: `var(--id-${identity ?? 'none'})` }} />

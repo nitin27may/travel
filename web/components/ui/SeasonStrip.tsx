@@ -9,6 +9,8 @@ interface Props {
   /** Twelve entries, January first. `open` is solid (as written), `possible` is hatched (inferred), `closed` is empty. */
   months: MonthState[];
   className?: string;
+  /** The screen-reader name. Defaults to "Open <months>"; a plan's own window passes "Months this plan covers: <months>", so it never reads as an opening season. */
+  label?: string;
 }
 
 function summary(months: MonthState[]): string {
@@ -21,9 +23,9 @@ function summary(months: MonthState[]): string {
 }
 
 /** Twelve-month strip for the season band (patterns 3.4). Solid means written in the source; hatched means possible. */
-export function SeasonStrip({ months, className }: Props) {
+export function SeasonStrip({ months, className, label }: Props) {
   return (
-    <div className={cx('season-strip', className)} role="img" aria-label={summary(months)}>
+    <div className={cx('season-strip', className)} role="img" aria-label={label ?? summary(months)}>
       {INITIALS.map((m, i) => (
         <span key={i} className="season-cell" data-state={months[i] ?? 'closed'}>
           {m}
