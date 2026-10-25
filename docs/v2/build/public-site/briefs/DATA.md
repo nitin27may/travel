@@ -1,5 +1,16 @@
 # DATA: the phase E research batches D1 to D6 (points, locations, trail facts, activities, photos, basics)
 
+> **Status check, 25 Oct 2026 (main 467ec00; supersedes the dated notes below where they differ).**
+> Verified with `capture.ts gaps --placement`, `gaps --tier required` and `gaps --budget --check` (budget OK, no count rose).
+>
+> - **No DATA batch has started.** No `v2-DATA-*` worktree and no `public/DATA-D*` branch exist. The old `public/DATA1` branch is the 19 Oct plumbing lane (merged), not D1.
+> - **Preconditions are met:** META-1, META-2, API-3, HYG and TRP2b are on `main`. D1 can start now. D5a waits for D1; D2 waits for D1 and is after R2.
+> - **Current numbers.** Records with no point: 84 (Rockies 53, Patagonia 8, Chamonix 6, Utah 6, Iceland 5, Algonquin 3, Vermont 2, Dolomites 1). Records with no area: 283 of 394. Offers that say nowhere (D4a): 17, all Rockies. Required tier complete: place 7/196, trail 1/118, other route 0/25, offer 1/46, event 0/1, stay 0/8. Budget now: W_PLACE_POINT 84, E_PLACE_ORPHAN 17, W_TIER_REQUIRED 385, W_PLACE_TOWN 0.
+> - **Trip ids in `data/capture/` differ from the research folders:** `canadian-rockies-2029`, `dolomites-2027`, `chamonix-mont-blanc-2028`, `iceland-ring-road-2027`, `patagonia-2027`, `algonquin-muskoka-2026`, `vermont-fall-2026`, `utah-five-parks`. Use these with `--trip`.
+> - **New research not yet in the plan** (committed 25 Oct): `research/trips/dolomites-july-2027/` `coverage-audit.md`, `stays.md`, `stays-august.md`, `hut-trek-options.md`, `italy-extension.md`. Prose research only. Turn it into capture records through the `research` skill, and read `coverage-audit.md` first for the Dolomites gaps.
+> - **Not related to this brief:** the Neon account work, Vercel setup (R-61) and the data-layer cutover. Data files stay the source of truth until `PostgresStore` exists.
+> - **Copy-paste prompts per batch:** [DATA-AGENT-PROMPTS.md](DATA-AGENT-PROMPTS.md).
+
 Extends [CS7d.md](CS7d.md) (stage 4 data lane). The research pause is lifted for this work (owner, 20 Oct 2026).
 
 > **Revised 21 Oct (start sheet).** [PHASE-B-START.md](../PHASE-B-START.md) decision D-B8: D3, D4 and D6 now start **after gate G-B**, not during phase B, because they are Opus research and the weekly usage allowance is nearly spent (owner may override: B-2). Changes in this brief: run notes go to `research/runs/` (the research home, CLN-1); paths `research/method/...` and `research/backlog.md`; the `point_role` values and the town id format are the ones META-0 defines (`POINT_ROLE`, `ca-on-whitby`); every `src` must resolve to a registry id because the API emits registry ids only (D-B4); refs never change and slugs are pinned (D-B1); the Haiku model for mechanical checks; macOS paths and the venv for pytest.
