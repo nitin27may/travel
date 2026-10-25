@@ -1,7 +1,7 @@
 # MCP sign-in: how each of our MCP servers authenticates, with the current Neon and Vercel setup
 
-Status: **design, 25 Oct 2026 (travel-planner, Opus). Nothing here is built.** Last verified 25 Oct 2026 against main
-f2dee4b. PLAN R-123 to R-129, BACKLOG 15.123 to 15.129, owner questions Q160 to Q167 (section 12). Supersedes the
+Status: **design, 25 Oct 2026 (travel-planner, Opus). Nothing here is built. Spike MCP-0 passed on the child branch
+on 25 Oct with conditions (section 13).** Last verified 25 Oct 2026 against main 196207e. PLAN R-123 to R-129, BACKLOG 15.123 to 15.129, owner questions Q160 to Q167 (section 12). Supersedes the
 "provider not selected" lines in [README.md](README.md) section 3, [security.md](security.md), [03-mcp-and-research.md](../03-mcp-and-research.md)
 section 3 and F17 items 7 and 8 (each carries a pointer here).
 
@@ -14,10 +14,10 @@ the EML-0 findings), [NEON-SETUP.md](../build/public-site/NEON-SETUP.md), [princ
 ## 0. Verdict in five lines
 
 1. **Works today, unchanged:** the owner's local stdio server (`core/bin/mcp.ts`, `.mcp.json`) with no sign-in. Keep it local; never deploy it.
-2. **Neon can be our OAuth server for MCP.** Neon Managed Better Auth has an `oauth_provider` plugin with MCP support (client ID metadata documents on, dynamic registration off). It is **disabled** on both our branches and the CLI cannot switch it on (console or API only). It issues EdDSA JWT access tokens with `aud` set to our MCP URL, verifiable with the branch JWKS. It is a preview feature (conflicting wording, section 2.3), it has **fixed scopes only** (`openid profile email offline_access`) and **we must host the login and consent pages**.
+2. **Neon can be our OAuth server for MCP, proven on the child branch (MCP-0, section 13).** Neon Managed Better Auth has an `oauth_provider` plugin with MCP support (client ID metadata documents on, dynamic registration off). The owner enabled it on the child branch on 25 Oct; it is still **off on production**, and the CLI cannot switch it (console or API only). A real MCP client completed sign-in on our own pages through our proxy and called a tool with a verified JWT, and Neon accepts Claude's and Claude Code's own client documents. Conditions: the slash URL only, our own grant check as the revocation switch (Neon has no server-side token revoke), and the v2 MCP SDK for protocol 2026-07-28. It issues EdDSA JWT access tokens with `aud` set to our MCP URL, verifiable with the branch JWKS. It is a preview feature (conflicting wording, section 2.3), it has **fixed scopes only** (`openid profile email offline_access`) and **we must host the login and consent pages**.
 3. **So our own permissions cannot ride in OAuth scopes.** The resource server maps the verified user to `app_user.role` plus a per-client grant stored in our database, and every tool runs inside `withUserTransaction` (role `travel_app`, transaction-local `app.user_id`) so RLS is the second wall.
 4. **The browser session's JWT (`/api/auth/token`) must not be accepted by the MCP server:** its audience is not our MCP resource, and the MCP spec forbids accepting tokens issued for anything else.
-5. **Recommended path:** public read-only remote MCP with no sign-in first; then personal access tokens (headless and Claude Code); then Neon OAuth for claude.ai and Desktop after a one-day spike proves it on the child branch. Self-managed Better Auth (reversing R-58 for this one job) is the fallback only if the spike fails.
+5. **Recommended path (unchanged after MCP-0):** public read-only remote MCP with no sign-in first; then Neon OAuth for claude.ai, Desktop and Claude Code (MCP-0 passed); personal access tokens for headless clients. Self-managed Better Auth (option B) is not needed.
 
 ## 1. The three ways our MCP is used
 
@@ -110,13 +110,13 @@ Read-only, 25 Oct 2026, CLI 8.11.1 and plain `GET`s on the child branch's public
 
 | # | Finding | Evidence |
 |---|---|---|
-| N1 | Both branches list an `oauth_provider` plugin: `enabled: false`, `mcp: {dynamic_registration: false, client_id_metadata_documents: true}`, `resources: []` | `neon neon-auth plugins list` and `plugins get oauth_provider` on `br-damp-breeze-b41mtvn5` and `br-soft-glade-b4mkqyvd` |
+| N1 | Both branches list an `oauth_provider` plugin (**enabled on the child since 25 Oct**, MCP-0): `enabled: false`, `mcp: {dynamic_registration: false, client_id_metadata_documents: true}`, `resources: []` | `neon neon-auth plugins list` and `plugins get oauth_provider` on `br-damp-breeze-b41mtvn5` and `br-soft-glade-b4mkqyvd` |
 | N2 | The CLI can only view plugins; enabling is in the console (Settings, Better Auth, OAuth provider) or `PATCH /api/v2/projects/{project}/branches/{branch}/auth/plugins/oauth-provider` | CLI `plugins --help`; Neon "OAuth Provider" guide |
 | N3 | When enabled: token at `/oauth2/token`, DCR at `/oauth2/register` (403 while off), metadata at `<issuer>/.well-known/oauth-authorization-server` and `<issuer>/.well-known/openid-configuration`, userinfo, `POST /oauth2/consent`, `POST /oauth2/continue`, `GET /oauth2/public-client` | Neon guide |
 | N4 | **We host both pages**: "Managed Better Auth doesn't provide default pages." The login page receives an `oauth_query` and continues the flow after sign-in; the consent page shows client name, redirect hosts, scopes and resource, then posts accept or deny | Neon guide |
 | N5 | Access tokens are **EdDSA JWTs** when the request carries `resource` (opaque otherwise), last **1 hour**, carry `aud`, `client_id` and `scope`; refresh tokens last 30 days and rotate; grants `authorization_code` and `refresh_token` only | Neon guide |
 | N6 | **Scopes are fixed**: `openid`, `profile`, `email`, `offline_access`. Custom scopes, token lifetimes and provider options cannot be configured | Neon guide |
-| N7 | Verify signature with the JWKS, `iss` exactly equal to the branch issuer, `aud` containing our resource. **All branches share signing keys**, so the issuer must be pinned | Neon guide; `@neon/oauth` 0.3.0 README |
+| N7 | Verify signature with the JWKS, `iss` exactly equal to the branch issuer, `aud` containing our resource. **All branches share signing keys**, so the issuer must be pinned (MCP-0: production's `kid` differs from the child's today; pin `iss` anyway) | Neon guide; `@neon/oauth` 0.3.0 README |
 | N8 | Self-onboarding (CIMD or DCR) works only for the configured MCP server resource; up to 10 resources and 100 managed clients per branch; CIMD loopback redirects match on any port | Neon guide |
 | N9 | Status wording conflicts: the guide says the plugin "is available to all Managed Better Auth projects"; the `@neon/oauth` README says it "is currently in private preview" | both, read 25 Oct |
 | N10 | Child-branch auth server today: `/.well-known/jwks.json` 200 (one Ed25519 key), `/token` 401 without a session (Better Auth JWT plugin present), both `/.well-known/oauth-authorization-server` and `/.well-known/openid-configuration` 404 (plugin off) | `curl` 25 Oct |
@@ -136,10 +136,12 @@ which Neon's managed service does not let us extend; see option B in section 3.
 |---|---|---|
 | V1 | Hobby with Fluid compute: function duration default and maximum 300 s; 2 GB memory; a timeout returns 504 | Vercel "Functions limitations"; changelog on higher defaults |
 | V2 | Hobby WAF: 1 rate-limit rule per project, 3 custom rules, fixed window only; counters are per region; `@vercel/firewall` `checkRateLimit(id, { request, rateLimitKey })` | Vercel "Rate limiting" and SDK pages |
-| V3 | MCP route handlers run as ordinary Next.js route handlers; the SDK's web-standard Streamable HTTP transport works stateless (one server per request). `mcp-handler` 2.3.0 is Vercel's adapter | `@neon/oauth` README example; npm |
+| V3 | MCP route handlers run as ordinary Next.js route handlers; the SDK's web-standard Streamable HTTP transport works stateless (one server per request). `mcp-handler` 2.3.0 is Vercel's adapter. **MCP-0: it needs `@modelcontextprotocol/server` ^2 (2.4.0, protocol 2026-07-28 plus the 2025 fallback), not the 1.x SDK, which stops at 2025-11-25** | `@neon/oauth` README example; npm; MCP-0 |
 | V4 | Preview deployments sit behind Vercel Authentication; an MCP client cannot pass it. The production alias has no deployment yet (U13 in the email spec) | HANDOVER item 3; EML-0 U13 |
 
 ### 2.6 What could not be verified (each is an MCP-0 check)
+
+Answered by MCP-0 on 25 Oct: see section 13, which numbers the checks as the MCP-0 brief did (the mapping is given there).
 
 | # | Unknown | Why it matters |
 |---|---|---|
@@ -330,8 +332,11 @@ every private tool added later needs its table's policies and a cross-user test 
 - PAT: default 30 days, maximum 90, no token without expiry (Q163); Revoke and Revoke all on `/account/`; revoked on the next
   request; email to the owner when a PAT is used from a new client name (security.md T9, later, needs the mail module).
 - OAuth: our kill switch is `mcp_client_grant.revoked_at`, checked on every request, so revoking a client cuts it off even
-  though its JWT lives up to an hour. Neon-side refresh-token revocation is X6. Signing out of all sessions on `/account/`
-  also revokes every grant.
+  though its JWT lives up to an hour. **MCP-0 (X7): Neon cannot revoke from the server side.** Only the token holder can
+  revoke its own refresh token (`/oauth2/revoke` with `client_id`); signing out, revoking all sessions and deleting the
+  consent leave refresh tokens working for 30 days, and access JWTs cannot be revoked. So the grant check is the only
+  switch: "Revoke" on Connected apps sets `revoked_at` **and** calls `/oauth2/delete-consent` (our consent page then shows
+  again on re-authorization), and signing out of all sessions on `/account/` also revokes every grant.
 - Account deletion deletes tokens and grants (F17 item 16).
 
 ### 6.4 Rate limits and quotas
@@ -407,6 +412,10 @@ cut at the edge before a function runs. That uses Hobby's only rate-limit rule; 
 | Our own authorization server metadata, token endpoint or proxy in front of Neon | **not needed with option A**: clients talk to Neon's endpoints directly; we serve only the PRM | none |
 | Redirect URIs per client | not registered by us: CIMD carries them (claude.ai callback, Claude Code loopback) | none |
 
+Protocol packages (MCP-0): `@modelcontextprotocol/sdk` 1.x (1.32.1 in `core/`) speaks up to 2025-11-25 only. For
+2026-07-28 (M8) the remote routes use the v2 packages, `@modelcontextprotocol/server` 2.4.0 with `mcp-handler` 2.3.0,
+which also answers 2025-era clients. The stdio server can stay on 1.x. MCP-C decides and pins the versions.
+
 Library choice: `jose` directly in `web/lib/mcp/verify-jwt.ts` (about 40 lines we own, the checks of section 5), with
 `@neon/oauth` 0.3.0 read as the reference. Trade-off: `@neon/oauth/mcp/next` would save a few hours, but it is beta and
 its API may change in minor versions; the verifier is security code we want pinned and tested ourselves.
@@ -465,7 +474,22 @@ live in Neon.
 
 - **The trailing slash.** `trailingSlash: true` makes `/mcp/private` a 308 to `/mcp/private/`. Use the slash form
   everywhere (Neon resource, PRM `resource`, connector URL), because Claude compares `resource` with the entered URL exactly.
-- **Shared signing keys across branches.** A child-branch token verifies against the production JWKS. Pin `iss`.
+  MCP-0: a client given `/mcp/private` follows the 308 on its POST, then the SDK refuses (`Protected resource .../mcp/private/
+  does not match expected .../mcp/private`). Recipes and the account page must show the slash form only.
+- **Shared signing keys across branches.** Per Neon, a child-branch token verifies against the production JWKS. MCP-0 saw
+  different `kid`s today, and the browser session JWT is signed with the same key as the OAuth tokens. Pin `iss`, and check
+  `aud` and `client_id` too.
+- **Discovery only by appending.** Neon serves `<issuer>/.well-known/openid-configuration` and
+  `<issuer>/.well-known/oauth-authorization-server`; both RFC 8414 path-insertion URLs are 404. Clients reach the third URL
+  (M6); SDK 1.32.1 does.
+- **The consent page takes the redirect host from the request.** `GET /oauth2/public-client` returns `redirect_uris: []` for
+  CIMD clients, so show the host of the `redirect_uri` in the received query (the guide's rule), and warn on loopback.
+- **Neon refetches the client document** on most steps (51 fetches for about 20 flows), and a client id must be `https` on
+  port 443. A client whose document host is down cannot sign in.
+- **A code replay revokes the refresh token from that code,** and a refresh token reused more than 30 s after rotation
+  revokes the whole family. A buggy client gets logged out; that is correct.
+- **Quick tunnels on the owner's Mac** read `~/.cloudflared/config.yml` and the owner's credentials unless given an empty
+  `--config` file (MCP-0 incident, fixed in 2 minutes). Use `cloudflared --config <empty file> tunnel --url ...`.
 - **Opaque tokens without `resource`.** A client that omits `resource` gets an opaque token we cannot verify. Return `401`
   with the PRM pointer; do not try to introspect.
 - **No custom scopes.** Do not put `trips:write` in `WWW-Authenticate`; clients will loop on re-authorization.
@@ -504,6 +528,118 @@ live in Neon.
 MCP-0 writes its results here, one row per unknown X1 to X9, with pass or fail and evidence. MCP-S and MCP-E append dated
 entries.
 
+### MCP-0 results (25 Oct 2026, child branch, from localhost, Opus 5.5)
+
+Evidence: [MCP-0-spike.md](../../../research/runs/MCP-0-spike.md). Throwaway code ran from the session scratchpad: a
+spike app on `localhost:3000` (login and consent pages, PRM, a minimal `/mcp/private/`, a proxy to `next dev` running the
+repo's `/api/auth` route with child-only values), a CIMD document behind a cloudflared quick tunnel, and SDK 1.32.1 with
+Playwright Chromium as the client. One password test user on `example.com`, deleted at the end; zero emails. The child's
+plugin settings were not changed; production was read only and is unchanged.
+
+**Verdict: yes, with conditions.** Neon's OAuth provider can be the authorization server for `/mcp/private/`. Conditions:
+(1) one URL form, the slash form; (2) our grant check is the only revocation switch; (3) the remote routes use the v2 MCP
+packages for 2026-07-28; (4) the verifier checks `iss`, `aud` and `client_id`, not only the signature; (5) O-M2 on
+production after MCP-S, as planned.
+
+Numbering follows the MCP-0 brief. Spec 2.6 equivalents: X1 = 2.6 X1; X2 = 2.6 X2 and X3; X4 = 2.6 X4; X6 = 2.6 X5;
+X7 = 2.6 X6; X8 and X9 as in 2.6; the package check = 2.6 X7.
+
+**X1. Plugin switch: PASS**
+
+| Check | Evidence |
+|---|---|
+| Exists and reads back enabled | `GET .../branches/br-damp-breeze-b41mtvn5/auth/plugins/oauth-provider` 200: `enabled` true, login `http://localhost:3000/sign-in/`, consent `http://localhost:3000/oauth/consent/`, `mcp.resource` `http://localhost:3000/mcp/private/`, CIMD true, DCR false; production `enabled` false |
+
+**X2. Discovery: PASS**
+
+| Check | Evidence |
+|---|---|
+| Documents served | `<issuer>/.well-known/oauth-authorization-server` and `<issuer>/.well-known/openid-configuration` 200 (same body, `max-age=15`); `<issuer>/.well-known/jwks.json` 200 (one Ed25519 key); path-insertion forms 404 |
+| CIMD and `none` | `client_id_metadata_document_supported: true`; `token_endpoint_auth_methods_supported` includes `none`; S256 only; `authorization_response_iss_parameter_supported: true`; no `registration_endpoint` (DCR off, `/oauth2/register` 403) |
+| A client finds it | SDK 1.32.1: 404, 404, then 200 on the OIDC appended URL |
+
+**X3. Code flow with PKCE and a CIMD client: PASS**
+
+| Check | Evidence |
+|---|---|
+| CIMD needs https | yes: `http://localhost` client id refused (`invalid_client`); a quick tunnel served the document; Neon fetched it (`Neon-Auth-CIMD/1.0`) |
+| Login and consent | authorize, then 302 to our `/sign-in/` with a signed query; sign-in with `oauth_query` returns `{redirect, url}` to `/oauth/consent/`; consent accept returns the callback with `code`, `state`, `iss`; deny returns `access_denied`; a second authorization for the same client skips consent |
+| Token exchange | 200: JWT access token, 3600 s, opaque refresh token, ID token; loopback redirect matched on any port; a replayed code gets `invalid_grant` |
+| A real MCP client | SDK 1.32.1 in Chromium: 401, PRM, discovery, CIMD, our pages through `/api/auth`, token, `tools/list`, `tools/call whoami` with a verified JWT |
+| Claude's documents | `https://claude.ai/oauth/mcp-oauth-client-metadata` and `.../claude-code-client-metadata` exist; Neon accepts both (a full flow under Claude Code's id issued a JWT) |
+
+**X4. Token contents and refresh: PASS**
+
+| Check | Evidence |
+|---|---|
+| Header and claims | `typ at+jwt`, `alg EdDSA`; `iss` = issuer; `aud` = `["http://localhost:3000/mcp/private/", "<issuer>/oauth2/userinfo"]` (contains, not equals, the MCP URL); `client_id` = `azp` = the CIMD URL; `scope` `openid profile email offline_access`; `sid`; `jti`; no `nbf` |
+| `sub` | equals `neon_auth.user.id` (uuid; our `app_user.id` is its text form) |
+| Lifetime | 3600 s; refresh token 30 days (DB) |
+| Refresh and rotation | a refresh returns a new refresh token; a repeat within 30 s returns the identical response; a reuse after 35 s is refused **and revokes the newest token too** |
+
+**X5. Offline verification and refusals: PASS**
+
+| Check | Evidence |
+|---|---|
+| Good token | verified against the JWKS with `node:crypto` (EdDSA), `iss` exact, `aud` contains; the HTTP route returns 200 |
+| Refused | wrong `aud` (`/mcp/` and the slashless form), expired (clock at exp + 61 s), production `iss`, tampered payload, `alg none` and `HS256`, opaque token (no `resource`), garbage: 401 with `WWW-Authenticate: Bearer error="invalid_token", resource_metadata=...` |
+| Session JWT `/api/auth/token` | refused: `iss` and `aud` are the bare auth origin, 900 s, signed **with the same key**, so only `iss`, `aud` and `client_id` checks stop it |
+
+**X6. Our `/api/auth` proxy: PASS (main); EML-1 guard compatible by reading**
+
+| Check | Evidence |
+|---|---|
+| `/oauth2/*` forwarded | `consent`, `continue`, `public-client`, `get-consents` through `next dev` with child values; no tracked file edited |
+| `oauth_query` | `POST /api/auth/sign-in/email/` with `oauth_query` returns `{redirect, url}` and sets our cookies; `/oauth2/continue` works for an existing session |
+| EML-1 guard (`public/EML-1` 1928aa6, read only) | `oauth2/*` passes untouched; `sign-in/email` keeps `oauth_query` (whole body re-serialised) and returns Neon's success body unchanged |
+
+**X7. Revocation: PASS for the token holder; no server-side revoke**
+
+| Check | Evidence |
+|---|---|
+| `/oauth2/revoke` | 200 for a public client sending `client_id` (401 without); the refresh token then fails. Access JWTs: 400 `unsupported_token_type` |
+| What does **not** revoke refresh tokens | sign-out, `revoke-sessions` (all sessions), `delete-consent`: refresh still 200 |
+| What does | the holder's revoke, a code replay, a late refresh reuse, deleting the user (cascade). No Neon API for it; CIMD clients are not in the API's client list |
+
+**X8. Trailing slash: PASS with a rule**
+
+| Check | Evidence |
+|---|---|
+| Next | `POST /mcp/private` gets 308, `location: /mcp/private/` (relative), `Refresh` header, query kept |
+| SDK 1.32.1 | given `/mcp/private/`: works. Given `/mcp/private`: follows the 308 on its POST, then throws "Protected resource .../mcp/private/ does not match expected .../mcp/private" |
+| Claude Code, claude.ai | OWNER NEEDED (MCP-E); Claude's exact-match rule (C3) implies the same failure. Publish only the slash form |
+
+**X9. Neon's limits and errors: PASS (no limit met; real limits unknown)**
+
+| Check | Evidence |
+|---|---|
+| Limiter | 8 parallel bad code exchanges and 8 bad revokes: all 400, no rate-limit or retry headers. `/sign-in/email` limits at 5 wrong passwords (EML-0) |
+| Errors | `invalid_target` for another resource; `invalid_redirect` for a redirect outside the document; "pkce is required for public clients"; S256 only; "Metadata document fetch returned HTTP 404"; tampered `oauth_query` 400 `invalid_signature`; consent with a foreign or missing `Origin` 403 |
+
+**Packages (spec 2.6 X7): the 1.x SDK does not speak 2026-07-28**
+
+| Package | Finding |
+|---|---|
+| `@modelcontextprotocol/sdk` 1.32.1 (core), 1.32.2 latest | latest protocol 2025-11-25 |
+| `@modelcontextprotocol/server` 2.4.0 | 2026-07-28 plus the 2025 versions |
+| `mcp-handler` 2.3.0 | serves 2026-07-28 natively with a 2025-era fallback; peer `@modelcontextprotocol/server` ^2 |
+| `@neon/oauth` 0.3.0 | peers the 1.x SDK (>=1.20) |
+
+**Owner steps after MCP-0**
+
+1. Decide whether the child's plugin stays on for MCP-2 development (recommended: yes; it allows only `localhost`
+   URLs). To switch it off: Neon console, child branch, Settings, Better Auth, OAuth provider, Disable.
+2. Optional, 10 minutes, any time before MCP-E: sign in Claude Code against a local route. The MCP-2 builder starts the
+   local server (the spike's scratchpad code is gone after this session). Then run
+   `claude mcp add --transport http travel-local http://localhost:3000/mcp/private/`, then `/mcp` in Claude Code,
+   choose the server, Authenticate, sign in on the local page and Allow. Expected: Connected, and one tool call works.
+3. Nothing on production until MCP-S (O-M2 unchanged).
+
+**Not verified:** Claude Code's own CLI sign-in, the MCP Inspector and the claude.ai connector (interactive; MCP-E); Claude's
+discovery order against a path issuer; Neon's real OAuth rate limits; why production's `kid` differs from the child's; the
+EML-1 guard in a running server. Left on the child: 12 cached CIMD client rows in `neon_auth."oauthClient"` (no user data;
+the API does not list them).
+
 ## Sources (read 25 Oct 2026)
 
 - MCP specification 2026-07-28, Authorization: https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization
@@ -524,3 +660,4 @@ entries.
 | Date | Change |
 |---|---|
 | 2026-10-25 | First version (travel-planner, Opus): three uses, Neon OAuth provider finding, options A to D, flows, verification, capabilities over RLS, security, build order MCP-0 to MCP-3, owner steps O-M1 to O-M5, Q160 to Q167 |
+| 2026-10-25 | MCP-0 results (Opus 5.5, child branch): verdict yes with conditions; section 0 items 2 and 5, N1, N7, V3, 6.3 revocation, protocol packages and six gotchas updated; evidence in `research/runs/MCP-0-spike.md` |
