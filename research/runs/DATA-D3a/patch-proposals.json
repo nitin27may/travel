@@ -1,0 +1,92 @@
+{
+  "what": "DATA-D3a values for records that live in lane files this batch does not own (R2a.json, R1.json, the capture migrated.json files, the web seed). One record per ref across a trip's lane files (E_SUIT_DUP_REF, E_CAP_DUP_REF), so these cannot go into TF.json. Each entry names the file, the ref, the dot path and the Val to write, with sources read on 25 Oct 2026. Apply with the file's own source ids (add a source row where the URL is new) and run node core/bin/suitability.ts derive --write after.",
+  "sources": {
+    "pc-hiking": { "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking", "publisher": "Parks Canada", "kind": "official", "read": "2026-10-25", "in_R2a_as": "src-0001" },
+    "pc-winter": { "url": "https://parks.canada.ca/pn-np/ab/banff/activ/marchehiver-winterwalking/banff", "publisher": "Parks Canada", "kind": "official", "read": "2026-10-25", "in_R2a_as": "src-0050" },
+    "pc-closure-jc": { "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/06d4ef61-a3c9-4b65-8dfc-66d056252d6c", "publisher": "Parks Canada", "kind": "official", "read": "2026-10-25", "in_R2a_as": "src-0049" },
+    "pc-closures": { "url": "https://parks.canada.ca/pn-np/ab/banff/visit/fermetures-closures", "publisher": "Parks Canada", "kind": "official", "read": "2026-10-25", "in_R2a_as": "src-0002" },
+    "osm-sarrail": { "url": "https://www.openstreetmap.org/way/753718984", "publisher": "OpenStreetMap contributors (ODbL)", "kind": "community", "read": "2026-10-25", "method": "api", "run": "api-2026-10-25-data-d3a-overpass" },
+    "bz-parks": { "url": "https://nature-parks.province.bz.it/en/code-of-conduct-for-the-nature-parks", "publisher": "Autonome Provinz Bozen - Südtirol (Naturparks)", "kind": "official", "read": "2026-10-25", "in_R1_as": "src-0065" },
+    "dz-569": { "url": "https://www.dreizinnen.com/en/activity/summer-walk-around-the-drei-zinnen-tre-cime-three-peaks-_569", "publisher": "3 Zinnen Dolomites tourism board", "kind": "official", "read": "2026-10-25", "in_R1_as": "src-0012" },
+    "trk-tre-cime": { "url": "data/tracks/tre-cime.json", "publisher": "computed from OSM relations 1116663 and 1067603 (ODbL) and AWS Terrain Tiles, fetched 2026-10-19", "kind": "computed", "read": "2026-10-25" },
+    "trk-seekofel": { "url": "data/tracks/seekofel.json", "publisher": "computed from OSM relation 1155861 (ODbL) and AWS Terrain Tiles, fetched 2026-10-19", "kind": "computed", "read": "2026-10-25" },
+    "rawson-ap": { "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rawson-lake/", "publisher": "Alberta Parks", "kind": "official", "read": "2026-10-25" }
+  },
+  "suitability": [
+    {
+      "file": "data/suitability/canadian-rockies-2029/R2a.json",
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+      "why": "R2 trail johnston-canyon-walk is draft: no shape, stroller, wheelchair, exposure, access season, age band or navigation.",
+      "set": {
+        "ext.shape": "out-and-back",
+        "ext.navigation": { "v": "waymarked", "state": "value", "basis": "our_inference", "src": ["pc-hiking"], "note": "One paved canyon trail from the P1 lot to the Lower Falls; nothing to choose." },
+        "suitability.stroller": { "v": "none", "state": "value", "basis": "official_info", "src": ["pc-hiking"], "quote": "Strollers are not recommended." },
+        "suitability.stroller_extent": { "scope": "whole" },
+        "suitability.wheelchair": { "v": "partial", "state": "value", "basis": "our_inference", "src": ["pc-hiking"], "note": "Parks Canada gives 100% paved and a typical width of 182 cm to the Lower Falls, 8 accessible stalls and flush toilets at the trailhead, but calls the trail busy with narrow sections and gives no maximum grade for this stretch (30% on the way to the Upper Falls). Not stated as accessible, so partial." },
+        "suitability.accessible_parking": { "v": true, "state": "value", "basis": "official_info", "src": ["pc-hiking"], "quote": "8 accessible stalls" },
+        "suitability.age_band": { "v": { "from": 0, "to": null }, "state": "value", "basis": "our_inference", "src": ["pc-hiking"], "note": "2.2 km and 85 m: any age, the youngest carried (strollers not recommended)." },
+        "suitability.carrier_ok": { "v": true, "state": "value", "basis": "our_inference", "src": ["pc-hiking"], "note": "2.2 km and 85 m is far inside the carrying-adult ceiling." },
+        "suitability.kid_note": "A paved trail and catwalks bolted to the canyon wall to the Lower Falls; busy, with narrow sections. The Upper Falls are 1.3 km further and 130 m higher.",
+        "suitability.exposure": { "v": { "level": "some", "fenced": null, "where": "the catwalks along the canyon wall" }, "state": "value", "basis": "our_inference", "src": ["pc-hiking"], "note": "The plan's own note calls the catwalks exposed; Parks Canada's table does not say whether they are railed, so fenced stays null." },
+        "suitability.access_season": {
+          "v": [
+            { "from": "01-01", "to": "12-31", "status": "open", "via": "road", "note": "Parks Canada lists Johnston Canyon among its winter walks: usually very icy, ice cleats strongly recommended." },
+            { "from": "03-01", "to": "06-25", "status": "limited", "via": "road", "note": "The Bow Valley Parkway is closed 8 p.m. to 8 a.m. on the 17 km east of Johnston Canyon Campground; reach the lot from the west at night." }
+          ],
+          "state": "value", "basis": "official_info", "src": ["pc-winter", "pc-closures"], "applies_to": "2026",
+          "note": "2026 only: the trail, day-use area and P1 lot are closed 13 Oct to 11 Dec 2026 for rock-slope work (bulletin pc-closure-jc); the Upper Falls and Ink Pots stay reachable by the Moose Meadows trail. A one-off, not a yearly closure."
+        },
+        "suitability.effort.drivers.distance_km.conflicts": [ { "v": 2.4, "basis": "official_info", "src": ["pc-winter"], "note": "The winter walking page gives 1.2 km one way to the Lower Falls (the summer table 1.1 km)." } ],
+        "suitability.effort.drivers.gain_m.conflicts": [ { "v": 50, "basis": "official_info", "src": ["pc-winter"], "note": "The winter walking page gives 50 m to the Lower Falls (the summer table 85 m gain, 55 m loss)." } ]
+      }
+    },
+    {
+      "file": "data/suitability/canadian-rockies-2029/R2a.json",
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+      "why": "Plan day 13: distance was searched_none with a community conflict only.",
+      "set": {
+        "suitability.effort.drivers.distance_km": {
+          "v": 9.4, "state": "value", "basis": "our_inference", "src": ["osm-sarrail"],
+          "note": "Marked estimate, not an official figure. Computed from OSM ways 24836168, 181184079, 181184081 (Rawson Lake Trail) and 181184076, 753718984 (Sarrail Ridge Trail): 4.68 km one way from the Rawson Lake Trailhead node 269822212 to the Sarrail Ridge peak node 7042108468, doubled. Overpass run api-2026-10-25-data-d3a-overpass. No official page exists (searched 18 Oct by R2a).",
+          "conflicts": [ { "v": 11.3, "basis": "community", "src": ["src-0046"], "note": "the plan's figure from thebanffblog.com and travelbanffcanada.com (kept from R2a)" } ]
+        }
+      }
+    },
+    {
+      "file": "data/suitability/dolomites-2027/R1.json",
+      "ref": "place/tre-cime-di-lavaredo-loop",
+      "why": "R2 trail: dogs missing; the computed track is not shown beside the official figures.",
+      "set": {
+        "ext.dogs": { "v": "leash", "state": "value", "basis": "official_rule", "src": ["bz-parks"], "read": "2026-10-25", "quote": "They must be kept on a lead at all times and should not disturb or harm the park's wildlife", "note": "The South Tyrol nature-park rule; the Drei Zinnen Nature Park is one of the listed parks and covers the north side of the loop (Rifugio Locatelli). The Veneto side (Auronzo to Lavaredo) is outside it; the tourism board's route page does not mention dogs." },
+        "suitability.effort.drivers.distance_km.conflicts": [ { "v": 10, "basis": "community", "src": ["src-0048"], "note": "kept from R1" }, { "v": 9.0, "basis": "our_inference", "src": ["trk-tre-cime"], "note": "Computed: the confirmed OSM track (relations 1116663 and 1067603, cut as a loop from Rifugio Auronzo), 9.0 km." } ],
+        "suitability.effort.drivers.gain_m.conflicts": [ { "v": 400, "basis": "community", "src": ["src-0048"], "note": "kept from R1" }, { "v": 435, "basis": "our_inference", "src": ["trk-tre-cime"], "note": "Computed: the confirmed OSM track with AWS Terrain Tiles, 5 m hysteresis: 435 m up, 438 m down. The tourism board says 550 m." } ]
+      }
+    },
+    {
+      "file": "data/suitability/dolomites-2027/R1.json",
+      "ref": "place/croda-del-becco",
+      "why": "Backlog 3.47b: show the Seekofel gain as a conflict with both sources. R1 holds searched_none; the official pages give no figures.",
+      "set": {
+        "suitability.effort.drivers.gain_m": {
+          "v": 1467, "state": "value", "basis": "our_inference", "src": ["trk-seekofel"],
+          "note": "Computed, not official: the confirmed OSM track (relation 1155861, Lago di Braies to the summit, cut at the destination) gives 1,467 m up and 213 m down one way, 7.31 km. The tourism board tour 544 and prags.bz give no figure (R1, 18 Oct).",
+          "conflicts": [ { "v": 1314, "basis": "our_inference", "src": ["src-0001 of data/suitability/dolomites-2027/migrated.json"], "note": "earlier figure: the trip's prototype value, which came from a route-platform tour (link-only, never a source); shown so the reader sees both" } ]
+        },
+        "suitability.effort.drivers.distance_km": {
+          "v": 14.6, "state": "value", "basis": "our_inference", "src": ["trk-seekofel"],
+          "note": "Computed, not official: the confirmed OSM track is 7.31 km one way, doubled for the out and back. The earlier 7.3 km one-way figure agrees."
+        }
+      }
+    }
+  ],
+  "capture_links": [
+    { "file": "data/capture/canadian-rockies-2029/migrated.json", "ref": "legacy/canadian-rockies-sept-2029/trails/lake-agnes", "add": [ { "kind": "official", "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking", "state": "filled", "on": "2026-10-25", "src": ["pc-hiking"] } ], "why": "R2 trail with no link at all; the Banff hiking table holds its row (Lake Agnes Trail)." },
+    { "file": "data/capture/canadian-rockies-2029/migrated.json", "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk", "add": [ { "kind": "official", "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking", "state": "filled", "on": "2026-10-25", "src": ["pc-hiking"] } ], "why": "R2 trail with no link; Parks Canada has no separate Johnston Canyon page (checked 25 Oct)." },
+    { "file": "data/capture/canadian-rockies-2029/migrated.json", "ref": "legacy/canadian-rockies-sept-2029/trails/rawson-lake", "add": [ { "kind": "official", "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rawson-lake/", "state": "filled", "on": "2026-10-25", "src": ["rawson-ap"] }, { "kind": "osm", "url": "https://www.openstreetmap.org/way/24836168", "state": "filled", "on": "2026-10-25", "src": ["osm:way/24836168"] } ], "why": "Plan day 13 trail with no link." },
+    { "file": "data/capture/canadian-rockies-2029/migrated.json", "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge", "add": [ { "kind": "osm", "url": "https://www.openstreetmap.org/way/753718984", "state": "filled", "on": "2026-10-25", "src": ["osm-sarrail"] } ], "why": "Its official link is searched_none; the OSM way is the only stable page for the route." }
+  ],
+  "code_requests": [
+    { "row": "3.47c", "owner": "travel-builder", "files": ["web/lib/public/tracks.ts", "data/seed/prototype/trails.ts"], "finding": "The second Tre Cime line is OSM relation 1657833 (path 104). It comes from the seed fact geometry_ids \"paths 101 (rel 1116663, 8.5 km) and 104 (rel 1657833, 4 km) are nearby\" (data/seed/prototype/trails.ts line 244), which buildLines in web/lib/public/places.ts turns into one line per id. withTrack (web/lib/public/tracks.ts lines 68-70) then marks every extra line exportable when the stored track is confirmed and stitched, although that line has no geometry. Two fixes, either is enough: (a) in withTrack, exportable for the extra lines also needs their own geometry (l.geometry?.length); (b) take '104 (rel 1657833, 4 km)' out of the seed text, since the stored track (relations 1116663 and 1067603) is the loop. (a) also covers any other trail with a stale id. A data-only batch cannot make either change." },
+    { "row": "RB-3", "owner": "coordinator", "files": ["data/relevance/dolomites-2027/<lane>.json", "data/capture/supersedes.json"], "finding": "Larch Valley: already done. The world/national draw sits on part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass (R2a relevance, v national) and the route has no relevance record, so nothing is left to move. Tre Cime: the route place/tre-cime-di-lavaredo-loop holds draw world in data/relevance/dolomites-2027/R1.json, and neither payoff part (#tre-cime, #north-face-viewpoint) has a relevance record. Moving it needs a new relevance record for each part (a relevance lane file, which no DATA batch owns) and, if the route's world value is a pre-migration ledger leaf, a supersede entry lowering the route's draw (data/capture/supersedes.json, also not a D3a file). Decision for the coordinator: which lane writes the two part records, and whether the route keeps world (route_is_attraction is still true)." }
+  ]
+}

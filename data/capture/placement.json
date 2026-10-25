@@ -208,6 +208,29 @@
           "note": "Route high point."
         }
       }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+      "file": "data/suitability/canadian-rockies-2029/R2a.json",
+      "reason": "Superseded 25 Oct 2026 (INT2, DATA-D3a patch): the 'searched, none published' distance gave way to a marked OSM estimate. The searched record is kept verbatim here so the migration ledger holds.",
+      "fields": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "albertaparks.ca Peter Lougheed trail reports (no Sarrail Ridge page)",
+                "Alberta Parks Kananaskis advisories page"
+              ],
+              "note": "No official figure."
+            }
+          }
+        }
+      }
     }
   ],
   "review": [

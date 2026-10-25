@@ -303,3 +303,17 @@ Lake and Burstall Pass trailheads; see `research/runs/DATA-D1b-points.md`). Thes
 | Wild Water Adventures | from wildwater.com | Where is the Gentle trip's put-in inside the Yoho boundary, and the take-out (a named landmark or coordinates)? The trip page says only that buses shuttle guests from the River Base to the put-in. Fills the Kicking Horse river rows' points (repeats the CS7 question). |
 | Chinook Rafting | 1-866-330-7238 | Where are the Kananaskis River put-in and take-out? The FAQ names only the meeting point, Chinook Rafting Riverbase on Highway 1X (OSM way 1302746691). Fills the Kananaskis River row's point. |
 | Rafting Club Activ | +39 328 966 07 78, info@rafting-club-activ.com | Where exactly in the St. Sigmund sports zone do Rienz trips meet (car park, building), and where is the put-in? The contact page names only "Sports zone St. Sigmund". |
+
+## D4a (25 Oct 2026, Rockies activities)
+
+| # | To | Contact | Question |
+|---|---|---|---|
+| D4a-1 | Waterton Shoreline Cruise Co. | (403) 859-2362, from watertoncruise.com | Is the 35 CAD Crypt Lake hiker shuttle fare one-way or the return trip (marina to Crypt Landing and the pick-up back)? Fills `price` on the Crypt Lake shuttle (3.61a). |
+| D4a-2 | Wild Water Adventures; Hydra River Guides | 1-888-647-6444; 1.888.920.3968 | Where are the put-in and take-out on the Kicking Horse for the family and Class 3-4 trips (the upper section and the lower canyon), and does the bus leave from the river base? Fills the river parts' `starts_at` and `ends_at` (RB-1). D1b asks the same; one reply closes both. |
+| D4a-3 | Banff Adventures (Hoodoo float) | from banffadventures.com | Is Banff Adventures the operator of the Hoodoo float, or a booking office for another raft company? Fills `run_by` on the Bow River float. |
+| D4a-4 | Pursuit (Banff Gondola, Jasper SkyTram, Maligne and Minnewanka cruises, Columbia Icefield) | 1.866.606.6700 | Is there a published adult and child fare for September, or only the date-priced fares in the booking widget? How far ahead do September slots sell out? Fills `price` and `window.sellout`. |
+| D4a-5 | Lake Louise Ski Resort | Guest Services, skilouise.com | Summer gondola fare and whether tickets must be booked ahead. Fills `price` and `window`. |
+| D4a-6 | The Boathouse Trading Co. (Emerald Lake) | via Emerald Lake Lodge, crmr.com | Hourly canoe rate, life-jacket sizes and whether children may ride. Fills `price`, `run_by` and the canoe limits. |
+| D4a-7 | Icewalks | (780) 852-3803 | May a child under 7 join the half-day walk (the fare table starts at 7)? Where exactly do walkers meet? Fills `min_age` and the meeting point. |
+| D4a-8 | Alpine Helicopters, Canmore | from canmore.alpinehelicopter.com | Minimum age, child fare and the summer season of the Three Sisters tour. Fills `min_age`, `price`, `season`. |
+| D4a-9 | Alpine Stables, Waterton | from alpinestables.com | Where are the stables (address), and what are the summer season dates and hourly rates? Fills the Waterton half of the two-operator horse record. |

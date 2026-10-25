@@ -600,6 +600,285 @@
       "kind": "official",
       "read": "2026-10-19",
       "method": "read"
+    },
+    {
+      "id": "src-0067",
+      "url": "https://www.icewalks.com/tours/half-day-tours",
+      "title": "Classic Half Day Tours",
+      "publisher": "Icewalks",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0068",
+      "url": "https://horseback.com/tours/bow-river-ride/",
+      "title": "Bow River Ride - 1 Hr",
+      "publisher": "Banff Trail Riders",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0069",
+      "url": "https://www.banff-springs-hotel.com/wellness/spa/",
+      "title": "Fairmont Spa",
+      "publisher": "Fairmont Banff Springs",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0070",
+      "url": "https://www.banffadventures.com/things-to-do/float-trips/",
+      "title": "Bow River Float Trip (Hoodoo)",
+      "publisher": "Banff Adventures",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0071",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/stephen",
+      "title": "Mount Stephen guided hike",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0072",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/walcott",
+      "title": "Walcott Quarry guided hike",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0073",
+      "url": "https://www.watertoncruise.com/2026.php",
+      "title": "2026 Season",
+      "publisher": "Waterton Shoreline Cruise Co.",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0074",
+      "url": "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour/",
+      "title": "Three Sisters Peaks Tour",
+      "publisher": "Alpine Helicopters",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0075",
+      "url": "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies",
+      "title": "Heli-hiking in the Canadian Rockies",
+      "publisher": "White Mountain Adventures",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0076",
+      "url": "https://jasperstables.com/",
+      "title": "Jasper Riding Stables",
+      "publisher": "Jasper Riding Stables",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0077",
+      "url": "https://alpinestables.com/commonly-asked-questions/",
+      "title": "Commonly Asked Questions",
+      "publisher": "Alpine Stables",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0078",
+      "url": "https://www.sundogtours.com/package/sunrise-photography-and-wildlife-tour",
+      "title": "Sunrise Photography and Wildlife Tour",
+      "publisher": "SunDog Tours",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0079",
+      "url": "https://www.brewsteradventures.com/summer-trail-rides",
+      "title": "Summer Trail Rides",
+      "publisher": "Brewster Adventures",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0080",
+      "url": "https://banffnorquay.com/via-ferrata/via-ferrata-routes/",
+      "title": "Via Ferrata Routes",
+      "publisher": "Banff Norquay",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0081",
+      "url": "https://yamnuska.com/mountaineering/beginner-mountaineering-courses/mountain-scrambling/",
+      "title": "Scrambling Skills",
+      "publisher": "Yamnuska Mountain Adventures",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0082",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/sources-radium-springs",
+      "title": "Radium Hot Springs",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0083",
+      "url": "https://assiniboinelodge.com/helicopter-flight-days",
+      "title": "Helicopter flight days",
+      "publisher": "Mount Assiniboine Lodge",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0084",
+      "url": "https://assiniboinelodge.com/helicopter-faqs",
+      "title": "Helicopter FAQs",
+      "publisher": "Mount Assiniboine Lodge",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0085",
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/tickets/",
+      "title": "Banff Gondola tickets",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0086",
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/hours-location/",
+      "title": "Banff Gondola hours and location",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0087",
+      "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/tickets/",
+      "title": "Jasper SkyTram tickets",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0088",
+      "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/tickets/",
+      "title": "Maligne Lake Cruise tickets",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0089",
+      "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/tickets/",
+      "title": "Lake Minnewanka Cruise tickets",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0090",
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/",
+      "title": "Columbia Icefield",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0091",
+      "url": "https://www.skilouise.com/explore-summer/sightseeing-gondola/",
+      "title": "Sightseeing Gondola",
+      "publisher": "Lake Louise Ski Resort",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0092",
+      "url": "https://www.chateau-lake-louise.com/activities/canoeing/",
+      "title": "Canoeing and canoe rentals",
+      "publisher": "Fairmont Chateau Lake Louise",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0093",
+      "url": "https://morainelake.com/day-visits/",
+      "title": "Day visits",
+      "publisher": "Moraine Lake Lodge",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0094",
+      "url": "https://crmr.com/activities/canoeing/",
+      "title": "Emerald Lake canoeing",
+      "publisher": "Canadian Rocky Mountain Resorts (Emerald Lake Lodge)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0095",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/sources-miette-springs/tarifs-fees",
+      "title": "Miette Hot Springs fees",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0096",
+      "url": "https://us.booking.bike.rent/book?store=viciouscyclesjasper",
+      "title": "Vicious Cycle and Snow - Jasper rental booking",
+      "publisher": "Vicious Cycle and Snow",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0097",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rawson-lake/",
+      "title": "Rawson Lake trail report, Alberta Parks",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
     }
   ],
   "records": [
@@ -1287,6 +1566,12 @@
           "state": "searched_none",
           "query": "Sarrail Ridge Alberta Parks",
           "on": "2026-10-19"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/753718984",
+          "state": "filled",
+          "on": "2026-10-25"
         }
       ]
     },
@@ -2484,6 +2769,17 @@
           "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#upper-falls",
           "at_km": 2.4
         }
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0001"
+          ]
+        }
       ]
     },
     {
@@ -3073,7 +3369,94 @@
       "origin": {
         "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
         "reason": "the ticket offer on the lift line"
-      }
+      },
+      "run_by": "operator/pursuit-banff-jasper-collection",
+      "window": {
+        "v": {
+          "rule": "anytime",
+          "sellout": {
+            "kind": "unknown"
+          }
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0085"
+        ],
+        "read": "2026-10-25",
+        "quote": "Yes, you should buy Banff Gondola tickets in advance, especially during weekends, holidays and the busy summer season.",
+        "note": "Timed slots; the operator says tickets often sell out at peak times but gives no lead time. Purchased tickets are non-refundable.",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/banff-gondola/tickets/"
+        ],
+        "note": "The ticket page loads its fares in the booking widget by date and time; the page itself states no price."
+      },
+      "hours": {
+        "v": {
+          "tz": "America/Edmonton",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:00",
+              "close": "21:00",
+              "from": "10-13",
+              "to": "11-19"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:00",
+              "close": "22:00",
+              "from": "11-20",
+              "to": "12-31"
+            }
+          ],
+          "last_up": "19:30"
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0086"
+        ],
+        "read": "2026-10-25",
+        "quote": "October 13 – November 19 Daily, 10 AM – 9 PM Last Ride Up: 7:30 PM",
+        "note": "the page shows only the autumn and early-winter hours when read; September hours are not on it",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/tickets/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0085"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
@@ -3141,7 +3524,43 @@
         "from": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
         "reason": "the ticket offer on the lift line"
       },
-      "run_by": "operator/pursuit-banff-jasper-collection"
+      "run_by": "operator/pursuit-banff-jasper-collection",
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0087"
+        ],
+        "read": "2026-10-25",
+        "quote": "Soar up the mountainside at your ideal time by pre-booking.",
+        "note": "Pre-booking picks the flight up and return times; book at least 90 minutes between them. Missed flights are non-refundable.",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/jasper-skytram/tickets/"
+        ],
+        "note": "The ticket page loads its fares in the booking widget by date and time; the page itself states no price."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/tickets/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0087"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
@@ -3193,7 +3612,43 @@
         "from": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
         "reason": "the ticket offer on the lift line"
       },
-      "run_by": "operator/lake-louise-ski-resort"
+      "run_by": "operator/lake-louise-ski-resort",
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.skilouise.com/explore-summer/sightseeing-gondola/"
+        ],
+        "note": "No fare on the sightseeing gondola page; tickets are sold through the resort's online shop."
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0091"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.skilouise.com/explore-summer/sightseeing-gondola/"
+        ],
+        "note": "No booking window or advance-booking advice on the page."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.skilouise.com/explore-summer/sightseeing-gondola/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0091"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
@@ -3204,7 +3659,53 @@
       "at": [
         "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island"
       ],
-      "run_by": "operator/pursuit-banff-jasper-collection"
+      "run_by": "operator/pursuit-banff-jasper-collection",
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/tickets/"
+        ],
+        "note": "The ticket page loads its fares in the booking widget by date and time; the page itself states no price."
+      },
+      "book_url": {
+        "v": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/tickets/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0088"
+        ],
+        "read": "2026-10-25",
+        "quote": "Tickets"
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0088"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/tickets/"
+        ],
+        "note": "The ticket page states no booking window; fares and times load in the booking widget."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/tickets/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0088"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
@@ -3215,7 +3716,53 @@
       "at": [
         "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka"
       ],
-      "run_by": "operator/pursuit-banff-jasper-collection"
+      "run_by": "operator/pursuit-banff-jasper-collection",
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/tickets/"
+        ],
+        "note": "The ticket page loads its fares in the booking widget by date and time; the page itself states no price."
+      },
+      "book_url": {
+        "v": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/tickets/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0089"
+        ],
+        "read": "2026-10-25",
+        "quote": "Tickets"
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0089"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/tickets/"
+        ],
+        "note": "The ticket page states no booking window; fares and times load in the booking widget."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/tickets/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0089"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
@@ -3226,7 +3773,69 @@
       "at": [
         "place/lake-louise"
       ],
-      "run_by": "operator/fairmont-chateau-lake-louise"
+      "run_by": "operator/fairmont-chateau-lake-louise",
+      "price": {
+        "v": [
+          {
+            "amount": 180,
+            "currency": "CAD",
+            "per": "boat",
+            "note": "one hour, non-hotel guests, plus GST"
+          },
+          {
+            "amount": 160,
+            "currency": "CAD",
+            "per": "boat",
+            "note": "half an hour, non-hotel guests, plus GST"
+          },
+          {
+            "amount": 110,
+            "currency": "CAD",
+            "per": "boat",
+            "note": "one hour, hotel guests, plus GST"
+          },
+          {
+            "amount": 100,
+            "currency": "CAD",
+            "per": "boat",
+            "note": "half an hour, hotel guests, plus GST"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0092"
+        ],
+        "read": "2026-10-25",
+        "quote": "Non-Hotel Guests: $180 + GST an hour",
+        "note": "card payment only; first come, first served, no advance reservations; each canoe holds three adults, or two adults and two small children under 25 kg",
+        "applies_to": "2026"
+      },
+      "season": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0092"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.chateau-lake-louise.com/activities/canoeing/"
+        ],
+        "note": "The boathouse is closed for the season and reopens in summer 2027; no dates given."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.chateau-lake-louise.com/activities/canoeing/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0092"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
@@ -3236,6 +3845,82 @@
       "offer_class": "rental",
       "at": [
         "legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+      ],
+      "run_by": "operator/moraine-lake-lodge",
+      "price": {
+        "v": [
+          {
+            "amount": 170,
+            "currency": "CAD",
+            "per": "boat",
+            "note": "one hour, plus tax; paddles, life jackets and basic instruction included; first come, first served, no reservations"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0093"
+        ],
+        "read": "2026-10-25",
+        "quote": "$170 CAD + tax per canoe / 1 hour",
+        "applies_to": "2026"
+      },
+      "season": {
+        "v": [
+          {
+            "from": "06-15",
+            "to": "09-15",
+            "status": "open",
+            "note": "the page says mid-June to mid-September; the 15th is our reading of mid"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0093"
+        ],
+        "read": "2026-10-25",
+        "quote": "our canoe dock is only in operation from mid-June to mid-September",
+        "applies_to": "2026"
+      },
+      "hours": {
+        "v": {
+          "tz": "America/Edmonton",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "07:30",
+              "close": "18:30"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0093"
+        ],
+        "read": "2026-10-25",
+        "quote": "HOURS: 7:30 a.m. – 6:30 p.m.",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://morainelake.com/day-visits/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0093"
+          ]
+        }
       ]
     },
     {
@@ -3246,6 +3931,46 @@
       "offer_class": "rental",
       "at": [
         "legacy/canadian-rockies-sept-2029/sights/emerald-lake"
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "05-01",
+            "to": "09-30",
+            "status": "open",
+            "note": "months only"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0094"
+        ],
+        "read": "2026-10-25",
+        "quote": "Activity available From May until September",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://crmr.com/activities/canoeing/"
+        ],
+        "note": "The resort's canoeing page names The Boathouse Trading Co. as the renter and gives no rate; the boathouse has no page of its own that we found."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://crmr.com/activities/canoeing/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0094"
+          ]
+        }
       ]
     },
     {
@@ -3356,7 +4081,8 @@
         "read": "2026-10-19",
         "quote": "Adult $19.75 ... Youth (ages 3-17) $17.25 ... Family $64.25",
         "note": "single entry, locker token included; no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD"
-      }
+      },
+      "run_by": "operator/parks-canada"
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place",
@@ -3403,6 +4129,68 @@
       "offer_class": "ticket",
       "at": [
         "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs"
+      ],
+      "run_by": "operator/parks-canada",
+      "price": {
+        "v": [
+          {
+            "amount": 19.75,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 18,
+            "age_to": 64,
+            "note": "single entry"
+          },
+          {
+            "amount": 17.25,
+            "currency": "CAD",
+            "per": "child",
+            "age_from": 3,
+            "age_to": 17,
+            "note": "youth, single entry"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 2,
+            "note": "under 3, free"
+          },
+          {
+            "amount": 64.25,
+            "currency": "CAD",
+            "per": "family",
+            "note": "single entry, four family members, at most two aged 18 or older"
+          },
+          {
+            "amount": 28.75,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 18,
+            "age_to": 64,
+            "note": "day pass"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0095"
+        ],
+        "read": "2026-10-25",
+        "quote": "Adult $ 19.75",
+        "note": "no year on the page (modified 2026-09-08); a national park pass is also required",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/sources-miette-springs/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0095"
+          ]
+        }
       ]
     },
     {
@@ -3507,7 +4295,31 @@
         ],
         "read": "2026-10-19",
         "quote": "Columbia Icefield Adventure 2–3 hour experience."
-      }
+      },
+      "run_by": "operator/pursuit-banff-jasper-collection",
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/columbia-icefield/",
+          "https://www.banffjaspercollection.com/attractions/columbia-icefield/tickets/ (404)"
+        ],
+        "note": "The page links 2027 Tickets & Pricing but states no fare; the tickets URL answered 404."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0090"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
@@ -3820,6 +4632,35 @@
         ],
         "read": "2026-10-19",
         "quote": "3.25 - 3.5 hours, 5 km (3 miles) round trip"
+      },
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier"
+      ],
+      "run_by": "operator/icewalks",
+      "book_url": {
+        "v": "https://icewalks.zaui.net/booking/web/#/default/activity/270",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0067"
+        ],
+        "read": "2026-10-25",
+        "quote": "Book Now",
+        "note": "the booking link on the tour page"
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0067"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.icewalks.com/tours/half-day-tours"
+        ],
+        "note": "Online booking; the page states departure times (9:45 AM and 2:00 PM, arrive 20 minutes early) but no booking window."
       }
     },
     {
@@ -3835,6 +4676,15 @@
           "on": "2026-10-19",
           "src": [
             "src-0029"
+          ]
+        },
+        {
+          "kind": "official",
+          "url": "https://horseback.com/tours/bow-river-ride/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0068"
           ]
         }
       ],
@@ -3886,6 +4736,35 @@
         ],
         "read": "2026-10-19",
         "quote": "The tour is a one hour horseback ride."
+      },
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/cave-and-basin"
+      ],
+      "run_by": "operator/banff-trail-riders",
+      "book_url": {
+        "v": "https://horseback.com/tours/bow-river-ride/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0068"
+        ],
+        "read": "2026-10-25",
+        "quote": "CHECK AVAILABILITY",
+        "note": "the ride page carries the availability and booking form"
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0068"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://horseback.com/tours/bow-river-ride/"
+        ],
+        "note": "Booked online; no window stated. Free change or cancellation up to 24 hours before the ride."
       }
     },
     {
@@ -3901,6 +4780,15 @@
           "on": "2026-10-19",
           "src": [
             "src-0038"
+          ]
+        },
+        {
+          "kind": "official",
+          "url": "https://www.banff-springs-hotel.com/wellness/spa/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0069"
           ]
         }
       ],
@@ -3967,6 +4855,21 @@
         ],
         "read": "2026-10-19",
         "quote": "three hours"
+      },
+      "run_by": "operator/fairmont-banff-springs",
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0069"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banff-springs-hotel.com/wellness/spa/"
+        ],
+        "note": "The page advises booking spa access in advance; non-hotel guests may use the facility Monday to Thursday only, subject to availability. No window in days."
       }
     },
     {
@@ -4040,6 +4943,30 @@
         ],
         "read": "2026-10-19",
         "quote": "1 hour (on water)"
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0070"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffadventures.com/things-to-do/float-trips/"
+        ],
+        "note": "Booked online; departures 10:20, 11:20, 13:20, 15:20 and 17:20 from the base of Bow Falls; 48-hour cancellation. No window stated."
+      },
+      "book_url": {
+        "v": "https://www.banffadventures.com/things-to-do/float-trips/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0070"
+        ],
+        "read": "2026-10-25",
+        "quote": "Book your Adventure"
       }
     },
     {
@@ -4162,6 +5089,35 @@
         ],
         "read": "2026-10-19",
         "quote": "7:00 am to 2:30 pm"
+      },
+      "run_by": "operator/parks-canada",
+      "window": {
+        "v": {
+          "rule": "fixed_date",
+          "opens_time": "08:00",
+          "tz": "America/Edmonton",
+          "fallback": "1-877-RESERVE (1-877-737-3783)"
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0071"
+        ],
+        "read": "2026-10-25",
+        "quote": "Reservation launch: Tuesday, January 20, 2026; 8 am MT",
+        "note": "Reservations open on one day each January (20 January in 2026); the date for a later year is announced by Parks Canada.",
+        "applies_to": "2026"
+      },
+      "book_url": {
+        "v": "https://reservation.pc.gc.ca/",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0071"
+        ],
+        "read": "2026-10-25",
+        "quote": "Online 24/7: Parks Canada Reservation Service",
+        "note": "the reservation service the page links"
       }
     },
     {
@@ -4240,6 +5196,37 @@
         ],
         "read": "2026-10-19",
         "quote": "Duration: 11 hours (7 am to 6 pm)"
+      },
+      "run_by": "operator/parks-canada",
+      "starts_at": [
+        "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls"
+      ],
+      "window": {
+        "v": {
+          "rule": "fixed_date",
+          "opens_time": "08:00",
+          "tz": "America/Edmonton",
+          "fallback": "1-877-RESERVE (1-877-737-3783)"
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0072"
+        ],
+        "read": "2026-10-25",
+        "quote": "Reservation launch: Tuesday, January 20, 2026; 8 am MT",
+        "note": "Reservations are required; they open on one day each January.",
+        "applies_to": "2026"
+      },
+      "book_url": {
+        "v": "https://reservation.pc.gc.ca/",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0072"
+        ],
+        "read": "2026-10-25",
+        "quote": "Online 24/7: Parks Canada Reservation Service"
       }
     },
     {
@@ -4303,7 +5290,28 @@
         ],
         "read": "2026-10-19",
         "quote": "all ages 3+ $35.00",
-        "note": "one-way or return is not stated; tickets in person only, cards only",
+        "note": "one-way or return is not stated; tickets in person only, cards only; re-read 2026-10-25: the page gives one fare under a table of marina departures and Crypt Landing pick-ups and does not say one-way or return (operator question D4a-1)",
+        "applies_to": "2026"
+      },
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/waterton-townsite"
+      ],
+      "run_by": "operator/waterton-shoreline-cruise",
+      "window": {
+        "v": {
+          "rule": "rolling",
+          "days_before": 3,
+          "tz": "America/Edmonton",
+          "fallback": "in person at the Waterton Marina ticket office; pick-up seats at Crypt Landing are first come, first served"
+        },
+        "state": "value",
+        "basis": "operator_rule",
+        "src": [
+          "src-0073"
+        ],
+        "read": "2026-10-25",
+        "quote": "Tickets may be purchased up to three (3) days in advance, or the day of your cruise.",
+        "note": "No advance reservations; in person only.",
         "applies_to": "2026"
       }
     },
@@ -4449,6 +5457,45 @@
         ],
         "read": "2026-10-19",
         "quote": "25 minutes"
+      },
+      "run_by": "operator/alpine-helicopters",
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0074"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour/"
+        ],
+        "note": "Reserve ahead to secure a time; paid at check-in; free cancellation up to 3 hours before a sightseeing flight. No window stated."
+      },
+      "book_url": {
+        "v": "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0074"
+        ],
+        "read": "2026-10-25",
+        "quote": "Book Now"
+      },
+      "season": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0074"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour/"
+        ],
+        "note": "The tour page gives no operating season."
       }
     },
     {
@@ -4504,15 +5551,17 @@
       },
       "price": {
         "v": null,
-        "state": "searched_none",
-        "basis": null,
-        "src": [],
-        "on": "2026-10-19",
-        "tried": [
-          "whitemountainadventures.com heli-hiking page",
-          "search: White Mountain Adventures heli-hiking Canmore"
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0075"
         ],
-        "note": "only a $500 deposit is stated"
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies"
+        ],
+        "note": "Only the $500 deposit is stated; the charter price is not on the page (chartered, at most 5 clients)."
       },
       "duration_min": {
         "v": [
@@ -4527,6 +5576,31 @@
         "read": "2026-10-19",
         "quote": "4 hours",
         "note": "2-3 hours of walking"
+      },
+      "run_by": "operator/white-mountain-adventures",
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0075"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies"
+        ],
+        "note": "A $500 deposit at booking, refundable up to 48 hours before departure; no window stated."
+      },
+      "book_url": {
+        "v": "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0075"
+        ],
+        "read": "2026-10-25",
+        "quote": "Make a Booking"
       }
     },
     {
@@ -4562,16 +5636,35 @@
         }
       ],
       "price": {
-        "v": null,
-        "state": "searched_none",
-        "basis": null,
-        "src": [],
-        "on": "2026-10-19",
-        "tried": [
-          "viciouscycleandsnow.ca rentals pages",
-          "search: Jasper bike rentals townsite shop rates"
+        "v": [
+          {
+            "amount": 20,
+            "currency": "CAD",
+            "per": "hour",
+            "note": "hardtail mountain bike (Kona Big Honzo), 1 hour"
+          },
+          {
+            "amount": 20,
+            "currency": "CAD",
+            "per": "hour",
+            "note": "kids bike (20 or 24 inch), 1 hour"
+          },
+          {
+            "amount": 50,
+            "currency": "CAD",
+            "per": "hour",
+            "note": "electric cruiser, 1 hour"
+          }
         ],
-        "note": "no Jasper prices on the pages"
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0096"
+        ],
+        "read": "2026-10-25",
+        "quote": "CA$20.00 Total price",
+        "note": "Read in a browser on 2026-10-25 for a 1-hour rental starting 26 Oct 2026, 10:00, in the shop's booking widget (prices load only after a date, time and length are chosen); tax not shown. Earlier run (2026-10-19) found no price on the static pages.",
+        "applies_to": "2026"
       }
     },
     {
@@ -4597,8 +5690,55 @@
           "src": [
             "src-0057"
           ]
+        },
+        {
+          "kind": "official",
+          "url": "https://alpinestables.com/commonly-asked-questions/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0077"
+          ]
         }
-      ]
+      ],
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/jasper-townsite",
+        "legacy/canadian-rockies-sept-2029/sights/waterton-townsite"
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "05-01",
+            "to": "10-31",
+            "status": "open",
+            "note": "Jasper Riding Stables, months only: May through October"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0076"
+        ],
+        "read": "2026-10-25",
+        "quote": "Trail rides operate from May through October.",
+        "note": "Jasper side only; the record holds two operators (Jasper Riding Stables, Alpine Stables in Waterton), so run_by stays empty until it is split (DECISIONS NEEDED).",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0077"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://jasperstables.com/",
+          "https://alpinestables.com/commonly-asked-questions/"
+        ],
+        "note": "Jasper: book online, by phone or in person. Waterton: booking ahead strongly recommended for 1-2 hour rides, rides over 2 hours must be pre-booked. No window in days."
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour",
@@ -4675,6 +5815,34 @@
         ],
         "read": "2026-10-19",
         "quote": "3 - 3.5 hrs"
+      },
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/jasper-townsite"
+      ],
+      "run_by": "operator/sundog-tours",
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0078"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.sundogtours.com/package/sunrise-photography-and-wildlife-tour"
+        ],
+        "note": "Booked online; pick-ups from Jasper townsite accommodation (6:30 AM in high season). No window stated."
+      },
+      "book_url": {
+        "v": "https://www.sundogtours.com/package/sunrise-photography-and-wildlife-tour",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0078"
+        ],
+        "read": "2026-10-25",
+        "quote": "Book Now"
       }
     },
     {
@@ -4857,6 +6025,34 @@
           "brewsteradventures.com summer trail rides page"
         ],
         "note": "the page states no season; it says teahouses typically open July 1"
+      },
+      "at": [
+        "place/lake-louise"
+      ],
+      "run_by": "operator/brewster-adventures",
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0079"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.brewsteradventures.com/summer-trail-rides"
+        ],
+        "note": "Booked online per ride; hourly rides on availability. No window stated."
+      },
+      "book_url": {
+        "v": "https://www.brewsteradventures.com/summer-trail-rides",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0079"
+        ],
+        "read": "2026-10-25",
+        "quote": "Book your Brewster Adventure"
       }
     },
     {
@@ -5076,13 +6272,53 @@
         "read": "2026-10-19",
         "quote": "Explorer 2-2.5 hr ... Summiteer 5.5-6 hr",
         "note": "the range across the five routes"
+      },
+      "run_by": "operator/banff-norquay",
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0080"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://banffnorquay.com/via-ferrata/via-ferrata-routes/"
+        ],
+        "note": "Booked online per route and time; no window stated."
+      },
+      "book_url": {
+        "v": "https://banffnorquay.com/via-ferrata/via-ferrata-routes/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0080"
+        ],
+        "read": "2026-10-25",
+        "quote": "Book Now"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs",
       "type": "water.thermal.hot_spring",
       "layer": "offer",
-      "name": "Radium Hot Springs pools"
+      "name": "Radium Hot Springs pools",
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs"
+      ],
+      "run_by": "operator/parks-canada",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/kootenay/sources-radium-springs",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0082"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
@@ -5218,6 +6454,37 @@
         ],
         "read": "2026-10-19",
         "quote": "1 h 15 min"
+      },
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/waterton-townsite"
+      ],
+      "run_by": "operator/waterton-shoreline-cruise",
+      "window": {
+        "v": {
+          "rule": "rolling",
+          "days_before": 3,
+          "tz": "America/Edmonton",
+          "fallback": "in person at the Waterton Marina ticket office"
+        },
+        "state": "value",
+        "basis": "operator_rule",
+        "src": [
+          "src-0073"
+        ],
+        "read": "2026-10-25",
+        "quote": "Advance reservations are not accepted – first come, first served, in person only. Tickets may be purchased up to three (3) days in advance",
+        "applies_to": "2026"
+      },
+      "book_url": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.watertoncruise.com/2026.php"
+        ],
+        "note": "No online booking: tickets are sold in person at the marina."
       }
     },
     {
@@ -5239,27 +6506,180 @@
       "price": {
         "v": [
           {
-            "amount": 499,
+            "amount": 529,
             "currency": "CAD",
             "per": "person",
-            "note": "Scrambling Skills and Safety, 2 days, plus GST"
+            "note": "Scrambling Skills course, 2 days, plus GST; the optional third day is 429 plus GST"
           }
         ],
         "state": "value",
         "basis": "operator_info",
         "src": [
-          "src-0054"
+          "src-0081"
         ],
-        "read": "2026-10-19",
-        "quote": "$499 CDN per person plus GST",
-        "note": "no year on the page; the course dates field is empty"
+        "read": "2026-10-25",
+        "quote": "$529 CDN per person",
+        "note": "excludes GST, park entry, gear, accommodation, meals and transport",
+        "applies_to": "2026",
+        "conflicts": [
+          {
+            "v": [
+              {
+                "amount": 499,
+                "currency": "CAD",
+                "per": "person",
+                "note": "Scrambling Skills and Safety, 2 days, plus GST"
+              }
+            ],
+            "basis": "operator_info",
+            "src": [
+              "src-0054"
+            ],
+            "note": "earlier read (2026-10-19): $499 CDN per person plus GST"
+          }
+        ]
+      },
+      "run_by": "operator/yamnuska-mountain-adventures",
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0081"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://yamnuska.com/mountaineering/beginner-mountaineering-courses/mountain-scrambling/"
+        ],
+        "note": "Scheduled course dates; no booking window stated."
+      },
+      "book_url": {
+        "v": "https://yamnuska.com/mountaineering/beginner-mountaineering-courses/mountain-scrambling/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0081"
+        ],
+        "read": "2026-10-25",
+        "quote": "Dates"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter",
       "type": "air.flight.heli_tour",
       "layer": "offer",
-      "name": "Mount Assiniboine helicopter access"
+      "name": "Mount Assiniboine helicopter access",
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/lake-magog"
+      ],
+      "run_by": "operator/mount-assiniboine-lodge",
+      "season": {
+        "v": [
+          {
+            "from": "06-20",
+            "to": "10-01",
+            "status": "open",
+            "applies_to": "2027",
+            "note": "summer flights on Wednesday, Friday and Sunday"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0083"
+        ],
+        "read": "2026-10-25",
+        "quote": "Summer 2027 - June 20 - October 1.",
+        "applies_to": "2027"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 265,
+            "currency": "CAD",
+            "per": "person",
+            "applies_to": "2027",
+            "note": "Mount Shark heliport to or from Mount Assiniboine, one way, plus 5% tax, 40 lb of gear"
+          },
+          {
+            "amount": 299,
+            "currency": "CAD",
+            "per": "person",
+            "applies_to": "2027",
+            "note": "Canmore to or from Mount Assiniboine, one way, plus 5% tax, 6 seats"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 1,
+            "applies_to": "2027",
+            "note": "children up to 23 months on an adult's lap"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0083"
+        ],
+        "read": "2026-10-25",
+        "quote": "Mount Shark to/from Mt Assiniboine flight: $265/person one way + 5% tax",
+        "applies_to": "2027"
+      },
+      "window": {
+        "v": {
+          "rule": "fixed_date",
+          "opens_time": "09:00",
+          "tz": "America/Edmonton",
+          "fallback": "outgoing flights can be booked at the lodge, with a last-minute fee"
+        },
+        "state": "value",
+        "basis": "operator_rule",
+        "src": [
+          "src-0083"
+        ],
+        "read": "2026-10-25",
+        "quote": "summer helicopter flights online starting April 20, 2027 at 9am",
+        "note": "Flights can be booked only with a confirmed stay or campsite in the core area of the park on the day of the flight in, or the day before the flight out.",
+        "applies_to": "2027"
+      },
+      "duration_min": {
+        "v": [
+          10,
+          10
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0083"
+        ],
+        "read": "2026-10-25",
+        "quote": "It is a 10 minute flight.",
+        "note": "Mount Shark to Mount Assiniboine",
+        "applies_to": "2026"
+      },
+      "book_url": {
+        "v": "https://assiniboinelodge.com/helicopter-flight-days",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0083"
+        ],
+        "read": "2026-10-25",
+        "quote": "Booking flights online"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://assiniboinelodge.com/helicopter-faqs",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0084"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
@@ -6065,7 +7485,18 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
-      "name": "Lake Agnes Tea House"
+      "name": "Lake Agnes Tea House",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
@@ -6173,7 +7604,24 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
-      "name": "Rawson Lake"
+      "name": "Rawson Lake",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rawson-lake/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0097"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/24836168",
+          "state": "filled",
+          "on": "2026-10-25"
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",

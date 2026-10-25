@@ -88,13 +88,17 @@ describe("the committed migration (counts)", () => {
   });
   it("every operator names the publisher of an operator page behind a value, and keeps where it was taken from", () => {
     const ops = [...world.operators.values()];
-    expect(ops).toHaveLength(10);
+    // the 10 operators the migration wrote must stay; research lanes add more (DATA-D4a: 13, so 23 on 25 Oct 2026)
+    const migrationOperators = ["operator/3-zinnen-dolomites-lift-operator", "operator/chinook-rafting", "operator/fairmont-chateau-lake-louise", "operator/hielo-y-aventura-s-a", "operator/hydra-river-guides", "operator/lagazuoi-s-p-a", "operator/lake-louise-ski-resort", "operator/pursuit-banff-jasper-collection", "operator/rafting-club-activ", "operator/wild-water-adventures"];
+    for (const ref of migrationOperators) expect(world.operators.has(ref), ref).toBe(true);
+    expect(ops).toHaveLength(23);
     for (const o of ops) {
       expect(o.derived_from!.length, o.ref).toBeGreaterThan(0);
       expect(o.derived_from!.every((d) => d.publisher === o.name), o.ref).toBe(true);
     }
     const withOp = records.filter((r) => r.run_by);
-    expect(withOp).toHaveLength(12);
+    // 12 written by the migration plus the offers DATA-D4a gave an operator in migrated.json (32 on 25 Oct 2026)
+    expect(withOp).toHaveLength(32);
     for (const r of withOp) expect(r.layer, r.ref).toBe("offer");
   });
 });

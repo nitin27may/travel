@@ -433,6 +433,15 @@
       "kind": "official",
       "read": "2026-10-19",
       "method": "read"
+    },
+    {
+      "id": "src-0055",
+      "url": "https://www.openstreetmap.org/way/753718984",
+      "title": "OpenStreetMap ways of the Rawson Lake and Sarrail Ridge trails",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api"
     }
   ],
   "records": [
@@ -3286,16 +3295,13 @@
           },
           "drivers": {
             "distance_km": {
-              "v": null,
-              "state": "searched_none",
-              "basis": null,
-              "src": [],
-              "on": "2026-10-18",
-              "tried": [
-                "albertaparks.ca Peter Lougheed trail reports (no Sarrail Ridge page)",
-                "Alberta Parks Kananaskis advisories page"
+              "v": 9.4,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0055"
               ],
-              "note": "No official figure.",
+              "note": "Marked estimate, not an official figure. Computed from OSM ways 24836168, 181184079, 181184081 (Rawson Lake Trail) and 181184076, 753718984 (Sarrail Ridge Trail): 4.68 km one way from the Rawson Lake Trailhead node 269822212 to the Sarrail Ridge peak node 7042108468, doubled. Overpass run api-2026-10-25-data-d3a-overpass. No official page exists (searched 18 Oct by R2a).",
               "conflicts": [
                 {
                   "v": 11.3,
@@ -3305,7 +3311,8 @@
                   ],
                   "note": "the plan's figure from thebanffblog.com and travelbanffcanada.com"
                 }
-              ]
+              ],
+              "read": "2026-10-25"
             },
             "gain_m": {
               "v": null,
@@ -3423,7 +3430,7 @@
         "house_grade": 4,
         "kid_fit": "no",
         "accessibility": "unknown",
-        "walk_km": null,
+        "walk_km": 9.4,
         "walk_gain_m": null,
         "suit_level": "usable_partial"
       }
@@ -8340,6 +8347,19 @@
           ],
           "quote": "1 hour round trip",
           "note": "1 h to the Lower Falls, 2 h to the Upper Falls."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "Strollers are not recommended.",
+          "read": "2026-10-25"
+        },
+        "stroller_extent": {
+          "scope": "whole"
         }
       },
       "flat": {
@@ -8368,7 +8388,8 @@
           "read": "2026-10-19",
           "quote": "Dogs are allowed on all trails in the summer unless otherwise specified in trail restrictions and closures.",
           "note": "Banff allows dogs on all trails unless a restriction is listed; none was listed for this trail when read. The national-park rule is a leash of 3 m or less at all times."
-        }
+        },
+        "shape": "out-and-back"
       }
     },
     {

@@ -532,6 +532,15 @@
       "kind": "official",
       "read": "2026-10-19",
       "method": "read"
+    },
+    {
+      "id": "src-0070",
+      "url": "data/tracks/seekofel.json",
+      "title": "Seekofel track (computed from OSM and terrain tiles)",
+      "publisher": "computed from OSM relation 1155861 (ODbL) and AWS Terrain Tiles, fetched 2026-10-19",
+      "kind": "computed",
+      "read": "2026-10-25",
+      "method": "read"
     }
   ],
   "records": [
@@ -1693,6 +1702,22 @@
               "tried": [
                 "dreizinnen.com tour 544 (no ascent in the facts)",
                 "prags.bz"
+              ],
+              "conflicts": [
+                {
+                  "v": 1467,
+                  "basis": "our_inference",
+                  "src": [
+                    "src-0070"
+                  ],
+                  "note": "Computed, not published: the confirmed OSM track (relation 1155861, Lago di Braies to the summit, cut at the destination) gives 1,467 m up and 213 m down one way (7.31 km). Shown as a conflict only; no official page gives a figure (3.47b: the choice stays with the owner)."
+                },
+                {
+                  "v": 1314,
+                  "basis": "our_inference",
+                  "src": [],
+                  "note": "The trip's earlier prototype figure (from a route platform that is never a source); see the migrated file."
+                }
               ]
             },
             "fixed_aids": {

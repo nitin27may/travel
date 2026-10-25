@@ -3,9 +3,7 @@
  "note": "Pinned place and trip slugs, their history (retired, merged, withdrawn, former keys) and canonical region values (D-B1, D-B3). Read by the dataset builder and the stores, never served. Change it only with node core/bin/slugs.ts (build, rename, alias, merge, withdraw); --check runs in check-all.",
  "places": {
   "slugs": {
-   "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks": "athabasca-glacier-guided-ice-walk",
    "legacy/canadian-rockies-sept-2029/adventures/banff-gondola": "banff-gondola",
-   "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride": "banff-horseback-rides",
    "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa": "fairmont-banff-springs-spa",
    "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft": "bow-river-float-raft",
    "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling": "bow-valley-parkway-cycling",
@@ -25,17 +23,14 @@
    "legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour": "jasper-wildlife-tours",
    "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly": "kicking-horse-mountain-resort-golden-eagle-express-gondola",
    "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola": "lake-louise-summer-gondola",
-   "legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse": "brewster-stables-lake-louise-horseback",
    "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing": "lake-louise-sightseeing",
    "legacy/canadian-rockies-sept-2029/adventures/legacy-trail": "legacy-trail-banff-to-canmore",
    "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer": "nakiska-summer-gondola-coaster",
    "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata": "mount-norquay-via-ferrata",
-   "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs": "radium-hot-springs-pools",
    "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway": "waterton-red-rock-parkway",
    "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail": "sulphur-mountain-switchback-trail-hike-up-gondola-down",
    "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise": "waterton-border-cruise-and-goat-haunt-cruise",
    "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble": "yamnuska-guided-scrambles",
-   "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter": "mount-assiniboine-helicopter-access",
    "legacy/canadian-rockies-sept-2029/sights/athabasca-falls": "athabasca-falls",
    "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp": "beauvais-lake-provincial-park",
    "legacy/canadian-rockies-sept-2029/sights/berg-lake": "berg-lake",
@@ -370,11 +365,16 @@
   "retired": {},
   "merged": {
    "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
-   "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
    "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway": "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
    "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre"
   },
-  "withdrawn": {}
+  "withdrawn": {
+   "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks": "athabasca-glacier-guided-ice-walk",
+   "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride": "banff-horseback-rides",
+   "legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse": "brewster-stables-lake-louise-horseback",
+   "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs": "radium-hot-springs-pools",
+   "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter": "mount-assiniboine-helicopter-access"
+  }
  },
  "trips": {
   "slugs": {
