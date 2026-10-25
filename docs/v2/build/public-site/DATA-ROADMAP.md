@@ -308,3 +308,4 @@ is unchanged apart from a pointer line.
 | Date | Change |
 |---|---|
 | 2026-10-25 | First version: merged `public/DATA-L1`, renumbered (section 8), unified the stay specs, checked D6a without merging (section 7), moved windows to `data/windows/` (DD-1), the batch table, graph, run order, service rules and decisions DD-1 to DD-8; added prompts L1, D2b, D3, D8, D6a-W and owned files for the Dolomites batch |
+| 2026-10-25 | Owner rulings on D5a and D5b: keep the Commons credit strings as Commons holds them (for example "Thank you for visiting my page from Canada"), keep the dated gaps for Troll Falls, Elbow Falls and Stowe Recreation Path (no winter or crowded photo as a substitute). D5b merged at f10d087: 106 of 118 trails have a licensed photo, 12 dated gaps. Photo credits fetched for 10 new files. |
