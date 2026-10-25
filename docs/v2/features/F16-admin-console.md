@@ -1,5 +1,10 @@
 # F16. Admin console
 
+> **Amended 25 Oct 2026:** photo update (pin, choose the thumbnail, reorder, hide, "no suitable photo", with an override
+> research never replaces and an audit trail) is specified in
+> [trip-overview-and-customisation.md](trip-overview-and-customisation.md) section 6. Until the catalogue cutover and the
+> F17 roles exist, the owner uses a local pin command (PHO-0); the console screen is PHO-1 (BACKLOG 15.55).
+
 ## Purpose
 
 The owner's workshop for growing the catalog and publishing curated trips: review what research

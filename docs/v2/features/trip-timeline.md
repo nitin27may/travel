@@ -10,6 +10,13 @@ Where the two disagree, this page governs the data and the rules, and the design
 
 A trip-level party profile now chooses the track, and the page renders the whole trip for that choice.
 
+> **Amended 25 Oct 2026 by [trip-overview-and-customisation.md](trip-overview-and-customisation.md) (planned, not built).**
+> The By category view (`view=category`, 3.8 and 3.10) is superseded by the trip overview (`view=all`, with
+> `view=category` and the category fragments kept as aliases). A new URL key `w` (a best-time window) sets the scheduler's
+> sun window (2.1, 2.8) and is added to `PROFILE_KEYS` after `add`. 3.7 "Add to this day" and its 30 km candidate rule
+> are unchanged and reused for the overview's Nearby scope. 3.9 `CopyDraft` gains `removed`, `maybe` and `window` in the
+> signed-in copy (`trip-custom/1`).
+
 ## Purpose
 
 About 90% of visitors search, open a trip page, and add the trip to their calendar or account with their own dates.

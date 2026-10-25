@@ -1,5 +1,10 @@
 # F06. Plan document, lists and days
 
+> **Amended 25 Oct 2026:** before this plan document exists, a signed-in person's customised copy of a public trip is a
+> delta (`trip-custom/1`) stored in `planner_draft` and shown at `/t/<id>/`
+> ([trip-overview-and-customisation.md](trip-overview-and-customisation.md) section 5). F12's "Use this trip" later turns
+> that delta into `trip` and `trip_item` rows; nothing here changes.
+
 ## Purpose
 
 The place where a trip takes shape: one scrolling document beside a map (Wanderlog's best idea),
