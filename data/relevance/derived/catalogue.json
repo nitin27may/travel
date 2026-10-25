@@ -318,8 +318,25 @@
       "detour_town": "Hyde Park",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
+        "near": [
+          {
+            "ref": "part/place/la-martre-lighthouse#parking",
+            "km": 0.1,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
         "area": [
+          {
+            "ref": "part/place/la-martre-lighthouse#parking",
+            "km": 0.1,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
           {
             "ref": "part/place/lac-aux-americains#parking",
             "km": 29.5,
@@ -1037,7 +1054,24 @@
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "part/place/canyon-sainte-anne#parking",
+            "km": 29.4,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/le-buton-lookout-le-massif-de-charlevoix#parking",
+            "km": 59.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": {
         "ref": "place/montmorency-falls",
@@ -1280,6 +1314,14 @@
             "standing": "good",
             "access_cost": [],
             "family_effort": 1
+          },
+          {
+            "ref": "part/place/la-martre-lighthouse#parking",
+            "km": 29.5,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
           }
         ]
       },
@@ -1435,6 +1477,218 @@
         "passing": {
           "fit": "skip",
           "reason": "detour 1890 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "part/place/canyon-sainte-anne#parking",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 746,
+      "detour_basis": "town",
+      "detour_town": "Hyde Park",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "part/place/montmorency-falls#parking",
+            "km": 29.4,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/le-buton-lookout-le-massif-de-charlevoix#parking",
+            "km": 30.4,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/montmorency-falls",
+        "km": 28.9,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 746 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "part/place/le-buton-lookout-le-massif-de-charlevoix#parking",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 818,
+      "detour_basis": "town",
+      "detour_town": "Hyde Park",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "part/place/canyon-sainte-anne#parking",
+            "km": 30.4,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/montmorency-falls#parking",
+            "km": 59.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "place/le-buton-lookout-le-massif-de-charlevoix",
+          "km": 0.3,
+          "how": "walk",
+          "extra_min": 85,
+          "on_site_min": 75,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 818 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "part/place/la-martre-lighthouse#parking",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 1724,
+      "detour_basis": "town",
+      "detour_town": "Hyde Park",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "place/la-martre-lighthouse",
+            "km": 0.1,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 1
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/la-martre-lighthouse",
+            "km": 0.1,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 1
+          },
+          {
+            "ref": "part/place/lac-aux-americains#parking",
+            "km": 29.5,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw, standing ordinary"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 1724 min is over 30"
         }
       },
       "role": "local_only",

@@ -1828,6 +1828,11 @@
       "used_by": [
         {
           "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "part/place/canyon-sainte-anne#parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
           "ref": "place/canyon-sainte-anne",
           "field": "links"
         },
@@ -17399,6 +17404,11 @@
       "first_read": "2026-10-25",
       "last_read": "2026-10-25",
       "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "part/place/le-buton-lookout-le-massif-de-charlevoix#parking",
+          "field": "links"
+        },
         {
           "file": "data/capture/catalogue/BA-ca.json",
           "ref": "place/le-buton-lookout-le-massif-de-charlevoix",

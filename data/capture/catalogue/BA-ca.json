@@ -1125,6 +1125,87 @@
           "url": "https://www.openstreetmap.org/relation/8388119"
         }
       ]
+    },
+    {
+      "ref": "part/place/canyon-sainte-anne#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Canyon Sainte-Anne car park (nearest mapped lot)",
+      "area_id": "CA/QC/cote-de-beaupre",
+      "parks_for": [
+        "place/canyon-sainte-anne"
+      ],
+      "osm_ref": "way/231694465",
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://canyonsa.qc.ca/en/",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/way/231694465"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/le-buton-lookout-le-massif-de-charlevoix#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Le Massif summit car park (nearest mapped lot)",
+      "area_id": "CA/QC/charlevoix",
+      "parks_for": [
+        "place/le-buton-lookout-le-massif-de-charlevoix"
+      ],
+      "osm_ref": "way/302833489",
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.lemassif.com/en/activities-events/activity-finder/lookout-le-buton",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/way/302833489"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/la-martre-lighthouse#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Belvédère La Martre stop (nearest mapped stop)",
+      "area_id": "CA/QC/haute-gaspesie",
+      "parks_for": [
+        "place/la-martre-lighthouse"
+      ],
+      "osm_ref": "way/1013558783",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "on": "2026-10-25",
+          "query": "No page of the lighthouse found 2026-10-25"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/way/1013558783"
+        }
+      ]
     }
   ]
 }

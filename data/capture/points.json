@@ -1320,6 +1320,33 @@
       "coord_src": "osm",
       "point_source": "OSM relation 8388119, a paid surface car park of 100 places named 'SEPAQ' at the Percé quay; the Rando Québec sheet gives the access point as 48.5214,-64.2126 (0.17 km away) and says parking is paid by the day; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
       "point_role": "parking"
+    },
+    "part/place/canyon-sainte-anne#parking": {
+      "lat": 47.0710606,
+      "lon": -70.8735383,
+      "coord_src": "osm",
+      "point_source": "OSM way 231694465, an unnamed car park (access=yes) 0.2 km from the canyon's Wikidata point and the operator's address, 206 Route 138 Est; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "parking",
+      "approx": true,
+      "approx_note": "the operator says parking is free on site but gives no point; the nearest mapped lot is used; confirm on site"
+    },
+    "part/place/le-buton-lookout-le-massif-de-charlevoix#parking": {
+      "lat": 47.2768849,
+      "lon": -70.6097346,
+      "coord_src": "osm",
+      "point_source": "OSM way 302833489, an unpaved car park 0.3 km from the Wikidata point of Le Massif; the operator says the Le Buton loop starts at the summit near the parking lot; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "parking",
+      "approx": true,
+      "approx_note": "the operator names a summit parking lot but gives no point; the nearest mapped unpaved lot is used; confirm on site"
+    },
+    "part/place/la-martre-lighthouse#parking": {
+      "lat": 49.206651,
+      "lon": -66.169662,
+      "coord_src": "osm",
+      "point_source": "OSM way 1013558783 'Belvédère La Martre' (highway=rest_area, tourism=viewpoint) 0.14 km from the lighthouse; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "parking",
+      "approx": true,
+      "approx_note": "a rest-area viewpoint beside the coast road, not a mapped car park of the lighthouse; the lighthouse's own parking is not mapped"
     }
   }
 }

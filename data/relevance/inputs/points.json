@@ -1057,6 +1057,12 @@
       "coord_src": "wikidata",
       "point_source": "Q476378 P625"
     },
+    "part/place/canyon-sainte-anne#parking": {
+      "lat": 47.07106,
+      "lon": -70.87354,
+      "coord_src": "osm",
+      "point_source": "OSM way 231694465, an unnamed car park (access=yes) 0.2 km from the canyon's Wikidata point and the operator's address, 206 Route 138 Est; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
+    },
     "part/place/cap-bon-ami#parking": {
       "lat": 48.81029,
       "lon": -64.22147,
@@ -1086,6 +1092,12 @@
       "lon": 12.27879,
       "coord_src": "osm",
       "point_source": "OSM node 1825738077 Haunold - Monte Baranci chairlift top station, where the Funbob run starts; agent checked, needs a person's check"
+    },
+    "part/place/la-martre-lighthouse#parking": {
+      "lat": 49.20665,
+      "lon": -66.16966,
+      "coord_src": "osm",
+      "point_source": "OSM way 1013558783 'Belvédère La Martre' (highway=rest_area, tourism=viewpoint) 0.14 km from the lighthouse; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
     },
     "part/place/lac-aux-americains#parking": {
       "lat": 48.9546,
@@ -1164,6 +1176,12 @@
       "lon": -116.21364,
       "coord_src": "osm",
       "point_source": "OSM node 12164756005 (bus stop named Parks Canada Shuttle); agent checked, needs a person's check"
+    },
+    "part/place/le-buton-lookout-le-massif-de-charlevoix#parking": {
+      "lat": 47.27688,
+      "lon": -70.60973,
+      "coord_src": "osm",
+      "point_source": "OSM way 302833489, an unpaved car park 0.3 km from the Wikidata point of Le Massif; the operator says the Le Buton loop starts at the summit near the parking lot; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
     },
     "part/place/montmorency-falls#parking": {
       "lat": 46.887,
