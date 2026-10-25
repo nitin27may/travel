@@ -103,6 +103,27 @@ Johnston 1.2 km and 50 m), the Alberta Parks 2 m leash rule, the South Tyrol dog
    to it. D4a (`AC.json`), D8 (`OV.json`) and D9 (`BS.json`) will hit the same test: either name them `R<n>-<lane>.json`
    or have a builder widen the pattern in the test.
 
+10. **DECISION NEEDED (owner, D-E8 / Q88): place-page size budget.** With this batch the median place page is 1.264x
+    its baseline against the 1.25 budget (`web/tests/data/place-size.test.ts`); without the R9-TF.json records it is
+    1.249x (measured 25 Oct by building with the file removed). Two pages cross the median: `lake-agnes-tea-house`
+    (1.014x to 1.356x) and `rawson-lake` (1.223x to 1.415x); `moraine-lake-rockpile-loop` grows 0.881x to 1.232x but stays
+    below the median. Either one of the two alone already moves the median over 1.25 (the next ratio up is 1.257x). As D-E8
+    says, the records stay committed on `public/DATA-D3a` and are listed here for the R2 ruling: merge them and raise or
+    re-base the budget, or hold Lake Agnes and Rawson Lake back until the page carries less per record. Every other page
+    is under its own cap.
+
+## check-all (25 Oct 2026)
+
+`PATH=<scratchpad venv>/bin:$PATH bash tools/check-all.sh` with `data/sources/registry.json` rebuilt in the working tree
+only for the run and restored after (the coordinator regenerates it at merge; built cleanly, 407 sources, 0 errors).
+No `web/.env.local` exists in this worktree, so nothing was moved aside; `web/.og-cache` was created empty (untracked), as
+the D6a check did. Result: every stage passes up to `web test`, where one test fails: the place-size median (item 10).
+An earlier run on the busy machine also failed `tests/budget.test.ts` (30 s timeout) and `tests/search/split.test.ts`
+(25.9 ms against 25 ms); both pass when rerun alone. That run also showed two core failures
+(`test/capture/migration.test.ts`, `test/capture/placement-block.test.ts`) whose output carried another worktree's point
+counts (no point 0, approximate 8, not this branch's 2 and 23); both pass alone and in the next full run. Unverified cause:
+another agent's run sharing a temp path.
+
 ## Gaps left (GAP lines)
 
 - GAP: Overlander Falls trail: distance, gain, time, surface, stroller and wheelchair stay `searched_none` (R2a); BC
