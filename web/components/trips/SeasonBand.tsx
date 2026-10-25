@@ -2,7 +2,6 @@ import { Banner } from '@/components/ui/Banner';
 import { Icon } from '@/components/ui/Icon';
 import { SeasonStrip } from '@/components/ui/SeasonStrip';
 import type { MonthState } from '@/components/ui/SeasonStrip';
-import { MONTH_NAMES } from '@/lib/format/season';
 import type { PublicTrip } from '@/lib/public/types';
 
 /** "This plan is valid for" + the window, the reason, twelve months, weather tiles and warnings. Honest when the season is not set. */
@@ -29,7 +28,7 @@ export function SeasonBand({ trip }: { trip: PublicTrip }) {
       <p className="trip-window">{s.label}</p>
       {planOnly ? <p className="trip-why">The window this plan was written for. Other months and opening dates have not been checked yet.</p> : null}
       <p className="trip-why">{s.why}</p>
-      <SeasonStrip months={months} label={planOnly ? `Months this plan covers: ${s.months.map((m) => MONTH_NAMES[m - 1]).join(', ')}` : undefined} />
+      <SeasonStrip months={months} label={planOnly ? `Months this plan covers: ${s.months.map((m) => new Date(2000, m - 1, 1).toLocaleString('en', { month: 'long' })).join(', ')}` : undefined} />
       {tiles.length ? (
         <ul className="trip-weather">
           {tiles.map((t) => (
