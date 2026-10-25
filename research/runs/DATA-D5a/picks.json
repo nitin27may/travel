@@ -1,0 +1,652 @@
+{
+ "fenland": {
+  "ids": [
+   "fenland-loop"
+  ],
+  "q": "fenland",
+  "files": [
+   "Banff Fenland Trail - panoramio.jpg",
+   "Banff Fenland Trek - panoramio.jpg"
+  ],
+  "subject": "File title names the Fenland trail; boardwalk bridge and creek in forest, Banff townsite; geotag 272 m and 328 m from the record point"
+ },
+ "vermilion-lakes": {
+  "ids": [
+   "vermilion-lakes"
+  ],
+  "q": "vermilion-lakes",
+  "files": [
+   "Vermillion Lakes Banff Alberta Canada (36020088283).jpg",
+   "Vermilion Lakes and Eagle Mountain.jpg"
+  ],
+  "subject": "Vermilion Lakes (Vermillion spelling in the first title); lake, marsh and mountains, summer; geotagged within 600 m of the drive start"
+ },
+ "banff-gondola": {
+  "ids": [
+   "banff-gondola"
+  ],
+  "q": "banff-gondola",
+  "files": [
+   "Canada, Banff, Sulphur mountain cable car - panoramio.jpg",
+   "Banff from above (2726479526).jpg"
+  ],
+  "subject": "Gondola cabin on its cable above the Sulphur Mountain forest; view of Banff townsite from the summit station, geotagged 16 m from the summit point"
+ },
+ "minnewanka": {
+  "ids": [
+   "lake-minnewanka-cruise"
+  ],
+  "q": "minnewanka",
+  "files": [
+   "@1",
+   "@6"
+  ],
+  "subject": "Cruise dock and boathouse on Lake Minnewanka with boats; geotag within 150 m of the cruise point; summer, no people in the foreground"
+ },
+ "upper-hot-springs": {
+  "ids": [
+   "banff-upper-hot-springs"
+  ],
+  "q": "upper-hot-springs",
+  "files": [
+   "@0"
+  ],
+  "subject": "Upper Springs Bathhouse exterior, Banff (the pool complex); geotag 22 m from the point; only licensed image of the site found in the 1 km search"
+ },
+ "cave-basin": {
+  "ids": [
+   "cave-and-basin"
+  ],
+  "q": "cave-basin",
+  "files": [
+   "@2",
+   "@11"
+  ],
+  "subject": "Cave pool with the opening above (the hot spring cave) and the bath house pavilion exterior; both geotagged within 55 m of the site point"
+ },
+ "johnston": {
+  "ids": [
+   "johnston-canyon-walk",
+   "johnston-canyon"
+  ],
+  "q": "johnston",
+  "files": [
+   "Johnston Canyon-Lower Falls.jpg",
+   "Upper Falls, Johnston Canyon, view from platform 20240822 2.jpg"
+  ],
+  "subject": "Lower Falls (pool below the falls) and a platform view of the Upper Falls, the two payoffs of the walk; geotagged 19 m from the lower falls point and 94 m from the upper falls point (OSM waterfall nodes)"
+ },
+ "larch": {
+  "ids": [
+   "larch-valley",
+   "larch-valley-sentinel-pass"
+  ],
+  "q": "larch",
+  "files": [
+   "Larch Valley, Alberta, Canada.jpg",
+   "Larch Valley.jpg"
+  ],
+  "subject": "Larch Valley with golden larches and the Ten Peaks behind; titles name Larch Valley, no geotag on the files, subject from title and description; the geosearch around the point found only Sentinel Pass files, so these came from a text search 'Larch Valley Banff'"
+ },
+ "tre": {
+  "ids": [
+   "tre-cime-di-lavaredo-loop"
+  ],
+  "q": "tre",
+  "files": [
+   "Tre cime di Lavaredo dietro al Rifugio Locatelli.jpg",
+   "Tre Cime di Lavaredo - panoramio (2).jpg"
+  ],
+  "subject": "The three peaks from the loop trail with Rifugio Locatelli below (23 m from the viewpoint point) and the south-side view of the peaks (214 m from the Tre Cime point); summer"
+ },
+ "agnes": {
+  "ids": [
+   "lake-agnes-tea-house"
+  ],
+  "q": "agnes",
+  "files": [
+   "Lake Agnes Tea House - panoramio.jpg",
+   "Lake Agnes, Banff National Park, Canada (54881458499).jpg"
+  ],
+  "subject": "The tea house on the shore of Lake Agnes (13 m from a point taken from the files own geotags, the record has the Lake Louise lakeshore trailhead as its only point) and the lake with its cirque; summer"
+ },
+ "marble-canyon": {
+  "ids": [
+   "marble-canyon-walk",
+   "marble-canyon"
+  ],
+  "q": "marble-canyon",
+  "files": [
+   "@1",
+   "@0"
+  ],
+  "subject": "Turquoise Tokumm Creek gorge, Marble Canyon (Kootenay NP); titles and descriptions name Marble Canyon; geotagged within 100 m of the canyon point"
+ },
+ "bow-lake": {
+  "ids": [
+   "bow-lake"
+  ],
+  "q": "bow-lake",
+  "files": [
+   "@1",
+   "@0"
+  ],
+  "subject": "Bow Lake with Bow Peak and the reflection, summer; titles name Bow Lake; geotagged within 100 m of the lake point"
+ },
+ "peyto-lookout": {
+  "ids": [
+   "peyto-lake-lookout",
+   "peyto-lake"
+  ],
+  "q": "peyto-lookout",
+  "files": [
+   "@0",
+   "@6"
+  ],
+  "subject": "Peyto Lake seen from the Bow Summit lookout (turquoise lake in the Mistaya valley, no crowd in frame); titles name Peyto Lake; geotagged near the lookout point"
+ },
+ "skywalk": {
+  "ids": [
+   "glacier-skywalk"
+  ],
+  "q": "skywalk",
+  "files": [
+   "@11",
+   "@14"
+  ],
+  "subject": "Glacier Skywalk cantilevered over the Sunwapta valley with Mount Athabasca; titles name the Skywalk; geotagged near the Skywalk point"
+ },
+ "maligne-cruise": {
+  "ids": [
+   "maligne-lake-cruise"
+  ],
+  "q": "maligne-cruise",
+  "files": [
+   "t:spirit-island:8",
+   "maligne-cruise:@14"
+  ],
+  "subject": "Spirit Island, the cruise's destination (title; geotag 52.6551,-117.5146 on Maligne Lake) and the Maligne Lake boat house with autumn larches (September); the Spirit Island geotag is 14 km from the record point at the dock, which is the lake itself"
+ },
+ "bald-hills": {
+  "ids": [
+   "mary-schaffer-loop"
+  ],
+  "q": "bald-hills",
+  "files": [
+   "@6",
+   "@8"
+  ],
+  "subject": "Maligne Lake and Samson Peak (lake view from the shore at the start of the loop), summer; titles name Maligne Lake; geotagged within 200 m of the trailhead point; shows the lake the loop circles, not the trail itself"
+ },
+ "moose-lake": {
+  "ids": [
+   "moose-lake-loop"
+  ],
+  "q": "moose-lake",
+  "files": [
+   "@3",
+   "@2"
+  ],
+  "subject": "Moose Lake pond view (title '20130701 28 Moose Lake', Jasper) and the Maligne Lake south-shore view 20130701 33 taken the same day; geotagged within the 1 km search of the loop point"
+ },
+ "pyramid": {
+  "ids": [
+   "pyramid-lake"
+  ],
+  "q": "pyramid",
+  "files": [
+   "@2",
+   "@9"
+  ],
+  "subject": "Pyramid Lake with Pyramid Mountain and the island footbridge in the distance (summer) and the lake in the morning; titles name Pyramid Lake; geotagged near the lake point"
+ },
+ "overlander-geo": {
+  "ids": [
+   "mount-robson-viewpoint"
+  ],
+  "q": "overlander",
+  "files": [
+   "@2",
+   "@7"
+  ],
+  "subject": "Mount Robson Visitor Centre with Mount Robson behind it, and Mount Robson from the valley meadow; titles name Mount Robson / the Visitor Centre; geotagged within the 1 km search of the overlander-falls point (which lies close to the visitor centre) and the viewpoint record is the visitor centre"
+ },
+ "skytram": {
+  "ids": [
+   "jasper-skytram"
+  ],
+  "q": "skytram",
+  "files": [
+   "@7",
+   "@12"
+  ],
+  "subject": "Jasper Tramway cabin over the forest of Whistlers Mountain and the tram line above Jasper townsite (summer 2025); titles name the Tramway; geotagged within the 1 km search of the SkyTram point"
+ },
+ "athabasca-falls": {
+  "ids": [
+   "athabasca-falls"
+  ],
+  "q": "athabasca-falls",
+  "files": [
+   "@3",
+   "@5"
+  ],
+  "subject": "Athabasca Falls from the viewing platform area (sunny and overcast); titles name Athabasca Falls; geotagged within 1 km of the falls point"
+ },
+ "sunwapta": {
+  "ids": [
+   "sunwapta-falls"
+  ],
+  "q": "sunwapta",
+  "files": [
+   "@2",
+   "@3"
+  ],
+  "subject": "Sunwapta Falls river and falls (title names it); geotagged within 1 km of the falls point"
+ },
+ "toe-glacier": {
+  "ids": [
+   "toe-glacier-walk"
+  ],
+  "q": "toe-glacier",
+  "files": [
+   "@0",
+   "@4"
+  ],
+  "subject": "Toe of the Athabasca Glacier with the meltwater stream and moraine, from the walk's payoff area; titles name the Athabasca Glacier; geotagged near the toe point (September 2026 file shows the current extent)"
+ },
+ "ice-explorer-1": {
+  "ids": [
+   "columbia-icefield-ice-explorer"
+  ],
+  "q": "toe-glacier",
+  "files": [
+   "toe-glacier:@6",
+   "toe-glacier:@10"
+  ],
+  "subject": "Brewster Ice Explorer coaches on the Athabasca Glacier (title names Ice Explorers; vehicle livery Columbia Icefield); geotagged near the toe point 1 km from the Ice Explorer terminal point"
+ },
+ "athabasca-glacier-sight": {
+  "ids": [
+   "columbia-icefield-athabasca-glacier"
+  ],
+  "q": "athabasca-glacier",
+  "files": [
+   "athabasca-glacier:@10",
+   "toe-glacier:@0"
+  ],
+  "subject": "Athabasca Glacier from the foreland (title names it) and the glacier toe in 2025; geotagged within 1 km of the Athabasca Glacier / toe points"
+ },
+ "takakkaw": {
+  "ids": [
+   "takakkaw-falls",
+   "takakkaw-falls-walk"
+  ],
+  "q": "takakkaw",
+  "files": [
+   "@12",
+   "@27"
+  ],
+  "subject": "Takakkaw Falls from the walk's viewing area (titles name it); geotagged within 1 km of the falls point"
+ },
+ "emerald-canoe": {
+  "ids": [
+   "emerald-lake-canoe"
+  ],
+  "q": "emerald-canoe",
+  "files": [
+   "@7",
+   "@4"
+  ],
+  "subject": "Red rental canoes at the Emerald Lake dock (panoramio file, title names Emerald Lake) and the lake with Mount Burgess; geotagged within 1 km of the boathouse point"
+ },
+ "emerald-shore": {
+  "ids": [
+   "emerald-lakeshore"
+  ],
+  "q": "emerald-canoe",
+  "files": [
+   "emerald-canoe:@4",
+   "emerald-canoe:@13"
+  ],
+  "subject": "Emerald Lake with Mount Burgess and the lake from the shore (titles name Emerald Lake); geotagged within 1 km of the lakeshore point"
+ },
+ "natural-bridge": {
+  "ids": [
+   "natural-bridge"
+  ],
+  "q": "natural-bridge",
+  "files": [
+   "@2",
+   "@7"
+  ],
+  "subject": "Natural Bridge rock arch over the Kicking Horse River, Yoho (titles name it); geotagged within 1 km of the point"
+ },
+ "ll-shore": {
+  "ids": [
+   "lake-louise-lakeshore",
+   "lake-louise"
+  ],
+  "q": "ll-shore",
+  "files": [
+   "@17",
+   "@7"
+  ],
+  "subject": "Lake Louise from the north-west shore trail with Victoria Glacier peaks, and the lake with the boathouse across it; titles name Lake Louise; geotagged within 1 km of the lakeshore point"
+ },
+ "ll-canoe": {
+  "ids": [
+   "lake-louise-canoe"
+  ],
+  "q": "ll-canoe",
+  "files": [
+   "@1",
+   "@4"
+  ],
+  "subject": "Red canoes at the Lake Louise dock and the canoe boathouse (title: Canoes for Rent, Lake Louise, September 2019); geotagged within 1 km of the canoe point"
+ },
+ "ll-gondola": {
+  "ids": [
+   "lake-louise-gondola"
+  ],
+  "q": "ll-gondola",
+  "files": [
+   "@10",
+   "@13"
+  ],
+  "subject": "Lake Louise Sightseeing Gondola (title names it) above the base area in September, and the gondola line over the base; geotagged within 1 km of the gondola point"
+ },
+ "moraine-rockpile": {
+  "ids": [
+   "moraine-lake",
+   "moraine-lakeshore"
+  ],
+  "q": "moraine-rockpile",
+  "files": [
+   "@2",
+   "@1"
+  ],
+  "subject": "Moraine Lake with the Valley of the Ten Peaks from the Rockpile viewpoint (title names Moraine Lake); geotagged within 1 km of the Rockpile point"
+ },
+ "moraine-canoe": {
+  "ids": [
+   "moraine-lake-canoe"
+  ],
+  "q": "moraine-canoe",
+  "files": [
+   "@0",
+   "@9"
+  ],
+  "subject": "Moraine Lake canoe docks with rental canoes and a canoe on the lake (titles name Moraine Lake); geotagged within 1 km of the canoe point"
+ },
+ "lorette": {
+  "ids": [
+   "mount-lorette-ponds"
+  ],
+  "q": "lorette",
+  "files": [
+   "@0",
+   "@43"
+  ],
+  "subject": "Mount Lorette Ponds in September-October colour with the footbridge (titles name the ponds); geotagged within 1 km of the parking point"
+ },
+ "interlakes": {
+  "ids": [
+   "interlakes-trail"
+  ],
+  "q": "interlakes",
+  "files": [
+   "@9",
+   "@22"
+  ],
+  "subject": "Upper Kananaskis Lake with mountains in summer (titles name Upper Kananaskis Lake; the Interlakes trail runs between the Upper and Lower lakes); geotagged within 1 km of the trail point"
+ },
+ "kan-lakes": {
+  "ids": [
+   "kananaskis-lakes-day-use"
+  ],
+  "q": "kan-lakes",
+  "files": [
+   "@1",
+   "interlakes:@9"
+  ],
+  "subject": "Upper Kananaskis Lake with its islet (title: A trip to the lakes, Upper Kananaskis) and the lake in summer; geotagged within 1 km of the day-use point"
+ },
+ "ptarmigan": {
+  "ids": [
+   "ptarmigan-cirque"
+  ],
+  "q": "ptarmigan",
+  "files": [
+   "@15",
+   "@3"
+  ],
+  "subject": "Ptarmigan Cirque (title) with the trail bench view; geotagged within 1 km of the cirque point"
+ },
+ "highwood": {
+  "ids": [
+   "highwood-pass-summit"
+  ],
+  "q": "ptarmigan",
+  "files": [
+   "ptarmigan:@28"
+  ],
+  "subject": "Storm Mountain from Highwood Pass with the boardwalk trail, summer; geotagged within about 0.5 km of the Highwood Pass point (found in the Ptarmigan Cirque 1 km search, whose centre is 0.6 km from the pass point); the other files near the pass are winter road views"
+ },
+ "wedge-pond": {
+  "ids": [
+   "wedge-pond",
+   "wedge-pond-loop"
+  ],
+  "q": "wedge-pond",
+  "files": [
+   "@0",
+   "@17"
+  ],
+  "subject": "Wedge Pond with Wedge Mountain behind (titles name it), summer and autumn larches; geotagged within 1 km of the pond point"
+ },
+ "wilcox-t": {
+  "ids": [
+   "wilcox-pass"
+  ],
+  "q": "wilcox-t",
+  "files": [
+   "t:wilcox:0",
+   "t:wilcox:2"
+  ],
+  "subject": "Wilcox Pass trail with the Columbia Icefield glaciers in view (summer); titles name Wilcox Pass; file 0 geotagged 52.2269,-117.2023 on the trail (about 1.9 km from the record point 52.25,-117.2356, the record point is the trailhead area)"
+ },
+ "kinney-t": {
+  "ids": [
+   "kinney-lake"
+  ],
+  "q": "kinney-t",
+  "files": [
+   "t:kinney:0",
+   "t:kinney:8"
+  ],
+  "subject": "Kinney Lake with Mount Whitehorn reflected (titles name Kinney Lake); geotagged 53.0764,-119.1843 and 53.0747,-119.1846 on the lake, about 1.2 km from the record point 53.0498,-119.2155 (the trailhead end)"
+ },
+ "sunshine-t": {
+  "ids": [
+   "sunshine-meadows-citadel-pass"
+  ],
+  "q": "sunshine-t",
+  "files": [
+   "t:sunshine:0",
+   "t:sunshine:3"
+  ],
+  "subject": "Sunshine Meadows with Rock Isle Lake and the meadow plateau (titles name Sunshine Meadows, Banff); geotagged near 51.09,-115.76, within about 3 km of the record point at Sunshine Village; Citadel Pass itself is not shown"
+ },
+ "overlander-t": {
+  "ids": [
+   "overlander-falls-trail"
+  ],
+  "q": "overlander-t",
+  "files": [
+   "t:overlander:3",
+   "t:overlander:2"
+  ],
+  "subject": "Overlander Falls on the Fraser River (titles name it); the first file is geotagged 53.0299,-119.2053 on the falls; the second has no geotag"
+ },
+ "miette-t": {
+  "ids": [
+   "miette-hot-springs"
+  ],
+  "q": "miette-t",
+  "files": [
+   "t:miette:0",
+   "t:miette:1"
+  ],
+  "subject": "Source of the hot spring and the trail to the spring head at Miette (titles name Miette Hot Springs); no geotag on either; no licensed image of the pools themselves was found, so these show the spring source, not the pools"
+ },
+ "skyline-t": {
+  "ids": [
+   "sulphur-skyline"
+  ],
+  "q": "skyline-t",
+  "files": [
+   "t:skyline:0"
+  ],
+  "subject": "Utopia Mountain from Sulphur Skyline (title); geotagged 53.1154,-117.7440, at the payoff point of the trail record (53.1157,-117.7448); only one licensed image found"
+ },
+ "parker-t": {
+  "ids": [
+   "parker-ridge"
+  ],
+  "q": "parker-t",
+  "files": [
+   "t:parker:5",
+   "t:parker:3"
+  ],
+  "subject": "Saskatchewan Glacier seen from Parker Ridge Trail and the Icefields Parkway from Parker Ridge (titles name Parker Ridge, the trail's payoff view); the second is geotagged 52.1833,-117.1143, 0.9 km from the record point; the first has no geotag"
+ },
+ "ha-ling-t": {
+  "ids": [
+   "ha-ling-peak"
+  ],
+  "q": "ha-ling-t",
+  "files": [
+   "t:ha-ling:8",
+   "t:ha-ling:5"
+  ],
+  "subject": "Ha Ling Peak (title) from Quarry Lake and the peak ridge near the summit (title: Ha Ling Peak aka Chinaman Peak); no geotag; titles and descriptions name the peak; the 1 km geosearch only found East End of Rundle files"
+ },
+ "grassi-t": {
+  "ids": [
+   "grassi-lakes-upper"
+  ],
+  "q": "grassi-t",
+  "files": [
+   "t:grassi:5",
+   "t:grassi:8"
+  ],
+  "subject": "Lower Grassi Lakes and the Grassi Lakes waterfall (descriptions name them), autumn; the first is geotagged 51.0725,-115.4067, 1.2 km from the record point"
+ },
+ "rawson-t": {
+  "ids": [
+   "rawson-lake"
+  ],
+  "q": "rawson-t",
+  "files": [
+   "t:rawson:0"
+  ],
+  "subject": "Rawson Lake with the snow-dusted cirque, October 2015 (title names Rawson Lake); no geotag; shows an early-snow state, a September visit may be snow-free; the other Rawson files are forest or deep winter"
+ },
+ "sarrail-geo": {
+  "ids": [
+   "sarrail-ridge"
+  ],
+  "q": "sarrail-geo",
+  "files": [
+   "sarrail-payoff:@0"
+  ],
+  "subject": "Upper Kananaskis Lake and Mount Indefatigable from above (title), the view from the ridge side of the lake; geotagged within 1 km of the Sarrail payoff point; snow patches visible; not certain it is taken from Sarrail Ridge itself"
+ },
+ "iceline-t": {
+  "ids": [
+   "iceline-trail"
+  ],
+  "q": "iceline-t",
+  "files": [
+   "t:iceline:2",
+   "t:iceline:7"
+  ],
+  "subject": "Views from the Iceline Trail to Yoho Glacier and a small glacier with its tarn (titles name the Iceline Trail); geotagged 51.5044,-116.5163 and 51.5011,-116.5137 on the trail"
+ },
+ "six-t": {
+  "ids": [
+   "plain-of-six-glaciers"
+  ],
+  "q": "six-t",
+  "files": [
+   "t:six-glaciers:2",
+   "t:six-glaciers:0"
+  ],
+  "subject": "Plain of Six Glaciers Teahouse (title; geotagged 51.3934,-116.2730, 30 m from the record point) and the Plain of the Six Glaciers (title; geotagged 51.3876,-116.2814)"
+ },
+ "bald-t": {
+  "ids": [
+   "bald-hills"
+  ],
+  "q": "bald-t",
+  "files": [
+   "t:bald-hills:2",
+   "t:bald-hills:0"
+  ],
+  "subject": "Maligne Lake from the Bald Hills (title MaligneLakeBaldHills, public domain; and Bald Hills, Jasper CC BY 2.0, description: Samson Peak, Maligne Lake); no geotags; titles name the Bald Hills"
+ },
+ "elk-t": {
+  "ids": [
+   "elk-rut"
+  ],
+  "q": "elk-t",
+  "files": [
+   "t:elk3:4",
+   "t:elk3:0"
+  ],
+  "subject": "Elk bull in autumn grass and elk at dusk beside a road, Banff National Park (titles and descriptions name Banff NP); no geotags; the 1 km search at the Banff townsite point found only town files, so these are from a text search; they show the animal, not a particular rut-viewing spot"
+ },
+ "paint-pots-t": {
+  "ids": [
+   "paint-pots-walk"
+  ],
+  "q": "paint-pots-t",
+  "files": [
+   "t:paint-pots2:7",
+   "t:paint-pots2:5"
+  ],
+  "subject": "Ochre pools at the Paint Pots, Kootenay NP (titles name the Paint Pots); the first is geotagged 51.17,-116.154, 0.5 km from the record point"
+ },
+ "annette-t": {
+  "ids": [
+   "lake-annette-loop"
+  ],
+  "q": "annette-t",
+  "files": [
+   "t:annette2:0",
+   "t:annette2:6"
+  ],
+  "subject": "Lake Annette (title, pre-fire) and Annette Lake after the 2024 wildfire (June 2025; geotagged 52.8995,-118.0457, 0.3 km from the record point): shows the burnt shore the loop now passes; both kept so the page does not promise the old forest"
+ },
+ "dark-t": {
+  "ids": [
+   "jasper-dark-sky"
+  ],
+  "q": "dark-t",
+  "files": [
+   "t:dark-sky2:0"
+  ],
+  "subject": "Milky Way over The Whistlers, Jasper (title and description); no geotag; one licensed image found"
+ },
+ "bourgeau-reuse": {
+  "ids": [
+   "bourgeau-lake"
+  ],
+  "q": "bourgeau-reuse",
+  "files": [
+   "REUSE:part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff"
+  ],
+  "subject": "Bourgeau Lake 02 and 01 already on the payoff part record (CS7 run 18 Oct); geotagged 51.1304,-115.7889 on the lake; copied to the trail record, licence rechecked on 25 Oct"
+ }
+}

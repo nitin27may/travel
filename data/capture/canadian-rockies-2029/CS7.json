@@ -603,6 +603,26 @@
             "src-0001"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Larch Valley, Alberta, Canada.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Paul Anthony Stewart",
+          "attribution": "Paul Anthony Stewart, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Larch_Valley,_Alberta,_Canada.jpg",
+          "width": 3872,
+          "height": 2592
+        },
+        {
+          "file": "File:Larch Valley.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Nancymcmillan",
+          "attribution": "Nancymcmillan, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Larch_Valley.jpg",
+          "width": 3264,
+          "height": 2447
+        }
       ]
     },
     {

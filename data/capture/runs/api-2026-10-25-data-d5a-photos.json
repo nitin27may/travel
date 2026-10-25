@@ -1,0 +1,617 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-25-data-d5a-photos",
+  "started": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "claude-sonnet-5-5",
+  "scope": {
+    "refs": [
+      "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
+      "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
+      "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
+      "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+      "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+      "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+      "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+      "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#larch-valley",
+      "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "place/tre-cime-di-lavaredo-loop",
+      "legacy/canadian-rockies-sept-2029/trails/lake-agnes",
+      "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+      "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
+      "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+      "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+      "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
+      "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+      "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+      "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
+      "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
+      "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
+      "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+      "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
+      "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
+      "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+      "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+      "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+      "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+      "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+      "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+      "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
+      "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+      "place/lake-louise",
+      "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
+      "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+      "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+      "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+      "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+      "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+      "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use",
+      "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
+      "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
+      "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+      "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+      "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
+      "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+      "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
+      "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+      "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
+      "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
+      "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+      "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
+      "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+      "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+      "legacy/canadian-rockies-sept-2029/trails/rawson-lake",
+      "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+      "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+      "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
+      "legacy/canadian-rockies-sept-2029/trails/bald-hills",
+      "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+      "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+      "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
+      "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+      "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+      "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+      "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+      "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+      "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "commons.wikimedia.org",
+      "requests": 640,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Banff Fenland Trail - panoramio.jpg; File:Banff Fenland Trek - panoramio.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Vermillion Lakes Banff Alberta Canada (36020088283).jpg; File:Vermilion Lakes and Eagle Mountain.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Canada, Banff, Sulphur mountain cable car - panoramio.jpg; File:Banff from above (2726479526).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lake Minnewanka boat pier 20240821 2.jpg; File:Banff National Park (AB, Canada), Lake Minnewanka -- 2022 -- 2308.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Upper Springs Bathhouse from SE.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Visiting the Cave and basin Historical site. (22287866814).jpg; File:Cave and Basin Bath House - panoramio.jpg"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Johnston Canyon-Lower Falls.jpg; File:Upper Falls, Johnston Canyon, view from platform 20240822 2.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Johnston Canyon-Lower Falls.jpg; File:Upper Falls, Johnston Canyon, view from platform 20240822 2.jpg"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#larch-valley",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Larch Valley, Alberta, Canada.jpg; File:Larch Valley.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Larch Valley, Alberta, Canada.jpg; File:Larch Valley.jpg"
+    },
+    {
+      "ref": "place/tre-cime-di-lavaredo-loop",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Tre cime di Lavaredo dietro al Rifugio Locatelli.jpg; File:Tre Cime di Lavaredo - panoramio (2).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-agnes",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lake Agnes Tea House - panoramio.jpg; File:Lake Agnes, Banff National Park, Canada (54881458499).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Marble Canyon, Kootenay National Park, British Columbia, 2025-07-11 02.jpg; File:River at base of Marble Canyon - panoramio.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Marble Canyon, Kootenay National Park, British Columbia, 2025-07-11 02.jpg; File:River at base of Marble Canyon - panoramio.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:D6A 9449 - Bow Lake (9779924165).jpg; File:Bow Lake - panoramio - Jack Borno.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Peyto Lake, Banff National Park, Canada (54881418663).jpg; File:Peyto Lake Valley.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Peyto Lake, Banff National Park, Canada (54881418663).jpg; File:Peyto Lake Valley.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Columbia Icefield Skywalk -- Jasper National Park Alberta September 2019 (49422476482).jpg; File:Glacier Skywalk Over the Sunwapta River -- Athabasca Glacier Jasper National Park, Alberta September 2019 (49440408223).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Spirit Island -- Maligne Lake Jasper National Park Alberta (Canada) September 2019 (49143633606).jpg; File:'Maligne Lake Boat House' -- Jasper, Alberta, Canada September 2019 (49124100058).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Maligne Lake and Samson Peak, Jasper National Park, Canada (54880321502).jpg; File:By ovedc - Maligne Lake - 02.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:20130701 28 Moose Lake (11779626985).jpg; File:20130701 33 Maligne Lake (11789195994).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:2025-06-10-192856 CAN Alberta Western Alberta (Jasper) 1172.0.jpg; File:Pyramid Lake in the morning.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Mount Robson Visitor Centre.jpg; File:Mount Robson, BC, Canada (54880316942).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Jasper Tramway - panoramio.jpg; File:2025-06-10-235629 CAN Alberta Western Alberta (Jasper) 1808.3.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:2025-06-09-002050 CAN Alberta Western Alberta (Jasper) 1158.1.jpg; File:MK04324 Athabasca Falls (Jasper NP).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:The Sunwapta Falls.jpg; File:2025-06-08-183257 CAN Alberta Western Alberta (Jasper) 1380.4.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Athabasca Glacier 2025.jpg; File:Athabasca Glacier in September 2026.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:'Ice Explorers' Approaching the Athabasca Glacier -- Jasper National Park Alberta September 2019 (49421973251).jpg; File:Brewster 'Ice Explore' -43 on the Athabasca Glacier -- Jasper National Park Alberta September 2019 (49421509233).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Athabasca Glacier (14942484663).jpg; File:Athabasca Glacier 2025.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Takakkaw Falls, Yoho National Park, British Columbia, 2025-07-11 10.jpg; File:Takakkaw Falls - Yoho - panoramio.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Takakkaw Falls, Yoho National Park, British Columbia, 2025-07-11 10.jpg; File:Takakkaw Falls - Yoho - panoramio.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Emerald Lake - Yoho National park - panoramio.jpg; File:Emerald Lake and Mount Burgess (49464729952).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Emerald Lake and Mount Burgess (49464729952).jpg; File:Emerald Lake (15900205010).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Natural Bridge, Yoho NP, west view 20240825 3.jpg; File:The natural bridge over the rapids at Yoho - panoramio.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lake Louise, view from northwest shore 20240823 1.jpg; File:Lake Louise 路易斯湖 - panoramio (2).jpg"
+    },
+    {
+      "ref": "place/lake-louise",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lake Louise, view from northwest shore 20240823 1.jpg; File:Lake Louise 路易斯湖 - panoramio (2).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Louise lake.jpg; File:Canoes for Rent -- Lake Louise Alberta, Canada September 2019 (50072483293).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lake Louise Ski Lift and Gondola Alberta (CA) September 2019 (50073038876).jpg; File:Lake Louise Sightseeing Gondola - panoramio.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Moraine Lake, Banff National Park, Canada (54880344222).jpg; File:Beautiful Moraine - Flickr - Tiomax80.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Moraine Lake, Banff National Park, Canada (54880344222).jpg; File:Beautiful Moraine - Flickr - Tiomax80.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Moraine Lake Alberta Canada canoe docks.jpg; File:Moraine Lake (3866528154).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lorette ponds Kananaskis Alberta Canada (29810545081).jpg; File:Lorette Ponds - Kananaskis - panoramio.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Upper Kananaskis lake (36000875896).jpg; File:Upper Kananaskis Lake walk round Aug 2015 (19983994723).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:A trip to the lakes (29155224512).jpg; File:Upper Kananaskis lake (36000875896).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Ptarmigan Cirque.jpg; File:HBM Happy Bench Monday (35469456653).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Storm Mountain from Highwood Pass.jpeg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Wedge pond Kananaskis Alberta Canada (27576208153).jpg; File:A visit to Wedge pond Kananaskis Alberta Canada (29789522671).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Wedge pond Kananaskis Alberta Canada (27576208153).jpg; File:A visit to Wedge pond Kananaskis Alberta Canada (29789522671).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:20130630 30 Wilcox Pass Trail (11659532956).jpg; File:Columbia Icefield from the Wilcox Pass trail.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lake Kinney mit Mount Whitehorn.jpg; File:Mount Robson Provincial Park - Kinney Lake.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Sunshine Meadows - Banff - panoramio.jpg; File:Sunshine Meadows - Banff - Lookout - panoramio.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Overlander Falls, BC, Canada (54881430869).jpg; File:Overlander Falls Fraser River.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Source of the spring 1, Miette Hot Springs, Jasper AB.jpg; File:Trail to the head, Miette Hot Springs, Jasper, AB.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Source of the spring 1, Miette Hot Springs, Jasper AB.jpg; File:Trail to the head, Miette Hot Springs, Jasper, AB.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Utopia Mountain from Sulphur Skyline.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Saskatchewan Glacier from Parker Ridge Trail.jpg; File:Icefileds Parkway seen from Parker Ridge, Banff National Park, Canada (54880326907).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Ha-Ling Peak & Mount Lawrance Grassi, from Quarry Lake.jpg; File:Ha Ling Peak aka Chinaman Peak (15810090790).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Grassi Lakes road trip Canmore Alberta Canada (10277672766).jpg; File:Grassi Lakes road trip Canmore Alberta Canada (10277600894).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/rawson-lake",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Rawson Lake Kananaskis Alberta Canada October 2015 (22100846781).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:.Upper Kananaskis Lake & Mount Indefatigable 03.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:View from Iceline Trail towards Yoho Glacier, Yoho National Park, Canada (54881443029).jpg; File:Small Glacier at Iceline Trail, Yoho National Park, Canada (54881422148).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Plain of Six Glaciers Teahouse.jpg; File:Plain of the Six Glaciers.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:MaligneLakeBaldHills.JPG; File:Bald Hills, Jasper.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Elk-Wapiti - Banff.jpg; File:Elk Banff National Park.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Kootenay.Paint.Pots.ocker.P1023048.jpg; File:Kootenay Paint Pots.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lake Annette.jpg; File:2025-06-11-193214 CAN Alberta Western Alberta (Jasper) 1014.4-Pano.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Milky Way over The Whistlers.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Bourgeau Lake 02.jpg; File:Bourgeau Lake 01.jpg (existing, licence rechecked); copied to legacy/canadian-rockies-sept-2029/trails/bourgeau-lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "geosearch 1 km around 50.9421,-115.1495 (13 results, 10 usable); text search 'Troll Falls Kananaskis' (15 results, 9 usable); text search 'Troll Falls summer' (40 results, 0 usable) (every licensed file is a winter or frozen-fall view (wrong season for September))",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=50.9421%7C-115.1495&gsradius=1000&gsnamespace=6",
+        "https://commons.wikimedia.org/w/index.php?search=Troll+Falls+Kananaskis&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Troll+Falls+summer&ns6=1"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "geosearch 1 km around 51.0902,-115.3855 (9 results, 0 on the centre); text search 'Canmore Nordic Centre' (9 results, 7 usable, all winter, biathlon or snow-making); text search 'Canmore Nordic Centre mountain bike trails' (0 results) (no summer photo of the centre under an allowed licence)",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=51.0902%7C-115.3855&gsradius=1000&gsnamespace=6",
+        "https://commons.wikimedia.org/w/index.php?search=Canmore+Nordic+Centre&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Canmore+Nordic+Centre+mountain+bike+trails&ns6=1"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "geosearch 1 km around 50.6863,-115.1149 (19 results, none on the Rockwall); text search 'Rockwall Kananaskis Highway 40' (0 results); text search 'Rockwall Lookout Kananaskis' (0 results) (nothing on Commons names the lookout)",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=50.6863%7C-115.1149&gsradius=1000&gsnamespace=6",
+        "https://commons.wikimedia.org/w/index.php?search=Rockwall+Kananaskis+Highway+40&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Rockwall+Lookout+Kananaskis&ns6=1"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "text search 'Miette Mine trail Jasper' (13 results, 0 usable); text search 'Miette Hot Springs Jasper' (28 results; spring and road files only, used on the hot springs record instead) (no file of the mine trail)",
+      "tried": [
+        "https://commons.wikimedia.org/w/index.php?search=Miette+Mine+trail+Jasper&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Miette+Hot+Springs+Jasper&ns6=1"
+      ]
+    }
+  ]
+}
