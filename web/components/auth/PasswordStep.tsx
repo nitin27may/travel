@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import type { AuthProblem } from '@/lib/auth/auth-errors';
+import { timeLeft } from './live';
 import { AddressLine, fieldError, PasswordField, ProblemBanner, StepHeading, TextButton } from './parts';
 
 interface Props {
@@ -15,6 +16,8 @@ interface Props {
   /** "Email me a code instead", only when the code option is on. */
   onCodeInstead?: () => void;
   sendingCode?: boolean;
+  /** Seconds left of a send wait for this address (review M3): it disables "Email me a code instead" and, on sign-up, "Create account". */
+  waitLeft: number;
   onSubmit: (password: string) => void;
   onChangeEmail: () => void;
   /** Before following "Forgot password?": hand the address to the reset page. */
@@ -22,14 +25,16 @@ interface Props {
 }
 
 /** The password branch (spec 3.1, step 2b). */
-export function PasswordStep({ email, create, problem, pending, focus, onCodeInstead, sendingCode, onSubmit, onChangeEmail, onForgot }: Props) {
+export function PasswordStep({ email, create, problem, pending, focus, onCodeInstead, sendingCode, waitLeft, onSubmit, onChangeEmail, onForgot }: Props) {
+  const waiting = waitLeft > 0;
+  const wait = waiting ? ` (in ${timeLeft(waitLeft)})` : '';
   return (
     <form
       className="auth-step"
       noValidate
       onSubmit={(e) => {
         e.preventDefault();
-        if (pending) return;
+        if (pending || (create && waiting)) return;
         onSubmit(String(new FormData(e.currentTarget).get('password') ?? ''));
       }}
     >
@@ -40,8 +45,8 @@ export function PasswordStep({ email, create, problem, pending, focus, onCodeIns
       <ProblemBanner problem={problem} />
       <PasswordField create={create} error={fieldError(problem, 'password')} />
       <div className="auth-actions">
-        <Button type="submit" variant="primary" loading={pending}>
-          {create ? 'Create account' : 'Sign in'}
+        <Button type="submit" variant="primary" loading={pending} disabled={create && waiting}>
+          {create ? `Create account${wait}` : 'Sign in'}
         </Button>
       </div>
       <div className="auth-alt-actions">
@@ -51,8 +56,8 @@ export function PasswordStep({ email, create, problem, pending, focus, onCodeIns
           </Link>
         )}
         {onCodeInstead ? (
-          <TextButton onClick={onCodeInstead} disabled={sendingCode}>
-            {sendingCode ? 'Sending a code' : 'Email me a code instead'}
+          <TextButton onClick={onCodeInstead} disabled={sendingCode || waiting}>
+            {sendingCode ? 'Sending a code' : `Email me a code instead${wait}`}
           </TextButton>
         ) : null}
       </div>

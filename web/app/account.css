@@ -17,6 +17,8 @@
 .auth-sub {
   color: var(--ink-2);
   margin-top: var(--s-1);
+  max-width: 60ch;
+  text-wrap: pretty;
 }
 .account-count {
   font: var(--t-mono);

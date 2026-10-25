@@ -13,6 +13,10 @@ interface Props {
   focus: boolean;
   pending?: boolean;
   submitLabel?: string;
+  /** The submit is held (the reset page during a send wait, review M3); its label carries the time. */
+  submitDisabled?: boolean;
+  /** The address was edited: a send wait belongs to the address it was answered for, so the card drops it (review M3). */
+  onEdit?: () => void;
   onSubmit: (email: string) => void;
   /** First focus of the field: start loading Turnstile (spec 3.4). */
   onFirstFocus: () => void;
@@ -20,7 +24,7 @@ interface Props {
 }
 
 /** Step 1: the email only. Nothing is sent and nothing about the address is revealed here (spec 3.1). */
-export function EmailStep({ email, problem, focus, pending, submitLabel = 'Continue', onSubmit, onFirstFocus, footer }: Props) {
+export function EmailStep({ email, problem, focus, pending, submitLabel = 'Continue', submitDisabled, onEdit, onSubmit, onFirstFocus, footer }: Props) {
   const ref = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (focus) ref.current?.focus();
@@ -31,7 +35,7 @@ export function EmailStep({ email, problem, focus, pending, submitLabel = 'Conti
       noValidate
       onSubmit={(e) => {
         e.preventDefault();
-        if (pending) return;
+        if (pending || submitDisabled) return;
         onSubmit(String(new FormData(e.currentTarget).get('email') ?? ''));
       }}
     >
@@ -50,12 +54,13 @@ export function EmailStep({ email, problem, focus, pending, submitLabel = 'Conti
             defaultValue={email}
             error={Boolean(fieldError(problem, 'email'))}
             onFocus={onFirstFocus}
+            onChange={onEdit}
             {...a}
           />
         )}
       </Field>
       <div className="auth-actions">
-        <Button type="submit" variant="primary" loading={pending}>
+        <Button type="submit" variant="primary" loading={pending} disabled={submitDisabled}>
           {submitLabel}
         </Button>
       </div>

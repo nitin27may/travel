@@ -99,3 +99,5 @@
 
 .auth-turnstile:empty { display: none; }
 .auth-turnstile { margin-top: var(--s-3); }
+/* A banner outside the step (the Turnstile challenge line) keeps the step's rhythm. */
+.auth-card > .ban { margin-top: var(--s-4); }

@@ -47,16 +47,44 @@ export interface Turnstile {
   token: () => Promise<string | null>;
 }
 
-/** `slotRef`: the element the widget renders into (it shows itself only when a person must interact). */
-export function useTurnstile(siteKey: string | null, slotRef: React.RefObject<HTMLDivElement | null>): Turnstile {
+/**
+ * `slotRef`: the element the widget renders into (it shows itself only when a person must interact). `onChallenge(true)` runs when
+ * Cloudflare asks the person to tick the box, `onChallenge(false)` when that is done (review S5): the card says so and scrolls the
+ * box into view. While a person is being asked, the 15 s wait for a token is paused.
+ */
+export function useTurnstile(siteKey: string | null, slotRef: React.RefObject<HTMLDivElement | null>, onChallenge?: (active: boolean) => void): Turnstile {
   const widget = useRef<string | null>(null);
   const current = useRef<string | null>(null);
-  const waiters = useRef<((t: string | null) => void)[]>([]);
+  const waiters = useRef<{ resolve: (t: string | null) => void; timer?: number }[]>([]);
   const ready = useRef<Promise<void> | null>(null);
+  const challenged = useRef(false);
+  const challenge = useRef(onChallenge);
+  useEffect(() => {
+    challenge.current = onChallenge;
+  });
+
+  const arm = (w: { resolve: (t: string | null) => void; timer?: number }) => {
+    window.clearTimeout(w.timer);
+    w.timer = window.setTimeout(() => {
+      waiters.current = waiters.current.filter((x) => x !== w);
+      w.resolve(null);
+    }, TURNSTILE.tokenWaitMs);
+  };
 
   const settle = (t: string | null) => {
     current.current = t;
-    if (t) for (const w of waiters.current.splice(0)) w(t);
+    if (!t) return;
+    for (const w of waiters.current.splice(0)) {
+      window.clearTimeout(w.timer);
+      w.resolve(t);
+    }
+  };
+
+  const setChallenged = (active: boolean) => {
+    challenged.current = active;
+    if (active) for (const w of waiters.current) window.clearTimeout(w.timer);
+    else for (const w of waiters.current) arm(w);
+    challenge.current?.(active);
   };
 
   const prime = useCallback(() => {
@@ -72,11 +100,15 @@ export function useTurnstile(siteKey: string | null, slotRef: React.RefObject<HT
           callback: (t: string) => settle(t),
           'expired-callback': () => settle(null),
           'error-callback': () => settle(null),
+          'before-interactive-callback': () => setChallenged(true),
+          'after-interactive-callback': () => setChallenged(false),
         });
       })
       .catch(() => {
         ready.current = null;
       });
+    // settle and setChallenged only touch refs.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [siteKey, slotRef]);
 
   const token = useCallback(async (): Promise<string | null> => {
@@ -87,11 +119,9 @@ export function useTurnstile(siteKey: string | null, slotRef: React.RefObject<HT
     const t =
       current.current ??
       (await new Promise<string | null>((resolve) => {
-        const timer = window.setTimeout(() => resolve(null), TURNSTILE.tokenWaitMs);
-        waiters.current.push((v) => {
-          window.clearTimeout(timer);
-          resolve(v);
-        });
+        const w: { resolve: (t: string | null) => void; timer?: number } = { resolve };
+        waiters.current.push(w);
+        if (!challenged.current) arm(w);
       }));
     // Single use: hand it out, then ask for the next one.
     current.current = null;

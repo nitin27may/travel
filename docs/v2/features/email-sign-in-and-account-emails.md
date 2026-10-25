@@ -352,7 +352,8 @@ the card shows less; the full address stays in the "Change" field.
 ### 3.4 Accessibility and budgets
 
 - Real `<form>` per step; Enter submits; labels on every field; errors tied with `aria-describedby`; the step heading
-  receives focus on change; reduced motion swaps steps without animation (P5).
+  receives focus on change, except on the code step, where focus goes into the code field because paste and autofill need
+  field focus (the field describes the lead and the masked address, and messages go through the card's live region; EML-R S1); reduced motion swaps steps without animation (P5).
 - Targets 44 px (`--touch-min`) at 390 px; no horizontal scroll at 320 px.
 - The card stays inside the lazy auth chunk (`AuthFormLazy.tsx`): public start JS +0 B; `budget.test.ts` and
   `place-size.test` unchanged (P8, P9). Turnstile loads only on the sign-in pages, on the first focus of the email
