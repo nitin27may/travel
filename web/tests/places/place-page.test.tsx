@@ -104,7 +104,9 @@ describe('every kind has its own facts and an honest empty line, never a blank',
     });
   }
   it('a sight with no hours says so', () => {
-    expect(html('million-dollar-highway')).toContain('Not checked yet: hours');
+    // Any place whose capture record is still open will do. million-dollar-highway was the fixture until its record was completed (DATA-D2b-us).
+    const slug = data.internals.places.find((p) => html(p.slug).includes('Not checked yet: hours'))?.slug;
+    expect(slug, 'no place page says "Not checked yet: hours"').toBeDefined();
   });
   it('an area lists the places inside it as rows', () => {
     expect(html('capri')).toContain('Places in Capri');
