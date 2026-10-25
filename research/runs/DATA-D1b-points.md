@@ -306,3 +306,14 @@ those logs were not mine; the final runs used unique log names.
   359 pages now have no point, against the pinned 58) ends **CHECK-ALL OK**: Python 267 passed, core 1990 passed, every data,
   capture, budget, towns, near-town, validate, suitability, relevance, sources, snapshot, hard-code and folder-contract stage,
   web typecheck, lint, build, web tests 1822 passed, server answers, OpenAPI, slugs.
+
+## Integration (25 Oct 2026, `public/DATA-D1b-integrate`)
+
+Model: Claude Sonnet 5.5. `main` merged into the branch with no conflicts. Two pins followed the data: the placement test now removes
+the point of the real Berg Lake trail in a scratch copy of `data/` so the "track start" hint rule stays under test, and the point
+join test pins 38 pages with no point, 25 of them trails (was 58 and 45). The Fanes start in `data/tracks/inputs.json` moved from
+Pian de Loa to the park information point (OSM node 470623991) and `web/scripts/tracks-osm.mjs --only fanes-falls --refresh` re-cut the
+track: 2.48 km, +165 m (was 1.41 km). It stays unconfirmed: relation 1641053 ends 602 m from the information point, so a full 3.5 km
+track needs a second OSM way or relation in `inputs.json` (a decision for the owner or the researcher). The folder-contract failure
+for `web/.og-cache` is the fresh worktree only (copied from the main checkout). `bash tools/check-all.sh` ended CHECK-ALL OK
+(Python 265, core 1992, web 1827 tests).

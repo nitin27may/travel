@@ -62,7 +62,7 @@ listed was checked against this page on 25 Oct and corrected where it was out of
 | Batch | What | State | Branch / worktree | Owner | Model | Effort | Depends on | Acceptance check | Next action | Prompt |
 |---|---|---|---|---|---|---|---|---|---|---|
 | D1 | Points for the 84 records with none | **merged** (`public/DATA-D1`, integrated by `public/DATA-D1-integrate`) | `v2-DATA-D1`, `v2-DATA-D1-integrate` (frozen) | travel-researcher | ran on Sonnet (brief said Opus) | 6 h | META-1 | `W_PLACE_POINT` 84 to 6; `E_PLACE_FAR` 0 | none; D1b reviews its rulings on Opus | D1 (marked done) |
-| D1b | Points follow-up: 6 with none, 41 `approx`, 3 payoff parts, Fanes track, 5 operator questions, 3 conflicts, 20-point check | **in progress** (another agent; only before-snapshots, no commits) | `v2-DATA-D1b`, `public/DATA-D1b` | travel-researcher | Opus | about 4 h (planner estimate) | D1 merged (yes) | `W_PLACE_POINT` at most 6, each a dated search; approx points down from 41, trailheads and meeting points first; 18 of 20 sampled points within 100 m | let it finish; coordinator merges, re-runs `gaps --placement` and updates section 1 | D1b |
+| D1b | Points follow-up: 6 with none, 41 `approx`, 3 payoff parts, Fanes track, 5 operator questions, 3 conflicts, 20-point check | **done** (`public/DATA-D1b`, integrated by `public/DATA-D1b-integrate`, 25 Oct; five decisions open in the run note; merge to main waits for the coordinator) | `v2-DATA-D1b`, `public/DATA-D1b` | travel-researcher | Opus | about 4 h (planner estimate) | D1 merged (yes) | `W_PLACE_POINT` at most 6, each a dated search; approx points down from 41, trailheads and meeting points first; 18 of 20 sampled points within 100 m | let it finish; coordinator merges, re-runs `gaps --placement` and updates section 1 | D1b |
 | D2b (DATA-LOC L2) | Basics tier for the 74 stored places | not started | `v2-DATA-D2b`, `public/DATA-D2b` | travel-researcher | Opus | about 6 h | L1; D1b (frees `points.json` and the Wikidata lock) | every place has each basics layer or `searched_none`; `basics --report` before and after | wait for L1 and D1b | D2b (added 25 Oct) |
 | L1 (DATA-LOC tools) | `quick-add`, `basics --report`, `edit` flags, the trip-less lane | not started | `v2-DATA-LOC-L1`, `public/DATA-LOC-L1` | travel-builder | Opus (capture contract) | about 5 h | none | commands work; a `wishlist` record validates; no count changes | start on the owner's go (DD-7); lane id kept renameable (DD-8) | L1 (added 25 Oct) |
 | L3 (DATA-LOC photos) | Photos for the 74, wider sources | not started | with D5a/D5b runner | travel-researcher | Opus picks, Haiku runs | in D5b's 12 h | `tools/gallery/` Openverse and Geograph support (builder, not yet briefed); DD-3 | every place has a licensed photo or "No licensed photo yet" with a date | wait for DD-3 and D1b | D5a/D5b rules apply |
@@ -96,7 +96,7 @@ flowchart LR
   D1["D1 points<br/>merged"]:::done
   BANFF["Rockies bases research<br/>done (DATA-L1)"]:::done
   D6A["D6a seasons<br/>done, not merged"]:::done
-  D1B["D1b points follow-up<br/>in progress"]:::batch
+  D1B["D1b points follow-up<br/>done"]:::batch
   D3A["D3a trail facts"]:::batch
   D4A["D4a activities"]:::batch
   D7R["D7-R Rockies windows"]:::batch
