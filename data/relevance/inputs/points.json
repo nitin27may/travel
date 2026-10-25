@@ -481,6 +481,12 @@
       "coord_src": "osm",
       "point_source": "OSM way 459887166 Beauvais Lake Provincial Park - Day Use Parking (legacy trailhead: Beauvais Lake day use); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
     },
+    "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail": {
+      "lat": 53.04984,
+      "lon": -119.21545,
+      "coord_src": "osm",
+      "point_source": "OSM way 1185166549 (amenity=parking) at the end of Kinney Lake Road (way 157610641 ends 120 m south-west), where the Berg Lake Trail ways (157610634, relation 6035635 operator BCParks) start; BC Parks https://bcparks.ca/mount-robson-park/berg-lake-trail/ says the trail begins at the end of Kinney Lake Road; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake": {
       "lat": 51.16816,
       "lon": -115.73106,
@@ -552,6 +558,12 @@
       "lon": -115.58261,
       "coord_src": "osm",
       "point_source": "OSM node 4218161190 (tourism=attraction, Fenland Trail), at the trail by the townsite; agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/fryatt-valley": {
+      "lat": 52.64889,
+      "lon": -117.89998,
+      "coord_src": "osm",
+      "point_source": "OSM node 2520427794, where Fryatt Trail (way 244769982, operator Parks Canada, ref 122) leaves Geraldine Fire Road; the road is 2.1 km long from 93A to this node and runs on 3.3 km beyond it, as Parks Canada's Geraldine page says ('continue for 6 km, 3.3 km beyond the Fryatt trailhead'); the Fryatt page says 'continue for 2 km'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper": {
       "lat": 51.08122,
@@ -1915,6 +1927,18 @@
       "coord_src": "osm",
       "point_source": "OSM node 12697849001 Laguna Capri (tourism=attraction); Wikidata Q124360343 P625 -49.3049,-72.936 agrees within 10 m; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
     },
+    "trip/patagonia-2027/trail:laguna de los tres": {
+      "lat": -49.32028,
+      "lon": -72.89496,
+      "coord_src": "osm",
+      "point_source": "OSM node 7069713837 (highway=trailhead) at the north end of El Chalten, beside the board 'Senda al Fitz Roy' (node 11638941575) and 'Sendero Monte Fitz Roy' (node 11240129505); the park leaflet (folleto senderos zona norte PNLG 2024) puts Laguna de los Tres on the Fitz Roy path, 2 km from the APN visitor centre to the start of the path; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+    },
+    "trip/patagonia-2027/trail:laguna esmeralda": {
+      "lat": -54.72185,
+      "lon": -68.12195,
+      "coord_src": "osm",
+      "point_source": "OSM way 567999991 (amenity=parking) beside Ruta Nacional 3 at the start of the Sendero Laguna Esmeralda ways and relation 8861474; the Ushuaia tourism office page https://turismoushuaia.com/actividad/laguna-esmeralda/ says the path starts 18 km from Ushuaia on RN 3, at a large car park beside the road; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+    },
     "trip/patagonia-2027/viewpoint:evening fitz roy glow": {
       "lat": -49.33141,
       "lon": -72.88613,
@@ -2028,6 +2052,12 @@
       "lon": -109.92925,
       "coord_src": "wikidata",
       "point_source": "Q1409370 P625"
+    },
+    "trip/utah-five-parks/trail:windows section": {
+      "lat": 38.68711,
+      "lon": -109.53664,
+      "coord_src": "osm",
+      "point_source": "OSM node 4835435421 The Windows Trailhead (highway=trailhead), 20 m from the board 'Windows Trails' (node 7921541650); NPS https://www.nps.gov/places/the-windows-section-trailhead.htm lists parking and a trailhead at the Windows Section; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "trip/utah-five-parks/viewpoint:bryce amphitheatre rim": {
       "lat": 37.62637,

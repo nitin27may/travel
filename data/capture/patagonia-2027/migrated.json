@@ -270,6 +270,22 @@
       "ref": "trip/patagonia-2027/trail:laguna de los tres",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ar-z-el-chalten",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6690180, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 1.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Laguna de los Tres",
       "reaches": [
         "part/trip/patagonia-2027/trail:laguna de los tres#payoff"
@@ -800,6 +816,22 @@
       "ref": "trip/patagonia-2027/trail:laguna esmeralda",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ar-v-ushuaia",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3833367, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 15.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Laguna Esmeralda",
       "reaches": [
         "part/trip/patagonia-2027/trail:laguna esmeralda#payoff"

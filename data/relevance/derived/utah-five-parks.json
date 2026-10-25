@@ -754,6 +754,14 @@
       "substitutes": {
         "near": [
           {
+            "ref": "trip/utah-five-parks/trail:windows section",
+            "km": 7.1,
+            "draw": "national",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
             "ref": "trip/utah-five-parks/trail:devils garden",
             "km": 12,
             "draw": "regional",
@@ -768,6 +776,14 @@
             "km": 50.7,
             "draw": "national",
             "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:windows section",
+            "km": 7.1,
+            "draw": "national",
+            "standing": "good",
             "access_cost": [],
             "family_effort": null
           },
@@ -845,6 +861,14 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:windows section",
+            "km": 14.6,
+            "draw": "national",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
           }
         ],
         "area": [
@@ -861,6 +885,14 @@
             "km": 51.1,
             "draw": "national",
             "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:windows section",
+            "km": 14.6,
+            "draw": "national",
+            "standing": "good",
             "access_cost": [],
             "family_effort": null
           },
@@ -917,12 +949,63 @@
       "draw_suggested": "local",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 32,
+      "detour_basis": "town",
+      "detour_town": "Moab",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/trail:delicate arch trail",
+            "km": 7.1,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:devils garden",
+            "km": 14.6,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/trail:delicate arch trail",
+            "km": 7.1,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:mesa arch",
+            "km": 43.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:devils garden",
+            "km": 14.6,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:upheaval dome",
+            "km": 44.9,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
       "pair_with": [],
@@ -941,7 +1024,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 32 min is over 30"
         }
       },
       "role": "highlight",
@@ -953,12 +1036,7 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "layer": "route",
       "route_is_attraction": true
     },
@@ -988,6 +1066,14 @@
             "km": 50.7,
             "draw": "world",
             "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:windows section",
+            "km": 43.8,
+            "draw": "national",
+            "standing": "good",
             "access_cost": [],
             "family_effort": null
           },
@@ -1081,6 +1167,14 @@
             "km": 7,
             "draw": "national",
             "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:windows section",
+            "km": 44.9,
+            "draw": "national",
+            "standing": "good",
             "access_cost": [],
             "family_effort": null
           },

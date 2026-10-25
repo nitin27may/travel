@@ -652,6 +652,22 @@
       "ref": "trip/utah-five-parks/trail:windows section",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "us-ut-moab",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5543307, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 12.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Windows section",
       "route_is_attraction": true,
       "attraction_reason": "A short loop under three arches: the loop is the experience.",

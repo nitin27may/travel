@@ -5737,6 +5737,22 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-bc-valemount",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6173031, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 24.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Berg Lake Trail"
     },
     {
@@ -5877,6 +5893,22 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-jasper",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6354954, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 28.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Fryatt Valley"
     },
     {

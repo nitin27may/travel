@@ -1,0 +1,1 @@
+OK: the generated capture files match data/vocab/types.json
