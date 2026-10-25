@@ -1,0 +1,1887 @@
+{
+  "schema": "suitability/1",
+  "trip": "catalogue",
+  "lane": "R9-ca",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.quebec-cite.com/en/businesses/parc-de-la-chute-montmorency",
+      "title": "Parc de la Chute-Montmorency - Visit Québec City",
+      "publisher": "Visiter Québec (Québec City tourism office)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://canyonsa.qc.ca/en/rates-and-schedule/",
+      "title": "Opening hours, admission and rates - Canyon Sainte-Anne",
+      "publisher": "Canyon Sainte-Anne",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://canyonsa.qc.ca/en/le-canyon/",
+      "title": "The canyon - Canyon Sainte-Anne",
+      "publisher": "Canyon Sainte-Anne",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.quebec-cite.com/index.php/fr/entreprises/canyon-sainte-anne",
+      "title": "Canyon Sainte-Anne - Visiter Québec",
+      "publisher": "Visiter Québec (Québec City tourism office)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.lemassif.com/en/activities-events/charlevoix-attractions/hiking-trails-charlevoix",
+      "title": "Hiking Trails Charlevoix - Le Massif de Charlevoix",
+      "publisher": "Le Massif de Charlevoix",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.lemassif.com/en/the-mountain/summer-fall/mountain-schedule-summerfall-2026",
+      "title": "Mountain Schedule - Summer/Fall 2026",
+      "publisher": "Le Massif de Charlevoix",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://parks.canada.ca/pn-np/qc/forillon/activ/randonnee-hiking",
+      "title": "Hiking - Forillon National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://parks.canada.ca/pn-np/qc/forillon/visit/tarifs-fees",
+      "title": "Fees - Forillon National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://parks.canada.ca/pn-np/qc/forillon/visit/heures-hours",
+      "title": "Dates and hours of operation - Forillon National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://parks.canada.ca/pn-np/qc/forillon/visit/accessibilite-accessibility",
+      "title": "Accessibility - Forillon National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.canada.ca/fr/parcs-canada/nouvelles/2026/01/le-gouvernement-du-canada-designe-un-phare-patrimonial-en-gaspesie.html",
+      "title": "Le gouvernement du Canada désigne un phare patrimonial en Gaspésie (28 janvier 2026)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://medias.baliseqc.ca/upload/pap/PaP_SNQ_ParcNationalGaspesie_Xalibu_1j_3S.pdf",
+      "title": "Mont Xalibu, Parc national de la Gaspésie (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.terfa.ca/fr/terfa/canyon-des-portes-de-l-enfer/",
+      "title": "Canyon des Portes de l'Enfer - Terfa",
+      "publisher": "Terfa",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://www.bonjourquebec.com/fr/repertoire/quoi-faire/terfa-canyon-des-portes-de-l-enfer/0q5x",
+      "title": "TERFA - Canyon des Portes de l'Enfer - Bonjour Québec",
+      "publisher": "Bonjour Québec (Tourisme Québec)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://www.terfa.ca/fr/plein-air/tarifs/",
+      "title": "Heures d'ouverture et tarifs - Canyon des Portes de l'Enfer",
+      "publisher": "Terfa",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE06_ParcNationalBic_Murailles_1j.pdf",
+      "title": "Sentier Les Murailles, Parc national du Bic (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE32_Bonaventure_Boucle_1j.pdf",
+      "title": "Boucle secteur Île-Bonaventure (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://geoparcdeperce.com/",
+      "title": "Géoparc de Percé",
+      "publisher": "Géoparc de Percé",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/montmorency-falls",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-25",
+          "note": "No age limit for viewing; the 487-step panoramic staircase is the effortful option, the cable car and belvedere are the easy ones (Visiter Québec)."
+        },
+        "kid_note": "The belvedere and the suspended bridge at the top are the short way to the falls; the panoramic staircase has 487 steps. Check which lot is free before you park.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-25",
+          "note": "No rule against carriers found; the staircase is optional."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Visiter Québec listing",
+            "Rando Québec page (2013)"
+          ],
+          "note": "Neither page describes the path surface."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-25",
+          "quote": "Access for Mobility Impaired People : Partial",
+          "note": "Visiter Québec rates mobility access Partial."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-25",
+              "tried": [
+                "Visiter Québec listing",
+                "Rando Québec page (2013)",
+                "OSM"
+              ],
+              "note": "No page gives the walk from a lot to the falls."
+            }
+          }
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-25",
+          "note": "Our estimate for the falls, bridge and belvedere without the staircase; no page states a visit time.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "cliff-edge belvederes and the suspended bridge"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-25",
+          "note": "Cliff-edge viewing structures; railings are not described on the pages read."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Visiter Québec listing",
+            "Rando Québec page (2013)"
+          ],
+          "note": "No distance from a lot to the falls is published."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "closed 25 December; cable car and activities follow their own calendars"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-25",
+          "quote": "the site is accessible all year round. Closed on December 25.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/canyon-sainte-anne",
+      "kind": "waterfall",
+      "subkind": "canyon",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "note": "Children 0 to 5 enter free with an adult; the Air Canyon ride needs 107 cm. No age limit on the trail."
+        },
+        "kid_note": "Plan at least an hour. The Canyon Trail runs 2.2 km from the summit to the canyon floor over three suspension bridges, so the way back is uphill; the Pétraminis trail (1 km) has ground-level play modules for children.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "read": "2026-10-25",
+          "note": "No rule against carriers found on the operator pages; bridges and stairs are part of the trail."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "canyonsa.qc.ca rates page",
+            "canyonsa.qc.ca canyon page"
+          ],
+          "note": "The pages do not say whether strollers are allowed on the trail."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-25",
+          "quote": "Accès pour personnes à mobilité réduite : Accessibilité partielle"
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 2.2,
+              "state": "value",
+              "basis": "operator_info",
+              "src": [
+                "src-0003"
+              ],
+              "read": "2026-10-25",
+              "quote": "Canyon Trail (2.2 km)"
+            }
+          }
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            120
+          ],
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "quote": "Please allow at least 60 minutes to visit the site",
+          "note": "60 minutes is the operator's minimum; the upper bound is our estimate for the trail plus lookouts."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "suspension bridges, the highest 60 m above the canyon floor"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "read": "2026-10-25",
+          "note": "Bridge height is stated by the operator; railings and fencing are not described."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "canyonsa.qc.ca rates page",
+            "canyonsa.qc.ca canyon page"
+          ],
+          "note": "No distance from the car park to the trailhead is published."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-07",
+              "to": "10-25",
+              "status": "open",
+              "via": "road",
+              "note": "hours 09:00-16:00 until 23 Jun, 09:00-17:00 24 Jun to 7 Sep, 09:00-16:00 from 8 Sep; open on public holidays"
+            }
+          ],
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "quote": "May 7 to June 23 : 9 a.m. to 4 p.m.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": 2.2,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/le-buton-lookout-le-massif-de-charlevoix",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-25",
+          "note": "Easy 2 km loop, 45 minutes, plus or minus 60 m (operator)."
+        },
+        "kid_note": "Le Buton is an easy 2 km loop of about 45 minutes from the summit; picnic spot with a 360-degree view. Trails and lifts run 20 June to 12 October 2026.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Le Massif hiking trails page",
+            "Le Massif Le Buton page"
+          ],
+          "note": "Surface and width of the Le Buton trail are not described."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Le Massif hiking trails page",
+            "Le Massif Le Buton page"
+          ],
+          "note": "Accessibility of the lookout is not stated."
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            75
+          ],
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-25",
+          "quote": "Le Buton 2 km Loop 45 min Easy",
+          "note": "45 minutes is the operator's loop time; the upper bound is our allowance for the view."
+        },
+        "exposure": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Le Massif Le Buton page"
+          ],
+          "note": "The page does not describe edges or railings."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Le Massif Le Buton page",
+            "Le Massif hiking trails page"
+          ],
+          "note": "The page says the lookout is near the summit parking but gives no distance."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "06-20",
+              "to": "10-12",
+              "status": "open",
+              "via": "road",
+              "note": "hiking daily 09:30-16:30; lifts 10:00-16:00; gondola ticket needed only if you ride"
+            }
+          ],
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-25",
+          "quote": "Hiking June 20 to October 12, every day 9:30 a.m. to 4:30 p.m.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "place/cap-bon-ami",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "A cape viewpoint with no stated limit; the Mont-Saint-Alban trail from here is steep for the first kilometre."
+        },
+        "kid_note": "Cap-Bon-Ami is also the start of the Mont-Saint-Alban trail (steep first kilometre). Dogs must be on a leash in the whole park.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Parks Canada Forillon hiking page",
+            "Parks Canada Forillon accessibility page"
+          ],
+          "note": "Neither page describes the path to the viewing point."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Parks Canada Forillon accessibility page"
+          ],
+          "note": "The accessibility page lists the North Area and Penouille; Cap-Bon-Ami is not mentioned."
+        },
+        "on_site_min": {
+          "v": [
+            20,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "Our estimate for a cape viewpoint; no page states a visit time.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "sea cliffs"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "A cape with sea cliffs; fencing is not described on the pages read."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Parks Canada Forillon hiking page"
+          ],
+          "note": "No distance from the lot to the viewing point is published."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-30",
+              "to": "10-13",
+              "status": "open",
+              "via": "road",
+              "note": "2026 operating season: the fee periods run 30 May to 13 Oct"
+            },
+            {
+              "from": "10-14",
+              "to": "12-31",
+              "status": "limited",
+              "via": "road",
+              "note": "park accessible all year but trails and facilities are not maintained off season; gates close after the first snow"
+            },
+            {
+              "from": "01-01",
+              "to": "05-29",
+              "status": "limited",
+              "via": "road",
+              "note": "same off-season rule"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008",
+            "src-0009"
+          ],
+          "read": "2026-10-25",
+          "quote": "the park remains accessible all year round. Hiking trails and infrastructures are not maintained during off-season",
+          "note": "Fee periods 30 May to 24 Jun and 2 Sep to 13 Oct (shoulder) and 25 Jun to 1 Sep (peak).",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/cap-gaspe",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 6,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "6.4 km round trip, 172 m gain, 1.5 to 2.5 hours on the gravel road (park page); no source gives an age."
+        },
+        "kid_note": "The gravel road from L'Anse-aux-Amérindiens is the easier way (6.4 km round trip, bikes allowed); the trail is 8 km round trip with 310 m gain. The lighthouse stands on a 95 m cliff.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Parks Canada Forillon hiking page"
+          ],
+          "note": "The page does not describe the gravel road's suitability for strollers."
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007",
+            "src-0010"
+          ],
+          "read": "2026-10-25",
+          "note": "A 3.2 km one-way gravel road with 172 m gain and no accessibility listing."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 6.4,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0007"
+              ],
+              "read": "2026-10-25",
+              "quote": "Length: 6,4 km (round trip)"
+            },
+            "gain_m": {
+              "v": 172,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0007"
+              ],
+              "read": "2026-10-25",
+              "quote": "Elevation gain: 172 m"
+            }
+          }
+        },
+        "on_site_min": {
+          "v": [
+            90,
+            150
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "quote": "Duration: 1.5 - 2.5 hrs",
+          "note": "The page's round-trip walking time on the gravel road; time at the cape is not added."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "the lighthouse stands on a 95 m cliff"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "Cliff height is stated; railings are not described."
+        },
+        "walk_m": {
+          "v": 3200,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "Half of the 6.4 km round trip on the gravel road (park page)."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-30",
+              "to": "10-13",
+              "status": "open",
+              "via": "trail",
+              "note": "2026 operating season: the fee periods run 30 May to 13 Oct"
+            },
+            {
+              "from": "10-14",
+              "to": "12-31",
+              "status": "limited",
+              "via": "trail",
+              "note": "park accessible all year but trails and facilities are not maintained off season; gates close after the first snow"
+            },
+            {
+              "from": "01-01",
+              "to": "05-29",
+              "status": "limited",
+              "via": "trail",
+              "note": "same off-season rule"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008",
+            "src-0009"
+          ],
+          "read": "2026-10-25",
+          "quote": "the park remains accessible all year round. Hiking trails and infrastructures are not maintained during off-season",
+          "note": "Fee periods 30 May to 24 Jun and 2 Sep to 13 Oct (shoulder) and 25 Jun to 1 Sep (peak).",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": 6.4,
+        "walk_gain_m": 172,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/mont-saint-alban",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 6,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "3.6 km round trip with 325 m gain (park page); the first kilometre from Cap-Bon-Ami is steep. No source gives an age."
+        },
+        "kid_note": "Shortest way is from Cap-Bon-Ami: 3.6 km there and back to the tower, 1.5 to 2 hours, steep first kilometre. From Petit-Gaspé the slope is gentler (5.3 km, 282 m gain).",
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "A steep forest trail with 325 m gain; the park page calls the first kilometre quite difficult."
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007",
+            "src-0010"
+          ],
+          "read": "2026-10-25",
+          "note": "A steep forest trail; the park's accessibility page lists no access to this summit."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 3.6,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0007"
+              ],
+              "read": "2026-10-25",
+              "quote": "Length: 7.9 km (loop); 3.6 km (tower and back)",
+              "note": "Tower and back from Cap-Bon-Ami."
+            },
+            "gain_m": {
+              "v": 325,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0007"
+              ],
+              "read": "2026-10-25",
+              "quote": "421 m (loop); 325 m (tower and back)"
+            }
+          }
+        },
+        "on_site_min": {
+          "v": [
+            90,
+            120
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "quote": "1.5 - 2 hrs (tower and back)"
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "observation tower and cliff viewpoints"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "The page mentions viewpoints and a tower; railings are not described."
+        },
+        "walk_m": {
+          "v": 1800,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "Half of the 3.6 km tower-and-back route from Cap-Bon-Ami (park page)."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-30",
+              "to": "10-13",
+              "status": "open",
+              "via": "trail",
+              "note": "2026 operating season: the fee periods run 30 May to 13 Oct"
+            },
+            {
+              "from": "10-14",
+              "to": "12-31",
+              "status": "limited",
+              "via": "trail",
+              "note": "park accessible all year but trails and facilities are not maintained off season; gates close after the first snow"
+            },
+            {
+              "from": "01-01",
+              "to": "05-29",
+              "status": "limited",
+              "via": "trail",
+              "note": "same off-season rule"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008",
+            "src-0009"
+          ],
+          "read": "2026-10-25",
+          "quote": "the park remains accessible all year round. Hiking trails and infrastructures are not maintained during off-season",
+          "note": "Fee periods 30 May to 24 Jun and 2 Sep to 13 Oct (shoulder) and 25 Jun to 1 Sep (peak).",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": 3.6,
+        "walk_gain_m": 325,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/la-martre-lighthouse",
+      "kind": "sight",
+      "subkind": "landmark",
+      "suitability": {
+        "kid_note": "A 19 m octagonal red tower built in 1906 on the south shore of the St. Lawrence; opening dates and admission were not found, so check before a detour.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Parks Canada news release of 28 Jan 2026"
+          ],
+          "note": "No page read describes the grounds."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Parks Canada news release of 28 Jan 2026"
+          ],
+          "note": "No page read describes access."
+        },
+        "on_site_min": {
+          "v": [
+            15,
+            45
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-25",
+          "note": "Our estimate for a roadside lighthouse; no page states a visit time.",
+          "estimate": true
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/lac-aux-americains",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Mont Xalibu sheet",
+            "sepaq.com (403 challenge)"
+          ],
+          "note": "The lake trail's length and grade are not published on a page that could be read."
+        },
+        "kid_note": "The trail to the lake starts at the 40-place car park, 8.1 km from the Mont-Albert discovery centre; the lake is at least 1.6 km from the car park in a straight line. The trail length itself was not found.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Mont Xalibu sheet",
+            "sepaq.com (403 challenge)"
+          ],
+          "note": "No page read describes the lake trail's surface."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Mont Xalibu sheet",
+            "sepaq.com (403 challenge)"
+          ],
+          "note": "No page read gives accessibility for the lake."
+        },
+        "on_site_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Mont Xalibu sheet"
+          ],
+          "note": "No visit time for the lake alone is published."
+        },
+        "walk_m": {
+          "v": 1570,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25",
+          "note": "Straight line between the car park point (48.9546,-66.0432, Rando Québec) and the lake point (48.95583,-66.02167, Wikidata); the real trail is longer."
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Mont Xalibu sheet (gives 1 July to 30 September for the Xalibu route only)",
+            "sepaq.com (403 challenge)"
+          ],
+          "note": "The lake trail's own dates are not published on a page read; the sheet says the car park is used three seasons."
+        }
+      },
+      "ext": {
+        "kind": "water"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "place/canyon-des-portes-de-lenfer",
+      "kind": "waterfall",
+      "subkind": "canyon",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "read": "2026-10-25",
+          "quote": "réseau de sentiers pédestres, totalisant plus de 20 km et accessible à tous",
+          "note": "The operator describes its network as accessible to all; children 0 to 4 enter free."
+        },
+        "kid_note": "More than 20 km of trails; the Grand Sault falls and the suspension footbridge come first. The 300-step Descente aux Enfers is closed after a rockfall. Dogs on a leash are allowed except on the immersive trails and the labyrinth.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0013"
+          ],
+          "read": "2026-10-25",
+          "note": "No rule against carriers found on the operator pages."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "terfa.ca canyon page",
+            "terfa.ca rates page"
+          ],
+          "note": "The pages do not describe path surfaces."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ],
+          "read": "2026-10-25",
+          "quote": "Accessible aux personnes à mobilité réduite",
+          "note": "The provincial tourism listing says accessible to people with reduced mobility; the extent is not stated, so partial."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-25",
+              "tried": [
+                "terfa.ca canyon page",
+                "bonjourquebec.com listing"
+              ],
+              "note": "The walk to the falls and footbridge is not given; only the 20 km network total."
+            }
+          }
+        },
+        "on_site_min": {
+          "v": [
+            120,
+            240
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0013"
+          ],
+          "read": "2026-10-25",
+          "note": "Our estimate for the falls, footbridge and a few trails; no page states a visit time.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "Québec's highest suspension footbridge over the canyon"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0013"
+          ],
+          "read": "2026-10-25",
+          "note": "The footbridge height is the operator's headline; railings are not described."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "terfa.ca canyon page",
+            "bonjourquebec.com listing"
+          ],
+          "note": "The listing says parking is on site; no distance to the trails is given."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-16",
+              "to": "10-11",
+              "status": "open",
+              "via": "road",
+              "note": "09:00-17:00, 09:00-18:00 from 4 Jul to 23 Aug"
+            },
+            {
+              "from": "10-12",
+              "to": "10-31",
+              "status": "limited",
+              "via": "road",
+              "note": "09:00-16:00 and only when the weather is good; phone first"
+            }
+          ],
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0015",
+            "src-0013"
+          ],
+          "read": "2026-10-25",
+          "quote": "Saison 2026 le site est accessible du 16 mai à la fin octobre.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/mont-xalibu",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 10,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25",
+          "note": "11.4 km return, 648 m gain, rated advanced (Rando Québec); no source gives an age."
+        },
+        "kid_note": "Advanced route: 11.4 km return, 648 m gain, 5 to 6 hours, above the tree line. The route is closed outside 1 July to 30 September and dogs are banned.",
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25",
+          "note": "An advanced mountain route with 648 m gain."
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25",
+          "note": "An advanced mountain route."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 11.4,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0012"
+              ],
+              "read": "2026-10-25",
+              "quote": "1 JOUR — 11,4 KM NIVEAU AVANCÉ"
+            },
+            "gain_m": {
+              "v": 648,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0012"
+              ],
+              "read": "2026-10-25",
+              "quote": "DÉNIVELÉ 648 M"
+            }
+          }
+        },
+        "on_site_min": {
+          "v": [
+            300,
+            360
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25",
+          "quote": "DURÉE 5 À 6 HEURES"
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "alpine tundra above the tree line"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25",
+          "note": "Terrain above the tree line is described; edges are not."
+        },
+        "walk_m": {
+          "v": 5700,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25",
+          "note": "Half of the 11.4 km return route (Rando Québec sheet)."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "07-01",
+              "to": "09-30",
+              "status": "open",
+              "via": "trail"
+            },
+            {
+              "from": "10-01",
+              "to": "12-31",
+              "status": "closed",
+              "via": "trail",
+              "note": "closed to protect the caribou"
+            },
+            {
+              "from": "01-01",
+              "to": "06-30",
+              "status": "closed",
+              "via": "trail",
+              "note": "closed to protect the caribou"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25",
+          "quote": "sentier accessible seulement du 1er juillet au 30 septembre"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "strong-kid",
+        "accessibility": "none",
+        "walk_km": 11.4,
+        "walk_gain_m": 648,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/pic-champlain",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0016"
+          ],
+          "read": "2026-10-25",
+          "note": "7.7 km return, 370 m gain, rated intermediate with a gradual climb (Rando Québec); no source gives an age."
+        },
+        "kid_note": "Les Murailles is an intermediate 7.7 km return trail, about 4 hours, under forest cover with a few views. Dogs on a leash are not allowed on this sheet's trail. Toilets at the trailhead.",
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0016"
+          ],
+          "read": "2026-10-25",
+          "note": "A forest trail with 370 m gain over 3.85 km."
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0016"
+          ],
+          "read": "2026-10-25",
+          "note": "A forest hiking trail; no accessibility listing."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 7.7,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0016"
+              ],
+              "read": "2026-10-25",
+              "quote": "1 JOUR — 7,7 KM NIVEAU INTERMÉDIAIRE",
+              "note": "Return trip."
+            },
+            "gain_m": {
+              "v": 370,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0016"
+              ],
+              "read": "2026-10-25",
+              "quote": "DÉNIVELÉ 370 M"
+            }
+          }
+        },
+        "on_site_min": {
+          "v": [
+            240,
+            300
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0016"
+          ],
+          "read": "2026-10-25",
+          "quote": "DURÉE ENVIRON 4 H",
+          "note": "Walking time; the upper bound adds time at the summit."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "summit viewpoint"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0016"
+          ],
+          "read": "2026-10-25",
+          "note": "Summit views are described; edges are not."
+        },
+        "walk_m": {
+          "v": 3850,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0016"
+          ],
+          "read": "2026-10-25",
+          "note": "Half of the 7.7 km return trail (Rando Québec sheet)."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-15",
+              "to": "11-30",
+              "status": "open",
+              "via": "trail",
+              "note": "recommended period mid-May to end of November"
+            },
+            {
+              "from": "12-01",
+              "to": "12-31",
+              "status": "closed",
+              "via": "trail",
+              "note": "closed in winter"
+            },
+            {
+              "from": "01-01",
+              "to": "04-30",
+              "status": "closed",
+              "via": "trail",
+              "note": "closed in winter"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0016"
+          ],
+          "read": "2026-10-25",
+          "quote": "fermé en hiver (début décembre à fin avril)"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "strong-kid",
+        "accessibility": "none",
+        "walk_km": 7.7,
+        "walk_gain_m": 370,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/mont-saint-pierre",
+      "kind": "town",
+      "subkind": "village",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "montsaintpierre.ca practical information",
+            "montsaintpierre.ca access and parking"
+          ],
+          "note": "The village pages do not describe paving or path surfaces."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "montsaintpierre.ca practical information",
+            "montsaintpierre.ca access and parking"
+          ],
+          "note": "The pages do not state step-free access."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/bonaventure-island",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 6,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0017"
+          ],
+          "read": "2026-10-25",
+          "note": "A boat trip then an 8.4 km loop with 370 m gain over 3 hours (Rando Québec); no source gives an age."
+        },
+        "kid_note": "Plan about 3 hours on the island excluding the boat (1 hour cruise around the park before landing, about 15 minutes back to the quay). Access depends on sea conditions.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Bonaventure sheet"
+          ],
+          "note": "The sheet does not describe path surfaces."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Bonaventure sheet"
+          ],
+          "note": "The sheet does not state accessibility."
+        },
+        "on_site_min": {
+          "v": [
+            180,
+            240
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0017"
+          ],
+          "read": "2026-10-25",
+          "quote": "DURÉE 3 HEURES (EXCLUANT LE TRANSPORT EN BÂTEAU)",
+          "note": "3 hours excludes the boat; the upper bound is our allowance."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "sea cliffs at the gannet colony"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0017"
+          ],
+          "read": "2026-10-25",
+          "note": "A cliff-top colony; fencing is not described."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Bonaventure sheet"
+          ],
+          "note": "The sheet gives the loop (8.4 km) but not the walk from the landing to the colony."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-25",
+              "to": "10-15",
+              "status": "open",
+              "via": "boat",
+              "note": "the sheet says late May to mid-October and that sea conditions decide"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0017"
+          ],
+          "read": "2026-10-25",
+          "quote": "Période recommandée : de la fin mai à la mi-octobre",
+          "note": "Exact 2026 dates were not read.",
+          "estimate": true
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/perce-rock",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "read": "2026-10-25",
+          "note": "Seen from the shore; no limit."
+        },
+        "kid_note": "The rock is viewed from the shore and the village; boat cruises are the way to go around it.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "geoparcdeperce.com"
+          ],
+          "note": "The geopark site does not describe the shore path."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "geoparcdeperce.com"
+          ],
+          "note": "The geopark site does not state accessibility."
+        },
+        "on_site_min": {
+          "v": [
+            15,
+            45
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "read": "2026-10-25",
+          "note": "Our estimate for viewing from the shore.",
+          "estimate": true
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "read": "2026-10-25",
+          "note": "Viewed from the shore; nothing to climb."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "geoparcdeperce.com"
+          ],
+          "note": "No distance from a car park to a viewing point is published."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "a natural landmark seen from the shore; the geopark pavilion lists 10:00-16:00 daily"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "read": "2026-10-25",
+          "note": "A rock in the bay is visible all year; the pavilion hours are the geopark's."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

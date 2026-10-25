@@ -1229,6 +1229,97 @@
       "coord_src": "osm",
       "point_source": "OSM way 204763538 Stowe Recreational Path, its village end (the southernmost vertex of the 30 mapped ways); Town of Stowe https://www.stowevt.gov/Departments/Parks-Recreation/Parks-Facilities/Stowe-Recreation-Path: the path runs 'from Stowe Village to Topnotch Resort'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
       "point_role": "trailhead"
+    },
+    "part/place/montmorency-falls#parking": {
+      "lat": 46.887,
+      "lon": -71.1522,
+      "coord_src": "official",
+      "point_source": "Rando Québec (Balise Québec) 'Point d'accès 46.8870, -71.1522' for Parc de la Chute-Montmorency (page last updated 2013-04-19); read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "parking",
+      "approx": true,
+      "approx_note": "the access point of a Rando Québec page last updated in 2013; the park has several lots (OSM maps 5 within 0.5 km) and no current page names which one is the visitors' lot; confirm on arrival"
+    },
+    "place/le-buton-lookout-le-massif-de-charlevoix": {
+      "lat": 47.28,
+      "lon": -70.61,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q3224379 P625 (Le Massif, the ski resort the lookout belongs to; rounded to 0.01 degree); read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "centre",
+      "approx": true,
+      "approx_note": "the Wikidata point of the Le Massif resort, rounded to 0.01 degree; the lookout is on the summit, near the summit car park (OSM way 302833489 at 47.27688,-70.60973); replace with a lookout node when OSM maps one"
+    },
+    "place/cap-bon-ami": {
+      "lat": 48.8138889,
+      "lon": -64.2222222,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q112836599 P625 (Cap-Bon-Ami sector); OSM viewpoint node 4337214696 'Cap Bon Ami' lies 0.6 km south-east at 48.80899,-64.22014; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "centre",
+      "approx": true,
+      "approx_note": "Wikidata point of the Cap-Bon-Ami sector; the OSM viewpoint node 4337214696 is 0.6 km away; replace if a person confirms the viewing point"
+    },
+    "part/place/cap-bon-ami#parking": {
+      "lat": 48.8102883,
+      "lon": -64.2214655,
+      "coord_src": "osm",
+      "point_source": "OSM way 435827958, an unnamed car park 0.2 km from the OSM Cap Bon Ami viewpoint; the Parks Canada hiking page names Cap-Bon-Ami as a trailhead but gives no lot point; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "parking",
+      "approx": true,
+      "approx_note": "unnamed lot chosen because it is the nearest mapped lot to the Cap-Bon-Ami viewpoint and to the trailhead named by Parks Canada; a person should confirm it on site"
+    },
+    "place/cap-gaspe": {
+      "lat": 48.75,
+      "lon": -64.17,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q112854948 P625 (Cap-Gaspé hamlet, rounded to 0.01 degree); OSM lighthouse node 878547660 lies 0.5 km east at 48.75111,-64.16263; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "centre",
+      "approx": true,
+      "approx_note": "Wikidata hamlet point rounded to 0.01 degree; the cape and lighthouse (OSM nodes 1302243265 and 878547660) are about 0.5 km east; replace with the cape node if a person confirms"
+    },
+    "part/place/cap-gaspe#parking": {
+      "lat": 48.7923787,
+      "lon": -64.225173,
+      "coord_src": "osm",
+      "point_source": "OSM way 710486070, an unnamed car park at L'Anse-aux-Amérindiens, the trailhead the Parks Canada hiking page names for the Les Graves trail to Cap-Gaspé; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "parking",
+      "approx": true,
+      "approx_note": "unnamed lot at the named trailhead; Parks Canada gives no lot point; confirm on site"
+    },
+    "place/mont-saint-alban": {
+      "lat": 48.812613,
+      "lon": -64.227821,
+      "coord_src": "osm",
+      "point_source": "OSM node 1305146822 'Mont Saint-Alban' (natural=peak, ele 280); Wikidata Q98108734 P625 (48.81111,-64.23611) lies 0.6 km south-west and loses to the OSM peak; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "summit"
+    },
+    "part/place/lac-aux-americains#parking": {
+      "lat": 48.9546,
+      "lon": -66.0432,
+      "coord_src": "official",
+      "point_source": "Rando Québec ready-to-go sheet for Mont Xalibu: 'Coordonnées N48.9546, W66.0432', the lac aux Américains car park, 8.1 km from the Mont-Albert discovery centre, 40 places; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "parking"
+    },
+    "place/canyon-des-portes-de-lenfer": {
+      "lat": 48.2611111,
+      "lon": -68.5388889,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q18610901 P625 (Canyon des Portes de l'Enfer); OSM node 2535855281 lies 0.9 km south at 48.24975,-68.53039; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "centre",
+      "approx": true,
+      "approx_note": "Wikidata point; the OSM attraction node is 0.9 km away and neither is a mapped entrance; replace with the site entrance at 1280 chemin Duchénier if a person confirms it"
+    },
+    "part/place/pic-champlain#parking": {
+      "lat": 48.3106,
+      "lon": -68.8698,
+      "coord_src": "official",
+      "point_source": "Rando Québec ready-to-go sheet for Les Murailles: 'Latitude 48.3106, Longitude W-68.8698', Raoul-Roy belvedere car park, 20 places; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "parking"
+    },
+    "part/place/bonaventure-island#parking": {
+      "lat": 48.5228985,
+      "lon": -64.2122777,
+      "coord_src": "osm",
+      "point_source": "OSM relation 8388119, a paid surface car park of 100 places named 'SEPAQ' at the Percé quay; the Rando Québec sheet gives the access point as 48.5214,-64.2126 (0.17 km away) and says parking is paid by the day; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "parking"
     }
   }
 }

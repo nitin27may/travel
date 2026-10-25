@@ -1,0 +1,1973 @@
+{
+  "schema": "relevance/1",
+  "trip": "catalogue",
+  "lane": "R9-ca",
+  "researched": "2026-10-25",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.quebec-cite.com/en/businesses/parc-de-la-chute-montmorency",
+      "title": "Parc de la Chute-Montmorency - Visit Québec City",
+      "publisher": "Visiter Québec (Québec City tourism office)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.quebec-cite.com/index.php/fr/entreprises/canyon-sainte-anne",
+      "title": "Canyon Sainte-Anne - Visiter Québec",
+      "publisher": "Visiter Québec (Québec City tourism office)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://canyonsa.qc.ca/en/le-canyon/",
+      "title": "The canyon - Canyon Sainte-Anne",
+      "publisher": "Canyon Sainte-Anne",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.lemassif.com/en/activities-events/activity-finder/lookout-le-buton",
+      "title": "Le Buton Lookout - Le Massif de Charlevoix",
+      "publisher": "Le Massif de Charlevoix",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://parks.canada.ca/pn-np/qc/forillon/activ/randonnee-hiking",
+      "title": "Hiking - Forillon National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.canada.ca/fr/parcs-canada/nouvelles/2026/01/le-gouvernement-du-canada-designe-un-phare-patrimonial-en-gaspesie.html",
+      "title": "Le gouvernement du Canada désigne un phare patrimonial en Gaspésie (28 janvier 2026)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://medias.baliseqc.ca/upload/pap/PaP_SNQ_ParcNationalGaspesie_Xalibu_1j_3S.pdf",
+      "title": "Mont Xalibu, Parc national de la Gaspésie (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.bonjourquebec.com/fr/repertoire/quoi-faire/terfa-canyon-des-portes-de-l-enfer/0q5x",
+      "title": "TERFA - Canyon des Portes de l'Enfer - Bonjour Québec",
+      "publisher": "Bonjour Québec (Tourisme Québec)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.terfa.ca/fr/terfa/canyon-des-portes-de-l-enfer/",
+      "title": "Canyon des Portes de l'Enfer - Terfa",
+      "publisher": "Terfa",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE06_ParcNationalBic_Murailles_1j.pdf",
+      "title": "Sentier Les Murailles, Parc national du Bic (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://montsaintpierre.ca/informations-pratiques/",
+      "title": "Informations pratiques - Mont-Saint-Pierre",
+      "publisher": "Mont-Saint-Pierre, Station de montagne sur mer",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE32_Bonaventure_Boucle_1j.pdf",
+      "title": "Boucle secteur Île-Bonaventure (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://geoparcdeperce.com/",
+      "title": "Géoparc de Percé",
+      "publisher": "Géoparc de Percé",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/montmorency-falls",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "wikidata": {
+        "v": "Q1946396",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Montmorency Falls', instance of waterfall, P625 within 0.1 km of OSM node 1199354691 'Chute Montmorency'; needs a person's check"
+      },
+      "class_key": "waterfall/giant",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Visiter Québec, the Québec City tourism board, headlines the falls as a destination 'you will not want to miss'; Sépaq-managed park."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The 83 m fall is the region's best-known waterfall (tourism board listing)."
+      },
+      "standing_scope": "Québec City region",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "83 m, 30 m taller than Niagara Falls (tourism board listing); Canyon Sainte-Anne's 74 m fall is the nearest comparable."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Seen from the belvedere and bridge at the top of the falls; OSM maps a belvedere 70 m from the falls."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The listing says it is as spectacular in winter as in summer."
+      },
+      "why": "An 83 m waterfall, 30 m higher than Niagara, 15 minutes from Old Québec.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "No permit or booking to see the falls. Parking: free outdoor lots and paid outdoor lots (Visiter Québec). Cable car and activities are sold separately."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "No designation of its own found on the pages read for this place."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/canyon-sainte-anne",
+      "kind": "waterfall",
+      "subkind": "canyon",
+      "wikidata": {
+        "v": "Q609933",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Canyon Sainte-Anne', instance of canyon, P625 0.2 km from the operator's site at 206 Route 138 Est; needs a person's check"
+      },
+      "class_key": "waterfall/hike-in",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0002",
+          "src-0003"
+        ],
+        "read": "2026-10-25",
+        "note": "Visiter Québec (the tourism board) lists it as a must-see near Québec City; the operator headlines a 74 m waterfall and three suspension bridges."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A paid, managed canyon park with a 74 m fall; the nearer Montmorency Falls is the bigger name."
+      },
+      "standing_scope": "Québec City region",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A 74 m fall with a 60 m suspension bridge over the gorge (operator page)."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The fall and bridges need the 2.2 km Canyon Trail down into the gorge; there is no roadside view."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Open air with railed lookouts; opens in rain."
+      },
+      "why": "A 74 m waterfall and three suspension bridges over a Canadian Shield canyon, 35 minutes from Old Québec.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Paid admission 2026: adult CAD 15, age 6 to 17 CAD 10, 5 and under free; no booking needed (online tickets optional); parking free (operator pages)."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "No designation of its own found on the pages read for this place."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/le-buton-lookout-le-massif-de-charlevoix",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q3224379",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Q3224379 is Le Massif, the ski resort (P625 47.28,-70.61); there is no item for the lookout itself, so the resort is the parent item"
+      },
+      "class_key": "viewpoint/summit-panorama",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-25",
+        "note": "Operator headline: Le Massif's signature lookout with a 360-degree view; no tourism board listing was read."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The resort's own signature lookout."
+      },
+      "standing_scope": "Charlevoix",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A 30 m man-made mound; Charlevoix has other summit and coast viewpoints."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A 2 km easy loop from the summit parking; the resort says the lookout is near the summit lot."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A view lookout."
+      },
+      "why": "A 30 m viewing mound at the summit of Le Massif with a 360-degree view over Charlevoix and the St. Lawrence.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Hiking trails are free (operator); the gondola is optional and paid (CAD 33 adult in 2026); no booking."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "No designation of its own found on the pages read for this place."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/cap-bon-ami",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q112836599",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Cap-Bon-Ami', described as an administrative sector in Gaspé, P625 0.6 km from the OSM viewpoint node 4337214696; needs a person's check"
+      },
+      "class_key": "viewpoint/escarpment",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-25",
+        "note": "Inside Forillon National Park (national park designation, parent); Parks Canada's hiking page names it as a trailhead."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A named cape and trailhead of the park."
+      },
+      "standing_scope": "Forillon National Park",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Forillon has several capes and lookouts; not compared further."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Distance from the car park to the viewing point is not stated."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A sea-cliff view."
+      },
+      "why": "A sea-cliff cape in Forillon National Park and the start of the Mont-Saint-Alban climb.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Park admission applies (adult CAD 10 in peak season 2026, 7.25 shoulder; youth free); no permit or booking."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Forillon National Park",
+              "scope": "parent",
+              "wikidata": "Q1437338"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-25"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/cap-gaspe",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q112854948",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Cap-Gaspé', described as a hamlet in Gaspé, P625 0.5 km from the OSM cape node 1302243265; needs a person's check"
+      },
+      "class_key": "viewpoint/escarpment",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-25",
+        "note": "Inside Forillon National Park (national park designation, parent); the Parks Canada hiking page headlines the lighthouse and Land's End at the cape."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The end of the park's main coastal trail and the tip of the peninsula."
+      },
+      "standing_scope": "Forillon National Park",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Land's End, the end of the International Appalachian Trail in Forillon (park page)."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "No road to the cape: the Les Graves walk is 6.4 km round trip on the gravel road or 8 km on the trail."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A coastal viewpoint."
+      },
+      "why": "The tip of the Gaspé Peninsula: a lighthouse on a 95 m cliff and Land's End, reached on foot in Forillon.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "long_walk_in",
+            "note": "6.4 km round trip on the gravel road (172 m gain) or 8 km on the trail (310 m gain)"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-25",
+        "note": "Park admission applies on top of the walk."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Forillon National Park",
+              "scope": "parent",
+              "wikidata": "Q1437338"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-25"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/mont-saint-alban",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "wikidata": {
+        "v": "Q98108734",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Mont Saint-Alban', instance of mountain, P2044 282 m; its P625 is 0.6 km from the OSM peak node 1305146822, which is kept as the point; needs a person's check"
+      },
+      "class_key": "viewpoint/summit-panorama",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-25",
+        "note": "Inside Forillon National Park (national park designation, parent); the park page headlines the observation tower view."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The park's observation-tower summit."
+      },
+      "standing_scope": "Forillon National Park",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Forillon has other lookouts; not compared further."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "1.5 to 2 hours return from Cap-Bon-Ami for the tower (3.6 km, 325 m gain)."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A tower view over sea and cliffs."
+      },
+      "why": "A 285 m summit with an observation tower and sea views, 1.5 to 2 hours round trip from Cap-Bon-Ami.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Park admission applies (adult CAD 10 peak 2026); no permit or booking."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Forillon National Park",
+              "scope": "parent",
+              "wikidata": "Q1437338"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-25"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/la-martre-lighthouse",
+      "kind": "sight",
+      "subkind": "landmark",
+      "wikidata": {
+        "v": "Q14826835",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'La Martre Lighthouse', instance of lighthouse, P625 matches OSM way 317964466 'Phare de La Martre' (same QID in the OSM tag); needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-25",
+        "note": "Parks Canada designated it a heritage lighthouse on 28 January 2026 (official designation)."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A designated heritage lighthouse on the Gaspé coast road."
+      },
+      "standing_scope": "Haute-Gaspésie",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Lighthouses are common along the St. Lawrence coast; not compared further."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The tower is seen from the coast road and the adjacent belvedere (OSM maps one 0.14 km away)."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "An exterior landmark."
+      },
+      "why": "A red octagonal lighthouse of 1906 on the St. Lawrence, designated a heritage lighthouse in 2026.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "No permit or booking found; opening dates and any admission fee for the museum were not found."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "heritage_listed",
+              "name": "Heritage lighthouse (Parks Canada, designated 28 January 2026)",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-25"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/lac-aux-americains",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": "Q114635604",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Lac aux Américains', instance of lake, P625 0.1 km from OSM way 115356658; needs a person's check"
+      },
+      "class_key": "lake/alpine-hike-in",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0007"
+        ],
+        "read": "2026-10-25",
+        "note": "Inside Parc national de la Gaspésie (provincial park designation, parent); the Rando Québec sheet starts the Mont Xalibu route on its trail."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A named lake on the park's trail network below Mont Xalibu."
+      },
+      "standing_scope": "Parc national de la Gaspésie",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The park has other named lakes; not compared further."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "On foot from the 40-place car park; the lake is at least 1.6 km away in a straight line."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A mountain lake view."
+      },
+      "why": "A lake under Mont Xalibu in Parc national de la Gaspésie, reached on foot from a 40-place car park.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "long_walk_in",
+            "note": "on foot from the car park; the Mont Xalibu route beyond it is open only 1 July to 30 September"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0007"
+        ],
+        "read": "2026-10-25",
+        "note": "Park access is paid (free under 18)."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Parc national de la Gaspésie",
+              "scope": "parent",
+              "wikidata": "Q2051988"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/canyon-des-portes-de-lenfer",
+      "kind": "waterfall",
+      "subkind": "canyon",
+      "wikidata": {
+        "v": "Q18610901",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Canyon des Portes de l'Enfer', instance of canyon, P625 0.9 km from OSM node 2535855281; the operator's pages describe the same canyon on the Rimouski River; needs a person's check"
+      },
+      "class_key": "waterfall/hike-in",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0008",
+          "src-0009"
+        ],
+        "read": "2026-10-25",
+        "note": "Bonjour Québec (the provincial tourism board) lists it; the operator headlines Québec's highest suspension footbridge."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Named by the tourism board as a must for nature lovers in the region."
+      },
+      "standing_scope": "Bas-Saint-Laurent",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A 5 km river canyon with walls up to 90 m and the highest suspension footbridge in Québec (operator pages)."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Trails of more than 20 km lead to the footbridge and falls; the Descente aux Enfers staircase is closed after a rockfall."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Open-air trails and lookouts."
+      },
+      "why": "A 5 km river canyon with walls up to 90 m, the Grand Sault falls and Québec's highest suspension footbridge.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Paid day access 2026: adult CAD 17.80, age 5 to 17 CAD 9.92, family CAD 49.34, 4 and under free (taxes extra); immersive trails extra; free Accès nature day tickets exist on request-limited reservation. Parking free."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "No designation of its own found on the pages read for this place."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/mont-xalibu",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "wikidata": {
+        "v": "Q26999326",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Mont Xalibu', instance of mountain, P2044 1120 m, P625 0.15 km from OSM peak node 3269806647 (ele 1140); needs a person's check"
+      },
+      "class_key": "peak/summit",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0007"
+        ],
+        "read": "2026-10-25",
+        "note": "Inside Parc national de la Gaspésie (provincial park designation, parent); Rando Québec calls its panorama one of the best in the park."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Named by Rando Québec as one of the park's best panoramas."
+      },
+      "standing_scope": "Parc national de la Gaspésie",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Woodland caribou habitat: the route is closed outside 1 July to 30 September to protect them (Rando Québec)."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "An 11.4 km return hike with 648 m gain, 5 to 6 hours."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A summit panorama."
+      },
+      "why": "A 1,120 m summit with tundra panoramas and woodland caribou habitat, open 1 July to 30 September.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "seasonal_road",
+            "note": "route open only 1 July to 30 September (caribou protection); dogs banned"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0007"
+        ],
+        "read": "2026-10-25",
+        "note": "Park access is paid (free under 18)."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Parc national de la Gaspésie",
+              "scope": "parent",
+              "wikidata": "Q2051988"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/pic-champlain",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "wikidata": {
+        "v": "Q549540",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Pic Champlain', instance of summit, P2044 346 m, P625 0.13 km from OSM peak node 1087473528; the QID is also the OSM wikidata tag; needs a person's check"
+      },
+      "class_key": "peak/summit",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0010"
+        ],
+        "read": "2026-10-25",
+        "note": "Inside Parc national du Bic (provincial park designation, parent); Rando Québec calls it the park's unmissable summit."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The highest summit of the south-shore estuary region (Rando Québec)."
+      },
+      "standing_scope": "Parc national du Bic",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The highest summit of its natural region, with a view over the estuary islands (Rando Québec)."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A 7.7 km return trail with 370 m gain, about 4 hours."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A summit view."
+      },
+      "why": "The highest summit of the south-shore estuary region, via a 7.7 km return trail in Parc national du Bic.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Park access is paid, free for 17 and under; parking included."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Parc national du Bic",
+              "scope": "parent",
+              "wikidata": "Q170269"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0010"
+          ],
+          "read": "2026-10-25"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/mont-saint-pierre",
+      "kind": "town",
+      "subkind": "village",
+      "wikidata": {
+        "v": "Q3321623",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Mont-Saint-Pierre', instance of village municipality in Quebec, P625 matches the village on the Route 132 coast; needs a person's check"
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0011"
+        ],
+        "read": "2026-10-25",
+        "note": "Operator headline: the village's cooperative sells the 'Station de montagne sur mer' with a summit observatory, a shuttle and tandem free flights."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A small coastal village built around a 430 m mountain station."
+      },
+      "standing_scope": "Haute-Gaspésie",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A free-flight (hang-gliding and paragliding) site on the Gaspé coast; the cooperative offers tandem flights."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The village centre and the church-hall show are on the main road."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Indoor shows exist; the summit and flights depend on weather."
+      },
+      "why": "A Gaspé coast village under a 430 m mountain: free-flight launch, summit observatory, shuttle and year-round trails.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Summit by shuttle or on foot; paid access and shows (rates on the operator's pages, not read); no booking needed to walk the village."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "No designation of its own found on the pages read for this place."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/bonaventure-island",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q135228",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Bonaventure Island', instance of island, P625 inside the OSM park relation 6989318; needs a person's check"
+      },
+      "class_key": "beach/ocean",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0012"
+        ],
+        "read": "2026-10-25",
+        "note": "Inside Parc national de l'Île-Bonaventure-et-du-Rocher-Percé (provincial park designation); Rando Québec's sheet headlines the most accessible northern gannet colony."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The sheet describes it as the most accessible northern gannet colony in the world."
+      },
+      "standing_scope": "Gaspé Peninsula",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A colony of about 110,000 nesting birds (Rando Québec sheet)."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Boat from Percé, then an 8.4 km loop of about 3 hours; the sheet gives no shorter route."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Boat sailings and the colony depend on sea and sky."
+      },
+      "why": "An island park with a northern gannet colony of about 110,000 birds, reached by boat from Percé.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "boat_or_ferry",
+            "note": "boats leave from the Percé quay; access depends on sea conditions"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0012"
+        ],
+        "read": "2026-10-25",
+        "note": "Park access is paid (free for under 18); the boat is a separate ticket (operator pages not read)."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Parc national de l'Île-Bonaventure-et-du-Rocher-Percé",
+              "scope": "parent",
+              "wikidata": "Q745054"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "place/perce-rock",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q2466817",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Perce Rock', a rock formation off the coast of Quebec, P2044 88 m, P625 in Percé Bay; needs a person's check"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0013"
+        ],
+        "read": "2026-10-25",
+        "note": "The Géoparc de Percé presents the site as a UNESCO Global Geopark (the geopark's own statement); official_highlight."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The best-known landmark of the peninsula."
+      },
+      "standing_scope": "Gaspé Peninsula",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A free-standing rock with a natural arch in the sea off Percé."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Seen from the Percé shore."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A view landmark."
+      },
+      "why": "An 88 m rock with a natural arch off Percé, the best-known landmark of the Gaspé Peninsula.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Seen from the shore with no permit; boat cruises around the rock run from the quay (operator pages not read)."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "official_highlight",
+              "name": "UNESCO Global Geopark of Percé (the geopark's own statement)",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "read": "2026-10-25"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the pages read for this place (see sources): no top-list mention"
+          ],
+          "note": "No top-list mention found on the pages read."
+        }
+      }
+    },
+    {
+      "ref": "part/place/montmorency-falls#parking",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search for the car park name: no item"
+        ],
+        "note": "A car park has no Wikidata item."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park serving the place it is named for."
+      },
+      "standing_scope": "the place it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "One of several lots near the place."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "It is the start of the visit."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park."
+      },
+      "why": "A car park at the top of Montmorency Falls, free or paid by lot.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Visiter Québec lists parking as 'Free Outdoor on Site, Outdoor on site for a fee'; which lot is which is not stated."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "None; a car park."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "not applicable to a car park"
+          ],
+          "note": "Not a fame candidate."
+        }
+      }
+    },
+    {
+      "ref": "part/place/cap-bon-ami#parking",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search for the car park name: no item"
+        ],
+        "note": "A car park has no Wikidata item."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park serving the place it is named for."
+      },
+      "standing_scope": "the place it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "One of several lots near the place."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "It is the start of the visit."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park."
+      },
+      "why": "The car park at Cap-Bon-Ami, trailhead of the Mont-Saint-Alban climb in Forillon National Park.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Park admission applies (adult CAD 10 peak, 7.25 shoulder in 2026; youth free); no separate parking fee is listed on the fees page."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "None; a car park."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "not applicable to a car park"
+          ],
+          "note": "Not a fame candidate."
+        }
+      }
+    },
+    {
+      "ref": "part/place/cap-gaspe#parking",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search for the car park name: no item"
+        ],
+        "note": "A car park has no Wikidata item."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park serving the place it is named for."
+      },
+      "standing_scope": "the place it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "One of several lots near the place."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "It is the start of the visit."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park."
+      },
+      "why": "The car park at L'Anse-aux-Amérindiens, start of the Les Graves walk to Cap-Gaspé in Forillon.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Park admission applies (adult CAD 10 peak, 7.25 shoulder in 2026; youth free); no separate parking fee is listed."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "None; a car park."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "not applicable to a car park"
+          ],
+          "note": "Not a fame candidate."
+        }
+      }
+    },
+    {
+      "ref": "part/place/lac-aux-americains#parking",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search for the car park name: no item"
+        ],
+        "note": "A car park has no Wikidata item."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park serving the place it is named for."
+      },
+      "standing_scope": "the place it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "One of several lots near the place."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "It is the start of the visit."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park."
+      },
+      "why": "The 40-place car park for the Lac aux Américains and Mont Xalibu trails in Parc national de la Gaspésie.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Park access is paid (free for under 18, Rando Québec); the sheet says the car park is for hikers and used three seasons only; no separate parking fee is listed."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "None; a car park."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "not applicable to a car park"
+          ],
+          "note": "Not a fame candidate."
+        }
+      }
+    },
+    {
+      "ref": "part/place/pic-champlain#parking",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search for the car park name: no item"
+        ],
+        "note": "A car park has no Wikidata item."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park serving the place it is named for."
+      },
+      "standing_scope": "the place it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "One of several lots near the place."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "It is the start of the visit."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park."
+      },
+      "why": "The 20-place Raoul-Roy belvedere car park, trailhead of Les Murailles trail to Pic Champlain in Parc national du Bic.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Parking is included in the paid park access fee (Rando Québec); access is free for 17 and under."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "None; a car park."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "not applicable to a car park"
+          ],
+          "note": "Not a fame candidate."
+        }
+      }
+    },
+    {
+      "ref": "part/place/bonaventure-island#parking",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search for the car park name: no item"
+        ],
+        "note": "A car park has no Wikidata item."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park serving the place it is named for."
+      },
+      "standing_scope": "the place it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "One of several lots near the place."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "It is the start of the visit."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A car park."
+      },
+      "why": "A paid 100-place car park at the Percé quay, where boats leave for Bonaventure Island.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "OSM tags it fee=yes, capacity 100; the Rando Québec sheet says parking is paid by the day."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "None; a car park."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "not applicable to a car park"
+          ],
+          "note": "Not a fame candidate."
+        }
+      }
+    }
+  ]
+}

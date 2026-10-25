@@ -939,6 +939,197 @@
       }
     },
     {
+      "id": "s-5bb89b3b84",
+      "url": "https://baliseqc.ca/3S/explorer/quebec/parc-de-la-chute-montmorency-LR0429",
+      "title": "Parc de la Chute-Montmorency - Balise Québec",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "part/place/montmorency-falls#parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/montmorency-falls",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-70db7abc78",
+      "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE06_ParcNationalBic_Murailles_1j.pdf",
+      "title": "Sentier Les Murailles, Parc national du Bic (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "part/place/pic-champlain#parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/pic-champlain",
+          "field": "best_time"
+        },
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/pic-champlain",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/pic-champlain",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/pic-champlain",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/pic-champlain",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/pic-champlain",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/pic-champlain",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/pic-champlain",
+          "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/pic-champlain",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/pic-champlain",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/pic-champlain",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/pic-champlain",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/pic-champlain",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-2b723f7373",
+      "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE32_Bonaventure_Boucle_1j.pdf",
+      "title": "Boucle secteur Île-Bonaventure (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "part/place/bonaventure-island#parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/bonaventure-island",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/bonaventure-island",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/bonaventure-island",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/bonaventure-island",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/bonaventure-island",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/bonaventure-island",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/bonaventure-island",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/bonaventure-island",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-bec80f96f7",
       "url": "https://banffnorquay.com/summer/via-ferrata",
       "title": "Via Ferrata",
@@ -1335,6 +1526,90 @@
       "recheck": {
         "cadence_days": 90,
         "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-7b3142d696",
+      "url": "https://canyonsa.qc.ca/en/le-canyon",
+      "title": "The canyon - Canyon Sainte-Anne",
+      "publisher": "Canyon Sainte-Anne",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/canyon-sainte-anne",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/canyon-sainte-anne",
+          "field": "suitability.carrier_ok"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/canyon-sainte-anne",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/canyon-sainte-anne",
+          "field": "suitability.exposure"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-ac6089771b",
+      "url": "https://canyonsa.qc.ca/en/rates-and-schedule",
+      "title": "Opening hours, admission and rates - Canyon Sainte-Anne",
+      "publisher": "Canyon Sainte-Anne",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/canyon-sainte-anne",
+          "field": "links"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/canyon-sainte-anne",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/canyon-sainte-anne",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/canyon-sainte-anne",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
       },
       "link": {
         "status": "unchecked",
@@ -2926,6 +3201,63 @@
       }
     },
     {
+      "id": "s-6280d6991a",
+      "url": "https://geoparcdeperce.com",
+      "title": "Géoparc de Percé",
+      "publisher": "Géoparc de Percé",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/perce-rock",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/perce-rock",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/perce-rock",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/perce-rock",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/perce-rock",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/perce-rock",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/perce-rock",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-b7f373dde6",
       "url": "https://gostowe.com/listing/stowe-recreation-path",
       "title": "Stowe Recreation Path",
@@ -3537,6 +3869,155 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-f5c5133b32",
+      "url": "https://medias.baliseqc.ca/upload/pap/PaP_SNQ_ParcNationalGaspesie_Xalibu_1j_3S.pdf",
+      "title": "Mont Xalibu, Parc national de la Gaspésie (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "part/place/lac-aux-americains#parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/lac-aux-americains",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/mont-xalibu",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/lac-aux-americains",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/lac-aux-americains",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/lac-aux-americains",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/mont-xalibu",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/mont-xalibu",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/mont-xalibu",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/lac-aux-americains",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-xalibu",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-xalibu",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-xalibu",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-xalibu",
+          "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-xalibu",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-xalibu",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-xalibu",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-xalibu",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-xalibu",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-fc2a357704",
+      "url": "https://montsaintpierre.ca/informations-pratiques",
+      "title": "Informations pratiques - Mont-Saint-Pierre",
+      "publisher": "Mont-Saint-Pierre, Station de montagne sur mer",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/mont-saint-pierre",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/mont-saint-pierre",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -9259,6 +9740,299 @@
       }
     },
     {
+      "id": "s-81b47923a2",
+      "url": "https://parks.canada.ca/pn-np/qc/forillon/activ/randonnee-hiking",
+      "title": "Hiking - Forillon National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "part/place/cap-bon-ami#parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "part/place/cap-gaspe#parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/cap-bon-ami",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/cap-bon-ami",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/cap-bon-ami",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-bon-ami",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-bon-ami",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-bon-ami",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-0c39397626",
+      "url": "https://parks.canada.ca/pn-np/qc/forillon/visit/accessibilite-accessibility",
+      "title": "Accessibility - Forillon National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-581573ad36",
+      "url": "https://parks.canada.ca/pn-np/qc/forillon/visit/heures-hours",
+      "title": "Dates and hours of operation - Forillon National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-bon-ami",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-4843e3d97f",
+      "url": "https://parks.canada.ca/pn-np/qc/forillon/visit/tarifs-fees",
+      "title": "Fees - Forillon National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/cap-bon-ami",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "links"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-bon-ami",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/cap-gaspe",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/mont-saint-alban",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-d8d590aa02",
       "url": "https://piratour.net/producto/caminata-en-isla-martillo-version-terrestre",
       "title": "Caminata en Pingüinera (Isla Martillo) (redirected to the version terrestre page, same product; re-read)",
@@ -14177,6 +14951,43 @@
       }
     },
     {
+      "id": "s-19c121a695",
+      "url": "https://www.bonjourquebec.com/fr/repertoire/quoi-faire/terfa-canyon-des-portes-de-l-enfer/0q5x",
+      "title": "TERFA - Canyon des Portes de l'Enfer - Bonjour Québec",
+      "publisher": "Bonjour Québec (Tourisme Québec)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/canyon-des-portes-de-lenfer",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/canyon-des-portes-de-lenfer",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/canyon-des-portes-de-lenfer",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-84c27f686a",
       "url": "https://www.brewsteradventures.com/summer-trail-rides",
       "title": "Summer Trail Rides",
@@ -14222,6 +15033,43 @@
       "recheck": {
         "cadence_days": 90,
         "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-9d625fc072",
+      "url": "https://www.canada.ca/fr/parcs-canada/nouvelles/2026/01/le-gouvernement-du-canada-designe-un-phare-patrimonial-en-gaspesie.html",
+      "title": "Le gouvernement du Canada désigne un phare patrimonial en Gaspésie (28 janvier 2026)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/la-martre-lighthouse",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/la-martre-lighthouse",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/la-martre-lighthouse",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
@@ -16175,6 +17023,102 @@
       "link": {
         "status": "redirect",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-f1cb99c23f",
+      "url": "https://www.lemassif.com/en/activities-events/activity-finder/lookout-le-buton",
+      "title": "Le Buton Lookout - Le Massif de Charlevoix",
+      "publisher": "Le Massif de Charlevoix",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/le-buton-lookout-le-massif-de-charlevoix",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/le-buton-lookout-le-massif-de-charlevoix",
+          "field": "draw"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-6055e8afef",
+      "url": "https://www.lemassif.com/en/activities-events/charlevoix-attractions/hiking-trails-charlevoix",
+      "title": "Hiking Trails Charlevoix - Le Massif de Charlevoix",
+      "publisher": "Le Massif de Charlevoix",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/le-buton-lookout-le-massif-de-charlevoix",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/le-buton-lookout-le-massif-de-charlevoix",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-afd78c1473",
+      "url": "https://www.lemassif.com/en/the-mountain/summer-fall/mountain-schedule-summerfall-2026",
+      "title": "Mountain Schedule - Summer/Fall 2026",
+      "publisher": "Le Massif de Charlevoix",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/le-buton-lookout-le-massif-de-charlevoix",
+          "field": "links"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/le-buton-lookout-le-massif-de-charlevoix",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -19687,6 +20631,110 @@
       }
     },
     {
+      "id": "s-99f59a4516",
+      "url": "https://www.quebec-cite.com/en/businesses/parc-de-la-chute-montmorency",
+      "title": "Parc de la Chute-Montmorency - Visit Québec City",
+      "publisher": "Visiter Québec (Québec City tourism office)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "part/place/montmorency-falls#parking",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/montmorency-falls",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/montmorency-falls",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/montmorency-falls",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/montmorency-falls",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/montmorency-falls",
+          "field": "suitability.carrier_ok"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/montmorency-falls",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/montmorency-falls",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/montmorency-falls",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-607852e756",
+      "url": "https://www.quebec-cite.com/index.php/fr/entreprises/canyon-sainte-anne",
+      "title": "Canyon Sainte-Anne - Visiter Québec",
+      "publisher": "Visiter Québec (Québec City tourism office)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/canyon-sainte-anne",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/canyon-sainte-anne",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/canyon-sainte-anne",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-39b77a89a6",
       "url": "https://www.raftbanff.com/our-trips/rafting-trips",
       "title": "Rafting trips",
@@ -21264,6 +22312,95 @@
       "link": {
         "status": "redirect",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-70f7d7b526",
+      "url": "https://www.terfa.ca/fr/plein-air/tarifs",
+      "title": "Heures d'ouverture et tarifs - Canyon des Portes de l'Enfer",
+      "publisher": "Terfa",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/canyon-des-portes-de-lenfer",
+          "field": "links"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/canyon-des-portes-de-lenfer",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-53cb375f9b",
+      "url": "https://www.terfa.ca/fr/terfa/canyon-des-portes-de-l-enfer",
+      "title": "Canyon des Portes de l'Enfer - Terfa",
+      "publisher": "Terfa",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/capture/catalogue/BA-ca.json",
+          "ref": "place/canyon-des-portes-de-lenfer",
+          "field": "links"
+        },
+        {
+          "file": "data/relevance/catalogue/R9-ca.json",
+          "ref": "place/canyon-des-portes-de-lenfer",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/canyon-des-portes-de-lenfer",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/canyon-des-portes-de-lenfer",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/canyon-des-portes-de-lenfer",
+          "field": "suitability.carrier_ok"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/canyon-des-portes-de-lenfer",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/catalogue/R9-ca.json",
+          "ref": "place/canyon-des-portes-de-lenfer",
+          "field": "suitability.on_site_min"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {

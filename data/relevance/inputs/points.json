@@ -1039,6 +1039,12 @@
       "coord_src": "wikidata",
       "point_source": "Q115958301 P625"
     },
+    "part/place/bonaventure-island#parking": {
+      "lat": 48.5229,
+      "lon": -64.21228,
+      "coord_src": "osm",
+      "point_source": "OSM relation 8388119, a paid surface car park of 100 places named 'SEPAQ' at the Percé quay; the Rando Québec sheet gives the access point as 48.5214,-64.2126 (0.17 km away) and says parking is paid by the day; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
+    },
     "part/place/bullaccia-and-the-witches-benches#payoff": {
       "lat": 46.56397,
       "lon": 11.6159,
@@ -1050,6 +1056,18 @@
       "lon": 12.28729,
       "coord_src": "wikidata",
       "point_source": "Q476378 P625"
+    },
+    "part/place/cap-bon-ami#parking": {
+      "lat": 48.81029,
+      "lon": -64.22147,
+      "coord_src": "osm",
+      "point_source": "OSM way 435827958, an unnamed car park 0.2 km from the OSM Cap Bon Ami viewpoint; the Parks Canada hiking page names Cap-Bon-Ami as a trailhead but gives no lot point; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
+    },
+    "part/place/cap-gaspe#parking": {
+      "lat": 48.79238,
+      "lon": -64.22517,
+      "coord_src": "osm",
+      "point_source": "OSM way 710486070, an unnamed car park at L'Anse-aux-Amérindiens, the trailhead the Parks Canada hiking page names for the Les Graves trail to Cap-Gaspé; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
     },
     "part/place/cascate-di-fanes#payoff": {
       "lat": 46.594,
@@ -1068,6 +1086,12 @@
       "lon": 12.27879,
       "coord_src": "osm",
       "point_source": "OSM node 1825738077 Haunold - Monte Baranci chairlift top station, where the Funbob run starts; agent checked, needs a person's check"
+    },
+    "part/place/lac-aux-americains#parking": {
+      "lat": 48.9546,
+      "lon": -66.0432,
+      "coord_src": "official",
+      "point_source": "Rando Québec ready-to-go sheet for Mont Xalibu: 'Coordonnées N48.9546, W66.0432', the lac aux Américains car park, 8.1 km from the Mont-Albert discovery centre, 40 places; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
     },
     "part/place/lagazuoi-cable-car-and-tunnels#top": {
       "lat": 46.51921,
@@ -1140,6 +1164,18 @@
       "lon": -116.21364,
       "coord_src": "osm",
       "point_source": "OSM node 12164756005 (bus stop named Parks Canada Shuttle); agent checked, needs a person's check"
+    },
+    "part/place/montmorency-falls#parking": {
+      "lat": 46.887,
+      "lon": -71.1522,
+      "coord_src": "official",
+      "point_source": "Rando Québec (Balise Québec) 'Point d'accès 46.8870, -71.1522' for Parc de la Chute-Montmorency (page last updated 2013-04-19); read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
+    },
+    "part/place/pic-champlain#parking": {
+      "lat": 48.3106,
+      "lon": -68.8698,
+      "coord_src": "official",
+      "point_source": "Rando Québec ready-to-go sheet for Les Murailles: 'Latitude 48.3106, Longitude W-68.8698', Raoul-Roy belvedere car park, 20 places; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
     },
     "part/place/rafting-on-the-rienza#place": {
       "lat": 46.80997,
@@ -1369,6 +1405,12 @@
       "coord_src": "wikidata",
       "point_source": "Q6526 P625"
     },
+    "place/bonaventure-island": {
+      "lat": 48.49516,
+      "lon": -64.16053,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/perce/bonaventure-island"
+    },
     "place/bullaccia-and-the-witches-benches": {
       "lat": 46.55184,
       "lon": 11.61718,
@@ -1380,6 +1422,30 @@
       "lon": 12.27,
       "coord_src": "prototype",
       "point_source": "snapshot place cadini (approximate)"
+    },
+    "place/canyon-des-portes-de-lenfer": {
+      "lat": 48.26111,
+      "lon": -68.53889,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q18610901 P625 (Canyon des Portes de l'Enfer); OSM node 2535855281 lies 0.9 km south at 48.24975,-68.53039; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
+    },
+    "place/canyon-sainte-anne": {
+      "lat": 47.07255,
+      "lon": -70.87476,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/cote-de-beaupre/canyon-sainte-anne"
+    },
+    "place/cap-bon-ami": {
+      "lat": 48.81389,
+      "lon": -64.22222,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q112836599 P625 (Cap-Bon-Ami sector); OSM viewpoint node 4337214696 'Cap Bon Ami' lies 0.6 km south-east at 48.80899,-64.22014; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
+    },
+    "place/cap-gaspe": {
+      "lat": 48.75,
+      "lon": -64.17,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q112854948 P625 (Cap-Gaspé hamlet, rounded to 0.01 degree); OSM lighthouse node 878547660 lies 0.5 km east at 48.75111,-64.16263; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
     },
     "place/cascate-di-fanes": {
       "lat": 46.59381,
@@ -1429,11 +1495,23 @@
       "coord_src": "prototype",
       "point_source": "snapshot place funbob (approximate)"
     },
+    "place/la-martre-lighthouse": {
+      "lat": 49.20612,
+      "lon": -66.17143,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/haute-gaspesie/la-martre-lighthouse"
+    },
     "place/la-val": {
       "lat": 46.65772,
       "lon": 11.92433,
       "coord_src": "wikidata",
       "point_source": "Q419733 P625"
+    },
+    "place/lac-aux-americains": {
+      "lat": 48.95583,
+      "lon": -66.02167,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/parc-national-de-la-gaspesie/lac-aux-americains"
     },
     "place/lagazuoi-cable-car-and-tunnels": {
       "lat": 46.52751,
@@ -1501,11 +1579,41 @@
       "coord_src": "wikidata",
       "point_source": "locations.json CA/AB/banff-national-park/lake-louise"
     },
+    "place/le-buton-lookout-le-massif-de-charlevoix": {
+      "lat": 47.28,
+      "lon": -70.61,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q3224379 P625 (Le Massif, the ski resort the lookout belongs to; rounded to 0.01 degree); read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
+    },
+    "place/mont-saint-alban": {
+      "lat": 48.81261,
+      "lon": -64.22782,
+      "coord_src": "osm",
+      "point_source": "OSM node 1305146822 'Mont Saint-Alban' (natural=peak, ele 280); Wikidata Q98108734 P625 (48.81111,-64.23611) lies 0.6 km south-west and loses to the OSM peak; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check"
+    },
+    "place/mont-saint-pierre": {
+      "lat": 49.2225,
+      "lon": -65.80722,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/haute-gaspesie/mont-saint-pierre"
+    },
+    "place/mont-xalibu": {
+      "lat": 48.96361,
+      "lon": -66.01361,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/parc-national-de-la-gaspesie/mont-xalibu"
+    },
     "place/monte-piana": {
       "lat": 46.61528,
       "lon": 12.23944,
       "coord_src": "wikidata",
       "point_source": "Q872637 P625"
+    },
+    "place/montmorency-falls": {
+      "lat": 46.89083,
+      "lon": -71.1475,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/cote-de-beaupre/montmorency-falls"
     },
     "place/ortisei": {
       "lat": 46.57521,
@@ -1524,6 +1632,18 @@
       "lon": 11.80944,
       "coord_src": "wikidata",
       "point_source": "Q1416427 P625"
+    },
+    "place/perce-rock": {
+      "lat": 48.52389,
+      "lon": -64.19944,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/perce/perce-rock"
+    },
+    "place/pic-champlain": {
+      "lat": 48.32833,
+      "lon": -68.83528,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/parc-national-du-bic/pic-champlain"
     },
     "place/rafting-on-the-rienza": {
       "lat": 46.796,
