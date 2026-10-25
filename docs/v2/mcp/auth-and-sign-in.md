@@ -736,6 +736,17 @@ deny list (14.7). A tool on either list is absent from `tools/list` and refused 
 Destructive tools (`destructiveHint: true`) start on the global deny list in production and are removed one by one as each
 ships and passes MCP-S (Q198).
 
+### 14.2a Owner decision 25 Oct 2026: the admin account and its default levels
+
+The owner is the admin. The admin account is the one signed in with the verified email `nitin27may@gmail.com` (the same address as `OWNER_EMAIL`, which is already set in Vercel and GitHub). That account gets two levels by default: `research` (Research, propose) and `owner_admin` (Review and admin), on top of `plans_read` (the default for everyone allowed MCP). No other account gets either level unless the owner grants it (Q162, Q191).
+
+Safety rules, because production does not yet require verified emails (EML-0, the takeover finding):
+1. **Match on a verified email only.** The admin role is granted when a sign-in has `emailVerified = true` for exactly this address. A password account for this address that was never verified gets no role, whatever the string says.
+2. **Store the role on the user id, not on the email string.** The first verified sign-in creates the `app_user` role row (`owner`) keyed by the user id (the token's `sub`). Every later check reads the row. Changing the email on the account does not move the role, and a new account with the same email string does not inherit it.
+3. **Bootstrap once, by a command, not by a request.** A CLI (`core/bin/` task in MCP-G) sets the owner role for the user whose verified email equals `OWNER_EMAIL`, writes an audit entry, and refuses a second owner unless `--add-owner` is passed. No request path can create an owner.
+4. **Required before it matters:** required email verification on production (EML-1 flips it) and the Google gate (a Google sign-in links only to a verified account). Until then the `owner_admin` level stays off at the env ceiling.
+5. **The levels still go through consent and the grant check.** Having the role makes a level available to the owner's apps; each app still needs a grant, write levels still need the separate consent click, and publishing and merging still ask on the site.
+
 ### 14.3 The levels mapped to the tool catalogue
 
 Columns R, D, I, O are the annotations `readOnlyHint`, `destructiveHint`, `idempotentHint`, `openWorldHint` (B4); "-" means
