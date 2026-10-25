@@ -3731,7 +3731,7 @@
         "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
-        "v": 2.8,
+        "v": 2.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
@@ -5088,6 +5088,22 @@
       "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
       "type": "wheels.drive.scenic_drive",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-cardston",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5916821, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 44.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Waterton Red Rock Parkway (scenic drive)",
       "route_is_attraction": true,
       "attraction_reason": "A scenic drive driven for itself. Its relevance record only marks it as the same place as the Red Rock Parkway sight record."
@@ -5096,6 +5112,22 @@
       "ref": "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 3.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Sulphur Mountain switchback trail (hike up, gondola down)",
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain",
@@ -5288,6 +5320,14 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
       "type": "water.body.lake",
       "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
       "name": "Cameron Lake"
     },
     {
@@ -5427,7 +5467,7 @@
         "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5975503, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
-        "v": 32.5,
+        "v": 32.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
@@ -5681,6 +5721,22 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
       "type": "water.thermal.hot_spring",
       "layer": "place",
+      "near_town": {
+        "v": "ca-bc-elkford",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5947708, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 48.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Whiteswan Lake and Lussier Hot Springs"
     },
     {
@@ -5709,6 +5765,22 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/bears-hump",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-cardston",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5916821, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 46.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Bear's Hump"
     },
     {
@@ -5737,6 +5809,22 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-bc-valemount",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6173031, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 24.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Berg Lake Trail"
     },
     {
@@ -5765,6 +5853,22 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-jasper",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6354954, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 21.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Cavell Meadows"
     },
     {
@@ -5815,6 +5919,22 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-cardston",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5916821, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 47,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Crypt Lake"
     },
     {
@@ -5830,7 +5950,7 @@
         "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5924618, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
-        "v": 41.5,
+        "v": 41.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
@@ -5843,12 +5963,28 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
       "name": "Elk Lakes (Lower and Upper)"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
       "name": "Elk Lakes Viewpoint trail"
     },
     {
@@ -5877,12 +6013,44 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-jasper",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6354954, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 28.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Fryatt Valley"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 6.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Johnson Lake Loop"
     },
     {
@@ -5903,6 +6071,22 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 27.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Lillian Lake"
     },
     {
@@ -5959,6 +6143,22 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/opal-hills",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-jasper-park-lodge",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 33.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Opal Hills Loop"
     },
     {
@@ -5979,6 +6179,22 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
       "type": "nature.trail.walk",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-pincher-creek",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6104841, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 39.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Red Rock Canyon Loop"
     },
     {
@@ -6007,6 +6223,22 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-jasper-park-lodge",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5985934, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 32.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Skyline Trail"
     },
     {
@@ -6035,6 +6267,22 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
       "type": "nature.trail.hike",
       "layer": "route",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 26.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Tent Ridge Horseshoe"
     },
     {

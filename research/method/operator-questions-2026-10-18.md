@@ -291,3 +291,15 @@ Fields or kinds that look wrong for a record; the data was left as `kind-map.jso
 | Alberta Parks, Kananaskis | from albertaparks.ca | Is Sarrail Ridge an official trail with a trail report page, and are dogs banned on Ptarmigan Cirque (a claim no Alberta Parks page makes)? |
 | Comune di Auronzo di Cadore | parktrecime@comune.auronzo.bl.it | Is the Lago d'Antorno car park before the toll booth free to use when the Tre Cime toll slots are sold out (the Plan B for the loop is Monte Piana from Antorno)? |
 | Ontario Parks, Algonquin | 705-633-5572 | The Track and Tower climb: the interpretive map shows only a profile chart; is there a published figure? (Repeats the 18 Oct question with the new evidence.) |
+
+## Added by lane DATA-D1b (25 Oct 2026, points)
+
+The five D1 point questions were checked against official pages first; two were answered there (Dettifoss car park, Lillian
+Lake and Burstall Pass trailheads; see `research/runs/DATA-D1b-points.md`). These stay open:
+
+| To | Contact | Question |
+|---|---|---|
+| Alberta Parks, Kananaskis (Peter Lougheed) | from albertaparks.ca | Is the Mount Indefatigable trail from North Interlakes closed or only unmaintained? OSM tags it "Decommissioned 2005" and the park's Peter Lougheed trail reports list no Indefatigable trail. Fills the trail's `closures` and decides whether it stays in the plan. |
+| Wild Water Adventures | from wildwater.com | Where is the Gentle trip's put-in inside the Yoho boundary, and the take-out (a named landmark or coordinates)? The trip page says only that buses shuttle guests from the River Base to the put-in. Fills the Kicking Horse river rows' points (repeats the CS7 question). |
+| Chinook Rafting | 1-866-330-7238 | Where are the Kananaskis River put-in and take-out? The FAQ names only the meeting point, Chinook Rafting Riverbase on Highway 1X (OSM way 1302746691). Fills the Kananaskis River row's point. |
+| Rafting Club Activ | +39 328 966 07 78, info@rafting-club-activ.com | Where exactly in the St. Sigmund sports zone do Rienz trips meet (car park, building), and where is the put-in? The contact page names only "Sports zone St. Sigmund". |

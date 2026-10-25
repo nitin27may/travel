@@ -798,7 +798,7 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 58,
+      "detour_min": 60,
       "detour_basis": "town",
       "detour_town": "Grundarfjordur",
       "from_hubs": {},
@@ -811,7 +811,7 @@
       "pair_pending": [
         {
           "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
-          "km": 8.4
+          "km": 8.6
         }
       ],
       "part_of": [],
@@ -828,7 +828,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 58 min is over 30"
+          "reason": "detour 60 min is over 30"
         }
       },
       "role": "highlight",

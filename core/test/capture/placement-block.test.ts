@@ -1,7 +1,7 @@
 // META-0: the placement block, the tiers and the gap budget (capture contract 3.7). One failing case per code; the severity rule
 // (pinned records warn, new records in data/capture error, drafts outside the store warn); the point and town schemas; the budget gate.
 import { spawnSync } from "node:child_process";
-import { readFileSync, readdirSync } from "node:fs";
+import { cpSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { POINT_ROLE } from "../../src/schema/enums.ts";
@@ -299,10 +299,28 @@ describe("the reports", () => {
     const res = cli("gaps", "--placement", "--trip", "canadian-rockies-2029");
     expect(res.status).toBe(0);
     expect(res.stdout).toMatch(/^Placement gaps: canadian-rockies-2029\nrecords \d+ · no area \d+ · no point \d+ · approximate \d+ · no nearest town \d+ · outside its area \d+/);
-    expect(res.stdout).toMatch(/role trailhead +hint: track start/);
     const json = JSON.parse(cli("gaps", "--placement", "--json").stdout);
     expect(json.summaries.length).toBeGreaterThan(1);
     expect(json.records.every((r: { findings: unknown[] }) => r.findings.length > 0)).toBe(true);
+  });
+  it("a trail with no point gets the role trailhead and the hint 'track start' (a real record, its point removed in a scratch copy)", () => {
+    // DATA-D1b gave the last Rockies trails (Berg Lake, Fryatt) a point, so the data holds no such record any more. The rule is tested on a
+    // scratch copy of the data folder with the point of one real trail deleted, which is what a trail with a missing point looks like.
+    const ref = "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail";
+    const r = scratchRoot();
+    cpSync(join(REPO, "data"), join(r, "data"), { recursive: true });
+    const file = join(r, "data/capture/points.json");
+    const doc = JSON.parse(readFileSync(file, "utf8"));
+    expect(doc.points[ref], "the real data holds a point for the record").toBeDefined();
+    delete doc.points[ref];
+    writeFileSync(file, JSON.stringify(doc, null, 2) + "\n");
+    const relFile = join(r, "data/relevance/inputs/points.json"); // the second place a point is read from
+    const rel = JSON.parse(readFileSync(relFile, "utf8"));
+    delete rel.points?.[ref];
+    writeFileSync(relFile, JSON.stringify(rel, null, 2) + "\n");
+    const res = spawnSync("node", [join(REPO, "core/bin/capture.ts"), "gaps", "--placement", "--trip", "canadian-rockies-2029", "--root", r], { encoding: "utf8" });
+    expect(res.status, res.stderr).toBe(0);
+    expect(res.stdout).toMatch(/berg-lake-trail +no point +role trailhead +hint: track start/);
   });
   it("gaps --tier required --json prints the 6.4 matrix and the per-kind tier; --layer and --type narrow it", () => {
     const all = JSON.parse(cli("gaps", "--tier", "required", "--json").stdout);
