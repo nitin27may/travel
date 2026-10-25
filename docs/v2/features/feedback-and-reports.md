@@ -6,6 +6,14 @@ Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements
 the intake pipeline): one intake model, one form shell, one route family, one moderation queue. Favourites (R-70, R-71)
 are untouched. Section 11 lists every conflict with an earlier decision and the proposed resolution.
 
+> **Amended 25 Oct 2026 by [email-sign-in-and-account-emails.md](email-sign-in-and-account-emails.md) (R-100 to R-107):**
+> the mail module is shared at `core/src/mail/**` and built by EML-M (with `web/lib/server/mailer.ts`); FBK-M keeps
+> only the intake templates and logic on top (about 2 h). EML-Q builds `web/lib/server/turnstile.ts` and the generic
+> `quota_bucket`; EML-B builds one `mail_suppression` table and the Resend bounce webhook, which replace
+> `intake_suppression` and the "no webhook in v1" line of 5.5. In 5.4, Neon Auth custom SMTP is not used (Neon webhooks
+> send auth mail through our templates instead), the daily split becomes intake 60, alerts 10, auth 30 if Q144 is yes,
+> and Resend free allows 3 domains, not 1. The domain steps of FBK-O and the email spec's O-E4 are the same owner work.
+
 Related: [F05 catalog entity pages](F05-catalog-entity-pages.md) ("Suggest a correction"), [F14 after the
 trip](F14-after-the-trip.md) (corrections from travellers, later), [F16 admin console](F16-admin-console.md) (moderation),
 [F17 accounts, auth and privacy](F17-accounts-auth-and-privacy.md) (export, delete), [NEON-SETUP.md](../build/public-site/NEON-SETUP.md)

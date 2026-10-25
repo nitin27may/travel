@@ -12,6 +12,12 @@ the magic link and code fallback, Google, invite landing, household creation on 
 signed-out draft import, and the MCP OAuth consent screen. The wireframes below are the target
 design, not the shipped one.
 
+> **Amended 25 Oct 2026:** the email part of this screen is specified in
+> [email-sign-in-and-account-emails.md](../../features/email-sign-in-and-account-emails.md) section 3 (PLAN R-100 to
+> R-102). It supersedes the wireframe's link lifetime ("1 hour, on this device or any" becomes 15 minutes, once) and
+> the primary action: "Email me a code" until a mail domain exists, then "Email me a link" with "Send a code instead".
+> Google opens in the same tab on every device ([google-and-apple-sign-in.md](../../features/google-and-apple-sign-in.md)).
+
 ## Entry points
 - "Sign in" in the top bar; "Sign in to keep this" on a signed-out draft trip.
 - An invite email ("Priya invited you to Dolomites 2027") → sign in → straight into that trip.
