@@ -20,7 +20,7 @@ owned paths; this note is the record).
 |---|---|---|
 | `gaps --placement` (8 trips, 394 records) | E_PLACE_AREA 277, E_PLACE_ORPHAN 17, W_PLACE_POINT 6, approx 41 | identical (byte-equal JSON, same sha256) |
 | `gaps --tier required` | W_TIER_REQUIRED 385 records, 3,875 keys | identical (byte-equal) |
-| `gaps --budget --check` | OK (`DATA-D9R/before-budget.txt`) | OK, same output, no count rose (no `--write` needed) |
+| `gaps --budget --check` | OK (same output as `DATA-D1b-points/before-budget.txt`; the identical D9R copy was removed at merge) | OK, same output, no count rose (no `--write` needed) |
 | `capture.ts build --check` | OK | OK |
 | `validate.ts --all` | 61 files, 0 errors, 1,575 warnings | the same |
 | `locations.py validate` | ok | ok |
