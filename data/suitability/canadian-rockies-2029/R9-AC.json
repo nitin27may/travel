@@ -1,7 +1,7 @@
 {
   "schema": "suitability/1",
   "trip": "canadian-rockies-2029",
-  "lane": "AC",
+  "lane": "R9-AC",
   "researched": "2026-10-25",
   "agent": "travel-researcher (DATA-D4a)",
   "model": "opus",

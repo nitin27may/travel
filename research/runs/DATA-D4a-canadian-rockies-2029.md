@@ -92,7 +92,7 @@ Suitability limits for the plan-day offers live in R2b (another lane's file); th
 - **3.61f Jasper bike prices:** read in a browser in Vicious Cycle and Snow's booking widget (us.booking.bike.rent), for a
   1-hour rental from 26 Oct 2026 10:00: hardtail 20 CAD, kids bikes 20 CAD, electric cruiser 50 CAD; tax not shown.
   Prices appear only after a date, time and length are picked; nothing was booked.
-- **3.61g batch B:** activity ages and weights for 12 off-plan offers in the new suitability lane file AC; meeting points
+- **3.61g batch B:** activity ages and weights for 12 off-plan offers in the new suitability lane file R9-AC; meeting points
   as above; the two-operator records (Jasper and Waterton horse: at both towns, no `run_by`; Jasper wildlife: SunDog, whose
   values the record holds, set as `run_by`); the river parts left to D1b and D4a-2.
 - **RB-1 Kicking Horse put-ins:** operator question D4a-2 (same as D1b's; one reply closes both).
