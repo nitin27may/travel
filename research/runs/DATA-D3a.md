@@ -2,7 +2,7 @@
 
 Run 25 Oct 2026, travel-researcher on Opus, worktree `v2-DATA-D3a`, branch `public/DATA-D3a` (from `main` f2dee4b). Rows
 10.2, 3.47b, 3.47c, RB-3 (COVERAGE lines 17, 18, 225). Run record for the API calls:
-`data/capture/runs/api-2026-10-25-data-d3a-overpass.json`. Gap reports before and after: `research/runs/DATA-D3a/`.
+`data/capture/runs/api-2026-10-25-data-d3a-overpass.json`. Gap reports: the before reports are byte-identical to D1's after reports, so they are not copied (folder contract rule 7): `gaps --placement` before and after = `research/runs/DATA-D1-points/after-placement.json` (D3a writes no points, the report did not change); `gaps --tier required` before = `research/runs/DATA-D1-points/after-tier.json`, after = `research/runs/DATA-D3a/after-tier-required.json`.
 
 ## Result in one paragraph
 
@@ -39,11 +39,11 @@ to 12; what is left is capture-layer keys (summary, draw, links, geometry, acces
 
 | Trail | Ref | State after this run |
 |---|---|---|
-| Fenland loop | `legacy/.../trails/fenland-loop` | complete for D3a fields in R2a (1.9 km, 20 m, 40 min, loop, dirt, leash, all-terrain stroller, no wheelchair, open all year). The winter page gives 2.1 km and no gain for its winter loop; not recorded, a different loop. Link set: official only; no OSM id (gap) |
-| Johnston Canyon walk | `part/legacy/.../sights/johnston-canyon#walk` | R2a has distance, gain, time, surface, dogs; draft. Shape, stroller (official "Strollers are not recommended"), wheelchair, age band, exposure, navigation and access season are in the patch proposals. **2026 closure:** trail, day-use area and P1 closed 13 Oct to 11 Dec 2026 for rock-slope work (bulletin, read 25 Oct); the Upper Falls and Ink Pots stay reachable by Moose Meadows. A one-off; the 2029 trip is not affected |
-| Larch Valley | `legacy/.../trails/larch-valley-sentinel-pass` | R2a: 11.2 km, 750 m, 270 to 330 min, out and back, leash, no stroller, season 1 Jun to 12 Oct by shuttle. Re-read 25 Oct: the figures still match (Sentinel Pass via Larch Valley 5.6 km one way, 750 m, 4.5 to 5.5 h, Difficult) |
+| Fenland loop | `legacy/canadian-rockies-sept-2029/trails/fenland-loop` | complete for D3a fields in R2a (1.9 km, 20 m, 40 min, loop, dirt, leash, all-terrain stroller, no wheelchair, open all year). The winter page gives 2.1 km and no gain for its winter loop; not recorded, a different loop. Link set: official only; no OSM id (gap) |
+| Johnston Canyon walk | `part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk` | R2a has distance, gain, time, surface, dogs; draft. Shape, stroller (official "Strollers are not recommended"), wheelchair, age band, exposure, navigation and access season are in the patch proposals. **2026 closure:** trail, day-use area and P1 closed 13 Oct to 11 Dec 2026 for rock-slope work (bulletin, read 25 Oct); the Upper Falls and Ink Pots stay reachable by Moose Meadows. A one-off; the 2029 trip is not affected |
+| Larch Valley | `legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass` | R2a: 11.2 km, 750 m, 270 to 330 min, out and back, leash, no stroller, season 1 Jun to 12 Oct by shuttle. Re-read 25 Oct: the figures still match (Sentinel Pass via Larch Valley 5.6 km one way, 750 m, 4.5 to 5.5 h, Difficult) |
 | Tre Cime loop | `place/tre-cime-di-lavaredo-loop` | R1: 8.8 km, 550 m, 240 min (tourism board, re-read 25 Oct: same). Dogs and the computed track figures (9.0 km, 435 m) are in the patch proposals |
-| Lake Agnes Tea House | `legacy/.../trails/lake-agnes` | **new in TF.json**: 7.8 km, 495 m (80 m loss), 150 to 180 min, Moderate, out and back, leash, no stroller, no wheelchair, shuttle 15 May to 12 Oct, tea house mid-May to mid-October, avalanche terrain November to mid-May. Not on any plan day (it is an R2 trail only) |
+| Lake Agnes Tea House | `legacy/canadian-rockies-sept-2029/trails/lake-agnes` | **new in TF.json**: 7.8 km, 495 m (80 m loss), 150 to 180 min, Moderate, out and back, leash, no stroller, no wheelchair, shuttle 15 May to 12 Oct, tea house mid-May to mid-October, avalanche terrain November to mid-May. Not on any plan day (it is an R2 trail only) |
 
 ## Sources read (25 Oct 2026)
 
@@ -116,7 +116,7 @@ Johnston 1.2 km and 50 m), the Alberta Parks 2 m leash rule, the South Tyrol dog
 - `data/suitability/canadian-rockies-2029/TF.json` (new, 4 records, 11 sources)
 - `data/capture/runs/api-2026-10-25-data-d3a-overpass.json` (new)
 - `data/capture/gap-budget.json` (`W_TIER_REQUIRED.keys` 3,875 to 3,832)
-- `research/runs/DATA-D3a/` before and after gap reports, `patch-proposals.json`
+- `research/runs/DATA-D3a/after-tier-required.json`, `research/runs/DATA-D3a/patch-proposals.json`
 - this note
 
 No capture `TF.json` was written: every target ref already has a capture record elsewhere. No household data in any file.
