@@ -1245,6 +1245,30 @@ and EML-E2 append dated entries here, each test with pass or fail.
 | 2026-10-25 | First version from the owner's request of 25 Oct (magic link, password confirmation, templates, Resend key added; no custom domain, Apple skipped, one environment). R-100 to R-107, BACKLOG 15.100 to 15.107, Q140 to Q147 |
 | 2026-10-25 | Owner decision "shared sender first" (about 20 to 30 users): new Decision section; Phase 1 (shared sender for all account mail, Resend sandbox for owner alerts only, 28.5 h) and Phase 2 (after a verified domain: custom SMTP first, then magic link, notices, and templates plus webhooks only if Q149, 29 or 42.5 h); quotas resized for the shared sender; budgets per sender; O-E0 waits for EML-0; `OWNER_EMAIL` in Vercel; Q142 superseded, Q143 and Q144 re-scoped, Q148 and Q149 added; reporting requires sign-in in Phase 1 |
 
-## EML-0 results (filled by the spike)
+## EML-0 results (25 Oct 2026, child branch, Opus)
 
-Pending: the EML-0 spike agent adds its dated results here.
+Evidence: [EML-0-spike.md](../../../research/runs/EML-0-spike.md); owner steps:
+[EML-0-spike-wait.md](../../../research/runs/EML-0-spike-wait.md). Gate M1: **version evidence passes, behavioural
+test OWNER NEEDED** (W2); R-100 and R-102 stay gated until it passes.
+
+| # | Result | Evidence |
+|---|---|---|
+| U1 | FOUND in part; OWNER NEEDED for a real sign-in | `/sign-in/email-otp` and `/email-otp/*` exist on Neon and through our proxy (400 validation, `INVALID_OTP`); a send writes a `sign-in-otp` code row. A successful code sign-in needs W2 |
+| U2 | FOUND in part; OWNER NEEDED | A code is issued to an unknown address (no user row at send). **Disable Sign Up does not stop the send** (password sign-up is refused with `EMAIL_PASSWORD_SIGN_UP_DISABLED`). Whether the verify creates an account, with or without the flag: W2 |
+| U3 | FOUND (indirect); OWNER NEEDED for M1 | The server's public OpenAPI schema matches upstream `better-auth` 1.7.0-rc.2 or later (strings absent from all 1.6.x and 1.7.0-beta.9), after both fixed versions; `revokeUnprovenAccountAccess` and `requireLocalEmailVerified` are in every 1.7.0-rc. Neon could patch its fork, so M1 still runs |
+| U4 | NOT FOUND | Not probed (no bursts to the shared sender). Codes are sent; links need the console toggle (W4) |
+| U5 | FOUND in part; OWNER NEEDED | `/email-otp/request-password-reset` answers `{"success":true}` for known and unknown addresses alike, and writes a `forget-password-otp` row only for the known one; `/email-otp/reset-password` exists; wrong code `INVALID_OTP`. Success and session revocation: W2 |
+| U6 | FOUND from docs only | `send.otp` types sign-in, email-verification, forget-password; `send.magic_link` the same three. The server also accepts OTP type `change-email`, which the webhook guide does not list. Not enabled |
+| U7 | NOT FOUND | Magic link is off: 404 on Neon and through the proxy (W4) |
+| U8 | FOUND | Require on: 200 `{"token":null,...}` for an existing address, **but `role` is `null` there and `"user"` for a real new account**, so EML-Q must replace the body. Require off: 422 `USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL`. Also: Require on writes a verification code at sign-up even with "send on sign-up" off |
+| U9 | FOUND | 3 wrong codes, then 403 `TOO_MANY_ATTEMPTS` and the code is deleted. **Codes expire after 5 minutes** (row TTL 300 s for all types; Neon's guide says 15). Expired: `OTP_EXPIRED`; none issued: `INVALID_OTP`. Codes stored hashed |
+| U10 | FOUND | `user create` makes `emailVerified` false, a `credential` account with no password, no session |
+| U11 | NOT FOUND | Out of bounds: the key is only in the production env file (W6) |
+| U12 | NOT FOUND | Guide lists `auth_provider` credential, google, github, vercel; needs the EML-W rehearsal |
+| U13 | OWNER NEEDED | The production alias answers `DEPLOYMENT_NOT_FOUND`; check the Vercel setting (W5) |
+
+Also found: `/sign-in/email` answers 429 with `x-retry-after: 10` on the 5th quick attempt; a session cookie is set
+before verification when it is not required; addresses with surrounding spaces get 400 (the proxy should trim); the
+Neon Auth OpenAPI reference (`/open-api/generate-schema`, `/reference`) is public. The 5-minute code expiry changes
+N1 and the "15 minutes" in the T1, T2 and T4 copy; the CLI has no setting for it. Links keep their own `expires_in`
+(5 to 1440 minutes).
