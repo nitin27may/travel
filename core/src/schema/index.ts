@@ -29,6 +29,8 @@ export { LOCATION_TABLES, LOCATION_FILE_TABLES } from "./locations.ts";
 export * from "./meta.ts";
 /** The public API contracts (EXECUTION-PLAN 4.2). A namespace, so no API name collides with a table name; not registered as tables. */
 export * as api from "./api/index.ts";
+/** trip-season-basic/1 (data/seasons): plain zod, validated by core/src/validate/seasons.ts; not a registered table. */
+export * from "./seasons.ts";
 
 /** catalog tables in the order they appear in a file of the same name */
 export const CATALOG_TABLES: Table[] = [
