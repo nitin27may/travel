@@ -1,0 +1,85 @@
+0_a|Solitaire Lake Trail Algonquin
+1_a|Track and Tower Trail Algonquin Cache Lake
+2_a|Sulphur Mountain summit boardwalk Banff
+3_a|Moraine Lake Rockpile Trail
+4_a|Johnston Canyon Ink Pots
+5_a|Troll Falls Kananaskis
+6_a|Athabasca Falls Jasper
+7_a|Miette Mine trail Jasper
+8_a|Rockwall Lookout Kootenay
+9_a|Sulphur Mountain trail Banff
+10_a|Mount Shark Mount Assiniboine Lake Magog
+11_a|Bear's Hump Waterton
+12_a|Beauvais Lake Provincial Park
+13_a|Berg Lake Mount Robson
+14_a|Burstall Pass Kananaskis
+15_a|Cavell Meadows Jasper
+16_a|Chester Lake Kananaskis
+17_a|Cory Pass Banff
+18_a|Crypt Lake Waterton
+19_a|Elbow Falls Kananaskis
+20_a|Elk Lakes Provincial Park
+21_a|Elk Lakes Provincial Park viewpoint
+22_a|Emerald Triangle Yoho Wapta
+23_a|Fryatt Valley Jasper
+24_a|Johnson Lake Banff
+25_a|Lillian Lake Kananaskis
+26_a|Mount Fairview Lake Louise
+27_a|Mount Indefatigable Upper Kananaskis Lake
+28_a|Mount Lorette Ponds Kananaskis
+29_a|Opal Hills Maligne Lake
+30_a|Red Rock Canyon Waterton
+31_a|Ribbon Creek Kananaskis
+32_a|Skyline Trail Jasper Maligne
+33_a|Sunburst Lake Assiniboine Lake Magog
+34_a|Tent Ridge Kananaskis
+35_a|Upper Kananaskis Lake
+36_a|Wapta Falls Yoho
+37_a|Col des Montets
+38_a|Lac Blanc Flegere Chamonix
+39_a|Plan de l'Aiguille Chamonix
+40_a|Cadini di Misurina
+41_a|Lago di Sorapis
+42_a|Cinque Torri
+43_a|Monte Piana
+44_a|Croda del Becco
+45_a|Val Fiscalina
+46_a|Lago Federa
+47_a|Cascate di Fanes
+48_a|Adolf Munkel Weg Geisler
+49_a|Alpe di Siusi
+50_a|Bullaccia Alpe di Siusi
+51_a|Vallunga Val Gardena
+52_a|Viel dal Pan
+53_a|Sass Pordoi
+54_a|Lagazuoi tunnels
+55_a|Seceda ridge
+56_a|Lago di Braies
+57_a|Lago di Dobbiaco
+58_a|Lago di Limides
+59_a|Dettifoss
+60_a|Arnarstapi Hellnar
+61_a|Fjadrargljufur
+62_a|Svartifoss
+63_a|Thingvellir
+64_a|Laguna de los Tres Fitz Roy
+65_a|Laguna Capri Fitz Roy
+66_a|Mirador de los Condores Torres del Paine
+67_a|Mirador de las Aguilas El Chalten
+68_a|Chorrillo del Salto El Chalten
+69_a|Ushuaia Tierra del Fuego coastal path
+70_a|Laguna Esmeralda Ushuaia
+71_a|Zion Narrows Temple of Sinawava
+72_a|Scout Lookout Angels Landing
+73_a|Pa'rus Trail Zion
+74_a|Riverside Walk Zion
+75_a|Navajo Loop Queens Garden Bryce
+76_a|Lower Calf Creek Falls
+77_a|Hickman Bridge Capitol Reef
+78_a|Delicate Arch trail
+79_a|Devils Garden Arches
+80_a|Windows Section Arches
+81_a|Mesa Arch
+82_a|Upheaval Dome
+83_a|Grand View Point Canyonlands
+84_a|Stowe Recreation Path

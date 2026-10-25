@@ -13,6 +13,14 @@ selected or built; everything below is the target design. This folder is the ref
 > **capabilities** held in our database (auth-and-sign-in.md 5.1). Nothing is built. The local stdio server
 > (`core/bin/mcp.ts`, 15 read tools) is the only MCP that exists. Last verified 25 Oct 2026 against main f2dee4b.
 
+> **Access levels, 25 Oct 2026 ([auth-and-sign-in.md](auth-and-sign-in.md) section 14, PLAN R-150 to R-156).** The scopes
+> in section 3 are grouped into six named access levels, one per connected app (Public catalogue; My plans, read, the
+> default; My plans, propose changes; My plans, change; Research, propose; Review and admin, owner only), plus three
+> add-ons off by default (booking codes, travellers' details, removals without asking). The user sets them on Account,
+> Connected apps and access; write levels need a separate confirmation on our site; sharing, publishing and merging always
+> ask on the site. Section 8's mixed tools are proposed to split into read and write tools (Q196), so the count rises
+> from 29 to about 38.
+
 | Page | Contents |
 |---|---|
 | [tools-explore.md](tools-explore.md) | `search`, `get`, `area_guide`, `plan_drive`, `sun`, `weather` |

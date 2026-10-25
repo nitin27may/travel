@@ -309,6 +309,26 @@
             "src-0001"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Fitz Roy massif 2015 2.JPG",
+          "licence": "CC BY-SA 4.0",
+          "author": "Fredlyfish4",
+          "attribution": "Fredlyfish4, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Fitz_Roy_massif_2015_2.JPG",
+          "width": 5744,
+          "height": 2541
+        },
+        {
+          "file": "File:Fitz Roy massif 2015 1.JPG",
+          "licence": "CC BY-SA 4.0",
+          "author": "Fredlyfish4",
+          "attribution": "Fredlyfish4, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Fitz_Roy_massif_2015_1.JPG",
+          "width": 10181,
+          "height": 2566
+        }
       ]
     },
     {
@@ -430,6 +450,26 @@
             "src-0002"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:160 - Fitz Roy - Janvier 2010.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Martin St-Amant (S23678)",
+          "attribution": "Martin St-Amant (S23678), CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:160_-_Fitz_Roy_-_Janvier_2010.jpg",
+          "width": 4888,
+          "height": 3241
+        },
+        {
+          "file": "File:Fitz Roy group - Laguna Capri - 01.JPG",
+          "licence": "CC BY-SA 3.0",
+          "author": "Gagea",
+          "attribution": "Gagea, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Fitz_Roy_group_-_Laguna_Capri_-_01.JPG",
+          "width": 3648,
+          "height": 2736
+        }
       ]
     },
     {
@@ -538,6 +578,26 @@
           "src": [
             "src-0003"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:El Chalten 2015 2.JPG",
+          "licence": "CC BY-SA 4.0",
+          "author": "Fredlyfish4",
+          "attribution": "Fredlyfish4, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:El_Chalten_2015_2.JPG",
+          "width": 8290,
+          "height": 2545
+        },
+        {
+          "file": "File:Rainbow at Mirador Condores, El Chalten (7098771583).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+          "attribution": "Christoph Strässler from Oberdorf BL, Schweiz, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Rainbow_at_Mirador_Condores,_El_Chalten_(7098771583).jpg",
+          "width": 1920,
+          "height": 1080
         }
       ]
     },
@@ -648,6 +708,17 @@
             "src-0003"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Lago Viedma - Mirador de Las Aguilas - panoramio (1).jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "littletroll",
+          "attribution": "littletroll, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lago_Viedma_-_Mirador_de_Las_Aguilas_-_panoramio_(1).jpg",
+          "width": 5247,
+          "height": 1965
+        }
       ]
     },
     {
@@ -757,6 +828,26 @@
             "src-0004"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:El Chalten-Sendero Salto del Chorrillo (39263664102).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Miguel",
+          "attribution": "Miguel, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:El_Chalten-Sendero_Salto_del_Chorrillo_(39263664102).jpg",
+          "width": 4608,
+          "height": 3072
+        },
+        {
+          "file": "File:El Chalten-Sendero Salto del Chorrillo (27516410679).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Miguel",
+          "attribution": "Miguel, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:El_Chalten-Sendero_Salto_del_Chorrillo_(27516410679).jpg",
+          "width": 4608,
+          "height": 3072
+        }
       ]
     },
     {
@@ -842,6 +933,26 @@
             "src-0007"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:TDFNP-SendaCostera.jpg",
+          "licence": "CC BY-SA 2.5",
+          "author": "No machine-readable author provided. Heretiq assumed (based on copyright claims).",
+          "attribution": "No machine-readable author provided. Heretiq assumed (based on copyright claims)., CC BY-SA 2.5, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:TDFNP-SendaCostera.jpg",
+          "width": 2048,
+          "height": 1536
+        },
+        {
+          "file": "File:TDFNPLengaForest.jpg",
+          "licence": "CC BY-SA 2.5",
+          "author": "No machine-readable author provided. Heretiq assumed (based on copyright claims).",
+          "attribution": "No machine-readable author provided. Heretiq assumed (based on copyright claims)., CC BY-SA 2.5, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:TDFNPLengaForest.jpg",
+          "width": 2048,
+          "height": 1536
+        }
       ]
     },
     {
@@ -883,6 +994,26 @@
           "src": [
             "src-0005"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Laguna Esmeralda, Ushuaia, Tierra del Fuego, Argentina.jpg",
+          "licence": "CC BY 2.0",
+          "author": "Márcio Motta",
+          "attribution": "Márcio Motta, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Laguna_Esmeralda,_Ushuaia,_Tierra_del_Fuego,_Argentina.jpg",
+          "width": 10966,
+          "height": 3878
+        },
+        {
+          "file": "File:Hike to Laguna Esmeralda-Ushuaia.jpg",
+          "licence": "CC BY 2.0",
+          "author": "https://www.flickr.com/photos/inmyflippiefloppies/",
+          "attribution": "https://www.flickr.com/photos/inmyflippiefloppies/, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Hike_to_Laguna_Esmeralda-Ushuaia.jpg",
+          "width": 4000,
+          "height": 3000
         }
       ]
     },

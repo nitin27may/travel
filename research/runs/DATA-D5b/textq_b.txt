@@ -1,0 +1,39 @@
+0_b|Limberlost Forest Wildlife Reserve
+0_c|Solitaire Lake Huntsville
+2_b|Sulphur Mountain boardwalk
+2_c|Sanson Peak Sulphur Mountain
+3_b|Moraine Lake Rockpile
+3_c|Moraine Lake Valley of the Ten Peaks
+5_b|Troll Falls
+7_b|Miette Hot Springs
+7_c|Miette Jasper trail
+8_b|Rockwall Kananaskis
+10_b|Lake Magog
+10_c|Mount Shark Alberta
+12_b|Beauvais Lake
+14_b|Burstall Pass
+14_c|Burstall Lakes
+16_b|Chester Lake
+16_c|Chester Lake Spray Valley
+20_b|Elk Lakes
+20_c|Upper Elk Lake
+22_b|Emerald Lake Yoho
+22_c|Burgess Pass
+22_d|Wapta Highline
+23_b|Fryatt
+23_c|Brussels Peak
+29_b|Opal Hills
+29_c|Maligne Lake viewpoint Opal
+31_b|Ribbon Falls Kananaskis
+31_c|Ribbon Creek
+32_b|Skyline Trail Jasper
+32_c|Curator Lake
+32_d|Signal Mountain Jasper
+32_e|Little Shovel Pass
+48_b|Adolf-Munkel-Weg
+48_c|Geisler Villnöß Zanser Alm
+66_b|Mirador de los Cóndores
+67_b|Mirador de las Águilas
+69_b|Senda Costera Tierra del Fuego
+69_c|Lapataia Bay
+84_b|Stowe Recreation Path Vermont

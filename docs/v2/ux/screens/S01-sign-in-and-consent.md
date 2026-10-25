@@ -18,6 +18,12 @@ design, not the shipped one.
 > the primary action: "Email me a code" until a mail domain exists, then "Email me a link" with "Send a code instead".
 > Google opens in the same tab on every device ([google-and-apple-sign-in.md](../../features/google-and-apple-sign-in.md)).
 
+> **Amended 25 Oct 2026 (MCP consent):** the MCP consent wireframe below is superseded by
+> [auth-and-sign-in.md](../../mcp/auth-and-sign-in.md) section 14.6.4. The consent screen offers one of two read levels
+> (My plans, read, selected; or Public catalogue, read only), never write access or the codes switch; those are set later
+> on Account, Connected apps and access, behind a separate confirmation. The "Trips it can use" picker is dropped for now.
+> Acceptance 3 reads: "the consent screen offers only the read levels; nothing sensitive is pre-ticked".
+
 ## Entry points
 - "Sign in" in the top bar; "Sign in to keep this" on a signed-out draft trip.
 - An invite email ("Priya invited you to Dolomites 2027") → sign in → straight into that trip.

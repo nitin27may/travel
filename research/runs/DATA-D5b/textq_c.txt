@@ -1,0 +1,15 @@
+38_b|Lac Blanc Chamonix
+38_c|Lac Blanc Aiguilles Rouges
+54_b|Lagazuoi galleria
+54_c|Lagazuoi tunnel
+43_b|Monte Piana
+43_c|Monte Piana Misurina
+50_b|Hexenbänke Puflatsch
+50_c|Bullaccia
+16_d|Mount Chester Kananaskis
+16_e|Chester Lake Alberta Kananaskis Country
+8_c|Rockwall Kananaskis lookout fen
+12_c|Beauvais Lake Provincial Park Alberta
+31_d|Ribbon Creek Kananaskis Village
+7_d|Miette Mine
+29_d|Opal Hills Jasper

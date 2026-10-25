@@ -511,7 +511,18 @@
           "on": "2026-10-19"
         }
       ],
-      "area_id": "IT/veneto/belluno"
+      "area_id": "IT/veneto/belluno",
+      "photos": [
+        {
+          "file": "File:Cadini di Misurina Lavaredo 4.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "kallerna",
+          "attribution": "kallerna, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Cadini_di_Misurina_Lavaredo_4.jpg",
+          "width": 3600,
+          "height": 2400
+        }
+      ]
     },
     {
       "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
@@ -624,7 +635,27 @@
           ]
         }
       ],
-      "area_id": "IT/veneto/belluno"
+      "area_id": "IT/veneto/belluno",
+      "photos": [
+        {
+          "file": "File:Lago di Sorapis d'estate.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "AraskipaP",
+          "attribution": "AraskipaP, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lago_di_Sorapis_d%27estate.jpg",
+          "width": 4608,
+          "height": 3456
+        },
+        {
+          "file": "File:Lago di Sorapis.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "B.Magdalena",
+          "attribution": "B.Magdalena, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lago_di_Sorapis.jpg",
+          "width": 4000,
+          "height": 3000
+        }
+      ]
     },
     {
       "ref": "part/place/lago-di-sorapis#payoff",
@@ -748,7 +779,27 @@
           ]
         }
       ],
-      "area_id": "IT/veneto/belluno"
+      "area_id": "IT/veneto/belluno",
+      "photos": [
+        {
+          "file": "File:Cinque Torri 14.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Clemens Stockner",
+          "attribution": "Clemens Stockner, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Cinque_Torri_14.jpg",
+          "width": 4320,
+          "height": 2880
+        },
+        {
+          "file": "File:Cinque Torri 13.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Clemens Stockner",
+          "attribution": "Clemens Stockner, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Cinque_Torri_13.jpg",
+          "width": 4320,
+          "height": 2880
+        }
+      ]
     },
     {
       "ref": "place/monte-piana",
@@ -799,7 +850,27 @@
           ]
         }
       ],
-      "area_id": "IT/veneto/belluno"
+      "area_id": "IT/veneto/belluno",
+      "photos": [
+        {
+          "file": "File:Monte Piana War Trenches Dolomites Italy (4).jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Anais Goepner Melendez",
+          "attribution": "Anais Goepner Melendez, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Monte_Piana_War_Trenches_Dolomites_Italy_(4).jpg",
+          "width": 4000,
+          "height": 3000
+        },
+        {
+          "file": "File:Monte Piano (5).jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Bruno Spatuzzi",
+          "attribution": "Bruno Spatuzzi, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Monte_Piano_(5).jpg",
+          "width": 5721,
+          "height": 3630
+        }
+      ]
     },
     {
       "ref": "place/croda-del-becco",
@@ -850,6 +921,26 @@
           "src": [
             "src-0001"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Croda del Becco and Rifugio Biella 202008.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Marie-Lan Taÿ Pamart",
+          "attribution": "Marie-Lan Taÿ Pamart, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Croda_del_Becco_and_Rifugio_Biella_202008.jpg",
+          "width": 4032,
+          "height": 3024
+        },
+        {
+          "file": "File:Croda del Becco 202008 n1.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Marie-Lan Taÿ Pamart",
+          "attribution": "Marie-Lan Taÿ Pamart, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Croda_del_Becco_202008_n1.jpg",
+          "width": 4032,
+          "height": 3024
         }
       ]
     },
@@ -962,6 +1053,17 @@
             "src-0033"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Pohled na údolí Val Fiscalina od pevnosti Mitterberg.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Petr1888",
+          "attribution": "Petr1888, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Pohled_na_%C3%BAdol%C3%AD_Val_Fiscalina_od_pevnosti_Mitterberg.jpg",
+          "width": 5472,
+          "height": 3648
+        }
       ]
     },
     {
@@ -1002,6 +1104,26 @@
           "state": "filled",
           "on": "2026-10-19"
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Lago di federa (cropped).jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Gnopera83",
+          "attribution": "Gnopera83, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lago_di_federa_(cropped).jpg",
+          "width": 4096,
+          "height": 3072
+        },
+        {
+          "file": "File:Sulle sponde del lago Federa.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Yreen",
+          "attribution": "Yreen, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Sulle_sponde_del_lago_Federa.jpg",
+          "width": 4000,
+          "height": 3000
+        }
       ]
     },
     {
@@ -1035,6 +1157,26 @@
           "url": "https://www.openstreetmap.org/relation/1641053",
           "state": "filled",
           "on": "2026-10-19"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Cascate di Fanes.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Yreen",
+          "attribution": "Yreen, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Cascate_di_Fanes.jpg",
+          "width": 4000,
+          "height": 3000
+        },
+        {
+          "file": "File:Cascate e monti in val di Fanes.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "AraskipaP",
+          "attribution": "AraskipaP, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Cascate_e_monti_in_val_di_Fanes.jpg",
+          "width": 4608,
+          "height": 3456
         }
       ]
     },
@@ -1166,6 +1308,17 @@
             "src-0006"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:20120716 0457- Geislergruppe von der Brogleshütte.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Matthias Bethke",
+          "attribution": "Matthias Bethke, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:20120716_0457-_Geislergruppe_von_der_Broglesh%C3%BCtte.jpg",
+          "width": 3000,
+          "height": 1584
+        }
       ]
     },
     {
@@ -1212,6 +1365,26 @@
           "src": [
             "src-0007"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Sassolungo e Sassopiatto dall'Alpe di Siusi - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Francesco Zanardini",
+          "attribution": "Francesco Zanardini, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Sassolungo_e_Sassopiatto_dall%27Alpe_di_Siusi_-_panoramio.jpg",
+          "width": 2988,
+          "height": 2000
+        },
+        {
+          "file": "File:Le Odle dall'Alpe di Siusi - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Francesco Zanardini",
+          "attribution": "Francesco Zanardini, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Le_Odle_dall%27Alpe_di_Siusi_-_panoramio.jpg",
+          "width": 2988,
+          "height": 2000
         }
       ]
     },
@@ -1260,6 +1433,26 @@
           "src": [
             "src-0008"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Castelrotto dalla Bullaccia.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "M-Car",
+          "attribution": "M-Car, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Castelrotto_dalla_Bullaccia.jpg",
+          "width": 2482,
+          "height": 1476
+        },
+        {
+          "file": "File:Col dala Dodesc Pitz Ridl udu da Bulacia Gherdëina.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "This Photo was taken by Wolfgang Moroder. Feel free to use my photos, but please mention me as the author and send me a message. This image is not in the public domain. Please respect the copyright protection. It may only be used according to the rules mentioned here. This specifically excludes use in social media, if applicable terms of the licenses listed here are not appropriate. Please do not upload an updated image here without consultation with the Author. The author would like to make corrections only at his own source. This ensures that the changes are preserved.Please if you think that any changes should be required, please inform the author.Otherwise you can upload a new image with a new name. Please use one of the templates derivative or extract.",
+          "attribution": "This Photo was taken by Wolfgang Moroder. Feel free to use my photos, but please mention me as the author and send me a message. This image is not in the public domain. Please respect the copyright protection. It may only be used according to the rules mentioned here. This specifically excludes use in social media, if applicable terms of the licenses listed here are not appropriate. Please do not upload an updated image here without consultation with the Author. The author would like to make corrections only at his own source. This ensures that the changes are preserved.Please if you think that any changes should be required, please inform the author.Otherwise you can upload a new image with a new name. Please use one of the templates derivative or extract., CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Col_dala_Dodesc_Pitz_Ridl_udu_da_Bulacia_Gherd%C3%ABina.jpg",
+          "width": 7360,
+          "height": 4912
         }
       ]
     },
@@ -1363,6 +1556,17 @@
           "state": "filled",
           "on": "2026-10-19"
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Vallunga val Gardena 2016.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Roberto P.",
+          "attribution": "Roberto P., CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Vallunga_val_Gardena_2016.jpg",
+          "width": 3648,
+          "height": 2736
+        }
       ]
     },
     {
@@ -1414,7 +1618,27 @@
           ]
         }
       ],
-      "area_id": "IT/veneto/belluno"
+      "area_id": "IT/veneto/belluno",
+      "photos": [
+        {
+          "file": "File:Marmolada and Rifugio Viel Dal Pan.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Pimlico27",
+          "attribution": "Pimlico27, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Marmolada_and_Rifugio_Viel_Dal_Pan.jpg",
+          "width": 2592,
+          "height": 1944
+        },
+        {
+          "file": "File:Il massiccio della Marmolada dal sentiero del Viel dal Pan.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Elena cischino",
+          "attribution": "Elena cischino, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Il_massiccio_della_Marmolada_dal_sentiero_del_Viel_dal_Pan.jpg",
+          "width": 5184,
+          "height": 3888
+        }
+      ]
     },
     {
       "ref": "place/sass-pordoi-and-piz-boe",
@@ -1472,7 +1696,27 @@
           "on": "2026-10-19"
         }
       ],
-      "area_id": "IT/trentino-alto-adige/provincia-di-trento"
+      "area_id": "IT/trentino-alto-adige/provincia-di-trento",
+      "photos": [
+        {
+          "file": "File:Piz Boè view.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Einaz80",
+          "attribution": "Einaz80, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Piz_Bo%C3%A8_view.jpg",
+          "width": 4032,
+          "height": 3024
+        },
+        {
+          "file": "File:Sass Pordoi 03.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Adert",
+          "attribution": "Adert, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Sass_Pordoi_03.jpg",
+          "width": 3264,
+          "height": 2448
+        }
+      ]
     },
     {
       "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
@@ -1547,6 +1791,26 @@
           "query": "Overpass 2026-10-19: hiking relations within 250 m of the Lagazuoi top station and the tunnel line; only the Kaiserjäger Steig (relation 2282556, the way up, not the tunnels), paths 401, 402, 441, 20 and long-distance routes; no relation for the Galleria del Lagazuoi",
           "on": "2026-10-19"
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Gallerie del Lagazuoi3.JPG",
+          "licence": "CC BY-SA 3.0",
+          "author": "Llorenzi",
+          "attribution": "Llorenzi, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Gallerie_del_Lagazuoi3.JPG",
+          "width": 2592,
+          "height": 1944
+        },
+        {
+          "file": "File:Lagazuoi - galleria.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Bludev",
+          "attribution": "Bludev, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lagazuoi_-_galleria.jpg",
+          "width": 5344,
+          "height": 3008
+        }
       ]
     },
     {
@@ -1591,6 +1855,17 @@
           "src": [
             "src-0029"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Sweeping Seceda (38225459035).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "mendhak",
+          "attribution": "mendhak, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Sweeping_Seceda_(38225459035).jpg",
+          "width": 5951,
+          "height": 3967
         }
       ]
     },
@@ -1664,6 +1939,26 @@
           "state": "filled",
           "on": "2026-10-19"
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Lake of Braies in 2024.02.jpg",
+          "licence": "CC0",
+          "author": "CAPTAIN RAJU",
+          "attribution": "CAPTAIN RAJU, CC0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lake_of_Braies_in_2024.02.jpg",
+          "width": 5792,
+          "height": 4344
+        },
+        {
+          "file": "File:Lago di Braies a maggio.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Alessandro.Spinello",
+          "attribution": "Alessandro.Spinello, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lago_di_Braies_a_maggio.jpg",
+          "width": 4032,
+          "height": 3024
+        }
       ]
     },
     {
@@ -1689,6 +1984,26 @@
       "name": "Lago di Dobbiaco walk",
       "starts_at": [
         "place/lago-di-dobbiaco"
+      ],
+      "photos": [
+        {
+          "file": "File:Toblach Toblacher See 05.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Zairon",
+          "attribution": "Zairon, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Toblach_Toblacher_See_05.jpg",
+          "width": 4488,
+          "height": 3306
+        },
+        {
+          "file": "File:Panorama del Lago di Dobbiaco 01.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Davide Mauro",
+          "attribution": "Davide Mauro, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Panorama_del_Lago_di_Dobbiaco_01.jpg",
+          "width": 11072,
+          "height": 3890
+        }
       ]
     },
     {
@@ -1715,6 +2030,26 @@
       "name": "Lago di Limides walk",
       "starts_at": [
         "place/lago-di-limides"
+      ],
+      "photos": [
+        {
+          "file": "File:Dolomity - Lago di Limides 01.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Petr1888",
+          "attribution": "Petr1888, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Dolomity_-_Lago_di_Limides_01.jpg",
+          "width": 5472,
+          "height": 3648
+        },
+        {
+          "file": "File:Lago di Limides e Tofana di Rozes.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Sandra.bonizzato",
+          "attribution": "Sandra.bonizzato, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lago_di_Limides_e_Tofana_di_Rozes.jpg",
+          "width": 2592,
+          "height": 1936
+        }
       ]
     },
     {
