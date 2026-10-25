@@ -73,3 +73,5 @@ Troll Falls (all winter or frozen-fall files; D5a's finding repeated), Elbow Fal
 
 ## Files
 `data/capture/*/migrated.json` (algonquin-muskoka-2026, canadian-rockies-2029, chamonix-mont-blanc-2028, dolomites-2027, iceland-ring-road-2027, patagonia-2027, utah-five-parks), `data/capture/canadian-rockies-2029/CS7.json`, `data/capture/runs/api-2026-10-25-data-d5b-photos.json`, `research/runs/DATA-D5b/` (ledger, scripts, query lists, call log, fresh verify file; the raw geosearch and text-search answers and the thumbnail cache are left untracked).
+
+Note on scripts: `cm.py` (the cached, locked Commons client) and `kw.py` are the D5a files, not copied again (the tree check refuses identical copies); to rerun, copy them from `research/runs/DATA-D5a/` next to the other scripts. The raw geosearch and text-search answers, thumbnails and contact sheets are not committed.
