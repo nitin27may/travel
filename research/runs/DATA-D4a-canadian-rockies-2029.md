@@ -1,8 +1,9 @@
 # DATA-D4a: where the Rockies offers happen, and the plan-day offers
 
 Run on 25 Oct 2026 by travel-researcher (Opus 5.5) in worktree `v2-DATA-D4a`, branch `public/DATA-D4a` from `main` f2dee4b.
-Run record: `data/capture/runs/data-d4a-2026-10-25-rockies-offers.json`. Gap reports before and after:
-`research/runs/DATA-D4a/{before,after}-{placement,tier-required}.json`.
+Run record: `data/capture/runs/data-d4a-2026-10-25-rockies-offers.json`. Gap reports after:
+`research/runs/DATA-D4a/after-placement.json` and `after-tier-required.json`. The before reports were byte-identical to D1's
+after reports, so they are not kept twice (folder rule 7): `research/runs/DATA-D1-points/after-placement.json` and `after-tier.json`.
 
 Method: one page read per operator where possible (31 operator and Parks Canada pages over 22 hosts, plain reads at
 least 5 s apart, user agent `travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)`), plus one browser read
