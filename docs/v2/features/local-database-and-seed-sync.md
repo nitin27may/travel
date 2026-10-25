@@ -680,11 +680,161 @@ unencrypted is written to the runner's disk outside a temp dir removed at the en
 - The PGDG package version for PostGIS 3.6 on `postgres:18-trixie` arm64 was not built here.
 - Whether `with-root-env.mjs` lets the process environment win for `DATABASE_URL` (it does for the auth variables).
 
+## 12. Build notes: LOCAL-C (the seed contract and the target guard, 25 Oct 2026)
+
+Built by travel-builder (Opus 5.5), branch `public/LOCAL-C`. New files only: `core/src/seed/**`, `core/src/config/database.ts`,
+`core/test/seed/**`, this section and rows in `research/tools.md`. No database, Docker or Neon command was run; nothing reads
+`DATABASE_URL` from the environment.
+
+### 12.1 Where it lives (differs from 6.1 and 8.2)
+
+The coordinator's brief put the contract and the guard in `core/src/seed/` rather than `core/src/db/target.ts` and
+`core/src/catalogue/postgres/load/contract.ts`, because LOCAL-1 runs in parallel and owns the local target resolver. The split:
+**the guard decides** (pure, `core/src/seed/guard.ts`), **the resolver resolves** (LOCAL-1's `core/src/db/target.ts`: a name to a
+URL, the local constant, `neon connection-string` for the child, the root env file for production) and calls the guard before it
+returns a URL to anyone. The engine (LOCAL-2) lives in `core/src/catalogue/postgres/load/**` as 8.2 says and imports the contract
+from `core/src/seed/`.
+
+| Module | What it holds | Pure |
+|---|---|---|
+| `core/src/config/database.ts` | Neon project, production endpoint `ep-quiet-leaf-b4oz2a4v`, production branch `br-soft-glade-b4mkqyvd`, child branch `br-damp-breeze-b41mtvn5`, `.neon.tech`, loopback hosts, local host and port 54329, the env keys whose hosts are production, the seed advisory lock key (migration key + 1), the rehearsal folder and maximum age, coordinate decimals, plan sample size | yes |
+| `seed/contract.ts` | `SEED_TABLES` (apply order, family, owner task, input globs, key, identity, mode, `onMissing`, retire column, set and geometry columns), `DELETE_ORDER`, `NOT_SEEDED` with a class and reason per table, `PRIVATE_CLASSES`, `FUTURE_TABLES`, `NEVER_TOUCH_SCHEMAS`, `NEVER_READ_INPUTS`, `SEED_FORBIDDEN_KEYS`, `assertSeedTable`, `assertDeletable`, `SEED_COMMIT_KEY`, `LOAD_RUN_TABLE`, `SEED_CONTRACT_VERSION` | yes |
+| `seed/hash.ts` | `canonicalRow`, `contentHash`, `rowId`, `derivedId`, `tableHash`, `geometryWkt`, `seedRunId`, `stampSeedMeta` (wraps RIS-N's `stampImportedFrom`) | yes |
+| `seed/plan.ts` | `classifyRow` (the idempotency and never-delete rule), `planTable`, `seedPlan`, `formatPlan` (6.4), `planWrites`, `planExitCode` (0 same, 3 differs, 1 error) | yes |
+| `seed/drift.ts` | the `seed-drift/1` result of `db:verify`: `compareTable`, `driftResult`, `formatDrift`, `driftSummary`, `driftExitCode` (0 or 1) | yes |
+| `seed/guard.ts` | `describeTarget` (URL to host, port, database; credentials dropped), `hostsFromEnvText`, `isProductionHost`, `guardTarget`, `assertTarget`, `guardedConnect`, `targetFactsSchema` | yes |
+| `seed/rehearsal.ts` | the `seed-rehearsal/1` evidence file: schema, `checkRehearsal`, `rehearsalEvidenceText` | yes |
+| `seed/privacy.ts` | `inputRefusals` (deny list), `rowRefusals` (origin refs and the owner's list keys, by path, never by value) | yes |
+| `seed/io.ts` | `readRepoState` (HEAD, clean tree), `readRehearsal`, `readProductionHosts` (hosts only), `expandInputs` (globs to files, denied files reported) | no: the one module that reads the machine |
+| `seed/schemaRefs.ts` | `createdTables`, `tableReferences`, `hasColumn`: what the migrations' SQL says, so the tests prove the contract against the schema | yes |
+
+### 12.2 The guard's decision table
+
+Evaluated top to bottom; the first matching row decides. Every refusal exits 2 before any connection (`guardedConnect` never calls
+`connect` on a refusal). "Kind" is the declared kind: the target name (`local`, `ci`, `child`, `production`), or `--target-kind`
+for a URL; a name and a flag that disagree are refused.
+
+| # | Condition | Result |
+|---|---|---|
+| 1 | `--target` is not a URL or a known name | refuse `E_TARGET_NAME` |
+| 2 | no host, or a host that is not a bare host name | refuse `E_TARGET_HOST` |
+| 3 | `--target-kind` not one of local, ci, child, production | refuse `E_KIND_UNKNOWN` |
+| 4 | the name and `--target-kind` disagree | refuse `E_KIND_MISMATCH` |
+| 5 | loopback host, kind child or production | refuse `E_LOOPBACK_KIND` |
+| 6 | loopback host, kind none, local or ci | **allow** every operation (local, or ci) |
+| 7 | non-loopback, no kind (a pasted URL, `.neon.tech` or not) | refuse `E_KIND_REQUIRED` |
+| 8 | a production host (endpoint `ep-quiet-leaf-b4oz2a4v`, pooled or direct; a host of the root env file's `DATABASE_URL` or `DATABASE_URL_UNPOOLED`; or branch hint `br-soft-glade-b4mkqyvd`) under any kind but production | refuse `E_PRODUCTION_UNDECLARED` |
+| 9 | kind local or ci on a non-loopback host | refuse `E_LOCAL_NOT_LOOPBACK` |
+| 10 | kind production on a host that is not production | refuse `E_PRODUCTION_HOST` |
+| 11 | kind child on a non-Neon host | refuse `E_CHILD_NOT_NEON` |
+| 12 | kind child with a branch hint other than the child branch | refuse `E_CHILD_BRANCH` |
+| 13 | kind production with a branch hint other than the production branch | refuse `E_PRODUCTION_HOST` |
+| 14 | operation `reset` or `seed` on a non-loopback host | refuse `E_LOOPBACK_ONLY` |
+| 15 | kind child, any other operation (migrate, sync, dry run, verify, psql) | **allow**, no approval |
+| 16 | production, `psql` | refuse `E_PRODUCTION_SHELL` |
+| 17 | production, `sync_dry_run` or `verify` (read only) | **allow**, no approval |
+| 18 | production write (migrate, sync), no `--approve` | refuse `E_APPROVE_REQUIRED` |
+| 19 | `--approve` not a full 40-hex sha | refuse `E_APPROVE_FORMAT` |
+| 20 | HEAD or the tree state could not be read | refuse `E_REPO_STATE` |
+| 21 | `--approve` is not HEAD | refuse `E_APPROVE_MISMATCH` |
+| 22 | `--commit` given and not HEAD | refuse `E_COMMIT_NOT_HEAD` |
+| 23 | the working tree is not clean (a tracked change or an untracked file that is not ignored) | refuse `E_DIRTY_TREE` |
+| 24 | no rehearsal file for HEAD / it does not parse or match `seed-rehearsal/1` / other contract version / other commit / not the child branch, or a production host / not green (status, verify, or a required step missing, non-zero or with skips) / older than 72 h | refuse `E_REHEARSAL_MISSING` / `_INVALID` / `_CONTRACT` / `_COMMIT` / `_TARGET` / `_FAILED` / `_STALE` |
+| 25 | otherwise | **allow** production |
+
+Output rule: the only target facts any decision, message, plan or drift result holds are the name, the kind and the host
+(`targetFactsSchema` refuses anything else in a host). The tests run every operation, host, name and flag combination with a URL
+holding a sentinel password and assert no output contains the password, the user, `postgres://` or a query string.
+
+### 12.3 The rehearsal evidence file (`seed-rehearsal/1`)
+
+`tools/.cache/db-rehearsal/<commit>.json` (gitignored with the tool cache; per checkout, so the coordinator rehearses and approves
+from the same checkout). Written by LOCAL-5 through `rehearsalEvidenceText`; strict, with no free text:
+
+```json
+{
+  "schema": "seed-rehearsal/1",
+  "commit": "<40 hex>",
+  "contract_version": 1,
+  "target": { "kind": "child", "branch_id": "br-damp-breeze-b41mtvn5", "host": "<bare host>" },
+  "started_at": "<ISO>", "finished_at": "<ISO>",
+  "steps": [ { "name": "reset", "exit": 0, "skipped": 0 }, "... delete_sessions, migrate, sync_dry_run, sync, verify, db_tests, ris_t" ],
+  "plan_totals": { "insert": 0, "update": 0, "retire": 0, "delete": 0, "unchanged": 0, "retained": 0 },
+  "verify": { "ok": true, "tables": 0, "differing": 0 },
+  "load_run_id": null,
+  "status": "green"
+}
+```
+
+Required green steps: reset, delete_sessions, migrate, sync, verify, db_tests (exit 0, 0 skipped). `sync_dry_run` may exit 3;
+`ris_t` joins the required list when RIS-T exists. After RIS-M, the engine also confirms the child's `load_run` row for the commit;
+the file stays the proof checked before any connection.
+
+### 12.4 What is never seeded, and how it is tested
+
+`NOT_SEEDED` classifies 54 tables (53 on `main` plus EML-1's `quota_bucket`, listed in `FUTURE_TABLES` so that branch merges
+already classified): account 7, plan 24 (every 0004 table, the drafts and the signal, day state, dismissals, memories, share
+links, feeds, template decisions), household 12 (including `calendar_window`, whose custom rows carry a household), operational 5
+(`op_event`, `fx_rate`, `coverage`, `backlog`, `quota_bucket`), unsourced 6 (`condition_report`, `event_occurrence`,
+`pack_template`, `document_rule`, `lane`, `trip_type`: no JSON family yet; giving one a family moves it into `SEED_TABLES` on
+purpose). `neon_auth` is never touched. Tests (`core/test/seed/contract.test.ts`):
+- the allowlist (34 tables) and `NOT_SEEDED` are disjoint and together equal `ALL_APP_TABLES` plus `RLS_EXEMPT_TABLES`; a
+  classified table is in the inventory or in `FUTURE_TABLES`;
+- every `create table` in `core/src/db/migrations/*.sql` is classified, so a new migration table fails even if the inventory is
+  not updated; a fixture `create table account_secret_thing` shows the failure;
+- no seed table has a `household_id`, `user_id`, `owner_id` or `trip_id` column or references `household`, `trip` or `planner_draft`;
+- `assertSeedTable` throws for every table outside the allowlist; the engine calls it before every statement;
+- `NEVER_READ_INPUTS` refuses the inbox, the migration ledger, the gap budget, local-only relevance inputs, the town anchors
+  (`data/reference/towns/anchors.json`: coordinates near the owner's places) and the wishlist; `expandInputs` reports, never
+  returns, a denied file; the locations store is read for `countries`, `regions` and `areas` only;
+- every seed input file today is free of `loc:`/`proto:` refs and of the owner's list keys.
+
+### 12.5 Retire, never delete; idempotency; hashes
+
+- `onMissing`: **retire** `entity`, `offer` (`status = 'retired'`; a seeded row that was retired is updated back to live);
+  **keep** `type_node`, `area`, `town`, `operator`, `source`, `evidence`, `catalogue_meta` (no status column, or history); **delete**
+  the rest (catalogue-owned children, sidecars, source tier, research, cache, rules, projections). Tested from the migrations: the
+  four tables a non-seed table points at (`area`, `entity`, `offer`, `source`) never delete, and no row a retained row points at
+  can be deleted (closure). `assertDeletable` refuses the others; TRUNCATE is never allowed.
+- Deletes run in `DELETE_ORDER` (reverse of the apply order); the apply order is tested as a topological order of every foreign
+  key between seed tables.
+- Hash: sha256 of the catalogue revision's `canonicalJson` of the row, set columns sorted, geometry as WKT with 7 decimals. **It
+  also excludes `meta.imported_from`, `meta.first_run_id`, `version` and `dataset_file.loaded_at`** beside 6.3's three: a file's
+  sha256 moves when any record in it moves, and hashing it would show every row of an edited file as updated (LOCAL-2's
+  acceptance needs one town edit to be one update). So `meta.imported_from` means "the file version that last changed this row".
+  The engine hashes the same column set on both sides; columns the database fills alone are in neither.
+- Append-only: an `evidence` row whose content changed under the same key is an error (`E_SEED_APPEND_ONLY`), never an update.
+- Run id: `seed-<UTC yyyymmddThhmmssZ>-<12 hex of the commit>`, valid under RowMeta's `RUN_ID_RE`.
+
+### 12.6 Interfaces other tasks consume
+
+| Task | Uses |
+|---|---|
+| LOCAL-1 | `core/src/db/target.ts` resolves a name to a URL, then: `const d = assertTarget({ operation, target: describeTarget(url, name, branchId), flags, repo: readRepoState(root), productionHosts: readProductionHosts(root), rehearsal: readRehearsal(root, head) })`; prints only `d.label`. `db:reset` passes `operation: "reset"` (refused off loopback by row 14). `LOCAL_DB_HOST`, `LOCAL_DB_PORT` from `core/src/config/database.ts`. The migrate wrapper passes `operation: "migrate"` |
+| LOCAL-2 | `SEED_TABLES` filtered by `owner === "LOCAL-2"` (type_node, tag, relevance_class, area, town, operator, source, catalogue_meta); `expandInputs` for files; `inputRefusals`, `rowRefusals` before writing; `contentHash`, `rowId`; `planTable` per table then `seedPlan`, `formatPlan`, `planExitCode`; `assertSeedTable` before every statement and `assertDeletable` before every delete; `SEED_ADVISORY_LOCK_KEY`; `seedRunId`; `SEED_COMMIT_KEY` until `load_run`; `guardedConnect` as the only way to open the target |
+| LOCAL-3 | `compareTable` per table, `driftResult`, `driftExitCode`, `formatDrift`; a second `planWrites` of 0 is the idempotency step |
+| LOCAL-5 | writes the evidence with `rehearsalEvidenceText`, `verify` from `driftSummary`, at `rehearsalPath(root, commit)` |
+| RIS-L | its families from `SEED_TABLES` (`owner === "RIS-L"`), `derivedId` for link, media, change and gap ids, `stampSeedMeta` on `META_TABLES` rows |
+| RIS-M | adds `load_run` (`LOAD_RUN_TABLE`); must add the new table to the inventory and classify it (the test fails otherwise); a status column on `area` or `source` would let them retire instead of keep (contract version bump) |
+
+### 12.7 Differences from the text above
+
+- `db:seed` is loopback only (6.1 item 4), not "local, ci, child" (2.3): the child gets data through `db:sync`, the same engine.
+- `ci` is loopback only (a service container mapped to 127.0.0.1, as 3.6 sketches).
+- A target name declares its kind; `--target-kind` is needed only for a URL. Production also needs the known production host.
+- `psql` on production is refused; `migrate` on production needs the same approval, clean tree and green rehearsal as a sync (4.2
+  rehearses before every production migration).
+- On production `--commit` must equal HEAD: a rollback to an earlier commit checks that commit out, rehearses it and approves it.
+- The guard checks a rehearsal FILE before connecting; 4.2's "the child's `load_run`" check follows once RIS-M adds the table.
+- `area`, `town`, `type_node`, `operator` and `source` are kept, not deleted, when the seed drops a row (no status column; retired
+  rows and private tables point at them). The plan shows them as retained.
+
 ## Change log
 
 | Date | Change |
 |---|---|
 | 2026-10-25 | First version (travel-planner, Opus): answer to "is migration blocked", the seed-of-record strategy, local Docker matching Neon, the Neon side, measured seed size, tasks LOCAL-1 to LOCAL-5, LOCAL-C, BKP-1, MIG-N, conflicts L1 to L8, Q180 to Q187 |
+| 2026-10-25 | LOCAL-C built (travel-builder, Opus 5.5), branch `public/LOCAL-C`: `core/src/seed/**`, `core/src/config/database.ts`, section 12 |
 
 Sources for Neon and Docker facts: [Neon plans](https://neon.com/docs/introduction/plans) (Free: 1 GB per project, 10 branches,
 100 CU-hours, 6-hour restore window, 1 manual snapshot; Launch storage USD 0.35 per GB-month), the Neon CLI 8.11.1 help
