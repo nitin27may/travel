@@ -1,5 +1,10 @@
 # Neon implementation — final independent verification
 
+> **Update, 25 Oct 2026** (master-plan audit, main f2dee4b): this 24 Oct record stands as written. Since then the work is
+> merged into `main`, and the child-branch suite `core/test/db` passed 29 of 29 with 0 skipped against
+> `br-damp-breeze-b41mtvn5` (HANDOVER item 1). The real-service E2E is blocked by the origin guard until an HTTPS origin
+> exists (HANDOVER item 2).
+
 Date: 24 Oct 2026. Final verifier model: **GPT-5**. Worktree: `nitin27may-musical-parakeet`, branch `nitin27may-phase-e-remaining-plan`; implementation remains user-owned and uncommitted. This report supersedes the earlier report that incorrectly called the configured HTML budget failure non-blocking and recorded only 12 real-service checks.
 
 ## Verdict: PASS for the repaired scope; child DB integration BLOCKED

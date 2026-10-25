@@ -2,6 +2,13 @@
 
 The MCP endpoint will be public so that remote chat clients can reach it. It is not built yet, and its hosting and
 OAuth provider are not selected (R-60, Oct 2026; the Cloudflare Tunnel plan in 08-self-hosted.md is historical).
+
+> **Updated 25 Oct 2026:** hosting is Vercel and the sign-in design is [auth-and-sign-in.md](auth-and-sign-in.md)
+> (PLAN R-123 to R-129): a public endpoint with no sign-in and a private one behind Neon's OAuth provider or a personal
+> access token. Its section 6 (audience and issuer binding, token storage, revocation, quotas shared with `quota_bucket`,
+> untrusted text, privacy on outputs, origins and CORS, local testing) adds to the mitigations below. Neon has fixed
+> OAuth scopes only, so "scopes" in T1 and T2 read as **capabilities** stored in our database. Last verified 25 Oct 2026
+> against main f2dee4b.
 It touches private family data (ages, travel dates, where the house will be empty, booking codes) and
 it accepts writes from software that reads untrusted web pages. That combination is the risk.
 

@@ -1,5 +1,7 @@
 # Travel platform v2: clean-slate design (17 Oct 2026)
 
+Last verified 25 Oct 2026 against main f2dee4b ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). The single plan and order is [PLAN.md](PLAN.md); this index covers the planner product's design files.
+
 Status: **WORKING DRAFT, not final.** Everything here, including choices marked "decided" or "answered", is the current direction and is expected to change as we keep planning. Written as if starting from zero, then mapped back onto what exists.
 It replaces `docs/archive/v1/BLUEPRINT.md` where they disagree; the blueprint's principles mostly survive, but
 several of its mechanisms were too heavy or too fragile (section "What changed from BLUEPRINT.md").
@@ -9,7 +11,7 @@ several of its mechanisms were too heavy or too fragile (section "What changed f
 | [01-domain-model.md](01-domain-model.md) | Catalog vs plans, evidence, changesets, trip items, tasks, bookings, reminders |
 | [schema.sql](schema.sql) | First-cut Postgres + PostGIS DDL for everything in 01 |
 | [02-experience.md](02-experience.md) | Screens, flows, desktop vs phone, Today mode, tasks, reminders, admin |
-| [03-mcp-and-research.md](03-mcp-and-research.md) | MCP tool surface, OAuth, research pipeline, trust, licences |
+| [03-mcp-and-research.md](03-mcp-and-research.md) | MCP tool surface, OAuth (now [mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md)), research pipeline, trust, licences |
 | [04-stack.md](04-stack.md) | Every technology choice with the alternative and why; Neo4j; Neon vs Supabase; cost |
 | [05-roadmap.md](05-roadmap.md) | Milestones with exit criteria, and how today's repo migrates |
 | [06-questions.md](06-questions.md) | Decisions and questions for the owner |
@@ -68,7 +70,7 @@ API operation and an MCP tool, so a chat client and a person editing by hand are
 | `day` rows with `item` rows | Items carry an optional day number, optional times, optional span and optional parent; days are derived | Real trips have multi-day treks, overnight ferries, an ideas tray, and items whose day is not chosen yet |
 | MCP generated one tool per operation | About 20 grouped tools plus an `apply` tool for batches; resources for schema and taxonomy | Chat clients choose tools worse as the tool count grows past ~20-30; grouped tools with good descriptions work better than 43 thin ones |
 | Supabase Cloud for data, auth, storage, queues | **Neon** Postgres, Managed Better Auth and Neon Realtime (selected and provisioned, R-60, Oct 2026; 10 migrations applied). Built so far: email/password accounts and private drafts with RLS. Object storage, queues and functions are not selected. Self-hosted Supabase (decided 17 Oct 2026, 08-self-hosted.md) is historical | Free tier for under 100 users; managed database and auth instead of a home server to run |
-| Vercel for the app | Hosting **not selected** (PLAN.md R-8). The earlier plan, Next.js in a container beside the database on the home server behind a Cloudflare Tunnel, is historical | the choice stays open until the owner decides hosting |
+| Vercel for the app | **Vercel** (owner, 24 Oct; PLAN R-8, R-61): project `travel`, public address `https://travel-beta-tan.vercel.app`, no custom domain for now; previews behind Vercel Authentication; no production deployment yet. The home-server container plan behind a Cloudflare Tunnel is historical | Next.js route handlers run there unchanged; Hobby is free for personal use |
 | ICS calendar feed as the most reliable reminder | ICS is the backstop; Web Push and email are primary for time-critical openings | Google Calendar refreshes subscribed feeds only every several hours, so a feed cannot deliver "opens in 15 minutes" reliably |
 
 **Running to-do list of owner requests: [TODO.md](TODO.md).**
@@ -84,5 +86,6 @@ reviewed by the owner; **reviewed**; **building**; **done**.
 | [features/](features/README.md) | One page per feature area: purpose, user stories, behaviour, data, operations and MCP tools, edge cases, acceptance criteria, milestone |
 | [ux/](ux/README.md) | Navigation and layout rules, one page per screen (desktop and phone), the component inventory, tokens, patterns and states |
 | [research/](../../research/method/README.md) | How research works from Claude Code and from any chat client: trip-type profiles, one contract per lane (trails with every link, trailhead and parking; adventure; stays; ...), sources and licences, skills and prompts |
-| [mcp/](mcp/README.md) | The MCP server in detail: auth and scopes, every tool with inputs and outputs, resources, prompts, example client sessions |
+| [mcp/](mcp/README.md) | The MCP server in detail: auth and scopes, every tool with inputs and outputs, resources, prompts, example client sessions; sign-in for the stdio, public and private surfaces in [mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md) (25 Oct) |
+| [MASTER-PLAN-AUDIT-2026-10-25.md](MASTER-PLAN-AUDIT-2026-10-25.md) | The 25 Oct audit of these files against `main`: what holds, what was stale, what changed |
 | [migration/](migration/README.md) | What exists in this repo today and how each piece becomes catalog entries, trips or templates |

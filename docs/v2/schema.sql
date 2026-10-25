@@ -4,6 +4,8 @@
 -- deviations: docs/v2/build/public-site/NEON-MIGRATIONS.md. Never run this auth.users test stub
 -- against Neon; the managed neon_auth schema is provider-owned. The accepted catalogue changes
 -- are documented in research/reports/schema-diff-2026-10.md.
+-- Last verified 25 Oct 2026 against main f2dee4b: every Supabase line below (auth.users, auth.uid(),
+-- service_role, realtime.messages) is historical; Supabase is gone (PLAN R-58, R-60).
 -- Postgres + PostGIS on self-hosted Supabase (decided 17 Oct 2026, 08-self-hosted.md). Supabase Auth owns
 -- auth.users; app_user is our profile row keyed by the same uuid (created by a trigger on auth.users).
 -- The stub below lets this file load on plain Postgres for tests; on Supabase auth.users already exists.
@@ -459,6 +461,8 @@ create table op_event (id bigserial primary key, at timestamptz not null default
 create index on op_event (trip_id, id);
 
 -- ───────────── row-level security (defence in depth; the op layer checks first) ─────────────
+-- Historical. Built instead: withUserTransaction (core/src/db/tx.ts) sets role travel_app (NOBYPASSRLS) and the
+-- transaction-local app.user_id from the server-verified session; policies read current_setting('app.user_id', true).
 -- On Supabase, auth.uid() reads the caller's JWT; our op layer runs as the caller (never service_role)
 -- so these policies apply to every operation, and to Realtime channel authorization on realtime.messages.
 -- create function app_uid() returns uuid language sql stable as $$ select auth.uid() $$;
