@@ -28,7 +28,7 @@ const photo = z.strictObject({
 const honesty = z.strictObject({ id: z.enum(HONESTY_IDS), label: z.string(), reason: z.string() });
 const idLabel = z.strictObject({ id: z.string(), label: z.string() });
 
-/** `TripRow`: the 36 keys of web TRIP_LIST_KEYS plus `ref`, and nothing else (the allowlist of case K2). */
+/** `TripRow`: the 37 keys of web TRIP_LIST_KEYS plus `ref`, and nothing else (the allowlist of case K2). */
 export const tripRow = z.strictObject({
   ref: tripRefId,
   id: apiSlug,
@@ -43,7 +43,7 @@ export const tripRow = z.strictObject({
   cover: z.string().nullable(),
   seasonLabel: z.string().nullable(),
   /** "plan": the label is only the window the plan was written for (other months and opening dates not checked). */
-  seasonBasis: z.enum(["plan", "researched"]).nullable(),
+  seasonBasis: z.enum(["plan", "researched"]).nullable().optional(),
   seasonMonths: z.array(z.int().min(1).max(12)),
   country: z.string().regex(/^(?:[A-Z]{2})?$/),
   countryName: z.string(),
@@ -207,7 +207,7 @@ export const tripDetail = z.strictObject({
   region: z.string(),
   cover: photo.nullable(),
   season: z.strictObject({
-    basis: z.enum(["plan", "researched"]),
+    basis: z.enum(["plan", "researched"]).optional(),
     months: z.array(z.int().min(1).max(12)),
     label: z.string(),
     why: z.string(),

@@ -21,7 +21,7 @@ export const STUB_CARD_ORDER: Record<string, string[]> = {
 export const REAL_CARD_ORDER: Record<string, string[]> = {
   "lake": ["cameron-lake", "kinney-lake-mount-robson", "crypt-lake", "grassi-lakes", "beauvais-lake-trail", "berg-lake", "lake-como", "solitaire-lake-trail", "pyramid-lake", "moraine-lake"],
   "waterfall": ["borgarfjordur-waterfalls", "grand-sault-waterfall", "takakkaw-falls", "wapta-falls-yoho", "canyon-sainte-anne", "sunwapta-falls", "canyon-des-portes-de-lenfer", "dettifoss", "godafoss", "svartifoss"],
-  "glacier": ["athabasca-glacier-guided-ice-walk", "athabasca-glacier-and-columbia-icefield", "mount-edith-cavell-and-cavell-meadows", "bow-lake", "toe-of-athabasca-glacier", "plain-of-six-glaciers-to-teahouse-and-abbot-pass-viewpoint", "viel-dal-pan", "moraine-lake", "moraine-lake-rockpile"],
+  "glacier": ["athabasca-glacier-and-columbia-icefield", "mount-edith-cavell-and-cavell-meadows", "bow-lake", "toe-of-athabasca-glacier", "plain-of-six-glaciers-to-teahouse-and-abbot-pass-viewpoint", "viel-dal-pan", "moraine-lake", "moraine-lake-rockpile"],
   "hot springs": ["banff-upper-hot-springs", "miette-hot-springs", "radium-hot-springs", "whiteswan-lake-and-lussier-hot-springs", "ouray", "fairmont-banff-springs-spa", "manitou-incline", "paint-pots", "cave-and-basin-national-historic-site"],
   "lighthouse": ["la-martre-lighthouse", "cap-gaspe", "cape-cod"],
   "national park": ["yellowstone-national-park", "arches-national-park", "zion-national-park", "bryce-canyon-national-park", "canyonlands-national-park", "grand-teton-national-park", "mount-rainier-national-park", "north-cascades-national-park", "cap-bon-ami", "cap-gaspe"],

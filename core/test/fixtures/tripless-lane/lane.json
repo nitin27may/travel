@@ -1,0 +1,440 @@
+{
+ "capture": {
+  "schema": "capture/1",
+  "trip": "catalogue",
+  "lane": "L1T",
+  "researched": "2026-10-25",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [
+   {
+    "id": "src-0025",
+    "url": "https://www.suedtirol.info/de/de/information/mobilitaet/paesse-in-suedtirol/groednerjoch",
+    "title": "Anreise zum Grödner Joch",
+    "publisher": "IDM Südtirol (suedtirol.info)",
+    "kind": "official",
+    "read": "2026-10-19",
+    "method": "read"
+   }
+  ],
+  "records": [
+   {
+    "ref": "place/fixture-pass",
+    "type": "nature.viewpoint.viewpoint",
+    "layer": "place",
+    "area_id": "IT/veneto/belluno",
+    "name": "Fixture Pass",
+    "links": [
+     {
+      "kind": "official",
+      "state": "searched_none",
+      "query": "Passo Gardena Grödner Joch official page",
+      "on": "2026-10-19"
+     },
+     {
+      "kind": "tourism_board",
+      "url": "https://www.suedtirol.info/de/de/information/mobilitaet/paesse-in-suedtirol/groednerjoch",
+      "state": "filled",
+      "on": "2026-10-19",
+      "src": [
+       "src-0025"
+      ]
+     }
+    ],
+    "best_time": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-19",
+     "tried": [
+      "valgardena.it Passo Gardena",
+      "altabadia.org Passo Gardena"
+     ]
+    },
+    "near_town": {
+     "v": "it-32-selva",
+     "state": "value",
+     "basis": "our_inference",
+     "src": [],
+     "on": "2026-10-25",
+     "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3166784, cities1000 downloaded 2026-10-25."
+    },
+    "near_town_km": {
+     "v": 3.8,
+     "state": "value",
+     "basis": "our_inference",
+     "src": [],
+     "on": "2026-10-25",
+     "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+    }
+   }
+  ]
+ },
+ "suitability": {
+  "schema": "suitability/1",
+  "trip": "catalogue",
+  "lane": "L1T",
+  "researched": "2026-10-25",
+  "agent": "fixture",
+  "model": "none",
+  "sources": [
+   {
+    "id": "src-0049",
+    "url": "legacy/dolomites-july-2027/PLAN.md",
+    "title": "Trip plan",
+    "publisher": "this repo",
+    "kind": "computed",
+    "read": "2026-10-18"
+   },
+   {
+    "id": "src-0055",
+    "url": "https://www.oeamtc.at/laenderinfo/italien/news/suedtirol-groedner-joch-pragser-wildsee-und-seceda-26299020",
+    "title": "Südtirol: Grödner Joch, Pragser Wildsee und Seceda (31 Aug 2026; opened, the URL slug changed)",
+    "publisher": "ÖAMTC (motoring club)",
+    "kind": "press",
+    "read": "2026-10-18"
+   },
+   {
+    "id": "src-0056",
+    "url": "https://www.ladige.it/territori/dolomiti/stop-al-traffico-passo-gardena-verso-la-ztl-unesco-fb9o1kzt",
+    "title": "Stop al traffico, passo Gardena verso la «Ztl Unesco» (newspaper report of a planned trial)",
+    "publisher": "l'Adige (newspaper)",
+    "kind": "press",
+    "read": "2026-10-19",
+    "method": "read"
+   }
+  ],
+  "records": [
+   {
+    "ref": "place/fixture-pass",
+    "kind": "viewpoint",
+    "subkind": "viewpoint",
+    "suitability": {
+     "age_band": {
+      "v": {
+       "from": 0,
+       "to": null
+      },
+      "state": "value",
+      "basis": "our_inference",
+      "src": [
+       "src-0049"
+      ],
+      "note": "A road pass; the view is from the car parks."
+     },
+     "kid_note": "A road pass under the Sella and Cir spires; the view is from the roadside.",
+     "stroller": {
+      "v": "smooth",
+      "state": "value",
+      "basis": "our_inference",
+      "src": [
+       "src-0049"
+      ],
+      "note": "Paved car parks at the pass."
+     },
+     "stroller_extent": {
+      "scope": "part",
+      "part_note": "the paved area at the pass only"
+     },
+     "wheelchair": {
+      "v": "partial",
+      "state": "value",
+      "basis": "our_inference",
+      "src": [
+       "src-0049"
+      ],
+      "note": "Paved car parks; no accessibility survey found."
+     },
+     "on_site_min": {
+      "v": [
+       20,
+       45
+      ],
+      "state": "value",
+      "basis": "our_inference",
+      "src": [
+       "src-0049"
+      ]
+     },
+     "exposure": {
+      "v": {
+       "level": "none",
+       "fenced": null
+      },
+      "state": "value",
+      "basis": "our_inference",
+      "src": [
+       "src-0049"
+      ]
+     },
+     "walk_m": {
+      "v": 0,
+      "state": "value",
+      "basis": "our_inference",
+      "src": [
+       "src-0049"
+      ]
+     },
+     "access_season": {
+      "v": [
+       {
+        "from": "05-01",
+        "to": "10-31",
+        "status": "open",
+        "via": "road",
+        "note": "SS243. A seasonal limited-traffic zone with about 150 bookable day-visitor spaces is planned from 2027; the September 2026 ban was put on hold"
+       }
+      ],
+      "state": "value",
+      "basis": "our_inference",
+      "src": [
+       "src-0055",
+       "src-0056"
+      ],
+      "note": "Press reports; the ÖAMTC article was opened on 18 Oct 2026 and confirms the ban is on hold. Check the Province of Bolzano traffic page before travel.",
+      "applies_to": "2026",
+      "conflicts": [
+       {
+        "v": [
+         {
+          "from": "05-01",
+          "to": "10-31",
+          "status": "limited",
+          "via": "road",
+          "note": "booking and a 150-vehicle daily cap"
+         }
+        ],
+        "basis": "community",
+        "src": [
+         "src-0056"
+        ],
+        "note": "l'Adige reports a cap and booking as the plan; not in force on the read date."
+       }
+      ],
+      "quote": "Das für 1.9. geplante Fahrverbot für das Grödner Joch gilt vorerst nicht."
+     }
+    },
+    "flat": {
+     "min_age": null,
+     "max_age": null,
+     "min_height_cm": null,
+     "max_height_cm": null,
+     "min_weight_kg": null,
+     "max_weight_kg": null,
+     "house_grade": null,
+     "kid_fit": "yes",
+     "accessibility": "partial",
+     "walk_km": null,
+     "walk_gain_m": null,
+     "suit_level": "usable"
+    }
+   }
+  ]
+ },
+ "relevance": {
+  "schema": "relevance/1",
+  "trip": "catalogue",
+  "lane": "L1T",
+  "researched": "2026-10-25",
+  "sources": [
+   {
+    "id": "src-0055",
+    "url": "https://www.oeamtc.at/laenderinfo/italien/news/suedtirol-groedner-joch-pragser-wildsee-und-seceda-26299020",
+    "title": "Südtirol: Grödner Joch, Pragser Wildsee und Seceda (31 Aug 2026; opened, the URL slug changed)",
+    "publisher": "ÖAMTC (motoring club)",
+    "kind": "press",
+    "read": "2026-10-18"
+   },
+   {
+    "id": "src-0056",
+    "url": "https://www.ladige.it/territori/dolomiti/stop-al-traffico-passo-gardena-verso-la-ztl-unesco-fb9o1kzt",
+    "title": "Stop al traffico, passo Gardena verso la «Ztl Unesco» (newspaper report of a planned trial)",
+    "publisher": "l'Adige (newspaper)",
+    "kind": "press",
+    "read": "2026-10-19",
+    "method": "read"
+   },
+   {
+    "id": "src-0063",
+    "url": "https://www.wikidata.org/",
+    "title": "Wikidata entity lookups (wbsearchentities, then wbgetentities: label, description, P625)",
+    "publisher": "Wikidata (CC0)",
+    "kind": "community",
+    "read": "2026-10-18"
+   }
+  ],
+  "records": [
+   {
+    "ref": "place/fixture-pass",
+    "kind": "viewpoint",
+    "subkind": "viewpoint",
+    "wikidata": {
+     "v": "Q1416427",
+     "state": "value",
+     "basis": "our_inference",
+     "src": [
+      "src-0063"
+     ],
+     "note": "Confirmed by the agent from the Wikidata item: description 'mountain pass in the Dolomites, in South Tyrol', coordinates 46.55, 11.8094 match the place; a person should re-check."
+    },
+    "class_key": "drive/mountain-pass",
+    "draw": {
+     "v": "regional",
+     "state": "value",
+     "basis": "our_inference",
+     "src": [
+      "src-0056"
+     ],
+     "note": "A Sellaronda road pass; the Province plans a limited-traffic zone with booked day spaces from 2027 (permit-style access, press reports)."
+    },
+    "standing": {
+     "v": "good",
+     "state": "value",
+     "basis": "our_inference",
+     "src": [],
+     "note": "One of the four Sella passes; Passo Pordoi and Sella are similar."
+    },
+    "standing_scope": "Sella passes",
+    "distinction": {
+     "v": "common",
+     "state": "value",
+     "basis": "our_inference",
+     "src": [],
+     "note": "Passo Sella, Pordoi and Campolongo are within 15 km."
+    },
+    "easy_payoff": {
+     "v": "full",
+     "state": "value",
+     "basis": "our_inference",
+     "src": [],
+     "note": "Seen from the road."
+    },
+    "weather": {
+     "v": "clear_only",
+     "state": "value",
+     "basis": "our_inference",
+     "src": [],
+     "note": "A view of the Cir spires and Sella walls."
+    },
+    "why": "A road pass between Val Gardena and Alta Badia under the Cir spires and the Sella walls.",
+    "access_cost": {
+     "v": [
+      {
+       "type": "seasonal_road",
+       "note": "A seasonal limited-traffic zone with about 150 bookable day spaces is planned from 2027; not in force on the read date"
+      }
+     ],
+     "state": "value",
+     "basis": "our_inference",
+     "src": [
+      "src-0055",
+      "src-0056"
+     ],
+     "note": "Press reports (search results)."
+    },
+    "signals": {
+     "designations": {
+      "v": null,
+      "state": "searched_none",
+      "basis": null,
+      "src": [],
+      "on": "2026-10-18",
+      "tried": [
+       "Passo Gardena (no land-manager page read): the board or operator page read for suitability names no designation",
+       "Wikidata item claims are read by the signals tool, not by hand"
+      ]
+     },
+     "editorial": {
+      "v": null,
+      "state": "gap",
+      "basis": null,
+      "src": []
+     }
+    }
+   }
+  ]
+ },
+ "locations": {
+  "schema_version": 3,
+  "updated": "2026-10-22",
+  "layout": "single",
+  "countries": [
+   {
+    "code": "IT",
+    "a3": "ITA",
+    "name": "Italy"
+   }
+  ],
+  "regions": [
+   {
+    "id": "IT/veneto",
+    "country": "IT",
+    "code": "veneto",
+    "name": "Veneto",
+    "iso_3166_2": null
+   }
+  ],
+  "areas": [
+   {
+    "id": "IT/veneto/belluno",
+    "region_id": "IT/veneto",
+    "slug": "belluno",
+    "name": "Belluno"
+   }
+  ],
+  "places": [
+   {
+    "id": "IT/veneto/belluno/fixture-pass",
+    "area_id": "IT/veneto/belluno",
+    "name": "Fixture Pass",
+    "resolved_name": null,
+    "kind": "viewpoint",
+    "status": "planned",
+    "trip": null,
+    "lat": 46.5951,
+    "lon": 12.2654,
+    "elevation_m": null,
+    "location_status": "resolved",
+    "resolver": "wikidata",
+    "wikidata": null,
+    "image": null,
+    "season_months": [],
+    "kid_fit": "unknown",
+    "stats": {},
+    "stats_verified": false,
+    "notes": "",
+    "added": "2026-10-16",
+    "name_lang": null,
+    "min_age": null,
+    "max_age": null,
+    "min_height_cm": null,
+    "max_height_cm": null,
+    "min_weight_kg": null,
+    "max_weight_kg": null,
+    "house_grade": null,
+    "walk_km": null,
+    "walk_gain_m": null,
+    "duration_min": null,
+    "accessibility": "unknown",
+    "cost_ref": null,
+    "review_status": "proposed",
+    "confidence": "stated",
+    "field_meta": {},
+    "verified_by": null,
+    "last_verified": null,
+    "contributed_by": [
+     "u_owner"
+    ],
+    "licence": "own-words",
+    "merged_from": [],
+    "updated": "2026-10-16"
+   }
+  ],
+  "place_tags": [],
+  "sources": [],
+  "visits": [],
+  "collections": [],
+  "collection_places": []
+ }
+}

@@ -70,6 +70,7 @@ Each array in `locations.json` is one table. The DDL is `data/schema/legacy/loca
 | `kid_fit` | yes, strong-kid, no, unknown |
 | `stats`, `stats_verified` | what the source post claimed (km, gain_m, hours); unverified until a research lane confirms |
 | `notes`, `added` | free text (the first line is what the public pages show), ISO date |
+| `field_meta` | per column, where its value came from: `{"state": "value", "on": DATE, "basis": B, "src": [SOURCE ID]}`, or the search that found nothing: `{"state": "searched_none", "on": DATE, "tried": [WHAT, ...]}`. `basis` is the capture value basis (core `SUIT_BASIS`), `src` names this place's own source rows. Written by `edit --wikidata/--elevation-m/--image` and `edit --searched-none`; `validate` checks it. |
 
 Tags: the tool slugifies each tag, resolves aliases (`waterfalls` becomes `waterfall`), drops a tag
 equal to the place's own `kind`, and drops `location-unconfirmed` (use `--unconfirmed`).
@@ -79,8 +80,12 @@ equal to the place's own `kind`, and drops `location-unconfirmed` (use `--unconf
 ```bash
 python3 tools/locations.py add "Name" --country CA --region QC [--area ...] [--kind ...] [--tags a,b] [--season Sep,Oct] [--kid yes] [--stats '{"km":9}'] [--note ...] [--source URL] [--source-type instagram] [--source-note ...] [--screenshot research/inbox/FILE] [--lat N --lon N] [--trip SLUG] [--unconfirmed] [--display-name ...] [--alias ...]
 python3 tools/locations.py import research/inbox/2026-10-16-quebec-hikes.json
+python3 tools/locations.py quick-add names.txt [--dry-run] [--source-note "saved list, 25 Oct 2026"]   # one `Name, Country[, kind]` per line
 python3 tools/locations.py collection add --slug gaspesie-loop --name "Quebec to Gaspesie" --places ID-OR-NAME,...
 python3 tools/locations.py edit ID [--name --kind --status --kid --season Sep,Oct --trip SLUG|--no-trip --area NAME --tags-add a,b --tags-remove a --note TEXT --note-append TEXT --stats JSON --lat N --lon N --unconfirmed|--confirmed --source URL --source-type T --source-note TEXT --screenshot PATH]
+python3 tools/locations.py edit ID --wikidata Q2217047 --elevation-m 1731 --image "File:Name.jpg" [--basis official_info] [--source URL --source-type official]
+python3 tools/locations.py edit ID --searched-none elevation_m,walk_km --tried "Wikidata Q123 (no P2044)" --tried "park trail page"
+python3 tools/locations.py basics --report [--json]   # every place by missing basics layer, worst first (DATA-LOC section 2)
 python3 tools/locations.py visit add ID --date 2026-10-02 [--end 2026-10-03] [--trip SLUG] [--note ...]
 python3 tools/locations.py tag alias waterfalls waterfall
 python3 tools/locations.py tag list
@@ -96,6 +101,22 @@ python3 -m pytest tools/tests -q
 `--note-append` adds a paragraph, `--source` adds a source row. Exit 2 means ambiguous: candidates
 are printed, re-run with `--pick N`. Exit 1 with `DUPLICATE` means the place is already there; use
 `edit`. Give `--lat` and `--lon` together and the resolvers are skipped.
+
+`quick-add` resolves each line like `add`, but strictly: two candidates within 2 points are ambiguous even when the country hint
+matches both, because nobody checks each printed chain of a bulk list. Ambiguous, not-found and duplicate lines are printed and
+not written (exit 2 when any is ambiguous, 1 when a line is unreadable or not found); the store is written once at the end. It holds
+the Wikidata and Nominatim lock files (`/tmp/travel-wikidata.lock`, `/tmp/travel-nominatim.lock`) for the whole run.
+
+`--image` takes only a Wikimedia Commons file, whose licence the gallery check reads from its file page; a photo from anywhere
+else goes in the place's gallery with its licence (CC BY, CC BY-SA, CC0 or public domain only; DD-3), never in this column.
+`--searched-none` takes the basics columns (`wikidata`, `elevation_m`, `image`, `season_months`, `walk_km`, `walk_gain_m`,
+`duration_min`) and needs at least one `--tried`; a later value replaces it.
+
+`basics --report` reads the store, the private page keys (`page-keys.json`, for each place's `place/<slug>` ref) and the capture,
+suitability and relevance records of every lane. A field is answered by a value or a dated `searched_none`; a gap is never a yes.
+A stored place no trip uses keeps its capture records in the trip-less lane `data/capture/catalogue/` (and a
+`catalogue/` folder under `data/suitability/` and `data/relevance/`), refs `place/<slug>` from `data/catalogue/slugs.json`, never a new
+`loc:` key. The lane id is internal (DD-8): it never appears in public output. Its rules are E_CAP_LANE (core `validate`).
 
 `validate` checks every column and type, enums, ISO dates, primary and foreign keys, the two-owner
 rule on sources, contiguous collection positions, visited-needs-a-visit, and that each `trip` folder

@@ -90,3 +90,13 @@ describe('readSeason', () => {
     expect(() => readSeason(rootWith('other', doc()), 'other', new DropLog(), monthsLabel)).toThrow(/"trip" is "t" but the file is for "other"/);
   });
 });
+
+describe('the six season files after the review fixes', () => {
+  it('the labels read as windows, and the Norway reason adds only what the page marker does not say', () => {
+    expect(d.internals.trips.find((t) => t.slug === 'new-hampshire-stopover-2026')!.season!.label).toBe('Two days at the turn of September and October');
+    const no = d.internals.trips.find((t) => t.slug === 'norway-summer-2028')!.season!;
+    expect(no.label).toBe('Last week of June into early July');
+    expect(no.why).toMatch(/^Dates still open: /);
+    expect(no.why).not.toMatch(/written for/);
+  });
+});

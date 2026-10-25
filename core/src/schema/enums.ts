@@ -229,7 +229,8 @@ export const CAP_MARK = ["R", "R?", "A", "N"] as const;
 export const CAP_SECTION = [
   "cover", "glance", "warnings", "suits", "activity", "options", "access", "when", "facilities", "around", "pairs", "photos", "links", "sources",
 ] as const;
-export const RUN_OUTCOME = ["filled", "searched_none", "gap", "blocked", "conflict"] as const;
+/** `ask` (RIS-C): a question for an operator or land manager that no page answers, with {to, contact_url, question}. Append only. */
+export const RUN_OUTCOME = ["filled", "searched_none", "gap", "blocked", "conflict", "ask"] as const;
 /**
  * META-0 (capture contract 3.7): what a stored point stands for. Directions and distances use it: a trail's point is its trailhead,
  * a lift's is its lower station (route_start), a summit's is the top. Defined once here; the API's detail point imports it. Append only.

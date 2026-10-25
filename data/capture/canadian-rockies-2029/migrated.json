@@ -600,6 +600,285 @@
       "kind": "official",
       "read": "2026-10-19",
       "method": "read"
+    },
+    {
+      "id": "src-0067",
+      "url": "https://www.icewalks.com/tours/half-day-tours",
+      "title": "Classic Half Day Tours",
+      "publisher": "Icewalks",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0068",
+      "url": "https://horseback.com/tours/bow-river-ride/",
+      "title": "Bow River Ride - 1 Hr",
+      "publisher": "Banff Trail Riders",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0069",
+      "url": "https://www.banff-springs-hotel.com/wellness/spa/",
+      "title": "Fairmont Spa",
+      "publisher": "Fairmont Banff Springs",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0070",
+      "url": "https://www.banffadventures.com/things-to-do/float-trips/",
+      "title": "Bow River Float Trip (Hoodoo)",
+      "publisher": "Banff Adventures",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0071",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/stephen",
+      "title": "Mount Stephen guided hike",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0072",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/walcott",
+      "title": "Walcott Quarry guided hike",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0073",
+      "url": "https://www.watertoncruise.com/2026.php",
+      "title": "2026 Season",
+      "publisher": "Waterton Shoreline Cruise Co.",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0074",
+      "url": "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour/",
+      "title": "Three Sisters Peaks Tour",
+      "publisher": "Alpine Helicopters",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0075",
+      "url": "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies",
+      "title": "Heli-hiking in the Canadian Rockies",
+      "publisher": "White Mountain Adventures",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0076",
+      "url": "https://jasperstables.com/",
+      "title": "Jasper Riding Stables",
+      "publisher": "Jasper Riding Stables",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0077",
+      "url": "https://alpinestables.com/commonly-asked-questions/",
+      "title": "Commonly Asked Questions",
+      "publisher": "Alpine Stables",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0078",
+      "url": "https://www.sundogtours.com/package/sunrise-photography-and-wildlife-tour",
+      "title": "Sunrise Photography and Wildlife Tour",
+      "publisher": "SunDog Tours",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0079",
+      "url": "https://www.brewsteradventures.com/summer-trail-rides",
+      "title": "Summer Trail Rides",
+      "publisher": "Brewster Adventures",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0080",
+      "url": "https://banffnorquay.com/via-ferrata/via-ferrata-routes/",
+      "title": "Via Ferrata Routes",
+      "publisher": "Banff Norquay",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0081",
+      "url": "https://yamnuska.com/mountaineering/beginner-mountaineering-courses/mountain-scrambling/",
+      "title": "Scrambling Skills",
+      "publisher": "Yamnuska Mountain Adventures",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0082",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/sources-radium-springs",
+      "title": "Radium Hot Springs",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0083",
+      "url": "https://assiniboinelodge.com/helicopter-flight-days",
+      "title": "Helicopter flight days",
+      "publisher": "Mount Assiniboine Lodge",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0084",
+      "url": "https://assiniboinelodge.com/helicopter-faqs",
+      "title": "Helicopter FAQs",
+      "publisher": "Mount Assiniboine Lodge",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0085",
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/tickets/",
+      "title": "Banff Gondola tickets",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0086",
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/hours-location/",
+      "title": "Banff Gondola hours and location",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0087",
+      "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/tickets/",
+      "title": "Jasper SkyTram tickets",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0088",
+      "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/tickets/",
+      "title": "Maligne Lake Cruise tickets",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0089",
+      "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/tickets/",
+      "title": "Lake Minnewanka Cruise tickets",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0090",
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/",
+      "title": "Columbia Icefield",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0091",
+      "url": "https://www.skilouise.com/explore-summer/sightseeing-gondola/",
+      "title": "Sightseeing Gondola",
+      "publisher": "Lake Louise Ski Resort",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0092",
+      "url": "https://www.chateau-lake-louise.com/activities/canoeing/",
+      "title": "Canoeing and canoe rentals",
+      "publisher": "Fairmont Chateau Lake Louise",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0093",
+      "url": "https://morainelake.com/day-visits/",
+      "title": "Day visits",
+      "publisher": "Moraine Lake Lodge",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0094",
+      "url": "https://crmr.com/activities/canoeing/",
+      "title": "Emerald Lake canoeing",
+      "publisher": "Canadian Rocky Mountain Resorts (Emerald Lake Lodge)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0095",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/sources-miette-springs/tarifs-fees",
+      "title": "Miette Hot Springs fees",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0096",
+      "url": "https://us.booking.bike.rent/book?store=viciouscyclesjasper",
+      "title": "Vicious Cycle and Snow - Jasper rental booking",
+      "publisher": "Vicious Cycle and Snow",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0097",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rawson-lake/",
+      "title": "Rawson Lake trail report, Alberta Parks",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
     }
   ],
   "records": [
@@ -635,6 +914,26 @@
           "src": [
             "src-0008"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:MaligneLakeBaldHills.JPG",
+          "licence": "Public domain",
+          "author": "Erik Lizee - Free to All",
+          "attribution": "Erik Lizee - Free to All, Public domain, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:MaligneLakeBaldHills.JPG",
+          "width": 2816,
+          "height": 2112
+        },
+        {
+          "file": "File:Bald Hills, Jasper.jpg",
+          "licence": "CC BY 2.0",
+          "author": "Jess Wood",
+          "attribution": "Jess Wood, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bald_Hills,_Jasper.jpg",
+          "width": 3809,
+          "height": 1985
         }
       ]
     },
@@ -673,7 +972,27 @@
           ]
         }
       ],
-      "area_id": "CA/AB/banff-national-park"
+      "area_id": "CA/AB/banff-national-park",
+      "photos": [
+        {
+          "file": "File:Bourgeau Lake 02.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Khoshhat",
+          "attribution": "Khoshhat, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bourgeau_Lake_02.jpg",
+          "width": 5472,
+          "height": 3648
+        },
+        {
+          "file": "File:Bourgeau Lake 01.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Khoshhat",
+          "attribution": "Khoshhat, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bourgeau_Lake_01.jpg",
+          "width": 5472,
+          "height": 3648
+        }
+      ]
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
@@ -772,6 +1091,26 @@
             "src-0009"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Emerald Lake and Mount Burgess (49464729952).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Bernd Thaller from Graz, Austria",
+          "attribution": "Bernd Thaller from Graz, Austria, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Emerald_Lake_and_Mount_Burgess_(49464729952).jpg",
+          "width": 7470,
+          "height": 4202
+        },
+        {
+          "file": "File:Emerald Lake (15900205010).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Kevin He",
+          "attribution": "Kevin He, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Emerald_Lake_(15900205010).jpg",
+          "width": 4608,
+          "height": 3072
+        }
       ]
     },
     {
@@ -807,6 +1146,26 @@
             "src-0009"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:View from Iceline Trail towards Yoho Glacier, Yoho National Park, Canada (54881443029).jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+          "attribution": "Christoph Strässler from Oberdorf BL, Schweiz, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:View_from_Iceline_Trail_towards_Yoho_Glacier,_Yoho_National_Park,_Canada_(54881443029).jpg",
+          "width": 8256,
+          "height": 4644
+        },
+        {
+          "file": "File:Small Glacier at Iceline Trail, Yoho National Park, Canada (54881422148).jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+          "attribution": "Christoph Strässler from Oberdorf BL, Schweiz, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Small_Glacier_at_Iceline_Trail,_Yoho_National_Park,_Canada_(54881422148).jpg",
+          "width": 8256,
+          "height": 4644
+        }
       ]
     },
     {
@@ -833,6 +1192,26 @@
           "src": [
             "src-0011"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Upper Kananaskis lake (36000875896).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Upper_Kananaskis_lake_(36000875896).jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:Upper Kananaskis Lake walk round Aug 2015 (19983994723).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Upper_Kananaskis_Lake_walk_round_Aug_2015_(19983994723).jpg",
+          "width": 6000,
+          "height": 4000
         }
       ]
     },
@@ -869,6 +1248,26 @@
           "src": [
             "src-0002"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Ha-Ling Peak & Mount Lawrance Grassi, from Quarry Lake.jpg",
+          "licence": "CC0",
+          "author": "Mule hollandaise",
+          "attribution": "Mule hollandaise, CC0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Ha-Ling_Peak_%26_Mount_Lawrance_Grassi,_from_Quarry_Lake.jpg",
+          "width": 4032,
+          "height": 2268
+        },
+        {
+          "file": "File:Ha Ling Peak aka Chinaman Peak (15810090790).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Wilson Hui from Calgary, Canada",
+          "attribution": "Wilson Hui from Calgary, Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Ha_Ling_Peak_aka_Chinaman_Peak_(15810090790).jpg",
+          "width": 1920,
+          "height": 1080
         }
       ]
     },
@@ -969,6 +1368,26 @@
             "src-0010"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Grassi Lakes road trip Canmore Alberta Canada (10277672766).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page. from Calgary, Canada",
+          "attribution": "Thank you for visiting my page. from Calgary, Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Grassi_Lakes_road_trip_Canmore_Alberta_Canada_(10277672766).jpg",
+          "width": 5184,
+          "height": 3456
+        },
+        {
+          "file": "File:Grassi Lakes road trip Canmore Alberta Canada (10277600894).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Grassi_Lakes_road_trip_Canmore_Alberta_Canada_(10277600894).jpg",
+          "width": 5184,
+          "height": 3456
+        }
       ]
     },
     {
@@ -1057,6 +1476,26 @@
       "name": "Kinney Lake",
       "reaches": [
         "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view"
+      ],
+      "photos": [
+        {
+          "file": "File:Lake Kinney mit Mount Whitehorn.jpg",
+          "licence": "CC BY 3.0",
+          "author": "Florian Fuchs",
+          "attribution": "Florian Fuchs, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Kinney_mit_Mount_Whitehorn.jpg",
+          "width": 4928,
+          "height": 3264
+        },
+        {
+          "file": "File:Mount Robson Provincial Park - Kinney Lake.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Don McIntosh",
+          "attribution": "Don McIntosh, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Robson_Provincial_Park_-_Kinney_Lake.jpg",
+          "width": 3264,
+          "height": 1836
+        }
       ]
     },
     {
@@ -1085,7 +1524,27 @@
           ]
         }
       ],
-      "area_id": "CA/AB/banff-national-park"
+      "area_id": "CA/AB/banff-national-park",
+      "photos": [
+        {
+          "file": "File:Lake Louise, view from northwest shore 20240823 1.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "DXR",
+          "attribution": "DXR, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Louise,_view_from_northwest_shore_20240823_1.jpg",
+          "width": 7378,
+          "height": 4919
+        },
+        {
+          "file": "File:Lake Louise 路易斯湖 - panoramio (2).jpg",
+          "licence": "CC BY 3.0",
+          "author": "lienyuan lee",
+          "attribution": "lienyuan lee, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Louise_%E8%B7%AF%E6%98%93%E6%96%AF%E6%B9%96_-_panoramio_(2).jpg",
+          "width": 2048,
+          "height": 1536
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
@@ -1130,7 +1589,27 @@
           ]
         }
       ],
-      "area_id": "CA/AB/banff-national-park"
+      "area_id": "CA/AB/banff-national-park",
+      "photos": [
+        {
+          "file": "File:Larch Valley, Alberta, Canada.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Paul Anthony Stewart",
+          "attribution": "Paul Anthony Stewart, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Larch_Valley,_Alberta,_Canada.jpg",
+          "width": 3872,
+          "height": 2592
+        },
+        {
+          "file": "File:Larch Valley.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Nancymcmillan",
+          "attribution": "Nancymcmillan, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Larch_Valley.jpg",
+          "width": 3264,
+          "height": 2447
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
@@ -1165,6 +1644,26 @@
             "src-0008"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Maligne Lake and Samson Peak, Jasper National Park, Canada (54880321502).jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+          "attribution": "Christoph Strässler from Oberdorf BL, Schweiz, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Maligne_Lake_and_Samson_Peak,_Jasper_National_Park,_Canada_(54880321502).jpg",
+          "width": 7478,
+          "height": 4206
+        },
+        {
+          "file": "File:By ovedc - Maligne Lake - 02.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Ovedc",
+          "attribution": "Ovedc, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:By_ovedc_-_Maligne_Lake_-_02.jpg",
+          "width": 5312,
+          "height": 2988
+        }
       ]
     },
     {
@@ -1191,6 +1690,26 @@
           "src": [
             "src-0001"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Saskatchewan Glacier from Parker Ridge Trail.jpg",
+          "licence": "CC BY 2.0",
+          "author": "amanderson2",
+          "attribution": "amanderson2, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Saskatchewan_Glacier_from_Parker_Ridge_Trail.jpg",
+          "width": 5184,
+          "height": 3888
+        },
+        {
+          "file": "File:Icefileds Parkway seen from Parker Ridge, Banff National Park, Canada (54880326907).jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+          "attribution": "Christoph Strässler from Oberdorf BL, Schweiz, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Icefileds_Parkway_seen_from_Parker_Ridge,_Banff_National_Park,_Canada_(54880326907).jpg",
+          "width": 8256,
+          "height": 4644
         }
       ]
     },
@@ -1228,7 +1747,27 @@
           ]
         }
       ],
-      "area_id": "CA/AB/banff-national-park"
+      "area_id": "CA/AB/banff-national-park",
+      "photos": [
+        {
+          "file": "File:Plain of Six Glaciers Teahouse.jpg",
+          "licence": "CC BY 3.0",
+          "author": "Florian Fuchs",
+          "attribution": "Florian Fuchs, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Plain_of_Six_Glaciers_Teahouse.jpg",
+          "width": 2000,
+          "height": 1248
+        },
+        {
+          "file": "File:Plain of the Six Glaciers.jpg",
+          "licence": "CC BY 3.0",
+          "author": "Florian Fuchs",
+          "attribution": "Florian Fuchs, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Plain_of_the_Six_Glaciers.jpg",
+          "width": 7220,
+          "height": 4516
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
@@ -1263,6 +1802,26 @@
             "src-0017"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Ptarmigan Cirque.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Khoshhat",
+          "attribution": "Khoshhat, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Ptarmigan_Cirque.jpg",
+          "width": 5472,
+          "height": 3648
+        },
+        {
+          "file": "File:HBM Happy Bench Monday (35469456653).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:HBM_Happy_Bench_Monday_(35469456653).jpg",
+          "width": 6000,
+          "height": 4000
+        }
       ]
     },
     {
@@ -1287,6 +1846,23 @@
           "state": "searched_none",
           "query": "Sarrail Ridge Alberta Parks",
           "on": "2026-10-19"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/753718984",
+          "state": "filled",
+          "on": "2026-10-25"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:.Upper Kananaskis Lake & Mount Indefatigable 03.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Khoshhat",
+          "attribution": "Khoshhat, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:.Upper_Kananaskis_Lake_%26_Mount_Indefatigable_03.jpg",
+          "width": 5472,
+          "height": 3648
         }
       ]
     },
@@ -1373,6 +1949,17 @@
           "src": [
             "src-0015"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Utopia Mountain from Sulphur Skyline.jpg",
+          "licence": "CC BY 2.0",
+          "author": "dvs",
+          "attribution": "dvs, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Utopia_Mountain_from_Sulphur_Skyline.jpg",
+          "width": 2048,
+          "height": 1536
         }
       ]
     },
@@ -1471,7 +2058,27 @@
           ]
         }
       ],
-      "area_id": "CA/AB/banff-national-park"
+      "area_id": "CA/AB/banff-national-park",
+      "photos": [
+        {
+          "file": "File:Sunshine Meadows - Banff - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Jack Borno",
+          "attribution": "Jack Borno, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Sunshine_Meadows_-_Banff_-_panoramio.jpg",
+          "width": 1822,
+          "height": 1214
+        },
+        {
+          "file": "File:Sunshine Meadows - Banff - Lookout - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Jack Borno",
+          "attribution": "Jack Borno, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Sunshine_Meadows_-_Banff_-_Lookout_-_panoramio.jpg",
+          "width": 3072,
+          "height": 2048
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
@@ -1497,6 +2104,26 @@
           "src": [
             "src-0006"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:20130630 30 Wilcox Pass Trail (11659532956).jpg",
+          "licence": "CC BY 2.0",
+          "author": "David Wilson from Oak Park, Illinois, USA",
+          "attribution": "David Wilson from Oak Park, Illinois, USA, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:20130630_30_Wilcox_Pass_Trail_(11659532956).jpg",
+          "width": 2816,
+          "height": 2112
+        },
+        {
+          "file": "File:Columbia Icefield from the Wilcox Pass trail.jpg",
+          "licence": "CC BY 2.0",
+          "author": "Frank Kovalchek from Anchorage, Alaska, USA",
+          "attribution": "Frank Kovalchek from Anchorage, Alaska, USA, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Columbia_Icefield_from_the_Wilcox_Pass_trail.jpg",
+          "width": 3396,
+          "height": 1940
         }
       ]
     },
@@ -1649,7 +2276,27 @@
           ]
         }
       ],
-      "area_id": "CA/AB/banff-national-park"
+      "area_id": "CA/AB/banff-national-park",
+      "photos": [
+        {
+          "file": "File:Banff Fenland Trail - panoramio.jpg",
+          "licence": "CC BY 3.0",
+          "author": "Yoshio Kohara",
+          "attribution": "Yoshio Kohara, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Banff_Fenland_Trail_-_panoramio.jpg",
+          "width": 2560,
+          "height": 1651
+        },
+        {
+          "file": "File:Banff Fenland Trek - panoramio.jpg",
+          "licence": "CC BY 3.0",
+          "author": "Yoshio Kohara",
+          "attribution": "Yoshio Kohara, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Banff_Fenland_Trek_-_panoramio.jpg",
+          "width": 2560,
+          "height": 1621
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
@@ -1719,6 +2366,26 @@
             "src-0012"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Lake Annette.jpg",
+          "licence": "CC BY 2.0",
+          "author": "Andrea Belvedere",
+          "attribution": "Andrea Belvedere, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Annette.jpg",
+          "width": 5916,
+          "height": 3944
+        },
+        {
+          "file": "File:2025-06-11-193214 CAN Alberta Western Alberta (Jasper) 1014.4-Pano.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Hansueli Krapf",
+          "attribution": "Hansueli Krapf, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:2025-06-11-193214_CAN_Alberta_Western_Alberta_(Jasper)_1014.4-Pano.jpg",
+          "width": 21099,
+          "height": 3939
+        }
       ]
     },
     {
@@ -1755,6 +2422,26 @@
             "src-0014"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Marble Canyon, Kootenay National Park, British Columbia, 2025-07-11 02.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Chris Woodrich",
+          "attribution": "Chris Woodrich, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Marble_Canyon,_Kootenay_National_Park,_British_Columbia,_2025-07-11_02.jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:River at base of Marble Canyon - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Shane Smith",
+          "attribution": "Shane Smith, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:River_at_base_of_Marble_Canyon_-_panoramio.jpg",
+          "width": 3264,
+          "height": 2448
+        }
       ]
     },
     {
@@ -1789,6 +2476,26 @@
           "src": [
             "src-0008"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:20130701 28 Moose Lake (11779626985).jpg",
+          "licence": "CC BY 2.0",
+          "author": "David Wilson from Oak Park, Illinois, USA",
+          "attribution": "David Wilson from Oak Park, Illinois, USA, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:20130701_28_Moose_Lake_(11779626985).jpg",
+          "width": 2816,
+          "height": 2112
+        },
+        {
+          "file": "File:20130701 33 Maligne Lake (11789195994).jpg",
+          "licence": "CC BY 2.0",
+          "author": "David Wilson from Oak Park, Illinois, USA",
+          "attribution": "David Wilson from Oak Park, Illinois, USA, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:20130701_33_Maligne_Lake_(11789195994).jpg",
+          "width": 2816,
+          "height": 2112
         }
       ]
     },
@@ -1829,7 +2536,27 @@
           ]
         }
       ],
-      "area_id": "CA/AB/banff-national-park"
+      "area_id": "CA/AB/banff-national-park",
+      "photos": [
+        {
+          "file": "File:Moraine Lake, Banff National Park, Canada (54880344222).jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+          "attribution": "Christoph Strässler from Oberdorf BL, Schweiz, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Moraine_Lake,_Banff_National_Park,_Canada_(54880344222).jpg",
+          "width": 13678,
+          "height": 7694
+        },
+        {
+          "file": "File:Beautiful Moraine - Flickr - Tiomax80.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Tiomax80",
+          "attribution": "Tiomax80, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Beautiful_Moraine_-_Flickr_-_Tiomax80.jpg",
+          "width": 6048,
+          "height": 4024
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
@@ -1864,6 +2591,26 @@
           "src": [
             "src-0016"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Overlander Falls, BC, Canada (54881430869).jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+          "attribution": "Christoph Strässler from Oberdorf BL, Schweiz, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Overlander_Falls,_BC,_Canada_(54881430869).jpg",
+          "width": 6765,
+          "height": 3805
+        },
+        {
+          "file": "File:Overlander Falls Fraser River.jpg",
+          "licence": "CC BY 3.0",
+          "author": "User:Roland Neave",
+          "attribution": "User:Roland Neave, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Overlander_Falls_Fraser_River.jpg",
+          "width": 4005,
+          "height": 2661
         }
       ]
     },
@@ -1900,6 +2647,26 @@
             "src-0014"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Kootenay.Paint.Pots.ocker.P1023048.jpg",
+          "licence": "CC0",
+          "author": "Membeth",
+          "attribution": "Membeth, CC0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Kootenay.Paint.Pots.ocker.P1023048.jpg",
+          "width": 5184,
+          "height": 3888
+        },
+        {
+          "file": "File:Kootenay Paint Pots.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Kimon Berlin, user:Gribeco",
+          "attribution": "Kimon Berlin, user:Gribeco, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Kootenay_Paint_Pots.jpg",
+          "width": 3504,
+          "height": 2336
+        }
       ]
     },
     {
@@ -1917,6 +2684,26 @@
       "name": "Peyto Lake Lookout",
       "reaches": [
         "legacy/canadian-rockies-sept-2029/sights/peyto-lake"
+      ],
+      "photos": [
+        {
+          "file": "File:Peyto Lake, Banff National Park, Canada (54881418663).jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+          "attribution": "Christoph Strässler from Oberdorf BL, Schweiz, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Peyto_Lake,_Banff_National_Park,_Canada_(54881418663).jpg",
+          "width": 8256,
+          "height": 4644
+        },
+        {
+          "file": "File:Peyto Lake Valley.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Darren Kirby",
+          "attribution": "Darren Kirby, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Peyto_Lake_Valley.jpg",
+          "width": 3008,
+          "height": 2000
+        }
       ]
     },
     {
@@ -1988,6 +2775,26 @@
             "src-0009"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Takakkaw Falls, Yoho National Park, British Columbia, 2025-07-11 10.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Chris Woodrich",
+          "attribution": "Chris Woodrich, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Takakkaw_Falls,_Yoho_National_Park,_British_Columbia,_2025-07-11_10.jpg",
+          "width": 5552,
+          "height": 3701
+        },
+        {
+          "file": "File:Takakkaw Falls - Yoho - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Jack Borno",
+          "attribution": "Jack Borno, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Takakkaw_Falls_-_Yoho_-_panoramio.jpg",
+          "width": 4288,
+          "height": 2848
+        }
       ]
     },
     {
@@ -2015,6 +2822,26 @@
           "src": [
             "src-0006"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Athabasca Glacier 2025.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Douglaspperkins",
+          "attribution": "Douglaspperkins, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Athabasca_Glacier_2025.jpg",
+          "width": 5472,
+          "height": 3648
+        },
+        {
+          "file": "File:Athabasca Glacier in September 2026.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Aude",
+          "attribution": "Aude, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Athabasca_Glacier_in_September_2026.jpg",
+          "width": 5712,
+          "height": 3213
         }
       ]
     },
@@ -2114,6 +2941,26 @@
             "src-0020"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Wedge pond Kananaskis Alberta Canada (27576208153).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Wedge_pond_Kananaskis_Alberta_Canada_(27576208153).jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:A visit to Wedge pond Kananaskis Alberta Canada (29789522671).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:A_visit_to_Wedge_pond_Kananaskis_Alberta_Canada_(29789522671).jpg",
+          "width": 6000,
+          "height": 4000
+        }
       ]
     },
     {
@@ -2148,7 +2995,27 @@
         "read": "2026-10-19",
         "quote": "Both the parking area by the highway and the lot close to the lodge get extremely busy in the summer months - come early or late in the day to avoid the crowds.",
         "note": "Parks Canada: both lots get extremely busy in summer; come early or late."
-      }
+      },
+      "photos": [
+        {
+          "file": "File:D6A 9449 - Bow Lake (9779924165).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Gary",
+          "attribution": "Gary, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:D6A_9449_-_Bow_Lake_(9779924165).jpg",
+          "width": 2048,
+          "height": 1367
+        },
+        {
+          "file": "File:Bow Lake - panoramio - Jack Borno.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Jack Borno",
+          "attribution": "Jack Borno, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bow_Lake_-_panoramio_-_Jack_Borno.jpg",
+          "width": 2982,
+          "height": 2236
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
@@ -2258,7 +3125,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Moraine Lake"
+      "name": "Moraine Lake",
+      "photos": [
+        {
+          "file": "File:Moraine Lake, Banff National Park, Canada (54880344222).jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+          "attribution": "Christoph Strässler from Oberdorf BL, Schweiz, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Moraine_Lake,_Banff_National_Park,_Canada_(54880344222).jpg",
+          "width": 13678,
+          "height": 7694
+        },
+        {
+          "file": "File:Beautiful Moraine - Flickr - Tiomax80.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Tiomax80",
+          "attribution": "Tiomax80, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Beautiful_Moraine_-_Flickr_-_Tiomax80.jpg",
+          "width": 6048,
+          "height": 4024
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
@@ -2280,7 +3167,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Mount Lorette Ponds"
+      "name": "Mount Lorette Ponds",
+      "photos": [
+        {
+          "file": "File:Lorette ponds Kananaskis Alberta Canada (29810545081).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lorette_ponds_Kananaskis_Alberta_Canada_(29810545081).jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:Lorette Ponds - Kananaskis - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Jack Borno",
+          "attribution": "Jack Borno, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lorette_Ponds_-_Kananaskis_-_panoramio.jpg",
+          "width": 4118,
+          "height": 2735
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
@@ -2302,7 +3209,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Pyramid Lake"
+      "name": "Pyramid Lake",
+      "photos": [
+        {
+          "file": "File:2025-06-10-192856 CAN Alberta Western Alberta (Jasper) 1172.0.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Hansueli Krapf",
+          "attribution": "Hansueli Krapf, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:2025-06-10-192856_CAN_Alberta_Western_Alberta_(Jasper)_1172.0.jpg",
+          "width": 8256,
+          "height": 5504
+        },
+        {
+          "file": "File:Pyramid Lake in the morning.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Sergey Pesterev",
+          "attribution": "Sergey Pesterev, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Pyramid_Lake_in_the_morning.jpg",
+          "width": 6232,
+          "height": 4159
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
@@ -2324,7 +3251,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Wedge Pond"
+      "name": "Wedge Pond",
+      "photos": [
+        {
+          "file": "File:Wedge pond Kananaskis Alberta Canada (27576208153).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Wedge_pond_Kananaskis_Alberta_Canada_(27576208153).jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:A visit to Wedge pond Kananaskis Alberta Canada (29789522671).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:A_visit_to_Wedge_pond_Kananaskis_Alberta_Canada_(29789522671).jpg",
+          "width": 6000,
+          "height": 4000
+        }
+      ]
     },
     {
       "ref": "place/lake-louise",
@@ -2401,7 +3348,27 @@
         "quote": "Parking lots fill up before sunrise and remain full until sunset.",
         "note": "Parks Canada: the lots fill before sunrise and stay full until sunset; the shuttle is the alternative."
       },
-      "area_id": "CA/AB/banff-national-park"
+      "area_id": "CA/AB/banff-national-park",
+      "photos": [
+        {
+          "file": "File:Lake Louise, view from northwest shore 20240823 1.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "DXR",
+          "attribution": "DXR, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Louise,_view_from_northwest_shore_20240823_1.jpg",
+          "width": 7378,
+          "height": 4919
+        },
+        {
+          "file": "File:Lake Louise 路易斯湖 - panoramio (2).jpg",
+          "licence": "CC BY 3.0",
+          "author": "lienyuan lee",
+          "attribution": "lienyuan lee, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Louise_%E8%B7%AF%E6%98%93%E6%96%AF%E6%B9%96_-_panoramio_(2).jpg",
+          "width": 2048,
+          "height": 1536
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
@@ -2423,7 +3390,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Athabasca Falls"
+      "name": "Athabasca Falls",
+      "photos": [
+        {
+          "file": "File:2025-06-09-002050 CAN Alberta Western Alberta (Jasper) 1158.1.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Hansueli Krapf",
+          "attribution": "Hansueli Krapf, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:2025-06-09-002050_CAN_Alberta_Western_Alberta_(Jasper)_1158.1.jpg",
+          "width": 7656,
+          "height": 5104
+        },
+        {
+          "file": "File:MK04324 Athabasca Falls (Jasper NP).jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Martin Kraft",
+          "attribution": "Martin Kraft, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:MK04324_Athabasca_Falls_(Jasper_NP).jpg",
+          "width": 3464,
+          "height": 2309
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
@@ -2445,7 +3432,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Johnston Canyon"
+      "name": "Johnston Canyon",
+      "photos": [
+        {
+          "file": "File:Johnston Canyon-Lower Falls.jpg",
+          "licence": "CC BY 3.0",
+          "author": "Florian Fuchs",
+          "attribution": "Florian Fuchs, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Johnston_Canyon-Lower_Falls.jpg",
+          "width": 2000,
+          "height": 1225
+        },
+        {
+          "file": "File:Upper Falls, Johnston Canyon, view from platform 20240822 2.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "DXR",
+          "attribution": "DXR, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Upper_Falls,_Johnston_Canyon,_view_from_platform_20240822_2.jpg",
+          "width": 8256,
+          "height": 5504
+        }
+      ]
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
@@ -2484,6 +3491,37 @@
           "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#upper-falls",
           "at_km": 2.4
         }
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Johnston Canyon-Lower Falls.jpg",
+          "licence": "CC BY 3.0",
+          "author": "Florian Fuchs",
+          "attribution": "Florian Fuchs, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Johnston_Canyon-Lower_Falls.jpg",
+          "width": 2000,
+          "height": 1225
+        },
+        {
+          "file": "File:Upper Falls, Johnston Canyon, view from platform 20240822 2.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "DXR",
+          "attribution": "DXR, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Upper_Falls,_Johnston_Canyon,_view_from_platform_20240822_2.jpg",
+          "width": 8256,
+          "height": 5504
+        }
       ]
     },
     {
@@ -2506,7 +3544,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Marble Canyon"
+      "name": "Marble Canyon",
+      "photos": [
+        {
+          "file": "File:Marble Canyon, Kootenay National Park, British Columbia, 2025-07-11 02.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Chris Woodrich",
+          "attribution": "Chris Woodrich, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Marble_Canyon,_Kootenay_National_Park,_British_Columbia,_2025-07-11_02.jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:River at base of Marble Canyon - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Shane Smith",
+          "attribution": "Shane Smith, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:River_at_base_of_Marble_Canyon_-_panoramio.jpg",
+          "width": 3264,
+          "height": 2448
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
@@ -2528,7 +3586,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Natural Bridge"
+      "name": "Natural Bridge",
+      "photos": [
+        {
+          "file": "File:Natural Bridge, Yoho NP, west view 20240825 3.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "DXR",
+          "attribution": "DXR, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Natural_Bridge,_Yoho_NP,_west_view_20240825_3.jpg",
+          "width": 8256,
+          "height": 5504
+        },
+        {
+          "file": "File:The natural bridge over the rapids at Yoho - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Doktor Ellis",
+          "attribution": "Doktor Ellis, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:The_natural_bridge_over_the_rapids_at_Yoho_-_panoramio.jpg",
+          "width": 3264,
+          "height": 1952
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
@@ -2572,7 +3650,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Sunwapta Falls"
+      "name": "Sunwapta Falls",
+      "photos": [
+        {
+          "file": "File:The Sunwapta Falls.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Migueldalugdugan",
+          "attribution": "Migueldalugdugan, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:The_Sunwapta_Falls.jpg",
+          "width": 4032,
+          "height": 3024
+        },
+        {
+          "file": "File:2025-06-08-183257 CAN Alberta Western Alberta (Jasper) 1380.4.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Hansueli Krapf",
+          "attribution": "Hansueli Krapf, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:2025-06-08-183257_CAN_Alberta_Western_Alberta_(Jasper)_1380.4.jpg",
+          "width": 8256,
+          "height": 5504
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
@@ -2594,7 +3692,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Takakkaw Falls"
+      "name": "Takakkaw Falls",
+      "photos": [
+        {
+          "file": "File:Takakkaw Falls, Yoho National Park, British Columbia, 2025-07-11 10.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Chris Woodrich",
+          "attribution": "Chris Woodrich, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Takakkaw_Falls,_Yoho_National_Park,_British_Columbia,_2025-07-11_10.jpg",
+          "width": 5552,
+          "height": 3701
+        },
+        {
+          "file": "File:Takakkaw Falls - Yoho - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Jack Borno",
+          "attribution": "Jack Borno, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Takakkaw_Falls_-_Yoho_-_panoramio.jpg",
+          "width": 4288,
+          "height": 2848
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
@@ -2616,7 +3734,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Mount Robson Visitor Centre viewpoint"
+      "name": "Mount Robson Visitor Centre viewpoint",
+      "photos": [
+        {
+          "file": "File:Mount Robson Visitor Centre.jpg",
+          "licence": "CC BY 2.0",
+          "author": "-JvL-",
+          "attribution": "-JvL-, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Robson_Visitor_Centre.jpg",
+          "width": 4896,
+          "height": 2752
+        },
+        {
+          "file": "File:Mount Robson, BC, Canada (54880316942).jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+          "attribution": "Christoph Strässler from Oberdorf BL, Schweiz, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Robson,_BC,_Canada_(54880316942).jpg",
+          "width": 8219,
+          "height": 4623
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
@@ -2630,7 +3768,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
-      "name": "Peyto Lake Lookout"
+      "name": "Peyto Lake Lookout",
+      "photos": [
+        {
+          "file": "File:Peyto Lake, Banff National Park, Canada (54881418663).jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+          "attribution": "Christoph Strässler from Oberdorf BL, Schweiz, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Peyto_Lake,_Banff_National_Park,_Canada_(54881418663).jpg",
+          "width": 8256,
+          "height": 4644
+        },
+        {
+          "file": "File:Peyto Lake Valley.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Darren Kirby",
+          "attribution": "Darren Kirby, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Peyto_Lake_Valley.jpg",
+          "width": 3008,
+          "height": 2000
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
@@ -2670,7 +3828,18 @@
       },
       "name": "Highwood Pass and Hwy 40 corridor",
       "route_is_attraction": true,
-      "attraction_reason": "A scenic mountain-pass drive is the experience: Canada's highest paved pass."
+      "attraction_reason": "A scenic mountain-pass drive is the experience: Canada's highest paved pass.",
+      "photos": [
+        {
+          "file": "File:Storm Mountain from Highwood Pass.jpeg",
+          "licence": "CC BY 4.0",
+          "author": "Ingo Schwarze",
+          "attribution": "Ingo Schwarze, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Storm_Mountain_from_Highwood_Pass.jpeg",
+          "width": 4000,
+          "height": 3000
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
@@ -2694,7 +3863,27 @@
       },
       "name": "Vermilion Lakes Drive",
       "route_is_attraction": true,
-      "attraction_reason": "A scenic drive along the Vermilion Lakes is the experience."
+      "attraction_reason": "A scenic drive along the Vermilion Lakes is the experience.",
+      "photos": [
+        {
+          "file": "File:Vermillion Lakes Banff Alberta Canada (36020088283).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Vermillion_Lakes_Banff_Alberta_Canada_(36020088283).jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:Vermilion Lakes and Eagle Mountain.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Ymblanter",
+          "attribution": "Ymblanter, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Vermilion_Lakes_and_Eagle_Mountain.jpg",
+          "width": 5816,
+          "height": 3840
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/jasper-townsite",
@@ -2857,7 +4046,27 @@
         ],
         "read": "2026-10-19",
         "quote": "To fully experience the Cave and Basin, gift shop and the surrounding boardwalks, plan at least 2-3 hours."
-      }
+      },
+      "photos": [
+        {
+          "file": "File:Visiting the Cave and basin Historical site. (22287866814).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Visiting_the_Cave_and_basin_Historical_site._(22287866814).jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:Cave and Basin Bath House - panoramio.jpg",
+          "licence": "CC BY 3.0",
+          "author": "Kiwibirdman",
+          "attribution": "Kiwibirdman, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Cave_and_Basin_Bath_House_-_panoramio.jpg",
+          "width": 2560,
+          "height": 1920
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
@@ -2871,7 +4080,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
-      "name": "Athabasca Glacier and Columbia Icefield"
+      "name": "Athabasca Glacier and Columbia Icefield",
+      "photos": [
+        {
+          "file": "File:Athabasca Glacier (14942484663).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Norton Ip from Hong Kong",
+          "attribution": "Norton Ip from Hong Kong, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Athabasca_Glacier_(14942484663).jpg",
+          "width": 5616,
+          "height": 3744
+        },
+        {
+          "file": "File:Athabasca Glacier 2025.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Douglaspperkins",
+          "attribution": "Douglaspperkins, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Athabasca_Glacier_2025.jpg",
+          "width": 5472,
+          "height": 3648
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/paint-pots",
@@ -2907,7 +4136,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
-      "name": "Upper and Lower Kananaskis Lakes"
+      "name": "Upper and Lower Kananaskis Lakes",
+      "photos": [
+        {
+          "file": "File:A trip to the lakes (29155224512).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:A_trip_to_the_lakes_(29155224512).jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:Upper Kananaskis lake (36000875896).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Upper_Kananaskis_lake_(36000875896).jpg",
+          "width": 6000,
+          "height": 4000
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
@@ -3015,6 +4264,26 @@
       ],
       "aliases": [
         "legacy/canadian-rockies-sept-2029/sights/banff-gondola"
+      ],
+      "photos": [
+        {
+          "file": "File:Canada, Banff, Sulphur mountain cable car - panoramio.jpg",
+          "licence": "CC BY 3.0",
+          "author": "David Broad",
+          "attribution": "David Broad, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Canada,_Banff,_Sulphur_mountain_cable_car_-_panoramio.jpg",
+          "width": 1612,
+          "height": 1092
+        },
+        {
+          "file": "File:Banff from above (2726479526).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "RAF-YYC from Calgary, Canada",
+          "attribution": "RAF-YYC from Calgary, Canada, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Banff_from_above_(2726479526).jpg",
+          "width": 3888,
+          "height": 2592
+        }
       ]
     },
     {
@@ -3073,7 +4342,94 @@
       "origin": {
         "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
         "reason": "the ticket offer on the lift line"
-      }
+      },
+      "run_by": "operator/pursuit-banff-jasper-collection",
+      "window": {
+        "v": {
+          "rule": "anytime",
+          "sellout": {
+            "kind": "unknown"
+          }
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0085"
+        ],
+        "read": "2026-10-25",
+        "quote": "Yes, you should buy Banff Gondola tickets in advance, especially during weekends, holidays and the busy summer season.",
+        "note": "Timed slots; the operator says tickets often sell out at peak times but gives no lead time. Purchased tickets are non-refundable.",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/banff-gondola/tickets/"
+        ],
+        "note": "The ticket page loads its fares in the booking widget by date and time; the page itself states no price."
+      },
+      "hours": {
+        "v": {
+          "tz": "America/Edmonton",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:00",
+              "close": "21:00",
+              "from": "10-13",
+              "to": "11-19"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:00",
+              "close": "22:00",
+              "from": "11-20",
+              "to": "12-31"
+            }
+          ],
+          "last_up": "19:30"
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0086"
+        ],
+        "read": "2026-10-25",
+        "quote": "October 13 – November 19 Daily, 10 AM – 9 PM Last Ride Up: 7:30 PM",
+        "note": "the page shows only the autumn and early-winter hours when read; September hours are not on it",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/tickets/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0085"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
@@ -3098,6 +4454,26 @@
       "name": "Jasper SkyTram (Whistlers Mountain)",
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top"
+      ],
+      "photos": [
+        {
+          "file": "File:Jasper Tramway - panoramio.jpg",
+          "licence": "CC BY 3.0",
+          "author": "qwesy qwesy",
+          "attribution": "qwesy qwesy, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Jasper_Tramway_-_panoramio.jpg",
+          "width": 1944,
+          "height": 1492
+        },
+        {
+          "file": "File:2025-06-10-235629 CAN Alberta Western Alberta (Jasper) 1808.3.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Hansueli Krapf",
+          "attribution": "Hansueli Krapf, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:2025-06-10-235629_CAN_Alberta_Western_Alberta_(Jasper)_1808.3.jpg",
+          "width": 8256,
+          "height": 5504
+        }
       ]
     },
     {
@@ -3141,7 +4517,43 @@
         "from": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
         "reason": "the ticket offer on the lift line"
       },
-      "run_by": "operator/pursuit-banff-jasper-collection"
+      "run_by": "operator/pursuit-banff-jasper-collection",
+      "window": {
+        "v": {
+          "rule": "anytime"
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0087"
+        ],
+        "read": "2026-10-25",
+        "quote": "Soar up the mountainside at your ideal time by pre-booking.",
+        "note": "Pre-booking picks the flight up and return times; book at least 90 minutes between them. Missed flights are non-refundable.",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/jasper-skytram/tickets/"
+        ],
+        "note": "The ticket page loads its fares in the booking widget by date and time; the page itself states no price."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/tickets/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0087"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
@@ -3158,6 +4570,26 @@
       "name": "Lake Louise Summer Gondola (grizzly/wildlife viewing, Whitehorn corridor)",
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top"
+      ],
+      "photos": [
+        {
+          "file": "File:Lake Louise Ski Lift and Gondola Alberta (CA) September 2019 (50073038876).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Ron Cogswell from Arlington, Virginia, USA",
+          "attribution": "Ron Cogswell from Arlington, Virginia, USA, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Louise_Ski_Lift_and_Gondola_Alberta_(CA)_September_2019_(50073038876).jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:Lake Louise Sightseeing Gondola - panoramio.jpg",
+          "licence": "CC BY 3.0",
+          "author": "Yoshio Kohara",
+          "attribution": "Yoshio Kohara, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Louise_Sightseeing_Gondola_-_panoramio.jpg",
+          "width": 2592,
+          "height": 1553
+        }
       ]
     },
     {
@@ -3193,7 +4625,43 @@
         "from": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
         "reason": "the ticket offer on the lift line"
       },
-      "run_by": "operator/lake-louise-ski-resort"
+      "run_by": "operator/lake-louise-ski-resort",
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.skilouise.com/explore-summer/sightseeing-gondola/"
+        ],
+        "note": "No fare on the sightseeing gondola page; tickets are sold through the resort's online shop."
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0091"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.skilouise.com/explore-summer/sightseeing-gondola/"
+        ],
+        "note": "No booking window or advance-booking advice on the page."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.skilouise.com/explore-summer/sightseeing-gondola/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0091"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
@@ -3204,7 +4672,73 @@
       "at": [
         "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island"
       ],
-      "run_by": "operator/pursuit-banff-jasper-collection"
+      "run_by": "operator/pursuit-banff-jasper-collection",
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/tickets/"
+        ],
+        "note": "The ticket page loads its fares in the booking widget by date and time; the page itself states no price."
+      },
+      "book_url": {
+        "v": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/tickets/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0088"
+        ],
+        "read": "2026-10-25",
+        "quote": "Tickets"
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0088"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/tickets/"
+        ],
+        "note": "The ticket page states no booking window; fares and times load in the booking widget."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/tickets/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0088"
+          ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Spirit Island -- Maligne Lake Jasper National Park Alberta (Canada) September 2019 (49143633606).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Ron Cogswell from Arlington, Virginia, USA",
+          "attribution": "Ron Cogswell from Arlington, Virginia, USA, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Spirit_Island_--_Maligne_Lake_Jasper_National_Park_Alberta_(Canada)_September_2019_(49143633606).jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:'Maligne Lake Boat House' -- Jasper, Alberta, Canada September 2019 (49124100058).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Ron Cogswell from Arlington, Virginia, USA",
+          "attribution": "Ron Cogswell from Arlington, Virginia, USA, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:%27Maligne_Lake_Boat_House%27_--_Jasper,_Alberta,_Canada_September_2019_(49124100058).jpg",
+          "width": 5966,
+          "height": 3558
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
@@ -3215,7 +4749,73 @@
       "at": [
         "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka"
       ],
-      "run_by": "operator/pursuit-banff-jasper-collection"
+      "run_by": "operator/pursuit-banff-jasper-collection",
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/tickets/"
+        ],
+        "note": "The ticket page loads its fares in the booking widget by date and time; the page itself states no price."
+      },
+      "book_url": {
+        "v": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/tickets/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0089"
+        ],
+        "read": "2026-10-25",
+        "quote": "Tickets"
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0089"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/tickets/"
+        ],
+        "note": "The ticket page states no booking window; fares and times load in the booking widget."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/tickets/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0089"
+          ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Lake Minnewanka boat pier 20240821 2.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "DXR",
+          "attribution": "DXR, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Minnewanka_boat_pier_20240821_2.jpg",
+          "width": 6934,
+          "height": 4623
+        },
+        {
+          "file": "File:Banff National Park (AB, Canada), Lake Minnewanka -- 2022 -- 2308.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Dietmar Rabich",
+          "attribution": "Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Banff_National_Park_(AB,_Canada),_Lake_Minnewanka_--_2022_--_2308.jpg",
+          "width": 6658,
+          "height": 4439
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
@@ -3226,7 +4826,89 @@
       "at": [
         "place/lake-louise"
       ],
-      "run_by": "operator/fairmont-chateau-lake-louise"
+      "run_by": "operator/fairmont-chateau-lake-louise",
+      "price": {
+        "v": [
+          {
+            "amount": 180,
+            "currency": "CAD",
+            "per": "boat",
+            "note": "one hour, non-hotel guests, plus GST"
+          },
+          {
+            "amount": 160,
+            "currency": "CAD",
+            "per": "boat",
+            "note": "half an hour, non-hotel guests, plus GST"
+          },
+          {
+            "amount": 110,
+            "currency": "CAD",
+            "per": "boat",
+            "note": "one hour, hotel guests, plus GST"
+          },
+          {
+            "amount": 100,
+            "currency": "CAD",
+            "per": "boat",
+            "note": "half an hour, hotel guests, plus GST"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0092"
+        ],
+        "read": "2026-10-25",
+        "quote": "Non-Hotel Guests: $180 + GST an hour",
+        "note": "card payment only; first come, first served, no advance reservations; each canoe holds three adults, or two adults and two small children under 25 kg",
+        "applies_to": "2026"
+      },
+      "season": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0092"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.chateau-lake-louise.com/activities/canoeing/"
+        ],
+        "note": "The boathouse is closed for the season and reopens in summer 2027; no dates given."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.chateau-lake-louise.com/activities/canoeing/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0092"
+          ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Louise lake.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Prabh17",
+          "attribution": "Prabh17, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Louise_lake.jpg",
+          "width": 2048,
+          "height": 1536
+        },
+        {
+          "file": "File:Canoes for Rent -- Lake Louise Alberta, Canada September 2019 (50072483293).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Ron Cogswell from Arlington, Virginia, USA",
+          "attribution": "Ron Cogswell from Arlington, Virginia, USA, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Canoes_for_Rent_--_Lake_Louise_Alberta,_Canada_September_2019_(50072483293).jpg",
+          "width": 6000,
+          "height": 4000
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
@@ -3236,6 +4918,102 @@
       "offer_class": "rental",
       "at": [
         "legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+      ],
+      "run_by": "operator/moraine-lake-lodge",
+      "price": {
+        "v": [
+          {
+            "amount": 170,
+            "currency": "CAD",
+            "per": "boat",
+            "note": "one hour, plus tax; paddles, life jackets and basic instruction included; first come, first served, no reservations"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0093"
+        ],
+        "read": "2026-10-25",
+        "quote": "$170 CAD + tax per canoe / 1 hour",
+        "applies_to": "2026"
+      },
+      "season": {
+        "v": [
+          {
+            "from": "06-15",
+            "to": "09-15",
+            "status": "open",
+            "note": "the page says mid-June to mid-September; the 15th is our reading of mid"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0093"
+        ],
+        "read": "2026-10-25",
+        "quote": "our canoe dock is only in operation from mid-June to mid-September",
+        "applies_to": "2026"
+      },
+      "hours": {
+        "v": {
+          "tz": "America/Edmonton",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "07:30",
+              "close": "18:30"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0093"
+        ],
+        "read": "2026-10-25",
+        "quote": "HOURS: 7:30 a.m. – 6:30 p.m.",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://morainelake.com/day-visits/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0093"
+          ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Moraine Lake Alberta Canada canoe docks.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "WikiPedant",
+          "attribution": "WikiPedant, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Moraine_Lake_Alberta_Canada_canoe_docks.jpg",
+          "width": 4608,
+          "height": 2592
+        },
+        {
+          "file": "File:Moraine Lake (3866528154).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Phil Whitehouse from London, United Kingdom",
+          "attribution": "Phil Whitehouse from London, United Kingdom, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Moraine_Lake_(3866528154).jpg",
+          "width": 3648,
+          "height": 2736
+        }
       ]
     },
     {
@@ -3246,6 +5024,66 @@
       "offer_class": "rental",
       "at": [
         "legacy/canadian-rockies-sept-2029/sights/emerald-lake"
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "05-01",
+            "to": "09-30",
+            "status": "open",
+            "note": "months only"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0094"
+        ],
+        "read": "2026-10-25",
+        "quote": "Activity available From May until September",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://crmr.com/activities/canoeing/"
+        ],
+        "note": "The resort's canoeing page names The Boathouse Trading Co. as the renter and gives no rate; the boathouse has no page of its own that we found."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://crmr.com/activities/canoeing/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0094"
+          ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Emerald Lake - Yoho National park - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Jack Borno",
+          "attribution": "Jack Borno, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Emerald_Lake_-_Yoho_National_park_-_panoramio.jpg",
+          "width": 3072,
+          "height": 2304
+        },
+        {
+          "file": "File:Emerald Lake and Mount Burgess (49464729952).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Bernd Thaller from Graz, Austria",
+          "attribution": "Bernd Thaller from Graz, Austria, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Emerald_Lake_and_Mount_Burgess_(49464729952).jpg",
+          "width": 7470,
+          "height": 4202
+        }
       ]
     },
     {
@@ -3356,7 +5194,19 @@
         "read": "2026-10-19",
         "quote": "Adult $19.75 ... Youth (ages 3-17) $17.25 ... Family $64.25",
         "note": "single entry, locker token included; no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD"
-      }
+      },
+      "run_by": "operator/parks-canada",
+      "photos": [
+        {
+          "file": "File:Upper Springs Bathhouse from SE.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Odysseus1479",
+          "attribution": "Odysseus1479, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Upper_Springs_Bathhouse_from_SE.jpg",
+          "width": 2800,
+          "height": 1750
+        }
+      ]
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place",
@@ -3403,6 +5253,88 @@
       "offer_class": "ticket",
       "at": [
         "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs"
+      ],
+      "run_by": "operator/parks-canada",
+      "price": {
+        "v": [
+          {
+            "amount": 19.75,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 18,
+            "age_to": 64,
+            "note": "single entry"
+          },
+          {
+            "amount": 17.25,
+            "currency": "CAD",
+            "per": "child",
+            "age_from": 3,
+            "age_to": 17,
+            "note": "youth, single entry"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 2,
+            "note": "under 3, free"
+          },
+          {
+            "amount": 64.25,
+            "currency": "CAD",
+            "per": "family",
+            "note": "single entry, four family members, at most two aged 18 or older"
+          },
+          {
+            "amount": 28.75,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 18,
+            "age_to": 64,
+            "note": "day pass"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0095"
+        ],
+        "read": "2026-10-25",
+        "quote": "Adult $ 19.75",
+        "note": "no year on the page (modified 2026-09-08); a national park pass is also required",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/sources-miette-springs/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0095"
+          ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Source of the spring 1, Miette Hot Springs, Jasper AB.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Jon Eeuwes",
+          "attribution": "Jon Eeuwes, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Source_of_the_spring_1,_Miette_Hot_Springs,_Jasper_AB.jpg",
+          "width": 6016,
+          "height": 4016
+        },
+        {
+          "file": "File:Trail to the head, Miette Hot Springs, Jasper, AB.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Jon Eeuwes",
+          "attribution": "Jon Eeuwes, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Trail_to_the_head,_Miette_Hot_Springs,_Jasper,_AB.jpg",
+          "width": 6016,
+          "height": 4016
+        }
       ]
     },
     {
@@ -3507,7 +5439,51 @@
         ],
         "read": "2026-10-19",
         "quote": "Columbia Icefield Adventure 2–3 hour experience."
-      }
+      },
+      "run_by": "operator/pursuit-banff-jasper-collection",
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/columbia-icefield/",
+          "https://www.banffjaspercollection.com/attractions/columbia-icefield/tickets/ (404)"
+        ],
+        "note": "The page links 2027 Tickets & Pricing but states no fare; the tickets URL answered 404."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0090"
+          ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:'Ice Explorers' Approaching the Athabasca Glacier -- Jasper National Park Alberta September 2019 (49421973251).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Ron Cogswell from Arlington, Virginia, USA",
+          "attribution": "Ron Cogswell from Arlington, Virginia, USA, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:%27Ice_Explorers%27_Approaching_the_Athabasca_Glacier_--_Jasper_National_Park_Alberta_September_2019_(49421973251).jpg",
+          "width": 5489,
+          "height": 3787
+        },
+        {
+          "file": "File:Brewster 'Ice Explore' -43 on the Athabasca Glacier -- Jasper National Park Alberta September 2019 (49421509233).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Ron Cogswell from Arlington, Virginia, USA",
+          "attribution": "Ron Cogswell from Arlington, Virginia, USA, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Brewster_%27Ice_Explore%27_-43_on_the_Athabasca_Glacier_--_Jasper_National_Park_Alberta_September_2019_(49421509233).jpg",
+          "width": 6000,
+          "height": 4000
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
@@ -3629,7 +5605,27 @@
         ],
         "read": "2026-10-19",
         "quote": "Skywalk 1–2 hour experience."
-      }
+      },
+      "photos": [
+        {
+          "file": "File:Columbia Icefield Skywalk -- Jasper National Park Alberta September 2019 (49422476482).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Ron Cogswell from Arlington, Virginia, USA",
+          "attribution": "Ron Cogswell from Arlington, Virginia, USA, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Columbia_Icefield_Skywalk_--_Jasper_National_Park_Alberta_September_2019_(49422476482).jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:Glacier Skywalk Over the Sunwapta River -- Athabasca Glacier Jasper National Park, Alberta September 2019 (49440408223).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Ron Cogswell from Arlington, Virginia, USA",
+          "attribution": "Ron Cogswell from Arlington, Virginia, USA, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Glacier_Skywalk_Over_the_Sunwapta_River_--_Athabasca_Glacier_Jasper_National_Park,_Alberta_September_2019_(49440408223).jpg",
+          "width": 5599,
+          "height": 3721
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
@@ -3651,7 +5647,18 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Jasper Dark Sky Preserve stargazing"
+      "name": "Jasper Dark Sky Preserve stargazing",
+      "photos": [
+        {
+          "file": "File:Milky Way over The Whistlers.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Fresh.waffles",
+          "attribution": "Fresh.waffles, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Milky_Way_over_The_Whistlers.jpg",
+          "width": 6016,
+          "height": 4016
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
@@ -3673,7 +5680,27 @@
         "on": "2026-10-23",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Elk rut viewing (Banff, Jasper) and bighorn rut"
+      "name": "Elk rut viewing (Banff, Jasper) and bighorn rut",
+      "photos": [
+        {
+          "file": "File:Elk-Wapiti - Banff.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Jakub Fryš",
+          "attribution": "Jakub Fryš, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Elk-Wapiti_-_Banff.jpg",
+          "width": 4928,
+          "height": 3264
+        },
+        {
+          "file": "File:Elk Banff National Park.jpg",
+          "licence": "CC0",
+          "author": "Naturedata",
+          "attribution": "Naturedata, CC0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Elk_Banff_National_Park.jpg",
+          "width": 3504,
+          "height": 2336
+        }
+      ]
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/elk-rut#rut",
@@ -3820,6 +5847,35 @@
         ],
         "read": "2026-10-19",
         "quote": "3.25 - 3.5 hours, 5 km (3 miles) round trip"
+      },
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier"
+      ],
+      "run_by": "operator/icewalks",
+      "book_url": {
+        "v": "https://icewalks.zaui.net/booking/web/#/default/activity/270",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0067"
+        ],
+        "read": "2026-10-25",
+        "quote": "Book Now",
+        "note": "the booking link on the tour page"
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0067"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.icewalks.com/tours/half-day-tours"
+        ],
+        "note": "Online booking; the page states departure times (9:45 AM and 2:00 PM, arrive 20 minutes early) but no booking window."
       }
     },
     {
@@ -3835,6 +5891,15 @@
           "on": "2026-10-19",
           "src": [
             "src-0029"
+          ]
+        },
+        {
+          "kind": "official",
+          "url": "https://horseback.com/tours/bow-river-ride/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0068"
           ]
         }
       ],
@@ -3886,6 +5951,35 @@
         ],
         "read": "2026-10-19",
         "quote": "The tour is a one hour horseback ride."
+      },
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/cave-and-basin"
+      ],
+      "run_by": "operator/banff-trail-riders",
+      "book_url": {
+        "v": "https://horseback.com/tours/bow-river-ride/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0068"
+        ],
+        "read": "2026-10-25",
+        "quote": "CHECK AVAILABILITY",
+        "note": "the ride page carries the availability and booking form"
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0068"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://horseback.com/tours/bow-river-ride/"
+        ],
+        "note": "Booked online; no window stated. Free change or cancellation up to 24 hours before the ride."
       }
     },
     {
@@ -3901,6 +5995,15 @@
           "on": "2026-10-19",
           "src": [
             "src-0038"
+          ]
+        },
+        {
+          "kind": "official",
+          "url": "https://www.banff-springs-hotel.com/wellness/spa/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0069"
           ]
         }
       ],
@@ -3967,6 +6070,21 @@
         ],
         "read": "2026-10-19",
         "quote": "three hours"
+      },
+      "run_by": "operator/fairmont-banff-springs",
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0069"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banff-springs-hotel.com/wellness/spa/"
+        ],
+        "note": "The page advises booking spa access in advance; non-hotel guests may use the facility Monday to Thursday only, subject to availability. No window in days."
       }
     },
     {
@@ -4040,6 +6158,30 @@
         ],
         "read": "2026-10-19",
         "quote": "1 hour (on water)"
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0070"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.banffadventures.com/things-to-do/float-trips/"
+        ],
+        "note": "Booked online; departures 10:20, 11:20, 13:20, 15:20 and 17:20 from the base of Bow Falls; 48-hour cancellation. No window stated."
+      },
+      "book_url": {
+        "v": "https://www.banffadventures.com/things-to-do/float-trips/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0070"
+        ],
+        "read": "2026-10-25",
+        "quote": "Book your Adventure"
       }
     },
     {
@@ -4162,6 +6304,35 @@
         ],
         "read": "2026-10-19",
         "quote": "7:00 am to 2:30 pm"
+      },
+      "run_by": "operator/parks-canada",
+      "window": {
+        "v": {
+          "rule": "fixed_date",
+          "opens_time": "08:00",
+          "tz": "America/Edmonton",
+          "fallback": "1-877-RESERVE (1-877-737-3783)"
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0071"
+        ],
+        "read": "2026-10-25",
+        "quote": "Reservation launch: Tuesday, January 20, 2026; 8 am MT",
+        "note": "Reservations open on one day each January (20 January in 2026); the date for a later year is announced by Parks Canada.",
+        "applies_to": "2026"
+      },
+      "book_url": {
+        "v": "https://reservation.pc.gc.ca/",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0071"
+        ],
+        "read": "2026-10-25",
+        "quote": "Online 24/7: Parks Canada Reservation Service",
+        "note": "the reservation service the page links"
       }
     },
     {
@@ -4240,6 +6411,37 @@
         ],
         "read": "2026-10-19",
         "quote": "Duration: 11 hours (7 am to 6 pm)"
+      },
+      "run_by": "operator/parks-canada",
+      "starts_at": [
+        "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls"
+      ],
+      "window": {
+        "v": {
+          "rule": "fixed_date",
+          "opens_time": "08:00",
+          "tz": "America/Edmonton",
+          "fallback": "1-877-RESERVE (1-877-737-3783)"
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0072"
+        ],
+        "read": "2026-10-25",
+        "quote": "Reservation launch: Tuesday, January 20, 2026; 8 am MT",
+        "note": "Reservations are required; they open on one day each January.",
+        "applies_to": "2026"
+      },
+      "book_url": {
+        "v": "https://reservation.pc.gc.ca/",
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0072"
+        ],
+        "read": "2026-10-25",
+        "quote": "Online 24/7: Parks Canada Reservation Service"
       }
     },
     {
@@ -4303,7 +6505,28 @@
         ],
         "read": "2026-10-19",
         "quote": "all ages 3+ $35.00",
-        "note": "one-way or return is not stated; tickets in person only, cards only",
+        "note": "one-way or return is not stated; tickets in person only, cards only; re-read 2026-10-25: the page gives one fare under a table of marina departures and Crypt Landing pick-ups and does not say one-way or return (operator question D4a-1)",
+        "applies_to": "2026"
+      },
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/waterton-townsite"
+      ],
+      "run_by": "operator/waterton-shoreline-cruise",
+      "window": {
+        "v": {
+          "rule": "rolling",
+          "days_before": 3,
+          "tz": "America/Edmonton",
+          "fallback": "in person at the Waterton Marina ticket office; pick-up seats at Crypt Landing are first come, first served"
+        },
+        "state": "value",
+        "basis": "operator_rule",
+        "src": [
+          "src-0073"
+        ],
+        "read": "2026-10-25",
+        "quote": "Tickets may be purchased up to three (3) days in advance, or the day of your cruise.",
+        "note": "No advance reservations; in person only.",
         "applies_to": "2026"
       }
     },
@@ -4449,6 +6672,45 @@
         ],
         "read": "2026-10-19",
         "quote": "25 minutes"
+      },
+      "run_by": "operator/alpine-helicopters",
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0074"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour/"
+        ],
+        "note": "Reserve ahead to secure a time; paid at check-in; free cancellation up to 3 hours before a sightseeing flight. No window stated."
+      },
+      "book_url": {
+        "v": "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0074"
+        ],
+        "read": "2026-10-25",
+        "quote": "Book Now"
+      },
+      "season": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0074"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour/"
+        ],
+        "note": "The tour page gives no operating season."
       }
     },
     {
@@ -4504,15 +6766,17 @@
       },
       "price": {
         "v": null,
-        "state": "searched_none",
-        "basis": null,
-        "src": [],
-        "on": "2026-10-19",
-        "tried": [
-          "whitemountainadventures.com heli-hiking page",
-          "search: White Mountain Adventures heli-hiking Canmore"
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0075"
         ],
-        "note": "only a $500 deposit is stated"
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies"
+        ],
+        "note": "Only the $500 deposit is stated; the charter price is not on the page (chartered, at most 5 clients)."
       },
       "duration_min": {
         "v": [
@@ -4527,6 +6791,31 @@
         "read": "2026-10-19",
         "quote": "4 hours",
         "note": "2-3 hours of walking"
+      },
+      "run_by": "operator/white-mountain-adventures",
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0075"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies"
+        ],
+        "note": "A $500 deposit at booking, refundable up to 48 hours before departure; no window stated."
+      },
+      "book_url": {
+        "v": "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0075"
+        ],
+        "read": "2026-10-25",
+        "quote": "Make a Booking"
       }
     },
     {
@@ -4562,16 +6851,35 @@
         }
       ],
       "price": {
-        "v": null,
-        "state": "searched_none",
-        "basis": null,
-        "src": [],
-        "on": "2026-10-19",
-        "tried": [
-          "viciouscycleandsnow.ca rentals pages",
-          "search: Jasper bike rentals townsite shop rates"
+        "v": [
+          {
+            "amount": 20,
+            "currency": "CAD",
+            "per": "hour",
+            "note": "hardtail mountain bike (Kona Big Honzo), 1 hour"
+          },
+          {
+            "amount": 20,
+            "currency": "CAD",
+            "per": "hour",
+            "note": "kids bike (20 or 24 inch), 1 hour"
+          },
+          {
+            "amount": 50,
+            "currency": "CAD",
+            "per": "hour",
+            "note": "electric cruiser, 1 hour"
+          }
         ],
-        "note": "no Jasper prices on the pages"
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0096"
+        ],
+        "read": "2026-10-25",
+        "quote": "CA$20.00 Total price",
+        "note": "Read in a browser on 2026-10-25 for a 1-hour rental starting 26 Oct 2026, 10:00, in the shop's booking widget (prices load only after a date, time and length are chosen); tax not shown. Earlier run (2026-10-19) found no price on the static pages.",
+        "applies_to": "2026"
       }
     },
     {
@@ -4597,8 +6905,55 @@
           "src": [
             "src-0057"
           ]
+        },
+        {
+          "kind": "official",
+          "url": "https://alpinestables.com/commonly-asked-questions/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0077"
+          ]
         }
-      ]
+      ],
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/jasper-townsite",
+        "legacy/canadian-rockies-sept-2029/sights/waterton-townsite"
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "05-01",
+            "to": "10-31",
+            "status": "open",
+            "note": "Jasper Riding Stables, months only: May through October"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0076"
+        ],
+        "read": "2026-10-25",
+        "quote": "Trail rides operate from May through October.",
+        "note": "Jasper side only; the record holds two operators (Jasper Riding Stables, Alpine Stables in Waterton), so run_by stays empty until it is split (DECISIONS NEEDED).",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0077"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://jasperstables.com/",
+          "https://alpinestables.com/commonly-asked-questions/"
+        ],
+        "note": "Jasper: book online, by phone or in person. Waterton: booking ahead strongly recommended for 1-2 hour rides, rides over 2 hours must be pre-booked. No window in days."
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour",
@@ -4675,6 +7030,34 @@
         ],
         "read": "2026-10-19",
         "quote": "3 - 3.5 hrs"
+      },
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/jasper-townsite"
+      ],
+      "run_by": "operator/sundog-tours",
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0078"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.sundogtours.com/package/sunrise-photography-and-wildlife-tour"
+        ],
+        "note": "Booked online; pick-ups from Jasper townsite accommodation (6:30 AM in high season). No window stated."
+      },
+      "book_url": {
+        "v": "https://www.sundogtours.com/package/sunrise-photography-and-wildlife-tour",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0078"
+        ],
+        "read": "2026-10-25",
+        "quote": "Book Now"
       }
     },
     {
@@ -4857,6 +7240,34 @@
           "brewsteradventures.com summer trail rides page"
         ],
         "note": "the page states no season; it says teahouses typically open July 1"
+      },
+      "at": [
+        "place/lake-louise"
+      ],
+      "run_by": "operator/brewster-adventures",
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0079"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.brewsteradventures.com/summer-trail-rides"
+        ],
+        "note": "Booked online per ride; hourly rides on availability. No window stated."
+      },
+      "book_url": {
+        "v": "https://www.brewsteradventures.com/summer-trail-rides",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0079"
+        ],
+        "read": "2026-10-25",
+        "quote": "Book your Brewster Adventure"
       }
     },
     {
@@ -5076,13 +7487,53 @@
         "read": "2026-10-19",
         "quote": "Explorer 2-2.5 hr ... Summiteer 5.5-6 hr",
         "note": "the range across the five routes"
+      },
+      "run_by": "operator/banff-norquay",
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0080"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://banffnorquay.com/via-ferrata/via-ferrata-routes/"
+        ],
+        "note": "Booked online per route and time; no window stated."
+      },
+      "book_url": {
+        "v": "https://banffnorquay.com/via-ferrata/via-ferrata-routes/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0080"
+        ],
+        "read": "2026-10-25",
+        "quote": "Book Now"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs",
       "type": "water.thermal.hot_spring",
       "layer": "offer",
-      "name": "Radium Hot Springs pools"
+      "name": "Radium Hot Springs pools",
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs"
+      ],
+      "run_by": "operator/parks-canada",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/kootenay/sources-radium-springs",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0082"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
@@ -5218,6 +7669,37 @@
         ],
         "read": "2026-10-19",
         "quote": "1 h 15 min"
+      },
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/waterton-townsite"
+      ],
+      "run_by": "operator/waterton-shoreline-cruise",
+      "window": {
+        "v": {
+          "rule": "rolling",
+          "days_before": 3,
+          "tz": "America/Edmonton",
+          "fallback": "in person at the Waterton Marina ticket office"
+        },
+        "state": "value",
+        "basis": "operator_rule",
+        "src": [
+          "src-0073"
+        ],
+        "read": "2026-10-25",
+        "quote": "first come, first served, in person only. Tickets may be purchased up to three (3) days in advance",
+        "applies_to": "2026"
+      },
+      "book_url": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "https://www.watertoncruise.com/2026.php"
+        ],
+        "note": "No online booking: tickets are sold in person at the marina."
       }
     },
     {
@@ -5239,27 +7721,180 @@
       "price": {
         "v": [
           {
-            "amount": 499,
+            "amount": 529,
             "currency": "CAD",
             "per": "person",
-            "note": "Scrambling Skills and Safety, 2 days, plus GST"
+            "note": "Scrambling Skills course, 2 days, plus GST; the optional third day is 429 plus GST"
           }
         ],
         "state": "value",
         "basis": "operator_info",
         "src": [
-          "src-0054"
+          "src-0081"
         ],
-        "read": "2026-10-19",
-        "quote": "$499 CDN per person plus GST",
-        "note": "no year on the page; the course dates field is empty"
+        "read": "2026-10-25",
+        "quote": "$529 CDN per person",
+        "note": "excludes GST, park entry, gear, accommodation, meals and transport",
+        "applies_to": "2026",
+        "conflicts": [
+          {
+            "v": [
+              {
+                "amount": 499,
+                "currency": "CAD",
+                "per": "person",
+                "note": "Scrambling Skills and Safety, 2 days, plus GST"
+              }
+            ],
+            "basis": "operator_info",
+            "src": [
+              "src-0054"
+            ],
+            "note": "earlier read (2026-10-19): $499 CDN per person plus GST"
+          }
+        ]
+      },
+      "run_by": "operator/yamnuska-mountain-adventures",
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0081"
+        ],
+        "read": "2026-10-25",
+        "on": "2026-10-25",
+        "tried": [
+          "https://yamnuska.com/mountaineering/beginner-mountaineering-courses/mountain-scrambling/"
+        ],
+        "note": "Scheduled course dates; no booking window stated."
+      },
+      "book_url": {
+        "v": "https://yamnuska.com/mountaineering/beginner-mountaineering-courses/mountain-scrambling/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0081"
+        ],
+        "read": "2026-10-25",
+        "quote": "Dates"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter",
       "type": "air.flight.heli_tour",
       "layer": "offer",
-      "name": "Mount Assiniboine helicopter access"
+      "name": "Mount Assiniboine helicopter access",
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/lake-magog"
+      ],
+      "run_by": "operator/mount-assiniboine-lodge",
+      "season": {
+        "v": [
+          {
+            "from": "06-20",
+            "to": "10-01",
+            "status": "open",
+            "applies_to": "2027",
+            "note": "summer flights on Wednesday, Friday and Sunday"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0083"
+        ],
+        "read": "2026-10-25",
+        "quote": "Summer 2027 - June 20 - October 1.",
+        "applies_to": "2027"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 265,
+            "currency": "CAD",
+            "per": "person",
+            "applies_to": "2027",
+            "note": "Mount Shark heliport to or from Mount Assiniboine, one way, plus 5% tax, 40 lb of gear"
+          },
+          {
+            "amount": 299,
+            "currency": "CAD",
+            "per": "person",
+            "applies_to": "2027",
+            "note": "Canmore to or from Mount Assiniboine, one way, plus 5% tax, 6 seats"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 1,
+            "applies_to": "2027",
+            "note": "children up to 23 months on an adult's lap"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0083"
+        ],
+        "read": "2026-10-25",
+        "quote": "Mount Shark to/from Mt Assiniboine flight: $265/person one way + 5% tax",
+        "applies_to": "2027"
+      },
+      "window": {
+        "v": {
+          "rule": "fixed_date",
+          "opens_time": "09:00",
+          "tz": "America/Edmonton",
+          "fallback": "outgoing flights can be booked at the lodge, with a last-minute fee"
+        },
+        "state": "value",
+        "basis": "operator_rule",
+        "src": [
+          "src-0083"
+        ],
+        "read": "2026-10-25",
+        "quote": "summer helicopter flights online starting April 20, 2027 at 9am",
+        "note": "Flights can be booked only with a confirmed stay or campsite in the core area of the park on the day of the flight in, or the day before the flight out.",
+        "applies_to": "2027"
+      },
+      "duration_min": {
+        "v": [
+          10,
+          10
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0083"
+        ],
+        "read": "2026-10-25",
+        "quote": "It is a 10 minute flight.",
+        "note": "Mount Shark to Mount Assiniboine",
+        "applies_to": "2026"
+      },
+      "book_url": {
+        "v": "https://assiniboinelodge.com/helicopter-flight-days",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0083"
+        ],
+        "read": "2026-10-25",
+        "quote": "Booking flights online"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://assiniboinelodge.com/helicopter-faqs",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0084"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
@@ -5474,7 +8109,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Miette Hot Springs"
+      "name": "Miette Hot Springs",
+      "photos": [
+        {
+          "file": "File:Source of the spring 1, Miette Hot Springs, Jasper AB.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Jon Eeuwes",
+          "attribution": "Jon Eeuwes, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Source_of_the_spring_1,_Miette_Hot_Springs,_Jasper_AB.jpg",
+          "width": 6016,
+          "height": 4016
+        },
+        {
+          "file": "File:Trail to the head, Miette Hot Springs, Jasper, AB.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Jon Eeuwes",
+          "attribution": "Jon Eeuwes, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Trail_to_the_head,_Miette_Hot_Springs,_Jasper,_AB.jpg",
+          "width": 6016,
+          "height": 4016
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/mount-edith-cavell",
@@ -6065,7 +8720,38 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
-      "name": "Lake Agnes Tea House"
+      "name": "Lake Agnes Tea House",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Lake Agnes Tea House - panoramio.jpg",
+          "licence": "CC BY 3.0",
+          "author": "qwesy qwesy",
+          "attribution": "qwesy qwesy, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Agnes_Tea_House_-_panoramio.jpg",
+          "width": 1944,
+          "height": 1458
+        },
+        {
+          "file": "File:Lake Agnes, Banff National Park, Canada (54881458499).jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+          "attribution": "Christoph Strässler from Oberdorf BL, Schweiz, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Agnes,_Banff_National_Park,_Canada_(54881458499).jpg",
+          "width": 10404,
+          "height": 5852
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
@@ -6173,7 +8859,35 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
-      "name": "Rawson Lake"
+      "name": "Rawson Lake",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rawson-lake/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0097"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/24836168",
+          "state": "filled",
+          "on": "2026-10-25"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Rawson Lake Kananaskis Alberta Canada October 2015 (22100846781).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Rawson_Lake_Kananaskis_Alberta_Canada_October_2015_(22100846781).jpg",
+          "width": 6000,
+          "height": 4000
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",

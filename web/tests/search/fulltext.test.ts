@@ -48,7 +48,8 @@ describe('a merged duplicate stays searchable (PLC hand-back)', () => {
   const first = (q: string) => searcher.search(q).groups.flatMap((g) => g.hits).map((h) => h.record.h);
   it('finds the page that kept the place by the name of the page that was merged into it', () => {
     expect(first('Canmore Nordic Centre provincial park')).toContain('/places/canmore-nordic-centre-summer/');
-    expect(first('radium hot springs pools')).toContain('/places/radium-hot-springs/');
+    // the Radium pools offer is now shown under the springs page (DATA-D4a), not a merged pair, so its name is no longer an alias; the Lake Louise pair stands in
+    expect(first('lake louise sightseeing')).toContain('/places/lake-louise-summer-gondola/');
   });
 });
 

@@ -18,6 +18,14 @@ describe("privacy detector", () => {
     expect(whys({ status: "planned" })).toEqual(["a private key"]);
     expect(whys({ status: "open", hours: "30 min each way" })).toEqual([]);
   });
+  it("finds the internal research columns in a served body: meta, notes_private and doc (RI-6, RIS-C); notes stays public", () => {
+    const whys = (x: unknown) => privacyHits(x).map((h) => h.why);
+    expect(whys({ place: { ref: "place/x", meta: { schema_version: 1, run_id: "DATA-D7R" } } })).toEqual(["a private key"]);
+    expect(whys({ items: [{ ref: "place/x", notes_private: "lead to follow" }] })).toEqual(["a private key"]);
+    expect(whys({ entity: { ref: "place/x", doc: {} } })).toEqual(["a private key"]);
+    expect(privacyHits({ items: [{ meta: {} }] })[0]!.where).toBe("$.items[0].meta");
+    expect(whys({ notes: "Bring a jacket", trip: { notes: [] } })).toEqual([]);
+  });
   it("finds a point near home as an object, as a coordinate array in either order, and inside an export body", () => {
     const p = northOfHome(0.5);
     expect(privacyHits({ lat: p.lat, lon: p.lon }).length).toBe(1);

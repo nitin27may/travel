@@ -1,0 +1,286 @@
+{
+  "schema": "trip-windows/1",
+  "trip": "canadian-rockies-2029",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "batch": "DATA-D7R",
+  "length_days": 15,
+  "default": "sep-w2",
+  "validation_note": "No trip-windows/1 validator exists yet (OVR-Ca). Checked by hand against overview spec 2.2 with the batch's check script; see research/runs/DATA-D7R.md.",
+  "affects_states_note": "closed: outside the stated season. uncertain: the season edge or snow falls inside the plan day. limited: open but reduced (access route or no darkness). OVR-Ca to confirm the enum.",
+  "sources": [
+    {
+      "id": "s-7612a7ad72",
+      "url": "https://www.skibanff.com/summer/plan-your-summer-visit/summer-hours-tickets",
+      "title": "Summer hours and tickets (Sunshine Village gondola and Standish chair)",
+      "publisher": "Banff Sunshine Village",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "note": "2026 summer operations: opened in the first week of July, closed on the third Sunday of September; gondola 8:00 to 18:00."
+    },
+    {
+      "id": "s-6156cb2ccf",
+      "url": "https://www.newswire.com/news/banff-sunshine-village-announces-summer-opening-for-2025-season-22596547",
+      "title": "Banff Sunshine Village announces summer opening for 2025 season",
+      "publisher": "Banff Sunshine Village (press release)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "note": "2025 summer season: opened on the last Friday of June, closed on the third Sunday of September."
+    },
+    {
+      "id": "s-aa937e281b",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/securite-safety/meteo-weather",
+      "title": "Weather, Banff National Park (monthly averages)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "note": "Averages without stated years. Banff, September: high 16.1, low 2.7 C. Lake Louise, September: high 14.3, low -0.8 C; June: high 17.2, low 2.1 C. Banff, August: high 21.6 C.",
+      "page_modified": "2024-10-07"
+    },
+    {
+      "id": "s-04213003a8",
+      "url": "https://climate.weather.gc.ca/climate_normals/results_1991_2020_e.html?searchType=stnProv&lstProvince=AB&climate_id=3050519&dispBack=0",
+      "title": "Canadian Climate Normals 1991-2020, BANFF CS (3050519)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "note": "Precipitation, June: 73.3 mm (the wettest month); September: 44.9 mm. Days with 1 mm or more, June: 11.3; July: 8.2; August: 8.3; September: 7.9. Snowfall, June: 1.7 cm; September: 7.9 cm."
+    },
+    {
+      "id": "s-1e9adc4a03",
+      "url": "https://open.alberta.ca/dataset/1d0c35db-2c11-4f54-8f9c-89a4b01a3875/resource/ff6e8818-d5df-4ed6-82ac-f1e7060dd7be/download/edtt-tourism-market-monitor-2019-12.pdf",
+      "title": "Alberta Tourism Market Monitor, December 2019 (national park attendance by month, source Parks Canada)",
+      "publisher": "Government of Alberta",
+      "kind": "official",
+      "read": "2026-10-25",
+      "note": "Independent visitors, thousands, 2019. Banff: Jun 389.1, Jul 688.5, Aug 723.8, Sep 472.3. Jasper: Jun 237.9, Jul 468.4, Aug 495.7, Sep 319.8. Monthly only; no weekly split."
+    },
+    {
+      "id": "s-0e384f4324",
+      "url": "https://www.alberta.ca/alberta-general-holidays",
+      "title": "Alberta general holidays",
+      "publisher": "Government of Alberta",
+      "kind": "official",
+      "read": "2026-10-25",
+      "note": "Canada Day: the first of July, or the second when the first is a Sunday. Labour Day dates listed for 2026 and 2027 are both the first Monday of September."
+    },
+    {
+      "id": "s-a0220493d4",
+      "url": "https://belfast.cbe.ab.ca/documents/28d085db-7810-4d25-b130-2b5d82b91a87/Belfast-School-Calendar.pdf",
+      "title": "Calgary Board of Education school calendar 2025-26 (Belfast School)",
+      "publisher": "Calgary Board of Education",
+      "kind": "official",
+      "read": "2026-10-25",
+      "note": "First day of classes the Tuesday after Labour Day; last day of school the last Friday of June (system-wide early dismissal). One school's copy of the board calendar."
+    },
+    {
+      "id": "s-20b96be83e",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "title": "Hiking, Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "note": "Prime hiking season July through mid-September; until late June many passes snow-bound with avalanche hazard; most alpine passes snow-free by mid-July; Healy Pass larches turn in late September.",
+      "page_modified": "2026-10-13"
+    },
+    {
+      "id": "s-c6eb9eb1b4",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/securite-safety/faune-wildlife/wapiti-elk",
+      "title": "Elk safety, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "note": "Calving season mid-May to the end of June; rutting season the start of September to mid-October; keep at least 30 m from all elk.",
+      "page_modified": "2026-10-01"
+    },
+    {
+      "id": "s-086ff9a40d",
+      "url": "https://morainelake.com/day-visits/",
+      "title": "Day visits (canoe dock)",
+      "publisher": "Moraine Lake Lodge",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "note": "Due to water levels the canoe dock runs only from mid-June to mid-September; first come, first served."
+    },
+    {
+      "id": "s-16b1da9a6c",
+      "url": "https://www.travelalberta.com/articles/golden-larch-trees-in-the-canadian-rockies",
+      "title": "Where to find golden larch trees in the Canadian Rockies",
+      "publisher": "Travel Alberta (provincial tourism agency)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "note": "Best time between mid-September and early October, varying with the weather. Promotional page; no page date."
+    }
+  ],
+  "windows": [
+    {
+      "id": "sep-w2",
+      "label": "Second week of September",
+      "start": {
+        "month": 9,
+        "week": 2
+      },
+      "sun": {
+        "from": [
+          9,
+          8
+        ],
+        "to": [
+          9,
+          22
+        ]
+      },
+      "verdict": "best",
+      "best_for": "The plan as written: after the long weekend, with the first larch colour late in the trip",
+      "crowd": {
+        "level": "lower",
+        "basis": "official",
+        "src": [
+          "s-1e9adc4a03"
+        ],
+        "pattern_year": 2019,
+        "note": "Banff had 472 thousand visits in September against 724 thousand in August; that the weeks after Labour Day are the quieter part of September is our inference."
+      },
+      "plus": [
+        {
+          "text": "Starts after the Labour Day long weekend, once schools are back",
+          "factor": "crowds",
+          "basis": "official",
+          "src": [
+            "s-0e384f4324",
+            "s-a0220493d4"
+          ],
+          "on": "2026-10-25"
+        },
+        {
+          "text": "Larch colour season starts around mid-September, inside the trip's second week",
+          "factor": "wildlife",
+          "basis": "official",
+          "src": [
+            "s-16b1da9a6c",
+            "s-20b96be83e"
+          ],
+          "on": "2026-10-25"
+        },
+        {
+          "text": "Sunshine Meadows gondola still runs on plan day 2; it closes later in September",
+          "factor": "access",
+          "basis": "operator",
+          "src": [
+            "s-7612a7ad72",
+            "s-6156cb2ccf"
+          ],
+          "on": "2026-10-25",
+          "pattern_year": 2026
+        },
+        {
+          "text": "Fewer wet days than June: about 8 days a month with 1 mm of rain or more at Banff",
+          "factor": "weather",
+          "basis": "official",
+          "src": [
+            "s-04213003a8"
+          ],
+          "on": "2026-10-25"
+        }
+      ],
+      "minus": [
+        {
+          "text": "Cold nights: Lake Louise's September average low is just below freezing",
+          "factor": "weather",
+          "basis": "official",
+          "src": [
+            "s-aa937e281b"
+          ],
+          "on": "2026-10-25"
+        },
+        {
+          "text": "Snow is possible up high: Banff averages about 8 cm of snowfall in September",
+          "factor": "weather",
+          "basis": "official",
+          "src": [
+            "s-04213003a8"
+          ],
+          "on": "2026-10-25"
+        },
+        {
+          "text": "Moraine Lake's canoe dock runs only to mid-September, so it can be closed by plan day 11",
+          "factor": "access",
+          "basis": "operator",
+          "src": [
+            "s-086ff9a40d"
+          ],
+          "on": "2026-10-25"
+        },
+        {
+          "text": "Elk rut season: keep at least 30 m from elk around the townsites",
+          "factor": "wildlife",
+          "basis": "official",
+          "src": [
+            "s-c6eb9eb1b4"
+          ],
+          "on": "2026-10-25"
+        }
+      ],
+      "events": [
+        {
+          "rule": "Labour Day is the first Monday of September; this window always starts after that long weekend",
+          "effect": "crowds",
+          "basis": "official",
+          "src": [
+            "s-0e384f4324"
+          ],
+          "on": "2026-10-25"
+        }
+      ],
+      "affects": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+          "state": "uncertain",
+          "why": "Canoe dock season ends mid-September",
+          "basis": "operator",
+          "src": [
+            "s-086ff9a40d"
+          ]
+        }
+      ],
+      "unknown": [
+        {
+          "text": "Peak larch week in a given year at Larch Valley and Highwood Pass",
+          "searched": "2026-10-25",
+          "tried": "Travel Alberta and Parks Canada give a range only (mid-September to early October; Healy Pass late September); no site-by-site official dates."
+        },
+        {
+          "text": "Snow on Sentinel Pass and the Iceline in mid-September",
+          "searched": "2026-10-25",
+          "tried": "Parks Canada hiking pages read; no seasonal statement for these trails."
+        },
+        {
+          "text": "Crowd level by week inside a month",
+          "searched": "2026-10-25",
+          "tried": "Only monthly park visits exist (Parks Canada figures in the Alberta Tourism Market Monitor); no weekly or trail counts found."
+        },
+        {
+          "text": "Season price differences for rooms",
+          "searched": "2026-10-25",
+          "tried": "Not researched: the only seasonal price data seen are travel-agency and booking-site figures, which are links only."
+        },
+        {
+          "text": "Odds of wildfire smoke in this window",
+          "searched": "2026-10-25",
+          "tried": "Not researched in this batch; earlier notes list smoke years from news reports only, no official odds."
+        },
+        {
+          "text": "Lake Louise and Emerald Lake canoe rental seasons",
+          "searched": "2026-10-25",
+          "tried": "Operator pages not read in this batch; only the Moraine Lake Lodge dock season was confirmed."
+        },
+        {
+          "text": "Jasper SkyTram season and hours",
+          "searched": "2026-10-25",
+          "tried": "Operator page jasperskytram.com answered with a server error (520) on the read."
+        }
+      ]
+    }
+  ]
+}

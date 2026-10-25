@@ -1,0 +1,22 @@
+{
+  "schema": "capture-migration-ledger/1",
+  "computed": "2026-10-18",
+  "points": {
+    "legacy/canadian-rockies-sept-2029/adventures/banff-gondola": [
+      51.14801,
+      -115.55557
+    ],
+    "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram": [
+      52.8515,
+      -118.124
+    ],
+    "place/cascate-di-fanes": [
+      46.59452,
+      12.08419
+    ],
+    "trip/iceland-ring-road-2027/trail:skaftafell svartifoss": [
+      64.0277,
+      -16.97525
+    ]
+  }
+}

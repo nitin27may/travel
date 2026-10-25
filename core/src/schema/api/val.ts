@@ -54,6 +54,8 @@ export function apiVal<T extends z.ZodType>(inner: T) {
     tried: z.array(z.string()).optional(),
     applies_to: z.string().regex(/^\d{4}$/).optional(),
     conflicts: z.array(apiConflict(inner)).optional(),
+    /** the value is our estimate: the page shows the "Estimate" chip from this flag (RIS-C), never from the note text */
+    estimate: z.boolean().optional(),
   });
 }
 
@@ -72,6 +74,7 @@ export type ApiVal<T = unknown> = {
   tried?: string[];
   applies_to?: string;
   conflicts?: { v: T; basis: (typeof REL_BASIS)[number] | null; src: string[]; note?: string }[];
+  estimate?: boolean;
 };
 export type ApiCitation = z.infer<typeof apiCitation>;
 

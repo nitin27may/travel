@@ -1,7 +1,7 @@
 {
   "schema": "snapshot-report/1",
   "note": "Dropped from the public view because it carries a calendar date. Rewrite each as a season, a day number or a rule.",
-  "count": 231,
+  "count": 234,
   "items": [
     {
       "where": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre wikidata note",
@@ -544,6 +544,16 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge effort.drivers.distance_km note",
+      "text": "Estimate, not official: 4.68 km one way along the OSM Rawson Lake and Sarrail Ridge trails (trailhead node 269822212 to peak node 7042108468), doubled.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge effort.drivers.distance_km note",
+      "text": "Run api-2026-10-25-data-d3a-overpass; way ids in research/runs/DATA-D3a/patch-proposals.json.",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "legacy/canadian-rockies-sept-2029/trails/skyline-trail effort.drivers.distance_km note",
       "text": "Row note: https://www.alltrails.com/trail/canada/alberta/skyline-trail-jasper (search result, 5,413 ft)",
       "why": "names a link-only platform; its figures and links are never published"
@@ -771,6 +781,11 @@
     {
       "where": "place/cadini-di-misurina-viewpoint effort.drivers.distance_km conflict",
       "text": "OSM path 117 from Rifugio Auronzo to the approximate viewpoint pin, 2.16 km one way, doubled; the pin is approximate.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/croda-del-becco effort.drivers.gain_m conflict",
+      "text": "Computed, not published: the confirmed OSM track (relation 1155861, Lago di Braies to the summit) gives 1,467 m up one way (7.31 km).",
       "why": "household capture note (plan link, stay idea or address); never published"
     },
     {

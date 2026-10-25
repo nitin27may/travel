@@ -4,7 +4,7 @@ export default defineConfig({
   // Declare your Neon services here
   preview: {
     realtime: {
-      allowedOrigins: ["http://localhost:3000", "http://127.0.0.1:3000"],
+      allowedOrigins: ["http://localhost:3000", "http://127.0.0.1:3000", "https://travel-beta-tan.vercel.app"],
     },
   },
   auth: true,

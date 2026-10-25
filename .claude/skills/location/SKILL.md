@@ -33,6 +33,7 @@ Numbers from a social post are stored as `stats` and stay `unverified`.
      --source "https://www.instagram.com/p/..." --source-type instagram
    ```
 
+   A bare list of names: `quick-add <file>` (README 3a).
    For five or more places write a batch file in `research/inbox/<date>-<topic>.json` (format:
    `research/formats/README.md`, "Inbox batch") and run `import`.
 4. **Ambiguity.** Exit code 2 prints candidates. Pick by country and description yourself when

@@ -11,6 +11,10 @@ import { sourceRow, val } from "../suitability.ts";
 import { date, json, pattern, table, text } from "../meta.ts";
 import { TYPE_ID_RE } from "./typesFile.ts";
 import { GEONAMES_ID_RE, nearTownValue } from "./points.ts";
+import { rowMetaSlot } from "../rowMeta.ts";
+
+/** The internal note on a record (owner Q173): a planning remark or a lead, never served, never exported (PRIVATE_KEYS). */
+export const NOTES_PRIVATE_MAX = 1000;
 
 const mmdd = z.string().regex(/^(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/);
 const hhmm = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/);
@@ -146,6 +150,10 @@ export const capRecord = z.strictObject({
   book_url: val(z.string().min(1)).optional(),
   links: z.array(entityLink).optional(),
   photos: z.array(photo).optional(),
+  /** owner and researchers only (spec 3.1); the privacy detector fails any served body that holds it */
+  notes_private: z.string().min(1).max(NOTES_PRIVATE_MAX).optional(),
+  /** RowMeta v1 (core/src/schema/rowMeta.ts): about the row, internal, never a displayed value */
+  meta: rowMetaSlot.optional(),
 });
 
 export const CAPTURE_SCHEMA_ID = "capture/1";
@@ -172,6 +180,7 @@ export const operator = z.strictObject({
   licence: z.string().min(1).optional(),
   /** where the name and url were taken from: the publisher and page of a source row of a lane file */
   derived_from: z.array(z.strictObject({ file: z.string().min(1), src: z.string().min(1), publisher: z.string().min(1), url: z.string().min(1) })).optional(),
+  meta: rowMetaSlot.optional(),
 });
 
 export const capture_operators = table("capture_operators", {
@@ -237,6 +246,10 @@ export const captureRun = z.strictObject({
     tried: z.array(z.string()).optional(),
     host: z.string().optional(),
     reason: z.string().optional(),
+    /** outcome `ask` (spec R-133): who the question goes to, where they take it, and the question; loaded as research_gap state ask */
+    to: z.string().min(1).optional(),
+    contact_url: z.string().min(1).optional(),
+    question: z.string().min(1).max(500).optional(),
   })),
 });
 

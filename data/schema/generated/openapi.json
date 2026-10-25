@@ -1861,6 +1861,9 @@
                                                         ],
                                                         "additionalProperties": false
                                                       }
+                                                    },
+                                                    "estimate": {
+                                                      "type": "boolean"
                                                     }
                                                   },
                                                   "required": [
@@ -2457,6 +2460,9 @@
                                                         ],
                                                         "additionalProperties": false
                                                       }
+                                                    },
+                                                    "estimate": {
+                                                      "type": "boolean"
                                                     }
                                                   },
                                                   "required": [
@@ -3249,6 +3255,9 @@
                                                         ],
                                                         "additionalProperties": false
                                                       }
+                                                    },
+                                                    "estimate": {
+                                                      "type": "boolean"
                                                     }
                                                   },
                                                   "required": [
@@ -4805,7 +4814,6 @@
                                 }
                               },
                               "required": [
-                                "basis",
                                 "months",
                                 "label",
                                 "why",
@@ -9895,7 +9903,6 @@
                           "region",
                           "cover",
                           "seasonLabel",
-                          "seasonBasis",
                           "seasonMonths",
                           "country",
                           "countryName",
