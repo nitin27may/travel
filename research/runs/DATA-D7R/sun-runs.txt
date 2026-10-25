@@ -1,0 +1,82 @@
+# core/bin/sun.ts runs for DATA-D7R, reference year 2027 (a neutral year; the month-day pairs are the window edges, not travel dates). Banff (51.1784, -115.5708): first and last day of each window.
+2027-06-08  lat 51.1784  lon -115.5708 (east+)  America/Edmonton
+  sunrise 05:28   sunset 21:54   day 16h 25m
+  civil        dawn 04:42   dusk 22:40
+  nautical     dawn 03:34   dusk 23:48
+  astronomical dawn -   dusk -   darkness 0h 00m   (no astronomical night)
+2027-06-22  lat 51.1784  lon -115.5708 (east+)  America/Edmonton
+  sunrise 05:26   sunset 22:01   day 16h 35m
+  civil        dawn 04:39   dusk 22:48
+  nautical     dawn 03:27   dusk 00:01
+  astronomical dawn -   dusk -   darkness 0h 00m   (no astronomical night)
+2027-06-24  lat 51.1784  lon -115.5708 (east+)  America/Edmonton
+  sunrise 05:27   sunset 22:02   day 16h 35m
+  civil        dawn 04:40   dusk 22:49
+  nautical     dawn 03:27   dusk 00:01
+  astronomical dawn -   dusk -   darkness 0h 00m   (no astronomical night)
+2027-07-08  lat 51.1784  lon -115.5708 (east+)  America/Edmonton
+  sunrise 05:36   sunset 21:58   day 16h 23m
+  civil        dawn 04:50   dusk 22:44
+  nautical     dawn 03:42   dusk 23:52
+  astronomical dawn -   dusk -   darkness 0h 00m   (no astronomical night)
+2027-09-01  lat 51.1784  lon -115.5708 (east+)  America/Edmonton
+  sunrise 06:54   sunset 20:31   day 13h 37m
+  civil        dawn 06:19   dusk 21:06
+  nautical     dawn 05:37   dusk 21:49
+  astronomical dawn 04:49   dusk 22:36   darkness 6h 14m
+2027-09-15  lat 51.1784  lon -115.5708 (east+)  America/Edmonton
+  sunrise 07:16   sunset 20:00   day 12h 44m
+  civil        dawn 06:42   dusk 20:33
+  nautical     dawn 06:02   dusk 21:13
+  astronomical dawn 05:20   dusk 21:56   darkness 7h 24m
+2027-09-08  lat 51.1784  lon -115.5708 (east+)  America/Edmonton
+  sunrise 07:05   sunset 20:16   day 13h 11m
+  civil        dawn 06:31   dusk 20:50
+  nautical     dawn 05:50   dusk 21:31
+  astronomical dawn 05:05   dusk 22:15   darkness 6h 50m
+2027-09-22  lat 51.1784  lon -115.5708 (east+)  America/Edmonton
+  sunrise 07:27   sunset 19:43   day 12h 17m
+  civil        dawn 06:53   dusk 20:17
+  nautical     dawn 06:14   dusk 20:56
+  astronomical dawn 05:33   dusk 21:37   darkness 7h 56m
+# Jasper (52.8737, -118.0814): plan days 5 and 7 of each window (the Jasper days, including the dark-sky evening on day 7)
+2027-06-12  lat 52.8737  lon -118.0814 (east+)  America/Edmonton
+  sunrise 05:27   sunset 22:16   day 16h 49m
+  civil        dawn 04:37   dusk 23:07
+  nautical     dawn 03:13   dusk 00:31
+  astronomical dawn -   dusk -   darkness 0h 00m   (no astronomical night)
+2027-06-14  lat 52.8737  lon -118.0814 (east+)  America/Edmonton
+  sunrise 05:27   sunset 22:18   day 16h 51m
+  civil        dawn 04:36   dusk 23:08
+  nautical     dawn 03:11   dusk 00:34
+  astronomical dawn -   dusk -   darkness 0h 00m   (no astronomical night)
+2027-06-28  lat 52.8737  lon -118.0814 (east+)  America/Edmonton
+  sunrise 05:29   sunset 22:22   day 16h 53m
+  civil        dawn 04:38   dusk 23:12
+  nautical     dawn 03:12   dusk 00:39
+  astronomical dawn -   dusk -   darkness 0h 00m   (no astronomical night)
+2027-06-30  lat 52.8737  lon -118.0814 (east+)  America/Edmonton
+  sunrise 05:30   sunset 22:21   day 16h 51m
+  civil        dawn 04:39   dusk 23:12
+  nautical     dawn 03:14   dusk 00:37
+  astronomical dawn -   dusk -   darkness 0h 00m   (no astronomical night)
+2027-09-05  lat 52.8737  lon -118.0814 (east+)  America/Edmonton
+  sunrise 07:08   sunset 20:35   day 13h 27m
+  civil        dawn 06:32   dusk 21:11
+  nautical     dawn 05:48   dusk 21:55
+  astronomical dawn 05:00   dusk 22:43   darkness 6h 17m
+2027-09-07  lat 52.8737  lon -118.0814 (east+)  America/Edmonton
+  sunrise 07:11   sunset 20:30   day 13h 19m
+  civil        dawn 06:36   dusk 21:06
+  nautical     dawn 05:52   dusk 21:49
+  astronomical dawn 05:05   dusk 22:37   darkness 6h 28m
+2027-09-12  lat 52.8737  lon -118.0814 (east+)  America/Edmonton
+  sunrise 07:19   sunset 20:18   day 12h 59m
+  civil        dawn 06:44   dusk 20:53
+  nautical     dawn 06:02   dusk 21:36
+  astronomical dawn 05:16   dusk 22:21   darkness 6h 55m
+2027-09-14  lat 52.8737  lon -118.0814 (east+)  America/Edmonton
+  sunrise 07:23   sunset 20:13   day 12h 51m
+  civil        dawn 06:48   dusk 20:48
+  nautical     dawn 06:06   dusk 21:30
+  astronomical dawn 05:21   dusk 22:15   darkness 7h 06m

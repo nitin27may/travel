@@ -1,0 +1,21 @@
+# DATA-D7R gap reports, before and after (25 Oct 2026)
+# The full JSON reports are not kept: tools/tree_check.py rule 7 forbids identical copies, and all four are byte-identical
+# to research/runs/DATA-D1-points/after-placement.json and after-tier.json (this batch touched no capture record).
+
+gaps-placement-before.json sha256 272819a5803dbb6bce0a487ac51e04c092d2af5b1c4e1cb4167458b271a2e52b
+gaps-placement-after.json sha256 272819a5803dbb6bce0a487ac51e04c092d2af5b1c4e1cb4167458b271a2e52b
+gaps-required-before.json sha256 6e09fbe8bad81610a1edf3969d99fca3605c98948e5c9e97cdc14f3c94302a75
+gaps-required-after.json sha256 6e09fbe8bad81610a1edf3969d99fca3605c98948e5c9e97cdc14f3c94302a75
+research/runs/DATA-D1-points/after-placement.json sha256 272819a5803dbb6bce0a487ac51e04c092d2af5b1c4e1cb4167458b271a2e52b
+research/runs/DATA-D1-points/after-tier.json sha256 6e09fbe8bad81610a1edf3969d99fca3605c98948e5c9e97cdc14f3c94302a75
+
+# node core/bin/capture.ts gaps --budget --check (after)
+     E_PLACE_AREA           budget   277  now   277
+     E_PLACE_ORPHAN         budget    17  now    17
+     W_PLACE_POINT          budget     6  now     6
+     W_PLACE_APPROX         budget     0  now     0
+     E_PLACE_FAR            budget     0  now     0
+     W_PLACE_TOWN           budget     0  now     0
+     W_TIER_REQUIRED        budget   385  now   385
+     W_TIER_REQUIRED.keys   budget  3875  now  3875
+OK: no gap count rose
