@@ -13,7 +13,7 @@ Legend: kind · season · status · stats from the source post are unverified un
 #### Banff National Park
 
 - **Lake Louise** · lake · Jun,Jul,Aug,Sep · planned · [map](https://maps.google.com/?q=51.41167,-116.22806) [wd](https://www.wikidata.org/wiki/Q1367398) [trip](../canadian-rockies-sept-2029/) · #family #iconic
-  - In the Canadian Rockies plan (September 2029).
+  - A glacial lake in Banff National Park.
   - <sub>CA/AB/banff-national-park/lake-louise</sub>
 ### Quebec
 
@@ -190,7 +190,7 @@ Legend: kind · season · status · stats from the source post are unverified un
 #### Belluno
 
 - **Dolomites** · mountain · Jul,Aug,Sep · planned · [map](https://maps.google.com/?q=46.61306,12.16306) [wd](https://www.wikidata.org/wiki/Q1283) [trip](../dolomites-july-2027/) · #dream-trip #hiking #rifugi #via-ferrata
-  - Tre Cime di Lavaredo is the icon. Planned as dolomites-july-2027 (13-26 Jul 2027). Hotel idea: Chalet Alfoss https://www.hotelchaletalfoss.it/en/
+  - Tre Cime di Lavaredo is the icon.
   - <sub>IT/veneto/belluno/dolomites</sub>
 #### Venetian Province
 
@@ -209,7 +209,7 @@ Legend: kind · season · status · stats from the source post are unverified un
 #### Wrangell-St. Elias National Park
 
 - **Kennecott River rafting (Wrangell-St. Elias)** · activity · Jun,Jul,Aug · idea · [map](https://maps.google.com/?q=61.4861,-142.889) [wd](https://www.wikidata.org/wiki/Q995915) [official](https://epqs.nationalmap.gov/v1/json) · #adventure #dream-trip #rafting #wilderness
-  - Dream trip. World-class rafting, pristine wilderness. Requires planning well in advance; consider a guided expedition. 7+ days.
+  - World-class rafting, pristine wilderness. Requires planning well in advance; consider a guided expedition. 7+ days.
   - <sub>US/AK/wrangell-st-elias-national-park/kennecott</sub>
 ### Arizona
 
@@ -221,7 +221,7 @@ Legend: kind · season · status · stats from the source post are unverified un
 #### Havasupai Reservation
 
 - **Havasupai (Havasu Falls)** · waterfall · Mar,Apr,May,Sep,Oct · idea · kids: strong-kid · miles_round_trip 35+ (Hualapai Hilltop to the Confluence, per the post) (unverified) · [map](https://maps.google.com/?q=36.255,-112.69778) [wd](https://www.wikidata.org/wiki/Q5683183) [official](https://epqs.nationalmap.gov/v1/json) · #adventure #camping #hiking #permit
-  - Red rock canyon walls, lush waterfalls and clear pools at the bottom of the Grand Canyon. From memory (unverified): permits required, sell out fast, open months ahead; the hike in to the village and campground is long, so check what is realistic with a 10-year-old. Check the official Havasupai Tribe site. Fits the Utah and Arizona parks ideas.
+  - Red rock canyon walls, lush waterfalls and clear pools at the bottom of the Grand Canyon. From memory (unverified): permits required, sell out fast, open months ahead; the hike in to the village and campground is long, so check what is realistic with children. Check the official Havasupai Tribe site. Fits the Utah and Arizona parks ideas.
   - <sub>US/AZ/havasupai-reservation/havasu-falls</sub>
 #### Navajo Nation
 
@@ -238,7 +238,7 @@ Legend: kind · season · status · stats from the source post are unverified un
 #### Manitou Springs
 
 - **Manitou Incline** · trail · May,Jun,Jul,Aug,Sep,Oct · idea · kids: strong-kid · steps about 2,700 · gain_ft about 2,000 · miles 1 (unverified) · [map](https://maps.google.com/?q=38.8568,-104.932) [wd](https://www.wikidata.org/wiki/Q6750238) [official](https://epqs.nationalmap.gov/v1/json) · #adventure #hiking #stairs #views
-  - Steep stair climb on an old railway bed with views over Colorado Springs (figures from memory, unverified). Very strenuous, starts about 6,500 ft; check age limits for the kids. A reservation was required in recent years; check current rules and fee. Usual way down is the Barr Trail. Combine with Garden of the Gods and Pikes Peak.
+  - Steep stair climb on an old railway bed with views over Colorado Springs (figures from memory, unverified). Very strenuous, starts about 6,500 ft; check age limits for children. A reservation was required in recent years; check current rules and fee. Usual way down is the Barr Trail. Combine with Garden of the Gods and Pikes Peak.
   - <sub>US/CO/manitou-springs/manitou-incline</sub>
 #### San Juan Mountains
 
@@ -327,7 +327,7 @@ Legend: kind · season · status · stats from the source post are unverified un
 #### Lamoille County
 
 - **Stowe** · town · Sep,Oct · planned · [map](https://maps.google.com/?q=44.46533,-72.68456) [wd](https://www.wikidata.org/wiki/Q550498) [article](https://www.wikidata.org/wiki/Q550498) [trip](../vermont-fall-2026/) · #fall-colours #scenic-drive #villages
-  - Peak fall foliage, charming villages, covered bridges. Best late Sep to mid Oct; combine with the White Mountains. Planned as vermont-fall-2026 (1-4 Oct 2026).
+  - Peak fall foliage, charming villages, covered bridges. Best late Sep to mid Oct; combine with the White Mountains.
   - <sub>US/VT/lamoille-county/stowe</sub>
 ### Washington
 
@@ -372,7 +372,7 @@ Legend: kind · season · status · stats from the source post are unverified un
 #### Pierce County
 
 - **Mount Rainier National Park** · park · Jul,Aug,Sep · idea · [map](https://maps.google.com/?q=46.85,-121.75) [wd](https://www.wikidata.org/wiki/Q944329) [official](https://epqs.nationalmap.gov/v1/json) · #fall-colours #hiking #mountain #national-park #scenic
-  - Owner pick for autumn colour.
+  - Washington State road trip stop 4: hike Fremont Lookout tower for sunrise, swim in the Ohanapecosh river, visit Sunrise and Paradise. From a saved post, unverified.
   - <sub>US/WA/pierce-county/mount-rainier-national-park</sub>
 #### Whatcom County
 
