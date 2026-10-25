@@ -67,7 +67,8 @@ describe('public trips are dateless templates', () => {
         expect(t.season.label.length).toBeGreaterThan(0);
       } else expect(t.seasonNotSet).toBe(true);
     }
-    expect(d.listTrips().some((t) => t.seasonNotSet)).toBe(true); // the six without research say so
+    // the six trips with no seed season read data/seasons/<trip>.json (D6a-W), so every public trip has one now
+    expect(d.listTrips().filter((t) => t.seasonNotSet)).toEqual([]);
   });
 
   it('booking windows are rules, never dates', () => {

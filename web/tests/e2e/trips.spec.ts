@@ -58,11 +58,13 @@ test.describe('trip page', () => {
     await page.goto(`${site.url}/trips/patagonia-2027/`);
     await expect(page.getByText('Condensed from the full plan').first()).toBeVisible();
     await page.goto(`${site.url}/trips/switzerland-2027/`);
-    // an overview with no season carries one notice (TRP1 review M6); the "not converted" banner is only for an overview that has a season
-    await expect(page.getByText('Overview only. No days and no season are written down yet, so check the season yourself before you pick dates.')).toBeVisible();
-    await expect(page.getByText('This plan has not been converted to days yet')).toHaveCount(0);
+    // an overview with a season (D6a-W) shows the season band and the "not converted" banner; the no-season notice is for an overview with none
+    await expect(page.getByText('This plan has not been converted to days yet')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'This plan is valid for' })).toBeVisible();
+    await expect(page.getByText('Last week of July to the second week of August').first()).toBeVisible();
+    await expect(page.getByText('Overview only. No days and no season are written down yet')).toHaveCount(0);
     await expect(page.locator('.cat-chip')).toHaveCount(0);
-    await expect(page.getByText('Season not set yet').first()).toBeVisible();
+    await expect(page.getByText('Season not set yet')).toHaveCount(0);
   });
   test('no horizontal scroll at 390 and axe is clean', async ({ page, site }) => {
     await page.setViewportSize({ width: 390, height: 844 });

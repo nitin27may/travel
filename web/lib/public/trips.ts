@@ -4,6 +4,7 @@ import { suitabilityFromTitle } from './party';
 import { undatedTitle, DropLog, relativeSun, sunRange, undated, undatedSentences } from './dateless';
 import { honesty, uniqueHonesty } from './honesty';
 import { fileFromUrl, makePhoto } from './photos';
+import { readSeason } from './seasons';
 import { scrubMarkers, stripMarkers } from './prose';
 import { attachTimeline } from './timeline';
 import { normName, type PlaceBuild } from './places';
@@ -196,7 +197,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
     let title = undatedTitle(pub?.title ?? (hub?.title ?? folder.replace(/-/g, ' ')).split(' — ')[0]);
     if (!pub) title = undated(title, `${where} title`, log) ?? kebab(folder.replace(/-?(19|20)\d\d$/, '')).replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
     const subtitle = [undatedSentences(pub?.summary ?? hub?.subtitle ?? '', `${where} subtitle`, log), suitabilityFromTitle(rawTitle)].filter(Boolean).join(' ');
-    const season: Season | null = pub
+    const seedSeason: Season | null = pub
       ? {
           months: pub.season.months,
           label: undated(pub.season.label, `${where} season label`, log) ?? monthsLabel(pub.season.months),
@@ -209,6 +210,8 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
           },
         }
       : null;
+    // the seed's season first; a trip with none reads data/seasons/<slug>.json (D6a, backlog 15.113)
+    const season: Season | null = seedSeason ?? readSeason(src.root, slug, log, monthsLabel);
     const hubNights = hub ? Number(/(\d+)\s+nights?/.exec(hub.duration)?.[1] ?? (/(\d+)\s+days?/.exec(hub.duration) ? Number(/(\d+)\s+days?/.exec(hub.duration)![1]) - 1 : NaN)) : NaN;
     let nights: number | null = Number.isFinite(hubNights) ? hubNights : null;
     if (full === 'dolomites') nights = snap.trip.nights;

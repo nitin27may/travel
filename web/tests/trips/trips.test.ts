@@ -96,7 +96,8 @@ describe('trips list', () => {
     expect(rows.slice(firstDone).every((r) => r.isDone)).toBe(true);
   });
   it('badges are honest: unset season and depth are marked', () => {
-    const unset = rows.find((r) => r.seasonNotSet)!;
+    // every trip has a season now (D6a-W), so the honest badge is checked on a row with the season removed
+    const unset = { ...rows[0]!, seasonNotSet: true, seasonLabel: null, seasonMonths: [] };
     expect(publicTripBadges(unset).map((b) => b.text)).toContain('Season not set yet');
     expect(publicTripBadges(rows.find((r) => r.depth === 'summary')!).some((b) => /Condensed/.test(b.text))).toBe(true);
   });
