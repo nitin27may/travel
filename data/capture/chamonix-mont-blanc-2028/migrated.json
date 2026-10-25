@@ -395,6 +395,26 @@
             "src-0003"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Passerelle Tour du Mont-Blanc @ Col des Montets.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Rémih",
+          "attribution": "Rémih, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Passerelle_Tour_du_Mont-Blanc_%40_Col_des_Montets.jpg",
+          "width": 4608,
+          "height": 3456
+        },
+        {
+          "file": "File:Lac col des Montets 03.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Rémih",
+          "attribution": "Rémih, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lac_col_des_Montets_03.jpg",
+          "width": 4608,
+          "height": 3456
+        }
       ]
     },
     {
@@ -436,6 +456,26 @@
           "src": [
             "src-0001"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Lac Blanc and refuge.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Tiia Monto",
+          "attribution": "Tiia Monto, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lac_Blanc_and_refuge.jpg",
+          "width": 5472,
+          "height": 3409
+        },
+        {
+          "file": "File:Lac Blanc in Chamonix.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Tiia Monto",
+          "attribution": "Tiia Monto, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lac_Blanc_in_Chamonix.jpg",
+          "width": 4685,
+          "height": 4072
         }
       ]
     },
@@ -537,6 +577,26 @@
           "src": [
             "src-0004"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Glacier des Bossons from Plan de l'Aiguille, Chamonix, Haute-Savoie.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Christian David",
+          "attribution": "Christian David, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Glacier_des_Bossons_from_Plan_de_l%27Aiguille,_Chamonix,_Haute-Savoie.jpg",
+          "width": 7676,
+          "height": 5117
+        },
+        {
+          "file": "File:Col du Plan.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Tiia Monto",
+          "attribution": "Tiia Monto, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Col_du_Plan.jpg",
+          "width": 5456,
+          "height": 2904
         }
       ]
     },
