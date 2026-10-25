@@ -41,10 +41,60 @@ it destroys the volume: `LOCAL_DB_RESET_TEST=1 pnpm --dir core exec vitest run t
 - The `db:*` scripts resolve their target in `core/src/db/localTarget.ts`. They **never read `DATABASE_URL`,
   `DATABASE_URL_UNPOOLED` or the root `.env.local`** (that file holds production values), and child processes get an
   environment with every database URL removed.
-- A URL for the production endpoint `ep-quiet-leaf-b4oz2a4v`, the production branch id, or a host equal to the ambient
-  `DATABASE_URL` host is refused. Any other non-loopback host needs `--allow-remote`. `db:reset` refuses every non-loopback host.
+- The decision is the LOCAL-C guard (`core/src/seed/guard.ts`, one table, spec 12.2). A production host (the endpoint
+  `ep-quiet-leaf-b4oz2a4v`, a host of the ambient `DATABASE_URL`, or a host the root `.env.local` names; only host names are read
+  from that file) is refused unless the production approvals hold (`--approve <sha of HEAD>`, a clean tree, a green child rehearsal).
+  Any other non-loopback host must be a Neon host and needs `--allow-remote`. `db:reset` and `db:seed` refuse every non-loopback host.
   Messages name the host only, never the URL, user or password.
 - `LOCAL_DATABASE_URL` or `--url=` can point the scripts at another local database (CI will use it).
+
+## Seed and sync (LOCAL-2)
+
+The JSON in git is the seed ([spec](local-database-and-seed-sync.md), build notes 13). After `pnpm db:up && pnpm db:migrate`:
+
+| Command | Does | Exit |
+|---|---|---|
+| `pnpm db:seed` | first load into an **empty** catalogue: 5,542 rows in about a quarter of a second (the whole command, 0.7 s). Refuses a database that already holds rows | 0 done, 1 error |
+| `pnpm db:sync --dry-run` | prints the plan, writes nothing (a read only transaction) | 0 no difference, 3 a difference, 1 error |
+| `pnpm db:sync` | plans, then applies inserts, updates and deletes in one transaction under the seed advisory lock | 0 done, 1 error |
+| `pnpm db:verify` | read only: per table, the seed's rows and table hash against the database (`seed-drift/1`) | 0 equal, 1 any difference |
+
+All three take `--target local|ci|child|production|<url>` (default `local`), `--url <postgres url>`, `--allow-remote`,
+`--commit <sha>` (read the files of that commit, not the working tree), `--approve <sha>`, `--root <dir>` (read the inputs from
+another folder; for tests) and `--json` (print the plan or the drift result). A target the guard refuses exits 2 before any file is
+read or connection opened. `child` and `production` have no connection source until LOCAL-5; with a URL they go through the guard
+like any other (production needs the approvals, a clean tree and a green child rehearsal).
+
+Tables loaded today: `type_node` 398, `tag` 81, `relevance_class` 57, `area` 336 (249 countries, 25 regions, 62 areas), `town` 4,223,
+`operator` 23, `source` 423, and the `seed_commit` row of `catalogue_meta`. Counts come from the data, so they move with it.
+
+The plan, one line per table, then up to 20 record ids per change kind, the totals and the commit:
+
+```
+town             +0  ~1  -0  x0  =4222
+  update: ca-ab-bearspaw
+total            +0  ~1  -0  x0  =5541
+commit <sha>; 1 row(s) would be written; contract v1
+```
+
+`+` inserts, `~` updates, `-` retires, `x` deletes, `=` unchanged (rows the seed no longer has but a sync keeps are counted
+there too and shown as `(n retained)`).
+
+What a sync does with a row the seed dropped: `town`, `area`, `type_node`, `operator` and `source` are **kept** (retained; other
+tables point at them, and they have no status column), `tag` and `relevance_class` are **deleted**. A private table (accounts,
+drafts, households) is never read, written or deleted: every statement is checked against the contract first.
+
+Gotchas:
+- `db:sync` on an unchanged tree is 0 writes. The commit marker (`catalogue_meta.seed_commit`) is a stamp, not content, so a commit
+  that changes no data does not make the plan non-empty; it still moves the marker on a real sync.
+- A hand edit of a row the seed owns shows in `db:verify` (and is overwritten by the next `db:sync`). A hand edit of a *retained*
+  row (one the seed no longer has) is not drift.
+- Non-local targets and `--commit` read committed files only; the working tree can be dirty and is ignored.
+- The generated source registry must match the lane files before `source` rows are read (the `sources.ts check` rule); a drifted
+  file stops the run with `E_SEED_REGISTRY` and the fix (`node core/bin/sources.ts build`).
+- `pnpm db:psql` needs a terminal. In scripts use `docker exec ... psql`.
+- If something else already listens on 54329 (another project's Postgres), `db:up` fails to bind. Point `LOCAL_DB_ENV_FILE` at a
+  copy of the credentials file with another `LOCAL_DB_PORT` for that shell instead of editing the shared one.
 
 ## What matches Neon
 
@@ -68,8 +118,8 @@ the Neon child branch (spec 3.5).
 ## Files
 
 `tools/db/Dockerfile`, `compose.yml`, `init/01-roles.sh`, `02-extensions.sql`, `03-neon-auth-stub.sql`, `04-template.sh`;
-`core/bin/db-local.ts` (the commands); `core/src/db/localTarget.ts` (the resolver and guard); `core/test/db/localTarget.test.ts`,
-`stub.test.ts`, `localReset.test.ts`.
+`core/bin/db-local.ts` (the commands); `core/src/db/localTarget.ts` (the resolver, deciding through `core/src/seed/guard.ts`); `core/bin/db-seed.ts` and `core/src/catalogue/postgres/load/` (the seed engine); `core/test/db/localTarget.test.ts`,
+`stub.test.ts`, `localReset.test.ts`, `seed.integration.test.ts`; `core/test/catalogue/load-*.test.ts`.
 
 ## Gotchas
 
