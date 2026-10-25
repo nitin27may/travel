@@ -1,6 +1,6 @@
 # Wishlist
 
-Generated from `data/locations/locations.json` on 2026-10-22. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
+Generated from `data/locations/locations.json` on 2026-10-25. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
 
 74 places in 7 countries, 5 collections. By status: idea 66, planned 8.
 
@@ -119,14 +119,14 @@ Legend: kind · season · status · stats from the source post are unverified un
 
 #### Alpes-de-Haute-Provence
 
-- **Provence** · region · Jun,Jul · idea · [map](https://maps.google.com/?q=44,6) [wd](https://www.wikidata.org/wiki/Q101081) · #dream-trip #lavender #villages #wine
+- **Provence** · region · Jun,Jul · idea · [map](https://maps.google.com/?q=44,6) [wd](https://www.wikidata.org/wiki/Q101081) [article](https://www.provenceweb.fr/e/mag/terroir/lavande.htm) [article](https://www.wikidata.org/wiki/Q101081) · #dream-trip #lavender #villages #wine
   - Peak lavender mid June to mid July. Gordes, Roussillon, Senanque Abbey. 4-5 days.
   - <sub>FR/provence-alpes-cote-d-azur/alpes-de-haute-provence/provence</sub>
 ### Île-de-France
 
 #### Grand Paris
 
-- **Paris** · city · Apr,May,Sep,Oct · idea · [map](https://maps.google.com/?q=48.85667,2.35222) [wd](https://www.wikidata.org/wiki/Q90) · #art #food
+- **Paris** · city · Apr,May,Jun,Sep,Oct · idea · [map](https://maps.google.com/?q=48.85667,2.35222) [wd](https://www.wikidata.org/wiki/Q90) [official](https://en.parisinfo.com/practical-paris/planning-your-stay-in-paris/climate) [article](https://www.wikidata.org/wiki/Q90) · #art #food
   - Book the Eiffel Tower and Louvre online. Marais, Montmartre, Latin Quarter. 4-5 days.
   - <sub>FR/ile-de-france/grand-paris/paris</sub>
 ## India
@@ -135,7 +135,7 @@ Legend: kind · season · status · stats from the source post are unverified un
 
 #### Mangan district
 
-- **Gurudongmar Lake** · lake · season ? · idea · [map](https://maps.google.com/?q=28.02,88.71) [wd](https://www.wikidata.org/wiki/Q2264090) · #high-altitude #permit
+- **Gurudongmar Lake** · lake · season ? · idea · [map](https://maps.google.com/?q=28.02,88.71) [wd](https://www.wikidata.org/wiki/Q2264090) [article](https://www.wikidata.org/wiki/Q2264090) · #high-altitude #permit
   - Loose line in Location.md, no details. High-altitude lake in North Sikkim; permits and altitude (about 5,400 m) to check (from memory).
   - <sub>IN/sikkim/mangan-district/gurudongmar-lake</sub>
 ## Italy
@@ -397,21 +397,21 @@ Legend: kind · season · status · stats from the source post are unverified un
 
 #### Thành phố Hà Nội
 
-- **Hanoi** · city · season ? · idea · [map](https://maps.google.com/?q=21.0245,105.84117) [wd](https://www.wikidata.org/wiki/Q1858) · #culture #food
+- **Hanoi** · city · Sep,Oct,Nov · idea · [map](https://maps.google.com/?q=21.0245,105.84117) [wd](https://www.wikidata.org/wiki/Q1858) [official](https://vietnam.travel/places-to-go/red-river-delta/ha-noi/) [article](https://www.wikidata.org/wiki/Q1858) · #culture #food
   - Old Quarter, Train Street (check current access rules), Hoan Kiem Lake, Temple of Literature, water puppet show. Stays named in the post: Hanoi Diamond King Hotel, Queen Cafe Hotel & Pub. Post costs in INR (Delhi traveller): 1,800-3,000 a night; 5,000-8,000 for 2 days.
   - <sub>VN/hanoi/thanh-pho-ha-noi/hanoi</sub>
 ### Lào Cai
 
 #### Sa Pa
 
-- **Sapa** · town · season ? · idea · kids: yes · [map](https://maps.google.com/?q=22.33556,103.84194) [wd](https://www.wikidata.org/wiki/Q1000140) · #culture #mountain #rice-terraces #trekking
+- **Sapa** · town · Mar,Apr,May,Sep,Oct,Nov · idea · kids: yes · [map](https://maps.google.com/?q=22.33556,103.84194) [wd](https://www.wikidata.org/wiki/Q1000140) [official](https://vietnam.travel/places-to-go/northern-vietnam/sapa) [article](https://www.wikidata.org/wiki/Q1000140) · #culture #mountain #rice-terraces #trekking
   - Four-day post: Day 1 town and Mong Village (Stone Church, Ban Mong alpine coaster, Rainbow Slide, Moana Cafe, night market); Day 2 Fansipan cable car and the mountain train at La Do Cafe; Day 3 Muong Hoa Valley trek, Lao Chai, Ta Van, Giang Ta Chai, homestay; Day 4 O Quy Ho Pass, Silver and Love waterfalls, Rong May glass bridge, paragliding. Also: Red Dao herbal bath, Cat Cat Village. Second post, INR costs: Sapa 11,000-18,000; Hanoi-Lao Cai by Laman Express 3,500-4,000 or regular train 1,200-1,500 (8 h); Muong Hao Eco Villa 3,000-6,000 for 2 nights; Topas Ecolodge 24,000-27,000. Rice terraces change by month; kids' limits for the glass bridge, coaster and paragliding not checked.
   - <sub>VN/lao-cai/sa-pa/sa-pa</sub>
 ### Quảng Ninh
 
 #### Quảng Ninh
 
-- **Ha Long Bay** · place · season ? · idea · [map](https://maps.google.com/?q=20.9,107.2) [wd](https://www.wikidata.org/wiki/Q190128) · #bay #cruise #kayaking #unesco
+- **Ha Long Bay** · place · Sep,Oct,Nov · idea · [map](https://maps.google.com/?q=20.9,107.2) [wd](https://www.wikidata.org/wiki/Q190128) [official](https://vietnam.travel/places-to-go/northern-vietnam/ha-long) [article](https://www.wikidata.org/wiki/Q190128) · #bay #cruise #kayaking #unesco
   - Overnight cruise among the limestone islands; kayaking and caves usually included. Post (INR): 10,000-20,000 for 2 days; cruises named Amanda Pearl 14,000-16,000, Uni Charm about 25,000 a night, La Regina Classic about 14,000, Genesis Regal and Venus 20,000-22,000; budget alternative Ha Long Lily homestay about 2,500 a night. Post text cut off after the kayaking line.
   - <sub>VN/quang-ninh/quang-ninh/ha-long-bay</sub>
 
