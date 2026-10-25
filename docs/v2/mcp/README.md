@@ -1,7 +1,9 @@
 # MCP server: overview
 
 Status: **draft** (17 Oct 2026). Builds on 03-mcp-and-research.md (the why) and 08-self-hosted.md (the
-deployment). This folder is the reference a developer builds from and a chat client reads.
+deployment, now historical). **R-60 (Oct 2026):** the backend is Neon (Postgres, Managed Better Auth
+email/password, Realtime). The remote MCP endpoint, its hosting, and its OAuth provider are not
+selected or built; everything below is the target design. This folder is the reference a developer builds from and a chat client reads.
 
 | Page | Contents |
 |---|---|
@@ -50,7 +52,9 @@ deployment). This folder is the reference a developer builds from and a chat cli
 ## 2. Transport and endpoint
 
 - **Streamable HTTP** at `https://app.<domain>/mcp`, served by the Hono app inside the Next.js
-  container on the home server and reached through the Cloudflare Tunnel (08-self-hosted.md).
+  app (Vercel frontend hosting selected; the separate MCP deployment remains unbuilt and
+  unconfigured; the home-server container behind a Cloudflare Tunnel in 08-self-hosted.md
+  is historical).
 - One session per client connection; no server-side conversation state beyond the session id.
 - Server name `travel`, version from the app release (`2027.1.0`); tool schemas published from the
   Zod definitions in `packages/domain`.
@@ -61,7 +65,7 @@ deployment). This folder is the reference a developer builds from and a chat cli
 
 | Method | For | How |
 |---|---|---|
-| **OAuth 2.1 (Supabase Auth OAuth server)** | Claude, ChatGPT and other remote connectors | discovery at `/.well-known/oauth-authorization-server`; PKCE; dynamic client registration switched on deliberately (or client ID metadata documents); our own sign-in and consent screens. **To verify on the self-hosted auth image in M0** (08-self-hosted.md 5) |
+| **OAuth 2.1 (provider not selected)** | Claude, ChatGPT and other remote connectors | discovery at `/.well-known/oauth-authorization-server`; PKCE; dynamic client registration switched on deliberately (or client ID metadata documents); our own sign-in and consent screens. **Not built.** Whether Managed Better Auth or another component provides the OAuth server is to be verified in M0 (the Supabase Auth OAuth server in 08-self-hosted.md 5 is historical) |
 | **Personal access token** | Claude Code, scripts, the owner's research runs | created in Settings → Connected apps, shown once, stored hashed; sent as `Authorization: Bearer`; has the same scopes; expiry 90 days by default |
 
 The consent screen lists the client name, the scopes in plain words, and what is never shared

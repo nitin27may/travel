@@ -1,8 +1,9 @@
 # UX: navigation, layout and screens
 
 Status: **draft** (17 Oct 2026). Extends [../02-experience.md](../02-experience.md); where they differ,
-02 states the intent and these pages state the detail. Decisions assumed: self-hosted Supabase with
-Next.js on the home server ([../08-self-hosted.md](../08-self-hosted.md)), reservations recorded and
+02 states the intent and these pages state the detail. Decisions assumed: Next.js on Neon
+(Postgres, Managed Better Auth, Realtime; selected in R-60, Oct 2026; Vercel hosting selected in R-61, project setup/deployment after merge-ready; the
+self-hosted Supabase home-server stack in [../08-self-hosted.md](../08-self-hosted.md) is historical), reservations recorded and
 never sold ([../09-reservations.md](../09-reservations.md)), live co-editing, family first.
 
 ## Pages

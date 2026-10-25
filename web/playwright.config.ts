@@ -8,7 +8,7 @@ const base = { locale: 'en-CA', trace: 'retain-on-failure' as const };
 export const GPU_ARGS = ['--use-gl=angle', process.platform === 'darwin' ? '--use-angle=metal' : '--use-angle=gl', '--ignore-gpu-blocklist', '--enable-gpu-rasterization'];
 
 // Chromium runs every spec. WebKit (iPhone 14 and desktop Safari) and Firefox run the smoke set only
-// (cross-browser.spec.ts), and smart-search.spec.ts, whose keyboard and layout depend on the engine: the rest assert on engine-independent behaviour already covered there.
+// (cross-browser.spec.ts), smart-search.spec.ts, and trip-routes.spec.ts (routed legs, key, Export trip and print on the fake-key Google family), whose keyboard and layout depend on the engine: the rest assert on engine-independent behaviour already covered there.
 export default defineConfig({
   testDir: './tests/e2e',
   globalSetup: './tests/e2e/global-setup.ts',
@@ -20,8 +20,8 @@ export default defineConfig({
   use: { ...base },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'], ...base, viewport: { width: 1280, height: 900 }, launchOptions: { args: GPU_ARGS } } },
-    { name: 'webkit-iphone', testMatch: /(cross-browser|smart-search|trip-day-spy|shell-report)\.spec\.ts/, use: { ...devices['iPhone 14'], ...base } },
-    { name: 'webkit-desktop', testMatch: /(cross-browser|smart-search|trip-day-spy|shell-report)\.spec\.ts/, use: { ...devices['Desktop Safari'], ...base, viewport: { width: 1280, height: 900 } } },
+    { name: 'webkit-iphone', testMatch: /(cross-browser|smart-search|trip-day-spy|shell-report|trip-routes)\.spec\.ts/, use: { ...devices['iPhone 14'], ...base } },
+    { name: 'webkit-desktop', testMatch: /(cross-browser|smart-search|trip-day-spy|shell-report|trip-routes)\.spec\.ts/, use: { ...devices['Desktop Safari'], ...base, viewport: { width: 1280, height: 900 } } },
     // Opt-in (PW_FIREFOX=1): Playwright's Firefox cannot launch on this macOS machine ('Could not find profile folder'), so it only added noise to the full run.
     ...(process.env.PW_FIREFOX === '1' ? [{ name: 'firefox', testMatch: /(cross-browser|smart-search|trip-day-spy|shell-report)\.spec\.ts/, use: { ...devices['Desktop Firefox'], ...base, viewport: { width: 1280, height: 900 } } }] : []),
   ],

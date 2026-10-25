@@ -1,8 +1,10 @@
 # The plan: one page for the travel product
 
-**We are building Next.js API-over-JSON routes, with the UI fixes first, so the move to Supabase will be fast.** (Owner, 21 Oct 2026)
+**Current platform decisions:** Neon Postgres, Managed Better Auth and Neon Realtime are provisioned; the owner selected Vercel for frontend hosting on 24 Oct. The 86 application tables and migration ledger have RLS; `planner_draft_signal` is the sole content-free, coordinator-approved exception ([NEON-SETUP.md](build/public-site/NEON-SETUP.md)). The private account integration (email/password sign-in, private draft persistence, live invalidation and cross-user isolation) was independently verified on the uncommitted session branch ([NEON-VERIFICATION.md](build/public-site/NEON-VERIFICATION.md)); child-branch DB integration is blocked (no `TEST_DATABASE_URL`). The public catalogue still serves from `JsonStore`: the catalogue loader, a proposed `PostgresStore`, per-method parity and cutover are not implemented. Vercel project setup, encrypted environment configuration and deployment are deferred until this branch is merge-ready (R-61); no deployment has occurred. Object storage, serverless functions, jobs and full planner/collaboration remain unselected or undelivered. Supabase references in older documents are historical or, where labelled, future alternatives.
 
-UI fixes (phase A, review R1) -> Next.js `/api/v1` route handlers over `CatalogueStore` + `JsonStore`, with Zod contracts and OpenAPI (phase B) -> features on the API (phase E) -> Supabase later, as a store swap (SRV-0, local only).
+**We are building Next.js API-over-JSON routes, with the UI fixes first, so the backend move will be fast.** (Owner, 21 Oct 2026; provider revised to Neon)
+
+UI fixes (phase A, review R1) -> Next.js `/api/v1` route handlers over `CatalogueStore` + `JsonStore`, with Zod contracts and OpenAPI (phase B) -> features on the API (phase E) -> a Postgres-backed store on Neon later, as a parity-gated store swap (SRV-0; proposed `PostgresStore`, not implemented).
 
 Written 21 Oct 2026 by travel-planner (Opus). This is the single entry point: read it first, then follow the links. It brings together about 25 planning files and drops none of their decisions. The files it replaces in part are listed in section 7, and each carries a banner that points here.
 
@@ -24,7 +26,7 @@ flowchart LR
   E["Phase E<br/>features and data<br/>on the API"]:::data
   R2["Gate R2<br/>owner review, Q43"]:::gate
   D["Phase D<br/>readiness checklist"]:::infra
-  S["SRV-0<br/>SupabaseStore, local"]:::ext
+  S["SRV-0<br/>PostgresStore (proposed)"]:::ext
   H["Hosting chosen<br/>then deploy"]:::infra
 
   DONE --> A --> R1 --> B --> GB --> E --> R2 --> D --> H
@@ -52,7 +54,7 @@ flowchart LR
 | Models | Opus plans, researches, reviews design and audits code (`travel-planner`, `travel-researcher`, `travel-design-reviewer`). Sonnet builds and verifies (`travel-builder`, `travel-verifier`). **Never Fable.** Every UI round ends with the design reviewer, then the verifier | owner 18 Oct |
 | Process | Every finding goes into BACKLOG first, with an ID, and is marked done with its commit. Every owner request becomes an Open row in [TODO.md](TODO.md) the same day. Parallel lanes own disjoint files. Builders run only their own specs; the coordinator runs the full e2e on a quiet machine | owner 18 Oct |
 | Safety | Confirm every deletion with the owner. Kill servers by PID, never by name. Never print or commit secrets. Stage only owned paths with `git -C <abs> add <paths>`, never `-A`. Nothing about travel goes in the Obsidian notes vault | memory notes |
-| Release | Nothing goes live without the owner's approval of a named commit (Q43, at R2 exit). Deployment is out of scope until the hosting is chosen (D7). Never run `./publish.sh` in a mode that deploys | D7; Q43 |
+| Release | Nothing goes live without the owner's approval of a named commit (Q43, at R2 exit). Vercel is selected; project setup and deployment wait until this branch is merge-ready (R-61). Never run `./publish.sh` in a mode that deploys | Q43; R-61 |
 | No new HTML | The web app is the only product surface. A request to change how a page looks is a `web/` change. A trip or a fact is data written to the schema (`data/trips/<id>/trip.json` through the ops CLI, schedules, `capture/1` records and sidecars). `legacy/**` is frozen except for moving data out, until backlog 7.11 | owner 21 Oct; [SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 6 |
 | Skills | Skills live only in `.claude/skills/<name>/SKILL.md`, the one folder Claude Code loads: `trip`, `research` and `location`, each a thin wrapper that points into `research/README.md` | owner 21 Oct; cleanup D20 |
 
@@ -65,11 +67,11 @@ Status: **done** (shipped), **in force** (a standing rule), **next** (a task is 
 | R-1 | The public read-only site comes first, with no login; the planner comes second | product direction 18 Oct | phases A, B, E, D | in force |
 | R-2 | Keep what works on the live site: photo cards, filter pills, four views, table tools, honesty markers, the globe's relief, styles and drill-down | keep-from-live-site 18 Oct | built in L1-L5; checked at R1 and R2 | done, re-checked |
 | R-3 | No green anywhere, status colours included; Trailhead design | 18 Oct; Q47 | SHL (done); green-pixel check on the trips map at R2 | in force |
-| R-4 | Free tiers for under 100 users in year one | 18 Oct | every choice; hosting decision (13.2) | in force |
+| R-4 | Free tiers for under 100 users in year one | 18 Oct | every choice; Vercel/Neon operating-cost review in R-61 | in force |
 | R-5 | UI fixes first, with their own review gate | D10, 20 Oct | phase A (A1-A14), gate R1 | next |
 | R-6 | Build API-over-JSON now: `/api/v1` handlers over `CatalogueStore` + `JsonStore`, Zod contracts, OpenAPI, the API adapter as default | D8, 20 Oct; headline 21 Oct | B1 (API-0), B2 (API-1), B3 (API-2) | next |
-| R-7 | Supabase later as a store swap, not now; run the read-only schema diff first as a risk check | D9 | A10 (SRV-D), SRV-0 | next / later |
-| R-8 | Deployment is out of scope until hosting is chosen; no static-export assumption | D7 | B1 removes `output: 'export'`; phase D; 13.2 | in force |
+| R-7 | A Postgres store later as a store swap, not now (provider now Neon, R-58; originally Supabase); run the read-only schema diff first as a risk check | D9 | A10 (SRV-D), SRV-0 | next / later |
+| R-8 | Deploy the Next.js server build on the owner-selected Vercel host; no static-export assumption | owner, 24 Oct; D7 | B1 removes `output: 'export'`; R-61; phase D | Vercel selected; configure and deploy when merge-ready |
 | R-9 | Every item is designed for the server switch | D6 | server-switch column in every task; contract kit (4.6) | in force |
 | R-10 | Metadata for every place and activity is the foundation (placement block, a point with its role, the area chain, the nearest town) | D4; 8.3 | B6 (META-0), E1, E2, DATA D1-D6 | next |
 | R-11 | Consistency and no hard-coded values | D5 | B4, B5 (CONS-1, CONS-2), E14 (CONS-3) | next |
@@ -104,7 +106,7 @@ Status: **done** (shipped), **in force** (a standing rule), **next** (a task is 
 | R-40 | Approval of a named commit before anything goes live | Q43 | R2 exit | in force |
 | R-41 | Legacy pages retired behind redirects: 302 for a week, then 301 | Q25, Q45 | D item 3 (redirect map as data) | later in D |
 | R-42 | Google key restricted, daily quota, Map ID with POIs off, the unused Map ID variable removed | 7.2, 7.3, Q48 | D item 7 | later in D |
-| R-43 | A custom domain bought through Cloudflare Registrar, name to come | Q44, Q71 | deferred with hosting (13.2) | open (hosting) |
+| R-43 | A custom domain bought through Cloudflare Registrar, name to come | Q44, Q71 | deferred until after Vercel project setup (R-61) | open (domain name) |
 | R-44 | Remove merged worktrees and stale tunnels as one listed batch | Q49 | readiness cleanup (MASTER-PLAN 7, step 39), with confirmation; remote branches done 21 Oct | partly done |
 | R-45 | Close PR #7 and delete the old remote branches | L7 | done 21 Oct: PR #7 closed; branches archived as `archive/*` tags | done |
 | R-46 | One combined plan with all the latest requirements | owner 21 Oct | this page | done |
@@ -112,13 +114,42 @@ Status: **done** (shipped), **in force** (a standing rule), **next** (a task is 
 | R-48 | Enforce completeness per kind (validator, badge, skill, MCP) | TODO 18 Oct; L3 | META-0 validator and tiers; badge and skill later | next / later |
 | R-49 | Fill the empty place sections (parking, fees, swimming, best time of day) with provenance | L8 | DATA D1-D6 for E's needs; the rest in phase F | later |
 | R-50 | Planner items: school year calendar (F03), person-level items, bookings wallet on stored bookings, Explore map labels, redesign applied to the prototype | TODO 18 Oct; L1, L2, L6 | [SERVER-SIDE-LAUNDRY-LIST.md](build/SERVER-SIDE-LAUNDRY-LIST.md) | later (planner) |
-| R-51 | Server-side decisions: where the backend lives, sign-in method, who may sign in, guest planning, household privacy under RLS | Q65-Q69 | laundry list section 1; SRV-0 runs locally without them | open (server work) |
+| R-51 | Server-side decisions: where the backend lives, sign-in method, who may sign in, guest planning, household privacy under RLS | Q65-Q69 | laundry list section 1; R-58/R-61 | partly decided: Q65 Neon for Postgres, Managed Better Auth and Realtime; Vercel selected for frontend hosting; object storage/functions unselected. Q66 email/password implemented, other methods not; Q67-Q69 open |
 | R-52 | Map stack set up by the owner: Google Cloud project, a restricted key with a cap, an ORS key, an R2 bucket | TODO 18 Oct | keys exist on the first machine; restrictions in D item 7; R2 bucket is L5 (planner) | partly done |
 | R-53 | Repo cleanup: no duplicate folders or files; v1 docs archived; `prototype/` retired; one globe writer; a folder-contract guard in check-all | owner 21 Oct; cleanup D1-D10 | CLN-1 to CLN-7 ([CLEANUP-PLAN.md](CLEANUP-PLAN.md)) | CLN-1 done (329bb99); CLN-2 to CLN-7 next |
 | R-54 | One research home: the root `research/` holds the method, the per-type checklists, output formats and templates, the inbox, what each trip is planning, run notes, audits and reports. Skills and the researcher agent stay in `.claude/` as thin wrappers pointing to `research/README.md` | owner 21 Oct (cleanup D7 replaced by D11) | CLN-1 (moves, map, thin skills), CLN-R (generator and tests write `research/`), CLN-5 (guard rules) | done (CLN-1 329bb99, CLN-R a1ceff8); guard rules in CLN-5 |
 | R-55 | SRV-D schema decisions: two tiers (lossless source docs keyed by `ref`, plus a serving tier written by the same core code as `JsonStore`); `entity.id` is the `ref` verbatim; `locations.json` collections and Instagram saves stay private; town ids are `<cc>-<admin1>-<slug>` (`ca-on-whitby`) | owner 21 Oct (SRV-D 13.1-13.4) | API-1 contract changes (SRV-D 13.1), META-0 (town id in nearby spec 3.1), SRV-0 migrations M1-M15 | decided; feeds B and S |
 | R-56 | **No new HTML; the web app is the only product; only data is generated, from the schema.** A trip is `data/trips/<id>/trip.json` written through the ops CLI, plus `data/schedules/<id>.json` and the `capture/1` records with their sidecars. A page change is a `web/` change. `legacy/` is frozen except for moving data out. The web app must render a data-only trip (gaps G1-G6) | owner 21 Oct (direction 2) | CLN-7 (the rule); TD-0 (B); TD-1, TD-2, TD-3 (E); TD-4, TD-6 (after R2, with 7.11) ([SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 5) | in force; CLN-7 next; TD tasks scheduled |
 | R-57 | **All skills in one skills folder**, research and planning included: `.claude/skills/` with `trip` (replaces `trip-planner`), `research` (new) and `location`. Cleanup D18 is superseded: the HTML half of `trip-planner` is retired, not moved | owner 21 Oct (direction 1) | CLN-7a (Sonnet), CLN-7b (Haiku) | next (now, before R1 entry) |
+
+| R-58 | **Neon backend instead of Supabase:** provision Postgres, Managed Better Auth and Realtime in the existing owner-specified project; migrate all application tables; wire real authenticated persistence and live updates; prove build and service flows | owner, this session | [NEON-SETUP.md](build/public-site/NEON-SETUP.md); [NEON-VERIFICATION.md](build/public-site/NEON-VERIFICATION.md); BACKLOG 15.47 | private account integration independently verified on the uncommitted session branch (final public check-all passed; real Neon E2E 14/14 in the prior independent run; configured sign-in-on place-size budget 1.2497437331, 19 B headroom); not committed, so not done. Child-branch DB integration blocked: `TEST_DATABASE_URL` unavailable, 7 cases skipped, not independently passed. Public catalogue loader, `PostgresStore`, parity and cutover not implemented (`JsonStore` serves) |
+
+| R-59 | **Visible trip navigation and base-aware routes:** trail-provider and per-stop map/directions links in the timeline; complete combined-day navigation; base changes recalculate driving and dependent schedule with explicit conflicts | owner, 24 Oct | [TRIP-NAVIGATION-PLAN.md](build/public-site/TRIP-NAVIGATION-PLAN.md); BACKLOG 15.48 | planned only; after Neon and the existing closure queue |
+
+| R-60 | **Reconcile all live Supabase-specific specifications with Neon Postgres, Managed Better Auth and related service/function architecture.** Update the existing backend/planner plans rather than introducing a competing plan; preserve product requirements, privacy and acceptance; distinguish implemented capabilities from proposals | owner, 24 Oct | TODO; BACKLOG 15.49; [NEON-SETUP.md](build/public-site/NEON-SETUP.md) R-60 | **Done 25 Oct:** reconciliation and consistency audit complete; committed and merged into `main` with the Neon foundation (see HANDOVER) |
+| R-61 | **Create and configure a new Vercel project, deploy the merge-ready app and verify the Neon-backed release before continuing the queue** | owner, 24 Oct | TODO; BACKLOG 15.50; EXECUTION-PLAN 13.2 | deferred until merge-ready; project not created, secrets not transferred, deployment not performed |
+
+## Execution rule reaffirmed by the owner, 24 Oct 2026
+
+Finish one queue item before starting the next. Before implementation, expand the
+item's existing specification into a detailed execution plan: current evidence,
+scope, dependencies, ordered changes, acceptance criteria and tests. Keep this
+document as the single plan index; do not create competing roadmaps.
+
+Every code change requires coverage of its changed behavior and relevant failure
+paths. Each item's acceptance matrix must name backend/unit/integration checks,
+UI/component checks and end-to-end user flows, identifying genuinely unaffected
+layers explicitly rather than claiming coverage that was not run. Include
+authorization, privacy and cross-user isolation where data or identity changes.
+Run the affected regression checks, typecheck/build and existing applicable CI
+checks so breakages are caught promptly. Surface failing checks and blockers
+immediately; do not conceal them with skips, weaker assertions or mock-only proof
+of an external service. A green build alone is not end-to-end acceptance.
+
+For UI changes, complete design review and independent verification before calling
+the item done. Record evidence and residual gaps against the item. If an external
+blocker prevents completion, mark it blocked and report it explicitly; do not
+silently advance the queue or imply completion.
 
 ## 3. Phases, gates and status (23 Oct 2026)
 
@@ -134,8 +165,8 @@ Status: **done** (shipped), **in force** (a standing rule), **next** (a task is 
 | **B** | API-0, API-1 (1a contract on Opus, 1b implementation on Sonnet), API-2, CONS-1, CONS-2, META-0 (Opus); about 88 h, plus about 20.5 h of cleanup (CLN-2 to CLN-5) and TD-0 in the second seat of each slot. Seven slots of at most two lanes, because the weekly usage allowance is nearly spent: slot 0 API-0 (Sonnet; before the 25 Oct reset only if R1 fixes leave room), then META-0 with CONS-1, API-1a with CLN-4, API-1b with CLN-3, API-2 with CLN-5, CONS-2 with TD-0, then G-B. DATA D3, D4 and D6 move to after G-B. Starts on the owner's go; R1 entry is done (Q72) | **G-B** (internal) | **done 23 Oct 2026; G-B PASSED at main 653407f** (CHECK-ALL OK; full e2e 745 passed, 27 skipped, 0 failed on Chromium; pixel diff against preview 1: 0 unexplained; sitemap 380 URLs, 0 slug changes; static fallback smoke 335 passed with 2 named failures, one expects `/api/v1`, one fixed by GBFIX; API p50 2.5 to 4.7 ms on 359 places; in-process 10,000-place clone: list 21 ms, filtered count about 60 ms, first call 2.9 s). Merged: API-0, META-0, CONS-1, API-1a with its fix round, API-1b, API-1c, API-2, CONS-2, GBFIX; cleanup CLN-1, CLN-R, CLN-2, CLN-3 (`prototype/` retired, tag `archive/prototype-2026-10-22`), CLN-4, CLN-5, CLN-7; TD-0; PRIV1; E2E, E2E2; GLB2d. Audits: [audit-GB-output.md](build/public-site/audit-GB-output.md) (pass with fixes; its one must was fixed in GBFIX), [review-API1a-contract.md](build/public-site/review-API1a-contract.md); verifier [verify-GB.md](build/public-site/verify-GB.md). Deferrals are BACKLOG 15.20 to 15.31 | [PHASE-B-START.md](build/public-site/PHASE-B-START.md) (order, models, collisions, preconditions, rollback); EXECUTION-PLAN 4, 9 |
 | **E** | **TRP2 first** (the owner's 23 Oct remark: the trip page still has no Google map, row 9.5). Two seats, never more than two lanes, from the 25 Oct usage reset: seat A TRP2-N (Opus note), TRP2a (Google map), **M1 owner preview on :3476**, META-1, TRP2b (routed legs, Export trip), LST2b, LST2c, GLB2b; seat B API-3 (the contract-change queue: Opus 3a, Sonnet 3b), HYG, META-2, DATA D1, PLC2b, CONS-3, DATA D3a/D4a/D5a/D6a (the R2 data bar), MX; then E15. About 160 h (Opus about 40.5 h). DATA D2 and the rest of D3-D6 (about 24 h Opus) and TD-1 to TD-3 move to after R2 (Q90, Q80) | **M1** (owner, 10 min, Tue 27 Oct); **R2** (owner, Q43, about Thu 5 Nov) | **under way (23 Oct): merged TRP2-N, TRP2a (+TRP2a2), META-1, API-3 (3a, 3b, 3c), FIXE, META-2, HYG, TRP2b; M1 accepted ('map is ok'); main 27e55e7, e2e 770 passed at 2d6e4b5. In progress: fix round TRP2b2. Next: LST2b, LST2c, GLB2b, DATA D1, PLC2b** (G-B passed; R1 may stay open, R1 fixes win shared files) | [PHASE-E-START.md](build/public-site/PHASE-E-START.md) (order, models, collisions, preconditions, rollback, calendar); EXECUTION-PLAN 10, 11 |
 | **D** | Readiness checklist, hosting-agnostic | none | waiting on R2 | EXECUTION-PLAN 13 |
-| **S** | SRV-0: `SupabaseStore` locally, contract kit green, flags off; off the R2 critical path | contract kit | waiting on E features | EXECUTION-PLAN 4.8 |
-| Hosting | Choose a host that runs Next.js route handlers, then deploy, domain, edge rules | owner | not scheduled | EXECUTION-PLAN 13.2 |
+| **S** | SRV-0: proposed `PostgresStore` on Neon Postgres with the catalogue loader, contract kit green per method, privacy checks, rollback, flags off; off the R2 critical path | contract kit | waiting on E features; not implemented (`JsonStore` serves) | EXECUTION-PLAN 4.8 |
+| Hosting | Configure a new Vercel project for the Next.js monorepo, secure runtime environment, deploy and verify against Neon | owner, 24 Oct | after merge-ready | R-61; EXECUTION-PLAN 13.2 |
 
 Calendar (EXECUTION-PLAN 17): about 23 working days to readiness, about 396 h. Day 1 is the day the phase A lanes start. The 20 Oct estimate of "readiness about 20 Nov" assumed 21 Oct as day 1. This machine still needs its env file and a green check-all first (section 4, task 1), so count from the real start day.
 
@@ -178,17 +209,25 @@ Each builder verifies with `tsc`, the unit tests for its area, and Playwright sc
 component -> DataClient (web/lib/client/data.ts)
                ApiAdapter (default) -> /api/v1/* route handler -> respond() -> CatalogueStore
                StaticAdapter (fallback, prerendered JSON)
-CatalogueStore: JsonStore now | StubStore in tests | SupabaseStore in SRV-0
+CatalogueStore: JsonStore now | StubStore in tests | PostgresStore (proposed) in SRV-0
 contracts: Zod in core/src/schema/api/ -> OpenAPI 3.1 at /api/v1/openapi.json
 ```
 
-Phase A components keep calling today's `data.ts` exports with the same names and signatures. API-1 puts the adapter behind those exports, so phase A work is not redone. The store interface, endpoints, error codes, caps and the contract kit are in EXECUTION-PLAN 4.2 to 4.6. The JSON-to-Supabase switch order is in 14.2.
+Phase A components keep calling today's `data.ts` exports with the same names and signatures. API-1 puts the adapter behind those exports, so phase A work is not redone. The store interface, endpoints, error codes, caps and the contract kit are in EXECUTION-PLAN 4.2 to 4.6. The JSON-to-Postgres switch order is in 14.2.
 
 ### 4.3 Phase B start (21 Oct 2026)
 
 Phase A is merged and R1 entry is done, so the first-10 table above is history. Phase B starts from [PHASE-B-START.md](build/public-site/PHASE-B-START.md): the slot order with models, worktrees and ports, the owned-file collisions with CLN-2 to CLN-5 and TD-0 and the rule for each, the hard preconditions, the contract cases K1 to K19, the server-build check-all and e2e harness, rollback per lane, about 108.5 agent-hours, the G-B checks and the go/no-go list. It also decides the slug-stability rule (a pinned slug registry), refs on every row, the canonical `region` value (`alberta`, as shipped), one API provenance schema that emits registry source ids, the sort key and a content revision. The owner decides B-1 to B-4 there.
 
 ### 4.4 What is next (23 Oct 2026)
+
+**Owner update, 23 Oct (sequential closure approved):** finish half-done work before
+opening the next lane. The current branch's detailed queue and acceptance checks are
+in [REMAINING-CLOSURE-PLAN.md](build/public-site/REMAINING-CLOSURE-PLAN.md):
+TRP2b2, API/HYG review loose ends, LST2b, then CONS-3. Decisions A29 to A40
+are already restored in main (`47bf9ab`), not a remaining task. The TRP2b2
+re-review approves a preview only; go-live/server gaps remain explicit. The branch
+has not been integrated into main.
 
 Phase B is done and G-B passed at `main` 653407f. In order:
 
@@ -211,7 +250,7 @@ Phase E starts from [PHASE-E-START.md](build/public-site/PHASE-E-START.md). It s
 | Q70 follow-up | May the coordinator create the public repo `nitin27may/travel-feedback` now with `gh` (issues only, one issue form with the page path prefilled)? | Yes, before A3 turns its link on | A public repo under your name; reporters need a GitHub account until a server form exists |
 | ENV | Supply `web/.env.local` on this machine (`NEXT_PUBLIC_GOOGLE_MAPS_KEY`, `NEXT_PUBLIC_GOOGLE_MAP_ID`, `NEXT_PUBLIC_PLACE_MAP_FAMILY`, `ORS_API_KEY`): copy it from the first machine, or issue new keys | Copy it from the first machine (mode 600, never through chat) and restrict the key to localhost meanwhile | Without it, place and trip maps fall back to MapLibre and the MX matrices cannot run; phase A can start, but preview 1 needs the maps key |
 | L9 | Free AI features (embedding search, CLIP photo picks, similar places): go now? | Not now; keep them in phase F and revisit near 1,000 places with summaries | the spike measured no gain at today's size |
-| Q65-Q69 | Backend location, sign-in method, who may sign in, guest planning, household RLS | Answer when the server work starts; SRV-0 does not need them | none until then |
+| Q66-Q69 | Further sign-in methods (email/password is implemented; magic link, Google, passkeys, MFA, MCP OAuth are not), who may sign in (a working sign-up is not admission approval), guest planning, household authorization under RLS. Q65 is decided for the database, identity and realtime only (Neon, R-58); hosting, storage and functions stay open | Answer when the planner work starts; SRV-0 does not need them | none until then |
 | Hosting | Which host (it must run Next.js route handlers); then Q71's domain name | Decide after R2 | Lighthouse numbers stay tunnel numbers until then |
 | R1 items | Approve the home globe mock; the Mount Robson time-zone marker; the default list order | Answered at R1 | none |
 | O-1 | Confirm the reading of the 21 Oct direction: "all of the HTML planning" moves into the skills as data rules, and the HTML page format is retired, not kept ([SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 10) | Yes | Nobody can hand-build a page from documentation again; the tag keeps the old skill |
@@ -308,6 +347,9 @@ More risks: EXECUTION-PLAN 16.
 
 | Date | Change |
 |---|---|
+| 2026-10-25 | Neon foundation (R-58 implementation, origin-guard fix) and R-60 docs committed and merged into `main`; HANDOVER rewritten with one current state and a detailed not-done list. Child-branch DB integration and the post-fix real-service E2E remain open; R-61 Vercel not started |
+| 2026-10-24 | Owner selected Vercel for frontend hosting and directed project configuration/deployment once the branch is merge-ready; recorded as R-61/BACKLOG 15.50. No project created or deployment made |
+| 2026-10-24 | R-60 started after final independent Neon verification and reconciled across the existing architecture, roadmap, planner/UX/MCP, and public-site store specs. Relative Markdown links, scoped Supabase-reference classification and diff checks pass. R-58 remains uncommitted; R-60 changes are complete on the uncommitted session branch and remain unshipped because no commit was requested |
 | 2026-10-23 (handover) | Plan synced to main 27e55e7: META-2, HYG and TRP2b merged (section 3 row E, R-28, R-29); fix round TRP2b2 and accent folding (BACKLOG 15.43, 15.44); handover rewritten |
 | 2026-10-23 (evening) | Phase E progress and the Q87 ruling: section 3 row E, 4.4 row 2, 4.5, section 5 (Q87 removed, answered), section 6 (safe geometry superseded by A33, API-3c). BACKLOG 15.34 to 15.42 added. Q80 stays open |
 | 2026-10-23 (later) | Phase E start sheet: section 3 row E (TRP2 first, two seats, M1, about 160 h), section 4.4 rows 2 to 4, new 4.5, section 5 Q87 to Q92 and Q80 re-asked; [PHASE-E-START.md](build/public-site/PHASE-E-START.md) written; briefs TRP2 (split into TRP2a and TRP2b), META, DATA, LST2, PLC2, GLB2, MX, CONS, SRV revised |

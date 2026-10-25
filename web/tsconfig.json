@@ -45,7 +45,9 @@
     ".fixture-trip-google/types/**/*.ts",
     ".fixture-trip-google/dev/types/**/*.ts",
     ".fixture-trip-routes/types/**/*.ts",
-    ".fixture-trip-routes/dev/types/**/*.ts"
+    ".fixture-trip-routes/dev/types/**/*.ts",
+    ".fixture-trp2b2-shots/types/**/*.ts",
+    ".fixture-trp2b2-shots/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
@@ -56,6 +58,7 @@
     ".fixture-google",
     ".fixture-trip-google",
     ".fixture-trip-routes",
+    ".fixture-trp2b2-shots",
     ".generated"
   ]
 }

@@ -2,8 +2,14 @@
 
 > **Working draft.** "Decided" and "answered" below mean *current direction*, not final. Any of them can be reopened.
 
-**Revised 17 Oct 2026: Q1 = self-hosted Supabase on the home server (Docker on Ubuntu), Supabase
-Auth and Realtime, Next.js in a container, Cloudflare Tunnel; see 08-self-hosted.md.** Earlier the
+**Revised 24 Oct 2026 (owner): Q1 = Neon for Postgres, Managed Better Auth and Realtime, selected and provisioned
+([NEON-SETUP.md](build/public-site/NEON-SETUP.md)).** That choice does not settle hosting, object storage or
+functions, which remain open (laundry list Q65). Sign-in is email and password only so far (Q66); who may sign up
+(Q67), guest planning (Q68) and the household privacy model (Q69) keep their own answers in
+[SERVER-SIDE-LAUNDRY-LIST.md](build/SERVER-SIDE-LAUNDRY-LIST.md).
+
+**Historical:** on 17 Oct 2026 Q1 became self-hosted Supabase on the home server (Docker on Ubuntu), Supabase
+Auth and Realtime, Next.js in a container, Cloudflare Tunnel (08-self-hosted.md); superseded on 24 Oct. Earlier the
 same day: Q1 = C (Neon + Better Auth); Q10 = family first, public later; Q12 = live
 co-editing like Wanderlog (built as an op broadcast, 04-stack.md 1.8); Q3/Q4 = Next.js on Vercel
 for year one, with the conditions in 04-stack.md 1.9.
@@ -14,10 +20,10 @@ Each has a recommendation; "blocks" says which milestone cannot start without an
 
 | # | Decision | Options | Recommendation | Blocks |
 |---|---|---|---|---|
-| Q1 | Data host and auth | A Supabase all-in · B Supabase as plain Postgres + Better Auth · **C Neon + Better Auth + R2 + Workers** | **C**; B if one dashboard and less to build matter more than cost and portability (04-stack.md 1.5) | M0 |
+| Q1 | Data host and auth | A Supabase all-in · B Supabase as plain Postgres + Better Auth · **C Neon + Better Auth + R2 + Workers** | **Decided 24 Oct: Neon Postgres + Managed Better Auth + Neon Realtime.** R2, Workers and the rest of C are not selected (04-stack.md 1.5 is the reasoning record) | M0 |
 | Q2 | Free plan for year one | stay free until outside users · pay from day one | **Free until the first outside user relies on reminders**, with our own nightly backup; then Neon Launch (~$5-20/mo) | M3 |
-| Q3 | Hosting | **Cloudflare Workers** · Vercel | **Decided: Vercel Hobby** for the app; Cloudflare for cron and trip rooms | M0 |
-| Q4 | Web framework | **React Router 7** on Workers · keep Next.js 16 (OpenNext) | **Decided: Next.js 16 on Vercel** for year one (04-stack.md 1.9) | M0 |
+| Q3 | Hosting | **Cloudflare Workers** · Vercel | **Decided 24 Oct: Vercel** for the Next.js frontend; create/configure and deploy only when merge-ready (PLAN R-61). Cron, storage and trip rooms are not implied | M0 |
+| Q4 | Web framework | **React Router 7** on Workers · keep Next.js 16 (OpenNext) | **Decided: Next.js 16** (04-stack.md 1.9); deploy on Vercel after merge-ready (Q3/R-61) | M0 |
 | Q5 | Source of truth | Postgres now · stay with JSON in git | **Postgres now**, pause P4c | M0 |
 | Q6 | First destination | **Banff and Lake Louise** · Patagonia | **Banff**: well mapped in OSM, your 2029 trip has the richest data to import | M1 |
 | Q7 | Accounts | now · later | **Now** (households, MCP OAuth and sharing all need them) | M0 |
@@ -37,7 +43,7 @@ Each has a recommendation; "blocks" says which milestone cannot start without an
 | Q16 | Kids' data: is storing **birth year and height** acceptable, or only an age band? | eligibility checks (via ferrata 12+, 40-120 kg) need numbers | birth year + optional height, private to the household |
 | Q17 | **Brand and domain** for the product (not nks-travel.pages.dev)? | OAuth consent screens, email sender, cookies | decide before M3 (email) |
 | Q18 | Which **design direction** from the commissioned previews? | colour, type, density | wait for the previews |
-| Q19 | **Budget per month** you are comfortable with once others use it? | decides Neon vs Supabase Pro, email tier | $25 |
+| Q19 | **Budget per month** you are comfortable with once others use it? | decides the Neon paid plan, the app host and the email tier (the Neon vs Supabase Pro comparison is historical) | $25 |
 | Q20 | Who besides you will **review research** (moderators)? | review queue permissions and volume | you only |
 
 ---
@@ -70,13 +76,13 @@ Change any decision by its ID.
 ### Accounts, sharing and collaboration
 | ID | Question | Default |
 |---|---|---|
-| A1 | Sign-up | Invite-only until M5 |
+| A1 | Sign-up | Invite-only until M5 (still the default; the working email sign-up page does not settle admission, laundry list Q67) |
 | A2 | Can editors invite others? | No, owner only (per-member `can_invite` switch exists) |
 | A3 | Comments on items in v1 | No; notes cover it |
 | A4 | Guest link defaults | 7-day expiry, no PIN, copy-to-my-trips allowed, costs and notes off |
 | A5 | Sharing a ticket from the wallet | Members only, as a file through the phone's share sheet, never a link |
 | A6 | Guests see the budget? | Only if the link's costs toggle is on |
-| A7 | Passkeys in year one | Only if the pinned self-hosted Supabase supports them without extra services |
+| A7 | Passkeys in year one | Open (Q66); only if Managed Better Auth supports them without extra services. The self-hosted Supabase condition is historical |
 | A8 | Template and guest URL shape | `app.<domain>/templates/<slug>` and `/s/<token>` |
 
 ### Planning and UX
@@ -146,7 +152,7 @@ Change any decision by its ID.
 | M7 | Hand-written trips imported | Assisted import when each trip is next revised, Patagonia first |
 | M8 | The globe page | Kept, regenerated from the catalog, low priority |
 
-### Limits on the home server
+### Storage limits (written for the historical home server; still the defaults for any host)
 | ID | Question | Default |
 |---|---|---|
 | H1 | Offline map tiles per trip | 300 MB, adjustable 100 MB to 1 GB |

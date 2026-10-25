@@ -32,7 +32,7 @@ describe('lines: each leg is its own estimate (map note 5.3)', () => {
     expect(new Set(routeSpec({ bases, models, picked: null }).lines.map((l) => l.id.split(':')[1]))).toEqual(new Set(['1', '2', '3']));
   });
   it('a leg with geometry is solid route-pick on the picked day, route in All days', () => {
-    const geometry = { 'leg:1:2': [{ lng: 10.1, lat: 40.1 }, { lng: 10.15, lat: 40.12 }, { lng: 10.2, lat: 40.2 }] };
+    const geometry = { 'leg:1:2': { mode: 'drive' as const, path: [{ lng: 10.1, lat: 40.1 }, { lng: 10.15, lat: 40.12 }, { lng: 10.2, lat: 40.2 }] } };
     const day1 = routeSpec({ bases, models, picked: 1, geometry });
     expect(day1.lines.find((l) => l.id === 'leg:1:2')).toMatchObject({ style: 'route-pick' });
     expect(day1.lines.find((l) => l.id === 'leg:1:2')!.coords).toHaveLength(3);
@@ -83,14 +83,48 @@ describe('the key shows only what is drawn (map note 5.2)', () => {
     expect(keyOf(routeSpec({ bases, models, picked: null })).items.find((i) => i.id === 'base')!.pick).toBe(false);
   });
   it('a routed leg adds "Road route" and switches the sentence; all routed has none', () => {
-    const geometry = { 'leg:2:1': [{ lng: 10, lat: 40 }, { lng: 10.3, lat: 40.3 }], 'leg:2:end': [{ lng: 10.3, lat: 40.3 }, { lng: 10, lat: 40 }] };
+    const geometry = { 'leg:2:1': { mode: 'drive' as const, path: [{ lng: 10, lat: 40 }, { lng: 10.3, lat: 40.3 }] }, 'leg:2:end': { mode: 'drive' as const, path: [{ lng: 10.3, lat: 40.3 }, { lng: 10, lat: 40 }] } };
     const all = keyOf(routeSpec({ bases, models, picked: 2, geometry }));
     expect(all.items.map((i) => i.id)).toContain('road');
     expect(all.items.map((i) => i.id)).not.toContain('estimate');
     expect(all.sentence).toBeNull();
-    const some = keyOf(routeSpec({ bases, models, picked: 1, geometry: { 'leg:1:2': [{ lng: 10.1, lat: 40.1 }, { lng: 10.2, lat: 40.2 }] } }));
+    const some = keyOf(routeSpec({ bases, models, picked: 1, geometry: { 'leg:1:2': { mode: 'drive', path: [{ lng: 10.1, lat: 40.1 }, { lng: 10.2, lat: 40.2 }] } } }));
     expect(some.items.map((i) => i.id)).toEqual(expect.arrayContaining(['road', 'estimate']));
     expect(some.sentence).toBe(KEY_SOME_ROUTE);
+  });
+});
+
+describe('routed legs and their stubs, walks and the All days swatch (TRP2b fix round)', () => {
+  const at = (lng: number, lat: number) => ({ lng, lat });
+  it('a route that ends short of its pin gets a dashed stub from its end to the pin; one that reaches it gets none', () => {
+    // the pins are (10.1, 40.1) and (10.2, 40.2); this route runs from 0.5 km before the first to 4 km short of the second
+    const geometry = { 'leg:1:2': { mode: 'drive' as const, path: [at(10.105, 40.1), at(10.15, 40.15), at(10.19, 40.17)] } };
+    const lines = routeSpec({ bases, models, picked: 1, geometry }).lines;
+    expect(lines.map((l) => `${l.id}:${l.style}`)).toEqual(['leg:1:2:a:straight-estimate', 'leg:1:2:route-pick', 'leg:1:2:b:straight-estimate', 'leg:1:end:straight-estimate']);
+    const [a, route, b] = lines;
+    expect(a!.coords).toEqual([at(10.1, 40.1), at(10.105, 40.1)]); // pin to the start of the road
+    expect(b!.coords).toEqual([at(10.19, 40.17), at(10.2, 40.2)]); // end of the road to the pin
+    expect(route!.coords[0]).toEqual(at(10.105, 40.1));
+    const exact = routeSpec({ bases, models, picked: 1, geometry: { 'leg:1:2': { mode: 'drive' as const, path: [at(10.1, 40.1), at(10.2, 40.2)] } } }).lines;
+    expect(exact.map((l) => l.id)).toEqual(['leg:1:2', 'leg:1:end']);
+  });
+  it('every routed line, with its stubs, starts and ends within 50 m of its pins', () => {
+    const geometry = { 'leg:1:2': { mode: 'drive' as const, path: [at(10.12, 40.11), at(10.18, 40.19)] } };
+    const l = routeSpec({ bases, models, picked: 1, geometry }).lines.filter((x) => x.id.startsWith('leg:1:2'));
+    expect(l[0]!.coords[0]).toEqual(at(10.1, 40.1));
+    expect(l.at(-1)!.coords.at(-1)).toEqual(at(10.2, 40.2));
+  });
+  it('a walk is keyed "Road or path route", a drive "Road route", and the mixed sentence names the car park end', () => {
+    const drive = { mode: 'drive' as const, path: [at(10.1, 40.1), at(10.2, 40.2)] };
+    expect(keyOf(routeSpec({ bases, models, picked: 1, geometry: { 'leg:1:2': drive } })).items.find((i) => i.id === 'road')!.label).toBe('Road route');
+    const k = keyOf(routeSpec({ bases, models, picked: 1, geometry: { 'leg:1:2': { ...drive, mode: 'walk' as const } } }));
+    expect(k.items.find((i) => i.id === 'road')!.label).toBe('Road or path route');
+    expect(k.sentence).toMatch(/car park or trailhead.*on foot, by lift or by boat/);
+  });
+  it('All days draws thin ink routes, and the key swatch says so; the picked day is amber', () => {
+    const geometry = { 'leg:1:2': { mode: 'drive' as const, path: [at(10.1, 40.1), at(10.2, 40.2)] } };
+    expect(keyOf(routeSpec({ bases, models, picked: null, geometry })).items.find((i) => i.id === 'road')!.style).toBe('route');
+    expect(keyOf(routeSpec({ bases, models, picked: 1, geometry })).items.find((i) => i.id === 'road')!.style).toBe('route-pick');
   });
 });
 

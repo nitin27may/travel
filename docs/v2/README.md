@@ -13,7 +13,7 @@ several of its mechanisms were too heavy or too fragile (section "What changed f
 | [04-stack.md](04-stack.md) | Every technology choice with the alternative and why; Neo4j; Neon vs Supabase; cost |
 | [05-roadmap.md](05-roadmap.md) | Milestones with exit criteria, and how today's repo migrates |
 | [06-questions.md](06-questions.md) | Decisions and questions for the owner |
-| [08-self-hosted.md](08-self-hosted.md) | **Current deployment decision:** self-hosted Supabase on the home server, risks, containers, backups, MCP over a tunnel |
+| [08-self-hosted.md](08-self-hosted.md) | **Historical (superseded by R-60, Oct 2026):** the earlier self-hosted Supabase on the home server plan, risks, containers, backups, MCP over a tunnel. Its backup, privacy and availability requirements still apply |
 | [09-reservations.md](09-reservations.md) | Flights, stays, cars, tickets: recorded (never sold), to-book tasks, routing from stays and flights, wallet, privacy |
 | [11-quality-and-delivery.md](11-quality-and-delivery.md) | Test layers, environments, CI and release, observability, backups, security routine, M0 task list |
 | [10-sharing.md](10-sharing.md) | Sharing everywhere: objects, audiences, guest links with includes and preview, privacy rules, exports |
@@ -67,8 +67,8 @@ API operation and an MCP tool, so a chat client and a person editing by hand are
 | `edition` (real dates for one run of a trip) | Dropped. Templates have day numbers; forking a template creates your own trip with your dates | Editions solved "same trip, different year" for one owner; for users, fork is simpler and already needed for templates |
 | `day` rows with `item` rows | Items carry an optional day number, optional times, optional span and optional parent; days are derived | Real trips have multi-day treks, overnight ferries, an ideas tray, and items whose day is not chosen yet |
 | MCP generated one tool per operation | About 20 grouped tools plus an `apply` tool for batches; resources for schema and taxonomy | Chat clients choose tools worse as the tool count grows past ~20-30; grouped tools with good descriptions work better than 43 thin ones |
-| Supabase Cloud for data, auth, storage, queues | **Self-hosted Supabase** on the owner's Ubuntu box (decided 17 Oct 2026, 08-self-hosted.md); Neon + Better Auth was the earlier answer and stays documented in 04-stack.md | Free, always on, everything in one stack for family use; Supabase Cloud or a VPS remain a dump-and-restore away |
-| Vercel for the app | Next.js in a container beside the database, reached through a Cloudflare Tunnel | server rendering next to the data; no ports opened at home; Vercel stays an option later |
+| Supabase Cloud for data, auth, storage, queues | **Neon** Postgres, Managed Better Auth and Neon Realtime (selected and provisioned, R-60, Oct 2026; 10 migrations applied). Built so far: email/password accounts and private drafts with RLS. Object storage, queues and functions are not selected. Self-hosted Supabase (decided 17 Oct 2026, 08-self-hosted.md) is historical | Free tier for under 100 users; managed database and auth instead of a home server to run |
+| Vercel for the app | Hosting **not selected** (PLAN.md R-8). The earlier plan, Next.js in a container beside the database on the home server behind a Cloudflare Tunnel, is historical | the choice stays open until the owner decides hosting |
 | ICS calendar feed as the most reliable reminder | ICS is the backstop; Web Push and email are primary for time-critical openings | Google Calendar refreshes subscribed feeds only every several hours, so a feed cannot deliver "opens in 15 minutes" reliably |
 
 **Running to-do list of owner requests: [TODO.md](TODO.md).**

@@ -105,6 +105,11 @@ Then shoot `/trips/canadian-rockies-2029/` days 8 and 9 and `/trips/dolomites-20
 
 ## 4. Lanes left in phase E, and the calendar
 
+**Later update:** A29 to A40 restoration below is already done in main `47bf9ab`.
+The owner-approved sequential closure queue and TRP2b2 branch result are in
+[REMAINING-CLOSURE-PLAN.md](build/public-site/REMAINING-CLOSURE-PLAN.md).
+The dated calendar and lane states below are the original handover snapshot.
+
 Effort in agent-hours from PHASE-E-START section 10. Owned files in short; the brief is the authority. Worktrees are `/Users/nks/workspace/travel-wt/v2-<lane>` on branch `public/<lane>` unless the start sheet names another branch.
 
 | Lane | Agent and model | Depends on | Owns (short) | Effort | Port |

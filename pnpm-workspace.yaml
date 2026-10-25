@@ -2,4 +2,5 @@ packages:
   - core
   - web
 allowBuilds:
+  core-js: false
   unrs-resolver: false

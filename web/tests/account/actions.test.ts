@@ -1,0 +1,109 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+// Mock the auth and shared database boundaries so these tests never touch Managed Better Auth or
+// Postgres. The transaction helper (role switch + app.user_id + RLS) is owned and tested by the
+// database lane (@travel/core); here we verify the app-lane adapter: session checks, input
+// validation, that the session user id scopes every statement, and the committed/unchanged mapping.
+vi.mock('@/lib/auth/server', () => ({ getUser: vi.fn() }));
+vi.mock('@travel/core/db/index.ts', () => ({ withUserTransaction: vi.fn() }));
+
+import { getUser } from '@/lib/auth/server';
+import { withUserTransaction } from '@travel/core/db/index.ts';
+import { createDraft, renameDraft, deleteDraft } from '@/app/account/actions';
+
+const OWNER = { id: 'user-owner', email: 'owner@example.test' };
+const ID = '3f2504e0-4f89-41d3-9a0c-0305e82c3301';
+
+type Captured = { sql: string; params: unknown[] };
+
+/**
+ * A withUserTransaction stand-in that runs `fn` against a fake tx context, captures every query,
+ * records the scoped user id, and returns the shared `{ result, txid }` outcome. `rows` controls
+ * whether the write reports a changed row.
+ */
+function fakeTx(rows: unknown[] = [{ id: ID }], txid = '770') {
+  const calls: Captured[] = [];
+  const meta: { scopedUserId?: string } = {};
+  (withUserTransaction as unknown as ReturnType<typeof vi.fn>).mockImplementation(async (userId: string, fn: (c: unknown) => Promise<unknown>) => {
+    meta.scopedUserId = userId;
+    const ctx = { query: async (sql: string, params: unknown[]) => { calls.push({ sql, params }); return { rows }; } };
+    const result = await fn(ctx);
+    return { result, txid };
+  });
+  return { calls, meta };
+}
+
+beforeEach(() => vi.clearAllMocks());
+afterEach(() => vi.resetAllMocks());
+
+describe('account write actions', () => {
+  describe('anonymous denial', () => {
+    it('refuses create/rename/delete with no session and never opens a transaction', async () => {
+      (getUser as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+      expect(await createDraft('user-x', { id: ID, title: 'Hi' })).toEqual({ kind: 'rejected', reason: 'UNAUTHENTICATED' });
+      expect(await renameDraft('user-x', { id: ID, title: 'Hi' })).toEqual({ kind: 'rejected', reason: 'UNAUTHENTICATED' });
+      expect(await deleteDraft('user-x', { id: ID })).toEqual({ kind: 'rejected', reason: 'UNAUTHENTICATED' });
+      expect(withUserTransaction).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('invalid input', () => {
+    beforeEach(() => (getUser as ReturnType<typeof vi.fn>).mockResolvedValue(OWNER));
+    it('rejects a bad uuid', async () => {
+      fakeTx();
+      expect(await createDraft(OWNER.id, { id: 'nope', title: 'Hi' })).toEqual({ kind: 'rejected', reason: 'INVALID_INPUT' });
+      expect(await deleteDraft(OWNER.id, { id: 'nope' })).toEqual({ kind: 'rejected', reason: 'INVALID_INPUT' });
+      expect(withUserTransaction).not.toHaveBeenCalled();
+    });
+    it('rejects an empty or over-160 title', async () => {
+      fakeTx();
+      expect(await createDraft(OWNER.id, { id: ID, title: '   ' })).toEqual({ kind: 'rejected', reason: 'INVALID_INPUT' });
+      expect(await renameDraft(OWNER.id, { id: ID, title: 'a'.repeat(161) })).toEqual({ kind: 'rejected', reason: 'INVALID_INPUT' });
+      expect(withUserTransaction).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('ownership: identity comes from the session, every write scopes by user_id', () => {
+    beforeEach(() => (getUser as ReturnType<typeof vi.fn>).mockResolvedValue(OWNER));
+
+    it('insert uses the session user id, not the request argument', async () => {
+      const { calls, meta } = fakeTx();
+      await createDraft('attacker-supplied-id', { id: ID, title: 'Mine' });
+      // getUser is handed the page's claimed id (only compared, never trusted to scope).
+      expect(getUser).toHaveBeenCalledWith('attacker-supplied-id');
+      // The scoped transaction and the inserted user_id are the verified session id.
+      expect(meta.scopedUserId).toBe(OWNER.id);
+      expect(calls[0].params[1]).toBe(OWNER.id);
+      expect(calls[0].sql).toMatch(/insert into public\.planner_draft/i);
+    });
+
+    it('update and delete carry a user_id predicate bound to the session id', async () => {
+      const r = fakeTx();
+      await renameDraft(OWNER.id, { id: ID, title: 'New name' });
+      expect(r.calls[0].sql).toMatch(/where id = \$1 and user_id = \$2/i);
+      expect(r.calls[0].params).toEqual([ID, OWNER.id, 'New name']);
+
+      const d = fakeTx();
+      await deleteDraft(OWNER.id, { id: ID });
+      expect(d.calls[0].sql).toMatch(/delete from public\.planner_draft where id = \$1 and user_id = \$2/i);
+      expect(d.calls[0].params).toEqual([ID, OWNER.id]);
+    });
+  });
+
+  describe('results', () => {
+    beforeEach(() => (getUser as ReturnType<typeof vi.fn>).mockResolvedValue(OWNER));
+    it('returns committed with the transaction id when a row changed', async () => {
+      fakeTx([{ id: ID }], '12345');
+      expect(await createDraft(OWNER.id, { id: ID, title: 'Hi' })).toEqual({ kind: 'committed', txid: '12345' });
+    });
+    it("returns unchanged when nothing matched (e.g. another user's row, blocked by RLS/predicate)", async () => {
+      fakeTx([]);
+      expect(await deleteDraft(OWNER.id, { id: ID })).toEqual({ kind: 'unchanged' });
+      expect(await renameDraft(OWNER.id, { id: ID, title: 'x' })).toEqual({ kind: 'unchanged' });
+    });
+    it('fails closed to SERVICE_UNAVAILABLE when the transaction throws', async () => {
+      (withUserTransaction as unknown as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('connection refused'));
+      expect(await createDraft(OWNER.id, { id: ID, title: 'Hi' })).toEqual({ kind: 'rejected', reason: 'SERVICE_UNAVAILABLE' });
+    });
+  });
+});

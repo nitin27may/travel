@@ -2,6 +2,8 @@
 
 > **21 Oct 2026:** the entry point is now [docs/v2/PLAN.md](../../PLAN.md) (requirements, order, status, open decisions). This file stays the authority for task-level detail. L7 in section 18 is closed (PR #7 closed 21 Oct; old remote branches archived as `archive/*` tags).
 
+> **24 Oct 2026 (R-58, R-60):** the backend provider is Neon (Postgres, Managed Better Auth, Neon Realtime), not Supabase. The later catalogue store is a proposed `PostgresStore` on Neon Postgres; its loader, per-method contract parity, privacy checks and rollback are still ahead, and `JsonStore` serves the public catalogue. The private account integration is independently verified on the uncommitted session branch and is not a catalogue migration. Hosting, object storage, serverless functions and jobs are not selected. Earlier Supabase CLI, local Docker and generated-types instructions are historical; see PLAN R-58 and [NEON-SETUP.md](NEON-SETUP.md).
+
 Written 20 Oct 2026 by travel-planner (Opus) for the coordinator; **rewritten the same day** after the owner's decisions on deployment, the API layer and the order of work (1.1). Status lives in [BACKLOG.md](BACKLOG.md); live lane state in [STATUS.md](STATUS.md); briefs in [briefs/](briefs/). Nothing here is started.
 
 **Supersedes:**
@@ -16,7 +18,7 @@ Principles cited by number from [principles.md](../../design/foundation/principl
 
 ## 1. Goal and order
 
-**Goal.** Fix every UI issue the owner reported first and let him review that. Then put a real API between the UI and the data (Next.js route handlers over the repo JSON, through framework-free functions in `core/` and shared Zod contracts), so the later move to Supabase is one store swap. Then build the E features (towns, Where city level, Nearby, near mode, Google trip map, Export trip, globe city outlines, the data passes) on that API. Then a second review and a hosting-independent readiness checklist.
+**Goal.** Fix every UI issue the owner reported first and let him review that. Then put a real API between the UI and the data (Next.js route handlers over the repo JSON, through framework-free functions in `core/` and shared Zod contracts), so the later move to Postgres (now Neon, R-58) is one store swap. Then build the E features (towns, Where city level, Nearby, near mode, Google trip map, Export trip, globe city outlines, the data passes) on that API. Then a second review and a hosting-independent readiness checklist.
 
 ### 1.1 Owner decisions applied (20 Oct 2026)
 
@@ -28,9 +30,9 @@ Principles cited by number from [principles.md](../../design/foundation/principl
 | D4 | Metadata for every place and activity is the foundation | Workstream META (6) |
 | D5 | Consistency and no hard-coded values | Workstream CONS (5) |
 | D6 | Every item designed for the server switch | A server-switch column in every task table; rules 4.3; contract kit 4.6 |
-| **D7** | **Deployment is out of scope for now.** No static-export assumption | Phase D becomes a hosting-agnostic readiness checklist marked "revisit when the hosting is chosen" (13). `output: 'export'` is removed in API-0 |
+| **D7** | **Deployment was out of scope until hosting was chosen; Vercel selected 24 Oct.** No static-export assumption | Phase D remains a hosting-agnostic readiness checklist; project setup/deployment wait for merge-ready under R-61/13.2. `output: 'export'` is removed in API-0 |
 | **D8** | **Build API-over-JSON now** | Route handlers under `web/app/api/v1/` over `CatalogueStore` with `JsonStore`; `DataClient` gets an API adapter as the default; OpenAPI from Zod (section 4) |
-| **D9** | **API-over-Supabase is not built now** | Lane SRV-0 is defined and ordered after E (4.8); the read-only schema diff SRV-D runs on day 1 as a risk check |
+| **D9** | **API-over-Postgres is not built now** (originally API-over-Supabase; provider now Neon, R-58) | Lane SRV-0 is defined and ordered after E (4.8); the read-only schema diff SRV-D runs on day 1 as a risk check |
 | **D10** | **UI issues first, with their own review gate** | Phase A is UI-only, R1 follows it with a screenshot sweep; A does not wait on the API |
 
 ### 1.2 Phases
@@ -41,7 +43,7 @@ Principles cited by number from [principles.md](../../design/foundation/principl
 | **B** | Foundations: API-0 (server build mode, test harness), API-1 (contracts, `CatalogueStore`, `JsonStore`, handlers, OpenAPI, API adapter), API-2 (pure modules into `core/`), CONS-1 and CONS-2 (guards, geo, thresholds), META-0 (metadata rule and validator) | **G-B** (internal: code audit, contract kit, quiet e2e) |
 | **E** | Features on the API: META-1 and META-2 (migration, towns), DATA D1 to D5, LST2b and LST2c, PLC2b, TRP2, GLB2b, MX, CONS-3 | **R2** (owner), with the full stage 5 run first |
 | **D** | Readiness, hosting-agnostic: privacy, redirect policy, key restrictions, sitemap, Lighthouse, owner approval. Deployment itself: **revisit when the hosting is chosen** | none |
-| **S** | SRV-0: API-over-Supabase locally, after E; does not block R2 | contract kit green on `SupabaseStore` |
+| **S** | SRV-0: API-over-Postgres on a Neon child branch, after E; does not block R2 | contract kit green per method on the proposed `PostgresStore` |
 
 **Why R1 sits right after A.** The owner asked for the UI fixes first. A is all UI on today's data functions, so he can judge it on its own, and nothing in B changes what a visitor sees. B starts at R1 entry on the frozen preview (Q72, decided yes), so his review time is not idle build time.
 
@@ -80,7 +82,7 @@ flowchart TD
   R2["Gate R2: owner review,<br/>approval Q43"]:::gate
   F2["R2 fix rounds"]:::red
   D["Phase D readiness<br/>(hosting-agnostic)"]:::gate
-  SRV["SRV-0 Supabase store<br/>(local, flags off)"]:::ext
+  SRV["SRV-0 PostgresStore<br/>(proposed, flags off)"]:::ext
   HOST["Hosting chosen:<br/>revisit deploy steps"]:::infra
 
   N0 --> A --> SW
@@ -137,7 +139,7 @@ Rules: one node per lane group or gate; gates amber-red, data lanes teal, extern
 | R2 | Owner review 2 and Q43 | 11 |
 | F2 | R2 fix rounds | 11.5 |
 | D | Readiness checklist | 13 |
-| SRV | SRV-0, local Supabase store, contract kit | 4.8 |
+| SRV | SRV-0, proposed `PostgresStore` on Neon, loader, contract kit | 4.8 |
 | HOST | Deployment steps revisited once hosting is chosen | 13.2 |
 
 | # | Flow step | From | To |
@@ -149,7 +151,7 @@ Rules: one node per lane group or gate; gates amber-red, data lanes teal, extern
 | 5 | Data passes start after the metadata rule | M0 | DT |
 | 6 | E features build on the API after G-B | GB | M1, ETR |
 | 7 | Full stage 5, then R2 | EUI, ETR, MX, F1 | S5, R2 |
-| 8 | Supabase store after the E features, beside R2 | EUI | SRV |
+| 8 | Postgres store (proposed `PostgresStore`) after the E features, beside R2 | EUI | SRV |
 | 9 | Readiness, then deployment when hosting is chosen | R2 | D, HOST |
 
 Decisions: R1 after A only (D10); B during R1 (Q72, decided); SRV-0 after E and off the R2 path. Open question on the diagram: none. Change log: section 22.
@@ -169,7 +171,7 @@ Decisions: R1 after A only (D10); B during R1 (Q72, decided); SRV-0 after E and 
 | **R2 entry** | Preview 2 up | 11.1 criteria | 20 |
 | **R2 exit** | Owner review 2 closed, Q43 approval | 11.5 | 22 |
 | **D** | Readiness checklist done | 13.1 | 23 |
-| S | SRV-0 contract kit green on `SupabaseStore` | 4.8 | about 23 (parallel, flags off) |
+| S | SRV-0 contract kit green on the proposed `PostgresStore` | 4.8 | about 23 (parallel, flags off) |
 
 ## 3. Phase A: the UI fixes (no API dependency)
 
@@ -192,12 +194,12 @@ Every row has a **Server switch** entry: the boundary function it calls, the API
 | A8b | Place page polish: 4.12 S5, S6, S7, S9 to S13 and the far pointer (check each first); Akureyri season glance; Otzi hours printed twice; Gondola orphan dot; cover Directions opens the same chooser as the rail; fact repetition, "the pin we stored" wording, map cluster over the trailhead pin; Otzi price glance and the checks count (3.49) | 4.12, R4-PP2, R4-PP4, R4-PP5, R4-C1, VI-5, 3.49 | PLC2a | as A8 | 8 h | A8 | each item shown fixed on its page at 1440 and 390, light and dark, or reported already fixed | travel-verifier, travel-design-reviewer | page model from `getPlace()`; unchanged at the switch |
 | A13 | TRP1, trip page polish: the phone "Map · All days" pill over Plan it for; Patagonia cover, Day 2 "0 stops", "Exposure: level None"; Switzerland overview Copy text matches its buttons, season shown once, grey tiles load; Dolomites Day 4 shows stated limits only; re-read Dolomites #day-3, Patagonia #day-2 and the 1024 view; the merged duplicate that drops a Rockies stop, re-pin 207 to 206; the Day 6 time-zone marker and the Day 9 canoe pin | R4-T1 to T4, 3.62b, 3.67d, 3.35a-b | TRP1 | `web/app/trips/[slug]/**`, `web/components/trips/**` except `TripsMap.tsx`, `TripCover.tsx`, `types.ts`, `tags/**`; `web/lib/public/trips.ts`, `timeline.ts`, `prose.ts`; `data/schedules/**`; `core/src/schedule/**` (pins only); `web/styles/timeline.css`; `web/tests/trips/**`, `web/tests/e2e/trip-hero.spec.ts`, `trip-polish.spec.ts`, `trip-timeline.spec.ts` | 8 h | none | each item fixed at 1440, 1024 and 390, light and dark; core's stop count pinned at 206 with the stop linked | travel-verifier, travel-design-reviewer | `getTrip()` unchanged; served by `GET /api/v1/trips/{slug}` from B |
 | A14 | TST: fix the e2e races (wait for the settled value): `who-it-suits.spec.ts:36`, `home.spec.ts:40`, `url-state.spec.ts:110`, `smart-search.spec.ts:188` on WebKit, the `trip-day-spy` family, `places-parity.spec.ts` | 3.63, 3.67g, T14 | TST | those six spec files only (no other lane edits them in phase A) | 4 h | none | each passes 3 runs out of 3 under a 4-lane load | coordinator | none |
-| A10 | SRV-D: read-only diff of `docs/v2/schema.sql` (63 tables) against the capture contract (398 types, 83 properties, layers, sidecars); a risk list for API-1 and SRV-0 | 14.1 | SRV | `research/reports/schema-diff-2026-10.md` (new) | 3 h | none | Every capture layer, property group and sidecar maps to a table and column, or is listed as a gap with a proposed change | travel-verifier | It is the input to `SupabaseStore` |
+| A10 | SRV-D: read-only diff of `docs/v2/schema.sql` (63 tables) against the capture contract (398 types, 83 properties, layers, sidecars); a risk list for API-1 and SRV-0 | 14.1 | SRV | `research/reports/schema-diff-2026-10.md` (new) | 3 h | none | Every capture layer, property group and sidecar maps to a table and column, or is listed as a gap with a proposed change | travel-verifier | It is the input to the proposed `PostgresStore` |
 | A11 | Merge A in order (TST, FIXF, SHL2, GLB2a, TRP1, LST2a, PLC2a); quiet full e2e | 3.63 | coordinator | none | 4 h | A1 to A14 | 0 failures | coordinator | n/a |
 
 Phase A total: about 75 h including reviews, verification and merges (42 h for the owner's reports, 33 h for the visible defects the coverage sweep added). Lane TRP1 and lane TST are new in phase A; TRP1's files go to TRP2 in phase E, serially.
 
-## 4. The API layer (phase B): API-over-JSON now, Supabase later
+## 4. The API layer (phase B): API-over-JSON now, Postgres later
 
 Brief: [briefs/API.md](briefs/API.md).
 
@@ -211,7 +213,7 @@ route handler -> respond(): parse input with Zod, call CatalogueStore, scrub, ch
 CatalogueStore (core/src/catalogue/store.ts)
                |-- JsonStore (now): reads data/** through core/src/store FileStore and the dataset builder
                |-- StubStore (tests): in-memory fixture
-               |-- SupabaseStore (later, SRV-0)
+               |-- PostgresStore (proposed, later, SRV-0)
 pure functions in core/: query (filters, sort, page), near, parse, rank, schedule, export, privacy scrub, links, geo
 ```
 
@@ -250,7 +252,7 @@ All inputs and outputs are Zod schemas in `core/src/schema/api/**`, exported (ty
 6. No feature depends on a file layout the UI can see; file paths are private to `JsonStore` and `StaticAdapter`.
 7. Caps and P8 limits live in the store methods and are tested there.
 8. Every API response passes the privacy scrub and the allowlist check in `respond()`.
-9. Every seam has contract cases run against `JsonStore`, `StubStore` and later `SupabaseStore` (4.6).
+9. Every seam has contract cases run against `JsonStore`, `StubStore` and later the proposed `PostgresStore` (4.6).
 10. Stable ids (`ref`, `slug`), schema versions and per-value provenance are carried through unchanged.
 
 ### 4.4 Endpoints (versioned, read-only now)
@@ -287,7 +289,7 @@ The exports of `web/lib/client/data.ts` keep their names and signatures; each be
 
 ### 4.6 Contract test kit
 
-`core/test/catalogue/contract/<method>.cases.ts` holds one case table per store method; `core/test/catalogue/contract.test.ts` runs every table against `JsonStore` (on the real `data/`) and `StubStore` (fixture); `web/tests/api/contract.test.ts` runs the same tables through the route handlers (in process, no network) to cover `respond()`: scrub, allowlist, error mapping, ETag and 304. SRV-0 adds `SupabaseStore` to the first runner. Required cases: page size cap; allowlist; `r=500` clamps to 100; unknown centre gives `not_found` and touches no shard; unscoped near gives `invalid_scope`; one item per export; household strings absent; stable `slug` and `ref`; `revision` changes when data changes.
+`core/test/catalogue/contract/<method>.cases.ts` holds one case table per store method; `core/test/catalogue/contract.test.ts` runs every table against `JsonStore` (on the real `data/`) and `StubStore` (fixture); `web/tests/api/contract.test.ts` runs the same tables through the route handlers (in process, no network) to cover `respond()`: scrub, allowlist, error mapping, ETag and 304. SRV-0 adds the proposed `PostgresStore` to the first runner. Required cases: page size cap; allowlist; `r=500` clamps to 100; unknown centre gives `not_found` and touches no shard; unscoped near gives `invalid_scope`; one item per export; household strings absent; stable `slug` and `ref`; `revision` changes when data changes.
 
 ### 4.7 API-0 and API-2: what changes in the build and the harness
 
@@ -303,21 +305,21 @@ The exports of `web/lib/client/data.ts` keep their names and signatures; each be
 
 API-2 moves the pure modules into `core/` with re-export shims in `web/` so imports do not change: the filter engine (`web/lib/entities/filter.ts`, `sort.ts`, `url.ts` parsing), the parser (`web/lib/search/parse/**`), the privacy scrub (`web/lib/public/origin.ts`, `party.ts`, `dateless.ts`), the export builders (`web/lib/export/{ics,csv,kml,gpx,licence}.ts`), the link builder (`web/lib/map/links.ts`) and, in E, `nearby`. React-dependent files stay in `web/`.
 
-### 4.8 API-over-Supabase: SRV-D now, SRV-0 later
+### 4.8 API-over-Postgres: SRV-D now, SRV-0 later
 
 | Lane | When | What | Owns | Effort |
 |---|---|---|---|---|
 | **SRV-D** | Phase A, day 1 (read-only) | Diff `docs/v2/schema.sql` against the capture contract and the sidecars: tables and columns for place, route, offer, event, points with role, relations, links with state and date, photos with licence, suitability flats, relevance, sources, towns; gaps and proposed changes; the risk list for API-1's contracts | `research/reports/schema-diff-2026-10.md` | 3 h |
-| **SRV-0** | After E features merge (day 16 to 22), beside stage 5 and R2, flags off; it must not block R2 | `supabase start` locally (Docker), migrations via `supabase migration new` from the diff, local only, never a remote; RLS on every table before any code (house rule), public read policies for the catalogue; a JSON-to-Postgres loader (`core/bin/load-catalogue.ts`) that loads `data/**` unchanged (stable ids, versions, provenance); `SupabaseStore` implementing `CatalogueStore`; generated types with `supabase gen types typescript`; the contract kit run against it | `supabase/**` (new), `core/src/catalogue/supabase/**` (new), `core/bin/load-catalogue.ts`, `core/test/catalogue/supabase.test.ts` (skipped unless a local Supabase is up) | 24 h |
+| **SRV-0** | After E features merge (day 16 to 22), beside stage 5 and R2, flags off; it must not block R2 | Start from the Neon migrations already applied (`core/src/db/migrations/`, `core/bin/db-migrate.ts`); any catalogue change is a new additive migration tested on an isolated Neon child branch first; RLS on every private-content and catalogue table before any code (the existing `planner_draft_signal` is the single documented content-free exception), public read policies for the catalogue; a JSON-to-Postgres loader (`core/bin/load-catalogue.ts`) that loads `data/**` unchanged (stable ids, versions, provenance) into the child branch; a proposed `PostgresStore` implementing `CatalogueStore`; the contract kit run against it per method, with privacy checks and rollback to `JsonStore`. Not implemented yet | `core/src/catalogue/postgres/**` (new), `core/bin/load-catalogue.ts`, `core/test/catalogue/postgres.test.ts` (skipped unless `TEST_DATABASE_URL` points at a disposable child branch; a skip is not a pass), new migrations only if needed | 24 h |
 
-Sign-in, RLS for household data and the planner tables stay in the [laundry list](../SERVER-SIDE-LAUNDRY-LIST.md) with their flags off. SRV-0 does not need Q65 (where the backend lives) because it runs locally; going to any hosted Supabase does.
+Household authorization, further sign-in methods and the planner stay in the [laundry list](../SERVER-SIDE-LAUNDRY-LIST.md) with their flags off. Q65 is answered for the database, identity and realtime (Neon, PLAN R-58); Vercel is selected as frontend host (R-61), while storage and functions stay unselected. Email/password sign-in and private account drafts exist (R-58) but do not serve the public catalogue.
 
 ### 4.9 Phase B tasks
 
 | ID | Task | Rows | Lane | Owned files (disjoint) | Effort | Depends on | Acceptance check | Verifier | Server switch |
 |---|---|---|---|---|---|---|---|---|---|
 | B1 | API-0: server build mode and harness | 14.2 | API | `web/next.config.ts`, `web/playwright.config.ts`, `web/tests/e2e/global-setup.ts`, `web/tests/global-setup.ts`, the 11 tests that read `web/out` (path helper only), `web/scripts/images.mjs`, `og.mjs` (input path), `tools/check-all.sh` (web build lines) | 10 h | R1 entry | check-all green; quiet full e2e green against `next start`; privacy tests still find 0 household strings | travel-verifier | Removes the static-export assumption |
-| B2 | API-1: Zod contracts, `CatalogueStore`, `JsonStore`, `StubStore`, `respond()`, handlers, OpenAPI, `ApiAdapter` default, `StaticAdapter` fallback, contract kit | 14.3, 13.1, 13.4 | API | `core/src/schema/api/**`, `core/src/catalogue/**` (store, json, stub), `core/bin/openapi.ts`, `data/schema/generated/openapi.json` (generated), `core/test/catalogue/**`, `web/app/api/v1/**`, `web/lib/server/respond.ts`, `web/lib/client/{contract,api,static,stub}.ts`, `web/lib/client/data.ts` (re-exports over the adapter), `web/lib/capabilities.ts` (append), `web/tests/api/**` | 22 h | B1, SRV-D | Every list, count, search, parse, detail, globe, export and report read in the browser goes to `/api/v1/` (network assertion in e2e); contract kit green on JsonStore and StubStore; OpenAPI `--check` green; `NEXT_PUBLIC_DATA_ADAPTER=static` still passes the e2e smoke set | travel-verifier; Opus code audit at G-B | Is the switch: `SupabaseStore` later implements the same interface |
+| B2 | API-1: Zod contracts, `CatalogueStore`, `JsonStore`, `StubStore`, `respond()`, handlers, OpenAPI, `ApiAdapter` default, `StaticAdapter` fallback, contract kit | 14.3, 13.1, 13.4 | API | `core/src/schema/api/**`, `core/src/catalogue/**` (store, json, stub), `core/bin/openapi.ts`, `data/schema/generated/openapi.json` (generated), `core/test/catalogue/**`, `web/app/api/v1/**`, `web/lib/server/respond.ts`, `web/lib/client/{contract,api,static,stub}.ts`, `web/lib/client/data.ts` (re-exports over the adapter), `web/lib/capabilities.ts` (append), `web/tests/api/**` | 22 h | B1, SRV-D | Every list, count, search, parse, detail, globe, export and report read in the browser goes to `/api/v1/` (network assertion in e2e); contract kit green on JsonStore and StubStore; OpenAPI `--check` green; `NEXT_PUBLIC_DATA_ADAPTER=static` still passes the e2e smoke set | travel-verifier; Opus code audit at G-B | Is the switch: the proposed `PostgresStore` later implements the same interface |
 | B3 | API-2: pure modules into `core/` behind shims | 14.4 | API | `core/src/{query,parse,privacy,export,links}/**` (new), the moved files in `web/lib/entities/`, `web/lib/search/parse/`, `web/lib/public/{origin,party,dateless}.ts`, `web/lib/export/{ics,csv,kml,gpx,licence}.ts`, `web/lib/map/links.ts` (each becomes a re-export) | 14 h | B2 | No React, Next or `fs` import in the moved modules (a lint rule); every web test passes unchanged; the scheduler bundle budget holds | travel-verifier | The same functions run in a handler, at build and in a server |
 | B4 | CONS-1: hard-coding guards (ratchet), env table | 13.2 | CONS | `tools/cons/**`, `tools/tests/test_hardcode_scan.py`, `web/tests/cons/**`, `web/tests/no-hex.test.ts` (extension), `web/lib/config/product.ts` (extend), one line in `tools/check-all.sh`, the env table in `docs/v2/build/public-site/README.md` | 6 h | R1 entry | A new colour, slug, host, UA or threshold literal fails check-all | travel-verifier | Config read through one module on every adapter |
 | B5 | CONS-2: one geo module, nearby config, home point module, kind labels | 13.2 | CONS | `core/src/geo/**`, `core/src/config/nearby.ts`, `core/src/privacy/home.ts`, the replacement lines listed in [CONS.md](briefs/CONS.md) | 8 h | B4; serial with B3 on `origin.ts` | `6371` only in the geo modules; 25 km and 2 km each defined once | travel-verifier | Pure modules |
@@ -344,14 +346,14 @@ Must be finished before LST2b, PLC2b, LST2c and TRP2 start: API-1, API-2, CONS-1
 
 | Seam | Today | Server later | Flag | Laundry list |
 |---|---|---|---|---|
-| sign in | `session()` null; link hidden | Supabase auth (Q66) | `signIn` | 1, 36 |
+| sign in | `session()` null; link hidden | Managed Better Auth on Neon, email/password (R-58, verified on the uncommitted session branch); other methods per Q66 | `signIn` | 1, 36 |
 | save to a trip | Copy sheet local draft; Save hidden | `POST /api/v1/plan/trips/{id}/items` | `saveToTrip` | 25, 36 |
 | guest drafts | none; `draftStore` in memory and share URL when SB1 is built | server drafts | `guestDrafts` | 23 |
 | smart trip builder | `/plan/` reserved, not built | SB1, SB2 | `tripBuilder` | 23 |
-| collaboration | none | realtime | `collab` | 30 |
+| collaboration | none | realtime (Neon Realtime today only invalidates private account drafts; collaboration is not built) | `collab` | 30 |
 | report form | `POST /api/v1/report` returns the issue link | stores a report | `reportForm` | 4 |
 | routed times at runtime | committed matrices read by the store | ORS through `leg_cache` | `serverRouting` | 34 |
-| catalogue from Postgres | `JsonStore` | `SupabaseStore` | `CATALOGUE_STORE=json|supabase` (server env) | 10 to 17 |
+| catalogue from Postgres | `JsonStore` | proposed `PostgresStore` | `CATALOGUE_STORE=json|postgres` (server env, proposed) | 10 to 17 |
 
 A flag that is off hides the control, or shows "Comes with the planner" where a visitor would look for it. Never a dead button (P4).
 
@@ -439,7 +441,7 @@ Tiers come from `data/vocab/types.json` marks (R, A, N) plus a placement block o
 | Activity | operator, season, duration, price, limits, window, meeting point, accessibility | `run_by`, `season`, `duration_min`, `price`, suitability limits, `window`, `book_url`, `starts_at`, `accessibility` | 6.2 | exist |
 | Provenance | source, date, confidence | `src[]` into `data/sources/registry.json`, `on`, basis | R | exists |
 
-Derived relations are computed by pure functions inside store methods, per request or per page, never written to a whole-catalogue file (P8). The same functions run in `SupabaseStore` or in SQL later (P9).
+Derived relations are computed by pure functions inside store methods, per request or per page, never written to a whole-catalogue file (P8). The same functions run in the proposed `PostgresStore` or in SQL later (P9).
 
 ### 6.4 Audit against the tiers (measured 20 Oct 2026)
 
@@ -624,7 +626,7 @@ Open the link from the hand-over on your Mac (Safari), then your iPhone (Safari)
 
 | ID | Task | Rows | Lane | Owned files (disjoint across parallel lanes) | Effort | Depends on | Acceptance check | Verifier | Server switch |
 |---|---|---|---|---|---|---|---|---|---|
-| E1 | META-1: point join in `JsonStore`, `area_id` migration, trailheads from tracks, `E_PLACE_FAR` | 8.3, 8.7b | META | `core/src/catalogue/json/points.ts` (the read order), `core/bin/capture.ts migrate-placement`, `core/src/capture/migratePlacement.ts`, `data/capture/**` (`area_id`), `data/capture/points.json` | 6 h | G-B | no-point pages fall by the joined count; `E_PLACE_FAR` 0; every place and route has `area_id` | travel-verifier | the join is inside the store; `SupabaseStore` reads a joined column |
+| E1 | META-1: point join in `JsonStore`, `area_id` migration, trailheads from tracks, `E_PLACE_FAR` | 8.3, 8.7b | META | `core/src/catalogue/json/points.ts` (the read order), `core/bin/capture.ts migrate-placement`, `core/src/capture/migratePlacement.ts`, `data/capture/**` (`area_id`), `data/capture/points.json` | 6 h | G-B | no-point pages fall by the joined count; `E_PLACE_FAR` 0; every place and route has `area_id` | travel-verifier | the join is inside the store; the proposed `PostgresStore` reads a joined column |
 | E2 | META-2: towns layer, `near_town`, Whitby exemption, GeoNames credit | 8.4, 8.9, 8.10, Q50, Q55 | META | `tools/towns.py`, `data/reference/towns/**`, `core/src/derive/near.ts`, `core/src/privacy/**` (exemption only), `web/tests/data/public-privacy.test.ts`, `web/components/home/AboutData.tsx` | 6 h | G-B | Whitby, Oshawa, Ajax, Canmore, Cortina resolve; town parts under 20 KB gzip; privacy test pins Whitby | travel-verifier | `towns()` store method; `GET /api/v1/towns` |
 | E3 | DATA D1 points | 8.8, 10.5, Q58 | DATA | `data/capture/points.json`, `data/capture/runs/**`, `research/method/lanes/DATA-notes.md` | 6 h agent | E1 | 6.5 rows 2, 3 | travel-verifier | data only |
 | E4 | DATA D2 locations required tier | 8.7 | DATA | `data/locations/locations.json` via `locations.py edit` | 4 h agent | E2, E3 | 6.5 row 10 | travel-verifier | data only |
@@ -713,7 +715,7 @@ The loop of 8.5 with `FIX-R2-<lane>`. **R2 exits** when no must row is open and 
 | Scheduler bundle trim | 3.67 part | Left unless TRP2 touches the scheduler | budget holds |
 | Move legacy-read files, remove `legacy/` | 7.11 | Left for after readiness | not needed by E |
 | Motion tokens | 13.2 part | Left (baseline) | needs a ruling |
-| Deployment and edge protection | 7.4 to 7.7, 7.12, Q44, Q71 | **Left: revisit when the hosting is chosen** (owner D7) | hosting not chosen |
+| Deployment and edge protection | 7.4 to 7.7, 7.12, Q44, Q71 | Vercel selected; project setup/deployment wait for merge-ready (R-61) | custom domain and edge settings remain open |
 
 ## 13. Phase D: readiness (hosting-agnostic)
 
@@ -736,9 +738,20 @@ The loop of 8.5 with `FIX-R2-<lane>`. **R2 exits** when no must row is open and 
 | 11 | Metadata report (6.5) and hard-coding baseline unchanged from the approved commit | 13.5, 13.2 | coordinator | reports | n/a |
 | 12 | Docs updated for the single product (STATUS, MASTER-PLAN, BACKLOG, CLAUDE.md, README) | 7.11 | coordinator | docs match | n/a |
 
-### 13.2 Revisit when the hosting is chosen
+### 13.2 Vercel deployment (owner selected 24 Oct; setup waits for merge-ready)
 
-Choose a host that runs Next.js route handlers (the site is no longer a static export). Then decide: the deploy command, preview environments, the custom domain (Q71), edge protection and one rate limit (P8, 7.6, 7.7), how the redirect map and cache policy are expressed, environment variables, the Google key's host list, the 302-to-301 switch date, a rollback path, and what happens to `tools/publish.py` and `nks-travel.pages.dev` (which still serves the old site).
+Vercel is selected for the Next.js server build. R-61 / BACKLOG 15.50 owns
+creating the project and deploying the approved merge-ready commit; do not
+create a project, transfer secrets or deploy from an uncommitted worktree before
+that gate. Configure the root pnpm workspace and Next.js app, preview and
+production scopes, and encrypted runtime environment. The owner must enter
+secrets through Vercel's secure settings; never print, commit or relay their
+values. Verify Neon Auth/Realtime trusted origins, public pages, authenticated
+draft operations, health/API routes, deployment rollback, and the preview /
+production separation. Still decide: custom domain (Q71), edge protection and
+one rate limit (P8, 7.6, 7.7), redirect map and cache policy, the Google key's
+host allowlist, the 302-to-301 switch date, and what happens to
+`tools/publish.py` and `nks-travel.pages.dev` (which still serves the old site).
 
 ## 14. Data and server workstream detail
 
@@ -763,19 +776,19 @@ All external calls sequential, one runner per service (`flock /tmp/travel-overpa
 
 Each batch writes its own lane files (`TF.json`, `AC.json`, `PH.json`); `data/sources/registry.json` is regenerated at merge. Every record keeps its stable `ref`, its file schema version and per-value provenance, so SRV-0's loader moves it to Postgres unchanged.
 
-### 14.2 Switch-over runbook (JSON to Supabase, later)
+### 14.2 Switch-over runbook (JSON to Postgres on Neon, later)
 
 Each move is one store setting and, for writes, one flag. The contract kit proves parity before any flip.
 
 | Order | Seam | Flips | Data into Postgres | Rollback |
 |---|---|---|---|---|
-| 1 | list, counts, near, towns | `CATALOGUE_STORE=supabase` for those methods (a per-method router in `core/src/catalogue/`) | places, routes, offers, events, points, towns, relations (`schema.sql` catalogue tables; laundry list 10, 11, 17) | set back to `json` |
+| 1 | list, counts, near, towns | `CATALOGUE_STORE=postgres` for those methods (a per-method router in `core/src/catalogue/`) | places, routes, offers, events, points, towns, relations (`schema.sql` catalogue tables; laundry list 10, 11, 17) | set back to `json` |
 | 2 | search, parse | same, for `search` | search records | back to `json` |
 | 3 | detail and export | same, for `getPlace`, `getTrip`, `getExport` | suitability, relevance, sources, photos | back to `json` |
 | 4 | report | `reportForm` on | reports table | flag off (issue link again) |
-| 5 | sign in, save, drafts, builder, collaboration | `signIn`, `saveToTrip`, `guestDrafts`, `tripBuilder`, `collab` (after Q65 to Q69) | household tables under RLS | flags off |
+| 5 | sign in, save, drafts, builder, collaboration | `signIn`, `saveToTrip`, `guestDrafts`, `tripBuilder`, `collab` (after Q66 to Q69; Q65 is answered for database, identity and realtime by R-58) | household tables under RLS | flags off |
 
-For each: run SRV-0's loader; run the method's contract cases against `SupabaseStore`; switch a preview; run e2e and the 5.2 and 5.5 audits; switch; keep `JsonStore` deployable for one release.
+For each: run SRV-0's loader; run the method's contract cases against the proposed `PostgresStore` and its privacy checks; switch a preview; run e2e and the 5.2 and 5.5 audits; switch; keep `JsonStore` deployable for one release.
 
 ## 15. Parallelism map
 
@@ -785,7 +798,7 @@ For each: run SRV-0's loader; run the method's contract cases against `SupabaseS
 | Day 5 | A-scoped sweep and audit; preview 1 | quiet machine |
 | Days 5 to 11 (R1 open) | API-0 then API-1 then API-2 (one lane, serial); CONS-1 then CONS-2; META-0; DATA D3 and D4 after META-0 | R1 fixes win any shared file; CONS-2 edits `origin.ts` only after API-2 has moved it |
 | Days 11 to 17 | META-1 and META-2; then D1, then D2 and D5; LST2b then LST2c; PLC2b; TRP2; GLB2b; CONS-3 per file as owners finish | MX after PLC2b and LST2c; one runner per external service across all agents |
-| Days 17 to 23 | stage 5 full run, preview 2, R2; SRV-0 beside them (owns only `supabase/**`, `core/src/catalogue/supabase/**`, `core/bin/load-catalogue.ts`) | quiet machine for e2e and Lighthouse; SRV-0 never edits a file R2 fixes touch |
+| Days 17 to 23 | stage 5 full run, preview 2, R2; SRV-0 beside them (owns only `core/src/catalogue/postgres/**`, `core/bin/load-catalogue.ts` and any new catalogue migration) | quiet machine for e2e and Lighthouse; SRV-0 never edits a file R2 fixes touch |
 
 Builders run only their own specs; the coordinator runs the full suite on a quiet machine. GPU flags for every visual check.
 
@@ -831,7 +844,7 @@ Start Wed 21 Oct 2026; 8-hour agent days; three to four builder lanes plus one d
 | S: SRV-0 (parallel, not on the critical path) | 24 | 17 to 23 | 12 to 20 Nov |
 | **Total** | **about 396** (372 on the phases, 24 for SRV-0) | **23 to readiness** | |
 
-Critical path: API-0, API-1, API-2 (46 h serial), then towns, the Where city level, near mode and MX. Deployment is not scheduled. Owner time beyond two days a gate moves later dates by the same amount.
+Critical path: API-0, API-1, API-2 (46 h serial), then towns, the Where city level, near mode and MX. Vercel setup/deployment is separately scheduled at merge-ready (R-61). Owner time beyond two days a gate moves later dates by the same amount.
 
 ## 18. Open questions for the owner
 
@@ -843,7 +856,7 @@ Decided by the owner on 20 Oct after the first version: Q70 (a small public feed
 | L7 | P4b PR #7 and the parked P3b worktree: close and delete? | **Closed 21 Oct 2026:** PR #7 closed; `phase/p3b`, `phase/p4b`, `claude/serene-goldberg-wtn3di` and the wip branches deleted from the remote and kept as tags `archive/*`; no doc was missing from `main` | none |
 | L9 | Free AI features (embedding search, CLIP photo picks, similar places): go now? | Not now; keep in Phase F and revisit near 1,000 places with summaries | the spike measured no gain at today's size |
 
-Q65 to Q69 stay open in the laundry list; SRV-0 runs locally without them. Every hosting question waits for the hosting decision (13.2).
+Q65 to Q69 stay open in the laundry list; SRV-0 runs locally without them. Vercel is selected for frontend hosting; domain and edge questions remain open in 13.2.
 
 ## 19. Briefs
 
@@ -870,7 +883,7 @@ Q65 to Q69 stay open in the laundry list; SRV-0 runs locally without them. Every
 | Statement | Where it was | Now |
 |---|---|---|
 | The site is a static export for Cloudflare Pages | `web/next.config.ts`, README, STAGE4-plan 5 and 6, the first version of this file | server build with route handlers (API-0); hosting chosen later |
-| P8's edge layer at go-live needs a custom domain on Cloudflare | STAGE4-plan 7, BACKLOG 7.7, Q44 | deferred to the hosting decision |
+| P8's edge layer at go-live needs a custom domain on Cloudflare | STAGE4-plan 7, BACKLOG 7.7, Q44 | Vercel selected; custom domain and edge posture remain deferred |
 | Near mode loads shards whose bbox meets the circle | nearby spec 5.7 | that is the `StaticAdapter` fallback; the default is `GET /api/v1/near`, with the cap inside `near()` |
 | E ships after go-live | MASTER-PLAN (old), nearby spec 7 | E before R2 |
 | One owner review at stage 6 | STAGE4-plan, REPORT-2026-10-20 | R1 and R2 |
@@ -904,6 +917,7 @@ Every pending item from every source (BACKLOG, TODO, design reviews and notes, l
 
 | Date | Change |
 |---|---|
+| 2026-10-24 | R-60: provider is Neon (R-58). Banner added; D9, phase S, 3, 4, 4.8, 5.2, 14.2 and 15 now name the proposed `PostgresStore`, Neon child-branch testing and the existing migrations; Supabase CLI, Docker and generated-types steps removed as historical. Parity, privacy and rollback gates unchanged; API contracts unchanged |
 | 2026-10-20 | First version: order A, B, E, D with gates R1 and R2; CONS, META; server-switch column; Q70 to Q72 |
 | 2026-10-20 | Coverage sweep: COVERAGE.md (244 lines, 0 unmapped); phase A gains the visible-defect lines (TRP1, TST, A2b, A4b, A7b, A8b), 42 h to 75 h; DATA D6; calendar to readiness about 20 Nov; new rows 15.1 to 15.6 |
 | 2026-10-21 | Banner pointing to docs/v2/PLAN.md as the entry point; L7 closed (PR #7 closed, branches archived as `archive/*` tags) |

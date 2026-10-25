@@ -4,6 +4,7 @@
 // (TripPlan loads it with next/dynamic), so none of it counts against the page's start JS (D-E9).
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import type { TripLegs } from '@travel/core/schema/api/index.ts';
+import { OSM_COPYRIGHT_URL } from '@travel/core/export/licence.ts';
 import { MapSurface } from '@/components/map/MapSurface';
 import { tripLegs } from '@/lib/client/data';
 import { tripPageFamily } from '@/lib/map/family';
@@ -11,7 +12,7 @@ import { registerPageFamily } from '@/lib/map/registry';
 import type { MapHandle } from '@/lib/map/types';
 import { dayDirections } from './directions';
 import { hasRoutedLegs, legGeometry } from './legGeometry';
-import { dayBases, mapBus, type DayMap } from './mapPins';
+import { dayBases, mapBus, pointLookup, type DayMap } from './mapPins';
 import type { DayRowModel, RouteModel } from './model';
 import { keyOf, labelOf, routeSpec, type KeyState } from './routeSpec';
 import { revealEntry } from './revealEntry';
@@ -33,28 +34,64 @@ function saveData(): boolean {
 }
 
 const ringMs = 1500;
+/** How long the line layer and the key's sentence wait for the legs request (review SHOULD-3). */
+export const linesHoldMs = 1200;
 
-/** The key above the map: only what the map draws in this view, then one sentence about the lines. On a phone, one line and "Map key" for the rest. */
+/**
+ * The key above the map: only what the map draws in this view, then one sentence about the lines. On a phone it is one line and "Map key";
+ * opened, the rest is a panel laid OVER the top of the map (not above it), so the map keeps its height (review B3, P3, P5). The panel stops
+ * short of the zoom column, scrolls inside its own height, closes with its button, Escape or the toggle, and hands focus back to the toggle.
+ */
 export function RouteKey({ state }: { state: KeyState }) {
   const narrow = useNarrow();
   const [asked, setAsked] = useState(false);
-  const open = !narrow || asked;
-  const items = open ? state.items : state.items.filter((i) => i.id === 'estimate' || i.id === 'road').slice(0, 1);
+  const [more, setMore] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
+  // collapsed on a phone: one line, and the amber one when it is drawn, because it is the loudest line on the map
+  const items = [state.items.find((i) => i.id === 'road') ?? state.items.find((i) => i.id === 'estimate')].filter((i): i is NonNullable<typeof i> => !!i);
+  const [short, ...rest] = (state.sentence ?? '').split(/(?<=\.) /);
+  const close = () => { setAsked(false); setMore(false); toggle.current?.focus({ preventScroll: true }); };
+  const list = (its: typeof state.items, id?: string) => (
+    <ul id={id} className="trip-map-key-list" aria-label="Map key">
+      {its.map((k) => (
+        <li key={k.id}>
+          <span className="key-swatch" data-key={k.id} data-pick={k.pick || undefined} data-all={k.style === 'route' || undefined} aria-hidden="true">{k.id === 'stop' ? '1' : null}</span>
+          {k.label}
+        </li>
+      ))}
+    </ul>
+  );
+  if (!narrow) {
+    return (
+      <div className="trip-map-key" data-print="hide">
+        {list(state.items, 'trip-map-key-list')}
+        {state.sentence ? <p className="trip-map-key-note">{state.sentence}</p> : null}
+      </div>
+    );
+  }
   return (
-    <div className="trip-map-key" data-print="hide">
-      <ul id="trip-map-key-list" className="trip-map-key-list" aria-label="Map key">
-        {items.map((k) => (
-          <li key={k.id}>
-            <span className="key-swatch" data-key={k.id} data-pick={k.pick || undefined} aria-hidden="true">{k.id === 'stop' ? '1' : null}</span>
-            {k.label}
-          </li>
-        ))}
-      </ul>
-      {open && state.sentence ? <p className="trip-map-key-note">{state.sentence}</p> : null}
-      {narrow ? (
-        <button type="button" className="trip-map-key-toggle" aria-expanded={asked} aria-controls="trip-map-key-list" onClick={() => setAsked((v) => !v)}>
-          Map key
-        </button>
+    <div className="trip-map-key" data-print="hide" data-open={asked || undefined} onKeyDown={(e) => { if (e.key === 'Escape' && asked) { e.stopPropagation(); close(); } }}>
+      {asked ? null : list(items)}
+      <button ref={toggle} type="button" className="trip-map-key-toggle" aria-expanded={asked} aria-controls="trip-map-key-panel" onClick={() => (asked ? close() : setAsked(true))}>
+        Map key
+      </button>
+      {asked ? (
+        <div id="trip-map-key-panel" className="trip-map-key-panel" role="group" aria-label="Map key, in full" data-testid="trip-map-key-panel">
+          {list(state.items, 'trip-map-key-list')}
+          {state.sentence ? (
+            <p className="trip-map-key-note">
+              {short}
+              {more && rest.length ? ` ${rest.join(' ')}` : ''}
+              {rest.length ? (
+                <>
+                  {' '}
+                  <button type="button" className="trip-map-key-more" aria-expanded={more} onClick={() => setMore((v) => !v)}>{more ? 'Less' : 'More'}</button>
+                </>
+              ) : null}
+            </p>
+          ) : null}
+          <button type="button" className="trip-map-key-close" onClick={close}>Close</button>
+        </div>
       ) : null}
     </div>
   );
@@ -97,15 +134,16 @@ export default function TripRouteMap({ slug, route, dayRows, models, picked, pau
   const [saving] = useState(() => saveData());
 
   const [legs, setLegs] = useState<TripLegs | null>(null);
+  // the line layer and the key's sentence wait for the legs request to settle, or 1.2 s, so a page view never draws dashes and then flips to amber (P5)
+  const [settled, setSettled] = useState(false);
   // routed legs by the map's leg id; none until the legs arrive (or ever, for a trip with no legs file), and then every step is a dashed estimate
   const slugOf = useMemo(() => {
     const by = new Map<string, string>();
     for (const d of dayRows) for (const s of [...d.stops, ...(d.tracks ?? []).flatMap((t) => t.stops)]) if (s.placeSlug) by.set(s.id, s.placeSlug);
     return (k: string) => by.get(k) ?? null;
   }, [dayRows]);
-  const geometry = useMemo(() => (legs ? legGeometry(legs.legs, models, route.bases, slugOf) : undefined), [legs, models, route.bases, slugOf]);
+  const geometry = useMemo(() => (legs ? legGeometry(legs.legs, models, route.bases, slugOf, pointLookup(route)) : undefined), [legs, models, slugOf, route]);
   const base = useMemo(() => routeSpec({ bases: route.bases, models, picked, geometry, wide }), [route.bases, models, picked, geometry, wide]);
-  const spec = useMemo(() => ({ ...base, hover }), [base, hover]);
   const day = picked === null ? null : models.find((m) => m.day === picked) ?? null;
   const { morning, night } = picked === null ? { morning: undefined, night: undefined } : dayBases(route.bases, picked);
 
@@ -138,9 +176,15 @@ export default function TripRouteMap({ slug, route, dayRows, models, picked, pau
   useEffect(() => {
     if (!mount) return;
     let live = true;
-    tripLegs(slug).then((r) => live && setLegs(r)).catch(() => undefined);
-    return () => { live = false; };
+    const settle = () => { if (live) setSettled(true); };
+    const timer = window.setTimeout(settle, linesHoldMs);
+    tripLegs(slug).then((r) => live && setLegs(r)).catch(() => undefined).finally(() => { window.clearTimeout(timer); settle(); });
+    return () => { live = false; window.clearTimeout(timer); };
   }, [mount, slug]);
+
+  const held = mount && !settled;
+  // while held the pins draw at once and the lines are left out; the camera is fitted from `base`'s ids, so lines arriving later never move it
+  const spec = useMemo(() => ({ ...base, ...(held ? { lines: [] } : {}), hover }), [base, hover, held]);
 
   // ---- the camera follows the day; the first fit is made when the map is created ----
   const lastFit = useRef<string | null>(null);
@@ -226,7 +270,12 @@ export default function TripRouteMap({ slug, route, dayRows, models, picked, pau
   const trip = useMemo(() => ({ stops: base.pins.filter((p) => p.style === 'stop').length, missing: models.reduce((n, m) => n + m.missing, 0) }), [base.pins, models]);
   const label = labelOf({ day: picked, // the day card names the base; on a phone the one-line label keeps the count instead
     baseName: narrow && day?.pins.length ? null : (route.days.find((d) => d.n === picked)?.base ?? null), baseOnMap: !!night, model: day, trip, paused: paused && picked === null, compact: narrow });
-  const key = useMemo(() => keyOf(base), [base]);
+  // held: the key names the pins only and says nothing about lines yet, so it never claims "not drawn yet" and then changes its mind
+  const key = useMemo(() => {
+    if (!held) return keyOf(base);
+    const k = keyOf({ ...base, lines: [] });
+    return { items: k.items, sentence: null };
+  }, [base, held]);
   const unplaced = picked === null ? models.flatMap((m) => m.unplaced.map((u) => ({ ...u, day: m.day }))) : (day?.unplaced ?? []).map((u) => ({ ...u, day: picked }));
   const dir = day ? dayDirections(day.day, day.pins.map((p) => p.at), morning ? { lng: morning.lng, lat: morning.lat } : null, night ? { lng: night.lng, lat: night.lat } : null) : null;
 
@@ -272,7 +321,8 @@ export default function TripRouteMap({ slug, route, dayRows, models, picked, pau
       <div ref={box} className="tl-mapbox">
         {mount && geometry && hasRoutedLegs(geometry) && base.lines.some((l) => l.style === 'route' || l.style === 'route-pick') ? (
           <p className="tl-credit num" data-testid="route-credit" title={legs?.attribution || undefined}>
-            Route geometry © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>
+            {wide ? 'Route lines © ' : 'Routes © '}
+            <a href={OSM_COPYRIGHT_URL} target="_blank" rel="noopener noreferrer">{wide ? 'OpenStreetMap contributors' : 'OpenStreetMap'}</a>
           </p>
         ) : null}
         {mount ? (

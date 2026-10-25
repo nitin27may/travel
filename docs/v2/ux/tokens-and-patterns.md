@@ -75,7 +75,10 @@ The client applies the op through the shared reducer immediately, marks it pendi
 rolls back on the server's answer ("Couldn't move: the item was deleted by Priya").
 
 ### Live presence and remote edits
-Supabase Realtime channel per trip ([../08-self-hosted.md](../08-self-hosted.md) §4): avatars in the
+Planned, not built. A live channel per trip, members only (transport to be designed on Neon; the
+Supabase Realtime channel in [../08-self-hosted.md](../08-self-hosted.md) §4 is historical, and
+today's only live path is the content-free account-draft signal plus an authenticated re-fetch,
+which carries no presence): avatars in the
 top bar; a coloured ring on the item someone has open; remote moves animate (or jump) and are
 announced politely; never steal focus or scroll position.
 

@@ -3,7 +3,14 @@
 ## Purpose
 Get a person into their household with the least friction (magic link or Google), and let a chat
 client (Claude, ChatGPT, any MCP client) act on their trips only after a consent screen that says
-plainly what it can and cannot do. Auth is Supabase Auth ([../../08-self-hosted.md](../../08-self-hosted.md)).
+plainly what it can and cannot do. Auth is Managed Better Auth on Neon (R-60, Oct 2026); the
+self-hosted Supabase Auth plan in [../../08-self-hosted.md](../../08-self-hosted.md) is historical.
+
+**Status.** Built today, behind the sign-in capability flag: email/password sign-in (`/sign-in/`)
+and sign-up (`/sign-up/`) forms that lead to `/account/` (private drafts), plus sign-out. Everything else on this screen is planned and not built:
+the magic link and code fallback, Google, invite landing, household creation on first sign-in, the
+signed-out draft import, and the MCP OAuth consent screen. The wireframes below are the target
+design, not the shipped one.
 
 ## Entry points
 - "Sign in" in the top bar; "Sign in to keep this" on a signed-out draft trip.
@@ -93,8 +100,9 @@ Labels on every field; error text tied with `aria-describedby`; the scope list i
 consent buttons have equal visual weight so "Cancel" is not hidden.
 
 ## Data and operations
-Supabase Auth (magic link, OTP, Google); `app_user` row created by trigger; household created on first
-sign-in ("Your household" with the user as owner); OAuth 2.1 authorize endpoint with scopes
+Managed Better Auth: email and password (built); magic link, OTP and Google (planned). Planned: an
+`app_user` row on first sign-in; household created on first sign-in ("Your household" with the user
+as owner); an OAuth 2.1 authorize endpoint for MCP clients with scopes
 `catalog:read trips:read trips:write reservations:read research:propose review`; a personal access
 token fallback is S23.
 

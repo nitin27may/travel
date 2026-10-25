@@ -27,7 +27,8 @@ export function Button({ variant, size, icon, className, loading, children, type
   return (
     <button type={type} className={buttonClass({ variant, size, icon, className })} disabled={disabled || undefined} aria-busy={loading || undefined} data-loading={loading || undefined} {...rest}>
       {loading ? <span className="btn-spin" aria-hidden="true" /> : null}
-      <span className="btn-label">{children}</span>
+      {/* Icon-only buttons that are not loading need no label wrapper: the icon is aria-hidden and `.btn` already centres it. The wrapper only exists for the loading opacity-swap, so text buttons and loading icon buttons keep it. */}
+      {icon && !loading ? children : <span className="btn-label">{children}</span>}
     </button>
   );
 }

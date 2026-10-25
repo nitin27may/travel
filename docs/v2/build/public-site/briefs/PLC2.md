@@ -67,7 +67,7 @@ A trail page answers length, climb, time, route type and suitability at a glance
 
 ## Server switch
 
-The strip and the blocks render a `PageModel` from `getPlace(slug)`; a server `GET /api/v1/places/:slug` returns the same model. `nearbyForPlace(slug)` is a `CatalogueStore` method backed by the pure `core/src/nearby/`; `GET /api/v1/places/{slug}/nearby` serves it; a `SupabaseStore` implements it with PostGIS and passes the same contract cases. Link builders are pure. Components, URLs and tests are unchanged on the switch.
+The strip and the blocks render a `PageModel` from `getPlace(slug)`; a server `GET /api/v1/places/:slug` returns the same model. `nearbyForPlace(slug)` is a `CatalogueStore` method backed by the pure `core/src/nearby/`; `GET /api/v1/places/{slug}/nearby` serves it; a proposed `PostgresStore` (SRV-0, not implemented) implements it with PostGIS and passes the same contract cases. Link builders are pure. Components, URLs and tests are unchanged on the switch.
 
 ## Verification
 

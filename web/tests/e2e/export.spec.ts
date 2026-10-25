@@ -7,7 +7,7 @@ test.describe('copy, export, share', () => {
   test('GPX and CSV download with the toast naming the file', async ({ page, site }) => {
     await page.goto(`${site.url}/specimen/`);
     await page.getByRole('button', { name: 'Export', exact: true }).click();
-    const [gpx] = await Promise.all([page.waitForEvent('download'), page.getByRole('menuitem', { name: /^GPX/ }).click()]);
+    const [gpx] = await Promise.all([page.waitForEvent('download'), page.getByRole('menuitem', { name: /^For a GPS or hiking app \(GPX\)/ }).click()]);
     expect(gpx.suggestedFilename()).toBe('dolomites-2027.gpx');
     const xml = readFileSync((await gpx.path())!, 'utf8');
     expect(xml).toContain('<gpx version="1.1"');
@@ -16,7 +16,7 @@ test.describe('copy, export, share', () => {
     await expect(page.locator('.toast-region')).toContainText('Downloaded dolomites-2027.gpx');
 
     await page.getByRole('button', { name: 'Export', exact: true }).click();
-    const [csv] = await Promise.all([page.waitForEvent('download'), page.getByRole('menuitem', { name: /^CSV/ }).click()]);
+    const [csv] = await Promise.all([page.waitForEvent('download'), page.getByRole('menuitem', { name: /^For a spreadsheet \(CSV\)/ }).click()]);
     expect(csv.suggestedFilename()).toBe('dolomites-2027.csv');
     expect(readFileSync((await csv.path())!, 'utf8')).toContain('Day,Time,Name,Kind,Category,Area,Lat,Lon,Approximate,Links');
   });

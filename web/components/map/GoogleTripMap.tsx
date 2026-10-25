@@ -113,7 +113,8 @@ export function legParts(l: Line, pal: MapPalette, casing: string, emphasised: b
     icons: [{ icon: { path: 'M 0,-1 0,1', strokeOpacity: opacity, strokeColor: color, scale: DASH_SCALE + extra / 4, strokeWeight: weight + extra }, offset: '0', repeat: '14px' }],
   });
   const solid = (weight: number, color: string, opacity: number, z: number) => ({ strokeColor: color, strokeOpacity: opacity, strokeWeight: weight, zIndex: z });
-  if (l.style === 'route-pick') return [solid(5.5, casing, 1, 1), solid(3.5, hot ? pal.accent : pal.routePick, 1, 2)];
+  // hovered, the amber leg is thicker (7 px casing, 5 px amber), because its colour is already the hover colour (review SHOULD-4)
+  if (l.style === 'route-pick') return hot ? [solid(7, casing, 1, 1), solid(5, pal.accent, 1, 2)] : [solid(5.5, casing, 1, 1), solid(3.5, pal.routePick, 1, 2)];
   if (l.style === 'route') return [solid(4, halo.color, halo.opacity, 1), solid(2, hot ? pal.accent : pal.route, 1, 2)];
   const weight = emphasised ? 2.5 : 2;
   return [
@@ -345,7 +346,7 @@ export default function GoogleTripMap({ spec, label, onSelect, onHover, handleRe
     const casing = normaliseColour(box.current ? getComputedStyle(box.current).getPropertyValue('--map-casing').trim() : '', pal.ink);
     const emphasised = recs.current.some((r) => r.node.dataset.numbered !== undefined);
     for (const r of lineRecs.current) {
-      const parts = legParts(r.line, pal, casing, emphasised, r.id === hoverLeg);
+      const parts = legParts(r.line, pal, casing, emphasised, hoverLeg !== null && (r.id === hoverLeg || r.id.startsWith(`${hoverLeg}:`)));
       r.parts.forEach((p, i) => p.setOptions?.(parts[i]!));
     }
   }, [hoverPin, hoverLeg, gen, pins, lines, selectedId, wide, dark]);

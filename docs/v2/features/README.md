@@ -4,10 +4,20 @@ One page per feature area. Each page has the same sections: Purpose, User storie
 behaviour, Data touched (with Schema additions where the draft schema needs more), Operations and
 MCP tools, Edge cases, Acceptance criteria, Milestone, Open questions.
 
-Decisions every page assumes (from the numbered docs): self-hosted Supabase (Postgres + PostGIS,
-Auth, Realtime, Storage) on the home server; Next.js with Hono for `/api` and `/mcp`; the operation
-layer is the only writer; live co-editing through Realtime broadcast of committed operations; family
-first; **we never book anything** (people record reservations); no expense-splitting UI in v1; the MCP
+Backend baseline (R-60, Oct 2026): Neon Postgres, Managed Better Auth and Neon Realtime are
+selected and provisioned, with 10 migrations applied. What is implemented is only the account
+foundation: email/password sign-up, sign-in and sign-out, private `planner_draft` CRUD under RLS, and
+live invalidation through one content-free, non-RLS `planner_draft_signal` relation
+(coordinator-approved exception) followed by an authenticated, RLS-scoped re-fetch. The full
+planner, household membership policies, guest drafts, sharing, presence, trip collaboration, admin,
+OAuth/MFA, consent flows, object storage and serverless functions are proposed and unimplemented.
+Vercel is selected for frontend hosting, with project setup/deployment deferred until merge-ready
+(PLAN R-61); object storage and functions remain unselected. The earlier self-hosted Supabase stack
+is historical.
+
+Decisions every page assumes (from the numbered docs): Next.js with Hono for `/api` and `/mcp`
+(proposed); the operation layer is the only writer; live co-editing of committed operations
+(future; mechanism not yet designed on Neon); family first; **we never book anything** (people record reservations); no expense-splitting UI in v1; the MCP
 is a first-class front door. Sharing rules come from [10-sharing.md](../10-sharing.md); every page with something shareable has a **Sharing** subsection.
 
 | Page | Scope | Milestone | Status |
@@ -28,10 +38,10 @@ is a first-class front door. Sharing rules come from [10-sharing.md](../10-shari
 | [F14 After the trip](F14-after-the-trip.md) | What happened, corrections to the catalog, memories, publish as template | M5 | draft |
 | [F15 Maps, routing and exports](F15-maps-routing-and-exports.md) | Basemaps, drive times and caching, tracks, offline tiles, GPX, ICS, Maps links, My Maps CSV | M1-M4 | draft |
 | [F16 Admin console](F16-admin-console.md) | Review queue, research jobs, coverage, backlog, publishing curated trips and templates, moderation | M1, M5, M6 | draft |
-| [F17 Accounts, auth and privacy](F17-accounts-auth-and-privacy.md) | Sign-in, roles, MCP OAuth and tokens, row-level security, export and delete | M0 | draft |
+| [F17 Accounts, auth and privacy](F17-accounts-auth-and-privacy.md) | Sign-in, roles, MCP OAuth and tokens, row-level security, export and delete (only the email/password and private-draft account foundation is built) | M0 | draft |
 | [Trip timeline and party profile](trip-timeline.md) | Public trip page: whole-trip and per-day timelines with times and confidence, the core scheduler, trip-level party profile replacing per-day A/B/C, prose cleaning | public site, wave 3 (L3c, L3d) | spec |
 | [Short trips](short-trips.md) | Day trips, overnights and weekends (0 to 3 nights): length class from nights, weekday pattern, the outing frame (leave by, home by, both drives, permits, go/no-go, Plan B, bring list), the compact page, drive from a public hub, origin privacy | public site wave 3 (L3b, L3e); creation flow in the planner | spec |
-| [Smart search](smart-search.md) | Search that reads a human query with no paid model: a deterministic parser to the existing filter keys with chips, "Did you mean" and a "Not checked yet" group; a gte-small semantic ranking spike (browser or Supabase Edge, RRF); CLIP and similar places later | public site stage 3 (3.15, lane SQ1 3.43); phase 3 in L9 | spec |
+| [Smart search](smart-search.md) | Search that reads a human query with no paid model: a deterministic parser to the existing filter keys with chips, "Did you mean" and a "Not checked yet" group; a gte-small semantic ranking spike (browser first; server inference runtime not chosen; RRF); CLIP and similar places later | public site stage 3 (3.15, lane SQ1 3.43); phase 3 in L9 | spec |
 
 ## Schema additions proposed across pages
 

@@ -1,14 +1,118 @@
 # Handover: start here
 
+## Current handover: 25 Oct 2026, Neon foundation merged into main
+
+**This section is the one current handover. It replaces the 24 Oct checkpoint.
+Everything below the line is dated history; verify it against `git log` first.**
+
+### Where things are
+
+- **Code:** the Neon foundation, the R-60 documentation reconciliation, the R-61
+  hosting decision and the 25 Oct origin-guard fix were committed on branch
+  `nitin27may-phase-e-remaining-plan` and merged into `main` on GitHub (PR from
+  that branch, 25 Oct). The branch also carried TRP2b2 (`da3760a`) and closure
+  docs (`972f9bb`), which are now on `main` as well. New work branches from
+  `origin/main`.
+- **Local `main` checkout** (`/Users/nks/workspace/travel`) was left untouched: it
+  is 2 commits ahead of `origin/main` (Dolomites research) and has uncommitted
+  research files. Its owner must `git pull` (merge) before pushing.
+- **Live site:** unchanged. Nothing was deployed. No Vercel project exists yet.
+- **Neon:** project `damp-queen-64719841`, production branch
+  `br-soft-glade-b4mkqyvd` (aws-us-east-2), child `srv-migrate-verify` /
+  `br-damp-breeze-b41mtvn5`. Postgres, Managed Better Auth and Realtime are
+  provisioned; migrations 0001-0010 applied, none pending.
+- **Secrets:** root `.env.local` (ignored, mode 600) holds production Neon
+  database, auth, Realtime and cookie values. Never print, commit or reuse it as
+  `TEST_DATABASE_URL`. `.neon` is ignored. `npm run dev`/`build`/`start` load it
+  through `web/scripts/with-root-env.mjs`; use `http://localhost:3000` or
+  `http://127.0.0.1:3000` (the configured trusted origins).
+
+### Done (with evidence)
+
+| Item | Evidence |
+|---|---|
+| Neon provisioning, 10 migrations, RLS on 86 app tables + ledger, non-bypass `travel_app` role with transaction-local `app.user_id` | [NEON-MIGRATIONS.md](docs/v2/build/public-site/NEON-MIGRATIONS.md), [NEON-VERIFICATION.md](docs/v2/build/public-site/NEON-VERIFICATION.md) |
+| Email sign-up/in/out (Managed Better Auth), private account drafts CRUD, live insert/rename/delete via Realtime signal table, cross-user isolation | Real-service E2E 14/14 (24 Oct) |
+| Account page phone layout (no overflow, 44 px sign-out) | 12 browser checks, design review approved |
+| Same-origin guard: Origin must equal `Host`; HTTP only for localhost/127.0.0.1/[::1] in dev/test; no trust in `request.url` or forwarded headers | Route tests 73/73, runtime probe 16/16, independent review |
+| R-60: Supabase to Neon reconciliation across about 44 docs | Link check and `git diff --check` clean |
+| R-61 recorded: Vercel selected as frontend host | PLAN R-61, BACKLOG 15.50, EXECUTION-PLAN 13.2 |
+| Pre-merge checks (25 Oct) | web `tsc` clean; account suites 121/121; earlier full check-all OK (web 1811) |
+
+### Not done (in detail)
+
+1. **Child-branch DB integration tests: BLOCKED.** `core/test/db/integration.test.ts`
+   skips 7 cases without `TEST_DATABASE_URL`. Needs a connection string for the
+   `srv-migrate-verify` child branch (never production), then
+   `TEST_DATABASE_URL=... npx vitest run core/test/db`. Merged without it on the
+   owner's "merge everything" instruction; it is the first item to close.
+2. **Real-service Neon E2E not rerun after the origin fix.** The 14/14 run predates
+   `web/lib/server/same-origin.ts`. Rerun `web/scripts/neon-e2e.mjs` against a
+   configured build.
+3. **R-61 Vercel (BACKLOG 15.50): not started.** Create the project (root
+   directory `web`, pnpm workspace, Node >= 22), owner enters encrypted env vars
+   (`DATABASE_URL`, `NEON_AUTH_BASE_URL`, `NEON_AUTH_COOKIE_SECRET`,
+   `NEON_REALTIME_URL`, `NEON_REALTIME_SECRET`, `NEXT_PUBLIC_SIGN_IN`,
+   `SITE_ORIGIN`, Google Maps keys and map families), add the Vercel domain to the
+   Neon Auth and Realtime trusted origins, deploy a preview, verify sign-in,
+   drafts and live updates, then production only after owner approval of a named
+   commit (Q43). Plan: [EXECUTION-PLAN 13.2](docs/v2/build/public-site/EXECUTION-PLAN.md).
+4. **Data layer not cut over.** The public catalogue still serves from `JsonStore`.
+   No `PostgresStore`, catalogue loader run, parity tests or cutover.
+5. **Owner security decision pending.** `planner_draft_signal` (migration 0010) is
+   the single non-RLS, content-free table; approved by the coordinator only.
+6. **Closure queue:** API/HYG loose ends, LST2b, CONS-3
+   ([REMAINING-CLOSURE-PLAN.md](docs/v2/build/public-site/REMAINING-CLOSURE-PLAN.md)).
+7. **R-59 trip navigation (BACKLOG 15.48):** planned only
+   ([TRIP-NAVIGATION-PLAN.md](docs/v2/build/public-site/TRIP-NAVIGATION-PLAN.md)).
+8. **Not built:** full trip/vacation planner, collaboration, storage, functions,
+   jobs; custom domain, edge protection and rate limits.
+9. **Open owner questions:** Q66 to Q69 (other sign-in methods, admission, guest
+   planning, household RLS) in [06-questions.md](docs/v2/06-questions.md).
+10. **Risks and debt:** configured place HTML has only 19 bytes of headroom under
+    the 1.25 cap; 5 build-tracing warnings and 19 lint warnings (no errors); the
+    configured (sign-in on) build is not part of check-all.
+
+### Next, in order
+
+1. Close items 1 and 2 above (needs a child-branch `TEST_DATABASE_URL`).
+2. R-61 Vercel setup and preview deploy (item 3); production waits for the owner.
+3. Closure queue, then R-59, then the data-layer cutover.
+
+Owner rules: one item at a time; plan first; tests and regression checks for
+each change; report failures promptly; nothing goes live without owner approval
+of a named commit.
+
+---
+
 Written 23 Oct 2026 (evening) at `main` 2d6e4b5. This is the first file a person or a fresh Claude session reads. It says what the product is, how to run it on this Mac, the rules, the traps, what is running, what comes next and what the owner still has to decide. The long tables (every trap with its fix, the lane plan with owned files, the readiness checklist, the SRV-0 parity list, the index of every document) are in [docs/v2/HANDOVER-DETAIL-2026-10-23.md](docs/v2/HANDOVER-DETAIL-2026-10-23.md).
 
-**The plan pages lag `main` by four merges.** `docs/v2/PLAN.md`, `TODO.md`, `STATUS.md` and BACKLOG 15.34 to 15.39 still say "main at 91c9cd6; META-2 and TRP2b in progress". Since then META-2, HYG and TRP2b have merged (section 1). Where they disagree, `git log` and this file win, until a docs lane brings them up to date.
+**Update after this handover was written:** FIXDOC merged at `47bf9ab`, restoring A29 to A40 with a guard test and syncing plan progress. On the current session branch, the owner approved finishing half-done work sequentially. Start from [REMAINING-CLOSURE-PLAN.md](docs/v2/build/public-site/REMAINING-CLOSURE-PLAN.md) for that queue and TRP2b2's preview-versus-go-live boundary. Those session changes are not yet integrated into main. The dated counts, service state and calendar below remain historical; verify live state before acting.
 
-## 1. State on 23 Oct 2026
+## 1. Current state and historical notes (updated 24 Oct 2026)
 
-**The product.** A public, read-only travel site with no login: trips, places of every kind, a full-screen globe and search. Next.js 16 in `web/`, schemas and engines in `core/`, the system of record in `data/`, research method and notes in `research/`, plans and specs in `docs/v2/`. The old hand-built HTML site is frozen under `legacy/` and preserved as the tag `legacy-final` (74b97ad). **Nothing from this work is deployed.** https://nks-travel.pages.dev/ still serves the old site. Deployment is out of scope until the owner chooses a host.
+**Owner-directed backend status:** Neon Postgres, Managed Better Auth and
+Realtime are provisioned in the owner's existing project. Ten migrations are
+applied: 86 RLS-protected application tables, an RLS-protected migration
+ledger, and one intentionally non-RLS content-free change-signal table. The
+signal triggers an authenticated RLS-scoped reload; it never streams draft
+content and has no app-role grants. This exception was approved by the
+coordinator, not an explicit owner security decision. The private account
+integration was independently verified on this uncommitted session branch:
+real Neon E2E 14/14 in the prior run and final public `check-all` passed.
+Child-branch DB integration remains blocked because `TEST_DATABASE_URL` is
+unavailable. No frontend deployment occurred. Public catalogue reads still
+use `JsonStore`; the loader, proposed `PostgresStore`, parity and cutover are
+not implemented. See [NEON-SETUP.md](docs/v2/build/public-site/NEON-SETUP.md),
+[NEON-VERIFICATION.md](docs/v2/build/public-site/NEON-VERIFICATION.md), PLAN
+R-58/R-60 and BACKLOG 15.47/15.49.
 
-**How it works.** API over JSON. Components read only through `DataClient` (`web/lib/client/data.ts`, principle P9). The default `ApiAdapter` calls `/api/v1/*` route handlers (`web/app/api/v1/`). Each handler goes through `respond()` (`web/lib/server/respond.ts`), which runs the privacy detector on every body and fails closed. Then it calls a `CatalogueStore` (`core/src/catalogue/store.ts`, decisions A1 to A40). Today that store is `JsonStore` over `data/`. A `StaticAdapter` (prerendered JSON, `NEXT_PUBLIC_DATA_ADAPTER=static`) is the fallback. Contracts are Zod in `core/src/schema/api/`, and OpenAPI 3.1 is generated to `data/schema/generated/openapi.json`. Moving to Supabase means adding one new store, `SupabaseStore` (lane SRV-0: planned, not built), that passes the same contract kit.
+The product and platform notes below were written on 23 Oct. Historical
+provider-specific diagrams and choices do not override PLAN R-58/R-60.
+
+**The product.** A public, read-only travel site with no login: trips, places of every kind, a full-screen globe and search. Next.js 16 in `web/`, schemas and engines in `core/`, the system of record in `data/`, research method and notes in `research/`, plans and specs in `docs/v2/`. The old hand-built HTML site is frozen under `legacy/` and preserved as the tag `legacy-final` (74b97ad). **Nothing from this work is deployed.** https://nks-travel.pages.dev/ still serves the old site. Vercel is selected; project setup/deployment waits until merge-ready under R-61.
+
+**Historical API architecture (23 Oct).** API over JSON. Components read only through `DataClient` (`web/lib/client/data.ts`, principle P9). The default `ApiAdapter` calls `/api/v1/*` route handlers (`web/app/api/v1/`). Each handler goes through `respond()` (`web/lib/server/respond.ts`), which runs the privacy detector on every body and fails closed. Then it calls a `CatalogueStore` (`core/src/catalogue/store.ts`, decisions A1 to A40). Today that store is `JsonStore` over `data/`. A `StaticAdapter` (prerendered JSON, `NEXT_PUBLIC_DATA_ADAPTER=static`) is the fallback. Contracts are Zod in `core/src/schema/api/`, and OpenAPI 3.1 is generated to `data/schema/generated/openapi.json`. The old plan to add `SupabaseStore` is superseded by the proposed Neon `PostgresStore` (lane SRV-0, not built); either store must pass the same contract kit.
 
 ```mermaid
 flowchart LR
@@ -251,8 +355,8 @@ The current ids and statuses are in BACKLOG's "Owner questions open" table, rows
 | Q70 follow-up | Create `nitin27may/travel-feedback` (issues only, form `report.yml`), then set `reportUrl` in `web/lib/config/product.ts` (a one-line switch) | **Yes, as the last readiness step** | It is a public repo that carries the owner's GitHub handle, and reporters need a GitHub account |
 | (new) | "by Nitin" on every trip cover (`web/components/trips/TripCover.tsx:55`) | **Keep**, and move the literal into `product.ts` | Together with the feedback URL it names the owner. It is authorship, not household data |
 | 15.26 | Offset of the home-radius circle (two decimal places) | **Keep as is** | It can be off centre by a few hundred metres |
-| Q65 to Q69 | Backend location, sign-in, who may sign in, guest planning, household RLS | **Supabase cloud free tier; email link plus Google; invite only; guest drafts yes; RLS yes.** Not needed for SRV-0, which runs locally | Free-tier projects pause when idle and need a keep-alive |
-| Q71 and EXECUTION-PLAN 13.2 | Hosting and domain | **Decide after R2.** Prefer a host that runs Next route handlers on a free tier, close to the existing Cloudflare account. Verify Next 16 support with a spike first | Lighthouse numbers stay tunnel numbers until then |
+| Q65 to Q69 | Backend location, sign-in, who may sign in, guest planning, household RLS | Historical 20 Oct answers superseded in part by R-58; only Neon Postgres, Managed Better Auth and Realtime are selected, and Q66 email/password is implemented | Other admission/planner decisions remain open |
+| Q71 and EXECUTION-PLAN 13.2 | Hosting and domain | Vercel selected 24 Oct; setup/deployment deferred until merge-ready (R-61). Custom domain remains undecided | Lighthouse numbers stay tunnel numbers until then |
 | 7.11 and CLN-6 | The list of legacy paths to delete | **After go-live**, tag `archive/legacy-pages` first, the owner confirms the list | `legacy/` stays in the tree until then |
 | 15.31 | `sideEffects: false` on core (about 11 KB) | **Only if a lane breaks the 200 KB budget**, with a full quiet e2e | Saves bytes, but risks a dropped side-effect import |
 | Q79, Q81, Q82 | O-1 (HTML planning moved into the skills as data rules), O-3 (import the two HTML-only trips at TD-4), O-6 (rename the skill to `trip`) | **Record as yes.** O-1 and O-6 are already how the repo works | none |
@@ -300,6 +404,7 @@ The cheapest order is the one in section 6. Sonnet lanes run until the reset; Op
 
 | Date | Change |
 |---|---|
+| 2026-10-25 | One current handover at the top: Neon foundation merged into main, detailed not-done list |
 | 2026-10-23 (evening) | Rewritten at `main` 2d6e4b5: state, setup on macOS, rules with reasons, traps, services, the plan forward, open decisions, usage and the first hour. Long tables moved to `docs/v2/HANDOVER-DETAIL-2026-10-23.md` |
 | 2026-10-21 | `docs/v2/PLAN.md` is the first thing to read; L7 closed; old remote branches archived as `archive/*` tags; reviews at R1 and R2, not stage 6 |
 | 2026-10-20 | Rewritten for the owner's later decisions: UI fixes first, API over JSON, deployment out of scope, SRV-0; COVERAGE.md added |

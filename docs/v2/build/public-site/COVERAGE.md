@@ -12,7 +12,7 @@ Companion to [EXECUTION-PLAN.md](EXECUTION-PLAN.md) (section 22). Entry point si
 
 **Rules.** No item is unmapped. Duplicates are merged into one line and marked "Merged duplicate" with the line they join. A row whose status was stale is marked "Done (status was stale)", and its BACKLOG or TODO status was corrected in the same change. Items found only in code or tests got new BACKLOG rows (15.1, 15.2). "UI" marks a visible defect or polish item a visitor can see (screens, phone, dark mode, accessibility, copy, empty states, performance budgets). Phase A must close every UI line mapped to it.
 
-Phase codes: A (UI fixes, before R1), B (API and foundations), C (review gates and independent checks), E (features and data), D (readiness, hosting-agnostic), S (SRV-0, Supabase store, local), F (later), server side (laundry list), dropped (with a reason), done (status was stale), merged duplicate, needs owner decision.
+Phase codes: A (UI fixes, before R1), B (API and foundations), C (review gates and independent checks), E (features and data), D (readiness, hosting-agnostic), S (SRV-0, proposed Neon Postgres store `PostgresStore`, not implemented), F (later), server side (laundry list), dropped (with a reason), done (status was stale), merged duplicate, needs owner decision.
 
 ## Counts
 
@@ -180,7 +180,7 @@ Visible UI defects and polish (marked UI): 84 in all, 55 of them in phase A.
 | 131 | BACKLOG | 14.2 | API-0: server build mode and harness | enhancement | EXECUTION-PLAN 4, 13 | B (API and foundations) | API |  |
 | 132 | BACKLOG | 14.3 | API-1: contracts, store, handlers, OpenAPI, API adapter | enhancement | EXECUTION-PLAN 4, 13 | B (API and foundations) | API |  |
 | 133 | BACKLOG | 14.4 | API-2: pure modules into core | enhancement | EXECUTION-PLAN 4, 13 | B (API and foundations) | API |  |
-| 134 | BACKLOG | 14.5 | SRV-0: API-over-Supabase, local | enhancement | EXECUTION-PLAN 4, 13 | S (SRV-0) | SRV |  |
+| 134 | BACKLOG | 14.5 | SRV-0: API-over-Postgres, proposed `PostgresStore` on Neon (not implemented) | enhancement | EXECUTION-PLAN 4, 13 | S (SRV-0) | SRV |  |
 | 135 | BACKLOG | 14.6 | Deployment out of scope; hosting-agnostic readiness | decision | EXECUTION-PLAN 4, 13 | D (readiness, hosting-agnostic) | coordinator |  |
 | 136 | BACKLOG | 14.7 | UI fixes first with their own gate R1 | decision | EXECUTION-PLAN 4, 13 | C (review gates and checks) | coordinator |  |
 | 137 | BACKLOG | 15.1 | Six test files skip silently when web/out is missing (would always skip after API-0) | bug | API-0 (B1): repoint every web/out reader | B (API and foundations) | API |  |

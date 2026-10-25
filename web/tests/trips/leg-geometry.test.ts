@@ -15,8 +15,9 @@ describe('routed legs onto the map\'s lines (D-E5)', () => {
   it('a leg between two pins fills that step, and the step draws solid', () => {
     const g = legGeometry([leg(1, 'i1', 'i2', line([[10.1, 40.1], [10.15, 40.12], [10.2, 40.2]]))], models, bases);
     expect(Object.keys(g)).toEqual(['leg:1:2']);
-    expect(g['leg:1:2']!).toHaveLength(3);
-    expect(g['leg:1:2']![1]).toEqual({ lng: 10.15, lat: 40.12 });
+    expect(g['leg:1:2']!.path).toHaveLength(3);
+    expect(g['leg:1:2']!.mode).toBe('drive');
+    expect(g['leg:1:2']!.path[1]).toEqual({ lng: 10.15, lat: 40.12 });
     const spec = routeSpec({ bases, models, picked: 1, geometry: g });
     expect(spec.lines.map((l) => [l.id, l.style])).toEqual([['leg:1:2', 'route-pick'], ['leg:1:end', 'straight-estimate']]);
     expect(keyOf(spec).items.map((i) => i.label)).toContain('Road route');
@@ -25,9 +26,9 @@ describe('routed legs onto the map\'s lines (D-E5)', () => {
   it('the legs of the base are found by their base: key, in either direction (reversed to the step\'s direction)', () => {
     // day 2 slept at base a the night before: morning base, then stop i3, then back to the night base
     const g = legGeometry([leg(2, 'base:a', 'i3', line([[10, 40], [10.15, 40.15], [10.3, 40.3]]))], models, bases);
-    expect(g['leg:2:1']![0]).toEqual({ lng: 10, lat: 40 }); // morning base to the first stop: the file's line runs the same way
+    expect(g['leg:2:1']!.path[0]).toEqual({ lng: 10, lat: 40 }); // morning base to the first stop: the file's line runs the same way
     const back = legGeometry([leg(1, 'i2', 'i1', line([[10.2, 40.2], [10.1, 40.1]]))], models, bases);
-    expect(back['leg:1:2']![0]).toEqual({ lng: 10.1, lat: 40.1 }); // asked the other way round: reversed
+    expect(back['leg:1:2']!.path[0]).toEqual({ lng: 10.1, lat: 40.1 }); // asked the other way round: reversed
   });
   it('a leg of another day, a leg without geometry and a pair that is not a step draw nothing; the map stays dashed and says routes are not drawn', () => {
     const g = legGeometry([leg(2, 'i1', 'i2', line([[10.1, 40.1], [10.2, 40.2]])), leg(1, 'i1', 'i2', null), leg(1, 'i1', 'zz', line([[0, 0], [1, 1]]))], models, bases);
@@ -44,11 +45,32 @@ describe('routed legs onto the map\'s lines (D-E5)', () => {
     ms[0]!.pins[1]!.id = 'stop:1:lake';
     const slugs: Record<string, string> = { '8-B-1': 'falls', '8-B-2': 'lake' };
     const g = legGeometry([leg(1, '8-B-2', '8-B-1', line([[10.2, 40.2], [10.15, 40.12], [10.1, 40.1]]))], ms, bases, (k) => slugs[k] ?? null);
-    expect(g['leg:1:2']!.map((p) => p.lng)).toEqual([10.1, 10.15, 10.2]); // the file runs lake to falls; the step runs falls to lake
+    expect(g['leg:1:2']!.path.map((p) => p.lng)).toEqual([10.1, 10.15, 10.2]); // the file runs lake to falls; the step runs falls to lake
     expect(legGeometry([leg(1, '8-B-2', '8-B-1', line([[10.2, 40.2], [10.1, 40.1]]))], ms, bases)).toEqual({}); // without the place map the ids do not meet
   });
   it('All days draws routed steps as plain routes, not the picked-day amber', () => {
     const g = legGeometry([leg(1, 'i1', 'i2', line([[10.1, 40.1], [10.2, 40.2]]))], models, bases);
     expect(routeSpec({ bases, models, picked: null, geometry: g }).lines.find((l) => l.id === 'leg:1:2')!.style).toBe('route');
+  });
+});
+
+describe('a place and its trail page at one point (review B4): exact coordinates only', () => {
+  // the stored legs key the stop by its place item; the day's pin was made from the trail page of the same spot
+  const slugs: Record<string, string> = { i1: 'marble-canyon', i2: 'takakkaw-falls' };
+  const slugOf = (k: string) => slugs[k] ?? null;
+  const m = [model(1, [[10.1, 40.1, 'trail-1'], [10.2, 40.2, 'trail-2']])];
+  m[0]!.pins[0]!.id = 'stop:1:marble-canyon-walk';
+  m[0]!.pins[1]!.id = 'stop:1:takakkaw-falls-walk';
+  const stored = [leg(1, 'i1', 'i2', line([[10.1, 40.1], [10.2, 40.2]]))];
+  const at = (p: Record<string, { lng: number; lat: number }>) => (s: string | null) => (s ? p[s] ?? null : null);
+  it('joins when the place and the trail page have exactly the same catalogue point', () => {
+    const same = at({ 'marble-canyon': { lng: 10.1, lat: 40.1 }, 'takakkaw-falls': { lng: 10.2, lat: 40.2 } });
+    expect(Object.keys(legGeometry(stored, m, [], slugOf, same))).toEqual(['leg:1:2']);
+  });
+  it('does not join by name, by distance or when a side has no point', () => {
+    expect(legGeometry(stored, m, [], slugOf)).toEqual({});
+    expect(legGeometry(stored, m, [], slugOf, at({ 'marble-canyon': { lng: 10.1, lat: 40.1 } }))).toEqual({});
+    const near = at({ 'marble-canyon': { lng: 10.10001, lat: 40.1 }, 'takakkaw-falls': { lng: 10.2, lat: 40.2 } });
+    expect(legGeometry(stored, m, [], slugOf, near)).toEqual({});
   });
 });

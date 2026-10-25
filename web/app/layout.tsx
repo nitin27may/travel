@@ -10,6 +10,7 @@ import './globals.css';
 import './themes.css';
 import '@/components/ui/ui.css';
 import './app.css';
+import './account.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin()),

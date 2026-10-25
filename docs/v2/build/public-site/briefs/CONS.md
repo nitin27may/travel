@@ -78,7 +78,7 @@ CONS-2 and CONS-3 edit files other lanes own. Edit a file only when its owning l
 
 ## Server switch
 
-The modules this lane creates (`core/src/geo`, `core/src/config`, `core/src/privacy/home.ts`, `core/src/net`) are pure and framework-free, so `JsonStore`, a handler, the build and a later `SupabaseStore` all use the same values. The seams themselves are API-1's.
+The modules this lane creates (`core/src/geo`, `core/src/config`, `core/src/privacy/home.ts`, `core/src/net`) are pure and framework-free, so `JsonStore`, a handler, the build and a later, proposed `PostgresStore` all use the same values. The seams themselves are API-1's.
 
 ## Verification
 
