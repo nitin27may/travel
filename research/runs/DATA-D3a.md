@@ -9,7 +9,7 @@ Run 25 Oct 2026, travel-researcher on Opus, worktree `v2-DATA-D3a`, branch `publ
 The scope was 38 trail records: the five R2 trails (Fenland, Johnston Canyon walk, Larch Valley, Tre Cime loop, Lake
 Agnes) and the 36 Rockies trail records on plan days (from `data/schedules/canadian-rockies-2029.json`, matched to capture
 refs; Fenland and Larch are in both sets). Most of them were already filled by lane R2a (18 to 19 Oct) and R1. Four had no
-lane record and are now in `data/suitability/canadian-rockies-2029/TF.json` with every required field answered: Lake
+lane record and are now in `data/suitability/canadian-rockies-2029/R9-TF.json` with every required field answered: Lake
 Agnes, Rawson Lake, the Sulphur Mountain summit boardwalk and the Moraine Lake Rockpile loop. The rest of the work found
 values for records that sit in lane files this batch does not own; a ref may appear in only one lane file of a trip
 (`E_SUIT_DUP_REF`, `E_CAP_DUP_REF`), so those values are in `research/runs/DATA-D3a/patch-proposals.json`, ready to apply.
@@ -43,7 +43,7 @@ to 12; what is left is capture-layer keys (summary, draw, links, geometry, acces
 | Johnston Canyon walk | `part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk` | R2a has distance, gain, time, surface, dogs; draft. Shape, stroller (official "Strollers are not recommended"), wheelchair, age band, exposure, navigation and access season are in the patch proposals. **2026 closure:** trail, day-use area and P1 closed 13 Oct to 11 Dec 2026 for rock-slope work (bulletin, read 25 Oct); the Upper Falls and Ink Pots stay reachable by Moose Meadows. A one-off; the 2029 trip is not affected |
 | Larch Valley | `legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass` | R2a: 11.2 km, 750 m, 270 to 330 min, out and back, leash, no stroller, season 1 Jun to 12 Oct by shuttle. Re-read 25 Oct: the figures still match (Sentinel Pass via Larch Valley 5.6 km one way, 750 m, 4.5 to 5.5 h, Difficult) |
 | Tre Cime loop | `place/tre-cime-di-lavaredo-loop` | R1: 8.8 km, 550 m, 240 min (tourism board, re-read 25 Oct: same). Dogs and the computed track figures (9.0 km, 435 m) are in the patch proposals |
-| Lake Agnes Tea House | `legacy/canadian-rockies-sept-2029/trails/lake-agnes` | **new in TF.json**: 7.8 km, 495 m (80 m loss), 150 to 180 min, Moderate, out and back, leash, no stroller, no wheelchair, shuttle 15 May to 12 Oct, tea house mid-May to mid-October, avalanche terrain November to mid-May. Not on any plan day (it is an R2 trail only) |
+| Lake Agnes Tea House | `legacy/canadian-rockies-sept-2029/trails/lake-agnes` | **new in R9-TF.json**: 7.8 km, 495 m (80 m loss), 150 to 180 min, Moderate, out and back, leash, no stroller, no wheelchair, shuttle 15 May to 12 Oct, tea house mid-May to mid-October, avalanche terrain November to mid-May. Not on any plan day (it is an R2 trail only) |
 
 ## Sources read (25 Oct 2026)
 
@@ -97,6 +97,11 @@ Johnston 1.2 km and 50 m), the Alberta Parks 2 m leash rule, the South Tyrol dog
 8. **RB-3:** Larch Valley is already done (the draw sits on the Sentinel Pass part; the route has no relevance record).
    Tre Cime needs relevance records for its two payoff parts and possibly a supersede entry; no DATA batch owns those
    files. **DECISION NEEDED (coordinator):** which lane writes them.
+9. **DECISION NEEDED (coordinator): the lane file name.** The brief says `data/suitability/<trip>/TF.json`, but
+   `core/test/suitability/kind-map.test.ts` (line 112) allows only `R<n>*.json` beside the migration output, so `TF.json`
+   failed check-all. The file is named `R9-TF.json` (lane `TF` inside; R9 is unused). Renaming is free while nothing links
+   to it. D4a (`AC.json`), D8 (`OV.json`) and D9 (`BS.json`) will hit the same test: either name them `R<n>-<lane>.json`
+   or have a builder widen the pattern in the test.
 
 ## Gaps left (GAP lines)
 
@@ -113,7 +118,7 @@ Johnston 1.2 km and 50 m), the Alberta Parks 2 m leash rule, the South Tyrol dog
 
 ## Files
 
-- `data/suitability/canadian-rockies-2029/TF.json` (new, 4 records, 11 sources)
+- `data/suitability/canadian-rockies-2029/R9-TF.json` (new, 4 records, 11 sources)
 - `data/capture/runs/api-2026-10-25-data-d3a-overpass.json` (new)
 - `data/capture/gap-budget.json` (`W_TIER_REQUIRED.keys` 3,875 to 3,832)
 - `research/runs/DATA-D3a/after-tier-required.json`, `research/runs/DATA-D3a/patch-proposals.json`
