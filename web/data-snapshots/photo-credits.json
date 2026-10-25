@@ -97,6 +97,18 @@
       "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Capri_-_veduta_1.JPG"
     },
+    "Cascade pass.jpg": {
+      "author": "Daniel Hershman",
+      "licence": "CC BY 2.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cascade_pass.jpg"
+    },
+    "Columbia river gorge from crown point.jpg": {
+      "author": "Hux",
+      "licence": "Public domain",
+      "licenceUrl": null,
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Columbia_river_gorge_from_crown_point.jpg"
+    },
     "Delicate Arch - Arches National Park (28744386992).jpg": {
       "author": "m01229 from USA",
       "licence": "CC BY-SA 2.0",
@@ -175,6 +187,12 @@
       "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques,_Paris_ao%C3%BBt_2014_(2).jpg"
     },
+    "Lake Wenatchee 0197.JPG": {
+      "author": "Walter Siegmund (talk)",
+      "licence": "CC BY-SA 3.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lake_Wenatchee_0197.JPG"
+    },
     "Lavender field and Mont Ventoux.jpg": {
       "author": "Robert Brink",
       "licence": "CC BY-SA 3.0",
@@ -186,6 +204,18 @@
       "licence": "CC BY 1.0",
       "licenceUrl": "https://creativecommons.org/licenses/by/1.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:LeMassif.jpg"
+    },
+    "Leavenworth Washington.jpg": {
+      "author": "No machine-readable author provided. Mattes assumed (based on copyright claims).",
+      "licence": "CC BY-SA 3.0",
+      "licenceUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Leavenworth_Washington.jpg"
+    },
+    "MSH82 st helens plume from harrys ridge 05-19-82.jpg": {
+      "author": "Lyn Topinka",
+      "licence": "Public domain",
+      "licenceUrl": null,
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:MSH82_st_helens_plume_from_harrys_ridge_05-19-82.jpg"
     },
     "Massif du Mont-Blanc @ Frêtes de la Vogealle.jpg": {
       "author": "Rémih",
@@ -241,6 +271,18 @@
       "licenceUrl": "https://creativecommons.org/licenses/by/3.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Monumentvalleyviewfromnorth.jpg"
     },
+    "Mount Baker 22101.JPG": {
+      "author": "Walter Siegmund (talk)",
+      "licence": "CC BY 2.5",
+      "licenceUrl": "https://creativecommons.org/licenses/by/2.5",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mount_Baker_22101.JPG"
+    },
+    "Mount Baker from Baker Lake.jpg": {
+      "author": "Lhb1239",
+      "licence": "CC BY-SA 3.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mount_Baker_from_Baker_Lake.jpg"
+    },
     "New York's Finger Lakes.jpg": {
       "author": "NASA",
       "licence": "Public domain",
@@ -270,6 +312,12 @@
       "licence": "CC BY 2.0",
       "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:N%C3%A6r%C3%B8yfjorden_mot_Gudvangen.jpg"
+    },
+    "Olympic Peninsula with Puget Sound by Sentinel-2, 2018-09-28 (small version).jpg": {
+      "author": "Copernicus Sentinel-2, ESA",
+      "licence": "CC BY-SA 3.0 igo",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0/igo/deed.en",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Olympic_Peninsula_with_Puget_Sound_by_Sentinel-2,_2018-09-28_(small_version).jpg"
     },
     "Ouray, Colorado.JPG": {
       "author": "Bede735",
@@ -367,11 +415,23 @@
       "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Stansbury_Island_Trail.jpg"
     },
+    "Stehekin Chelan.JPG": {
+      "author": "David Ansley",
+      "licence": "CC BY 2.5",
+      "licenceUrl": "https://creativecommons.org/licenses/by/2.5",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Stehekin_Chelan.JPG"
+    },
     "Three Patriarchs, Zion Canyon, Zion National Park, Utah (1026077696).jpg": {
       "author": "Ken Lund from Reno, Nevada, USA",
       "licence": "CC BY-SA 2.0",
       "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Three_Patriarchs,_Zion_Canyon,_Zion_National_Park,_Utah_(1026077696).jpg"
+    },
+    "Tolmie Peak.jpg": {
+      "author": "Ricardo Martins from Gent, Belgium",
+      "licence": "CC BY 2.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tolmie_Peak.jpg"
     },
     "USA 10654 Bryce Canyon Luca Galuzzi 2007.jpg": {
       "author": "Luca Galuzzi (Lucag)",
