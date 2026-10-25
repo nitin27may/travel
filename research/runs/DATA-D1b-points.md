@@ -93,3 +93,33 @@ published, step 5), the Beagle Channel (a channel), Buenos Aires cafes and books
 
 GAP: the Parks Canada Banff day-hikes table (parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/banff) is built in the browser,
 so its trailhead lines for Johnson Lake and Cory Pass were not read; a person can read them in a browser.
+
+## Step 3: the three missing destination parts (Cinque Torri, Val Fiscalina, Vallunga)
+
+Exact refs in `data/capture/dolomites-2027/migrated.json`: `place/cinque-torri` (`nature.trail.walk`), `place/val-fiscalina` and
+`place/vallunga` (`nature.trail.hike`), all three `layer: route` with **`route_is_attraction: true`** ("the open-air museum
+circuit is the experience", "the valley walk is the experience"). None has `reaches`.
+
+**Not created; DECISIONS NEEDED 2.** The safest reversible choice was to source the points and stop before writing records:
+
+1. The data already rules that these routes are their own payoff. `web/lib/public/relevance.ts` expects a payoff only when
+   `route_is_attraction` is not true, so three `#payoff` parts would add public place pages that nothing asks for.
+2. Each new place would have to carry its full required tier (for a `nature.landform.rock_formation`: wikidata, summary,
+   access_cost, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links, plus a suitability block of eight
+   keys). Left as gaps, `W_TIER_REQUIRED` rises, which the budget forbids; filled, it is a relevance and suitability pass of its
+   own, beyond this lane.
+3. Wiring a payoff means adding `reaches` to the parent route in `migrated.json` (one record per ref, so a lane file cannot add
+   it). The ledger allows a new leaf, but the parent records are not this lane's files.
+
+Sourced destination points, ready if the owner wants the parts (read 25 Oct):
+
+| Route | Destination | Point | Role | Area |
+|---|---|---|---|---|
+| `place/cinque-torri` | the five towers (Torre Grande) | OSM node 899332740 Torre Grande (`natural=peak`) 46.509075,12.051868; Wikidata Q933666 46.50925,12.053972 (160 m); type `nature.landform.rock_formation` | centre | `IT/veneto/belluno` (the parent's) |
+| `place/val-fiscalina` | Talschlusshutte / Rifugio Fondovalle at the valley head | OSM way 96096595 46.651378,12.353867 (the route's official link is the hut's site, and the stored confirmed track `data/tracks/fiscalina.json` ends 18 m from it); type `stay.mountain.hut` or `nature.viewpoint.viewpoint` | centre | not set on the parent (an `E_PLACE_AREA` row); `IT/trentino-alto-adige/bolzano` by the trip's other Sesto places |
+| `place/vallunga` | the head of the flat valley floor | the stored confirmed track `data/tracks/vallunga.json` ends at 46.576247,11.804518 (cut at the destination); Wikidata Q1408786 (the valley) 46.574321,11.797771 is 550 m down-valley; the research names no single end point ("to the hut at the valley bottom") | centre, `approx` | not set on the parent; `IT/trentino-alto-adige/bolzano` |
+
+**Federa:** confirmed. `part/place/lago-federa#walk` points at `place/lago-federa` (the lake, Wikidata Q3825692, which has a
+point), so the destination exists. But the walk names the lake in `starts_at`, not `reaches`: the walk would read as starting at
+the lake. Its own point is the track's first vertex at the trailhead 2.8 km north-west of the lake. Proposal for the record
+owner: move `place/lago-federa` from `starts_at` to `reaches` on the walk (a relation fix, not a point).
