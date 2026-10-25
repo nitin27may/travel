@@ -1717,7 +1717,7 @@
           "read": "2026-10-25",
           "note": "A boat trip then an 8.4 km loop with 370 m gain over 3 hours (Rando Québec); no source gives an age."
         },
-        "kid_note": "Plan about 3 hours on the island excluding the boat (1 hour cruise around the park before landing, about 15 minutes back to the quay). Access depends on sea conditions.",
+        "kid_note": "Allow about 3 hours on the island excluding the boat (1 hour cruise around the park before landing, about 15 minutes back to the quay). Access depends on sea conditions.",
         "stroller": {
           "v": null,
           "state": "searched_none",
@@ -2972,9 +2972,9 @@
               "on": "2026-10-25",
               "tried": [
                 "Plein air à la carte Mont du Dôme page",
-                "OSM relation 9288133 (no distance tag)"
+                "OpenStreetMap route 9288133 (no distance tag)"
               ],
-              "note": "No length on a page read; the OSM relation could be measured later."
+              "note": "No length on a page read; the OpenStreetMap route could be measured later."
             },
             "gain_m": {
               "v": null,
