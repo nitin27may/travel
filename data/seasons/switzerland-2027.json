@@ -1,0 +1,67 @@
+{
+  "schema": "trip-season-basic/1",
+  "schema_note": "One window only, the plan's own. trip-windows/1 (overview spec 2.2) needs 2 to 4 windows, so this file keeps the same field names under trip-season-basic/1 and adds a `season` block in the adapter's Season shape.",
+  "trip": "switzerland-2027",
+  "legacy_folder": "switzerland-2027",
+  "researched": "2026-10-25",
+  "agent": "DATA-D6a",
+  "model": "opus",
+  "length_days": 15,
+  "default": "plan",
+  "months_basis": "plan_months",
+  "months_basis_note": "The plan's own months: the plan starts in the last week of July and ends in the second week of August.",
+  "sources": [
+    { "id": "s-24abfa0c03", "url": "https://data.geo.admin.ch/ch.meteoschweiz.klima/normwerte/normwerte.zip", "title": "Climate normals 1991-2020 by station (normal value tables: tre2dymx, tre2dymn, rre150m0, rsd010m0)", "publisher": "MeteoSwiss (Federal Office of Meteorology and Climatology)", "kind": "official", "read": "2026-10-25" },
+    { "id": "s-c7ec1ea1c4", "url": "https://opendatadocs.meteoswiss.ch/c-climate-data/c6-climate-normals", "title": "Climate normals: open data documentation", "publisher": "MeteoSwiss", "kind": "official", "read": "2026-10-25" },
+    { "id": "s-f63a803989", "url": "core/bin/sun.ts", "title": "Sun calculator (sunrise, sunset, twilight)", "publisher": "this repo", "kind": "computed", "read": "2026-10-25" }
+  ],
+  "points": [
+    { "id": "luzern", "name": "MeteoSwiss station Luzern", "lat": 47.0364, "lon": 8.301, "elev_m": 454, "zone": "Europe/Zurich", "src": ["s-24abfa0c03"], "note": "LV95 2665544 / 1209849 from the normals table, converted to WGS84 with the swisstopo approximate formulas (about 1 m accuracy)." },
+    { "id": "interlaken", "name": "MeteoSwiss station Interlaken", "lat": 46.672, "lon": 7.8704, "elev_m": 578, "zone": "Europe/Zurich", "src": ["s-24abfa0c03"], "note": "LV95 2633042 / 1169069, converted as above. Valley stand-in for the Wengen base; Wengen itself has no normals station in the set." },
+    { "id": "zermatt", "name": "MeteoSwiss station Zermatt", "lat": 46.0293, "lon": 7.7524, "elev_m": 1638, "zone": "Europe/Zurich", "src": ["s-24abfa0c03"], "note": "LV95 2624297 / 1097574, converted as above." },
+    { "id": "jungfraujoch", "name": "MeteoSwiss station Jungfraujoch", "elev_m": 3571, "src": ["s-24abfa0c03"], "note": "High-altitude reference only; not used for sun times." }
+  ],
+  "season": {
+    "months": { "value": [7, 8], "basis": "plan", "note": "The plan's own months." },
+    "label": { "value": "Last week of July to the second week of August", "basis": "plan" },
+    "why": { "value": "The plan's own fortnight in high summer: the warmest weeks in the mountains and the longest days, with frequent rain in the lake country.", "basis": "official", "src": ["s-24abfa0c03", "s-f63a803989"], "on": "2026-10-25" },
+    "weather": {
+      "tempC": { "value": "14 to 25 C at Lucerne and Interlaken, 8 to 20 C at Zermatt; just above or below 0 C on the Jungfraujoch", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25", "note": "MeteoSwiss 1991-2020, mean daily min to max, July / August: Luzern 14.6/14.4 to 24.9/24.3; Interlaken 13.8/13.6 to 24.3/23.7; Zermatt 8.3/8.3 to 20.0/19.6; Jungfraujoch -2.1/-1.7 to 3.4/3.5." },
+      "rain": { "value": "About 13 days with 1 mm or more a month at Lucerne and Interlaken, 9 to 10 at Zermatt", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25", "note": "July / August precipitation and days >= 1 mm: Luzern 165.5/170.0 mm, 12.7/12.7 days; Interlaken 145.8/145.8 mm, 12.8/12.8 days; Zermatt 58.9/68.4 mm, 9.0/9.8 days." },
+      "daylight": { "value": "Sunrise about 06:00 to 06:20, sunset about 21:05 falling to 20:50; about 15 hours of day", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25", "note": "core/bin/sun.ts for the first and last plan day: Luzern sunrise 05:59 to 06:16, sunset 21:08 to 20:49, day 15h09m to 14h32m; Zermatt sunrise 06:04 to 06:21, sunset 21:07 to 20:48, day 15h02m to 14h27m. Valley horizon not modelled." },
+      "notes": [
+        { "text": "Zermatt is the driest base, with well under half the rain of Lucerne", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25" },
+        { "text": "Mean highs on the Jungfraujoch stay near 3 C even in high summer, so pack warm layers", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25" }
+      ]
+    }
+  },
+  "windows": [
+    {
+      "id": "plan",
+      "label": "Last week of July to the second week of August",
+      "start": { "month": 7, "week": "last" },
+      "sun": { "from": [7, 27], "to": [8, 10] },
+      "verdict": null,
+      "verdict_note": "Not set: only the plan's own window was researched in this batch. The trip's timing research compares it with other months but uses secondary sources for crowds.",
+      "best_for": "Long days on the high lifts and trails in the warmest weeks",
+      "crowd": null,
+      "plus": [
+        { "text": "About 15 hours of daylight", "factor": "light", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" },
+        { "text": "Warmest weeks at height: Zermatt afternoons near 20 C", "factor": "weather", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25" },
+        { "text": "Zermatt sees rain on fewer days than the lake bases", "factor": "weather", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25" }
+      ],
+      "minus": [
+        { "text": "July and August are the wettest months at Lucerne, about 170 mm each", "factor": "weather", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25" },
+        { "text": "Rain on about 13 days a month at Lucerne and Interlaken", "factor": "weather", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25" },
+        { "text": "Freezing nights on the Jungfraujoch even in high summer", "factor": "weather", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25" }
+      ],
+      "events": [],
+      "affects": [],
+      "unknown": [
+        { "text": "Normals at Wengen itself", "searched": "2026-10-25", "tried": "MeteoSwiss 1991-2020 normal value tables: no Wengen, Lauterbrunnen, Grindelwald or Murren station; Interlaken used as the valley stand-in." },
+        { "text": "Crowd level in this window from an official source", "searched": "2026-10-25", "tried": "Not researched in this batch; the trip's timing research gives school-holiday calendars from a secondary site only." },
+        { "text": "Lift and rail season dates for the plan's lifts in the trip year", "searched": "2026-10-25", "tried": "Not re-read in this batch; operators publish the next season's dates in spring." }
+      ]
+    }
+  ]
+}

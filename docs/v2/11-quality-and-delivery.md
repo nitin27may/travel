@@ -14,6 +14,13 @@ How the platform is tested, released and kept running. Complements 05-roadmap.md
 > real-service E2E (14 checks, including cross-user isolation) passed in an earlier independent run recorded, not rerun,
 > in the final verification ([NEON-VERIFICATION.md](build/public-site/NEON-VERIFICATION.md)). The child-branch DB
 > integration suite is **blocked** (no `TEST_DATABASE_URL`), so its cases count as skipped, not passed.
+>
+> **Last verified 25 Oct 2026 against main f2dee4b** ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)): the child-branch suite
+> now passes 29 of 29 against `br-damp-breeze-b41mtvn5`; the real-service E2E is blocked by the origin guard until an
+> HTTPS origin exists; production is Vercel project `travel` (one environment: Preview and Production both use the
+> production Neon branch; the child branch is for spikes and DB tests only); previews sit behind Vercel Authentication;
+> GitHub Actions secrets exist but no workflow file does, so CI (section 3) is not running. Task 0.7 (OAuth spike for
+> MCP) is now MCP-0 in [mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md).
 
 ## 1. Test layers
 
@@ -40,7 +47,7 @@ a bug fix lands with the test that would have caught it.
 |---|---|---|
 | dev | laptop: Next.js dev server against a Neon development branch (the Supabase CLI and compose stacks are historical) | seed: 64 places, Banff catalog sample, three trips (no loader yet) |
 | test | CI containers | created per run |
-| production | Neon for data, auth and realtime; the app host is not selected (the Ubuntu box behind a Cloudflare Tunnel is the historical plan) | real |
+| production | Neon for data, auth and realtime; the app host is Vercel (project `travel`, `https://travel-beta-tan.vercel.app`, no production deployment yet); the Ubuntu box behind a Cloudflare Tunnel is the historical plan | real |
 | preview (optional) | a second compose project on the same box on another port, for trying a branch with a copy of last night's backup | restored copy |
 
 ## 3. CI and release

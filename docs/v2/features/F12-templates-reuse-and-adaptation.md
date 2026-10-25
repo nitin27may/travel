@@ -1,6 +1,6 @@
 # F12. Templates, reuse and adaptation
 
-> **Amended 25 Oct 2026:** per-trip best-time windows (`data/seasons/<trip>.json`) and a signed-in customised copy (a
+> **Amended 25 Oct 2026:** per-trip best-time windows (`data/windows/<trip>.json`) and a signed-in customised copy (a
 > delta in `planner_draft`) come first, in [trip-overview-and-customisation.md](trip-overview-and-customisation.md).
 > "Use this trip" (behaviour 8) converts such a copy into a fork; month adaptation (13 to 16) can read the windows'
 > `affects` lists.

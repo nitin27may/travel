@@ -1,5 +1,9 @@
 # 02. Experience design
 
+> Last verified 25 Oct 2026 against main f2dee4b ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)): the planner experience is a
+> draft and unbuilt; the public site's screens are specified in [ux/](ux/README.md) and the 25 Oct feature pages. Token names
+> in section 16 predate the Trailhead palette; colour comes only from `web/app/themes.css` (no green, status colours included).
+
 The product is judged at two moments: **the evening at home on a laptop**, choosing and arranging,
 and **07:40 at a trailhead with one bar of signal** and a child asking where the toilet is. Design for
 both, phone first. A third moment matters for the family in the intent notes: **January, deciding

@@ -3,6 +3,9 @@
 Status: **planned, 25 Oct 2026 (model: Opus).** Nothing here is built. PLAN R-81 to R-85, BACKLOG 15.81 to 15.85,
 TODO row of 2026-10-25, owner questions Q117 to Q124 (section 15).
 
+> **Amended 25 Oct 2026 by [email-sign-in-and-account-emails.md](email-sign-in-and-account-emails.md):** Q121 and GSI-V2 are delivered there (EML-1, O-E1); one environment replaces the child-branch Preview of 8.2 and O-5; EML-1 lands first and owns the sign-in card and `return-path.ts`, and GSI-1 adds the Google button into it.
+> **Trimmed 25 Oct (shared sender first):** EML-1, EML-Q and O-E1 are Phase 1 of that spec and still land before GSI-1; account mail stays on Neon's shared sender until a domain (Q148), which does not affect Google.
+
 Related: [F17 accounts, auth and privacy](F17-accounts-auth-and-privacy.md) (sign-in, export, delete; amended by
 this page, see "Supersedes"), [visitor-suggestions-and-favourites.md](visitor-suggestions-and-favourites.md) (favourites
 sync and suggestion intake need sign-in; not edited), [NEON-SETUP.md](../build/public-site/NEON-SETUP.md) and

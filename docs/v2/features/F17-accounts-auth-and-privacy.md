@@ -25,6 +25,13 @@ with Neon Postgres row-level security, plus the operation layer's own checks.
 > and email prefill from the session; `emailVerified` decides whether a confirm link is sent. Spec
 > [feedback-and-reports.md](feedback-and-reports.md) sections 5, 9; PLAN R-90 to R-96.
 
+> **Amended 25 Oct 2026 (email sign-in and account emails):** magic link, sign-in by emailed code, required email
+> verification by code, reset by code and the account emails are specified in
+> [email-sign-in-and-account-emails.md](email-sign-in-and-account-emails.md) (PLAN R-100 to R-107). It supersedes Sign-in
+> item 1's "email sender still to choose" (Neon's shared sender for every account email in Phase 1; after a mail
+> domain, Resend as Neon's SMTP sender, and our templates through Neon webhooks only if the owner chooses, Q149) and the edge case "magic link opened on a different device asks to confirm the device"
+> (it works on any device; the confirm step is a button on `/sign-in/link/`; links last 15 minutes, once).
+
 **Status (R-60, Oct 2026).** Built: the account foundation only, namely email/password sign-up,
 sign-in and sign-out, server-verified sessions, and private `planner_draft` CRUD under RLS with
 cross-user isolation and live invalidation (content-free `planner_draft_signal`, the one
@@ -58,7 +65,7 @@ working sign-up path does not settle it.
 
 ### MCP authorisation
 
-7. Primary: an OAuth 2.1 server for MCP clients (planned; whether Managed Better Auth provides it or another component does is to be verified before M0 closes). Consent screen (ours) names the client and the scopes in plain words.
+7. Primary: an OAuth 2.1 server for MCP clients (planned; whether Managed Better Auth provides it or another component does is to be verified before M0 closes). Consent screen (ours) names the client and the scopes in plain words. **Designed 25 Oct 2026 in [mcp/auth-and-sign-in.md](../mcp/auth-and-sign-in.md) (R-123 to R-129):** Neon Managed Better Auth's OAuth provider plugin (CIMD, DCR off, EdDSA JWTs with our URL as audience), pending the MCP-0 spike; Neon's scopes are fixed, so the scopes in item 9 are capabilities held in `mcp_client_grant` and checked with the role on every call; personal access tokens (item 8) default to 30 days, 90 at most (Q163).
 8. Fallback: **personal access tokens** created in Settings (name, scopes, expiry, last used), sent as a bearer header by clients that support headers (Claude Code). Revocable at any time.
 9. Scopes: `catalog:read`, `trips:read`, `trips:write`, `reservations:read` (codes), `people:read` (passport dates, heights, weights; off by default), `research:propose`, `review`, `admin`.
 10. Every MCP operation records the client in `op_event`; Settings shows connected clients with last activity and a revoke button.

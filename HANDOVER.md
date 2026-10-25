@@ -1,84 +1,39 @@
 # Handover: start here
 
-## Current handover: 25 Oct 2026, Neon foundation merged into main
+## Current handover: 25 Oct 2026 (evening), Vercel preview live, Phase 1 email and data research running
 
-**This section is the one current handover. It replaces the 24 Oct checkpoint.
-Everything below the line is dated history; verify it against `git log` first.**
+**This section is the one current handover. Everything below the line is dated history; verify it against `git log` first.**
 
 ### Where things are
 
-- **Code:** the Neon foundation, the R-60 documentation reconciliation, the R-61
-  hosting decision and the 25 Oct origin-guard fix were committed on branch
-  `nitin27may-phase-e-remaining-plan` and merged into `main` on GitHub (PR from
-  that branch, 25 Oct). The branch also carried TRP2b2 (`da3760a`) and closure
-  docs (`972f9bb`), which are now on `main` as well. New work branches from
-  `origin/main`.
-- **Local `main` checkout** (`/Users/nks/workspace/travel`) was left untouched: it
-  is 2 commits ahead of `origin/main` (Dolomites research) and has uncommitted
-  research files. Its owner must `git pull` (merge) before pushing.
-- **Live site:** unchanged. Nothing was deployed. No Vercel project exists yet.
-- **Neon:** project `damp-queen-64719841`, production branch
-  `br-soft-glade-b4mkqyvd` (aws-us-east-2), child `srv-migrate-verify` /
-  `br-damp-breeze-b41mtvn5`. Postgres, Managed Better Auth and Realtime are
-  provisioned; migrations 0001-0010 applied, none pending.
-- **Secrets:** root `.env.local` (ignored, mode 600) holds production Neon
-  database, auth, Realtime and cookie values. Never print, commit or reuse it as
-  `TEST_DATABASE_URL`. `.neon` is ignored. `npm run dev`/`build`/`start` load it
-  through `web/scripts/with-root-env.mjs`; use `http://localhost:3000` or
-  `http://127.0.0.1:3000` (the configured trusted origins).
+- **Code and docs:** everything is on `main` (pushed to `origin/main`; verify with `git log`). Shipped today: the Neon foundation (earlier), D1 points research, the Vercel function-size fix, the phone back-to-top button (design review, verifier and a full gate passed), the family default youngest child 10, D6a seasons, the data research roadmap, and the specs listed below.
+- **Hosting:** Vercel project `travel` (team `nitin27mays-projects`), address https://travel-beta-tan.vercel.app (no custom domain). A preview deployed READY from the size fix; previews sit behind Vercel Authentication. **No production deployment yet; production needs the owner's approval of a named commit (Q43).** Photos and OG images are missing in Vercel builds (the image and OG scripts run too late in the adapter build; a builder task is open). Env vars are set in Vercel Production and Preview and as GitHub Actions secrets (names only: DATABASE_URL, DATABASE_URL_UNPOOLED, NEON_AUTH_*, NEON_REALTIME_*, ORS_API_KEY, NEXT_PUBLIC_* (maps, sign-in flag), SITE_ORIGIN, RESEND_API_KEY, OWNER_EMAIL, TEST_DATABASE_URL in GitHub). Never print or commit a value. The Google OAuth client file lives in `~/.config/travel-secrets/` (not in the repo).
+- **Neon:** project `damp-queen-64719841`; production branch `br-soft-glade-b4mkqyvd`, child test branch `br-damp-breeze-b41mtvn5`. One environment for now (decision 25 Oct; a separate test environment may come later). Managed Better Auth: email/password, email OTP codes (5 minute expiry, 3 attempts), Google through the owner's own OAuth client on both branches (redirect URIs registered at Google). Trusted domain `https://travel-beta-tan.vercel.app` is added on production; Realtime allowed origins in `neon.ts` are not updated (a `neon deploy` was refused by the safety classifier; the owner can run it or skip it). Apple sign-in is skipped (Neon has no Apple provider; 99 USD a year). Production settings today: shared Neon email sender, verification by code, **Require Verification off, send email on sign-up off**.
+- **Email:** Phase 1 uses Neon's shared sender for all account mail; Resend (sandbox sender, only reaches the owner's address) carries owner alerts only. Spike EML-0 results (live session, 3 codes, owner present): the takeover gate for CVE-2026-67327 passed; **a password reset does not revoke older sessions; Disable Sign Up does not stop a code sign-in from creating an account** (any gate must be our own server-side role check); Gmail shows a "suspicious" banner on the shared-sender mail; the Neon sender names itself "Neon Auth". See `docs/v2/features/email-sign-in-and-account-emails.md` sections 18 and the EML-0 results.
+- **Local checkout:** the owner's machine; `web/.env.local` has Maps and ORS values; the root `.env.local` holds production Neon values and the Resend key (never copy it elsewhere).
 
-### Done (with evidence)
+### Running or open work (verify with `git worktree list` and `ListAgents`)
 
-| Item | Evidence |
-|---|---|
-| Neon provisioning, 10 migrations, RLS on 86 app tables + ledger, non-bypass `travel_app` role with transaction-local `app.user_id` | [NEON-MIGRATIONS.md](docs/v2/build/public-site/NEON-MIGRATIONS.md), [NEON-VERIFICATION.md](docs/v2/build/public-site/NEON-VERIFICATION.md) |
-| Email sign-up/in/out (Managed Better Auth), private account drafts CRUD, live insert/rename/delete via Realtime signal table, cross-user isolation | Real-service E2E 14/14 (24 Oct) |
-| Account page phone layout (no overflow, 44 px sign-out) | 12 browser checks, design review approved |
-| Same-origin guard: Origin must equal `Host`; HTTP only for localhost/127.0.0.1/[::1] in dev/test; no trust in `request.url` or forwarded headers | Route tests 73/73, runtime probe 16/16, independent review |
-| R-60: Supabase to Neon reconciliation across about 44 docs | Link check and `git diff --check` clean |
-| R-61 recorded: Vercel selected as frontend host | PLAN R-61, BACKLOG 15.50, EXECUTION-PLAN 13.2 |
-| Pre-merge checks (25 Oct) | web `tsc` clean; account suites 121/121; earlier full check-all OK (web 1811) |
+| Work | Where | State |
+|---|---|---|
+| Email Phase 1 backend: EML-M mail module, EML-Q auth guard and quotas | worktree `v2-EML1`, branch `public/EML-1` | building (Opus) |
+| Email Phase 1 UI: EML-1 sign-in card and reset | not started | after EML-M and EML-Q |
+| D1b points follow-up | `v2-DATA-D1b`, `public/DATA-D1b` | running (Opus) |
+| D3a trail facts, D4a activities, D7-R Rockies best-time windows, D9-R Rockies stay bases | `v2-DATA-D3a`, `D4a`, `D7R`, `D9R` | running (Opus), launched 25 Oct |
+| D5a/D5b photos, D8-R, D2b, L1 (locations basics tools), D6a-W (show seasons) | see `docs/v2/build/public-site/DATA-ROADMAP.md` | not started |
+| MCP sign-in spec written (`docs/v2/mcp/auth-and-sign-in.md`; Neon's OAuth provider plugin is off on both branches; spike MCP-0 needs the owner to switch it on for the child branch) | docs only | not built |
 
-### Not done (in detail)
+Specs written 25 Oct, none built: trip overview, best-time windows and customisation (R-62 to R-67), favourites and suggestions (R-70 to R-75), stay bases and optimisation (R-76 to R-80), Google sign-in (R-81 to R-85), feedback and reports (R-90 to R-96), email (R-100 to R-107), data research (R-110 to R-113), MCP and master-plan audit (R-120 to R-129; `docs/v2/MASTER-PLAN-AUDIT-2026-10-25.md`).
 
-1. **Child-branch DB integration tests: DONE (25 Oct).** `core/test/db` passed 29/29 with 0 skipped against `srv-migrate-verify`. Repeat with `TEST_DATABASE_URL="$(neon connection-string br-damp-breeze-b41mtvn5 --project-id damp-queen-64719841)" pnpm --dir core exec vitest run test/db` (the `neon` CLI is signed in on this Mac).
-2. **Real-service Neon E2E: attempted 25 Oct, BLOCKED by the origin guard.** `web/scripts/neon-e2e.mjs` signs up
-   (works on `http://localhost:3000`; `127.0.0.1` gets a 403 from Neon Auth, so its trusted origins lack it) but every
-   `POST /api/account/drafts/` returns 403. Cause: `web/lib/server/same-origin.ts` accepts HTTP only when `NODE_ENV` is
-   `development` or `test`. `next start` is `production` (and `NODE_ENV=test pnpm start` does not change it, the value is
-   inlined at build), so a local HTTP run can never pass. `next dev` allows HTTP but the account page loops on
-   `/account/` and `/api/auth/get-session/` there and never settles. Options: run the script against an HTTPS origin
-   (a Vercel preview, after R-61), or give the script an HTTPS local origin, or a test-only build flag reviewed as a
-   security change. Do not loosen the guard to make a test pass. Five synthetic `e2e+...@travel-e2e.invalid` users
-   were created in production Neon Auth during the attempt; they own no drafts.
-3. **R-61 Vercel (BACKLOG 15.50): project created 25 Oct, env vars and deploy pending.** Project `travel` (`prj_h6vEEPn5fQ8JQSBp2SfSKvyTqrhy`, team `nitin27mays-projects`), linked locally (`.vercel/`, ignored). Set: framework Next.js, root directory `web`, files outside the root included (for `core`), Node 22.x, build command `pnpm run build`. No git connection, no deployment. Env vars set 25 Oct from the local env files (values never printed): Production and Preview get `DATABASE_URL`, `NEON_AUTH_BASE_URL`, `NEON_AUTH_COOKIE_SECRET`, `NEON_REALTIME_URL`, `NEON_REALTIME_SECRET`, `ORS_API_KEY` (all sensitive) and `NEXT_PUBLIC_SIGN_IN`, `NEXT_PUBLIC_GOOGLE_MAPS_KEY`, `NEXT_PUBLIC_GOOGLE_MAP_ID`, `NEXT_PUBLIC_PLACE_MAP_FAMILY`. Preview currently uses the production Neon values. `SITE_ORIGIN` is not set yet (needs the final URL). GitHub Actions repo secrets (nitin27may/travel) hold the same names plus `DATABASE_URL_UNPOOLED`, `NEON_AUTH_JWKS_URL` and `TEST_DATABASE_URL` (child branch `srv-migrate-verify`); no workflow files exist yet, so nothing reads them. Owner sets `SITE_ORIGIN`, adds the Vercel domain to the Neon Auth and Realtime trusted origins, then a preview deploy is verified (this also unblocks item 2, which needs an HTTPS origin). Production only after owner approval of a named commit (Q43). **First preview deploy (25 Oct) failed on function size; FIXED locally 25 Oct, not yet redeployed.** Cause: three `fs` reads with runtime paths (`web/lib/data/trips.ts` legacy-trips file, `web/lib/server/inputs.ts` revision walk, `core/src/db/loader.ts` migrations readdir) made Turbopack trace the whole of `web/` (test shots 406 MB, `web/out`, `web/public`) into the instrumentation trace that every function carries, while the dataset it does read (`data/`, `legacy/`, from `process.cwd()/..`) was not traced at all. Fix: those reads carry `/* turbopackIgnore: true */`, and `web/next.config.ts` ships one explicit list in every function (`outputFileTracingIncludes`, from `web/lib/server/runtime-files.ts`, the same list the catalogue revision hashes, plus the globe admin shapes) and excludes bulk and `*.local.json` (test `web/tests/deploy/server-trace.test.ts`). Measured with a local `vercel build` in both builder modes (CLI 65.1.0 with `NEXT_ENABLE_ADAPTER=1`, as Vercel's build machines run, and the legacy builder): 0 of 4,725 functions over 250 MB, largest 45.3 MiB (was 683 MB; the middleware went from 679 MB to 29.5 MiB under the legacy builder); every route function carries `data/`, `legacy/MANIFEST.json`, the legacy data and galleries, `web/.generated/*` and `.next/BUILD_ID`. The middleware (proxy, `/account/*` only) carries no dataset, so the instrumentation warm-up there is expected to fail and log once per cold start (inferred, not seen without a deploy; pages and API unaffected). Local `next start` answers unchanged (API bodies byte-identical; pages differ only by build id). Upload: root `.vercelignore` (the CLI never reads .gitignore; the 25 Oct upload included root `.env` and the test shots) cuts it to about 4,030 files (`--archive=tgz` no longer needed) and uploads `web/.og-cache`. **Photos and OG images are still missing on a Vercel-side build, and the cache is not why:** Vercel builds Next 16 through its build adapter (`NEXT_ENABLE_ADAPTER=1`), which collects the prerendered pages during `next build`, so `scripts/images.mjs` and `scripts/og.mjs` (which rewrite `.next/server/app` afterwards) find nothing (reproduced locally). Their `public/img` and `public/og` files would still be copied, but pages keep Commons URLs and the API map (`web/.generated/image-map.json`) is not in the functions on a fresh build. Options: make the two scripts adapter-aware or run them before the adapter (needs a brief), or deploy prebuilt from this Mac (`vercel build` then `vercel deploy --prebuilt`; verified locally to carry 870 renditions, 373 OG images and rewritten pages), which needs the `NEXT_PUBLIC_*` values real at build: they are stored as sensitive, so `vercel pull` gets placeholders and the build inlines them (owner: mark them non-sensitive, or export them in the shell first; the CLI does not override an existing variable). A git-connected build never has `web/.og-cache`. Plan: [EXECUTION-PLAN 13.2](docs/v2/build/public-site/EXECUTION-PLAN.md).
-   **Preview deployed 25 Oct (READY):** https://travel-67cslyjmd-nitin27mays-projects.vercel.app (Vercel Authentication is on, so open it signed in to Vercel or use `vercel curl <path> --deployment <url>`). Checked through `vercel curl`: `/`, `/trips/`, a trip page, `/places/`, `/sign-in/`, `/api/v1/health/`, search and OpenAPI return 200 with data. Known gaps: no photos or OG images (image-map and og scripts do not run in the adapter build; builder finding above), `SITE_ORIGIN` not set, no Neon Auth trusted domains configured (list is empty), so sign-in on the preview will fail until a domain is added. Earlier failed attempts `travel-bsco1wfq0` (Preview) and `travel-fzu6t3vix` (labelled Production) are Error deployments; nothing is live. The root `.env` (Maps keys, ORS key) was uploaded in those earlier attempts before `.vercelignore` existed; consider rotating `ORS_API_KEY`.
+### Owner decisions waiting
 
-4. **Data layer not cut over.** The public catalogue still serves from `JsonStore`.
-   No `PostgresStore`, catalogue loader run, parity tests or cutover.
-5. **Owner security decision pending.** `planner_draft_signal` (migration 0010) is
-   the single non-RLS, content-free table; approved by the coordinator only.
-6. **Closure queue:** API/HYG loose ends, LST2b, CONS-3
-   ([REMAINING-CLOSURE-PLAN.md](docs/v2/build/public-site/REMAINING-CLOSURE-PLAN.md)).
-7. **R-59 trip navigation (BACKLOG 15.48):** planned only
-   ([TRIP-NAVIGATION-PLAN.md](docs/v2/build/public-site/TRIP-NAVIGATION-PLAN.md)).
-8. **Not built:** full trip/vacation planner, collaboration, storage, functions,
-   jobs; custom domain, edge protection and rate limits.
-9. **Open owner questions:** Q66 to Q69 (other sign-in methods, admission, guest
-   planning, household RLS) in [06-questions.md](docs/v2/06-questions.md).
-10. **Risks and debt:** configured place HTML has only 19 bytes of headroom under
-    the 1.25 cap; 5 build-tracing warnings and 19 lint warnings (no errors); the
-    configured (sign-in on) build is not part of check-all.
+Data decisions DD-1 to DD-8 (applied as "all recommended" on 25 Oct), Q148 (a domain, yes or no), Q149 (webhooks and own templates after a domain), Q168 (sign out all other sessions after a reset: recommended yes), `planner_draft_signal` approval, back-to-top choices (the covered "Globe" link, the tablet breakpoint, the JS budget cap with 3 bytes of headroom), the production deploy (named commit), Realtime origins (`neon deploy`), Q160 to Q167 (MCP). Turnstile widget keys (free, Cloudflare) are needed before the email guard goes live.
 
-### Next, in order
+### Known stale items elsewhere
 
-1. Item 2 above waits for an HTTPS origin (do R-61 first); item 1 is done.
-2. R-61 Vercel setup and preview deploy (item 3); production waits for the owner.
-3. Closure queue, then R-59, then the data-layer cutover.
+`CLAUDE.md` still says deployment is out of scope until hosting is chosen and calls `web/` a static export until API-0; both are out of date (hosting is Vercel; API-0 is done). The owner edits that file.
 
-Owner rules: one item at a time; plan first; tests and regression checks for
-each change; report failures promptly; nothing goes live without owner approval
-of a named commit.
+Owner rules: one item at a time for risky work; plan first; tests and regression checks for each change; report failures promptly; nothing goes live without owner approval of a named commit.
 
 ---
 

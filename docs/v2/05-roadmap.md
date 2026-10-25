@@ -1,9 +1,17 @@
 # 05. Roadmap and migration
 
+> **Last verified 25 Oct 2026 against main f2dee4b** ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). The milestones below are
+> the planner product (the second product). The order in force is [PLAN.md](PLAN.md): the public site first (phase E,
+> then R2, readiness, a production deploy on Vercel after the owner approves a named commit), with the closure queue,
+> R-59, email sign-in Phase 1 (R-100, R-101, R-105 to R-107), and the 25 Oct public features (R-62 to R-96) queued one at
+> a time. Since 24 Oct: R-58 is merged into `main`; Vercel project `travel` exists with no production deployment; the
+> child-branch DB suite passed 29 of 29; MCP sign-in is designed (R-123 to R-129). M0's MCP item now follows
+> [mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md) (MCP-0 to MCP-E), not "OAuth by the Better Auth MCP plugin".
+
 Vertical slices: each ends with something a person can use end to end, on real data, deployed.
 Sizes are relative (S, M, L) because the pace depends on how many agent sessions run in parallel.
 
-> **Status, 24 Oct 2026 (R-60).** This roadmap was written for the 17 Oct self-hosted Supabase decision, which is now
+> **Status, 24 Oct 2026 (R-60; the "hosting not selected" line is stale, see the box above).** This roadmap was written for the 17 Oct self-hosted Supabase decision, which is now
 > **historical**. The owner selected Neon for Postgres, Managed Better Auth and Realtime; those are provisioned, with ten
 > migrations applied and RLS on 86 application tables plus the ledger (one content-free signal table excepted;
 > [NEON-MIGRATIONS.md](build/public-site/NEON-MIGRATIONS.md)). Of M0, only email and password accounts and a private
@@ -32,10 +40,10 @@ docs/v2/            this plan
 
 ### M0. Foundations (M)
 - Monorepo packages above; a Neon project with secrets outside the repo (done; this replaces the superseded
-  self-hosted Supabase stack of 08-self-hosted.md); development and tests on Neon child branches (planned: the
-  child-branch DB integration suite is blocked until `TEST_DATABASE_URL` exists); versioned SQL migrations (done: ten
-  migrations from the `schema.sql` proposal plus the accepted schema diff). App hosting and a public URL are not
-  selected.
+  self-hosted Supabase stack of 08-self-hosted.md); development and tests on Neon child branches (done 25 Oct: the
+  child-branch DB integration suite passed 29 of 29 on `br-damp-breeze-b41mtvn5`); versioned SQL migrations (done: ten
+  migrations from the `schema.sql` proposal plus the accepted schema diff). App hosting: Vercel, project `travel`, public
+  address `https://travel-beta-tan.vercel.app` (no custom domain for now, owner 25 Oct); no production deployment yet.
 - Accounts on Neon Managed Better Auth (done: email and password; magic link and Google still open, Q66), roles on
   `app_user`, user admin in `/admin`; `household`, `person`; RLS on the 86 private-content application tables and
   migration ledger (done, deny by default), with the content-free `planner_draft_signal` as the one
@@ -44,7 +52,9 @@ docs/v2/            this plan
 - `defineOp` registry with `op_event`, inverse, idempotent `client_op_id`; first ops: create trip,
   add item, move item, add note, undo.
 - API at `/api/ops/*` with the OpenAPI spec; MCP at `/mcp` exposing `search`, `get`, `create_trip`,
-  `edit_trip` with OAuth; tested from Claude.
+  `edit_trip` with OAuth; tested from Claude. (25 Oct: the public read API is `/api/v1`, built; the MCP split into a
+  public `/mcp/` and a private `/mcp/private/` with Neon OAuth or personal access tokens is
+  [mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md); trip write tools wait for the planner tables' RLS policies.)
 - CI: typecheck, lint, ops tests against a throwaway Postgres + PostGIS container, migration check (apply on a copy of the latest backup).
 - Nightly `pg_dump` (database and auth data) and a copy of stored files to an offsite location; one restore test (mechanism not chosen; Neon's own restore window does not replace the restore test).
 
@@ -120,7 +130,7 @@ Valhalla if ORS quotas bite.
 |---|---|---|
 | `core/src/sun`, `bookings/bookBy.ts`, `checks/` | `packages/domain` | moved with their tests; pure functions survive the change of store |
 | `core/src/schema` (Zod), `ops/`, `store/` | partly reused | the schemas map onto the new tables where they match; the file store and the 16 file-based ops are replaced by ops on Postgres. **The trip shape changes** (no `edition`, items with optional day/time/span/parent), so this is a port, not a copy |
-| `core/src/mcp` (read-only stdio MCP) | replaced by the remote `/mcp` | tool names change to the grouped set in 03 |
+| `core/src/mcp` (read-only stdio MCP) | replaced by the remote `/mcp` | tool names change to the grouped set in 03. **Proposed 25 Oct:** not replaced; the stdio server (`core/bin/mcp.ts`) stays the owner's local tool with no sign-in, and the remote endpoints are a separate tool set over `CatalogueStore` ([mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md) section 1) |
 | `data/locations/locations.json` (64 places), `data/vocab/tags.json` | entities, evidence and the tag vocabulary | importer; `locations.py` stays working until M1 ends, then the `location` skill calls the MCP instead |
 | `data/catalog/*` | entities, offers, legs | importer |
 | `legacy/canadian-rockies-sept-2029/data/*.json` | a real trip + catalog rows | importer in M1, rebuilt and checked in M2 |

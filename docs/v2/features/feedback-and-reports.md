@@ -6,6 +6,21 @@ Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements
 the intake pipeline): one intake model, one form shell, one route family, one moderation queue. Favourites (R-70, R-71)
 are untouched. Section 11 lists every conflict with an earlier decision and the proposed resolution.
 
+> **Amended 25 Oct 2026 by [email-sign-in-and-account-emails.md](email-sign-in-and-account-emails.md) (R-100 to R-107):**
+> the mail module is shared at `core/src/mail/**` and built by EML-M (with `web/lib/server/mailer.ts`); FBK-M keeps
+> only the intake templates and logic on top (about 2 h). EML-Q builds `web/lib/server/turnstile.ts` and the generic
+> `quota_bucket`; EML-B builds one `mail_suppression` table and the Resend bounce webhook, which replace
+> `intake_suppression` and the "no webhook in v1" line of 5.5. In 5.4, Neon Auth custom SMTP is not used (Neon webhooks
+> send auth mail through our templates instead), the daily split becomes intake 60, alerts 10, auth 30 if Q144 is yes,
+> and Resend free allows 3 domains, not 1. The domain steps of FBK-O and the email spec's O-E4 are the same owner work.
+>
+> **Trimmed 25 Oct 2026 (owner decision, shared sender first; email spec "Decision 25 Oct"):** no mail domain for now
+> (email spec Q148), so guests cannot get confirm emails: **Phase 1 reporting and suggestions require sign-in** (ship
+> `reportForm` only; every Phase 1 account is verified by code, so K3 sends nothing). Owner alerts go through the Resend
+> sandbox to the variable the owner set, `OWNER_EMAIL` (replaces `OWNER_ALERT_EMAIL` in 6.7 and 9.3), at most 20 a day;
+> no intake mail touches Resend, so the 5.4 split does not apply until the domain. Q132 "register the domain now" follows
+> Q148. The guest design (K3, 5.3, 5.4, 9.6, `guestIntake`, FBK-E guest cases) stays as written for Phase 2.
+
 Related: [F05 catalog entity pages](F05-catalog-entity-pages.md) ("Suggest a correction"), [F14 after the
 trip](F14-after-the-trip.md) (corrections from travellers, later), [F16 admin console](F16-admin-console.md) (moderation),
 [F17 accounts, auth and privacy](F17-accounts-auth-and-privacy.md) (export, delete), [NEON-SETUP.md](../build/public-site/NEON-SETUP.md)

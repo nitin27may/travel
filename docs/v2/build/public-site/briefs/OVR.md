@@ -49,7 +49,7 @@ a credited thumbnail or an honest placeholder; with no login, no new start JS an
 
 | Part | Paths |
 |---|---|
-| OVR-Ca, OVR-Cb | `core/src/schema/windows.ts` (new), `core/src/validate/windows.ts` (new) and its codes in `core/src/validate/codes.ts`, `core/src/schema/api/trip.ts` (append only), `core/src/catalogue/store.ts` (two methods appended), `core/src/catalogue/json/**`, `core/src/catalogue/stub/**`, `core/src/catalogue/openapi.ts`, `web/app/api/v1/trips/[slug]/items/route.ts` and `items/counts/route.ts` (new), `web/lib/client/data.ts`, `api.ts`, `static.ts`, `stub.ts` (the two methods only), `web/lib/public/windows.ts` (new loader for `data/seasons/`), the check-all stage line that runs the windows validator in `tools/check-all.sh`, contract cases in `core/test/api/**` and `web/tests/api/**` |
+| OVR-Ca, OVR-Cb | `core/src/schema/windows.ts` (new), `core/src/validate/windows.ts` (new) and its codes in `core/src/validate/codes.ts`, `core/src/schema/api/trip.ts` (append only), `core/src/catalogue/store.ts` (two methods appended), `core/src/catalogue/json/**`, `core/src/catalogue/stub/**`, `core/src/catalogue/openapi.ts`, `web/app/api/v1/trips/[slug]/items/route.ts` and `items/counts/route.ts` (new), `web/lib/client/data.ts`, `api.ts`, `static.ts`, `stub.ts` (the two methods only), `web/lib/public/windows.ts` (new loader for `data/windows/`), the check-all stage line that runs the windows validator in `tools/check-all.sh`, contract cases in `core/test/api/**` and `web/tests/api/**` |
 | OVR-0 to OVR-3 | `web/components/trips/overview/**` (new), `web/components/trips/when/**` (new), `web/components/trips/SeasonBand.tsx`, `CategoryView.tsx`, `CategoryStrip.tsx`, `TripPlan.tsx` (the view switch and lazy import only), `useTripUrl.ts`, `model.ts` (summary counts), `core/src/schedule/profileCodec.ts` (the `w` key only), `core/src/media/**` (new, `pickPhotos`), `web/lib/public/photos.ts` (call `pickPhotos`), `web/styles/overview.css` (new), `web/styles/trips.css` (season band rows), `web/tests/trips/overview*.test.ts`, `web/tests/trips/windows*.test.ts`, `web/tests/e2e/trip-overview.spec.ts`, `web/tests/e2e/trip-windows.spec.ts`, `docs/v2/design/trip-page/overview-note.md` (OVR-N, reviewer) |
 
 ### Do not touch
@@ -69,7 +69,7 @@ routes, `web/app/account/**`, `core/src/db/**`, `web/app/themes.css` (generated;
    gap states, the credits disclosure, and the amendment to patterns 3.4. Tokens only.
 2. **OVR-Ca (Opus, API lane).** Write the Zod `trip-windows/1` schema and validator exactly as spec 2.2, with codes
    `E_WIN_COUNT`, `E_WIN_DEFAULT`, `E_WIN_LENGTH`, `E_WIN_SUN`, `E_WIN_SRC`, `E_WIN_DATE`, `E_WIN_LONG`, `W_WIN_CLOSE`.
-   Validate `data/seasons/canadian-rockies-2029.json` from D7-R; fix the schema, not the data, only where the data shows
+   Validate `data/windows/canadian-rockies-2029.json` from D7-R (folder moved from `data/seasons/` on 25 Oct, DATA-ROADMAP DD-1; `data/seasons/` holds D6a's `trip-season-basic/1` files, which this validator must not read); fix the schema, not the data, only where the data shows
    the spec was wrong, and say so in the hand-back. Add `trip.windows` to the `getTrip` contract. Specify `tripItems(slug,
    query, page)` and `tripItemCounts(slug, query)` with the row allowlist of spec 3.5, the filters of 3.4, page size 24
    (max 50), the profile parameter, and contract cases K29 (allowlist keys), K30 (caps), K31 (one trip only), K32
@@ -97,7 +97,7 @@ routes, `web/app/account/**`, `core/src/db/**`, `web/app/themes.css` (generated;
 | # | Check |
 |---|---|
 | 1 | Spec acceptance A1 to A7 and A11 pass |
-| 2 | `node core/bin/validate.ts` (or the new windows stage) passes on every file in `data/seasons/`; a fixture with a calendar date fails with `E_WIN_DATE` |
+| 2 | `node core/bin/validate.ts` (or the new windows stage) passes on every file in `data/windows/`; a fixture with a calendar date fails with `E_WIN_DATE` |
 | 3 | Contract cases K29 to K33 pass on the stub, `JsonStore` and the handler |
 | 4 | Trip page start JS not above `main`; HTML at rest grows by at most 4 KB (`web/tests/budget.test.ts`, the HTML size test) |
 | 5 | Rockies Trails tab, In this plan: 33 rows; Also researched: 29; numbers pinned in a test from the data, not typed in |

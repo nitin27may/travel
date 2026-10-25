@@ -1,5 +1,11 @@
 # 03. MCP and research
 
+> Last verified 25 Oct 2026 against main f2dee4b ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). What exists today is the
+> owner's read-only stdio server, `core/bin/mcp.ts`, registered in `.mcp.json`: 15 read tools from the operation
+> catalogue (`search`, `get_place`, `get_trail`, `get_trip`, `query_rows`, `list_due_bookings` and others) over files in
+> `data/`, with no sign-in. The 13 write tools in the catalogue are phase 2 and not served. The grouped remote tool set
+> below is the target design; sign-in for it is [mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md).
+
 ## 1. Who uses the MCP, for what
 
 | User | Client | Typical session |
@@ -64,6 +70,12 @@ Every tool's input is a Zod schema exported as JSON Schema; every output is comp
 ## 3. Auth for MCP clients
 
 - Remote MCP over Streamable HTTP at `/mcp`, OAuth 2.1 with PKCE, with personal access tokens as the fallback (mcp/README.md). **Not built.** The 17 Oct plan (Supabase Auth's OAuth 2.1 server through the Cloudflare Tunnel, 08-self-hosted.md section 5) is superseded: accounts are now Neon Managed Better Auth, where only email and password sign-in is implemented, and the MCP OAuth provider and the public host are still to be chosen and proven (laundry list Q65, Q66).
+  **Superseded 25 Oct 2026 by [mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md) (PLAN R-123 to R-129):** the host is
+  Vercel (`https://travel-beta-tan.vercel.app`); a public endpoint `/mcp/` needs no sign-in; the private `/mcp/private/`
+  uses Neon Managed Better Auth's OAuth provider plugin (found 25 Oct, disabled on both branches, preview) with client
+  ID metadata documents and DCR off, or a personal access token for headless clients. Neon's scopes are fixed, so the
+  scopes in section 2 become capabilities stored in our database and enforced over RLS. The owner's local stdio server
+  (`core/bin/mcp.ts`) stays as it is, with no sign-in.
   Clients register by **Client ID Metadata Documents** (the newer MCP profile) or, where a client still
   needs it, dynamic client registration, which we switch on deliberately.
 - The consent screen names the client and the scopes in plain words ("Claude will be able to read

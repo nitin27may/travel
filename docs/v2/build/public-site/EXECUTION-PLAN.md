@@ -1,5 +1,9 @@
 # Execution plan: the public site, UI fixes first, then API-over-JSON, then E, then readiness
 
+> **Last verified 25 Oct 2026 against main f2dee4b** ([audit](../../MASTER-PLAN-AUDIT-2026-10-25.md)). Task detail below
+> stands. Status cells older than 25 Oct lag [PLAN.md](../../PLAN.md): hosting is Vercel (13.2), R-58 is merged, D6a is
+> merged, the 25 Oct features (R-62 to R-129) have their own task tables in their specs and are not repeated here.
+
 > **21 Oct 2026:** the entry point is now [docs/v2/PLAN.md](../../PLAN.md) (requirements, order, status, open decisions). This file stays the authority for task-level detail. L7 in section 18 is closed (PR #7 closed 21 Oct; old remote branches archived as `archive/*` tags).
 
 > **24 Oct 2026 (R-58, R-60):** the backend provider is Neon (Postgres, Managed Better Auth, Neon Realtime), not Supabase. The later catalogue store is a proposed `PostgresStore` on Neon Postgres; its loader, per-method contract parity, privacy checks and rollback are still ahead, and `JsonStore` serves the public catalogue. The private account integration is independently verified on the uncommitted session branch and is not a catalogue migration. Hosting, object storage, serverless functions and jobs are not selected. Earlier Supabase CLI, local Docker and generated-types instructions are historical; see PLAN R-58 and [NEON-SETUP.md](NEON-SETUP.md).
@@ -739,6 +743,14 @@ The loop of 8.5 with `FIX-R2-<lane>`. **R2 exits** when no must row is open and 
 | 12 | Docs updated for the single product (STATUS, MASTER-PLAN, BACKLOG, CLAUDE.md, README) | 7.11 | coordinator | docs match | n/a |
 
 ### 13.2 Vercel deployment (owner selected 24 Oct; setup waits for merge-ready)
+
+> **Last verified 25 Oct 2026 against main f2dee4b** ([audit](../../MASTER-PLAN-AUDIT-2026-10-25.md)): the project
+> `travel` exists (root `web`, Node 22, env vars for Production and Preview, Preview on production values by the owner's
+> one-environment decision); a preview deployed READY behind Vercel Authentication; the production alias
+> `https://travel-beta-tan.vercel.app` has no deployment and is the one trusted domain on the production Neon branch.
+> Custom domain: none for now (owner 25 Oct). The rate-limit item below must share Hobby's single WAF rate-limit rule
+> with the MCP endpoints ([mcp/auth-and-sign-in.md](../../mcp/auth-and-sign-in.md) 6.4). The "do not create a project"
+> sentence is history.
 
 Vercel is selected for the Next.js server build. R-61 / BACKLOG 15.50 owns
 creating the project and deploying the approved merge-ready commit; do not

@@ -2,9 +2,15 @@
 
 > **Working draft.** "Decided" and "answered" below mean *current direction*, not final. Any of them can be reopened.
 
+> **Last verified 25 Oct 2026 against main f2dee4b** ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). Since the 24 Oct note
+> below: hosting is decided (Vercel, project `travel`, Q3); the site uses `https://travel-beta-tan.vercel.app` with no
+> custom domain for now (owner 25 Oct, which answers Q17 for the time being; Q148 covers the mail domain); sign-in by
+> email code and Google are planned (R-100, R-81), Apple is skipped (R-85), MCP sign-in is designed (R-123 to R-129,
+> Q160 to Q167). Open owner questions now live in [PLAN.md](PLAN.md) section 5; this page is the 17 Oct record.
+
 **Revised 24 Oct 2026 (owner): Q1 = Neon for Postgres, Managed Better Auth and Realtime, selected and provisioned
 ([NEON-SETUP.md](build/public-site/NEON-SETUP.md)).** That choice does not settle hosting, object storage or
-functions, which remain open (laundry list Q65). Sign-in is email and password only so far (Q66); who may sign up
+functions, which remain open (laundry list Q65; hosting was then decided as Vercel, Q3). Sign-in is email and password only so far (Q66); who may sign up
 (Q67), guest planning (Q68) and the household privacy model (Q69) keep their own answers in
 [SERVER-SIDE-LAUNDRY-LIST.md](build/SERVER-SIDE-LAUNDRY-LIST.md).
 
@@ -36,12 +42,12 @@ Each has a recommendation; "blocks" says which milestone cannot start without an
 |---|---|---|---|
 | Q10 | Is this for **your family first, then others**, or a **public product from launch**? | public launch adds moderation, terms, abuse limits and support before M2 | family first; public from M5 |
 | Q11 | Region: start **Ontario + day trips** (the Travel Finder idea) or **big trips worldwide**? | day trips need dense local coverage and drive times; big trips need deep research per destination | both, but the first catalog is Banff + your 64 places + the 40 local day trips |
-| Q12 | Should **collaborators edit at the same time** (Google Docs style) or is "someone else changed this, refresh" enough? | real-time needs a sync engine (ElectricSQL, Zero) and changes M2's size | refresh is enough in v1 |
+| Q12 | Should **collaborators edit at the same time** (Google Docs style) or is "someone else changed this, refresh" enough? | real-time needs a sync engine (ElectricSQL, Zero) and changes M2's size | refresh is enough in v1. **Answered 17 Oct: live, like Wanderlog** (note above); the transport on Neon is not designed |
 | Q13 | Flights: just **items with a booking and a deadline**, or **fare tracking**? | fare tracking needs paid APIs | items only |
 | Q14 | Do you want an **in-app AI chat** at all, or only the MCP for outside clients? | in-app chat costs model tokens per user | MCP only; in-app later if asked |
 | Q15 | Is the **trip page for others** (the published HTML today) still needed, or is the app's read-only link enough? | the legacy pages are rich, designed one-pagers; the app view is functional | app link, with a print-friendly view |
 | Q16 | Kids' data: is storing **birth year and height** acceptable, or only an age band? | eligibility checks (via ferrata 12+, 40-120 kg) need numbers | birth year + optional height, private to the household |
-| Q17 | **Brand and domain** for the product (not nks-travel.pages.dev)? | OAuth consent screens, email sender, cookies | decide before M3 (email) |
+| Q17 | **Brand and domain** for the product (not nks-travel.pages.dev)? | OAuth consent screens, email sender, cookies | decide before M3 (email). **25 Oct (owner):** the Vercel address for now, no custom domain; the planned Application Name in account mail is "Trip Plans" (R-107 O-E0, not yet set; the child branch reads "Travel Planner") |
 | Q18 | Which **design direction** from the commissioned previews? | colour, type, density | wait for the previews |
 | Q19 | **Budget per month** you are comfortable with once others use it? | decides the Neon paid plan, the app host and the email tier (the Neon vs Supabase Pro comparison is historical) | $25 |
 | Q20 | Who besides you will **review research** (moderators)? | review queue permissions and volume | you only |

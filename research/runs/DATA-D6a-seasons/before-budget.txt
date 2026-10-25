@@ -1,0 +1,11 @@
+$ node core/bin/capture.ts gaps --budget --check
+exit 0
+     E_PLACE_AREA           budget   277  now   277
+     E_PLACE_ORPHAN         budget    17  now    17
+     W_PLACE_POINT          budget     6  now     6
+     W_PLACE_APPROX         budget     0  now     0
+     E_PLACE_FAR            budget     0  now     0
+     W_PLACE_TOWN           budget     0  now     0
+     W_TIER_REQUIRED        budget   385  now   385
+     W_TIER_REQUIRED.keys   budget  3875  now  3875
+OK: no gap count rose

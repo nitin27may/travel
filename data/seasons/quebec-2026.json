@@ -1,0 +1,60 @@
+{
+  "schema": "trip-season-basic/1",
+  "schema_note": "One window only, the plan's own. trip-windows/1 (overview spec 2.2) needs 2 to 4 windows, so this file keeps the same field names under trip-season-basic/1 and adds a `season` block in the adapter's Season shape.",
+  "trip": "quebec-2026",
+  "legacy_folder": "quebec-sept-2026",
+  "researched": "2026-10-25",
+  "agent": "DATA-D6a",
+  "model": "opus",
+  "length_days": 3,
+  "default": "plan",
+  "months_basis": "plan_months",
+  "months_basis_note": "The plan's own months: the plan runs over the turn of September into October, so both months are listed.",
+  "sources": [
+    { "id": "s-12cf778b01", "url": "https://climate.weather.gc.ca/climate_normals/results_1991_2020_e.html?searchType=stnProv&lstProvince=QC&climate_id=7016294&dispBack=0", "title": "Canadian Climate Normals 1991-2020, QUEBEC/JEAN LESAGE INTL A (7016294)", "publisher": "Environment and Climate Change Canada", "kind": "official", "read": "2026-10-25" },
+    { "id": "s-f63a803989", "url": "core/bin/sun.ts", "title": "Sun calculator (sunrise, sunset, twilight)", "publisher": "this repo", "kind": "computed", "read": "2026-10-25" }
+  ],
+  "points": [
+    { "id": "yqb", "name": "Québec Jean Lesage airport climate station", "lat": 46.8, "lon": -71.38333, "elev_m": 74.4, "zone": "America/Toronto", "src": ["s-12cf778b01"], "note": "Station coordinates as printed on the ECCC normals page; the station is at the airport, west of the old city." }
+  ],
+  "season": {
+    "months": { "value": [9, 10], "basis": "plan", "note": "The plan's own months." },
+    "label": { "value": "Last days of September into early October", "basis": "plan" },
+    "why": { "value": "The plan's own short break at the turn of the month; normals give cool days, cold nights and rain on about one day in three.", "basis": "official", "src": ["s-12cf778b01"], "on": "2026-10-25" },
+    "weather": {
+      "tempC": { "value": "8 to 19 C in September, 2 to 11 C in October (mean daily low to high)", "basis": "official", "src": ["s-12cf778b01"], "on": "2026-10-25", "note": "1991-2020 normals, Québec airport: Sep max 19.1, min 8.3; Oct max 11.3, min 2.4." },
+      "rain": { "value": "About 10 days with 1 mm or more in September and 11 to 12 in October; about 110 to 115 mm a month", "basis": "official", "src": ["s-12cf778b01"], "on": "2026-10-25", "note": "Sep 111.3 mm, 9.8 days >= 1 mm; Oct 115.8 mm, 11.5 days >= 1 mm." },
+      "daylight": { "value": "Sunrise about 06:40, sunset about 18:30; just under 12 hours of day", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25", "note": "core/bin/sun.ts at the station point for the first and last plan day: sunrise 06:40 to 06:42, sunset 18:32 to 18:28, day 11h52m to 11h45m." },
+      "notes": [
+        { "text": "October nights average just above freezing, so pack a warm layer for evenings", "basis": "official", "src": ["s-12cf778b01"], "on": "2026-10-25" }
+      ]
+    }
+  },
+  "windows": [
+    {
+      "id": "plan",
+      "label": "Last days of September into early October",
+      "start": { "month": 9, "week": "last" },
+      "sun": { "from": [9, 29], "to": [10, 1] },
+      "verdict": null,
+      "verdict_note": "Not set: only the plan's own window was researched, so there is nothing to rank it against.",
+      "best_for": "A short city break in cool weather",
+      "crowd": null,
+      "plus": [
+        { "text": "Mild afternoons, about 19 C in late September", "factor": "weather", "basis": "official", "src": ["s-12cf778b01"], "on": "2026-10-25" },
+        { "text": "Nearly 12 hours of daylight", "factor": "light", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" }
+      ],
+      "minus": [
+        { "text": "Rain on about one day in three", "factor": "weather", "basis": "official", "src": ["s-12cf778b01"], "on": "2026-10-25" },
+        { "text": "Nights drop to about 2 to 8 C", "factor": "weather", "basis": "official", "src": ["s-12cf778b01"], "on": "2026-10-25" }
+      ],
+      "events": [],
+      "affects": [],
+      "unknown": [
+        { "text": "Crowd level in this window", "searched": "2026-10-25", "tried": "Not researched in this batch; no official visitor count was read." },
+        { "text": "Fall colour timing around the city", "searched": "2026-10-25", "tried": "Not researched in this batch; no official foliage report was read." },
+        { "text": "Opening seasons of the plan's sights in this window", "searched": "2026-10-25", "tried": "The legacy hub was read for months only; no operator season page was read." }
+      ]
+    }
+  ]
+}

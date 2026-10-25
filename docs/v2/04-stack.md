@@ -1,5 +1,21 @@
 # 04. Stack and architecture: the decisions, argued
 
+> **Current state, last verified 25 Oct 2026 against main f2dee4b** ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). This
+> box wins over the 24 Oct banner below where they differ.
+>
+> | Concern | Now | Status |
+> |---|---|---|
+> | Hosting | **Vercel**, project `travel` (Hobby), root `web`, Node 22; public address `https://travel-beta-tan.vercel.app` (no custom domain, owner 25 Oct) | project created and env set 25 Oct; previews behind Vercel Authentication; **no production deployment**; production needs the owner's approval of a named commit (Q43, R-61) |
+> | Database | **Neon** project `damp-queen-64719841`, Free plan; production branch `br-soft-glade-b4mkqyvd`, child `br-damp-breeze-b41mtvn5` for spikes and DB tests | 10 migrations, RLS on 86 tables plus the ledger; `planner_draft_signal` the one content-free exception (owner ruling still open) |
+> | Auth | **Neon Managed Better Auth** (Free plan includes 60,000 monthly active users): email and password built; email codes spiked (EML-0, gate M1 passed); Google with the owner's own OAuth client on both branches (UI not built); Apple **skipped** (no Neon provider, USD 99 a year); one environment (Preview and Production on production values) | R-58 merged into `main` 25 Oct; R-81, R-100, R-101 planned; EML-1 in progress |
+> | Realtime | **Neon Realtime**, only for the private draft signal followed by an RLS re-fetch | built |
+> | Email | Account mail through **Neon's shared sender** in Phase 1; **Resend** (sandbox, owner alerts only; key in Vercel and GitHub secrets) | Phase 1 planned (R-100 to R-107); custom SMTP and templates after a mail domain (Q148) |
+> | Public catalogue | `JsonStore` behind `/api/v1` | `PostgresStore`, loader and cutover not built (SRV-0) |
+> | MCP | local stdio server `core/bin/mcp.ts` (15 read tools, no sign-in) | remote public and private endpoints designed in [mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md) (R-123 to R-129); not built |
+> | Not selected | object storage, scheduled jobs and the reminder worker, live co-editing transport, backups beyond Neon's restore window | proposals below |
+>
+> Supabase is gone (R-58, R-60): every Supabase row below is the reasoning record, not a plan.
+
 > **Current stack (updated 24 Oct 2026, R-60).** Selected and provisioned: **Neon** Postgres, **Neon Managed Better
 > Auth** and **Neon Realtime** (owner, 24 Oct; [NEON-SETUP.md](build/public-site/NEON-SETUP.md)). Ten migrations are
 > applied ([NEON-MIGRATIONS.md](build/public-site/NEON-MIGRATIONS.md)): 86 application tables plus the migration ledger
@@ -8,7 +24,9 @@
 > and live invalidation by a sealed per-user Realtime signal followed by an authenticated, RLS-scoped re-fetch. **Not
 > implemented:** the household and trip planner, collaboration and presence, MCP OAuth, and the catalogue in Postgres
 > (public reads still use `JsonStore`; a `PostgresStore` and its loader are proposed). **Not selected:** frontend
-> hosting, object storage, serverless functions and jobs; the rows below that name them are proposals.
+> hosting, object storage, serverless functions and jobs; the rows below that name them are proposals. (Stale since
+> 24 to 25 Oct: Vercel is selected and the project exists; R-58 is merged into `main`; MCP sign-in is designed. See the
+> box above.)
 >
 > **Historical (superseded).** The 17 Oct self-hosted Supabase decision (08-self-hosted.md: Postgres, Auth with OAuth 2.1
 > for MCP, Realtime and Storage on the home server or Supabase Cloud; Next.js and a worker in containers; Cloudflare
@@ -262,7 +280,7 @@ and its tests carry straight over, and the most mature React server framework.
 | DB driver | **@neondatabase/serverless** (HTTP for one-shot queries, WebSocket for transactions); `pg` locally | Hyperdrive + `pg` | made for Workers; Hyperdrive optional later for pooling |
 | Operation layer | `defineOp({ name, input, output, auth, run })` in a `domain` package; every op logs `op_event` and returns an inverse | tRPC, ad-hoc handlers | the operation is the unit for API, MCP, CLI, undo, audit and offline replay |
 | HTTP API | **Hono** mounted in a Next.js route handler (Vercel); **oRPC** (or Hono's OpenAPI middleware) to expose ops with an OpenAPI 3.1 spec | Express, Fastify, tRPC | Hono runs on Workers, Node and Bun; oRPC generates OpenAPI from Zod |
-| MCP server | **@modelcontextprotocol/sdk**, Streamable HTTP transport, mounted at `/mcp` in the same Hono app; auth by Better Auth MCP plugin | separate service | same ops, same deploy; see 03-mcp-and-research.md |
+| MCP server | **@modelcontextprotocol/sdk**, Streamable HTTP transport, mounted at `/mcp` in the same Hono app; auth by Better Auth MCP plugin. **25 Oct:** stateless Next.js route handlers `/mcp/` (public, no sign-in) and `/mcp/private/`; auth by Neon Managed Better Auth's OAuth provider plugin (JWT via JWKS) or our own personal access tokens; the self-managed Better Auth MCP plugin is the fallback only ([mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md)) | separate service | same ops, same deploy; see 03-mcp-and-research.md |
 | Web framework | **Next.js 16** (App Router) on **Vercel Hobby** for year one (1.9): server components for public pages (templates, area guides, entity pages: SEO, JSON-LD), client components for planning | React Router 7 on Workers; SvelteKit; TanStack Start | owner's choice; `web/` carries over; Hobby allows personal use; OpenNext keeps a path to Cloudflare |
 | UI kit | **Tailwind 4** + **Base UI** primitives (shadcn-style components we own) + **Lucide** | MUI, Chakra | already in `web/`; accessible primitives; no runtime CSS |
 | Client data | **TanStack Query** with an IndexedDB persister; offline **op queue** in IndexedDB (Dexie); one **op reducer** shared by optimistic updates, offline replay and live updates | Zero, PowerSync, ElectricSQL, Replicache | offline reads and queued writes through our ops, without logical replication (1.8) |
@@ -277,12 +295,12 @@ and its tests carry straight over, and the most mature React server framework.
 | Sun and twilight | existing `core/src/sun` | | already correct and tested |
 | Weather | **Open-Meteo** (free, no key, non-commercial; commercial plan if we sell) | OpenWeather | free forecast for Today mode |
 | Files | **Cloudflare R2**; images resized in the browser before upload (two sizes) | Cloudflare Images (paid), Supabase Storage | free egress, signed URLs for private tickets |
-| Email | **Resend** (free tier ~3,000/month) or Amazon SES | Postmark | transactional reminders and digest; swap via one interface |
+| Email | **Resend** (free tier ~3,000/month) or Amazon SES | Postmark | transactional reminders and digest; swap via one interface. **25 Oct:** account mail goes through Neon's shared sender in Phase 1; Resend's sandbox carries owner alerts only until a mail domain exists (R-100 to R-107, Q148) |
 | Push | **Web Push** with VAPID (`web-push`-compatible signing in the Worker) | OneSignal, FCM direct | free, standard, no vendor |
 | Calendar | ICS feed per trip at a secret URL, plus one-off `.ics` per deadline | | |
 | Scheduling | **Cloudflare Workers Cron** every minute reading `next_fire_at` from KV (1.4) | pg_cron, Vercel Cron (once a day on Hobby) | minute precision, free, keeps Neon asleep |
 | Long jobs (imports, server research) | CLI and **GitHub Actions** at first; a small container (Fly.io or a VPS) when server-run research starts | Workers (CPU-time limits) | research runs minutes, not milliseconds |
-| Hosting | **Vercel Hobby** for the Next.js app, API and MCP; **Cloudflare Workers** for the reminder cron and the trip rooms; legacy pages stay on Cloudflare Pages | all on Cloudflare (OpenNext) | owner's choice for year one; move to Vercel Pro or Cloudflare when it turns commercial (1.9) |
+| Hosting | **Vercel Hobby** for the Next.js app, API and MCP; **Cloudflare Workers** for the reminder cron and the trip rooms; legacy pages stay on Cloudflare Pages | all on Cloudflare (OpenNext) | owner's choice for year one; move to Vercel Pro or Cloudflare when it turns commercial (1.9). **25 Oct:** Vercel project `travel` exists (R-61); the Workers rows are proposals, not selected |
 | Errors and logs | **Sentry** free tier + Workers logs | Highlight, self-hosted GlitchTip | |
 | Analytics | **Cloudflare Web Analytics** (no cookies) + `op_event` for product metrics | Plausible, PostHog | free, private |
 | Tests | **Vitest** (domain, ops against a real Postgres in Docker or a Neon branch), **Playwright** + axe (UI, accessibility) | | ops are tested against real SQL, never mocks |
@@ -313,6 +331,10 @@ and its tests carry straight over, and the most mature React server framework.
      research runners: owner's Claude Code / chat client via MCP · GitHub Actions · (later) a container
 ```
 
+Read this sketch as the 17 Oct target. Since 25 Oct: the MCP OAuth box is Neon Managed Better Auth's OAuth provider (not
+a Better Auth plugin we run), Hono, Drizzle, R2 and the Cron Worker are not built or selected, and the API is Next.js
+route handlers at `/api/v1` ([mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md) section 1 has the current MCP picture).
+
 ## 4. Security and privacy rules
 
 1. Authorisation in the operation layer (who may run this op on this trip), **and** row-level
@@ -322,10 +344,13 @@ and its tests carry straight over, and the most mature React server framework.
    `planner_draft` only; trip and household tables are RLS-enabled with no policy (deny) until their
    membership policies are written and tested.
 2. MCP tokens carry scopes: `catalog:read`, `trips:read`, `trips:write`, `research:propose`,
-   `review` (moderators only). Research scopes can only create changesets.
+   `review` (moderators only). Research scopes can only create changesets. (25 Oct: Neon's OAuth scopes are fixed, so
+   these are capabilities stored per client grant or token and checked with the role on every call;
+   [mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md) 5.1.)
 3. People data (ages, heights, passport expiry, attachments) is never returned by public or link
    views; those use a dedicated read function that returns the template shape.
-4. Rate limits per user and per MCP client (Workers rate-limit binding or a KV counter).
+4. Rate limits per user and per MCP client (Workers rate-limit binding or a KV counter). (25 Oct: Postgres
+   `quota_bucket`, shared with the auth and mail limits, plus the one Vercel WAF rule Hobby allows.)
 5. Secrets in Workers secrets; no service key ever reaches a browser.
 6. Export and delete per user (GDPR-style), including the household.
 
@@ -333,7 +358,7 @@ and its tests carry straight over, and the most mature React server framework.
 
 | Stage | Monthly | What it buys |
 |---|---|---|
-| Build and private use | **$0** + domain (~$1/mo) | Neon free, Workers free, R2 free, Resend free, OpenFreeMap, ORS free key, Sentry free |
+| Build and private use | **$0** + domain (~$1/mo; no domain for now, owner 25 Oct) | Neon free, Workers free, R2 free, Resend free, OpenFreeMap, ORS free key, Sentry free |
 | First outside users | **~$5-25** | Neon Launch (usage), maybe Workers Paid ($5) for more cron/CPU |
 | Server-run research for others | variable | model tokens per job with a hard budget per job and per user (B4: owner only at first) |
 

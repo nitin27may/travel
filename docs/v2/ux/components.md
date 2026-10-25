@@ -26,6 +26,12 @@ component supports keyboard, touch and pointer; every async one has loading, err
 - **Behaviour**: badges show counts (Inbox due). Rail collapses to icons at tablet.
 - **A11y**: `aria-current="page"`; labels always present (visually hidden when icon-only).
 
+### ToTop (floating back-to-top, phone)
+- **Spec**: [S28](screens/S28-back-to-top.md). Client-only, lazy; phone width (639 px and narrower) only.
+- **Placement**: fixed, `right: --margin`, `bottom: --phone-bottombar-h + --s-3`, `--z-drawer`, 44 x 44, `--surface` fill, `--e-3` ring (no border), `--ink` arrow.
+- **Behaviour**: shows 1.5 screens down, hides within 1 screen of the top. Blocked while a text-entry field has focus, while a visible dialog, menu, listbox or `aria-modal` is open, while a toast shows, and while a fixed bottom panel is open (today the trip map sheet, `.tl-mapcol[data-sheet]`). Any new fixed bottom panel must add its open attribute to the blocked list in `ToTop.tsx`.
+- **A11y**: native button "Back to top"; focus moves to `main#main`, which shows no outline and loses its tabindex on blur.
+
 ### TripTabs
 - **Props**: `phase`, `active`, `counts`.
 - **Behaviour**: Overview label becomes "Today" during the trip.
