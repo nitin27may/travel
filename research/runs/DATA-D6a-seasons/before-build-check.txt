@@ -1,0 +1,3 @@
+$ node core/bin/capture.ts build --check
+exit 0
+OK: the generated capture files match data/vocab/types.json

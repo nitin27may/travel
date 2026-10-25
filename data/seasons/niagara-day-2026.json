@@ -1,0 +1,58 @@
+{
+  "schema": "trip-season-basic/1",
+  "schema_note": "One window only, the plan's own. trip-windows/1 (overview spec 2.2) needs 2 to 4 windows, so this file keeps the same field names under trip-season-basic/1 and adds a `season` block in the adapter's Season shape.",
+  "trip": "niagara-day-2026",
+  "legacy_folder": "niagara-day-aug-2026",
+  "researched": "2026-10-25",
+  "agent": "DATA-D6a",
+  "model": "opus",
+  "length_days": 1,
+  "default": "plan",
+  "months_basis": "plan_months",
+  "months_basis_note": "The plan's own month: one day late in August.",
+  "sources": [
+    { "id": "s-768921b193", "url": "https://climate.weather.gc.ca/climate_normals/results_1991_2020_e.html?searchType=stnProv&lstProvince=ON&climate_id=6139445&dispBack=0", "title": "Canadian Climate Normals 1991-2020, WELLAND-PELHAM composite (WELLAND 6139445)", "publisher": "Environment and Climate Change Canada", "kind": "official", "read": "2026-10-25" },
+    { "id": "s-f63a803989", "url": "core/bin/sun.ts", "title": "Sun calculator (sunrise, sunset, twilight)", "publisher": "this repo", "kind": "computed", "read": "2026-10-25" }
+  ],
+  "points": [
+    { "id": "welland", "name": "Welland climate station", "lat": 42.99253, "lon": -79.26114, "elev_m": 175.3, "zone": "America/Toronto", "src": ["s-768921b193"], "note": "Station coordinates as printed on the ECCC normals page (42 59'33\" N, 79 15'40\" W). It is the nearest 1991-2020 normals location to the Niagara River found; it is inland, south-west of the gorge." }
+  ],
+  "season": {
+    "months": { "value": [8], "basis": "plan", "note": "The plan's own month." },
+    "label": { "value": "One day late in August", "basis": "plan" },
+    "why": { "value": "The plan's own day out; normals give warm afternoons and a long evening for a sunset at the river mouth.", "basis": "official", "src": ["s-768921b193", "s-f63a803989"], "on": "2026-10-25" },
+    "weather": {
+      "tempC": { "value": "15 to 26 C (mean daily low to high in August)", "basis": "official", "src": ["s-768921b193"], "on": "2026-10-25", "note": "1991-2020 normals, Welland-Pelham: Aug max 26.1, min 15.4." },
+      "rain": { "value": "About 9 days with 1 mm or more in August; about 79 mm in the month", "basis": "official", "src": ["s-768921b193"], "on": "2026-10-25", "note": "August: 78.7 mm, 9.3 days >= 1 mm." },
+      "daylight": { "value": "Sunrise about 06:35, sunset about 20:00; about 13 hours 20 minutes of day", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25", "note": "core/bin/sun.ts at the station point for the plan day: sunrise 06:37, sunset 20:00, civil dusk 20:29, day 13h22m." },
+      "notes": [
+        { "text": "Civil twilight lasts about half an hour after sunset", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" }
+      ]
+    }
+  },
+  "windows": [
+    {
+      "id": "plan",
+      "label": "One day late in August",
+      "start": { "month": 8, "week": "last" },
+      "sun": { "from": [8, 29], "to": [8, 29] },
+      "verdict": null,
+      "verdict_note": "Not set: only the plan's own window was researched, so there is nothing to rank it against.",
+      "best_for": "A long summer day along the river ending with a sunset",
+      "crowd": null,
+      "plus": [
+        { "text": "Warm afternoons, about 26 C", "factor": "weather", "basis": "official", "src": ["s-768921b193"], "on": "2026-10-25" },
+        { "text": "Sunset near 20:00 leaves a full day of light", "factor": "light", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" }
+      ],
+      "minus": [
+        { "text": "Rain on about one day in three in August", "factor": "weather", "basis": "official", "src": ["s-768921b193"], "on": "2026-10-25" }
+      ],
+      "events": [],
+      "affects": [],
+      "unknown": [
+        { "text": "Normals for the Niagara River corridor itself", "searched": "2026-10-25", "tried": "ECCC 1991-2020 normals station list for Ontario: no St. Catharines or Niagara Falls location; Welland and Vineland are the nearest. Welland used." },
+        { "text": "Crowd level on a late-summer weekend", "searched": "2026-10-25", "tried": "Not researched in this batch; no official visitor count was read." }
+      ]
+    }
+  ]
+}
