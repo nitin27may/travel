@@ -91,7 +91,7 @@ test.describe('trip page', () => {
       expect(clipped, `cards at ${width}`).toEqual([]);
       await expect(page.locator("[data-tone='season'] .chip").filter({ hasText: 'Last week of June into early July' }).first()).toBeVisible();
       // the map card for the Norway trip keeps its meta line and the button inside the card
-      await page.goto(`${site.url}/trips/?view=map`);
+      await page.goto(`${site.url}/trips/?view=map&c=12,64,5`);
       await page.locator('[data-pin-id="norway-summer-2028"]').first().dispatchEvent('click');
       const card = page.locator('.trips-map-card');
       await expect(card).toBeVisible();
