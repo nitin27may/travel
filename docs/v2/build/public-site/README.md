@@ -354,6 +354,10 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `RESEND_API_KEY` | web `lib/server/mailer.ts` | Send-only Resend key for owner alerts (EML-M). Unset, the mailer is disabled and refuses every send | no |
 | `OWNER_EMAIL` | web `lib/server/mailer.ts` | The owner's address, which must be the Resend account's own address (the sandbox delivers nowhere else). The only recipient allowed while `MAIL_FROM` is unset; unset, every alert is refused | no |
 | `MAIL_FROM` | web `lib/server/mailer.ts` | Our verified sender (Phase 2, after a mail domain). Unset in Phase 1: the sandbox sender and owner-only recipients | no |
+| `AUTH_QUOTA_SECRET` | web `lib/auth/guard.ts` | Secret (at least 16 characters, `openssl rand -base64 32`) for the HMAC quota keys of addresses and IPs. Unset in production, every guarded auth call answers 503 (fail closed) | no |
+| `TURNSTILE_SECRET` | web `lib/auth/guard.ts`, `lib/server/turnstile.ts` | Cloudflare Turnstile secret, checked on every call that sends a sign-in email and on sign-up. Unset in production: those calls answer 503; Cloudflare's test secrets are refused in production | no |
+| `TURNSTILE_SITE_KEY` | web sign-in card (EML-1) | Cloudflare Turnstile site key for the widget on the sign-in pages | no |
+| `AUTH_GUARD` | web `lib/auth/guard.ts` | `off` is the rollback switch (email spec 11.2): the guard forwards without Turnstile, quotas or counters, still trims addresses, rewrites answers and revokes sessions after a reset | no |
 | `VERCEL_ENV` | core `mail/outbox.ts`, web `lib/server/mailer.ts` | Set by Vercel (`production`, `preview`, `development`); `production` refuses the test-only outbox mail adapter | no |
 
 ## Change log
