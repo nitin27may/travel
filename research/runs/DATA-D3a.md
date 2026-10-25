@@ -147,3 +147,7 @@ another agent's run sharing a temp path.
 
 No capture `TF.json` was written: every target ref already has a capture record elsewhere. No household data in any file.
 No ref renamed.
+
+## Integration (25 Oct 2026, `public/DATA-INT2`)
+
+Merged with D4a and main (D1b). Owner rulings applied: the R9- file names stay; in-place edits to trail-fact fields allowed after D1b. Held back, saved verbatim in `research/runs/DATA-D3a/held-back-records.json`, because the place-size gate (`web/tests/data/place-size.test.ts`) fails when a page crosses the median (1.2489 now, the next page up is 1.2567): Lake Agnes and Rawson Lake (owner ruling), the Sulphur boardwalk (a third page that crosses), most of the Johnston walk patch (only shape and stroller fit: that page is at 1.229) and the Tre Cime dogs value (the page is the largest and would pass 1.25; 3 kB). Applied: Johnston shape and stroller, Sarrail distance estimate (the superseded `searched_none` block is kept in `data/capture/placement.json` `removed_duplicates` so the migration ledger holds), the Seekofel track as a conflict only (the climb choice 3.47b stays `searched, none published`), link additions for Lake Agnes, Johnston, Rawson and Sarrail. Left: the Tre Cime second line (code, 3.47c) and the draw move (RB-3, needs a lane owner). The Rockpile loop record stays (it is below the median). `W_TIER_REQUIRED.keys` is 3,777 after both batches.

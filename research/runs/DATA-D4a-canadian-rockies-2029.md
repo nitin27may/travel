@@ -170,3 +170,7 @@ batch changes no web code). `web/.env.local` does not exist in this worktree, so
 14 values drawn with seed 2510 from the 41 values with a quote read today; each quote was looked up in the cached text of its
 page: 14 of 14 found, and each value matches its quote (ages, weights, a 170 CAD canoe, the Walcott and Mount Stephen
 reservation rules, the Assiniboine 2027 season, booking links).
+
+## Integration (25 Oct 2026, `public/DATA-INT2`)
+
+Merged before D3a, then main's D1b (gap budget kept at the lower counts: orphans 7, points 1). Coordinator steps run: source registry rebuilt, scope list regenerated, snapshot rewritten. The five folded pages are accepted (owner ruling 4); the Jasper and Waterton horse split stays a note. `slugs.ts merge` was run for the five keys but `slugs.ts --check` still failed, because the dataset builder drops a folded offer's key; the five keys are `withdraw`n instead (slugs reserved, answer not found, no 308). Follow-up for a builder: have the builder report a folded offer as a merged record so the old URL redirects. The Radium pools 301 in `web/redirects.json` went with it. `core/test/capture/migration.test.ts` now pins 23 operators (the 10 the migration wrote must be present) and 32 offers with `run_by` in `migrated.json`.
