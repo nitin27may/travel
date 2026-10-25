@@ -1,0 +1,61 @@
+{
+  "schema": "capture-points/1",
+  "note": "Points of capture records that no other input holds (OSM nodes and Wikidata P625 read by research lanes, with the source",
+  "points": {
+    "legacy/canadian-rockies-sept-2029/adventures/banff-gondola": {
+      "lat": 51.14785,
+      "lon": -115.55562,
+      "coord_src": "osm",
+      "point_source": "OSM node 10809307066 Banff Gondola Lower Terminal (where the ride starts); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride": {
+      "lat": 51.17507,
+      "lon": -115.58171,
+      "coord_src": "osm",
+      "point_source": "OSM way 1125504165 Warner Stables (horse riding); the operator says rides meet at its stables at the end of Sundance Road, Banff; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram": {
+      "lat": 52.85134,
+      "lon": -118.12371,
+      "coord_src": "osm",
+      "point_source": "OSM node 263473399 Jasper Skytram station; the lower of the two (node 263473400 is nearer the Whistlers summit, Q22701843 P625 52.82694,-118.13278); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp": {
+      "lat": 49.4142,
+      "lon": -114.115,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q3364703 P625 (Beauvais Lake Provincial Park); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
+      "point_role": "centre"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop": {
+      "lat": 50.867767,
+      "lon": -114.781998,
+      "coord_src": "official",
+      "point_source": "Alberta Parks trail report Elbow Falls Interpretive https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/elbow-valley/elbow-falls-interpretive/ (its map's trailhead point 'Elbow Falls', Day Use); the D1 point, OSM node 270030306 Elbow Falls (amenity=parking), is 113 m west (failed the person-check sample); read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
+    },
+    "trip/vermont-fall-2026/sight:covered bridge loop": {
+      "lat": 44.88728,
+      "lon": -72.64011,
+      "coord_src": "osm",
+      "point_source": "mean of five Montgomery covered bridges in OSM (Longley way 1038791200, Fuller way 967879573, West Hill way 1028147668, Comstock way 1038791204, Hutchins way 1028142995); the plan's loop is Montgomery per research/trips/vermont-fall-2026/suitability.md; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check",
+      "point_role": "centre",
+      "approx": true,
+      "approx_note": "mean of the bridge points, an area-level centre for the loop; the drive's own start is not stated"
+    },
+    "place/cascate-di-fanes": {
+      "lat": 46.593809,
+      "lon": 12.112955,
+      "coord_src": "osm",
+      "point_source": "OSM node 470623991 Centro visitatori del parco (tourism=information, office), the Ampezzo Dolomites park information point by Ponte Felizon; Cortina tourism (the route page above): 'Start: Ufficio informazioni del Parco', path 10, 7 km return, +249 m. This beats the snapshot trailhead (OSM node 7920730765 at Pian de Loa), which is where the stored OSM track starts, 2 km along the route; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
+    },
+    "trip/iceland-ring-road-2027/trail:skaftafell svartifoss": {
+      "lat": 64.016471,
+      "lon": -16.966816,
+      "coord_src": "official",
+      "point_source": "Vatnajokull National Park S2 GPX (linked from https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/svartifoss-sjonarsker-sel-s2), its first point; the page gives 'Starting point Skaftafellsstofa', and the D1 visitor-centre point (OSM way 200175906) is 32 m away; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check",
+      "point_role": "trailhead"
+    }
+  }
+}
