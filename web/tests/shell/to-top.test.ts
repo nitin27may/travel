@@ -15,9 +15,18 @@ describe('back-to-top visibility (S28)', () => {
     expect(toTopVisible(true, 0, vh)).toBe(false);
   });
   it('is hidden with no viewport', () => expect(toTopVisible(true, 5000, 0)).toBe(false));
-  it('detects the on-screen keyboard by a shrunk visual viewport or a focused field', () => {
-    expect(keyboardUp(844, 844, false)).toBe(false);
-    expect(keyboardUp(500, 844, false)).toBe(true);
-    expect(keyboardUp(844, 844, true)).toBe(true);
+  it('counts the keyboard as up only for a focused text-entry field', () => {
+    for (const type of ['text', 'search', 'email', 'url', 'tel', 'password', 'number']) expect(keyboardUp({ tagName: 'INPUT', type })).toBe(true);
+    expect(keyboardUp({ tagName: 'TEXTAREA' })).toBe(true);
+    expect(keyboardUp({ tagName: 'DIV', isContentEditable: true })).toBe(true);
+    for (const type of ['checkbox', 'radio', 'range', 'button', 'submit', 'color', 'file']) expect(keyboardUp({ tagName: 'INPUT', type })).toBe(false);
+    expect(keyboardUp({ tagName: 'SELECT' })).toBe(false);
+    expect(keyboardUp({ tagName: 'BUTTON' })).toBe(false);
+    expect(keyboardUp(null)).toBe(false);
+  });
+  it('does not hide for pinch zoom: only the focused field decides, never the viewport size', () => {
+    // visual viewport 562 of 844 (1.5x pinch) and nothing focused: visible
+    expect(keyboardUp(null)).toBe(false);
+    expect(keyboardUp.length).toBe(1);
   });
 });

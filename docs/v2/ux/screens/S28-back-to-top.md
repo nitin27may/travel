@@ -6,7 +6,7 @@ Principles: P3 (a glance, then a few clicks: one tap returns to the page start),
 ## Behaviour
 - Phone only: 639 px and narrower (the same breakpoint as the bottom bar). At 640 px and wider the button does not exist.
 - Shows once the reader is 1.5 screens down (`scrollY >= 1.5 x viewport height`); once shown it hides again when they are back within one screen of the top. The gap stops flicker. Rule: `web/lib/to-top.ts` (`toTopVisible`), unit-tested.
-- Hidden while the on-screen keyboard is up (visual viewport under 75% of the layout viewport, or a field has focus) and while a dialog, menu or listbox is open (`[role=dialog|menu|listbox]`, `[aria-modal]`: the search results listbox, filter sheets, lightbox, entity sheet). It is also below the scrim (`--z-drawer`).
+- Hidden while the on-screen keyboard is up (only while a real text-entry field has focus: text, search, email, url, tel, password, number, textarea, contenteditable; not checkbox, radio, range or select; there is deliberately no viewport-size test, because pinch zoom and page zoom shrink the visual viewport too) and while a dialog, menu or listbox is open (`[role=dialog|menu|listbox]`, `[aria-modal]`: the search results listbox, filter sheets, lightbox, entity sheet). It is also below the scrim (`--z-drawer`).
 - Tap: scroll to the top, smooth under `--d-*` defaults, instant under `prefers-reduced-motion: reduce`; focus moves to `main#main` (the skip-link target, given `tabindex=-1` on first use, `preventScroll`) so keyboard and screen-reader users continue from the top.
 - Navigation itself already starts at the top (checked in `to-top.spec.ts`: Home, Trips, a trip, Places, a place, via the bottom bar and in-page links).
 

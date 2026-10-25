@@ -15,8 +15,7 @@ export function ToTop() {
     const update = () => {
       raf = 0;
       const a = document.activeElement as HTMLElement | null;
-      const typing = !!a && (/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) || a.isContentEditable);
-      const blocked = keyboardUp(visualViewport?.height ?? innerHeight, innerHeight, typing) || !!document.querySelector(OVERLAY);
+      const blocked = keyboardUp(a) || !!document.querySelector(OVERLAY);
       was.current = toTopVisible(was.current, scrollY, innerHeight);
       setShow(was.current && !blocked);
     };
