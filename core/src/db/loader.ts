@@ -64,7 +64,9 @@ export function parseMigrations(entries: { file: string; sql: string }[]): Migra
 
 /** Read every migration file from the on-disk migrations directory, ordered and validated. */
 export function loadMigrations(dir = migrationsDir()): Migration[] {
-  const files = readdirSync(dir).filter((f) => f.endsWith(".sql"));
-  const entries = files.map((file) => ({ file, sql: readFileSync(join(dir, file), "utf8") }));
+  // Migration tooling only (runner, tests), never a web request: `turbopackIgnore` keeps the web bundler from tracing the whole
+  // project into every server function because of this dynamic directory read.
+  const files = readdirSync(/* turbopackIgnore: true */ dir).filter((f) => f.endsWith(".sql"));
+  const entries = files.map((file) => ({ file, sql: readFileSync(/* turbopackIgnore: true */ join(dir, file), "utf8") }));
   return parseMigrations(entries);
 }

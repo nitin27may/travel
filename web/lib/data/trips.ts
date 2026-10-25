@@ -38,14 +38,16 @@ export function legacyTripsPath(): string {
 
 function readLegacyTrips(root: string): LegacyTrip[] {
   const file = legacyTripsPath();
-  if (!existsSync(file)) {
+  // `turbopackIgnore`: the path can come from LEGACY_TRIPS_JSON, so the bundler cannot bound it and would trace the whole project into
+  // every server function (over Vercel's 250 MB limit). next.config.ts includes the generated file through lib/server/runtime-files.ts.
+  if (!existsSync(/* turbopackIgnore: true */ file)) {
     const hub = path.join(root, 'tools', 'hub.py');
     // Standalone `pnpm build`: generate the list ourselves so the home page is never silently empty.
     if (process.env.LEGACY_TRIPS_JSON || !existsSync(hub)) return [];
     mkdirSync(path.dirname(file), { recursive: true });
     execFileSync('python3', [hub, '--json', file], { cwd: root, stdio: 'inherit' });
   }
-  const parsed = JSON.parse(readFileSync(file, 'utf8')) as LegacyTrip[] | { trips: LegacyTrip[] };
+  const parsed = JSON.parse(readFileSync(/* turbopackIgnore: true */ file, 'utf8')) as LegacyTrip[] | { trips: LegacyTrip[] };
   return Array.isArray(parsed) ? parsed : parsed.trips;
 }
 
