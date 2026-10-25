@@ -532,6 +532,24 @@
       "kind": "official",
       "read": "2026-10-19",
       "method": "read"
+    },
+    {
+      "id": "src-0069",
+      "url": "data/tracks/tre-cime.json",
+      "title": "Tre Cime loop track (computed from OSM and terrain tiles)",
+      "publisher": "computed from OSM relations 1116663 and 1067603 (ODbL) and AWS Terrain Tiles, fetched 2026-10-19",
+      "kind": "computed",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0070",
+      "url": "data/tracks/seekofel.json",
+      "title": "Seekofel track (computed from OSM and terrain tiles)",
+      "publisher": "computed from OSM relation 1155861 (ODbL) and AWS Terrain Tiles, fetched 2026-10-19",
+      "kind": "computed",
+      "read": "2026-10-25",
+      "method": "read"
     }
   ],
   "records": [
@@ -626,6 +644,14 @@
                     "src-0048"
                   ],
                   "note": "Trail reports give 9.5-10.5 km for the standard loop and up to 17.7 km with detours."
+                },
+                {
+                  "v": 9.0,
+                  "basis": "our_inference",
+                  "src": [
+                    "src-0069"
+                  ],
+                  "note": "Computed: the confirmed OSM track (relations 1116663 and 1067603, cut as a loop from Rifugio Auronzo), 9.0 km."
                 }
               ]
             },
@@ -645,6 +671,14 @@
                     "src-0048"
                   ],
                   "note": "Trail reports give 400-480 m."
+                },
+                {
+                  "v": 435,
+                  "basis": "our_inference",
+                  "src": [
+                    "src-0069"
+                  ],
+                  "note": "Computed: the confirmed OSM track with AWS Terrain Tiles, 5 m hysteresis: 435 m up, 438 m down. The tourism board says 550 m."
                 }
               ]
             },
@@ -766,6 +800,17 @@
             "src-0012"
           ],
           "note": "Trail no. 101, then no. 105, signposted."
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0065"
+          ],
+          "read": "2026-10-25",
+          "quote": "They must be kept on a lead at all times and should not disturb or harm the park's wildlife",
+          "note": "The South Tyrol nature-park rule; the Drei Zinnen Nature Park is one of the listed parks and covers the north side of the loop (Rifugio Locatelli). The Veneto side (Auronzo to Lavaredo) is outside it; the tourism board's route page does not mention dogs."
         }
       },
       "flat": {
@@ -1693,6 +1738,22 @@
               "tried": [
                 "dreizinnen.com tour 544 (no ascent in the facts)",
                 "prags.bz"
+              ],
+              "conflicts": [
+                {
+                  "v": 1467,
+                  "basis": "our_inference",
+                  "src": [
+                    "src-0070"
+                  ],
+                  "note": "Computed, not published: the confirmed OSM track (relation 1155861, Lago di Braies to the summit, cut at the destination) gives 1,467 m up and 213 m down one way (7.31 km). Shown as a conflict only; no official page gives a figure (3.47b: the choice stays with the owner)."
+                },
+                {
+                  "v": 1314,
+                  "basis": "our_inference",
+                  "src": [],
+                  "note": "The trip's earlier prototype figure (from a route platform that is never a source); see the migrated file."
+                }
               ]
             },
             "fixed_aids": {

@@ -870,6 +870,15 @@
       "kind": "operator",
       "read": "2026-10-25",
       "method": "read"
+    },
+    {
+      "id": "src-0097",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rawson-lake/",
+      "title": "Rawson Lake trail report, Alberta Parks",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
     }
   ],
   "records": [
@@ -1557,6 +1566,12 @@
           "state": "searched_none",
           "query": "Sarrail Ridge Alberta Parks",
           "on": "2026-10-19"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/753718984",
+          "state": "filled",
+          "on": "2026-10-25"
         }
       ]
     },
@@ -2753,6 +2768,17 @@
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#upper-falls",
           "at_km": 2.4
+        }
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0001"
+          ]
         }
       ]
     },
@@ -7459,7 +7485,18 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
-      "name": "Lake Agnes Tea House"
+      "name": "Lake Agnes Tea House",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
@@ -7567,7 +7604,24 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
-      "name": "Rawson Lake"
+      "name": "Rawson Lake",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rawson-lake/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0097"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/24836168",
+          "state": "filled",
+          "on": "2026-10-25"
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
