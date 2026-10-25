@@ -61,7 +61,7 @@ def step2():
                 R + "trails/elk-lakes-lower-upper", R + "trails/elk-lakes-viewpoint", R + "trails/johnson-lake-loop", R + "trails/lillian-lake",
                 R + "trails/opal-hills", R + "trails/red-rock-canyon-loop", R + "trails/skyline-trail", R + "trails/tent-ridge-horseshoe",
                 R + "adventures/red-rock-parkway", R + "sights/whiteswan-lussier-hot-springs", R + "adventures/bow-valley-parkway-cycling",
-                "part/place/lago-di-braies#walk", "part/place/rafting-on-the-rienza#place", "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+                "part/place/rafting-on-the-rienza#place", "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
                 "trip/chamonix-mont-blanc-2028/town:chamonix market", "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
                 "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar", "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
                 "trip/iceland-ring-road-2027/trail:skaftafell svartifoss", "trip/patagonia-2027/trail:coastal path",
@@ -118,9 +118,8 @@ def step2():
         "names the 17 km section 'between Fireside Day-use Area and Johnston Canyon' and tells riders to park at the Banff train station",
         "the parkway's east end; the closure gate is not mapped and the page names Fireside Day-use Area, about 400 m north, as the section's end")
     # Dolomites
-    put("part/place/lago-di-braies#walk", 46.699504, 12.085094, "osm", "trailhead",
-        "OSM node 12978036296 (tourism=information, map) on the north shore beside the Hotel Pragser Wildsee board (node 6554128438), 8 m from the first "
-        "vertex of the stored track; the walk is a loop, so this is where it is joined, not a surveyed start")
+    # Lago di Braies walk: left as D1 had it (approx). web/tests/data/places-point-join.test.ts pins that a walk whose stored track is
+    # unconfirmed shows no point; the north-shore map board (OSM node 12978036296, 46.699504,12.085094) waits for the track check.
     put("part/place/rafting-on-the-rienza#place", 46.809965, 11.792573, "osm", "meeting",
         "OSM way 42881996 Fussballplatz St. Sigmund (leisure=pitch), the sports ground of San Sigismondo with the pitches 1134655979 and 1134655980; Rafting "
         "Club Activ https://www.rafting-club-activ.com/en/contact/ gives 'Meeting point Rienz / Eisack: Sports zone St. Sigmund'")

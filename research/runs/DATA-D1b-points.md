@@ -27,7 +27,7 @@ before evidence (the folder contract forbids a second copy). The after-snapshots
 | | before | after |
 |---|---|---|
 | `W_PLACE_POINT` (records with no point) | 6 | **1** (Lac du Chatelard) |
-| Approximate points | 41 | **13** (each with an `approx_note`; `W_PLACE_APPROX` 0) |
+| Approximate points | 41 | **14** (each with an `approx_note`; `W_PLACE_APPROX` 0) |
 | Points in `data/capture/points.json` | 179 | 185 (5 new records, 1 capture override of a relevance-input point: the Fanes route start) |
 | Exact points corrected that D1 had not marked approx | - | 4 (Upper Kananaskis Lake loop, Elbow Falls loop, Canmore Nordic Centre, Miette Hot Springs) |
 | Required tier, `gaps --tier required` matrix: routes with a point | 130 of 143 (trails 105 of 118) | 135 of 143 (trails 110 of 118) |
@@ -64,8 +64,8 @@ stop from day 6, or, if the owner meant the ponds at the Col des Montets or Lac 
 ## Step 2: the 41 approximate points
 
 Ranked by how much a wrong point hurts: trailheads and meeting points first (a family drives there), then route starts, then
-places, then area centres. 26 were replaced in this step and 2 more in steps 4 and 6 (Fanes payoff, Cameron Lake), so **28 of 41
-are now sourced single points and 13 stay approximate** with a note. Several D1 points were not just vague but at the wrong place: Bear's Hump (1.1 km), the two Elk Lakes trails (4.6 km), Lussier Hot Springs (2.9 km); the trail rows that held the destination lake instead of the trailhead (Lillian, Crypt, Capri) were 3.4 to 5.1 km from the start.
+places, then area centres. 25 were replaced in this step and 2 more in steps 4 and 6 (Fanes payoff, Cameron Lake), so **27 of 41
+are now sourced single points and 14 stay approximate** with a note. Several D1 points were not just vague but at the wrong place: Bear's Hump (1.1 km), the two Elk Lakes trails (4.6 km), Lussier Hot Springs (2.9 km); the trail rows that held the destination lake instead of the trailhead (Lillian, Crypt, Capri) were 3.4 to 5.1 km from the start.
 
 | Rank | Record | Was (D1) | Now | Source of the location rule |
 |---|---|---|---|---|
@@ -90,12 +90,11 @@ are now sourced single points and 13 stay approximate** with a note. Several D1 
 | 19 | Stowe Recreation Path | a way centre | the village end | Town of Stowe page |
 | 20 | Plan de l'Aiguille walk | the area (Wikidata) | the cable car station | Chamonix tourism Grand Balcon Nord page |
 | 21 | Rafting on the Rienza (meeting) | St. Sigmund village node | the St. Sigmund sports ground, 800 m west | Rafting Club Activ contact page: Sports zone St. Sigmund |
-| 22 | Lago di Braies walk | first vertex of an unconfirmed track | the map board on the north shore, 8 m away | OSM; a loop has no single start |
 | 23 | Red Rock Parkway (drive, adventure) | the canyon at the end | the start on Highway 5 | Parks Canada driving page |
 | 24 | Chamonix market | town centre | Place du Mont Blanc | Haute-Savoie tourism markets page |
 | 25 | Whiteswan Lake and Lussier Hot Springs | the park point | **the spring**, 2.9 km away (the record's type is a hot spring) | OSM, Wikidata agree |
 
-Kept approximate (13), each with its note: Bow Valley Parkway cycling (moved to the parkway's east end; the gate is not mapped and
+Kept approximate (14), each with its note: the Lago di Braies walk (the product shows no point for a walk whose stored track is unconfirmed, pinned by `web/tests/data/places-point-join.test.ts`; the north-shore map board, OSM node 12978036296, 8 m from the track start, is ready once the track is confirmed), Bow Valley Parkway cycling (moved to the parkway's east end; the gate is not mapped and
 the page names Fireside Day-use Area, about 400 m away), the elk rut (area level), the Red Rock Parkway sight and the Smith-Dorrien
 drive (a road has no single point), the Kananaskis River and the three Kicking Horse River rows (rivers; the put-ins are not
 published, step 5), the Beagle Channel (a channel), Buenos Aires cafes and bookshops, the Ushuaia harbour walk, the Fitz Roy glow
@@ -202,7 +201,7 @@ area's polygon, since 100 m has no meaning there.
 | # | Record | Check | Result |
 |---|---|---|---|
 | 1 | Cascate di Fanes route start | OSM node 470623991 re-read; the tourism board names the park information point as the start | pass |
-| 2 | Lago di Braies walk | OSM node 12978036296 re-read, 0 m | pass |
+| 2 | Lago di Braies walk | (sampled while it held the OSM map board; restored to D1's approximate row for the web rule, see step 2). The node re-read matches, 0 m | pass |
 | 3 | Elbow Falls loop | Alberta Parks official trailhead point 50.867767,-114.781998 against the D1 OSM lot node | **fail, 113 m** |
 | 4 | Chester Lake | Alberta Parks official point, 31 m | pass |
 | 5 | Dorset lookout tower | OSM node 2944856296 is the tower itself (`man_made=tower`) | pass |
@@ -276,6 +275,8 @@ a point in `points.json` but still counts as an orphan, because an offer's place
 - `web/.og-cache` does not exist in a fresh worktree (it is ignored), so the folder-contract test fails on the mentions in
   `HANDOVER.md`, `research/tools.md`, `tools/handover-cache.sh` and `web/scripts/commons-cache.mjs`. I created the empty folder
   (with a `.keep`, ignored by git) in this worktree only.
+- `web/tests/data/places-point-join.test.ts` pins "58 of 359 pages have no point, 45 of them trails"; with this lane the count
+  falls (37 measured before the Braies row was restored, so 38 now). The pin needs the new counts, as after D1.
 
 ## Not verified
 

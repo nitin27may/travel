@@ -30,7 +30,6 @@
       "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
       "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
       "part/place/cascate-di-fanes#payoff",
-      "part/place/lago-di-braies#walk",
       "part/place/rafting-on-the-rienza#place",
       "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
       "part/trip/utah-five-parks/viewpoint:grand view point#walk",
@@ -362,14 +361,6 @@
       "host": "overpass-api.de",
       "src": "osm:node/2368067925",
       "reason": "the record is a hot spring: the spring, not the park"
-    },
-    {
-      "ref": "part/place/lago-di-braies#walk",
-      "field": "point",
-      "outcome": "filled",
-      "host": "overpass-api.de",
-      "src": "osm:node/12978036296",
-      "reason": "a loop: where it is joined at the north shore"
     },
     {
       "ref": "part/place/rafting-on-the-rienza#place",

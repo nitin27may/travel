@@ -51,7 +51,6 @@ if "2" in STEPS:
         (R + "trails/tent-ridge-horseshoe", "osm:way/24836693", "OSM only; no official page exists"),
         (R + "adventures/red-rock-parkway", "osm:way/32162365", "the start on Highway 5, not the canyon at the end"),
         (R + "sights/whiteswan-lussier-hot-springs", "osm:node/2368067925", "the record is a hot spring: the spring, not the park"),
-        ("part/place/lago-di-braies#walk", "osm:node/12978036296", "a loop: where it is joined at the north shore"),
         ("part/place/rafting-on-the-rienza#place", "osm:way/42881996", "the operator names the St. Sigmund sports zone"),
         ("part/trip/iceland-ring-road-2027/sight:dettifoss#walk", "osm:way/1531241656", "park page: car park west of Dettifoss"),
         ("trip/chamonix-mont-blanc-2028/town:chamonix market", "osm:relation/2569238", "tourism board: Place du Mont Blanc"),

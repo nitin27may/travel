@@ -1626,22 +1626,6 @@
       "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "nature.trail.walk",
       "layer": "route",
-      "near_town": {
-        "v": "it-32-monguelfo",
-        "state": "value",
-        "basis": "our_inference",
-        "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3173140, cities1000 downloaded 2026-10-25."
-      },
-      "near_town_km": {
-        "v": 6.7,
-        "state": "value",
-        "basis": "our_inference",
-        "src": [],
-        "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
-      },
       "name": "Lago di Braies walk",
       "starts_at": [
         "place/lago-di-braies"

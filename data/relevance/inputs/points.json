@@ -1088,10 +1088,10 @@
       "point_source": "OSM way 442280371 centroid (amenity=parking); agent checked, needs a person's check"
     },
     "part/place/lago-di-braies#walk": {
-      "lat": 46.6995,
-      "lon": 12.08509,
+      "lat": 46.69896,
+      "lon": 12.08547,
       "coord_src": "osm",
-      "point_source": "OSM node 12978036296 (tourism=information, map) on the north shore beside the Hotel Pragser Wildsee board (node 6554128438), 8 m from the first vertex of the stored track; the walk is a loop, so this is where it is joined, not a surveyed start; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "OSM relation 12043472, first vertex of the stored track data/tracks/braies.json (ODbL), read 2026-10-19; the track starts 6 m from the trailhead the record names (lane META-1)"
     },
     "part/place/lago-di-carezza#parking": {
       "lat": 46.41177,
