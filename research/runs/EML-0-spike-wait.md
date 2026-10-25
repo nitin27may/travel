@@ -84,3 +84,16 @@ All child settings are restored to the baseline (run notes). No decision is need
 ## W1 result (owner, 25 Oct 2026)
 
 Five mails arrived, as expected (no mail to the aliases that should have had none). The reset-by-code mail was seen in the Inbox, sender display name "Neon Auth", body names "Travel Planner", code in a boxed block, Gmail showed its Copy code card. Gmail also showed "Images in this message are hidden. This message appears suspicious" on that mail (shared development sender, no own domain). Folder of the other four and their subjects: not reported; treat as Inbox unless the owner says otherwise.
+
+
+## W2 result (live session, 25 Oct 2026, 14:45 to 14:51 local, child branch only, owner pasted three codes)
+
+Run by the coordinator with direct calls to the child auth base URL from `Origin: http://localhost:3000` (not through our proxy, so U1's proxy cookie part is still open). Emails sent in this session: 3 (to +eml0-10, -11, -12); total with run 1: 8 of 12. All test users deleted (child: 0 users, 0 sessions, 0 accounts). Child settings restored (Disable Sign Up false; the other flags unchanged); production unchanged (read-only get).
+
+| Test | Result |
+|---|---|
+| **M1 gate (CVE-2026-67327)** attacker signs up +eml0-10 with a password and keeps a session, then a sign-in code goes to the same address and is used | **PASS.** Old password then gets 401; the attacker's old session is gone; `emailVerified` true; credential account rows 0; reusing the code gets 400 `INVALID_OTP`. A code sign-in on an address with an unverified password account does not hand control to whoever set the password |
+| **U5 reset by code** (+eml0-11) | Reset works (200), new password signs in, old password gets 401, reusing the code gets `INVALID_OTP`, the address becomes verified. **FINDING: a session created before the reset stays valid afterwards** (spec 5.1 wants other sessions revoked). EML-1 must revoke sessions after a reset itself or accept the risk (open decision) |
+| **U2 code sign-in for an unknown address with Disable Sign Up ON** (+eml0-12) | **FINDING: the code sign-in CREATED a user (emailVerified true, no account row) and a session, despite Disable Sign Up.** Password sign-up was refused with `EMAIL_PASSWORD_SIGN_UP_DISABLED`. Disable Sign Up does not gate code sign-in, so a planner or invite-only gate must be enforced by our own code (role check), never by this flag |
+
+Still open: W3 (Google gate L1, needs a human Google login), W4 (magic link), W5 (Vercel Deployment Protection mode), W6 (Resend sandbox), U1 proxy cookie part, U4 sender limits, U12.

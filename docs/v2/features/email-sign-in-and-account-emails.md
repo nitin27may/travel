@@ -1272,3 +1272,11 @@ before verification when it is not required; addresses with surrounding spaces g
 Neon Auth OpenAPI reference (`/open-api/generate-schema`, `/reference`) is public. The 5-minute code expiry changes
 N1 and the "15 minutes" in the T1, T2 and T4 copy; the CLI has no setting for it. Links keep their own `expires_in`
 (5 to 1440 minutes).
+
+
+### EML-0 live session addendum (25 Oct 2026, owner present, 3 codes)
+
+- **M1 (CVE-2026-67327): PASS** on the child branch: a code sign-in on an address that already has an unverified password account removes the password, ends the attacker's session, verifies the address and refuses a reused code. The code sign-in path may ship (Phase 1 gate satisfied for this CVE; L1, the Google linking gate, is still open).
+- **U5: reset by code works but does not revoke earlier sessions.** EML-1 must revoke other sessions after a reset (for example through our own sign-out of all sessions) or the owner accepts the risk. New owner decision.
+- **U2: Disable Sign Up does NOT stop sign-in by code from creating an account.** Any invite-only or planner gate must be our own server-side check; do not rely on the Neon flag. Open sign-up by code is therefore the real behaviour in Phase 1 (Q146 yes becomes a fact, not a choice).
+- Details and evidence: `research/runs/EML-0-spike-wait.md` (W2 result).
