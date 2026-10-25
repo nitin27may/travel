@@ -289,7 +289,7 @@ Also researched: 29 more trails · 18 sights · 28 activities        Nearby you 
 (Rockies counts measured 25 Oct from the legacy datasets: trails 33 of 62, sights 30 of 48, activities 15 of 43,
 bookings 17 on days of 33 rules, 6 must-do. The nearby count does not exist yet; it needs D1 points.)
 
-Stays shows bases and nights only. Lodging ideas never appear (privacy rule: no stay ideas on the public site).
+Stays shows bases and nights only. Lodging ideas never appear (privacy rule: no stay ideas on the public site). Amended 25 Oct: [stay-bases-and-optimisation.md](stay-bases-and-optimisation.md) renames this tab "Where to stay" and adds researched ways to stay; property names and booking state still never appear.
 
 ### 3.3 Layout
 
