@@ -55,3 +55,23 @@ Goal: a photo or `searched_none` for every trail record (Rockies 67, Dolomites 2
 ## Not in scope for these agents
 
 R-61 Vercel setup, Neon child-branch tests, the PostgresStore cutover, anything in web/ or core/. Owner decisions are listed in HANDOVER.md.
+
+## D1b: points follow-up (Opus; for the agent that did D1, or a fresh one)
+
+Status 25 Oct: D1 is on branch `public/DATA-D1` (tip 74997e4): `W_PLACE_POINT` 84 to 6, points 99 to 179, 41 of them `approx`. It was run on Sonnet; the brief asked for Opus and judgement calls were made (base-point rulings, source conflicts), so a read by Opus is part of this batch. Do not commit in `v2-DATA-D1`; a builder is merging and integrating it (branch `public/DATA-D1-integrate`, worktree `v2-DATA-D1-integrate`). Start your own worktree from `public/DATA-D1-integrate` once it reports, or from `public/DATA-D1` now and rebase later: `git worktree add /Users/nks/workspace/travel-wt/v2-DATA-D1b -b public/DATA-D1b <base>`.
+
+Use the common prompt above, then do:
+
+1. **The 6 `searched_none` records.** Retry with sources D1 did not use: Overpass if reachable (it timed out all session; try again off-peak, one query at a time, 10 s apart), the land manager's page (BC Parks for Berg Lake, Parks Canada for Fryatt, Parque Nacional Los Glaciares maps for Laguna de los Tres and Esmeralda, NPS for Windows Section), Wikidata by label search in the local language, and Wikimedia Commons file locations only as a cross-check. Lac du Châtelard (Chamonix): the suitability note says the only lake of that name is at Névache, so decide whether the place exists in the plan at all; if not, write the finding and propose removing or renaming the record (a proposal in the run note; do not delete a ref).
+2. **Improve the 41 `approx` points.** Rank them by how much a wrong point hurts (trailheads and meeting points first, area centres last). For each trailhead or meeting point, look for a tagged trailhead, parking lot, visitor centre or operator address, and replace the approx point with a sourced one (role `trailhead`, `parking` or `meeting`). Keep `approx: true` only where no single point exists, with the note.
+3. **Create the 3 missing destination parts** the D1 note lists: `part/place/cinque-torri#payoff`, `part/place/val-fiscalina#payoff`, `part/place/vallunga#payoff` (check the exact refs against `data/capture/dolomites-2027/`), each with a sourced point, role, and area; and confirm Federa's destination is `place/lago-federa`. Use `node core/bin/capture.ts fields --type <id>` for the required keys and write through the lane file, not by hand-editing generated files.
+4. **Fanes track.** Its stored OSM track is unconfirmed (1.4 km mapped against 7 km researched). Find the official route (Parco Naturale Fanes-Senes-Braies page, Dolomiti Superski/Cortina pages), decide the true start and end, and record which source wins.
+5. **The five operator questions in `research/runs/DATA-D1-points.md`** (Dettifoss car park, Mount Indefatigable closure, Kicking Horse and Kananaskis put-ins, Rienza rafting station, Lillian Lake and Burstall Pass trailheads): answer each from an official page or write what you tried. Add what stays open to `research/method/operator-questions-2026-10-18.md`.
+6. **Check the three source conflicts** (Grand View Point walk, Cameron Lake, Cory Pass) and write the final ruling for each, with the source and date.
+7. **Person-check sample.** Pick 20 of the new points at random (seeded; write the seed), open each in OSM or the land manager's page, and report how many are right to within 100 m. If fewer than 18 of 20 pass, say which sources failed and re-check that source class.
+
+Files you own: `data/capture/points.json`, `data/capture/<trip>/*.json` only for the three payoff parts, `data/capture/runs/**`, `research/runs/DATA-D1b-*.md`, `research/method/operator-questions-2026-10-18.md`. Hand-back: commits, model, counts before and after (`W_PLACE_POINT`, approx points), the sample result, open questions.
+
+## Next batches after D1 (order)
+
+D6a seasons, D3a trail facts (five R2 trails plus Rockies), D4a activities (17 offers with no place), D7-R Rockies best-time windows, D5a/D5b photos (after points). D3a, D4a, D6a and D7-R can run at the same time as D1b; photos wait for D1b. See the prompts above.
