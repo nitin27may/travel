@@ -112,6 +112,9 @@ Suitability limits for the plan-day offers live in R2b (another lane's file); th
    six place records with points after D1b hands back, and a BC region in the locations store for Field.
 4. **Banff Adventures as an operator.** Its float page reads like an operator ("our rafts") but Banff Adventures is a
    booking office. `run_by` left empty pending D4a-3.
+5. **The suitability lane file is `R9-AC.json`, not `AC.json`.** `core/test/suitability/kind-map.test.ts` allows only
+   `R<n>*.json` beside the migration output, so `AC.json` failed check-all. Renamed (reversible with `git mv`); D3a (`TF`)
+   and D8-R (`OV`) will meet the same test. Either the test learns the DATA lane names or the briefs say `R<n>-<lane>`.
 
 ## Requests for builders
 
