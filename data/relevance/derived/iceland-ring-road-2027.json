@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "iceland-ring-road-2027",
-  "as_of": "2026-10-20",
+  "as_of": "2026-10-25",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -35,7 +35,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "trip/iceland-ring-road-2027/sight:namaskard",
+          "km": 2.1
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -436,8 +441,9 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 24,
+      "detour_basis": "town",
+      "detour_town": "Myvatn",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -447,9 +453,9 @@
       "pair_with": [
         {
           "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
-          "km": null,
-          "how": null,
-          "extra_min": null,
+          "km": 2.1,
+          "how": "drive",
+          "extra_min": 150,
           "on_site_min": 150,
           "on_site_estimated": false,
           "draw": "regional",
@@ -474,7 +480,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "highlight",
@@ -486,12 +492,7 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "layer": "place"
     },
     {
@@ -797,8 +798,9 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 58,
+      "detour_basis": "town",
+      "detour_town": "Grundarfjordur",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -806,7 +808,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
+          "km": 8.4
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -821,7 +828,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 58 min is over 30"
         }
       },
       "role": "highlight",
@@ -833,12 +840,7 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "layer": "route",
       "route_is_attraction": true
     },
