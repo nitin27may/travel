@@ -7,6 +7,7 @@
 // by any alias of the ref. A route with no point of its own reads the point of its `starts_at` (that point is the trailhead).
 import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
+import { AREA_DERIVATION } from "../config/area.ts";
 import { POINT_ROLE } from "../schema/enums.ts";
 import { capturePointsFile, CAPTURE_POINTS_SCHEMA_ID, NEAR_TOWN_NONE, relevancePointRow } from "../schema/capture/points.ts";
 import type { PointRole } from "../schema/capture/points.ts";
@@ -280,7 +281,7 @@ export function placementFindings(pw: PlacementWorld, rec: CaptureRecord): Findi
   }
   const role = defaultPointRole(rec.type, rec.layer);
   // area chain
-  if (!rec.area_id) out.push({ code: "E_PLACE_AREA", key: "area_id", message: `${rec.ref} has no area_id. Every place and route carries its area, CC/REGION/area-slug from the locations store; country and region are read from it. Take it from the locations store, the trip, or the parent (part_of, at, starts_at). Example: "area_id": "CA/AB/banff-national-park".`, hint: "the locations store, the trip, then the parent through part_of or starts_at" });
+  if (!rec.area_id) out.push({ code: "E_PLACE_AREA", key: "area_id", message: `${rec.ref} has no area_id. Every place and route carries its area, CC/REGION/area-slug from the locations store; country and region are read from it. Run node core/bin/capture.ts derive-area --write first: it takes the parent's area (part_of, at, starts_at), else the area of the nearest labelled point within ${AREA_DERIVATION.radiusKm} km when its region and nearest town agree. If it still has none, no area of the locations store reaches the point: add the area there (the location skill, an owner decision), or set it from the trip. Example: "area_id": "CA/AB/banff-national-park".`, hint: "capture.ts derive-area (parent, then point); else a new area in the locations store" });
   else if (!pw.tree.ids.has(rec.area_id)) out.push({ code: "E_PLACE_AREA", key: "area_id", message: `area_id "${rec.area_id}" is not an area, region or country of data/locations/locations.json. Use an id of its areas list, or add the area there first (python3 tools/locations.py). Example: "CA/AB/banff-national-park".` });
   // point
   const hit = pointOf(pw, rec);
