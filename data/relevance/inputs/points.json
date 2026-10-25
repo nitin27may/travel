@@ -11,13 +11,13 @@
       "lat": 51.17507,
       "lon": -115.58171,
       "coord_src": "osm",
-      "point_source": "OSM way 1125504165 Warner Stables (horse riding); the operator says rides meet at its stables at the end of Sundance Road, Banff; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM way 1125504165 Warner Stables (horse riding); the operator says rides meet at its stables at the end of Sundance Road, Banff"
     },
     "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa": {
       "lat": 51.16405,
       "lon": -115.56146,
       "coord_src": "osm",
-      "point_source": "OSM way 24823886 Fairmont Banff Springs (Q806429), the hotel the spa is in; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM way 24823886 Fairmont Banff Springs (Q806429), the hotel the spa is in"
     },
     "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs": {
       "lat": 51.1506,
@@ -29,7 +29,7 @@
       "lat": 51.16741,
       "lon": -115.5609,
       "coord_src": "osm",
-      "point_source": "OSM node 263386936 Bow Falls; the operator launches at the base of the falls; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM node 263386936 Bow Falls; the operator launches at the base of the falls"
     },
     "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling": {
       "lat": 51.17014,
@@ -41,7 +41,7 @@
       "lat": 51.39798,
       "lon": -116.49185,
       "coord_src": "osm",
-      "point_source": "OSM way 492008964 Yoho National Park Visitor Centre, Field, where the Parks Canada hike meets; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM way 492008964 Yoho National Park Visitor Centre, Field, where the Parks Canada hike meets"
     },
     "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre": {
       "lat": 51.0925,
@@ -53,25 +53,25 @@
       "lat": 52.22031,
       "lon": -117.22417,
       "coord_src": "osm",
-      "point_source": "OSM way 282985047 Columbia Icefield Glacier Discovery Centre (the Ice Explorer check-in); agent checked, needs a person's check"
+      "point_source": "OSM way 282985047 Columbia Icefield Glacier Discovery Centre (the Ice Explorer check-in)"
     },
     "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle": {
       "lat": 49.05379,
       "lon": -113.9072,
       "coord_src": "osm",
-      "point_source": "OSM way 678717446 Waterton Shoreline Cruises, at the Waterton marina where the shuttle leaves; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM way 678717446 Waterton Shoreline Cruises, at the Waterton marina where the shuttle leaves"
     },
     "legacy/canadian-rockies-sept-2029/adventures/elk-rut": {
       "lat": 51.17508,
       "lon": -115.57208,
       "coord_src": "osm",
-      "point_source": "OSM node 29546626 Banff (town, Q58337): the plan's Day 1 stop is the elk rut in Banff townsite, and Parks Canada's elk safety page says elk are seen 'in town'; the rut has no single viewing point; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM node 29546626 Banff (town, Q58337): the plan's Day 1 stop is the elk rut in Banff townsite, and Parks Canada's elk safety page says elk are seen 'in town'; the rut has no single viewing point"
     },
     "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe": {
       "lat": 51.43971,
       "lon": -116.5413,
       "coord_src": "osm",
-      "point_source": "OSM node 9902888899 (amenity=boat_rental, Canoe Rental) at Emerald Lake; agent checked, needs a person's check"
+      "point_source": "OSM node 9902888899 (amenity=boat_rental, Canoe Rental) at Emerald Lake"
     },
     "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk": {
       "lat": 52.25917,
@@ -83,19 +83,19 @@
       "lat": 51.31499,
       "lon": -116.95739,
       "coord_src": "osm",
-      "point_source": "OSM node 8763049766 Golden Skybridge (Q113546486); read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM node 8763049766 Golden Skybridge (Q113546486)"
     },
     "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental": {
       "lat": 52.87541,
       "lon": -118.08094,
       "coord_src": "osm",
-      "point_source": "OSM node 13225697445 Vicious - Cycle and Snow, Jasper (the shop at https://viciouscycleandsnow.ca/); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM node 13225697445 Vicious - Cycle and Snow, Jasper (the shop at https://viciouscycleandsnow.ca/)"
     },
     "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky": {
       "lat": 52.86934,
       "lon": -118.05812,
       "coord_src": "osm",
-      "point_source": "OSM node 4925566921 Old Fort Point (viewpoint), one of the four best locations on the Parks Canada Jasper dark-sky page and the one nearest the plan's Day 7 evening at Lake Annette (our choice among the four); read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM node 4925566921 Old Fort Point (viewpoint), one of the four best locations on the Parks Canada Jasper dark-sky page and the one nearest the plan's Day 7 evening at Lake Annette (our choice among the four)"
     },
     "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram": {
       "lat": 52.85134,
@@ -107,13 +107,13 @@
       "lat": 51.29761,
       "lon": -117.04857,
       "coord_src": "osm",
-      "point_source": "OSM way 172464366 Golden Eagle Express Lower Station, where the ride starts; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM way 172464366 Golden Eagle Express Lower Station, where the ride starts"
     },
     "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe": {
       "lat": 51.41536,
       "lon": -116.21653,
       "coord_src": "osm",
-      "point_source": "OSM way 128099295 Boathouse (amenity=boat_rental) at Lake Louise; agent checked, needs a person's check"
+      "point_source": "OSM way 128099295 Boathouse (amenity=boat_rental) at Lake Louise"
     },
     "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola": {
       "lat": 51.44214,
@@ -125,25 +125,25 @@
       "lat": 51.44214,
       "lon": -116.16119,
       "coord_src": "osm",
-      "point_source": "OSM way 1263557754 Grizzly Express Gondola base station; the same point as legacy/.../adventures/lake-louise-gondola, the record names the product the same; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM way 1263557754 Grizzly Express Gondola base station; the same point as legacy/.../adventures/lake-louise-gondola, the record names the product the same"
     },
     "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise": {
       "lat": 51.2475,
       "lon": -115.49671,
       "coord_src": "osm",
-      "point_source": "OSM way 223576165 (leisure=marina, Lake Minnewanka), the cruise dock; agent checked, needs a person's check"
+      "point_source": "OSM way 223576165 (leisure=marina, Lake Minnewanka), the cruise dock"
     },
     "legacy/canadian-rockies-sept-2029/adventures/legacy-trail": {
       "lat": 51.21296,
       "lon": -115.53086,
       "coord_src": "osm",
-      "point_source": "OSM relation 385115 Cascade Ponds; Parks Canada names the Cascade Ponds Picnic Area the recommended start; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM relation 385115 Cascade Ponds; Parks Canada names the Cascade Ponds Picnic Area the recommended start"
     },
     "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise": {
       "lat": 52.72895,
       "lon": -117.64004,
       "coord_src": "osm",
-      "point_source": "OSM node 4336196151 Maligne Lake Cruise (the dock); agent checked, needs a person's check"
+      "point_source": "OSM node 4336196151 Maligne Lake Cruise (the dock)"
     },
     "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs": {
       "lat": 53.1299,
@@ -155,13 +155,13 @@
       "lat": 51.32695,
       "lon": -116.18288,
       "coord_src": "osm",
-      "point_source": "OSM node 2956259306 Canoe Rentals (amenity=boat_rental) at Moraine Lake; agent checked, needs a person's check"
+      "point_source": "OSM node 2956259306 Canoe Rentals (amenity=boat_rental) at Moraine Lake"
     },
     "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer": {
       "lat": 50.94254,
       "lon": -115.15173,
       "coord_src": "osm",
-      "point_source": "OSM way 1327131488 Nakiska Day Lodge; Wikidata Q1588256 P625 50.944,-115.147 is 350 m away; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM way 1327131488 Nakiska Day Lodge; Wikidata Q1588256 P625 50.944,-115.147 is 350 m away"
     },
     "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway": {
       "lat": 49.07744,
@@ -173,7 +173,7 @@
       "lat": 51.14857,
       "lon": -115.55824,
       "coord_src": "osm",
-      "point_source": "OSM way 24306334 Banff Upper Hot Springs (amenity=parking); Banff & Lake Louise Tourism https://www.banfflakelouise.com/experiences/sulphur-mountain-trail gives 'Trailhead: Banff Upper Hot Springs parking area'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "OSM way 24306334 Banff Upper Hot Springs (amenity=parking); Banff & Lake Louise Tourism https://www.banfflakelouise.com/experiences/sulphur-mountain-trail gives 'Trailhead: Banff Upper Hot Springs parking area'"
     },
     "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise": {
       "lat": 49.05398,
@@ -191,13 +191,13 @@
       "lat": 49.4142,
       "lon": -114.115,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q3364703 P625 (Beauvais Lake Provincial Park); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q3364703 P625 (Beauvais Lake Provincial Park)"
     },
     "legacy/canadian-rockies-sept-2029/sights/berg-lake": {
       "lat": 53.14515,
       "lon": -119.15788,
       "coord_src": "osm",
-      "point_source": "OSM relation 14912521 Berg Lake (lake, Q316442), bounding-box centre; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM relation 14912521 Berg Lake (lake, Q316442), bounding-box centre"
     },
     "legacy/canadian-rockies-sept-2029/sights/bow-lake": {
       "lat": 51.66444,
@@ -209,7 +209,7 @@
       "lat": 49.0094,
       "lon": -114.051,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q3214786 P625 (Cameron Lake); OSM relation 8299848 Cameron Lake (natural=water, the Canadian lake) has its centre at 49.0092,-114.05106, 25 m away, so the two agree. The D1 conflict compared Wikidata with OSM way 588314114, an NHD polygon of the small part south of the border; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "Wikidata Q3214786 P625 (Cameron Lake); OSM relation 8299848 Cameron Lake (natural=water, the Canadian lake) has its centre at 49.0092,-114.05106, 25 m away, so the two agree. The D1 conflict compared Wikidata with OSM way 588314114, an NHD polygon of the small part south of the border"
     },
     "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre": {
       "lat": 51.0925,
@@ -221,7 +221,7 @@
       "lat": 49.44218,
       "lon": -114.4098,
       "coord_src": "osm",
-      "point_source": "OSM relation 7214660 Castle Provincial Park (Q28479055), bounding-box centre of the park; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM relation 7214660 Castle Provincial Park (Q28479055), bounding-box centre of the park"
     },
     "legacy/canadian-rockies-sept-2029/sights/cave-and-basin": {
       "lat": 51.16944,
@@ -239,13 +239,13 @@
       "lat": 50.86769,
       "lon": -114.77899,
       "coord_src": "osm",
-      "point_source": "OSM node 2960428931 Elbow Falls; Wikidata Q3893876 P625 50.8678,-114.779 agrees within 20 m; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM node 2960428931 Elbow Falls; Wikidata Q3893876 P625 50.8678,-114.779 agrees within 20 m"
     },
     "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park": {
       "lat": 50.47807,
       "lon": -115.09646,
       "coord_src": "osm",
-      "point_source": "OSM relation 2228048 Elk Lakes Provincial Park (Q5364041), bounding-box centre of the park; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM relation 2228048 Elk Lakes Provincial Park (Q5364041), bounding-box centre of the park"
     },
     "legacy/canadian-rockies-sept-2029/sights/emerald-lake": {
       "lat": 51.444,
@@ -293,7 +293,7 @@
       "lat": 50.90222,
       "lon": -115.6325,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q1557774 P625 (Lake Magog); OSM way 355375756 Lake Magog centroid 50.90089,-115.63242 agrees; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q1557774 P625 (Lake Magog); OSM way 355375756 Lake Magog centroid 50.90089,-115.63242 agrees"
     },
     "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka": {
       "lat": 51.25806,
@@ -305,7 +305,7 @@
       "lat": 52.9203,
       "lon": -118.011,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q6743519 P625 (Maligne Canyon); OSM node 1677700364 agrees within 60 m; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q6743519 P625 (Maligne Canyon); OSM node 1677700364 agrees within 60 m"
     },
     "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island": {
       "lat": 52.66444,
@@ -323,7 +323,7 @@
       "lat": 53.13035,
       "lon": -117.76979,
       "coord_src": "osm",
-      "point_source": "OSM way 232706538 Miette Hot Springs (leisure=swimming_pool), the pools; the D1 point, Wikidata Q14874867 P625 53.1299,-117.771, is 95 m away (re-check of the Wikidata-for-a-facility class after the sample); read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "OSM way 232706538 Miette Hot Springs (leisure=swimming_pool), the pools; the D1 point, Wikidata Q14874867 P625 53.1299,-117.771, is 95 m away (re-check of the Wikidata-for-a-facility class after the sample)"
     },
     "legacy/canadian-rockies-sept-2029/sights/moraine-lake": {
       "lat": 51.3225,
@@ -335,7 +335,7 @@
       "lat": 52.68257,
       "lon": -118.04998,
       "coord_src": "osm",
-      "point_source": "OSM node 349118023 Edith Cavell Pond (tourism=viewpoint); the peak itself (node 2698521553) is 1.8 km away; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM node 349118023 Edith Cavell Pond (tourism=viewpoint); the peak itself (node 2698521553) is 1.8 km away"
     },
     "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds": {
       "lat": 50.96944,
@@ -353,7 +353,7 @@
       "lat": 51.38181,
       "lon": -116.53024,
       "coord_src": "osm",
-      "point_source": "OSM node 1783220701 Natural Bridge (tourism=attraction), Yoho; agent checked, needs a person's check"
+      "point_source": "OSM node 1783220701 Natural Bridge (tourism=attraction), Yoho"
     },
     "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view": {
       "lat": 53.0333,
@@ -365,7 +365,7 @@
       "lat": 51.16992,
       "lon": -116.14761,
       "coord_src": "osm",
-      "point_source": "OSM way 234163234 Paint Pots Parking (the point already held for trails/paint-pots-walk; trailhead node 3611622970 is 10 m away); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM way 234163234 Paint Pots Parking (the point already held for trails/paint-pots-walk; trailhead node 3611622970 is 10 m away)"
     },
     "legacy/canadian-rockies-sept-2029/sights/peyto-lake": {
       "lat": 51.725,
@@ -377,7 +377,7 @@
       "lat": 49.0589,
       "lon": -113.904,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q3145638 P625 (Prince of Wales Hotel); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q3145638 P625 (Prince of Wales Hotel)"
     },
     "legacy/canadian-rockies-sept-2029/sights/pyramid-lake": {
       "lat": 52.9225,
@@ -389,19 +389,19 @@
       "lat": 50.63486,
       "lon": -116.03915,
       "coord_src": "osm",
-      "point_source": "OSM way 1123052659 Radium Hot Springs (natural=hot_spring, the pools); read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM way 1123052659 Radium Hot Springs (natural=hot_spring, the pools)"
     },
     "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway": {
       "lat": 49.13166,
       "lon": -114.0263,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q22589340 P625 (Red Rock Canyon, the parkway's end); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q22589340 P625 (Red Rock Canyon, the parkway's end)"
     },
     "legacy/canadian-rockies-sept-2029/sights/smith-dorrien-trail": {
       "lat": 50.89389,
       "lon": -115.285,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q3364735 P625 (Spray Valley Provincial Park); Q104987926 (Smith-Dorrien Trail) has no P625; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q3364735 P625 (Spray Valley Provincial Park); Q104987926 (Smith-Dorrien Trail) has no P625"
     },
     "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls": {
       "lat": 52.53233,
@@ -419,7 +419,7 @@
       "lat": 49.847,
       "lon": -115.442,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q7824710 P625 (Top of the World Provincial Park); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q7824710 P625 (Top of the World Provincial Park)"
     },
     "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes": {
       "lat": 51.17806,
@@ -431,13 +431,13 @@
       "lat": 51.187,
       "lon": -116.576,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q37367 P625 (Wapta Falls); OSM way 587632433 agrees within 100 m; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q37367 P625 (Wapta Falls); OSM way 587632433 agrees within 100 m"
     },
     "legacy/canadian-rockies-sept-2029/sights/waterton-townsite": {
       "lat": 49.05092,
       "lon": -113.90702,
       "coord_src": "osm",
-      "point_source": "OSM node 9174974666 Waterton Park (place=hamlet); Wikidata Q7974475 P625 49.0517,-113.914 is 600 m west; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM node 9174974666 Waterton Park (place=hamlet); Wikidata Q7974475 P625 49.0517,-113.914 is 600 m west"
     },
     "legacy/canadian-rockies-sept-2029/sights/wedge-pond": {
       "lat": 50.87278,
@@ -449,13 +449,13 @@
       "lat": 50.13518,
       "lon": -115.57688,
       "coord_src": "osm",
-      "point_source": "OSM node 2368067925 Lussier Hot Springs (natural=spring); Wikidata Q6705238 P625 50.1352,-115.577 agrees within 10 m. The record's type is a hot spring, so the point is the spring; the D1 point was the Whiteswan Lake park point 2.9 km away; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "OSM node 2368067925 Lussier Hot Springs (natural=spring); Wikidata Q6705238 P625 50.1352,-115.577 agrees within 10 m. The record's type is a hot spring, so the point is the spring; the D1 point was the Whiteswan Lake park point 2.9 km away"
     },
     "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog": {
       "lat": 50.859,
       "lon": -115.37868,
       "coord_src": "osm",
-      "point_source": "OSM way 171641445 Mount Shark Parking (legacy trailhead: Mount Shark); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM way 171641445 Mount Shark Parking (legacy trailhead: Mount Shark)"
     },
     "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail": {
       "lat": 52.66444,
@@ -467,7 +467,7 @@
       "lat": 52.72667,
       "lon": -117.64458,
       "coord_src": "osm",
-      "point_source": "OSM relation 21018594 Maligne Lake Parking (the trailhead the record names); Bald Hills Trail is relation 7467684; agent checked, needs a person's check"
+      "point_source": "OSM relation 21018594 Maligne Lake Parking (the trailhead the record names); Bald Hills Trail is relation 7467684"
     },
     "legacy/canadian-rockies-sept-2029/trails/bears-hump": {
       "lat": 49.06078,
@@ -479,7 +479,7 @@
       "lat": 49.41671,
       "lon": -114.11183,
       "coord_src": "osm",
-      "point_source": "OSM way 459887166 Beauvais Lake Provincial Park - Day Use Parking (legacy trailhead: Beauvais Lake day use); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM way 459887166 Beauvais Lake Provincial Park - Day Use Parking (legacy trailhead: Beauvais Lake day use)"
     },
     "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail": {
       "lat": 53.04984,
@@ -497,19 +497,19 @@
       "lat": 50.79077,
       "lon": -115.30362,
       "coord_src": "osm",
-      "point_source": "OSM way 262485800 Burstall Pass Parking (legacy trailhead: Burstall Pass trailhead, Smith-Dorrien); the pass is 5 km south-west (Burstall Pass Trail way 297121313); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM way 262485800 Burstall Pass Parking (legacy trailhead: Burstall Pass trailhead, Smith-Dorrien); the pass is 5 km south-west (Burstall Pass Trail way 297121313)"
     },
     "legacy/canadian-rockies-sept-2029/trails/cavell-meadows": {
       "lat": 52.68736,
       "lon": -118.05564,
       "coord_src": "osm",
-      "point_source": "OSM relation 20689592 Mount Edith Cavell (upper lot) at the end of Mount Edith Cavell Road; Parks Canada https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/cavell gives 'Trailhead: The end of the Cavell Road' for trails 41 and 42; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "OSM relation 20689592 Mount Edith Cavell (upper lot) at the end of Mount Edith Cavell Road; Parks Canada https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/cavell gives 'Trailhead: The end of the Cavell Road' for trails 41 and 42"
     },
     "legacy/canadian-rockies-sept-2029/trails/chester-lake": {
       "lat": 50.79054,
       "lon": -115.3006,
       "coord_src": "osm",
-      "point_source": "OSM way 375083514 Chester Lake Trailhead Parking; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM way 375083514 Chester Lake Trailhead Parking"
     },
     "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop": {
       "lat": 51.17381,
@@ -521,7 +521,7 @@
       "lat": 49.03112,
       "lon": -113.89421,
       "coord_src": "osm",
-      "point_source": "OSM way 185604526 Crypt Lake Trail, its vertex at the Upper Waterton Lake shore (the landing; the dock itself is not mapped); Parks Canada https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/randonee-hiking/journee-day: a 15-minute boat ride 'brings you to the trailhead at Crypt Landing'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "OSM way 185604526 Crypt Lake Trail, its vertex at the Upper Waterton Lake shore (the landing; the dock itself is not mapped); Parks Canada https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/randonee-hiking/journee-day: a 15-minute boat ride 'brings you to the trailhead at Crypt Landing'"
     },
     "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop": {
       "lat": 50.86777,
@@ -557,7 +557,7 @@
       "lat": 51.18421,
       "lon": -115.58261,
       "coord_src": "osm",
-      "point_source": "OSM node 4218161190 (tourism=attraction, Fenland Trail), at the trail by the townsite; agent checked, needs a person's check"
+      "point_source": "OSM node 4218161190 (tourism=attraction, Fenland Trail), at the trail by the townsite"
     },
     "legacy/canadian-rockies-sept-2029/trails/fryatt-valley": {
       "lat": 52.64889,
@@ -587,7 +587,7 @@
       "lat": 50.63157,
       "lon": -115.13998,
       "coord_src": "osm",
-      "point_source": "OSM node 269821248 North Interlakes (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM node 269821248 North Interlakes (amenity=parking)"
     },
     "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail": {
       "lat": 53.1299,
@@ -599,13 +599,13 @@
       "lat": 51.19958,
       "lon": -115.49035,
       "coord_src": "osm",
-      "point_source": "OSM way 1180102518 (amenity=parking) at the end of Johnson Lake Road, beside the Johnson Lake bus stop (node 13461323849); the Parks Canada Banff day-hikes table did not load for a script, so the official trailhead wording was not read; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "OSM way 1180102518 (amenity=parking) at the end of Johnson Lake Road, beside the Johnson Lake bus stop (node 13461323849); the Parks Canada Banff day-hikes table did not load for a script, so the official trailhead wording was not read"
     },
     "legacy/canadian-rockies-sept-2029/trails/kinney-lake": {
       "lat": 53.04984,
       "lon": -119.21545,
       "coord_src": "osm",
-      "point_source": "OSM way 1185166549, the unnamed car park at the end of Kinney Lake Road where the Berg Lake Trail (relation 6035635, way 157610634) begins 125 m away; BC Parks names the start the Berg Lake trailhead; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM way 1185166549, the unnamed car park at the end of Kinney Lake Road where the Berg Lake Trail (relation 6035635, way 157610634) begins 125 m away; BC Parks names the start the Berg Lake trailhead"
     },
     "legacy/canadian-rockies-sept-2029/trails/lake-agnes": {
       "lat": 51.41167,
@@ -647,13 +647,13 @@
       "lat": 52.72667,
       "lon": -117.64458,
       "coord_src": "osm",
-      "point_source": "OSM relation 21018594 Maligne Lake Parking (the trailhead the record names); agent checked, needs a person's check"
+      "point_source": "OSM relation 21018594 Maligne Lake Parking (the trailhead the record names)"
     },
     "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop": {
       "lat": 52.72131,
       "lon": -117.64221,
       "coord_src": "osm",
-      "point_source": "OSM node 13970495503 Moose Lake Trail (trail start by the Maligne Lake road); relation 16336077; agent checked, needs a person's check"
+      "point_source": "OSM node 13970495503 Moose Lake Trail (trail start by the Maligne Lake road); relation 16336077"
     },
     "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore": {
       "lat": 51.3225,
@@ -671,7 +671,7 @@
       "lat": 50.63157,
       "lon": -115.13998,
       "coord_src": "osm",
-      "point_source": "OSM node 269821248 North Interlakes (amenity=parking); OSM node 3762652045 is tagged 'Indefatigable Trail Decomissioned 2005' 400 m away (an operator question: is the route still open?); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM node 269821248 North Interlakes (amenity=parking); OSM node 3762652045 is tagged 'Indefatigable Trail Decomissioned 2005' 400 m away (an operator question: is the route still open?)"
     },
     "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop": {
       "lat": 50.96944,
@@ -689,13 +689,13 @@
       "lat": 53.02818,
       "lon": -119.23067,
       "coord_src": "osm",
-      "point_source": "OSM node 14197983910 (information board, Overlander Falls Trail), the west end of the trail; the falls are node 6864440723; agent checked, needs a person's check"
+      "point_source": "OSM node 14197983910 (information board, Overlander Falls Trail), the west end of the trail; the falls are node 6864440723"
     },
     "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk": {
       "lat": 51.16992,
       "lon": -116.14761,
       "coord_src": "osm",
-      "point_source": "OSM way 234163234 Paint Pots Parking; trailhead node 3611622970 is 10 m away; agent checked, needs a person's check"
+      "point_source": "OSM way 234163234 Paint Pots Parking; trailhead node 3611622970 is 10 m away"
     },
     "legacy/canadian-rockies-sept-2029/trails/parker-ridge": {
       "lat": 52.18083,
@@ -707,7 +707,7 @@
       "lat": 51.71673,
       "lon": -116.49876,
       "coord_src": "osm",
-      "point_source": "OSM way 436272890 Peyto Lake Parking at Bow Summit; agent checked, needs a person's check"
+      "point_source": "OSM way 436272890 Peyto Lake Parking at Bow Summit"
     },
     "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers": {
       "lat": 51.3936,
@@ -725,31 +725,31 @@
       "lat": 50.60709,
       "lon": -115.1328,
       "coord_src": "osm",
-      "point_source": "OSM node 269822212 Rawson Lake Trailhead (highway=trailhead), Upper Kananaskis Lake; agent checked, needs a person's check"
+      "point_source": "OSM node 269822212 Rawson Lake Trailhead (highway=trailhead), Upper Kananaskis Lake"
     },
     "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop": {
       "lat": 49.13085,
       "lon": -114.02595,
       "coord_src": "osm",
-      "point_source": "OSM way 1059104807 (amenity=parking) at the end of Red Rock Parkway, beside the start of Red Rock Canyon Trail (way 24818808); the other lot (way 1059104806) is 270 m south. Parks Canada promenades-walks page: 'Trailhead: Red Rock Canyon upper parking lot'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "OSM way 1059104807 (amenity=parking) at the end of Red Rock Parkway, beside the start of Red Rock Canyon Trail (way 24818808); the other lot (way 1059104806) is 270 m south. Parks Canada promenades-walks page: 'Trailhead: Red Rock Canyon upper parking lot'"
     },
     "legacy/canadian-rockies-sept-2029/trails/ribbon-creek": {
       "lat": 50.93274,
       "lon": -115.14858,
       "coord_src": "osm",
-      "point_source": "OSM node 3686938459 Ribbon Creek Tr Entry (legacy trailhead: Ribbon Creek day use); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM node 3686938459 Ribbon Creek Tr Entry (legacy trailhead: Ribbon Creek day use)"
     },
     "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout": {
       "lat": 50.68633,
       "lon": -115.11493,
       "coord_src": "osm",
-      "point_source": "OSM way 262483241 Peter Lougheed visitor centre parking (fee=no); agent checked, needs a person's check"
+      "point_source": "OSM way 262483241 Peter Lougheed visitor centre parking (fee=no)"
     },
     "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge": {
       "lat": 50.60709,
       "lon": -115.1328,
       "coord_src": "osm",
-      "point_source": "OSM node 269822212 Rawson Lake Trailhead (highway=trailhead), Upper Kananaskis Lake; agent checked, needs a person's check"
+      "point_source": "OSM node 269822212 Rawson Lake Trailhead (highway=trailhead), Upper Kananaskis Lake"
     },
     "legacy/canadian-rockies-sept-2029/trails/skyline-trail": {
       "lat": 52.72577,
@@ -767,13 +767,13 @@
       "lat": 50.90443,
       "lon": -115.63918,
       "coord_src": "osm",
-      "point_source": "OSM node 815130880 Lake Magog Campground (the legacy trailhead is the Lake Magog campground); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM node 815130880 Lake Magog Campground (the legacy trailhead is the Lake Magog campground)"
     },
     "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass": {
       "lat": 51.11493,
       "lon": -115.76374,
       "coord_src": "osm",
-      "point_source": "OSM way 285056656 Sunshine Base Station (gondola base, where the day starts; the meadows are reached by gondola); agent checked, needs a person's check"
+      "point_source": "OSM way 285056656 Sunshine Base Station (gondola base, where the day starts; the meadows are reached by gondola)"
     },
     "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk": {
       "lat": 51.49972,
@@ -785,13 +785,13 @@
       "lat": 50.84682,
       "lon": -115.35704,
       "coord_src": "osm",
-      "point_source": "OSM way 24836693 Tent Ridge Track, its vertex on Mount Shark Road (way 32219782); no official page (Alberta Parks has no Tent Ridge trail report), so the start rests on OSM alone; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "OSM way 24836693 Tent Ridge Track, its vertex on Mount Shark Road (way 32219782); no official page (Alberta Parks has no Tent Ridge trail report), so the start rests on OSM alone"
     },
     "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk": {
       "lat": 52.21262,
       "lon": -117.23292,
       "coord_src": "osm",
-      "point_source": "OSM way 26751964 (Parks Canada parking, fee=no), 580 m from the toe point used for the payoff; lot name not tagged; agent checked, needs a person's check"
+      "point_source": "OSM way 26751964 (Parks Canada parking, fee=no), 580 m from the toe point used for the payoff; lot name not tagged"
     },
     "legacy/canadian-rockies-sept-2029/trails/troll-falls": {
       "lat": 50.94213,
@@ -809,7 +809,7 @@
       "lat": 51.20409,
       "lon": -116.58525,
       "coord_src": "osm",
-      "point_source": "OSM way 658732269 Wapta Falls Parking; the trail ways (1303953044 and others) start 300 m south; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM way 658732269 Wapta Falls Parking; the trail ways (1303953044 and others) start 300 m south"
     },
     "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop": {
       "lat": 50.87278,
@@ -827,31 +827,31 @@
       "lat": 51.14706,
       "lon": -115.57836,
       "coord_src": "osm",
-      "point_source": "OSM node 12244949797 (natural=peak, name tag '2260'); the Cosmic Ray Station, node 4110686120, stands 15 m away; agent checked, needs a person's check"
+      "point_source": "OSM node 12244949797 (natural=peak, name tag '2260'); the Cosmic Ray Station, node 4110686120, stands 15 m away"
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sky-bistro": {
       "lat": 51.14475,
       "lon": -115.57502,
       "coord_src": "osm",
-      "point_source": "OSM node 678977497 (amenity=restaurant, Sky Bistro); agent checked, needs a person's check"
+      "point_source": "OSM node 678977497 (amenity=restaurant, Sky Bistro)"
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain": {
       "lat": 51.12361,
       "lon": -115.55556,
       "coord_src": "wikidata",
-      "point_source": "Q842987 P625 (the mountain's high point, about 2.5 km south of the gondola top and Sanson's Peak); agent checked, needs a person's check"
+      "point_source": "Q842987 P625 (the mountain's high point, about 2.5 km south of the gondola top and Sanson's Peak)"
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top": {
       "lat": 51.14448,
       "lon": -115.57502,
       "coord_src": "osm",
-      "point_source": "OSM node 10809307025 (aerialway=station, Banff Gondola Upper Terminal), read 2026-10-19; replaces the Q125749525 P625 point, which is the lower terminal; agent checked, needs a person's check"
+      "point_source": "OSM node 10809307025 (aerialway=station, Banff Gondola Upper Terminal),; replaces the Q125749525 P625 point, which is the lower terminal"
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place": {
       "lat": 51.15086,
       "lon": -115.56062,
       "coord_src": "osm",
-      "point_source": "OSM way 202233167 Banff Upper Hot Springs (public bath); read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM way 202233167 Banff Upper Hot Springs (public bath)"
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre": {
       "lat": 51.09025,
@@ -869,31 +869,31 @@
       "lat": 51.09465,
       "lon": -115.0619,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q3433709 P625 (Kananaskis River); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q3433709 P625 (Kananaskis River)"
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place": {
       "lat": 51.3,
       "lon": -116.983,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q1337358 P625 (Kicking Horse River); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q1337358 P625 (Kicking Horse River)"
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-lower-canyon": {
       "lat": 51.3,
       "lon": -116.983,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q1337358 P625 (Kicking Horse River); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q1337358 P625 (Kicking Horse River)"
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-upper-section": {
       "lat": 51.3,
       "lon": -116.983,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q1337358 P625 (Kicking Horse River); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q1337358 P625 (Kicking Horse River)"
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base": {
       "lat": 51.24283,
       "lon": -116.66093,
       "coord_src": "osm",
-      "point_source": "OSM way 1545703289 Wild Water Adventures Riverbase (2750 Beaverfoot Road, the address on https://wildwater.com/contact/, geocoded by Nominatim); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM way 1545703289 Wild Water Adventures Riverbase (2750 Beaverfoot Road, the address on https://wildwater.com/contact/, geocoded by Nominatim)"
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top": {
       "lat": 51.4419,
@@ -905,85 +905,85 @@
       "lat": 51.66986,
       "lon": -116.44804,
       "coord_src": "osm",
-      "point_source": "OSM relation 18335545 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM relation 18335545 centroid (amenity=parking)"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking": {
       "lat": 51.43895,
       "lon": -116.54119,
       "coord_src": "osm",
-      "point_source": "OSM way 230454536 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM way 230454536 centroid (amenity=parking)"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots": {
       "lat": 51.27857,
       "lon": -115.82358,
       "coord_src": "osm",
-      "point_source": "OSM node 1366399455 (tourism=attraction, Ink Pots); Wikidata Q22438559 P625 is 580 m north-east; agent checked, needs a person's check"
+      "point_source": "OSM node 1366399455 (tourism=attraction, Ink Pots); Wikidata Q22438559 P625 is 580 m north-east"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots-trail": {
       "lat": 51.24556,
       "lon": -115.83979,
       "coord_src": "osm",
-      "point_source": "OSM way 764291434 Johnston Canyon (amenity=parking); the Ink Pots trail leaves the Johnston Canyon path; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM way 764291434 Johnston Canyon (amenity=parking); the Ink Pots trail leaves the Johnston Canyon path"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#lower-falls": {
       "lat": 51.25486,
       "lon": -115.83732,
       "coord_src": "osm",
-      "point_source": "OSM node 3005639506 (waterway=waterfall); agent checked, needs a person's check"
+      "point_source": "OSM node 3005639506 (waterway=waterfall)"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#upper-falls": {
       "lat": 51.26186,
       "lon": -115.83128,
       "coord_src": "osm",
-      "point_source": "OSM node 3005649801 (waterway=waterfall); agent checked, needs a person's check"
+      "point_source": "OSM node 3005649801 (waterway=waterfall)"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk": {
       "lat": 51.24556,
       "lon": -115.83979,
       "coord_src": "osm",
-      "point_source": "OSM way 764291434 Johnston Canyon (amenity=parking), 100 m from the information boards at the canyon start; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM way 764291434 Johnston Canyon (amenity=parking), 100 m from the information boards at the canyon start"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/lake-minnewanka#parking": {
       "lat": 51.24852,
       "lon": -115.50038,
       "coord_src": "osm",
-      "point_source": "OSM way 48295612 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM way 48295612 centroid (amenity=parking)"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking": {
       "lat": 52.72667,
       "lon": -117.64458,
       "coord_src": "osm",
-      "point_source": "OSM relation 21018594 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM relation 21018594 centroid (amenity=parking)"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile": {
       "lat": 51.32786,
       "lon": -116.18069,
       "coord_src": "osm",
-      "point_source": "OSM node 348002838 (tourism=viewpoint; its name tag reads 'Moraine lake'; it sits on the Rockpile); agent checked, needs a person's check"
+      "point_source": "OSM node 348002838 (tourism=viewpoint; its name tag reads 'Moraine lake'; it sits on the Rockpile)"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop": {
       "lat": 51.32897,
       "lon": -116.18179,
       "coord_src": "osm",
-      "point_source": "OSM node 13240062778 (bus stop, operator Parks Canada, route_ref Parks Canada Shuttle); agent checked, needs a person's check"
+      "point_source": "OSM node 13240062778 (bus stop, operator Parks Canada, route_ref Parks Canada Shuttle)"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds#parking": {
       "lat": 50.96904,
       "lon": -115.11027,
       "coord_src": "osm",
-      "point_source": "OSM way 261038378 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM way 261038378 centroid (amenity=parking)"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/pyramid-lake#parking": {
       "lat": 52.92376,
       "lon": -118.09542,
       "coord_src": "osm",
-      "point_source": "OSM way 1282422641 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM way 1282422641 centroid (amenity=parking)"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking": {
       "lat": 50.87389,
       "lon": -115.14649,
       "coord_src": "osm",
-      "point_source": "OSM way 262156429 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM way 262156429 centroid (amenity=parking)"
     },
     "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff": {
       "lat": 51.1356,
@@ -1007,31 +1007,31 @@
       "lat": 51.33329,
       "lon": -116.21888,
       "coord_src": "wikidata",
-      "point_source": "Q22366287 P625 (valley in Alberta); agent checked, needs a person's check"
+      "point_source": "Q22366287 P625 (valley in Alberta)"
     },
     "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass": {
       "lat": 51.34055,
       "lon": -116.2219,
       "coord_src": "osm",
-      "point_source": "OSM node 2706106443 (natural=saddle, ele 2611); Wikidata Q22562892 carries the same coordinate as Larch Valley, so OSM is used; agent checked, needs a person's check"
+      "point_source": "OSM node 2706106443 (natural=saddle, ele 2611); Wikidata Q22562892 carries the same coordinate as Larch Valley, so OSM is used"
     },
     "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff": {
       "lat": 50.59942,
       "lon": -115.15976,
       "coord_src": "osm",
-      "point_source": "OSM node 7042108468 (natural=peak, Sarrail Ridge, ele 2362); agent checked, needs a person's check"
+      "point_source": "OSM node 7042108468 (natural=peak, Sarrail Ridge, ele 2362)"
     },
     "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff": {
       "lat": 53.1157,
       "lon": -117.74485,
       "coord_src": "osm",
-      "point_source": "OSM node 6548652085 (tourism=viewpoint, Sulphur Skyline Trail Viewpoint); agent checked, needs a person's check"
+      "point_source": "OSM node 6548652085 (tourism=viewpoint, Sulphur Skyline Trail Viewpoint)"
     },
     "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff": {
       "lat": 52.20748,
       "lon": -117.23449,
       "coord_src": "osm",
-      "point_source": "OSM node 4546035994 (tourism=attraction, Athabasca Glacier, at the toe); agent checked, needs a person's check"
+      "point_source": "OSM node 4546035994 (tourism=attraction, Athabasca Glacier, at the toe)"
     },
     "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff": {
       "lat": 50.94806,
@@ -1043,19 +1043,25 @@
       "lat": 38.61629,
       "lon": -109.62057,
       "coord_src": "osm",
-      "point_source": "OSM relation/17161840 amenity=parking fee=no, 60 m from the OSM Arches National Park Visitor Center (way/1246899184); read 2026-10-25"
+      "point_source": "OSM relation/17161840 amenity=parking fee=no, 60 m from the OSM Arches National Park Visitor Center (way/1246899184)"
     },
     "part/place/bentonite-hills#cow-dung-road-approx": {
       "lat": 38.36167,
       "lon": -111.12797,
       "coord_src": "osm",
-      "point_source": "OSM node/3227293628 tourism=viewpoint name 'Bentonite Hills'; read 2026-10-25"
+      "point_source": "OSM node/3227293628 tourism=viewpoint name 'Bentonite Hills'"
+    },
+    "part/place/bonaventure-island#parking": {
+      "lat": 48.5229,
+      "lon": -64.21228,
+      "coord_src": "osm",
+      "point_source": "OSM relation 8388119, a paid surface car park of 100 places named 'SEPAQ' at the Percé quay; the Rando Québec sheet gives the access point as 48.5214,-64.2126 (0.17 km away) and says parking is paid by the day"
     },
     "part/place/bryce-canyon-national-park#visitor-center-lot": {
       "lat": 37.63996,
       "lon": -112.17027,
       "coord_src": "osm",
-      "point_source": "OSM relation/17216953 amenity=parking fee=no access=customers, beside the OSM Bryce Canyon National Park Visitors Center (way/131697989); read 2026-10-25"
+      "point_source": "OSM relation/17216953 amenity=parking fee=no access=customers, beside the OSM Bryce Canyon National Park Visitors Center (way/131697989)"
     },
     "part/place/bullaccia-and-the-witches-benches#payoff": {
       "lat": 46.56397,
@@ -1069,11 +1075,35 @@
       "coord_src": "wikidata",
       "point_source": "Q476378 P625"
     },
+    "part/place/canyon-sainte-anne#parking": {
+      "lat": 47.07106,
+      "lon": -70.87354,
+      "coord_src": "osm",
+      "point_source": "OSM way 231694465, an unnamed car park (access=yes) 0.2 km from the canyon's Wikidata point and the operator's address, 206 Route 138 Est"
+    },
     "part/place/canyonlands-national-park#island-in-the-sky-lot": {
       "lat": 38.45998,
       "lon": -109.82051,
       "coord_src": "osm",
-      "point_source": "OSM relation/15336112 amenity=parking fee=no capacity=42 name 'Island in the Sky Visitor Center Parking'; read 2026-10-25"
+      "point_source": "OSM relation/15336112 amenity=parking fee=no capacity=42 name 'Island in the Sky Visitor Center Parking'"
+    },
+    "part/place/cap-bon-ami#parking": {
+      "lat": 48.81029,
+      "lon": -64.22147,
+      "coord_src": "osm",
+      "point_source": "OSM way 435827958, an unnamed car park 0.2 km from the OSM Cap Bon Ami viewpoint; the Parks Canada hiking page names Cap-Bon-Ami as a trailhead but gives no lot point"
+    },
+    "part/place/cap-gaspe#parking": {
+      "lat": 48.79238,
+      "lon": -64.22517,
+      "coord_src": "osm",
+      "point_source": "OSM way 710486070, an unnamed car park at L'Anse-aux-Amérindiens, the trailhead the Parks Canada hiking page names for the Les Graves trail to Cap-Gaspé"
+    },
+    "part/place/capri#ferry": {
+      "lat": 40.55628,
+      "lon": 14.24208,
+      "coord_src": "osm",
+      "point_source": "OSM node 3711590228 (amenity=ferry_terminal, unnamed) at the main harbour"
     },
     "part/place/cascate-di-fanes#payoff": {
       "lat": 46.594,
@@ -1085,7 +1115,7 @@
       "lat": 45.62803,
       "lon": -122.02308,
       "coord_src": "osm",
-      "point_source": "OSM way/455598750 amenity=parking fee=yes, 140 m from the OSM Beacon Rock Trail (relation/18052461); read 2026-10-25"
+      "point_source": "OSM way/455598750 amenity=parking fee=yes, 140 m from the OSM Beacon Rock Trail (relation/18052461)"
     },
     "part/place/croda-del-becco#payoff": {
       "lat": 46.67522,
@@ -1097,37 +1127,61 @@
       "lat": 38.44146,
       "lon": -110.91689,
       "coord_src": "osm",
-      "point_source": "OSM relation/13852886 landuse OHV area (centre); read 2026-10-25"
+      "point_source": "OSM relation/13852886 landuse OHV area (centre)"
     },
     "part/place/funbob-monte-baranci#place": {
       "lat": 46.71811,
       "lon": 12.27879,
       "coord_src": "osm",
-      "point_source": "OSM node 1825738077 Haunold - Monte Baranci chairlift top station, where the Funbob run starts; agent checked, needs a person's check"
+      "point_source": "OSM node 1825738077 Haunold - Monte Baranci chairlift top station, where the Funbob run starts"
     },
     "part/place/grand-teton-national-park#moose-visitor-center-lot": {
       "lat": 43.65479,
       "lon": -110.71812,
       "coord_src": "osm",
-      "point_source": "OSM way/1074969530 amenity=parking, 160 m north of the OSM Craig Thomas Discovery and Visitor Center (way/325323599); read 2026-10-25"
+      "point_source": "OSM way/1074969530 amenity=parking, 160 m north of the OSM Craig Thomas Discovery and Visitor Center (way/325323599)"
+    },
+    "part/place/gurudongmar-lake#road-end": {
+      "lat": 28.01927,
+      "lon": 88.70914,
+      "coord_src": "osm",
+      "point_source": "OSM node 12133881062 'Gurudongmar Tso Monastry' beside the lake; OSM maps no car park, so this is where the road ends only by inference"
+    },
+    "part/place/ha-long-bay#ha-long-international-port": {
+      "lat": 20.95328,
+      "lon": 107.05571,
+      "coord_src": "osm",
+      "point_source": "OSM node 12759133301 'Cang tau khach quoc te Ha Long' (amenity=ferry_terminal), the Bai Chay passenger port; vietnam.travel names Tuan Chau and Bai Chay as the cruise ports"
     },
     "part/place/havasupai-havasu-falls#hualapai-hilltop-lot": {
       "lat": 36.15925,
       "lon": -112.7092,
       "coord_src": "osm",
-      "point_source": "OSM way/116860348 amenity=parking name 'Hualapai Hilltop', the trailhead for the Havasupai trail; read 2026-10-25"
+      "point_source": "OSM way/116860348 amenity=parking name 'Hualapai Hilltop', the trailhead for the Havasupai trail"
     },
     "part/place/kanarra-falls#town-parking-lot": {
       "lat": 37.53777,
       "lon": -113.17565,
       "coord_src": "osm",
-      "point_source": "OSM way/376881912 amenity=parking fee=yes name 'Town Parking Lot', at the OSM Kanarra Creek Falls Trailhead (node/5822521699); read 2026-10-25"
+      "point_source": "OSM way/376881912 amenity=parking fee=yes name 'Town Parking Lot', at the OSM Kanarra Creek Falls Trailhead (node/5822521699)"
     },
     "part/place/kennecott-river-rafting-wrangell-st-elias#mccarthy-road-end-lot": {
       "lat": 61.43437,
       "lon": -142.94361,
       "coord_src": "osm",
-      "point_source": "OSM way/461639604 amenity=parking fee=yes, 100 m from the OSM West Fork Kennicott River gauge at McCarthy (node/12067017967); read 2026-10-25"
+      "point_source": "OSM way/461639604 amenity=parking fee=yes, 100 m from the OSM West Fork Kennicott River gauge at McCarthy (node/12067017967)"
+    },
+    "part/place/la-martre-lighthouse#parking": {
+      "lat": 49.20665,
+      "lon": -66.16966,
+      "coord_src": "osm",
+      "point_source": "OSM way 1013558783 'Belvédère La Martre' (highway=rest_area, tourism=viewpoint) 0.14 km from the lighthouse"
+    },
+    "part/place/lac-aux-americains#parking": {
+      "lat": 48.9546,
+      "lon": -66.0432,
+      "coord_src": "official",
+      "point_source": "Rando Québec ready-to-go sheet for Mont Xalibu: 'Coordonnées N48.9546, W66.0432', the lac aux Américains car park, 8.1 km from the Mont-Albert discovery centre, 40 places"
     },
     "part/place/lagazuoi-cable-car-and-tunnels#top": {
       "lat": 46.51921,
@@ -1139,43 +1193,43 @@
       "lat": 46.59104,
       "lon": 12.26322,
       "coord_src": "osm",
-      "point_source": "OSM way 234899048 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM way 234899048 centroid (amenity=parking)"
     },
     "part/place/lago-di-braies#parking": {
       "lat": 46.70039,
       "lon": 12.0847,
       "coord_src": "osm",
-      "point_source": "OSM way 442280371 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM way 442280371 centroid (amenity=parking)"
     },
     "part/place/lago-di-braies#walk": {
       "lat": 46.69896,
       "lon": 12.08547,
       "coord_src": "osm",
-      "point_source": "OSM relation 12043472, first vertex of the stored track data/tracks/braies.json (ODbL), read 2026-10-19; the track starts 6 m from the trailhead the record names (lane META-1)"
+      "point_source": "OSM relation 12043472, first vertex of the stored track data/tracks/braies.json (ODbL),; the track starts 6 m from the trailhead the record names"
     },
     "part/place/lago-di-carezza#parking": {
       "lat": 46.41177,
       "lon": 11.5754,
       "coord_src": "osm",
-      "point_source": "OSM relation 19117506 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM relation 19117506 centroid (amenity=parking)"
     },
     "part/place/lago-di-dobbiaco#parking": {
       "lat": 46.70631,
       "lon": 12.22027,
       "coord_src": "osm",
-      "point_source": "OSM way 75384548 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM way 75384548 centroid (amenity=parking)"
     },
     "part/place/lago-di-landro#parking": {
       "lat": 46.63258,
       "lon": 12.23004,
       "coord_src": "osm",
-      "point_source": "OSM way 437446697 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM way 437446697 centroid (amenity=parking)"
     },
     "part/place/lago-di-misurina#parking": {
       "lat": 46.57951,
       "lon": 12.2522,
       "coord_src": "osm",
-      "point_source": "OSM way 178543599 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM way 178543599 centroid (amenity=parking)"
     },
     "part/place/lago-di-sorapis#payoff": {
       "lat": 46.5204,
@@ -1187,91 +1241,121 @@
       "lat": 46.50586,
       "lon": 12.07888,
       "coord_src": "osm",
-      "point_source": "OSM relation 3170182, first vertex of the stored track data/tracks/federa.json (ODbL), read 2026-10-19; the track starts 2 m from the trailhead the record names (lane META-1)"
+      "point_source": "OSM relation 3170182, first vertex of the stored track data/tracks/federa.json (ODbL),; the track starts 2 m from the trailhead the record names"
     },
     "part/place/lake-chelan#state-park-lot": {
       "lat": 47.87338,
       "lon": -120.19672,
       "coord_src": "osm",
-      "point_source": "OSM relation/11634351 amenity=parking, 45 m from the OSM Lake Chelan State Park Camp Store (node/7894784174); read 2026-10-25"
+      "point_source": "OSM relation/11634351 amenity=parking, 45 m from the OSM Lake Chelan State Park Camp Store (node/7894784174)"
+    },
+    "part/place/lake-como#parking": {
+      "lat": 45.80582,
+      "lon": 9.08741,
+      "coord_src": "osm",
+      "point_source": "OSM way 316776513 Autosilo Via Auguadri centroid (amenity=parking, parking=multi-storey, fee=yes, capacity=800, operator CSU)"
     },
     "part/place/lake-louise#parking": {
       "lat": 51.41501,
       "lon": -116.21343,
       "coord_src": "osm",
-      "point_source": "OSM way 26752321 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM way 26752321 centroid (amenity=parking)"
     },
     "part/place/lake-louise#shuttle-stop": {
       "lat": 51.41616,
       "lon": -116.21364,
       "coord_src": "osm",
-      "point_source": "OSM node 12164756005 (bus stop named Parks Canada Shuttle); agent checked, needs a person's check"
+      "point_source": "OSM node 12164756005 (bus stop named Parks Canada Shuttle)"
     },
     "part/place/lake-wenatchee#day-use-lot": {
       "lat": 47.81214,
       "lon": -120.72039,
       "coord_src": "osm",
-      "point_source": "OSM node/2882303259 amenity=parking fee=yes name 'Day Use Parking' at the state park; read 2026-10-25"
+      "point_source": "OSM node/2882303259 amenity=parking fee=yes name 'Day Use Parking' at the state park"
+    },
+    "part/place/le-buton-lookout-le-massif-de-charlevoix#parking": {
+      "lat": 47.27688,
+      "lon": -70.60973,
+      "coord_src": "osm",
+      "point_source": "OSM way 302833489, an unpaved car park 0.3 km from the Wikidata point of Le Massif; the operator says the Le Buton loop starts at the summit near the parking lot"
     },
     "part/place/long-dong-silver-spire#trailhead-lot": {
       "lat": 38.38224,
       "lon": -110.83882,
       "coord_src": "osm",
-      "point_source": "OSM way/1535726923 amenity=parking surface=dirt name 'Long Dong Silver Trailhead Parking'; read 2026-10-25"
+      "point_source": "OSM way/1535726923 amenity=parking surface=dirt name 'Long Dong Silver Trailhead Parking'"
     },
     "part/place/manitou-incline#hiawatha-gardens-lot": {
       "lat": 38.85813,
       "lon": -104.90967,
       "coord_src": "osm",
-      "point_source": "OSM way/477032968 amenity=parking fee=yes capacity=100 operator City of Manitou Springs name 'Hiawatha Gardens Parking'; read 2026-10-25"
+      "point_source": "OSM way/477032968 amenity=parking fee=yes capacity=100 operator City of Manitou Springs name 'Hiawatha Gardens Parking'"
+    },
+    "part/place/montmorency-falls#parking": {
+      "lat": 46.887,
+      "lon": -71.1522,
+      "coord_src": "official",
+      "point_source": "Rando Québec (Balise Québec) 'Point d'accès 46.8870, -71.1522' for Parc de la Chute-Montmorency (page last updated 2013-04-19)"
     },
     "part/place/monument-valley#visitor-center-lot": {
       "lat": 36.98296,
       "lon": -110.11255,
       "coord_src": "osm",
-      "point_source": "OSM way/106361462 amenity=parking capacity=240 name 'Monument Valley parking', beside the OSM Monument Valley Visitor Center (node/1183476415); read 2026-10-25"
+      "point_source": "OSM way/106361462 amenity=parking capacity=240 name 'Monument Valley parking', beside the OSM Monument Valley Visitor Center (node/1183476415)"
     },
     "part/place/mount-baker-snoqualmie-national-forest#franklin-falls-lot": {
       "lat": 47.41288,
       "lon": -121.44073,
       "coord_src": "osm",
-      "point_source": "OSM way/1220646074 amenity=parking fee=yes operator U.S. Forest Service, about 100 m from the OSM Franklin Falls Trailhead (node/6329932943); read 2026-10-25"
+      "point_source": "OSM way/1220646074 amenity=parking fee=yes operator U.S. Forest Service, about 100 m from the OSM Franklin Falls Trailhead (node/6329932943)"
     },
     "part/place/mount-baker-wilderness#artist-point-lot": {
       "lat": 48.84684,
       "lon": -121.69278,
       "coord_src": "osm",
-      "point_source": "OSM way/96495723 amenity=parking fee=yes capacity=150 operator US Forest Service name 'Artist Point Trailhead'; read 2026-10-25"
+      "point_source": "OSM way/96495723 amenity=parking fee=yes capacity=150 operator US Forest Service name 'Artist Point Trailhead'"
     },
     "part/place/mount-rainier-national-park#paradise-upper-lot": {
       "lat": 46.78571,
       "lon": -121.73557,
       "coord_src": "osm",
-      "point_source": "OSM way/970437613 amenity=parking fee=no name 'Paradise Upper Parking Lot', about 100 m from the OSM Jackson Visitor Center (way/180649580); read 2026-10-25"
+      "point_source": "OSM way/970437613 amenity=parking fee=no name 'Paradise Upper Parking Lot', about 100 m from the OSM Jackson Visitor Center (way/180649580)"
     },
     "part/place/mount-st-helens#johnston-ridge-lot": {
       "lat": 46.2776,
       "lon": -122.2164,
       "coord_src": "osm",
-      "point_source": "OSM way/1228806284 amenity=parking surface=asphalt, about 260 m from the OSM Johnston Ridge Observatory (way/53166846); read 2026-10-25"
+      "point_source": "OSM way/1228806284 amenity=parking surface=asphalt, about 260 m from the OSM Johnston Ridge Observatory (way/53166846)"
     },
     "part/place/north-cascades-national-park#visitor-center-lot": {
       "lat": 48.66596,
       "lon": -121.26797,
       "coord_src": "osm",
-      "point_source": "OSM relation/17713933 amenity=parking, about 40 m from the OSM North Cascades National Park Visitor Center (way/184708189); read 2026-10-25"
+      "point_source": "OSM relation/17713933 amenity=parking, about 40 m from the OSM North Cascades National Park Visitor Center (way/184708189)"
+    },
+    "part/place/pic-champlain#parking": {
+      "lat": 48.3106,
+      "lon": -68.8698,
+      "coord_src": "official",
+      "point_source": "Rando Québec ready-to-go sheet for Les Murailles: 'Latitude 48.3106, Longitude W-68.8698', Raoul-Roy belvedere car park, 20 places"
+    },
+    "part/place/qq-canyon-racer-mountain-coaster-gulong-gorge#car-park": {
+      "lat": 23.77556,
+      "lon": 112.95677,
+      "coord_src": "osm",
+      "point_source": "OSM way 696058893 'Gu long xia lv you jing qu da xing ting che chang' (amenity=parking), the scenic-area car park about 650 m from the coaster track"
     },
     "part/place/rafting-on-the-rienza#place": {
       "lat": 46.80997,
       "lon": 11.79257,
       "coord_src": "osm",
-      "point_source": "OSM way 42881996 Fussballplatz St. Sigmund (leisure=pitch), the sports ground of San Sigismondo with the pitches 1134655979 and 1134655980; Rafting Club Activ https://www.rafting-club-activ.com/en/contact/ gives 'Meeting point Rienz / Eisack: Sports zone St. Sigmund'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "OSM way 42881996 Fussballplatz St. Sigmund (leisure=pitch), the sports ground of San Sigismondo with the pitches 1134655979 and 1134655980; Rafting Club Activ https://www.rafting-club-activ.com/en/contact/ gives 'Meeting point Rienz / Eisack: Sports zone St. Sigmund'"
     },
     "part/place/sass-pordoi-and-piz-boe#payoff": {
       "lat": 46.50901,
       "lon": 11.82823,
       "coord_src": "osm",
-      "point_source": "last vertex of the stored track data/tracks/pordoi.json (OSM, ODbL, read 2026-10-19; the track is cut at the destination, Sass Pordoi and Piz Boè); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "last vertex of the stored track data/tracks/pordoi.json (OSM, ODbL,; the track is cut at the destination, Sass Pordoi and Piz Boè)"
     },
     "part/place/seceda-ridge#payoff": {
       "lat": 46.60059,
@@ -1283,103 +1367,103 @@
       "lat": 46.61356,
       "lon": 12.29439,
       "coord_src": "osm",
-      "point_source": "OSM way 74709399 centroid (amenity=parking, Parcheggio Rifugio Auronzo (P4)); agent checked, needs a person's check"
+      "point_source": "OSM way 74709399 centroid (amenity=parking, Parcheggio Rifugio Auronzo (P4))"
     },
     "part/place/tre-cime-di-lavaredo-loop#north-face-viewpoint": {
       "lat": 46.63817,
       "lon": 12.30926,
       "coord_src": "osm",
-      "point_source": "OSM node 12091634369 (tourism=viewpoint, unnamed, 160 m north-west of the Locatelli hut); agent checked, needs a person's check"
+      "point_source": "OSM node 12091634369 (tourism=viewpoint, unnamed, 160 m north-west of the Locatelli hut)"
     },
     "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo": {
       "lat": 46.61222,
       "lon": 12.29417,
       "coord_src": "wikidata",
-      "point_source": "Q681466 P625; agent checked, needs a person's check"
+      "point_source": "Q681466 P625"
     },
     "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo": {
       "lat": 46.61833,
       "lon": 12.31222,
       "coord_src": "wikidata",
-      "point_source": "Q3935531 P625; agent checked, needs a person's check"
+      "point_source": "Q3935531 P625"
     },
     "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli": {
       "lat": 46.63694,
       "lon": 12.31056,
       "coord_src": "wikidata",
-      "point_source": "Q1258258 P625; agent checked, needs a person's check"
+      "point_source": "Q1258258 P625"
     },
     "part/place/tre-cime-di-lavaredo-loop#toll-road": {
       "lat": 46.59985,
       "lon": 12.26997,
       "coord_src": "osm",
-      "point_source": "OSM node 277726434 (barrier=toll_booth at the foot of the road); agent checked, needs a person's check"
+      "point_source": "OSM node 277726434 (barrier=toll_booth at the foot of the road)"
     },
     "part/place/tre-cime-di-lavaredo-loop#tre-cime": {
       "lat": 46.61861,
       "lon": 12.30556,
       "coord_src": "wikidata",
-      "point_source": "Q1257207 P625; agent checked, needs a person's check"
+      "point_source": "Q1257207 P625"
     },
     "part/place/watkins-glen-state-park#main-entrance-lot": {
       "lat": 42.37671,
       "lon": -76.87169,
       "coord_src": "osm",
-      "point_source": "OSM way/236760432 amenity=parking fee=yes operator New York State OPRHP; read 2026-10-25"
+      "point_source": "OSM way/236760432 amenity=parking fee=yes operator New York State OPRHP"
     },
     "part/place/white-mountain-national-forest#lincoln-woods-lot": {
       "lat": 44.06354,
       "lon": -71.5881,
       "coord_src": "osm",
-      "point_source": "OSM relation/1649688 amenity=parking fee=yes name 'Lincoln Woods Trailhead Parking'; read 2026-10-25"
+      "point_source": "OSM relation/1649688 amenity=parking fee=yes name 'Lincoln Woods Trailhead Parking'"
     },
     "part/place/yellowstone-national-park#old-faithful-west-lot": {
       "lat": 44.45794,
       "lon": -110.83073,
       "coord_src": "osm",
-      "point_source": "OSM relation/14238986 amenity=parking fee=no name 'West Parking', 150 m from the OSM Old Faithful Visitor Center (way/198653447); read 2026-10-25"
+      "point_source": "OSM relation/14238986 amenity=parking fee=no name 'West Parking', 150 m from the OSM Old Faithful Visitor Center (way/198653447)"
     },
     "part/place/zion-national-park#visitor-center-lot": {
       "lat": 37.19934,
       "lon": -112.98713,
       "coord_src": "osm",
-      "point_source": "OSM relation/7206475 amenity=parking fee=no, 15 m from the OSM Zion shuttle bus station at the visitor center (node/6582877986); read 2026-10-25"
+      "point_source": "OSM relation/7206475 amenity=parking fee=no, 15 m from the OSM Zion shuttle bus station at the visitor center (node/6582877986)"
     },
     "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop": {
       "lat": 45.91598,
       "lon": 6.8505,
       "coord_src": "osm",
-      "point_source": "OSM node 30983901 (bus stop, Les Gaillands); agent checked, needs a person's check"
+      "point_source": "OSM node 30983901 (bus stop, Les Gaillands)"
     },
     "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#parking": {
       "lat": 45.91492,
       "lon": 6.84832,
       "coord_src": "osm",
-      "point_source": "OSM way 232431306 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM way 232431306 centroid (amenity=parking)"
     },
     "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#step-into-the-void": {
       "lat": 45.87868,
       "lon": 6.88721,
       "coord_src": "osm",
-      "point_source": "OSM node 5590167495 (tourism=attraction, Le Pas dans le Vide); agent checked, needs a person's check"
+      "point_source": "OSM node 5590167495 (tourism=attraction, Le Pas dans le Vide)"
     },
     "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit": {
       "lat": 45.87864,
       "lon": 6.88735,
       "coord_src": "osm",
-      "point_source": "OSM node 167075493 (natural=peak, ele 3842, wikidata Q404728); agent checked, needs a person's check"
+      "point_source": "OSM node 167075493 (natural=peak, ele 3842, wikidata Q404728)"
     },
     "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top": {
       "lat": 45.87929,
       "lon": 6.887,
       "coord_src": "osm",
-      "point_source": "OSM node 435438563 (aerialway=station, aerialway:station=top, Aiguille du Midi 2, ele 3777), read 2026-10-19; replaces the Q3088020 P625 point, which is the valley station in Chamonix; agent checked, needs a person's check"
+      "point_source": "OSM node 435438563 (aerialway=station, aerialway:station=top, Aiguille du Midi 2, ele 3777),; replaces the Q3088020 P625 point, which is the valley station in Chamonix"
     },
     "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top": {
       "lat": 45.93173,
       "lon": 6.91742,
       "coord_src": "osm",
-      "point_source": "OSM node 283313364 Montenvers–Mer de Glace railway station; Wikidata Q1946088 P625 45.93306,6.91722 (Montenvers) is 150 m away; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM node 283313364 Montenvers–Mer de Glace railway station; Wikidata Q1946088 P625 45.93306,6.91722 (Montenvers) is 150 m away"
     },
     "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff": {
       "lat": 45.98222,
@@ -1391,7 +1475,7 @@
       "lat": 65.63042,
       "lon": -16.84742,
       "coord_src": "osm",
-      "point_source": "OSM way 513972196 Jarðböðin við Mývatn (Q140586475), the Mývatn Nature Baths; read 2026-10-19 (lane CS7d); agent checked, needs a person's check"
+      "point_source": "OSM way 513972196 Jarðböðin við Mývatn (Q140586475), the Mývatn Nature Baths"
     },
     "part/trip/iceland-ring-road-2027/sight:dettifoss#walk": {
       "lat": 65.81144,
@@ -1415,25 +1499,25 @@
       "lat": 64.04801,
       "lon": -16.17969,
       "coord_src": "osm",
-      "point_source": "OSM way 298932452 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM way 298932452 centroid (amenity=parking)"
     },
     "part/trip/patagonia-2027/lake:beagle channel boat#place": {
       "lat": -54.87556,
       "lon": -68.13639,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q202671 P625 (Beagle Channel, centroid); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q202671 P625 (Beagle Channel, centroid)"
     },
     "part/trip/patagonia-2027/trail:chorrillo del salto#parking": {
       "lat": -49.29985,
       "lon": -72.90359,
       "coord_src": "osm",
-      "point_source": "OSM way 747061337 centroid (amenity=parking); agent checked, needs a person's check"
+      "point_source": "OSM way 747061337 centroid (amenity=parking)"
     },
     "part/trip/patagonia-2027/trail:chorrillo del salto#payoff": {
       "lat": -49.29552,
       "lon": -72.90771,
       "coord_src": "osm",
-      "point_source": "OSM node 1237892708 (waterway=waterfall, name 'Chorillo del Salto'); agent checked, needs a person's check"
+      "point_source": "OSM node 1237892708 (waterway=waterfall, name 'Chorillo del Salto')"
     },
     "part/trip/patagonia-2027/trail:laguna capri#payoff": {
       "lat": -49.3049,
@@ -1445,31 +1529,31 @@
       "lat": -49.27846,
       "lon": -72.98945,
       "coord_src": "osm",
-      "point_source": "OSM way 1362578795 centroid (natural=water, name 'Lago de los Tres'); agent checked, needs a person's check"
+      "point_source": "OSM way 1362578795 centroid (natural=water, name 'Lago de los Tres')"
     },
     "part/trip/patagonia-2027/trail:laguna esmeralda#payoff": {
       "lat": -54.69033,
       "lon": -68.12985,
       "coord_src": "osm",
-      "point_source": "OSM way 290281459 centroid (natural=water, Laguna Esmeralda); agent checked, needs a person's check"
+      "point_source": "OSM way 290281459 centroid (natural=water, Laguna Esmeralda)"
     },
     "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff": {
       "lat": -49.35033,
       "lon": -72.87099,
       "coord_src": "osm",
-      "point_source": "OSM node 568391373 (tourism=viewpoint); agent checked, needs a person's check"
+      "point_source": "OSM node 568391373 (tourism=viewpoint)"
     },
     "part/trip/patagonia-2027/trail:mirador de los condores#payoff": {
       "lat": -49.33952,
       "lon": -72.88036,
       "coord_src": "osm",
-      "point_source": "OSM node 4722282707 (tourism=viewpoint); a second node of the same name, 2847352131, lies 3 km west and is not used; agent checked, needs a person's check"
+      "point_source": "OSM node 4722282707 (tourism=viewpoint); a second node of the same name, 2847352131, lies 3 km west and is not used"
     },
     "part/trip/patagonia-2027/trail:mirador de los condores#trailhead": {
       "lat": -49.33738,
       "lon": -72.88142,
       "coord_src": "osm",
-      "point_source": "OSM node 660024150 (highway=trailhead); agent checked, needs a person's check"
+      "point_source": "OSM node 660024150 (highway=trailhead)"
     },
     "part/trip/utah-five-parks/trail:lower calf creek falls#payoff": {
       "lat": 37.82913,
@@ -1511,13 +1595,13 @@
       "lat": 38.72806,
       "lon": -109.54,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q223969 P625, read 2026-10-25; a point inside the park, not an entrance"
+      "point_source": "Wikidata Q223969 P625,; a point inside the park, not an entrance"
     },
     "place/bentonite-hills": {
       "lat": 38.36167,
       "lon": -111.12797,
       "coord_src": "osm",
-      "point_source": "OSM node 3227293628 'Bentonite Hills' (tourism=viewpoint), the same position as the stored point; read 2026-10-25"
+      "point_source": "OSM node 3227293628 'Bentonite Hills' (tourism=viewpoint), the same position as the stored point"
     },
     "place/bolzano": {
       "lat": 46.49811,
@@ -1525,17 +1609,23 @@
       "coord_src": "wikidata",
       "point_source": "Q6526 P625"
     },
+    "place/bonaventure-island": {
+      "lat": 48.49516,
+      "lon": -64.16053,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/perce/bonaventure-island"
+    },
     "place/breckenridge": {
       "lat": 39.48165,
       "lon": -106.03835,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q904354 P625, read 2026-10-25"
+      "point_source": "Wikidata Q904354 P625"
     },
     "place/bryce-canyon-national-park": {
       "lat": 37.64,
       "lon": -112.17,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q219562 P625, read 2026-10-25; a point inside the park, not an entrance"
+      "point_source": "Wikidata Q219562 P625,; a point inside the park, not an entrance"
     },
     "place/bullaccia-and-the-witches-benches": {
       "lat": 46.55184,
@@ -1549,17 +1639,47 @@
       "coord_src": "prototype",
       "point_source": "snapshot place cadini (approximate)"
     },
+    "place/canyon-des-portes-de-lenfer": {
+      "lat": 48.26111,
+      "lon": -68.53889,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q18610901 P625 (Canyon des Portes de l'Enfer); OSM node 2535855281 lies 0.9 km south at 48.24975,-68.53039"
+    },
+    "place/canyon-sainte-anne": {
+      "lat": 47.07255,
+      "lon": -70.87476,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/cote-de-beaupre/canyon-sainte-anne"
+    },
     "place/canyonlands-national-park": {
       "lat": 38.1669,
       "lon": -109.76,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q541856 P625, read 2026-10-25; a point inside the park, not an entrance"
+      "point_source": "Wikidata Q541856 P625,; a point inside the park, not an entrance"
+    },
+    "place/cap-bon-ami": {
+      "lat": 48.81389,
+      "lon": -64.22222,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q112836599 P625 (Cap-Bon-Ami sector); OSM viewpoint node 4337214696 'Cap Bon Ami' lies 0.6 km south-east at 48.80899,-64.22014"
+    },
+    "place/cap-gaspe": {
+      "lat": 48.75,
+      "lon": -64.17,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q112854948 P625 (Cap-Gaspé hamlet, rounded to 0.01 degree); OSM lighthouse node 878547660 lies 0.5 km east at 48.75111,-64.16263"
     },
     "place/cape-cod": {
       "lat": 41.68889,
       "lon": -70.29694,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q49152 P625, read 2026-10-25; a point on the peninsula"
+      "point_source": "Wikidata Q49152 P625,; a point on the peninsula"
+    },
+    "place/capri": {
+      "lat": 40.55,
+      "lon": 14.23333,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q173292 (40.55, 14.23333)"
     },
     "place/cascate-di-fanes": {
       "lat": 46.59381,
@@ -1577,7 +1697,7 @@
       "lat": 45.70472,
       "lon": -121.79167,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q1112581 P625, read 2026-10-25; a point on the river inside the scenic area"
+      "point_source": "Wikidata Q1112581 P625,; a point on the river inside the scenic area"
     },
     "place/cortina-dampezzo": {
       "lat": 46.53833,
@@ -1613,19 +1733,25 @@
       "lat": 37.2753,
       "lon": -107.88,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q1012665 P625, read 2026-10-25"
+      "point_source": "Wikidata Q1012665 P625"
     },
     "place/factory-butte": {
       "lat": 38.43694,
       "lon": -110.91361,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q20714583 P625, read 2026-10-25; the butte, matches OSM node 356672676 Factory Butte (natural=peak)"
+      "point_source": "Wikidata Q20714583 P625,; the butte, matches OSM node 356672676 Factory Butte (natural=peak)"
     },
     "place/finger-lakes": {
       "lat": 42.66667,
       "lon": -76.83333,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q1416994 P625, read 2026-10-25; a point in the lake district"
+      "point_source": "Wikidata Q1416994 P625,; a point in the lake district"
+    },
+    "place/florence": {
+      "lat": 43.77139,
+      "lon": 11.25417,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q2044 (43.77139, 11.25417)"
     },
     "place/funbob-monte-baranci": {
       "lat": 46.725,
@@ -1637,31 +1763,61 @@
       "lat": 43.83333,
       "lon": -110.70083,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q222695 P625, read 2026-10-25; a point inside the park, not an entrance"
+      "point_source": "Wikidata Q222695 P625,; a point inside the park, not an entrance"
+    },
+    "place/gurudongmar-lake": {
+      "lat": 28.02,
+      "lon": 88.71,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q2264090 P625 (28.02, 88.71); OSM way 192611012 (natural=water) centres at 28.0271, 88.7101"
+    },
+    "place/ha-long-bay": {
+      "lat": 20.9,
+      "lon": 107.2,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q190128 P625 (20.9, 107.2) at 1 arc-minute precision; the bay spans about 1,500 km2 (OSM relation 19465352)"
+    },
+    "place/hanoi": {
+      "lat": 21.0245,
+      "lon": 105.84117,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1858 P625 (21.0245, 105.84117), the city centre by Hoan Kiem Lake"
     },
     "place/havasupai-havasu-falls": {
       "lat": 36.255,
       "lon": -112.69778,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q5683183 P625, read 2026-10-25; matches OSM node 602137131 Havasu Falls (attraction)"
+      "point_source": "Wikidata Q5683183 P625,; matches OSM node 602137131 Havasu Falls (attraction)"
     },
     "place/kanarra-falls": {
       "lat": 37.5377,
       "lon": -113.15261,
       "coord_src": "osm",
-      "point_source": "OSM node 1833434208 'Lower Kanarra Falls' (natural=waterfall), the same position as the stored point; read 2026-10-25"
+      "point_source": "OSM node 1833434208 'Lower Kanarra Falls' (natural=waterfall), the same position as the stored point"
     },
     "place/kennecott-river-rafting-wrangell-st-elias": {
       "lat": 61.4861,
       "lon": -142.889,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q995915 P625 (Kennecott townsite), read 2026-10-25; matches OSM node 654578203 Kennecott Mines National Historic Landmark. The trip itself starts at the operator's base in McCarthy (OSM place node 150916666, about 7 km away)."
+      "point_source": "Wikidata Q995915 P625 (Kennecott townsite),; matches OSM node 654578203 Kennecott Mines National Historic Landmark. The trip itself starts at the operator's base in McCarthy (OSM place node 150916666, about 7 km away)."
+    },
+    "place/la-martre-lighthouse": {
+      "lat": 49.20612,
+      "lon": -66.17143,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/haute-gaspesie/la-martre-lighthouse"
     },
     "place/la-val": {
       "lat": 46.65772,
       "lon": 11.92433,
       "coord_src": "wikidata",
       "point_source": "Q419733 P625"
+    },
+    "place/lac-aux-americains": {
+      "lat": 48.95583,
+      "lon": -66.02167,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/parc-national-de-la-gaspesie/lac-aux-americains"
     },
     "place/lagazuoi-cable-car-and-tunnels": {
       "lat": 46.52751,
@@ -1727,7 +1883,13 @@
       "lat": 47.84111,
       "lon": -120.04639,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q1115201 P625, read 2026-10-25; the lake"
+      "point_source": "Wikidata Q1115201 P625,; the lake"
+    },
+    "place/lake-como": {
+      "lat": 46,
+      "lon": 9.26667,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q15523 (46.0, 9.26667)"
     },
     "place/lake-louise": {
       "lat": 51.41167,
@@ -1739,31 +1901,67 @@
       "lat": 47.82267,
       "lon": -120.7772,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q7172855 P625, read 2026-10-25; the lake"
+      "point_source": "Wikidata Q7172855 P625,; the lake"
+    },
+    "place/le-buton-lookout-le-massif-de-charlevoix": {
+      "lat": 47.28,
+      "lon": -70.61,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q3224379 P625 (Le Massif, the ski resort the lookout belongs to; rounded to 0.01 degree)"
     },
     "place/leavenworth": {
       "lat": 47.5964,
       "lon": -120.665,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q1025813 P625, read 2026-10-25"
+      "point_source": "Wikidata Q1025813 P625"
     },
     "place/long-dong-silver-spire": {
       "lat": 38.3938,
       "lon": -110.83222,
       "coord_src": "osm",
-      "point_source": "Store point from the Nominatim resolver (OpenStreetMap), run 2026-10-16; it lies about 1.3 km north of OSM way 1535726923 'Long Dong Silver Trailhead Parking', consistent with the BLM 1.6 mile round trip; read 2026-10-25"
+      "point_source": "Store point from the Nominatim resolver (OpenStreetMap), run 2026-10-16; it lies about 1.3 km north of OSM way 1535726923 'Long Dong Silver Trailhead Parking', consistent with the BLM 1.6 mile round trip"
     },
     "place/manitou-incline": {
       "lat": 38.8568,
       "lon": -104.932,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q6750238 P625, read 2026-10-25; the trail base area"
+      "point_source": "Wikidata Q6750238 P625,; the trail base area"
+    },
+    "place/milan": {
+      "lat": 45.46694,
+      "lon": 9.19,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q490 (45.46694, 9.19)"
     },
     "place/million-dollar-highway": {
       "lat": 37.91523,
       "lon": -107.70055,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q123916209 P625, read 2026-10-25; a point on US 550 between Silverton and Ouray"
+      "point_source": "Wikidata Q123916209 P625,; a point on US 550 between Silverton and Ouray"
+    },
+    "place/mont-du-dome": {
+      "lat": 47.7,
+      "lon": -70.63333,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/zec-des-martres/mont-du-dome"
+    },
+    "place/mont-saint-alban": {
+      "lat": 48.81261,
+      "lon": -64.22782,
+      "coord_src": "osm",
+      "point_source": "OSM node 1305146822 'Mont Saint-Alban' (natural=peak, ele 280); Wikidata Q98108734 P625 (48.81111,-64.23611) lies 0.6 km south-west and loses to the OSM peak"
+    },
+    "place/mont-saint-pierre": {
+      "lat": 49.2225,
+      "lon": -65.80722,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/haute-gaspesie/mont-saint-pierre"
+    },
+    "place/mont-xalibu": {
+      "lat": 48.96361,
+      "lon": -66.01361,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/parc-national-de-la-gaspesie/mont-xalibu"
     },
     "place/monte-piana": {
       "lat": 46.61528,
@@ -1771,47 +1969,53 @@
       "coord_src": "wikidata",
       "point_source": "Q872637 P625"
     },
+    "place/montmorency-falls": {
+      "lat": 46.89083,
+      "lon": -71.1475,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/cote-de-beaupre/montmorency-falls"
+    },
     "place/monument-valley": {
       "lat": 36.98333,
       "lon": -110.1,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q192017 P625, read 2026-10-25; the stored point, 1.5 km from the visitor center"
+      "point_source": "Wikidata Q192017 P625,; the stored point, 1.5 km from the visitor center"
     },
     "place/mount-baker-snoqualmie-national-forest": {
       "lat": 47.766,
       "lon": -121.378,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q3079176 P625, read 2026-10-25; a point inside the forest"
+      "point_source": "Wikidata Q3079176 P625,; a point inside the forest"
     },
     "place/mount-baker-wilderness": {
       "lat": 48.8081,
       "lon": -121.743,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q3326014 P625, read 2026-10-25; a point inside the wilderness"
+      "point_source": "Wikidata Q3326014 P625,; a point inside the wilderness"
     },
     "place/mount-rainier-national-park": {
       "lat": 46.85,
       "lon": -121.75,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q944329 P625, read 2026-10-25; a point on the mountain, not an entrance"
+      "point_source": "Wikidata Q944329 P625,; a point on the mountain, not an entrance"
     },
     "place/mount-st-helens": {
       "lat": 46.20028,
       "lon": -122.18944,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q4675 P625, read 2026-10-25; the volcano summit area"
+      "point_source": "Wikidata Q4675 P625,; the volcano summit area"
     },
     "place/north-cascades-national-park": {
       "lat": 48.48306,
       "lon": -120.91139,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q1163799 P625, read 2026-10-25; a point inside the park, not an entrance"
+      "point_source": "Wikidata Q1163799 P625,; a point inside the park, not an entrance"
     },
     "place/olympic-peninsula": {
       "lat": 47.79833,
       "lon": -123.61806,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q780293 P625, read 2026-10-25; a point on the peninsula"
+      "point_source": "Wikidata Q780293 P625,; a point on the peninsula"
     },
     "place/ortisei": {
       "lat": 46.57521,
@@ -1829,19 +2033,49 @@
       "lat": 38.0233,
       "lon": -107.672,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q1759444 P625, read 2026-10-25; matches OSM node 151877085 Ouray (place=village)"
+      "point_source": "Wikidata Q1759444 P625,; matches OSM node 151877085 Ouray (place=village)"
     },
     "place/page": {
       "lat": 36.91483,
       "lon": -111.45729,
       "coord_src": "osm",
-      "point_source": "OSM node 150978518 'Page' (place=city), the same position as the stored point; read 2026-10-25"
+      "point_source": "OSM node 150978518 'Page' (place=city), the same position as the stored point"
+    },
+    "place/paris": {
+      "lat": 48.85667,
+      "lon": 2.35222,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q90 P625 (48.8567, 2.3522), the city centre; OSM relation 7444 is the administrative boundary"
     },
     "place/passo-gardena": {
       "lat": 46.55,
       "lon": 11.80944,
       "coord_src": "wikidata",
       "point_source": "Q1416427 P625"
+    },
+    "place/perce-rock": {
+      "lat": 48.52389,
+      "lon": -64.19944,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/perce/perce-rock"
+    },
+    "place/pic-champlain": {
+      "lat": 48.32833,
+      "lon": -68.83528,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/parc-national-du-bic/pic-champlain"
+    },
+    "place/provence": {
+      "lat": 44,
+      "lon": 6,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q101081 P625 (44.0, 6.0) at 1 arc-minute precision, a regional centroid"
+    },
+    "place/qq-canyon-racer-mountain-coaster-gulong-gorge": {
+      "lat": 23.78311,
+      "lon": 112.95173,
+      "coord_src": "osm",
+      "point_source": "OSM way 1424946284 'Xia dao fei che' (highway=raceway), one segment of the mapped coaster track in the Gulong Gorge scenic area; the stored store point is 150 m away"
     },
     "place/rafting-on-the-rienza": {
       "lat": 46.796,
@@ -1853,13 +2087,19 @@
       "lat": 46.49524,
       "lon": 12.04573,
       "coord_src": "osm",
-      "point_source": "OSM way 200226208 Rifugio Nuvolau centroid (tourism=alpine_hut, ele 2575); agent checked, needs a person's check"
+      "point_source": "OSM way 200226208 Rifugio Nuvolau centroid (tourism=alpine_hut, ele 2575)"
     },
     "place/rifugio-scotoni": {
       "lat": 46.5531,
       "lon": 11.9984,
       "coord_src": "osm",
-      "point_source": "OSM way 229003439 Ütia de Scotoni - Rifugio Scotoni centroid (tourism=alpine_hut); the prototype pin is about 1.9 km south; agent checked, needs a person's check"
+      "point_source": "OSM way 229003439 Ütia de Scotoni - Rifugio Scotoni centroid (tourism=alpine_hut); the prototype pin is about 1.9 km south"
+    },
+    "place/rome": {
+      "lat": 41.89306,
+      "lon": 12.48278,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q220 (41.89306, 12.48278)"
     },
     "place/san-candido": {
       "lat": 46.73287,
@@ -1885,6 +2125,12 @@
       "coord_src": "wikidata",
       "point_source": "Q33481488 P625"
     },
+    "place/sapa": {
+      "lat": 22.33556,
+      "lon": 103.84194,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata Q1000140 P625 (22.3356, 103.8419), the town centre"
+    },
     "place/sass-pordoi-and-piz-boe": {
       "lat": 46.50028,
       "lon": 11.80775,
@@ -1903,23 +2149,41 @@
       "coord_src": "wikidata",
       "point_source": "Q499129 P625"
     },
+    "place/sentier-la-chute": {
+      "lat": 48.84296,
+      "lon": -64.26511,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/QC/forillon-national-park/sentier-la-chute"
+    },
+    "place/sorrento-and-the-amalfi-coast": {
+      "lat": 40.63333,
+      "lon": 14.6,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q212214 (40.63333, 14.6)"
+    },
     "place/stansbury-island": {
       "lat": 40.8297,
       "lon": -112.498,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q7600177 P625, read 2026-10-25; the island, about 1 km from OSM node 356674282"
+      "point_source": "Wikidata Q7600177 P625,; the island, about 1 km from OSM node 356674282"
     },
     "place/stowe": {
       "lat": 44.46533,
       "lon": -72.68456,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q550498 P625, read 2026-10-25"
+      "point_source": "Wikidata Q550498 P625"
     },
     "place/tre-cime-di-lavaredo-loop": {
       "lat": 46.61203,
       "lon": 12.29648,
       "coord_src": "osm",
       "point_source": "snapshot trailhead of tre-cime osm_node 2430381561"
+    },
+    "place/trento": {
+      "lat": 46.06667,
+      "lon": 11.11667,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q3376 (46.06667, 11.11667)"
     },
     "place/val-fiscalina": {
       "lat": 46.66684,
@@ -1933,6 +2197,18 @@
       "coord_src": "osm",
       "point_source": "snapshot trailhead of vallunga osm_node 6635822140"
     },
+    "place/venice": {
+      "lat": 45.43972,
+      "lon": 12.33194,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q641 (45.43972, 12.33194)"
+    },
+    "place/verona": {
+      "lat": 45.43861,
+      "lon": 10.99278,
+      "coord_src": "wikidata",
+      "point_source": "Wikidata P625 of Q2028 (45.43861, 10.99278)"
+    },
     "place/viel-dal-pan": {
       "lat": 46.48742,
       "lon": 11.81296,
@@ -1943,25 +2219,25 @@
       "lat": 42.3771,
       "lon": -76.8717,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q7974703 P625, read 2026-10-25; sits at the park's village entrance next to the main car park (OSM way 236760432)"
+      "point_source": "Wikidata Q7974703 P625,; sits at the park's village entrance next to the main car park (OSM way 236760432)"
     },
     "place/white-mountain-national-forest": {
       "lat": 44.1,
       "lon": -71.4,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q2566939 P625, read 2026-10-25; a point inside the forest"
+      "point_source": "Wikidata Q2566939 P625,; a point inside the forest"
     },
     "place/yellowstone-national-park": {
       "lat": 44.6,
       "lon": -110.5,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q351 P625, read 2026-10-25; a point inside the park, not an entrance"
+      "point_source": "Wikidata Q351 P625,; a point inside the park, not an entrance"
     },
     "place/zion-national-park": {
       "lat": 37.20262,
       "lon": -112.98785,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q205325 P625, read 2026-10-25; a point inside the park, not an entrance"
+      "point_source": "Wikidata Q205325 P625,; a point inside the park, not an entrance"
     },
     "trip/algonquin-muskoka-2026/sight:ragged falls": {
       "lat": 45.39167,
@@ -1985,19 +2261,19 @@
       "lat": 45.56001,
       "lon": -78.57754,
       "coord_src": "osm",
-      "point_source": "OSM way 338153829 Track and Tower Trail (amenity=parking, access=permit), 90 m from the first mapped footway; the trail's own page was not re-read; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM way 338153829 Track and Tower Trail (amenity=parking, access=permit), 90 m from the first mapped footway; the trail's own page was not re-read"
     },
     "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower": {
       "lat": 45.25218,
       "lon": -78.89325,
       "coord_src": "osm",
-      "point_source": "OSM node 2944856296 (tourism=viewpoint, Dorset lookout); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM node 2944856296 (tourism=viewpoint, Dorset lookout)"
     },
     "trip/algonquin-muskoka-2026/viewpoint:dwight beach sunset": {
       "lat": 45.32895,
       "lon": -79.01159,
       "coord_src": "osm",
-      "point_source": "OSM way 659376476 Dwight Beach (natural=beach); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM way 659376476 Dwight Beach (natural=beach)"
     },
     "trip/chamonix-mont-blanc-2028/lake:lac des gaillands": {
       "lat": 45.9139,
@@ -2033,7 +2309,7 @@
       "lat": 45.92477,
       "lon": 6.87195,
       "coord_src": "osm",
-      "point_source": "OSM relation 2569238 Place du Mont Blanc (highway=pedestrian); Haute-Savoie tourism https://www.tourisme-haute-savoie.com/en/markets-in-haute-savoie/ lists the Chamonix market at Place du Mont Blanc, 8am to 1pm; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "OSM relation 2569238 Place du Mont Blanc (highway=pedestrian); Haute-Savoie tourism https://www.tourisme-haute-savoie.com/en/markets-in-haute-savoie/ lists the Chamonix market at Place du Mont Blanc, 8am to 1pm"
     },
     "trip/chamonix-mont-blanc-2028/town:chamonix old town": {
       "lat": 45.92222,
@@ -2129,7 +2405,7 @@
       "lat": 65.64722,
       "lon": -16.82667,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q2006297 P625 (Namaskard); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q2006297 P625 (Namaskard)"
     },
     "trip/iceland-ring-road-2027/sight:seljalandsfoss": {
       "lat": 63.61583,
@@ -2171,7 +2447,7 @@
       "lat": 64.76455,
       "lon": -23.62579,
       "coord_src": "official",
-      "point_source": "Snaefellsjokull National Park trail 28 GPX https://snaefellsjokull.is/storage/585/Arnarstapi-Hellnar.gpx (linked from the trail page https://snaefellsjokull.is/en/gonguleid/arnarstapi-hellnar-2), its Arnarstapi end; the Hellnar end is 64.751782,-23.645262; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "Snaefellsjokull National Park trail 28 GPX https://snaefellsjokull.is/storage/585/Arnarstapi-Hellnar.gpx (linked from the trail page https://snaefellsjokull.is/en/gonguleid/arnarstapi-hellnar-2), its Arnarstapi end; the Hellnar end is 64.751782,-23.645262"
     },
     "trip/iceland-ring-road-2027/trail:djupalonssandur": {
       "lat": 64.75232,
@@ -2243,13 +2519,13 @@
       "lat": -34.59972,
       "lon": -58.38194,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q1486 P625 (Buenos Aires); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q1486 P625 (Buenos Aires)"
     },
     "trip/patagonia-2027/town:harbour walk": {
       "lat": -54.80659,
       "lon": -68.29963,
       "coord_src": "osm",
-      "point_source": "OSM way 745788839 Costanera de Ushuaia (highway=footway) along the harbour; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM way 745788839 Costanera de Ushuaia (highway=footway) along the harbour"
     },
     "trip/patagonia-2027/town:palermo and recoleta walk": {
       "lat": -34.59056,
@@ -2297,7 +2573,7 @@
       "lat": -49.33141,
       "lon": -72.88613,
       "coord_src": "wikidata",
-      "point_source": "Wikidata Q1323978 P625 (El Chaltén); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "Wikidata Q1323978 P625 (El Chaltén)"
     },
     "trip/patagonia-2027/viewpoint:laguna nimez birds": {
       "lat": -50.31667,
@@ -2393,7 +2669,7 @@
       "lat": 37.20178,
       "lon": -112.98678,
       "coord_src": "osm",
-      "point_source": "OSM way 14326805 Pa'rus Trail (operator National Park Service), its south end by the Zion Canyon Visitor Center; NPS https://www.nps.gov/thingstodo/hike-pa-rus-trail.htm: 'Start from either the Zion Canyon Visitor Center (shuttle stop #1) or from Canyon Junction'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "OSM way 14326805 Pa'rus Trail (operator National Park Service), its south end by the Zion Canyon Visitor Center; NPS https://www.nps.gov/thingstodo/hike-pa-rus-trail.htm: 'Start from either the Zion Canyon Visitor Center (shuttle stop #1) or from Canyon Junction'"
     },
     "trip/utah-five-parks/trail:riverside walk": {
       "lat": 37.29189,
@@ -2411,7 +2687,7 @@
       "lat": 38.68711,
       "lon": -109.53664,
       "coord_src": "osm",
-      "point_source": "OSM node 4835435421 The Windows Trailhead (highway=trailhead), 20 m from the board 'Windows Trails' (node 7921541650); NPS https://www.nps.gov/places/the-windows-section-trailhead.htm lists parking and a trailhead at the Windows Section; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "OSM node 4835435421 The Windows Trailhead (highway=trailhead), 20 m from the board 'Windows Trails' (node 7921541650); NPS https://www.nps.gov/places/the-windows-section-trailhead.htm lists parking and a trailhead at the Windows Section"
     },
     "trip/utah-five-parks/viewpoint:bryce amphitheatre rim": {
       "lat": 37.62637,
@@ -2441,7 +2717,7 @@
       "lat": 44.88728,
       "lon": -72.64011,
       "coord_src": "osm",
-      "point_source": "mean of five Montgomery covered bridges in OSM (Longley way 1038791200, Fuller way 967879573, West Hill way 1028147668, Comstock way 1038791204, Hutchins way 1028142995); the plan's loop is Montgomery per research/trips/vermont-fall-2026/suitability.md; read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "mean of five Montgomery covered bridges in OSM (Longley way 1038791200, Fuller way 967879573, West Hill way 1028147668, Comstock way 1038791204, Hutchins way 1028142995); the plan's loop is Montgomery per research/trips/vermont-fall-2026/suitability.md"
     },
     "trip/vermont-fall-2026/town:hyde park village": {
       "lat": 44.595,
@@ -2459,7 +2735,7 @@
       "lat": 44.46609,
       "lon": -72.68504,
       "coord_src": "osm",
-      "point_source": "OSM way 204763538 Stowe Recreational Path, its village end (the southernmost vertex of the 30 mapped ways); Town of Stowe https://www.stowevt.gov/Departments/Parks-Recreation/Parks-Facilities/Stowe-Recreation-Path: the path runs 'from Stowe Village to Topnotch Resort'; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+      "point_source": "OSM way 204763538 Stowe Recreational Path, its village end (the southernmost vertex of the 30 mapped ways); Town of Stowe https://www.stowevt.gov/Departments/Parks-Recreation/Parks-Facilities/Stowe-Recreation-Path: the path runs 'from Stowe Village to Topnotch Resort'"
     },
     "trip/vermont-fall-2026/viewpoint:burke mountain overlook": {
       "lat": 44.5708,

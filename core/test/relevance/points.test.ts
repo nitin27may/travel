@@ -1,6 +1,6 @@
 // relevance.ts points --build: coordinates from files we already hold; never Google; every point has a coord_src.
 import { describe, expect, it } from "vitest";
-import { TRIP_WINDOWS, buildPoints, windowFromLabel } from "../../src/relevance/points.ts";
+import { TRIP_WINDOWS, buildPoints, capturedPointSource, windowFromLabel } from "../../src/relevance/points.ts";
 import type { Sources } from "../../src/relevance/points.ts";
 
 const ref = (r: string, class_key: string, extra: object = {}) => ({ ref: r, trip: "t", class_key, qid: null, name: null, ...extra });
@@ -26,6 +26,21 @@ describe("buildPoints", () => {
     expect(file.points["place/top"]).toMatchObject({ lat: 1.5, lon: 2.5, coord_src: "osm", point_source: "OSM node 9 (upper station)" });
     expect(file.points["part/place/lot#parking"]).toMatchObject({ lat: 3.12346, lon: 4, coord_src: "osm" });
     expect(report.by_src).toEqual({ osm: 2, wikidata: 0 });
+  });
+
+  it("a capture-points/2 row gives the inputs file its legacy text, else its quote, so the element and the P625 id stay readable", () => {
+    const { file } = buildPoints(src({
+      captured: {
+        "place/pinned": { lat: 1, lon: 2, coord_src: "osm", point_src: { provider: "OpenStreetMap", element: "node/9", quote: "OSM node 9 Gondola", legacy: "OSM node 9 Gondola; agent checked, needs a person's check" } },
+        "place/new": { lat: 3, lon: 4, coord_src: "wikidata", point_src: { provider: "Wikidata", element: "Q550498", quote: "Wikidata Q550498 P625" } },
+        "place/bare": { lat: 5, lon: 6, coord_src: "osm", point_src: { provider: "OpenStreetMap", element: "way/7" } },
+      },
+    }));
+    expect(file.points["place/pinned"]!.point_source).toBe("OSM node 9 Gondola; agent checked, needs a person's check");
+    expect(file.points["place/new"]!.point_source).toBe("Wikidata Q550498 P625");
+    expect(file.points["place/bare"]!.point_source).toBe("OpenStreetMap way/7");
+    expect(capturedPointSource({ lat: 0, lon: 0, coord_src: "osm", point_source: "OSM node 1" })).toBe("OSM node 1");
+    expect(capturedPointSource({ lat: 0, lon: 0, coord_src: "osm" })).toBeUndefined();
   });
 
   it("takes a location row resolved by wikidata or nominatim and ignores manual and unresolved rows", () => {

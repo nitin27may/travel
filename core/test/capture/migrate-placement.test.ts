@@ -1,11 +1,12 @@
 // META-1: `capture.ts migrate-placement` (capture contract 3.7.1): area_id from the locations store and the parent chain, never a guess;
 // trailheads from held tracks; idempotent; only adds leaves (the migration ledger rule).
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { insertAreaIds, planPlacementMigration, TRAILHEAD_MAX_OFFSET_M } from "../../src/capture/migratePlacement.ts";
 import { migratePlacementCommand } from "../../src/capture/migratePlacementCli.ts";
 import { capDoc, scratchRoot } from "./helpers.ts";
+import { capturePointsFile } from "../../src/schema/capture/points.ts";
 
 const A = "IT/veneto/belluno";
 const B = "IT/trentino-alto-adige/bolzano";
@@ -105,6 +106,17 @@ describe("trailheads from held tracks", () => {
     expect(plan.report).toMatchObject({ trailheads_added: 1, trailheads_exact: 0, trailheads_approx: 1 });
     expect(plan.trailheads[0]!.row).toMatchObject({ approx: true, point_role: "trailhead" });
     expect(String(plan.trailheads[0]!.row.approx_note).length).toBeGreaterThan(20);
+  });
+  it("writes the capture-points/2 shape into a /2 file, parsed by the normaliser's rule", () => {
+    const root = fixture([trail("place/walk", { area_id: A })], { fed: track() });
+    const file = join(root, "data/capture/points.json");
+    writeFileSync(file, JSON.stringify({ schema: "capture-points/2", points: {} }, null, 2) + "\n");
+    const io = sink();
+    expect(migratePlacementCommand(["--write"], root, io.out, io.err)).toBe(0);
+    const row = rows(root)["place/walk"]!;
+    expect(row.point_source).toBeUndefined();
+    expect(row).toMatchObject({ lat: 46.5, lon: 12.1, coord_src: "osm", point_role: "trailhead", point_src: { provider: "OpenStreetMap", element: "relation/42", read: "2026-10-19" }, meta: { run_id: "META-1" } });
+    expect(capturePointsFile.safeParse(JSON.parse(readFileSync(file, "utf8"))).success).toBe(true);
   });
   it("leaves a trail that already has its own point, and a track that is not stitched", () => {
     const own = { lat: 46.4, lon: 12.0, coord_src: "osm", point_source: "OSM node 9 fixture" };
