@@ -11,6 +11,8 @@ export interface TripListRow {
   region: string;
   cover: string | null;
   seasonLabel: string | null;
+  /** `plan`: the label is only the window the plan was written for; null when there is no season. */
+  seasonBasis: 'plan' | 'researched' | null;
   /** 1 to 12 */
   seasonMonths: number[];
   /** ISO 3166-1 alpha-2, upper case, or '' when unknown. */
@@ -53,7 +55,7 @@ export interface TripListRow {
 
 /** Every key a trip list row may carry (principle P8, backlog 2.24): card and filter fields, never the plan itself. A test pins it. */
 export const TRIP_LIST_KEYS: readonly (keyof TripListRow)[] = [
-  'id', 'slug', 'title', 'depth', 'nights', 'days', 'seasonNotSet', 'isDone', 'region', 'cover', 'seasonLabel', 'seasonMonths',
+  'id', 'slug', 'title', 'depth', 'nights', 'days', 'seasonNotSet', 'isDone', 'region', 'cover', 'seasonLabel', 'seasonBasis', 'seasonMonths',
   'country', 'countryName', 'lat', 'lon', 'approx', 'ageFit', 'kidsBasis', 'effort', 'firstBase',
   'countries', 'continents', 'length', 'lengthClass', 'hike', 'hikeBasis', 'strollerDays', 'activities', 'highlights', 'around', 'perDay', 'perDayApprox', 'shape', 'fromHubMin', 'fromHubApprox',
 ];

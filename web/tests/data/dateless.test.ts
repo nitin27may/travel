@@ -5,10 +5,10 @@ import { realData } from './support';
 
 describe('date detection', () => {
   it.each([
-    '2027-07-13', 'Tue 15 Jun 2027', 'Opens Tue 15 Jun', 'closes about 13 September', '10-12 Oct', 'Jun 15', 'February 2027', 'Thursday 15', '1st May',
+    '2027-07-13', 'Tue 15 Jun 2027', 'Opens Tue 15 Jun', 'closes about 13 September', 'first of October', 'last day of September', 'Last day of September and first of October', 'the 3rd of May', '10-12 Oct', 'Jun 15', 'February 2027', 'Thursday 15', '1st May',
   ])('flags %s', (t) => expect(DATE_TEXT.test(t)).toBe(true));
   it.each([
-    'mid-July to end of August', 'observed in 2026: colours peaked in late September', 'Market on Saturdays only', 'Leave by 08:10', 'EUR 40, 2026 price', 'Day 3 of 14', 'Sunrise about 05:30 to 06:00',
+    'mid-July to end of August', 'observed in 2026: colours peaked in late September', 'Market on Saturdays only', 'Leave by 08:10', 'EUR 40, 2026 price', 'Day 3 of 14', 'Last week of June into early July', 'Two days at the turn of September and October', 'the first week of October', 'Larch gold peaks in the last third of September into early October', 'Last days of September into early October', 'Sunrise about 05:30 to 06:00',
   ])('keeps %s', (t) => expect(DATE_TEXT.test(t)).toBe(false));
 
   it('logs what it drops and keeps the undated sentences', () => {
@@ -67,7 +67,8 @@ describe('public trips are dateless templates', () => {
         expect(t.season.label.length).toBeGreaterThan(0);
       } else expect(t.seasonNotSet).toBe(true);
     }
-    expect(d.listTrips().some((t) => t.seasonNotSet)).toBe(true); // the six without research say so
+    // the six trips with no seed season read data/seasons/<trip>.json (D6a-W), so every public trip has one now
+    expect(d.listTrips().filter((t) => t.seasonNotSet)).toEqual([]);
   });
 
   it('booking windows are rules, never dates', () => {

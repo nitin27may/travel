@@ -53,6 +53,7 @@ export function tripListRows(cards: PublicTripCard[] = listTrips()): TripListRow
         region: c.region,
         cover: c.cover?.url ?? null,
         seasonLabel: c.season?.label ?? null,
+        seasonBasis: c.season?.basis ?? null,
         seasonMonths: c.season?.months ?? [],
         country: cc.toUpperCase(),
         countryName: nameOf(cc),

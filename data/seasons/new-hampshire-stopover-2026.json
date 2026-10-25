@@ -19,7 +19,7 @@
   ],
   "season": {
     "months": { "value": [9, 10], "basis": "plan", "note": "The plan's own months." },
-    "label": { "value": "Last day of September and first of October", "basis": "plan" },
+    "label": { "value": "Two days at the turn of September and October", "basis": "plan" },
     "why": { "value": "The plan's own two days on the way to Vermont; normals at Lincoln give cool days and nights falling toward freezing.", "basis": "official", "src": ["s-86500fc8e6"], "on": "2026-10-25" },
     "weather": {
       "tempC": { "value": "8 to 22 C in September, 2 to 14 C in October (mean daily low to high, Lincoln)", "basis": "official", "src": ["s-86500fc8e6"], "on": "2026-10-25", "note": "1991-2020 normals: Sep max 22.0, min 8.3; Oct max 14.2, min 2.1. The station is in the valley at Lincoln; no 1991-2020 normals station in Franconia Notch or on the Kancamagus was found, so the higher stops are not covered by these values." },
@@ -33,7 +33,7 @@
   "windows": [
     {
       "id": "plan",
-      "label": "Last day of September and first of October",
+      "label": "Two days at the turn of September and October",
       "start": { "month": 9, "week": "last" },
       "sun": { "from": [9, 30], "to": [10, 1] },
       "verdict": null,

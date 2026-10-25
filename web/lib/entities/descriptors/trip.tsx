@@ -1,4 +1,5 @@
 import type { ColumnDef } from '@tanstack/react-table';
+import { PLAN_WINDOW_TITLE, seasonText } from '@/components/trips/seasonText';
 import { tripHaystack } from '@travel/core/query/text.ts';
 import { Icon } from '@/components/ui/Icon';
 import { TripsMapLazy } from '@/components/trips/TripsMapLazy';
@@ -26,7 +27,7 @@ export function tripBadges(t: TripRow): Badge[] {
 /** Chips on a card or list row: the season (neutral, or an honest "not set yet") and the depth notice for trips that are not full. */
 export function publicTripBadges(t: TripListRow): Badge[] {
   const out: Badge[] = [];
-  if (t.seasonLabel) out.push({ text: t.seasonLabel, tone: 'season', icon: 'calendar', title: 'This plan is valid for' });
+  if (t.seasonLabel) out.push({ text: seasonText(t.seasonLabel, t.seasonBasis), tone: 'season', icon: 'calendar', title: t.seasonBasis === 'plan' ? PLAN_WINDOW_TITLE : 'This plan is valid for' });
   else out.push({ text: 'Season not set yet', tone: 'warn', icon: 'calendar', title: 'The season this plan is valid for has not been written yet' });
   if (t.depth !== 'full') out.push({ text: DEPTH_NOTICE[t.depth], tone: 'warn', icon: 'info', title: t.depth === 'summary' ? 'A shorter day list with the main stops' : 'No day list yet; this is an overview' });
   return out;
@@ -191,7 +192,7 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
     col('length', 'Length', ({ row }) => (row.original.length ? lengthCell(row.original.length) : dash), (t) => lengthCell(t.length), 170),
     col('nights', 'Nights', ({ row }) => (row.original.nights === null ? dash : <span className="num">{row.original.nights}</span>), (t) => t.nights ?? '', 90, { align: 'right' }),
     col('days', 'Days', ({ row }) => (row.original.days === null ? dash : <span className="num">{row.original.days}</span>), (t) => t.days ?? '', 80, { align: 'right' }),
-    col('season', 'Valid for', ({ row }) => row.original.seasonLabel ?? <span className="dash">Not set yet</span>, (t) => t.seasonLabel ?? '', 200),
+    col('season', 'Valid for', ({ row }) => (row.original.seasonLabel ? seasonText(row.original.seasonLabel, row.original.seasonBasis) : <span className="dash">Not set yet</span>), (t) => (t.seasonLabel ? seasonText(t.seasonLabel, t.seasonBasis) : ''), 200),
     col('countries', 'Country', ({ row }) => row.original.countryName || dash, (t) => t.countryName, 130),
     col('kids', 'Kids', ({ row }) => kidsText(row.original) || dash, kidsText, 100),
     col('depth', 'Depth', ({ row }) => DEPTH_LABEL[row.original.depth], (t) => DEPTH_LABEL[t.depth], 120),
