@@ -7,6 +7,10 @@
     python3 tools/locations.py edit ID --status shortlisted --note-append "..." --tags-add a,b
     python3 tools/locations.py visit add ID --date 2026-10-02 [--end ...] [--trip SLUG]
     python3 tools/locations.py tag alias waterfalls waterfall | tag list
+    python3 tools/locations.py quick-add names.txt [--dry-run]   # one `Name, Country[, kind]` per line
+    python3 tools/locations.py edit ID --wikidata Q123 --elevation-m 1731 --image "File:Name.jpg" [--basis official_info]
+    python3 tools/locations.py edit ID --searched-none elevation_m --tried "Wikidata Q123 (no P2044)" --tried "park page"
+    python3 tools/locations.py basics --report [--json]    # every place by missing basics layer, worst first
     python3 tools/locations.py validate
     python3 tools/locations.py build [--check]    # data/locations/WISHLIST.md, legacy/locations/index.html, legacy/globe places.json
     python3 tools/locations.py list [--country CA] [--q charlevoix] [--status idea] [--tag lake]
@@ -22,7 +26,9 @@ Exit codes: 0 ok, 1 error or validation failure, 2 ambiguous (candidates printed
 from __future__ import annotations
 
 import argparse
+import contextlib
 import datetime as dt
+import fcntl
 import json
 import os
 import re
@@ -45,6 +51,11 @@ PATHS = Paths(Path(os.environ.get("LOCATIONS_ROOT", ROOT)))   # tests: monkeypat
 UA = "travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)"
 WD = "https://www.wikidata.org/w/api.php"
 NOMINATIM = "https://nominatim.openstreetmap.org/search"
+COMMONS_FILEPATH = "https://commons.wikimedia.org/wiki/Special:FilePath/"
+# One runner per service across all agents (DATA.md): the same lock files the other fetchers and `flock` take.
+WD_LOCK = Path("/tmp/travel-wikidata.lock")
+NOMINATIM_LOCK = Path("/tmp/travel-nominatim.lock")
+LOCK_WAIT_S = 300
 
 SCHEMA_VERSION = 3
 VOCAB_VERSION = 1
@@ -667,7 +678,9 @@ def reverse_area(lat: float, lon: float) -> str | None:
 
 
 def resolve_wikidata(name: str, country_hint: str | None, region_hint: str | None, pick: int | None,
-                     kind_hint: str | None = None) -> dict | None:
+                     kind_hint: str | None = None, strict: bool = False) -> dict | None:
+    """strict (quick-add): two candidates within 2 points are ambiguous even when the country hint matches both (the two Moss Glen
+    Falls of Vermont); a bulk list has no one checking each printed chain."""
     cands = wd_search(name)
     if not cands:
         return None
@@ -703,7 +716,7 @@ def resolve_wikidata(name: str, country_hint: str | None, region_hint: str | Non
     if pick is not None:
         chosen = scored[pick]
     else:
-        if len(scored) > 1 and scored[0][0] - scored[1][0] < 2 and not (country_hint and scored[0][0] >= 4):
+        if len(scored) > 1 and scored[0][0] - scored[1][0] < 2 and (strict or not (country_hint and scored[0][0] >= 4)):
             print("AMBIGUOUS: re-run with --pick N", file=sys.stderr)
             for n, (s, c, e, co, p31) in enumerate(scored):
                 print(f"  --pick {n}: {c['id']} {c.get('label')} | {c.get('description')} | score {s} | {co['latitude']:.3f},{co['longitude']:.3f}", file=sys.stderr)
@@ -733,7 +746,7 @@ def resolve_wikidata(name: str, country_hint: str | None, region_hint: str | Non
         "region": region_code, "region_name": label(region_e) if region_e else (region_hint or "Unknown"),
         "area_name": area_name,
         "elevation_m": int(float(elev[0]["amount"])) if elev else None,
-        "image": f"https://commons.wikimedia.org/wiki/Special:FilePath/{urllib.parse.quote(img[0])}" if img else None,
+        "image": f"{COMMONS_FILEPATH}{urllib.parse.quote(img[0])}" if img else None,
         "resolver": "wikidata",
     }
 
@@ -832,7 +845,7 @@ def build_place(spec: dict, pick: int | None = None, offline: bool = False) -> d
     if not offline and not manual:
         try:
             res = resolve_wikidata(name, spec.get("country"), spec.get("region_name") or spec.get("region"), pick,
-                                   kind_hint=spec.get("kind"))
+                                   kind_hint=spec.get("kind"), **({"strict": True} if spec.get("strict") else {}))
         except SystemExit:
             raise
         except Exception as ex:  # network or parse trouble: fall through to Nominatim
@@ -1094,12 +1107,80 @@ def cmd_edit(args) -> int:
                 "source_note": args.source_note, "screenshot": args.screenshot}
         add_sources(data, _source_rows(spec), place_id=pid)
         changed.append("sources")
+    changed += _edit_basics(args, data, p, src_added="sources" in changed)
     if not changed:
         raise Fail("nothing to change; see `edit --help`")
     touch_place(p)
     save(data)
     print(f"edited {pid}: {', '.join(dict.fromkeys(changed))}")
     return 0
+
+
+def commons_image(x: str) -> str:
+    """The store's image is a Wikimedia Commons file (its licence is read from the file page by the gallery check; DD-3). Takes the
+    FilePath URL, the file page URL, `File:Name.jpg` or `Name.jpg`, and returns the FilePath URL the resolver writes."""
+    wiki = COMMONS_FILEPATH.split("Special:FilePath/")[0]
+    x = x.strip()
+    if x.startswith(COMMONS_FILEPATH):
+        name = urllib.parse.unquote(x[len(COMMONS_FILEPATH):])
+    elif x.startswith(wiki + "File:"):
+        name = urllib.parse.unquote(x[len(wiki) + 5:])
+    elif x.startswith("File:"):
+        name = x[5:]
+    elif "/" not in x and re.search(r"\.(jpe?g|png|tiff?|webp|gif)$", x, re.I):
+        name = x
+    else:
+        raise Fail("--image takes a Wikimedia Commons file (FilePath URL, file page URL or File:Name.jpg). A photo from another "
+                   "source goes in the place's gallery with its licence (DATA-LOC section 4), never in this column")
+    name = name.replace("_", " ").strip()
+    if not name:
+        raise Fail("--image names no file")
+    return COMMONS_FILEPATH + urllib.parse.quote(name)
+
+
+def _edit_basics(args, data: dict, p: dict, src_added: bool) -> list[str]:
+    """`edit --wikidata/--elevation-m/--image` and `--searched-none`: the basics columns, each with its field_meta row (the value's
+    date, basis and source row, or the dated search that found nothing). Returns the changed column names."""
+    meta = dict(p["field_meta"]) if isinstance(p.get("field_meta"), dict) else {}
+    if args.basis and args.basis not in value_bases():
+        raise Fail(f"--basis must be one of {value_bases()}")
+    set_cols: list[str] = []
+    if args.wikidata is not None:
+        q = args.wikidata.strip().upper()
+        if not re.fullmatch(r"Q\d+", q):
+            raise Fail("--wikidata takes a QID like Q123")
+        p["wikidata"] = q
+        set_cols.append("wikidata")
+    if args.elevation_m is not None:
+        if not -500 <= args.elevation_m <= 9000:
+            raise Fail("--elevation-m is metres above sea level, between -500 and 9000")
+        p["elevation_m"] = args.elevation_m
+        set_cols.append("elevation_m")
+    if args.image is not None:
+        p["image"] = commons_image(args.image)
+        set_cols.append("image")
+    src = [data["sources"][-1]["id"]] if src_added else []
+    for col in set_cols:
+        meta[col] = {"state": "value", "on": today(), **({"basis": args.basis} if args.basis else {}), **({"src": src} if src else {})}
+    changed = list(set_cols)
+    if args.searched_none:
+        cols = [c.strip() for c in args.searched_none.split(",") if c.strip()]
+        tried = [t.strip() for t in (args.tried or []) if t.strip()]
+        if not tried:
+            raise Fail("--searched-none needs --tried: what you looked at, once per source (a gap is never a yes)")
+        for c in cols:
+            if c not in BASICS_COLUMNS:
+                raise Fail(f"--searched-none takes the basics columns {BASICS_COLUMNS}; {c!r} is not one")
+            if _answered(p.get(c)):
+                raise Fail(f"{c} has a value; searched_none is for a column the search left empty")
+            meta[c] = {"state": "searched_none", "on": today(), "tried": tried}
+        changed.append("searched_none")
+    # a column that has a value now (any flag of this edit) drops its old searched_none
+    for c in [c for c, m in meta.items() if isinstance(m, dict) and m.get("state") == "searched_none" and _answered(p.get(c))]:
+        del meta[c]
+    if meta != p.get("field_meta"):
+        p["field_meta"] = meta
+    return changed
 
 
 def cmd_visit(args) -> int:
@@ -1152,6 +1233,342 @@ def cmd_tag(args) -> int:
     data["place_tags"] = rows
     save(data)
     print(f"{alias} is now an alias of {canon}")
+    return 0
+
+
+# ----------------------------------------------------------------------------- core constants (read, never copied)
+CORE = ROOT / "core" / "src"
+
+
+def ts_const(rel: str, name: str):
+    """A string or string-array constant of a core module, read from the source so the two languages cannot drift."""
+    text = (CORE / rel).read_text(encoding="utf-8")
+    m = re.search(r"export const %s = (\"[^\"]*\"|\[[^\]]*\])" % re.escape(name), text)
+    if not m:
+        raise Fail(f"core/src/{rel} has no constant {name}")
+    body = re.sub(r"//[^\n]*", "", m.group(1))
+    vals = re.findall(r"\"([^\"]*)\"", body)
+    return vals[0] if body.startswith('"') else tuple(vals)
+
+
+def tripless_lane() -> str:
+    """The trip id of the trip-less capture lane (core/src/capture/lane.ts, DD-8). Never printed into a public file."""
+    return ts_const("capture/lane.ts", "TRIPLESS_LANE")
+
+
+def value_bases() -> tuple[str, ...]:
+    """The basis vocabulary of a value (core SUIT_BASIS): field_meta uses it, so a store value reads like a capture value."""
+    return ts_const("schema/enums.ts", "SUIT_BASIS")
+
+
+# ----------------------------------------------------------------------------- service locks
+@contextlib.contextmanager
+def service_lock(path: Path, wait_s: int | None = None):
+    """Hold one external service's lock file with flock(2), the lock `flock /tmp/travel-wikidata.lock ...` takes, so one runner
+    calls the service at a time across every agent. Waits up to LOCK_WAIT_S, then fails."""
+    wait_s = LOCK_WAIT_S if wait_s is None else wait_s
+    t0 = time.time()
+    fh = open(path, "a")
+    try:
+        while True:
+            try:
+                fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                break
+            except BlockingIOError:
+                if time.time() - t0 > wait_s:
+                    raise Fail(f"{path} is held by another runner; one request at a time per service. Try again later.")
+                time.sleep(2)
+        yield
+    finally:
+        with contextlib.suppress(OSError):
+            fcntl.flock(fh, fcntl.LOCK_UN)
+        fh.close()
+
+
+# ----------------------------------------------------------------------------- quick-add (DATA-LOC 5.1)
+def parse_quick_line(line: str) -> dict:
+    """`Name, Country[, kind]`: the country is an ISO code or a known English name; a name may itself hold commas."""
+    parts = [x.strip() for x in line.split(",")]
+    if len(parts) < 2 or not all(parts):
+        raise Fail("want `Name, Country[, kind]`")
+    kind = parts.pop().lower() if len(parts) >= 3 and parts[-1].lower() in KINDS else None
+    raw = parts.pop()
+    by_name = {v.lower(): k for k, v in COUNTRY_NAMES.items()}
+    cc = raw.upper() if re.fullmatch(r"[A-Za-z]{2}", raw) else by_name.get(raw.lower())
+    if not cc:
+        raise Fail(f"country {raw!r} is neither a two-letter code nor a known name")
+    return {"name": ", ".join(parts), "country": cc, "kind": kind}
+
+
+def cmd_quick_add(args) -> int:
+    """One place per line, resolved like `add` (Wikidata, then Nominatim), one request a second, under the service locks.
+    Ambiguous, unresolved and duplicate names are printed and not written; the store is written once at the end."""
+    specs, bad = [], []
+    for n, raw in enumerate(Path(args.file).read_text(encoding="utf-8").splitlines(), 1):
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        try:
+            spec = parse_quick_line(line)
+        except Fail as ex:
+            bad.append((n, line, str(ex)))
+            continue
+        if args.source_note:
+            spec.update(source_type="note", source_note=args.source_note)
+        spec["strict"] = True
+        specs.append((n, spec))
+    data = ensure_v2(load())
+    added, ambiguous, unresolved, dups = [], [], [], []
+    if specs:
+        with service_lock(WD_LOCK), service_lock(NOMINATIM_LOCK):
+            for n, spec in specs:
+                try:
+                    b = build_place(spec)
+                except SystemExit:       # the resolver printed the candidates
+                    ambiguous.append((n, spec))
+                    continue
+                p = b["place"]
+                if p["lat"] is None:
+                    unresolved.append((n, spec))
+                    continue
+                dup = find_duplicate(data, p["id"], p["name"], p["lat"], p["lon"], b["region"]["id"])
+                if dup:
+                    dups.append((n, spec, dup["id"]))
+                    continue
+                if args.dry_run:
+                    print(f"  would add {p['id']} | {p['kind']} | {p['lat']},{p['lon']} | via {p['resolver']}")
+                    added.append(p)
+                    continue
+                p = insert_bundle(data, b)
+                added.append(p)
+                print(f"  + {p['id']} | {p['kind']} | {p['lat']},{p['lon']} | {_chain(data, p)} | via {p['resolver']}")
+    if added and not args.dry_run:
+        save(data)
+    for n, line, why in bad:
+        print(f"  line {n}: not read ({why}): {line}")
+    for n, spec in ambiguous:
+        print(f"  line {n}: AMBIGUOUS {spec['name']}: not written; pick one: locations.py add \"{spec['name']}\" --country {spec['country']} --pick N")
+    for n, spec in unresolved:
+        print(f"  line {n}: NOT FOUND {spec['name']}: not written; add it with --lat/--lon, or --offline --unconfirmed")
+    for n, spec, other in dups:
+        print(f"  line {n}: DUPLICATE {spec['name']} of {other}: not written; use edit")
+    verb = "would add" if args.dry_run else "added"
+    print(f"quick-add: {verb} {len(added)}, ambiguous {len(ambiguous)}, not found {len(unresolved)}, duplicate {len(dups)}, unreadable {len(bad)}")
+    return 2 if ambiguous else 1 if bad or unresolved else 0
+
+
+# ----------------------------------------------------------------------------- basics (DATA-LOC section 2)
+TRAIL_KINDS = ("trail",)
+ACTIVITY_KINDS = ("activity",)
+# "Any place reached by car" (DATA-LOC section 2): every kind but the ones with streets (town, city), the ones too big for one car park
+# (region), the road itself (drive) and the ones reached by boat (island).
+CAR_KINDS = tuple(k for k in KINDS if k not in ("town", "city", "region", "drive", "island"))
+# The basics tier, one row per field: (layer, field, the kinds it is asked of or None for all, its homes in read order). A home is
+# (where, key): `store` a places column, `rel` / `suit` / `cap` a key of the place's sidecar record (dots go deeper), `ext` a key of
+# the suitability extension, `link` a capture link kind, `parks_for` a capture record that parks for the place, `offer` a key of an
+# offer at the place. A field is answered by a value, or by a dated searched_none (field_meta for a store column).
+BASICS = (
+    ("identity", "point", None, (("store", "point"),)),
+    ("identity", "wikidata", None, (("store", "wikidata"), ("rel", "wikidata"))),
+    ("identity", "elevation", None, (("store", "elevation_m"),)),
+    ("identity", "summary", None, (("rel", "why"),)),
+    ("image", "photo", None, (("store", "image"), ("cap", "photos"))),
+    ("when", "season", None, (("store", "season_months"), ("cap", "season"), ("suit", "access_season"))),
+    ("links", "official", None, (("link", "official"),)),
+    ("links", "osm", None, (("link", "osm"), ("cap", "osm_ref"))),
+    ("trail", "length", TRAIL_KINDS, (("store", "walk_km"), ("suit", "effort.drivers.distance_km"))),
+    ("trail", "gain", TRAIL_KINDS, (("store", "walk_gain_m"), ("suit", "effort.drivers.gain_m"))),
+    ("trail", "difficulty", TRAIL_KINDS, (("suit", "effort.source_grade"),)),
+    ("trail", "shape", TRAIL_KINDS, (("ext", "shape"),)),
+    ("trail", "time", TRAIL_KINDS, (("store", "duration_min"), ("suit", "adult_time_min"))),
+    ("trail", "dogs", TRAIL_KINDS, (("ext", "dogs"),)),
+    ("trail", "stroller", TRAIL_KINDS, (("suit", "stroller"),)),
+    ("trail", "wheelchair", TRAIL_KINDS, (("suit", "wheelchair"),)),
+    ("parking", "parking point", CAR_KINDS, (("parks_for", ""),)),
+    ("parking", "fee or permit", CAR_KINDS, (("rel", "access_cost"),)),
+    ("booking", "booking", ACTIVITY_KINDS, (("rel", "access_cost"), ("offer", "window"))),
+    ("booking", "price", ACTIVITY_KINDS, (("offer", "price"),)),
+    ("booking", "operator", ACTIVITY_KINDS, (("offer", "run_by"),)),
+)
+BASICS_LAYERS = tuple(dict.fromkeys(b[0] for b in BASICS))
+# The store columns a researcher may mark searched_none (field_meta), and the states field_meta knows.
+BASICS_COLUMNS = ("wikidata", "elevation_m", "image", "season_months", "walk_km", "walk_gain_m", "duration_min")
+FIELD_META_STATES = ("value", "searched_none")
+ANSWERED_STATES = ("value", "searched_none", "none_stated", "not_applicable", "no_limit")   # a gap is never a yes
+SIDECAR_SKIP = {"capture": ("splits", "runs"), "suitability": (), "relevance": ("signals", "derived", "inputs")}
+
+
+def _sidecar_records(root: Path) -> dict:
+    """ref -> {"cap", "suit", "rel", "trip"} over every lane, with the read order of core/src/capture/records.ts (a lane file wins
+    over a migrated file for suitability; otherwise the first file in sorted order wins). Plus the offers and parking per target."""
+    out: dict[str, dict] = {}
+    parks: dict[str, list[str]] = {}
+    offers: dict[str, list[dict]] = {}
+    for kind in ("capture", "suitability", "relevance"):
+        base = root / "data" / kind
+        if not base.is_dir():
+            continue
+        for d in sorted(base.iterdir()):
+            if not d.is_dir() or d.name in SIDECAR_SKIP[kind]:
+                continue
+            for f in sorted(d.glob("*.json")):
+                try:
+                    doc = json.loads(f.read_text(encoding="utf-8"))
+                except (OSError, ValueError):
+                    continue
+                migrated = f.name.startswith("migrated")
+                for r in doc.get("records", []) if isinstance(doc, dict) else []:
+                    ref = r.get("ref")
+                    if not isinstance(ref, str):
+                        continue
+                    slot = out.setdefault(ref, {})
+                    key = {"capture": "cap", "suitability": "suit", "relevance": "rel"}[kind]
+                    if key not in slot or (key == "suit" and slot.get("_suit_migrated") and not migrated):
+                        slot[key] = r
+                        if key == "suit":
+                            slot["_suit_migrated"] = migrated
+                        if key == "cap":
+                            slot["trip"] = doc.get("trip")
+                    if kind == "capture":
+                        for t in r.get("parks_for") or []:
+                            parks.setdefault(t, []).append(ref)
+                        if r.get("layer") == "offer":
+                            for t in [*(r.get("at") or []), *[o.get("ref") for o in r.get("on") or [] if isinstance(o, dict)]]:
+                                offers.setdefault(t, []).append(r)
+    return {"refs": out, "parks": parks, "offers": offers}
+
+
+def _answered(v) -> bool:
+    if v is None:
+        return False
+    if isinstance(v, dict) and "state" in v:
+        return v["state"] in ANSWERED_STATES
+    if isinstance(v, (list, dict, str)):
+        return len(v) > 0
+    return True
+
+
+def _dig(x, path: str):
+    for k in path.split("."):
+        if not isinstance(x, dict):
+            return None
+        x = x.get(k)
+    return x
+
+
+def page_refs(root: Path) -> dict[str, str]:
+    """locations id -> the place/<slug> ref of its page (data/locations/page-keys.json, PRIVATE: read here, never printed to a file)."""
+    p = root / "data" / "locations" / "page-keys.json"
+    if not p.is_file():
+        return {}
+    keys = json.loads(p.read_text(encoding="utf-8")).get("keys", {})
+    return {k[4:]: v for k, v in keys.items() if k.startswith("loc:")}
+
+
+def _store_answered(p: dict, col: str) -> bool:
+    if col == "point":
+        return p.get("lat") is not None and p.get("location_status") == "resolved"
+    meta = (p.get("field_meta") or {}).get(col)
+    if isinstance(meta, dict) and meta.get("state") == "searched_none":
+        return True
+    return _answered(p.get(col))
+
+
+def place_basics(p: dict, ref: str | None, side: dict) -> dict:
+    """The basics of one place: which fields of its kind's tier are asked, and which are missing, per layer."""
+    s = side["refs"].get(ref, {}) if ref else {}
+    cap, suit, rel = s.get("cap") or {}, (s.get("suit") or {}), s.get("rel") or {}
+    offers = side["offers"].get(ref, []) if ref else []
+    missing: dict[str, list[str]] = {}
+    asked = 0
+    for layer, field_name, kinds, homes in BASICS:
+        if kinds is not None and p.get("kind") not in kinds:
+            continue
+        asked += 1
+        ok = False
+        for where, key in homes:
+            if where == "store":
+                ok = _store_answered(p, key)
+            elif where == "rel":
+                ok = _answered(_dig(rel, key))
+            elif where == "suit":
+                ok = _answered(_dig(suit.get("suitability") or {}, key))
+            elif where == "ext":
+                ok = _answered(_dig(suit.get("ext") or {}, key))
+            elif where == "cap":
+                ok = _answered(_dig(cap, key))
+            elif where == "link":
+                ok = any(l.get("kind") == key and l.get("state") in ("filled", "searched_none") for l in cap.get("links") or [])
+            elif where == "parks_for":
+                ok = bool(ref and side["parks"].get(ref))
+            elif where == "offer":
+                ok = any(_answered(o.get(key)) for o in offers)
+            if ok:
+                break
+        if not ok:
+            missing.setdefault(layer, []).append(field_name)
+    return {"asked": asked, "missing": missing, "missing_count": sum(len(v) for v in missing.values()), "trip": s.get("trip")}
+
+
+def basics_report(data: dict, root: Path) -> dict:
+    lane = tripless_lane()
+    refs = page_refs(root)
+    side = _sidecar_records(root)
+    places = data["places"]
+    rows = []
+    for p in places:
+        ref = refs.get(p["id"])
+        b = place_basics(p, ref, side)
+        rows.append({"id": p["id"], "name": p["name"], "kind": p["kind"], "ref": ref,
+                     # where the place's capture records go: the lane that already holds its record; a place tied to a trip goes
+                     # to that trip's lane (the legacy folder is named, the coordinator maps it); every other place to the trip-less lane
+                     "lane": b["trip"] or (f"trip {p['trip']}" if p.get("trip") else lane), "has_record": b["trip"] is not None,
+                     "tied_trip": p.get("trip"), "asked": b["asked"], "missing_count": b["missing_count"], "missing": b["missing"]})
+    rows.sort(key=lambda r: (-r["missing_count"], r["id"]))
+    trails = [p for p in places if p["kind"] in TRAIL_KINDS]
+    trail_len = [r for r in rows if r["kind"] in TRAIL_KINDS and "length" not in r["missing"].get("trail", [])]
+    store = {
+        "places": len(places),
+        "tied_to_a_trip": sum(1 for p in places if p.get("trip")),
+        "with_point": sum(1 for p in places if p.get("lat") is not None),
+        "unconfirmed": sum(1 for p in places if p.get("location_status") == "unconfirmed"),
+        "with_wikidata": sum(1 for p in places if p.get("wikidata")),
+        "with_image": sum(1 for p in places if p.get("image")),
+        "with_elevation": sum(1 for p in places if p.get("elevation_m") is not None),
+        "with_season_months": sum(1 for p in places if p.get("season_months")),
+        "trails": len(trails),
+        "trails_with_length": len(trail_len),
+        "with_capture_record": sum(1 for r in rows if r["has_record"]),
+        "without_page_ref": sum(1 for r in rows if r["ref"] is None),
+    }
+    layers = {}
+    for layer in BASICS_LAYERS:
+        asked = [r for r in rows if any(b[0] == layer and (b[2] is None or r["kind"] in b[2]) for b in BASICS)]
+        layers[layer] = {"asked": len(asked), "missing": sum(1 for r in asked if r["missing"].get(layer))}
+    return {"schema": "locations-basics/1", "date": today(), "lane": lane, "store": store, "layers": layers,
+            "fields": [{"layer": l, "field": f, "kinds": list(k) if k else None} for l, f, k, _ in BASICS], "places": rows}
+
+
+def cmd_basics(args) -> int:
+    rep = basics_report(ensure_v2(load()), PATHS.root)
+    if args.json:
+        print(json.dumps(rep, indent=1, ensure_ascii=False))
+        return 0
+    s = rep["store"]
+    print(f"Basics: {s['places']} places ({s['places'] - s['tied_to_a_trip']} tied to no trip, {s['tied_to_a_trip']} to one) · "
+          f"point {s['with_point']} ({s['unconfirmed']} unconfirmed) · Wikidata {s['with_wikidata']} · image {s['with_image']} · "
+          f"elevation {s['with_elevation']} · season months {s['with_season_months']} · "
+          f"trails with length {s['trails_with_length']} of {s['trails']} · with a capture record {s['with_capture_record']}")
+    print("Places missing each layer: " + " · ".join(f"{k} {v['missing']} of {v['asked']}" for k, v in rep["layers"].items()))
+    print("")
+    for r in rep["places"]:
+        if not r["missing_count"]:
+            continue
+        miss = "; ".join(f"{k}: {', '.join(v)}" for k, v in r["missing"].items())
+        print(f"{r['missing_count']:>3}/{r['asked']:<3} {r['id']:<58} {r['kind']:<10} {r['ref'] or '(no page ref yet)':<46} lane {r['lane']:<24} {miss}")
+    done = sum(1 for r in rep["places"] if not r["missing_count"])
+    print("")
+    print(f"{done} of {s['places']} places have every basics field answered.")
     return 0
 
 
@@ -1299,6 +1716,8 @@ def validate(data: dict, paths: Paths | None = None) -> list[str]:
                 errs.append(f"{w}: {col} must be a list of strings")
         if isinstance(r.get("field_meta"), list):
             errs.append(f"{w}: field_meta must be an object")
+        elif isinstance(r.get("field_meta"), dict):
+            errs += _field_meta_errors(w, r, {s["id"] for s in rows["sources"] if s.get("place_id") == r.get("id")})
         trip = r.get("trip")
         if trip and not (paths.trips_root / trip).is_dir():
             errs.append(f"{w}: trip folder {trip!r} does not exist")
@@ -1375,6 +1794,37 @@ def validate(data: dict, paths: Paths | None = None) -> list[str]:
         if sorted(ps) != list(range(1, len(ps) + 1)):
             errs.append(f"collection_places {cid}: positions must be contiguous from 1")
     return errs
+
+
+def _field_meta_errors(w: str, r: dict, own_sources: set[str]) -> list[str]:
+    """field_meta: per places column, the provenance of its value ({state: value, on, basis?, src?}) or the dated search that found
+    nothing ({state: searched_none, on, tried}); basis is the capture value basis, src the place's own source rows."""
+    out = []
+    cols = {c[0] for c in COLUMNS["places"]}
+    for col, m in r["field_meta"].items():
+        at = f"{w}: field_meta.{col}"
+        if col not in cols:
+            out.append(f"{at}: not a places column")
+            continue
+        if not isinstance(m, dict) or m.get("state") not in FIELD_META_STATES:
+            out.append(f"{at}: must be an object with state {FIELD_META_STATES}")
+            continue
+        if not valid_date(m.get("on")):
+            out.append(f"{at}: needs `on`, the ISO date it was read or searched")
+        if m.get("basis") is not None and m["basis"] not in value_bases():
+            out.append(f"{at}: basis {m['basis']!r} not in {value_bases()}")
+        for sid in m.get("src") or []:
+            if sid not in own_sources:
+                out.append(f"{at}: src {sid!r} is not a source row of this place")
+        filled = _answered(r.get(col))
+        if m["state"] == "searched_none":
+            if not (isinstance(m.get("tried"), list) and m["tried"] and all(isinstance(t, str) and t for t in m["tried"])):
+                out.append(f"{at}: searched_none needs `tried`, the sources looked at")
+            if filled:
+                out.append(f"{at}: searched_none, but the column has a value")
+        elif not filled:
+            out.append(f"{at}: state value, but the column is empty")
+    return out
 
 
 def warnings(data: dict) -> list[str]:
@@ -1489,7 +1939,21 @@ def main(argv=None) -> int:
     g = e.add_mutually_exclusive_group(); g.add_argument("--unconfirmed", action="store_true"); g.add_argument("--confirmed", action="store_true")
     e.add_argument("--source"); e.add_argument("--source-type", choices=SOURCE_TYPES)
     e.add_argument("--source-note"); e.add_argument("--screenshot", help="path under research/inbox/")
+    e.add_argument("--wikidata", metavar="QID"); e.add_argument("--elevation-m", type=int, metavar="M")
+    e.add_argument("--image", metavar="COMMONS_FILE", help="a Wikimedia Commons file: FilePath URL, file page URL or File:Name.jpg")
+    e.add_argument("--basis", help="how the value was taken (the capture basis: official_info, our_inference, ...)")
+    e.add_argument("--searched-none", metavar="COLUMNS", help=f"comma columns the search left empty, from {','.join(BASICS_COLUMNS)}; with --tried")
+    e.add_argument("--tried", action="append", metavar="WHAT", help="a source looked at for --searched-none (repeat)")
     e.set_defaults(fn=cmd_edit)
+
+    q = sub.add_parser("quick-add", help="add one place per line `Name, Country[, kind]`, resolved like add")
+    q.add_argument("file"); q.add_argument("--dry-run", action="store_true", help="resolve and print, write nothing")
+    q.add_argument("--source-note", help="a note source row for every place added (where the list came from)")
+    q.set_defaults(fn=cmd_quick_add)
+
+    bs = sub.add_parser("basics", help="the basics tier (DATA-LOC section 2): every place by missing layer, worst first")
+    bs.add_argument("--report", action="store_true", required=True); bs.add_argument("--json", action="store_true")
+    bs.set_defaults(fn=cmd_basics)
 
     v = sub.add_parser("visit"); v.add_argument("verb", choices=["add"]); v.add_argument("id")
     v.add_argument("--date", required=True, help="YYYY, YYYY-MM or YYYY-MM-DD"); v.add_argument("--end")
