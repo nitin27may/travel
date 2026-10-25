@@ -120,7 +120,7 @@ T(find("bow-valley-parkway-cycling"), 51.19265, -115.73569, "osm", "route_start"
 T(find("jasper-bike-rental"), 52.87541, -118.08094, "osm", "meeting",
   "OSM node 13225697445 Vicious - Cycle and Snow, Jasper (the shop at https://viciouscycleandsnow.ca/)")
 T(find("lake-louise-sightseeing"), 51.44214, -116.16119, "osm", "meeting",
-  "OSM way 1263557754 Grizzly Express Gondola base station; the same point as legacy/.../adventures/lake-louise-gondola, the record names the product the same")
+  "OSM way 1263557754 Grizzly Express Gondola base station; the same point as the Lake Louise gondola adventure record, the record names the product the same")
 T(find("nakiska-summer"), 50.94254, -115.15173, "osm", "meeting",
   "OSM way 1327131488 Nakiska Day Lodge; Wikidata Q1588256 P625 50.944,-115.147 is 350 m away")
 T(find("adventures/red-rock-parkway"), 49.13166, -114.0263, "wikidata", "route_start", wd("Q22589340", "Red Rock Canyon, the parkway's end"),
