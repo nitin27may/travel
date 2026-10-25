@@ -1,0 +1,51 @@
+# What `vercel deploy` uploads from this checkout (R-61). The Vercel CLI does not read .gitignore: without this file it uploaded
+# 52,671 files, the root .env, the test screenshots and the old static export among them. So every rule git has is listed again here.
+# `vercel deploy --prebuilt` ignores this file (it uploads only .vercel/output).
+# One deliberate difference from .gitignore: web/.og-cache (the Commons thumbnail cache scripts/images.mjs and scripts/og.mjs read)
+# is uploaded, so a build from this Mac does not fetch about 300 photos again. A git-connected build never has it.
+# Also uploaded: web/.generated/legacy-trips.json, the trip list tools/hub.py derives from the frozen legacy pages, so the build does
+# not depend on python3 being on the build machine.
+
+# Secrets: never upload
+.env
+.env.*
+*.local.json
+.neon
+.vercel
+.claude/settings.local.json
+
+# Dependencies, caches and build output (rebuilt on Vercel)
+node_modules
+.next
+.site
+.wrangler
+__pycache__
+*.pyc
+.pytest_cache
+tools/.cache
+web/out
+web/.next
+web/.generated/*
+!web/.generated/legacy-trips.json
+web/.fixture-*
+web/.tile-cache
+web/test-results
+web/playwright-report
+web/shots
+web/public/img
+web/public/og
+web/next-env.d.ts
+web/AGENTS.md
+*.tsbuildinfo
+
+# Regenerable local files
+.DS_Store
+*.swp
+*-candidates.json
+links-report.txt
+legacy/_system/gallery.html
+
+# Never read by the build or a server function (anchored: core/test has a fixture folder named research)
+/docs
+/research
+/.claude
