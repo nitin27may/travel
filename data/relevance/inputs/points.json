@@ -1052,10 +1052,10 @@
       "point_source": "Q476378 P625"
     },
     "part/place/cascate-di-fanes#payoff": {
-      "lat": 46.59347,
-      "lon": 12.08478,
+      "lat": 46.594,
+      "lon": 12.08346,
       "coord_src": "osm",
-      "point_source": "last vertex of the stored track data/tracks/fanes-falls.json (OSM, ODbL, read 2026-10-19; the track is cut at the destination, the falls); read 2026-10-25 (lane DATA-D1); agent checked, needs a person's check"
+      "point_source": "OSM node 9861910524 Cascate di Fanes (waterway=waterfall); Wikidata Q67370898 P625 46.594517,12.084188 is 70 m away and the belvedere the official route ends at (node 1398755045 'Punto panoramico Cascate di Fanes') 130 m; Cortina tourism https://cortina.dolomiti.org/it/escursioni/botanical-path-to-the-cascate-di-fanes-en; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "part/place/croda-del-becco#payoff": {
       "lat": 46.67522,
@@ -1382,10 +1382,10 @@
       "point_source": "snapshot place cadini (approximate)"
     },
     "place/cascate-di-fanes": {
-      "lat": 46.60263,
-      "lon": 12.10671,
+      "lat": 46.59381,
+      "lon": 12.11296,
       "coord_src": "osm",
-      "point_source": "snapshot trailhead of fanes-falls osm_node 7920730765"
+      "point_source": "OSM node 470623991 Centro visitatori del parco (tourism=information, office), the Ampezzo Dolomites park information point by Ponte Felizon; Cortina tourism (the route page above): 'Start: Ufficio informazioni del Parco', path 10, 7 km return, +249 m. This beats the snapshot trailhead (OSM node 7920730765 at Pian de Loa), which is where the stored OSM track starts, 2 km along the route; read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
     },
     "place/cinque-torri": {
       "lat": 46.50925,
