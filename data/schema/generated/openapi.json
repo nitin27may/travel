@@ -4764,6 +4764,13 @@
                             {
                               "type": "object",
                               "properties": {
+                                "basis": {
+                                  "type": "string",
+                                  "enum": [
+                                    "plan",
+                                    "researched"
+                                  ]
+                                },
                                 "months": {
                                   "type": "array",
                                   "items": {
@@ -9647,6 +9654,20 @@
                             "type": [
                               "string",
                               "null"
+                            ]
+                          },
+                          "seasonBasis": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "plan",
+                                  "researched"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
                             ]
                           },
                           "seasonMonths": {

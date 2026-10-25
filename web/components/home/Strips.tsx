@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Card } from '@/components/ui/Card';
 import { Chip } from '@/components/ui/Chip';
 import { kindIcon } from '@/components/ui/Icon';
+import { PLAN_WINDOW_TITLE, seasonText } from '@/components/trips/seasonText';
 import type { PublicPlaceCard, PublicTripCard } from '@/lib/public';
 
 /** Honesty chips that say how deep a trip page goes. */
@@ -34,8 +35,8 @@ export function HomeTripCard({ trip, priority }: { trip: PublicTripCard; priorit
       chips={
         <ul className="badge-row" aria-label="Details">
           <li>
-            <Chip kind="neutral" icon="calendar" title={trip.season?.why}>
-              {trip.season ? trip.season.label : 'Season not set yet'}
+            <Chip kind="neutral" icon="calendar" className="chip-wrap" title={trip.season?.basis === 'plan' ? PLAN_WINDOW_TITLE : trip.season?.why}>
+              {trip.season ? seasonText(trip.season.label, trip.season.basis) : 'Season not set yet'}
             </Chip>
           </li>
           {trip.honesty

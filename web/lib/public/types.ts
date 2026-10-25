@@ -323,6 +323,8 @@ export interface BookRule {
 }
 
 export interface Season {
+  /** `plan`: only the window the plan was written for, other months and opening dates not checked; `researched`: the reasoned seed window. */
+  basis: 'plan' | 'researched';
   months: number[];
   label: string;
   why: string;

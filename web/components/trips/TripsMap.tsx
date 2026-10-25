@@ -10,6 +10,7 @@ import { clusterPins } from '@/components/places/cluster';
 import { boundsOf, formatCameraParam, parseCameraParam } from '@/lib/map/geo';
 import { registerPageFamily } from '@/lib/map/registry';
 import type { CameraState, MapHandle, MapSpec, Pin } from '@/lib/map/types';
+import { PLAN_WINDOW_TITLE, seasonText } from './seasonText';
 import { DEPTH_NOTICE, lengthLabel, tripHref } from './format';
 import type { TripListRow } from './types';
 
@@ -129,8 +130,8 @@ export function TripsMap({ rows }: { rows: TripListRow[] }) {
               </h3>
               <p className="trips-map-meta">{[lengthLabel(trip.nights, trip.days), trip.region].filter(Boolean).join(' · ')}</p>
               <p className="trips-map-chips">
-                <Chip kind={trip.seasonLabel ? 'neutral' : 'honest'} icon="calendar">
-                  {trip.seasonLabel ?? 'Season not set yet'}
+                <Chip kind={trip.seasonLabel ? 'neutral' : 'honest'} icon="calendar" className="chip-wrap" title={trip.seasonBasis === 'plan' ? PLAN_WINDOW_TITLE : undefined}>
+                  {trip.seasonLabel ? seasonText(trip.seasonLabel, trip.seasonBasis) : 'Season not set yet'}
                 </Chip>
                 {trip.depth !== 'full' ? <Chip kind="honest">{DEPTH_NOTICE[trip.depth]}</Chip> : null}
                 {trip.approx ? <Chip kind="honest" title="No base coordinates yet; the hollow pin marks the area, not a place">Area only</Chip> : null}

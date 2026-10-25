@@ -25,8 +25,8 @@
   ],
   "season": {
     "months": { "value": [6, 7], "basis": "plan", "note": "The plan's recommended window; exact dates are still open in the plan." },
-    "label": { "value": "Last week of June into early July (dates still open)", "basis": "plan" },
-    "why": { "value": "The plan's recommended window: the sun does not set at the Lofoten and Tromso stations and the fjord coast has no real night.", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" },
+    "label": { "value": "Last week of June into early July", "basis": "plan" },
+    "why": { "value": "Dates still open: the sun does not set at the Lofoten and Tromso stations and the fjord coast has no real night.", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" },
     "weather": {
       "tempC": { "value": "10 to 20 C in Bergen, 6 to 16 C in Tromso; Lofoten daily mean about 10 to 13 C", "basis": "official", "src": ["s-bc722473fe", "s-66e99dfe26", "s-261e547171"], "on": "2026-10-25", "note": "WMO 1991-2020, mean daily min to max, June / July: Bergen 10.1/12.4 to 17.7/19.6; Tromso 6.2/9.1 to 13.0/16.3. Leknes publishes only the daily mean: 9.7/12.7." },
       "rain": { "value": "Wet in Bergen, 13 to 15 rain days a month; about 11 in Tromso; Lofoten and Andalsnes about 90 to 100 mm a month", "basis": "official", "src": ["s-bc722473fe", "s-66e99dfe26", "s-4e034d5d62", "s-0a89108e8b"], "on": "2026-10-25", "note": "June / July precipitation and days >= 1 mm: Bergen 132.3/157.5 mm, 13/15 days; Tromso 58/72.5 mm, 11/11 days; Reine 91.3/95.7 mm (days not published); Andalsnes 97.2/89.3 mm (days not published)." },

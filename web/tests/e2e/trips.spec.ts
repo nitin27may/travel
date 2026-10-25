@@ -58,11 +58,18 @@ test.describe('trip page', () => {
     await page.goto(`${site.url}/trips/patagonia-2027/`);
     await expect(page.getByText('Condensed from the full plan').first()).toBeVisible();
     await page.goto(`${site.url}/trips/switzerland-2027/`);
-    // an overview with no season carries one notice (TRP1 review M6); the "not converted" banner is only for an overview that has a season
-    await expect(page.getByText('Overview only. No days and no season are written down yet, so check the season yourself before you pick dates.')).toBeVisible();
-    await expect(page.getByText('This plan has not been converted to days yet')).toHaveCount(0);
+    // an overview with a season (D6a-W) shows the season band and the "not converted" banner; the no-season notice is for an overview with none
+    await expect(page.getByText('This plan has not been converted to days yet')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'This plan is valid for' })).toBeVisible();
+    await expect(page.getByText('Last week of July to the second week of August').first()).toBeVisible();
+    await expect(page.getByText('Overview only. No days and no season are written down yet')).toHaveCount(0);
+    // a plan-only window says so: the hero stat, one line in the band and the strip's name (D6a-W review M2)
+    await expect(page.locator('.trip-glance dt', { hasText: 'Planned for' })).toBeVisible();
+    await expect(page.locator('.trip-glance dt', { hasText: 'Valid for' })).toHaveCount(0);
+    await expect(page.getByText('The window this plan was written for. Other months and opening dates have not been checked yet.')).toBeVisible();
+    await expect(page.getByRole('img', { name: 'Months this plan covers: July, August' })).toBeVisible();
     await expect(page.locator('.cat-chip')).toHaveCount(0);
-    await expect(page.getByText('Season not set yet').first()).toBeVisible();
+    await expect(page.getByText('Season not set yet')).toHaveCount(0);
   });
   test('no horizontal scroll at 390 and axe is clean', async ({ page, site }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -72,6 +79,27 @@ test.describe('trip page', () => {
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), path).toBe(true);
       const r = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).exclude('[data-map-family]').analyze();
       expect(r.violations.map((v) => `${v.id}: ${v.nodes[0]?.html.slice(0, 80)}`), path).toEqual([]);
+    }
+  });
+  test('the season chip is readable whole on every list card and on the map card (D6a-W: no clipped season)', async ({ page, site }) => {
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`${site.url}/trips/?view=cards`);
+      const clipped = await page.evaluate(() =>
+        [...document.querySelectorAll('.chip')].filter((c) => c.scrollWidth > c.clientWidth + 1 || c.getBoundingClientRect().right > (c.closest('li, article')?.getBoundingClientRect().right ?? 1e9) + 1).map((c) => c.textContent),
+      );
+      expect(clipped, `cards at ${width}`).toEqual([]);
+      await expect(page.locator("[data-tone='season'] .chip").filter({ hasText: 'Last week of June into early July' }).first()).toBeVisible();
+      // the map card for the Norway trip keeps its meta line and the button inside the card
+      await page.goto(`${site.url}/trips/?view=map&c=12,64,5`);
+      await page.locator('[data-pin-id="norway-summer-2028"]').first().dispatchEvent('click');
+      const card = page.locator('.trips-map-card');
+      await expect(card).toBeVisible();
+      const box = (await card.boundingBox())!;
+      const button = (await card.getByRole('link', { name: /Open the plan/ }).boundingBox())!;
+      expect(button.x + button.width, `button inside the card at ${width}`).toBeLessThanOrEqual(box.x + box.width + 1);
+      expect(await card.evaluate((el) => el.scrollWidth <= el.clientWidth + 1), `card does not overflow at ${width}`).toBe(true);
+      await expect(card.locator('.chip-wrap')).toContainText('Last week of June into early July');
     }
   });
   test('private trips have no page', async ({ page, site }) => {
