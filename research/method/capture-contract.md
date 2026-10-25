@@ -666,6 +666,10 @@ So the JSON loads into the two-tier catalogue of the schema diff (owner Q73) wit
 - `ref` never changes. A rename is a new record with `same_place_as` (or `aliases`) and a redirect; the public slug follows the slug registry (PHASE-B-START D-B1). A pinned record keeps its pin through its aliases. A ref that looks like a path (`legacy/canadian-rockies-sept-2029/adventures/banff-gondola`) is an id, never rewritten.
 - Every file carries `schema` (`capture/1`, `capture-points/1`, `capture-gap-budget/1`, ...).
 - Every value carries `src`, `on` or `read`, and a basis (or, for a point, `coord_src` and `point_source`). The migration ledger rule holds: every pre-migration leaf still exists with the same value.
+- Planned (25 Oct 2026, not built): every record also carries an optional row-level `meta` block (RowMeta: run id, file and
+  hash, review state, licence, last checked), points move from the free-text `point_source` to a structured `point_src`
+  (`capture-points/2`), and a value only enters a record when it passes the keep-or-drop rule. See
+  [catalogue-intake-and-storage.md](../../docs/v2/features/catalogue-intake-and-storage.md) sections 2 and 3.
 
 #### 3.7.6 Baseline (21 Oct 2026, `main` 36e4da7)
 

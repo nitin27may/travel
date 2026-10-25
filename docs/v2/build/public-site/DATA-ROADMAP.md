@@ -192,6 +192,15 @@ A location is **done** only when each of these is a sourced value or a dated `se
 - **Done check per split:** `node core/bin/capture.ts gaps --tier required` for the lane shows every place complete or searched_none; the count of "records with the required tier complete" must rise to 74 of 74 for the lane, not stay at 7 of 196 for places; no gap count rises; a 10-value sample check against the sources passes at least 9 of 10; an Opus pass reviews a sample of 10 per split.
 - **Maintenance:** the `location` skill's capture step runs this standard for every new place, so the list never falls behind again.
 
+## 4c. What a batch stores, and how it reaches Postgres (owner, 25 Oct 2026)
+
+Every batch follows [catalogue-intake-and-storage.md](../../features/catalogue-intake-and-storage.md): store a value only
+when it passes the keep-or-drop rule (section 2: decision, display, filter, check, money, proof, freshness); facts a batch
+finds for records it does not own go into a changeset file (`data/capture/changesets/<run>.json`, once RIS-C lands), operator
+questions into the run record as `ask` outcomes, and reasoning stays in the run note. Its section 5 lists what D1, D1b,
+D3a, D4a, D6a, D7-R and D9-R produced that no record holds yet; task RIS-A promotes it. Q175 asks that D2b start after RIS-C
+and RIS-N so the 74 places are born compliant.
+
 ## 5. Request volume and one runner per service
 
 Every external call is sequential and goes through a lock, across all agents on this Mac. `flock` was not installed on 21

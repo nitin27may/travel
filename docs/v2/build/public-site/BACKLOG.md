@@ -429,6 +429,16 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | 15.127 | **MCP security (25 Oct; R-127).** Capabilities from role and client grant, `withUserTransaction` under RLS for every tool, quotas, audit log without arguments, untrusted-text fencing, origin allowlist, bearer-only, independent review | PLAN R-127 | planned: MCP-C, MCP-2, MCP-S; Q167 |
 | 15.128 | **Research proposals and review over MCP (25 Oct; R-128).** `propose_research_changes` into `changeset` with RLS, owner `review_queue` and `decide`, accepted changes applied by the ops CLI | PLAN R-128 | later: MCP-3, after MCP-E and F17 roles |
 | 15.129 | **MCP client recipes and real-client checks (25 Oct; R-129).** Inspector, Claude Code with OAuth and with a token, claude.ai custom connector; client-recipes section 0 kept true | PLAN R-129 | planned: MCP-E; after MCP-S and O-M2 to O-M4 |
+| 15.130 | **Research intake and storage spec (owner, 25 Oct; R-130 to R-136).** Measured inventory, keep-or-drop rule K1 to K7, RowMeta contract, pipeline S0 to S9, audit of D1 to D9-R and the prose, tasks RIS-C to RIS-T, Q170 to Q177. Spec [catalogue-intake-and-storage.md](../../features/catalogue-intake-and-storage.md) | PLAN R-130 | **done** (this commit, docs only) |
+| 15.131 | **RIS-C: the contract (R-130, R-131, R-133).** `core/src/schema/rowMeta.ts` (strict, `META_KEYS` with `since`), `keep` on every property, `Val.estimate`, run outcome `ask`, `capture-changeset/1`, `capture-points/2`, `meta` and `notes_private` in `PRIVATE_KEYS`, freshness classes keyed by registry keys, codes `E_KEEP_UNKNOWN`, `E_META_*`, `E_SUMMARY_LONG`, `E_NOTE_LONG` | travel-builder, Opus, 8 h | planned; first; coordinate `core/src/schema/capture/**` with L1 |
+| 15.132 | **RIS-N: normaliser (R-132).** `core/bin/normalise.ts --check|--write`, `core/src/normalise/**`, `capture.ts dupes` and `prose-links`, a `check-all` stage | travel-builder, Sonnet, 8 h | planned; after RIS-C |
+| 15.133 | **RIS-J: today's JSON into the contract (R-132).** Basis, value shape and source ids normalised; 185 points to `capture-points/2`; `sources.ts build` reads windows, base plans and seasons (233 hash ids resolve); `origin` to `meta.origin`; no ledger leaf changes | travel-builder, Sonnet, 6 h | planned; after RIS-N and the D3a and D4a merges |
+| 15.134 | **RIS-H: homes for researched properties (R-134).** Capture homes for `closures`, `transit`, `check_in_out`, `groceries`, `last_transport`, `book_url`, `fills_by` | travel-builder, Opus, 3 h | planned; after RIS-C |
+| 15.135 | **RIS-A: promote today's research (R-136).** D7-R access seasons onto records, D3a proposals and D1b points as `data/capture/changesets/*.json`, D4a questions as `ask` outcomes, Fanes facts, Indefatigable closure; D9-R town facts after STY-P | travel-researcher, Opus, 6 h (+2 h after STY-P); coordinator applies changesets | planned; after RIS-J and RIS-H |
+| 15.136 | **RIS-M: migration (R-131).** Next free number at build time (0011 to 0013 are reserved elsewhere): `meta` on 27 tables, `notes_private`, `track.attrs`, `record_doc.family` widened, `load_run`, `evidence` and `research_gap` columns, column-list grants without `meta`, `notes_private`, `doc` | travel-builder, Opus, 6 h | planned; child branch first; production on owner approval (Q177) |
+| 15.137 | **RIS-L: SRV-0 loader with the contract (R-133, R-135).** `core/bin/load-catalogue.ts`, `core/src/catalogue/postgres/load/**`: source tier, serving tier through core, evidence, run records, changesets, `load_run`, rollback by run id | travel-builder, Sonnet, Opus review, 10 h (adds about 4 h to SRV-0) | planned; SRV-0 window, after RIS-M and RIS-J |
+| 15.138 | **RIS-T: load tests (R-135).** Round trip, idempotency (0 rows on a second run), rollback, privacy (no `meta`, `notes_private`, `doc` or `loc:` served), size (4 KB per `meta`, under 50 MB in all), parity against JsonStore | travel-builder then travel-verifier, Sonnet, 5 h | planned; with RIS-L |
+| 15.139 | **RIS-S: stale report (R-135).** `capture.ts stale` from freshness classes, `applies_to` and `last_checked`; then the SQL view | travel-builder, Sonnet, 3 h | planned; after RIS-N |
 
 ## Owner questions open
 
@@ -575,6 +585,14 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | Q166 | MCP-0 and MCP-C when a seat frees; the MCP build after the closure queue, R-59 and email Phase 1? Recommended: yes | 25 Oct |
 | Q167 | MCP audit log (who, client, tool, result, duration; no arguments) kept 30 days? Recommended: yes | 25 Oct |
 | Q168 | After a password reset by code, sign out every other session (Neon does not, EML-0 U5)? Recommended: yes, in EML-1 ([PLAN](../../PLAN.md) section 5) | 25 Oct |
+| Q170 | Adopt the keep-or-drop rule K1 to K7, with a `keep` list on every registry property? Recommended: yes ([spec](../../features/catalogue-intake-and-storage.md) section 7) | 25 Oct |
+| Q171 | `meta jsonb` under one RowMeta contract on 27 catalogue and research tables, never readable by the app role? Recommended: yes | 25 Oct |
+| Q172 | Stop writing the verbatim record into public `entity.doc` and `offer.doc` (`record_doc` keeps it, internal)? Recommended: yes | 25 Oct |
+| Q173 | Add `notes_private` (at most 1,000 characters, owner and researchers only)? Recommended: yes, empty by default | 25 Oct |
+| Q174 | Keep serving `Val.quote` up to 300 characters (store decision A6), or cap public quotes at 120? Recommended: keep A6; warn above 120 | 25 Oct |
+| Q175 | Start D2b only after RIS-C and RIS-N (about 16 h), so the 74 places are born compliant? Recommended: yes | 25 Oct |
+| Q176 | Four area-level properties in `area.attrs` (park-pass rule, child-seat law, a dated lodging-rate statistic, with the time zone already a column)? Recommended: yes; display stays with Q113 | 25 Oct |
+| Q177 | Apply the RIS-M migration to the Neon production branch after the child-branch run, on approval of a named commit? Recommended: yes | 25 Oct |
 
 ## Later: after go-live (planner and data)
 

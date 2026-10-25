@@ -199,6 +199,11 @@ Later, research arrives as a changeset through the MCP and a review queue instea
 
 This section is the single home of these rules. Skills and agents carry one line each, with a pointer here.
 
+**What to store.** A value goes into a record only when it changes a decision, a display, a filter, a check or money, or
+proves or dates another stored value; everything else stays in the prose archive, becomes the one-sentence summary, or is
+dropped. A fact moves from prose into a record through the capture step, with a `RECORDED <ref> <path> <date>` marker in the
+prose. The rule, the `meta` contract and the load pipeline: [catalogue-intake-and-storage.md](../docs/v2/features/catalogue-intake-and-storage.md).
+
 **Method**
 - **Rule zero: do not take the draft at face value.** A rough itinerary is a hypothesis. Research it and lead with what
   changed and why. Earlier plans found a "summit hike" with no view at the summit, an attraction assumed closed that was
