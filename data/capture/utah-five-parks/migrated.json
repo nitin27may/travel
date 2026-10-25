@@ -169,6 +169,26 @@
             "src-0001"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Temple of Sinawava Trail (6381080747).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Phil Whitehouse from London, United Kingdom",
+          "attribution": "Phil Whitehouse from London, United Kingdom, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Temple_of_Sinawava_Trail_(6381080747).jpg",
+          "width": 4320,
+          "height": 3240
+        },
+        {
+          "file": "File:Temple of Sinawava, Zion National Park.jpg",
+          "licence": "CC BY 2.0",
+          "author": "TerryDOtt",
+          "attribution": "TerryDOtt, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Temple_of_Sinawava,_Zion_National_Park.jpg",
+          "width": 4804,
+          "height": 3968
+        }
       ]
     },
     {
@@ -248,7 +268,27 @@
           ]
         }
       ],
-      "area_id": "US/UT/washington-county"
+      "area_id": "US/UT/washington-county",
+      "photos": [
+        {
+          "file": "File:From Scout Lookout, Angels Landing Trail (3678795871).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Greg Willis from Denver, CO, usa",
+          "attribution": "Greg Willis from Denver, CO, usa, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:From_Scout_Lookout,_Angels_Landing_Trail_(3678795871).jpg",
+          "width": 1600,
+          "height": 1057
+        },
+        {
+          "file": "File:AngelsLandingRidge.jpg",
+          "licence": "Public domain",
+          "author": "User:Bearclause",
+          "attribution": "User:Bearclause, Public domain, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:AngelsLandingRidge.jpg",
+          "width": 2816,
+          "height": 2112
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/trail:pa rus trail",
@@ -282,6 +322,26 @@
           "src": [
             "src-0009"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Zion National Park - HCP - October 02, 2022 - 013 - Pa'rus Trail.jpg",
+          "licence": "CC0",
+          "author": "Vulturesong",
+          "attribution": "Vulturesong, CC0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Zion_National_Park_-_HCP_-_October_02,_2022_-_013_-_Pa%27rus_Trail.jpg",
+          "width": 4032,
+          "height": 3024
+        },
+        {
+          "file": "File:Zion National Park - HCP - October 02, 2022 - 082 - Pa'rus Trail.jpg",
+          "licence": "CC0",
+          "author": "Vulturesong",
+          "attribution": "Vulturesong, CC0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Zion_National_Park_-_HCP_-_October_02,_2022_-_082_-_Pa%27rus_Trail.jpg",
+          "width": 4032,
+          "height": 3024
         }
       ]
     },
@@ -319,7 +379,18 @@
           ]
         }
       ],
-      "area_id": "US/UT/washington-county"
+      "area_id": "US/UT/washington-county",
+      "photos": [
+        {
+          "file": "File:Riverside Walk to Zion Narrows, Zion Canyon, Zion National Park, Utah (8096063112).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Ken Lund from Reno, Nevada, USA",
+          "attribution": "Ken Lund from Reno, Nevada, USA, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Riverside_Walk_to_Zion_Narrows,_Zion_Canyon,_Zion_National_Park,_Utah_(8096063112).jpg",
+          "width": 4000,
+          "height": 3000
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
@@ -378,6 +449,26 @@
           "src": [
             "src-0008"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Connecting trail between Navajo Loop and Queens Garden, Bryce Canyon National Park (21415318671).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Fabio Achilli from Milano, Italy",
+          "attribution": "Fabio Achilli from Milano, Italy, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Connecting_trail_between_Navajo_Loop_and_Queens_Garden,_Bryce_Canyon_National_Park_(21415318671).jpg",
+          "width": 4608,
+          "height": 3456
+        },
+        {
+          "file": "File:Bryce Amphitheatre, Bryce Canyon (21218872668).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Fabio Achilli from Milano, Italy",
+          "attribution": "Fabio Achilli from Milano, Italy, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bryce_Amphitheatre,_Bryce_Canyon_(21218872668).jpg",
+          "width": 4608,
+          "height": 3456
         }
       ]
     },
@@ -494,6 +585,26 @@
             "src-0003"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Lower Calf Creek Falls (4080891798).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Greg Willis from Denver, CO, usa",
+          "attribution": "Greg Willis from Denver, CO, usa, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lower_Calf_Creek_Falls_(4080891798).jpg",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "file": "File:Lower Calf Creek Falls (33997118435).jpg",
+          "licence": "Public domain",
+          "author": "BLMUtah",
+          "attribution": "BLMUtah, Public domain, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lower_Calf_Creek_Falls_(33997118435).jpg",
+          "width": 1920,
+          "height": 1282
+        }
       ]
     },
     {
@@ -576,6 +687,26 @@
             "src-0006"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Capitol Reef, Utah, June 2011 - panoramio.jpg",
+          "licence": "CC BY 3.0",
+          "author": "Kevin.Daniels",
+          "attribution": "Kevin.Daniels, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Capitol_Reef,_Utah,_June_2011_-_panoramio.jpg",
+          "width": 4500,
+          "height": 1752
+        },
+        {
+          "file": "File:Hickman Bridge (3678751753).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Greg Willis from Denver, CO, usa",
+          "attribution": "Greg Willis from Denver, CO, usa, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Hickman_Bridge_(3678751753).jpg",
+          "width": 1600,
+          "height": 1057
+        }
       ]
     },
     {
@@ -626,7 +757,27 @@
           ]
         }
       ],
-      "area_id": "US/UT/grand-county"
+      "area_id": "US/UT/grand-county",
+      "photos": [
+        {
+          "file": "File:Delicate Arch (7010365913).jpg",
+          "licence": "CC0",
+          "author": "Romain Guy from San Francisco, USA",
+          "attribution": "Romain Guy from San Francisco, USA, CC0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Delicate_Arch_(7010365913).jpg",
+          "width": 5154,
+          "height": 3436
+        },
+        {
+          "file": "File:Delicate arch sunset.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Palacemusic",
+          "attribution": "Palacemusic, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Delicate_arch_sunset.jpg",
+          "width": 2592,
+          "height": 1944
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/trail:devils garden",
@@ -662,7 +813,18 @@
           ]
         }
       ],
-      "area_id": "US/UT/grand-county"
+      "area_id": "US/UT/grand-county",
+      "photos": [
+        {
+          "file": "File:View of Devils Garden, Arches National Park 20110815 1.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "DXR",
+          "attribution": "DXR, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:View_of_Devils_Garden,_Arches_National_Park_20110815_1.jpg",
+          "width": 4928,
+          "height": 3264
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/trail:windows section",
@@ -696,6 +858,26 @@
           "src": [
             "src-0013"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Windows Section, Arches National Park, Utah (2439416512).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Ken Lund from Reno, Nevada, USA",
+          "attribution": "Ken Lund from Reno, Nevada, USA, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Windows_Section,_Arches_National_Park,_Utah_(2439416512).jpg",
+          "width": 2048,
+          "height": 1536
+        },
+        {
+          "file": "File:2013-09-23 09 15 49 View southwest from the Windows Section in Arches National Park.JPG",
+          "licence": "CC BY-SA 3.0",
+          "author": "Famartin",
+          "attribution": "Famartin, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:2013-09-23_09_15_49_View_southwest_from_the_Windows_Section_in_Arches_National_Park.JPG",
+          "width": 3264,
+          "height": 2448
         }
       ]
     },
@@ -733,7 +915,27 @@
           ]
         }
       ],
-      "area_id": "US/UT/san-juan-county"
+      "area_id": "US/UT/san-juan-county",
+      "photos": [
+        {
+          "file": "File:16 21 1433 mesa arch.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Dsdugan",
+          "attribution": "Dsdugan, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:16_21_1433_mesa_arch.jpg",
+          "width": 2048,
+          "height": 1368
+        },
+        {
+          "file": "File:Mesa Arch. Canyonlands National Park, Utah (14702389212).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Paxson Woelber",
+          "attribution": "Paxson Woelber, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Mesa_Arch._Canyonlands_National_Park,_Utah_(14702389212).jpg",
+          "width": 5824,
+          "height": 3883
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/trail:upheaval dome",
@@ -769,7 +971,18 @@
           ]
         }
       ],
-      "area_id": "US/UT/san-juan-county"
+      "area_id": "US/UT/san-juan-county",
+      "photos": [
+        {
+          "file": "File:2021 Upheaval Dome 02.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Farragutful",
+          "attribution": "Farragutful, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:2021_Upheaval_Dome_02.jpg",
+          "width": 6000,
+          "height": 4000
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:grand view point",
@@ -820,7 +1033,27 @@
       "origin": {
         "from": "trip/utah-five-parks/viewpoint:grand view point",
         "reason": "the route to the place"
-      }
+      },
+      "photos": [
+        {
+          "file": "File:Approaching Grand View Point - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Peter K.",
+          "attribution": "Peter K., CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Approaching_Grand_View_Point_-_panoramio.jpg",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "file": "File:2013-09-22 18 26 30 Panorama from Grand View Point Overlook.JPG",
+          "licence": "CC BY-SA 3.0",
+          "author": "Famartin",
+          "attribution": "Famartin, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:2013-09-22_18_26_30_Panorama_from_Grand_View_Point_Overlook.JPG",
+          "width": 8784,
+          "height": 2452
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:dead horse point",
