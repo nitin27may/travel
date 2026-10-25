@@ -4895,6 +4895,9 @@
                       ],
                       "additionalProperties": false
                     }
+                  },
+                  "estimate": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -5034,6 +5037,9 @@
                       ],
                       "additionalProperties": false
                     }
+                  },
+                  "estimate": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -5157,6 +5163,9 @@
                       ],
                       "additionalProperties": false
                     }
+                  },
+                  "estimate": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -5461,6 +5470,9 @@
                       ],
                       "additionalProperties": false
                     }
+                  },
+                  "estimate": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -5644,6 +5656,9 @@
                       ],
                       "additionalProperties": false
                     }
+                  },
+                  "estimate": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -5847,6 +5862,9 @@
                       ],
                       "additionalProperties": false
                     }
+                  },
+                  "estimate": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -6218,6 +6236,9 @@
                       ],
                       "additionalProperties": false
                     }
+                  },
+                  "estimate": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -6365,6 +6386,9 @@
                       ],
                       "additionalProperties": false
                     }
+                  },
+                  "estimate": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -6512,6 +6536,9 @@
                       ],
                       "additionalProperties": false
                     }
+                  },
+                  "estimate": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -6735,6 +6762,9 @@
                       ],
                       "additionalProperties": false
                     }
+                  },
+                  "estimate": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -6970,6 +7000,9 @@
                       ],
                       "additionalProperties": false
                     }
+                  },
+                  "estimate": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -7093,6 +7126,9 @@
                       ],
                       "additionalProperties": false
                     }
+                  },
+                  "estimate": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -7221,6 +7257,19 @@
                   ],
                   "additionalProperties": false
                 }
+              },
+              "notes_private": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "meta": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {},
+                "description": "RowMeta v1 (data/schema/generated/row-meta.json); checked by the keep pass, internal, never served"
               }
             },
             "required": [
@@ -7251,6 +7300,157 @@
       "x-sql": {},
       "x-ui": {
         "label": "Capture"
+      },
+      "x-private": [],
+      "x-rules": []
+    },
+    "sidecar.capture_changeset": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "string",
+          "pattern": "^capture-changeset\\/1$",
+          "x-type": "text"
+        },
+        "run": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,79}$",
+          "x-type": "text"
+        },
+        "by": {
+          "type": "string",
+          "minLength": 1,
+          "x-type": "text"
+        },
+        "on": {
+          "type": "string",
+          "format": "date",
+          "x-type": "date"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^src-\\d{4,}$"
+              },
+              "url": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string"
+              },
+              "publisher": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "official",
+                  "operator",
+                  "reseller",
+                  "press",
+                  "blog",
+                  "community",
+                  "video",
+                  "computed"
+                ]
+              },
+              "read": {
+                "type": "string",
+                "format": "date"
+              },
+              "method": {
+                "type": "string",
+                "enum": [
+                  "read",
+                  "crawl",
+                  "api",
+                  "computed",
+                  "owner"
+                ]
+              },
+              "run": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "url",
+              "title",
+              "publisher",
+              "kind",
+              "read"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        },
+        "changes": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "file": {
+                "type": "string",
+                "minLength": 1
+              },
+              "ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "op": {
+                "type": "string",
+                "enum": [
+                  "set",
+                  "add",
+                  "remove"
+                ]
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "value": {},
+              "why": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 280
+              }
+            },
+            "required": [
+              "file",
+              "ref",
+              "op",
+              "path",
+              "why"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        }
+      },
+      "required": [
+        "schema",
+        "run",
+        "by",
+        "on",
+        "sources",
+        "changes"
+      ],
+      "additionalProperties": false,
+      "x-family": "sidecar",
+      "x-table": "capture_changeset",
+      "x-single": true,
+      "x-pk": [],
+      "x-sql": {},
+      "x-ui": {
+        "label": "Capture changeset"
       },
       "x-private": [],
       "x-rules": []
@@ -7331,6 +7531,14 @@
                   ],
                   "additionalProperties": false
                 }
+              },
+              "meta": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {},
+                "description": "RowMeta v1 (data/schema/generated/row-meta.json); checked by the keep pass, internal, never served"
               }
             },
             "required": [
@@ -7479,7 +7687,8 @@
                   "searched_none",
                   "gap",
                   "blocked",
-                  "conflict"
+                  "conflict",
+                  "ask"
                 ]
               },
               "src": {
@@ -7506,6 +7715,19 @@
               },
               "reason": {
                 "type": "string"
+              },
+              "to": {
+                "type": "string",
+                "minLength": 1
+              },
+              "contact_url": {
+                "type": "string",
+                "minLength": 1
+              },
+              "question": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500
               }
             },
             "required": [
@@ -8547,7 +8769,7 @@
         "schema_version": {
           "type": "integer",
           "minimum": 1,
-          "maximum": 1,
+          "maximum": 2,
           "x-type": "int"
         },
         "updated": {
@@ -10826,6 +11048,14 @@
                   "on"
                 ],
                 "additionalProperties": false
+              },
+              "meta": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {},
+                "description": "RowMeta v1 (data/schema/generated/row-meta.json); checked by the keep pass, internal, never served"
               }
             },
             "required": [
@@ -11972,6 +12202,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -12095,6 +12328,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -12225,6 +12461,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -12348,6 +12587,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -12471,6 +12713,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -12594,6 +12839,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -12795,6 +13043,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -12942,6 +13193,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -13085,6 +13339,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -13250,6 +13507,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -13370,6 +13630,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -13501,6 +13764,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -13657,6 +13923,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -13788,6 +14057,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -13908,6 +14180,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -14031,6 +14306,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -14154,6 +14432,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -14277,6 +14558,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -14400,6 +14684,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -14520,6 +14807,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -14637,6 +14927,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -14866,6 +15159,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -15021,6 +15317,9 @@
                                   ],
                                   "additionalProperties": false
                                 }
+                              },
+                              "estimate": {
+                                "type": "boolean"
                               }
                             },
                             "required": [
@@ -15144,6 +15443,9 @@
                                   ],
                                   "additionalProperties": false
                                 }
+                              },
+                              "estimate": {
+                                "type": "boolean"
                               }
                             },
                             "required": [
@@ -15267,6 +15569,9 @@
                                   ],
                                   "additionalProperties": false
                                 }
+                              },
+                              "estimate": {
+                                "type": "boolean"
                               }
                             },
                             "required": [
@@ -15416,6 +15721,9 @@
                                   ],
                                   "additionalProperties": false
                                 }
+                              },
+                              "estimate": {
+                                "type": "boolean"
                               }
                             },
                             "required": [
@@ -15549,6 +15857,9 @@
                                   ],
                                   "additionalProperties": false
                                 }
+                              },
+                              "estimate": {
+                                "type": "boolean"
                               }
                             },
                             "required": [
@@ -15688,6 +15999,9 @@
                                   ],
                                   "additionalProperties": false
                                 }
+                              },
+                              "estimate": {
+                                "type": "boolean"
                               }
                             },
                             "required": [
@@ -15811,6 +16125,9 @@
                                   ],
                                   "additionalProperties": false
                                 }
+                              },
+                              "estimate": {
+                                "type": "boolean"
                               }
                             },
                             "required": [
@@ -15964,6 +16281,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -16169,6 +16489,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -16316,6 +16639,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -16459,6 +16785,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -16590,6 +16919,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -16721,6 +17053,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -16852,6 +17187,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -17031,6 +17369,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -17162,6 +17503,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -17279,6 +17623,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -17396,6 +17743,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -17513,6 +17863,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -17630,6 +17983,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -17819,6 +18175,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -17936,6 +18295,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -18127,6 +18489,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -18250,6 +18615,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -18410,6 +18778,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -18543,6 +18914,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -18666,6 +19040,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -18797,6 +19174,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -18914,6 +19294,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -19045,6 +19428,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -19192,6 +19578,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -19323,6 +19712,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -19460,6 +19852,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -19625,6 +20020,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -19774,6 +20172,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -19899,6 +20300,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -20022,6 +20426,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -20277,6 +20684,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -20410,6 +20820,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -20587,6 +21000,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -20704,6 +21120,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -20863,6 +21282,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -21072,6 +21494,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -21278,6 +21703,9 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "estimate": {
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -21432,6 +21860,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -21555,6 +21986,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -21678,6 +22112,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -21809,6 +22246,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -21961,6 +22401,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -22092,6 +22535,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -22215,6 +22661,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -22370,6 +22819,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -22487,6 +22939,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -22618,6 +23073,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -22761,6 +23219,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -22912,6 +23373,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -23103,6 +23567,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -23251,6 +23718,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -23422,6 +23892,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -23587,6 +24060,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -23734,6 +24210,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -23867,6 +24346,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -24018,6 +24500,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -24193,6 +24678,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -24324,6 +24812,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -24455,6 +24946,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -24599,6 +25093,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -24757,6 +25254,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -24904,6 +25404,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -25035,6 +25538,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -25186,6 +25692,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -25315,6 +25824,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -25438,6 +25950,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -25598,6 +26113,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -25721,6 +26239,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -25852,6 +26373,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -25983,6 +26507,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -26116,6 +26643,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -26247,6 +26777,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -26370,6 +26903,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -26506,6 +27042,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -26623,6 +27162,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -26740,6 +27282,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -26886,6 +27431,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -27053,6 +27601,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -27220,6 +27771,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -27367,6 +27921,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -27513,6 +28070,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -27644,6 +28204,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -27775,6 +28338,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -27926,6 +28492,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -28070,6 +28639,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -28229,6 +28801,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -28352,6 +28927,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -28469,6 +29047,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -28600,6 +29181,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -28736,6 +29320,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -28853,6 +29440,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -28984,6 +29574,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -29120,6 +29713,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -29243,6 +29839,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -29386,6 +29985,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -29515,6 +30117,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -29659,6 +30264,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -29776,6 +30384,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -29907,6 +30518,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -30058,6 +30672,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -30202,6 +30819,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -30333,6 +30953,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -30480,6 +31103,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -30640,6 +31266,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -30805,6 +31434,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -30928,6 +31560,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -31051,6 +31686,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -31221,6 +31859,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -31352,6 +31993,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -31495,6 +32139,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -31626,6 +32273,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -31743,6 +32393,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -31874,6 +32527,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -32020,6 +32676,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -32153,6 +32812,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -32292,6 +32954,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -32421,6 +33086,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -32599,6 +33267,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -32730,6 +33401,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -32877,6 +33551,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -33000,6 +33677,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -33131,6 +33811,9 @@
                               ],
                               "additionalProperties": false
                             }
+                          },
+                          "estimate": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -33274,6 +33957,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -33397,6 +34083,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -33527,6 +34216,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -33650,6 +34342,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -33773,6 +34468,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -33896,6 +34594,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -34097,6 +34798,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -34244,6 +34948,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -34387,6 +35094,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -34552,6 +35262,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -34672,6 +35385,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -34803,6 +35519,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -34959,6 +35678,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -35090,6 +35812,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -35210,6 +35935,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -35333,6 +36061,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -35456,6 +36187,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -35579,6 +36313,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -35702,6 +36439,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -35822,6 +36562,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -35939,6 +36682,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -36168,6 +36914,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -36323,6 +37072,9 @@
                                         ],
                                         "additionalProperties": false
                                       }
+                                    },
+                                    "estimate": {
+                                      "type": "boolean"
                                     }
                                   },
                                   "required": [
@@ -36446,6 +37198,9 @@
                                         ],
                                         "additionalProperties": false
                                       }
+                                    },
+                                    "estimate": {
+                                      "type": "boolean"
                                     }
                                   },
                                   "required": [
@@ -36569,6 +37324,9 @@
                                         ],
                                         "additionalProperties": false
                                       }
+                                    },
+                                    "estimate": {
+                                      "type": "boolean"
                                     }
                                   },
                                   "required": [
@@ -36718,6 +37476,9 @@
                                         ],
                                         "additionalProperties": false
                                       }
+                                    },
+                                    "estimate": {
+                                      "type": "boolean"
                                     }
                                   },
                                   "required": [
@@ -36851,6 +37612,9 @@
                                         ],
                                         "additionalProperties": false
                                       }
+                                    },
+                                    "estimate": {
+                                      "type": "boolean"
                                     }
                                   },
                                   "required": [
@@ -36990,6 +37754,9 @@
                                         ],
                                         "additionalProperties": false
                                       }
+                                    },
+                                    "estimate": {
+                                      "type": "boolean"
                                     }
                                   },
                                   "required": [
@@ -37113,6 +37880,9 @@
                                         ],
                                         "additionalProperties": false
                                       }
+                                    },
+                                    "estimate": {
+                                      "type": "boolean"
                                     }
                                   },
                                   "required": [
@@ -37266,6 +38036,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -37471,6 +38244,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -37618,6 +38394,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -37761,6 +38540,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -37892,6 +38674,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -38023,6 +38808,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -38154,6 +38942,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -38333,6 +39124,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -38464,6 +39258,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -38581,6 +39378,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -38698,6 +39498,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -38815,6 +39618,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -38932,6 +39738,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -39121,6 +39930,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -39238,6 +40050,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -39429,6 +40244,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -39552,6 +40370,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -39712,6 +40533,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -39845,6 +40669,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -39968,6 +40795,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -40099,6 +40929,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -40216,6 +41049,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -40347,6 +41183,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -40494,6 +41333,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -40625,6 +41467,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -40762,6 +41607,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -40927,6 +41775,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -41076,6 +41927,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -41201,6 +42055,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -41324,6 +42181,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -41579,6 +42439,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -41712,6 +42575,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -41889,6 +42755,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -42006,6 +42875,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -42165,6 +43037,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -42374,6 +43249,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -42580,6 +43458,9 @@
                                 ],
                                 "additionalProperties": false
                               }
+                            },
+                            "estimate": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -42734,6 +43615,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -42857,6 +43741,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -42980,6 +43867,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -43111,6 +44001,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -43263,6 +44156,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -43394,6 +44290,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -43517,6 +44416,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -43672,6 +44574,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -43789,6 +44694,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -43920,6 +44828,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -44063,6 +44974,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -44214,6 +45128,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -44405,6 +45322,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -44553,6 +45473,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -44724,6 +45647,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -44889,6 +45815,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -45036,6 +45965,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -45169,6 +46101,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -45320,6 +46255,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -45495,6 +46433,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -45626,6 +46567,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -45757,6 +46701,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -45901,6 +46848,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -46059,6 +47009,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -46206,6 +47159,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -46337,6 +47293,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -46488,6 +47447,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -46617,6 +47579,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -46740,6 +47705,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -46900,6 +47868,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -47023,6 +47994,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -47154,6 +48128,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -47285,6 +48262,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -47418,6 +48398,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -47549,6 +48532,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -47672,6 +48658,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -47808,6 +48797,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -47925,6 +48917,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -48042,6 +49037,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -48188,6 +49186,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -48355,6 +49356,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -48522,6 +49526,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -48669,6 +49676,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -48815,6 +49825,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -48946,6 +49959,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -49077,6 +50093,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -49228,6 +50247,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -49372,6 +50394,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -49531,6 +50556,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -49654,6 +50682,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -49771,6 +50802,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -49902,6 +50936,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -50038,6 +51075,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -50155,6 +51195,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -50286,6 +51329,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -50422,6 +51468,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -50545,6 +51594,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -50688,6 +51740,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -50817,6 +51872,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -50961,6 +52019,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -51078,6 +52139,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -51209,6 +52273,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -51360,6 +52427,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -51504,6 +52574,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -51635,6 +52708,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -51782,6 +52858,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -51942,6 +53021,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -52107,6 +53189,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -52230,6 +53315,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -52353,6 +53441,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -52523,6 +53614,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -52654,6 +53748,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -52797,6 +53894,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -52928,6 +54028,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -53045,6 +54148,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -53176,6 +54282,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -53322,6 +54431,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -53455,6 +54567,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -53594,6 +54709,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -53723,6 +54841,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -53901,6 +55022,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -54032,6 +55156,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -54179,6 +55306,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -54302,6 +55432,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -54433,6 +55566,9 @@
                                     ],
                                     "additionalProperties": false
                                   }
+                                },
+                                "estimate": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
@@ -54593,6 +55729,14 @@
                   "suit_level"
                 ],
                 "additionalProperties": false
+              },
+              "meta": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {},
+                "description": "RowMeta v1 (data/schema/generated/row-meta.json); checked by the keep pass, internal, never served"
               }
             },
             "required": [

@@ -10,6 +10,7 @@ import { z } from "zod";
 import * as E from "./enums.ts";
 import { sourceRow } from "./suitability.ts";
 import { date, json, pattern, table, text } from "./meta.ts";
+import { rowMetaSlot } from "./rowMeta.ts";
 
 const isoDate = z.iso.date();
 const srcIds = z.array(z.string());
@@ -118,6 +119,8 @@ export const relRecord = z.strictObject({
     by: z.string().min(1),
     on: isoDate,
   }).optional(),
+  /** RowMeta v1 (core/src/schema/rowMeta.ts): about the row, internal */
+  meta: rowMetaSlot.optional(),
 });
 
 export const RELEVANCE_SCHEMA_ID = "relevance/1";

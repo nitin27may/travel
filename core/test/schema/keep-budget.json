@@ -1,0 +1,10 @@
+{
+  "schema": "keep-budget/1",
+  "note": "What today's files trip under the keep rule and RowMeta (RIS-C, 25 Oct 2026, main 838a0ff plus RIS-C). Counts may only fall: core/test/schema/keep-budget.test.ts fails when one rises. RIS-J rewrites the files and lowers these numbers; when a code reaches 0, flip it to error in core/src/validate/keep.ts KEEP_ENFORCEMENT. A rise needs a reason in the change that raises it.",
+  "codes": {
+    "E_NOTE_LONG": 20,
+    "W_QUOTE_LONG": 36
+  },
+  "origin_key": 107,
+  "point_source_rows": 185
+}

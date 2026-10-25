@@ -41,8 +41,12 @@ export const ORIGIN_REF = /\b(?:loc|proto):[^\s"]/;
  */
 export const TRIP_VALUE_KEYS: readonly string[] = ["trip", "trips", "tripId", "trip_id", "tripSlug", "trip_slug"];
 export const TRIPLESS_REF = new RegExp(`\\btrip/${TRIPLESS_LANE}\\b`);
-/** Keys that carry household data in any output (the owner's save metadata since PRIV1, traveller details, payments). */
-export const PRIVATE_KEYS: readonly string[] = ["height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added"];
+/**
+ * Keys that carry household data in any output (the owner's save metadata since PRIV1, traveller details, payments), and the internal
+ * research columns no served body may hold (RI-6, RIS-C): `meta` (RowMeta), `notes_private` (owner Q173) and `doc` (the verbatim
+ * capture record of 0003, owner Q172). `notes` stays public (a trip or track note), so only `notes_private` is listed.
+ */
+export const PRIVATE_KEYS: readonly string[] = ["height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added", "meta", "notes_private", "doc"];
 
 /** Keys whose gazetteer town id makes the object a town: its point, outline, `name` and `label` are read against that town (A33). */
 export const TOWN_OWNER_KEYS: readonly string[] = ["id", "key", "value"];

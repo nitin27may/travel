@@ -9,7 +9,7 @@ import { generate } from "../src/schema/generate.ts";
 const USAGE = `Usage: node core/bin/schema.ts <command> [options]
 
 Commands:
-  generate           write data/schema/generated/schema.json, schema.sql and ops.json from core/src/schema and the operation catalogue
+  generate           write data/schema/generated/schema.json, schema.sql, ops.json and row-meta.json from core/src/schema and the operation catalogue
   generate --check   regenerate in memory; exit 1 with a diff if the committed files differ
 
 Options:

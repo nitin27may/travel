@@ -9,6 +9,7 @@ import { captureRun } from "../schema/capture/records.ts";
 import type { TypesFile } from "../schema/capture/typesFile.ts";
 import { tableOf } from "../schema/index.ts";
 import { applicabilityFile } from "../capture/generate.ts";
+import { unknownRecordKeys } from "./keep.ts";
 import { completeness } from "../capture/engine.ts";
 import { loadWorld } from "../capture/records.ts";
 import { checkSupersedes } from "../capture/supersedeCheck.ts";
@@ -178,6 +179,9 @@ export function validateCaptureRun(doc: unknown, ctx: Ctx): void {
     if (r.outcome === "blocked" && r.host && !hosts.has(r.host)) err(ctx, "E_CAP_RUN", `${base}/host`, `host ${r.host} is not listed in hosts.`);
     if (r.outcome === "searched_none" && (!r.tried || r.tried.length === 0)) err(ctx, "E_CAP_RUN", base, `searched_none lists the pages tried. Example: {"outcome": "searched_none", "tried": ["https://example.org/facilities"]}.`);
     if ((r.outcome === "filled" || r.outcome === "conflict") && !r.src) err(ctx, "E_CAP_RUN", base, `a ${r.outcome} result names its source row. Example: "src": "src-0012".`);
+    if (r.outcome === "ask" && (!r.to || !r.question)) err(ctx, "E_CAP_RUN", base, `an ask result names who it goes to and the question. Example: {"outcome": "ask", "to": "Alpine Stables", "contact_url": "https://example.org/contact", "question": "What is the weight limit for rides over 2 hours?"}.`);
+    if (r.outcome !== "ask" && (r.to || r.contact_url || r.question)) err(ctx, "E_CAP_RUN", base, `to, contact_url and question belong to an ask result; this one is ${r.outcome}.`);
+    if (r.contact_url && linkOnly(r.contact_url)) err(ctx, "E_CAP_LINK_ONLY", `${base}/contact_url`, `the contact page is ${linkOnly(r.contact_url)}, a link-only platform. Use the operator's own contact page.`);
   });
   for (const h of run.hosts) {
     if (h.robots === "forbidden" && h.requests > 0 && h.status === "ok") err(ctx, "E_CAP_RUN", `/hosts`, `host ${h.host} forbids automated access by robots.txt but the run made ${h.requests} request(s) and reports ok. Stop the host (status blocked) and use a single-page read.`);
@@ -211,6 +215,11 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
     if (isObj(r) && "reached_by" in r) {
       E_("E_CAP_REL_DERIVED", `/records/${i}/reached_by`, `reached_by is the derived inverse of reaches and is never stored. Remove it; the place's "How to get there" is computed from the routes that reach it.`);
       delete r.reached_by;
+    }
+    // the keep rule (spec 2): a key that is no registry property, no capture/1 schema key and not meta is reported once, then dropped
+    if (isObj(r)) for (const k of unknownRecordKeys(r)) {
+      E_("E_KEEP_UNKNOWN", `/records/${i}/${k}`, `"${k}" is not a registry property, a capture/1 schema key or meta. Store a fact only as a property that serves K1 to K7 (node core/bin/capture.ts fields --type <id>); row facts go in meta; reasoning stays in research/runs/.`);
+      delete r[k];
     }
   });
   const t = tableOf("sidecar", "capture");
