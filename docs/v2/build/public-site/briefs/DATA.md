@@ -10,6 +10,7 @@
 > - **New research not yet in the plan** (committed 25 Oct): `research/trips/dolomites-july-2027/` `coverage-audit.md`, `stays.md`, `stays-august.md`, `hut-trek-options.md`, `italy-extension.md`. Prose research only. Turn it into capture records through the `research` skill, and read `coverage-audit.md` first for the Dolomites gaps.
 > - **Not related to this brief:** the Neon account work, Vercel setup (R-61) and the data-layer cutover. Data files stay the source of truth until `PostgresStore` exists.
 > - **Copy-paste prompts per batch:** [DATA-AGENT-PROMPTS.md](DATA-AGENT-PROMPTS.md).
+> - **New batches, 25 Oct (owner request: best time to go, trip overview, thumbnails):** D7 best-time windows (D7-R Rockies first, then 13 trips), D8 overview facts (access season per item, booking needed, durations, effort), D5b thumbnails for all 118 trails. Spec and the measured gaps: [trip-overview-and-customisation.md](../../../features/trip-overview-and-customisation.md) sections 2 and 8. BACKLOG 15.56; PLAN R-67.
 
 Extends [CS7d.md](CS7d.md) (stage 4 data lane). The research pause is lifted for this work (owner, 20 Oct 2026).
 
@@ -18,7 +19,7 @@ Extends [CS7d.md](CS7d.md) (stage 4 data lane). The research pause is lifted for
 > **Revised 23 Oct (phase E start sheet).** [PHASE-E-START.md](../PHASE-E-START.md) runs the batches after the 25 Oct usage reset and only as the allowance allows, and splits them into a **minimum viable data set for R2** (section 9 there, about 20 h of Opus) and the rest, which moves to the readiness checklist (owner decision Q90). Before R2: **D1** in full (Wed 28 to Thu 29 Oct, after META-1), **D6a** seasons for the 6 trips only (Fri 30 Oct), **D3a** trail facts for the Rockies trails on the plan's days and the five R2 trails `fenland-loop`, `johnston-canyon-walk`, `larch-valley`, `tre-cime-di-lavaredo-loop`, `lake-agnes-tea-house` (Sat 31 Oct), **D4a** where every offer happens (the 17 without a place) plus the Rockies offers on the plan's days (Sun 1 Nov, after the second reset), **D5a** photos for the five R2 trails and the Rockies trip-day stops (Mon 2 Nov). After R2: D2, and the rest of D3 to D6. Worktrees and branches are per batch (`v2-DATA-D1`, `public/DATA-D1`; `v2-DATA-D3a`, `public/DATA-D3a` and so on). Rules added: refs are opaque `place/<slug>` for wishlist places once REF1 merges (never write a `loc:` key); a batch that would push the place-size median over +25% commits the over-budget records on its branch unmerged and lists them for the owner's R2 ruling (D-E8, Q88); researchers work through the `research` skill (`.claude/skills/research/SKILL.md`, which points into `research/README.md`), places through the `location` skill (`.claude/skills/location/SKILL.md`), never the retired `trip-planner`; a trip is data, never a legacy page (`legacy/**` is frozen). Paths on this Mac: the method in `research/method/`, the per-type checklists in `research/types/` (generated, never edited), run notes in `research/runs/`, the research backlog in `research/backlog.md`. EXECUTION-PLAN E3 still names `research/method/lanes/DATA-notes.md`; the run notes go to `research/runs/DATA-<batch>-<trip>.md`.
 
 - **Agents and models:** `travel-researcher` on **Opus**, one batch per hand-back (research that needs judgement). Mechanical follow-ups inside a batch (counting gaps, re-running the gap reports, checking that every `src` resolves, run-record overlap checks) go to a **Haiku** `explorer`. `travel-verifier` (Sonnet) per batch. Record the model in each hand-back.
-- **Effort:** D1 points 6 h, D2 locations 4 h, D3 trail facts 10 h, D4 activities 8 h, D5 photos 10 h, D6 basics 6 h (agent time).
+- **Effort:** D1 points 6 h, D2 locations 4 h, D3 trail facts 10 h, D4 activities 8 h, D5 photos 10 h, D6 basics 6 h (agent time). Added 25 Oct: D7 windows 20 h (D7-R 4 h, the other 13 trips about 16 h), D8 overview facts 16 h (D8-R 8 h), D5b thumbnails 12 h (2 h Haiku `gallery_find` runs, 10 h Opus picks).
 - **Rows:** D1: 8.8, 10.5, Q58, 3.47e, 3.61c, 3.61d, ST-1 (Rockies base points against Wikidata). D2: 8.7. D3: 10.2, 3.47b, 3.47c, RB-3. D4: 13.5 activity part, 3.53 part, 3.61a, 3.61f, 3.61g, RB-1, the operator questions. D5: 10.4. D6: 3.9, 3.10, 3.53 (usable basics). Lines in [COVERAGE.md](../COVERAGE.md).
 - **Plan:** [EXECUTION-PLAN.md](../EXECUTION-PLAN.md) sections 6 (tiers and acceptance numbers) and 14 (order, counts, request volume); tasks E3 to E7b. Schema and gap reports: [META.md](META.md). Phase B order and the reason for the move: [PHASE-B-START.md](../PHASE-B-START.md) sections 2 and 5.
 - **Principles:** T1, T3, T4, T5, P8. **A gap is never a yes.**
@@ -49,7 +50,7 @@ Every public page has a sourced point with its role or a dated search that found
 
 ## Files you own
 
-`data/capture/points.json`, `data/capture/<trip>/{TF,AC,PH}.json` (new), `data/capture/operators.json`, `data/capture/runs/**`, `data/suitability/<trip>/{TF,AC}.json` (new), `data/locations/locations.json` through `python3 tools/locations.py edit` only, `data/capture/gap-budget.json` (lower only), `research/runs/DATA-<batch>-<trip>.md` (new, one per run), `research/method/operator-questions-2026-10-18.md`, `research/backlog.md`.
+`data/capture/points.json`, `data/capture/<trip>/{TF,AC,PH}.json` (new), `data/capture/operators.json`, `data/capture/runs/**`, `data/suitability/<trip>/{TF,AC}.json` (new), `data/locations/locations.json` through `python3 tools/locations.py edit` only, `data/capture/gap-budget.json` (lower only), `research/runs/DATA-<batch>-<trip>.md` (new, one per run), `research/method/operator-questions-2026-10-18.md`, `research/backlog.md`. Added 25 Oct: D7 `data/seasons/<trip>.json` (new folder, `trip-windows/1`) and `research/trips/<folder>/timing-windows.md`; D8 `data/capture/<trip>/OV.json` and `data/suitability/<trip>/OV.json`; D5b the same `PH.json` as D5 (never `data/capture/photo-overrides.json`, which is the owner's).
 
 ## Do not touch
 
@@ -88,6 +89,22 @@ Every public page has a sourced point with its role or a dated search that found
 8. Trails first (118 without a photo), then activities, then every stop on a public trip day, then the rest. Commons geosearch around the point (1 km), then imageinfo in batches of 50; contact sheets; pick one or two with width at least 1600, licence and author recorded. None suitable: "No licensed photo yet" with the search date.
 9. After each photo batch, tell the coordinator so the image renditions are warmed in one sequential run (the `prebuild` step since API-0) before any build.
 
+### D7: best-time windows (added 25 Oct; D7-R on the owner's go, the rest after OVR-Ca)
+
+Spec: [trip-overview-and-customisation.md](../../../features/trip-overview-and-customisation.md) section 2 (the shape is 2.2, the method 2.3, the honesty rules 2.4, the Rockies questions 2.5).
+
+13. **D7-R, the Rockies first** (`canadian-rockies-2029`, research folder `canadian-rockies-sept-2029`). Read `research/trips/canadian-rockies-sept-2029/timing-hazards.md`, `bookings.md` and the legacy `PLAN.md` (read only). Candidates: the plan's own window (second week of September, sun `[9, 8]` to `[9, 22]`, equal to `data/schedules/canadian-rockies-2029.json`), the first week of September, the last week of June, and the second or third week of June. Answer the questions of spec 2.5 from official, operator and climate sources (Parks Canada, Alberta Parks, the operators' season pages, Environment Canada normals, provincial school-year rules, holiday rules); sun times only from `node core/bin/sun.ts`. Keep 2 to 4 windows. Write `data/seasons/canadian-rockies-2029.json` to the spec 2.2 shape, prose findings to `research/trips/canadian-rockies-sept-2029/timing-windows.md`, the run record and `research/runs/DATA-D7-canadian-rockies-2029.md`. Until OVR-Ca lands the validator, check the file by hand against the 2.2 rule table and say so.
+14. **D7, the other 13 trips** after OVR-Ca: the 7 trips with days (1.5 h each) and the 6 overview trips (1 h each, if Q99 is yes). Same method; a trip whose season is not set (D6a) gets its season months from the same research and says which.
+
+### D8: overview facts (added 25 Oct; D8-R beside D3a and D4a, disjoint lane files)
+
+15. **D8-R, the Rockies.** For every plan item and every Also-researched item (trails 62, sights 48, activities 43, bookings 33 in the legacy datasets): `access_season` (34 trails missing), the booking state normalised to book first / book ahead / on the day / none (`none_stated` with a source) / not checked, from the operator or park page, never by mapping the legacy free text in code (the legacy `booking_needed` values are mixed); `on_site_min` for sights (34 missing) and `duration_min` for activities (23 missing); the family effort grade for trails where a source grade exists (27 missing). Records go to `data/capture/canadian-rockies-2029/OV.json` and `data/suitability/canadian-rockies-2029/OV.json` keyed by the existing refs (never a new ref for an existing thing). Also fill each D7 window's `affects` list from the access seasons you find, as a request to the D7 owner if D7 is running.
+16. **D8, the other 7 trips with days**, the same fields, after D8-R.
+
+### D5b: thumbnails for every trail (added 25 Oct; after D1 merges, D5a's five R2 trails first)
+
+17. All 118 trail records (Rockies 67, Dolomites 20, Utah 13, Patagonia 7, Iceland 5, Chamonix 3, Algonquin 2, Vermont 1), then every stop on a plan day, then the Also-researched items. A Haiku `explorer` runs `tools/gallery/gallery_find.py` per record under the Commons lock (mechanical; one runner for the whole machine, never beside another Commons agent); the Opus researcher reads the contact sheets and picks with `gallery_pick.py`. One photo is enough for a thumbnail; width at least 1200 for a hero, at least 640 for thumbnail-only (mark it). Licences: CC BY, CC BY-SA, CC0, public domain (NPS photos on US park trails are allowed as US government public domain, labelled). Never NC, ND or all rights reserved. None suitable: `searched_none` with the date and the search radius. Never write `data/capture/photo-overrides.json` (the owner's file). Flickr stays out unless the owner answers Q93 yes (then a separate batch D5f).
+
 ## Acceptance checks
 
 | # | Check |
@@ -99,6 +116,9 @@ Every public page has a sourced point with its role or a dated search that found
 | 5 | No household data in any file you wrote |
 | 6 | No `ref` renamed; `node core/bin/slugs.ts --check` still green |
 | 7 | The place-size test is green, or the over-budget records sit unmerged on the branch and are listed (D-E8) |
+| 8 | D7: every trip file has 2 to 4 windows, every plus, minus, crowd and event entry has a registry `src` or an inference note, no calendar date (DATE_TEXT), the default window's `sun` equals the schedule's season; after OVR-Ca, the windows validator passes |
+| 9 | D8: for the Rockies, every plan item has a booking state, an access season and a duration, or `searched_none` with a date; counts before and after per field in the hand-back |
+| 10 | D5b: each of the 118 trail records has a photo or `searched_none` with a date; every photo's licence is on the allowlist; the Commons run records show no overlapping calls |
 
 ## Server switch
 

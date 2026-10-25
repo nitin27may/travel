@@ -18,7 +18,7 @@ San Candido — both cited below with real 2027 figures). Where only 2026 or agg
 *estimated / 2026 proxy* and must be re-verified in spring 2027.
 
 > ⚠ **Trip-window conflict to resolve first.** `logistics.md`'s header says **26 Jun–9 Jul 2027**; the owner brief,
-> `data/schedules/dolomites-2027.json` (`season 07-13 → 07-26`) and `legacy/.../PLAN.md` all say **Tue 13 Jul–Mon 26 Jul 2027
+> `data/schedules/dolomites-2027.json` (`season 07-13 → 07-26`) and the old Dolomites plan page all say **Tue 13 Jul–Mon 26 Jul 2027
 > (13 nights)**. This file uses **13–26 Jul**. The logistics header is stale and should be corrected by its owner.
 
 ---

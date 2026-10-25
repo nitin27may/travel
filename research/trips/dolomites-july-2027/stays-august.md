@@ -153,7 +153,7 @@ still honours "last two weeks of August": it skips the Ferragosto weekend and le
   and would pack the Puster Valley that weekend; **nothing in the August window.** GAP: official 2027 date.
 - **Coppa d'Oro delle Dolomiti (Cortina classic-car regularity rally):** **2027 unconfirmed**; historically
   mid/late July (2026 = 16–19 Jul, 2025 = 24–27 Jul). Likely **inside the mid-July window**, fills Cortina
-  (no road closures). **Not in August.** `legacy/.../PLAN.md` flags it; search confirms the pattern.
+  (no road closures). **Not in August.** the old Dolomites plan page flags it; search confirms the pattern.
 - **Sellaronda / Dolomiti Bike Day:** typically June; **2027 dates unpublished.**
 - **Late August 2027:** no headline road-closing race found. Expect only soft events — *I Suoni delle
   Dolomiti* free mountain concerts (Trentino), local Ladin/food festivals, a Brunico road run. **Net: the

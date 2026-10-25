@@ -3,6 +3,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { inputRevision, type RevisionInputs } from '@travel/core/catalogue/revision.ts';
 import { travelRoot } from '@/lib/data/root';
+import { REVISION_FILES, REVISION_TREES } from './runtime-files';
 
 // The files the JSON store is built from, with their content hashes (store.ts A30, D-E4). The revision is `inputRevision()` of this: the build
 // id and the SHA-256 of each file's bytes, never a built detail, so the first call at 10,000 places costs one pass over about 1,000 files
@@ -12,17 +13,17 @@ import { travelRoot } from '@/lib/data/root';
 // Repository-relative paths, forward slashes. A directory is walked in full (no filter), so a new data file joins the revision by being
 // there. `data/schema/generated` is output of the code (the build id covers a code change), not an input.
 
-/** Directories walked in full, from the repository root. */
-const TREES = ['data', 'web/data-snapshots', 'web/public/globe/data', 'web/public/globe/line', 'legacy/globe/assets/data'];
-/** Single files, from the repository root (and each trip folder's `data/*.json` and gallery file, below). */
-const FILES = ['legacy/MANIFEST.json', 'web/public/search/vocab.json', 'web/.generated/image-map.json', 'web/.generated/legacy-trips.json'];
+// The trees and files are listed in runtime-files.ts, which next.config.ts also ships in every server function. The reads below carry
+// `turbopackIgnore`: their paths are built at runtime, so the bundler would otherwise trace the whole project (over Vercel's 250 MB).
+const TREES = REVISION_TREES;
+const FILES = REVISION_FILES;
 const SKIP = new Set(['data/schema/generated']);
 
 function walk(root: string, rel: string, out: string[]): void {
   if (SKIP.has(rel)) return;
   const abs = path.join(root, rel);
-  if (!existsSync(abs)) return;
-  for (const e of readdirSync(abs, { withFileTypes: true })) {
+  if (!existsSync(/* turbopackIgnore: true */ abs)) return;
+  for (const e of readdirSync(/* turbopackIgnore: true */ abs, { withFileTypes: true })) {
     const child = `${rel}/${e.name}`;
     if (e.isDirectory()) walk(root, child, out);
     else if (e.isFile() && e.name !== '.DS_Store') out.push(child);
@@ -39,17 +40,17 @@ export function buildId(): string {
 export function revisionInputs(root: string = travelRoot()): RevisionInputs {
   const paths: string[] = [];
   for (const t of TREES) walk(root, t, paths);
-  for (const f of FILES) if (existsSync(path.join(root, f))) paths.push(f);
+  for (const f of FILES) if (existsSync(/* turbopackIgnore: true */ path.join(root, f))) paths.push(f);
   // each trip folder's data files and gallery file (the page's photos)
   const legacy = path.join(root, 'legacy');
-  if (existsSync(legacy)) {
-    for (const n of readdirSync(legacy)) {
+  if (existsSync(/* turbopackIgnore: true */ legacy)) {
+    for (const n of readdirSync(/* turbopackIgnore: true */ legacy)) {
       const data = path.join(legacy, n, 'data');
-      if (existsSync(data) && statSync(data).isDirectory()) for (const f of readdirSync(data)) if (f.endsWith('.json')) paths.push(`legacy/${n}/data/${f}`);
-      if (existsSync(path.join(legacy, n, 'gallery', 'gallery.json'))) paths.push(`legacy/${n}/gallery/gallery.json`);
+      if (existsSync(/* turbopackIgnore: true */ data) && statSync(/* turbopackIgnore: true */ data).isDirectory()) for (const f of readdirSync(/* turbopackIgnore: true */ data)) if (f.endsWith('.json')) paths.push(`legacy/${n}/data/${f}`);
+      if (existsSync(/* turbopackIgnore: true */ path.join(legacy, n, 'gallery', 'gallery.json'))) paths.push(`legacy/${n}/gallery/gallery.json`);
     }
   }
-  const files = [...new Set(paths)].map((p) => ({ path: p, sha256: createHash('sha256').update(readFileSync(path.join(root, p))).digest('hex') }));
+  const files = [...new Set(paths)].map((p) => ({ path: p, sha256: createHash('sha256').update(readFileSync(/* turbopackIgnore: true */ path.join(root, p))).digest('hex') }));
   return { buildId: buildId(), files };
 }
 

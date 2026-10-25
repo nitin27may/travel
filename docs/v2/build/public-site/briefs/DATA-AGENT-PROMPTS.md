@@ -36,6 +36,22 @@ Goal: a photo for the five R2 trails and the Rockies trip-day stops. Use `tools/
 
 Source: research/trips/dolomites-july-2027/coverage-audit.md, stays.md, stays-august.md, hut-trek-options.md, italy-extension.md (all prose, committed 25 Oct). Turn confirmed facts into capture records through the research skill; keep unconfirmed items as gaps. Do not add stay ideas or booking state to any public field.
 
+## D7-R: Rockies best-time windows (Opus; added 25 Oct, the pattern for every trip)
+
+Read also: docs/v2/features/trip-overview-and-customisation.md sections 2 and 8, research/trips/canadian-rockies-sept-2029/timing-hazards.md and bookings.md, legacy/canadian-rockies-sept-2029/PLAN.md (read only). Goal: 2 to 4 windows for the 15-day Rockies trip, each a start week of a month (never a date), with at most 4 plus and 4 minus points, a crowd level, events written as rules (Labour Day weekend, Canada Day weekend, school-year end), the plan items that may be closed in the window (`affects`), and what you searched and did not find (`unknown`). Candidates: second week of September (the plan's own; sun [9, 8] to [9, 22], equal to data/schedules/canadian-rockies-2029.json), first week of September, last week of June, second or third week of June. Sources: Parks Canada, Alberta Parks, operators' season pages, Environment Canada climate normals, official visitation figures; sun times only from `node core/bin/sun.ts` (longitude positive east, so Banff is about -115.57). No crowd claim without a source or an inference note. Files: data/seasons/canadian-rockies-2029.json (new folder, the spec 2.2 shape), research/trips/canadian-rockies-sept-2029/timing-windows.md, research/runs/DATA-D7-canadian-rockies-2029.md, data/capture/runs/DATA-D7-*.json. The validator does not exist yet: check the file by hand against the spec's rule table and say so.
+
+## D7: windows for the other 13 trips (Opus; after OVR-Ca lands the validator)
+
+Same method and shape, one trip per hand-back or two small ones. Trip ids from the DATA.md status block; the six overview trips only if the owner answers Q99 yes. Run `node core/bin/validate.ts` (or the windows stage OVR-Ca adds) on each file.
+
+## D8-R: Rockies overview facts (Opus; beside D3a and D4a)
+
+Goal: for every Rockies plan item and every also-researched item, an access season, a booking state (book first, book ahead, on the day, none with a source, or not checked), a duration (sights `on_site_min`, activities `duration_min`) and, for trails, the family effort grade where a source grade exists. Normalise the mixed legacy `booking_needed` values by reading the operator or park page, never by mapping text. Keep existing refs. Files: data/capture/canadian-rockies-2029/OV.json, data/suitability/canadian-rockies-2029/OV.json, research/runs/DATA-D8-canadian-rockies-2029.md. Report counts per field before and after.
+
+## D5b: thumbnails for all 118 trails (Haiku runs, Opus picks; after D1 is merged)
+
+Goal: a photo or `searched_none` for every trail record (Rockies 67, Dolomites 20, Utah 13, Patagonia 7, Iceland 5, Chamonix 3, Algonquin 2, Vermont 1), then every plan-day stop. The Haiku agent runs `tools/gallery/gallery_find.py` per record under the Commons lock and nothing else; the Opus agent reads the contact sheets and picks with `gallery_pick.py`. Licences: CC BY, CC BY-SA, CC0, public domain (NPS US government photos allowed, labelled); never NC, ND or all rights reserved. Width at least 1200 for a hero, at least 640 for thumbnail-only (mark it). Never write data/capture/photo-overrides.json. No Flickr. Files: data/capture/<trip>/PH.json, research/runs/DATA-D5b-<trip>.md. Tell the coordinator when done so renditions are warmed in one run.
+
 ## Not in scope for these agents
 
 R-61 Vercel setup, Neon child-branch tests, the PostgresStore cutover, anything in web/ or core/. Owner decisions are listed in HANDOVER.md.

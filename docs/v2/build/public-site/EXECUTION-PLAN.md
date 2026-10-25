@@ -753,6 +753,14 @@ one rate limit (P8, 7.6, 7.7), redirect map and cache policy, the Google key's
 host allowlist, the 302-to-301 switch date, and what happens to
 `tools/publish.py` and `nks-travel.pages.dev` (which still serves the old site).
 
+Function size and upload (25 Oct, after the first preview failed): server functions now ship an explicit file list
+(`web/lib/server/runtime-files.ts` through `outputFileTracingIncludes` in `web/next.config.ts`) and the reads the bundler cannot bound
+carry `turbopackIgnore`; a local `vercel build` measures 0 of 4,725 functions over 250 MB (largest 45.3 MiB, was 683 MB). The root
+`.vercelignore` restates every git-ignore rule (the CLI does not read .gitignore) and uploads `web/.og-cache`, about 4,030 files.
+Still open: on a Vercel-side build the Next build adapter collects the pages before `scripts/images.mjs` and `scripts/og.mjs` run, so
+pages keep Commons URLs and no share images are made; until those scripts are adapter-aware, deploy prebuilt from a machine that has
+the real `NEXT_PUBLIC_*` values (HANDOVER item 3).
+
 ## 14. Data and server workstream detail
 
 ### 14.1 Data order, counts and request volume

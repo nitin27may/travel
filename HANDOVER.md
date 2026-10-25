@@ -41,22 +41,19 @@ Everything below the line is dated history; verify it against `git log` first.**
 
 ### Not done (in detail)
 
-1. **Child-branch DB integration tests: BLOCKED.** `core/test/db/integration.test.ts`
-   skips 7 cases without `TEST_DATABASE_URL`. Needs a connection string for the
-   `srv-migrate-verify` child branch (never production), then
-   `TEST_DATABASE_URL=... npx vitest run core/test/db`. Merged without it on the
-   owner's "merge everything" instruction; it is the first item to close.
-2. **Real-service Neon E2E not rerun after the origin fix.** The 14/14 run predates
-   `web/lib/server/same-origin.ts`. Rerun `web/scripts/neon-e2e.mjs` against a
-   configured build.
-3. **R-61 Vercel (BACKLOG 15.50): not started.** Create the project (root
-   directory `web`, pnpm workspace, Node >= 22), owner enters encrypted env vars
-   (`DATABASE_URL`, `NEON_AUTH_BASE_URL`, `NEON_AUTH_COOKIE_SECRET`,
-   `NEON_REALTIME_URL`, `NEON_REALTIME_SECRET`, `NEXT_PUBLIC_SIGN_IN`,
-   `SITE_ORIGIN`, Google Maps keys and map families), add the Vercel domain to the
-   Neon Auth and Realtime trusted origins, deploy a preview, verify sign-in,
-   drafts and live updates, then production only after owner approval of a named
-   commit (Q43). Plan: [EXECUTION-PLAN 13.2](docs/v2/build/public-site/EXECUTION-PLAN.md).
+1. **Child-branch DB integration tests: DONE (25 Oct).** `core/test/db` passed 29/29 with 0 skipped against `srv-migrate-verify`. Repeat with `TEST_DATABASE_URL="$(neon connection-string br-damp-breeze-b41mtvn5 --project-id damp-queen-64719841)" pnpm --dir core exec vitest run test/db` (the `neon` CLI is signed in on this Mac).
+2. **Real-service Neon E2E: attempted 25 Oct, BLOCKED by the origin guard.** `web/scripts/neon-e2e.mjs` signs up
+   (works on `http://localhost:3000`; `127.0.0.1` gets a 403 from Neon Auth, so its trusted origins lack it) but every
+   `POST /api/account/drafts/` returns 403. Cause: `web/lib/server/same-origin.ts` accepts HTTP only when `NODE_ENV` is
+   `development` or `test`. `next start` is `production` (and `NODE_ENV=test pnpm start` does not change it, the value is
+   inlined at build), so a local HTTP run can never pass. `next dev` allows HTTP but the account page loops on
+   `/account/` and `/api/auth/get-session/` there and never settles. Options: run the script against an HTTPS origin
+   (a Vercel preview, after R-61), or give the script an HTTPS local origin, or a test-only build flag reviewed as a
+   security change. Do not loosen the guard to make a test pass. Five synthetic `e2e+...@travel-e2e.invalid` users
+   were created in production Neon Auth during the attempt; they own no drafts.
+3. **R-61 Vercel (BACKLOG 15.50): project created 25 Oct, env vars and deploy pending.** Project `travel` (`prj_h6vEEPn5fQ8JQSBp2SfSKvyTqrhy`, team `nitin27mays-projects`), linked locally (`.vercel/`, ignored). Set: framework Next.js, root directory `web`, files outside the root included (for `core`), Node 22.x, build command `pnpm run build`. No git connection, no deployment. Env vars set 25 Oct from the local env files (values never printed): Production and Preview get `DATABASE_URL`, `NEON_AUTH_BASE_URL`, `NEON_AUTH_COOKIE_SECRET`, `NEON_REALTIME_URL`, `NEON_REALTIME_SECRET`, `ORS_API_KEY` (all sensitive) and `NEXT_PUBLIC_SIGN_IN`, `NEXT_PUBLIC_GOOGLE_MAPS_KEY`, `NEXT_PUBLIC_GOOGLE_MAP_ID`, `NEXT_PUBLIC_PLACE_MAP_FAMILY`. Preview currently uses the production Neon values. `SITE_ORIGIN` is not set yet (needs the final URL). GitHub Actions repo secrets (nitin27may/travel) hold the same names plus `DATABASE_URL_UNPOOLED`, `NEON_AUTH_JWKS_URL` and `TEST_DATABASE_URL` (child branch `srv-migrate-verify`); no workflow files exist yet, so nothing reads them. Owner sets `SITE_ORIGIN`, adds the Vercel domain to the Neon Auth and Realtime trusted origins, then a preview deploy is verified (this also unblocks item 2, which needs an HTTPS origin). Production only after owner approval of a named commit (Q43). **First preview deploy (25 Oct) failed on function size; FIXED locally 25 Oct, not yet redeployed.** Cause: three `fs` reads with runtime paths (`web/lib/data/trips.ts` legacy-trips file, `web/lib/server/inputs.ts` revision walk, `core/src/db/loader.ts` migrations readdir) made Turbopack trace the whole of `web/` (test shots 406 MB, `web/out`, `web/public`) into the instrumentation trace that every function carries, while the dataset it does read (`data/`, `legacy/`, from `process.cwd()/..`) was not traced at all. Fix: those reads carry `/* turbopackIgnore: true */`, and `web/next.config.ts` ships one explicit list in every function (`outputFileTracingIncludes`, from `web/lib/server/runtime-files.ts`, the same list the catalogue revision hashes, plus the globe admin shapes) and excludes bulk and `*.local.json` (test `web/tests/deploy/server-trace.test.ts`). Measured with a local `vercel build` in both builder modes (CLI 65.1.0 with `NEXT_ENABLE_ADAPTER=1`, as Vercel's build machines run, and the legacy builder): 0 of 4,725 functions over 250 MB, largest 45.3 MiB (was 683 MB; the middleware went from 679 MB to 29.5 MiB under the legacy builder); every route function carries `data/`, `legacy/MANIFEST.json`, the legacy data and galleries, `web/.generated/*` and `.next/BUILD_ID`. The middleware (proxy, `/account/*` only) carries no dataset, so the instrumentation warm-up there is expected to fail and log once per cold start (inferred, not seen without a deploy; pages and API unaffected). Local `next start` answers unchanged (API bodies byte-identical; pages differ only by build id). Upload: root `.vercelignore` (the CLI never reads .gitignore; the 25 Oct upload included root `.env` and the test shots) cuts it to about 4,030 files (`--archive=tgz` no longer needed) and uploads `web/.og-cache`. **Photos and OG images are still missing on a Vercel-side build, and the cache is not why:** Vercel builds Next 16 through its build adapter (`NEXT_ENABLE_ADAPTER=1`), which collects the prerendered pages during `next build`, so `scripts/images.mjs` and `scripts/og.mjs` (which rewrite `.next/server/app` afterwards) find nothing (reproduced locally). Their `public/img` and `public/og` files would still be copied, but pages keep Commons URLs and the API map (`web/.generated/image-map.json`) is not in the functions on a fresh build. Options: make the two scripts adapter-aware or run them before the adapter (needs a brief), or deploy prebuilt from this Mac (`vercel build` then `vercel deploy --prebuilt`; verified locally to carry 870 renditions, 373 OG images and rewritten pages), which needs the `NEXT_PUBLIC_*` values real at build: they are stored as sensitive, so `vercel pull` gets placeholders and the build inlines them (owner: mark them non-sensitive, or export them in the shell first; the CLI does not override an existing variable). A git-connected build never has `web/.og-cache`. Plan: [EXECUTION-PLAN 13.2](docs/v2/build/public-site/EXECUTION-PLAN.md).
+   **Preview deployed 25 Oct (READY):** https://travel-67cslyjmd-nitin27mays-projects.vercel.app (Vercel Authentication is on, so open it signed in to Vercel or use `vercel curl <path> --deployment <url>`). Checked through `vercel curl`: `/`, `/trips/`, a trip page, `/places/`, `/sign-in/`, `/api/v1/health/`, search and OpenAPI return 200 with data. Known gaps: no photos or OG images (image-map and og scripts do not run in the adapter build; builder finding above), `SITE_ORIGIN` not set, no Neon Auth trusted domains configured (list is empty), so sign-in on the preview will fail until a domain is added. Earlier failed attempts `travel-bsco1wfq0` (Preview) and `travel-fzu6t3vix` (labelled Production) are Error deployments; nothing is live. The root `.env` (Maps keys, ORS key) was uploaded in those earlier attempts before `.vercelignore` existed; consider rotating `ORS_API_KEY`.
+
 4. **Data layer not cut over.** The public catalogue still serves from `JsonStore`.
    No `PostgresStore`, catalogue loader run, parity tests or cutover.
 5. **Owner security decision pending.** `planner_draft_signal` (migration 0010) is
@@ -75,7 +72,7 @@ Everything below the line is dated history; verify it against `git log` first.**
 
 ### Next, in order
 
-1. Close items 1 and 2 above (needs a child-branch `TEST_DATABASE_URL`).
+1. Item 2 above waits for an HTTPS origin (do R-61 first); item 1 is done.
 2. R-61 Vercel setup and preview deploy (item 3); production waits for the owner.
 3. Closure queue, then R-59, then the data-layer cutover.
 

@@ -1,5 +1,7 @@
 # The plan: one page for the travel product
 
+**Newest requirements (25 Oct):** R-62 to R-67, best time to go, the trip overview, thumbnails, customisation and admin photos ([spec](features/trip-overview-and-customisation.md)); planned, queued after the closure queue and R-59.
+
 **Current platform decisions:** Neon Postgres, Managed Better Auth and Neon Realtime are provisioned; the owner selected Vercel for frontend hosting on 24 Oct. The 86 application tables and migration ledger have RLS; `planner_draft_signal` is the sole content-free, coordinator-approved exception ([NEON-SETUP.md](build/public-site/NEON-SETUP.md)). The private account integration (email/password sign-in, private draft persistence, live invalidation and cross-user isolation) was independently verified on the uncommitted session branch ([NEON-VERIFICATION.md](build/public-site/NEON-VERIFICATION.md)); child-branch DB integration is blocked (no `TEST_DATABASE_URL`). The public catalogue still serves from `JsonStore`: the catalogue loader, a proposed `PostgresStore`, per-method parity and cutover are not implemented. Vercel project setup, encrypted environment configuration and deployment are deferred until this branch is merge-ready (R-61); no deployment has occurred. Object storage, serverless functions, jobs and full planner/collaboration remain unselected or undelivered. Supabase references in older documents are historical or, where labelled, future alternatives.
 
 **We are building Next.js API-over-JSON routes, with the UI fixes first, so the backend move will be fast.** (Owner, 21 Oct 2026; provider revised to Neon)
@@ -128,6 +130,17 @@ Status: **done** (shipped), **in force** (a standing rule), **next** (a task is 
 
 | R-60 | **Reconcile all live Supabase-specific specifications with Neon Postgres, Managed Better Auth and related service/function architecture.** Update the existing backend/planner plans rather than introducing a competing plan; preserve product requirements, privacy and acceptance; distinguish implemented capabilities from proposals | owner, 24 Oct | TODO; BACKLOG 15.49; [NEON-SETUP.md](build/public-site/NEON-SETUP.md) R-60 | **Done 25 Oct:** reconciliation and consistency audit complete; committed and merged into `main` with the Neon foundation (see HANDOVER) |
 | R-61 | **Create and configure a new Vercel project, deploy the merge-ready app and verify the Neon-backed release before continuing the queue** | owner, 24 Oct | TODO; BACKLOG 15.50; EXECUTION-PLAN 13.2 | deferred until merge-ready; project not created, secrets not transferred, deployment not performed |
+
+Owner request of 25 Oct 2026 (Rockies as the example), one effort in three phases; spec [features/trip-overview-and-customisation.md](features/trip-overview-and-customisation.md), brief [briefs/OVR.md](build/public-site/briefs/OVR.md). The public rows (R-62 to R-64) ship first and need no login (R-1 holds). The code queues after the closure queue and R-59 (owner, 23-24 Oct: one item at a time); the research batches (R-67) are data only and can start on the owner's go.
+
+| # | Requirement | Source | Delivered by | Status |
+|---|---|---|---|---|
+| R-62 | **Best time to go per trip:** 2 to 4 researched windows, each a start week of a month (never a date), with plus and minus points, crowd level, events as rules, items that may be closed; sourced and dated; picking a window re-runs sun times and marks closures. Rockies first as the pattern, then every trip | owner, 25 Oct | DATA D7; OVR-Ca, OVR-Cb, OVR-1 (BACKLOG 15.51) | planned; D7-R can start on the owner's go |
+| R-63 | **One overview of everything in a trip:** Trails, Sights, Activities, Bookings (and Stays, Food, Getting around) with counts; scopes in the plan, also researched, nearby within 30 km of a base; filters by kind, effort, duration, suits, booking, day, base, season fit; replaces the By category view; light rows through `DataClient` and `/api/v1`, lazy chunk, start JS net zero | owner, 25 Oct | OVR-N, OVR-Ca, OVR-Cb, OVR-0, OVR-2 (15.52) | planned; after R-59 |
+| R-64 | **A credited thumbnail on every trail card** (then every item card), Commons first, NPS public domain for US parks, honest "No licensed photo yet"; Flickr not now (a key appears to need paid Pro; Q93) | owner, 25 Oct | DATA D5b; OVR-3 (15.53) | planned; D5b after D1 |
+| R-65 | **Customisation, signed in:** a private copy of a public trip (`planner_draft` delta, migration 0011), add and remove items, nearby suggestions, re-flow with the existing warnings, undo, autosave; nothing reaches public output | owner, 25 Oct | CUS-C, CUS-1, CUS-2 (15.54) | planned; after the phase 1 owner preview, the R-61 HTTPS preview and the `planner_draft_signal` ruling |
+| R-66 | **Update photos from the admin console:** pin, pick the thumbnail, reorder, hide, "no suitable photo"; an override research never replaces; audit trail | owner, 25 Oct | PHO-0 now (local pin command); PHO-1 console (15.55) | PHO-0 planned; PHO-1 after SRV-0 cutover and F17 roles (Q97) |
+| R-67 | **Capture the missing data for these views:** windows for 14 trips, per-item access season, booking state, durations and effort, thumbnails for all 118 trails | owner, 25 Oct | DATA D7, D8, D5b (15.56) | planned; measured gaps in the spec section 8 |
 
 ## Execution rule reaffirmed by the owner, 24 Oct 2026
 
@@ -267,6 +280,7 @@ Phase E starts from [PHASE-E-START.md](build/public-site/PHASE-E-START.md). It s
 | Q91 | GLB2b inside E (last), or after R2 if the allowance runs short | Inside E; after R2 only above 70% weekly use | After R2 drops R2 check 5 |
 | Q92 | M1 over a tunnel for the iPhone | Mac only for M1; tunnel at R2 | The phone map waits for R2 |
 | Q80 (re-asked 23 Oct) | TD-1 to TD-3 in E or after R2 | **After R2** (changed, usage limit) | A data-only trip before R2 has no page; none is queued |
+| Q93-Q100 (25 Oct) | Trip overview and customisation: Flickr (Q93), window granularity (Q94), plan versus researched counts (Q95), signed-out removal (Q96), admin console before the cutover (Q97), who may customise (Q98), windows for overview trips (Q99), start D7-R now (Q100) | As in [the spec](features/trip-overview-and-customisation.md) section 10: no Flickr; weeks; default In this plan; no; wait for the cutover; invite-only; yes; now | Listed per question there |
 
 Answered since 21 Oct: Q85 (slugs stay first-come and `region=alberta` stays, unless the owner objects), Q86 (the `prototype/` deletion was confirmed and done in CLN-3), D17 and D18 follow-ups (applied in CLN-1c and CLN-7), the private-saves question (PRIV1, decided 22 Oct: the owner's wishlist saves `sourceTypes` and `added` are removed from all public output). Q79 to Q82 (O-1, O-2, O-3, O-6) have no recorded answer in BACKLOG; the rows above stay open.
 
@@ -347,6 +361,7 @@ More risks: EXECUTION-PLAN 16.
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (later) | Owner request (Rockies example): R-62 to R-67, spec [trip-overview-and-customisation.md](features/trip-overview-and-customisation.md), brief OVR, DATA D7, D8, D5b, BACKLOG 15.51 to 15.56, questions Q93 to Q100. No existing decision changed; the media report's Flickr "No for now" (its Q8) stands |
 | 2026-10-25 | Neon foundation (R-58 implementation, origin-guard fix) and R-60 docs committed and merged into `main`; HANDOVER rewritten with one current state and a detailed not-done list. Child-branch DB integration and the post-fix real-service E2E remain open; R-61 Vercel not started |
 | 2026-10-24 | Owner selected Vercel for frontend hosting and directed project configuration/deployment once the branch is merge-ready; recorded as R-61/BACKLOG 15.50. No project created or deployment made |
 | 2026-10-24 | R-60 started after final independent Neon verification and reconciled across the existing architecture, roadmap, planner/UX/MCP, and public-site store specs. Relative Markdown links, scoped Supabase-reference classification and diff checks pass. R-58 remains uncommitted; R-60 changes are complete on the uncommitted session branch and remain unshipped because no commit was requested |
