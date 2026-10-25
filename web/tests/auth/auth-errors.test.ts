@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { authProblem, COPY, maskAddress, waitPhrase, type AuthAction } from '@/lib/auth/auth-errors';
+import { authProblem, COPY, deadCodeMessage, maskAddress, resentMessage, waitPhrase, type AuthAction, type AuthPage } from '@/lib/auth/auth-errors';
+import { timeLeft } from '@/components/auth/live';
 import { authFlagsFrom } from '@/lib/auth/flags';
 import { clock, codeDigits } from '@/components/auth/CodeStep';
 
@@ -7,7 +8,7 @@ const a = (status: number, code = '', retryAfterS: number | null = null) => ({ s
 
 describe('auth answer copy (spec 3.3)', () => {
   it('is null for a success', () => {
-    expect(authProblem(a(200), 'send')).toBeNull();
+    expect(authProblem(a(200), 'send', { page: 'sign-in' })).toBeNull();
   });
 
   it.each([
@@ -30,11 +31,43 @@ describe('auth answer copy (spec 3.3)', () => {
     ['sign-up', a(400, 'EMAIL_PASSWORD_SIGN_UP_DISABLED'), COPY.signUpClosed],
     ['sign-up', a(400, 'SOMETHING_NEW'), COPY.signUpFailed],
   ] as const)('%s %j -> %s', (action, answer, message) => {
-    expect(authProblem(answer, action as AuthAction)?.message).toBe(message);
+    expect(authProblem(answer, action as AuthAction, { page: 'sign-in' })?.message).toBe(message);
+  });
+
+  it.each([
+    ['sign-in', "You've asked for several codes. Wait 15 minutes, or use your password.", "We couldn't send the email. Try again shortly, or use your password."],
+    ['sign-up', "You've asked for several codes. Wait 15 minutes, then try again.", "We couldn't send the email. Try again shortly."],
+    ['reset', "You've asked for several codes. Wait 15 minutes, then try again.", "We couldn't send the email. Try again shortly."],
+  ] as const)('offers "use your password" only where it is another bucket: %s (review M1)', (page, quota, failed) => {
+    expect(authProblem(a(429, 'RATE_LIMITED', 900), 'send', { page: page as AuthPage })?.message).toBe(quota);
+    expect(authProblem(a(503, 'SEND_FAILED'), 'send', { page: page as AuthPage })?.message).toBe(failed);
+    expect(authProblem(a(503, 'SEND_UNAVAILABLE'), 'send', { page: page as AuthPage })?.message).toBe(failed);
+    if (page !== 'sign-in') expect(authProblem(a(429, '', 900), 'sign-up', { page: page as AuthPage })?.message).not.toMatch(/password/);
+  });
+
+  it('marks a dead code and words the wait (review M4)', () => {
+    expect(authProblem(a(403, 'TOO_MANY_ATTEMPTS'), 'verify', { page: 'sign-in' })?.deadCode).toBe('TOO_MANY_ATTEMPTS');
+    expect(authProblem(a(400, 'OTP_EXPIRED'), 'verify', { page: 'sign-in' })?.deadCode).toBe('OTP_EXPIRED');
+    expect(authProblem(a(400, 'INVALID_OTP'), 'verify', { page: 'sign-in' })?.deadCode).toBeUndefined();
+    expect(deadCodeMessage('TOO_MANY_ATTEMPTS', '0:24')).toBe('Too many tries. You can send a new code in 0:24.');
+    expect(deadCodeMessage('OTP_EXPIRED', '0:24')).toBe('That code has expired. You can send a new code in 0:24.');
+    expect(deadCodeMessage('TOO_MANY_ATTEMPTS', null)).toBe('Too many tries. Send a new code.');
+  });
+
+  it('acknowledges a resend with the masked address only (review M5)', () => {
+    expect(resentMessage('nitin@gmail.com')).toBe('We sent a new code to n…@gmail.com. Use the newest email.');
+    expect(resentMessage('nitin@gmail.com')).not.toContain('nitin@');
+  });
+
+  it('puts the time left in a button label (review M3)', () => {
+    expect(timeLeft(42)).toBe('0:42');
+    expect(timeLeft(600)).toBe('10:00');
+    expect(timeLeft(601)).toBe('11 min');
+    expect(timeLeft(900)).toBe('15 min');
   });
 
   it('says "or sign in with a code" only when the code option is on', () => {
-    expect(authProblem(a(429, '', 600), 'password', false)?.message).toBe('Too many attempts. Wait 10 minutes, then try again.');
+    expect(authProblem(a(429, '', 600), 'password', { page: 'sign-in', codeOn: false })?.message).toBe('Too many attempts. Wait 10 minutes, then try again.');
   });
 
   it.each([
@@ -42,21 +75,21 @@ describe('auth answer copy (spec 3.3)', () => {
     ['TOO_MANY_ATTEMPTS', COPY.tooManyTries, true],
     ['OTP_EXPIRED', COPY.expired, true],
   ] as const)('puts %s under the code field', (code, message, clear) => {
-    const p = authProblem(a(code === 'TOO_MANY_ATTEMPTS' ? 403 : 400, code), 'verify');
+    const p = authProblem(a(code === 'TOO_MANY_ATTEMPTS' ? 403 : 400, code), 'verify', { page: 'sign-in' });
     expect(p).toMatchObject({ where: 'field', field: 'code', message });
     expect(Boolean(p?.clearCode)).toBe(clear);
   });
 
   it('puts address and password problems under their fields', () => {
-    expect(authProblem(a(400, 'INVALID_EMAIL'), 'send')).toMatchObject({ where: 'field', field: 'email', message: COPY.badEmail });
-    expect(authProblem(a(400, 'PASSWORD_TOO_SHORT'), 'sign-up')).toMatchObject({ where: 'field', field: 'password' });
-    expect(authProblem(a(400, 'PASSWORD_TOO_LONG'), 'reset')).toMatchObject({ where: 'field', field: 'password' });
+    expect(authProblem(a(400, 'INVALID_EMAIL'), 'send', { page: 'sign-in' })).toMatchObject({ where: 'field', field: 'email', message: COPY.badEmail });
+    expect(authProblem(a(400, 'PASSWORD_TOO_SHORT'), 'sign-up', { page: 'sign-up' })).toMatchObject({ where: 'field', field: 'password' });
+    expect(authProblem(a(400, 'PASSWORD_TOO_LONG'), 'reset', { page: 'reset' })).toMatchObject({ where: 'field', field: 'password' });
   });
 
   it('never carries input text into a message', () => {
     for (const action of ['send', 'verify', 'password', 'sign-up', 'reset'] as const) {
       for (const status of [0, 400, 401, 403, 404, 413, 422, 429, 500, 503]) {
-        const p = authProblem(a(status, 'visitor@example.test 482913', 60), action);
+        const p = authProblem(a(status, 'visitor@example.test 482913', 60), action, { page: 'sign-in' });
         expect(p?.message ?? '').not.toMatch(/visitor|482913|example\.test/);
       }
     }
