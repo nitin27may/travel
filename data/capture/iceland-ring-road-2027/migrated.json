@@ -63,15 +63,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 8643948, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 8643948, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 26.1,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Myvatn Nature Baths",
@@ -89,15 +89,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3416888, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3416888, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 4.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Blue Lagoon area lava fields"
@@ -111,15 +111,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 11258566, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 11258566, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 46.6,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Borgarfjordur waterfalls"
@@ -133,15 +133,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 8643948, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 8643948, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 46.3,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Dettifoss"
@@ -168,8 +168,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Geysir"
     },
@@ -182,15 +182,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2627309, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2627309, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 16.3,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Glaumbaer turf farm"
@@ -204,15 +204,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 8643948, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 8643948, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 9.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Godafoss"
@@ -226,8 +226,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Gullfoss"
     },
@@ -235,6 +235,22 @@
       "ref": "trip/iceland-ring-road-2027/sight:namaskard",
       "type": "culture.heritage.landmark",
       "layer": "place",
+      "near_town": {
+        "v": "is-6-laugar",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 8643948, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 26.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
       "name": "Namaskard"
     },
     {
@@ -246,15 +262,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3415720, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3415720, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 18.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Seljalandsfoss"
@@ -268,15 +284,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3412093, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3412093, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 38.9,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Skogafoss"
@@ -290,15 +306,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2633274, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2633274, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 1,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Akureyri botanical garden"
@@ -312,15 +328,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2630299, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2630299, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 0.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Hofn harbour"
@@ -334,15 +350,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3413829, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3413829, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 2.8,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Reykjavik old harbour"
@@ -356,15 +372,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2632132, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 2632132, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 18.1,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Seydisfjordur"
@@ -397,15 +413,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3414079, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3414079, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 18.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Djupalonssandur"
@@ -436,8 +452,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Fjadrargljufur canyon",
       "origin": {
@@ -517,8 +533,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Svartifoss",
       "origin": {
@@ -572,15 +588,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3415761, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3415761, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 29.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Thingvellir",
@@ -607,8 +623,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Diamond Beach"
     },
@@ -621,8 +637,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Jokulsarlon"
     },
@@ -635,15 +651,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3414079, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3414079, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 19.7,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Kirkjufell"
@@ -657,8 +673,8 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-23)."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Reynisfjara beach"
     },
@@ -671,15 +687,15 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3414079, cities1000 downloaded 2026-10-23."
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3414079, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
         "v": 10.2,
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "on": "2026-10-23",
+        "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Snaefellsjokull view"
