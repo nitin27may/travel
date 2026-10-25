@@ -141,6 +141,8 @@ export const CAP_ERROR_CODES = {
   E_CAP_DRAW_LAYER: "a route has a relevance record (draw and class) without route_is_attraction and a reason, or the flag is on a record that is not a route; draw belongs to the place a visitor comes to see",
   E_CAP_RUN: "a crawl run record is inconsistent: a result without a ref or field in scope, a blocked result without a reason, a searched_none without the pages tried",
   E_CAP_OPERATORS: "an operators file has a duplicate ref or an operator without a name and a URL",
+  E_CAP_LANE: "a file of the trip-less lane (core/src/capture/lane.ts) breaks its rules: the folder and the trip id disagree, a record is not about a pinned place/<slug> ref, or a private origin key (loc:, proto:) is in it; checked on its capture, suitability and relevance files",
+  E_CAP_PHOTO_LICENCE: "a photo's licence is not on the allowlist (CC BY, CC BY-SA, CC0, public domain; DD-3): NC, ND, all rights reserved and the Unsplash and Pexels licences are refused",
 } as const;
 export const CAP_WARNING_CODES = {
   W_CAP_NA_FIELD: "a value is stored for a property that the type's contract marks N (never asked)",
