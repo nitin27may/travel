@@ -51,6 +51,23 @@ test.describe('back-to-top on a phone', () => {
     await page.keyboard.press('Escape');
     await expect(btn).toBeVisible();
   });
+
+  test('hides while the trip map sheet is open, and returns when it closes (second open too)', async ({ page, site }) => {
+    await page.goto(`${site.url}/trips/dolomites-2027/`, { waitUntil: 'networkidle' });
+    await scrollTo(page, 2000);
+    const btn = page.getByRole('button', { name: 'Back to top' });
+    await expect(btn).toBeVisible();
+    const mapBtn = page.locator('button[aria-controls="route"]:visible').first();
+    for (let round = 0; round < 2; round++) {
+      await mapBtn.click();
+      await expect(page.locator('.tl-mapcol[data-sheet]')).toBeVisible();
+      await expect(btn).toBeHidden();
+      await mapBtn.click();
+      await expect(page.locator('.tl-mapcol[data-sheet]')).toHaveCount(0);
+      await expect(btn).toBeVisible();
+    }
+  });
+
 });
 
 test.describe('back-to-top at desktop width', () => {

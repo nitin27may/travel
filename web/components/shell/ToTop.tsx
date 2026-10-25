@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { keyboardUp, toTopVisible } from '@/lib/to-top';
 
-const OVERLAY = '[role="dialog"],[role="menu"],[role="listbox"],[aria-modal="true"]';
+// the non-modal trip map sheet is open (`.tl-mapcol[data-sheet]`); a later fixed bottom panel adds its own attribute here
+const OVERLAY = '[role="dialog"],[role="menu"],[role="listbox"],[aria-modal="true"],.tl-mapcol[data-sheet]';
 
 /** Phone back-to-top button (S28). Client-only and lazy: the server renders nothing; BottomBar loads this on the first phone scroll. */
 export function ToTop() {
@@ -23,7 +24,7 @@ export function ToTop() {
       if (!raf) raf = requestAnimationFrame(update);
     };
     const mo = new MutationObserver(queue);
-    mo.observe(document.body, { childList: true, subtree: true });
+    mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-sheet', 'aria-modal', 'open', 'hidden'] });
     addEventListener('scroll', queue, { passive: true });
     addEventListener('resize', queue);
     document.addEventListener('focusin', queue);

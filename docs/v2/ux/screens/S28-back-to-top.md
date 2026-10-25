@@ -14,7 +14,7 @@ Principles: P3 (a glance, then a few clicks: one tap returns to the page start),
 - Fixed, right edge at `--margin`, bottom at `--phone-bottombar-h + --s-3`, so it sits above the bottom bar (whose height already includes the home-indicator allowance) and never over it. The toast region (centred) may pass under it briefly.
 - 44 x 44 px (`--touch-min`), circle (`--r-full`), `--surface` fill, `--line-2` border, `--e-2` shadow, `--ink` arrow (22 px stroke arrow). Both themes come from the tokens; no new colour.
 - States: hidden (opacity 0, `visibility: hidden`, so out of the tab order), shown (fade and 8 px rise over `--d-base`), pressed (1 px down), focus ring from the global `:focus-visible`. Reduced motion: fade only. Print: not shown.
-- No fixed bar other than the bottom bar exists on the trip page today; if a plan bar or copy sheet is added later it must offset this button (or this button must offset it).
+- The trip page has a second fixed bottom panel: the map sheet (`.tl-mapcol[data-sheet]`, non-modal, z `--z-tripbar`). The button is hidden while it is open and returns when it closes (`ToTop` watches the attribute, so a second open is seen). A later plan bar or copy sheet must either set its own attribute in the blocked list in `ToTop.tsx` or offset this button.
 
 ## Accessibility
 Native `<button>`, name "Back to top", icon `aria-hidden`. Not in the DOM until the first phone scroll, so it is not announced on arrival.
