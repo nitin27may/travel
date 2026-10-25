@@ -1,0 +1,236 @@
+/* Account and auth surfaces (Neon account path). Tokens only; no hard-coded colour. The account
+   content holds to the reading column so a short list never reads as a broken page (review P-3). */
+
+.auth-page,
+.account-page {
+  max-width: 40rem;
+  display: grid;
+  gap: var(--s-5);
+  padding-top: var(--s-5);
+}
+
+.auth-head h1,
+.account-title {
+  font: var(--t-section);
+  text-transform: uppercase;
+}
+.auth-sub {
+  color: var(--ink-2);
+  margin-top: var(--s-1);
+}
+.account-count {
+  font: var(--t-mono);
+  color: var(--muted);
+  text-transform: none;
+}
+
+/* Auth form */
+.auth-form {
+  display: grid;
+  gap: var(--s-4);
+}
+.auth-banner:focus {
+  outline: none;
+}
+.auth-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  align-items: center;
+}
+.auth-alt {
+  color: var(--muted);
+  font: var(--t-small);
+}
+.auth-alt a {
+  color: var(--accent-text);
+}
+
+/* Account header */
+.account-head {
+  display: flex;
+  min-width: 0;
+  justify-content: space-between;
+  align-items: start;
+  gap: var(--s-4);
+}
+.account-head > div {
+  min-width: 0;
+}
+.account-head > .btn {
+  flex-shrink: 0;
+}
+@media (max-width: 639px) {
+  /* Keep the 38px button face; extend only its interactive target (components 2.1). */
+  .account-head > .btn::after {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: max(100%, var(--touch-min));
+    height: max(100%, var(--touch-min));
+    transform: translate(-50%, -50%);
+  }
+}
+.account-identity {
+  font: var(--t-mono);
+  color: var(--muted);
+  margin-top: var(--s-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.account-signed-out {
+  justify-items: start;
+  gap: var(--s-3);
+}
+
+/* Create form */
+.account-drafts {
+  display: grid;
+  gap: var(--s-4);
+}
+.draft-create {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s-3);
+  align-items: end;
+}
+.draft-create-field {
+  min-width: 0;
+}
+@media (max-width: 480px) {
+  .draft-create {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Live status line: a quiet muted dot + the word "Live" (review C1: never green, never ok). */
+.draft-status {
+  font: var(--t-mono);
+  color: var(--muted);
+  min-height: 1.2em;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+/* Draft list rows */
+.account-list {
+  display: grid;
+  gap: var(--s-2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.draft-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: 56px;
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-3);
+  background: var(--surface);
+  transition: background 200ms ease;
+}
+.draft-row:hover {
+  background: var(--surface-2);
+}
+.draft-row[data-pending] {
+  opacity: 0.6;
+}
+/* A live insert settles from a brief highlight to the surface (review motion, P5). */
+@keyframes draft-settle {
+  from {
+    background: var(--surface-2);
+  }
+  to {
+    background: var(--surface);
+  }
+}
+.draft-row {
+  animation: draft-settle 200ms ease;
+}
+.draft-main {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+.draft-title {
+  font: var(--t-body);
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.draft-meta {
+  font: var(--t-mono);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.draft-menu-trigger {
+  flex: none;
+}
+
+/* Rename in place / delete confirm */
+.draft-rename,
+.draft-confirm {
+  display: flex;
+  align-items: end;
+  gap: var(--s-3);
+  flex: 1;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.draft-rename-field,
+.draft-rename > .field {
+  flex: 1;
+  min-width: 0;
+}
+.draft-confirm-q {
+  font: var(--t-body);
+  color: var(--ink);
+}
+.draft-confirm-actions {
+  display: flex;
+  gap: var(--s-2);
+}
+
+/* Header avatar menu (signed in) */
+.avatar-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.avatar-disc {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  color: var(--ink);
+  font: var(--t-mono);
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .draft-row {
+    animation: none;
+    transition: none;
+  }
+}

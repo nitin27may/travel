@@ -176,6 +176,10 @@
     "count": 1,
     "reason": "motion and timing constants until a foundation motion-token ruling (EXECUTION-PLAN 5.3: listed)"
    },
+   "web/app/account/AccountDrafts.tsx": {
+    "count": 1,
+    "reason": "account live-sync timeout (SYNC_TIMEOUT_MS): how long an optimistic write waits for its txid on the signal stream before falling back; a behavioural timeout, not a motion token (NEON-SETUP blocker resolution)"
+   },
    "web/components/search/useQueryParse.ts": {
     "count": 1,
     "reason": "motion and timing constants until a foundation motion-token ruling (EXECUTION-PLAN 5.3: listed)"

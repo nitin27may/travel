@@ -5,8 +5,9 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { GlobalSearch as GlobalSearchType } from '@/components/search/GlobalSearch';
-import { Button, ButtonLink } from '@/components/ui/Button';
+import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
+import { AccountNav } from './AccountNav';
 import { capabilities as siteCapabilities } from '@/lib/capabilities';
 import type { Capabilities } from '@/lib/capabilities';
 import { startBuffer } from '@/lib/search/typeahead';
@@ -65,11 +66,7 @@ export function SiteHeader({ capabilities = siteCapabilities }: { capabilities?:
             <Icon name="search" size={18} />
           </Button>
           <ThemeToggle />
-          {capabilities.signIn ? (
-            <ButtonLink variant="ghost" href="/sign-in/" className="header-signin">
-              Sign in
-            </ButtonLink>
-          ) : null}
+          {capabilities.signIn ? <AccountNav /> : null}
         </div>
       </div>
       {searchOpen ? <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} /> : null}
