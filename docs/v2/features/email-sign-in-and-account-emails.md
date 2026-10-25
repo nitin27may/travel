@@ -1280,3 +1280,29 @@ N1 and the "15 minutes" in the T1, T2 and T4 copy; the CLI has no setting for it
 - **U5: reset by code works but does not revoke earlier sessions.** EML-1 must revoke other sessions after a reset (for example through our own sign-out of all sessions) or the owner accepts the risk. New owner decision.
 - **U2: Disable Sign Up does NOT stop sign-in by code from creating an account.** Any invite-only or planner gate must be our own server-side check; do not rely on the Neon flag. Open sign-up by code is therefore the real behaviour in Phase 1 (Q146 yes becomes a fact, not a choice).
 - Details and evidence: `research/runs/EML-0-spike-wait.md` (W2 result).
+
+## EML-M and EML-Q build notes (25 Oct 2026, Opus, branch `public/EML-1`)
+
+Built as specified in section 13 and "Decision 25 Oct", with these differences and findings:
+
+- **Session revocation after a reset by code** (EML-0 W2): Neon Auth's revoke endpoints need a session of the user, which the reset
+  flow does not have, so the guard deletes the account's `neon_auth.session` rows created before the reset, over the app's existing
+  pooled (owner) connection, only after Neon answered 200 to `/email-otp/reset-password` (`web/lib/auth/revoke.ts`). Verified on the
+  child branch: the old cookie's `get-session` is null at once; a later session survives. The app's own session-data cookie can show
+  the old device signed in for up to about 5 minutes. The current browser's session is revoked too, so EML-1 signs in after a reset.
+  A failed delete still answers 200 (the password is already changed) and alerts the owner (`auth-revoke-failed`).
+- **Environment names** follow the coordinator's brief: `TURNSTILE_SECRET` (server) and `TURNSTILE_SITE_KEY` (widget, EML-1), not
+  `TURNSTILE_SECRET_KEY` / `NEXT_PUBLIC_TURNSTILE_SITE_KEY` of O-E2. The quota HMAC secret is `AUTH_QUOTA_SECRET` (O-E3).
+- **Sign-up** takes from the per-IP sign-up bucket and also from the per-address and global send buckets (with Require Verification on
+  it sends a code), so a second sign-up for one address within 60 s answers 429.
+- **Turnstile test secrets** answer hostname `example.com` and no action (probed 25 Oct), so the guard skips those two checks for
+  them and refuses them in production.
+- **Blocked in v1** (404 before Neon): `/reset-password` (link reset), `/change-email`, `/email-otp/change-email`,
+  `/email-otp/request-email-change`; `type: change-email` on the send route is a 400.
+- **Answers for EML-1** are listed at the top of `web/lib/auth/guard.ts` (`RATE_LIMITED`, `TURNSTILE_FAILED`, `SEND_FAILED`, ...).
+- **Finding: Neon's limiter sees our server, not the visitor.** The SDK proxy forwards no client IP, so Neon's `/sign-in/email` 429
+  (5 fast wrong passwords, EML-0 R1) is likely keyed on the Vercel function's address and could slow every visitor at once. Our
+  per-address and per-IP buckets sit in front of it; not confirmed with load (no load tests, Decision 25 Oct).
+- **Copy:** codes expire after **5 minutes** on Neon (EML-0 U9), not 15; EML-1's card copy and any Phase 1 text must say 5.
+- **Deploy order:** EML-Q fails closed without `TURNSTILE_SECRET` and a token, and today's `AuthForm` sends no token, so EML-Q and
+  EML-1 deploy together, after O-E2, O-E3 and migration 0011 on production (owner approval).
