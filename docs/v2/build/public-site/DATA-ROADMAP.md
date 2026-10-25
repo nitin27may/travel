@@ -173,6 +173,25 @@ Merge order (coordinator): this branch (`public/DATA-RECON`) first, so new batch
 research and the `data/windows/` path; then D6a on the owner's go; then each batch as it hands back, re-running
 `gaps --budget --check`, `sources.ts check` and `check-all.sh` after each.
 
+## 4b. Completion standard for every location, tied to a trip or not (owner, 25 Oct 2026: "capture as much as we can; we do not have to miss it")
+
+Scope: all 74 places in `data/locations/locations.json` (66 tied to no trip, 8 tied to one: US 35, CA 22, IT 10, VN 3, FR 2, CN 1, IN 1; 12 parks, 8 towns, 8 cities, 7 trails, 7 mountains, 6 lakes, 5 regions, 4 waterfalls, 4 islands, 3 viewpoints, 3 canyons, 2 activities, 2 places, and 1 each lighthouse, valley, drive) and every place later added through the `location` skill. They go through the same capture contract as trip records, in the trip-less lane `catalogue` (DD-8; built by L1).
+
+A location is **done** only when each of these is a sourced value or a dated `searched_none` (a gap is never a yes):
+1. Identity and place: name, kind, area chain, a point with its role, nearest town (derived), Wikidata QID, elevation, one own-words summary.
+2. Image: one licensed photo (strict licences, DD-3) or "No licensed photo yet" with the search date.
+3. When: season months and closures, best time of year (a window if it has trip use), hazards.
+4. By kind: trail (distance, gain, shape, surface, difficulty on a named scale, time, dogs, stroller, wheelchair, trailhead and parking points, links); a place reached by car (parking point, fee, capacity note, shuttle or permit rule); an activity or lift (operator, season, duration, price, minimum age, height and weight limits, booking need, booking URL and window); a town or city (what it is good for, transport, a base-town fact row if it could serve as a base); a park (entry fee or pass, main trailheads, official page).
+5. Suitability for families and the effort level, and the relevance sidecars (never a "yes" from a gap).
+6. Links (official pages, OSM, Wikipedia or Wikidata; AllTrails, Google, Tripadvisor and Komoot as links only), source rows with read dates.
+7. Privacy: nothing may reveal that a place came from the owner's private list (PRIV1); no household data; the saved-post laundry list stays private.
+
+**How the research runs** (D2b, Opus judgement plus Sonnet fills, after L1 and D1b; both are done or in progress):
+- **Split by country so runs are disjoint and sequential per service:** D2b-US (35), D2b-CA (22), D2b-IT (10), D2b-INT (VN 3, FR 2, CN 1, IN 1 = 7). One lane file per split under the `catalogue` lane; writing through `python3 tools/locations.py edit` and the capture commands only.
+- **Order inside a split:** points and areas first (Wikidata then OSM; Overpass sparingly), then official pages for fees, seasons and trail numbers, then suitability, then photos (D5 batch after the points are final).
+- **Done check per split:** `node core/bin/capture.ts gaps --tier required` for the lane shows every place complete or searched_none; the count of "records with the required tier complete" must rise to 74 of 74 for the lane, not stay at 7 of 196 for places; no gap count rises; a 10-value sample check against the sources passes at least 9 of 10; an Opus pass reviews a sample of 10 per split.
+- **Maintenance:** the `location` skill's capture step runs this standard for every new place, so the list never falls behind again.
+
 ## 5. Request volume and one runner per service
 
 Every external call is sequential and goes through a lock, across all agents on this Mac. `flock` was not installed on 21
