@@ -15,7 +15,10 @@
     "db:status": "node core/bin/db-local.ts status",
     "db:psql": "node core/bin/db-local.ts psql",
     "db:test": "node core/bin/db-local.ts test",
-    "db:url": "node core/bin/db-local.ts url"
+    "db:url": "node core/bin/db-local.ts url",
+    "db:seed": "node core/bin/db-seed.ts seed",
+    "db:sync": "node core/bin/db-seed.ts sync",
+    "db:verify": "node core/bin/db-seed.ts verify"
   },
   "dependencies": { "@neon/config": "^1.9.3", "@neon/env": "^1.6.4" }
 }
