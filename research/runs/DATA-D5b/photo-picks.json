@@ -1,0 +1,3682 @@
+{
+ "schema": "d5b-photo-picks/1",
+ "run": "DATA-D5b",
+ "searched_on": "2026-10-25",
+ "picks": [
+  {
+   "target": 1,
+   "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+   "name": "Track and Tower Trail",
+   "record_point": [
+    45.56001,
+    -78.57754
+   ],
+   "point_source": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+   "searched_on": "2026-10-25",
+   "subject_check": "Autumn view over Cache Lake from the lookout the Track and Tower trail leads to; title and description name the Cache Lake lookout",
+   "photos": [
+    {
+     "file": "File:Algonquin Cache Lake Lookout.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Algonquin_Cache_Lake_Lookout.JPG",
+     "author": "Original uploader was Ptrbnsn at en.wikipedia",
+     "licence": "CC BY-SA 3.0",
+     "width": 2048,
+     "height": 1536,
+     "taken": "16 December 2006 (original upload date)",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Track and Tower Trail Algonquin Cache Lake"
+     }
+    }
+   ]
+  },
+  {
+   "target": 2,
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
+   "name": "Sulphur Mountain summit boardwalk",
+   "record_point": [
+    51.14448,
+    -115.57502
+   ],
+   "point_source": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+   "searched_on": "2026-10-25",
+   "subject_check": "Boardwalk along the Sulphur Mountain ridge (description names the boardwalk) and the summit-area view of the Bow Valley",
+   "photos": [
+    {
+     "file": "File:Massive Mountain and Bow Valley from Sulphur Mountain (16137721924).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Massive_Mountain_and_Bow_Valley_from_Sulphur_Mountain_(16137721924).jpg",
+     "author": "Wilson Hui from Calgary, Canada",
+     "licence": "CC BY 2.0",
+     "width": 2496,
+     "height": 1664,
+     "taken": "Taken on 7 March 2015, 14:07",
+     "geotag": {
+      "lat": 51.143386,
+      "lon": -115.577888
+     },
+     "distance_from_record_point_m": 234,
+     "found_by": {
+      "method": "text search",
+      "query": "Sulphur Mountain boardwalk"
+     }
+    },
+    {
+     "file": "File:By ovedc - Sulphur Mountain - 09.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:By_ovedc_-_Sulphur_Mountain_-_09.jpg",
+     "author": "Ovedc",
+     "licence": "CC BY-SA 4.0",
+     "width": 5312,
+     "height": 2988,
+     "taken": "2017-08-03 09:34:04",
+     "geotag": {
+      "lat": 51.144722,
+      "lon": -115.575
+     },
+     "distance_from_record_point_m": 27,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       51.14448,
+       -115.57502
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 3,
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile-loop",
+   "name": "Moraine Lake Rockpile loop",
+   "record_point": [
+    51.32897,
+    -116.18179
+   ],
+   "point_source": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop",
+   "searched_on": "2026-10-25",
+   "subject_check": "View of Moraine Lake and the Ten Peaks from the Rockpile; titles and descriptions name the Rockpile",
+   "photos": [
+    {
+     "file": "File:Moraine Lake, north view from Rockpiles 20240823 2.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Moraine_Lake,_north_view_from_Rockpiles_20240823_2.jpg",
+     "author": "DXR",
+     "licence": "CC BY-SA 4.0",
+     "width": 7456,
+     "height": 5326,
+     "taken": "2024-08-23",
+     "geotag": {
+      "lat": 51.32757906,
+      "lon": -116.18004927
+     },
+     "distance_from_record_point_m": 196,
+     "found_by": {
+      "method": "text search",
+      "query": "Moraine Lake Rockpile"
+     }
+    },
+    {
+     "file": "File:Moraine Lake Alberta Canada.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Moraine_Lake_Alberta_Canada.jpg",
+     "author": "Bede735",
+     "licence": "CC BY-SA 3.0",
+     "width": 3872,
+     "height": 2592,
+     "taken": "2008-06-19 08:16:29",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Moraine Lake Valley of the Ten Peaks"
+     }
+    }
+   ]
+  },
+  {
+   "target": 4,
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots-trail",
+   "name": "Ink Pots trail",
+   "record_point": [
+    51.24556,
+    -115.83979
+   ],
+   "point_source": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots-trail",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Ink Pots (turquoise springs) and the valley behind them, Johnston Canyon; title and description name the Ink Pots",
+   "photos": [
+    {
+     "file": "File:The Ink pots Johnston Canyon Alberta Canada (9602351856).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:The_Ink_pots_Johnston_Canyon_Alberta_Canada_(9602351856).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 5184,
+     "height": 3456,
+     "taken": "2013-08-25 10:09",
+     "geotag": {
+      "lat": 51.246712,
+      "lon": -115.840208
+     },
+     "distance_from_record_point_m": 131,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       51.24556,
+       -115.83979
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:The Ink pots Johnston Canyon Alberta Canada (9599139733).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:The_Ink_pots_Johnston_Canyon_Alberta_Canada_(9599139733).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 5184,
+     "height": 3456,
+     "taken": "2013-08-25 10:42",
+     "geotag": {
+      "lat": 51.246712,
+      "lon": -115.840208
+     },
+     "distance_from_record_point_m": 131,
+     "found_by": {
+      "method": "text search",
+      "query": "Johnston Canyon Ink Pots"
+     }
+    }
+   ]
+  },
+  {
+   "target": 6,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+   "name": "Athabasca Falls Walk",
+   "record_point": [
+    52.66444,
+    -117.88377
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+   "searched_on": "2026-10-25",
+   "subject_check": "Athabasca Falls and the river canyon below it; titles name the falls; geotags within 30 m of the walk's point",
+   "photos": [
+    {
+     "file": "File:MK04324 Athabasca Falls (Jasper NP).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:MK04324_Athabasca_Falls_(Jasper_NP).jpg",
+     "author": "Martin Kraft",
+     "licence": "CC BY-SA 3.0",
+     "width": 3464,
+     "height": 2309,
+     "taken": "2013-10-01 17:56:49",
+     "geotag": {
+      "lat": 52.664283333333,
+      "lon": -117.88406388889
+     },
+     "distance_from_record_point_m": 26,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       52.66444,
+       -117.88377
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Athabasca Falls Jasper6.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Athabasca_Falls_Jasper6.JPG",
+     "author": "Mykola Swarnyk",
+     "licence": "CC BY-SA 3.0",
+     "width": 4288,
+     "height": 2848,
+     "taken": "2010-07-22 10:36:43",
+     "geotag": {
+      "lat": 52.664566040039,
+      "lon": -117.88401794434
+     },
+     "distance_from_record_point_m": 22,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       52.66444,
+       -117.88377
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 9,
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
+   "name": "Sulphur Mountain switchback trail (hike up, gondola down)",
+   "record_point": [
+    51.14857,
+    -115.55824
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
+   "searched_on": "2026-10-25",
+   "subject_check": "Gondola line and trail on Sulphur Mountain (geotag 141 m) and the view of Banff from the mountain (title)",
+   "photos": [
+    {
+     "file": "File:By ovedc - Sulphur Mountain - 01.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:By_ovedc_-_Sulphur_Mountain_-_01.jpg",
+     "author": "Ovedc",
+     "licence": "CC BY-SA 4.0",
+     "width": 5312,
+     "height": 2988,
+     "taken": "2017-08-03 09:17:49",
+     "geotag": {
+      "lat": 51.148056,
+      "lon": -115.556389
+     },
+     "distance_from_record_point_m": 141,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       51.14857,
+       -115.55824
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Banff from Sulphur mountain (313208769).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Banff_from_Sulphur_mountain_(313208769).jpg",
+     "author": "Antony Stanley from Gloucester, UK",
+     "licence": "CC BY-SA 2.0",
+     "width": 2592,
+     "height": 1944,
+     "taken": "2006-05-15 19:36",
+     "geotag": {
+      "lat": 51.150278,
+      "lon": -115.561237
+     },
+     "distance_from_record_point_m": 282,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       51.14857,
+       -115.55824
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 10,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog",
+   "name": "Mount Shark to Lake Magog",
+   "record_point": [
+    50.859,
+    -115.37868
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog",
+   "searched_on": "2026-10-25",
+   "subject_check": "Lake Magog with Mount Assiniboine, the payoff of the Mount Shark to Lake Magog route; title names both",
+   "photos": [
+    {
+     "file": "File:Lake Magog Mount Assiniboine.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Magog_Mount_Assiniboine.jpg",
+     "author": "Kurt Stegmüller",
+     "licence": "CC BY-SA 4.0",
+     "width": 4224,
+     "height": 2816,
+     "taken": "2008-07-31",
+     "geotag": {
+      "lat": 50.9025,
+      "lon": -115.641111
+     },
+     "distance_from_record_point_m": 19036,
+     "found_by": {
+      "method": "text search",
+      "query": "Lake Magog"
+     }
+    }
+   ]
+  },
+  {
+   "target": 11,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/bears-hump",
+   "name": "Bear's Hump",
+   "record_point": [
+    49.06078,
+    -113.90835
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/bears-hump",
+   "searched_on": "2026-10-25",
+   "subject_check": "View of Waterton town and the lake from Bear's Hump; title names Bear's Hump",
+   "photos": [
+    {
+     "file": "File:Waterton Lakes from Bears's Hump (15995354221).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Waterton_Lakes_from_Bears%27s_Hump_(15995354221).jpg",
+     "author": "Wilson Hui from Calgary, Canada",
+     "licence": "CC BY 2.0",
+     "width": 1920,
+     "height": 1080,
+     "taken": "Taken on 14 September 2014, 10:06",
+     "geotag": {
+      "lat": 49.057856,
+      "lon": -113.914597
+     },
+     "distance_from_record_point_m": 559,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       49.06078,
+       -113.90835
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 13,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
+   "name": "Berg Lake Trail",
+   "record_point": [
+    53.04984,
+    -119.21545
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
+   "searched_on": "2026-10-25",
+   "subject_check": "Berg Lake with Berg Glacier and Mount Robson (payoff) and forest on the Berg Lake Trail; titles name the trail and lake",
+   "photos": [
+    {
+     "file": "File:Berg Lake, Berg Glacier and Mount Robson.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Berg_Lake,_Berg_Glacier_and_Mount_Robson.jpg",
+     "author": "Brian Lang",
+     "licence": "CC BY-SA 2.0",
+     "width": 3008,
+     "height": 2000,
+     "taken": "2006-09-02 17:23:27",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Berg Lake Mount Robson"
+     }
+    },
+    {
+     "file": "File:Forest along Berg Lake Trail.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Forest_along_Berg_Lake_Trail.jpg",
+     "author": "Sébastien Launay",
+     "licence": "CC BY 2.0",
+     "width": 4290,
+     "height": 2860,
+     "taken": "2011-08-19 19:18:22",
+     "geotag": {
+      "lat": 53.090415,
+      "lon": -119.198226
+     },
+     "distance_from_record_point_m": 4656,
+     "found_by": {
+      "method": "text search",
+      "query": "Berg Lake Mount Robson"
+     }
+    }
+   ]
+  },
+  {
+   "target": 14,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/burstall-pass",
+   "name": "Burstall Pass",
+   "record_point": [
+    50.79077,
+    -115.30362
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/burstall-pass",
+   "searched_on": "2026-10-25",
+   "subject_check": "Mount Birdwood seen from Burstall Pass; title names the pass",
+   "photos": [
+    {
+     "file": "File:Mount Birdwood from Burstall pass.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Birdwood_from_Burstall_pass.jpg",
+     "author": "Harpsz",
+     "licence": "CC BY-SA 4.0",
+     "width": 5992,
+     "height": 3988,
+     "taken": "2016-08-15 13:40:17",
+     "geotag": {
+      "lat": 50.7587,
+      "lon": -115.3741
+     },
+     "distance_from_record_point_m": 6106,
+     "found_by": {
+      "method": "text search",
+      "query": "Burstall Pass"
+     }
+    }
+   ]
+  },
+  {
+   "target": 15,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+   "name": "Cavell Meadows",
+   "record_point": [
+    52.68736,
+    -118.05564
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+   "searched_on": "2026-10-25",
+   "subject_check": "Mount Edith Cavell and the Angel Glacier from the Cavell Meadows trail (geotags 0.8 and 1.3 km from the point)",
+   "photos": [
+    {
+     "file": "File:Mount Edith Cavell 1 (16085613791).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Edith_Cavell_1_(16085613791).jpg",
+     "author": "Kevin He",
+     "licence": "CC BY-SA 2.0",
+     "width": 4608,
+     "height": 3072,
+     "taken": "2014-06-14 20:30",
+     "geotag": {
+      "lat": 52.680311,
+      "lon": -118.051464
+     },
+     "distance_from_record_point_m": 833,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       52.68736,
+       -118.05564
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Angel Glacier & Cavell Lake.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Angel_Glacier_%26_Cavell_Lake.jpg",
+     "author": "Khoshhat",
+     "licence": "CC BY-SA 4.0",
+     "width": 5472,
+     "height": 3648,
+     "taken": "2022-10-01 11:39:45",
+     "geotag": {
+      "lat": 52.676667,
+      "lon": -118.062222
+     },
+     "distance_from_record_point_m": 1269,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       52.68736,
+       -118.05564
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 17,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
+   "name": "Cory Pass Loop",
+   "record_point": [
+    51.17381,
+    -115.65467
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Cory Pass trail and Mount Louis from the pass; titles name Cory Pass",
+   "photos": [
+    {
+     "file": "File:Cory Pass (43816684832).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Cory_Pass_(43816684832).jpg",
+     "author": "Craig Talbert",
+     "licence": "CC BY 2.0",
+     "width": 4032,
+     "height": 2268,
+     "taken": "2018-08-04 11:07",
+     "geotag": {
+      "lat": 51.201655,
+      "lon": -115.670531
+     },
+     "distance_from_record_point_m": 3288,
+     "found_by": {
+      "method": "text search",
+      "query": "Cory Pass Banff"
+     }
+    },
+    {
+     "file": "File:Mount Louis from Cory Pass.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Louis_from_Cory_Pass.jpg",
+     "author": "Craig Talbert",
+     "licence": "CC BY 2.0",
+     "width": 2373,
+     "height": 2268,
+     "taken": "2018-08-04 11:25:26",
+     "geotag": {
+      "lat": 51.204901,
+      "lon": -115.677114
+     },
+     "distance_from_record_point_m": 3795,
+     "found_by": {
+      "method": "text search",
+      "query": "Cory Pass Banff"
+     }
+    }
+   ]
+  },
+  {
+   "target": 18,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+   "name": "Crypt Lake",
+   "record_point": [
+    49.03112,
+    -113.89421
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+   "searched_on": "2026-10-25",
+   "subject_check": "Crypt Lake and the rock tunnel on the Crypt Lake trail; titles name the lake and trail",
+   "photos": [
+    {
+     "file": "File:Crypt Lake - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Crypt_Lake_-_panoramio.jpg",
+     "author": "R. Sieben",
+     "licence": "CC BY 3.0",
+     "width": 2048,
+     "height": 1536,
+     "taken": "Taken on 30 July 2005",
+     "geotag": {
+      "lat": 49.000943,
+      "lon": -113.841705
+     },
+     "distance_from_record_point_m": 5091,
+     "found_by": {
+      "method": "text search",
+      "query": "Crypt Lake Waterton"
+     }
+    },
+    {
+     "file": "File:Tunnel on Crypt Lake Trail - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Tunnel_on_Crypt_Lake_Trail_-_panoramio.jpg",
+     "author": "R. Sieben",
+     "licence": "CC BY 3.0",
+     "width": 2048,
+     "height": 1536,
+     "taken": "Taken on 30 July 2005",
+     "geotag": {
+      "lat": 49.007362,
+      "lon": -113.842392
+     },
+     "distance_from_record_point_m": 4611,
+     "found_by": {
+      "method": "text search",
+      "query": "Crypt Lake Waterton"
+     }
+    }
+   ]
+  },
+  {
+   "target": 22,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline",
+   "name": "Emerald Triangle (via Wapta Highline)",
+   "record_point": [
+    51.444,
+    -116.531
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline",
+   "searched_on": "2026-10-25",
+   "subject_check": "Emerald Lake, the loop's lake and start (geotag 65-400 m); the triangle's Wapta Highline and Burgess Pass sections are not shown",
+   "photos": [
+    {
+     "file": "File:Lac Emerald Panorama (4162620481).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lac_Emerald_Panorama_(4162620481).jpg",
+     "author": "dyonis",
+     "licence": "CC BY 2.0",
+     "width": 7023,
+     "height": 2592,
+     "taken": "2006-09-03 13:41",
+     "geotag": {
+      "lat": 51.442666,
+      "lon": -116.525802
+     },
+     "distance_from_record_point_m": 390,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       51.444,
+       -116.531
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Emerald Lake (40193126055).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Emerald_Lake_(40193126055).jpg",
+     "author": "Sheila Sund from Salem, United States",
+     "licence": "CC BY 2.0",
+     "width": 2048,
+     "height": 1453,
+     "taken": "2017-09-23 09:35",
+     "geotag": {
+      "lat": 51.444628,
+      "lon": -116.526145
+     },
+     "distance_from_record_point_m": 344,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       51.444,
+       -116.531
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 23,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
+   "name": "Fryatt Valley",
+   "record_point": [
+    52.64889,
+    -117.89998
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
+   "searched_on": "2026-10-25",
+   "subject_check": "Fryatt Valley from the headwall and valley view; titles name Fryatt Valley (no geotag)",
+   "photos": [
+    {
+     "file": "File:Fryatt Valley top.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Fryatt_Valley_top.jpg",
+     "author": "Neil",
+     "licence": "CC BY 2.0",
+     "width": 1600,
+     "height": 1200,
+     "taken": "2004-08-01 11:19:49",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Fryatt"
+     }
+    },
+    {
+     "file": "File:Fryatt Valley II.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Fryatt_Valley_II.jpg",
+     "author": "Neil",
+     "licence": "CC BY 2.0",
+     "width": 1600,
+     "height": 1200,
+     "taken": "2004-08-01 13:18:19",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Fryatt"
+     }
+    }
+   ]
+  },
+  {
+   "target": 24,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
+   "name": "Johnson Lake Loop",
+   "record_point": [
+    51.19958,
+    -115.49035
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
+   "searched_on": "2026-10-25",
+   "subject_check": "Johnson Lake in autumn and spring; titles name Johnson Lake; geotags under 110 m",
+   "photos": [
+    {
+     "file": "File:Johnson Lake (15559991841).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Johnson_Lake_(15559991841).jpg",
+     "author": "Norton Ip from Hong Kong",
+     "licence": "CC BY-SA 2.0",
+     "width": 5616,
+     "height": 3744,
+     "taken": "2014-09-30 12:27",
+     "geotag": {
+      "lat": 51.199547,
+      "lon": -115.48997
+     },
+     "distance_from_record_point_m": 27,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       51.19958,
+       -115.49035
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Johnson Lake.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Johnson_Lake.jpg",
+     "author": "Cody Taylor",
+     "licence": "CC BY-SA 4.0",
+     "width": 5312,
+     "height": 2988,
+     "taken": "2017-04-29 10:32:06",
+     "geotag": {
+      "lat": 51.198611,
+      "lon": -115.490278
+     },
+     "distance_from_record_point_m": 108,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       51.19958,
+       -115.49035
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 25,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
+   "name": "Lillian Lake",
+   "record_point": [
+    50.86118,
+    -115.17619
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
+   "searched_on": "2026-10-25",
+   "subject_check": "Lillian Lake, the payoff, on the Galatea trail; title names the lake and trail",
+   "photos": [
+    {
+     "file": "File:Lillian Lake Kananaskis Galatea trail Alberta Canada (20876034161).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lillian_Lake_Kananaskis_Galatea_trail_Alberta_Canada_(20876034161).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2015-08-23 05:59",
+     "geotag": {
+      "lat": 50.866075,
+      "lon": -115.255165
+     },
+     "distance_from_record_point_m": 5569,
+     "found_by": {
+      "method": "text search",
+      "query": "Lillian Lake Kananaskis"
+     }
+    },
+    {
+     "file": "File:Lillian Lake Kananaskis Galatea trail Alberta Canada (20682070049).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lillian_Lake_Kananaskis_Galatea_trail_Alberta_Canada_(20682070049).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2015-08-23 06:02",
+     "geotag": {
+      "lat": 50.866075,
+      "lon": -115.255165
+     },
+     "distance_from_record_point_m": 5569,
+     "found_by": {
+      "method": "text search",
+      "query": "Lillian Lake Kananaskis"
+     }
+    }
+   ]
+  },
+  {
+   "target": 26,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/mount-fairview",
+   "name": "Mount Fairview",
+   "record_point": [
+    51.41167,
+    -116.22806
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/mount-fairview",
+   "searched_on": "2026-10-25",
+   "subject_check": "Views from the Fairview Mountain lookout: Victoria Glacier and the lake with the chateau; descriptions name Fairview",
+   "photos": [
+    {
+     "file": "File:Victoria Glacier Above Lake Louise (15411558337).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Victoria_Glacier_Above_Lake_Louise_(15411558337).jpg",
+     "author": "Wilson Hui from Calgary, Canada",
+     "licence": "CC BY 2.0",
+     "width": 1920,
+     "height": 1080,
+     "taken": "Taken on 5 October 2014, 14:10",
+     "geotag": {
+      "lat": 51.399416,
+      "lon": -116.225438
+     },
+     "distance_from_record_point_m": 1375,
+     "found_by": {
+      "method": "text search",
+      "query": "Mount Fairview Lake Louise"
+     }
+    },
+    {
+     "file": "File:Fairmont Chateau Lake Louise (15308740559).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Fairmont_Chateau_Lake_Louise_(15308740559).jpg",
+     "author": "Wilson Hui from Calgary, Canada",
+     "licence": "CC BY 2.0",
+     "width": 1920,
+     "height": 1080,
+     "taken": "Taken on 5 October 2014, 09:18",
+     "geotag": {
+      "lat": 51.408535,
+      "lon": -116.223592
+     },
+     "distance_from_record_point_m": 466,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       51.41167,
+       -116.22806
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 27,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint",
+   "name": "Indefatigable Bench viewpoint",
+   "record_point": [
+    50.63157,
+    -115.13998
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint",
+   "searched_on": "2026-10-25",
+   "subject_check": "Bench viewpoint over Upper Kananaskis Lake with the Indefatigable range (geotag 198 m) and Mount Indefatigable",
+   "photos": [
+    {
+     "file": "File:HBM Happy Bench Monday (35979048965).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:HBM_Happy_Bench_Monday_(35979048965).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2017-07-15 16:46",
+     "geotag": {
+      "lat": 50.633008,
+      "lon": -115.141632
+     },
+     "distance_from_record_point_m": 198,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       50.63157,
+       -115.13998
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Mt indefatigable.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Mt_indefatigable.jpg",
+     "author": "John Johnston",
+     "licence": "CC BY 2.0",
+     "width": 1600,
+     "height": 1064,
+     "taken": "2007-06-08 21:22:45",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Mount Indefatigable Upper Kananaskis Lake"
+     }
+    }
+   ]
+  },
+  {
+   "target": 28,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop",
+   "name": "Mount Lorette Ponds loop",
+   "record_point": [
+    50.96944,
+    -115.10778
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop",
+   "searched_on": "2026-10-25",
+   "subject_check": "Mount Lorette Ponds with the mountain behind, July; titles name the ponds",
+   "photos": [
+    {
+     "file": "File:Mt Lorette Ponds Kananaskis country Alberta (9327981195).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Mt_Lorette_Ponds_Kananaskis_country_Alberta_(9327981195).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 5184,
+     "height": 3456,
+     "taken": "2013-07-20 10:08",
+     "geotag": {
+      "lat": 50.968812,
+      "lon": -115.108973
+     },
+     "distance_from_record_point_m": 109,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       50.96944,
+       -115.10778
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Mt Lorette Ponds Kananaskis country Alberta (9330785430).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Mt_Lorette_Ponds_Kananaskis_country_Alberta_(9330785430).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 5184,
+     "height": 3456,
+     "taken": "2013-07-20 10:02",
+     "geotag": {
+      "lat": 50.968812,
+      "lon": -115.108973
+     },
+     "distance_from_record_point_m": 109,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       50.96944,
+       -115.10778
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 30,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
+   "name": "Red Rock Canyon Loop",
+   "record_point": [
+    49.13085,
+    -114.02595
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
+   "searched_on": "2026-10-25",
+   "subject_check": "Red Rock Canyon, red argillite creek gorge; title names it; geotag 68 m",
+   "photos": [
+    {
+     "file": "File:Red Rock Canyon Alberta Canada (35293440291).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Red_Rock_Canyon_Alberta_Canada_(35293440291).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2017-05-31 11:14",
+     "geotag": {
+      "lat": 49.131176,
+      "lon": -114.026745
+     },
+     "distance_from_record_point_m": 68,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       49.13085,
+       -114.02595
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Red Rock Canyon Alberta Canada (35293443021).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Red_Rock_Canyon_Alberta_Canada_(35293443021).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2017-05-31 11:23",
+     "geotag": {
+      "lat": 49.131176,
+      "lon": -114.026745
+     },
+     "distance_from_record_point_m": 68,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       49.13085,
+       -114.02595
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 32,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
+   "name": "Skyline Trail",
+   "record_point": [
+    52.72577,
+    -117.64537
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
+   "searched_on": "2026-10-25",
+   "subject_check": "Skyline Trail high section: Curator Mountain with hikers on the trail and the Watchtower above the Curator lakes; descriptions name the Skyline Trail",
+   "photos": [
+    {
+     "file": "File:Curator Mountain from Skyline Trail.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Curator_Mountain_from_Skyline_Trail.jpg",
+     "author": "Michael Lawton",
+     "licence": "CC BY-SA 2.0",
+     "width": 3872,
+     "height": 2592,
+     "taken": "2009-07-27 13:58:19",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Skyline Trail Jasper"
+     }
+    },
+    {
+     "file": "File:The Watchtower, Jasper.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:The_Watchtower,_Jasper.jpg",
+     "author": "Michael Lawton",
+     "licence": "CC BY-SA 2.0",
+     "width": 2298,
+     "height": 1521,
+     "taken": "2009-07-28 12:47:42",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Skyline Trail Jasper"
+     }
+    }
+   ]
+  },
+  {
+   "target": 33,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog",
+   "name": "Sunburst Lake to Lake Magog",
+   "record_point": [
+    50.90443,
+    -115.63918
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog",
+   "searched_on": "2026-10-25",
+   "subject_check": "Mount Assiniboine over Sunburst Lake (geotag 0.75 km) and a view over Magog and Sunburst lakes (title)",
+   "photos": [
+    {
+     "file": "File:Mount Assiniboine Sunburst Lake.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Assiniboine_Sunburst_Lake.jpg",
+     "author": "Kurt Stegmüller",
+     "licence": "CC BY 3.0",
+     "width": 4224,
+     "height": 2816,
+     "taken": "2008-07-31",
+     "geotag": {
+      "lat": 50.91,
+      "lon": -115.64527777778
+     },
+     "distance_from_record_point_m": 753,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       50.90443,
+       -115.63918
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Mount Assiniboine peak with Lake Magog And Sunburst Lake in front.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Assiniboine_peak_with_Lake_Magog_And_Sunburst_Lake_in_front.jpg",
+     "author": "UraniumPickle",
+     "licence": "CC BY-SA 4.0",
+     "width": 4000,
+     "height": 3000,
+     "taken": "2014",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Sunburst Lake Assiniboine Lake Magog"
+     }
+    }
+   ]
+  },
+  {
+   "target": 34,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+   "name": "Tent Ridge Horseshoe",
+   "record_point": [
+    50.84682,
+    -115.35704
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Tent Ridge Horseshoe ridge walk; title and description name it (geotag 2.1 km from the trailhead)",
+   "photos": [
+    {
+     "file": "File:Tent Ridge Horseshoe.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Tent_Ridge_Horseshoe.jpg",
+     "author": "Alexander Farley",
+     "licence": "CC BY 2.0",
+     "width": 16382,
+     "height": 3828,
+     "taken": "2021-07-10 14:32:57",
+     "geotag": {
+      "lat": 50.833347,
+      "lon": -115.377442
+     },
+     "distance_from_record_point_m": 2073,
+     "found_by": {
+      "method": "text search",
+      "query": "Tent Ridge Kananaskis"
+     }
+    }
+   ]
+  },
+  {
+   "target": 35,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+   "name": "Upper Kananaskis Lake Circuit",
+   "record_point": [
+    50.63155,
+    -115.13991
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+   "searched_on": "2026-10-25",
+   "subject_check": "Upper Kananaskis Lake in summer; title names the lake; geotag 320 m",
+   "photos": [
+    {
+     "file": "File:Upper Kananaskis lake (36000875896).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Upper_Kananaskis_lake_(36000875896).jpg",
+     "author": "Thank you for visiting my page from Canada",
+     "licence": "CC BY 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2017-07-15 16:47",
+     "geotag": {
+      "lat": 50.633648,
+      "lon": -115.143005
+     },
+     "distance_from_record_point_m": 320,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       50.63155,
+       -115.13991
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 36,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail",
+   "name": "Wapta Falls",
+   "record_point": [
+    51.20409,
+    -116.58525
+   ],
+   "point_source": "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail",
+   "searched_on": "2026-10-25",
+   "subject_check": "Wapta Falls, the payoff of the Wapta Falls trail; titles name the falls (geotag 2 km, at the falls)",
+   "photos": [
+    {
+     "file": "File:Wapta Falls, Yoho National Park, British Columbia, 2025-07-11 04.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Wapta_Falls,_Yoho_National_Park,_British_Columbia,_2025-07-11_04.jpg",
+     "author": "Chris Woodrich",
+     "licence": "CC BY-SA 4.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "2025-07-11 16:32:24",
+     "geotag": {
+      "lat": 51.187175,
+      "lon": -116.576722
+     },
+     "distance_from_record_point_m": 1973,
+     "found_by": {
+      "method": "text search",
+      "query": "Wapta Falls Yoho"
+     }
+    },
+    {
+     "file": "File:Wapta Falls - Yoho - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Wapta_Falls_-_Yoho_-_panoramio.jpg",
+     "author": "Jack Borno",
+     "licence": "CC BY-SA 3.0",
+     "width": 4288,
+     "height": 2848,
+     "taken": "Taken on 3 July 2010",
+     "geotag": {
+      "lat": 51.186461,
+      "lon": -116.577387
+     },
+     "distance_from_record_point_m": 2035,
+     "found_by": {
+      "method": "text search",
+      "query": "Wapta Falls Yoho"
+     }
+    }
+   ]
+  },
+  {
+   "target": 37,
+   "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
+   "name": "Col des Montets",
+   "record_point": [
+    46.01837,
+    6.93982
+   ],
+   "point_source": "trip/chamonix-mont-blanc-2028/trail:col des montets",
+   "searched_on": "2026-10-25",
+   "subject_check": "Lac and the Tour du Mont-Blanc footbridge at the Col des Montets; titles name the col (geotag 2.2 km from the record point)",
+   "photos": [
+    {
+     "file": "File:Passerelle Tour du Mont-Blanc @ Col des Montets.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Passerelle_Tour_du_Mont-Blanc_%40_Col_des_Montets.jpg",
+     "author": "Rémih",
+     "licence": "CC BY-SA 4.0",
+     "width": 4608,
+     "height": 3456,
+     "taken": "2023-08-16 09:35:38",
+     "geotag": {
+      "lat": 46.001762,
+      "lon": 6.924135
+     },
+     "distance_from_record_point_m": 2209,
+     "found_by": {
+      "method": "text search",
+      "query": "Col des Montets"
+     }
+    },
+    {
+     "file": "File:Lac col des Montets 03.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lac_col_des_Montets_03.jpg",
+     "author": "Rémih",
+     "licence": "CC BY-SA 4.0",
+     "width": 4608,
+     "height": 3456,
+     "taken": "2023-08-16 09:37:05",
+     "geotag": {
+      "lat": 46.001663,
+      "lon": 6.924398
+     },
+     "distance_from_record_point_m": 2207,
+     "found_by": {
+      "method": "text search",
+      "query": "Col des Montets"
+     }
+    }
+   ]
+  },
+  {
+   "target": 38,
+   "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+   "name": "Lac Blanc via Flegere",
+   "record_point": [
+    45.96034,
+    6.88704
+   ],
+   "point_source": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+   "searched_on": "2026-10-25",
+   "subject_check": "Lac Blanc with its refuge and the lake (geotag 2.3 km, at the payoff Lac Blanc)",
+   "photos": [
+    {
+     "file": "File:Lac Blanc and refuge.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lac_Blanc_and_refuge.jpg",
+     "author": "Tiia Monto",
+     "licence": "CC BY-SA 3.0",
+     "width": 5472,
+     "height": 3409,
+     "taken": "2019-08-25 13:56",
+     "geotag": {
+      "lat": 45.980487,
+      "lon": 6.891305
+     },
+     "distance_from_record_point_m": 2264,
+     "found_by": {
+      "method": "text search",
+      "query": "Lac Blanc Aiguilles Rouges"
+     }
+    },
+    {
+     "file": "File:Lac Blanc in Chamonix.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lac_Blanc_in_Chamonix.jpg",
+     "author": "Tiia Monto",
+     "licence": "CC BY-SA 3.0",
+     "width": 4685,
+     "height": 4072,
+     "taken": "2019-08-25 13:45",
+     "geotag": {
+      "lat": 45.980834,
+      "lon": 6.889896
+     },
+     "distance_from_record_point_m": 2289,
+     "found_by": {
+      "method": "text search",
+      "query": "Lac Blanc Chamonix"
+     }
+    }
+   ]
+  },
+  {
+   "target": 39,
+   "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+   "name": "Plan de l'Aiguille",
+   "record_point": [
+    45.90165,
+    6.88482
+   ],
+   "point_source": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+   "searched_on": "2026-10-25",
+   "subject_check": "Bossons Glacier and Col du Plan seen from Plan de l'Aiguille (geotags 37-51 m)",
+   "photos": [
+    {
+     "file": "File:Glacier des Bossons from Plan de l'Aiguille, Chamonix, Haute-Savoie.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Glacier_des_Bossons_from_Plan_de_l%27Aiguille,_Chamonix,_Haute-Savoie.jpg",
+     "author": "Christian David",
+     "licence": "CC BY-SA 4.0",
+     "width": 7676,
+     "height": 5117,
+     "taken": "2026-08-01 18:03:25",
+     "geotag": {
+      "lat": 45.90136,
+      "lon": 6.885336
+     },
+     "distance_from_record_point_m": 51,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       45.90165,
+       6.88482
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Col du Plan.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Col_du_Plan.jpg",
+     "author": "Tiia Monto",
+     "licence": "CC BY-SA 3.0",
+     "width": 5456,
+     "height": 2904,
+     "taken": "2015-08-11",
+     "geotag": {
+      "lat": 45.901432,
+      "lon": 6.884452
+     },
+     "distance_from_record_point_m": 37,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       45.90165,
+       6.88482
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 40,
+   "ref": "place/cadini-di-misurina-viewpoint",
+   "name": "Cadini di Misurina viewpoint",
+   "record_point": [
+    46.605,
+    12.27
+   ],
+   "point_source": "place/cadini-di-misurina-viewpoint",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Cadini di Misurina peaks from the Lavaredo side; title names them (geotag 1.8 km)",
+   "photos": [
+    {
+     "file": "File:Cadini di Misurina Lavaredo 4.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Cadini_di_Misurina_Lavaredo_4.jpg",
+     "author": "kallerna",
+     "licence": "CC BY-SA 4.0",
+     "width": 3600,
+     "height": 2400,
+     "taken": "2019-09-17 19:29",
+     "geotag": {
+      "lat": 46.61526389,
+      "lon": 12.28780556
+     },
+     "distance_from_record_point_m": 1776,
+     "found_by": {
+      "method": "text search",
+      "query": "Cadini di Misurina"
+     }
+    }
+   ]
+  },
+  {
+   "target": 41,
+   "ref": "place/lago-di-sorapis",
+   "name": "Lago di Sorapis",
+   "record_point": [
+    46.55605,
+    12.20487
+   ],
+   "point_source": "place/lago-di-sorapis",
+   "searched_on": "2026-10-25",
+   "subject_check": "Lago di Sorapis, the turquoise lake payoff; titles name the lake (geotag 8.8 km, at the lake)",
+   "photos": [
+    {
+     "file": "File:Lago di Sorapis d'estate.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lago_di_Sorapis_d%27estate.jpg",
+     "author": "AraskipaP",
+     "licence": "CC BY-SA 4.0",
+     "width": 4608,
+     "height": 3456,
+     "taken": "2016-08-31 12:31:41",
+     "geotag": {
+      "lat": 46.501944,
+      "lon": 12.289167
+     },
+     "distance_from_record_point_m": 8819,
+     "found_by": {
+      "method": "text search",
+      "query": "Lago di Sorapis"
+     }
+    },
+    {
+     "file": "File:Lago di Sorapis.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lago_di_Sorapis.jpg",
+     "author": "B.Magdalena",
+     "licence": "CC BY-SA 4.0",
+     "width": 4000,
+     "height": 3000,
+     "taken": "2016-08-31 10:38:10",
+     "geotag": {
+      "lat": 46.501944,
+      "lon": 12.289167
+     },
+     "distance_from_record_point_m": 8819,
+     "found_by": {
+      "method": "text search",
+      "query": "Lago di Sorapis"
+     }
+    }
+   ]
+  },
+  {
+   "target": 42,
+   "ref": "place/cinque-torri",
+   "name": "Cinque Torri",
+   "record_point": [
+    46.50925,
+    12.05397
+   ],
+   "point_source": "place/cinque-torri",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Cinque Torri loop path with the Giro delle Torri sign, and the towers; titles and geotag (99-180 m) name Cinque Torri",
+   "photos": [
+    {
+     "file": "File:Cinque Torri 14.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Cinque_Torri_14.jpg",
+     "author": "Clemens Stockner",
+     "licence": "CC BY-SA 4.0",
+     "width": 4320,
+     "height": 2880,
+     "taken": "2017-08-30 13:38:18",
+     "geotag": {
+      "lat": 46.510105,
+      "lon": 12.053611
+     },
+     "distance_from_record_point_m": 99,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       46.50925,
+       12.05397
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Cinque Torri 13.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Cinque_Torri_13.jpg",
+     "author": "Clemens Stockner",
+     "licence": "CC BY-SA 4.0",
+     "width": 4320,
+     "height": 2880,
+     "taken": "2017-08-30 13:36:12",
+     "geotag": {
+      "lat": 46.51035,
+      "lon": 12.05224
+     },
+     "distance_from_record_point_m": 180,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       46.50925,
+       12.05397
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 43,
+   "ref": "place/monte-piana",
+   "name": "Monte Piana",
+   "record_point": [
+    46.61528,
+    12.23944
+   ],
+   "point_source": "place/monte-piana",
+   "searched_on": "2026-10-25",
+   "subject_check": "First World War trenches on Monte Piana and the Tre Cime from the plateau; titles name Monte Piana",
+   "photos": [
+    {
+     "file": "File:Monte Piana War Trenches Dolomites Italy (4).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Monte_Piana_War_Trenches_Dolomites_Italy_(4).jpg",
+     "author": "Anais Goepner Melendez",
+     "licence": "CC BY-SA 3.0",
+     "width": 4000,
+     "height": 3000,
+     "taken": "2012-06-16 16:23:25",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Monte Piana"
+     }
+    },
+    {
+     "file": "File:Monte Piano (5).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Monte_Piano_(5).jpg",
+     "author": "Bruno Spatuzzi",
+     "licence": "CC BY-SA 4.0",
+     "width": 5721,
+     "height": 3630,
+     "taken": "2017-08-18 09:34:15",
+     "geotag": {
+      "lat": 46.61259,
+      "lon": 12.249762
+     },
+     "distance_from_record_point_m": 843,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       46.61528,
+       12.23944
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 44,
+   "ref": "place/croda-del-becco",
+   "name": "Croda del Becco",
+   "record_point": [
+    46.69898,
+    12.08554
+   ],
+   "point_source": "place/croda-del-becco",
+   "searched_on": "2026-10-25",
+   "subject_check": "Croda del Becco (Seekofel) with Rifugio Biella on the way up; titles and descriptions name it",
+   "photos": [
+    {
+     "file": "File:Croda del Becco and Rifugio Biella 202008.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Croda_del_Becco_and_Rifugio_Biella_202008.jpg",
+     "author": "Marie-Lan Taÿ Pamart",
+     "licence": "CC BY 4.0",
+     "width": 4032,
+     "height": 3024,
+     "taken": "2020-08-22 12:35:16",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Croda del Becco"
+     }
+    },
+    {
+     "file": "File:Croda del Becco 202008 n1.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Croda_del_Becco_202008_n1.jpg",
+     "author": "Marie-Lan Taÿ Pamart",
+     "licence": "CC BY 4.0",
+     "width": 4032,
+     "height": 3024,
+     "taken": "2020-08-22 13:19:28",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Croda del Becco"
+     }
+    }
+   ]
+  },
+  {
+   "target": 45,
+   "ref": "place/val-fiscalina",
+   "name": "Val Fiscalina",
+   "record_point": [
+    46.66684,
+    12.35448
+   ],
+   "point_source": "place/val-fiscalina",
+   "searched_on": "2026-10-25",
+   "subject_check": "Val Fiscalina meadows and Sexten Dolomites; title names the valley (no geotag)",
+   "photos": [
+    {
+     "file": "File:Pohled na údolí Val Fiscalina od pevnosti Mitterberg.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Pohled_na_%C3%BAdol%C3%AD_Val_Fiscalina_od_pevnosti_Mitterberg.jpg",
+     "author": "Petr1888",
+     "licence": "CC BY-SA 4.0",
+     "width": 5472,
+     "height": 3648,
+     "taken": "2022-07-05 13:21:58",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Val Fiscalina"
+     }
+    }
+   ]
+  },
+  {
+   "target": 46,
+   "ref": "part/place/lago-federa#walk",
+   "name": "Lago Federa walk",
+   "record_point": [
+    46.50586,
+    12.07888
+   ],
+   "point_source": "part/place/lago-federa#walk",
+   "searched_on": "2026-10-25",
+   "subject_check": "Lago Federa and the shore path; titles name the lake (geotag is 2.6 km from the record point or the park centroid)",
+   "photos": [
+    {
+     "file": "File:Lago di federa (cropped).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lago_di_federa_(cropped).jpg",
+     "author": "Gnopera83",
+     "licence": "CC BY-SA 4.0",
+     "width": 4096,
+     "height": 3072,
+     "taken": "2017-08-20 11:22:07",
+     "geotag": {
+      "lat": 46.489769,
+      "lon": 12.104373
+     },
+     "distance_from_record_point_m": 2647,
+     "found_by": {
+      "method": "text search",
+      "query": "Lago Federa"
+     }
+    },
+    {
+     "file": "File:Sulle sponde del lago Federa.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Sulle_sponde_del_lago_Federa.jpg",
+     "author": "Yreen",
+     "licence": "CC BY-SA 4.0",
+     "width": 4000,
+     "height": 3000,
+     "taken": "2017-08-07 12:33:19",
+     "geotag": {
+      "lat": 46.595278,
+      "lon": 12.105556
+     },
+     "distance_from_record_point_m": 10150,
+     "found_by": {
+      "method": "text search",
+      "query": "Lago Federa"
+     }
+    }
+   ]
+  },
+  {
+   "target": 47,
+   "ref": "place/cascate-di-fanes",
+   "name": "Cascate di Fanes",
+   "record_point": [
+    46.59381,
+    12.11296
+   ],
+   "point_source": "place/cascate-di-fanes",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Fanes waterfalls and the Fanes valley; titles name them (geotag 589 m)",
+   "photos": [
+    {
+     "file": "File:Cascate di Fanes.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Cascate_di_Fanes.jpg",
+     "author": "Yreen",
+     "licence": "CC BY-SA 4.0",
+     "width": 4000,
+     "height": 3000,
+     "taken": "2017-08-09 11:18:35",
+     "geotag": {
+      "lat": 46.595278,
+      "lon": 12.105556
+     },
+     "distance_from_record_point_m": 589,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       46.59381,
+       12.11296
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Cascate e monti in val di Fanes.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Cascate_e_monti_in_val_di_Fanes.jpg",
+     "author": "AraskipaP",
+     "licence": "CC BY-SA 4.0",
+     "width": 4608,
+     "height": 3456,
+     "taken": "2016-09-01 12:48:19",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Cascate di Fanes"
+     }
+    }
+   ]
+  },
+  {
+   "target": 48,
+   "ref": "place/adolf-munkel-weg",
+   "name": "Adolf Munkel Weg",
+   "record_point": [
+    46.63567,
+    11.76576
+   ],
+   "point_source": "place/adolf-munkel-weg",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Geisler group from the Adolf-Munkel-Weg; title names the trail (no geotag)",
+   "photos": [
+    {
+     "file": "File:20120716 0457- Geislergruppe von der Brogleshütte.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:20120716_0457-_Geislergruppe_von_der_Broglesh%C3%BCtte.jpg",
+     "author": "Matthias Bethke",
+     "licence": "CC BY-SA 4.0",
+     "width": 3000,
+     "height": 1584,
+     "taken": "2012-07-16",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Adolf-Munkel-Weg"
+     }
+    }
+   ]
+  },
+  {
+   "target": 49,
+   "ref": "place/alpe-di-siusi",
+   "name": "Alpe di Siusi",
+   "record_point": [
+    46.54236,
+    11.617
+   ],
+   "point_source": "place/alpe-di-siusi",
+   "searched_on": "2026-10-25",
+   "subject_check": "Alpe di Siusi meadows with Sassolungo and the Odle; titles name the Alpe (geotag 377 m)",
+   "photos": [
+    {
+     "file": "File:Sassolungo e Sassopiatto dall'Alpe di Siusi - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Sassolungo_e_Sassopiatto_dall%27Alpe_di_Siusi_-_panoramio.jpg",
+     "author": "Francesco Zanardini",
+     "licence": "CC BY-SA 3.0",
+     "width": 2988,
+     "height": 2000,
+     "taken": "Taken on 16 August 2011",
+     "geotag": {
+      "lat": 46.539322,
+      "lon": 11.619201
+     },
+     "distance_from_record_point_m": 377,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       46.54236,
+       11.617
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Le Odle dall'Alpe di Siusi - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Le_Odle_dall%27Alpe_di_Siusi_-_panoramio.jpg",
+     "author": "Francesco Zanardini",
+     "licence": "CC BY-SA 3.0",
+     "width": 2988,
+     "height": 2000,
+     "taken": "Taken on 16 August 2011",
+     "geotag": {
+      "lat": 46.539322,
+      "lon": 11.619201
+     },
+     "distance_from_record_point_m": 377,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       46.54236,
+       11.617
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 50,
+   "ref": "place/bullaccia-and-the-witches-benches",
+   "name": "Bullaccia and the Witches' Benches",
+   "record_point": [
+    46.55184,
+    11.61718
+   ],
+   "point_source": "place/bullaccia-and-the-witches-benches",
+   "searched_on": "2026-10-25",
+   "subject_check": "View of Kastelruth from Bullaccia and the Val Gardena Dolomites from Bulacia; titles name Bullaccia",
+   "photos": [
+    {
+     "file": "File:Castelrotto dalla Bullaccia.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Castelrotto_dalla_Bullaccia.jpg",
+     "author": "M-Car",
+     "licence": "CC BY-SA 3.0",
+     "width": 2482,
+     "height": 1476,
+     "taken": "2010-08-09",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Bullaccia"
+     }
+    },
+    {
+     "file": "File:Col dala Dodesc Pitz Ridl udu da Bulacia Gherdëina.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Col_dala_Dodesc_Pitz_Ridl_udu_da_Bulacia_Gherd%C3%ABina.jpg",
+     "author": "This Photo was taken by Wolfgang Moroder. Feel free to use my photos, but please mention me as the author and send me a message. This image is not in the public domain. Please respect the copyright protection. It may only be used according to the rules mentioned here. This specifically excludes use in social media, if applicable terms of the licenses listed here are not appropriate. Please do not upload an updated image here without consultation with the Author. The author would like to make corrections only at his own source. This ensures that the changes are preserved.Please if you think that any changes should be required, please inform the author.Otherwise you can upload a new image with a new name. Please use one of the templates derivative or extract.",
+     "licence": "CC BY-SA 3.0",
+     "width": 7360,
+     "height": 4912,
+     "taken": "2015-09-27",
+     "geotag": {
+      "lat": 46.55415,
+      "lon": 11.61676
+     },
+     "distance_from_record_point_m": 259,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       46.55184,
+       11.61718
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 51,
+   "ref": "place/vallunga",
+   "name": "Vallunga",
+   "record_point": [
+    46.56395,
+    11.77359
+   ],
+   "point_source": "place/vallunga",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Vallunga (Langental) valley; title names it",
+   "photos": [
+    {
+     "file": "File:Vallunga val Gardena 2016.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Vallunga_val_Gardena_2016.jpg",
+     "author": "Roberto P.",
+     "licence": "CC BY-SA 4.0",
+     "width": 3648,
+     "height": 2736,
+     "taken": "2016-09-25 14:39:15",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Vallunga Val Gardena"
+     }
+    }
+   ]
+  },
+  {
+   "target": 52,
+   "ref": "place/viel-dal-pan",
+   "name": "Viel dal Pan",
+   "record_point": [
+    46.48742,
+    11.81296
+   ],
+   "point_source": "place/viel-dal-pan",
+   "searched_on": "2026-10-25",
+   "subject_check": "Marmolada and Rifugio Viel dal Pan, and the Marmolada massif from the Viel dal Pan path; titles name it",
+   "photos": [
+    {
+     "file": "File:Marmolada and Rifugio Viel Dal Pan.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Marmolada_and_Rifugio_Viel_Dal_Pan.jpg",
+     "author": "Pimlico27",
+     "licence": "CC BY-SA 4.0",
+     "width": 2592,
+     "height": 1944,
+     "taken": "2019-06",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Viel dal Pan"
+     }
+    },
+    {
+     "file": "File:Il massiccio della Marmolada dal sentiero del Viel dal Pan.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Il_massiccio_della_Marmolada_dal_sentiero_del_Viel_dal_Pan.jpg",
+     "author": "Elena cischino",
+     "licence": "CC BY-SA 4.0",
+     "width": 5184,
+     "height": 3888,
+     "taken": "2014-07-31 10:51:52",
+     "geotag": {
+      "lat": 46.442778,
+      "lon": 11.8625
+     },
+     "distance_from_record_point_m": 6248,
+     "found_by": {
+      "method": "text search",
+      "query": "Viel dal Pan"
+     }
+    }
+   ]
+  },
+  {
+   "target": 53,
+   "ref": "place/sass-pordoi-and-piz-boe",
+   "name": "Sass Pordoi and Piz Boè",
+   "record_point": [
+    46.50028,
+    11.80775
+   ],
+   "point_source": "place/sass-pordoi-and-piz-boe",
+   "searched_on": "2026-10-25",
+   "subject_check": "Piz Boè from Sass Pordoi (geotag 20 m) and the Sass Pordoi plateau",
+   "photos": [
+    {
+     "file": "File:Piz Boè view.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Piz_Bo%C3%A8_view.jpg",
+     "author": "Einaz80",
+     "licence": "CC BY 4.0",
+     "width": 4032,
+     "height": 3024,
+     "taken": "2020-07-16",
+     "geotag": {
+      "lat": 46.500242,
+      "lon": 11.808008
+     },
+     "distance_from_record_point_m": 20,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       46.50028,
+       11.80775
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Sass Pordoi 03.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Sass_Pordoi_03.jpg",
+     "author": "Adert",
+     "licence": "CC BY-SA 4.0",
+     "width": 3264,
+     "height": 2448,
+     "taken": "2017-08-17",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Sass Pordoi"
+     }
+    }
+   ]
+  },
+  {
+   "target": 54,
+   "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+   "name": "Lagazuoi tunnels",
+   "record_point": [
+    46.52751,
+    12.00892
+   ],
+   "point_source": "place/lagazuoi-cable-car-and-tunnels",
+   "searched_on": "2026-10-25",
+   "subject_check": "Inside the Lagazuoi war tunnels and the view from a gallery window; titles name the Lagazuoi galleries",
+   "photos": [
+    {
+     "file": "File:Gallerie del Lagazuoi3.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Gallerie_del_Lagazuoi3.JPG",
+     "author": "Llorenzi",
+     "licence": "CC BY-SA 3.0",
+     "width": 2592,
+     "height": 1944,
+     "taken": "2013-09-08 08:27:06",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Lagazuoi tunnel"
+     }
+    },
+    {
+     "file": "File:Lagazuoi - galleria.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lagazuoi_-_galleria.jpg",
+     "author": "Bludev",
+     "licence": "CC BY-SA 4.0",
+     "width": 5344,
+     "height": 3008,
+     "taken": "2018-06-20 13:59:49",
+     "geotag": {
+      "lat": 46.51917119,
+      "lon": 12.0304435
+     },
+     "distance_from_record_point_m": 1890,
+     "found_by": {
+      "method": "text search",
+      "query": "Lagazuoi galleria"
+     }
+    }
+   ]
+  },
+  {
+   "target": 55,
+   "ref": "place/seceda-ridge",
+   "name": "Seceda ridge",
+   "record_point": [
+    46.59794,
+    11.72435
+   ],
+   "point_source": "place/seceda-ridge",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Seceda ridge from the top; title names Seceda (geotag 335 m)",
+   "photos": [
+    {
+     "file": "File:Sweeping Seceda (38225459035).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Sweeping_Seceda_(38225459035).jpg",
+     "author": "mendhak",
+     "licence": "CC BY-SA 2.0",
+     "width": 5951,
+     "height": 3967,
+     "taken": "4 October 2017, 09:03 (according to Exif data)",
+     "geotag": {
+      "lat": 46.600833,
+      "lon": 11.725555
+     },
+     "distance_from_record_point_m": 335,
+     "found_by": {
+      "method": "text search",
+      "query": "Seceda ridge"
+     }
+    }
+   ]
+  },
+  {
+   "target": 56,
+   "ref": "part/place/lago-di-braies#walk",
+   "name": "Lago di Braies walk",
+   "record_point": [
+    46.69896,
+    12.08547
+   ],
+   "point_source": "part/place/lago-di-braies#walk",
+   "searched_on": "2026-10-25",
+   "subject_check": "Lago di Braies shore path and the lake in May; titles name it; geotags under 20 m",
+   "photos": [
+    {
+     "file": "File:Lake of Braies in 2024.02.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lake_of_Braies_in_2024.02.jpg",
+     "author": "CAPTAIN RAJU",
+     "licence": "CC0",
+     "width": 5792,
+     "height": 4344,
+     "taken": "2024-07-28 14:35:01",
+     "geotag": {
+      "lat": 46.698975,
+      "lon": 12.08539
+     },
+     "distance_from_record_point_m": 6,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       46.69896,
+       12.08547
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Lago di Braies a maggio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lago_di_Braies_a_maggio.jpg",
+     "author": "Alessandro.Spinello",
+     "licence": "CC BY-SA 4.0",
+     "width": 4032,
+     "height": 3024,
+     "taken": "2018-05-12 09:37:22",
+     "geotag": {
+      "lat": 46.698844,
+      "lon": 12.085578
+     },
+     "distance_from_record_point_m": 15,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       46.69896,
+       12.08547
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 57,
+   "ref": "part/place/lago-di-dobbiaco#walk",
+   "name": "Lago di Dobbiaco walk",
+   "record_point": [
+    46.70306,
+    12.21917
+   ],
+   "point_source": "place/lago-di-dobbiaco",
+   "searched_on": "2026-10-25",
+   "subject_check": "Lago di Dobbiaco shore and hotel side; titles name it; geotags 240-330 m",
+   "photos": [
+    {
+     "file": "File:Toblach Toblacher See 05.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Toblach_Toblacher_See_05.jpg",
+     "author": "Zairon",
+     "licence": "CC BY-SA 4.0",
+     "width": 4488,
+     "height": 3306,
+     "taken": "2016-09-20 16:10:26",
+     "geotag": {
+      "lat": 46.706001,
+      "lon": 12.219978
+     },
+     "distance_from_record_point_m": 333,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       46.70306,
+       12.21917
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Panorama del Lago di Dobbiaco 01.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Panorama_del_Lago_di_Dobbiaco_01.jpg",
+     "author": "Davide Mauro",
+     "licence": "CC BY-SA 4.0",
+     "width": 11072,
+     "height": 3890,
+     "taken": "2021-09-03 17:33:38",
+     "geotag": {
+      "lat": 46.7052,
+      "lon": 12.219742
+     },
+     "distance_from_record_point_m": 242,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       46.70306,
+       12.21917
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 58,
+   "ref": "part/place/lago-di-limides#walk",
+   "name": "Lago di Limides walk",
+   "record_point": [
+    46.51181,
+    12.02289
+   ],
+   "point_source": "place/lago-di-limides",
+   "searched_on": "2026-10-25",
+   "subject_check": "Lago di Limides with Tofana di Rozes; titles name it; geotags under 70 m",
+   "photos": [
+    {
+     "file": "File:Dolomity - Lago di Limides 01.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Dolomity_-_Lago_di_Limides_01.jpg",
+     "author": "Petr1888",
+     "licence": "CC BY-SA 4.0",
+     "width": 5472,
+     "height": 3648,
+     "taken": "2015-07-06 14:07:39",
+     "geotag": {
+      "lat": 46.511335,
+      "lon": 12.023368
+     },
+     "distance_from_record_point_m": 64,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       46.51181,
+       12.02289
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Lago di Limides e Tofana di Rozes.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lago_di_Limides_e_Tofana_di_Rozes.jpg",
+     "author": "Sandra.bonizzato",
+     "licence": "CC BY-SA 4.0",
+     "width": 2592,
+     "height": 1936,
+     "taken": "2014-08-14 10:17:22",
+     "geotag": {
+      "lat": 46.512042,
+      "lon": 12.023647
+     },
+     "distance_from_record_point_m": 63,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       46.51181,
+       12.02289
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 59,
+   "ref": "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+   "name": "Dettifoss walk",
+   "record_point": [
+    65.81144,
+    -16.40024
+   ],
+   "point_source": "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+   "searched_on": "2026-10-25",
+   "subject_check": "The path to Dettifoss and Selfoss seen from it; titles name the path; geotags 290-360 m",
+   "photos": [
+    {
+     "file": "File:Path to Dettifoss.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Path_to_Dettifoss.jpg",
+     "author": "Alexander Grebenkov",
+     "licence": "CC BY 3.0",
+     "width": 3568,
+     "height": 2368,
+     "taken": "2019-07-11 22:00:28",
+     "geotag": {
+      "lat": 65.812487,
+      "lon": -16.394445
+     },
+     "distance_from_record_point_m": 289,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       65.81144,
+       -16.40024
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Selfoss from path to Dettifoss.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Selfoss_from_path_to_Dettifoss.jpg",
+     "author": "Alexander Grebenkov",
+     "licence": "CC BY 3.0",
+     "width": 3568,
+     "height": 2368,
+     "taken": "2019-07-11 22:32:01",
+     "geotag": {
+      "lat": 65.812294,
+      "lon": -16.392581
+     },
+     "distance_from_record_point_m": 362,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       65.81144,
+       -16.40024
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 60,
+   "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+   "name": "Arnarstapi to Hellnar",
+   "record_point": [
+    64.76455,
+    -23.62579
+   ],
+   "point_source": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+   "searched_on": "2026-10-25",
+   "subject_check": "Gatklettur arch at Arnarstapi and the coast between Arnarstapi and Hellnar; descriptions name the coast path",
+   "photos": [
+    {
+     "file": "File:Gatklettur Iceland (194527969).jpeg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Gatklettur_Iceland_(194527969).jpeg",
+     "author": "Ilya Grigorik",
+     "licence": "CC BY-SA 3.0",
+     "width": 2048,
+     "height": 1366,
+     "taken": "31 August 2016, 13:45:56 (UTC)",
+     "geotag": {
+      "lat": 64.7659397,
+      "lon": -23.6225621
+     },
+     "distance_from_record_point_m": 218,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       64.76455,
+       -23.62579
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:SnæfellsnesCoastline-pjt.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Sn%C3%A6fellsnesCoastline-pjt.jpg",
+     "author": "Pjt56 --- If you use the picture outside Wikipedia I would appreciate a short e-mail to pjt56@gmx.net or a message on my discussion page",
+     "licence": "CC BY-SA 4.0",
+     "width": 4791,
+     "height": 3173,
+     "taken": "2011-08-18 16:20:45",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Arnarstapi Hellnar"
+     }
+    }
+   ]
+  },
+  {
+   "target": 61,
+   "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+   "name": "Fjadrargljufur canyon",
+   "record_point": [
+    63.77033,
+    -18.17178
+   ],
+   "point_source": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+   "searched_on": "2026-10-25",
+   "subject_check": "Fjadrargljufur canyon; titles name it; geotags 0.3-1.0 km",
+   "photos": [
+    {
+     "file": "File:Fjadrárgljúfur-pjt.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Fjadr%C3%A1rglj%C3%BAfur-pjt.jpg",
+     "author": "pjt56 --- If you use the picture outside Wikipedia I would appreciate a short e-mail to pjt56@gmx.net or a message on my discussion page",
+     "licence": "CC BY-SA 3.0",
+     "width": 4767,
+     "height": 3158,
+     "taken": "2011-08-16 12:20:30",
+     "geotag": {
+      "lat": 63.779006,
+      "lon": -18.175421
+     },
+     "distance_from_record_point_m": 981,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       63.77033,
+       -18.17178
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Fjaðrárgljúfur1.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Fja%C3%B0r%C3%A1rglj%C3%BAfur1.JPG",
+     "author": "Óðinn",
+     "licence": "CC BY-SA 2.5 ca",
+     "width": 3000,
+     "height": 2250,
+     "taken": "2011-05-03",
+     "geotag": {
+      "lat": 63.773014,
+      "lon": -18.174073
+     },
+     "distance_from_record_point_m": 319,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       63.77033,
+       -18.17178
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 62,
+   "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+   "name": "Skaftafell Svartifoss",
+   "record_point": [
+    64.01647,
+    -16.96682
+   ],
+   "point_source": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+   "searched_on": "2026-10-25",
+   "subject_check": "Svartifoss and its basalt columns; title names it; geotag 31 m",
+   "photos": [
+    {
+     "file": "File:Svartifoss, Skaftafell, Iceland - 20603713318.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Svartifoss,_Skaftafell,_Iceland_-_20603713318.jpg",
+     "author": "dconvertini",
+     "licence": "CC BY-SA 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "Taken on 10 May 2015, 13:48:52",
+     "geotag": {
+      "lat": 64.01652,
+      "lon": -16.967447
+     },
+     "distance_from_record_point_m": 31,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       64.01647,
+       -16.96682
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Svartifoss, Skaftafell, Iceland.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Svartifoss,_Skaftafell,_Iceland.jpg",
+     "author": "dconvertini",
+     "licence": "CC BY-SA 2.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "Taken on 10 May 2015, 13:24:56",
+     "geotag": {
+      "lat": 64.01652,
+      "lon": -16.967447
+     },
+     "distance_from_record_point_m": 31,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       64.01647,
+       -16.96682
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 63,
+   "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
+   "name": "Thingvellir",
+   "record_point": [
+    64.26108,
+    -21.12219
+   ],
+   "point_source": "trip/iceland-ring-road-2027/trail:thingvellir",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Thingvellir rift and plain; titles name Thingvellir; geotags under 160 m",
+   "photos": [
+    {
+     "file": "File:Thingvellir 36919373.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Thingvellir_36919373.jpg",
+     "author": "Allan Henderson",
+     "licence": "CC BY 2.0",
+     "width": 6604,
+     "height": 3181,
+     "taken": "2017-09-06 12:02:49",
+     "geotag": {
+      "lat": 64.261156,
+      "lon": -21.118981
+     },
+     "distance_from_record_point_m": 155,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       64.26108,
+       -21.12219
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Iceland - Thingvellir 25a (6571221379).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Iceland_-_Thingvellir_25a_(6571221379).jpg",
+     "author": "McKay Savage from London, UK",
+     "licence": "CC BY 2.0",
+     "width": 2376,
+     "height": 1584,
+     "taken": "2011-10-07 11:53",
+     "geotag": {
+      "lat": 64.260353,
+      "lon": -21.122787
+     },
+     "distance_from_record_point_m": 86,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       64.26108,
+       -21.12219
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 64,
+   "ref": "trip/patagonia-2027/trail:laguna de los tres",
+   "name": "Laguna de los Tres",
+   "record_point": [
+    -49.32028,
+    -72.89496
+   ],
+   "point_source": "trip/patagonia-2027/trail:laguna de los tres",
+   "searched_on": "2026-10-25",
+   "subject_check": "Laguna de los Tres under Fitz Roy (geotag 7.8-7.9 km from the trailhead point, at the lake)",
+   "photos": [
+    {
+     "file": "File:Fitz Roy massif 2015 2.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Fitz_Roy_massif_2015_2.JPG",
+     "author": "Fredlyfish4",
+     "licence": "CC BY-SA 4.0",
+     "width": 5744,
+     "height": 2541,
+     "taken": "2015-12-14 13:40",
+     "geotag": {
+      "lat": -49.28085833,
+      "lon": -72.98424444
+     },
+     "distance_from_record_point_m": 7818,
+     "found_by": {
+      "method": "text search",
+      "query": "Laguna de los Tres Fitz Roy"
+     }
+    },
+    {
+     "file": "File:Fitz Roy massif 2015 1.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Fitz_Roy_massif_2015_1.JPG",
+     "author": "Fredlyfish4",
+     "licence": "CC BY-SA 4.0",
+     "width": 10181,
+     "height": 2566,
+     "taken": "2015-12-14 13:12",
+     "geotag": {
+      "lat": -49.28157778,
+      "lon": -72.98668611
+     },
+     "distance_from_record_point_m": 7922,
+     "found_by": {
+      "method": "text search",
+      "query": "Laguna de los Tres Fitz Roy"
+     }
+    }
+   ]
+  },
+  {
+   "target": 65,
+   "ref": "trip/patagonia-2027/trail:laguna capri",
+   "name": "Laguna Capri",
+   "record_point": [
+    -49.32028,
+    -72.89496
+   ],
+   "point_source": "trip/patagonia-2027/trail:laguna capri",
+   "searched_on": "2026-10-25",
+   "subject_check": "Laguna Capri with Fitz Roy; titles name the lake (geotag 3 km)",
+   "photos": [
+    {
+     "file": "File:160 - Fitz Roy - Janvier 2010.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:160_-_Fitz_Roy_-_Janvier_2010.jpg",
+     "author": "Martin St-Amant (S23678)",
+     "licence": "CC BY-SA 3.0",
+     "width": 4888,
+     "height": 3241,
+     "taken": "2010-01-15",
+     "geotag": {
+      "lat": -49.302324,
+      "lon": -72.930368
+     },
+     "distance_from_record_point_m": 3252,
+     "found_by": {
+      "method": "text search",
+      "query": "Laguna Capri Fitz Roy"
+     }
+    },
+    {
+     "file": "File:Fitz Roy group - Laguna Capri - 01.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Fitz_Roy_group_-_Laguna_Capri_-_01.JPG",
+     "author": "Gagea",
+     "licence": "CC BY-SA 3.0",
+     "width": 3648,
+     "height": 2736,
+     "taken": null,
+     "geotag": {
+      "lat": -49.30426944,
+      "lon": -72.92754444
+     },
+     "distance_from_record_point_m": 2958,
+     "found_by": {
+      "method": "text search",
+      "query": "Laguna Capri Fitz Roy"
+     }
+    }
+   ]
+  },
+  {
+   "target": 66,
+   "ref": "trip/patagonia-2027/trail:mirador de los condores",
+   "name": "Mirador de los Condores",
+   "record_point": [
+    -49.33738,
+    -72.88142
+   ],
+   "point_source": "part/trip/patagonia-2027/trail:mirador de los condores#trailhead",
+   "searched_on": "2026-10-25",
+   "subject_check": "El Chalten from the Los Condores viewpoint and a rainbow there; titles name the viewpoint (geotags 250-270 m)",
+   "photos": [
+    {
+     "file": "File:El Chalten 2015 2.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:El_Chalten_2015_2.JPG",
+     "author": "Fredlyfish4",
+     "licence": "CC BY-SA 4.0",
+     "width": 8290,
+     "height": 2545,
+     "taken": "2015-12-13 16:51",
+     "geotag": {
+      "lat": -49.339522222222,
+      "lon": -72.880194444444
+     },
+     "distance_from_record_point_m": 254,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       -49.33738,
+       -72.88142
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Rainbow at Mirador Condores, El Chalten (7098771583).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Rainbow_at_Mirador_Condores,_El_Chalten_(7098771583).jpg",
+     "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+     "licence": "CC BY-SA 2.0",
+     "width": 1920,
+     "height": 1080,
+     "taken": "Taken on 27 November 2011, 17:33",
+     "geotag": {
+      "lat": -49.339667,
+      "lon": -72.88
+     },
+     "distance_from_record_point_m": 274,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       -49.33738,
+       -72.88142
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 67,
+   "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+   "name": "Mirador de las Aguilas",
+   "record_point": [
+    -49.33738,
+    -72.88142
+   ],
+   "point_source": "part/trip/patagonia-2027/trail:mirador de los condores#trailhead",
+   "searched_on": "2026-10-25",
+   "subject_check": "Lago Viedma plain from Mirador de las Aguilas; title names the viewpoint (geotag 1.8 km, weak)",
+   "photos": [
+    {
+     "file": "File:Lago Viedma - Mirador de Las Aguilas - panoramio (1).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lago_Viedma_-_Mirador_de_Las_Aguilas_-_panoramio_(1).jpg",
+     "author": "littletroll",
+     "licence": "CC BY-SA 3.0",
+     "width": 5247,
+     "height": 1965,
+     "taken": "25 October 2010 (original upload date)",
+     "geotag": {
+      "lat": -49.35194016,
+      "lon": -72.87098694
+     },
+     "distance_from_record_point_m": 1787,
+     "found_by": {
+      "method": "text search",
+      "query": "Mirador de las Águilas"
+     }
+    }
+   ]
+  },
+  {
+   "target": 68,
+   "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+   "name": "Chorrillo del Salto",
+   "record_point": [
+    -49.29985,
+    -72.90359
+   ],
+   "point_source": "part/trip/patagonia-2027/trail:chorrillo del salto#parking",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Salto del Chorrillo trail; titles and description name the trail (shows the trail and valley, not the fall)",
+   "photos": [
+    {
+     "file": "File:El Chalten-Sendero Salto del Chorrillo (39263664102).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:El_Chalten-Sendero_Salto_del_Chorrillo_(39263664102).jpg",
+     "author": "Miguel",
+     "licence": "CC BY-SA 2.0",
+     "width": 4608,
+     "height": 3072,
+     "taken": "2016-04-02 13:40",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Chorrillo del Salto El Chalten"
+     }
+    },
+    {
+     "file": "File:El Chalten-Sendero Salto del Chorrillo (27516410679).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:El_Chalten-Sendero_Salto_del_Chorrillo_(27516410679).jpg",
+     "author": "Miguel",
+     "licence": "CC BY-SA 2.0",
+     "width": 4608,
+     "height": 3072,
+     "taken": "2016-04-02 13:28",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Chorrillo del Salto El Chalten"
+     }
+    }
+   ]
+  },
+  {
+   "target": 69,
+   "ref": "trip/patagonia-2027/trail:coastal path",
+   "name": "Coastal path",
+   "record_point": [
+    -54.84637,
+    -68.48085
+   ],
+   "point_source": "trip/patagonia-2027/trail:coastal path",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Senda Costera lakeshore and the lenga forest on it, Tierra del Fuego National Park; titles name the coastal path (no geotag)",
+   "photos": [
+    {
+     "file": "File:TDFNP-SendaCostera.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:TDFNP-SendaCostera.jpg",
+     "author": "No machine-readable author provided. Heretiq assumed (based on copyright claims).",
+     "licence": "CC BY-SA 2.5",
+     "width": 2048,
+     "height": 1536,
+     "taken": "1 October 2006 (according to Exif data)",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Ushuaia Tierra del Fuego coastal path"
+     }
+    },
+    {
+     "file": "File:TDFNPLengaForest.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:TDFNPLengaForest.jpg",
+     "author": "No machine-readable author provided. Heretiq assumed (based on copyright claims).",
+     "licence": "CC BY-SA 2.5",
+     "width": 2048,
+     "height": 1536,
+     "taken": "1 October 2006 (according to Exif data)",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Ushuaia Tierra del Fuego coastal path"
+     }
+    }
+   ]
+  },
+  {
+   "target": 70,
+   "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+   "name": "Laguna Esmeralda",
+   "record_point": [
+    -54.72185,
+    -68.12195
+   ],
+   "point_source": "trip/patagonia-2027/trail:laguna esmeralda",
+   "searched_on": "2026-10-25",
+   "subject_check": "Laguna Esmeralda and the approach trail; titles name the lake (no geotag)",
+   "photos": [
+    {
+     "file": "File:Laguna Esmeralda, Ushuaia, Tierra del Fuego, Argentina.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Laguna_Esmeralda,_Ushuaia,_Tierra_del_Fuego,_Argentina.jpg",
+     "author": "Márcio Motta",
+     "licence": "CC BY 2.0",
+     "width": 10966,
+     "height": 3878,
+     "taken": "2018-12-23 12:32:31",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Laguna Esmeralda Ushuaia"
+     }
+    },
+    {
+     "file": "File:Hike to Laguna Esmeralda-Ushuaia.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Hike_to_Laguna_Esmeralda-Ushuaia.jpg",
+     "author": "https://www.flickr.com/photos/inmyflippiefloppies/",
+     "licence": "CC BY 2.0",
+     "width": 4000,
+     "height": 3000,
+     "taken": "2011-02-15",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Laguna Esmeralda Ushuaia"
+     }
+    }
+   ]
+  },
+  {
+   "target": 71,
+   "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+   "name": "Narrows from the Temple of Sinawava",
+   "record_point": [
+    37.28533,
+    -112.9478
+   ],
+   "point_source": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+   "searched_on": "2026-10-25",
+   "subject_check": "The riverside trail toward the Narrows at the Temple of Sinawava and the cliffs; titles name the Temple of Sinawava (geotag 13 m)",
+   "photos": [
+    {
+     "file": "File:Temple of Sinawava Trail (6381080747).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Temple_of_Sinawava_Trail_(6381080747).jpg",
+     "author": "Phil Whitehouse from London, United Kingdom",
+     "licence": "CC BY 2.0",
+     "width": 4320,
+     "height": 3240,
+     "taken": "Taken on 21 November 2011, 22:35",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Zion Narrows Temple of Sinawava"
+     }
+    },
+    {
+     "file": "File:Temple of Sinawava, Zion National Park.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Temple_of_Sinawava,_Zion_National_Park.jpg",
+     "author": "TerryDOtt",
+     "licence": "CC BY 2.0",
+     "width": 4804,
+     "height": 3968,
+     "taken": "2021-11-19 15:49:26",
+     "geotag": {
+      "lat": 37.285253,
+      "lon": -112.947692
+     },
+     "distance_from_record_point_m": 13,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       37.28533,
+       -112.9478
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 72,
+   "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+   "name": "Scout Lookout (Angels Landing chains view)",
+   "record_point": [
+    37.2694,
+    -112.948
+   ],
+   "point_source": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+   "searched_on": "2026-10-25",
+   "subject_check": "The view from Scout Lookout (geotag 28 m) and Angels Landing ridge from Scout Lookout (description)",
+   "photos": [
+    {
+     "file": "File:From Scout Lookout, Angels Landing Trail (3678795871).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:From_Scout_Lookout,_Angels_Landing_Trail_(3678795871).jpg",
+     "author": "Greg Willis from Denver, CO, usa",
+     "licence": "CC BY-SA 2.0",
+     "width": 1600,
+     "height": 1057,
+     "taken": "2009-07-01 16:17",
+     "geotag": {
+      "lat": 37.269488,
+      "lon": -112.9483
+     },
+     "distance_from_record_point_m": 28,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       37.2694,
+       -112.948
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:AngelsLandingRidge.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:AngelsLandingRidge.jpg",
+     "author": "User:Bearclause",
+     "licence": "Public domain",
+     "width": 2816,
+     "height": 2112,
+     "taken": "2006-06-18",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Scout Lookout Angels Landing"
+     }
+    }
+   ]
+  },
+  {
+   "target": 73,
+   "ref": "trip/utah-five-parks/trail:pa rus trail",
+   "name": "Pa'rus Trail",
+   "record_point": [
+    37.20178,
+    -112.98678
+   ],
+   "point_source": "trip/utah-five-parks/trail:pa rus trail",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Pa'rus Trail and the Virgin River; titles name the trail",
+   "photos": [
+    {
+     "file": "File:Zion National Park - HCP - October 02, 2022 - 013 - Pa'rus Trail.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Zion_National_Park_-_HCP_-_October_02,_2022_-_013_-_Pa%27rus_Trail.jpg",
+     "author": "Vulturesong",
+     "licence": "CC0",
+     "width": 4032,
+     "height": 3024,
+     "taken": "2022-10-02 17:13:28",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Pa'rus Trail Zion"
+     }
+    },
+    {
+     "file": "File:Zion National Park - HCP - October 02, 2022 - 082 - Pa'rus Trail.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Zion_National_Park_-_HCP_-_October_02,_2022_-_082_-_Pa%27rus_Trail.jpg",
+     "author": "Vulturesong",
+     "licence": "CC0",
+     "width": 4032,
+     "height": 3024,
+     "taken": "2022-10-02 18:56:58",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Pa'rus Trail Zion"
+     }
+    }
+   ]
+  },
+  {
+   "target": 74,
+   "ref": "trip/utah-five-parks/trail:riverside walk",
+   "name": "Riverside Walk",
+   "record_point": [
+    37.29189,
+    -112.94679
+   ],
+   "point_source": "trip/utah-five-parks/trail:riverside walk",
+   "searched_on": "2026-10-25",
+   "subject_check": "Riverside Walk toward the Narrows; title names it; geotag 21 m",
+   "photos": [
+    {
+     "file": "File:Riverside Walk to Zion Narrows, Zion Canyon, Zion National Park, Utah (8096063112).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Riverside_Walk_to_Zion_Narrows,_Zion_Canyon,_Zion_National_Park,_Utah_(8096063112).jpg",
+     "author": "Ken Lund from Reno, Nevada, USA",
+     "licence": "CC BY-SA 2.0",
+     "width": 4000,
+     "height": 3000,
+     "taken": "2012-10-13 03:21",
+     "geotag": {
+      "lat": 37.291936,
+      "lon": -112.947016
+     },
+     "distance_from_record_point_m": 21,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       37.29189,
+       -112.94679
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 75,
+   "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+   "name": "Navajo Loop and Queens Garden",
+   "record_point": [
+    37.6227,
+    -112.16613
+   ],
+   "point_source": "trip/utah-five-parks/trail:navajo loop and queens garden",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Navajo Loop and Queens Garden connecting trail with sign, and Bryce hoodoos; titles name them",
+   "photos": [
+    {
+     "file": "File:Connecting trail between Navajo Loop and Queens Garden, Bryce Canyon National Park (21415318671).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Connecting_trail_between_Navajo_Loop_and_Queens_Garden,_Bryce_Canyon_National_Park_(21415318671).jpg",
+     "author": "Fabio Achilli from Milano, Italy",
+     "licence": "CC BY 2.0",
+     "width": 4608,
+     "height": 3456,
+     "taken": "2015-08-25 00:56",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Navajo Loop Queens Garden Bryce"
+     }
+    },
+    {
+     "file": "File:Bryce Amphitheatre, Bryce Canyon (21218872668).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Bryce_Amphitheatre,_Bryce_Canyon_(21218872668).jpg",
+     "author": "Fabio Achilli from Milano, Italy",
+     "licence": "CC BY 2.0",
+     "width": 4608,
+     "height": 3456,
+     "taken": "2015-08-25 01:22",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Navajo Loop Queens Garden Bryce"
+     }
+    }
+   ]
+  },
+  {
+   "target": 76,
+   "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+   "name": "Lower Calf Creek Falls",
+   "record_point": [
+    37.79569,
+    -111.41365
+   ],
+   "point_source": "trip/utah-five-parks/trail:lower calf creek falls",
+   "searched_on": "2026-10-25",
+   "subject_check": "Lower Calf Creek Falls; titles name it",
+   "photos": [
+    {
+     "file": "File:Lower Calf Creek Falls (4080891798).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lower_Calf_Creek_Falls_(4080891798).jpg",
+     "author": "Greg Willis from Denver, CO, usa",
+     "licence": "CC BY-SA 2.0",
+     "width": 1600,
+     "height": 1067,
+     "taken": "Taken on 17 October 2009, 17:50",
+     "geotag": {
+      "lat": 37.828228,
+      "lon": -111.418726
+     },
+     "distance_from_record_point_m": 3645,
+     "found_by": {
+      "method": "text search",
+      "query": "Lower Calf Creek Falls"
+     }
+    },
+    {
+     "file": "File:Lower Calf Creek Falls (33997118435).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Lower_Calf_Creek_Falls_(33997118435).jpg",
+     "author": "BLMUtah",
+     "licence": "Public domain",
+     "width": 1920,
+     "height": 1282,
+     "taken": "Taken on 14 August 2016, 18:46:07",
+     "geotag": null,
+     "distance_from_record_point_m": null,
+     "found_by": {
+      "method": "text search",
+      "query": "Lower Calf Creek Falls"
+     }
+    }
+   ]
+  },
+  {
+   "target": 77,
+   "ref": "trip/utah-five-parks/trail:hickman bridge",
+   "name": "Hickman Bridge",
+   "record_point": [
+    38.28981,
+    -111.23438
+   ],
+   "point_source": "trip/utah-five-parks/trail:hickman bridge",
+   "searched_on": "2026-10-25",
+   "subject_check": "Hickman Natural Bridge; titles name it; geotags 130-190 m",
+   "photos": [
+    {
+     "file": "File:Capitol Reef, Utah, June 2011 - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Capitol_Reef,_Utah,_June_2011_-_panoramio.jpg",
+     "author": "Kevin.Daniels",
+     "licence": "CC BY 3.0",
+     "width": 4500,
+     "height": 1752,
+     "taken": "Taken on 29 June 2011",
+     "geotag": {
+      "lat": 38.290408,
+      "lon": -111.228193
+     },
+     "distance_from_record_point_m": 544,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       38.28981,
+       -111.23438
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Hickman Bridge (3678751753).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Hickman_Bridge_(3678751753).jpg",
+     "author": "Greg Willis from Denver, CO, usa",
+     "licence": "CC BY-SA 2.0",
+     "width": 1600,
+     "height": 1057,
+     "taken": "2009-07-01 15:58",
+     "geotag": {
+      "lat": 38.291,
+      "lon": -111.234401
+     },
+     "distance_from_record_point_m": 132,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       38.28981,
+       -111.23438
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 78,
+   "ref": "trip/utah-five-parks/trail:delicate arch trail",
+   "name": "Delicate Arch trail",
+   "record_point": [
+    38.74361,
+    -109.49944
+   ],
+   "point_source": "trip/utah-five-parks/trail:delicate arch trail",
+   "searched_on": "2026-10-25",
+   "subject_check": "Delicate Arch from the trail's end; titles name it; geotag 3 m",
+   "photos": [
+    {
+     "file": "File:Delicate Arch (7010365913).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Delicate_Arch_(7010365913).jpg",
+     "author": "Romain Guy from San Francisco, USA",
+     "licence": "CC0",
+     "width": 5154,
+     "height": 3436,
+     "taken": "2011-04-11 18:44",
+     "geotag": {
+      "lat": 38.743607,
+      "lon": -109.499477
+     },
+     "distance_from_record_point_m": 3,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       38.74361,
+       -109.49944
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Delicate arch sunset.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Delicate_arch_sunset.jpg",
+     "author": "Palacemusic",
+     "licence": "CC BY-SA 3.0",
+     "width": 2592,
+     "height": 1944,
+     "taken": "2005-08-23",
+     "geotag": {
+      "lat": 38.743583333333,
+      "lon": -109.49944444444
+     },
+     "distance_from_record_point_m": 3,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       38.74361,
+       -109.49944
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 79,
+   "ref": "trip/utah-five-parks/trail:devils garden",
+   "name": "Devils Garden",
+   "record_point": [
+    38.8039,
+    -109.614
+   ],
+   "point_source": "trip/utah-five-parks/trail:devils garden",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Devils Garden trail (description); geotag 0.7 km",
+   "photos": [
+    {
+     "file": "File:View of Devils Garden, Arches National Park 20110815 1.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:View_of_Devils_Garden,_Arches_National_Park_20110815_1.jpg",
+     "author": "DXR",
+     "licence": "CC BY-SA 4.0",
+     "width": 4928,
+     "height": 3264,
+     "taken": "Taken on 15 August 2011",
+     "geotag": {
+      "lat": 38.801702,
+      "lon": -109.621547
+     },
+     "distance_from_record_point_m": 698,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       38.8039,
+       -109.614
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 80,
+   "ref": "trip/utah-five-parks/trail:windows section",
+   "name": "Windows section",
+   "record_point": [
+    38.68711,
+    -109.53664
+   ],
+   "point_source": "trip/utah-five-parks/trail:windows section",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Windows Section rock formations; titles name it; geotags under 90 m",
+   "photos": [
+    {
+     "file": "File:Windows Section, Arches National Park, Utah (2439416512).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Windows_Section,_Arches_National_Park,_Utah_(2439416512).jpg",
+     "author": "Ken Lund from Reno, Nevada, USA",
+     "licence": "CC BY-SA 2.0",
+     "width": 2048,
+     "height": 1536,
+     "taken": "2008-03-08 15:51",
+     "geotag": {
+      "lat": 38.687151,
+      "lon": -109.536652
+     },
+     "distance_from_record_point_m": 5,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       38.68711,
+       -109.53664
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:2013-09-23 09 15 49 View southwest from the Windows Section in Arches National Park.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:2013-09-23_09_15_49_View_southwest_from_the_Windows_Section_in_Arches_National_Park.JPG",
+     "author": "Famartin",
+     "licence": "CC BY-SA 3.0",
+     "width": 3264,
+     "height": 2448,
+     "taken": "2013-09-23 09:15:49",
+     "geotag": {
+      "lat": 38.686883,
+      "lon": -109.537577
+     },
+     "distance_from_record_point_m": 85,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       38.68711,
+       -109.53664
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 81,
+   "ref": "trip/utah-five-parks/trail:mesa arch",
+   "name": "Mesa Arch",
+   "record_point": [
+    38.38806,
+    -109.86361
+   ],
+   "point_source": "trip/utah-five-parks/trail:mesa arch",
+   "searched_on": "2026-10-25",
+   "subject_check": "Mesa Arch framing the canyon; titles name it; geotags under 10 m",
+   "photos": [
+    {
+     "file": "File:16 21 1433 mesa arch.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:16_21_1433_mesa_arch.jpg",
+     "author": "Dsdugan",
+     "licence": "CC BY-SA 4.0",
+     "width": 2048,
+     "height": 1368,
+     "taken": "2016-09-01 15:55:57",
+     "geotag": {
+      "lat": 38.388028,
+      "lon": -109.863578
+     },
+     "distance_from_record_point_m": 4,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       38.38806,
+       -109.86361
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:Mesa Arch. Canyonlands National Park, Utah (14702389212).jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Mesa_Arch._Canyonlands_National_Park,_Utah_(14702389212).jpg",
+     "author": "Paxson Woelber",
+     "licence": "CC BY 2.0",
+     "width": 5824,
+     "height": 3883,
+     "taken": "2014-07-04 13:31",
+     "geotag": {
+      "lat": 38.388041,
+      "lon": -109.863678
+     },
+     "distance_from_record_point_m": 6,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       38.38806,
+       -109.86361
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 82,
+   "ref": "trip/utah-five-parks/trail:upheaval dome",
+   "name": "Upheaval Dome",
+   "record_point": [
+    38.42455,
+    -109.92925
+   ],
+   "point_source": "trip/utah-five-parks/trail:upheaval dome",
+   "searched_on": "2026-10-25",
+   "subject_check": "Upheaval Dome crater from the overlook; title names it; geotag 1.4 km",
+   "photos": [
+    {
+     "file": "File:2021 Upheaval Dome 02.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:2021_Upheaval_Dome_02.jpg",
+     "author": "Farragutful",
+     "licence": "CC BY-SA 4.0",
+     "width": 6000,
+     "height": 4000,
+     "taken": "Taken on 10 June 2021 12:28:04",
+     "geotag": {
+      "lat": 38.4369,
+      "lon": -109.9292
+     },
+     "distance_from_record_point_m": 1373,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       38.42455,
+       -109.92925
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  },
+  {
+   "target": 83,
+   "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+   "name": "Grand View Point walk",
+   "record_point": [
+    38.3108,
+    -109.85661
+   ],
+   "point_source": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+   "searched_on": "2026-10-25",
+   "subject_check": "The Grand View Point walk and overlook panorama; titles name Grand View Point; geotags under 75 m",
+   "photos": [
+    {
+     "file": "File:Approaching Grand View Point - panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Approaching_Grand_View_Point_-_panoramio.jpg",
+     "author": "Peter K.",
+     "licence": "CC BY-SA 3.0",
+     "width": 1600,
+     "height": 1200,
+     "taken": "Taken on 26 September 2013",
+     "geotag": {
+      "lat": 38.310314,
+      "lon": -109.856544
+     },
+     "distance_from_record_point_m": 54,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       38.3108,
+       -109.85661
+      ],
+      "radius_m": 1500
+     }
+    },
+    {
+     "file": "File:2013-09-22 18 26 30 Panorama from Grand View Point Overlook.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:2013-09-22_18_26_30_Panorama_from_Grand_View_Point_Overlook.JPG",
+     "author": "Famartin",
+     "licence": "CC BY-SA 3.0",
+     "width": 8784,
+     "height": 2452,
+     "taken": "2013-09-22 18:26:30",
+     "geotag": {
+      "lat": 38.310166666667,
+      "lon": -109.85666666667
+     },
+     "distance_from_record_point_m": 71,
+     "found_by": {
+      "method": "geosearch",
+      "point": [
+       38.3108,
+       -109.85661
+      ],
+      "radius_m": 1500
+     }
+    }
+   ]
+  }
+ ],
+ "gaps": [
+  {
+   "target": 0,
+   "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+   "name": "Solitaire Lake Trail",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "geosearch 1.5 km around the record point (36 usable, all Buck Lake leaf and fungus files)",
+    "text search 'Solitaire Lake Trail Algonquin' (0 results)",
+    "text search 'Limberlost Forest Wildlife Reserve' (4 results, one 1939 lodge trails map, not the trail)",
+    "text search 'Solitaire Lake Huntsville' (3 results, 0 usable)"
+   ],
+   "why": "no file shows this trail or its lake"
+  },
+  {
+   "target": 5,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+   "name": "Troll Falls",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "geosearch and text searches by D5a on 25 Oct 2026, repeated 'Troll Falls' (40 results, all December 2014 frozen-fall or winter files)"
+   ],
+   "why": "every licensed file is a winter or frozen-fall view"
+  },
+  {
+   "target": 7,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+   "name": "Miette Mine Trail",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "geosearch 1.5 km (6 usable, none of the trail)",
+    "text search 'Miette Mine trail Jasper', 'Miette Mine', 'Miette Hot Springs', 'Miette Jasper trail' (spring source and road files only)"
+   ],
+   "why": "no file shows the mine trail"
+  },
+  {
+   "target": 8,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+   "name": "Rockwall Lookout (Rockwall fen)",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "geosearch 1.5 km (30 usable, winter Canyon Creek and forest files)",
+    "text searches 'Rockwall Kananaskis' (0 results), 'Rockwall Kananaskis lookout fen' (0)"
+   ],
+   "why": "no file of the lookout or fen"
+  },
+  {
+   "target": 12,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail",
+   "name": "Beauvais Lake Trail",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "geosearch 1.5 km (0 results)",
+    "text searches 'Beauvais Lake', 'Beauvais Lake Provincial Park' (French Beauvais and unrelated)"
+   ],
+   "why": "no file of the lake"
+  },
+  {
+   "target": 16,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/chester-lake",
+   "name": "Chester Lake",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "geosearch 1.5 km (18 results, Mud Pond files)",
+    "text searches 'Chester Lake', 'Chester Lake Spray Valley', 'Mount Chester Kananaskis', 'Chester Lake Alberta Kananaskis Country' (Chester England, a Headwall Lakes valley file and Mount Chester file only)"
+   ],
+   "why": "no file of Chester Lake; the Headwall Lakes and Mount Chester files are not the lake or its trail"
+  },
+  {
+   "target": 19,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
+   "name": "Elbow Falls loop",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "geosearch 1.5 km (65 usable)"
+   ],
+   "why": "every file of the falls is winter, post-2013-flood debris or has people in the foreground"
+  },
+  {
+   "target": 20,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
+   "name": "Elk Lakes (Lower and Upper)",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "text searches 'Elk Lakes Provincial Park', 'Elk Lakes', 'Upper Elk Lake' (Victoria and other Elk Lakes only)",
+    "geosearch 1.5 km (0 results)"
+   ],
+   "why": "no file of the BC Elk Lakes"
+  },
+  {
+   "target": 21,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
+   "name": "Elk Lakes Viewpoint trail",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "same searches as the Elk Lakes record"
+   ],
+   "why": "no file of the BC Elk Lakes"
+  },
+  {
+   "target": 29,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/opal-hills",
+   "name": "Opal Hills Loop",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "geosearch 1.5 km (Maligne Lake lakeshore files only)",
+    "text searches 'Opal Hills Jasper', 'Opal Hills', 'Maligne Lake viewpoint Opal' (opal gemstones)"
+   ],
+   "why": "no file taken on the Opal Hills trail; Maligne Lake shore files do not show the trail or its view"
+  },
+  {
+   "target": 31,
+   "ref": "legacy/canadian-rockies-sept-2029/trails/ribbon-creek",
+   "name": "Ribbon Creek",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "geosearch 1.5 km (Kananaskis River bridge files)",
+    "text searches 'Ribbon Falls Kananaskis', 'Ribbon Creek', 'Ribbon Creek Kananaskis Village' (ribbon-cutting events)"
+   ],
+   "why": "no file of the creek or its trail"
+  },
+  {
+   "target": 84,
+   "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
+   "name": "Stowe Recreation Path",
+   "status": "No licensed photo yet",
+   "searched_on": "2026-10-25",
+   "tried": [
+    "geosearch 1.5 km (Main Street cars and inns)",
+    "text search 'Stowe Recreation Path Vermont' (1 usable file, hikers in the foreground)"
+   ],
+   "why": "the only file has hikers in the foreground; nothing else shows the path"
+  }
+ ]
+}

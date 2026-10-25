@@ -1,0 +1,764 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-25-data-d5b-photos",
+  "started": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "claude-sonnet-5-5",
+  "scope": {
+    "refs": [
+      "trip/algonquin-muskoka-2026/trail:track and tower trail",
+      "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
+      "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile-loop",
+      "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots-trail",
+      "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+      "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
+      "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog",
+      "legacy/canadian-rockies-sept-2029/trails/bears-hump",
+      "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
+      "legacy/canadian-rockies-sept-2029/trails/burstall-pass",
+      "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+      "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
+      "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+      "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline",
+      "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
+      "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
+      "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
+      "legacy/canadian-rockies-sept-2029/trails/mount-fairview",
+      "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint",
+      "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop",
+      "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
+      "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
+      "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog",
+      "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+      "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+      "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail",
+      "trip/chamonix-mont-blanc-2028/trail:col des montets",
+      "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+      "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+      "place/cadini-di-misurina-viewpoint",
+      "place/lago-di-sorapis",
+      "place/cinque-torri",
+      "place/monte-piana",
+      "place/croda-del-becco",
+      "place/val-fiscalina",
+      "part/place/lago-federa#walk",
+      "place/cascate-di-fanes",
+      "place/adolf-munkel-weg",
+      "place/alpe-di-siusi",
+      "place/bullaccia-and-the-witches-benches",
+      "place/vallunga",
+      "place/viel-dal-pan",
+      "place/sass-pordoi-and-piz-boe",
+      "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+      "place/seceda-ridge",
+      "part/place/lago-di-braies#walk",
+      "part/place/lago-di-dobbiaco#walk",
+      "part/place/lago-di-limides#walk",
+      "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+      "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+      "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+      "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+      "trip/iceland-ring-road-2027/trail:thingvellir",
+      "trip/patagonia-2027/trail:laguna de los tres",
+      "trip/patagonia-2027/trail:laguna capri",
+      "trip/patagonia-2027/trail:mirador de los condores",
+      "trip/patagonia-2027/trail:mirador de las aguilas",
+      "trip/patagonia-2027/trail:chorrillo del salto",
+      "trip/patagonia-2027/trail:coastal path",
+      "trip/patagonia-2027/trail:laguna esmeralda",
+      "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+      "trip/utah-five-parks/trail:pa rus trail",
+      "trip/utah-five-parks/trail:riverside walk",
+      "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "trip/utah-five-parks/trail:lower calf creek falls",
+      "trip/utah-five-parks/trail:hickman bridge",
+      "trip/utah-five-parks/trail:delicate arch trail",
+      "trip/utah-five-parks/trail:devils garden",
+      "trip/utah-five-parks/trail:windows section",
+      "trip/utah-five-parks/trail:mesa arch",
+      "trip/utah-five-parks/trail:upheaval dome",
+      "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+      "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+      "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+      "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+      "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+      "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail",
+      "legacy/canadian-rockies-sept-2029/trails/chester-lake",
+      "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
+      "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
+      "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
+      "legacy/canadian-rockies-sept-2029/trails/opal-hills",
+      "legacy/canadian-rockies-sept-2029/trails/ribbon-creek",
+      "trip/vermont-fall-2026/trail:stowe recreation path"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "commons.wikimedia.org",
+      "requests": 781,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Algonquin Cache Lake Lookout.JPG"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Massive Mountain and Bow Valley from Sulphur Mountain (16137721924).jpg; File:By ovedc - Sulphur Mountain - 09.jpg"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile-loop",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Moraine Lake, north view from Rockpiles 20240823 2.jpg; File:Moraine Lake Alberta Canada.jpg"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots-trail",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:The Ink pots Johnston Canyon Alberta Canada (9602351856).jpg; File:The Ink pots Johnston Canyon Alberta Canada (9599139733).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:MK04324 Athabasca Falls (Jasper NP).jpg; File:Athabasca Falls Jasper6.JPG"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:By ovedc - Sulphur Mountain - 01.jpg; File:Banff from Sulphur mountain (313208769).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lake Magog Mount Assiniboine.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bears-hump",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Waterton Lakes from Bears's Hump (15995354221).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Berg Lake, Berg Glacier and Mount Robson.jpg; File:Forest along Berg Lake Trail.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/burstall-pass",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Mount Birdwood from Burstall pass.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Mount Edith Cavell 1 (16085613791).jpg; File:Angel Glacier & Cavell Lake.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Cory Pass (43816684832).jpg; File:Mount Louis from Cory Pass.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Crypt Lake - panoramio.jpg; File:Tunnel on Crypt Lake Trail - panoramio.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lac Emerald Panorama (4162620481).jpg; File:Emerald Lake (40193126055).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Fryatt Valley top.jpg; File:Fryatt Valley II.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Johnson Lake (15559991841).jpg; File:Johnson Lake.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lillian Lake Kananaskis Galatea trail Alberta Canada (20876034161).jpg; File:Lillian Lake Kananaskis Galatea trail Alberta Canada (20682070049).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mount-fairview",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Victoria Glacier Above Lake Louise (15411558337).jpg; File:Fairmont Chateau Lake Louise (15308740559).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:HBM Happy Bench Monday (35979048965).jpg; File:Mt indefatigable.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Mt Lorette Ponds Kananaskis country Alberta (9327981195).jpg; File:Mt Lorette Ponds Kananaskis country Alberta (9330785430).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Red Rock Canyon Alberta Canada (35293440291).jpg; File:Red Rock Canyon Alberta Canada (35293443021).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Curator Mountain from Skyline Trail.jpg; File:The Watchtower, Jasper.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Mount Assiniboine Sunburst Lake.jpg; File:Mount Assiniboine peak with Lake Magog And Sunburst Lake in front.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Tent Ridge Horseshoe.jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Upper Kananaskis lake (36000875896).jpg"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Wapta Falls, Yoho National Park, British Columbia, 2025-07-11 04.jpg; File:Wapta Falls - Yoho - panoramio.jpg"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Passerelle Tour du Mont-Blanc @ Col des Montets.jpg; File:Lac col des Montets 03.jpg"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lac Blanc and refuge.jpg; File:Lac Blanc in Chamonix.jpg"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Glacier des Bossons from Plan de l'Aiguille, Chamonix, Haute-Savoie.jpg; File:Col du Plan.jpg"
+    },
+    {
+      "ref": "place/cadini-di-misurina-viewpoint",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Cadini di Misurina Lavaredo 4.jpg"
+    },
+    {
+      "ref": "place/lago-di-sorapis",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lago di Sorapis d'estate.jpg; File:Lago di Sorapis.jpg"
+    },
+    {
+      "ref": "place/cinque-torri",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Cinque Torri 14.jpg; File:Cinque Torri 13.jpg"
+    },
+    {
+      "ref": "place/monte-piana",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Monte Piana War Trenches Dolomites Italy (4).jpg; File:Monte Piano (5).jpg"
+    },
+    {
+      "ref": "place/croda-del-becco",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Croda del Becco and Rifugio Biella 202008.jpg; File:Croda del Becco 202008 n1.jpg"
+    },
+    {
+      "ref": "place/val-fiscalina",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Pohled na údolí Val Fiscalina od pevnosti Mitterberg.jpg"
+    },
+    {
+      "ref": "part/place/lago-federa#walk",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lago di federa (cropped).jpg; File:Sulle sponde del lago Federa.jpg"
+    },
+    {
+      "ref": "place/cascate-di-fanes",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Cascate di Fanes.jpg; File:Cascate e monti in val di Fanes.jpg"
+    },
+    {
+      "ref": "place/adolf-munkel-weg",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:20120716 0457- Geislergruppe von der Brogleshütte.jpg"
+    },
+    {
+      "ref": "place/alpe-di-siusi",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Sassolungo e Sassopiatto dall'Alpe di Siusi - panoramio.jpg; File:Le Odle dall'Alpe di Siusi - panoramio.jpg"
+    },
+    {
+      "ref": "place/bullaccia-and-the-witches-benches",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Castelrotto dalla Bullaccia.jpg; File:Col dala Dodesc Pitz Ridl udu da Bulacia Gherdëina.jpg"
+    },
+    {
+      "ref": "place/vallunga",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Vallunga val Gardena 2016.jpg"
+    },
+    {
+      "ref": "place/viel-dal-pan",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Marmolada and Rifugio Viel Dal Pan.jpg; File:Il massiccio della Marmolada dal sentiero del Viel dal Pan.jpg"
+    },
+    {
+      "ref": "place/sass-pordoi-and-piz-boe",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Piz Boè view.jpg; File:Sass Pordoi 03.jpg"
+    },
+    {
+      "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Gallerie del Lagazuoi3.JPG; File:Lagazuoi - galleria.jpg"
+    },
+    {
+      "ref": "place/seceda-ridge",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Sweeping Seceda (38225459035).jpg"
+    },
+    {
+      "ref": "part/place/lago-di-braies#walk",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lake of Braies in 2024.02.jpg; File:Lago di Braies a maggio.jpg"
+    },
+    {
+      "ref": "part/place/lago-di-dobbiaco#walk",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Toblach Toblacher See 05.jpg; File:Panorama del Lago di Dobbiaco 01.jpg"
+    },
+    {
+      "ref": "part/place/lago-di-limides#walk",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Dolomity - Lago di Limides 01.jpg; File:Lago di Limides e Tofana di Rozes.jpg"
+    },
+    {
+      "ref": "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Path to Dettifoss.jpg; File:Selfoss from path to Dettifoss.jpg"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Gatklettur Iceland (194527969).jpeg; File:SnæfellsnesCoastline-pjt.jpg"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Fjadrárgljúfur-pjt.jpg; File:Fjaðrárgljúfur1.JPG"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Svartifoss, Skaftafell, Iceland - 20603713318.jpg; File:Svartifoss, Skaftafell, Iceland.jpg"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Thingvellir 36919373.jpg; File:Iceland - Thingvellir 25a (6571221379).jpg"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna de los tres",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Fitz Roy massif 2015 2.JPG; File:Fitz Roy massif 2015 1.JPG"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna capri",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:160 - Fitz Roy - Janvier 2010.jpg; File:Fitz Roy group - Laguna Capri - 01.JPG"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de los condores",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:El Chalten 2015 2.JPG; File:Rainbow at Mirador Condores, El Chalten (7098771583).jpg"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lago Viedma - Mirador de Las Aguilas - panoramio (1).jpg"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:El Chalten-Sendero Salto del Chorrillo (39263664102).jpg; File:El Chalten-Sendero Salto del Chorrillo (27516410679).jpg"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:coastal path",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:TDFNP-SendaCostera.jpg; File:TDFNPLengaForest.jpg"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Laguna Esmeralda, Ushuaia, Tierra del Fuego, Argentina.jpg; File:Hike to Laguna Esmeralda-Ushuaia.jpg"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Temple of Sinawava Trail (6381080747).jpg; File:Temple of Sinawava, Zion National Park.jpg"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:From Scout Lookout, Angels Landing Trail (3678795871).jpg; File:AngelsLandingRidge.jpg"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:pa rus trail",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Zion National Park - HCP - October 02, 2022 - 013 - Pa'rus Trail.jpg; File:Zion National Park - HCP - October 02, 2022 - 082 - Pa'rus Trail.jpg"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:riverside walk",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Riverside Walk to Zion Narrows, Zion Canyon, Zion National Park, Utah (8096063112).jpg"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Connecting trail between Navajo Loop and Queens Garden, Bryce Canyon National Park (21415318671).jpg; File:Bryce Amphitheatre, Bryce Canyon (21218872668).jpg"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Lower Calf Creek Falls (4080891798).jpg; File:Lower Calf Creek Falls (33997118435).jpg"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:hickman bridge",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Capitol Reef, Utah, June 2011 - panoramio.jpg; File:Hickman Bridge (3678751753).jpg"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:delicate arch trail",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Delicate Arch (7010365913).jpg; File:Delicate arch sunset.jpg"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:devils garden",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:View of Devils Garden, Arches National Park 20110815 1.jpg"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:windows section",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Windows Section, Arches National Park, Utah (2439416512).jpg; File:2013-09-23 09 15 49 View southwest from the Windows Section in Arches National Park.JPG"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:mesa arch",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:16 21 1433 mesa arch.jpg; File:Mesa Arch. Canyonlands National Park, Utah (14702389212).jpg"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:upheaval dome",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:2021 Upheaval Dome 02.jpg"
+    },
+    {
+      "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+      "field": "photos",
+      "outcome": "filled",
+      "host": "commons.wikimedia.org",
+      "src": "File:Approaching Grand View Point - panoramio.jpg; File:2013-09-22 18 26 30 Panorama from Grand View Point Overlook.JPG"
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "geosearch 1.5 km around the record point (36 usable, all Buck Lake leaf and fungus files); text search 'Solitaire Lake Trail Algonquin' (0 results); text search 'Limberlost Forest Wildlife Reserve' (4 results, one 1939 lodge trails map, not the trail); text search 'Solitaire Lake Huntsville' (3 results, 0 usable) (no file shows this trail or its lake)",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=45.39183%7C-79.00851&gsradius=1500&gsnamespace=6",
+        "https://commons.wikimedia.org/w/index.php?search=Solitaire+Lake+Trail+Algonquin&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Limberlost+Forest+Wildlife+Reserve&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Solitaire+Lake+Huntsville&ns6=1"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "geosearch and text searches by D5a on 25 Oct 2026, repeated 'Troll Falls' (40 results, all December 2014 frozen-fall or winter files) (every licensed file is a winter or frozen-fall view)",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=50.94213%7C-115.14946&gsradius=1500&gsnamespace=6",
+        "https://commons.wikimedia.org/w/index.php?search=Troll+Falls&ns6=1"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "geosearch 1.5 km (6 usable, none of the trail); text search 'Miette Mine trail Jasper', 'Miette Mine', 'Miette Hot Springs', 'Miette Jasper trail' (spring source and road files only) (no file shows the mine trail)",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=53.1299%7C-117.771&gsradius=1500&gsnamespace=6",
+        "https://commons.wikimedia.org/w/index.php?search=Miette+Mine+trail+Jasper&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Miette+Mine&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Miette+Hot+Springs&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Miette+Jasper+trail&ns6=1"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "geosearch 1.5 km (30 usable, winter Canyon Creek and forest files); text searches 'Rockwall Kananaskis' (0 results), 'Rockwall Kananaskis lookout fen' (0) (no file of the lookout or fen)",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=50.68633%7C-115.11493&gsradius=1500&gsnamespace=6",
+        "https://commons.wikimedia.org/w/index.php?search=Rockwall+Kananaskis&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Rockwall+Kananaskis+lookout+fen&ns6=1"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "geosearch 1.5 km (0 results); text searches 'Beauvais Lake', 'Beauvais Lake Provincial Park' (French Beauvais and unrelated) (no file of the lake)",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=49.41671%7C-114.11183&gsradius=1500&gsnamespace=6",
+        "https://commons.wikimedia.org/w/index.php?search=Beauvais+Lake&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Beauvais+Lake+Provincial+Park&ns6=1"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/chester-lake",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "geosearch 1.5 km (18 results, Mud Pond files); text searches 'Chester Lake', 'Chester Lake Spray Valley', 'Mount Chester Kananaskis', 'Chester Lake Alberta Kananaskis Country' (Chester England, a Headwall Lakes valley file and Mount Chester file only) (no file of Chester Lake; the Headwall Lakes and Mount Chester files are not the lake or its trail)",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=50.79054%7C-115.3006&gsradius=1500&gsnamespace=6",
+        "https://commons.wikimedia.org/w/index.php?search=Chester+Lake&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Chester+Lake+Spray+Valley&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Mount+Chester+Kananaskis&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Chester+Lake+Alberta+Kananaskis+Country&ns6=1"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "geosearch 1.5 km (65 usable) (every file of the falls is winter, post-2013-flood debris or has people in the foreground)",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=50.86777%7C-114.782&gsradius=1500&gsnamespace=6"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "text searches 'Elk Lakes Provincial Park', 'Elk Lakes', 'Upper Elk Lake' (Victoria and other Elk Lakes only); geosearch 1.5 km (0 results) (no file of the BC Elk Lakes)",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=50.55102%7C-115.07094&gsradius=1500&gsnamespace=6",
+        "https://commons.wikimedia.org/w/index.php?search=Elk+Lakes+Provincial+Park&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Elk+Lakes&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Upper+Elk+Lake&ns6=1"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "same searches as the Elk Lakes record (no file of the BC Elk Lakes)",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=50.55102%7C-115.07094&gsradius=1500&gsnamespace=6"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/opal-hills",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "geosearch 1.5 km (Maligne Lake lakeshore files only); text searches 'Opal Hills Jasper', 'Opal Hills', 'Maligne Lake viewpoint Opal' (opal gemstones) (no file taken on the Opal Hills trail; Maligne Lake shore files do not show the trail or its view)",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=52.73162%7C-117.63195&gsradius=1500&gsnamespace=6",
+        "https://commons.wikimedia.org/w/index.php?search=Opal+Hills+Jasper&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Opal+Hills&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Maligne+Lake+viewpoint+Opal&ns6=1"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ribbon-creek",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "geosearch 1.5 km (Kananaskis River bridge files); text searches 'Ribbon Falls Kananaskis', 'Ribbon Creek', 'Ribbon Creek Kananaskis Village' (ribbon-cutting events) (no file of the creek or its trail)",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=50.93274%7C-115.14858&gsradius=1500&gsnamespace=6",
+        "https://commons.wikimedia.org/w/index.php?search=Ribbon+Falls+Kananaskis&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Ribbon+Creek&ns6=1",
+        "https://commons.wikimedia.org/w/index.php?search=Ribbon+Creek+Kananaskis+Village&ns6=1"
+      ]
+    },
+    {
+      "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
+      "field": "photos",
+      "outcome": "searched_none",
+      "host": "commons.wikimedia.org",
+      "reason": "geosearch 1.5 km (Main Street cars and inns); text search 'Stowe Recreation Path Vermont' (1 usable file, hikers in the foreground) (the only file has hikers in the foreground; nothing else shows the path)",
+      "tried": [
+        "https://commons.wikimedia.org/w/api.php?action=query&list=geosearch&gscoord=44.46609%7C-72.68504&gsradius=1500&gsnamespace=6",
+        "https://commons.wikimedia.org/w/index.php?search=Stowe+Recreation+Path+Vermont&ns6=1"
+      ]
+    }
+  ]
+}

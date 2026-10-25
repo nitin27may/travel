@@ -2240,6 +2240,26 @@
             "src-0006"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:MK04324 Athabasca Falls (Jasper NP).jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Martin Kraft",
+          "attribution": "Martin Kraft, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:MK04324_Athabasca_Falls_(Jasper_NP).jpg",
+          "width": 3464,
+          "height": 2309
+        },
+        {
+          "file": "File:Athabasca Falls Jasper6.JPG",
+          "licence": "CC BY-SA 3.0",
+          "author": "Mykola Swarnyk",
+          "attribution": "Mykola Swarnyk, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Athabasca_Falls_Jasper6.JPG",
+          "width": 4288,
+          "height": 2848
+        }
       ]
     },
     {
@@ -7601,6 +7621,26 @@
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain",
         "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sansons-peak"
+      ],
+      "photos": [
+        {
+          "file": "File:By ovedc - Sulphur Mountain - 01.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Ovedc",
+          "attribution": "Ovedc, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:By_ovedc_-_Sulphur_Mountain_-_01.jpg",
+          "width": 5312,
+          "height": 2988
+        },
+        {
+          "file": "File:Banff from Sulphur mountain (313208769).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Antony Stanley from Gloucester, UK",
+          "attribution": "Antony Stanley from Gloucester, UK, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Banff_from_Sulphur_mountain_(313208769).jpg",
+          "width": 2592,
+          "height": 1944
+        }
       ]
     },
     {
@@ -8432,7 +8472,18 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Mount Shark to Lake Magog"
+      "name": "Mount Shark to Lake Magog",
+      "photos": [
+        {
+          "file": "File:Lake Magog Mount Assiniboine.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Kurt Stegmüller",
+          "attribution": "Kurt Stegmüller, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lake_Magog_Mount_Assiniboine.jpg",
+          "width": 4224,
+          "height": 2816
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/bears-hump",
@@ -8454,7 +8505,18 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Bear's Hump"
+      "name": "Bear's Hump",
+      "photos": [
+        {
+          "file": "File:Waterton Lakes from Bears's Hump (15995354221).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Wilson Hui from Calgary, Canada",
+          "attribution": "Wilson Hui from Calgary, Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Waterton_Lakes_from_Bears%27s_Hump_(15995354221).jpg",
+          "width": 1920,
+          "height": 1080
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail",
@@ -8498,7 +8560,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Berg Lake Trail"
+      "name": "Berg Lake Trail",
+      "photos": [
+        {
+          "file": "File:Berg Lake, Berg Glacier and Mount Robson.jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Brian Lang",
+          "attribution": "Brian Lang, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Berg_Lake,_Berg_Glacier_and_Mount_Robson.jpg",
+          "width": 3008,
+          "height": 2000
+        },
+        {
+          "file": "File:Forest along Berg Lake Trail.jpg",
+          "licence": "CC BY 2.0",
+          "author": "Sébastien Launay",
+          "attribution": "Sébastien Launay, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Forest_along_Berg_Lake_Trail.jpg",
+          "width": 4290,
+          "height": 2860
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/burstall-pass",
@@ -8520,7 +8602,18 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Burstall Pass"
+      "name": "Burstall Pass",
+      "photos": [
+        {
+          "file": "File:Mount Birdwood from Burstall pass.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Harpsz",
+          "attribution": "Harpsz, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Birdwood_from_Burstall_pass.jpg",
+          "width": 5992,
+          "height": 3988
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
@@ -8542,7 +8635,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Cavell Meadows"
+      "name": "Cavell Meadows",
+      "photos": [
+        {
+          "file": "File:Mount Edith Cavell 1 (16085613791).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Kevin He",
+          "attribution": "Kevin He, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Edith_Cavell_1_(16085613791).jpg",
+          "width": 4608,
+          "height": 3072
+        },
+        {
+          "file": "File:Angel Glacier & Cavell Lake.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Khoshhat",
+          "attribution": "Khoshhat, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Angel_Glacier_%26_Cavell_Lake.jpg",
+          "width": 5472,
+          "height": 3648
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/chester-lake",
@@ -8587,7 +8700,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Cory Pass Loop"
+      "name": "Cory Pass Loop",
+      "photos": [
+        {
+          "file": "File:Cory Pass (43816684832).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Craig Talbert",
+          "attribution": "Craig Talbert, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Cory_Pass_(43816684832).jpg",
+          "width": 4032,
+          "height": 2268
+        },
+        {
+          "file": "File:Mount Louis from Cory Pass.jpg",
+          "licence": "CC BY 2.0",
+          "author": "Craig Talbert",
+          "attribution": "Craig Talbert, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Louis_from_Cory_Pass.jpg",
+          "width": 2373,
+          "height": 2268
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
@@ -8609,7 +8742,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Crypt Lake"
+      "name": "Crypt Lake",
+      "photos": [
+        {
+          "file": "File:Crypt Lake - panoramio.jpg",
+          "licence": "CC BY 3.0",
+          "author": "R. Sieben",
+          "attribution": "R. Sieben, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Crypt_Lake_-_panoramio.jpg",
+          "width": 2048,
+          "height": 1536
+        },
+        {
+          "file": "File:Tunnel on Crypt Lake Trail - panoramio.jpg",
+          "licence": "CC BY 3.0",
+          "author": "R. Sieben",
+          "attribution": "R. Sieben, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Tunnel_on_Crypt_Lake_Trail_-_panoramio.jpg",
+          "width": 2048,
+          "height": 1536
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
@@ -8681,7 +8834,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Emerald Triangle (via Wapta Highline)"
+      "name": "Emerald Triangle (via Wapta Highline)",
+      "photos": [
+        {
+          "file": "File:Lac Emerald Panorama (4162620481).jpg",
+          "licence": "CC BY 2.0",
+          "author": "dyonis",
+          "attribution": "dyonis, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lac_Emerald_Panorama_(4162620481).jpg",
+          "width": 7023,
+          "height": 2592
+        },
+        {
+          "file": "File:Emerald Lake (40193126055).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Sheila Sund from Salem, United States",
+          "attribution": "Sheila Sund from Salem, United States, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Emerald_Lake_(40193126055).jpg",
+          "width": 2048,
+          "height": 1453
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
@@ -8703,7 +8876,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Fryatt Valley"
+      "name": "Fryatt Valley",
+      "photos": [
+        {
+          "file": "File:Fryatt Valley top.jpg",
+          "licence": "CC BY 2.0",
+          "author": "Neil",
+          "attribution": "Neil, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Fryatt_Valley_top.jpg",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "file": "File:Fryatt Valley II.jpg",
+          "licence": "CC BY 2.0",
+          "author": "Neil",
+          "attribution": "Neil, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Fryatt_Valley_II.jpg",
+          "width": 1600,
+          "height": 1200
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
@@ -8726,7 +8919,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Johnson Lake Loop"
+      "name": "Johnson Lake Loop",
+      "photos": [
+        {
+          "file": "File:Johnson Lake (15559991841).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Norton Ip from Hong Kong",
+          "attribution": "Norton Ip from Hong Kong, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Johnson_Lake_(15559991841).jpg",
+          "width": 5616,
+          "height": 3744
+        },
+        {
+          "file": "File:Johnson Lake.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Cody Taylor",
+          "attribution": "Cody Taylor, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Johnson_Lake.jpg",
+          "width": 5312,
+          "height": 2988
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/lake-agnes",
@@ -8794,7 +9007,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Lillian Lake"
+      "name": "Lillian Lake",
+      "photos": [
+        {
+          "file": "File:Lillian Lake Kananaskis Galatea trail Alberta Canada (20876034161).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lillian_Lake_Kananaskis_Galatea_trail_Alberta_Canada_(20876034161).jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:Lillian Lake Kananaskis Galatea trail Alberta Canada (20682070049).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lillian_Lake_Kananaskis_Galatea_trail_Alberta_Canada_(20682070049).jpg",
+          "width": 6000,
+          "height": 4000
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mount-fairview",
@@ -8809,7 +9042,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
-      "name": "Mount Fairview"
+      "name": "Mount Fairview",
+      "photos": [
+        {
+          "file": "File:Victoria Glacier Above Lake Louise (15411558337).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Wilson Hui from Calgary, Canada",
+          "attribution": "Wilson Hui from Calgary, Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Victoria_Glacier_Above_Lake_Louise_(15411558337).jpg",
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "file": "File:Fairmont Chateau Lake Louise (15308740559).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Wilson Hui from Calgary, Canada",
+          "attribution": "Wilson Hui from Calgary, Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Fairmont_Chateau_Lake_Louise_(15308740559).jpg",
+          "width": 1920,
+          "height": 1080
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint",
@@ -8823,7 +9076,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
-      "name": "Indefatigable Bench viewpoint"
+      "name": "Indefatigable Bench viewpoint",
+      "photos": [
+        {
+          "file": "File:HBM Happy Bench Monday (35979048965).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:HBM_Happy_Bench_Monday_(35979048965).jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:Mt indefatigable.jpg",
+          "licence": "CC BY 2.0",
+          "author": "John Johnston",
+          "attribution": "John Johnston, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Mt_indefatigable.jpg",
+          "width": 1600,
+          "height": 1064
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop",
@@ -8845,7 +9118,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Mount Lorette Ponds loop"
+      "name": "Mount Lorette Ponds loop",
+      "photos": [
+        {
+          "file": "File:Mt Lorette Ponds Kananaskis country Alberta (9327981195).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Mt_Lorette_Ponds_Kananaskis_country_Alberta_(9327981195).jpg",
+          "width": 5184,
+          "height": 3456
+        },
+        {
+          "file": "File:Mt Lorette Ponds Kananaskis country Alberta (9330785430).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Mt_Lorette_Ponds_Kananaskis_country_Alberta_(9330785430).jpg",
+          "width": 5184,
+          "height": 3456
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/opal-hills",
@@ -8931,7 +9224,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Red Rock Canyon Loop"
+      "name": "Red Rock Canyon Loop",
+      "photos": [
+        {
+          "file": "File:Red Rock Canyon Alberta Canada (35293440291).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Red_Rock_Canyon_Alberta_Canada_(35293440291).jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:Red Rock Canyon Alberta Canada (35293443021).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Red_Rock_Canyon_Alberta_Canada_(35293443021).jpg",
+          "width": 6000,
+          "height": 4000
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/ribbon-creek",
@@ -8975,7 +9288,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Skyline Trail"
+      "name": "Skyline Trail",
+      "photos": [
+        {
+          "file": "File:Curator Mountain from Skyline Trail.jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Michael Lawton",
+          "attribution": "Michael Lawton, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Curator_Mountain_from_Skyline_Trail.jpg",
+          "width": 3872,
+          "height": 2592
+        },
+        {
+          "file": "File:The Watchtower, Jasper.jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Michael Lawton",
+          "attribution": "Michael Lawton, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:The_Watchtower,_Jasper.jpg",
+          "width": 2298,
+          "height": 1521
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog",
@@ -8997,7 +9330,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Sunburst Lake to Lake Magog"
+      "name": "Sunburst Lake to Lake Magog",
+      "photos": [
+        {
+          "file": "File:Mount Assiniboine Sunburst Lake.jpg",
+          "licence": "CC BY 3.0",
+          "author": "Kurt Stegmüller",
+          "attribution": "Kurt Stegmüller, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Assiniboine_Sunburst_Lake.jpg",
+          "width": 4224,
+          "height": 2816
+        },
+        {
+          "file": "File:Mount Assiniboine peak with Lake Magog And Sunburst Lake in front.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "UraniumPickle",
+          "attribution": "UraniumPickle, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Assiniboine_peak_with_Lake_Magog_And_Sunburst_Lake_in_front.jpg",
+          "width": 4000,
+          "height": 3000
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
@@ -9019,7 +9372,18 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Tent Ridge Horseshoe"
+      "name": "Tent Ridge Horseshoe",
+      "photos": [
+        {
+          "file": "File:Tent Ridge Horseshoe.jpg",
+          "licence": "CC BY 2.0",
+          "author": "Alexander Farley",
+          "attribution": "Alexander Farley, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Tent_Ridge_Horseshoe.jpg",
+          "width": 16382,
+          "height": 3828
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
@@ -9033,7 +9397,18 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
-      "name": "Upper Kananaskis Lake Circuit"
+      "name": "Upper Kananaskis Lake Circuit",
+      "photos": [
+        {
+          "file": "File:Upper Kananaskis lake (36000875896).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Upper_Kananaskis_lake_(36000875896).jpg",
+          "width": 6000,
+          "height": 4000
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail",
@@ -9055,7 +9430,27 @@
         "on": "2026-10-25",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Wapta Falls"
+      "name": "Wapta Falls",
+      "photos": [
+        {
+          "file": "File:Wapta Falls, Yoho National Park, British Columbia, 2025-07-11 04.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Chris Woodrich",
+          "attribution": "Chris Woodrich, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Wapta_Falls,_Yoho_National_Park,_British_Columbia,_2025-07-11_04.jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:Wapta Falls - Yoho - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Jack Borno",
+          "attribution": "Jack Borno, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Wapta_Falls_-_Yoho_-_panoramio.jpg",
+          "width": 4288,
+          "height": 2848
+        }
+      ]
     }
   ]
 }

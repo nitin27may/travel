@@ -173,7 +173,27 @@
       "origin": {
         "from": "trip/iceland-ring-road-2027/sight:dettifoss",
         "reason": "the route to the place"
-      }
+      },
+      "photos": [
+        {
+          "file": "File:Path to Dettifoss.jpg",
+          "licence": "CC BY 3.0",
+          "author": "Alexander Grebenkov",
+          "attribution": "Alexander Grebenkov, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Path_to_Dettifoss.jpg",
+          "width": 3568,
+          "height": 2368
+        },
+        {
+          "file": "File:Selfoss from path to Dettifoss.jpg",
+          "licence": "CC BY 3.0",
+          "author": "Alexander Grebenkov",
+          "attribution": "Alexander Grebenkov, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Selfoss_from_path_to_Dettifoss.jpg",
+          "width": 3568,
+          "height": 2368
+        }
+      ]
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:geysir",
@@ -434,6 +454,26 @@
             "src-0002"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Gatklettur Iceland (194527969).jpeg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Ilya Grigorik",
+          "attribution": "Ilya Grigorik, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Gatklettur_Iceland_(194527969).jpeg",
+          "width": 2048,
+          "height": 1366
+        },
+        {
+          "file": "File:SnæfellsnesCoastline-pjt.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Pjt56 --- If you use the picture outside Wikipedia I would appreciate a short e-mail to pjt56@gmx.net or a message on my discussion page",
+          "attribution": "Pjt56 --- If you use the picture outside Wikipedia I would appreciate a short e-mail to pjt56@gmx.net or a message on my discussion page, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Sn%C3%A6fellsnesCoastline-pjt.jpg",
+          "width": 4791,
+          "height": 3173
+        }
       ]
     },
     {
@@ -480,6 +520,26 @@
           "state": "searched_none",
           "query": "Fjaðrárgljúfur trail page on the Icelandic nature conservation agency site",
           "on": "2026-10-19"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Fjadrárgljúfur-pjt.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "pjt56 --- If you use the picture outside Wikipedia I would appreciate a short e-mail to pjt56@gmx.net or a message on my discussion page",
+          "attribution": "pjt56 --- If you use the picture outside Wikipedia I would appreciate a short e-mail to pjt56@gmx.net or a message on my discussion page, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Fjadr%C3%A1rglj%C3%BAfur-pjt.jpg",
+          "width": 4767,
+          "height": 3158
+        },
+        {
+          "file": "File:Fjaðrárgljúfur1.JPG",
+          "licence": "CC BY-SA 2.5 ca",
+          "author": "Óðinn",
+          "attribution": "Óðinn, CC BY-SA 2.5 ca, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Fja%C3%B0r%C3%A1rglj%C3%BAfur1.JPG",
+          "width": 3000,
+          "height": 2250
         }
       ]
     },
@@ -570,6 +630,26 @@
             "src-0003"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Svartifoss, Skaftafell, Iceland - 20603713318.jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "dconvertini",
+          "attribution": "dconvertini, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Svartifoss,_Skaftafell,_Iceland_-_20603713318.jpg",
+          "width": 6000,
+          "height": 4000
+        },
+        {
+          "file": "File:Svartifoss, Skaftafell, Iceland.jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "dconvertini",
+          "attribution": "dconvertini, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Svartifoss,_Skaftafell,_Iceland.jpg",
+          "width": 6000,
+          "height": 4000
+        }
       ]
     },
     {
@@ -659,6 +739,26 @@
           "src": [
             "src-0004"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Thingvellir 36919373.jpg",
+          "licence": "CC BY 2.0",
+          "author": "Allan Henderson",
+          "attribution": "Allan Henderson, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Thingvellir_36919373.jpg",
+          "width": 6604,
+          "height": 3181
+        },
+        {
+          "file": "File:Iceland - Thingvellir 25a (6571221379).jpg",
+          "licence": "CC BY 2.0",
+          "author": "McKay Savage from London, UK",
+          "attribution": "McKay Savage from London, UK, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Iceland_-_Thingvellir_25a_(6571221379).jpg",
+          "width": 2376,
+          "height": 1584
         }
       ]
     },
