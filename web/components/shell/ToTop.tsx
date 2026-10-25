@@ -3,8 +3,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { keyboardUp, toTopVisible } from '@/lib/to-top';
 
-// the non-modal trip map sheet is open (`.tl-mapcol[data-sheet]`); a later fixed bottom panel adds its own attribute here
-const OVERLAY = '[role="dialog"],[role="menu"],[role="listbox"],[aria-modal="true"],.tl-mapcol[data-sheet]';
+// Blocked while any of these is rendered and visible (a mounted but hidden or inline listbox does not count), a toast is showing,
+// or the non-modal trip map sheet is open (`.tl-mapcol[data-sheet]`; a later fixed bottom panel adds its own attribute here).
+const OVERLAY = '[role="dialog"],[role="menu"],[role="listbox"],[aria-modal="true"],.toast-region .toast,.tl-mapcol[data-sheet]';
+const SHEET_ATTRS = ['data-sheet', 'aria-modal', 'open', 'hidden'];
+
+function overlayOpen(): boolean {
+  for (const el of document.querySelectorAll<HTMLElement>(OVERLAY)) {
+    if (typeof el.checkVisibility === 'function' ? el.checkVisibility({ visibilityProperty: true }) : el.offsetParent !== null || getComputedStyle(el).position === 'fixed') return true;
+  }
+  return false;
+}
 
 /** Phone back-to-top button (S28). Client-only and lazy: the server renders nothing; BottomBar loads this on the first phone scroll. */
 export function ToTop() {
@@ -16,7 +25,7 @@ export function ToTop() {
     const update = () => {
       raf = 0;
       const a = document.activeElement as HTMLElement | null;
-      const blocked = keyboardUp(a) || !!document.querySelector(OVERLAY);
+      const blocked = keyboardUp(a) || overlayOpen();
       was.current = toTopVisible(was.current, scrollY, innerHeight);
       setShow(was.current && !blocked);
     };
@@ -24,7 +33,7 @@ export function ToTop() {
       if (!raf) raf = requestAnimationFrame(update);
     };
     const mo = new MutationObserver(queue);
-    mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-sheet', 'aria-modal', 'open', 'hidden'] });
+    mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: SHEET_ATTRS });
     addEventListener('scroll', queue, { passive: true });
     addEventListener('resize', queue);
     document.addEventListener('focusin', queue);

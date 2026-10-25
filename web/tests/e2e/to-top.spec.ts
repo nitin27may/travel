@@ -68,6 +68,41 @@ test.describe('back-to-top on a phone', () => {
     }
   });
 
+  test('hides while a toast is showing', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/`, { waitUntil: 'networkidle' });
+    await scrollTo(page, 2000);
+    const btn = page.getByRole('button', { name: 'Back to top' });
+    await expect(btn).toBeVisible();
+    await page.evaluate(() => {
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.textContent = 'Copied';
+      document.querySelector('.toast-region')!.append(t);
+    });
+    await expect(btn).toBeHidden();
+    await page.evaluate(() => document.querySelector('.toast-region .toast')!.remove());
+    await expect(btn).toBeVisible();
+  });
+
+  test('a hidden listbox does not hide it; a checkbox with focus does not hide it', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/`, { waitUntil: 'networkidle' });
+    await scrollTo(page, 2000);
+    const btn = page.getByRole('button', { name: 'Back to top' });
+    await expect(btn).toBeVisible();
+    await page.evaluate(() => {
+      const l = document.createElement('ul');
+      l.setAttribute('role', 'listbox');
+      l.hidden = true;
+      document.body.append(l);
+      const c = document.createElement('input');
+      c.type = 'checkbox';
+      document.body.append(c);
+      c.focus();
+    });
+    await page.waitForTimeout(200);
+    await expect(btn).toBeVisible();
+  });
+
 });
 
 test.describe('back-to-top at desktop width', () => {
