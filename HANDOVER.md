@@ -42,9 +42,15 @@ Everything below the line is dated history; verify it against `git log` first.**
 ### Not done (in detail)
 
 1. **Child-branch DB integration tests: DONE (25 Oct).** `core/test/db` passed 29/29 with 0 skipped against `srv-migrate-verify`. Repeat with `TEST_DATABASE_URL="$(neon connection-string br-damp-breeze-b41mtvn5 --project-id damp-queen-64719841)" pnpm --dir core exec vitest run test/db` (the `neon` CLI is signed in on this Mac).
-2. **Real-service Neon E2E not rerun after the origin fix.** The 14/14 run predates
-   `web/lib/server/same-origin.ts`. Rerun `web/scripts/neon-e2e.mjs` against a
-   configured build.
+2. **Real-service Neon E2E: attempted 25 Oct, BLOCKED by the origin guard.** `web/scripts/neon-e2e.mjs` signs up
+   (works on `http://localhost:3000`; `127.0.0.1` gets a 403 from Neon Auth, so its trusted origins lack it) but every
+   `POST /api/account/drafts/` returns 403. Cause: `web/lib/server/same-origin.ts` accepts HTTP only when `NODE_ENV` is
+   `development` or `test`. `next start` is `production` (and `NODE_ENV=test pnpm start` does not change it, the value is
+   inlined at build), so a local HTTP run can never pass. `next dev` allows HTTP but the account page loops on
+   `/account/` and `/api/auth/get-session/` there and never settles. Options: run the script against an HTTPS origin
+   (a Vercel preview, after R-61), or give the script an HTTPS local origin, or a test-only build flag reviewed as a
+   security change. Do not loosen the guard to make a test pass. Five synthetic `e2e+...@travel-e2e.invalid` users
+   were created in production Neon Auth during the attempt; they own no drafts.
 3. **R-61 Vercel (BACKLOG 15.50): not started.** Create the project (root
    directory `web`, pnpm workspace, Node >= 22), owner enters encrypted env vars
    (`DATABASE_URL`, `NEON_AUTH_BASE_URL`, `NEON_AUTH_COOKIE_SECRET`,
@@ -71,7 +77,7 @@ Everything below the line is dated history; verify it against `git log` first.**
 
 ### Next, in order
 
-1. Close item 2 above (item 1 is done).
+1. Item 2 above waits for an HTTPS origin (do R-61 first); item 1 is done.
 2. R-61 Vercel setup and preview deploy (item 3); production waits for the owner.
 3. Closure queue, then R-59, then the data-layer cutover.
 
