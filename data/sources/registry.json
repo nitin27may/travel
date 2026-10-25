@@ -187,38 +187,6 @@
       }
     },
     {
-      "id": "s-c00c9ca545",
-      "url": "data/tracks/tre-cime.json",
-      "title": "Tre Cime loop track (computed from OSM and terrain tiles)",
-      "publisher": "computed from OSM relations 1116663 and 1067603 (ODbL) and AWS Terrain Tiles, fetched 2026-10-19",
-      "kind": "reference",
-      "first_read": "2026-10-25",
-      "last_read": "2026-10-25",
-      "used_by": [
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/tre-cime-di-lavaredo-loop",
-          "field": "suitability.effort.drivers.distance_km"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/tre-cime-di-lavaredo-loop",
-          "field": "suitability.effort.drivers.gain_m"
-        }
-      ],
-      "licence_note": "Our own file in this repository.",
-      "terms_note": "Not a web source; there is no link to check.",
-      "automated": "allowed",
-      "recheck": {
-        "cadence_days": 730,
-        "fact_type": "grades_geography"
-      },
-      "link": {
-        "status": "local",
-        "checked": null
-      }
-    },
-    {
       "id": "s-7f716c7628",
       "url": "https://5torri.it",
       "title": "Benvenuti alle 5 Torri",
@@ -3674,11 +3642,6 @@
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/tre-cime-di-lavaredo-loop",
-          "field": "ext.dogs"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "place/val-fiscalina",
           "field": "ext.dogs"
         },
@@ -4512,41 +4475,6 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
           "field": "suitability.access_season"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
-          "field": "suitability.access_season"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
-          "field": "suitability.effort.drivers.distance_km"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
-          "field": "suitability.effort.drivers.gain_m"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
-          "field": "suitability.age_band"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
-          "field": "suitability.carrier_ok"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
-          "field": "suitability.effort.drivers.distance_km"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
-          "field": "suitability.hazards"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -5390,27 +5318,7 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
-          "field": "ext.navigation"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
-          "field": "suitability.accessible_parking"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
           "field": "suitability.adult_time_min"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
-          "field": "suitability.age_band"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
-          "field": "suitability.carrier_ok"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -5430,17 +5338,7 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
-          "field": "suitability.exposure"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
           "field": "suitability.stroller"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
-          "field": "suitability.wheelchair"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -5805,11 +5703,6 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
           "field": "suitability.hazards"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
-          "field": "suitability.access_season"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -9346,11 +9239,6 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
           "field": "suitability.hazards"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
-          "field": "suitability.group_min"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
@@ -13293,21 +13181,6 @@
           "file": "data/capture/canadian-rockies-2029/CS7.json",
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
           "field": "links"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
-          "field": "ext.navigation"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
-          "field": "suitability.effort.drivers.distance_km"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
-          "field": "suitability.effort.drivers.surface"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -13402,31 +13275,6 @@
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
           "field": "suitability.food"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
-          "field": "ext.dogs"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
-          "field": "suitability.access_season"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
-          "field": "suitability.age_band"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
-          "field": "suitability.stroller"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
-          "field": "suitability.wheelchair"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",

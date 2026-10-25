@@ -1,5 +1,5 @@
 {
-  "note": "Held back 25 Oct 2026 by owner ruling: these two records push the place-page size median to 1.264 against the 1.25 limit (web/tests/data/place-size.test.ts). Restore into data/suitability/canadian-rockies-2029/R9-TF.json records[] after a budget ruling; sources they cite are still in that file.",
+  "note": "Held back 25 Oct 2026 (INT2). Lake Agnes and Rawson Lake by owner ruling: they push the place-page size median to 1.264 against the 1.25 limit. The Sulphur summit boardwalk was held back too: with Johnston Canyon walk patched it is a second page that crosses the median (0.889 to 1.28), and any single crossing moves the median over 1.25 (web/tests/data/place-size.test.ts). Restore the records verbatim into data/suitability/canadian-rockies-2029/R9-TF.json records[] after a budget ruling; the sources they cite are still in that file.",
   "trip": "canadian-rockies-2029",
   "lane": "TF",
   "records": [
@@ -421,6 +421,342 @@
         "walk_gain_m": 320,
         "suit_level": "usable_partial"
       }
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "none_stated",
+          "basis": "official_rule",
+          "src": [
+            "src-0005"
+          ],
+          "note": "Sulphur Mountain is not on Parks Canada's list of Banff areas with seasonal access restrictions (read 25 Oct 2026)."
+        },
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006",
+            "src-0007"
+          ],
+          "note": "About 1 km and 368 shallow steps in each direction: any age, the youngest carried."
+        },
+        "kid_note": "A ridge boardwalk from the gondola's upper terminal toward Sanson's Peak, with 368 shallow steps in each direction. It now ends at a viewpoint between the Cosmic Ray Station and the old weather observatory.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "note": "About 1 km return is far inside the carrying-adult ceiling."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0007"
+          ],
+          "quote": "we do not recommend strollers",
+          "note": "The operator says this of the cabins and mountaintop facilities; the boardwalk has 368 steps in each direction."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0007"
+          ],
+          "quote": "the summit boardwalk is not as it consists of 368 shallow stairs",
+          "note": "The gondola and the summit building are wheelchair accessible; the boardwalk is not."
+        },
+        "effort": {
+          "source_grade": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-25",
+            "tried": [
+              "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+              "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs/"
+            ]
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 1,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0006"
+              ],
+              "quote": "plus 0.5 km to Sanson Peak",
+              "note": "Parks Canada gives 0.5 km from the top of the gondola to Sanson Peak, so 1.0 km return.",
+              "conflicts": [
+                {
+                  "v": 2,
+                  "basis": "operator_info",
+                  "src": [
+                    "src-0008"
+                  ],
+                  "note": "The operator calls it 'a casual 2 km stroll to Sanson's Peak'; whether that is return is not said. The FAQ says the boardwalk now ends short of the observatory."
+                }
+              ]
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-25",
+              "tried": [
+                "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs/ (368 shallow stairs in each direction; no metres)",
+                "https://parks.canada.ca/pn-np/ab/banff/activ/marchehiver-winterwalking/banff (no gain for the boardwalk)"
+              ],
+              "note": "The steps go up and down along the ridge; no published climb in metres."
+            },
+            "surface": {
+              "v": [
+                "boardwalk"
+              ],
+              "state": "value",
+              "basis": "operator_info",
+              "src": [
+                "src-0008"
+              ],
+              "quote": "step onto the boardwalk"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "https://www.banffjaspercollection.com/attractions/banff-gondola/",
+            "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs/",
+            "https://parks.canada.ca/pn-np/ab/banff/activ/marchehiver-winterwalking/banff"
+          ]
+        },
+        "exposure": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "https://www.banffjaspercollection.com/attractions/banff-gondola/",
+            "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs/"
+          ],
+          "note": "A boardwalk on an open ridge; neither page says whether it is railed or how steep the drops are."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Hazardous avalanche terrain lies beside the Sulphur Mountain trail in winter; ice cleats are recommended when icy",
+              "season": "winter"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "lift",
+              "note": "The Banff Gondola runs year-round except for a short maintenance period each November."
+            }
+          ],
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0007"
+          ],
+          "quote": "open year-round, except for a short maintenance period each November",
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": "waymarked",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0008"
+          ],
+          "note": "A single boardwalk from the upper terminal; nothing to choose."
+        },
+        "dogs": {
+          "v": "banned",
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "quote": "Pets are not permitted on the gondola or in our facilities, with the exception of service dogs",
+          "note": "This covers the gondola and the summit building. Whether a dog walked up the Sulphur Mountain trail may use the boardwalk is not stated."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": 1,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
     }
-  ]
+  ],
+  "johnston_walk_patch_held": {
+    "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+    "file": "data/suitability/canadian-rockies-2029/R2a.json",
+    "note": "Parts of the Johnston Canyon walk patch (patch-proposals.json) not applied by INT2: the page is at 1.229 of its size baseline with shape and stroller applied, and any more pushes it over the median (1.2489) so the median page-size test fails. Apply after a budget ruling. dot path -> value; applied: ext.shape, suitability.stroller, suitability.stroller_extent.",
+    "set": {
+      "suitability.age_band": {
+        "v": {
+          "from": 0,
+          "to": null
+        },
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "2.2 km and 85 m: any age, the youngest carried (strollers not recommended).",
+        "read": "2026-10-25"
+      },
+      "suitability.carrier_ok": {
+        "v": true,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "2.2 km and 85 m is far inside the carrying-adult ceiling.",
+        "read": "2026-10-25"
+      },
+      "suitability.kid_note": "A paved trail and catwalks bolted to the canyon wall to the Lower Falls; busy, with narrow sections. The Upper Falls are 1.3 km further and 130 m higher.",
+      "suitability.exposure": {
+        "v": {
+          "level": "some",
+          "fenced": null,
+          "where": "the catwalks along the canyon wall"
+        },
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "The plan's own note calls the catwalks exposed; Parks Canada's table does not say whether they are railed, so fenced stays null.",
+        "read": "2026-10-25"
+      },
+      "ext.navigation": {
+        "v": "waymarked",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "One paved canyon trail from the P1 lot to the Lower Falls; nothing to choose.",
+        "read": "2026-10-25"
+      },
+      "suitability.effort.drivers.distance_km.conflicts": [
+        {
+          "v": 2.4,
+          "basis": "official_info",
+          "src": [
+            "src-0050"
+          ],
+          "note": "The winter walking page gives 1.2 km one way to the Lower Falls (the summer table 1.1 km)."
+        }
+      ],
+      "suitability.effort.drivers.gain_m.conflicts": [
+        {
+          "v": 50,
+          "basis": "official_info",
+          "src": [
+            "src-0050"
+          ],
+          "note": "The winter walking page gives 50 m to the Lower Falls (the summer table 85 m gain, 55 m loss)."
+        }
+      ],
+      "suitability.wheelchair": {
+        "v": "partial",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "Parks Canada gives 100% paved and a typical width of 182 cm to the Lower Falls, 8 accessible stalls and flush toilets at the trailhead, but calls the trail busy with narrow sections and gives no maximum grade for this stretch (30% on the way to the Upper Falls). Not stated as accessible, so partial.",
+        "read": "2026-10-25"
+      },
+      "suitability.accessible_parking": {
+        "v": true,
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "quote": "8 accessible stalls",
+        "read": "2026-10-25"
+      },
+      "suitability.access_season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open",
+            "via": "road",
+            "note": "Parks Canada lists Johnston Canyon among its winter walks: usually very icy, ice cleats strongly recommended."
+          },
+          {
+            "from": "03-01",
+            "to": "06-25",
+            "status": "limited",
+            "via": "road",
+            "note": "The Bow Valley Parkway is closed 8 p.m. to 8 a.m. on the 17 km east of Johnston Canyon Campground; reach the lot from the west at night."
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0050",
+          "src-0002"
+        ],
+        "applies_to": "2026",
+        "note": "2026 only: the trail, day-use area and P1 lot are closed 13 Oct to 11 Dec 2026 for rock-slope work (bulletin pc-closure-jc); the Upper Falls and Ink Pots stay reachable by the Moose Meadows trail. A one-off, not a yearly closure.",
+        "read": "2026-10-25"
+      }
+    }
+  }
 }

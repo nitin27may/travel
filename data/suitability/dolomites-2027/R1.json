@@ -534,15 +534,6 @@
       "method": "read"
     },
     {
-      "id": "src-0069",
-      "url": "data/tracks/tre-cime.json",
-      "title": "Tre Cime loop track (computed from OSM and terrain tiles)",
-      "publisher": "computed from OSM relations 1116663 and 1067603 (ODbL) and AWS Terrain Tiles, fetched 2026-10-19",
-      "kind": "computed",
-      "read": "2026-10-25",
-      "method": "read"
-    },
-    {
       "id": "src-0070",
       "url": "data/tracks/seekofel.json",
       "title": "Seekofel track (computed from OSM and terrain tiles)",
@@ -644,14 +635,6 @@
                     "src-0048"
                   ],
                   "note": "Trail reports give 9.5-10.5 km for the standard loop and up to 17.7 km with detours."
-                },
-                {
-                  "v": 9.0,
-                  "basis": "our_inference",
-                  "src": [
-                    "src-0069"
-                  ],
-                  "note": "Computed: the confirmed OSM track (relations 1116663 and 1067603, cut as a loop from Rifugio Auronzo), 9.0 km."
                 }
               ]
             },
@@ -671,14 +654,6 @@
                     "src-0048"
                   ],
                   "note": "Trail reports give 400-480 m."
-                },
-                {
-                  "v": 435,
-                  "basis": "our_inference",
-                  "src": [
-                    "src-0069"
-                  ],
-                  "note": "Computed: the confirmed OSM track with AWS Terrain Tiles, 5 m hysteresis: 435 m up, 438 m down. The tourism board says 550 m."
                 }
               ]
             },
@@ -800,17 +775,6 @@
             "src-0012"
           ],
           "note": "Trail no. 101, then no. 105, signposted."
-        },
-        "dogs": {
-          "v": "leash",
-          "state": "value",
-          "basis": "official_rule",
-          "src": [
-            "src-0065"
-          ],
-          "read": "2026-10-25",
-          "quote": "They must be kept on a lead at all times and should not disturb or harm the park's wildlife",
-          "note": "The South Tyrol nature-park rule; the Drei Zinnen Nature Park is one of the listed parks and covers the north side of the loop (Rifugio Locatelli). The Veneto side (Auronzo to Lavaredo) is outside it; the tourism board's route page does not mention dogs."
         }
       },
       "flat": {
