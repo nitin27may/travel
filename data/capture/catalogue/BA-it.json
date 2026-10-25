@@ -673,15 +673,15 @@
       "type": "settlement.city",
       "layer": "place",
       "near_town": {
-        "v": "it-34-mestre",
+        "v": "it-34-venice",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3173529, cities1000 downloaded 2026-10-25."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3164603, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
-        "v": 8.9,
+        "v": 0.3,
         "state": "value",
         "basis": "our_inference",
         "src": [],
@@ -754,15 +754,15 @@
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {
-        "v": "it-25-monza",
+        "v": "it-25-como",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3172629, cities1000 downloaded 2026-10-25."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3178229, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
-        "v": 28.9,
+        "v": 0.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
@@ -806,15 +806,15 @@
       "type": "access.transit.ferry_terminal",
       "layer": "place",
       "near_town": {
-        "v": "it-72-naples",
+        "v": "it-72-capri",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3172394, cities1000 downloaded 2026-10-25."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3180630, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
-        "v": 33,
+        "v": 0.6,
         "state": "value",
         "basis": "our_inference",
         "src": [],
