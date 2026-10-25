@@ -11,6 +11,12 @@
 > console and F17 roles exist the owner moderates with a local CLI (`core/bin/intake.ts`, INT-3); the console tab is
 > INT-5 (BACKLOG 15.75). This is the "user requests" input of the backlog (item 10) and part of moderation (item 13).
 
+> **Amended 25 Oct 2026 (feedback and reports):** reports (on places, trails, trips, days, stops, stay bases, photos,
+> offers) and site feedback join the same table natively, with the extra states `unconfirmed`, `fixed` and `no_change`,
+> clusters per target, a takedown lane listed first, and confirmed-only items in the default queue
+> ([feedback-and-reports.md](feedback-and-reports.md) sections 2.3, 7; PLAN R-90 to R-96). The console tab (INT-5)
+> shows all of them. Item 13's "corrections from non-admin users" arrive this way until changesets exist.
+
 ## Purpose
 
 The owner's workshop for growing the catalog and publishing curated trips: review what research

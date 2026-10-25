@@ -19,6 +19,12 @@ with Neon Postgres row-level security, plus the operation layer's own checks.
 > email/password account is never linked implicitly (CVE-2026-53516). Apple is deferred (Neon Managed Auth does not offer
 > it; Q117). Magic link and passkeys stay here.
 
+> **Amended 25 Oct 2026 (feedback and reports):** every report or suggestion now carries an email (name optional),
+> held in a separate `intake_contact` table the app role cannot read, until the item closes plus 30 days (at most 180).
+> Export includes the user's submissions and contacts; delete removes contacts and nulls `submitter_id`. Signed-in name
+> and email prefill from the session; `emailVerified` decides whether a confirm link is sent. Spec
+> [feedback-and-reports.md](feedback-and-reports.md) sections 5, 9; PLAN R-90 to R-96.
+
 **Status (R-60, Oct 2026).** Built: the account foundation only, namely email/password sign-up,
 sign-in and sign-out, server-verified sessions, and private `planner_draft` CRUD under RLS with
 cross-user isolation and live invalidation (content-free `planner_draft_signal`, the one

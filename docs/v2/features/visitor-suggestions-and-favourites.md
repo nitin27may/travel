@@ -1,5 +1,12 @@
 # Visitor suggestions and favourites
 
+> **Amended 25 Oct 2026 (feedback and reports):** suggestions, trip requests and reports now share one intake model,
+> one "Report or suggest" sheet and one route family (`/api/v1/submissions`), specified in
+> [feedback-and-reports.md](feedback-and-reports.md) (PLAN R-90 to R-96). Every submission now needs an email
+> confirmed by link (this changes V5 and 5.1), confirmed guests may ask for a trip, and senders get an outcome email
+> (reverses Q104, see Q137 there). `/api/v1/suggestions`, the `/suggest/` pages and tasks INT-C, INT-1, INT-S, INT-2,
+> INT-4 (UI) and REP-1 are superseded by the FBK tasks there; INT-3 is extended; INT-5 stays. Favourites are unchanged.
+
 Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements PLAN R-70 to R-75, BACKLOG 15.70 to
 15.75, owner questions Q101 to Q108. Nothing here is built. The build queues behind the closure queue, R-59 and the
 R-61 HTTPS preview, as section 10 sets out; phase 1 (favourites on this device) needs no backend.
