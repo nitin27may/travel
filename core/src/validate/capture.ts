@@ -22,6 +22,7 @@ import { checkTree, loadTypes, treeOf } from "../capture/tree.ts";
 import { loadMap } from "../suitability/map.ts";
 import { APPLICABILITY_PATHS, EXT_KINDS } from "../suitability/paths.ts";
 import { RefResolver } from "../suitability/refs.ts";
+import { PHOTO_LICENCE_ALLOWED, photoLicenceOk } from "../capture/photoLicence.ts";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { validateApplicabilityRules } from "./applicability.ts";
@@ -315,6 +316,10 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
       for (const s of l.src ?? []) if (!ids.has(s)) E_("E_CAP_SRC", `${base}/links/${j}/src`, `src names ${JSON.stringify(s)}, which is not in this file's sources.`);
       if ((E.CAP_LINK_ONLY_KIND as readonly string[]).includes(l.kind) && l.state === "filled" && l.url && !l.on) W("W_CAP_NA_FIELD", `${base}/links/${j}`, `a ${l.kind} link is link-only: record the date it was found (found_in_search with "on"), and never read its figures.`);
       if (l.url && linkOnly(l.url) && !(E.CAP_LINK_ONLY_KIND as readonly string[]).includes(l.kind)) E_("E_CAP_LINK_ONLY", `${base}/links/${j}/url`, `a ${l.kind} link points at ${linkOnly(l.url)}. That platform is a link-only kind (alltrails, komoot, gaia, outdooractive, wikiloc, trailforks, reseller), never official.`);
+    }
+    // photo licences stay on the allowlist (media.md 6, DD-3)
+    for (const [j, p] of (r.photos ?? []).entries()) {
+      if (!photoLicenceOk(p.licence)) E_("E_CAP_PHOTO_LICENCE", `${base}/photos/${j}/licence`, `photo licence "${p.licence}" is not on the allowlist (${PHOTO_LICENCE_ALLOWED.join(", ")}). NC, ND, all rights reserved and the Unsplash and Pexels licences are refused (DD-3); leave the photo out, or keep a link to its page instead.`);
     }
     // the completeness engine: required properties no value answers
     if (full) {

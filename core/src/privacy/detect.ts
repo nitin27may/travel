@@ -22,6 +22,7 @@
 import { decodePolyline5, POLYLINE5_RE } from "../schema/api/legs.ts";
 import { HOME_TOWN_RE, nearHome } from "./home.ts";
 import type { PublicGazetteer } from "./towns.ts";
+import { TRIPLESS_LANE } from "../capture/lane.ts";
 
 /** The household's planning notes: a plan link, a stay idea, a base camp (dateless.ts HOUSEHOLD_TEXT, without its loose address rule). */
 export const PLANNING_NOTE = /\bplanned as\b|\b(?:hotel|stay|lodging|airbnb|accommodation|campsite|hut)\s+(?:idea|ideas|choice|pick|booked)\b|\bbase camp:/i;
@@ -34,6 +35,12 @@ export const STATUS_WORDS: readonly string[] = ["idea", "shortlisted", "planned"
  * served body or published file may hold one; a page with no capture record is `place/<slug>`. The word boundary keeps `wikiloc:` out.
  */
 export const ORIGIN_REF = /\b(?:loc|proto):[^\s"]/;
+/**
+ * The trip-less capture lane (core/src/capture/lane.ts, DD-8) is internal: its id as a trip, or a `trip/<lane>` ref, would tell which
+ * places have no trip, that is which came from the owner's list (PRIV1). No served body names it.
+ */
+export const TRIP_VALUE_KEYS: readonly string[] = ["trip", "trips", "tripId", "trip_id", "tripSlug", "trip_slug"];
+export const TRIPLESS_REF = new RegExp(`\\btrip/${TRIPLESS_LANE}\\b`);
 /** Keys that carry household data in any output (the owner's save metadata since PRIV1, traveller details, payments). */
 export const PRIVATE_KEYS: readonly string[] = ["height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added"];
 
@@ -73,6 +80,7 @@ const pairNearHome = (a: number, b: number): boolean => nearHome(a, b) || nearHo
 /** Text and number pairs inside a string: an export body (GPX attributes, KML coordinates, CSV, the json model) is one string. */
 function textHits(text: string, at: string, hits: Hit[], homeTownText = true): void {
   if (ORIGIN_REF.test(text)) hits.push({ where: at, why: "a private origin key (wishlist or prototype id)" });
+  if (TRIPLESS_REF.test(text)) hits.push({ where: at, why: "the trip-less lane id" });
   if (homeTownText && HOME_TOWN_RE.test(text)) hits.push({ where: at, why: "the home town" });
   else if (PLANNING_NOTE.test(text) || STREET_ADDRESS.test(text)) hits.push({ where: at, why: "a household planning note" });
   if (text.length > 40) {
@@ -193,6 +201,7 @@ export function privacyHits(body: unknown, limit = 20, opts: DetectOptions = {})
         if (PRIVATE_KEYS.includes(k) || (k === "status" && typeof y === "string" && STATUS_WORDS.includes(y))) hits.push({ where: `${at}.${k}`, why: "a private key" });
         // a map keyed by ref (refSlugs, citations) would carry an origin key as a key; the path omits the key so the hit cannot leak it
         if (ORIGIN_REF.test(k)) hits.push({ where: `${at}[key]`, why: "a private origin key (wishlist or prototype id)" });
+        if (TRIP_VALUE_KEYS.includes(k) && (y === TRIPLESS_LANE || (Array.isArray(y) && y.includes(TRIPLESS_LANE)))) hits.push({ where: `${at}.${k}`, why: "the trip-less lane id" });
         walk(y, `${at}.${k}`, { key: k, owners, labelOwners: own, city: false, echo: false, depth: c.depth });
       }
     }

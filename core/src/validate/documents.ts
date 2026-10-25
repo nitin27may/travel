@@ -9,6 +9,7 @@ import { validateRelevance } from "./relevance.ts";
 import { validateSourcesRules } from "./sources.ts";
 import { validateCapture, validateCaptureOperators, validateCaptureRun, validateCaptureSupersedes, validateCaptureTypes } from "./capture.ts";
 import { validateDifficultyMapRules } from "../suitability/mapRules.ts";
+import { validateLane } from "./lane.ts";
 
 export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability" | "suitability-applicability" | "relevance" | "sources" | "capture" | "capture-types" | "capture-operators" | "capture-run" | "capture-supersedes";
 
@@ -34,16 +35,19 @@ export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): vo
   if (kind === "suitability") {
     // its own error codes (E_SUIT_*): the generic table check would report everything as E_SCHEMA
     validateSuitability(doc, ctx);
+    validateLane(doc, "suitability", ctx);
     return;
   }
   if (kind === "relevance") {
     // its own error codes (E_REL_*)
     validateRelevance(doc, ctx);
+    validateLane(doc, "relevance", ctx);
     return;
   }
   if (kind === "capture") {
     // its own error codes (E_CAP_*)
     validateCapture(doc, ctx);
+    validateLane(doc, "capture", ctx);
     return;
   }
   if (kind === "capture-types") {

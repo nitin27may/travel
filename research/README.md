@@ -61,10 +61,10 @@ flowchart LR
 ### 3a. Add a place
 
 1. Use the `location` skill (`.claude/skills/location/SKILL.md`). Capture only; no research at this step.
-2. Add one place with `python3 tools/locations.py add`, or five or more with a batch file in `research/inbox/<date>-<topic>.json` and `locations.py import` ([formats/README.md](formats/README.md#inbox-batch)).
+2. Add one place with `python3 tools/locations.py add`. For a plain list of names, write one `Name, Country[, kind]` per line and run `locations.py quick-add <file>` (ambiguous, not-found and duplicate lines are printed and not written; settle them with `add --pick N`). For five or more places with tags, sources or stats, use a batch file in `research/inbox/<date>-<topic>.json` and `locations.py import` ([formats/README.md](formats/README.md#inbox-batch)).
 3. Screenshots go to `research/inbox/<date>-<slug>.jpg` and are passed with `--screenshot`.
 4. Finish with `python3 tools/locations.py build --check` (prints `up to date`).
-5. Research starts when a trip adopts the place: `locations.py edit <ID> --trip <slug> --status planned`, then 3b.
+5. Research starts when a trip adopts the place: `locations.py edit <ID> --trip <slug> --status planned`, then 3b. A place no trip uses still gets the basics tier ([DATA-LOC.md](../docs/v2/build/public-site/briefs/DATA-LOC.md) section 2): `locations.py basics --report` lists what each place lacks, worst first; store columns are filled with `locations.py edit <ID> --wikidata/--elevation-m/--image` or marked `--searched-none ... --tried ...`, and its capture, suitability and relevance records go in the trip-less lane `data/<kind>/catalogue/` under the place's `place/<slug>` ref (the lane rules: [method/capture-contract.md](method/capture-contract.md) section 3.8).
 
 Outputs: `data/locations/locations.json` and its generated views. Commands: [tools.md](tools.md#places).
 
@@ -99,7 +99,7 @@ The `trip` skill wraps this job. Step 7 writes the trip file and schedule (`data
 1. One runner for the whole machine; never from parallel agents. Contract: [method/lanes/media.md](method/lanes/media.md).
 2. Trip galleries are data: `tools/gallery/gallery_find.py`, look at the contact sheet, `gallery_pick.py`, then `gallery.py verify` ([tools.md](tools.md#photos)). `inject` is frozen with the legacy pages.
 3. Credits for the new site: `web/scripts/fetch-photo-credits.mjs`; Wikidata images for the globe: `web/scripts/globe-images.mjs`.
-4. Sources, in order (owner, 25 Oct 2026; spec [DATA-LOC.md](../docs/v2/build/public-site/briefs/DATA-LOC.md) section 4): Wikimedia Commons, Openverse, Flickr (CC0, CC BY, CC BY-SA, no known copyright restrictions; reached through Openverse only, no Flickr key, Q-LOC-2), Geograph, public-domain agency media (NPS, Parks Canada pages that state an open licence), Unsplash and Pexels (their own licence, recorded as such; not used until the owner confirms DD-3 in `docs/v2/build/public-site/DATA-ROADMAP.md`), the owner's photos. Every photo is credited with author and licence and linked to its file page. Never take a file only because it is publicly visible: all rights reserved and no-derivatives files are out. One runner, one request at a time, for every service.
+4. Sources, in order (owner, 25 Oct 2026; spec [DATA-LOC.md](../docs/v2/build/public-site/briefs/DATA-LOC.md) section 4): Wikimedia Commons, Openverse (filtered to CC0, the Public Domain Mark, CC BY and CC BY-SA), Flickr (CC0, CC BY, CC BY-SA, no known copyright restrictions; reached through Openverse only, no Flickr key, Q-LOC-2), Geograph, public-domain agency media (NPS, Parks Canada pages that state an open licence), the owner's photos. **Licences stay strict (DD-3, decided 25 Oct 2026): CC BY, CC BY-SA, CC0 and public domain only.** NC, ND and all rights reserved files are out, and so are the Unsplash and Pexels licences (not Creative Commons; they forbid building a similar collection). The capture validator refuses any other licence on a stored photo (`E_CAP_PHOTO_LICENCE`). Every photo is credited with author and licence and linked to its file page. Never take a file only because it is publicly visible. One runner, one request at a time, for every service.
 
 ### 3f. The pre-trip conditions check
 
