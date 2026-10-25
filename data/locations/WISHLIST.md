@@ -1,6 +1,6 @@
 # Wishlist
 
-Generated from `data/locations/locations.json` on 2026-10-22. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
+Generated from `data/locations/locations.json` on 2026-10-25. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
 
 74 places in 7 countries, 5 collections. By status: idea 66, planned 8.
 
@@ -24,56 +24,56 @@ Legend: kind · season · status · stats from the source post are unverified un
   - <sub>CA/QC/bas-saint-laurent-gaspesie/chute-du-grand-sault</sub>
 #### Charlevoix
 
-- **Le Buton lookout, Le Massif de Charlevoix** · viewpoint · Sep,Oct · idea · kids: yes · km about 2 (loop) · minutes 45 (unverified) · [map](https://maps.google.com/?q=47.28,-70.61) [wd](https://www.wikidata.org/wiki/Q3224379) [official](https://www.lemassif.com/en/activities-events/activity-finder/lookout-le-buton) · #fall-colours #family-hike
+- **Le Buton lookout, Le Massif de Charlevoix** · viewpoint · Sep,Oct · idea · kids: yes · km about 2 (loop) · minutes 45 (unverified) · [map](https://maps.google.com/?q=47.28,-70.61) [wd](https://www.wikidata.org/wiki/Q3224379) [official](https://www.lemassif.com/en/activities-events/activity-finder/lookout-le-buton) [note](https://www.wikidata.org/wiki/Q3224379) · #fall-colours #family-hike
   - Signature lookout on a man-made mound at the summit; wide view over the St. Lawrence and the mountains. Easy 2 km loop, 45 min, from the summit (resort and trail sites). Check the gondola and mountain access run on your dates; a 2026 notice mentioned a suspension during a strike. Official: https://www.lemassif.com/en/activities-events/activity-finder/lookout-le-buton
   - <sub>CA/QC/charlevoix/le-buton</sub>
 #### Côte-de-Beaupré
 
-- **Canyon Sainte-Anne** · canyon · May,Jun,Jul,Aug,Sep,Oct · idea · kids: yes · waterfall_m 74 · suspension_bridges 3 · highest_bridge_m 60 · air_canyon_m 90 · air_canyon_kmh 50 · air_canyon_extra_cad 11 · trail_km 3 · lookouts 8 · adult_cad 15 · child_6_17_cad 10 · under_5_cad 0 · parking_cad 0 (unverified) · [map](https://maps.google.com/?q=47.07255,-70.87476) [wd](https://www.wikidata.org/wiki/Q609933) · #family #suspension-bridge #viewpoint #waterfall
+- **Canyon Sainte-Anne** · canyon · May,Jun,Jul,Aug,Sep,Oct · idea · kids: yes · waterfall_m 74 · suspension_bridges 3 · highest_bridge_m 60 · air_canyon_m 90 · air_canyon_kmh 50 · air_canyon_extra_cad 11 · trail_km 3 · lookouts 8 · adult_cad 15 · child_6_17_cad 10 · under_5_cad 0 · parking_cad 0 (unverified) · [map](https://maps.google.com/?q=47.07255,-70.87476) [wd](https://www.wikidata.org/wiki/Q609933) [note](https://www.wikidata.org/wiki/Q609933) · #family #suspension-bridge #viewpoint #waterfall
   - 74 m waterfall with suspension bridges across the gorge (from memory, unverified). About 40 min east of Quebec City; combine with Montmorency Falls and Ile d'Orleans. Check opening dates, fees and kids' rules.
   - <sub>CA/QC/cote-de-beaupre/canyon-sainte-anne</sub>
 - **La Crête trail, Mont-Sainte-Anne** · trail · Sep,Oct · idea · [map](https://maps.google.com/?q=47.0756,-70.9036) · #fall-colours #hiking #views
   - Mountain hike with panoramic views and fall colours. The post gives no distance or time. The pin is approximate, at the Beaupre ski mountain summit.
   - <sub>CA/QC/cote-de-beaupre/la-crete</sub>
-- **Montmorency Falls** · waterfall · season ? · idea · [map](https://maps.google.com/?q=46.89083,-71.1475) [wd](https://www.wikidata.org/wiki/Q1946396) · #family #suspension-bridge
+- **Montmorency Falls** · waterfall · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · idea · [map](https://maps.google.com/?q=46.89083,-71.1475) [wd](https://www.wikidata.org/wiki/Q1946396) [note](https://www.wikidata.org/wiki/Q1946396) · #family #suspension-bridge
   - Gaspesie road trip stop 1. Near Quebec City, close to Canyon Sainte-Anne.
   - <sub>CA/QC/cote-de-beaupre/montmorency-falls</sub>
 #### Eastern Townships
 
-- **Mont Saddle and Montagne de Marbre loop** · trail · Sep,Oct · idea · kids: strong-kid · km 13.7 · gain_m 480 · hours 4h28 (unverified) · [map](https://maps.google.com/?q=45.33417,-71.01278) [wd](https://www.wikidata.org/wiki/Q21428295) · #border #fall-colours #hiking #views
+- **Mont Saddle and Montagne de Marbre loop** · trail · Sep,Oct · idea · kids: strong-kid · km 13.7 · gain_m 480 · hours 4h28 (unverified) · [map](https://maps.google.com/?q=45.33417,-71.01278) [wd](https://www.wikidata.org/wiki/Q21428295) [note](https://www.wikidata.org/wiki/Q21428295) · #border #fall-colours #hiking #views
   - Challenging loop with panoramic views, cliffs and a section along the Canada-US border. From the '5 iconic Quebec fall hikes' post.
   - <sub>CA/QC/eastern-townships/montagne-de-marbre</sub>
-- **Sentier des Cimes, Parc national du Mont-Mégantic** · trail · Sep,Oct · idea · kids: strong-kid · km 12.4 · gain_m 393 · hours 3h33 (unverified) · [map](https://maps.google.com/?q=45.4569,-71.1625) [wd](https://www.wikidata.org/wiki/Q1751092) · #dark-sky #fall-colours #hiking #sepaq #views
+- **Sentier des Cimes, Parc national du Mont-Mégantic** · trail · Sep,Oct · idea · kids: strong-kid · km 12.4 · gain_m 393 · hours 3h33 (unverified) · [map](https://maps.google.com/?q=45.4569,-71.1625) [wd](https://www.wikidata.org/wiki/Q1751092) [note](https://www.wikidata.org/wiki/Q1751092) · #dark-sky #fall-colours #hiking #sepaq #views
   - Mountain trail through forest with mountain scenery. The park is a dark-sky reserve (from memory).
   - <sub>CA/QC/eastern-townships/sentier-des-cimes</sub>
 #### Forillon National Park
 
-- **Cap-Bon-Ami** · viewpoint · season ? · idea · [map](https://maps.google.com/?q=48.81389,-64.22222) [wd](https://www.wikidata.org/wiki/Q112836599) · #cliffs #coast #parks-canada
+- **Cap-Bon-Ami** · viewpoint · May,Jun,Jul,Aug,Sep,Oct · idea · [map](https://maps.google.com/?q=48.81389,-64.22222) [wd](https://www.wikidata.org/wiki/Q112836599) [note](https://www.wikidata.org/wiki/Q112836599) · #cliffs #coast #parks-canada
   - Gaspesie road trip stop 9.
   - <sub>CA/QC/forillon-national-park/cap-bon-ami</sub>
-- **Cap-Gaspé** · viewpoint · season ? · idea · [map](https://maps.google.com/?q=48.75,-64.17) [wd](https://www.wikidata.org/wiki/Q112854948) · #coast #hiking #lighthouse #parks-canada
+- **Cap-Gaspé** · viewpoint · May,Jun,Jul,Aug,Sep,Oct · idea · [map](https://maps.google.com/?q=48.75,-64.17) [wd](https://www.wikidata.org/wiki/Q112854948) [note](https://www.wikidata.org/wiki/Q112854948) · #coast #hiking #lighthouse #parks-canada
   - Gaspesie road trip stop 11. End of the Appalachian Trail (IAT) at Land's End (from memory).
   - <sub>CA/QC/forillon-national-park/cap-gaspe</sub>
-- **Mont Saint-Alban** · mountain · season ? · idea · [map](https://maps.google.com/?q=48.81111,-64.23611) [wd](https://www.wikidata.org/wiki/Q98108734) · #hiking #parks-canada #viewpoint
+- **Mont Saint-Alban** · mountain · May,Jun,Jul,Aug,Sep,Oct · idea · [map](https://maps.google.com/?q=48.81111,-64.23611) [wd](https://www.wikidata.org/wiki/Q98108734) [note](https://www.wikidata.org/wiki/Q98108734) · #hiking #parks-canada #viewpoint
   - Gaspesie road trip stop 13. Observation tower loop above Cap-Bon-Ami (from memory).
   - <sub>CA/QC/forillon-national-park/mont-saint-alban</sub>
-- **Sentier La Chute** · trail · season ? · idea · [map](https://maps.google.com/?q=48.84296,-64.26511) [wd](https://www.wikidata.org/wiki/Q139862201) · #family #hiking #parks-canada #waterfall
+- **Sentier La Chute** · trail · May,Jun,Jul,Aug,Sep,Oct · idea · [map](https://maps.google.com/?q=48.84296,-64.26511) [wd](https://www.wikidata.org/wiki/Q139862201) [note](https://www.wikidata.org/wiki/Q139862201) · #family #hiking #parks-canada #waterfall
   - Gaspesie road trip stop 10.
   - <sub>CA/QC/forillon-national-park/sentier-la-chute</sub>
 #### Haute-Gaspésie
 
-- **La Martre Lighthouse** · lighthouse · season ? · idea · [map](https://maps.google.com/?q=49.20612,-66.17143) [wd](https://www.wikidata.org/wiki/Q14826835) · #coast
+- **La Martre Lighthouse** · lighthouse · season ? · idea · [map](https://maps.google.com/?q=49.20612,-66.17143) [wd](https://www.wikidata.org/wiki/Q14826835) [note](https://www.wikidata.org/wiki/Q14826835) · #coast
   - Gaspesie road trip stop 8. Red wooden lighthouse at La Martre.
   - <sub>CA/QC/haute-gaspesie/la-martre-lighthouse</sub>
-- **Mont-Saint-Pierre** · town · season ? · idea · [map](https://maps.google.com/?q=49.2225,-65.80722) [wd](https://www.wikidata.org/wiki/Q3321623) · #coast #paragliding
+- **Mont-Saint-Pierre** · town · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · idea · [map](https://maps.google.com/?q=49.2225,-65.80722) [wd](https://www.wikidata.org/wiki/Q3321623) [note](https://www.wikidata.org/wiki/Q3321623) · #coast #paragliding
   - Gaspesie road trip stop 5. Known for hang-gliding and paragliding (from memory).
   - <sub>CA/QC/haute-gaspesie/mont-saint-pierre</sub>
 #### Parc national de la Gaspésie
 
-- **Lac aux Américains** · lake · season ? · idea · [map](https://maps.google.com/?q=48.95583,-66.02167) [wd](https://www.wikidata.org/wiki/Q114635604) · #family #hiking #sepaq
+- **Lac aux Américains** · lake · season ? · idea · [map](https://maps.google.com/?q=48.95583,-66.02167) [wd](https://www.wikidata.org/wiki/Q114635604) [note](https://www.wikidata.org/wiki/Q114635604) · #family #hiking #sepaq
   - Gaspesie road trip stop 7. Short family walk to a glacial cirque lake under Mont Xalibu (from memory).
   - <sub>CA/QC/parc-national-de-la-gaspesie/lac-aux-americains</sub>
-- **Mont Xalibu** · mountain · season ? · idea · [map](https://maps.google.com/?q=48.96361,-66.01361) [wd](https://www.wikidata.org/wiki/Q26999326) · #hiking #sepaq #views
+- **Mont Xalibu** · mountain · Jul,Aug,Sep · idea · [map](https://maps.google.com/?q=48.96361,-66.01361) [wd](https://www.wikidata.org/wiki/Q26999326) [note](https://www.wikidata.org/wiki/Q26999326) · #hiking #sepaq #views
   - Gaspesie road trip stop 6.
   - <sub>CA/QC/parc-national-de-la-gaspesie/mont-xalibu</sub>
 #### Parc national de la Jacques-Cartier
@@ -83,25 +83,25 @@ Legend: kind · season · status · stats from the source post are unverified un
   - <sub>CA/QC/parc-national-de-la-jacques-cartier/l-eperon</sub>
 #### Parc national du Bic
 
-- **Pic Champlain** · mountain · season ? · idea · [map](https://maps.google.com/?q=48.32833,-68.83528) [wd](https://www.wikidata.org/wiki/Q549540) · #hiking #sepaq #viewpoint
+- **Pic Champlain** · mountain · May,Jun,Jul,Aug,Sep,Oct,Nov · idea · [map](https://maps.google.com/?q=48.32833,-68.83528) [wd](https://www.wikidata.org/wiki/Q549540) [note](https://www.wikidata.org/wiki/Q549540) · #hiking #sepaq #viewpoint
   - Gaspesie road trip stop 2.
   - <sub>CA/QC/parc-national-du-bic/pic-champlain</sub>
 #### Percé
 
-- **Bonaventure Island** · island · season ? · idea · [map](https://maps.google.com/?q=48.49516,-64.16053) [wd](https://www.wikidata.org/wiki/Q135228) · #boat #family #gannets #sepaq
+- **Bonaventure Island** · island · May,Jun,Jul,Aug,Sep,Oct · idea · [map](https://maps.google.com/?q=48.49516,-64.16053) [wd](https://www.wikidata.org/wiki/Q135228) [note](https://www.wikidata.org/wiki/Q135228) · #boat #family #gannets #sepaq
   - Gaspesie road trip stop 14. Northern gannet colony; ferry from Perce, fee and season to check.
   - <sub>CA/QC/perce/bonaventure-island</sub>
-- **Percé Rock** · island · season ? · idea · [map](https://maps.google.com/?q=48.52389,-64.19944) [wd](https://www.wikidata.org/wiki/Q2466817) · #coast #landmark #photography
+- **Percé Rock** · island · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · idea · [map](https://maps.google.com/?q=48.52389,-64.19944) [wd](https://www.wikidata.org/wiki/Q2466817) [note](https://www.wikidata.org/wiki/Q2466817) · #coast #landmark #photography
   - Gaspesie road trip stop 12.
   - <sub>CA/QC/perce/perce-rock</sub>
 #### Saint-Narcisse-de-Rimouski
 
-- **Canyon des Portes de l'Enfer** · canyon · season ? · idea · [map](https://maps.google.com/?q=48.26111,-68.53889) [wd](https://www.wikidata.org/wiki/Q18610901) · #suspension-bridge #waterfall
+- **Canyon des Portes de l'Enfer** · canyon · May,Jun,Jul,Aug,Sep,Oct · idea · [map](https://maps.google.com/?q=48.26111,-68.53889) [wd](https://www.wikidata.org/wiki/Q18610901) [note](https://www.wikidata.org/wiki/Q18610901) · #suspension-bridge #waterfall
   - Gaspesie road trip stop 3.
   - <sub>CA/QC/saint-narcisse-de-rimouski/canyon-des-portes-de-l-enfer</sub>
 #### Zec des Martres
 
-- **Mont du Dôme** · trail · Sep,Oct · idea · kids: strong-kid · km 9.5 · gain_m 543 · hours 3.5-4 · level intermediate-advanced (unverified) · [map](https://maps.google.com/?q=47.7,-70.63333) [wd](https://www.wikidata.org/wiki/Q62523385) · #fall-colours #hiking #three-summits #views
+- **Mont du Dôme** · trail · Sep,Oct · idea · kids: strong-kid · km 9.5 · gain_m 543 · hours 3.5-4 · level intermediate-advanced (unverified) · [map](https://maps.google.com/?q=47.7,-70.63333) [wd](https://www.wikidata.org/wiki/Q62523385) [note](https://www.wikidata.org/wiki/Q62523385) · #fall-colours #hiking #three-summits #views
   - Loop over three summits (Mont du Dome, Mont Orignal, Mont Saint-Michel) with panoramic views; Saint-Michel is reportedly the quietest. Mont du Dome alone: 5.8 km, 358 m, about 3 h (first post). Roadside parking, easy to find; dogs on leash. Video dated 30 Sep 2025.
   - <sub>CA/QC/zec-des-martres/mont-du-dome</sub>
 ## China
