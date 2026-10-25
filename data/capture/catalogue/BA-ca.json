@@ -1,0 +1,1298 @@
+{
+  "schema": "capture/1",
+  "trip": "catalogue",
+  "lane": "BA-ca",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://baliseqc.ca/3S/explorer/quebec/parc-de-la-chute-montmorency-LR0429",
+      "title": "Parc de la Chute-Montmorency - Balise Québec",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.quebec-cite.com/en/businesses/parc-de-la-chute-montmorency",
+      "title": "Parc de la Chute-Montmorency - Visit Québec City",
+      "publisher": "Visiter Québec (Québec City tourism office)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://canyonsa.qc.ca/en/rates-and-schedule/",
+      "title": "Opening hours, admission and rates - Canyon Sainte-Anne",
+      "publisher": "Canyon Sainte-Anne",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.quebec-cite.com/index.php/fr/entreprises/canyon-sainte-anne",
+      "title": "Canyon Sainte-Anne - Visiter Québec",
+      "publisher": "Visiter Québec (Québec City tourism office)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.lemassif.com/en/activities-events/activity-finder/lookout-le-buton",
+      "title": "Le Buton Lookout - Le Massif de Charlevoix",
+      "publisher": "Le Massif de Charlevoix",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.lemassif.com/en/the-mountain/summer-fall/mountain-schedule-summerfall-2026",
+      "title": "Mountain Schedule - Summer/Fall 2026",
+      "publisher": "Le Massif de Charlevoix",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://parks.canada.ca/pn-np/qc/forillon/activ/randonnee-hiking",
+      "title": "Hiking - Forillon National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://parks.canada.ca/pn-np/qc/forillon/visit/tarifs-fees",
+      "title": "Fees - Forillon National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://medias.baliseqc.ca/upload/pap/PaP_SNQ_ParcNationalGaspesie_Xalibu_1j_3S.pdf",
+      "title": "Mont Xalibu, Parc national de la Gaspésie (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.terfa.ca/fr/terfa/canyon-des-portes-de-l-enfer/",
+      "title": "Canyon des Portes de l'Enfer - Terfa",
+      "publisher": "Terfa",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.terfa.ca/fr/plein-air/tarifs/",
+      "title": "Heures d'ouverture et tarifs - Canyon des Portes de l'Enfer",
+      "publisher": "Terfa",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.bonjourquebec.com/fr/repertoire/quoi-faire/terfa-canyon-des-portes-de-l-enfer/0q5x",
+      "title": "TERFA - Canyon des Portes de l'Enfer - Bonjour Québec",
+      "publisher": "Bonjour Québec (Tourisme Québec)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE06_ParcNationalBic_Murailles_1j.pdf",
+      "title": "Sentier Les Murailles, Parc national du Bic (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://montsaintpierre.ca/informations-pratiques/",
+      "title": "Informations pratiques - Mont-Saint-Pierre",
+      "publisher": "Mont-Saint-Pierre, Station de montagne sur mer",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE32_Bonaventure_Boucle_1j.pdf",
+      "title": "Boucle secteur Île-Bonaventure (prêt-à-partir)",
+      "publisher": "Rando Québec",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://geoparcdeperce.com/",
+      "title": "Géoparc de Percé",
+      "publisher": "Géoparc de Percé",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/montmorency-falls",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-qc-boischatel",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6695248, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Montmorency Falls",
+      "area_id": "CA/QC/cote-de-beaupre",
+      "osm_ref": "node/1199354691",
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Visiter Québec listing",
+          "Rando Québec page"
+        ],
+        "note": "Neither page gives a best flow or ice window; the listing says it is as spectacular in summer as in winter."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.parcdelachutemontmorency.com/",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.quebec-cite.com/en/businesses/parc-de-la-chute-montmorency",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.wikidata.org/wiki/Q1946396"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/node/1199354691"
+        }
+      ]
+    },
+    {
+      "ref": "place/canyon-sainte-anne",
+      "type": "nature.landform.canyon",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-qc-beaupre",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6325479, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 3.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Canyon Sainte-Anne",
+      "area_id": "CA/QC/cote-de-beaupre",
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://canyonsa.qc.ca/en/",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://canyonsa.qc.ca/en/rates-and-schedule/",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.quebec-cite.com/index.php/fr/entreprises/canyon-sainte-anne",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.wikidata.org/wiki/Q609933"
+        },
+        {
+          "kind": "osm",
+          "state": "searched_none",
+          "on": "2026-10-25",
+          "query": "Overpass name search within 1.5 km of the Wikidata point, 2026-10-25: no named element"
+        }
+      ]
+    },
+    {
+      "ref": "place/le-buton-lookout-le-massif-de-charlevoix",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Le Buton lookout, Le Massif de Charlevoix",
+      "area_id": "CA/QC/charlevoix",
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Le Massif Le Buton page",
+          "Le Massif summer schedule"
+        ],
+        "note": "The operator gives no time-of-day advice."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.lemassif.com/en/activities-events/activity-finder/lookout-le-buton",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.lemassif.com/en/the-mountain/summer-fall/mountain-schedule-summerfall-2026",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.wikidata.org/wiki/Q3224379"
+        },
+        {
+          "kind": "osm",
+          "state": "searched_none",
+          "on": "2026-10-25",
+          "query": "Overpass name search within 1.5 km, 2026-10-25: no element named Le Buton (a 'Sentier du Buton' relation exists near Mont du Dome, not here)"
+        }
+      ]
+    },
+    {
+      "ref": "place/cap-bon-ami",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Cap-Bon-Ami",
+      "area_id": "CA/QC/forillon-national-park",
+      "osm_ref": "node/4337214696",
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Parks Canada Forillon hiking page"
+        ],
+        "note": "No time-of-day advice published for this point."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://parks.canada.ca/pn-np/qc/forillon/activ/randonnee-hiking",
+          "src": [
+            "src-0007"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://parks.canada.ca/pn-np/qc/forillon/visit/tarifs-fees",
+          "src": [
+            "src-0008"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.wikidata.org/wiki/Q112836599"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/node/4337214696"
+        }
+      ]
+    },
+    {
+      "ref": "place/cap-gaspe",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Cap-Gaspé",
+      "area_id": "CA/QC/forillon-national-park",
+      "osm_ref": "node/1302243265",
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Parks Canada Forillon hiking page"
+        ],
+        "note": "No time-of-day advice published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://parks.canada.ca/pn-np/qc/forillon/activ/randonnee-hiking",
+          "src": [
+            "src-0007"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://parks.canada.ca/pn-np/qc/forillon/visit/tarifs-fees",
+          "src": [
+            "src-0008"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.wikidata.org/wiki/Q112854948"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/node/1302243265"
+        }
+      ]
+    },
+    {
+      "ref": "place/mont-saint-alban",
+      "type": "nature.summit.summit",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-qc-gaspe",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5959878, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 18.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Mont Saint-Alban",
+      "area_id": "CA/QC/forillon-national-park",
+      "osm_ref": "node/1305146822",
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Parks Canada Forillon hiking page"
+        ],
+        "note": "No time-of-day advice published."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://parks.canada.ca/pn-np/qc/forillon/activ/randonnee-hiking",
+          "src": [
+            "src-0007"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://parks.canada.ca/pn-np/qc/forillon/visit/tarifs-fees",
+          "src": [
+            "src-0008"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.wikidata.org/wiki/Q98108734"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/node/1305146822"
+        }
+      ]
+    },
+    {
+      "ref": "place/la-martre-lighthouse",
+      "type": "culture.heritage.lighthouse",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-qc-sainte-anne-des-monts",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 25.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "La Martre Lighthouse",
+      "area_id": "CA/QC/haute-gaspesie",
+      "osm_ref": "way/317964466",
+      "season": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Parks Canada news release of 28 Jan 2026 (designation)",
+          "quebecvacances.com listing (403)",
+          "web search for 2026 opening dates"
+        ],
+        "note": "No 2026 opening dates found on a page read."
+      },
+      "hours": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Parks Canada news release of 28 Jan 2026 (designation)",
+          "quebecvacances.com listing (403)"
+        ],
+        "note": "No hours found on a page read."
+      },
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Parks Canada news release of 28 Jan 2026 (designation)",
+          "quebecvacances.com listing (403)"
+        ],
+        "note": "No admission price found on a page read."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "on": "2026-10-25",
+          "query": "No operator page found 2026-10-25: Visiter/Québec Vacances listing answered 403, the web search found no site of the lighthouse museum"
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.wikidata.org/wiki/Q14826835"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/way/317964466"
+        }
+      ]
+    },
+    {
+      "ref": "place/lac-aux-americains",
+      "type": "water.body.lake",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-qc-sainte-anne-des-monts",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 39.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Lac aux Américains",
+      "area_id": "CA/QC/parc-national-de-la-gaspesie",
+      "osm_ref": "way/115356658",
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Rando Québec Mont Xalibu sheet"
+        ],
+        "note": "The sheet gives no time-of-day advice."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://sepaq.com/pq/gas/",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "track_source",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://medias.baliseqc.ca/upload/pap/PaP_SNQ_ParcNationalGaspesie_Xalibu_1j_3S.pdf",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.wikidata.org/wiki/Q114635604"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/way/115356658"
+        }
+      ]
+    },
+    {
+      "ref": "place/canyon-des-portes-de-lenfer",
+      "type": "nature.landform.canyon",
+      "layer": "place",
+      "name": "Canyon des Portes de l'Enfer",
+      "area_id": "CA/QC/saint-narcisse-de-rimouski",
+      "osm_ref": "node/2535855281",
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.terfa.ca/fr/terfa/canyon-des-portes-de-l-enfer/",
+          "src": [
+            "src-0010"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.terfa.ca/fr/plein-air/tarifs/",
+          "src": [
+            "src-0011"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.bonjourquebec.com/fr/repertoire/quoi-faire/terfa-canyon-des-portes-de-l-enfer/0q5x",
+          "src": [
+            "src-0012"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.wikidata.org/wiki/Q18610901"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/node/2535855281"
+        }
+      ]
+    },
+    {
+      "ref": "place/mont-xalibu",
+      "type": "nature.summit.summit",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-qc-sainte-anne-des-monts",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 39.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Mont Xalibu",
+      "area_id": "CA/QC/parc-national-de-la-gaspesie",
+      "osm_ref": "node/3269806647",
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Rando Québec Mont Xalibu sheet"
+        ],
+        "note": "The sheet gives a season (July to September) but no time-of-day advice."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://sepaq.com/pq/gas/",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "track_source",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://medias.baliseqc.ca/upload/pap/PaP_SNQ_ParcNationalGaspesie_Xalibu_1j_3S.pdf",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.wikidata.org/wiki/Q26999326"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/node/3269806647"
+        }
+      ]
+    },
+    {
+      "ref": "place/pic-champlain",
+      "type": "nature.summit.summit",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-qc-le-bic",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 12076634, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 11.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Pic Champlain",
+      "area_id": "CA/QC/parc-national-du-bic",
+      "osm_ref": "node/1087473528",
+      "best_time": {
+        "v": [
+          {
+            "slot": "sunset",
+            "why": "light"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0013"
+        ],
+        "read": "2026-10-25",
+        "quote": "Les couchers de soleil sont splendides!",
+        "note": "The sheet says the sunsets are splendid; it gives no other time advice."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://sepaq.com/bic",
+          "src": [
+            "src-0013"
+          ]
+        },
+        {
+          "kind": "track_source",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE06_ParcNationalBic_Murailles_1j.pdf",
+          "src": [
+            "src-0013"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.wikidata.org/wiki/Q549540"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/node/1087473528"
+        }
+      ]
+    },
+    {
+      "ref": "place/mont-saint-pierre",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
+      "name": "Mont-Saint-Pierre",
+      "area_id": "CA/QC/haute-gaspesie",
+      "osm_ref": "node/1304278570",
+      "geonames_id": {
+        "v": "6077352",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "GeoNames id taken from Wikidata Q3321623 property P1566, read 2026-10-25; GeoNames itself was not opened."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://montsaintpierre.ca/",
+          "src": [
+            "src-0014"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.wikidata.org/wiki/Q3321623"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/node/1304278570"
+        }
+      ]
+    },
+    {
+      "ref": "place/bonaventure-island",
+      "type": "nature.landform.island",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-qc-perce",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6621052, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 10.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Bonaventure Island",
+      "area_id": "CA/QC/perce",
+      "osm_ref": "relation/6989318",
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.sepaq.com/pq/bon",
+          "src": [
+            "src-0015"
+          ]
+        },
+        {
+          "kind": "track_source",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE32_Bonaventure_Boucle_1j.pdf",
+          "src": [
+            "src-0015"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.wikidata.org/wiki/Q135228"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/relation/6989318"
+        }
+      ]
+    },
+    {
+      "ref": "place/perce-rock",
+      "type": "nature.landform.island",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-qc-perce",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6621052, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 8.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Percé Rock",
+      "area_id": "CA/QC/perce",
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://geoparcdeperce.com/",
+          "src": [
+            "src-0016"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.wikidata.org/wiki/Q2466817"
+        },
+        {
+          "kind": "osm",
+          "state": "searched_none",
+          "on": "2026-10-25",
+          "query": "Overpass name search within 1.5 km, 2026-10-25: capes and bays named, no element for the rock itself"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/montmorency-falls#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Montmorency Falls upper car park (access point)",
+      "area_id": "CA/QC/cote-de-beaupre",
+      "parks_for": [
+        "place/montmorency-falls"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.parcdelachutemontmorency.com/",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.quebec-cite.com/en/businesses/parc-de-la-chute-montmorency",
+          "src": [
+            "src-0002"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/cap-bon-ami#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Cap-Bon-Ami car park (nearest mapped lot)",
+      "area_id": "CA/QC/forillon-national-park",
+      "parks_for": [
+        "place/cap-bon-ami",
+        "place/mont-saint-alban"
+      ],
+      "osm_ref": "way/435827958",
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://parks.canada.ca/pn-np/qc/forillon/activ/randonnee-hiking",
+          "src": [
+            "src-0007"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/way/435827958"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/cap-gaspe#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "L'Anse-aux-Amérindiens car park (nearest mapped lot)",
+      "area_id": "CA/QC/forillon-national-park",
+      "parks_for": [
+        "place/cap-gaspe"
+      ],
+      "osm_ref": "way/710486070",
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://parks.canada.ca/pn-np/qc/forillon/activ/randonnee-hiking",
+          "src": [
+            "src-0007"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/way/710486070"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/lac-aux-americains#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-qc-sainte-anne-des-monts",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 37.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Lac aux Américains car park (40 places)",
+      "area_id": "CA/QC/parc-national-de-la-gaspesie",
+      "parks_for": [
+        "place/lac-aux-americains",
+        "place/mont-xalibu"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://sepaq.com/pq/gas/",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "track_source",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://medias.baliseqc.ca/upload/pap/PaP_SNQ_ParcNationalGaspesie_Xalibu_1j_3S.pdf",
+          "src": [
+            "src-0009"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/pic-champlain#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-qc-le-bic",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 12076634, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 14.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Belvédère Raoul-Roy car park (20 places)",
+      "area_id": "CA/QC/parc-national-du-bic",
+      "parks_for": [
+        "place/pic-champlain"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://sepaq.com/bic",
+          "src": [
+            "src-0013"
+          ]
+        },
+        {
+          "kind": "track_source",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE06_ParcNationalBic_Murailles_1j.pdf",
+          "src": [
+            "src-0013"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/bonaventure-island#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-qc-perce",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6621052, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 7.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Percé quay car park (paid, 100 places)",
+      "area_id": "CA/QC/perce",
+      "parks_for": [
+        "place/bonaventure-island"
+      ],
+      "osm_ref": "relation/8388119",
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.sepaq.com/pq/bon",
+          "src": [
+            "src-0015"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/relation/8388119"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/canyon-sainte-anne#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Canyon Sainte-Anne car park (nearest mapped lot)",
+      "area_id": "CA/QC/cote-de-beaupre",
+      "parks_for": [
+        "place/canyon-sainte-anne"
+      ],
+      "osm_ref": "way/231694465",
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://canyonsa.qc.ca/en/",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/way/231694465"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/le-buton-lookout-le-massif-de-charlevoix#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Le Massif summit car park (nearest mapped lot)",
+      "area_id": "CA/QC/charlevoix",
+      "parks_for": [
+        "place/le-buton-lookout-le-massif-de-charlevoix"
+      ],
+      "osm_ref": "way/302833489",
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.lemassif.com/en/activities-events/activity-finder/lookout-le-buton",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/way/302833489"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/la-martre-lighthouse#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Belvédère La Martre stop (nearest mapped stop)",
+      "area_id": "CA/QC/haute-gaspesie",
+      "parks_for": [
+        "place/la-martre-lighthouse"
+      ],
+      "osm_ref": "way/1013558783",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "on": "2026-10-25",
+          "query": "No page of the lighthouse found 2026-10-25"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/way/1013558783"
+        }
+      ]
+    }
+  ]
+}
