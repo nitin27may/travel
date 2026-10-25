@@ -219,6 +219,7 @@ list domains), which is what we want for an app secret.
 | U11 | Whether the Resend sandbox can send to `delivered@resend.dev` | Automated checks before the domain |
 | U12 | The `user.created` `auth_provider` value for code and link sign-ups | Welcome mail trigger |
 | U13 | Whether Vercel Deployment Protection covers the production alias (Neon's calls would get 401) | Webhook delivery |
+| U14 | Whether Neon's own rate limiter (`/sign-in/email` 429 after 5 fast attempts, EML-0 R1) keys on the client or on our server: the SDK proxy forwards no client IP, so one visitor's mistakes could slow everyone (found in EML-Q, 25 Oct; a risk for EML-E, no workaround now) | Password sign-in for all visitors |
 
 ## 1. User stories
 
@@ -1291,8 +1292,8 @@ Built as specified in section 13 and "Decision 25 Oct", with these differences a
   child branch: the old cookie's `get-session` is null at once; a later session survives. The app's own session-data cookie can show
   the old device signed in for up to about 5 minutes. The current browser's session is revoked too, so EML-1 signs in after a reset.
   A failed delete still answers 200 (the password is already changed) and alerts the owner (`auth-revoke-failed`).
-- **Environment names** follow the coordinator's brief: `TURNSTILE_SECRET` (server) and `TURNSTILE_SITE_KEY` (widget, EML-1), not
-  `TURNSTILE_SECRET_KEY` / `NEXT_PUBLIC_TURNSTILE_SITE_KEY` of O-E2. The quota HMAC secret is `AUTH_QUOTA_SECRET` (O-E3).
+- **Environment names** (coordinator, 25 Oct): the spec's `TURNSTILE_SECRET_KEY` (server) and
+  `NEXT_PUBLIC_TURNSTILE_SITE_KEY` (widget) of O-E2. The quota HMAC secret is `AUTH_QUOTA_SECRET` (O-E3).
 - **Sign-up** takes from the per-IP sign-up bucket and also from the per-address and global send buckets (with Require Verification on
   it sends a code), so a second sign-up for one address within 60 s answers 429.
 - **Turnstile test secrets** answer hostname `example.com` and no action (probed 25 Oct), so the guard skips those two checks for
@@ -1302,7 +1303,8 @@ Built as specified in section 13 and "Decision 25 Oct", with these differences a
 - **Answers for EML-1** are listed at the top of `web/lib/auth/guard.ts` (`RATE_LIMITED`, `TURNSTILE_FAILED`, `SEND_FAILED`, ...).
 - **Finding: Neon's limiter sees our server, not the visitor.** The SDK proxy forwards no client IP, so Neon's `/sign-in/email` 429
   (5 fast wrong passwords, EML-0 R1) is likely keyed on the Vercel function's address and could slow every visitor at once. Our
-  per-address and per-IP buckets sit in front of it; not confirmed with load (no load tests, Decision 25 Oct).
+  per-address and per-IP buckets sit in front of it; not confirmed with load (no load tests, Decision 25 Oct). Recorded as unknown
+  U14 below, a risk for EML-E; no workaround now (coordinator, 25 Oct).
 - **Copy:** codes expire after **5 minutes** on Neon (EML-0 U9), not 15; EML-1's card copy and any Phase 1 text must say 5.
-- **Deploy order:** EML-Q fails closed without `TURNSTILE_SECRET` and a token, and today's `AuthForm` sends no token, so EML-Q and
+- **Deploy order:** EML-Q fails closed without `TURNSTILE_SECRET_KEY` and a token, and today's `AuthForm` sends no token, so EML-Q and
   EML-1 deploy together, after O-E2, O-E3 and migration 0011 on production (owner approval).

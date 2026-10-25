@@ -81,7 +81,7 @@ beforeEach(() => {
   vi.stubEnv('NEON_AUTH_COOKIE_SECRET', 'a-cookie-secret-that-is-at-least-32-characters-long');
   vi.stubEnv('DATABASE_URL', 'postgres://fake/db');
   vi.stubEnv('AUTH_QUOTA_SECRET', 'quota-secret-0123456789abcdef');
-  vi.stubEnv('TURNSTILE_SECRET', TEST_PASS);
+  vi.stubEnv('TURNSTILE_SECRET_KEY', TEST_PASS);
   vi.stubEnv('OWNER_EMAIL', OWNER);
   vi.stubEnv('AUTH_GUARD', '');
   vi.stubGlobal('fetch', async (input: string | URL | Request, init: RequestInit = {}) => {
@@ -318,7 +318,7 @@ describe('Turnstile', () => {
     [TEST_FAIL, 403, 'TURNSTILE_FAILED'],
     [TEST_SPENT, 403, 'TURNSTILE_FAILED'],
   ])('refuses with %s', async (secret, status, code) => {
-    vi.stubEnv('TURNSTILE_SECRET', secret);
+    vi.stubEnv('TURNSTILE_SECRET_KEY', secret);
     const res = await sendCode('v@example.test');
     expect(res.status).toBe(status);
     expect((await res.json()).code).toBe(code);
@@ -345,7 +345,7 @@ describe('Turnstile', () => {
       503,
     ],
   ] as const)('with a live secret: %s', async (_name, answer, status) => {
-    vi.stubEnv('TURNSTILE_SECRET', LIVE);
+    vi.stubEnv('TURNSTILE_SECRET_KEY', LIVE);
     cloudflare = answer as (form: URLSearchParams) => Response;
     const res = await sendCode('v@example.test');
     expect(res.status).toBe(status);
@@ -353,13 +353,13 @@ describe('Turnstile', () => {
   });
 
   it('with a live secret and a good answer, passes', async () => {
-    vi.stubEnv('TURNSTILE_SECRET', LIVE);
+    vi.stubEnv('TURNSTILE_SECRET_KEY', LIVE);
     cloudflare = cfPass;
     expect((await sendCode('v@example.test')).status).toBe(200);
   });
 
   it('runs on sign-up but not on code checks or password sign-in', async () => {
-    vi.stubEnv('TURNSTILE_SECRET', TEST_FAIL);
+    vi.stubEnv('TURNSTILE_SECRET_KEY', TEST_FAIL);
     neon = () => Response.json({ token: null, user: null });
     expect((await call('sign-up/email', { email: 'v@example.test', password: 'a-long-password' })).status).toBe(403);
     expect((await call('sign-in/email-otp', { email: 'v@example.test', otp: CODE })).status).toBe(200);
@@ -370,8 +370,8 @@ describe('Turnstile', () => {
     const prodReq = (headers: Record<string, string> = {}) => sendCode('v@example.test', headers);
     beforeEach(() => vi.stubEnv('NODE_ENV', 'production'));
 
-    it('answers 503 when TURNSTILE_SECRET is missing', async () => {
-      vi.stubEnv('TURNSTILE_SECRET', '');
+    it('answers 503 when TURNSTILE_SECRET_KEY is missing', async () => {
+      vi.stubEnv('TURNSTILE_SECRET_KEY', '');
       const res = await prodReq();
       expect(res.status).toBe(503);
       expect((await res.json()).code).toBe('TURNSTILE_UNAVAILABLE');
@@ -379,13 +379,13 @@ describe('Turnstile', () => {
     });
 
     it("refuses Cloudflare's test secrets", async () => {
-      vi.stubEnv('TURNSTILE_SECRET', TEST_PASS);
+      vi.stubEnv('TURNSTILE_SECRET_KEY', TEST_PASS);
       expect((await prodReq()).status).toBe(503);
       expect(cfCalls).toHaveLength(0);
     });
 
     it('skips a missing secret only under NODE_ENV test or development', async () => {
-      vi.stubEnv('TURNSTILE_SECRET', '');
+      vi.stubEnv('TURNSTILE_SECRET_KEY', '');
       for (const env of ['test', 'development']) {
         vi.stubEnv('NODE_ENV', env);
         vi.setSystemTime(new Date(Date.now() + 120_000));
@@ -481,7 +481,7 @@ describe('quotas (Phase 1 values)', () => {
 
   it('fails closed in production without the quota store or secret, and when the store is down', async () => {
     vi.stubEnv('NODE_ENV', 'production');
-    vi.stubEnv('TURNSTILE_SECRET', LIVE);
+    vi.stubEnv('TURNSTILE_SECRET_KEY', LIVE);
     cloudflare = cfPass;
     vi.stubEnv('AUTH_QUOTA_SECRET', '');
     expect((await (await sendCode('v@example.test')).json()).code).toBe('GUARD_UNAVAILABLE');
@@ -505,7 +505,7 @@ describe('quotas (Phase 1 values)', () => {
   it('AUTH_GUARD=off forwards without Turnstile or quotas, but still rewrites and revokes', async () => {
     vi.stubEnv('NODE_ENV', 'production');
     vi.stubEnv('AUTH_GUARD', 'off');
-    vi.stubEnv('TURNSTILE_SECRET', '');
+    vi.stubEnv('TURNSTILE_SECRET_KEY', '');
     for (let i = 0; i < 3; i++) expect((await sendCode(' V@Example.test ')).status).toBe(200);
     expect(neonCalls.every((c) => c.body?.email === 'v@example.test')).toBe(true);
     neon = () => Response.json({ status: true });

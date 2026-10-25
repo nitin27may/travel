@@ -32,7 +32,7 @@ import { turnstilePassed, verifyTurnstile } from '@/lib/server/turnstile';
  *      - a send Neon refuses (429 or 5xx) is counted and becomes SEND_FAILED, with owner alerts (first refusal of a day, three
  *        failures in an hour); our own global cap becomes SEND_UNAVAILABLE with an alert once a day.
  *
- * Fail closed: without the quota store or AUTH_QUOTA_SECRET, or without TURNSTILE_SECRET, guarded calls answer 503 in production; only
+ * Fail closed: without the quota store or AUTH_QUOTA_SECRET, or without TURNSTILE_SECRET_KEY, guarded calls answer 503 in production; only
  * NODE_ENV test or development may skip them. `AUTH_GUARD=off` (spec 11.2 rollback) skips Turnstile, quotas and counters but keeps
  * steps 1, 2 and 5. Logs are one JSON line per decision with fixed codes only: never an address, a code, a token or an IP.
  *
@@ -196,7 +196,7 @@ export interface GuardDeps {
   mailer(): Mailer;
   ownerEmail(): string | undefined;
   revokeSessions(email: string, before: Date): Promise<number>;
-  env(): { NODE_ENV?: string; AUTH_GUARD?: string; AUTH_QUOTA_SECRET?: string; TURNSTILE_SECRET?: string };
+  env(): { NODE_ENV?: string; AUTH_GUARD?: string; AUTH_QUOTA_SECRET?: string; TURNSTILE_SECRET_KEY?: string };
   now(): Date;
   /** Cloudflare's siteverify (tests inject a fake). */
   turnstileFetch?: typeof fetch;
@@ -215,7 +215,7 @@ export function defaultGuardDeps(upstream: GuardDeps['upstream']): GuardDeps {
       NODE_ENV: process.env.NODE_ENV,
       AUTH_GUARD: process.env.AUTH_GUARD,
       AUTH_QUOTA_SECRET: process.env.AUTH_QUOTA_SECRET,
-      TURNSTILE_SECRET: process.env.TURNSTILE_SECRET,
+      TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY,
     }),
     now: () => new Date(),
   };
@@ -332,7 +332,7 @@ export function createAuthGuard(deps: GuardDeps) {
           token: request.headers.get('x-turnstile-token'),
           hostname: hostname(request),
           remoteIp: ip,
-          secret: env.TURNSTILE_SECRET,
+          secret: env.TURNSTILE_SECRET_KEY,
           nodeEnv: env.NODE_ENV,
           fetch: deps.turnstileFetch,
         });
