@@ -1,0 +1,2449 @@
+{
+  "schema": "suitability/1",
+  "trip": "catalogue",
+  "lane": "BA-us",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.nps.gov/yell/planyourvisit/parkroads.htm",
+      "title": "Park Roads - Yellowstone National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.nps.gov/grte/planyourvisit/roads.htm",
+      "title": "Park Roads - Grand Teton National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.nps.gov/mora/planyourvisit/road-status.htm",
+      "title": "Road Status - Mount Rainier National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.nps.gov/noca/planyourvisit/fees.htm",
+      "title": "Fees & Passes - North Cascades National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://parks.ny.gov/parks/watkinsglen/details.aspx",
+      "title": "Watkins Glen State Park details",
+      "publisher": "New York State Office of Parks, Recreation and Historic Preservation",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.fs.usda.gov/r06/mbs",
+      "title": "Mount Baker-Snoqualmie National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.fs.usda.gov/r06/mbs/recreation/artist-point-trailhead",
+      "title": "Artist Point Trailhead - Mount Baker-Snoqualmie National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.fs.usda.gov/r06/columbiarivergorge/passes",
+      "title": "Passes - Columbia River Gorge National Scenic Area",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://navajonationparks.org/tribal-parks/monument-valley/",
+      "title": "Monument Valley Navajo Tribal Park",
+      "publisher": "Navajo Nation Parks and Recreation",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://havasupaireservations.com/faqs/",
+      "title": "FAQs - Havasupai Reservations",
+      "publisher": "Havasupai Tribe (reservation office)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://kanarrafalls.com/",
+      "title": "Kanarra Falls",
+      "publisher": "Town of Kanarraville (permit office)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://coloradosprings.gov/incline",
+      "title": "Manitou Incline",
+      "publisher": "City of Colorado Springs Parks",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.codot.gov/news/2025/march/us550-red-mountain-pass-close-monday-march24",
+      "title": "US 550 Red Mountain Pass to close at 3 p.m. on Monday, March 24",
+      "publisher": "Colorado Department of Transportation",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://www.blm.gov/sites/default/files/docs/2026-04/Blue%20Valley_Burpee%20Quary.pdf",
+      "title": "Cow Dung Road & Blue Valley Spire (self-guided tour sheet)",
+      "publisher": "Bureau of Land Management, Henry Mountain Field Station",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://www.blm.gov/visit/factory-butte-recreation-area",
+      "title": "Factory Butte Recreation Area",
+      "publisher": "Bureau of Land Management",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://www.steliasguides.com/trips/raft-flightsee/",
+      "title": "Alaska Raft & Flightsee",
+      "publisher": "St. Elias Alpine Guides",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://www.openstreetmap.org/",
+      "title": "OpenStreetMap data via the Overpass API",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-us"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://www.fs.usda.gov/visit/destination/johnston-ridge-observatory",
+      "title": "Johnston Ridge Observatory",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.visitutah.com/places-to-go/parks-outdoors/great-salt-lake/pink-lake-at-stansbury-island",
+      "title": "Pink Lake at Stansbury Island",
+      "publisher": "Utah Office of Tourism (Visit Utah)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://parks.wa.gov/find-parks/state-parks/lake-wenatchee-state-park",
+      "title": "Lake Wenatchee State Park",
+      "publisher": "Washington State Parks",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://parks.wa.gov/find-parks/state-parks/lake-chelan-state-park",
+      "title": "Lake Chelan State Park",
+      "publisher": "Washington State Parks",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/yellowstone-national-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Park roads close to regular vehicles from early November to late April; wildlife and thermal-area rules apply all year.",
+        "on_site_min": {
+          "v": [
+            480,
+            1440
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: the loops between sights are long drives; one day is the least that sees the main basins."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "road",
+              "note": "Most park roads close to regular vehicles from early November to late April",
+              "season": "winter"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-25"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "04-16",
+              "status": "limited",
+              "via": "road",
+              "note": "Only the North to Northeast Entrance road is open to regular vehicles"
+            },
+            {
+              "from": "04-17",
+              "to": "10-31",
+              "status": "open",
+              "via": "road",
+              "note": "Roads open in stages from 17 April; Dunraven Pass, Beartooth Highway and Chief Joseph Scenic Byway close 12 October (2026 projection)"
+            },
+            {
+              "from": "11-01",
+              "to": "12-31",
+              "status": "limited",
+              "via": "road",
+              "note": "Most roads closed to regular vehicles; oversnow travel from mid-December"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-25",
+          "note": "Dates are the page's 2026 projections and shift with weather.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/grand-teton-national-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Lakeside and valley views are close to the roads; Teton Park Road is closed to vehicles from 1 November to 30 April.",
+        "on_site_min": {
+          "v": [
+            240,
+            480
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate for the valley sights; the NPS pages give no visit time."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "road",
+              "note": "Teton Park Road is closed to vehicles from 1 November to 30 April; Moose-Wilson Road closes about the same time",
+              "season": "winter"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-01",
+              "to": "10-31",
+              "status": "open",
+              "via": "road",
+              "note": "Teton Park Road open to vehicles"
+            },
+            {
+              "from": "11-01",
+              "to": "04-30",
+              "status": "limited",
+              "via": "road",
+              "note": "Teton Park Road closed to vehicles; US 89/191 stays plowed"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "note": "Read through a search summary of the NPS roads page; the Craig Thomas visitor center is closed in winter.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/mount-rainier-national-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Sunrise and Stevens Canyon roads are closed for the season; tire chains must be carried from 1 November to 1 May.",
+        "on_site_min": {
+          "v": [
+            240,
+            480
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate for one area such as Paradise; the NPS pages give no visit time."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "road",
+              "note": "All vehicles must carry tire chains in the park from 1 November to 1 May",
+              "season": "winter"
+            },
+            {
+              "category": "road",
+              "note": "The Longmire gate may close at any time for weather or road conditions"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "read": "2026-10-25"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Longmire to Paradise road listed open on 25 Oct 2026, gate may close for weather; Sunrise and Stevens Canyon roads closed for the season (Sunrise normally opens late June)"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "read": "2026-10-25",
+          "note": "Read 25 Oct 2026; the Sunrise road was also closed by wildfire per a search summary.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/north-cascades-national-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "No entrance fee; many trailheads on adjacent Forest Service land need a Northwest Forest Pass.",
+        "on_site_min": {
+          "v": [
+            240,
+            480
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate for a highway-corridor visit; the NPS pages give no visit time."
+        },
+        "hazards": {
+          "v": null,
+          "state": "none_stated",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-25",
+          "note": "The fees page names no hazards; the park is remote and Stehekin has no road link."
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "nps.gov/noca fees page: no SR 20 North Cascades Highway closure dates",
+            "WSDOT closure dates not read in this batch"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/watkins-glen-state-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "A gorge walk of stone steps and waterfalls; the rim trails are the gentler way to see it.",
+        "on_site_min": {
+          "v": [
+            90,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: the Gorge Trail out and back; the park page gives no visit time."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "The Gorge Trail has many stone steps and is a difficult hike for some visitors",
+              "season": "May to October"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-25",
+          "quote": "many beautiful stone steps"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-20",
+              "to": "10-25",
+              "status": "open",
+              "via": "trail",
+              "note": "Gorge Trail; 2026 closes 25 Oct, usually reopens mid to late May"
+            },
+            {
+              "from": "10-26",
+              "to": "05-19",
+              "status": "limited",
+              "via": "trail",
+              "note": "Park open dawn to dusk; the Gorge Trail is closed, rim trails stay open"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-25",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/mount-baker-snoqualmie-national-forest",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "A long forest along the west Cascades; passes and road closures differ by area, so check the area page first.",
+        "on_site_min": {
+          "v": [
+            240,
+            480
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: a day in one area; the forest page gives no visit time."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "road",
+              "note": "Alert on the forest page: Mt. Baker Highway SR 542 closed for winter prep (no dates given)",
+              "season": "autumn"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-25",
+          "quote": "Mt. Baker Highway SR 542 Closed for Winter Prep"
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "fs.usda.gov/r06/mbs home page read 25 Oct 2026: gives no forest-wide season",
+            "individual road closures are on area pages"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/mount-baker-wilderness",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "The road to Artist Point is not plowed in winter and closes after the first significant snowfall.",
+        "on_site_min": {
+          "v": [
+            120,
+            300
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: a drive to Artist Point and a short walk; the Forest Service page gives no visit time."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "road",
+              "note": "Artist Point road is closed to vehicles after the first significant snowfall, anytime between the end of September and early November",
+              "season": "autumn"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "07-01",
+              "to": "10-15",
+              "status": "open",
+              "via": "road",
+              "note": "Artist Point road: typically open by early July; 2026 reopened 10 June; closes after the first significant snowfall"
+            },
+            {
+              "from": "10-16",
+              "to": "06-30",
+              "status": "closed",
+              "via": "road",
+              "note": "Not plowed in winter; no set opening or closing date"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "Dates are typical; read through a search summary of the Forest Service page.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/columbia-river-gorge",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "A scenic area on both banks; Forest Service day-use sites need a Northwest Forest Pass, and two popular sites need timed tickets or permits.",
+        "on_site_min": {
+          "v": [
+            180,
+            480
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: one or two stops on the Washington bank; the Forest Service page gives no visit time."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "other",
+              "note": "Multnomah Falls needs timed-entry tickets from May to September; Dog Mountain needs a permit on weekends in peak wildflower season",
+              "season": "May to September"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-25"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Scenic area open all year; timed tickets at Multnomah Falls May to September"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-25",
+          "note": "No area-wide closure dates on the passes page.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/monument-valley",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "The page sets no age limit."
+        },
+        "kid_note": "The 17-mile loop road has rough terrain and deep sand; some sites are open only on guided tours.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "navajonationparks.org Monument Valley page: no stroller statement"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "navajonationparks.org Monument Valley page: no accessibility statement"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            120,
+            300
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: the loop drive plus the visitor center; the page gives no visit time."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Viewing is from a road and the visitor center patio; no edge exposure is described."
+        },
+        "walk_m": {
+          "v": 0,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-25",
+          "note": "The page describes a viewpoint patio at the visitor center; no walk is needed there."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Scenic drive 8:00 to 18:00 until 16 Oct 2026, then 8:00 to 17:00 (last entry 14:30); closed Thanksgiving, 25 December and 1 January"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-25",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/havasupai-havasu-falls",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 7,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0010"
+          ],
+          "read": "2026-10-25",
+          "note": "Paid permits start at age 7; the Tribe says bringing young children is not recommended."
+        },
+        "kid_note": "The Tribe says bringing young children is not recommended; the way in is an 8-mile hike with a big elevation change to the village.",
+        "carrier_ok": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "havasupaireservations.com FAQs: no statement on child carriers"
+          ]
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0010"
+          ],
+          "read": "2026-10-25",
+          "note": "The access is an 8-mile hike (or a 300 USD helicopter seat); no wheeled access is described."
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0010"
+          ],
+          "read": "2026-10-25",
+          "note": "The access is an 8-mile hike or a helicopter seat; the page describes no accessible route."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-25",
+              "tried": [
+                "havasupaireservations.com FAQs: 8 miles from the hilltop to Supai Village only; the falls are farther and the page gives no figure"
+              ]
+            }
+          }
+        },
+        "on_site_min": {
+          "v": [
+            4320,
+            4320
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0010"
+          ],
+          "read": "2026-10-25",
+          "note": "Every booking is 4 days and 3 nights."
+        },
+        "exposure": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "havasupaireservations.com FAQs: no exposure statement"
+          ]
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "havasupaireservations.com FAQs: no walk distance to the falls"
+          ]
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "havasupaireservations.com FAQs read 25 Oct 2026: 2026 season dates are not listed"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "place/kanarra-falls",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-25",
+          "note": "The permit site lists users of all ages; no minimum age is stated."
+        },
+        "kid_note": "About 4 miles round trip in ankle- to knee-deep water, with a 20-foot ladder at the first large waterfall.",
+        "carrier_ok": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "kanarrafalls.com: no statement on child carriers"
+          ]
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-25",
+          "note": "The route is a creek walk with a ladder."
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-25",
+          "note": "The route is a creek walk with a ladder."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 6.4,
+              "state": "value",
+              "basis": "operator_info",
+              "src": [
+                "src-0011"
+              ],
+              "read": "2026-10-25",
+              "note": "About 4 miles round trip as stated by the permit site, converted."
+            }
+          }
+        },
+        "on_site_min": {
+          "v": [
+            180,
+            240
+          ],
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "The permit site says up to 4 hours of average hiking time; the 3-hour lower bound is our estimate."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "unfenced",
+            "where": "20-foot ladder at the first large waterfall"
+          },
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-25"
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "kanarrafalls.com: no walk-from-car figure; the 4-mile round trip starts at the trailhead"
+          ]
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "kanarrafalls.com: season dates and hours are not stated"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": 6.4,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/manitou-incline",
+      "kind": "sight",
+      "subkind": "landmark",
+      "suitability": {
+        "kid_note": "A steep staircase of 2,768 steps; the page sets no age limit, and dogs are not allowed.",
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25",
+          "note": "A steep, uneven staircase."
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25",
+          "note": "A steep, uneven staircase of 2,768 steps."
+        },
+        "on_site_min": {
+          "v": [
+            90,
+            240
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: the climb and the walk back by the Barr Trail; the city page gives no time."
+        },
+        "effort": {
+          "source_grade": {
+            "v": null,
+            "state": "none_stated",
+            "basis": "official_info",
+            "src": [
+              "src-0012"
+            ],
+            "read": "2026-10-25",
+            "note": "The city page gives no grade on a named scale."
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 1.6,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0012"
+              ],
+              "read": "2026-10-25",
+              "note": "About one mile, converted."
+            },
+            "gain_m": {
+              "v": 610,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0012"
+              ],
+              "read": "2026-10-25",
+              "note": "2,000 feet of gain, converted."
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "coloradosprings.gov/incline: no climbing time stated"
+          ]
+        },
+        "group_min": {
+          "v": null,
+          "state": "none_stated",
+          "basis": "official_rule",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25",
+          "note": "The page limits groups to 8 and states no minimum group size."
+        },
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25",
+          "note": "The page states no age limit; the climb is very steep."
+        },
+        "carrier_ok": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "coloradosprings.gov/incline: no statement on child carriers"
+          ]
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "No edge exposure is described on the city page."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Steep, uneven staircase; do not descend the Incline, use the Barr Trail or the Northern Return Trail",
+              "season": "all year"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "trail",
+              "note": "Open all year within posted hours; reservations required; occasional closures for events or maintenance"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/million-dollar-highway",
+      "kind": "sight",
+      "subkind": "landmark",
+      "suitability": {
+        "kid_note": "A mountain road over Red Mountain Pass; CDOT closes it for avalanche danger in winter, so check COtrip.org before you go.",
+        "stroller": {
+          "v": null,
+          "state": "not_applicable",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "note": "A road; stroller surface does not apply to the drive itself."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "not_applicable",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "note": "A road; the drive is by car."
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: the drive between Ouray and Silverton with stops; the CDOT page gives no drive time."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "11-01",
+              "to": "04-30",
+              "status": "limited",
+              "via": "road",
+              "note": "Winter closures for avalanche danger; 2019 closure lasted three months"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0013"
+          ],
+          "read": "2026-10-25",
+          "note": "CDOT notices describe closures in winter; the pass has no fixed seasonal closure dates."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/bentonite-hills",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "The BLM sheet sets no age limit."
+        },
+        "kid_note": "Clay roads can become impassable quickly after rain or snow; there are no restrooms or facilities on the route.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "BLM sheet: no stroller statement"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "BLM sheet: no accessibility statement"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: a stop at the colourful shale about 4 miles down Cow Dung Road; the sheet gives no time."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "The BLM sheet describes shale hills to view; no edge exposure is named."
+        },
+        "walk_m": {
+          "v": 0,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0014"
+          ],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "The sheet asks visitors to keep foot traffic on established paths; no walk distance is given."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "limited",
+              "via": "road",
+              "note": "Clay roads can become impassable quickly after rain and snow; cell coverage is scarce"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ],
+          "read": "2026-10-25",
+          "note": "No fixed season; the BLM sheet warns about wet-weather access."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/long-dong-silver-spire",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "The BLM sheet sets no age limit."
+        },
+        "kid_note": "The BLM calls it a short hike, 1.6 miles round trip, sun exposed; bring water.",
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0014"
+          ],
+          "read": "2026-10-25",
+          "note": "The route is a dirt road and a wooden-fence trailhead; no paved surface is described."
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0014"
+          ],
+          "read": "2026-10-25",
+          "note": "Dirt road and unmarked trail."
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: the 1.6-mile round trip; the sheet gives no time."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "The sheet names no edge exposure; the hike is sun-exposed."
+        },
+        "walk_m": {
+          "v": 1300,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ],
+          "read": "2026-10-25",
+          "quote": "Round trip the hike is 1.6 mi and sun exposed",
+          "note": "From the wooden-fence trailhead, half of the BLM's 1.6 mile round trip, converted."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "limited",
+              "via": "road",
+              "note": "Most roads in the area are clay and can become impassable quickly after rain and snow"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ],
+          "read": "2026-10-25",
+          "note": "No fixed season."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/factory-butte",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "The BLM page sets no age limit."
+        },
+        "kid_note": "No fees; a restroom and interpretive kiosks are at Factory Butte; motorised use is restricted to the OHV areas and routes.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "blm.gov Factory Butte page: no stroller statement"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "blm.gov Factory Butte page: no accessibility statement"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: a stop at the butte and kiosks; the BLM page gives no time."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "The BLM page describes a butte to view; no edge exposure is named."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "blm.gov Factory Butte page: no walk-from-car figure"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Wildflowers draw visitors in spring; no closure season is stated"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0015"
+          ],
+          "read": "2026-10-25",
+          "note": "The BLM page gives no season; the 12-mile drive from Hanksville is on State Route 24."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+      "kind": "sight",
+      "subkind": "landmark",
+      "suitability": {
+        "kid_note": "The McCarthy Road ends at the Kennicott River; the mill town and rafting trips are reached from McCarthy.",
+        "stroller": {
+          "v": null,
+          "state": "not_applicable",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "note": "The place is a historic mill town reached by road and footbridge; no surface was read."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "nps.gov/wrst Plan Your Visit: no accessibility statement for the McCarthy and Kennecott area"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            420,
+            420
+          ],
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0016"
+          ],
+          "read": "2026-10-25",
+          "note": "The raft and flightsee day trip takes 7 hours; a visit to the mill town alone is not timed on the pages read."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/mount-st-helens",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "No minimum age was found on the pages read."
+        },
+        "kid_note": "The summit climb needs a permit above 4,800 ft; the observatory on Johnston Ridge is the easy view and costs 12 USD per person (15 and under free).",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "fs.usda.gov Johnston Ridge Observatory page: accessibility not read in this batch"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "fs.usda.gov Johnston Ridge Observatory page: accessibility not read in this batch"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            120,
+            240
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: the observatory and its viewpoints; the Forest Service pages give no visit time."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Viewing is from Johnston Ridge Observatory; the summit climb is a separate, permit-limited route."
+        },
+        "walk_m": {
+          "v": 260,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0017"
+          ],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "OSM car park to the observatory building, straight line about 260 m."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "road",
+              "note": "A landslide on State Route 504 near milepost 51 closed the observatory and the Eruption Trail as of 27 Jan 2026; no later update found",
+              "season": "2026"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0018"
+          ],
+          "read": "2026-10-25",
+          "note": "Read through a search summary of the Forest Service pages."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-15",
+              "to": "10-31",
+              "status": "open",
+              "via": "road",
+              "note": "Observatory typically open daily mid-May through October; check the SR 504 landslide closure"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0018"
+          ],
+          "read": "2026-10-25",
+          "note": "Read through a search summary; the 2026 landslide closure may still apply."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/stansbury-island",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "The tourism page sets no age limit."
+        },
+        "kid_note": "No gas, food, cell service, water or toilets past the causeway; the lake water is extremely salty.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "visitutah.com Pink Lake page: no surface or stroller statement"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "visitutah.com Pink Lake page: no accessibility statement"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: a visit to the pink lake and shore; the page gives no time."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "The tourism page names no edge exposure."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "visitutah.com Pink Lake page: no walk distance"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Accessible year-round by car via Stansbury Island Road and a short causeway from I-80 exit 84"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-25"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "remoteness",
+              "note": "No services on the island, including gas, food or cell service, past the causeway entrance"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "read": "2026-10-25",
+          "quote": "There are no services on the island, including gas, food or cell service"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/lake-wenatchee",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "The state park page sets no age limit."
+        },
+        "kid_note": "A state park swim beach with a free adaptive beach wheelchair from 1 May to 31 Oct (call ahead); restrooms are accessible.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "parks.wa.gov Lake Wenatchee page: no stroller or surface statement"
+          ]
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0020"
+          ],
+          "read": "2026-10-25",
+          "note": "Accessible restrooms, parking and a free adaptive beach wheelchair; two ADA picnic spots on South Beach join by Mobi-mats."
+        },
+        "on_site_min": {
+          "v": [
+            120,
+            300
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: a swim and picnic; the park page gives no visit time."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "parks.wa.gov Lake Wenatchee page: no walk distance from the car park"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Park hours summer 6:30 to dusk, winter 8:00 to dusk; in the winter Sno-Park season the Discover Pass is not valid"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0020"
+          ],
+          "read": "2026-10-25",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/lake-chelan",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "The state park page sets no age limit."
+        },
+        "kid_note": "Lake Chelan State Park has a sandy beach and boat ramp; Stehekin at the head of the lake is reached by ferry.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "parks.wa.gov Lake Chelan State Park page: no stroller statement"
+          ]
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0021"
+          ],
+          "read": "2026-10-25",
+          "note": "The state park lists accessible campsites, restrooms, parking and trails; a beach route was not described."
+        },
+        "on_site_min": {
+          "v": [
+            120,
+            300
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate: a swim and picnic; the park page gives no visit time."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "parks.wa.gov Lake Chelan State Park page: no walk distance"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Lake Chelan State Park open 6:30 to dusk year round; the Stehekin ferry runs year-round (via search summary)"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0021"
+          ],
+          "read": "2026-10-25",
+          "note": "Burn ban level 2 alert posted 25 Sep 2026.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/page",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Page centre has paved streets; no accessibility survey was read."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Page centre is paved but unsurveyed; steps and slopes were not checked."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/durango",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Durango centre has paved streets; no accessibility survey was read."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Durango centre is paved but unsurveyed; steps and slopes were not checked."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/ouray",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Ouray centre has paved streets; no accessibility survey was read."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Ouray centre is paved but unsurveyed; steps and slopes were not checked."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/breckenridge",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Breckenridge centre has paved streets; no accessibility survey was read."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Breckenridge centre is paved but unsurveyed; steps and slopes were not checked."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/leavenworth",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Leavenworth centre has paved streets; no accessibility survey was read."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Leavenworth centre is paved but unsurveyed; steps and slopes were not checked."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/cape-cod",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Cape Cod town centre has paved streets; no accessibility survey was read."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Cape Cod town centre is paved but unsurveyed; steps and slopes were not checked."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/finger-lakes",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Finger Lakes town centre has paved streets; no accessibility survey was read."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Finger Lakes town centre is paved but unsurveyed; steps and slopes were not checked."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/olympic-peninsula",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Olympic Peninsula town centre has paved streets; no accessibility survey was read."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Olympic Peninsula town centre is paved but unsurveyed; steps and slopes were not checked."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

@@ -1,0 +1,473 @@
+{
+  "schema": "relevance/1",
+  "trip": "usa-southwest-rockies",
+  "lane": "BA-us",
+  "researched": "2026-10-25",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.wikidata.org/wiki/Special:EntityData",
+      "title": "Wikidata entity data (labels, descriptions, P625, P2044, P402, P856, sitelinks)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-us"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.nps.gov/arch/learn/news/news02182026.htm",
+      "title": "Arches National Park lifts entry reservation requirement for 2026",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.nps.gov/arch/planyourvisit/basicinfo.htm",
+      "title": "Basic Information - Arches National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.nps.gov/brca/planyourvisit/hours.htm",
+      "title": "Operating Hours & Seasons - Bryce Canyon National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.nps.gov/cany/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Canyonlands National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.nps.gov/zion/planyourvisit/safety.htm",
+      "title": "Safety - Zion National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.nps.gov/zion/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Zion National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/arches-national-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q223969",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: national park in Grand County, Utah; its P625 equals the stored point."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-25",
+        "note": "National park (designation); the NPS ran timed entry in earlier years, lifted for 2026."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "One of five Utah national parks; the land manager's page is the headline for the Moab area."
+      },
+      "standing_scope": "Utah national parks",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Canyonlands is the other national park within about 70 km; Arches is the one built around arches."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the main features are seen from short walks off the park road; the page says a few hours is enough."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Open-air sights; haze or storms spoil views."
+      },
+      "why": "A national park of sandstone arches near Moab, open all year with no timed entry in 2026.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0002"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "No timed entry in 2026 (NPS news, 18 Feb 2026); entrance fee applies; Devils Garden Campground and Fiery Furnace hikes need reservations."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Arches National Park",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "read": "2026-10-25",
+          "note": "National park (NPS)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/bryce-canyon-national-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q219562",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: national park in Garfield and Kane counties, Utah; its P625 equals the stored point."
+      },
+      "class_key": "canyon/desert-rim",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-25",
+        "note": "National park (designation); the NPS runs a free seasonal shuttle (April to October) because of crowds."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "One of five Utah national parks; the land manager runs a shuttle to its rim viewpoints."
+      },
+      "standing_scope": "Utah national parks",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Zion and Capitol Reef are the other Utah parks within about 120 km; none has the same hoodoo amphitheatres."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the rim viewpoints are short walks from the shuttle stops and the park road."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A view-led park; cloud and snow squalls spoil it."
+      },
+      "why": "A national park of hoodoo amphitheatres seen from the rim, open all year with a seasonal shuttle.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0004"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "No reservation is needed to enter; the shuttle is free with admission and optional."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Bryce Canyon National Park",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-25",
+          "note": "National park (NPS)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/canyonlands-national-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q541856",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: national park near Moab, Utah; its P625 equals the stored point."
+      },
+      "class_key": "canyon/desert-rim",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-25",
+        "note": "National park (designation); no timed entry is required."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "One of five Utah national parks; its fee page is shared with Arches in the NPS annual pass."
+      },
+      "standing_scope": "Utah national parks",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Dead Horse Point State Park and Arches are within about 70 km; the park is far larger than either."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the Island in the Sky overlooks are close to the road, but the other districts need long drives."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A view-led park; cloud and storms spoil it."
+      },
+      "why": "A national park of canyons and mesas above the Colorado and Green rivers, open all year.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "Timed entry reservations are not required; reservations are for campsites and permits."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Canyonlands National Park",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-25",
+          "note": "National park (NPS)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/zion-national-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q205325",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: national park in Washington, Iron and Kane counties, Utah; its P625 equals the stored point."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-25",
+        "note": "National park (designation); the safety page refers to shuttle buses in the main canyon."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "One of five Utah national parks and the park with a canyon-floor shuttle."
+      },
+      "standing_scope": "Utah national parks",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Bryce Canyon is within about 120 km; Zion's river canyons are a different landscape."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the canyon floor is reached by shuttle; the narrow-canyon walks need water-ready planning."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Flash-flood risk and cold water make storms matter."
+      },
+      "why": "A national park of red cliffs and narrow canyons in southwest Utah, with a shuttle-run main canyon.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "nps.gov/zion fees page: no timed-entry or permit rule stated",
+          "nps.gov/zion safety page: no shuttle rule stated"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Zion National Park",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "read": "2026-10-25",
+          "note": "National park (NPS)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    }
+  ]
+}

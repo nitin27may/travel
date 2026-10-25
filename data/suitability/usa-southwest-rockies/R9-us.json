@@ -1,0 +1,359 @@
+{
+  "schema": "suitability/1",
+  "trip": "usa-southwest-rockies",
+  "lane": "BA-us",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.nps.gov/arch/planyourvisit/basicinfo.htm",
+      "title": "Basic Information - Arches National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.nps.gov/arch/learn/news/news02182026.htm",
+      "title": "Arches National Park lifts entry reservation requirement for 2026",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.nps.gov/arch/planyourvisit/hours.htm",
+      "title": "Operating Hours & Seasons - Arches National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.nps.gov/brca/planyourvisit/hours.htm",
+      "title": "Operating Hours & Seasons - Bryce Canyon National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.nps.gov/cany/planyourvisit/basicinfo.htm",
+      "title": "Basic Information - Canyonlands National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.nps.gov/zion/planyourvisit/safety.htm",
+      "title": "Safety - Zion National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/arches-national-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Plan at least a few hours; activities with pets are very limited, and high-desert weather can change quickly.",
+        "on_site_min": {
+          "v": [
+            180,
+            360
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate from the park's advice to plan at least a few hours."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "other",
+              "note": "Entrance lines and limited parking on weekends and holidays; entry can be paused when lots are full",
+              "season": "March to October"
+            },
+            {
+              "category": "other",
+              "note": "High-desert weather can change quickly"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002",
+            "src-0001"
+          ],
+          "read": "2026-10-25",
+          "quote": "Weather in the high desert can be changeable."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Open 24 hours a day; visitor center closed 25 December"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "read": "2026-10-25",
+          "note": "Read through a search summary of the NPS hours page.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/bryce-canyon-national-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "A free shuttle runs April to October; deep snow in winter suits snowshoes and skis, not strollers.",
+        "on_site_min": {
+          "v": [
+            180,
+            360
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate for the main rim viewpoints; the NPS pages give no visit time."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "road",
+              "note": "After snowstorms the main park road can close at mile marker 3 for a day or more",
+              "season": "winter"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-25"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Open 24 hours a day all year; shuttle runs 3 April to 18 October 2026; road can close after snow"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-25",
+          "note": "Read through a search summary of the NPS hours page.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/canyonlands-national-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Four districts, far apart; Island in the Sky is the one with paved overlooks near its visitor center.",
+        "on_site_min": {
+          "v": [
+            180,
+            360
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate for one district; the NPS pages give no visit time."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "remoteness",
+              "note": "Water is only inside the Island in the Sky visitor center during winter opening hours",
+              "season": "winter"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-25"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Open 24 hours a day all year; the Needles visitor center closes for part of winter"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "read": "2026-10-25",
+          "note": "Read through a search summary of the NPS basic information page.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/zion-national-park",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "Cliff edges, flash floods and cold water in narrow canyons are the park's own warnings.",
+        "on_site_min": {
+          "v": [
+            240,
+            480
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "estimate": true,
+          "note": "Our estimate for the main canyon; the NPS pages give no visit time."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "water",
+              "note": "Flash floods can occur at any time",
+              "season": "all year"
+            },
+            {
+              "category": "terrain",
+              "note": "Falls from cliffs on trails have resulted in death"
+            },
+            {
+              "category": "cold",
+              "note": "Hypothermia is a major hazard in narrow canyons"
+            },
+            {
+              "category": "heat",
+              "note": "Heat exhaustion and heat stroke"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-25",
+          "quote": "Flash floods can occur at any time in Zion National Park"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Park open all year; shuttle buses run in the main canyon (dates not read)"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-25",
+          "note": "The safety page mentions shuttle buses; their season was not read.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}
