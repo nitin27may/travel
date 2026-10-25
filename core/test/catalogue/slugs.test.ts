@@ -236,9 +236,10 @@ describe("data/catalogue/slugs.json, as committed", () => {
     expect(registryProblems(r)).toEqual([]);
     expect(registryText(r)).toBe(text);
   });
-  it("pins today's 363 place keys with the 4 merged records recorded, every trip, and 41 regions; merged slugs answer moved (R-1)", () => {
-    expect(Object.keys(r.places.slugs).length).toBe(363);
-    expect(Object.keys(r.places.merged).length).toBe(4);
+  it("pins today's 358 place keys with the 3 merged records recorded and the 5 folded offer pages (DATA-D4a) withdrawn, every trip, and 41 regions; merged slugs answer moved (R-1)", () => {
+    expect(Object.keys(r.places.slugs).length).toBe(358);
+    expect(Object.keys(r.places.merged).length).toBe(3);
+    expect(Object.keys(r.places.withdrawn).length).toBe(5);
     for (const [k, survivor] of Object.entries(r.places.merged)) expect(movedTo(r, r.places.slugs[k]!)?.slug).toBe(r.places.slugs[survivor]);
     expect(Object.keys(r.trips.slugs).length).toBeGreaterThan(5);
     expect(Object.keys(r.regions).length).toBe(41);
