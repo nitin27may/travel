@@ -854,6 +854,7 @@
       },
       "name": "Mont-Saint-Pierre",
       "area_id": "CA/QC/haute-gaspesie",
+      "osm_ref": "node/1304278570",
       "geonames_id": {
         "v": "6077352",
         "state": "value",
@@ -877,6 +878,12 @@
           "state": "filled",
           "on": "2026-10-25",
           "url": "https://www.wikidata.org/wiki/Q3321623"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "url": "https://www.openstreetmap.org/node/1304278570"
         }
       ]
     },

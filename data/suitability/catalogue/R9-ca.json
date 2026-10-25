@@ -1058,7 +1058,7 @@
       "kind": "sight",
       "subkind": "landmark",
       "suitability": {
-        "kid_note": "A 19 m octagonal red tower built in 1906 on the south shore of the St. Lawrence; opening dates and admission were not found, so check before a detour.",
+        "kid_note": "A 19 m octagonal red tower built in 1906 on the south shore of the Saint Lawrence; opening dates and admission were not found, so check before a detour.",
         "stroller": {
           "v": null,
           "state": "searched_none",
@@ -2491,6 +2491,18 @@
             "Rando Québec Jacques-Cartier page"
           ],
           "note": "Not described."
+        },
+        "dogs": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec Jacques-Cartier page",
+            "sepaq.com (403 challenge)"
+          ],
+          "note": "No dog rule on a page read."
         }
       },
       "flat": {
@@ -2667,6 +2679,18 @@
             "Rando Québec map LR0144"
           ],
           "note": "Not described."
+        },
+        "dogs": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Rando Québec map LR0144",
+            "sepaq.com (403 challenge)"
+          ],
+          "note": "No dog rule on a page read."
         }
       },
       "flat": {
@@ -3034,6 +3058,17 @@
             "Plein air à la carte Mont du Dôme page"
           ],
           "note": "Not described."
+        },
+        "dogs": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Plein air à la carte Mont du Dôme page"
+          ],
+          "note": "No dog rule on the page read."
         }
       },
       "flat": {

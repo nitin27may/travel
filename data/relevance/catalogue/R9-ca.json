@@ -399,7 +399,7 @@
         "read": "2026-10-25",
         "note": "A view lookout."
       },
-      "why": "A 30 m viewing mound at the summit of Le Massif with a 360-degree view over Charlevoix and the St. Lawrence.",
+      "why": "A 30 m viewing mound at the summit of Le Massif with a 360-degree view over Charlevoix and the Saint Lawrence.",
       "access_cost": {
         "v": [],
         "state": "value",
@@ -760,7 +760,7 @@
         "basis": "our_inference",
         "src": [],
         "read": "2026-10-25",
-        "note": "Lighthouses are common along the St. Lawrence coast; not compared further."
+        "note": "Lighthouses are common along the Saint Lawrence coast; not compared further."
       },
       "easy_payoff": {
         "v": "full",
@@ -778,7 +778,7 @@
         "read": "2026-10-25",
         "note": "An exterior landmark."
       },
-      "why": "A red octagonal lighthouse of 1906 on the St. Lawrence, designated a heritage lighthouse in 2026.",
+      "why": "A red octagonal lighthouse of 1906 on the Saint Lawrence, designated a heritage lighthouse in 2026.",
       "access_cost": {
         "v": [],
         "state": "value",
@@ -1213,7 +1213,7 @@
         "basis": "our_inference",
         "src": [],
         "read": "2026-10-25",
-        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Mont-Saint-Pierre', instance of village municipality in Quebec, P625 matches the village on the Route 132 coast; needs a person's check"
+        "note": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Mont-Saint-Pierre', instance of village municipality in Quebec, P625 0.1 km from OSM place node 1304278570 on the Route 132 coast; needs a person's check"
       },
       "class_key": "town/alpine-resort",
       "draw": {
@@ -2005,7 +2005,7 @@
         "read": "2026-10-25",
         "note": "Summit views."
       },
-      "why": "A summit trail with three summits and views toward the St. Lawrence, in the Zec des Martres.",
+      "why": "A summit trail with three summits and views toward the Saint Lawrence, in the Zec des Martres.",
       "access_cost": {
         "v": [],
         "state": "value",
