@@ -2671,6 +2671,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+      "area_id": "CA/AB/banff-national-park",
       "type": "nature.trail.walk",
       "layer": "route",
       "near_town": {
@@ -2965,6 +2966,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+      "area_id": "CA/AB/banff-national-park",
       "type": "water.body.lake",
       "layer": "place",
       "near_town": {
@@ -3063,6 +3065,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka",
+      "area_id": "CA/AB/banff-national-park",
       "type": "water.body.lake",
       "layer": "place",
       "near_town": {
@@ -3107,6 +3110,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+      "area_id": "CA/AB/banff-national-park",
       "type": "water.body.lake",
       "layer": "place",
       "near_town": {
@@ -3414,6 +3418,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+      "area_id": "CA/AB/banff-national-park",
       "type": "nature.landform.canyon",
       "layer": "place",
       "near_town": {
@@ -3456,6 +3461,7 @@
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+      "area_id": "CA/AB/banff-national-park",
       "type": "nature.trail.walk",
       "layer": "route",
       "near_town": {
@@ -3758,6 +3764,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
+      "area_id": "CA/AB/banff-national-park",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {
@@ -3843,6 +3850,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
+      "area_id": "CA/AB/banff-national-park",
       "type": "wheels.drive.scenic_drive",
       "layer": "route",
       "near_town": {
@@ -3909,6 +3917,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+      "area_id": "CA/AB/banff-national-park",
       "type": "culture.heritage.historic_site",
       "layer": "place",
       "near_town": {
@@ -4240,6 +4249,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "area_id": "CA/AB/banff-national-park",
       "type": "ride.lift.gondola",
       "layer": "route",
       "near_town": {
@@ -4557,6 +4567,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "area_id": "CA/AB/banff-national-park",
       "type": "ride.lift.gondola",
       "layer": "route",
       "near_town": {
@@ -4594,6 +4605,7 @@
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
+      "area_id": "CA/AB/banff-national-park",
       "type": "access.transit.station",
       "layer": "place",
       "near_town": {
@@ -5210,6 +5222,7 @@
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place",
+      "area_id": "CA/AB/banff-national-park",
       "type": "water.thermal.hot_spring",
       "layer": "place",
       "near_town": {
@@ -5662,6 +5675,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+      "area_id": "CA/AB/banff-national-park",
       "type": "nature.wildlife.viewing_spot",
       "layer": "place",
       "near_town": {
@@ -6186,6 +6200,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling",
+      "area_id": "CA/AB/banff-national-park",
       "type": "wheels.bike.cycle_path",
       "layer": "route",
       "name": "Bow Valley Parkway cycling (seasonal vehicle closure 17 km)",
@@ -7272,6 +7287,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing",
+      "area_id": "CA/AB/banff-national-park",
       "type": "ride.lift.gondola",
       "layer": "route",
       "near_town": {
@@ -7288,6 +7304,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/legacy-trail",
+      "area_id": "CA/AB/banff-national-park",
       "type": "wheels.bike.cycle_path",
       "layer": "route",
       "near_town": {
@@ -7561,6 +7578,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
+      "area_id": "CA/AB/banff-national-park",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -8550,6 +8568,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
+      "area_id": "CA/AB/banff-national-park",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -8688,6 +8707,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
+      "area_id": "CA/AB/banff-national-park",
       "type": "nature.trail.walk",
       "layer": "route",
       "near_town": {
@@ -8710,6 +8730,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/lake-agnes",
+      "area_id": "CA/AB/banff-national-park",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -8777,6 +8798,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mount-fairview",
+      "area_id": "CA/AB/banff-national-park",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
