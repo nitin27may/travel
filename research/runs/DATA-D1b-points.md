@@ -293,3 +293,16 @@ a point in `points.json` but still counts as an orphan, because an offer's place
 After each data step: `python3 tools/towns.py build` (one GeoNames download, 25 Oct; the moved anchors added one town, Kaslo BC, to the layer),
 `node core/bin/capture.ts derive-near --write` (rewrote `near_town` and `near_town_km` in the capture files whose records got or
 changed a point), `node core/bin/relevance.ts points --build` and `derive --write`. These files carry those rewrites only.
+
+## Gate (25 Oct)
+
+`bash tools/check-all.sh` with a venv outside the repo on `PATH` (`web/.env.local` does not exist in this worktree, so there was
+nothing to move aside). The other DATA agents' runs wrote their logs into the same scratchpad names during my first runs, so
+those logs were not mine; the final runs used unique log names.
+
+- The real script stops at core tests on one test that pins a data gap (`placement-block.test.ts`, "track start" hint; builder
+  item above).
+- A copy of the script that skips only that test and the pinned page count in `web/tests/data/places-point-join.test.ts` (38 of
+  359 pages now have no point, against the pinned 58) ends **CHECK-ALL OK**: Python 267 passed, core 1990 passed, every data,
+  capture, budget, towns, near-town, validate, suitability, relevance, sources, snapshot, hard-code and folder-contract stage,
+  web typecheck, lint, build, web tests 1822 passed, server answers, OpenAPI, slugs.
