@@ -1,7 +1,7 @@
 {
   "schema": "snapshot-report/1",
   "note": "Dropped from the public view because it carries a calendar date. Rewrite each as a season, a day number or a rule.",
-  "count": 233,
+  "count": 234,
   "items": [
     {
       "where": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre wikidata note",
@@ -545,8 +545,13 @@
     },
     {
       "where": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge effort.drivers.distance_km note",
-      "text": "Computed from OSM ways 24836168, 181184079, 181184081 (Rawson Lake Trail) and 181184076, 753718984 (Sarrail Ridge Trail): 4.68 km one way from the Rawson Lake Trailhead node 269822212 to the Sarrail Ridge peak node 7042108468, doubled.",
+      "text": "Estimate, not official: 4.68 km one way along the OSM Rawson Lake and Sarrail Ridge trails (trailhead node 269822212 to peak node 7042108468), doubled.",
       "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge effort.drivers.distance_km note",
+      "text": "Run api-2026-10-25-data-d3a-overpass; way ids in research/runs/DATA-D3a/patch-proposals.json.",
+      "why": "agent or review-queue process note; never published"
     },
     {
       "where": "legacy/canadian-rockies-sept-2029/trails/skyline-trail effort.drivers.distance_km note",
@@ -780,7 +785,7 @@
     },
     {
       "where": "place/croda-del-becco effort.drivers.gain_m conflict",
-      "text": "Computed, not published: the confirmed OSM track (relation 1155861, Lago di Braies to the summit, cut at the destination) gives 1,467 m up and 213 m down one way (7.31 km).",
+      "text": "Computed, not published: the confirmed OSM track (relation 1155861, Lago di Braies to the summit) gives 1,467 m up one way (7.31 km).",
       "why": "household capture note (plan link, stay idea or address); never published"
     },
     {
