@@ -208,6 +208,26 @@
             "src-0002"
           ]
         }
+      ],
+      "photos": [
+        {
+          "file": "File:Massive Mountain and Bow Valley from Sulphur Mountain (16137721924).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Wilson Hui from Calgary, Canada",
+          "attribution": "Wilson Hui from Calgary, Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Massive_Mountain_and_Bow_Valley_from_Sulphur_Mountain_(16137721924).jpg",
+          "width": 2496,
+          "height": 1664
+        },
+        {
+          "file": "File:By ovedc - Sulphur Mountain - 09.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Ovedc",
+          "attribution": "Ovedc, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:By_ovedc_-_Sulphur_Mountain_-_09.jpg",
+          "width": 5312,
+          "height": 2988
+        }
       ]
     },
     {
@@ -398,6 +418,26 @@
           "src": [
             "src-0001"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Moraine Lake, north view from Rockpiles 20240823 2.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "DXR",
+          "attribution": "DXR, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Moraine_Lake,_north_view_from_Rockpiles_20240823_2.jpg",
+          "width": 7456,
+          "height": 5326
+        },
+        {
+          "file": "File:Moraine Lake Alberta Canada.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Bede735",
+          "attribution": "Bede735, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Moraine_Lake_Alberta_Canada.jpg",
+          "width": 3872,
+          "height": 2592
         }
       ]
     },
@@ -820,6 +860,26 @@
           "src": [
             "src-0001"
           ]
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:The Ink pots Johnston Canyon Alberta Canada (9602351856).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:The_Ink_pots_Johnston_Canyon_Alberta_Canada_(9602351856).jpg",
+          "width": 5184,
+          "height": 3456
+        },
+        {
+          "file": "File:The Ink pots Johnston Canyon Alberta Canada (9599139733).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page from Canada",
+          "attribution": "Thank you for visiting my page from Canada, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:The_Ink_pots_Johnston_Canyon_Alberta_Canada_(9599139733).jpg",
+          "width": 5184,
+          "height": 3456
         }
       ]
     },
