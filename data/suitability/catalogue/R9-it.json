@@ -1,0 +1,590 @@
+{
+  "schema": "suitability/1",
+  "trip": "catalogue",
+  "lane": "R9-it",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.navigazionelaghi.it/en/",
+      "title": "Lake Como boats: timetables and tickets",
+      "publisher": "Navigazione Laghi (public lake navigation service)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/lake-como",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "No age limit appears on the pages read; general sightseeing."
+        },
+        "kid_note": "Public boats link the lakeside towns; vehicles go on boats only between the car-ferry stops (Bellagio, Cadenabbia, Menaggio, Varenna).",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "lakecomo.is home page text",
+            "navigazionelaghi.it page text"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "lakecomo.is home page text",
+            "navigazionelaghi.it page text"
+          ]
+        },
+        "on_site_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "lakecomo.is home page text",
+            "navigazionelaghi.it page text"
+          ]
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "lakecomo.is home page text",
+            "navigazionelaghi.it page text"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Lake shore towns have roads; no closure appears on the pages read"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-25",
+          "note": "The ferry timetables read cover 1 Jul to 4 Oct and 5 Oct to 1 Nov 2026; no winter timetable was in the page text.",
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "water"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "place/sorrento-and-the-amalfi-coast",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "No age limit appears on the pages read; general sightseeing."
+        },
+        "kid_note": "No family or access information was found on the pages tried; see the town records along the coast.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Wikidata Q212214",
+            "OpenStreetMap relation 21469402 tags",
+            "whc.unesco.org/en/list/830 (HTTP 403)"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Wikidata Q212214",
+            "OpenStreetMap relation 21469402 tags",
+            "whc.unesco.org/en/list/830 (HTTP 403)"
+          ]
+        },
+        "on_site_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Wikidata Q212214",
+            "OpenStreetMap relation 21469402 tags",
+            "whc.unesco.org/en/list/830 (HTTP 403)"
+          ]
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Wikidata Q212214",
+            "OpenStreetMap relation 21469402 tags",
+            "whc.unesco.org/en/list/830 (HTTP 403)"
+          ]
+        },
+        "exposure": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Wikidata Q212214",
+            "OpenStreetMap relation 21469402 tags",
+            "whc.unesco.org/en/list/830 (HTTP 403)"
+          ]
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Wikidata Q212214",
+            "OpenStreetMap relation 21469402 tags",
+            "whc.unesco.org/en/list/830 (HTTP 403)"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "place/capri",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "No age limit appears on the pages read; general sightseeing."
+        },
+        "kid_note": "The Blue Grotto is entered by small boat; its operator lists a reduced rate for ages 18 to 25 (EU) and free entry as regulations allow.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "corporate.coopculture.it Blue Grotto page",
+            "capri.it (HTTP 404)",
+            "Wikidata Q173292"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "corporate.coopculture.it Blue Grotto page",
+            "capri.it (HTTP 404)",
+            "Wikidata Q173292"
+          ]
+        },
+        "on_site_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "corporate.coopculture.it Blue Grotto page",
+            "capri.it (HTTP 404)",
+            "Wikidata Q173292"
+          ]
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "corporate.coopculture.it Blue Grotto page",
+            "capri.it (HTTP 404)",
+            "Wikidata Q173292"
+          ]
+        },
+        "exposure": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "corporate.coopculture.it Blue Grotto page",
+            "capri.it (HTTP 404)",
+            "Wikidata Q173292"
+          ]
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "corporate.coopculture.it Blue Grotto page",
+            "capri.it (HTTP 404)",
+            "Wikidata Q173292"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "place/rome",
+      "kind": "town",
+      "subkind": "city",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "turismoroma.it Trevi page",
+            "Wikidata Q220"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "turismoroma.it Trevi page",
+            "Wikidata Q220"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/milan",
+      "kind": "town",
+      "subkind": "city",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "turismo.milano.it (redirects to yesmilano.it, HTTP 403)",
+            "Wikidata Q490"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "turismo.milano.it (redirects to yesmilano.it, HTTP 403)",
+            "Wikidata Q490"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/trento",
+      "kind": "town",
+      "subkind": "city",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "visittrentino.info home page text",
+            "Wikidata Q3376"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "visittrentino.info home page text",
+            "Wikidata Q3376"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/florence",
+      "kind": "town",
+      "subkind": "city",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "feelflorence.it home page text",
+            "Wikidata Q2044"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "feelflorence.it home page text",
+            "Wikidata Q2044"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/verona",
+      "kind": "town",
+      "subkind": "city",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "tourism.verona.it home page text",
+            "Wikidata Q2028"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "tourism.verona.it home page text",
+            "Wikidata Q2028"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "place/venice",
+      "kind": "town",
+      "subkind": "city",
+      "suitability": {
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "veneziaunica.it (empty page to our fetch)",
+            "cda.ve.it (empty page to our fetch)",
+            "Wikidata Q641"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "veneziaunica.it (empty page to our fetch)",
+            "cda.ve.it (empty page to our fetch)",
+            "Wikidata Q641"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

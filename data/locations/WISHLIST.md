@@ -199,7 +199,7 @@ Legend: kind · season · status · stats from the source post are unverified un
   - <sub>IT/veneto/venetian-province/venice</sub>
 #### Verona
 
-- **Verona** · city · season ? · idea · [map](https://maps.google.com/?q=45.43861,10.99278) [wd](https://www.wikidata.org/wiki/Q2028) · #history
+- **Verona** · city · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · idea · [map](https://maps.google.com/?q=45.43861,10.99278) [wd](https://www.wikidata.org/wiki/Q2028) · #history
   - Roman arena, Juliet balcony, wine region. Combine with Venice. 1-2 days.
   - <sub>IT/veneto/verona/verona</sub>
 ## United States

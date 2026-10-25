@@ -1,0 +1,215 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-25-data-d2b-it",
+  "started": "2026-10-25",
+  "agent": "travel-researcher (DATA-D2b-it)",
+  "model": "sonnet",
+  "scope": {
+    "types": [
+      "water.body.lake",
+      "nature.landform.coast_cliff",
+      "nature.landform.island",
+      "settlement.city",
+      "access.park.parking",
+      "access.transit.ferry_terminal"
+    ],
+    "refs": [
+      "place/lake-como",
+      "place/sorrento-and-the-amalfi-coast",
+      "place/capri",
+      "place/rome",
+      "place/milan",
+      "place/trento",
+      "place/florence",
+      "place/verona",
+      "place/venice"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "www.wikidata.org",
+      "requests": 2,
+      "robots": "none",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "query.wikidata.org",
+      "requests": 1,
+      "robots": "none",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "overpass-api.de",
+      "requests": 5,
+      "robots": "none",
+      "terms": "allowed",
+      "status": "partial"
+    }
+  ],
+  "results": [
+    {
+      "ref": "place/lake-como",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "wikidata:entities"
+      ],
+      "host": "www.wikidata.org"
+    },
+    {
+      "ref": "place/lake-como",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "osm:relation"
+      ],
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "place/sorrento-and-the-amalfi-coast",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "wikidata:entities"
+      ],
+      "host": "www.wikidata.org"
+    },
+    {
+      "ref": "place/sorrento-and-the-amalfi-coast",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "osm:relation"
+      ],
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "place/capri",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "wikidata:entities"
+      ],
+      "host": "www.wikidata.org"
+    },
+    {
+      "ref": "place/capri",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "osm:relation"
+      ],
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "place/rome",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "wikidata:entities"
+      ],
+      "host": "www.wikidata.org"
+    },
+    {
+      "ref": "place/rome",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "osm:relation"
+      ],
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "place/milan",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "wikidata:entities"
+      ],
+      "host": "www.wikidata.org"
+    },
+    {
+      "ref": "place/milan",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "osm:relation"
+      ],
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "place/trento",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "wikidata:entities"
+      ],
+      "host": "www.wikidata.org"
+    },
+    {
+      "ref": "place/trento",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "osm:relation"
+      ],
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "place/florence",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "wikidata:entities"
+      ],
+      "host": "www.wikidata.org"
+    },
+    {
+      "ref": "place/florence",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "osm:relation"
+      ],
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "place/verona",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "wikidata:entities"
+      ],
+      "host": "www.wikidata.org"
+    },
+    {
+      "ref": "place/verona",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "osm:relation"
+      ],
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "place/venice",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": [
+        "wikidata:entities"
+      ],
+      "host": "www.wikidata.org"
+    },
+    {
+      "ref": "place/venice",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "osm:relation"
+      ],
+      "host": "overpass-api.de"
+    }
+  ]
+}

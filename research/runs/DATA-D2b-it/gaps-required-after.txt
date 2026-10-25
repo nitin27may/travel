@@ -1,0 +1,33 @@
+Tier: required · trip catalogue
+
+Per layer (EXECUTION-PLAN 6.4 columns; records answering each)
+layer         records area_id point osm_id wikidata official photos season where operator price duration window min_age
+place              11      11    11     11        9        7      0      0     0        0     0        0      0       0
+
+place: 11 record(s), 11 with the required tier complete
+  access_cost                          asked   11  answered   11  missing    0
+  access_points                        asked    2  answered    2  missing    0
+  access_season                        asked    3  answered    3  missing    0
+  age_band                             asked    3  answered    3  missing    0
+  best_time                            asked    1  answered    1  missing    0
+  class_key                            asked    9  answered    9  missing    0
+  distinction                          asked    9  answered    9  missing    0
+  draw                                 asked    9  answered    9  missing    0
+  easy_payoff                          asked    9  answered    9  missing    0
+  exposure                             asked    2  answered    2  missing    0
+  geonames_id                          asked    6  answered    6  missing    0
+  kid_note                             asked    3  answered    3  missing    0
+  links                                asked   11  answered   11  missing    0
+  name                                 asked   11  answered   11  missing    0
+  on_site_min                          asked    3  answered    3  missing    0
+  parks_for                            asked    2  answered    2  missing    0
+  signals                              asked    9  answered    9  missing    0
+  standing                             asked    9  answered    9  missing    0
+  stroller                             asked    9  answered    9  missing    0
+  summary                              asked   11  answered   11  missing    0
+  type                                 asked   11  answered   11  missing    0
+  walk_m                               asked    3  answered    3  missing    0
+  weather                              asked    9  answered    9  missing    0
+  wheelchair                           asked    9  answered    9  missing    0
+  why                                  asked    9  answered    9  missing    0
+  wikidata                             asked    9  answered    9  missing    0
