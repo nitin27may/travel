@@ -157,15 +157,15 @@
       "type": "water.falls.waterfall",
       "layer": "place",
       "near_town": {
-        "v": "ca-qc-levis",
+        "v": "ca-qc-boischatel",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6325521, cities1000 downloaded 2026-10-25."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6695248, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
-        "v": 10,
+        "v": 0.4,
         "state": "value",
         "basis": "our_inference",
         "src": [],
@@ -225,15 +225,15 @@
       "type": "nature.landform.canyon",
       "layer": "place",
       "near_town": {
-        "v": "ca-qc-levis",
+        "v": "ca-qc-beaupre",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6325521, cities1000 downloaded 2026-10-25."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6325479, cities1000 downloaded 2026-10-25."
       },
       "near_town_km": {
-        "v": 37.8,
+        "v": 3.5,
         "state": "value",
         "basis": "our_inference",
         "src": [],
@@ -442,12 +442,20 @@
       "type": "nature.summit.summit",
       "layer": "place",
       "near_town": {
-        "v": "none_within_50km",
+        "v": "ca-qc-gaspe",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5959878, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 18.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Mont Saint-Alban",
       "area_id": "CA/QC/forillon-national-park",
@@ -501,12 +509,20 @@
       "type": "culture.heritage.lighthouse",
       "layer": "place",
       "near_town": {
-        "v": "none_within_50km",
+        "v": "ca-qc-sainte-anne-des-monts",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 25.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "La Martre Lighthouse",
       "area_id": "CA/QC/haute-gaspesie",
@@ -574,12 +590,20 @@
       "type": "water.body.lake",
       "layer": "place",
       "near_town": {
-        "v": "none_within_50km",
+        "v": "ca-qc-sainte-anne-des-monts",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 39.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lac aux Américains",
       "area_id": "CA/QC/parc-national-de-la-gaspesie",
@@ -682,12 +706,20 @@
       "type": "nature.summit.summit",
       "layer": "place",
       "near_town": {
-        "v": "none_within_50km",
+        "v": "ca-qc-sainte-anne-des-monts",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 39.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Mont Xalibu",
       "area_id": "CA/QC/parc-national-de-la-gaspesie",
@@ -741,12 +773,20 @@
       "type": "nature.summit.summit",
       "layer": "place",
       "near_town": {
-        "v": "none_within_50km",
+        "v": "ca-qc-le-bic",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 12076634, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 11.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Pic Champlain",
       "area_id": "CA/QC/parc-national-du-bic",
@@ -845,12 +885,20 @@
       "type": "nature.landform.island",
       "layer": "place",
       "near_town": {
-        "v": "none_within_50km",
+        "v": "ca-qc-perce",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6621052, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 10.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Bonaventure Island",
       "area_id": "CA/QC/perce",
@@ -893,12 +941,20 @@
       "type": "nature.landform.island",
       "layer": "place",
       "near_town": {
-        "v": "none_within_50km",
+        "v": "ca-qc-perce",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6621052, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 8.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Percé Rock",
       "area_id": "CA/QC/perce",
@@ -1018,12 +1074,20 @@
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {
-        "v": "none_within_50km",
+        "v": "ca-qc-sainte-anne-des-monts",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6137749, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 37.8,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lac aux Américains car park (40 places)",
       "area_id": "CA/QC/parc-national-de-la-gaspesie",
@@ -1057,12 +1121,20 @@
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {
-        "v": "none_within_50km",
+        "v": "ca-qc-le-bic",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 12076634, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 14.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Belvédère Raoul-Roy car park (20 places)",
       "area_id": "CA/QC/parc-national-du-bic",
@@ -1095,12 +1167,20 @@
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {
-        "v": "none_within_50km",
+        "v": "ca-qc-perce",
         "state": "value",
         "basis": "our_inference",
         "src": [],
         "on": "2026-10-25",
-        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 6621052, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 7.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Percé quay car park (paid, 100 places)",
       "area_id": "CA/QC/perce",
