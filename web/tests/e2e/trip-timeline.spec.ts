@@ -19,7 +19,7 @@ test.describe('trip timeline (L3c)', () => {
     await page.goto(`${site.url}/trips/switzerland-2027/`);
     await expect(page.locator('#plan-for')).toHaveCount(0);
     await expect(page.locator('li.tl-day')).toHaveCount(0);
-    await expect(page.getByText(/^Overview only\. No days and no season/)).toBeVisible();
+    await expect(page.getByText(/^This plan has not been converted to days yet\./)).toBeVisible();
   });
 
   test('the "Suggested times" banner is present once, and the page is free of research markers (checks 7, 9)', async ({ page, site }) => {
@@ -125,10 +125,14 @@ test.describe('trip timeline (L3c)', () => {
     await page.goto(`${site.url}${ROCKIES}#day-5`);
     const day = page.locator('#day-5');
     await day.getByRole('button', { name: /Add a place to Day 5/ }).click();
-    await day.getByRole('button', { name: /Athabasca Falls Walk/ }).first().click();
-    await expect(page).toHaveURL(/add=5\.athabasca-falls-walk/);
+    // The panel offers the 8 nearest places and the catalogue keeps growing (D2b-INT), so the test takes the nearest one whose cost is
+    // worked out and fits, not a named place that a nearer one can push out of the eight (Athabasca Falls Walk was). Waiting for a cost
+    // also waits for the lazily loaded panel.
+    await day.locator('.tl-add-item:has(.tl-add-cost[data-state="ok"])').first().click();
+    await expect(page).toHaveURL(/add=5\.[a-z0-9-]+/);
+    const key = new URL(page.url()).searchParams.get('add')!.replace(/^5\./, '');
     await expect(day.getByText('You added this')).toBeVisible();
-    await expect(day.locator('#entry-5-add-athabasca-falls-walk, .tl-entry[data-added]').first()).toBeVisible();
+    await expect(day.locator(`#entry-5-add-${key}, .tl-entry[data-added]`).first()).toBeVisible();
     // the fixed slot stays
     await expect(day.locator('#entry-5-maligne-lake-cruise .tl-time')).toHaveText('10:00');
     await page.reload();
