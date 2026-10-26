@@ -1,0 +1,76 @@
+{
+  "schema": "capture-run/1",
+  "run": "trp-gl-d-2026-10-26-identities",
+  "started": "2026-10-26",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "types": ["nature.trail.hike", "nature.trail.walk"],
+    "refs": [
+      "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+      "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
+      "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+      "place/lake-louise",
+      "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+      "legacy/canadian-rockies-sept-2029/sights/paint-pots"
+    ]
+  },
+  "hosts": [
+    { "host": "overpass-api.de", "requests": 6, "robots": "none", "terms": "allowed", "status": "partial" },
+    { "host": "parks.canada.ca", "requests": 2, "robots": "unknown", "terms": "unknown", "status": "ok" },
+    { "host": "pcweb2.azureedge.net", "requests": 1, "robots": "unknown", "terms": "unknown", "status": "ok" },
+    { "host": "api.openrouteservice.org", "requests": 3, "robots": "none", "terms": "allowed", "status": "ok" }
+  ],
+  "results": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+      "field": "point",
+      "outcome": "gap",
+      "src": ["https://www.openstreetmap.org/node/269747928", "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day"],
+      "host": "overpass-api.de",
+      "reason": "Sourced trailhead found but not stored. Parks Canada: trailhead 'Emerald Lake parking lot' (OSM way 230454536, already held as part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking at 51.43895,-116.54119); the loop path (way 436275405) leaves the lot at OSM node 269747928 (51.43938,-116.54149). The stored row is the inherited lake point 51.444,-116.531 (trailhead text at sights/emerald-lake), pinned by data/capture/migration-ledger.json; replacing it fails the ledger test, and a points supersede does not exist yet (catalogue-intake-and-storage.md C8). Owner decision."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+      "field": "point",
+      "outcome": "gap",
+      "src": ["https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking", "https://www.openstreetmap.org/node/11246022407", "https://www.openstreetmap.org/node/348007195"],
+      "host": "overpass-api.de",
+      "reason": "Sourced trailhead found but not stored. Parks Canada: trailhead 'Lake Louise Lakeshore parking lot' (OSM way 26752321, already held as part/place/lake-louise#parking at 51.41501,-116.21343); the shore path (way 613989340) starts at OSM node 348007195 (51.41680,-116.21616) beside the map board 'Welcome to Lake Louise' (node 11246022407, 51.41626,-116.21627). The stored row is the inherited lake point 51.41167,-116.22806, pinned by the migration ledger (C8). Owner decision."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+      "field": "point",
+      "outcome": "filled",
+      "src": "https://www.openstreetmap.org/way/234163234",
+      "reason": "Already held before this run (lane DATA-D1, 25 Oct): trail and sights/paint-pots both hold OSM way 234163234 (Paint Pots Parking). Checked: Rockies family-6 and family-4 day 3 draw Marble Canyon Walk to Paint Pots Walk as a road route. No change."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "Emerald Lake is in Yoho National Park, British Columbia; the locations store has no CA/BC region and no Yoho area, so no area id exists to set. A new region and area is an owner decision (location skill)."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+      "field": "starts_at",
+      "outcome": "gap",
+      "src": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
+      "reason": "Parks Canada names the trailhead as the Emerald Lake parking lot, which exists as part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking. Not written: adding starts_at changes the trail page (Directions, access points) and relevance inputs, outside this data task's owned paths and checks. Proposed for the follow-up."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+      "field": "starts_at",
+      "outcome": "gap",
+      "src": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "reason": "Parks Canada names the trailhead as the Lake Louise Lakeshore parking lot, which exists as part/place/lake-louise#parking. Not written, for the same reason as emerald-lakeshore. Proposed for the follow-up."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+      "field": "effort.drivers.gain_m",
+      "outcome": "conflict",
+      "src": ["https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking", "https://pcweb2.azureedge.net/-/media/pn-np/ab/banff/WET4/visit/depliants-brochures/2025-Maps-of-the-Lake-Louise-area.pdf"],
+      "reason": "Two Parks Canada sources disagree: the Banff day-hikes page gives gain 175 m and loss 75 m (stored in R2a); the 2025 Lake Louise area map gives gain and loss 'minimal' (both give 2.3 km one way, about 1 h). Keep 175 m as v and add the map's 'minimal' to conflicts; not written here (the sidecar is outside this task's hand edits)."
+    }
+  ]
+}
