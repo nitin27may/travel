@@ -1,0 +1,362 @@
+{
+  "version": 1,
+  "about": "The path-to-suite map of docs/v2/build/TEST-STRATEGY.md 4.2. Data, read by the gate (TS-2) and checked by tools/gate/check_map.py (M1 to M6) in check-all. Globs: tools/gate/README.md. A change here is a full and a review path: the hand-back needs an Opus reviewer's line that no rule got narrower.",
+  "suites": {
+    "links": {
+      "run": ["python3 tools/relink.py check", "python3 tools/tree_check.py"],
+      "cost": "s", "always_at": 1, "inputs": ["**"],
+      "steps": ["folder contract"]
+    },
+    "gate.map": {
+      "run": ["python3 tools/gate/check_map.py"],
+      "cost": "s", "always_at": 1, "inputs": ["**"],
+      "steps": ["gate map"]
+    },
+    "hardcode": {
+      "run": ["python3 tools/cons/hardcode_scan.py --check"],
+      "cost": "s", "always_at": 2,
+      "inputs": ["web/**", "core/**", "tools/**", "docs/v2/build/public-site/README.md", "legacy/MANIFEST.json", ".gitignore"],
+      "steps": ["no new hard-coded values"]
+    },
+    "py.tools": {
+      "run": ["python3 -m pytest tools/tests -q"],
+      "cost": "s", "always_at": 2, "requires": ["venv"],
+      "inputs": ["tools/**", "legacy/**", "data/**", "docs/v2/design/foundation/tokens.json", "web/app/themes.css", "publish.sh"],
+      "tests": ["tools/tests/**/test_*.py"],
+      "steps": ["python tests"]
+    },
+    "locations": {
+      "run": ["python3 tools/locations.py validate", "python3 tools/locations.py build --check"],
+      "cost": "s", "always_at": 2,
+      "inputs": ["data/locations/**", "data/vocab/**", "tools/locations.py", "tools/location_views.py", "legacy/locations/**", "legacy/globe/assets/data/**", "legacy/_system/site/**"],
+      "steps": ["locations validate", "locations build --check"]
+    },
+    "core.types": {
+      "run": ["pnpm --dir core typecheck"],
+      "cost": "s", "always_at": 2, "inputs": ["core/**", "pnpm-lock.yaml"],
+      "steps": ["core typecheck"]
+    },
+    "core.unit": {
+      "run": ["pnpm --dir core test"],
+      "cost": "m", "always_at": 2, "related": true,
+      "inputs": ["core/**", "data/**", "research/**", "legacy/**", "tools/hooks/**", "docs/v2/schema.sql", "pnpm-lock.yaml"],
+      "tests": ["core/test/**/*.test.ts"],
+      "steps": ["core tests"]
+    },
+    "core.generated": {
+      "run": ["node core/bin/schema.ts generate --check --root .", "node core/bin/capture.ts build --check --root .", "node core/bin/openapi.ts --check --root .", "node core/bin/ops.ts --list", "the MCP initialize line of tools/check-all.sh"],
+      "cost": "s", "always_at": 2,
+      "inputs": ["core/src/**", "core/bin/**", "data/vocab/**", "data/schema/**", "research/types/**"],
+      "steps": ["mcp server answers initialize", "ops CLI lists the catalogue", "generated schema is up to date", "capture contract", "OpenAPI is current"]
+    },
+    "data.capture": {
+      "run": ["node core/bin/capture.ts gaps --budget --check --root .", "node core/bin/capture.ts derive-near --check --root .", "node core/bin/capture.ts derive-area --check --root .", "node core/bin/validate.ts --all --root .", "node core/bin/normalise.ts --budget --check --root ."],
+      "cost": "s", "always_at": 2,
+      "inputs": ["data/**", "research/**", "legacy/**", "core/src/**", "core/bin/**"],
+      "steps": ["capture gap budget", "nearest town", "area", "validate every data file", "normaliser budget"]
+    },
+    "data.towns": {
+      "run": ["python3 tools/towns.py --check"],
+      "cost": "s", "always_at": 2,
+      "inputs": ["data/reference/**", "tools/towns.py", "tools/towns_admin1.json"],
+      "steps": ["towns layer"]
+    },
+    "data.suit": {
+      "run": ["pnpm --dir web exec vitest run -c ../tools/suitability-scope/vitest.config.mts", "git diff --exit-code -- data/suitability/scope.json", "node core/bin/suitability.ts check --root ."],
+      "cost": "s", "always_at": 2,
+      "inputs": ["data/**", "legacy/**", "core/src/**", "core/bin/suitability.ts", "web/lib/public/**", "tools/suitability-scope/**"],
+      "tests": ["tools/suitability-scope/**/*.test.ts"],
+      "steps": ["suitability scope manifest matches the public adapter", "suitability sidecars"]
+    },
+    "data.relevance": {
+      "run": ["node core/bin/relevance.ts check --root .", "node core/bin/relevance.ts derive --check --root ."],
+      "cost": "s", "always_at": 2,
+      "inputs": ["data/**", "legacy/**", "core/src/**", "core/bin/relevance.ts"],
+      "steps": ["relevance sidecars", "relevance derived files are current"]
+    },
+    "data.sources": {
+      "run": ["node core/bin/sources.ts check --root ."],
+      "cost": "s", "always_at": 2,
+      "inputs": ["data/**", "research/method/**", "core/src/**", "core/bin/sources.ts"],
+      "steps": ["source registry is current and valid"]
+    },
+    "data.slugs": {
+      "run": ["node core/bin/slugs.ts --check --root ."],
+      "cost": "s", "always_at": 2,
+      "inputs": ["data/**", "legacy/**", "core/src/**", "core/bin/slugs.ts"],
+      "steps": ["catalogue slugs are pinned"]
+    },
+    "web.snapshot": {
+      "run": ["pnpm --dir web snapshot:check"],
+      "cost": "s", "always_at": 2,
+      "inputs": ["data/seed/**", "web/data-snapshots/**", "web/redirects.json", "web/scripts/snapshot*", "web/scripts/snapshot/**", "core/src/**"],
+      "tests": ["web/scripts/snapshot/*.test.ts"],
+      "steps": ["prototype snapshot is current"]
+    },
+    "web.vocab": {
+      "run": ["node web/scripts/search-vocab.mjs --check"],
+      "cost": "s", "always_at": 2,
+      "inputs": ["data/**", "web/lib/search/**", "web/public/search/**", "web/scripts/search-vocab.mjs", "core/src/**"],
+      "steps": ["search vocabulary"]
+    },
+    "web.types": {
+      "run": ["pnpm --dir web typecheck"],
+      "cost": "s", "always_at": 2, "inputs": ["web/**", "core/src/**", "pnpm-lock.yaml"],
+      "steps": ["web typecheck"]
+    },
+    "web.lint": {
+      "run": ["pnpm --dir web lint"],
+      "cost": "s", "always_at": 2, "inputs": ["web/**", "pnpm-lock.yaml"],
+      "steps": ["web lint"]
+    },
+    "web.build": {
+      "run": ["pnpm --dir web build", "the ^Error: and ORS_API_KEY checks of tools/check-all.sh"],
+      "cost": "l", "always_at": 2, "slot": "build",
+      "inputs": ["web/**", "!web/tests/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
+      "steps": ["web build"]
+    },
+    "web.unit": {
+      "run": ["SKIP_WEB_BUILD=1 pnpm --dir web test"],
+      "vitest": { "dir": "web", "project": "unit" },
+      "cost": "m", "always_at": 2, "related": true,
+      "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "docs/v2/build/public-site/README.md", "pnpm-lock.yaml"],
+      "tests": ["web/tests/**/*.test.{ts,tsx}",
+                "!web/tests/analytics.test.ts", "!web/tests/api/openapi-routes.test.ts", "!web/tests/budget.test.ts",
+                "!web/tests/data/globe-data-renditions.test.ts", "!web/tests/data/light-data.test.ts", "!web/tests/data/link-only-facts.test.ts",
+                "!web/tests/data/photo-credits-clean.test.ts", "!web/tests/data/place-size.test.ts", "!web/tests/data/public-privacy.test.ts",
+                "!web/tests/data/shell-size.test.ts", "!web/tests/data/specimen-privacy.test.ts", "!web/tests/export/page-data.test.ts",
+                "!web/tests/fonts.test.ts", "!web/tests/images.test.ts", "!web/tests/og-images.test.ts", "!web/tests/og.test.ts",
+                "!web/tests/places/built-pages.test.ts", "!web/tests/places/tracks-markers.test.ts", "!web/tests/privacy.test.ts",
+                "!web/tests/shell/privacy-page.test.ts", "!web/tests/trips/timeline-outlinks.test.ts", "!web/tests/no-hex.test.ts",
+                "!web/tests/api/revision-timing.test.ts", "!web/tests/search/budget.test.ts", "!web/tests/home/search.test.ts",
+                "!web/tests/search/split.test.ts"],
+      "steps": ["web test"]
+    },
+    "web.built": {
+      "run": ["SKIP_WEB_BUILD=1 pnpm --dir web test (until TS-2a: the built project)"],
+      "vitest": { "dir": "web", "project": "built" },
+      "cost": "m", "always_at": 2, "needs": ["web.build"],
+      "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
+      "tests": ["web/tests/api/openapi-routes.test.ts", "web/tests/budget.test.ts", "web/tests/data/globe-data-renditions.test.ts",
+                "web/tests/data/light-data.test.ts", "web/tests/data/link-only-facts.test.ts", "web/tests/data/photo-credits-clean.test.ts",
+                "web/tests/data/place-size.test.ts", "web/tests/data/specimen-privacy.test.ts", "web/tests/export/page-data.test.ts",
+                "web/tests/fonts.test.ts", "web/tests/images.test.ts", "web/tests/og-images.test.ts", "web/tests/places/built-pages.test.ts",
+                "web/tests/places/tracks-markers.test.ts", "web/tests/shell/privacy-page.test.ts", "web/tests/trips/timeline-outlinks.test.ts"],
+      "steps": ["web test"]
+    },
+    "web.fixture": {
+      "run": ["SKIP_WEB_BUILD=1 pnpm --dir web test (until TS-2a: the fixture project; it reads the real build too)"],
+      "vitest": { "dir": "web", "project": "fixture" },
+      "cost": "l", "always_at": 2, "slot": "build", "needs": ["web.build"],
+      "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
+      "tests": ["web/tests/analytics.test.ts", "web/tests/data/public-privacy.test.ts", "web/tests/data/shell-size.test.ts",
+                "web/tests/no-hex.test.ts", "web/tests/og.test.ts", "web/tests/privacy.test.ts"],
+      "steps": ["web test"]
+    },
+    "web.timing": {
+      "run": ["SKIP_WEB_BUILD=1 pnpm --dir web test (until TS-2a: the timing project, one worker, no file parallelism)"],
+      "vitest": { "dir": "web", "project": "timing" },
+      "cost": "s", "always_at": 2, "slot": "timing", "serial": true,
+      "inputs": ["web/lib/**", "web/public/search/**", "core/src/**", "data/**", "web/tests/**"],
+      "tests": ["web/tests/api/revision-timing.test.ts", "web/tests/search/budget.test.ts", "web/tests/home/search.test.ts",
+                "web/tests/search/split.test.ts"],
+      "steps": ["web test"]
+    },
+    "web.serve": {
+      "run": ["the next start smoke block of tools/check-all.sh (GET /, /api/v1/health, /api/v1/openapi.json)"],
+      "cost": "s", "always_at": 2, "needs": ["web.build"],
+      "inputs": ["web/**", "!web/tests/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
+      "steps": ["web server answers"]
+    },
+    "e2e.mapped": {
+      "run": ["pnpm --dir web exec playwright test <specs> --project=chromium (SKIP_WEB_BUILD=1)"],
+      "cost": "m", "always_at": 2, "slot": "e2e", "needs": ["web.build"],
+      "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
+      "tests": ["web/tests/e2e/*.spec.ts"]
+    },
+    "e2e.smoke": {
+      "run": ["pnpm --dir web exec playwright test cross-browser.spec.ts --project=chromium (SKIP_WEB_BUILD=1)"],
+      "cost": "m", "always_at": 2, "slot": "e2e", "needs": ["web.build"],
+      "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
+      "tests": ["web/tests/e2e/cross-browser.spec.ts"]
+    },
+    "e2e.full": {
+      "run": ["pnpm --dir web e2e"],
+      "cost": "xl", "always_at": 3, "slot": "e2e", "needs": ["web.build"],
+      "inputs": ["**"],
+      "tests": ["web/tests/e2e/*.spec.ts"]
+    },
+    "db.local": {
+      "run": ["pnpm db:test"],
+      "cost": "m", "always_at": 3, "requires": ["docker"],
+      "inputs": ["core/src/db/**", "core/src/seed/**", "core/bin/db-*.ts", "core/test/db/**", "core/test/seed/**", "tools/db/**", "data/schema/generated/**"],
+      "tests": ["core/test/db/**/*.test.ts", "core/test/seed/**/*.test.ts"]
+    },
+    "visual": {
+      "run": ["the screenshot sweep of the changed screens at 1440 and 390, light and dark (verifier and design reviewer)"],
+      "cost": "m", "always_at": 3, "slot": "e2e",
+      "inputs": ["web/**", "!web/tests/**"]
+    }
+  },
+
+  "rules": [
+    { "id": "core-code", "why": "111 web source files import @travel/core; page output can change; the generated files read core/src",
+      "paths": ["core/src/**"],
+      "suites": ["core.types", "core.unit", "core.generated", "hardcode", "web.types", "web.unit", "web.build", "web.built", "web.serve"] },
+    { "id": "core-cli", "why": "the CLIs check-all runs",
+      "paths": ["core/bin/**"],
+      "suites": ["core.types", "core.unit", "core.generated", "hardcode"] },
+    { "id": "core-capture", "why": "the data checks run this code over all data",
+      "paths": ["core/src/{capture,validate,derive,normalise,store,parse,checks}/**", "core/bin/{capture,validate,normalise}.ts"],
+      "suites": ["data.capture", "data.slugs"], "e2e": ["places.spec.ts", "place-*.spec.ts"] },
+    { "id": "core-suitability", "paths": ["core/src/suitability/**", "core/bin/suitability.ts"],
+      "suites": ["data.suit", "data.capture"], "e2e": ["who-it-suits.spec.ts", "place-sections.spec.ts"] },
+    { "id": "core-relevance", "paths": ["core/src/relevance/**", "core/bin/relevance.ts"],
+      "suites": ["data.relevance", "data.capture"], "e2e": ["place-sections.spec.ts"] },
+    { "id": "core-sources", "paths": ["core/src/sources/**", "core/bin/sources.ts"], "suites": ["data.sources"] },
+    { "id": "core-catalogue", "why": "every page and route reads the store through this boundary (P9)",
+      "paths": ["core/src/catalogue/**", "core/src/query/**", "core/bin/slugs.ts"],
+      "suites": ["data.slugs", "data.capture", "web.fixture", "web.timing", "e2e.smoke"],
+      "e2e": ["places.spec.ts", "trips.spec.ts", "api-default.spec.ts", "gb-fixes.spec.ts"] },
+    { "id": "core-schedule", "paths": ["core/src/{schedule,sun,bookings,ops,format,geo}/**", "core/bin/{ops,schedule,sun,serve}.ts"],
+      "e2e": ["trip-timeline.spec.ts", "trip-day-spy.spec.ts"] },
+    { "id": "core-search", "paths": ["core/src/search/**"],
+      "suites": ["web.vocab", "web.timing"], "e2e": ["smart-search.spec.ts", "search-panel.spec.ts"] },
+    { "id": "core-export", "paths": ["core/src/export/**"], "e2e": ["export.spec.ts"] },
+    { "id": "core-db", "why": "the database suites need Docker; deferred to T3 when it is down",
+      "paths": ["core/src/{db,seed}/**", "core/bin/db-*.ts", "core/test/{db,seed}/**", "tools/db/**"],
+      "suites": ["db.local", "core.unit"] },
+    { "id": "core-accounts", "paths": ["core/src/{favourites,mail,quota,links,mcp,config}/**", "core/bin/{mcp,quota,rowdiff}.ts"],
+      "suites": ["web.fixture"], "e2e": ["auth-email.spec.ts"] },
+    { "id": "core-tests", "why": "test modules and fixtures; a fixture is not a module, so the whole core suite runs",
+      "paths": ["core/test/**"], "suites": ["core.types", "core.unit"] },
+    { "id": "core-package", "paths": ["core/tsconfig.json", "core/package.json", "core/vitest.config.ts"], "suites": ["core.types", "core.unit"] },
+
+    { "id": "data-all", "why": "data moves page bytes (place-size had 19 B headroom at v0.1); tests read data through fs, so the unit suites run whole",
+      "paths": ["data/**"],
+      "suites": ["data.capture", "data.slugs", "core.unit", "web.unit", "web.vocab", "web.build", "web.built", "web.serve", "e2e.smoke"] },
+    { "id": "data-places", "paths": ["data/{capture,catalog,catalogue,tracks,reference}/**"],
+      "suites": ["data.suit", "data.relevance"],
+      "e2e": ["places*.spec.ts", "place-*.spec.ts", "units-places.spec.ts", "a11y-place.spec.ts", "gb-fixes.spec.ts"] },
+    { "id": "data-trips", "paths": ["data/{trips,schedules,seasons,windows,base-plans}/**"],
+      "suites": ["data.suit", "data.relevance", "web.fixture"],
+      "e2e": ["trip-*.spec.ts", "trips*.spec.ts", "sweep-swa.spec.ts"] },
+    { "id": "data-suitability", "paths": ["data/suitability/**"], "suites": ["data.suit"], "e2e": ["who-it-suits.spec.ts"] },
+    { "id": "data-relevance", "paths": ["data/relevance/**"], "suites": ["data.relevance"], "e2e": ["place-sections.spec.ts"] },
+    { "id": "data-sources", "paths": ["data/sources/**"], "suites": ["data.sources"] },
+    { "id": "data-towns", "paths": ["data/reference/**"], "suites": ["data.towns"] },
+    { "id": "data-locations", "paths": ["data/locations/**"], "suites": ["locations", "py.tools"],
+      "e2e": ["globe.spec.ts", "lists-lst.spec.ts", "url-state.spec.ts"] },
+    { "id": "data-seed", "paths": ["data/seed/**"], "suites": ["web.snapshot"] },
+    { "id": "data-schema", "paths": ["data/schema/**"], "suites": ["core.generated", "data.suit", "db.local"] },
+
+    { "id": "research-refs", "why": "validate checks every research_refs path; normalise reads research/trips and research/runs prose links; tests read research JSON",
+      "paths": ["research/{trips,runs,inbox}/**", "research/**/*.json"],
+      "suites": ["data.capture", "core.unit"] },
+    { "id": "research-types", "why": "generated by capture.ts build", "paths": ["research/types/**"], "suites": ["core.generated"] },
+    { "id": "research-lanes", "why": "the source registry is derived from the lane files", "paths": ["research/method/lanes/**"], "suites": ["data.sources"] },
+    { "id": "research-templates", "paths": ["research/formats/templates/**"], "suites": ["core.unit"],
+      "tests": ["core/test/research/templates.test.ts"] },
+
+    { "id": "web-code", "why": "typecheck, lint, unit, build and budgets for anything that ships",
+      "paths": ["web/{app,components,lib,styles,types,public,data-snapshots}/**", "web/*.ts", "web/redirects.json", "web/components.json"],
+      "suites": ["web.types", "web.lint", "web.unit", "web.build", "web.built", "web.serve", "hardcode"] },
+    { "id": "web-scripts", "why": "build steps (renditions, share images) and generators",
+      "paths": ["web/scripts/**"], "suites": ["web.types", "web.lint", "web.unit", "web.build", "web.built", "hardcode"] },
+    { "id": "web-tests", "why": "test modules, data and stubs: a related run for modules, the whole suite for data files",
+      "paths": ["web/tests/**", "!web/tests/e2e/**"], "suites": ["web.types", "web.lint", "web.unit"] },
+    { "id": "web-tests-fixture", "paths": ["web/tests/fixtures/**", "web/scripts/build-fixture.mjs"], "suites": ["web.fixture"] },
+    { "id": "web-e2e-helpers", "why": "a helper change runs the specs that import it",
+      "paths": ["web/tests/e2e/*.ts", "!web/tests/e2e/*.spec.ts"], "suites": ["web.types", "web.lint"], "e2e": ["@importers"] },
+    { "id": "web-boundary", "why": "the public adapter and the server store are the one data boundary (P9): privacy, timing and the smoke set",
+      "paths": ["web/lib/{public,server,data,client,config}/**", "web/lib/visibility.ts", "web/lib/capabilities.ts", "web/proxy.ts", "web/instrumentation.ts"],
+      "suites": ["web.fixture", "web.timing", "data.suit", "e2e.smoke"], "e2e": ["api-default.spec.ts", "privacy.spec.ts", "gb-fixes.spec.ts"] },
+    { "id": "web-search", "paths": ["web/lib/search/**", "web/app/search/**", "web/components/search/**", "web/public/search/**", "web/styles/search.css", "web/scripts/search-vocab.*"],
+      "suites": ["web.vocab", "web.timing"],
+      "e2e": ["smart-search.spec.ts", "search-panel.spec.ts", "home.spec.ts", "home.chips.spec.ts", "url-state.spec.ts"] },
+    { "id": "web-snapshot", "paths": ["web/data-snapshots/**", "web/redirects.json", "web/scripts/snapshot*", "web/scripts/snapshot/**"],
+      "suites": ["web.snapshot"] },
+    { "id": "web-trips", "paths": ["web/app/trips/**", "web/components/trips/**", "web/styles/{trips,timeline,print}.css", "web/lib/entities/descriptors/trip.tsx", "web/components/actions/**", "web/scripts/legs/**", "web/scripts/legs-*.mjs"],
+      "e2e": ["trip-*.spec.ts", "trips*.spec.ts", "sweep-swa.spec.ts", "tables.scroll.spec.ts", "to-top.spec.ts"] },
+    { "id": "web-places", "paths": ["web/app/{places,list,locations}/**", "web/components/{places,entity,suit}/**", "web/styles/{places,filters,suitability}.css", "web/lib/{entities,format}/**", "web/scripts/{tracks-osm,kind-labels,facets-slice,fetch-photo-credits,commons-cache}.*"],
+      "e2e": ["places*.spec.ts", "place-*.spec.ts", "a11y-place.spec.ts", "units-places.spec.ts", "who-it-suits.spec.ts", "lists-lst.spec.ts", "url-state.spec.ts", "tables.scroll.spec.ts"] },
+    { "id": "web-globe", "paths": ["web/app/{globe,globe-data}/**", "web/components/globe/**", "web/lib/globe/**", "web/public/globe/**", "web/styles/globe.css", "web/scripts/globe-*.mjs"],
+      "e2e": ["globe*.spec.ts", "a11y.spec.ts"] },
+    { "id": "web-map", "paths": ["web/components/map/**", "web/lib/map/**"],
+      "e2e": ["*map*.spec.ts", "trip-routes*.spec.ts", "*google*.spec.ts", "globe.spec.ts", "globe.placelink.gpu.spec.ts"] },
+    { "id": "web-home", "paths": ["web/app/page.tsx", "web/components/home/**", "web/styles/home.css"],
+      "e2e": ["home*.spec.ts", "cross-browser.spec.ts", "a11y.spec.ts", "url-state.spec.ts"] },
+    { "id": "web-shell", "why": "the shell and foundation components are on every page, so the privacy scan of every built page runs",
+      "suites": ["web.fixture"],
+      "paths": ["web/components/{shell,ui}/**", "web/app/{app,globals,account}.css", "web/app/{not-found.tsx,robots.ts,icon.svg,apple-icon.png}", "web/app/{specimen,sitemap.xml,sitemaps,og-manifest.json}/**", "web/lib/*.ts", "web/public/og-default.png", "web/public/fonts/**", "web/types/**", "web/components.json"],
+      "e2e": ["foundation*.spec.ts", "shell-report.spec.ts", "a11y.spec.ts", "cross-browser.spec.ts", "to-top.spec.ts", "export.spec.ts", "gb-fixes.spec.ts"] },
+    { "id": "web-pages", "why": "static pages the privacy scan of the built output reads (GSI-P changed privacy.test.ts with them)",
+      "paths": ["web/app/{about,privacy,terms}/**"], "suites": ["web.fixture"],
+      "e2e": ["privacy.spec.ts", "sweep-swa.spec.ts", "a11y.spec.ts"] },
+    { "id": "web-auth", "paths": ["web/app/{account,sign-in,sign-up}/**", "web/app/api/{account,auth}/**", "web/components/auth/**", "web/lib/auth/**"],
+      "suites": ["web.fixture"], "e2e": ["auth-email*.spec.ts", "shell-report.spec.ts"] },
+    { "id": "web-api", "paths": ["web/app/api/**"],
+      "suites": ["web.timing"], "e2e": ["api-default.spec.ts", "gb-fixes.spec.ts"] },
+    { "id": "web-export", "paths": ["web/lib/export/**", "web/components/actions/Export*.tsx"], "e2e": ["export.spec.ts"] },
+    { "id": "web-images", "paths": ["web/scripts/{images,og,og-text}.*", "web/lib/og.ts"], "suites": ["web.fixture"] },
+    { "id": "web-config", "why": "configs that are not on the full list: only the report config and the git ignore of web",
+      "paths": ["web/vitest.report.config.ts", "web/.gitignore"], "suites": ["web.unit", "links", "hardcode"] },
+
+    { "id": "tools-python", "paths": ["tools/**", "publish.sh"], "suites": ["py.tools", "hardcode"] },
+    { "id": "tools-locations", "paths": ["tools/{locations,location_views,migrate_locations_v2,migrate_locations_v3}.py"], "suites": ["locations"] },
+    { "id": "tools-towns", "paths": ["tools/towns.py", "tools/towns_admin1.json"], "suites": ["data.towns"] },
+    { "id": "tools-cons", "why": "a falling ratchet baseline runs the scan; a rising count already fails it",
+      "paths": ["tools/cons/**"], "suites": ["hardcode"] },
+    { "id": "tools-tree", "paths": ["tools/{tree_check,relink}.py", "tools/{tree_contract,legacy-freeze}.json", "tools/handover-cache.sh"], "suites": ["links"] },
+    { "id": "tools-scope", "paths": ["tools/suitability-scope/**"], "suites": ["data.suit"] },
+    { "id": "tools-hooks", "why": "core/test/hooks.test.ts runs the PostToolUse hook scripts",
+      "paths": ["tools/hooks/**", ".claude/settings.json"], "suites": ["core.unit"], "tests": ["core/test/hooks.test.ts"] },
+    { "id": "tools-pyproject", "paths": ["tools/pyproject.toml"], "suites": ["py.tools", "locations", "data.towns"] },
+    { "id": "tools-check-all", "why": "an appended step runs its own suite (the gate diffs the step blocks) and the map check (M3)",
+      "paths": ["tools/check-all.sh"], "suites": ["gate.map"] },
+
+    { "id": "legacy", "why": "frozen pages whose JSON the store, the suitability migration, the relevance points, the globe and publish read",
+      "paths": ["legacy/**"],
+      "suites": ["py.tools", "locations", "data.capture", "data.suit", "data.relevance", "data.slugs", "core.unit", "web.unit", "web.build", "web.built", "web.serve"],
+      "e2e": ["places.spec.ts", "trips.spec.ts", "globe.spec.ts"] },
+
+    { "id": "docs-inputs", "why": "documents a test or a check reads",
+      "paths": ["docs/v2/build/public-site/README.md"], "suites": ["hardcode", "web.unit"], "tests": ["web/tests/cons/env-table.test.ts"] },
+    { "id": "docs-schema-sql", "why": "core/src/db/inventory.ts pins the 62 tables of the proposal", "paths": ["docs/v2/schema.sql"],
+      "suites": ["core.unit", "db.local"], "tests": ["core/test/db/inventory.test.ts"] },
+    { "id": "root-config", "paths": [".mcp.json", ".gitignore", ".vercelignore", "neon.ts"], "suites": ["core.generated", "hardcode", "links"] }
+  ],
+
+  "full": [
+    "pnpm-lock.yaml", "package.json", "*/package.json", "pnpm-workspace.yaml", "**/tsconfig.json",
+    "web/vitest.config.ts", "web/playwright.config.ts", "web/next.config.*", "web/eslint.config.mjs", "web/postcss.config.mjs",
+    "core/vitest.config.ts",
+    "tools/gate/**", "tools/gate.sh",
+    "core/src/schema/**", "core/src/catalogue/store.ts", "core/src/privacy/**", "core/src/store/**", "data/vocab/**",
+    "legacy/MANIFEST.json",
+    "web/tests/helpers/**", "core/test/setup/**", "web/tests/global-setup.ts", "web/tests/e2e/global-setup.ts", "web/tests/e2e/fixtures.ts",
+    "web/tests/budget.test.ts", "web/tests/data/place-html-baseline.json", "web/tests/data/place-size.test.ts", "web/tests/data/shell-size.test.ts",
+    "web/app/layout.tsx", "web/app/themes.css", "tools/theme_tokens.py", "docs/v2/design/foundation/tokens.json"
+  ],
+
+  "quiet": ["docs/**", "**/*.md", "research/**", ".claude/**", "LICENSE", "NOTICE"],
+
+  "review": ["tools/gate/**", "tools/gate.sh", "tools/check-all.sh"],
+
+  "quarantine": [],
+
+  "release_only": {},
+
+  "allow_unmatched_globs": {
+    "tools/gate.sh": "TS-2 creates the wrapper; remove this entry in the same change (M5 fails once the file exists)"
+  },
+
+  "test_files": ["**/*.test.{ts,tsx,mts,mjs,js}", "**/*.spec.{ts,tsx,mjs,js}", "**/test_*.py", "**/*_test.py", "**/conftest.py"],
+
+  "not_tests": {
+    "web/scripts/legs/dump.test.ts": "a vitest-hosted generator run by web/scripts/legs-ors.mjs, not a test",
+    "web/scripts/embed-spike/metrics.test.mjs": "a spike's node --test file, deliberately outside every suite (its header says so)"
+  },
+
+  "area_required": ["web/app/**", "web/components/**", "web/lib/**", "web/styles/**", "web/public/**"]
+}

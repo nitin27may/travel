@@ -56,6 +56,7 @@ step "no new hard-coded values (CONS-1 ratchet: colours, slugs, hosts, user agen
 python3 "$ROOT/tools/cons/hardcode_scan.py" --check
 step "folder contract (CLN-5: research root, docs root, skills, duplicates, dead paths, legacy freeze)"
 python3 "$ROOT/tools/tree_check.py"
+step "gate map (TS-1: every file, test, spec and check-all step maps to a suite in tools/gate/map.json)"; python3 "$ROOT/tools/gate/check_map.py"
 
 if [[ -f "$ROOT/web/package.json" ]]; then
   # Server mode (`next build` then `next start`, API-0): the build runs BEFORE the tests, which read its prerendered output through

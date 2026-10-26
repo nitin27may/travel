@@ -292,6 +292,17 @@ One file, `tools/gate/map.json` (new, TS-1), read by the gate and checked by `to
 - `quarantine` holds flaky tests with a BACKLOG row and an expiry date (7.2).
 - `review` paths need an Opus reviewer's sign-off in the hand-back (10.1).
 
+**As built (TS-1, 26 Oct 2026).** [tools/gate/README.md](../../../tools/gate/README.md) is the reference. Differences from
+the sketch above: `run` holds shell command strings as check-all runs them today (the vitest projects are named in
+`vitest.project` for TS-2a); a suite `gate.map` (the map check, `always_at` 1) joins `links`; suites carry `always_at`
+(1 every change, 2 T2 and full, 3 T3 only), `needs` and `related`; rules carry an `id`, a `why` and optional `tests` (files
+read through `fs`, which no import graph sees) and may use the e2e token `@importers` (the specs that import a changed
+helper); new keys `area_required` (page code must reach e2e, part of M2), `not_tests`, `allow_unmatched_globs` (only
+`tools/gate.sh` until TS-2) and `test_files`. The `full` list adds `core/src/store/**`, `legacy/MANIFEST.json` (the privacy
+switch), `web/tests/data/shell-size.test.ts`, `web/postcss.config.mjs` and `docs/v2/design/foundation/tokens.json`. The
+map check is a check-all step from TS-1 (owner, 26 Oct: focused tests are urgent), not TS-2. The tests live in
+`tools/tests/test_gate_map.py`.
+
 Dependency awareness: the rules carry the known fan-out explicitly, and vitest's import graph covers the rest.
 
 | Changed | Also runs | Why |
@@ -621,5 +632,6 @@ check-all and e2e only when the brief says T2 or T3". Both wait for TS-2 (TS-5 a
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (TS-1) | Map, check and replay built: `tools/gate/map.json` (29 suites, 61 rules), `check_map.py` (M1 to M6) as a check-all step, `replay.py`. Replay over the 80 merges before `de21c46`: 266 changed test files, all run by the rules alone; 32 of 57 non-docs merges take the full set; one widening (shell and static pages run `web.fixture`, from GSI-P). As-built note in 4.2 |
 | 2026-10-25 (owner answers, ANSWERS-4) | Q250 to Q258 answered 25 Oct 2026, yes as recommended. Section 13 table and the plan-rows line marked answered; nothing else changed |
 | 2026-10-25 | Created (TEST-STRATEGY, planned only): measurements, tiers, map, gate, caching, stacking, load and flakes, roles, guardrails, tasks TS-1 to TS-8, Q250 to Q258 |
