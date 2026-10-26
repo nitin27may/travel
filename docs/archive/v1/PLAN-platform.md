@@ -4,7 +4,7 @@ Status: APPROVED by the owner on 2026-10-17 with the plan's recommended answer f
 
 ## 0. Summary, addenda folded in, gaps found (Revised 4)
 
-**Revision 4 (17 Oct 2026):** applies the independent review (`docs/archive/v1/REVIEW-platform-plan.md`, enhancements E1-E33) after checking every repo claim it makes against the tree at commit `1b7eeba` (the review's base) and `5815186` (P1a step 1). Phase briefs ready to hand to a coding agent live in `docs/archive/v1/briefs/` (index: `docs/archive/v1/briefs/README.md`). Where this revision and an older section disagree, the section marked "Revised 4" wins; superseded text was removed rather than left beside the new text.
+**Revision 4 (17 Oct 2026):** applies the independent review (`docs/archive/v1/REVIEW-platform-plan.md`, enhancements E1-E33) after checking every repo claim it makes against the tree at commit `6859a27` (the review's base) and `f4d4ec9` (P1a step 1). Phase briefs ready to hand to a coding agent live in `docs/archive/v1/briefs/` (index: `docs/archive/v1/briefs/README.md`). Where this revision and an older section disagree, the section marked "Revised 4" wins; superseded text was removed rather than left beside the new text.
 
 ### Revision 4: what changed
 
@@ -740,7 +740,7 @@ Rules that keep the layers honest (Revised 4):
 
 ### 1.2 Migration table (Revised 4)
 
-Every move uses `git mv` (history kept). "P1a" rows are done (commits `5815186`, `d473e46`); P1b verifies them and does the rest. The order inside P1 is the green-after-each-step order of 6.3.
+Every move uses `git mv` (history kept). "P1a" rows are done (commits `f4d4ec9`, `babcaca`); P1b verifies them and does the rest. The order inside P1 is the green-after-each-step order of 6.3.
 
 **Folders and files**
 
@@ -1911,7 +1911,7 @@ MCP gains `suggest_breaks` and `search_along_route` (read, Phase 1) and the writ
 
 ## 6. Phases (Revised 4: replaces 6.0-6.2 of revisions 1-3)
 
-Revised 4: the phase list of revisions 1-3 (P1-P6, the 6.1 and 6.2 amendments, P7, P8, P8b) is replaced by the sub-phases below, sized so one agent finishes each in one PR. The old text is in git history at `1b7eeba`. Each sub-phase has a self-contained brief in `docs/archive/v1/briefs/<id>.md`; the index, approvals and models are in `docs/archive/v1/briefs/README.md`.
+Revised 4: the phase list of revisions 1-3 (P1-P6, the 6.1 and 6.2 amendments, P7, P8, P8b) is replaced by the sub-phases below, sized so one agent finishes each in one PR. The old text is in git history at `6859a27`. Each sub-phase has a self-contained brief in `docs/archive/v1/briefs/<id>.md`; the index, approvals and models are in `docs/archive/v1/briefs/README.md`.
 
 ### 6.0 Working rules for every phase
 

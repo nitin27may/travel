@@ -15,7 +15,7 @@ How the platform is tested, released and kept running. Complements 05-roadmap.md
 > in the final verification ([NEON-VERIFICATION.md](build/public-site/NEON-VERIFICATION.md)). The child-branch DB
 > integration suite is **blocked** (no `TEST_DATABASE_URL`), so its cases count as skipped, not passed.
 >
-> **Last verified 25 Oct 2026 against main f2dee4b** ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)): the child-branch suite
+> **Last verified 25 Oct 2026 against main 4230210** ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)): the child-branch suite
 > now passes 29 of 29 against `br-damp-breeze-b41mtvn5`; the real-service E2E is blocked by the origin guard until an
 > HTTPS origin exists; production is Vercel project `travel` (one environment: Preview and Production both use the
 > production Neon branch; the child branch is for spikes and DB tests only); previews sit behind Vercel Authentication;

@@ -12,7 +12,7 @@ Extends [TRP.md](TRP.md) (stage 4).
 - **Principles:** P2, P3, P5 (smooth linked open and close: map and timeline follow each other), P7 (copy and export is the 90% action), P8 (legs per trip, exports per item), P9, T2 (works in the field), T5 (an estimate never looks like a route).
 - **Starts:** TRP2a on Sun 25 Oct, after the note (it may start before REF1 merges and rebases on it). TRP2b after API-3 merges (Tue 27 Oct).
 
-## What exists today (verified 23 Oct at b4e3d6a)
+## What exists today (verified 23 Oct at 33d3254)
 
 - `web/components/trips/TripRouteMap.tsx` registers `/trips/[slug]` as `maplibre` (line 9) and holds the map key under the map.
 - `web/components/map/MapSurface.tsx` loads `MapLibreMap`, `GoogleJsMap` and `GoogleEmbedMap` as separate dynamic chunks.

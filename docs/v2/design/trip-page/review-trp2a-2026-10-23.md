@@ -9,7 +9,7 @@ Reviewer: `travel-design-reviewer`, model Opus 5.5 (`claude-opus-5-5`). Review o
 - **Screenshots**, read at full size and in crops (all in `/Users/nks/workspace/travel-wt/v2-TRP2a/web/test-results/shots/TRP2a/`), at 2x on the Metal GPU flags with dark set through the header control:
   - `canadian-d6-*`, `canadian-d8-*` and `dolomites-d4-*` at 1440 x 900, 1024 x 768 and 390 x 844, light and dark (18 shots; I read 14 in full, plus crops of the day 8 map in both themes)
   - `place-before.png` and `place-after.png`, which are byte-identical (same md5)
-- **Code**: `git diff ae9981b...HEAD -- web core` on `main` (merge 97d17b0). File and line references below are to that tree.
+- **Code**: `git diff da7f314...HEAD -- web core` on `main` (merge 45a4c1b). File and line references below are to that tree.
 - **Authority**: [google-map-note.md](google-map-note.md) (TRP2-N), [TRP2.md](../../build/public-site/briefs/TRP2.md), [principles.md](../foundation/principles.md), tokens from `web/app/themes.css`.
 
 These shots are **not in the set**: Rockies day 9, Dolomites day 3 (day 4 was shot instead), a hover, the "not on the map" list open, the phone key open, All days, and Lake Louise at zoom 14 (the POI check). Section 1 marks the checklist items they leave open.

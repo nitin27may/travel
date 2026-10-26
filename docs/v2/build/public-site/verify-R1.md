@@ -1,4 +1,4 @@
-# verify-R1: independent sweep of Preview 1 (main 92d74d1), 21 Oct 2026
+# verify-R1: independent sweep of Preview 1 (main 74b2a14), 21 Oct 2026
 
 Verifier: travel-verifier, model Sonnet 5.5. Target: static build served at http://127.0.0.1:3440/ (not rebuilt, not restarted).
 Chromium 1248 (bundled) on Metal GPU flags, 2x; WebKit 2370 (desktop, iPhone 14 emulation). Dark mode set through the site's own

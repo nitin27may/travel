@@ -1,6 +1,6 @@
 # DATA-D1b: points follow-up (25 Oct 2026)
 
-Branch `public/DATA-D1b` (worktree `v2-DATA-D1b`, merged with `main` at f314284 before any change). Model: Claude Opus 5.5.
+Branch `public/DATA-D1b` (worktree `v2-DATA-D1b`, merged with `main` at 724a568 before any change). Model: Claude Opus 5.5.
 Run record: `data/capture/runs/api-2026-10-25-data-d1b-points.json`. Script: `research/runs/DATA-D1b-points/build_points_d1b.py`
 (one function per step; the D1 rows came from `research/runs/DATA-D1-points/build_points.py`). Every point is agent checked and
 needs a person's check. Before-snapshots: `before-budget.txt`, `before-build-check.txt` and `before-locations-validate.txt` in
@@ -53,7 +53,7 @@ Gap budget: `W_PLACE_POINT` lowered 6 to 1 with `gaps --budget --write`; nothing
 "telard" in 45.80-46.20 N, 6.70-7.10 E (52 hits: the hamlet Le Chatelard VS, its stations, the funicular, the Chatelard-Barberine
 power plants, the Chatelard tunnel near Passy; no water body); Wikidata `wbsearchentities` in French for "Lac du Chatelard",
 "Lac de Chatelard" and "lac Chatelard" (no result) and full-text search "Chatelard lac" (a mountain and a railway company). The
-record first appears in the 18 Oct prototype seed list (the public-trips data file of the old prototype, commit 079f7ba, since removed), day 6 "Aiguillette
+record first appears in the 18 Oct prototype seed list (the public-trips data file of the old prototype, commit 2081868, since removed), day 6 "Aiguillette
 des Posettes": `Col des Montets|hike` and `Lac du Chatelard|water|45`. The legacy plan (`legacy/chamonix-mont-blanc-sept-2028/PLAN.md`)
 has no such stop; it names Le Chatelard only as the Mont-Blanc Express station on the way to Lac d'Emosson, which the trip already
 holds as `trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks`. **Proposal (not done; no ref deleted):** drop the

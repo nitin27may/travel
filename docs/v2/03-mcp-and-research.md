@@ -1,6 +1,6 @@
 # 03. MCP and research
 
-> Last verified 25 Oct 2026 against main f2dee4b ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). What exists today is the
+> Last verified 25 Oct 2026 against main 4230210 ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). What exists today is the
 > owner's read-only stdio server, `core/bin/mcp.ts`, registered in `.mcp.json`: 15 read tools from the operation
 > catalogue (`search`, `get_place`, `get_trail`, `get_trip`, `query_rows`, `list_due_bookings` and others) over files in
 > `data/`, with no sign-in. The 13 write tools in the catalogue are phase 2 and not served. The grouped remote tool set

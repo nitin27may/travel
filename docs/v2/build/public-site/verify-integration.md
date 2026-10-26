@@ -1,6 +1,6 @@
 # Stage 2 integration sweep (backlog 2.15, 2.16)
 
-Verifier: travel-verifier. Date: 2026-10-18. Tested commit: 992dc5a on claude/serene-goldberg-wtn3di (the branch has since moved to 88edf08; nothing newer was tested). Throwaway worktree /tmp/sweep, removed at the end. Read-only: no product code was changed. The one exception is a throwaway edit used only for the 10,000-place build (section 6), never committed.
+Verifier: travel-verifier. Date: 2026-10-18. Tested commit: 5bf4936 on claude/serene-goldberg-wtn3di (the branch has since moved to beb578a; nothing newer was tested). Throwaway worktree /tmp/sweep, removed at the end. Read-only: no product code was changed. The one exception is a throwaway edit used only for the 10,000-place build (section 6), never committed.
 
 Machine note: not fully quiet. Other agents' dev servers (v2-L4 `next dev`, `next start` on :3100) were running, load average about 4 on 20 cores.
 

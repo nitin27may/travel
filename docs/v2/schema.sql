@@ -4,7 +4,7 @@
 -- deviations: docs/v2/build/public-site/NEON-MIGRATIONS.md. Never run this auth.users test stub
 -- against Neon; the managed neon_auth schema is provider-owned. The accepted catalogue changes
 -- are documented in research/reports/schema-diff-2026-10.md.
--- Last verified 25 Oct 2026 against main f2dee4b: every Supabase line below (auth.users, auth.uid(),
+-- Last verified 25 Oct 2026 against main 4230210: every Supabase line below (auth.users, auth.uid(),
 -- service_role, realtime.messages) is historical; Supabase is gone (PLAN R-58, R-60).
 -- Postgres + PostGIS on self-hosted Supabase (decided 17 Oct 2026, 08-self-hosted.md). Supabase Auth owns
 -- auth.users; app_user is our profile row keyed by the same uuid (created by a trigger on auth.users).

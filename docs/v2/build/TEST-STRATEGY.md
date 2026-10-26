@@ -25,9 +25,9 @@ changed nothing a suite reads, or a verifier re-run on the builder's tree costs 
 a mis-mapped path can let a regression through T1 and T2; it is caught at the nightly T3 or the sampled escape audit, a day
 later at worst, and every escape makes the map wider.
 
-## 2. Measurements (25 Oct 2026, worktree at `aa01821`)
+## 2. Measurements (25 Oct 2026, worktree at `aa01821` (private history))
 
-Measured on `aa01821`, the last commit of the history before PUBLIC-SCRUB's filtered rewrite; the spec is committed on
+Measured on `aa01821` (private history), the last commit of the history before PUBLIC-SCRUB's filtered rewrite; the spec is committed on
 `09784bc`. The two differ in 15 code, test and data files (the home point read from the environment with a decoy in
 `core/test/setup/home-point.ts`, which both vitest configs now load through `setupFiles`; the invented seed data; two e2e
 specs), and in none of the stage commands. Test file counts are the same (166 web unit, 132 core, 63 e2e specs).
@@ -77,7 +77,7 @@ Readings:
   warnings and can miss the failing step, then reruns. What the agent needs is the last `==` line, `CHECK-ALL OK` or the
   failing step's error: under 2,000 characters.
 - **The full e2e** was not run for this spec (about 41 minutes on a quiet machine per HANDOVER section 2, 770 tests at
-  2d6e4b5; it must not run on a loaded, shared machine). Its fixed costs were measured instead (2.4).
+  50ba132; it must not run on a loaded, shared machine). Its fixed costs were measured instead (2.4).
 
 ### 2.2 The heavy test files
 

@@ -6,7 +6,7 @@ Owner requests, 21 Oct 2026:
 
 Owner direction, 21 Oct 2026 (final), which adds phase CLN-7 and retires D18: "All skills should be in a skill folder... we have a research skill and a planning skill; keep them in a proper place so they can be used." And: "We are not getting new HTML. If any HTML change is asked, it will change the web app. Only data will be generated, based on the schema." The decision record is [SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md).
 
-Written by travel-planner (Opus). **Revision 3 (21 Oct 2026, late). Status: approved by the owner. CLN-1 merged (329bb99) and CLN-R merged (a1ceff8); CLN-7 is new and can start now; CLN-2 to CLN-6 as scheduled.** Tracked in [TODO.md](TODO.md) and in BACKLOG rows 15.10 and 15.11. Scheduled in [PLAN.md](PLAN.md) section 3, row "Cleanup". Every count, size and reference below was measured on `main` at 6e82404 on 21 Oct 2026 with `git ls-files`, `git grep`, `du` and `shasum`. The lane collisions were measured in the seven `../travel-wt/v2-*` worktrees.
+Written by travel-planner (Opus). **Revision 3 (21 Oct 2026, late). Status: approved by the owner. CLN-1 merged (8c5ac03) and CLN-R merged (aa157db); CLN-7 is new and can start now; CLN-2 to CLN-6 as scheduled.** Tracked in [TODO.md](TODO.md) and in BACKLOG rows 15.10 and 15.11. Scheduled in [PLAN.md](PLAN.md) section 3, row "Cleanup". Every count, size and reference below was measured on `main` at 781d67a on 21 Oct 2026 with `git ls-files`, `git grep`, `du` and `shasum`. The lane collisions were measured in the seven `../travel-wt/v2-*` worktrees.
 
 **Recommendation.** Make the root `research/` the only research home. Everything under `docs/v2/research/` moves there, along with `docs/research/` and `docs/GLOBE-RESEARCH.md`. Inside `research/` there is one folder per question:
 - `method/`: how research is done
@@ -170,7 +170,7 @@ Near-duplicates that this revision resolves:
 | Skills could live in `research/skills/` | Claude Code 2.1.306 loads project skills from `.claude/skills/<name>/SKILL.md`. Nested `<subdir>/.claude/skills/` folders load only dynamically, once the session touches files in that subdirectory. Symlinked skill folders and a non-regular `SKILL.md` are refused ("unsafe or symlinked skill folder", "Its SKILL.md is not a regular file (a symlink?)"), per the strings in the installed binary | skills stay in `.claude/skills/` as regular files (2.6) |
 | `prototype/` is imported by no code | `web/tests/data/public-privacy.test.ts` and `web/scripts/snapshot-prototype.mjs` read it; its `node_modules` is absent here | CLN-3 as in the first version |
 | `CLAUDE.md` is accurate on folders | it lists `legacy/peru/` (absent), names `prototype/` in the agents table, and points builders at a Linux Chromium path | fix in CLN-1 |
-| Two-dot `git diff --name-only main` shows what a lane touched | every lane worktree is based on 4946b37, so the two-dot diff also lists the 5 docs `main` changed since (CLAUDE.md, this page, PLAN, TODO, the schema diff) | use `main...HEAD` plus `git status` (section 4) |
+| Two-dot `git diff --name-only main` shows what a lane touched | every lane worktree is based on 5411371, so the two-dot diff also lists the 5 docs `main` changed since (CLAUDE.md, this page, PLAN, TODO, the schema diff) | use `main...HEAD` plus `git status` (section 4) |
 | 19 relative Markdown links are broken today | measured over every tracked `.md` | the rewriter's baseline: CLN-1 may not add one |
 
 ## 2. Target structure
@@ -684,7 +684,7 @@ Full text: [SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 6.
 
 ## 4. Collision map (measured 21 Oct 2026 in the lane worktrees)
 
-Measured with `git -C ../travel-wt/v2-<lane> diff --name-only main...HEAD` plus `git status --short` (uncommitted and untracked). Every worktree is based on 4946b37. TRP1 has one commit (42e9757); the rest have uncommitted work only.
+Measured with `git -C ../travel-wt/v2-<lane> diff --name-only main...HEAD` plus `git status --short` (uncommitted and untracked). Every worktree is based on 5411371. TRP1 has one commit (42e9757 (private history)); the rest have uncommitted work only.
 
 | Lane | Files it has touched | Touches or cites a research path? | Effect on the cleanup |
 |---|---|---|---|
@@ -695,7 +695,7 @@ Measured with `git -C ../travel-wt/v2-<lane> diff --name-only main...HEAD` plus 
 | A13 TRP1 | `core/src/suitability/{migrate,refs}.ts`, `core/test/suitability/{cli,kind-map,migrate}.test.ts`, `data/suitability/canadian-rockies-2029/{migrated,migrated-offplan}.json`, `data/suitability/scope.json`, `web/components/trips/*`, `web/lib/public/{suitability,trips}.ts`, `web/styles/timeline.css`, tests | no, but it works in the folders that hold 5 deferred citation lines, and its adapter changes feed the generated tag report | CLN-R waits for TRP1's merge |
 | A7 LST2a | `web/components/entity/*`, `web/lib/entities/*`, `web/styles/filters.css`, specs, new files | no | none |
 | A8 PLC2a | `web/components/places/PlacePage.tsx`, `sections/*`, `web/lib/map/links.ts`, tests | no | none |
-| A10 SRV-D | `docs/v2/research/schema-diff-2026-10.md` | it is a research file | done and committed (6e82404); free to move in CLN-1 |
+| A10 SRV-D | `docs/v2/research/schema-diff-2026-10.md` | it is a research file | done and committed (781d67a); free to move in CLN-1 |
 
 Later owners:
 

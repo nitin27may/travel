@@ -1,7 +1,7 @@
 # Globe experience review (18 Oct 2026, L2 build)
 
 Reviewer: travel-design-reviewer. Subject: the L2 globe served at `http://127.0.0.1:3430/globe/` (static export of
-`public/L2`, commit b0de27d, source `travel-wt/v2-L2/web`), judged against the live globe it replaces, the
+`public/L2`, commit b0de27d (private history), source `travel-wt/v2-L2/web`), judged against the live globe it replaces, the
 benchmarks in [benchmarks-raw.md](benchmarks-raw.md), the owner's feedback F1 to F7 in
 [owner-feedback-2026-10-18.md](owner-feedback-2026-10-18.md), and the foundation. The earlier
 [review.md](review.md) and [spec.md](spec.md) stand; this document deepens them and the spec has been updated from

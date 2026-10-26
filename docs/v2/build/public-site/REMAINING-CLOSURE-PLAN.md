@@ -11,15 +11,15 @@ that gate, legacy deletion or merge into the main checkout.
 
 ## 1. State established before execution
 
-The session branched from `main` at `47bf9ab`. API-3, META-2, HYG and TRP2b are
+The session branched from `main` at `7d7a018`. API-3, META-2, HYG and TRP2b are
 already merged. The restoration of decisions A29 to A40 and its guard test are also
-done (`9a7fc66`, merged in `47bf9ab`); do not repeat that work.
+done (`badb4dd`, merged in `7d7a018`); do not repeat that work.
 
 TRP2b2 was the only confirmed active unfinished lane: four commits on
-`public/TRP2b2` at `d20a9f5`. Those were cherry-picked into
-`nitin27may-phase-e-remaining-plan` as `d2b1498`, `1bc4ec3`, `e141477` and
-`3383ce8`. The follow-up implementation and regression coverage are committed as
-`da3760a` on this session branch. They are not on `main` until separately integrated.
+`public/TRP2b2` at `d20a9f5` (private history). Those were cherry-picked into
+`nitin27may-phase-e-remaining-plan` as `fd54297`, `53a5b69`, `7d2ac41` and
+`e8eec14`. The follow-up implementation and regression coverage are committed as
+`ba9029a` on this session branch. They are not on `main` until separately integrated.
 
 ## 2. Closure queue
 

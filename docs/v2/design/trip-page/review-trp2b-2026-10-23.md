@@ -13,7 +13,7 @@ None of this was seen on screen, because the screenshot set no longer exists (se
 ## 0. What this is based on
 
 - **Screenshots: none.** `/Users/nks/workspace/travel-wt/v2-TRP2b/web/test-results/` held only `.last-run.json` and `revision-timing.txt` when I looked. Playwright empties its output folder at the start of every run, so the e2e run going on now deleted `shots/TRP2b/`. No copy exists anywhere under `/Users/nks/workspace`. Every visual judgement below is therefore made from code, data and computed contrast, and is marked **open (no shot)** where only a render can settle it. MUST-8 closes that.
-- **Code**: `git show f563e26 03dd046 5402aec` on `main` (merge 6d319c4), plus the TRP2a files they touch (`routeSpec.ts`, `GoogleTripMap.tsx` `legParts`, `trips.css` key swatches, `ui.css`, `print.css`).
+- **Code**: `git show eebf5a0 61ca5e8 b993ada` on `main` (merge d941b4a), plus the TRP2a files they touch (`routeSpec.ts`, `GoogleTripMap.tsx` `legParts`, `trips.css` key swatches, `ui.css`, `print.css`).
 - **Data**: `data/schedules/legs/*.json` and `canadian-rockies-2029.unrouted.json`. I decoded every Dolomites polyline and measured its two ends against the place points in `web/data-snapshots/prototype.json` (the points the pins are drawn from).
 - **Authority**: [google-map-note.md](google-map-note.md) 5, 8 and 17 (the TRP2b addendum), [review-trp2a-2026-10-23.md](review-trp2a-2026-10-23.md), [TRP2.md](../../build/public-site/briefs/TRP2.md) steps 7 to 10 and the acceptance checks, [principles.md](../foundation/principles.md) P1 to P9 and T1 to T5, the no-green rule, and [review-API3-2026-10-23.md](../../build/public-site/review-API3-2026-10-23.md) R-5, R-9 and R-13.
 

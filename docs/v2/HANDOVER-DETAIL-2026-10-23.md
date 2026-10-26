@@ -1,6 +1,6 @@
 # Handover detail (23 Oct 2026)
 
-The long tables behind [/HANDOVER.md](../../HANDOVER.md). Read that file first. Everything here was checked against the repo at `main` 2d6e4b5 on 23 Oct 2026, evening. Where a plan page says otherwise, this file and `git log` win until a docs lane updates the plan pages.
+The long tables behind [/HANDOVER.md](../../HANDOVER.md). Read that file first. Everything here was checked against the repo at `main` 50ba132 on 23 Oct 2026, evening. Where a plan page says otherwise, this file and `git log` win until a docs lane updates the plan pages.
 
 ## 1. The gate and the generators
 
@@ -56,7 +56,7 @@ The long tables behind [/HANDOVER.md](../../HANDOVER.md). Read that file first. 
 | `git reset --hard`, `git clean -f` | The guard asks for confirmation | Avoid both. Confirm every deletion with the owner |
 | macOS `sed -i` | "invalid command code" or a stray backup file | Use python or the Edit tool |
 | Playwright empties `web/test-results/` at the start of every run | Screenshots taken by a reviewer or another lane vanish (the TRP2b review lost its whole set) | Write shots outside `web/test-results/`, for example a session scratchpad. Never review while an e2e runs |
-| Next rewrites `web/tsconfig.json` on every fixture build (`build:fixture`, `.fixture-*` dist dirs) | An unexplained `tsconfig.json` diff after a test run | Commit its `include` lines for the new fixture and add the dist dir to `exclude` (2d6e4b5) |
+| Next rewrites `web/tsconfig.json` on every fixture build (`build:fixture`, `.fixture-*` dist dirs) | An unexplained `tsconfig.json` diff after a test run | Commit its `include` lines for the new fixture and add the dist dir to `exclude` (50ba132) |
 | A new worktree has no git-ignored caches | `tree_check.py` rule 10 fails ("names web/.og-cache, which does not exist"); the build fetches photos from Commons again | `cp -R /Users/nks/workspace/travel/web/.og-cache <worktree>/web/` and run `pnpm install --frozen-lockfile` at the worktree root |
 | The e2e builds once, then runs `next start` | Two e2e runs or a check-all in the same `web/` corrupt `.next` | One `next build` per dist dir at a time. Use `SKIP_WEB_BUILD=1` after a check-all, or `PW_REUSE_SITE=1` with `PW_SITE_URL` to reuse a running server |
 | `web/.env.local` present during check-all | Map family tests fail, because `pnpm build` inlines `google-js` | Move it aside (keep mode 600) and restore it afterwards. The e2e pins its own build env in `web/tests/e2e/global-setup.ts`, but move it aside there as well, by habit |
@@ -76,7 +76,7 @@ The long tables behind [/HANDOVER.md](../../HANDOVER.md). Read that file first. 
 | Two Map ID variables | Wiring `NEXT_PUBLIC_GOOGLE_MAPS_MAPID` does nothing | Only `NEXT_PUBLIC_GOOGLE_MAP_ID` is used. The other goes at readiness item 7 |
 | `git add` with one bad pathspec | Nothing is staged and the commit misses files | Check each path exists; stage owned paths explicitly with `git -C <abs> add` |
 | Killing servers by name | `pkill -f next` killed other agents' and other projects' servers (`meal-plan` runs here) | `lsof -nP -iTCP:<port> -sTCP:LISTEN`, then `kill <pid>`. For a `pnpm exec next start`, the listening PID is the `next-server` child, not pnpm |
-| Store decisions A29 to A40 | `store.ts` cites A30, A33, A34, A36 and A39, but their text is gone (deleted by HYG 48dca1d) | Restore from `git show dbbdeae:core/src/catalogue/store.ts` (lines 151 on) in an API-3 follow-up |
+| Store decisions A29 to A40 | `store.ts` cites A30, A33, A34, A36 and A39, but their text is gone (deleted by HYG a75082e) | Restore from `git show e32822c:core/src/catalogue/store.ts` (lines 151 on) in an API-3 follow-up |
 | Branch names already taken | `git worktree add -b` fails | Use the names in PHASE-E-START section 2 (`public/PLC2b-E`, `public/DATA-D1`, and so on) |
 | GeoNames admin1 codes | Ontario is `08`, not `ON` | Town ids are `<cc>-<admin1 slug>-<slug>` (`ca-on-whitby`) through `tools/towns_admin1.json` |
 | Renaming a legacy folder | The old path stays live on Cloudflare Pages | `legacy/` is frozen. At 7.11, delete the old paths in the Pages dashboard if it matters |
@@ -105,7 +105,7 @@ Then shoot `/trips/canadian-rockies-2029/` days 8 and 9 and `/trips/dolomites-20
 
 ## 4. Lanes left in phase E, and the calendar
 
-**Later update:** A29 to A40 restoration below is already done in main `47bf9ab`.
+**Later update:** A29 to A40 restoration below is already done in main `7d7a018`.
 The owner-approved sequential closure queue and TRP2b2 branch result are in
 [REMAINING-CLOSURE-PLAN.md](build/public-site/REMAINING-CLOSURE-PLAN.md).
 The dated calendar and lane states below are the original handover snapshot.

@@ -11,7 +11,7 @@ selected or built; everything below is the target design. This folder is the ref
 > plugin (client ID metadata documents, DCR off, EdDSA JWTs bound to our URL), pending the MCP-0 spike; personal access
 > tokens stay for headless clients. Neon offers fixed OAuth scopes only, so the scope names below are kept as
 > **capabilities** held in our database (auth-and-sign-in.md 5.1). Nothing is built. The local stdio server
-> (`core/bin/mcp.ts`, 15 read tools) is the only MCP that exists. Last verified 25 Oct 2026 against main f2dee4b.
+> (`core/bin/mcp.ts`, 15 read tools) is the only MCP that exists. Last verified 25 Oct 2026 against main 4230210.
 
 > **Access levels, 25 Oct 2026 ([auth-and-sign-in.md](auth-and-sign-in.md) section 14, PLAN R-150 to R-156).** The scopes
 > in section 3 are grouped into six named access levels, one per connected app (Public catalogue; My plans, read, the

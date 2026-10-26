@@ -1,6 +1,6 @@
 # Design review: S28, the phone back-to-top button (25 Oct 2026)
 
-Reviewer: `travel-design-reviewer`, model Opus 5.5 (`claude-opus-5-5`). Review only: no app code changed. Branch `public/TOTOP`, commit 34debf6, worktree `/Users/nks/workspace/travel-wt/v2-TOTOP`.
+Reviewer: `travel-design-reviewer`, model Opus 5.5 (`claude-opus-5-5`). Review only: no app code changed. Branch `public/TOTOP`, commit ba7ac1e, worktree `/Users/nks/workspace/travel-wt/v2-TOTOP`.
 
 **Verdict: ship after fixes.** The button is the right control, in the right place, at the right size, and the lazy load keeps the server HTML and the start JS where they were. Contrast passes in both themes. The `S28` behaviour rules are mostly sound. But three things are wrong on a real phone:
 - it floats over the open trip map sheet, so a tap meant for the map throws the page behind it to the top;
@@ -12,11 +12,11 @@ Each fix is a few lines. Counts: **3 must, 7 should, 6 polish.**
 ## 0. What this is based on
 
 - **Spec**: [S28-back-to-top.md](../../ux/screens/S28-back-to-top.md).
-- **Code**: `git show 34debf6` (`ToTop.tsx`, `lib/to-top.ts`, `BottomBar.tsx`, `app.css` lines 82 to 98, the two tests). Read against `themes.css` (generated), `ui.css` (toast, sheets), `styles/timeline.css` (trip map sheet) and `layout.tsx` (skip link, `main#main`, viewport meta).
+- **Code**: `git show ba7ac1e` (`ToTop.tsx`, `lib/to-top.ts`, `BottomBar.tsx`, `app.css` lines 82 to 98, the two tests). Read against `themes.css` (generated), `ui.css` (toast, sheets), `styles/timeline.css` (trip map sheet) and `layout.tsx` (skip link, `main#main`, viewport meta).
 - **Authority**: [principles.md](../foundation/principles.md) P1 to P9, [components.md](../foundation/components.md) 1.4 (bottom bar) and 5.3 (toast), [tokens.md](../foundation/tokens.md), [keep-from-live-site.md](../keep-from-live-site.md), [trip-scope-scenarios.md](../trip-scope-scenarios.md), [product-direction-2026-10-18.md](../product-direction-2026-10-18.md) (no green, no purple, public site first).
 - **The builder's shots**: all ten files read (trip, place, places, search and search-open, light and dark, 390 x 844 at 2x) in the session scratchpad `totop-shots/`.
 - **My renders**: a production build of this branch served by `next start` on a spare port, with Chromium from `web/node_modules` and the Metal GPU flags. Each shot is 2x, with a touch and mobile context. Dark mode was set through the site's own "Switch to dark theme" control. The shots are in the scratchpad `totop-shots/review/` and are not committed. Pages: a place page (tap, keyboard Enter, page end), the trip page (page end, map sheet open), the Places list (page end, map view), widths 568, 600, 639, 640, 667 and 844, page zoom at 260 and 195 CSS px, pinch zoom 1.5x, and a toast. No Playwright e2e was run.
-- **Measured**: `vitest run tests/budget.test.ts tests/shell/to-top.test.ts` (both pass), plus a one-off count of start-JS bytes per page, taken from a temporary test file that I deleted afterwards. The vitest global setup rebuilt `.next` during this run, so the counts below come from a fresh build of 34debf6.
+- **Measured**: `vitest run tests/budget.test.ts tests/shell/to-top.test.ts` (both pass), plus a one-off count of start-JS bytes per page, taken from a temporary test file that I deleted afterwards. The vitest global setup rebuilt `.next` during this run, so the counts below come from a fresh build of ba7ac1e.
 
 ## 1. What is right
 
@@ -96,7 +96,7 @@ Every pair the control relies on passes: the icon at 13.8:1 or more, the boundar
 - Fix: test visibility, `[...document.querySelectorAll(SEL)].some((el) => el.checkVisibility ? el.checkVisibility() : (el as HTMLElement).offsetParent !== null)`, and add a code comment that names the contract.
 
 **S4. The trip-page start-JS budget has 3 bytes left. The commit message's number does not reproduce.**
-- Measured on a fresh build of 34debf6: four trip pages (Algonquin, Rockies, Chamonix, Costa Rica) load 204,797 B gzipped at start, which is 199.997 KB against the 200 KB cap in `web/tests/budget.test.ts:9`.
+- Measured on a fresh build of ba7ac1e: four trip pages (Algonquin, Rockies, Chamonix, Costa Rica) load 204,797 B gzipped at start, which is 199.997 KB against the 200 KB cap in `web/tests/budget.test.ts:9`.
 - The commit message says 199.98 KB. My count matches 199.997, the figure the brief gave as the before. So the listener costs about nothing, but the headroom is 3 bytes, not 20.
 - Why it matters: the next lane to add anything to `BottomBar.tsx`, `SiteHeader` or any shared chunk will fail `budget.test.ts` with no warning, probably at merge time.
 - Fix (coordinator): record the 3 B headroom in `docs/v2/PLAN.md`, run BottomBar and shell lanes one after another, and decide before the next shell change whether to re-baseline the trip-page cap or move something out of the trip page's start bundle. Not this lane's code.

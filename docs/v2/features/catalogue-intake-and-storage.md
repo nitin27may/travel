@@ -1,8 +1,8 @@
 # Research intake and storage: what we keep, where it lives, how it loads
 
 Status: spec, 25 Oct 2026, travel-planner (Opus). Docs only; nothing here is built. PLAN R-130 to R-136, BACKLOG 15.130 to
-15.139, questions Q170 to Q177, TODO row of 25 Oct. Measured on `main` b7475fb plus the unmerged branches `public/DATA-D3a`
-(9dd60a8) and `public/DATA-D4a` (62b5d74), read from their worktrees without checking them out. The file is named
+15.139, questions Q170 to Q177, TODO row of 25 Oct. Measured on `main` 4abeae6 plus the unmerged branches `public/DATA-D3a`
+(28cf288) and `public/DATA-D4a` (68ed93f), read from their worktrees without checking them out. The file is named
 `catalogue-intake-and-storage.md`, not `research-...`, because folder rule 3 (`tools/tree_check.py`) forbids "research" in a
 `docs/` file name.
 
@@ -671,7 +671,7 @@ child branch; a skip is not a pass):
 - Neon Free's storage limit was not re-read today; 0.5 GB per project is from the plan as provisioned (check at RIS-M).
 - The 20 MB database size is an estimate (6.2 MB of JSON times about three copies), not a measured load.
 - Whether `sources.ts build` can read the trip-level folders without changing source ids in lane files was not tried.
-- The D3a and D4a counts are from their branch tips (9dd60a8, 62b5d74); they may change before merge.
+- The D3a and D4a counts are from their branch tips (28cf288, 68ed93f); they may change before merge.
 - The prose mention counts in 1.3 are grep lines, not facts.
 
 ## 11. Build notes: RIS-N (the normaliser, 25 Oct 2026)
@@ -697,7 +697,7 @@ never copied into `meta` (`E_NORM_REFUSED`); a suitability or relevance record i
 its leaves (`E_NORM_LEDGER`, the ledger rule per record). Library API (`core/src/normalise/index.ts`): `normaliseText`,
 `planNormalise`, `applyReport`, `parsePointSource`, `patchText`, `findDuplicates`, `checkProseLinks`, `stampImportedFrom`.
 
-**The baseline for RIS-J** (`--report` on `main` 4c063c5, also pinned in `core/test/normalise/normalise-budget.json`; `check-all`
+**The baseline for RIS-J** (`--report` on `main` eb82c03, also pinned in `core/test/normalise/normalise-budget.json`; `check-all`
 runs `--budget --check`, so a count may only fall, and RIS-J switches the stage to a plain `--check` when it reaches zero):
 basis 165 (windows 55, base plans 39, seasons 71, with method on 42 of them), season shapes 36, point rows 185 in 1 file, `origin`
 106 of 107 (one refused), `estimate` 9, price year 12, meta blocks started 133 (capture records 116, suitability records 9, one per trip-level file 8). Findings: `E_NORM_REFUSED` 1, `E_NOTE_LONG` 21 (20 today plus the Norway daylight note, which

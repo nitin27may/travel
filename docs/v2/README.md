@@ -1,6 +1,6 @@
 # Travel platform v2: clean-slate design (17 Oct 2026)
 
-Last verified 25 Oct 2026 against main f2dee4b ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). The single plan and order is [PLAN.md](PLAN.md); this index covers the planner product's design files.
+Last verified 25 Oct 2026 against main 4230210 ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). The single plan and order is [PLAN.md](PLAN.md); this index covers the planner product's design files.
 
 Status: **WORKING DRAFT, not final.** Everything here, including choices marked "decided" or "answered", is the current direction and is expected to change as we keep planning. Written as if starting from zero, then mapped back onto what exists.
 It replaces `docs/archive/v1/BLUEPRINT.md` where they disagree; the blueprint's principles mostly survive, but

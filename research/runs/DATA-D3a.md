@@ -1,6 +1,6 @@
 # DATA-D3a: trail facts for the R2 trails and the Rockies plan-day trails
 
-Run 25 Oct 2026, travel-researcher on Opus, worktree `v2-DATA-D3a`, branch `public/DATA-D3a` (from `main` f2dee4b). Rows
+Run 25 Oct 2026, travel-researcher on Opus, worktree `v2-DATA-D3a`, branch `public/DATA-D3a` (from `main` 4230210). Rows
 10.2, 3.47b, 3.47c, RB-3 (COVERAGE lines 17, 18, 225). Run record for the API calls:
 `data/capture/runs/api-2026-10-25-data-d3a-overpass.json`. Gap reports: the before reports are byte-identical to D1's after reports, so they are not copied (folder contract rule 7): `gaps --placement` before and after = `research/runs/DATA-D1-points/after-placement.json` (D3a writes no points, the report did not change); `gaps --tier required` before = `research/runs/DATA-D1-points/after-tier.json`, after = `research/runs/DATA-D3a/after-tier-required.json`.
 

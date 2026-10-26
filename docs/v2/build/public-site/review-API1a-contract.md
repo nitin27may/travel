@@ -1,7 +1,7 @@
 # Review: the API-1a contract (PHASE-B-START slot 2, Opus read)
 
 Reviewer: Claude Opus 5.5 (`claude-opus-5-5`), 22 Oct 2026. Read only, on branch `public/API1a` (worktree
-`/Users/nks/workspace/travel-wt/v2-API1a`, head `4d686e1`, base `84bc50b`). The one command run was the contract test alone:
+`/Users/nks/workspace/travel-wt/v2-API1a`, head `828f605`, base `299941b`). The one command run was the contract test alone:
 `pnpm exec vitest run test/catalogue/contract.test.ts` in `core/`: 161 tests, 93 passed, 68 todo, 0 failed (53 cases on 3 targets
 plus 2 bookkeeping tests).
 

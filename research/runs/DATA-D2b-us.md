@@ -1,6 +1,6 @@
 # DATA-D2b-us: basics for the 35 US places (Sonnet, 25 Oct 2026)
 
-Branch `public/DATA-D2b-us`, worktree `travel-wt/v2-DATA-D2b-us`, from `main` a03c8f0. Lane files: `data/capture/<lane>/BA-us.json`, `data/suitability/<lane>/R9-us.json`, `data/relevance/<lane>/R9-us.json`. Lane `catalogue` holds the 29 places no trip uses; the 6 places tied to a trip (Arches, Bryce Canyon, Canyonlands, Zion in `usa-southwest-rockies`; White Mountain National Forest in `new-hampshire-stopover-2026`; Stowe in `vermont-fall-2026`) have their records in that trip's folder, as capture contract 3.8 says. No `data/trips/` file exists for the first two, and the validators accept the folders. No photos were searched (the photo batch D5b owns Commons).
+Branch `public/DATA-D2b-us`, worktree `travel-wt/v2-DATA-D2b-us`, from `main` 2fa4c6b. Lane files: `data/capture/<lane>/BA-us.json`, `data/suitability/<lane>/R9-us.json`, `data/relevance/<lane>/R9-us.json`. Lane `catalogue` holds the 29 places no trip uses; the 6 places tied to a trip (Arches, Bryce Canyon, Canyonlands, Zion in `usa-southwest-rockies`; White Mountain National Forest in `new-hampshire-stopover-2026`; Stowe in `vermont-fall-2026`) have their records in that trip's folder, as capture contract 3.8 says. No `data/trips/` file exists for the first two, and the validators accept the folders. No photos were searched (the photo batch D5b owns Commons).
 
 ## Counts
 

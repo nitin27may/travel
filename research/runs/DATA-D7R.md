@@ -3,7 +3,7 @@
 Batch D7-R of the DATA brief (`docs/v2/build/public-site/briefs/DATA.md` step 13; overview spec
 `docs/v2/features/trip-overview-and-customisation.md` sections 2.2 to 2.5). Trip `canadian-rockies-2029`, research folder
 `canadian-rockies-sept-2029`. Agent `travel-researcher`, model **Opus**. Branch `public/DATA-D7R`, worktree
-`v2-DATA-D7R`, from `main` at f2dee4b.
+`v2-DATA-D7R`, from `main` at 4230210.
 
 Output: `data/windows/canadian-rockies-2029.json` (`trip-windows/1`, never `data/seasons/`, decision DD-1).
 

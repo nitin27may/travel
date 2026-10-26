@@ -1,6 +1,6 @@
 # DATA-D5b: licensed thumbnails for the remaining trail records (25 Oct 2026)
 
-Branch `public/DATA-D5b` (worktree `v2-DATA-D5b`, from `main` 196207e). Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`); the Opus pass reads the weak list below first.
+Branch `public/DATA-D5b` (worktree `v2-DATA-D5b`, from `main` 753bbcc). Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`); the Opus pass reads the weak list below first.
 Run record: `data/capture/runs/api-2026-10-25-data-d5b-photos.json` (`capture.ts run --check` OK). Ledger of every pick and gap: `research/runs/DATA-D5b/photo-picks.json`.
 
 ## Result: trail records (route layer, `nature.trail.*`, 118) with a photo, before and after

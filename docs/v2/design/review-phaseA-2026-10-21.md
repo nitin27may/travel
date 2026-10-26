@@ -1,7 +1,7 @@
 # Phase A design review, round 1 (21 Oct 2026)
 
 Reviewer: `travel-design-reviewer` (Opus). Scope: the five phase A UI lanes plus the FIXF consistency check, each read as
-`git -C <worktree> diff main...HEAD` against `main` d19591d. Review only: no app code changed, nothing committed.
+`git -C <worktree> diff main...HEAD` against `main` 10021d0. Review only: no app code changed, nothing committed.
 
 Judged against [principles.md](foundation/principles.md) P1-P9 and T1-T5, [tokens.md](foundation/tokens.md),
 [components.md](foundation/components.md), [patterns.md](foundation/patterns.md), the no-green rule and the R1 checklist
@@ -17,8 +17,8 @@ Judged against [principles.md](foundation/principles.md) P1-P9 and T1-T5, [token
   and dark through the site's theme key, tall pages in tiles. Live OpenFreeMap tiles loaded. Files:
   `/private/tmp/claude-501/-Users-nks-workspace-travel/6ecdf19c-bdc2-4d26-a05a-b168e5a5515a/scratchpad/shots/{SHL2,GLB,TRP}/`
   (named below as `mine/<lane>/<file>`).
-- Caveat: GLB2a's `web/out` was built 2 minutes before its last commit fd02d23 and TRP1's 8 minutes before 42e9757. The
-  GLB2a card re-placement on `moveend` is visible in the shots, so the build looks current. 42e9757 changes Rockies Day 12
+- Caveat: GLB2a's `web/out` was built 2 minutes before its last commit fd02d23 (private history) and TRP1's 8 minutes before 42e9757 (private history). The
+  GLB2a card re-placement on `moveend` is visible in the shots, so the build looks current. 42e9757 (private history) changes Rockies Day 12
   data only, and I did not re-check that day visually. The verifier should rebuild both before the sweep.
 - 1024 was checked on Dolomites Day 4 only. Motion was not timed. GPU frame budgets are the verifier's job.
 
@@ -26,12 +26,12 @@ Judged against [principles.md](foundation/principles.md) P1-P9 and T1-T5, [token
 
 | Lane | Commit(s) | Verdict | Must-fix rows |
 |---|---|---|---|
-| SHL2 | c6acd87 | **Ship** | 0 |
-| FIXF | 7cc34f9 | **Ship** (consistent with the foundation) | 0 |
-| GLB2a | a4cd4f9 d02ccbf fd02d23 | **Ship after fixes** | 4 (M1-M4) |
-| TRP1 | 3c43c8b 42e9757 | **Ship after fixes** | 6 (M5-M10) |
-| LST2a | 745f35d | **Ship after fixes** | 3 (M11-M13) |
-| PLC2a | ed56483 | **Ship after fixes** | 6 (M14-M19) |
+| SHL2 | 4656183 | **Ship** | 0 |
+| FIXF | 19730ee | **Ship** (consistent with the foundation) | 0 |
+| GLB2a | a4cd4f9 (private history) d02ccbf (private history) fd02d23 (private history) | **Ship after fixes** | 4 (M1-M4) |
+| TRP1 | 3c43c8b (private history) 42e9757 (private history) | **Ship after fixes** | 6 (M5-M10) |
+| LST2a | 745f35d (private history) | **Ship after fixes** | 3 (M11-M13) |
+| PLC2a | ed56483 (private history) | **Ship after fixes** | 6 (M14-M19) |
 
 No lane needs rework. The structures are right: one fit model, one Where menu, one facts strip, one Directions chooser.
 The must rows are placement, wording and honesty defects that a visitor would see within one visit.
@@ -250,7 +250,7 @@ Evidence: `PLC2/fenland-loop-1440-light-t0.png`, `fenland-loop-390-light-t0.png`
 | L18 | PLC2a | `links.ts` | `komootSearchUrl` is exported and unused. Use it or remove it |
 | L19 | FIXF | home hero search | The hero field says "countries" and the panel says "areas". The panel opens at the top right, away from the hero field the visitor tapped. Use one placeholder; later, anchor the panel over the hero field at 1440 (P5) |
 | L20 | SHL2 | Report a problem | Re-shoot footer and About with `reportUrl` set before the link goes on (Q70 repo) |
-| L21 | process | TRP1 | 42e9757 edits `core/src/suitability/**`, `core/test/suitability/**` and `data/suitability/**`, outside TRP1's owned paths (`core/src/schedule/**` only). The coordinator accepts or re-homes it before merge |
+| L21 | process | TRP1 | 42e9757 (private history) edits `core/src/suitability/**`, `core/test/suitability/**` and `data/suitability/**`, outside TRP1's owned paths (`core/src/schedule/**` only). The coordinator accepts or re-homes it before merge |
 | L22 | lists (pre-existing) | Places group heading | "Canada 48" is the page slice, not Canada's 178. Show "48 of 178" or the full count |
 | L23 | foundation | tokens 2.2 | The Where selected row draws a `--muted` count on `--accent-soft`, which is not in the allowed-pairs table. It passes (6.10 light, 6.77 dark, AA). Add the row to tokens.md 2.2 and tokens.json in the next foundation edit |
 

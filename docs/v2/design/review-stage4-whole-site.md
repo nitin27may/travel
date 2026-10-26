@@ -1,6 +1,6 @@
 # REVIEW4: whole-site design review after stage 4
 
-Reviewer: travel-design-reviewer (Opus), 20 Oct 2026, at `09dbe3f` (all five stage 4 lanes merged). `pnpm build` with no `.env.local` (so no Google map family), `web/out` on :4481, GPU Chromium (ANGLE/GL, Arc) at 2x; 1440, 1024, 390 x 844 and 844 x 390; dark set with the site toggle. Screens: `/tmp/review4/`, tall pages in tiles (`*.tN.png`). The machine was under e2e load. The 10,000-place fixture was not built; check 5.1 owns it.
+Reviewer: travel-design-reviewer (Opus), 20 Oct 2026, at `c62e892` (all five stage 4 lanes merged). `pnpm build` with no `.env.local` (so no Google map family), `web/out` on :4481, GPU Chromium (ANGLE/GL, Arc) at 2x; 1440, 1024, 390 x 844 and 844 x 390; dark set with the site toggle. Screens: `/tmp/review4/`, tall pages in tiles (`*.tN.png`). The machine was under e2e load. The 10,000-place fixture was not built; check 5.1 owns it.
 
 **Verdict: NOT YET.** The trip page is the strongest thing on the site and the honesty work holds everywhere. But the owner's first-use tasks dead-end in smart search, every place map fills two thirds of its frame, the trip route map draws false lines with duplicate numbers, and three pages state false things. All are small, contained fixes.
 

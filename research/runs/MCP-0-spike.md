@@ -231,7 +231,7 @@ stays required either way.
 | `GET /api/auth/token/` | 200, the session JWT (X5) |
 
 Consent was skipped on a second authorization for the same client, scopes and resource, as the guide says. The EML-1
-guard (branch `public/EML-1` at 1928aa6, read, not run): `oauth2/*` is not in its route table, so it passes through
+guard (branch `public/EML-1` at 319d412, read, not run): `oauth2/*` is not in its route table, so it passes through
 untouched. `sign-in/email` re-serialises the whole body, so `oauth_query` survives, and returns Neon's success response
 unchanged, so `{redirect, url}` survives. **PASS on main; by reading on EML-1.**
 

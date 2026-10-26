@@ -1,6 +1,6 @@
 # 04. Stack and architecture: the decisions, argued
 
-> **Current state, last verified 25 Oct 2026 against main f2dee4b** ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). This
+> **Current state, last verified 25 Oct 2026 against main 4230210** ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). This
 > box wins over the 24 Oct banner below where they differ.
 >
 > | Concern | Now | Status |

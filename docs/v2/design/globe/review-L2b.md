@@ -1,6 +1,6 @@
 # L2b globe experience: design review (19 Oct 2026)
 
-Branch `public/L2b` at 7d5d5d9, built with `pnpm build` and served static. GPU Chromium only (`--use-gl=angle --use-angle=gl`, Arc A770M); dark set through the header theme button. 1440, 1024, 390 x 844 and 844 x 390, light and dark, `/globe/` and the home cover. Shots and frame sheets are in `/tmp/l2b-review/`.
+Branch `public/L2b` at 7d5d5d9 (private history), built with `pnpm build` and served static. GPU Chromium only (`--use-gl=angle --use-angle=gl`, Arc A770M); dark set through the header theme button. 1440, 1024, 390 x 844 and 844 x 390, light and dark, `/globe/` and the home cover. Shots and frame sheets are in `/tmp/l2b-review/`.
 
 ## Verdict
 
@@ -80,7 +80,7 @@ Everything under "What works", plus: clustering in Italy (five discs for seven r
 
 ## Round 2 (19 Oct 2026)
 
-Branch `public/L2b` at c5e2862, `pnpm build`, served static, GPU Chromium (`--use-gl=angle --use-angle=gl`), dark set by the header theme button. The round-1 scenes at 1440, 1024, 390 x 844 and 844 x 390, light and dark. Shots are in `/tmp/l2b-review/r2/`.
+Branch `public/L2b` at c5e2862 (private history), `pnpm build`, served static, GPU Chromium (`--use-gl=angle --use-angle=gl`), dark set by the header theme button. The round-1 scenes at 1440, 1024, 390 x 844 and 844 x 390, light and dark. Shots are in `/tmp/l2b-review/r2/`.
 
 **Verdict: not yet, but close.** M1, M2 and M5 are fixed. Two small layout faults are left from M3 and M4. Both are CSS fixes.
 

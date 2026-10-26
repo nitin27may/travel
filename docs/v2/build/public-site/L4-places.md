@@ -92,7 +92,7 @@ update it, never weaken it).
 | 3 | Provenance is text, never a coloured dot; conflicts show both values | changes-from-preview 3 |
 | 4 | Elevation profile ink at rest; amber only for the scrub cursor and dot; the map marker follows | components 4.4, gate B4 |
 | 5 | Links are tabs by group with counts and the checked date; hazards above the fold on trails | changes-from-preview 18 |
-| 6 | Directions and Apple Maps open our stored parking or trailhead point; lift-start trails go to the valley car park | map-stack research, TODO Done row 0673ca9 |
+| 6 | Directions and Apple Maps open our stored parking or trailhead point; lift-start trails go to the valley car park | map-stack research, TODO Done row 27235a4 |
 | 7 | One map family per page; with the flag set to `google-js` and the fake key the facade appears and no MapLibre loads | LM check 4, terms 3.2.3(e) |
 | 8 | The unconfirmed trail points from the Open TODO row carry "Location unconfirmed" | README 2.6 |
 | 9 | Every old `/places/<cc>/<region>/<area>/<place>/` URL redirects to `/places/<slug>` | patterns 1.2, README 7 |

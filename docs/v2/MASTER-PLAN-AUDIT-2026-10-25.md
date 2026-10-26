@@ -1,6 +1,6 @@
 # Master-plan audit, 25 Oct 2026
 
-Written by travel-planner (Opus) against `main` f2dee4b. PLAN R-122, BACKLOG 15.122, TODO row of 25 Oct. Docs only; no
+Written by travel-planner (Opus) against `main` 4230210. PLAN R-122, BACKLOG 15.122, TODO row of 25 Oct. Docs only; no
 owner decision was changed. Where a decision looked stale it is raised as a question (Q168) or left with a pointer.
 
 ## 1. Facts checked
@@ -14,8 +14,8 @@ owner decision was changed. Where a decision looked stale it is raised as a ques
 | Email: Neon shared sender for account mail (Phase 1); Resend sandbox, owner alerts only, key in Vercel and GitHub secrets | email spec Decision 25 Oct; HANDOVER item 3 |
 | R-58 merged into `main`; child-branch DB suite 29/29; real-service E2E blocked by the origin guard | HANDOVER "Done" and "Not done" items 1 and 2 |
 | `JsonStore` serves the public catalogue; `PostgresStore`, loader and cutover not built | HANDOVER item 4; `core/src/catalogue/store.ts` |
-| Shipped this session without plan rows: phone back-to-top (94ca3e5), family default youngest child 10 (28bf83b); D6a merged (c3ae77c); EML-0 merged (358e6f2) | `git log` |
-| Running now: EML-1, D1b, D3a, D4a, D7-R, D9-R (worktrees at f2dee4b) | `git worktree list` |
+| Shipped this session without plan rows: phone back-to-top (1317c13), family default youngest child 10 (3a3b8f9); D6a merged (75ee036); EML-0 merged (704f6fd) | `git log` |
+| Running now: EML-1, D1b, D3a, D4a, D7-R, D9-R (worktrees at 4230210) | `git worktree list` |
 | The only MCP server is `core/bin/mcp.ts` (stdio, 15 read tools, `FileStore`), registered in `.mcp.json` | source, `data/schema/generated/ops.json` |
 | No CI workflow file exists (`.github/workflows` absent), though GitHub Actions secrets are set | repo; HANDOVER item 3 |
 
@@ -40,7 +40,7 @@ owner decision was changed. Where a decision looked stale it is raised as a ques
 | [PLAN.md](PLAN.md) | Rules in section 1; requirement list; gates; open decisions | Platform paragraph ("uncommitted", "deferred until merge-ready, no deployment"); R-8, R-13, R-43, R-51, R-58, R-61, R-83, R-100, R-101, R-111 statuses; section 3 Hosting row; section 5 "Hosting" asked as open; Q66-Q69 row; no rows for two shipped owner requests; no MCP sign-in requirement | Last-verified line; new platform paragraph; those statuses; Hosting and MCP rows; Hosting decision marked answered; Q160 to Q168 and the `planner_draft_signal` ruling in section 5; R-120 to R-129; section 7 rows; change log |
 | [build/public-site/MASTER-PLAN.md](build/public-site/MASTER-PLAN.md) | Banner already says superseded as entry point; item list | Section 0 deployment, domain and feedback-repo lines | Last-verified note listing what is stale |
 | [build/public-site/EXECUTION-PLAN.md](build/public-site/EXECUTION-PLAN.md) | Task-level detail, API shape, gates, runbook | 13.2 "do not create a project"; custom domain open; one WAF rule not shared with MCP | Last-verified lines at the top and in 13.2 |
-| [build/public-site/DATA-ROADMAP.md](build/public-site/DATA-ROADMAP.md) | Batch table, decisions log | D6a "done, not merged" (merged c3ae77c); D3a, D4a, D7-R, D9-R say "not started" though their worktrees opened at f2dee4b | D6a row only (the running agents own their rows; they update them at hand-back) |
+| [build/public-site/DATA-ROADMAP.md](build/public-site/DATA-ROADMAP.md) | Batch table, decisions log | D6a "done, not merged" (merged 75ee036); D3a, D4a, D7-R, D9-R say "not started" though their worktrees opened at 4230210 | D6a row only (the running agents own their rows; they update them at hand-back) |
 | [build/public-site/NEON-VERIFICATION.md](build/public-site/NEON-VERIFICATION.md) | The 24 Oct verdict | Child suite "blocked" | Dated update box (29/29, merged) |
 | BACKLOG.md | Row history | 15.47, 15.50, 15.83 and 15.113 statuses | Those statuses; rows 15.120 to 15.129; questions Q160 to Q168 |
 | TODO.md | Open list | The two shipped requests had no Done rows; no row for this work | Open row for the audit and MCP design; two Done rows |

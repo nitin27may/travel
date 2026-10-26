@@ -36,7 +36,7 @@ Related, and the authority for everything this page links to:
 
 ## 1. Traceability: what exists, what is partial, what is missing
 
-Checked on `main` c53807d. "Exists" means specified with a task, not built; nothing in this table is built yet except
+Checked on `main` 5eb5beb. "Exists" means specified with a task, not built; nothing in this table is built yet except
 the copy sheet (L5).
 
 | Item | Verdict | Evidence (row and spec section) | What is missing | Filled by (this page) |

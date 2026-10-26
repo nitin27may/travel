@@ -1,6 +1,6 @@
 # DATA-D5a: licensed photos for the five R2 trails and the Rockies plan-day stops (25 Oct 2026)
 
-Branch `public/DATA-D5a` (worktree `v2-DATA-D5a`, from `main` 8bd6298). Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`); the coordinator's Opus pass
+Branch `public/DATA-D5a` (worktree `v2-DATA-D5a`, from `main` 21d32c8). Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`); the coordinator's Opus pass
 samples the picks. Run record: `data/capture/runs/api-2026-10-25-data-d5a-photos.json` (`capture.ts run --check` OK).
 Rows: DATA.md steps 8 and 9, PHASE-E-START 6.5 row 8 (R2 script step 6, photos).
 
