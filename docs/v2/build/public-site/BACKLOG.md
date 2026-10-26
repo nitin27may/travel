@@ -569,7 +569,7 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | 15.291 | **P1: entry standard and links.** PA-C (Opus 7 h, shared contract), PA-FX (Sonnet 3 h), PA-X (Opus 4 h, export contract), PA-D (Sonnet 5 h), PA-R-CA (Opus researcher 6 h), PA-W (Sonnet 4 h), PA-M (Opus 1.5 h), PA-R1/PA-V1 (3 h); 33.5 h. [spec](../../features/protected-area-entry.md) 10, 12 | B2, B1, data seat | planned; bundle C (QP6); PA-W after UXB-1, UXB-6 |
 | 15.292 | **P2: membership facet and the park page variant.** PA-N (Opus 3 h), PA-Q (Opus 4 h, store contract), PA-2 (Sonnet 10 h), PA-DV (Sonnet 2 h), PA-MUS (2.5 h), PA-R2/PA-V2 (4 h); 25.5 h. [spec](../../features/protected-area-entry.md) 8, 12 | B2, B1, data seat | planned; bundle E; after P1 and UXB-7; gate G-PA (owner approves the park page design) |
 | 15.293 | **P3: plan a visit and camping.** PA-N3 (Opus 2 h), PA-3C (Opus 3 h), PA-3 (Sonnet 8 h), PA-R-ON (Opus researcher 4 h, Algonquin pilot), PA-R3/PA-V3 (4 h); 21 h. [spec](../../features/protected-area-entry.md) 7, 8, 12 | B2, B1, data seat | planned; bundle G; after CUS-1 and v0.17 |
-| 15.294 | **QP1 to QP6: owner questions for protected areas.** [spec](../../features/protected-area-entry.md) 14 | owner | open |
+| 15.294 | **QP1 to QP6: owner questions for protected areas.** [spec](../../features/protected-area-entry.md) 14 | owner | answered 26 Oct 2026: all six as recommended |
 
 ## Owner questions open
 

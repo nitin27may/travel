@@ -712,6 +712,8 @@ dark into `web/test-results/shots/` (gitignored). Commit: one commit per task, `
 
 ## 14. Owner questions (QP1 to QP6)
 
+Answered by the owner on 26 Oct 2026, one at a time: all six as recommended.
+
 | Q | Question | Recommended | Trade-off |
 |---|---|---|---|
 | QP1 | A system pass (Discovery Pass, a national or provincial annual pass) is one offer on the operator with no `at`, and each park's fee says `covered_by` it; E_PLACE_ORPHAN exempts it? | **Yes** | one validator exception, against listing every park on the pass |
