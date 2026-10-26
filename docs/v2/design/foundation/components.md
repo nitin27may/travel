@@ -67,6 +67,8 @@ it wraps to two rows (identity row, tabs row) and grows to 128 px. Phone: see 1.
 
 Do: truncate the name before the bar wraps. Don't: hide tabs behind "More" on desktop.
 
+The public trip page's tabs (Summary · Days · Stops · Bookings · Photos) are a different component: 1.6.
+
 ### 1.3 Trip switcher and ⌘K
 
 Trigger: the trip chip in the header (photo 34 px in the identity ring, name `--t-row` (Big Shoulders 21),
@@ -125,6 +127,39 @@ keyboard is open. Measurements and checks: [mine-and-bar-spec.md](../shell/mine-
 Mono 12.5 `--muted`, " · " separators, current item `--ink`; used on place and trail pages (Places ·
 Italy · Sesto Dolomites) and in the globe chip (World › Italy › South Tyrol). Each crumb is a link with a
 36 px hit height. Collapses to the last two crumbs on phone with a leading "…" menu.
+
+### 1.6 Page tabs (public trip page)
+
+UXB-N, 26 Oct 2026 (decision and measurements: [uxb-components-2026-10-26.md](../trip-page/uxb-components-2026-10-26.md)
+1 and 2; template: patterns 3.10). The trip page's five tabs **Summary · Days · Stops · Bookings · Photos**; only tabs with
+content are drawn, and a trip with only a Summary has no tab bar.
+
+Anatomy: a row 48 px tall on `--bg` with a 1 px `--line` hairline under it (decorative). Labels `--t-tab`, at rest
+`--muted` (6.42 light / 8.23 dark on `--bg`), hover `--ink`; current `--ink` at `--t-tab-current-weight` with a **3 px
+underline in `--accent-text`** (5.85 / 8.83). Not `--accent`: it is 2.33:1 on `--bg` in light, under the 3:1 a state
+indicator needs; the label's colour and weight carry the state too. Counts (mono `--t-meta` `--muted`) only from 640 px,
+and only where they add a fact (Stops, Bookings, Photos; owner Q304 pending), in the name as "Bookings, 7".
+
+Widths (IBM Plex Mono, measured in Chromium and WebKit): side padding 4 px under 360 px, 8 px from 360 to 639 px, 12 px
+from 640 px; every tab at least 44 px wide. Five English labels then take 287 px of 292 at 320 and 323 of 362 at 390,
+so the row never scrolls at 100% text. On phones the tabs share the row (`flex: 1 1 auto`); on desktop they sit at their
+natural width, left aligned. Overflow fallback (200% text, a longer label): the row scrolls sideways with snap per tab, a
+24 px fade at the right edge and the current tab scrolled into view, as `CategoryStrip`. Never more than five tabs.
+
+Keyboard and screen reader: `role="tablist"` named "Trip sections"; tabs are buttons with `role="tab"`, `aria-selected`,
+`aria-controls`; roving `tabindex`; Left and Right move focus, Home and End jump, **Enter or Space activates (manual
+activation**, because three panels load a chunk and each activation is a `pushState`); focusing a tab prefetches its
+chunk. Panels `role="tabpanel"`, `aria-labelledby`, `tabindex="-1"`; a loading panel has `aria-busy` and a `role="status"`
+line. Links into a tab from elsewhere are real `<a href>` links (patterns 3.10).
+
+Sticky: patterns 3.10 (on phones only one row sticks under the header). Motion: the underline slides `--d-fast`
+`--e-std`; the panel swaps without animation; reduced motion jumps. Focus ring inset 3 px.
+
+Do: hide a tab that would be empty. Don't: use the segmented look (2.9) for page tabs: five never fit at 320 (369 px), and
+a sticky amber block sits beside the primary action at rest. Don't: replace the tabs with a select on phones.
+
+Props sketch: `PageTabs({ label, tabs: { value, label, count?, href }[], value, onActivate, onFocusTab?, idPrefix,
+countsFrom })` in `web/components/ui/PageTabs.tsx`; it shares its roving-focus helper with Mine's tabs.
 
 ## 2. Controls
 
@@ -209,6 +244,13 @@ checkboxes and live counts per option ("Trail · 18"), search field when more th
 footer. Pills wrap to a second row on desktop; on phone they scroll horizontally with a fade and a
 "Filters (3)" button that opens a full-height sheet with Apply.
 
+**Phone menus dock** (KIND-FILTER-FIX, merged 26 Oct 2026, recorded by UXB-N). Under 640 px a pill's menu is not anchored
+to the pill: it docks above the bottom bar at full width, as tall as the room and never taller, with the top radius of a
+sheet; its options scroll inside it (`overscroll-behavior: contain`), a sticky head names the facet and "n selected", the
+footer with Clear and Done stays in view, every option row is at least 44 px, and the page behind does not scroll while it
+is open. Filters inside trip tabs (Stops, and Bookings above 12 rows) use the same pills and the same docking
+(uxb-components 7).
+
 ### 2.8 Chips
 
 24 px, radius full, mono 11.5/500, padding 0 9, optional 13 px icon. Never interactive unless they say
@@ -259,7 +301,9 @@ strip), mono 13, `--ink-2`,
 `aria-label` when more than three. **Tab variant** (Mine's My trips · Favourites): the same look with `role="tablist"`,
 each segment a `tab` with `aria-selected` and `aria-controls`, arrows move and select, Home and End jump; label plus a
 mono 11.5 count ("My trips 2"); 44 px tall and full width on phone (two equal segments), 40 px on desktop. Use the tab
-variant only when the segments switch panels and the URL; filters and views stay radiogroups.
+variant only when the segments switch panels and the URL; filters and views stay radiogroups. The tab variant is for two
+or three panels inside a page (Mine); page-level tabs with more are 1.6. Days' List | Table and Everything | Stops only
+(patterns 3.10) are views, so they are radiogroups.
 
 ### 2.10 Search with `/`
 
@@ -279,6 +323,28 @@ constant, "Favourite <name>", with the state in `aria-pressed`; `title` "Favouri
 to 1 scale over 200 ms `--e-out`; reduced motion: fill only. Mounted after hydration, never in server HTML. Placement
 and toasts: patterns 3.9. Cards never carry the toggle; a favourited card shows an `aria-hidden` badge: 18 px filled
 heart in `--accent-text` on a 26 px `--surface` disc with a 1 px `--line-2` keyline, top right of the photo, 8 px in.
+
+### 2.12 Stepper
+
+UXB-N, 26 Oct 2026 (uxb-components 4). One number that moves by one inside a small range: adults (1 to 12) and children
+(0 to 8) in the party editor and the copy sheet, the youngest age in the Kids filter. It replaces three steppers with
+three looks (`tl-stepper`, `trav-step`, `age-step`).
+
+Anatomy: visible label left; then a 44 x 44 secondary button (2.1) with the `minus` glyph 16 px `--ink`, an `<output>`
+40 px wide with the value in mono `--t-tab` 600 `--ink` (16.06 light / 13.83 dark on `--surface`), and a 44 x 44 `plus`
+button; 8 px between the parts. Borders `--line-2` (3.67 / 3.42). The same size on every width (it lives in forms, not
+toolbars).
+
+States: hover and pressed as 2.1; **at a bound the button keeps focus**: `aria-disabled="true"` at 45% opacity, never
+`disabled`, because a disabled button under the pointer drops focus to `body`. Optional `format(n)` ("Under 1" for 0).
+
+Keyboard and screen reader: `role="group"` named by the label; the buttons are named "Fewer adults" and "More adults";
+the output is `aria-live="polite"`; Enter or Space steps, and Up and Down step from either button. Not a `spinbutton`: two
+real buttons serve switch and voice users better. Values with more than about 12 steps that a person sets once (a child's
+age, 0 to 17) use a native select (2.3, `ui/Select`), which gives the phone's own picker.
+
+Props sketch: `Stepper({ label, value, min, max, onChange, decLabel, incLabel, format? })` in
+`web/components/ui/Stepper.tsx`.
 
 ## 3. Cards and rows
 
@@ -332,6 +398,29 @@ everywhere with a toast naming both trips. Swipe right on phone = done, left = s
 buttons as equivalents. **Cross-trip link** (S6): the Tasks page ends with one mono 13 line, "2 more due
 this week in other trips →", linking to Home's Needs-you filtered to this week; it is omitted when the count
 is zero and never lists the other trips' tasks inline (rule 5). Page template: patterns.md 4.8 N1.
+
+### 3.6 Count card
+
+UXB-N, 26 Oct 2026 (uxb-components 9.1). A Summary card that states one count and leads to the tab or section that lists
+it: "4 bases · 14 nights", "33 trails · 186.5 km, all versions", "7 to book ahead · none has a published opening date
+yet", "41 photos".
+
+Anatomy: `--surface`, `--b-hairline`, `--r-3`, padding 12 14, at least 72 px tall. Value in `--t-row` `--ink` (16.06 /
+13.83), sub in mono `--t-meta` `--muted` (6.94 / 7.45), at most two lines; a 16 px chevron `--muted` at the right.
+**The whole card is one `<a href>`** to the filtered tab (`?view=all#trails`, `?view=bookings`); no button inside it.
+Hover: border `--line-2`; focus ring on the card; pressed 1 px down. Grid `repeat(auto-fit, minmax(160px, 1fr))` on
+desktop, two columns on phones. A card with nothing to count is not drawn; a total always names its coverage ("climb known
+for 27 of 33"). Server-rendered.
+
+### 3.7 Highlight card
+
+UXB-N, 26 Oct 2026 (uxb-components 9.2). A place marked "Worth the journey" in a trip's Summary. Anatomy: photo 4:3 (the
+place's own licensed photo, else the trip gallery section with the same name, else the kind glyph 22 px on `--well` with
+"No licensed photo yet" in `--t-small` `--muted`, 6.02 / 8.58); name `--t-card`, two lines; day signs in mono `--t-meta`
+("Day 11", "Days 3 and 10"). The card is one link to the place page; each day sign is its own link to Days at that day
+(`?view=day#day-11`), a separate focus stop above the card's stretched link (3.1). Desktop: two rows of four; phones: a
+2 x 2 grid, "Show 4 more" (static disclosure, 6.4) and "See all 13" to Stops filtered to the relevance value (owner Q306
+pending; never a sideways row that hides cards). Photo credits go to the page's credits footer. Hover and focus as 3.1.
 
 ## 4. Data display
 
@@ -388,6 +477,52 @@ image letterboxed, caption serif 16 with the credit line mono 12.5 and the licen
 48 px ghost buttons, close top right, counter "4 / 42". Keyboard: arrows, Esc; swipe on phone; focus
 trapped; `aria-roledescription="carousel"`. Open and close 200 ms fade and scale from the tile (shared
 element), or a fade under reduced motion.
+
+**Large galleries (the trip page's Photos tab, 6 or more photos; UXB-N).** Grouped by the gallery's sections, each with a
+heading that links to its place and day signs when they match, and "Nearby, not in this plan" (`--t-meta` `--muted`) for
+sections the plan does not visit. **Each tile shows its credit line under it at rest**: author · licence, mono 11.5
+`--muted` (6.42 / 8.23 on `--bg`), one truncating line; the full title, author and linked licence stay in the lightbox and
+the credits footer. Phones have no hover, and every photo needs its credit. Images are lazy with fixed 16:10 boxes (no
+shift); the gallery's chunk loads when the tab opens. Masonry and carousels are not used (uxb-components 8).
+
+### 4.6 Day table
+
+UXB-N, 26 Oct 2026 (uxb-components 6; spec trip-and-places-ux-fixes 7). The Days tab's Table view: **one `<table>` per day**,
+chronological, a lighter sibling of 4.2 with no tools row, sort, selection or cell focus.
+
+Anatomy: `<caption>` in `--t-row` ("DAY 04 · Lake Louise to Jasper townsite · 07:30 to 19:00 · 2 h 55 driving"); head row
+`--well`, mono 12 `--muted` labels (6.02 / 8.58), `<th scope="col">`; the time cell is `<th scope="row">` in `--t-time`
+with the timeline's confidence wording ("~08:45"); cells serif 15.5 `--ink` on `--surface` (16.06 / 13.83); drive legs are
+indented rows in `--muted` (6.94 / 7.45). Takes is mono 13, never wrapping ("45 min"). Rows 44 px. Frame and radius as 4.2.
+
+Columns: Time · What · Kind · Where · Takes · Notes, book from 640 px. **Under 640 px three columns, Time · What · Takes,
+with Kind, Where and Notes folded into lines under the title in the What cell** (mono `--t-meta` `--muted`): the three
+`th` and `td` are `display: none` and the folded lines show; from 640 px the reverse, and the folded lines are
+`aria-hidden`. Never sideways scroll. Sticky head only from 640 px, under the page's sticky band; on phones the caption is
+enough. Print uses the six columns, repeats the head per page and keeps a day on one page when it fits. Rows and time text
+come from the same function as the CSV and the print (`printTime`), so "Stops only" equals the CSV.
+
+### 4.7 Month strip
+
+UXB-N, 26 Oct 2026 (uxb-components 5). Twelve months with the best, also-good, the plan's own, avoid and unresearched
+months, in the Summary's "When to go" and anywhere a season is drawn. Replaces the single-letter strip.
+
+Layout by the strip's own width (a container query): **12 x 1 with three-letter names** from 340 px (27 px cells at a
+390 phone, measured); **6 x 2** under 340 px (46 px cells at 320), with the state word inside each cell; desktop 12 x 1 at
+56 px per cell with the word inside. Single letters are never drawn (they repeat J, M, A).
+
+| State | Look | Pair (light / dark) |
+|---|---|---|
+| best for this plan | `--ink` fill, label `--surface` 600, word "best" | 16.06 / 13.83 |
+| also good, with trade-offs | `--surface` cell with a 6 px foot band hatched in 2 px `--line-2` stripes at 135 deg; word "good" | label 16.06 / 13.83, stripes 3.67 / 3.42 |
+| the plan's months (no "best" researched) | `--surface`, 2 px `--ink` border | 16.06 / 13.83 |
+| avoid (only with a sourced reason) | `--surface`, label `--muted`, a 6 px foot band cross-hatched in 1.5 px `--ink-2` lines, word "avoid" | 6.94 / 7.45; lines 12.09 / 10.76 |
+| not researched | `--surface`, 1 px `--line-2` border, label `--muted` | 6.94 / 7.45 |
+
+Labels never sit on stripes (the old full-cell hatch was 2.13:1). Below 340 px and on desktop the word is in the cell; from
+340 to 639 px a legend under the strip names the patterns. Screen reader: a summary line first ("Best: September. Also
+good: June, August.") then an ordered list of twelve items with hidden full text ("September, best for this plan"); the
+visible names are `aria-hidden`. Server-rendered, no JS.
 
 ## 5. Overlays
 
@@ -457,6 +592,40 @@ Error inline, in place of the region: triangle, serif 16 "We couldn't load the p
 reading offline.", Retry button, cached data under it when any. Permission: a notice banner "You can view
 this trip. Ask Nitin to let you edit." with Request access. 404: page title "Not here", search field,
 links to Trips, Places, Globe.
+
+### 6.4 Disclosure (collapsible section)
+
+UXB-N, 26 Oct 2026 (uxb-components 3). A section or a list tail that opens in place. Two kinds, one look:
+
+| Kind | Element | When |
+|---|---|---|
+| **static** | native `<details>` / `<summary>` | server-rendered text that needs no state: "Other weeks that work" and "Worth knowing" on phones, "Know before you go: 4 more", the lead's "More", "Show 4 more" highlights, place pages' Facts and sources and a long gap block. Zero JS; a find in page opens it in Chrome |
+| **live** | a `button` with `aria-expanded` and `aria-controls` | the content is a lazy chunk, follows the party or is remembered: The trip's shape (and each of its count phrases), "Plan it for" |
+
+Anatomy: the summary or button is the whole row, at least 44 px tall: label (`--t-row` for a section, `--t-label` for a
+list tail) `--ink`, a count in mono `--muted` ("(3)"), a 16 px chevron at the left that turns up when open. Content grows
+in place, height by grid rows 0fr to 1fr over `--d-base` `--e-std`; reduced motion jumps. A live disclosure whose chunk is
+loading shows a `role="status"` line ("Loading the days").
+
+Rules: **a hazard, closure or mandatory rule is never inside a closed disclosure** (P2 exception); it stays at rest above
+it. Remembered state (live only) is per trip in the device key `travel.tripui` through `web/lib/storage/safe.ts`; storage
+blocked means the default each time. Print: one `beforeprint` handler opens every static disclosure and `afterprint`
+restores it; a live disclosure prints its server-rendered summary (the shape prints its ribbon and count line). Base UI
+Collapsible is not used on the trip page (start JS).
+
+### 6.5 "Not checked yet" block
+
+UXB-N, 26 Oct 2026 (uxb-components 10; spec trip-and-places-ux-fixes 8.3 and 8.4). Every non-safety gap of a place page
+in one block at the end, before Facts and sources. A section with no value and no safety gap is not drawn; a safety gap
+(minimum age, height or weight, closures, permits and timed slots, main hazards) keeps its own row with the gap chip (2.8)
+where the decision is made.
+
+Anatomy: heading `--t-cap` `--muted` "Not checked yet" with `id="not-checked"`; a `<dl>`: each section name as `<dt>` in
+mono `--t-label` `--ink-2` (11.18 / 11.88 on `--bg`), its gaps as one `<dd>` in `--t-small` `--muted` (6.42 / 8.23),
+comma-separated ("When to go: best weeks, best time of day, snow-free window"). No box. More than five lines: the rest
+in a static disclosure "Show 3 more sections". Basics-only pages: one line, "Not researched yet: season, parking, getting
+there, fee, hazards, summary, photo, links". The completeness chip's "What is not checked" is a link to `#not-checked`,
+not a popover. Server-rendered, no JS. Not an empty state (6.1): the page has content; this lists what it lacks.
 
 ## 7. Map and globe
 

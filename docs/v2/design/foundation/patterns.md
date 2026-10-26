@@ -41,7 +41,7 @@ means a public, read-only page.
 |---|---|---|
 | Home / inspiration | `/` | |
 | Trips search | `/trips` + list state | `/trips?when=2027&country=it&view=table&group=year&sort=start&dir=asc&page=2` |
-| Public trip page | `/trips/<trip-slug>`; anchors `#day-3`, `#stays`, `#trails`, `#sights`, `#activities`, `#food`, `#logistics`; timeline keys in this order, defaults omitted (features/trip-timeline.md 3.8, codec `core/src/schedule/profileCodec.ts`): `p=` party (`adults`, `family-<youngest age>`), `pace=` (`relaxed`, `standard`, `full`), `a=1` one adult, `walk=` longest walk in km, `split=1` parallel lanes, `d=` per-day variant overrides (`5C,9A`), `add=` visitor additions `<day>.<place-slug>` in insertion order; then `view=category` for the By category segment. Unknown values fall back silently; an `add` slug that no longer resolves is dropped with a note | `/trips/canadian-rockies-2029?p=family-4&pace=relaxed&d=5C&add=5.pyramid-lake#day-5` |
+| Public trip page | `/trips/<trip-slug>`; anchors `#day-3`, `#stays`, `#trails`, `#sights`, `#activities`, `#food`, `#logistics`; timeline keys in this order, defaults omitted (features/trip-timeline.md 3.8, codec `core/src/schedule/profileCodec.ts`): `p=` party (`adults`, `family-<youngest age>`), `pace=` (`relaxed`, `standard`, `full`), `a=1` one adult, `walk=` longest walk in km, `split=1` parallel lanes, `d=` per-day variant overrides (`5C,9A`), `add=` visitor additions `<day>.<place-slug>` in insertion order; then `view=category` for the By category segment. Unknown values fall back silently; an `add` slug that no longer resolves is dropped with a note. **From UXB-1 (3.10):** `view` names the page tab: omitted = Summary, `day`, `table` (Days in its Table view), `all` (Stops; `category` stays an alias), `bookings`, `photos`; then `rows=stops` (Table's Stops only); `a` widens to `a=1` to `a=12` (default 2, omitted); `#day-N` with no `view` opens Days and a category fragment opens Stops; OVR's `tab=` is the sub-tab inside Stops | `/trips/canadian-rockies-2029?p=family-4&pace=relaxed&d=5C&add=5.pyramid-lake#day-5`; `/trips/canadian-rockies-2029?view=bookings` |
 | Places search | `/places` + list state | `/places?q=lake&kind=trail,lake&status=planned&kids=yes&season=jul&tag=photo&plan=dolomites-2027&view=table&group=country&sort=area&dir=asc&page=2` |
 | Public place or trail page | `/places/<place-slug>` | `/places/tre-cime-di-lavaredo-loop` |
 | Globe, world | `/globe` | |
@@ -130,6 +130,11 @@ one pin per trip at its first base with the cover photo in the selection card.
 
 Full design: design/trip-page/timeline-design.md (its section 10 is the list of changes applied here); model and
 URL keys: features/trip-timeline.md.
+
+**Amended 26 Oct 2026 (UXB-N, owner-approved design G-UXA).** When UXB-1 ships, items 3, 5 and 6 below are replaced by the
+tabbed template in **3.10**: the season band becomes "When to go" in the Summary, "The trip at a glance" becomes "The
+trip's shape", and "In this trip" with its By day / By category segment becomes the Days and Stops tabs. Item 2 becomes
+the collapsed party bar (3.10). Items 1, 4 and 7 stay. The category table and rules below stay and apply to the Stops tab.
 
 1. **Cover** 620 px (phone 420): photo, gradient 10% to 88%, kicker white 80% ("Published plan · South
    Tyrol and Veneto, Italy"), title 96, standfirst serif 21, chips (14 days, 4 bases, drive 1 h 10 a day,
@@ -236,6 +241,9 @@ Links as tabs (Official 3 · Booking 1 · Route 4 · Conditions 3 · Report 1) w
 viewpoint: light, walk from the car; stay: nights, check-in, cancellation; activity: ages, duration,
 booking window).
 
+**Amended 26 Oct 2026 (UXB-N, owner Q300).** What a place page draws is decided by what is known: **3.11**. A section with
+no value is not drawn, and empty link tabs are not drawn.
+
 ### 3.7 Copy and export
 
 **Copy to my trips** (signed in, planner stage): a sheet asking only the start date (date picker with the shading; the
@@ -310,6 +318,79 @@ adds nothing to the server HTML. Toasts (components 5.3, above the bottom bar on
 
 Every add sets the Mine dot (components 1.4). A heart never adds anything to a trip, and Save to a trip never adds a
 favourite (visitor spec 4.6).
+
+### 3.10 Trip detail with tabs (UXB, bundle C)
+
+Owner-approved design (G-UXA, Q293 to Q302): [features/trip-and-places-ux-fixes.md](../../features/trip-and-places-ux-fixes.md)
+3 to 7, wireframes W1 to W9; component choices and the tabs analysis:
+[trip-page/uxb-components-2026-10-26.md](../trip-page/uxb-components-2026-10-26.md). Replaces 3.4 items 2, 3, 5 and 6
+when UXB-1 ships.
+
+Order: **cover** (3.4 item 1; the "Valid for" stat becomes "Best time") · **party bar** · **tab bar** · the panel ·
+"Take this plan with you" · credits.
+
+1. **Party bar** ("Plan it for", collapsed by default): one row, "2 adults · 1 child (10) · Standard pace" and a pencil
+   **Edit** (live disclosure, components 6.4) that opens the editor inline: Stepper (2.12) for adults and children, a
+   select per child's age, pace (2.9), More. Party words come from one function shared with Mine. The party is kept on
+   the device (`travel.party`); a link carries only `p=family-<youngest>` and `a`.
+2. **Tab bar** (components 1.6): **Summary · Days · Stops · Bookings · Photos**, only tabs with content. Each tab answers
+   one question: what is this trip and is it for me; what happens when; show me all the trails, stays and sights; what
+   must we reserve; what does it look like. Map, Stays, Notes and Season are not tabs (the map is a column beside Days,
+   Stops and Bookings and a sheet on phones; stays are the bases ribbon and the Stays chip; notes and season are Summary
+   sections). Tabs by trip state: full and summary trips 3 to 5; an overview trip Summary · Photos; an overview with no
+   gallery has no tab bar. Bookings is drawn with one booking or more; Photos with 6 licensed photos or more (Q307
+   pending; until answered, with any gallery).
+3. **Panels.**
+   - **Summary** (default): What you will do · count cards (components 3.6) · Highlights (3.7) · When to go (hero, month
+     strip 4.7, four equal cards, other weeks, worth knowing, weather links) · The trip's shape (bases ribbon, count line,
+     per-day table behind a live disclosure) · Who it suits and Know before you go (safety lines at rest). Server-rendered.
+   - **Days**: the Suggested times banner, the plan bar with the day rail, `[List | Table]` and, in Table,
+     `Show [Everything | Stops only]`; day cards as 3.4 item 6, or one day table per day (components 4.6, lazy).
+   - **Stops**: the six category chips with counts and, from OVR-2, filter pills (2.7) with live counts and one Clear all.
+     Lazy.
+   - **Bookings**: every booking grouped by day (by booking group after OVR-2), its rule and note; header counts; one
+     "Prices: not checked yet" line, never a column of blanks; filters only above 12 rows.
+   - **Photos**: the gallery by section with a credit line under each tile (4.5). Lazy.
+4. **Sticky.** Desktop: the tab bar sticks under the header, and on Days the plan bar and on Stops the category strip stick
+   under it. **Phones (under 640 px): one row sticks under the header**: the day rail on Days and the category strip on
+   Stops (the tab bar scrolls away with the content above it, and back-to-top returns to it), the tab bar on the other
+   tabs (owner Q303 pending; if no, both rows stick and the plan bar drops its party line on phones). The back-to-top
+   button stays above the bottom bar and hides under an open editor. Switching tabs scrolls so the tab bar sits at its
+   sticky line; never a jump to the top (P5).
+5. **URL** (1.2): `view` names the tab; switching is `pushState` (Back returns to the previous tab); scrolling inside a
+   tab is `replaceState`. Precedence on load: the URL's `view` or `#day-N`, then the tab remembered for this trip on the
+   device (`travel.tripui`), then Summary. Mine's Open adds `view=day`. Links into tabs from the Summary (count cards,
+   highlight day signs, shape rows) are real `<a href>` links; with script they switch the tab and move focus to the
+   target heading.
+6. **Keyboard**: components 1.6 (manual activation). Focus lands on the tab after a switch from the tab bar, on the target
+   heading after a link.
+7. **No script**: every panel renders in order with its heading; the tabs become in-page links.
+8. **Print**: Summary, then Days (List, or Table when chosen), then Bookings when the trip has any (Q305 pending), never
+   Photos or Stops, whatever tab is on screen.
+9. **Budget**: no net trip start JS (spec D12): Summary, cards, month strip, ribbon and the gap lines are server HTML;
+   the party editor, the shape's rows, the day tables, Stops and Photos are lazy chunks.
+
+Principles: P2 and P3 (a first screen that answers "what is this trip", detail one tab or one disclosure away), P4 (plain
+labels, counts, every option visible at 320), P5 (Back between tabs, no jump), P6 and T1 (when to go and bookings where
+the decision is made), P7 (Summary first for the 90%), P8 and P9 (light summary data from the adapter, lazy chunks).
+
+### 3.11 Place page: what is known first (UXB-7)
+
+Spec [trip-and-places-ux-fixes.md](../../features/trip-and-places-ux-fixes.md) 8 and W10; owner Q300. Order:
+
+1. **Identity**: breadcrumb, kind and area, name, summary when held, relevance badge, the completeness chip ("Early
+   research · 30 of 32") with "What is not checked" linking to the gap block.
+2. **Primary actions** (P7): Directions to the right point, Save to a trip, Export, Share, the heart.
+3. **Glance**: only facts held, 6 to 8 by type; a glance fact is never repeated in a section row.
+4. **Context**: the map with its honesty line, "In <trip> · Day n", Nearby (30 km), the official link.
+5. **Type sections** in the template's order (Trail, Lake, Viewpoint and summit, Waterfall and canyon, Town, Park and
+   area, Island, Offer: the W10 table), **each drawn only with a value or a safety gap**. Offers always show Limits.
+6. **Not checked yet** block (components 6.5).
+7. **Facts and sources**: a static disclosure (6.4) with sources and read dates, never the values again.
+
+Links by group: tabs only when two or more groups hold links; one group is a plain list; an empty group is not drawn.
+**Basics-only pages** (the `basics` level) use the compact template: identity, actions, map, nearby, trips and one "Not
+researched yet" line. Principles: P2 (safety gaps at rest), P3, P6 (facts where they matter), P8 (the page shrinks).
 
 ## 4. Planner templates
 
@@ -443,6 +524,8 @@ A screen uses one density per region and never a third.
 | Mine: tab change, row removed or restored | selected fill slides, panel cross-fades; removed row collapses, Undo expands it back | 200 ms `--e-std`; panel 120 ms |
 | Heart toggled, Mine dot appears | heart fills and scales 1 to 1.15 to 1; dot scales from 0 | fill 120 ms, scale 200 ms `--e-out`; dot 200 ms `--e-out`; reduced motion: no scale |
 | Theme switch | surfaces cross-fade; images do not flash | 200 ms |
+| Trip page tab change (3.10) | the underline slides; the panel swaps without animation; the page keeps the tab bar at its sticky line | underline `--d-fast` `--e-std`; reduced motion: jump |
+| Disclosure open or close (components 6.4); the party editor; the shape's table | content grows or shrinks in place (grid rows 0fr to 1fr); the chevron turns | `--d-base` `--e-std`; reduced motion: jump |
 
 Never animated: text and border colour on status change, table rows, the trip bar, form validation.
 Everything is interruptible; a second input cancels the first animation and starts from the current frame.
