@@ -1,5 +1,6 @@
 'use client';
 
+import { readLocal } from '@/lib/storage/safe';
 import { useEffect } from 'react';
 import { convertNumber, unitWord } from '@/lib/format/convert';
 import { PREFS_KEY, parsePrefs } from '@/lib/format/units';
@@ -36,7 +37,7 @@ export function Interactions() {
     };
     // distances and heights follow the visitor's units (km or mi, m or ft)
     const applyUnits = (): void => {
-      const prefs = parsePrefs(window.localStorage.getItem(PREFS_KEY), navigator.language);
+      const prefs = parsePrefs(readLocal(PREFS_KEY), navigator.language);
       for (const el of document.querySelectorAll<HTMLElement>('data.ukm, data.um, data.ucm')) {
         const u = el.classList.contains('ukm') ? 'km' : el.classList.contains('ucm') ? 'cm' : 'm';
         el.textContent = `${(el.getAttribute('value') ?? '').split('–').map((v) => convertNumber(v, u, prefs)).join('–')} ${unitWord(u, prefs)}`;

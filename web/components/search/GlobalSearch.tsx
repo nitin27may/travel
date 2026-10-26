@@ -1,5 +1,6 @@
 'use client';
 
+import { writeSession } from '@/lib/storage/safe';
 import { useRouter } from 'next/navigation';
 import { createPortal } from 'react-dom';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
@@ -189,11 +190,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   const handOff = (href: string) => {
     if (!read || href !== lead[0]?.href || lead[0]?.kind !== 'show') return;
     const value: Handoff = relax ? { text: q, parsed: relax.parsed, relaxed: { dropped: relax.dropped, total: relax.total } } : { text: q, parsed: read };
-    try {
-      sessionStorage.setItem(HANDOFF_KEY, JSON.stringify(value));
-    } catch {
-      // private mode: the list just opens with the filters
-    }
+    writeSession(HANDOFF_KEY, JSON.stringify(value)); // blocked: the list just opens with the filters
   };
   const goOption = (i: number) => {
     const href = i < lead.length ? lead[i]?.href : hits[i - lead.length]?.record.h;

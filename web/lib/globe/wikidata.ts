@@ -1,3 +1,4 @@
+import { readLocal, writeLocal } from '@/lib/storage/safe';
 import { globeWikidata, type WikidataEntity } from '@/lib/client/data';
 
 /** The facts a feature card shows from Wikidata, one row each (spec 4.2, 4.3). Item-valued properties (range, outflow, highest point) are left out: they need a second call. */
@@ -69,7 +70,7 @@ interface Cached { t: number; facts: FeatureFacts }
 export async function loadFeatureFacts(qid: string | null, cls: string, now = Date.now()): Promise<FeatureFacts | null> {
   if (!qid || !/^Q\d+$/.test(qid)) return null;
   try {
-    const hit = JSON.parse(localStorage.getItem(KEY(qid)) ?? 'null') as Cached | null;
+    const hit = JSON.parse(readLocal(KEY(qid)) ?? 'null') as Cached | null;
     if (hit && now - hit.t < CACHE_DAYS * 86_400_000) return hit.facts;
   } catch { /* storage unavailable or junk */ }
   const ctl = new AbortController();
@@ -78,7 +79,7 @@ export async function loadFeatureFacts(qid: string | null, cls: string, now = Da
     const e = await globeWikidata(qid, ctl.signal);
     if (!e) return null;
     const facts: FeatureFacts = { rows: factRows(e, cls), label: e.labels?.en?.value, wikipedia: e.sitelinks?.enwiki?.title ? `https://en.wikipedia.org/wiki/${encodeURIComponent(e.sitelinks.enwiki.title.replace(/ /g, '_'))}` : undefined };
-    try { localStorage.setItem(KEY(qid), JSON.stringify({ t: now, facts } satisfies Cached)); } catch { /* full or private */ }
+    writeLocal(KEY(qid), JSON.stringify({ t: now, facts } satisfies Cached));
     return facts;
   } catch {
     return null;

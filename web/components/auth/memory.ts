@@ -3,42 +3,27 @@
  * and the address handed from "Forgot password?" to `/sign-in/reset/` (sessionStorage, this tab only, removed when read).
  * Storage can be blocked (private modes); every call fails quietly.
  */
+import { readLocal, readSession, removeSession, writeLocal, writeSession } from '@/lib/storage/safe';
 const METHOD = 'auth.lastMethod';
 const HANDOFF = 'auth.resetEmail';
 
 export type Method = 'code' | 'password';
 
 export function lastMethod(): Method | null {
-  try {
-    const v = window.localStorage.getItem(METHOD);
-    return v === 'code' || v === 'password' ? v : null;
-  } catch {
-    return null;
-  }
+  const v = readLocal(METHOD);
+  return v === 'code' || v === 'password' ? v : null;
 }
 
 export function rememberMethod(m: Method): void {
-  try {
-    window.localStorage.setItem(METHOD, m);
-  } catch {
-    /* storage blocked */
-  }
+  writeLocal(METHOD, m);
 }
 
 export function handOffEmail(email: string): void {
-  try {
-    window.sessionStorage.setItem(HANDOFF, email);
-  } catch {
-    /* storage blocked */
-  }
+  writeSession(HANDOFF, email);
 }
 
 export function takeHandedOffEmail(): string {
-  try {
-    const v = window.sessionStorage.getItem(HANDOFF) ?? '';
-    window.sessionStorage.removeItem(HANDOFF);
-    return v;
-  } catch {
-    return '';
-  }
+  const v = readSession(HANDOFF) ?? '';
+  removeSession(HANDOFF);
+  return v;
 }

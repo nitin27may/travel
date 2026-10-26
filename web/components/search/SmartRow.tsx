@@ -1,5 +1,6 @@
 'use client';
 
+import { readSession, removeSession } from '@/lib/storage/safe';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { ReactNode, RefObject } from 'react';
@@ -70,14 +71,9 @@ export function SmartRow<Row>({ d, state, onState, searchRef, applied, onApplied
 
   // a reading the header search handed over for this very list: hold it like one typed here (undo line), and relax it when it gives no rows
   useEffect(() => {
-    let raw: string | null = null;
-    try {
-      raw = sessionStorage.getItem(HANDOFF_KEY);
-      if (raw) sessionStorage.removeItem(HANDOFF_KEY);
-    } catch {
-      return;
-    }
+    const raw = readSession(HANDOFF_KEY);
     if (!raw) return;
+    removeSession(HANDOFF_KEY);
     let hand: Handoff;
     try {
       hand = JSON.parse(raw) as Handoff;

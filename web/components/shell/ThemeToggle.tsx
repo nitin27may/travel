@@ -1,5 +1,6 @@
 'use client';
 
+import { writeLocal } from '@/lib/storage/safe';
 import { useSyncExternalStore } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
@@ -29,11 +30,7 @@ export function ThemeToggle() {
         root.classList.add('theme-fade');
         root.dataset.theme = next;
         window.setTimeout(() => root.classList.remove('theme-fade'), 260);
-        try {
-          window.localStorage.setItem(THEME_KEY, next);
-        } catch {
-          /* private mode: lasts until reload */
-        }
+        writeLocal(THEME_KEY, next); // blocked: lasts until reload
         window.dispatchEvent(new Event(EVENT));
       }}
     >
