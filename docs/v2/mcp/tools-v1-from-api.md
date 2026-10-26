@@ -1,5 +1,13 @@
 # Remote MCP v1, derived from the API: tools, schemas, field lists, errors, privacy and tests
 
+> **Layer 1 of the MCP product (26 Oct 2026, owner's second direction; [product.md](product.md)).** This page stays the
+> detailed spec of the read tools (projections, field lists, paging, error mapping, privacy, tests). Where the product pages
+> differ, they win: the catalogue set grows from 12 to 21 tools (`get_day`, `trip_bookings`, `get_format`, `get_example`,
+> `get_method`, `validate`, `gap_report`, plus the graph tools), every result follows the `travel-view/1` response contract
+> ([product-response-format.md](product-response-format.md)), the private set and the write, research and admin tools are in
+> [product-roles-and-tools.md](product-roles-and-tools.md), and the hours and bundles of section 15 are replaced by
+> [product-packaging-and-phases.md](product-packaging-and-phases.md) 4 (MCP-C 10 h, MCP-1 8 h, bundle H 81 h, new bundle H2).
+
 Status: **spec only, planned** (26 Oct 2026, travel-planner, Opus 5.5). Docs only. Owner direction of 26 Oct 2026: "MCP is
 built entirely from the API side, never direct to the database; write the MCP spec in detail from the API contracts."
 Companion to [../features/property-display-matrix.md](../features/property-display-matrix.md), which holds the property

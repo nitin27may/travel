@@ -11,6 +11,13 @@
 > `list_my_drafts` and `get_my_draft` are proposed as `list_my_trips` and `get_my_trip`. In 14.9, MCP-C is 8 h (was 5)
 > and blocked by API-G, API-P, API-T, API-S and PM-G; MCP-1 is 7 h; MCP-2 is 9 h; MCP-R (1.5 h) and MCP-GR (2 h) are new.
 > Task table: [../features/property-display-matrix.md](../features/property-display-matrix.md) 12.
+>
+> **Later the same day (owner: the MCP as a product; [product.md](product.md)):** the hours above are superseded by
+> [product-packaging-and-phases.md](product-packaging-and-phases.md) 4 (MCP-C 10 h, MCP-1 8 h; MCP-P, MCP-3 and REQ-M move
+> from "later" into the new bundle H2; new MCP-W, MCP-UI, MCP-A, MCP-S3, MCP-S4); the level ceiling rises from `plans_read`
+> (v0.20) to `plans_write` (v0.20a) and `owner_admin` for the owner (v0.20b); roles, tools and the security additions are in
+> [product-roles-and-tools.md](product-roles-and-tools.md) and [product-security.md](product-security.md). The 2026-07-28
+> protocol removed sessions: preview and batch ids are server-minted handles passed as arguments.
 
 Status: **design, 25 Oct 2026 (travel-planner, Opus). Nothing here is built. Spike MCP-0 passed on the child branch
 on 25 Oct with conditions (section 13). Access levels and the Connected apps settings added 25 Oct (section 14; PLAN

@@ -30,8 +30,16 @@ selected or built; everything below is the target design. This folder is the ref
 > `too_large` and `not_available`, one mapping table with the API codes). The v1 public set is 12 tools (section 3 of that
 > page) plus two graph tools when their routes exist; field lists come from `expose.mcp` in the property registry.
 
+> **The MCP as a product, 26 Oct 2026 (owner's second direction; planned; [product.md](product.md)).** Five layers over one
+> set of operations: API-derived reads, role-scoped writes through the app's routes, our research method and schemas as
+> resources and prompts, validation and previews, and a response format with view hints and MCP Apps views. Users copy and
+> customise trips into their Mine and save their own researched plans privately; catalogue changes are staged, approved on
+> our site and published only by a release. Section 8's tool list is superseded for v1 by
+> [product-roles-and-tools.md](product-roles-and-tools.md) 3; a new bundle H2 (v0.20a writes, v0.20b staging) follows H.
+
 | Page | Contents |
 |---|---|
+| [product.md](product.md) | **the MCP as a product (26 Oct 2026):** vision, principles MX1 to MX10, R-252 extended, phases M1 to M5, owner questions QX1 to QX12; index of the `product-*` pages: [roles and tools](product-roles-and-tools.md), [method and discovery](product-method-and-discovery.md), [staging and admin writes](product-staging-and-admin-writes.md), [response format](product-response-format.md), [security](product-security.md), [testing and evals](product-testing-and-evals.md), [packaging and phases](product-packaging-and-phases.md) |
 | [tools-explore.md](tools-explore.md) | `search`, `get`, `area_guide`, `plan_drive`, `sun`, `weather` |
 | [tools-plan.md](tools-plan.md) | `list_trips`, `get_trip`, `create_trip`, `edit_trip`, `draft_days`, `check_trip`, `share` |
 | [tools-reservations.md](tools-reservations.md) | `reservations` (list, add, update, attach, set status, reveal codes) |

@@ -560,6 +560,12 @@ spec was readable when this page was written; these are the assumptions to recon
 
 ## 12. Tasks (one list for this page and the MCP page)
 
+> **Superseded for the MCP rows, 26 Oct 2026 (the MCP as a product, [../mcp/product.md](../mcp/product.md)):** the PM, API-P,
+> API-G, API-T and API-S rows below stand; the MCP rows (MCP-C, MCP-1, MCP-R, MCP-GR, MCP-2) and the totals are replaced by
+> [../mcp/product-packaging-and-phases.md](../mcp/product-packaging-and-phases.md) 4 (237.5 h for the MCP product including
+> these prerequisites; bundle H 81 h; new bundle H2 115 h). MCP-R is renamed MCP-M (resources and prompts over the method
+> routes).
+
 Models per CLAUDE.md "Model by task complexity": a shared contract or a new abstraction is Opus even when it is code;
 well-specified builds are Sonnet; reviews never below the writer. Hours are agent hours. Bundles per MASTER-ORDER 0.
 
