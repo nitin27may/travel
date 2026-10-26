@@ -312,7 +312,8 @@ test.describe('routed legs and Export trip on the Google family (fake key)', () 
       // the printed row itself: its time word leads, its title follows, and its duration is the page's own text, after the title (and area), before any note
       const row = printed.rows.find((p) => p.lead === `${word} · ` && p.text.startsWith(`${word} · ${r.title}`));
       expect(row, `printed row for ${word} ${r.title}`).toBeTruthy();
-      if (r.dur) expect(row!.text, `${r.title} duration ${r.dur}`).toContain(` · ${r.dur}`);
+      // N6: the duration follows the title on the same row (a duration elsewhere in the text, or the title alone, is not a pass)
+      if (r.dur) expect(row!.text.slice(row!.text.indexOf(r.title) + r.title.length), `${r.title} then · ${r.dur}`).toContain(` · ${r.dur}`);
       else expect(row!.text, `${r.title} has no duration on the page`).not.toMatch(/ · (\d+ min|\d+h( \d+m)?)(\s|$)/);
     }
     expect(printed.text).toContain('Source: Trip Plans');
@@ -331,6 +332,7 @@ test.describe('routed legs and Export trip on the Google family (fake key)', () 
     await expect(page.getByTestId('route-credit')).toBeVisible();
     const closed = (await surface.boundingBox())!;
     expect(closed.height).toBeGreaterThanOrEqual(240);
+    const toggleBefore = (await page.getByRole('button', { name: 'Map key' }).boundingBox())!;
     await page.getByRole('button', { name: 'Map key' }).click();
     await page.getByRole('button', { name: 'Map key' }).focus(); // Safari does not focus a button on click; Escape is a keyboard user's, who has it focused
     const panel = page.getByTestId('trip-map-key-panel');
@@ -343,12 +345,36 @@ test.describe('routed legs and Export trip on the Google family (fake key)', () 
     // the zoom column is not under the panel, and its targets are tappable
     const [pb, zi, zo] = await Promise.all([panel.boundingBox(), page.getByRole('button', { name: 'Zoom in' }).boundingBox(), page.getByRole('button', { name: 'Zoom out' }).boundingBox()]);
     for (const z of [zi!, zo!]) {
-      expect(z.width).toBeGreaterThanOrEqual(32);
+      expect(z.width).toBeGreaterThanOrEqual(32); // the drawn size; the 44 px hit area is asserted below
       expect(z.height).toBeGreaterThanOrEqual(32);
       expect(pb!.x + pb!.width).toBeLessThanOrEqual(z.x + 1);
     }
-    // the panel stays inside the sheet and scrolls instead of growing
+    // N1: the panel is anchored to the bottom of the map and covers at most half of it; the toggle stays where it was
     expect(pb!.y + pb!.height).toBeLessThanOrEqual(open.y + open.height);
+    expect(open.y + open.height - (pb!.y + pb!.height)).toBeLessThanOrEqual(32); // 28 px up: Google's logo strip stays visible
+    expect(pb!.height).toBeLessThanOrEqual(open.height / 2 + 1);
+    const toggleAfter = (await page.getByRole('button', { name: 'Map key' }).boundingBox())!;
+    expect(Math.abs(toggleAfter.x - toggleBefore.x)).toBeLessThan(1);
+    expect(Math.abs(toggleAfter.y - toggleBefore.y)).toBeLessThan(1);
+    // the dashed line is on screen with its key entry: the swatch is inside the viewport and inside the panel
+    const swatch = await page.locator('[data-testid="trip-map-key-panel"] .key-swatch[data-key="estimate"]').boundingBox();
+    expect(swatch, 'the estimate swatch in the key').toBeTruthy();
+    expect(swatch!.y).toBeGreaterThanOrEqual(pb!.y);
+    expect(swatch!.y + swatch!.height).toBeLessThanOrEqual(pb!.y + pb!.height + 1);
+    expect((await lines(page)).some((l) => l.icons > 0), 'a dashed line is drawn').toBe(true);
+    // N4: every control is a 44 x 44 hit area (the drawn size is smaller): the four corners of a 44 px square round the centre hit the control itself
+    const hits = async (name: string | RegExp, scope = page) => {
+      const el = scope.getByRole('button', { name, exact: true }).first();
+      const b = (await el.boundingBox())!;
+      const handle = await el.elementHandle();
+      return page.evaluate(([h, x, y, w, ht]) => {
+        const e = h as Element;
+        const cx = (x as number) + (w as number) / 2, cy = (y as number) + (ht as number) / 2;
+        return [[-21, -21], [21, -21], [-21, 21], [21, 21]].map(([dx, dy]) => { const t = document.elementFromPoint(cx + dx!, cy + dy!); return !!t && (t === e || e.contains(t)); });
+      }, [handle, b.x, b.y, b.width, b.height] as const);
+    };
+    for (const name of ['Zoom in', 'Zoom out', 'Fit', 'Map key']) expect(await hits(name), `${name} 44 px hit area`).toEqual([true, true, true, true]);
+    expect(await hits('Close'), 'Close 44 px hit area').toEqual([true, true, true, true]);
     // Escape closes it and gives focus back to the toggle
     await page.keyboard.press('Escape');
     await expect(panel).toHaveCount(0);

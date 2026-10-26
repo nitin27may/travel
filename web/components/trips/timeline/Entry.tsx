@@ -39,6 +39,10 @@ export function LegRow({ e }: { e: TimelineEntry }) {
   const word = MODE_WORD[e.leg?.mode ?? 'drive'] ?? 'Travel';
   const to = e.to?.name ? e.title.replace(/^(Drive|Walk|Shuttle|Bus|Train|Boat|Ferry|Lift|Flight) (?:on )?to |^Back to /, '') : '';
   const back = /^(Back to|Drive on to)/.test(e.title);
+  // N3: a split drive's halves both carry the whole route's km (the schedule does not store each half's share), so the distance is said once,
+  // on the first half, as the whole drive's ("in all"); the second half ("on to ...") carries none, and the two never add up to twice the road
+  const split = (e.leg?.breaks ?? 0) > 0;
+  const km = !e.leg?.km || (split && back) ? '' : ` · ${formatDistance(e.leg.km, prefs.distance)}${split ? ' in all' : ''}`;
   return (
     <li className="tl-leg num" data-lane={e.lane} data-mode={e.leg?.mode} data-estimate={est || undefined}>
       <span className="tl-time" aria-hidden="true" />
@@ -49,7 +53,7 @@ export function LegRow({ e }: { e: TimelineEntry }) {
         <span aria-hidden="true">
           {est ? <><span className="tl-est" title="A straight line or the plan's own figure, not a routed road time">≈</span>{' '}</> : null}
           {word} <b>{fmtHM(e.durationMin)}</b>
-          {e.leg?.km ? ` · ${formatDistance(e.leg.km, prefs.distance)}` : ''}
+          {km}
           {to && !back ? ` to ${to}` : back ? ` ${e.title.replace(/^Drive on to /, 'on to ')}` : ''}
         </span>
       </p>

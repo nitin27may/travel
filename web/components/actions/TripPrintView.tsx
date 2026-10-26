@@ -1,6 +1,7 @@
 import { fmtHM } from '@travel/core/schedule/rules.ts';
 import type { TimelineEntry } from '@travel/core/schedule/types.ts';
-import { timeText } from '@/components/trips/timeline/labels';
+import { printTime } from '@travel/core/export/plan.ts';
+import { bookAheadText } from '@travel/core/export/bookings.ts';
 import type { TimelineSession } from '@/lib/export/timelineState';
 import { sourceLine } from '@/lib/export/licence';
 import type { ExportStop, TripExport } from '@/lib/export/types';
@@ -11,6 +12,7 @@ const GAP = 'Not checked yet';
 
 const plural = (n: number, one: string) => `${n} ${one}${n === 1 ? '' : 's'}`;
 const PRINTED = new Set(['visit', 'trail']);
+const TRAVEL_SKIPPED = new Set(['start', 'checkout']);
 
 /** "Family, 6 · Standard": who the plan is for, as the page says it. */
 export function profileLine(p: TimelineSession['profile']): string {
@@ -18,13 +20,6 @@ export function profileLine(p: TimelineSession['profile']): string {
 }
 
 interface Row { key: string; time: string | null; name: string; duration: string | null; note: string | null; stop: ExportStop | null }
-
-/** The time as the page words it: "~08:45" for a suggested time (T3), "about 08:45" tied to the sun, "07:30 PT" over a time-zone line, the part of the day on a condensed plan. */
-export function printTime(e: TimelineEntry, blocks: boolean): string | null {
-  if (blocks) return e.block ?? null;
-  if (e.block) return e.block;
-  return `${e.time.confidence === 'suggested' ? `~${e.start}` : timeText(e)}${e.tz.length <= 3 ? ` ${e.tz}` : ''}`;
-}
 
 /**
  * One day's rows. With the page's timeline, every printed field is the timeline entry's own (time, duration in the page's formatter, note),
@@ -40,8 +35,9 @@ function rowsOf(day: number, stops: ExportStop[], session: TimelineSession | nul
     return { key: e.id, time: printTime(e, tl.blocks), name: e.title, duration: e.durationMin > 0 ? fmtHM(e.durationMin) : null, note: e.time.note ?? stop?.note ?? null, stop };
   };
   const rows = tl.entries.filter((e) => PRINTED.has(e.kind) && !e.insideOf).map(of);
-  // a day with no visit (a travel day) prints its travel, not a missing-fact marker
-  if (!rows.length) return { rows: tl.entries.filter((e) => e.kind === 'leg' && !e.insideOf).map(of), version: tl.variant.key === 'main' ? null : tl.variant.label, travel: true };
+  // a day with no visit (a travel day) prints its travel, not a missing-fact marker: every entry of the day but the start and the check-out
+  // (the legs, the breaks, the arrival or anchor such as "At the airport"), in timeline order with its time
+  if (!rows.length) return { rows: tl.entries.filter((e) => !TRAVEL_SKIPPED.has(e.kind) && !e.insideOf).map(of), version: tl.variant.key === 'main' ? null : tl.variant.label, travel: true };
   return { rows, version: tl.variant.key === 'main' ? null : tl.variant.label, travel: false };
 }
 
@@ -58,6 +54,20 @@ export function TripPrintView({ data, session = null }: { data: TripExport; sess
         {data.url} · {plural(data.nights, 'night')} · {data.seasonLabel ?? `Season: ${GAP}`}
       </p>
       {session ? <p>Planned for {profileLine(session.profile)}</p> : null}
+      {data.bookings.length ? (
+        <section className="print-model-book" aria-label="Book ahead">
+          <h2>Book ahead</h2>
+          <ul>
+            {data.bookings.map((b) => (
+              <li key={b.ref}>
+                <b>{b.name}</b>
+                {b.day ? <span> · Day {b.day}</span> : null}
+                {bookAheadText(b) ? <span className="print-model-note">{bookAheadText(b)}</span> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
       {data.days.map((d) => {
         const { rows, version, travel } = rowsOf(d.n, data.stops, session);
         return (
@@ -76,6 +86,7 @@ export function TripPrintView({ data, session = null }: { data: TripExport; sess
                     {r.stop?.area ? `, ${r.stop.area}` : ''}
                     {r.duration ? ` · ${r.duration}` : ''}
                     {r.note ? <span className="print-model-note"> {r.note}</span> : null}
+                    {r.stop?.bookAhead ? <span className="print-model-note print-model-bookline">Book ahead: {r.stop.bookAhead}</span> : null}
                     {r.stop?.links[0] ? <span className="print-model-link">{r.stop.links[0]}</span> : null}
                   </li>
                 ))}

@@ -1,5 +1,6 @@
 import { CATEGORIES, CATEGORY_LABEL } from '@/lib/public/types';
 import type { Category, CategoryItem, DayItem, Photo, PublicDay, PublicPlaceCard, PublicTrip } from '@/lib/public/types';
+import { bookRuleText, NOTHING_TO_BOOK, publicBookingNote } from '@travel/core/export/bookings.ts';
 import { driveLabel } from './format';
 import { buildTimelineModel, type TimelineModel } from './timeline/model';
 
@@ -107,11 +108,6 @@ export interface TripPageModel {
   gallery: Photo[];
   credits: CreditModel[];
 }
-
-export const bookRuleLabel = (r: NonNullable<CategoryItem['bookRule']>): string => {
-  const when = r.dayN !== null ? `${r.daysBefore} days before Day ${r.dayN}` : `${r.daysBefore} days ahead`;
-  return `Opens ${when}${r.time ? ` at ${r.time}` : ''}${r.tz ? ' local' : ''}`;
-};
 
 const stopOf = (i: DayItem): StopModel => ({
   id: i.id,
@@ -241,19 +237,24 @@ function sectionsOf(trip: PublicTrip): CategorySectionModel[] {
     id,
     label: CATEGORY_LABEL[id],
     count: trip.categories[id].length,
-    rows: trip.categories[id].map((c) => ({
-      key: c.key,
-      name: c.name,
-      kind: c.kind,
-      placeSlug: c.placeSlug,
-      days: c.days,
-      time: c.time,
-      area: c.areaLabel,
-      detail: c.detail,
-      nights: c.nights,
-      bookRule: c.bookRule ? bookRuleLabel(c.bookRule) : null,
-      bookNote: c.bookNote,
-    })),
+    rows: trip.categories[id].map((c) => {
+      // the export's scrub, so the page and the export say one thing (BACKLOG 15.223c): no research marker or year prefix, and a note that
+      // says there is nothing to book is not shown as a booking line
+      const note = publicBookingNote(c.bookNote);
+      return {
+        key: c.key,
+        name: c.name,
+        kind: c.kind,
+        placeSlug: c.placeSlug,
+        days: c.days,
+        time: c.time,
+        area: c.areaLabel,
+        detail: c.detail,
+        nights: c.nights,
+        bookRule: c.bookRule ? bookRuleText(c.bookRule) : null,
+        bookNote: c.bookRule || (note && !NOTHING_TO_BOOK.test(note)) ? note : null,
+      };
+    }),
   }));
 }
 
