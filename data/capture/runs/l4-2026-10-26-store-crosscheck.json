@@ -1,0 +1,616 @@
+{
+  "schema": "capture-run/1",
+  "run": "l4-2026-10-26-store-crosscheck",
+  "started": "2026-10-26",
+  "agent": "travel-verifier",
+  "model": "sonnet",
+  "scope": {
+    "refs": [
+      "place/amalfi-coast",
+      "place/arches-national-park",
+      "place/baker-snoqualmie-national-forest",
+      "place/bonaventure-island",
+      "place/bryce-canyon-national-park",
+      "place/canyon-des-portes-de-l-enfer",
+      "place/canyonlands-national-park",
+      "place/cap-bon-ami",
+      "place/cap-gaspe",
+      "place/cape-cod",
+      "place/capri",
+      "place/dolomites",
+      "place/finger-lakes",
+      "place/florence",
+      "place/grand-teton-national-park",
+      "place/gurudongmar-lake",
+      "place/ha-long-bay",
+      "place/havasu-falls",
+      "place/kanarra-falls",
+      "place/kennecott",
+      "place/la-crete",
+      "place/lake-chelan",
+      "place/lake-wenatchee",
+      "place/leavenworth",
+      "place/manitou-incline",
+      "place/mont-du-dome",
+      "place/mont-saint-alban",
+      "place/mont-saint-pierre",
+      "place/mont-xalibu",
+      "place/montagne-de-marbre",
+      "place/montmorency-falls",
+      "place/monument-valley",
+      "place/mount-baker-wilderness",
+      "place/mount-st-helens",
+      "place/olympic-peninsula",
+      "place/ouray",
+      "place/pic-champlain",
+      "place/provence",
+      "place/sa-pa",
+      "place/sentier-la-chute",
+      "place/stansbury-island",
+      "place/trento",
+      "place/verona"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "www.wikidata.org",
+      "requests": 2,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "epqs.nationalmap.gov",
+      "requests": 4,
+      "robots": "unknown",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "en.wikipedia.org",
+      "requests": 14,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "parks.canada.ca",
+      "requests": 2,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "baliseqc.ca",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "coloradosprings.gov",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "havasupaireservations.com",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "navajonationparks.org",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.terfa.ca",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "kanarrafalls.com",
+      "requests": 3,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.sepaq.com",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "blocked"
+    },
+    {
+      "host": "www.quebec-cite.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "halongtourism.com.vn",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "montsaintpierre.ca",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.fs.usda.gov",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.comune.firenze.it",
+      "requests": 3,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.comune.trento.it",
+      "requests": 3,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.visitfingerlakes.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.capecodchamber.org",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.utah.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "place/pic-champlain",
+      "field": "best_time",
+      "outcome": "filled",
+      "src": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE06_ParcNationalBic_Murailles_1j.pdf",
+      "reason": "confirmed: PDF text: 'Les couchers de soleil sont splendides!' (read with pdftotext)"
+    },
+    {
+      "ref": "place/cap-bon-ami",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/qc/forillon/visit/tarifs-fees",
+      "reason": "confirmed: page is the Forillon fees page (adult $10 peak, $7.25 shoulder, 2026); it does not name Cap-Bon-Ami"
+    },
+    {
+      "ref": "place/mount-st-helens",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/api/rest_v1/page/summary/Mount_St._Helens",
+      "reason": "confirmed: page resolves; wikibase_item Q4675 equals the store QID"
+    },
+    {
+      "ref": "place/pic-champlain",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE06_ParcNationalBic_Murailles_1j.pdf",
+      "reason": "confirmed: PDF resolves (200); it is the Les Murailles sheet to Pic Champlain"
+    },
+    {
+      "ref": "place/cap-gaspe",
+      "field": "point",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q112854948&props=labels|claims",
+      "reason": "confirmed: P625 48.75,-64.17 equals the store; the item is a hamlet in Gaspe, not the lookout (see finding F4)"
+    },
+    {
+      "ref": "place/mont-saint-alban",
+      "field": "season",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/qc/forillon/visit/tarifs-fees",
+      "reason": "confirmed: 2026 admission and seasonal pass run 30 May to 13 Oct, so months 5 to 10 hold; no page states a month list"
+    },
+    {
+      "ref": "place/cap-bon-ami",
+      "field": "point",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q112836599&props=labels|claims",
+      "reason": "confirmed: P625 48.81389,-64.22222 equals the store; the item is an administrative sector (F4)"
+    },
+    {
+      "ref": "place/mont-xalibu",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q26999326&props=labels|claims",
+      "reason": "confirmed: Q26999326 is 'Mont Xalibu', mountain, 1120 m, same point"
+    },
+    {
+      "ref": "place/mount-st-helens",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q4675&props=labels|claims",
+      "reason": "confirmed: P2044 +2549 m equals the store elevation"
+    },
+    {
+      "ref": "place/dolomites",
+      "field": "point",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1283&props=labels|claims",
+      "reason": "confirmed: P625 46.613056,12.163056 equals the store (rounded)"
+    },
+    {
+      "ref": "place/mount-baker-wilderness",
+      "field": "point",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q3326014&props=labels|claims",
+      "reason": "confirmed: P625 48.8081,-121.743 equals the store"
+    },
+    {
+      "ref": "place/grand-teton-national-park",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": "https://epqs.nationalmap.gov/v1/json?x=-110.70083&y=43.83333&wkid=4326&units=Meters",
+      "reason": "confirmed: 3DEP value 2104.71 m, store 2105 (computed at the stored point, F3)"
+    },
+    {
+      "ref": "place/arches-national-park",
+      "field": "point",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q223969&props=labels|claims",
+      "reason": "confirmed: P625 38.72805556,-109.54 equals the store"
+    },
+    {
+      "ref": "place/grand-teton-national-park",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": "https://epqs.nationalmap.gov/v1/json?x=-110.70083&y=43.83333&wkid=4326&units=Meters",
+      "reason": "confirmed: same query as 12; the same stored value, read through the field's own source id"
+    },
+    {
+      "ref": "place/mount-baker-wilderness",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/api/rest_v1/page/summary/Mount_Baker_Wilderness",
+      "reason": "confirmed: page resolves; wikibase_item Q3326014 equals the store QID"
+    },
+    {
+      "ref": "place/baker-snoqualmie-national-forest",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.fs.usda.gov/r06/mbs",
+      "reason": "confirmed: page resolves (200), title 'Mount Baker-Snoqualmie National Forest'"
+    },
+    {
+      "ref": "place/baker-snoqualmie-national-forest",
+      "field": "point",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q3079176&props=labels|claims",
+      "reason": "confirmed: P625 47.766,-121.378 equals the store"
+    },
+    {
+      "ref": "place/bryce-canyon-national-park",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": "https://epqs.nationalmap.gov/v1/json?x=-112.17&y=37.64&wkid=4326&units=Meters",
+      "reason": "confirmed: 3DEP 2405.59 m, store 2406 (F3)"
+    },
+    {
+      "ref": "place/canyonlands-national-park",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": "https://epqs.nationalmap.gov/v1/json?x=-109.76&y=38.1669&wkid=4326&units=Meters",
+      "reason": "confirmed: 3DEP 1498.11 m, store 1498 (F3)"
+    },
+    {
+      "ref": "place/bryce-canyon-national-park",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q219562&props=labels|claims",
+      "reason": "confirmed: Q219562 is Bryce Canyon National Park"
+    },
+    {
+      "ref": "place/capri",
+      "field": "season",
+      "outcome": "gap",
+      "reason": "cannot_verify: no official page states Capri's season; secondary guides give April to October (search 26 Oct); store 5 to 9 is unsourced"
+    },
+    {
+      "ref": "place/finger-lakes",
+      "field": "season",
+      "outcome": "filled",
+      "src": "https://www.visitfingerlakes.com/events/annual-events/fall-colors/",
+      "reason": "confirmed: official tourism guide supports the Sep to Oct colour window and summer lake season; no page lists the months June to October as a range"
+    },
+    {
+      "ref": "place/cape-cod",
+      "field": "season",
+      "outcome": "filled",
+      "src": "https://www.capecodchamber.org/explore/seasons/",
+      "reason": "confirmed: chamber names summer as peak season, September to early June as shoulder"
+    },
+    {
+      "ref": "place/stansbury-island",
+      "field": "season",
+      "outcome": "filled",
+      "src": "https://www.utah.com/things-to-do/outdoor-recreation/mountain-biking/stansbury-island-trail/",
+      "reason": "confirmed: state tourism site: the trail can be ridden year-round (secondary); BLM land is the south end only"
+    },
+    {
+      "ref": "place/cape-cod",
+      "field": "point",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q49152&props=labels|claims",
+      "reason": "confirmed: first of three P625 values equals the store (41.688889,-70.296944)"
+    },
+    {
+      "ref": "place/olympic-peninsula",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/api/rest_v1/page/summary/Olympic_Peninsula",
+      "reason": "confirmed: page resolves; wikibase_item Q780293 equals the store QID"
+    },
+    {
+      "ref": "place/provence",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q101081&props=labels|claims",
+      "reason": "confirmed: Q101081 is Provence, region and historical province; point 44,6 equals the store"
+    },
+    {
+      "ref": "place/finger-lakes",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1416994&props=labels|claims",
+      "reason": "confirmed: Q1416994 is Finger Lakes; P625 equals the store"
+    },
+    {
+      "ref": "place/amalfi-coast",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/api/rest_v1/page/summary/Amalfi_Coast",
+      "reason": "confirmed: page resolves; wikibase_item Q212214 equals the store QID"
+    },
+    {
+      "ref": "place/bonaventure-island",
+      "field": "links",
+      "outcome": "blocked",
+      "src": "https://www.sepaq.com/pq/bon",
+      "host": "www.sepaq.com",
+      "reason": "403: unreachable: HTTP 403 to curl and WebFetch on 26 Oct; no value checked (the link itself is not shown to be dead)"
+    },
+    {
+      "ref": "place/mont-du-dome",
+      "field": "season",
+      "outcome": "gap",
+      "reason": "cannot_verify: no official season; a Narcity article says the trail is open all year with fall hunting limits; store 9 to 10 is the saved post's foliage window, unsourced"
+    },
+    {
+      "ref": "place/kennecott",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": "https://epqs.nationalmap.gov/v1/json?x=-142.889&y=61.4861&wkid=4326&units=Meters",
+      "reason": "confirmed: 3DEP 623.86 m, store 624 (F3)"
+    },
+    {
+      "ref": "place/sentier-la-chute",
+      "field": "point",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q139862201&props=labels|claims",
+      "reason": "confirmed: P625 48.84296,-64.26511 equals the store"
+    },
+    {
+      "ref": "place/la-crete",
+      "field": "season",
+      "outcome": "gap",
+      "reason": "cannot_verify: no official page found for Sentier La Crete's season (search 26 Oct); store 9 to 10 is a saved-post window, unsourced"
+    },
+    {
+      "ref": "place/sentier-la-chute",
+      "field": "season",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/qc/forillon/visit/tarifs-fees",
+      "reason": "confirmed: same Forillon season evidence as 6"
+    },
+    {
+      "ref": "place/manitou-incline",
+      "field": "window",
+      "outcome": "filled",
+      "src": "https://coloradosprings.gov/manitouincline",
+      "reason": "confirmed: 'Reservations for the upcoming month become available on the 1st'; up to 8 weeks; 45 per half hour (stored url coloradosprings.gov/incline redirects here)"
+    },
+    {
+      "ref": "place/kennecott",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": "https://epqs.nationalmap.gov/v1/json?x=-142.889&y=61.4861&wkid=4326&units=Meters",
+      "reason": "confirmed: same query as 32"
+    },
+    {
+      "ref": "place/manitou-incline",
+      "field": "season",
+      "outcome": "filled",
+      "src": "https://coloradosprings.gov/manitouincline",
+      "reason": "confirmed: summer hours 1 May to 31 Oct match months 5 to 10; the Incline is open Nov to Apr on winter hours, so the stored range is the summer-hours window"
+    },
+    {
+      "ref": "place/montagne-de-marbre",
+      "field": "point",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q21428295&props=labels|claims",
+      "reason": "confirmed: P625 45.33417,-71.01278 and P2044 923 m equal the store"
+    },
+    {
+      "ref": "place/ha-long-bay",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://halongtourism.com.vn/",
+      "reason": "confirmed: page resolves (200), title 'Ha Long'"
+    },
+    {
+      "ref": "place/leavenworth",
+      "field": "point",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1025813&props=labels|claims",
+      "reason": "confirmed: P625 47.5964,-120.665 equals the store"
+    },
+    {
+      "ref": "place/sa-pa",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1000140&props=labels|claims",
+      "reason": "confirmed: P2044 holds 1500 and 1718 m; the store took 1500 and the note says so"
+    },
+    {
+      "ref": "place/florence",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.comune.firenze.it/",
+      "reason": "confirmed: stored www.comune.fi.it redirects to www.comune.firenze.it (title 'Citta di Firenze'); not changed, the link's source is Wikidata P856 (F5)"
+    },
+    {
+      "ref": "place/leavenworth",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1025813&props=labels|claims",
+      "reason": "confirmed: P2044 +357 m (and +1171 ft) equals the store 357"
+    },
+    {
+      "ref": "place/mont-saint-pierre",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://montsaintpierre.ca/",
+      "reason": "confirmed: page resolves (200), municipal site"
+    },
+    {
+      "ref": "place/verona",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/api/rest_v1/page/summary/Verona",
+      "reason": "confirmed: page resolves; wikibase_item Q2028 equals the store QID"
+    },
+    {
+      "ref": "place/ouray",
+      "field": "point",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1759444&props=labels|claims",
+      "reason": "confirmed: P625 38.0233,-107.672 equals the store"
+    },
+    {
+      "ref": "place/trento",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.comune.trento.it/",
+      "reason": "confirmed: stored http:// URL redirects to https:// (F5)"
+    },
+    {
+      "ref": "place/sa-pa",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1000140&props=labels|claims",
+      "reason": "confirmed: P2044 +1500 m present (1718 m is the recorded alternative)"
+    },
+    {
+      "ref": "place/trento",
+      "field": "wikidata",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q3376&props=labels|claims",
+      "reason": "confirmed: Q3376 is Trento, city"
+    },
+    {
+      "ref": "place/lake-chelan",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1115201&props=labels|claims",
+      "reason": "confirmed: P2044 +335 m equals the store"
+    },
+    {
+      "ref": "place/kanarra-falls",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://kanarrafalls.com/",
+      "reason": "confirmed: operator site, 'permit system', limit 200 general admission a day; the page states no season"
+    },
+    {
+      "ref": "place/canyon-des-portes-de-l-enfer",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://www.terfa.ca/fr/terfa/canyon-des-portes-de-l-enfer/",
+      "reason": "confirmed: operator page resolves and is the canyon's page"
+    },
+    {
+      "ref": "place/havasu-falls",
+      "field": "price",
+      "outcome": "filled",
+      "src": "https://havasupaireservations.com/faqs/",
+      "reason": "confirmed: 'Campground permits are $455 per person for 3 nights.' and children 6 and under need no paid permit"
+    },
+    {
+      "ref": "place/lake-wenatchee",
+      "field": "altitude_m",
+      "outcome": "filled",
+      "src": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q7172855&props=labels|claims",
+      "reason": "confirmed: P2044 +571 m equals the store"
+    },
+    {
+      "ref": "place/lake-chelan",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/api/rest_v1/page/summary/Lake_Chelan",
+      "reason": "confirmed: page resolves; wikibase_item Q1115201 equals the store QID"
+    },
+    {
+      "ref": "place/monument-valley",
+      "field": "price",
+      "outcome": "filled",
+      "src": "https://navajonationparks.org/tribal-parks/monument-valley/",
+      "reason": "confirmed: '$10 per person, per day' and '$15 per Vehicle'; the page states no year, the record's applies_to 2026 is the record's own"
+    },
+    {
+      "ref": "place/gurudongmar-lake",
+      "field": "links",
+      "outcome": "filled",
+      "src": "https://en.wikipedia.org/api/rest_v1/page/summary/Gurudongmar_Lake",
+      "reason": "confirmed: page resolves; wikibase_item Q2264090 equals the store QID"
+    },
+    {
+      "ref": "place/montmorency-falls",
+      "field": "season",
+      "outcome": "filled",
+      "src": "https://www.quebec-cite.com/en/businesses/parc-de-la-chute-montmorency",
+      "reason": "confirmed: Visit Quebec City page: 'Open year-round', closed 25 Dec"
+    },
+    {
+      "ref": "place/canyon-des-portes-de-l-enfer",
+      "field": "season",
+      "outcome": "filled",
+      "src": "https://www.terfa.ca/fr/terfa/canyon-des-portes-de-l-enfer/",
+      "reason": "confirmed: 'Saison 2026 le site est accessible du 16 mai a la fin octobre'"
+    }
+  ]
+}

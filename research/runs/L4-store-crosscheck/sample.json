@@ -1,0 +1,422 @@
+[
+ {
+  "place": "CA/QC/parc-national-du-bic/pic-champlain",
+  "family": "high",
+  "field": "capture_best_time",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "CA/QC/forillon-national-park/cap-bon-ami",
+  "family": "high",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://parks.canada.ca/pn-np/qc/forillon/visit/tarifs-fees"
+ },
+ {
+  "place": "US/WA/mount-st-helens-national-volcanic-monument/mount-st-helens",
+  "family": "high",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://en.wikipedia.org/wiki/Mount_St._Helens"
+ },
+ {
+  "place": "CA/QC/parc-national-du-bic/pic-champlain",
+  "family": "high",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE06_ParcNationalBic_Murailles_1j.pdf"
+ },
+ {
+  "place": "CA/QC/forillon-national-park/cap-gaspe",
+  "family": "high",
+  "field": "point",
+  "weight": 3,
+  "detail": null
+ },
+ {
+  "place": "CA/QC/forillon-national-park/mont-saint-alban",
+  "family": "high",
+  "field": "season_months",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "CA/QC/forillon-national-park/cap-bon-ami",
+  "family": "high",
+  "field": "point",
+  "weight": 3,
+  "detail": null
+ },
+ {
+  "place": "CA/QC/parc-national-de-la-gaspesie/mont-xalibu",
+  "family": "high",
+  "field": "wikidata",
+  "weight": 1,
+  "detail": null
+ },
+ {
+  "place": "US/WA/mount-st-helens-national-volcanic-monument/mount-st-helens",
+  "family": "high",
+  "field": "store_source_url",
+  "weight": 2,
+  "detail": "src-00060"
+ },
+ {
+  "place": "IT/veneto/belluno/dolomites",
+  "family": "high",
+  "field": "point",
+  "weight": 3,
+  "detail": null
+ },
+ {
+  "place": "US/WA/mount-bakersnoqualmie-national-forest/mount-baker-wilderness",
+  "family": "park",
+  "field": "point",
+  "weight": 3,
+  "detail": null
+ },
+ {
+  "place": "US/WY/teton-county/grand-teton-national-park",
+  "family": "park",
+  "field": "store_source_url",
+  "weight": 2,
+  "detail": "src-00043"
+ },
+ {
+  "place": "US/UT/grand-county/arches-national-park",
+  "family": "park",
+  "field": "point",
+  "weight": 3,
+  "detail": null
+ },
+ {
+  "place": "US/WY/teton-county/grand-teton-national-park",
+  "family": "park",
+  "field": "elevation_m",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "US/WA/mount-bakersnoqualmie-national-forest/mount-baker-wilderness",
+  "family": "park",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://en.wikipedia.org/wiki/Mount_Baker_Wilderness"
+ },
+ {
+  "place": "US/WA/king-county/baker-snoqualmie-national-forest",
+  "family": "park",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://www.fs.usda.gov/r06/mbs"
+ },
+ {
+  "place": "US/WA/king-county/baker-snoqualmie-national-forest",
+  "family": "park",
+  "field": "point",
+  "weight": 3,
+  "detail": null
+ },
+ {
+  "place": "US/UT/kane-county/bryce-canyon-national-park",
+  "family": "park",
+  "field": "elevation_m",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "US/UT/san-juan-county/canyonlands-national-park",
+  "family": "park",
+  "field": "elevation_m",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "US/UT/kane-county/bryce-canyon-national-park",
+  "family": "park",
+  "field": "wikidata",
+  "weight": 1,
+  "detail": null
+ },
+ {
+  "place": "IT/campania/napoli/capri",
+  "family": "region",
+  "field": "season_months",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "US/NY/seneca-county/finger-lakes",
+  "family": "region",
+  "field": "season_months",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "US/MA/barnstable-county/cape-cod",
+  "family": "region",
+  "field": "season_months",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "US/UT/great-salt-lake/stansbury-island",
+  "family": "region",
+  "field": "season_months",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "US/MA/barnstable-county/cape-cod",
+  "family": "region",
+  "field": "point",
+  "weight": 3,
+  "detail": null
+ },
+ {
+  "place": "US/WA/jefferson-county/olympic-peninsula",
+  "family": "region",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://en.wikipedia.org/wiki/Olympic_Peninsula"
+ },
+ {
+  "place": "FR/provence-alpes-cote-d-azur/alpes-de-haute-provence/provence",
+  "family": "region",
+  "field": "wikidata",
+  "weight": 1,
+  "detail": null
+ },
+ {
+  "place": "US/NY/seneca-county/finger-lakes",
+  "family": "region",
+  "field": "wikidata",
+  "weight": 1,
+  "detail": null
+ },
+ {
+  "place": "IT/campania/campania/amalfi-coast",
+  "family": "region",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://en.wikipedia.org/wiki/Amalfi_Coast"
+ },
+ {
+  "place": "CA/QC/perce/bonaventure-island",
+  "family": "region",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://www.sepaq.com/pq/bon"
+ },
+ {
+  "place": "CA/QC/zec-des-martres/mont-du-dome",
+  "family": "route",
+  "field": "season_months",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "US/AK/wrangell-st-elias-national-park/kennecott",
+  "family": "route",
+  "field": "elevation_m",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "CA/QC/forillon-national-park/sentier-la-chute",
+  "family": "route",
+  "field": "store_source_url",
+  "weight": 2,
+  "detail": "src-00085"
+ },
+ {
+  "place": "CA/QC/cote-de-beaupre/la-crete",
+  "family": "route",
+  "field": "season_months",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "CA/QC/forillon-national-park/sentier-la-chute",
+  "family": "route",
+  "field": "season_months",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "US/CO/manitou-springs/manitou-incline",
+  "family": "route",
+  "field": "capture_window",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "US/AK/wrangell-st-elias-national-park/kennecott",
+  "family": "route",
+  "field": "store_source_url",
+  "weight": 2,
+  "detail": "src-00059"
+ },
+ {
+  "place": "US/CO/manitou-springs/manitou-incline",
+  "family": "route",
+  "field": "season_months",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "CA/QC/eastern-townships/montagne-de-marbre",
+  "family": "route",
+  "field": "store_source_url",
+  "weight": 2,
+  "detail": "src-00087"
+ },
+ {
+  "place": "VN/quang-ninh/quang-ninh/ha-long-bay",
+  "family": "route",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://halongtourism.com.vn/"
+ },
+ {
+  "place": "US/WA/chelan-county/leavenworth",
+  "family": "settlement",
+  "field": "point",
+  "weight": 3,
+  "detail": null
+ },
+ {
+  "place": "VN/lao-cai/sa-pa/sa-pa",
+  "family": "settlement",
+  "field": "store_source_url",
+  "weight": 2,
+  "detail": "src-00094"
+ },
+ {
+  "place": "IT/tuscany/firenze/florence",
+  "family": "settlement",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://www.comune.fi.it/"
+ },
+ {
+  "place": "US/WA/chelan-county/leavenworth",
+  "family": "settlement",
+  "field": "store_source_url",
+  "weight": 2,
+  "detail": "src-00068"
+ },
+ {
+  "place": "CA/QC/haute-gaspesie/mont-saint-pierre",
+  "family": "settlement",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://montsaintpierre.ca/"
+ },
+ {
+  "place": "IT/veneto/verona/verona",
+  "family": "settlement",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://en.wikipedia.org/wiki/Verona"
+ },
+ {
+  "place": "US/CO/san-juan-mountains/ouray",
+  "family": "settlement",
+  "field": "point",
+  "weight": 3,
+  "detail": null
+ },
+ {
+  "place": "IT/trentino-alto-adige/provincia-di-trento/trento",
+  "family": "settlement",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "http://www.comune.trento.it/"
+ },
+ {
+  "place": "VN/lao-cai/sa-pa/sa-pa",
+  "family": "settlement",
+  "field": "elevation_m",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "IT/trentino-alto-adige/provincia-di-trento/trento",
+  "family": "settlement",
+  "field": "wikidata",
+  "weight": 1,
+  "detail": null
+ },
+ {
+  "place": "US/WA/lake-chelan-national-recreation-area/lake-chelan",
+  "family": "water",
+  "field": "elevation_m",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "US/UT/kanarraville/kanarra-falls",
+  "family": "water",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://kanarrafalls.com/"
+ },
+ {
+  "place": "CA/QC/saint-narcisse-de-rimouski/canyon-des-portes-de-l-enfer",
+  "family": "water",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://www.terfa.ca/fr/terfa/canyon-des-portes-de-l-enfer/"
+ },
+ {
+  "place": "US/AZ/havasupai-reservation/havasu-falls",
+  "family": "water",
+  "field": "capture_price",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "US/WA/chelan-county/lake-wenatchee",
+  "family": "water",
+  "field": "store_source_url",
+  "weight": 2,
+  "detail": "src-00062"
+ },
+ {
+  "place": "US/WA/lake-chelan-national-recreation-area/lake-chelan",
+  "family": "water",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://en.wikipedia.org/wiki/Lake_Chelan"
+ },
+ {
+  "place": "US/AZ/navajo-nation/monument-valley",
+  "family": "water",
+  "field": "capture_price",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "IN/sikkim/mangan-district/gurudongmar-lake",
+  "family": "water",
+  "field": "capture_link",
+  "weight": 2,
+  "detail": "https://en.wikipedia.org/wiki/Gurudongmar_Lake"
+ },
+ {
+  "place": "CA/QC/cote-de-beaupre/montmorency-falls",
+  "family": "water",
+  "field": "season_months",
+  "weight": 2,
+  "detail": null
+ },
+ {
+  "place": "CA/QC/saint-narcisse-de-rimouski/canyon-des-portes-de-l-enfer",
+  "family": "water",
+  "field": "season_months",
+  "weight": 2,
+  "detail": null
+ }
+]
