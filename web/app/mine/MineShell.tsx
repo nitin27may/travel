@@ -1,14 +1,13 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Banner } from '@/components/ui/Banner';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { markSeen } from '@/lib/mine/dot';
-import { kindLabel } from '@/lib/public/taxonomy';
-import type { PlaceKind } from '@/lib/public/types';
+import { FAVOURITES_ON } from '@/lib/favourites/flag';
+import { HeartGlyph } from '@/lib/favourites/glyph';
 import type { StorageLike } from '@travel/core/schema/copies.ts';
 import type { MineTab, Overview } from '@/lib/mine/overview';
 import { AccountCard } from './AccountCard';
@@ -17,20 +16,12 @@ import { MineTabs } from './MineTabs';
 
 // the rows, the menu and the copy readers load after the shell paints (Zod stays out of the page's start chunk)
 const MyTrips = dynamic(() => import('@/components/mine/MyTrips').then((m) => m.MyTrips), { ssr: false });
+const FavouritesPanel = dynamic(() => import('@/components/mine/FavouritesPanel').then((m) => m.FavouritesPanel), { ssr: false });
 
 type Loaded = { overview: Overview; blocked: boolean; tab: MineTab; didNotFit: number };
 type Data = typeof import('@/lib/mine/data');
 // the core readers (and Zod) load after the shell paints, so the page's start chunk stays small
 const data = (): Promise<Data> => import('@/lib/mine/data');
-
-/** A heart glyph for the empty Favourites state: the heart path lives here, in the Mine chunk, never in Icon.tsx (spec 6). */
-function HeartGlyph() {
-  return (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z" />
-    </svg>
-  );
-}
 
 /** A list the browser holds but this version cannot read: a newer one (reload) or a damaged one (left as it is). Never written to. */
 function Unreadable({ what, reason }: { what: string; reason: 'corrupt' | 'newer' | 'invalid' }) {
@@ -51,18 +42,6 @@ function Unreadable({ what, reason }: { what: string; reason: 'corrupt' | 'newer
   }
   return <EmptyState quiet glyph="warn" title={`We couldn't read your ${what}`} why="The list in this browser is damaged. It has been left exactly as it is." />;
 }
-
-// 'Sat 3 Jul 2027': the form the copy sheet shows. UTC so the calendar date never shifts with the visitor's zone.
-const DAY = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
-const dayLabel = (iso: string): string => DAY.format(new Date(`${iso}T00:00:00Z`)).replace(/,/g, '');
-const regions = (() => {
-  try {
-    return new Intl.DisplayNames(['en'], { type: 'region' });
-  } catch {
-    return null;
-  }
-})();
-const countryName = (cc: string | null): string | null => (cc ? (regions?.of(cc) ?? cc) : null);
 
 /**
  * The Mine shell (NAV-1): account card, tabs with counts, the two panels and the device notice. It reads both lists through the core
@@ -171,7 +150,7 @@ export function MineShell({ signIn }: { signIn: boolean }) {
               <TripsPanel overview={state.overview} storage={d!.mineStorage().storage} signedIn={!!email} didNotFit={state.didNotFit} onChanged={reread} />
             </div>
             <div role="tabpanel" id="mine-panel-favourites" aria-labelledby="mine-tab-favourites" hidden={state.tab !== 'favourites'} className={moved ? 'mine-panel is-moved' : 'mine-panel'}>
-              <FavouritesPanel overview={state.overview} />
+              <FavouritesTab overview={state.overview} storage={d!.mineStorage().storage} onChanged={reread} />
             </div>
             {showNotice ? (
               <DeviceNotice
@@ -197,31 +176,12 @@ function TripsPanel({ overview, storage, signedIn, didNotFit, onChanged }: { ove
   return <MyTrips items={c.items} storage={storage} signedIn={signedIn} didNotFit={didNotFit} onChanged={onChanged} />;
 }
 
-/** Favourites. FAV-1 replaces the plain list with the filter row and list rows of the spec (5.3) and the heart. */
-function FavouritesPanel({ overview }: { overview: Overview }) {
+/** Favourites: the filter row, rows and pager of the spec (5.3) are `FavouritesPanel`; this decides between the notice, the error state and the list. */
+function FavouritesTab({ overview, storage, onChanged }: { overview: Overview; storage: StorageLike; onChanged: () => void }) {
+  if (!FAVOURITES_ON) {
+    return <EmptyState quiet glyph="search" glyphNode={<HeartGlyph size={32} />} title="Favourites are switched off" why="This build of the site does not keep favourites." />;
+  }
   const f = overview.favourites;
   if (!f.ok) return <Unreadable what="favourites" reason={f.reason} />;
-  if (f.items.length === 0) {
-    return (
-      <EmptyState
-        quiet
-        glyph="search"
-        glyphNode={<HeartGlyph />}
-        title="No favourites yet"
-        why="Tap the heart on a place or a trip to keep it here."
-        action={<ButtonLink href="/places/" variant="primary">Browse places</ButtonLink>}
-        secondary={<ButtonLink href="/trips/" variant="ghost">Browse trips</ButtonLink>}
-      />
-    );
-  }
-  return (
-    <ul className="mine-plain">
-      {f.items.map((i) => (
-        <li key={`${i.space}:${i.slug}`}>
-          <Link href={`/${i.space === 'trip' ? 'trips' : 'places'}/${i.slug}/`}>{i.name ?? i.slug}</Link>
-          <span>{i.unlistedAt ? 'No longer listed' : [i.space === 'trip' ? 'Trip' : (i.kind ? kindLabel(i.kind as PlaceKind, null) : 'Place'), countryName(i.cc)].filter(Boolean).join(' · ')}</span>
-        </li>
-      ))}
-    </ul>
-  );
+  return <FavouritesPanel items={f.items} storage={storage} onChanged={onChanged} />;
 }

@@ -82,6 +82,11 @@ export function EntityPage<Row>({ type, rows, shards, lede }: Props<Row>) {
     window.history.replaceState({ ...here, travelApplied: applied }, '');
   }, [applied, state]);
 
+  // favourite badges on the cards, after first paint (FAV-1): one lazy module, one observer
+  useEffect(() => {
+    void import('@/lib/favourites/badges').then((m) => m.watchBadges());
+  }, []);
+
   // the list answers come from the data module, in the shape a server will answer (principle P9)
   const version = shards ? registerShardedList(d, rows, shards) : registerList(d, rows);
   const asked = useMemo(() => (reading ? { ...state, q: '' } : state), [state, reading]);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import type { ExportFormat } from '@/components/actions/ExportMenu';
 import { ShareButton } from '@/components/actions/ShareButton';
@@ -44,8 +44,14 @@ const FORMATS: ExportFormat[] = ['pdf', 'ics', 'gpx', 'kml', 'csv'];
 export function TripActions({ slug, title, nights, days, url, hasDays, seasonMonths, done, cc, photo, className }: Props) {
   const [copying, setCopying] = useState(false);
   const [sheetEver, setSheetEver] = useState(false);
+  // the favourites heart, after Share in the cover's row only (FAV-1, D11): an import() after hydration, so the page pays the stub alone
+  const row = useRef<HTMLDivElement>(null);
+  const [Heart, setHeart] = useState<typeof import('@/lib/favourites/heart').FavouriteHeart | null>(null);
+  useEffect(() => {
+    if (row.current?.closest('.trip-cover')) void import('@/lib/favourites/heart').then((m) => setHeart(() => m.FavouriteHeart));
+  }, []);
   return (
-    <div className={className ?? 'trip-actions'} data-print="hide">
+    <div ref={row} className={className ?? 'trip-actions'} data-print="hide">
       {hasDays ? (
         <Button variant="primary" onClick={() => {
             setSheetEver(true);
@@ -56,6 +62,7 @@ export function TripActions({ slug, title, nights, days, url, hasDays, seasonMon
       ) : null}
       <ExportMenu target={{ type: 'trip', slug }} formats={hasDays ? FORMATS : ['pdf']} label="Export trip" />
       <ShareButton url={url} title={title} />
+      {Heart ? <Heart space="trip" slug={slug} name={title} /> : null}
       {hasDays && sheetEver ? <CopySheet trip={{ slug, title, nights, days, seasonMonths, cc, photo }} open={copying} onClose={() => setCopying(false)} onPrint={() => window.dispatchEvent(new CustomEvent('travel:print', { detail: { slug } }))} /> : null}
     </div>
   );

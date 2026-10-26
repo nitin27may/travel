@@ -1,5 +1,6 @@
 'use client';
 
+import { createPortal } from 'react-dom';
 import { useEffect, useId, useRef, useState, useSyncExternalStore, type FocusEvent, type KeyboardEvent, type ReactNode } from 'react';
 import type { ExportFormat } from '@/components/actions/ExportMenu';
 import { ExportMenuLazy as ExportMenu } from './ExportMenuLazy';
@@ -18,6 +19,23 @@ export function SaveToTrip({ url, slug, formats, primary = false }: { url: strin
   const [open, setOpen] = useState(false);
   const id = useId();
   const { toast } = useToast();
+  // the favourites heart: nothing on the server, an import() after hydration (FAV-1, visitor spec 7), so the HTML does not grow
+  const live = useSyncExternalStore(noSubscribe, () => true, () => false);
+  const [heart, setHeart] = useState<{ Heart: typeof import('@/lib/favourites/heart').FavouriteHeart; host: HTMLElement } | null>(null);
+  useEffect(() => {
+    // the heart goes right after Share in the row, in the page order too (a portal into a slot beside it), not first in the row
+    const share = live ? document.querySelector('.pl-actions [data-share]') : null;
+    if (!share) return;
+    let on = true;
+    const host = document.createElement('span');
+    host.className = 'pl-heart';
+    share.after(host);
+    void import('@/lib/favourites/heart').then((m) => on && setHeart({ Heart: m.FavouriteHeart, host }));
+    return () => {
+      on = false;
+      host.remove();
+    };
+  }, [live]);
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(url);
@@ -42,6 +60,7 @@ export function SaveToTrip({ url, slug, formats, primary = false }: { url: strin
           </p>
         </div>
       ) : null}
+      {heart ? createPortal(<heart.Heart space="place" slug={slug} />, heart.host) : null}
     </div>
   );
 }
