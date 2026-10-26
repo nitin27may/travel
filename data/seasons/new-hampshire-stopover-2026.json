@@ -18,15 +18,15 @@
     { "id": "lincoln-nepp", "name": "Lincoln NEPP climate station", "lat": 44.0425, "lon": -71.6728, "zone": "America/New_York", "src": ["s-86500fc8e6"], "note": "Station coordinates from the NCEI station record; Lincoln sits at the west end of the Kancamagus Highway, south of Franconia Notch." }
   ],
   "season": {
-    "months": { "value": [9, 10], "basis": "plan", "note": "The plan's own months." },
-    "label": { "value": "Two days at the turn of September and October", "basis": "plan" },
-    "why": { "value": "The plan's own two days on the way to Vermont; normals at Lincoln give cool days and nights falling toward freezing.", "basis": "official", "src": ["s-86500fc8e6"], "on": "2026-10-25" },
+    "months": { "v": [9,10], "state": "value", "basis": "our_inference", "src": [], "note": "The plan's own months." },
+    "label": { "v": "Two days at the turn of September and October", "state": "value", "basis": "our_inference", "src": [], "note": "The plan's own statement." },
+    "why": { "v": "The plan's own two days on the way to Vermont; normals at Lincoln give cool days and nights falling toward freezing.", "state": "value", "basis": "official_info", "src": ["s-86500fc8e6"], "read": "2026-10-25" },
     "weather": {
-      "tempC": { "value": "8 to 22 C in September, 2 to 14 C in October (mean daily low to high, Lincoln)", "basis": "official", "src": ["s-86500fc8e6"], "on": "2026-10-25", "note": "1991-2020 normals: Sep max 22.0, min 8.3; Oct max 14.2, min 2.1. The station is in the valley at Lincoln; no 1991-2020 normals station in Franconia Notch or on the Kancamagus was found, so the higher stops are not covered by these values." },
-      "rain": { "value": "About 97 mm in September and 138 mm in October", "basis": "official", "src": ["s-86500fc8e6"], "on": "2026-10-25", "note": "The count of days with 1 mm or more (MLY-PRCP-AVGNDS-GE010HI) is not published for this station; asked for it in the request, none returned." },
-      "daylight": { "value": "Sunrise about 06:40, sunset about 18:30; just under 12 hours of day", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25", "note": "core/bin/sun.ts at the station point for both plan days: sunrise 06:42 to 06:43, sunset 18:32 to 18:30, day 11h50m to 11h47m." },
+      "tempC": { "v": "8 to 22 C in September, 2 to 14 C in October (mean daily low to high, Lincoln)", "state": "value", "basis": "official_info", "src": ["s-86500fc8e6"], "read": "2026-10-25", "note": "1991-2020 normals: Sep max 22.0, min 8.3; Oct max 14.2, min 2.1. The station is in the valley at Lincoln; no 1991-2020 normals station in Franconia Notch or on the Kancamagus was found, so the higher stops are not covered by these values." },
+      "rain": { "v": "About 97 mm in September and 138 mm in October", "state": "value", "basis": "official_info", "src": ["s-86500fc8e6"], "read": "2026-10-25", "note": "The count of days with 1 mm or more (MLY-PRCP-AVGNDS-GE010HI) is not published for this station; asked for it in the request, none returned." },
+      "daylight": { "v": "Sunrise about 06:40, sunset about 18:30; just under 12 hours of day", "state": "value", "basis": "our_inference", "src": ["s-f63a803989"], "read": "2026-10-25", "note": "core/bin/sun.ts at the station point for both plan days: sunrise 06:42 to 06:43, sunset 18:32 to 18:30, day 11h50m to 11h47m." },
       "notes": [
-        { "text": "October is the wettest of the two months at Lincoln", "basis": "official", "src": ["s-86500fc8e6"], "on": "2026-10-25" }
+        { "text": "October is the wettest of the two months at Lincoln", "basis": "official_info", "src": ["s-86500fc8e6"], "on": "2026-10-25" }
       ]
     }
   },
@@ -41,12 +41,12 @@
       "best_for": "A morning in the notch and on the highway on the way to Vermont",
       "crowd": null,
       "plus": [
-        { "text": "Afternoons near 14 to 22 C in the valley", "factor": "weather", "basis": "official", "src": ["s-86500fc8e6"], "on": "2026-10-25" },
-        { "text": "Nearly 12 hours of daylight, enough for the morning stops", "factor": "light", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" }
+        { "text": "Afternoons near 14 to 22 C in the valley", "factor": "weather", "basis": "official_info", "src": ["s-86500fc8e6"], "on": "2026-10-25" },
+        { "text": "Nearly 12 hours of daylight, enough for the morning stops", "factor": "light", "basis": "our_inference", "src": ["s-f63a803989"], "on": "2026-10-25", "method": "computed", "note": "Computed with core/bin/sun.ts." }
       ],
       "minus": [
-        { "text": "Cold early mornings, near 2 to 8 C in the valley at Lincoln", "factor": "weather", "basis": "official", "src": ["s-86500fc8e6"], "on": "2026-10-25" },
-        { "text": "October is the wettest month of the pair, about 138 mm", "factor": "weather", "basis": "official", "src": ["s-86500fc8e6"], "on": "2026-10-25" }
+        { "text": "Cold early mornings, near 2 to 8 C in the valley at Lincoln", "factor": "weather", "basis": "official_info", "src": ["s-86500fc8e6"], "on": "2026-10-25" },
+        { "text": "October is the wettest month of the pair, about 138 mm", "factor": "weather", "basis": "official_info", "src": ["s-86500fc8e6"], "on": "2026-10-25" }
       ],
       "events": [],
       "affects": [],
@@ -57,5 +57,9 @@
         { "text": "Crowd level and parking pressure in this window", "searched": "2026-10-25", "tried": "Not researched in this batch; no official visitor count or parking page was read." }
       ]
     }
-  ]
+  ],
+  "meta": {
+    "schema_version": 1,
+    "run_id": "RIS-N"
+  }
 }
