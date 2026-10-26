@@ -8,6 +8,7 @@
     "build": "next build && node scripts/images.mjs && node scripts/og.mjs",
     "start": "next start",
     "build:fixture": "node scripts/build-fixture.mjs",
+    "budget:report": "node scripts/budget-report.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
