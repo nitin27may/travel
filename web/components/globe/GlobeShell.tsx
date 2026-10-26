@@ -60,6 +60,8 @@ function cardHeight(card: GlobeCard | null | undefined): number {
 
 /** Height of the phone sheet at rest (components 5.5). */
 const PEEK = 176;
+/** The phone bottom bar the list sheet stands on: --phone-bottombar-h in themes.css (styles/globe.css `.globe-sheet` sets bottom to it). */
+const PHONE_BAR_PX = 84;
 /** The control card (316 wide at left 12) keeps the disc clear when it is open. */
 const CARD_FOOT = 340;
 const strip = (p: string) => p.replace(/\/+$/, '');
@@ -583,6 +585,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
             peekPx={PEEK}
             modal={false}
             className="globe-sheet"
+            bottomGap={PHONE_BAR_PX}
           >
             {body}
           </BottomSheet>

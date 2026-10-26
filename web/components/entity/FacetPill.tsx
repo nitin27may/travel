@@ -26,7 +26,7 @@ export function FacetPill({ label, options, selected, onChange, mode, groupLabel
   const active = selected.length > 0;
   return (
     <span className="pill" data-active={active || undefined}>
-      <Popover.Root open={open} onOpenChange={setOpen}>
+      <Popover.Root open={open} onOpenChange={setOpen} modal="trap-focus">
         <Popover.Trigger className="pill-trigger">
           <span className="pill-text">{pillSummary(label, options, selected)}</span>
           <Icon name="chevronDown" size={14} />
@@ -34,6 +34,11 @@ export function FacetPill({ label, options, selected, onChange, mode, groupLabel
         <Popover.Portal>
           <Popover.Positioner sideOffset={6} align="start" className="popover-pos">
             <Popover.Popup className="popover" aria-label={label}>
+              {/* phone only (CSS): which facet this is and how many are on, beside the options that scroll under it */}
+              <div className="popover-head" aria-hidden="true">
+                <span className="popover-head-title">{label}</span>
+                <span className="popover-head-n num">{active ? `${selected.length} selected` : 'None selected'}</span>
+              </div>
               <PillOptions label={label} options={options} selected={selected} onChange={onChange} mode={mode} groupLabel={groupLabel} />
               {gapN > 0 ? <p className="opt-gap muted">{gapN} not known yet &middot; hidden when you pick one</p> : null}
               <div className="popover-foot">

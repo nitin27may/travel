@@ -194,6 +194,12 @@ html.theme-fade img { transition: none !important; }
 .count .of { color: var(--muted); }
 .row-end { margin-left: auto; }
 .view-options { display: flex; gap: var(--s-3); align-items: center; flex-wrap: wrap; }
+/* in a sheet the pickers fill the column, so a long option name cannot make the sheet scroll sideways */
+.sheet-body .view-options { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
+.sheet-body .select-field, .sheet-body .select-field label { display: flex; min-width: 0; justify-content: space-between; }
+.sheet-body .select-field .selbox { flex: 1 1 0; min-width: 0; max-width: 60%; }
+.sheet-body .sort-field > label { flex: 1 1 0; }
+.sheet-body .select-field select { min-width: 0; text-overflow: ellipsis; }
 .select-field { display: inline-flex; align-items: center; gap: var(--s-2); font: var(--t-label); color: var(--muted); }
 .select-field label { display: inline-flex; align-items: center; gap: var(--s-2); }
 .sort-field { gap: var(--s-1); }
