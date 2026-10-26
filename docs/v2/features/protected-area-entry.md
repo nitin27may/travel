@@ -2,7 +2,7 @@
 
 Status: **spec only, planned** (26 Oct 2026, travel-planner, Opus). No app code, no new HTML. Owner request of 26 Oct 2026,
 with four additions the same day (links, reuse across trip kinds, the park as a hub, the park record's structure).
-BACKLOG 15.290 to 15.294; TODO row of 26 Oct 2026; questions Q303 to Q308 (section 14).
+BACKLOG 15.290 to 15.294; TODO row of 26 Oct 2026; questions QP1 to QP6 (section 14).
 
 Supersedes, for protected areas: the one-off Rockies fixes proposed in [D8R-rockies-bookings.md](../../../research/runs/D8R-rockies-bookings.md)
 (the six proposal records are reshaped in section 11, not loaded as written), the proposed BACKLOG row 15.223d (absorbed by
@@ -162,7 +162,7 @@ works it as a weekend).
 | Record | Type | Key fields |
 |---|---|---|
 | `operator/parks-canada` (exists) | operator | url, terms_url |
-| `offer/operator/parks-canada#discovery-pass` | `access.pass.park_pass` | no `at` (exempt, Q303), `run_by`, `entry.valid: {span: 12, unit: month, from: purchase}`, price rows (adult, senior, family) |
+| `offer/operator/parks-canada#discovery-pass` | `access.pass.park_pass` | no `at` (exempt, QP1), `run_by`, `entry.valid: {span: 12, unit: month, from: purchase}`, price rows (adult, senior, family) |
 | each park's `#daily-admission` | `access.pass.entry_fee` | `covered_by: [the pass]` |
 
 The same shape holds for a US national pass (`offer/operator/<federal agency>#annual-pass`) and an annual provincial or
@@ -286,7 +286,7 @@ New on the park: `covers_areas` and `run_by` on a place. Everything else already
 | Type, layer | `type`, `layer` | `access.pass.*`, `offer` | R | ours | | E_CAP_LAYER |
 | Name | `name` | as the authority names it | R | F, O | summaries | |
 | Summary | `summary` (**capture home on offers**) | our words, at most 200 characters | R | ours | summaries | W_TIER_REQUIRED |
-| Where | `at`, `on` | park, zone or place; road route | R (`at`), A (`on`) | ours | | E_PLACE_ORPHAN unless a `park_pass` with `run_by` (Q303) |
+| Where | `at`, `on` | park, zone or place; road route | R (`at`), A (`on`) | ours | | E_PLACE_ORPHAN unless a `park_pass` with `run_by` (QP1) |
 | Authority | `run_by` | operator ref | R | F, O | | |
 | Entry | `entry` (**new**, Val) | section 5.1 | R | F, O | prices (cost parts), booking windows (cancel, channel) | E_ENTRY_* |
 | Season in force | `season` | season rows; `{from: 01-01, to: 12-31, status: open}` for all year | R | F, O | hours | |
@@ -443,7 +443,7 @@ the four row kinds.
 `parkVisits(trip, index)` in core: for each park or zone, the days with a stop that is a member, the nights whose base is a
 member, and the mode per day: `overnight_back` when the base is a `stay.camp.backcountry_site` or `stay.mountain.*` member;
 `overnight_front` when the base is any other member; else `day`. A park entered only by driving through it is invisible to
-this rule; the optional stored override (`park_visits`, written by an op, P3 only, Q306) covers drive-through, a campground
+this rule; the optional stored override (`park_visits`, written by an op, P3 only, QP4) covers drive-through, a campground
 chosen before a base exists, and backcountry nights. Public trips stay dateless: visits are day numbers.
 
 ### 6.2 Entry needs (derived)
@@ -465,7 +465,7 @@ Everything else gives one row with the list of days.
 **Park line** (Summary tab, Bookings tab header, print): "Banff National Park, days 3 to 6 and 9 to 11: entry fee each day,
 or the Discovery Pass covers it (also Jasper, Yoho and Kootenay on this trip)". A cost comparison ("the pass is likely
 cheaper") appears only when both prices are per the same unit (family or vehicle) and the day count is known, never per
-party, never as a claim without comparable bands (the stay-bases silence rule; Q307).
+party, never as a claim without comparable bands (the stay-bases silence rule; QP5).
 
 ### 6.3 The Rockies Book ahead rows, before and after
 
@@ -710,16 +710,16 @@ dark into `web/test-results/shots/` (gitignored). Commit: one commit per task, `
 | P8 row-key test (existing) | unchanged after PA-Q | PA-Q |
 | Privacy (existing detectors) | no party or household text in any export or EntryBlock | PA-W, PA-2 |
 
-## 14. Owner questions (Q303 to Q308)
+## 14. Owner questions (QP1 to QP6)
 
 | Q | Question | Recommended | Trade-off |
 |---|---|---|---|
-| Q303 | A system pass (Discovery Pass, a national or provincial annual pass) is one offer on the operator with no `at`, and each park's fee says `covered_by` it; E_PLACE_ORPHAN exempts it? | **Yes** | one validator exception, against listing every park on the pass |
-| Q304 | Park membership is explicit `part_of` first, then the park's `covers_areas`; never boundary geometry? | **Yes** | US and straddling parks need `part_of` on each member (research cost), against silent edge errors and ODbL share-alike on boundaries |
-| Q305 | Book ahead rows get four kinds (booking, pass, check, task); check rows are listed but never counted "to book"? | **Yes** | a bigger Bookings tab, against hiding the parking and closure checks that can stop a day |
-| Q306 | Park visits are derived from stops and bases; a stored `park_visits` override (drive-through, backcountry nights, a campground before a base) comes only in P3, written by an op? | **Yes** | a drive-through without a stop shows no pass row until P3 |
-| Q307 | The "pass is likely cheaper" line appears only when both prices are per the same unit (family or vehicle) and the day count is known, never per party? | **Yes** | some trips get "covers it" without a saving claim |
-| Q308 | P1 rides bundle C (+33.5 h), P2 bundle E (+25.5 h), P3 bundle G (+21 h)? | **Yes** | C grows to about 214 h; the alternative (P1 in E) leaves the Rockies Bookings tab at "0 dated" through two bundles |
+| QP1 | A system pass (Discovery Pass, a national or provincial annual pass) is one offer on the operator with no `at`, and each park's fee says `covered_by` it; E_PLACE_ORPHAN exempts it? | **Yes** | one validator exception, against listing every park on the pass |
+| QP2 | Park membership is explicit `part_of` first, then the park's `covers_areas`; never boundary geometry? | **Yes** | US and straddling parks need `part_of` on each member (research cost), against silent edge errors and ODbL share-alike on boundaries |
+| QP3 | Book ahead rows get four kinds (booking, pass, check, task); check rows are listed but never counted "to book"? | **Yes** | a bigger Bookings tab, against hiding the parking and closure checks that can stop a day |
+| QP4 | Park visits are derived from stops and bases; a stored `park_visits` override (drive-through, backcountry nights, a campground before a base) comes only in P3, written by an op? | **Yes** | a drive-through without a stop shows no pass row until P3 |
+| QP5 | The "pass is likely cheaper" line appears only when both prices are per the same unit (family or vehicle) and the day count is known, never per party? | **Yes** | some trips get "covers it" without a saving claim |
+| QP6 | P1 rides bundle C (+33.5 h), P2 bundle E (+25.5 h), P3 bundle G (+21 h)? | **Yes** | C grows to about 214 h; the alternative (P1 in E) leaves the Rockies Bookings tab at "0 dated" through two bundles |
 
 Decided here without a question (reversible): Lake O'Hara is a zone, not the lake (2.4 E); the Ontario pilot is Algonquin
 Provincial Park, already in the catalogue; new park records live in per-country catalogue lane files.
@@ -729,7 +729,7 @@ Provincial Park, already in the catalogue; new park records live in per-country 
 | Decision or page | Conflict | Resolution |
 |---|---|---|
 | Registry: `summary` homed in relevance `why` for every layer | access offers have no relevance record (contract 3.3) | `summary` homed on capture for offers (C1, C7); Q-D8R-1 option (a) as the owner chose |
-| Contract 2.4: every offer names its place | a system pass belongs to no single place | Q303 exemption |
+| Contract 2.4: every offer names its place | a system pass belongs to no single place | QP1 exemption |
 | Suitability `ext.area.pass` | second home of "needs a pass" | derived in P2 (4.6) |
 | Relevance `access_cost` on parks | authored beside requirement offers | firm by derivation in P1 (C11), derived values in P2 |
 | US park places carry `price` | contract 3.2 puts a fee on an offer | PA-MUS (P2) |
