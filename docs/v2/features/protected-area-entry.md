@@ -4,6 +4,16 @@ Status: **spec only, planned** (26 Oct 2026, travel-planner, Opus). No app code,
 with four additions the same day (links, reuse across trip kinds, the park as a hub, the park record's structure).
 BACKLOG 15.290 to 15.294; TODO row of 26 Oct 2026; questions QP1 to QP6 (section 14).
 
+**Rewritten 26 Oct 2026 as one instance of [entity-graph.md](entity-graph.md)** (owner request of the same day: decide the
+linking schema once for every record). A park is a container place of that graph; its entry requirements are access offers;
+membership, the containment chain, inheritance, the index and the `within` facet are the general rules there and are not
+restated here. What stays here is what only protected areas need: the requirement kinds and the `entry` block, visit modes,
+the park record's fields, camping, links, export wording, trip derivation, the park page, research method, Rockies migration
+and the PA tasks. QP1 to QP6 stand as answered. Superseded on this page by entity-graph.md: the relation rows of 2.1, the
+membership rule of 2.3, the refs `place/lake-louise-area`, `place/lake-ohara` and `place/<campground>` (they cannot resolve;
+entity-graph 4.4), contract rows C4, C6, the relation half of C7 and C8's leaves (now EG-C), the `park` facet (now `within`,
+EG-Q), PA-D's membership index (now EG-I), and 5.1's "No Neon migration in P1" (EG-M).
+
 Supersedes, for protected areas: the one-off Rockies fixes proposed in [D8R-rockies-bookings.md](../../../research/runs/D8R-rockies-bookings.md)
 (the six proposal records are reshaped in section 11, not loaded as written), the proposed BACKLOG row 15.223d (absorbed by
 PA-X and PA-W, section 12), and the authored `ext.area.pass` suitability field as a second home of the same fact (section 4.6).
@@ -16,17 +26,18 @@ trip page's Bookings and Summary tabs ([trip-and-places-ux-fixes.md](trip-and-pl
 ## 0. The decision in one paragraph
 
 A protected area (national, state or provincial park, conservation area, reserve, forest, dark-sky site, and a gated zone
-inside one) is **one place record** of type `nature.protected.*`. Everything a visitor must hold or book to enter it, or a
-zone of it, is an **access offer** whose `at` names the park or the zone: entry fee, park pass, vehicle permit, timed
-entry, day-use permit, shuttle seat, backcountry permit; campsite bookings are the existing lodging offers on campground
-places inside the park. Each requirement carries its own window, cost, validity, channel, cancellation and link, written
-once. A **system pass** (one pass for many parks) is one offer on the operator, and each park's fee says it is
-`covered_by` that pass. Everything inside the park joins it by `part_of` or by the park's `covers_areas`, so the park is the
-hub of its members and the members inherit its requirements by derivation. A trip never writes a requirement: its stops and
-nights say which parks it enters on which days and how (day visit, front-country nights, backcountry nights), and the Book
-ahead rows, book-by dates and the park line are derived. **Trade-off:** six small contract additions and one new relation,
-against the alternative of per-trip booking notes that rot and cannot serve a day trip, a camping weekend and a backcountry
-plan from the same data.
+inside one) is **one place record** of type `nature.protected.*`, and in the entity graph it is a **container place**
+([entity-graph.md](entity-graph.md) 4.1, 4.3). Everything a visitor must hold or book to enter it, or a zone of it, is an
+**access offer** (a requirement) whose `at` names the park or the zone: entry fee, park pass, vehicle permit, timed entry,
+day-use permit, activity permit, shuttle seat, backcountry permit; campsite bookings are the existing lodging offers on
+campground places inside the park. Each requirement carries its own window, cost, validity, channel, cancellation and link,
+written once. A **system pass** (one pass for many parks) is one offer on the operator, and each park's fee says it is
+`covered_by` that pass. Everything inside the park joins it by the general containment rule (explicit `part_of`, else the
+park's `covers_areas`; entity-graph 6), and members get its requirements by the general inheritance rule (entity-graph 7,
+`requirementsOf`). A trip never writes a requirement: its stops and nights say which parks it enters on which days and how
+(day visit, front-country nights, backcountry nights), and the Book ahead rows, book-by dates and the park line are
+derived. **Trade-off:** the `entry` block and a few window keys on top of the general graph contract, against per-trip
+booking notes that rot and cannot serve a day trip, a camping weekend and a backcountry plan from the same data.
 
 ## 1. Owner requests, traced
 
@@ -55,13 +66,13 @@ flowchart LR
   OP["operator/parks-canada<br/>(operator record)"]:::infra
   PASS["offer/operator/parks-canada#discovery-pass<br/>access.pass.park_pass"]:::ext
   PARK["place/banff-national-park<br/>nature.protected.national_park<br/>covers_areas: CA/AB/banff-national-park"]:::core
-  ZONE["place/lake-louise-area<br/>nature.protected.zone<br/>part_of: banff NP"]:::core
+  ZONE["part/place/banff-national-park#lake-louise-area<br/>nature.protected.zone<br/>part_of: banff NP"]:::core
   ML["legacy/.../moraine-lake<br/>water.body.lake<br/>area_id: CA/AB/banff-national-park"]:::core
   FEE["offer/place/banff-national-park#daily-admission<br/>access.pass.entry_fee"]:::ext
   SH["offer/legacy/.../moraine-lake#shuttle-seat<br/>access.pass.shuttle_seat"]:::ext
-  CG["place/tunnel-mountain-village-1<br/>stay.camp.campground, part_of banff NP"]:::core
-  CGO["offer/place/tunnel-mountain-village-1#campsite<br/>stay.camp.campground (lodging)"]:::ext
-  M["park membership index<br/>(derived, never stored)"]:::derived
+  CG["part/place/banff-national-park#tunnel-mountain-village-1<br/>stay.camp.campground, member by area"]:::core
+  CGO["offer/place/banff-national-park#tunnel-mountain-village-1-campsite<br/>stay.camp.campground (lodging)"]:::ext
+  M["graph index: chain, members, requirements<br/>(entity-graph 8, derived, never stored on a record)"]:::derived
 
   PARK -- run_by --> OP
   PASS -- run_by --> OP
@@ -70,7 +81,7 @@ flowchart LR
   ZONE -- part_of --> PARK
   ML -- part_of --> ZONE
   SH -- at --> ML
-  CG -- part_of --> PARK
+  CG -. "member by covers_areas" .-> PARK
   CGO -- at --> CG
   PARK -.-> M
   ZONE -.-> M
@@ -78,18 +89,22 @@ flowchart LR
   CG -.-> M
 ```
 
-| Link | Direction | Stored on | Why this direction |
-|---|---|---|---|
-| requirement to park or zone | offer `at` place (existing relation) | the requirement | the contract's offer rule (2.4): an offer names its place; the park's list of requirements is derived, like `reached_by`, so it is stored once |
-| requirement to the road it controls | offer `on` route (existing) | the requirement | a toll or a road-closure shuttle is "on" the road (Tre Cime toll already does this) |
-| fee to the system pass that covers it | offer `covered_by` offer (**new relation**, named in contract 3.3 as an A property but never added) | the fee | one park adds one ref; a pass that covers 80 parks never lists 80 refs |
-| park or zone to its managing authority | `run_by` (existing, widened from offers to `nature.protected` places) | the park | the operator record holds the authority's URL, terms and reservation portal once |
-| member to park or zone | `part_of` (existing containment relation) | the member | containment, as the contract defines it (2.5) |
-| park to the areas that are the park | `covers_areas` (**new field**, `nature.protected` places only) | the park | every record whose `area_id` is a covered area is a member with no edit to that record (section 2.3) |
-| campsite booking to campground | lodging offer `at` campground place (existing) | the offer | campgrounds are places with points and members of the park |
+The relations a park uses, as defined once in [entity-graph.md](entity-graph.md) 5.1 (source and target kinds, cardinality,
+inverse, validator codes). Rows marked EG-C are added by the graph contract task, not by PA-C.
 
-No record stores the reverse of any link. The membership index, the park's requirement list and "inside this park" on a
-member are computed in core, once per build, behind the data boundary (P9).
+| Link | Relation (entity-graph 5.1) | Stored on | Why this direction |
+|---|---|---|---|
+| requirement to park or zone | offer `at` place | the requirement | the many-side rule: an offer names its place; the park's list of requirements is derived |
+| requirement to the road it controls | offer `on` route | the requirement | a toll or a road-closure shuttle is "on" the road (Tre Cime toll already does this) |
+| fee to the system pass that covers it | `covered_by` (EG-C) | the fee | one park adds one ref; a pass that covers 80 parks never lists 80 refs |
+| tour or lodging that includes the fee | `includes` (EG-C) | the tour or lodging offer | many tours per fee, one or two fees per tour |
+| park or zone to its managing authority | `run_by` on places (EG-C) | the park | the operator record holds the authority's URL, terms and reservation portal once |
+| member to park or zone | `part_of` | the member | containment (entity-graph 6) |
+| park to the areas that are the park | `covers_areas` (EG-C) | the park | every record whose `area_id` is a covered area is a member with no edit to that record |
+| campsite booking to campground | lodging offer `at` campground place | the offer | campgrounds are places with points and members of the park |
+
+No record stores the reverse of any link. The chain, the members and each record's requirement refs are computed by the
+graph index (entity-graph 8, EG-I), once per build, behind the data boundary (P9).
 
 ### 2.2 `area_id` and AREA-2: where the area hierarchy fits and where it does not
 
@@ -106,15 +121,17 @@ AREA-2 made park-shaped areas in the locations store (`CA/AB/banff-national-park
 | An area that is wider than the park (Kananaskis Country holds several provincial parks and the Canmore edge, AREA-2 medium confidence) | partly | `covers_areas` on `place/kananaskis-country` (the conservation pass is for the whole area); each provincial park inside is its own record with explicit `part_of` members |
 | A record placed by the 10 km rule into the wrong area | no | an explicit `part_of` wins over `covers_areas`; a record may say `part_of` a different park to override |
 
-**Rule:** explicit `part_of` wins; `covers_areas` fills the rest; never geometry. We do not hold park boundaries as
+**Rule** (the general containment rule, entity-graph 6.1): explicit `part_of` wins; `covers_areas` fills the rest; never geometry. We do not hold park boundaries as
 polygons (ODbL share-alike on OSM boundaries, P9 no bulk loads, T5 honest maps), and a point-in-polygon test at the edge
 of a park is the kind of silent error T5 forbids. `osm_ref` on the park names the boundary relation for links and a later
 server-side check only.
 
 ### 2.3 The park as a hub (membership)
 
-Members are every place, route and offer whose `part_of` chain reaches the park, every record whose `area_id` is in the
-park's `covers_areas`, and every offer `at` or `on` any of those. Kinds that join without new types:
+The park as a hub is the general container rule of [entity-graph.md](entity-graph.md) 6 and the inheritance table of
+entity-graph 7; this section only lists what a park typically holds. Members are every place, route and offer whose chain
+(entity-graph 6.2) reaches the park: explicit `part_of`, area membership through `covers_areas`, and offers `at` or `on` any
+of those. Kinds that join without new types:
 
 | Member | Type ids (existing) |
 |---|---|
@@ -127,20 +144,25 @@ park's `covers_areas`, and every offer `at` or `on` any of those. Kinds that joi
 | Visitor centres, trailheads, parking | `access.*`, `culture.*` places |
 | Programmes and guided offers | experience offers (`culture.tour.guided_tour` and the like) |
 
-Discovery runs both ways: the park page lists members by kind (section 8), and every member's page carries one line
-"In Banff National Park: entry fee applies (Discovery Pass covers it)" derived from the nearest park or zone up its chain,
-plus the member's own requirements (Moraine Lake's shuttle). A trail page that "needs a day pass" says so by derivation,
-never by a copied fact.
+Discovery runs both ways: the park page lists members by kind (section 8, through the `within` facet), and every member's
+page carries one line "In Banff National Park: entry fee applies (Discovery Pass covers it)" derived by `requirementsOf`
+(entity-graph 7.2) from the nearest park or zone up its chain, plus the member's own requirements (Moraine Lake's shuttle).
+A trail page that "needs a day pass" says so by derivation, never by a copied fact (`W_CAP_INHERITED_COPY` warns on a copy).
 
 ### 2.4 Hierarchy examples (real shapes, refs as they would be written)
+
+Refs follow [entity-graph.md](entity-graph.md) 4.4: a top-level park is born in the locations store (the `location` skill)
+and gets `place/<slug>`; a zone, campground or other child is `part/<park ref>#<slug>`; an offer is
+`offer/<park ref>#<product>`, one wrapper deep. The earlier refs `place/lake-louise-area`, `place/lake-ohara` and
+`place/<campground>` are superseded: they could never resolve, because no page has those slugs.
 
 **A. National park with sub-areas: Banff NP > Lake Louise area > Moraine Lake.**
 
 | Record | Type | Key fields |
 |---|---|---|
-| `place/banff-national-park` | `nature.protected.national_park` | `covers_areas: ["CA/AB/banff-national-park"]`, `run_by: operator/parks-canada`, `area_id: CA/AB/banff-national-park`, links official, hours_rates, conditions |
-| `place/lake-louise-area` | `nature.protected.zone` (new leaf) | `part_of: [place/banff-national-park]` |
-| `legacy/canadian-rockies-sept-2029/sights/moraine-lake` | `water.body.lake` | `part_of: [place/lake-louise-area]` (one edit; it is already a member of the park through its area) |
+| `place/banff-national-park` (locations store first) | `nature.protected.national_park` | `covers_areas: ["CA/AB/banff-national-park"]`, `run_by: operator/parks-canada`, `area_id: CA/AB/banff-national-park`, links official, hours_rates, conditions |
+| `part/place/banff-national-park#lake-louise-area` | `nature.protected.zone` (new leaf, EG-C) | `part_of: [place/banff-national-park]` |
+| `legacy/canadian-rockies-sept-2029/sights/moraine-lake` | `water.body.lake` | `part_of: [part/place/banff-national-park#lake-louise-area]` (one edit; it is already a member of the park through its area) |
 | `offer/place/banff-national-park#daily-admission` | `access.pass.entry_fee` (new leaf) | `at: [park]`, `covered_by: [offer/operator/parks-canada#discovery-pass]`, `entry.needed_for: [day, overnight_front, overnight_back]` (the trans-park highway exemption is an `exemptions` row `through_traffic`) |
 | `offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat` | `access.pass.shuttle_seat` (exists, CS7) | `at: [moraine-lake, lake-louise]`, `window` fixed_date with `then` rolling 2 days 08:00 |
 | `offer/place/lake-louise#parking` | `access.park` offer (exists) | window `on_arrival`; row kind "check" |
@@ -150,12 +172,13 @@ works it as a weekend).
 
 | Record | Type | Key fields |
 |---|---|---|
-| `place/<park>` | `nature.protected.state_provincial_park` | `season` (operating, for example May to October), `hours` (gate), `run_by: operator/<provincial agency>` |
-| `place/<park>-<name>-campground` (x2) | `stay.camp.campground` | `part_of: [park]`, `camp` block (site kinds, food storage) |
-| `place/<park>-main-beach` | `water.swim.beach.lake_beach` | `part_of: [park]` (the day-use area) |
+| `place/<park>` (locations store first) | `nature.protected.state_provincial_park` | `season` (operating, for example May to October), `hours` (gate), `run_by: operator/<provincial agency>` |
+| `part/place/<park>#<name>-campground` (x2) | `stay.camp.campground` | member by area or `part_of: [place/<park>]`, `camp` block (site kinds, food storage) |
+| `part/place/<park>#main-beach` | `water.swim.beach.lake_beach` | member by area or `part_of: [place/<park>]` (the day-use area) |
 | `offer/place/<park>#daily-vehicle-permit` | `access.pass.vehicle_permit` (new leaf) | `covered_by: [offer/operator/<agency>#annual-day-use-pass]`, `exemptions: [{who: camper}]` |
 | `offer/place/<park>#day-use-reservation` | `access.pass.day_use_permit` | `entry.required: some_days` (peak weekends), window rolling |
-| `offer/place/<park>-<name>-campground#campsite` (x2) | `stay.camp.campground` offer, lodging | window rolling N days at a time; `camp` block on the place, price rows per site kind |
+| `offer/place/<park>#<name>-campground-campsite` (x2) | `stay.camp.campground` offer, lodging | `at` the campground; window rolling N days at a time; `camp` block on the place, price rows per site kind |
+| `offer/place/<park>#fishing-permit` (when the park sells one) | `access.pass.activity_permit` (new leaf, EG-C) | `entry.for_types: ["water.fishing"]`: shown on fishing spots and fishing offers only (entity-graph 7.3) |
 
 **C. A park system with one pass for many parks.**
 
@@ -179,10 +202,10 @@ a third park record.
 
 | Record | Type | Key fields |
 |---|---|---|
-| `place/yoho-national-park` | `nature.protected.national_park` | `covers_areas: ["CA/BC/yoho-national-park"]` |
-| `place/lake-ohara` | `nature.protected.zone` | `part_of: [yoho]`, point at the lake (the points runner, from OSM), suitability `access_season` with `via: shuttle`, relevance `access_cost: shuttle_only, permit_lottery` derived (4.6) |
-| `offer/place/lake-ohara#day-use-bus` | `access.pass.shuttle_seat` | window `lottery` (`opens_from`/`opens_to` 03-01 to 03-31 as a pattern), `then` rolling with `closes_days_before: 1`, `closes_time: 15:30` |
-| trails in the zone | routes | `part_of: [place/lake-ohara]`; they inherit "needs the O'Hara bus or a 22 km walk" by derivation |
+| `place/yoho-national-park` (locations store first) | `nature.protected.national_park` | `covers_areas: ["CA/BC/yoho-national-park"]` |
+| `part/place/yoho-national-park#lake-ohara` | `nature.protected.zone` | `part_of: [place/yoho-national-park]`, point at the lake (the points runner, from OSM), suitability `access_season` with `via: shuttle`, relevance `access_cost: shuttle_only, permit_lottery` derived (4.6) |
+| `offer/place/yoho-national-park#lake-ohara-day-use-bus` | `access.pass.shuttle_seat` | `at: [part/place/yoho-national-park#lake-ohara]`; window `lottery` (`opens_from`/`opens_to` 03-01 to 03-31 as a pattern), `then` rolling with `closes_days_before: 1`, `closes_time: 15:30` |
+| trails in the zone | routes | `part_of: [part/place/yoho-national-park#lake-ohara]`; they get "needs the O'Hara bus or a 22 km walk" from `requirementsOf` (the walk-in on the fire road is a route; the bus requirement's `summary` names it, because `alternative_to` joins records of one layer) |
 
 Lake O'Hara is modelled as the zone, not the lake, because the bus, the lodge, the campground, the hut and the trails all
 belong to the gated area. The lake itself becomes a member record when a page needs it.
@@ -258,9 +281,9 @@ and never trusted, geography never stale, summaries 730). Source lanes: F offici
 | Type | `type` | `nature.protected.{national_park, state_provincial_park, conservation_area, nature_reserve, forest, dark_sky_site, zone}` | R | ours | | E_CAP_TYPE |
 | Point | `point` | the main visitor centre, or the authority's own map point; `[lon, lat]` 5 decimals | R | D (OSM), F | geography | E_PLACE_* as today |
 | Area | `area_id` | the smallest area holding the main entrance | R | derived (AREA) or authored | geography | E_PLACE_AREA |
-| Areas that are the park | `covers_areas` (**new**) | area ids | A (R? when an area named after the park exists: W_PARK_AREA) | ours | geography | each id exists in the store; only on `nature.protected` |
+| Areas that are the park | `covers_areas` (**new**, EG-C) | area ids | A (R? when an area named after the park exists: W_PARK_AREA) | ours | geography | each id exists in the store; only on `nature.protected` |
 | Parent | `part_of` | a zone's park; a provincial park inside a wider conservation area | R for a zone, else A | ours | geography | a zone without `part_of` is E_PARK_ZONE |
-| Managing authority | `run_by` (widened to these places) | operator ref | R | F | | operator exists |
+| Managing authority | `run_by` (widened to these places, EG-C) | operator ref | R | F | | operator exists |
 | Wikidata, OSM boundary | `wikidata`, `osm_ref` | QID; `relation/<id>` | R, A | D | geography | as today |
 | Summary | `summary` (relevance `why`) | our words | R | ours | summaries | |
 | Relevance | `class_key` (new class `park/protected-area`), `draw`, `standing`, `distinction`, `easy_payoff`, `weather`, `signals.designations` | relevance/1 | R | ours, D | as today | W_TIER_REQUIRED |
@@ -293,7 +316,7 @@ New on the park: `covers_areas` and `run_by` on a place. Everything else already
 | Hours in force | `hours` | K9 | R? `operates` for timed entry | F, O | hours | |
 | Cost | `price` | rows; amount 0 for a free band; `per` incl. `person_night`; `residency` | R | F, O | prices | currency ISO 4217 |
 | Window | `window` | `windowSpec` plus the 6 new keys | R? `bookable` | F, O | booking windows | E_WINDOW_* |
-| Covered by | `covered_by` (**new relation**) | offer refs of passes | A | F | prices | target is an `access.pass.park_pass` or a lodging offer (camper exemption form) |
+| Covered by | `covered_by` (**new relation**, EG-C; `includes` is its mirror on a tour or lodging offer, entity-graph 5.1) | offer refs of passes | A | F | prices | target is an `access.pass.park_pass` or a lodging offer (camper exemption form) |
 | Booking page | `book_url` (RIS-H home) and link `booking` | URL | R? reservable | F, O | booking windows | |
 | Links | `links` | `official` R, `booking` R? reservable, `terms` A, `hours_rates` A | R | F, O | booking windows | |
 | Access cost | `access_cost` | **N** (the offer is the cost) | N | | | |
@@ -368,15 +391,15 @@ what it has, its safety-tier gaps as rows, and the rest in the one "Not checked 
 | # | File | Change | Why |
 |---|---|---|---|
 | C1 | `core/src/schema/capture/records.ts` | `summary: z.string().min(1).max(200).optional()` on `capRecord`, allowed on offers only (validator) | Q-D8R-1 (a): passes have no relevance record |
-| C2 | same | `entry: val(entrySpec).optional()`; `entrySpec` below | the requirement's own facts |
+| C2 | same | `entry: val(entrySpec).optional()`; `entrySpec` below, with `for_types` (entity-graph 7.3) | the requirement's own facts |
 | C3 | same | `windowSpec` gains `opens_from`, `opens_to` (MM-DD, the yearly band of a launch day or lottery), `month_lead_days` (monthly_release), `closes_days_before`, `closes_time`, `share_pct`, `then` (one windowSpec without `then`) | the two-phase shuttle, the lottery's leftover seats, "apply in March" without a year (D8-R findings) |
-| C4 | same | `covered_by: z.array(ref).optional()`; `covers_areas: z.array(z.string().min(1)).optional()` | 2.1 |
+| C4 | ~~same~~ | **moved to EG-C** (entity-graph 11.1 G3): `covered_by`, `covers_areas`, and `includes` | one author on the relation fields |
 | C5 | same | `priceRow` gains `residency?: "resident" \| "national" \| "foreign"`; `PRICE_PER_V2` gains `person_night` (enums.ts) | resident and foreign prices; backcountry fees |
-| C6 | `core/src/schema/enums.ts` | `CAP_RELATION` gains `covered_by` | relations list |
-| C7 | `core/src/schema/capture/properties.ts` | `summary` home by layer: capture `summary` on offers, relevance `why` elsewhere (a `homeByLayer` field on `PropertyDef`, read by the engine); new properties `entry` (group access, value object, display rest!, home capture), `covered_by` (relations, layers offer), `covers_areas` (identity, layers place); `run_by` layers gain place | registry is the one list of properties |
-| C8 | `data/vocab/types.json` | `access.pass` marks: `summary: R`, `access_cost: N`, `entry: R`, drop `parks_for` and `point` R (an offer inherits its place's point); leaves `access.pass.entry_fee`, `access.pass.vehicle_permit`, `nature.protected.zone`; `nature.protected` marks gain `covers_areas: A`, `run_by: R` | data, not code |
+| C6 | ~~`core/src/schema/enums.ts`~~ | **moved to EG-C** (entity-graph 11.1 G2) | relations list |
+| C7 | `core/src/schema/capture/properties.ts` | `summary` home by layer: capture `summary` on offers, relevance `why` elsewhere (a `homeByLayer` field on `PropertyDef`, read by the engine); new property `entry` (group access, value object, display rest!, home capture). `covered_by`, `covers_areas` and the `run_by` widening **moved to EG-C** (entity-graph 11.1 G4) | registry is the one list of properties |
+| C8 | `data/vocab/types.json` | `access.pass` marks: `summary: R`, `access_cost: N`, `entry: R`, drop `parks_for` and `point` R (an offer inherits its place's point); `nature.protected` marks gain `covers_areas: A`, `run_by: R`. The leaves `access.pass.entry_fee`, `access.pass.vehicle_permit`, `nature.protected.zone` and `access.pass.activity_permit` **are added by EG-C** (entity-graph 11.1 G7) | data, not code |
 | C9 | `data/vocab/relevance-classes.json` | class `park/protected-area` | `nature.protected` points at `park/*`, and only `park/urban` exists |
-| C10 | `core/src/validate/capture.ts`, `codes.ts` | E_ENTRY_SCHEMA (entry on a non-access type), E_ENTRY_COVER (`covered_by` target is not a pass or lodging offer), E_WINDOW_THEN (`then` nested or on an `anytime` rule), E_PARK_ZONE (zone without `part_of` a park), E_PARK_AREA (unknown area in `covers_areas`), W_PARK_AREA (an area named after the park exists and is not covered), W_ENTRY_TWO_HOMES (P2); E_PLACE_ORPHAN exempts `access.pass.park_pass` with `run_by` and at least one incoming `covered_by`; the ref resolver accepts `offer/operator/<slug>#<product>` | 4.1, 4.2 |
+| C10 | `core/src/validate/capture.ts`, `codes.ts` | E_ENTRY_SCHEMA (entry on a non-access type), (E_ENTRY_COVER is now the general `E_CAP_REL_TARGET` of EG-C, read from `RELATION_RULES`), E_WINDOW_THEN (`then` nested or on an `anytime` rule), E_PARK_ZONE (zone without `part_of` a park), E_PARK_AREA (unknown area in `covers_areas`), W_PARK_AREA (an area named after the park exists and is not covered), W_ENTRY_TWO_HOMES (P2); E_PLACE_ORPHAN exempts `access.pass.park_pass` with `run_by` and at least one incoming `covered_by`; the ref resolver accepts `offer/operator/<slug>#<product>` | 4.1, 4.2 |
 | C11 | `core/src/capture/engine.ts` | `access_cost` on a `nature.protected` record is firm when an incoming requirement offer exists | a park with requirements is not a gap |
 
 `entrySpec` (sketch, strict object; every key country-neutral):
@@ -394,6 +417,8 @@ export const entrySpec = z.strictObject({
   change: z.strictObject({ allowed: z.enum(["free", "fee", "no"]), until_hours: int.min(0).optional(), note: z.string().max(200).optional() }).optional(),
   cancel: z.strictObject({ refund: z.enum(["full", "partial", "none"]), until_hours: int.min(0).optional(), note: z.string().max(200).optional() }).optional(),
   quota: z.strictObject({ per: z.enum(["day", "night", "slot"]), note: z.string().max(200).optional() }).optional(),
+  // entity-graph 7.3: an activity permit applies only to members of these type prefixes ("water.fishing", "mountain.climb")
+  for_types: z.array(z.string().regex(TYPE_ID_RE)).min(1).optional(),
 });
 ```
 
@@ -507,7 +532,7 @@ the privacy rules unchanged: no party, no dates on public trips, no household da
 |---|---|---|
 | What do I need to enter on day X as a day visitor, a camper, a backcountry camper? | `PlaceLookup.entry: EntryBlock`; `entryFor(entry, {mode, month})` in core filters `requirements` by `neededFor` and season | `getPlace(slug)`, `/api/v1/places/{slug}` |
 | What must I book and by when? | `EntryRequirement.window` (rule text with Day N when a trip asks), `entryNeeds(visits)` on a trip | `getTrip(slug)` `bookings`, `/api/v1/trips/{slug}` |
-| What can I do here with kids in month Y? | the places list filtered by the new `park` facet plus the existing `kid`, `season`, `effort`, `k` facets | `listPlaces({facets: {park, kid, season}})`, `countPlaces`, `/api/v1/places?park=` |
+| What can I do here with kids in month Y? | the places list filtered by the general `within` facet (entity-graph 9.2, EG-Q; it replaces the `park` facet first planned here) plus the existing `kid`, `season`, `effort`, `k` facets | `listPlaces({facets: {within, kid, season}})`, `countPlaces`, `/api/v1/places?within=` |
 | What is closed? | stored standing rules (`access_season`, `hours.closures`, a zone's shuttle-only access) plus the `conditions` link; live closures are never stored (closures class, 7 days, untrusted) | `EntryBlock.closures` |
 | Which parks does this trip enter, when, and what covers them? | `TripSummary.parks[]` | `getTrip(slug)` |
 
@@ -532,7 +557,7 @@ interface EntryRequirement {
 interface TripPark { slug: string; name: string; days: number[]; nights: number[]; modes: VisitMode[]; needs: { name: string; kind: ExportBooking["kind"]; text: string }[]; coveredBy: string | null }
 ```
 
-The `park` facet reads a server-side membership index; the list row keys (P8 allowlist, pinned by test) do not change.
+The `within` facet reads the graph index (entity-graph 8); the list row keys (P8 allowlist, pinned by test) do not change. `EntryRequirement` gains `inheritedFrom: { slug: string; name: string } | null` (the chain record the requirement comes from, entity-graph 7.2).
 
 ## 7. Worked example: a camping weekend from the same records
 
@@ -577,7 +602,9 @@ exist.
 ### 9.1 The checklist per park (becomes `research/method/kinds/protected-area.md`, PA-M)
 
 1. Identity: name as signed, type, Wikidata QID, OSM boundary relation, the authority (operator record; create it once per
-   system), point at the main visitor centre.
+   system), point at the main visitor centre. A park with no page yet is added to the locations store first with the
+   `location` skill, then `slugs.ts build`, so `place/<slug>` resolves (entity-graph 4.4 rule 4); zones and campgrounds are
+   `part/place/<park>#<slug>`, never new store entries.
 2. Area: does an area named after the park exist? Set `covers_areas`; else plan `part_of` on members. Zones: one
    `nature.protected.zone` per gated or separately managed sub-area.
 3. Links: official, fees, alerts, status, reservation portal; per requirement its booking page.
@@ -608,7 +635,7 @@ exist.
 
 | Step | How |
 |---|---|
-| Write | one lane file per country, `data/capture/catalogue/PA-<cc>.json` (`capture/1`), for parks, zones, requirements and system passes; trip lane files keep trip-only records; a run record in `data/capture/runs/`; sources in the file's `sources`, rebuilt into `data/sources/registry.json` |
+| Write | the park's locations-store place first (the `location` skill), then one lane file per country, `data/capture/catalogue/PA-<cc>.json` (`capture/1`), for parks, zones, requirements and system passes; trip lane files keep trip-only records; a run record in `data/capture/runs/`; sources in the file's `sources`, rebuilt into `data/sources/registry.json` |
 | Validate | `validate.ts --all` (E_ENTRY_*, E_WINDOW_THEN, E_PARK_*), `capture.ts run --check`, `gaps --budget --check` (only goes down) |
 | Two sources disagree on a fee | the official source wins by basis precedence (official_rule, official_info over operator_info over community); the run record holds `outcome: conflict` with both sources; never two values in one Val |
 | A window that moves each year | store the rule with `opens_from`/`opens_to` and `applies_to` of the season read; the page says "usually in March"; the booking-windows freshness class (365 days) puts it on the backlog before the next season |
@@ -632,13 +659,13 @@ existing lanes (trails, lakes, sights, adventure, stays), with no bulk research 
 | Record | Action | Task |
 |---|---|---|
 | D8-R proposal `offer/place/banff-national-park#parks-canada-admission` | split: one `access.pass.entry_fee` per park (Banff, Jasper, Yoho, Kootenay), each citing its own fees page, `covered_by` the Discovery Pass; the pass becomes `offer/operator/parks-canada#discovery-pass` | PA-R-CA |
-| D8-R proposal `#conservation-pass` on kananaskis-lakes-day-use | `offer/place/kananaskis-country#conservation-pass`, `access.pass.vehicle_permit`, `at` a new `place/kananaskis-country` (`nature.protected.conservation_area`, `covers_areas: [CA/AB/kananaskis-country]`) | PA-R-CA |
+| D8-R proposal `#conservation-pass` on kananaskis-lakes-day-use | `offer/place/kananaskis-country#conservation-pass`, `access.pass.vehicle_permit`, `at` a new `place/kananaskis-country` (`nature.protected.conservation_area`, `covers_areas: [CA/AB/kananaskis-country]`; locations-store place first) | PA-R-CA |
 | D8-R proposal `#roam-super-pass` | stored as proposed, `window.rule: monthly_release` with `month_lead_days`, `entry` block, `summary` | PA-R-CA |
-| D8-R proposal `place/lake-ohara#day-use-bus` | stored on `place/lake-ohara` (zone, `part_of` Yoho), lottery with `then` | PA-R-CA |
+| D8-R proposal `place/lake-ohara#day-use-bus` | stored as `offer/place/yoho-national-park#lake-ohara-day-use-bus`, `at` the zone `part/place/yoho-national-park#lake-ohara` (`part_of` Yoho), lottery with `then` | PA-R-CA |
 | D8-R proposal `#frontcountry-campsite` | stored on Banff NP as a lodging offer with `fixed_date` and the month band; Interlakes stays a proposal until a plan camps there | PA-R-CA |
 | CS7 `#shuttle-seat` (Moraine Lake) | `entry`, `summary`, `window` gains the launch-day phase and `then`; pinned values untouched (additions only) | PA-R-CA |
 | `offer/place/lake-louise#parking` | `entry` with `needed_for: [day]`, `required: in_season`; window `on_arrival` | PA-R-CA |
-| New places | `place/banff-national-park`, `place/jasper-national-park`, `place/yoho-national-park`, `place/kootenay-national-park`, `place/kananaskis-country`, `place/lake-louise-area`, `place/lake-ohara` with relevance records (class `park/protected-area`); points by the points runner (Overpass, one at a time) | PA-R-CA |
+| New places | locations-store places and then capture records `place/banff-national-park`, `place/jasper-national-park`, `place/yoho-national-park`, `place/kootenay-national-park`, `place/kananaskis-country`; zones `part/place/banff-national-park#lake-louise-area` and `part/place/yoho-national-park#lake-ohara`; all with relevance records (class `park/protected-area`); points by the points runner (Overpass, one at a time) | PA-R-CA |
 | Store places with the same name (Mount Robson PP, the US parks) | the capture record is the identity; slug takeovers are checked with `slugs.ts --check` (AREA-2 lesson) | PA-R-CA, PA-MUS |
 | Mis-typed Rockies records (`kananaskis-lakes-day-use` as nature_reserve, `lake-magog`) | not in P1; a typed fix rides PA-MUS's review or the D10 split | later |
 | US park places with `price` (9 records in BA-us) | moved to `#entrance-fee` offers, `covered_by` the national annual pass offer | PA-MUS (P2) |
@@ -650,32 +677,33 @@ Models per CLAUDE.md: shared contracts Opus; well-specified builds Sonnet; revie
 
 | Id | Task | Seat, model | h | After | Files owned | Acceptance |
 |---|---|---|---|---|---|---|
-| PA-C | Capture contract diff C1 to C11, generated files, validator codes, focused tests | B2, **Opus** (shared contract) | 7 | none | `core/src/schema/capture/records.ts`, `properties.ts`, `core/src/schema/enums.ts`, `core/src/validate/capture.ts`, `codes.ts`, `core/src/capture/engine.ts`, `data/vocab/types.json`, `data/vocab/relevance-classes.json`, generated schema files, `core/test/capture/entry*.test.ts` | the six D8-R proposals, reshaped per 11, validate with no relevance record; access offers report no `access_cost` gap; each new code has a failing and a passing case |
+| PA-C | Capture contract diff C1 to C3, C5, C7 (entry and summary parts), C8 (marks), C9 to C11, generated files, validator codes, focused tests (the relation rows C4, C6 and the leaves moved to EG-C) | B2, **Opus** (shared contract) | 6 | EG-C (same files, one author: RIS-H, EG-C, PA-C, PA-X in that order) | `core/src/schema/capture/records.ts`, `properties.ts`, `core/src/schema/enums.ts`, `core/src/validate/capture.ts`, `codes.ts`, `core/src/capture/engine.ts`, `data/vocab/types.json`, `data/vocab/relevance-classes.json`, generated schema files, `core/test/capture/entry*.test.ts` | the six D8-R proposals, reshaped per 11, validate with no relevance record; access offers report no `access_cost` gap; each new code has a failing and a passing case |
 | PA-FX | Fixtures: four synthetic parks (13) and their tests | B2, Sonnet | 3 | PA-C | `core/test/fixtures/protected-areas/**`, `core/test/parks/fixtures.test.ts` | all four parse and validate; every row of 4.1 and 4.2 appears in at least one fixture |
 | PA-X | Export and API contract: `BookRuleInput` kinds, `bookRuleText` wordings, `ExportBooking.kind/park/link`, model version, CSV Kind | B2, **Opus** (shared contract) | 4 | PA-C | `core/src/export/bookings.ts`, `core/src/export/types.ts`, `core/src/schema/api/trip.ts`, `core/src/schema/api/export.ts`, `core/test/export/bookings*.test.ts` | each wording of 5.2 pinned; old rolling rows unchanged (parity test) |
-| PA-D | Core: membership index, `parkVisits`, `entryNeeds`, `entryFor` | B2, Sonnet | 5 | PA-C, PA-FX | `core/src/parks/**` (new), `core/test/parks/*.test.ts` | fixtures give the rows of 7 and 6.3; one row per ridden day; check rows never counted |
+| PA-D | Core: `parkVisits`, `entryNeeds`, `entryFor` as callers of the graph's `requirementsOf` (membership comes from EG-I) | B2, Sonnet | 3.5 | PA-C, PA-FX, EG-I | `core/src/parks/**` (new), `core/test/parks/*.test.ts` | fixtures give the rows of 7 and 6.3; one row per ridden day; check rows never counted |
 | PA-R-CA | Rockies data: section 11 rows for Canada and the Tre Cime toll; run record; sources | data seat, **Opus** researcher | 6 | PA-C | `data/capture/catalogue/PA-ca.json` (new), `data/capture/canadian-rockies-2029/CS7.json` (additions), `data/capture/dolomites-2027/CS7.json` (additions), `data/relevance/catalogue/PA-ca.json`, run record, `research/trips/canadian-rockies-sept-2029/bookings.md` section | `validate --all`, `run --check`, `gaps --budget --check` green; required tier complete on the 7 new places and every requirement |
 | PA-W | Wire the trip page and export: derived rows and park line into the Bookings and Summary tabs, `data/trips/booking-refs.json`, kinds in print and CSV | B1, Sonnet | 4 | PA-X, PA-D, PA-R-CA, UXB-6, UXB-1 | `web/lib/public/trips.ts`, `web/components/trips/tabs/BookingsPanel.tsx`, `web/components/trips/summary/**` (park line only), `data/trips/booking-refs.json` | Rockies: rows of 6.3; Dolomites unchanged except kind; "5 to book ahead" count excludes checks |
 | PA-M | Method: `research/method/kinds/protected-area.md` from 9.1, capture-contract 3.3 and 3.5 rows, kinds README row | travel-planner, Opus | 1.5 | PA-C | those docs | links resolve (`relink.py check`) |
 | PA-R1, PA-V1 | Design review and verifier of P1 | Opus 1.5, Sonnet 1.5 | 3 | PA-W | review and verify notes | no P2, P6 or T1 breach; screenshots 1440 and 390, light and dark |
-| **P1** | | | **33.5** | | | |
+| **P1** | | | **31** | | | |
 | PA-N | Park page variant note and wireframes at 390 and 1440 (section 8) | travel-design-reviewer, Opus | 3 | P1, UXB-7 | `docs/v2/design/park-page/**` | owner approves (gate G-PA) |
-| PA-Q | Store and API: `park` facet in `listPlaces` and `countPlaces`, `PlaceLookup.entry`, OpenAPI | B2, **Opus** (shared contract) | 4 | PA-D | `core/src/catalogue/store.ts`, `core/src/schema/api/place.ts`, `core/src/query/**`, `web/app/api/v1/places/**` schemas only | P8 row-key test unchanged; a 10,000-place synthetic list filters by park under budget |
+| PA-Q | Store and API: `PlaceLookup.entry` (EntryBlock with `inheritedFrom`), OpenAPI; the member filter is EG-Q's `within` facet | B2, **Opus** (shared contract) | 2 | PA-D, EG-Q | `core/src/catalogue/store.ts`, `core/src/schema/api/place.ts`, `web/app/api/v1/places/**` schemas only | P8 row-key test unchanged; the Rockies parks' EntryBlocks match 6.3 |
 | PA-2 | Park page and member line | B1, Sonnet | 10 | PA-N, PA-Q | `web/components/places/park/**` (new), `web/lib/public/places.ts` (entry join) | sections of 8; member pages show the park line; no new client bulk load |
 | PA-DV | Derive park `access_cost` and `ext.area.pass`; W_ENTRY_TWO_HOMES | B2, Sonnet | 2 | PA-D | `core/src/relevance/derive.ts`, `core/src/capture/engine.ts`, tests | Plan B results unchanged on the Rockies |
 | PA-MUS | US fee migration (9 parks) and the national pass offer | data seat, Sonnet, Opus 0.5 review | 2.5 | PA-C | `data/capture/catalogue/PA-us.json`, `BA-us.json` edits | price off the place; fees `covered_by` the pass |
 | PA-R2, PA-V2 | Review and verify P2 | Opus 2, Sonnet 2 | 4 | PA-2 | notes | as P1 |
-| **P2** | | | **25.5** | | | |
+| **P2** | | | **23.5** | | | |
 | PA-N3 | Plan-a-visit note | travel-design-reviewer, Opus | 2 | P2 | design note | owner approves |
 | PA-3C | Camping contract (`camp` block, `max_stay_nights`, `stay.camp` window mark) and `park_visits` override op | B2, **Opus** | 3 | P2 | `records.ts`, `properties.ts`, `types.json`, `core/src/ops/**` (one op), `core/src/schema/trip.ts` | fixture B passes with campgrounds; the op returns its inverse |
 | PA-3 | Plan a visit on the park page; hand-off to Mine, CUS and the add-a-place panel | B1, Sonnet | 8 | PA-N3, PA-3C, CUS-1, v0.17 | park components, `useTripUrl`-style URL state | section 7 rows reproduced from the page for all three plans |
 | PA-R-ON | Pilot: Algonquin Provincial Park (in the catalogue) minimal park, two campgrounds, backcountry permit | data seat, **Opus** researcher | 4 | PA-3C | `data/capture/catalogue/PA-ca.json` additions | required tier complete |
 | PA-R3, PA-V3 | Review and verify P3 | Opus 2, Sonnet 2 | 4 | PA-3 | notes | as P1 |
 | **P3** | | | **21** | | | |
-| **All** | | | **80** | | | |
+| **All** | | | **75.5** | | | |
 
-Bundle effect: C grows by 33.5 h (to about 214 h; 18 h build in B1 and B2, 6 h data within C's spare, the rest reviews
-and docs); E by 25.5 h; G by 21 h. Rows: BACKLOG 15.290 (umbrella), 15.291 (P1), 15.292 (P2), 15.293 (P3), 15.294 (questions).
+Bundle effect: C grows by 31 h for PA (first written as 33.5 h), plus 23 h for the graph tasks EG-C to EG-DOC that P1 needs
+(entity-graph 13), about 234 h in total; E by 23.5 h for PA plus 15 h for EG-N, EG-Q, EG-W and reviews; G by 21 h. Rows:
+BACKLOG 15.290 (umbrella), 15.291 (P1), 15.292 (P2), 15.293 (P3), 15.294 (questions); the graph rows are 15.295 to 15.299.
 
 ### 12.1 Brief rules for every PA build task
 
@@ -703,7 +731,7 @@ dark into `web/test-results/shots/` (gitignored). Commit: one commit per task, `
 | `core/test/capture/entry-schema.test.ts` | each fixture parses; strict keys; `then.then` refused | PA-C |
 | `core/test/capture/entry-validate.test.ts` | E_ENTRY_SCHEMA, E_ENTRY_COVER, E_WINDOW_THEN, E_PARK_ZONE, E_PARK_AREA, W_PARK_AREA, orphan exemption | PA-C |
 | `core/test/capture/entry-completeness.test.ts` | access offers have no `access_cost` gap; `summary` read from capture on offers and from `why` elsewhere; a park with requirements has a firm `access_cost` | PA-C |
-| `core/test/parks/membership.test.ts` | F1 by area, F3 by `part_of`, explicit wins, zones roll up, no geometry | PA-D |
+| `core/test/graph/contain.test.ts` (moved from `core/test/parks/membership.test.ts`) | F1 by area, F3 by `part_of`, explicit wins, zones roll up, no geometry | EG-I |
 | `core/test/parks/needs.test.ts` | section 7's three plans and 6.3's Rockies rows; one row per ridden day; checks not counted; the pass line only with comparable units | PA-D |
 | `core/test/export/bookings-kinds.test.ts` | every wording of 5.2; rolling parity with today's rows | PA-X |
 | `web` unit test on the trip adapter | Rockies and Dolomites rows and kinds; `booking-refs.json` drops replaced legacy rows | PA-W |
@@ -726,6 +754,10 @@ Answered by the owner on 26 Oct 2026, one at a time: all six as recommended.
 Decided here without a question (reversible): Lake O'Hara is a zone, not the lake (2.4 E); the Ontario pilot is Algonquin
 Provincial Park, already in the catalogue; new park records live in per-country catalogue lane files.
 
+After the entity-graph rewrite (26 Oct 2026) the six answers stand unchanged: QP1 is entity-graph 4.4 rule 6, QP2 is its
+containment rule 6.1, QP3 to QP5 are protected-area rules on top of `requirementsOf`. QP6's hours moved (P1 31 h, P2 23.5 h)
+and the graph tasks it now depends on are entity-graph QG4.
+
 ## 15. Conflicts with existing decisions
 
 | Decision or page | Conflict | Resolution |
@@ -740,6 +772,10 @@ Provincial Park, already in the catalogue; new park records live in per-country 
 | UXB-C: trip summary parks from designation lines | parks become records with days | UXB-C ships as designed; PA-W adds days and needs to `summary.parks` |
 | AREA-2 areas are one level and one region | sub-areas and straddling parks | zones and `part_of` (2.2) |
 | BACKLOG 15.223b says the rows land with TD-3/TD-4 | P1 lands before TD-3/TD-4 | interim `data/trips/booking-refs.json`, deleted at TD-4 |
+| This page's first refs `place/lake-louise-area`, `place/lake-ohara`, `place/tunnel-mountain-village-1` (26 Oct, first version) | `place/<slug>` resolves only for a page slug, so they fail `E_CAP_REF` and the trip-less lane rule | `part/place/<park>#<slug>` (entity-graph 4.4); parks via the locations store first |
+| This page's 5.1: "No Neon migration in P1" | the Postgres `relation.kind` CHECK refuses `covered_by`, and `entity` has no `run_by` | migration `relation_kinds` (EG-M, entity-graph 11.3, QG5) |
+| This page's C4, C6, C7 (relation half), C8 (leaves) and PA-D's membership index | the same files and the same index as the general graph | moved to EG-C and EG-I; PA-C runs after EG-C |
+| This page's `park` facet (PA-Q) | one facet per container kind | the general `within` facet (EG-Q) |
 
 ## Gotchas
 
@@ -756,3 +792,7 @@ Provincial Park, already in the catalogue; new park records live in per-country 
 ## Change log
 
 - 26 Oct 2026: written (travel-planner, Opus), with the owner's four additions of the same day folded in.
+- 26 Oct 2026 (later): rewritten as one instance of [entity-graph.md](entity-graph.md) (travel-planner, Opus): relation rows,
+  membership and the `park` facet point to the general model; refs of zones and campgrounds corrected; contract rows C4, C6,
+  part of C7 and C8's leaves moved to EG-C; `entry.for_types` and `access.pass.activity_permit` added; PA-C, PA-D, PA-Q
+  resized (P1 31 h, P2 23.5 h, all 75.5 h); conflicts rows added. QP1 to QP6 unchanged.
