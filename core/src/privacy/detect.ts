@@ -44,9 +44,18 @@ export const TRIPLESS_REF = new RegExp(`\\btrip/${TRIPLESS_LANE}\\b`);
 /**
  * Keys that carry household data in any output (the owner's save metadata since PRIV1, traveller details, payments), and the internal
  * research columns no served body may hold (RI-6, RIS-C): `meta` (RowMeta), `notes_private` (owner Q173) and `doc` (the verbatim
- * capture record of 0003, owner Q172). `notes` stays public (a trip or track note), so only `notes_private` is listed.
+ * capture record of 0003, owner Q172). `notes` stays public (a trip or track note), so only `notes_private` is listed. A visitor's copy
+ * (copies/1, trip-custom/1; NAV-C) adds `copiedAt` (when it was made), `travellers` (the party) and `gw` (the airports picked, origin
+ * spec 10); `added` was already here.
  */
-export const PRIVATE_KEYS: readonly string[] = ["height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added", "meta", "notes_private", "doc"];
+export const PRIVATE_KEYS: readonly string[] = ["height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added", "meta", "notes_private", "doc", "copiedAt", "travellers", "gw"];
+/**
+ * The visitor's origin (origin spec 8.1 rule 1): `from` is a common public key (a window `{from, to}`, an age band, a leg), so it is
+ * private only when it holds an origin reference (`iata:`, `hub:`, `town:`, `gn:`), the form a copy stores. Server output never
+ * varies by origin (OR2), so no served body carries one under `from`.
+ */
+export const ORIGIN_VALUE_KEYS: readonly string[] = ["from"];
+export const ORIGIN_REFERENCE_VALUE = /^\s*(?:iata|hub|town|gn):/i;
 
 /**
  * Keys whose values never go into a server log (email spec 5.1, F17 item 14): sign-in codes, tokens, passwords, addresses, names, IPs,
@@ -104,6 +113,13 @@ const JSON_DEPTH = 3;
 const isNum = (x: unknown): x is number => typeof x === "number" && Number.isFinite(x);
 /** Letters and digits only, lower case, accents folded: how labels, names and echoes are compared. */
 const fold = (s: string): string => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+
+/** An origin reference under `from`: the string itself, or one inside an object or array there (`{ref}`, a list). */
+function isOriginValue(y: unknown, depth = 0): boolean {
+  if (typeof y === "string") return ORIGIN_REFERENCE_VALUE.test(y);
+  if (depth > 2 || !y || typeof y !== "object") return false;
+  return (Array.isArray(y) ? y : Object.values(y as Record<string, unknown>)).some((v) => isOriginValue(v, depth + 1));
+}
 
 /** True when a pair of numbers is a point near home, in either order (lat, lon or lon, lat). */
 const pairNearHome = (a: number, b: number): boolean => nearHome(a, b) || nearHome(b, a);
@@ -230,6 +246,7 @@ export function privacyHits(body: unknown, limit = 20, opts: DetectOptions = {})
       }
       for (const [k, y] of Object.entries(o)) {
         if (PRIVATE_KEYS.includes(k) || (k === "status" && typeof y === "string" && STATUS_WORDS.includes(y))) hits.push({ where: `${at}.${k}`, why: "a private key" });
+        if (ORIGIN_VALUE_KEYS.includes(k) && isOriginValue(y)) hits.push({ where: `${at}.${k}`, why: "a visitor's origin" });
         // a map keyed by ref (refSlugs, citations) would carry an origin key as a key; the path omits the key so the hit cannot leak it
         if (ORIGIN_REF.test(k)) hits.push({ where: `${at}[key]`, why: "a private origin key (wishlist or prototype id)" });
         if (TRIP_VALUE_KEYS.includes(k) && (y === TRIPLESS_LANE || (Array.isArray(y) && y.includes(TRIPLESS_LANE)))) hits.push({ where: `${at}.${k}`, why: "the trip-less lane id" });
