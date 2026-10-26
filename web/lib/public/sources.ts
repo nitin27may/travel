@@ -113,7 +113,7 @@ export function loadSources(opts: SourceOptions = {}): Sources {
 
   // Only folders the manifest lets through are read any further.
   const allowed = new Set([...manifest.values()].filter((f) => folderVisibility(f) !== 'private' && f.served && f.kind !== 'site-page').map((f) => f.slug));
-  const hubRows = opts.hubRows ?? loadLegacyTrips(root, today);
+  const hubRows = opts.hubRows ?? loadLegacyTrips(root);
   const hub = new Map(hubRows.filter((t) => allowed.has(t.slug)).map((t) => [t.slug, t]));
 
   const store = readStore(root);

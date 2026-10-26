@@ -246,7 +246,7 @@
 .card-media { position: relative; flex: none; aspect-ratio: 16 / 10; overflow: hidden; background: var(--well); }
 .card-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(var(--img)); transition: transform 400ms var(--e-out); }
 .card:hover .card-media img { transform: scale(1.03); }
-.card[data-done] .card-media img, .card[data-past] .card-media img { filter: saturate(0.6) brightness(var(--img)); }
+.card[data-done] .card-media img { filter: saturate(0.6) brightness(var(--img)); }
 .card-media::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--tc, var(--line-2)); box-shadow: 0 -1px 0 var(--line-2); }
 .card:not(.card-trip) .card-media::after { background: var(--line-2); box-shadow: none; height: 0; }
 .img-fallback { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s-2); background: var(--well); color: var(--ink); font: var(--t-meta); }

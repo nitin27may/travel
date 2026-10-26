@@ -1,7 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
-import { buildToday, travelRoot } from './root';
+import { travelRoot } from './root';
 import type { TripRecord, TripRow } from './types';
 import { listedOnly, parseVisibility } from '../visibility';
 
@@ -51,21 +51,6 @@ function readLegacyTrips(root: string): LegacyTrip[] {
   return Array.isArray(parsed) ? parsed : parsed.trips;
 }
 
-/** Days from `today` to `date` (both ISO dates), or null when `date` is not a date. */
-export function daysUntil(date: string, today: string): number | null {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
-  return Math.round((Date.parse(`${date}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`)) / 86_400_000);
-}
-
-export function whenBadge(date: string, today: string): { when: TripRow['when']; badge: string } {
-  const n = daysUntil(date, today);
-  if (n === null) return { when: 'unknown', badge: '' };
-  if (n < 0) return { when: 'past', badge: 'Past trip' };
-  if (n === 0) return { when: 'today', badge: 'Today' };
-  if (n === 1) return { when: 'today', badge: 'Tomorrow' };
-  return { when: n <= 30 ? 'soon' : 'later', badge: `In ${n} days` };
-}
-
 function headline(title: string): string {
   return title.includes(' — ') ? title.split(' — ')[0] : title;
 }
@@ -77,7 +62,7 @@ function formatRange(start?: string, end?: string): string {
 }
 
 /** Trips from data/trips/*, every visibility except private. Works with zero trips. */
-export function loadDataTrips(root = travelRoot(), today = buildToday()): TripRecord[] {
+export function loadDataTrips(root = travelRoot()): TripRecord[] {
   const dir = path.join(root, 'data', 'trips');
   if (!existsSync(dir)) return [];
   const out: TripRecord[] = [];
@@ -104,14 +89,13 @@ export function loadDataTrips(root = travelRoot(), today = buildToday()): TripRe
       region: t.region_label ?? '',
       source: 'plan',
       href: t.web_published ? `/${slug}/` : (t.legacy_url ?? ''),
-      ...whenBadge(date, today),
       visibility,
     });
   }
   return out;
 }
 
-export function loadLegacyTrips(root = travelRoot(), today = buildToday()): TripRecord[] {
+export function loadLegacyTrips(root = travelRoot()): TripRecord[] {
   const manifestFile = path.join(root, 'legacy', 'MANIFEST.json');
   const served = new Set<string>();
   if (existsSync(manifestFile)) {
@@ -132,22 +116,21 @@ export function loadLegacyTrips(root = travelRoot(), today = buildToday()): Trip
       region: t.region,
       source: 'legacy' as const,
       href: `/${t.slug}/`,
-      ...whenBadge(t.date, today),
       visibility: 'public' as const,
     }));
 }
 
 /** Every trip that may be built, data trips first; a data trip hides its legacy twin. */
-export function loadTrips(root = travelRoot(), today = buildToday()): TripRecord[] {
-  const data = loadDataTrips(root, today);
+export function loadTrips(root = travelRoot()): TripRecord[] {
+  const data = loadDataTrips(root);
   const taken = new Set(data.map((t) => t.slug));
-  const all = [...data, ...loadLegacyTrips(root, today).filter((t) => !taken.has(t.slug))];
+  const all = [...data, ...loadLegacyTrips(root).filter((t) => !taken.has(t.slug))];
   return all.sort((a, b) => (a.date || '9999').localeCompare(b.date || '9999') || a.title.localeCompare(b.title));
 }
 
 /** Trips for lists, the home page, /data and the sitemap: public only. */
-export function loadListedTrips(root = travelRoot(), today = buildToday()): TripRow[] {
-  return listedOnly(loadTrips(root, today)).map(stripVisibility);
+export function loadListedTrips(root = travelRoot()): TripRow[] {
+  return listedOnly(loadTrips(root)).map(stripVisibility);
 }
 
 function stripVisibility(t: TripRecord): TripRow {

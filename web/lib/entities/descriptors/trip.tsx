@@ -5,24 +5,12 @@ import { Icon } from '@/components/ui/Icon';
 import { TripsMapLazy } from '@/components/trips/TripsMapLazy';
 import { DEPTH_LABEL, DEPTH_NOTICE, tripHref } from '@/components/trips/format';
 import type { TripListRow } from '@/components/trips/types';
-import type { TripRow } from '@/lib/data/types';
 import { ageLabel } from '@/lib/format/age';
 import { MONTH_NAMES } from '@/lib/format/season';
 import { TripTagChips } from '@/components/trips/tags/TripTagChips';
 import { AROUND_ORDER, HIKE_ORDER, HUB_BANDS, LENGTH_LABELS, LENGTH_ORDER, PERDAY_ORDER, PHASE_FOR_LENGTH, lengthCell, hubBandOf, kidsLabel, lengthLine } from '@/components/trips/tags/labels';
 import { AROUND_LABEL } from '@/components/trips/tags/chips';
 import type { Badge, EntityDescriptor } from '../types';
-
-/**
- * Badges of the older date-based row (`TripRow`). The home page's shared TripCard still imports this; the public trips list
- * below is dateless and uses `publicTripBadges`.
- */
-export function tripBadges(t: TripRow): Badge[] {
-  const out: Badge[] = [];
-  if (t.badge) out.push({ text: t.badge, tone: t.when === 'today' || t.when === 'soon' ? 'status' : 'neutral', icon: 'calendar' });
-  if (t.source === 'legacy') out.push({ text: 'Legacy page', tone: 'muted', icon: 'link', title: 'Built before the data model; opens the original page' });
-  return out;
-}
 
 /** Chips on a card or list row: the season (neutral, or an honest "not set yet") and the depth notice for trips that are not full. */
 export function publicTripBadges(t: TripListRow): Badge[] {

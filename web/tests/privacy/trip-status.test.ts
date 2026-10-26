@@ -28,7 +28,6 @@ function realDateValues(): string[] {
   for (const t of loadTrips(travelRoot())) {
     if (/^\d{4}-\d{2}-\d{2}$/.test(t.date)) out.add(t.date);
     if (t.dates.trim().length >= 6) out.add(t.dates.trim());
-    if (t.badge && t.when !== 'unknown') out.add(t.badge);
   }
   return [...out];
 }
