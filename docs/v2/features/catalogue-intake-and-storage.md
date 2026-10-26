@@ -501,6 +501,9 @@ becomes public only through its capture record; the store's own fields (wishlist
 6. **RIS-S** stale report from the JSON (Sonnet).
 7. **RIS-M** migration (Opus), on a child branch; production on approval.
 8. **RIS-L** and **RIS-T** inside SRV-0 (Sonnet), after the E features and the closure queue, as EXECUTION-PLAN 4.8 orders.
+   **Superseded 26 Oct 2026 (owner decision):** RIS-M, RIS-L and RIS-T run in the data seat and ship in v0.5 with the first
+   production load CAT-1, long before SRV-0 ([CATALOGUE-EARLY.md](../build/CATALOGUE-EARLY.md)); RIS-T gains case 7, exposure
+   parity, and its size case counts the seed tables, not the database.
 
 **Before the PostgresStore exists**, items 1 to 6 are done in the JSON, enforced by `check-all`, so the loader is a pure
 transform and JsonStore benefits at once (structured provenance, the Estimate chip from a flag, closures at rest). D2b should
@@ -728,3 +731,4 @@ becomes a Val), `W_QUOTE_LONG` 36, `W_KEEP_UNREAD` 19, `W_NORM_PRIVACY` 3, `W_NO
 | 2026-10-25 | RIS-C built (travel-builder, Opus), branch `public/RIS-C`. Differences from 5.3: the family schemas hold `meta` as an open slot (`rowMetaSlot`) and the keep pass checks it against the strict `rowMeta`, so a fault reports as `E_META_*` rather than the family's schema code; extra codes `E_META_SCHEMA` (wrong type, no `schema_version`, unknown freshness class), `E_META_PRIVACY` (origin key, household text, email, secret, HTML), `W_META_SIZE` (above 1 KB) and `E_CAP_CHANGESET`; `privacy_class: private` outside a private table reports as `E_META_RAWREF`; `doc` joins `PRIVATE_KEYS` with `meta` and `notes_private` (RI-6); `E_NOTE_LONG` and `E_SUMMARY_LONG` run in warn mode with counts pinned in `core/test/schema/keep-budget.json` until RIS-J; the 43 homeless properties are TODO data in `data/vocab/homeless-properties.json`; `capture-changeset/1` has no `meta` (5.3 lists none). Trip-level families and tracks have no core schema yet, so their `meta` is checked once their validators exist (RIS-N, OVR-Ca, STY-Ca, D6a-W) |
 | 2026-10-25 | RIS-N built (travel-builder, Sonnet), branch `public/RIS-N`: `core/bin/normalise.ts` and `core/src/normalise/**`, section 11 |
 | 2026-10-25 | Superseded in part by [local-database-and-seed-sync.md](local-database-and-seed-sync.md) (travel-planner, Opus): Neon Free storage is 1 GB per project, not 0.5 GB (sections 1.1, 9, 10); "0011 is reserved by CUS-C" in 4.3 is stale, because EML-1's `0011_quota.sql` took 0011, and migrations are numbered at merge (R-146, Q186); RIS-L's engine, target guard and reference tables move to LOCAL-C and LOCAL-2 (about 7 h of RIS-L remains); RIS-T gains the sync tests of that page's 6.6. The rest of this page stands |
+| 2026-10-26 | Owner decision: RIS-M, RIS-L and RIS-T move forward to v0.5 with the first catalogue load (CAT-1); 5.2 item 8 superseded ([CATALOGUE-EARLY.md](../build/CATALOGUE-EARLY.md)) |

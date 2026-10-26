@@ -70,7 +70,7 @@ queue) and 0007 (projections) holds 0 rows on both branches; 0003 says so in its
 |---|---|---|
 | Start items 1 to 4 now, before the SRV-0 window | Q180 | D9 says SRV-0 is "not built now"; these tasks change no served page and write nothing to Neon |
 | Each migration on production | a named commit | your standing approval of 25 Oct covers "migrations on production when a named commit is approved"; RIS-M is Q177 |
-| The first seed of production | a named commit, after a green child rehearsal | Q183 recommends doing it only when the first 14.2 seam is ready to flip |
+| The first seed of production | a named commit, after a green child rehearsal | ~~Q183: only when the first 14.2 seam is ready to flip~~ **Superseded 26 Oct 2026 (owner decision):** CAT-1 seeds production in v0.5 with no seam flipped, and every later data release syncs it ([CATALOGUE-EARLY.md](../build/CATALOGUE-EARLY.md)) |
 | Each store flip (`CATALOGUE_STORE=postgres` per seam) | a named commit after a preview | 14.2; `JsonStore` stays deployable for one release |
 | A `.github/` folder | Q182 | the folder contract allows only eight top-level folders (`tools/tree_contract.json`) |
 
@@ -556,6 +556,9 @@ flowchart LR
 
 Waves: **now** LOCAL-1, LOCAL-C and RIS-J in parallel (disjoint files); then LOCAL-2; then LOCAL-3 and LOCAL-4. **Next** RIS-M
 on the child (production on Q177). **SRV-0 window** RIS-L remainder, RIS-T, LOCAL-5, the store, then the seams.
+**Superseded 26 Oct 2026 (owner decision, [CATALOGUE-EARLY.md](../build/CATALOGUE-EARLY.md)):** LOCAL-3, RIS-M, RIS-L, RIS-T,
+LOCAL-5, a read-only drift job CAT-V and the first production load CAT-1 ship in v0.5 as Internal, in the data seat; the store
+(SRV-0, less CAT-Q's three methods) and the seams stay v1.0 to v1.2.
 
 ### 8.2 Briefs (self-contained)
 
@@ -668,7 +671,7 @@ only when the Mac is on; an offsite second copy is a later option.
 | Q180 | Start LOCAL-1, LOCAL-C, LOCAL-2 and LOCAL-3 now, ahead of the SRV-0 window that EXECUTION-PLAN D9 sets? | **Yes.** They change no page, write nothing to Neon and keep `CATALOGUE_STORE=json`, and they take the risk out of SRV-0. Trade-off: about 20 h of builder time now, beside the E features |
 | Q181 | Use Docker Desktop (already installed) as the local database runtime, and start it now? | **Yes, Docker Desktop**, set to start at sign-in; Colima if you prefer no desktop app. Trade-off: about 2 GB of memory while it runs |
 | Q182 | Allow a `.github/` top-level folder for the first CI workflow (the gate on every push and pull request, no secrets; a manual child-branch job)? | **Yes.** It is the only way the drift gate runs on a clean machine. Trade-off: about 10 to 15 Actions minutes a run against the private repo's free 2,000 a month |
-| Q183 | Seed Neon production only when the first 14.2 seam is ready to flip, not as soon as the loader works? | **Yes.** Until something reads it, a production copy can only go stale. Trade-off: the production catalogue tables stay empty for longer |
+| Q183 | Seed Neon production only when the first 14.2 seam is ready to flip, not as soon as the loader works? | ~~**Yes.**~~ **Superseded 26 Oct 2026 by the owner's decision to load the catalogue early:** production is seeded at CAT-1 (v0.5) and kept equal to each release by a sync after the deploy and the CAT-V drift job, so it does not go stale ([CATALOGUE-EARLY.md](../build/CATALOGUE-EARLY.md), Q280 to Q286). Trade-off: a rehearsal and a sync on every data release |
 | Q184 | No new long-lived Neon dev branch: Docker for daily work and CI; the existing child for Auth, Realtime and rehearsals, reset from production before each rehearsal? | **Yes.** It keeps the 100 CU-hours for production. Trade-off: Auth and Realtime work still needs the network, and a reset wipes the child's own test accounts |
 | Q185 | Backups: a manual Neon snapshot before each production step from now on, and the encrypted nightly dump (BKP-1) before the first non-owner account? | **Yes.** The catalogue is in git; only private data needs a backup, and today it is only yours. Trade-off: a 6-hour restore window until BKP-1 lands |
 | Q186 | Assign migration numbers at merge and name migrations by slug in specs (0011 is now EML-1's `quota`; CUS-C, favourites, feedback and RIS-M renumber)? | **Yes.** Reservations have already collided once. Trade-off: specs cannot cite a number until merge |
@@ -906,6 +909,7 @@ None of these tables has a `meta` column yet (RIS-M), so `stampSeedMeta` is not 
 | 2026-10-25 | First version (travel-planner, Opus): answer to "is migration blocked", the seed-of-record strategy, local Docker matching Neon, the Neon side, measured seed size, tasks LOCAL-1 to LOCAL-5, LOCAL-C, BKP-1, MIG-N, conflicts L1 to L8, Q180 to Q187 |
 | 2026-10-25 | LOCAL-C built (travel-builder, Opus 5.5), branch `public/LOCAL-C`: `core/src/seed/**`, `core/src/config/database.ts`, section 12 |
 | 2026-10-25 | LOCAL-2 built (travel-builder, Sonnet 5.5), branch `public/LOCAL-2`: seed engine, `core/bin/db-seed.ts`, the reference families, the resolver on the guard, section 13 |
+| 2026-10-26 | Owner decision: the catalogue load moves forward to v0.5 ([CATALOGUE-EARLY.md](../build/CATALOGUE-EARLY.md)). Q183 and the 1.4 row superseded; 8.1 waves note. Measured on 9b556fb: the reference seed is now 13,243 rows (11,759 towns) and 8.0 MB in Postgres |
 
 Sources for Neon and Docker facts: [Neon plans](https://neon.com/docs/introduction/plans) (Free: 1 GB per project, 10 branches,
 100 CU-hours, 6-hour restore window, 1 manual snapshot; Launch storage USD 0.35 per GB-month), the Neon CLI 8.11.1 help

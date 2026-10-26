@@ -36,6 +36,7 @@ notes) are unchanged. The corrections, each argued in MASTER-ORDER 5.5:
 | C9 | New v0.13: Where to stay (R-76 to R-78) on the public site; STY-2 joins v0.17 |
 | C10 | New v0.14: trips written as data get pages (TD-1 to TD-3, Q267), before customise |
 | C11 to C14 | OVR-0 has no dependency on OVR-Cb; migration files are named by slug; FBK-C's migration does not wait for FAV-D; GSI-1 builds on `SignInCard.tsx`; section 2's seat table is replaced by MASTER-ORDER 5.1 and 5.4 |
+| C15 | (owner decision, 26 Oct 2026) The catalogue load moves forward from v1.0 to v0.5 as Internal: CAT-1 with RIS-M (`research_meta`), RIS-L, RIS-T, LOCAL-3, LOCAL-5 and the drift job CAT-V; production is seeded with no seam flipped and the site keeps serving files; CAT-Q (the store router and three Postgres methods for connected callers) before v0.10; checklist step 9a syncs production after every release that changes data. [CATALOGUE-EARLY.md](CATALOGUE-EARLY.md) |
 
 **Audits (25 Oct 2026, amended 26 Oct, [AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md), R-230 to R-237, Q270 to Q279;
 Q271 answered by the 26 Oct decision).** After v0.14 is live, the field-usefulness audit runs and its changes ship as the
@@ -237,11 +238,12 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 | Field | Content |
 |---|---|
 | Goal | Sign in or create an account with a code by email; every new password account is verified by code |
+| Internal (C15, 26 Oct) | **CAT-1, the catalogue in Neon:** LOCAL-3 3 h, RIS-M 7 h, RIS-L 8 h, RIS-T 7 h, LOCAL-5 2 h, CAT-V 2 h (data seat), CAT-1 1.5 h (coordinator) ([CATALOGUE-EARLY.md](CATALOGUE-EARLY.md) 4, 11.7). No visitor change. If lane S is not green at the cut, CAT-1 rides v0.6 and v0.5 ships without it. Migration `research_meta` after `backup_reader`; the child rehearsal of the named commit before the production migrations; the production sync at step 9a; Q280 to Q286; the owner confirms the Neon Data API is off |
 | Contents | Built in v0.1: EML-M, EML-Q, EML-1, EML-R. Remaining Phase 1 (7 h): EML-S 2 h (security review before O-E1), EML-V 2 h, EML-P 1 h (the "Sign-in emails" section on `/privacy/`, after GSI-P), EML-E 2 h + 20 min owner (real-service checks after O-E1). Q168's revoke of other sessions after a reset is built (`web/lib/auth/revoke.ts`); EML-E proves it live. BKP-1 6 h (infra track) as a gate: Q185 asks for it before the first non-owner account, and code sign-in makes accounts one step away |
 | Dependencies | v0.2 (privacy page); EML-S with no open high finding; BKP-1 green, or the owner accepts a manual Neon snapshot regime until it is (Q185) |
 | Owner actions | O-E0 Application Name "Trip Plans" on the production branch; O-E2 Turnstile widget (hostnames `travel-beta-tan.vercel.app`, `localhost`), `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`; O-E3 `AUTH_QUOTA_SECRET`, `OWNER_EMAIL`, `SITE_ORIGIN` in Vercel (confirm what v0.1 already set); set `NEXT_PUBLIC_SIGN_IN_CODE=1`; after the deploy, O-E1 (Require Verification by code) in the same session; EML-E test inboxes (20 min); approve EML-P words |
-| Data work | none |
-| Migrations | none (0011 `quota` is applied) |
+| Data work | the first catalogue sync to production (CAT-1, Internal, step 9a); no data file changes |
+| Migrations | `backup_reader` (BKP-1, C4) and `research_meta` (RIS-M, C15), numbers at merge, the child first; 0011 `quota` is applied |
 | Risks | Neon's shared sender: Gmail's "suspicious" banner and the "Neon Auth" sender name (EML-0); some codes land in spam. Disable Sign Up does not stop a code sign-in from creating an account, so any admission gate is our own server-side check (Q67). O-E1 before the deploy would lock unverified users out; the order is deploy, then O-E1 |
 | Extra gate | EML-S report; quotas: 20 parallel calls admit exactly the limit (EML-Q tests); identical answers for known and unknown addresses |
 | Smoke | `/sign-in/` "Email me a code" with the owner's address; `/sign-up/` password with a code; `/sign-in/reset/`; an owner alert arrives; where the code mail lands in Gmail and Outlook (recorded) |
@@ -440,12 +442,12 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 | Field | Content |
 |---|---|
 | Goal | The public catalogue reads from Neon Postgres behind the same contract, with `JsonStore` one switch away |
-| Pre-work (about 68 h) | RIS-M 6 h, RIS-J 6 h, RIS-H 3 h, RIS-A 6 h, RIS-L 10 h, RIS-T 5 h, RIS-S 3 h, SRV-0 24 h, LOCAL-3 3 h, LOCAL-5 2 h (the child rehearsal) |
+| Pre-work | **Changed 26 Oct (C15):** RIS-M, RIS-L, RIS-T, LOCAL-3, LOCAL-5 and the first load ship in v0.5 (CAT-1); CAT-Q before v0.10. Left here: SRV-0 21 h and R-9 2 h (23 h). RIS-J is merged; RIS-H, RIS-A, RIS-S ride earlier as Internal |
 | Releases | v1.0 seam 1: list, counts, near, towns. v1.1 seam 2: search and parse. v1.2 seam 3: detail and export. Seam 4 (report) is already Postgres through the intake tables (v0.7); seam 5 is the planner (later). EXECUTION-PLAN 14.2 |
-| Dependencies | contract kit green per method against `PostgresStore`; parity against `JsonStore`; Q177 (RIS-M to production), Q183 (seed production only when the first seam flips) |
+| Dependencies | contract kit green per method against `PostgresStore`; parity against `JsonStore`; CAT-V clean for the last 4 weekly runs and the last release ([CATALOGUE-EARLY.md](CATALOGUE-EARLY.md) 6). Q183 is superseded: production holds the catalogue from v0.5 |
 | Owner actions | a manual Neon snapshot before each step; approve each seam's named commit |
-| Data work | the seed of record loaded by `db:sync` on a named commit after a green child rehearsal of the same commit (R-143) |
-| Migrations | RIS-M's `meta` columns and grants; any loader tables SRV-0 adds |
+| Data work | none new: production has been synced at every data release since v0.5 (step 9a) |
+| Migrations | none expected (`research_meta` ships in v0.5) |
 | Rollback | `CATALOGUE_STORE=json` for the seam's methods and redeploy; `JsonStore` stays deployable for one release after each flip |
 | Notes | coordinator drafts, owner approves |
 
@@ -515,11 +517,13 @@ answers 308 to the slash form, which counts as a pass.
 
 | Id | Task | Size (spec) | When | Note |
 |---|---|---|---|---|
-| I1 | LOCAL-3 drift stage in check-all | 3 h | after LOCAL-2 (done) | needed by CI |
+| I1 | LOCAL-3 drift stage in check-all | 3 h | v0.5 (C15, data seat) | needed by CI and CAT-1 |
 | I2 | LOCAL-4 first CI workflow, plus the CI fixes of section 7.3 | 4 h (the fixes are unsized) | after PUBLIC-AUDIT; Q182 | section 7 |
 | I3 | BKP-1 backups of private data | 6 h | gate for v0.5; Q185, Q228 | a local launchd job on the Mac, not in Actions or a companion repository (section 7.6) |
 | I4 | MIG-N migration numbers at merge | 0.5 h | now | docs |
-| I5 | LOCAL-5 child rehearsal command | 2 h | before v1.0 | the coordinator runs it |
+| I5 | LOCAL-5 child rehearsal command | 2 h | v0.5 (C15; was before v1.0) | the coordinator runs it before every production migration and data sync |
+| I10 | CAT-V read-only production drift job (launchd on the Mac, weekly and after each release) | 2 h | v0.5 (C15) | [CATALOGUE-EARLY.md](CATALOGUE-EARLY.md) 6, 11.6 |
+| I11 | CAT-Q store router and three `PostgresStore` methods for connected callers | 6 h | before FBK-C (v0.10) | anonymous routes stay on `JsonStore` (Q281) |
 | I6 | Retro tag `release/v0.1` at 47be5b5 | minutes | now (Q220) | coordinator |
 | I7 | ORG-C, ORG-D, ORG-G, ORG-M: origin contracts, the airports layer, trip gateways, routed gateway legs | 11.5 h | any time before v0.9 (seat B) | no visitor change until ORG-1 turns `gettingThere` on in v0.9 |
 | I8 | Test strategy TS-1 to TS-8: tiered gates, the path-to-suite map, `tools/gate.sh`, caching, stacks, slots, nightly T3 | about 35 h | Q250 answered 25 Oct (yes); TS-1 any time | [TEST-STRATEGY.md](TEST-STRATEGY.md); the gate of 4.1 stays T3 |
@@ -552,6 +556,13 @@ Run it top to bottom for every release. Push and tag commands go on lines of the
    `vercel build --prod` followed by `vercel deploy --prebuilt --prod --meta commit=<sha>`). Record the deployment URL
    and id. Never run `./publish.sh` or `tools/publish.py` in a deploying mode.
 9. **Smoke.** Section 4.2 plus the release's additions. The owner does the phone row for UI releases.
+9a. **Catalogue sync (from CAT-1, v0.5; [CATALOGUE-EARLY.md](CATALOGUE-EARLY.md) 11.7).** In the release worktree (created
+    at step 6 when the release has a database step): `pnpm db:sync --target production --dry-run`; if it exits 0 and the
+    release has no migration, skip to step 11. Otherwise `pnpm db:rehearse` must be green for the named commit (before
+    step 6 when there are migrations), then `pnpm db:sync --target production --approve <sha>` and `pnpm db:verify --target
+    production` (exit 0), then one CAT-V run. Record the `load_run` id and row totals in the notes' Internal group. The
+    owner's approval of the named commit covers this step (Q282). Deploy first, sync after: Postgres may lag the files by
+    minutes, never lead them (Q283).
 10. **If the smoke fails:** rollback (section 4.3), flags back, a "Rolled back" line in the notes, a BACKLOG row for the
     cause. Stop here.
 11. **Tag.** `git -C /Users/nks/workspace/travel tag -a release/vX.Y <sha> -m "vX.Y: <goal>"`; then
@@ -689,7 +700,7 @@ R-178, R-179 and Q219 stay unused. The parallel REQ-FORM task took R-190 to R-19
 
 Open questions this train also waits on (already in PLAN section 5): Q88 (v0.4), Q101 to Q108 (v0.3), Q130 to Q137 (v0.7),
 Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling (v0.11), Q160 to Q167 and Q190 to Q198
-(v0.15, v0.16), Q148 and Q149 (v0.17), Q177 and Q183 (v1.x), Q180 to Q187 (track I).
+(v0.15, v0.16), Q148 and Q149 (v0.17). Q280 to Q286 (CAT-1) were answered 26 Oct: yes, as recommended; Q183 is superseded.
 
 ## 10. Gotchas
 
@@ -709,6 +720,7 @@ Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling 
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (CATALOGUE-EARLY, owner decision) | C15: the catalogue load moves from v1.0 to v0.5 as Internal (CAT-1); v0.5 gains an Internal row and `research_meta`; v1.0 pre-work, dependencies, data work and migrations rewritten (23 h left); I1 and I5 to v0.5, new I10 (CAT-V) and I11 (CAT-Q); checklist step 9a (catalogue sync after the deploy); open-question line. No release renumbered ([CATALOGUE-EARLY.md](CATALOGUE-EARLY.md)) |
 | 2026-10-26 (H-DOCS) | Status lines fixed (MASTER-ORDER H4): the owner action for Q240 to Q249 reads answered 25 Oct; I8 waits on Q250, answered 25 Oct, not on "the Q250 answer". Nothing else changed |
 | 2026-10-26 (AUDIT-MOVE) | Section 0 note: the UI and UX audit moves from patch release v0.14.2 to the new release v0.22 before v1.0 (owner decision); v0.14.1 is the only patch release (Q271 answered); I9 timing for UA-0; UI-NOTES.md. Train: v0.22 follows v0.21 (MASTER-ORDER 5.3); no other release renumbered |
 | 2026-10-25 (audits after release) | Section 0 note: audits after v0.14 with patch releases v0.14.1 and v0.14.2 (Q271, open); infra row I9 for the audit tooling ([AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md)). No release renumbered |
