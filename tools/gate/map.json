@@ -295,6 +295,8 @@
       "e2e": ["privacy.spec.ts", "sweep-swa.spec.ts", "a11y.spec.ts"] },
     { "id": "web-auth", "paths": ["web/app/{account,sign-in,sign-up}/**", "web/app/api/{account,auth}/**", "web/components/auth/**", "web/lib/auth/**"],
       "suites": ["web.fixture"], "e2e": ["auth-email*.spec.ts", "shell-report.spec.ts"] },
+    { "id": "web-mine", "why": "the Mine page, the bar item and the dot read the copies and favourites envelopes from storage",
+      "paths": ["web/app/mine/**", "web/lib/mine/**"], "suites": ["web.fixture"], "e2e": ["mine-shell.spec.ts"] },
     { "id": "web-api", "paths": ["web/app/api/**"],
       "suites": ["web.timing"], "e2e": ["api-default.spec.ts", "gb-fixes.spec.ts"] },
     { "id": "web-export", "paths": ["web/lib/export/**", "web/components/actions/Export*.tsx"], "e2e": ["export.spec.ts"] },
