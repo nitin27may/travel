@@ -97,9 +97,13 @@
       "type": "water.body.sea_bay_fjord",
       "layer": "place",
       "name": "Beagle Channel",
-      "origin": {
-        "from": "trip/patagonia-2027/lake:beagle channel boat",
-        "reason": "the place the offer runs at"
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/patagonia-2027/lake:beagle channel boat",
+          "reason": "the place the offer runs at"
+        }
       }
     },
     {
@@ -352,10 +356,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Laguna de los Tres",
-      "origin": {
-        "from": "trip/patagonia-2027/trail:laguna de los tres",
-        "reason": "payoff of the trail"
-      },
       "osm_ref": "way/1362578795",
       "links": [
         {
@@ -405,7 +405,15 @@
           "width": 1920,
           "height": 1080
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/patagonia-2027/trail:laguna de los tres",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "trip/patagonia-2027/trail:laguna capri",
@@ -493,10 +501,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Laguna Capri",
-      "origin": {
-        "from": "trip/patagonia-2027/trail:laguna capri",
-        "reason": "payoff of the trail"
-      },
       "osm_ref": "relation/2760678",
       "links": [
         {
@@ -531,7 +535,15 @@
           "width": 4160,
           "height": 2083
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/patagonia-2027/trail:laguna capri",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "trip/patagonia-2027/trail:mirador de los condores",
@@ -622,10 +634,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Mirador de los Condores",
-      "origin": {
-        "from": "trip/patagonia-2027/trail:mirador de los condores",
-        "reason": "payoff of the trail"
-      },
       "osm_ref": "node/4722282707",
       "links": [
         {
@@ -660,7 +668,15 @@
           "width": 8290,
           "height": 2545
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/patagonia-2027/trail:mirador de los condores",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
@@ -742,10 +758,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Mirador de las Aguilas",
-      "origin": {
-        "from": "trip/patagonia-2027/trail:mirador de las aguilas",
-        "reason": "payoff of the trail"
-      },
       "osm_ref": "node/568391373",
       "links": [
         {
@@ -780,7 +792,15 @@
           "width": 5247,
           "height": 1965
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/patagonia-2027/trail:mirador de las aguilas",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "trip/patagonia-2027/trail:chorrillo del salto",
@@ -871,10 +891,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Chorrillo del Salto",
-      "origin": {
-        "from": "trip/patagonia-2027/trail:chorrillo del salto",
-        "reason": "payoff of the trail"
-      },
       "osm_ref": "node/1237892708",
       "links": [
         {
@@ -898,7 +914,15 @@
           "query": "Chorrillo del Salto",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/patagonia-2027/trail:chorrillo del salto",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "trip/patagonia-2027/trail:coastal path",
@@ -1038,10 +1062,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Laguna Esmeralda",
-      "origin": {
-        "from": "trip/patagonia-2027/trail:laguna esmeralda",
-        "reason": "payoff of the trail"
-      },
       "osm_ref": "way/290281459",
       "links": [
         {
@@ -1076,7 +1096,15 @@
           "width": 2048,
           "height": 1536
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/patagonia-2027/trail:laguna esmeralda",
+          "reason": "payoff of the trail"
+        }
+      }
     }
   ]
 }

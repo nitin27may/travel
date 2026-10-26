@@ -34,10 +34,6 @@
       "parks_for": [
         "trip/iceland-ring-road-2027/viewpoint:jokulsarlon"
       ],
-      "origin": {
-        "from": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
-        "reason": "Lake access point: OSM way 298932452, 'Jökulsárlón parking', fee=yes."
-      },
       "links": [
         {
           "kind": "official",
@@ -54,7 +50,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+          "reason": "Lake access point: OSM way 298932452, 'Jökulsárlón parking', fee=yes."
+        }
+      }
     },
     {
       "ref": "offer/trip/iceland-ring-road-2027/viewpoint:jokulsarlon#parking-fee",
@@ -92,7 +96,8 @@
         ],
         "read": "2026-10-18",
         "quote": "Passenger car, 5 or fewer seats 1.110 ISK",
-        "note": "Valid until midnight on the day paid; the page gives no effective year, and whether a camper van is Category B is not stated (operator question)."
+        "note": "Valid until midnight on the day paid; the page gives no effective year, and whether a camper van is Category B is not stated (operator question).",
+        "applies_to": "2026"
       },
       "links": [
         {
@@ -105,9 +110,13 @@
           ]
         }
       ],
-      "origin": {
-        "from": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
-        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+          "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+        }
       }
     }
   ]

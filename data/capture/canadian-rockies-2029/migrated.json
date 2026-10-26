@@ -1015,10 +1015,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Bourgeau Lake",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
-        "reason": "payoff of the trail"
-      },
       "area_id": "CA/AB/banff-national-park",
       "links": [
         {
@@ -1056,7 +1052,15 @@
           "width": 5472,
           "height": 3648
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
@@ -1292,10 +1296,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Ha Ling Peak",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -1332,7 +1332,15 @@
           "width": 5472,
           "height": 3648
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
@@ -1411,10 +1419,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Grassi Lakes",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -1451,7 +1455,15 @@
           "width": 5184,
           "height": 3456
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
@@ -1879,10 +1891,6 @@
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Sarrail Ridge",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
-        "reason": "payoff of the trail"
-      },
       "osm_ref": "node/7042108468",
       "links": [
         {
@@ -1914,7 +1922,15 @@
           "width": 5472,
           "height": 3648
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
@@ -1984,10 +2000,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Sulphur Skyline",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
-        "reason": "payoff of the trail"
-      },
       "osm_ref": "node/6548652085",
       "links": [
         {
@@ -2022,7 +2034,15 @@
           "width": 2048,
           "height": 1536
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
@@ -2184,10 +2204,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Troll Falls",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -2204,7 +2220,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
@@ -2879,10 +2903,6 @@
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Toe of Athabasca Glacier",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
-        "reason": "payoff of the trail"
-      },
       "osm_ref": "node/4546035994",
       "links": [
         {
@@ -2926,7 +2946,15 @@
           "width": 2816,
           "height": 2112
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
@@ -3504,10 +3532,6 @@
       "reaches": [
         "legacy/canadian-rockies-sept-2029/sights/johnston-canyon"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
-        "reason": "the route to the place"
-      },
       "passes": [
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#lower-falls",
@@ -3548,7 +3572,15 @@
           "width": 8256,
           "height": 5504
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+          "reason": "the route to the place"
+        }
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
@@ -4203,10 +4235,6 @@
       "layer": "offer",
       "name": "Wild Water Adventures: Gentle Kicking Horse",
       "offer_class": "experience",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
-        "reason": "One offer per operator on the river section: the variants of the family float are run by different operators (capture contract 2.4)."
-      },
       "on": [
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place"
@@ -4216,7 +4244,15 @@
       "variant_of": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
       "starts_at": [
         "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base"
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+          "reason": "One offer per operator on the river section: the variants of the family float are run by different operators (capture contract 2.4)."
+        }
+      }
     },
     {
       "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#hydra",
@@ -4224,26 +4260,34 @@
       "layer": "offer",
       "name": "Hydra River Guides: Family Whitewater",
       "offer_class": "experience",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
-        "reason": "One offer per operator on the river section: the variants of the family float are run by different operators (capture contract 2.4)."
-      },
       "on": [
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place"
         }
       ],
       "run_by": "operator/hydra-river-guides",
-      "variant_of": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float"
+      "variant_of": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+          "reason": "One offer per operator on the river section: the variants of the family float are run by different operators (capture contract 2.4)."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
       "type": "water.body.river",
       "layer": "place",
       "name": "Kicking Horse River",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
-        "reason": "the place the offer runs at"
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+          "reason": "the place the offer runs at"
+        }
       }
     },
     {
@@ -4262,9 +4306,13 @@
       "type": "water.body.river",
       "layer": "place",
       "name": "Kananaskis River",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft",
-        "reason": "the place the offer runs at"
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft",
+          "reason": "the place the offer runs at"
+        }
       }
     },
     {
@@ -4338,10 +4386,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Banff Gondola (Sulphur Mountain summit) top station",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
-        "reason": "the top station of the lift"
-      },
       "part_of": [
         "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain"
       ],
@@ -4356,7 +4400,15 @@
             "src-0007"
           ]
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "reason": "the top station of the lift"
+        }
+      }
     },
     {
       "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
@@ -4369,10 +4421,6 @@
           "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola"
         }
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
-        "reason": "the ticket offer on the lift line"
-      },
       "run_by": "operator/pursuit-banff-jasper-collection",
       "window": {
         "v": {
@@ -4459,7 +4507,15 @@
             "src-0085"
           ]
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "reason": "the ticket offer on the lift line"
+        }
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
@@ -4527,9 +4583,13 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Jasper SkyTram (Whistlers Mountain) top station",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
-        "reason": "the top station of the lift"
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "reason": "the top station of the lift"
+        }
       }
     },
     {
@@ -4543,10 +4603,6 @@
           "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram"
         }
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
-        "reason": "the ticket offer on the lift line"
-      },
       "run_by": "operator/pursuit-banff-jasper-collection",
       "window": {
         "v": {
@@ -4583,7 +4639,15 @@
             "src-0087"
           ]
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "reason": "the ticket offer on the lift line"
+        }
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
@@ -4637,9 +4701,13 @@
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Lake Louise Summer Gondola (grizzly/wildlife viewing, Whitehorn corridor) top station",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
-        "reason": "the top station of the lift"
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "reason": "the top station of the lift"
+        }
       }
     },
     {
@@ -4653,10 +4721,6 @@
           "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola"
         }
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
-        "reason": "the ticket offer on the lift line"
-      },
       "run_by": "operator/lake-louise-ski-resort",
       "price": {
         "v": null,
@@ -4693,7 +4757,15 @@
             "src-0091"
           ]
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "reason": "the ticket offer on the lift line"
+        }
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
@@ -5225,7 +5297,8 @@
         ],
         "read": "2026-10-19",
         "quote": "Adult $19.75 ... Youth (ages 3-17) $17.25 ... Family $64.25",
-        "note": "single entry, locker token included; no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD"
+        "note": "single entry, locker token included; no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD",
+        "applies_to": "2026"
       },
       "run_by": "operator/parks-canada",
       "photos": [
@@ -5238,7 +5311,11 @@
           "width": 2800,
           "height": 1750
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place",
@@ -5262,10 +5339,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Banff Upper Hot Springs",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
-        "reason": "the place the offer runs at"
-      },
       "links": [
         {
           "kind": "official",
@@ -5276,7 +5349,15 @@
             "src-0032"
           ]
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+          "reason": "the place the offer runs at"
+        }
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
@@ -5744,9 +5825,13 @@
       "part_of": [
         "legacy/canadian-rockies-sept-2029/adventures/elk-rut"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
-        "reason": "the dated occurrence at the viewing place"
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+          "reason": "the dated occurrence at the viewing place"
+        }
       }
     },
     {
@@ -5800,9 +5885,13 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Canmore Nordic Centre Provincial Park",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
-        "reason": "the place the route belongs to"
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+          "reason": "the place the route belongs to"
+        }
       }
     },
     {
@@ -5971,7 +6060,8 @@
         ],
         "read": "2026-10-19",
         "quote": "Bow River Ride ... 1 hour ... from CA $102",
-        "note": "no year on the page; longer rides from $198 (2 h) and $272 (3 h)"
+        "note": "no year on the page; longer rides from $198 (2 h) and $272 (3 h)",
+        "applies_to": "2026"
       },
       "duration_min": {
         "v": [
@@ -6014,6 +6104,10 @@
           "https://horseback.com/tours/bow-river-ride/"
         ],
         "note": "Booked online; no window stated. Free change or cancellation up to 24 hours before the ride."
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {
@@ -6090,7 +6184,8 @@
         ],
         "read": "2026-10-19",
         "quote": "$129 per person for hotel guests ... $159 for non-hotel guests",
-        "note": "facilities are 18+; from mid-June to mid-September access is for hotel guests or a spa booking"
+        "note": "facilities are 18+; from mid-June to mid-September access is for hotel guests or a spa booking",
+        "applies_to": "2026"
       },
       "duration_min": {
         "v": [
@@ -6119,6 +6214,10 @@
           "https://www.banff-springs-hotel.com/wellness/spa/"
         ],
         "note": "The page advises booking spa access in advance; non-hotel guests may use the facility Monday to Thursday only, subject to availability. No window in days."
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {
@@ -6178,7 +6277,8 @@
         ],
         "read": "2026-10-19",
         "quote": "Adult (16+) $80, Child (2-15) $40",
-        "note": "no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD"
+        "note": "no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD",
+        "applies_to": "2026"
       },
       "duration_min": {
         "v": [
@@ -6216,6 +6316,10 @@
         ],
         "read": "2026-10-25",
         "quote": "Book your Adventure"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {
@@ -6325,7 +6429,8 @@
         ],
         "read": "2026-10-19",
         "quote": "Adult $101.75",
-        "note": "no year on the fee page; a park pass is extra; the Burgess Shale Geoscience Foundation runs its own hikes to the same beds with other prices and ages (burgess-shale.bc.ca); not compared here"
+        "note": "no year on the fee page; a park pass is extra; the Burgess Shale Geoscience Foundation runs its own hikes to the same beds with other prices and ages (burgess-shale.bc.ca); not compared here",
+        "applies_to": "2026"
       },
       "duration_min": {
         "v": [
@@ -6368,6 +6473,10 @@
         "read": "2026-10-25",
         "quote": "Online 24/7: Parks Canada Reservation Service",
         "note": "the reservation service the page links"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {
@@ -6432,7 +6541,8 @@
         ],
         "read": "2026-10-19",
         "quote": "Adult $131.00",
-        "note": "no year on the fee page; a park pass is extra; the Burgess Shale Geoscience Foundation runs its own hikes to the same beds with other prices and ages (burgess-shale.bc.ca); not compared here"
+        "note": "no year on the fee page; a park pass is extra; the Burgess Shale Geoscience Foundation runs its own hikes to the same beds with other prices and ages (burgess-shale.bc.ca); not compared here",
+        "applies_to": "2026"
       },
       "duration_min": {
         "v": [
@@ -6477,6 +6587,10 @@
         ],
         "read": "2026-10-25",
         "quote": "Online 24/7: Parks Canada Reservation Service"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {
@@ -6693,7 +6807,8 @@
         ],
         "read": "2026-10-19",
         "quote": "$ 339.00 per person",
-        "note": "no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD"
+        "note": "no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD",
+        "applies_to": "2026"
       },
       "duration_min": {
         "v": [
@@ -6746,6 +6861,10 @@
           "https://canmore.alpinehelicopter.com/product/three-sisters-peaks-tour/"
         ],
         "note": "The tour page gives no operating season."
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {
@@ -7263,7 +7382,8 @@
         ],
         "read": "2026-10-19",
         "quote": "Destination Lake Head ... $205.00",
-        "note": "no year on the page (footer 2024); amounts shown as \"$\" on a Canadian operator page; read as CAD"
+        "note": "no year on the page (footer 2024); amounts shown as \"$\" on a Canadian operator page; read as CAD",
+        "applies_to": "2026"
       },
       "season": {
         "v": null,
@@ -7303,6 +7423,10 @@
         ],
         "read": "2026-10-25",
         "quote": "Book your Brewster Adventure"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {
@@ -7509,7 +7633,8 @@
         ],
         "read": "2026-10-19",
         "quote": "Explorer $199",
-        "note": "no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD"
+        "note": "no year on the page; amounts shown as \"$\" on a Canadian operator page; read as CAD",
+        "applies_to": "2026"
       },
       "duration_min": {
         "v": [
@@ -7549,6 +7674,10 @@
         ],
         "read": "2026-10-25",
         "quote": "Book Now"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {
@@ -8318,7 +8447,12 @@
         ],
         "read": "2026-10-19",
         "quote": "Adult 18-64 $19.75",
-        "note": "single entry, locker token included; no year on the page; youth 13 and under need an adult 18+; amounts shown as \"$\" on a Canadian operator page; read as CAD"
+        "note": "single entry, locker token included; no year on the page; youth 13 and under need an adult 18+; amounts shown as \"$\" on a Canadian operator page; read as CAD",
+        "applies_to": "2026"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {
