@@ -1,0 +1,2060 @@
+{
+  "schema": "weather-links/1",
+  "status": "proposed: no Zod schema or validator owns this file yet (follow-up task UXB-WL); validate.ts --all does not read data/reference/",
+  "note": "Outbound weather and climate links for each public trip, by area (Q298: links only, no weather API call from our pages). We store the link, its publisher and the date we read it; we never fetch, copy or store the publisher's forecast or climate values. Every coordinate inside a URL comes from our own base points, OSM or Wikidata, never Google; it is a lookup key for the publisher's page, not a stored place point.",
+  "researched": "2026-10-26",
+  "run": "UXB-W",
+  "user_agent": "travel-capture/1.0 (+https://nks-travel.pages.dev/about/)",
+  "publishers": {
+    "eccc": {
+      "name": "Environment and Climate Change Canada",
+      "short": "Environment Canada",
+      "country": "CA",
+      "kind": "national_met_service",
+      "english": true,
+      "langs": [
+        "en",
+        "fr"
+      ],
+      "home": "https://weather.gc.ca/forecast/canada/index_e.html?id=ON",
+      "terms_note": "Link only: we open their public page in a new tab; no data is fetched or stored, so no data licence applies. Terms pages were not read in this run."
+    },
+    "parks-canada": {
+      "name": "Parks Canada",
+      "short": "Parks Canada",
+      "country": "CA",
+      "kind": "park_agency",
+      "english": true,
+      "langs": [
+        "en",
+        "fr"
+      ],
+      "home": "https://parks.canada.ca/pn-np/ab/banff/securite-safety/meteo-weather",
+      "terms_note": "Link only: we open their public page in a new tab; no data is fetched or stored, so no data licence applies. Terms pages were not read in this run."
+    },
+    "nws": {
+      "name": "NOAA National Weather Service",
+      "short": "National Weather Service",
+      "country": "US",
+      "kind": "national_met_service",
+      "english": true,
+      "langs": [
+        "en"
+      ],
+      "home": "https://www.weather.gov/",
+      "terms_note": "Link only: we open their public page in a new tab; no data is fetched or stored, so no data licence applies. Terms pages were not read in this run."
+    },
+    "nps": {
+      "name": "U.S. National Park Service",
+      "short": "National Park Service",
+      "country": "US",
+      "kind": "park_agency",
+      "english": true,
+      "langs": [
+        "en"
+      ],
+      "home": "https://www.nps.gov/zion/planyourvisit/weather-and-climate.htm",
+      "terms_note": "Link only: we open their public page in a new tab; no data is fetched or stored, so no data licence applies. Terms pages were not read in this run."
+    },
+    "meteoswiss": {
+      "name": "MeteoSwiss (Federal Office of Meteorology and Climatology)",
+      "short": "MeteoSwiss",
+      "country": "CH",
+      "kind": "national_met_service",
+      "english": true,
+      "langs": [
+        "en",
+        "de",
+        "fr",
+        "it"
+      ],
+      "home": "https://www.meteoswiss.admin.ch/",
+      "terms_note": "Link only: we open their public page in a new tab; no data is fetched or stored, so no data licence applies. Terms pages were not read in this run."
+    },
+    "meteo-france": {
+      "name": "Météo-France",
+      "short": "Météo-France",
+      "country": "FR",
+      "kind": "national_met_service",
+      "english": false,
+      "langs": [
+        "fr"
+      ],
+      "home": "https://meteofrance.com/meteo-montagne/alpes-du-nord",
+      "terms_note": "Link only: we open their public page in a new tab; no data is fetched or stored, so no data licence applies. Terms pages were not read in this run."
+    },
+    "bz-meteo": {
+      "name": "Autonomous Province of Bolzano - South Tyrol, weather service",
+      "short": "South Tyrol weather service",
+      "country": "IT",
+      "kind": "regional_met_service",
+      "english": true,
+      "langs": [
+        "en",
+        "de",
+        "it",
+        "lld"
+      ],
+      "home": "https://weather.province.bz.it/en/",
+      "terms_note": "Link only: we open their public page in a new tab; no data is fetched or stored, so no data licence applies. Terms pages were not read in this run."
+    },
+    "meteoam": {
+      "name": "Servizio Meteorologico dell'Aeronautica Militare",
+      "short": "Meteo Aeronautica Militare",
+      "country": "IT",
+      "kind": "national_met_service",
+      "english": false,
+      "langs": [
+        "it"
+      ],
+      "home": "https://www.meteoam.it/it/home",
+      "terms_note": "Link only: we open their public page in a new tab; no data is fetched or stored, so no data licence applies. Terms pages were not read in this run."
+    },
+    "arpav": {
+      "name": "ARPAV (Veneto regional environment agency), Dolomiti Meteo",
+      "short": "ARPAV",
+      "country": "IT",
+      "kind": "regional_met_service",
+      "english": null,
+      "langs": [],
+      "home": null,
+      "terms_note": "Not reachable from this run (timeout and connection refused, 2026-10-26); nothing stored from it."
+    },
+    "imo": {
+      "name": "Icelandic Meteorological Office (Veðurstofa Íslands)",
+      "short": "Icelandic Met Office",
+      "country": "IS",
+      "kind": "national_met_service",
+      "english": true,
+      "langs": [
+        "en",
+        "is"
+      ],
+      "home": "https://en.vedur.is/weather/forecasts/areas/",
+      "terms_note": "Link only: we open their public page in a new tab; no data is fetched or stored, so no data licence applies. Terms pages were not read in this run."
+    },
+    "met-norway": {
+      "name": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "short": "Yr (MET Norway)",
+      "country": "NO",
+      "kind": "national_met_service",
+      "english": true,
+      "langs": [
+        "en",
+        "nb",
+        "nn",
+        "se"
+      ],
+      "home": "https://www.yr.no/en",
+      "terms_note": "Link only: we open their public page in a new tab; no data is fetched or stored, so no data licence applies. Terms pages were not read in this run."
+    },
+    "imn": {
+      "name": "Instituto Meteorológico Nacional de Costa Rica",
+      "short": "IMN Costa Rica",
+      "country": "CR",
+      "kind": "national_met_service",
+      "english": true,
+      "langs": [
+        "en",
+        "es"
+      ],
+      "home": "https://www.imn.ac.cr/en/inicio",
+      "terms_note": "Link only: we open their public page in a new tab; no data is fetched or stored, so no data licence applies. Terms pages were not read in this run."
+    },
+    "smn-ar": {
+      "name": "Servicio Meteorológico Nacional (Argentina)",
+      "short": "SMN Argentina",
+      "country": "AR",
+      "kind": "national_met_service",
+      "english": false,
+      "langs": [
+        "es"
+      ],
+      "home": "https://www.smn.gob.ar/",
+      "terms_note": "Answers 403 to scripted reads (2026-10-26); the home page is stored as a link only, unconfirmed for a visitor."
+    }
+  },
+  "label_rule": "The page shows '<row label> (<publishers[publisher].short>)', for example 'Forecast: Banff (Environment Canada)'. A fallback reads 'Weather (<short>)'.",
+  "trips": [
+    {
+      "trip": "algonquin-muskoka-2026",
+      "research_folder": "algonquin-muskoka-oct-2026",
+      "country": "CA",
+      "region": "Ontario",
+      "links": [
+        {
+          "kind": "forecast",
+          "area": "Dwight (Lake of Bays)",
+          "bases": [
+            "Dwight (Lake of Bays)"
+          ],
+          "label": "Forecast: Dwight",
+          "publisher": "eccc",
+          "url": "https://weather.gc.ca/en/location/index.html?coords=45.331,-79.012",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "data/trips/base-points.json trip/algonquin-muskoka-oct-2026 (OSM node 1485292613), rounded to 3 dp",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Dwight, ON - 7 Day Forecast - Environment Canada",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Algonquin Park (Highway 60)",
+          "bases": [
+            "Algonquin Park day visits"
+          ],
+          "label": "Forecast: Algonquin Park (Lake of Two Rivers)",
+          "publisher": "eccc",
+          "url": "https://weather.gc.ca/en/location/index.html?coords=45.56,-78.578",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "data/capture/points.json trip/algonquin-muskoka-2026/trail:track and tower trail (OSM way 338153829), rounded to 3 dp",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Lake of Two Rivers, ON - 7 Day Forecast - Environment Canada",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "ECCC resolves the point to its Lake of Two Rivers forecast site"
+        },
+        {
+          "kind": "climate",
+          "area": "Muskoka",
+          "bases": [
+            "Dwight (Lake of Bays)",
+            "Algonquin Park day visits"
+          ],
+          "label": "Climate averages 1991-2020: Muskoka",
+          "publisher": "eccc",
+          "url": "https://climate.weather.gc.ca/climate_normals/results_1991_2020_e.html?searchType=stnProv&lstProvince=ON&climate_id=6115524&dispBack=0",
+          "english": true,
+          "url_pattern": "station_id",
+          "built_from": "ECCC 1991-2020 normals station list (MUSKOKA, climate id 6115524), read 2026-10-26",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Canadian Climate Normals 1991-2020 Data - Climate - Environment and Climate Change Canada",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "Nearest 1991-2020 normals station to Dwight; no normals station inside Algonquin Park"
+        }
+      ],
+      "fallback": {
+        "url": "https://weather.gc.ca/forecast/canada/index_e.html?id=ON",
+        "check": {
+          "read": "2026-10-26",
+          "http": 200,
+          "reachable": true
+        }
+      },
+      "gaps": []
+    },
+    {
+      "trip": "canadian-rockies-2029",
+      "research_folder": "canadian-rockies-sept-2029",
+      "country": "CA",
+      "region": "Alberta (and British Columbia day trips)",
+      "links": [
+        {
+          "kind": "forecast",
+          "area": "Calgary",
+          "bases": [
+            "Calgary"
+          ],
+          "label": "Forecast: Calgary",
+          "publisher": "eccc",
+          "url": "https://weather.gc.ca/en/location/index.html?coords=51.114,-114.02",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "data/schedules/canadian-rockies-2029.json bases calgary-airport",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Calgary, AB - 7 Day Forecast - Environment Canada",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Banff",
+          "bases": [
+            "Banff"
+          ],
+          "label": "Forecast: Banff",
+          "publisher": "eccc",
+          "url": "https://weather.gc.ca/en/location/index.html?coords=51.178,-115.571",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "data/schedules/canadian-rockies-2029.json bases banff",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Banff, AB - 7 Day Forecast - Environment Canada",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Lake Louise",
+          "bases": [
+            "Lake Louise"
+          ],
+          "label": "Forecast: Lake Louise",
+          "publisher": "eccc",
+          "url": "https://weather.gc.ca/en/location/index.html?coords=51.425,-116.177",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "data/schedules/canadian-rockies-2029.json bases lake-louise",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Lake Louise, AB - 7 Day Forecast - Environment Canada",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Jasper",
+          "bases": [
+            "Jasper"
+          ],
+          "label": "Forecast: Jasper",
+          "publisher": "eccc",
+          "url": "https://weather.gc.ca/en/location/index.html?coords=52.874,-118.081",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "data/schedules/canadian-rockies-2029.json bases jasper",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Jasper, AB - 7 Day Forecast - Environment Canada",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Kananaskis Village",
+          "bases": [
+            "Kananaskis Village"
+          ],
+          "label": "Forecast: Kananaskis Village",
+          "publisher": "eccc",
+          "url": "https://weather.gc.ca/en/location/index.html?coords=50.919,-115.148",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "data/schedules/canadian-rockies-2029.json bases kananaskis-village",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Kananaskis Village, AB - 7 Day Forecast - Environment Canada",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Banff",
+          "bases": [
+            "Banff",
+            "Lake Louise",
+            "Kananaskis Village"
+          ],
+          "label": "Climate averages 1991-2020: Banff",
+          "publisher": "eccc",
+          "url": "https://climate.weather.gc.ca/climate_normals/results_1991_2020_e.html?searchType=stnProv&lstProvince=AB&climate_id=3050519&dispBack=0",
+          "english": true,
+          "url_pattern": "station_id",
+          "built_from": "already cited by data/windows/canadian-rockies-2029.json (s-04213003a8)",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Canadian Climate Normals 1991-2020 Data - Climate - Environment and Climate Change Canada",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Jasper",
+          "bases": [
+            "Jasper"
+          ],
+          "label": "Climate averages 1991-2020: Jasper",
+          "publisher": "eccc",
+          "url": "https://climate.weather.gc.ca/climate_normals/results_1991_2020_e.html?searchType=stnProv&lstProvince=AB&climate_id=3053520&dispBack=0",
+          "english": true,
+          "url_pattern": "station_id",
+          "built_from": "ECCC 1991-2020 normals station list (JASPER, 3053520)",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Canadian Climate Normals 1991-2020 Data - Climate - Environment and Climate Change Canada",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Banff National Park",
+          "bases": [
+            "Banff",
+            "Lake Louise"
+          ],
+          "label": "Weather and monthly averages: Banff National Park",
+          "publisher": "parks-canada",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/securite-safety/meteo-weather",
+          "english": true,
+          "url_pattern": "fixed",
+          "built_from": "already cited by data/windows/canadian-rockies-2029.json (s-aa937e281b)",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Weather conditions - Banff National Park",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "Averages for Banff and Lake Louise without stated years"
+        }
+      ],
+      "fallback": {
+        "url": "https://weather.gc.ca/forecast/canada/index_e.html?id=AB",
+        "check": {
+          "read": "2026-10-26",
+          "http": 200,
+          "reachable": true
+        }
+      },
+      "gaps": []
+    },
+    {
+      "trip": "chamonix-mont-blanc-2028",
+      "research_folder": "chamonix-mont-blanc-sept-2028",
+      "country": "FR",
+      "region": "Haute-Savoie",
+      "links": [
+        {
+          "kind": "forecast",
+          "area": "Chamonix-Mont-Blanc",
+          "bases": [
+            "Les Praz",
+            "Argentiere"
+          ],
+          "label": "Forecast: Chamonix-Mont-Blanc",
+          "publisher": "meteo-france",
+          "url": "https://meteofrance.com/previsions-meteo-france/chamonix-mont-blanc/74400",
+          "english": false,
+          "url_pattern": "slug_postcode",
+          "built_from": "commune name and postcode 74400 (Les Praz and Argentiere are villages of the commune)",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "METEO CHAMONIX-MONT-BLANC par Météo-France - Prévisions Météo gratuites pour aujourd’hui, demain et à 15 jours.",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "No separate Météo-France page for Argentiere (argentiere/74400 answered 404)"
+        },
+        {
+          "kind": "mountain",
+          "area": "Chamonix valley and Mont Blanc",
+          "bases": [
+            "Les Praz",
+            "Argentiere"
+          ],
+          "label": "Mountain forecast: Chamonix",
+          "publisher": "meteo-france",
+          "url": "https://meteofrance.com/meteo-montagne/chamonix/740562",
+          "english": false,
+          "url_pattern": "site_id",
+          "built_from": "linked from the Météo-France Chamonix page",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "METEO MONTAGNE CHAMONIX par Météo-France - Prévisions météo gratuites à 15 jours sur la station",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "mountain",
+          "area": "Mont Blanc summit (3845 m point)",
+          "bases": [
+            "Les Praz",
+            "Argentiere"
+          ],
+          "label": "Mountain forecast: Chamonix at 3845 m",
+          "publisher": "meteo-france",
+          "url": "https://meteofrance.com/meteo-montagne/chamonix-mont-blanc-3845m/740566",
+          "english": false,
+          "url_pattern": "site_id",
+          "built_from": "linked from the Météo-France Chamonix page",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "METEO MONTAGNE CHAMONIX MONT-BLANC 3845M par Météo-France - Prévisions météo gratuites à 15 jours sur la station",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "Useful on lift days (Aiguille du Midi)"
+        },
+        {
+          "kind": "climate",
+          "area": "Bourg-Saint-Maurice (nearest public normals station)",
+          "bases": [
+            "Les Praz",
+            "Argentiere"
+          ],
+          "label": "Climate averages: Bourg-Saint-Maurice (nearest Météo-France station)",
+          "publisher": "meteo-france",
+          "url": "https://meteofrance.com/climat/normales/france/auvergne-rhone-alpes/BOURG%20ST%20MAURICE",
+          "english": false,
+          "url_pattern": "station_name",
+          "built_from": "the Auvergne-Rhône-Alpes list on meteofrance.com/climat/normales (six stations; no Chamonix)",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "| Météo France",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "Different valley (Tarentaise), about 45 km south-west; an indication only, the page should say so"
+        }
+      ],
+      "fallback": {
+        "url": "https://meteofrance.com/meteo-montagne/alpes-du-nord",
+        "check": {
+          "read": "2026-10-26",
+          "http": 200,
+          "reachable": true
+        }
+      },
+      "gaps": []
+    },
+    {
+      "trip": "costa-rica-2027",
+      "research_folder": "costa-rica-feb-2027",
+      "country": "CR",
+      "region": "Guanacaste, Alajuela, Puntarenas",
+      "links": [
+        {
+          "kind": "forecast",
+          "area": "Costa Rica by region",
+          "bases": [
+            "Rincon de la Vieja",
+            "La Fortuna / Arenal",
+            "Manuel Antonio",
+            "Uvita"
+          ],
+          "label": "Regional forecast (North Pacific, North Zone, Central and South Pacific)",
+          "publisher": "imn",
+          "url": "https://www.imn.ac.cr/en/reporte-pronostico-regional",
+          "english": true,
+          "url_pattern": "fixed",
+          "built_from": "IMN English site",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Regional weather forecast - IMN",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "One page for all regions with town minimum and maximum (Liberia, Quepos, San Isidro); no per-town deep link"
+        },
+        {
+          "kind": "climate",
+          "area": "Costa Rica",
+          "bases": [
+            "Rincon de la Vieja",
+            "La Fortuna / Arenal",
+            "Manuel Antonio",
+            "Uvita"
+          ],
+          "label": "Climate of Costa Rica",
+          "publisher": "imn",
+          "url": "https://www.imn.ac.cr/en/clima-en-costa-rica",
+          "english": true,
+          "url_pattern": "fixed",
+          "built_from": "IMN English site",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Climate of Costa Rica - IMN",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "Overview page; links the regional climate PDFs below"
+        },
+        {
+          "kind": "climate",
+          "area": "North Pacific (Rincon de la Vieja)",
+          "bases": [
+            "Rincon de la Vieja"
+          ],
+          "label": "Climate of the North Pacific region (PDF, Spanish)",
+          "publisher": "imn",
+          "url": "https://www.imn.ac.cr/documents/10179/31165/PacificoNorte.pdf/4a0e8960-8c51-4390-8a8d-73d9d825d59b",
+          "english": false,
+          "url_pattern": "document_id",
+          "built_from": "linked from the IMN climate page",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": null,
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "pdf"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "North Zone (La Fortuna / Arenal)",
+          "bases": [
+            "La Fortuna / Arenal"
+          ],
+          "label": "Climate of the North Zone (PDF, Spanish)",
+          "publisher": "imn",
+          "url": "https://www.imn.ac.cr/documents/10179/31165/ZonaNorte.pdf/c08ed9c6-3d27-4f76-a20a-7cac913fb6d8",
+          "english": false,
+          "url_pattern": "document_id",
+          "built_from": "linked from the IMN climate page",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": null,
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "pdf"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Central Pacific (Manuel Antonio)",
+          "bases": [
+            "Manuel Antonio"
+          ],
+          "label": "Climate of the Central Pacific region (PDF, Spanish)",
+          "publisher": "imn",
+          "url": "https://www.imn.ac.cr/documents/10179/31165/PacificoCentral.pdf/e7f8bf4f-cef1-4bf1-b452-d7a4937099fd",
+          "english": false,
+          "url_pattern": "document_id",
+          "built_from": "linked from the IMN climate page",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": null,
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "pdf"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "South Pacific (Uvita)",
+          "bases": [
+            "Uvita"
+          ],
+          "label": "Climate of the South Pacific region (PDF, Spanish)",
+          "publisher": "imn",
+          "url": "https://www.imn.ac.cr/documents/10179/31165/PacificoSur.pdf/e9ff2013-e30e-46a3-ad39-934200753fff",
+          "english": false,
+          "url_pattern": "document_id",
+          "built_from": "linked from the IMN climate page",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": null,
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "pdf"
+          },
+          "note": null
+        }
+      ],
+      "fallback": {
+        "url": "https://www.imn.ac.cr/en/inicio",
+        "check": {
+          "read": "2026-10-26",
+          "http": 200,
+          "reachable": true
+        }
+      },
+      "gaps": []
+    },
+    {
+      "trip": "dolomites-2027",
+      "research_folder": "dolomites-july-2027",
+      "country": "IT",
+      "region": "South Tyrol and Veneto",
+      "links": [
+        {
+          "kind": "forecast",
+          "area": "South Tyrol towns (San Candido, Ortisei, Selva, Bolzano)",
+          "bases": [
+            "San Candido / Innichen",
+            "Ortisei or Selva",
+            "Bolzano"
+          ],
+          "label": "Forecast by municipality: South Tyrol",
+          "publisher": "bz-meteo",
+          "url": "https://weather.province.bz.it/en/municipality-weather",
+          "english": true,
+          "url_pattern": "fixed",
+          "built_from": "route read from the site's own script (en: municipality-weather)",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": null,
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "app_shell",
+            "content_note": "JavaScript app: every path answers 200 with the same shell (a made-up path did too), so the 200 does not prove the page; the route name was confirmed in the site script shp.js. A person should open it once."
+          },
+          "note": "JavaScript app: the visitor picks the town on a map; no per-town deep link was confirmed"
+        },
+        {
+          "kind": "mountain",
+          "area": "Dolomites (South Tyrol side)",
+          "bases": [
+            "San Candido / Innichen",
+            "Ortisei or Selva"
+          ],
+          "label": "Mountain weather: Dolomites",
+          "publisher": "bz-meteo",
+          "url": "https://weather.province.bz.it/en/mountain-weather/dolomites",
+          "english": true,
+          "url_pattern": "slug",
+          "built_from": "already cited in research/trips/dolomites-july-2027 (twice)",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": null,
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "app_shell",
+            "content_note": "JavaScript app: every path answers 200 with the same shell (a made-up path did too), so the 200 does not prove the page; the route name was confirmed in the site script shp.js. A person should open it once."
+          },
+          "note": "JavaScript app; the route mountain-weather is in the site's script"
+        },
+        {
+          "kind": "forecast",
+          "area": "Cortina d'Ampezzo",
+          "bases": [
+            "Cortina d'Ampezzo"
+          ],
+          "label": "Forecast: Cortina d'Ampezzo",
+          "publisher": "meteoam",
+          "url": "https://www.meteoam.it/it/meteo-citta/cortina-d-ampezzo",
+          "english": false,
+          "url_pattern": "slug",
+          "built_from": "city slug; a made-up slug answers 404, so the 200 is real",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Previsioni Meteo Cortina d'Ampezzo | Meteo Aeronautica Militare",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "Italian only. ARPAV Dolomiti Meteo (the Veneto mountain bulletin) is the better source but did not answer from here"
+        },
+        {
+          "kind": "forecast",
+          "area": "San Vito di Cadore",
+          "bases": [
+            "San Vito di Cadore"
+          ],
+          "label": "Forecast: San Vito di Cadore",
+          "publisher": "meteoam",
+          "url": "https://www.meteoam.it/it/meteo-citta/san-vito-di-cadore",
+          "english": false,
+          "url_pattern": "slug",
+          "built_from": "city slug",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Previsioni Meteo San Vito di Cadore | Meteo Aeronautica Militare",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "Italian only; the plan's cheaper alternative to Cortina"
+        },
+        {
+          "kind": "forecast",
+          "area": "Venice (arrival and departure)",
+          "bases": [
+            "Venice"
+          ],
+          "label": "Forecast: Venice",
+          "publisher": "meteoam",
+          "url": "https://www.meteoam.it/it/meteo-citta/venezia",
+          "english": false,
+          "url_pattern": "slug",
+          "built_from": "city slug",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Previsioni Meteo Venezia | Meteo Aeronautica Militare",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "Italian only"
+        },
+        {
+          "kind": "climate",
+          "area": "South Tyrol stations",
+          "bases": [
+            "San Candido / Innichen",
+            "Ortisei or Selva",
+            "Bolzano"
+          ],
+          "label": "Climate charts: South Tyrol stations",
+          "publisher": "bz-meteo",
+          "url": "https://weather.province.bz.it/en/climate-charts",
+          "english": true,
+          "url_pattern": "fixed",
+          "built_from": "route read from the site's own script (en: climate-charts)",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": null,
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "app_shell",
+            "content_note": "JavaScript app: every path answers 200 with the same shell (a made-up path did too), so the 200 does not prove the page; the route name was confirmed in the site script shp.js. A person should open it once."
+          },
+          "note": "JavaScript app; the visitor picks a station (Innichen, St. Ulrich, Bozen); nothing for Cortina"
+        }
+      ],
+      "fallback": {
+        "url": "https://weather.province.bz.it/en/",
+        "check": {
+          "read": "2026-10-26",
+          "http": 200,
+          "reachable": true,
+          "content": "app_shell"
+        }
+      },
+      "gaps": [
+        "GAP: ARPAV Dolomiti Meteo (www.arpa.veneto.it and meteo.arpa.veneto.it) timed out from the script and refused WebFetch (ECONNREFUSED) on 2026-10-26; no Veneto forecast or climate link from ARPAV stored. Retry from another network; the URL was not stored because it could not be read.",
+        "GAP: no climate normals link for Cortina d'Ampezzo / San Vito di Cadore (ARPAV unreachable; Aeronautica Militare has no public per-town normals page: meteoam.it/it/clima and /it/climatologia answered 404)."
+      ]
+    },
+    {
+      "trip": "iceland-ring-road-2027",
+      "research_folder": "iceland-ring-road",
+      "country": "IS",
+      "region": "Ring Road and Snæfellsnes",
+      "links": [
+        {
+          "kind": "forecast",
+          "area": "Reykjavík area",
+          "bases": [
+            "Keflavík",
+            "Reykjavík (Laugardalur)"
+          ],
+          "label": "Forecast: Reykjavík area",
+          "publisher": "imo",
+          "url": "https://en.vedur.is/weather/forecasts/areas/reykjavik/",
+          "english": true,
+          "url_pattern": "area_slug",
+          "built_from": "IMO area list",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Station forecasts - | Reykjavik area | Icelandic Meteorological office",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "South",
+          "bases": [
+            "Selfoss",
+            "Laugarvatn",
+            "Vík"
+          ],
+          "label": "Forecast: South Iceland",
+          "publisher": "imo",
+          "url": "https://en.vedur.is/weather/forecasts/areas/south/",
+          "english": true,
+          "url_pattern": "area_slug",
+          "built_from": "IMO area list",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Station forecasts - | South | Icelandic Meteorological office",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "South East",
+          "bases": [
+            "Skaftafell",
+            "Höfn"
+          ],
+          "label": "Forecast: South East Iceland",
+          "publisher": "imo",
+          "url": "https://en.vedur.is/weather/forecasts/areas/southeast/",
+          "english": true,
+          "url_pattern": "area_slug",
+          "built_from": "IMO area list",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "South East",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "East fjords",
+          "bases": [
+            "Seyðisfjörður",
+            "Egilsstaðir"
+          ],
+          "label": "Forecast: East fjords",
+          "publisher": "imo",
+          "url": "https://en.vedur.is/weather/forecasts/areas/eastfjords/",
+          "english": true,
+          "url_pattern": "area_slug",
+          "built_from": "IMO area list",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Station forecasts - | East fjords | Icelandic Meteorological office",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "The plan's pass rule (Seyðisfjörður or Egilsstaðir) reads this forecast"
+        },
+        {
+          "kind": "forecast",
+          "area": "North East",
+          "bases": [
+            "Mývatn",
+            "Akureyri"
+          ],
+          "label": "Forecast: North East Iceland",
+          "publisher": "imo",
+          "url": "https://en.vedur.is/weather/forecasts/areas/northeast/",
+          "english": true,
+          "url_pattern": "area_slug",
+          "built_from": "IMO area list",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Station forecasts - | North East | Icelandic Meteorological office",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Breiðafjörður (Snæfellsnes)",
+          "bases": [
+            "Grundarfjörður"
+          ],
+          "label": "Forecast: Breiðafjörður (Snæfellsnes)",
+          "publisher": "imo",
+          "url": "https://en.vedur.is/weather/forecasts/areas/breidafjordur/",
+          "english": true,
+          "url_pattern": "area_slug",
+          "built_from": "IMO area list",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Station forecasts - | Breiðafjörður | Icelandic Meteorological office",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "aurora",
+          "area": "Iceland",
+          "bases": [
+            "Mývatn"
+          ],
+          "label": "Aurora and cloud cover forecast",
+          "publisher": "imo",
+          "url": "https://en.vedur.is/weather/forecasts/aurora/",
+          "english": true,
+          "url_pattern": "fixed",
+          "built_from": "IMO forecasts menu",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Aurora forecast for Iceland | Aurora forecasts | Icelandic Meteorological office",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "The plan's aurora nights at Mývatn depend on cloud cover"
+        },
+        {
+          "kind": "climate",
+          "area": "Iceland",
+          "bases": [
+            "whole trip"
+          ],
+          "label": "Climate of Iceland",
+          "publisher": "imo",
+          "url": "https://en.vedur.is/climatology/iceland/",
+          "english": true,
+          "url_pattern": "fixed",
+          "built_from": "IMO climatology menu",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Climate of Iceland | Icelandic Meteorological office",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Iceland stations",
+          "bases": [
+            "whole trip"
+          ],
+          "label": "Monthly averages by station",
+          "publisher": "imo",
+          "url": "https://en.vedur.is/climatology/data/",
+          "english": true,
+          "url_pattern": "fixed",
+          "built_from": "IMO climatology menu",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Climatological data | Icelandic Meteorological office",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "Text files per station; for a reader who wants numbers"
+        }
+      ],
+      "fallback": {
+        "url": "https://en.vedur.is/",
+        "check": {
+          "read": "2026-10-26",
+          "http": 200,
+          "reachable": true
+        }
+      },
+      "gaps": []
+    },
+    {
+      "trip": "niagara-day-2026",
+      "research_folder": "niagara-day-aug-2026",
+      "country": "CA",
+      "region": "Ontario",
+      "links": [
+        {
+          "kind": "forecast",
+          "area": "Niagara Falls",
+          "bases": [
+            "Niagara Falls"
+          ],
+          "label": "Forecast: Niagara Falls",
+          "publisher": "eccc",
+          "url": "https://weather.gc.ca/en/location/index.html?coords=43.129,-79.06",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "data/trips/base-points.json trip/niagara-day-aug-2026 (OSM way 272966214), rounded to 3 dp",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Niagara Falls, ON - 7 Day Forecast - Environment Canada",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Welland-Pelham",
+          "bases": [
+            "Niagara Falls"
+          ],
+          "label": "Climate averages 1991-2020: Welland-Pelham",
+          "publisher": "eccc",
+          "url": "https://climate.weather.gc.ca/climate_normals/results_1991_2020_e.html?searchType=stnProv&lstProvince=ON&climate_id=6139445&dispBack=0",
+          "english": true,
+          "url_pattern": "station_id",
+          "built_from": "already cited by data/seasons/niagara-day-2026.json",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Canadian Climate Normals 1991-2020 Data - Climate - Environment and Climate Change Canada",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "Nearest 1991-2020 normals station; no station in Niagara Falls"
+        }
+      ],
+      "fallback": {
+        "url": "https://weather.gc.ca/forecast/canada/index_e.html?id=ON",
+        "check": {
+          "read": "2026-10-26",
+          "http": 200,
+          "reachable": true
+        }
+      },
+      "gaps": []
+    },
+    {
+      "trip": "norway-summer-2028",
+      "research_folder": "norway-summer",
+      "country": "NO",
+      "region": "Lofoten, Vesterålen, Senja, Fjord Norway",
+      "links": [
+        {
+          "kind": "forecast",
+          "area": "Svolvær",
+          "bases": [
+            "Svolvær"
+          ],
+          "label": "Forecast: Svolvær",
+          "publisher": "met-norway",
+          "url": "https://www.yr.no/en/forecast/daily-table/1-276917/Norway/Nordland/V%C3%A5gan/Svolv%C3%A6r",
+          "english": true,
+          "url_pattern": "place_id",
+          "built_from": "Yr location search, id 1-276917",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Yr - Svolvær - Long term forecast",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Reine",
+          "bases": [
+            "Reine"
+          ],
+          "label": "Forecast: Reine",
+          "publisher": "met-norway",
+          "url": "https://www.yr.no/en/forecast/daily-table/1-272752/Norway/Nordland/Moskenes/Reine",
+          "english": true,
+          "url_pattern": "place_id",
+          "built_from": "Yr location search, id 1-272752",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Yr - Reine - Long term forecast",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Andenes",
+          "bases": [
+            "Andenes"
+          ],
+          "label": "Forecast: Andenes",
+          "publisher": "met-norway",
+          "url": "https://www.yr.no/en/forecast/daily-table/1-299319/Norway/Nordland/And%C3%B8y/Andenes",
+          "english": true,
+          "url_pattern": "place_id",
+          "built_from": "Yr location search, id 1-299319",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Yr - Andenes - Long term forecast",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Fjordgård (Senja)",
+          "bases": [
+            "Fjordgård (Senja)"
+          ],
+          "label": "Forecast: Fjordgård (Senja)",
+          "publisher": "met-norway",
+          "url": "https://www.yr.no/en/forecast/daily-table/1-304638/Norway/Troms/Senja/Fjordg%C3%A5rd",
+          "english": true,
+          "url_pattern": "place_id",
+          "built_from": "Yr location search, id 1-304638",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Yr - Fjordgård - Long term forecast",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "The plan's Senja nights are at Fjordgård or Hamn"
+        },
+        {
+          "kind": "forecast",
+          "area": "Ålesund",
+          "bases": [
+            "Ålesund"
+          ],
+          "label": "Forecast: Ålesund",
+          "publisher": "met-norway",
+          "url": "https://www.yr.no/en/forecast/daily-table/1-181828/Norway/M%C3%B8re%20og%20Romsdal/%C3%85lesund/%C3%85lesund",
+          "english": true,
+          "url_pattern": "place_id",
+          "built_from": "Yr location search, id 1-181828",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Yr - Ålesund - Long term forecast",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Åndalsnes",
+          "bases": [
+            "Åndalsnes"
+          ],
+          "label": "Forecast: Åndalsnes",
+          "publisher": "met-norway",
+          "url": "https://www.yr.no/en/forecast/daily-table/1-190429/Norway/M%C3%B8re%20og%20Romsdal/Rauma/%C3%85ndalsnes",
+          "english": true,
+          "url_pattern": "place_id",
+          "built_from": "Yr location search, id 1-190429",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Yr - Åndalsnes - Long term forecast",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Geiranger",
+          "bases": [
+            "Geiranger"
+          ],
+          "label": "Forecast: Geiranger",
+          "publisher": "met-norway",
+          "url": "https://www.yr.no/en/forecast/daily-table/1-177457/Norway/M%C3%B8re%20og%20Romsdal/Stranda/Geiranger",
+          "english": true,
+          "url_pattern": "place_id",
+          "built_from": "Yr location search, id 1-177457",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Yr - Geiranger - Long term forecast",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Loen",
+          "bases": [
+            "Loen"
+          ],
+          "label": "Forecast: Loen",
+          "publisher": "met-norway",
+          "url": "https://www.yr.no/en/forecast/daily-table/1-169613/Norway/Vestland/Stryn/Loen",
+          "english": true,
+          "url_pattern": "place_id",
+          "built_from": "Yr location search, id 1-169613",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Yr - Loen - Long term forecast",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Aurlandsvangen",
+          "bases": [
+            "Aurlandsvangen"
+          ],
+          "label": "Forecast: Aurlandsvangen",
+          "publisher": "met-norway",
+          "url": "https://www.yr.no/en/forecast/daily-table/1-124143/Norway/Vestland/Aurland/Aurlandsvangen",
+          "english": true,
+          "url_pattern": "place_id",
+          "built_from": "Yr location search, id 1-124143",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Yr - Aurlandsvangen - Long term forecast",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "The plan sleeps in Aurland, not Flåm"
+        },
+        {
+          "kind": "forecast",
+          "area": "Bergen",
+          "bases": [
+            "Bergen"
+          ],
+          "label": "Forecast: Bergen",
+          "publisher": "met-norway",
+          "url": "https://www.yr.no/en/forecast/daily-table/1-92416/Norway/Vestland/Bergen/Bergen",
+          "english": true,
+          "url_pattern": "place_id",
+          "built_from": "Yr location search, id 1-92416",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Yr - Bergen - Long term forecast",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Svolvær",
+          "bases": [
+            "Svolvær",
+            "Reine",
+            "Andenes",
+            "Fjordgård (Senja)"
+          ],
+          "label": "Climate: Svolvær (observations against the 1991-2020 normal)",
+          "publisher": "met-norway",
+          "url": "https://www.yr.no/en/statistics/graph/1-276917/Norway/Nordland/V%C3%A5gan/Svolv%C3%A6r",
+          "english": true,
+          "url_pattern": "place_id",
+          "built_from": "Yr location id 1-276917",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Yr - Svolvær - Statistics as a graph - Last 13 months",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "Yr statistics compare the nearest station with its 1991-2020 normal"
+        },
+        {
+          "kind": "climate",
+          "area": "Bergen",
+          "bases": [
+            "Ålesund",
+            "Åndalsnes",
+            "Geiranger",
+            "Loen",
+            "Aurlandsvangen",
+            "Bergen"
+          ],
+          "label": "Climate: Bergen (observations against the 1991-2020 normal)",
+          "publisher": "met-norway",
+          "url": "https://www.yr.no/en/statistics/graph/1-92416/Norway/Vestland/Bergen/Bergen",
+          "english": true,
+          "url_pattern": "place_id",
+          "built_from": "Yr location id 1-92416",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Yr - Bergen - Statistics as a graph - Last 13 months",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "Yr statistics compare the nearest station with its 1991-2020 normal"
+        }
+      ],
+      "fallback": {
+        "url": "https://www.yr.no/en",
+        "check": {
+          "read": "2026-10-26",
+          "http": 200,
+          "reachable": true
+        }
+      },
+      "gaps": []
+    },
+    {
+      "trip": "patagonia-2027",
+      "research_folder": "patagonia-feb-mar-2027",
+      "country": "AR",
+      "region": "Buenos Aires, Tierra del Fuego, Santa Cruz",
+      "links": [
+        {
+          "kind": "forecast",
+          "area": "Argentina (search by town)",
+          "bases": [
+            "Buenos Aires",
+            "Ushuaia",
+            "El Chaltén",
+            "El Calafate"
+          ],
+          "label": "Forecast: SMN Argentina (search for the town)",
+          "publisher": "smn-ar",
+          "url": "https://www.smn.gob.ar/",
+          "english": false,
+          "url_pattern": "fixed",
+          "built_from": "SMN home",
+          "check": {
+            "read": "2026-10-26",
+            "http": 403,
+            "page_title": null,
+            "reachable": false,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "blocked"
+          },
+          "note": "Answered 403 to the script and to WebFetch on 2026-10-26; not confirmed for a visitor's browser. Spanish only. No per-town deep link known"
+        }
+      ],
+      "fallback": {
+        "url": "https://www.smn.gob.ar/",
+        "check": {
+          "read": "2026-10-26",
+          "http": 403,
+          "reachable": false
+        }
+      },
+      "gaps": [
+        "GAP: SMN Argentina blocks scripted reads (HTTP 403 on /, /estadisticas, /pronostico, 2026-10-26). No per-town forecast URL and no climate normals page could be read, so none is stored; WebSearch 'site:smn.gob.ar pronóstico Ushuaia' and 'smn.gob.ar estadísticas climatológicas normales 1991-2020 Ushuaia El Calafate' (2026-10-26) returned no smn.gob.ar page. A person should open smn.gob.ar in a browser and copy the town and statistics URLs.",
+        "Chile DMC not needed: Torres del Paine was cut from the plan, every base is in Argentina."
+      ]
+    },
+    {
+      "trip": "quebec-2026",
+      "research_folder": null,
+      "country": "CA",
+      "region": "Quebec",
+      "links": [
+        {
+          "kind": "forecast",
+          "area": "Île d'Orléans",
+          "bases": [
+            "Île d'Orléans"
+          ],
+          "label": "Forecast: Île d'Orléans",
+          "publisher": "eccc",
+          "url": "https://weather.gc.ca/en/location/index.html?coords=46.936,-70.947",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "Wikidata Q128172 P625, rounded to 3 dp",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Sainte-Famille-de-l&#x27;Île-d&#x27;Orléans, QC - 7 Day Forecast - Environment Canada",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "ECCC resolves the island point to Sainte-Famille-de-l'Île-d'Orléans"
+        },
+        {
+          "kind": "climate",
+          "area": "Québec City airport",
+          "bases": [
+            "Île d'Orléans"
+          ],
+          "label": "Climate averages 1991-2020: Québec City",
+          "publisher": "eccc",
+          "url": "https://climate.weather.gc.ca/climate_normals/results_1991_2020_e.html?searchType=stnProv&lstProvince=QC&climate_id=7016294&dispBack=0",
+          "english": true,
+          "url_pattern": "station_id",
+          "built_from": "already cited by data/seasons/quebec-2026.json",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Canadian Climate Normals 1991-2020 Data - Climate - Environment and Climate Change Canada",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        }
+      ],
+      "fallback": {
+        "url": "https://weather.gc.ca/forecast/canada/index_e.html?id=QC",
+        "check": {
+          "read": "2026-10-26",
+          "http": 200,
+          "reachable": true
+        }
+      },
+      "gaps": []
+    },
+    {
+      "trip": "switzerland-2027",
+      "research_folder": "switzerland-2027",
+      "country": "CH",
+      "region": "Central Switzerland, Bernese Oberland, Valais",
+      "links": [
+        {
+          "kind": "forecast",
+          "area": "Lucerne",
+          "bases": [
+            "Lucerne"
+          ],
+          "label": "Forecast: Lucerne",
+          "publisher": "meteoswiss",
+          "url": "https://www.meteoswiss.admin.ch/local-forecasts/lucerne/6003.html",
+          "english": true,
+          "url_pattern": "slug_postcode",
+          "built_from": "English slug and postcode 6003 (the German slug luzern answers 404)",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Local forecasts 6003 Lucerne - MeteoSwiss",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Wengen",
+          "bases": [
+            "Wengen"
+          ],
+          "label": "Forecast: Wengen",
+          "publisher": "meteoswiss",
+          "url": "https://www.meteoswiss.admin.ch/local-forecasts/wengen/3823.html",
+          "english": true,
+          "url_pattern": "slug_postcode",
+          "built_from": "slug and postcode 3823",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Local forecasts 3823 Wengen - MeteoSwiss",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Zermatt",
+          "bases": [
+            "Zermatt"
+          ],
+          "label": "Forecast: Zermatt",
+          "publisher": "meteoswiss",
+          "url": "https://www.meteoswiss.admin.ch/local-forecasts/zermatt/3920.html",
+          "english": true,
+          "url_pattern": "slug_postcode",
+          "built_from": "slug and postcode 3920",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Local forecasts 3920 Zermatt - MeteoSwiss",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Swiss stations",
+          "bases": [
+            "Lucerne",
+            "Wengen",
+            "Zermatt"
+          ],
+          "label": "Climate diagrams and normals by station",
+          "publisher": "meteoswiss",
+          "url": "https://www.meteoswiss.admin.ch/climate/the-climate-of-switzerland/climate-normals/climate-diagrams-and-normals-per-station.html",
+          "english": true,
+          "url_pattern": "fixed",
+          "built_from": "MeteoSwiss climate normals menu",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Climate diagrams and normals per station - MeteoSwiss",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "The visitor picks Luzern, Interlaken or Zermatt in the page's station list"
+        }
+      ],
+      "fallback": {
+        "url": "https://www.meteoswiss.admin.ch/",
+        "check": {
+          "read": "2026-10-26",
+          "http": 200,
+          "reachable": true
+        }
+      },
+      "gaps": []
+    },
+    {
+      "trip": "utah-five-parks",
+      "research_folder": "usa-southwest-rockies",
+      "country": "US",
+      "region": "Utah",
+      "links": [
+        {
+          "kind": "forecast",
+          "area": "Springdale (Zion)",
+          "bases": [
+            "Springdale (Zion)"
+          ],
+          "label": "Forecast: Springdale",
+          "publisher": "nws",
+          "url": "https://forecast.weather.gov/MapClick.php?lat=37.1844&lon=-112.9997",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "data/trips/base-points.json trip/usa-southwest-rockies (Wikidata Q482508), rounded to 4 dp",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Point Forecast: Springdale UT",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "place_named"
+          },
+          "note": "NWS names the point 'Springdale UT'"
+        },
+        {
+          "kind": "forecast",
+          "area": "Bryce Canyon City",
+          "bases": [
+            "Bryce Canyon City"
+          ],
+          "label": "Forecast: Bryce Canyon City",
+          "publisher": "nws",
+          "url": "https://forecast.weather.gov/MapClick.php?lat=37.6739&lon=-112.1569",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "Wikidata Q483332 P625, rounded to 4 dp",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Bryce Canyon City point; observation station Bryce Canyon Airport",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "place_named"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Torrey (Capitol Reef)",
+          "bases": [
+            "Torrey (Capitol Reef)"
+          ],
+          "label": "Forecast: Torrey",
+          "publisher": "nws",
+          "url": "https://forecast.weather.gov/MapClick.php?lat=38.3017&lon=-111.42",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "Wikidata Q483141 P625, rounded to 4 dp",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Point Forecast: Torrey UT",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "place_named"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Moab (Arches, Canyonlands)",
+          "bases": [
+            "Moab (Arches, Canyonlands)"
+          ],
+          "label": "Forecast: Moab",
+          "publisher": "nws",
+          "url": "https://forecast.weather.gov/MapClick.php?lat=38.5725&lon=-109.5497",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "Wikidata Q130134 P625, rounded to 4 dp",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Moab point; observation station USGS/NPS Building - Moab",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "place_named"
+          },
+          "note": null
+        },
+        {
+          "kind": "forecast",
+          "area": "Salt Lake City",
+          "bases": [
+            "Salt Lake City"
+          ],
+          "label": "Forecast: Salt Lake City",
+          "publisher": "nws",
+          "url": "https://forecast.weather.gov/MapClick.php?lat=40.75&lon=-111.8833",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "data/locations/locations.json US/UT/salt-lake-county/salt-lake-city, rounded to 4 dp",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Salt Lake City point; observation station KSLC",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "place_named"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Zion National Park",
+          "bases": [
+            "Springdale (Zion)"
+          ],
+          "label": "Weather and climate: Zion National Park",
+          "publisher": "nps",
+          "url": "https://www.nps.gov/zion/planyourvisit/weather-and-climate.htm",
+          "english": true,
+          "url_pattern": "fixed",
+          "built_from": "WebSearch 2026-10-26 (planyourvisit/weather.htm answers 404)",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Weather and Climate - Zion National Park (U.S. National Park Service)",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Bryce Canyon National Park",
+          "bases": [
+            "Bryce Canyon City"
+          ],
+          "label": "Weather: Bryce Canyon National Park",
+          "publisher": "nps",
+          "url": "https://www.nps.gov/brca/planyourvisit/weather.htm",
+          "english": true,
+          "url_pattern": "fixed",
+          "built_from": "already cited in research/trips/usa-southwest-rockies",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Weather - Bryce Canyon National Park (U.S. National Park Service)",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Capitol Reef National Park",
+          "bases": [
+            "Torrey (Capitol Reef)"
+          ],
+          "label": "Weather: Capitol Reef National Park",
+          "publisher": "nps",
+          "url": "https://www.nps.gov/care/planyourvisit/weather.htm",
+          "english": true,
+          "url_pattern": "fixed",
+          "built_from": "already cited in research/trips/usa-southwest-rockies",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Weather - Capitol Reef National Park (U.S. National Park Service)",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Arches National Park",
+          "bases": [
+            "Moab (Arches, Canyonlands)"
+          ],
+          "label": "Weather: Arches National Park",
+          "publisher": "nps",
+          "url": "https://www.nps.gov/arch/planyourvisit/weather.htm",
+          "english": true,
+          "url_pattern": "fixed",
+          "built_from": "NPS park code arch",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Weather - Arches National Park (U.S. National Park Service)",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Canyonlands National Park",
+          "bases": [
+            "Moab (Arches, Canyonlands)"
+          ],
+          "label": "Weather: Canyonlands National Park",
+          "publisher": "nps",
+          "url": "https://www.nps.gov/cany/planyourvisit/weather.htm",
+          "english": true,
+          "url_pattern": "fixed",
+          "built_from": "NPS park code cany",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Weather - Canyonlands National Park (U.S. National Park Service)",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Salt Lake City office area",
+          "bases": [
+            "Salt Lake City",
+            "Springdale (Zion)",
+            "Bryce Canyon City",
+            "Torrey (Capitol Reef)"
+          ],
+          "label": "Climate data: NWS Salt Lake City",
+          "publisher": "nws",
+          "url": "https://www.weather.gov/wrh/Climate?wfo=slc",
+          "english": true,
+          "url_pattern": "office_code",
+          "built_from": "NWS climate tool, office slc",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Climate",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": "Interactive tool (NOWData); the visitor picks a station"
+        }
+      ],
+      "fallback": {
+        "url": "https://www.weather.gov/",
+        "check": {
+          "read": "2026-10-26",
+          "http": 200,
+          "reachable": true
+        }
+      },
+      "gaps": []
+    },
+    {
+      "trip": "vermont-fall-2026",
+      "research_folder": "vermont-fall-2026",
+      "country": "US",
+      "region": "Vermont",
+      "links": [
+        {
+          "kind": "forecast",
+          "area": "Hyde Park (Stowe area)",
+          "bases": [
+            "Hyde Park (Stowe area)"
+          ],
+          "label": "Forecast: Hyde Park",
+          "publisher": "nws",
+          "url": "https://forecast.weather.gov/MapClick.php?lat=44.6245&lon=-72.5648",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "data/trips/base-points.json trip/vermont-fall-2026 (Wikidata Q2051042), rounded to 4 dp",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Hyde Park point; observation station Morrisville-Stowe State Airport",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "place_named"
+          },
+          "note": null
+        },
+        {
+          "kind": "climate",
+          "area": "Northern Vermont",
+          "bases": [
+            "Hyde Park (Stowe area)"
+          ],
+          "label": "Climate data: NWS Burlington",
+          "publisher": "nws",
+          "url": "https://www.weather.gov/btv/climate",
+          "english": true,
+          "url_pattern": "office_code",
+          "built_from": "NWS office btv",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Local Climate Data and Plots",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        }
+      ],
+      "fallback": {
+        "url": "https://www.weather.gov/",
+        "check": {
+          "read": "2026-10-26",
+          "http": 200,
+          "reachable": true
+        }
+      },
+      "gaps": []
+    },
+    {
+      "trip": "new-hampshire-stopover-2026",
+      "research_folder": null,
+      "country": "US",
+      "region": "New Hampshire",
+      "links": [
+        {
+          "kind": "forecast",
+          "area": "Lincoln (Franconia Notch, Kancamagus)",
+          "bases": [
+            "Lincoln (Franconia Notch, Kancamagus)"
+          ],
+          "label": "Forecast: Lincoln",
+          "publisher": "nws",
+          "url": "https://forecast.weather.gov/MapClick.php?lat=44.045&lon=-71.6706",
+          "english": true,
+          "url_pattern": "coords",
+          "built_from": "data/trips/base-points.json trip/new-hampshire-stopover-2026 (Wikidata Q922740)",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Point Forecast: Lincoln NH",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "place_named"
+          },
+          "note": "NWS names the point 'Lincoln NH'"
+        },
+        {
+          "kind": "climate",
+          "area": "Western Maine and New Hampshire",
+          "bases": [
+            "Lincoln (Franconia Notch, Kancamagus)"
+          ],
+          "label": "Climate data: NWS Gray, Maine",
+          "publisher": "nws",
+          "url": "https://www.weather.gov/gyx/climate",
+          "english": true,
+          "url_pattern": "office_code",
+          "built_from": "NWS office gyx (covers the White Mountains)",
+          "check": {
+            "read": "2026-10-26",
+            "http": 200,
+            "page_title": "Climate Data",
+            "reachable": true,
+            "method": "script GET, travel-capture/1.0 UA, one request at a time",
+            "content": "title_matches"
+          },
+          "note": null
+        }
+      ],
+      "fallback": {
+        "url": "https://www.weather.gov/",
+        "check": {
+          "read": "2026-10-26",
+          "http": 200,
+          "reachable": true
+        }
+      },
+      "gaps": []
+    }
+  ],
+  "privacy": {
+    "rel": "noopener noreferrer",
+    "target": "_blank",
+    "sr_only": "(opens in a new tab, third-party site)",
+    "rule": "The link carries no visitor data: no query we add, no party or trip parameters. noreferrer stops the browser sending our page URL (which can carry the youngest-age band and adult count, D6) as the Referer. Nothing is fetched from these services by our pages or our build."
+  },
+  "selection_rule": "The page reads trips[trip == trip id]. It shows forecast rows first, in the order stored (the order of the bases), then mountain and aurora rows, then climate rows. A row whose check.reachable is false is not drawn; if a trip has no drawable forecast row, the page draws the fallback. A days view may pick the rows whose bases include the day base name."
+}
