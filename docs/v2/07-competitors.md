@@ -76,8 +76,8 @@ Today view that works with no signal.*
 
 ## 7. Wanderlog UI review (owner's screenshots, 17 Oct 2026)
 
-Screenshots: `reference/wanderlog-empty-trip.webp` (a new 15-day trip, empty) and
-`reference/wanderlog-place-added.webp` (Venice added to Places to visit).
+Screenshots (removed before the repository went public, PUBLIC-SCRUB 25 Oct 2026: they were a third party's
+UI): a new 15-day trip, empty, and Venice added to Places to visit.
 
 ### What the flow does
 1. A three-column page: outline sidebar (Overview: Explore, Notes, Places to visit, other lists;
@@ -128,7 +128,7 @@ Screenshots: `reference/wanderlog-empty-trip.webp` (a new 15-day trip, empty) an
 6. **A five-step tip carousel** on first open. Ours teaches through empty states that do the thing
    ("Type a place, paste a link, or drop a pin").
 
-### More screenshots (`reference/wanderlog-list-checklist.webp`, `reference/wanderlog-budgeting.png`)
+### More screenshots (a list with a checklist, and budgeting; removed with the others)
 
 - Beside each add box: **Add note** and **Add checklist** buttons. A checklist is a block inside a
   list or a day ("pack for the gondola: jackets, cash"). → we add item kind `checklist` (schema.sql),
