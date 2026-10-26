@@ -568,7 +568,7 @@ against the free 2,000 a month (local-database spec Q182).
 
 ## 9. Owner questions (Q220 to Q229)
 
-R-178, R-179 and Q219 are left free for the REQ-FORM task running in parallel.
+R-178, R-179 and Q219 stay unused. The parallel REQ-FORM task took R-190 to R-196, Q230 to Q239 and BACKLOG 15.190 to 15.196 ([request-intake-fields.md](../features/request-intake-fields.md)).
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|

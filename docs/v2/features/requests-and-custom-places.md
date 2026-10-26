@@ -17,6 +17,10 @@ Related, and the authority for everything this page links to:
 [map-stack-2026-10-18.md](../../../research/reports/map-stack-2026-10-18.md) (Google terms), principles P1 to P9 in
 [principles.md](../design/foundation/principles.md).
 
+> **Fields amended 25 Oct 2026:** what each request form asks (trip, place, improve, report, custom-stop suggestion),
+> the Where block, the detail score and the research-ready brief are in [request-intake-fields.md](request-intake-fields.md)
+> (PLAN R-190 to R-196). Sections 2.3 and 2.4 here stay; 2.3's "What we already have" also works by region there.
+
 ## The owner's request (25 Oct 2026, a reviewer asked whether these exist)
 
 > A. Request a new trip ("plan India for 15 days, where should I go"). B. Request an enhancement to an existing trip
@@ -716,6 +720,7 @@ and 3; Q148 (no mail domain now) keeps day one to verified signed-in senders.
 | "Find a place by name: our catalog first, then Photon/Nominatim" | [tech.md](../design/tech.md) map stack row 3 | catalogue, then towns, then Google Places autocomplete (owner, Q210) with openrouteservice and Photon as fallback; Nominatim only for research (its policy forbids type-ahead); banner updated there |
 | "Geocoding: Nominatim" | [04-stack.md](../04-stack.md) | still the research resolver; interactive search is Google first with the OSM fallback, section 4.3 here; row updated there |
 | This page's first draft: "never Google Places" (RQ5, 4.3, the out-of-day-one list) | this page, 25 Oct | replaced by the owner's answer to Q210 the same day: Google primary, ORS and Photon fallback, Google terms kept (4.3) |
+| The trip request's free-text destination and the place suggestion's free-text "where" (via visitor 5.1, 5.2) | this page 2.3, 2.4 | structured fields of [request-intake-fields.md](request-intake-fields.md) section 2; the sent step lists what we have by region when one is chosen |
 | INT-5 and PHO-1 "after F17 roles" | visitor spec 9.3, overview 6.3 | the owner role of MCP-G's bootstrap is enough for the owner (RQ10); other roles still wait for F17 |
 
 ## Change log

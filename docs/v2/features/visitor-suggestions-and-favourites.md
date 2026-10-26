@@ -291,6 +291,10 @@ Favourites belong to a person, not a household, in v1. Household sharing waits f
 
 ### 5.1 Suggest a place (anonymous or signed in)
 
+> **Superseded in part 25 Oct 2026:** the fields of 5.1 and 5.2 are replaced by
+> [request-intake-fields.md](request-intake-fields.md) section 2 (structured Where, kinds mapped to `types.json`, trip
+> detail steps); de-duplication in 5.3 is keyed by name, country and region (its section 7). PLAN R-190 to R-196.
+
 | Field | Rule | Required |
 |---|---|---|
 | Name | 2 to 120 characters, no URL | yes |
