@@ -172,14 +172,16 @@ describe('route map with no positions (backlog 2.35)', () => {
 
 describe('trip pins from data/trips/base-points.json (backlog 3.41)', () => {
   const pin = (slug: string) => tripListRows().find((r) => r.slug === slug)!;
+  // Algonquin left this list on 26 Oct 2026 (STACK-FIX): AREA-2 added a Dwight place page (Wikidata Q1268459, the community itself), so
+  // its base "Dwight" is now positioned by the name join of trips.ts (T5) and the pin is that base, as for any positioned base. Its
+  // base-points.json row (an OSM locality node 400 m away) stays as the fallback should the page go. See the test below.
   const SOURCED: [string, number, number][] = [
-    ['algonquin-muskoka-2026', 45.33099, -79.0115],
     ['niagara-day-2026', 43.12922, -79.06],
     ['costa-rica-2027', 10.75208, -85.37965],
     ['norway-summer-2028', 68.23333, 14.56667],
     ['switzerland-2027', 47.0523, 8.3059],
   ];
-  it('the five trips with no positioned base sit on their sourced point, exactly, not as area-only rings', () => {
+  it('the four trips with no positioned base sit on their sourced point, exactly, not as area-only rings', () => {
     for (const [slug, lat, lon] of SOURCED) {
       const r = pin(slug);
       expect(r.approx, slug).toBe(false);
@@ -194,6 +196,13 @@ describe('trip pins from data/trips/base-points.json (backlog 3.41)', () => {
   });
   it('a trip with its own positioned base keeps it', () => {
     expect(pin('dolomites-2027').lat).toBeCloseTo(46.7327, 3);
+  });
+  it('Algonquin sits on its base, the Dwight place page, which is the same sourced point the base and the route map use', () => {
+    const a = pin('algonquin-muskoka-2026');
+    expect(getPlace('dwight')!.name).toBe('Dwight');
+    const dwight = getPlace('dwight')!.point!;
+    expect(getTrip('algonquin-muskoka-2026')!.bases[0]!.point).toMatchObject({ lat: dwight.lat, lon: dwight.lon });
+    expect({ approx: a.approx, lat: a.lat, lon: a.lon }).toEqual({ approx: false, lat: dwight.lat, lon: dwight.lon });
   });
 });
 

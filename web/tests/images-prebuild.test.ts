@@ -72,7 +72,7 @@ describe('images.mjs --prebuild', () => {
     expect(first.stderr).toMatch(/not in the cache/);
     // one photo in the cache: it gets its three renditions and a map entry
     const sharp = (await import('sharp')).default;
-    writeFileSync(path.join(cache, keyOf(sourceUrlOf(names[0]!))), await sharp({ create: { width: 40, height: 20, channels: 3, background: '#468' } }).jpeg().toBuffer());
+    writeFileSync(path.join(cache, keyOf(sourceUrlOf(names[0]!))), await sharp({ create: { width: 40, height: 20, channels: 3, background: { r: 68, g: 102, b: 136 } } }).jpeg().toBuffer());
     const second = run('images.mjs', ['--prebuild'], { COMMONS_CACHE: cache, IMG_PUBLIC_DIR: pub, IMG_GENERATED_DIR: gen });
     expect(second.status, second.stderr).toBe(0);
     const map = JSON.parse(readFileSync(path.join(gen, 'image-map.json'), 'utf8')) as Record<string, string>;

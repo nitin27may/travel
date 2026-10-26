@@ -73,7 +73,7 @@ These 30 are the parser's test fixture (`web/tests/search/queries.json`) and the
 | 4 | hot springs in Iceland in winter | places | `country=IS&k=water.thermal.hot_spring&season=12,1,2` | "Hot springs" is an exact type (A3). Winter is Dec-Feb in Iceland (A8) |
 | 5 | via ferrata for a 12 year old in the Dolomites | places | `country=IT&region=south-tyrol&area=dolomites&k=mountain.ferrata&kid=12` | "Via ferrata" resolves through the alias table |
 | 6 | short walk under 3 km with a toddler | places | `k=nature.trail&f.length=lt3&kid=2` | "toddler" = age 2 (A9). The type alias "short walk" widens to its category (A3) |
-| 7 | trails under 5 km near Jasper | places | `country=CA&region=alberta&area=jasper&k=nature.trail&f.length=lt3,3-6` | The chip says "Up to 6 km (nearest band)" (A10) |
+| 7 | trails under 5 km near Jasper | places | `country=CA&region=alberta&area=jasper,jasper-national-park&k=nature.trail&f.length=lt3,3-6` | The chip says "Up to 6 km (nearest band)" (A10). "Jasper" joins the Jasper National Park area by A14, as "Banff" does in query 1: since AREA-2 (26 Oct 2026) the town of Jasper and six other places sit in that area, so `area=jasper` alone would leave the town out |
 | 8 | half day hike in Zion | places | `country=US&region=utah&area=zion&k=nature.trail&f.time=half-day` | |
 | 9 | wheelchair accessible sights in Vermont | places | `country=US&region=vermont&k=culture&f.step-free=yes` | Step-free applies to culture and stays. Sights with no answer go to "not checked yet" |
 | 10 | viewpoint for sunset in the Dolomites | places | `country=IT&region=south-tyrol&area=dolomites&k=nature.viewpoint&f.best-time-of-day=sunset` | |

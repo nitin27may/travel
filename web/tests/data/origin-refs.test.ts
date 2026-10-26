@@ -18,7 +18,7 @@ describe('place refs name no wishlist or prototype origin (A24)', () => {
 
   it('every page ref is a capture ref or place/<slug>, distinct, and never an origin key', () => {
     const refs = [...pb.refBySlug.values()];
-    expect(refs.length).toBe(355); // 359 before DATA-D4a folded five offers into their places
+    expect(refs.length).toBe(431); // 359 before DATA-D4a folded five offers into their places; 355 before AREA-2 added 76 store places
     expect(new Set(refs).size).toBe(refs.length);
     for (const [slug, ref] of pb.refBySlug) {
       expect(ref, slug).toMatch(REF_RE);
@@ -26,10 +26,10 @@ describe('place refs name no wishlist or prototype origin (A24)', () => {
     }
   });
 
-  it('the 115 pages with no capture record (74 wishlist, 41 prototype) hold the ref their origin is pinned to, minted from their slug', () => {
-    expect(pb.originRefs.size).toBe(115);
+  it('the 191 pages with no capture record (150 wishlist, 41 prototype; 115 and 74 before AREA-2 added 76 store places) hold the ref their origin is pinned to, minted from their slug', () => {
+    expect(pb.originRefs.size).toBe(191);
     const kinds = [...pb.originRefs.keys()].map((k) => k.split(':')[0]);
-    expect(kinds.filter((k) => k === 'loc').length).toBe(74);
+    expect(kinds.filter((k) => k === 'loc').length).toBe(150);
     expect(kinds.filter((k) => k === 'proto').length).toBe(41);
     for (const [origin, ref] of pb.originRefs) {
       expect(origins[origin], ref).toBe(ref);

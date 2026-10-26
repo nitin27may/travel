@@ -6,6 +6,8 @@ import { fixtures, labels, loadVocab, pairs, searchRecords } from './support';
 
 // Smart search phase 1 (backlog 3.43, docs/v2/features/smart-search.md): the 30 queries of section 3, the ambiguity rules A1-A13 of
 // section 5 and the honesty rules H1-H6 of section 7. Real data: the search index the site builds.
+// Query 7 ("near Jasper") reads area=jasper,jasper-national-park since AREA-2 (26 Oct 2026): A14 joins the town's area with the park
+// area that now holds the town of Jasper itself, exactly as "Banff" joins Banff National Park in query 1.
 
 const records = searchRecords();
 const vocab = loadVocab();

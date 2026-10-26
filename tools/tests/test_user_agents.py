@@ -49,9 +49,11 @@ def test_the_scanner_finds_the_reference_user_agent() -> None:
 
 
 def test_the_scanner_catches_an_email_in_a_user_agent() -> None:
-    planted = 'UA = {"User-Agent": "travel-capture/1.0 (someone@example.org)"}\n'
+    # the address is joined at run time so this file's own source lines carry no address for web/tests/globe/ua.test.ts to find
+    at = "someone" + "@" + "example.org"
+    planted = 'UA = {"User-Agent": "travel-capture/1.0 (' + at + ')"}\n'
     assert any(EMAIL.search(ua) for ua in user_agents(planted))
-    planted_ts = "const UA = 'travel-thing/1.0 (mailto:someone@example.org)';\n"
+    planted_ts = "const UA = 'travel-thing/1.0 (mailto:" + at + ")';\n"
     assert any(EMAIL.search(ua) for ua in user_agents(planted_ts))
 
 

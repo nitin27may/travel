@@ -17,7 +17,12 @@ export const STUB_CARD_ORDER: Record<string, string[]> = {
   "waterfall in yoho": ["spiral-falls", "skogar-falls", "emerald-pool-yoho", "natural-bridge"],
 };
 
-/** The real catalogue's ten queries and the first ten slugs of each, taken at 23 Oct 2026. */
+/**
+ * The real catalogue's ten queries and the first ten slugs of each, taken at 23 Oct 2026. "viewpoint trail" re-pinned 26 Oct 2026 (STACK-FIX):
+ * AREA-2 added 76 places (N 355 to 431, df "trail" 133, df "viewpoint" 49, a new average card length), and the two close scores of
+ * plain-of-six (11 terms, one of each word: 3.2795) and cadini-di-misurina (20 terms, "viewpoint" twice: 3.2345) traded places. Same rule,
+ * new corpus statistics; no other pinned pair moved.
+ */
 export const REAL_CARD_ORDER: Record<string, string[]> = {
   "lake": ["cameron-lake", "kinney-lake-mount-robson", "crypt-lake", "grassi-lakes", "beauvais-lake-trail", "berg-lake", "lake-como", "solitaire-lake-trail", "pyramid-lake", "moraine-lake"],
   "waterfall": ["borgarfjordur-waterfalls", "grand-sault-waterfall", "takakkaw-falls", "wapta-falls-yoho", "canyon-sainte-anne", "sunwapta-falls", "canyon-des-portes-de-lenfer", "dettifoss", "godafoss", "svartifoss"],
@@ -25,7 +30,7 @@ export const REAL_CARD_ORDER: Record<string, string[]> = {
   "hot springs": ["banff-upper-hot-springs", "miette-hot-springs", "radium-hot-springs", "whiteswan-lake-and-lussier-hot-springs", "ouray", "fairmont-banff-springs-spa", "manitou-incline", "paint-pots", "cave-and-basin-national-historic-site"],
   "lighthouse": ["la-martre-lighthouse", "cap-gaspe", "cape-cod"],
   "national park": ["yellowstone-national-park", "arches-national-park", "zion-national-park", "bryce-canyon-national-park", "canyonlands-national-park", "grand-teton-national-park", "mount-rainier-national-park", "north-cascades-national-park", "cap-bon-ami", "cap-gaspe"],
-  "viewpoint trail": ["elk-lakes-viewpoint-trail", "indefatigable-bench-viewpoint", "cadini-di-misurina-viewpoint", "plain-of-six-glaciers-to-teahouse-and-abbot-pass-viewpoint", "tre-cime-north-face-viewpoint-by-rifugio-locatelli", "pic-champlain", "mont-saint-alban", "kirkjufell", "sansons-peak", "sentinel-pass"],
+  "viewpoint trail": ["elk-lakes-viewpoint-trail", "indefatigable-bench-viewpoint", "plain-of-six-glaciers-to-teahouse-and-abbot-pass-viewpoint", "cadini-di-misurina-viewpoint", "tre-cime-north-face-viewpoint-by-rifugio-locatelli", "pic-champlain", "mont-saint-alban", "kirkjufell", "sansons-peak", "sentinel-pass"],
   "turquoise": ["kinney-lake-mount-robson", "lago-di-sorapis"],
   "canyon": ["maligne-canyon", "marble-canyon", "johnston-canyon", "the-narrows", "johnston-canyon-lower-falls", "johnston-canyon-upper-falls", "fjadrargljufur-canyon", "johnston-canyon-walk", "marble-canyon-walk", "sunset-point"],
   "old town": ["la-val", "reykjavik-old-harbour", "cortina-dampezzo", "milan", "verona", "dobbiaco", "florence", "venice", "rome", "santa-cristina"],
