@@ -7,12 +7,12 @@ import { SHOT_DIR } from './shots';
 const PHONE = { width: 390, height: 844 };
 
 test.describe('phone bottom bar Search slot and home order (SHL, backlog 2.41 and 4.15)', () => {
-  test('the bar reads Trips, Places, Globe, Search; Search opens the search with focus in the input and Esc returns to the button', async ({ browser, site }) => {
+  test('the bar reads Trips, Places, Globe, Search, Mine; Search opens the search with focus in the input and Esc returns to the button', async ({ browser, site }) => {
     const context = await browser.newContext({ viewport: PHONE, locale: 'en-CA' });
     const page = await context.newPage();
     await page.goto(`${site.url}/places/`, { waitUntil: 'networkidle' });
     const bar = page.getByRole('navigation', { name: 'Main, bottom' });
-    await expect(bar.locator('a, button')).toHaveText(['Trips', 'Places', 'Globe', 'Search']);
+    await expect(bar.locator('a, button')).toHaveText(['Trips', 'Places', 'Globe', 'Search', 'Mine']);
     await expect(bar.getByRole('link', { name: 'Sign in' })).toHaveCount(0);
     const button = bar.getByRole('button', { name: 'Search' });
     await button.click();
