@@ -37,6 +37,9 @@ notes) are unchanged. The corrections, each argued in MASTER-ORDER 5.5:
 | C10 | New v0.14: trips written as data get pages (TD-1 to TD-3, Q267), before customise |
 | C11 to C14 | OVR-0 has no dependency on OVR-Cb; migration files are named by slug; FBK-C's migration does not wait for FAV-D; GSI-1 builds on `SignInCard.tsx`; section 2's seat table is replaced by MASTER-ORDER 5.1 and 5.4 |
 
+The test-strategy and trip-origin plans are merged (I7, I8 and their log rows below). Their text uses the first version's
+numbers: "v0.9" in the trip-origin rows is new v0.8 (MASTER-ORDER 5.3), and I7's "before v0.9" is before new v0.8.
+
 Old to new numbers: v0.2 and v0.4 to v0.2; v0.3 stays; v0.5 stays; v0.6 to v0.9; v0.7 to v0.10; v0.8 to v0.7; v0.9 to
 v0.8; v0.10 to v0.12; v0.11 to v0.15; v0.12 to v0.16; v0.13 to v0.17; v0.14 to v0.18; v0.15 to v0.19; v0.16 to v0.20;
 v0.17 to v0.21. New: v0.4, v0.6, v0.11, v0.13, v0.14.

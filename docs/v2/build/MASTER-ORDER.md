@@ -47,12 +47,12 @@ budget story and no hidden dependency.
 | Production runs the private commit d93127b, which is `47be5b58` on the public history (filter-repo commit map) | the map in the session scratch folder `filter/filtered.git/filter-repo/commit-map` | tag `release/v0.1` on `47be5b58`, not on d93127b (H1); copy the map out of the scratch folder before it is cleaned (H2) |
 | ACCT-PH is merged (`7ab0657`) with no design review or verify note | no review file in `docs/v2/design/shell/` for it | ACCT-PH-RV is a v0.2 task |
 | D2b (74 stored places) is merged (`41ca7f4`), with option A of Q88 (`1726dfe`, "not for merge without a ruling") also on `main` | `git log main` | D2b rides the next deploy (v0.2), so Q88 needs the owner's ruling before it; the median is 1.2491 against 1.25 |
-| BUDGET-FIX merged (lazy Add-to-day panel): trip start JS 199.4 of 200 KB | origin spec 12 on `public/ORIGIN-PLAN` | 0.6 KB for every trip-page addition until OVR-0 |
+| BUDGET-FIX merged (lazy Add-to-day panel): trip start JS 199.4 of 200 KB | [origin spec](../features/trip-origin-and-nearest-airport.md) 12 | 0.6 KB for every trip-page addition until OVR-0 |
 | PUBLIC-SCRUB merged: the home point is read only from `HOME_POINT_LAT`/`HOME_POINT_LON`; unset, `nearHome()` throws | `core/src/config/home.ts` | every worktree's check-all and every Vercel build needs the two variables (Q261, and an owner action in v0.2) |
 | The TRP2b2 "before go-live" deferrals are open while production is live | [REMAINING-CLOSURE-PLAN.md](public-site/REMAINING-CLOSURE-PLAN.md) 4 | TRP-GL in v0.4 |
 | The owner's closure queue items 2 to 4 (API/HYG loose ends, LST2b, CONS-3) are in no release; the 24 Oct owner sequencing put them before R-59, and Q206 let only NAV phase 1 jump ahead | closure plan 2; Q206 | v0.6 |
-| `public/TEST-STRATEGY` (bf5a091) is on the public history, unmerged: TS-1 to TS-8, R-210 to R-214, Q250 to Q258, BACKLOG 15.210 to 15.218, EXECUTION-PLAN 10.4, RELEASE-PLAN I8 | `git log public/TEST-STRATEGY` | merge first (J0); its tiers are this page's gates |
-| `public/ORIGIN-PLAN` (1bb4783) is on the **private** history (base aa01821): ORG-*, R-200 to R-207, Q240 to Q249, BACKLOG 15.200 to 15.208, EXECUTION-PLAN 10.3, RELEASE-PLAN I7 | `git log public/ORIGIN-PLAN` | `git rebase --onto main aa01821 public/ORIGIN-PLAN`, re-run the scrub scan on its diff, then merge (J0) |
+| `public/TEST-STRATEGY` was on the public history and is merged into `public/DOCS-STACK` (25 Oct): TS-1 to TS-8, R-210 to R-214, Q250 to Q258, BACKLOG 15.210 to 15.218, EXECUTION-PLAN 10.4, RELEASE-PLAN I8 | `git log public/DOCS-STACK` | merged first (H0); its tiers are this page's gates |
+| `public/ORIGIN-PLAN` (1bb4783) was on the **private** history (base aa01821) and is merged into `public/DOCS-STACK` as a cherry-pick of its single commit (25 Oct): ORG-*, R-200 to R-207, Q240 to Q249, BACKLOG 15.200 to 15.208, EXECUTION-PLAN 10.3, RELEASE-PLAN I7 | `git log public/DOCS-STACK` | cherry-picked onto the public history, scrub scan of the stack's diff against `main` passed (H0); the old branch is deleted at H7 |
 | Every other `public/*` branch is content-equal to `main` (patch ids differ only by the scrub's text rewrite: 54 per branch) | `git cherry main <branch>` over the 96 branches | delete them as one batch on the owner's go (H7, Q265); never merge an old-history branch |
 | Migrations 0001 to 0011 applied; next free number 0012 | `core/src/db/migrations/` | numbers at merge (MIG-N); section 3.4 lists the provisional order |
 | `/privacy/` does not exist; the beacon script is in `web/app/layout.tsx` behind `NEXT_PUBLIC_CF_BEACON_TOKEN` | file tree | GSI-P in v0.2 |
@@ -62,8 +62,8 @@ budget story and no hidden dependency.
 
 Sizes are agent hours from the specs; a size marked "new" is set here. Models follow CLAUDE.md (Haiku mechanical,
 Sonnet specified, Opus contracts, privacy, review and research). "Release" is the new train of section 5. Status:
-**open** (specified, not started), **ready** (no blocker left), **blocked** (the cell names the blocker), **pending
-branch** (specified on an unmerged branch), **later** (not on the train).
+**open** (specified, not started), **ready** (no blocker left), **blocked** (the cell names the blocker), **planned, spec
+merged** (the spec is on `main`'s docs stack, no code yet), **later** (not on the train).
 
 ### 3.1 Done since the specs were written (deduplicated; do not schedule again)
 
@@ -81,7 +81,7 @@ branch** (specified on an unmerged branch), **later** (not on the train).
 
 | Id | Task | h | Model | Owns | Spec | Status | Release |
 |---|---|---|---|---|---|---|---|
-| H0 | Merge the three docs branches in order: TEST-STRATEGY, ORIGIN-PLAN (after `rebase --onto` and a scrub scan of its diff), MASTER-ORDER; resolve the planning-doc text conflicts (both sides kept) | 0.5 | coordinator | merges | this page 6 | ready | J0 |
+| H0 | Merge the three docs branches in order: TEST-STRATEGY (merged), ORIGIN-PLAN (cherry-picked, scrub scan passed), MASTER-ORDER; planning-doc text conflicts resolved with both sides kept. Done on `public/DOCS-STACK`; the fast-forward of `main` is the coordinator's | 0.5 | coordinator | merges | this page 6 | stacked, awaiting the fast-forward of `main` | J0 |
 | H1 | Tag `release/v0.1` on `47be5b58` with the message "v0.1: public site live (deployed as d93127b on the private history)" | 0.1 | coordinator | tag | RELEASE-PLAN I6 (corrected) | ready | v0.1 |
 | H2 | Copy the filter-repo commit map out of the session scratch folder to the owner's private backup folder | 0.1 | coordinator | none in the repo | scrub 4, 5.5 | ready, urgent | J0 |
 | H3 | Rewrite the 684 stale commit ids in 87 tracked files to public ids from the map; ids with no public commit (archive tags, private-only merges) get a "(private history)" suffix | 3 | Haiku script, Sonnet check | `docs/**`, `HANDOVER.md`, `CHANGELOG.md`, `research/runs/**`, `research/audits/**`, one comment in `core/src/catalogue/store.ts`, four test comments, the note in `data/capture/gap-budget.json` | scrub 5.5 | blocked: Q264, J0 | J1 |
@@ -99,15 +99,15 @@ branch** (specified on an unmerged branch), **later** (not on the train).
 | O-HP | Owner: the home point for every worktree from one mode-600 file the shell loads, not a copy of the root `.env.local` (Q261) | 0.1 | owner | `~/.config/travel-secrets/home-point.env`, `~/.zshenv` (one line) | Q261 | blocked: Q261 | J0 |
 | BUD-1 | (new) Place-size S13 measures catalogue content only: shell chrome (header, footer, bottom bar, beacon tag) leaves the ratio and gets its own cap (today's bytes + 1 KB); a `budget:report` script prints both budgets' headroom for hand-backs | 3 | Opus | `web/tests/data/place-size.test.ts`, `web/tests/data/place-html-baseline.json` (re-measured by the new rule only), `web/tests/budget.test.ts` (report hook), `web/scripts/budget-report.mjs` (new), `web/package.json` (one script) | Q222, Q260 | blocked: Q260 | v0.2 |
 | IMG-1 | (new, was unsized) Renditions and share images run before the Vercel adapter collects pages, or deploys go prebuilt; CI offline image mode with a test that no Commons host is called; `tree_check` rule 10 accepts an absent `web/.og-cache` | 7 (Opus 2 spike, Sonnet 5) | Opus, Sonnet | `web/scripts/images.mjs`, `web/scripts/og.mjs`, `web/package.json` build scripts, `tools/tree_check.py` and its test, `web/tests/images*.test.ts` | EXECUTION-PLAN 13.2; RELEASE-PLAN 7.3 | ready | v0.4 |
-| TS-1 | Path-to-suite map and its check | 5 | Opus | `tools/gate/map.json`, `tools/gate/check_map.py`, tests | TEST-STRATEGY 12 | pending branch | I (with v0.3) |
-| TS-2a | Web vitest projects `unit`, `built`, `fixture`, `timing` | 3 | Sonnet, Opus review | `web/vitest.config.ts`, `web/tests/global-setup*.ts` | TS 12 | pending branch | I (v0.3) |
-| TS-2 | `tools/gate.sh` and `gate.py` | 8 | Sonnet | `tools/gate.sh`, `tools/gate/**`, one step in `tools/check-all.sh` | TS 12 | pending branch | I (v0.4) |
-| TS-4 | Slots, load guard, flake ledger | 4 | Sonnet | `tools/gate/slots.py`, `flakes.py` | TS 12 | pending branch | I (v0.4) |
-| TS-6 | Nightly T3 by launchd | 2 | Sonnet | `tools/nightly/**` | TS 12 | pending branch | I (v0.5) |
-| TS-3 | Cache by tree hash | 4 | Sonnet, Opus review | `tools/gate/cache.py` | TS 12 | pending branch | I (v0.5) |
-| TS-5 | Agent definitions and HANDOVER commands | 2 | Opus planner | `.claude/agents/travel-builder.md`, `travel-verifier.md`, HANDOVER section 2 rows | TS 12, Q257 | pending branch | I (v0.5) |
-| TS-7 | `--stack` with ejection and bisect | 5 | Sonnet, Opus review | `tools/gate/stack.py` | TS 12 | pending branch | I (v0.6) |
-| TS-8 | First escape audit, measured savings | 2 | Sonnet, Opus | TEST-STRATEGY 11, 15 | TS 12 | pending branch | I (two weeks after TS-2) |
+| TS-1 | Path-to-suite map and its check | 5 | Opus | `tools/gate/map.json`, `tools/gate/check_map.py`, tests | TEST-STRATEGY 12 | planned, spec merged | I (with v0.3) |
+| TS-2a | Web vitest projects `unit`, `built`, `fixture`, `timing` | 3 | Sonnet, Opus review | `web/vitest.config.ts`, `web/tests/global-setup*.ts` | TS 12 | planned, spec merged | I (v0.3) |
+| TS-2 | `tools/gate.sh` and `gate.py` | 8 | Sonnet | `tools/gate.sh`, `tools/gate/**`, one step in `tools/check-all.sh` | TS 12 | planned, spec merged | I (v0.4) |
+| TS-4 | Slots, load guard, flake ledger | 4 | Sonnet | `tools/gate/slots.py`, `flakes.py` | TS 12 | planned, spec merged | I (v0.4) |
+| TS-6 | Nightly T3 by launchd | 2 | Sonnet | `tools/nightly/**` | TS 12 | planned, spec merged | I (v0.5) |
+| TS-3 | Cache by tree hash | 4 | Sonnet, Opus review | `tools/gate/cache.py` | TS 12 | planned, spec merged | I (v0.5) |
+| TS-5 | Agent definitions and HANDOVER commands | 2 | Opus planner | `.claude/agents/travel-builder.md`, `travel-verifier.md`, HANDOVER section 2 rows | TS 12, Q257 | planned, spec merged | I (v0.5) |
+| TS-7 | `--stack` with ejection and bisect | 5 | Sonnet, Opus review | `tools/gate/stack.py` | TS 12 | planned, spec merged | I (v0.6) |
+| TS-8 | First escape audit, measured savings | 2 | Sonnet, Opus | TEST-STRATEGY 11, 15 | TS 12 | planned, spec merged | I (two weeks after TS-2) |
 | BKP-1 | Backups of private tables by a local launchd job; read-only role by an additive migration (`backup-reader`); `age` encryption; retention; monthly restore test | 6 (+0.5 migration) | Opus 3, Sonnet 3.5 | `tools/db/backup.*`, the plist template, `core/src/db/migrations/<n>_backup_reader.sql`, tests | RELEASE-PLAN 7.6 | ready | v0.5 |
 | LOCAL-3 | Drift stage in check-all | 3 | Sonnet | one `tools/check-all.sh` step, its test | local-db 8 | ready | I (v0.6) |
 | LOCAL-4 | `.github/workflows/check.yml` plus RELEASE-PLAN 7.3 fixes not in IMG-1 (pinned actions, budget stage mode); the decoy home point as plain workflow `env` (not a secret) | 5 | Sonnet | `.github/**`, `tools/tree_contract.json` | RELEASE-PLAN 7.2 | blocked: repository public, Q182, LOCAL-3, IMG-1 | I (after the publish) |
@@ -130,7 +130,7 @@ branch** (specified on an unmerged branch), **later** (not on the train).
 | STY-P | `base` property group on settlement types (registry) | 2 | Opus (B2, contract lane) | `core/src/schema/capture/properties.ts`, `capture.ts build` outputs | stays 15 | ready | v0.13 (internal earlier) |
 | RIS-H | Homes for 7 researched properties | 3 | Opus (B2, contract lane) | `core/src/schema/capture/properties.ts`, renderers | catalogue-intake 6 | ready; not beside STY-P (same file) | I (v0.7) |
 | RIS-A | Promote research (D7-R access seasons, D3a and D4a proposals, D1b facts; D9-R town facts after STY-P) | 8 | Opus researcher | changeset files; coordinator applies | catalogue-intake 6 | blocked: RIS-J, RIS-H, STY-P | v0.13 (data) |
-| ORG-G | Gateways for the 13 public trips | 3 | Opus researcher | `data/trips/gateways.json`, research notes | origin spec 13 | pending branch; blocked: ORG-D | v0.8 |
+| ORG-G | Gateways for the 13 public trips | 3 | Opus researcher | `data/trips/gateways.json`, research notes | origin spec 13 | planned, spec merged; blocked: ORG-D | v0.8 |
 | D8-R | Rockies overview facts | 8 | Opus researcher | `OV.json` and sidecar | DATA D8 | blocked: RIS-J | v0.12 |
 | D8 | Overview facts, 7 more trips | 8 | Opus researcher | per trip | DATA D8 | blocked: D8-R | v0.12 |
 | D7 | Windows for 13 more trips | 16 | Opus researcher | `data/windows/<trip>.json` | DATA D7 | blocked: OVR-Ca | v0.12 |
@@ -150,7 +150,7 @@ branch** (specified on an unmerged branch), **later** (not on the train).
 | LST2b-C | City facet and counts in `core/src/query/**`, `core/src/schema/api/places.ts` (the contract part of LST2b, R-12 capped unchecked rows) | 3 (inside LST2b's 12) | Opus | LST2 brief b | ready | v0.6 |
 | PHO-C | (new) `pickPhotos(ref)` in `core/src/media/**`: record photos, then lane picks, then none; overrides join in PHO-0 | 1 | Opus | overview 4; BACKLOG 15.158 | ready | v0.7 |
 | R59-C | (new) Allowlisted stop-link shape on the timeline payload; day route builder with numbered overlapping parts, no silent truncation | 3 | Opus | TRIP-NAVIGATION-PLAN 1, 2 | ready | v0.8 |
-| ORG-C | Origin rule, schemas, store methods, airport identity rule, codec keys `from`, `gw` | 4 | Opus | origin 13 | pending branch | v0.8 (internal earlier) |
+| ORG-C | Origin rule, schemas, store methods, airport identity rule, codec keys `from`, `gw` | 4 | Opus | origin 13 | planned, spec merged | v0.8 (internal earlier) |
 | FBK-C | Intake union and migration `intake` with every widening: `improve`, `for_trip`, `for_day`, `source_ref` (+1.5), `intake-detail/1` and scores (+2.5), trip `start` (+0.25) | 12.25 | Opus | feedback 10.3; requests 11.4; intake fields 12 | ready | v0.10 |
 | REQ-RF-C | `regions(cc)`, the `towns` fallback, `gn:` ids | 2 | Opus | intake fields 12 | ready | v0.11 |
 | OVR-Ca | `trip-windows/1` validator, `tripItems`, `tripItemCounts` | 4 | Opus | OVR brief | ready | v0.12 |
@@ -190,7 +190,7 @@ branch** (specified on an unmerged branch), **later** (not on the train).
 | PHO-R | (new, BACKLOG 15.158) Render record photos: adapter read, renditions, credits snapshot, first photo as card thumbnail (lazy), photo and credit on place and trail pages | 8 + 4 review | Sonnet; Opus, Sonnet | `web/lib/public/places.ts`, `web/lib/public/photos.ts`, the place photo figure in `web/components/places/**`, card thumbnail slots | BACKLOG 15.158 | blocked: PHO-C, IMG-1, Q263 | v0.7 |
 | R59-N | Design note: stop actions, day route, parts | 2 | Opus reviewer | `docs/v2/design/trip-page/navigation-note.md` | TRIP-NAVIGATION-PLAN | ready | v0.8 |
 | R59-1 | Stop actions beside each stop, day route at each day header, numbered parts | 10 + 4 review | Sonnet; Opus, Sonnet | `web/components/trips/**` (timeline entries, day header, `directions.ts`), `web/lib/public/timeline.ts` (links) | TRIP-NAVIGATION-PLAN 1, 2 | blocked: R59-C, R59-N, TRP-GL | v0.8 |
-| ORG-N, ORG-A, ORG-1, ORG-2, ORG-R, ORG-V (and ORG-D, ORG-M in B2) | Getting there | 16.5 (+4.5 B2) | Opus, Sonnet | origin spec 13 | origin spec | pending branch; ORG-1 after R59-1 | v0.8 |
+| ORG-N, ORG-A, ORG-1, ORG-2, ORG-R, ORG-V (and ORG-D, ORG-M in B2) | Getting there | 16.5 (+4.5 B2) | Opus, Sonnet | origin spec 13 | origin spec | planned, spec merged; ORG-1 after R59-1 | v0.8 |
 | FBK-N | Entry-point note | 2 | Opus | `docs/v2/build/public-site/FBK-entry-points.md` | feedback 10.3 | blocked: OVR-0 | v0.10 |
 | FBK-2 | The sheet, entry points, `/feedback/`, `/account/submissions/` (place and trip fields moved to REQ-F) | 13 | Sonnet | `web/components/intake/**`, `web/app/feedback/**`, `web/app/confirm/**`, `web/app/account/submissions/**`, `web/components/shell/ReportLink.tsx`, mount lines, one `/privacy/` section | feedback 10.3 | blocked: FBK-1, FBK-N | v0.10 |
 | FBK-R, FBK-V; REQ-1; REQ-R1, REQ-V1 | Review, verify; the improve UI; their review | 6 + 6 + 4 | Opus, Sonnet | `web/components/intake/improve/**` | requests 11 | blocked: FBK-2, NAV-1 | v0.10 |
@@ -349,7 +349,7 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | Q101 to Q108 (favourites) | FAV-C, FAV-1 | v0.3 |
 | O-E0 to O-E3, O-E1 after the deploy, Q185 | v0.5 | v0.5 |
 | Q263 photo figure | PHO-R | v0.7 |
-| Q240 to Q249 (origin, pending branch) | ORG-1 | v0.8 |
+| Q240 to Q249 (origin, planned, spec merged) | ORG-1 | v0.8 |
 | O-0, O-1 to O-5 (Google) | GSI-E | v0.9 |
 | Q130 to Q137; Turnstile (from v0.5) | FBK-1 | v0.10 |
 | Q93 to Q100; the phase 1 owner preview | OVR, CUS | v0.12 |
@@ -388,7 +388,7 @@ runs (HANDOVER section 3).
 
 | Join | What lands | Gate |
 |---|---|---|
-| J0 | H2, H0 (TEST-STRATEGY, ORIGIN-PLAN rebased, MASTER-ORDER), H1; owner O-HP and the v0.2 owner actions | `links` and `tree_check` on the merged tip (docs only) |
+| J0 | H2, H0 (TEST-STRATEGY, ORIGIN-PLAN cherry-picked, MASTER-ORDER; stacked on `public/DOCS-STACK`), H1; owner O-HP and the v0.2 owner actions | `links` and `tree_check` on the merged tip (docs only) |
 | J1 | H3 and H4 (one docs branch, opened only when no other docs branch is open), H8, D610, then H5, H9 | links, tree_check |
 | Each release vX.Y | its rows in 5.3, merged through stacks of at most four branches (TEST-STRATEGY 9.1: disjoint files except planning docs, at most one `full` path branch and it goes first, never two branches that move the same budget) | T2 per stack; T3 on the release commit (RELEASE-PLAN 4.1); then the RELEASE-PLAN 6 checklist |
 | Infra (I) | TS, LOCAL, RIS-S rows | ride the next release as "Internal" |
@@ -561,7 +561,7 @@ screenshots at 1440x900 and 390x844 in light and dark (theme set through the sit
 
 - **Goal.** As [navigation-and-mine.md](../features/navigation-and-mine.md) 10 NAV-C, plus: the file
   `core/src/schema/trip-custom.ts` is created here as the skeleton CUS-C extends (`start`, `travellers`), and `copies/1`
-  and `trip-custom/1` reserve the optional private fields `from` and `gw` (origin spec, pending branch), so neither
+  and `trip-custom/1` reserve the optional private fields `from` and `gw` (origin spec, planned, spec merged), so neither
   envelope changes shape again before v0.8.
 - **Owns.** `core/src/schema/copies.ts` (new), `core/src/schema/trip-custom.ts` (new), `core/src/privacy/detect.ts`
   (keys `copiedAt`, `travellers`, `from`, `gw` only), `core/test/schema/copies.test.ts`,
@@ -607,7 +607,7 @@ ids resolves with `git cat-file -t`; no text other than ids and status cells cha
 
 | Risk | Effect | Recommendation |
 |---|---|---|
-| An old-history branch is merged | the scrubbed household strings and images come back into `main` | never merge a branch whose base is not on `main`; `git merge-base --is-ancestor <base> main` before every merge; ORIGIN-PLAN by `rebase --onto` plus a scrub scan; H7 |
+| An old-history branch is merged | the scrubbed household strings and images come back into `main` | never merge a branch whose base is not on `main`; `git merge-base --is-ancestor <base> main` before every merge; ORIGIN-PLAN was cherry-picked, not merged, after a scrub scan of the stack's diff; H7 |
 | The commit map is lost with the scratch folder | 684 ids become unreadable | H2 now |
 | `HOME_POINT_*` missing in Vercel | the next deploy fails closed at build | v0.2 owner action, checked with `vercel env ls production` (names only) |
 | Budgets: 0.6 KB of trip JS, about 0.1% of place HTML | a small UI change fails the gate; lanes argue over bytes | BUD-1, OVR-0 first, one budget mover per stack, `budget:report` in every hand-back |
@@ -638,10 +638,9 @@ ids resolves with `git cat-file -t`; no text other than ids and status cells cha
 ### 7.3 Open questions this order waits on (already asked; not re-asked)
 
 Q88 (now urgent: option A is merged; v0.2), Q101 to Q108 (v0.3), Q185 and Q141 (v0.5), BACKLOG 15.44 accent folding
-(v0.6), Q240 to Q249 (origin, pending branch; v0.8), Q117 to Q124 (v0.9), Q130 to Q137 (v0.10), Q93 to Q100 (v0.12),
+(v0.6), Q240 to Q249 (origin, planned, spec merged; v0.8), Q117 to Q124 (v0.9), Q130 to Q137 (v0.10), Q93 to Q100 (v0.12),
 Q109 to Q116 and DD-6 (v0.13), Q67, Q98, Q103, Q120 and `planner_draft_signal` (v0.15), Q160 to Q167, Q190 to Q198
-(v0.19, v0.20), Q148, Q149 (v0.21), Q170 to Q177, Q180 to Q187 (track I and v1.x), Q250 to Q258 (test strategy, pending
-branch), R1 item 7 (the globe mock, GLB2b). Recommendation: one reply "yes as recommended" for each block, with any
+(v0.19, v0.20), Q148, Q149 (v0.21), Q170 to Q177, Q180 to Q187 (track I and v1.x), Q250 to Q258 (test strategy, spec merged), R1 item 7 (the globe mock, GLB2b). Recommendation: one reply "yes as recommended" for each block, with any
 exception named; each block unblocks the release in brackets.
 
 ## 8. Proposed edits the owner (or a later docs lane) applies
