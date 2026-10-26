@@ -219,6 +219,11 @@ def check(m: dict, files: list[str], check_all_text: str, root: Path = gm.ROOT, 
             errs.append(f"M6 {p}: the map puts it in {name}, the vitest project does not run it")
         for p in sorted(got - want)[:5]:
             errs.append(f"M6 {p}: vitest project {name} runs it, the map does not own it there")
+
+    # M7 (TS-3) ---------------------------------------------------------------------------------------------------------
+    for sid in m.get("uncacheable", []):
+        if sid not in suites:
+            errs.append(f"M7 uncacheable names unknown suite {sid}")
     return errs
 
 

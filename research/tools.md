@@ -115,6 +115,7 @@ any other host needs `--target child` or `--target production` (or `--target-kin
 | Script | Job | When | Output | Hosts and rate | Covered by |
 |---|---|---|---|---|---|
 | `tools/gate.sh --tier 0\|1\|2\|3 [--base main] [--changed paths] [--dry-run] [--json] [--only suite]` | select the suites a change needs from `tools/gate/map.json` and run them cheapest first (usage: [tools/gate/README.md](../tools/gate/README.md)) | T0 in the edit loop, T1 before a hand-back, T2 per stack, T3 at release | at most 40 lines; the full log in `$(git rev-parse --git-dir)/gate-logs/` | offline | `tools/tests/test_gate.py`, `test_gate_map.py` |
+| `tools/gate.sh --cache-stats`, `--no-cache`, `--verifier` | the gate's result cache (TS-3): a suite that passed on identical inputs prints CACHED; stats, bypass, the verifier's uncached mode (usage: [tools/gate/README.md](../tools/gate/README.md)) | automatic in T0 to T2; `--cache-stats` to inspect | `<git-common-dir>/gate-cache/` (7 days, passes only) | offline | `tools/tests/test_gate_cache.py` |
 
 ## Known gaps
 
