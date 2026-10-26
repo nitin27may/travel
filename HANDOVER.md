@@ -162,6 +162,8 @@ On this Mac the venv is `/private/tmp/claude-501/-Users-nks-workspace-travel/6ec
 
 The generators (never hand-edit their output) and the gate's 30-odd steps are in the detail file, section 1.
 
+**Planned, not built (25 Oct):** tiered test gates, so a lane runs only the suites its paths select and check-all plus the full e2e run per stack and at release ([docs/v2/build/TEST-STRATEGY.md](docs/v2/build/TEST-STRATEGY.md), Q250 to Q258). Until its gate command ships, the commands above stand.
+
 ## 3. The rules that carry over
 
 Each rule has a reason. When a rule seems to block you, read the reason before you look for a way around it.

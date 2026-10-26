@@ -484,6 +484,15 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | 15.194 | **REQ-F3: improve and report rows, custom-stop field fill (R-196).** "What do you want to know" chips, add or cut text, the add_stop Where block; report "When did you see this" and "How do you know"; `suggest-fill` helper for REQ-S | travel-builder Sonnet 2 h | planned; after REQ-F2 |
 | 15.195 | **REQ-FB: research-ready briefs and the owner queue (R-193, R-194).** Brief layouts with the resolved chain, `capture.ts fields --type`, the `locations.py add` line, trip types and lanes, matches and demand; `detail` column, `--missing`, `stats --demand --by area`, fixed questions per missing code | travel-builder Sonnet 4 h | planned; after FBK-3; parallel with the web lanes |
 | 15.196 | **REQ-R4 and REQ-V4: review and verify the request forms.** P1 to P9, T1 to T5, the choice-chip form variant in components 2.8; first-use walk (trip under 60 s, place under 45 s); sweep at 1440 and 390, light and dark; then `suggestPlace` and `requestTrip` on | reviewer Opus 2 h; verifier Sonnet 2 h | planned; after REQ-F1 and REQ-F3 |
+| 15.210 | **Test strategy spec (owner, 25 Oct; R-210 to R-214).** Measured check-all stage by stage (292.6 s wall, 17.6 CPU-min, 665,549 characters of output of which 92% are `validate --all` warnings; one web unit file 47.5 s because the vitest global setup always builds two fixture apps, 0.9 s without it); tiers T0 to T3, the path-to-suite map as checked data, the `tools/gate.sh` command, caching by tree hash, stacks of up to four branches, slots and the load guard, the flake ledger, token rules and the hand-back block, guardrails (nightly T3, escape sampling, selection replay); tasks TS-1 to TS-8; Q250 to Q258. Spec [TEST-STRATEGY.md](../TEST-STRATEGY.md) | PLAN R-210 to R-214 | **done** (this commit, docs only) |
+| 15.211 | **TS-1: the path-to-suite map and its check (R-210).** `tools/gate/map.json` (suites, rules, `full`, `quiet`, `quarantine`, `review`), `tools/gate/check_map.py` M1 to M5, selection replay over the last 80 merges ([TEST-STRATEGY.md](../TEST-STRATEGY.md) 4.2, 4.3, 10.6) | travel-builder Opus 5 h | planned; first |
+| 15.212 | **TS-2a: web vitest projects `unit`, `built`, `fixture`, `timing` (R-210).** One unit file without a build; the full run keeps 166 files and the base commit's test count; every project keeps the home-point setup file ([TEST-STRATEGY.md](../TEST-STRATEGY.md) F1, 12) | travel-builder Sonnet 3 h, Opus review | planned; after TS-1 |
+| 15.213 | **TS-2: the gate command (R-210, R-213).** `tools/gate.sh`, `tools/gate/gate.py`, selection, order, fail-fast and keep-going, failure extractors, `--quiet`, `--dry-run`, `--explain`, logs and `last.json`, the map check as one check-all step ([TEST-STRATEGY.md](../TEST-STRATEGY.md) 5) | travel-builder Sonnet 8 h | planned; after TS-2a |
+| 15.214 | **TS-3: cache passes by tree hash (R-211).** Keys over suite, command, input object ids and toolchain; shared across worktrees in the git common dir; passes only, 7 days ([TEST-STRATEGY.md](../TEST-STRATEGY.md) 6) | travel-builder Sonnet 4 h, Opus review | planned; after TS-2 |
+| 15.215 | **TS-4: slots, load guard, retry once, flake ledger, quarantine (R-212).** Two builds, one e2e, timing only when no build runs; `deferred` never passes ([TEST-STRATEGY.md](../TEST-STRATEGY.md) 7) | travel-builder Sonnet 4 h | planned; after TS-2 |
+| 15.216 | **TS-5: agent definitions, HANDOVER commands, brief template, CLAUDE.md lines after Q257 (R-213).** ([TEST-STRATEGY.md](../TEST-STRATEGY.md) 8, 14) | travel-planner Opus 2 h | planned; after TS-2 |
+| 15.217 | **TS-6 and TS-7: nightly T3 on the Mac; `--stack` integration runs with ejection and bisect (R-211, R-214).** The GitHub `e2e.yml` stays with LOCAL-4 (RELEASE-PLAN 7.2) ([TEST-STRATEGY.md](../TEST-STRATEGY.md) 9, 10.3) | travel-builder Sonnet 2 h + 5 h, Opus review of TS-7 | planned; after TS-2 (TS-7 after TS-3) |
+| 15.218 | **TS-8: first escape audit and measured savings after two weeks of use (R-214).** ([TEST-STRATEGY.md](../TEST-STRATEGY.md) 10.5, 11) | travel-verifier Sonnet 1 h, travel-planner Opus 1 h | planned; two weeks after TS-2 |
 
 ## Owner questions open
 
@@ -682,6 +691,15 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | Q237 | Visitor sees a detail word and the next helpful field, never the number? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
 | Q238 | FBK-2 drops the place and trip fields; REQ-F1 and REQ-F2 build them, so requests ship after reports? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
 | Q239 | Optional "Starting from" (a city or airport, never an address) on trip requests? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q250 | Adopt the test tiers: builders run T0 and T1 only; check-all and the full e2e move to T2 (stacks) and T3 (release, nightly), after a one-week shadow period? Recommended: yes ([TEST-STRATEGY.md](../TEST-STRATEGY.md) 13) | 25 Oct |
+| Q251 | Stack up to four ready branches under the stacking rules, the coordinator fast-forwarding `main` to a green stack tip? Recommended: yes | 25 Oct |
+| Q252 | Nightly T3 as a launchd job on the Mac at 03:00, with a wake schedule the owner sets? Recommended: yes | 25 Oct |
+| Q253 | Flakes: retry once, record, fail on a repeat within 7 days, quarantine at most 14 days with a BACKLOG row? Recommended: yes | 25 Oct |
+| Q254 | Timing tests under load: defer loudly and require them at T2, rather than raise thresholds? Recommended: yes | 25 Oct |
+| Q255 | Escape audit on every fifth stack; two escapes in four weeks doubles the sampling? Recommended: yes | 25 Oct |
+| Q256 | Cache passes by tree hash for 7 days in the clone's git directory; the verifier ignores the cache for its own subset? Recommended: yes | 25 Oct |
+| Q257 | After TS-2 ships, apply the proposed CLAUDE.md and agent-definition edits (TEST-STRATEGY 14)? Recommended: yes | 25 Oct |
+| Q258 | Machine slots: two builds and one Playwright run at a time across agents, the full e2e alone; "two lanes at a time" stays? Recommended: yes | 25 Oct |
 
 ## Later: after go-live (planner and data)
 
