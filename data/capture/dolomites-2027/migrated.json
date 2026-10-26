@@ -546,10 +546,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Cadini di Misurina viewpoint",
-      "origin": {
-        "from": "place/cadini-di-misurina-viewpoint",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -583,7 +579,15 @@
           "width": 4032,
           "height": 3024
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/cadini-di-misurina-viewpoint",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "place/lago-di-sorapis",
@@ -679,10 +683,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lago di Sorapis",
-      "origin": {
-        "from": "place/lago-di-sorapis",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -716,7 +716,15 @@
           "width": 6300,
           "height": 3800
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/lago-di-sorapis",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "place/cinque-torri",
@@ -966,10 +974,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Croda del Becco",
-      "origin": {
-        "from": "place/croda-del-becco",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -1003,7 +1007,15 @@
           "width": 4000,
           "height": 3000
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/croda-del-becco",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "place/val-fiscalina",
@@ -1202,10 +1214,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Cascate di Fanes",
-      "origin": {
-        "from": "place/cascate-di-fanes",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -1248,7 +1256,15 @@
           "width": 2484,
           "height": 828
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/cascate-di-fanes",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "place/adolf-munkel-weg",
@@ -1477,10 +1493,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Bullaccia and the Witches' Benches",
-      "origin": {
-        "from": "place/bullaccia-and-the-witches-benches",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -1523,7 +1535,15 @@
           "width": 4288,
           "height": 2848
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/bullaccia-and-the-witches-benches",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "place/vallunga",
@@ -1740,10 +1760,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Sass Pordoi and Piz Boè",
-      "origin": {
-        "from": "place/sass-pordoi-and-piz-boe",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -1757,7 +1773,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/sass-pordoi-and-piz-boe",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
@@ -1890,10 +1914,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Seceda ridge",
-      "origin": {
-        "from": "place/seceda-ridge",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -1921,7 +1941,15 @@
           "width": 7360,
           "height": 4912
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/seceda-ridge",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "part/place/lago-di-braies#walk",
@@ -3048,10 +3076,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Monte Baranci",
-      "origin": {
-        "from": "place/funbob-monte-baranci",
-        "reason": "the place the offer runs at"
-      },
       "links": [
         {
           "kind": "osm",
@@ -3060,7 +3084,15 @@
           "on": "2026-10-19"
         }
       ],
-      "osm_ref": "node/1825738077"
+      "osm_ref": "node/1825738077",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/funbob-monte-baranci",
+          "reason": "the place the offer runs at"
+        }
+      }
     },
     {
       "ref": "place/rafting-on-the-rienza",
@@ -3094,9 +3126,13 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Rienza",
-      "origin": {
-        "from": "place/rafting-on-the-rienza",
-        "reason": "the place the offer runs at"
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/rafting-on-the-rienza",
+          "reason": "the place the offer runs at"
+        }
       }
     },
     {
@@ -3208,9 +3244,13 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lagazuoi cable car and tunnels top station",
-      "origin": {
-        "from": "place/lagazuoi-cable-car-and-tunnels",
-        "reason": "the top station of the lift"
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/lagazuoi-cable-car-and-tunnels",
+          "reason": "the top station of the lift"
+        }
       }
     },
     {
@@ -3224,11 +3264,15 @@
           "ref": "place/lagazuoi-cable-car-and-tunnels"
         }
       ],
-      "origin": {
-        "from": "place/lagazuoi-cable-car-and-tunnels",
-        "reason": "the ticket offer on the lift line"
-      },
-      "run_by": "operator/lagazuoi-s-p-a"
+      "run_by": "operator/lagazuoi-s-p-a",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/lagazuoi-cable-car-and-tunnels",
+          "reason": "the ticket offer on the lift line"
+        }
+      }
     }
   ]
 }

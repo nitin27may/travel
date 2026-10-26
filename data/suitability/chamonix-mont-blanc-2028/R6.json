@@ -164,7 +164,8 @@
           "state": "value",
           "basis": "our_inference",
           "src": [],
-          "note": "Our estimate for a lakeside stop with a picnic; the trip gives it 60 min."
+          "note": "Our estimate for a lakeside stop with a picnic; the trip gives it 60 min.",
+          "estimate": true
         },
         "access_season": {
           "v": [
@@ -233,6 +234,10 @@
         "walk_km": null,
         "walk_gain_m": null,
         "suit_level": "usable"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {
@@ -1858,7 +1863,8 @@
           "state": "value",
           "basis": "our_inference",
           "src": [],
-          "note": "Our estimate; the trip gives 30 min."
+          "note": "Our estimate; the trip gives 30 min.",
+          "estimate": true
         },
         "exposure": {
           "v": {
@@ -1922,6 +1928,10 @@
         "walk_km": null,
         "walk_gain_m": null,
         "suit_level": "usable"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     }
   ]

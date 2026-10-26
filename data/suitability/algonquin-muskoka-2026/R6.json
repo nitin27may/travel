@@ -155,7 +155,8 @@
           "state": "value",
           "basis": "our_inference",
           "src": [],
-          "note": "Our estimate; the trip gives 60 min."
+          "note": "Our estimate; the trip gives 60 min.",
+          "estimate": true
         },
         "exposure": {
           "v": {
@@ -213,6 +214,10 @@
         "walk_km": 1,
         "walk_gain_m": null,
         "suit_level": "usable"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {
@@ -712,7 +717,8 @@
           "state": "value",
           "basis": "our_inference",
           "src": [],
-          "note": "Our estimate; the trip gives 60 min."
+          "note": "Our estimate; the trip gives 60 min.",
+          "estimate": true
         },
         "exposure": {
           "v": {
@@ -784,6 +790,10 @@
         "walk_km": null,
         "walk_gain_m": null,
         "suit_level": "usable"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {
@@ -832,7 +842,8 @@
           "state": "value",
           "basis": "our_inference",
           "src": [],
-          "note": "Our estimate; the trip gives 45 min."
+          "note": "Our estimate; the trip gives 45 min.",
+          "estimate": true
         },
         "exposure": {
           "v": {
@@ -882,6 +893,10 @@
         "walk_km": null,
         "walk_gain_m": null,
         "suit_level": "usable"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     }
   ]

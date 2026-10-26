@@ -84,10 +84,6 @@
       },
       "name": "Sulphur Mountain",
       "area_id": "CA/AB/banff-national-park",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
-        "reason": "Capture backlog row 1 (Sulphur Mountain): the summit the gondola top station and the trail belong to."
-      },
       "links": [
         {
           "kind": "official",
@@ -110,7 +106,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "reason": "Capture backlog row 1 (Sulphur Mountain): the summit the gondola top station and the trail belong to."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sansons-peak",
@@ -138,10 +142,6 @@
       "part_of": [
         "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
-        "reason": "Backlog row 1: the boardwalk's payoff; Pursuit names it with the Cosmic Ray Station as the boardwalk's end."
-      },
       "links": [
         {
           "kind": "official",
@@ -164,7 +164,15 @@
           "query": "Sanson's Peak",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "reason": "Backlog row 1: the boardwalk's payoff; Pursuit names it with the Cosmic Ray Station as the boardwalk's end."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
@@ -194,10 +202,6 @@
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sansons-peak"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
-        "reason": "Backlog row 1: Pursuit, 'a casual 2 km stroll to Sanson's Peak and the Sulphur Mountain Cosmic Ray Station'."
-      },
       "links": [
         {
           "kind": "official",
@@ -228,7 +232,15 @@
           "width": 5312,
           "height": 2988
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "reason": "Backlog row 1: Pursuit, 'a casual 2 km stroll to Sanson's Peak and the Sulphur Mountain Cosmic Ray Station'."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sky-bistro",
@@ -256,10 +268,6 @@
       "part_of": [
         "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
-        "reason": "Backlog row 1: the summit restaurant; Pursuit: 'perched on the summit of Sulphur Mountain'."
-      },
       "links": [
         {
           "kind": "official",
@@ -276,7 +284,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "reason": "Backlog row 1: the summit restaurant; Pursuit: 'perched on the summit of Sulphur Mountain'."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop",
@@ -304,10 +320,6 @@
       "serves": [
         "legacy/canadian-rockies-sept-2029/sights/moraine-lake"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
-        "reason": "Backlog row 3: the road is closed to personal vehicles, so the Parks Canada shuttle stop is the access point."
-      },
       "links": [
         {
           "kind": "official",
@@ -324,7 +336,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+          "reason": "Backlog row 3: the road is closed to personal vehicles, so the Parks Canada shuttle stop is the access point."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile",
@@ -349,10 +369,6 @@
       "name": "Moraine Lake Rockpile",
       "area_id": "CA/AB/banff-national-park",
       "osm_ref": "node/348002838",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
-        "reason": "Backlog row 3: the Rockpile viewpoint above the lake's outlet."
-      },
       "links": [
         {
           "kind": "official",
@@ -375,7 +391,15 @@
           "query": "Moraine Lake Rockpile",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+          "reason": "Backlog row 3: the Rockpile viewpoint above the lake's outlet."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile-loop",
@@ -405,10 +429,6 @@
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
-        "reason": "Backlog row 3. Parks Canada: '0.7 km loop', 35 m gain, 30 minutes (the backlog said 0.8 km)."
-      },
       "links": [
         {
           "kind": "official",
@@ -439,7 +459,15 @@
           "width": 3872,
           "height": 2592
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+          "reason": "Backlog row 3. Parks Canada: '0.7 km loop', 35 m gain, 30 minutes (the backlog said 0.8 km)."
+        }
+      }
     },
     {
       "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat",
@@ -545,9 +573,13 @@
           ]
         }
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
-        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+          "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+        }
       }
     },
     {
@@ -573,10 +605,6 @@
       "name": "Sentinel Pass",
       "area_id": "CA/AB/banff-national-park",
       "osm_ref": "node/2706106443",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-        "reason": "Backlog rows 3 and 4: the payoff of the Larch Valley route; Parks Canada lists 'Sentinel Pass via Larch Valley Trail', 5.6 km one way, 750 m gain."
-      },
       "links": [
         {
           "kind": "official",
@@ -599,7 +627,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+          "reason": "Backlog rows 3 and 4: the payoff of the Larch Valley route; Parks Canada lists 'Sentinel Pass via Larch Valley Trail', 5.6 km one way, 750 m gain."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#larch-valley",
@@ -623,10 +659,6 @@
       },
       "name": "Larch Valley",
       "area_id": "CA/AB/banff-national-park",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-        "reason": "Backlog rows 3 and 4: the larch meadows the route passes."
-      },
       "links": [
         {
           "kind": "wikidata",
@@ -663,7 +695,15 @@
           "width": 3264,
           "height": 2447
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+          "reason": "Backlog rows 3 and 4: the larch meadows the route passes."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#lower-falls",
@@ -691,10 +731,6 @@
       "part_of": [
         "legacy/canadian-rockies-sept-2029/sights/johnston-canyon"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
-        "reason": "Capture backlog row 6 (spec 2.7.1, the canyon example)."
-      },
       "links": [
         {
           "kind": "official",
@@ -711,7 +747,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+          "reason": "Capture backlog row 6 (spec 2.7.1, the canyon example)."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#upper-falls",
@@ -739,10 +783,6 @@
       "part_of": [
         "legacy/canadian-rockies-sept-2029/sights/johnston-canyon"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
-        "reason": "Capture backlog row 6 (spec 2.7.1, the canyon example)."
-      },
       "links": [
         {
           "kind": "official",
@@ -759,7 +799,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+          "reason": "Capture backlog row 6 (spec 2.7.1, the canyon example)."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots",
@@ -784,10 +832,6 @@
       "name": "Ink Pots",
       "area_id": "CA/AB/banff-national-park",
       "osm_ref": "node/1366399455",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
-        "reason": "Backlog row 6: the mineral springs beyond the Upper Falls (Wikidata: spring)."
-      },
       "links": [
         {
           "kind": "official",
@@ -810,7 +854,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+          "reason": "Backlog row 6: the mineral springs beyond the Upper Falls (Wikidata: spring)."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots-trail",
@@ -847,10 +899,6 @@
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
-        "reason": "Backlog row 6. Parks Canada: 5.5 km one way, 425 m gain, from the Johnston Canyon day-use area or the Moose Meadows lot."
-      },
       "links": [
         {
           "kind": "official",
@@ -881,17 +929,21 @@
           "width": 5184,
           "height": 3456
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+          "reason": "Backlog row 6. Parks Canada: 5.5 km one way, 425 m gain, from the Johnston Canyon day-use area or the Moose Meadows lot."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-upper-section",
       "type": "water.body.river",
       "layer": "route",
       "name": "Kicking Horse River, upper section",
-      "origin": {
-        "from": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
-        "reason": "Backlog row 5: Wild Water: the gentle trip runs the 'upper section of the Kicking Horse River' (Alarm Clock, the Braids, Hopi's Hole)."
-      },
       "links": [
         {
           "kind": "official",
@@ -902,17 +954,21 @@
             "src-0006"
           ]
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
+          "reason": "Backlog row 5: Wild Water: the gentle trip runs the 'upper section of the Kicking Horse River' (Alarm Clock, the Braids, Hopi's Hole)."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-lower-canyon",
       "type": "water.body.river",
       "layer": "route",
       "name": "Kicking Horse River, lower canyon",
-      "origin": {
-        "from": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
-        "reason": "Backlog row 5: Wild Water: the Whitewater Exciter runs Roller Coaster, Portage and Shotgun (IV+) and Park Bridge 'with views towards the lower canyon'."
-      },
       "links": [
         {
           "kind": "official",
@@ -923,7 +979,15 @@
             "src-0006"
           ]
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
+          "reason": "Backlog row 5: Wild Water: the Whitewater Exciter runs Roller Coaster, Portage and Shotgun (IV+) and Park Bridge 'with views towards the lower canyon'."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base",
@@ -946,10 +1010,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Wild Water Adventures River Base",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
-        "reason": "Backlog row 5: Wild Water, 'All trips depart from the River Base at 2750 Beaverfoot Road, Golden, BC'. Put-ins and take-outs are not published; no OSM point found."
-      },
       "links": [
         {
           "kind": "official",
@@ -966,7 +1026,15 @@
           "query": "Wild Water / River Base within 5 km of 51.25,-116.75",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+          "reason": "Backlog row 5: Wild Water, 'All trips depart from the River Base on Beaverfoot Road, Golden, BC'. Put-ins and take-outs are not published; no OSM point found."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/bow-lake#parking",
@@ -985,10 +1053,6 @@
       "parks_for": [
         "legacy/canadian-rockies-sept-2029/sights/bow-lake"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
-        "reason": "Lake access point (CS7 goal 5): OSM relation 18335545, fee=no."
-      },
       "links": [
         {
           "kind": "osm",
@@ -997,7 +1061,15 @@
           "on": "2026-10-18"
         }
       ],
-      "area_id": "CA/AB/banff-national-park"
+      "area_id": "CA/AB/banff-national-park",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+          "reason": "Lake access point (CS7 goal 5): OSM relation 18335545, fee=no."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking",
@@ -1024,10 +1096,6 @@
       "parks_for": [
         "legacy/canadian-rockies-sept-2029/sights/emerald-lake"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
-        "reason": "Lake access point (CS7 goal 5): OSM way 230454536, name 'Emerald Lake Parking', fee=no."
-      },
       "links": [
         {
           "kind": "osm",
@@ -1035,7 +1103,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
+          "reason": "Lake access point (CS7 goal 5): OSM way 230454536, name 'Emerald Lake Parking', fee=no."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking",
@@ -1062,10 +1138,6 @@
       "parks_for": [
         "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
-        "reason": "Lake access point (CS7 goal 5): OSM relation 21018594, name 'Maligne Lake Parking', fee=no; at the north end, the cruise dock for Spirit Island."
-      },
       "links": [
         {
           "kind": "osm",
@@ -1073,7 +1145,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
+          "reason": "Lake access point (CS7 goal 5): OSM relation 21018594, name 'Maligne Lake Parking', fee=no; at the north end, the cruise dock for Spirit Island."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds#parking",
@@ -1100,10 +1180,6 @@
       "parks_for": [
         "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
-        "reason": "Lake access point (CS7 goal 5): OSM way 261038378, amenity=parking beside the toilets."
-      },
       "links": [
         {
           "kind": "osm",
@@ -1111,7 +1187,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+          "reason": "Lake access point (CS7 goal 5): OSM way 261038378, amenity=parking beside the toilets."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/pyramid-lake#parking",
@@ -1138,10 +1222,6 @@
       "parks_for": [
         "legacy/canadian-rockies-sept-2029/sights/pyramid-lake"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
-        "reason": "Lake access point (CS7 goal 5): OSM way 1282422641, fee=no, by the accessible toilets."
-      },
       "links": [
         {
           "kind": "osm",
@@ -1149,7 +1229,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
+          "reason": "Lake access point (CS7 goal 5): OSM way 1282422641, fee=no, by the accessible toilets."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking",
@@ -1176,10 +1264,6 @@
       "parks_for": [
         "legacy/canadian-rockies-sept-2029/sights/wedge-pond"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
-        "reason": "Lake access point (CS7 goal 5): OSM way 262156429, name 'Wedge Pond Parking Lot'."
-      },
       "links": [
         {
           "kind": "osm",
@@ -1187,7 +1271,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+          "reason": "Lake access point (CS7 goal 5): OSM way 262156429, name 'Wedge Pond Parking Lot'."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/lake-minnewanka#parking",
@@ -1214,10 +1306,6 @@
       "parks_for": [
         "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka"
       ],
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka",
-        "reason": "Lake access point (CS7 goal 5): OSM way 48295612, name 'Minnewanka Lake', at the west end by the cruise dock."
-      },
       "links": [
         {
           "kind": "osm",
@@ -1226,7 +1314,15 @@
           "on": "2026-10-18"
         }
       ],
-      "area_id": "CA/AB/banff-national-park"
+      "area_id": "CA/AB/banff-national-park",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka",
+          "reason": "Lake access point (CS7 goal 5): OSM way 48295612, name 'Minnewanka Lake', at the west end by the cruise dock."
+        }
+      }
     },
     {
       "ref": "part/place/lake-louise#parking",
@@ -1245,10 +1341,6 @@
       "parks_for": [
         "place/lake-louise"
       ],
-      "origin": {
-        "from": "place/lake-louise",
-        "reason": "Lake access point (CS7 goal 5): OSM way 26752321, fee=yes."
-      },
       "links": [
         {
           "kind": "official",
@@ -1266,7 +1358,15 @@
           "on": "2026-10-18"
         }
       ],
-      "area_id": "CA/AB/banff-national-park"
+      "area_id": "CA/AB/banff-national-park",
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/lake-louise",
+          "reason": "Lake access point (CS7 goal 5): OSM way 26752321, fee=yes."
+        }
+      }
     },
     {
       "ref": "offer/place/lake-louise#parking",
@@ -1325,9 +1425,13 @@
           ]
         }
       ],
-      "origin": {
-        "from": "place/lake-louise",
-        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/lake-louise",
+          "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+        }
       }
     },
     {
@@ -1348,10 +1452,6 @@
       "serves": [
         "place/lake-louise"
       ],
-      "origin": {
-        "from": "place/lake-louise",
-        "reason": "Lake access point: the Parks Canada shuttle from the Park and Ride stops at the lakeshore."
-      },
       "links": [
         {
           "kind": "official",
@@ -1368,7 +1468,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/lake-louise",
+          "reason": "Lake access point: the Parks Canada shuttle from the Park and Ride stops at the lakeshore."
+        }
+      }
     }
   ]
 }

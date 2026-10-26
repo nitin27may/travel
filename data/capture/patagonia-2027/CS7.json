@@ -32,10 +32,6 @@
       "parks_for": [
         "trip/patagonia-2027/trail:chorrillo del salto"
       ],
-      "origin": {
-        "from": "trip/patagonia-2027/trail:chorrillo del salto",
-        "reason": "Trailhead parking: OSM way 747061337, 'Chorrillo del Salto', fee=no."
-      },
       "links": [
         {
           "kind": "osm",
@@ -43,7 +39,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/patagonia-2027/trail:chorrillo del salto",
+          "reason": "Trailhead parking: OSM way 747061337, 'Chorrillo del Salto', fee=no."
+        }
+      }
     },
     {
       "ref": "part/trip/patagonia-2027/trail:mirador de los condores#trailhead",
@@ -66,10 +70,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Mirador de los Cóndores trailhead",
-      "origin": {
-        "from": "trip/patagonia-2027/trail:mirador de los condores",
-        "reason": "OSM node 660024150 (highway=trailhead); the Cóndores and Águilas walks share it."
-      },
       "links": [
         {
           "kind": "osm",
@@ -77,7 +77,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/patagonia-2027/trail:mirador de los condores",
+          "reason": "OSM node 660024150 (highway=trailhead); the Cóndores and Águilas walks share it."
+        }
+      }
     }
   ]
 }

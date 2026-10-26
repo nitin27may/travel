@@ -2,6 +2,138 @@
   "schema": "sources/1",
   "entries": [
     {
+      "id": "s-f63a803989",
+      "url": "core/bin/sun.ts",
+      "title": "Sun calculator (sunrise, sunset, twilight)",
+      "publisher": "this repo",
+      "kind": "reference",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/seasons/costa-rica-2027.json",
+          "ref": "seasons/costa-rica-2027",
+          "field": "season.weather.daylight"
+        },
+        {
+          "file": "data/seasons/costa-rica-2027.json",
+          "ref": "seasons/costa-rica-2027",
+          "field": "season.weather.notes"
+        },
+        {
+          "file": "data/seasons/costa-rica-2027.json",
+          "ref": "seasons/costa-rica-2027",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/seasons/new-hampshire-stopover-2026.json",
+          "ref": "seasons/new-hampshire-stopover-2026",
+          "field": "season.weather.daylight"
+        },
+        {
+          "file": "data/seasons/new-hampshire-stopover-2026.json",
+          "ref": "seasons/new-hampshire-stopover-2026",
+          "field": "windows.plus"
+        },
+        {
+          "file": "data/seasons/niagara-day-2026.json",
+          "ref": "seasons/niagara-day-2026",
+          "field": "season.weather.daylight"
+        },
+        {
+          "file": "data/seasons/niagara-day-2026.json",
+          "ref": "seasons/niagara-day-2026",
+          "field": "season.weather.notes"
+        },
+        {
+          "file": "data/seasons/niagara-day-2026.json",
+          "ref": "seasons/niagara-day-2026",
+          "field": "season.why"
+        },
+        {
+          "file": "data/seasons/niagara-day-2026.json",
+          "ref": "seasons/niagara-day-2026",
+          "field": "windows.plus"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "season.weather.daylight"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "season.weather.notes"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "season.why"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "windows.plus"
+        },
+        {
+          "file": "data/seasons/quebec-2026.json",
+          "ref": "seasons/quebec-2026",
+          "field": "season.weather.daylight"
+        },
+        {
+          "file": "data/seasons/quebec-2026.json",
+          "ref": "seasons/quebec-2026",
+          "field": "windows.plus"
+        },
+        {
+          "file": "data/seasons/switzerland-2027.json",
+          "ref": "seasons/switzerland-2027",
+          "field": "season.weather.daylight"
+        },
+        {
+          "file": "data/seasons/switzerland-2027.json",
+          "ref": "seasons/switzerland-2027",
+          "field": "season.why"
+        },
+        {
+          "file": "data/seasons/switzerland-2027.json",
+          "ref": "seasons/switzerland-2027",
+          "field": "windows.plus"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.affects"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Our own file in this repository.",
+      "terms_note": "Not a web source; there is no link to check.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "local",
+        "checked": null
+      }
+    },
+    {
       "id": "s-e801201615",
       "url": "data/locations/locations.json",
       "title": "locations store",
@@ -1670,6 +1802,43 @@
       }
     },
     {
+      "id": "s-a0220493d4",
+      "url": "https://belfast.cbe.ab.ca/documents/28d085db-7810-4d25-b130-2b5d82b91a87/Belfast-School-Calendar.pdf",
+      "title": "Calgary Board of Education school calendar 2025-26 (Belfast School)",
+      "publisher": "Calgary Board of Education",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.crowd"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.events"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-eedfa0929c",
       "url": "https://canadabuys.canada.ca/en/tender-opportunities/tender-notice/cb-919-95288166",
       "title": "Johnston Canyon Rock Slope Remediation, Stage 2 (tender)",
@@ -1934,6 +2103,147 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-04213003a8",
+      "url": "https://climate.weather.gc.ca/climate_normals/results_1991_2020_e.html?climate_id=3050519&dispBack=0&lstProvince=AB&searchType=stnProv",
+      "title": "Canadian Climate Normals 1991-2020, BANFF CS (3050519)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-768921b193",
+      "url": "https://climate.weather.gc.ca/climate_normals/results_1991_2020_e.html?climate_id=6139445&dispBack=0&lstProvince=ON&searchType=stnProv",
+      "title": "Canadian Climate Normals 1991-2020, WELLAND-PELHAM composite (WELLAND 6139445)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/seasons/niagara-day-2026.json",
+          "ref": "seasons/niagara-day-2026",
+          "field": "points"
+        },
+        {
+          "file": "data/seasons/niagara-day-2026.json",
+          "ref": "seasons/niagara-day-2026",
+          "field": "season.weather.rain"
+        },
+        {
+          "file": "data/seasons/niagara-day-2026.json",
+          "ref": "seasons/niagara-day-2026",
+          "field": "season.weather.tempC"
+        },
+        {
+          "file": "data/seasons/niagara-day-2026.json",
+          "ref": "seasons/niagara-day-2026",
+          "field": "season.why"
+        },
+        {
+          "file": "data/seasons/niagara-day-2026.json",
+          "ref": "seasons/niagara-day-2026",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/seasons/niagara-day-2026.json",
+          "ref": "seasons/niagara-day-2026",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-12cf778b01",
+      "url": "https://climate.weather.gc.ca/climate_normals/results_1991_2020_e.html?climate_id=7016294&dispBack=0&lstProvince=QC&searchType=stnProv",
+      "title": "Canadian Climate Normals 1991-2020, QUEBEC/JEAN LESAGE INTL A (7016294)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/seasons/quebec-2026.json",
+          "ref": "seasons/quebec-2026",
+          "field": "points"
+        },
+        {
+          "file": "data/seasons/quebec-2026.json",
+          "ref": "seasons/quebec-2026",
+          "field": "season.weather.notes"
+        },
+        {
+          "file": "data/seasons/quebec-2026.json",
+          "ref": "seasons/quebec-2026",
+          "field": "season.weather.rain"
+        },
+        {
+          "file": "data/seasons/quebec-2026.json",
+          "ref": "seasons/quebec-2026",
+          "field": "season.weather.tempC"
+        },
+        {
+          "file": "data/seasons/quebec-2026.json",
+          "ref": "seasons/quebec-2026",
+          "field": "season.why"
+        },
+        {
+          "file": "data/seasons/quebec-2026.json",
+          "ref": "seasons/quebec-2026",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/seasons/quebec-2026.json",
+          "ref": "seasons/quebec-2026",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -2422,6 +2732,63 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-24abfa0c03",
+      "url": "https://data.geo.admin.ch/ch.meteoschweiz.klima/normwerte/normwerte.zip",
+      "title": "Climate normals 1991-2020 by station (normal value tables: tre2dymx, tre2dymn, rre150m0, rsd010m0)",
+      "publisher": "MeteoSwiss (Federal Office of Meteorology and Climatology)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/seasons/switzerland-2027.json",
+          "ref": "seasons/switzerland-2027",
+          "field": "points"
+        },
+        {
+          "file": "data/seasons/switzerland-2027.json",
+          "ref": "seasons/switzerland-2027",
+          "field": "season.weather.notes"
+        },
+        {
+          "file": "data/seasons/switzerland-2027.json",
+          "ref": "seasons/switzerland-2027",
+          "field": "season.weather.rain"
+        },
+        {
+          "file": "data/seasons/switzerland-2027.json",
+          "ref": "seasons/switzerland-2027",
+          "field": "season.weather.tempC"
+        },
+        {
+          "file": "data/seasons/switzerland-2027.json",
+          "ref": "seasons/switzerland-2027",
+          "field": "season.why"
+        },
+        {
+          "file": "data/seasons/switzerland-2027.json",
+          "ref": "seasons/switzerland-2027",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/seasons/switzerland-2027.json",
+          "ref": "seasons/switzerland-2027",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -4476,6 +4843,33 @@
       }
     },
     {
+      "id": "s-92f973ec46",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/H-5/page-1.html",
+      "title": "Holidays Act (R.S.C., 1985, c. H-5)",
+      "publisher": "Justice Laws, Government of Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.events"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-14211f5c53",
       "url": "https://limberlostforest.com/activities/hiking-trails",
       "title": "Hiking Trails",
@@ -4816,6 +5210,21 @@
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
           "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.affects"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -5053,6 +5462,75 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-1e9adc4a03",
+      "url": "https://open.alberta.ca/dataset/1d0c35db-2c11-4f54-8f9c-89a4b01a3875/resource/ff6e8818-d5df-4ed6-82ac-f1e7060dd7be/download/edtt-tourism-market-monitor-2019-12.pdf",
+      "title": "Alberta Tourism Market Monitor, December 2019 (national park attendance by month, source Parks Canada)",
+      "publisher": "Government of Alberta",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.crowd"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c7ec1ea1c4",
+      "url": "https://opendatadocs.meteoswiss.ch/c-climate-data/c6-climate-normals",
+      "title": "Climate normals: open data documentation",
+      "publisher": "MeteoSwiss",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "general"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-b8c8ccf20c",
+      "url": "https://openrouteservice.org",
+      "title": "HeiGIT openrouteservice (OSM data)",
+      "publisher": "HeiGIT openrouteservice (OSM data)",
+      "kind": "reference",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "general"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -5647,6 +6125,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-908885d032",
+      "url": "https://parks.canada.ca/lakelouise-transit",
+      "title": "Lake Louise and Moraine Lake shuttles",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -6783,6 +7288,21 @@
           "file": "data/suitability/canadian-rockies-2029/R9-TF.json",
           "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile-loop",
           "field": "suitability.hazards"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.affects"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -6941,6 +7461,38 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-aa937e281b",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/securite-safety/meteo-weather",
+      "title": "Weather, Banff National Park (monthly averages)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -7302,6 +7854,11 @@
       "last_read": "2026-10-25",
       "used_by": [
         {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "swaps.minus"
+        },
+        {
           "file": "data/capture/canadian-rockies-2029/CS7.json",
           "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat",
           "field": "links"
@@ -7459,6 +8016,48 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-86d9197647",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes",
+      "title": "Parks Canada",
+      "publisher": "Parks Canada",
+      "kind": "reference",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "strategies.minus"
+        },
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "strategies.plus"
+        },
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "swaps.minus"
+        },
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "swaps.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -8872,6 +9471,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-c6eb9eb1b4",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/securite-safety/faune-wildlife/wapiti-elk",
+      "title": "Elk safety, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.minus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -10464,6 +11090,70 @@
       }
     },
     {
+      "id": "s-f405313c1a",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit",
+      "title": "Visiting Lake O'Hara, Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.affects"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.minus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-5c6b64707b",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/visit/heures-hours",
+      "title": "Hours of operation, Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.affects"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-1184e829dd",
       "url": "https://parks.canada.ca/pn-np/bc/yoho/visit/tarifs-fees",
       "title": "Yoho fees",
@@ -10994,6 +11684,33 @@
       "recheck": {
         "cadence_days": 180,
         "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-9c12f03d4d",
+      "url": "https://parks.canada.ca/voyage-travel/securite-safety/bulletins/0fb4c673-78a8-447c-8722-08d021915744",
+      "title": "Restricted activity: personal vehicle access on the Bow Valley Parkway",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.affects"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
@@ -13375,6 +14092,107 @@
       }
     },
     {
+      "id": "s-0e384f4324",
+      "url": "https://www.alberta.ca/alberta-general-holidays",
+      "title": "Alberta general holidays",
+      "publisher": "Government of Alberta",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.crowd"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.events"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-f53259079d",
+      "url": "https://www.alberta.ca/child-seats",
+      "title": "Government of Alberta",
+      "publisher": "Government of Alberta",
+      "kind": "reference",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "swaps.minus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-1a9a52f111",
+      "url": "https://www.alberta.ca/kananaskis-conservation-pass",
+      "title": "Government of Alberta",
+      "publisher": "Government of Alberta",
+      "kind": "reference",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "swaps.minus"
+        },
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "swaps.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-5ca08c0f33",
       "url": "https://www.albertaparks.ca/albertaparks-ca/visit-our-parks/regulations/pets-in-parks",
       "title": "Pets in Parks | Alberta Parks",
@@ -13609,7 +14427,7 @@
       "publisher": "Alberta Parks",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-25",
       "used_by": [
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -13620,6 +14438,16 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
           "field": "suitability.access_season"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.affects"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -15989,7 +16817,7 @@
       "publisher": "Pursuit (Banff Jasper Collection)",
       "kind": "operator",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-25",
       "used_by": [
         {
           "file": "data/relevance/canadian-rockies-2029/R2b.json",
@@ -16000,6 +16828,11 @@
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
           "field": "suitability.access_season"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -16115,12 +16948,17 @@
       "publisher": "Pursuit (Banff Jasper Collection)",
       "kind": "operator",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-25",
       "used_by": [
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
           "field": "suitability.access_season"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -16560,6 +17398,33 @@
       "recheck": {
         "cadence_days": 90,
         "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-e41ddb6a7f",
+      "url": "https://www.calgarystampede.com",
+      "title": "Calgary Stampede",
+      "publisher": "Calgary Stampede",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.events"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
@@ -18311,6 +19176,92 @@
       }
     },
     {
+      "id": "s-6f3ef692ee",
+      "url": "https://www.enterprise.ca/en/car-rental-faqs/canada-general/car-rental-drop-charge.html",
+      "title": "Enterprise Rent-A-Car Canada",
+      "publisher": "Enterprise Rent-A-Car Canada",
+      "kind": "reference",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "strategies.requires"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-29bd666371",
+      "url": "https://www.explorecanmore.ca/all-accommodations",
+      "title": "Tourism Canmore Kananaskis",
+      "publisher": "Tourism Canmore Kananaskis",
+      "kind": "reference",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "swaps.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-f8eff36d4c",
+      "url": "https://www.explorecanmore.ca/faqs",
+      "title": "Tourism Canmore Kananaskis",
+      "publisher": "Tourism Canmore Kananaskis",
+      "kind": "reference",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "strategies.plus"
+        },
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "swaps.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-6dd04dae3e",
       "url": "https://www.fassa.com/it/itinerari/alba-col-dei-rossi-viel-dal-pan-fedaia-alba",
       "title": "Alba - Col dei Rossi - Viel dal Pan - Fedaia - Alba",
@@ -18909,6 +19860,33 @@
       }
     },
     {
+      "id": "s-12ac75cce7",
+      "url": "https://www.golden.ca/node/1555",
+      "title": "Town of Golden",
+      "publisher": "Town of Golden",
+      "kind": "reference",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "swaps.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-31fc6b6a61",
       "url": "https://www.gostowe.com",
       "title": "Go Stowe",
@@ -19000,6 +19978,33 @@
       }
     },
     {
+      "id": "s-e225000a3e",
+      "url": "https://www.hertz.ca/rentacar/productservice/index.jsp?selectedRegion=Canada&targetPage=caonewayrentals.jsp",
+      "title": "Hertz Canada",
+      "publisher": "Hertz Canada",
+      "kind": "reference",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "strategies.requires"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-920001a5b7",
       "url": "https://www.horseback.com",
       "title": "Banff Trail Riders",
@@ -19049,6 +20054,33 @@
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
           "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-cbdc2c70ee",
+      "url": "https://www.icbc.com/assets/pa/16mtE3iZQB3yOu57owU6FQ/seatbelt-fact-sheet.pdf",
+      "title": "ICBC",
+      "publisher": "ICBC",
+      "kind": "reference",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "swaps.minus"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -19193,6 +20225,27 @@
       "recheck": {
         "cadence_days": 90,
         "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-e28ae8127d",
+      "url": "https://www.jasper.travel/where-to-stay",
+      "title": "Tourism Jasper",
+      "publisher": "Tourism Jasper",
+      "kind": "reference",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "general"
       },
       "link": {
         "status": "unchecked",
@@ -19713,6 +20766,384 @@
       "recheck": {
         "cadence_days": 180,
         "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-86500fc8e6",
+      "url": "https://www.ncei.noaa.gov/access/services/data/v1?dataTypes=MLY-TMAX-NORMAL%2CMLY-TMIN-NORMAL%2CMLY-PRCP-NORMAL%2CMLY-PRCP-AVGNDS-GE010HI&dataset=normals-monthly-1991-2020&format=json&stations=USC00274734&units=metric",
+      "title": "U.S. Climate Normals 1991-2020, monthly, LINCOLN NEPP, NH (USC00274734)",
+      "publisher": "NOAA National Centers for Environmental Information",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/seasons/new-hampshire-stopover-2026.json",
+          "ref": "seasons/new-hampshire-stopover-2026",
+          "field": "points"
+        },
+        {
+          "file": "data/seasons/new-hampshire-stopover-2026.json",
+          "ref": "seasons/new-hampshire-stopover-2026",
+          "field": "season.weather.notes"
+        },
+        {
+          "file": "data/seasons/new-hampshire-stopover-2026.json",
+          "ref": "seasons/new-hampshire-stopover-2026",
+          "field": "season.weather.rain"
+        },
+        {
+          "file": "data/seasons/new-hampshire-stopover-2026.json",
+          "ref": "seasons/new-hampshire-stopover-2026",
+          "field": "season.weather.tempC"
+        },
+        {
+          "file": "data/seasons/new-hampshire-stopover-2026.json",
+          "ref": "seasons/new-hampshire-stopover-2026",
+          "field": "season.why"
+        },
+        {
+          "file": "data/seasons/new-hampshire-stopover-2026.json",
+          "ref": "seasons/new-hampshire-stopover-2026",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/seasons/new-hampshire-stopover-2026.json",
+          "ref": "seasons/new-hampshire-stopover-2026",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-415542ee1f",
+      "url": "https://www.ncei.noaa.gov/data/oceans/archive/arc0216/0253808/1.1/data/0-data/Region-4-WMO-Normals-9120/CostaRica/CSV/DanielOduberInternationalAirport_78774.csv",
+      "title": "WMO Climate Normals 1991-2020, Daniel Oduber International Airport (78774)",
+      "publisher": "World Meteorological Organization, archived by NOAA NCEI (accession 0253808)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/seasons/costa-rica-2027.json",
+          "ref": "seasons/costa-rica-2027",
+          "field": "points"
+        },
+        {
+          "file": "data/seasons/costa-rica-2027.json",
+          "ref": "seasons/costa-rica-2027",
+          "field": "season.weather.rain"
+        },
+        {
+          "file": "data/seasons/costa-rica-2027.json",
+          "ref": "seasons/costa-rica-2027",
+          "field": "season.weather.tempC"
+        },
+        {
+          "file": "data/seasons/costa-rica-2027.json",
+          "ref": "seasons/costa-rica-2027",
+          "field": "season.why"
+        },
+        {
+          "file": "data/seasons/costa-rica-2027.json",
+          "ref": "seasons/costa-rica-2027",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/seasons/costa-rica-2027.json",
+          "ref": "seasons/costa-rica-2027",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-543c6eb3ba",
+      "url": "https://www.ncei.noaa.gov/data/oceans/archive/arc0216/0253808/1.1/data/0-data/Region-4-WMO-Normals-9120/CostaRica/CSV/JuanSantamariaInternationalAirport_78762.csv",
+      "title": "WMO Climate Normals 1991-2020, Juan Santamaria International Airport (78762)",
+      "publisher": "World Meteorological Organization, archived by NOAA NCEI (accession 0253808)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/seasons/costa-rica-2027.json",
+          "ref": "seasons/costa-rica-2027",
+          "field": "points"
+        },
+        {
+          "file": "data/seasons/costa-rica-2027.json",
+          "ref": "seasons/costa-rica-2027",
+          "field": "season.weather.rain"
+        },
+        {
+          "file": "data/seasons/costa-rica-2027.json",
+          "ref": "seasons/costa-rica-2027",
+          "field": "season.weather.tempC"
+        },
+        {
+          "file": "data/seasons/costa-rica-2027.json",
+          "ref": "seasons/costa-rica-2027",
+          "field": "season.why"
+        },
+        {
+          "file": "data/seasons/costa-rica-2027.json",
+          "ref": "seasons/costa-rica-2027",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-0a89108e8b",
+      "url": "https://www.ncei.noaa.gov/data/oceans/archive/arc0216/0253808/1.1/data/0-data/Region-6-WMO-Normals-9120/Norway/CSV/ANDALSNES_61350.csv",
+      "title": "WMO Climate Normals 1991-2020, Andalsnes (61350)",
+      "publisher": "World Meteorological Organization, archived by NOAA NCEI (accession 0253808)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "season.weather.rain"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-bc722473fe",
+      "url": "https://www.ncei.noaa.gov/data/oceans/archive/arc0216/0253808/1.1/data/0-data/Region-6-WMO-Normals-9120/Norway/CSV/BERGEN_FLORIDA_01317.csv",
+      "title": "WMO Climate Normals 1991-2020, Bergen - Florida (01317)",
+      "publisher": "World Meteorological Organization, archived by NOAA NCEI (accession 0253808)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "points"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "season.weather.notes"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "season.weather.rain"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "season.weather.tempC"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-261e547171",
+      "url": "https://www.ncei.noaa.gov/data/oceans/archive/arc0216/0253808/1.1/data/0-data/Region-6-WMO-Normals-9120/Norway/CSV/LEKNES_LUFTHAVN_01141.csv",
+      "title": "WMO Climate Normals 1991-2020, Leknes Lufthavn (01141)",
+      "publisher": "World Meteorological Organization, archived by NOAA NCEI (accession 0253808)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "points"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "season.weather.tempC"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-4e034d5d62",
+      "url": "https://www.ncei.noaa.gov/data/oceans/archive/arc0216/0253808/1.1/data/0-data/Region-6-WMO-Normals-9120/Norway/CSV/REINE_85660.csv",
+      "title": "WMO Climate Normals 1991-2020, Reine (85660)",
+      "publisher": "World Meteorological Organization, archived by NOAA NCEI (accession 0253808)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "season.weather.rain"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-66e99dfe26",
+      "url": "https://www.ncei.noaa.gov/data/oceans/archive/arc0216/0253808/1.1/data/0-data/Region-6-WMO-Normals-9120/Norway/CSV/TROMSO_01026.csv",
+      "title": "WMO Climate Normals 1991-2020, Tromso (01026)",
+      "publisher": "World Meteorological Organization, archived by NOAA NCEI (accession 0253808)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "points"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "season.weather.rain"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "season.weather.tempC"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/seasons/norway-summer-2028.json",
+          "ref": "seasons/norway-summer-2028",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-6156cb2ccf",
+      "url": "https://www.newswire.com/news/banff-sunshine-village-announces-summer-opening-for-2025-season-22596547",
+      "title": "Banff Sunshine Village announces summer opening for 2025 season",
+      "publisher": "Banff Sunshine Village (press release)",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.affects"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
         "status": "unchecked",
@@ -22738,6 +24169,38 @@
       }
     },
     {
+      "id": "s-347b91e0e2",
+      "url": "https://www.ontario.ca/laws/regulation/900304",
+      "title": "R.R.O. 1990, Reg. 304: School year calendar, professional activity days",
+      "publisher": "Government of Ontario (e-Laws)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.crowd"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.events"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-99f3fda9b9",
       "url": "https://www.ontarioparks.ca/park/algonquin/lakeoftworivers/activities",
       "title": "Lake of Two Rivers: activities (Algonquin)",
@@ -25178,6 +26641,43 @@
       }
     },
     {
+      "id": "s-7612a7ad72",
+      "url": "https://www.skibanff.com/summer/plan-your-summer-visit/summer-hours-tickets",
+      "title": "Summer hours and tickets (Sunshine Village gondola and Standish chair)",
+      "publisher": "Banff Sunshine Village",
+      "kind": "operator",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.affects"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-ff5ea43992",
       "url": "https://www.skibig3.com/summer/gondolasandlifts",
       "title": "Summer gondolas and lifts (Banff Sunshine summer gondola)",
@@ -26393,6 +27893,65 @@
           "file": "data/capture/catalogue/BA-it.json",
           "ref": "place/verona",
           "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-e6a5dabbee",
+      "url": "https://www.tourismgolden.com/accommodations/hotels",
+      "title": "Tourism Golden",
+      "publisher": "Tourism Golden",
+      "kind": "reference",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/base-plans/canadian-rockies-2029.json",
+          "ref": "base-plans/canadian-rockies-2029",
+          "field": "swaps.plus"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-16b1da9a6c",
+      "url": "https://www.travelalberta.com/articles/golden-larch-trees-in-the-canadian-rockies",
+      "title": "Where to find golden larch trees in the Canadian Rockies",
+      "publisher": "Travel Alberta (provincial tourism agency)",
+      "kind": "official",
+      "first_read": "2026-10-25",
+      "last_read": "2026-10-25",
+      "used_by": [
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.minus"
+        },
+        {
+          "file": "data/windows/canadian-rockies-2029.json",
+          "ref": "windows/canadian-rockies-2029",
+          "field": "windows.plus"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",

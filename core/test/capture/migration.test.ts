@@ -15,6 +15,9 @@ import { REPO, put, scope, scratchRoot } from "./helpers.ts";
 
 const read = <T>(rel: string): T => JSON.parse(readFileSync(join(REPO, rel), "utf8")) as T;
 const world = loadWorld(REPO);
+/** RIS-J moved the legacy `origin` key of a cut-out record to `meta.origin`; the test reads either place. */
+type WithOrigin = { origin?: { from: string; reason: string }; meta?: { origin?: { from: string; reason: string } } };
+const originOf = (r: unknown): { from: string; reason: string } | undefined => (r as WithOrigin).origin ?? (r as WithOrigin).meta?.origin;
 const splits = (): SplitsFile[] => ["algonquin-muskoka-2026", "canadian-rockies-2029", "chamonix-mont-blanc-2028", "dolomites-2027", "iceland-ring-road-2027", "patagonia-2027", "utah-five-parks", "vermont-fall-2026"].flatMap((t) => {
   try {
     return [read<SplitsFile>(`data/capture/splits/${t}.json`)];
@@ -31,8 +34,8 @@ describe("the committed migration (counts)", () => {
   it("one capture sidecar per trip, 8 trips, 339 records: 287 refs retyped (2 stubs are aliases of their real records) and 52 cut out", () => {
     expect(docs.map((d) => d.trip).sort()).toEqual(["algonquin-muskoka-2026", "canadian-rockies-2029", "chamonix-mont-blanc-2028", "dolomites-2027", "iceland-ring-road-2027", "patagonia-2027", "utah-five-parks", "vermont-fall-2026"]);
     expect(records).toHaveLength(339);
-    expect(records.filter((r) => !r.origin)).toHaveLength(287);
-    expect(records.filter((r) => r.origin)).toHaveLength(52);
+    expect(records.filter((r) => !originOf(r))).toHaveLength(287);
+    expect(records.filter((r) => originOf(r))).toHaveLength(52);
     expect(world.alias.size).toBe(2);
     expect(new Set(records.map((r) => r.ref)).size).toBe(339);
   });
@@ -41,10 +44,10 @@ describe("the committed migration (counts)", () => {
     expect([by("place"), by("route"), by("offer"), by("event")]).toEqual([160, 137, 41, 1]);
   });
   it("the 52 records cut out: 40 places, 8 offers (6 tickets, 2 operator offers), 3 routes, 1 event", () => {
-    const cut = records.filter((r) => r.origin);
+    const cut = records.filter((r) => originOf(r));
     const by = (l: string) => cut.filter((r) => r.layer === l).length;
     expect([by("place"), by("offer"), by("route"), by("event")]).toEqual([40, 8, 3, 1]);
-    for (const r of cut) expect(r.origin!.reason.length, r.ref).toBeGreaterThan(8);
+    for (const r of cut) expect(originOf(r)!.reason.length, r.ref).toBeGreaterThan(8);
   });
   it("61 records split: 33 trail payoffs, 15 activities as offers, 6 lifts, 3 places with a long walk, 3 routes, 1 viewing place and event", () => {
     const all = splits().flatMap((f) => f.splits);
@@ -71,7 +74,7 @@ describe("the committed migration (counts)", () => {
     const overrides = new Map(read<{ overrides: { ref: string; type?: string }[] }>("data/capture/type-map.json").overrides.map((o) => [o.ref, o]));
     const split = new Set(splits().flatMap((f) => f.splits.map((s) => s.ref)));
     let overridden = 0;
-    for (const r of records.filter((x) => !x.origin && !split.has(x.ref))) {
+    for (const r of records.filter((x) => !originOf(x) && !split.has(x.ref))) {
       const s = world.suit.get(r.ref)!.rec;
       const want = overrides.get(r.ref)?.type ?? tree.legacy.get(`${s.kind}/${s.subkind}`);
       expect(r.type, r.ref).toBe(want);
@@ -119,7 +122,7 @@ describe("the committed migration (each kind of split)", () => {
       expect(place.layer, s.ref).toBe("place");
       expect(world.rel.has(s.ref), `${s.ref} keeps no relevance record`).toBe(false);
       if ((s.place as { mode: string }).mode === "new") {
-        expect(place.origin?.from, s.ref).toBe(s.ref);
+        expect(originOf(place)?.from, s.ref).toBe(s.ref);
         const rel = world.rel.get(place.ref)?.rec;
         expect(rel, place.ref).toBeTruthy();
         expect(["lake", "viewpoint", "waterfall", "peak", "canyon", "gorge", "glacier"], place.ref).toContain(rel!.class_key.split("/")[0]);
