@@ -10,6 +10,7 @@
 import { spawnSync, type SpawnSyncOptions } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { describeTarget, GuardRefusal, guardedConnect, readProductionHosts, type GuardOperation } from "../src/seed/index.ts";
 import {
   assertLoopback,
   ensureLocalCredentials,
@@ -57,13 +58,15 @@ function composeArgs(sub: string[]): string[] {
   return ["compose", "--env-file", passwordFilePath(), "-f", COMPOSE, ...sub];
 }
 
-function resolveOpts(): ResolveOptions {
+// The decision table is core/src/seed/guard.ts. Only host names are read from the root .env.local (readProductionHosts), so the
+// guard knows which host is production; no connection string is read from it.
+function resolveOpts(operation: GuardOperation): ResolveOptions {
   const url = flag("url");
-  return { url, allowRemote: has("allow-remote") };
+  return { url, allowRemote: has("allow-remote"), operation, productionHosts: readProductionHosts(ROOT) };
 }
 
-function target() {
-  return resolveTarget(resolveOpts());
+function target(operation: GuardOperation = "migrate") {
+  return resolveTarget(resolveOpts(operation));
 }
 
 /** Env for a child that needs a URL: the explicit one only, everything ambient removed. */
@@ -79,13 +82,18 @@ function up(): number {
   return code;
 }
 
-function migrate(sub: "up" | "status" | "plan"): number {
-  const t = target();
-  console.log(`target: ${t.name} (${t.host})`);
-  return run("node", [join(ROOT, "core", "bin", "db-migrate.ts"), sub], { env: childEnv(t.url) });
+async function migrate(sub: "up" | "status" | "plan", operation: GuardOperation = "migrate"): Promise<number> {
+  const t = target(operation);
+  console.log(`target: ${t.label}`);
+  // guardedConnect: the child process (the connection) starts only after the guard allowed this operation on this target.
+  const { connection } = await guardedConnect(
+    { operation, target: describeTarget(t.url, t.name === "local" ? "local" : "url"), flags: { targetKind: t.loopback ? undefined : t.kind }, productionHosts: readProductionHosts(ROOT) },
+    async () => run("node", [join(ROOT, "core", "bin", "db-migrate.ts"), sub], { env: childEnv(t.url) }),
+  );
+  return connection;
 }
 
-function main(): number {
+async function main(): Promise<number> {
   switch (cmd) {
     case "up":
       return up();
@@ -95,7 +103,7 @@ function main(): number {
       return run("docker", composeArgs(["down"]));
     case "reset": {
       // Destructive: loopback only, whatever else is passed.
-      assertLoopback(target());
+      assertLoopback(target("reset"));
       requireDocker();
       ensureLocalCredentials();
       let code = run("docker", composeArgs(["down", "--volumes", "--remove-orphans"]));
@@ -111,12 +119,12 @@ function main(): number {
     case "plan":
       return migrate("plan");
     case "url": {
-      const t = target();
+      const t = target("psql");
       process.stdout.write(t.url + "\n");
       return 0;
     }
     case "psql": {
-      const t = target();
+      const t = target("psql");
       requireDocker();
       const c = new URL(t.url);
       return run(
@@ -127,7 +135,7 @@ function main(): number {
     }
     case "test": {
       const t = target();
-      console.log(`target: ${t.name} (${t.host})`);
+      console.log(`target: ${t.label}`);
       return run("pnpm", ["--dir", "core", "exec", "vitest", "run", "test/db", ...rest.filter((a) => !a.startsWith("--url=") && a !== "--allow-remote")], {
         env: childEnv(t.url, { TEST_DATABASE_URL: t.url }),
       });
@@ -141,8 +149,9 @@ function main(): number {
 try {
   // `reset` and `up` may run before the credentials file exists; resolve lazily after creating it.
   if (cmd === "reset" || cmd === "up" || cmd === "down") ensureLocalCredentials();
-  process.exit(main());
+  process.exit(await main());
 } catch (err) {
-  console.error(err instanceof TargetError ? err.message : String(err instanceof Error ? err.message : err));
-  process.exit(err instanceof TargetError ? 2 : 1);
+  const refused = err instanceof TargetError || err instanceof GuardRefusal;
+  console.error(err instanceof Error ? err.message : String(err));
+  process.exit(refused ? 2 : 1);
 }

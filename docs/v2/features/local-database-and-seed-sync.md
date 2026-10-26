@@ -829,12 +829,77 @@ purpose). `neon_auth` is never touched. Tests (`core/test/seed/contract.test.ts`
 - `area`, `town`, `type_node`, `operator` and `source` are kept, not deleted, when the seed drops a row (no status column; retired
   rows and private tables point at them). The plan shows them as retained.
 
+## 13. Build notes: LOCAL-2 (the seed engine and the reference families, 25 Oct 2026)
+
+Built by travel-builder (Sonnet 5.5), branch `public/LOCAL-2`. Verified against the local Docker database only; no Neon command was
+run and no connection to child or production was opened.
+
+### 13.1 Where it lives (differs from 8.2)
+
+| File | What |
+|---|---|
+| `core/bin/db-seed.ts` | the CLI (8.2 named `load-catalogue.ts`; the coordinator's brief named this file): `seed`, `sync [--dry-run]`, `verify`; root scripts `db:seed`, `db:sync`, `db:verify` |
+| `core/src/catalogue/postgres/load/files.ts` | `FileSource`: the working tree (`local`, `ci`) or `git cat-file --batch` over one commit (every other target, and `--commit`) |
+| `reference.ts` | pure row builders for `type_node`, `tag`, `relevance_class`, `area`, `town`, `operator`, `source` and the `catalogue_meta` stamp; Zod checks on the fields they read |
+| `engine.ts` | `planSeed`, `applySeed` (one transaction, `pg_try_advisory_xact_lock`), `verifySeed`, `run` (the one door every statement passes: `assertSeedTable`), `readOnly` |
+| `seed.ts` | `buildSeed` (privacy refusals, registry check), `executeSeedCommand` |
+| `target.ts` | `resolveSeedTarget`: `local`, `ci`, `child`, `production` or a URL, always through the guard |
+| `core/src/db/localTarget.ts`, `core/bin/db-local.ts` | step 0: the LOCAL-1 resolver now decides through `assertTarget`/`guardedConnect` |
+
+### 13.2 Step 0: one decision table
+
+`checkUrl` describes the target with `describeTarget` (credentials dropped), declares its kind (loopback: none; a production host:
+`production`; any other remote: `child`) and calls `assertTarget`; a `GuardRefusal` becomes a `TargetError` with the guard's code.
+`db-local.ts` passes the operation per command (`reset`, `migrate`, `psql`) and runs the migrate child through `guardedConnect`. Behaviour
+changes, all stricter or equal: (1) production now needs the guard's approvals instead of a flat refusal (the message still names the
+host only); (2) a non-loopback host must be a Neon host: `--allow-remote` with `db.example.com` is refused (`E_CHILD_NOT_NEON`); the old
+test used that host for the `assertLoopback` case, so its fixture host became a Neon child-shaped host (the assertion is unchanged);
+(3) the root `.env.local` is read for HOST NAMES only (`readProductionHosts`), so a production host is known even when the shell has not
+injected it; (4) `db:reset` on a remote host is refused by the guard (`E_LOOPBACK_ONLY`) before `assertLoopback`. The `approveProduction`
+option is gone (nothing used it).
+
+### 13.3 Families, mappings and counts (as of f954fe6)
+
+| Table | Rows | From | Mapping (DECISION where the spec was silent) |
+|---|---|---|---|
+| `type_node` | 398 | `data/vocab/types.json` | `parent` to `parent_id`; `records`, `profile` columns; everything else (marks, links, display, aliases, legacy ids) is `doc`; parents inserted first |
+| `tag` | 81 | `tags.json` | `doc` = label, kind, alias_of |
+| `relevance_class` | 57 | `relevance-classes.json` | `doc` = label |
+| `area` | 336 | `countries.json` (249) + locations `countries`, `regions` (25), `areas` (62) | DECISION: a country's id is its ISO alpha-2 code (`CA`), a region `CA/AB`, an area `CA/AB/banff-national-park`; `path` ltree = `-` to `_`, `/` to `.`; `iso_code` is alpha-2 or `iso_3166_2`; `centre`, `boundary`, `tz`, `wikidata_qid` stay null (no source); only the three public sections of the locations store are parsed |
+| `town` | 4,223 (spec 5.1 said 4,522; the files hold 4,223) | `towns/*.json` parts + `manifest.json` (licence) | `cc` upper case; DECISION: `admin1` keeps the GeoNames code, `region_id` is the area `CC/ADMIN1` when it exists (552 do), else null; `point` as EWKT; `is_base`, `is_hub` false; `anchors.json` is never read; `manifest.json` matches the contract glob and is read for the licence, not as a part |
+| `operator` | 23 | `data/capture/operators.json` | DECISION: `doc` stays `{}` (`derived_from` names suitability files: evidence tier, RIS-L) |
+| `source` | 423 | `data/sources/registry.json` | `automated` allowed/forbidden/unknown to true/false/null; `link.status` to `link_status`, `link.checked` to `link_checked`; `used_by` is not stored (RIS-L); `licence`, `http_status`, `final_url` null |
+| `catalogue_meta` | 1 | the commit | `seed_commit` only: the catalogue revision needs every family (RIS-L). The value is a stamp outside the hash |
+
+None of these tables has a `meta` column yet (RIS-M), so `stampSeedMeta` is not called; the run is recorded as `seed_commit`.
+
+### 13.4 Results
+
+- `db:seed` on an empty migrated database: 5,542 rows, 236 ms to write, 0.72 s for the whole command (build 110 to 150 ms).
+- Second `db:sync --dry-run`: 0 rows, exit 0. One edited town name: exactly one update (`ca-ab-bearspaw`), exit 3, then 0.
+- A removed town, operator or source: `(1 retained)` and the row stays; a removed tag or relevance class: deleted, in the order
+  `relevance_class`, `tag` (reverse apply order), after all inserts and updates.
+- `db:verify` equal after a seed, exit 1 and `town differ` after `update town set name = ...`; a sync repairs it.
+- Tests: `core/test/catalogue/load-reference.test.ts` (14), `load-engine.test.ts` (17, an in-memory target), `core/test/db/seed.integration.test.ts` (13, a
+  throwaway database from `travel_template`, dropped afterwards).
+
+### 13.5 For the next tasks
+
+- **RIS-L:** add families as `TableData` builders (`reference.ts` is the pattern) and push them into `buildReferenceSeed`'s order
+  (or a sibling builder); `engine.ts` already loops over any `TableData`; `diffTable` plus `run` need no change. When RIS-M adds `meta`,
+  stamp rows with `stampSeedMeta` in the builders and add the `load_run` write beside `stampCommit`. The `catalogue_meta` revision key
+  joins `seed_commit` then; keep the stamp out of the hash.
+- **LOCAL-3:** call `buildSeed(fsSource(root), commit)`, `planSeed` then `applySeed` again (0 writes) and `verifySeed` against a
+  throwaway database; `db-seed.ts ... --json` prints the plan or drift result. The offline `build --check` is `buildSeed` alone.
+- **LOCAL-5:** supply the connection for `child` and `production` in `target.ts` (`TargetUnavailable` today).
+
 ## Change log
 
 | Date | Change |
 |---|---|
 | 2026-10-25 | First version (travel-planner, Opus): answer to "is migration blocked", the seed-of-record strategy, local Docker matching Neon, the Neon side, measured seed size, tasks LOCAL-1 to LOCAL-5, LOCAL-C, BKP-1, MIG-N, conflicts L1 to L8, Q180 to Q187 |
 | 2026-10-25 | LOCAL-C built (travel-builder, Opus 5.5), branch `public/LOCAL-C`: `core/src/seed/**`, `core/src/config/database.ts`, section 12 |
+| 2026-10-25 | LOCAL-2 built (travel-builder, Sonnet 5.5), branch `public/LOCAL-2`: seed engine, `core/bin/db-seed.ts`, the reference families, the resolver on the guard, section 13 |
 
 Sources for Neon and Docker facts: [Neon plans](https://neon.com/docs/introduction/plans) (Free: 1 GB per project, 10 branches,
 100 CU-hours, 6-hour restore window, 1 manual snapshot; Launch storage USD 0.35 per GB-month), the Neon CLI 8.11.1 help
