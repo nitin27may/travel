@@ -1,0 +1,54 @@
+Travel: third-party data, media and content
+============================================
+
+The MIT licence in LICENSE covers the source code only. Everything below keeps
+its own licence. The authoritative register, with one entry per source and the
+attribution line the site shows, is data/reference/licences.json.
+
+OpenStreetMap (Open Database Licence 1.0)
+  (c) OpenStreetMap contributors. https://www.openstreetmap.org/copyright
+  Covers the trail and route geometry in data/tracks/ (each file carries
+  licence ODbL-1.0 and its attribution; see data/tracks/README.md), the place
+  catalogue and lines derived from OpenStreetMap, the road routes computed by
+  OpenRouteService from OpenStreetMap data, and the OpenStreetMap-derived parts
+  of the globe data in web/public/globe/ and data/reference/globe/. A derived
+  database published from these files is subject to the ODbL's share-alike
+  terms.
+
+GeoNames (Creative Commons Attribution 4.0)
+  Contains data from GeoNames, CC BY 4.0. https://www.geonames.org/
+  Covers the towns layer, data/reference/towns/ (copied verbatim from the
+  GeoNames dump; source, download date and hashes in
+  data/reference/towns/manifest.json).
+
+Natural Earth (public domain)
+  Made with Natural Earth. https://www.naturalearthdata.com/about/terms-of-use/
+  Covers the admin-1 boundaries, regions, marine areas and rivers of the globe
+  (built by tools/globe_data.py).
+
+Wikimedia Commons (per image: Creative Commons licences or public domain)
+  Photographs are hot-linked or referenced from Wikimedia Commons. The author,
+  licence and source page of each image are recorded with it: the photo credits
+  in web/data-snapshots/photo-credits.json, the photo fields of the records in
+  data/capture/, and the trip galleries (gallery.json). Each image's own
+  licence applies.
+
+Other sources (see data/reference/licences.json for the full terms)
+  world-countries (mledoze/countries), ODbL 1.0; geoBoundaries, per country
+  (mostly CC BY 4.0 or ODbL); Wikidata, CC0 1.0; Government of Canada open
+  data and Statistics Canada, Open Government Licence - Canada; US National
+  Park Service, public domain; opendata.swiss, per dataset; Open-Meteo,
+  CC BY 4.0; Copernicus Climate Change Service, Copernicus licence;
+  Frankfurter and the European Central Bank reference rates.
+
+Fonts (SIL Open Font License 1.1)
+  The font files in web/public/fonts/ and docs/v2/design/redesign/fonts/ are
+  under the SIL Open Font License; each family's licence text is beside it
+  (OFL-*.txt).
+
+Written content (all rights reserved)
+  Trip plans, notes, summaries, research prose and documentation in data/,
+  research/, docs/ and legacy/ are the author's own words, written for this
+  site and not licensed for reuse (data/reference/licences.json, "own-words").
+  Short quotes from third-party sources in research records are attributed to
+  their source.

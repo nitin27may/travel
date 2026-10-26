@@ -2,6 +2,21 @@
 
 Trip plans, a saved-places list and the site that publishes them to https://nks-travel.pages.dev/.
 
+## Public repository notice
+
+- **Licences.** Code is MIT (`LICENSE`). Data, media and written content keep their own licences: OpenStreetMap data is
+  ODbL, GeoNames is CC BY 4.0, Natural Earth is public domain, photos are per-image Commons licences, and the trip prose
+  is all rights reserved. Full list: `NOTICE` and `data/reference/licences.json`.
+- **Security.** Report vulnerabilities privately (`SECURITY.md`).
+- **Household data.** None is committed. The sample travellers in specs, mocks and the prototype seed are invented. The
+  household home point used by the privacy scrub is read from `HOME_POINT_LAT` and `HOME_POINT_LON` (environment or the
+  git-ignored root `.env.local`); without them the build and the checks stop with `E_HOME_POINT_UNSET`, and the unit
+  tests use a decoy.
+- **History.** This repository was published from a filtered copy of a private working repository, so commit hashes
+  quoted in docs, run notes and the changelog refer to that private history and do not resolve here.
+- **Claude Code hooks.** `.claude/settings.json` runs the scripts in `tools/hooks/` on edits and shell commands. They
+  only validate and rebuild repository files, but read them before trusting the folder in Claude Code.
+
 ## What lives where
 
 | Path | What it is |
@@ -10,7 +25,7 @@ Trip plans, a saved-places list and the site that publishes them to https://nks-
 | `core/` | `@travel/core`, the TypeScript package that owns the schemas, the validator and the research CLIs in `core/bin/` |
 | `web/` | The Next.js app: home, trips, places, place pages, about the data |
 | `legacy/` | The hand-built trip pages, their `PLAN.md` and builders, the old globe and the design system. They stay at their current URLs until backlog 7.11 |
-| `research/` | All research: the method, per-type checklists, output formats and templates, raw captures, per-trip findings, run notes, audits and reports. Never published. Map: `research/README.md` |
+| `research/` | All research: the method, per-type checklists, output formats and templates, raw captures, per-trip findings, run notes, audits and reports. Not served by the site. Map: `research/README.md` |
 | `tools/` | Python tooling (locations, publish, gallery, hooks, relink) and its tests, plus `check-all.sh` |
 | `docs/` | Decisions: the plan, specs, design and build briefs in `docs/v2/` (start at `docs/v2/PLAN.md`); superseded documents in `docs/archive/v1/`. See `docs/README.md` |
 | `.claude/` | Project agents and skills, thin wrappers that point into `research/` |
