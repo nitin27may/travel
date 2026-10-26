@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { z } from "zod";
 import { ORIGIN_REFERENCE_VALUE, PRIVATE_KEYS, privacyHits } from "../../src/privacy/detect.ts";
 import {
   ACCOUNT_DRAFT_CAP,
@@ -6,41 +7,53 @@ import {
   copiesEnvelope,
   COPIES_KEY,
   copyItem,
-  parseCopy,
-  parseEnvelope,
   copyToDraftRow,
   copyToTripCustom,
   DEVICE_COPY_CAP,
   emptyCopies,
+  ENVELOPE_MAX_BYTES,
+  envelopeRules,
   LEGACY_COPIES_KEY,
   markMerged,
   memoryStorage,
+  MERGED_MAX,
   moveLegacyCopies,
-  planMerge,
+  needsMerge,
+  parseCopy,
+  parseCopyList,
+  parseEnvelope,
   PLACEHOLDER_TITLE,
+  planMerge,
   probeStorage,
   PROBE_KEY,
   readCopies,
   removeCopy,
   restoreCopy,
+  SITE_PATH,
+  updateCopies,
   writeCopies,
   type AccountDraftKey,
   type CopiesEnvelope,
   type CopyInput,
   type CopyItem,
+  type MergePlan,
   type StorageLike,
 } from "../../src/schema/copies.ts";
-import { z } from "zod";
 import { ORIGIN_REFERENCE, parseTripCustom, tripCustom } from "../../src/schema/trip-custom.ts";
+
+// copies/1 (navigation-and-mine.md 3, 4.2; Q204): the envelope, compare-and-set writes, the old-key move, the storage probe, the merge
+// rule as property tests, and the detector keys for a planted copy field. Review NAV-C (26 Oct 2026) findings are named where tested.
 
 const mustCopy = (x: unknown): CopyItem => {
   const r = parseCopy(x);
   if (!r.success) throw new Error(r.issues.join("; "));
   return r.data;
 };
-
-// copies/1 (navigation-and-mine.md 3, 4.2; Q204): the envelope, the old-key move, the storage probe, the merge rule as property tests,
-// and the detector keys for a planted copy field.
+const mustPlan = (input: unknown, account: readonly AccountDraftKey[], cap?: number): MergePlan => {
+  const r = planMerge(input, account, cap);
+  if (!r.success) throw new Error(r.issues.join("; "));
+  return r.data;
+};
 
 /** A seeded generator (mulberry32), so a failing property names its seed and reruns the same. */
 function rng(seed: number): () => number {
@@ -56,7 +69,7 @@ function rng(seed: number): () => number {
 const pick = <T,>(r: () => number, xs: readonly T[]): T => xs[Math.floor(r() * xs.length)]!;
 const int = (r: () => number, lo: number, hi: number): number => lo + Math.floor(r() * (hi - lo + 1));
 
-/** UUID v4 from a generator (or a counter), lower case. */
+/** UUID v4 from a generator, lower case. */
 function uuidFrom(r: () => number): string {
   const h = () => Math.floor(r() * 16).toString(16);
   const s = (n: number) => Array.from({ length: n }, h).join("");
@@ -85,15 +98,30 @@ const INPUT: CopyInput = {
 };
 const NOW = new Date("2026-10-25T14:02:11Z");
 
+/**
+ * An instant written in a random precision (review M1): whole seconds, milliseconds, or a longer fraction. Seconds and
+ * milliseconds sort wrongly as strings (`10:00:00Z` after `10:00:00.500Z`); only Date.parse orders them.
+ */
+function spell(ms: number, r: () => number): string {
+  const iso = new Date(ms).toISOString(); // 2026-10-01T00:00:00.123Z
+  const kind = int(r, 0, 2);
+  if (kind === 0 && ms % 1000 === 0) return iso.replace(".000Z", "Z");
+  if (kind === 2) return iso.replace("Z", "000Z");
+  return iso;
+}
+
 function item(r: () => number, i: number): CopyItem {
+  // whole seconds half the time, so equal-second spellings meet
+  const ms = Date.UTC(2026, 9, 1) + int(r, 0, 1e6) * (r() < 0.5 ? 1000 : 1);
   return mustCopy({
     ...INPUT,
     id: uuidFrom(r),
     slug: SLUGS[i]!,
     start: pick(r, STARTS),
-    copiedAt: new Date(Date.UTC(2026, 9, 1) + int(r, 0, 1e9)).toISOString(),
-    ...(r() < 0.3 ? { from: pick(r, ["iata:BOM", "hub:ottawa", "town:in-mh-mumbai", "gn:1275339"]) } : {}),
+    copiedAt: spell(ms, r),
+    ...(r() < 0.3 ? { fromRef: pick(r, ["iata:BOM", "hub:ottawa", "town:in-mh-mumbai", "gn:1275339"]) } : {}),
     ...(r() < 0.2 ? { gw: { in: "YEG", out: "YYC" } } : {}),
+    ...(r() < 0.3 ? { rev: "2026-10-20.a1b2" } : {}),
   });
 }
 
@@ -120,6 +148,13 @@ function spyStorage(opts: { failSetOn?: string; throwOnGet?: boolean; quota?: bo
   };
 }
 
+/** Writes an envelope into an empty store (the compare-and-set base is "nothing stored"). */
+function seed(s: StorageLike, env: CopiesEnvelope): string {
+  const w = writeCopies(s, env, s.getItem(COPIES_KEY));
+  if (!w.ok) throw new Error(w.reason);
+  return w.raw;
+}
+
 describe("copies/1 envelope", () => {
   it("exports to JSON Schema (the schema subset rule: cross-field rules live in copyRules and envelopeRules)", () => {
     for (const s of [copyItem, copiesEnvelope, tripCustom]) expect(() => z.toJSONSchema(s, { target: "draft-2020-12", io: "input", unrepresentable: "throw" })).not.toThrow();
@@ -127,12 +162,12 @@ describe("copies/1 envelope", () => {
 
   it("round-trips: add, write, read gives the same envelope", () => {
     const s = memoryStorage();
-    const r = addCopy(emptyCopies(), { ...INPUT, from: "iata:BOM", gw: { in: "YYC", out: "YYC" } }, { now: NOW, newId: ids() });
+    const r = addCopy(emptyCopies(), { ...INPUT, fromRef: "iata:BOM", gw: { in: "YYC", out: "YYC" }, rev: "r1" }, { now: NOW, newId: ids() });
     expect(r.ok).toBe(true);
     if (!r.ok) return;
-    expect(writeCopies(s, r.envelope)).toEqual({ ok: true });
-    const back = readCopies(s.getItem(COPIES_KEY));
-    expect(back).toEqual({ ok: true, envelope: r.envelope, fresh: false });
+    const w = writeCopies(s, r.envelope, null);
+    expect(w.ok).toBe(true);
+    expect(readCopies(s.getItem(COPIES_KEY))).toEqual({ ok: true, envelope: r.envelope, fresh: false });
     expect(r.item.copiedAt).toBe("2026-10-25T14:02:11.000Z");
   });
 
@@ -157,16 +192,29 @@ describe("copies/1 envelope", () => {
     const s = spyStorage();
     s.map.set(COPIES_KEY, newer);
     s.map.set(LEGACY_COPIES_KEY, JSON.stringify([{ slug: "a", start: "2027-07-03", adults: 2, children: [], savedAt: NOW.toISOString() }]));
-    expect(moveLegacyCopies(s, { newId: ids() })).toEqual({ status: "failed", reason: "envelope-unreadable" });
+    expect(moveLegacyCopies(s, { newId: ids() })).toEqual({ status: "failed", reason: "newer" });
     expect(s.map.get(COPIES_KEY)).toBe(newer);
     expect(s.map.has(LEGACY_COPIES_KEY)).toBe(true);
   });
 
-  it("issues name a path, never the party", () => {
+  it("issues name a path, never the party, an override key, an account hash or an unknown key (review L4)", () => {
     const bad = { ...emptyCopies(), items: [{ id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", ...INPUT, children: [41], copiedAt: NOW.toISOString() }] };
     const r = readCopies(JSON.stringify(bad));
     expect(r.ok).toBe(false);
     expect(JSON.stringify(r)).not.toContain("41");
+    const keys = readCopies(JSON.stringify({ ...emptyCopies(), merged: { "secret hash!": NOW.toISOString() }, secretField: 1 }));
+    expect(keys.ok).toBe(false);
+    expect(JSON.stringify(keys)).not.toMatch(/secret/);
+    const day = parseCopy({ ...INPUT, id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", copiedAt: NOW.toISOString(), overrides: { "77": "Q" } });
+    expect(day.success).toBe(false);
+    expect(JSON.stringify(day)).not.toContain("77");
+  });
+
+  it("copiedAt and the envelope times are UTC with Z only (review M1)", () => {
+    const base = { ...INPUT, id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b" };
+    for (const t of ["2026-10-25T14:02:11Z", "2026-10-25T14:02:11.5Z", "2026-10-25T14:02:11.123456Z"]) expect(parseCopy({ ...base, copiedAt: t }).success, t).toBe(true);
+    for (const t of ["2026-10-25T14:02:11+05:00", "2026-10-25T14:02:11", "2026-10-25"]) expect(parseCopy({ ...base, copiedAt: t }).success, t).toBe(false);
+    expect(parseEnvelope({ ...emptyCopies(), noteSeen: "2026-10-25T14:02:11+00:00" }).success).toBe(false);
   });
 
   it("enforces one copy per trip, unique ids, 20 a device, 4 KB a copy, 30 additions, 60 overrides", () => {
@@ -174,20 +222,35 @@ describe("copies/1 envelope", () => {
     const twenty = Array.from({ length: DEVICE_COPY_CAP }, (_, i) => item(r, i));
     expect(parseEnvelope({ ...emptyCopies(), items: twenty }).success).toBe(true);
     expect(parseEnvelope({ ...emptyCopies(), items: [...twenty, item(r, 20)] }).success).toBe(false);
-    expect(parseEnvelope({ ...emptyCopies(), items: [twenty[0], { ...twenty[1]!, slug: twenty[0]!.slug }] }).success).toBe(false);
-    expect(parseEnvelope({ ...emptyCopies(), items: [twenty[0], { ...twenty[1]!, id: twenty[0]!.id }] }).success).toBe(false);
-    const base = twenty[0]!;
+    expect(parseEnvelope({ ...emptyCopies(), items: [twenty[0], { ...twenty[1]!, slug: twenty[0]!.slug }] })).toMatchObject({ success: false, issues: ["$.items: one copy per trip (Q204)"] });
+    expect(parseEnvelope({ ...emptyCopies(), items: [twenty[0], { ...twenty[1]!, id: twenty[0]!.id }] })).toMatchObject({ success: false, issues: ["$.items: each copy has its own id"] });
+    const base = mustCopy({ ...INPUT, id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", copiedAt: NOW.toISOString() });
     expect(parseCopy({ ...base, added: Array.from({ length: 31 }, () => ({ day: 1, placeSlug: "x" })) }).success).toBe(false);
-    expect(parseCopy({ ...base, overrides: Object.fromEntries(Array.from({ length: 61 }, (_, i) => [String(i + 1), "A"])) }).success).toBe(false);
-    const thirty = Array.from({ length: 30 }, (_, i) => ({ day: (i % 99) + 1, placeSlug: `${"p".repeat(96)}-${i}` }));
+    expect(parseCopy({ ...base, overrides: Object.fromEntries(Array.from({ length: 61 }, (_, i) => [String(i + 1), "A"])) })).toMatchObject({ success: false, issues: ["$.overrides: at most 60 overrides"] });
+    const thirty = Array.from({ length: 30 }, (_, i) => ({ day: (i % 99) + 1, placeSlug: `${"p".repeat(90)}-${i}` }));
     const sixty = Object.fromEntries(Array.from({ length: 60 }, (_, i) => [String(i + 1), "A"]));
     expect(parseCopy({ ...base, added: thirty }).success).toBe(true);
     expect(JSON.stringify({ ...base, added: thirty, overrides: sixty }).length).toBeGreaterThan(4096);
-    expect(parseCopy({ ...base, added: thirty, overrides: sixty }).success).toBe(false);
-    // a full-sized realistic copy stays inside 4 KB, so 20 stay under 80 KB
+    expect(parseCopy({ ...base, added: thirty, overrides: sixty })).toMatchObject({ success: false, issues: ["$: a copy is at most 4096 bytes"] });
+    // a full-sized realistic copy stays inside 4 KB, and 20 of them inside the envelope bound
     const full = { ...base, added: Array.from({ length: 30 }, (_, i) => ({ day: (i % 14) + 1, placeSlug: `place-name-${i}` })), overrides: Object.fromEntries(Array.from({ length: 14 }, (_, i) => [String(i + 1), "B"])) };
     expect(parseCopy(full).success).toBe(true);
     expect(JSON.stringify({ ...emptyCopies(), items: Array.from({ length: 20 }, () => full) }).length).toBeLessThan(80 * 1024);
+  });
+
+  it("bounds merged to 10 accounts and the whole envelope by size (review L2)", () => {
+    const merged = (n: number) => Object.fromEntries(Array.from({ length: n }, (_, i) => [`account_${String(i).padStart(4, "0")}`, NOW.toISOString()]));
+    expect(parseEnvelope({ ...emptyCopies(), merged: merged(MERGED_MAX) }).success).toBe(true);
+    expect(parseEnvelope({ ...emptyCopies(), merged: merged(MERGED_MAX + 1) })).toMatchObject({ success: false, issues: [`$.merged: at most ${MERGED_MAX} accounts`] });
+    // the byte rule is reachable only through the rule function (20 copies of 4 KB and 10 hashes stay under it): pin it there
+    const big = { ...emptyCopies(), noteSeen: null, items: [] as CopyItem[], merged: { ["a".repeat(ENVELOPE_MAX_BYTES)]: NOW.toISOString() } };
+    expect(envelopeRules(big)).toContain(`$: an envelope is at most ${ENVELOPE_MAX_BYTES} bytes`);
+    const biggestAllowed = {
+      ...emptyCopies(),
+      items: Array.from({ length: 20 }, (_, i) => mustCopy({ ...INPUT, slug: SLUGS[i]!, id: uuidFrom(rng(i + 100)), copiedAt: NOW.toISOString(), title: "T".repeat(120), added: Array.from({ length: 30 }, (_, j) => ({ day: 99, placeSlug: `${"p".repeat(90)}-${j}` })) })),
+      merged: Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`${"h".repeat(124)}${String(i).padStart(4, "0")}`, NOW.toISOString()])),
+    };
+    expect(envelopeRules(biggestAllowed)).toEqual([]);
   });
 
   it("refuses a bad id, slug, date, photo URL or origin", () => {
@@ -200,12 +263,119 @@ describe("copies/1 envelope", () => {
       { start: "3 Jul 2027" },
       { photo: "https://example.com/x.jpg" },
       { cc: "it" },
-      { from: "Mumbai" },
+      { fromRef: "Mumbai" },
+      { from: "iata:BOM" },
       { gw: { in: "YEG", out: "YYC", via: "YVR" } },
+      { rev: "has space" },
       { copiedAt: "yesterday" },
     ]) {
       expect(parseCopy({ ...base, ...bad }).success, JSON.stringify(bad)).toBe(false);
     }
+  });
+
+  it.each([
+    ["/img/trips/dolomites/cover-400.webp", true],
+    ["/a", true],
+    ["//evil.example/x.gif", false],
+    ["/\\evil.example/x", false],
+    ["/img\\x.webp", false],
+    ["/img/x y.webp", false],
+    ['/img/x".webp', false],
+    ["/img/<x>.webp", false],
+    ["img/x.webp", false],
+    ["https://example.com/x.webp", false],
+    [`/${"x".repeat(299)}`, true],
+    [`/${"x".repeat(300)}`, false],
+  ])("photo %s valid: %s (review L1)", (photo, ok) => {
+    expect(SITE_PATH.test(photo)).toBe(ok);
+    expect(parseCopy({ ...INPUT, id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", copiedAt: NOW.toISOString(), photo }).success).toBe(ok);
+  });
+});
+
+describe("compare-and-set writes (review C1)", () => {
+  it("refuses to overwrite a newer envelope", () => {
+    const s = spyStorage();
+    const newer = JSON.stringify({ schema: "copies/2", items: [] });
+    s.map.set(COPIES_KEY, newer);
+    // a stale tab that read copies/1 before the upgrade, and one that read nothing
+    expect(writeCopies(s, emptyCopies(), JSON.stringify(emptyCopies()))).toEqual({ ok: false, reason: "newer" });
+    expect(writeCopies(s, emptyCopies(), null)).toEqual({ ok: false, reason: "newer" });
+    expect(writeCopies(s, emptyCopies(), newer)).toEqual({ ok: false, reason: "newer" });
+    expect(s.map.get(COPIES_KEY)).toBe(newer);
+    expect(updateCopies(s, (env) => ({ envelope: env, value: null }))).toEqual({ ok: false, reason: "newer" });
+    expect(s.map.get(COPIES_KEY)).toBe(newer);
+  });
+
+  it("refuses a write whose base is not what is stored now", () => {
+    const s = spyStorage();
+    const first = seed(s, emptyCopies());
+    const a = addCopy(emptyCopies(), INPUT, { now: NOW, newId: ids() });
+    if (!a.ok) throw new Error("add");
+    const second = seed(s, a.envelope);
+    expect(writeCopies(s, emptyCopies(), first)).toEqual({ ok: false, reason: "changed" });
+    expect(writeCopies(s, emptyCopies(), null)).toEqual({ ok: false, reason: "changed" });
+    expect(s.map.get(COPIES_KEY)).toBe(second);
+    expect(writeCopies(s, emptyCopies(), second).ok).toBe(true);
+  });
+
+  it("two tabs: a stale remove does not lose the other tab's add (the lost update)", () => {
+    const s = spyStorage();
+    const newId = ids(21);
+    const one = addCopy(emptyCopies(), { ...INPUT, slug: "trip-a" }, { now: NOW, newId });
+    if (!one.ok) throw new Error("add");
+    seed(s, one.envelope);
+    // tab A reads the envelope and holds it
+    const baseA = s.getItem(COPIES_KEY);
+    const envA = readCopies(baseA);
+    if (!envA.ok) throw new Error("read");
+    // tab B adds a copy
+    const b = updateCopies(s, (env) => {
+      const r = addCopy(env, { ...INPUT, slug: "trip-b" }, { now: NOW, newId });
+      return r.ok ? { envelope: r.envelope, value: r.item } : { envelope: null, value: null };
+    });
+    expect(b.ok).toBe(true);
+    // tab A's blind write from its stale envelope is refused
+    const stale = removeCopy(envA.envelope, one.item.id);
+    expect(writeCopies(s, stale.envelope, baseA)).toEqual({ ok: false, reason: "changed" });
+    // tab A through updateCopies re-reads and re-applies the remove: both changes survive
+    const a = updateCopies(s, (env) => {
+      const r = removeCopy(env, one.item.id);
+      return { envelope: r.envelope, value: r.removed };
+    });
+    expect(a.ok).toBe(true);
+    const after = readCopies(s.getItem(COPIES_KEY));
+    expect(after.ok && after.envelope.items.map((x) => x.slug)).toEqual(["trip-b"]);
+  });
+
+  it("updateCopies re-applies once when another tab writes between its read and its write", () => {
+    const s = spyStorage();
+    seed(s, emptyCopies());
+    const newId = ids(22);
+    let interfere = true;
+    let calls = 0;
+    const r = updateCopies(s, (env) => {
+      calls++;
+      if (interfere) {
+        interfere = false;
+        // the other tab lands its add after this tab's read
+        const other = addCopy(env, { ...INPUT, slug: "other" }, { now: NOW, newId });
+        if (!other.ok) throw new Error("other");
+        s.map.set(COPIES_KEY, JSON.stringify(other.envelope));
+      }
+      const mine = addCopy(env, { ...INPUT, slug: "mine" }, { now: NOW, newId });
+      return mine.ok ? { envelope: mine.envelope, value: mine.item.slug } : { envelope: null, value: "refused" };
+    });
+    expect(calls).toBe(2);
+    expect(r).toMatchObject({ ok: true, value: "mine" });
+    const after = readCopies(s.getItem(COPIES_KEY));
+    expect(after.ok && after.envelope.items.map((x) => x.slug).sort()).toEqual(["mine", "other"]);
+  });
+
+  it("updateCopies writes nothing when the change refuses (the replace prompt, the cap)", () => {
+    const s = spyStorage();
+    const raw = seed(s, emptyCopies());
+    expect(updateCopies(s, () => ({ envelope: null, value: "exists" }))).toEqual({ ok: false, reason: "refused", value: "exists" });
+    expect(s.map.get(COPIES_KEY)).toBe(raw);
   });
 });
 
@@ -274,16 +444,17 @@ describe("storage probe (nav 3.3)", () => {
     const p = probeStorage(() => null);
     const a = addCopy(emptyCopies(), INPUT, { now: NOW, newId: ids() });
     if (!a.ok) throw new Error("add");
-    expect(writeCopies(p.storage, a.envelope)).toEqual({ ok: true });
+    expect(writeCopies(p.storage, a.envelope, null).ok).toBe(true);
     expect(readCopies(p.storage.getItem(COPIES_KEY))).toMatchObject({ ok: true, envelope: a.envelope });
   });
   it("writeCopies reports quota, blocked, unverified and invalid, and never writes an invalid envelope", () => {
     const env = emptyCopies();
-    expect(writeCopies(spyStorage({ failSetOn: COPIES_KEY, quota: true }), env)).toEqual({ ok: false, reason: "quota" });
-    expect(writeCopies(spyStorage({ failSetOn: COPIES_KEY }), env)).toEqual({ ok: false, reason: "blocked" });
-    expect(writeCopies(spyStorage({ dropWrites: true }), env)).toEqual({ ok: false, reason: "unverified" });
+    expect(writeCopies(spyStorage({ failSetOn: COPIES_KEY, quota: true }), env, null)).toEqual({ ok: false, reason: "quota" });
+    expect(writeCopies(spyStorage({ failSetOn: COPIES_KEY }), env, null)).toEqual({ ok: false, reason: "blocked" });
+    expect(writeCopies(spyStorage({ throwOnGet: true }), env, null)).toEqual({ ok: false, reason: "blocked" });
+    expect(writeCopies(spyStorage({ dropWrites: true }), env, null)).toEqual({ ok: false, reason: "unverified" });
     const s = spyStorage();
-    expect(writeCopies(s, { ...env, schema: "copies/2" } as unknown as CopiesEnvelope)).toEqual({ ok: false, reason: "invalid" });
+    expect(writeCopies(s, { ...env, schema: "copies/2" } as unknown as CopiesEnvelope, null)).toEqual({ ok: false, reason: "invalid" });
     expect(s.map.size).toBe(0);
   });
 });
@@ -323,18 +494,47 @@ describe("moving travel:v1:copy-drafts (nav 3.2)", () => {
 
   it("keeps the old key when the write is not read back", () => {
     const s = spyStorage({ dropWrites: true });
-    // dropWrites drops every set, so seed the map directly
     const text = JSON.stringify([legacy("a", "2026-10-20T10:00:00.000Z")]);
     s.map.set(LEGACY_COPIES_KEY, text);
     expect(moveLegacyCopies(s, { newId: ids() })).toEqual({ status: "failed", reason: "write-failed" });
     expect(s.map.get(LEGACY_COPIES_KEY)).toBe(text);
   });
 
-  it("leaves an unreadable old key alone", () => {
+  it("reports a read that throws as read-failed (review L5), and leaves an unreadable old key alone", () => {
+    expect(moveLegacyCopies(spyStorage({ throwOnGet: true }), { newId: ids() })).toEqual({ status: "failed", reason: "read-failed" });
     const s = spyStorage();
     s.map.set(LEGACY_COPIES_KEY, "nope");
     expect(moveLegacyCopies(s, { newId: ids() })).toEqual({ status: "failed", reason: "legacy-unreadable" });
     expect(s.map.get(LEGACY_COPIES_KEY)).toBe("nope");
+  });
+
+  it("refuses with changed when another tab wrote the envelope during the move (compare-and-set against what it read)", () => {
+    const s = spyStorage();
+    const text = JSON.stringify([legacy("a", "2026-10-20T10:00:00.000Z")]);
+    s.map.set(LEGACY_COPIES_KEY, text);
+    const other = addCopy(emptyCopies(), { ...INPUT, slug: "other" }, { now: NOW, newId: ids(30) });
+    if (!other.ok) throw new Error("add");
+    let sneaked = false;
+    // the other tab writes right after the move reads the envelope
+    const racing: StorageLike = {
+      getItem: (k) => {
+        const v = s.getItem(k);
+        if (k === COPIES_KEY && !sneaked) {
+          sneaked = true;
+          s.map.set(COPIES_KEY, JSON.stringify(other.envelope));
+        }
+        return v;
+      },
+      setItem: (k, v) => s.setItem(k, v),
+      removeItem: (k) => s.removeItem(k),
+    };
+    expect(moveLegacyCopies(racing, { newId: ids(31) })).toEqual({ status: "failed", reason: "changed" });
+    expect(s.map.get(LEGACY_COPIES_KEY)).toBe(text);
+    expect(s.map.get(COPIES_KEY)).toBe(JSON.stringify(other.envelope));
+    // the next run sees the other tab's envelope and moves on top of it
+    expect(moveLegacyCopies(s, { newId: ids(32) })).toMatchObject({ status: "moved", moved: 1 });
+    const after = readCopies(s.map.get(COPIES_KEY)!);
+    expect(after.ok && after.envelope.items.map((x) => x.slug).sort()).toEqual(["a", "other"]);
   });
 
   it("over the device cap or unparsable drafts stay under the old key; an older draft of a copied trip is superseded", () => {
@@ -346,7 +546,7 @@ describe("moving travel:v1:copy-drafts (nav 3.2)", () => {
       if (!a.ok) throw new Error("add");
       env = a.envelope;
     }
-    writeCopies(s, env);
+    seed(s, env);
     const broken = { slug: "z", start: "soon" };
     s.map.set(
       LEGACY_COPIES_KEY,
@@ -361,49 +561,85 @@ describe("moving travel:v1:copy-drafts (nav 3.2)", () => {
     expect(JSON.parse(s.map.get(LEGACY_COPIES_KEY)!)).toEqual([legacy("new-2", "2026-10-23T00:00:00.000Z"), broken]);
   });
 
-  it("a draft newer than the envelope's copy of the same trip replaces it", () => {
+  it("a draft newer than the envelope's copy of the same trip replaces it, compared as instants (review M1)", () => {
     const s = spyStorage();
-    const a = addCopy(emptyCopies(), INPUT, { now: new Date("2026-10-01T00:00:00Z"), newId: ids(12) });
+    // the envelope's copy is at 10:00:00.500; the draft at 10:00:01 written without a fraction sorts BEFORE it as a string
+    const a = addCopy(emptyCopies(), INPUT, { now: new Date("2026-10-20T10:00:00.500Z"), newId: ids(12) });
     if (!a.ok) throw new Error("add");
-    writeCopies(s, a.envelope);
-    s.map.set(LEGACY_COPIES_KEY, JSON.stringify([legacy(INPUT.slug, "2026-10-20T00:00:00.000Z", { start: "2027-07-10" })]));
+    seed(s, a.envelope);
+    s.map.set(LEGACY_COPIES_KEY, JSON.stringify([legacy(INPUT.slug, "2026-10-20T10:00:01Z", { start: "2027-07-10" })]));
+    expect("2026-10-20T10:00:01Z" < "2026-10-20T10:00:00.500Z").toBe(false);
+    expect("2026-10-20T10:00:00Z" > "2026-10-20T10:00:00.500Z").toBe(true); // the trap a string compare falls into
     expect(moveLegacyCopies(s, { newId: ids(13) })).toMatchObject({ status: "moved", moved: 1 });
     const after = readCopies(s.map.get(COPIES_KEY)!);
     expect(after.ok && after.envelope.items.map((x) => x.start)).toEqual(["2027-07-10"]);
+    // and a whole-second draft OLDER than a fractional copy stays superseded
+    const s2 = spyStorage();
+    seed(s2, a.envelope);
+    s2.map.set(LEGACY_COPIES_KEY, JSON.stringify([legacy(INPUT.slug, "2026-10-20T10:00:00Z", { start: "2027-07-10" })]));
+    expect(moveLegacyCopies(s2, { newId: ids(14) })).toMatchObject({ status: "moved", moved: 0, superseded: 1 });
   });
 
-  it("property: a crash after the envelope write (old key not deleted) never duplicates a copy on the next run", () => {
-    for (let seed = 1; seed <= 50; seed++) {
-      const r = rng(seed);
+  it("property: a crash on the first old-key write (delete or rewrite) never duplicates or loses a copy on the next run (review M6)", () => {
+    let crashedSet = 0;
+    let crashedRemove = 0;
+    for (let seedN = 1; seedN <= 60; seedN++) {
+      const r = rng(seedN);
       const n = int(r, 1, 25);
       const drafts = Array.from({ length: n }, (_, i) => legacy(SLUGS[i]!, new Date(Date.UTC(2026, 8, 1) + int(r, 0, 1e9)).toISOString()));
       const s = spyStorage();
       s.map.set(LEGACY_COPIES_KEY, JSON.stringify(drafts));
-      const crash: StorageLike = { getItem: (k) => s.getItem(k), setItem: (k, v) => s.setItem(k, v), removeItem: () => { throw new Error("crash"); } };
-      const first = moveLegacyCopies(crash, { newId: ids(seed) });
-      expect(first.status, `seed ${seed}`).toBe("moved");
-      const second = moveLegacyCopies(s, { newId: ids(seed + 1000) });
+      let crashed = false;
+      const crash: StorageLike = {
+        getItem: (k) => s.getItem(k),
+        setItem: (k, v) => {
+          if (k === LEGACY_COPIES_KEY && !crashed) {
+            crashed = true;
+            crashedSet++;
+            throw new Error("crash");
+          }
+          s.setItem(k, v);
+        },
+        removeItem: (k) => {
+          if (k === LEGACY_COPIES_KEY && !crashed) {
+            crashed = true;
+            crashedRemove++;
+            throw new Error("crash");
+          }
+          s.removeItem(k);
+        },
+      };
+      const at = `seed ${seedN}`;
+      const first = moveLegacyCopies(crash, { newId: ids(seedN) });
+      expect(first.status, at).toBe("moved");
+      expect(crashed, at).toBe(true);
+      expect(s.map.get(LEGACY_COPIES_KEY), at).toBe(JSON.stringify(drafts)); // the crash left the old key as it was
+      const second = moveLegacyCopies(s, { newId: ids(seedN + 1000) });
       const env = readCopies(s.map.get(COPIES_KEY)!);
-      if (!env.ok) throw new Error(`seed ${seed}`);
+      if (!env.ok) throw new Error(at);
       const slugs = env.envelope.items.map((x) => x.slug);
-      expect(new Set(slugs).size, `seed ${seed}`).toBe(slugs.length);
-      expect(slugs.length, `seed ${seed}`).toBe(Math.min(n, DEVICE_COPY_CAP));
-      expect(second, `seed ${seed}`).toMatchObject({ status: "moved", moved: 0, kept: Math.max(0, n - DEVICE_COPY_CAP) });
+      expect(new Set(slugs).size, at).toBe(slugs.length);
+      expect(slugs.length, at).toBe(Math.min(n, DEVICE_COPY_CAP));
+      expect(second, at).toMatchObject({ status: "moved", moved: 0, kept: Math.max(0, n - DEVICE_COPY_CAP) });
       // nothing is lost: every draft is in the envelope or still under the old key
       const left = s.map.has(LEGACY_COPIES_KEY) ? (JSON.parse(s.map.get(LEGACY_COPIES_KEY)!) as { slug: string }[]).map((d) => d.slug) : [];
-      expect(new Set([...slugs, ...left]).size, `seed ${seed}`).toBe(n);
+      expect(new Set([...slugs, ...left]).size, at).toBe(n);
     }
+    // both crash points were exercised
+    expect(crashedSet).toBeGreaterThan(0);
+    expect(crashedRemove).toBeGreaterThan(0);
   });
 });
 
 describe("the sign-in merge (nav 4.2), property tests", () => {
-  /** What the account holds after applying a plan: insert on conflict (id) do nothing. */
-  function apply(account: AccountDraftKey[], plan: ReturnType<typeof planMerge>): AccountDraftKey[] {
+  /** What the account holds after applying a plan: insert on conflict (id) do nothing returning id. */
+  function apply(account: AccountDraftKey[], plan: MergePlan): { account: AccountDraftKey[]; returned: string[] } {
     const have = new Set(account.map((a) => a.id));
-    return [...account, ...plan.insert.filter((r) => !have.has(r.id)).map((r) => ({ id: r.id, source_trip: r.source_trip, start: r.doc.start ?? null }))];
+    const rows = plan.insert.filter((r) => !have.has(r.id));
+    return { account: [...account, ...rows.map((r) => ({ id: r.id, source_trip: r.source_trip, start: r.doc.start ?? null }))], returned: rows.map((r) => r.id) };
   }
-  function world(seed: number): { copies: CopyItem[]; account: AccountDraftKey[] } {
-    const r = rng(seed);
+  function world(seedN: number): { copies: CopyItem[]; account: AccountDraftKey[] } {
+    const r = rng(seedN);
     const copies = Array.from({ length: int(r, 0, DEVICE_COPY_CAP) }, (_, i) => item(r, i));
     const account: AccountDraftKey[] = Array.from({ length: int(r, 0, ACCOUNT_DRAFT_CAP) }, () => {
       const kind = r();
@@ -417,112 +653,163 @@ describe("the sign-in merge (nav 4.2), property tests", () => {
       }
       return { id: uuidFrom(r), source_trip: r() < 0.3 ? null : pick(r, SLUGS), start: r() < 0.3 ? null : pick(r, STARTS) };
     });
-    // the account never holds the same id twice
     const seen = new Set<string>();
     return { copies, account: account.filter((a) => (seen.has(a.id) ? false : (seen.add(a.id), true))) };
   }
 
   it("is idempotent, honours the cap, never duplicates a trip and start, and accounts for every copy", () => {
-    for (let seed = 1; seed <= 400; seed++) {
-      const { copies, account } = world(seed);
-      const plan = planMerge(copies, account);
-      const after = apply(account, plan);
-      const at = `seed ${seed}`;
-      // every copy lands in exactly one bucket
+    for (let seedN = 1; seedN <= 400; seedN++) {
+      const { copies, account } = world(seedN);
+      // the route receives JSON: the plan is made from the parsed wire form
+      const plan = mustPlan(JSON.parse(JSON.stringify(copies)), account);
+      const { account: after } = apply(account, plan);
+      const at = `seed ${seedN}`;
       const buckets = [...plan.insert.map((x) => x.id), ...plan.already, ...plan.sameTrip, ...plan.overCap];
       expect(buckets.sort(), at).toEqual(copies.map((c) => c.id).sort());
-      // the cap holds (an account already over it gains nothing)
       expect(after.length, at).toBeLessThanOrEqual(Math.max(ACCOUNT_DRAFT_CAP, account.length));
       if (account.length >= ACCOUNT_DRAFT_CAP) expect(plan.insert, at).toEqual([]);
-      // no inserted copy repeats an account draft's trip and start, nor another inserted copy's
       const key = (a: AccountDraftKey) => `${a.source_trip}|${a.start}`;
       const existing = new Set(account.filter((a) => a.source_trip && a.start).map(key));
       const inserted = plan.insert.map((r) => key({ id: r.id, source_trip: r.source_trip, start: r.doc.start ?? null }));
       expect(inserted.some((k) => existing.has(k)), at).toBe(false);
       expect(new Set(inserted).size, at).toBe(inserted.length);
-      // re-running against the result inserts nothing
-      const again = planMerge(copies, after);
+      const again = mustPlan(copies, after);
       expect(again.insert, at).toEqual([]);
-      expect(apply(after, again), at).toEqual(after);
-      // the newest copies go first: no over-cap copy is newer than an inserted one
-      const time = new Map(copies.map((c) => [c.id, c.copiedAt]));
-      const oldestIn = plan.insert.map((r) => time.get(r.id)!).sort()[0];
-      if (oldestIn) for (const id of plan.overCap) expect(time.get(id)! <= oldestIn, at).toBe(true);
-      // every row's doc is a valid trip-custom/1
-      for (const row of plan.insert) expect(parseTripCustom(row.doc).success, at).toBe(true);
+      expect(apply(after, again).account, at).toEqual(after);
+      // the newest copies go first, compared as instants whatever the spelling (review M1)
+      const time = new Map(copies.map((c) => [c.id, Date.parse(c.copiedAt)]));
+      const oldestIn = Math.min(...plan.insert.map((r) => time.get(r.id)!));
+      if (plan.insert.length) for (const id of plan.overCap) expect(time.get(id)! <= oldestIn, at).toBe(true);
+      for (const row of plan.insert) {
+        expect(parseTripCustom(row.doc).success, at).toBe(true);
+        expect(row.source_revision, at).toBe(copies.find((c) => c.id === row.id)!.rev ?? null);
+      }
     }
+  });
+
+  it("orders mixed precision by instant: whole seconds against fractions (review M1)", () => {
+    const r = rng(77);
+    const mk = (i: number, copiedAt: string) => mustCopy({ ...INPUT, id: uuidFrom(r), slug: SLUGS[i]!, copiedAt });
+    const older = mk(0, "2026-10-20T10:00:00.500Z");
+    const newer = mk(1, "2026-10-20T10:00:01Z");
+    const newest = mk(2, "2026-10-20T10:00:01.000001Z");
+    const plan = mustPlan([older, newer, newest], [], 2);
+    expect(plan.insert.map((x) => x.id)).toEqual([newest.id, newer.id]);
+    expect(plan.overCap).toEqual([older.id]);
   });
 
   it("a crash between the server write and emptying the envelope is safe", () => {
-    for (let seed = 1; seed <= 100; seed++) {
-      const { copies, account } = world(seed);
-      const first = planMerge(copies, account);
-      const server = apply(account, first); // written, then the tab died before markMerged
-      const retry = planMerge(copies, server);
-      expect(retry.insert, `seed ${seed}`).toEqual([]);
-      expect([...retry.already, ...retry.sameTrip].sort(), `seed ${seed}`).toEqual([...first.insert.map((r) => r.id), ...first.already, ...first.sameTrip].sort());
+    for (let seedN = 1; seedN <= 100; seedN++) {
+      const { copies, account } = world(seedN);
+      const first = mustPlan(copies, account);
+      const { account: server } = apply(account, first);
+      const retry = mustPlan(copies, server);
+      expect(retry.insert, `seed ${seedN}`).toEqual([]);
+      expect([...retry.already, ...retry.sameTrip].sort(), `seed ${seedN}`).toEqual([...first.insert.map((r) => r.id), ...first.already, ...first.sameTrip].sort());
     }
   });
 
-  it("markMerged empties what the account took, keeps the over-cap copies, and records the account", () => {
+  it("refuses input it cannot trust (review C2): not a list, over 20, a bad id, a duplicate trip, an unknown key", () => {
+    const r = rng(5);
+    const good = Array.from({ length: 3 }, (_, i) => item(r, i));
+    expect(planMerge(good, []).success).toBe(true);
+    expect(planMerge({ items: good }, []).success).toBe(false);
+    expect(planMerge(Array.from({ length: 21 }, (_, i) => item(r, i)), []).success).toBe(false);
+    expect(planMerge([{ ...good[0], id: "x'); drop table planner_draft;--" }], []).success).toBe(false);
+    expect(planMerge([good[0], { ...good[1], slug: good[0]!.slug }], [])).toMatchObject({ success: false, issues: ["$: one copy per trip (Q204)"] });
+    expect(planMerge([good[0], { ...good[1], id: good[0]!.id }], [])).toMatchObject({ success: false, issues: ["$: each copy has its own id"] });
+    expect(planMerge([{ ...good[0], is_admin: true }], []).success).toBe(false);
+    expect(planMerge([{ ...good[0], title: "" }], []).success).toBe(false);
+    expect(parseCopyList(good).success).toBe(true);
+    expect(copyToDraftRow({ ...good[0], source_trip: "private-trip" }).success).toBe(false);
+    expect(copyToTripCustom("nope").success).toBe(false);
+  });
+
+  it("markMerged removes only what the server confirmed (review M2) and keeps merged to the 10 most recent", () => {
     const r = rng(42);
     const copies = Array.from({ length: 5 }, (_, i) => item(r, i));
     const env: CopiesEnvelope = { ...emptyCopies(), items: copies };
-    const full: AccountDraftKey[] = Array.from({ length: ACCOUNT_DRAFT_CAP - 2 }, () => ({ id: uuidFrom(r), source_trip: null, start: null }));
-    const plan = planMerge(copies, full);
-    expect(plan.insert).toHaveLength(2);
-    expect(plan.overCap).toHaveLength(3);
-    const after = markMerged(env, plan, "acct_hash_1234", NOW);
-    expect(after.items.map((x) => x.id).sort()).toEqual([...plan.overCap].sort());
+    const full: AccountDraftKey[] = Array.from({ length: ACCOUNT_DRAFT_CAP - 3 }, () => ({ id: uuidFrom(r), source_trip: null, start: null }));
+    const plan = mustPlan(copies, full);
+    expect(plan.insert).toHaveLength(3);
+    expect(plan.overCap).toHaveLength(2);
+    // the server returned only two of the three ids (the cap trigger refused one, or another account holds that id)
+    const returned = plan.insert.slice(0, 2).map((x) => x.id);
+    const after = markMerged(env, { inserted: returned, already: plan.already, sameTrip: plan.sameTrip }, "acct_hash_1234", NOW);
+    expect(after.items.map((x) => x.id).sort()).toEqual([plan.insert[2]!.id, ...plan.overCap].sort());
     expect(after.merged).toEqual({ acct_hash_1234: NOW.toISOString() });
     expect(parseEnvelope(after).success).toBe(true);
+    // an ids nobody sent is ignored; merged never grows past MERGED_MAX
+    let e = after;
+    for (let i = 0; i < 15; i++) e = markMerged(e, { inserted: ["not-a-copy"], already: [], sameTrip: [] }, `acct_${String(i).padStart(8, "0")}`, new Date(NOW.getTime() + (i + 1) * 1000));
+    expect(e.items).toHaveLength(after.items.length);
+    expect(Object.keys(e.merged)).toHaveLength(MERGED_MAX);
+    expect(Object.keys(e.merged)).toContain("acct_00000014");
+    expect(Object.keys(e.merged)).not.toContain("acct_hash_1234");
+    expect(parseEnvelope(e).success).toBe(true);
   });
 
-  it("maps a copy onto planner_draft and trip-custom/1 (nav 4.2 rule 2), keeping from and gw", () => {
-    const c = mustCopy({ ...INPUT, id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", copiedAt: NOW.toISOString(), from: "town:in-mh-mumbai", gw: { in: "YEG", out: "YYC" } });
+  it("the merge runs whenever the device holds copies, whatever merged says (owner, 26 Oct 2026)", () => {
+    const a = addCopy({ ...emptyCopies(), merged: { acct_hash_1234: NOW.toISOString() } }, INPUT, { now: NOW, newId: ids() });
+    if (!a.ok) throw new Error("add");
+    expect(needsMerge(a.envelope)).toBe(true);
+    expect(needsMerge({ ...emptyCopies(), merged: {} })).toBe(false);
+  });
+
+  it("maps a copy onto planner_draft and trip-custom/1 (nav 4.2 rule 2), keeping fromRef, gw and rev", () => {
+    const c = { ...INPUT, id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", copiedAt: NOW.toISOString(), fromRef: "town:in-mh-mumbai", gw: { in: "YEG", out: "YYC" }, rev: "2026-10-20.a1b2" };
     expect(copyToDraftRow(c)).toEqual({
-      id: c.id,
-      title: "Dolomites",
-      source_trip: "dolomites-july-2027",
-      doc: {
-        schema: "trip-custom/1",
-        profile: INPUT.profile,
-        overrides: { "5": "C" },
-        added: [{ op: "o-1", day: 5, ref: "place/pyramid-lake" }],
-        start: "2027-07-03",
-        travellers: { adults: 2, children: [6] },
-        from: "town:in-mh-mumbai",
-        gw: { in: "YEG", out: "YYC" },
+      success: true,
+      data: {
+        id: c.id,
+        title: "Dolomites",
+        source_trip: "dolomites-july-2027",
+        source_revision: "2026-10-20.a1b2",
+        doc: {
+          schema: "trip-custom/1",
+          profile: INPUT.profile,
+          overrides: { "5": "C" },
+          added: [{ op: "o-1", day: 5, ref: "place/pyramid-lake" }],
+          start: "2027-07-03",
+          travellers: { adults: 2, children: [6] },
+          fromRef: "town:in-mh-mumbai",
+          gw: { in: "YEG", out: "YYC" },
+          rev: "2026-10-20.a1b2",
+        },
       },
     });
-    const bare = mustCopy({ ...INPUT, id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", copiedAt: NOW.toISOString() });
-    expect(Object.keys(copyToTripCustom(bare))).not.toContain("from");
-    expect(Object.keys(copyToTripCustom(bare))).not.toContain("gw");
+    const bare = copyToTripCustom({ ...INPUT, id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", copiedAt: NOW.toISOString() });
+    if (!bare.success) throw new Error("bare");
+    for (const k of ["fromRef", "gw", "rev"]) expect(Object.keys(bare.data)).not.toContain(k);
+    const row = copyToDraftRow({ ...INPUT, id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", copiedAt: NOW.toISOString() });
+    expect(row.success && row.data.source_revision).toBeNull();
   });
 });
 
 describe("privacy detector: planted copy fields (NAV-C, origin spec 8.1)", () => {
   const whys = (x: unknown) => privacyHits(x).map((h) => h.why);
 
-  it("lists copiedAt, travellers and gw as private keys", () => {
-    for (const k of ["copiedAt", "travellers", "gw", "added"]) expect(PRIVATE_KEYS).toContain(k);
+  it("lists copiedAt, travellers, fromRef and gw as private keys", () => {
+    for (const k of ["copiedAt", "travellers", "fromRef", "gw", "added"]) expect(PRIVATE_KEYS).toContain(k);
   });
 
-  it("fails a public payload with a planted travellers, copiedAt, gw or origin under from", () => {
+  it("fails a public payload with a planted travellers, copiedAt, fromRef, gw or origin under from", () => {
     expect(whys({ trip: { slug: "x", travellers: { adults: 2, children: [6] } } })).toEqual(["a private key"]);
     expect(whys({ items: [{ slug: "x", copiedAt: "2026-10-25T14:02:11Z" }] })).toEqual(["a private key"]);
     expect(whys({ trip: { gw: { in: "YEG", out: "YYC" } } })).toEqual(["a private key"]);
+    // fromRef is private whatever its value, including the forms the from rule misses
+    for (const v of ["town:in-mh-mumbai", "bom", "Mumbai", { ref: "x" }, null]) expect(whys({ trip: { fromRef: v } }), JSON.stringify(v)).toEqual(["a private key"]);
     for (const from of ["iata:BOM", "hub:ottawa", "town:in-mh-mumbai", "gn:1275339", "TOWN:x"]) expect(whys({ trip: { from } }), from).toEqual(["a visitor's origin"]);
     expect(whys({ trip: { from: { ref: "town:in-mh-mumbai", label: "Mumbai" } } })).toEqual(["a visitor's origin"]);
     // a whole envelope, or one serialised into a string, fails
-    const a = addCopy(emptyCopies(), { ...INPUT, from: "iata:BOM", gw: { in: "YYC", out: "YYC" } }, { now: NOW, newId: ids() });
+    const a = addCopy(emptyCopies(), { ...INPUT, fromRef: "iata:BOM", gw: { in: "YYC", out: "YYC" } }, { now: NOW, newId: ids() });
     if (!a.ok) throw new Error("add");
     const hits = privacyHits({ body: JSON.stringify(a.envelope) }).map((h) => h.where);
-    expect(hits).toEqual(expect.arrayContaining(["$.body<json>.items[0].added", "$.body<json>.items[0].copiedAt", "$.body<json>.items[0].from", "$.body<json>.items[0].gw"]));
+    expect(hits).toEqual(expect.arrayContaining(["$.body<json>.items[0].added", "$.body<json>.items[0].copiedAt", "$.body<json>.items[0].fromRef", "$.body<json>.items[0].gw"]));
   });
 
   it("hits never carry the value", () => {
-    expect(JSON.stringify(privacyHits({ from: "town:in-mh-mumbai", travellers: { adults: 2, children: [6] } }))).not.toMatch(/mumbai|"6"|children/);
+    expect(JSON.stringify(privacyHits({ from: "town:in-mh-mumbai", fromRef: "town:in-mh-mumbai", travellers: { adults: 2, children: [6] } }))).not.toMatch(/mumbai|"6"|children/);
   });
 
   it("leaves the public uses of from alone: windows, age bands, legs and capture origins", () => {
@@ -531,6 +818,19 @@ describe("privacy detector: planted copy fields (NAV-C, origin spec 8.1)", () =>
     expect(whys({ legs: [{ from: "base/banff", to: "place/moraine-lake", min: 25 }] })).toEqual([]);
     expect(whys({ point: { from: "capture" } })).toEqual([]);
     expect(whys({ months: { from: "2027-07-03", to: "2027-07-10" } })).toEqual([]);
+  });
+
+  it("pins the known misses of the value-based from rule (review M5): a change here must be deliberate", () => {
+    // the URL form, a resolved label, a JSON string under from, nesting deeper than three levels, and a reference under another key
+    expect(whys({ trip: { from: "bom" } })).toEqual([]);
+    expect(whys({ trip: { from: "Mumbai" } })).toEqual([]);
+    expect(whys({ trip: { from: JSON.stringify({ ref: "town:in-mh-mumbai" }) } })).toEqual([]);
+    expect(whys({ trip: { from: { a: { b: { c: { d: "town:in-mh-mumbai" } } } } } })).toEqual([]);
+    expect(whys({ start: { ref: "town:in-mh-mumbai" } })).toEqual([]);
+    expect(whys({ origin: "town:in-mh-mumbai" })).toEqual([]);
+    expect(whys({ ref: "town:in-mh-mumbai" })).toEqual([]);
+    // a copy's party outside travellers is caught only through its sibling keys
+    expect(whys({ adults: 2, children: [6] })).toEqual([]);
   });
 
   it("the detector's origin prefix covers every form the schema accepts", () => {

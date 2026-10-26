@@ -6,13 +6,19 @@
 // (trip-origin-and-nearest-airport.md 10):
 //   profile, overrides, added      the timeline choices (trip-timeline 3.9)
 //   start, travellers              the copy's dates and party (nav 4.2 rule 2)
-//   from, gw                       the visitor's origin and airport choice (origin spec 10), reserved now so the shape holds to v0.8
+//   fromRef, gw                    the visitor's origin and airport choice (origin spec 10), reserved now so the shape holds to v0.8;
+//                                  stored as `fromRef` (owner, 26 Oct 2026, review NAV-C Q1), not `from`: the URL key stays `from`
+//   rev                            the public trip's content revision when copied (`planner_draft.source_revision`), reserved
 // CUS-C extends it with `window`, `removed`, `maybe`, `title`, `moved`, `days`, `notes` and `custom` before its migration is applied.
-// The object is strict: a key CUS-C has not added yet fails, so no field slips in unreviewed.
 //
-// Everything here is household data: `travellers`, `from`, `gw`, `profile.youngest` and `added` never reach a public payload. The
-// privacy detector (core/src/privacy/detect.ts) fails a served body that carries `travellers`, `gw`, `added` or an origin reference
-// under `from`. This module imports nothing from privacy/ on purpose: the Mine page loads it in the browser, and the detector pulls
+// FORWARD COMPATIBILITY (review NAV-C M4). The object is strict: a key this reader does not know makes the doc `invalid`, not
+// `newer`. Adding optional keys to `/1` is safe only while no `trip-custom/1` doc is stored anywhere (before the CUS-C migration is
+// applied). After the first stored doc, every new key is `trip-custom/2`, or a stale tab or a rolled-back deploy reports good docs as
+// invalid. The same rule holds for `copies/1` once NAV-2 ships.
+//
+// Everything here is household data: `travellers`, `fromRef`, `gw`, `profile.youngest` and `added` never reach a public payload. The
+// privacy detector (core/src/privacy/detect.ts) fails a served body that carries `travellers`, `fromRef`, `gw` or `added` under any
+// value, or an origin reference under `from`. This module imports nothing from privacy/ on purpose: the Mine page loads it in the browser, and the detector pulls
 // the household config in with it.
 import { z } from "zod";
 
@@ -35,6 +41,8 @@ export const CATALOGUE_REF = /^(?!.*\b(?:loc|proto):)\S{1,200}$/;
 
 /** A visitor's origin: one reference string. */
 export const originRef = z.string().regex(ORIGIN_REFERENCE, "an origin reference: iata:XXX, hub:<id>, town:<id> or gn:<number>");
+/** A public trip's content revision (a hash or a date stamp), so the planner can tell template drift (overview 5.6). */
+export const sourceRevision = z.string().regex(/^[A-Za-z0-9._:-]{1,64}$/, "a content revision");
 /** The arrival and departure airports the visitor picked (`gw=yeg,yyc`); the same code twice for one airport both ways. */
 export const gateways = z.strictObject({ in: z.string().regex(IATA), out: z.string().regex(IATA) });
 
@@ -82,10 +90,12 @@ export const tripCustom = z.strictObject({
   /** ISO date of Day 1; absent for an own plan with no date (Mine "No date" group). */
   start: z.iso.date().optional(),
   travellers: travellers.optional(),
-  /** reserved (origin spec 10): the visitor's origin for this copy */
-  from: originRef.optional(),
+  /** reserved (origin spec 10): the visitor's origin for this copy; the stored name of the URL's `from` */
+  fromRef: originRef.optional(),
   /** reserved (origin spec 10): the airports the visitor picked */
   gw: gateways.optional(),
+  /** reserved: the public trip's content revision when copied (`planner_draft.source_revision`, overview 5.6) */
+  rev: sourceRevision.optional(),
 });
 
 export type TimelineProfile = z.infer<typeof timelineProfile>;
@@ -112,8 +122,17 @@ export function tripCustomRules(d: TripCustom): string[] {
   return out;
 }
 
-/** Zod issues as paths and rules: zod's messages name the rule, not the value. */
-export const issuesOf = (e: z.ZodError): string[] => e.issues.map((i) => `${i.path.length ? `$.${i.path.join(".")}` : "$"}: ${i.message}`);
+/**
+ * Zod issues as paths and rules, never values (review NAV-C L4): a record's key (an override's day, an account hash) and an
+ * unrecognised key's name are data, so a path element that is not a plain field name reads `[key]`, and an unrecognised-key message
+ * names no key. Array indexes stay.
+ */
+export const issuesOf = (e: z.ZodError): string[] =>
+  e.issues.map((i) => {
+    const path = i.path.map((p) => (typeof p === "number" ? String(p) : typeof p === "string" && /^[A-Za-z_]{1,40}$/.test(p) ? p : "[key]"));
+    const message = i.code === "unrecognized_keys" ? "an unrecognised key" : i.code === "invalid_key" ? "an invalid key" : i.message;
+    return `${path.length ? `$.${path.join(".")}` : "$"}: ${message}`;
+  });
 
 export type Checked<T> = { success: true; data: T } | { success: false; issues: string[] };
 
