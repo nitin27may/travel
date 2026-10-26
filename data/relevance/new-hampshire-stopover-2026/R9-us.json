@@ -1,0 +1,139 @@
+{
+  "schema": "relevance/1",
+  "trip": "new-hampshire-stopover-2026",
+  "lane": "BA-us",
+  "researched": "2026-10-25",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.wikidata.org/wiki/Special:EntityData",
+      "title": "Wikidata entity data (labels, descriptions, P625, P2044, P402, P856, sitelinks)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-us"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.fs.usda.gov/r09/whitemountain/passes",
+      "title": "Recreation passes - White Mountain National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.fs.usda.gov/r09/whitemountain/recreation/lincoln-woods-trailhead",
+      "title": "Lincoln Woods Trailhead - White Mountain National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/white-mountain-national-forest",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q2566939",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: federally managed forest in the White Mountains; its P625 equals the stored point."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-25",
+        "note": "National forest (designation); the land manager's pass page lists fee sites by ranger district."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The land manager groups its pay-station sites in three districts."
+      },
+      "standing_scope": "New Hampshire outdoor areas",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Other national forests in the Northeast are not compared here."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: roadside falls and picnic areas are quick, the mountain trails take a day."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Open-air; summits are often in cloud."
+      },
+      "why": "A national forest across the White Mountains with free access and fee-charging trailhead lots.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0002",
+          "src-0003"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "Most forest land is free; a recreation pass applies at some sites (5 USD per vehicle per day at Lincoln Woods)."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "conservation_area",
+              "name": "White Mountain National Forest",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "note": "National forest (USDA Forest Service)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,860 @@
+{
+  "schema": "capture/1",
+  "trip": "catalogue",
+  "lane": "BA-it",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.lakecomo.is/",
+      "title": "Lake Como (destination site, carries the In Lombardia mark)",
+      "publisher": "Lake Como destination site (In Lombardia)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap relations 541757, 41485, 44915, 46663, 42602, 44830, 2675353, 44741, 21469402 (tags and centre)",
+      "publisher": "OpenStreetMap contributors (ODbL), via Overpass API",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-it"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q15523|Q212214|Q220|Q490|Q3376|Q2044|Q2028|Q173292|Q641",
+      "title": "Wikidata items for the nine places (labels, descriptions, P625, P2044, P856, P402, P1566, P1435, P757, sitelinks)",
+      "publisher": "Wikimedia Foundation (Wikidata)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-it"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.navigazionelaghi.it/en/",
+      "title": "Lake Como boats: timetables and tickets",
+      "publisher": "Navigazione Laghi (public lake navigation service)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.turismoroma.it/en/news/trevi-fountain-new-entry-fee-one-romes-symbols",
+      "title": "Trevi Fountain: new entry fee for one of Rome's symbols",
+      "publisher": "Turismo Roma (Roma Capitale)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://download.geonames.org/export/dump/cities1000.zip",
+      "title": "GeoNames cities1000 (populated-place ids, via data/reference/towns)",
+      "publisher": "GeoNames (CC BY 4.0)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "computed"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.visittrentino.info/en",
+      "title": "Visit Trentino",
+      "publisher": "Trentino Marketing S.r.l.",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.feelflorence.it/en",
+      "title": "FeelFlorence, the official tourism website",
+      "publisher": "Municipality and Metropolitan City of Florence",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.tourism.verona.it/en",
+      "title": "Verona tourism guide",
+      "publisher": "tourism.verona.it",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.thelocal.it/20251209/calendar-when-will-you-need-to-pay-a-fee-to-visit-venice-in-2026",
+      "title": "Calendar: when will you need to pay a fee to visit Venice in 2026",
+      "publisher": "The Local Italy",
+      "kind": "press",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap parking near the Como lakefront (way 316776513 Autosilo Via Auguadri)",
+      "publisher": "OpenStreetMap contributors (ODbL), via Overpass API",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-it"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap ferry terminal nodes on Capri (node 3711590228)",
+      "publisher": "OpenStreetMap contributors (ODbL), via Overpass API",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-it"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/lake-como",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lake Como",
+      "area_id": "IT/lombardy/como",
+      "osm_ref": "relation/541757",
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "lakecomo.is home page text",
+          "navigazionelaghi.it page text"
+        ]
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.lakecomo.is/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/541757",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q15523",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Lake_Como",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "timetable",
+          "url": "https://www.navigazionelaghi.it/en/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/sorrento-and-the-amalfi-coast",
+      "type": "nature.landform.coast_cliff",
+      "layer": "place",
+      "name": "Sorrento and the Amalfi Coast",
+      "area_id": "IT/campania/campania",
+      "osm_ref": "relation/21469402",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "official tourism or council page for Sorrento and the Amalfi Coast (Wikidata P856 empty or not an official body; pages tried: UNESCO whc.unesco.org 403; amalficoastweb.com on Wikidata is a commercial site)",
+          "on": "2026-10-25"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/21469402",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q212214",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Amalfi_Coast",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/capri",
+      "type": "nature.landform.island",
+      "layer": "place",
+      "name": "Capri",
+      "area_id": "IT/campania/napoli",
+      "osm_ref": "relation/2675353",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "official tourism or council page for Capri (Wikidata P856 empty or not an official body; pages tried: capri.it 404)",
+          "on": "2026-10-25"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/2675353",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q173292",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Capri",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/rome",
+      "type": "settlement.city",
+      "layer": "place",
+      "near_town": {
+        "v": "it-62-rome",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3169070, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 2.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Rome",
+      "area_id": "IT/lazio/roma-capitale",
+      "osm_ref": "relation/41485",
+      "geonames_id": {
+        "v": "3169070",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-25",
+        "note": "Rome populated place in the GeoNames cities1000 dump, read 2026-10-25."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "http://www.comune.roma.it/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.turismoroma.it/en",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/41485",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q220",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Rome",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/milan",
+      "type": "settlement.city",
+      "layer": "place",
+      "near_town": {
+        "v": "it-25-milan",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3173435, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Milan",
+      "area_id": "IT/lombardy/milano",
+      "osm_ref": "relation/44915",
+      "geonames_id": {
+        "v": "3173435",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-25",
+        "note": "Milan populated place in the GeoNames cities1000 dump, read 2026-10-25."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.comune.milano.it/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/44915",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q490",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Milan",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/trento",
+      "type": "settlement.city",
+      "layer": "place",
+      "near_town": {
+        "v": "it-32-trento",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3165243, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Trento",
+      "area_id": "IT/trentino-alto-adige/provincia-di-trento",
+      "osm_ref": "relation/46663",
+      "geonames_id": {
+        "v": "3165243",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-25",
+        "note": "Trento in the GeoNames cities1000 dump, read 2026-10-25."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "http://www.comune.trento.it/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.visittrentino.info/en",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0007"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/46663",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q3376",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Trento",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/florence",
+      "type": "settlement.city",
+      "layer": "place",
+      "near_town": {
+        "v": "it-52-florence",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3176959, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 1.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Florence",
+      "area_id": "IT/tuscany/firenze",
+      "osm_ref": "relation/42602",
+      "geonames_id": {
+        "v": "3176959",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-25",
+        "note": "Florence populated place in the GeoNames cities1000 dump, read 2026-10-25."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.comune.fi.it/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.feelflorence.it/en",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0008"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/42602",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q2044",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Florence",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/verona",
+      "type": "settlement.city",
+      "layer": "place",
+      "near_town": {
+        "v": "it-34-verona",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3164527, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Verona",
+      "area_id": "IT/veneto/verona",
+      "osm_ref": "relation/44830",
+      "geonames_id": {
+        "v": "3164527",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-25",
+        "note": "Verona in the GeoNames cities1000 dump, read 2026-10-25."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.comune.verona.it/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.tourism.verona.it/en",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/44830",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q2028",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Verona",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/venice",
+      "type": "settlement.city",
+      "layer": "place",
+      "near_town": {
+        "v": "it-34-venice",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3164603, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Venice",
+      "area_id": "IT/veneto/venetian-province",
+      "osm_ref": "relation/44741",
+      "geonames_id": {
+        "v": "6542284",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-25",
+        "note": "Wikidata P1566 gives 6542284, the commune feature; the populated-place id is not in the towns layer (it holds only anchor regions)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "http://www.comune.venezia.it/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/44741",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q641",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Venice",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://cda.ve.it/en/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0010"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/lake-como#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "it-25-como",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3178229, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Autosilo Via Auguadri (Como)",
+      "area_id": "IT/lombardy/como",
+      "osm_ref": "way/316776513",
+      "parks_for": [
+        "place/lake-como"
+      ],
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/316776513",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0011"
+          ]
+        },
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Como Servizi Urbani (CSU) page for Autosilo Via Auguadri",
+          "on": "2026-10-25"
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/lake-como",
+          "reason": "Lake access point: OSM way 316776513, fee=yes, capacity 800, operator CSU, about 400 m from the lakefront."
+        }
+      }
+    },
+    {
+      "ref": "part/place/capri#ferry",
+      "type": "access.transit.ferry_terminal",
+      "layer": "place",
+      "near_town": {
+        "v": "it-72-capri",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3180630, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Capri ferry terminal (Marina Grande)",
+      "area_id": "IT/campania/napoli",
+      "osm_ref": "node/3711590228",
+      "serves": [
+        "place/capri"
+      ],
+      "parks_for": [
+        "place/capri"
+      ],
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/3711590228",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0012"
+          ]
+        },
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "ferry operator page for Capri (not read in this batch)",
+          "on": "2026-10-25"
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/capri",
+          "reason": "Island access point: OSM node 3711590228 (amenity=ferry_terminal, no name tag); the name Marina Grande is ours, from the node's position at the main harbour."
+        }
+      }
+    }
+  ]
+}

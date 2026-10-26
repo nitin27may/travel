@@ -3224,6 +3224,14 @@
             "family_effort": null
           },
           {
+            "ref": "place/trento",
+            "km": 90.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
             "ref": "place/dobbiaco",
             "km": 24.5,
             "draw": "local",
@@ -3287,6 +3295,14 @@
             "km": 75.3,
             "draw": "regional",
             "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/trento",
+            "km": 51.3,
+            "draw": "regional",
+            "standing": "good",
             "access_cost": [],
             "family_effort": null
           },

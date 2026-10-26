@@ -1,0 +1,249 @@
+{
+  "schema": "relevance-derived/1",
+  "trip": "usa-southwest-rockies",
+  "as_of": "2026-10-25",
+  "thresholds": {
+    "version": 2,
+    "languages": {
+      "world": 25,
+      "national": 10,
+      "regional": 2
+    },
+    "views": {
+      "world": 40000,
+      "national": 10000,
+      "regional": 2000
+    }
+  },
+  "window": null,
+  "items": [
+    {
+      "ref": "place/arches-national-park",
+      "draw_suggested": "world",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 42,
+      "detour_basis": "town",
+      "detour_town": "Moab",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "trip/utah-five-parks/trail:windows section",
+          "km": 4.6
+        },
+        {
+          "ref": "trip/utah-five-parks/trail:devils garden",
+          "km": 10.6
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 42 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/bryce-canyon-national-park",
+      "draw_suggested": "world",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 10,
+      "detour_basis": "town",
+      "detour_town": "Bryce Canyon",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
+            "km": 2.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
+            "km": 2.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/canyonlands-national-park",
+      "draw_suggested": "world",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 118,
+      "detour_basis": "town",
+      "detour_town": "Moab",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 118 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "place/zion-national-park",
+      "draw_suggested": "world",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 6,
+      "detour_basis": "town",
+      "detour_town": "Springdale",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/utah-five-parks/trail:pa rus trail",
+          "km": 0.1,
+          "how": "walk",
+          "extra_min": 154,
+          "on_site_min": 150,
+          "on_site_estimated": true,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [
+        {
+          "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
+          "km": 6.6
+        },
+        {
+          "ref": "trip/utah-five-parks/trail:riverside walk",
+          "km": 10.6
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    }
+  ]
+}

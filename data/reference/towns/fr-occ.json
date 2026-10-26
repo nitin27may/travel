@@ -1,0 +1,12 @@
+{"schema":"towns-part/1","cc":"fr","admin1":{"occ":"Occitanie"},"rows":[
+["fr-occ-les-angles","Les Angles",43.95452,4.76645,8318,"occ","Les Angles",3002158],
+["fr-occ-montfaucon","Montfaucon",44.0742,4.75403,1300,"occ","Montfaucon",2992627],
+["fr-occ-montpellier","Montpellier",43.61093,3.87635,248252,"occ","Montpellier",2992166],
+["fr-occ-nimes","Nîmes",43.83665,4.35788,148236,"occ","Nimes",2990363],
+["fr-occ-perpignan","Perpignan",42.69764,2.89541,110706,"occ","Perpignan",2987914],
+["fr-occ-pujaut","Pujaut",44.00479,4.77466,3828,"occ","Pujaut",2985076],
+["fr-occ-roquemaure","Roquemaure",44.05158,4.77797,5293,"occ","Roquemaure",2982851],
+["fr-occ-sauveterre","Sauveterre",44.02282,4.79347,1841,"occ","Sauveterre",2975659],
+["fr-occ-toulouse","Toulouse",43.60426,1.44367,511684,"occ","Toulouse",2972315],
+["fr-occ-villeneuve-les-avignon","Villeneuve-lès-Avignon",43.96773,4.79258,13451,"occ","Villeneuve-les-Avignon",2968545]
+]}

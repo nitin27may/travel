@@ -21,6 +21,8 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import type { CaptureRecord } from "../schema/capture/records.ts";
 import { CAPTURE_POINTS_PATH, loadPlacement, ownPointOf } from "./placementBlock.ts";
+import { CAPTURE_POINTS_V2_SCHEMA_ID } from "../schema/capture/points.ts";
+import { parsePointSource } from "../normalise/points.ts";
 import type { PlacementWorld } from "./placementBlock.ts";
 import { loadWorld, readJson } from "./records.ts";
 import type { World } from "./records.ts";
@@ -164,6 +166,14 @@ function deriveAreas(root: string, w: World, pw: PlacementWorld): { areas: AreaA
 
 interface TrackDoc { schema?: string; place?: string; refs?: string[]; osm?: string[]; fetched?: string; stitched?: boolean; confirmed?: boolean; held_back?: string[]; start_offset_m?: number | null; cut?: string | null; geometry?: [number, number][] }
 
+/** A trailhead row in the capture-points/2 shape: the v1 text parsed by the normaliser's own rule into point_src and meta. */
+function trailheadRowV2(row: Record<string, unknown>): Record<string, unknown> {
+  const { point_source, ...rest } = row;
+  const parsed = parsePointSource(String(point_source), "osm", { pinned: false, readDefault: new Date().toISOString().slice(0, 10), run: "META-1" });
+  const { point_role, approx, approx_note, ...head } = rest;
+  return { ...head, point_src: parsed.point_src, point_role, ...(approx === undefined ? {} : { approx }), ...(approx_note === undefined ? {} : { approx_note }), meta: parsed.meta };
+}
+
 function deriveTrailheads(root: string, w: World, pw: PlacementWorld): TrailheadRow[] {
   const dir = join(root, "data", "tracks");
   if (!existsSync(dir)) return [];
@@ -232,10 +242,10 @@ export function planPlacementMigration(root: string): PlacementMigrationPlan {
   if (trailheads.length > 0) {
     const path = join(root, CAPTURE_POINTS_PATH);
     const original = readFileSync(path, "utf8");
-    const doc = JSON.parse(original) as { points: Record<string, unknown> };
+    const doc = JSON.parse(original) as { schema?: string; points: Record<string, unknown> };
     if (JSON.stringify(doc, null, 2) + "\n" !== original) problems.push(`${CAPTURE_POINTS_PATH} is not in the two-space style the migration writes; format it first`);
     else {
-      for (const t of trailheads) doc.points[t.ref] = t.row;
+      for (const t of trailheads) doc.points[t.ref] = doc.schema === CAPTURE_POINTS_V2_SCHEMA_ID ? trailheadRowV2(t.row) : t.row;
       writes.push({ path, text: JSON.stringify(doc, null, 2) + "\n" });
     }
   }

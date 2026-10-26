@@ -282,6 +282,13 @@
       "km": 1.6,
       "rival_km": 35.9
     },
+    "trip/utah-five-parks/town:main street moab": {
+      "area_id": "US/UT/grand-county",
+      "via": "point",
+      "from": "part/place/arches-national-park#visitor-center-lot",
+      "km": 7.9,
+      "rival_km": 26.7
+    },
     "trip/utah-five-parks/trail:narrows from the temple of sinawava": {
       "area_id": "US/UT/washington-county",
       "via": "point",
@@ -292,7 +299,7 @@
     "trip/utah-five-parks/trail:navajo loop and queens garden": {
       "area_id": "US/UT/kane-county",
       "via": "point",
-      "from": "locations store",
+      "from": "part/place/bryce-canyon-national-park#visitor-center-lot",
       "km": 2,
       "rival_km": 78.1
     },
@@ -308,7 +315,7 @@
       "via": "point",
       "from": "locations store",
       "km": 4.6,
-      "rival_km": 43.8
+      "rival_km": 35.3
     },
     "trip/utah-five-parks/viewpoint:bryce amphitheatre rim": {
       "area_id": "US/UT/kane-county",
@@ -322,7 +329,7 @@
       "via": "point",
       "from": "trip/utah-five-parks/trail:mesa arch",
       "km": 7.4,
-      "rival_km": 52.5
+      "rival_km": 38.3
     },
     "trip/utah-five-parks/viewpoint:sunset point": {
       "area_id": "US/UT/kane-county",
@@ -336,7 +343,7 @@
       "via": "point",
       "from": "locations store",
       "km": 0.1,
-      "rival_km": 110.1
+      "rival_km": 98.1
     }
   }
 }

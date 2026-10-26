@@ -1,4 +1,17 @@
 {"schema":"towns-part/1","cc":"us","admin1":{"nm":"New Mexico"},"rows":[
 ["us-nm-albuquerque","Albuquerque",35.08449,-106.65114,564559,"nm","Albuquerque",5454711],
-["us-nm-las-cruces","Las Cruces",32.31232,-106.77834,101643,"nm","Las Cruces",5475352]
+["us-nm-aztec","Aztec",36.82223,-107.99285,6147,"nm","Aztec",5456049],
+["us-nm-bloomfield","Bloomfield",36.71112,-107.98451,7314,"nm","Bloomfield",5458067],
+["us-nm-dulce","Dulce",36.93362,-106.99893,2743,"nm","Dulce",5465650],
+["us-nm-farmington","Farmington",36.72806,-108.21869,42871,"nm","Farmington",5467328],
+["us-nm-flora-vista","Flora Vista",36.79445,-108.08035,2191,"nm","Flora Vista",5467905],
+["us-nm-kirtland","Kirtland",36.73417,-108.3598,7875,"nm","Kirtland",5474539],
+["us-nm-las-cruces","Las Cruces",32.31232,-106.77834,101643,"nm","Las Cruces",5475352],
+["us-nm-lee-acres","Lee Acres",36.69889,-108.03674,5858,"nm","Lee Acres",5475668],
+["us-nm-navajo","Navajo",36.94612,-107.06309,2087,"nm","Navajo",5480832],
+["us-nm-shiprock","Shiprock",36.78555,-108.68703,8295,"nm","Shiprock",5491288],
+["us-nm-spencerville","Spencerville",36.82,-108.05813,1258,"nm","Spencerville",5492633],
+["us-nm-upper-fruitland","Upper Fruitland",36.71584,-108.31424,1662,"nm","Upper Fruitland",5496046],
+["us-nm-waterflow","Waterflow",36.75972,-108.48175,1670,"nm","Waterflow",5497190],
+["us-nm-west-hammond","West Hammond",36.68071,-108.04921,2790,"nm","West Hammond",7315327]
 ]}

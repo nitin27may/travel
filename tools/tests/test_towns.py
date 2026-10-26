@@ -83,14 +83,22 @@ def test_country_without_a_table_uses_00_and_a_wrong_table_fails(iso_table):
         T.admin1_iso("CA", "99", {"CA.99": "Nowhere"}, iso_table)
 
 
-def test_a_country_over_the_budget_splits_by_admin1_and_one_admin1_over_it_fails(iso_table, monkeypatch):
+def test_a_country_over_the_budget_splits_by_admin1_an_admin1_over_it_into_id_runs_and_one_row_over_it_fails(iso_table, monkeypatch):
     big = [city(i, f"Town {i:05d}", 43.9, -78.9, 5000 + i, admin1="08" if i % 2 else "01") for i in range(1, 3000)]
     groups = T.build_rows(big, NAMES, iso_table)
     monkeypatch.setattr(T, "GZIP_BUDGET", 20_000)
     parts = T.make_parts(groups)
     assert set(parts) == {"ca-on.json", "ca-ab.json"} or set(parts) == {"ca.json"}
-    monkeypatch.setattr(T, "GZIP_BUDGET", 200)
-    with pytest.raises(SystemExit, match="over the"):
+    monkeypatch.setattr(T, "GZIP_BUDGET", 4_000)
+    parts = T.make_parts(groups)
+    on = sorted((f for f in parts if f.startswith("ca-on-")), key=lambda f: int(f[6:-5]))
+    assert len(on) >= 2 and "ca-on.json" not in parts
+    assert all(T.gz(b) <= 4_000 for b in parts.values())
+    runs = [json.loads(parts[f])["rows"] for f in on]
+    assert [r for run in runs for r in run] == groups[("ca", "on")]["rows"]  # every row once, in id order, nothing moved
+    assert all(json.loads(parts[f])["admin1"] == {"on": "Ontario"} for f in on)
+    monkeypatch.setattr(T, "GZIP_BUDGET", 50)
+    with pytest.raises(SystemExit, match="alone is over the"):
         T.make_parts(groups)
 
 

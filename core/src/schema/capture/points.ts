@@ -91,6 +91,22 @@ const pointsV2 = z.strictObject({
  */
 export const capturePointsFile = z.discriminatedUnion("schema", [pointsV1, pointsV2]);
 
+/** A row of data/capture/points.json as its readers see it: capture-points/1 carries the free-text `point_source`, /2 `point_src`. */
+export interface CapturedPointRow { lat: number; lon: number; coord_src: string; point_source?: string; point_src?: { provider?: string; element?: string; quote?: string; legacy?: string } }
+
+/**
+ * The provenance text of a captured row, for the readers that take the OSM element or the Wikidata P625 id from `point_source` (the
+ * relevance inputs file, core's loadPoints, the web seeds, Directions and trail pages). A /2 row gives its `legacy` string (the whole v1
+ * text: every ledger-pinned row has one), else its `quote` (the v1 text without the read date and review state, which still opens with
+ * the element), else provider and element.
+ */
+export function capturedPointSource(c: CapturedPointRow): string | undefined {
+  if (c.point_source) return c.point_source;
+  const s = c.point_src;
+  if (!s) return undefined;
+  return s.legacy ?? s.quote ?? ([s.provider, s.element].filter(Boolean).join(" ") || undefined);
+}
+
 /** The read side of a relevance-points/1 row: the same fields, its own wider coord_src, unknown keys tolerated (its own checker owns it). */
 export const relevancePointRow = z.looseObject({
   lat: z.number().min(-90).max(90),

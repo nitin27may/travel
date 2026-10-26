@@ -4,14 +4,14 @@
   "updated": "2026-10-25",
   "strict": [],
   "counts": {
-    "E_PLACE_AREA": 228,
+    "E_PLACE_AREA": 227,
     "E_PLACE_ORPHAN": 7,
     "W_PLACE_POINT": 1,
     "W_PLACE_APPROX": 0,
     "E_PLACE_FAR": 0,
     "W_PLACE_TOWN": 0,
     "W_TIER_REQUIRED": 384,
-    "W_TIER_REQUIRED.keys": 3777
+    "W_TIER_REQUIRED.keys": 3731
   },
   "raised": [],
   "baseline": {

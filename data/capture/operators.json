@@ -107,6 +107,19 @@
       ]
     },
     {
+      "ref": "operator/gulong-gorge-eco-tourism",
+      "name": "Qingyuan Qingxin Gulong Gorge Eco-tourism Entertainment Co.",
+      "url": "https://www.gulongxia.com/",
+      "derived_from": [
+        {
+          "file": "data/capture/catalogue/BA-int.json",
+          "src": "src-0034",
+          "publisher": "Qingyuan Qingxin Gulong Gorge Eco-tourism Entertainment Co.",
+          "url": "https://www.gulongxia.com/html/cn/picshow-358-368.html"
+        }
+      ]
+    },
+    {
       "ref": "operator/hielo-y-aventura-s-a",
       "name": "Hielo y Aventura S.A.",
       "url": "https://hieloyaventura.com/",

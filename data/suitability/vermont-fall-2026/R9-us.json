@@ -1,0 +1,48 @@
+{
+  "schema": "suitability/1",
+  "trip": "vermont-fall-2026",
+  "lane": "BA-us",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/stowe",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Stowe centre has paved streets; no accessibility survey was read."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Our reading: Stowe centre is paved but unsurveyed; steps and slopes were not checked."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

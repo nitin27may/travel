@@ -1,0 +1,392 @@
+{
+  "note": "Draft capture records for the trails of the split ca that have a trailhead point (Sentier La Chute and the Marble Mountain and Mont Saddle loop), with their trailhead records. The trails' suitability and relevance records are committed in data/suitability/catalogue/R9-ca.json and data/relevance/catalogue/R9-ca.json. The capture records are withheld from data/capture/catalogue/ because a trail's required tier asks for a stored OSM track (geometry) and web/scripts/tracks-osm.mjs only builds tracks for places of the web snapshot, so each would be a new W_TIER_REQUIRED error. Move them into BA-ca.json (and the trailhead relevance records into R9-ca.json) when catalogue trails can get a track. No trailhead point was found for La Crete, L'Eperon, Sentier des Cimes and Mont du Dome (Overpass was at capacity), so they have no draft capture record. Built from the same source tables as the committed lane files.",
+  "capture": {
+    "schema": "capture/1",
+    "trip": "catalogue",
+    "lane": "BA-ca-trails",
+    "researched": "2026-10-25",
+    "agent": "travel-researcher",
+    "model": "sonnet",
+    "sources": [
+      {
+        "id": "src-0001",
+        "url": "https://parks.canada.ca/pn-np/qc/forillon/activ/randonnee-hiking",
+        "title": "Hiking - Forillon National Park",
+        "publisher": "Parks Canada",
+        "kind": "official",
+        "read": "2026-10-25",
+        "method": "read"
+      },
+      {
+        "id": "src-0002",
+        "url": "https://parks.canada.ca/pn-np/qc/forillon/visit/tarifs-fees",
+        "title": "Fees - Forillon National Park",
+        "publisher": "Parks Canada",
+        "kind": "official",
+        "read": "2026-10-25",
+        "method": "read"
+      },
+      {
+        "id": "src-0003",
+        "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE11_SentiersFrontaliers_Boucle_1j.pdf",
+        "title": "Boucle des sommets frontaliers (prêt-à-partir)",
+        "publisher": "Rando Québec",
+        "kind": "official",
+        "read": "2026-10-25",
+        "method": "read"
+      }
+    ],
+    "records": [
+      {
+        "ref": "place/sentier-la-chute",
+        "type": "nature.trail.hike",
+        "layer": "route",
+        "name": "Sentier La Chute",
+        "area_id": "CA/QC/forillon-national-park",
+        "osm_ref": "relation/9337777",
+        "starts_at": [
+          "part/place/sentier-la-chute#trailhead"
+        ],
+        "route_is_attraction": true,
+        "attraction_reason": "A short forest loop whose payoff is the waterfall at its far end: the walk is the visit.",
+        "links": [
+          {
+            "kind": "official",
+            "state": "filled",
+            "on": "2026-10-25",
+            "url": "https://parks.canada.ca/pn-np/qc/forillon/activ/randonnee-hiking",
+            "src": [
+              "src-0001"
+            ]
+          },
+          {
+            "kind": "hours_rates",
+            "state": "filled",
+            "on": "2026-10-25",
+            "url": "https://parks.canada.ca/pn-np/qc/forillon/visit/tarifs-fees",
+            "src": [
+              "src-0002"
+            ]
+          },
+          {
+            "kind": "wikidata",
+            "state": "filled",
+            "on": "2026-10-25",
+            "url": "https://www.wikidata.org/wiki/Q139862201"
+          },
+          {
+            "kind": "osm",
+            "state": "filled",
+            "on": "2026-10-25",
+            "url": "https://www.openstreetmap.org/relation/9337777"
+          }
+        ]
+      },
+      {
+        "ref": "place/mont-saddle-and-montagne-de-marbre-loop",
+        "type": "nature.trail.hike",
+        "layer": "route",
+        "name": "Mont Saddle and Montagne de Marbre loop",
+        "area_id": "CA/QC/eastern-townships",
+        "osm_ref": "relation/9311722",
+        "starts_at": [
+          "part/place/mont-saddle-and-montagne-de-marbre-loop#trailhead"
+        ],
+        "route_is_attraction": true,
+        "attraction_reason": "A full-day border-summit loop: the walk is the experience, with no single payoff place.",
+        "links": [
+          {
+            "kind": "official",
+            "state": "found_in_search",
+            "on": "2026-10-25",
+            "url": "https://sentiersfrontaliers.qc.ca/",
+            "query": "named on the Rando Québec sheet as the network's site; not read in this pass"
+          },
+          {
+            "kind": "track_source",
+            "state": "filled",
+            "on": "2026-10-25",
+            "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE11_SentiersFrontaliers_Boucle_1j.pdf",
+            "src": [
+              "src-0003"
+            ]
+          },
+          {
+            "kind": "wikidata",
+            "state": "filled",
+            "on": "2026-10-25",
+            "url": "https://www.wikidata.org/wiki/Q21428295"
+          },
+          {
+            "kind": "osm",
+            "state": "filled",
+            "on": "2026-10-25",
+            "url": "https://www.openstreetmap.org/relation/9311722"
+          },
+          {
+            "kind": "osm",
+            "state": "filled",
+            "on": "2026-10-25",
+            "url": "https://www.openstreetmap.org/relation/9311720"
+          }
+        ]
+      },
+      {
+        "ref": "part/place/sentier-la-chute#trailhead",
+        "type": "access.start.trailhead",
+        "layer": "place",
+        "name": "La Chute car park and trailhead",
+        "area_id": "CA/QC/forillon-national-park",
+        "parks_for": [
+          "place/sentier-la-chute"
+        ],
+        "links": [
+          {
+            "kind": "official",
+            "state": "filled",
+            "on": "2026-10-25",
+            "url": "https://parks.canada.ca/pn-np/qc/forillon/activ/randonnee-hiking",
+            "src": [
+              "src-0001"
+            ]
+          },
+          {
+            "kind": "osm",
+            "state": "filled",
+            "on": "2026-10-25",
+            "url": "https://www.openstreetmap.org/way/1054288320"
+          }
+        ]
+      },
+      {
+        "ref": "part/place/mont-saddle-and-montagne-de-marbre-loop#trailhead",
+        "type": "access.start.trailhead",
+        "layer": "place",
+        "name": "Sentiers frontaliers car park (end of rang 10 Est)",
+        "area_id": "CA/QC/eastern-townships",
+        "parks_for": [
+          "place/mont-saddle-and-montagne-de-marbre-loop"
+        ],
+        "links": [
+          {
+            "kind": "official",
+            "state": "found_in_search",
+            "on": "2026-10-25",
+            "url": "https://sentiersfrontaliers.qc.ca/",
+            "query": "named on the Rando Québec sheet as the network's site; not read in this pass"
+          },
+          {
+            "kind": "track_source",
+            "state": "filled",
+            "on": "2026-10-25",
+            "url": "https://baliseqc.ca/upload/fiches-pret-a-partir/PaP_RE11_SentiersFrontaliers_Boucle_1j.pdf",
+            "src": [
+              "src-0003"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "relevance_of_trailheads": {
+    "schema": "relevance/1",
+    "trip": "catalogue",
+    "lane": "R9-ca-trails",
+    "researched": "2026-10-25",
+    "sources": [],
+    "records": [
+      {
+        "ref": "part/place/sentier-la-chute#trailhead",
+        "kind": "access",
+        "subkind": "station",
+        "wikidata": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Wikidata search for the car park name: no item"
+          ],
+          "note": "A car park has no Wikidata item."
+        },
+        "class_key": "sight/landmark",
+        "draw": {
+          "v": "local",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "A car park, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+        },
+        "standing": {
+          "v": "ordinary",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "A car park serving the place it is named for."
+        },
+        "standing_scope": "the place it serves",
+        "distinction": {
+          "v": "common",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "One of several lots near the place."
+        },
+        "easy_payoff": {
+          "v": "full",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "It is the start of the visit."
+        },
+        "weather": {
+          "v": "any_weather",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "A car park."
+        },
+        "why": "The La Chute car park on Route 132 in Forillon, start of the La Chute and Le Pic-bois trails.",
+        "access_cost": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Park admission applies (adult CAD 10 peak, 7.25 shoulder in 2026; youth free); no separate parking fee is listed."
+        },
+        "signals": {
+          "designations": {
+            "v": [],
+            "state": "value",
+            "basis": "our_inference",
+            "src": [],
+            "read": "2026-10-25",
+            "note": "None; a car park."
+          },
+          "editorial": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-25",
+            "tried": [
+              "not applicable to a car park"
+            ],
+            "note": "Not a fame candidate."
+          }
+        }
+      },
+      {
+        "ref": "part/place/mont-saddle-and-montagne-de-marbre-loop#trailhead",
+        "kind": "access",
+        "subkind": "station",
+        "wikidata": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Wikidata search for the car park name: no item"
+          ],
+          "note": "A car park has no Wikidata item."
+        },
+        "class_key": "sight/landmark",
+        "draw": {
+          "v": "local",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "A car park, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+        },
+        "standing": {
+          "v": "ordinary",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "A car park serving the place it is named for."
+        },
+        "standing_scope": "the place it serves",
+        "distinction": {
+          "v": "common",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "One of several lots near the place."
+        },
+        "easy_payoff": {
+          "v": "full",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "It is the start of the visit."
+        },
+        "weather": {
+          "v": "any_weather",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "A car park."
+        },
+        "why": "The 25-place free car park at the end of rang 10 Est in Notre-Dame-des-Bois, start of the Sentiers frontaliers loops.",
+        "access_cost": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "Parking free, 25 places; the trail access is paid by voluntary contribution or membership (Rando Québec)."
+        },
+        "signals": {
+          "designations": {
+            "v": [],
+            "state": "value",
+            "basis": "our_inference",
+            "src": [],
+            "read": "2026-10-25",
+            "note": "None; a car park."
+          },
+          "editorial": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-25",
+            "tried": [
+              "not applicable to a car park"
+            ],
+            "note": "Not a fame candidate."
+          }
+        }
+      }
+    ]
+  },
+  "points": {
+    "part/place/sentier-la-chute#trailhead": {
+      "lat": 48.8432189,
+      "lon": -64.2656318,
+      "coord_src": "osm",
+      "point_source": "OSM way 1054288320, an unnamed car park 50 m from the Wikidata point of the trail (Q139862201); the Parks Canada hiking page names the trailhead 'La Chute parking lot, on Route 132 (halfway between North and South Areas)'; read 2026-10-25 (lane DATA-D2b-ca); agent checked, needs a person's check",
+      "point_role": "trailhead"
+    },
+    "part/place/mont-saddle-and-montagne-de-marbre-loop#trailhead": {
+      "lat": 45.3302,
+      "lon": -71.0454,
+      "coord_src": "official",
+      "point_source": "Rando Québec ready-to-go sheet for the Boucle des sommets frontaliers: 'Latitude N45.3302, Longitude W71.0454', car park at the end of rang 10 Est in Notre-Dame-des-Bois, 25 places, free",
+      "point_role": "trailhead"
+    }
+  }
+}

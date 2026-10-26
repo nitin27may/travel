@@ -1,0 +1,121 @@
+{
+  "schema": "capture/1",
+  "trip": "vermont-fall-2026",
+  "lane": "BA-us",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.wikidata.org/wiki/Special:EntityData",
+      "title": "Wikidata entity data (labels, descriptions, P625, P2044, P402, P856, sitelinks)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-us"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.stowevt.gov/",
+      "title": "Town of Stowe, Vermont",
+      "publisher": "Town of Stowe",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.gostowe.com/",
+      "title": "Go Stowe",
+      "publisher": "Stowe Area Association",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/stowe",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "us-vt-stowe",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5241611, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Stowe",
+      "area_id": "US/VT/lamoille-county",
+      "osm_ref": "relation/8890137",
+      "geonames_id": {
+        "v": "5241611",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Wikidata P1566 (GeoNames ID) on the place's item."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.stowevt.gov/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/8890137",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Stowe,_Vermont",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q550498",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.gostowe.com/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    }
+  ]
+}

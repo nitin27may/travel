@@ -1,7 +1,7 @@
 {
   "schema": "snapshot-report/1",
   "note": "Dropped from the public view because it carries a calendar date. Rewrite each as a season, a day number or a rule.",
-  "count": 234,
+  "count": 247,
   "items": [
     {
       "where": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre wikidata note",
@@ -774,6 +774,11 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/bonaventure-island wikidata note",
+      "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Bonaventure Island', instance of island, P625 inside the OSM park relation 6989318; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/cadini-di-misurina-viewpoint adult_time_min note",
       "text": "30-40 min each way plus time at the spur.",
       "why": "household capture note (plan link, stay idea or address); never published"
@@ -784,9 +789,39 @@
       "why": "household capture note (plan link, stay idea or address); never published"
     },
     {
+      "where": "place/canyon-des-portes-de-lenfer wikidata note",
+      "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Canyon des Portes de l'Enfer', instance of canyon, P625 0.9 km from OSM node 2535855281; the operator's pages describe the same canyon on the Rimouski River; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/canyon-sainte-anne wikidata note",
+      "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Canyon Sainte-Anne', instance of canyon, P625 0.2 km from the operator's site at 206 Route 138 Est; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/cap-bon-ami wikidata note",
+      "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Cap-Bon-Ami', described as an administrative sector in Gaspé, P625 0.6 km from the OSM viewpoint node 4337214696; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/cap-gaspe wikidata note",
+      "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Cap-Gaspé', described as a hamlet in Gaspé, P625 0.5 km from the OSM cape node 1302243265; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/croda-del-becco effort.drivers.gain_m conflict",
       "text": "Computed, not published: the confirmed OSM track (relation 1155861, Lago di Braies to the summit) gives 1,467 m up one way (7.31 km).",
       "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/la-martre-lighthouse wikidata note",
+      "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'La Martre Lighthouse', instance of lighthouse, P625 matches OSM way 317964466 'Phare de La Martre' (same QID in the OSM tag); needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/lac-aux-americains wikidata note",
+      "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Lac aux Américains', instance of lake, P625 0.1 km from OSM way 115356658; needs a person's check",
+      "why": "agent or review-queue process note; never published"
     },
     {
       "where": "place/lago-di-landro draw note",
@@ -809,9 +844,39 @@
       "why": "agent or review-queue process note; never published"
     },
     {
+      "where": "place/mont-saint-alban wikidata note",
+      "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Mont Saint-Alban', instance of mountain, P2044 282 m; its P625 is 0.6 km from the OSM peak node 1305146822, which is kept as the point; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/mont-saint-pierre wikidata note",
+      "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Mont-Saint-Pierre', instance of village municipality in Quebec, P625 0.1 km from OSM place node 1304278570 on the Route 132 coast; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/mont-xalibu wikidata note",
+      "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Mont Xalibu', instance of mountain, P2044 1120 m, P625 0.15 km from OSM peak node 3269806647 (ele 1140); needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
       "where": "place/monte-piana carrier_ok note",
       "text": "Path 122 is an old military road; the plateau path is 'slightly uphill, but not difficult'.",
       "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "place/montmorency-falls wikidata note",
+      "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Montmorency Falls', instance of waterfall, P625 within 0.1 km of OSM node 1199354691 'Chute Montmorency'; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/perce-rock wikidata note",
+      "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Perce Rock', a rock formation off the coast of Quebec, P2044 88 m, P625 in Percé Bay; needs a person's check",
+      "why": "agent or review-queue process note; never published"
+    },
+    {
+      "where": "place/pic-champlain wikidata note",
+      "text": "agent-checked 2026-10-25 (travel-researcher): Wikidata label 'Pic Champlain', instance of summit, P2044 346 m, P625 0.13 km from OSM peak node 1087473528; the QID is also the OSM wikidata tag; needs a person's check",
+      "why": "agent or review-queue process note; never published"
     },
     {
       "where": "relevance place/lago-di-landro draw",

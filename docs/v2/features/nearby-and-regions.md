@@ -521,7 +521,9 @@ This extends section 11 of place-page-sections.md. Its two existing blocks stay 
   suffix from `tools/towns_admin1.json` (each entry carries the GeoNames name it must match; a country without a table uses `00`).
   A duplicate slug in one admin1 keeps the lower GeoNames id plain and the others take `-<geonames id>`.
 - **Size.** A country is one part (`ca.json`); a country over 20 KB gzip is split per admin1 (`it-34.json`); a single admin1 over the
-  budget fails the build. Largest part today: 16.3 KB gzip.
+  budget is split into the fewest runs of equal length of its rows in id order (`it-25-1.json`, `it-25-2.json`; D2b-INT, 25 Oct 2026,
+  when Lombardy reached 36.6 KB), so a name prefix still maps to one part; only a single row over the budget fails the build. Largest
+  part on 25 Oct 2026: 19.6 KB gzip (`cn.json`).
 - **`near_town` (built, META-2).** `core/src/derive/near.ts` is the pure derivation (nearest of 1,000+ people within 50 km, else
   `none_within_50km`); `capture.ts derive-near` writes it onto the capture records (capture contract 3.7.1).
 - **How Whitby, Oshawa and Ajax resolve.** All three are in `cities1000` (populations of about 139k, 175k and 120k), in

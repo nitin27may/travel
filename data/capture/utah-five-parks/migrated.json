@@ -1104,6 +1104,7 @@
     },
     {
       "ref": "trip/utah-five-parks/town:main street moab",
+      "area_id": "US/UT/grand-county",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {

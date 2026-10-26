@@ -1,0 +1,1095 @@
+{
+  "schema": "relevance/1",
+  "trip": "catalogue",
+  "lane": "R9-it",
+  "researched": "2026-10-25",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q15523|Q212214|Q220|Q490|Q3376|Q2044|Q2028|Q173292|Q641",
+      "title": "Wikidata items for the nine places (labels, descriptions, P625, P2044, P856, P402, P1566, P1435, P757, sitelinks)",
+      "publisher": "Wikimedia Foundation (Wikidata)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-it"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://query.wikidata.org/sparql",
+      "title": "Wikidata SPARQL: items with World Heritage ID (P757) 91, 93, 174, 394, 797, 830, 1237",
+      "publisher": "Wikimedia Foundation (Wikidata)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-it"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://corporate.coopculture.it/en/poi/blue-grotto/",
+      "title": "Blue Grotto",
+      "publisher": "CoopCulture (site manager)",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.turismoroma.it/en/news/trevi-fountain-new-entry-fee-one-romes-symbols",
+      "title": "Trevi Fountain: new entry fee for one of Rome's symbols",
+      "publisher": "Turismo Roma (Roma Capitale)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.thelocal.it/20251209/calendar-when-will-you-need-to-pay-a-fee-to-visit-venice-in-2026",
+      "title": "Calendar: when will you need to pay a fee to visit Venice in 2026",
+      "publisher": "The Local Italy",
+      "kind": "press",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/lake-como",
+      "kind": "lake",
+      "wikidata": {
+        "v": "Q15523",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Label and description match the place; coordinates read from the item."
+      },
+      "class_key": "town/lakeside",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "73 Wikipedia language editions (Wikidata sitelinks, read 2026-10-25); a destination lake with its own tourism site."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged within its scope; no ranking source was read."
+      },
+      "standing_scope": "the Italian lakes",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged from the designation and the pages read."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged; not tested against a visit plan."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged."
+      },
+      "why": "Large Alpine lake in Lombardy with lakeside towns linked by public boats.",
+      "unique_because": "A large Alpine lake ringed by towns with a public boat service",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "No area-wide permit or timed entry on the pages read (lakecomo.is, navigazionelaghi.it); boats are optional, not required."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-25",
+          "note": "No heritage designation (P1435, P757) on the Wikidata item, read 2026-10-25."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no publisher list read in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/sorrento-and-the-amalfi-coast",
+      "kind": "viewpoint",
+      "wikidata": {
+        "v": "Q212214",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Label and description match the place; coordinates read from the item."
+      },
+      "class_key": "drive/scenic-parkway",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "World Heritage listing 830 (Wikidata P757 on Q212214) and 50 Wikipedia language editions, read 2026-10-25."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged within its scope; no ranking source was read."
+      },
+      "standing_scope": "the Italian coast",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged from the designation and the pages read."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged; not tested against a visit plan."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged."
+      },
+      "why": "World Heritage stretch of the Campania coast, followed by a named coast road (Via Costiera Amalfitana).",
+      "unique_because": "A World Heritage coast with a named coast road",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "No area-wide permit or timed entry on the pages read; none searched on a Campania transport page (not read)."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Costiera Amalfitana (Amalfi Coast)",
+              "id": "830",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "note": "World Heritage Id read from Wikidata P757 (items found by SPARQL), 2026-10-25."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no publisher list read in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/capri",
+      "kind": "viewpoint",
+      "wikidata": {
+        "v": "Q173292",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Label and description match the place; coordinates read from the item."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "73 Wikipedia language editions (Wikidata sitelinks, read 2026-10-25); no designation found on the Wikidata item."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged within its scope; no ranking source was read."
+      },
+      "standing_scope": "the Bay of Naples islands",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged from the designation and the pages read."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged; not tested against a visit plan."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged."
+      },
+      "why": "Island off Naples with the Blue Grotto sea cave, reached by boat.",
+      "unique_because": "An island whose Blue Grotto is entered by small boat",
+      "access_cost": {
+        "v": [
+          {
+            "type": "boat_or_ferry",
+            "note": "An island: the Blue Grotto page lists access by sea only (tourist port, tour boat or private boat). Sailings were not read."
+          }
+        ],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-25"
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-25",
+          "note": "No heritage designation (P1435, P757) on the Wikidata item, read 2026-10-25."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no publisher list read in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/rome",
+      "kind": "town",
+      "wikidata": {
+        "v": "Q220",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Label and description match the place; coordinates read from the item."
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "274 Wikipedia language editions (Wikidata sitelinks, read 2026-10-25) and World Heritage listing 91 for its historic centre."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged within its scope; no ranking source was read."
+      },
+      "standing_scope": "Italy",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged from the designation and the pages read."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged; not tested against a visit plan."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged."
+      },
+      "why": "Italy's capital with a World Heritage historic centre; the Trevi basin takes a EUR 2 ticket since Feb 2026.",
+      "unique_because": "A capital whose historic centre is World Heritage",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-25",
+        "note": "Not an area-wide rule: the Trevi Fountain basin needs a EUR 2 ticket from 2 Feb 2026 to 31 Dec 2027 (turismoroma.it). Other sights carry their own bookings and are not recorded here."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Historic Centre of Rome, the Properties of the Holy See in that City Enjoying Extraterritorial Rights and San Paolo Fuori le Mura",
+              "id": "91",
+              "scope": "parent",
+              "wikidata": "Q18448486"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "note": "World Heritage Id read from Wikidata P757 (items found by SPARQL), 2026-10-25."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no publisher list read in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/milan",
+      "kind": "town",
+      "wikidata": {
+        "v": "Q490",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Label and description match the place; coordinates read from the item."
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "190 Wikipedia language editions (Wikidata sitelinks, read 2026-10-25); a city, so the judgement leans on its listed site, not language count alone."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged within its scope; no ranking source was read."
+      },
+      "standing_scope": "Lombardy",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged from the designation and the pages read."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged; not tested against a visit plan."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged."
+      },
+      "why": "Lombardy's capital, about 1.35 million people; Santa Maria delle Grazie is a World Heritage Site.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "No area-wide permit found on the pages read; sight bookings were not researched."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Santa Maria delle Grazie (a site inside the city)",
+              "id": "93",
+              "scope": "parent",
+              "wikidata": "Q244952"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "note": "World Heritage Id read from Wikidata P757 (items found by SPARQL), 2026-10-25."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no publisher list read in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/trento",
+      "kind": "town",
+      "wikidata": {
+        "v": "Q3376",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Label and description match the place; coordinates read from the item."
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "105 Wikipedia language editions (Wikidata sitelinks, read 2026-10-25), but a town's language count measures the municipality; no designation found."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged within its scope; no ranking source was read."
+      },
+      "standing_scope": "Trentino-Alto Adige",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged from the designation and the pages read."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged; not tested against a visit plan."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged."
+      },
+      "why": "City in Trentino-Alto Adige in northern Italy, about 119,000 people.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "No area-wide permit found on the pages read."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-25",
+          "note": "No heritage designation (P1435, P757) on the Wikidata item, read 2026-10-25."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no publisher list read in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/florence",
+      "kind": "town",
+      "wikidata": {
+        "v": "Q2044",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Label and description match the place; coordinates read from the item."
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "182 Wikipedia language editions (Wikidata sitelinks, read 2026-10-25) and World Heritage listing 174 for its historic centre."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged within its scope; no ranking source was read."
+      },
+      "standing_scope": "Italy",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged from the designation and the pages read."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged; not tested against a visit plan."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged."
+      },
+      "why": "Tuscan city whose historic centre is World Heritage; about 361,000 people.",
+      "unique_because": "A city whose historic centre is World Heritage",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "No area-wide permit found on the pages read; the official site's Mobility and Museums/reservations sections were not read."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Historic Centre of Florence",
+              "id": "174",
+              "scope": "parent",
+              "wikidata": "Q2707802"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "note": "World Heritage Id read from Wikidata P757 (items found by SPARQL), 2026-10-25."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no publisher list read in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/verona",
+      "kind": "town",
+      "wikidata": {
+        "v": "Q2028",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Label and description match the place; coordinates read from the item."
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "123 Wikipedia language editions (Wikidata sitelinks, read 2026-10-25) and World Heritage listing 797."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged within its scope; no ranking source was read."
+      },
+      "standing_scope": "Veneto",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged from the designation and the pages read."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged; not tested against a visit plan."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged."
+      },
+      "why": "City in Veneto with a World Heritage historic centre and an annual opera festival in the Arena.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "No area-wide permit found; the tourism site recommends a Verona Card but gives no price or terms."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "City of Verona",
+              "id": "797",
+              "scope": "parent",
+              "wikidata": "Q3678423"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "note": "World Heritage Id read from Wikidata P757 (items found by SPARQL), 2026-10-25."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no publisher list read in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/venice",
+      "kind": "town",
+      "wikidata": {
+        "v": "Q641",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Label and description match the place; coordinates read from the item."
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "187 Wikipedia language editions (Wikidata sitelinks, read 2026-10-25) and World Heritage listing 394 (Venice and its Lagoon)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged within its scope; no ranking source was read."
+      },
+      "standing_scope": "Italy",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged from the designation and the pages read."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged; not tested against a visit plan."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged."
+      },
+      "why": "World Heritage city and lagoon in Veneto; a day-visitor access fee applied on set dates in 2026.",
+      "unique_because": "A city built on a lagoon, World Heritage as a whole",
+      "access_cost": {
+        "v": [
+          {
+            "type": "day_permit",
+            "note": "Day-visitor access fee on selected dates, 3 Apr to 26 Jul 2026, 8:30 to 16:00, for visitors from age 14 (press report; the official cda.ve.it page returned no text to our fetch)."
+          }
+        ],
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-25"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Venice and its Lagoon",
+              "id": "394",
+              "scope": "parent",
+              "wikidata": "Q11352141"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0002"
+          ],
+          "read": "2026-10-25",
+          "note": "World Heritage Id read from Wikidata P757 (items found by SPARQL), 2026-10-25."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no publisher list read in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "part/place/lake-como#parking",
+      "kind": "access",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search not run for a car park"
+        ]
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "No designation, top-list or headline: a car park (floor of the scale, local)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged: an ordinary access facility."
+      },
+      "standing_scope": "Como",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged: one of many such facilities."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged: no payoff of its own."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged."
+      },
+      "why": "Multi-storey car park near the Como lakefront; paid, about 800 spaces (OSM).",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "OSM says fee=yes; the amount was not found (CSU page not read)."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "None; a car park."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "not applicable to a car park"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "part/place/capri#ferry",
+      "kind": "access",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search not run for a ferry node"
+        ]
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "No designation, top-list or headline: a ferry terminal (floor of the scale, local)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged: an ordinary access facility."
+      },
+      "standing_scope": "Capri",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged: one of many such facilities."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged: no payoff of its own."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Judged."
+      },
+      "why": "Main harbour ferry terminal on Capri, as mapped in OSM.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Fares and sailings were not read."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-25",
+          "note": "None; a terminal."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "not applicable to a terminal"
+          ]
+        }
+      }
+    }
+  ]
+}

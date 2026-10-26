@@ -1,0 +1,3169 @@
+{
+  "schema": "relevance/1",
+  "trip": "catalogue",
+  "lane": "BA-us",
+  "researched": "2026-10-25",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.wikidata.org/wiki/Special:EntityData",
+      "title": "Wikidata entity data (labels, descriptions, P625, P2044, P402, P856, sitelinks)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-us"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.nps.gov/yell/planyourvisit/parkroads.htm",
+      "title": "Park Roads - Yellowstone National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.nps.gov/yell/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Yellowstone National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.nps.gov/grte/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Grand Teton National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.nps.gov/grte/planyourvisit/roads.htm",
+      "title": "Park Roads - Grand Teton National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.nps.gov/mora/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Mount Rainier National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.nps.gov/mora/planyourvisit/road-status.htm",
+      "title": "Road Status - Mount Rainier National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.nps.gov/noca/planyourvisit/fees.htm",
+      "title": "Fees & Passes - North Cascades National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://parks.ny.gov/parks/watkinsglen/details.aspx",
+      "title": "Watkins Glen State Park details",
+      "publisher": "New York State Office of Parks, Recreation and Historic Preservation",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.fs.usda.gov/r06/mbs",
+      "title": "Mount Baker-Snoqualmie National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.fs.usda.gov/r06/mbs/recreation/artist-point-trailhead",
+      "title": "Artist Point Trailhead - Mount Baker-Snoqualmie National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.fs.usda.gov/r06/columbiarivergorge/passes",
+      "title": "Passes - Columbia River Gorge National Scenic Area",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://navajonationparks.org/tribal-parks/monument-valley/",
+      "title": "Monument Valley Navajo Tribal Park",
+      "publisher": "Navajo Nation Parks and Recreation",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://havasupaireservations.com/faqs/",
+      "title": "FAQs - Havasupai Reservations",
+      "publisher": "Havasupai Tribe (reservation office)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://kanarrafalls.com/",
+      "title": "Kanarra Falls",
+      "publisher": "Town of Kanarraville (permit office)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://coloradosprings.gov/incline",
+      "title": "Manitou Incline",
+      "publisher": "City of Colorado Springs Parks",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://www.codot.gov/news/2025/march/us550-red-mountain-pass-close-monday-march24",
+      "title": "US 550 Red Mountain Pass to close at 3 p.m. on Monday, March 24",
+      "publisher": "Colorado Department of Transportation",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://www.blm.gov/sites/default/files/docs/2026-04/Blue%20Valley_Burpee%20Quary.pdf",
+      "title": "Cow Dung Road & Blue Valley Spire (self-guided tour sheet)",
+      "publisher": "Bureau of Land Management, Henry Mountain Field Station",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.blm.gov/visit/factory-butte-recreation-area",
+      "title": "Factory Butte Recreation Area",
+      "publisher": "Bureau of Land Management",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://www.steliasguides.com/trips/raft-flightsee/",
+      "title": "Alaska Raft & Flightsee",
+      "publisher": "St. Elias Alpine Guides",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://www.nps.gov/wrst/planyourvisit/index.htm",
+      "title": "Plan Your Visit - Wrangell-St. Elias National Park & Preserve",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://www.fs.usda.gov/r06/giffordpinchot/recreation/mount-st-helens-summit",
+      "title": "Mount St. Helens Summit - Gifford Pinchot National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://www.visitutah.com/places-to-go/parks-outdoors/great-salt-lake/pink-lake-at-stansbury-island",
+      "title": "Pink Lake at Stansbury Island",
+      "publisher": "Utah Office of Tourism (Visit Utah)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://parks.wa.gov/find-parks/state-parks/lake-wenatchee-state-park",
+      "title": "Lake Wenatchee State Park",
+      "publisher": "Washington State Parks",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://parks.wa.gov/find-parks/state-parks/lake-chelan-state-park",
+      "title": "Lake Chelan State Park",
+      "publisher": "Washington State Parks",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://www.visitpageaz.com/",
+      "title": "Visit Page, Arizona",
+      "publisher": "Page Lake Powell Tourism (Visit Page)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://www.durango.org/",
+      "title": "Visit Durango",
+      "publisher": "Durango Area Tourism Office",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://visitouray.com/",
+      "title": "Visit Ouray",
+      "publisher": "City of Ouray",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://www.gobreck.com/",
+      "title": "Go Breck",
+      "publisher": "Breckenridge Tourism Office",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.leavenworth.org/",
+      "title": "Leavenworth, Washington",
+      "publisher": "Leavenworth Chamber of Commerce",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://www.capecodchamber.org/",
+      "title": "Cape Cod Chamber of Commerce",
+      "publisher": "Cape Cod Chamber of Commerce",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://www.nps.gov/caco/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Cape Cod National Seashore",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://www.fingerlakes.org/",
+      "title": "Finger Lakes Tourism Alliance",
+      "publisher": "Finger Lakes Tourism Alliance",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://olympicpeninsula.org/",
+      "title": "Olympic Peninsula",
+      "publisher": "Olympic Peninsula Tourism Commission",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/yellowstone-national-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q351",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: first national park in the world, in Wyoming, Montana and Idaho; its P625 equals the stored point."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "National park (designation); Wikidata describes it as the first national park in the world."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The land manager's roads page schedules the whole park around the seasons."
+      },
+      "standing_scope": "US national parks",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Grand Teton is the nearest national park (about 90 km); the two differ in landscape, so neither substitutes for the other."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the main sights are spread over loop roads, so a short stop sees only part."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Open-air sights; steam and fog hide thermal views in cold weather."
+      },
+      "why": "The first national park in the world, with geysers, canyons and wildlife, reached by seasonal park roads.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "seasonal_road",
+            "note": "Most park roads close to regular vehicles from early November to late April"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-25",
+        "note": "Roads open and close by date each year; 2026 dates are projections."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Yellowstone National Park",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "read": "2026-10-25",
+          "note": "National park (NPS)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/grand-teton-national-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q222695",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: national park in northwestern Wyoming; its P625 equals the stored point."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-25",
+        "note": "National park (designation)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A national park with a single named range as its headline."
+      },
+      "standing_scope": "US national parks",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Yellowstone is the nearest national park (about 90 km); the Teton Range is a different landscape."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the range is seen from valley roads and lake shores."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A view-led park; cloud hides the range."
+      },
+      "why": "A national park of the Teton Range rising above Jackson Hole, with lakes and valley roads closed in winter.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "seasonal_road",
+            "note": "Teton Park Road closed to vehicles 1 November to 30 April; Moose-Wilson Road closes about the same time"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-25",
+        "note": "Dates shift with snow; check the park's road status page."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Grand Teton National Park",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "read": "2026-10-25",
+          "note": "National park (NPS)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/mount-rainier-national-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q944329",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: national park of the United States, Washington; its P625 equals the stored point."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "read": "2026-10-25",
+        "note": "National park (designation); no timed entry in 2026 and parking is managed instead."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A national park whose land manager lists road status daily because of closures."
+      },
+      "standing_scope": "US national parks",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Mount St. Helens is within about 90 km; the two are different volcanoes."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: Paradise is a road-end area with short walks to mountain views."
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The mountain is often hidden in cloud."
+      },
+      "why": "A national park around a glaciated volcano, with seasonal access to Paradise and Sunrise.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "seasonal_road",
+            "note": "Sunrise and Stevens Canyon roads closed for the season on 25 Oct 2026"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0007"
+        ],
+        "read": "2026-10-25",
+        "note": "The park will not run timed entry in 2026."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Mount Rainier National Park",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "read": "2026-10-25",
+          "note": "National park (NPS)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/north-cascades-national-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q1163799",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: national park in Washington state; its P625 equals the stored point."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0008"
+        ],
+        "read": "2026-10-25",
+        "note": "National park (designation) with no entrance fee."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement; no visitor counts were read."
+      },
+      "standing_scope": "Washington national parks",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Mount Rainier and Olympic are the other Washington national parks, each with different terrain."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the highway overlooks are quick, the lakes and peaks need hikes or paddling."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A view-led park; cloud hides the peaks."
+      },
+      "why": "A national park of jagged peaks and lakes with no entrance fee, crossed by a seasonal highway.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0008"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "There is no fee to enter the park service complex; trailheads on Forest Service land need a Northwest Forest Pass ($5 a day or $30 a year)."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "North Cascades National Park",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "read": "2026-10-25",
+          "note": "National park (NPS)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/watkins-glen-state-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q7974703",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: State park in New York; its P625 equals the stored point."
+      },
+      "class_key": "waterfall/hike-in",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0009"
+        ],
+        "read": "2026-10-25",
+        "note": "State park (designation) whose gorge trail and waterfalls are the headline on the state's park page."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The state page names the Gorge Trail and its waterfalls as the park's main feature."
+      },
+      "standing_scope": "Finger Lakes gorges",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Other Finger Lakes gorge parks (Taughannock, Letchworth) are named on the regional tourism site; they were not compared in detail."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Rim trails give views without the Gorge Trail steps; the waterfalls are on the gorge floor."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Open-air walk; wet steps in rain."
+      },
+      "why": "A state park with a stepped gorge trail past many waterfalls, closed in winter.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0009"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "No permit or booking found for day use; the Gorge Trail closes for winter (25 Oct in 2026)."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Watkins Glen State Park",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-25",
+          "note": "New York State Park (OPRHP)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/mount-baker-snoqualmie-national-forest",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q3079176",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: protected area in the United States, Cascade Range; its P625 equals the stored point."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0010"
+        ],
+        "read": "2026-10-25",
+        "note": "National forest (designation) spanning five counties from the Canadian border to Mount Rainier National Park."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The forest page names Picture Lake, Kelly Butte Lookout and other areas without ranking them."
+      },
+      "standing_scope": "Washington national forests",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Gifford Pinchot National Forest lies to the south; areas are not compared here."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: some roadside sites are quick, most of the forest needs a hike."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Open-air; snow and cloud close high areas."
+      },
+      "why": "A national forest of more than 140 miles along the west slope of the Cascades, with many separate areas.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0010",
+          "src-0011"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "A Northwest Forest Pass is required in some areas (for example Heather Meadows); the forest page lists no prices."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "conservation_area",
+              "name": "Mount Baker-Snoqualmie National Forest",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0010"
+          ],
+          "read": "2026-10-25",
+          "note": "National forest (USDA Forest Service)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/mount-baker-wilderness",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q3326014",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: wilderness area in Whatcom and Skagit counties; its P625 equals the stored point."
+      },
+      "class_key": "viewpoint/roadside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0011"
+        ],
+        "read": "2026-10-25",
+        "note": "Wilderness (a conservation designation); a Northwest Forest Pass is required in the Heather Meadows area."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The land manager's trailhead page leads with Artist Point."
+      },
+      "standing_scope": "North Cascades viewpoints",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "North Cascades National Park is within about 70 km; this is the Mount Baker side."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: Artist Point is a drive-up viewpoint."
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The mountain view needs clear sky."
+      },
+      "why": "A federal wilderness around Mount Baker, reached by a seasonal road to Artist Point.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "seasonal_road",
+            "note": "Artist Point road not plowed in winter; typically open July to October"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0011"
+        ],
+        "read": "2026-10-25",
+        "note": "A Northwest Forest Pass is required in the area; the Discover Pass is not accepted at Forest Service sites."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "conservation_area",
+              "name": "Mount Baker Wilderness",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "read": "2026-10-25",
+          "note": "Federal wilderness (USDA Forest Service)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/columbia-river-gorge",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q1112581",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: canyon along the Oregon and Washington border; its P625 equals the stored point."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0012"
+        ],
+        "read": "2026-10-25",
+        "note": "National scenic area (designation); the land manager runs timed entry at Multnomah Falls and a permit at Dog Mountain."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The land manager's pass page leads with its two permit-limited sites."
+      },
+      "standing_scope": "Pacific Northwest scenic areas",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement; other gorges in the region were not compared in this batch."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: historic highway stops and falls are close to the road."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Open-air; fog and rain reduce views."
+      },
+      "why": "A river gorge through the Cascades, a national scenic area with waterfalls and viewpoints on both banks.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "timed_entry",
+            "note": "Multnomah Falls timed-entry tickets, May to September"
+          },
+          {
+            "type": "day_permit",
+            "note": "Dog Mountain permit on weekends and Memorial Day in peak wildflower season"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0012"
+        ],
+        "read": "2026-10-25",
+        "note": "Forest Service day-use sites also need a Northwest Forest Pass (5 USD a day, 30 USD a year)."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "conservation_area",
+              "name": "Columbia River Gorge National Scenic Area",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "read": "2026-10-25",
+          "note": "National scenic area (USDA Forest Service)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/monument-valley",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q192017",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: basin of the Colorado Plateau on the Arizona-Utah border; its P625 equals the stored point."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0013"
+        ],
+        "read": "2026-10-25",
+        "note": "Tribal park run by the land manager (Navajo Nation Parks); the page leads with the loop drive and guided tours."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The Navajo Nation parks page presents it as a flagship tribal park."
+      },
+      "standing_scope": "Colorado Plateau landscapes",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Canyonlands is the nearest national park (about 135 km) and looks different."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the buttes show from the visitor center patio."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A view-led site; dust and cloud reduce views."
+      },
+      "why": "A Navajo tribal park of sandstone buttes with a 17-mile loop drive and guided tours.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0013"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "An entrance fee applies; some landmarks can only be reached on guided tours."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "conservation_area",
+              "name": "Monument Valley Navajo Tribal Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "read": "2026-10-25",
+          "note": "Tribal park (Navajo Nation)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/havasupai-havasu-falls",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "wikidata": {
+        "v": "Q5683183",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: waterfall in the Grand Canyon in Arizona; its P625 equals the stored point."
+      },
+      "class_key": "waterfall/hike-in",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0014"
+        ],
+        "read": "2026-10-25",
+        "note": "Permit required for all visitors (a permit limit set by the Tribe); a 3-night campground permit costs 455 USD per person."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Visits are only by booked permit, which signals demand."
+      },
+      "standing_scope": "Grand Canyon region waterfalls",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement; other permit-limited waterfalls in the region were not compared in this batch."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The walk in is 8 miles each way; there is no quick way to the falls except a paid helicopter seat."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Flash floods can close the canyon; the Tribe cancels with refunds only on its terms."
+      },
+      "why": "Turquoise waterfalls in the Grand Canyon on tribal land, reached on foot or by helicopter with a booked permit.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "day_permit",
+            "note": "Permits are required for all visitors; all bookings are 4 days and 3 nights"
+          },
+          {
+            "type": "long_walk_in",
+            "note": "8 miles to Supai Village, more to the falls; helicopter seat 300 USD paid on the day, no pre-booking"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0014"
+        ],
+        "read": "2026-10-25",
+        "note": "Campground permits are 455 USD per person for 3 nights."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the official page read for this place names no designation"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/kanarra-falls",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata wbsearchentities 'Kanarra Falls' (no result, 2026-10-25)",
+          "Wikidata 'Kanarraville' returns only the town Q483692, not the falls"
+        ]
+      },
+      "class_key": "waterfall/hike-in",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0015"
+        ],
+        "read": "2026-10-25",
+        "note": "Permit required: the town's permit system caps general admission at 200 tickets a day."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The permit cap signals demand; Zion is nearby."
+      },
+      "standing_scope": "Southwest Utah slot canyons",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Zion's Narrows is the main alternative within 60 km and is much larger."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The falls are at the end of a 4-mile round trip with a ladder."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Cold water and slippery rock; flash floods are possible in storms (our inference)."
+      },
+      "why": "A permit-limited creek walk through a narrow canyon to waterfalls, with a ladder climb.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "day_permit",
+            "note": "Permit required; from 15 USD per person"
+          },
+          {
+            "type": "daily_cap",
+            "note": "200 general admission tickets a day"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0015"
+        ],
+        "read": "2026-10-25",
+        "note": "Guiding companies must book commercial-use tickets."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the permit site names no designation"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/manitou-incline",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q6750238",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: hiking trail rising above Manitou Springs, Colorado; its P625 equals the stored point."
+      },
+      "class_key": "trail/lookout",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0016"
+        ],
+        "read": "2026-10-25",
+        "note": "Timed reservation (a permit-style limit): 45 slots per half hour, set by the city."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The city runs a booking system for it."
+      },
+      "standing_scope": "Pikes Peak region trails",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Few stair climbs of this length exist in Colorado; others are not compared here."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The climb is the experience; there is no shortcut to the top."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Open-air; ice and storms close it at times."
+      },
+      "why": "A former railway bed turned into a 2,768-step climb above Manitou Springs, by free timed reservation.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "day_permit",
+            "note": "Free timed reservation, 45 slots per half hour, opens on the 1st of each month for up to 8 weeks ahead",
+            "book_ahead_days": 56
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0016"
+        ],
+        "read": "2026-10-25",
+        "note": "Reservation and a signed waiver are required each visit."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the city page names no designation"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/million-dollar-highway",
+      "kind": "drive",
+      "subkind": "scenic_drive",
+      "wikidata": {
+        "v": "Q123916209",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: road in Colorado, United States; its P625 equals the stored point."
+      },
+      "class_key": "drive/scenic-parkway",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0017"
+        ],
+        "read": "2026-10-25",
+        "note": "Tourism board (Ouray) lists the Million Dollar Highway under 'In the Mountains'; CDOT closes the pass for avalanche mitigation."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The pass crosses about 70 avalanche chutes per CDOT."
+      },
+      "standing_scope": "San Juan Mountains drives",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement; other Colorado passes were not compared in this batch."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The whole point is the drive."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Snow and fog close or hide the road."
+      },
+      "why": "US 550 between Ouray and Silverton over Red Mountain Pass, closed at times in winter for avalanches.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0017"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "No permit; winter avalanche closures are announced by CDOT."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no designation read; the CDOT notices name none"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/bentonite-hills",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata wbsearchentities 'Bentonite Hills' (no result, 2026-10-25)"
+        ]
+      },
+      "class_key": "viewpoint/roadside",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0018"
+        ],
+        "read": "2026-10-25",
+        "note": "Land manager's headline: the BLM self-guided sheet lists the Bentonite Hills among its stops."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The sheet says there is no single spot designated as the hills."
+      },
+      "standing_scope": "Hanksville area sights",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Factory Butte and Blue Valley Spire are within 30 km on the same sheets."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the hills are seen from the road."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Rain closes the clay road."
+      },
+      "why": "Colourful bentonite shale hills along Cow Dung Road near Hanksville, reached by a clay road.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0018"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "No fee or permit is stated on the sheet."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the BLM sheet names no designation for the hills"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/long-dong-silver-spire",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata wbsearchentities 'Long Dong Silver Spire' and 'Blue Valley Spire' (no result, 2026-10-25)"
+        ]
+      },
+      "class_key": "viewpoint/roadside",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0018"
+        ],
+        "read": "2026-10-25",
+        "note": "Land manager's headline: the BLM self-guided sheet lists the spire as a short hike."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The BLM sheet gives it one paragraph."
+      },
+      "standing_scope": "Hanksville area sights",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Bentonite Hills and Factory Butte are within 30 km on the same sheet."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the spire needs a 1.6-mile round trip on foot."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Rain closes the clay road."
+      },
+      "why": "A lone sandstone spire in Blue Valley near Hanksville, reached by a short hike from a BLM road.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0018"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "No fee or permit is stated on the sheet."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the BLM sheet names no designation for the spire"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/factory-butte",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q20714583",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: butte in Wayne County, Utah; its P625 equals the stored point."
+      },
+      "class_key": "viewpoint/roadside",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0019"
+        ],
+        "read": "2026-10-25",
+        "note": "Land manager's headline: the BLM runs a Factory Butte Recreation Area page."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The BLM page covers OHV rules and wildflowers."
+      },
+      "standing_scope": "Hanksville area sights",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Bentonite Hills and Blue Valley Spire are within 30 km on BLM sheets."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the butte shows from State Route 24."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A view-led stop."
+      },
+      "why": "A flat-topped butte 12 miles west of Hanksville inside a BLM recreation area, with OHV open areas.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0019"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "No fees (BLM page)."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "blm.gov page names a recreation area, not a conservation designation"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+      "kind": "activity",
+      "subkind": "rafting",
+      "wikidata": {
+        "v": "Q995915",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label 'Kennecott', description 'abandoned townsite and historic district in Alaska'; its P625 equals the stored point. It names the townsite beside the rivers where the rafting is based, not the activity."
+      },
+      "class_key": "water/rafting",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0020"
+        ],
+        "read": "2026-10-25",
+        "note": "Inside Wrangell-St. Elias National Park and Preserve (national park); the operator runs a published season and books ahead."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The operator describes itself as the park's longest-operating rafting company (its words)."
+      },
+      "standing_scope": "Alaska rafting trips",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Few Alaska rafting day trips end with a bush plane flight."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: a 7-hour trip with a flight home."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Rain and river level change the day."
+      },
+      "why": "Guided river rafting from McCarthy near the Kennecott mill town in Wrangell-St. Elias National Park.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "day_permit",
+            "note": "St. Elias Alpine Guides books the raft and flightsee day trip online: 458 USD adult, 408 USD child, age 8 and up, 10 June to 31 August, full refund up to 48 hours before"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0020"
+        ],
+        "read": "2026-10-25",
+        "note": "No park permit is stated on the pages read."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Wrangell-St. Elias National Park and Preserve",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0021"
+          ],
+          "read": "2026-10-25",
+          "note": "National park (NPS)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/mount-st-helens",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "wikidata": {
+        "v": "Q4675",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: volcano in Washington state; its P625 equals the stored point."
+      },
+      "class_key": "peak/summit",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0022"
+        ],
+        "read": "2026-10-25",
+        "note": "National volcanic monument (designation); summit climbs above 4,800 ft need a permit, and the observatory charges a fee."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The Forest Service runs a monument with an observatory and a permit system for the climb."
+      },
+      "standing_scope": "Pacific Northwest volcanoes",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Mount Rainier is within about 90 km; this volcano shows the 1980 eruption landscape."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the observatory gives the crater view without the climb."
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The crater view needs clear sky."
+      },
+      "why": "A volcano that erupted in 1980, with a viewing observatory on Johnston Ridge and a permit-limited summit climb.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "day_permit",
+            "note": "Climbing permit required above 4,800 ft; bought in advance on Recreation.gov 1 April to 31 October",
+            "book_ahead_days": 30
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0022"
+        ],
+        "read": "2026-10-25",
+        "note": "Observatory wristband 12 USD per person; SR 504 landslide closure in 2026."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "natural_monument",
+              "name": "Mount St. Helens National Volcanic Monument",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0022"
+          ],
+          "read": "2026-10-25",
+          "note": "National volcanic monument (USDA Forest Service)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/stansbury-island",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q7600177",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: island in the Great Salt Lake, Tooele County, Utah; its P625 equals the stored point."
+      },
+      "class_key": "viewpoint/roadside",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0023"
+        ],
+        "read": "2026-10-25",
+        "note": "Tourism board (Visit Utah) lists the Pink Lake at Stansbury Island as a Great Salt Lake place to go."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The tourism page lists it among Great Salt Lake places to go without ranking it."
+      },
+      "standing_scope": "Great Salt Lake sights",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Antelope Island State Park is the main alternative within 60 km."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the pink lake is a drive and a short stop."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Colour is best in clear light; heavy rain lessens the pink."
+      },
+      "why": "A remote island in the Great Salt Lake reached by a causeway, known for a pink salt lake.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0023"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "No fee to visit (tourism page)."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the tourism page names no designation"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/lake-wenatchee",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": "Q7172855",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: lake in Chelan County, Washington; its P625 equals the stored point."
+      },
+      "class_key": "lake/swim-beach",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0024"
+        ],
+        "read": "2026-10-25",
+        "note": "State park (designation) with a swim beach and boat launch; the state page lists them as features."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The state park page leads with the beach, boat ramp and campgrounds."
+      },
+      "standing_scope": "Cascade foothill lakes",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Lake Chelan is the larger lake within 60 km."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the beach is a short walk from the day-use lot."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A swim and boating lake; rain and cold end the day."
+      },
+      "why": "A lake in the Cascade foothills with a state park swim beach, boat ramp and campgrounds.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0024"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "Discover Pass (10 USD a day or 45 USD a year) or a day-use fee for parking; boat launch 7 USD a day."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Lake Wenatchee State Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0024"
+          ],
+          "read": "2026-10-25",
+          "note": "State park (Washington State Parks)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/lake-chelan",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": "Q1115201",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: lake in Chelan County, Washington; its P625 equals the stored point."
+      },
+      "class_key": "lake/swim-beach",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0025"
+        ],
+        "read": "2026-10-25",
+        "note": "State park (designation) on the lake and a National Recreation Area at its head; the Lady of the Lake ferry serves Stehekin year-round."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The state park page lists the beach and boat ramp as features."
+      },
+      "standing_scope": "Cascade lakes",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Lake Wenatchee is the smaller lake within 60 km."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the park beach is at the lake edge."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A summer swim and boating lake."
+      },
+      "why": "A very long lake in the Cascades with a state park beach near Chelan and ferry access to Stehekin.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0025"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "Discover Pass (10 USD a day or 45 USD a year) for state park parking; boat launch 7 USD a day."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Lake Chelan State Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0025"
+          ],
+          "read": "2026-10-25",
+          "note": "State park (Washington State Parks)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/page",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q79940",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Found by Wikidata search 'Page, Arizona' on 2026-10-25 (the store had none). Label 'Page', description 'city in Coconino County, Arizona'; its P625 (36.9142, -111.46) is 0.2 km from the stored point."
+      },
+      "class_key": "town/lakeside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0026"
+        ],
+        "read": "2026-10-25",
+        "note": "Tourism board (Visit Page) names Antelope Canyon, Horseshoe Bend and Lake Powell as its signature sights."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The tourism board calls Page 'the center of adventure'."
+      },
+      "standing_scope": "Lake Powell area towns",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "No other town sits as close to both Lake Powell and Antelope Canyon; others are not compared here."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the town itself is a base; the sights are outside it."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A town with indoor services; the sights outside it depend on weather."
+      },
+      "why": "A town beside Lake Powell, the base for Horseshoe Bend, Antelope Canyon and the Colorado River.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "A town: no entry permit or booking applies to the town itself."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no designation read on the official or tourism pages"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/durango",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q1012665",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: home rule municipality and county seat of La Plata County, Colorado; its P625 equals the stored point."
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0027"
+        ],
+        "read": "2026-10-25",
+        "note": "Tourism board (Visit Durango) pictures the Durango and Silverton Narrow Gauge Railroad as its headline image."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The tourism board's site leads with the railroad and fall colour."
+      },
+      "standing_scope": "San Juan Mountains towns",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Ouray and Silverton are within 100 km with their own character."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the town is a base and the railroad leaves from it."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A town with indoor services."
+      },
+      "why": "A southwest Colorado town on the Animas River, the southern end of the Durango and Silverton Narrow Gauge Railroad.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "A town: no entry permit or booking applies to the town itself."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no designation read on the official or tourism pages"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/ouray",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q1759444",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: home rule municipality and county seat of Ouray County, Colorado; its P625 equals the stored point."
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0028"
+        ],
+        "read": "2026-10-25",
+        "note": "Tourism board (City of Ouray) calls it the Outdoor Recreation Capital of Colorado and 'Switzerland of America'."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The board lists hot springs, ice climbing and waterfalls as headlines."
+      },
+      "standing_scope": "San Juan Mountains towns",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Few Colorado towns sit in a box canyon with hot springs in the centre; others are not compared here."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the hot springs and Main Street are in town."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A year-round town with hot springs."
+      },
+      "why": "A small mountain town called the Switzerland of America, with hot springs, ice climbing and the Million Dollar Highway.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "A town: no entry permit or booking applies to the town itself."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no designation read on the official or tourism pages"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/breckenridge",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q904354",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: town in and county seat of Summit County, Colorado; its P625 equals the stored point."
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0029"
+        ],
+        "read": "2026-10-25",
+        "note": "Tourism board (Breckenridge Tourism Office) calls it a year-round playground and lists winter, summer and fall seasons."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The tourism board lists skiing, hiking, museums and festivals together."
+      },
+      "standing_scope": "Colorado ski towns",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Other Summit County resort towns are within 30 km."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the town itself is the base."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A year-round resort town."
+      },
+      "why": "A Rocky Mountain ski town at 9,600 ft with a historic centre and summer hiking and biking.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "A town: no entry permit or booking applies to the town itself."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no designation read on the official or tourism pages"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/leavenworth",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q1025813",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: city in Chelan County, Washington; its P625 equals the stored point."
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0030"
+        ],
+        "read": "2026-10-25",
+        "note": "Tourism board (Leavenworth chamber) leads with Christmastown, Oktoberfest, Maifest and Winter Karneval."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The chamber's site lists festivals by season."
+      },
+      "standing_scope": "Washington Cascade towns",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A themed Bavarian village is unusual in the Cascades; others are not compared here."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the village centre is the attraction."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A town with indoor shops and festivals."
+      },
+      "why": "A Bavarian-style village in the Cascades with festivals through the year and trails nearby.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "A town: no entry permit or booking applies to the town itself."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no designation read on the official or tourism pages"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/cape-cod",
+      "kind": "region",
+      "subkind": "region",
+      "wikidata": {
+        "v": "Q49152",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: peninsula in Massachusetts; its P625 equals the stored point."
+      },
+      "class_key": "beach/ocean",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0031"
+        ],
+        "read": "2026-10-25",
+        "note": "Tourism board (Cape Cod Chamber of Commerce) leads with beaches and the Cape Cod National Seashore."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The chamber's site and the NPS seashore fee page both lead with the beaches."
+      },
+      "standing_scope": "New England coast",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Other New England beach regions are not compared here."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: beaches are a short drive from the Cape's villages."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A beach region; summer weather decides the day."
+      },
+      "why": "A Massachusetts peninsula of beaches, villages and a national seashore on its outer arm.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0032"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "Six National Seashore beaches charge a 25 USD vehicle fee from late May to mid-September (cards only); other town beaches set their own fees."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Cape Cod National Seashore",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0032"
+          ],
+          "read": "2026-10-25",
+          "note": "National seashore (NPS) on the Outer Cape."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/finger-lakes",
+      "kind": "region",
+      "subkind": "region",
+      "wikidata": {
+        "v": "Q1416994",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: group of lakes in New York; its P625 equals the stored point."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0033"
+        ],
+        "read": "2026-10-25",
+        "note": "Tourism board (Finger Lakes Tourism Alliance) leads with 11 lakes, gorges, waterfalls and winery tours."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The alliance names Watkins Glen, Letchworth and Taughannock as headline parks."
+      },
+      "standing_scope": "Northeast US lake regions",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Other Northeast lake districts are not compared here."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: lake views and wineries are along the roads."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A four-season region per the alliance; lake and gorge views suit clear weather."
+      },
+      "why": "A New York region of eleven long lakes, gorges and waterfalls, wineries and fall colour.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0033"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "A region: no entry permit applies; individual parks set their own fees."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "the tourism alliance page names no designation for the region"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "no top-list mention looked up in this batch"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "place/olympic-peninsula",
+      "kind": "region",
+      "subkind": "region",
+      "wikidata": {
+        "v": "Q780293",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "note": "Store resolver QID. Wikidata label and description match the place: peninsula in the northwest corner of Washington; its P625 equals the stored point."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0034"
+        ],
+        "read": "2026-10-25",
+        "note": "Tourism board (Olympic Peninsula) leads with Olympic National Park, a UNESCO World Heritage site, rain forests and the coast."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "The tourism site presents the park, rain forest and coast as its headline."
+      },
+      "standing_scope": "Pacific Northwest regions",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Few places hold rain forest, mountains and ocean beach together; others are not compared here."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "Our judgement: the sights are spread over a long loop road."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-25",
+        "note": "A coast and mountain region; rain is common."
+      },
+      "why": "A Washington peninsula of rain forest, wild ocean beaches and mountains around Olympic National Park.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": "official_info",
+        "src": [
+          "src-0034"
+        ],
+        "on": "2026-10-25",
+        "tried": [
+          "A region: no entry permit applies; the national park sets its own fees."
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Olympic National Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0034"
+          ],
+          "read": "2026-10-25",
+          "note": "World Heritage site named by the regional tourism site."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Tourism-board and national-guide top lists were not searched in this batch; no list mention recorded"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -11,7 +11,8 @@ const saveIsPrimary = (h: string): boolean => /class="btn btn-primary pl-primary
 
 describe('the cover has exactly one primary action (M19, P7)', () => {
   it('a place with a stored point has the Directions link and Save is not the primary', () => {
-    for (const slug of ['tre-cime-di-lavaredo-loop', 'capri']) {
+    // cape-cod, not capri: Capri is reached only by its ferry terminal since DATA-D2b-it, so by PS4 it has no driving Directions
+    for (const slug of ['tre-cime-di-lavaredo-loop', 'cape-cod']) {
       const h = html(slug);
       expect(hasDirections(cover(h)), slug).toBe(true);
       expect(saveIsPrimary(cover(h)), slug).toBe(false);

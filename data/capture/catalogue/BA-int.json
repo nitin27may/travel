@@ -1,0 +1,1105 @@
+{
+  "schema": "capture/1",
+  "trip": "catalogue",
+  "lane": "D2b-int",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.wikidata.org/wiki/Q90",
+      "title": "Paris (Wikidata Q90)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.wikidata.org/wiki/Q1858",
+      "title": "Hanoi (Wikidata Q1858)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.wikidata.org/wiki/Q1000140",
+      "title": "Sa Pa (Wikidata Q1000140)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.wikidata.org/wiki/Q190128",
+      "title": "Ha Long Bay (Wikidata Q190128)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.wikidata.org/wiki/Q2264090",
+      "title": "Gurudongmar Lake (Wikidata Q2264090)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.wikidata.org/wiki/Q101081",
+      "title": "Provence (Wikidata Q101081)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.openstreetmap.org/relation/7444",
+      "title": "Paris (OSM relation 7444)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.openstreetmap.org/relation/1903516",
+      "title": "Hanoi (OSM relation 1903516)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.openstreetmap.org/relation/12540572",
+      "title": "Phuong Sa Pa (OSM relation 12540572)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.openstreetmap.org/relation/19465352",
+      "title": "Ha Long Bay - Cat Ba Archipelago (OSM relation 19465352)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.openstreetmap.org/way/192611012",
+      "title": "Gurudongmar lake (OSM way 192611012)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.openstreetmap.org/node/12133881062",
+      "title": "Gurudongmar Tso Monastery (OSM node 12133881062)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.openstreetmap.org/node/12759133301",
+      "title": "Ha Long International Passenger Port (OSM node 12759133301)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://www.openstreetmap.org/way/1424946284",
+      "title": "Canyon racer track (raceway), Gulong Gorge (OSM way 1424946284)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://www.openstreetmap.org/way/696058893",
+      "title": "Gulong Gorge scenic area car park (OSM way 696058893)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://en.parisinfo.com/practical-paris/planning-your-stay-in-paris/climate",
+      "title": "Paris weather month by month (search extract; page answered 403 on the read date)",
+      "publisher": "Paris Convention and Visitors Bureau",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://www.paris.fr/",
+      "title": "Ville de Paris (official website listed on Wikidata P856)",
+      "publisher": "Ville de Paris",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://hanoi.gov.vn/",
+      "title": "Hanoi People's Committee portal (official website listed on Wikidata P856)",
+      "publisher": "Hanoi People's Committee",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://vietnam.travel/places-to-go/red-river-delta/ha-noi/",
+      "title": "Ha Noi",
+      "publisher": "Viet Nam National Authority of Tourism",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://vietnam.travel/places-to-go/northern-vietnam/sapa",
+      "title": "Sapa",
+      "publisher": "Viet Nam National Authority of Tourism",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://vietnam.travel/places-to-go/northern-vietnam/ha-long",
+      "title": "Ha Long",
+      "publisher": "Viet Nam National Authority of Tourism",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://halongtourism.com.vn/",
+      "title": "Ha Long tourism information site (contact page read; no ticket prices)",
+      "publisher": "Ha Long tourism information centre",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://www.provenceweb.fr/e/mag/terroir/lavande.htm",
+      "title": "Lavender in Provence",
+      "publisher": "ProvenceWeb (regional portal)",
+      "kind": "press",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://sikkimtourism.gov.in/Public/TravellerEssentials/pap",
+      "title": "Protected Area Permit (PAP) (page text did not load on the read date)",
+      "publisher": "Sikkim Tourism Department",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://www.dahepiao.com/lvyounews1/20250403508376.html",
+      "title": "Gulong Gorge ticket prices and opening hours, April 2025 (reseller page)",
+      "publisher": "Dahepiao (ticket reseller)",
+      "kind": "reseller",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://you.ctrip.com/sight/qingyuan517/5139702.html",
+      "title": "Gulong Gorge opening hours (search extract; reseller page, not opened)",
+      "publisher": "Ctrip (travel reseller)",
+      "kind": "reseller",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://www.gulongxia.com/html/cn/picshow-358-368.html",
+      "title": "Canyon QQ Racer (峡道QQ飞车), attraction page on the operator website",
+      "publisher": "Qingyuan Qingxin Gulong Gorge Eco-tourism Entertainment Co.",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0035",
+      "url": "https://www.gulongxia.com/",
+      "title": "Gulong Gorge scenic area home page: opening hours, contact, address",
+      "publisher": "Qingyuan Qingxin Gulong Gorge Eco-tourism Entertainment Co.",
+      "kind": "operator",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/paris",
+      "type": "settlement.city",
+      "layer": "place",
+      "near_town": {
+        "v": "fr-idf-paris-04-hotel-de-ville",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 3013131, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Paris",
+      "area_id": "FR/ile-de-france/grand-paris",
+      "osm_ref": "relation/7444",
+      "geonames_id": {
+        "v": "2988507",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0001"
+        ]
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "url": "https://www.paris.fr/",
+          "on": "2026-10-25",
+          "src": [
+            "src-0020"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "state": "filled",
+          "url": "https://en.parisinfo.com/",
+          "on": "2026-10-25",
+          "src": [
+            "src-0018"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "url": "https://www.openstreetmap.org/relation/7444",
+          "on": "2026-10-25",
+          "src": [
+            "src-0007"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "url": "https://www.wikidata.org/wiki/Q90",
+          "on": "2026-10-25",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "state": "filled",
+          "url": "https://en.wikipedia.org/wiki/Paris",
+          "on": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "ref": "place/hanoi",
+      "type": "settlement.city",
+      "layer": "place",
+      "near_town": {
+        "v": "vn-00-hanoi",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 1581130, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Hanoi",
+      "names": {
+        "vi": "Hà Nội"
+      },
+      "area_id": "VN/hanoi/thanh-pho-ha-noi",
+      "osm_ref": "relation/1903516",
+      "geonames_id": {
+        "v": "1581130",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0002"
+        ]
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "url": "https://hanoi.gov.vn/",
+          "on": "2026-10-25",
+          "src": [
+            "src-0021"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "state": "filled",
+          "url": "https://vietnam.travel/places-to-go/red-river-delta/ha-noi/",
+          "on": "2026-10-25",
+          "src": [
+            "src-0022"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "url": "https://www.openstreetmap.org/relation/1903516",
+          "on": "2026-10-25",
+          "src": [
+            "src-0008"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "url": "https://www.wikidata.org/wiki/Q1858",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "state": "filled",
+          "url": "https://en.wikipedia.org/wiki/Hanoi",
+          "on": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "ref": "place/sapa",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "vn-00-sa-pa",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 1568043, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Sapa",
+      "names": {
+        "vi": "Sa Pa"
+      },
+      "area_id": "VN/lao-cai/sa-pa",
+      "osm_ref": "relation/12540572",
+      "geonames_id": {
+        "v": "1568043",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0003"
+        ]
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Sa Pa town official website; Lao Cai provincial tourism portal",
+          "on": "2026-10-25"
+        },
+        {
+          "kind": "tourism_board",
+          "state": "filled",
+          "url": "https://vietnam.travel/places-to-go/northern-vietnam/sapa",
+          "on": "2026-10-25",
+          "src": [
+            "src-0023"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "url": "https://www.openstreetmap.org/relation/12540572",
+          "on": "2026-10-25",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "url": "https://www.wikidata.org/wiki/Q1000140",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "state": "filled",
+          "url": "https://en.wikipedia.org/wiki/Sa_Pa",
+          "on": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "ref": "place/ha-long-bay",
+      "type": "water.body.sea_bay_fjord",
+      "layer": "place",
+      "name": "Ha Long Bay",
+      "names": {
+        "vi": "Vịnh Hạ Long"
+      },
+      "area_id": "VN/quang-ninh/quang-ninh",
+      "osm_ref": "relation/19465352",
+      "geonames_id": {
+        "v": "1581250",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0004"
+        ]
+      },
+      "best_time": {
+        "v": [
+          {
+            "slot": "sunset",
+            "why": "light"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0024"
+        ],
+        "quote": "just before sunset",
+        "note": "Tourism authority suggests kayaking and watching the sunset over the calm bay."
+      },
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "halongtourism.com.vn (read 2026-10-25): contact details only, no prices",
+          "sunparadiseland.com guide (read 2026-10-25): price section empty"
+        ],
+        "note": "A sightseeing ticket is sold at the Ha Long Bay Management Board counters; the figure was not found on a page read."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "url": "https://halongtourism.com.vn/",
+          "on": "2026-10-25",
+          "src": [
+            "src-0025"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "state": "filled",
+          "url": "https://vietnam.travel/places-to-go/northern-vietnam/ha-long",
+          "on": "2026-10-25",
+          "src": [
+            "src-0024"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "url": "https://www.openstreetmap.org/relation/19465352",
+          "on": "2026-10-25",
+          "src": [
+            "src-0010"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "url": "https://www.wikidata.org/wiki/Q190128",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "state": "filled",
+          "url": "https://en.wikipedia.org/wiki/H%E1%BA%A1_Long_Bay",
+          "on": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/ha-long-bay#ha-long-international-port",
+      "type": "access.transit.dock",
+      "layer": "place",
+      "near_town": {
+        "v": "vn-00-ha-long",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 1580410, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 1.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Ha Long International Passenger Port (Bai Chay)",
+      "serves": [
+        "place/ha-long-bay"
+      ],
+      "parks_for": [
+        "place/ha-long-bay"
+      ],
+      "osm_ref": "node/12759133301",
+      "area_id": "VN/quang-ninh/quang-ninh",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Ha Long International Passenger Port operator page",
+          "on": "2026-10-25"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "url": "https://www.openstreetmap.org/node/12759133301",
+          "on": "2026-10-25",
+          "src": [
+            "src-0013"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/gurudongmar-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
+      "name": "Gurudongmar Lake",
+      "area_id": "IN/sikkim/mangan-district",
+      "osm_ref": "way/192611012",
+      "geonames_id": {
+        "v": "1270613",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0005"
+        ]
+      },
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Outlook Traveller 2023 (read 2026-10-25): only an entry cut-off, no best time of day",
+          "Sikkim Tourism PAP page (read 2026-10-25): text did not load"
+        ],
+        "note": "Sources give an entry cut-off (no entry after 11 am) rather than a best time."
+      },
+      "window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Sikkim Tourism PAP page (read 2026-10-25): text did not load",
+          "Outlook Traveller 2023 (read 2026-10-25): permit from the police checkpoint, no booking window"
+        ]
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "url": "https://sikkimtourism.gov.in/Public/TravellerEssentials/pap",
+          "on": "2026-10-25",
+          "src": [
+            "src-0030"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "url": "https://www.openstreetmap.org/way/192611012",
+          "on": "2026-10-25",
+          "src": [
+            "src-0011"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "url": "https://www.wikidata.org/wiki/Q2264090",
+          "on": "2026-10-25",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "state": "filled",
+          "url": "https://en.wikipedia.org/wiki/Gurudongmar_Lake",
+          "on": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/gurudongmar-lake#road-end",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Gurudongmar Lake road end (approximate)",
+      "parks_for": [
+        "place/gurudongmar-lake"
+      ],
+      "osm_ref": "node/12133881062",
+      "area_id": "IN/sikkim/mangan-district",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Gurudongmar Lake parking or vehicle stop official page",
+          "on": "2026-10-25"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "url": "https://www.openstreetmap.org/node/12133881062",
+          "on": "2026-10-25",
+          "src": [
+            "src-0012"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/provence",
+      "type": "settlement.district",
+      "layer": "place",
+      "name": "Provence",
+      "names": {
+        "fr": "Provence"
+      },
+      "area_id": "FR/provence-alpes-cote-d-azur/alpes-de-haute-provence",
+      "geonames_id": {
+        "v": "2985246",
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0006"
+        ]
+      },
+      "best_window": {
+        "v": [
+          {
+            "from": "06-15",
+            "to": "07-31",
+            "why": "bloom"
+          }
+        ],
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0027"
+        ],
+        "quote": "The lavender flowering season in Provence runs from mid-June to the end of July.",
+        "note": "Valensole plateau: mid-June to mid-July; harvest starts about 20 July."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Provence-Alpes-Cote d'Azur regional tourism committee official site",
+          "on": "2026-10-25"
+        },
+        {
+          "kind": "osm",
+          "state": "searched_none",
+          "query": "OSM boundary or place=region for Provence",
+          "on": "2026-10-25"
+        },
+        {
+          "kind": "wikidata",
+          "state": "filled",
+          "url": "https://www.wikidata.org/wiki/Q101081",
+          "on": "2026-10-25",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "state": "filled",
+          "url": "https://en.wikipedia.org/wiki/Provence",
+          "on": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+      "type": "play.amusement.alpine_coaster",
+      "layer": "place",
+      "near_town": {
+        "v": "cn-00-qingyuan",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 1797945, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 12.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "QQ Canyon Racer mountain coaster, Gulong Gorge",
+      "names": {
+        "zh": "峡道QQ飞车"
+      },
+      "area_id": "CN/GD/qingyuan",
+      "osm_ref": "way/1424946284",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open",
+            "note": "Listed as open all year; summer rain and heat can close it"
+          }
+        ],
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0032",
+          "src-0033"
+        ],
+        "note": "A reseller lists year-round opening; the operator page gives no coaster season.",
+        "applies_to": "2025"
+      },
+      "hours": {
+        "v": {
+          "tz": "Asia/Shanghai",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "09:00",
+              "close": "16:30"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0032"
+        ],
+        "note": "April 2025 reseller listing; check the operator before going.",
+        "applies_to": "2025",
+        "conflicts": [
+          {
+            "v": {
+              "tz": "Asia/Shanghai",
+              "periods": [
+                {
+                  "days": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7
+                  ],
+                  "open": "09:00",
+                  "close": "17:00"
+                }
+              ]
+            },
+            "basis": "community",
+            "src": [
+              "src-0033"
+            ],
+            "note": "Ctrip lists 09:00 to 17:00 and says ticket sales stop at 16:00."
+          }
+        ]
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 88,
+            "currency": "CNY",
+            "per": "person",
+            "applies_to": "2025",
+            "note": "single ride, April 2025 reseller listing; the scenic area itself has no entry charge and charges per attraction"
+          }
+        ],
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0032"
+        ],
+        "quote": "峡道飞车：88元",
+        "note": "Reseller figure, not the operator's; the operator's page did not answer."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "url": "https://www.gulongxia.com/html/cn/picshow-358-368.html",
+          "on": "2026-10-25",
+          "src": [
+            "src-0034"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "url": "https://www.openstreetmap.org/way/1424946284",
+          "on": "2026-10-25",
+          "src": [
+            "src-0014"
+          ]
+        },
+        {
+          "kind": "reseller",
+          "state": "filled",
+          "url": "https://you.ctrip.com/sight/qingyuan517/5139702.html",
+          "on": "2026-10-25",
+          "src": [
+            "src-0033"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/qq-canyon-racer-mountain-coaster-gulong-gorge#car-park",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "cn-00-qingyuan",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 1797945, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 11.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Gulong Gorge scenic area car park",
+      "parks_for": [
+        "place/qq-canyon-racer-mountain-coaster-gulong-gorge"
+      ],
+      "osm_ref": "way/696058893",
+      "area_id": "CN/GD/qingyuan",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Gulong Gorge scenic area car park fee official page",
+          "on": "2026-10-25"
+        },
+        {
+          "kind": "osm",
+          "state": "filled",
+          "url": "https://www.openstreetmap.org/way/696058893",
+          "on": "2026-10-25",
+          "src": [
+            "src-0015"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "offer/place/qq-canyon-racer-mountain-coaster-gulong-gorge#ticket",
+      "type": "play.amusement.alpine_coaster",
+      "layer": "offer",
+      "name": "QQ Canyon Racer single ride",
+      "at": [
+        "place/qq-canyon-racer-mountain-coaster-gulong-gorge"
+      ],
+      "run_by": "operator/gulong-gorge-eco-tourism",
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open",
+            "note": "Listed as open all year; summer rain and heat can close it"
+          }
+        ],
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0032",
+          "src-0033"
+        ],
+        "note": "Reseller listings, April 2025; the operator's page gives no coaster season.",
+        "applies_to": "2025"
+      },
+      "hours": {
+        "v": {
+          "tz": "Asia/Shanghai",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "09:00",
+              "close": "16:30"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0032"
+        ],
+        "note": "April 2025 reseller listing; the operator's page gives 09:00 to 16:00 for other attractions only.",
+        "applies_to": "2025"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 88,
+            "currency": "CNY",
+            "per": "person",
+            "applies_to": "2025",
+            "note": "single ride, April 2025 reseller listing"
+          }
+        ],
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0032"
+        ],
+        "quote": "峡道飞车：88元",
+        "note": "Reseller figure; the operator page lists only game-rank discounts of 10 to 30 percent."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "filled",
+          "url": "https://www.gulongxia.com/html/cn/picshow-358-368.html",
+          "on": "2026-10-25",
+          "src": [
+            "src-0034"
+          ]
+        },
+        {
+          "kind": "booking",
+          "state": "filled",
+          "url": "https://www.gulongxia.com/",
+          "on": "2026-10-25",
+          "src": [
+            "src-0035"
+          ]
+        }
+      ]
+    }
+  ]
+}

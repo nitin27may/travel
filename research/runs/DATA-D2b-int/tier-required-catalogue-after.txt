@@ -1,0 +1,76 @@
+Tier: required · trip catalogue
+
+Per layer (EXECUTION-PLAN 6.4 columns; records answering each)
+layer         records area_id point osm_id wikidata official photos season where operator price duration window min_age
+place              10      10    10      9        6        5      0      1     0        0     2        0      1       0
+offer               1       0     0      0        0        1      0      1     1        1     1        0      0       0
+
+place: 10 record(s), 10 with the required tier complete
+  access_cost                          asked   10  answered   10  missing    0
+  access_points                        asked    2  answered    2  missing    0
+  access_season                        asked    3  answered    3  missing    0
+  adult_required                       asked    1  answered    1  missing    0
+  age_band                             asked    3  answered    3  missing    0
+  best_time                            asked    2  answered    2  missing    0
+  class_key                            asked    7  answered    7  missing    0
+  distinction                          asked    7  answered    7  missing    0
+  draw                                 asked    7  answered    7  missing    0
+  easy_payoff                          asked    7  answered    7  missing    0
+  ext.coaster.driver_rule              asked    1  answered    1  missing    0
+  ext.coaster.max_load_kg              asked    1  answered    1  missing    0
+  ext.coaster.max_riders               asked    1  answered    1  missing    0
+  geonames_id                          asked    4  answered    4  missing    0
+  hours                                asked    1  answered    1  missing    0
+  kid_note                             asked    3  answered    3  missing    0
+  links                                asked   10  answered   10  missing    0
+  max_height_cm                        asked    1  answered    1  missing    0
+  max_weight_kg                        asked    1  answered    1  missing    0
+  min_age                              asked    1  answered    1  missing    0
+  min_height_cm                        asked    1  answered    1  missing    0
+  min_weight_kg                        asked    1  answered    1  missing    0
+  name                                 asked   10  answered   10  missing    0
+  on_site_min                          asked    3  answered    3  missing    0
+  parks_for                            asked    3  answered    3  missing    0
+  participation.pregnancy              asked    1  answered    1  missing    0
+  participation.weather_cancel         asked    1  answered    1  missing    0
+  price                                asked    2  answered    2  missing    0
+  season                               asked    1  answered    1  missing    0
+  signals                              asked    7  answered    7  missing    0
+  solo                                 asked    1  answered    1  missing    0
+  standing                             asked    7  answered    7  missing    0
+  stroller                             asked    6  answered    6  missing    0
+  summary                              asked   10  answered   10  missing    0
+  type                                 asked   10  answered   10  missing    0
+  walk_m                               asked    2  answered    2  missing    0
+  weather                              asked    7  answered    7  missing    0
+  wheelchair                           asked    6  answered    6  missing    0
+  why                                  asked    7  answered    7  missing    0
+  wikidata                             asked    6  answered    6  missing    0
+  window                               asked    1  answered    1  missing    0
+
+offer: 1 record(s), 1 with the required tier complete
+  access_cost                          asked    1  answered    1  missing    0
+  access_season                        asked    1  answered    1  missing    0
+  adult_required                       asked    1  answered    1  missing    0
+  age_band                             asked    1  answered    1  missing    0
+  at                                   asked    1  answered    1  missing    0
+  ext.coaster.driver_rule              asked    1  answered    1  missing    0
+  ext.coaster.max_load_kg              asked    1  answered    1  missing    0
+  ext.coaster.max_riders               asked    1  answered    1  missing    0
+  hours                                asked    1  answered    1  missing    0
+  kid_note                             asked    1  answered    1  missing    0
+  links                                asked    1  answered    1  missing    0
+  max_height_cm                        asked    1  answered    1  missing    0
+  max_weight_kg                        asked    1  answered    1  missing    0
+  min_age                              asked    1  answered    1  missing    0
+  min_height_cm                        asked    1  answered    1  missing    0
+  min_weight_kg                        asked    1  answered    1  missing    0
+  name                                 asked    1  answered    1  missing    0
+  on_site_min                          asked    1  answered    1  missing    0
+  participation.pregnancy              asked    1  answered    1  missing    0
+  participation.weather_cancel         asked    1  answered    1  missing    0
+  price                                asked    1  answered    1  missing    0
+  season                               asked    1  answered    1  missing    0
+  solo                                 asked    1  answered    1  missing    0
+  summary                              asked    1  answered    1  missing    0
+  type                                 asked    1  answered    1  missing    0

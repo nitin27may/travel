@@ -1,0 +1,3429 @@
+{
+  "schema": "capture/1",
+  "trip": "catalogue",
+  "lane": "BA-us",
+  "researched": "2026-10-25",
+  "agent": "travel-researcher",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.nps.gov/yell/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Yellowstone National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.nps.gov/yell/planyourvisit/parkroads.htm",
+      "title": "Park Roads - Yellowstone National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.wikidata.org/wiki/Special:EntityData",
+      "title": "Wikidata entity data (labels, descriptions, P625, P2044, P402, P856, sitelinks)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-us"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.openstreetmap.org/",
+      "title": "OpenStreetMap data via the Overpass API",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-us"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.nps.gov/grte/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Grand Teton National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.nps.gov/grte/planyourvisit/roads.htm",
+      "title": "Park Roads - Grand Teton National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.nps.gov/mora/planyourvisit/fees.htm",
+      "title": "Fees & Passes - Mount Rainier National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.nps.gov/mora/planyourvisit/road-status.htm",
+      "title": "Road Status - Mount Rainier National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.nps.gov/noca/planyourvisit/fees.htm",
+      "title": "Fees & Passes - North Cascades National Park",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://parks.ny.gov/parks/watkinsglen/details.aspx",
+      "title": "Watkins Glen State Park details",
+      "publisher": "New York State Office of Parks, Recreation and Historic Preservation",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.fs.usda.gov/r06/mbs",
+      "title": "Mount Baker-Snoqualmie National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.fs.usda.gov/r06/mbs/recreation/artist-point-trailhead",
+      "title": "Artist Point Trailhead - Mount Baker-Snoqualmie National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.fs.usda.gov/r06/columbiarivergorge/passes",
+      "title": "Passes - Columbia River Gorge National Scenic Area",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://navajonationparks.org/tribal-parks/monument-valley/",
+      "title": "Monument Valley Navajo Tribal Park",
+      "publisher": "Navajo Nation Parks and Recreation",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://havasupaireservations.com/faqs/",
+      "title": "FAQs - Havasupai Reservations",
+      "publisher": "Havasupai Tribe (reservation office)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://kanarrafalls.com/",
+      "title": "Kanarra Falls",
+      "publisher": "Town of Kanarraville (permit office)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://coloradosprings.gov/incline",
+      "title": "Manitou Incline",
+      "publisher": "City of Colorado Springs Parks",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://www.codot.gov/news/2025/march/us550-red-mountain-pass-close-monday-march24",
+      "title": "US 550 Red Mountain Pass to close at 3 p.m. on Monday, March 24",
+      "publisher": "Colorado Department of Transportation",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.blm.gov/sites/default/files/docs/2026-04/Blue%20Valley_Burpee%20Quary.pdf",
+      "title": "Cow Dung Road & Blue Valley Spire (self-guided tour sheet)",
+      "publisher": "Bureau of Land Management, Henry Mountain Field Station",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://www.blm.gov/visit/factory-butte-recreation-area",
+      "title": "Factory Butte Recreation Area",
+      "publisher": "Bureau of Land Management",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://www.nps.gov/wrst/planyourvisit/index.htm",
+      "title": "Plan Your Visit - Wrangell-St. Elias National Park & Preserve",
+      "publisher": "National Park Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://www.fs.usda.gov/r06/giffordpinchot/recreation/mount-st-helens-summit",
+      "title": "Mount St. Helens Summit - Gifford Pinchot National Forest",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://www.fs.usda.gov/visit/destination/johnston-ridge-observatory",
+      "title": "Johnston Ridge Observatory",
+      "publisher": "USDA Forest Service",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://www.visitutah.com/places-to-go/parks-outdoors/great-salt-lake/pink-lake-at-stansbury-island",
+      "title": "Pink Lake at Stansbury Island",
+      "publisher": "Utah Office of Tourism (Visit Utah)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://parks.wa.gov/find-parks/state-parks/lake-wenatchee-state-park",
+      "title": "Lake Wenatchee State Park",
+      "publisher": "Washington State Parks",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://parks.wa.gov/find-parks/state-parks/lake-chelan-state-park",
+      "title": "Lake Chelan State Park",
+      "publisher": "Washington State Parks",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://www.cityofpage.org/",
+      "title": "City of Page, Arizona",
+      "publisher": "City of Page",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://www.visitpageaz.com/",
+      "title": "Visit Page, Arizona",
+      "publisher": "Page Lake Powell Tourism (Visit Page)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://www.durangoco.gov/",
+      "title": "City of Durango",
+      "publisher": "City of Durango",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.durango.org/",
+      "title": "Visit Durango",
+      "publisher": "Durango Area Tourism Office",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://visitouray.com/",
+      "title": "Visit Ouray",
+      "publisher": "City of Ouray",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://www.gobreck.com/",
+      "title": "Go Breck",
+      "publisher": "Breckenridge Tourism Office",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://www.leavenworth.org/",
+      "title": "Leavenworth, Washington",
+      "publisher": "Leavenworth Chamber of Commerce",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://www.capecodchamber.org/",
+      "title": "Cape Cod Chamber of Commerce",
+      "publisher": "Cape Cod Chamber of Commerce",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0035",
+      "url": "https://www.fingerlakes.org/",
+      "title": "Finger Lakes Tourism Alliance",
+      "publisher": "Finger Lakes Tourism Alliance",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0036",
+      "url": "https://olympicpeninsula.org/",
+      "title": "Olympic Peninsula",
+      "publisher": "Olympic Peninsula Tourism Commission",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/yellowstone-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "near_town": {
+        "v": "us-mt-west-yellowstone",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5685767, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 48.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Yellowstone National Park",
+      "area_id": "US/WY/park-county",
+      "osm_ref": "relation/1453306",
+      "price": {
+        "v": [
+          {
+            "amount": 35,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "private non-commercial vehicle with all passengers; valid for seven consecutive days"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-25",
+        "quote": "Unlimited entry for one vehicle and all passengers for seven consecutive days",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/yell/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/1453306",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Yellowstone_National_Park",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q351",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/yellowstone-national-park#old-faithful-west-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-mt-west-yellowstone",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5685767, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 31.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Old Faithful West Parking",
+      "area_id": "US/WY/park-county",
+      "parks_for": [
+        "place/yellowstone-national-park"
+      ],
+      "osm_ref": "relation/14238986",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/yell/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/14238986",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/grand-teton-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "near_town": {
+        "v": "us-id-driggs",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5591399, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 35.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Grand Teton National Park",
+      "area_id": "US/WY/teton-county",
+      "osm_ref": "relation/1492555",
+      "price": {
+        "v": [
+          {
+            "amount": 35,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "private non-commercial vehicle; valid 7 days"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-25",
+        "quote": "Park entrance fee for 7 days for a private, non-commercial vehicle",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/grte/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/1492555",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Grand_Teton_National_Park",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q222695",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/grand-teton-national-park#moose-visitor-center-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wy-moose-wilson-road",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5832759, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 17.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Craig Thomas Discovery and Visitor Center car park",
+      "area_id": "US/WY/teton-county",
+      "parks_for": [
+        "place/grand-teton-national-park"
+      ],
+      "osm_ref": "way/1074969530",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/grte/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/1074969530",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/mount-rainier-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wa-crocker",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 7315411, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 37.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Mount Rainier National Park",
+      "area_id": "US/WA/pierce-county",
+      "osm_ref": "relation/1399219",
+      "price": {
+        "v": [
+          {
+            "amount": 30,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "private non-commercial vehicle; valid seven consecutive days"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0007"
+        ],
+        "read": "2026-10-25",
+        "quote": "unlimited entry for one vehicle and passengers for seven consecutive days",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/mora/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0007"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/1399219",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mount_Rainier_National_Park",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q944329",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/mount-rainier-national-park#paradise-upper-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wa-eatonville",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5793321, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 41.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Paradise Upper Parking Lot",
+      "area_id": "US/WA/pierce-county",
+      "parks_for": [
+        "place/mount-rainier-national-park"
+      ],
+      "osm_ref": "way/970437613",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/mora/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0008"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/970437613",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/north-cascades-national-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
+      "name": "North Cascades National Park",
+      "area_id": "US/WA/whatcom-county",
+      "osm_ref": "relation/2421537",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/noca/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/2421537",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/North_Cascades_National_Park",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1163799",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/north-cascades-national-park#visitor-center-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
+      "name": "North Cascades visitor center car park",
+      "area_id": "US/WA/whatcom-county",
+      "parks_for": [
+        "place/north-cascades-national-park"
+      ],
+      "osm_ref": "relation/17713933",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/noca/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/17713933",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/watkins-glen-state-park",
+      "type": "nature.protected.state_provincial_park",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ny-watkins-glen",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5143419, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Watkins Glen State Park",
+      "area_id": "US/NY/finger-lakes",
+      "osm_ref": "relation/6448362",
+      "price": {
+        "v": [
+          {
+            "amount": 10,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "vehicle use fee collected sunrise to sunset, mid-May to mid-October; includes the pool"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0010"
+        ],
+        "read": "2026-10-25",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.ny.gov/parks/watkinsglen/details.aspx",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0010"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/6448362",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Watkins_Glen_State_Park",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q7974703",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/watkins-glen-state-park#main-entrance-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ny-watkins-glen",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5143419, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Watkins Glen main entrance car park",
+      "area_id": "US/NY/finger-lakes",
+      "parks_for": [
+        "place/watkins-glen-state-park"
+      ],
+      "osm_ref": "way/236760432",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.ny.gov/parks/watkinsglen/details.aspx",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0010"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/236760432",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/mount-baker-snoqualmie-national-forest",
+      "type": "nature.protected.forest",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wa-gold-bar",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5795678, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 25.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Mount Baker-Snoqualmie National Forest",
+      "area_id": "US/WA/king-county",
+      "osm_ref": "relation/1399218",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.fs.usda.gov/r06/mbs",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0011"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/1399218",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mount_Baker%E2%80%93Snoqualmie_National_Forest",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q3079176",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/mount-baker-snoqualmie-national-forest#franklin-falls-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wa-tanner",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5813063, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 24,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Franklin Falls trailhead car park",
+      "area_id": "US/WA/king-county",
+      "parks_for": [
+        "place/mount-baker-snoqualmie-national-forest"
+      ],
+      "osm_ref": "way/1220646074",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.fs.usda.gov/r06/mbs",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0011"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/1220646074",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/mount-baker-wilderness",
+      "type": "nature.protected.conservation_area",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wa-peaceful-valley",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 7176028, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 32.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Mount Baker Wilderness",
+      "area_id": "US/WA/mount-bakersnoqualmie-national-forest",
+      "osm_ref": "relation/6116357",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.fs.usda.gov/r06/mbs/recreation/artist-point-trailhead",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0012"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/6116357",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mount_Baker_Wilderness",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q3326014",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/mount-baker-wilderness#artist-point-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-cultus-lake",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5933869, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 31.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Artist Point Trailhead car park",
+      "area_id": "US/WA/mount-bakersnoqualmie-national-forest",
+      "parks_for": [
+        "place/mount-baker-wilderness"
+      ],
+      "osm_ref": "way/96495723",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.fs.usda.gov/r06/mbs/recreation/artist-point-trailhead",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0012"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/96495723",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/columbia-river-gorge",
+      "type": "nature.protected.conservation_area",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wa-carson",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5789244, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 3.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Columbia River Gorge",
+      "area_id": "US/WA/columbia-river-gorge-national-scenic-area",
+      "osm_ref": "relation/10291225",
+      "window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "fs.usda.gov Columbia River Gorge passes page: no ticket release rule for Multnomah Falls or Dog Mountain"
+        ]
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.fs.usda.gov/r06/columbiarivergorge",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0013"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/10291225",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Columbia_River_Gorge",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1112581",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/columbia-river-gorge#beacon-rock-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-or-cascade-locks",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5718132, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 11.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Beacon Rock State Park trail car park",
+      "area_id": "US/WA/columbia-river-gorge-national-scenic-area",
+      "parks_for": [
+        "place/columbia-river-gorge"
+      ],
+      "osm_ref": "way/455598750",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "official page naming this car park",
+          "on": "2026-10-25"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/455598750",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/monument-valley",
+      "type": "nature.landform.valley",
+      "layer": "place",
+      "near_town": {
+        "v": "us-az-kayenta",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5300830, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 31.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Monument Valley",
+      "area_id": "US/AZ/navajo-nation",
+      "osm_ref": "node/13286575650",
+      "price": {
+        "v": [
+          {
+            "amount": 10,
+            "currency": "USD",
+            "per": "person",
+            "applies_to": "2026",
+            "note": "per person per day"
+          },
+          {
+            "amount": 15,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "per vehicle"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0014"
+        ],
+        "read": "2026-10-25",
+        "note": "The page gives both figures in one line; whether they add up is not stated.",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://navajonationparks.org/tribal-parks/monument-valley/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0014"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/13286575650",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Monument_Valley",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q192017",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/monument-valley#visitor-center-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-az-kayenta",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5300830, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 31.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Monument Valley parking",
+      "area_id": "US/AZ/navajo-nation",
+      "parks_for": [
+        "place/monument-valley"
+      ],
+      "osm_ref": "way/106361462",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://navajonationparks.org/tribal-parks/monument-valley/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0014"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/106361462",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/havasupai-havasu-falls",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
+      "name": "Havasupai (Havasu Falls)",
+      "area_id": "US/AZ/havasupai-reservation",
+      "osm_ref": "node/602137131",
+      "window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "havasupaireservations.com FAQs: reservation opening dates are not listed",
+          "theofficialhavasupaitribe.com not read for dates in this batch"
+        ]
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "havasupaireservations.com FAQs: no season or best-weeks statement",
+          "theofficialhavasupaitribe.com not read for dates in this batch"
+        ]
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 455,
+            "currency": "USD",
+            "per": "person",
+            "applies_to": "2026",
+            "note": "campground permit for 3 nights, 4 days; children 6 and under need no paid permit"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0015"
+        ],
+        "read": "2026-10-25",
+        "quote": "Campground permits are $455 per person for 3 nights.",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://havasupaireservations.com/faqs/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0015"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/602137131",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Havasu_Falls",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q5683183",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/havasupai-havasu-falls#hualapai-hilltop-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
+      "name": "Hualapai Hilltop car park",
+      "area_id": "US/AZ/havasupai-reservation",
+      "parks_for": [
+        "place/havasupai-havasu-falls"
+      ],
+      "osm_ref": "way/116860348",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://havasupaireservations.com/faqs/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0015"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/116860348",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/kanarra-falls",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ut-cedar-city",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5536630, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 17.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Kanarra Falls",
+      "area_id": "US/UT/kanarraville",
+      "osm_ref": "node/1833434208",
+      "window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "kanarrafalls.com: no booking window stated beyond the daily cap of 200 tickets"
+        ]
+      },
+      "best_window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "kanarrafalls.com: no season or best-weeks statement",
+          "visitcedarcity.com not read"
+        ]
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 15,
+            "currency": "USD",
+            "per": "person",
+            "applies_to": "2026",
+            "note": "general admission 'from' price"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0016"
+        ],
+        "read": "2026-10-25",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://kanarrafalls.com/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0016"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/1833434208",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/kanarra-falls#town-parking-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ut-cedar-city",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5536630, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 18.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Kanarra Creek Falls trailhead parking",
+      "area_id": "US/UT/kanarraville",
+      "parks_for": [
+        "place/kanarra-falls"
+      ],
+      "osm_ref": "way/376881912",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://kanarrafalls.com/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0016"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/376881912",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/manitou-incline",
+      "type": "culture.heritage.landmark",
+      "layer": "place",
+      "near_town": {
+        "v": "us-co-manitou-springs",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5430023, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 1.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Manitou Incline",
+      "area_id": "US/CO/manitou-springs",
+      "osm_ref": "relation/6458518",
+      "season": {
+        "v": [
+          {
+            "from": "05-01",
+            "to": "10-31",
+            "status": "open",
+            "note": "Summer hours 6:00 to 18:00"
+          },
+          {
+            "from": "11-01",
+            "to": "04-30",
+            "status": "open",
+            "note": "Winter hours 6:00 to 15:00"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0017"
+        ],
+        "read": "2026-10-25",
+        "applies_to": "2026"
+      },
+      "hours": {
+        "v": {
+          "tz": "America/Denver",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "from": "05-01",
+              "to": "10-31",
+              "open": "06:00",
+              "close": "18:00"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "from": "11-01",
+              "to": "04-30",
+              "open": "06:00",
+              "close": "15:00"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0017"
+        ],
+        "read": "2026-10-25",
+        "quote": "Access to the Manitou Incline is not permitted outside of the above posted hours.",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": {
+          "rule": "monthly_release",
+          "days_before": 56,
+          "tz": "America/Denver",
+          "fallback": "Slots open on the 1st of each month for up to 8 weeks ahead; 45 slots per half hour."
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0017"
+        ],
+        "read": "2026-10-25",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 0,
+            "currency": "USD",
+            "per": "person",
+            "applies_to": "2026",
+            "note": "free; a timed reservation is required"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0017"
+        ],
+        "read": "2026-10-25",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://coloradosprings.gov/incline",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0017"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/6458518",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Manitou_Incline",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q6750238",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/manitou-incline#hiawatha-gardens-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-co-manitou-springs",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5430023, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Hiawatha Gardens parking",
+      "area_id": "US/CO/manitou-springs",
+      "parks_for": [
+        "place/manitou-incline"
+      ],
+      "osm_ref": "way/477032968",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://coloradosprings.gov/incline",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0017"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/477032968",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/million-dollar-highway",
+      "type": "culture.heritage.landmark",
+      "layer": "place",
+      "near_town": {
+        "v": "us-co-telluride",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5441199, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 10.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Million Dollar Highway",
+      "area_id": "US/CO/san-juan-mountains",
+      "osm_ref": "way/172241464",
+      "season": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "codot.gov US 550 closure notices: closures are by avalanche danger, no fixed operating season"
+        ]
+      },
+      "hours": {
+        "v": {
+          "tz": "America/Denver",
+          "always_open": true
+        },
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0018"
+        ],
+        "read": "2026-10-25",
+        "note": "A public highway open at all hours unless CDOT closes it for avalanche danger or an incident."
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 0,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "no toll or fee found on the CDOT notice"
+          }
+        ],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0018"
+        ],
+        "read": "2026-10-25",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Colorado Department of Transportation US 550 page (CDOT news pages found; no stable road page read)",
+          "on": "2026-10-25"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/172241464",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q123916209",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "conditions",
+          "url": "https://www.codot.gov/news/2025/march/us550-red-mountain-pass-close-monday-march24",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0018"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/bentonite-hills",
+      "type": "nature.landform.rock_formation",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
+      "name": "Bentonite Hills",
+      "area_id": "US/UT/hanksville",
+      "osm_ref": "node/3227293628",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.blm.gov/sites/default/files/docs/2026-04/Blue%20Valley_Burpee%20Quary.pdf",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0019"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/3227293628",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/bentonite-hills#cow-dung-road-approx",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Bentonite Hills viewing area (no mapped car park)",
+      "area_id": "US/UT/hanksville",
+      "parks_for": [
+        "place/bentonite-hills"
+      ],
+      "osm_ref": "node/3227293628",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.blm.gov/sites/default/files/docs/2026-04/Blue%20Valley_Burpee%20Quary.pdf",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0019"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/3227293628",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/long-dong-silver-spire",
+      "type": "nature.landform.rock_formation",
+      "layer": "place",
+      "name": "Long Dong Silver Spire",
+      "area_id": "US/UT/hanksville",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.blm.gov/sites/default/files/docs/2026-04/Blue%20Valley_Burpee%20Quary.pdf",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0019"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "searched_none",
+          "query": "Overpass name search 'Long Dong|Blue Valley Spire' near 38.39,-110.83 on 2026-10-25 found only the Blue Valley locality and the trailhead car park",
+          "on": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/long-dong-silver-spire#trailhead-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
+      "name": "Long Dong Silver Trailhead Parking",
+      "area_id": "US/UT/hanksville",
+      "parks_for": [
+        "place/long-dong-silver-spire"
+      ],
+      "osm_ref": "way/1535726923",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "official page naming this car park",
+          "on": "2026-10-25"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/1535726923",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/factory-butte",
+      "type": "nature.landform.rock_formation",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
+      "name": "Factory Butte",
+      "area_id": "US/UT/hanksville",
+      "osm_ref": "node/356672676",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.blm.gov/visit/factory-butte-recreation-area",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0020"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/356672676",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Factory_Butte_(Wayne_County,_Utah)",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q20714583",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/factory-butte#ohv-area-approx",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Factory Butte area (no mapped car park)",
+      "area_id": "US/UT/hanksville",
+      "parks_for": [
+        "place/factory-butte"
+      ],
+      "osm_ref": "relation/13852886",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.blm.gov/visit/factory-butte-recreation-area",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0020"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/13852886",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+      "type": "culture.heritage.historic_site",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
+      "name": "Kennecott River rafting (Wrangell-St. Elias)",
+      "area_id": "US/AK/wrangell-st-elias-national-park",
+      "osm_ref": "node/654578203",
+      "season": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "nps.gov/wrst Plan Your Visit: no season stated for the Kennecott mill town"
+        ]
+      },
+      "hours": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "nps.gov/wrst Plan Your Visit: no hours stated for the Kennecott mill town"
+        ]
+      },
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "nps.gov/wrst Plan Your Visit: the entrance fee is not stated on the page (a Fees page is linked)"
+        ]
+      },
+      "window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "steliasguides.com trip page: no booking window beyond 'Now Booking for 2027'"
+        ]
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/wrst/planyourvisit/index.htm",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0021"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/654578203",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Kennecott,_Alaska",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q995915",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/kennecott-river-rafting-wrangell-st-elias#mccarthy-road-end-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "none_within_50km",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
+      },
+      "name": "McCarthy Road end car park",
+      "area_id": "US/AK/wrangell-st-elias-national-park",
+      "parks_for": [
+        "place/kennecott-river-rafting-wrangell-st-elias"
+      ],
+      "osm_ref": "way/461639604",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "official page naming this car park",
+          "on": "2026-10-25"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/461639604",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/mount-st-helens",
+      "type": "nature.landform.mountain",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wa-amboy",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5785614, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 37.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Mount St. Helens",
+      "area_id": "US/WA/mount-st-helens-national-volcanic-monument",
+      "osm_ref": "node/356546327",
+      "window": {
+        "v": {
+          "rule": "monthly_release",
+          "tz": "America/Los_Angeles",
+          "fallback": "Climbing permits go on sale in one-month blocks on Recreation.gov, first come first served, from 1 April to 31 October; free self-issued permits at the trailhead from 1 November to 31 March."
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0022"
+        ],
+        "read": "2026-10-25",
+        "note": "Read through a search summary of the Forest Service pages.",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.fs.usda.gov/visit/destination/johnston-ridge-observatory",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0023"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mount_St._Helens",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q4675",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/356546327",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/mount-st-helens#johnston-ridge-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wa-morton",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5803964, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 31.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Johnston Ridge Observatory car park",
+      "area_id": "US/WA/mount-st-helens-national-volcanic-monument",
+      "parks_for": [
+        "place/mount-st-helens"
+      ],
+      "osm_ref": "way/1228806284",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.fs.usda.gov/visit/destination/johnston-ridge-observatory",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0023"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/1228806284",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/stansbury-island",
+      "type": "nature.landform.island",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ut-grantsville",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5775346, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 25.7,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Stansbury Island",
+      "area_id": "US/UT/great-salt-lake",
+      "osm_ref": "node/356674282",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.visitutah.com/places-to-go/parks-outdoors/great-salt-lake/pink-lake-at-stansbury-island",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0024"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/356674282",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Stansbury_Island",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q7600177",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/lake-wenatchee",
+      "type": "water.body.lake",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wa-leavenworth",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5800683, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 26.6,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Lake Wenatchee",
+      "area_id": "US/WA/chelan-county",
+      "osm_ref": "relation/1014349",
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "parks.wa.gov Lake Wenatchee State Park page: no best-time-of-day statement"
+        ]
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.wa.gov/find-parks/state-parks/lake-wenatchee-state-park",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0025"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/1014349",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Lake_Wenatchee",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q7172855",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/lake-wenatchee#day-use-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wa-leavenworth",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5800683, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 24.4,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Lake Wenatchee State Park day-use parking",
+      "area_id": "US/WA/chelan-county",
+      "parks_for": [
+        "place/lake-wenatchee"
+      ],
+      "osm_ref": "node/2882303259",
+      "price": {
+        "v": [
+          {
+            "amount": 10,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "Discover Pass one-day price; the annual pass is 45 USD"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0025"
+        ],
+        "read": "2026-10-25",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.wa.gov/find-parks/state-parks/lake-wenatchee-state-park",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0025"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/2882303259",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/lake-chelan",
+      "type": "water.body.lake",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wa-chelan",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5789826, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 2.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Lake Chelan",
+      "area_id": "US/WA/lake-chelan-national-recreation-area",
+      "osm_ref": "relation/446718",
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "parks.wa.gov Lake Chelan State Park page: no best-time-of-day statement"
+        ]
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.wa.gov/find-parks/state-parks/lake-chelan-state-park",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0026"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/446718",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Lake_Chelan",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1115201",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/place/lake-chelan#state-park-lot",
+      "type": "access.park.parking",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wa-granite-falls",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5795988, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 2.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Lake Chelan State Park car park",
+      "area_id": "US/WA/lake-chelan-national-recreation-area",
+      "parks_for": [
+        "place/lake-chelan"
+      ],
+      "osm_ref": "relation/11634351",
+      "price": {
+        "v": [
+          {
+            "amount": 10,
+            "currency": "USD",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "Discover Pass one-day price; the annual pass is 45 USD; the park lists no separate day-use fee"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0026"
+        ],
+        "read": "2026-10-25",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.wa.gov/find-parks/state-parks/lake-chelan-state-park",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0026"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/11634351",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/page",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "us-az-page",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5307778, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Page",
+      "area_id": "US/AZ/coconino-county",
+      "osm_ref": "node/150978518",
+      "geonames_id": {
+        "v": "5307778",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-25",
+        "note": "Wikidata P1566 (GeoNames ID) on the place's item."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.cityofpage.org/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0027"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/150978518",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Page,_Arizona",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q79940",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.visitpageaz.com/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0028"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/durango",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "us-co-durango",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5420241, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Durango",
+      "area_id": "US/CO/la-plata-county",
+      "osm_ref": "relation/112248",
+      "geonames_id": {
+        "v": "5420241",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-25",
+        "note": "Wikidata P1566 (GeoNames ID) on the place's item."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.durangoco.gov/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0029"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/112248",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Durango,_Colorado",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1012665",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.durango.org/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0030"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/ouray",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "us-co-ouray",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5433676, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Ouray",
+      "area_id": "US/CO/san-juan-mountains",
+      "osm_ref": "node/151877085",
+      "geonames_id": {
+        "v": "5433676",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-25",
+        "note": "Wikidata P1566 (GeoNames ID) on the place's item."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://visitouray.com/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0031"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/151877085",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Ouray,_Colorado",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1759444",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://visitouray.com/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0031"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/breckenridge",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "us-co-breckenridge",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5414872, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Breckenridge",
+      "area_id": "US/CO/summit-county",
+      "osm_ref": "relation/112177",
+      "geonames_id": {
+        "v": "5414872",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-25",
+        "note": "Wikidata P1566 (GeoNames ID) on the place's item."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.townofbreckenridge.com",
+          "state": "filled",
+          "on": "2026-10-25"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/112177",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Breckenridge,_Colorado",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q904354",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.gobreck.com/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0032"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/leavenworth",
+      "type": "settlement.town",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wa-leavenworth",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5800683, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Leavenworth",
+      "area_id": "US/WA/chelan-county",
+      "osm_ref": "relation/237799",
+      "geonames_id": {
+        "v": "5800683",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-25",
+        "note": "Wikidata P1566 (GeoNames ID) on the place's item."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "http://www.cityofleavenworth.com",
+          "state": "filled",
+          "on": "2026-10-25"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/237799",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Leavenworth,_Washington",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1025813",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.leavenworth.org/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0033"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/cape-cod",
+      "type": "settlement.district",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ma-barnstable",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 4929771, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 1.3,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Cape Cod",
+      "area_id": "US/MA/barnstable-county",
+      "osm_ref": "relation/9241337",
+      "geonames_id": {
+        "v": "4933508",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-25",
+        "note": "Wikidata P1566 (GeoNames ID) on the place's item."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.capecodchamber.org/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0034"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/9241337",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Cape_Cod",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q49152",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.capecodchamber.org/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0034"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/finger-lakes",
+      "type": "settlement.district",
+      "layer": "place",
+      "near_town": {
+        "v": "us-ny-penn-yan",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5130915, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 18,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Finger Lakes",
+      "area_id": "US/NY/seneca-county",
+      "osm_ref": "relation/13090782",
+      "geonames_id": {
+        "v": "5117118",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-25",
+        "note": "Wikidata P1566 (GeoNames ID) on the place's item."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.fingerlakes.org/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0035"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/13090782",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Finger_Lakes",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1416994",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.fingerlakes.org/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0035"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "place/olympic-peninsula",
+      "type": "settlement.district",
+      "layer": "place",
+      "near_town": {
+        "v": "us-wa-port-angeles",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5807212, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 38.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Olympic Peninsula",
+      "area_id": "US/WA/jefferson-county",
+      "osm_ref": "relation/11230583",
+      "geonames_id": {
+        "v": "5805714",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "read": "2026-10-25",
+        "note": "Wikidata P1566 (GeoNames ID) on the place's item."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://olympicpeninsula.org/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0036"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/11230583",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Olympic_Peninsula",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q780293",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://olympicpeninsula.org/",
+          "state": "filled",
+          "on": "2026-10-25",
+          "src": [
+            "src-0036"
+          ]
+        }
+      ]
+    }
+  ]
+}

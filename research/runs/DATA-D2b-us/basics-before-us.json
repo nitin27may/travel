@@ -1,0 +1,935 @@
+{
+ "schema": "locations-basics/1",
+ "date": "2026-10-25",
+ "split": "us",
+ "places": [
+  {
+   "id": "US/CO/manitou-springs/manitou-incline",
+   "name": "Manitou Incline",
+   "kind": "trail",
+   "ref": "place/manitou-incline",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 18,
+   "missing_count": 14,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "trail": [
+     "length",
+     "gain",
+     "difficulty",
+     "shape",
+     "time",
+     "dogs",
+     "stroller",
+     "wheelchair"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/AK/wrangell-st-elias-national-park/kennecott",
+   "name": "Kennecott River rafting (Wrangell-St. Elias)",
+   "kind": "activity",
+   "ref": "place/kennecott-river-rafting-wrangell-st-elias",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 13,
+   "missing_count": 9,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ],
+    "booking": [
+     "booking",
+     "price",
+     "operator"
+    ]
+   }
+  },
+  {
+   "id": "US/UT/hanksville/bentonite-hills",
+   "name": "Bentonite Hills",
+   "kind": "place",
+   "ref": "place/bentonite-hills",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 9,
+   "missing": {
+    "identity": [
+     "wikidata",
+     "elevation",
+     "summary"
+    ],
+    "image": [
+     "photo"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/UT/hanksville/long-dong-silver",
+   "name": "Long Dong Silver Spire",
+   "kind": "mountain",
+   "ref": "place/long-dong-silver-spire",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 9,
+   "missing": {
+    "identity": [
+     "wikidata",
+     "elevation",
+     "summary"
+    ],
+    "image": [
+     "photo"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/UT/kanarraville/kanarra-falls",
+   "name": "Kanarra Falls",
+   "kind": "waterfall",
+   "ref": "place/kanarra-falls",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 9,
+   "missing": {
+    "identity": [
+     "wikidata",
+     "elevation",
+     "summary"
+    ],
+    "image": [
+     "photo"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/AZ/coconino-county/page",
+   "name": "Page",
+   "kind": "town",
+   "ref": "place/page",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 8,
+   "missing_count": 7,
+   "missing": {
+    "identity": [
+     "wikidata",
+     "elevation",
+     "summary"
+    ],
+    "image": [
+     "photo"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ]
+   }
+  },
+  {
+   "id": "US/UT/grand-county/arches-national-park",
+   "name": "Arches National Park",
+   "kind": "park",
+   "ref": "place/arches-national-park",
+   "lane": "trip usa-southwest-rockies",
+   "has_record": false,
+   "tied_trip": "usa-southwest-rockies",
+   "asked": 10,
+   "missing_count": 7,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/UT/hanksville/factory-butte",
+   "name": "Factory Butte",
+   "kind": "mountain",
+   "ref": "place/factory-butte",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 7,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/UT/kane-county/bryce-canyon-national-park",
+   "name": "Bryce Canyon National Park",
+   "kind": "park",
+   "ref": "place/bryce-canyon-national-park",
+   "lane": "trip usa-southwest-rockies",
+   "has_record": false,
+   "tied_trip": "usa-southwest-rockies",
+   "asked": 10,
+   "missing_count": 7,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/UT/san-juan-county/canyonlands-national-park",
+   "name": "Canyonlands National Park",
+   "kind": "park",
+   "ref": "place/canyonlands-national-park",
+   "lane": "trip usa-southwest-rockies",
+   "has_record": false,
+   "tied_trip": "usa-southwest-rockies",
+   "asked": 10,
+   "missing_count": 7,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/UT/washington-county/zion-national-park",
+   "name": "Zion National Park",
+   "kind": "park",
+   "ref": "place/zion-national-park",
+   "lane": "trip usa-southwest-rockies",
+   "has_record": false,
+   "tied_trip": "usa-southwest-rockies",
+   "asked": 10,
+   "missing_count": 7,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/WA/columbia-river-gorge-national-scenic-area/columbia-river-gorge",
+   "name": "Columbia River Gorge",
+   "kind": "canyon",
+   "ref": "place/columbia-river-gorge",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 7,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/WA/king-county/baker-snoqualmie-national-forest",
+   "name": "Mount Baker-Snoqualmie National Forest",
+   "kind": "park",
+   "ref": "place/mount-baker-snoqualmie-national-forest",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 7,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/WA/mount-bakersnoqualmie-national-forest/mount-baker-wilderness",
+   "name": "Mount Baker Wilderness",
+   "kind": "park",
+   "ref": "place/mount-baker-wilderness",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 7,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/WA/whatcom-county/north-cascades-national-park",
+   "name": "North Cascades National Park",
+   "kind": "park",
+   "ref": "place/north-cascades-national-park",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 7,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/WY/teton-county/grand-teton-national-park",
+   "name": "Grand Teton National Park",
+   "kind": "park",
+   "ref": "place/grand-teton-national-park",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 7,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/AZ/havasupai-reservation/havasu-falls",
+   "name": "Havasupai (Havasu Falls)",
+   "kind": "waterfall",
+   "ref": "place/havasupai-havasu-falls",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 6,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/AZ/navajo-nation/monument-valley",
+   "name": "Monument Valley",
+   "kind": "valley",
+   "ref": "place/monument-valley",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 6,
+   "missing": {
+    "identity": [
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/NH/grafton-county/white-mountain-national-forest",
+   "name": "White Mountain National Forest",
+   "kind": "park",
+   "ref": "place/white-mountain-national-forest",
+   "lane": "trip new-hampshire-stopover-2026",
+   "has_record": false,
+   "tied_trip": "new-hampshire-stopover-2026",
+   "asked": 10,
+   "missing_count": 6,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/NY/finger-lakes/watkins-glen-state-park",
+   "name": "Watkins Glen State Park",
+   "kind": "park",
+   "ref": "place/watkins-glen-state-park",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 6,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/WA/chelan-county/lake-wenatchee",
+   "name": "Lake Wenatchee",
+   "kind": "lake",
+   "ref": "place/lake-wenatchee",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 6,
+   "missing": {
+    "identity": [
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/WA/lake-chelan-national-recreation-area/lake-chelan",
+   "name": "Lake Chelan",
+   "kind": "lake",
+   "ref": "place/lake-chelan",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 6,
+   "missing": {
+    "identity": [
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/WA/mount-st-helens-national-volcanic-monument/mount-st-helens",
+   "name": "Mount St. Helens",
+   "kind": "mountain",
+   "ref": "place/mount-st-helens",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 6,
+   "missing": {
+    "identity": [
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/WA/pierce-county/mount-rainier-national-park",
+   "name": "Mount Rainier National Park",
+   "kind": "park",
+   "ref": "place/mount-rainier-national-park",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 6,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/WY/park-county/yellowstone-national-park",
+   "name": "Yellowstone National Park",
+   "kind": "park",
+   "ref": "place/yellowstone-national-park",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 10,
+   "missing_count": 6,
+   "missing": {
+    "identity": [
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ],
+    "parking": [
+     "parking point",
+     "fee or permit"
+    ]
+   }
+  },
+  {
+   "id": "US/CO/san-juan-mountains/million-dollar-highway",
+   "name": "Million Dollar Highway",
+   "kind": "drive",
+   "ref": "place/million-dollar-highway",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 8,
+   "missing_count": 5,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ]
+   }
+  },
+  {
+   "id": "US/WA/jefferson-county/olympic-peninsula",
+   "name": "Olympic Peninsula",
+   "kind": "region",
+   "ref": "place/olympic-peninsula",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 8,
+   "missing_count": 5,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ]
+   }
+  },
+  {
+   "id": "US/CO/la-plata-county/durango",
+   "name": "Durango",
+   "kind": "town",
+   "ref": "place/durango",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 8,
+   "missing_count": 4,
+   "missing": {
+    "identity": [
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ]
+   }
+  },
+  {
+   "id": "US/CO/san-juan-mountains/ouray",
+   "name": "Ouray",
+   "kind": "town",
+   "ref": "place/ouray",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 8,
+   "missing_count": 4,
+   "missing": {
+    "identity": [
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ]
+   }
+  },
+  {
+   "id": "US/CO/summit-county/breckenridge",
+   "name": "Breckenridge",
+   "kind": "town",
+   "ref": "place/breckenridge",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 8,
+   "missing_count": 4,
+   "missing": {
+    "identity": [
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ]
+   }
+  },
+  {
+   "id": "US/NY/seneca-county/finger-lakes",
+   "name": "Finger Lakes",
+   "kind": "region",
+   "ref": "place/finger-lakes",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 8,
+   "missing_count": 4,
+   "missing": {
+    "identity": [
+     "elevation",
+     "summary"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ]
+   }
+  },
+  {
+   "id": "US/UT/great-salt-lake/stansbury-island",
+   "name": "Stansbury Island",
+   "kind": "island",
+   "ref": "place/stansbury-island",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 8,
+   "missing_count": 4,
+   "missing": {
+    "identity": [
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ]
+   }
+  },
+  {
+   "id": "US/WA/chelan-county/leavenworth",
+   "name": "Leavenworth",
+   "kind": "town",
+   "ref": "place/leavenworth",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 8,
+   "missing_count": 4,
+   "missing": {
+    "identity": [
+     "summary"
+    ],
+    "when": [
+     "season"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ]
+   }
+  },
+  {
+   "id": "US/MA/barnstable-county/cape-cod",
+   "name": "Cape Cod",
+   "kind": "region",
+   "ref": "place/cape-cod",
+   "lane": "catalogue",
+   "has_record": false,
+   "tied_trip": null,
+   "asked": 8,
+   "missing_count": 3,
+   "missing": {
+    "identity": [
+     "summary"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ]
+   }
+  },
+  {
+   "id": "US/VT/lamoille-county/stowe",
+   "name": "Stowe",
+   "kind": "town",
+   "ref": "place/stowe",
+   "lane": "trip vermont-fall-2026",
+   "has_record": false,
+   "tied_trip": "vermont-fall-2026",
+   "asked": 8,
+   "missing_count": 3,
+   "missing": {
+    "identity": [
+     "summary"
+    ],
+    "links": [
+     "official",
+     "osm"
+    ]
+   }
+  }
+ ]
+}

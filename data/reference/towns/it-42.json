@@ -1,3 +1,5 @@
 {"schema":"towns-part/1","cc":"it","admin1":{"42":"Liguria"},"rows":[
-["it-42-genoa","Genoa",44.40478,8.94439,580097,"42","Genoa",3176219]
+["it-42-borgo-fornari-pieve","Borgo Fornari-Pieve",44.58933,8.93671,1182,"42","Borgo Fornari-Pieve",8949294],
+["it-42-genoa","Genoa",44.40478,8.94439,580097,"42","Genoa",3176219],
+["it-42-ronco-scrivia","Ronco Scrivia",44.61357,8.95042,2853,"42","Ronco Scrivia",3168990]
 ]}

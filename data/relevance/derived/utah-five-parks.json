@@ -153,8 +153,8 @@
         ]
       },
       "far_pointer": {
-        "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
-        "km": 8.3,
+        "ref": "place/zion-national-park",
+        "km": 0.1,
         "draw": "national",
         "same_class": false
       },
@@ -365,6 +365,14 @@
             "family_effort": null
           },
           {
+            "ref": "place/bryce-canyon-national-park",
+            "km": 2.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
             "ref": "trip/utah-five-parks/viewpoint:sunset point",
             "km": 0.9,
             "draw": "regional",
@@ -378,6 +386,14 @@
             "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
             "km": 0.7,
             "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/bryce-canyon-national-park",
+            "km": 2.4,
+            "draw": "national",
             "standing": "top",
             "access_cost": [],
             "family_effort": null
@@ -1572,6 +1588,14 @@
             "family_effort": null
           },
           {
+            "ref": "place/bryce-canyon-national-park",
+            "km": 2.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
             "ref": "trip/utah-five-parks/viewpoint:sunset point",
             "km": 0.9,
             "draw": "regional",
@@ -1585,6 +1609,14 @@
             "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
             "km": 0.7,
             "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/bryce-canyon-national-park",
+            "km": 2.4,
+            "draw": "national",
             "standing": "top",
             "access_cost": [],
             "family_effort": null

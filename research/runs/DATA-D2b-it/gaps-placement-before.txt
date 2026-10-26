@@ -1,0 +1,2 @@
+# split it (DATA-D2b-it), before: lane catalogue had no records
+no capture records for trip catalogue. Trips: algonquin-muskoka-2026, canadian-rockies-2029, chamonix-mont-blanc-2028, dolomites-2027, iceland-ring-road-2027, patagonia-2027, utah-five-parks, vermont-fall-2026

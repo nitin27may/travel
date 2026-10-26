@@ -277,7 +277,7 @@ def dumps_part(cc: str, admin1s: dict[str, str | None], rows: list[list]) -> byt
 
 
 def make_parts(groups: dict[tuple[str, str], dict]) -> dict[str, bytes]:
-    """One part per country; a country over the gzip budget is split per admin1. A single admin1 over the budget fails the build."""
+    """One part per country; a country over the gzip budget is split per admin1, and an admin1 over it into runs of ids (split_admin1)."""
     by_cc: dict[str, dict[str, dict]] = {}
     for (cc, iso), g in groups.items():
         by_cc.setdefault(cc, {})[iso] = g
@@ -290,10 +290,30 @@ def make_parts(groups: dict[tuple[str, str], dict]) -> dict[str, bytes]:
             continue
         for iso, g in sorted(regions.items()):
             b = dumps_part(cc, {iso: g["name"]}, g["rows"])
-            if gz(b) > GZIP_BUDGET:
-                raise SystemExit(f"{cc}-{iso} is {gz(b)} bytes gzip, over the {GZIP_BUDGET} budget; the filter or the split must change")
-            parts[f"{cc}-{iso}.json"] = b
+            if gz(b) <= GZIP_BUDGET:
+                parts[f"{cc}-{iso}.json"] = b
+            else:
+                parts.update(split_admin1(cc, iso, g))
     return parts
+
+
+def split_admin1(cc: str, iso: str, g: dict) -> dict[str, bytes]:
+    """An admin1 over the budget: the fewest runs of equal length of its rows, in id order, that each fit, as `<cc>-<iso>-<n>.json`.
+    The same mechanical rule for every region (no town is moved or dropped; a run is a range of ids, so a name prefix maps to one
+    part). Fails only when a single row does not fit."""
+    rows = g["rows"]
+    head = {iso: g["name"]}
+    for r in rows:
+        if gz(dumps_part(cc, head, [r])) > GZIP_BUDGET:
+            raise SystemExit(f"{cc}-{iso}: the row {r[0]} alone is over the {GZIP_BUDGET} budget; the filter must change")
+    n = max(2, -(-gz(dumps_part(cc, head, rows)) // GZIP_BUDGET))
+    while True:
+        size = -(-len(rows) // n)
+        runs = [rows[i:i + size] for i in range(0, len(rows), size)]
+        out = {f"{cc}-{iso}-{k}.json": dumps_part(cc, head, run) for k, run in enumerate(runs, 1)}
+        if all(gz(b) <= GZIP_BUDGET for b in out.values()):
+            return out
+        n += 1
 
 
 def derive(cities: list[list[str]], names: dict[str, str], anchors: list[list[float]]) -> tuple[dict[str, bytes], list[list[str]]]:

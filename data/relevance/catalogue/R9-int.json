@@ -1,0 +1,1044 @@
+{
+  "schema": "relevance/1",
+  "trip": "catalogue",
+  "lane": "R9-int",
+  "researched": "2026-10-25",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.wikidata.org/wiki/Q90",
+      "title": "Paris (Wikidata Q90)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.wikidata.org/wiki/Q1858",
+      "title": "Hanoi (Wikidata Q1858)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.wikidata.org/wiki/Q1000140",
+      "title": "Sa Pa (Wikidata Q1000140)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.wikidata.org/wiki/Q190128",
+      "title": "Ha Long Bay (Wikidata Q190128)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.wikidata.org/wiki/Q2264090",
+      "title": "Gurudongmar Lake (Wikidata Q2264090)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.wikidata.org/wiki/Q101081",
+      "title": "Provence (Wikidata Q101081)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.openstreetmap.org/relation/19465352",
+      "title": "Ha Long Bay - Cat Ba Archipelago (OSM relation 19465352)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://www.openstreetmap.org/way/958588265",
+      "title": "Paris, Banks of the Seine (UNESCO) (OSM way 958588265)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://www.openstreetmap.org/relation/21425205",
+      "title": "Imperial Citadel of Thang Long (UNESCO) (OSM relation 21425205)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "community",
+      "read": "2026-10-25",
+      "method": "api",
+      "run": "api-2026-10-25-data-d2b-int"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://vietnam.travel/places-to-go/northern-vietnam/ha-long",
+      "title": "Ha Long",
+      "publisher": "Viet Nam National Authority of Tourism",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://halongtourism.com.vn/",
+      "title": "Ha Long tourism information site (contact page read; no ticket prices)",
+      "publisher": "Ha Long tourism information centre",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://vietnamtourism.vn/en/index.php/news/items/13451",
+      "title": "Sa Pa resort town recognised as national tourism site (headline seen in a search listing; page not opened)",
+      "publisher": "Viet Nam National Authority of Tourism",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://www.outlooktraveller.com/destinations/india/all-you-need-to-know-about-sikkims-gurudongmar-lake",
+      "title": "All You Need To Know About Sikkim's Gurudongmar Lake (updated 12 Jul 2023)",
+      "publisher": "Outlook Traveller",
+      "kind": "press",
+      "read": "2026-10-25",
+      "method": "read"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://www.sikkim.gov.in/media/news-announcement/news-info?name=Tourism+Resumes+in+North+Sikkim+with+Key+Destinations+Welcoming+Visitors+from+September",
+      "title": "Tourism Resumes in North Sikkim with Key Destinations Welcoming Visitors from September (7 Sep 2025)",
+      "publisher": "Government of Sikkim (IPR)",
+      "kind": "official",
+      "read": "2026-10-25",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/paris",
+      "kind": "town",
+      "subkind": "city",
+      "wikidata": {
+        "v": "Q90",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "Checked: name and coordinates match."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "UNESCO World Heritage Site 'Paris, Banks of the Seine' (unesco_whs, parent scope) and a capital with several world-famous sights."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "standing_scope": "France",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "why": "France's capital: the Louvre, Eiffel Tower, Notre-Dame and the Seine, in a walkable centre.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No entry fee for the city; individual sights charge."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Paris, Banks of the Seine",
+              "id": "600",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0016"
+          ],
+          "note": "OSM way 958588265 carries ref:whc=600, inscribed 1991."
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "place/hanoi",
+      "kind": "town",
+      "subkind": "city",
+      "wikidata": {
+        "v": "Q1858",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0002"
+        ],
+        "note": "Checked: name and coordinates match."
+      },
+      "class_key": "sight/heritage-site",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Holds the UNESCO-listed Imperial Citadel of Thang Long (unesco_whs, parent scope); Vietnam's capital and northern gateway."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "standing_scope": "Vietnam",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "why": "Vietnam's capital: the 36-street Old Quarter, Hoan Kiem Lake and the Temple of Literature.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No entry fee for the city; individual sights charge."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Imperial Citadel of Thang Long",
+              "id": "1328",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0017"
+          ],
+          "note": "OSM relation 21425205 carries ref:whc=1328, inscribed 2010."
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "place/sapa",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q1000140",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "note": "Checked: name and coordinates match."
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "National tourism authority headline: recognised as a national tourism site (official_highlight, parent scope)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "standing_scope": "Northern Vietnam highlands",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "why": "A hill town at about 1,500 m, the base for rice-terrace valleys, villages and Fansipan.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No entry fee for the town; sights and cable cars charge."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "official_highlight",
+              "name": "National tourism site (Sa Pa)",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0026"
+          ],
+          "note": "Headline from the national tourism authority; page seen in a search listing only."
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "place/ha-long-bay",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": "Q190128",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004"
+        ],
+        "note": "Checked: name and coordinates match."
+      },
+      "class_key": "sight/heritage-site",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "UNESCO World Heritage Site Ha Long Bay - Cat Ba Archipelago (unesco_whs, parent scope)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "standing_scope": "Vietnam",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "why": "Limestone islands rising from a calm bay; seen by day cruise or overnight boat from Ha Long.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "boat_or_ferry",
+            "note": "Reached by cruise or sightseeing boat from the Tuan Chau or Bai Chay ports; a sightseeing ticket is sold at the port."
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0024",
+          "src-0025"
+        ],
+        "note": "Tourism authority: cruise transfers depart from Tuan Chau and Bai Chay ports."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Ha Long Bay - Cat Ba Archipelago",
+              "id": "672",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0010",
+            "src-0004"
+          ],
+          "note": "OSM ref:whc=672, inscribed 1994; Wikidata P1435 = Q9259 (World Heritage Site)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "place/gurudongmar-lake",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": "Q2264090",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0005"
+        ],
+        "note": "Checked: name and coordinates match."
+      },
+      "class_key": "lake/glacial-turquoise",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation or top list found (searched); kept local until one is read, though it is a famous high lake."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "standing_scope": "Sikkim",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "why": "A sacred high-altitude lake near the Tibet border in North Sikkim, reached by road via Lachen.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "day_permit",
+            "note": "Indian visitors need a permit from the police checkpoint; entry is not allowed after 11 am."
+          },
+          {
+            "type": "seasonal_road",
+            "note": "Lachen route closed after the Oct 2023 flood; reopening was promised for the next tourist season."
+          }
+        ],
+        "state": "value",
+        "basis": "community",
+        "src": [
+          "src-0028",
+          "src-0029"
+        ],
+        "quote": "the security officials in charge of the region do not allow entry after 11 am.",
+        "note": "Outlook Traveller (2023) for the permit and cut-off; Government of Sikkim (7 Sep 2025) for the closure."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Wikidata P1435 for Q2264090 (empty, 2026-10-25)",
+            "OSM ref:whc near the lake (none, 2026-10-25)"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "place/provence",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q101081",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "note": "Checked: name and coordinates match."
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation or top list found (searched); kept local until one is read."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "standing_scope": "France",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "why": "A region of southeast France known for lavender fields, hill villages and markets.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No entry fee for the region; sights charge."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "Wikidata P1435 for Q101081 (empty, 2026-10-25)"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "place/qq-canyon-racer-mountain-coaster-gulong-gorge",
+      "kind": "activity",
+      "subkind": "coaster",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search 'Gulong Gorge', 'Gulongxia', 'QQ Speed Canyon Racer' (2026-10-25): only Q64841090, the observation deck, a different object"
+        ]
+      },
+      "class_key": "play/theme-park",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation or top list found (searched); a paid attraction in a regional scenic area."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "standing_scope": "Qingyuan, Guangdong",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "why": "Licensed QQ Speed gravity coaster: 3.68 km, 28 bends, up to 30 km/h, through Gulong Gorge.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No scenic-area entry charge; the ride is ticketed per attraction."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "OSM tags around the track (2026-10-25)",
+            "Wikidata search (2026-10-25)"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "part/place/ha-long-bay#ha-long-international-port",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search (2026-10-25): a mapped stop has no entry"
+        ]
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation or top list applies; a supporting stop, not a draw."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "standing_scope": "the place it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "why": "Boarding port for Ha Long Bay cruises and sightseeing boats (Bai Chay).",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The sightseeing ticket for the bay is sold at the port; no separate charge found."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "not applicable to a supporting stop"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "part/place/gurudongmar-lake#road-end",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search (2026-10-25): a mapped stop has no entry"
+        ]
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation or top list applies; a supporting stop, not a draw."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "standing_scope": "the place it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "why": "The nearest mapped stop to Gurudongmar Lake; the road end is not mapped.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No parking fee found; the permit is covered on the lake record."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "not applicable to a supporting stop"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "offer/place/qq-canyon-racer-mountain-coaster-gulong-gorge#ticket",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search (2026-10-25): a mapped stop has no entry"
+        ]
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation or top list applies; a supporting stop, not a draw."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "standing_scope": "the place it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "why": "Single ride on the QQ Canyon Racer coaster; priced per ride.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No permit or booking rule found on the operator page; tickets are sold online and at the gate."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "not applicable to a supporting stop"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "part/place/qq-canyon-racer-mountain-coaster-gulong-gorge#car-park",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-25",
+        "tried": [
+          "Wikidata search (2026-10-25): a mapped stop has no entry"
+        ]
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation or top list applies; a supporting stop, not a draw."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "standing_scope": "the place it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement."
+      },
+      "why": "The scenic-area car park nearest the coaster track.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No parking fee found on any page read."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-25",
+          "tried": [
+            "not applicable to a supporting stop"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    }
+  ]
+}

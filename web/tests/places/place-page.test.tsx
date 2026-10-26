@@ -104,7 +104,12 @@ describe('every kind has its own facts and an honest empty line, never a blank',
     });
   }
   it('a sight with no hours says so', () => {
-    expect(html('million-dollar-highway')).toContain('Not checked yet: hours');
+    // Any place whose hours are still open will do. million-dollar-highway was the fixture until its record was completed (DATA-D2b-us);
+    // since D2b every sight page is drawn from the contract sections, whose gap line lists the missing properties ("Not checked yet:
+    // operating season, opening hours"), and the legacy glance line ("Not checked yet: hours") is the same honest gap on a legacy page.
+    const gap = /Not checked yet: hours|Not checked yet: [^<]*\bopening hours\b/;
+    const slug = data.internals.places.find((p) => gap.test(html(p.slug)))?.slug;
+    expect(slug, 'no place page says its hours are not checked yet').toBeDefined();
   });
   it('an area lists the places inside it as rows', () => {
     expect(html('capri')).toContain('Places in Capri');

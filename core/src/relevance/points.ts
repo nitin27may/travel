@@ -15,6 +15,9 @@ import type { ScopeItem } from "../suitability/refs.ts";
 import { loadRelevanceDocs } from "./inputs.ts";
 import type { PointsFile } from "./inputs.ts";
 import type { Town } from "./derive.ts";
+import { capturedPointSource, type CapturedPointRow } from "../schema/capture/points.ts";
+
+export { capturedPointSource };
 
 export interface LocRow { id: string; name: string; lat: number | null; lon: number | null; resolver?: string; location_status?: string }
 export interface SnapPlace { id: string; name: string; kind: string; lat: number; lng: number }
@@ -39,7 +42,8 @@ export interface Sources {
   /** data/capture/points.json: points read for capture records (OSM, Wikidata) and corrections; they beat every other source */
   captured?: Record<string, CapturedPoint>;
 }
-export interface CapturedPoint { lat: number; lon: number; coord_src: string; point_source?: string }
+/** A row of data/capture/points.json: capture-points/1 carries the free-text `point_source`, /2 the structured `point_src`. */
+export type CapturedPoint = CapturedPointRow;
 export interface BaseConfig { trip: string; name: string; qid?: string; lat?: number; lon?: number; coord_src: "wikidata" | "nominatim"; country: string; admin: string; check: string; approximate?: boolean; approximate_note?: string }
 
 export interface BuildReport {
@@ -144,7 +148,8 @@ export function buildPoints(src: Sources, windows: Record<string, { from: string
       report.by_src[points[ref]!.coord_src] = (report.by_src[points[ref]!.coord_src] ?? 1) - 1;
       report.by_src[c.coord_src] = (report.by_src[c.coord_src] ?? 0) + 1;
     }
-    points[ref] = { lat: r5(c.lat), lon: r5(c.lon), coord_src: c.coord_src, ...(c.point_source ? { point_source: c.point_source } : {}) } as PointsFile["points"][string];
+    const text = capturedPointSource(c);
+    points[ref] = { lat: r5(c.lat), lon: r5(c.lon), coord_src: c.coord_src, ...(text ? { point_source: text } : {}) } as PointsFile["points"][string];
     report.missing = report.missing.filter((x) => x !== ref);
   }
 

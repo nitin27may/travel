@@ -1,3 +1,10 @@
 {"schema":"towns-part/1","cc":"us","admin1":{"wy":"Wyoming"},"rows":[
-["us-wy-evanston","Evanston",41.26828,-110.96324,12133,"wy","Evanston",5824805]
+["us-wy-evanston","Evanston",41.26828,-110.96324,12133,"wy","Evanston",5824805],
+["us-wy-hoback","Hoback",43.28187,-110.78381,1176,"wy","Hoback",5827703],
+["us-wy-jackson","Jackson",43.47993,-110.76243,10523,"wy","Jackson",5828648],
+["us-wy-moose-wilson-road","Moose Wilson Road",43.52521,-110.84466,1821,"wy","Moose Wilson Road",5832759],
+["us-wy-rafter-j-ranch","Rafter J Ranch",43.433,-110.791,1075,"wy","Rafter J Ranch",5835865],
+["us-wy-south-park","South Park",43.42215,-110.79326,1731,"wy","South Park",5839264],
+["us-wy-star-valley-ranch","Star Valley Ranch",42.97139,-110.95556,1548,"wy","Star Valley Ranch",8479282],
+["us-wy-wilson","Wilson",43.50076,-110.87521,1482,"wy","Wilson",5843239]
 ]}

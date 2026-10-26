@@ -11,7 +11,7 @@ import { PROPERTY_BY_KEY } from "../../src/schema/capture/properties.ts";
 import { PLACE_ERROR_LIST, PLACE_WARNING_LIST } from "../../src/validate/codes.ts";
 import { validateDoc } from "../../src/validate/index.ts";
 import { checkBudget, inStore, levelOf, writeBudget } from "../../src/capture/gapBudget.ts";
-import { defaultPointRole, kmOutside, PLACEMENT_CODES } from "../../src/capture/placementBlock.ts";
+import { defaultPointRole, kmOutside, loadPoints, PLACEMENT_CODES } from "../../src/capture/placementBlock.ts";
 import { kindOf, recordTier } from "../../src/capture/tiers.ts";
 import { loadWorld } from "../../src/capture/records.ts";
 import { REPO, capDoc, put, scope, scratchRoot } from "./helpers.ts";
@@ -333,5 +333,24 @@ describe("the reports", () => {
     expect(trails.matrix.map((m: { row: string }) => m.row)).toEqual(["route", "route:trails"]);
     expect(trails.kinds.map((k: { kind: string }) => k.kind)).toEqual(["trail"]);
     expect(cli("gaps", "--tier", "most").status).toBe(2);
+  });
+});
+
+describe("loadPoints reads both versions of the capture points file", () => {
+  it("a capture-points/2 row reaches readers with its provenance text (legacy, else quote), and still beats the relevance row", () => {
+    const root = scratchRoot({
+      "data/capture/points.json": {
+        schema: "capture-points/2",
+        points: {
+          "place/a": { lat: 1, lon: 2, coord_src: "osm", point_src: { provider: "OpenStreetMap", element: "node/9", read: "2026-10-25", quote: "OSM node 9 Lot" } },
+          "place/b": { lat: 3, lon: 4, coord_src: "wikidata", point_src: { provider: "Wikidata", element: "Q5", read: "2026-10-18", quote: "Wikidata Q5 P625", legacy: "Wikidata Q5 P625; agent checked, needs a person's check" } },
+        },
+      },
+      "data/relevance/inputs/points.json": { schema: "relevance-points/1", points: { "place/a": { lat: 9, lon: 9, coord_src: "osm", point_source: "OSM node 1 other" } }, towns: [] },
+    });
+    const { points, issues } = loadPoints(root);
+    expect(issues).toEqual([]);
+    expect(points.get("place/a")).toMatchObject({ lat: 1, lon: 2, point_source: "OSM node 9 Lot", from: "capture" });
+    expect(points.get("place/b")!.point_source).toBe("Wikidata Q5 P625; agent checked, needs a person's check");
   });
 });
