@@ -58,6 +58,12 @@ export function useTripTabs(slug: string, url: TripUrl, available: readonly Trip
     void import('@/lib/storage/keys').then((m) => m.writeTripEntry(slug, { tab, daysView }));
   }, [slug, tab, daysView]);
 
+  // the pre-paint script's `data-trip-tab` (prepaint.ts) stands in for the tab until React shows the same one, then it must go: a later tab press is the CSS's to follow no more
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+    if (root.dataset.tripTab && root.dataset.tripTab === tab) delete root.dataset.tripTab;
+  }, [tab]);
+
   // a switch keeps the tab bar at its sticky line instead of jumping the page (3.4 "Motion"): the bar's place before the switch is held in a ref
   const barTop = useRef<number | null>(null);
   const focusPending = useRef(false);

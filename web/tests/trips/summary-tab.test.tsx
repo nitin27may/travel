@@ -46,7 +46,33 @@ describe('Summary: the Canadian Rockies', () => {
     expect(summary.highlights.length).toBeGreaterThan(8);
     expect(html).toContain('Show 4 more');
     expect(html).toMatch(/href="\?view=day#day-\d+" data-tab-link=""/);
-    expect(html).toContain('No licensed photo yet');
+  });
+  it('S1/S2: every card at rest has a photo, and the curator order puts Moraine Lake first (so it is in the four a phone shows)', () => {
+    expect(html).not.toContain('No licensed photo yet');
+    const cards = highlightCards(parts('canadian-rockies-2029').trip, summary, data.getPlace);
+    const first4 = highlightsAtRest(cards, 8).slice(0, 4).map((c) => c.name);
+    expect(first4[0]).toBe('Moraine Lake');
+    expect(first4).toEqual(expect.arrayContaining(['Moraine Lake', 'Lake Louise', 'Johnston Canyon']));
+    expect(highlightsAtRest(cards, 8).every((c) => c.photoUrl)).toBe(true);
+  });
+  it('S5: no "See all" link to an unfiltered Stops list until OVR-2', () => {
+    expect(html).not.toMatch(/See all \d+/);
+    expect(html).not.toContain('href="?view=all" data-tab-link');
+  });
+  it('S7: a highlight day link reads "Day N" with its place in the accessible name', () => {
+    expect(html).toMatch(/<a href="\?view=day#day-\d+" data-tab-link="" aria-label="Day \d+, [^"]+">Day \d+<\/a>/);
+    expect(html).not.toMatch(/data-tab-link="">\d+<\/a>/);
+  });
+  it('S4: the bases card counts stays so it agrees with the cover', () => {
+    expect(text(html)).toMatch(/\d+ bases? \d+ stays, \d+ nights/);
+  });
+  it('M1: both safety lines show at rest, the Larch Valley rule and the Moraine Lake road ban', () => {
+    const { bookings } = parts('canadian-rockies-2029');
+    const k = knowBeforeYouGo(bookings);
+    const atRest = k.atRest.map((l) => l.name).join(' | ');
+    expect(atRest).toMatch(/Larch Valley/i);
+    expect(atRest).toMatch(/Moraine Lake Road/i);
+    expect(k.more.map((l) => l.name).join(' | ')).not.toMatch(/Moraine Lake Road|Larch Valley/i);
   });
   it('keeps the know-before-you-go list and who it suits', () => {
     expect(html).toContain('Who it suits');
@@ -93,12 +119,16 @@ describe('count cards and the lines', () => {
     expect(k.atRest.map((l) => l.name)).toEqual(['A', 'B', 'C', 'E']);
     expect(k.more.map((l) => l.name)).toEqual(['D']);
     expect(SAFETY_NOTE.test('Larch Valley: group-of-four rule')).toBe(true);
+    // M1: the danger can be in the NAME while the note is calm
+    const road = knowBeforeYouGo([b('A', 'x'), b('B', 'x'), b('C', 'x'), b('Moraine Lake Road private vehicle ban and commercial/Roam options', 'Have the shuttle reservation as primary')]);
+    expect(road.atRest.map((l) => l.name)).toContain('Moraine Lake Road private vehicle ban and commercial/Roam options');
+    for (const w of ['Road banned to cars', 'Not allowed without a permit', 'Prohibited in the closure area']) expect(SAFETY_NOTE.test(w)).toBe(true);
   });
-  it('highlights at rest: photos first, then day order, shown in day order, never more than the limit', () => {
+  it('highlights at rest: photos first, each group in the model order (never re-sorted into day order), never more than the limit', () => {
     const h = (name: string, photo: boolean) => ({ name, photoUrl: photo ? 'x' : null });
     const all = [h('a', false), h('b', true), h('c', false), h('d', true), h('e', true)];
     expect(highlightsAtRest(all, 3).map((x) => x.name)).toEqual(['b', 'd', 'e']);
-    expect(highlightsAtRest(all, 4).map((x) => x.name)).toEqual(['a', 'b', 'd', 'e']);
+    expect(highlightsAtRest(all, 4).map((x) => x.name)).toEqual(['b', 'd', 'e', 'a']);
     expect(highlightsAtRest(all, 9)).toHaveLength(5);
   });
   it('the Photos tab needs six photos', () => {

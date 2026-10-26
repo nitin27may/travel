@@ -109,6 +109,29 @@ test.describe('the address', () => {
     });
   }
 
+  // UXB-1F M3: with every script chunk blocked nothing hydrates, so what is on screen is what the inline script and the stylesheet painted
+  for (const [name, path, panelName] of [
+    ['?view=day', `${ROCKIES}?view=day`, 'days'],
+    ['#day-11', `${ROCKIES}#day-11`, 'days'],
+    ['?view=bookings', `${ROCKIES}?view=bookings`, 'bookings'],
+  ] as const) {
+    test(`a deep link paints its panel before any script runs, never the Summary: ${name}`, async ({ page, site }) => {
+      await page.route(/\/_next\/static\/.*\.js/, (r) => r.abort());
+      await page.goto(`${site.url}${path}`, { waitUntil: 'domcontentloaded' });
+      await expect(panel(page, panelName)).toBeVisible();
+      await expect(panel(page, 'summary')).toBeHidden();
+      await expect(page.locator(`#trip-tab-${panelName}`)).toHaveCSS('font-weight', '600');
+    });
+  }
+  test('with no deep link the Summary paints, and a tab press after hydration is not overruled by the pre-paint rule', async ({ page, site }) => {
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
+    await expect(selected(page)).toHaveText(/^Days/);
+    await expect(page.locator('html')).not.toHaveAttribute('data-trip-tab', /./);
+    await tab(page, 'Summary').click();
+    await expect(panel(page, 'summary')).toBeVisible();
+    await expect(panel(page, 'days')).toBeHidden();
+  });
+
   test('#trails scrolls to the Trails section and #day-4 to Day 4, under the sticky rows', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}#trails`);
     const trails = page.locator('#trails');
@@ -205,7 +228,11 @@ test.describe('the Summary', () => {
     await expect(cards.filter({ hasText: /photos/ })).toBeVisible();
     await expect(p.locator('.sum-hl:visible')).toHaveCount(8);
     await expect(p.locator('.sum-hl', { hasText: 'Moraine Lake' }).first()).toBeVisible();
-    await expect(p.getByText('No licensed photo yet').first()).toBeVisible();
+    await expect(p.getByText('No licensed photo yet')).toHaveCount(0);
+    // S7: the day links read "Day N"; M1: both safety lines are at rest, not behind "more"
+    await expect(p.locator('.sum-hl-days a').first()).toHaveText(/^Day \d+$/);
+    await expect(p.locator('.sum-know > li', { hasText: 'Moraine Lake Road' })).toBeVisible();
+    await expect(p.locator('.sum-know > li', { hasText: 'Larch Valley' })).toBeVisible();
     await expect(p.getByRole('heading', { name: 'Who it suits' })).toBeVisible();
     await expect(p.getByRole('heading', { name: 'Know before you go' })).toBeVisible();
   });

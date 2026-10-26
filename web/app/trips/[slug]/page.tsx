@@ -8,6 +8,7 @@ import { TripCover } from '@/components/trips/TripCover';
 import { TripEnd } from '@/components/trips/TripEnd';
 import { TripPlan } from '@/components/trips/TripPlan';
 import { BookingsPanel } from '@/components/trips/tabs/BookingsPanel';
+import { prepaintScript } from '@/components/trips/tabs/prepaint';
 import { OverviewTabs } from '@/components/trips/tabs/OverviewTabs';
 import { PhotosPanel } from '@/components/trips/tabs/PhotosPanel';
 import { highlightCards } from '@/components/trips/summary/highlights';
@@ -103,7 +104,10 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
           </>
         )
       ) : (
-        <TripPlan slug={slug} model={model} title={trip.title} depth={trip.depth} season={season} tabs={{ available, counts }} slots={{ summaryTop: top, summaryBottom: bottom, bookings: <BookingsPanel bookings={bookings} />, photos: photosPanel }} />
+        <>
+          {model.timeline && showTabBar(available) ? <script dangerouslySetInnerHTML={{ __html: prepaintScript(available) }} /> : null}
+          <TripPlan slug={slug} model={model} title={trip.title} depth={trip.depth} season={season} tabs={{ available, counts }} slots={{ summaryTop: top, summaryBottom: bottom, bookings: <BookingsPanel bookings={bookings} />, photos: photosPanel }} />
+        </>
       )}
       <TripEnd trip={trip} model={model} url={url} galleryInTab={available.includes('photos')} />
       <ExportData data={tripExportFor(slug)} />

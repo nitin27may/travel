@@ -35,7 +35,7 @@ export function countCards(s: TripSummary, link: LinkTabs, groups = 0): CountCar
   if (!s.flags.days) {
     if (s.nights !== null && s.nights > 0) out.push({ key: 'nights', value: plural(s.nights, 'night', 'nights'), sub: null, href: null });
   } else if (s.flags.counts) {
-    if (c.bases > 0) out.push({ key: 'bases', value: plural(c.bases, 'base', 'bases'), sub: s.nights ? plural(s.nights, 'night', 'nights') : null, href: '#trip-shape' });
+    if (c.bases > 0) out.push({ key: 'bases', value: plural(c.bases, 'base', 'bases'), sub: [c.stays > 0 ? plural(c.stays, 'stay', 'stays') : '', s.nights ? plural(s.nights, 'night', 'nights') : ''].filter(Boolean).join(', ') || null, href: '#trip-shape' });
     if (c.trails.count > 0) {
       const known = c.trails.kmKnown < c.trails.count ? `, known for ${c.trails.kmKnown} of ${c.trails.count}` : '';
       out.push({ key: 'trails', value: plural(c.trails.count, 'trail', 'trails'), sub: c.trails.kmKnown > 0 ? `${km(c.trails.km)} km, all versions${known}` : null, href: link.stops ? '?view=all#trails' : null });
@@ -59,11 +59,12 @@ export function dayWords(days: readonly number[]): { lead: string; days: { n: nu
 }
 
 /**
- * A note stays at rest when it states a closure, a mandatory rule or a hazard (principles P2: safety is never behind a disclosure). The
- * data has no safety flag on a booking note yet, so this reads the words; a false negative only means a hazard line sits in the first
- * three or behind "more", and the place page still carries it at rest.
+ * A booking line stays at rest when its name or its note states a closure, a mandatory rule or a hazard (principles P2: safety is never behind a disclosure). The
+ * data has no safety flag on a booking yet (UXB-C will add one from the capture record), so this reads the words of the NAME and the note: the
+ * Moraine Lake road ban is in the name ("Moraine Lake Road private vehicle ban") and its note says nothing alarming. The unit test pins the
+ * Rockies' two safety lines at rest.
  */
-export const SAFETY_NOTE = /\b(?:closed|closure|mandatory|no private (?:cars|vehicles)|bear|avalanche|danger|hazard|unsafe|group[- ]of[- ]\w+)\b/i;
+export const SAFETY_NOTE = /\b(?:closed|closure|closed to|mandatory|ban|banned|prohibited|not allowed|no private (?:cars|vehicles)|private vehicles? (?:ban|banned)|bear|avalanche|danger|hazard|unsafe|group[- ]of[- ]\w+)\b/i;
 export const KNOW_AT_REST = 3;
 
 export interface KnowLine {
@@ -79,16 +80,14 @@ export function knowBeforeYouGo(bookings: readonly ExportBooking[]): { atRest: K
   });
   const atRest: KnowLine[] = [];
   const more: KnowLine[] = [];
-  for (const l of lines) (atRest.length < KNOW_AT_REST || SAFETY_NOTE.test(l.text) ? atRest : more).push(l);
+  for (const l of lines) (atRest.length < KNOW_AT_REST || SAFETY_NOTE.test(`${l.name} ${l.text}`) ? atRest : more).push(l);
   return { atRest, more };
 }
 
 /**
- * The highlights drawn at rest: at most `max`, those with a photo first (a card with a photo says more than a glyph and "No licensed photo
- * yet"), then the rest in day order, shown in day order. The model orders by first day and holds up to 13; taking the first eight would
- * leave out Moraine Lake (Day 11), the place the owner named.
+ * The highlights drawn at rest: at most `max`, in the model's order (the gallery's own section order, so Moraine Lake comes first), those with
+ * a photo before those without (a card with a photo says more than a glyph and "No licensed photo yet"). Never re-sorted into day order.
  */
 export function highlightsAtRest<T extends { photoUrl: string | null }>(all: readonly T[], max: number): T[] {
-  const ranked = all.map((h, i) => ({ h, i, has: h.photoUrl ? 0 : 1 })).sort((a, b) => a.has - b.has || a.i - b.i);
-  return ranked.slice(0, max).sort((a, b) => a.i - b.i).map((x) => x.h);
+  return all.map((h, i) => ({ h, i, has: h.photoUrl ? 0 : 1 })).sort((a, b) => a.has - b.has || a.i - b.i).slice(0, max).map((x) => x.h);
 }

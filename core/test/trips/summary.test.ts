@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { MAX_HIGHLIGHTS, parkKind, parkShort, summaryLead, tripSummary, versionsText, type SummaryInput } from "../../src/trips/summary.ts";
+import { MAX_HIGHLIGHTS, nameCores, parkKind, parkShort, summaryLead, tripSummary, versionsText, type SummaryInput } from "../../src/trips/summary.ts";
 
 const des = (type: string, name: string) => ({ type, name });
 const WHS = des("unesco_whs", "Canadian Rocky Mountain Parks");
@@ -95,5 +95,60 @@ describe("trip summary (spec 3.5, W2)", () => {
     expect(parkKind("official_highlight", "top 10")).toBeNull();
     expect(parkShort("Natural Park of the Ampezzo Dolomites")).toBe("Ampezzo Dolomites");
     expect(parkShort("Fanes-Sennes-Prags Nature Park")).toBe("Fanes-Sennes-Prags");
+  });
+});
+
+describe("highlight photos match on the place's core (UXB-1F S1, S2)", () => {
+  const items = [
+    { caption: "Moraine Lake, turquoise water", group: "Moraine Lake and the Valley of the Ten Peaks" },
+    { caption: "Victoria Glacier above Lake Louise", group: "Lake Louise and Lake Agnes" },
+    { caption: "Peyto Lake in summer", group: "Icefields Parkway: Bow Lake and Peyto Lake" },
+    { caption: "Peyto Lake from the viewpoint", group: "Icefields Parkway: Bow Lake and Peyto Lake" },
+    { caption: "Num-Ti-Jah Lodge at Bow Lake", group: "Icefields Parkway: Bow Lake and Peyto Lake" },
+    { caption: "The Athabasca Glacier from the valley floor", group: "Columbia Icefield and the Athabasca Glacier" },
+    { caption: "Spirit Island on Maligne Lake", group: "Jasper, Maligne Lake and Maligne Canyon" },
+    { caption: "The Tre Cime from Monte Specie", group: "Tre Cime di Lavaredo" },
+  ];
+  const gallery = {
+    photos: items.length,
+    sections: [
+      { name: "Moraine Lake and the Valley of the Ten Peaks", first: 0 },
+      { name: "Lake Louise and Lake Agnes", first: 1 },
+      { name: "Icefields Parkway: Bow Lake and Peyto Lake", first: 2 },
+      { name: "Columbia Icefield and the Athabasca Glacier", first: 5 },
+      { name: "Jasper, Maligne Lake and Maligne Canyon", first: 6 },
+      { name: "Tre Cime di Lavaredo", first: 7 },
+    ],
+    items,
+  };
+  const c = (slug: string, name: string, day: number, placePhoto = false) => ({ slug, name, days: [day], payoffSlug: null, placePhoto });
+  const hl = (cands: ReturnType<typeof c>[]) => tripSummary({ ...input, highlights: cands, gallery }).highlights;
+
+  it("nameCores drops the tail word, a parenthesis and splits at 'and'", () => {
+    expect(nameCores("Peyto Lake Lookout")).toEqual(["peyto lake"]);
+    expect(nameCores("Athabasca Glacier and Columbia Icefield")).toEqual(["athabasca glacier", "columbia icefield"]);
+    expect(nameCores("Tre Cime loop")).toEqual(["tre cime"]);
+    expect(nameCores("Maligne Lake and Spirit Island (boat)")).toEqual(["maligne lake", "spirit island"]);
+  });
+  it("finds a photo by caption where the section does not name the whole place", () => {
+    const r = hl([c("peyto", "Peyto Lake Lookout", 4), c("ath", "Athabasca Glacier and Columbia Icefield", 5), c("mal", "Maligne Lake and Spirit Island", 6), c("tc", "Tre Cime loop", 3)]);
+    expect(Object.fromEntries(r.map((h) => [h.slug, h.photo]))).toEqual({ peyto: 2, ath: 5, mal: 6, tc: 7 });
+  });
+  it("a place named only by its section takes a photo of that section, and two places do not share one photo", () => {
+    const r = hl([c("peyto", "Peyto Lake Lookout", 4), c("ice", "Icefields Parkway", 4)]);
+    const photos = r.map((h) => h.photo);
+    expect(photos).toContain(2);
+    expect(new Set(photos).size).toBe(2);
+    for (const p of photos) expect([2, 3, 4]).toContain(p);
+  });
+  it("ranks by the gallery's own order and draws in that order, not day order; a place with no photo comes last", () => {
+    const r = hl([c("ice", "Icefields Parkway", 4), c("none", "Nowhere Fall", 1), c("moraine", "Moraine Lake", 11, true), c("louise", "Lake Louise", 3)]);
+    expect(r.map((h) => h.slug)).toEqual(["moraine", "louise", "ice", "none"]);
+    expect(r[0]!.photo).toBe("place");
+    expect(r[3]!.photo).toBeNull();
+  });
+  it("without per-photo captions it still matches whole section names (older callers)", () => {
+    const r = tripSummary({ ...input, highlights: [c("l", "Lake Louise", 3)], gallery: { ...gallery, items: undefined } }).highlights;
+    expect(r[0]!.photo).toBe(1);
   });
 });

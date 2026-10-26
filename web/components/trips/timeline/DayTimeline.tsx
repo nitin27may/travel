@@ -50,10 +50,10 @@ interface Props {
   index: number;
 }
 
-/** "Sun 07:21 to 07:26, 20:16 to 20:21" from the day's light sentence: the phone header has room for the figures, not the sentence. */
-function sunShort(light: string | null): string | null {
+/** "Sunrise 07:05 to 07:27 · Sunset 19:43 to 20:16" from the day's light sentence (spec 3.2, I12): each range carries its word, never a bare glyph. */
+export function sunShort(light: string | null): string | null {
   const m = /Sunrise about (\d\d:\d\d) to (\d\d:\d\d), sunset about (\d\d:\d\d) to (\d\d:\d\d)/.exec(light ?? '');
-  return m ? `${m[1]}–${m[2]} · ${m[3]}–${m[4]}` : null;
+  return m ? `Sunrise ${m[1]} to ${m[2]} · Sunset ${m[3]} to ${m[4]}` : null;
 }
 
 /** The word beside a last start the data gives: a lift has a last ride, a boat a last rental. */
@@ -195,7 +195,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
                 <Icon name="car" size={13} /> {est ? '≈' : ''}{fmtHM(tl.totals.driveMin)} driving
               </span>
             ) : null}
-            <span>{tl.totals.walkKm > 0 ? `${formatDistance(tl.totals.walkKm, prefs.distance)} walking` : 'no walking'}</span>
+            <span>{tl.totals.walkKm > 0 ? `${formatDistance(tl.totals.walkKm, prefs.distance)} walking` : 'No walk planned'}</span>
             {fixed > 0 ? <span>{fixed} fixed {fixed === 1 ? 'slot' : 'slots'}</span> : null}
             {nWarn > 0 ? <span className="tl-warn-count"><Icon name="warn" size={13} /> {nWarn} {nWarn === 1 ? 'warning' : 'warnings'}</span> : null}
           </p>

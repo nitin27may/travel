@@ -54,7 +54,12 @@ export interface SummaryInput {
   bookings: readonly SummaryBooking[];
   highlights: readonly HighlightCandidate[];
   /** The trip gallery's sections in order, with the index of each section's first photo in the gallery. */
-  gallery: { photos: number; sections: readonly { name: string; first: number }[] };
+  gallery: {
+    photos: number;
+    sections: readonly { name: string; first: number }[];
+    /** Every photo's caption and section in gallery order (optional: without it only section names are matched). */
+    items?: readonly { caption: string; group: string | null }[];
+  };
   /** Default-profile days per version audience: "whole family on 14 days, adults' hike on 1" (`versionsText`). */
   versions: readonly { audience: Audience; days: number }[];
 }
@@ -142,11 +147,25 @@ export function parkShort(name: string): string {
 
 const round1 = (n: number): number => Math.round(n * 10) / 10;
 
+const norm = (s: string): string => s.toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+
+/** Words a place name adds to the thing a photo caption names ("Peyto Lake Lookout" is "Peyto Lake" in a caption). */
+const NAME_TAIL = /\s+(?:lookout|viewpoint|overlook|scenic drive|drive|loop|trail|walk|hike|circuit|route)$/i;
+
+/**
+ * The phrases of a place name a caption or a section would use: split at "and", "&", ":" and ",", drop a parenthesis and the trailing
+ * "Lookout", "loop" and the like. "Athabasca Glacier and Columbia Icefield" gives both parts; "Tre Cime loop" gives "Tre Cime".
+ */
+export function nameCores(name: string): string[] {
+  const parts = name.replace(/\([^)]*\)/g, " ").split(/\s+(?:and|&)\s+|[:,/]/i);
+  const out = parts.map((p) => norm(p.trim().replace(NAME_TAIL, ""))).filter((p) => p.length >= 4);
+  return [...new Set(out)];
+}
+
 /** Folds highlight candidates: one per page, a route into its payoff, two pages with one name into one card; days merged and sorted. */
 function foldHighlights(cands: readonly HighlightCandidate[], gallery: SummaryInput["gallery"]): SummaryHighlight[] {
   const bySlug = new Map(cands.map((c) => [c.slug, c]));
   const out = new Map<string, { slug: string; name: string; days: Set<number>; placePhoto: boolean }>();
-  const norm = (s: string): string => s.toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
   for (const c of cands) {
     const target = c.payoffSlug && c.payoffSlug !== c.slug && bySlug.has(c.payoffSlug) ? bySlug.get(c.payoffSlug)! : c;
     const key = norm(target.name);
@@ -155,16 +174,41 @@ function foldHighlights(cands: readonly HighlightCandidate[], gallery: SummaryIn
     row.placePhoto ||= target.placePhoto;
     out.set(key, row);
   }
-  const sections = gallery.sections.map((s) => ({ ...s, n: ` ${norm(s.name)} ` }));
-  return [...out.values()]
-    .map((h) => {
-      const days = [...h.days].sort((a, b) => a - b);
-      // the place's own photo; else the first gallery section that names the place as a whole phrase ("Lake Louise and Lake Agnes")
-      const sec = sections.find((s) => s.n.includes(` ${norm(h.name)} `));
-      const photo: PhotoRef = h.placePhoto ? "place" : sec ? sec.first : null;
-      return { slug: h.slug, name: h.name, days, photo };
+
+  // Photo candidates per place, best first: a photo whose caption names the place's core, then the photos of a section that names it
+  // (a section holds the whole place: "Lake Louise and Lake Agnes"). The whole-name section match of UXB-C stays the last resort.
+  const hasPhrase = (hay: string, needle: string): boolean => ` ${hay} `.includes(` ${needle} `);
+  const items = gallery.items?.map((it) => ({ cap: norm(it.caption), group: it.group ? norm(it.group) : null })) ?? [];
+  const sections = gallery.sections.map((s) => ({ ...s, n: norm(s.name) }));
+  const candidatesFor = (name: string): { list: number[]; byCaption: boolean } => {
+    const cores = nameCores(name);
+    const byCaption = items.flatMap((it, i) => (cores.some((c) => hasPhrase(it.cap, c)) ? [i] : []));
+    const bySection = items.flatMap((it, i) => (it.group && cores.some((c) => hasPhrase(it.group!, c)) ? [i] : []));
+    const whole = sections.filter((s) => hasPhrase(s.n, norm(name))).map((s) => s.first);
+    return { list: [...new Set([...byCaption, ...bySection, ...whole])], byCaption: byCaption.length > 0 };
+  };
+
+  const rows = [...out.values()].map((h) => ({ ...h, days: [...h.days].sort((a, b) => a - b), ...(c => ({ cand: c.list, byCaption: c.byCaption }))(candidatesFor(h.name)) }));
+  // Curator order: the gallery lists its sections in the order the trip wants them seen, so a place whose photo comes first comes first.
+  // Two places never claim one photo while another of theirs is free (Peyto Lake and the Icefields Parkway share a section); on a tie the place
+  // a caption names takes the photo before the place only its section names.
+  const byBest = [...rows].sort((a, b) => (a.cand[0] ?? Infinity) - (b.cand[0] ?? Infinity) || Number(!a.byCaption) - Number(!b.byCaption) || (a.days[0] ?? 99) - (b.days[0] ?? 99) || a.name.localeCompare(b.name));
+  const used = new Set<number>();
+  const assigned = new Map<string, number | null>();
+  for (const r of byBest) {
+    const pick = r.cand.find((i) => !used.has(i)) ?? r.cand[0] ?? null;
+    if (pick !== null && !r.placePhoto) used.add(pick);
+    assigned.set(r.slug, pick);
+  }
+  return rows
+    .map((r) => {
+      const g = assigned.get(r.slug) ?? null;
+      const photo: PhotoRef = r.placePhoto ? "place" : g;
+      // photo-less cards come last; a place's own photo without a gallery match comes before them
+      const rank = g ?? (r.placePhoto ? 1e5 : 1e6);
+      return { slug: r.slug, name: r.name, days: r.days, photo, rank };
     })
-    .sort((a, b) => (a.days[0] ?? 99) - (b.days[0] ?? 99) || a.name.localeCompare(b.name))
+    .sort((a, b) => a.rank - b.rank || (a.days[0] ?? 99) - (b.days[0] ?? 99) || a.name.localeCompare(b.name))
     .slice(0, MAX_HIGHLIGHTS)
     .map(({ slug, days, photo }) => ({ slug, days, photo }));
 }

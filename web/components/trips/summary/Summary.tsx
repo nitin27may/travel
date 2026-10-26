@@ -80,12 +80,6 @@ export function SummaryTop({ trip, summary, link, highlights, galleryGroups }: {
             <h2 id="sum-hl-h" className="trip-kicker-h">Highlights</h2>
             <p className="sum-sec-note">
               {summary.flags.days ? `${summary.counts.highlights} ${summary.counts.highlights === 1 ? 'place' : 'places'} worth the journey` : `${shown.length} places in the gallery`}
-              {link.stops && summary.flags.days ? (
-                <>
-                  {' '}
-                  <a href="?view=all" data-tab-link="">See all {summary.counts.highlights}</a>
-                </>
-              ) : null}
             </p>
           </div>
           {extra > 0 ? <input type="checkbox" id="sum-hl-more" className="sum-toggle sr-only" aria-label={`Show ${extra} more highlights`} /> : null}
@@ -124,10 +118,9 @@ function HighlightItem({ h, extra }: { h: HighlightCard; extra: boolean }) {
       <h3 className="sum-hl-name">{h.slug ? <a className="sum-hl-link" href={`/places/${h.slug}/`}>{h.name}</a> : h.name}</h3>
       {h.days.length ? (
         <p className="sum-hl-days num">
-          {w.lead}{' '}
           {w.days.map((d) => (
             <span key={d.n}>
-              <a href={`?view=day#day-${d.n}`} data-tab-link="">{d.n}</a>
+              <a href={`?view=day#day-${d.n}`} data-tab-link="" aria-label={`Day ${d.n}, ${h.name}`}>Day {d.n}</a>
               {d.sep}
             </span>
           ))}

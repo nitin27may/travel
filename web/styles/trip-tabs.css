@@ -104,7 +104,10 @@ a.sum-card:focus-visible { outline: var(--focus-ring); outline-offset: var(--foc
 .sum-hl:has(.sum-hl-link:focus-visible) .sum-hl-photo { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 .sum-hl-days { position: relative; z-index: 1; font: var(--t-meta); color: var(--muted); }
 .sum-hl-days a { position: relative; color: var(--accent-text); }
-@media (pointer: coarse) { .sum-hl-days a::before { content: ''; position: absolute; inset: -12px -6px; } }
+/* a 44 px tall, at least 24 px wide hit area around a short link (WCAG 2.5.8; S7) */
+.sum-hl-days a::before { content: ''; position: absolute; top: 50%; left: -6px; right: -6px; height: 44px; min-width: 24px; transform: translateY(-50%); }
+/* the toggles only exist on phones: from 640 px they are neither drawn nor focusable (S6) */
+@media (min-width: 640px) { .sum-toggle { display: none; } }
 @media (min-width: 640px) { .sum-hl-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-6) var(--s-4); } }
 @media (max-width: 639px) {
   .sum-lead-text { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
@@ -134,6 +137,21 @@ a.sum-card:focus-visible { outline: var(--focus-ring); outline-offset: var(--foc
 .bk-text { grid-column: 1; font: var(--t-small); color: var(--ink-2); }
 .bk-day { grid-column: 2; grid-row: 1; font: var(--t-meta); }
 .bk-day a { color: var(--accent-text); }
+
+/* ---------- pre-paint (prepaint.ts, UXB-1F M3): a deep link to Days or Bookings paints that panel at once ---------- */
+/* `data-trip-tab` is set by an inline script while the page is parsed and removed once React shows the same tab. The rules sit in the base layer
+   for the reason the print rules do: Tailwind's important `[hidden]` rule lives there. */
+@layer base {
+  html[data-trip-tab='days'] .trip-tabs .trip-panel[data-panel='summary'], html[data-trip-tab='bookings'] .trip-tabs .trip-panel[data-panel='summary'] { display: none !important; }
+  html[data-trip-tab='days'] .trip-tabs .tl-lists[hidden], html[data-trip-tab='days'] .trip-tabs .trip-panel[hidden][data-panel='days'],
+  html[data-trip-tab='bookings'] .trip-tabs .tl-lists[hidden], html[data-trip-tab='bookings'] .trip-tabs .trip-panel[hidden][data-panel='bookings'] { display: block !important; }
+}
+/* the tab bar says the same: the named tab current, the Summary not */
+html[data-trip-tab='days'] #trip-tab-days, html[data-trip-tab='bookings'] #trip-tab-bookings { color: var(--ink); font-weight: var(--t-tab-current-weight); }
+html[data-trip-tab='days'] #trip-tab-days::after, html[data-trip-tab='bookings'] #trip-tab-bookings::after { transform: scaleX(1); }
+html[data-trip-tab='days'] #trip-tab-summary, html[data-trip-tab='bookings'] #trip-tab-summary { color: var(--muted); font: var(--t-tab); }
+html[data-trip-tab='days'] #trip-tab-summary::after, html[data-trip-tab='bookings'] #trip-tab-summary::after { transform: scaleX(0); }
+@media (max-width: 639px), (max-height: 799px) { html[data-trip-tab='days'] .trip-tabs .trip-tabbar { position: static; } }
 
 /* ---------- print: the Summary, the days and the bookings, never the Photos or the Stops (patterns 3.10 item 8) ---------- */
 /* Tailwind's base layer sets `[hidden] { display: none !important }`, and an important rule in a layer beats an important rule outside one: these rules
