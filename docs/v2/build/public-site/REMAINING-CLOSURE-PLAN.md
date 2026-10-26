@@ -127,6 +127,8 @@ it was not performed from another checkout.
 
 ## 4. Explicit remaining deferrals
 
+> **Scheduled 26 Oct 2026:** the "before go-live" rows below (MUST-6, SHOULD-2 and D4, B4/D5, N1 to N4) are tasks TRP-GL-C, TRP-GL and TRP-GL-D of release v0.4 in [briefs-bundle-A.md](../briefs-bundle-A.md) 7.3, 7.4 and 7.10; BACKLOG 15.46's CSV time-parity question is settled in TRP-GL-C step 3.
+
 These are not silently counted as completed by a preview approval.
 
 | Deadline | Finding | Required completion |

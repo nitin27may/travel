@@ -5,6 +5,8 @@ history; `main` has since gained ed0056d, an e2e-only commit). **Planned only: n
 R-220; BACKLOG 15.220 to 15.229; owner questions Q260 to Q268 (section 7; all answered 25 Oct 2026, yes as recommended). Principles cited by number from
 [principles.md](../design/foundation/principles.md).
 
+**Bundle A (26 Oct 2026):** v0.2, v0.3 and v0.4 ship as one release with the briefs, order, parallel plan and verification plan in [briefs-bundle-A.md](briefs-bundle-A.md); where that page differs from this one (its section 2, D1 to D17), it wins for bundle A.
+
 **The owner's request (25 Oct 2026, after answering Q200 to Q239).** "Fold the detailed plan for everything remaining,
 then analyse the whole plan and group it in logical order so work items do not conflict or step on each other, before
 any new build starts."

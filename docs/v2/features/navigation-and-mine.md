@@ -2,6 +2,8 @@
 
 > **Amended 25 Oct 2026 (trip origin and nearest airport):** `copies/1` gains optional private `from` (an origin reference) and `gw` (`{in, out}`), reserved in NAV-C (+0.25 h); a copy row in Mine shows "from <city>". The origin is never in a public payload. See [trip-origin-and-nearest-airport.md](trip-origin-and-nearest-airport.md) sections 8 and 10 (PLAN R-204, R-205).
 
+> **Amended 26 Oct 2026 (bundle A):** [briefs-bundle-A.md](../build/briefs-bundle-A.md) is the build authority for NAV-1 and NAV-2. It supersedes here: the ACCT-PH mechanism in "What exists today", N12, section 6 and the first gotcha (no `useSignedIn` or `header-session.ts` was built; NAV-1's real removal list is in that brief, D8); NAV-1's "+0 B" start-JS rule and the CSS-mask requirement (now at most +160 B, masks only when chrome headroom is short, D5); the badge's envelope read (two raw keys, D6); the `/favourites/` redirect in `next.config` (a page, D7); acceptance 1 gains `/sign-up/`, 44 px phone header targets and the home search fix at 320 px (D8); the legacy move (NAV-2C, D9); the copy snapshot props (D10).
+
 Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements PLAN R-160 to R-164, BACKLOG 15.160 to
 15.169, owner questions Q200 to Q207. Nothing here is built. Phase 1 needs no backend.
 

@@ -5,6 +5,8 @@ Status: written 26 Oct 2026 by travel-builder (Opus) with NAV-C-FIX, from the re
 decisions the coordinator relayed the same day. Each brief named below carries its section as acceptance. The contract
 itself is `core/src/schema/copies.ts` and `core/src/schema/trip-custom.ts`; their file headers are the reference.
 
+> **Amended 26 Oct 2026 (bundle A, [briefs-bundle-A.md](../../briefs-bundle-A.md)):** section 3 items 1 and 2 are built as their own core task NAV-2C (Opus), with the move-once marker under its own key `travel.copies.legacyMovedAt`, not an envelope field (D9). Section 7: the bar's dot does **not** read the envelope through `readCopies` (that would put Zod in every page's start chunk); it compares two raw keys, `travel.mine.seen` and `travel.mine.latest` (D6).
+
 ## 1. What NAV-C-FIX changed (read before building on the contract)
 
 | Change | Why | What a caller does |

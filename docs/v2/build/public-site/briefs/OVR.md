@@ -1,5 +1,7 @@
 # OVR: best-time windows, the trip overview, thumbnails (phase 1, public); customisation (phase 2, CUS); admin photos (phase 3, PHO)
 
+> **Amended 26 Oct 2026 (bundle A):** OVR-0 is built from [briefs-bundle-A.md](../../briefs-bundle-A.md) 7.1: `CategoryView` becomes a `next/dynamic` import with SSR kept, so a direct `?view=category` link still renders on the server; the overview joins the same chunk later in OVR-2 (D12).
+
 Written 25 Oct 2026 by travel-planner (Opus). Spec: [features/trip-overview-and-customisation.md](../../../features/trip-overview-and-customisation.md)
 (read it whole first; this brief does not repeat its rules). Rows: BACKLOG 15.51 to 15.56; PLAN R-62 to R-67.
 

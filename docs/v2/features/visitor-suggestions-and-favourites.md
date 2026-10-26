@@ -1,5 +1,7 @@
 # Visitor suggestions and favourites
 
+> **Amended 26 Oct 2026 (bundle A):** [briefs-bundle-A.md](../build/briefs-bundle-A.md) is the build authority for FAV-1. FAV-1 is split into FAV-1W (the `resolveRefs` store method, route, OpenAPI and `DataClient`; Opus, D1) and FAV-1 (the UI; 10 h); FAV-1 starts after NAV-2 rather than after NAV-R1 (D2); the trip-page heart keeps the 0.15 KB cap and must leave 256 B of trip start JS, else it becomes an Export menu row (D11, Q291).
+
 > **Amended 25 Oct 2026 (navigation and Mine):** the favourites list is the Favourites tab of `/mine/`, not its own
 > page (`/favourites/` redirects there); the header link is the visible "Mine" link, not an account-menu entry; the
 > sign-in merge (4.4 step 1) runs on `/account/` and `/mine/` only, never from `AccountNav` on every page; FAV-1 builds
