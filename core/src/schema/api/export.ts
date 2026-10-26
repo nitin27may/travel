@@ -102,6 +102,20 @@ export const exportStop = z.strictObject({
   placeSlug: apiSlug.nullable(),
   links: z.array(z.string()),
   point: exportPoint.nullable(),
+  /** The stop's booking windows as "Book ahead" says them (core/src/export/bookings.ts), when a booking names its place that day. Dateless. */
+  bookRule: z.string().min(1).optional(),
+});
+
+/**
+ * One booking of the trip (MUST-6, TRP-GL-C): a category row with a booking window or note, worded as the trip page words it. Dateless:
+ * `rule` is relative to a day ("Opens 30 days before Day 3"), never a calendar date. `ref` is the page's category row key.
+ */
+export const exportBooking = z.strictObject({
+  name: z.string().min(1),
+  rule: z.string().min(1).nullable(),
+  note: z.string().min(1).nullable(),
+  day: z.int().min(0).nullable(),
+  ref: z.string().min(1),
 });
 
 export const tripExportModel = z.strictObject({
@@ -113,6 +127,8 @@ export const tripExportModel = z.strictObject({
   nights: z.int().min(0),
   days: z.array(z.strictObject({ n: z.int().min(0), title: z.string(), base: z.string().nullable() })),
   stops: z.array(exportStop),
+  /** The trip's bookings in day order; `[]` when the plan has none. */
+  bookings: z.array(exportBooking),
   waypoints: z.array(exportWaypoint),
   lines: z.array(exportLine),
   tz: z.string().nullable(),

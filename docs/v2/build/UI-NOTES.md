@@ -15,3 +15,5 @@ build goes here so the audit starts from known items.
 
 | Date | Release | Screen | Note | Severity |
 |---|---|---|---|---|
+| 2026-10-26 | v0.4 | `/trips/dolomites-2027/?view=category`, Logistics, "Tre Cime toll road slot" chip, all widths | The "To book" chip reads "Opens 30 days before Day 3 local": `bookRuleLabel` adds " local" whenever the rule has a zone, even with no time, so "local" qualifies nothing. Say "local" only after a time ("at 08:00 local"); the export reuses the same words (core `bookRuleText`), so change both together and keep their parity test | Could |
+| 2026-10-26 | v0.4 | Export menu, "For a spreadsheet (CSV): N stops", both trips | The count is stops only; since TRP-GL-C the file also holds one "booking" row per booking window (Dolomites 3, Rockies 11). The toast says "N stops, M to book ahead"; the menu label could say the same | Could |

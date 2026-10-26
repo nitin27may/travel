@@ -12,6 +12,7 @@ import { buildTextIndex, cardText, queryTerms, searchTexts } from "../../search/
 import { publicTownLayer, safeLine, type PublicGazetteer, type PublicTownsHolder } from "../../privacy/towns.ts";
 import { printText } from "../printText.ts";
 import { approxNote } from "../../export/licence.ts";
+import { tripBookings } from "../../export/bookings.ts";
 import { revisionOf, servedSnapshot } from "../revision.ts";
 import { fail, ok, type Result } from "../result.ts";
 import { currentSlug, isWithdrawn, kebab, movedTo, resolveRegion } from "../slugs.ts";
@@ -535,7 +536,8 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
     }
     return {
       type: "trip", slug, title: t.detail.title, url: `/trips/${slug}/`, depth: t.detail.depth, nights: t.detail.nights ?? 0,
-      days: t.detail.days.map((d) => ({ n: d.n, title: d.title, base: d.base })), stops, waypoints, lines: [], tz: null, seasonLabel: t.detail.season?.label ?? null, skipped,
+      days: t.detail.days.map((d) => ({ n: d.n, title: d.title, base: d.base })), stops, bookings: tripBookings(Object.values(t.detail.categories).flat()),
+      waypoints, lines: [], tz: null, seasonLabel: t.detail.season?.label ?? null, skipped,
     };
   }
 

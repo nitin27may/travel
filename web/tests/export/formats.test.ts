@@ -166,10 +166,10 @@ describe('CSV', () => {
   const lines = csv.replace(/^﻿/, '').trimEnd().split('\r\n');
   it('has one row per stop, in day then time order, with the documented header', () => {
     expect(lines[0]).toBe(TRIP_CSV_HEADER.join(','));
-    // header, one row per stop, then the source line (principle P8)
-    expect(lines).toHaveLength(dolomites.stops.length + 2);
+    // header, one row per stop and one per booking (MUST-6, TRP-GL-C), then the source line (principle P8)
+    expect(lines).toHaveLength(dolomites.stops.length + dolomites.bookings.length + 2);
     expect(lines.at(-1)).toContain('Source: Trip Plans');
-    const keys = lines.slice(1, -1).map((l) => l.split(',').slice(0, 2)).map(([d, t]) => `${d.padStart(2, '0')} ${t || '99:99'}`);
+    const keys = lines.slice(1, -1).filter((l) => !l.includes(',booking,')).map((l) => l.split(',').slice(0, 2)).map(([d, t]) => `${d.padStart(2, '0')} ${t || '99:99'}`);
     expect(keys).toEqual([...keys].sort());
   });
   it('flags approximate points in an Approximate column', () => {
