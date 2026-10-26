@@ -37,7 +37,7 @@ any new build starts."
 
 ## 0. Summary: the release bundles (26 Oct 2026)
 
-**Owner decision, 26 Oct 2026 (release cadence):** A ships first, on its own, as soon as its T3 passes (the sweep was already running). Bundles B and C are built in parallel (B2 seat: B's auth, backup and catalogue tasks and C's contract chain; B1 seat: the UXB UI tasks) and ship as ONE release with ONE T3, so three regressions become two. Google sign-in (v0.9) and any feature not ready ship switched off inside that release and turn on later. The B+C release carries the migrations of both bundles; take one Neon snapshot before it.
+**Owner decision, 26 Oct 2026 (release cadence):** A ships first, on its own, as soon as its T3 passes (the sweep was already running). Bundles B and C are built in parallel (B2 seat: B's auth, backup and catalogue tasks and C's contract chain; B1 seat: the UXB UI tasks) and ship as ONE release with ONE T3, so three regressions become two. Google sign-in (v0.9) ships in this release switched ON (owner, 26 Oct 2026); it needs the owner Google console steps (MASTER-ORDER 7.3) done before the cut. Only a feature that is not ready by the cut ships switched off. The B+C release carries the migrations of both bundles; take one Neon snapshot before it.
 
 The owner merged the train into bundles (verification per release was too costly). The v0.x numbers in this page
 are feature labels; each feature ships in its bundle behind its flag, T3 runs once per bundle, a late feature ships dark.
