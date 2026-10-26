@@ -3,16 +3,17 @@
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { MapFamilyProvider } from '@/components/map/MapFamilyProvider';
+import { TAB_LABEL, type TripTab } from '@travel/core/trips/tabs.ts';
 import { Banner } from '@/components/ui/Banner';
 import { Chip } from '@/components/ui/Chip';
 import { Icon } from '@/components/ui/Icon';
+import { PageTabs } from '@/components/ui/PageTabs';
 import { Segmented } from '@/components/ui/Segmented';
 import { flightEntries, localEntries } from './timeline/marks';
 import { publishTimeline, registerYoungest } from '@/lib/export/timelineState';
 import { tripPageFamily } from '@/lib/map/family';
-import type { Category } from '@/lib/public/types';
 import '@/styles/timeline.css';
-import { CategoryStrip } from './CategoryStrip';
+import '@/styles/trip-tabs.css';
 import { DayRow } from './DayRow';
 import { DEPTH_NOTICE } from './format';
 import { dayMapFromRoute, dayMapOf, entryKey, mapBus, pointLookup } from './mapPins';
@@ -21,10 +22,10 @@ import { dayOfHash } from './timeline/currentDay';
 import { DayTimeline } from './timeline/DayTimeline';
 import { MapLinkContext, type MapLinkValue } from './timeline/MapLink';
 import { timeOfRow } from './timeline/model';
-import { PlanBar } from './timeline/PlanBar';
 import { ProfileBar } from './timeline/ProfileBar';
 import { TripSuitProvider } from '@/components/suit/TripSuit';
-import { TripTimeline } from './timeline/TripTimeline';
+import { TripPanel } from './tabs/TripPanel';
+import { followLink, useTripTabs } from './tabs/useTripTabs';
 import { useScrollSpy } from './timeline/useScrollSpy';
 import { useTimeline } from './timeline/useTimeline';
 import { useSwap } from './timeline/useSwap';
@@ -40,24 +41,50 @@ const TripRouteMap = dynamic(() => import('./TripRouteMap'), {
   ),
 });
 
-// The by-category view (and the coming overview) is its own chunk: it loads on the first "By category" choice or a
-// direct view=category, never in the start JS (OVR-0, P1, budget v0.3).
-const CategoryView = dynamic(() => import('./CategoryView').then((m) => m.CategoryView), {
+// The Stops tab (the category chips, the by-category list and their scroll spy) is its own chunk: it loads on the first Stops choice or a
+// direct view=all, never in the start JS (OVR-0, P1, budget v0.3; spec D12). Hovering or focusing the tab loads it ahead (`prefetchTab`).
+const stopsChunk = () => import('./tabs/StopsPanel').then((m) => m.StopsPanel);
+const StopsPanel = dynamic(stopsChunk, {
   ssr: false,
   loading: () => (
     <div role="status" className="cat-view">
-      Loading the categories
+      Loading the stops
     </div>
   ),
 });
+// The sticky plan bar is needed on Days only, and the whole-trip glance (the shape slot of the Summary, UXB-3 rebuilds it) below the fold: both
+// load after the page, so the tab shell costs the trip page's start JS nothing net (spec D12). The bar's shell holds its place meanwhile.
+const planBarChunk = () => import('./timeline/PlanBar').then((m) => m.PlanBar);
+const PlanBar = dynamic(planBarChunk, {
+  ssr: false,
+  loading: () => <nav className="tl-planbar" aria-label="Days" data-print="hide" data-loading="" />,
+});
+const TripTimeline = dynamic(() => import('./timeline/TripTimeline').then((m) => m.TripTimeline), {
+  ssr: false,
+  loading: () => (
+    <p role="status" className="trip-sec-note">
+      Loading the trip at a glance
+    </p>
+  ),
+});
+/** A tab took focus: its lazy chunk loads now, so the press that follows opens it at once (components 1.6). */
+const prefetchTab = (t: TripTab): void => {
+  if (t === 'stops') void stopsChunk();
+  else if (t === 'days') void planBarChunk();
+  else if (t === 'photos') void import('@/components/ui/Gallery');
+};
 
 interface Props {
   slug: string;
   model: TripPageModel;
   title: string;
   depth: 'full' | 'summary';
-  /** The season band, drawn below "Plan it for" on a trip with a timeline and first on any other (server-rendered, passed through). */
+  /** The season band: "When to go" in the Summary (server-rendered, passed through). */
   season?: ReactNode;
+  /** The tabs the trip draws (`tripTabsFor`) and the counts the labels carry from 640 px. */
+  tabs: { available: TripTab[]; counts: Partial<Record<TripTab, number>> };
+  /** The server-rendered parts of the Summary, the Bookings panel and the Photos panel. */
+  slots: { summaryTop: ReactNode; summaryBottom: ReactNode; bookings: ReactNode; photos: ReactNode };
 }
 
 const reduced = () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -89,20 +116,38 @@ function TimesBanner({ condensed }: { condensed: boolean }) {
  * day on a time rail (trip-timeline spec). The day at the top of the screen is the current day: it lights the rail, the strip and the day, and the map follows it once scrolling settles; By category regroups the same items and never
  * changes the order inside a day. Trips without schedule data keep the plain day rows.
  */
-export function TripPlan({ slug, model, title, depth, season }: Props) {
+export function TripPlan(props: Props) {
   const url = useTripUrl();
-  const tlModel = model.timeline;
-  if (!tlModel) return <PlainPlan slug={slug} model={model} title={title} depth={depth} season={season} />;
-  return <TimelinePlan slug={slug} model={model} title={title} depth={depth} season={season} tlModel={tlModel} url={url} />;
+  const tlModel = props.model.timeline;
+  if (!tlModel) return <PlainPlan {...props} />;
+  return <TimelinePlan {...props} tlModel={tlModel} url={url} />;
 }
 
-function TimelinePlan({ slug, model, depth, season, tlModel, url }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
+/** The tab bar of the full page: labels from core, counts only where they add a fact. */
+function Tabs({ tabs, api }: { tabs: Props['tabs']; api: ReturnType<typeof useTripTabs> }) {
+  return (
+    <PageTabs
+      label="Trip sections"
+      idPrefix="trip"
+      tabs={tabs.available.map((t) => ({ value: t, label: TAB_LABEL[t], count: tabs.counts[t] ?? null }))}
+      value={api.tab}
+      onActivate={api.select}
+      onFocusTab={prefetchTab}
+    />
+  );
+}
+
+function TimelinePlan({ slug, model, depth, season, tabs, slots, tlModel, url }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
   const api = useTimeline(tlModel, url);
+  const tabApi = useTripTabs(slug, url, tabs.available);
+  const tab = tabApi.tab;
+  const onDays = tab === 'days';
+  // Days, Stops and Bookings sit beside the route map; the Summary and the Photos do not (the map is mounted only where it is shown)
+  const inLists = tab === 'days' || tab === 'stops' || tab === 'bookings';
   const [edit, setEdit] = useState(false);
   const pr = api.state.profile;
   const swap = useSwap(api.timelines, `${pr.party}|${pr.youngest}|${pr.pace}|${pr.adults}|${pr.walkKm}`, api.pending);
   const shown = swap.shown;
-  const showCategory = url.view === 'category';
   // the hash this page wrote itself while following the scroll or jumping; the hash effect must not scroll to it again
   const ownHash = useRef<string | null>(null);
 
@@ -113,31 +158,18 @@ function TimelinePlan({ slug, model, depth, season, tlModel, url }: Props & { tl
       const now = dayOfHash(window.location.hash);
       if (day === null ? now === null : now === day) return;
       ownHash.current = day === null ? '' : `day-${day}`;
-      url.go({ view: 'day', hash: day === null ? undefined : `day-${day}` }, 'replace');
+      url.go({ tab: { tab: 'days', daysView: tabApi.daysView }, hash: day === null ? undefined : `day-${day}` }, 'replace');
     },
-    [url],
+    [url, tabApi.daysView],
   );
   const daySpy = useScrollSpy<number>({
-    enabled: !showCategory,
+    enabled: onDays,
     itemSelector: 'li.tl-day',
     keyOf: (el) => dayOfHash(el.id),
     barSelector: '.tl-planbar',
     onSettle: follow,
   });
-  const catSpy = useScrollSpy<Category>({
-    enabled: showCategory,
-    itemSelector: 'section[data-cat]',
-    keyOf: (el) => (el.dataset.cat as Category | undefined) ?? null,
-    barSelector: '.cat-strip',
-    onSettle: (key) => {
-      if (key && window.location.hash !== `#${key}`) {
-        ownHash.current = key;
-        url.go({ view: 'category', hash: key }, 'replace');
-      }
-    },
-  });
-  const current = showCategory ? null : daySpy.current;
-  const active = showCategory ? catSpy.current : null;
+  const current = onDays ? daySpy.current : null;
 
   const route = model.route;
   // the pins of each day, numbered in the order of the day list; the rows and the map both read this
@@ -160,7 +192,7 @@ function TimelinePlan({ slug, model, depth, season, tlModel, url }: Props & { tl
     setSheet(false);
     opener.current?.focus({ preventScroll: true });
   }, []);
-  const dayNow = showCategory ? null : daySpy.reached;
+  const dayNow = onDays ? daySpy.reached : null;
   useEffect(() => {
     if (paused) return;
     const t = window.setTimeout(() => setMapDay(dayNow), 350);
@@ -175,27 +207,28 @@ function TimelinePlan({ slug, model, depth, season, tlModel, url }: Props & { tl
     return () => window.removeEventListener('keydown', esc);
   }, [sheet, closeSheet]);
   const placed = routeHasPositions(route);
-  // an anchor (`#day-5`, `#trails`) scrolls to its target once the right view is on screen; an empty category goes to the strip
+  // an anchor (`#day-5`) scrolls to its day once Days is on screen; a followed link then moves focus to the day's heading (a category fragment is the Stops panel's)
   const goDay = daySpy.goTo;
-  const goCat = catSpy.goTo;
   const booted = useRef(false);
+  const focusPending = tabApi.focusPending;
   useEffect(() => {
-    if (!url.hash || ownHash.current === url.hash) return;
+    if (!onDays || !url.hash || ownHash.current === url.hash) return;
     // the first anchor (a shared link, a reload) lands at once; later ones glide
     const instant = !booted.current;
     booted.current = true;
-    const id = url.category && !model.sections.find((s) => s.id === url.category)?.count ? 'in-this-trip' : url.hash;
     const frame = requestAnimationFrame(() => {
-      const el = document.getElementById(id);
+      const el = document.getElementById(url.hash);
       if (!el) return;
-      const day = dayOfHash(id);
-      if (day !== null && !showCategory) goDay(el, day, instant);
-      else if (showCategory && url.category === id) goCat(el, url.category, instant);
-      else if (showCategory) goCat(el, null, instant);
-      else goDay(el, null, instant);
+      goDay(el, dayOfHash(url.hash), instant);
+      if (focusPending.current) {
+        focusPending.current = false;
+        const h = el.querySelector<HTMLElement>('h2, h3') ?? el;
+        h.setAttribute('tabindex', '-1');
+        h.focus({ preventScroll: true });
+      }
     });
     return () => cancelAnimationFrame(frame);
-  }, [url.hash, url.view, url.category, model.sections, showCategory, goDay, goCat]);
+  }, [onDays, url.hash, goDay, focusPending]);
 
   // the copy sheet and the calendar file read the timeline the visitor is looking at
   useEffect(() => {
@@ -206,20 +239,6 @@ function TimelinePlan({ slug, model, depth, season, tlModel, url }: Props & { tl
     });
     return () => publishTimeline(null);
   }, [slug, tlModel, api.state, api.timelines, model.route]);
-  // A chip scrolls itself (as a day pick does) so a pick of the section the URL already names still moves the page, and a scroll the
-  // visitor made just before cannot settle afterwards and write its own section over the pick.
-  const pickCat = useCallback(
-    (id: Category) => {
-      const el = model.sections.find((c) => c.id === id)?.count ? document.getElementById(id) : null;
-      catSpy.hold();
-      if (el) {
-        goCat(el, id);
-        ownHash.current = id;
-      }
-      url.go({ view: 'category', hash: id }, 'push');
-    },
-    [model.sections, catSpy, goCat, url],
-  );
   const setProfile = api.setProfile;
   const party = api.state.profile.party;
   useEffect(() => {
@@ -228,15 +247,17 @@ function TimelinePlan({ slug, model, depth, season, tlModel, url }: Props & { tl
   }, [setProfile, party]);
 
   // A pick scrolls itself (lock, sticky offsets, pin) and writes the hash; the hash effect skips a hash it did not receive from outside.
+  const goUrl = url.go;
+  const daysView = tabApi.daysView;
   const pickDay = useCallback(
     (n: number, entry?: string) => {
       const el = (entry ? document.querySelector<HTMLElement>(`[data-entry="${CSS.escape(entry)}"]`) : null) ?? document.getElementById(`day-${n}`);
       if (el) goDay(el, n);
       ownHash.current = `day-${n}`;
       setPaused(false);
-      url.go({ view: 'day', hash: `day-${n}` }, 'push');
+      goUrl({ tab: { tab: 'days', daysView }, hash: `day-${n}` }, 'push');
     },
-    [url, goDay],
+    [goUrl, goDay, daysView],
   );
   const sections = useMemo(
     () => model.sections.map((s) => ({ ...s, rows: s.rows.map((r) => ({ ...r, time: timeOfRow(r, r.days[0] ?? 0, shown) ?? r.time })) })),
@@ -290,143 +311,139 @@ function TimelinePlan({ slug, model, depth, season, tlModel, url }: Props & { tl
     document.getElementById('plan-for')?.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' });
   }, []);
 
+  const onMap = placed ? () => (sheet ? closeSheet() : openSheet()) : undefined;
+  const has = (t: TripTab): boolean => tabs.available.includes(t);
+
   return (
     <TripSuitProvider value={{ byPlace: tlModel.suit, youngest: p.party === 'family' ? p.youngest : null }}>
     <MapLinkContext.Provider value={placed ? link : null}>
-    <div className="tl-wrap">
+    <div className="tl-wrap trip-tabs" data-tab={tab} onClick={(e) => followLink(e, tabApi.follow)}>
       <ProfileBar model={tlModel} api={api} edit={edit} setEdit={setEdit} label={planLabel} />
-      {season}
-      <TimesBanner condensed={tlModel.condensed} />
-      {!showCategory ? <TripTimeline model={tlModel} timelines={shown} changedDays={api.changedDays} picked={current} onPick={pickDay} /> : null}
+      <Tabs tabs={tabs} api={tabApi} />
 
-      {!showCategory ? <PlanBar slug={slug} model={tlModel} label={planLabel} active={current} onPick={pickDay} onEdit={editPlan} onMap={placed ? () => (sheet ? closeSheet() : openSheet()) : undefined} mapOpen={sheet} /> : null}
-
-      <div className="tl-cols" data-map={placed || undefined} data-sheet-open={sheet || undefined}>
-      <section className="trip-sec" aria-labelledby="in-trip-h" id="in-this-trip">
-        <h2 id="in-trip-h" className="trip-h">In this trip</h2>
-        {depth === 'summary' ? (
-          <p className="trip-depth">
-            <Chip kind="honest">{DEPTH_NOTICE.summary}</Chip>
-          </p>
-        ) : null}
-        <div data-print="hide">
-          <Segmented
-            label="Group the trip"
-            size="md"
-            value={showCategory ? 'category' : 'day'}
-            onChange={(v) => url.go({ view: v, hash: undefined }, 'push')}
-            segments={[
-              { value: 'day', label: 'By day' },
-              { value: 'category', label: 'By category' },
-            ]}
-            className="trip-seg"
-          />
+      <TripPanel tab="summary" current={tab}>
+        {slots.summaryTop}
+        {season}
+        <div id="trip-shape" className="sum-shape">
+          <TripTimeline model={tlModel} timelines={shown} changedDays={api.changedDays} picked={null} onPick={(n) => tabApi.follow(`?view=day#day-${n}`)} />
         </div>
-        <CategoryStrip sections={model.sections} active={showCategory ? active : null} sticky={showCategory} onPick={pickCat} onMap={placed ? () => (sheet ? closeSheet() : openSheet()) : undefined} mapOpen={sheet} />
-        {model.sections.filter((s) => s.count === 0).map((s) => (
-          <span key={s.id} id={s.id} className="anchor-top" />
-        ))}
-        {showCategory ? (
-          <CategoryView sections={sections} />
-        ) : (
-          <ol className="tl-days" data-swap={swap.phase} onMouseOver={(e) => hoverRow(e, true)} onMouseOut={(e) => hoverRow(e, false)} onFocus={(e) => hoverRow(e, true)} onBlur={(e) => hoverRow(e, false)}>
-            {tlModel.days.map((d, di) => {
-              const tl = shown.find((t) => t.day === d.n)!;
-              const mine = api.added[d.n] ?? [];
-              return (
-                <DayTimeline
-                  key={d.n}
-                  index={di}
-                  engine={api.engine}
-                  loadEngine={api.loadEngine}
-                  profile={api.state.profile}
-                  override={api.state.overrides[d.n] ?? null}
-                  addedItems={mine.map((x) => x.item)}
-                  day={d}
-                  tl={tl}
-                  picked={current === d.n}
-                  changed={api.changedDays.has(d.n) && (api.state.overrides[d.n] !== undefined || mine.length > 0)}
-                  candidates={(tlModel.addByDay[d.n] ?? []).map((k) => tlModel.addables[k]!).filter(Boolean)}
-                  taken={mine.map((x) => x.key)}
-                  addedKeys={new Map(mine.map((x) => [x.item.id, x.key]))}
-                  age={p.party === 'family' ? p.youngest : null}
-                  onSplit={(on) => api.setProfile({ split: on })}
-                  onVariant={(k) => api.setVariant(d.n, k)}
-                  onAdd={(k) => api.addPlace(d.n, k)}
-                  onRemove={(k) => api.removePlace(d.n, k)}
-                />
-              );
-            })}
-          </ol>
-        )}
-      </section>
-        <aside className="tl-mapcol" id="route" aria-labelledby="route-h" data-print="hide" data-sheet={sheet || undefined}>
-          <h2 id="route-h" className="trip-h tl-mapcol-h">The route</h2>
-          {!placed ? (
-            <p className="trip-sec-note" data-testid="route-unplaced">
-              Stop positions are not researched yet, so there is no route map for this plan. The days below list every stop.
-            </p>
-          ) : (
-            <>
-              <div className="tl-mapcol-bar">
-                <Segmented
-                  label="Map shows"
-                  size="s"
-                  value={paused || mapDay === null ? 'all' : 'day'}
-                  onChange={(v) => {
-                    if (v === 'all') {
-                      setPaused(true);
-                      setMapDay(null);
-                    } else setPaused(false);
-                  }}
-                  segments={[
-                    { value: 'all', label: 'All days' },
-                    { value: 'day', label: mapDay === null ? 'Day' : `Day ${mapDay}`, disabled: !showCategory && dayNow === null && mapDay === null },
-                  ]}
-                />
-                <button type="button" className="tl-mapcol-close" onClick={closeSheet} aria-label="Close map">
-                  <Icon name="close" size={16} />
-                </button>
-              </div>
-              <MapFamilyProvider family={tripPageFamily()}>
-                <TripRouteMap
-                  slug={slug}
-                  route={route}
-                  dayRows={model.days}
-                  models={maps}
-                  picked={shownDay}
-                  paused={paused}
-                  dayNow={dayNow}
-                  onResume={() => setPaused(false)}
-                  sheet={sheet}
-                  sheetSeen={sheetSeen}
-                  onPickDay={pickDay}
-                />
-              </MapFamilyProvider>
-            </>
-          )}
-        </aside>
+        {slots.summaryBottom}
+      </TripPanel>
+
+      <div className="tl-lists" hidden={!inLists}>
+        {onDays ? <TimesBanner condensed={tlModel.condensed} /> : null}
+        {onDays ? <PlanBar slug={slug} model={tlModel} label={planLabel} active={current} onPick={pickDay} onEdit={editPlan} onMap={onMap} mapOpen={sheet} /> : null}
+
+        <div className="tl-cols" data-map={(placed && inLists) || undefined} data-sheet-open={sheet || undefined}>
+          <div className="tl-main">
+            <TripPanel tab="days" current={tab}>
+              {depth === 'summary' ? (
+                <p className="trip-depth">
+                  <Chip kind="honest">{DEPTH_NOTICE.summary}</Chip>
+                </p>
+              ) : null}
+              <ol className="tl-days" data-swap={swap.phase} onMouseOver={(e) => hoverRow(e, true)} onMouseOut={(e) => hoverRow(e, false)} onFocus={(e) => hoverRow(e, true)} onBlur={(e) => hoverRow(e, false)}>
+                {tlModel.days.map((d, di) => {
+                  const tl = shown.find((t) => t.day === d.n)!;
+                  const mine = api.added[d.n] ?? [];
+                  return (
+                    <DayTimeline
+                      key={d.n}
+                      index={di}
+                      engine={api.engine}
+                      loadEngine={api.loadEngine}
+                      profile={api.state.profile}
+                      override={api.state.overrides[d.n] ?? null}
+                      addedItems={mine.map((x) => x.item)}
+                      day={d}
+                      tl={tl}
+                      picked={current === d.n}
+                      changed={api.changedDays.has(d.n) && (api.state.overrides[d.n] !== undefined || mine.length > 0)}
+                      candidates={(tlModel.addByDay[d.n] ?? []).map((k) => tlModel.addables[k]!).filter(Boolean)}
+                      taken={mine.map((x) => x.key)}
+                      addedKeys={new Map(mine.map((x) => [x.item.id, x.key]))}
+                      age={p.party === 'family' ? p.youngest : null}
+                      onSplit={(on) => api.setProfile({ split: on })}
+                      onVariant={(k) => api.setVariant(d.n, k)}
+                      onAdd={(k) => api.addPlace(d.n, k)}
+                      onRemove={(k) => api.removePlace(d.n, k)}
+                    />
+                  );
+                })}
+              </ol>
+            </TripPanel>
+            {has('stops') && tabApi.seen.has('stops') ? (
+              <TripPanel tab="stops" current={tab}>
+                <StopsPanel sections={sections} active={tab === 'stops'} condensed={depth === 'summary'} url={url} onMap={onMap} mapOpen={sheet} focusRef={focusPending} />
+              </TripPanel>
+            ) : null}
+            {has('bookings') ? <TripPanel tab="bookings" current={tab}>{slots.bookings}</TripPanel> : null}
+          </div>
+          {inLists ? (
+            <aside className="tl-mapcol" id="route" aria-labelledby="route-h" data-print="hide" data-sheet={sheet || undefined}>
+              <h2 id="route-h" className="trip-h tl-mapcol-h">The route</h2>
+              {!placed ? (
+                <p className="trip-sec-note" data-testid="route-unplaced">
+                  Stop positions are not researched yet, so there is no route map for this plan. The days below list every stop.
+                </p>
+              ) : (
+                <>
+                  <div className="tl-mapcol-bar">
+                    <Segmented
+                      label="Map shows"
+                      size="s"
+                      value={paused || mapDay === null ? 'all' : 'day'}
+                      onChange={(v) => {
+                        if (v === 'all') {
+                          setPaused(true);
+                          setMapDay(null);
+                        } else setPaused(false);
+                      }}
+                      segments={[
+                        { value: 'all', label: 'All days' },
+                        { value: 'day', label: mapDay === null ? 'Day' : `Day ${mapDay}`, disabled: !onDays && mapDay === null },
+                      ]}
+                    />
+                    <button type="button" className="tl-mapcol-close" onClick={closeSheet} aria-label="Close map">
+                      <Icon name="close" size={16} />
+                    </button>
+                  </div>
+                  <MapFamilyProvider family={tripPageFamily()}>
+                    <TripRouteMap
+                      slug={slug}
+                      route={route}
+                      dayRows={model.days}
+                      models={maps}
+                      picked={shownDay}
+                      paused={paused}
+                      dayNow={dayNow}
+                      onResume={() => setPaused(false)}
+                      sheet={sheet}
+                      sheetSeen={sheetSeen}
+                      onPickDay={pickDay}
+                    />
+                  </MapFamilyProvider>
+                </>
+              )}
+            </aside>
+          ) : null}
+        </div>
       </div>
+
+      {has('photos') && tabApi.seen.has('photos') ? <TripPanel tab="photos" current={tab}>{slots.photos}</TripPanel> : null}
     </div>
     </MapLinkContext.Provider>
     </TripSuitProvider>
   );
 }
 
-/** A trip with no schedule data (a build without data/schedules): the route map and the plain day rows. */
-function PlainPlan({ slug, model, title, depth, season }: Props) {
+/** A trip with no schedule data (a build without data/schedules): the route map and the plain day rows, in the same tabs. */
+function PlainPlan({ slug, model, title, depth, season, tabs, slots }: Props) {
   const url = useTripUrl();
-  const showCategory = url.view === 'category';
+  const tabApi = useTripTabs(slug, url, tabs.available);
+  const tab = tabApi.tab;
   const [open, setOpen] = useState<ReadonlySet<number>>(new Set());
   const [picked, setPicked] = useState<number | null>(null);
-  const catSpy = useScrollSpy<Category>({
-    enabled: showCategory,
-    itemSelector: 'section[data-cat]',
-    keyOf: (el) => (el.dataset.cat as Category | undefined) ?? null,
-    barSelector: '.cat-strip',
-  });
-  const active = showCategory ? catSpy.current : null;
-  const goCat = catSpy.goTo;
   const quiet = useRef(false);
 
   const pick = useCallback((n: number) => {
@@ -440,20 +457,14 @@ function PlainPlan({ slug, model, title, depth, season }: Props) {
   }
   const maps = useMemo(() => model.route.days.map(dayMapFromRoute), [model.route.days]);
   useEffect(() => {
-    if (!url.hash) return;
+    if (tab !== 'days' || !url.hash) return;
     if (quiet.current) {
       quiet.current = false;
       return;
     }
-    const id = url.category && !model.sections.find((s) => s.id === url.category)?.count ? 'in-this-trip' : url.hash;
-    const frame = requestAnimationFrame(() => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      if (showCategory) goCat(el, url.category === id ? url.category : null);
-      else el.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' });
-    });
+    const frame = requestAnimationFrame(() => document.getElementById(url.hash)?.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' }));
     return () => cancelAnimationFrame(frame);
-  }, [url.hash, url.view, url.category, model.sections, showCategory, goCat]);
+  }, [tab, url.hash]);
   const toggle = (n: number) => {
     if (open.has(n)) {
       setOpen((prev) => {
@@ -465,66 +476,60 @@ function PlainPlan({ slug, model, title, depth, season }: Props) {
     }
     pick(n);
     quiet.current = true;
-    url.go({ view: 'day', hash: `day-${n}` }, 'replace');
+    url.go({ tab: { tab: 'days', daysView: 'list' }, hash: `day-${n}` }, 'replace');
   };
+  const has = (t: TripTab): boolean => tabs.available.includes(t);
   return (
-    <>
-      {season}
-      <section className="trip-sec" aria-labelledby="route-h" id="route" data-print="hide">
-        <h2 id="route-h" className="trip-h">The route</h2>
-        {!routeHasPositions(model.route) ? (
-          <p className="trip-sec-note" data-testid="route-unplaced">
-            Stop positions are not researched yet, so there is no route map for this plan. The days below list every stop.
-          </p>
-        ) : (
-          <>
-            <p className="trip-sec-note">
-              Every day&apos;s stops as dots, the bases as signposts. Dashed lines are straight lines between stops, not routes; road routes come later.
-              {model.route.unplaced ? ` ${model.route.unplaced} stops have no map position yet.` : ''} Pick a day below to follow it.
-            </p>
-            <MapFamilyProvider family={tripPageFamily()}>
-              <TripRouteMap slug={slug} route={model.route} dayRows={model.days} models={maps} picked={picked} paused={false} dayNow={picked} onResume={() => undefined} sheet={false} sheetSeen onPickDay={pick} />
-            </MapFamilyProvider>
-          </>
-        )}
-      </section>
-      <section className="trip-sec" aria-labelledby="in-trip-h" id="in-this-trip">
-        <h2 id="in-trip-h" className="trip-h">In this trip</h2>
-        {depth === 'summary' ? (
-          <p className="trip-depth">
-            <Chip kind="honest">{DEPTH_NOTICE.summary}</Chip>
-          </p>
+    <div className="tl-wrap trip-tabs" data-tab={tab} onClick={(e) => followLink(e, tabApi.follow)}>
+      <Tabs tabs={tabs} api={tabApi} />
+      <TripPanel tab="summary" current={tab}>
+        {slots.summaryTop}
+        {season}
+        {slots.summaryBottom}
+      </TripPanel>
+      <TripPanel tab="days" current={tab}>
+        {tab === 'days' ? (
+          <section className="trip-sec" aria-labelledby="route-h" id="route" data-print="hide">
+            <h2 id="route-h" className="trip-h">The route</h2>
+            {!routeHasPositions(model.route) ? (
+              <p className="trip-sec-note" data-testid="route-unplaced">
+                Stop positions are not researched yet, so there is no route map for this plan. The days below list every stop.
+              </p>
+            ) : (
+              <>
+                <p className="trip-sec-note">
+                  Every day&apos;s stops as dots, the bases as signposts. Dashed lines are straight lines between stops, not routes; road routes come later.
+                  {model.route.unplaced ? ` ${model.route.unplaced} stops have no map position yet.` : ''} Pick a day below to follow it.
+                </p>
+                <MapFamilyProvider family={tripPageFamily()}>
+                  <TripRouteMap slug={slug} route={model.route} dayRows={model.days} models={maps} picked={picked} paused={false} dayNow={picked} onResume={() => undefined} sheet={false} sheetSeen onPickDay={pick} />
+                </MapFamilyProvider>
+              </>
+            )}
+          </section>
         ) : null}
-        <div data-print="hide">
-          <Segmented
-            label="Group the trip"
-            size="md"
-            value={showCategory ? 'category' : 'day'}
-            onChange={(v) => url.go({ view: v, hash: undefined }, 'push')}
-            segments={[
-              { value: 'day', label: 'By day' },
-              { value: 'category', label: 'By category' },
-            ]}
-            className="trip-seg"
-          />
-        </div>
-        <CategoryStrip sections={model.sections} active={showCategory ? active : null} sticky={showCategory} onPick={(id) => {
-          catSpy.hold();
-          url.go({ view: 'category', hash: id }, 'push');
-        }} />
-        {model.sections.filter((s) => s.count === 0).map((s) => (
-          <span key={s.id} id={s.id} className="anchor-top" />
-        ))}
-        {showCategory ? (
-          <CategoryView sections={model.sections} />
-        ) : (
+        <section className="trip-sec" aria-label="Days">
+          {depth === 'summary' ? (
+            <p className="trip-depth">
+              <Chip kind="honest">{DEPTH_NOTICE.summary}</Chip>
+            </p>
+          ) : null}
           <ol className="day-list">
             {model.days.map((d) => (
               <DayRow key={d.n} trip={{ slug, title }} day={d} open={open.has(d.n)} picked={picked === d.n} onToggle={toggle} />
             ))}
           </ol>
-        )}
-      </section>
-    </>
+        </section>
+      </TripPanel>
+      {has('stops') && tabApi.seen.has('stops') ? (
+        <TripPanel tab="stops" current={tab}>
+          <section className="trip-sec" aria-label="Stops">
+            <StopsPanel sections={model.sections} active={tab === 'stops'} condensed={depth === 'summary'} url={url} focusRef={tabApi.focusPending} />
+          </section>
+        </TripPanel>
+      ) : null}
+      {has('bookings') ? <TripPanel tab="bookings" current={tab}>{slots.bookings}</TripPanel> : null}
+      {has('photos') && tabApi.seen.has('photos') ? <TripPanel tab="photos" current={tab}>{slots.photos}</TripPanel> : null}
+    </div>
   );
 }

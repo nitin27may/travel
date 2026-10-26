@@ -13,6 +13,12 @@ const SIZES = [
 ] as const;
 const CELL = '.tl-rail-cell[aria-current="true"]';
 
+/** The tab bar and the plan bar mount after hydration (the server renders the Summary): wait for the rail before reading any position. */
+const open = async (page: Page, url: string) => {
+  await page.goto(url);
+  await page.locator('.tl-planbar').waitFor();
+};
+
 interface Probe {
   expected: number;
   bars: number;
@@ -24,7 +30,8 @@ interface Probe {
 const probe = (page: Page): Promise<Probe> =>
   page.evaluate(() => {
     const head = document.querySelector('.site-header')!.getBoundingClientRect().bottom;
-    const bar = document.querySelector('.tl-planbar')!.getBoundingClientRect().height;
+    const t = document.querySelector('.trip-tabbar');
+    const bar = document.querySelector('.tl-planbar')!.getBoundingClientRect().height + (t && getComputedStyle(t).position === 'sticky' ? t.getBoundingClientRect().height : 0);
     const days = [...document.querySelectorAll<HTMLElement>('li.tl-day')].map((e) => ({ n: Number(e.id.slice(4)), top: e.getBoundingClientRect().top }));
     const bottom = window.scrollY > 0 && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
     const line = head + bar + 0.35 * (window.innerHeight - head - bar);
@@ -37,7 +44,8 @@ const scrollDayTo = (page: Page, n: number, at: number | 'line') =>
   page.evaluate(
     ([day, where]) => {
       const head = document.querySelector('.site-header')!.getBoundingClientRect().bottom;
-      const bar = document.querySelector('.tl-planbar')!.getBoundingClientRect().height;
+      const t = document.querySelector('.trip-tabbar');
+      const bar = document.querySelector('.tl-planbar')!.getBoundingClientRect().height + (t && getComputedStyle(t).position === 'sticky' ? t.getBoundingClientRect().height : 0);
       const line = head + bar + 0.35 * (window.innerHeight - head - bar);
       const top = document.getElementById(`day-${day}`)!.getBoundingClientRect().top + window.scrollY;
       window.scrollTo(0, top - (where === 'line' ? line - 12 : (where as number)));
@@ -45,11 +53,10 @@ const scrollDayTo = (page: Page, n: number, at: number | 'line') =>
     [n, at] as [number, number | 'line'],
   );
 
-/** Everything that shows the current day, read at once: the one rail cell, the strip's marker and the day card itself. */
+/** Everything that shows the current day, read at once: the one rail cell and the day card itself (the whole-trip strip moved to the Summary). */
 const shown = (page: Page) =>
   page.evaluate(() => ({
     rail: [...document.querySelectorAll('.tl-rail-cell[aria-current="true"]')].map((e) => Number(e.textContent)),
-    strip: [...document.querySelectorAll('.tl-trip-item[data-picked] .tl-trip-row')].map((e) => Number(e.getAttribute('href')!.slice(5))),
     day: [...document.querySelectorAll('li.tl-day[data-picked]')].map((e) => Number(e.id.slice(4))),
   }));
 
@@ -72,8 +79,8 @@ for (const size of SIZES) {
     });
 
     for (const path of TRIPS) {
-      test(`${path}: scrolling day by day moves the one current day; rail, strip and day agree`, async ({ page, site }) => {
-        await page.goto(`${site.url}${path}`);
+      test(`${path}: scrolling day by day moves the one current day; rail and day agree`, async ({ page, site }) => {
+        await open(page, `${site.url}${path}?view=day`);
         const days = await page.locator('li.tl-day').count();
         for (const at of [150, 'line'] as const) {
           for (let n = 1; n <= days; n++) {
@@ -81,8 +88,7 @@ for (const size of SIZES) {
             await settled(page);
             const p = await probe(page);
             await expect.poll(async () => (await shown(page)).rail, { timeout: 20_000, message: `day ${n} at ${at}` }).toEqual([p.expected]);
-            // the strip marker and the day card are written a frame after the rail cell: wait for them, not for a moment
-            await expect.poll(async () => (await shown(page)).strip, { timeout: 20_000, message: `strip at day ${n}, ${at}` }).toEqual([p.expected]);
+            // the day card is written a frame after the rail cell: wait for it, not for a moment
             await expect.poll(async () => (await shown(page)).day, { timeout: 20_000, message: `day card at day ${n}, ${at}` }).toEqual([p.expected]);
             await expect(page.locator(CELL)).toHaveCount(1);
             await expect.poll(() => page.evaluate(() => location.hash), { message: `hash at day ${n}, ${at}` }).toBe(`#day-${p.expected}`);
@@ -93,7 +99,7 @@ for (const size of SIZES) {
       });
 
       test(`${path}: at the page bottom the last day is current`, async ({ page, site }) => {
-        await page.goto(`${site.url}${path}`);
+        await open(page, `${site.url}${path}?view=day`);
         // late layout can grow the page after the first jump, so keep going to the bottom until it holds
         await expect
           .poll(async () => {
@@ -108,7 +114,7 @@ for (const size of SIZES) {
     }
 
     test('a #day-5 link lands on day 5; scrolling on to day 8 moves the rail and replaces the hash', async ({ page, site }) => {
-      await page.goto(`${site.url}${TRIPS[0]}?p=adults#day-5`);
+      await open(page, `${site.url}${TRIPS[0]}?p=adults#day-5`);
       await settled(page);
       await expect(page.locator(CELL)).toHaveText('5');
       const len = await page.evaluate(() => history.length);
@@ -117,7 +123,7 @@ for (const size of SIZES) {
       await expect.poll(() => page.evaluate(() => location.hash)).toBe('#day-8');
       expect(await page.evaluate(() => history.length)).toBe(len);
       // the profile key survived the hash rewrite
-      expect(await page.evaluate(() => location.search)).toBe('?p=adults');
+      expect(await page.evaluate(() => location.search)).toBe('?p=adults&view=day');
       // a reload lands on the current day
       await page.reload();
       await settled(page);
@@ -125,7 +131,7 @@ for (const size of SIZES) {
     });
 
     test('clicking day 10 lands it under both bars, with no flicker through the days in between', async ({ page, site }) => {
-      await page.goto(`${site.url}${TRIPS[0]}`);
+      await open(page, `${site.url}${TRIPS[0]}?view=day`);
       await expect(page.locator(CELL)).toHaveCount(1);
       await page.evaluate(() => {
         const w = window as unknown as { __seq: (string | null)[] };
@@ -143,33 +149,36 @@ for (const size of SIZES) {
       expect(seq.at(-1)).toBe('10');
       expect(seq.length, `sequence ${seq.join(',')}`).toBeLessThanOrEqual(2);
       const g = await page.evaluate(() => {
-        const bars = document.querySelector('.site-header')!.getBoundingClientRect().bottom + document.querySelector('.tl-planbar')!.getBoundingClientRect().height;
+        const t = document.querySelector('.trip-tabbar');
+        const tabs = t && getComputedStyle(t).position === 'sticky' ? t.getBoundingClientRect().height : 0;
+        const bars = document.querySelector('.site-header')!.getBoundingClientRect().bottom + tabs + document.querySelector('.tl-planbar')!.getBoundingClientRect().height;
         return { bars, day: document.getElementById('day-10')!.getBoundingClientRect().top, title: document.querySelector('#day-10 .tl-day-title')!.getBoundingClientRect().top };
       });
       expect(g.day).toBeGreaterThanOrEqual(g.bars - 1);
       expect(g.day).toBeLessThanOrEqual(g.bars + 40);
       expect(g.title).toBeGreaterThan(g.bars);
       await expect.poll(() => page.evaluate(() => location.hash)).toBe('#day-10');
-      await expect.poll(() => shown(page), { timeout: 20_000 }).toEqual({ rail: [10], strip: [10], day: [10] });
+      await expect.poll(() => shown(page), { timeout: 20_000 }).toEqual({ rail: [10], day: [10] });
     });
 
-    test('the whole-trip strip jumps too, and a rail cell takes Enter from the keyboard', async ({ page, site }) => {
+    test('the whole-trip strip (in the Summary) opens Days at its day, and a rail cell takes Enter from the keyboard', async ({ page, site }) => {
       await page.goto(`${site.url}${TRIPS[1]}`);
       await page.locator('.tl-trip-row[href="#day-6"]').click();
+      await page.locator('.tl-planbar').waitFor();
       await settled(page);
       await expect(page.locator(CELL)).toHaveText('6');
       await page.locator('.tl-rail-cell', { hasText: /^3$/ }).focus();
       await page.keyboard.press('Enter');
       await settled(page);
       await expect(page.locator(CELL)).toHaveText('3');
-      await expect.poll(async () => (await shown(page)).strip).toEqual([3]);
+      await expect.poll(async () => (await shown(page)).day).toEqual([3]);
     });
   });
 }
 
 test('Back after scrolling leaves the page; the scroll never pushed history', async ({ page, site }) => {
   await page.goto(`${site.url}/trips/`);
-  await page.goto(`${site.url}${TRIPS[0]}`);
+  await open(page, `${site.url}${TRIPS[0]}?view=day`);
   await scrollDayTo(page, 4, 150);
   await expect.poll(() => page.evaluate(() => location.hash)).toBe('#day-4');
   await scrollDayTo(page, 9, 'line');
@@ -180,7 +189,7 @@ test('Back after scrolling leaves the page; the scroll never pushed history', as
 
 test('the phone rail keeps the current cell in view', async ({ page, site }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto(`${site.url}${TRIPS[0]}`);
+  await open(page, `${site.url}${TRIPS[0]}?view=day`);
   await scrollDayTo(page, 14, 150);
   await expect(page.locator(CELL)).toHaveText('14');
   await expect
@@ -231,7 +240,7 @@ test('By category: a chip clicked while the last scroll is still settling keeps 
 
 test('axe after scrolling the trip page', async ({ page, site }, info) => {
   test.skip(info.project.name !== 'chromium', 'axe runs on Chromium, as in a11y.spec.ts; the gallery tile name mismatch on WebKit is not this change');
-  await page.goto(`${site.url}${TRIPS[0]}`);
+  await open(page, `${site.url}${TRIPS[0]}?view=day`);
   await scrollDayTo(page, 9, 'line');
   await expect(page.locator(CELL)).toHaveText('9');
   await page.waitForTimeout(400);

@@ -63,6 +63,9 @@ export function useScrollSpy<K extends string | number>(opts: Options<K>): Spy<K
     const bar = document.querySelector<HTMLElement>(barSelector);
     const headerH = header ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
     const barH = bar && getComputedStyle(bar).position === 'sticky' ? bar.getBoundingClientRect().height : 0;
+    // the trip page's tab bar sticks above the bar on desktop (UXB-1); on a phone it scrolls away on Days and Stops
+    const tabs = document.querySelector<HTMLElement>('.trip-tabbar');
+    const tabsH = tabs && getComputedStyle(tabs).position === 'sticky' ? tabs.getBoundingClientRect().height : 0;
     document.documentElement.style.setProperty('--spy-bar-h', `${Math.round(barH)}px`);
     const spots: Spot<K>[] = [];
     for (const el of document.querySelectorAll<HTMLElement>(itemSelector)) {
@@ -70,7 +73,7 @@ export function useScrollSpy<K extends string | number>(opts: Options<K>): Spy<K
       if (key !== null) spots.push({ key, top: el.getBoundingClientRect().top });
     }
     const root = document.documentElement;
-    const key = pickCurrent(spots, focusLine(headerH + barH, window.innerHeight), isAtBottom(window.scrollY, window.innerHeight, root.scrollHeight));
+    const key = pickCurrent(spots, focusLine(headerH + tabsH + barH, window.innerHeight), isAtBottom(window.scrollY, window.innerHeight, root.scrollHeight));
     return { key, first: spots[0]?.key ?? null };
   }, []);
 

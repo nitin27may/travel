@@ -10,7 +10,8 @@ test.describe('trip timeline (L3c)', () => {
     for (const slug of FULL) {
       await page.goto(`${site.url}/trips/${slug}/`);
       await expect(page.locator('#plan-for'), slug).toBeVisible();
-      await expect(page.locator('#trip-at-a-glance'), slug).toBeVisible();
+      await expect(page.locator('#trip-at-a-glance'), slug).toBeVisible(); // the whole-trip view is in the Summary
+      await page.getByRole('tab', { name: /^Days/ }).click();
       const days = await page.locator('li.tl-day').count();
       expect(days, slug).toBeGreaterThan(2);
       expect(await page.locator('.tl-trip-item').count(), slug).toBe(days);
@@ -19,11 +20,11 @@ test.describe('trip timeline (L3c)', () => {
     await page.goto(`${site.url}/trips/switzerland-2027/`);
     await expect(page.locator('#plan-for')).toHaveCount(0);
     await expect(page.locator('li.tl-day')).toHaveCount(0);
-    await expect(page.getByText(/^This plan has not been converted to days yet\./)).toBeVisible();
+    await expect(page.getByText(/This plan has not been converted to days yet\./)).toBeVisible();
   });
 
   test('the "Suggested times" banner is present once, and the page is free of research markers (checks 7, 9)', async ({ page, site }) => {
-    await page.goto(`${site.url}${ROCKIES}`);
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
     await expect(page.getByText('Suggested times.')).toHaveCount(1);
     expect(await page.content()).not.toMatch(MARKER);
     expect(await page.locator('main').innerText()).not.toMatch(MARKER);
@@ -35,13 +36,13 @@ test.describe('trip timeline (L3c)', () => {
 
   test('profile picks the version of each day (checks 3, 12)', async ({ page, site }) => {
     const chip = (n: number) => page.locator(`#day-${n}`).getByRole('button', { name: new RegExp(`Version of Day ${n}:`) });
-    await page.goto(`${site.url}${ROCKIES}`);
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
     for (const n of [2, 5, 9]) await expect(chip(n)).toContainText('Whole family');
     await expect(page.locator('#day-5 .tl-split')).toContainText('Split option');
-    await page.goto(`${site.url}${ROCKIES}?p=adults`);
+    await page.goto(`${site.url}${ROCKIES}?p=adults&view=day`);
     await expect(chip(5)).toContainText("Adults' hike");
     await expect(page.locator('#day-5 .tl-split')).toHaveCount(0);
-    await page.goto(`${site.url}${ROCKIES}?p=family-14`);
+    await page.goto(`${site.url}${ROCKIES}?p=family-14&view=day`);
     await expect(chip(5)).toContainText("Adults' hike");
     // no-fit: a Dolomites day with a long walk for a young child
     await page.goto(`${site.url}/trips/dolomites-2027/?p=family-4#day-3`);
@@ -81,7 +82,7 @@ test.describe('trip timeline (L3c)', () => {
   test('the adults version of Day 5 is titled for itself; the research words are gone (round two)', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}?p=adults#day-5`);
     await expect(page.locator('#day-5 .tl-day-title')).toHaveText('Bald Hills');
-    await page.goto(`${site.url}${ROCKIES}`);
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
     expect(await page.locator('main').innerText()).not.toMatch(/\bdataset\b|trail id|audience '/i);
   });
 
@@ -104,13 +105,13 @@ test.describe('trip timeline (L3c)', () => {
   });
 
   test('Back and Forward restore the profile; the keys follow the codec order (check 12)', async ({ page, site }) => {
-    await page.goto(`${site.url}${ROCKIES}`);
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
     await page.getByRole('radio', { name: 'Relaxed' }).click();
     await expect(page).toHaveURL(/\?pace=relaxed/);
     await page.getByRole('radio', { name: 'Adults only' }).click();
     await expect(page).toHaveURL(/\?p=adults&pace=relaxed/);
     await page.goBack();
-    await expect(page).toHaveURL(/\?pace=relaxed$/);
+    await expect(page).toHaveURL(/\?pace=relaxed&view=day$/);
     await expect(page.getByRole('radio', { name: 'Relaxed' })).toBeChecked();
     await page.goBack();
     await expect(page).not.toHaveURL(/pace=/);
@@ -179,7 +180,7 @@ test.describe('trip timeline (L3c)', () => {
 
   test('phone: the profile is a line with Edit, opens inline, no horizontal scroll (check 17)', async ({ page, site }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto(`${site.url}${ROCKIES}`);
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
     await expect(page.locator('.tl-profile-now')).toBeVisible();
     await expect(page.locator('#plan-for-controls')).toBeHidden();
     await page.locator('.tl-profile-edit').click();
@@ -194,7 +195,7 @@ test.describe('trip timeline (L3c)', () => {
   test('axe is clean with the panel open and closed (check 17)', async ({ page, site }) => {
     for (const size of [{ width: 1280, height: 900 }, { width: 390, height: 844 }]) {
       await page.setViewportSize(size);
-      await page.goto(`${site.url}${ROCKIES}`);
+      await page.goto(`${site.url}${ROCKIES}?view=day`);
       await page.waitForTimeout(500);
       const run = async (label: string) => {
         const r = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).exclude('[data-map-family]').analyze();

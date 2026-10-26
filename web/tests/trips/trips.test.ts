@@ -81,10 +81,10 @@ describe('wording and url', () => {
     expect(seasonWindow([11, 12, 1])).toEqual({ from: '11-01', to: '01-31' });
     expect(seasonWindow([])).toBeUndefined();
   });
-  it('parseTripUrl: category fragment implies By category', () => {
-    expect(parseTripUrl('', '#day-3')).toMatchObject({ view: 'day', day: 3 });
+  it('parseTripUrl: the view as written, the fragment as day and category (which tab they mean is resolveTripTab)', () => {
+    expect(parseTripUrl('', '#day-3')).toMatchObject({ view: null, day: 3 });
     expect(parseTripUrl('?view=category', '')).toMatchObject({ view: 'category' });
-    expect(parseTripUrl('', '#trails')).toMatchObject({ view: 'category', category: 'trails' });
+    expect(parseTripUrl('?view=day&p=adults', '#trails')).toMatchObject({ view: 'day', category: 'trails', timeline: 'p=adults' });
   });
 });
 
