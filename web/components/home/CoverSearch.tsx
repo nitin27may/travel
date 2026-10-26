@@ -16,6 +16,7 @@ const GlobalSearch = dynamic(() => import('@/components/search/GlobalSearch').th
 export function CoverSearch() {
   const [open, setOpen] = useState(false);
   useEffect(() => {
+    void import('@/lib/favourites/badges').then((m) => m.watchBadges()); // hearts on the strips' cards, after first paint
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
       const t = e.target as HTMLElement | null;

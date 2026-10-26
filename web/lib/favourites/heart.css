@@ -1,0 +1,21 @@
+/* The favourites heart, the card badge and the heart's toast link (mine-and-bar-spec 6, 7). Tokens only. Loaded with the lazy heart chunk,
+   so no page pays for it at start. */
+.btn.fav-heart { width: 38px; padding: 0; background: var(--surface); color: var(--ink); }
+.btn.fav-heart::after { content: ''; position: absolute; inset: 50% auto auto 50%; width: max(100%, var(--touch-min)); height: max(100%, var(--touch-min)); transform: translate(-50%, -50%); }
+.fav-glyph { display: inline-grid; }
+.fav-heart svg { display: block; }
+.fav-heart svg path { fill: transparent; stroke: currentColor; transition: fill var(--d-fast) var(--e-std), stroke var(--d-fast) var(--e-std); }
+.fav-heart[aria-pressed='true'] svg path { fill: var(--accent-text); stroke: var(--accent-text); }
+.fav-glyph[data-pop] { animation: fav-pop 200ms var(--e-out); }
+@keyframes fav-pop { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+@media (max-width: 639px) { .btn.fav-heart { width: var(--touch-min); height: var(--touch-min); } }
+@media (prefers-reduced-motion: reduce) { .fav-glyph[data-pop] { animation: none; } }
+
+/* the first-save toast carries the Sign in link in its sentence */
+.toast-msg .fav-toast-link { color: inherit; font-weight: 600; text-decoration: underline; }
+.toast-msg .fav-toast-link:focus-visible { outline: 2px solid var(--toast-ink); outline-offset: 2px; border-radius: var(--r-1, 2px); }
+
+/* card badge: an 18 px heart on a 26 px disc at the photo's top right; decorative, added after first paint (spec 6) */
+.fav-badge { position: absolute; top: 8px; right: 8px; z-index: 2; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2); color: var(--accent-text); pointer-events: none; }
+.fav-badge svg { display: block; }
+.fav-badge svg path { fill: currentColor; stroke: currentColor; }
