@@ -188,7 +188,7 @@ def test_rule10_dead_path_and_link(repo, capsys):
 
 
 def test_rule10_skips_placeholders_refs_data_json_runtime_and_tests(repo):
-    repo.add("research/README.md", "data/trips/<slug>/trip.json web/.next/x core/*.ts tools/{a,b}.py legacy/trip-a/trails/larch-valley\n")
+    repo.add("research/README.md", "data/trips/<slug>/trip.json web/.next/x web/.og-cache/ web/.og-cache/og/trips/a.jpg core/*.ts tools/{a,b}.py legacy/trip-a/trails/larch-valley\n")
     repo.add("data/points.json", json.dumps({"legacy/trip-a/trails/larch": 1, "tools/gone.py": 2}))
     repo.add("core/test/a.test.ts", "'core/nowhere/x.ts'\n")
     assert "10" not in repo.rules()

@@ -28,6 +28,8 @@ export default defineConfig({
   test: {
     testTimeout: 30000,
     hookTimeout: 300000,
+    // the page loaders keep Commons source URLs in unit tests (the build and the API map them to renditions: lib/server/images.ts)
+    env: { IMAGES_SOURCE_URLS: '1' },
     projects: [
       // no global setup: a focused run starts at once
       project('unit', 'web.unit'),

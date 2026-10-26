@@ -16,6 +16,14 @@ const next = path.join(web, 'node_modules', 'next', 'dist', 'bin', 'next');
  */
 export const BUILD_ENV = { NEXT_PUBLIC_PLACE_MAP_FAMILY: 'maplibre', NEXT_PUBLIC_GOOGLE_MAPS_KEY: '', NEXT_PUBLIC_GOOGLE_MAP_ID: '' };
 
+/** The build line of web/package.json, step by step (a unit test keeps the two in step): renditions and share images come BEFORE `next build`. */
+const BUILD_STEPS: string[][] = [
+  [path.join(web, 'scripts', 'images.mjs'), '--prebuild'],
+  [path.join(web, 'scripts', 'og.mjs'), '--prebuild'],
+  [next, 'build'],
+  [path.join(web, 'scripts', 'images.mjs'), '--verify'],
+];
+
 function freePort(): Promise<number> {
   return new Promise((resolve, reject) => {
     const srv = net.createServer();
@@ -48,8 +56,8 @@ async function waitFor(url: string): Promise<void> {
 }
 
 /**
- * The site runs as it will in production: `next build`, the rendition and share-image steps (they write web/public/img and og, and
- * `next start` lists public/ when it starts, so they come first), then ONE `next start` on a free port shared by every worker.
+ * The site runs as it will in production: the rendition and share-image steps (they write web/public/img and og before `next build`, which the Vercel adapter needs and
+ * `next start` lists public/ when it starts), `next build`, the verify step, then ONE `next start` on a free port shared by every worker.
  *
  * - SKIP_WEB_BUILD=1 reuses the build in web/.next (check-all has just built it).
  * - PW_REUSE_SITE=1 with PW_SITE_URL reuses a server that is already running; nothing is built or started and nothing is killed.
@@ -65,7 +73,7 @@ export default async function setup(): Promise<(() => void) | void> {
   }
   const env = { ...process.env, HUB_TODAY: '2026-10-17', NEXT_DIST_DIR: '', ...BUILD_ENV };
   if (process.env.SKIP_WEB_BUILD !== '1') {
-    for (const args of [[next, 'build'], [path.join(web, 'scripts', 'images.mjs')], [path.join(web, 'scripts', 'og.mjs')]]) {
+    for (const args of BUILD_STEPS) {
       execFileSync(process.execPath, args, { cwd: web, stdio: 'pipe', env });
     }
   }

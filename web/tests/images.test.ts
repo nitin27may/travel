@@ -1,8 +1,8 @@
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { readText, walkFiles } from './helpers';
-import { builtOutDir } from './helpers/built';
+import { WEB, builtOutDir } from './helpers/built';
 
 const OUT = builtOutDir();
 const pages = walkFiles(OUT).filter((f) => f.endsWith('index.html') && !f.includes(`${path.sep}specimen${path.sep}`));
@@ -15,11 +15,7 @@ describe('images (backlog 2.14)', () => {
     let local = 0;
     for (const { page, tag } of imgs) {
       const src = /\ssrc="([^"]+)"/.exec(tag)?.[1] ?? '';
-      if (/commons\.wikimedia\.org/.test(src)) {
-        // the photo could not be fetched at build time: it stays on Commons, at a width the pages ask for
-        expect([320, 640, 960], `${page}: ${src}`).toContain(Number(/[?&]width=(\d+)/.exec(src)?.[1]));
-        continue;
-      }
+      expect(src, `${page}: a photo is never hot-linked from Commons (IMG-1b)`).not.toMatch(/wikimedia\.org/);
       if (!src.startsWith('/img/')) continue;
       local++;
       expect(src, page).toMatch(/^\/img\/[a-z0-9]+-(320|640|960)\.webp$/);
@@ -30,9 +26,17 @@ describe('images (backlog 2.14)', () => {
     expect(local).toBeGreaterThan(50);
   });
 
-  it('keeps Wikimedia out of the page weight: no photo is a Commons hot-link unless the build could not fetch it', () => {
-    const remote = imgs.filter(({ tag }) => /commons\.wikimedia\.org/.test(tag)).length;
-    expect(remote, 'photos still on Commons').toBeLessThan(imgs.length * 0.05);
+  it('keeps Wikimedia out of the pages: no photo is a Commons hot-link, and the /img keys are the ones the prebuild made', () => {
+    expect(imgs.filter(({ tag }) => /wikimedia\.org/.test(tag))).toEqual([]);
+    const web = WEB;
+    const map = JSON.parse(readFileSync(path.join(web, '.generated', 'image-map.json'), 'utf8')) as Record<string, string>;
+    const listed = JSON.parse(readFileSync(path.join(web, '.generated', 'prebuild-photos.json'), 'utf8')) as string[];
+    expect(Object.keys(map).filter((n) => !listed.includes(n)), 'mapped photos the collector did not list').toEqual([]);
+    const keys = new Set(Object.values(map));
+    for (const { page, tag } of imgs) {
+      const k = /\/img\/([a-z0-9]+)-\d+\.webp/.exec(tag)?.[1];
+      if (k) expect(keys.has(k), `${page}: ${k}`).toBe(true);
+    }
   });
 
   it('sets width and height on every image so the box is reserved before it loads', () => {

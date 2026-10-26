@@ -48,7 +48,7 @@ SKIP_SCAN = re.compile(
     r"|baseline\.json$|^tools/tree_check\.py$|^tools/relink\.py$|^research/audits/sun-audit"
 )
 # Runtime locations that exist on a working machine only.
-RUNTIME = re.compile(r"(\.cache|\.env|^web/out|\.next|\.generated|public/img|\.site|test-results|\.tile-cache|node_modules)")
+RUNTIME = re.compile(r"(\.cache|\.og-cache|\.env|^web/out|\.next|\.generated|public/img|\.site|test-results|\.tile-cache|node_modules)")
 PATH_RE = re.compile(r"(?<![\w./@~-])((?:core|data|docs|research|tools|web|legacy|prototype)/[A-Za-z0-9_./\-]*[A-Za-z0-9_/])")
 
 

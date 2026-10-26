@@ -1,3 +1,4 @@
+import { photoUrl } from '@/lib/server/images';
 import type { Photo } from './types';
 
 export interface CreditEntry {
@@ -10,16 +11,22 @@ export type Credits = Record<string, CreditEntry>;
 
 export const PHOTO_WIDTHS = [480, 960, 1600] as const;
 
-export function commonsUrl(file: string, width: number): string {
-  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file.replace(/ /g, '_'))}?width=${width}`;
+const sourceUrl = (file: string, width: number): string => `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file.replace(/ /g, '_'))}?width=${width}`;
+
+/** The same-origin rendition for a Commons file at about `width` px, or null when the build made none (the photo is then left out, never hot-linked). */
+export function commonsUrl(file: string, width: number): string | null {
+  return photoUrl(sourceUrl(file, width));
 }
 export function commonsPage(file: string): string {
   return `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file.replace(/ /g, '_'))}`;
 }
 
-/** srcset for 480, 960 and 1600 px renditions. */
+/** srcset for 480, 960 and 1600 px renditions; empty when the photo has none. */
 export function photoSrcSet(photo: Pick<Photo, 'file'>): string {
-  return PHOTO_WIDTHS.map((w) => `${commonsUrl(photo.file, w)} ${w}w`).join(', ');
+  return PHOTO_WIDTHS.flatMap((w) => {
+    const u = commonsUrl(photo.file, w);
+    return u ? [`${u} ${w}w`] : [];
+  }).join(', ');
 }
 
 export function licenceUrlFor(licence: string): string | null {
@@ -65,7 +72,7 @@ export function cleanAuthor(raw: string | null | undefined): string {
 }
 
 /**
- * A photo, or null when it has no author or no licence: no credit, no photo. The kind glyph replaces it.
+ * A photo, or null when it has no author or no licence (no credit, no photo) or no rendition (no photo, no credit). The kind glyph replaces it.
  * Inline credit (gallery.json) wins over the fetched credits file.
  */
 export function makePhoto(
@@ -78,9 +85,11 @@ export function makePhoto(
   const licence = (opts.licence || c?.licence || '').trim();
   if (!author || !licence) return null;
   const width = opts.width ?? 960;
+  const url = commonsUrl(file, width);
+  if (!url) return null; // no rendition: no photo, and its credit goes with it
   return {
     file,
-    url: commonsUrl(file, width),
+    url,
     width,
     caption: opts.caption ?? '',
     author,

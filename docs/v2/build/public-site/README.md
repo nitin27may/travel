@@ -320,6 +320,9 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `LEGACY_TRIPS_JSON` | web `lib/data/trips.ts` | Path of the legacy trips file; set by the fixture build | no |
 | `LOCATIONS_ROOT` | `tools/locations.py`, `tools/location_views.py`, core `placeBackend.ts` | Root the locations tool reads and writes (tests use a temp tree) | no |
 | `NEXT_DIST_DIR` | web `next.config.ts`, build scripts | Alternate build folder, only for the fixture builds | no |
+| `IMAGES_SOURCE_URLS` | web `lib/server/images.ts`, `scripts/prebuild-data.ts`, vitest | `1` keeps the Commons source URL in loaders (the photo-list collector, unit tests); otherwise pages map to renditions and drop photos without one (IMG-1b) | no |
+| `IMG_PUBLIC_DIR`, `IMG_GENERATED_DIR` | `scripts/images.mjs`, `og.mjs`, `prebuild-data.ts` | Alternate `public/` and `.generated/` folders, for the image script tests only | no |
+| `COMMONS_FETCH_GUARD` | `scripts/commons-cache.mjs` | `1` makes any Wikimedia fetch throw (tests and no-network runs); fetching happens only in `images:warm --fetch` | no |
 | `NEXT_RUNTIME` | web `instrumentation.ts` | Set by Next (`nodejs` or `edge`); the store is warmed at start only on the Node runtime | no |
 | `NEXT_PHASE` | web `lib/public/places.ts` | Set by Next; the build logs shell places once | no |
 | `NODE_ENV` | web | Set by Node and Next; dev-only branches | no |

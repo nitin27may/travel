@@ -130,7 +130,10 @@ export function lookupFor(located: Pick<Located<unknown>, 'file'> | undefined | 
 
 /** Scrubs free text from a sidecar: household capture notes dropped whole, the party rewritten, the home town replaced. */
 export class TextScrub {
-  constructor(readonly log?: DropLog) {}
+  readonly log?: DropLog;
+  constructor(log?: DropLog) {
+    this.log = log;
+  }
 
   text(raw: string | null | undefined, where: string): string {
     const t = (raw ?? '').trim();
