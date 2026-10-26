@@ -6,7 +6,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   ORIGIN_KEYS_PATH, SLUG_REGISTRY_PATH, aliasKey, emptyOriginKeys, emptyRegistry, mergeKey, migrateOrigins, originDrift, originKeysText, parseOriginKeys,
-  parseRegistry, registryDrift, registryText, renameSlug, reoriginKey, updateOriginKeys, updateRegistry, withdrawKey,
+  parseRegistry, registryDrift, registryText, renameSlug, reoriginKey, unmintKey, updateOriginKeys, updateRegistry, withdrawKey,
   type OriginKeys, type SlugRegistry, type SlugSnapshot,
 } from "../src/catalogue/slugs.ts";
 
@@ -25,6 +25,10 @@ Commands:
   merge <key> <survivor>    a place merged into another page (same_place_as): its slug answers 308 to the survivor's
   withdraw <key>            a place or trip gone with no successor: its slug stays reserved and answers not_found; build restores it
                             when the record comes back
+  unmint <key> --released <git ref>
+                            drop the pin of a key that was never public (absent, with its slug, from the registry at the
+                            released ref, e.g. release/v0.1), so build mints it again from today's rule; nothing is retired and
+                            nothing answers 308. Refuses a key or slug the release holds: those change only through rename
   reorigin <old> <new>      a wishlist or prototype id changed (loc:<id>, proto:<id>): the page keeps its place/<slug> ref; edits only
                             the PRIVATE ${ORIGIN_KEYS_PATH} (A24)
   migrate-origins           once (REF1): rekey every loc:/proto: key of the registry to place/<slug> and move the origin to the
@@ -36,6 +40,8 @@ build and --check maintain next to the registry (store.ts A24).
 Options:
   --root <dir>        repository root (default: two levels above this file)
   --snapshot <file>   read the builder's assignment from this file instead of running the web dump (tests)
+  --released <ref>    unmint: the git ref of the deployed release whose registry is permanent
+  --released-file <f> unmint: read the released registry from this file instead of git (tests)
 `;
 
 const arg = (argv: string[], name: string): string | null => {
@@ -131,17 +137,43 @@ function edit(root: string, change: (reg: SlugRegistry) => SlugRegistry, what: s
   return 0;
 }
 
+/** The registry of the deployed release: from `--released-file`, or `git show <--released>:data/catalogue/slugs.json`. */
+function releasedRegistry(root: string, argv: string[]): SlugRegistry {
+  const file = arg(argv, "--released-file");
+  if (file) return parseRegistry(readFileSync(resolve(file), "utf8"));
+  const ref = arg(argv, "--released");
+  if (!ref) throw new Error("unmint needs --released <git ref> (the deployed release, e.g. release/v0.1) or --released-file <file>");
+  const run = spawnSync("git", ["-C", root, "show", `${ref}:${SLUG_REGISTRY_PATH}`], { encoding: "utf8" });
+  if (run.status !== 0) throw new Error(`cannot read ${SLUG_REGISTRY_PATH} at ${ref}: ${(run.stderr ?? "").trim()}`);
+  return parseRegistry(run.stdout);
+}
+
+function unmint(root: string, k: string, argv: string[]): number {
+  const reg = readRegistry(root);
+  if (!reg) {
+    err(`${SLUG_REGISTRY_PATH} does not exist`);
+    return 1;
+  }
+  const m = unmintKey(reg, readOrigins(root), k, releasedRegistry(root, argv));
+  writeRegistry(root, m.registry);
+  if (m.origins) writeOrigins(root, m.originKeys);
+  out(`${k} (slug ${m.slug}) is no longer pinned${m.origins ? ` and its origin is unpinned in ${ORIGIN_KEYS_PATH}` : ""}; run \`node core/bin/slugs.ts build\` to mint it again`);
+  return 0;
+}
+
 export function main(argv: string[]): number {
   const root = resolve(arg(argv, "--root") ?? join(dirname(fileURLToPath(import.meta.url)), "..", ".."));
-  const cmd = argv.find((a) => !a.startsWith("--") && argv[argv.indexOf(a) - 1] !== "--root" && argv[argv.indexOf(a) - 1] !== "--snapshot");
+  const VALUE_FLAGS = ["--root", "--snapshot", "--released", "--released-file"];
+  const cmd = argv.find((a, i) => !a.startsWith("--") && !VALUE_FLAGS.includes(argv[i - 1] ?? ""));
   try {
     if (argv.includes("--check") || cmd === "check") return check(root, argv);
     if (cmd === "build") return build(root, argv);
-    const rest = argv.filter((a, i) => !a.startsWith("--") && !["--root", "--snapshot"].includes(argv[i - 1] ?? ""));
+    const rest = argv.filter((a, i) => !a.startsWith("--") && !VALUE_FLAGS.includes(argv[i - 1] ?? ""));
     if (cmd === "rename" && rest.length === 3) return edit(root, (r) => renameSlug(r, rest[1]!, rest[2]!), `${rest[1]} is now ${rest[2]}; its old slug answers 308`);
     if (cmd === "alias" && rest.length === 3) return edit(root, (r) => aliasKey(r, rest[1]!, rest[2]!), `${rest[2]} carries the slug of ${rest[1]}`);
     if (cmd === "merge" && rest.length === 3) return edit(root, (r) => mergeKey(r, rest[1]!, rest[2]!), `${rest[1]} is merged into ${rest[2]}; its slug answers 308`);
     if (cmd === "withdraw" && rest.length === 2) return edit(root, (r) => withdrawKey(r, rest[1]!), `${rest[1]} is withdrawn; its slug stays reserved`);
+    if (cmd === "unmint" && rest.length === 2) return unmint(root, rest[1]!, argv);
     if (cmd === "reorigin" && rest.length === 3) {
       writeOrigins(root, reoriginKey(readOrigins(root), rest[1]!, rest[2]!));
       out(`the page keeps its ref under the new origin (${ORIGIN_KEYS_PATH}); run \`node core/bin/slugs.ts --check\``);

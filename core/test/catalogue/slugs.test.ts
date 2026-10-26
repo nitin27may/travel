@@ -1,3 +1,4 @@
+import { spawnSync } from "node:child_process";
 import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
@@ -5,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import {
   ORIGIN_KEYS_PATH, RESERVED_API_WORDS, SLUG_REGISTRY_PATH, aliasKey, assignPlaceSlugs, assignSeedSlugs, currentSlug, emptyOriginKeys, emptyRegistry, isWithdrawn,
   kebab, mergeKey, migrateOrigins, movedTo, originDrift, originKeysText, originProblems, parseOriginKeys, parseRegistry, registryDrift,
-  registryProblems, registryText, renameSlug, reoriginKey, reservedSlugs, resolveRef, resolveRegion, updateOriginKeys, updateRegistry, withdrawKey,
+  registryProblems, registryText, renameSlug, reoriginKey, reservedSlugs, resolveRef, resolveRegion, unmintKey, updateOriginKeys, updateRegistry, withdrawKey,
   type SlugRegistry, type SlugSnapshot, type SlugSpace,
 } from "../../src/catalogue/slugs.ts";
 import { main } from "../../bin/slugs.ts";
@@ -229,6 +230,38 @@ describe("the registry", () => {
   });
 });
 
+describe("unmintKey (SLUG-FIX: a pin that was never public)", () => {
+  const origins = { ...emptyOriginKeys(), keys: { "loc:IS/w/a/snaefellsjokull": "place/sn-fellsjokull", "loc:CA/x/alpha": "place/alpha" } };
+  const released = reg({ "place/alpha": "alpha" }, { retired: { "alpha-old": "place/alpha" }, withdrawn: { "place/gone": "gone" } });
+  it("drops the key and its origin, retires nothing, so build mints it again from today's rule", () => {
+    const now = reg({ "place/alpha": "alpha", "place/sn-fellsjokull": "sn-fellsjokull" });
+    const m = unmintKey(now, origins, "place/sn-fellsjokull", released);
+    expect(m.slug).toBe("sn-fellsjokull");
+    expect(m.origins).toBe(1);
+    expect(m.registry.places.slugs).toEqual({ "place/alpha": "alpha" });
+    expect(m.registry.places.retired).toEqual({});
+    expect(m.registry.formerKeys).toEqual({});
+    expect(m.originKeys.keys).toEqual({ "loc:CA/x/alpha": "place/alpha" });
+    const again = updateRegistry(m.registry, snap({ "place/alpha": "alpha", "place/snaefellsjokull": "snaefellsjokull" }));
+    expect(again.problems).toEqual([]);
+    expect(again.registry.places.slugs["place/snaefellsjokull"]).toBe("snaefellsjokull");
+    expect(reservedSlugs(again.registry).has("sn-fellsjokull")).toBe(false);
+  });
+  it("refuses a key or a slug the released registry holds: those are permanent and change only through rename", () => {
+    expect(() => unmintKey(reg({ "place/alpha": "alpha" }), origins, "place/alpha", released)).toThrow(/released registry/);
+    expect(() => unmintKey(reg({ "place/new": "alpha-old" }), origins, "place/new", released)).toThrow(/slug alpha-old is in the released registry/);
+    expect(() => unmintKey(reg({ "place/back": "gone" }), origins, "place/back", released)).toThrow(/slug gone is in the released registry/);
+    expect(() => unmintKey(reg({ "place/gone": "other" }), origins, "place/gone", released)).toThrow(/place\/gone is in the released registry/);
+  });
+  it("refuses a key with history here (a retired slug, a merge, a former key) and a key with no slug", () => {
+    const none = emptyRegistry();
+    expect(() => unmintKey(reg({ "place/b": "b2" }, { retired: { b: "place/b" } }), origins, "place/b", none)).toThrow(/retired/);
+    expect(() => unmintKey(reg({ "place/b": "b", "place/c": "c" }, { merged: { "place/c": "place/b" } }), origins, "place/b", none)).toThrow(/merge/);
+    expect(() => unmintKey(reg({ "place/b": "b" }, {}, { formerKeys: { "route/old": "place/b" } }), origins, "place/b", none)).toThrow(/former key/);
+    expect(() => unmintKey(reg({}), origins, "place/b", none)).toThrow(/has no slug/);
+  });
+});
+
 describe("data/catalogue/slugs.json, as committed", () => {
   const text = readFileSync(join(ROOT, SLUG_REGISTRY_PATH), "utf8");
   const r = parseRegistry(text);
@@ -244,6 +277,19 @@ describe("data/catalogue/slugs.json, as committed", () => {
     expect(Object.keys(r.trips.slugs).length).toBeGreaterThan(5);
     expect(Object.keys(r.regions).length).toBe(48);
     expect(resolveRegion(r, "CA-AB", "CA")).toEqual(["ca/alberta"]);
+  });
+  it("holds none of the slugs the old slugifier broke (SLUG-FIX), and the Icelandic pages carry their spelled-out slugs", () => {
+    for (const bad of ["sn-fellsjokull", "reykjahli", "grundarfjor-ur", "kirkjub-jarklaustur"]) expect(reservedSlugs(r).has(bad), bad).toBe(false);
+    for (const good of ["snaefellsjokull", "reykjahlid", "grundarfjordur", "kirkjubaejarklaustur"]) expect(r.places.slugs[`place/${good}`], good).toBe(good);
+  });
+  it("keeps every entry of the deployed release/v0.1 registry unchanged (permanent slugs); skipped where the tag is absent", () => {
+    const run = spawnSync("git", ["-C", ROOT, "show", `release/v0.1:${SLUG_REGISTRY_PATH}`], { encoding: "utf8" });
+    if (run.status !== 0) return;
+    const rel = parseRegistry(run.stdout);
+    for (const name of ["places", "trips"] as const) {
+      for (const sec of ["slugs", "retired", "merged", "withdrawn"] as const) for (const [k, v] of Object.entries(rel[name][sec])) expect(r[name][sec][k], `${name}.${sec} ${k}`).toBe(v);
+    }
+    for (const [k, v] of Object.entries(rel.formerKeys)) expect(r.formerKeys[k]).toBe(v);
   });
   it("holds no household string: refs carry nothing private (G-B 12)", () => {
     expect(text).not.toMatch(/whitby/i);
@@ -377,5 +423,22 @@ describe("node core/bin/slugs.ts", () => {
     expect(main(["migrate-origins", "--root", legacy])).toBe(0);
     expect(main(["--check", "--root", legacy, "--snapshot", file(legacy, base)])).toBe(0);
     expect(readOrigins(legacy).keys).toEqual(base.origins);
+  });
+
+  it("unmint drops a pin the release never had (no 308), refuses a released one, and needs the release named", () => {
+    const root = tmpRoot();
+    expect(main(["build", "--root", root, "--snapshot", file(root, base)])).toBe(0);
+    const rel = join(root, "released.json");
+    writeFileSync(rel, registryText(reg({ "place/alpha": "alpha" })));
+    expect(main(["unmint", "place/beta", "--root", root])).toBe(1);
+    expect(main(["unmint", "place/alpha", "--root", root, "--released-file", rel])).toBe(1);
+    expect(main(["unmint", "place/beta", "--root", root, "--released-file", rel])).toBe(0);
+    expect(read(root).places.slugs["place/beta"]).toBeUndefined();
+    expect(read(root).places.retired).toEqual({});
+    expect(readOrigins(root).keys).toEqual({ "loc:CA/x/alpha": "place/alpha" });
+    const remint = file(root, { ...base, places: { "place/alpha": "alpha", "place/beta-fixed": "beta-fixed" }, origins: { "loc:CA/x/alpha": "place/alpha", "proto:b": "place/beta-fixed" } });
+    expect(main(["build", "--root", root, "--snapshot", remint])).toBe(0);
+    expect(main(["--check", "--root", root, "--snapshot", remint])).toBe(0);
+    expect(read(root).places.slugs["place/beta-fixed"]).toBe("beta-fixed");
   });
 });

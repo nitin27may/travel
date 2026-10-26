@@ -21,10 +21,29 @@ import { compareCodePoints } from "./sortKey.ts";
 
 // ---- the rules of patterns 1.2 (moved from web/lib/public/slugs.ts and seeds.ts; web re-exports them) -----------------------------
 
-export function kebab(s: string): string {
+/**
+ * Letters that NFKD does not decompose into a base letter plus marks, spelled the way their languages write them in ASCII. Without
+ * this step `Snæfellsjökull` lost its `æ` (`sn-fellsjokull`) and `Reykjahlíð` its `ð` (`reykjahli`). The same table is TRANSLITERATION
+ * in tools/locations.py; core/test/catalogue/slugify-parity.test.ts and tools/tests/test_slugify_parity.py hold both to the shared
+ * samples in core/test/catalogue/fixtures/slugify-samples.json and compare the two tables.
+ */
+export const TRANSLITERATION: Readonly<Record<string, string>> = {
+  "æ": "ae", "Æ": "Ae", "ð": "d", "Ð": "D", "þ": "th", "Þ": "Th", "ø": "o", "Ø": "O", "œ": "oe", "Œ": "Oe",
+  "ß": "ss", "ẞ": "Ss", "ł": "l", "Ł": "L", "đ": "d", "Đ": "D", "ı": "i",
+};
+const TRANSLITERATION_RE = new RegExp(`[${Object.keys(TRANSLITERATION).join("")}]`, "gu");
+
+/** The ASCII-leaning spelling of a name: the letters above transliterated first, then NFKD with every combining mark dropped. Case is kept. */
+export function asciiFold(s: string): string {
   return s
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
+    .replace(TRANSLITERATION_RE, (c) => TRANSLITERATION[c]!)
+    .normalize("NFKD")
+    .replace(/\p{M}+/gu, "");
+}
+
+/** A name as a slug (patterns 1.2): folded to ASCII (asciiFold), `&` spelled `and`, apostrophes dropped, other runs as one hyphen. */
+export function kebab(s: string): string {
+  return asciiFold(s)
     .replace(/&/g, " and ")
     .toLowerCase()
     .replace(/['’]/g, "")
@@ -111,7 +130,7 @@ export const slugRegistry = z.strictObject({
 export type SlugRegistry = z.infer<typeof slugRegistry>;
 
 export const SLUG_REGISTRY_NOTE =
-  "Pinned place and trip slugs, their history (retired, merged, withdrawn, former keys) and canonical region values (D-B1, D-B3). Read by the dataset builder and the stores, never served. Change it only with node core/bin/slugs.ts (build, rename, alias, merge, withdraw); --check runs in check-all.";
+  "Pinned place and trip slugs, their history (retired, merged, withdrawn, former keys) and canonical region values (D-B1, D-B3). Read by the dataset builder and the stores, never served. Change it only with node core/bin/slugs.ts (build, rename, alias, merge, withdraw, unmint); --check runs in check-all.";
 
 const emptySpace = (): SlugSpace => ({ slugs: {}, retired: {}, merged: {}, withdrawn: {} });
 export const emptyRegistry = (): SlugRegistry => ({ schema: SLUG_REGISTRY_SCHEMA, note: SLUG_REGISTRY_NOTE, places: emptySpace(), trips: emptySpace(), formerKeys: {}, regions: {} });
@@ -516,6 +535,33 @@ export function withdrawKey(reg: SlugRegistry, k: string): SlugRegistry {
   return { ...reg, [space]: sortedSpace({ ...s, slugs, merged, withdrawn: { ...s.withdrawn, [k]: sl } }) };
 }
 
+/**
+ * `unmint <key> --released <git ref>`: drop the pin of a key that was never public, so the next `build` mints it again from today's
+ * rule (SLUG-FIX: AREA-2 pinned slugs from a slugifier that dropped Icelandic letters, before any of them was deployed). Unlike `rename`,
+ * nothing is retired and nothing answers 308: the old slug never existed outside this repository. Refuses when the key or its slug
+ * is anywhere in the released registry (pinned, retired, merged, withdrawn or a former key there), and when this registry points at
+ * the key from history (a retired slug, a merge or a former key), so the permanent-slug rules of every published page stay intact. The
+ * origin keys that point at the key's ref are dropped with it, so `build` re-mints the ref as well.
+ */
+export function unmintKey(reg: SlugRegistry, origins: OriginKeys, k: string, released: SlugRegistry): { registry: SlugRegistry; originKeys: OriginKeys; slug: string; origins: number } {
+  const space = need(reg, k);
+  const s = reg[space];
+  const sl = s.slugs[k]!;
+  const r = released[space];
+  const releasedKeys = new Set([...Object.keys(r.slugs), ...Object.keys(r.withdrawn), ...Object.keys(r.merged), ...Object.values(r.merged), ...Object.values(r.retired), ...Object.keys(released.formerKeys), ...Object.values(released.formerKeys)]);
+  if (releasedKeys.has(k)) throw new Error(`${k} is in the released registry: its slug is permanent; use rename (the old slug answers 308)`);
+  if (reservedSlugs(released, space).has(sl)) throw new Error(`the slug ${sl} is in the released registry: it is permanent; use rename (the old slug answers 308)`);
+  if (Object.values(s.retired).includes(k)) throw new Error(`${k} holds a retired slug; use rename`);
+  if (k in s.merged || Object.values(s.merged).includes(k)) throw new Error(`${k} is part of a merge; settle the merge first`);
+  if (Object.values(reg.formerKeys).includes(k)) throw new Error(`${k} carries a former key; use rename`);
+  const slugs = { ...s.slugs };
+  delete slugs[k];
+  const keys = Object.fromEntries(Object.entries(origins.keys).filter(([, ref]) => ref !== k));
+  const dropped = Object.keys(origins.keys).length - Object.keys(keys).length;
+  const registry: SlugRegistry = { ...reg, [space]: sortedSpace({ ...s, slugs }) };
+  return { registry, originKeys: { ...origins, keys: sortedRecord(keys) }, slug: sl, origins: dropped };
+}
+
 /** The file text: stable key order, one entry per line, so a diff shows exactly what moved. */
 export function registryText(reg: SlugRegistry): string {
   const ordered: SlugRegistry = {
@@ -543,7 +589,7 @@ export const ORIGIN_KEYS_SCHEMA = "catalogue-origin-keys/1";
  */
 export const ORIGIN_KEYS_PATH = "data/locations/page-keys.json";
 export const ORIGIN_KEYS_NOTE =
-  "PRIVATE (store.ts A24). The origin of every place page with no capture record (loc:<locations id>, proto:<prototype id>) -> its public ref place/<slug>. Read only by the dataset builder; never served, never published, never copied into data/catalogue/slugs.json. Change it only with node core/bin/slugs.ts (build, reorigin, migrate-origins).";
+  "PRIVATE (store.ts A24). The origin of every place page with no capture record (loc:<locations id>, proto:<prototype id>) -> its public ref place/<slug>. Read only by the dataset builder; never served, never published, never copied into data/catalogue/slugs.json. Change it only with node core/bin/slugs.ts (build, reorigin, unmint, migrate-origins).";
 
 export const originKeys = z.strictObject({
   schema: z.literal(ORIGIN_KEYS_SCHEMA),

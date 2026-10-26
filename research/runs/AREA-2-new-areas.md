@@ -92,6 +92,11 @@ The one confusion is the old one: `place/viel-dal-pan` (authored Belluno, rule s
   (`IS/west/snfellsbr`), so Iceland areas use ASCII names and place aliases (same ids a fixed slugify would give; display names
   need a rename command later); the name resolver first picked the Yukon Emerald Lake, so every anchor was then given an explicit
   QID.
+- **Fixed in SLUG-FIX (26 Oct 2026):** both slugifiers now transliterate those letters (`tools/locations.py` `slugify`,
+  `core/src/catalogue/slugs.ts` `kebab`), and the four place slugs the old rule broke were re-minted before any was deployed
+  (none is in release/v0.1, so no 308s): `sn-fellsjokull` is now `snaefellsjokull`, `reykjahli` `reykjahlid`, `grundarfjor-ur`
+  `grundarfjordur`, `kirkjub-jarklaustur` `kirkjubaejarklaustur`. The area display names stay ASCII until `locations.py` can
+  rename an area (`ensure_geo` keeps existing names).
 
 ## Hosts
 

@@ -166,9 +166,25 @@ class Fail(Exception):
 
 # ----------------------------------------------------------------------------- helpers
 # ----------------------------------------------------------------------------- helpers
+# Letters NFKD does not decompose, spelled out first so they are not dropped (`Snæfellsjökull` -> `snaefellsjokull`, never
+# `sn-fellsjokull`). The same table is TRANSLITERATION in core/src/catalogue/slugs.ts; tools/tests/test_slugify_parity.py and
+# core/test/catalogue/slugify-parity.test.ts hold both to the shared samples in core/test/catalogue/fixtures/slugify-samples.json.
+TRANSLITERATION = {
+    "æ": "ae", "Æ": "Ae", "ð": "d", "Ð": "D", "þ": "th", "Þ": "Th", "ø": "o", "Ø": "O", "œ": "oe", "Œ": "Oe",
+    "ß": "ss", "ẞ": "Ss", "ł": "l", "Ł": "L", "đ": "d", "Đ": "D", "ı": "i",
+}
+_TRANSLITERATION_TABLE = str.maketrans(TRANSLITERATION)
+
+
+def ascii_fold(s: str) -> str:
+    """The ASCII-leaning spelling of a name: the letters above transliterated, then NFKD with every combining mark dropped."""
+    s = unicodedata.normalize("NFKD", s.translate(_TRANSLITERATION_TABLE))
+    return "".join(c for c in s if not unicodedata.category(c).startswith("M"))
+
+
 def slugify(s: str) -> str:
-    s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode()
-    s = re.sub(r"[^a-zA-Z0-9]+", "-", s).strip("-").lower()
+    # every run of anything else (an en dash, a CJK name) is one hyphen, as in kebab: dropping it joined words ("bakersnoqualmie")
+    s = re.sub(r"[^a-zA-Z0-9]+", "-", ascii_fold(s)).strip("-").lower()
     return s or "x"
 
 
