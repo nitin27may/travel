@@ -1,5 +1,12 @@
 # DATA roadmap: every research batch, its state, order and open decisions
 
+> **Successor, 26 Oct 2026: [DATA-PLAN.md](../DATA-PLAN.md)** (PLAN R-251) is the single plan for all pending data work:
+> one ordered task table with hours, blockers, owner decisions and the release bundle of each, the data seat's schedule,
+> the load and verify pipeline, the database cross-check, the data policy and the coverage scoreboard. This page keeps the
+> batch history (section 2), the 25 Oct dependency graph and run sets (3, 4), the completion standard (4b), the service
+> table (5) and the decisions log DD-1 to DD-8 (6). Where the two disagree on anything pending, DATA-PLAN wins. Section 1
+> was refreshed from the coverage report of 26 Oct.
+
 Status: 25 Oct 2026, written by travel-planner (Opus) on `public/DATA-RECON` after reconciling `public/DATA-L1`,
 `public/DATA-D6a` and `main` (7eb2705). This page is the one tracked view of the data research. The method and rules are in
 [briefs/DATA.md](briefs/DATA.md) and [briefs/DATA-LOC.md](briefs/DATA-LOC.md); the copy-paste prompts are in
@@ -14,50 +21,55 @@ Priorities that set the order (product direction, 18 Oct): the public read-only 
 (PHASE-E-START section 9, owner Q90) comes before anything that only the planner uses; free tiers and light request
 volumes; Opus lanes pause when the week's use is above 70% (PHASE-E-START usage rule).
 
-## 1. Measured numbers (25 Oct 2026, on this branch; data identical to `main`)
+## 1. Measured numbers (refreshed 26 Oct 2026 from the coverage report)
 
-`node core/bin/capture.ts gaps --placement` (8 trips, 394 records):
+Source: [research/reports/coverage-2026-10-26.md](../../../../research/reports/coverage-2026-10-26.md), measured with
+the repo's tools on `main` 9b556fbd (the 25 Oct table here said 394 records, `E_PLACE_AREA` 277 and 3,875 keys; it was
+taken before D2b, AREA derive-area and D1b merged). The scoreboard that tracks these numbers per release bundle is
+[DATA-PLAN.md](../DATA-PLAN.md) 5.
 
-| Trip | Records | No area | No point | Approximate | Offers saying nowhere |
+`node core/bin/capture.ts gaps --placement` (11 lanes, 498 records):
+
+| Trip lane | Records | No area | No point | Approximate | Offers saying nowhere |
 |---|---|---|---|---|---|
-| canadian-rockies-2029 | 199 | 136 | 2 | 23 | 17 |
-| dolomites-2027 | 76 | 34 | 0 | 3 | 0 |
-| iceland-ring-road-2027 | 31 | 29 | 0 | 4 | 0 |
-| patagonia-2027 | 28 | 26 | 2 | 6 | 0 |
-| utah-five-parks | 25 | 19 | 1 | 1 | 0 |
-| chamonix-mont-blanc-2028 | 23 | 21 | 1 | 2 | 0 |
+| canadian-rockies-2029 | 199 | 114 | 0 | 8 | 7 |
+| dolomites-2027 | 76 | 19 | 0 | 1 | 0 |
+| iceland-ring-road-2027 | 31 | 29 | 0 | 0 | 0 |
+| patagonia-2027 | 28 | 26 | 0 | 4 | 0 |
+| utah-five-parks (+ 8 D2b records in `usa-southwest-rockies`) | 25 + 8 | 7 | 0 | 0 | 0 |
+| chamonix-mont-blanc-2028 | 23 | 21 | 1 (Lac du Chatelard) | 0 | 0 |
+| vermont-fall-2026 | 7 | 5 | 0 | 1 | 0 |
 | algonquin-muskoka-2026 | 6 | 6 | 0 | 0 | 0 |
-| vermont-fall-2026 | 6 | 6 | 0 | 2 | 0 |
-| **All** | **394** | **277** | **6** | **41** | **17** |
-
-No record has a missing nearest town or sits outside its area.
+| new-hampshire-stopover-2026 (D2b) | 2 | 0 | 0 | 0 | 0 |
+| catalogue | 93 | 0 | 0 | 19 | 0 |
+| **All** | **498** | **227** | **1** | **33** | **7** |
 
 `node core/bin/capture.ts gaps --tier required`:
 
 | Kind | Records | Required tier complete |
 |---|---|---|
-| place | 196 | 7 |
-| trail | 118 | 1 |
+| place | 299 | 110 (37%) |
+| trail | 118 | 1 (1%) |
 | other route | 25 | 0 |
-| offer | 46 | 1 |
+| offer | 47 | 3 (6%) |
 | event | 1 | 0 |
 | stay | 8 | 0 |
+| **All** | **498** | **114 (23%)** |
 
-Per layer (records answering): place 201 records, point 200, area 39, official link 45, OSM id 44, Wikidata 29, photo 21,
-season 9. Trails 118: point 105, official link 66, area 26, where 13, season 0, photo 0. Offers 49: where 32, official 25,
-price 24, season 16, operator 12, duration 12, minimum age 6, window 4.
+Per layer (records answering, of 304 places, 143 routes and 50 offers): point 303, 135, offers `where` 43; area 167, 53;
+official link 133, 79, 38; photo 43, 111 (106 of 118 trails), 8; season 14, 5, 23. Trail geometry 9 of 118 (Dolomites only).
 
-`gaps --budget --check`: OK, no count rose. Budget: `E_PLACE_AREA` 277, `E_PLACE_ORPHAN` 17, `W_PLACE_POINT` 6,
-`W_PLACE_APPROX` 0, `E_PLACE_FAR` 0, `W_PLACE_TOWN` 0, `W_TIER_REQUIRED` 385 (3,875 keys).
+`gaps --budget --check`: OK, no count rose. Budget: `E_PLACE_AREA` 227, `E_PLACE_ORPHAN` 7, `W_PLACE_POINT` 1,
+`W_TIER_REQUIRED` 384 (3,731 keys, all in the 8 trips with days).
 
-Locations store (`data/locations/locations.json`, `locations.py validate` ok): 74 places, 8 tied to a trip and 66 not;
-73 with a point (1 `unconfirmed`), 66 with a Wikidata QID, 62 with an image, 32 with elevation, 24 with season months, 0 of
-7 trails with length or gain. Kinds: park 12, town 8, city 8, trail 7, mountain 7, lake 6, region 5, waterfall 4, island
-4, viewpoint 3, canyon 3, activity 2, place 2, lighthouse 1, valley 1, drive 1. These match DATA-LOC section 1.
+Locations store (`python3 tools/locations.py basics --report`): 74 places in 7 countries and 25 regions, 8 tied to a trip;
+54 with every basics field done, 19 with gaps, 1 identity open (Grand-Sault); point 73 (1 unconfirmed), Wikidata 67, image
+62, elevation 53, season months 51, trails with length 7 of 7; 68 columns with values and 49 dated `searched_none`.
 
 ## 2. State of every batch
 
-State words: **merged** (on `main`), **done** (finished on its branch, not merged), **in progress**, **not started**.
+**Pending rows below are ordered, sized and given a release bundle in [DATA-PLAN.md](../DATA-PLAN.md) 2; this table is the
+batch history.** State words: **merged** (on `main`), **done** (finished on its branch, not merged), **in progress**, **not started**.
 Effort is agent time. "Prompt" names the section in [DATA-AGENT-PROMPTS.md](briefs/DATA-AGENT-PROMPTS.md); every prompt
 listed was checked against this page on 25 Oct and corrected where it was out of date.
 
@@ -240,7 +252,7 @@ can reverse it at the cost named. Recorded in PLAN section 5 as DD-1 to DD-8.
 
 Earlier open questions this work touches, not repeated here: Q93 (Flickr, answered: Openverse only), Q99 (windows for the
 6 overview trips), Q100 (start D7-R), Q109 to Q116 (stays; Q113 now also covers Q-BASE-3, Q114 is Q-BASE-2), Q90 (R2
-data bar), Q88 (place-size budget, which D2b and D3 must respect).
+data bar), Q88 (place-size budget, which D2b and D3 must respect; **answered 25 Oct: option A, re-baseline**, PLAN section 5; research-filled pages are Q290 in DATA-PLAN 6.2).
 
 ## 7. D6a check (25 Oct, without merging into `main`)
 
@@ -313,3 +325,4 @@ is unchanged apart from a pointer line.
 | 2026-10-25 | Owner rulings on D5a and D5b: keep the Commons credit strings as Commons holds them (for example "Thank you for visiting my page from Canada"), keep the dated gaps for Troll Falls, Elbow Falls and Stowe Recreation Path (no winter or crowded photo as a substitute). D5b merged at 9573b0a: 106 of 118 trails have a licensed photo, 12 dated gaps. Photo credits fetched for 10 new files. |
 | 2026-10-25 | Status refresh (`public/ROADMAP-REFRESH`): D1, D1b, L1, D3a, D4a, D5a, D5b, D6a-W, D7-R, D9-R and the Banff research marked merged with their main commits; D2b marked in progress (four splits on `public/D2b-INT`, not merged); DD-4 applied. Other rows unchanged. Related merged work not in the batch table: AREA derive-area 6a646f1 (49 of 277 area_ids; `E_PLACE_AREA` 277 to 228), RIS-C f5be36a, RIS-N 2fa4c6b, LOCAL-C a9016db, LOCAL-1 9cb2190, LOCAL-2 61e8b92, MCP-0 spike 0dd4a93, EML-1 47be5b5. Not started: RIS-J (waits on the D2b merge), RIS-L, RIS-M, LOCAL-3/4/5, D7, D9, D8-R, MCP build tasks, photo rendering (15.158), PostgresStore cutover |
 | 2026-10-26 (H-DOCS) | Status sync (MASTER-ORDER H4): the D2b batch row marked merged to main (`41ca7f47`). Other rows unchanged; the section 2 status and BACKLOG rows for the rest of 3.1 are still to sync |
+| 2026-10-26 (PLAN-CONSOLIDATE) | Banner: [DATA-PLAN.md](../DATA-PLAN.md) is the successor for pending work. Section 1 refreshed from the 26 Oct coverage report (498 records, `E_PLACE_AREA` 227, `W_TIER_REQUIRED` 384 with 3,731 keys, store 54 of 74 done). Q88 marked answered (option A, 25 Oct). Section 2 marked as history. Nothing else changed |

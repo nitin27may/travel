@@ -138,29 +138,22 @@ merged** (the spec is on `main`'s docs stack, no code yet), **later** (not on th
 
 ### 3.4 Data research (lane D; one runner per service; one writer for `points.json`, `gap-budget.json`)
 
-| Id | Task | h | Model | Owns | Spec | Status | Release |
-|---|---|---|---|---|---|---|---|
-| Q88 | Owner ruling on the place budget: option A is already merged | 0 | owner | | PLAN 5 | blocked: owner | v0.2 |
-| RIS-J | `normalise --write` on every family; registry reads windows, base plans, seasons; check first what D2b already converted to `capture-points/2` | 6 | Sonnet builder in the data seat | outputs of `normalise --write` on `data/**` families, `core/src/sources/**`, `data/sources/registry.json` | catalogue-intake 6 | ready (D2b merged) | v0.3 (data, no flag) |
-| TRP-GL-D | Identity of Emerald Lake/lakeshore, Lake Louise/lakeshore, Paint Pots/walk (closure B4/D5) through sourced data | 2 | Opus researcher | the three records' files | closure plan 4 | blocked: RIS-J | v0.4 |
-| ORPH-7 | Place records for the 7 offers that say where nowhere (`E_PLACE_ORPHAN` 7 to 0) | 3 (new) | Opus researcher | `data/capture/canadian-rockies-2029/*.json` new place records, slugs through `slugs.ts` | DATA-ROADMAP D4a | blocked: RIS-J | v0.6 |
-| AREA-2 | Area records for the 227 records with no area (`E_PLACE_AREA` 227 down); any new type is one `types.json` entry by one writer with an Opus review | 6 (new) | Opus researcher | area records, `data/capture/derived-areas.json` via `derive-area`, `data/vocab/types.json` (only if a type is missing) | gap budget | blocked: RIS-J | v0.6 |
-| RIS-S | `capture.ts stale` from the JSON | 3 | Sonnet (B2) | `core/bin/capture.ts`, `core/src/capture/stale*` | catalogue-intake 6 | ready | I (v0.6) |
-| D3 | Trail facts for the rest | 10 | Opus researcher | `TF.json` and sidecars per trip | DATA D3 | blocked: RIS-J | v0.7 (data) |
-| D5c | Photos for plan-day stops beyond D5a (unverified count) | 4 | Opus picks, Haiku runs | `PH.json` per trip | DATA D5b | blocked: Commons runner free | v0.7 (data) |
-| L3 | Photos for the 74 stored places beyond Commons | 4 | Opus, Haiku | place galleries | DATA-LOC | blocked: DD-3 | later |
-| STY-P | `base` property group on settlement types (registry) | 2 | Opus (B2, contract lane) | `core/src/schema/capture/properties.ts`, `capture.ts build` outputs | stays 15 | ready | v0.13 (internal earlier) |
-| RIS-H | Homes for 7 researched properties | 3 | Opus (B2, contract lane) | `core/src/schema/capture/properties.ts`, renderers | catalogue-intake 6 | ready; not beside STY-P (same file) | I (v0.7) |
-| RIS-A | Promote research (D7-R access seasons, D3a and D4a proposals, D1b facts; D9-R town facts after STY-P) | 8 | Opus researcher | changeset files; coordinator applies | catalogue-intake 6 | blocked: RIS-J, RIS-H, STY-P | v0.13 (data) |
-| ORG-G | Gateways for the 13 public trips | 3 | Opus researcher | `data/trips/gateways.json`, research notes | origin spec 13 | planned, spec merged; blocked: ORG-D | v0.8 |
-| D8-R | Rockies overview facts | 8 | Opus researcher | `OV.json` and sidecar | DATA D8 | blocked: RIS-J | v0.12 |
-| D8 | Overview facts, 7 more trips | 8 | Opus researcher | per trip | DATA D8 | blocked: D8-R | v0.12 |
-| D7 | Windows for 13 more trips | 16 | Opus researcher | `data/windows/<trip>.json` | DATA D7 | blocked: OVR-Ca | v0.12 |
-| D9 | Stay bases for the other trips | 8.5 | Opus researcher | `data/base-plans/<trip>.json` | DATA D9 | blocked: STY-Ca, STY-E | v0.13 |
-| DP | Dolomites prose to records (optional) | 4 | Opus researcher | `data/capture/dolomites-2027/DP.json` | DATA-ROADMAP | open | later |
-| L4 | Cross-check the 74 | 2 | Sonnet verifier | report | DATA-LOC 6 | open | v0.6 (data) |
-| D610 | The 42 dated texts list (BACKLOG 3.10) and the D6a run note | 1 | Haiku | BACKLOG 3.10 list, `research/runs/DATA-D6a-seasons.md` | DATA-ROADMAP DD-4 | open | J1 |
-| D1B-Q | The five open D1b rulings (owner and coordinator) | 0.5 | owner | the run note | DATA-D1b run note | open | v0.4 |
+**Moved 26 Oct 2026 to [DATA-PLAN.md](DATA-PLAN.md) 2** (the single data plan, R-251): one ordered table of every data and
+research task with hours, model, blockers, owner decisions, release bundle and data-seat row, the 384 draft records by
+trip and kind, the seat's schedule and capacity, and the owner decisions by the bundle they unblock. The table that stood
+here is not repeated. Ids and their bundles, for the conflict map below:
+
+| Bundle | Data tasks (DATA-PLAN 2.1 row numbers in brackets) |
+|---|---|
+| A | TRP-GL-D (3), L4 (10), D610 (11) |
+| B | LOCAL-3, RIS-M, RIS-L, RIS-T, LOCAL-5, CAT-V (2 to 8), DV-1 (9), CAT-1 (13) |
+| C | ORPH-7 (12), TRK-1 (14), AREA-2 (15), D3 (16), TRL-REL (17), ORG-G (18), TRK-CA, TRK-DO, TRK-RW (19 to 21), D10-RO, D10-DO (22, 23), RIS-H (24, B2), OFR-1 (25), D5c (26), DV-2 (27) |
+| D | D10-UT, D10-PA, D10-IC, D10-CH, D10-PAST (29 to 33), STO-1 (35), L3 (36) |
+| E | D8-R (28), D8 (34), D7 (37), RIS-A (38), D9 (39), OVT (40) |
+| later | DP (41), L5 new areas (42), Peru (43) |
+| owner | D1B-Q (1) and the decisions of DATA-PLAN 2.3; Q88 is answered (option A, 25 Oct), so its old "blocked: owner" row is closed |
+
+STY-P (B2, contract lane) stays in 3.5's order with STY-Ca; RIS-H moved from I (v0.7) to bundle C, B2 row 8.
 
 ### 3.5 Contracts (lane C, run by B2; one author at a time on the shared contract files of 4.3)
 
@@ -299,7 +292,7 @@ merged** (the spec is on `main`'s docs stack, no code yet), **later** (not on th
 | `web/tests/data/place-html-baseline.json`, `place-size.test.ts`, `budget.test.ts` | budget (a `full` path) | BUD-1, PHO-R (Q263 re-baseline) | only those two, each with the owner's ruling |
 | Commons, Openverse | service | D5c, L3, IMG-1 (cold-cache renditions) | one runner on the machine |
 | ORS | service | MX, ORG-M, STY-L | one runner |
-| Overpass, Wikidata | service | AREA-2, ORPH-7, D3, D8-R | one runner each |
+| Overpass, Wikidata | service | AREA-2, ORPH-7, D3, D8-R, the TRK runs, the D10 splits, OVT | one runner each |
 
 ### 4.2 Pairwise matrix of the UI hot spots
 
@@ -359,7 +352,7 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | Budget | Room today | Consumers, in merge order (cap each) | Rule |
 |---|---|---|---|
 | Trip start JS (200 KB gzip) | 0.6 KB (199.4 KB) | OVR-0 (frees; measured), NAV-1 (+0 B against the ACCT-PH baseline), NAV-2 (+0), FAV-1 (+0.15 KB), TRP-GL (+0), R59-1 (target +0.2 KB; stop actions server-rendered), ORG-1 (+0.2 KB), FBK-2 (+0.1 KB), OVR-1 to OVR-3 and STY-1 (net 0, dynamic chunks) | OVR-0 merges before any other trip-page consumer; every task quotes `budget:report` before and after in both builds, flag on and off |
-| Place HTML (+25% median) | public build median 1.2491 of 1.25 (option A); 19 B in the sign-in-on build | GSI-P (footer link), the beacon tag, NAV-1 (frees about 1 KB a page with CSS masks), FAV-1 (heart), PHO-R (photo figure, about 400 B), data batches (D3, ORPH-7, AREA-2, RIS-J, any new record on a place page) | BUD-1 first (Q260) so shell chrome leaves the ratio; NAV-1 before PHO-R; PHO-R's re-baseline by Q263 only; a data batch that moves the median merges alone in its stack |
+| Place HTML (+25% median) | public build median 1.2491 of 1.25 (option A); 19 B in the sign-in-on build | GSI-P (footer link), the beacon tag, NAV-1 (frees about 1 KB a page with CSS masks), FAV-1 (heart), PHO-R (photo figure, about 400 B), data batches (D3, ORPH-7, AREA-2, the D10 splits, the TRK runs, OVT, any new record on a place page; in bundle C before PHO-R; Q290) | BUD-1 first (Q260) so shell chrome leaves the ratio; NAV-1 before PHO-R; PHO-R's re-baseline by Q263 only; a data batch that moves the median merges alone in its stack |
 | Shell chrome (new with BUD-1) | today + 1 KB | GSI-P, NAV-1, FBK-2 (`ReportLink`), beacon | one shell change per stack |
 | Sheet chunk 18 KB (+2 KB REQ-1); request chunks 9, 7, 5 KB; Mine 30 KB; stays 10 KB; panel chunks | each new | their own tasks | measured in the hand-back |
 
@@ -399,7 +392,7 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | C, contracts and core | B2 (Opus) | the contract files of 4.1, `core/src/**` new modules | the order of 4.3 |
 | P, platform and test | B2 between contracts (Sonnet or Opus) | `tools/gate/**`, `tools/db/**`, `tools/nightly/**`, `web/vitest.config.ts`, `web/scripts/{images,og,budget-report}.mjs`, `.github/**` | BUD-1, TS-1, TS-2a, TS-2, TS-4, IMG-1, BKP-1, TS-6, TS-3, TS-5, LOCAL-3, TS-7, RIS-S, then LOCAL-4 and E2E-YML after the publish |
 | A, auth and mail | B2 | `web/components/auth/**`, `web/lib/auth/**`, `web/app/{sign-in,sign-up,account}/**`, `core/src/mail/**` | EML-S, EML-P, EML-E, GSI-0 to GSI-VF, FBK-M, FBK-1, FBK-3, FBK-E, REQ-RF, REQ-FB, REQ-G0, REQ-G, REQ-A |
-| D, data | data seat (Opus researcher; Sonnet builder for RIS-J; lane S's early half, 26 Oct) | `data/**` through the tools, `research/**` | RIS-J (alone), lane S early half interleaved (5.4), TRP-GL-D, D1B-Q, ORPH-7, AREA-2, L4, D3, D5c, ORG-G, RIS-A, D8-R, D8, D7, D9, DP |
+| D, data | data seat (Opus researcher; Sonnet builder for code-run tasks: lane S's early half, DV-1, DV-2, TRK-1) | `data/**` through the tools, `research/**`, the files of its code tasks | the order of [DATA-PLAN.md](DATA-PLAN.md) 2.1 and 2.2 (since 26 Oct) |
 | X, MCP | B2 | `web/app/mcp/**`, `core/src/mcp/**`, `web/app/oauth/**` | MCP-C, MCP-1, MCP-S1, ORG-MCP, MCP-G, MCP-T, MCP-2, MCP-O, (MCP-U in B1), MCP-S, MCP-E |
 | S, server | data seat for the early half (26 Oct, Q286): RIS-M with an Opus builder, the rest Sonnet; B2 for CAT-Q and SRV-0 | `core/src/catalogue/postgres/**`, loader, `tools/db/**` rehearse and drift | LOCAL-3, RIS-M, RIS-L, RIS-T, LOCAL-5, CAT-V, CAT-1 (v0.5); CAT-Q (before FBK-C); SRV-0, seams (v1.x) |
 | H, docs | coordinator, Haiku, planner | `docs/**`, `HANDOVER.md` | H0, H2, H1, then J1: H3, H4, H8, D610, H5, H9 |
@@ -716,6 +709,7 @@ TEST-STRATEGY once TS-5 runs.
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (PLAN-CONSOLIDATE job 3) | 3.4's task table moved to [DATA-PLAN.md](DATA-PLAN.md) 2 (the single data plan); 3.4 keeps the ids by bundle; Q88 row closed (answered, option A); lane D's order points to DATA-PLAN; RIS-H to bundle C |
 | 2026-10-26 (PLAN-CONSOLIDATE, owner decision) | Section 0 summary of the release bundles A to K; 5.3 gains a Bundle column (rows are feature labels now); 5.4 rewritten for the bundle windows: data seat rows from DATA-PLAN 2.2 (lane S, DV-1, DV-2, the track fetcher and runs, D10 splits, the rest of the research), OVR-Ca moved to B2 row 13, RIS-H to B2 row 8, done tasks marked; corrections C16 to C18; ACCT-PH-RV narrowed and ACCT-PH-F dropped (3.6); CAT-1 fallback is bundle C. [RELEASE-PLAN](RELEASE-PLAN.md) 0a holds the rules |
 | 2026-10-26 (CATALOGUE-EARLY, owner decision) | The catalogue load moves forward from v1.0 to v0.5 as Internal (CAT-1), [CATALOGUE-EARLY.md](CATALOGUE-EARLY.md): 3.3 LOCAL-3 and LOCAL-5 to v0.5, new CAT-V; 3.8 RIS-M, RIS-L, RIS-T to v0.5, new CAT-1 and CAT-Q, SRV-0 21 h; 4.1 migration hot spot; 4.3 CAT-Q before FBK-C; 4.4 `research_meta` to v0.5; 4.6 owner actions; 5.1 lanes S and D; 5.3 rows v0.5, v1.0 and I; 5.4 data seat rows 2 to 6, B2 rows 6, 11 and 22; C15; 7.3 Q280 to Q286. No release renumbered |
 | 2026-10-26 (H-DOCS) | Docs pass on `public/H-DOCS`: H3 commit ids rewritten to public ids (ids with no public commit suffixed "(private history)"); H4 status cells for the merged work (ACCT-PH, LOCAL-2, RIS-J with SEASONS-C, D2b, AUDIT-MOVE) and the stale owner-action lines in 4.6; H7 and H9 unblocked by Q265 and Q268; H8 migration numbers read "assigned at merge" in 4.4 and in the OVR brief line. The rest of section 3.1 stays planned for a later pass. Nothing else changed |

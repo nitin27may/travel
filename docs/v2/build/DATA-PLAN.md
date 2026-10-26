@@ -1,0 +1,384 @@
+# Data plan: every data and research task in one order, with its bundle, and how the data is verified
+
+Written 26 Oct 2026 by travel-planner (Opus 5.5) on `public/PLAN-CONSOLIDATE`, from `main` ce94e12e with
+`public/CATALOGUE-EARLY` merged. **Planned only: no data, code or database changed.** Requirement PLAN
+[R-251](../PLAN.md); BACKLOG 15.263 to 15.273; owner question Q290 (section 6.2). Principles cited by number from
+[principles.md](../design/foundation/principles.md): P1 (design for scale), P8 (protect the catalogue), P9 (one data
+boundary).
+
+**The request (coordinator for the owner, 26 Oct 2026).** One plan for all data enhancement: the measured state, every
+pending research and data task in one ordered table, the load and verify pipeline, how data is verified before and after
+it reaches Neon, the data rules on one page, and a coverage scoreboard re-measured at every release. **Owner follow-up
+the same day:** every pending research item gets a place in a release bundle with its hours added to that bundle; research
+runs in the data seat beside the build so each bundle ships with the data its features display.
+
+**This page is the successor of** [public-site/DATA-ROADMAP.md](public-site/DATA-ROADMAP.md) for anything pending (that
+page keeps the batch history, the dependency graph of 25 Oct, the service table and the DD-1 to DD-8 log) and of the
+task table in [MASTER-ORDER](MASTER-ORDER.md) 3.4 (which now points here). [CATALOGUE-EARLY.md](CATALOGUE-EARLY.md) stays
+the authority for the load briefs (LOCAL-3 to CAT-Q); section 3 here only orders them with the research. The release
+bundles and their rules are [RELEASE-PLAN](RELEASE-PLAN.md) 0a.
+
+## 0. Decision in one paragraph
+
+**One data seat runs a single ordered queue (section 2): the early half of the catalogue load first (bundle B's Internal,
+in bundle A's build window), then the Rockies and Dolomites research that bundle C displays, then the other trips for D,
+then the trip-level layers (windows, overview facts, bases, overview-trip stops) for E.** Every task has a bundle and its
+hours count in that bundle (RELEASE-PLAN 0a.2). Today data is verified from the files only; from bundle B a database
+cross-check (section 4) proves Postgres equals the files after every load, on the child and read-only on production.
+Each bundle's T3 re-measures one scoreboard (section 5). **Trade-off:** the catalogue load takes the seat's first 35 h,
+so the Rockies research the report puts first starts about one bundle later than it could; in return bundle B loads a
+verified catalogue and every later research batch is checked against the database too. About 59 h of work had no task
+before today (research the report found uncovered, Opus sample reviews, the track fetcher and its runs, the cross-check).
+
+## 1. State (measured 26 Oct 2026)
+
+Source: [research/reports/coverage-2026-10-26.md](../../../research/reports/coverage-2026-10-26.md) (COVERAGE-AUDIT, the
+repo's own tools, read-only). Its tables are not copied here; the numbers below are the baseline of the scoreboard.
+
+| Measure | 26 Oct | Note |
+|---|---|---|
+| Capture records | 498 (place 304, route 143 of which 118 trails, offer 50, event 1; 8 stays among them) | 405 in trip lanes, 93 in `catalogue` |
+| At the required tier | 114 (23%) | 384 below usable, 3,731 missing required keys, all in the 8 trips with days |
+| Store places | 74: 54 basics done, 19 with gaps, 1 identity open (Grand-Sault) | none at the contract's `complete` level |
+| Placement | `E_PLACE_AREA` 227, `E_PLACE_ORPHAN` 7, 1 record without a point, 33 approximate | 0 points person-checked; 208 agent-checked |
+| Trails | distance 115, gain 113, time 105 of 118; geometry 9 of 118 (Dolomites only); relevance 43 of 118 | 6 Quebec catalogue trails withheld for want of a track |
+| Photos | in the data: trails 106/118, places 43/304, offers 8/50, store 62/74; shown on 60 of 355 place pages | PHO-R not shipped |
+| Trip layers | seasons 14/14, windows 1/14, base plans 1/14, overview facts 0/14, gateways 0/13, stay records 8 | Rockies is the only trip with windows and bases |
+| Overview trips | 6 trips with no capture records, about 88 stops | Costa Rica, Norway, Switzerland, Quebec, Niagara, New Hampshire |
+| Dated `searched_none` | capture 107, suitability 487, relevance 297, store 49 | |
+| Measured research rate | 4.1 agent-min per place, 2.9 per record (D2b); photos 0.7 min per target (D5a) | Sonnet with sidecars; excludes tracks and Opus review |
+
+## 2. Every pending data and research task, in order
+
+### 2.1 The ordered table
+
+Order: the seat's queue (section 2.2 rows), which follows the report's recommended order (Rockies, then Dolomites, Utah
+and Patagonia, then the rest; one Opus research lane at a time; one runner each for Commons, Overpass and Wikidata) after
+the catalogue load. "Bundle" is the release whose features display the result; the hours count there. "Row" is the
+data-seat row of [MASTER-ORDER](MASTER-ORDER.md) 5.4. Ids marked (new) had no task before this page.
+
+| # | Id | What | h | Model | Blocked by | Owner decision needed | Bundle | Row |
+|---|---|---|---|---|---|---|---|---|
+| 1 | D1B-Q | The five open D1b rulings (Lac du Chatelard, Cinque Torri and Fiscalina and Vallunga payoffs, Mount Indefatigable, Federa `reaches`, Grand View Point point) | 0.5 owner | owner | | **yes** (section 2.3) | C, D | 5 |
+| 2 | LOCAL-3 | Drift stage in check-all (CATALOGUE-EARLY 11.1) | 3 | Sonnet | | | B | 1 |
+| 3 | TRP-GL-D | Identity of Emerald Lake shore, Lake Louise shore, Paint Pots (closure B4, D5) | 2 | Opus | | | A | 1 |
+| 4 | RIS-M | `research_meta` migration (11.2) | 7 | Opus builder, review | | | B | 2 |
+| 5 | RIS-L | The 26 seed families on the engine (11.3) | 8 | Sonnet, Opus review | RIS-M | | B | 3 |
+| 6 | RIS-T | Load tests with exposure parity (11.4) | 7 | Sonnet, verifier | RIS-L | | B | 4 |
+| 7 | LOCAL-5 | `db:rehearse` on the child (11.5) | 2 | Sonnet | RIS-T | | B | 4 |
+| 8 | CAT-V | Read-only production drift job (11.6) | 2 | Sonnet | LOCAL-5 | | B | 5 |
+| 9 | DV-1 (new) | Database cross-check `db:crosscheck`: field-by-field compare, counts with `seed_commit`, referential integrity, role grants, exposure parity (section 4, brief 7.2) | 6 | Sonnet 5, Opus review 1 | RIS-L | | B | 5 |
+| 10 | L4 | Cross-check the 74 stored places: 10-value samples against sources | 2 | Sonnet verifier | | | A | 5 |
+| 11 | D610 | The 42 dated texts list (BACKLOG 3.10) and the D6a run note | 1 | Haiku | | | A | 5 |
+| 12 | ORPH-7 | Place records for the 7 offers that say where nowhere (`E_PLACE_ORPHAN` 7 to 0) | 3 | Opus | | | C | 6 |
+| 13 | CAT-1 | First production load on bundle B's release day (11.7) | 1.5 | coordinator | CAT-V, DV-1, B approval | Q280 to Q286 answered | B | release day |
+| 14 | TRK-1 (new) | Track fetcher for trails with capture records: OSM relations from the record's `links`, files keyed by public slug, no prototype place needed (brief 7.1) | 7 | Sonnet 6, Opus review 1 | | | C | 7 |
+| 15 | AREA-2 | Areas for the 227 records with none, Rockies (114) first; a missing type is one `types.json` entry by one writer with Opus review | 6 | Opus | | | C | 7 |
+| 16 | D3 | Trail facts for the rest: access points 105, `starts_at` 105, Wikidata 75 of 118 trails | 10 | Opus | | D1B-Q 3 (Mount Indefatigable) | C | 8 |
+| 17 | TRL-REL (new) | Relevance answers for the 75 trails with none | 3.5 | Sonnet, Opus sample | | | C | 8 |
+| 18 | ORG-G | Gateways for the 13 public trips (`data/trips/gateways.json`) | 3 | Opus | ORG-D (B2 row 6) | | C | 9 |
+| 19 | TRK-CA (new) | Track runs for the Canadian trails: 67 Rockies, then the 6 withheld Quebec trails (OSM ids in the D2b-ca run note); Overpass one runner | 5 | Sonnet run, Opus review of held-back lines | TRK-1 | | C | 9 |
+| 20 | TRK-DO (new) | Dolomites: the 9 held-back tracks (6 unconfirmed, Lagazuoi and Siusi wrong relation, Nuvolau not stitching) and the Fanes second way; start overrides for Cinque Torri and Fanes in `inputs.json` | 2 | Sonnet run, Opus review | TRK-1 | **Siusi**: which plateau walk is meant; D1B-Q 2 and 4 | C | 9 |
+| 21 | TRK-RW (new) | The other trips' trails: Utah 13, Patagonia 7, Iceland 5, Chamonix 3, Algonquin 2, Vermont 1 | 2 | Sonnet run | TRK-1 | | C (rides D if short) | 9 |
+| 22 | D10-RO (new) | Rockies records below usable that no other task covers: 77 places, 18 other routes, 1 event (keys: links, access points, best time, on-site minutes, access season, wheelchair) | 7 | Sonnet fills, Opus 10-record review | | D1B-Q 3 | C | 10 |
+| 23 | D10-DO (new) | Dolomites: 34 places, 3 other routes, 8 stays | 3.5 | Sonnet, Opus review | | D1B-Q 2, 4 | C (rides D if short) | 10 |
+| 24 | RIS-H | Registry homes for `duration_min`, `activity_min`, `book_url` (25 offers can never pass without them) and 4 more properties | 3 | Opus, B2 contract lane | not beside STY-P | | C | B2 row 8 |
+| 25 | OFR-1 (new) | The 44 offers below usable: hours 40, `access_cost` 27, summary 27, then the 25 experience offers once RIS-H lands (Rockies 34, Dolomites 4, Patagonia, Iceland, Chamonix 2 each) | 3.5 | Sonnet, Opus review | RIS-H for the last 25 | | C | 11 |
+| 26 | D5c | Photos for the 159 trip place records and 42 offers without one, after the points above are final; Commons one runner | 4 | Opus picks, Haiku runs | the Commons runner free | | C | 11 |
+| 27 | DV-2 (new) | Page-level parity spot check: sampled rendered pages and `/api/v1` bodies against Postgres rows (brief 7.3) | 3 | Sonnet | DV-1, CAT-1 | | C | 11 |
+| 28 | D8-R | Rockies overview facts: access season, booking state, durations, effort for every plan item | 8 | Opus | | | E | 12 |
+| 29 | D10-UT (new) | Utah: 11 places, 1 other route; the 8 D2b records in lane `usa-southwest-rockies` count with it | 1.5 | Sonnet, Opus review | before REQ-RF (B2 row 13) | D1B-Q 5 (Grand View Point) | D | 12 |
+| 30 | D10-PA (new) | Patagonia: 19 places | 2 | Sonnet, Opus review | before REQ-RF | | D | 12 |
+| 31 | D10-IC (new) | Iceland: 24 places | 2 | Sonnet, Opus review | before REQ-RF | | D | 12 |
+| 32 | D10-CH (new) | Chamonix: 16 places, 2 other routes | 1.5 | Sonnet, Opus review | before REQ-RF | D1B-Q 1 (Lac du Chatelard) | D | 12 |
+| 33 | D10-PAST (new) | Algonquin 4 places; Vermont 4 places, 1 other route | 1 | Sonnet, Opus review | | | D | 12 |
+| 34 | D8 | Overview facts for the other 7 trips with days | 8 | Opus | D8-R | | E | 13 |
+| 35 | STO-1 (new) | The 19 store places with gaps (links 9, parking 9, image via L3, Kennecott booking, Manitou trail facts) and the 7 Sepaq park fees | 1.5 | Sonnet | | **Grand-Sault** identity (3 candidates); Sepaq fees by hand or `searched_none` | D | 13 |
+| 36 | L3 | Photos for the 12 store places without one, wider sources (Openverse, Geograph) | 4 | Opus picks, Haiku runs | gallery support for Openverse | **DD-3** (licences beyond the allowlist) | D | 13 |
+| 37 | D7 | Best-time windows for 13 trips: the 7 others with days first, then the 6 overview trips | 16 | Opus | OVR-Ca (B2 row 13) | **Q99** (6 overview trips); **Utah dates** (hard line 1 Oct); **Norway** window A or B | E | 14 |
+| 38 | RIS-A | Promote research left in run notes (D7-R access seasons, D3a and D4a proposals, D1b facts, D9-R town facts) | 8 | Opus | RIS-H, STY-P (B2 row 14) | | E | 15 |
+| 39 | D9 | Base plans for the other trips with days | 8.5 | Opus | STY-Ca, STY-E (B2 row 15) | **Q109 to Q116, DD-6**; **Dolomites base split** (3 or 2 bases); **Switzerland** pass choice and **Norway** dates for those two if TD gives them days | E | 16 |
+| 40 | OVT (new) | The 6 overview trips' stops (about 88) captured at the required tier, photos at 0.7 min each | 7 | Sonnet, Opus review | TD-1 (B2 row 16) gives them days | | E | 16 |
+| 41 | DP | Dolomites prose to records (5 research files) | 4 | Opus | not beside D9 on the Dolomites | | later (optional) | 17 |
+| 42 | L5 | New areas and places: added through the `location` skill on the owner's request, each to the 4b completion standard of DATA-ROADMAP | per request | Opus, Sonnet fills | | the owner names them | the next bundle after it merges | after row 17 |
+| 43 | PERU | Peru: research notes only, no page, no data | | | | **dates and length** | not on the train | |
+| 44 | SYNC | Catalogue sync to production on every bundle that changes data (RELEASE-PLAN 6 step 9a, CATALOGUE-EARLY 11.7) | 0.3 per bundle | coordinator | CAT-1 | release approval covers it (Q282) | every bundle from B | release day |
+
+Totals by bundle (hours counted in RELEASE-PLAN 0a.2): A 5, B 36.5, C 62.5, D 13.5, E 55.5; 173 h with DP and L5 outside.
+Of these, the work no task covered before today: TRK-1 7, TRK-CA 5, TRK-DO 2, TRK-RW 2, D10 18.5, TRL-REL 3.5, OFR-1 3.5,
+STO-1 1.5, OVT 7, DV-1 6, DV-2 3 (59 h). The report's 29 h becomes 34 h here because each D10 split carries its Opus
+10-record review (3.5 h) and OFR-1 adds the 25 offers RIS-H unblocks (1.5 h).
+
+**The 384 draft trip records, by trip and kind** (from `capture.ts gaps --tier required --trip <t> --json`, run 26 Oct;
+kinds as the tool counts them, keys missing in brackets):
+
+| Trip | Below usable | place | other route | stay, event | trail | offer | Keys | Tasks |
+|---|---|---|---|---|---|---|---|---|
+| canadian-rockies-2029 | 197 | 77 (723) | 18 (247) | event 1 (5) | 67 (1,069) | 34 (503) | 2,547 | D10-RO; trails D3, TRL-REL, TRK-CA; offers OFR-1; areas AREA-2; orphans ORPH-7 |
+| dolomites-2027 | 68 | 34 (201) | 3 (34) | stay 8 (40) | 19 (180) | 4 (19) | 474 | D10-DO; TRK-DO; D3; OFR-1 |
+| utah-five-parks | 25 | 11 (56) | 1 (4) | | 13 (93) | | 153 | D10-UT; TRK-RW; D3 |
+| patagonia-2027 | 28 | 19 (114) | | | 7 (81) | 2 (17) | 212 | D10-PA; TRK-RW; D3; OFR-1 |
+| iceland-ring-road-2027 | 31 | 24 (112) | | | 5 (59) | 2 (7) | 178 | D10-IC; TRK-RW; D3; OFR-1 |
+| chamonix-mont-blanc-2028 | 23 | 16 (83) | 2 (18) | | 3 (21) | 2 (12) | 134 | D10-CH; TRK-RW; D3; OFR-1 |
+| algonquin-muskoka-2026 | 6 | 4 (11) | | | 2 (7) | | 18 | D10-PAST; TRK-RW |
+| vermont-fall-2026 | 6 | 4 (8) | 1 (4) | | 1 (3) | | 15 | D10-PAST; TRK-RW |
+| **All** | **384** | **189 (1,308)** | **25 (307)** | **9 (45)** | **117 (1,513)** | **44 (558)** | **3,731** | |
+
+D10 sizing: the place, other-route, stay and event records (223) at the measured 4.1 minutes each (15.2 h), plus one Opus
+10-record sample review of 0.5 h per split (3.5 h): 18.5 h. Trail keys are D3 (facts, access points), TRL-REL (relevance)
+and TRK (geometry); offer keys are OFR-1 and RIS-H.
+
+### 2.2 The data seat's schedule, window by window
+
+One data seat (Opus researcher, or a Sonnet builder for code-run tasks), one task at a time. A window is the time B1
+takes for a bundle's critical path (MASTER-ORDER 5.4); the plan assumes one data-seat hour per B1 hour.
+
+| Window (5.4 rows) | B1 hours | Data seat queue | Seat hours | Spare | Ships in |
+|---|---|---|---|---|---|
+| A (1 to 6) | 43.5 | LOCAL-3, TRP-GL-D; RIS-M; RIS-L; RIS-T, LOCAL-5; CAT-V, DV-1, L4, D610; ORPH-7 | 43 | 0.5 | A (TRP-GL-D, L4, D610), B (lane S, DV-1), C (ORPH-7) |
+| C (7 to 11; B ships from B2 rows 5 to 10) | 71.5 | TRK-1, AREA-2; D3, TRL-REL; ORG-G, TRK-CA, TRK-DO, TRK-RW; D10-RO, D10-DO; OFR-1, D5c, DV-2 | 59.5 | 12 | C |
+| D (12 to 14) | 52.5 | D8-R, D10-UT, D10-PA, D10-IC, D10-CH, D10-PAST; D8, STO-1, L3; D7 | 45.5 | 7 | D (D10, STO-1, L3), E (D8-R, D8, D7) |
+| E (15 to 17) | 68 | RIS-A; D9, OVT; DP (optional) | 23.5 (+4) | 40.5 | E |
+| F onward | | L5 requests, re-measures, any slipped batch | | | next bundle |
+
+**Where it can slip, and what happens.** Window A has no spare: if lane S runs over, ORPH-7 moves to C and CAT-1 rides
+C (RELEASE-PLAN 0a.3 row 3). Window C has 12 h: Overpass outages (the CA split of D2b lost an hour to 502s) or the Opus
+weekly cap (research pauses above 70% of the week's use) are the likely causes; then TRK-RW and D10-DO ship partial in C,
+each unfilled key a dated `searched_none` and one Known limits line, and finish in D. Nothing in this plan blocks a
+bundle (RELEASE-PLAN 0a, B8). Window E has 40 h spare, the place to catch up anything slipped.
+
+### 2.3 Owner decisions that hold data back, and the bundle each unblocks
+
+| Decision | What waits | Bundle it unblocks | Recommendation |
+|---|---|---|---|
+| D1B-Q 1: Lac du Chatelard (drop, or `same_place_as`) | the last record without a point (D10-CH) | D | as the D1b run note |
+| D1B-Q 2 and 4: Cinque Torri, Fiscalina and Vallunga payoff places; Federa `reaches` | 3 Dolomites places; the Federa track cut (D10-DO, TRK-DO) | C | as the run note |
+| D1B-Q 3: Mount Indefatigable, decommissioned 2005 (drop, or wait for Alberta Parks) | one trail on the Rockies family plan (D3, D10-RO) | C | drop it from the plan, keep the record retired |
+| D1B-Q 5: Grand View Point pinned 1.4 km wrong by the ledger | one corrected point (D10-UT) | D | correct it through a changeset |
+| Siusi: which plateau walk is meant | the Siusi track (TRK-DO) | C | |
+| Grand-Sault identity (3 candidates in D2b-ca) | 1 store place (STO-1) | D | |
+| Sepaq fees by hand or `searched_none` (D2b-ca 3) | 7 park fees (STO-1) | D | `searched_none`, dated; fees change yearly |
+| DD-3: photo licences beyond CC BY, CC BY-SA, CC0, public domain | L3 (12 store photos) | D | keep the allowlist (DATA-ROADMAP DD-3) |
+| Q99: windows for the 6 overview trips | 6 of D7's 13 trips | E | yes |
+| Utah dates (hard line 1 Oct); Norway window A or B and group size | D7 window choice for Utah and Norway; D9 Norway | E | |
+| Q109 to Q116, DD-6 (stays); Dolomites base split (3 or 2 bases); Switzerland pass choice | D9 and STY-1 | E | as the stay spec section 18 |
+| Peru dates and length | everything for Peru | not on the train | |
+| Q290: re-baseline rule for research-filled pages (section 6.2) | data batches that fill place pages (C onward) | C | yes |
+
+Q88 is answered (option A, re-baseline, 25 Oct); MASTER-ORDER 3.4's "blocked: owner" row is corrected by this page.
+
+## 3. The load and verify pipeline (from CATALOGUE-EARLY, in order)
+
+Briefs and gates are [CATALOGUE-EARLY.md](CATALOGUE-EARLY.md) 2 and 11; this list only orders them with the research
+and adds the cross-check.
+
+| Step | Task | What it proves | Where it runs | Bundle |
+|---|---|---|---|---|
+| 1 | RIS-M | the database can hold the research contract; the app role cannot read `meta`, `notes_private`, `doc` | local, child | B |
+| 2 | RIS-L | every seed family loads through one engine, stamped (`seed_commit`, `load_run`) and reversible by run id | local | B |
+| 3 | LOCAL-3 | every `check-all` seeds a throwaway local database from the files, then plans again and expects zero writes | local, each check-all | B |
+| 4 | RIS-T | round trip, idempotency, rollback, privacy, size, exposure parity (case 7) | local, then child | B |
+| 5 | LOCAL-5 | one command rehearses on the child: reset from production, migrate, dry run, sync, verify, tests | child | B |
+| 6 | CAT-V | read-only drift: production against the latest bundle tag's commit, weekly and after each bundle | production, read-only | B |
+| 7 | DV-1 | the database cross-check of section 4 as one command, used by LOCAL-5 and CAT-V | local, child, production read-only | B |
+| 8 | CAT-1 | the first production load on bundle B's release day; the cross-check on production after it | production | B |
+| 9 | DV-2 | page-level parity spot checks after every sync | production read-only | C |
+| 10 | SYNC | every bundle with data changes: deploy, smoke, rehearse, sync, cross-check, CAT-V | child, production | from B |
+| 11 | CAT-Q | the first three Postgres reads, for callers that already hold a connection | local, child | D |
+| 12 | SRV-0 seams | parity per method, 4 clean weekly CAT-V runs | production | K |
+
+## 4. Data verification
+
+### 4.1 Today: files only
+
+Until bundle B, data is verified from the files in git: the validators (`validate.ts --all`, `capture.ts build --check`,
+`sources.ts check`, `suitability.ts check`, `relevance.ts check`, `slugs.ts --check`, `locations.py validate` and
+`build --check`), the gap budget (`capture.ts gaps --budget --check`: no count may rise), the migration ledger test, the
+research run's 10-value sample against its sources (9 of 10 to pass), and an Opus 10-record review per split. Nothing
+compares the files with a database, because no catalogue row exists in one.
+
+### 4.2 After the Neon load: the database cross-check
+
+Bundle B adds a cross-check that runs after every load, as one command (`db:crosscheck`, DV-1) wrapping the steps the load
+tasks already build. Each check names who builds it, so nothing is built twice.
+
+| # | Check | Pass | Built by |
+|---|---|---|---|
+| X1 | **Seed and plan again.** Seed a throwaway database from the files, then plan the same commit again | the second plan writes 0 rows | LOCAL-3 (every check-all) |
+| X2 | **Read every row back and compare to the files, field by field.** For each seeded table, the row built from the files and the row read from the target, column by column (jsonb compared as normalised JSON, numbers by value, points to 1e-7 degrees) | 0 differing fields; on failure the first 20 differences by table, ref and column | DV-1 (extends `db:verify`, which compares content hashes) |
+| X3 | **Row counts per table and per family, stamped.** Counts from the files and from the target, with the `seed_commit` and `load_run` id the target holds | counts equal; `seed_commit` equals the commit under test | DV-1 (writes a `seed-crosscheck/1` JSON) |
+| X4 | **Referential integrity.** Every ref a row holds resolves: relation ends, `offer.where`, media owners, area parents, town ids, source ids | 0 orphans | DV-1 (one query per relation; foreign keys cover only part) |
+| X5 | **Role grants.** As `travel_app`: `select` succeeds on every public catalogue table and is refused on every private table (`NOT_SEEDED`, household, intake) and on the `meta`, `notes_private` and `doc` columns | every probe as expected | RIS-M's grant test, run by DV-1 against each target |
+| X6 | **Exposure parity.** Nothing is `published` or `approved` in Postgres that the site and `/api/v1` do not already serve | the two sets equal | RIS-T case 7, run by DV-1 against each target |
+| X7 | **Page-level parity spot checks.** 20 sampled refs per run (places, trails, offers, trip items, stratified by trip): name, area path, point, the facts strip, photo credit and status on the deployed page and `/api/v1` body against the Postgres row | 20 of 20 | DV-2 |
+| X8 | **Same on the child, then production read-only.** X2 to X6 inside LOCAL-5's rehearsal on the child; X2 to X7 read-only on production after the sync and weekly through CAT-V | all green | LOCAL-5, CAT-V |
+| X9 | **Drift report.** Each production run writes `seed-drift/1` (CAT-V) with per-table status, the cross-check result and `pg_database_size` to `~/Library/Logs/travel/catalogue-drift/`, outside the repository; a difference raises a notification, and the release notes' Data group quotes the last result | written every run | CAT-V, DV-1 |
+
+**When it runs.** Every bundle that changes data runs X2 to X7 on production after its sync (RELEASE-PLAN 6 step 9a), and
+the result goes in the notes. CAT-V runs it read-only every week. **Every research batch ends with
+`capture.ts gaps --budget --check` and, once RIS-L is merged, a local `db:seed` plus `db:crosscheck --target local`** on
+the batch's branch, so a research change the database cannot hold fails in the batch, not on release day. A drift result
+is fixed in the JSON and synced, never by editing a row (local-database spec 2.1 rule 1).
+
+## 5. Coverage scoreboard
+
+### 5.1 Definition and who updates it
+
+One table of numbers, re-measured with the repo's tools at every bundle's T3 by the coordinator (or a Haiku agent the
+coordinator runs), quoted in the bundle's CHANGELOG "Data" group against the bundle's readiness line (RELEASE-PLAN 0a.4),
+and written as a new `research/reports/coverage-<date>.md` by the COVERAGE-AUDIT method when a bundle moves any number by
+more than 5 points. Each data batch's hand-back quotes the rows it moved, before and after. The data seat may not mark a
+batch done if a number it owns went down.
+
+| # | Measure | Command |
+|---|---|---|
+| S1 | Records at the required tier, all and per trip (count and %) | `node core/bin/capture.ts gaps --tier required [--trip <t>] --json` |
+| S2 | Below usable and missing required keys (`W_TIER_REQUIRED`) | `capture.ts gaps --budget` |
+| S3 | `E_PLACE_AREA`, `E_PLACE_ORPHAN`, records without a point, approximate points | `capture.ts gaps --placement` |
+| S4 | Store places: basics done, gaps left, identity open | `python3 tools/locations.py basics --report --json` |
+| S5 | Trails: distance, gain, time; geometry confirmed and held back; relevance answered | `gaps --tier required --json` (trail kind); count of `data/tracks/*.json` with `confirmed: true`; relevance sidecars |
+| S6 | Trip layers: seasons, windows, base plans, overview facts, gateways, stay records (trips with each) | files in `data/seasons/`, `data/windows/`, `data/base-plans/`, the D8 `OV.json` per trip, `data/trips/gateways.json` |
+| S7 | Photos: in the data (trails, places, offers, store) and shown (built place pages with a photo) | gaps matrix; one count over the public build |
+| S8 | Points: person-checked, agent-checked, none | review states in `data/capture/points.json` |
+| S9 | Dated `searched_none`: capture, suitability, relevance, store | counts over the record files and `field_meta` |
+| S10 | Postgres (from B): last cross-check result, row totals, `seed_commit`, last 4 CAT-V runs | `db:crosscheck --target production --read-only`, the drift folder |
+
+### 5.2 Baseline and targets per bundle
+
+Targets are the readiness lines of RELEASE-PLAN 0a.4; "held" means the number may not fall.
+
+| Measure | 26 Oct | A | B | C | D | E | H | K |
+|---|---|---|---|---|---|---|---|---|
+| S1 required tier, all | 114 / 498 (23%) | held | held | Rockies 180/199, Dolomites 68/76 | 448 / 498 (90%), each trip with days 90% | held, plus about 88 overview stops | 90% | held |
+| S3 `E_PLACE_AREA`, orphans | 227, 7 | held | held | 25 or fewer (Rockies 0), 0 | held | held | held | held |
+| S4 store basics done | 54 / 74 | 54 | 54 | 54 | 73 / 74 | held | held | held |
+| S5 trail geometry confirmed; relevance | 9 / 118; 43 / 118 | held | held | 60 or more, every trail attempted; 118 / 118 | held | held | held | held |
+| S6 windows; base plans; overview facts; gateways | 1; 1; 0; 0 of 13 | held | held | gateways 13 / 13 | held | windows 8 (14 if Q99), bases 8, facts 8 | held | held |
+| S7 pages showing a photo | 60 / 355 | held | held | 250 or more | store 74 / 74 or dated | held | held | held |
+| S10 Postgres cross-check | none | | green, child and production | green | green | green | green | 4 clean weekly runs |
+
+## 6. Data policy (one page)
+
+### 6.1 The rules
+
+| Rule | What it says | Method doc |
+|---|---|---|
+| One runner per service | Commons and Openverse: one runner on the machine, never parallel agents (a 429 hit four at once); Overpass at least 10 s apart; Wikidata one request at a time; Nominatim 1 a second; each under `flock /tmp/travel-<service>.lock`, user agent `travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)`, never an email | [DATA-ROADMAP](public-site/DATA-ROADMAP.md) 5; PLAN section 1 Sources |
+| Links only | AllTrails, Google, Tripadvisor, Komoot, Gaia, Wikiloc, Strava are links, never values or coordinates; coordinates never come from Google | [research/README.md](../../../research/README.md); [sources-and-licences.md](../../../research/method/sources-and-licences.md) |
+| Licences | photos: CC BY, CC BY-SA, CC0, public domain (NPS public domain for US parks); NC and the Unsplash and Pexels licences rejected (DD-3); credit strings kept as Commons holds them; tracks ODbL with the credit | [sources-and-licences.md](../../../research/method/sources-and-licences.md); [lanes/media.md](../../../research/method/lanes/media.md); [data/tracks/README.md](../../../data/tracks/README.md) |
+| A gap is never a yes | every unanswered key is a dated `searched_none` (the date and the sources tried), shown as "Not checked yet"; texts that go stale carry a date | [capture-contract.md](../../../research/method/capture-contract.md) |
+| Agent-checked is not person-checked | a point or fact compared with a second source by an agent is `agent_checked`; `person_checked` only when the owner or a named person confirmed it (R-47); no page, report or note says "verified" for agent work | capture-contract; `data/capture/points.json` review states |
+| No household data | no party, ages, home town, dates, booking state or stay ideas in any public file, page, API body or Postgres public table; the home point only from the environment; the owner's list origin never revealed (PRIV1); `locations.json` collections and saves never seeded | PLAN section 1 Privacy; [catalogue-intake-and-storage.md](../features/catalogue-intake-and-storage.md) |
+| Keep or drop | store a value only when it changes a decision, a display, a filter, a check or money, or proves or dates a stored value; facts for records a batch does not own go into a changeset; reasoning stays in the run note | catalogue-intake 2 |
+| Writes through tools | trips through `node core/bin/ops.ts`; the store through `locations.py`; records through the capture commands; generated files rebuilt, never edited | CLAUDE.md folder contract; [research/README.md](../../../research/README.md) |
+| Opus seat limits | one Opus research lane at a time; pause above 70% of the week's use; fills that follow a clear contract go to Sonnet, with an Opus 10-record sample review per split | PHASE-E-START usage rule; the coverage report 5 |
+| Fields ledger (FL-0, R-235) | a new field names its reader and fill plan in its spec and gets a ledger row in the same commit; the check warns from FA-1 and fails after FA-4 | [AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md) 9 |
+| Audit gates | every batch: the validators and the gap budget (4.1), the 10-value sample, the Opus sample; from B, the local cross-check (4.2); every bundle: the scoreboard (5); once: the field audit (v0.14.1, bundle F) and AU-D before MCP (bundle H) | this page; AUDITS-AFTER-RELEASE |
+| Place budget | a data batch that adds bytes to place pages measures `budget:report` before and after and merges alone in its stack; in bundle C, data batches merge before PHO-R's re-baseline (RELEASE-PLAN 0a.3 row 4); Q290 below | MASTER-ORDER 4.5 |
+
+### 6.2 Owner question
+
+| ID | Question | Recommendation | Trade-off |
+|---|---|---|---|
+| Q290 | Research fills place pages, and the place-size budget (+25% median over each page's baseline, measured on catalogue content since BUD-1) counts every filled row. About 340 records will move from below usable to complete in bundles C to E. May a page's baseline be re-measured once, at the merge where a research batch takes its record from below the required tier to complete (the BUD-1 method, before and after in the hand-back)? | **Yes**, once per page, only for required-tier fills, never for a UI or renderer change | The budget then guards UI and renderer growth, not research growth; P8's list caps and light list rows still bound the data per row. Without it, the C batches use up the headroom the UI tasks need, and each batch needs its own owner ruling as Q88 did |
+
+## 7. Briefs for the new code tasks
+
+**Common to every brief.** Worktree from the current `main`: `git -C /Users/nks/workspace/travel worktree add
+/Users/nks/workspace/travel-wt/v2-<TASK> -b public/<TASK> main`, then `pnpm install --frozen-lockfile` and `cp -R
+/Users/nks/workspace/travel/web/.og-cache web/`; the home point from `~/.config/travel-secrets/home-point.env` (Q261).
+Read P1 to P9 and T1 to T5 in [principles.md](../design/foundation/principles.md) and cite them. **Must not touch:**
+`HANDOVER.md`, `CLAUDE.md`, `legacy/**`, `web/app/themes.css`, `docs/v2/PLAN.md`, `EXECUTION-PLAN.md`, the applied
+migrations, the root `.env.local`, another active lane's files (`git worktree list`). **Never:** write to Neon production;
+print a connection string, key or the home point; call Overpass, Wikidata or Commons except through the one-runner lock;
+put travel material in the Obsidian notes vault. **Verification (T1):** `pnpm --dir core exec tsc --noEmit` and
+`pnpm --dir web exec tsc --noEmit` clean; the tests named in the brief; `python3 tools/tree_check.py --check` and
+`python3 tools/relink.py check`; Playwright screenshots at 1440x900 and 390x844 in light and dark (theme set through the
+site's control) of the pages named, saved outside `web/test-results/`, compared with `main`. **Commit:** stage only owned
+paths with `git -C <worktree> add <paths>`, never `-A`; message `<area>(<TASK>): <what>` ending with the Co-Authored-By
+trailer of the model that did the work; do not push or merge; the hand-back names the model and pastes the commands with
+their exit codes.
+
+### 7.1 TRK-1: the track fetcher for trails with capture records (data seat, Sonnet 6 h, Opus review 1 h; BACKLOG 15.264)
+
+- **Goal.** Any trail with a capture record can get a `trail-track/1` file, without a prototype place: 109 trails have
+  no geometry and 6 Quebec trails are withheld for want of one (P1: the fetcher must work for 10,000 trails, not 18).
+- **Owns.** `web/scripts/tracks-osm.mjs`; `web/lib/public/tracks.ts` (lookup by capture ref and public slug, beside the
+  prototype id); `data/tracks/README.md` (file naming and inputs keyed by ref); the `trail-track-inputs/1` schema for
+  ref keys; tests under `web/tests/data/tracks*.test.ts` with offline fixtures.
+- **Must not touch.** Any file in `data/tracks/` other than test fixtures (the runs are TRK-CA, TRK-DO, TRK-RW);
+  `data/capture/**`; place components; the budget tests and baselines; `web/lib/public/honesty-overrides.ts`.
+- **Steps.** 1. Select trails by capture route type `nature.trail.*` and their `links` of kind `osm`, in walking order;
+  fall back to `inputs.json` by ref. 2. Name new files by the public slug from `data/catalogue/slugs.json` (stable; the
+  18 existing files keep their prototype ids). 3. Keep every existing check: stitching, the 300 m trailhead and
+  destination offsets, the 40% length check against the researched distance, `UNCONFIRMED_TRAIL_DATA`, `held_back`
+  reasons, `start` overrides. 4. One Overpass request at a time under `flock /tmp/travel-overpass.lock`, at least 10 s
+  apart, a local response cache; `--only <ref>` and `--dry-run`. 5. `web/lib/public/tracks.ts` resolves a trail's file by
+  ref or slug.
+- **Acceptance.** Tests (offline fixtures, no network): a capture-only trail gets a file; a wrong relation stays held back
+  with its reason; re-running from the cache leaves the 18 existing files byte-identical; a trail in
+  `UNCONFIRMED_TRAIL_DATA` stays unconfirmed. `--dry-run` over the Rockies lists 67 candidates and their relation ids
+  without a network call when the cache is warm. Screenshots of `/places/tre-cime-di-lavaredo-loop/` and `/places/peyto-lake-lookout/` unchanged at 1440 and 390, light and dark. Opus review of the
+  matching rules. `budget:report` unchanged (no new file is written by this task).
+- **Commit.** `tools(TRK-1): track fetcher for trails with capture records`.
+
+### 7.2 DV-1: the database cross-check (data seat, Sonnet 5 h, Opus review 1 h; BACKLOG 15.271)
+
+- **Goal.** One read-only command proves a target database equals the files of a commit (section 4.2 X2 to X6, X9), so
+  every load and every week ends with evidence, not a hash alone (P9: the store boundary holds the same data on both sides).
+- **Owns.** `core/src/catalogue/postgres/verify/**` (new: field compare, counts, orphans, grant probes, exposure set);
+  a `crosscheck` subcommand in `core/bin/db-seed.ts` (after RIS-L merges; one author at a time); the `db:crosscheck` line in
+  the root `package.json`; tests under `core/test/catalogue/crosscheck*.test.ts`; one line in `tools/db/drift-check.sh`
+  (after CAT-V merges) and in `tools/db/rehearse.mjs` (after LOCAL-5 merges) to call it.
+- **Must not touch.** Migrations; the seed builders of RIS-L; `web/**`; any `data/**` file.
+- **Steps.** 1. Build the expected rows from the files with the same code `db:seed` uses. 2. Read every row of each
+  seeded table inside a read-only transaction; compare column by column (normalised jsonb, numbers by value, points to
+  1e-7 degrees); report the first 20 differences. 3. Counts per table and per family; read `seed_commit` and the last
+  `load_run`. 4. One orphan query per relation listed in the seed contract. 5. Connect as `travel_app` (role switch on
+  local and the child; on production a read-only probe through the target resolver) and probe each public and private
+  table and the three protected columns. 6. The exposure set as RIS-T case 7. 7. Write `seed-crosscheck/1` JSON (no
+  connection string, no row content beyond refs and column names).
+- **Acceptance.** On a seeded local database: green. A planted `update` of one field fails X2 naming the table, ref and
+  column; a deleted area parent fails X4; a granted `meta` column fails X5; a private-trip record marked `published` fails
+  X6. The command refuses to write (asserted read-only transaction). A sentinel test finds no connection string in output
+  or file. Run time under 60 s on the full seed locally. Opus review of the comparison rules. No page changes, so the
+  screenshots of `/`, `/places/moraine-lake/` and `/trips/canadian-rockies-2029/` are a regression check only.
+- **Commit.** `core(DV-1): database cross-check against the files of a commit`.
+
+### 7.3 DV-2: page-level parity spot checks (data seat, Sonnet 3 h; BACKLOG 15.272)
+
+- **Goal.** After a sync, a sample of what visitors see equals what Postgres holds (section 4.2 X7), so a loader that
+  agrees with itself but not with the site is caught.
+- **Owns.** `tools/db/page-parity.mjs` (new), its test under `tools/tests/`, the `db:page-parity` line in the root
+  `package.json`, one call in `tools/db/drift-check.sh` (sample 10 weekly) after DV-1's line.
+- **Must not touch.** `web/**` (it reads pages and `/api/v1` over HTTP only), `core/src/**`, `data/**`.
+- **Steps.** Pick 20 refs stratified by kind and trip with a seed from the commit (repeatable); fetch the deployed page
+  and `/api/v1` body at a gentle rate (one request a second); read the same refs from the target read-only; compare name,
+  area path, point (5 decimals), the facts strip values, photo credit and status; write the result beside CAT-V's.
+- **Acceptance.** Against a local `next start` and the local database: 20 of 20; a planted difference in one record's
+  distance fails naming the ref and field; the run never sends more than one request a second; no secret in output.
+- **Commit.** `tools(DV-2): page-level parity spot checks`.
+
+Research tasks (D10 splits, TRL-REL, OFR-1, STO-1, OVT, the TRK runs) use the DATA brief and prompts in
+[briefs/DATA.md](public-site/briefs/DATA.md) and [briefs/DATA-AGENT-PROMPTS.md](public-site/briefs/DATA-AGENT-PROMPTS.md),
+with the scope of their row in 2.1, the 4b completion standard of DATA-ROADMAP, the gates of 6.1, and the Rockies-first
+order. Each split owns only its trip's lane files and sidecars; `points.json`, `gap-budget.json` and
+`data/sources/registry.json` have one writer at a time (the data seat), and the coordinator regenerates the registry at
+merge.
+
+## 8. Gotchas
+
+- **Two lanes for Utah.** Four D2b Utah-park records live in `data/capture/usa-southwest-rockies/`; per-trip counts add both.
+- **The report's 29 h excluded the Opus sample reviews and the fetcher.** The plan carries them (2.1).
+- **D10 and the towns layer.** A split that adds a point in a new admin-1 rebuilds the towns layer; never beside REQ-RF.
+- **Track files are named two ways** after TRK-1: the 18 old files by prototype id, new ones by public slug. Never rename
+  the old ones (their ids are in `UNCONFIRMED_TRAIL_DATA` and the place pages).
+- **Research fills move the place budget.** Measure, merge alone, and Q290.
+- **The cross-check reads every row.** On production it counts toward Neon's 5 GB monthly transfer; weekly plus one per
+  bundle is about 450 MB (CATALOGUE-EARLY 8).
+
+## Change log
+
+| Date | Change |
+|---|---|
+| 2026-10-26 | First version (PLAN-CONSOLIDATE job 3, planned only): state from the coverage report; every pending data and research task in one order with hours, blockers, owner decisions, bundle and seat row; the 384 draft records by trip and kind; the seat schedule by window with capacity; owner decisions by the bundle they unblock; the load and verify pipeline; the database cross-check X1 to X9; the scoreboard and its targets per bundle; the data policy; briefs TRK-1, DV-1, DV-2; Q290. New tasks: TRK-1, TRK-CA, TRK-DO, TRK-RW, D10 splits, TRL-REL, OFR-1, STO-1, OVT, DV-1, DV-2 |

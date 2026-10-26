@@ -290,6 +290,9 @@ sign-in-on build). Every UI task measures both, in the public and the sign-in-on
 
 ## 3. The releases
 
+**Data work rows below are the 25 Oct record (26 Oct note):** the data each bundle ships, with its hours, is
+[DATA-PLAN.md](DATA-PLAN.md) 2 and the readiness lines of section 0a.4; the rows are not kept in step.
+
 Every release uses the same gate (section 4), the same checklist (section 6) and the same rollback (section 4.3) unless
 its row adds to them. "Smoke" lists only the URLs added to the standard list of section 4.2. Sizes are copied from the
 specs; "unsized" means no spec gives one, and the task's brief must size it before it is scheduled.
@@ -425,7 +428,7 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 | Contents | R-59 ([TRIP-NAVIGATION-PLAN.md](public-site/TRIP-NAVIGATION-PLAN.md), unsized): visible stop actions, combined day directions without silent truncation, base-aware plan changes (the read-only part). Then ORG ([trip-origin-and-nearest-airport.md](../features/trip-origin-and-nearest-airport.md) 13): ORG-N 1.5 h, ORG-A 2 h, ORG-1 7 h, ORG-2 2 h, ORG-R 2 h, ORG-V 2 h (16.5 h), flag `gettingThere`. ORG-C 4 h, ORG-D 3 h, ORG-G 3 h and ORG-M 1.5 h run in seat B before this and ship earlier as internal |
 | Dependencies | OVR-0 merged (v0.3); R-59 owns `web/components/trips/**` while it runs, so ORG-1 starts after R-59 merges; ORG-C, ORG-D, ORG-G merged; NAV-2 merged (v0.3) for ORG-2; Q240 to Q249 answered |
 | Owner actions | phone check of the stop actions and of Starting from; approve (Q240 to Q249 answered 25 Oct) |
-| Data work | ORG-G gateways for the 13 public trips; ORG-M routed gateway legs (about 80 ORS cells, one runner) |
+| Data work | ORG-G and ORG-M; see DATA-PLAN 2.1 row 18 (bundle C) |
 | Migrations | none |
 | Risks | trip start JS (OVR-0 freed some; R-59 measures; ORG-1 adds at most 200 B and loads its panel on open); links only, never AllTrails data; OurAirports' scheduled-service flag can be stale (gateways override it); a visitor's start must never reach server HTML, OG or logs |
 | Extra gate | server HTML of a trip byte-identical with and without `?from=`; privacy test over `origin/1` and the copies' `from`; the 27-destination golden test |
@@ -441,7 +444,7 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 | Contents | OVR phase 1 ([briefs/OVR.md](public-site/briefs/OVR.md)): OVR-N 3 h, OVR-Ca 4 h, OVR-Cb 6 h, OVR-1 6 h, OVR-2 14 h, OVR-3 4 h, OVR-R 3 h, OVR-V 3 h (43 h; OVR-0 shipped in v0.3); PHO-0 3 h (photo overrides, runs any time after OVR-3). Total 46 h. Data D8-R 8 h (Rockies overview facts, not started) |
 | Dependencies | R-59 merged (v0.9); D7-R merged (windows); Q93 to Q100 answered; OVR-1 never in parallel with NAV-2 on `CopySheet.tsx` (NAV-2 shipped in v0.3) |
 | Owner actions | the phase 1 owner preview that CUS waits for (OVR brief); approve |
-| Data work | D8-R; windows in `data/windows/` (DD-1) |
+| Data work | D8-R, D8, D7 (windows in `data/windows/`, DD-1): DATA-PLAN 2.1 rows 28, 34, 37 (bundle E) |
 | Migrations | none |
 | Risks | contract change (OVR-Ca, one author); trip start JS and place HTML |
 | Smoke | `/trips/canadian-rockies-2029/` When to go cards and `?view=all` overview tabs; a filter combination with counts |
@@ -872,6 +875,7 @@ Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling 
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (PLAN-CONSOLIDATE job 3) | Section 3 note and two Data work rows point to [DATA-PLAN.md](DATA-PLAN.md) instead of repeating it |
 | 2026-10-26 (PLAN-CONSOLIDATE, owner decision) | Section 0a: releases become bundles A to K with the v0.x numbers kept as feature labels; rules B1 to B10 (independent flagged features, T1 per feature, T2 per stack, T3 per bundle, late features shipped dark, security reviews kept in B and H, rollback per bundle, tags `release/<letter>`, one CHANGELOG entry per bundle, data readiness, two-step bundles, order); hours per bundle with research added (986 h with I at 29 h); ten dependency findings and their fixes; data readiness per bundle and the data-seat capacity check. Notes on 4.1, 4.3, 5, 6, 8 and 10. Supersedes one release per feature (R-180) |
 | 2026-10-26 (CATALOGUE-EARLY, owner decision) | C15: the catalogue load moves from v1.0 to v0.5 as Internal (CAT-1); v0.5 gains an Internal row and `research_meta`; v1.0 pre-work, dependencies, data work and migrations rewritten (23 h left); I1 and I5 to v0.5, new I10 (CAT-V) and I11 (CAT-Q); checklist step 9a (catalogue sync after the deploy); open-question line. No release renumbered ([CATALOGUE-EARLY.md](CATALOGUE-EARLY.md)) |
 | 2026-10-26 (H-DOCS) | Status lines fixed (MASTER-ORDER H4): the owner action for Q240 to Q249 reads answered 25 Oct; I8 waits on Q250, answered 25 Oct, not on "the Q250 answer". Nothing else changed |
