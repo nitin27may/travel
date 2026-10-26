@@ -15,6 +15,9 @@
   border: 0; background: none; color: var(--muted); font: var(--t-tab); cursor: pointer;
 }
 .trip-tab:hover { color: var(--ink); }
+/* tabs stretch to fill the row only when four or five need it (P-2): two or three sit at content width */
+.trip-tablist[data-n='2'] .trip-tab, .trip-tablist[data-n='3'] .trip-tab { flex: none; padding: 0 var(--s-3); }
+.trip-tablist[data-n='2'] .trip-tab::after, .trip-tablist[data-n='3'] .trip-tab::after { left: var(--s-3); right: var(--s-3); }
 .trip-tab[aria-selected='true'] { color: var(--ink); font-weight: var(--t-tab-current-weight); }
 .trip-tab:focus-visible { outline: var(--focus-ring); outline-offset: -3px; }
 /* the current tab's 3 px underline in --accent-text (5.85:1 light, 8.83:1 dark on --bg; --accent is 2.33:1 in light), flush with the hairline */
@@ -89,7 +92,9 @@ a.sum-card:focus-visible { outline: var(--focus-ring); outline-offset: var(--foc
 .sum-card-body { display: grid; gap: var(--s-1); min-width: 0; }
 .sum-card-v { font: var(--t-row); }
 .sum-card-sub { font: var(--t-meta); color: var(--muted); }
-@media (min-width: 640px) { .sum-cards { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); } }
+/* balanced rows (P-1): three across from 640 px (3 x 2 for six cards), the whole set on one row from 1000 px where the 62 rem column holds it */
+@media (min-width: 640px) { .sum-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sum-cards[data-count='2'] { grid-template-columns: repeat(2, minmax(0, 1fr)); } .sum-cards[data-count='4'] { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .sum-cards[data-count='5'] { grid-template-columns: repeat(5, minmax(0, 1fr)); } .sum-cards[data-count='6'] { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 
 /* highlight cards (components 3.7): two by two on phones with "Show 4 more", two rows of four on desktop */
 .sum-hl-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) var(--s-3); margin: 0; padding: 0; list-style: none; }
@@ -161,6 +166,10 @@ html[data-trip-tab='days'] #trip-tab-summary::after, html[data-trip-tab='booking
     .trip-tabbar { display: none; }
     .trip-panel[hidden][data-panel='summary'], .trip-panel[hidden][data-panel='days'], .trip-panel[hidden][data-panel='bookings'], .tl-lists[hidden] { display: block !important; }
     .trip-panel[data-panel='photos'], .trip-panel[data-panel='stops'] { display: none !important; }
+    /* print.css hides every [data-map] box; on Days that box holds the day list. The list prints from any tab, the map column and plan bar stay out (F4). */
+    .tl-cols[data-map] { display: block !important; }
+    .tl-cols .tl-mapcol, .tl-planbar { display: none !important; }
+    .trip-tabs .tl-main { display: block !important; }
   }
 }
 @media print {

@@ -46,7 +46,7 @@ export function PageTabs<V extends string>({ label, tabs, value, onActivate, onF
       <noscript>
         <style>{'@layer base{.trip-tabbar{display:none}.trip-panel[hidden],.tl-lists[hidden]{display:block !important}}'}</style>
       </noscript>
-      <div role="tablist" aria-label={label} className="trip-tablist">
+      <div role="tablist" aria-label={label} className="trip-tablist" data-n={tabs.length}>
         {tabs.map((t, i) => {
           const on = t.value === value;
           const n = t.count ?? null;

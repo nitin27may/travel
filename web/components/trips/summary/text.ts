@@ -35,7 +35,7 @@ export function countCards(s: TripSummary, link: LinkTabs, groups = 0): CountCar
   if (!s.flags.days) {
     if (s.nights !== null && s.nights > 0) out.push({ key: 'nights', value: plural(s.nights, 'night', 'nights'), sub: null, href: null });
   } else if (s.flags.counts) {
-    if (c.bases > 0) out.push({ key: 'bases', value: plural(c.bases, 'base', 'bases'), sub: [c.stays > 0 ? plural(c.stays, 'stay', 'stays') : '', s.nights ? plural(s.nights, 'night', 'nights') : ''].filter(Boolean).join(', ') || null, href: '#trip-shape' });
+    if (c.stays > 0) out.push({ key: 'bases', value: plural(c.stays, 'base', 'bases'), sub: [plural(c.stays, 'stay', 'stays'), s.nights ? plural(s.nights, 'night', 'nights') : ''].filter(Boolean).join(', ') || null, href: '#trip-shape' });
     if (c.trails.count > 0) {
       const known = c.trails.kmKnown < c.trails.count ? `, known for ${c.trails.kmKnown} of ${c.trails.count}` : '';
       out.push({ key: 'trails', value: plural(c.trails.count, 'trail', 'trails'), sub: c.trails.kmKnown > 0 ? `${km(c.trails.km)} km, all versions${known}` : null, href: link.stops ? '?view=all#trails' : null });

@@ -30,6 +30,8 @@ for (const size of SIZES) {
 
 test('axe on a trip page gallery (15.2): tile names contain their visible text', async ({ page, site }, info) => {
   await page.goto(`${site.url}/trips/dolomites-2027/`, { waitUntil: 'networkidle' });
+  // since UXB-1 the gallery mounts in the Photos tab only
+  await page.getByRole('tab', { name: /^Photos/ }).click();
   const tiles = page.locator('.gal-tile');
   await tiles.first().scrollIntoViewIfNeeded();
   await expect(tiles.first()).toBeVisible();

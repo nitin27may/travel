@@ -1,4 +1,5 @@
 import type { Page } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from './fixtures';
 
 // UXB-1: the trip page's tab bar and the Summary (spec trip-and-places-ux-fixes.md 3, components 1.6, patterns 3.10). Tab semantics and keyboard,
@@ -404,5 +405,54 @@ test.describe('a short window', () => {
     }));
     expect(m.tabs).toBe('static');
     expect(m.bar).toBe(m.head);
+  });
+});
+
+// F1: heading order is valid on every tab, at a phone and a desktop width
+for (const width of [390, 1440]) {
+  test.describe(`axe on every tab at ${width}`, () => {
+    test.use({ viewport: { width, height: width === 1440 ? 900 : 844 } });
+    for (const name of ['Summary', 'Days', 'Stops', 'Bookings', 'Photos']) {
+      test(`${name}: no axe violations, heading order included`, async ({ page, site }) => {
+        await page.goto(`${site.url}${ROCKIES}`);
+        await tab(page, name).click();
+        await expect(selected(page)).toHaveText(new RegExp(`^${name}`));
+        await page.waitForTimeout(600);
+        const r = await new AxeBuilder({ page }).exclude('.maplibregl-canvas').analyze();
+        expect(r.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`)).toEqual([]);
+        // the active panel starts with a heading that is not skipped past: the first heading in it is an h2
+        const first = await page.locator(`#trip-panel-${name.toLowerCase()} :is(h1,h2,h3,h4)`).first().evaluate((h) => h.tagName);
+        expect(first).toBe('H2');
+      });
+    }
+  });
+}
+
+// F4 (Q305): print is the Summary, the days and the bookings, whichever tab is on screen, never the Photos or the Stops
+test.describe('print', () => {
+  test.use({ viewport: { width: 1280, height: 900 } });
+  test('Summary, Days and Bookings print from any landing tab with the same page count; Photos and Stops never', async ({ page, site, browserName }) => {
+    test.skip(browserName !== 'chromium', 'page.pdf is Chromium-only');
+    const pages: Record<string, number> = {};
+    for (const [name, q] of [['summary', ''], ['days', '?view=day'], ['bookings', '?view=bookings'], ['stops', '?view=all'], ['photos', '?view=photos']] as const) {
+      await page.goto(`${site.url}${ROCKIES}${q}`);
+      await expect(selected(page)).toBeVisible();
+      await page.waitForTimeout(800);
+      await page.emulateMedia({ media: 'print' });
+      await expect(panel(page, 'summary')).toBeVisible();
+      await expect(panel(page, 'days')).toBeVisible();
+      await expect(panel(page, 'bookings')).toBeVisible();
+      await expect(panel(page, 'photos')).toBeHidden();
+      await expect(panel(page, 'stops')).toBeHidden();
+      expect(await page.locator('#day-1').evaluate((e) => e.getBoundingClientRect().height)).toBeGreaterThan(50);
+      const pdf = await page.pdf({ format: 'A4' });
+      pages[name] = (pdf.toString('latin1').match(/\/Type\s*\/Page[^s]/g) ?? []).length;
+      await page.emulateMedia({ media: 'screen' });
+    }
+    expect(pages.days).toBe(pages.summary);
+    expect(pages.bookings).toBe(pages.summary);
+    expect(pages.stops).toBe(pages.summary);
+    expect(pages.photos).toBe(pages.summary);
+    expect(pages.summary).toBeGreaterThan(8);
   });
 });

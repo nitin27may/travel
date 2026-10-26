@@ -49,12 +49,12 @@ describe("trip summary (spec 3.5, W2)", () => {
     expect(s.counts.stays).toBe(2);
     expect(s.counts.bookings).toEqual({ count: 3, dated: 2, earliest: { name: "Lift", rule: "Opens 60 days ahead", day: 2 } });
   });
-  it("folds a route into its payoff and two pages of one name into one card, with photo refs", () => {
+  it("folds a route into its payoff and two pages of one name into one card, with photo refs, in the gallery's own order (UXB-1F S2: Moraine Lake is the first section)", () => {
     expect(s.highlights).toEqual([
+      { slug: "moraine-lake", days: [11], photo: "place" },
       { slug: "lake-louise", days: [3, 10], photo: 3 },
       { slug: "peyto-lake-lookout", days: [4, 8], photo: null },
       { slug: "takakkaw-falls", days: [9], photo: null },
-      { slug: "moraine-lake", days: [11], photo: "place" },
     ]);
     expect(s.counts.highlights).toBe(4);
   });

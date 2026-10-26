@@ -337,6 +337,7 @@ function TimelinePlan({ slug, model, depth, season, tabs, slots, tlModel, url }:
         <div className="tl-cols" data-map={(placed && inLists) || undefined} data-sheet-open={sheet || undefined}>
           <div className="tl-main">
             <TripPanel tab="days" current={tab}>
+              <h2 className="sr-only">Days</h2>
               {depth === 'summary' ? (
                 <p className="trip-depth">
                   <Chip kind="honest">{DEPTH_NOTICE.summary}</Chip>
@@ -374,6 +375,7 @@ function TimelinePlan({ slug, model, depth, season, tabs, slots, tlModel, url }:
             </TripPanel>
             {has('stops') && tabApi.seen.has('stops') ? (
               <TripPanel tab="stops" current={tab}>
+                <h2 className="sr-only">Stops</h2>
                 <StopsPanel sections={sections} active={tab === 'stops'} condensed={depth === 'summary'} url={url} onMap={onMap} mapOpen={sheet} focusRef={focusPending} />
               </TripPanel>
             ) : null}
@@ -523,6 +525,7 @@ function PlainPlan({ slug, model, title, depth, season, tabs, slots }: Props) {
       </TripPanel>
       {has('stops') && tabApi.seen.has('stops') ? (
         <TripPanel tab="stops" current={tab}>
+          <h2 className="sr-only">Stops</h2>
           <section className="trip-sec" aria-label="Stops">
             <StopsPanel sections={model.sections} active={tab === 'stops'} condensed={depth === 'summary'} url={url} focusRef={tabApi.focusPending} />
           </section>

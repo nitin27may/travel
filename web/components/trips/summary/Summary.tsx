@@ -46,7 +46,7 @@ export function SummaryTop({ trip, summary, link, highlights, galleryGroups }: {
       </section>
 
       {cards.length ? (
-        <ul className="sum-cards" aria-label="The trip in numbers">
+        <ul className="sum-cards" aria-label="The trip in numbers" data-count={cards.length}>
           {cards.map((c) => {
             const body = (
               <>
