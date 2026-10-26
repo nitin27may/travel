@@ -359,6 +359,25 @@ tools/gate.sh --tier 0|1|2|3 [--base main] [--quiet] [--full] [--keep-going] [--
   reasons, per-suite status, seconds and cache keys.
 - **Exit codes:** 0 pass; 1 a suite failed; 2 deferred suites at T2 or T3, or a map error; 3 the gate itself broke.
 
+**As built (TS-2, 26 Oct 2026).** `tools/gate.sh` wraps `tools/gate/gate.py` (plan, run, render), `locks.py` (mkdir slots) and
+`extract.py` (excerpts); usage is in [tools/gate/README.md](../../../tools/gate/README.md). Differences from the text above:
+
+- Exit codes: a DEFERRED suite exits 2 at every tier (not only T2 and T3), because an agent reading "0" would take a deferral
+  for a pass; a failure (1) outranks a deferral. 3 is the gate breaking.
+- T3 runs `bash tools/check-all.sh` whole (it builds and runs every web project), then the full e2e on all projects, `db.local`
+  when Docker is up, and `visual` only with `--visual` or `GATE_VISUAL_CMD`; it does not run suites one by one.
+- Refusals: a dirty tree at T2 and T3 (not only on a stack), and a loaded machine at T3. The load guard defers `web.timing`
+  at once (no 3-minute wait yet: TS-4).
+- Slots are three single-holder locks, `build`, `e2e` and `timing`, under `<git-common-dir>/gate-locks/`; the log is under
+  `<git-dir>/gate-logs/`, not `gate/`. `--explain` is `check_map.py --explain`; `--quiet`, `--no-cache` and `--stack` are not built
+  (TS-3, TS-7). Failures print an excerpt of at most 10 lines each inside the 40-line cap.
+- T0 narrows `web.unit` and `core.unit` to `vitest related` and lint to the changed files; T1 does the same only when every
+  path that selected the suite is a code module and no full fallback applies.
+- Found while building: `check_map` M4 failed on `main` for `web/tests/e2e/overflow.spec.ts` (merged unmapped); it is now
+  attached to `web-places` and `web-home`. Also `web/tests/api/images.test.ts` and `adapters.test.ts`, in the `unit` project,
+  need `web/.generated/image-map.json` from a build, so a fresh worktree's T0 `related` run fails them until one build ran
+  (the unit project is not build-free for those files; a TS-2a follow-up).
+
 ## 6. Caching by tree hash (TS-3)
 
 - **Key** of a suite run: SHA-256 over the suite id, its command, the git object ids of its input globs
@@ -632,6 +651,7 @@ check-all and e2e only when the brief says T2 or T3". Both wait for TS-2 (TS-5 a
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (TS-2) | `tools/gate.sh` built (tiers 0 to 3, selection, ordering, fail-fast, deferred, 40-line output, logs, mkdir slots, load guard); as-built note after section 5; `allow_unmatched_globs` emptied; `overflow.spec.ts` mapped |
 | 2026-10-26 (TS-1) | Map, check and replay built: `tools/gate/map.json` (29 suites, 61 rules), `check_map.py` (M1 to M6) as a check-all step, `replay.py`. Replay over the 80 merges before `de21c46`: 266 changed test files, all run by the rules alone; 32 of 57 non-docs merges take the full set; one widening (shell and static pages run `web.fixture`, from GSI-P). As-built note in 4.2 |
 | 2026-10-25 (owner answers, ANSWERS-4) | Q250 to Q258 answered 25 Oct 2026, yes as recommended. Section 13 table and the plan-rows line marked answered; nothing else changed |
 | 2026-10-25 | Created (TEST-STRATEGY, planned only): measurements, tiers, map, gate, caching, stacking, load and flakes, roles, guardrails, tasks TS-1 to TS-8, Q250 to Q258 |

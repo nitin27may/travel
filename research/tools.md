@@ -108,6 +108,12 @@ any other host needs `--target child` or `--target production` (or `--target-kin
 | `pnpm db:verify [--target t] [--json]` (built, LOCAL-2) | read-only (a read only transaction): row count and table hash per seed table against the seed of the commit | before and after a sync, in the rehearsal | `seed-drift/1`; exit 0 equal, 1 any difference (a row the seed dropped from a kept table is retained, not drift) | the target database, read only | `core/test/catalogue/load-engine.test.ts`, `core/test/db/seed.integration.test.ts` |
 | `pnpm db:rehearse` (planned, LOCAL-5; the coordinator runs it) | reset the child from production, delete copied sessions, migrate, sync, verify, run the child suites | before any production migration or sync | `seed-rehearsal/1` evidence under the gitignored tool cache, which the production guard reads | the Neon child branch | `core/test/seed/guard.test.ts` (evidence rules) |
 
+## Tests and the gate
+
+| Script | Job | When | Output | Hosts and rate | Covered by |
+|---|---|---|---|---|---|
+| `tools/gate.sh --tier 0\|1\|2\|3 [--base main] [--changed paths] [--dry-run] [--json] [--only suite]` | select the suites a change needs from `tools/gate/map.json` and run them cheapest first (usage: [tools/gate/README.md](../tools/gate/README.md)) | T0 in the edit loop, T1 before a hand-back, T2 per stack, T3 at release | at most 40 lines; the full log in `$(git rev-parse --git-dir)/gate-logs/` | offline | `tools/tests/test_gate.py`, `test_gate_map.py` |
+
 ## Known gaps
 
 - **No general link checker.** `sources.ts links --fetch` checks the sources of the suitability and relevance lane files only.

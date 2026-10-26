@@ -310,6 +310,12 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `NEXT_PUBLIC_TRIP_MAP_FAMILY` | web `lib/map/family.ts` | Test override of the trip route map family. Unset, the trip map is Google when both the key and the Map ID are set, else MapLibre | yes |
 | `NEXT_PUBLIC_GOOGLE_MAPS_KEY` | web `lib/map/family.ts` | Browser key for the Google map family; referrer-restricted | yes |
 | `NEXT_PUBLIC_GOOGLE_MAP_ID` | web `lib/map/family.ts` | Google map style id | yes |
+| `GATE_LOAD_PER_CORE` | tools `gate/gate.py`, `gate/locks.py` | Load per core above which `web.timing` is deferred (default 1.5) | no |
+| `GATE_LOAD_LIMIT` | tools `gate/gate.py`, `gate/locks.py` | Load per core above which a Tier 3 run is refused | no |
+| `GATE_LOCK_TIMEOUT`, `GATE_LOCK_POLL` | tools `gate/gate.py`, `gate/locks.py` | Seconds a suite waits for a shared slot (build, e2e, timing) before it is deferred (default 1200), and the poll interval | no |
+| `GATE_SUITE_TIMEOUT` | tools `gate/gate.py`, `gate/locks.py` | Per-suite wall-clock limit in seconds | no |
+| `GATE_TSBUILDINFO` | tools `gate/gate.py`, `gate/locks.py` | Where the gate keeps the incremental typecheck build info | no |
+| `GATE_VISUAL_CMD` | tools `gate/gate.py`, `gate/locks.py` | Command the gate runs as the visual suite; unset, the suite is deferred | no |
 | `SITE_ORIGIN` | web `lib/site.ts`, `lib/export/share.ts` | Canonical origin for links, sitemap and share images; defaults to the live host | no |
 | `HUB_TODAY` | web `lib/data/root.ts`, `tools/hub.py`, the staging tool | Pins "today" (`YYYY-MM-DD`) for badges, so builds and diffs repeat | no |
 | `TRAVEL_TODAY` | core `bin/mcp.ts`, `src/ops/run.ts` | Pins today for checks, ops and the MCP server | no |
