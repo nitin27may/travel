@@ -10,7 +10,7 @@ Every place we might go, as data. One store, one copy, every view generated from
 | `../../legacy/locations/index.html` | Generated list page (grid and list, filters). Published at `/locations/`. Exists once the page template reads the `locations-view/1` contract. |
 | `../../legacy/globe/assets/data/places.json` | Generated places for the globe (`globe-places/1`). |
 | `../../research/inbox/` | Raw captures: screenshots of saved posts, batch files for `import`. Never published. |
-| `page-keys.json` | PRIVATE (store.ts A24). Each place page with no capture record (`loc:<id>` here, `proto:<id>` for the old prototype) -> its public ref `place/<slug>`. Written only by `node core/bin/slugs.ts build`, `reorigin` and `migrate-origins`; read only by the dataset builder. Never served or published, and never copied into `data/catalogue/slugs.json`. When a place's `id` changes, run `node core/bin/slugs.ts reorigin loc:<old id> loc:<new id>` so its page keeps its ref and slug. |
+| `page-keys.json` | PRIVATE (store.ts A24). Each place page with no capture record (`loc:<id>` here, `proto:<id>` for the old prototype) -> its public ref `place/<slug>`. Written only by `node core/bin/slugs.ts build`, `reorigin`, `unmint` and `migrate-origins`; read only by the dataset builder. Never served or published, and never copied into `data/catalogue/slugs.json`. When a place's `id` changes, run `node core/bin/slugs.ts reorigin loc:<old id> loc:<new id>` so its page keeps its ref and slug. |
 
 Do not edit the generated files. `python3 tools/locations.py build` rewrites them, and
 `build --check` exits 1 if any of them differs from what the store would produce. The build is

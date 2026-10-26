@@ -1,0 +1,33 @@
+{
+ "note": "Shared samples for the two slugifiers: kebab in core/src/catalogue/slugs.ts and slugify in tools/locations.py. Both must give `slug` for every `name` (core/test/catalogue/slugify-parity.test.ts, tools/tests/test_slugify_parity.py). Names here avoid & and apostrophes, which only kebab spells out (`and`) or drops.",
+ "samples": [
+  { "lang": "is", "name": "Snæfellsjökull", "slug": "snaefellsjokull" },
+  { "lang": "is", "name": "Reykjahlíð", "slug": "reykjahlid" },
+  { "lang": "is", "name": "Grundarfjörður", "slug": "grundarfjordur" },
+  { "lang": "is", "name": "Kirkjubæjarklaustur", "slug": "kirkjubaejarklaustur" },
+  { "lang": "is", "name": "Þingeyjarsveit", "slug": "thingeyjarsveit" },
+  { "lang": "is", "name": "Snæfellsbær", "slug": "snaefellsbaer" },
+  { "lang": "is", "name": "Þingvellir", "slug": "thingvellir" },
+  { "lang": "is", "name": "ÞÓRSMÖRK", "slug": "thorsmork" },
+  { "lang": "is", "name": "Jökulsá á Breiðamerkursandi", "slug": "jokulsa-a-breidamerkursandi" },
+  { "lang": "pl", "name": "Łódź", "slug": "lodz" },
+  { "lang": "pl", "name": "Białowieża", "slug": "bialowieza" },
+  { "lang": "pl", "name": "Zakopane, Morskie Oko", "slug": "zakopane-morskie-oko" },
+  { "lang": "de", "name": "Weißenstein", "slug": "weissenstein" },
+  { "lang": "de", "name": "Großglockner Hochalpenstraße", "slug": "grossglockner-hochalpenstrasse" },
+  { "lang": "de", "name": "Südtirol", "slug": "sudtirol" },
+  { "lang": "de", "name": "GROẞE SCHEIDEGG", "slug": "grosse-scheidegg" },
+  { "lang": "no", "name": "Trøndelag", "slug": "trondelag" },
+  { "lang": "no", "name": "Svolvær", "slug": "svolvaer" },
+  { "lang": "da", "name": "Ærø", "slug": "aero" },
+  { "lang": "sv", "name": "Åre", "slug": "are" },
+  { "lang": "fr", "name": "Crèvecœur-le-Grand", "slug": "crevecoeur-le-grand" },
+  { "lang": "fr", "name": "Île-de-France", "slug": "ile-de-france" },
+  { "lang": "fr", "name": "Œuf Rocher, Côte d Azur", "slug": "oeuf-rocher-cote-d-azur" },
+  { "lang": "vi", "name": "Đà Lạt", "slug": "da-lat" },
+  { "lang": "hr", "name": "Đakovo", "slug": "dakovo" },
+  { "lang": "tr", "name": "Ağrı Dağı", "slug": "agri-dagi" },
+  { "lang": "en", "name": "  --Moss Glen Falls--  ", "slug": "moss-glen-falls" },
+  { "lang": "en", "name": "Mont-Sainte-Anne", "slug": "mont-sainte-anne" }
+ ]
+}

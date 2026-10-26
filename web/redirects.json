@@ -376,7 +376,7 @@
   },
   {
     "from": "/places/IS/northeast/thingeyjarsveit/reykjahlid/",
-    "to": "/places/reykjahli/",
+    "to": "/places/reykjahlid/",
     "status": 301
   },
   {
@@ -416,7 +416,7 @@
   },
   {
     "from": "/places/IS/south/skaftarhreppur/kirkjubaejarklaustur/",
-    "to": "/places/kirkjub-jarklaustur/",
+    "to": "/places/kirkjubaejarklaustur/",
     "status": 301
   },
   {
@@ -426,12 +426,12 @@
   },
   {
     "from": "/places/IS/west/grundarfjardarbaer/grundarfjordur/",
-    "to": "/places/grundarfjor-ur/",
+    "to": "/places/grundarfjordur/",
     "status": 301
   },
   {
     "from": "/places/IS/west/snaefellsbaer/snaefellsjokull/",
-    "to": "/places/sn-fellsjokull/",
+    "to": "/places/snaefellsjokull/",
     "status": 301
   },
   {
