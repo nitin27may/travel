@@ -151,3 +151,26 @@ describe("trip base points (backlog 3.41) and the Drei Zinnen page (3.30)", () =
     for (const e of registry.entries) expect(sourceEntry.safeParse(e).success).toBe(true);
   });
 });
+
+describe("weather links reference file (UXB-WL)", () => {
+  it("reads each link, fallback and publisher home as an official source, used by weather.<kind>", () => {
+    const root = tmpRoot();
+    put(root, "data/reference/weather-links.json", {
+      schema: "weather-links/1",
+      researched: "2026-10-26",
+      publishers: { eccc: { name: "Environment and Climate Change Canada", short: "Environment Canada", home: "https://weather.gc.ca/forecast/canada/index_e.html?id=ON" }, gone: { name: "Gone", short: "Gone", home: null } },
+      trips: [{ trip: "t-1", links: [{ kind: "forecast", label: "Forecast: Banff", publisher: "eccc", url: "https://weather.gc.ca/en/location/index.html?coords=51.178,-115.571", check: { read: "2026-10-25" } }], fallback: { url: "https://weather.gc.ca/forecast/canada/index_e.html?id=AB", check: { read: "2026-10-25" } } }],
+    });
+    const { registry, problems } = buildRegistry(root);
+    expect(problems).toEqual([]);
+    const by = (u: string) => registry.entries.find((e) => e.url.startsWith(u))!;
+    const f = by("https://weather.gc.ca/en/location");
+    expect(f.title).toBe("Forecast: Banff (Environment Canada)");
+    expect(f.kind).toBe("official");
+    expect(f.recheck.fact_type).toBe("seasons_closures");
+    expect(f.used_by).toEqual([{ file: "data/reference/weather-links.json", ref: "weather-links/t-1", field: "weather.forecast" }]);
+    expect(by("https://weather.gc.ca/forecast/canada/index_e.html?id=AB").used_by[0]!.field).toBe("weather.fallback");
+    expect(registry.entries.some((e) => e.used_by[0]?.ref === "weather-links/publishers/gone")).toBe(false);
+    for (const e of registry.entries) expect(sourceEntry.safeParse(e).success).toBe(true);
+  });
+});

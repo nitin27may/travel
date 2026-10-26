@@ -481,6 +481,8 @@ the client: nothing. No visitor data is sent anywhere by this section.
 
 ### 6.4 Data needed
 
+> **Update 26 Oct (UXB-W, UXB-WL).** The weather links live in `data/reference/weather-links.json` (`weather-links/1`, validated by `core/src/validate/weatherLinks.ts`, read as sources by `sources.ts build`), not on capture `conditions` links (owner, 26 Oct). Non-English national pages stay and the label names the language; mountain and aurora rows show in When to go as a small secondary row. UXB-C needs no weather field on the trip summary; UXB-4 reads the reference file through a web adapter (no zod in the browser chunk).
+
 Per trip, per base: one forecast link from the national service; per trip: one climate normals link (the Rockies already
 has it in its windows sources). Research task **UXB-W** (data seat, about 30 bases on 14 trips). Shape (UXB-C decides the
 exact contract): a light `weather: { climate: Link | null; forecasts: { base: string; link: Link }[] }` on the trip
@@ -692,7 +694,7 @@ bottom bar. UXB-V2 re-checks it on the places pages after UXB-7.
 | Contract | Change | Size |
 |---|---|---|
 | Profile codec (`core/src/schedule/profileCodec.ts`) | `a=1..12` (was `a=1` only) | none |
-| Trip payload (`core/src/schema/api/trip.ts`, adapter `web/lib/public/trips.ts`) | `summary`: regions (name, place count), parks (name, kind: national, provincial, state, nature, WHS), distinct counts per category, trail totals with coverage, bookings count and dated count and earliest rule, highlights (slug, name, days, photo ref) at most 13, photo count; `driveAvgMin` from timelines (4.7); `weather` (6.4) | target under 2 KB per trip |
+| Trip payload (`core/src/schema/api/trip.ts`, adapter `web/lib/public/trips.ts`) | `summary`: regions (name, place count), parks (name, kind: national, provincial, state, nature, WHS), distinct counts per category, trail totals with coverage, bookings count and dated count and earliest rule, highlights (slug, name, days, photo ref) at most 13, photo count; `driveAvgMin` from timelines (4.7); no `weather` field: weather links are in `data/reference/weather-links.json` (6.4 update, UXB-WL) | target under 2 KB per trip |
 | Device keys | `travel.party` (5.4); `travel.tripui` (10.2) | |
 | Place page model (`web/lib/public/sections.ts`) | a `safety` flag per field from the registry; section `hasValue` | none |
 
@@ -877,6 +879,8 @@ another task's files. No green, no purple, tokens only. UI issues outside the ta
 - **Commit.** `core(UXB-C): trip summary, weather links, drive average, party and trip UI keys, codec adults (P8, P9)`.
 
 ### 13.3 UXB-W: weather links (data seat, Opus researcher, 3 h)
+
+> **Update 26 Oct.** Weather links live in `data/reference/weather-links.json` (not on capture records); UXB-WL added the schema, the validator and the sources registry reading. The UXB-C brief (10.1) has no weather contract to build: it keeps only the trip summary, drive average, party and trip UI keys and codec adults.
 
 - **Goal.** One national-service forecast link for each base of the 14 trips, and one climate normals link per trip.
 - **Owns.** The base places' link fields in `data/capture/<trip>/` through the capture tools (never by hand), a run note

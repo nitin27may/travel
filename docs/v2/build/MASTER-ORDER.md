@@ -698,6 +698,7 @@ Each row is a value or a step only the owner has. The decision behind it is reco
 | 8 | **Neon dashboard: remove the shared Google credentials from production (Q123, O-0);** the test Gmail address and a recovery second owner for the Google project (Q119) | Q119, Q123 | GSI-E | v0.9 (B) |
 | 9 | **Vercel: `IMAGES_OFFLINE=1` in Production and Preview (Q292, O5)**; `HOME_POINT_*`, the beacon token and the Firewall rule as listed in 4.6 | Q292, 4.6 | the bundle A deploy | A |
 | 10 | **Copy `web/.env.local` from the first machine (ENV)**, mode 600, never through chat | ENV | place and trip maps and MX matrices on this machine | any |
+| 11 | **Open smn.gob.ar in a browser and copy the town and statistics URLs for Ushuaia, El Chaltén, El Calafate and Buenos Aires** (the site answers 403 to scripts; Patagonia's weather link stays `reachable: false` until then, `data/reference/weather-links.json`) | UXB-W, UXB-WL | Patagonia weather links on the trip page | any |
 
 Nothing else the order waits on is open. Retention figures, Turnstile, the Resend split and the other numbers are the recommended values already written in the specs.
 

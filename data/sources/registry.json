@@ -2144,8 +2144,13 @@
       "publisher": "Environment and Climate Change Canada",
       "kind": "official",
       "first_read": "2026-10-25",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-26",
       "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/canadian-rockies-2029",
+          "field": "weather.climate"
+        },
         {
           "file": "data/windows/canadian-rockies-2029.json",
           "ref": "windows/canadian-rockies-2029",
@@ -2161,8 +2166,62 @@
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 730,
-        "fact_type": "grades_geography"
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-b7d41df4fd",
+      "url": "https://climate.weather.gc.ca/climate_normals/results_1991_2020_e.html?climate_id=3053520&dispBack=0&lstProvince=AB&searchType=stnProv",
+      "title": "Climate averages 1991-2020: Jasper (Environment Canada)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/canadian-rockies-2029",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-5f3e670dd2",
+      "url": "https://climate.weather.gc.ca/climate_normals/results_1991_2020_e.html?climate_id=6115524&dispBack=0&lstProvince=ON&searchType=stnProv",
+      "title": "Climate averages 1991-2020: Muskoka (Environment Canada)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/algonquin-muskoka-2026",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
       },
       "link": {
         "status": "unchecked",
@@ -2176,8 +2235,13 @@
       "publisher": "Environment and Climate Change Canada",
       "kind": "official",
       "first_read": "2026-10-25",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-26",
       "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/niagara-day-2026",
+          "field": "weather.climate"
+        },
         {
           "file": "data/seasons/niagara-day-2026.json",
           "ref": "seasons/niagara-day-2026",
@@ -2228,8 +2292,13 @@
       "publisher": "Environment and Climate Change Canada",
       "kind": "official",
       "first_read": "2026-10-25",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-26",
       "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/quebec-2026",
+          "field": "weather.climate"
+        },
         {
           "file": "data/seasons/quebec-2026.json",
           "ref": "seasons/quebec-2026",
@@ -3910,6 +3979,33 @@
       }
     },
     {
+      "id": "s-11f0e68294",
+      "url": "https://en.vedur.is",
+      "title": "Weather (Icelandic Met Office)",
+      "publisher": "Icelandic Meteorological Office (Veðurstofa Íslands)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/iceland-ring-road-2027",
+          "field": "weather.fallback"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-33d862a777",
       "url": "https://en.vedur.is/about-imo/news/ground-uplift-and-magma-accumulation-continue-beneath-svartsengi",
       "title": "Ground uplift and magma accumulation continue beneath Svartsengi (read through search results; the fetched page showed only the site banner)",
@@ -3934,6 +4030,276 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-55aaf99a03",
+      "url": "https://en.vedur.is/climatology/data",
+      "title": "Monthly averages by station (Icelandic Met Office)",
+      "publisher": "Icelandic Meteorological Office (Veðurstofa Íslands)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/iceland-ring-road-2027",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-9db217c097",
+      "url": "https://en.vedur.is/climatology/iceland",
+      "title": "Climate of Iceland (Icelandic Met Office)",
+      "publisher": "Icelandic Meteorological Office (Veðurstofa Íslands)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/iceland-ring-road-2027",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-9f56d638ef",
+      "url": "https://en.vedur.is/weather/forecasts/areas",
+      "title": "Icelandic Meteorological Office (Veðurstofa Íslands)",
+      "publisher": "Icelandic Meteorological Office (Veðurstofa Íslands)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/publishers/imo",
+          "field": "weather.home"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-1fb64b3f99",
+      "url": "https://en.vedur.is/weather/forecasts/areas/breidafjordur",
+      "title": "Forecast: Breiðafjörður (Snæfellsnes) (Icelandic Met Office)",
+      "publisher": "Icelandic Meteorological Office (Veðurstofa Íslands)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/iceland-ring-road-2027",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-df8dc6232c",
+      "url": "https://en.vedur.is/weather/forecasts/areas/eastfjords",
+      "title": "Forecast: East fjords (Icelandic Met Office)",
+      "publisher": "Icelandic Meteorological Office (Veðurstofa Íslands)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/iceland-ring-road-2027",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c238667751",
+      "url": "https://en.vedur.is/weather/forecasts/areas/northeast",
+      "title": "Forecast: North East Iceland (Icelandic Met Office)",
+      "publisher": "Icelandic Meteorological Office (Veðurstofa Íslands)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/iceland-ring-road-2027",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-52868d0ddc",
+      "url": "https://en.vedur.is/weather/forecasts/areas/reykjavik",
+      "title": "Forecast: Reykjavík area (Icelandic Met Office)",
+      "publisher": "Icelandic Meteorological Office (Veðurstofa Íslands)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/iceland-ring-road-2027",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-8c494e7e91",
+      "url": "https://en.vedur.is/weather/forecasts/areas/south",
+      "title": "Forecast: South Iceland (Icelandic Met Office)",
+      "publisher": "Icelandic Meteorological Office (Veðurstofa Íslands)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/iceland-ring-road-2027",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-0a662a5fd3",
+      "url": "https://en.vedur.is/weather/forecasts/areas/southeast",
+      "title": "Forecast: South East Iceland (Icelandic Met Office)",
+      "publisher": "Icelandic Meteorological Office (Veðurstofa Íslands)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/iceland-ring-road-2027",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-1d89803368",
+      "url": "https://en.vedur.is/weather/forecasts/aurora",
+      "title": "Aurora and cloud cover forecast (Icelandic Met Office)",
+      "publisher": "Icelandic Meteorological Office (Veðurstofa Íslands)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/iceland-ring-road-2027",
+          "field": "weather.aurora"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -4033,6 +4399,195 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-3d159b51b4",
+      "url": "https://forecast.weather.gov/MapClick.php?lat=37.1844&lon=-112.9997",
+      "title": "Forecast: Springdale (National Weather Service)",
+      "publisher": "NOAA National Weather Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/utah-five-parks",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-0c7b09c3a8",
+      "url": "https://forecast.weather.gov/MapClick.php?lat=37.6739&lon=-112.1569",
+      "title": "Forecast: Bryce Canyon City (National Weather Service)",
+      "publisher": "NOAA National Weather Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/utah-five-parks",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-73022a43b3",
+      "url": "https://forecast.weather.gov/MapClick.php?lat=38.3017&lon=-111.42",
+      "title": "Forecast: Torrey (National Weather Service)",
+      "publisher": "NOAA National Weather Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/utah-five-parks",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-5b9d4d1d2c",
+      "url": "https://forecast.weather.gov/MapClick.php?lat=38.5725&lon=-109.5497",
+      "title": "Forecast: Moab (National Weather Service)",
+      "publisher": "NOAA National Weather Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/utah-five-parks",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-990d466284",
+      "url": "https://forecast.weather.gov/MapClick.php?lat=40.75&lon=-111.8833",
+      "title": "Forecast: Salt Lake City (National Weather Service)",
+      "publisher": "NOAA National Weather Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/utah-five-parks",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-5da755eaee",
+      "url": "https://forecast.weather.gov/MapClick.php?lat=44.045&lon=-71.6706",
+      "title": "Forecast: Lincoln (National Weather Service)",
+      "publisher": "NOAA National Weather Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/new-hampshire-stopover-2026",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-1576c8826f",
+      "url": "https://forecast.weather.gov/MapClick.php?lat=44.6245&lon=-72.5648",
+      "title": "Forecast: Hyde Park (National Weather Service)",
+      "publisher": "NOAA National Weather Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/vermont-fall-2026",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -5094,6 +5649,146 @@
       "recheck": {
         "cadence_days": 90,
         "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-dd26f5bd39",
+      "url": "https://meteofrance.com/climat/normales/france/auvergne-rhone-alpes/BOURG%20ST%20MAURICE",
+      "title": "Climate averages: Bourg-Saint-Maurice (nearest Météo-France station) (Météo-France)",
+      "publisher": "Météo-France",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/chamonix-mont-blanc-2028",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-72c35d13fb",
+      "url": "https://meteofrance.com/meteo-montagne/alpes-du-nord",
+      "title": "Météo-France",
+      "publisher": "Météo-France",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/chamonix-mont-blanc-2028",
+          "field": "weather.fallback"
+        },
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/publishers/meteo-france",
+          "field": "weather.home"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-9059a7db4c",
+      "url": "https://meteofrance.com/meteo-montagne/chamonix-mont-blanc-3845m/740566",
+      "title": "Mountain forecast: Chamonix at 3845 m (Météo-France)",
+      "publisher": "Météo-France",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/chamonix-mont-blanc-2028",
+          "field": "weather.mountain"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-64485c94e1",
+      "url": "https://meteofrance.com/meteo-montagne/chamonix/740562",
+      "title": "Mountain forecast: Chamonix (Météo-France)",
+      "publisher": "Météo-France",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/chamonix-mont-blanc-2028",
+          "field": "weather.mountain"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-499fa574e7",
+      "url": "https://meteofrance.com/previsions-meteo-france/chamonix-mont-blanc/74400",
+      "title": "Forecast: Chamonix-Mont-Blanc (Météo-France)",
+      "publisher": "Météo-France",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/chamonix-mont-blanc-2028",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
       },
       "link": {
         "status": "unchecked",
@@ -7498,12 +8193,22 @@
     {
       "id": "s-aa937e281b",
       "url": "https://parks.canada.ca/pn-np/ab/banff/securite-safety/meteo-weather",
-      "title": "Weather, Banff National Park (monthly averages)",
+      "title": "Parks Canada",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-25",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-26",
       "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/canadian-rockies-2029",
+          "field": "weather.climate"
+        },
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/publishers/parks-canada",
+          "field": "weather.home"
+        },
         {
           "file": "data/windows/canadian-rockies-2029.json",
           "ref": "windows/canadian-rockies-2029",
@@ -7519,8 +8224,8 @@
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 730,
-        "fact_type": "grades_geography"
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
       },
       "link": {
         "status": "unchecked",
@@ -13926,6 +14631,453 @@
       }
     },
     {
+      "id": "s-1b02b68711",
+      "url": "https://weather.gc.ca/en/location/index.html?coords=43.129%2C-79.06",
+      "title": "Forecast: Niagara Falls (Environment Canada)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/niagara-day-2026",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-12cc32e460",
+      "url": "https://weather.gc.ca/en/location/index.html?coords=45.331%2C-79.012",
+      "title": "Forecast: Dwight (Environment Canada)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/algonquin-muskoka-2026",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-fcf5cd0aaa",
+      "url": "https://weather.gc.ca/en/location/index.html?coords=45.56%2C-78.578",
+      "title": "Forecast: Algonquin Park (Lake of Two Rivers) (Environment Canada)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/algonquin-muskoka-2026",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-88e0b2628d",
+      "url": "https://weather.gc.ca/en/location/index.html?coords=46.936%2C-70.947",
+      "title": "Forecast: Île d'Orléans (Environment Canada)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/quebec-2026",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-2f7d573197",
+      "url": "https://weather.gc.ca/en/location/index.html?coords=50.919%2C-115.148",
+      "title": "Forecast: Kananaskis Village (Environment Canada)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/canadian-rockies-2029",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-4ee25195d5",
+      "url": "https://weather.gc.ca/en/location/index.html?coords=51.114%2C-114.02",
+      "title": "Forecast: Calgary (Environment Canada)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/canadian-rockies-2029",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-283af9eca0",
+      "url": "https://weather.gc.ca/en/location/index.html?coords=51.178%2C-115.571",
+      "title": "Forecast: Banff (Environment Canada)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/canadian-rockies-2029",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-417fbb6e20",
+      "url": "https://weather.gc.ca/en/location/index.html?coords=51.425%2C-116.177",
+      "title": "Forecast: Lake Louise (Environment Canada)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/canadian-rockies-2029",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-8f35835899",
+      "url": "https://weather.gc.ca/en/location/index.html?coords=52.874%2C-118.081",
+      "title": "Forecast: Jasper (Environment Canada)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/canadian-rockies-2029",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-0664e583e6",
+      "url": "https://weather.gc.ca/forecast/canada/index_e.html?id=AB",
+      "title": "Weather (Environment Canada)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/canadian-rockies-2029",
+          "field": "weather.fallback"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-3a8283533d",
+      "url": "https://weather.gc.ca/forecast/canada/index_e.html?id=ON",
+      "title": "Weather (Environment Canada)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/algonquin-muskoka-2026",
+          "field": "weather.fallback"
+        },
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/niagara-day-2026",
+          "field": "weather.fallback"
+        },
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/publishers/eccc",
+          "field": "weather.home"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-d4929a32cd",
+      "url": "https://weather.gc.ca/forecast/canada/index_e.html?id=QC",
+      "title": "Weather (Environment Canada)",
+      "publisher": "Environment and Climate Change Canada",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/quebec-2026",
+          "field": "weather.fallback"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-f47a30ddab",
+      "url": "https://weather.province.bz.it/en",
+      "title": "Autonomous Province of Bolzano - South Tyrol, weather service",
+      "publisher": "Autonomous Province of Bolzano - South Tyrol, weather service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/dolomites-2027",
+          "field": "weather.fallback"
+        },
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/publishers/bz-meteo",
+          "field": "weather.home"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-b6d9181cc6",
+      "url": "https://weather.province.bz.it/en/climate-charts",
+      "title": "Climate charts: South Tyrol stations (South Tyrol weather service)",
+      "publisher": "Autonomous Province of Bolzano - South Tyrol, weather service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/dolomites-2027",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-590c1daad2",
+      "url": "https://weather.province.bz.it/en/mountain-weather/dolomites",
+      "title": "Mountain weather: Dolomites (South Tyrol weather service)",
+      "publisher": "Autonomous Province of Bolzano - South Tyrol, weather service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/dolomites-2027",
+          "field": "weather.mountain"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-d10c417c6f",
+      "url": "https://weather.province.bz.it/en/municipality-weather",
+      "title": "Forecast by municipality: South Tyrol (South Tyrol weather service)",
+      "publisher": "Autonomous Province of Bolzano - South Tyrol, weather service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/dolomites-2027",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-942f45f3e4",
       "url": "https://whc.unesco.org/en/list/1237",
       "title": "The Dolomites (World Heritage List 1237; search result, whc pages return 403 to our fetch)",
@@ -20279,6 +21431,200 @@
       }
     },
     {
+      "id": "s-5b7cda4782",
+      "url": "https://www.imn.ac.cr/documents/10179/31165/PacificoCentral.pdf/e7f8bf4f-cef1-4bf1-b452-d7a4937099fd",
+      "title": "Climate of the Central Pacific region (PDF, Spanish) (IMN Costa Rica)",
+      "publisher": "Instituto Meteorológico Nacional de Costa Rica",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/costa-rica-2027",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-0b3a035457",
+      "url": "https://www.imn.ac.cr/documents/10179/31165/PacificoNorte.pdf/4a0e8960-8c51-4390-8a8d-73d9d825d59b",
+      "title": "Climate of the North Pacific region (PDF, Spanish) (IMN Costa Rica)",
+      "publisher": "Instituto Meteorológico Nacional de Costa Rica",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/costa-rica-2027",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-146a4d5f01",
+      "url": "https://www.imn.ac.cr/documents/10179/31165/PacificoSur.pdf/e9ff2013-e30e-46a3-ad39-934200753fff",
+      "title": "Climate of the South Pacific region (PDF, Spanish) (IMN Costa Rica)",
+      "publisher": "Instituto Meteorológico Nacional de Costa Rica",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/costa-rica-2027",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-41911f5fb9",
+      "url": "https://www.imn.ac.cr/documents/10179/31165/ZonaNorte.pdf/c08ed9c6-3d27-4f76-a20a-7cac913fb6d8",
+      "title": "Climate of the North Zone (PDF, Spanish) (IMN Costa Rica)",
+      "publisher": "Instituto Meteorológico Nacional de Costa Rica",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/costa-rica-2027",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-6eccc4f0df",
+      "url": "https://www.imn.ac.cr/en/clima-en-costa-rica",
+      "title": "Climate of Costa Rica (IMN Costa Rica)",
+      "publisher": "Instituto Meteorológico Nacional de Costa Rica",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/costa-rica-2027",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-a388cb0173",
+      "url": "https://www.imn.ac.cr/en/inicio",
+      "title": "Instituto Meteorológico Nacional de Costa Rica",
+      "publisher": "Instituto Meteorológico Nacional de Costa Rica",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/costa-rica-2027",
+          "field": "weather.fallback"
+        },
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/publishers/imn",
+          "field": "weather.home"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-4044374c48",
+      "url": "https://www.imn.ac.cr/en/reporte-pronostico-regional",
+      "title": "Regional forecast (North Pacific, North Zone, Central and South Pacific) (IMN Costa Rica)",
+      "publisher": "Instituto Meteorológico Nacional de Costa Rica",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/costa-rica-2027",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-e28ae8127d",
       "url": "https://www.jasper.travel/where-to-stay",
       "title": "Tourism Jasper",
@@ -20731,6 +22077,254 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-69588a0419",
+      "url": "https://www.meteoam.it/it/home",
+      "title": "Servizio Meteorologico dell'Aeronautica Militare",
+      "publisher": "Servizio Meteorologico dell'Aeronautica Militare",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/publishers/meteoam",
+          "field": "weather.home"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-581b37bce4",
+      "url": "https://www.meteoam.it/it/meteo-citta/cortina-d-ampezzo",
+      "title": "Forecast: Cortina d'Ampezzo (Meteo Aeronautica Militare)",
+      "publisher": "Servizio Meteorologico dell'Aeronautica Militare",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/dolomites-2027",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-d0ddc95944",
+      "url": "https://www.meteoam.it/it/meteo-citta/san-vito-di-cadore",
+      "title": "Forecast: San Vito di Cadore (Meteo Aeronautica Militare)",
+      "publisher": "Servizio Meteorologico dell'Aeronautica Militare",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/dolomites-2027",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-7f32645eea",
+      "url": "https://www.meteoam.it/it/meteo-citta/venezia",
+      "title": "Forecast: Venice (Meteo Aeronautica Militare)",
+      "publisher": "Servizio Meteorologico dell'Aeronautica Militare",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/dolomites-2027",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-e301ff13da",
+      "url": "https://www.meteoswiss.admin.ch",
+      "title": "MeteoSwiss (Federal Office of Meteorology and Climatology)",
+      "publisher": "MeteoSwiss (Federal Office of Meteorology and Climatology)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/publishers/meteoswiss",
+          "field": "weather.home"
+        },
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/switzerland-2027",
+          "field": "weather.fallback"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-f4cb45b0e0",
+      "url": "https://www.meteoswiss.admin.ch/climate/the-climate-of-switzerland/climate-normals/climate-diagrams-and-normals-per-station.html",
+      "title": "Climate diagrams and normals by station (MeteoSwiss)",
+      "publisher": "MeteoSwiss (Federal Office of Meteorology and Climatology)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/switzerland-2027",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-2588c79f04",
+      "url": "https://www.meteoswiss.admin.ch/local-forecasts/lucerne/6003.html",
+      "title": "Forecast: Lucerne (MeteoSwiss)",
+      "publisher": "MeteoSwiss (Federal Office of Meteorology and Climatology)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/switzerland-2027",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-528482167c",
+      "url": "https://www.meteoswiss.admin.ch/local-forecasts/wengen/3823.html",
+      "title": "Forecast: Wengen (MeteoSwiss)",
+      "publisher": "MeteoSwiss (Federal Office of Meteorology and Climatology)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/switzerland-2027",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-24b1d5ab19",
+      "url": "https://www.meteoswiss.admin.ch/local-forecasts/zermatt/3920.html",
+      "title": "Forecast: Zermatt (MeteoSwiss)",
+      "publisher": "MeteoSwiss (Federal Office of Meteorology and Climatology)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/switzerland-2027",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -21539,6 +23133,33 @@
       }
     },
     {
+      "id": "s-fed9b10b90",
+      "url": "https://www.nps.gov/arch/planyourvisit/weather.htm",
+      "title": "Weather: Arches National Park (National Park Service)",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/utah-five-parks",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-e82380376b",
       "url": "https://www.nps.gov/brca/planyourvisit/accessibility.htm",
       "title": "Accessibility",
@@ -21970,6 +23591,33 @@
       }
     },
     {
+      "id": "s-08f705d7bc",
+      "url": "https://www.nps.gov/brca/planyourvisit/weather.htm",
+      "title": "Weather: Bryce Canyon National Park (National Park Service)",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/utah-five-parks",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-d1d18ec5f0",
       "url": "https://www.nps.gov/caco/planyourvisit/fees.htm",
       "title": "Fees & Passes - Cape Cod National Seashore",
@@ -22227,6 +23875,33 @@
       }
     },
     {
+      "id": "s-42043a41fa",
+      "url": "https://www.nps.gov/cany/planyourvisit/weather.htm",
+      "title": "Weather: Canyonlands National Park (National Park Service)",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/utah-five-parks",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-9385fd037b",
       "url": "https://www.nps.gov/care/learn/historyculture/orchards.htm",
       "title": "Orchards (last updated 22 Jul 2026)",
@@ -22412,6 +24087,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-99fc1f5e09",
+      "url": "https://www.nps.gov/care/planyourvisit/weather.htm",
+      "title": "Weather: Capitol Reef National Park (National Park Service)",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/utah-five-parks",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -23934,6 +25636,38 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-b457ad30ef",
+      "url": "https://www.nps.gov/zion/planyourvisit/weather-and-climate.htm",
+      "title": "U.S. National Park Service",
+      "publisher": "U.S. National Park Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/publishers/nps",
+          "field": "weather.home"
+        },
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/utah-five-parks",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -27077,6 +28811,43 @@
       }
     },
     {
+      "id": "s-f5cce0cd7b",
+      "url": "https://www.smn.gob.ar",
+      "title": "Forecast: SMN Argentina (search for the town) (SMN Argentina)",
+      "publisher": "Servicio Meteorológico Nacional (Argentina)",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/patagonia-2027",
+          "field": "weather.fallback"
+        },
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/patagonia-2027",
+          "field": "weather.forecast"
+        },
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/publishers/smn-ar",
+          "field": "weather.home"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-756cc8899f",
       "url": "https://www.snaefellsjokull.is/en/hiking-trails-destinations/travel-and-safety-advice",
       "title": "Travel and safety advice",
@@ -29094,6 +30865,129 @@
       }
     },
     {
+      "id": "s-3c5a027c1a",
+      "url": "https://www.weather.gov",
+      "title": "Weather (National Weather Service)",
+      "publisher": "NOAA National Weather Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/new-hampshire-stopover-2026",
+          "field": "weather.fallback"
+        },
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/publishers/nws",
+          "field": "weather.home"
+        },
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/utah-five-parks",
+          "field": "weather.fallback"
+        },
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/vermont-fall-2026",
+          "field": "weather.fallback"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-a1b9c5e90c",
+      "url": "https://www.weather.gov/btv/climate",
+      "title": "Climate data: NWS Burlington (National Weather Service)",
+      "publisher": "NOAA National Weather Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/vermont-fall-2026",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-12a11fde48",
+      "url": "https://www.weather.gov/gyx/climate",
+      "title": "Climate data: NWS Gray, Maine (National Weather Service)",
+      "publisher": "NOAA National Weather Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/new-hampshire-stopover-2026",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-a9b8803c37",
+      "url": "https://www.weather.gov/wrh/Climate?wfo=slc",
+      "title": "Climate data: NWS Salt Lake City (National Weather Service)",
+      "publisher": "NOAA National Weather Service",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/utah-five-parks",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-825a2d5517",
       "url": "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies",
       "title": "Heli-hiking in the Canadian Rockies",
@@ -30542,6 +32436,362 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-9214728643",
+      "url": "https://www.yr.no/en",
+      "title": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "publisher": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/norway-summer-2028",
+          "field": "weather.fallback"
+        },
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/publishers/met-norway",
+          "field": "weather.home"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-6a0f21e34c",
+      "url": "https://www.yr.no/en/forecast/daily-table/1-124143/Norway/Vestland/Aurland/Aurlandsvangen",
+      "title": "Forecast: Aurlandsvangen (Yr (MET Norway))",
+      "publisher": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/norway-summer-2028",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-a37e19ce28",
+      "url": "https://www.yr.no/en/forecast/daily-table/1-169613/Norway/Vestland/Stryn/Loen",
+      "title": "Forecast: Loen (Yr (MET Norway))",
+      "publisher": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/norway-summer-2028",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-81e63568f4",
+      "url": "https://www.yr.no/en/forecast/daily-table/1-177457/Norway/M%C3%B8re%20og%20Romsdal/Stranda/Geiranger",
+      "title": "Forecast: Geiranger (Yr (MET Norway))",
+      "publisher": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/norway-summer-2028",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-74b0fcced5",
+      "url": "https://www.yr.no/en/forecast/daily-table/1-181828/Norway/M%C3%B8re%20og%20Romsdal/%C3%85lesund/%C3%85lesund",
+      "title": "Forecast: Ålesund (Yr (MET Norway))",
+      "publisher": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/norway-summer-2028",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c3925ba5d0",
+      "url": "https://www.yr.no/en/forecast/daily-table/1-190429/Norway/M%C3%B8re%20og%20Romsdal/Rauma/%C3%85ndalsnes",
+      "title": "Forecast: Åndalsnes (Yr (MET Norway))",
+      "publisher": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/norway-summer-2028",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-3dc38566ea",
+      "url": "https://www.yr.no/en/forecast/daily-table/1-272752/Norway/Nordland/Moskenes/Reine",
+      "title": "Forecast: Reine (Yr (MET Norway))",
+      "publisher": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/norway-summer-2028",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-5b613bf540",
+      "url": "https://www.yr.no/en/forecast/daily-table/1-276917/Norway/Nordland/V%C3%A5gan/Svolv%C3%A6r",
+      "title": "Forecast: Svolvær (Yr (MET Norway))",
+      "publisher": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/norway-summer-2028",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-5e53f28b9f",
+      "url": "https://www.yr.no/en/forecast/daily-table/1-299319/Norway/Nordland/And%C3%B8y/Andenes",
+      "title": "Forecast: Andenes (Yr (MET Norway))",
+      "publisher": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/norway-summer-2028",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-3e5ab024b8",
+      "url": "https://www.yr.no/en/forecast/daily-table/1-304638/Norway/Troms/Senja/Fjordg%C3%A5rd",
+      "title": "Forecast: Fjordgård (Senja) (Yr (MET Norway))",
+      "publisher": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/norway-summer-2028",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-5b39b5382d",
+      "url": "https://www.yr.no/en/forecast/daily-table/1-92416/Norway/Vestland/Bergen/Bergen",
+      "title": "Forecast: Bergen (Yr (MET Norway))",
+      "publisher": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/norway-summer-2028",
+          "field": "weather.forecast"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-6b1c020e3e",
+      "url": "https://www.yr.no/en/statistics/graph/1-276917/Norway/Nordland/V%C3%A5gan/Svolv%C3%A6r",
+      "title": "Climate: Svolvær (observations against the 1991-2020 normal) (Yr (MET Norway))",
+      "publisher": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/norway-summer-2028",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-be861d1694",
+      "url": "https://www.yr.no/en/statistics/graph/1-92416/Norway/Vestland/Bergen/Bergen",
+      "title": "Climate: Bergen (observations against the 1991-2020 normal) (Yr (MET Norway))",
+      "publisher": "Norwegian Meteorological Institute (MET Norway) and NRK, Yr",
+      "kind": "official",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/reference/weather-links.json",
+          "ref": "weather-links/norway-summer-2028",
+          "field": "weather.climate"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
