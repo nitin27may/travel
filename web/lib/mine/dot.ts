@@ -1,3 +1,4 @@
+import { readLocal, writeLocal } from '@/lib/storage/safe';
 import { CHANGED_EVENT, COPIES_KEY, FAV_KEY, SEEN_KEY } from './keys';
 
 /**
@@ -21,27 +22,15 @@ function newest(raw: string | null, field: string): number {
   }
 }
 
-function read(key: string): string | null {
-  try {
-    return window.localStorage.getItem(key);
-  } catch {
-    return null;
-  }
-}
-
 /** True when a copy or favourite was added after the visitor last opened Mine. */
 export function hasNewItems(): boolean {
-  const seen = Date.parse(read(SEEN_KEY) ?? '') || 0;
-  return Math.max(newest(read(COPIES_KEY), 'copiedAt'), newest(read(FAV_KEY), 'favouredAt')) > seen;
+  const seen = Date.parse(readLocal(SEEN_KEY) ?? '') || 0;
+  return Math.max(newest(readLocal(COPIES_KEY), 'copiedAt'), newest(readLocal(FAV_KEY), 'favouredAt')) > seen;
 }
 
 /** Called when `/mine/` renders: everything now on the device counts as seen. */
 export function markSeen(now: Date = new Date()): void {
-  try {
-    window.localStorage.setItem(SEEN_KEY, now.toISOString());
-  } catch {
-    /* blocked: the dot stays as it is */
-  }
+  writeLocal(SEEN_KEY, now.toISOString()); // blocked: the dot stays as it is
   notifyMineChanged();
 }
 

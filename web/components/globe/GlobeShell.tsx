@@ -1,5 +1,6 @@
 'use client';
 
+import { readSession, writeSession } from '@/lib/storage/safe';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -144,9 +145,9 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     naturalRef.current = parseNatural(window.location.search);
     setNatural(naturalRef.current);
     // The control card is the Map options pill until opened; the open state lasts the session (spec 3.2).
-    try { setCardOpenState(sessionStorage.getItem('travel:v1:globe-card') === 'open'); } catch { /* storage unavailable */ }
+    setCardOpenState(readSession('travel:v1:globe-card') === 'open');
     // The hint shows once per session, for 4 s, and never after the first gesture.
-    try { if (!sessionStorage.getItem('travel:v1:globe-hint')) { sessionStorage.setItem('travel:v1:globe-hint', '1'); setHint(true); } } catch { setHint(true); }
+    if (!readSession('travel:v1:globe-hint')) { writeSession('travel:v1:globe-hint', '1'); setHint(true); }
     setDark(pageIsDark());
     const mo = new MutationObserver(() => setDark(pageIsDark()));
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme', 'style'] });
@@ -171,7 +172,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const layout = useCallback(() => layoutRef.current(), []);
   const setCardOpen = useCallback((open: boolean) => {
     setCardOpenState(open);
-    try { sessionStorage.setItem('travel:v1:globe-card', open ? 'open' : 'closed'); } catch { /* storage unavailable */ }
+    writeSession('travel:v1:globe-card', open ? 'open' : 'closed');
   }, []);
   useEffect(() => {
     if (!hint) return;

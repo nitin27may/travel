@@ -1,3 +1,4 @@
+import { readLocal, writeLocal } from '@/lib/storage/safe';
 import presets from './presets.json';
 
 export interface SavedView {
@@ -24,7 +25,7 @@ export function parseViews(raw: string | null): SavedView[] {
   }
 }
 
-export function loadViews(storage: Pick<Storage, 'getItem'> = window.localStorage): SavedView[] {
+export function loadViews(storage: Pick<Storage, 'getItem'> = { getItem: readLocal }): SavedView[] {
   return parseViews(storage.getItem(VIEWS_KEY));
 }
 
@@ -37,6 +38,6 @@ export function removeView(list: SavedView[], name: string, path: string): Saved
   return list.filter((v) => !(v.name === name && v.path === path));
 }
 
-export function storeViews(list: SavedView[], storage: Pick<Storage, 'setItem'> = window.localStorage): void {
+export function storeViews(list: SavedView[], storage: Pick<Storage, 'setItem'> = { setItem: writeLocal }): void {
   storage.setItem(VIEWS_KEY, JSON.stringify(list));
 }

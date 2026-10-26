@@ -1,0 +1,11 @@
+/*
+ * The one door to localStorage and sessionStorage (review NAV-2 C1). Browsers that block all site data throw on ACCESS to
+ * `window.localStorage`, not only on the call, so the property read sits inside the try. No imports: it lives in the start chunk.
+ * Every reader and writer in web/ uses this file (an ESLint rule enforces it), except lib/mine/storage.ts, which keeps its own probe.
+ */
+export const readLocal = (k: string): string | null => { try { return window.localStorage.getItem(k); } catch { return null; } };
+export const writeLocal = (k: string, v: string): boolean => { try { window.localStorage.setItem(k, v); return true; } catch { return false; } };
+export const removeLocal = (k: string): boolean => { try { window.localStorage.removeItem(k); return true; } catch { return false; } };
+export const readSession = (k: string): string | null => { try { return window.sessionStorage.getItem(k); } catch { return null; } };
+export const writeSession = (k: string, v: string): boolean => { try { window.sessionStorage.setItem(k, v); return true; } catch { return false; } };
+export const removeSession = (k: string): boolean => { try { window.sessionStorage.removeItem(k); return true; } catch { return false; } };

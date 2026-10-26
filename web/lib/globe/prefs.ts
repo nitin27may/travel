@@ -1,3 +1,4 @@
+import { readLocal, writeLocal } from '@/lib/storage/safe';
 import type { StyleKey } from '@/lib/map/maplibre/styles';
 
 export interface GlobePrefs { style: StyleKey | 'auto'; terrain: boolean; exaggeration: number; spin: boolean }
@@ -18,8 +19,8 @@ export function sanitisePrefs(raw: unknown): GlobePrefs {
 }
 
 export function loadPrefs(): GlobePrefs {
-  try { return sanitisePrefs(JSON.parse(localStorage.getItem(KEY) ?? '{}')); } catch { return DEFAULT_PREFS; }
+  try { return sanitisePrefs(JSON.parse(readLocal(KEY) ?? '{}')); } catch { return DEFAULT_PREFS; }
 }
 export function savePrefs(p: GlobePrefs): void {
-  try { localStorage.setItem(KEY, JSON.stringify(p)); } catch { /* storage unavailable */ }
+  writeLocal(KEY, JSON.stringify(p));
 }
