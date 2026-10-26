@@ -22,16 +22,16 @@
     { "id": "jungfraujoch", "name": "MeteoSwiss station Jungfraujoch", "elev_m": 3571, "src": ["s-24abfa0c03"], "note": "High-altitude reference only; not used for sun times." }
   ],
   "season": {
-    "months": { "v": [7,8], "state": "value", "basis": "our_inference", "src": [], "note": "The plan's own months." },
-    "label": { "v": "Last week of July to the second week of August", "state": "value", "basis": "our_inference", "src": [], "note": "The plan's own statement." },
-    "why": { "v": "The plan's own fortnight in high summer: the warmest weeks in the mountains and the longest days, with frequent rain in the lake country.", "state": "value", "basis": "official_info", "src": ["s-24abfa0c03", "s-f63a803989"], "read": "2026-10-25" },
+    "months": { "value": [7, 8], "basis": "plan", "note": "The plan's own months." },
+    "label": { "value": "Last week of July to the second week of August", "basis": "plan" },
+    "why": { "value": "The plan's own fortnight in high summer: the warmest weeks in the mountains and the longest days, with frequent rain in the lake country.", "basis": "official", "src": ["s-24abfa0c03", "s-f63a803989"], "on": "2026-10-25" },
     "weather": {
-      "tempC": { "v": "14 to 25 C at Lucerne and Interlaken, 8 to 20 C at Zermatt; just above or below 0 C on the Jungfraujoch", "state": "value", "basis": "official_info", "src": ["s-24abfa0c03"], "read": "2026-10-25", "note": "MeteoSwiss 1991-2020, mean daily min to max, July / August: Luzern 14.6/14.4 to 24.9/24.3; Interlaken 13.8/13.6 to 24.3/23.7; Zermatt 8.3/8.3 to 20.0/19.6; Jungfraujoch -2.1/-1.7 to 3.4/3.5." },
-      "rain": { "v": "About 13 days with 1 mm or more a month at Lucerne and Interlaken, 9 to 10 at Zermatt", "state": "value", "basis": "official_info", "src": ["s-24abfa0c03"], "read": "2026-10-25", "note": "July / August precipitation and days >= 1 mm: Luzern 165.5/170.0 mm, 12.7/12.7 days; Interlaken 145.8/145.8 mm, 12.8/12.8 days; Zermatt 58.9/68.4 mm, 9.0/9.8 days." },
-      "daylight": { "v": "Sunrise about 06:00 to 06:20, sunset about 21:05 falling to 20:50; about 15 hours of day", "state": "value", "basis": "our_inference", "src": ["s-f63a803989"], "read": "2026-10-25", "note": "core/bin/sun.ts for the first and last plan day: Luzern sunrise 05:59 to 06:16, sunset 21:08 to 20:49, day 15h09m to 14h32m; Zermatt sunrise 06:04 to 06:21, sunset 21:07 to 20:48, day 15h02m to 14h27m. Valley horizon not modelled." },
+      "tempC": { "value": "14 to 25 C at Lucerne and Interlaken, 8 to 20 C at Zermatt; just above or below 0 C on the Jungfraujoch", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25", "note": "MeteoSwiss 1991-2020, mean daily min to max, July / August: Luzern 14.6/14.4 to 24.9/24.3; Interlaken 13.8/13.6 to 24.3/23.7; Zermatt 8.3/8.3 to 20.0/19.6; Jungfraujoch -2.1/-1.7 to 3.4/3.5." },
+      "rain": { "value": "About 13 days with 1 mm or more a month at Lucerne and Interlaken, 9 to 10 at Zermatt", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25", "note": "July / August precipitation and days >= 1 mm: Luzern 165.5/170.0 mm, 12.7/12.7 days; Interlaken 145.8/145.8 mm, 12.8/12.8 days; Zermatt 58.9/68.4 mm, 9.0/9.8 days." },
+      "daylight": { "value": "Sunrise about 06:00 to 06:20, sunset about 21:05 falling to 20:50; about 15 hours of day", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25", "note": "core/bin/sun.ts for the first and last plan day: Luzern sunrise 05:59 to 06:16, sunset 21:08 to 20:49, day 15h09m to 14h32m; Zermatt sunrise 06:04 to 06:21, sunset 21:07 to 20:48, day 15h02m to 14h27m. Valley horizon not modelled." },
       "notes": [
-        { "text": "Zermatt is the driest base, with well under half the rain of Lucerne", "basis": "official_info", "src": ["s-24abfa0c03"], "on": "2026-10-25" },
-        { "text": "Mean highs on the Jungfraujoch stay near 3 C even in high summer, so pack warm layers", "basis": "official_info", "src": ["s-24abfa0c03"], "on": "2026-10-25" }
+        { "text": "Zermatt is the driest base, with well under half the rain of Lucerne", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25" },
+        { "text": "Mean highs on the Jungfraujoch stay near 3 C even in high summer, so pack warm layers", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25" }
       ]
     }
   },
@@ -46,14 +46,14 @@
       "best_for": "Long days on the high lifts and trails in the warmest weeks",
       "crowd": null,
       "plus": [
-        { "text": "About 15 hours of daylight", "factor": "light", "basis": "our_inference", "src": ["s-f63a803989"], "on": "2026-10-25", "method": "computed", "note": "Computed with core/bin/sun.ts." },
-        { "text": "Warmest weeks at height: Zermatt afternoons near 20 C", "factor": "weather", "basis": "official_info", "src": ["s-24abfa0c03"], "on": "2026-10-25" },
-        { "text": "Zermatt sees rain on fewer days than the lake bases", "factor": "weather", "basis": "official_info", "src": ["s-24abfa0c03"], "on": "2026-10-25" }
+        { "text": "About 15 hours of daylight", "factor": "light", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" },
+        { "text": "Warmest weeks at height: Zermatt afternoons near 20 C", "factor": "weather", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25" },
+        { "text": "Zermatt sees rain on fewer days than the lake bases", "factor": "weather", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25" }
       ],
       "minus": [
-        { "text": "July and August are the wettest months at Lucerne, about 170 mm each", "factor": "weather", "basis": "official_info", "src": ["s-24abfa0c03"], "on": "2026-10-25" },
-        { "text": "Rain on about 13 days a month at Lucerne and Interlaken", "factor": "weather", "basis": "official_info", "src": ["s-24abfa0c03"], "on": "2026-10-25" },
-        { "text": "Freezing nights on the Jungfraujoch even in high summer", "factor": "weather", "basis": "official_info", "src": ["s-24abfa0c03"], "on": "2026-10-25" }
+        { "text": "July and August are the wettest months at Lucerne, about 170 mm each", "factor": "weather", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25" },
+        { "text": "Rain on about 13 days a month at Lucerne and Interlaken", "factor": "weather", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25" },
+        { "text": "Freezing nights on the Jungfraujoch even in high summer", "factor": "weather", "basis": "official", "src": ["s-24abfa0c03"], "on": "2026-10-25" }
       ],
       "events": [],
       "affects": [],
@@ -63,9 +63,5 @@
         { "text": "Lift and rail season dates for the plan's lifts in the trip year", "searched": "2026-10-25", "tried": "Not re-read in this batch; operators publish the next season's dates in spring." }
       ]
     }
-  ],
-  "meta": {
-    "schema_version": 1,
-    "run_id": "RIS-N"
-  }
+  ]
 }

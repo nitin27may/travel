@@ -18,15 +18,15 @@
     { "id": "yqb", "name": "Québec Jean Lesage airport climate station", "lat": 46.8, "lon": -71.38333, "elev_m": 74.4, "zone": "America/Toronto", "src": ["s-12cf778b01"], "note": "Station coordinates as printed on the ECCC normals page; the station is at the airport, west of the old city." }
   ],
   "season": {
-    "months": { "v": [9,10], "state": "value", "basis": "our_inference", "src": [], "note": "The plan's own months." },
-    "label": { "v": "Last days of September into early October", "state": "value", "basis": "our_inference", "src": [], "note": "The plan's own statement." },
-    "why": { "v": "The plan's own short break at the turn of the month; normals give cool days, cold nights and rain on about one day in three.", "state": "value", "basis": "official_info", "src": ["s-12cf778b01"], "read": "2026-10-25" },
+    "months": { "value": [9, 10], "basis": "plan", "note": "The plan's own months." },
+    "label": { "value": "Last days of September into early October", "basis": "plan" },
+    "why": { "value": "The plan's own short break at the turn of the month; normals give cool days, cold nights and rain on about one day in three.", "basis": "official", "src": ["s-12cf778b01"], "on": "2026-10-25" },
     "weather": {
-      "tempC": { "v": "8 to 19 C in September, 2 to 11 C in October (mean daily low to high)", "state": "value", "basis": "official_info", "src": ["s-12cf778b01"], "read": "2026-10-25", "note": "1991-2020 normals, Québec airport: Sep max 19.1, min 8.3; Oct max 11.3, min 2.4." },
-      "rain": { "v": "About 10 days with 1 mm or more in September and 11 to 12 in October; about 110 to 115 mm a month", "state": "value", "basis": "official_info", "src": ["s-12cf778b01"], "read": "2026-10-25", "note": "Sep 111.3 mm, 9.8 days >= 1 mm; Oct 115.8 mm, 11.5 days >= 1 mm." },
-      "daylight": { "v": "Sunrise about 06:40, sunset about 18:30; just under 12 hours of day", "state": "value", "basis": "our_inference", "src": ["s-f63a803989"], "read": "2026-10-25", "note": "core/bin/sun.ts at the station point for the first and last plan day: sunrise 06:40 to 06:42, sunset 18:32 to 18:28, day 11h52m to 11h45m." },
+      "tempC": { "value": "8 to 19 C in September, 2 to 11 C in October (mean daily low to high)", "basis": "official", "src": ["s-12cf778b01"], "on": "2026-10-25", "note": "1991-2020 normals, Québec airport: Sep max 19.1, min 8.3; Oct max 11.3, min 2.4." },
+      "rain": { "value": "About 10 days with 1 mm or more in September and 11 to 12 in October; about 110 to 115 mm a month", "basis": "official", "src": ["s-12cf778b01"], "on": "2026-10-25", "note": "Sep 111.3 mm, 9.8 days >= 1 mm; Oct 115.8 mm, 11.5 days >= 1 mm." },
+      "daylight": { "value": "Sunrise about 06:40, sunset about 18:30; just under 12 hours of day", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25", "note": "core/bin/sun.ts at the station point for the first and last plan day: sunrise 06:40 to 06:42, sunset 18:32 to 18:28, day 11h52m to 11h45m." },
       "notes": [
-        { "text": "October nights average just above freezing, so pack a warm layer for evenings", "basis": "official_info", "src": ["s-12cf778b01"], "on": "2026-10-25" }
+        { "text": "October nights average just above freezing, so pack a warm layer for evenings", "basis": "official", "src": ["s-12cf778b01"], "on": "2026-10-25" }
       ]
     }
   },
@@ -41,12 +41,12 @@
       "best_for": "A short city break in cool weather",
       "crowd": null,
       "plus": [
-        { "text": "Mild afternoons, about 19 C in late September", "factor": "weather", "basis": "official_info", "src": ["s-12cf778b01"], "on": "2026-10-25" },
-        { "text": "Nearly 12 hours of daylight", "factor": "light", "basis": "our_inference", "src": ["s-f63a803989"], "on": "2026-10-25", "method": "computed", "note": "Computed with core/bin/sun.ts." }
+        { "text": "Mild afternoons, about 19 C in late September", "factor": "weather", "basis": "official", "src": ["s-12cf778b01"], "on": "2026-10-25" },
+        { "text": "Nearly 12 hours of daylight", "factor": "light", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" }
       ],
       "minus": [
-        { "text": "Rain on about one day in three", "factor": "weather", "basis": "official_info", "src": ["s-12cf778b01"], "on": "2026-10-25" },
-        { "text": "Nights drop to about 2 to 8 C", "factor": "weather", "basis": "official_info", "src": ["s-12cf778b01"], "on": "2026-10-25" }
+        { "text": "Rain on about one day in three", "factor": "weather", "basis": "official", "src": ["s-12cf778b01"], "on": "2026-10-25" },
+        { "text": "Nights drop to about 2 to 8 C", "factor": "weather", "basis": "official", "src": ["s-12cf778b01"], "on": "2026-10-25" }
       ],
       "events": [],
       "affects": [],
@@ -56,9 +56,5 @@
         { "text": "Opening seasons of the plan's sights in this window", "searched": "2026-10-25", "tried": "The legacy hub was read for months only; no operator season page was read." }
       ]
     }
-  ],
-  "meta": {
-    "schema_version": 1,
-    "run_id": "RIS-N"
-  }
+  ]
 }

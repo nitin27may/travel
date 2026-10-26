@@ -18,15 +18,15 @@
     { "id": "welland", "name": "Welland climate station", "lat": 42.99253, "lon": -79.26114, "elev_m": 175.3, "zone": "America/Toronto", "src": ["s-768921b193"], "note": "Station coordinates as printed on the ECCC normals page (42 59'33\" N, 79 15'40\" W). It is the nearest 1991-2020 normals location to the Niagara River found; it is inland, south-west of the gorge." }
   ],
   "season": {
-    "months": { "v": [8], "state": "value", "basis": "our_inference", "src": [], "note": "The plan's own month." },
-    "label": { "v": "One day late in August", "state": "value", "basis": "our_inference", "src": [], "note": "The plan's own statement." },
-    "why": { "v": "The plan's own day out; normals give warm afternoons and a long evening for a sunset at the river mouth.", "state": "value", "basis": "official_info", "src": ["s-768921b193", "s-f63a803989"], "read": "2026-10-25" },
+    "months": { "value": [8], "basis": "plan", "note": "The plan's own month." },
+    "label": { "value": "One day late in August", "basis": "plan" },
+    "why": { "value": "The plan's own day out; normals give warm afternoons and a long evening for a sunset at the river mouth.", "basis": "official", "src": ["s-768921b193", "s-f63a803989"], "on": "2026-10-25" },
     "weather": {
-      "tempC": { "v": "15 to 26 C (mean daily low to high in August)", "state": "value", "basis": "official_info", "src": ["s-768921b193"], "read": "2026-10-25", "note": "1991-2020 normals, Welland-Pelham: Aug max 26.1, min 15.4." },
-      "rain": { "v": "About 9 days with 1 mm or more in August; about 79 mm in the month", "state": "value", "basis": "official_info", "src": ["s-768921b193"], "read": "2026-10-25", "note": "August: 78.7 mm, 9.3 days >= 1 mm." },
-      "daylight": { "v": "Sunrise about 06:35, sunset about 20:00; about 13 hours 20 minutes of day", "state": "value", "basis": "our_inference", "src": ["s-f63a803989"], "read": "2026-10-25", "note": "core/bin/sun.ts at the station point for the plan day: sunrise 06:37, sunset 20:00, civil dusk 20:29, day 13h22m." },
+      "tempC": { "value": "15 to 26 C (mean daily low to high in August)", "basis": "official", "src": ["s-768921b193"], "on": "2026-10-25", "note": "1991-2020 normals, Welland-Pelham: Aug max 26.1, min 15.4." },
+      "rain": { "value": "About 9 days with 1 mm or more in August; about 79 mm in the month", "basis": "official", "src": ["s-768921b193"], "on": "2026-10-25", "note": "August: 78.7 mm, 9.3 days >= 1 mm." },
+      "daylight": { "value": "Sunrise about 06:35, sunset about 20:00; about 13 hours 20 minutes of day", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25", "note": "core/bin/sun.ts at the station point for the plan day: sunrise 06:37, sunset 20:00, civil dusk 20:29, day 13h22m." },
       "notes": [
-        { "text": "Civil twilight lasts about half an hour after sunset", "basis": "our_inference", "src": ["s-f63a803989"], "on": "2026-10-25", "method": "computed", "note": "Computed with core/bin/sun.ts." }
+        { "text": "Civil twilight lasts about half an hour after sunset", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" }
       ]
     }
   },
@@ -41,11 +41,11 @@
       "best_for": "A long summer day along the river ending with a sunset",
       "crowd": null,
       "plus": [
-        { "text": "Warm afternoons, about 26 C", "factor": "weather", "basis": "official_info", "src": ["s-768921b193"], "on": "2026-10-25" },
-        { "text": "Sunset near 20:00 leaves a full day of light", "factor": "light", "basis": "our_inference", "src": ["s-f63a803989"], "on": "2026-10-25", "method": "computed", "note": "Computed with core/bin/sun.ts." }
+        { "text": "Warm afternoons, about 26 C", "factor": "weather", "basis": "official", "src": ["s-768921b193"], "on": "2026-10-25" },
+        { "text": "Sunset near 20:00 leaves a full day of light", "factor": "light", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" }
       ],
       "minus": [
-        { "text": "Rain on about one day in three in August", "factor": "weather", "basis": "official_info", "src": ["s-768921b193"], "on": "2026-10-25" }
+        { "text": "Rain on about one day in three in August", "factor": "weather", "basis": "official", "src": ["s-768921b193"], "on": "2026-10-25" }
       ],
       "events": [],
       "affects": [],
@@ -54,9 +54,5 @@
         { "text": "Crowd level on a late-summer weekend", "searched": "2026-10-25", "tried": "Not researched in this batch; no official visitor count was read." }
       ]
     }
-  ],
-  "meta": {
-    "schema_version": 1,
-    "run_id": "RIS-N"
-  }
+  ]
 }
