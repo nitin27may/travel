@@ -664,14 +664,14 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | Q206 | Queue NAV phase 1 (about 20 h, no backend) right after ACCT-PH merges, ahead of the rest of the closure queue? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, NAV phase 1 runs next after ACCT-PH merges.** |
 | Q207 | At the planner stage, signed-in bar Home · Trips · Places · Mine · More with Globe first in More? Recommended: yes, confirmed then with the Q205 numbers | 25 Oct **Decided 25 Oct 2026 (owner): yes, decided at Home time against the Q205 analytics.** |
 | Q210 | Map search for custom stops: first recommended openrouteservice with Photon and no Google Places; the owner chose Google Places primary with ORS then Photon as fallback instead ([spec](../../features/requests-and-custom-places.md) 4.3, 13) | 25 Oct **Decided 25 Oct 2026 (owner): CHANGED: Google Places is the primary place search for custom stops (10 to 20 users, free monthly usage); openrouteservice then Photon is the fallback. Google terms kept (place_id only, no Google names or coordinates in our data, not on MapLibre maps, research never takes coordinates from Google, restricted server-side key with quota cap and alerts, secrets in Vercel).** |
-| Q211 | Custom stops become suggestions by default for public points of interest, never for addresses or lodging, box always visible? Recommended: yes | 25 Oct |
-| Q212 | Custom stops only in the signed-in copy, not in device copies? Recommended: yes (Q68 stays open) | 25 Oct |
-| Q213 | A new request type "Suggest an improvement" rather than more report reasons? Recommended: yes | 25 Oct |
-| Q214 | Copy edits beyond CUS-1 (reorder in a day, add and drop a day, notes, title, dates) right after CUS-1, as REQ-E? Recommended: yes | 25 Oct |
-| Q215 | Once a suggested place is added, offer "Use our page" in the requester's copy, never change it for them? Recommended: yes | 25 Oct |
-| Q216 | CLI as the admin tool; MCP intake tools later at `owner_admin`; one owner role for console and MCP? Recommended: yes | 25 Oct |
-| Q217 | No personal replies to "where should I go"; show what we already have and count the request? Recommended: yes | 25 Oct |
-| Q218 | Keep no public credit (Q107); "You suggested this" to the requester only? Recommended: yes | 25 Oct |
+| Q211 | Custom stops become suggestions by default for public points of interest, never for addresses or lodging, box always visible? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q212 | Custom stops only in the signed-in copy, not in device copies? Recommended: yes (Q68 stays open) | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q213 | A new request type "Suggest an improvement" rather than more report reasons? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q214 | Copy edits beyond CUS-1 (reorder in a day, add and drop a day, notes, title, dates) right after CUS-1, as REQ-E? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q215 | Once a suggested place is added, offer "Use our page" in the requester's copy, never change it for them? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q216 | CLI as the admin tool; MCP intake tools later at `owner_admin`; one owner role for console and MCP? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q217 | No personal replies to "where should I go"; show what we already have and count the request? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q218 | Keep no public credit (Q107); "You suggested this" to the requester only? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
 | Q220 | Country required for place and trip requests? Recommended: yes ([request-intake-fields.md](../../features/request-intake-fields.md) 14) | 25 Oct |
 | Q221 | Trip requests ask months and a year chip, never calendar dates? Recommended: yes | 25 Oct |
 | Q222 | States for every country (Natural Earth) and GeoNames towns of 5,000 or more for countries the towns layer does not cover, served through `towns`? Recommended: yes, threshold 5,000 | 25 Oct |
