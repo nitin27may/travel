@@ -87,7 +87,7 @@ End check: the full `get`/`list` output of the child equals the baseline (`diff`
   provider logout URL without redirecting". Present in tags v1.7.0-rc.2 through v1.7.13, absent in v1.7.0-rc.1,
   v1.7.0-beta.9 and v1.6.33 (the newest 1.6). Neon's schema lacks "The provider ID for the OAuth provider", which
   1.7.0 removed.
-- Fix markers by tag: `revokeUnprovenAccountAccess` (GHSA-qq9h-g4jm-xgf3, CVE-2026-67327; commit c06a56d) absent in
+- Fix markers by tag: `revokeUnprovenAccountAccess` (GHSA-qq9h-g4jm-xgf3, CVE-2026-67327; commit c06a56d (private history)) absent in
   v1.6.21 and v1.7.0-beta.9, present from v1.6.22, v1.7.0-beta.10 and every rc. `requireLocalEmailVerified`
   (GHSA-g38m-r43w-p2q7, CVE-2026-53516) present in every 1.7.0-rc and 1.7.x tag.
 - `/forget-password` (the old link reset) is 404 while `/request-password-reset` exists, consistent with the above.

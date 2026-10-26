@@ -205,21 +205,21 @@ Visible UI defects and polish (marked UI): 84 in all, 55 of them in phase A.
 | 156 | TODO | T1 | Public site execution plan | enhancement | This plan | C (review gates and checks) |  |  |
 | 157 | TODO | T2 | Smart search with no model bill | enhancement | Phase 1 done (SQ1); phase 2 and 3 Phase F (3.15, L9) | F (later) |  |  |
 | 158 | TODO | T3 | Capture contract audit and rethink | enhancement | Merged into 3a.12 | Merged duplicate |  |  |
-| 159 | TODO | T4 | Relevance | enhancement | Done (RV0 678e1ab, RVC 03b3318) | Done or decided (status was stale) |  |  |
-| 160 | TODO | T5 | Suitability applicability | enhancement | Done (S0b f0c49cc) | Done or decided (status was stale) |  |  |
-| 161 | TODO | T6 | Suitability metadata, who it suits | enhancement | Done (S0 e83e77c, R1-R6 6ef1c43, S1) | Done or decided (status was stale) |  |  |
+| 159 | TODO | T4 | Relevance | enhancement | Done (RV0 35f4b5f, RVC f7aa0dd) | Done or decided (status was stale) |  |  |
+| 160 | TODO | T5 | Suitability applicability | enhancement | Done (S0b 12f873b) | Done or decided (status was stale) |  |  |
+| 161 | TODO | T6 | Suitability metadata, who it suits | enhancement | Done (S0 4e17a0c, R1-R6 3dc1786, S1) | Done or decided (status was stale) |  |  |
 | 162 | TODO | T7 | Short trips | enhancement | Merged into 3.13 | Merged duplicate |  |  |
-| 163 | TODO | T8 | Trip page as a timeline with a profile | enhancement | Done (L3c b02f4a4); L3d merged into 3.1c | Done or decided (status was stale) |  |  |
+| 163 | TODO | T8 | Trip page as a timeline with a profile | enhancement | Done (L3c 47a3f17); L3d merged into 3.1c | Done or decided (status was stale) |  |  |
 | 164 | TODO | T9 | Trip page as a timeline (second row) | enhancement | Merged into T8 | Merged duplicate |  |  |
-| 165 | TODO | T10 | Trip tags and filters (L3b) | enhancement | Done (235058c) | Done or decided (status was stale) |  |  |
-| 166 | TODO | T11 | Trail maps on every trail page (L4b) | enhancement | Done (a974eef); the person check is L4 | Done or decided (status was stale) |  |  |
-| 167 | TODO | T12 | Globe L2b | enhancement | Done (ea97741) | Done or decided (status was stale) |  |  |
-| 168 | TODO | T13 | Scrub internal capture notes at the source | enhancement | Done (PS e883636); its Lighthouse line merged into 2.47 | Done or decided (status was stale) |  |  |
+| 165 | TODO | T10 | Trip tags and filters (L3b) | enhancement | Done (76ad652) | Done or decided (status was stale) |  |  |
+| 166 | TODO | T11 | Trail maps on every trail page (L4b) | enhancement | Done (88d7379); the person check is L4 | Done or decided (status was stale) |  |  |
+| 167 | TODO | T12 | Globe L2b | enhancement | Done (3426bee) | Done or decided (status was stale) |  |  |
+| 168 | TODO | T13 | Scrub internal capture notes at the source | enhancement | Done (PS 46ef4c8); its Lighthouse line merged into 2.47 | Done or decided (status was stale) |  |  |
 | 169 | TODO | T14 | Test health: places-parity flake, /specimen axe | enhancement | places-parity in TST (A14); /specimen removed at readiness 5 | A (UI fixes) | TST | UI |
 | 170 | TODO | T15 | The globe is a major feature | enhancement | Done (L2, L2b, GLB) | Done or decided (status was stale) |  |  |
 | 171 | TODO | T16 | Public trips are dateless | enhancement | Done (PS, L3) | Done or decided (status was stale) |  |  |
 | 172 | TODO | T17 | Map stack decided; owner keys | enhancement | Superseded by Q51; keys done; daily cap is readiness 7; R2 bucket is L5 | D (readiness, hosting-agnostic) |  |  |
-| 173 | TODO | T18 | Public site L2 | enhancement | Done (4777821) | Done or decided (status was stale) |  |  |
+| 173 | TODO | T18 | Public site L2 | enhancement | Done (a4c1161) | Done or decided (status was stale) |  |  |
 | 174 | TODO | T19 | Public site gates | enhancement | Superseded by R1, G-B and R2 | C (review gates and checks) |  |  |
 | 175 | TODO | T20 | Trail data for a person to confirm | enhancement | Merged into L4 | Merged duplicate |  |  |
 | 176 | TODO | T21 | Enforce per-kind completeness | enhancement | Merged into L3 | Merged duplicate |  |  |
@@ -237,7 +237,7 @@ Visible UI defects and polish (marked UI): 84 in all, 55 of them in phase A.
 | 188 | review-stage4-whole-site | R4-T2 | Patagonia: Buenos Aires cover, Day 2 "0 stops", "Exposure: level None" | bug | TRP1 (A13); cover photo pick from the trip gallery | A (UI fixes) | TRP1 | UI |
 | 189 | review-stage4-whole-site | R4-T3 | Switzerland overview: Copy text with no Copy button, season twice, grey tiles | bug | TRP1 (A13); season data in DATA D6 | A (UI fixes) | TRP1 | UI |
 | 190 | review-stage4-whole-site | R4-T4 | Dolomites Day 4: "weight not stated · height not stated +4" | bug | TRP1 (A13): stated limits only | A (UI fixes) | TRP1 | UI |
-| 191 | review-stage4-whole-site | R4-P1 | Filters shown twice at 1440 | bug | Done (4.29, 6bd3839) | Done or decided (status was stale) |  | UI |
+| 191 | review-stage4-whole-site | R4-P1 | Filters shown twice at 1440 | bug | Done (4.29, da34417) | Done or decided (status was stale) |  | UI |
 | 192 | review-stage4-whole-site | R4-P2 | Kids pill reads "Youngest child · Easy with kids" | bug | LST2a (A7b), check first after 4.24 | A (UI fixes) | LST2a | UI |
 | 193 | review-stage4-whole-site | R4-P3 | 15 sort options | polish | LST2a (A7b): 6 or fewer | A (UI fixes) | LST2a | UI |
 | 194 | review-stage4-whole-site | R4-PP1 | Sorapis Starts at tile against the Directions card | bug | Merged into 4.12 S5 | Merged duplicate |  | UI |

@@ -2,7 +2,7 @@
 
 > **Superseded as the entry point (21 Oct 2026):** read [docs/v2/PLAN.md](../../PLAN.md) first. Sections 0, 2 and 8 (state, order, open decisions) are superseded by PLAN.md sections 3 and 5. Sections 3 to 7b stay as the item list with backlog rows. The preview URL in section 0 is dead. Nothing below is deleted.
 
-> **Last verified 25 Oct 2026 against main f2dee4b** ([audit](../../MASTER-PLAN-AUDIT-2026-10-25.md)). Also stale here:
+> **Last verified 25 Oct 2026 against main 4230210** ([audit](../../MASTER-PLAN-AUDIT-2026-10-25.md)). Also stale here:
 > "deployment waits for the hosting decision" (Vercel is chosen, project `travel` exists, no production deployment; PLAN
 > R-61), the custom domain of Q44 and Q71 (owner 25 Oct: the Vercel address for now), Q70's feedback repo (proposed to be
 > dropped, Q133), and the planner section's sign-in lines (PLAN R-81 to R-107 and R-123 to R-129).

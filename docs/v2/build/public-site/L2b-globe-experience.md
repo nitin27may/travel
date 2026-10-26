@@ -11,7 +11,7 @@ Wave 3, stage 3. It runs in parallel with L3c, L3b, L4b and CS7; it shares no fi
 - **Backlog:** 3.3, 3.3b, 3.4, 3.5, 3.6; owner feedback F1 to F7; the globe items of 2.41 (label collisions, the translucent Style panel, small pin targets); 2.49 (P9 geo fetch tidy); relevance 6.4 (pins by draw tier).
 - **Spec:** [design/globe/spec.md](../../design/globe/spec.md) is the build spec; section numbers below refer to it. Evidence: [experience-review.md](../../design/globe/experience-review.md) (M1-M14, S1-S12). Owner: [owner-feedback-2026-10-18.md](../../design/globe/owner-feedback-2026-10-18.md). Direction mock: `design/globe/mock/index.html`. Where the spec and the review differ, the spec wins.
 - **Principles:** P1 (10,000 places), P3, P5 (smooth and linked), P8, P9, T5.
-- **Starts:** now. L2 (4777821) and SW-B (1b5f42d) are merged.
+- **Starts:** now. L2 (a4c1161) and SW-B (509edb3) are merged.
 
 ## Goal
 
@@ -38,7 +38,7 @@ Anyone opens `/globe`, the world fills the screen and turns, and everything with
 - The experience review section 3 (each M item has its cause with file and line) and sections 4 to 6 (cards, motion, rendering values).
 - `web/lib/globe/engine.ts`, `controller.ts`, `motion.ts`, `framing.ts`, `geometry.ts`, `data.ts`, `store.ts`, `admin.ts`, `countries.ts`, `search.ts`, `types.ts`.
 - `web/components/globe/*`, `web/styles/globe.css`, `web/public/globe/README.md`, `tools/globe_data.py`.
-- **What SW-B changed** (1b5f42d): the pin list left the page HTML. `web/app/globe-data/index.json`, `pins/[cc]/data.json` and `card/[kind]/[slug]/data.json` are per-country and per-card files; `lib/globe/store.ts` (`ensureCountry`, `ensureCard`) loads them through `globePins` and `globeCard` in `web/lib/client/data.ts`. Photos are served from our own 320/640/960 WebP renditions: `web/scripts/images.mjs` rewrites every Commons `Special:FilePath` URL it finds in the export (HTML and JSON), so a card image is a `Special:FilePath` URL at 320 or 640 in the card data and nothing else.
+- **What SW-B changed** (509edb3): the pin list left the page HTML. `web/app/globe-data/index.json`, `pins/[cc]/data.json` and `card/[kind]/[slug]/data.json` are per-country and per-card files; `lib/globe/store.ts` (`ensureCountry`, `ensureCard`) loads them through `globePins` and `globeCard` in `web/lib/client/data.ts`. Photos are served from our own 320/640/960 WebP renditions: `web/scripts/images.mjs` rewrites every Commons `Special:FilePath` URL it finds in the export (HTML and JSON), so a card image is a `Special:FilePath` URL at 320 or 640 in the card data and nothing else.
 - `web/lib/public/globe.ts` (`buildGlobe`), `web/lib/client/data.ts`, `web/tests/data/boundary.test.ts`.
 - [research/relevance.md](../../../../research/method/relevance.md) 6.4 and `data/relevance/derived/*.json` (`effective_draw`).
 - [README.md](README.md) 4.2, 8 and the gotchas on GPU rendering, basemaps in the e2e and deep links.

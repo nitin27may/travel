@@ -1,6 +1,6 @@
 # Neon implementation — final independent verification
 
-> **Update, 25 Oct 2026** (master-plan audit, main f2dee4b): this 24 Oct record stands as written. Since then the work is
+> **Update, 25 Oct 2026** (master-plan audit, main 4230210): this 24 Oct record stands as written. Since then the work is
 > merged into `main`, and the child-branch suite `core/test/db` passed 29 of 29 with 0 skipped against
 > `br-damp-breeze-b41mtvn5` (HANDOVER item 1). The real-service E2E is blocked by the origin guard until an HTTPS origin
 > exists (HANDOVER item 2).

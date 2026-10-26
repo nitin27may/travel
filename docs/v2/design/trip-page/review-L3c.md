@@ -1,6 +1,6 @@
 # Design review: L3c trip timeline (18 Oct 2026)
 
-Reviewer: travel-design-reviewer (Opus). Branch `public/L3c` at 287f1f8, built with `pnpm build` (exit 0, no `.env.local`) and served from `web/out`. Chromium 1248 on the Arc GPU (ANGLE/GL), 1440 and 390, light and dark, 2x. Screens are in `/tmp/l3c-review/`.
+Reviewer: travel-design-reviewer (Opus). Branch `public/L3c` at 287f1f8 (private history), built with `pnpm build` (exit 0, no `.env.local`) and served from `web/out`. Chromium 1248 on the Arc GPU (ANGLE/GL), 1440 and 390, light and dark, 2x. Screens are in `/tmp/l3c-review/`.
 
 **Verdict: not ready to merge. The structure is right, but the times are not yet believable.** Overall the build matches the design: the profile is chosen once, a strip shows the whole trip, every day has a time rail with legs, meals, rest and sun rows, the state lives in the URL, there are no research markers, and there is no green. What blocks the merge is credibility. Every day carries a warning, added places get invented 10-minute drives, a summary trip's flight day has no flight in it, and times like 15:57 claim a precision the page does not have. A family judging whether "Day 5 works with a 6-year-old" would be misled. Fix those eight items before merge.
 
@@ -66,7 +66,7 @@ Contrast pairs used, checked against tokens.md 2.2: `--muted` on `--surface` 6.9
 
 ## Round 2 (19 Oct 2026)
 
-Re-review of `public/L3c` at e1babd4, built with `pnpm build` (exit 0, no `.env.local`), served from `web/out`, Chromium 1248 on the Arc GPU (ANGLE/GL), 1440 and 390, light and dark through the site's own theme toggle, 2x. Screens are in `/tmp/l3c-review/r2/` (element shots per scene, `texts.json` holds the rendered text of every Rockies day).
+Re-review of `public/L3c` at e1babd4 (private history), built with `pnpm build` (exit 0, no `.env.local`), served from `web/out`, Chromium 1248 on the Arc GPU (ANGLE/GL), 1440 and 390, light and dark through the site's own theme toggle, 2x. Screens are in `/tmp/l3c-review/r2/` (element shots per scene, `texts.json` holds the rendered text of every Rockies day).
 
 **Verdict: not yet. Seven of the eight must-fixes are fixed and the eighth is mostly fixed, but the add-to-day flow and one Rockies day still show times a family would not believe.** Three blockers are left, all in the scheduler and all small.
 
@@ -114,7 +114,7 @@ Contrast: dark-mode warning text on the warning panel and `--muted` on `--surfac
 
 ## Round 3 (19 Oct 2026)
 
-Re-check of `public/L3c` at c9f63e1. `pnpm build` exit 0 with no `.env.local`, served from `web/out`, Chromium 1248 on the Arc GPU (ANGLE/GL), 2x, 1440 light and 390 dark through the site's theme toggle. I read the builder's shots and texts in `/tmp/l3c-review/r3/` and re-shot Rockies Day 5 adding Athabasca Falls Walk, A rest, Coffee and a snack and Lunch one at a time through the add panel, in that order (`/tmp/l3c-r3-me/`, `texts.json`).
+Re-check of `public/L3c` at c9f63e1 (private history). `pnpm build` exit 0 with no `.env.local`, served from `web/out`, Chromium 1248 on the Arc GPU (ANGLE/GL), 2x, 1440 light and 390 dark through the site's theme toggle. I read the builder's shots and texts in `/tmp/l3c-review/r3/` and re-shot Rockies Day 5 adding Athabasca Falls Walk, A rest, Coffee and a snack and Lunch one at a time through the add panel, in that order (`/tmp/l3c-r3-me/`, `texts.json`).
 
 **Verdict: not yet.** R2-2, the Day 7 cap, the golden, the wording and Interlakes are fixed. R2-1 and R2-3 are fixed in the builder's order of additions (coffee, lunch, rest). Add Athabasca first, as in round 2, and the day breaks.
 

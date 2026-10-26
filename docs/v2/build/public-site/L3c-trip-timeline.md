@@ -9,7 +9,7 @@ Wave 3. It runs in parallel with L3b (trip tags and filters), L2b (globe) and L4
   - copy and ICS, 2 h
 - **Spec:** [features/trip-timeline.md](../../features/trip-timeline.md). Section numbers below refer to it.
 - **Design:** [design/trip-page/timeline-design.md](../../design/trip-page/timeline-design.md) (Fable). Layout, spacing and motion come from it; the data and the rules come from the spec.
-- **Starts after:** L3 is merged (done, 65eee4c) and the stage 2 integration pass.
+- **Starts after:** L3 is merged (done, 49e8280) and the stage 2 integration pass.
 
 ## Goal
 

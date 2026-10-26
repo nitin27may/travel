@@ -50,7 +50,7 @@ trip](F14-after-the-trip.md) (corrections from travellers, later), [F16 admin co
 > it; if they are already logged in, fill name and email. Also make sure to think about how we can avoid actual spam;
 > those things should be in the plan too."
 
-## What already exists (checked 25 Oct 2026 on `main` 4eda809)
+## What already exists (checked 25 Oct 2026 on `main` b179afa)
 
 | Piece | State | Where |
 |---|---|---|
@@ -874,8 +874,7 @@ items closed more than 30 days ago.
 
 **Migration numbering.** 0011 is taken by EML-1 (`quota`); numbers are assigned at merge, so the customisation migration (`custom-draft`), the visitor spec's `account_favourite` and the intake migration take the next free numbers in merge order
 (intake). This spec **does not add a migration**: it widens the planned intake migration before it exists, so the
-intake migration takes the next free number when FBK-C runs (expected 0013, or later if the Google and Apple sign-in
-spec reserves one first). The runner refuses out-of-order files; renumber before applying, never after.
+intake migration takes the next free number when FBK-C runs (number assigned at merge, MIG-N, by slug). The runner refuses out-of-order files; renumber before applying, never after.
 
 ### 9.2 Routes
 

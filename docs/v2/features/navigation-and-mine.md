@@ -28,7 +28,7 @@ suggest"), [public-trips-dateless.md](../design/public-trips-dateless.md) ("Pick
 4. One page "My plans" plus one page "Favourites", or a single page with sections or tabs? How does it work signed out
    (device-local, R-70) and signed in (synced, R-71)? Where does a copied trip live, and what happens to it at sign-in?
 
-## What exists today (checked on `main` bbe1bb5)
+## What exists today (checked on `main` 61e8b92)
 
 | Thing | State | Where |
 |---|---|---|

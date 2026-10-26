@@ -1,6 +1,6 @@
 # 05. Roadmap and migration
 
-> **Last verified 25 Oct 2026 against main f2dee4b** ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). The milestones below are
+> **Last verified 25 Oct 2026 against main 4230210** ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). The milestones below are
 > the planner product (the second product). The order in force is [PLAN.md](PLAN.md): the public site first (phase E,
 > then R2, readiness, a production deploy on Vercel after the owner approves a named commit), with the closure queue,
 > R-59, email sign-in Phase 1 (R-100, R-101, R-105 to R-107), and the 25 Oct public features (R-62 to R-96) queued one at

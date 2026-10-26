@@ -1,6 +1,6 @@
 # SQ1b design review: smart search wiring
 
-Reviewer: travel-design-reviewer (Opus), 19 Oct 2026, branch `public/SQ1b` at `71907d2`.
+Reviewer: travel-design-reviewer (Opus), 19 Oct 2026, branch `public/SQ1b` at `71907d2` (private history).
 Method: `pnpm build`, `web/out` served locally, GPU Chromium (ANGLE/GL) at 2x, 1440 and 390, light and dark through the site's theme toggle. All 8 mock queries plus 12 of my own were run in the header search and in the Places/Trips box. Shots and logs are in `/tmp/sq1b-review/` (`log.json`, `run.mjs`, `run2.mjs`).
 
 **Verdict: merge after 4 must-fixes.** The parse is honest and the chips explain themselves. The must-fixes are where the search contradicts itself, shows raw codes, or makes the phone bar taller.

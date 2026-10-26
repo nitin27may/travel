@@ -2,7 +2,7 @@
 
 > **Working draft.** "Decided" and "answered" below mean *current direction*, not final. Any of them can be reopened.
 
-> **Last verified 25 Oct 2026 against main f2dee4b** ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). Since the 24 Oct note
+> **Last verified 25 Oct 2026 against main 4230210** ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). Since the 24 Oct note
 > below: hosting is decided (Vercel, project `travel`, Q3); the site uses `https://travel-beta-tan.vercel.app` with no
 > custom domain for now (owner 25 Oct, which answers Q17 for the time being; Q148 covers the mail domain); sign-in by
 > email code and Google are planned (R-100, R-81), Apple is skipped (R-85), MCP sign-in is designed (R-123 to R-129,

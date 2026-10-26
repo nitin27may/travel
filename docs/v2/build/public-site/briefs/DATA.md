@@ -7,7 +7,7 @@
 > - **Next, in parallel on disjoint files:** D3a, D4a, D7-R, D8-R, D9-R (each Opus); DATA-LOC L1 tools (builder). Photos (D5a, then D5b and DATA-LOC L3) wait for D1b.
 > - **Changed today:** best-time windows are `data/windows/<trip>.json`, not `data/seasons/` (DD-1); the Rockies three-base strategies use Lake Louise as the middle base with Golden as a swap (DD-2); DATA-LOC rows are PLAN R-110 to R-112 and BACKLOG 15.110 to 15.113.
 >
-> **Status check, 25 Oct 2026 (main 467ec00; supersedes the dated notes below where they differ).**
+> **Status check, 25 Oct 2026 (main 62bff68; supersedes the dated notes below where they differ).**
 > Verified with `capture.ts gaps --placement`, `gaps --tier required` and `gaps --budget --check` (budget OK, no count rose).
 >
 > - **No DATA batch has started.** No `v2-DATA-*` worktree and no `public/DATA-D*` branch exist. The old `public/DATA1` branch is the 19 Oct plumbing lane (merged), not D1.

@@ -1,7 +1,7 @@
 # Local database, the seed and sync with Neon
 
 Status: spec, 25 Oct 2026, travel-planner (Opus). Docs only; nothing here is built. PLAN R-140 to R-146, BACKLOG 15.140 to
-15.148, questions Q180 to Q187, TODO row of 25 Oct. Measured on `main` 196207e with read-only commands: the Neon CLI 8.11.1
+15.148, questions Q180 to Q187, TODO row of 25 Oct. Measured on `main` 753bbcc with read-only commands: the Neon CLI 8.11.1
 (`neon projects get`, `neon branches list`), one read-only query on the child branch (`set default_transaction_read_only`),
 a row-count script over `data/**`, and one size load into a throwaway Postgres 17 in the session scratchpad (loopback only,
 deleted afterwards). No Docker container was started and no Neon setting was changed.
@@ -39,9 +39,9 @@ seam flips). No screen is added, so the trip scope scenarios and the keep-from-l
 | Migration runner | `core/src/db/runner.ts`, `core/bin/db-migrate.ts` | built | versioned, checksummed, advisory-locked, one transaction per file; refuses drift, a missing file or an out-of-order file; `--url=` takes any connection string |
 | Runtime role | `travel_app` (0001) | built | NOLOGIN, NOBYPASSRLS; the owner connection drops to it per transaction (`core/src/db/tx.ts`) |
 | Account and draft path | `planner_draft`, `planner_draft_signal`, Realtime | built and verified | child suite `core/test/db` 29 of 29 on 25 Oct ([NEON-VERIFICATION.md](../build/public-site/NEON-VERIFICATION.md)) |
-| Storage contract | `core/src/schema/rowMeta.ts` (RIS-C) | merged (f76e60d) | [catalogue-intake-and-storage.md](catalogue-intake-and-storage.md) 3.3 |
-| Normaliser | `core/bin/normalise.ts` (RIS-N) | merged (a03c8f0) | `--report` today: 72 files, 24 would change, 689 changes, 1 error (the refused street address in `canadian-rockies-2029/CS7.json`) |
-| D3a and D4a data | lane files | merged (7a2a6a8) | so RIS-J no longer waits on them |
+| Storage contract | `core/src/schema/rowMeta.ts` (RIS-C) | merged (f5be36a) | [catalogue-intake-and-storage.md](catalogue-intake-and-storage.md) 3.3 |
+| Normaliser | `core/bin/normalise.ts` (RIS-N) | merged (2fa4c6b) | `--report` today: 72 files, 24 would change, 689 changes, 1 error (the refused street address in `canadian-rockies-2029/CS7.json`) |
+| D3a and D4a data | lane files | merged (dc5bdf8) | so RIS-J no longer waits on them |
 
 ### 1.2 What is empty
 
@@ -598,7 +598,7 @@ script lines in `package.json`, tests under `core/test/catalogue/load-*.test.ts`
 for `local`, from `git show <sha>:<path>` for every other target), `plan`, `apply`, `verify`; families vocab, area, town,
 operator, source as in 2.4; a `load_run` row only after RIS-M (until then, a `catalogue_meta` key `seed_commit`). Acceptance:
 on a migrated local database, `db:seed` writes 398 type nodes, 81 tags, 57 relevance classes, 4,522 towns, 23 operators and
-423 sources (counts as of 196207e; take them from the data at build time); a second `db:sync` writes 0 rows; editing one
+423 sources (counts as of 753bbcc; take them from the data at build time); a second `db:sync` writes 0 rows; editing one
 town's name in a scratch copy shows exactly one update in the dry run; `db:verify` exits 0 after a seed and 1 after a manual
 `update town`; `travel_app` can read the seeded rows (public read) and still cannot read `trip`.
 
@@ -864,7 +864,7 @@ test used that host for the `assertLoopback` case, so its fixture host became a 
 injected it; (4) `db:reset` on a remote host is refused by the guard (`E_LOOPBACK_ONLY`) before `assertLoopback`. The `approveProduction`
 option is gone (nothing used it).
 
-### 13.3 Families, mappings and counts (as of f954fe6)
+### 13.3 Families, mappings and counts (as of fd9b358)
 
 | Table | Rows | From | Mapping (DECISION where the spec was silent) |
 |---|---|---|---|

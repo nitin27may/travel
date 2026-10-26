@@ -1,6 +1,6 @@
 # Execution plan: the public site, UI fixes first, then API-over-JSON, then E, then readiness
 
-> **Last verified 25 Oct 2026 against main f2dee4b** ([audit](../../MASTER-PLAN-AUDIT-2026-10-25.md)). Task detail below
+> **Last verified 25 Oct 2026 against main 4230210** ([audit](../../MASTER-PLAN-AUDIT-2026-10-25.md)). Task detail below
 > stands. Status cells older than 25 Oct lag [PLAN.md](../../PLAN.md): hosting is Vercel (13.2), R-58 is merged, D6a is
 > merged, the 25 Oct features (R-62 to R-129) have their own task tables in their specs and are not repeated here.
 
@@ -73,7 +73,7 @@ flowchart TD
   classDef infra fill:#5A6772,stroke:#3E4850,color:#FFFFFF
   classDef red fill:#9B2C2C,stroke:#6E1F1F,color:#FFFFFF
 
-  N0["Start: main at 28b6806"]:::infra
+  N0["Start: main at 9565dd3"]:::infra
   SD["SRV-D schema diff<br/>(read-only risk check)"]:::data
   A["Phase A: UI fixes<br/>FIXF SHL2 GLB2a TRP1"]:::core
   A2["Phase A: LST2a, PLC2a,<br/>TST test races"]:::core
@@ -370,7 +370,7 @@ Must be finished before LST2b, PLC2b, LST2c and TRP2 start: API-1, API-2, CONS-1
 
 A flag that is off hides the control, or shows "Comes with the planner" where a visitor would look for it. Never a dead button (P4).
 
-### 5.3 Hard-coding audit (measured 20 Oct 2026 on `main` 28b6806)
+### 5.3 Hard-coding audit (measured 20 Oct 2026 on `main` 9565dd3)
 
 | Class | Found (real counts and paths) | Single source of truth | Step | Guard |
 |---|---|---|---|---|
@@ -727,7 +727,7 @@ after FBK-2 and REQ-1; REQ-FB in parallel after FBK-3; then REQ-R4 and REQ-V4.
 
 ### 10.3 Enhancement queue: trip origin and the nearest airport (ORG, added 25 Oct 2026, planned only)
 
-Spec [trip-origin-and-nearest-airport.md](../../features/trip-origin-and-nearest-airport.md) (PLAN R-200 to R-207, BACKLOG 15.200 to 15.208, Q240 to Q249 open).
+Spec [trip-origin-and-nearest-airport.md](../../features/trip-origin-and-nearest-airport.md) (PLAN R-200 to R-207, BACKLOG 15.200 to 15.208, Q240 to Q249 answered 25 Oct: yes as recommended).
 Getting there starts from the visitor's chosen city or airport, else the trip's researched gateway (a public hub for 0
 to 3 nights), else the nearest airport with scheduled flights. Core and data run in seat B any time; the trip page waits
 for R-59, which owns `web/components/trips/**` while it runs. Briefs are the spec's section 13 rows (goal, owned and
@@ -755,9 +755,9 @@ one at a time with NAV-C, FAV-C and CUS-C.
 
 ### 10.4 Infra queue: test strategy (TS, added 25 Oct 2026, planned only)
 
-Spec [TEST-STRATEGY.md](../TEST-STRATEGY.md) (PLAN R-210 to R-214, BACKLOG 15.210 to 15.218, Q250 to Q258). No visitor
+Spec [TEST-STRATEGY.md](../TEST-STRATEGY.md) (PLAN R-210 to R-214, BACKLOG 15.210 to 15.218, Q250 to Q258 answered 25 Oct: yes as recommended). No visitor
 change; it rides any release as "Internal". Briefs: the spec's section 12, with the verification block of 12.1. Until TS-2
-ships and Q250 is answered, lanes keep running check-all as today.
+ships, lanes keep running check-all as today (Q250 answered 25 Oct: yes).
 
 | ID | Task | Agent, model | Effort | Depends on | Acceptance check |
 |---|---|---|---|---|---|
@@ -887,7 +887,7 @@ The loop of 8.5 with `FIX-R2-<lane>`. **R2 exits** when no must row is open and 
 
 ### 13.2 Vercel deployment (owner selected 24 Oct; setup waits for merge-ready)
 
-> **Last verified 25 Oct 2026 against main f2dee4b** ([audit](../../MASTER-PLAN-AUDIT-2026-10-25.md)): the project
+> **Last verified 25 Oct 2026 against main 4230210** ([audit](../../MASTER-PLAN-AUDIT-2026-10-25.md)): the project
 > `travel` exists (root `web`, Node 22, env vars for Production and Preview, Preview on production values by the owner's
 > one-environment decision); a preview deployed READY behind Vercel Authentication; the production alias
 > `https://travel-beta-tan.vercel.app` has no deployment and is the one trusted domain on the production Neon branch.
@@ -1080,6 +1080,7 @@ Every pending item from every source (BACKLOG, TODO, design reviews and notes, l
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (H-DOCS) | Status lines fixed (MASTER-ORDER H4): Q240 to Q249 and Q250 to Q258 read as answered 25 Oct, yes as recommended, in 10.3 and 10.4; 10.4 no longer waits for Q250. Nothing else changed |
 | 2026-10-26 | AUDIT-MOVE (owner decision): 10.5 moves the UI audit from v0.14.2 to v0.22 before v1.0, narrows AU-D to the MCP field list and moves UA-0 to just before v0.22. Planned only |
 | 2026-10-25 | Audits after the first release round (R-230 to R-237, [AUDITS-AFTER-RELEASE.md](../AUDITS-AFTER-RELEASE.md)): new 10.5, the AU queue (field audit, then UI audit, patch releases v0.14.1 and v0.14.2, the delta pass before v0.19). Planned only |
 | 2026-10-25 | Master order (R-220, [MASTER-ORDER.md](../MASTER-ORDER.md)): banner at the top with the corrections that touch this page (phase E leftovers in v0.6, TD in v0.14, R1 and R2 superseded on Q268, dependency fixes in 10.1 and 10.2); task detail unchanged. Planned only |

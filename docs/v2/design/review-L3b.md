@@ -1,6 +1,6 @@
 # L3b design review: trip tags, filters, type-aware facets
 
-Reviewer: travel-design-reviewer (Opus), 19 Oct 2026. Branch `public/L3b` at `7ff2f98`, built with `pnpm build`, served from `web/out`, Chromium on the Arc GPU, 2x, at 1440 and 390, light and dark (set with the site's theme toggle). Screenshots are in `/tmp/l3b-review/`; tall pages were read in tiles (`*.tN.png`).
+Reviewer: travel-design-reviewer (Opus), 19 Oct 2026. Branch `public/L3b` at `7ff2f98` (private history), built with `pnpm build`, served from `web/out`, Chromium on the Arc GPU, 2x, at 1440 and 390, light and dark (set with the site's theme toggle). Screenshots are in `/tmp/l3b-review/`; tall pages were read in tiles (`*.tN.png`).
 
 **Verdict: not ready to merge.** The filter model is right and mostly self-explaining. Three things fail the owner's rule "a gap is never a yes" or T5: Kids-from values that sit below an age the data already rules out, a fade that gives no reason, and trip pins and clusters drawn at country centroids. One phone layout break is also a must-fix.
 
@@ -63,7 +63,7 @@ No green anywhere in the UI. Accent is amber, warnings are red, dark mode is nav
 
 ## Round 2
 
-Reviewer: travel-design-reviewer (Opus), 19 Oct 2026. Branch `public/L3b` at `6df3180`, `pnpm build`, served from `web/out`, Chromium on the Arc GPU with real OpenFreeMap and Mapterhorn tiles (98 to 140 tile responses per desktop run), 2x, 1440 and 390, light and dark through the theme toggle. Shots are in `/tmp/l3b-review/r2/`.
+Reviewer: travel-design-reviewer (Opus), 19 Oct 2026. Branch `public/L3b` at `6df3180` (private history), `pnpm build`, served from `web/out`, Chromium on the Arc GPU with real OpenFreeMap and Mapterhorn tiles (98 to 140 tile responses per desktop run), 2x, 1440 and 390, light and dark through the theme toggle. Shots are in `/tmp/l3b-review/r2/`.
 
 **Verdict: not yet.** M1, M2, M4 and M5 are fixed. M3 is half fixed: pins now sit in the right places on a real map, but clusters never split after the camera moves, two area-only trips still form a solid cluster in Hudson Bay, and the legend does not show the hollow pin.
 

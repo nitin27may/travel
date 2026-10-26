@@ -36,7 +36,7 @@ first and last direction, and it ships with it in v0.9 (Q247).
 
 ## 1. Traceability: what exists, what is partial, what is missing
 
-Checked on `main` aa01821 and on the unmerged `public/PUBLIC-SCRUB` branch, 25 Oct 2026.
+Checked on `main` aa01821 (private history) and on the unmerged `public/PUBLIC-SCRUB` branch, 25 Oct 2026.
 
 | # | Piece | Verdict | Evidence |
 |---|---|---|---|
@@ -403,7 +403,7 @@ nothing in Drive mode.
 | Place HTML (+25% median, 19 B headroom in the sign-in-on build) | **+0 B** | `place-size.test` unchanged in both builds |
 | Trip start JS (199.4 KB of 200 KB after BUDGET-FIX) | closed trigger at most **+200 B** gzip | the budget test in both builds, flag on and off |
 | Trip HTML and RSC payload | the one line plus the gateway block, about 300 B per trip | measured and recorded in the ORG-1 hand-back |
-| Panel chunk | at most **8 KB** gzip, loaded on first open (the AddToDay pattern of 1df7e5c) | bundle report |
+| Panel chunk | at most **8 KB** gzip, loaded on first open (the AddToDay pattern of f525559) | bundle report |
 | Client data | no airport list in the browser; at most 10 picker rows per query | network test: no request over 4 KB on open |
 
 ## 13. Tasks

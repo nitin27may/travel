@@ -1,6 +1,6 @@
 # 02. Experience design
 
-> Last verified 25 Oct 2026 against main f2dee4b ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)): the planner experience is a
+> Last verified 25 Oct 2026 against main 4230210 ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)): the planner experience is a
 > draft and unbuilt; the public site's screens are specified in [ux/](ux/README.md) and the 25 Oct feature pages. Token names
 > in section 16 predate the Trailhead palette; colour comes only from `web/app/themes.css` (no green, status colours included).
 

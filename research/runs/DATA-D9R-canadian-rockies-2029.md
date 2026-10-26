@@ -1,6 +1,6 @@
 # DATA-D9R: Rockies stay bases and alternatives (25 Oct 2026)
 
-Branch `public/DATA-D9R` (worktree `v2-DATA-D9R`, from `main` f2dee4b). Model: Claude Opus 5.5 (travel-researcher), as
+Branch `public/DATA-D9R` (worktree `v2-DATA-D9R`, from `main` 4230210). Model: Claude Opus 5.5 (travel-researcher), as
 the brief asks. Spec: `docs/v2/features/stay-bases-and-optimisation.md` 3.2 to 3.7, 6, 9.2, 9.3, 9.5, 14. Outputs:
 
 - `data/base-plans/canadian-rockies-2029.json` (`trip-base-plans/1`, draft alternatives and swaps)

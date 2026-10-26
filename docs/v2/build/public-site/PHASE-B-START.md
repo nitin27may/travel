@@ -1,6 +1,6 @@
 # Phase B start sheet: API-over-JSON and the foundations
 
-> **Status: Done 23 Oct 2026.** Every lane in this sheet is merged and gate G-B passed at main 653407f (merge commits: API-0 5729b04, META-0 c1f841c, CONS-1 62e9bc7, API-1a 9205299 and e87f520, API-1b 39f0c7d, API-1c 8dbc01f, API-2 58af5d7, CONS-2 99418db, GBFIX 653407f). Deferred items: BACKLOG 15.20 to 15.31. The sections below are history.
+> **Status: Done 23 Oct 2026.** Every lane in this sheet is merged and gate G-B passed at main 05c1d4e (merge commits: API-0 ed881c5, META-0 5a5dc82, CONS-1 62f20fc, API-1a 7271ed4 and 1dd3447, API-1b 4239bfc, API-1c e60932b, API-2 095e208, CONS-2 d1a1156, GBFIX 05c1d4e). Deferred items: BACKLOG 15.20 to 15.31. The sections below are history.
 
 Written 21 Oct 2026 by travel-planner (Opus) so phase B can start the moment the owner says go. Docs only; nothing here is started.
 
@@ -18,9 +18,9 @@ Principles cited by number from [principles.md](../../design/foundation/principl
 
 | Item | State |
 |---|---|
-| `main` | `fffb38d`. Phase A is merged: TST, FIXF, SHL2, GLB2a, TRP1, LST2a, PLC2a, then the R1 fix lanes SHL2b, GLB2c, PLC2b and DATA1, and E2E (portable GPU Chromium) |
-| Gate R1 | Entry done: hand-over written ([R1-HANDOVER.md](R1-HANDOVER.md)); preview 1 is commit `ca61aec`, served on `127.0.0.1:3440` by a Python server. The owner's review is open. Q72 lets B start now |
-| Cleanup | CLN-1 (`329bb99`) and CLN-R (`a1ceff8`) merged. CLN-7 is in flight (worktree `v2-CLN7`, uncommitted: `CLAUDE.md`, `README.md`, `.claude/skills/**`, `research/method/**`). CLN-2 has not started |
+| `main` | `e98e4fe`. Phase A is merged: TST, FIXF, SHL2, GLB2a, TRP1, LST2a, PLC2a, then the R1 fix lanes SHL2b, GLB2c, PLC2b and DATA1, and E2E (portable GPU Chromium) |
+| Gate R1 | Entry done: hand-over written ([R1-HANDOVER.md](R1-HANDOVER.md)); preview 1 is commit `4794989`, served on `127.0.0.1:3440` by a Python server. The owner's review is open. Q72 lets B start now |
+| Cleanup | CLN-1 (`8c5ac03`) and CLN-R (`aa157db`) merged. CLN-7 is in flight (worktree `v2-CLN7`, uncommitted: `CLAUDE.md`, `README.md`, `.claude/skills/**`, `research/method/**`). CLN-2 has not started |
 | TD-0 | In flight (worktree `v2-TD0`, uncommitted). It has touched `core/test/research/templates.test.ts`, which its brief gives to TD-1 (section 3, collision C12) |
 | Build | `web/next.config.ts` still has `output: 'export'`; e2e still stages `.site/` through the legacy staging script's `--dry-run`; check-all runs `web test` **before** `web build` |
 | Tests that read the build | 16 test files: `images`, `budget`, `fonts`, `og-images`, `og`, `privacy`, `analytics` (top level); `data/light-data`, `data/place-size`, `data/link-only-facts`, `data/photo-credits-clean`, `data/public-privacy`; `places/built-pages`, `places/tracks-markers`; `export/page-data`; `trips/timeline-outlinks`. Plus `web/tests/global-setup.ts`, the comment in `e2e/trips.shots.spec.ts`, and the scripts `images.mjs`, `og.mjs`, `globe-cities.mjs` (`--from` default) |
@@ -115,9 +115,9 @@ No collision was found between the B lanes and CLN-3, CLN-4 or CLN-5 other than 
 
 | Lane | Must be true before it starts |
 |---|---|
-| API-0 | R1 entry done (yes). `main` check-all green on this Mac with the venv on `PATH` and `web/.env.local` aside (rerun on the current `main`; the R1 measurement was on `ca61aec`). No open R1 row names `web/playwright.config.ts`, `web/tests/e2e/{global-setup,fixtures}.ts`, `web/next.config.ts` or `tools/check-all.sh`. Preview 1's PID recorded so nothing kills it |
+| API-0 | R1 entry done (yes). `main` check-all green on this Mac with the venv on `PATH` and `web/.env.local` aside (rerun on the current `main`; the R1 measurement was on `4794989`). No open R1 row names `web/playwright.config.ts`, `web/tests/e2e/{global-setup,fixtures}.ts`, `web/next.config.ts` or `tools/check-all.sh`. Preview 1's PID recorded so nothing kills it |
 | CLN-2 | CLN-7 merged (both edit `CLAUDE.md` and `README.md`) |
-| META-0 | CLN-R merged (yes, `a1ceff8`). TD-1 not started. Usage reset done (Opus) |
+| META-0 | CLN-R merged (yes, `aa157db`). TD-1 not started. Usage reset done (Opus) |
 | CONS-1 | R1 entry done (yes). API-0 merged (C1, C2) |
 | API-1a | API-0 and META-0 merged. CONS-1 merged, so the scan covers the new files. Decisions D-B1 to D-B6 of section 5 not vetoed by the owner. SRV-D 13.1 items 1 to 7 read |
 | CLN-4 | CLN-7 and CLN-2 merged (C14; CLN-2 item 2.3 rewrites `tools/globe_data.py` comments). A11 merged (yes) |
@@ -295,7 +295,7 @@ G-B is an internal gate. The owner gets one page and about 15 minutes; no browsi
 | # | Check | Who |
 |---|---|---|
 | 1 | The owner says go for phase B and chooses slot 0 now or after the reset (B-1) | owner |
-| 2 | `main` is at or after `fffb38d`; check-all green on this Mac with the venv on `PATH` and `web/.env.local` aside | coordinator, Sonnet verifier |
+| 2 | `main` is at or after `e98e4fe`; check-all green on this Mac with the venv on `PATH` and `web/.env.local` aside | coordinator, Sonnet verifier |
 | 3 | No open R1 must row names an API-0 file (BACKLOG `6.2-R1-*`) | coordinator |
 | 4 | Preview 1's PID on 3440 is recorded; no B lane uses 3440 | coordinator |
 | 5 | CLN-7's state is known: merged, or its files untouched by slot 0 (API-0 owns none of them) | coordinator |
@@ -354,4 +354,4 @@ G-B is an internal gate. The owner gets one page and about 15 minutes; no browsi
 | Date | Change |
 |---|---|
 | 2026-10-21 | First version: lane order in seven slots of at most two lanes, models by the 21 Oct rubric (API-1 split into 1a Opus and 1b Sonnet; META-0 Opus), worktrees and ports, collisions C1 to C21, preconditions, decisions D-B1 to D-B8 (slug registry, refs, canonical region and city values, `apiVal`, sort key, revision, renditions before the build, DATA after G-B), contract cases K1 to K19, check-all order, G-B checks 1 to 17, rollback, about 108.5 agent-hours, owner decisions B-1 to B-4 |
-| 2026-10-23 | Phase B done and G-B passed at main 653407f: status banner added, BACKLOG rows 14.2, 14.3, 14.4, 15.1 and the B parts of 13.1, 13.2, 13.4, 13.5 marked done with commits |
+| 2026-10-23 | Phase B done and G-B passed at main 05c1d4e: status banner added, BACKLOG rows 14.2, 14.3, 14.4, 15.1 and the B parts of 13.1, 13.2, 13.4, 13.5 marked done with commits |

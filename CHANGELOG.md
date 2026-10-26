@@ -20,7 +20,7 @@ Planned for v0.2 (see the release plan for the full train).
 
 ## [v0.1] - 2026-10-25
 
-Commit d93127b. Migrations 0001 to 0011 applied. Owner actions: approved the deploy of this commit; set the hosting
+Commit 47be5b5. Migrations 0001 to 0011 applied. Owner actions: approved the deploy of this commit; set the hosting
 environment; trusted the site address in the sign-in service.
 
 The first public release of the new site. Everything here works without an account.

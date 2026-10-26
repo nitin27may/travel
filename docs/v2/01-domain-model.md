@@ -1,6 +1,6 @@
 # 01. Domain model
 
-> Last verified 25 Oct 2026 against main f2dee4b ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). "oauth clients" under PEOPLE
+> Last verified 25 Oct 2026 against main 4230210 ([audit](MASTER-PLAN-AUDIT-2026-10-25.md)). "oauth clients" under PEOPLE
 > below is now `mcp_client_grant` plus the existing `mcp_token` ([mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md) 7); the
 > OAuth clients themselves live in Neon Managed Better Auth.
 

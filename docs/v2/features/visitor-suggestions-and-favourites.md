@@ -444,8 +444,7 @@ re-derives the point from an allowed source (research README section 9: never fr
 
 ### 8.1 Proposed migrations (descriptions, not SQL files)
 
-Numbering: 0011 is taken by EML-1 (`quota`); numbers are assigned at merge. These take the next free numbers at build time
-(expected 0012 and 0013). The runner refuses an out-of-order insert, so whichever lands second renumbers before it is
+Numbering: 0011 is taken by EML-1 (`quota`); numbers are assigned at merge. These take the numbers assigned at merge (MIG-N, by slug). The runner refuses an out-of-order insert, so whichever lands second renumbers before it is
 applied anywhere.
 
 **Migration A, `account_favourite` (task FAV-D)**

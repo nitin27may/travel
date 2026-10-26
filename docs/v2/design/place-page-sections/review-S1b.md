@@ -1,6 +1,6 @@
 # S1b design review: place pages and "Who it suits"
 
-Reviewer: travel-design-reviewer, 19 Oct 2026. Branch `public/S1b` at c314a7e, `web/out` served on :4471. Chromium 1248 on the
+Reviewer: travel-design-reviewer, 19 Oct 2026. Branch `public/S1b` at c314a7e (private history), `web/out` served on :4471. Chromium 1248 on the
 Arc GPU, 1440 and 390 at 2x, light and dark (set with the site's theme toggle). Shots and tiles: `/tmp/s1b-review/`.
 
 **Verdict: not ready to merge.** The frame, the section order and the three chip looks work. Nine must-fixes remain. Most are

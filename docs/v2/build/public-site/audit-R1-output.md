@@ -1,8 +1,8 @@
 # Audit R1: public output and phase A security read (EXECUTION-PLAN check 5.2, scoped to A)
 
 Auditor: Opus (claude-opus-5-5), 21 Oct 2026. Read-only except this file.
-Target: `web/out` (static build of `main` 92d74d1, built with the public Google Maps key only) and the phase A diff
-`git diff 763aed2...92d74d1 -- web core data tools` (1,030 files: lanes TST, FIXF, SHL2, GLB2a, TRP1, LST2a, PLC2a, E2E, CLN-R; 884 of the files are `web/public/globe/line/*.json`).
+Target: `web/out` (static build of `main` 74b2a14, built with the public Google Maps key only) and the phase A diff
+`git diff bbea312...74b2a14 -- web core data tools` (1,030 files: lanes TST, FIXF, SHL2, GLB2a, TRP1, LST2a, PLC2a, E2E, CLN-R; 884 of the files are `web/public/globe/line/*.json`).
 
 ## Verdict
 
@@ -36,13 +36,13 @@ Fix: set `covers` in `data/reference/licences.json` to "Country outlines, the ci
 
 ### 5.2-R1-4 (should) A third-party email address and tax code appear in a source line
 
-Evidence: the scan for email addresses finds one, in 4 files of `places/lago-dantorno/` (HTML and the three RSC payloads): the publisher field reads "Comune di Auronzo di Cadore (auronzo.info; footer: Via Roma 24, C.F. 83000710257, PEC auronzo.bl@cert.ip-veneto.net)". It is a municipality's public certified-mail address, not household data, and it is older than phase A (added in 98721e4, an ancestor of 763aed2). It is still a research note shown as text, and it breaks the plain "no email address anywhere in web/out" check this audit is asked to apply. The source of the text is `data/capture/dolomites-2027/migrated.json:148` and `data/sources/registry.json:522`.
+Evidence: the scan for email addresses finds one, in 4 files of `places/lago-dantorno/` (HTML and the three RSC payloads): the publisher field reads "Comune di Auronzo di Cadore (auronzo.info; footer: Via Roma 24, C.F. 83000710257, PEC auronzo.bl@cert.ip-veneto.net)". It is a municipality's public certified-mail address, not household data, and it is older than phase A (added in 48d8881, an ancestor of bbea312). It is still a research note shown as text, and it breaks the plain "no email address anywhere in web/out" check this audit is asked to apply. The source of the text is `data/capture/dolomites-2027/migrated.json:148` and `data/sources/registry.json:522`.
 
 Fix: shorten the publisher in both files to "Comune di Auronzo di Cadore (auronzo.info)". Then add an email pattern to `householdLeaks` in `web/tests/privacy.test.ts` (outside `_next/static/`) so the next one fails the build. `migrated.json` is pinned by `data/capture/migration-ledger.json`, so change it through the capture tooling, not by hand.
 
 ### 5.2-R1-5 (later) Owner's first name on every trip page
 
-Evidence: `web/components/trips/TripCover.tsx:55` renders the chip "by Nitin", and `web/components/trips/TripEnd.tsx:28` adds "Plan researched and written by Nitin" to all 14 trip pages (`grep -l Nitin web/out/trips/*/index.html` = 14). This predates phase A (75f8ac9, 18 Oct). `docs/v2/design/review-stage4-whole-site.md:21` already ruled it authorship, not household data. It names the author, not who travelled, so it does not break the party rule. This audit's brief lists names, though, so the owner should confirm the byline at R2.
+Evidence: `web/components/trips/TripCover.tsx:55` renders the chip "by Nitin", and `web/components/trips/TripEnd.tsx:28` adds "Plan researched and written by Nitin" to all 14 trip pages (`grep -l Nitin web/out/trips/*/index.html` = 14). This predates phase A (5b12b99, 18 Oct). `docs/v2/design/review-stage4-whole-site.md:21` already ruled it authorship, not household data. It names the author, not who travelled, so it does not break the party rule. This audit's brief lists names, though, so the owner should confirm the byline at R2.
 
 Fix: none unless the owner wants it gone. If so, put the byline in `web/lib/config/product.ts` as `authorName: string | null` and render nothing when it is `null`.
 
@@ -90,7 +90,7 @@ All commands ran from `/Users/nks/workspace/travel` against `web/out` as built. 
 **2. Link-only platforms (all 359 place pages, 14 trip pages and 5 index pages, not a sample of 30).** After removing scripts, styles and tags, the visible text contains "AllTrails", "Komoot" and "Tripadvisor" 0 times. "Google" appears only as a link label: "Google Maps directions" and the `pl-maplinks` "Google Maps" buttons, which the privacy test deliberately allows. Next to a platform name there are no ratings, stars, review counts or grades; the 8 "value-like" hits are parking names inside Google Maps link labels. The AllTrails tile's visible text is "Trail guide · link only / Search for this trail" or "Open trail page". The platform name is only in `aria-label` and the RSC link list (`allTrailsLink`, `web/lib/map/links.ts:57`, accepts a stored URL only if it matches `^https://(www.)?alltrails.com/`). Google coordinates: there is no Geocoder, PlacesService or `places.googleapis` call in `web/lib`, `web/components`, `core/src`, `tools/*.py` or any client chunk, and the phase A diff changes no `lat`/`lon` in `data/capture` or `data/trips`.
 
 **3. Secrets and links.**
-- Using the first 8 characters of each value in `web/.env.local` and `.env` (never printed): `ORS_API_KEY` is in 0 files of `web/out`. `NEXT_PUBLIC_GOOGLE_MAPS_KEY` is in 4 client chunks only (`_next/static/chunks/02-7y9s-9c77y.js`, loaded by the 14 trip pages, and three lazy map chunks), never in HTML or RSC text. Neither prefix is in any tracked file at 92d74d1 or in the phase A diff. Both env files are git-ignored.
+- Using the first 8 characters of each value in `web/.env.local` and `.env` (never printed): `ORS_API_KEY` is in 0 files of `web/out`. `NEXT_PUBLIC_GOOGLE_MAPS_KEY` is in 4 client chunks only (`_next/static/chunks/02-7y9s-9c77y.js`, loaded by the 14 trip pages, and three lazy map chunks), never in HTML or RSC text. Neither prefix is in any tracked file at 74b2a14 or in the phase A diff. Both env files are git-ignored.
 - Generic patterns: one `AIza...` string (the public key itself); 0 GitHub tokens, `sk-` keys, JWTs, AWS keys, `supabase.co` or `service_role`.
 - Email: the owner's address in 0 files; one third-party address (5.2-R1-4). The phase A diff adds no User-Agent and no `mailto:`. `tools/globe_data.py` uses `travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)`.
 - Report link: `reportUrl = null` (`web/lib/config/product.ts:8`). "Report a problem" appears only as the component's default label in one chunk, with no URL. 0 links to a feedback repo; every `github.com` URL in the output is a library licence or issue link inside MapLibre or core-js.
@@ -119,6 +119,6 @@ python3 -I <scratchpad>/platforms.py web/out                # visible-text scan 
 python3 -I - (inline)                                       # target=_blank rel audit; home-point 2 km scan; sitemap existence; env first-8 checks (values never printed)
 grep -rl "travel-feedback\|nitin27may\|Report a problem" web/out
 grep -rlE 'href="/(specimen|sign-in)' web/out ; grep -o '<meta name="robots"[^>]*>' web/out/{specimen,sign-in}/index.html
-git diff 763aed2...92d74d1 -- web core tools ':!web/public' | grep -nE '^\+.*(dangerouslySetInnerHTML|http\.server|User-Agent|mailto:)'
-git grep -l -F <first 8 chars> 92d74d1 --                   # run inside python, prefix never echoed
+git diff bbea312...74b2a14 -- web core tools ':!web/public' | grep -nE '^\+.*(dangerouslySetInnerHTML|http\.server|User-Agent|mailto:)'
+git grep -l -F <first 8 chars> 74b2a14 --                   # run inside python, prefix never echoed
 ```

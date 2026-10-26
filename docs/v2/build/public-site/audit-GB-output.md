@@ -1,6 +1,6 @@
 # Audit G-B: API code (5.5), public output (5.2) and the home point (CONS-2)
 
-Auditor: Claude Opus 5.5 (`claude-opus-5-5`), 22 Oct 2026. Read only, on `main` at `99418db` (phase B diff `0702ed9...99418db`, 44
+Auditor: Claude Opus 5.5 (`claude-opus-5-5`), 22 Oct 2026. Read only, on `main` at `d1a1156` (phase B diff `ec7d51a...d1a1156`, 44
 commits, lanes API-1b, API-1c, API-2, PRIV1, META-0, CONS-1, CONS-2, CLN-3/4/5). Nothing was built, no test suite or server was run.
 The built output read is `web/.next` from 22 Oct 21:26, three minutes after the merge commit (build made with `web/.env.local` aside).
 The household home point is called "the home point" throughout; no coordinate near it is quoted here.
@@ -312,7 +312,7 @@ The gap is on the page route (GB-B-4).
 ### Commands (all read-only; outputs counted, never values)
 
 ```
-git diff --stat 0702ed9...99418db ; git log --oneline 0702ed9..99418db
+git diff --stat ec7d51a...d1a1156 ; git log --oneline ec7d51a..d1a1156
 node <scratchpad>/homescan.mjs web/.next/server/app web/.next/static web/public   # pairs near the point, both radii
 node <scratchpad>/homescan.mjs data ; node <scratchpad>/homescan.mjs legacy research
 node <scratchpad>/strscan.mjs                                                       # household patterns in served output

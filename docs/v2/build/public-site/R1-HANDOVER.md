@@ -4,7 +4,7 @@ Written 21 Oct 2026. Gate R1 of [EXECUTION-PLAN.md](EXECUTION-PLAN.md) section 8
 
 ## What you are reviewing
 
-Preview 1 is the site built from `main` commit `ca61aec` (all phase A lanes merged, `bash tools/check-all.sh` ends `CHECK-ALL OK` with no env file, full browser suite on this exact commit: 723 passed, 27 skipped, 0 failed, on Chromium and WebKit; Firefox cannot launch on this Mac and is opt-in). It is built with the public Google Maps key; the ORS key is in 0 output files. It is served on this Mac at `http://127.0.0.1:3440/`.
+Preview 1 is the site built from `main` commit `4794989` (all phase A lanes merged, `bash tools/check-all.sh` ends `CHECK-ALL OK` with no env file, full browser suite on this exact commit: 723 passed, 27 skipped, 0 failed, on Chromium and WebKit; Firefox cannot launch on this Mac and is opt-in). It is built with the public Google Maps key; the ORS key is in 0 output files. It is served on this Mac at `http://127.0.0.1:3440/`.
 
 To open it on your phone or another machine, start a tunnel yourself (the assistant's attempt was blocked as an external ingress, correctly, so it needs your go):
 

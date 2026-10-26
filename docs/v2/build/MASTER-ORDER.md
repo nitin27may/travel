@@ -14,7 +14,7 @@ any new build starts."
   old to new numbers; RELEASE-PLAN section 0 points here). The gate, smoke list, rollback, checklist and CI plan of
   RELEASE-PLAN sections 4 to 8 stand unchanged.
 - [briefs/OVR.md](public-site/briefs/OVR.md): OVR-0 "after OVR-Cb" (OVR-0 has no dependency, Q223), and `pickPhotos`
-  ownership (moves from OVR-3 to the photos task PHO-C), and the CUS owned file `0011_planner_draft_doc.sql` (0011 is
+  ownership (moves from OVR-3 to the photos task PHO-C), and the CUS owned migration `planner_draft_doc` (number assigned at merge; 0011 is
   `quota`; numbers at merge, MIG-N).
 - [local-database-and-seed-sync.md](../features/local-database-and-seed-sync.md) 8: BKP-1 "depends on LOCAL-4" (it is a
   local launchd job since Q228) and "no migration" (its read-only role needs one).
@@ -43,8 +43,8 @@ budget story and no hidden dependency.
 
 | Fact | Evidence | Consequence |
 |---|---|---|
-| `main` is the rewritten public history; every commit id quoted in tracked docs before it (684 mentions in 87 files) points at the private history | `git merge-base --is-ancestor d93127b main` fails; [public-scrub audit](../../../research/audits/public-scrub-2026-10-25.md) 5.5 | H3 rewrites them from the commit map (Q264); until then, read old ids through the map |
-| Production runs the private commit d93127b, which is `47be5b58` on the public history (filter-repo commit map) | the map in the session scratch folder `filter/filtered.git/filter-repo/commit-map` | tag `release/v0.1` on `47be5b58`, not on d93127b (H1); copy the map out of the scratch folder before it is cleaned (H2) |
+| `main` is the rewritten public history; every commit id quoted in tracked docs before it (684 mentions in 87 files) points at the private history | `git merge-base --is-ancestor 47be5b5 main` fails; [public-scrub audit](../../../research/audits/public-scrub-2026-10-25.md) 5.5 | H3 rewrites them from the commit map (Q264); until then, read old ids through the map |
+| Production runs the private commit 47be5b5, which is `47be5b58` on the public history (filter-repo commit map) | the map in the session scratch folder `filter/filtered.git/filter-repo/commit-map` | tag `release/v0.1` on `47be5b58`, not on 47be5b5 (H1); copy the map out of the scratch folder before it is cleaned (H2) |
 | ACCT-PH is merged (`7ab0657`) with no design review or verify note | no review file in `docs/v2/design/shell/` for it | ACCT-PH-RV is a v0.2 task |
 | D2b (74 stored places) is merged (`41ca7f4`), with option A of Q88 (`1726dfe`, "not for merge without a ruling") also on `main` | `git log main` | D2b rides the next deploy (v0.2), so Q88 needs the owner's ruling before it; the median is 1.2491 against 1.25 |
 | BUDGET-FIX merged (lazy Add-to-day panel): trip start JS 199.4 of 200 KB | [origin spec](../features/trip-origin-and-nearest-airport.md) 12 | 0.6 KB for every trip-page addition until OVR-0 |
@@ -52,7 +52,7 @@ budget story and no hidden dependency.
 | The TRP2b2 "before go-live" deferrals are open while production is live | [REMAINING-CLOSURE-PLAN.md](public-site/REMAINING-CLOSURE-PLAN.md) 4 | TRP-GL in v0.4 |
 | The owner's closure queue items 2 to 4 (API/HYG loose ends, LST2b, CONS-3) are in no release; the 24 Oct owner sequencing put them before R-59, and Q206 let only NAV phase 1 jump ahead | closure plan 2; Q206 | v0.6 |
 | `public/TEST-STRATEGY` was on the public history and is merged into `public/DOCS-STACK` (25 Oct): TS-1 to TS-8, R-210 to R-214, Q250 to Q258, BACKLOG 15.210 to 15.218, EXECUTION-PLAN 10.4, RELEASE-PLAN I8 | `git log public/DOCS-STACK` | merged first (H0); its tiers are this page's gates |
-| `public/ORIGIN-PLAN` (1bb4783) was on the **private** history (base aa01821) and is merged into `public/DOCS-STACK` as a cherry-pick of its single commit (25 Oct): ORG-*, R-200 to R-207, Q240 to Q249, BACKLOG 15.200 to 15.208, EXECUTION-PLAN 10.3, RELEASE-PLAN I7 | `git log public/DOCS-STACK` | cherry-picked onto the public history, scrub scan of the stack's diff against `main` passed (H0); the old branch is deleted at H7 |
+| `public/ORIGIN-PLAN` (1bb4783 (private history)) was on the **private** history (base aa01821 (private history)) and is merged into `public/DOCS-STACK` as a cherry-pick of its single commit (25 Oct): ORG-*, R-200 to R-207, Q240 to Q249, BACKLOG 15.200 to 15.208, EXECUTION-PLAN 10.3, RELEASE-PLAN I7 | `git log public/DOCS-STACK` | cherry-picked onto the public history, scrub scan of the stack's diff against `main` passed (H0); the old branch is deleted at H7 |
 | Every other `public/*` branch is content-equal to `main` (patch ids differ only by the scrub's text rewrite: 54 per branch) | `git cherry main <branch>` over the 96 branches | delete them as one batch on the owner's go (H7, Q265); never merge an old-history branch |
 | Migrations 0001 to 0011 applied; next free number 0012 | `core/src/db/migrations/` | numbers at merge (MIG-N); section 3.4 lists the provisional order |
 | `/privacy/` does not exist; the beacon script is in `web/app/layout.tsx` behind `NEXT_PUBLIC_CF_BEACON_TOKEN` | file tree | GSI-P in v0.2 |
@@ -82,15 +82,15 @@ merged** (the spec is on `main`'s docs stack, no code yet), **later** (not on th
 | Id | Task | h | Model | Owns | Spec | Status | Release |
 |---|---|---|---|---|---|---|---|
 | H0 | Merge the three docs branches in order: TEST-STRATEGY (merged), ORIGIN-PLAN (cherry-picked, scrub scan passed), MASTER-ORDER; planning-doc text conflicts resolved with both sides kept. Done on `public/DOCS-STACK`; the fast-forward of `main` is the coordinator's | 0.5 | coordinator | merges | this page 6 | stacked, awaiting the fast-forward of `main` | J0 |
-| H1 | Tag `release/v0.1` on `47be5b58` with the message "v0.1: public site live (deployed as d93127b on the private history)" | 0.1 | coordinator | tag | RELEASE-PLAN I6 (corrected) | ready | v0.1 |
+| H1 | Tag `release/v0.1` on `47be5b58` with the message "v0.1: public site live (deployed as 47be5b5 on the private history)" | 0.1 | coordinator | tag | RELEASE-PLAN I6 (corrected) | ready | v0.1 |
 | H2 | Copy the filter-repo commit map out of the session scratch folder to the owner's private backup folder | 0.1 | coordinator | none in the repo | scrub 4, 5.5 | ready, urgent | J0 |
-| H3 | Rewrite the 684 stale commit ids in 87 tracked files to public ids from the map; ids with no public commit (archive tags, private-only merges) get a "(private history)" suffix | 3 | Haiku script, Sonnet check | `docs/**`, `HANDOVER.md`, `CHANGELOG.md`, `research/runs/**`, `research/audits/**`, one comment in `core/src/catalogue/store.ts`, four test comments, the note in `data/capture/gap-budget.json` | scrub 5.5 | blocked: Q264, J0 | J1 |
-| H4 | Status sync: BACKLOG and DATA-ROADMAP rows for the work in 3.1 marked done with public ids | 1.5 | Haiku | `BACKLOG.md`, `DATA-ROADMAP.md` | this page 3.1 | blocked: H3 | J1 |
+| H3 | Rewrite the 684 stale commit ids in 87 tracked files to public ids from the map; ids with no public commit (archive tags, private-only merges) get a "(private history)" suffix | 3 | Haiku script, Sonnet check | `docs/**`, `HANDOVER.md`, `CHANGELOG.md`, `research/runs/**`, `research/audits/**`, one comment in `core/src/catalogue/store.ts`, four test comments, the note in `data/capture/gap-budget.json` | scrub 5.5 | done on `public/H-DOCS` (Q264 answered yes) | J1 |
+| H4 | Status sync: BACKLOG and DATA-ROADMAP rows for the work in 3.1 marked done with public ids | 1.5 | Haiku | `BACKLOG.md`, `DATA-ROADMAP.md` | this page 3.1 | partly done on `public/H-DOCS` (listed rows; the rest of 3.1 still planned) | J1 |
 | H5 | HANDOVER current section rewritten (text in 8.2) | 1.5 | Opus planner | `HANDOVER.md` | 8.2 | blocked: J1 | J1 |
 | H6 | CLAUDE.md edits (text in 8.1) | 0.25 | owner | `CLAUDE.md` | 8.1 | owner | J1 |
-| H7 | Delete the merged old-history `public/*` branches and their worktrees as one listed batch | 1 | coordinator | refs, worktrees | 2; R-44 | blocked: Q265 | J1 |
-| H8 | MIG-N: specs that reserve 0011 say slugs; NEON-MIGRATIONS lists numbers taken | 0.5 | coordinator | the four specs, `NEON-MIGRATIONS.md` | local-db 8 | ready | J1 |
-| H9 | Close R1 and R2 in PLAN 3 and EXECUTION-PLAN 8 and 11 as superseded by per-release approval | 0.5 | Opus planner | those sections | Q268 | blocked: Q268 | J1 |
+| H7 | Delete the merged old-history `public/*` branches and their worktrees as one listed batch | 1 | coordinator | refs, worktrees | 2; R-44 | ready: Q265 answered yes (coordinator only) | J1 |
+| H8 | MIG-N: specs that reserve 0011 say slugs; NEON-MIGRATIONS lists numbers taken | 0.5 | coordinator | the four specs, `NEON-MIGRATIONS.md` | local-db 8 | done on `public/H-DOCS` | J1 |
+| H9 | Close R1 and R2 in PLAN 3 and EXECUTION-PLAN 8 and 11 as superseded by per-release approval | 0.5 | Opus planner | those sections | Q268 | ready: Q268 answered yes | J1 |
 
 ### 3.3 Platform, CI and test infrastructure (lane P)
 
@@ -315,15 +315,15 @@ wait for.
 
 ### 4.4 Migrations (slugs in branches, numbers at merge)
 
-| Provisional number | Slug | Task | Release |
+| Number | Slug | Task | Release |
 |---|---|---|---|
-| 0012 | `backup_reader` (read-only role for BKP-1) | BKP-1 | v0.5 |
-| 0013 | `intake` | FBK-C | v0.10 |
-| 0014 | `custom_draft` | CUS-C | v0.15 |
-| 0015, 0016 | `draft_cap`, `account_favourite` | NAV-D, FAV-D | v0.16 |
+| assigned at merge (MIG-N) | `backup_reader` (read-only role for BKP-1) | BKP-1 | v0.5 |
+| assigned at merge (MIG-N) | `intake` | FBK-C | v0.10 |
+| assigned at merge (MIG-N) | `custom_draft` | CUS-C | v0.15 |
+| assigned at merge (MIG-N) | `draft_cap`, `account_favourite` | NAV-D, FAV-D | v0.16 |
 | (with v0.16) | `account_start` | ORG-H (if Q246) | v0.16 |
-| 0017, 0018 | `mcp_access`, MCP-T token tables | MCP-G, MCP-T | v0.20 |
-| 0019 | `research_meta` | RIS-M | v1.0 |
+| assigned at merge (MIG-N) | `mcp_access`, MCP-T token tables | MCP-G, MCP-T | v0.20 |
+| assigned at merge (MIG-N) | `research_meta` | RIS-M | v1.0 |
 | on trigger | `account_mail_state`, `mail_suppression` (+ `hook_event` if Q149) | EML Phase 2 | v0.21 |
 
 No two branches share a number because none holds one: the coordinator assigns it at merge (MIG-N). Two migrations in
@@ -349,7 +349,7 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | Q101 to Q108 (favourites) | FAV-C, FAV-1 | v0.3 |
 | O-E0 to O-E3, O-E1 after the deploy, Q185 | v0.5 | v0.5 |
 | Q263 photo figure | PHO-R | v0.7 |
-| Q240 to Q249 (origin, planned, spec merged) | ORG-1 | v0.8 |
+| Q240 to Q249 (origin, answered 25 Oct: yes as recommended) | ORG-1 | v0.8 |
 | O-0, O-1 to O-5 (Google) | GSI-E | v0.9 |
 | Q130 to Q137; Turnstile (from v0.5) | FBK-1 | v0.10 |
 | Q93 to Q100; the phase 1 owner preview | OVR, CUS | v0.12 |
@@ -358,7 +358,7 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | Q98, Q67, Q103, Q120, `planner_draft_signal` | CUS-C | v0.15 |
 | Google Cloud Places setup | REQ-G | v0.18 |
 | Q160 to Q167, Q190 to Q198, O-M2 to O-M6 | MCP | v0.19, v0.20 |
-| Q270 to Q279, O-AU1 (analytics export), FA-D, UA-D | the audits, CUS-C (FA-D), MCP-C (AU-D, narrowed to the MCP field list), v0.22 (G-UI, UA-D) | v0.14.1, v0.22 |
+| Q270 to Q279 (answered 26 Oct: yes as recommended), O-AU1 (analytics export), FA-D, UA-D | the audits, CUS-C (FA-D), MCP-C (AU-D, narrowed to the MCP field list), v0.22 (G-UI, UA-D) | v0.14.1, v0.22 |
 | Q148, Q149 | Email Phase 2 | v0.21 |
 | Q177, Q183, snapshots | v1.x | v1.0 to v1.2 |
 | the publish of the public repository (scrub 6), Q182, Q266 | LOCAL-4, E2E-YML | I-track |
@@ -471,7 +471,7 @@ when the public repository exists; Email Phase 2 only on its trigger; GLB2b when
 
 | # | Correction | Reason |
 |---|---|---|
-| C0 | `release/v0.1` on `47be5b58`, not d93127b | the history was rewritten; d93127b is not on `main` |
+| C0 | `release/v0.1` on `47be5b58`, not 47be5b5 | the history was rewritten; 47be5b5 is not on `main` |
 | C1 | v0.4 (D2b) folds into v0.2; v0.2 owner actions gain `HOME_POINT_*` in Vercel, the `/api/v1` rate-limit rule (15.22) and the Q88 ruling | D2b and option A are merged; data has no flag; the scrub made the home point mandatory; production is live with the catalogue unthrottled (P8) |
 | C2 | New v0.4: the TRP2b2 "before go-live" deferrals | production went live with them open |
 | C3 | IMG-1 sized (7 h) and moved from v0.8 to v0.4 | photos, share previews and CI's offline image mode all need it |
@@ -667,7 +667,7 @@ exception named; each block unblocks the release in brackets.
 ### 8.2 HANDOVER.md, current section (H5)
 
 Replace "Vercel preview live ... **No production deployment yet**" and the "Running or open work" table with: production
-live since 25 Oct at `47be5b58` (private d93127b), migrations 0001 to 0011; merged since then ACCT-PH, D2b with option A,
+live since 25 Oct at `47be5b58` (private 47be5b5), migrations 0001 to 0011; merged since then ACCT-PH, D2b with option A,
 BUDGET-FIX, PUBLIC-SCRUB (home point from the environment), E2E-FIX; nothing running; next tasks MASTER-ORDER 6; owner
 actions MASTER-ORDER 4.6; setup adds the home point (Q261) and "worktrees from the public history only". Remove the
 "Email Phase 1 backend: building" and the data-batch "running" rows (all merged). Section 2's command table follows
@@ -677,6 +677,7 @@ TEST-STRATEGY once TS-5 runs.
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (H-DOCS) | Docs pass on `public/H-DOCS`: H3 commit ids rewritten to public ids (ids with no public commit suffixed "(private history)"); H4 status cells for the merged work (ACCT-PH, LOCAL-2, RIS-J with SEASONS-C, D2b, AUDIT-MOVE) and the stale owner-action lines in 4.6; H7 and H9 unblocked by Q265 and Q268; H8 migration numbers read "assigned at merge" in 4.4 and in the OVR brief line. The rest of section 3.1 stays planned for a later pass. Nothing else changed |
 | 2026-10-26 (AUDIT-MOVE, owner decision) | 5.3: v0.14.2 removed, v0.22 "UI and UX audit and fixes" added before v1.0, AU-D narrowed to the MCP field list (6 h to 3 h); 5.4: row 23 for UA-0 and the UA-FX lanes, B1 total about 385 h; the note that CUS-1 waits for UA-D is removed (CUS-C still waits for FA-D); 4.6 owner actions updated. UA-0 timing moves to just before v0.22; REC-2 keeps screenshots per release because the audit compares them. Nothing else renumbered |
 | 2026-10-25 (audits after release) | 5.3 gains the patch releases v0.14.1 and v0.14.2 and the delta audit row before v0.19, with a note that CUS-C waits for FA-D and CUS-1 for UA-D; 4.6 gains the audit owner actions. Detail in [AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md) (R-230 to R-237, Q270 to Q279); nothing renumbered |
 | 2026-10-25 (owner answers, ANSWERS-4) | Q260 to Q268 answered 25 Oct 2026, yes as recommended: Q260 (BUD-1 released), Q261 (home-point file), Q262 (renumbered train is THE train), Q264 to Q268 as listed. Section 7.2 rows marked; section 7.3 pruned to the questions still open (answered Q240 to Q249 and Q250 to Q258 removed; R1 item 7 replaced by Q91, the open question GLB2b waits on). Nothing else changed |

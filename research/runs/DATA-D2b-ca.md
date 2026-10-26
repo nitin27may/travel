@@ -1,6 +1,6 @@
 # DATA-D2b-ca: basics for the 22 Canada places (split ca of batch D2b)
 
-Run date 25 Oct 2026. Branch `public/DATA-D2b-ca` (worktree `v2-DATA-D2b-ca`, from `main` a03c8f0). Model: Sonnet (Claude Sonnet 5.5). Not pushed. Lane files: `data/capture/catalogue/BA-ca.json`, `data/suitability/catalogue/R9-ca.json`, `data/relevance/catalogue/R9-ca.json` (the `R9-` prefix because the suitability lane-file test only allows `R<n>*.json`). Reports: `research/runs/DATA-D2b-ca/gaps-tier-required-after.json`, `gaps-placement-after.json`. Withheld trail drafts: `research/runs/DATA-D2b-ca/trails-draft.json`.
+Run date 25 Oct 2026. Branch `public/DATA-D2b-ca` (worktree `v2-DATA-D2b-ca`, from `main` 2fa4c6b). Model: Sonnet (Claude Sonnet 5.5). Not pushed. Lane files: `data/capture/catalogue/BA-ca.json`, `data/suitability/catalogue/R9-ca.json`, `data/relevance/catalogue/R9-ca.json` (the `R9-` prefix because the suitability lane-file test only allows `R<n>*.json`). Reports: `research/runs/DATA-D2b-ca/gaps-tier-required-after.json`, `gaps-placement-after.json`. Withheld trail drafts: `research/runs/DATA-D2b-ca/trails-draft.json`.
 
 ## Result
 

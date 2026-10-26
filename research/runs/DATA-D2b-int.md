@@ -1,6 +1,6 @@
 # DATA-D2b-int: basics and required tier for the 7 trip-less places in VN, FR, CN, IN (25 Oct 2026)
 
-Branch `public/DATA-D2b-int` (worktree `v2-DATA-D2b-int`, from `main` a03c8f0). Model: Sonnet (Claude Sonnet 5.5). Lane `catalogue`.
+Branch `public/DATA-D2b-int` (worktree `v2-DATA-D2b-int`, from `main` 2fa4c6b). Model: Sonnet (Claude Sonnet 5.5). Lane `catalogue`.
 Run record: `data/capture/runs/api-2026-10-25-data-d2b-int.json`. Lane files: `data/capture/catalogue/BA-int.json`,
 `data/suitability/catalogue/R9-int.json`, `data/relevance/catalogue/R9-int.json` (the `R9-` prefix is the allowed sidecar pattern, as in D3a).
 Reports: `research/runs/DATA-D2b-int/` (basics before and after, required tier before and after, placement of the lane after).

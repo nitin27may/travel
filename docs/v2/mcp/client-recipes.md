@@ -4,7 +4,7 @@ Each recipe shows the user's request, the calls a well-behaved client makes, and
 user. Arguments are abbreviated (`…`) where they repeat earlier pages. These recipes double as
 acceptance tests for M0-M5: each should run end to end against a seeded database.
 
-Last verified 25 Oct 2026 against main f2dee4b. Recipes 1 to 10 use the target tool set of [README.md](README.md) and
+Last verified 25 Oct 2026 against main 4230210. Recipes 1 to 10 use the target tool set of [README.md](README.md) and
 need the planner; none of them runs today. Section 0 is how to connect now and after the sign-in tasks of
 [auth-and-sign-in.md](auth-and-sign-in.md).
 

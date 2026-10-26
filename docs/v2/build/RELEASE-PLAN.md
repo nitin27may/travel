@@ -1,6 +1,6 @@
 # Release plan: one ordered train from v0.1 to the Postgres cutover
 
-Written 25 Oct 2026 by travel-planner (Opus) at `main` 4e398e8. Planned only: nothing here is built or deployed by this
+Written 25 Oct 2026 by travel-planner (Opus) at `main` 52339a0. Planned only: nothing here is built or deployed by this
 page. Requirement PLAN [R-180](../PLAN.md); owner questions Q220 to Q229 (section 9; **all answered 25 Oct 2026: Q220 to Q226, Q229 yes as recommended; Q227 and Q228 changed**). Release notes live in the root
 [CHANGELOG.md](../../../CHANGELOG.md).
 
@@ -11,7 +11,7 @@ GitHub Actions plan (section 7) applies once the repository is public, and works
 
 **Supersedes:** "no production deployment" in the PLAN platform paragraph, the PLAN section 3 Hosting row, HANDOVER's
 current section and EXECUTION-PLAN 13.2. Production has been live since 25 Oct 2026 at
-https://travel-beta-tan.vercel.app, commit d93127b, migrations 0001 to 0011 applied. The TODO row "Owner action: turn on
+https://travel-beta-tan.vercel.app, commit 47be5b5, migrations 0001 to 0011 applied. The TODO row "Owner action: turn on
 the Cloudflare Web Analytics beacon" says a builder must add the script; the script is already in `web/app/layout.tsx`
 behind `NEXT_PUBLIC_CF_BEACON_TOKEN`, so only the token and a privacy-page line are needed (v0.2).
 
@@ -24,7 +24,7 @@ notes) are unchanged. The corrections, each argued in MASTER-ORDER 5.5:
 
 | # | Correction |
 |---|---|
-| C0 | `release/v0.1` goes on `47be5b58`: the history was rewritten, and d93127b (the deployed commit) is its private-history id |
+| C0 | `release/v0.1` goes on `47be5b58`: the history was rewritten, and 47be5b5 (the deployed commit) is its private-history id |
 | C1 | v0.4 (D2b) folds into v0.2: D2b and Q88's option A are already merged and data has no flag. v0.2's owner actions gain `HOME_POINT_LAT` and `HOME_POINT_LON` in Vercel Production and Preview (the build fails closed without them since PUBLIC-SCRUB), the Vercel Firewall rate-limit rule on `/api/v1/*` (BACKLOG 15.22), and the Q88 ruling. v0.2 also gains ACCT-PH-RV (ACCT-PH merged without review) and BUD-1 (Q260) |
 | C2 | New v0.4: the TRP2b2 "before go-live" deferrals (REMAINING-CLOSURE-PLAN 4), open while production is live |
 | C3 | The image and share-image build fix (IMG-1, 7 h) moves from v0.8 to v0.4 |
@@ -59,7 +59,7 @@ number in both schemes and follows the old v0.17 (new v0.21).
 
 | Release | Goal in one line | Agent hours (from the specs) | Migrations (slugs; numbers at merge) |
 |---|---|---|---|
-| **v0.1** | What is live today: the public read-only site, password sign-in, own plans | shipped (d93127b) | 0001 to 0011 |
+| **v0.1** | What is live today: the public read-only site, password sign-in, own plans | shipped (47be5b5) | 0001 to 0011 |
 | **v0.2** | Sign-in reachable on phones, a privacy page, page-view counts, the Maps key locked down | ACCT-PH (built, unsized) + GSI-P 2 h | none |
 | **v0.3** | Mine: find your copied trips and favourites on this device, phone and desktop | 43 h | none |
 | **v0.4** | Basics for the 74 stored places, under the ruled place-size budget (Q88) | D2b about 6 h (done, integrating) + Q88 option | none |
@@ -106,7 +106,7 @@ flowchart LR
   classDef gate fill:#9B2C2C,stroke:#6B1E1E,color:#FFFFFF
   classDef infra fill:#5A6772,stroke:#3E4850,color:#FFFFFF
 
-  V1["v0.1 live<br/>d93127b"]:::rel
+  V1["v0.1 live<br/>47be5b5"]:::rel
   AP["ACCT-PH review<br/>GSI-P"]:::core
   V2["v0.2"]:::rel
   NAV["NAV-F, NAV-C, NAV-1,<br/>NAV-2, FAV-C, FAV-1, OVR-0"]:::core
@@ -176,10 +176,10 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 | Field | Content |
 |---|---|
 | Goal | Record what visitors can use today and tag it, so every later release has a named baseline |
-| Contents | Everything on `main` up to d93127b: phase A, B and E work merged by then (trips, places, globe, search, timeline, Google trip map with routed legs, Export trip, copy and share, suitability, seasons on six trips, phone back-to-top, youngest-child default 10), the Neon foundation (R-58), EML-M, EML-Q and EML-1 (the passwordless-first card with codes off, the auth proxy guard, owner alerts) |
+| Contents | Everything on `main` up to 47be5b5: phase A, B and E work merged by then (trips, places, globe, search, timeline, Google trip map with routed legs, Export trip, copy and share, suitability, seasons on six trips, phone back-to-top, youngest-child default 10), the Neon foundation (R-58), EML-M, EML-Q and EML-1 (the passwordless-first card with codes off, the auth proxy guard, owner alerts) |
 | Migrations | 0001 to 0011 applied on the production branch |
 | Owner actions done | approved the named commit; Vercel env set; Neon trusted domain `https://travel-beta-tan.vercel.app` |
-| Coordinator action now | tag it retroactively: `git tag -a release/v0.1 d93127b -m "v0.1: public site live"`, push the tag on its own line (Q220) |
+| Coordinator action now | tag it retroactively: `git tag -a release/v0.1 47be5b5 -m "v0.1: public site live"`, push the tag on its own line (Q220) |
 | Known limits | photos load from Wikimedia Commons, not from resized copies on our host; no share (link preview) images; sign-in by emailed code is off; the phone header has no sign-in link; a copied trip is kept in the browser but no page lists it; researched trail and stop photos are not shown; Realtime allowed origins not updated for production (live refresh of account drafts across tabs is not expected to work there; check in the v0.2 smoke) |
 | Notes | CHANGELOG entry v0.1 (written with this page) |
 
@@ -221,7 +221,7 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 | Field | Content |
 |---|---|
 | Goal | Every stored place shows its basics (identity, seasons, points) or an honest "Not checked yet", inside a ruled place-size budget |
-| Contents | DATA-D2b (about 6 h, four splits US 35, CA 22, IT 10, INT 7), integrated on `public/D2b-INT` (re-derived towns, areas, relevance, source registry; seven store notes cleaned of household planning text). The Q88 option the owner picks: A, re-baseline the 56 former stub pages to their first full record (`public/D2b-INT-size-options` at b8000f2, test-only; median after 1.2491); B, lazy rows (uncommitted in `travel-wt/v2-D2B-INT-size`); C, raise the cap to +35% |
+| Contents | DATA-D2b (about 6 h, four splits US 35, CA 22, IT 10, INT 7), integrated on `public/D2b-INT` (re-derived towns, areas, relevance, source registry; seven store notes cleaned of household planning text). The Q88 option the owner picks: A, re-baseline the 56 former stub pages to their first full record (`public/D2b-INT-size-options` at b8000f2 (private history), test-only; median after 1.2491); B, lazy rows (uncommitted in `travel-wt/v2-D2B-INT-size`); C, raise the cap to +35% |
 | Dependencies | Q88 ruling. This page does not change Q88's recommendation in PLAN section 5 (keep +25%, lazy sections) |
 | Owner actions | rule Q88; approve |
 | Data work | D2b, plus the follow-ons (`suitability.ts migrate --write`, `towns.py build`, `capture.ts derive-near --write`) already run on the integration branch |
@@ -300,7 +300,7 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 | Goal | Each stop shows Directions, View in Maps and AllTrails or official links beside its name; each day opens as one ordered route with every stop; each trip says how you get there, from the nearest airport by default or from the city you choose, and Day 1 and the last day follow it |
 | Contents | R-59 ([TRIP-NAVIGATION-PLAN.md](public-site/TRIP-NAVIGATION-PLAN.md), unsized): visible stop actions, combined day directions without silent truncation, base-aware plan changes (the read-only part). Then ORG ([trip-origin-and-nearest-airport.md](../features/trip-origin-and-nearest-airport.md) 13): ORG-N 1.5 h, ORG-A 2 h, ORG-1 7 h, ORG-2 2 h, ORG-R 2 h, ORG-V 2 h (16.5 h), flag `gettingThere`. ORG-C 4 h, ORG-D 3 h, ORG-G 3 h and ORG-M 1.5 h run in seat B before this and ship earlier as internal |
 | Dependencies | OVR-0 merged (v0.3); R-59 owns `web/components/trips/**` while it runs, so ORG-1 starts after R-59 merges; ORG-C, ORG-D, ORG-G merged; NAV-2 merged (v0.3) for ORG-2; Q240 to Q249 answered |
-| Owner actions | phone check of the stop actions and of Starting from; Q240 to Q249; approve |
+| Owner actions | phone check of the stop actions and of Starting from; approve (Q240 to Q249 answered 25 Oct) |
 | Data work | ORG-G gateways for the 13 public trips; ORG-M routed gateway legs (about 80 ORS cells, one runner) |
 | Migrations | none |
 | Risks | trip start JS (OVR-0 freed some; R-59 measures; ORG-1 adds at most 200 B and loads its panel on open); links only, never AllTrails data; OurAirports' scheduled-service flag can be stale (gateways override it); a visitor's start must never reach server HTML, OG or logs |
@@ -520,9 +520,9 @@ answers 308 to the slash form, which counts as a pass.
 | I3 | BKP-1 backups of private data | 6 h | gate for v0.5; Q185, Q228 | a local launchd job on the Mac, not in Actions or a companion repository (section 7.6) |
 | I4 | MIG-N migration numbers at merge | 0.5 h | now | docs |
 | I5 | LOCAL-5 child rehearsal command | 2 h | before v1.0 | the coordinator runs it |
-| I6 | Retro tag `release/v0.1` at d93127b | minutes | now (Q220) | coordinator |
+| I6 | Retro tag `release/v0.1` at 47be5b5 | minutes | now (Q220) | coordinator |
 | I7 | ORG-C, ORG-D, ORG-G, ORG-M: origin contracts, the airports layer, trip gateways, routed gateway legs | 11.5 h | any time before v0.9 (seat B) | no visitor change until ORG-1 turns `gettingThere` on in v0.9 |
-| I8 | Test strategy TS-1 to TS-8: tiered gates, the path-to-suite map, `tools/gate.sh`, caching, stacks, slots, nightly T3 | about 35 h | after the Q250 answer; TS-1 any time | [TEST-STRATEGY.md](TEST-STRATEGY.md); the gate of 4.1 stays T3 |
+| I8 | Test strategy TS-1 to TS-8: tiered gates, the path-to-suite map, `tools/gate.sh`, caching, stacks, slots, nightly T3 | about 35 h | Q250 answered 25 Oct (yes); TS-1 any time | [TEST-STRATEGY.md](TEST-STRATEGY.md); the gate of 4.1 stays T3 |
 | I9 | Audit tooling: FA-1 `node core/bin/fields.ts` and UA-0 the audit sweep harness | 10 h + 5 h | FA-1 around v0.11 to v0.12 (B2), before the gate G-AUD; UA-0 just before v0.22 (B1; moved from v0.14 on 26 Oct), before the gate G-UI | [AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md) 6, 7; no visitor change |
 
 ## 6. Release checklist for the coordinator
@@ -676,7 +676,7 @@ R-178, R-179 and Q219 stay unused. The parallel REQ-FORM task took R-190 to R-19
 
 | ID | Question | Recommendation (and answer) | Trade-off |
 |---|---|---|---|
-| Q220 | Release numbering v0.1, v0.2, ... with tags `release/vX.Y`, `release/v0.1` tagged now at d93127b, and the notes approved in the same message as the named commit? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | One more line in each approval message |
+| Q220 | Release numbering v0.1, v0.2, ... with tags `release/vX.Y`, `release/v0.1` tagged now at 47be5b5, and the notes approved in the same message as the named commit? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | One more line in each approval message |
 | Q221 | Do not deploy `main` alone now (LOCAL-2 and docs change nothing for visitors); it rides v0.2 | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | Production stays one internal change behind `main` until v0.2 |
 | Q222 | Pull GSI-P (`/privacy/`, 2 h) into v0.2 and switch the beacon on then, measuring the place budget without the beacon tag and recording the tag as a fixed overhead outside the ratio | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | One third-party script on every page; the budget no longer counts every byte a visitor downloads |
 | Q223 | Pull OVR-0 (3 h) into v0.3 so trip pages get the favourite heart and later trip features have start-JS room | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | It touches `web/components/trips/**` before R-59 and must merge before R-59 starts |
@@ -709,6 +709,7 @@ Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling 
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (H-DOCS) | Status lines fixed (MASTER-ORDER H4): the owner action for Q240 to Q249 reads answered 25 Oct; I8 waits on Q250, answered 25 Oct, not on "the Q250 answer". Nothing else changed |
 | 2026-10-26 (AUDIT-MOVE) | Section 0 note: the UI and UX audit moves from patch release v0.14.2 to the new release v0.22 before v1.0 (owner decision); v0.14.1 is the only patch release (Q271 answered); I9 timing for UA-0; UI-NOTES.md. Train: v0.22 follows v0.21 (MASTER-ORDER 5.3); no other release renumbered |
 | 2026-10-25 (audits after release) | Section 0 note: audits after v0.14 with patch releases v0.14.1 and v0.14.2 (Q271, open); infra row I9 for the audit tooling ([AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md)). No release renumbered |
 | 2026-10-25 (owner answers, ANSWERS-4) | Q262 approved 25 Oct 2026: the section 5.3 numbering is THE train; the release numbers in sections 1 to 3 are legacy. Section 0 sentence marked; nothing else changed |

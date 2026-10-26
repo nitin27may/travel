@@ -2,8 +2,8 @@
 
 Status: **design, 25 Oct 2026 (travel-planner, Opus). Nothing here is built. Spike MCP-0 passed on the child branch
 on 25 Oct with conditions (section 13). Access levels and the Connected apps settings added 25 Oct (section 14; PLAN
-R-150 to R-156, BACKLOG 15.150 to 15.157, Q190 to Q198).** Last verified 25 Oct 2026 against main 196207e (section 14
-against 1d107d6). PLAN R-123 to R-129, BACKLOG 15.123 to 15.129, owner questions Q160 to Q167 (section 12). Supersedes the
+R-150 to R-156, BACKLOG 15.150 to 15.157, Q190 to Q198).** Last verified 25 Oct 2026 against main 753bbcc (section 14
+against 0dd4a93). PLAN R-123 to R-129, BACKLOG 15.123 to 15.129, owner questions Q160 to Q167 (section 12). Supersedes the
 "provider not selected" lines in [README.md](README.md) section 3, [security.md](security.md), [03-mcp-and-research.md](../03-mcp-and-research.md)
 section 3 and F17 items 7 and 8 (each carries a pointer here).
 
@@ -602,7 +602,7 @@ X7 = 2.6 X6; X8 and X9 as in 2.6; the package check = 2.6 X7.
 |---|---|
 | `/oauth2/*` forwarded | `consent`, `continue`, `public-client`, `get-consents` through `next dev` with child values; no tracked file edited |
 | `oauth_query` | `POST /api/auth/sign-in/email/` with `oauth_query` returns `{redirect, url}` and sets our cookies; `/oauth2/continue` works for an existing session |
-| EML-1 guard (`public/EML-1` 1928aa6, read only) | `oauth2/*` passes untouched; `sign-in/email` keeps `oauth_query` (whole body re-serialised) and returns Neon's success body unchanged |
+| EML-1 guard (`public/EML-1` 319d412, read only) | `oauth2/*` passes untouched; `sign-in/email` keeps `oauth_query` (whole body re-serialised) and returns Neon's success body unchanged |
 
 **X7. Revocation: PASS for the token holder; no server-side revoke**
 

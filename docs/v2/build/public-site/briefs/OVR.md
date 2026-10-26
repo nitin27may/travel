@@ -132,7 +132,7 @@ it reaches public output.
 
 ### Files you own
 
-`core/src/db/migrations/0011_planner_draft_doc.sql` (new), `core/src/db/tx.ts` (the draft read and write queries only),
+`core/src/db/migrations/<number assigned at merge>_planner_draft_doc.sql` (new; MIG-N slug `planner_draft_doc`), `core/src/db/tx.ts` (the draft read and write queries only),
 `core/src/schema/custom.ts` (new, `trip-custom/1`), `core/src/schedule/schedule.ts` and `diff.ts` (`removeItem` only, with
 the bundle test), `web/lib/server/drafts.ts`, `web/app/api/account/drafts/**`, `web/app/t/[id]/**` (new),
 `web/components/trips/custom/**` (new), the edit actions in `web/components/trips/overview/**`, `web/styles/custom.css`

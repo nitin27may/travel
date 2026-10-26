@@ -76,6 +76,10 @@ node --env-file=.env.local core/bin/db-migrate.ts up       # apply pending
 | 0007 | `projections` | `place_row`, `place_page`, `trip_row`, `trip_page` (public read; empty until the loader runs) |
 | 0008 | `household_private` | `saved_source`, `visit`, `collection`, `collection_place` (RLS, no policy, nothing loaded) |
 | 0009 | `planner_draft` | the integration table, owner-predicate policies, grants, `updated_at` trigger |
+| 0010 | `planner_draft_signal` | a content-free invalidation stream for the live draft list (no RLS on it: the Neon Realtime rule in its header) |
+| 0011 | `quota` | fixed-window quota counters for the auth guard and the owner-alert budget (EML-Q); keys are HMACs, never raw |
+
+**Numbers taken:** 0001 to 0011 are on main. A migration added later takes the next free number when its branch merges (MIG-N, PLAN R-146); specs name it by slug, never by number.
 
 ## RLS and least privilege
 

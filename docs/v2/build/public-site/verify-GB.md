@@ -1,6 +1,6 @@
 # Gate G-B verification (checks 4, 9, 11, 13, 15, 16)
 
-Verifier: travel-verifier, model Sonnet 5.5. Date: 2026-10-22. Commit tested: 99418db (main), worktree `/Users/nks/workspace/travel-wt/v2-GB` (branch `public/GB`, no `web/.env.local`). Preview 1 (92d74d1, built with the public maps key) on :3440 was only read. My servers ran on 3481 (static-adapter build, `.next-static`) and 3482 (API build, `.next`); both killed by PID. Screenshots and diffs are in the session scratchpad `.../scratchpad/gb/shots/` (not in the repo). Nothing in the repo was changed except this file.
+Verifier: travel-verifier, model Sonnet 5.5. Date: 2026-10-22. Commit tested: d1a1156 (main), worktree `/Users/nks/workspace/travel-wt/v2-GB` (branch `public/GB`, no `web/.env.local`). Preview 1 (74b2a14, built with the public maps key) on :3440 was only read. My servers ran on 3481 (static-adapter build, `.next-static`) and 3482 (API build, `.next`); both killed by PID. Screenshots and diffs are in the session scratchpad `.../scratchpad/gb/shots/` (not in the repo). Nothing in the repo was changed except this file.
 
 ## Summary
 
@@ -49,13 +49,13 @@ Noise floor (same build captured twice): 0.000% on 22 of 24, but home 390 light 
 Classification of every diff area:
 
 1. Home, the large areas (y 600-1000 css at 1440, 1000-1450 at 390): the Canadian Rockies trip card image loads in one capture and not the other. I looked at both crops. Both builds link the same `/img/...-640.webp` files (HTTP 200, same byte sizes on both servers), and the same build captured twice differs by up to 2.45% in the same strip. Cause: lazy image timing in the harness. Not a build difference.
-2. Home, a constant 7 x 8 px area (about 100 px, at 1440 x 310-316 y 1923-1931, at 390 x 260-266 y 1435-1443): the Lake Louise card chip reads "Partly checked - 25 of 48" in preview 1 and "25 of 49" now. Cause: META-0 (`core(META-0): placement properties`, merged after 92d74d1) added one tracked check, so the denominator went up by one. Caused by a lane.
-3. Globe (0.000% at all four): the pair is identical, but both show "The globe tiles are not available right now" because remote hosts are blocked, so this proves the shell, panel and pins match and says nothing about the basemap. The globe changes since 92d74d1 (GLB2d Enter waits for the gazetteer, API1c level URLs) are behaviour, not first paint.
+2. Home, a constant 7 x 8 px area (about 100 px, at 1440 x 310-316 y 1923-1931, at 390 x 260-266 y 1435-1443): the Lake Louise card chip reads "Partly checked - 25 of 48" in preview 1 and "25 of 49" now. Cause: META-0 (`core(META-0): placement properties`, merged after 74b2a14) added one tracked check, so the denominator went up by one. Caused by a lane.
+3. Globe (0.000% at all four): the pair is identical, but both show "The globe tiles are not available right now" because remote hosts are blocked, so this proves the shell, panel and pins match and says nothing about the basemap. The globe changes since 74b2a14 (GLB2d Enter waits for the gazetteer, API1c level URLs) are behaviour, not first paint.
 4. Place pages, trip: 0.000%, so the PRIV1 chip, PLC follow-ups and the META-0 "GeoNames" line do not appear on these four pages (the page source for fenland-loop has no "geonames" text on either build). If the owner expects them visible, they need a page that has them; none of the two places sampled does.
 
 Unexplained diffs: none.
 
-Web commits since 92d74d1 touching `web/` (git log): PLC2 noopener and the shuttle-only cover line, GLB2 landscape feature card, CLN4 gazetteer read, API1a/1b/1c, PRIV1, API2 and CONS2 moves, GLB2d. None changes markup on the sampled pages except what is listed above.
+Web commits since 74b2a14 touching `web/` (git log): PLC2 noopener and the shuttle-only cover line, GLB2 landscape feature card, CLN4 gazetteer read, API1a/1b/1c, PRIV1, API2 and CONS2 moves, GLB2d. None changes markup on the sampled pages except what is listed above.
 
 ## 11. Sitemap
 
@@ -63,7 +63,7 @@ Web commits since 92d74d1 touching `web/` (git log): PLC2 noopener and the shutt
 
 ## 13. Evidence
 
-| Item | 0702ed9 | 92d74d1 | 99418db |
+| Item | ec7d51a | 74b2a14 | d1a1156 |
 |---|---|---|---|
 | `web/data-snapshots/prototype.json` sha1 | b436cf3e263f | b436cf3e263f | b436cf3e263f |
 | `web/data-snapshots/snapshot-report.json` sha1 | e3f0b6e77a37 | e3f0b6e77a37 | e3f0b6e77a37 |
@@ -72,26 +72,26 @@ Web commits since 92d74d1 touching `web/` (git log): PLC2 noopener and the shutt
 | `web/public/globe/data/gazetteer.json` sha1 | 99b596798ef5 | same | same |
 | `legacy/globe/assets/data/gazetteer.json` sha1 | b92fbd1e7cf8 | same | same |
 
-`redirects.json`: both versions are lists of 80 entries and equal as a set of entries (0 symmetric difference); only the order changed (commit 8f5eb8c, 5 lines). The three CLN-3 hashes: two byte-identical, one reorder only. Gazetteer: both copies unchanged.
+`redirects.json`: both versions are lists of 80 entries and equal as a set of entries (0 symmetric difference); only the order changed (commit 86a6874, 5 lines). The three CLN-3 hashes: two byte-identical, one reorder only. Gazetteer: both copies unchanged.
 
 `python3 tools/tree_check.py --check`: "folder contract OK: 11 rules, 11161 files, 84 baselined exception(s), 112 legacy files pinned". It also prints 4 baseline entries that no longer fire (rule 10: `core/src/catalogue/distance.ts::core/src/geo`, `core/src/catalogue/json/source.ts::core/src/query`, `core/src/catalogue/store.ts::core/src/query`, `core/src/catalogue/stub/index.ts::core/src/query`), which tools/tree_contract.json should drop (it does not fail the check). `python3 -m pytest tools/tests/test_tree_check.py -q`: 19 passed; there is a failing-fixture test for each of rules 1 to 11 (rule 6 has two, rule 10 has three, plus clean-tree, baseline and real-tree tests).
 
-## 15. Ownership per lane (merges since 0702ed9; reported, not judged)
+## 15. Ownership per lane (merges since ec7d51a; reported, not judged)
 
 Owned lists from the briefs (`briefs/API.md`, `briefs/CONS.md`, `briefs/GLB2.md`, `docs/v2/CLEANUP-PLAN.md` for CLN-3 and CLN-5). E2E2 and API1c have no brief row; E2E2 is compared with `web/tests/e2e/**`, API1c with the API-0 plus API-1b lists. A path counts as outside when it is not under any owned prefix. Many are new test or helper files beside owned code.
 
 | Lane (merge) | Files | Outside the owned list |
 |---|---|---|
-| CLN3 (0900631) | 100 (`prototype/` removal excluded from the check) | `.claude/agents/travel-builder.md`, `travel-design-reviewer.md`, `travel-verifier.md`, `README.md`, `docs/v2/features/trip-timeline.md`, `web/redirects.json` (Do-not-touch by hand; regenerated, order only) |
-| API1b (39f0c7d) | 75 | 36: `core/src/catalogue/openapi.ts`; `core/test/catalogue/{contract.test.ts, openapi.test.ts, contract/{getPlace,handler,household,listPlaces}.cases.ts, kit.ts, run.ts}`; `docs/v2/build/public-site/README.md`; `web/components/trips/TripsMapLazy.tsx`; `web/instrumentation.ts`; `web/lib/entities/descriptors/trip.tsx`; `web/lib/public/{globe,index,vals}.ts`; `web/lib/search/search.ts`; `web/lib/server/{engine,exports,moved,placeDetail,privacy,source,sources,tripDetail}.ts`; `web/tests/data/boundary.test.ts`; `web/tests/e2e/{api-default,places}.spec.ts`; `web/tests/{entities/shards,export/page-data,globe/cards,globe/model,search/data,search/fulltext,search/ranges,search/split}.test.ts` |
-| E2E2 (76daefa) | 6 | none |
-| API1c (8dbc01f) | 11 | `core/test/catalogue/contract/{images.cases,index}.ts`, `data/sources/registry.json`, `web/lib/server/{images,source}.ts`, `web/tests/e2e/globe.levels.spec.ts`, `web/tests/globe/routes.test.ts` |
-| GLB2d (567b461) | 2 | none |
-| CLN5 (750b803) | 6 | `docs/v2/CLEANUP-PLAN.md`, `tools/legacy-freeze.json` |
-| API2 (58af5d7) | 90 | `tools/cons/baseline.json`, `web/lib/format/{age,season}.ts`, `web/lib/map/types.ts`, `web/lib/public/types.ts`, `web/lib/search/{normalize,types}.ts` |
-| CONS2 (99418db) | 38 | `core/src/capture/placementBlock.ts`, `core/src/catalogue/distance.ts`, `core/src/checks/days.ts`, `core/src/config/package.json`, `core/src/schedule/legs.ts`, `core/test/{geo/distance.test.ts, geo/pairs.json, privacy/home.test.ts, relevance/examples.test.ts, schedule/rules.test.ts}`, `web/lib/entities/{kind-labels.json,labels.ts}`, `web/lib/search/build.ts`, `web/scripts/{kind-labels.d.mts, kind-labels.mjs, legs-ors.mjs, tracks-osm.mjs}`, `web/tests/entities/kind-labels.test.ts`, `web/tests/places/place-polish.test.tsx` |
+| CLN3 (92e7cfb) | 100 (`prototype/` removal excluded from the check) | `.claude/agents/travel-builder.md`, `travel-design-reviewer.md`, `travel-verifier.md`, `README.md`, `docs/v2/features/trip-timeline.md`, `web/redirects.json` (Do-not-touch by hand; regenerated, order only) |
+| API1b (4239bfc) | 75 | 36: `core/src/catalogue/openapi.ts`; `core/test/catalogue/{contract.test.ts, openapi.test.ts, contract/{getPlace,handler,household,listPlaces}.cases.ts, kit.ts, run.ts}`; `docs/v2/build/public-site/README.md`; `web/components/trips/TripsMapLazy.tsx`; `web/instrumentation.ts`; `web/lib/entities/descriptors/trip.tsx`; `web/lib/public/{globe,index,vals}.ts`; `web/lib/search/search.ts`; `web/lib/server/{engine,exports,moved,placeDetail,privacy,source,sources,tripDetail}.ts`; `web/tests/data/boundary.test.ts`; `web/tests/e2e/{api-default,places}.spec.ts`; `web/tests/{entities/shards,export/page-data,globe/cards,globe/model,search/data,search/fulltext,search/ranges,search/split}.test.ts` |
+| E2E2 (10ba0ce) | 6 | none |
+| API1c (e60932b) | 11 | `core/test/catalogue/contract/{images.cases,index}.ts`, `data/sources/registry.json`, `web/lib/server/{images,source}.ts`, `web/tests/e2e/globe.levels.spec.ts`, `web/tests/globe/routes.test.ts` |
+| GLB2d (277af67) | 2 | none |
+| CLN5 (09cae8c) | 6 | `docs/v2/CLEANUP-PLAN.md`, `tools/legacy-freeze.json` |
+| API2 (095e208) | 90 | `tools/cons/baseline.json`, `web/lib/format/{age,season}.ts`, `web/lib/map/types.ts`, `web/lib/public/types.ts`, `web/lib/search/{normalize,types}.ts` |
+| CONS2 (d1a1156) | 38 | `core/src/capture/placementBlock.ts`, `core/src/catalogue/distance.ts`, `core/src/checks/days.ts`, `core/src/config/package.json`, `core/src/schedule/legs.ts`, `core/test/{geo/distance.test.ts, geo/pairs.json, privacy/home.test.ts, relevance/examples.test.ts, schedule/rules.test.ts}`, `web/lib/entities/{kind-labels.json,labels.ts}`, `web/lib/search/build.ts`, `web/scripts/{kind-labels.d.mts, kind-labels.mjs, legs-ors.mjs, tracks-osm.mjs}`, `web/tests/entities/kind-labels.test.ts`, `web/tests/places/place-polish.test.tsx` |
 
-Merges before 0702ed9 (API0, META0, CONS1, CLN4, API1a, API1a2, CLN2, CLN7, TD0, PLANB) were not in scope.
+Merges before ec7d51a (API0, META0, CONS1, CLN4, API1a, API1a2, CLN2, CLN7, TD0, PLANB) were not in scope.
 
 ## 16. Timings at 10,000 places
 
