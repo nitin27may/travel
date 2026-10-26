@@ -21,7 +21,7 @@ python3 -m pytest tools/tests/test_gate_map.py -q
 ## The map
 
 - **`suites`**: one entry per suite id of TEST-STRATEGY 4.1, plus `gate.map` (this check). Each has `run` (the commands as
-  check-all runs them today; `vitest.project` names the project TS-2a creates), `cost` (`s`, `m`, `l`, `xl`), `always_at`
+  check-all runs them today; `vitest.project` names the project of `web/vitest.config.ts`, which reads the `tests` lists of the four web suites from this file), `cost` (`s`, `m`, `l`, `xl`), `always_at`
   (1: every change; 2: T2 and any full run; 3: T3 only), `inputs` (the cache key of TS-3; wide on purpose), `steps` (the
   check-all labels it replaces), `tests` (the test files it owns), `needs` (suites it depends on: `web.built` needs
   `web.build`), `slot` and `requires` (machine slot, venv or Docker, for TS-4), and `related` (T1 may narrow the suite to
@@ -61,7 +61,7 @@ leading `!` in a list excludes. `*.md` is a root file; `**/*.md` is any depth.
 | M3 | a check-all `step` label belongs to no suite, or a suite names a step that is gone |
 | M4 | an e2e spec is attached to no rule and is not `release_only` |
 | M5 | an unknown suite; a glob (each brace alternative) that matches no file; an expired, over-14-day or unbacked quarantine; a dead exception |
-| M6 | a web unit test file is owned by zero or two of `web.unit`, `web.built`, `web.fixture`, `web.timing`; once `web/vitest.config.ts` declares projects (TS-2a), one of the four names is missing |
+| M6 | a web unit test file is owned by zero or two of `web.unit`, `web.built`, `web.fixture`, `web.timing`; or the files `vitest list --project <name>` resolves to differ from the map's list for that suite (`--no-vitest` skips the listing) |
 
 ## Changing the map
 
@@ -73,8 +73,9 @@ leading `!` in a list excludes. `*.md` is a root file; `**/*.md` is any depth.
 
 ## Gotchas
 
-- `web.built`, `web.fixture` and `web.timing` run through the one web vitest config until TS-2a splits it into projects;
-  the `tests` lists are the split TS-2a must reproduce (M6 then compares them with the config).
+- The four web vitest projects (TS-2a) take their file lists from the `tests` of `web.unit`, `web.built`, `web.fixture` and
+  `web.timing` in this file; `pnpm --dir web test:unit|built|fixture|timing` run one. Only `unit` has no global setup;
+  `timing` runs one file at a time, after the others in a full `pnpm --dir web test`, and has the TS-4 load guard hook.
 - The `web.fixture` tests read the real build as well as the two fixture builds, so the project needs both.
 - `web/scripts/legs/dump.test.ts` and `web/scripts/embed-spike/metrics.test.mjs` look like tests but are not (`not_tests`).
 - The replay reads `git log` of `main`; in a shallow clone the pytest replay case skips.

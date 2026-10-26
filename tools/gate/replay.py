@@ -26,7 +26,7 @@ SPEC_FULL = ["pnpm-lock.yaml", "package.json", "*/package.json", "pnpm-workspace
              "web/vitest.config.ts", "web/playwright.config.ts", "web/next.config*", "web/eslint.config.mjs",
              "core/vitest.config.ts", "tools/gate/**", "tools/gate.s[h]",
              "core/src/schema/**", "core/src/catalogue/store.ts", "core/src/privacy/**", "data/vocab/**",
-             "web/tests/helpers/**", "core/test/setup/**", "web/tests/global-setup.ts", "web/tests/e2e/global-setup.ts",
+             "web/tests/helpers/**", "core/test/setup/**", "web/tests/global-setup*.ts", "web/tests/e2e/global-setup.ts",
              "web/tests/e2e/fixtures.ts", "web/tests/budget.test.ts", "web/tests/data/place-html-baseline.json",
              "web/tests/data/place-size.test.ts", "web/app/layout.tsx", "web/app/themes.css", "tools/theme_tokens.py"]
 

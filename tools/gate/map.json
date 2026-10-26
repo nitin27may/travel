@@ -116,7 +116,7 @@
       "steps": ["web build"]
     },
     "web.unit": {
-      "run": ["SKIP_WEB_BUILD=1 pnpm --dir web test"],
+      "run": ["pnpm --dir web test:unit"],
       "vitest": { "dir": "web", "project": "unit" },
       "cost": "m", "always_at": 2, "related": true,
       "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "docs/v2/build/public-site/README.md", "pnpm-lock.yaml"],
@@ -133,7 +133,7 @@
       "steps": ["web test"]
     },
     "web.built": {
-      "run": ["SKIP_WEB_BUILD=1 pnpm --dir web test (until TS-2a: the built project)"],
+      "run": ["SKIP_WEB_BUILD=1 pnpm --dir web test:built"],
       "vitest": { "dir": "web", "project": "built" },
       "cost": "m", "always_at": 2, "needs": ["web.build"],
       "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
@@ -145,7 +145,7 @@
       "steps": ["web test"]
     },
     "web.fixture": {
-      "run": ["SKIP_WEB_BUILD=1 pnpm --dir web test (until TS-2a: the fixture project; it reads the real build too)"],
+      "run": ["SKIP_WEB_BUILD=1 pnpm --dir web test:fixture"],
       "vitest": { "dir": "web", "project": "fixture" },
       "cost": "l", "always_at": 2, "slot": "build", "needs": ["web.build"],
       "inputs": ["web/**", "core/src/**", "data/**", "research/**", "legacy/**", "pnpm-lock.yaml"],
@@ -154,7 +154,7 @@
       "steps": ["web test"]
     },
     "web.timing": {
-      "run": ["SKIP_WEB_BUILD=1 pnpm --dir web test (until TS-2a: the timing project, one worker, no file parallelism)"],
+      "run": ["pnpm --dir web test:timing"],
       "vitest": { "dir": "web", "project": "timing" },
       "cost": "s", "always_at": 2, "slot": "timing", "serial": true,
       "inputs": ["web/lib/**", "web/public/search/**", "core/src/**", "data/**", "web/tests/**"],
@@ -334,7 +334,7 @@
     "tools/gate/**", "tools/gate.sh",
     "core/src/schema/**", "core/src/catalogue/store.ts", "core/src/privacy/**", "core/src/store/**", "data/vocab/**",
     "legacy/MANIFEST.json",
-    "web/tests/helpers/**", "core/test/setup/**", "web/tests/global-setup.ts", "web/tests/e2e/global-setup.ts", "web/tests/e2e/fixtures.ts",
+    "web/tests/helpers/**", "core/test/setup/**", "web/tests/global-setup*.ts", "web/tests/e2e/global-setup.ts", "web/tests/e2e/fixtures.ts",
     "web/tests/budget.test.ts", "web/tests/data/place-html-baseline.json", "web/tests/data/place-size.test.ts", "web/tests/data/shell-size.test.ts",
     "web/app/layout.tsx", "web/app/themes.css", "tools/theme_tokens.py", "docs/v2/design/foundation/tokens.json"
   ],

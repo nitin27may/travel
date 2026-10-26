@@ -208,12 +208,13 @@ STEPS = 'step "folder contract (CLN-5)"\n'
 
 
 def run(tmp_path: Path, m: dict | None = None, extra: dict[str, str] | None = None, steps: str = STEPS,
-        vitest_config: str = "", backlog: str = "") -> list[str]:
+        vitest_config: str = "", backlog: str = "", project_files: dict | None = None) -> list[str]:
     files = {**FILES, **(extra or {})}
     for p, text in files.items():
         (tmp_path / p).parent.mkdir(parents=True, exist_ok=True)
         (tmp_path / p).write_text(text, encoding="utf-8")
-    return cm.check(m or MAP, sorted(files), steps, root=tmp_path, today=TODAY, backlog_text=backlog, vitest_config=vitest_config)
+    return cm.check(m or MAP, sorted(files), steps, root=tmp_path, today=TODAY, backlog_text=backlog, vitest_config=vitest_config,
+                    project_files=project_files)
 
 
 def mutate() -> dict:
@@ -304,6 +305,16 @@ def test_m6_config_projects_must_carry_the_map_names(tmp_path: Path) -> None:
     assert run(tmp_path, vitest_config=good) == []
     errs = run(tmp_path, vitest_config="export default { test: { projects: [{ test: { name: 'unit' } }] } };")
     assert codes(errs) == ["M6"] and "\"built\"" in errs[0]
+
+
+def test_m6_real_project_files_must_match_the_map(tmp_path: Path) -> None:
+    good = {"unit": ["web/tests/a.test.ts"], "built": ["web/tests/b.test.ts"]}
+    assert run(tmp_path, project_files=good) == []
+    swapped = {"unit": ["web/tests/a.test.ts", "web/tests/b.test.ts"], "built": []}
+    errs = run(tmp_path, project_files=swapped)
+    assert codes(errs) == ["M6"] and len(errs) == 2
+    assert any("web/tests/b.test.ts: the map puts it in built" in e for e in errs)
+    assert any("web/tests/b.test.ts: vitest project unit runs it" in e for e in errs)
 
 
 # ----- the replay (TS-1 acceptance; the full 80-merge run is `python3 tools/gate/replay.py`) ------------------------------------------------
