@@ -6,6 +6,13 @@ Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements
 the intake pipeline): one intake model, one form shell, one route family, one moderation queue. Favourites (R-70, R-71)
 are untouched. Section 11 lists every conflict with an earlier decision and the proposed resolution.
 
+> **Amended 25 Oct 2026 (request intake fields):** the `place` and `trip` fields of 3.1 are superseded by
+> [request-intake-fields.md](request-intake-fields.md) (PLAN R-180 to R-186): a short required step (place: name and
+> country; trip: countries and length) and optional detail steps, structured Where data, `intake-detail/1` in place of
+> `trip_shape`, a detail score and missing codes; `report` gains "When did you see this" and "How do you know". FBK-C
+> widens again (+2.5 h); FBK-2 drops the place and trip step-2 fields (−3 h), which REQ-F2 and REQ-F1 build; the body
+> cap is 8 KB for `place` and `trip` (6.1 layer 3); request drafts autosave on the device for 7 days (3.2).
+>
 > **Amended 25 Oct 2026 (requests and custom places):** a fifth type `improve` ("Suggest an improvement": a stop to
 > add, more detail on a section, a longer or shorter version, another season) and three optional `place` fields
 > (`for_trip`, `for_day`, `source_ref`) are added to FBK-C before the intake migration exists (+1.5 h); FBK-3 gains
@@ -350,6 +357,9 @@ Kind-specific fields (step 2), as few as possible:
 | report, takedown | reason ·, note · ("What should we remove, and why?"), "Your relationship" chips (it's me, I'm the photographer, I represent the business, other) | a takedown asks for nothing else; no ID documents, ever |
 | place | name · (2 to 120), where (0 to 120, strongly prompted), kind (trail preselected from a trail context), link, note (0 to 500), pin (optional: paste a map link or "lat, lon", visitor spec 6.5) | at most 1 URL |
 | trip | destination ·, length ·, months, who is going chips, note (0 to 1,000) (visitor spec 5.2) | at most 1 URL |
+
+The place and trip rows above are superseded by [request-intake-fields.md](request-intake-fields.md) section 2 (25 Oct
+2026); the report row gains the two optional rows of its section 2.5.
 | feedback | kind chips (idea, bug, other) ·, note · (10 to 2,000) | at most 1 URL; the build id is attached for bugs |
 
 ### 3.2 Behaviour, states and copy

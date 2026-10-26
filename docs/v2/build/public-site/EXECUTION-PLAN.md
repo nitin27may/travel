@@ -696,6 +696,26 @@ FBK-C and CUS-C are widened before their migrations are applied. Briefs are in t
 
 REQ total: day one about 13.5 h, phase 2 about 22 h, phase 3 about 27 h (about 62.5 h, Opus 16.5), plus 6 h later.
 
+**Request intake fields (added 25 Oct 2026, planned only).** Spec [request-intake-fields.md](../../features/request-intake-fields.md)
+(PLAN R-180 to R-186, BACKLOG 15.180 to 15.186, Q220 to Q229). The place and trip forms get a short required step and
+optional detail steps, structured Where data and research-ready briefs. Briefs are in the spec, section 12.2.
+
+| ID | Task | Agent, model | Effort | Depends on | Acceptance check |
+|---|---|---|---|---|---|
+| FBK-C (++) | `intake-detail/1`, `region`, `detail`, `completeness`, `missing` columns, indexes, body cap 8 KB, `scoreIntake`, kind table | travel-builder, Opus | +2.5 h | inside FBK-C, before the intake migration | every validation rule has a passing and failing case; scores pinned for 10 fixtures |
+| FBK-2 (−) | place and trip step-2 fields move to REQ-F2 and REQ-F1; `suggestPlace`, `requestTrip` stay off | travel-builder, Sonnet | −3 h | inside FBK-2 | flags off |
+| REQ-RF-C | `regions(cc)` store method and route, `towns` fallback to world towns, `gn:` ids, contract cases | travel-builder, Opus | 2 h | none | contract kit green; Canada answers unchanged |
+| REQ-RF | `tools/towns.py regions` and `world`, generated parts, loaders, `DataClient.regions`, check-all `--check` | travel-builder, Sonnet | 4 h | REQ-RF-C | India 36 regions; Manali found in IN-HP; rows verbatim |
+| REQ-F2 | place request branch and the shared Where block | travel-builder, Sonnet | 7 h | FBK-2, REQ-1, REQ-RF | chunks 7 KB and 5 KB at most; catalogue match on a fixture |
+| REQ-F1 | trip request branch, meter, drafts, prefill | travel-builder, Sonnet | 8 h | REQ-F2 | chunk 9 KB at most; party offered, never applied, from a copy |
+| REQ-F3 | improve and report rows, custom-stop fill helper | travel-builder, Sonnet | 2 h | REQ-F2 | sheet chunk unchanged |
+| REQ-FB | briefs, `detail` column, `--missing`, demand by area, fixed questions | travel-builder, Sonnet | 4 h | FBK-3 | the spec's two brief examples reproduced; no contact, id or date |
+| REQ-R4, REQ-V4 | review and verify the request forms | reviewer Opus, verifier Sonnet | 4 h | REQ-F1, REQ-F3 | approved; first-use walk; sweep at 1440 and 390, light and dark |
+
+Request intake total: about 30.5 h net (Opus 6.5, Sonnet 24), after the 3 h FBK-2 saving. Order: the FBK-C widening with
+the other widenings; REQ-RF-C then REQ-RF any time; REQ-F2, REQ-F1, REQ-F3 one at a time on `web/components/intake/**`
+after FBK-2 and REQ-1; REQ-FB in parallel after FBK-3; then REQ-R4 and REQ-V4.
+
 ## 11. Gate R2: the owner reviews E and approves readiness
 
 ### 11.1 Entry criteria
@@ -984,6 +1004,7 @@ Every pending item from every source (BACKLOG, TODO, design reviews and notes, l
 
 | Date | Change |
 |---|---|
+| 2026-10-25 | Request intake fields (R-180 to R-186, [request-intake-fields.md](../../features/request-intake-fields.md)): 10.2 gains the request-intake block (REQ-RF-C, REQ-RF, REQ-F1 to REQ-F3, REQ-FB, REQ-R4, REQ-V4); FBK-C widened again (+2.5 h), FBK-2 loses the place and trip fields (−3 h). Planned only |
 | 2026-10-25 | Requests and custom places (R-170 to R-177, [requests-and-custom-places.md](../../features/requests-and-custom-places.md)): new 10.2, the REQ enhancement queue; FBK-C, FBK-3 and CUS-C widened before their migrations. Planned only |
 | 2026-10-25 | Navigation and Mine (R-160 to R-164, [navigation-and-mine.md](../../features/navigation-and-mine.md)): new 10.1, the NAV enhancement queue; FAV-1 re-scoped to the Mine panel. Planned only |
 | 2026-10-25 | Local database and seed sync (R-140 to R-146, [local-database-and-seed-sync.md](../../features/local-database-and-seed-sync.md)): 4.8 SRV-0 refined (LOCAL-C, LOCAL-1 to LOCAL-3 can run before the SRV-0 window on Q180). The 24 Oct removal of "Docker steps as historical" still holds for Supabase; a plain Postgres 18 with PostGIS in Docker is current again for development and CI only |
