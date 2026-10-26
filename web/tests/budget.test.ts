@@ -4,22 +4,14 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { readText, walkFiles } from './helpers';
 import { builtOutDir } from './helpers/built';
+import { report, START_JS_BUDGET_KB, startScripts } from '../scripts/budget-report.mjs';
 
 const OUT = builtOutDir();
 const LIST_BUDGET_KB = 200;
 const PLACE_BUDGET_KB = 180;
 
-/**
- * Same-origin <script src> tags in the exported HTML that a modern browser runs at load: what is
- * there before any dynamic import. `noModule` scripts (legacy polyfills) are skipped, as browsers do.
- */
-export function startScripts(html: string): string[] {
-  return [...html.matchAll(/<script\b([^>]*)>/g)]
-    .map((m) => m[1])
-    .filter((attrs) => !/\bnoModule\b/i.test(attrs))
-    .map((attrs) => /\ssrc="([^"]+)"/.exec(` ${attrs}`)?.[1])
-    .filter((s): s is string => Boolean(s) && s!.startsWith('/'));
-}
+// One parser for the gate and for `pnpm --dir web budget:report` (BUD-1), so a hand-back quotes what this test checks.
+export { startScripts };
 
 export function gzippedKb(srcs: string[]): number {
   const unique = [...new Set(srcs)];
@@ -63,6 +55,13 @@ describe('JS budget: gzipped scripts loaded at start, per exported page', () => 
 
   it('exports pages to measure', () => {
     expect(pages.length).toBeGreaterThan(70);
+  });
+
+  it('prints the budget report from the limits this test holds (BUD-1)', () => {
+    expect(START_JS_BUDGET_KB).toBe(LIST_BUDGET_KB);
+    const lines = report();
+    console.log(lines.join('\n'));
+    expect(lines.length).toBeLessThan(20);
   });
 
   it('parses script tags the way the test expects', () => {
