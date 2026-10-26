@@ -79,8 +79,9 @@ How it was made:
    the point in its three pair forms, replaced by the test decoy). Term 3 is **not** in the expressions: its only
    occurrence outside the removed note is the verbatim GeoNames row (5.2), and rewriting it would break the towns
    manifest hashes in every commit after it.
-4. Result: **1249 commits** (none emptied; 1248 before this report's commit was added and the mirror rebuilt), refs `main`
-   and `legacy-final` only, pack **about 76.6 MiB** (was 96.7 MiB with the same two refs).
+4. Result: **1250 commits** (none emptied; 1248 before this report's two commits were added and the mirror rebuilt), refs `main`
+   and `legacy-final` only, pack **88.2 MiB** on the final build (96.7 MiB before filtering with the same two refs; an earlier build of
+   the same content packed to 76.6 MiB, so the figure depends on the repack). 19,071 objects, none unreachable.
 5. Proof it still builds: a working clone of the mirror, `pnpm install`, then `bash tools/check-all.sh` with the point and
    the private list in the environment passes every step (python, core and web tests, both typechecks, the web build and
    server, the folder contract, the hardcode scan). The full run stopped once, on the timing budget test
