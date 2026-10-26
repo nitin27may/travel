@@ -1,15 +1,16 @@
-// Pins core/src/privacy/home.ts: the only module that holds the household point, with the exclusion radius from config/nearby.ts.
-// The test reads the point out of the source text so it never types it, and no assertion message prints it.
+// Pins core/src/privacy/home.ts: the only module that asks where the household is, with the exclusion radius from config/nearby.ts.
+// The point comes from the environment (core/src/config/home.ts) through the probe, so no test types it, and no assertion message
+// prints it.
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
+import { HOME_POINT_ENV, HomePointUnsetError, parseHomePoint, resolveHomePoint } from "../../src/config/home.ts";
 import { HOME_RADIUS_KM } from "../../src/config/nearby.ts";
 import { PUBLIC_START_CITY, nearHome } from "../../src/privacy/home.ts";
 import { scrubOrigin, publicOrigin } from "../../src/privacy/origin.ts";
-
-const SRC = readFileSync(new URL("../../src/privacy/home.ts", import.meta.url), "utf8");
-const m = /const HOME_POINT = \{ lat: (-?[\d.]+), lon: (-?[\d.]+) \}/.exec(SRC);
-const HOME = { lat: Number(m?.[1]), lon: Number(m?.[2]) };
+import { HOME_PROBE as HOME } from "./probe.ts";
 
 /** The pre-CONS-2 formula, verbatim in behaviour: radius 2 km, earth radius 6371. */
 function oldNearHome(lat: number, lon: number): boolean {
@@ -20,7 +21,7 @@ function oldNearHome(lat: number, lon: number): boolean {
 }
 
 describe("privacy/home", () => {
-  it("found a numeric point in the module", () => {
+  it("resolved a numeric point from the environment", () => {
     expect(Number.isFinite(HOME.lat) && Number.isFinite(HOME.lon)).toBe(true);
   });
   it("the radius is the shared one", () => expect(HOME_RADIUS_KM).toBe(2));
@@ -44,14 +45,55 @@ describe("privacy/home", () => {
   });
 });
 
-describe("the home point is typed in one file", () => {
-  it("no other tracked file holds both values of the point (audit GB-C-1)", () => {
+describe("the home point comes only from the environment (PUBLIC-SCRUB)", () => {
+  const empty = () => mkdtempSync(path.join(tmpdir(), "home-point-"));
+  const set = { [HOME_POINT_ENV.lat]: "1.5", [HOME_POINT_ENV.lon]: "-2.5" };
+
+  it("the module holds no coordinate pair: nothing in the source is a point", () => {
+    for (const f of ["../../src/privacy/home.ts", "../../src/config/home.ts"]) {
+      // the public start city is the one point the module may hold
+      const src = readFileSync(new URL(f, import.meta.url), "utf8").replace(/^export const PUBLIC_START_CITY.*$/m, "");
+      expect(src, f).not.toMatch(/lat:\s*-?\d+\.\d+,\s*lon:\s*-?\d+\.\d+/);
+      expect(src, f).not.toMatch(/HOME_POINT\s*=\s*\{/);
+    }
+  });
+
+  it("reads both variables, and refuses half a point or a value that is not a coordinate", () => {
+    expect(parseHomePoint(set, "test")).toEqual({ lat: 1.5, lon: -2.5 });
+    expect(parseHomePoint({}, "test")).toBeNull();
+    expect(() => parseHomePoint({ [HOME_POINT_ENV.lat]: "1.5" }, "test")).toThrow(HomePointUnsetError);
+    expect(() => parseHomePoint({ [HOME_POINT_ENV.lat]: "north", [HOME_POINT_ENV.lon]: "2" }, "test")).toThrow(/E_HOME_POINT_UNSET/);
+    expect(() => parseHomePoint({ [HOME_POINT_ENV.lat]: "91", [HOME_POINT_ENV.lon]: "2" }, "test")).toThrow(HomePointUnsetError);
+  });
+
+  it("fails closed with a clear error when neither the environment nor a root env file holds it", () => {
+    const dir = empty();
+    writeFileSync(path.join(dir, "pnpm-workspace.yaml"), "packages: []\n");
+    expect(() => resolveHomePoint({}, dir)).toThrow(HomePointUnsetError);
+    try {
+      resolveHomePoint({}, dir);
+    } catch (e) {
+      expect((e as Error).message).toContain(HOME_POINT_ENV.lat);
+      expect((e as Error).message).toContain(HOME_POINT_ENV.lon);
+    }
+  });
+
+  it("falls back to the git-ignored root .env.local, and the environment wins over it", () => {
+    const dir = empty();
+    writeFileSync(path.join(dir, "pnpm-workspace.yaml"), "packages: []\n");
+    writeFileSync(path.join(dir, ".env.local"), `${HOME_POINT_ENV.lat}=3.25\n${HOME_POINT_ENV.lon}=4.75\n`);
+    expect(resolveHomePoint({}, path.join(dir))).toEqual({ lat: 3.25, lon: 4.75 });
+    expect(resolveHomePoint(set, dir)).toEqual({ lat: 1.5, lon: -2.5 });
+  });
+
+  it("no tracked file holds both values of the configured point (audit GB-C-1)", () => {
     const root = new URL("../../..", import.meta.url).pathname;
     const files = execFileSync("git", ["ls-files", "-z"], { cwd: root, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 }).split("\0").filter(Boolean);
-    const lat = new RegExp(`(?<![\\d.])${m?.[1]?.replace(".", "\\.")}(?![\\d])`);
-    const lon = new RegExp(`(?<![\\d.])${m?.[2]?.replace(".", "\\.")}(?![\\d])`);
+    const num = (n: number) => new RegExp(`(?<![\\d.])${String(n).replace(".", "\\.")}(?![\\d])`);
+    const lat = num(HOME.lat);
+    const lon = num(HOME.lon);
     const holders = files.filter((f) => {
-      if (f === "core/src/privacy/home.ts" || /\.(png|webp|jpg|woff2|ico|pdf)$/.test(f) || f.startsWith("web/public/globe/")) return false;
+      if (/\.(png|webp|jpg|woff2|ico|pdf)$/.test(f) || f.startsWith("web/public/globe/") || f === "core/test/setup/home-point.ts") return false;
       let text: string;
       try {
         text = readFileSync(`${root}${f}`, "utf8");

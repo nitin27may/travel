@@ -2,7 +2,7 @@
  "notes": [
   "Counts are per (rule, file); a count may only fall. --check fails on a rise or a new file. --write tightens after a fix and keeps reasons and these notes.",
   "Not scanned: tests and fixtures (magic ids in tests are a later row), data/ values (a ref is an id, not a path), generated files, web/public. Only the env-table rule reads tests.",
-  "Intentional, outside the rules above: the MapLibre worker fetch in web/components/map/MapLibreMap.tsx (checked by web/tests/data/boundary.test.ts); the household home point module core/src/privacy/home.ts, the one place the home point lives while the repo is private (CONS-2; the scanner has no rule that sees coordinates, so it is listed here: it moves to a secret before any repository visibility change); unit constants in web/lib/format/units.ts; the 308 and port numbers of the e2e harness."
+  "Intentional, outside the rules above: the MapLibre worker fetch in web/components/map/MapLibreMap.tsx (checked by web/tests/data/boundary.test.ts); the household home point module core/src/privacy/home.ts, the one module that asks where home is (CONS-2; since PUBLIC-SCRUB the point itself comes from HOME_POINT_LAT and HOME_POINT_LON through core/src/config/home.ts and is in no tracked file); unit constants in web/lib/format/units.ts; the 308 and port numbers of the e2e harness."
  ],
  "rules": {
   "api-host": {

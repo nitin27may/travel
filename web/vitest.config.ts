@@ -9,5 +9,7 @@ export default defineConfig({
     testTimeout: 30000,
     hookTimeout: 300000,
     globalSetup: ['tests/global-setup.ts'],
+    // the household home point comes from the environment; without it the core setup injects a decoy (core/src/config/home.ts)
+    setupFiles: ['../core/test/setup/home-point.ts'],
   },
 });

@@ -371,7 +371,7 @@ A flag that is off hides the control, or shows "Comes with the planner" where a 
 | Trip special cases | `web/lib/public/trips.ts:180`, `places.ts:370`, `trail-places.ts:92` and `:230`, `sources.ts:129` | trip data flags | CONS-3 (`sources.ts` with 7.11) | same |
 | Distance functions | 8: `core/src/checks/time.ts`, `core/src/relevance/fit.ts`, `web/lib/map/geo.ts`, `web/lib/public/origin.ts`, `web/lib/public/places.ts`, `web/scripts/tracks-osm.mjs`, `web/scripts/legs-ors.mjs`, `tools/locations.py` | `core/src/geo/distance.ts`; `tools/geo.py` with a parity test | CONS-2 | `6371` scan |
 | Nearby thresholds | 25 km twice (`core/src/relevance/derive.ts` `NEAR_KM`, `web/lib/public/relevance.ts` `NEARBY_MAX_KM`); 100 km (`AREA_KM`); home radius twice (`core/src/relevance/inputsCheck.ts`, `web/lib/public/origin.ts`) | `core/src/config/nearby.ts` | CONS-2 | `_KM =` scan |
-| Household home point | `web/lib/public/origin.ts` lines 7 and 10 | `core/src/privacy/home.ts`; **intentional exception** while the repo is private (the scrub must run without the env file); moves to a secret before any visibility change | CONS-2 | listed |
+| Household home point | `web/lib/public/origin.ts` lines 7 and 10 | `core/src/privacy/home.ts`, the point from `HOME_POINT_LAT`/`HOME_POINT_LON` via `core/src/config/home.ts` (PUBLIC-SCRUB: no default, fails closed) | CONS-2, PUBLIC-SCRUB | done |
 | Site host | 14 occurrences in 13 files (`web/lib/site.ts` is the legitimate default) | `siteOrigin()`, `SITE_ORIGIN` | CONS-3 | host scan |
 | User agent | 7 files | `core/src/net/ua.ts`, `tools/net.py` | CONS-3 | UA scan |
 | External API hosts | ORS 1, Commons 3, Nominatim 3, Overpass 5 lines, Wikidata 4, SPARQL 1 | `core/src/net/endpoints.ts`, `tools/net.py` | CONS-3 | host scan |

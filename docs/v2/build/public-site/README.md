@@ -301,6 +301,7 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | Name | Used by | What it does | Public |
 |---|---|---|---|
 | `NEXT_PUBLIC_DATA_ADAPTER` | web (API-1) | Picks the browser data adapter (`api` by default, `static` for the static smoke build). Inlined at build | yes |
+| `HOME_POINT_LAT`, `HOME_POINT_LON` | core `src/config/home.ts` (read by `src/privacy/home.ts` `nearHome()`: the privacy scrub in `privacy/origin.ts`, `privacy/detect.ts`, `privacy/towns.ts`, `relevance/inputsCheck.ts`), so the web build, the API handlers, the validator and check-all | The household home point (decimal degrees) for the exclusion radius. No default: unset in the environment and in the root `.env.local`/`.env`, the first `nearHome()` call throws `E_HOME_POINT_UNSET`. Unit tests inject a decoy when unset (`core/test/setup/home-point.ts`). Set in Vercel (production and preview) and in the owner's root `.env.local`; CI gets a decoy | no |
 | `CATALOGUE_STORE` | web, core (API-1) | Picks the server catalogue store (`json` now, a database later) | no |
 | `TRP2B2_SHOTS_DIR` | web `tests/e2e/trip-routes.shots.spec.ts` | Folder the opt-in TRP2b2 evidence screenshots are written to; unset, the spec skips | no |
 | `NEXT_PUBLIC_CF_BEACON_TOKEN` | web `app/layout.tsx` | Cloudflare Web Analytics token; no token, no beacon | yes |

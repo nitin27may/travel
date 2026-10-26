@@ -1,12 +1,10 @@
-// A point near home for tests, read out of core/src/privacy/home.ts the way home.test.ts does, so no test types it and none prints it.
-import { readFileSync } from "node:fs";
-
-const SRC = readFileSync(new URL("../../src/privacy/home.ts", import.meta.url), "utf8");
-const m = /const HOME_POINT = \{ lat: (-?[\d.]+), lon: (-?[\d.]+) \}/.exec(SRC);
-if (!m) throw new Error("core/src/privacy/home.ts no longer holds HOME_POINT in the form the probe reads");
+// A point near home for tests, resolved the way core/src/privacy/home.ts resolves it (environment, else the git-ignored root env
+// file, else the decoy core/test/setup/home-point.ts injects), so no test types it and none prints it.
+import "../setup/home-point.ts";
+import { resolveHomePoint } from "../../src/config/home.ts";
 
 /** The home point itself (never print it). */
-export const HOME_PROBE = { lat: Number(m[1]), lon: Number(m[2]) };
+export const HOME_PROBE = resolveHomePoint();
 
 /** A point `km` north of home. */
 export function northOfHome(km: number): { lat: number; lon: number } {
