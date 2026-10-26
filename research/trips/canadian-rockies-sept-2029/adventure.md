@@ -414,3 +414,23 @@ Running: Banff Gondola, Lake Louise Gondola, Jasper SkyTram (reduced hours from 
 - Elk rut: bulls charge; 30 m rule.
 - Bow Valley Parkway fall closure dates conflict between Parks Canada and a blog.
 - Height limits: none found for any product, so 115 cm unconfirmed everywhere (GAP).
+## Where the seven placeless offers happen (ORPH-7, 26 Oct 2026)
+
+Seven offers named no place, so no page could say where they are (`E_PLACE_ORPHAN`). Each now has `at` set to a meeting-point
+place (`access.start.meeting_point`) in `data/capture/canadian-rockies-2029/ORPH7.json`. Each point is an OSM element, and
+each official link is the operator or Parks Canada page that names the place. Run note:
+[../../runs/orph7-2026-10-26-rockies-offer-places.md](../../runs/orph7-2026-10-26-rockies-offer-places.md).
+
+- Fairmont Banff Springs spa: the Fairmont Spa is inside the hotel (the operator gives the spa the hotel's address). OSM way 24823886.
+  RECORDED part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa data/capture/canadian-rockies-2029/ORPH7.json 2026-10-26
+- Bow River float: departs from the base of Bow Falls, near the Banff Springs golf course, with a small lot on site. OSM node 263386936 (Bow Falls); no slipway is mapped.
+  RECORDED part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch data/capture/canadian-rockies-2029/ORPH7.json 2026-10-26
+- Burgess Shale, Mount Stephen hike: meet in front of the Yoho National Park Visitor Centre in Field at 7 am MDT. The hike ends there too, after the trilobite beds above the town. OSM way 492008964 (Q69742837).
+  RECORDED part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting data/capture/canadian-rockies-2029/ORPH7.json 2026-10-26
+- Canmore scenic helicopter flights and White Mountain heli-hiking share one place: the Alpine Helicopters Canmore base at the Canmore Municipal Heliport (CEW9). White Mountain's itinerary checks in at the Canmore Heliport. OSM way 208141661 (the terminal), beside the helipad way 222350989.
+  RECORDED part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport data/capture/canadian-rockies-2029/ORPH7.json 2026-10-26
+- Norquay Via Ferrata: on the cliffs at the top of the North American Chair (operator FAQ). The point is the chair's upper station, beside the Cliffhouse Bistro (OSM way 184206150).
+  GAP: no Norquay page names a check-in point (via ferrata routes, via ferrata, FAQs and getting-here pages all read 26 Oct 2026). Base area or chair top is an open question for the operator.
+  RECORDED part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start data/capture/canadian-rockies-2029/ORPH7.json 2026-10-26
+- Yamnuska scrambling course: day 1 starts at the Yamnuska classroom in Canmore. Later days meet wherever the guide sets for the day's objective (Heart Mountain, Yamnuska, Mt. Baldy, Loder Peak; sometimes as far as Lake Louise). OSM way 362080642.
+  RECORDED part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom data/capture/canadian-rockies-2029/ORPH7.json 2026-10-26

@@ -1574,6 +1574,33 @@
       }
     },
     {
+      "id": "s-1797c947a3",
+      "url": "https://banffnorquay.com/via-ferrata/faqs",
+      "title": "Via Ferrata FAQs",
+      "publisher": "Banff Norquay",
+      "kind": "operator",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/ORPH7.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-7890bd624f",
       "url": "https://banffnorquay.com/via-ferrata/via-ferrata-routes",
       "title": "Via Ferrata Routes",
@@ -1872,8 +1899,13 @@
       "publisher": "Alpine Helicopters",
       "kind": "operator",
       "first_read": "2026-10-19",
-      "last_read": "2026-10-19",
+      "last_read": "2026-10-26",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/ORPH7.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport",
+          "field": "links"
+        },
         {
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
@@ -10531,8 +10563,13 @@
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-19",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-26",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/ORPH7.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting",
+          "field": "links"
+        },
         {
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
@@ -15960,8 +15997,13 @@
       "publisher": "Fairmont Banff Springs",
       "kind": "operator",
       "first_read": "2026-10-25",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-26",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/ORPH7.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa",
+          "field": "links"
+        },
         {
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
@@ -16076,8 +16118,13 @@
       "publisher": "Banff Adventures",
       "kind": "operator",
       "first_read": "2026-10-25",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-26",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/ORPH7.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch",
+          "field": "links"
+        },
         {
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
@@ -24572,6 +24619,27 @@
       }
     },
     {
+      "id": "s-027fafaf8b",
+      "url": "https://www.openstreetmap.org/node/263386936",
+      "title": "Bow Falls (OSM node)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "general"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-c87a519369",
       "url": "https://www.openstreetmap.org/node/360010114",
       "title": "Hotel Hacienda Guachipelin (OSM tourism=hotel)",
@@ -25181,6 +25249,27 @@
       }
     },
     {
+      "id": "s-974aa32ca2",
+      "url": "https://www.openstreetmap.org/way/184206150",
+      "title": "North American chair upper station (OSM aerialway=station, chair_lift way 23259693)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "general"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-cf33b77ea3",
       "url": "https://www.openstreetmap.org/way/192611012",
       "title": "Gurudongmar lake (OSM way 192611012)",
@@ -25201,6 +25290,48 @@
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-15e1b5707d",
+      "url": "https://www.openstreetmap.org/way/208141661",
+      "title": "Alpine Helicopters Inc. (OSM aeroway=terminal) beside Canmore Municipal Heliport CEW9 (way 222350989)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "general"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-33194b2040",
+      "url": "https://www.openstreetmap.org/way/24823886",
+      "title": "Fairmont Banff Springs (OSM tourism=hotel, wikidata Q806429)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "general"
       },
       "link": {
         "status": "unchecked",
@@ -25249,6 +25380,48 @@
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c727edd431",
+      "url": "https://www.openstreetmap.org/way/362080642",
+      "title": "Yamnuska Mountain Adventures, Lincoln Park, Canmore (OSM building)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "general"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-9bd1a86bd0",
+      "url": "https://www.openstreetmap.org/way/492008964",
+      "title": "Yoho National Park Visitor Centre (OSM tourism=information, wikidata Q69742837)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "general"
       },
       "link": {
         "status": "unchecked",
@@ -28927,8 +29100,13 @@
       "publisher": "White Mountain Adventures",
       "kind": "operator",
       "first_read": "2026-10-19",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-26",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/ORPH7.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport",
+          "field": "links"
+        },
         {
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
@@ -30396,12 +30574,17 @@
     {
       "id": "s-0d34ba4296",
       "url": "https://yamnuska.com/mountaineering/beginner-mountaineering-courses/mountain-scrambling",
-      "title": "Mountain scrambling",
+      "title": "Scrambling Skills",
       "publisher": "Yamnuska Mountain Adventures",
       "kind": "operator",
       "first_read": "2026-10-19",
-      "last_read": "2026-10-25",
+      "last_read": "2026-10-26",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/ORPH7.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom",
+          "field": "links"
+        },
         {
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",

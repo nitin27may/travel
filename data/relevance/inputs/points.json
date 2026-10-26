@@ -847,17 +847,41 @@
       "coord_src": "osm",
       "point_source": "OSM node 10809307025 (aerialway=station, Banff Gondola Upper Terminal),; replaces the Q125749525 P625 point, which is the lower terminal"
     },
+    "part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa": {
+      "lat": 51.16405,
+      "lon": -115.56146,
+      "coord_src": "osm",
+      "point_source": "OSM way 24823886 Fairmont Banff Springs (tourism=hotel, Q806429), the hotel the operator places the spa in"
+    },
     "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place": {
       "lat": 51.15086,
       "lon": -115.56062,
       "coord_src": "osm",
       "point_source": "OSM way 202233167 Banff Upper Hot Springs (public bath)"
     },
+    "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch": {
+      "lat": 51.16741,
+      "lon": -115.5609,
+      "coord_src": "osm",
+      "point_source": "OSM node 263386936 Bow Falls; the operator launches at the base of the falls (no slipway mapped in OSM within 800 m)"
+    },
+    "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting": {
+      "lat": 51.39798,
+      "lon": -116.49185,
+      "coord_src": "osm",
+      "point_source": "OSM way 492008964 Yoho National Park Visitor Centre (tourism=information, Q69742837), Field"
+    },
     "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre": {
       "lat": 51.09025,
       "lon": -115.38551,
       "coord_src": "osm",
       "point_source": "OSM way 360559335 Canmore Nordic Centre Day Lodge (1988 Olympic Way), beside the stadium (node 1193545911) and the ROAM stops; the record's type is a Nordic centre, so the point is the centre's lodge. The D1 point, Wikidata Q1003855 P625 51.0925,-115.39 (the provincial park), is 400 m north-west (failed the person-check sample); read 2026-10-25 (lane DATA-D1b); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport": {
+      "lat": 51.079,
+      "lon": -115.33859,
+      "coord_src": "osm",
+      "point_source": "OSM way 208141661 Alpine Helicopters Inc. (aeroway=terminal), beside the helipad way 222350989 Canmore Municipal Heliport CEW9"
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top": {
       "lat": 52.8515,
@@ -900,6 +924,18 @@
       "lon": -116.161,
       "coord_src": "wikidata",
       "point_source": "Q13231225 P625"
+    },
+    "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start": {
+      "lat": 51.19945,
+      "lon": -115.61191,
+      "coord_src": "osm",
+      "point_source": "OSM way 184206150 upper station of the North American chair (way 23259693), beside the Cliffhouse Bistro (node 6472399685)"
+    },
+    "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom": {
+      "lat": 51.08199,
+      "lon": -115.33984,
+      "coord_src": "osm",
+      "point_source": "OSM way 362080642 Yamnuska Mountain Adventures (Lincoln Park, Canmore), the classroom the operator names"
     },
     "part/legacy/canadian-rockies-sept-2029/sights/bow-lake#parking": {
       "lat": 51.66986,

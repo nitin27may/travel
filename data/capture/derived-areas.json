@@ -718,6 +718,13 @@
       "km": 6.7,
       "rival_km": 84.1
     },
+    "part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa": {
+      "area_id": "CA/AB/banff-national-park",
+      "via": "point",
+      "from": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sansons-peak",
+      "km": 2.2,
+      "rival_km": 17.1
+    },
     "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place": {
       "area_id": "CA/AB/banff-national-park",
       "via": "point",
@@ -725,12 +732,33 @@
       "km": 1.2,
       "rival_km": 16
     },
+    "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch": {
+      "area_id": "CA/AB/banff-national-park",
+      "via": "point",
+      "from": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
+      "km": 2.4,
+      "rival_km": 17.3
+    },
+    "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting": {
+      "area_id": "CA/BC/yoho-national-park",
+      "via": "point",
+      "from": "locations store",
+      "km": 0.4,
+      "rival_km": 15.2
+    },
     "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre": {
       "area_id": "CA/AB/kananaskis-country",
       "via": "point",
       "from": "locations store",
       "km": 4.1,
       "rival_km": 12.4
+    },
+    "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport": {
+      "area_id": "CA/AB/kananaskis-country",
+      "via": "point",
+      "from": "locations store",
+      "km": 4.7,
+      "rival_km": 15.9
     },
     "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top": {
       "area_id": "CA/AB/jasper-national-park",
@@ -769,6 +797,20 @@
       "area_id": "CA/AB/banff-national-park",
       "via": "parent",
       "from": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola"
+    },
+    "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start": {
+      "area_id": "CA/AB/banff-national-park",
+      "via": "point",
+      "from": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
+      "km": 2.7,
+      "rival_km": 22.4
+    },
+    "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom": {
+      "area_id": "CA/AB/kananaskis-country",
+      "via": "point",
+      "from": "locations store",
+      "km": 4.8,
+      "rival_km": 15.8
     },
     "part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking": {
       "area_id": "CA/BC/yoho-national-park",

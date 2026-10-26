@@ -1,0 +1,461 @@
+{
+  "schema": "capture/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "ORPH7",
+  "researched": "2026-10-26",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://canmore.alpinehelicopter.com/",
+      "title": "Canmore helicopter tours (Canmore Sightseeing Tours Base)",
+      "publisher": "Alpine Helicopters",
+      "kind": "operator",
+      "read": "2026-10-26",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.whitemountainadventures.com/heli-hiking-canadian-rockies",
+      "title": "Heli-hiking in the Canadian Rockies",
+      "publisher": "White Mountain Adventures",
+      "kind": "operator",
+      "read": "2026-10-26",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://yamnuska.com/mountaineering/beginner-mountaineering-courses/mountain-scrambling/",
+      "title": "Scrambling Skills",
+      "publisher": "Yamnuska Mountain Adventures",
+      "kind": "operator",
+      "read": "2026-10-26",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/stephen",
+      "title": "Mount Stephen guided hike",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-26",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://banffnorquay.com/via-ferrata/faqs/",
+      "title": "Via Ferrata FAQs",
+      "publisher": "Banff Norquay",
+      "kind": "operator",
+      "read": "2026-10-26",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.banffadventures.com/things-to-do/float-trips/",
+      "title": "Bow River Float Trip (Hoodoo)",
+      "publisher": "Banff Adventures",
+      "kind": "operator",
+      "read": "2026-10-26",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.banff-springs-hotel.com/wellness/spa/",
+      "title": "Fairmont Spa",
+      "publisher": "Fairmont Banff Springs",
+      "kind": "operator",
+      "read": "2026-10-26",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.openstreetmap.org/way/24823886",
+      "title": "Fairmont Banff Springs (OSM tourism=hotel, wikidata Q806429)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-26",
+      "method": "api",
+      "run": "orph7-2026-10-26-rockies-offer-places"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.openstreetmap.org/node/263386936",
+      "title": "Bow Falls (OSM node)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-26",
+      "method": "api",
+      "run": "orph7-2026-10-26-rockies-offer-places"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.openstreetmap.org/way/492008964",
+      "title": "Yoho National Park Visitor Centre (OSM tourism=information, wikidata Q69742837)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-26",
+      "method": "api",
+      "run": "orph7-2026-10-26-rockies-offer-places"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.openstreetmap.org/way/208141661",
+      "title": "Alpine Helicopters Inc. (OSM aeroway=terminal) beside Canmore Municipal Heliport CEW9 (way 222350989)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-26",
+      "method": "api",
+      "run": "orph7-2026-10-26-rockies-offer-places"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.openstreetmap.org/way/184206150",
+      "title": "North American chair upper station (OSM aerialway=station, chair_lift way 23259693)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-26",
+      "method": "api",
+      "run": "orph7-2026-10-26-rockies-offer-places"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.openstreetmap.org/way/362080642",
+      "title": "Yamnuska Mountain Adventures, Lincoln Park, Canmore (OSM building)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-26",
+      "method": "api",
+      "run": "orph7-2026-10-26-rockies-offer-places"
+    }
+  ],
+  "records": [
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa",
+      "area_id": "CA/AB/banff-national-park",
+      "type": "access.start.meeting_point",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 1.5,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Fairmont Spa, Fairmont Banff Springs",
+      "osm_ref": "way/24823886",
+      "parks_for": [
+        "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa"
+      ],
+      "price": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-26",
+        "note": "A meeting point sells nothing itself; the price is on the offer that meets here (banff-springs-spa)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banff-springs-hotel.com/wellness/spa/",
+          "state": "filled",
+          "on": "2026-10-26",
+          "src": [
+            "src-0007"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "ORPH-7",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+          "reason": "Where the offer happens: the operator gives the spa the hotel address, so the spa is inside Fairmont Banff Springs (ORPH-7)."
+        }
+      }
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch",
+      "area_id": "CA/AB/banff-national-park",
+      "type": "access.start.meeting_point",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 1.2,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Bow River float launch, base of Bow Falls",
+      "osm_ref": "node/263386936",
+      "parks_for": [
+        "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft"
+      ],
+      "price": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-26",
+        "note": "A meeting point sells nothing itself; the price is on the offer that meets here (bow-river-raft)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffadventures.com/things-to-do/float-trips/",
+          "state": "filled",
+          "on": "2026-10-26",
+          "src": [
+            "src-0006"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "ORPH-7",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+          "reason": "Where the offer meets: the operator says the tours depart from the base of Bow Falls, near the Fairmont Banff Springs Golf Course, with a small lot on site (ORPH-7)."
+        }
+      }
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting",
+      "area_id": "CA/BC/yoho-national-park",
+      "type": "access.start.meeting_point",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-bc-golden",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5962582, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 34.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Yoho National Park Visitor Centre, Field",
+      "osm_ref": "way/492008964",
+      "parks_for": [
+        "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen"
+      ],
+      "price": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-26",
+        "note": "A meeting point sells nothing itself; the price is on the offer that meets here (burgess-mt-stephen)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/stephen",
+          "state": "filled",
+          "on": "2026-10-26",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "ORPH-7",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+          "reason": "Where the offer meets and ends: Parks Canada says to meet in front of the Yoho National Park Visitor Centre in Field; the hike climbs to the Mount Stephen trilobite beds above the town (ORPH-7)."
+        }
+      }
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport",
+      "area_id": "CA/AB/kananaskis-country",
+      "type": "access.start.meeting_point",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 1.1,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Alpine Helicopters Canmore base, Canmore Municipal Heliport",
+      "osm_ref": "way/208141661",
+      "parks_for": [
+        "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+        "legacy/canadian-rockies-sept-2029/adventures/heli-hiking"
+      ],
+      "price": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-26",
+        "note": "A meeting point sells nothing itself; the price is on the offer that meets here (heli-flight-canmore, heli-hiking)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://canmore.alpinehelicopter.com/",
+          "state": "filled",
+          "on": "2026-10-26",
+          "src": [
+            "src-0001",
+            "src-0002"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "ORPH-7",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+          "reason": "Where both helicopter offers meet: the Alpine Helicopters Canmore base on Bow Valley Trail; White Mountain Adventures heli-hiking checks in at the Canmore Heliport with Alpine Helicopters (ORPH-7)."
+        }
+      }
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start",
+      "area_id": "CA/AB/banff-national-park",
+      "type": "access.start.meeting_point",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-banff",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5892532, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 3.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Norquay Via Ferrata start, top of the North American Chair",
+      "osm_ref": "way/184206150",
+      "parks_for": [
+        "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata"
+      ],
+      "price": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-26",
+        "note": "A meeting point sells nothing itself; the price is on the offer that meets here (norquay-via-ferrata)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://banffnorquay.com/via-ferrata/faqs/",
+          "state": "filled",
+          "on": "2026-10-26",
+          "src": [
+            "src-0005"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "ORPH-7",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+          "reason": "Where the offer happens: the operator says the via ferrata is on the cliffs above Mt Norquay at the top of the North American Chair. Its check-in point is not published (ORPH-7)."
+        }
+      }
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom",
+      "area_id": "CA/AB/kananaskis-country",
+      "type": "access.start.meeting_point",
+      "layer": "place",
+      "near_town": {
+        "v": "ca-ab-canmore",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): nearest GeoNames town of 1000+ people within 50 km, straight line. GeoNames 5914894, cities1000 downloaded 2026-10-25."
+      },
+      "near_town_km": {
+        "v": 0.9,
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "on": "2026-10-25",
+        "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
+      },
+      "name": "Yamnuska Mountain Adventures classroom, Canmore",
+      "osm_ref": "way/362080642",
+      "parks_for": [
+        "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble"
+      ],
+      "price": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-26",
+        "note": "A meeting point sells nothing itself; the price is on the offer that meets here (yamnuska-scramble)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://yamnuska.com/mountaineering/beginner-mountaineering-courses/mountain-scrambling/",
+          "state": "filled",
+          "on": "2026-10-26",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "ORPH-7",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+          "reason": "Where the course starts: day 1 begins at the Yamnuska classroom in Canmore; later days meet where the guide sets, by objective, in the Canmore and Kananaskis area (ORPH-7)."
+        }
+      }
+    }
+  ]
+}

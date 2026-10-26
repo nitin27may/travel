@@ -902,7 +902,7 @@ It inherits the zipline profile (height and weight limits R, braking, weather ca
 - One request at a time per host; at least 1 s between requests (Wikidata and Nominatim: 1 per second; Overpass: sequential with a cache; Commons: one runner, never parallel agents, a couple of seconds apart; the 25-minute 429 of 12 Oct 2026 is the reason).
 - At most 200 pages per host per run. Obey `Retry-After`; back off exponentially on 429 or 503, and stop the host for the run after the second 429.
 - Honour robots.txt, including `Crawl-delay`.
-- User agent: `travel-capture/1.0 (+https://nks-travel.pages.dev/about/)`. It names the project and the public site, never an email (relevance rule 6). This replaces the "contact" wording in sources-and-licences.md.
+- User agent: `travel-capture/1.0 (+https://nks-travel.pages.dev/about/)`. It names the project and the public site, never an email (relevance rule 6). sources-and-licences.md section 6 says the same (its old "with a contact" wording led a run to send an email address to Wikidata; fixed 26 Oct 2026, pinned by tools/tests/test_user_agents.py).
 - Cache every fetched page with its read date (gitignored); never re-fetch inside the property's freshness window.
 - Parallel lanes are allowed only when they hit disjoint hosts; Commons and Nominatim stay single-runner across the whole machine.
 

@@ -59,5 +59,7 @@ source, store open data under its licence in a separable layer, and link to ever
 ## 6. Robots, rate limits and politeness
 
 Honour robots.txt and terms; one request at a time per host for scrapers and importers; a descriptive
-user agent with a contact; caches for every fetched page so research never re-fetches the same page
+user agent that names the project and the public site and nothing else, never an email address or a person's name
+(`travel-capture/1.0 (+https://nks-travel.pages.dev/about/)` for a hand-run request; the script constants are in
+[../tools.md](../tools.md#user-agents)); caches for every fetched page so research never re-fetches the same page
 within its freshness window. Commons: one runner, sequential, as in lanes/media.md.
