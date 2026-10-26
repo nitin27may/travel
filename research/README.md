@@ -252,7 +252,8 @@ prose. The rule, the `meta` contract and the load pipeline: [catalogue-intake-an
 - **Nothing about travel goes in the Obsidian notes vault.** Imported notes live in `vault-notes/`.
 - **Household data never enters a public field**: no names, ages, birthdays, booking codes, phone numbers or costs of the
   family in records, sources, quotes or notes. Traveller limits are checked against limits at plan time, never stored on a
-  place. `research/` is never published, but `vault-notes/Plan.md` holds household data, so the repository stays private.
+  place. `research/` is published with the repository: the vault notes that held household data were removed (PUBLIC-SCRUB,
+  25 Oct 2026), and no note, record or run file may hold it again.
 - **Paraphrase.** `quote` is our own words or a short exact phrase, at most 300 characters. Never copy descriptions.
 
 ## 10. Scripts

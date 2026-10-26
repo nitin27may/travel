@@ -254,6 +254,14 @@
    {
     "key": "research/audits/public-repo-audit-2026-10-25.md::research/vault-notes/archive/India",
     "reason": "audit report names paths that exist only in history or are removed by the pre-public clean-up; drop when the audit is archived"
+   },
+   {
+    "key": "research/audits/public-repo-audit-2026-10-25.md::research/vault-notes/Plan.md",
+    "reason": "audit report names paths that exist only in history or are removed by the pre-public clean-up; drop when the audit is archived"
+   },
+   {
+    "key": "research/audits/public-repo-audit-2026-10-25.md::research/vault-notes/archive/",
+    "reason": "audit report names paths that exist only in history or are removed by the pre-public clean-up; drop when the audit is archived"
    }
   ],
   "3": [

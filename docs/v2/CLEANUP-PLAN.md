@@ -799,7 +799,7 @@ These cleanup decisions are a separate list from EXECUTION-PLAN's D1-D10 of 20 O
 - **Records keep old plain-text paths on purpose.** `docs/archive/**`, the handover memory notes, `STAGE4-plan.md` and `briefs/CS7d.md` are history. Their relative links are still rewritten, so they stay clickable.
 - **Tags first, every time.** Create `archive/cleanup-<phase>-<date>` on the commit just before a removal, and push it with the merge.
 - **One writer per path.** CLN-1 edits `CLAUDE.md`, `HANDOVER.md` and the build docs. The coordinator commits its own edits first.
-- **`research/vault-notes/Plan.md` holds household data.** `research/` is never published, and the repo must stay private while it is there.
+- **The vault notes that held household data were removed (PUBLIC-SCRUB, 25 Oct 2026).** The family plan, the travel preferences and the archived past trip stay in the private vault only.
 - **`legacy/_system/site/` is not dead.** `tools/location_views.py` reads its template and CSS on every `locations.json` write (the PostToolUse hook). Remove it only with that output, in CLN-6.
 - **The web app still reads `legacy/`.** `MANIFEST.json`, the Rockies `data/*.json`, the 9 `gallery.json` files, and the meta tags `tools/hub.py` scrapes all feed the trips list and pages. Nothing there is removed before TD-3 and TD-4 move it ([SKILLS-AND-DATA-ONLY.md](SKILLS-AND-DATA-ONLY.md) 7).
 - **Renaming the skill breaks `/trip-planner`.** The `trip` description still matches "plan a trip". `core/test/ops/catalogue.test.ts:115` uses `skill:trip-planner` as a free-text actor string; leave it.

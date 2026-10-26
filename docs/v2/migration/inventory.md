@@ -42,13 +42,13 @@ licence and attribution metadata from Commons).
 | File | What | Rows / size |
 |---|---|---|
 | `Travel Preferences.md` | standing household preferences (home Whitby, kids 9-12, radius ~2 h, interests, avoid rules, Conservation Authority notes) | 1 profile |
-| `Plan.md` | annual goals (1 international + 1 local), 2026 calendar tasks, India options, fall and summer idea tables, long weekends, 2026 budget | ~6 tables |
+| `Plan.md` | removed 25 Oct 2026 (PUBLIC-SCRUB: household data; private vault only) | |
 | `Day Trips Local.md` | "40 destinations" from Whitby with costs, timing, packing by type | 72 table lines |
 | `Day Trips Bike.md` | cycling day trips | 28 table lines |
 | `day-trips/*.md` | 6 detailed day trips (Elora Gorge, Spencer Gorge, Rattlesnake Point + Crawford Lake, Rockwood, Warsaw Caves, options 2026) | 6 |
 | `Nova Scotia Road Trip.md`, `Nova Scotia Halifax Loop.md` | two itinerary drafts | 361 + 346 lines |
 | `VERMONT FALL FOLIAGE TRIP.md`, `Norway Road Trip.md`, `Switzerland.md`, `Italy.md` | early notes and stubs | |
-| `archive/India Trip Oct-Nov 2024.md` | a past trip | 31 lines |
+| `archive/` (one past trip) | removed 25 Oct 2026 (PUBLIC-SCRUB: household data; private vault only) | |
 | `travel-finder/*.md` | product idea documents (input to the design, not data) | 6 |
 | `vault-trip-planner-skill/` | the vault's skill: intake, discovery, budget, maps references, templates, `make_maps.py` | reference |
 
