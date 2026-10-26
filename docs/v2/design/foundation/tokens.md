@@ -114,7 +114,9 @@ token must pass on paper.
 
 Computed at render time from the household's local date; today is day 0. The same function colours the
 switcher's second line, the needs-you due line, the booking card's "Book by" text, the task row's due, the
-trip card's next line, the badge count and the Next banner.
+trip card's next line, the badge count and the Next banner. The **Mine dot** (components 1.4: a 7 px `--accent` disc,
+"new items on this device") is not an urgency signal and never uses this rule or `--crit-fill`; amber there means
+"new since you last looked", the "now" meaning of the accent.
 
 | Level | When | Colour |
 |---|---|---|

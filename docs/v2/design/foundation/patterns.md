@@ -16,13 +16,16 @@ chip in the header is a better switcher than a rail module.
 
 | Surface | Header tabs | Trip areas | Phone |
 |---|---|---|---|
-| public | Trips · Places · Globe | none (public trip page has in-page anchors) | bottom bar Trips · Places · Globe · Sign in |
-| signed in, outside a trip | Home · Trips · Places · Globe | none | bottom bar Home · Trips · Places · Globe · Me |
+| public (signed out or in) | Trips · Places · Globe; cluster Search · Theme · Mine · Sign in or avatar | none (public trip page has in-page anchors) | header brand · Search · Sign in or Account · Theme; bottom bar **Trips · Places · Globe · Search · Mine** |
+| signed in, planner stage, outside a trip | Home · Trips · Places · Globe | none | bottom bar Home · Trips · Places · Mine · More (Globe first in More; Q207, decided with the analytics then) |
 | signed in, inside a trip | same, with the trip chip | trip bar: Plan · Today · Bookings · Tasks · Budget · Share | top bar names the trip; bottom bar [photo] Plan · Today · Bookings · More |
 
-**Planned change (25 Oct 2026, pending NAV-F):** the public phone bar becomes Trips · Places · Globe · Search · Mine, and
-the desktop right cluster gains Mine; the signed-in bar outside a trip becomes Home · Trips · Places · Mine · More at the
-planner stage; a visitor's copy lands in Mine (3.7). See [navigation-and-mine.md](../../features/navigation-and-mine.md).
+**Mine** (NAV-F, 26 Oct 2026; owner Q200 to Q207) is the visitor's own place: copied trips and favourites, kept in
+this browser when signed out and in the account when signed in, at `/mine/` (3.8). There is no More menu on the public
+site: every secondary item (units, About the data, Terms, Privacy, Report or suggest) is in the footer of every page and
+the theme is in the header. Globe stays a main item on phone and desktop. Decision record:
+[navigation-and-mine.md](../../features/navigation-and-mine.md); measurements:
+[mine-and-bar-spec.md](../shell/mine-and-bar-spec.md).
 
 "Discover" from the recommendation is renamed **Trips**: for a visitor the published trips *are* the
 trips. The signed-in household's own trips are **Home**. Names people already know beat a new noun.
@@ -46,6 +49,7 @@ means a public, read-only page.
 | Globe, place | `/globe/place/<place-slug>` (flies in, opens the selection card) | `/globe/place/lago-di-braies` |
 | Globe, trip | `/globe/trip/<trip-slug>` (fits the route, pins in the trip ring when signed in) | `/globe/trip/patagonia-2027` |
 | Globe, basemap feature | any globe URL plus `?f=<class>:<id>` (class in river, lake, sea, peak, range, park, city; id the Wikidata QID or the name): the feature card floats, the level does not change. `replaceState`, optional, never needed to resolve the page | `/globe/it?f=lake:Q13364` |
+| Mine | `/mine/`; `?show=trips` or `?show=favourites` selects the tab (`replaceState`); Favourites adds `kind`, `country`, `sort`, `page` in the list-state order; `/favourites/` redirects to `/mine/?show=favourites`. Private, noindex, never under `/trips/` | `/mine/?show=favourites&kind=lake` |
 | Globe, filters | `?show=trips` or `?show=places`, and `?kind=trail,lake` when places are shown; list-state order rule below | `/globe/ca?show=places&kind=trail` |
 | Planner home | `/home`; `?view=year` for the Year view; `?due=week` for Needs-you, all trips | `/home?view=year` |
 | Trip (last tab) | `/t/<trip-slug>` redirects to that trip's remembered tab | `/t/patagonia-2027` |
@@ -101,7 +105,8 @@ Cover: the globe, live, at 60% height with the search field centred and the hint
 Under it: "Trips" strip (6 published trip cards, newest first, "All 14 trips →"), "Places worth a trip"
 strip (8 place cards with the kind glyph and area chain), "About the data" one paragraph with the honesty
 markers explained. No sign-in prompt above the fold; "Sign in" is in the header only. First paint under
-1.5 s on a mid-range phone: the globe loads after the first strip.
+1.5 s on a mid-range phone: the globe loads after the first strip. The search field never makes the page wider than
+the viewport (at 320 px it truncates its placeholder; a 338 px overflow was measured on 26 Oct, mine-and-bar-spec 11).
 
 ### 3.2 Globe (`/globe`), full screen
 
@@ -222,7 +227,7 @@ group by country with sticky headers; cards with the kind glyph when there is no
 
 Cover 560 (trail) or 420 (place), kicker white 80% (Trail · Auronzo · Sesto Dolomites), title, summary,
 actions: public **Save to a trip** (opens the switcher for signed-in users; for visitors a notice "Sign in
-to add this to a trip" with Copy link and GPX), GPX, Share. Glance strip: six facts, each with a value and
+to add this to a trip" with Copy link and GPX), GPX, Share, then the **heart** (3.9). Glance strip: six facts, each with a value and
 a **text** provenance line ("operator · read 18 Oct 2026"). Left: The route (elevation profile + hut list)
 · Trailhead and parking (photo, facts, booking window callout with Remind me) · When to go · Who it suits
 (fit chips, honesty chip). Right: "In Dolomites · Day 3" card (signed in, when planned), mini map, Hazards,
@@ -233,12 +238,78 @@ booking window).
 
 ### 3.7 Copy and export
 
-**Copy to my trips** (signed in): a sheet asking only the start date (date picker with the shading; the
-valid window pre-highlighted) and who is going (traveller toggles); the copy keeps days, not dates, and
-lands on the new trip's Plan with a toast "Copied Dolomites · 14 days from Tue 13 Jul · Undo". Visitors see
-the same sheet with a "Sign in to save it" footer and the export options active. **Export**: PDF (the
-public page's reading order, credits included), GPX (routes and stops), CSV (stops with day, time, kind,
-coordinates, links), calendar (.ics, one all-day event per day plus timed bookings).
+**Copy to my trips** (signed in, planner stage): a sheet asking only the start date (date picker with the shading; the
+valid window pre-highlighted) and who is going (traveller toggles); the copy keeps days, not dates, and lands on the new
+trip's Plan with a toast "Copied Dolomites · 14 days from Tue 13 Jul · Undo".
+
+**Visitors** (NAV-2, now): the same sheet; nothing is preselected and the primary stays disabled until a date is picked
+(L5). The copy is kept **in this browser** as one `copies/1` item per trip (a second copy of the same trip asks "You
+already have a copy from Sat 3 Jul 2027. Copy again to replace it." **Replace** · Cancel; at most 20 per device) and
+listed in **Mine › My trips** (3.8). Footer note, signed out: "Kept in this browser. Sign in to keep it on every
+device." The done step leads with **Open in Mine** (primary), then the export list (calendar with the chosen dates,
+PDF), then Done. Toast: "Copied Dolomites to Mine · 14 days from Sat 3 Jul" with **Undo**, and the Mine dot appears
+(components 1.4). With storage blocked the done step leads with **Add to calendar** and says "This browser is not keeping
+data, so this copy lasts until you close this tab. The calendar file keeps your dates." The word "saved" is never used
+for a copy.
+
+**Export**: PDF (the public page's reading order, credits included), GPX (routes and stops), CSV (stops with day, time,
+kind, coordinates, links), calendar (.ics, one all-day event per day plus timed bookings).
+
+### 3.8 Mine (`/mine/`)
+
+The visitor's own page: copied trips and favourites, signed out or in. Full measurements, strings and acceptance
+checks: [mine-and-bar-spec.md](../shell/mine-and-bar-spec.md) 5 to 12.
+
+1. **Page head** "MINE" (`.page-head`, as `/trips/`).
+2. **Account card** under the title on every width (first focusable controls in `main`): `--surface`, 1 px `--line`,
+   radius 12, padding 12 16. Signed out: "Kept in this browser only." with **Sign in** and **Create an account** (both
+   return to `/mine/`); one line from 640 px, text then buttons on two lines on a phone. Signed in: "Signed in as
+   a@b.com" with **Account**. Sign-in off: the sentence alone.
+3. **Tabs** My trips · Favourites with counts (components 2.9 tab variant; 44 px full width on phones). Default: the tab
+   with the newest item; My trips when both are empty. `?show=` keeps the choice.
+4. **My trips**: groups Upcoming (soonest first) · No date (signed-in plans) · Past (collapsed, "Past (3)"). Row
+   (switcher row anatomy, components 1.3): photo 52 x 38 (identity ring signed in, keyline signed out), name `--t-row`
+   with a 44 px `⋯` menu button on line 1 only, line 2 mono 12.5 "Sat 3 Jul 2027 · in 251 days", line 3 mono 12.5
+   "14 days · 2 adults, 1 child"; lines 2 and 3 run under the menu column so both fit at 320 px. The row is the
+   **Open** link (signed out: the public trip with the copy's profile restored by the codec; signed in with a customised
+   copy: `/t/<id>/`). Menu: Open · Add to calendar · Print · Change dates · divider · Remove (`--crit`, last). Remove
+   collapses the row (200 ms) with a "Removed Dolomites from Mine" toast and **Undo**, no confirm (4.4). Signed in, a
+   neutral chip "On this device" or "In your account" shows only when the list mixes both.
+5. **Favourites**: a segment All · Places · Trips with counts, then Kind, Country and Sort (Newest, Name; behind
+   "Filters (n)" on a phone); list rows (components 3.2) with the kind glyph (never a photo: the snapshot has none, P8),
+   name, mono meta ("Lake · Canada"), and the pressed heart at the right, which removes with Undo; two columns from
+   1,024 px; 48 a page with the pager.
+6. **No longer listed** (a copied or favourited item withdrawn from the catalogue): glyph `warn`, the name kept, the
+   gap chip "No longer listed" (dashed `--line-2`, `--muted`), not a link, a **Remove** button in place of the menu or
+   heart. Never removed silently.
+7. **Empty states** (components 6.1): "No trips copied yet" · "Open a trip and choose Copy to my trips. It stays here
+   with your dates." · **Browse trips**; "No favourites yet" · "Tap the heart on a place or a trip to keep it here." ·
+   **Browse places**, Browse trips; storage blocked "This browser is not keeping data" · "Copies and favourites last
+   until you close this tab. Sign in to keep them." · **Sign in**. The account card stays above them.
+8. **Device notice** after the list, signed out only (banner 5.4, notice kind): "Your trips and favourites are kept in
+   this browser only. Clearing browser data, using a private window or switching devices loses them, and some browsers
+   clear site data after a few weeks without a visit. Sign in to keep them in your account." **Sign in** · **Got it**
+   (snoozes for 30 days or until 10 more items).
+
+Principles: the page answers "what have I kept, and is it safe" at a glance (P3: counts on the tabs, the card's one
+sentence); detail is one tap away (P2: the row menu); nothing pushes sign-in as a gate (P7, visitor spec V2); the lists
+are the visitor's own small data, not a catalogue load (P8, P9: only `web/lib/mine/**` reads storage).
+
+### 3.9 Favourites: the heart on place and trip pages
+
+The heart (components 2.11) sits in the cover's action row **after Share**, never before the primary action (P7): place
+pages Save to a trip · Export · Share · heart; trip pages Copy to my trips · Export trip · Share · heart. On phones the
+row wraps after the second button (measured at 390), so the heart sits beside Share. It mounts after hydration and
+adds nothing to the server HTML. Toasts (components 5.3, above the bottom bar on phones):
+
+| When | Text | Actions |
+|---|---|---|
+| first favourite on this device | "Added to favourites on this device. Sign in to keep them on every device." | **Undo** · **Sign in**, 8 s, once per device (sign-in off: "Added to favourites. They are kept in this browser." with Undo) |
+| later | "Added Moraine Lake to favourites" | **Undo** |
+| removed | "Removed Moraine Lake from favourites" | **Undo** |
+
+Every add sets the Mine dot (components 1.4). A heart never adds anything to a trip, and Save to a trip never adds a
+favourite (visitor spec 4.6).
 
 ## 4. Planner templates
 
@@ -369,6 +440,8 @@ A screen uses one density per region and never a third.
 | Globe | auto-spin 1 revolution per 90 s; on pointer down spin decays over 400 ms; drag has inertia (deceleration 2500, at rest within 600 ms); one fly-in per step, 1200 ms, with the tilt inside the last 15% of the zoom and the terrain ramp over the last 400 ms; hover styles 120 ms | resumes 20 s after the last interaction at world, 2 s after stepping out to world; off under reduced motion, where flights jump |
 | Today | the next-stop card grows into place on arrival; leave-by counts when it changes | 300 ms |
 | Toast | rise 200 ms, fade 160 ms | |
+| Mine: tab change, row removed or restored | selected fill slides, panel cross-fades; removed row collapses, Undo expands it back | 200 ms `--e-std`; panel 120 ms |
+| Heart toggled, Mine dot appears | heart fills and scales 1 to 1.15 to 1; dot scales from 0 | fill 120 ms, scale 200 ms `--e-out`; dot 200 ms `--e-out`; reduced motion: no scale |
 | Theme switch | surfaces cross-fade; images do not flash | 200 ms |
 
 Never animated: text and border colour on status change, table rows, the trip bar, form validation.

@@ -27,8 +27,8 @@ Anatomy: brand (Big Shoulders 24, "TRIP PLANS"), section tabs, spacer, right clu
 
 | Variant | Tabs | Right cluster |
 |---|---|---|
-| public (signed out) | Trips · Places · Globe | search icon (opens search, `/`), theme toggle, **Sign in** (ghost, header colours) |
-| signed in | Home · Trips · Places · Globe | trip chip (switcher), bell with count badge, theme, avatar menu (People, Inbox, Settings, Sign out) |
+| public | Trips · Places · Globe | search icon (opens search, `/`), theme toggle, **Mine** (`layers` 18 px and the label from 900 px, icon only from 640 to 899 px, mounted after hydration into reserved width), then **Sign in** (ghost, header colours) or, signed in, the avatar menu (Account, Sign out) |
+| signed in, planner stage | Home · Trips · Places · Globe | trip chip (switcher), bell with count badge, theme, Mine, avatar menu (People, Inbox, Settings, Sign out) |
 | guest by link | Trips · Places · Globe | "Shared by Nitin · view only" info chip, Copy to my trips, Sign in |
 
 Tabs: `--t-tab` (mono 13.5/500) `--header-mute`, 12 px side padding, full height; current tab `--header-ink`
@@ -36,9 +36,21 @@ Tabs: `--t-tab` (mono 13.5/500) `--header-mute`, 12 px side padding, full height
 ring. Keyboard: Tab to the tab list, arrows move, Enter opens; `aria-current="page"`. At tablet the tabs
 stay; on phone the header is 56 px with brand and the right cluster only, tabs move to the bottom bar.
 Do: keep four tabs or fewer. Don't: put trip tabs here.
-Planned change (25 Oct 2026, pending NAV-F): the public right cluster becomes search, theme, **Mine**, Sign in or the
-avatar, and the public phone bar in 1.4 becomes Trips · Places · Globe · Search · Mine, replacing the interim ACCT-PH item
-([navigation-and-mine.md](../../features/navigation-and-mine.md) section 1).
+
+**Mine in the cluster** (NAV-F, 26 Oct 2026). Ghost header button, 38 px, `--header-ink`; current on `/mine/**`
+(`aria-current="page"`): icon `--accent`, label 600. It carries the Mine dot of 1.4. The avatar menu never repeats Mine.
+Measured at 640 px with Mine icon-only and Sign in: 23 px between the last tab and the cluster, so nothing else joins
+the cluster below 900 px without re-measuring.
+
+**Phone header** (below 640 px; owner Q203, NAV-F). Brand, then **Search · Sign in or Account · Theme**, each a **44 x 44
+visual** ghost button with an 18 px glyph, 8 px apart (not 38 px with a padded hit area: padded neighbours sit 2 px
+apart). The account control is a link with the `user` glyph: signed out to `/sign-in/`, named "Sign in"; signed in to
+`/account/`, named "Account", with the glyph inside a 30 px circle drawn as a 1.5 px `--header-mute` ring (state by
+shape). Both links are server-rendered and swapped by `html[data-signed-in]`, so the control costs no start JS; no
+avatar menu below 640 px. Current (on its own page only): glyph `--accent`. Measured at 320: brand 98.4 px, tools
+148 px, 33.6 px spare inside the 292 px content width; if a change ever leaves less than 0, the brand steps down to
+`--t-row` before any target shrinks, and the tools never wrap. With sign-in off, the account link is absent. Full
+measurements, contrast and checks: [mine-and-bar-spec.md](../shell/mine-and-bar-spec.md) 2 and 4.
 
 ### 1.2 Trip header (trip bar) and trip tabs
 
@@ -82,14 +94,31 @@ Top bar (trip screens): 64 px, photo 52 x 40 with keyline, name Big Shoulders 26
 sub-line (dates · in 268 days, or TODAY · Sat 24 Oct · day trip), a 38 px icon button "Switch trip" at the
 right, 2 px identity rule at the bottom. Sticky. Outside a trip: title Big Shoulders 26 and the search icon.
 
-Bottom bar: 84 px including a 26 px home-indicator inset, `--header`, 1 px `--header-line` top,
-`--z-header`. Items 56 px wide minimum, icon 22 px, label mono 11.5 `--header-mute`; current item
+Bottom bar: 84 px including a 26 px home-indicator inset (8 px top and 4 px side padding), `--header`, 1 px
+`--header-line` top, `--z-header`, equal auto-flow columns. Items 56 x 56 minimum, icon 22 px, label mono 11.5
+(`--t-chip`) `--header-mute`, one line (at 200% zoom it may wrap to two inside the item, never truncate); current item
 `--header-ink` with the icon in `--accent`. Trip screens: **[trip photo] Plan · Today · Bookings · More**;
 the photo is 28 px in a 2 px identity ring with keyline, label "Switch", first position (thumb reach, S8).
-Outside a trip: Home · Trips · Places · Globe · Me (public: Trips · Places · Globe · Search · Sign in, which becomes Account when signed in; ACCT-PH). Badge on
-Home/Me and on the header bell: 18 px `--crit-fill` disc, `--on-crit-fill` mono 11.5/600 count, when
-something is urgent (tokens 3.1). The bar hides while a
-bottom sheet is above half height and while the keyboard is open.
+
+| Bar | Items | Status |
+|---|---|---|
+| public (signed out or in) | **Trips · Places · Globe · Search · Mine** (`cards`, `pin`, `globe`, `search` as a button that opens the header search, `layers`) | NAV-1; replaces the interim ACCT-PH "Sign in / Account" item 1:1 |
+| signed in, planner stage | Home · Trips · Places · Mine · More (Globe first in More) | later, NAV-M (nav spec 7, Q207) |
+| inside a trip | [photo] Plan · Today · Bookings · More | planner |
+
+Mine's label and icon never change with the session (no session read in the bar). Mine is current on `/mine/**`
+(`aria-current="page"`) and on `/account/**`, `/sign-in/**`, `/sign-up/**` (`aria-current="true"`, same look), computed
+from the path. Measured at 320: five items of 62.4 x 56; at 390, 76.4 x 56.
+
+**The Mine dot** (not a count): a 7 px `--accent` disc with a 2 px `--header` ring at the top right of the icon (top
+-2 px, right -4 px), set when a copy or favourite is added on this device and cleared when `/mine/` opens; the item's
+name becomes "Mine, new items" and the dot is `aria-hidden`; it appears with a 200 ms scale, none under reduced motion.
+Same dot on the desktop Mine button (1.1). It is dropped rather than raise the trip page's start-JS budget.
+
+**Count badge** (urgent only): on Home and on the header bell, an 18 px `--crit-fill` disc with an `--on-crit-fill`
+mono 11.5/600 count, when something is urgent (tokens 3.1). Mine never shows a count until a dated copy has a booking
+window opening within 7 days (planner stage). The bar hides while a bottom sheet is above half height and while the
+keyboard is open. Measurements and checks: [mine-and-bar-spec.md](../shell/mine-and-bar-spec.md) 3.
 
 ### 1.5 Breadcrumbs
 
@@ -227,7 +256,10 @@ Container 1 px `--line-2`, radius 8, segments 40 px (34 on maps and toolbars; 32
 strip), mono 13, `--ink-2`,
 1 px `--line-2` dividers; selected `--accent` fill, `--accent-ink`, 600. The selected fill slides 200 ms
 `--e-std`. `role="radiogroup"`; arrows move and select. On phone segments are icon-only with
-`aria-label` when more than three.
+`aria-label` when more than three. **Tab variant** (Mine's My trips · Favourites): the same look with `role="tablist"`,
+each segment a `tab` with `aria-selected` and `aria-controls`, arrows move and select, Home and End jump; label plus a
+mono 11.5 count ("My trips 2"); 44 px tall and full width on phone (two equal segments), 40 px on desktop. Use the tab
+variant only when the segments switch panels and the URL; filters and views stay radiogroups.
 
 ### 2.10 Search with `/`
 
@@ -235,6 +267,18 @@ strip), mono 13, `--ink-2`,
 (mono 12, 1 px `--line-2`, radius 4); `/` focuses it from anywhere except inside another input; Esc clears then blurs. Results update
 on the first character; the live count ("12 trips") updates in a polite live region. In ⌘K and the add box
 the same field drives grouped results (This trip, Near tonight's base, Elsewhere, Add "…" as my own).
+
+### 2.11 Favourite toggle (heart)
+
+An icon toggle button that keeps a place or a trip in the visitor's favourites (visitor spec, FAV-1). Secondary button
+look: `--surface` fill, 1 px `--line-2`, radius 8; 38 x 38 visual with the padded 44 px hit area from 640 px, 44 x 44
+visual below 640. Glyph 18 px heart (stroke 1.75; the path lives in the favourites chunk, never in `Icon.tsx`). Rest:
+outline `--ink` (16.06 light / 13.83 dark on `--surface`). Pressed: filled and stroked `--accent-text` (6.33 / 7.99),
+`aria-pressed="true"`; told apart by fill, not colour alone. Hover, focus, pressed-down as 2.1; never disabled. Name is
+constant, "Favourite <name>", with the state in `aria-pressed`; `title` "Favourite". Motion: fill 120 ms and a 1 to 1.15
+to 1 scale over 200 ms `--e-out`; reduced motion: fill only. Mounted after hydration, never in server HTML. Placement
+and toasts: patterns 3.9. Cards never carry the toggle; a favourited card shows an `aria-hidden` badge: 18 px filled
+heart in `--accent-text` on a 26 px `--surface` disc with a 1 px `--line-2` keyline, top right of the photo, 8 px in.
 
 ## 3. Cards and rows
 
