@@ -119,10 +119,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Aiguille du Midi top station",
-      "origin": {
-        "from": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
-        "reason": "the top station of the lift"
-      },
       "part_of": [
         "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit"
       ],
@@ -137,7 +133,15 @@
             "src-0002"
           ]
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "reason": "the top station of the lift"
+        }
+      }
     },
     {
       "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
@@ -150,9 +154,13 @@
           "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi"
         }
       ],
-      "origin": {
-        "from": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
-        "reason": "the ticket offer on the lift line"
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "reason": "the ticket offer on the lift line"
+        }
       }
     },
     {
@@ -203,9 +211,13 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Montenvers train top station",
-      "origin": {
-        "from": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-        "reason": "the top station of the lift"
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "reason": "the top station of the lift"
+        }
       }
     },
     {
@@ -219,9 +231,13 @@
           "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train"
         }
       ],
-      "origin": {
-        "from": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-        "reason": "the ticket offer on the lift line"
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "reason": "the ticket offer on the lift line"
+        }
       }
     },
     {
@@ -500,10 +516,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Lac Blanc",
-      "origin": {
-        "from": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -537,7 +549,15 @@
           "width": 5184,
           "height": 3456
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",

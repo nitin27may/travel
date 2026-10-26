@@ -5648,7 +5648,8 @@
           "src": [
             "src-0057"
           ],
-          "note": "About 30 min on foot from the Putzen car park (IDM Südtirol page); 2,000 m is our estimate at a family pace"
+          "note": "About 30 min on foot from the Putzen car park (IDM Südtirol page); 2,000 m is our estimate at a family pace",
+          "estimate": true
         },
         "access_season": {
           "v": [
@@ -5683,6 +5684,10 @@
         "walk_km": null,
         "walk_gain_m": null,
         "suit_level": "usable"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {

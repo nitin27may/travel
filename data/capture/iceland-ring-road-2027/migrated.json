@@ -75,9 +75,13 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Myvatn Nature Baths",
-      "origin": {
-        "from": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
-        "reason": "the place the offer runs at"
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
+          "reason": "the place the offer runs at"
+        }
       }
     },
     {
@@ -170,10 +174,6 @@
       "reaches": [
         "trip/iceland-ring-road-2027/sight:dettifoss"
       ],
-      "origin": {
-        "from": "trip/iceland-ring-road-2027/sight:dettifoss",
-        "reason": "the route to the place"
-      },
       "photos": [
         {
           "file": "File:Path to Dettifoss.jpg",
@@ -193,7 +193,15 @@
           "width": 3568,
           "height": 2368
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/iceland-ring-road-2027/sight:dettifoss",
+          "reason": "the route to the place"
+        }
+      }
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:geysir",
@@ -556,10 +564,6 @@
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Fjadrargljufur canyon",
-      "origin": {
-        "from": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -602,7 +606,15 @@
           "width": 5472,
           "height": 3648
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
@@ -665,10 +677,6 @@
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Svartifoss",
-      "origin": {
-        "from": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -705,7 +713,15 @@
           "width": 5371,
           "height": 1890
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:thingvellir",

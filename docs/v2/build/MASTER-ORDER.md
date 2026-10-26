@@ -2,7 +2,7 @@
 
 Written 25 Oct 2026 by travel-planner (Opus 5.5) on `public/MASTER-ORDER`, branched from `main` 09784bc (rewritten public
 history; `main` has since gained ed0056d, an e2e-only commit). **Planned only: no product code changed.** Requirement PLAN
-R-220; BACKLOG 15.220 to 15.229; owner questions Q260 to Q268 (section 7). Principles cited by number from
+R-220; BACKLOG 15.220 to 15.229; owner questions Q260 to Q268 (section 7; all answered 25 Oct 2026, yes as recommended). Principles cited by number from
 [principles.md](../design/foundation/principles.md).
 
 **The owner's request (25 Oct 2026, after answering Q200 to Q239).** "Fold the detailed plan for everything remaining,
@@ -358,6 +358,7 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | Q98, Q67, Q103, Q120, `planner_draft_signal` | CUS-C | v0.15 |
 | Google Cloud Places setup | REQ-G | v0.18 |
 | Q160 to Q167, Q190 to Q198, O-M2 to O-M6 | MCP | v0.19, v0.20 |
+| Q270 to Q279, O-AU1 (analytics export), FA-D, UA-D | the audits, CUS-C (FA-D), MCP-C (AU-D, narrowed to the MCP field list), v0.22 (G-UI, UA-D) | v0.14.1, v0.22 |
 | Q148, Q149 | Email Phase 2 | v0.21 |
 | Q177, Q183, snapshots | v1.x | v1.0 to v1.2 |
 | the publish of the public repository (scrub 6), Q182, Q266 | LOCAL-4, E2E-YML | I-track |
@@ -414,15 +415,20 @@ screenshots), T2 is the coordinator's check-all plus the mapped e2e after each m
 | **v0.12** [v0.10] | Best time to go and the trip overview | OVR-N 3, OVR-Ca 4, OVR-Cb 6, OVR-1 6, OVR-2 14, OVR-3 3, OVR-R/V 6, PHO-0 3; D8-R 8, D8 8, D7 16 (data) | 77 | none | unchanged content |
 | **v0.13** [new] | Where to stay on every trip | STY-P 2, STY-Ca 5, STY-E 6, STY-L 3, STY-Cb 5, STY-N 3, STY-1 14, STY-Q/R/V 8; D9 8.5 (data); RIS-A 8 (data) | 62.5 | none | owner: "do not miss it"; public, read-only; RELEASE-PLAN had no slot (C9) |
 | **v0.14** [new] | Trips written as data get pages | TD-1 6, TD-2 11, TD-3 5 | 22 | none | Q80's "after R2" premise is gone; before CUS so `source_trip` is a data trip id (Q267, C10) |
+| **v0.14.1** [new, audits] | Field slimming: fields nobody fills or reads leave the pages and the contract | AU-G 0.5, FA-2 6, FA-3 2, FA-D owner, FA-4 6, FA-5 3, FA-6 9, FA-7 1 ([AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md) 6) | 27.5 | none | the gate after v0.14 (Q270); before CUS-C copies the field set (Q271, 26 Oct: the only patch release) |
 | **v0.15** [v0.11] | Customise a trip (signed in) | CUS-C 10.25, CUS-1 20, CUS-2 3, CUS-R 3 | 36.25 | `custom_draft` | unchanged |
 | **v0.16** [v0.12] | Copies and favourites follow you into your account | NAV-D 2, NAV-3 6, NAV-E 2, NAV-R2/V2 4, FAV-D 4, FAV-2 12, FAV-2E 3, ORG-H 4 | 37 | `draft_cap`, `account_favourite`, `account_start` | unchanged |
 | **v0.17** [v0.13] | More edits, your own stops, base tweaks | REQ-E-C 3, REQ-E UI 8, REQ-P 5, REQ-R2/V2 4, STY-2C 2, STY-2 10, STY-2V 5, R59-3C 3, R59-3 UI 7 | 47 | none | STY-2 and R-59 part 3 had no slot (C9) |
 | **v0.18** [v0.14] | Search the map for a stop we do not have | REQ-G0 3, REQ-G-C 2, REQ-G 6, REQ-S 8, REQ-L 3, REQ-A 3, REQ-R3/V3 4 | 29 | none | unchanged |
+| (before v0.19) | Delta audit narrowed to the MCP field list (the field tool on the v0.18 commit) | AU-D 3 | 3 | none | MCP-C publishes only kept fields (Q277) |
 | **v0.19** [v0.15] | Public MCP | MCP-C 5, MCP-1 6, MCP-S1 1.5, ORG-MCP 1.5 | 14 | none | unchanged |
 | **v0.20** [v0.16] | Private MCP | MCP-G 6, MCP-T 5, MCP-2 8, MCP-O 4, MCP-U 10, MCP-S 2.5, MCP-E 3 | 38.5 | `mcp_access`, token tables | unchanged |
 | **v0.21** [v0.17] | Own domain and Email Phase 2 (on the Q148 trigger only; its number is taken when it ships) | as RELEASE-PLAN | 29 or 42.5 | mail tables | unchanged |
+| **v0.22** [new, audits; 26 Oct] | UI and UX audit and fixes, run once on the whole product just before the Postgres cutover | UA-0 5, AU-GU 0.5, UA-1 4, UA-P 3, UA-W 4.5, UA-A 0.5, UA-2 8, UA-3 6, UA-T 3, UA-D owner, UA-FX 24 (placeholder), UA-FX-R 10, UA-AF 2 | 70.5 | none | owner decision 26 Oct: the audit waits until everything is built; gate G-UI after v0.20 (and v0.21 if shipped); reads [UI-NOTES.md](UI-NOTES.md); v1.0 waits for its fixes |
 | **v1.0 to v1.2** | Postgres cutover, one seam per release | RIS-M 6, RIS-L 7, RIS-T 6, LOCAL-5 2, SRV-0 24, R-9 2 | 47 (RIS-J, RIS-H, RIS-S, LOCAL-3 ride earlier) | `research_meta`, loader tables | unchanged |
 | I (Internal, any release) | Test strategy and CI | TS-1 to TS-8 35, LOCAL-3 3, LOCAL-4 5, E2E-YML 3, RIS-S 3, RIS-H 3 | 52 | none | ride the next release |
+
+**Audits (25 Oct, amended 26 Oct, [AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md), Q270 to Q279; Q271 answered by the 26 Oct decision).** v0.14.1 (field slimming) is the only patch release, between v0.14 and v0.15. The UI and UX audit is the new release v0.22 between v0.21 and v1.0; it moved from v0.14.2 on the owner's decision of 26 Oct 2026 (the audit waits until everything is built). No other release or task is renumbered. CUS-C waits for FA-D (the owner's field approval); CUS-1 no longer waits for any UI audit (the 25 Oct note that it waits for UA-D is removed). The field tool (FA-1, B2 around v0.11 to v0.12) rides earlier as internal; the sweep harness UA-0 moved from v0.14 to just before v0.22. UI issues found during the build are appended to [UI-NOTES.md](UI-NOTES.md) so the audit starts from known items, and REC-2 keeps a screenshot set for every release because the audit compares them.
 
 Two seats in parallel means the train is not strictly serial: B2 builds v0.5 and v0.9 beside B1's v0.4 to v0.8, and
 the version number follows the deploy order (Q224). The order above is the recommended deploy order (Q262).
@@ -455,9 +461,10 @@ included where they block the next B1 task.
 | 19 | NAV-3, FAV-2, NAV-E, FAV-2E, reviews | 27 | REQ-E-C, STY-2C, R59-3C, MCP-1, MCP-S1, ORG-MCP | 17 | | |
 | 20 | REQ-E UI, REQ-P, STY-2, R59-3 UI, reviews | 39 | REQ-G0, REQ-G-C, REQ-G, REQ-A, MCP-G, MCP-T | 25 | | |
 | 21 | REQ-S, REQ-L, review | 15 | MCP-2, MCP-O | 12 | | |
-| 22 | MCP-U | 10 | MCP-S, MCP-E; then RIS-M, RIS-L, RIS-T, LOCAL-5, R-9, SRV-0 | 52.5 | | |
+| 22 | MCP-U | 10 | MCP-S, MCP-E; then RIS-M, RIS-L, RIS-T, LOCAL-5, R-9, SRV-0 (built, not deployed before v0.22) | 52.5 | | |
+| 23 | UA-0 (just before v0.22), then the UA-FX lanes after UA-D | 29 | UA-1, UA-P, UA-W, UA-A, UA-2, UA-3, UA-T by the verifier, reviewers and planner | 29.5 | | |
 
-B1 total about 355 h including the review time it waits on; B2 about 350 h; data about 90 h. LOCAL-4 and E2E-YML go in
+B1 total about 385 h including the review time it waits on; B2 about 350 h; data about 90 h. LOCAL-4 and E2E-YML go in
 when the public repository exists; Email Phase 2 only on its trigger; GLB2b when the owner approves the globe mock.
 
 ### 5.5 Corrections made to RELEASE-PLAN (each also in RELEASE-PLAN section 0)
@@ -621,26 +628,26 @@ ids resolves with `git cat-file -t`; no text other than ids and status cells cha
 | GSI-1 and MCP-O briefs predate EML-1 | wrong owned files | re-scope at brief time (C13) |
 | Three agents building at once before TS-4 | timing tests flake; machine stalls | the coordinator's interim rule in 5.1 |
 
-### 7.2 New questions for the owner (Q260 to Q268)
+### 7.2 New questions for the owner (Q260 to Q268, all answered 25 Oct 2026)
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q260 | Measure the place-size budget on catalogue content only, with shell chrome (header, footer, bar, beacon) under its own cap of today's bytes + 1 KB (BUD-1)? | **Yes** | Shell growth is checked by a separate, looser cap; the ratio no longer counts every byte a visitor downloads (as Q222 already accepted for the beacon) |
-| Q261 | Home point for builders' worktrees: put `HOME_POINT_LAT` and `HOME_POINT_LON` in a mode-600 file `~/.config/travel-secrets/home-point.env` that `~/.zshenv` exports, instead of copying the root `.env.local` into worktrees? | **Yes** | Every process of your user account sees the two variables; no worktree ever holds production secrets |
-| Q262 | Approve the renumbered train of 5.3 (v0.2 to v0.21, v1.x), with the version number still following the deploy order (Q224)? | **Yes** | Four more releases and one renumbering, against releases without hidden dependencies |
-| Q263 | The photo figure on place and trail pages (about 400 bytes: image and credit, server-rendered for previews and crawlers) as one owner-approved re-baseline in v0.7, rather than a client-only lazy figure? | **Server-render, re-baseline once** | The ratio absorbs one figure per page; a lazy figure keeps the ratio but shows no photo without JS and none in link previews |
-| Q264 | Rewrite the 684 stale commit ids in place from the commit map (H3), keeping the map in your private backup folder? | **Yes** | One large docs diff at a quiet point; the alternative leaves every old id unreadable to the public |
-| Q265 | Delete the 95 merged old-history `public/*` branches and their worktrees as one listed batch (H7)? | **Yes** | The private history stays in the private remote and the `archive/*` tags; local clutter and the risk of merging one go |
-| Q266 | Keep the Vercel Git integration disconnected (Q226) even after the scrub's step 7 links the new repository, using `git.deploymentEnabled: false` if a link is needed; and use RELEASE-PLAN 7.4's ruleset (no required pull request) instead of the scrub's "PRs required"? | **Yes to both** | Previews by hand only; direct merges by the coordinator keep working |
-| Q267 | TD-1 to TD-3 (trip pages from data) as v0.14, before customise, now that R2 no longer exists (Q80's premise)? | **Yes** | 22 h before customise; without it a trip planned through the `trip` skill has no page |
-| Q268 | Close R1 and R2 as superseded by the per-release approval of a named commit with its smoke and phone check? | **Yes** | No single big review; each release gets a small one |
+| Q260 | Measure the place-size budget on catalogue content only, with shell chrome (header, footer, bar, beacon) under its own cap of today's bytes + 1 KB (BUD-1)? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. BUD-1 is released to start.) | Shell growth is checked by a separate, looser cap; the ratio no longer counts every byte a visitor downloads (as Q222 already accepted for the beacon) |
+| Q261 | Home point for builders' worktrees: put `HOME_POINT_LAT` and `HOME_POINT_LON` in a mode-600 file `~/.config/travel-secrets/home-point.env` that `~/.zshenv` exports, instead of copying the root `.env.local` into worktrees? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. Worktrees source `~/.config/travel-secrets/home-point.env`.) | Every process of your user account sees the two variables; no worktree ever holds production secrets |
+| Q262 | Approve the renumbered train of 5.3 (v0.2 to v0.21, v1.x), with the version number still following the deploy order (Q224)? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. The renumbered train is THE train; the old numbers are legacy.) | Four more releases and one renumbering, against releases without hidden dependencies |
+| Q263 | The photo figure on place and trail pages (about 400 bytes: image and credit, server-rendered for previews and crawlers) as one owner-approved re-baseline in v0.7, rather than a client-only lazy figure? | **Server-render, re-baseline once** (ANSWERED 25 Oct 2026: yes, as recommended. Server-rendered, with one re-baseline in v0.7.) | The ratio absorbs one figure per page; a lazy figure keeps the ratio but shows no photo without JS and none in link previews |
+| Q264 | Rewrite the 684 stale commit ids in place from the commit map (H3), keeping the map in your private backup folder? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. The stale commit-id rewrite is approved.) | One large docs diff at a quiet point; the alternative leaves every old id unreadable to the public |
+| Q265 | Delete the 95 merged old-history `public/*` branches and their worktrees as one listed batch (H7)? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. Approved only for the coordinator to carry out.) | The private history stays in the private remote and the `archive/*` tags; local clutter and the risk of merging one go |
+| Q266 | Keep the Vercel Git integration disconnected (Q226) even after the scrub's step 7 links the new repository, using `git.deploymentEnabled: false` if a link is needed; and use RELEASE-PLAN 7.4's ruleset (no required pull request) instead of the scrub's "PRs required"? | **Yes to both** (ANSWERED 25 Oct 2026: yes, as recommended. Vercel Git stays off; the RELEASE-PLAN ruleset stands.) | Previews by hand only; direct merges by the coordinator keep working |
+| Q267 | TD-1 to TD-3 (trip pages from data) as v0.14, before customise, now that R2 no longer exists (Q80's premise)? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. Trips from data in v0.14.) | 22 h before customise; without it a trip planned through the `trip` skill has no page |
+| Q268 | Close R1 and R2 as superseded by the per-release approval of a named commit with its smoke and phone check? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. R1 and R2 are closed.) | No single big review; each release gets a small one |
 
 ### 7.3 Open questions this order waits on (already asked; not re-asked)
 
 Q88 (now urgent: option A is merged; v0.2), Q101 to Q108 (v0.3), Q185 and Q141 (v0.5), BACKLOG 15.44 accent folding
-(v0.6), Q240 to Q249 (origin, planned, spec merged; v0.8), Q117 to Q124 (v0.9), Q130 to Q137 (v0.10), Q93 to Q100 (v0.12),
+(v0.6), Q117 to Q124 (v0.9), Q130 to Q137 (v0.10), Q93 to Q100 (v0.12),
 Q109 to Q116 and DD-6 (v0.13), Q67, Q98, Q103, Q120 and `planner_draft_signal` (v0.15), Q160 to Q167, Q190 to Q198
-(v0.19, v0.20), Q148, Q149 (v0.21), Q170 to Q177, Q180 to Q187 (track I and v1.x), Q250 to Q258 (test strategy, spec merged), R1 item 7 (the globe mock, GLB2b). Recommendation: one reply "yes as recommended" for each block, with any
+(v0.19, v0.20), Q148, Q149 (v0.21), Q170 to Q177, Q180 to Q187 (track I and v1.x), Q91 (GLB2b inside E or after R2; the globe mock itself was approved at R1). Recommendation: one reply "yes as recommended" for each block, with any
 exception named; each block unblocks the release in brackets.
 
 ## 8. Proposed edits the owner (or a later docs lane) applies
@@ -670,4 +677,7 @@ TEST-STRATEGY once TS-5 runs.
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (AUDIT-MOVE, owner decision) | 5.3: v0.14.2 removed, v0.22 "UI and UX audit and fixes" added before v1.0, AU-D narrowed to the MCP field list (6 h to 3 h); 5.4: row 23 for UA-0 and the UA-FX lanes, B1 total about 385 h; the note that CUS-1 waits for UA-D is removed (CUS-C still waits for FA-D); 4.6 owner actions updated. UA-0 timing moves to just before v0.22; REC-2 keeps screenshots per release because the audit compares them. Nothing else renumbered |
+| 2026-10-25 (audits after release) | 5.3 gains the patch releases v0.14.1 and v0.14.2 and the delta audit row before v0.19, with a note that CUS-C waits for FA-D and CUS-1 for UA-D; 4.6 gains the audit owner actions. Detail in [AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md) (R-230 to R-237, Q270 to Q279); nothing renumbered |
+| 2026-10-25 (owner answers, ANSWERS-4) | Q260 to Q268 answered 25 Oct 2026, yes as recommended: Q260 (BUD-1 released), Q261 (home-point file), Q262 (renumbered train is THE train), Q264 to Q268 as listed. Section 7.2 rows marked; section 7.3 pruned to the questions still open (answered Q240 to Q249 and Q250 to Q258 removed; R1 item 7 replaced by Q91, the open question GLB2b waits on). Nothing else changed |
 | 2026-10-25 | First version (MASTER-ORDER, planned only): inventory deduplicated against `main`, conflict map with hot spots, pairwise UI matrix, contract order, migrations and budgets, lanes and joins, the renumbered train v0.2 to v0.21 and v1.x with corrections C0 to C14, critical path, the first five briefs, risks, Q260 to Q268, proposed CLAUDE.md and HANDOVER edits |

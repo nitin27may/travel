@@ -20,16 +20,16 @@
     { "id": "sjo", "name": "Juan Santamaria airport climate station (Alajuela)", "lat": 9.9833, "lon": -84.1667, "elev_m": 913, "zone": "America/Costa_Rica", "src": ["s-543c6eb3ba"], "note": "Station coordinates as printed in the WMO file (09 59 N, 84 10 W). The plan's departure airport in the Central Valley." }
   ],
   "season": {
-    "months": { "value": [2], "basis": "plan", "note": "The plan's own month." },
-    "label": { "value": "Mid-February", "basis": "plan" },
-    "why": { "value": "The plan's own dates, in the heart of the dry season: February is among the driest months at both airport stations.", "basis": "official", "src": ["s-415542ee1f", "s-543c6eb3ba"], "on": "2026-10-25" },
+    "months": { "v": [2], "state": "value", "basis": "our_inference", "src": [], "note": "The plan's own month." },
+    "label": { "v": "Mid-February", "state": "value", "basis": "our_inference", "src": [], "note": "The plan's own statement." },
+    "why": { "v": "The plan's own dates, in the heart of the dry season: February is among the driest months at both airport stations.", "state": "value", "basis": "official_info", "src": ["s-415542ee1f", "s-543c6eb3ba"], "read": "2026-10-25" },
     "weather": {
-      "tempC": { "value": "17 to 36 C at Liberia, 15 to 32 C at the San Jose airport (mean daily low to high in February)", "basis": "official", "src": ["s-415542ee1f", "s-543c6eb3ba"], "on": "2026-10-25", "note": "WMO 1991-2020, February: Daniel Oduber max 36.2, min 16.9, mean 28.2; Juan Santamaria max 32.0, min 15.0, mean 22.9. Values as published; the files' mean is not the midpoint of max and min. Arenal, Manuel Antonio and Uvita have no station in the WMO set." },
-      "rain": { "value": "Almost none at the two airports: about 2 mm at Liberia and 10 mm at San Jose in February, on about one day or less", "basis": "official", "src": ["s-415542ee1f", "s-543c6eb3ba"], "on": "2026-10-25", "note": "February precipitation 1.7 mm with 0.3 days >= 1 mm (Daniel Oduber); 10.4 mm with 1.1 days >= 1 mm (Juan Santamaria). Not measured for the Arenal or South Pacific bases." },
-      "daylight": { "value": "Sunrise about 06:00, sunset about 17:45 to 17:50; just under 12 hours of day", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25", "note": "core/bin/sun.ts for the first and last plan day: Liberia sunrise 06:03 to 06:00, sunset 17:49 to 17:52; San Jose airport sunrise 05:57 to 05:54, sunset 17:45 to 17:47; day 11h46m to 11h52m; civil dusk about 20 minutes after sunset." },
+      "tempC": { "v": "17 to 36 C at Liberia, 15 to 32 C at the San Jose airport (mean daily low to high in February)", "state": "value", "basis": "official_info", "src": ["s-415542ee1f", "s-543c6eb3ba"], "read": "2026-10-25", "note": "WMO 1991-2020, February: Daniel Oduber max 36.2, min 16.9, mean 28.2; Juan Santamaria max 32.0, min 15.0, mean 22.9. Values as published; the files' mean is not the midpoint of max and min. Arenal, Manuel Antonio and Uvita have no station in the WMO set." },
+      "rain": { "v": "Almost none at the two airports: about 2 mm at Liberia and 10 mm at San Jose in February, on about one day or less", "state": "value", "basis": "official_info", "src": ["s-415542ee1f", "s-543c6eb3ba"], "read": "2026-10-25", "note": "February precipitation 1.7 mm with 0.3 days >= 1 mm (Daniel Oduber); 10.4 mm with 1.1 days >= 1 mm (Juan Santamaria). Not measured for the Arenal or South Pacific bases." },
+      "daylight": { "v": "Sunrise about 06:00, sunset about 17:45 to 17:50; just under 12 hours of day", "state": "value", "basis": "our_inference", "src": ["s-f63a803989"], "read": "2026-10-25", "note": "core/bin/sun.ts for the first and last plan day: Liberia sunrise 06:03 to 06:00, sunset 17:49 to 17:52; San Jose airport sunrise 05:57 to 05:54, sunset 17:45 to 17:47; day 11h46m to 11h52m; civil dusk about 20 minutes after sunset." },
       "notes": [
-        { "text": "Civil dusk falls about 18:05 to 18:15 at both airports, so plan long drives to end by then", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" },
-        { "text": "The Arenal and South Pacific bases are not covered by any normals station found", "basis": "searched_none", "on": "2026-10-25" }
+        { "text": "Civil dusk falls about 18:05 to 18:15 at both airports, so plan long drives to end by then", "basis": "our_inference", "src": ["s-f63a803989"], "on": "2026-10-25", "method": "computed", "note": "Computed with core/bin/sun.ts." },
+        { "text": "The Arenal and South Pacific bases are not covered by any normals station found", "basis": null, "on": "2026-10-25", "state": "searched_none" }
       ]
     }
   },
@@ -44,12 +44,12 @@
       "best_for": "A dry-season loop from Guanacaste to the Pacific coast",
       "crowd": null,
       "plus": [
-        { "text": "Dry season: about 2 mm of rain in February at Liberia", "factor": "weather", "basis": "official", "src": ["s-415542ee1f"], "on": "2026-10-25" },
-        { "text": "Mild Central Valley nights, about 15 C at the San Jose airport", "factor": "weather", "basis": "official", "src": ["s-543c6eb3ba"], "on": "2026-10-25" }
+        { "text": "Dry season: about 2 mm of rain in February at Liberia", "factor": "weather", "basis": "official_info", "src": ["s-415542ee1f"], "on": "2026-10-25" },
+        { "text": "Mild Central Valley nights, about 15 C at the San Jose airport", "factor": "weather", "basis": "official_info", "src": ["s-543c6eb3ba"], "on": "2026-10-25" }
       ],
       "minus": [
-        { "text": "Hot afternoons in Guanacaste, about 36 C at Liberia", "factor": "weather", "basis": "official", "src": ["s-415542ee1f"], "on": "2026-10-25" },
-        { "text": "Short days: civil dusk soon after 18:00, so no driving late in the day", "factor": "light", "basis": "computed", "src": ["s-f63a803989"], "on": "2026-10-25" }
+        { "text": "Hot afternoons in Guanacaste, about 36 C at Liberia", "factor": "weather", "basis": "official_info", "src": ["s-415542ee1f"], "on": "2026-10-25" },
+        { "text": "Short days: civil dusk soon after 18:00, so no driving late in the day", "factor": "light", "basis": "our_inference", "src": ["s-f63a803989"], "on": "2026-10-25", "method": "computed", "note": "Computed with core/bin/sun.ts." }
       ],
       "events": [],
       "affects": [],
@@ -59,5 +59,9 @@
         { "text": "Crowd level in this window", "searched": "2026-10-25", "tried": "Not researched in this batch; the trip research gives only secondary claims, no official visitor count." }
       ]
     }
-  ]
+  ],
+  "meta": {
+    "schema_version": 1,
+    "run_id": "RIS-N"
+  }
 }
