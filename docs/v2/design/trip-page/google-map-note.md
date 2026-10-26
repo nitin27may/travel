@@ -186,7 +186,7 @@ The key row sits above the map: one line at 1440, wrapping to two at 360 px. Ite
 
 | Swatch | Label |
 |---|---|
-| 22 px disc with "1" | Stop, numbered in the day's order |
+| 22 px disc with "1" | Stop, in the day's order |
 | base square | Base for the night |
 | dashed ink line | Straight line, not a route |
 | amber line with casing (TRP2b, only when a routed leg is drawn) | Road route |

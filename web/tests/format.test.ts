@@ -14,6 +14,13 @@ describe('distance: one decimal, km or mi', () => {
     expect(formatDistance(21.5, 'mi')).toBe('13.4 mi');
     expect(formatDistance(1.609344, 'mi')).toBe('1.0 mi');
   });
+  it('prints a whole number from 100 up (P2)', () => {
+    expect(formatDistance(272.8, 'mi')).toBe('170 mi'); // 169.5 mi
+    expect(formatDistance(99.94, 'km')).toBe('99.9 km');
+    expect(formatDistance(100.4, 'km')).toBe('100 km');
+    expect(formatDistance(1234.56, 'km')).toBe('1235 km');
+    expect(formatDistance(160.934, 'mi')).toBe('100 mi');
+  });
 });
 
 describe('elevation: nearest 10, m or ft', () => {

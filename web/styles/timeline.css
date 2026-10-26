@@ -443,6 +443,7 @@
   /* the last row of the last day can be scrolled above the sheet */
   .tl-cols[data-sheet-open] { padding-bottom: var(--sheet-h); }
   .tl-mapbox { flex: 1 1 auto; min-height: 0; }
+  .tl-mapkey-slot { display: contents; }
   /* the one-line key and the Map key toggle share a row, so the map keeps the height */
   .trip-map-key { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 var(--s-3); }
   .trip-map-key .trip-map-key-toggle { margin-top: 0; }
@@ -455,14 +456,15 @@
   .trip-map-key-list[data-held] { visibility: hidden; }
   .trip-map-key-panel {
     position: absolute; z-index: 14; top: auto; bottom: 28px; left: var(--s-2); right: 64px; max-height: 50%; overflow-y: auto; overscroll-behavior: contain;
-    display: flex; flex-direction: column; align-items: stretch; gap: var(--s-2); padding: 0 var(--s-3) var(--s-3);
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-2); align-content: start; padding: var(--s-2) var(--s-3) var(--s-3);
     background: var(--surface); color: var(--ink); font: var(--t-small); border: 1px solid var(--line-2); border-radius: var(--r-3); box-shadow: var(--e-2);
   }
   /* Close stays on screen while the rest scrolls under it */
-  .trip-map-key-head { position: sticky; top: 0; z-index: 1; display: flex; justify-content: flex-end; padding: var(--s-2) 0 var(--s-1); margin-bottom: calc(-1 * var(--s-1)); background: var(--surface); }
-  .trip-map-key-panel .trip-map-key-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: var(--s-2) var(--s-3); width: 100%; }
+  .trip-map-key-head { grid-column: 2; grid-row: 1; align-self: start; position: sticky; top: 0; z-index: 1; display: flex; justify-content: flex-end; padding: 0; margin: 0; background: none; }
+  .trip-map-key-panel .trip-map-key-list { grid-column: 1; grid-row: 1; display: grid; grid-template-columns: minmax(0, 1fr); align-items: start; row-gap: var(--s-1); width: 100%; }
   .trip-map-key-panel .trip-map-key-list li { min-width: 0; align-items: flex-start; }
-  .trip-map-key-panel .trip-map-key-note { margin: 0; order: 0; flex-basis: auto; }
+  .trip-map-key-panel .trip-map-key-list li[data-line] { order: -1; }
+  .trip-map-key-panel .trip-map-key-note { grid-column: 1 / -1; margin: var(--s-2) 0 0; order: 0; flex-basis: auto; }
   .trip-map-key-more, .trip-map-key-close { min-height: 32px; padding: 0 var(--s-3); border: 1px solid var(--line-2); border-radius: var(--r-full); background: var(--surface); color: var(--ink); font: var(--t-chip); cursor: pointer; }
   .trip-map-key-more { min-height: 28px; padding: 0 var(--s-2); }
   /* N4: 44 px hit areas, the drawn size unchanged (the same pattern as .btn-icon::after in ui.css) */
@@ -489,6 +491,12 @@
 @media (max-width: 639px) {
   .tl-mapcol { bottom: var(--phone-bottombar-h); width: 100%; }
   .tl-cols[data-sheet-open] { padding-bottom: calc(var(--sheet-h) + var(--phone-bottombar-h)); }
+}
+/* M2 at 320: the map is a short strip, so the open key gives its label column every pixel it can (Close narrower, tighter padding and gaps) and the two line swatches stay above the fold */
+@media (max-width: 359px) {
+  .trip-map-key-panel { padding: var(--s-1) var(--s-2) var(--s-2); column-gap: var(--s-1); }
+  .trip-map-key-panel .trip-map-key-list li { gap: var(--s-1); }
+  .trip-map-key-close { padding: 0 var(--s-2); }
 }
 /* reduced motion: the sheet fades instead of sliding */
 @media (prefers-reduced-motion: reduce) {
