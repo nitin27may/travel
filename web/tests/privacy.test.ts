@@ -304,12 +304,15 @@ const EMAIL_PATTERNS: [string, RegExp][] = [
   ['an Italian tax code', /\b[A-Z]{6}\d{2}[A-EHLMPR-T]\d{2}[A-Z]\d{3}[A-Z]\b/],
 ];
 
+// The one address the owner chose to publish (26 Oct 2026), on the privacy page only, as the way to ask a question or have an account removed.
+const PUBLISHED_CONTACT = /nitin27may(?:@|%40)gmail\.com/g;
+
 export function emailLeaks(root: string): string[] {
   const hits: string[] = [];
   const r = (f: string) => path.relative(root, f).split(path.sep).join('/');
   for (const f of walkFiles(root).filter((x) => TEXTY.test(r(x)) || !path.extname(x))) {
     if (r(f).startsWith('_next/static/')) continue;
-    const text = readText(f);
+    const text = /^privacy[./]/.test(r(f)) ? readText(f).replace(PUBLISHED_CONTACT, '') : readText(f);
     for (const [label, re] of EMAIL_PATTERNS) if (re.test(text)) hits.push(`${r(f)}: ${label}`);
   }
   return hits;

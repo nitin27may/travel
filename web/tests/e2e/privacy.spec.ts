@@ -7,7 +7,7 @@ test.describe('privacy page (GSI-P)', () => {
     await page.goto(`${site.url}/privacy/`);
     await expect(page.getByRole('heading', { level: 1, name: 'Privacy' })).toBeVisible();
     await expect(page.locator('meta[name="robots"][content*="noindex"]')).toHaveCount(0);
-    for (const word of ['Cloudflare Web Analytics', 'Vercel', 'Neon', 'Turnstile', 'Resend']) await expect(page.locator('.prose')).toContainText(word);
+    for (const word of ['Cloudflare Web Analytics', 'Vercel', 'Neon', 'Turnstile', 'Resend', 'nitin27may@gmail.com']) await expect(page.locator('.prose')).toContainText(word);
   });
 
   for (const [name, url] of [['home', '/'], ['trip', '/trips/dolomites-2027/'], ['place', '/places/lago-di-braies/']] as const) {
