@@ -20,6 +20,10 @@ chip in the header is a better switcher than a rail module.
 | signed in, outside a trip | Home · Trips · Places · Globe | none | bottom bar Home · Trips · Places · Globe · Me |
 | signed in, inside a trip | same, with the trip chip | trip bar: Plan · Today · Bookings · Tasks · Budget · Share | top bar names the trip; bottom bar [photo] Plan · Today · Bookings · More |
 
+**Planned change (25 Oct 2026, pending NAV-F):** the public phone bar becomes Trips · Places · Globe · Search · Mine, and
+the desktop right cluster gains Mine; the signed-in bar outside a trip becomes Home · Trips · Places · Mine · More at the
+planner stage; a visitor's copy lands in Mine (3.7). See [navigation-and-mine.md](../../features/navigation-and-mine.md).
+
 "Discover" from the recommendation is renamed **Trips**: for a visitor the published trips *are* the
 trips. The signed-in household's own trips are **Home**. Names people already know beat a new noun.
 
