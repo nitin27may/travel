@@ -495,7 +495,7 @@ the visitor can never find.
 ## 11. Acceptance criteria (feature level)
 
 1. At 320 px the bar shows Trips · Places · Globe · Search · Mine, each at least 56 px wide, and Mine is current on
-   `/mine/`, `/account/` and `/sign-in/`. The phone header shows brand, search, a sign-in icon and theme without overflow;
+   `/mine/`, `/account/`, `/sign-in/` and `/sign-up/` (NAV-F D3). The phone header shows brand, search, a sign-in icon and theme without overflow;
    one tap on the icon reaches `/sign-in/`.
 2. Signed out, a visitor copies a trip, reloads, and finds it in Mine › My trips; Open restores the chosen party, pace,
    variants and additions; Add to calendar uses the chosen dates.
@@ -557,5 +557,6 @@ fields (rule 4.2.2).
 
 | Date | Change |
 |---|---|
+| 2026-10-26 | NAV-F (design reviewer, Opus): foundation written (components 1.1, 1.4, 2.9 tab variant, 2.11 heart; patterns 1.1, 1.2, 3.7 to 3.9) and the build spec [mine-and-bar-spec.md](../design/shell/mine-and-bar-spec.md). Changes written back here: Mine also current on `/sign-up/` (acceptance 1); the phone header tools are 44 px visual and the 320 px fit is measured (33.6 px spare); the signed-in phone icon is the `user` glyph in a ring, from two server links swapped by `html[data-signed-in]`; Mine tabs use tab semantics with the segmented look. ACCT-PH-RV I1 stands for the planner: ACCT-PH has no `useSignedIn` or `header-session.ts`; NAV-1 removes `ACCOUNT_LINKS`, `AccountItems.tsx`, `AccountCurrent.tsx`, the sign-in and account route layouts that mount it, the `data-acct` rules and the bar's `account` prop |
 | 2026-10-25 (later) | Owner answered Q200 to Q207: all yes, Q203 changed (sign-in also as a phone header icon). Updated N3, N6, N12, the phone header section and 320 px fit check, the header budget, the NAV-1 brief and acceptance 1; Q205 beacon is an owner action |
 | 2026-10-25 | First version from the owner's four questions of 25 Oct: decisions N1 to N12, the phone and desktop maps, the Mine page, copies on the device (`copies/1`), the sign-in merge, Globe, budgets, the later More sheet, tasks NAV-F to NAV-M, questions Q200 to Q207 |

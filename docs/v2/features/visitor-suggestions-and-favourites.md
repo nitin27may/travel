@@ -5,6 +5,11 @@
 > sign-in merge (4.4 step 1) runs on `/account/` and `/mine/` only, never from `AccountNav` on every page; FAV-1 builds
 > a panel (12 h). See [navigation-and-mine.md](navigation-and-mine.md) (PLAN R-160 to R-164). Everything else here stands.
 >
+> **Amended 26 Oct 2026 (NAV-F, design):** the heart keeps one name, "Favourite <name>", with the state in
+> `aria-pressed` (section 13's flipping names are dropped); cards carry a decorative badge only, never a toggle; the
+> Favourites panel uses list rows with the kind glyph, not photo cards. See
+> [mine-and-bar-spec.md](../design/shell/mine-and-bar-spec.md) D9, D10 and section 6, and components 2.11.
+>
 > **Amended 25 Oct 2026 (feedback and reports):** suggestions, trip requests and reports now share one intake model,
 > one "Report or suggest" sheet and one route family (`/api/v1/submissions`), specified in
 > [feedback-and-reports.md](feedback-and-reports.md) (PLAN R-90 to R-96). Every submission now needs an email
