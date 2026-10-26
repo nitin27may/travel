@@ -179,8 +179,8 @@ STY-P (B2, contract lane) stays in 3.5's order with STY-Ca; RIS-H moved from I (
 | REQ-E-C | Scheduler `moveItem`, `insertDay`, `dropDay` | 3 | Opus | requests 11 | blocked: CUS-1 | v0.17 |
 | R59-3C | (new) Base-change recompute as an operation with inverse (signed in) | 3 | Opus | TRIP-NAVIGATION-PLAN 3 | blocked: CUS-1 | v0.17 |
 | REQ-G-C | Geocode contract | 2 | Opus | requests 11 | blocked: REQ-G0 | v0.18 |
-| MCP-C | Remote contracts, levels vocabulary, annotations | 5 | Opus | MCP 14.9 | ready (core only) | v0.19 |
-| MCP-G | Migration `mcp_access`, the level check | 6 | Opus | MCP 14.9 | blocked: MCP-C | v0.20 |
+| MCP-C | Remote contracts, levels vocabulary, annotations; **(26 Oct, R-252)** the tool-to-route table (each tool names the `/api/v1` store method or operation it shares) and the test that fails on any database import or SQL under `core/src/mcp/**` ([mcp/README](../mcp/README.md) 1.1) | 5.5 | Opus | MCP 14.9 | ready (core only) | v0.19 (H) |
+| MCP-G | Migration `mcp_access`, the level check; **(26 Oct, R-252)** the check is a shared server function outside `core/src/mcp/**`, called by the MCP transport | 6 | Opus | MCP 14.9 | blocked: MCP-C | v0.20 (H) |
 | RIS-M | Migration `research_meta` | 6 | Opus | catalogue-intake 6 | ready on the child; production Q177 | v1.0 |
 
 ### 3.6 Web UI (lane W, run by B1; every row moves a budget and ends with design review then verifier)
@@ -242,8 +242,8 @@ STY-P (B2, contract lane) stays in 3.5's order with STY-Ca; RIS-H moved from I (
 
 | Id | Task | h | Model | Status | Release |
 |---|---|---|---|---|---|
-| MCP-1, MCP-S1, ORG-MCP | Public endpoint, the public half of the security review (Q225), origin tools | 6 + 1.5 + 1.5 | Sonnet, Opus | blocked: MCP-C | v0.19 |
-| MCP-T, MCP-2, MCP-O, MCP-S, MCP-E; owner O-M2, O-M3, O-M6, O-M4 | Private MCP | 5 + 8 + 4 + 2.5 + 3 | Opus, Sonnet | blocked: MCP-G | v0.20 |
+| MCP-1, MCP-S1, ORG-MCP | Public endpoint, the public half of the security review (Q225), origin tools; **(26 Oct, R-252)** MCP-1 extends the no-database test to `web/app/mcp/**` and `web/lib/mcp/**`, and every public tool calls the `CatalogueStore` method of its `/api/v1` route through `respond()`; MCP-S1 checks the test | 6 + 1.5 + 1.5 | Sonnet, Opus | blocked: MCP-C | v0.19 (H) |
+| MCP-T, MCP-2, MCP-O, MCP-S, MCP-E; owner O-M2, O-M3, O-M6, O-M4 | Private MCP; **(26 Oct, R-252)** private writes call the app's operations (validation and RLS identical); MCP-T's token logic lives in the shared server layer, not `core/src/mcp/tokens/**` | 5 + 8 + 4 + 2.5 + 3 | Opus, Sonnet | blocked: MCP-G | v0.20 |
 | MCP-3, MCP-P, REQ-M | Research proposals, approvals, intake tools | 8 + 8 + 6 | Opus, Sonnet | later | later |
 | R-14 | API/HYG loose ends: map each R-14 claim to a case on three runners; add only missing cases | 3 | Sonnet | ready | v0.6 |
 | ACC-1 | Accent folding in A16 (15.44), if the owner says yes | 3 | Opus | blocked: 15.44 | v0.6 |
@@ -445,7 +445,7 @@ RELEASE-PLAN 0a.2; data tasks per bundle are in [DATA-PLAN.md](DATA-PLAN.md) 2.
 | **v0.17** [v0.13] | **G** | More edits, your own stops, base tweaks | REQ-E-C 3, REQ-E UI 8, REQ-P 5, REQ-R2/V2 4, STY-2C 2, STY-2 10, STY-2V 5, R59-3C 3, R59-3 UI 7 | 47 | none | STY-2 and R-59 part 3 had no slot (C9) |
 | **v0.18** [v0.14] | **G** | Search the map for a stop we do not have | REQ-G0 3, REQ-G-C 2, REQ-G 6, REQ-S 8, REQ-L 3, REQ-A 3, REQ-R3/V3 4 | 29 | none | unchanged |
 | (before v0.19) | **H** | Delta audit narrowed to the MCP field list (the field tool on the v0.18 commit) | AU-D 3 | 3 | none | MCP-C publishes only kept fields (Q277) |
-| **v0.19** [v0.15] | **H** | Public MCP | MCP-C 5, MCP-1 6, MCP-S1 1.5, ORG-MCP 1.5 | 14 | none | unchanged |
+| **v0.19** [v0.15] | **H** | Public MCP | MCP-C 5.5 (with the R-252 test), MCP-1 6, MCP-S1 1.5, ORG-MCP 1.5 | 14.5 | none | unchanged |
 | **v0.20** [v0.16] | **H** | Private MCP | MCP-G 6, MCP-T 5, MCP-2 8, MCP-O 4, MCP-U 10, MCP-S 2.5, MCP-E 3 | 38.5 | `mcp_access`, token tables | unchanged |
 | **v0.21** [v0.17] | **I** | Own domain and Email Phase 2 (on the Q148 trigger only; its number is taken when it ships) | as RELEASE-PLAN | 29 or 42.5 | mail tables | unchanged |
 | **v0.22** [new, audits; 26 Oct] | **J** | UI and UX audit and fixes, run once on the whole product just before the Postgres cutover | UA-0 5, AU-GU 0.5, UA-1 4, UA-P 3, UA-W 4.5, UA-A 0.5, UA-2 8, UA-3 6, UA-T 3, UA-D owner, UA-FX 24 (placeholder), UA-FX-R 10, UA-AF 2 | 70.5 | none | owner decision 26 Oct: the audit waits until everything is built; gate G-UI after v0.20 (and v0.21 if shipped); reads [UI-NOTES.md](UI-NOTES.md); v1.0 waits for its fixes |
@@ -709,6 +709,7 @@ TEST-STRATEGY once TS-5 runs.
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (PLAN-CONSOLIDATE job 4) | MCP rule (R-252): MCP-C (+0.5 h for the no-database test and the tool-to-route table), MCP-G, MCP-1 and the private MCP rows; [mcp/README](../mcp/README.md) 1.1 |
 | 2026-10-26 (PLAN-CONSOLIDATE job 3) | 3.4's task table moved to [DATA-PLAN.md](DATA-PLAN.md) 2 (the single data plan); 3.4 keeps the ids by bundle; Q88 row closed (answered, option A); lane D's order points to DATA-PLAN; RIS-H to bundle C |
 | 2026-10-26 (PLAN-CONSOLIDATE, owner decision) | Section 0 summary of the release bundles A to K; 5.3 gains a Bundle column (rows are feature labels now); 5.4 rewritten for the bundle windows: data seat rows from DATA-PLAN 2.2 (lane S, DV-1, DV-2, the track fetcher and runs, D10 splits, the rest of the research), OVR-Ca moved to B2 row 13, RIS-H to B2 row 8, done tasks marked; corrections C16 to C18; ACCT-PH-RV narrowed and ACCT-PH-F dropped (3.6); CAT-1 fallback is bundle C. [RELEASE-PLAN](RELEASE-PLAN.md) 0a holds the rules |
 | 2026-10-26 (CATALOGUE-EARLY, owner decision) | The catalogue load moves forward from v1.0 to v0.5 as Internal (CAT-1), [CATALOGUE-EARLY.md](CATALOGUE-EARLY.md): 3.3 LOCAL-3 and LOCAL-5 to v0.5, new CAT-V; 3.8 RIS-M, RIS-L, RIS-T to v0.5, new CAT-1 and CAT-Q, SRV-0 21 h; 4.1 migration hot spot; 4.3 CAT-Q before FBK-C; 4.4 `research_meta` to v0.5; 4.6 owner actions; 5.1 lanes S and D; 5.3 rows v0.5, v1.0 and I; 5.4 data seat rows 2 to 6, B2 rows 6, 11 and 22; C15; 7.3 Q280 to Q286. No release renumbered |

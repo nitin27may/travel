@@ -19,6 +19,12 @@
 > T1 per task, T2 per stack, T3 (section 8's and RELEASE-PLAN 4.1's full gate) once per bundle. Data tasks and their bundles:
 > [DATA-PLAN.md](../DATA-PLAN.md).
 
+> **26 Oct 2026 (MCP rule, R-252; [mcp/README.md](../../mcp/README.md) 1.1):** MCP tools sit on the same typed store, contracts,
+> operations and route-handler functions as `/api/v1`, never directly on the database: no MCP code imports a database client
+> or runs SQL; `respond()` applies to every MCP response; private MCP writes run the app's operations, so validation and RLS
+> are identical. MCP-C writes a test that fails on a database import or SQL under `core/src/mcp/**`, MCP-1 extends it to
+> `web/app/mcp/**` and `web/lib/mcp/**` (ORG-MCP below follows it). The Postgres cutover (14.2) is then invisible to MCP.
+
 > **21 Oct 2026:** the entry point is now [docs/v2/PLAN.md](../../PLAN.md) (requirements, order, status, open decisions). This file stays the authority for task-level detail. L7 in section 18 is closed (PR #7 closed 21 Oct; old remote branches archived as `archive/*` tags).
 
 > **24 Oct 2026 (R-58, R-60):** the backend provider is Neon (Postgres, Managed Better Auth, Neon Realtime), not Supabase. The later catalogue store is a proposed `PostgresStore` on Neon Postgres; its loader, per-method contract parity, privacy checks and rollback are still ahead, and `JsonStore` serves the public catalogue. The private account integration is independently verified on the uncommitted session branch and is not a catalogue migration. Hosting, object storage, serverless functions and jobs are not selected. Earlier Supabase CLI, local Docker and generated-types instructions are historical; see PLAN R-58 and [NEON-SETUP.md](NEON-SETUP.md).
@@ -1086,6 +1092,7 @@ Every pending item from every source (BACKLOG, TODO, design reviews and notes, l
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (PLAN-CONSOLIDATE job 4) | Banner: the MCP rule (R-252) and its test in MCP-C and MCP-1 |
 | 2026-10-26 (PLAN-CONSOLIDATE) | Banner: release bundles A to K (R-250); v0.x are feature labels; data tasks in DATA-PLAN |
 | 2026-10-26 (CATALOGUE-EARLY, owner decision) | 4.8 SRV-0 row and 14.2: the catalogue load moves forward to v0.5 as Internal (CAT-1, with RIS-M, RIS-L, RIS-T, LOCAL-3, LOCAL-5 and the drift job CAT-V); CAT-Q (router and three `PostgresStore` methods for connected callers) before v0.10; the seams stay v1.0 to v1.2 ([CATALOGUE-EARLY.md](../CATALOGUE-EARLY.md), R-240) |
 | 2026-10-26 (H-DOCS) | Status lines fixed (MASTER-ORDER H4): Q240 to Q249 and Q250 to Q258 read as answered 25 Oct, yes as recommended, in 10.3 and 10.4; 10.4 no longer waits for Q250. Nothing else changed |
