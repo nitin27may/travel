@@ -1010,10 +1010,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Wild Water Adventures River Base",
-      "origin": {
-        "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
-        "reason": "Backlog row 5: Wild Water, 'All trips depart from the River Base at 2750 Beaverfoot Road, Golden, BC'. Put-ins and take-outs are not published; no OSM point found."
-      },
       "links": [
         {
           "kind": "official",
@@ -1030,7 +1026,15 @@
           "query": "Wild Water / River Base within 5 km of 51.25,-116.75",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+          "reason": "Backlog row 5: Wild Water, 'All trips depart from the River Base on Beaverfoot Road, Golden, BC'. Put-ins and take-outs are not published; no OSM point found."
+        }
+      }
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/bow-lake#parking",
