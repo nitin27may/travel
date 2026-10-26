@@ -907,6 +907,7 @@ another task's files. No green, no purple, tokens only. UI issues outside the ta
   trip state as W1's table; Left and Right, Home and End work and focus stays on the tab; `#day-11` from a highlight opens
   Days with the day heading focused; Back returns to the previous tab; storage blocked still loads (the SAFE-STORAGE getter
   test); the back-to-top button stays above the tab bar; trip start JS headroom at or above the value at branch start.
+- **UXB-N notes (26 Oct).** Per [uxb-components-2026-10-26.md](../design/trip-page/uxb-components-2026-10-26.md) 1, 2, 9 and components 1.6, 3.6, 3.7: tabs in a new `web/components/ui/PageTabs.tsx` (owned by UXB-1); **manual activation** (Enter or Space; arrows move focus; focus prefetches the chunk) instead of automatic; side padding 4 px under 360, 8 px to 639, 12 px from 640, so five tabs fit one row at 320 (scroll only as the overflow fallback); current underline `--accent-text`, not `--accent`; counts from 640 px; count cards are whole-card links with no inner button. Pending owner Q303 (one sticky row on phones), Q304 (no Days count), Q305 (print adds Bookings), Q306 (phone highlights as a 2 x 2 grid).
 - **Commit.** `web(UXB-1): trip tabs and the Summary (P2, P3, P4, P5, P7)`.
 
 ### 13.5 UXB-2: the party bar (B1, Sonnet, 6 h)
@@ -927,6 +928,7 @@ another task's files. No green, no purple, tokens only. UI issues outside the ta
   `p=family-7` and no ages; a reload keeps the party; a shared link with `p=family-6` shows "Shared plan" and the offer;
   the copy sheet opens with both ages; Escape closes the editor and focus returns to Edit; trip start JS headroom not lower
   than at branch start.
+- **UXB-N notes (26 Oct).** Per [uxb-components-2026-10-26.md](../design/trip-page/uxb-components-2026-10-26.md) 4 and components 2.12: a shared `web/components/ui/Stepper.tsx` (new, owned by UXB-2) for adults and children here and in the copy sheet (at a bound `aria-disabled`, never `disabled`); ages stay native selects; the copy sheet's adults go from 1 to 12 (today 1 to 10). The editor open and close is a live disclosure (components 6.4).
 - **Commit.** `web(UXB-2): party bar with each child's age, kept on this device (P2, P3, T4)`.
 
 ### 13.6 UXB-3: the trip's shape (B1, Sonnet, 5 h)
@@ -940,6 +942,7 @@ another task's files. No green, no purple, tokens only. UI issues outside the ta
 - **Acceptance.** Rockies count line reads "15 days · 4 long drive days · 5 days with a booking · 7 highlight days · 6 days
   with a warning" at the default party; the expanded table is a `<table>` with a caption; no "The plan's day" anywhere; a
   row opens Days at that day.
+- **UXB-N notes (26 Oct).** Per [uxb-components-2026-10-26.md](../design/trip-page/uxb-components-2026-10-26.md) 3 and components 6.4: the shape and each count phrase are live disclosure buttons; print shows the ribbon and the count line, not the per-day table.
 - **Commit.** `web(UXB-3): the trip's shape replaces the clock chart (P2, P3, P6)`.
 
 ### 13.7 UXB-4: when to go (B1, Sonnet, 4 h)
@@ -952,6 +955,7 @@ another task's files. No green, no purple, tokens only. UI issues outside the ta
   weather links.
 - **Acceptance.** W4 frames for the Rockies, the Dolomites and Costa Rica; month cells announce "September, best for this
   plan"; no colour-only state.
+- **UXB-N notes (26 Oct).** Per [uxb-components-2026-10-26.md](../design/trip-page/uxb-components-2026-10-26.md) 5 and components 4.7: three-letter months from 340 px content width (also at 390, where W4 allowed letters), 6 x 2 with in-cell words under 340 px; "also good" and "avoid" are 6 px foot bands (`--line-2` hatch, `--ink-2` cross-hatch), never stripes behind a label; an ordered list with hidden full names after a summary line, replacing `role="img"`.
 - **Commit.** `web(UXB-4): when to go, with the best time first and weather links (T1, T3, P6)`.
 
 ### 13.8 UXB-5: Table view (B1, Sonnet, 6 h)
@@ -963,6 +967,7 @@ another task's files. No green, no purple, tokens only. UI issues outside the ta
   print CSS.
 - **Acceptance.** Parity test of 7.4; at 320 and 390 no horizontal scroll; screen reader table list equals the days; print
   preview of Rockies Day 4.
+- **UXB-N notes (26 Oct).** Per [uxb-components-2026-10-26.md](../design/trip-page/uxb-components-2026-10-26.md) 6 and components 4.6: sticky head only from 640 px; Takes never wraps; print uses the six columns.
 - **Commit.** `web(UXB-5): table view of each day (P3, T2)`.
 
 ### 13.9 UXB-6: Bookings and Photos tabs (B1, Sonnet, 4 h)
@@ -972,6 +977,7 @@ another task's files. No green, no purple, tokens only. UI issues outside the ta
   (gallery section removed); `core/src/export/bookings.ts` (`bookRuleText`: "local" only after a time) and its parity test.
 - **Acceptance.** Rockies: 7 rows grouped by day, "0 with a published opening date", one prices line; Dolomites: "Opens 30
   days before Day 3"; Photos grouped by section with "Nearby, not in this plan" labels.
+- **UXB-N notes (26 Oct).** Per [uxb-components-2026-10-26.md](../design/trip-page/uxb-components-2026-10-26.md) 7 and 8, components 4.5: no filter row on Bookings while a trip has 12 or fewer (W7's "[Day v] [Kind v]" over 7 rows is dropped); in Photos each tile shows its credit line at rest; the tab drawn from 6 photos if the owner says yes to Q307.
 - **Commit.** `web(UXB-6): Bookings and Photos tabs (P3, P6, T1)`.
 
 ### 13.10 UXB-7: places page (B1, Sonnet, 10 h)
@@ -987,6 +993,7 @@ another task's files. No green, no purple, tokens only. UI issues outside the ta
   numbers.
 - **Acceptance.** On the 20 sample pages: no section without a value or a safety gap; at most one "Not checked yet" block
   per page plus safety rows; no value repeated; S13 median lower than before; the measurement re-run shows the drop.
+- **UXB-N notes (26 Oct).** Per [uxb-components-2026-10-26.md](../design/trip-page/uxb-components-2026-10-26.md) 10, components 6.4 and 6.5, patterns 3.11: "What is not checked" is a link to `#not-checked`, not a popover; Facts and sources is a native `details`; a single link group renders as a plain list, not a one-tab tablist.
 - **Commit.** `web(UXB-7): place pages show what is known, gaps in one block (P2, P3, P6, P8)`.
 
 ### 13.11 Reviews and verification
@@ -1038,3 +1045,4 @@ re-check the Kind filter. UXB-F applies their must lists.
 |---|---|
 | 2026-10-26 | Written by travel-planner (Opus) from the owner's live review (screenshots 8 to 11), item 7 and the delivery instruction. Planned only; R-260 to R-266, BACKLOG 15.275 to 15.289, Q293 to Q302 |
 | 2026-10-26 (owner answers, ANSWERS-6) | Owner approved the design and answered Q293 to Q302: all yes, as recommended (Q302: Stops). Status line, section 12.1 (G-UXA passed) and section 14 marked answered; implementation queued in bundle C. Nothing else changed |
+| 2026-10-26 (UXB-N) | travel-design-reviewer (Opus) wrote the component note [uxb-components-2026-10-26.md](../design/trip-page/uxb-components-2026-10-26.md) and the foundation entries (components 1.6, 2.12, 3.6, 3.7, 4.6, 4.7, 6.4, 6.5; patterns 3.10, 3.11). "UXB-N notes" lines added to briefs 13.4 to 13.10; nothing restructured. Proposed changes for the owner: Q303 to Q307 (note section 13) |

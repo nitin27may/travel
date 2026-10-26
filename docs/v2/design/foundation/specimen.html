@@ -372,6 +372,54 @@ kbd{font:500 12px var(--mono);border:1px solid var(--line-2);border-radius:4px;p
 .cq{display:grid;gap:7px;margin-top:10px;font-size:14px;line-height:1.35} .cq div{display:flex;gap:8px;align-items:flex-start} .cq .crit{color:var(--crit)} .cq .ok{color:var(--ok)}
 .tl .r{display:grid;grid-template-columns:48px 14px 1fr;gap:10px;padding:7px 0;align-items:start} .tl .t{font:600 13.5px var(--mono)} .tl i{width:12px;height:12px;border-radius:50%;border:2px solid var(--line-2);margin-top:4px;display:block} .tl .now i{background:var(--accent);border-color:var(--accent)} .tl b{font-weight:600;display:block;font-size:15.5px;line-height:1.3} .tl small{font:500 11.5px var(--mono);color:var(--muted)}
 .credits{font:400 12px/1.6 var(--mono);color:var(--muted);margin-top:40px;border-top:1px solid var(--line);padding-top:14px} .credits a{text-decoration:underline}
+/* UXB-N (26 Oct 2026): page tabs, stepper, disclosure, month strip, day table, count and highlight cards, gap block */
+.ptabs{display:flex;border-bottom:1px solid var(--line);height:48px;width:100%}
+.ptabs span{display:flex;align-items:center;gap:6px;padding:0 12px;min-width:44px;font:500 13.5px var(--mono);color:var(--muted);white-space:nowrap}
+.ptabs span small{font:400 12.5px var(--mono);color:var(--muted)}
+.ptabs span.on{color:var(--ink);font-weight:600;box-shadow:inset 0 -3px 0 var(--accent-text)}
+.ptabs.ph{width:292px}.ptabs.ph span{flex:1 1 auto;justify-content:center;padding:0 4px}
+.ptabs.p390{width:362px}.ptabs.p390 span{flex:1 1 auto;justify-content:center;padding:0 8px}
+.stp{display:grid;grid-template-columns:110px auto;gap:10px 14px;align-items:center}
+.stp .slb{font:500 12px var(--mono);color:var(--muted)}
+.stp .st{display:inline-flex;align-items:center;gap:8px}
+.stp .st b{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line-2);border-radius:8px;background:var(--surface);color:var(--ink)}
+.stp .st b.dis{opacity:.45}
+.stp .st output{width:40px;text-align:center;font:600 13.5px var(--mono);color:var(--ink)}
+.stp .selbox{height:46px;width:180px;justify-content:space-between;font:400 16px var(--serif)}
+.dsc{border-top:1px solid var(--line);padding:0}
+.dsc .sm{display:flex;align-items:center;gap:8px;min-height:44px;font:800 21px/1 var(--display);color:var(--ink)}
+.dsc .sm small{font:500 12.5px var(--mono);color:var(--muted)}
+.dsc .sm.s{font:500 12px var(--mono)}
+.mstrip{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px;max-width:705px}
+.mstrip.six{grid-template-columns:repeat(6,minmax(0,1fr));width:292px}
+.mstrip.ph{width:362px}
+.mstrip span{position:relative;display:grid;place-items:center;align-content:center;min-height:44px;padding-bottom:6px;border:1px solid var(--line-2);border-radius:4px;background:var(--surface);color:var(--ink);font:500 11.5px/1.25 var(--mono);text-align:center;overflow:hidden}
+.mstrip.ph span{min-height:32px}
+.mstrip span i{font-style:normal;font-weight:400;display:block}
+.mstrip span.best{background:var(--ink);border-color:var(--ink);color:var(--surface);font-weight:600}
+.mstrip span.good::after{content:'';position:absolute;left:0;right:0;bottom:0;height:6px;background:repeating-linear-gradient(135deg,var(--line-2) 0 2px,transparent 2px 6px)}
+.mstrip span.plan{border:2px solid var(--ink)}
+.mstrip span.nr{color:var(--muted)}
+.mstrip span.avoid{color:var(--muted)}
+.mstrip span.avoid::after{content:'';position:absolute;left:0;right:0;bottom:0;height:6px;background:repeating-linear-gradient(135deg,var(--ink-2) 0 1.5px,transparent 1.5px 6px),repeating-linear-gradient(45deg,var(--ink-2) 0 1.5px,transparent 1.5px 6px)}
+.dtab{border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);width:100%}
+.dtab caption{text-align:left;font:800 21px/1 var(--display);padding:0 0 8px;color:var(--ink)}
+.dtab th{font:500 12px var(--mono);color:var(--muted);background:var(--well);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+.dtab td,.dtab tbody th{padding:10px 12px;border-bottom:1px solid var(--line);font-size:15.5px;vertical-align:top;background:var(--surface);color:var(--ink)}
+.dtab tbody th{font:600 13.5px var(--mono);background:var(--surface);color:var(--ink)}
+.dtab tr.drv td,.dtab tr.drv th{color:var(--muted)} .dtab tr.drv td.w{padding-left:28px}
+.dtab td.tk{white-space:nowrap;font:500 13px var(--mono)}
+.dtab td .f{display:block;font:400 12.5px var(--mono);color:var(--muted)}
+.ccards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.ccard{display:grid;grid-template-columns:1fr auto;gap:4px;min-height:72px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface);text-decoration:none}
+.ccard b{font:800 21px/1 var(--display);color:var(--ink)} .ccard small{grid-column:1;font:400 12.5px/1.45 var(--mono);color:var(--muted)} .ccard .ic{grid-row:1/3;grid-column:2;align-self:center;width:16px;height:16px;color:var(--muted)}
+.hcard{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);width:200px}
+.hcard .ph{aspect-ratio:4/3;background:var(--well);display:grid;place-items:center;color:var(--muted);font:400 14.5px var(--serif)}
+.hcard img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.hcard div.b{padding:10px 12px}.hcard b{font:800 24px/1 var(--display);color:var(--ink);display:block}.hcard a{font:400 12.5px var(--mono);color:var(--accent-text)}
+.gapb{max-width:640px}.gapb h4{font:600 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.gapb dl{display:grid;grid-template-columns:120px 1fr;gap:6px 12px}.gapb dt{font:500 12px var(--mono);color:var(--ink-2)}.gapb dd{font:400 14.5px/1.4 var(--serif);color:var(--muted)}
+.credl{font:500 11.5px var(--mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:200px;margin-top:4px}
 </style>
 </head>
 <body>
@@ -723,6 +771,41 @@ kbd{font:500 12px var(--mono);border:1px solid var(--line-2);border-radius:4px;p
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px">
 <div class="empty"><div class="g"><svg class="ic" viewBox="0 0 24 24"><path d="M3 7v12M3 15h18v4M21 15v-3a3 3 0 00-3-3h-7v6M7 12.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/></svg></div><h4>No stays yet</h4><p>Where you sleep sets every day's driving.</p><button class="btn primary">Add the first stay</button></div>
 <div class="errb"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg><div><b style="font-weight:600">We couldn't load the places.</b><p style="font-size:15.5px;color:var(--muted);margin:2px 0 10px">Try again or keep reading the 57 saved offline.</p><div class="row"><button class="btn sm">Try again</button><span class="chip info">Showing cached · 2 h ago</span></div></div></div>
+</div>
+</section>
+
+<section>
+<h2 class="sec">TRIP PAGE TABS, STEPPER, DISCLOSURE, MONTH STRIP, DAY TABLE, CARDS, GAP BLOCK</h2>
+<p class="why">UXB-N, 26 Oct 2026 (components 1.6, 2.12, 3.6, 3.7, 4.5, 4.6, 4.7, 6.4, 6.5; patterns 3.10, 3.11; trip-page/uxb-components-2026-10-26.md). Approved for build in bundle C; nothing here is built yet.</p>
+<div class="col">
+<div class="ptabs"><span class="on">Summary</span><span>Days</span><span>Stops <small>76</small></span><span>Bookings <small>7</small></span><span>Photos <small>41</small></span></div>
+<div class="tag">page tabs 1440: 48 px, current --ink 600 with a 3 px --accent-text underline; counts from 640 px on Stops, Bookings, Photos</div>
+<div class="ptabs p390"><span class="on">Summary</span><span>Days</span><span>Stops</span><span>Bookings</span><span>Photos</span></div>
+<div class="tag">390: 8 px padding, 323 of 362 px</div>
+<div class="ptabs ph"><span class="on">Summary</span><span>Days</span><span>Stops</span><span>Bookings</span><span>Photos</span></div>
+<div class="tag">320: 4 px padding, Days at the 44 px minimum, 287 of 292 px: one row, no scroll</div>
+<div class="row" style="align-items:flex-start;gap:32px">
+<div class="stp"><span class="slb">Adults</span><span class="st"><b><svg class="ic" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M5 12h14"/></svg></b><output>2</output><b><svg class="ic" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M12 5v14M5 12h14"/></svg></b></span><span class="slb">Children</span><span class="st"><b><svg class="ic" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M5 12h14"/></svg></b><output>1</output><b><svg class="ic" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M12 5v14M5 12h14"/></svg></b></span><span class="slb">Child 1 age</span><span class="selbox">10 <svg class="ic" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M7 10l5 5 5-5"/></svg></span><span class="slb">At the minimum</span><span class="st"><b class="dis"><svg class="ic" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M5 12h14"/></svg></b><output>1</output><b><svg class="ic" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M12 5v14M5 12h14"/></svg></b></span></div>
+<div class="tag" style="max-width:260px">stepper 2.12: 44 px buttons; at a bound aria-disabled at 45% and still focusable; ages are a native select (46 px on phones)</div>
+</div>
+<div class="dsc" style="max-width:640px"><div class="sm"><svg class="ic" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M7 10l5 5 5-5"/></svg> THE TRIP'S SHAPE <small>Show all 15 days</small></div></div>
+<div class="dsc" style="max-width:640px"><div class="sm s"><svg class="ic" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M7 10l5 5 5-5"/></svg> Other weeks that work <small>(3)</small></div></div>
+<div class="tag">disclosure 6.4: a section (live button) and a list tail (static details); rows at least 44 px</div>
+<div class="mstrip "><span class="nr">Jan<i>&nbsp;</i></span><span class="nr">Feb<i>&nbsp;</i></span><span class="nr">Mar<i>&nbsp;</i></span><span class="nr">Apr<i>&nbsp;</i></span><span class="nr">May<i>&nbsp;</i></span><span class="good">Jun<i>good</i></span><span class="nr">Jul<i>&nbsp;</i></span><span class="good">Aug<i>good</i></span><span class="best">Sep<i>best</i></span><span class="nr">Oct<i>&nbsp;</i></span><span class="avoid">Nov<i>avoid</i></span><span class="nr">Dec<i>&nbsp;</i></span></div>
+<div class="tag">month strip 4.7, desktop: best (ink fill), good (hatched --line-2 band at the foot), avoid (cross-hatched --ink-2 band, only with a sourced reason), not researched (--muted); words in the cells</div>
+<div class="mstrip ph"><span class="nr">Jan</span><span class="nr">Feb</span><span class="nr">Mar</span><span class="nr">Apr</span><span class="nr">May</span><span class="good">Jun</span><span class="nr">Jul</span><span class="good">Aug</span><span class="best">Sep</span><span class="nr">Oct</span><span class="avoid">Nov</span><span class="nr">Dec</span></div>
+<div class="tag">390: 12 x 1, three letters (27 px cells), a legend under the strip names the patterns</div>
+<div class="mstrip six"><span class="nr">Jan<i>&nbsp;</i></span><span class="nr">Feb<i>&nbsp;</i></span><span class="nr">Mar<i>&nbsp;</i></span><span class="nr">Apr<i>&nbsp;</i></span><span class="nr">May<i>&nbsp;</i></span><span class="good">Jun<i>good</i></span><span class="nr">Jul<i>&nbsp;</i></span><span class="good">Aug<i>good</i></span><span class="best">Sep<i>best</i></span><span class="nr">Oct<i>&nbsp;</i></span><span class="avoid">Nov<i>avoid</i></span><span class="nr">Dec<i>&nbsp;</i></span></div>
+<div class="tag">320: 6 x 2 with words; single letters are never drawn</div>
+<table class="dtab" style="max-width:820px"><caption>DAY 04 · Lake Louise to Jasper townsite · 07:30 to 19:00</caption><thead><tr><th scope="col">Time</th><th scope="col">What</th><th scope="col">Kind</th><th scope="col">Where</th><th scope="col">Takes</th><th scope="col">Notes, book</th></tr></thead><tbody><tr class="drv"><th scope="row">07:30</th><td class="w">Drive to Bow Lake</td><td>drive</td><td></td><td class="tk">30 min</td><td></td></tr><tr><th scope="row">~08:15</th><td>Bow Lake</td><td>lake</td><td>Icefields Parkway</td><td class="tk">45 min</td><td></td></tr><tr><th scope="row">~12:30</th><td>Ice Explorer on the Athabasca Glacier</td><td>activity</td><td>Columbia Icefield</td><td class="tk">2 h</td><td>Book ahead: tour for the chosen day</td></tr></tbody></table>
+<table class="dtab" style="width:362px"><caption>DAY 04 · 390</caption><thead><tr><th scope="col">Time</th><th scope="col">What</th><th scope="col">Takes</th></tr></thead><tbody><tr><th scope="row">~08:15</th><td>Bow Lake<span class="f">lake · Icefields Parkway</span></td><td class="tk">45 min</td></tr><tr><th scope="row">~12:30</th><td>Ice Explorer on the Athabasca Glacier<span class="f">activity · Book ahead: tour for the chosen day</span></td><td class="tk">2 h</td></tr></tbody></table>
+<div class="tag">day table 4.6: one table per day; under 640 px three columns with kind, where and notes folded into the What cell</div>
+<div class="ccards" style="max-width:900px"><a class="ccard" href="#"><b>4 bases</b><small>14 nights</small><svg class="ic" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="ccard" href="#"><b>33 trails</b><small>186.5 km, all versions</small><svg class="ic" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="ccard" href="#"><b>28 sights</b><small>in the plan</small><svg class="ic" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="ccard" href="#"><b>7 to book ahead</b><small>none has a published opening date yet</small><svg class="ic" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a></div>
+<div class="tag">count cards 3.6: the whole card is one link; no button inside</div>
+<div class="row" style="align-items:flex-start;gap:16px"><div class="hcard"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg/330px-Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg" alt=""><div class="b"><b>Lago di Misurina</b><a href="#">Day 3</a></div></div><div><div class="hcard"><div class="ph">No licensed photo yet</div><div class="b"><b>Moraine Lake</b><a href="#">Day 11</a></div></div></div><div><div class="hcard" style="border:0;background:none"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg/330px-Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg" alt="" style="border-radius:8px"></div><div class="credl">kallerna · CC BY-SA 4.0</div></div></div>
+<div class="tag">highlight cards 3.7 (photo, or the glyph well with "No licensed photo yet"; day signs are their own links) · Photos tab tile with its credit line at rest (4.5)</div>
+<div class="gapb"><h4>Not checked yet</h4><dl><dt>Route</dt><dd>track high point, turnaround points</dd><dt>When to go</dt><dd>best weeks, best time of day, snow-free window</dd><dt>Facilities</dt><dd>toilets, drinking water, shade, phone signal</dd></dl></div>
+<div class="tag">"Not checked yet" block 6.5: one block at the end of a place page; safety gaps keep their own rows</div>
 </div>
 </section>
 
