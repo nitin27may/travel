@@ -1,0 +1,275 @@
+{
+  "schema": "capture-run/1",
+  "run": "d8r-bookings-2026-10-26-rockies",
+  "started": "2026-10-26",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "types": [
+      "access.pass.shuttle_seat",
+      "access.pass.park_pass",
+      "access.park.parking",
+      "wheels.drive.vehicle_tour",
+      "stay.camp.campground"
+    ],
+    "refs": [
+      "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
+      "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+      "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+      "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+      "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
+      "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
+      "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
+      "offer/legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use#conservation-pass",
+      "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+      "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat",
+      "offer/place/banff-national-park#frontcountry-campsite",
+      "offer/place/banff-national-park#parks-canada-admission",
+      "offer/place/interlakes-campground#campsite",
+      "offer/place/lake-ohara#day-use-bus"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "parks.canada.ca",
+      "requests": 16,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.pc.gc.ca",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "partial"
+    },
+    {
+      "host": "roamtransit.com",
+      "requests": 3,
+      "robots": "allowed",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "roamtransit.betterez.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.banffjaspercollection.com",
+      "requests": 3,
+      "robots": "allowed",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.alberta.ca",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "conservationpass.alberta.ca",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "albertaparks.ca",
+      "requests": 2,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat",
+      "field": "window",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+      "reason": "re-read 2026-10-26: the stored rule (rolling, 2 days before, 08:00 Mountain, spring launch for 40%) still matches; the record (lane CS7) was not edited"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat",
+      "field": "price",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+      "reason": "re-read 2026-10-26: adult 12.75, senior 6.00, youth 4.00 CAD plus 3.50 online fee, as stored; not edited"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "field": "window",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.banffjaspercollection.com/attractions/columbia-icefield/",
+        "https://www.banffjaspercollection.com/attractions/columbia-icefield-adventure/tickets/"
+      ],
+      "reason": "stored as none_stated"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "field": "book_url",
+      "outcome": "filled",
+      "src": "https://www.banffjaspercollection.com/attractions/columbia-icefield-adventure/tickets/",
+      "reason": "stored; the engine still reports it missing because book_url has no home in the registry (RIS-H)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "field": "activity_min",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.banffjaspercollection.com/attractions/columbia-icefield/",
+        "https://www.banffjaspercollection.com/attractions/columbia-icefield-adventure/tickets/"
+      ],
+      "reason": "stored as searched_none; no home in the registry (RIS-H)"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+      "field": "window",
+      "outcome": "gap",
+      "src": "https://roamtransit.com/fares/reservations/super-pass-reservations/",
+      "reason": "value found and sourced, not stored: a new access offer needs summary and access_cost, whose only home is the relevance sidecar, and no relevance class fits a pass (owner decision, run note D8R-rockies-bookings)"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+      "field": "price",
+      "outcome": "gap",
+      "src": "https://roamtransit.com/fares/reservations/super-pass-reservations/",
+      "reason": "value found and sourced, not stored: a new access offer needs summary and access_cost, whose only home is the relevance sidecar, and no relevance class fits a pass (owner decision, run note D8R-rockies-bookings)"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use#conservation-pass",
+      "field": "window",
+      "outcome": "gap",
+      "src": "https://www.alberta.ca/kananaskis-conservation-pass",
+      "reason": "value found and sourced, not stored: a new access offer needs summary and access_cost, whose only home is the relevance sidecar, and no relevance class fits a pass (owner decision, run note D8R-rockies-bookings)"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use#conservation-pass",
+      "field": "price",
+      "outcome": "gap",
+      "src": "https://www.alberta.ca/kananaskis-conservation-pass",
+      "reason": "value found and sourced, not stored: a new access offer needs summary and access_cost, whose only home is the relevance sidecar, and no relevance class fits a pass (owner decision, run note D8R-rockies-bookings)"
+    },
+    {
+      "ref": "offer/place/banff-national-park#parks-canada-admission",
+      "field": "window",
+      "outcome": "gap",
+      "src": "https://parks.canada.ca/voyage-travel/admission",
+      "reason": "value found and sourced, not stored: no place record for it to hang on (a park or Lake O'Hara place is needed first); proposal in the run note"
+    },
+    {
+      "ref": "offer/place/banff-national-park#parks-canada-admission",
+      "field": "price",
+      "outcome": "gap",
+      "src": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+      "reason": "value found and sourced, not stored: no place record for it to hang on (a park or Lake O'Hara place is needed first); proposal in the run note"
+    },
+    {
+      "ref": "offer/place/lake-ohara#day-use-bus",
+      "field": "window",
+      "outcome": "gap",
+      "src": [
+        "https://parks.canada.ca/termes-terms/reservation",
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit"
+      ],
+      "reason": "value found and sourced, not stored: no place record for it to hang on (a park or Lake O'Hara place is needed first); proposal in the run note"
+    },
+    {
+      "ref": "offer/place/lake-ohara#day-use-bus",
+      "field": "price",
+      "outcome": "gap",
+      "src": "https://parks.canada.ca/pn-np/bc/yoho/visit/tarifs-fees",
+      "reason": "value found and sourced, not stored: no place record for it to hang on (a park or Lake O'Hara place is needed first); proposal in the run note"
+    },
+    {
+      "ref": "offer/place/banff-national-park#frontcountry-campsite",
+      "field": "window",
+      "outcome": "gap",
+      "src": "https://parks.canada.ca/voyage-travel/reserve",
+      "reason": "value found and sourced, not stored: no place record for it to hang on (a park or Lake O'Hara place is needed first); proposal in the run note; camping is not in the plan"
+    },
+    {
+      "ref": "offer/place/interlakes-campground#campsite",
+      "field": "window",
+      "outcome": "gap",
+      "src": [
+        "https://albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/camping/interlakes/",
+        "https://albertaparks.ca/albertaparks-ca/visit-our-parks/camping-in-alberta-parks/online-reservations/reservation-faqs/"
+      ],
+      "reason": "value found and sourced, not stored: no place record for it to hang on (a park or Lake O'Hara place is needed first); proposal in the run note; camping is not in the plan"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+      "field": "access_season",
+      "outcome": "gap",
+      "src": "https://parks.canada.ca/pn-np/bc/yoho/visit/heures-hours",
+      "reason": "official: Yoho Valley Road open mid-June to mid-October, weather permitting; not stored here (access_season belongs to the D8-R overview-facts lane, OV.json)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+      "field": "closures",
+      "outcome": "gap",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/bulletins/06d4ef61-a3c9-4b65-8dfc-66d056252d6c",
+        "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/promenade-de-la-vallee-de-la-bow-bow-valley-parkway"
+      ],
+      "reason": "official: trail and day-use area closed 13 Oct to 11 Dec 2026 for construction; fall vehicle restriction on the eastern Bow Valley Parkway (1 Sep to 6 Oct 2026, pilot to 2030), so reach it from Castle Junction. Not stored (closures belong to the overview-facts lane)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "field": "group_min",
+      "outcome": "ask",
+      "to": "Parks Canada, Banff (Lake Louise visitor centre)",
+      "contact_url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+      "question": "When Group Access is in effect on the Moraine Lake area trails, does a child count toward the group of four, and is the in-effect period announced each year by bulletin?",
+      "tried": [
+        "https://www.pc.gc.ca/pn-np/mtn/ours-bears/gestion-management/ours-bears/moraine (404 on 2026-10-26)",
+        "https://parks.canada.ca/pn-np/ab/banff/bulletins (no Group Access bulletin in force on 2026-10-26)"
+      ]
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
+      "field": "window",
+      "outcome": "filled",
+      "src": "data/capture/canadian-rockies-2029/migrated.json",
+      "reason": "read on 2026-10-25 by DATA-D4a; inside the freshness window, so not re-fetched; used as stored"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
+      "field": "window",
+      "outcome": "filled",
+      "src": "data/capture/canadian-rockies-2029/migrated.json",
+      "reason": "read on 2026-10-25 by DATA-D4a; inside the freshness window, so not re-fetched; used as stored"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
+      "field": "window",
+      "outcome": "filled",
+      "src": "data/capture/canadian-rockies-2029/migrated.json",
+      "reason": "read on 2026-10-25 by DATA-D4a; inside the freshness window, so not re-fetched; used as stored"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+      "field": "window",
+      "outcome": "filled",
+      "src": "data/capture/canadian-rockies-2029/migrated.json",
+      "reason": "read on 2026-10-25 by DATA-D4a; inside the freshness window, so not re-fetched; used as stored"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
+      "field": "window",
+      "outcome": "filled",
+      "src": "data/capture/canadian-rockies-2029/migrated.json",
+      "reason": "read on 2026-10-25 by DATA-D4a; inside the freshness window, so not re-fetched; used as stored"
+    }
+  ]
+}

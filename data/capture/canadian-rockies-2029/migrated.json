@@ -879,6 +879,15 @@
       "kind": "official",
       "read": "2026-10-25",
       "method": "read"
+    },
+    {
+      "id": "src-0098",
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield-adventure/tickets/",
+      "title": "Columbia Icefield Adventure tickets",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-26",
+      "method": "read"
     }
   ],
   "records": [
@@ -5611,6 +5620,43 @@
           "https://www.banffjaspercollection.com/attractions/columbia-icefield/tickets/ (404)"
         ],
         "note": "The page links 2027 Tickets & Pricing but states no fare; the tickets URL answered 404."
+      },
+      "window": {
+        "v": null,
+        "state": "none_stated",
+        "basis": "operator_info",
+        "src": [
+          "src-0090"
+        ],
+        "read": "2026-10-26",
+        "on": "2026-10-26",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/columbia-icefield/",
+          "https://www.banffjaspercollection.com/attractions/columbia-icefield-adventure/tickets/"
+        ],
+        "note": "The operator pages sell timed departures online and by phone (fares and times load in the booking widget) but state no booking window or lead time (D8-R bookings run)."
+      },
+      "activity_min": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-26",
+        "tried": [
+          "https://www.banffjaspercollection.com/attractions/columbia-icefield/",
+          "https://www.banffjaspercollection.com/attractions/columbia-icefield-adventure/tickets/"
+        ],
+        "note": "The operator gives the whole experience as 2 to 3 hours but not the time spent on the glacier itself."
+      },
+      "book_url": {
+        "v": "https://www.banffjaspercollection.com/attractions/columbia-icefield-adventure/tickets/",
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0098"
+        ],
+        "read": "2026-10-26",
+        "quote": "Buy Tickets"
       },
       "links": [
         {
