@@ -1,13 +1,17 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Banner } from '@/components/ui/Banner';
 import { ButtonLink } from '@/components/ui/Button';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Icon } from '@/components/ui/Icon';
 import { useToast } from '@/components/ui/Toast';
+import { writeSession } from '@/lib/storage/safe';
 import { removeById, undoRemove } from '@/lib/mine/copies';
+import type { WriteFailure } from '@/lib/mine/copies';
+import { PRINT_KEY } from '@/lib/mine/keys';
 import { groupRows, localToday, openHref, rowTitle } from '@/lib/mine/rows';
 import type { RowModel } from '@/lib/mine/rows';
 import { resolveListing } from '@/lib/mine/listing';
@@ -32,28 +36,6 @@ interface Props {
 
 const reduced = (): boolean => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/** Prints the page a copy opens, from a hidden same-origin frame once it has loaded (the print dialog opens over Mine). */
-function printOpened(href: string): void {
-  const f = document.createElement('iframe');
-  f.setAttribute('aria-hidden', 'true');
-  f.tabIndex = -1;
-  f.title = 'Print';
-  f.style.cssText = 'position:fixed;left:-10000px;top:0;width:1024px;height:768px;border:0;';
-  f.src = href;
-  f.addEventListener('load', () => {
-    // the trip page builds its print view after it hydrates
-    setTimeout(() => {
-      try {
-        f.contentWindow?.focus();
-        f.contentWindow?.print();
-      } finally {
-        setTimeout(() => f.remove(), 60_000);
-      }
-    }, 1500);
-  });
-  document.body.appendChild(f);
-}
-
 /** The My trips panel (spec 5.2): Upcoming, Past (collapsed with its count), rows with the menu, Undo for Remove and Change dates. */
 export function MyTrips({ items, storage, signedIn, didNotFit, onChanged }: Props) {
   const { toast } = useToast();
@@ -63,7 +45,9 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged }: Prop
   const [restored, setRestored] = useState<string | null>(null);
   const [editing, setEditing] = useState<CopyItem | null>(null);
   const [pastOpen, setPastOpen] = useState(false);
-  const [focus, setFocus] = useState<string | null>(null);
+  // where focus goes once the list has re-rendered after Remove or Undo; a ref, so no state is set from an effect
+  const focusNext = useRef<{ id: string | null } | null>(null);
+  const router = useRouter();
   const root = useRef<HTMLDivElement>(null);
 
   // which trips are still listed, and their current names; a failed answer changes nothing
@@ -87,13 +71,15 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged }: Prop
   }, [items, today, listing]);
   const flat = useMemo(() => [...groups.upcoming, ...(pastOpen ? groups.past : [])], [groups, pastOpen]);
 
-  // after Remove or Undo, focus goes to a row's link (or the empty state's action)
+  // after Remove or Undo focus goes to a row's link; with no row left, to the Past toggle, the empty state's action, then the Mine tab
   useEffect(() => {
-    if (!focus) return;
-    const el = focus === 'empty' ? root.current?.querySelector<HTMLElement>('.empty a') : root.current?.querySelector<HTMLElement>(`[data-copy-id="${focus}"] .crow-link`);
+    const want = focusNext.current;
+    if (!want) return;
+    focusNext.current = null;
+    const q = (sel: string) => root.current?.querySelector<HTMLElement>(sel) ?? document.querySelector<HTMLElement>(sel);
+    const el = (want.id ? q(`[data-copy-id="${want.id}"] .crow-link`) : null) ?? q('#mt-past .mt-toggle') ?? q('.empty a') ?? q('#mine-tab-trips');
     el?.focus();
-    setFocus(null);
-  }, [focus, items]);
+  }, [items]);
 
   const calendar = useCallback(
     async (r: RowModel) => {
@@ -116,13 +102,15 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged }: Prop
       setCollapsing(r.item.id);
       setTimeout(
         () => {
-          const res = removeById(storage, r.item.id);
+          let res = removeById(storage, r.item.id);
+          // another tab wrote between our read and our write: read again and retry once, silently
+          if (!res.ok && res.reason === 'changed') res = removeById(storage, r.item.id);
           setCollapsing(null);
           if (!res.ok) {
-            toast({ message: res.reason === 'newer' || res.reason === 'corrupt' || res.reason === 'invalid' ? 'We could not change your trips. Reload the page and try again.' : 'Could not remove that copy. Try again.' });
+            toast({ message: failMessage(res.reason) });
             return;
           }
-          setFocus(next ? next.item.id : 'empty');
+          focusNext.current = { id: next ? next.item.id : null };
           onChanged();
           toast({
             message: `Removed ${r.title} from Mine`,
@@ -130,7 +118,7 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged }: Prop
             onAction: () => {
               if (undoRemove(storage, res.removed)) {
                 setRestored(res.removed.id);
-                setFocus(res.removed.id);
+                focusNext.current = { id: res.removed.id };
                 onChanged();
               } else {
                 toast({ message: `Could not put ${r.title} back: you have copied that trip again or the list is full.` });
@@ -151,7 +139,12 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged }: Prop
     restored: restored === r.item.id,
     chip: signedIn,
     onCalendar: calendar,
-    onPrint: (x: RowModel) => printOpened(openHref(x.item)),
+    // one-shot hand-off (spec 5.2): the trip page's export menu reads it, prints its print view, and removes it. Never a URL key; with storage
+    // blocked the write fails and Print simply opens the trip, where Export > PDF is one tap away
+    onPrint: (x: RowModel) => {
+      writeSession(PRINT_KEY, x.item.slug);
+      router.push(openHref(x.item));
+    },
     onChangeDates: (x: RowModel) => setEditing(x.item),
     onRemove: remove,
   });
@@ -215,6 +208,15 @@ export function MyTrips({ items, storage, signedIn, didNotFit, onChanged }: Prop
       ) : null}
     </div>
   );
+}
+
+/** The Remove toast's words for each reason a write was refused (NAV-R2 should 6). */
+function failMessage(reason: WriteFailure): string {
+  if (reason === 'quota') return 'This browser is out of space for this site, so nothing was written.';
+  if (reason === 'changed') return 'Your trips changed in another tab. Try again.';
+  if (reason === 'blocked' || reason === 'unverified') return 'This browser is not keeping data, so nothing was written.';
+  if (reason === 'newer' || reason === 'corrupt' || reason === 'invalid') return 'We could not change your trips. Reload the page and try again.';
+  return 'Could not remove that copy. Try again.';
 }
 
 function DidNotFit({ n }: { n: number }) {

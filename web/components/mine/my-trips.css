@@ -2,7 +2,7 @@
 .mytrips { display: grid; gap: var(--s-6); }
 .mt-note { margin-bottom: 0; }
 .mt-head { display: flex; align-items: center; justify-content: space-between; margin: 0 0 var(--s-2); font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
-.mt-count { font: var(--t-mono); font-size: 12.5px; }
+.mt-count { font: var(--t-meta); }
 .mt-list { list-style: none; margin: 0; padding: 0; }
 .mt-head-past { display: block; }
 .mt-toggle { display: flex; align-items: center; gap: var(--s-2); width: 100%; min-height: var(--touch-min); padding: 0; background: none; border: 0; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; text-align: left; }
@@ -28,23 +28,30 @@ a.crow-link:focus-visible { outline: var(--focus-ring); outline-offset: -3px; }
 .crow-photo { grid-area: photo; align-self: start; display: grid; place-items: center; width: 52px; height: 38px; border-radius: 6px; overflow: hidden; background: var(--well); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
 .crow-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .crow-name { grid-area: name; padding-right: 48px; font: var(--t-row); line-height: 1.2; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.crow-l2, .crow-l3 { font: var(--t-mono); font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.crow-l2, .crow-l3 { font: var(--t-meta); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .crow-l2 { grid-area: l2; line-height: 1.35; }
 .crow-l2:has(.chip) { overflow: visible; }
 .crow-l3 { line-height: 1.35; }
 /* a row that is not a link keeps its name clear of the Remove button */
 .crow-link[role='group'] .crow-name { padding-right: 92px; }
 .crow-l3 { grid-area: l3; }
-.crow-chip { position: absolute; right: 0; bottom: 12px; }
+/* signed in: the chip is a fourth line of the row's grid, after line 3 (spec 5.2), so it never runs under the text */
+.crow-link[data-chip] { grid-template-areas: 'photo name' 'photo l2' 'photo l3' 'photo chip'; }
+.crow-chip { grid-area: chip; justify-self: start; margin-top: 2px; }
 .crow-act { position: absolute; top: 4px; right: 0; display: flex; align-items: center; }
 .crow-menu-btn { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: var(--r-2); background: none; color: var(--ink); cursor: pointer; }
 .crow-menu-btn:hover, .crow-menu-btn[data-popup-open] { background: var(--surface-2); }
 .crow-menu-btn:focus-visible { outline: var(--focus-ring); outline-offset: -3px; }
-.crow-act .btn { margin-right: 0; }
+.crow-act .btn { margin-right: 0; margin-top: 3px; } /* the 44 px hit area of the sm button (4 px above, 30 tall) would be clipped 3 px by .crow-inner */
 
 @media (min-width: 1024px) {
-  .mt-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--s-8); }
-  .crow:nth-child(2) { border-top: 1px solid var(--line); }
+  /* two columns that fill down, so dates read in order down each column (NAV-R2 should 4); every row draws its top line, the list closes the bottom */
+  .mt-list { columns: 2; column-gap: var(--s-8); border-bottom: 1px solid var(--line); }
+  .mt-list:has(> .crow:only-child) { columns: 1; }
+  .crow { break-inside: avoid; border-top: 1px solid var(--line); border-bottom: 0; }
+  /* the count sits after the label: "Upcoming · 3" */
+  .mt-head:not(.mt-head-past) { justify-content: flex-start; gap: var(--s-2); }
+  .mt-head:not(.mt-head-past) .mt-count::before { content: '\00b7\00a0'; }
 }
 @media (prefers-reduced-motion: reduce) {
   .crow, .mt-fold, .mt-caret, .mt-fold > .mt-list { transition: none; }

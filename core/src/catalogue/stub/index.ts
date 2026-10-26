@@ -542,7 +542,7 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
       type: "trip", slug, title: t.detail.title, url: `/trips/${slug}/`, depth: t.detail.depth, nights: t.detail.nights ?? 0,
       // the booking windows as the web store fills them (build.server.ts): the trip's list, and each on the stop whose place and day it names
       days: t.detail.days.map((d) => ({ n: d.n, title: d.title, base: d.base })), stops: withStopBookings(stops, rows), bookings: tripBookings(rows),
-      waypoints, lines: [], tz: null, seasonLabel: t.detail.season?.label ?? null, skipped,
+      waypoints, lines: [], tz: null, seasonLabel: t.detail.season?.label ?? null, ...(t.detail.season?.months?.length ? { seasonMonths: [...t.detail.season.months] } : {}), skipped,
     };
   }
 

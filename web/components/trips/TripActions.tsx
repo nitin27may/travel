@@ -40,19 +40,7 @@ const CopySheet = dynamic(() => import('@/components/actions/CopySheet').then((m
 
 const FORMATS: ExportFormat[] = ['pdf', 'ics', 'gpx', 'kml', 'csv'];
 
-/** Copy to my trips, Export and Share. The three parts are L5's components; this only places them. */
-/** First and last day of the season as "MM-DD" (no year: public trips are dateless). A run may wrap the new year. */
-export function seasonWindow(months: number[] | undefined): { from: string; to: string } | undefined {
-  if (!months?.length) return undefined;
-  const set = new Set(months);
-  const start = months.find((m) => !set.has(m === 1 ? 12 : m - 1)) ?? months[0];
-  let end = start;
-  while (set.has(end === 12 ? 1 : end + 1) && end !== (start === 1 ? 12 : start - 1)) end = end === 12 ? 1 : end + 1;
-  const last = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][end - 1];
-  const mm = (m: number) => String(m).padStart(2, '0');
-  return { from: `${mm(start)}-01`, to: `${mm(end)}-${last}` };
-}
-
+/** Copy to my trips, Export and Share. The three parts are L5's components; this only places them. The sheet takes the season window from the months. */
 export function TripActions({ slug, title, nights, days, url, hasDays, seasonMonths, done, cc, photo, className }: Props) {
   const [copying, setCopying] = useState(false);
   const [sheetEver, setSheetEver] = useState(false);
@@ -68,7 +56,7 @@ export function TripActions({ slug, title, nights, days, url, hasDays, seasonMon
       ) : null}
       <ExportMenu target={{ type: 'trip', slug }} formats={hasDays ? FORMATS : ['pdf']} label="Export trip" />
       <ShareButton url={url} title={title} />
-      {hasDays && sheetEver ? <CopySheet trip={{ slug, title, nights, days, window: seasonWindow(seasonMonths), cc, photo }} open={copying} onClose={() => setCopying(false)} /> : null}
+      {hasDays && sheetEver ? <CopySheet trip={{ slug, title, nights, days, seasonMonths, cc, photo }} open={copying} onClose={() => setCopying(false)} onPrint={() => window.dispatchEvent(new CustomEvent('travel:print', { detail: { slug } }))} /> : null}
     </div>
   );
 }

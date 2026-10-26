@@ -1,12 +1,16 @@
 'use client';
 
-import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
+import { Banner } from '@/components/ui/Banner';
+import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import { Menu } from '@/components/ui/Menu';
 import type { MenuEntry } from '@/components/ui/Menu';
 import { useToast } from '@/components/ui/Toast';
 import { tripLegs } from '@/lib/client/data';
+import { PRINT_KEY } from '@/lib/mine/keys';
+import { readSession, removeSession } from '@/lib/storage/safe';
 import type { TripLegs } from '@travel/core/schema/api/index.ts';
 import { downloadGpx, downloadKml, downloadTripCsv, loadExport } from '@/lib/export/client';
 import type { Generated } from '@/lib/export/client';
@@ -82,6 +86,26 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
     };
   }, [printing]);
 
+  // Print from Mine (spec 5.2, review NAV-R2 I1): Mine leaves the trip's slug in sessionStorage and opens this page. Read once, removed at
+  // once (a shared or bookmarked link never prints), then print through the same path as Export > PDF when the data and the timeline are in.
+  // No timer. A browser that wants a tap for print() (WebKit after a navigation) gets a notice with a Print button instead.
+  const armed = useRef<boolean | null>(null);
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    if (target.type !== 'trip' || !target.slug) return;
+    if (armed.current === null) {
+      armed.current = readSession(PRINT_KEY) === target.slug;
+      if (armed.current) removeSession(PRINT_KEY);
+    }
+    if (!armed.current || !data || data.type !== 'trip') return;
+    // a trip without days (an overview) has no timeline to wait for
+    if (!session && data.days.length > 0 && data.depth !== 'overview') return;
+    armed.current = false;
+    const model = forPage(data, session);
+    const needsTap = typeof navigator !== 'undefined' && !!navigator.userActivation && !navigator.userActivation.isActive && /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent) && !/Chrome|Chromium|Edg/.test(navigator.userAgent);
+    // state is set from a microtask, not synchronously in the effect
+    queueMicrotask(() => (needsTap ? setReady(true) : setPrinting(model)));
+  }, [data, session, target.slug, target.type]);
   const model = useCallback(async () => data ?? (target.type === 'trip' ? await loadExport('trip', target.slug!) : await loadExport('place', target.slug!)), [data, target.slug, target.type]);
 
   const run = useCallback(
@@ -114,6 +138,19 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
       toast({ message: 'Could not build that file. Try again.' });
     }
   }, [model, target.type, toast]);
+
+  // the same print path for the copy sheet's PDF button on the trip page: one listener answers, even with two menus on the page
+  useEffect(() => {
+    if (target.type !== 'trip' || !target.slug) return;
+    const on = (e: Event) => {
+      const d = (e as CustomEvent<{ slug: string; handled?: boolean }>).detail;
+      if (!d || d.slug !== target.slug || d.handled) return;
+      d.handled = true;
+      void print();
+    };
+    window.addEventListener('travel:print', on);
+    return () => window.removeEventListener('travel:print', on);
+  }, [print, target.slug, target.type]);
 
   const shown = data?.type === 'trip' ? forPage(data, session) : data;
   const wptCount = shown ? shown.waypoints.filter((w) => checkPoint(w.point).ok).length : null;
@@ -162,6 +199,16 @@ export function ExportMenu({ target, formats, label = 'Export', size = 'md' }: E
         align={size === 'sm' ? 'end' : 'start'}
         entries={entries}
       />
+      {ready && data?.type === 'trip'
+        ? createPortal(
+            <div className="print-ready" data-print="hide">
+              <Banner kind="notice" action={<Button size="sm" onClick={() => { setReady(false); setPrinting(forPage(data, session)); }}>Print</Button>}>
+                Ready to print {data.title} with your dates.
+              </Banner>
+            </div>,
+            document.body,
+          )
+        : null}
       {printing ? createPortal(<TripPrintView data={printing} session={getTimeline(printing.slug)} />, document.body) : null}
     </span>
   );

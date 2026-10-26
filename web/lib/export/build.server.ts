@@ -108,6 +108,7 @@ export function buildTripExport(trip: PublicTrip, lookup: (slug: string) => Publ
     lines,
     tz: tz ?? tripZone(trip),
     seasonLabel: trip.season?.label ?? null,
+    ...(trip.season?.months?.length ? { seasonMonths: [...trip.season.months] } : {}),
     skipped,
   };
 }

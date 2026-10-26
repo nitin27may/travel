@@ -46,7 +46,8 @@ test.describe('copy, export, share', () => {
     expect(text.match(/BEGIN:VEVENT/g)!.length).toBeGreaterThanOrEqual(14);
     await copy.click();
     await expect(page.getByRole('link', { name: 'Open in Mine' })).toHaveAttribute('href', '/mine/?show=trips');
-    await expect(page.locator('.toast-region')).toContainText('to Mine');
+    await expect(page.locator('.toast-region .toast')).toHaveCount(0); // the sheet is modal: Undo sits in its footer, not in a toast
+    await expect(page.locator('.copy-sheet').getByRole('button', { name: 'Undo' })).toBeVisible();
   });
 
   test('season window: the trip season is underlined and a start that runs past it warns', async ({ page, site }) => {

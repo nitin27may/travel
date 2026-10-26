@@ -1,4 +1,4 @@
-import { probeStorage } from '@travel/core/schema/copies.ts';
+import { memoryStorage, probeStorage } from '@travel/core/schema/copies.ts';
 import type { ProbeResult } from '@travel/core/schema/copies.ts';
 
 /**
@@ -10,6 +10,11 @@ let probed: ProbeResult | undefined;
 /** Probed once per page: a blocked browser's per-tab memory store must be the same object for every caller. */
 export function mineStorage(): ProbeResult {
   return (probed ??= probeStorage(() => window.localStorage));
+}
+
+/** A write that the probe did not foresee failed as blocked or unverified: from here on this page keeps its copies in the per-tab memory store (the session-only path). */
+export function fallBackToMemory(): ProbeResult {
+  return (probed = { kind: 'memory', storage: memoryStorage(), reason: 'blocked' });
 }
 
 /** Tests only: forget the probe. */

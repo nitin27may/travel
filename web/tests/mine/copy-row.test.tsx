@@ -31,3 +31,10 @@ describe('a My trips row', () => {
     expect(h).not.toContain('Actions for');
   });
 });
+
+describe('the signed-in chip', () => {
+  it('sits inside the row link, in the grid, as a fourth line (never absolutely placed)', () => {
+    const h = html({ chip: true });
+    expect(h).toMatch(/<a [^>]*data-chip[^>]*>.*On this device<\/span><\/a>/);
+  });
+});

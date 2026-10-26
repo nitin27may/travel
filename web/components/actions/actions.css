@@ -61,6 +61,14 @@
 .trav-select { height: 38px; padding: 0 8px; border: 1px solid var(--line-2); border-radius: var(--r-2); background: var(--surface); color: var(--ink); font: var(--t-mono); min-width: 120px; }
 .copy-foot { display: flex; align-items: center; gap: var(--s-3); width: 100%; }
 .copy-note { margin: 0; flex: 1; min-width: 0; font: var(--t-small); color: var(--ink-2); }
+/* a prompt or a problem (replace, cap, error): below 640 px the note sits above full-width buttons, which stay in the thumb zone (NAV-R2 should 1) */
+@media (max-width: 639px) {
+  .copy-foot[data-stack] { flex-direction: column; align-items: stretch; }
+  .copy-foot[data-stack] .copy-note { order: -1; flex: none; }
+  .copy-foot[data-stack] .btn { justify-content: center; }
+}
+/* the "Ready to print" notice that Mine's Print shows when the browser wants a tap (ExportMenu) */
+.print-ready { position: fixed; z-index: 30; top: calc(var(--header-h) + var(--s-2)); left: var(--margin); right: var(--margin); max-width: 640px; margin-inline: auto; }
 
 /* ---------- the print view of a trip (TripPrintView): off the screen, and the only thing on the paper while it prints ---------- */
 .print-model { display: none; }
