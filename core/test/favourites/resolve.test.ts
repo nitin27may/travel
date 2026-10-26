@@ -35,6 +35,16 @@ describe("resolveRefs over the registry", () => {
     expect(one("trip/private-trip").state).toBe("unknown");
   });
 
+  it("asked by ref, a pinned key that is not public names no space, exactly like a ref that never existed (FAV-1X: no oracle)", () => {
+    const blank = (asked: string) => ({ ...one(asked), asked: "" });
+    for (const [hidden, never] of [["trip/private-trip", "trip/never-was-a-trip"], ["place/hidden-place", "place/never-was-here"]] as const) {
+      expect(one(hidden)).toMatchObject({ state: "unknown", space: null });
+      expect(blank(hidden)).toEqual(blank(never));
+    }
+    // a handle keeps the space the asker typed
+    expect(one("trip:private-trip").space).toBe("trip");
+  });
+
   it("a place and a trip may share a slug: the space decides", () => {
     expect(one("place:moraine-lake")).toMatchObject({ space: "place", ref: "route/moraine-lake", kind: "lake" });
     expect(one("trip:moraine-lake")).toMatchObject({ space: "trip", ref: "trip/moraine-lake", kind: null });
