@@ -48,7 +48,7 @@ export const TRIPLESS_REF = new RegExp(`\\btrip/${TRIPLESS_LANE}\\b`);
  * (copies/1, trip-custom/1; NAV-C) adds `copiedAt` (when it was made), `travellers` (the party), `fromRef` (the visitor's origin, the
  * stored name of the URL's `from`; owner 26 Oct 2026) and `gw` (the airports picked, origin spec 10); `added` was already here.
  */
-export const PRIVATE_KEYS: readonly string[] = ["height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added", "meta", "notes_private", "doc", "copiedAt", "travellers", "fromRef", "gw"];
+export const PRIVATE_KEYS: readonly string[] = ["height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added", "meta", "notes_private", "doc", "copiedAt", "travellers", "fromRef", "gw", "favouredAt", "favourites"];
 /**
  * The visitor's origin under the URL's name (origin spec 8.1 rule 1). Copies store it as `fromRef`, a private key whatever its value;
  * this rule stays as a second net. `from` is a common public key (a window `{from, to}`, an age band, a leg), so it is private only
