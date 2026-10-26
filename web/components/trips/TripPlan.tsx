@@ -13,7 +13,6 @@ import { tripPageFamily } from '@/lib/map/family';
 import type { Category } from '@/lib/public/types';
 import '@/styles/timeline.css';
 import { CategoryStrip } from './CategoryStrip';
-import { CategoryView } from './CategoryView';
 import { DayRow } from './DayRow';
 import { DEPTH_NOTICE } from './format';
 import { dayMapFromRoute, dayMapOf, entryKey, mapBus, pointLookup } from './mapPins';
@@ -37,6 +36,17 @@ const TripRouteMap = dynamic(() => import('./TripRouteMap'), {
   loading: () => (
     <div role="status" className="trip-map-surface tl-mapph">
       Loading the map
+    </div>
+  ),
+});
+
+// The by-category view (and the coming overview) is its own chunk: it loads on the first "By category" choice or a
+// direct view=category, never in the start JS (OVR-0, P1, budget v0.3).
+const CategoryView = dynamic(() => import('./CategoryView').then((m) => m.CategoryView), {
+  ssr: false,
+  loading: () => (
+    <div role="status" className="cat-view">
+      Loading the categories
     </div>
   ),
 });
