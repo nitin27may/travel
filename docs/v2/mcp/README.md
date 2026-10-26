@@ -21,6 +21,15 @@ selected or built; everything below is the target design. This folder is the ref
 > ask on the site. Section 8's mixed tools are proposed to split into read and write tools (Q196), so the count rises
 > from 29 to about 38.
 
+> **Remote v1 derived from the API, 26 Oct 2026 (planned; [tools-v1-from-api.md](tools-v1-from-api.md), with the property
+> matrix [../features/property-display-matrix.md](../features/property-display-matrix.md)).** Every remote tool is a
+> projection of one `/api/v1` or account endpoint, through a transport-neutral endpoint table and guard in `core/src/api/`
+> (API-G). It supersedes, for v1: principle 8's `cursor` (the API's `page`, `pageSize`, `nextPage`; MCP page size at most
+> 25), section 2's "Hono app" and "`packages/domain`" (the route is `web/app/mcp/route.ts`; the contracts are
+> `core/src/schema/api/**`), section 4's limits (auth-and-sign-in.md 6.4 wins), and section 5's error list (adds
+> `too_large` and `not_available`, one mapping table with the API codes). The v1 public set is 12 tools (section 3 of that
+> page) plus two graph tools when their routes exist; field lists come from `expose.mcp` in the property registry.
+
 | Page | Contents |
 |---|---|
 | [tools-explore.md](tools-explore.md) | `search`, `get`, `area_guide`, `plan_drive`, `sun`, `weather` |
@@ -34,6 +43,7 @@ selected or built; everything below is the target design. This folder is the ref
 | [client-recipes.md](client-recipes.md) | worked example sessions, call by call |
 | [security.md](security.md) | threat model and mitigations |
 | [auth-and-sign-in.md](auth-and-sign-in.md) | how each MCP surface signs in (stdio, public, private), Neon OAuth, personal access tokens, capabilities over RLS, build order |
+| [tools-v1-from-api.md](tools-v1-from-api.md) | the remote v1 tools (v0.19 public, v0.20 private) as projections of API endpoints: inputs, outputs, field lists from the property matrix, paging, errors, privacy, tests, the API tasks that land first |
 
 ## 1. Principles
 

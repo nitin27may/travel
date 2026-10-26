@@ -5,6 +5,13 @@
 > the shared server layer (for example `core/src/access/**`); the files listed in section 8 for them are superseded on
 > that point. MCP-C and MCP-1 add a test that fails on any database import or SQL in MCP code.
 
+> **26 Oct 2026 (planned; [tools-v1-from-api.md](tools-v1-from-api.md)):** in 14.3, `list_entity_types` and
+> `get_entity_schema` become `get_type` over `/api/v1/types` (types and properties, not database tables); `sun` gets the
+> route `/api/v1/sun`; `place_nearby`, `find_towns`, `get_related` and `place_needs` join the `catalogue` level;
+> `list_my_drafts` and `get_my_draft` are proposed as `list_my_trips` and `get_my_trip`. In 14.9, MCP-C is 8 h (was 5)
+> and blocked by API-G, API-P, API-T, API-S and PM-G; MCP-1 is 7 h; MCP-2 is 9 h; MCP-R (1.5 h) and MCP-GR (2 h) are new.
+> Task table: [../features/property-display-matrix.md](../features/property-display-matrix.md) 12.
+
 Status: **design, 25 Oct 2026 (travel-planner, Opus). Nothing here is built. Spike MCP-0 passed on the child branch
 on 25 Oct with conditions (section 13). Access levels and the Connected apps settings added 25 Oct (section 14; PLAN
 R-150 to R-156, BACKLOG 15.150 to 15.157, Q190 to Q198).** Last verified 25 Oct 2026 against main 753bbcc (section 14
