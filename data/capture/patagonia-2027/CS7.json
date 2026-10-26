@@ -9,6 +9,7 @@
   "records": [
     {
       "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#parking",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {
@@ -51,6 +52,7 @@
     },
     {
       "ref": "part/trip/patagonia-2027/trail:mirador de los condores#trailhead",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "access.start.trailhead",
       "layer": "place",
       "near_town": {

@@ -426,7 +426,7 @@
     },
     {
       "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
-      "area_id": "US/UT/kane-county",
+      "area_id": "US/UT/garfield-county",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -483,7 +483,7 @@
     },
     {
       "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
-      "area_id": "US/UT/kane-county",
+      "area_id": "US/UT/garfield-county",
       "type": "nature.landform.canyon",
       "layer": "place",
       "near_town": {
@@ -531,7 +531,7 @@
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
-      "area_id": "US/UT/kane-county",
+      "area_id": "US/UT/garfield-county",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {
@@ -554,7 +554,7 @@
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:sunset point",
-      "area_id": "US/UT/kane-county",
+      "area_id": "US/UT/garfield-county",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {
@@ -577,6 +577,7 @@
     },
     {
       "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "area_id": "US/UT/garfield-county",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -625,6 +626,7 @@
     },
     {
       "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
+      "area_id": "US/UT/garfield-county",
       "type": "water.falls.waterfall",
       "layer": "place",
       "near_town": {
@@ -684,6 +686,7 @@
     },
     {
       "ref": "trip/utah-five-parks/trail:hickman bridge",
+      "area_id": "US/UT/wayne-county",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -731,6 +734,7 @@
     },
     {
       "ref": "trip/utah-five-parks/sight:fruita orchards",
+      "area_id": "US/UT/wayne-county",
       "type": "culture.heritage.historic_site",
       "layer": "place",
       "near_town": {
@@ -1143,6 +1147,7 @@
     },
     {
       "ref": "trip/utah-five-parks/sight:temple square",
+      "area_id": "US/UT/salt-lake-county",
       "type": "culture.heritage.landmark",
       "layer": "place",
       "near_town": {

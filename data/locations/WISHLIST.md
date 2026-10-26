@@ -1,11 +1,43 @@
 # Wishlist
 
-Generated from `data/locations/locations.json` on 2026-10-25. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
+Generated from `data/locations/locations.json` on 2026-10-26. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
 
-74 places in 7 countries, 5 collections. By status: idea 66, planned 8.
+150 places in 10 countries, 5 collections. By status: idea 142, planned 8.
 
 Legend: kind · season · status · stats from the source post are unverified until a research lane confirms them.
 
+## Argentina
+
+### Buenos Aires F.D.
+
+#### Buenos Aires
+
+- **Buenos Aires** · city · season ? · idea · [map](https://maps.google.com/?q=-34.59972,-58.38194) [wd](https://www.wikidata.org/wiki/Q1486) [note](https://www.wikidata.org/wiki/Q1486)
+  - Capital of Argentina.
+  - <sub>AR/C/buenos-aires/buenos-aires</sub>
+### Santa Cruz
+
+#### Lago Argentino Department
+
+- **El Chaltén** · town · season ? · idea · [map](https://maps.google.com/?q=-49.33141,-72.88613) [wd](https://www.wikidata.org/wiki/Q1323978) [note](https://www.wikidata.org/wiki/Q1323978)
+  - Village at the foot of Fitz Roy, gateway to the northern part of Los Glaciares National Park.
+  - <sub>AR/Z/lago-argentino-department/el-chalten</sub>
+- **Perito Moreno Glacier** · place · season ? · idea · [map](https://maps.google.com/?q=-50.49322,-73.12798) [wd](https://www.wikidata.org/wiki/Q367943) [note](https://www.wikidata.org/wiki/Q367943)
+  - Glacier in Los Glaciares National Park.
+  - <sub>AR/Z/lago-argentino-department/perito-moreno-glacier</sub>
+### Tierra del Fuego
+
+#### Ushuaia Department
+
+- **Cerro Castor** · mountain · season ? · idea · [map](https://maps.google.com/?q=-54.71667,-68.01667) [wd](https://www.wikidata.org/wiki/Q521811) [note](https://www.wikidata.org/wiki/Q521811)
+  - Mountain and ski area east of Ushuaia.
+  - <sub>AR/V/ushuaia-department/cerro-castor</sub>
+- **Southern Fuegian Railway** · activity · season ? · idea · [map](https://maps.google.com/?q=-54.83316,-68.424) [wd](https://www.wikidata.org/wiki/Q115044) [note](https://www.wikidata.org/wiki/Q115044)
+  - Heritage railway west of Ushuaia towards Tierra del Fuego National Park.
+  - <sub>AR/V/ushuaia-department/southern-fuegian-railway</sub>
+- **Ushuaia** · city · season ? · idea · [map](https://maps.google.com/?q=-54.80722,-68.30806) [wd](https://www.wikidata.org/wiki/Q44254) [note](https://www.wikidata.org/wiki/Q44254)
+  - Capital of Tierra del Fuego province, on the Beagle Channel.
+  - <sub>AR/V/ushuaia-department/ushuaia</sub>
 ## Canada
 
 ### Alberta
@@ -15,6 +47,129 @@ Legend: kind · season · status · stats from the source post are unverified un
 - **Lake Louise** · lake · Jun,Jul,Aug,Sep · planned · [map](https://maps.google.com/?q=51.41167,-116.22806) [wd](https://www.wikidata.org/wiki/Q1367398) [trip](../canadian-rockies-sept-2029/) · #family #iconic
   - A glacial lake in Banff National Park.
   - <sub>CA/AB/banff-national-park/lake-louise</sub>
+#### Beauvais Lake Provincial Park
+
+- **Beauvais Lake** · lake · season ? · idea · [map](https://maps.google.com/?q=49.4086,-114.1) [wd](https://www.wikidata.org/wiki/Q4877958) [note](https://www.wikidata.org/wiki/Q4877958)
+  - Lake in Beauvais Lake Provincial Park, south-west of Pincher Creek.
+  - <sub>CA/AB/beauvais-lake-provincial-park/beauvais-lake</sub>
+#### Jasper National Park
+
+- **Ashlar Ridge** · mountain · season ? · idea · [map](https://maps.google.com/?q=53.1742,-117.8049) [wd](https://www.wikidata.org/wiki/Q22457126) [note](https://www.wikidata.org/wiki/Q22457126)
+  - Ridge of the Miette Range near Pocahontas, Jasper National Park.
+  - <sub>CA/AB/jasper-national-park/ashlar-ridge</sub>
+- **Athabasca Glacier** · place · season ? · idea · [map](https://maps.google.com/?q=52.19083,-117.25528) [wd](https://www.wikidata.org/wiki/Q391165) [note](https://www.wikidata.org/wiki/Q391165)
+  - Outlet glacier of the Columbia Icefield, Jasper National Park.
+  - <sub>CA/AB/jasper-national-park/athabasca-glacier</sub>
+- **Curly Phillips Boathouse** · place · season ? · idea · [map](https://maps.google.com/?q=52.7289,-117.63769) [wd](https://www.wikidata.org/wiki/Q44664199) [note](https://www.wikidata.org/wiki/Q44664199)
+  - Historic boathouse at the north end of Maligne Lake.
+  - <sub>CA/AB/jasper-national-park/curly-phillips-boathouse</sub>
+- **Jasper** · town · season ? · idea · [map](https://maps.google.com/?q=52.8731,-118.082) [wd](https://www.wikidata.org/wiki/Q999429) [note](https://www.wikidata.org/wiki/Q999429)
+  - Town inside Jasper National Park.
+  - <sub>CA/AB/jasper-national-park/jasper</sub>
+- **Maligne Lake** · lake · season ? · idea · [map](https://maps.google.com/?q=52.66444,-117.53361) [wd](https://www.wikidata.org/wiki/Q429646) [note](https://www.wikidata.org/wiki/Q429646)
+  - Largest lake in Jasper National Park.
+  - <sub>CA/AB/jasper-national-park/maligne-lake</sub>
+- **Mount Edith Cavell** · mountain · season ? · idea · [map](https://maps.google.com/?q=52.66722,-118.05667) [wd](https://www.wikidata.org/wiki/Q510573) [note](https://www.wikidata.org/wiki/Q510573)
+  - Mountain in Jasper National Park, south of the town of Jasper.
+  - <sub>CA/AB/jasper-national-park/mount-edith-cavell</sub>
+- **Mount Kerkeslin** · mountain · season ? · idea · [map](https://maps.google.com/?q=52.64861,-117.82667) [wd](https://www.wikidata.org/wiki/Q6921646) [note](https://www.wikidata.org/wiki/Q6921646)
+  - Mountain above Athabasca Falls on the Icefields Parkway, Jasper National Park.
+  - <sub>CA/AB/jasper-national-park/mount-kerkeslin</sub>
+#### Kananaskis Country
+
+- **Barrier Lake** · lake · season ? · idea · [map](https://maps.google.com/?q=51.0272,-115.066) [wd](https://www.wikidata.org/wiki/Q3214736) [note](https://www.wikidata.org/wiki/Q3214736)
+  - Reservoir on the Kananaskis River in Bow Valley Provincial Park.
+  - <sub>CA/AB/kananaskis-country/barrier-lake</sub>
+- **Burstall Lakes** · lake · season ? · idea · [map](https://maps.google.com/?q=50.78335,-115.33533) [wd](https://www.wikidata.org/wiki/Q22353518) [note](https://www.wikidata.org/wiki/Q22353518)
+  - Small lakes on the Smith-Dorrien/Spray Trail in Kananaskis Country.
+  - <sub>CA/AB/kananaskis-country/burstall-lakes</sub>
+- **Highwood Pass** · place · season ? · idea · [map](https://maps.google.com/?q=50.5994,-114.988) [wd](https://www.wikidata.org/wiki/Q5760070) [note](https://www.wikidata.org/wiki/Q5760070)
+  - Highest paved pass in Canada, on Highway 40 in Kananaskis Country.
+  - <sub>CA/AB/kananaskis-country/highwood-pass</sub>
+- **Kananaskis Village** · town · season ? · idea · [map](https://maps.google.com/?q=50.91748,-115.1474) [wd](https://www.wikidata.org/wiki/Q6360620) [note](https://www.wikidata.org/wiki/Q6360620)
+  - Resort village on Highway 40 in Kananaskis Country.
+  - <sub>CA/AB/kananaskis-country/kananaskis-village</sub>
+- **Mount Lawrence Grassi** · mountain · season ? · idea · [map](https://maps.google.com/?q=51.0533,-115.392) [wd](https://www.wikidata.org/wiki/Q6921787) [note](https://www.wikidata.org/wiki/Q6921787)
+  - Mountain above Canmore and the Grassi Lakes.
+  - <sub>CA/AB/kananaskis-country/mount-lawrence-grassi</sub>
+- **Paddy's Flat** · place · season ? · idea · [map](https://maps.google.com/?q=50.8834,-114.71032) [wd](https://www.wikidata.org/wiki/Q22465470) [note](https://www.wikidata.org/wiki/Q22465470)
+  - Flat on the Elbow River in the Elbow Valley of Kananaskis Country.
+  - <sub>CA/AB/kananaskis-country/paddy-s-flat</sub>
+- **Spray Valley Provincial Park** · park · season ? · idea · [map](https://maps.google.com/?q=50.89389,-115.285) [wd](https://www.wikidata.org/wiki/Q3364735) [note](https://www.wikidata.org/wiki/Q3364735)
+  - Provincial park along the Smith-Dorrien/Spray Trail in Kananaskis Country.
+  - <sub>CA/AB/kananaskis-country/spray-valley-provincial-park</sub>
+- **Upper Kananaskis Lake** · lake · season ? · idea · [map](https://maps.google.com/?q=50.6181,-115.154) [wd](https://www.wikidata.org/wiki/Q7346507) [note](https://www.wikidata.org/wiki/Q7346507)
+  - Lake in Peter Lougheed Provincial Park, Kananaskis Country.
+  - <sub>CA/AB/kananaskis-country/upper-kananaskis-lake</sub>
+#### Waterton Lakes National Park
+
+- **Mount Blakiston** · mountain · season ? · idea · [map](https://maps.google.com/?q=49.0942,-114.035) [wd](https://www.wikidata.org/wiki/Q3321701) [note](https://www.wikidata.org/wiki/Q3321701)
+  - Highest peak of Waterton Lakes National Park.
+  - <sub>CA/AB/waterton-lakes-national-park/mount-blakiston</sub>
+- **Waterton Park** · town · season ? · idea · [map](https://maps.google.com/?q=49.0517,-113.914) [wd](https://www.wikidata.org/wiki/Q7974475) [note](https://www.wikidata.org/wiki/Q7974475)
+  - Hamlet inside Waterton Lakes National Park.
+  - <sub>CA/AB/waterton-lakes-national-park/waterton-park</sub>
+### British Columbia
+
+#### Columbia-Shuswap Regional District
+
+- **Golden** · town · season ? · idea · [map](https://maps.google.com/?q=51.3019,-116.967) [wd](https://www.wikidata.org/wiki/Q1020179) [note](https://www.wikidata.org/wiki/Q1020179)
+  - Town at the junction of the Kicking Horse and Columbia rivers.
+  - <sub>CA/BC/columbia-shuswap-regional-district/golden</sub>
+#### Elk Lakes Provincial Park
+
+- **Upper Elk Lake** · lake · season ? · idea · [map](https://maps.google.com/?q=50.55222,-115.10833) [wd](https://www.wikidata.org/wiki/Q22391422) [note](https://www.wikidata.org/wiki/Q22391422)
+  - Lake in Elk Lakes Provincial Park, just west of the Alberta border.
+  - <sub>CA/BC/elk-lakes-provincial-park/upper-elk-lake</sub>
+#### Kootenay National Park
+
+- **Sinclair Canyon** · canyon · season ? · idea · [map](https://maps.google.com/?q=50.63327,-116.05208) [wd](https://www.wikidata.org/wiki/Q22629068) [note](https://www.wikidata.org/wiki/Q22629068)
+  - Canyon at the south-west entrance of Kootenay National Park.
+  - <sub>CA/BC/kootenay-national-park/sinclair-canyon</sub>
+#### Mount Robson Provincial Park
+
+- **Mount Robson** · mountain · season ? · idea · [map](https://maps.google.com/?q=53.11056,-119.15667) [wd](https://www.wikidata.org/wiki/Q1161258) [note](https://www.wikidata.org/wiki/Q1161258)
+  - Highest peak of the Canadian Rockies, in Mount Robson Provincial Park.
+  - <sub>CA/BC/mount-robson-provincial-park/mount-robson</sub>
+- **Mount Robson Provincial Park** · park · season ? · idea · [map](https://maps.google.com/?q=53.0339,-119.232) [wd](https://www.wikidata.org/wiki/Q1950710) [note](https://www.wikidata.org/wiki/Q1950710)
+  - Provincial park around Mount Robson on the Yellowhead Highway.
+  - <sub>CA/BC/mount-robson-provincial-park/mount-robson-provincial-park</sub>
+#### Whiteswan Lake Provincial Park
+
+- **Whiteswan Lake** · lake · season ? · idea · [map](https://maps.google.com/?q=50.13972,-115.48333) [wd](https://www.wikidata.org/wiki/Q22612582) [note](https://www.wikidata.org/wiki/Q22612582)
+  - Lake in Whiteswan Lake Provincial Park, East Kootenay.
+  - <sub>CA/BC/whiteswan-lake-provincial-park/whiteswan-lake</sub>
+#### Yoho National Park
+
+- **Chancellor Peak** · mountain · season ? · idea · [map](https://maps.google.com/?q=51.22417,-116.51028) [wd](https://www.wikidata.org/wiki/Q22478655) [note](https://www.wikidata.org/wiki/Q22478655)
+  - Mountain in the south of Yoho National Park, above the Kicking Horse River.
+  - <sub>CA/BC/yoho-national-park/chancellor-peak</sub>
+- **Field** · town · season ? · idea · [map](https://maps.google.com/?q=51.39667,-116.48583) [wd](https://www.wikidata.org/wiki/Q3071515) [note](https://www.wikidata.org/wiki/Q3071515)
+  - Village inside Yoho National Park, on the Trans-Canada Highway.
+  - <sub>CA/BC/yoho-national-park/field</sub>
+- **Yoho Valley** · valley · season ? · idea · [map](https://maps.google.com/?q=51.53328,-116.51891) [wd](https://www.wikidata.org/wiki/Q22649377) [note](https://www.wikidata.org/wiki/Q22649377)
+  - Valley in Yoho National Park, reached by the Yoho Valley Road.
+  - <sub>CA/BC/yoho-national-park/yoho-valley</sub>
+### Ontario
+
+#### Algonquin Provincial Park
+
+- **Lake of Two Rivers** · lake · season ? · idea · [map](https://maps.google.com/?q=45.57833,-78.47944) [wd](https://www.wikidata.org/wiki/Q22542601) [note](https://www.wikidata.org/wiki/Q22542601)
+  - Lake on the Highway 60 corridor of Algonquin Provincial Park.
+  - <sub>CA/ON/algonquin-provincial-park/lake-of-two-rivers</sub>
+#### Haliburton County
+
+- **Oxtongue Lake** · lake · season ? · idea · [map](https://maps.google.com/?q=45.36783,-78.92115) [wd](https://www.wikidata.org/wiki/Q995211) [note](https://www.wikidata.org/wiki/Q995211)
+  - Lake on Highway 60 west of Algonquin Park.
+  - <sub>CA/ON/haliburton-county/oxtongue-lake</sub>
+#### Muskoka District Municipality
+
+- **Arrowhead Provincial Park** · park · season ? · idea · [map](https://maps.google.com/?q=45.3917,-79.1986) [wd](https://www.wikidata.org/wiki/Q4796180) [note](https://www.wikidata.org/wiki/Q4796180)
+  - Provincial park just north of Huntsville.
+  - <sub>CA/ON/muskoka-district-municipality/arrowhead-provincial-park</sub>
+- **Dwight** · town · season ? · idea · [map](https://maps.google.com/?q=45.32726,-79.01127) [wd](https://www.wikidata.org/wiki/Q1268459) [note](https://www.wikidata.org/wiki/Q1268459)
+  - Community on Lake of Bays, Muskoka.
+  - <sub>CA/ON/muskoka-district-municipality/dwight</sub>
 ### Quebec
 
 #### Bas-Saint-Laurent / Gaspésie (to confirm)
@@ -115,6 +270,19 @@ Legend: kind · season · status · stats from the source post are unverified un
   - <sub>CN/GD/qingyuan/qq-canyon-racer</sub>
 ## France
 
+### Auvergne-Rhône-Alpes
+
+#### Haute-Savoie
+
+- **Chamonix-Mont-Blanc** · town · season ? · idea · [map](https://maps.google.com/?q=45.92222,6.86889) [wd](https://www.wikidata.org/wiki/Q83236) [note](https://www.wikidata.org/wiki/Q83236)
+  - Town at the foot of Mont Blanc.
+  - <sub>FR/ARA/haute-savoie/chamonix-mont-blanc</sub>
+- **La Flégère** · mountain · season ? · idea · [map](https://maps.google.com/?q=45.9611,6.88559) [wd](https://www.wikidata.org/wiki/Q3209029) [note](https://www.wikidata.org/wiki/Q3209029)
+  - Mountain and lift station on the Aiguilles Rouges side of the Chamonix valley.
+  - <sub>FR/ARA/haute-savoie/la-flegere</sub>
+- **Vallorcine railway station** · place · season ? · idea · [map](https://maps.google.com/?q=46.0325,6.93267) [wd](https://www.wikidata.org/wiki/Q1916822) [note](https://www.wikidata.org/wiki/Q1916822)
+  - Railway station of Vallorcine on the Mont-Blanc Express line.
+  - <sub>FR/ARA/haute-savoie/vallorcine-railway-station</sub>
 ### Provence-Alpes-Côte d'Azur
 
 #### Alpes-de-Haute-Provence
@@ -129,6 +297,107 @@ Legend: kind · season · status · stats from the source post are unverified un
 - **Paris** · city · Apr,May,Jun,Sep,Oct · idea · [map](https://maps.google.com/?q=48.85667,2.35222) [wd](https://www.wikidata.org/wiki/Q90) [official](https://en.parisinfo.com/practical-paris/planning-your-stay-in-paris/climate) [article](https://www.wikidata.org/wiki/Q90) · #art #food
   - Book the Eiffel Tower and Louvre online. Marais, Montmartre, Latin Quarter. 4-5 days.
   - <sub>FR/ile-de-france/grand-paris/paris</sub>
+## Iceland
+
+### Capital Region
+
+#### Reykjavíkurborg
+
+- **Reykjavík** · city · season ? · idea · [map](https://maps.google.com/?q=64.1475,-21.935) [wd](https://www.wikidata.org/wiki/Q1764) [note](https://www.wikidata.org/wiki/Q1764)
+  - Capital of Iceland.
+  - <sub>IS/capital-region/reykjavikurborg/reykjavik</sub>
+### East
+
+#### Hornafjordur
+
+- **Höfn** · town · season ? · idea · [map](https://maps.google.com/?q=64.25,-15.21667) [wd](https://www.wikidata.org/wiki/Q817118) [note](https://www.wikidata.org/wiki/Q817118)
+  - Harbour town in south-east Iceland.
+  - <sub>IS/east/hornafjordur/hofn</sub>
+- **Jökulsá á Breiðamerkursandi** · place · season ? · idea · [map](https://maps.google.com/?q=64.04689,-16.18159) [wd](https://www.wikidata.org/wiki/Q16429849) [note](https://www.wikidata.org/wiki/Q16429849)
+  - Short river from the Jökulsárlón lagoon to the sea, under the Ring Road bridge.
+  - <sub>IS/east/hornafjordur/jokulsa-a-breidamerkursandi</sub>
+- **Skaftafell** · park · season ? · idea · [map](https://maps.google.com/?q=64.01663,-16.9672) [wd](https://www.wikidata.org/wiki/Q3486103) [note](https://www.wikidata.org/wiki/Q3486103)
+  - Wilderness area of Vatnajökull National Park in Öræfi.
+  - <sub>IS/east/hornafjordur/skaftafell</sub>
+#### Mulathing
+
+- **Gufufoss** · waterfall · season ? · idea · [map](https://maps.google.com/?q=65.23809,-14.06379) [wd](https://www.wikidata.org/wiki/Q2957354) [note](https://www.wikidata.org/wiki/Q2957354)
+  - Waterfall on the road down to Seyðisfjörður.
+  - <sub>IS/east/mulathing/gufufoss</sub>
+### Northeast
+
+#### Akureyrarbaer
+
+- **Akureyri** · town · season ? · idea · [map](https://maps.google.com/?q=65.68353,-18.0878) [wd](https://www.wikidata.org/wiki/Q29042) [note](https://www.wikidata.org/wiki/Q29042)
+  - Largest town in north Iceland.
+  - <sub>IS/northeast/akureyrarbaer/akureyri</sub>
+#### Thingeyjarsveit
+
+- **Fosshóll** · town · season ? · idea · [map](https://maps.google.com/?q=65.68565,-17.53951) [wd](https://www.wikidata.org/wiki/Q134328943) [note](https://www.wikidata.org/wiki/Q134328943)
+  - Hamlet beside Goðafoss on the Ring Road.
+  - <sub>IS/northeast/thingeyjarsveit/fossholl</sub>
+- **Reykjahlíð** · town · season ? · idea · [map](https://maps.google.com/?q=65.64361,-16.90861) [wd](https://www.wikidata.org/wiki/Q1026867) [note](https://www.wikidata.org/wiki/Q1026867)
+  - Village on the north shore of Mývatn.
+  - <sub>IS/northeast/thingeyjarsveit/reykjahlid</sub>
+#### Vatnajökull National Park
+
+- **Hafragilsfoss** · waterfall · season ? · idea · [map](https://maps.google.com/?q=65.8325,-16.4) [wd](https://www.wikidata.org/wiki/Q1568140) [note](https://www.wikidata.org/wiki/Q1568140)
+  - Waterfall on the Jökulsá á Fjöllum, downstream of Dettifoss.
+  - <sub>IS/northeast/vatnajokull-national-park/hafragilsfoss</sub>
+### Northwest
+
+#### Skagafjordur
+
+- **Varmahlíð** · town · season ? · idea · [map](https://maps.google.com/?q=65.5525,-19.4449) [wd](https://www.wikidata.org/wiki/Q419691) [note](https://www.wikidata.org/wiki/Q419691)
+  - Village in Skagafjörður on the Ring Road.
+  - <sub>IS/northwest/skagafjordur/varmahlid</sub>
+### South
+
+#### Blaskogabyggd
+
+- **Strokkur** · place · season ? · idea · [map](https://maps.google.com/?q=64.31268,-20.30075) [wd](https://www.wikidata.org/wiki/Q1128186) [note](https://www.wikidata.org/wiki/Q1128186)
+  - Geyser in the Haukadalur geothermal area.
+  - <sub>IS/south/blaskogabyggd/strokkur</sub>
+- **Öxarárfoss** · waterfall · season ? · idea · [map](https://maps.google.com/?q=64.26582,-21.11804) [wd](https://www.wikidata.org/wiki/Q307675) [note](https://www.wikidata.org/wiki/Q307675)
+  - Waterfall in Þingvellir National Park.
+  - <sub>IS/south/blaskogabyggd/oxararfoss</sub>
+#### Mýrdalshreppur
+
+- **Vík í Mýrdal** · town · season ? · idea · [map](https://maps.google.com/?q=63.41944,-19.00972) [wd](https://www.wikidata.org/wiki/Q685369) [note](https://www.wikidata.org/wiki/Q685369)
+  - Southernmost village of mainland Iceland.
+  - <sub>IS/south/myrdalshreppur/vik-i-myrdal</sub>
+#### Rangarthing eystra
+
+- **Gljúfrabúi** · waterfall · season ? · idea · [map](https://maps.google.com/?q=63.62139,-19.98833) [wd](https://www.wikidata.org/wiki/Q5569999) [note](https://www.wikidata.org/wiki/Q5569999)
+  - Waterfall in a narrow gorge just north of Seljalandsfoss.
+  - <sub>IS/south/rangarthing-eystra/gljufrabui</sub>
+- **Skógar** · town · season ? · idea · [map](https://maps.google.com/?q=63.52472,-19.50694) [wd](https://www.wikidata.org/wiki/Q985810) [note](https://www.wikidata.org/wiki/Q985810)
+  - Village below the Eyjafjallajökull ice cap.
+  - <sub>IS/south/rangarthing-eystra/skogar</sub>
+#### Skaftárhreppur
+
+- **Kirkjubæjarklaustur** · town · season ? · idea · [map](https://maps.google.com/?q=63.76667,-18.06667) [wd](https://www.wikidata.org/wiki/Q1010183) [note](https://www.wikidata.org/wiki/Q1010183)
+  - Village on the Ring Road in south Iceland.
+  - <sub>IS/south/skaftarhreppur/kirkjubaejarklaustur</sub>
+### Southern Peninsula
+
+#### Grindavikurbaer
+
+- **Grindavík** · town · season ? · idea · [map](https://maps.google.com/?q=63.84128,-22.43711) [wd](https://www.wikidata.org/wiki/Q472822) [note](https://www.wikidata.org/wiki/Q472822)
+  - Fishing town on the Reykjanes peninsula.
+  - <sub>IS/southern-peninsula/grindavikurbaer/grindavik</sub>
+### West
+
+#### Grundarfjardarbaer
+
+- **Grundarfjörður** · town · season ? · idea · [map](https://maps.google.com/?q=64.92427,-23.26313) [wd](https://www.wikidata.org/wiki/Q27014314) [note](https://www.wikidata.org/wiki/Q27014314)
+  - Town on the north coast of Snæfellsnes, beside Kirkjufell.
+  - <sub>IS/west/grundarfjardarbaer/grundarfjordur</sub>
+#### Snaefellsbaer
+
+- **Snæfellsjökull** · mountain · season ? · idea · [map](https://maps.google.com/?q=64.80712,-23.77623) [wd](https://www.wikidata.org/wiki/Q1315012) [note](https://www.wikidata.org/wiki/Q1315012)
+  - Glacier-capped volcano at the tip of the Snæfellsnes peninsula.
+  - <sub>IS/west/snaefellsbaer/snaefellsjokull</sub>
 ## India
 
 ### Sikkim
@@ -173,6 +442,32 @@ Legend: kind · season · status · stats from the source post are unverified un
   - <sub>IT/lombardy/milano/milan</sub>
 ### Trentino-Alto Adige
 
+#### Bolzano
+
+- **Castelrotto** · town · season ? · idea · [map](https://maps.google.com/?q=46.56784,11.55968) [wd](https://www.wikidata.org/wiki/Q377319) [note](https://www.wikidata.org/wiki/Q377319)
+  - Village below the Alpe di Siusi and the Sciliar, South Tyrol.
+  - <sub>IT/trentino-alto-adige/bolzano/castelrotto</sub>
+- **Collegiate Church of San Candido** · place · season ? · idea · [map](https://maps.google.com/?q=46.73291,12.28267) [wd](https://www.wikidata.org/wiki/Q549129) [note](https://www.wikidata.org/wiki/Q549129)
+  - Romanesque collegiate church in the centre of San Candido.
+  - <sub>IT/trentino-alto-adige/bolzano/collegiate-church-of-san-candido</sub>
+- **Dantercepies gondola** · activity · season ? · idea · [map](https://maps.google.com/?q=46.55567,11.76791) [wd](https://www.wikidata.org/wiki/Q120751673) [note](https://www.wikidata.org/wiki/Q120751673)
+  - Gondola from Selva di Val Gardena towards Passo Gardena.
+  - <sub>IT/trentino-alto-adige/bolzano/dantercepies-gondola</sub>
+- **Dobbiaco railway station** · place · season ? · idea · [map](https://maps.google.com/?q=46.7248,12.2256) [wd](https://www.wikidata.org/wiki/Q3969534) [note](https://www.wikidata.org/wiki/Q3969534)
+  - Railway station of Dobbiaco on the Val Pusteria line.
+  - <sub>IT/trentino-alto-adige/bolzano/dobbiaco-railway-station</sub>
+- **Nova Levante** · town · season ? · idea · [map](https://maps.google.com/?q=46.43023,11.53895) [wd](https://www.wikidata.org/wiki/Q433287) [note](https://www.wikidata.org/wiki/Q433287)
+  - Village in the Val d'Ega below the Latemar and the Catinaccio, South Tyrol.
+  - <sub>IT/trentino-alto-adige/bolzano/nova-levante</sub>
+- **Rifugio Fondovalle** · lodge · season ? · idea · [map](https://maps.google.com/?q=46.65137,12.35385) [wd](https://www.wikidata.org/wiki/Q113433241) [note](https://www.wikidata.org/wiki/Q113433241)
+  - Hut (Talschlusshütte) at the head of Val Fiscalina, Sesto.
+  - <sub>IT/trentino-alto-adige/bolzano/rifugio-fondovalle</sub>
+- **San Cassiano** · town · season ? · idea · [map](https://maps.google.com/?q=46.57007,11.93606) [wd](https://www.wikidata.org/wiki/Q519474) [note](https://www.wikidata.org/wiki/Q519474)
+  - Village in Alta Badia, below the Lagazuoi and the Fanes group.
+  - <sub>IT/trentino-alto-adige/bolzano/san-cassiano</sub>
+- **Val Gardena** · valley · season ? · idea · [map](https://maps.google.com/?q=46.56,11.70472) [wd](https://www.wikidata.org/wiki/Q384885) [note](https://www.wikidata.org/wiki/Q384885)
+  - Dolomite valley of Ortisei, Santa Cristina and Selva, South Tyrol.
+  - <sub>IT/trentino-alto-adige/bolzano/val-gardena</sub>
 #### Provincia di Trento
 
 - **Trento** · city · season ? · idea · [map](https://maps.google.com/?q=46.06667,11.11667) [wd](https://www.wikidata.org/wiki/Q3376) · #gateway #wine
@@ -202,6 +497,15 @@ Legend: kind · season · status · stats from the source post are unverified un
 - **Verona** · city · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · idea · [map](https://maps.google.com/?q=45.43861,10.99278) [wd](https://www.wikidata.org/wiki/Q2028) · #history
   - Roman arena, Juliet balcony, wine region. Combine with Venice. 1-2 days.
   - <sub>IT/veneto/verona/verona</sub>
+## Switzerland
+
+### Valais
+
+#### Saint-Maurice District
+
+- **Lac d'Émosson** · lake · season ? · idea · [map](https://maps.google.com/?q=46.0799,6.91647) [wd](https://www.wikidata.org/wiki/Q23892375) [note](https://www.wikidata.org/wiki/Q23892375)
+  - Reservoir above Finhaut, held by the Emosson dam.
+  - <sub>CH/VS/saint-maurice-district/lac-d-emosson</sub>
 ## United States
 
 ### Alaska
@@ -281,6 +585,14 @@ Legend: kind · season · status · stats from the source post are unverified un
   - <sub>US/NY/seneca-county/finger-lakes</sub>
 ### Utah
 
+#### Garfield County
+
+- **Bryce Canyon National Park** · park · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · planned · [map](https://maps.google.com/?q=37.64,-112.17) [wd](https://www.wikidata.org/wiki/Q219562) [official](https://epqs.nationalmap.gov/v1/json) [official](https://geo.fcc.gov/api/census/block/find?latitude=37.64&longitude=-112.17&format=json) [trip](../usa-southwest-rockies/) · #hoodoos #national-park
+  - Stop 4 of the road trip post; already in the Utah parks plan.
+  - <sub>US/UT/kane-county/bryce-canyon-national-park</sub>
+- **Calf Creek** · place · season ? · idea · [map](https://maps.google.com/?q=37.77583,-111.41833) [wd](https://www.wikidata.org/wiki/Q49873109) [note](https://www.wikidata.org/wiki/Q49873109)
+  - Creek in Grand Staircase-Escalante National Monument, home of Lower Calf Creek Falls.
+  - <sub>US/UT/garfield-county/calf-creek</sub>
 #### Grand County
 
 - **Arches National Park** · park · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · planned · [map](https://maps.google.com/?q=38.72806,-109.54) [wd](https://www.wikidata.org/wiki/Q223969) [official](https://epqs.nationalmap.gov/v1/json) [trip](../usa-southwest-rockies/) · #arches #national-park
@@ -307,11 +619,11 @@ Legend: kind · season · status · stats from the source post are unverified un
 - **Kanarra Falls** · waterfall · season ? · idea · [map](https://maps.google.com/?q=37.5377,-113.15261) [official](https://epqs.nationalmap.gov/v1/json) · #permit #slot-canyon
   - Stop 3 of the road trip post. Permit-limited slot canyon walk (from memory, unverified).
   - <sub>US/UT/kanarraville/kanarra-falls</sub>
-#### Kane County
+#### Salt Lake County
 
-- **Bryce Canyon National Park** · park · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · planned · [map](https://maps.google.com/?q=37.64,-112.17) [wd](https://www.wikidata.org/wiki/Q219562) [official](https://epqs.nationalmap.gov/v1/json) [trip](../usa-southwest-rockies/) · #hoodoos #national-park
-  - Stop 4 of the road trip post; already in the Utah parks plan.
-  - <sub>US/UT/kane-county/bryce-canyon-national-park</sub>
+- **Salt Lake City** · city · season ? · idea · [map](https://maps.google.com/?q=40.75,-111.88333) [wd](https://www.wikidata.org/wiki/Q23337) [note](https://www.wikidata.org/wiki/Q23337)
+  - Capital of Utah.
+  - <sub>US/UT/salt-lake-county/salt-lake-city</sub>
 #### San Juan County
 
 - **Canyonlands National Park** · park · Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec · planned · [map](https://maps.google.com/?q=38.1669,-109.76) [wd](https://www.wikidata.org/wiki/Q541856) [official](https://epqs.nationalmap.gov/v1/json) [trip](../usa-southwest-rockies/) · #canyon #national-park
@@ -322,10 +634,34 @@ Legend: kind · season · status · stats from the source post are unverified un
 - **Zion National Park** · park · season ? · planned · [map](https://maps.google.com/?q=37.20262,-112.98785) [wd](https://www.wikidata.org/wiki/Q205325) [official](https://epqs.nationalmap.gov/v1/json) [trip](../usa-southwest-rockies/) · #hiking #national-park
   - Stop 2 of the road trip post; already in the Utah parks plan.
   - <sub>US/UT/washington-county/zion-national-park</sub>
+#### Wayne County
+
+- **Capitol Reef National Park Visitor Center** · place · season ? · idea · [map](https://maps.google.com/?q=38.29149,-111.26204) [wd](https://www.wikidata.org/wiki/Q63993567) [note](https://www.wikidata.org/wiki/Q63993567)
+  - Visitor centre of Capitol Reef National Park, by Fruita.
+  - <sub>US/UT/wayne-county/capitol-reef-national-park-visitor-center</sub>
 ### Vermont
 
+#### Caledonia County
+
+- **Danville** · town · season ? · idea · [map](https://maps.google.com/?q=44.4097,-72.1425) [wd](https://www.wikidata.org/wiki/Q5395781) [note](https://www.wikidata.org/wiki/Q5395781)
+  - Village in Caledonia County, Vermont.
+  - <sub>US/VT/caledonia-county/danville</sub>
+- **East Burke** · town · season ? · idea · [map](https://maps.google.com/?q=44.5892,-71.9403) [wd](https://www.wikidata.org/wiki/Q2893875) [note](https://www.wikidata.org/wiki/Q2893875)
+  - Village at the foot of Burke Mountain, Vermont.
+  - <sub>US/VT/caledonia-county/east-burke</sub>
+#### Franklin County
+
+- **Montgomery** · town · season ? · idea · [map](https://maps.google.com/?q=44.87917,-72.61167) [wd](https://www.wikidata.org/wiki/Q1946270) [note](https://www.wikidata.org/wiki/Q1946270)
+  - Town in Franklin County, Vermont, known for its covered bridges.
+  - <sub>US/VT/franklin-county/montgomery</sub>
 #### Lamoille County
 
+- **Morrisville** · town · season ? · idea · [map](https://maps.google.com/?q=44.56167,-72.59833) [wd](https://www.wikidata.org/wiki/Q285464) [note](https://www.wikidata.org/wiki/Q285464)
+  - Village in Lamoille County, Vermont.
+  - <sub>US/VT/lamoille-county/morrisville</sub>
+- **Smugglers' Notch State Park** · park · season ? · idea · [map](https://maps.google.com/?q=44.5536,-72.7961) [wd](https://www.wikidata.org/wiki/Q7546619) [note](https://www.wikidata.org/wiki/Q7546619)
+  - State park on Route 108 through Smugglers' Notch.
+  - <sub>US/VT/lamoille-county/smugglers-notch-state-park</sub>
 - **Stowe** · town · Sep,Oct · planned · [map](https://maps.google.com/?q=44.46533,-72.68456) [wd](https://www.wikidata.org/wiki/Q550498) [article](https://www.wikidata.org/wiki/Q550498) [trip](../vermont-fall-2026/) · #fall-colours #scenic-drive #villages
   - Peak fall foliage, charming villages, covered bridges. Best late Sep to mid Oct; combine with the White Mountains.
   - <sub>US/VT/lamoille-county/stowe</sub>

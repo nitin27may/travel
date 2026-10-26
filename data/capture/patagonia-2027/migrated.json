@@ -130,6 +130,7 @@
     },
     {
       "ref": "trip/patagonia-2027/sight:perito moreno walkways",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "culture.heritage.landmark",
       "layer": "place",
       "near_town": {
@@ -144,6 +145,7 @@
     },
     {
       "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
+      "area_id": "AR/C/buenos-aires",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -166,6 +168,7 @@
     },
     {
       "ref": "trip/patagonia-2027/town:san telmo market",
+      "area_id": "AR/C/buenos-aires",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -188,18 +191,21 @@
     },
     {
       "ref": "trip/patagonia-2027/town:cafe and bookshops",
+      "area_id": "AR/C/buenos-aires",
       "type": "settlement.town",
       "layer": "place",
       "name": "Cafe and bookshops"
     },
     {
       "ref": "trip/patagonia-2027/town:harbour walk",
+      "area_id": "AR/V/ushuaia-department",
       "type": "settlement.town",
       "layer": "place",
       "name": "Harbour walk"
     },
     {
       "ref": "trip/patagonia-2027/town:village and cafes",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -222,6 +228,7 @@
     },
     {
       "ref": "trip/patagonia-2027/viewpoint:lapataia bay",
+      "area_id": "AR/V/ushuaia-department",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {
@@ -244,6 +251,7 @@
     },
     {
       "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "name": "Evening Fitz Roy glow"
@@ -272,6 +280,7 @@
     },
     {
       "ref": "trip/patagonia-2027/trail:laguna de los tres",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -337,6 +346,7 @@
     },
     {
       "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "water.body.lake",
       "layer": "place",
       "near_town": {
@@ -417,6 +427,7 @@
     },
     {
       "ref": "trip/patagonia-2027/trail:laguna capri",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -482,6 +493,7 @@
     },
     {
       "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "water.body.lake",
       "layer": "place",
       "near_town": {
@@ -547,6 +559,7 @@
     },
     {
       "ref": "trip/patagonia-2027/trail:mirador de los condores",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -615,6 +628,7 @@
     },
     {
       "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {
@@ -680,6 +694,7 @@
     },
     {
       "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -739,6 +754,7 @@
     },
     {
       "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {
@@ -804,6 +820,7 @@
     },
     {
       "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -872,6 +889,7 @@
     },
     {
       "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
+      "area_id": "AR/Z/lago-argentino-department",
       "type": "water.falls.waterfall",
       "layer": "place",
       "near_town": {
@@ -926,6 +944,7 @@
     },
     {
       "ref": "trip/patagonia-2027/trail:coastal path",
+      "area_id": "AR/V/ushuaia-department",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -981,6 +1000,7 @@
     },
     {
       "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+      "area_id": "AR/V/ushuaia-department",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -1043,6 +1063,7 @@
     },
     {
       "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
+      "area_id": "AR/V/ushuaia-department",
       "type": "water.body.lake",
       "layer": "place",
       "near_town": {

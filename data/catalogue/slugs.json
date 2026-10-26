@@ -173,47 +173,85 @@
    "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff": "the-narrows",
    "part/trip/utah-five-parks/viewpoint:grand view point#walk": "grand-view-point-walk",
    "place/adolf-munkel-weg": "adolf-munkel-weg",
+   "place/akureyri": "akureyri",
    "place/alpe-di-siusi": "alpe-di-siusi",
    "place/arches-national-park": "arches-national-park",
+   "place/arrowhead-provincial-park": "arrowhead-provincial-park",
+   "place/ashlar-ridge": "ashlar-ridge",
+   "place/athabasca-glacier": "athabasca-glacier",
+   "place/barrier-lake": "barrier-lake",
+   "place/beauvais-lake": "beauvais-lake",
    "place/bentonite-hills": "bentonite-hills",
    "place/bolzano": "bolzano",
    "place/bonaventure-island": "bonaventure-island",
    "place/breckenridge": "breckenridge",
    "place/bryce-canyon-national-park": "bryce-canyon-national-park",
+   "place/buenos-aires": "buenos-aires",
    "place/bullaccia-and-the-witches-benches": "bullaccia-and-the-witches-benches",
+   "place/burstall-lakes": "burstall-lakes",
    "place/cadini-di-misurina-viewpoint": "cadini-di-misurina-viewpoint",
+   "place/calf-creek": "calf-creek",
    "place/canyon-des-portes-de-lenfer": "canyon-des-portes-de-lenfer",
    "place/canyon-sainte-anne": "canyon-sainte-anne",
    "place/canyonlands-national-park": "canyonlands-national-park",
    "place/cap-bon-ami": "cap-bon-ami",
    "place/cap-gaspe": "cap-gaspe",
    "place/cape-cod": "cape-cod",
+   "place/capitol-reef-national-park-visitor-center": "capitol-reef-national-park-visitor-center",
    "place/capri": "capri",
    "place/cascate-di-fanes": "cascate-di-fanes",
+   "place/castelrotto": "castelrotto",
+   "place/cerro-castor": "cerro-castor",
+   "place/chamonix-mont-blanc": "chamonix-mont-blanc",
+   "place/chancellor-peak": "chancellor-peak",
    "place/cinque-torri": "cinque-torri",
+   "place/collegiate-church-of-san-candido": "collegiate-church-of-san-candido",
    "place/columbia-river-gorge": "columbia-river-gorge",
    "place/cortina-dampezzo": "cortina-dampezzo",
    "place/croda-del-becco": "croda-del-becco",
+   "place/curly-phillips-boathouse": "curly-phillips-boathouse",
+   "place/dantercepies-gondola": "dantercepies-gondola",
+   "place/danville": "danville",
    "place/dobbiaco": "dobbiaco",
+   "place/dobbiaco-railway-station": "dobbiaco-railway-station",
    "place/dolomites": "dolomites",
    "place/drava-cycle-path-to-lienz": "drava-cycle-path-to-lienz",
    "place/durango": "durango",
+   "place/dwight": "dwight",
+   "place/east-burke": "east-burke",
+   "place/el-chalten": "el-chalten",
    "place/factory-butte": "factory-butte",
+   "place/field": "field",
    "place/finger-lakes": "finger-lakes",
    "place/florence": "florence",
+   "place/fossholl": "fossholl",
    "place/funbob-monte-baranci": "funbob-monte-baranci",
+   "place/gljufrabui": "gljufrabui",
+   "place/golden": "golden",
    "place/grand-sault-waterfall": "grand-sault-waterfall",
    "place/grand-teton-national-park": "grand-teton-national-park",
+   "place/grindavik": "grindavik",
+   "place/grundarfjor-ur": "grundarfjor-ur",
+   "place/gufufoss": "gufufoss",
    "place/gurudongmar-lake": "gurudongmar-lake",
    "place/ha-long-bay": "ha-long-bay",
+   "place/hafragilsfoss": "hafragilsfoss",
    "place/hanoi": "hanoi",
    "place/havasupai-havasu-falls": "havasupai-havasu-falls",
+   "place/highwood-pass": "highwood-pass",
+   "place/hofn": "hofn",
+   "place/jasper": "jasper",
+   "place/jokulsa-a-brei-amerkursandi": "jokulsa-a-brei-amerkursandi",
+   "place/kananaskis-village": "kananaskis-village",
    "place/kanarra-falls": "kanarra-falls",
    "place/kennecott-river-rafting-wrangell-st-elias": "kennecott-river-rafting-wrangell-st-elias",
+   "place/kirkjub-jarklaustur": "kirkjub-jarklaustur",
    "place/la-crete-trail-mont-sainte-anne": "la-crete-trail-mont-sainte-anne",
+   "place/la-flegere": "la-flegere",
    "place/la-martre-lighthouse": "la-martre-lighthouse",
    "place/la-val": "la-val",
    "place/lac-aux-americains": "lac-aux-americains",
+   "place/lac-demosson": "lac-demosson",
    "place/lagazuoi-cable-car-and-tunnels": "lagazuoi-cable-car-and-tunnels",
    "place/lago-dantorno": "lago-dantorno",
    "place/lago-di-braies": "lago-di-braies",
@@ -227,11 +265,13 @@
    "place/lake-chelan": "lake-chelan",
    "place/lake-como": "lake-como",
    "place/lake-louise": "lake-louise",
+   "place/lake-of-two-rivers": "lake-of-two-rivers",
    "place/lake-wenatchee": "lake-wenatchee",
    "place/le-buton-lookout-le-massif-de-charlevoix": "le-buton-lookout-le-massif-de-charlevoix",
    "place/leavenworth": "leavenworth",
    "place/leperon": "leperon",
    "place/long-dong-silver-spire": "long-dong-silver-spire",
+   "place/maligne-lake": "maligne-lake",
    "place/manitou-incline": "manitou-incline",
    "place/milan": "milan",
    "place/million-dollar-highway": "million-dollar-highway",
@@ -241,29 +281,47 @@
    "place/mont-saint-pierre": "mont-saint-pierre",
    "place/mont-xalibu": "mont-xalibu",
    "place/monte-piana": "monte-piana",
+   "place/montgomery": "montgomery",
    "place/montmorency-falls": "montmorency-falls",
    "place/monument-valley": "monument-valley",
+   "place/morrisville": "morrisville",
    "place/mount-baker-snoqualmie-national-forest": "mount-baker-snoqualmie-national-forest",
    "place/mount-baker-wilderness": "mount-baker-wilderness",
+   "place/mount-blakiston": "mount-blakiston",
+   "place/mount-edith-cavell": "mount-edith-cavell",
+   "place/mount-kerkeslin": "mount-kerkeslin",
+   "place/mount-lawrence-grassi": "mount-lawrence-grassi",
    "place/mount-rainier-national-park": "mount-rainier-national-park",
+   "place/mount-robson": "mount-robson",
+   "place/mount-robson-provincial-park": "mount-robson-provincial-park",
    "place/mount-st-helens": "mount-st-helens",
    "place/north-cascades-national-park": "north-cascades-national-park",
+   "place/nova-levante": "nova-levante",
    "place/olympic-peninsula": "olympic-peninsula",
    "place/ortisei": "ortisei",
    "place/otzi-south-tyrol-museum-of-archaeology": "otzi-south-tyrol-museum-of-archaeology",
    "place/ouray": "ouray",
+   "place/oxararfoss": "oxararfoss",
+   "place/oxtongue-lake": "oxtongue-lake",
+   "place/paddys-flat": "paddys-flat",
    "place/page": "page",
    "place/paris": "paris",
    "place/passo-gardena": "passo-gardena",
    "place/perce-rock": "perce-rock",
+   "place/perito-moreno-glacier": "perito-moreno-glacier",
    "place/pic-champlain": "pic-champlain",
    "place/provence": "provence",
    "place/qq-canyon-racer-mountain-coaster-gulong-gorge": "qq-canyon-racer-mountain-coaster-gulong-gorge",
    "place/rafting-on-the-rienza": "rafting-on-the-rienza",
+   "place/reykjahli": "reykjahli",
+   "place/reykjavik": "reykjavik",
+   "place/rifugio-fondovalle": "rifugio-fondovalle",
    "place/rifugio-nuvolau-and-averau": "rifugio-nuvolau-and-averau",
    "place/rifugio-scotoni": "rifugio-scotoni",
    "place/rome": "rome",
+   "place/salt-lake-city": "salt-lake-city",
    "place/san-candido": "san-candido",
+   "place/san-cassiano": "san-cassiano",
    "place/san-vito-di-cadore": "san-vito-di-cadore",
    "place/santa-cristina": "santa-cristina",
    "place/santa-maddalena-val-di-funes": "santa-maddalena-val-di-funes",
@@ -273,19 +331,37 @@
    "place/selva-di-val-gardena": "selva-di-val-gardena",
    "place/sentier-des-cimes-parc-national-du-mont-megantic": "sentier-des-cimes-parc-national-du-mont-megantic",
    "place/sentier-la-chute": "sentier-la-chute",
+   "place/sinclair-canyon": "sinclair-canyon",
+   "place/skaftafell": "skaftafell",
+   "place/skogar": "skogar",
+   "place/smugglers-notch-state-park": "smugglers-notch-state-park",
+   "place/sn-fellsjokull": "sn-fellsjokull",
    "place/sorrento-and-the-amalfi-coast": "sorrento-and-the-amalfi-coast",
+   "place/southern-fuegian-railway": "southern-fuegian-railway",
+   "place/spray-valley-provincial-park": "spray-valley-provincial-park",
    "place/stansbury-island": "stansbury-island",
    "place/stowe": "stowe",
+   "place/strokkur": "strokkur",
    "place/tre-cime-di-lavaredo-loop": "tre-cime-di-lavaredo-loop",
    "place/trento": "trento",
+   "place/upper-elk-lake": "upper-elk-lake",
+   "place/upper-kananaskis-lake": "upper-kananaskis-lake",
+   "place/ushuaia": "ushuaia",
    "place/val-fiscalina": "val-fiscalina",
+   "place/val-gardena": "val-gardena",
+   "place/vallorcine-railway-station": "vallorcine-railway-station",
    "place/vallunga": "vallunga",
+   "place/varmahli": "varmahli",
    "place/venice": "venice",
    "place/verona": "verona",
    "place/viel-dal-pan": "viel-dal-pan",
+   "place/vik-i-myrdal": "vik-i-myrdal",
+   "place/waterton-park": "waterton-park",
    "place/watkins-glen-state-park": "watkins-glen-state-park",
    "place/white-mountain-national-forest": "white-mountain-national-forest",
+   "place/whiteswan-lake": "whiteswan-lake",
    "place/yellowstone-national-park": "yellowstone-national-park",
+   "place/yoho-valley": "yoho-valley",
    "place/zion-national-park": "zion-national-park",
    "trip/algonquin-muskoka-2026/sight:ragged falls": "ragged-falls",
    "trip/algonquin-muskoka-2026/trail:solitaire lake trail": "solitaire-lake-trail",
@@ -406,17 +482,30 @@
     "buenos-aires"
    ]
   },
+  "ar/buenos-aires-f-d": {
+   "name": "Buenos Aires F.D.",
+   "aliases": [
+    "AR-C",
+    "Buenos Aires F.D.",
+    "C",
+    "buenos-aires-f-d"
+   ]
+  },
   "ar/santa-cruz": {
    "name": "Santa Cruz",
    "aliases": [
+    "AR-Z",
     "Santa Cruz",
+    "Z",
     "santa-cruz"
    ]
   },
   "ar/tierra-del-fuego": {
    "name": "Tierra del Fuego",
    "aliases": [
+    "AR-V",
     "Tierra del Fuego",
+    "V",
     "tierra-del-fuego"
    ]
   },
@@ -432,13 +521,17 @@
   "ca/british-columbia": {
    "name": "British Columbia",
    "aliases": [
+    "BC",
     "British Columbia",
+    "CA-BC",
     "british-columbia"
    ]
   },
   "ca/ontario": {
    "name": "Ontario",
    "aliases": [
+    "CA-ON",
+    "ON",
     "Ontario",
     "ontario"
    ]
@@ -455,6 +548,8 @@
   "ch/valais": {
    "name": "Valais",
    "aliases": [
+    "CH-VS",
+    "VS",
     "Valais",
     "valais"
    ]
@@ -471,7 +566,10 @@
   "fr/auvergne-rhone-alpes": {
    "name": "Auvergne-Rhone-Alpes",
    "aliases": [
+    "ARA",
     "Auvergne-Rhone-Alpes",
+    "Auvergne-Rhône-Alpes",
+    "FR-ARA",
     "auvergne-rhone-alpes"
    ]
   },
@@ -504,7 +602,16 @@
    "name": "Capital Region",
    "aliases": [
     "Capital Region",
+    "IS-capital-region",
     "capital-region"
+   ]
+  },
+  "is/east": {
+   "name": "East",
+   "aliases": [
+    "East",
+    "IS-east",
+    "east"
    ]
   },
   "is/north-iceland": {
@@ -514,11 +621,27 @@
     "north-iceland"
    ]
   },
+  "is/northeast": {
+   "name": "Northeast",
+   "aliases": [
+    "IS-northeast",
+    "Northeast",
+    "northeast"
+   ]
+  },
   "is/northeast-iceland": {
    "name": "Northeast Iceland",
    "aliases": [
     "Northeast Iceland",
     "northeast-iceland"
+   ]
+  },
+  "is/northwest": {
+   "name": "Northwest",
+   "aliases": [
+    "IS-northwest",
+    "Northwest",
+    "northwest"
    ]
   },
   "is/northwest-iceland": {
@@ -528,6 +651,14 @@
     "northwest-iceland"
    ]
   },
+  "is/south": {
+   "name": "South",
+   "aliases": [
+    "IS-south",
+    "South",
+    "south"
+   ]
+  },
   "is/south-iceland": {
    "name": "South Iceland",
    "aliases": [
@@ -535,11 +666,27 @@
     "south-iceland"
    ]
   },
+  "is/southern-peninsula": {
+   "name": "Southern Peninsula",
+   "aliases": [
+    "IS-southern-peninsula",
+    "Southern Peninsula",
+    "southern-peninsula"
+   ]
+  },
   "is/southwest-iceland": {
    "name": "Southwest Iceland",
    "aliases": [
     "Southwest Iceland",
     "southwest-iceland"
+   ]
+  },
+  "is/west": {
+   "name": "West",
+   "aliases": [
+    "IS-west",
+    "West",
+    "west"
    ]
   },
   "is/west-iceland": {

@@ -56,6 +56,7 @@
     },
     {
       "ref": "part/trip/iceland-ring-road-2027/activity:myvatn nature baths#place",
+      "area_id": "IS/northeast/thingeyjarsveit",
       "type": "water.thermal.thermal_bath",
       "layer": "place",
       "near_town": {
@@ -86,6 +87,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
+      "area_id": "IS/southern-peninsula/grindavikurbaer",
       "type": "nature.protected.nature_reserve",
       "layer": "place",
       "near_town": {
@@ -130,6 +132,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
+      "area_id": "IS/northeast/vatnajokull-national-park",
       "type": "water.falls.waterfall",
       "layer": "place",
       "near_town": {
@@ -152,6 +155,7 @@
     },
     {
       "ref": "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+      "area_id": "IS/northeast/vatnajokull-national-park",
       "type": "nature.trail.walk",
       "layer": "route",
       "near_town": {
@@ -205,6 +209,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:geysir",
+      "area_id": "IS/south/blaskogabyggd",
       "type": "culture.heritage.landmark",
       "layer": "place",
       "near_town": {
@@ -219,6 +224,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
+      "area_id": "IS/northwest/skagafjordur",
       "type": "culture.museum.museum",
       "layer": "place",
       "near_town": {
@@ -241,6 +247,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:godafoss",
+      "area_id": "IS/northeast/thingeyjarsveit",
       "type": "water.falls.waterfall",
       "layer": "place",
       "near_town": {
@@ -263,6 +270,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:gullfoss",
+      "area_id": "IS/south/blaskogabyggd",
       "type": "water.falls.waterfall",
       "layer": "place",
       "near_town": {
@@ -277,6 +285,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:namaskard",
+      "area_id": "IS/northeast/thingeyjarsveit",
       "type": "culture.heritage.landmark",
       "layer": "place",
       "near_town": {
@@ -299,6 +308,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
+      "area_id": "IS/south/rangarthing-eystra",
       "type": "water.falls.waterfall",
       "layer": "place",
       "near_town": {
@@ -321,6 +331,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
+      "area_id": "IS/south/rangarthing-eystra",
       "type": "water.falls.waterfall",
       "layer": "place",
       "near_town": {
@@ -343,6 +354,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
+      "area_id": "IS/northeast/akureyrarbaer",
       "type": "culture.heritage.landmark",
       "layer": "place",
       "near_town": {
@@ -365,6 +377,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:hofn harbour",
+      "area_id": "IS/east/hornafjordur",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -387,6 +400,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:reykjavik old harbour",
+      "area_id": "IS/capital-region/reykjavikurborg",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -409,6 +423,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:seydisfjordur",
+      "area_id": "IS/east/mulathing",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -431,6 +446,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+      "area_id": "IS/west/snaefellsbaer",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -486,6 +502,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
+      "area_id": "IS/west/snaefellsbaer",
       "type": "water.swim.beach",
       "layer": "place",
       "near_town": {
@@ -508,6 +525,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+      "area_id": "IS/south/skaftarhreppur",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -553,6 +571,7 @@
     },
     {
       "ref": "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
+      "area_id": "IS/south/skaftarhreppur",
       "type": "nature.landform.gorge",
       "layer": "place",
       "near_town": {
@@ -618,6 +637,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+      "area_id": "IS/east/hornafjordur",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -666,6 +686,7 @@
     },
     {
       "ref": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
+      "area_id": "IS/east/hornafjordur",
       "type": "water.falls.waterfall",
       "layer": "place",
       "near_town": {
@@ -725,6 +746,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
+      "area_id": "IS/south/blaskogabyggd",
       "type": "nature.trail.walk",
       "layer": "route",
       "near_town": {
@@ -780,6 +802,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
+      "area_id": "IS/east/hornafjordur",
       "type": "water.swim.beach",
       "layer": "place",
       "near_town": {
@@ -794,6 +817,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+      "area_id": "IS/east/hornafjordur",
       "type": "water.body.lake",
       "layer": "place",
       "near_town": {
@@ -808,6 +832,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
+      "area_id": "IS/west/grundarfjardarbaer",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {
@@ -830,6 +855,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
+      "area_id": "IS/south/myrdalshreppur",
       "type": "water.swim.beach",
       "layer": "place",
       "near_town": {
@@ -844,6 +870,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
+      "area_id": "IS/west/snaefellsbaer",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {

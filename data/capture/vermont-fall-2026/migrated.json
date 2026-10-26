@@ -28,6 +28,7 @@
   "records": [
     {
       "ref": "trip/vermont-fall-2026/sight:covered bridge loop",
+      "area_id": "US/VT/franklin-county",
       "type": "wheels.drive.scenic_drive",
       "layer": "route",
       "name": "Covered bridge loop",
@@ -36,6 +37,7 @@
     },
     {
       "ref": "trip/vermont-fall-2026/town:hyde park village",
+      "area_id": "US/VT/lamoille-county",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -58,6 +60,7 @@
     },
     {
       "ref": "trip/vermont-fall-2026/town:peacham village",
+      "area_id": "US/VT/caledonia-county",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -125,6 +128,7 @@
     },
     {
       "ref": "trip/vermont-fall-2026/viewpoint:burke mountain overlook",
+      "area_id": "US/VT/caledonia-county",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {
@@ -147,6 +151,7 @@
     },
     {
       "ref": "trip/vermont-fall-2026/viewpoint:smugglers notch",
+      "area_id": "US/VT/lamoille-county",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {
