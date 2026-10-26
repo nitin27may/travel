@@ -1,7 +1,7 @@
 # Release plan: one ordered train from v0.1 to the Postgres cutover
 
 Written 25 Oct 2026 by travel-planner (Opus) at `main` 4e398e8. Planned only: nothing here is built or deployed by this
-page. Requirement PLAN [R-180](../PLAN.md); owner questions Q220 to Q229 (section 9). Release notes live in the root
+page. Requirement PLAN [R-180](../PLAN.md); owner questions Q220 to Q229 (section 9; **all answered 25 Oct 2026: Q220 to Q226, Q229 yes as recommended; Q227 and Q228 changed**). Release notes live in the root
 [CHANGELOG.md](../../../CHANGELOG.md).
 
 **The owner's request (25 Oct 2026).** "Add everything in detail and in proper order; make what is built live; then build
@@ -459,7 +459,7 @@ answers 308 to the slash form, which counts as a pass.
 |---|---|---|---|---|
 | I1 | LOCAL-3 drift stage in check-all | 3 h | after LOCAL-2 (done) | needed by CI |
 | I2 | LOCAL-4 first CI workflow, plus the CI fixes of section 7.3 | 4 h (the fixes are unsized) | after PUBLIC-AUDIT; Q182 | section 7 |
-| I3 | BKP-1 backups of private data | 6 h | gate for v0.5; Q185, Q228 | not in a public repo's Actions (section 7.4) |
+| I3 | BKP-1 backups of private data | 6 h | gate for v0.5; Q185, Q228 | a local launchd job on the Mac, not in Actions or a companion repository (section 7.6) |
 | I4 | MIG-N migration numbers at merge | 0.5 h | now | docs |
 | I5 | LOCAL-5 child rehearsal command | 2 h | before v1.0 | the coordinator runs it |
 | I6 | Retro tag `release/v0.1` at d93127b | minutes | now (Q220) | coordinator |
@@ -505,7 +505,7 @@ Run it top to bottom for every release. Push and tag commands go on lines of the
 
 ### 7.1 Recommendation
 
-**Two workflows that never deploy and never hold a production secret: `check.yml` (LOCAL-4, the gate on every push to
+**Two workflows that never deploy and never use a production secret (the production secrets stay stored in GitHub by the owner's choice, Q227; section 7.5 lists the rules that make that safe): `check.yml` (LOCAL-4, the gate on every push to
 `main` and every pull request, plus a manual child-database job behind a protected environment) and `e2e.yml` (nightly on
 `main` and manual, Chromium only).** Deploys stay a named commit run by hand (section 6). Answer Q182 yes. Trade-off: a
 second top-level folder joins the folder contract, and CI results are advisory (no required check), because the
@@ -517,9 +517,9 @@ coordinator merges and pushes `main` directly.
 |---|---|---|---|---|
 | `check.yml` (LOCAL-4, 4 h) | `push` to `main`, `pull_request`, `workflow_dispatch` | `gate`: checkout, pnpm, Node 22, Python, `pnpm install --frozen-lockfile`, build and start the `tools/db` Postgres 18 image on 127.0.0.1:54329, wait, `bash tools/check-all.sh` with `CI=true` (typecheck, unit tests for core, web and tools, `tree_check`, hard-coding scan, generated-file checks, budgets, the LOCAL-3 drift stage against the container); a step that fails if `DATABASE_URL` is set | none | top-level `permissions: contents: read`; `concurrency` per ref with cancel-in-progress; `timeout-minutes: 30` |
 | `check.yml` job `child-db` | `workflow_dispatch` only | `core/test/db` against the Neon child | `TEST_DATABASE_URL`, held in a GitHub environment `child-db` with the owner as required reviewer | never runs on `pull_request`; 29 of 29 (or the count at build time), 0 skipped |
-| `e2e.yml` (new; unsized, Q229) | `schedule` nightly on `main`, `workflow_dispatch` | Playwright Chromium, one worker, after a build | none (maps fall back to MapLibre without the `NEXT_PUBLIC_*` keys, as check-all builds do) | WebKit and the iPhone project stay on the Mac |
+| `e2e.yml` (new; unsized, Q229 answered yes) | `schedule` nightly on `main`, `workflow_dispatch` | Playwright Chromium, one worker, after a build, on decoy data | none, no production secret (maps fall back to MapLibre without the `NEXT_PUBLIC_*` keys, as check-all builds do) | WebKit and the iPhone project stay on the Mac |
 | Code scanning | GitHub default setup (no file) | CodeQL for JavaScript and TypeScript, Python | none | free on public repositories |
-| Never | | anything that deploys, `pull_request_target`, `workflow_run` with secrets, a self-hosted runner, a job that calls Commons, OSM, Wikidata or ORS | | the one-runner rule for public services holds in CI too |
+| Never | | anything that deploys, any workflow that reads a production secret (7.5), `pull_request_target` on pull request code, `workflow_run` with secrets, a self-hosted runner, a job that calls Commons, OSM, Wikidata or ORS | | the one-runner rule for public services holds in CI too |
 
 ### 7.3 CI fixes LOCAL-4 must include (found while planning; unsized)
 
@@ -537,7 +537,7 @@ coordinator merges and pushes `main` directly.
 | Actions, fork pull request workflows | "Require approval for all outside collaborators" | no stranger's code runs without the owner's click |
 | Workflow permissions | "Read repository contents and packages permissions"; "Allow GitHub Actions to create and approve pull requests" off | a leaked token can do nothing |
 | Allowed actions | GitHub-authored plus the listed, pinned ones | supply chain |
-| Repository secrets | **delete the production values** (`DATABASE_URL`, `DATABASE_URL_UNPOOLED`, `NEON_AUTH_*`, `NEON_REALTIME_*`, `RESEND_API_KEY`, `ORS_API_KEY`, the Maps key) and the `OWNER_EMAIL` variable; keep only `TEST_DATABASE_URL` inside the `child-db` environment (Q227) | no workflow needs them; a public repo's misconfigured workflow is the usual leak |
+| Repository secrets | **kept** (owner, Q227, 25 Oct 2026): the production secrets and the `OWNER_EMAIL` variable stay stored in GitHub, because the owner wants them there. The names currently set are listed in 7.5. No workflow may use them, and `TEST_DATABASE_URL` is used only inside the protected `child-db` environment. The compensating rules are in 7.5 | the usual leak is a workflow that can read a secret; the rules remove every path to it that does not need the owner's click |
 | Secret scanning and push protection | on | free on public repositories; blocks a pushed key |
 | Dependabot alerts and security updates | on; version updates off | signal without noise |
 | Private vulnerability reporting | on | a safe channel instead of a public issue |
@@ -545,12 +545,55 @@ coordinator merges and pushes `main` directly.
 | Rulesets on tags `release/*` | block update and deletion | a release tag never moves |
 | Issues | off | reports go through the private form (Q133) |
 | Vercel Git integration | disconnected, or `git.deploymentEnabled: false` (Q226) | Preview runs on production values (one-environment decision), so a pull request preview would build untrusted code with production secrets |
-| BKP-1 backups | not in this repository's Actions (Q228) | Actions artifacts of a public repository can be downloaded by any signed-in GitHub user; an encrypted dump of household data should not be there at all |
+| BKP-1 backups | not in this repository's Actions and not in a private companion repository: a local scheduled job on the owner's Mac (section 7.6; Q228, 25 Oct 2026) | Actions artifacts of a public repository can be downloaded by any signed-in GitHub user; an encrypted dump of household data should not be there at all |
 
 PUBLIC-AUDIT decides whether the repository goes public (history, the home point in `core/src/privacy/home.ts`, which
 PLAN section 1 says must move to a secret before any visibility change, and anything else). This plan only says what
 CI and the settings must be once it does. On a private repository the same workflows cost about 10 to 15 minutes a run
 against the free 2,000 a month (local-database spec Q182).
+
+### 7.5 Kept secrets: compensating rules (Q227, owner decision of 25 Oct 2026)
+
+The owner keeps the production secrets and `OWNER_EMAIL` in GitHub Actions secrets and is not deleting them. The earlier
+recommendation (delete them, because no workflow needs them) is superseded. Recommendation and trade-off: keep them
+stored but make them unreachable by policy; the risk is one future workflow mistake, a secret that no workflow can read
+cannot leak that way. These are owner-visible conditions; the coordinator checks them at every workflow change and
+PUBLIC-AUDIT checks them before the repository goes public.
+
+| Rule | Condition |
+|---|---|
+| R1 | No workflow may use a production secret. `check.yml` and `e2e.yml` read none; `check.yml` keeps its step that fails if `DATABASE_URL` is set |
+| R2 | Pull request and fork workflows never receive them: fork pull requests get no secrets (GitHub default, left on), and `pull_request_target` is not used on pull request code |
+| R3 | Any workflow that ever needs one must run in a GitHub environment named for production deploys (for example `production-deploy`) with the owner as required reviewer, restricted to the `main` branch and `release/*` tags; the secret is stored on that environment only, not as a repository secret |
+| R4 | `TEST_DATABASE_URL` stays in the protected `child-db` environment with the owner as required reviewer, and never runs on `pull_request` |
+| R5 | A change to anything under `.github/` is read by the owner before it merges, and the allowed-actions list stays GitHub-authored plus pinned |
+| R6 | Recommend the owner reconsider this decision when the first workflow lands (LOCAL-4): at that point the choice is concrete, and deleting costs one `gh secret delete` per name, with a re-add if a deploy workflow is ever built |
+
+Names currently set as repository secrets (from [the local-database spec](../features/local-database-and-seed-sync.md)
+section 3, names only, no values; the list is as documented on 25 Oct and the coordinator confirms it with
+`gh secret list` before PUBLIC-AUDIT): `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, `NEON_AUTH_BASE_URL`,
+`NEON_AUTH_COOKIE_SECRET`, `NEON_AUTH_JWKS_URL`, `NEON_REALTIME_URL`, `NEON_REALTIME_SECRET`,
+`NEXT_PUBLIC_GOOGLE_MAPS_KEY`, `NEXT_PUBLIC_GOOGLE_MAP_ID`, `NEXT_PUBLIC_PLACE_MAP_FAMILY`, `NEXT_PUBLIC_SIGN_IN`,
+`ORS_API_KEY`, `RESEND_API_KEY`, `TEST_DATABASE_URL`. The `OWNER_EMAIL` variable is set too (a variable, not a secret).
+Secrets added later in plans (for example `GOOGLE_PLACES_API_KEY`, `TURNSTILE_SECRET_KEY`, `INTAKE_*`) belong in Vercel
+only, never in GitHub.
+
+### 7.6 Backups run from this machine (Q228, owner decision of 25 Oct 2026)
+
+BKP-1 is a local scheduled job on the owner's Mac. It does not run in GitHub Actions and not from a private companion
+repository; the earlier recommendation (a private companion repository) is superseded. Planned only, additive; nothing
+here is built.
+
+| Part | Plan |
+|---|---|
+| Scheduler | a launchd user agent (`~/Library/LaunchAgents/`, a label such as `com.nks.travel.backup`) running nightly; `StartCalendarInterval` fires on wake if the Mac was asleep at the time |
+| Script | `tools/db/backup.sh` (or `backup.mjs`), in the repository, no secret inside it; it runs `pg_dump` of the private tables of production through a read-only database role (created by an additive migration, `SELECT` on the private tables only, no write grant), then encrypts the dump with `age` to the owner's public key |
+| Destination | an encrypted local backup folder outside the repository (for example `~/Backups/travel/`), retention by script: 7 daily and 4 weekly, older files removed |
+| Credentials | only from `~/.config/travel-secrets` (file mode 600, checked by the script, which refuses to run if the mode is wider); the `age` private key is never on this machine's backup folder or in the repository |
+| Logs | a log file with start, end, byte size, row counts and result; a test asserts that no connection string, password or key appears in it |
+| Restore test | monthly, into the local Docker database, counting rows (as in the local-database spec) |
+| Risk, stated | backups run only when the machine is on; a night with the Mac off is a missed backup, and the log shows the gap. The 6-hour Neon window and a manual snapshot before each production step (Q185) stay the cover. A **second copy** (for example an encrypted offsite upload) is a later option, not planned now |
+| Gate | still the gate for v0.5 (BKP-1 green, or the owner accepts the manual snapshot regime, as before) |
 
 ## 8. Release notes convention
 
@@ -566,22 +609,22 @@ against the free 2,000 a month (local-database spec Q182).
   releases that change sign-in, intake or MCP, the spec's security reviewer also reads the wording.
 - GitHub Releases copy the entry verbatim (step 13).
 
-## 9. Owner questions (Q220 to Q229)
+## 9. Owner questions (Q220 to Q229, all answered 25 Oct 2026)
 
 R-178, R-179 and Q219 stay unused. The parallel REQ-FORM task took R-190 to R-196, Q230 to Q239 and BACKLOG 15.190 to 15.196 ([request-intake-fields.md](../features/request-intake-fields.md)).
 
-| ID | Question | Recommendation | Trade-off |
+| ID | Question | Recommendation (and answer) | Trade-off |
 |---|---|---|---|
-| Q220 | Release numbering v0.1, v0.2, ... with tags `release/vX.Y`, `release/v0.1` tagged now at d93127b, and the notes approved in the same message as the named commit? | **Yes** | One more line in each approval message |
-| Q221 | Do not deploy `main` alone now (LOCAL-2 and docs change nothing for visitors); it rides v0.2 | **Yes** | Production stays one internal change behind `main` until v0.2 |
-| Q222 | Pull GSI-P (`/privacy/`, 2 h) into v0.2 and switch the beacon on then, measuring the place budget without the beacon tag and recording the tag as a fixed overhead outside the ratio | **Yes** | One third-party script on every page; the budget no longer counts every byte a visitor downloads |
-| Q223 | Pull OVR-0 (3 h) into v0.3 so trip pages get the favourite heart and later trip features have start-JS room | **Yes** | It touches `web/components/trips/**` before R-59 and must merge before R-59 starts |
-| Q224 | Accept that v0.4 (D2b) and v0.3 may swap, the number following the deploy order | **Yes** | Version numbers in this page may shift by one |
-| Q225 | Ship the public MCP (v0.15) before the private one, with its own security review slice cut from MCP-S | **Yes** | A second, smaller review; the spec's 4 h MCP-S must be split at brief time |
-| Q226 | Disconnect the Vercel Git integration, or set `git.deploymentEnabled: false`, before the repository goes public | **Yes, required** | Previews only by hand (`vercel deploy` without `--prod`) |
-| Q227 | Delete the production secrets and the `OWNER_EMAIL` variable from GitHub; keep only `TEST_DATABASE_URL` in a protected `child-db` environment | **Yes** | A future deploy workflow would need them again (none is planned) |
-| Q228 | Run BKP-1 outside this repository's Actions: from a private companion repository (free private minutes) or the owner's Mac, with the encrypted dump stored privately | **Private companion repository** | A second repository to keep; the Mac option misses nights it is asleep |
-| Q229 | Two planning gaps: (a) add the `e2e.yml` nightly workflow as a LOCAL-4 follow-up (unsized; its brief sizes it); (b) build the invite-only check Q98 implies for customisation inside CUS-C (unsized) | **Yes to both** | (a) Actions time each night (the full three-project e2e takes about 41 minutes on the Mac; Chromium alone is less), free on a public repository; (b) CUS-C grows |
+| Q220 | Release numbering v0.1, v0.2, ... with tags `release/vX.Y`, `release/v0.1` tagged now at d93127b, and the notes approved in the same message as the named commit? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | One more line in each approval message |
+| Q221 | Do not deploy `main` alone now (LOCAL-2 and docs change nothing for visitors); it rides v0.2 | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | Production stays one internal change behind `main` until v0.2 |
+| Q222 | Pull GSI-P (`/privacy/`, 2 h) into v0.2 and switch the beacon on then, measuring the place budget without the beacon tag and recording the tag as a fixed overhead outside the ratio | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | One third-party script on every page; the budget no longer counts every byte a visitor downloads |
+| Q223 | Pull OVR-0 (3 h) into v0.3 so trip pages get the favourite heart and later trip features have start-JS room | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | It touches `web/components/trips/**` before R-59 and must merge before R-59 starts |
+| Q224 | Accept that v0.4 (D2b) and v0.3 may swap, the number following the deploy order | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | Version numbers in this page may shift by one |
+| Q225 | Ship the public MCP (v0.15) before the private one, with its own security review slice cut from MCP-S | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | A second, smaller review; the spec's 4 h MCP-S must be split at brief time |
+| Q226 | Disconnect the Vercel Git integration, or set `git.deploymentEnabled: false`, before the repository goes public | **Yes, required** (ANSWERED 25 Oct 2026: yes, as recommended.) | Previews only by hand (`vercel deploy` without `--prod`) |
+| Q227 | Delete the production secrets and the `OWNER_EMAIL` variable from GitHub; keep only `TEST_DATABASE_URL` in a protected `child-db` environment | ~~Yes~~ **CHANGED (owner, 25 Oct 2026): keep the production secrets and `OWNER_EMAIL` in GitHub Actions secrets; not deleting.** Compensating rules R1 to R6 in section 7.5; reconsider when the first workflow lands | The leak surface stays stored; it is closed only by the rules, not by absence |
+| Q228 | Run BKP-1 outside this repository's Actions: from a private companion repository (free private minutes) or the owner's Mac, with the encrypted dump stored privately | ~~Private companion repository~~ **CHANGED (owner, 25 Oct 2026): run BKP-1 from this machine as a local scheduled job** (launchd, section 7.6), not from GitHub Actions and not from a companion repository | Backups run only when the Mac is on; a second, encrypted offsite copy is a later option |
+| Q229 | Two planning gaps: (a) add the `e2e.yml` nightly workflow as a LOCAL-4 follow-up (unsized; its brief sizes it); (b) build the invite-only check Q98 implies for customisation inside CUS-C (unsized) | **Yes to both** (ANSWERED 25 Oct 2026: yes, as recommended.) | (a) Actions time each night (the full three-project e2e takes about 41 minutes on the Mac; Chromium alone is less), free on a public repository; (b) CUS-C grows |
 
 Open questions this train also waits on (already in PLAN section 5): Q88 (v0.4), Q101 to Q108 (v0.3), Q130 to Q137 (v0.7),
 Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling (v0.11), Q160 to Q167 and Q190 to Q198
@@ -605,4 +648,5 @@ Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling 
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (owner answers, ANSWERS-3) | Q220 to Q226 and Q229 answered yes as recommended. Q227 changed: the production secrets and `OWNER_EMAIL` stay in GitHub Actions secrets, with compensating rules R1 to R6 (new 7.5, the 7.4 row, 7.1 and 7.2). Q228 changed: BKP-1 runs from this machine as a launchd job (new 7.6, 7.4 row, I3). The earlier recommendations are marked superseded in section 9 |
 | 2026-10-25 | First version: release train v0.1 to v1.2, critical path and seats, gate, smoke list, rollback, the coordinator's checklist, the GitHub Actions plan for a public repository, the release-notes convention, Q220 to Q229 |

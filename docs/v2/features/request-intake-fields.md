@@ -1,7 +1,7 @@
 # Request intake fields: ask enough to start research, without a heavy form
 
 Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements PLAN R-190 to R-196, BACKLOG 15.190 to
-15.196, owner questions Q230 to Q239. Nothing here is built. This page specifies **the fields** of every intake type; it
+15.196, owner questions Q230 to Q239 (**all answered 25 Oct 2026, yes as recommended**). Nothing here is built. This page specifies **the fields** of every intake type; it
 does not repeat the intake pipeline, the guards, the queue or the custom-stop picker. Those stay in:
 
 - [feedback-and-reports.md](feedback-and-reports.md) (R-90 to R-96): the one intake model, the sheet shell, steps,
@@ -718,20 +718,20 @@ of 4.3 reproduced from fixtures; the CLI refuses PII-matching text; no contact, 
    within section 10.
 8. Every step's first view fits 390 x 844; every control is reachable by keyboard and named for screen readers.
 
-## 14. Open owner questions (Q230 to Q239)
+## 14. Owner questions (Q230 to Q239, all answered 25 Oct 2026)
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q230 | Make country required for place and trip requests? | **Yes** | A visitor who does not know the country cannot send; the catalogue match helps them find it |
-| Q231 | Ask months and a year chip, never calendar dates, in trip requests? | **Yes** | No exact dates; flexibility is a chip |
-| Q232 | Generate states for every country (Natural Earth) and GeoNames towns of 5,000 people or more for the countries the towns layer does not cover, served through the existing `towns` method, so "near Manali, Himachal Pradesh" resolves before we have any Indian trip? | **Yes, threshold 5,000** (REQ-RF-C 2 h Opus, REQ-RF 4 h Sonnet) | About 1 to 2 MB of generated reference rows in `data/reference/` (REQ-RF measures; 10,000 halves it and loses small hill towns) |
-| Q233 | Map pin-drop in the request form: later, with the phase 3 map work; v1 accepts a pasted map link or coordinates only? | **Later** | Visitors without a link give no point; no map chunk in the sheet |
-| Q234 | Autosave request drafts on the device for 7 days (never the email), instead of session-only? | **Yes** | Draft text stays on a shared device until sent or discarded |
-| Q235 | "Add detail" on your own open request: fill only fields left empty, no edits, while it is Received? | **Yes**, phase 2 of this page (after REQ-V4) | One more path to secure; still no editing of sent text |
-| Q236 | Four accessibility chips (stroller, wheelchair, limited walking, avoid high altitude) and no free-text medical field? | **Yes** | Some needs go in the note |
-| Q237 | Show the visitor a detail word (Enough to start, Good, Very helpful) and the next helpful field, never the number? | **Yes** | The owner's number and the visitor's word can disagree at a boundary |
-| Q238 | FBK-2 drops the place and trip fields; this page's tasks build them, so place and trip requests ship after reports? | **Yes** (saves about 3 h and a review) | Requests go live a few days after reports |
-| Q239 | Ask "Starting from" (a city or airport) on trip requests? | **Yes**, optional, under More | A home city is personal; the hint says "never your address" and it stays in the private brief |
+| Q230 | Make country required for place and trip requests? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | A visitor who does not know the country cannot send; the catalogue match helps them find it |
+| Q231 | Ask months and a year chip, never calendar dates, in trip requests? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | No exact dates; flexibility is a chip |
+| Q232 | Generate states for every country (Natural Earth) and GeoNames towns of 5,000 people or more for the countries the towns layer does not cover, served through the existing `towns` method, so "near Manali, Himachal Pradesh" resolves before we have any Indian trip? | **Yes, threshold 5,000** (REQ-RF-C 2 h Opus, REQ-RF 4 h Sonnet) (ANSWERED 25 Oct 2026: yes, as recommended.) | About 1 to 2 MB of generated reference rows in `data/reference/` (REQ-RF measures; 10,000 halves it and loses small hill towns) |
+| Q233 | Map pin-drop in the request form: later, with the phase 3 map work; v1 accepts a pasted map link or coordinates only? | **Later** (ANSWERED 25 Oct 2026: yes, as recommended.) | Visitors without a link give no point; no map chunk in the sheet |
+| Q234 | Autosave request drafts on the device for 7 days (never the email), instead of session-only? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | Draft text stays on a shared device until sent or discarded |
+| Q235 | "Add detail" on your own open request: fill only fields left empty, no edits, while it is Received? | **Yes**, phase 2 of this page (after REQ-V4) (ANSWERED 25 Oct 2026: yes, as recommended.) | One more path to secure; still no editing of sent text |
+| Q236 | Four accessibility chips (stroller, wheelchair, limited walking, avoid high altitude) and no free-text medical field? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | Some needs go in the note |
+| Q237 | Show the visitor a detail word (Enough to start, Good, Very helpful) and the next helpful field, never the number? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | The owner's number and the visitor's word can disagree at a boundary |
+| Q238 | FBK-2 drops the place and trip fields; this page's tasks build them, so place and trip requests ship after reports? | **Yes** (saves about 3 h and a review) (ANSWERED 25 Oct 2026: yes, as recommended.) | Requests go live a few days after reports |
+| Q239 | Ask "Starting from" (a city or airport) on trip requests? | **Yes**, optional, under More (ANSWERED 25 Oct 2026: yes, as recommended.) | A home city is personal; the hint says "never your address" and it stays in the private brief |
 
 ## 15. Gotchas
 
@@ -770,4 +770,5 @@ of 4.3 reproduced from fixtures; the CLI refuses PII-matching text; no contact, 
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (owner answers, ANSWERS-3) | Owner answered Q230 to Q239: all yes, as recommended (Q232 at 5,000; Q233 later). Section 14 heading and status cells marked answered; nothing else changed |
 | 2026-10-25 | First version from the owner's request of 25 Oct: fields per intake type with steps, input kinds, prefill and validation; place disambiguation through country, regions, gazetteer towns, our areas and pin hints; social posts described, never fetched; the mapping to `types.json`, `locations.py` and trip types; research-ready briefs with a detail score and missing codes; matching on submit; privacy, phone and budget rules; tasks FBK-C (++), FBK-2 (−), REQ-RF, REQ-F1, REQ-F2, REQ-F3, REQ-FB, REQ-R4, REQ-V4; Q230 to Q239 |

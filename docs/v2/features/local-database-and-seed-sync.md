@@ -277,7 +277,7 @@ There is no workflow in the repository; GitHub lists only the dynamic Copilot re
 minutes count against the free 2,000 a month. Secrets already stored (names only): `DATABASE_URL`, `DATABASE_URL_UNPOOLED`,
 `NEON_AUTH_BASE_URL`, `NEON_AUTH_COOKIE_SECRET`, `NEON_AUTH_JWKS_URL`, `NEON_REALTIME_URL`, `NEON_REALTIME_SECRET`,
 `NEXT_PUBLIC_GOOGLE_MAPS_KEY`, `NEXT_PUBLIC_GOOGLE_MAP_ID`, `NEXT_PUBLIC_PLACE_MAP_FAMILY`, `NEXT_PUBLIC_SIGN_IN`,
-`ORS_API_KEY`, `RESEND_API_KEY`, `TEST_DATABASE_URL`.
+`ORS_API_KEY`, `RESEND_API_KEY`, `TEST_DATABASE_URL`. **25 Oct 2026 (Q227): the owner keeps them stored**; no workflow may use a production one ([RELEASE-PLAN 7.5](../build/RELEASE-PLAN.md)).
 
 **Recommendation: `.github/workflows/check.yml` with one required job (the gate, no secrets) and one manual job (the child
 suite).** The gate gets no Neon secret, so a pull request can never reach production. Trade-off: a new top-level folder (Q182)
@@ -367,8 +367,11 @@ The engine checks the child's `load_run` for a green run of the same commit befo
 So only private data needs a backup: accounts (`neon_auth`, provider-owned), `app_user`, `planner_draft`, and later favourites,
 submissions and the planner. **Recommendation (Q185): now, a manual Neon snapshot before each production step; before the
 first non-owner account, BKP-1:** a nightly `pg_dump --schema=public` of the private tables, encrypted with an `age` public key
-whose private key never enters the repository, kept as a GitHub Actions artifact for 7 days, plus a monthly restore into local
-Docker. Whether `neondb_owner` can dump `neon_auth` was not tested, so BKP-1 starts with that check. Trade-off: one more
+whose private key never enters the repository, plus a monthly restore into local Docker. **Changed 25 Oct 2026 (owner, Q228,
+supersedes the 7-day GitHub Actions artifact): the job runs on the owner's Mac** as a launchd user agent calling a script
+that dumps production through a read-only role into an encrypted local folder with retention, credentials only from
+`~/.config/travel-secrets` (mode 600), logs without secrets; see [RELEASE-PLAN 7.6](../build/RELEASE-PLAN.md). Risk: it
+runs only when the Mac is on; an encrypted offsite second copy is a later option. Whether `neondb_owner` can dump `neon_auth` was not tested, so BKP-1 starts with that check. Trade-off: one more
 workflow and one key for you to keep.
 
 ### 4.4 Migration safety
@@ -513,7 +516,7 @@ never below the model that wrote the work. Every hand-back records the model.
 | RIS-T | round trip, idempotency, rollback, privacy, size, parity, plus the sync tests of 6.6; runs on local Docker, then on the child | travel-builder then travel-verifier, Sonnet | 6 h (was 5) | RIS-L | 15.138 | existing, extended |
 | LOCAL-5 | `db:rehearse`: child reset from production, delete copied sessions, migrate, sync, verify, child suites, one report | travel-builder, Sonnet; coordinator runs it | 2 h | RIS-L | 15.146 | new |
 | SRV-0 store | `PostgresStore` and the contract kit per method | travel-builder | 24 h | RIS-T | EXECUTION-PLAN 4.8 | existing, unchanged |
-| BKP-1 | encrypted nightly dump of private tables, artifact retention, monthly restore test into Docker; first: can `neondb_owner` dump `neon_auth` | travel-builder, Opus design 3 h, Sonnet build 3 h | 6 h | LOCAL-4; Q185; before the first non-owner account | 15.147 | new |
+| BKP-1 | encrypted nightly dump of private tables by a local launchd job on the Mac (changed 25 Oct 2026, Q228; not Actions), local retention, monthly restore test into Docker; first: can `neondb_owner` dump `neon_auth` | travel-builder, Opus design 3 h, Sonnet build 3 h | 6 h | LOCAL-4; Q185; before the first non-owner account | 15.147 | new |
 | MIG-N | migration numbering: reword the four specs that reserve 0011 to slugs; note "numbers taken" in NEON-MIGRATIONS | coordinator (docs) | 0.5 h | Q186 | 15.148 | new |
 | Reviews | LOCAL-C and BKP-1 security review; LOCAL-2 code review | Opus reviewer | 2 h | each task | in each row | |
 
@@ -619,11 +622,14 @@ connection string appears in the output or the report; the script refuses to run
 branch.
 
 **BKP-1 (Opus design, Sonnet build).** Goal: private data survives a mistake noticed after Neon's 6-hour window. Owns
-`.github/workflows/backup.yml` (new), `tools/db/backup.mjs` and `restore-test.mjs` (new). Steps: first test whether
+`tools/db/backup.sh` or `backup.mjs`, a launchd plist template under `tools/db/launchd/` and `restore-test.mjs` (all new; **changed 25 Oct 2026, Q228: no `backup.yml`, nothing in GitHub Actions**). Steps: first test whether
 `neondb_owner` can `pg_dump` `neon_auth`; dump the private tables of 6.2 nightly; encrypt with `age` to the owner's public key
-(stored as a secret); upload as an artifact with 7-day retention; a monthly restore into Docker that counts rows. Acceptance:
-an artifact exists after a manual run; it cannot be read without the private key; the restore test passes; nothing
-unencrypted is written to the runner's disk outside a temp dir removed at the end.
+(public key in the script's config, private key held by the owner elsewhere); dump through a read-only role into an encrypted
+local folder with retention (7 daily, 4 weekly); credentials only from `~/.config/travel-secrets` (mode 600, checked); a log
+without secrets; a monthly restore into Docker that counts rows. Acceptance: an encrypted file exists after a manual run; it
+cannot be read without the private key; the script refuses a credentials file wider than mode 600; a test shows no secret in
+the log; the restore test passes; nothing unencrypted is written outside a temp dir removed at the end. Known limit: runs
+only when the Mac is on; an offsite second copy is a later option.
 
 ## 9. Gotchas
 
