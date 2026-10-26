@@ -1,7 +1,7 @@
 # Dolomites 2027 — Late-August alternative vs mid-July (owner-brief check)
 
 **Private research notes. Not for publication.** Prepared 2026-10-24 for Nitin's brief:
-party of 3 (2 adults + child aged 11), whole apartment/home with a kitchen, average
+a family with an older child, whole apartment/home with a kitchen, average
 accommodation budget CAD 300/night (≈ EUR 200). Task: price the **last two weeks of
 August 2027** as an alternative to the current **mid-July** plan.
 

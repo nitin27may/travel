@@ -268,13 +268,13 @@ Yellowstone, and Window A's Monday nights falling on the two thinnest dining tow
 
 ---
 
-# GROUP CONFIRMED (2026-09-05): 2 adults + 1 child, age 11 at travel
+# TEST AGE (2026-09-05): a child of 11 at travel
 
 Age 11 in Sept 2028. What it unlocks and what it closes:
 
-| Activity | Limit | Verdict for an 11-year-old |
+| Activity | Limit | Verdict for a child of 11 |
 |---|---|---|
-| Mount Washburn | NPS wants **groups of 3+** in autumn grizzly country | **Party of 3 now MEETS the minimum** — Washburn is back on, via Dunraven Pass only |
+| Mount Washburn | NPS wants **groups of 3+** in autumn grizzly country | **A family of three or more MEETS the minimum** — Washburn is back on, via Dunraven Pass only |
 | Secret Antelope Canyon | age 6+ | OK |
 | Adventurous Antelope | age 8+ | OK |
 | Fiery Furnace | age 5+ | OK |
@@ -353,7 +353,7 @@ confirm that at the counter.**
 ### AWD comes only from the class name
 Verified against National's live list: **plain Standard / Midsize / Full Size SUV are 2WD.**
 The real options are the explicit AWD/4WD variants, "Jeep Wrangler 4 door", and "Premium
-All-Terrain" (Rubicon/Defender — **4 seats only**, so it fits a party of three but not luggage
+All-Terrain" (Rubicon/Defender — **4 seats only**, so it seats four but leaves no room for luggage
 for 25 days). All are "or similar", none model-guaranteed. **Emerald Aisle at LAS lets you
 inspect the badge before taking the keys** — that is the practical mitigation.
 Correction: **Hertz's Adrenaline Collection is V8 performance cars, not 4x4.**
@@ -361,7 +361,7 @@ Correction: **Hertz's Adrenaline Collection is V8 performance cars, not 4x4.**
 Pair this with NPS's spec from the Hanksville lane: **"high clearance" = ≥ 8 inches.**
 
 ### Child seats — settled
-**No booster is required for an 11-year-old in any of NV, UT, AZ, CO or WY.** The two nearest
+**No booster is required for a child of 11 in any of NV, UT, AZ, CO or WY.** The two nearest
 thresholds are Colorado's tightened 1 Jan 2025 rule (under-9 booster, 9–18 belt) and Wyoming's
 under-9 rule. Both clear.
 

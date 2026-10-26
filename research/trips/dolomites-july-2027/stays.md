@@ -25,7 +25,7 @@ San Candido — both cited below with real 2027 figures). Where only 2026 or agg
 
 ## 1. Ten-line summary
 
-1. Party of 3 (2 adults + child 11), whole-home apartment with kitchen + parking, ~CAD 300 (~EUR 191–200)/night, car all 13 nights.
+1. A family with an older child, whole-home apartment with kitchen + parking, ~CAD 300 (~EUR 191–200)/night, car all 13 nights.
 2. The planned days fall in **three geographic clusters** — East (Braies/Tre Cime/Sesto), Central (Ampezzo), West (Val Gardena/Sella) — so three bases is the natural fit; two is possible with longer hike drives.
 3. **The decisive constraint is apartment minimum-stay:** formal South-Tyrol *Residences* overwhelmingly require **7 nights Saturday-to-Saturday** in July (confirmed, operator sources). A Tue-arrival/Mon-departure trip matches **no** clean Sat-Sat week.
 4. Recommendation: **3 bases — San Candido 4n · San Vito di Cadore 4n · Selva/Santa Cristina (Val Gardena) 5n.** One fewer packing move than the current plan.
@@ -166,7 +166,7 @@ Today is **2026-10-24**; trip is **Jul 2027** — ~9 months out, inside the book
 3. **Bolzano / Ötzi:** OK to **drop the Bolzano night** and do the Ötzi Museum as a stop on the Mon-26 departure drive (needs an **evening** VCE→YYZ flight — confirm 2027 schedule), or keep a Bolzano hotel night?
 4. **Budget vs Val Gardena reality:** Selva/Santa Cristina family apartments may land **€200–260**; is CAD ~300 a firm ceiling or a target? Santa Cristina (cheaper, Col Raiser back-door to Seceda) is the budget lever.
 5. **San Vito vs Cortina:** accept +~15 min each way on 4 central days to save ~€100+/night and skip ZTL? (Recommended yes.)
-6. **Live 2027 rates/min-stay per property:** not yet confirmable for San Vito / Val Gardena operators — needs a direct enquiry email per shortlisted property (template: dates, 2 adults + 1 child 11, kitchen, parking, Guest Pass). Re-verify all in **spring 2027**.
+6. **Live 2027 rates/min-stay per property:** not yet confirmable for San Vito / Val Gardena operators — needs a direct enquiry email per shortlisted property (template: dates, party size and the child’s age on the travel date, kitchen, parking, Guest Pass). Re-verify all in **spring 2027**.
 7. **Laundry:** most residences have coin/shared or in-unit machines (San Candido options confirmed); confirm per final property.
 
 ---

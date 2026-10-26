@@ -41,7 +41,7 @@ licence and attribution metadata from Commons).
 
 | File | What | Rows / size |
 |---|---|---|
-| `Travel Preferences.md` | standing household preferences (home Whitby, kids 9-12, radius ~2 h, interests, avoid rules, Conservation Authority notes) | 1 profile |
+| `Travel Preferences.md` | standing household preferences (home base, children's age band, radius ~2 h, interests, avoid rules, Conservation Authority notes) | 1 profile |
 | `Plan.md` | removed 25 Oct 2026 (PUBLIC-SCRUB: household data; private vault only) | |
 | `Day Trips Local.md` | "40 destinations" from Whitby with costs, timing, packing by type | 72 table lines |
 | `Day Trips Bike.md` | cycling day trips | 28 table lines |

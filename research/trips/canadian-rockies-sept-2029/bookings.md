@@ -1,6 +1,6 @@
 # Lane 4: Bookings and passes, Canadian Rockies, 1-15 Sep 2029 (raw findings)
 
-Checked 2026-10-12. Party: 2 adults + child ~6, rental car, hotels. Labour Day 2029 = Mon 3 Sep. Thanksgiving (Canada) 2029 = Mon 8 Oct (computed, INFERENCE; used because 2026 shuttle/cruise/gondola seasons ended on Thanksgiving weekend, 12 Oct 2026).
+Checked 2026-10-12. Party: a family with a young child, rental car, hotels. Labour Day 2029 = Mon 3 Sep. Thanksgiving (Canada) 2029 = Mon 8 Oct (computed, INFERENCE; used because 2026 shuttle/cruise/gondola seasons ended on Thanksgiving weekend, 12 Oct 2026).
 All figures are 2026 unless stated. 2029 data does not exist; anything labelled INFERENCE is projected from the 2026 pattern. Many web-search summaries were cross-checked by fetching the official page; where only a search snippet exists, it says so.
 
 ## MUST DO for a September family trip (book first)
@@ -8,7 +8,7 @@ All figures are 2026 unless stated. 2029 data does not exist; anything labelled 
 2. Lodging in Banff / Lake Louise / Canmore / Field for 1-3 Sep (Labour Day long weekend) and the weekends of 8-9 and 15 Sep. No lead-time data found (GAP); book as soon as the property opens its 2029 calendar, with free cancellation.
 3. Parks Canada front-country campgrounds (only if camping instead of hotels). 2026 launches Jan 20 - Feb 12. INFERENCE 2029: Jan-Feb 2029.
 4. Lake O'Hara day bus lottery (only if wanted). 2026 application window 2-23 Mar, $10/application, random draw. Campground (Lake O'Hara) opens Feb 10 2026. INFERENCE 2029: lottery March 2029.
-5. Mount Assiniboine Lodge / huts (only if wanted): lodge requests taken in an August window 14+ months ahead; Naiset huts open in January. See below. A 6-year-old makes this a hard fit; policy not stated (GAP).
+5. Mount Assiniboine Lodge / huts (only if wanted): lodge requests taken in an August window 14+ months ahead; Naiset huts open in January. See below. A young child makes this a hard fit; policy not stated (GAP).
 6. Rental car Calgary: no verified data (GAP). Reserve when lodging is fixed.
 
 ## CAN WAIT (weeks before, or no booking)
@@ -37,7 +37,7 @@ All figures are 2026 unless stated. 2029 data does not exist; anything labelled 
 
 ## Larch Valley / Sentinel Pass group access
 - Parks Canada Group Access rule: legally required to travel in a tight group of four or more on Consolation Lakes, Larch Valley, Sentinel Pass, Wasatch Pass, Eiffel Lake, Wenkchemna Pass, Sheol Valley, Paradise Valley and a 3.8 km Moraine Lake Highline section when the restriction is in effect. Lakeshore and Rockpile trails exempt. Typically in effect mid-July to mid-October; trailhead sign states "mandatory" or "recommended". Source (search snippet of official page; fetch failed on redirect): https://www.pc.gc.ca/pn-np/mtn/ours-bears/gestion-management/ours-bears/moraine . Secondary: https://canadianrockiestrailguide.com/larch-valley-hike-on-the-busiest-day-of-the-year/ (post is ~2015, 2023 update; no counting rule for children).
-- GAP: whether a child aged 6 counts toward the four. Official page not retrieved; confirm with Parks Canada before relying on it. Practical INFERENCE: a family of 3 cannot enter Larch Valley when the rule is mandatory unless joining others; larch colour peaks late Sep, so 1-15 Sep is before peak.
+- GAP: whether a young child counts toward the four. Official page not retrieved; confirm with Parks Canada before relying on it. Practical INFERENCE: a group of fewer than four cannot enter Larch Valley when the rule is mandatory unless joining others; larch colour peaks late Sep, so 1-15 Sep is before peak.
 
 ## Johnston Canyon and Bow Valley Parkway
 - No Parks Canada Johnston Canyon shuttle or parking reservation found for 2026 (GAP; searched). A German guide says a Parks Canada Bow Valley Parkway shuttle runs late June to early September (https://www.canada-spirit.com/de/guides/johnston-canyon/, secondary, unverified). Roam Route 9 has existed (https://roamtransit.com/about-us/alternate-services/, page appears dated ~2023).
@@ -69,7 +69,7 @@ All figures are 2026 unless stated. 2029 data does not exist; anything labelled 
 ## Kananaskis
 - Kananaskis Conservation Pass: $15/day (one vehicle) or $90/year (up to 3 vehicles); commercial $22.50 etc.: https://www.alberta.ca/ConservationPass (price list; no 2026 change found).
 - Peter Lougheed Provincial Park: Interlakes campground reservations (and Cataract Creek, Paddy's Flat) opened 30 Mar 2026 09:00 on shop.albertaparks.ca, 90-day rolling window, $31/night, season 14 May - 12 Oct: https://albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/camping/interlakes/ . Canyon campground first come, first served, 5 Jun - 12 Sep: https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/camping/canyon/ . Lower Lake 8 May - 13 Sep: https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/camping/lower-lake . INFERENCE 2029: rolling 90-day window means a 1 Sep arrival books from about 3 Jun.
-- Mount Engadine Lodge, Skoki, Shadow Lake, Sundance: no booking-open dates found (GAP). Skoki hiking season 25 Jun - 25 Sep (https://www.banfflakelouise.com/accommodation/backcountry-lodges/skoki-lodge, snippet). Whether children 6 are allowed: GAP.
+- Mount Engadine Lodge, Skoki, Shadow Lake, Sundance: no booking-open dates found (GAP). Skoki hiking season 25 Jun - 25 Sep (https://www.banfflakelouise.com/accommodation/backcountry-lodges/skoki-lodge, snippet). Whether young children are allowed: GAP.
 
 ## Yoho, Icefields, Jasper
 - Yoho Valley Road / Takakkaw Falls: Parks Canada trail conditions showed seasonal closure until mid-June in mid-May 2026 and open by July 2026: https://www.parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/etat-sentiers-trail-conditions . Closing typically Tuesday after Thanksgiving (blog rule, https://thebanffblog.com/takakkaw-falls-in-yoho/ ; search summary, unverified). Official date: GAP. INFERENCE 2029: open throughout 1-15 Sep.
@@ -80,7 +80,7 @@ All figures are 2026 unless stated. 2029 data does not exist; anything labelled 
 - Jasper accommodations after 2024 fire: majority open; a 20% loss of accommodations; two hotels being rebuilt for 2027; Fairmont Jasper Park Lodge reopened 1 Oct 2024 at reduced capacity: https://www.jasper.travel/wild-fire ; https://travelweekly.co.uk/all-content/jasper-alberta-canada-wildfires ; https://www.ctvnews.ca/edmonton/article/jasper-park-lodge-to-re-open-oct-1-after-closure-due-to-major-wildfire/ . Occupancy 96% in summer 2025 (Travel Weekly). 2029 lodging status: GAP.
 
 ## Waterton
-- Crypt Lake boat: operator watertoncruise.com, 2025 schedule showed daily shuttle through 2 Sep - 5 Oct, 6-13 Oct weather dependent; $34 all ages 3+ (2025): https://watertoncruise.com . Advance booking strongly recommended. 2026 schedule/booking opening: GAP. Crypt Lake hike is about 17 km return and has an exposed ledge and tunnel; suitability for a 6-year-old: GAP.
+- Crypt Lake boat: operator watertoncruise.com, 2025 schedule showed daily shuttle through 2 Sep - 5 Oct, 6-13 Oct weather dependent; $34 all ages 3+ (2025): https://watertoncruise.com . Advance booking strongly recommended. 2026 schedule/booking opening: GAP. Crypt Lake hike is about 17 km return and has an exposed ledge and tunnel; suitability for a young child: GAP.
 - Prince of Wales Hotel 2026: 11 May - 12 Oct (Glacier Park Collection) vs 11 May - 5 Oct (Curiocity): https://www.glacierparkcollection.com/lodging/prince-of-wales-hotel/ . Booking window: GAP.
 - Red Rock Parkway and Akamina: normally open 1 May - 1 Nov per 2024-25 seasonal road schedule: https://pc.gc.ca/pn-np/ab/waterton/visit/routessaisonnieres-seasonalroad . No 2026 Waterton public shuttle found (GAP; free 2016 hiker shuttle only). Townsite campground reservation vs first-come: conflict, see campground section.
 

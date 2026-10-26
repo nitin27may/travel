@@ -46,8 +46,8 @@ Changes needed, in order:
   writes each one as Kind "booking", and the toast counts it as "to book ahead" (`web/lib/export/client.ts:47`);
 - `shuttle-moraine-lakelouise`, the costliest miss on the trip (seats released "about mid-April", then 08:00 two days
   before), has every sentence dated. The scrub drops it whole, so the export has no row for it;
-- larch-valley-group ships "a family of 3 cannot hike when the rule is mandatory unless joining others; whether a
-  6-year-old counts is GAP." That is household composition. `HOUSEHOLD_TEXT` (`core/src/privacy/dateless.ts:46`) does not
+- larch-valley-group ships a note that states the party size and the child's age against the group-of-four rule.
+  That is household composition. `HOUSEHOLD_TEXT` (`core/src/privacy/dateless.ts:46`) does not
   catch it.
 
 The page's "By category" view already shows the same text, so this is not a new leak. But the export copies it into a
@@ -58,7 +58,7 @@ Fix:
   the rolling 60 %, plus a note for the spring release. This is a research task;
 - strip the `INFERENCE \d{4}:` prefix and a bare "GAP" in the public scrub;
 - leave out rows whose note says there is nothing to book, or give them their own kind (e.g. "check"), not "booking";
-- owner decision: is "a family of 3" / "a 6-year-old" public? If not, add it to `HOUSEHOLD_TEXT`.
+- owner decision: are party-size and child-age phrases public? If not, add them to `HOUSEHOLD_TEXT`.
 
 Acceptance in the brief ("Rockies CSV shows at least one Book ahead value") is met by the letter only.
 

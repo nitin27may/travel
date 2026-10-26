@@ -87,7 +87,7 @@ against the live site.
   no Toronto-Geneva nonstop (Toronto-Zurich is), UTMB 2028 dates unknown. Guest card = free trains Servoz-Vallorcine
   only, buses discounted not free. "Lac de Peclerey" does not exist (Montagne de Peclerey). Not published.
 
-- `legacy/canadian-rockies-sept-2029/` — **PUBLISHED. Sat 8 – Sat 22 Sep 2029, 14 nights, Calgary in/out, adults + a child ~6.**
+- `legacy/canadian-rockies-sept-2029/` — **PUBLISHED. Sat 8 – Sat 22 Sep 2029, 14 nights, Calgary in/out, a family with a young child.**
   Built through `legacy/_system/` (theme `alpine-snow`) from `data/*.json` (48 sights, 62 trails, 33 bookings, 43 adventures,
   `itinerary.json`); `merge_data.py` merges lane files, `plan_tables.py` fills PLAN.md tables, `build_page.py` builds the page
   and injects the gallery after the trail list (`after="trails"`). Every day has Track A (adult-only hike), B (family) and

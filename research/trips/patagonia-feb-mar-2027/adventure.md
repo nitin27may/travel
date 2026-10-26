@@ -28,7 +28,7 @@ Source key:
 - Booking: advance; sell-out timing GAP.
 - Cancellation (reseller Nomades): free until 24 h before; later no refund; free reschedule to 24 h; weather suspension full refund [NOM-MT]. Operator's own terms GAP.
 - Included: pickup (urban), shared transport, guide, crampons [NOM-MT]; navigation + helmet per [C26]. Not included: park entry (ARS 25,000 residents / ARS 50,000 non-residents per NOM-MT, subject to change), food.
-- OK for 11-year-old: Y (min 8).
+- OK for age 11: Y (min 8).
 
 ### 1.2 Big Ice (Hielo y Aventura)
 - Price: 2025 figure ARS 640,000 (Canal26 July 2025 headline, via search summary; UNVERIFIED). 2026 price: GAP.
@@ -36,7 +36,7 @@ Source key:
 - Season: sources disagree (15 Sep - 30 Apr; Sep-Apr except 25 Dec/1 Jan; or not operating 1 Apr - 9 Aug). Treat early March as operating but UNCONFIRMED.
 - HARD LIMITS: age 18 to 50 ONLY, no exceptions (multiple resellers, e.g. https://www.patagonline.com/en/experiences/big-ice-perito-moreno/ and https://platform.magpie.travel/things-to-do/perito-moreno-glacier-big-ice-trekking/4f2f56b8-24c4-46ed-afd7-5319a7190f7f; official page not read). Good fitness; medical form; passport data required; operator may refuse and charge 100% penalty if unfit.
 - Included: crampons, harness, helmet. Lunch not included.
-- OK for 11-year-old: N (confirmed by consistent third-party sources; verify at operator).
+- OK for age 11: N (confirmed by consistent third-party sources; verify at operator).
 
 ### 1.3 Perito Moreno boat safari (Safari Nautico)
 - Operator: Safari Nautico (Solo Patagonia / Hielo y Aventura / others sell it). Official URL: GAP.
@@ -44,7 +44,7 @@ Source key:
 - Duration: boat about 1 h on Lago Rico/ice walls; departures cited 10:00, 11:30, 14:30 (https://www.elcalafate.tur.ar/ page, content not re-verified).
 - Season: reported 365 days (reseller). Suitable all ages (reseller, UNVERIFIED).
 - Hard limits: GAP (official). Weather cancellation/refund: GAP.
-- OK for 11-year-old: Y (reseller says all ages; verify).
+- OK for age 11: Y (reseller says all ages; verify).
 
 ### 1.4 Ice Cream / Glacier Walk, 4x4 and kayak at Perito Moreno, glacier balconies
 - Glacier walkways (passarelas) at Parque Nacional Los Glaciares: entry ARS 50,000 non-resident per [NOM-MT] (2026 pattern). Hours/opening: GAP.
@@ -55,7 +55,7 @@ Source key:
 ### 1.5 Upsala / Spegazzini / Onelli / Estancia Cristina (Solo Patagonia, Mil Outdoor)
 - Reseller prices (undated): Estancia Cristina + Upsala Classic Glacier Cruise US$342 adult + US$45 park fee on site, about 12 h with lunch; Fossil Canyon trek US$558, 10 h; "children 12 and younger not allowed" on Fossil Canyon trek (Expedia/Travelocity snippets: https://www.travelocity.com/es/things-to-do/estancia-cristina-upsala-glacier-cruise.a396750.detalles-actividades).
 - Official operator pages (Solo Patagonia, Mil Outdoor): NOT retrieved. Age limits for classic cruise: GAP. Season: GAP. Refund terms: GAP.
-- OK for 11-year-old: classic cruise GAP; Fossil Canyon N (per reseller).
+- OK for age 11: classic cruise GAP; Fossil Canyon N (per reseller).
 - Spegazzini/Onelli standalone prices: GAP.
 
 ### 1.6 Estancia Nibepo Aike / Alice horse riding and asado; Walichu cave paintings; Laguna Nimez; scenic flights
@@ -65,13 +65,13 @@ Source key:
 - Official: https://www.glaciarium.com (not fetched).
 - Price: Civitatis US$20 entrance ticket [CIV-CAL, undated]. Older guides give only stale ARS figures; 2026 ARS GAP. Ice bar is an extra; price GAP.
 - Hours: Lonely Planet FR cites 09:00-20:00 Sep-May; another blog 12:00-20:00. Conflict: GAP. Free hourly shuttle from town (blog/Lonely Planet).
-- OK for 11-year-old: Y expected, hard limits GAP.
+- OK for age 11: Y expected, hard limits GAP.
 
 ---------------------------------------------------------------
 ## 2. EL CHALTEN
 
 - Viedma Glacier ice trek: a travel guide (adventure.travel) says the Viedma ice trek is "not operating anymore" (https://www.adventure.travel/adventure-stories/the-advocate/new-epic-adventures-and-luxurious-cabin-experiences-in-el-chalten-argentina). Older blog: min age 12. Status 2027: GAP; treat as unavailable until the operator confirms.
-- Cagliero Glacier Trek: US$550, 10 h [CIV-CHA, reseller]; another guide lists min age 15, difficulty high, from US$470. Not OK for 11-year-old (N, per that source).
+- Cagliero Glacier Trek: US$550, 10 h [CIV-CHA, reseller]; another guide lists min age 15, difficulty high, from US$470. Not OK for age 11 (N, per that source).
 - Lake Viedma glaciers boat tour: US$112, 3.5-4.5 h [CIV-CHA]; AU$394 on another reseller (different product). Min age GAP.
 - Lago del Desierto trip: US$32.96 from, 7.5 h incl. ~1 h bus each way; boat extra ARS 45,000 pp cash on site (45 min); Huemul reserve ARS 15,000 pp; boats Thu-Tue 12:00, none Wednesday; free cancel to 36 h; booking up to 1 day ahead [https://www.civitatis.com/en/el-chalten/laguna-desierto-trip]. Min age: not listed. Kids price: not listed. Fitness: low (optional 2 km round trip to Huemul).
 - Las Vueltas kayaking: US$280, 5 h, min age GAP [CIV-CHA]. Rafting on Rio de las Vueltas: not listed; GAP. Horse riding, mountain bike, bouldering, zipline, scenic flights: GAP (no source).
@@ -85,7 +85,7 @@ Source key:
 Source: https://www.trendelfindelmundo.com.ar (fares for Oct 2026 - Mar 2027, i.e. the trip window).
 - Clase Turista: ages 13+ AR$ 80,000; ages 4-12 AR$ 40,000; 0-3 free. Foreigners pay the same rate as nationals (international category). Site has a USD option; USD figures not shown (GAP).
 - Clase Premium: ages 13+ AR$ 250,000; 4-12 AR$ 125,000; 0-3 free.
-- Note: an 11-year-old falls in the 4-12 child fare; a 13-year-old pays adult.
+- Note: ages 4-12 pay the child fare; 13 and over pay adult.
 - Schedule Sep 1 - Apr 30: trains 09:30, 12:00, 15:00; station open 08:30-17:15. Buy ahead; office tickets subject to same-day availability. Check-in 45 min early, last 10 min before departure. Park entry to Parque Nacional Tierra del Fuego not included and required.
 - Duration: GAP on the page. Cancellation terms: linked on site, not read: GAP.
 - Earlier 2026 winter press (iProfesional/La Capital, Jul 2026): Turista ARS 70,000 / 35,000, Premium ARS 217,000 / 110,000 (prior-season prices; shows ~14% rise to the Oct 2026 list).
@@ -94,7 +94,7 @@ Source: https://www.trendelfindelmundo.com.ar (fares for Oct 2026 - Mar 2027, i.
 - [NOM-300] Nomades/PBM Turismo: Isla Martillo penguin colony navigation, ARS 236,000 pp (2026 pattern; year unstated) + port charge ARS 10,400 pp cash on the day; 5 h; departures 08:40 and 14:40; season Oct to early April, penguins most numerous Nov-Feb; no landing; age limit not stated; cancel free to 24 h, weather suspension refunded; includes navigation, bilingual guide, certificate. Catamaran >150 passengers.
 - Operator of the boat: not named on the page: GAP.
 - Shorter "Sea Lions Island + Les Eclaireurs lighthouse" navigation (about 2.5 h): resellers show roughly US$107 adult (Canoero Catamaranes via Expedia, undated; schedule 09:30 and 16:00 in summer). https://www.nomades.com/en/ushuaia/sea-lion-island-lighthouse-navigation-id299 not read. Official Piratour/Canoero fares: GAP.
-- Min age: GAP; family-friendly boats generally, but not verified. OK for 11-year-old: Y expected, GAP.
+- Min age: GAP; family-friendly boats generally, but not verified. OK for age 11: Y expected, GAP.
 
 ### 3.3 Isla Martillo penguin colony WITH LANDING (Pira Tour / Pira Pira)
 - Only operator reported as authorized to land at Martillo (via Estancia Harberton): Pira Tour, Ushuaia [DP] (blog; "when they went"). Whether another operator now lands: GAP. "Pira Pira vs Piratour" comparison: GAP (could not find a source separating them; Piratour's site https://www.piratour.com.ar lists only a "Caminata en Pingüinera" product with no description; phone (+54) 02901 435557).
@@ -130,7 +130,7 @@ GAP: the video was not supplied to this lane, so a true diff cannot be done. Can
 (Treat as suggestions, not video-derived.)
 
 ---------------------------------------------------------------
-## 6. SUMMARY TABLE (age/height/weight; Y/N/GAP for an 11-year-old)
+## 6. SUMMARY TABLE (age/height/weight; Y/N/GAP for age 11, the age the plan is written for)
 
 | Activity | Min age | Min height | Weight | OK for 11-yr-old? |
 |---|---|---|---|---|

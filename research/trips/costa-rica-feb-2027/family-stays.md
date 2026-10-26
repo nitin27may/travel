@@ -1,4 +1,4 @@
-# Costa Rica Feb 2027 - Research lane: FAMILY STAYS (2 adults + son aged 10), raw data
+# Costa Rica Feb 2027 - Research lane: FAMILY STAYS (test case: a family with a 10-year-old, the product default youngest child), raw data
 
 Researched 2026-10-06. Does not repeat research-stays.md or research-hot-springs.md; it adds family-room specifics, child hot-spring pricing and picks.
 
@@ -7,7 +7,7 @@ Researched 2026-10-06. Does not repeat research-stays.md or research-hot-springs
 - GAP: NO Feb 2027 quote for any property. Booking.com (empty page), Expedia (HTTP 429), Kayak (HTTP 429), Tripadvisor (HTTP 403) and Borinquen's own site (truncated) returned nothing date-specific. Every nightly figure below is a "from" rate, usually double occupancy, and is marked FROM. Feb is high season, so expect above these. Get real quotes by email/WhatsApp (contacts given where the sites listed them).
 - Fetches are summaries produced by the fetch tool, not raw HTML. "Own site" means the hotel's page was fetched; the facts were still passed through a summariser.
 - GAP: Tabacon's own pages (tabacon.com/hot-springs, /reservation-policies, homepage) were fetched and contain NO prices (day-pass or room); /day-pass, /hot-springs/day-pass and /rooms return 404. Own-site-confirmed: guests under 6 free, under 16 must be with an adult, availability limited, max group 15, water shoes recommended (https://www.tabacon.com/hot-springs). Prices below are third-party.
-- Constant for 10-year-old: most hotels price a 10-year-old as "child" up to 11 and "adult" from 12 (Tabacon, Los Lagos from 8). He is 10 in Feb 2027 (assumes he does not turn 11 before then; GAP: exact birthday).
+- Constant for 10-year-old: most hotels price a 10-year-old as "child" up to 11 and "adult" from 12 (Tabacon, Los Lagos from 8). A child who turns 11 before travel moves to a different band at some hotels; check the age on the travel date.
 
 ## 1. RINCON DE LA VIEJA (2 nights)
 
@@ -140,7 +140,7 @@ Reason: only property here with a 3-bed Family Suite, A/C, breakfast, large pool
 | Bajos del Toro (1) | Bosque de Paz Superior Room | sleeps 3, reserve trails, breakfast |
 
 ## 7. GAP list (what to chase by email)
-- Real Feb 2027 rate for each pick (14-23 Feb) for 2 adults + 1 child aged 10, with breakfast and A/C confirmed in writing.
+- Real Feb 2027 rate for each pick (14-23 Feb) for the planned party (fares quoted with a 10-year-old test case), with breakfast and A/C confirmed in writing.
 - Tabacon prices from its own booking engine (not in static pages); child price after 8 Jan 2027.
 - Child pricing: Borinquen, The Springs, Si Como No, Costa Verde, Cristal Ballena, Villas Rio Mar, Ojochal Gardens, Bosque de Paz, Arenal Kioro (third-guest charge).
 - A/C in Buena Vista (conflict), Villas Lirio family room, Bosque de Paz, Observatory Lodge (own site: fans only).

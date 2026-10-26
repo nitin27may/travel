@@ -8,8 +8,8 @@ a template; guest links read-only with expiry and optional PIN; public templates
 
 ## 1. Why the pages should not simply stay public forever
 
-- They are public today and several name the family's party and children's ages ("adults + a child
-  ~6", "children 11+"), travel dates and lodging plans. In v2, a published template strips travellers
+- They are public today and several name the family's party and the children's ages,
+  travel dates and lodging plans. In v2, a published template strips travellers
   and dates, and a guest link to the real trip expires. Retiring the legacy pages closes that exposure.
 - They are snapshots: prices, windows and closures in them stop updating; the v2 trip and template
   refresh from the catalog.

@@ -46,7 +46,7 @@ not the trailhead.
 | `season` | season structure; `attrs.snow_free` `{from, to, confidence}` for mountain trails | `06-15..10-10 open` | snow on cabled ledges in late June |
 | `eligibility.stroller`, `carrier_ok`, `min_age_guidance`, `fitness` | section 6 | `no`, `true`, `5`, `2` | who comes |
 | `attrs.dogs` | `allowed_leash`, `allowed_off_leash`, `banned`, `unknown` | `allowed_leash` | |
-| `attrs.restrictions` | list: `group_min` (with dates), `permit_required`, `quota`, `bikes`, `drones`; or `none_stated` | `[{kind: "group_min", n: 4, season: "07-15..10-15"}]` | Parks Canada group-of-four rules decide whether a family of three may go |
+| `attrs.restrictions` | list: `group_min` (with dates), `permit_required`, `quota`, `bikes`, `drones`; or `none_stated` | `[{kind: "group_min", n: 4, season: "07-15..10-15"}]` | Parks Canada group-of-four rules decide whether a group of three may go |
 | `attrs.hazards` | list `{kind, note, season}`: `bears`, `avalanche`, `rockfall`, `heat`, `lightning`, `cliff_edges_unfenced`, `river`, `tides`, `wildfire_area`, ...; or `none_stated` | `[{kind: "lightning", note: "off the loop by 14:00 in July"}]` | what to carry and when to turn back |
 | `attrs.payoff` | our words: what you see and where exactly | "the view is 0.4 mi beyond the forested summit" | the Mt. Pisgah lesson |
 

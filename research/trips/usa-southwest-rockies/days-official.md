@@ -1,4 +1,4 @@
-# Official Docs Research: Days needed per park (Zion, Bryce, Capitol Reef, Arches, Canyonlands ISKY) for 2 adults + child 11
+# Official Docs Research: Days needed per park (Zion, Bryce, Capitol Reef, Arches, Canyonlands ISKY) for a family with a child of 11 (test age)
 SOURCE_TYPE: official-docs
 CONFIDENCE: MEDIUM
 GENERATED: 2026-09-24T12:00:00+05:30
@@ -60,7 +60,7 @@ Official NPS pages give itinerary bands by hours, not by days. Only Canyonlands 
   SOURCE: https://www.nps.gov/arch/planyourvisit/delicate-arch.htm
 - FINDING: Devils Garden (search-result figures, from NPS-derived text/aggregators; not fetched on NPS): Landscape Arch 1.8 mi (2.9 km) rt, 30-60 min; Double O Arch 4.0 mi (6.4 km) rt, 2-3 h, NPS rates "difficult"; full loop 7.8 mi (12.6 km), just OVER your 12 km ceiling. Windows loop ~1 mi (1.6 km) rt, 30-60 min. Devils Garden is 18 mi (29 km) from the entrance.
   SOURCE: https://www.nps.gov/places/devils-garden-trailhead.htm and https://www.nps.gov/arch/planyourvisit/the-windows.htm (search snippets; treat as MEDIUM)
-- FINDING: Junior Ranger: "earn a badge for completing a junior ranger book". Fiery Furnace requires permit or ranger-guided tour (~2 mi, ~3 h, uneven terrain, drop-offs) -- likely unsuitable/optional for an 11-year-old; check NPS minimum age (GAP).
+- FINDING: Junior Ranger: "earn a badge for completing a junior ranger book". Fiery Furnace requires permit or ranger-guided tour (~2 mi, ~3 h, uneven terrain, drop-offs) -- likely unsuitable/optional for a child of 11; check NPS minimum age (GAP).
   SOURCE: https://www.nps.gov/arch/planyourvisit/index.htm and https://www.nps.gov/arch/planyourvisit/fiery-furnace-permit.htm
 
 ### Canyonlands - Island in the Sky

@@ -76,7 +76,7 @@ PersonaChips and PlaceCard (signed out) · Floating + (phone).
 ## States
 - **Empty (signed in, no trips)**: "Plan your first trip" with three starts: Plan a trip · Day trip
   from home · Start from a template (shows 3 public templates, e.g. "Canadian Rockies 14 nights,
-  family with a 6-year-old").
+  family with a young child").
 - **Loading**: three skeleton cards; NextActionBanner hidden until loaded (no flash of "nothing to do").
 - **Offline**: cached list with "Offline · from 07:12"; cards for trips not downloaded show "Not
   available offline" when tapped.

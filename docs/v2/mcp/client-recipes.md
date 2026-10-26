@@ -44,11 +44,11 @@ access token is created at its level and cannot be raised later; create a new on
 
 ## 1. A family plans 4 days in Banff
 
-> "Plan 4 days in Banff for us in mid-September. Kids are 9 and 6. Nothing over 8 km."
+> "Plan 4 days in Banff for us in mid-September. Kids are 12 and 10. Nothing over 8 km."
 
-1. `household {action:"get"}` → home Whitby, party of 4 (Adult 1, Adult 2, Child 1 (9), Child 2 (6)), pace balanced, avoid "unfenced cliffs".
+1. `household {action:"get"}` → home base set, party of 4 (Adult 1, Adult 2, Child 1 (12), Child 2 (10)), pace balanced, avoid "unfenced cliffs".
 2. Ask: "Which dates exactly, and are you flying into Calgary?" → "15-19 Sep 2029, yes."
-3. `list_templates {area:"banff-national-park", month:9, nights:{min:3,max:5}, party:{ages:[42,40,9,6]}}` → "Banff family 4 nights (curated), fit: good".
+3. `list_templates {area:"banff-national-park", month:9, nights:{min:3,max:5}, party:{ages:[44,41,12,10]}}` → "Banff family 4 nights (curated), fit: good".
 4. Offer it. User: "Show me." `fork_template {template:"tpl_banff_family4", start_date:"2029-09-15", mode:"preview"}` → outline, to-book list (Moraine shuttle, Banff Gondola), warning "Johnston Canyon upper falls 5.2 km: OK".
 5. User: "Swap the gondola for something free." `search {for_trip:… , q:"viewpoint", filters:{cost_band_max:0}, area:"banff-town"}` → Surprise Corner, Tunnel Mountain summit (4.3 km, fits).
 6. `fork_template {…, mode:"apply", preview_id:"prv_…"}` → trip created.

@@ -13,7 +13,7 @@ modified: 2026-06-17
 
 # 🗺️ Day Trip Options 2026 — Trails, Water & Lookouts from Whitby
 
-> Five researched day trips from Whitby, all under ~200 km, built for the same brief: a **moderate hike near water**, a **waterfall or big lookout**, and a **kids' splash/play** option, with the most **interactive** stops flagged for the 9–12 crew. Each has its own detailed note (hour-by-hour plan, costs, packing, booking gotchas) and a sharable Google Maps file.
+> Five researched day trips from Whitby, all under ~200 km, built for the same brief: a **moderate hike near water**, a **waterfall or big lookout**, and a **kids' splash/play** option, with the most **interactive** stops flagged for older kids. Each has its own detailed note (hour-by-hour plan, costs, packing, booking gotchas) and a sharable Google Maps file.
 
 ## The five options
 

@@ -315,7 +315,7 @@ D4 = day("d4", "Days", "4–5", "Kanarra Falls &amp; Bryce", "Zion → Kanarravi
    stop(3, "Day 4 · early", "Kanarra Falls",
      "<p>A creek walk with ladders, 40 minutes north of Zion. Wet feet are guaranteed and "
      "that is the point — it is the trip's best &lsquo;we did something unusual&rsquo; day "
-     "and it suits an 11-year-old better than anything else in Utah.</p>",
+     "and it suits a child of 11 better than anything else in Utah.</p>",
      tag=("unmissable", "150 permits/day"),
      stats=[("$15", "per person"), ("150/day", "hard cap"), ("1 Jan", "whole year releases")],
      links=[("Permits", "https://kanarrafalls.com/", True)], photos=("kanarra", 4, "Kanarra Creek"),
@@ -669,7 +669,7 @@ NAV = ('<a class="home" href="../">All trips</a>'
        + "".join(f'<a href="{h}">{n}</a>' for h, n in NAV_ITEMS))
 CHIPS = "".join(f'<span class="chip">{c}</span>' for c in [
     "15 days &middot; 14 nights", "~1,500 mi / 2,400 km", "8 bases",
-    "All 5 Utah parks", "2 adults + 1 child (11)", "Dates open"])
+    "All 5 Utah parks", "Family, kids 11+", "Dates open"])
 
 CTX = {
     "slug": "usa-southwest-rockies",

@@ -43,7 +43,7 @@ USD equivalents (my arithmetic, my assumption of ARS 1,500 per USD). Basis: Banc
 
 ### 1.2 Children
 - Official exempt list includes "Ninos de 0 a 6 anos inclusive" (https://www.argentina.gob.ar/node/131189). An earlier news piece said under-5 (https://www.anbariloche.com.ar/noticias/2026/05/31/107272-a-partir-de-este-1-de-junio-se-actualizan-las-tarifas-de-ingreso-a-los-parques-nacionales); the official page says 0-6, use that.
-- GAP: no official child/teen rate for ages 7-17 found. The "student" column requires Argentine DNI and a student certificate issued within 12 months (https://www.infoviajera.com/?p=173325), so a foreign 11-year-old almost certainly pays the full General rate. This is my inference, not stated by a source. Assume full price for children aged 11+ in budgeting.
+- GAP: no official child/teen rate for ages 7-17 found. The "student" column requires Argentine DNI and a student certificate issued within 12 months (https://www.infoviajera.com/?p=173325), so a foreign child almost certainly pays the full General rate. This is my inference, not stated by a source. Assume full price for children aged 11+ in budgeting.
 
 ### 1.3 What the ticket covers, validity, and where to buy
 - Official wording is only "Pase diario", "Flexipass 3 dias", "Flexipass 7 dias". The page gives no explicit validity text for the daily pass (https://www.argentina.gob.ar/node/131189). GAP: explicit validity rules for daily pass not found; a daily pass is presumably one calendar day.

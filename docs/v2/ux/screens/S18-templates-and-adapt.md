@@ -20,7 +20,7 @@ Gallery (desktop):
 │ │[hero]            │ │[hero]            │ │[hero]            │                                │
 │ │Canadian Rockies  │ │Iceland Ring Road │ │Utah five parks   │                                │
 │ │14 nights · Sep   │ │11 nights · camper│ │10 nights · paved │                                │
-│ │family, child ~6  │ │adults · Sep      │ │family            │                                │
+│ │family, young kids│ │adults · Sep      │ │family            │                                │
 │ │3 tracks per day  │ │aurora window     │ │before 1 Oct      │                                │
 │ │✓ curated · 2029  │ │✓ curated         │ │✓ curated         │                                │
 │ │fits Sep · 8–22   │ │fits Sep 4–22 only│ │fits Apr–Sep      │                                │
@@ -36,7 +36,7 @@ Adapt flow (sheet, 3 short steps then a change summary):
 ```
 ┌ Use "Canadian Rockies, 14 nights" ─────────────────────────────┐
 │ 1 When   [Sat 12 Sep 2026] → 10 nights (template: 14)           │
-│ 2 Who    ●Nitin ●Priya ●Kai 9 ●Mira 7  (template: 2 adults + child 6)│
+│ 2 Who    ●Nitin ●Priya ●Kai 9 ●Mira 7  (template: family, young kids)│
 │ 3 Keep   (•) adapt for me  ( ) copy exactly                     │
 │ [See changes]                                                   │
 ├─────────────────────────────────────────────────────────────────┤

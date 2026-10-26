@@ -21,7 +21,7 @@ modified: 2026-06-17
 - **Outing type:** Sightseeing & scenic + active hike
 - **Drive radius:** ~145 km / ~1h40 each way
 - **Time:** Full day (or relaxed half-day-plus)
-- **Group:** Family, kids 9–12
+- **Group:** Family with school-age kids
 - **Transport:** Car
 
 ## At a glance
@@ -32,7 +32,7 @@ modified: 2026-06-17
 | **Drive time** | ~1h40 each way (~145 km) |
 | **Best for** | Two big waterfalls, a marquee lookout, moderate hiking |
 | **Best season** | Spring–early summer for strong falls; great year-round |
-| **Rough cost** | ~$90–130 for a family of 4 |
+| **Rough cost** | ~$90–130 for an example family of four |
 
 ## The plan
 
@@ -72,7 +72,7 @@ modified: 2026-06-17
 - **Footwear:** real shoes — there are stairs and clifftop edges. Keep kids back from unfenced lookout edges at Dundas Peak.
 - **Falls flow:** Twenty/Spencer Creek is rain-fed; falls are fullest in spring and after rain, thinner in late summer.
 
-## Costs (family of 4, approx.)
+## Costs (example family of four, approx.)
 
 | Item | Estimate |
 |------|----------|

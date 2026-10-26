@@ -9,8 +9,8 @@ and a browser cannot — collected so they are not mistaken for resolved.
 | **BLM Henry Mountains Field Station**, Hanksville, 08:00–16:30 | **(435) 542-3461** or (435) 701-2360 | Cow Dung Road vehicle class; Moonscape turnaround size; the 3.5-vs-6.0-mile conflict on the Moonscape approach. One call closes all three. Physically in Hanksville. |
 | **Ouray County road office** | **(970) 626-5391** | Yankee Boy Basin / CR-26 + CR-361 season dates — currently unsourced |
 | **The View Hotel**, Monument Valley | via monumentvalleyview.com | Actual rate (two sources differ by 2x) and booking window. Night 7 depends on it — sunrise inside the gate is impossible anywhere else |
-| **Basecamp Ouray / Mountain Trip** | — | Via ferrata guided minimum age for an 11-year-old, and whether sub-90 lb triggers a second guide |
-| **Durango & Silverton** | — | Which classes take an 11-year-old, child fare, and the bus-leg age rule (site 403s) |
+| **Basecamp Ouray / Mountain Trip** | — | Via ferrata guided minimum age for a child of 11, and whether sub-90 lb triggers a second guide |
+| **Durango & Silverton** | — | Which classes take a child of 11, child fare, and the bus-leg age rule (site 403s) |
 
 ## Day-of, on the trip
 | What | Number | For |

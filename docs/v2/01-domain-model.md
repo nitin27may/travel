@@ -139,7 +139,7 @@ are the persona quick-starts ("Family with young kids", "Hard hikes", "Rainy-day
 ### 3.2 `household`, `person` and `traveller`
 
 The intent notes (`Travel Preferences.md`, the vault intake) show that most of a trip's setup is the
-same every time: home base Whitby, a family of four with kids 9-12, car, mid-range, balanced pace,
+same every time: one home base, the same family party, car, mid-range, balanced pace,
 "waterfalls, lookouts, caves, swimming, splash pads", "avoid unfenced cliff edges with young kids;
 long single stretches with nothing to break them up". Asking that per trip is the friction the
 vault skill already warns about ("pre-fill, don't re-ask").
