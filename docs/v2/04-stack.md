@@ -290,7 +290,7 @@ and its tests carry straight over, and the most mature React server framework.
 | Maps | **MapLibre GL JS** + **OpenFreeMap** vector tiles (free, no key) for online; **Protomaps PMTiles** extracts on R2 for offline trip areas | Mapbox, Google | no keys, no per-load cost, offline possible |
 | Terrain and hillshade | Mapterhorn / AWS Terrain Tiles | Mapbox terrain | free |
 | Routing (drive times) | **OpenRouteService** free API (keyed, daily quota) behind `leg_cache`; self-hosted **Valhalla** when quotas bite | Google Distance Matrix, Mapbox | free start, cached forever per cell pair; Google's terms forbid storing results |
-| Geocoding | **Nominatim** (1 request/second, attribution) + Wikidata for named places | Google | free; places are mostly anchored to Wikidata/OSM ids anyway |
+| Geocoding | **Nominatim** (1 request/second, attribution) + Wikidata for named places, for research and batch resolution. **Interactive place search (25 Oct 2026):** openrouteservice autocomplete through a signed-in server route, Photon as fallback; never Nominatim for type-ahead (its policy forbids it) ([requests-and-custom-places.md](features/requests-and-custom-places.md) 4.3) | Google | free; places are mostly anchored to Wikidata/OSM ids anyway |
 | Search | Postgres **full-text + pg_trgm + unaccent**; **pgvector** later for "places like this" | Meilisearch, Typesense, Algolia | enough to millions of rows; no second system |
 | Sun and twilight | existing `core/src/sun` | | already correct and tested |
 | Weather | **Open-Meteo** (free, no key, non-commercial; commercial plan if we sell) | OpenWeather | free forecast for Today mode |
