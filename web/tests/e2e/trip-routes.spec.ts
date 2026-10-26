@@ -381,6 +381,67 @@ test.describe('routed legs and Export trip on the Google family (fake key)', () 
     await expect(page.getByRole('button', { name: 'Map key' })).toBeFocused();
   });
 
+  test('M1: Tab from "Map key" reaches Close next, Shift+Tab returns, Escape returns focus; opening does not move focus', async ({ page }) => {
+    await withFake(page);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`${server.url}${ROCKIES}?p=family-6#day-5`);
+    await page.getByRole('button', { name: 'Map', exact: true }).first().click();
+    await ready(page);
+    const toggle = page.getByRole('button', { name: 'Map key' });
+    await toggle.click();
+    await toggle.focus(); // Safari does not focus a button on click
+    await expect(page.getByTestId('trip-map-key-panel')).toBeVisible();
+    await expect(toggle).toBeFocused(); // opening moved nothing
+    // the focus order is the DOM order: no focusable element sits between the toggle and Close (every engine; Safari's Tab skips buttons by default)
+    const between = await page.evaluate(() => {
+      const all = [...document.querySelectorAll<HTMLElement>('button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])')].filter((e) => !e.closest('[inert]') && e.getClientRects().length);
+      const t = all.findIndex((e) => e.classList.contains('trip-map-key-toggle'));
+      const c = all.findIndex((e) => e.classList.contains('trip-map-key-close'));
+      return c - t;
+    });
+    expect(between, 'Close is the next tab stop after the toggle').toBe(1);
+    if (test.info().project.name === 'chromium') {
+      await page.keyboard.press('Tab');
+      await expect(page.getByRole('button', { name: 'Close', exact: true })).toBeFocused();
+      await page.keyboard.press('Shift+Tab');
+      await expect(toggle).toBeFocused();
+    }
+    await page.keyboard.press('Escape');
+    await expect(page.getByTestId('trip-map-key-panel')).toHaveCount(0);
+    await expect(toggle).toBeFocused();
+  });
+
+  // the phone sheet's map is a 115 px strip on a short screen (390 x 700, 320 x 640), where the panel is 58 px: both line swatches still show
+  for (const [width, height] of [[390, 844], [390, 700], [320, 740], [320, 640]] as const) {
+    test(`M2: at ${width} x ${height} the open key shows both line swatches without scrolling, lines first, and Close stays`, async ({ page }) => {
+      await withFake(page);
+      await page.setViewportSize({ width, height });
+      await page.goto(`${server.url}${ROCKIES}?p=family-6#day-5`);
+      await page.getByRole('button', { name: 'Map', exact: true }).first().click();
+      await ready(page);
+      await page.getByRole('button', { name: 'Map key' }).click();
+      const panel = page.getByTestId('trip-map-key-panel');
+      await expect(panel).toBeVisible();
+      const pb = (await panel.boundingBox())!;
+      expect(await panel.evaluate((el) => el.scrollTop)).toBe(0);
+      for (const k of ['estimate', 'road']) {
+        const b = (await page.locator(`[data-testid="trip-map-key-panel"] .key-swatch[data-key="${k}"]`).boundingBox())!;
+        expect(b.y, `${k} swatch below the panel top`).toBeGreaterThanOrEqual(pb.y);
+        expect(b.y + b.height, `${k} swatch inside the panel without scrolling`).toBeLessThanOrEqual(pb.y + pb.height + 1);
+      }
+      // the lines are first in the list, the stop after them; the stop label says what the swatch does not repeat
+      const y = async (k: string) => (await panel.locator(`.key-swatch[data-key="${k}"]`).boundingBox())!.y;
+      const [ye, yr, ys] = [await y('estimate'), await y('road'), await y('stop')];
+      expect(Math.max(ye, yr), 'both line swatches above the stop').toBeLessThan(ys);
+      await expect(panel).toContainText("Stop, in the day's order");
+      // Close sits beside the list, not above it, and stays visible
+      const [close, list] = await Promise.all([panel.getByRole('button', { name: 'Close', exact: true }).boundingBox(), panel.locator('.trip-map-key-list').boundingBox()]);
+      expect(close!.x).toBeGreaterThanOrEqual(list!.x + list!.width - 1);
+      expect(close!.y).toBeGreaterThanOrEqual(pb.y);
+      expect(close!.y + close!.height).toBeLessThanOrEqual(pb.y + pb.height);
+    });
+  }
+
   test('on a phone the page-top Export trip is the only one', async ({ page }) => {
     await withFake(page);
     await page.setViewportSize({ width: 390, height: 844 });

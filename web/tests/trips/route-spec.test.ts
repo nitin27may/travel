@@ -71,7 +71,7 @@ describe('pins', () => {
 describe('the key shows only what is drawn (map note 5.2)', () => {
   it('Day view with estimates: numbered stop, base, estimate, other days, and the sentence about missing routes', () => {
     const k = keyOf(routeSpec({ bases, models, picked: 3 }));
-    expect(k.items.map((i) => i.label)).toEqual(["Stop, numbered in the day's order", 'Base for the night', 'Straight line, not a route', 'Other days']);
+    expect(k.items.map((i) => i.label)).toEqual(["Stop, in the day's order", 'Base for the night', 'Straight line, not a route', 'Other days']);
     expect(k.sentence).toBe(KEY_NO_ROUTE);
     expect(KEY_NO_ROUTE).toBe("Road routes are not drawn yet. Lines join each day's stops in order; use Directions for the drive.");
   });
@@ -120,6 +120,15 @@ describe('routed legs and their stubs, walks and the All days swatch (TRP2b fix 
     const k = keyOf(routeSpec({ bases, models, picked: 1, geometry: { 'leg:1:2': { ...drive, mode: 'walk' as const } } }));
     expect(k.items.find((i) => i.id === 'road')!.label).toBe('Road or path route');
     expect(k.sentence).toMatch(/car park or trailhead.*on foot, by lift or by boat/);
+  });
+  it('S3: the collapsed key names the line drawn longer, so a short road under a pin does not stand in for the long dashed line', () => {
+    const short = { 'leg:3:2': { mode: 'drive' as const, path: [at(11.1, 41.1), at(11.2, 41.2)] } };
+    const k = keyOf(routeSpec({ bases, models, picked: 3, geometry: short }));
+    expect(k.items.map((i) => i.id)).toEqual(expect.arrayContaining(['road', 'estimate']));
+    expect(k.lead).toBe('estimate'); // one routed leg of three, the rest dashed
+    const full = { ...short, 'leg:3:3': { mode: 'drive' as const, path: [at(11.2, 41.2), at(11.3, 41.3)] }, 'leg:3:1': { mode: 'drive' as const, path: [at(10, 40), at(11.1, 41.1)] }, 'leg:3:end': { mode: 'drive' as const, path: [at(11.3, 41.3), at(11, 41)] } };
+    expect(keyOf(routeSpec({ bases, models, picked: 3, geometry: full })).lead).toBe('road');
+    expect(keyOf(routeSpec({ bases, models, picked: 3 })).lead).toBe('estimate');
   });
   it('All days draws thin ink routes, and the key swatch says so; the picked day is amber', () => {
     const geometry = { 'leg:1:2': { mode: 'drive' as const, path: [at(10.1, 40.1), at(10.2, 40.2)] } };

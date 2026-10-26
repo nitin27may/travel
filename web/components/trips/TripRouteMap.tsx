@@ -48,19 +48,19 @@ export function RouteKey({ state }: { state: KeyState }) {
   const [asked, setAsked] = useState(false);
   const [more, setMore] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
-  // collapsed on a phone: one line, and the amber one when it is drawn, because it is the loudest line on the map
-  const items = [state.items.find((i) => i.id === 'road') ?? state.items.find((i) => i.id === 'estimate')].filter((i): i is NonNullable<typeof i> => !!i);
+  // collapsed on a phone: one line, the line that is drawn longest (road or straight estimate), so it names what the eye finds on the map
+  const items = [state.items.find((i) => i.id === (state.lead ?? 'road')) ?? state.items.find((i) => i.id === 'road') ?? state.items.find((i) => i.id === 'estimate')].filter((i): i is NonNullable<typeof i> => !!i);
   const [short, ...rest] = (state.sentence ?? '').split(/(?<=\.) /);
   // the open panel sits over the bottom of the map, so it is a child of the map box (a portal; events still reach this component), and
   // falls back to its place in the key's row when there is no box
   const [host, setHost] = useState<Element | null>(null);
-  const open = () => { setHost(toggle.current?.closest('.tl-mapcol')?.querySelector('.tl-mapbox') ?? null); setAsked(true); };
+  const open = () => { setHost(toggle.current?.closest('.tl-mapcol')?.querySelector('.tl-mapkey-slot') ?? null); setAsked(true); };
   const place = (panel: ReactElement) => (host ? createPortal(panel, host) : panel);
   const close = () => { setAsked(false); setMore(false); toggle.current?.focus({ preventScroll: true }); };
   const list = (its: typeof state.items, id?: string, held?: boolean) => (
     <ul id={id} className="trip-map-key-list" aria-label="Map key" data-held={held || undefined}>
       {its.map((k) => (
-        <li key={k.id}>
+        <li key={k.id} data-line={k.style === 'straight-estimate' || k.style === 'route' || k.style === 'route-pick' ? '' : undefined}>
           <span className="key-swatch" data-key={k.id} data-pick={k.pick || undefined} data-all={k.style === 'route' || undefined} aria-hidden="true">{k.id === 'stop' ? '1' : null}</span>
           {k.label}
         </li>
@@ -282,7 +282,7 @@ export default function TripRouteMap({ slug, route, dayRows, models, picked, pau
   const key = useMemo(() => {
     if (!held) return keyOf(base);
     const k = keyOf({ ...base, lines: [] });
-    return { items: k.items, sentence: null };
+    return { items: k.items, sentence: null, lead: null };
   }, [base, held]);
   const unplaced = picked === null ? models.flatMap((m) => m.unplaced.map((u) => ({ ...u, day: m.day }))) : (day?.unplaced ?? []).map((u) => ({ ...u, day: picked }));
   const dir = day ? dayDirections(day.day, day.pins.map((p) => p.at), morning ? { lng: morning.lng, lat: morning.lat } : null, night ? { lng: night.lng, lat: night.lat } : null) : null;
@@ -327,6 +327,8 @@ export default function TripRouteMap({ slug, route, dayRows, models, picked, pau
       ) : null}
       <RouteKey state={key} />
       <div ref={box} className="tl-mapbox">
+        {/* first in the DOM so Tab goes from the Map key toggle straight to the open panel (review M1, WCAG 2.4.3) */}
+        <div className="tl-mapkey-slot" />
         {mount && geometry && hasRoutedLegs(geometry) && base.lines.some((l) => l.style === 'route' || l.style === 'route-pick') ? (
           <p className="tl-credit num" data-testid="route-credit" title={legs?.attribution || undefined}>
             {wide ? 'Route lines © ' : 'Routes © '}
