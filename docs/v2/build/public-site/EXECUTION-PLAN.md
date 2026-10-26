@@ -1,5 +1,7 @@
 # Execution plan: the public site, UI fixes first, then API-over-JSON, then E, then readiness
 
+> **26 Oct 2026 (UX fixes from the owner's live review, planned, waiting for design approval G-UXA):** UXB-N, UXB-C, UXB-W, UXB-1 to UXB-7, reviews and fixes, about 67 h, ride **bundle C**, first in its B1 queue, after bundle A's TRP-GL, FAV-1 and NAV-2F merge, and before R59-1 and PHO-R. Order, owned files and briefs: [trip-and-places-ux-fixes.md](../../features/trip-and-places-ux-fixes.md) 12 and 13 (PLAN R-260 to R-266; Q293 to Q302).
+
 > **Last verified 25 Oct 2026 against main 4230210** ([audit](../../MASTER-PLAN-AUDIT-2026-10-25.md)). Task detail below
 > stands. Status cells older than 25 Oct lag [PLAN.md](../../PLAN.md): hosting is Vercel (13.2), R-58 is merged, D6a is
 > merged, the 25 Oct features (R-62 to R-129) have their own task tables in their specs and are not repeated here.

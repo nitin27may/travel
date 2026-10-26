@@ -1,5 +1,7 @@
 # Master order: every remaining task, what it conflicts with, the lanes, and the release train
 
+> **26 Oct 2026 (UX fixes from the owner's live review, planned, waiting for design approval G-UXA):** UXB-N, UXB-C, UXB-W, UXB-1 to UXB-7, reviews and fixes, about 67 h, ride **bundle C**, first in its B1 queue, after bundle A's TRP-GL, FAV-1 and NAV-2F merge, and before R59-1 and PHO-R. Order, owned files and briefs: [trip-and-places-ux-fixes.md](../features/trip-and-places-ux-fixes.md) 12 and 13 (PLAN R-260 to R-266; Q293 to Q302).
+
 Written 25 Oct 2026 by travel-planner (Opus 5.5) on `public/MASTER-ORDER`, branched from `main` 09784bc (rewritten public
 history; `main` has since gained ed0056d, an e2e-only commit). **Planned only: no product code changed.** Requirement PLAN
 R-220; BACKLOG 15.220 to 15.229; owner questions Q260 to Q268 (section 7; all answered 25 Oct 2026, yes as recommended). Principles cited by number from

@@ -550,6 +550,21 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | 15.272 | **DV-2: page-level parity spot checks (R-251).** 20 sampled refs per sync, 10 weekly in CAT-V. Brief DATA-PLAN 7.3 | data seat, Sonnet, 3 h | planned; bundle C; after DV-1 and CAT-1 |
 | 15.273 | **Coverage scoreboard per bundle (R-251).** Re-measure DATA-PLAN 5.1 at every bundle's T3, quote it in the CHANGELOG Data group against the readiness line; a new coverage report when a number moves more than 5 points | coordinator (Haiku run), about 0.5 h a bundle | planned; from bundle A |
 | 15.274 | **MCP on the API layer, never on the database (R-252).** No MCP code imports a database client or runs SQL; every tool calls the `/api/v1` store method or the app's operation; `respond()` on every MCP response; private writes through the app's operations (validation and RLS identical); grant, token and quota checks as shared server functions. MCP-C writes the grep test for `core/src/mcp/**` and the tool-to-route table (+0.5 h); MCP-1 extends the test to `web/app/mcp/**`, `web/lib/mcp/**`; MCP-S1 and MCP-S check it. [mcp/README.md](../../mcp/README.md) 1.1 | travel-planner (rule); MCP-C, MCP-1 builders | rule **done** (docs only); tests planned with MCP-C, MCP-1 (bundle H) |
+| 15.275 | **UXB-N: design note and foundation text for the trip tabs, Summary, party bar, table on phones and place templates (R-260 to R-265).** [spec](../../features/trip-and-places-ux-fixes.md) 13.1 | travel-design-reviewer, Opus, 4 h | planned; bundle C; after G-UXA |
+| 15.276 | **UXB-C: contracts (R-260, R-262, R-263, R-265).** Codec `a=1..12`; trip `summary`, `weather`, `driveAvgMin`; device keys `travel.party`, `travel.tripui`; place model `safety` and `hasValue`. [spec](../../features/trip-and-places-ux-fixes.md) 13.2 | B2, Opus, 4 h | planned; bundle C; after G-UXA |
+| 15.277 | **UXB-W: weather links for every base of the 14 trips and a climate link per trip (R-263).** [spec](../../features/trip-and-places-ux-fixes.md) 13.3 | data seat, Opus researcher, 3 h | planned; bundle C; after G-UXA |
+| 15.278 | **UXB-1: trip tabs and the Summary (R-260).** [spec](../../features/trip-and-places-ux-fixes.md) 13.4 | B1, Sonnet, 8 h | planned; bundle C; after UXB-N, UXB-C, TRP-GL merged |
+| 15.279 | **UXB-2: party bar with each child's age, kept on the device (R-262).** [spec](../../features/trip-and-places-ux-fixes.md) 13.5 | B1, Sonnet, 6 h | planned; bundle C; after UXB-1, NAV-2F |
+| 15.280 | **UXB-3: the trip's shape replaces the glance (R-261).** [spec](../../features/trip-and-places-ux-fixes.md) 13.6 | B1, Sonnet, 5 h | planned; bundle C; after UXB-2 |
+| 15.281 | **UXB-4: when to go (R-263).** [spec](../../features/trip-and-places-ux-fixes.md) 13.7 | B1, Sonnet, 4 h | planned; bundle C; after UXB-3, UXB-W |
+| 15.282 | **UXB-5: Table view of each day (R-264).** [spec](../../features/trip-and-places-ux-fixes.md) 13.8 | B1, Sonnet, 6 h | planned; bundle C; after UXB-1 |
+| 15.283 | **UXB-6: Bookings and Photos tabs; `bookRuleText` " local" fix (R-260).** [spec](../../features/trip-and-places-ux-fixes.md) 13.9 | B1, Sonnet, 4 h | planned; bundle C; after UXB-1 |
+| 15.284 | **UXB-R1, UXB-V1: review and verify the trip page round (R-266).** [spec](../../features/trip-and-places-ux-fixes.md) 13.11 | Opus 3 h, Sonnet 3 h | planned; bundle C |
+| 15.285 | **UXB-7: place pages show what is known, gaps in one block, basics and type templates (R-265).** Pulls Q273's collapse from FA-6. [spec](../../features/trip-and-places-ux-fixes.md) 13.10 | B1, Sonnet, 10 h | planned; bundle C; after UXB-N, UXB-C, FAV-1 |
+| 15.286 | **UXB-R2, UXB-V2: review and verify the places round, with the Kind filter re-check (R-265, R-266)** | Opus 2 h, Sonnet 2 h | planned; bundle C |
+| 15.287 | **UXB-F: fixes from the four reviews** | B1, Sonnet, 0 to 3 h | planned; bundle C |
+| 15.288 | **G-UXA: owner approves the UX design (spec and wireframes) before any UXB build (R-266)** | owner | open |
+| 15.289 | **Q293 to Q302: owner questions for the UX fixes.** [spec](../../features/trip-and-places-ux-fixes.md) 14 | owner | open |
 
 ## Owner questions open
 
@@ -794,6 +809,16 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | Q285 | `towns` stays on files until v1.0, flipped early only if REQ-RF's world towns add more than 2 MB to the API function? Recommended: yes, as a contingency only ([CATALOGUE-EARLY.md](../CATALOGUE-EARLY.md) 12) | 26 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
 | Q286 | The early half of lane S in the data seat rather than B2? Recommended: yes ([CATALOGUE-EARLY.md](../CATALOGUE-EARLY.md) 12) | 26 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
 | Q290 | May a place page's size baseline be re-measured once, at the merge where a research batch takes its record from below the required tier to complete (BUD-1 method)? Recommended: yes, once per page, only for required-tier fills ([DATA-PLAN.md](../DATA-PLAN.md) 6) | 26 Oct **Decided 26 Oct 2026 (owner): yes, as recommended (the re-baseline rule: once per page, required-tier fills only; not the bundle-tag question of the same number in briefs-bundle-A 9).** |
+| Q293 | Five trip tabs: Summary, Days, Stops, Bookings, Photos? Recommended: yes ([spec](../../features/trip-and-places-ux-fixes.md) 14) | 26 Oct, open |
+| Q294 | Summary as the default tab, last tab remembered per trip on the device? Recommended: yes | 26 Oct, open |
+| Q295 | Apply the device party to trips opened without party settings in the link? Recommended: yes, with "Plan as written" one click away | 26 Oct, open |
+| Q296 | Shared links carry the exact adult count (`a=1` to `a=12`), never children's ages? Recommended: yes | 26 Oct, open |
+| Q297 | Replace "The trip at a glance" with "The trip's shape", collapsed by default? Recommended: yes | 26 Oct, open |
+| Q298 | Weather as links to national services only, no weather API call from the page; build-time Open-Meteo numbers later on request? Recommended: links only now | 26 Oct, open |
+| Q299 | Table view on phones as three columns with folded lines, no sideways scroll? Recommended: yes | 26 Oct, open |
+| Q300 | Place pages: hide empty sections, safety gaps as rows, one gap block, compact basics template; pulled from FA-6 into bundle C? Recommended: yes | 26 Oct, open |
+| Q301 | All UX fixes in bundle C (about 67 h), nothing added to bundle A? Recommended: yes | 26 Oct, open |
+| Q302 | Call the category tab "Stops"? Recommended: Stops | 26 Oct, open |
 
 ## Later: after go-live (planner and data)
 
