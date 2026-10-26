@@ -2,6 +2,7 @@ import { getPlace, getTrip, placeSlugs, tripSlugs } from '@/lib/public';
 import type { PublicPlace, PublicTrip } from '@/lib/public';
 import { absoluteUrl } from '@/lib/site';
 import { tripBookings, withStopBookings } from '@travel/core/export/bookings.ts';
+import { forTimeline } from '@travel/core/export/plan.ts';
 import { checkPoint, lineExportable } from './licence';
 import { zoneByName, zoneNear } from './tz';
 import type { ExportLine, ExportStop, ExportWaypoint, PlaceExport, TripExport } from './types';
@@ -81,6 +82,12 @@ export function buildTripExport(trip: PublicTrip, lookup: (slug: string) => Publ
       }
     }
   }
+  // `order` is the stop's place in the file (types.ts): the plan's authored HH:MM in clock order, then the plan's order, an untimed stop
+  // after the timed ones of its day. The CSV and the print sort by it; `forTimeline` renumbers it in a timeline's order.
+  const clockOf = (t: string | null): string => t?.match(/\b\d{2}:\d{2}\b/)?.[0] ?? '99:99';
+  [...stops].sort((a, b) => a.day - b.day || clockOf(a.time).localeCompare(clockOf(b.time)) || a.order - b.order).forEach((s, i) => {
+    s.order = i;
+  });
   for (const b of trip.bases) {
     if (b.point) add({ key: b.id, name: b.name, kind: 'base', role: 'base', day: b.days[0] ?? null, note: `${b.nights} night${b.nights === 1 ? '' : 's'}`, url: null, point: b.point });
   }
@@ -103,6 +110,18 @@ export function buildTripExport(trip: PublicTrip, lookup: (slug: string) => Publ
     seasonLabel: trip.season?.label ?? null,
     skipped,
   };
+}
+
+/**
+ * The trip's export as its default profile shows it (BACKLOG 15.223a; TRP-GL-C review F4): the default-profile timelines the page opens
+ * with, through core's `forTimeline`, the same function the page's Export menu calls. One row per row of that timeline (a Rockies stop
+ * is no longer repeated once per track) and the print's wording of each time ("~08:45" suggested). For the API's `csv` and `print`; the
+ * `json` model stays whole, because the client reads it as the page's model and applies the visitor's own profile
+ * (web/lib/client/api.ts loadExport). The page's display marks (zone lines, flight-tied "about") are not applied yet: 15.223a.
+ */
+export function buildTripExportForDefaultProfile(trip: PublicTrip, lookup: (slug: string) => PublicPlace | null = getPlace): TripExport {
+  const model = buildTripExport(trip, lookup);
+  return forTimeline(model, trip.schedule ? { timelines: trip.schedule.timelines } : null);
 }
 
 export function buildPlaceExport(place: PublicPlace): PlaceExport {

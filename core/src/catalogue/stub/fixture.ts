@@ -204,6 +204,20 @@ const TRIPS = [
   { slug: "stub-alps-week", title: "Alps week", cc: "IT", nights: 7 },
 ] as const;
 
+/**
+ * The loop's two booking rows (MUST-6; TRP-GL-C review F6), so case K30 exercises the non-empty path on the stub too: a window on the
+ * day-1 stop's own place (its "Book ahead" rides on that stop, as `withStopBookings` puts it), and a note with no rule and no place. The
+ * Alps week has none, the `[]` case. Dateless, and worded like the real rows.
+ */
+function bookingRows(slug: string, mine: StubPlace[]): TripDetail["categories"]["logistics"] {
+  if (slug !== "stub-rockies-loop") return [];
+  const first = mine[0]!.detail;
+  return [
+    { key: "logistics:stub-shuttle", category: "logistics", name: "Lake shuttle seat", kind: "booking", placeSlug: first.slug, days: [1], time: null, areaLabel: null, detail: null, nights: null, bookRule: { daysBefore: 2, dayN: 1, time: "08:00", tz: "America/Edmonton" }, bookNote: "Seats not taken in the spring release open two days ahead." },
+    { key: "logistics:stub-pass", category: "logistics", name: "Park pass", kind: "booking", placeSlug: null, days: [Math.min(2, mine.length)], time: null, areaLabel: null, detail: null, nights: null, bookRule: null, bookNote: "INFERENCE 2029: buy the pass online before the first park gate." },
+  ];
+}
+
 function tripOf(t: (typeof TRIPS)[number], places: StubPlace[]): StubTrip {
   const mine = places.filter((p) => p.detail.trips.some((x) => x.slug === t.slug));
   const first = mine[0]!.detail.point!;
@@ -221,7 +235,7 @@ function tripOf(t: (typeof TRIPS)[number], places: StubPlace[]): StubTrip {
       items: [{ id: `${i + 1}-1`, name: p.detail.name, kind: p.detail.kind, subkind: null, category: p.detail.category, foldedInto: null, placeSlug: p.detail.slug, time: null, variant: null, durationMin: null, note: null, stats: null, access: null }],
       tracks: null, scheduleInput: null, variants: [], know: [], summaryProse: null, light: null,
     })),
-    categories: { ...empty, trails: mine.filter((p) => p.detail.kind === "trail").map((p, i) => ({ key: p.detail.slug, category: "trails" as const, name: p.detail.name, kind: p.detail.kind, placeSlug: p.detail.slug, days: [i + 1], time: null, areaLabel: p.detail.areaLabel, detail: null, nights: null, bookRule: null, bookNote: null })) },
+    categories: { ...empty, trails: mine.filter((p) => p.detail.kind === "trail").map((p, i) => ({ key: p.detail.slug, category: "trails" as const, name: p.detail.name, kind: p.detail.kind, placeSlug: p.detail.slug, days: [i + 1], time: null, areaLabel: p.detail.areaLabel, detail: null, nights: null, bookRule: null, bookNote: null })), logistics: bookingRows(t.slug, mine) },
     gallery: [], effort: "moderate", ageFit: null, driveAvgMin: null,
   };
   const row: TripRow = {

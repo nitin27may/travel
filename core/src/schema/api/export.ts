@@ -102,13 +102,23 @@ export const exportStop = z.strictObject({
   placeSlug: apiSlug.nullable(),
   links: z.array(z.string()),
   point: exportPoint.nullable(),
-  /** The stop's booking windows as "Book ahead" says them (core/src/export/bookings.ts), when a booking names its place that day. Dateless. */
-  bookRule: z.string().min(1).optional(),
+  /**
+   * What "Book ahead" says for this stop: each booking's window and note (core/src/export/bookings.ts `bookAheadText`), when a booking
+   * names its place that day. Dateless. Named `bookAhead`, not `bookRule`, because it holds the note too (TRP-GL-C review F9).
+   */
+  bookAhead: z.string().min(1).optional(),
 });
 
 /**
  * One booking of the trip (MUST-6, TRP-GL-C): a category row with a booking window or note, worded as the trip page words it. Dateless:
- * `rule` is relative to a day ("Opens 30 days before Day 3"), never a calendar date. `ref` is the page's category row key.
+ * `rule` is relative to a day ("Opens 30 days before Day 3"), never a calendar date. A row whose note says there is nothing to book is
+ * not a booking (review F1). `day` is the rule's own day, else the first day it is for. `ref` is the page's category row key: OPAQUE,
+ * stable within one revision of the trip only (review F12); a client may match it against the same revision's trip detail, never parse
+ * or store it.
+ *
+ * Contract note (review F11): `bookings` is required on `tripExportModel` (`[]` when none), a breaking change for an older reader of the
+ * json body, accepted because the API is not deployed (PLAN R-8). Before go-live the model gets a named OpenAPI component schema and a
+ * `version` field (BACKLOG 15.223c).
  */
 export const exportBooking = z.strictObject({
   name: z.string().min(1),

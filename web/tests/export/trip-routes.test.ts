@@ -21,7 +21,9 @@ import { getStore } from '@/lib/server/store';
 import { scheduleTrip } from '@travel/core/schedule/schedule.ts';
 import { DEFAULT_PROFILE, type Profile } from '@travel/core/schedule/types.ts';
 import { kids, parseXml } from './helpers';
-import { bookAheadText, bookRuleText } from '@travel/core/export/bookings.ts';
+import { bookAheadText, bookRuleText, NOTHING_TO_BOOK, publicBookingNote } from '@travel/core/export/bookings.ts';
+import { printTime as corePrintTime } from '@travel/core/export/plan.ts';
+import { buildTripExportForDefaultProfile } from '@/lib/export/build.server';
 import { isDated } from '@travel/core/privacy/dateless.ts';
 import { exportModel, exportStop, tripExportModel } from '@travel/core/schema/api/index.ts';
 import { bookRuleLabel } from '@/components/trips/model';
@@ -51,6 +53,8 @@ function pageFor(slug: string, profile: Profile) {
   const slugs = new Map(model.stops.flatMap((x) => (x.placeSlug ? [[x.id, x.placeSlug] as const] : [])));
   return { trip, page, model, timelines, maps, pointOf, session: { timelines, route: page.route }, slugOf: (k: string) => slugs.get(k) ?? null };
 }
+/** One CSV line's cells (RFC 4180 quoting). */
+const csvCells = (line: string) => [...line.matchAll(/("(?:[^"]|"")*"|[^,]*)(,|$)/g)].map((m) => m[1]!.replace(/^"|"$/g, '').replace(/""/g, '"')).slice(0, TRIP_CSV_HEADER.length);
 const geo = (m: ReturnType<typeof buildTripExport>, routes: ReturnType<typeof routeLines>) => ({ title: m.title, url: m.url, waypoints: m.waypoints, lines: [...m.lines, ...routes], skipped: m.skipped });
 
 describe.each(SLUGS)('%s: the routed legs as export lines', (slug) => {
@@ -247,25 +251,44 @@ describe.each(SLUGS)('%s: booking windows in the export (MUST-6)', (slug) => {
   const col = TRIP_CSV_HEADER.indexOf('Book ahead');
   const cells = (line: string) => [...line.matchAll(/("(?:[^"]|"")*"|[^,]*)(,|$)/g)].map((m) => m[1]!.replace(/^"|"$/g, '').replace(/""/g, '"')).slice(0, TRIP_CSV_HEADER.length);
 
-  it('the model lists every booking row of the page, in day order, worded as the page words it', () => {
+  /** The trip's own category rows (the rule as data, for its day). */
+  const source = Object.values(p.trip.categories).flat();
+  it('the model lists the page\'s booking rows, in day order, worded as the page words them; a row with nothing to book is not one (review F1)', () => {
     expect(pageRows.length).toBeGreaterThan(0);
-    expect(p.model.bookings.map((b) => b.ref).sort()).toEqual(pageRows.map((r) => r.key).sort());
+    expect(p.model.bookings.length).toBeGreaterThan(0);
     for (const b of p.model.bookings) {
       const row = pageRows.find((r) => r.key === b.ref)!;
+      expect(row, b.ref).toBeTruthy();
       expect(b.name).toBe(row.name);
       expect(b.rule).toBe(row.bookRule);
-      expect(b.note).toBe(row.bookNote);
-      expect(b.day).toBe(row.days.length ? Math.min(...row.days) : null);
+      // the page's note, through the export's scrub: no research marker, no household make-up
+      expect(b.note).toBe(publicBookingNote(row.bookNote));
+      const rule = source.find((r) => r.key === b.ref)!.bookRule;
+      expect(b.day).toBe(rule?.dayN ?? (row.days.length ? Math.min(...row.days) : null));
+    }
+    // a page row left out is one with no window whose note says there is nothing to book, or says nothing public
+    for (const r of pageRows.filter((x) => !p.model.bookings.some((b) => b.ref === x.key))) {
+      expect(r.bookRule, r.key).toBeFalsy();
+      const note = publicBookingNote(r.bookNote);
+      expect(note === null || NOTHING_TO_BOOK.test(note), `${r.key}: ${note}`).toBe(true);
     }
     const days = p.model.bookings.map((b) => b.day ?? Infinity);
     expect(days).toEqual([...days].sort((a, b) => a - b));
+    // the Rockies rows that say there is nothing to book ("no booking expected", "carry bear spray") are on the page and not in the file
+    if (slug === 'canadian-rockies-2029') expect(pageRows.length - p.model.bookings.length).toBeGreaterThan(0);
+  });
+  it('no exported note carries a research marker or a household make-up clause (review F1)', () => {
+    for (const b of p.model.bookings) {
+      expect(b.note ?? '', b.ref).not.toMatch(/\bINFERENCE\b|\bGAP\b|(?:^|[.;] )(?:19|20)\d\d: /);
+      expect(b.note ?? '', b.ref).not.toMatch(/\bfamily of \d|\d+-year-old/i);
+    }
   });
   it('the CSV has a "Book ahead" column with at least one value, each one the page\'s rule or note', () => {
     expect(col).toBe(TRIP_CSV_HEADER.length - 1);
     expect(lines[0]).toBe(TRIP_CSV_HEADER.join(','));
     const values = lines.slice(1, -1).map((l) => cells(l)[col]!).filter(Boolean);
     expect(values.length).toBeGreaterThan(0);
-    for (const r of pageRows) expect(values).toContain(bookAheadText({ rule: r.bookRule, note: r.bookNote }));
+    for (const b of p.model.bookings) expect(values).toContain(bookAheadText(b));
     // a booking row says what it is, on the day it is for
     const bookingRows = lines.slice(1, -1).map(cells).filter((c) => c[3] === 'booking');
     expect(bookingRows).toHaveLength(p.model.bookings.length);
@@ -275,7 +298,7 @@ describe.each(SLUGS)('%s: booking windows in the export (MUST-6)', (slug) => {
   });
   it('no booking carries a calendar date, and the privacy detector passes over the bookings, the CSV and the API json', async () => {
     for (const b of p.model.bookings) for (const t of [b.name, b.rule, b.note]) if (t) expect(isDated(t), t).toBe(false);
-    for (const s of p.model.stops) if (s.bookRule) expect(isDated(s.bookRule), s.bookRule).toBe(false);
+    for (const s of p.model.stops) if (s.bookAhead) expect(isDated(s.bookAhead), s.bookAhead).toBe(false);
     expect(privacyHits(p.model.bookings)).toEqual([]);
     expect(privacyHits(csv)).toEqual([]);
     const r = await getStore().getExport({ type: 'trip', slug, format: 'json' });
@@ -308,29 +331,30 @@ describe('Dolomites: the Tre Cime toll road window, from the page to every outpu
   });
 });
 
-describe('a stop\'s own window rides on its row (ExportStop.bookRule)', () => {
+describe('a stop\'s own window rides on its row (ExportStop.bookAhead)', () => {
   const trip = getTrip('dolomites-2027')!;
   const stop = buildTripExport(trip).stops.find((s) => s.placeSlug && s.day === 3)!;
   // the snapshot does not yet name a booking's place (the gap is written in the hand-back), so plant one on a copy of the trip
   const planted = { ...trip, categories: { ...trip.categories, logistics: [...trip.categories.logistics, { key: 'logistics:planted', category: 'logistics' as const, name: 'Planted slot', kind: 'parking', placeSlug: stop.placeSlug, days: [3], time: null, areaLabel: null, detail: null, nights: null, bookRule: { daysBefore: 14, dayN: 3, time: null, tz: null }, bookNote: 'Planted note' }] } };
   const model = buildTripExport(planted);
   it('a booking naming the stop\'s place on its day puts its window on the stop, and on that stop only', () => {
-    const on = model.stops.filter((s) => s.bookRule);
+    const on = model.stops.filter((s) => s.bookAhead);
     expect(on.length).toBeGreaterThan(0);
     for (const s of on) expect([s.placeSlug, s.day]).toEqual([stop.placeSlug, 3]);
-    expect(on[0]!.bookRule).toBe('Opens 14 days before Day 3; Planted note');
+    expect(on[0]!.bookAhead).toBe('Opens 14 days before Day 3; Planted note');
     expect(model.bookings.some((b) => b.ref === 'logistics:planted')).toBe(true);
   });
   it('the CSV writes it on the stop\'s row too, and the contract parses it', () => {
     const line = tripCsv(model).split('\r\n').find((l) => l.includes(`,${stop.name.includes(',') ? `"${stop.name}"` : stop.name},`) && l.endsWith('Opens 14 days before Day 3; Planted note'));
     expect(line).toBeTruthy();
     // the stop with its window, and the bookings, as the contract has them (points are cut to the contract's five fields elsewhere)
-    for (const s of model.stops.filter((x) => x.bookRule)) expect(exportStop.safeParse({ ...s, point: null }).success).toBe(true);
-    expect(exportStop.safeParse({ ...stop, point: null, bookRule: '' }).success, 'an empty window is never written').toBe(false);
+    for (const s of model.stops.filter((x) => x.bookAhead)) expect(exportStop.safeParse({ ...s, point: null }).success).toBe(true);
+    expect(exportStop.safeParse({ ...stop, point: null, bookAhead: '' }).success, 'an empty window is never written').toBe(false);
+    expect(exportStop.safeParse({ ...stop, point: null, bookRule: 'Opens 1 day before Day 3' }).success, 'the old name is gone (review F9)').toBe(false);
     expect(tripExportModel.shape.bookings.safeParse(model.bookings).success).toBe(true);
   });
   it('the real trips put no window on a stop by guessing from a name', () => {
-    for (const slug of SLUGS) expect(buildTripExport(getTrip(slug)!).stops.filter((s) => s.bookRule)).toEqual([]);
+    for (const slug of SLUGS) expect(buildTripExport(getTrip(slug)!).stops.filter((s) => s.bookAhead)).toEqual([]);
   });
 });
 
@@ -347,7 +371,10 @@ describe('the CSV time rule (BACKLOG 15.46): CSV times follow the selected profi
     let timed = 0;
     for (const s of mine.stops) {
       const tl = display.find((t) => t.day === s.day)!;
-      const e = tl.entries.find((x) => !x.insideOf && (s.placeSlug ? x.at?.placeSlug === s.placeSlug : x.title === s.name)) ?? (s.placeSlug ? null : undefined);
+      // the print's row for the place (a visit or a walk, TripPrintView rowsOf), not a break the scheduler puts at the same place; a stop
+      // with no place, by its name (an airport). A place visited twice is checked one to one in the next case.
+      const at = tl.entries.filter((x) => !x.insideOf && (s.placeSlug ? x.at?.placeSlug === s.placeSlug : x.title === s.name));
+      const e = at.find((x) => ['visit', 'trail'].includes(x.kind)) ?? at[0] ?? null;
       const want = e ? printTime(e, tl.blocks) : null;
       expect(s.time, `day ${s.day} ${s.name}`).toBe(want);
       if (want) timed++;
@@ -357,23 +384,70 @@ describe('the CSV time rule (BACKLOG 15.46): CSV times follow the selected profi
     const rows = tripCsv(mine).replace(/^\ufeff/, '').trimEnd().split('\r\n').slice(1, -1).filter((l) => !/,booking,/.test(l));
     const times = rows.map((l) => (l.match(/^\d+,("[^"]*"|[^,]*),/)?.[1] ?? '').replace(/^"|"$/g, ''));
     expect(times.filter(Boolean).length).toBe(timed);
-    for (const s of mine.stops) if (s.time) expect(times).toContain(s.time);
+    // in the timeline's order (review F2): the file's stop rows are forPage's stops, in forPage's order, with its times
+    expect(rows.map(csvCells).map((c) => [Number(c[0]), c[2], c[1]])).toEqual(mine.stops.map((s) => [s.day, s.name, s.time ?? '']));
   });
-  it('one row per row of the page: a place the chosen version holds once is one CSV row, not one per version', () => {
+  it.each(SLUGS)('%s: the CSV\'s stop rows of a day are the print\'s rows of that day, one to one and in order (review F2, F3)', (slug) => {
+    for (const key of Object.keys(PROFILES)) {
+      const p = pageFor(slug, PROFILES[key]!);
+      const display = p.timelines.map((t) => { const d = p.trip.days.find((x) => x.n === t.day); return { ...t, entries: localEntries(flightEntries(t.entries, d?.flight), d?.zone) }; });
+      const mine = forPage(p.model, { ...p.session, display });
+      expect(mine.stops.map((s) => s.order), `${slug} ${key}`).toEqual(mine.stops.map((_, i) => i));
+      let rows = 0;
+      for (const tl of display) {
+        const placed = new Set(p.model.stops.filter((s) => s.day === tl.day && s.placeSlug).map((s) => s.placeSlug!));
+        // the print's own rows (TripPrintView rowsOf): visits and walks, not inside another entry; those whose place the plan lists
+        const printed = tl.entries.filter((e) => ['visit', 'trail'].includes(e.kind) && !e.insideOf && e.at?.placeSlug && placed.has(e.at.placeSlug)).map((e) => [e.at!.placeSlug, printTime(e, tl.blocks)]);
+        const slugs = new Set(printed.map((x) => x[0]));
+        const file = mine.stops.filter((s) => s.day === tl.day && s.placeSlug && slugs.has(s.placeSlug)).map((s) => [s.placeSlug, s.time]);
+        expect(file, `${slug} ${key} day ${tl.day}`).toEqual(printed);
+        rows += printed.length;
+      }
+      expect(rows).toBeGreaterThan(0);
+    }
+  });
+  it('core\'s printTime is the print view\'s, on every entry of both trips (one wording until TRP-GL imports core\'s, review F8)', () => {
+    let n = 0;
     for (const slug of SLUGS) {
-      for (const key of Object.keys(PROFILES)) {
-        const p = pageFor(slug, PROFILES[key]!);
-        const mine = forPage(p.model, p.session);
-        const keys = mine.stops.map((s) => `${s.day}:${s.placeSlug ?? s.name}`);
-        expect(new Set(keys).size, `${slug} ${key}`).toBe(keys.length);
-        expect(mine.stops.map((s) => s.order)).toEqual(mine.stops.map((_, i) => i));
+      const p = pageFor(slug, PROFILES['family-6']!);
+      for (const tl of p.timelines) {
+        const d = p.trip.days.find((x) => x.n === tl.day);
+        for (const e of localEntries(flightEntries(tl.entries, d?.flight), d?.zone)) {
+          expect(corePrintTime(e, tl.blocks), `${slug} ${e.id}`).toBe(printTime(e, tl.blocks));
+          n++;
+        }
       }
     }
+    expect(n).toBeGreaterThan(50);
   });
   it('a suggested time keeps its "~" in the CSV (T3: never shown as fixed)', () => {
     const p = pageFor('canadian-rockies-2029', PROFILES['family-6']!);
     const mine = forPage(p.model, p.session);
     expect(mine.stops.some((s) => s.time?.startsWith('~'))).toBe(true);
     expect(tripCsv(mine)).toMatch(/\r\n\d+,~\d\d:\d\d,/);
+  });
+});
+
+describe('the API\'s default-profile model (BACKLOG 15.223a; review F4)', () => {
+  it.each(SLUGS)('%s: the same forTimeline as the page with the default profile, one row per timeline row (no stop repeated per track)', (slug) => {
+    const trip = getTrip(slug)!;
+    const api = buildTripExportForDefaultProfile(trip);
+    const page = forPage(buildTripExport(trip), { timelines: scheduleTrip(trip.days.map((d) => d.scheduleInput!), trip.schedule!.defaultProfile) });
+    expect(api).toEqual(page);
+    expect(api.bookings).toEqual(buildTripExport(trip).bookings);
+    // each timeline row once: no (day, place) pair more often than the default timeline holds it
+    for (const tl of trip.schedule!.timelines) {
+      const holds = new Map<string, number>();
+      for (const e of tl.entries) if (!e.insideOf && e.at?.placeSlug) holds.set(e.at.placeSlug, (holds.get(e.at.placeSlug) ?? 0) + 1);
+      const got = new Map<string, number>();
+      for (const s of api.stops) if (s.day === tl.day && s.placeSlug) got.set(s.placeSlug, (got.get(s.placeSlug) ?? 0) + 1);
+      for (const [k, n] of got) expect(n, `${slug} day ${tl.day} ${k}`).toBeLessThanOrEqual(Math.max(1, holds.get(k) ?? 0));
+    }
+  });
+  it('the whole model repeats a Rockies stop once per track; the default-profile model does not', () => {
+    const trip = getTrip('canadian-rockies-2029')!;
+    const count = (m: { stops: { day: number; placeSlug: string | null }[] }) => Math.max(...[...m.stops.reduce((acc, s) => acc.set(`${s.day}:${s.placeSlug}`, (acc.get(`${s.day}:${s.placeSlug}`) ?? 0) + 1), new Map<string, number>()).values()]);
+    expect(count(buildTripExport(trip))).toBeGreaterThan(1);
+    expect(buildTripExportForDefaultProfile(trip).stops.length).toBeLessThan(buildTripExport(trip).stops.length);
   });
 });
