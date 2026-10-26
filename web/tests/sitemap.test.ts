@@ -7,7 +7,7 @@ describe('the sitemap plan (2.41)', () => {
     const plan = sitemapPlan(sitemapInput(slugs(350), slugs(14)));
     expect(plan.index).toBe(false);
     expect(plan.files).toHaveLength(1);
-    expect(plan.files[0]!.paths).toHaveLength(7 + 350 + 14);
+    expect(plan.files[0]!.paths).toHaveLength(8 + 350 + 14);
   });
   it('is an index of per-kind files past the limit, and every url is in exactly one file', () => {
     const input = sitemapInput(slugs(10_000), slugs(14));
@@ -16,7 +16,7 @@ describe('the sitemap plan (2.41)', () => {
     expect(plan.files.map((f) => f.id)).toEqual(['pages', 'places-1', 'places-2']);
     expect(Math.max(...plan.files.map((f) => f.paths.length))).toBeLessThanOrEqual(SITEMAP_LIMIT);
     const all = plan.files.flatMap((f) => f.paths);
-    expect(all).toHaveLength(7 + 10_000 + 14);
+    expect(all).toHaveLength(8 + 10_000 + 14);
     expect(new Set(all).size).toBe(all.length);
   });
   it('writes valid xml', () => {
