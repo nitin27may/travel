@@ -670,6 +670,32 @@ writes a copy no page lists. Phase 2 waits for CUS-C, FAV-2 and the R-61 HTTPS p
 
 NAV total: about 19.5 h (phase 1) plus about 14 h (phase 2); FAV-1 is 2 h smaller; NAV-M 5 h later.
 
+### 10.2 Enhancement queue: requests and custom places (REQ, added 25 Oct 2026, planned only)
+
+Spec [requests-and-custom-places.md](../../features/requests-and-custom-places.md) (PLAN R-170 to R-177, BACKLOG 15.170 to
+15.179, Q210 to Q218). Day one rides on the feedback build and needs no mail domain (signed-in verified senders only).
+FBK-C and CUS-C are widened before their migrations are applied. Briefs are in the spec, section 11.4.
+
+| ID | Task | Agent, model | Effort | Depends on | Acceptance check |
+|---|---|---|---|---|---|
+| FBK-C (+) | `improve` branch, `place` fields `for_trip`, `for_day`, `source_ref`, three intake columns | travel-builder, Opus | +1.5 h | inside FBK-C | union round-trips; private `for_trip` answers identically |
+| FBK-3 (+) | `list --type improve`, `stats --demand`, the `improve` brief | travel-builder, Sonnet | +2 h | inside FBK-3 | CLI tests on the child branch |
+| REQ-1 | `improve` UI, section picker, trip-request "What we already have", Mine link | travel-builder, Sonnet | 6 h | FBK-2, NAV-1 | place HTML and trip start JS unchanged; sheet +2 KB at most |
+| REQ-R1, REQ-V1 | Review and verify day one | reviewer Opus, verifier Sonnet | 4 h | REQ-1 | approved; sweep at 1440 and 390, light and dark |
+| CUS-C (+) | `trip-custom/1` `title`, `moved`, `days`, `notes`, `custom` | travel-builder, Opus | +2 h | inside CUS-C | apply then inverse is identity; caps |
+| REQ-E | Scheduler `moveItem`, `insertDay`, `dropDay` (Opus 3 h), then the copy UI (Sonnet 8 h) | travel-builder | 11 h | CUS-1, CUS-2 | pinned entries never move; dropped day items go to Maybe; reload keeps all |
+| REQ-P | Add a place: catalogue, towns, add as my own | travel-builder, Sonnet | 5 h | REQ-E core | chunk at most 14 KB; no private place shown |
+| REQ-R2, REQ-V2 | Review and verify phase 2 | reviewer Opus, verifier Sonnet | 4 h | REQ-E, REQ-P | approved |
+| REQ-G0 | Geocoder spike note (docs only) | travel-planner or travel-researcher, Opus | 2 h | phase 2 | go or no-go with numbers |
+| REQ-G | `POST /api/account/geocode` (Opus 2 h contract, Sonnet 5 h) | travel-builder | 7 h | REQ-G0, EML-Q | buckets, fallback, kill switch, no query in logs, key server-only |
+| REQ-S | Map search tier and the suggestion opt-in | travel-builder, Sonnet | 8 h | REQ-G | address results offer no box; credit line visible |
+| REQ-L | Link and "Use our page" upgrade | travel-builder, Sonnet | 3 h | REQ-S | undo restores the custom stop; no admin write path |
+| REQ-A | CLI for custom suggestions, `source_ref` dedupe | travel-builder, Sonnet | 3 h | FBK-3 | private match never visible to the visitor |
+| REQ-R3, REQ-V3 | Review and verify phase 3 | reviewer Opus, verifier Sonnet | 4 h | REQ-L, REQ-A | approved |
+| REQ-M | MCP intake tools at `owner_admin` (later) | travel-builder, Opus 2 h + Sonnet 4 h | 6 h | MCP-3, MCP-S, MCP-E | no contacts in any result |
+
+REQ total: day one about 13.5 h, phase 2 about 22 h, phase 3 about 27 h (about 62.5 h, Opus 16.5), plus 6 h later.
+
 ## 11. Gate R2: the owner reviews E and approves readiness
 
 ### 11.1 Entry criteria
@@ -958,6 +984,7 @@ Every pending item from every source (BACKLOG, TODO, design reviews and notes, l
 
 | Date | Change |
 |---|---|
+| 2026-10-25 | Requests and custom places (R-170 to R-177, [requests-and-custom-places.md](../../features/requests-and-custom-places.md)): new 10.2, the REQ enhancement queue; FBK-C, FBK-3 and CUS-C widened before their migrations. Planned only |
 | 2026-10-25 | Navigation and Mine (R-160 to R-164, [navigation-and-mine.md](../../features/navigation-and-mine.md)): new 10.1, the NAV enhancement queue; FAV-1 re-scoped to the Mine panel. Planned only |
 | 2026-10-25 | Local database and seed sync (R-140 to R-146, [local-database-and-seed-sync.md](../../features/local-database-and-seed-sync.md)): 4.8 SRV-0 refined (LOCAL-C, LOCAL-1 to LOCAL-3 can run before the SRV-0 window on Q180). The 24 Oct removal of "Docker steps as historical" still holds for Supabase; a plain Postgres 18 with PostGIS in Docker is current again for development and CI only |
 | 2026-10-25 | R-76 to R-80 stay bases and stay optimisation ([stay-bases-and-optimisation.md](../../features/stay-bases-and-optimisation.md); data batch D9 in [DATA.md](briefs/DATA.md)): fewer-base and cheaper-town alternatives per trip, computed check-in counts, messages, a Where to stay section. Follows R-59 and the OVR contract. DATA-D1 (points, 84 to 6 records without one) merged. |

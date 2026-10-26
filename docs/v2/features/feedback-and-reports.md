@@ -6,6 +6,12 @@ Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements
 the intake pipeline): one intake model, one form shell, one route family, one moderation queue. Favourites (R-70, R-71)
 are untouched. Section 11 lists every conflict with an earlier decision and the proposed resolution.
 
+> **Amended 25 Oct 2026 (requests and custom places):** a fifth type `improve` ("Suggest an improvement": a stop to
+> add, more detail on a section, a longer or shorter version, another season) and three optional `place` fields
+> (`for_trip`, `for_day`, `source_ref`) are added to FBK-C before the intake migration exists (+1.5 h); FBK-3 gains
+> `list --type improve` and `stats --demand` (+2 h). See [requests-and-custom-places.md](requests-and-custom-places.md)
+> sections 2 and 6 (PLAN R-170 to R-172).
+>
 > **Amended 25 Oct 2026 by [email-sign-in-and-account-emails.md](email-sign-in-and-account-emails.md) (R-100 to R-107):**
 > the mail module is shared at `core/src/mail/**` and built by EML-M (with `web/lib/server/mailer.ts`); FBK-M keeps
 > only the intake templates and logic on top (about 2 h). EML-Q builds `web/lib/server/turnstile.ts` and the generic
