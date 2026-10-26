@@ -21,7 +21,8 @@
     "py.tools": {
       "run": ["python3 -m pytest tools/tests -q"],
       "cost": "s", "always_at": 2, "requires": ["venv"],
-      "inputs": ["tools/**", "legacy/**", "data/**", "docs/v2/design/foundation/tokens.json", "web/app/themes.css", "publish.sh"],
+      "inputs": ["tools/**", "legacy/**", "data/**", "docs/v2/design/foundation/tokens.json", "web/app/themes.css", "publish.sh",
+                 "research/README.md", "research/tools.md", "research/method/**", ".claude/agents/*.md", ".claude/skills/*/SKILL.md", "core/src/relevance/signals.ts"],
       "tests": ["tools/tests/**/test_*.py"],
       "steps": ["python tests"]
     },
@@ -346,6 +347,8 @@
   "review": ["tools/gate/**", "tools/gate.sh", "tools/check-all.sh"],
 
   "quarantine": [],
+
+  "uncacheable": ["e2e.full", "visual", "db.local", "web.timing", "web.build"],
 
   "release_only": {},
 

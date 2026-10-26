@@ -9,8 +9,9 @@ and the gate's code.
 |---|---|
 | `map.json` | the map, as data: suites, rules, the `full` and `quiet` lists, quarantine, review paths |
 | `gatemap.py` | loads the map, matches globs, parses check-all steps, and `select()`s suites for a change set (TS-2 imports it) |
-| `check_map.py` | checks M1 to M6 (TEST-STRATEGY 4.3); a step of `tools/check-all.sh`; about one second |
+| `check_map.py` | checks M1 to M7 (TEST-STRATEGY 4.3; M7 is the `uncacheable` list); a step of `tools/check-all.sh`; about one second |
 | `gate.py` | the gate: plan, run, summary (`tools/gate.sh` is its wrapper) |
+| `cache.py` | the result cache (TS-3): key, store under `<git-common-dir>/gate-cache/`, expiry, stats |
 | `locks.py` | mkdir slots under the git common dir, so worktrees of one clone never run two builds or two Playwright runs at once |
 | `extract.py` | failure excerpts (tsc, vitest, eslint, pytest, Playwright, check-style tools) |
 | `replay.py` | applies the map to the last N merges into `main` (the TS-1 acceptance check) |
@@ -35,7 +36,8 @@ tools/gate.sh --tier 1 --changed docs/v2/PLAN.md  # use a path list instead of g
 ```
 
 Flags: `--json` (one JSON object), `--keep-going` / `--fail-fast` (T0 and T1 stop at the first failure, T2 and T3 do not),
-`--full` (treat as a full run; the trailer `Gate: full` on HEAD does the same), `--allow-dirty`, `--reuse-build`.
+`--full` (treat as a full run; the trailer `Gate: full` on HEAD does the same), `--allow-dirty`, `--reuse-build`, `--no-cache`,
+`--verifier`, `--cache-stats` (see Cache).
 
 - **Tiers.** T0: `web.types` / `core.types` for the changed packages (`tsc --incremental`, build info in the git dir), `vitest
   related` for changed code, eslint on changed files. T1: `gatemap.select()` on the change set, ordered cost class first and
@@ -60,7 +62,7 @@ Flags: `--json` (one JSON object), `--keep-going` / `--fail-fast` (T0 and T1 sto
   each. A slot is `mkdir <git-common-dir>/gate-locks/<slot>` with an `owner` file (pid, label, start); a dead pid's lock is
   reclaimed, the holder releases on exit and on interrupt, a waiter says who holds it (in the log). Env: `GATE_LOCK_TIMEOUT`,
   `GATE_LOCK_POLL`. Not yet: the second `build` holder, the per-worktree `build-here` lock, the wait-and-recheck load guard
-  (TS-4); caching by tree hash (TS-3); `--stack` (TS-7).
+  (TS-4); `--stack` (TS-7).
 - **Where commands come from.** The map's `run` entries are parsed and executed as written; the prose ones (build with its
   `Error:` and ORS checks, the `next start` smoke, the MCP line, e2e, db, visual) are implemented in `gate.py`. A new suite
   whose `run` is not a plain command needs a branch in `actions_for`; until it has one the suite is DEFERRED with that reason.
@@ -68,6 +70,34 @@ Flags: `--json` (one JSON object), `--keep-going` / `--fail-fast` (T0 and T1 sto
   `GATE_TSBUILDINFO`. The wrapper pins `NEXT_PUBLIC_PLACE_MAP_FAMILY=maplibre` and empty map keys and puts `.venv/bin` first on
   `PATH` when it exists. Source the home point yourself (`set -a; source ~/.config/travel-secrets/home-point.env; set +a`): a
   unit run without it fails the privacy tests.
+
+## Cache (TS-3, `cache.py`)
+
+A suite that passed on byte-identical inputs is not run again: its row is `CACHED 0.0s core.types  was 9.7s on 54404107` and
+the totals line counts it (`1 pass, 1 cached`). A cached row is a pass (exit 0).
+
+```bash
+tools/gate.sh --tier 1                      # warm suites print CACHED
+tools/gate.sh --tier 1 --no-cache           # run everything, read and write nothing
+tools/gate.sh --tier 1 --verifier           # the verifier's mode (or GATE_VERIFIER=1): never uses the cache (Q256)
+tools/gate.sh --cache-stats                 # entries, size, age, hits so far, seconds saved
+```
+
+- **Key** (SHA-256): the suite id; its `run` commands plus a narrowed file list; the git object id of every file its `inputs`
+  globs match, read from the working tree (`git ls-files --stage`, and `git hash-object` for modified and untracked files, so
+  uncommitted edits invalidate and a commit of the same content does not); node, pnpm and python versions, the hash of
+  `pnpm-lock.yaml`, the OS; `NEXT_PUBLIC_*`, `SKIP_WEB_BUILD`, `TZ`, and a hash (never the value) of `HOME_POINT_LAT/LON`.
+  Ignored files never count. A suite with no `inputs` (or an empty list) keys on the whole tree: safe, never stale.
+- **Store**: `<git-common-dir>/gate-cache/<key>.json` (`{key, suite, status, seconds, time, head, worktree}`), written
+  atomically, shared by every worktree of the clone, never tracked. Entries older than 7 days are ignored and deleted.
+  Only PASS is stored: never a failure, DEFERRED, SKIPPED or NONE.
+- **Never read or written**: the `uncacheable` suites of `map.json` (`e2e.full`, `visual`, `db.local`, `web.timing`: they
+  need the real machine, Docker or a quiet load, and are the release evidence; and `web.build`, which produces `web/.next`
+  that later suites read, so a stored pass would leave nothing on disk); the pseudo suite `check-all`; the whole of T3;
+  `--no-cache`; `--verifier`. check_map M7 requires every `uncacheable` id to be a suite.
+- **The build is skipped when nothing needs it**: a `web.build` pulled in only as a dependency, whose every dependant is a
+  cache hit, prints `UNNEEDED` (counts as a pass). A build asked for by name, or by a dependant that misses, runs.
+- A cache that cannot be written is a miss, never a failure. Tests: `tools/tests/test_gate_cache.py`.
 
 ## The map
 
@@ -83,6 +113,7 @@ Flags: `--json` (one JSON object), `--keep-going` / `--fail-fast` (T0 and T1 sto
 - **`full`**: shared contracts, configs, lockfiles, the vocabulary, budgets and their baselines, test infrastructure, the
   privacy switch in `legacy/MANIFEST.json`, the colour tokens and the gate itself. Any match: every suite with `always_at`
   at most 2.
+- **`uncacheable`**: suites the cache never serves or stores (see Cache); M7 checks each exists.
 - **`quiet`**: paths that may match no rule (docs, Markdown, research prose, `.claude/`). A quiet path that also matches a
   rule still selects that rule's suites: `research/runs/**` runs the data checks, because `validate` checks every
   `research_refs` path and `normalise` reads the prose links.

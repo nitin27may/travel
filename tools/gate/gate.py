@@ -10,7 +10,9 @@ few suites whose `run` entry is prose (build, serve, MCP line, e2e, db, visual).
 
 Exit codes: 0 pass; 1 a suite failed (or was skipped because a failure stopped the run); 2 refused, or something was DEFERRED
 (a deferred suite is never a pass); 3 the gate itself broke.
-Not here yet: caching by tree hash (TS-3); retries, the flake ledger, quarantine and the full slot rules (TS-4); stacks (TS-7).
+Caching (TS-3, tools/gate/cache.py): a suite that passed on identical inputs prints CACHED and is not run again; --no-cache,
+--verifier (or GATE_VERIFIER=1), T3 and the map's `uncacheable` suites never use the cache; --cache-stats prints the store.
+Not here yet: retries, the flake ledger, quarantine and the full slot rules (TS-4); stacks (TS-7).
 """
 from __future__ import annotations
 
@@ -29,6 +31,7 @@ from pathlib import Path
 from typing import Callable
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import cache as gcache  # noqa: E402
 import extract  # noqa: E402
 import gatemap  # noqa: E402
 from locks import Slot, SlotTimeout  # noqa: E402
@@ -409,6 +412,7 @@ class Result:
     seconds: float = 0.0
     why: str = ""
     note: str = ""
+    cached_key: str = ""
     excerpt: list[str] = field(default_factory=list)
 
 
@@ -441,9 +445,26 @@ def run_action(a: Action, out_so_far: str, cwd: Path, timeout: float) -> tuple[b
     return p.returncode == 0, out or ""
 
 
-def run_job(m: dict, job: Job, *, root: Path, lock_root: Path, label: str, log: Callable[[str], None], note: Callable[[str], None]) -> Result:
+def cache_key(m: dict, job: Job, cache: gcache.Cache | None) -> str | None:
+    """The cache key of a job, or None when the suite must not touch the cache (uncacheable, a pseudo suite, no cache)."""
+    if cache is None or not cache.enabled or job.suite in PSEUDO or job.suite in m.get("uncacheable", []):
+        return None
+    s = m["suites"][job.suite]
+    return cache.key(job.suite, [*s.get("run", []), f"narrowed={job.narrowed}", *job.files], s.get("inputs"))
+
+
+def run_job(m: dict, job: Job, *, root: Path, lock_root: Path, label: str, log: Callable[[str], None], note: Callable[[str], None],
+            cache: gcache.Cache | None = None, head: str = "") -> Result:
     sid, s = job.suite, meta(m, job.suite)
     res = Result(sid, "PASS", why=",".join(job.why))
+    ckey = cache_key(m, job, cache)
+    if ckey and cache:
+        hit = cache.lookup(ckey)
+        if hit:
+            cache.record_hit(hit)
+            res.status, res.seconds, res.note = "CACHED", 0.0, f"was {float(hit.get('seconds', 0)):.1f}s on {hit.get('head', '?')}"
+            log(f"CACHED {sid} key {ckey[:12]} {res.note}")
+            return res
     if s.get("slot") == "timing" or sid == "web.timing":
         load = load_per_core()
         if load > float(os.environ.get("GATE_LOAD_LIMIT", LOAD_LIMIT)):
@@ -478,6 +499,8 @@ def run_job(m: dict, job: Job, *, root: Path, lock_root: Path, label: str, log: 
         res.status = "PASS" if ok else "FAIL"
         if not ok:
             res.excerpt = extract.excerpt(out)
+        elif ckey and cache:
+            cache.store_pass(ckey, sid, time.monotonic() - start, head=head, label=label)
     except SlotTimeout as e:
         res.status, res.note = "DEFERRED", f"slot {e.slot} held by {e.holder}; waited {holder.timeout if holder else 0:.0f} s"
     finally:
@@ -487,20 +510,36 @@ def run_job(m: dict, job: Job, *, root: Path, lock_root: Path, label: str, log: 
     return res
 
 
+def unneeded(m: dict, plan: Plan, cache: gcache.Cache | None) -> set[str]:
+    """Suites pulled in only as a dependency (the build) whose every dependant is served from the cache: nothing needs them."""
+    if cache is None or not cache.enabled:
+        return set()
+    hit = {j.suite: bool((k := cache_key(m, j, cache)) and cache.lookup(k)) for j in plan.jobs}
+    out = set()
+    for j in plan.jobs:
+        users = [u.suite for u in plan.jobs if j.suite in plan.needs_override.get(u.suite, [])]
+        if users and all(w.startswith("needed by") for w in j.why) and all(hit.get(u) or u in out for u in users) and not hit.get(j.suite):
+            out.add(j.suite)
+    return out
+
+
 def run_plan(m: dict, plan: Plan, *, keep_going: bool, root: Path, lock_root: Path, label: str, log: Callable[[str], None],
-             note: Callable[[str], None]) -> list[Result]:
+             note: Callable[[str], None], cache: gcache.Cache | None = None, head: str = "") -> list[Result]:
     results: list[Result] = []
     status: dict[str, str] = {}
     stopped = False
+    skip_unneeded = unneeded(m, plan, cache)
     for job in plan.jobs:
         blocked = [d for d in plan.needs_override.get(job.suite, []) if status.get(d) in ("FAIL", "SKIPPED", "DEFERRED")]
-        if blocked:
+        if job.suite in skip_unneeded:
+            r = Result(job.suite, "UNNEEDED", why=",".join(job.why), note="every suite that needs it is cached")
+        elif blocked:
             r = Result(job.suite, "SKIPPED", why=",".join(job.why), note=f"needs {blocked[0]}")
         elif stopped:
             r = Result(job.suite, "SKIPPED", why=",".join(job.why), note="stopped after a failure")
         else:
             log(f"\n== {job.suite} ({','.join(job.why)})")
-            r = run_job(m, job, root=root, lock_root=lock_root, label=label, log=log, note=note)
+            r = run_job(m, job, root=root, lock_root=lock_root, label=label, log=log, note=note, cache=cache, head=head)
             log(f"-> {r.status} {r.seconds:.1f}s {r.note}")
             if r.status == "FAIL" and not keep_going:
                 stopped = True
@@ -515,7 +554,7 @@ def verdict(results: list[Result]) -> tuple[str, int]:
     if "FAIL" in st or "SKIPPED" in st:
         return "FAIL", 1
     if "DEFERRED" in st:
-        return "DEFERRED (not a pass)", 2
+        return "DEFERRED (not a pass)", 2  # CACHED and UNNEEDED are passes: a stored pass on identical inputs
     return "PASS", 0
 
 
@@ -528,19 +567,19 @@ def render(plan: Plan, results: list[Result], *, base: str, head: str, dry: bool
         return [f"REFUSED: {refused}", head_lines[0]]
     rows = []
     for r in results:
-        why = r.note if r.status in ("DEFERRED", "SKIPPED") else r.why
+        why = r.note if r.status in ("DEFERRED", "SKIPPED", "CACHED", "UNNEEDED") else r.why
         if r.status == "DEFERRED":
             why = f"{r.suite}: {why}"
             rows.append(f"DEFERRED {why[:110]}")
             continue
         secs = "" if dry else f"{r.seconds:5.1f}s "
         rows.append(f"{('WOULD' if dry else r.status):<8}{secs} {r.suite:<14} {why[:48]}")
-    counts = {k: sum(1 for r in results if r.status == k) for k in ("PASS", "FAIL", "SKIPPED", "DEFERRED", "NONE")}
+    counts = {k: sum(1 for r in results if r.status == k) for k in ("PASS", "CACHED", "FAIL", "SKIPPED", "DEFERRED", "NONE")}
     if dry:
         total = f"DRY RUN: {len(results)} suite(s) would run; nothing executed"
     else:
         v, _ = verdict(results)
-        total = f"{v}: {counts['PASS']} pass, {counts['FAIL']} fail, {counts['SKIPPED']} skipped, {counts['DEFERRED']} deferred, {seconds:.0f}s"
+        total = f"{v}: {counts['PASS']} pass, {counts['CACHED']} cached, {counts['FAIL']} fail, {counts['SKIPPED']} skipped, {counts['DEFERRED']} deferred, {seconds:.0f}s"
     tail = [total] + ([f"log: {log_path}"] if log_path else [])
     fixed = len(head_lines) + len(rows) + len(tail)
     budget = max(0, limit - fixed)
@@ -569,7 +608,7 @@ def to_json(plan: Plan, results: list[Result], *, base: str, head: str, log_path
 # ----- main ------------------------------------------------------------------------------------------------------------------------------
 def parse_args(argv: list[str]) -> argparse.Namespace:
     ap = argparse.ArgumentParser(prog="tools/gate.sh", description="Run the tests a change needs (TEST-STRATEGY 4 and 5).")
-    ap.add_argument("--tier", type=int, choices=[0, 1, 2, 3], required=True)
+    ap.add_argument("--tier", type=int, choices=[0, 1, 2, 3])
     ap.add_argument("--base", default="main")
     ap.add_argument("--changed", nargs="*", default=None, metavar="PATH", help="use these paths instead of the git diff")
     ap.add_argument("--dry-run", action="store_true")
@@ -580,12 +619,21 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     ap.add_argument("--full", action="store_true", help="treat the change as a full run (T2 content)")
     ap.add_argument("--allow-dirty", action="store_true", help="T2 and T3 normally refuse an uncommitted tree")
     ap.add_argument("--reuse-build", action="store_true", help="skip web.build and use web/.next as it is")
+    ap.add_argument("--no-cache", action="store_true", help="ignore and do not write the result cache")
+    ap.add_argument("--verifier", action="store_true", help="the verifier's run: never uses the cache (also GATE_VERIFIER=1)")
+    ap.add_argument("--cache-stats", action="store_true", help="print the cache store (entries, age, hits) and exit")
     ap.add_argument("--visual", action="store_true", help="T3: include the visual-sweep hook (GATE_VISUAL_CMD)")
     return ap.parse_args(argv)
 
 
 def main(argv: list[str] | None = None, root: Path = ROOT) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
+    if args.cache_stats:
+        print("\n".join(gcache.Cache(root).stats()))
+        return 0
+    if args.tier is None:
+        print("REFUSED: --tier is required")
+        return 2
     m = gatemap.load_map()
     t0 = time.monotonic()
     base, head, gitdir = args.base, "?", None
@@ -641,8 +689,10 @@ def main(argv: list[str] | None = None, root: Path = ROOT) -> int:
         for j in plan.jobs:
             log(f"select {j.suite}: {','.join(j.why)}" + (f" files={j.files}" if j.files else ""))
         try:
+            why_not = gcache.bypass_reason(no_cache=args.no_cache, verifier=gcache.is_verifier(args.verifier), tier=args.tier)
+            log("cache: " + (f"off ({why_not})" if why_not else "on"))
             results = run_plan(m, plan, keep_going=keep, root=root, lock_root=common / "gate-locks", label=f"{root.name} T{args.tier}", log=log,
-                               note=lambda msg: log("NOTE " + msg))
+                               note=lambda msg: log("NOTE " + msg), cache=None if why_not else gcache.Cache(root, store=common / "gate-cache"), head=head)
         finally:
             fh.close()
         _v, code = verdict(results)

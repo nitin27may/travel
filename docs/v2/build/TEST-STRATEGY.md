@@ -369,8 +369,8 @@ tools/gate.sh --tier 0|1|2|3 [--base main] [--quiet] [--full] [--keep-going] [--
 - Refusals: a dirty tree at T2 and T3 (not only on a stack), and a loaded machine at T3. The load guard defers `web.timing`
   at once (no 3-minute wait yet: TS-4).
 - Slots are three single-holder locks, `build`, `e2e` and `timing`, under `<git-common-dir>/gate-locks/`; the log is under
-  `<git-dir>/gate-logs/`, not `gate/`. `--explain` is `check_map.py --explain`; `--quiet`, `--no-cache` and `--stack` are not built
-  (TS-3, TS-7). Failures print an excerpt of at most 10 lines each inside the 40-line cap.
+  `<git-dir>/gate-logs/`, not `gate/`. `--explain` is `check_map.py --explain`; `--quiet` and `--stack` are not built
+  (TS-7); `--no-cache` is built (TS-3). Failures print an excerpt of at most 10 lines each inside the 40-line cap.
 - T0 narrows `web.unit` and `core.unit` to `vitest related` and lint to the changed files; T1 does the same only when every
   path that selected the suite is a code module and no full fallback applies.
 - Found while building: `check_map` M4 failed on `main` for `web/tests/e2e/overflow.spec.ts` (merged unmapped); it is now
@@ -398,6 +398,18 @@ tools/gate.sh --tier 0|1|2|3 [--base main] [--quiet] [--full] [--keep-going] [--
   failures, which helps fail-fast.
 - Turborepo or Nx were considered and not adopted: two packages and a Python tool set do not need a task graph engine, and
   their remote caches are paid or another service; content keys on git object ids give the same correctness for this repo.
+
+**As built (TS-3, 26 Oct 2026).** `tools/gate/cache.py`, used by `gate.py`; usage in `tools/gate/README.md` (Cache). Differences
+from the text above: the store is `<git-common-dir>/gate-cache/` (not `travel-gate/cache/`) and there is a small `stats.json`
+beside the entries; the key hashes the working tree through `git ls-files --stage` plus `git hash-object` of dirty and untracked
+files, and the lockfile hash is an extra key part as well as an input; `--no-cache`, `--verifier` (or `GATE_VERIFIER=1`, Q256) and
+`--cache-stats` exist; T3 never touches the cache. Rows read `CACHED  0.0s  <suite>  was 9.7s on <head>`. `map.json`
+`uncacheable` lists `e2e.full`, `visual`, `db.local`, `web.timing` and `web.build` (check M7 requires each to be a suite). The
+build is not cached: instead a `web.build` pulled in only as a dependency is `UNNEEDED` when every dependant is a hit, which
+replaces the `web/.next/gate-key` idea above (not built). Inputs default to the whole tree, including `quiet` paths, so a
+docs-only change reruns the suites with no `inputs` list; the map lists `inputs` for every suite today. Measured on one
+machine: `core.types` 9.7 s cold, 0.0 s warm (the whole gate call 12 s cold, 1.7 s warm, mostly the toolchain version probes);
+`links`, `gate.map` and `hardcode` 6.7 s cold, all three `CACHED` in a 2 s call.
 
 ## 7. Load, flakiness, locks and ports (TS-4)
 
@@ -651,6 +663,7 @@ check-all and e2e only when the brief says T2 or T3". Both wait for TS-2 (TS-5 a
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (TS-3) | Cache built: `tools/gate/cache.py`, `--no-cache`, `--verifier`, `--cache-stats`, map `uncacheable` list and check M7, `test_gate_cache.py`; as-built note after section 6 |
 | 2026-10-26 (TS-2) | `tools/gate.sh` built (tiers 0 to 3, selection, ordering, fail-fast, deferred, 40-line output, logs, mkdir slots, load guard); as-built note after section 5; `allow_unmatched_globs` emptied; `overflow.spec.ts` mapped |
 | 2026-10-26 (TS-1) | Map, check and replay built: `tools/gate/map.json` (29 suites, 61 rules), `check_map.py` (M1 to M6) as a check-all step, `replay.py`. Replay over the 80 merges before `de21c46`: 266 changed test files, all run by the rules alone; 32 of 57 non-docs merges take the full set; one widening (shell and static pages run `web.fixture`, from GSI-P). As-built note in 4.2 |
 | 2026-10-25 (owner answers, ANSWERS-4) | Q250 to Q258 answered 25 Oct 2026, yes as recommended. Section 13 table and the plan-rows line marked answered; nothing else changed |
