@@ -12,6 +12,11 @@ Paths that match no rule are listed: the gate treats them as full, and a live on
 """
 from __future__ import annotations
 
+# merges whose test-only change had no source path to select it; each needs a reason (the replay's author signal is a guard, not a law)
+WAIVERS = {
+    "b7f16785": "STACK-FIX: only pins and a scanner test changed (test_user_agents.py built its sample address at run time); no source path exists to select py.tools",
+}
+
 import argparse
 import subprocess
 import sys
@@ -89,7 +94,7 @@ def replay(m: dict, merges: int, ref: str) -> tuple[list[dict], list[str]]:
             for t in changed_tests:
                 hit = (t[len(gm.E2E_DIR):] in alone.specs) if gm.is_spec(t) else any(o in alone.suites for o in gm.owners(m, t))
                 implied += hit
-                if not hit:
+                if not hit and sha[:8] not in WAIVERS:
                     fails.append(f"{sha[:8]} {branch}: the rules alone would not run {t}, which the merge changed with its code")
         reason = ""
         if sel.full:
