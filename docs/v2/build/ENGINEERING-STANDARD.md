@@ -493,6 +493,8 @@ shares a stack with TS-4 or TS-7. No outside model gets a lane before STD-10 pas
 
 ## 18. Owner questions
 
+Answered by the owner on 26 Oct 2026, one at a time, all as recommended: Q-S1 (AGENTS.md at the root; CLAUDE.md gets a "read AGENTS.md first" line; the owner approves the exact text), Q-S2 (trailers Co-Authored-By, Task, Model for every model; Claude-Session only for Claude), Q-S3 (no outside model on strong-tier work until it passes trials), Q-S4 (decoy home point and no .env.local for outside models; fix the gate fallback), Q-S5 (the scope checker blocks forbidden and unowned contract paths for every model), Q-S6 (branch protection on main, applied by the owner).
+
 | Id | Question | Recommendation | Trade-off |
 |---|---|---|---|
 | Q-S1 | Put `AGENTS.md` at the repository root (text in [proposed-AGENTS.md](proposed-AGENTS.md)), and add one line at the top of `CLAUDE.md`: "Read AGENTS.md first; this file adds Claude-only notes"? | **Yes.** Keep both files; mark the duplicated lines (listed in the proposed file) and sync them in the same commit | Two files to keep in step; without it an outside tool reads nothing or reads `CLAUDE.md`, which is Claude-specific and partly stale |
