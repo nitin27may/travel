@@ -409,6 +409,29 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
     booking: place.booking ? factText(place.booking) : null,
   };
 
+  // An area's own list of the places in it (P5). The contract sections have no slot for it yet (D-E8's lazy "In the same park" is not
+  // built), so a page drawn from the sections keeps this list for an area; elsewhere "Also in" stays a legacy-page block.
+  const insideSection =
+    place.kind === 'area' || inside.length ? (
+      <Section id="inside" title={place.kind === 'area' ? `Places in ${place.name}` : `Also in ${district?.name ?? 'this area'}`}>
+        {inside.length ? (
+          <ul className="pl-inside">
+            {inside.map((c) => (
+              <li key={c.slug}>
+                <Icon name={kindIcon(c.kind)} size={16} />
+                <Link href={`/places/${c.slug}/`}>{c.name}</Link>
+                <span className="muted">{c.kindLabel}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="pl-gap">
+            <Icon name="info" size={14} /> Not checked yet: other places here
+          </p>
+        )}
+      </Section>
+    ) : null;
+
   return (
     <PlaceShell>
       <article className="pl-page" data-kind={place.kind} data-slug={place.slug}>
@@ -540,6 +563,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
           {model ? (
             <div className="pl-main">
               <Sections model={model} suit={suit} rel={rel} slugs={slugs} legacy={legacy} hasRoute={showProfile || hasTrack} stripped={trail} />
+              {place.kind === 'area' ? insideSection : null}
             </div>
           ) : (
           <div className="pl-main">
@@ -649,25 +673,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
               ) : null}
             </Section>
 
-            {place.kind === 'area' || inside.length ? (
-              <Section id="inside" title={place.kind === 'area' ? `Places in ${place.name}` : `Also in ${district?.name ?? 'this area'}`}>
-                {inside.length ? (
-                  <ul className="pl-inside">
-                    {inside.map((c) => (
-                      <li key={c.slug}>
-                        <Icon name={kindIcon(c.kind)} size={16} />
-                        <Link href={`/places/${c.slug}/`}>{c.name}</Link>
-                        <span className="muted">{c.kindLabel}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="pl-gap">
-                    <Icon name="info" size={14} /> Not checked yet: other places here
-                  </p>
-                )}
-              </Section>
-            ) : null}
+            {insideSection}
 
             <Section id="facts" title="Facts and sources">
               {rest.length ? (
