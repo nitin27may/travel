@@ -15,6 +15,9 @@ import type { ScopeItem } from "../suitability/refs.ts";
 import { loadRelevanceDocs } from "./inputs.ts";
 import type { PointsFile } from "./inputs.ts";
 import type { Town } from "./derive.ts";
+import { capturedPointSource, type CapturedPointRow } from "../schema/capture/points.ts";
+
+export { capturedPointSource };
 
 export interface LocRow { id: string; name: string; lat: number | null; lon: number | null; resolver?: string; location_status?: string }
 export interface SnapPlace { id: string; name: string; kind: string; lat: number; lng: number }
@@ -40,19 +43,7 @@ export interface Sources {
   captured?: Record<string, CapturedPoint>;
 }
 /** A row of data/capture/points.json: capture-points/1 carries the free-text `point_source`, /2 the structured `point_src`. */
-export interface CapturedPoint { lat: number; lon: number; coord_src: string; point_source?: string; point_src?: { provider?: string; element?: string; quote?: string; legacy?: string } }
-
-/**
- * The provenance text a captured row gives the inputs file, whose readers (web seeds, directions, trail pages) take the OSM element or
- * the Wikidata P625 id from `point_source`. A /2 row gives its `legacy` string (the whole v1 text: every ledger-pinned row has one),
- * else its `quote` (the v1 text without the read date and review state, which still opens with the element), else provider and element.
- */
-export function capturedPointSource(c: CapturedPoint): string | undefined {
-  if (c.point_source) return c.point_source;
-  const s = c.point_src;
-  if (!s) return undefined;
-  return s.legacy ?? s.quote ?? ([s.provider, s.element].filter(Boolean).join(" ") || undefined);
-}
+export type CapturedPoint = CapturedPointRow;
 export interface BaseConfig { trip: string; name: string; qid?: string; lat?: number; lon?: number; coord_src: "wikidata" | "nominatim"; country: string; admin: string; check: string; approximate?: boolean; approximate_note?: string }
 
 export interface BuildReport {

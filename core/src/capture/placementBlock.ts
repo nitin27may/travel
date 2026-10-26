@@ -9,7 +9,7 @@ import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { AREA_DERIVATION } from "../config/area.ts";
 import { POINT_ROLE } from "../schema/enums.ts";
-import { capturePointsFile, CAPTURE_POINTS_SCHEMA_ID, NEAR_TOWN_NONE, relevancePointRow } from "../schema/capture/points.ts";
+import { capturedPointSource, capturePointsFile, CAPTURE_POINTS_SCHEMA_ID, NEAR_TOWN_NONE, relevancePointRow, type CapturedPointRow } from "../schema/capture/points.ts";
 import type { PointRole } from "../schema/capture/points.ts";
 import type { CaptureRecord } from "../schema/capture/records.ts";
 import { haversineKm } from "../geo/distance.ts";
@@ -133,7 +133,9 @@ export function loadPoints(root: string): { points: Map<string, PointRow>; issue
     const rows = cap && typeof cap === "object" && "points" in cap ? ((cap as { points: unknown }).points as Row) : {};
     for (const [ref, raw] of Object.entries(rows && typeof rows === "object" ? rows : {})) {
       const r = relevancePointRow.safeParse(raw);
-      if (r.success) points.set(ref, { ...(r.data as Omit<PointRow, "from">), from: "capture" });
+      // a capture-points/2 row has point_src, not point_source: give readers the same text the inputs file carries
+      const text = r.success ? capturedPointSource(raw as CapturedPointRow) : undefined;
+      if (r.success) points.set(ref, { ...(r.data as Omit<PointRow, "from">), ...(text ? { point_source: text } : {}), from: "capture" });
     }
   }
   const rel = readJson<{ points?: Row }>(join(root, RELEVANCE_POINTS_PATH));
