@@ -5,6 +5,10 @@ Run record: `data/capture/runs/d8r-bookings-2026-10-26-rockies.json`. Agent: tra
 `travel-capture/1.0 (+https://nks-travel.pages.dev/about/)`. Lane prose: `research/trips/canadian-rockies-sept-2029/bookings.md`,
 section "D8-R bookings re-read (26 Oct 2026)".
 
+> **Superseded in part (26 Oct 2026):** the six proposal records below are reshaped, not loaded as written, by
+> [protected-area-entry.md](../../docs/v2/features/protected-area-entry.md) section 11 (one fee per park plus the Discovery Pass on the
+> operator, the Kananaskis pass on `place/kananaskis-country`, Lake O'Hara as a zone); the proposed 15.223d is absorbed by PA-X and PA-W.
+
 ## Scope
 
 Trip `canadian-rockies-2029` (prose folder `canadian-rockies-sept-2029`). The export and print "Book ahead" list is built in
