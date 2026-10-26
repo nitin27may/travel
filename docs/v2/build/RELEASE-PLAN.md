@@ -26,6 +26,8 @@ behind `NEXT_PUBLIC_CF_BEACON_TOKEN`, so only the token and a privacy-page line 
 
 ## 0a. Release bundles (owner decision, 26 Oct 2026; read first)
 
+**Owner decision, 26 Oct 2026 (release cadence):** A ships first, on its own, as soon as its T3 passes (the sweep was already running). Bundles B and C are built in parallel (B2 seat: B's auth, backup and catalogue tasks and C's contract chain; B1 seat: the UXB UI tasks) and ship as ONE release with ONE T3, so three regressions become two. Google sign-in (v0.9) and any feature not ready ship switched off inside that release and turn on later. The B+C release carries the migrations of both bundles; take one Neon snapshot before it.
+
 The owner (26 Oct 2026): "merge a few into one; the verification overhead per release is too high." **The train is now
 eleven bundles, A to K. The v0.x numbers stay as feature labels**, so every reference in the specs, BACKLOG and briefs
 keeps working ("FAV-1 ships in v0.3" now reads "FAV-1 is feature v0.3, which ships in bundle A"). PLAN R-250; BACKLOG
