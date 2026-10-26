@@ -37,7 +37,7 @@ Detail and rules: [RELEASE-PLAN](RELEASE-PLAN.md) 0a; data per bundle: [DATA-PLA
 |---|---|---|---|
 | A | v0.2 phone sign-in, privacy, page counts, 74 places; v0.3 Mine, copies and favourites on this device; v0.4 trip-page go-live fixes, share images. First deploy waits for Mine | 81.5 | 5 |
 | B | v0.5 emailed-code sign-in, backups; v0.9 Continue with Google; Internal CAT-1 catalogue load and the database cross-check. Two deploys | 82 | 36.5 |
-| C | v0.6 places near a town, closure queue; v0.7 photos; v0.8 links beside every stop, getting there | 180.5 | 62.5 |
+| C | v0.6 places near a town, closure queue; v0.7 photos; v0.8 links beside every stop, getting there. UX design approved 26 Oct; UXB tasks in the UI queue | 180.5 | 62.5 |
 | D | v0.10 report and suggest; v0.11 request forms | 118.25 | 13.5 |
 | E | v0.12 best time and overview; v0.13 Where to stay; v0.14 trips from data | 168.5 | 55.5 |
 | F | v0.14.1 field slimming; v0.15 customise; v0.16 account sync | 100.75 | 0 |
