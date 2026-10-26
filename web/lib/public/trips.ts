@@ -7,6 +7,7 @@ import { fileFromUrl, makePhoto } from './photos';
 import { readSeason } from './seasons';
 import { scrubMarkers, stripMarkers } from './prose';
 import { attachTimeline } from './timeline';
+import { driveAverageMin } from '@travel/core/trips/drive.ts';
 import { normName, type PlaceBuild } from './places';
 import { PUBLIC_TRIP_FOLDER, TRIP_SLUGS, kebab } from './slugs';
 import { folderVisibility, type ProtoPubTrip, type ProtoStop, type RockiesDay, type RockiesTrack, type Sources } from './sources';
@@ -397,6 +398,11 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
             ...(full === null && pub ? { pub } : {}),
           });
 
+    // "Drive a day" on the cover: the mean of the drive each day shows (core/src/trips/drive.ts; spec 4.7, finding I14). The days'
+    // own figures, not the prototype seed's average, so the cover and the day rows say the same thing. The seed is the fallback only
+    // for a trip with no schedule.
+    const scheduledDrive = schedule ? driveAverageMin(days.map((d) => ({ tl: schedule.timelines.find((t) => t.day === d.n), planned: d.driveMin }))) : null;
+
     // ---- photos ----
     const gallery: Photo[] = [];
     for (const sec of src.galleries.get(folder)?.sections ?? []) {
@@ -427,7 +433,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
       schedule,
       slug, title, subtitle, depth, visibility: vis, nights, daysCount: days.length || (nights !== null ? nights + 1 : null), seasonNotSet: !season, isDone, region, cover, season,
       firstBase: bases[0]?.name ?? (region.split(',')[0]?.trim() || null), legacyUrl: `/${folder}/`, honesty: uniqueHonesty(h),
-      bases, days, categories, gallery, effort, ageFit: statedAge(pub?.ageFit ?? null, schedule), driveAvgMin: pub?.driveAvgMin ?? null,
+      bases, days, categories, gallery, effort, ageFit: statedAge(pub?.ageFit ?? null, schedule), driveAvgMin: scheduledDrive ?? pub?.driveAvgMin ?? null,
     };
     // no research marker reaches a public string (spec 5.1); the timeline's own strings were cleaned as they were made
     trips.push(scrubMarkers(built1));

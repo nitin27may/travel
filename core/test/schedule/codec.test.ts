@@ -27,12 +27,26 @@ describe("profileCodec (spec 3.8)", () => {
     expect(serialiseTimelineUrl({ profile: { ...ROCKIES, party: "adults", youngest: null }, overrides: {}, added: [] }, ROCKIES)).toBe("p=adults");
   });
   it("falls back to the defaults on garbage, without throwing", () => {
-    const s = parseTimelineUrl("p=family-99&pace=turbo&a=7&walk=abc&split=yes&d=xx,5Z,,&add=%%,5.Bad Slug,,", ROCKIES);
+    const s = parseTimelineUrl("p=family-99&pace=turbo&a=13&walk=abc&split=yes&d=xx,5Z,,&add=%%,5.Bad Slug,,", ROCKIES);
     expect(s.profile).toEqual(ROCKIES);
     expect(s.overrides).toEqual({});
     expect(s.added).toEqual([]);
     expect(parseTimelineUrl("", DEFAULT_PROFILE).profile).toEqual(DEFAULT_PROFILE);
     expect(parseTimelineUrl("p=family-18", ROCKIES).profile.youngest).toBe(6);
+  });
+  it("carries the exact adult count 1 to 12 (Q296), and old a=1 links mean the same", () => {
+    expect(parseTimelineUrl("a=1", ROCKIES).profile.adults).toBe(1);
+    expect(parseTimelineUrl("a=3", ROCKIES).profile.adults).toBe(3);
+    expect(parseTimelineUrl("a=12", ROCKIES).profile.adults).toBe(12);
+    for (const bad of ["a=0", "a=13", "a=-1", "a=01", "a=2.5", "a=", "a=two"]) expect(parseTimelineUrl(bad, ROCKIES).profile.adults, bad).toBe(2);
+    expect(serialiseTimelineUrl({ profile: { ...ROCKIES, adults: 1 }, overrides: {}, added: [] }, ROCKIES)).toBe("a=1");
+    expect(serialiseTimelineUrl({ profile: { ...ROCKIES, adults: 4 }, overrides: {}, added: [] }, ROCKIES)).toBe("a=4");
+    // the default count (2) is left out; a count the codec cannot carry is never written
+    expect(serialiseTimelineUrl({ profile: { ...ROCKIES, adults: 2 }, overrides: {}, added: [] }, ROCKIES)).toBe("");
+    expect(serialiseTimelineUrl({ profile: { ...ROCKIES, adults: 13 }, overrides: {}, added: [] }, ROCKIES)).toBe("");
+    const q = serialiseTimelineUrl({ profile: { ...ROCKIES, youngest: 7, adults: 5 }, overrides: {}, added: [] }, ROCKIES);
+    expect(q).toBe("p=family-7&a=5");
+    expect(parseTimelineUrl(q, ROCKIES).profile).toMatchObject({ youngest: 7, adults: 5 });
   });
   it("accepts URLSearchParams and ignores keys it does not own", () => {
     expect(parseTimelineUrl(new URLSearchParams("view=category&pace=full"), ROCKIES).profile.pace).toBe("full");
