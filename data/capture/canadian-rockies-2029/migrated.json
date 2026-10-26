@@ -6267,7 +6267,10 @@
       "meta": {
         "schema_version": 1,
         "run_id": "RIS-N"
-      }
+      },
+      "at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa"
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
@@ -6369,7 +6372,10 @@
       "meta": {
         "schema_version": 1,
         "run_id": "RIS-N"
-      }
+      },
+      "at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch"
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling",
@@ -6526,7 +6532,10 @@
       "meta": {
         "schema_version": 1,
         "run_id": "RIS-N"
-      }
+      },
+      "at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting"
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
@@ -6915,7 +6924,10 @@
       "meta": {
         "schema_version": 1,
         "run_id": "RIS-N"
-      }
+      },
+      "at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport"
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
@@ -7020,7 +7032,10 @@
         ],
         "read": "2026-10-25",
         "quote": "Make a Booking"
-      }
+      },
+      "at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport"
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
@@ -7731,7 +7746,10 @@
       "meta": {
         "schema_version": 1,
         "run_id": "RIS-N"
-      }
+      },
+      "at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start"
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs",
@@ -8019,7 +8037,10 @@
         ],
         "read": "2026-10-25",
         "quote": "Dates"
-      }
+      },
+      "at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom"
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter",

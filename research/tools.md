@@ -80,7 +80,9 @@ Commons is one runner for the whole machine. Never run any of these from paralle
 ## User agents
 
 The rule is one: name the project and the public site, never an email or personal data. There is no shared module yet; each
-script carries a constant.
+script carries a constant. A request run by hand (curl, a one-off script) uses
+`travel-capture/1.0 (+https://nks-travel.pages.dev/about/)`. `tools/tests/test_user_agents.py` fails when any user-agent
+string in the code holds an email address, or a method page asks for a contact in the user agent.
 
 | Constant | Where | Value |
 |---|---|---|

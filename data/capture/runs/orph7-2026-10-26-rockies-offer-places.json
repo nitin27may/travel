@@ -1,0 +1,286 @@
+{
+  "schema": "capture-run/1",
+  "run": "orph7-2026-10-26-rockies-offer-places",
+  "started": "2026-10-26",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "types": [
+      "access.start.meeting_point"
+    ],
+    "refs": [
+      "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+      "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+      "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+      "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+      "part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa",
+      "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch",
+      "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting",
+      "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport",
+      "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start",
+      "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "overpass-api.de",
+      "requests": 5,
+      "robots": "unknown",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "overpass.private.coffee",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "allowed",
+      "status": "partial"
+    },
+    {
+      "host": "www.wikidata.org",
+      "requests": 14,
+      "robots": "unknown",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "canmore.alpinehelicopter.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.whitemountainadventures.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "yamnuska.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "parks.canada.ca",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "banffnorquay.com",
+      "requests": 4,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.banffadventures.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.banff-springs-hotel.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa",
+      "field": "point",
+      "outcome": "filled",
+      "src": "src-0008",
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa",
+      "field": "links",
+      "outcome": "filled",
+      "src": "src-0007"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa",
+      "field": "area_id",
+      "outcome": "filled",
+      "src": "src-0008",
+      "reason": "capture.ts derive-area --write (from the point; basis our_inference)"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch",
+      "field": "point",
+      "outcome": "filled",
+      "src": "src-0009",
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch",
+      "field": "links",
+      "outcome": "filled",
+      "src": "src-0006"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch",
+      "field": "area_id",
+      "outcome": "filled",
+      "src": "src-0009",
+      "reason": "capture.ts derive-area --write (from the point; basis our_inference)"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting",
+      "field": "point",
+      "outcome": "filled",
+      "src": "src-0010",
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting",
+      "field": "links",
+      "outcome": "filled",
+      "src": "src-0004"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting",
+      "field": "area_id",
+      "outcome": "filled",
+      "src": "src-0010",
+      "reason": "capture.ts derive-area --write (from the point; basis our_inference)"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport",
+      "field": "point",
+      "outcome": "filled",
+      "src": "src-0011",
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport",
+      "field": "links",
+      "outcome": "filled",
+      "src": "src-0001"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport",
+      "field": "area_id",
+      "outcome": "filled",
+      "src": "src-0011",
+      "reason": "capture.ts derive-area --write (from the point; basis our_inference)"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start",
+      "field": "point",
+      "outcome": "filled",
+      "src": "src-0012",
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start",
+      "field": "links",
+      "outcome": "filled",
+      "src": "src-0005"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start",
+      "field": "area_id",
+      "outcome": "filled",
+      "src": "src-0012",
+      "reason": "capture.ts derive-area --write (from the point; basis our_inference)"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom",
+      "field": "point",
+      "outcome": "filled",
+      "src": "src-0013",
+      "host": "overpass-api.de"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom",
+      "field": "links",
+      "outcome": "filled",
+      "src": "src-0003"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom",
+      "field": "area_id",
+      "outcome": "filled",
+      "src": "src-0013",
+      "reason": "capture.ts derive-area --write (from the point; basis our_inference)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0007",
+      "reason": "at names part/legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa#spa"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0006",
+      "reason": "at names part/legacy/canadian-rockies-sept-2029/adventures/bow-river-raft#launch"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0004",
+      "reason": "at names part/legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen#meeting"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0001",
+      "reason": "at names part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0002",
+      "reason": "at names part/legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore#heliport"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0005",
+      "reason": "at names part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+      "field": "at",
+      "outcome": "filled",
+      "src": "src-0003",
+      "reason": "at names part/legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble#classroom"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata#start",
+      "field": "point",
+      "outcome": "ask",
+      "src": "src-0005",
+      "tried": [
+        "https://banffnorquay.com/via-ferrata/via-ferrata-routes/",
+        "https://banffnorquay.com/summer/via-ferrata/",
+        "https://banffnorquay.com/via-ferrata/faqs/",
+        "https://banffnorquay.com/getting-here/"
+      ],
+      "to": "Banff Norquay",
+      "contact_url": "https://banffnorquay.com/via-ferrata/faqs/",
+      "question": "Where do via ferrata guests check in before their tour: at the base area or at the top of the North American Chair?",
+      "reason": "the operator pages place the via ferrata at the top of the North American Chair but name no check-in point; the point is the chair's upper station"
+    }
+  ]
+}
