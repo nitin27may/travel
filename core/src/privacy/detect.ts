@@ -45,14 +45,16 @@ export const TRIPLESS_REF = new RegExp(`\\btrip/${TRIPLESS_LANE}\\b`);
  * Keys that carry household data in any output (the owner's save metadata since PRIV1, traveller details, payments), and the internal
  * research columns no served body may hold (RI-6, RIS-C): `meta` (RowMeta), `notes_private` (owner Q173) and `doc` (the verbatim
  * capture record of 0003, owner Q172). `notes` stays public (a trip or track note), so only `notes_private` is listed. A visitor's copy
- * (copies/1, trip-custom/1; NAV-C) adds `copiedAt` (when it was made), `travellers` (the party) and `gw` (the airports picked, origin
- * spec 10); `added` was already here.
+ * (copies/1, trip-custom/1; NAV-C) adds `copiedAt` (when it was made), `travellers` (the party), `fromRef` (the visitor's origin, the
+ * stored name of the URL's `from`; owner 26 Oct 2026) and `gw` (the airports picked, origin spec 10); `added` was already here.
  */
-export const PRIVATE_KEYS: readonly string[] = ["height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added", "meta", "notes_private", "doc", "copiedAt", "travellers", "gw"];
+export const PRIVATE_KEYS: readonly string[] = ["height_cm", "weight_kg", "age_years", "citizenship", "confirmation", "contact", "price_paid_amount", "insurer_tel", "stayStatus", "location_status", "sourceTypes", "added", "meta", "notes_private", "doc", "copiedAt", "travellers", "fromRef", "gw"];
 /**
- * The visitor's origin (origin spec 8.1 rule 1): `from` is a common public key (a window `{from, to}`, an age band, a leg), so it is
- * private only when it holds an origin reference (`iata:`, `hub:`, `town:`, `gn:`), the form a copy stores. Server output never
- * varies by origin (OR2), so no served body carries one under `from`.
+ * The visitor's origin under the URL's name (origin spec 8.1 rule 1). Copies store it as `fromRef`, a private key whatever its value;
+ * this rule stays as a second net. `from` is a common public key (a window `{from, to}`, an age band, a leg), so it is private only
+ * when it holds an origin reference (`iata:`, `hub:`, `town:`, `gn:`). Server output never varies by origin (OR2), so no served body
+ * carries one under `from`. Known misses, pinned in core/test/schema/copies.test.ts: the URL form (`bom`), a resolved label, a JSON
+ * string under `from`, nesting deeper than three levels, and a reference under another key (`start.ref`, `origin`, `ref`).
  */
 export const ORIGIN_VALUE_KEYS: readonly string[] = ["from"];
 export const ORIGIN_REFERENCE_VALUE = /^\s*(?:iata|hub|town|gn):/i;
