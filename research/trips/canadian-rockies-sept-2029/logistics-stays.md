@@ -1,7 +1,7 @@
 # Lane 5: Logistics and stays (raw findings)
 
 Research date: 2026-10-12. No 2029 data exists; each figure carries its source year. Tags: VERIFIED (seen in a fetched or searched source), CALC (computed), INFERENCE (my estimate, no source), GAP (not found; source that failed named).
-Trip: Sat 1 Sep 2029 to mid-Sep, 2 adults + child ~6, from Whitby ON, rental car, hotels/lodges.
+Trip: Sat 1 Sep 2029 to mid-Sep, a family with a young child, flying in from Ontario, rental car, hotels/lodges.
 
 ## 1. Flights
 - Nonstop YYZ-YYC carriers: Air Canada, WestJet, Flair, Porter. Frequency varies by aggregator (AC 9-11/day, WS 10-13/day, Flair 3-5/day, Porter 3-4/day; ~202 flights/week claimed by one aggregator). VERIFIED (aggregator snippets, undated): https://www.flightsfrom.com/YYZ-YYC (search snippet; page itself returned HTTP 403 on fetch), https://kupi.com/en/flights/from-toronto/to-calgary
@@ -28,7 +28,7 @@ Distance matrix in km: GAP (not computed; no routing source).
 
 ## 5. Icefields Parkway (Hwy 93N)
 - 232 km Lake Louise to Jasper; 3-5 h straight, 6-8 h with stops. VERIFIED: https://icefieldsparkway.com/faqs
-- With a 6-year-old: INFERENCE 7-8 h realistic with 2 meal/long stops and 4-5 toilet breaks; split Banff/LL to Jasper over two days if possible.
+- With a young child: INFERENCE 7-8 h realistic with 2 meal/long stops and 4-5 toilet breaks; split Banff/LL to Jasper over two days if possible.
 - Fuel: Saskatchewan River Crossing only; seasonal "typically April-October" (same URL). Exact 2026 hours: GAP (no Parks Canada page retrieved). Fill up at Lake Louise or Jasper; Saskatchewan Crossing often pricier (https://thebanffblog.com/icefields-parkway-tips/ snippet).
 - Services: Saskatchewan Crossing (fuel, dining, lodging), Num-Ti-Jah Lodge at Bow Lake (GAP: not retrieved, I could not verify open status), Columbia Icefield Centre (open mid-April to mid-Oct, full plumbing, VERIFIED same URL), Sunwapta: GAP.
 - Columbia Icefield Adventure/Skywalk listed open 1 May-12 Oct 2026, weather dependent; Ice Odyssey status conflicting. VERIFIED: https://prod.banffjaspercollection.com/plan-your-trip/opening-dates/
@@ -76,9 +76,9 @@ Mountains shorten usable light by about 30-60 min at each end. INFERENCE.
 
 ## 12. Emergency, seats, insurance
 - Emergency: 911 everywhere. Park wardens Banff/Yoho/Kootenay/Lake Louise 403-762-4506, Jasper 780-852-6155: GAP, from memory, not verified from a source. 
-- Alberta: children under 6 and 40 lb (18 kg) or less must be in a child seat; ages 6-15 or over 40 lb must wear a seatbelt; booster not legally required but recommended until 145 cm / 8-12 yr; kids in back until 13. VERIFIED: https://www.alberta.ca/child-seats . A 6-year-old over 18 kg is legally belt-only in Alberta; INFERENCE: still use a booster.
-- BC (Field, Golden, Radium, Invermere, Valemount): child seat/booster until 9th birthday or 145 cm, whichever first (2008 regulation, still cited). A 6-year-old needs a booster in BC. VERIFIED weak: https://bcmj.org/icbc/new-booster-seat-regulations-will-improve-safety-bc-kids ; current ICBC text not retrieved. GAP.
-- Rental seats: booking a booster from the car company costs per day; INFERENCE: bring own booster from Whitby (airline checks car seats free).
+- Alberta: children under 6 and 40 lb (18 kg) or less must be in a child seat; ages 6-15 or over 40 lb must wear a seatbelt; booster not legally required but recommended until 145 cm / 8-12 yr; kids in back until 13. VERIFIED: https://www.alberta.ca/child-seats . A child of 6 or over, or over 18 kg, is legally belt-only in Alberta; INFERENCE: still use a booster.
+- BC (Field, Golden, Radium, Invermere, Valemount): child seat/booster until 9th birthday or 145 cm, whichever first (2008 regulation, still cited). A child under 9 and under 145 cm needs a booster in BC. VERIFIED weak: https://bcmj.org/icbc/new-booster-seat-regulations-will-improve-safety-bc-kids ; current ICBC text not retrieved. GAP.
+- Rental seats: booking a booster from the car company costs per day; INFERENCE: bring own booster from home (airline checks car seats free).
 - Insurance: GAP. INFERENCE: Ontario provincial health (OHIP) does not cover out-of-province hospital fully; buy travel medical + trip cancellation and check wildfire-evacuation clauses.
 
 ## 13. Recommended night split (INFERENCE; Calgary in, Calgary out)
@@ -89,4 +89,4 @@ Assumes Sat 1 Sep arrival (late flight, sleep Calgary or Canmore). Bases from ba
 - 14 nights: add Kananaskis/Peter Lougheed 2 (Hwy 40 open) and Radium 1 for the pools; Banff 3, LL 2, Jasper 3, Canmore 2, Golden 1, Calgary 1.
 - 16 nights: add Waterton 2 and Pincher Creek 1 (Hwy 6) before returning north; Jasper 3-4; Banff 3; LL 2.
 - Edmonton-out option: drop the Calgary return night; sleep Jasper 3 then drive 3h45 to YEG (stay at airport on last night); add one-way fee quote. 12-night version: Canmore 2, Banff 2, LL 2, Jasper 3, Valemount or Mount Robson 1 (optional), YEG 1.
-Reasons: 2 nights minimum per base with a 6-year-old; long days (Parkway) split; early Sept still busy through 3 Sep Labour Day, so book Banff/LL before Jasper; Jasper last because of capacity risk.
+Reasons: 2 nights minimum per base with a young child; long days (Parkway) split; early Sept still busy through 3 Sep Labour Day, so book Banff/LL before Jasper; Jasper last because of capacity risk.

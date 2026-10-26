@@ -6,9 +6,9 @@ Status: draft (17 Oct 2026).
 
 Make every entity answer "can **our** children do this, and will they enjoy it": hard limits, realistic
 distances, facilities, safety edges, family versions of adult activities, kid prices, and kid-specific
-places (splash pads, playgrounds, interactive museums, beaches with shallow water). The household in the
-intent notes travels with kids 9-12 and avoids unfenced cliff edges; the Rockies plan was built around a
-6-year-old with a family track every day.
+places (splash pads, playgrounds, interactive museums, beaches with shallow water). Plans are written for
+an audience, not a household: the family default (youngest child 10, R-121) or the age a plan states, often
+with a family track every day; unfenced cliff edges are a common avoid rule.
 
 ## 2. Produces
 

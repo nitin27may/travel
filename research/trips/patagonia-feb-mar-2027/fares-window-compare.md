@@ -1,7 +1,7 @@
 # Patagonia: fares and lodging by travel window (checked 2026-10-14)
 
-Party: 2 adults + 1 child aged 10, economy, from Toronto. All figures CAD, total for 3 people. Raw lane, not a report.
-Sources: Google Flights (live, date-edited search URLs) and Booking.com (2 adults, 1 child age 10, one room, review score 8+).
+Priced as an example: two adult fares and one child fare, economy, from Toronto. All figures CAD, total for the three fares. Raw lane, not a report.
+Sources: Google Flights (live, date-edited search URLs) and Booking.com (example: two adults and one child, one room, review score 8+).
 
 ## International YYZ-EZE, cheapest return fare found (3 people)
 

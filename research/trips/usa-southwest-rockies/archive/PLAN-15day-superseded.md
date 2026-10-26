@@ -1,7 +1,7 @@
 # Utah & Arizona — 15 days on the Colorado Plateau
 
 **14 nights · ~1,500 mi / 2,400 km · 8 bases · all five Utah national parks**
-**YYZ → Las Vegas in, Salt Lake City → YYZ out.** Group: 2 adults + 1 child (11).
+**YYZ → Las Vegas in, Salt Lake City → YYZ out.** Group: a family with a child of 11 (test age).
 Hiking ceiling ~12 km round trip. **Dates open.**
 
 > The 25-day, 17-stop version was dropped on 2026-09-06. This is now the only plan.
@@ -113,7 +113,7 @@ it to damage *directly caused by* the road, and NRS 482.3159 makes that non-waiv
 not remove it. The Moki Dugway is a bounded, deliberate risk. **Avis and Budget publish no Nevada
 block; do not book them.** Add a Moab Jeep day (~$410) if you want the Shafer Trail covered.
 
-**No booster seat is required for an 11-year-old** in Nevada, Utah or Arizona.
+**No booster seat is required for a child of 11** in Nevada, Utah or Arizona.
 
 ## Booking calendar
 

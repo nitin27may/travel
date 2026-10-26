@@ -1,7 +1,7 @@
 # Vehicle & rental gap-close — the unpaved-road clause, UT-261, and what to actually book
 
 Trip: **10 Sep – 4 Oct 2028**, Las Vegas (LAS) pickup → Salt Lake City (SLC) drop-off, ~2,400 mi.
-Party: 2 adults (both over 25) + 1 child aged 11. Canadian licences, Canadian residents.
+Drivers: two adults, both over 25, Canadian licences, Canadian residents. Test age for the booster rules: a child of 11.
 
 This file closes the seven open questions left by `research-logistics.md` §5–§6. It does not
 replace that file; it corrects and extends it. Read §6.4 there first for the baseline.
@@ -23,7 +23,7 @@ changes the answer materially.
 6. [Which booking class genuinely delivers AWD/4WD](#6-which-booking-class-genuinely-delivers-awd4wd)
 7. [Moab Jeep day-hire as the fallback](#7-moab-jeep-day-hire)
 8. [Foreign licence, additional drivers, age](#8-foreign-licence-additional-drivers-age)
-9. [Child seat / booster law for an 11-year-old, five states](#9-child-seat--booster-law-for-an-11-year-old)
+9. [Child seat / booster law for a child of 11, five states](#9-child-seat--booster-law-for-a-child-of-11)
 10. [RECOMMENDATION](#10-recommendation)
 11. [Open GAPs](#11-open-gaps)
 
@@ -488,14 +488,14 @@ Confirmed and unchanged from `research-logistics.md` §6.7, plus three additions
 
 ---
 
-## 9. Child seat / booster law for an 11-year-old
+## 9. Child seat / booster law for a child of 11
 
-**Answer up front: an 11-year-old needs no booster in any of the five states. A properly fitted
+**Answer up front: a child of 11 needs no booster in any of the five states. A properly fitted
 adult lap-and-shoulder belt is legally sufficient in Nevada, Utah, Arizona, Colorado and Wyoming.**
 The child is above every threshold in all five, and by a clear margin in four of them. The nearest
 threshold is Colorado's and Wyoming's, both at age 9.
 
-| State | Statute | Restraint required | Belt permitted from | 11-year-old |
+| State | Statute | Restraint required | Belt permitted from | Age 11 |
 |---|---|---|---|---|
 | **Nevada** | NRS 484B.157(1) | "a child who is **less than 6 years of age and who weighs 60 pounds or less**" must be in a child restraint system | age 6, or over 60 lb | **Belt. No booster.** |
 | **Utah** | Utah Code 41-6a-1803(1)(a)(ii)–(iii) | "each person **younger than eight years old**" in a child restraint device; exempt if under 8 but **57 inches or taller** | "each person that is **at least eight years old and no less than 16 years old**" — properly fastened safety belt | **Belt. No booster.** |
@@ -513,14 +513,14 @@ Sources: <https://nevada.public.law/statutes/nrs_484B.157> ·
 Notes worth carrying:
 - **Colorado tightened its law on 1 Jan 2025**, raising the booster threshold from under-8 to
   under-9 and the belt-required age band from 8–16 to 9–18. Any pre-2025 summary you find online is
-  wrong. It still does not reach an 11-year-old.
+  wrong. It still does not reach a child of 11.
 - Do **not** book a child seat from the rental company. Enterprise Holdings classifies child seats
   as "Optional Accessories", and its LDW expressly "**DOES NOT PROVIDE PROTECTION FOR … OPTIONAL
   ACCESSORIES**". You would be on the hook for a lost or damaged seat, and none is needed anyway.
 - Every one of the five states' laws also requires the belt to fit properly. Wyoming even codifies
   this as the exemption test: "the lap and shoulder belts of the vehicle will fit properly across
   the collarbone, chest and hips of the child and the belts do not pose a danger to the neck, face
-  or abdominal area." If the 11-year-old is small for their age, bring a backless booster for
+  or abdominal area." If the child is small for their age, bring a backless booster for
   comfort and fit — as a safety choice, not a legal one.
 - Nevada's own rental-contract disclosure repeats the state seat-belt rule: "Nevada law requires any
   driver of a passenger car and any passenger **5 years of age or older** who rides in the front or

@@ -1,15 +1,15 @@
 # Costa Rica Feb 2027 - Family adventure lane (raw data)
 
-Collected 2026-10-06 for: 2 adults + son aged 10 (assumed ~35 kg / ~140 cm). Prices USD, 2026 list prices (Feb 2027 not yet published anywhere). Many operators add 13% IVA (stated where known). Does not repeat research-adventure.md.
+Collected 2026-10-06 for a test case: a family with a 10-year-old (the product default youngest child), assumed ~35 kg / ~140 cm. Prices USD, 2026 list prices (Feb 2027 not yet published anywhere). Many operators add 13% IVA (stated where known). Does not repeat research-adventure.md.
 
 Method and reliability: WebFetch of operator pages where they rendered; WebSearch summaries otherwise. Labels: [OP] = read on operator's own page; [AGG] = aggregator/blog/search summary only. Operator pages for Sky Adventures, Selvatura, Pure Trek, Arenal Rafting, Desafio rendered with little detail (booking engines hold the rules), so many limits come from [AGG]. Cross-cutting GAPs are at the end.
 
 ## Where the 35 kg / 140 cm assumption matters (read first)
-- Sky Adventures Sky Trek: one aggregator says children must weigh 10-40 kg for the child equipment; at 35 kg he is inside the band but near the top. Height minimum 1.1 m (aggregator); he clears it. Source: https://costaricatravelblog.com/arenal-sky-trek-canopy-ziplining-tour/ [AGG]
-- Guachipelin Rio Negro tubing: minimum height 140 cm stated on operator page. He is AT the line (assumed 140 cm). Confirm his real height; if he is under, he is out. https://www.guachipelin.com/adventure-tours/rio-negro-tubing-adventure/ [OP]
+- Sky Adventures Sky Trek: one aggregator says children must weigh 10-40 kg for the child equipment; at 35 kg the test child is inside the band but near the top. Height minimum 1.1 m (aggregator); the test child clears it. Source: https://costaricatravelblog.com/arenal-sky-trek-canopy-ziplining-tour/ [AGG]
+- Guachipelin Rio Negro tubing: minimum height 140 cm stated on operator page. The test child is AT the line (assumed 140 cm). Measure the real child; under 140 cm is out. https://www.guachipelin.com/adventure-tours/rio-negro-tubing-adventure/ [OP]
 - ATV double: combined limit ~300-308 lb (136-140 kg) for rider + passenger on one ATV (aggregator). A 90 kg adult + 35 kg child = 125 kg fits; an adult over ~100 kg does not. https://theabroadguide.com/atv-tour-in-la-fortuna-arenal-volcano/ [AGG]
-- Superman/Tarzan add-ons carry MINIMUM weights (Selvatura Superman min 55 kg: he is out). https://www.selvatura.com/tours/ [OP]
-- Most other limits are age-based or adult-weight maxima (not a problem for him).
+- Superman/Tarzan add-ons carry MINIMUM weights (Selvatura Superman min 55 kg: a typical 10-year-old is out). https://www.selvatura.com/tours/ [OP]
+- Most other limits are age-based or adult-weight maxima (not a problem for a child).
 
 ## 1. Rafting near La Fortuna (Feb = dry season, lower water)
 | Operator / section | Class | Adult | Child | Min age | Height / weight | Duration | 10-yr-old? |
@@ -25,7 +25,7 @@ Method and reliability: WebFetch of operator pages where they rendered; WebSearc
 
 Sources: https://arenalrafting.com/arenal-rafting-tours-la-fortuna/balsa-river-white-water-rafting-class-ii-iii/ ; https://arenalrafting.com/arenal-rafting-tours-la-fortuna/balsa-river-white-water-rafting-class-3-4-la-fortuna/ ; https://arenalrafting.com/ ; https://riosadventure.com/tours/sarapiqui-river-rafting/ ; https://misticopark.com/tours/rafting-from-la-fortuna-on-the-sarapiqui-river-class-iii-iv/ ; Desafio figures from search summary of https://www.desafiocostarica.com/tour-detail/rafting-balsa-river-costa-rica-2-3 and https://www.desafiocostarica.com/tour-detail/sarapiqui-costa-rica-rafting-2-3 (both pages fetched but returned only a shop listing; GAP: Desafio per-tour limits unverified).
 - Conflict: the earlier note says another source recommends 10+ for Balsa II-III; operator page says 6+. Use the operator figure.
-- Balsa II-III is the safest family float: family tier on all three operators. Rios Adventure (La Virgen, II-III+) is the only one at min age 10 and is more serious water; skip unless he is confident.
+- Balsa II-III is the safest family float: family tier on all three operators. Rios Adventure (La Virgen, II-III+) is the only one at min age 10 and is more serious water; skip unless the child is confident.
 - Cancellation/refund: Arenal Rafting page links a cancellation policy but its content did not load (GAP; the /cancellation-policies/ guess returned 404). Aggregator listings for Balsa II-III state free cancellation 24 h before departure (https://www.getyourguide.com/la-fortuna-l1904/rafting-costa-rica-small-group-class-iii-on-balsa-river-t413214/ [AGG]). Weather policy: GAP for all rafting operators.
 - Lead time / Feb sell-out: GAP (no operator states it). Rafting is a daily half-day with several departures, so sell-out risk is judged low but is NOT sourced.
 - River flow in Feb: GAP (no gauge data).
@@ -33,10 +33,10 @@ Sources: https://arenalrafting.com/arenal-rafting-tours-la-fortuna/balsa-river-w
 ## 2. Ziplines and canopy
 | Operator | Adult | Child | Min age | Weight / height | Duration | 10-yr-old? |
 |---|---|---|---|---|---|---|
-| Sky Adventures Arenal, Sky Trek (zip, mandatory 1-way tram) | $93 [OP tickets page]; $115 zip+tram+bridges [OP] | $60-65 ages 4/5-12 (2025-26 +13% tax) [AGG] | 5 [AGG]; ages 4-11 pricing tier per Montetours | child equipment 10-40 kg [AGG]; min 1.1 m [AGG]; max 136 kg adult | 2-2.5 h, ~1 h on cables; 7 cables incl. practice | YES. Under-10s may be accompanied; he is above that |
+| Sky Adventures Arenal, Sky Trek (zip, mandatory 1-way tram) | $93 [OP tickets page]; $115 zip+tram+bridges [OP] | $60-65 ages 4/5-12 (2025-26 +13% tax) [AGG] | 5 [AGG]; ages 4-11 pricing tier per Montetours | child equipment 10-40 kg [AGG]; min 1.1 m [AGG]; max 136 kg adult | 2-2.5 h, ~1 h on cables; 7 cables incl. practice | YES. Under-10s may be accompanied; a 10-year-old is above that |
 | Sky Adventures, Sky Tram only | $51 [OP] | $36 [AGG] | all ages | none | ~1 h | YES |
 | Sky Adventures, hanging bridges | $46 [OP] | $28 (Sky Walk) [AGG] | none stated | none | ~1.5 h | YES |
-| Sky Adventures, Sky Limit (extreme lines) | n/a | not for under 10 [AGG] | 10 | not found | not found | YES at exactly 10, GAP on his eligibility details |
+| Sky Adventures, Sky Limit (extreme lines) | n/a | not for under 10 [AGG] | 10 | not found | not found | YES at exactly 10, GAP on eligibility details |
 | Selvatura (Monteverde) canopy | $80 + 13% [OP] | $56 ages 4-11 [OP] | 4 with adult [OP FAQ] | max 125 kg / 275 lb; waist 120 cm / leg 75 cm; Superman min 55 kg [OP] | 2-2.5 h, 13 cables | YES; no Superman |
 | Selvatura hanging bridges | $49 [OP] | $34.30 [OP] | none stated | n/a | 1-1.5 h | YES |
 | Selvatura zip + bridges combo | $112 [AGG] | $77 [AGG] | | | | YES |
@@ -57,7 +57,7 @@ Sources: https://skyadventures.travel/tickets/ [OP prices, no kid data]; https:/
 | Operator | Price | Min age | Limits | Duration | Detail | 10-yr-old? |
 |---|---|---|---|---|---|---|
 | Pure Trek, La Fortuna | $117 incl. taxes [OP] (earlier note: $99 + 13%, current page shows $117) | 5 [OP] | max 280 lb / 127 kg, 44 in waist, 32 in leg harness [AGG: TripAdvisor/Viator summary] | half day | 4 rappels: 3 waterfalls + 1 rock wall [OP], "Monkey Drop" per listing [AGG] | YES. Operator markets kid-friendly gear and a special lowering technique [OP kids page] |
-| Hacienda Guachipelin, Waterfall Canyoning (Rincon) | $70 adult, $60 age 13-17, $50 age 10-12 [OP] | 10 [OP] | max 300 lb [OP FAQ] | 2.5 h; daily 8:00 and 14:30 | 3 waterfall rappels + Tarzan swing [OP/entercostarica] | YES, at the minimum; he must be 10 on the day |
+| Hacienda Guachipelin, Waterfall Canyoning (Rincon) | $70 adult, $60 age 13-17, $50 age 10-12 [OP] | 10 [OP] | max 300 lb [OP FAQ] | 2.5 h; daily 8:00 and 14:30 | 3 waterfall rappels + Tarzan swing [OP/entercostarica] | YES, at the minimum; the child must be 10 on the day |
 | Guachipelin half-day canyoning combo | $99 [OP] | 10 | | 5 h | rock climb, rappel, thermal water | YES |
 | Desafio Lost Canyon, La Fortuna | from $119 + VAT [OP shop page] | GAP | GAP | GAP | page did not show age | GAP |
 | Uvita360 half-day, Uvita/Ballena | $105 flat [OP] | 7 [OP] | max 260 lb / 120 kg [OP] | 5 h | 8 waterfall descents [OP] | YES |
@@ -80,7 +80,7 @@ Sources: https://puretrek.com/tours/pure-trek-canyoning-regular/ ; https://puret
 | Canyon half day | from $90 | | | | 4.5 h: climbing, zip, rope swing, relaxation |
 
 Sources: https://www.guachipelin.com/adventure-tours/rio-negro-tubing-adventure/ ; https://www.guachipelin.com/horseback-riding/horseback-riding-half-day-tour/ ; https://www.guachipelin.com/relaxation/rio-negro-hot-springs-mud-baths/ ; https://www.guachipelin.com/faq/ ; https://www.guachipelin.com/adventure-tours/
-- Tubing: the 140 cm line is the one real risk for him. Weight no problem. Combo pass child price GAP.
+- Tubing: the 140 cm line is the one real risk for a 10-year-old. Weight no problem. Combo pass child price GAP.
 - Season: dry season Dec-Apr, per operator FAQ.
 - Verdict: the Guachipelin day is the best single kid-qualifying adventure bundle in the research (canyoning, tubing, zip, horse and hot springs all open at 10).
 
@@ -96,12 +96,12 @@ Sources: https://www.guachipelin.com/adventure-tours/rio-negro-tubing-adventure/
 
 Sources: https://ballenatourcostarica.com/tour/whale-watching-uvita/ ; https://whalewatchinguvita.com/whale-watching-tour-uvita ; https://costaricadivers.com/tour/uvita/family-snorkeling-tour-in-uvita/ ; https://localbird.io/product/cano-island-snorkel-tour-from-uvita/ ; https://www.anywhere.com/costa-rica/locations/uvita/tours/cano-island-day-tour ; https://costaricadivers.com/locations/uvita/whale-watching-in-uvita/ (season/success summary, not read in full [AGG])
 - Season: humpbacks present Dec/Jan-Mar, peak Jan-Feb per aggregator summaries; operator says Jan-Apr. 13-23 Feb 2027 sits inside. The "90%+" success figures are operator marketing and are not independent. Whale-watching boat size / pregnancy exclusions: GAP except pregnancy note (first 3 months excluded).
-- Cano: price conflict ($150 vs $201); both are 2026 list prices from different operators, so treat as a range. Feb seas calm per search summary (December-March) [AGG], no marine forecast. 7-9 h with no toilets and open-ocean crossing is the least suitable of the lot for a 10-year-old unless he is a confident boat traveler. Cano cancellation/weather policy: GAP (neither page showed it).
+- Cano: price conflict ($150 vs $201); both are 2026 list prices from different operators, so treat as a range. Feb seas calm per search summary (December-March) [AGG], no marine forecast. 7-9 h with no toilets and open-ocean crossing is the least suitable of the lot for a 10-year-old unless the child is a confident boat traveller. Cano cancellation/weather policy: GAP (neither page showed it).
 - Verdict: whale watching = good family activity (child discount, 3-4 h). Isla del Cano = optional, long day.
 
 ## 6. Other activities
 - Mangrove kayak, Quepos (Damas Island): paddle9sup, $90 + 13% tax adult, children 5-11 share a pedal-drive kayak with an adult, ~3.5 h, tide-dependent departure [OP] https://paddle9sup.com/tour/mangroves-kayak-tour-quepos/ . Other operators: min age 5-8, price $59-96 [AGG: https://www.viator.com/tours/Quepos/Mangrove-Kayak/d4507-88083P7]. Child price tier GAP. Cancellation GAP. Verdict: fine at 10.
-- Manuel Antonio NP entry: $18 adult 13+, $5 child 2-12, under 2 free (2026) [AGG: machupicchu.org summary; official SINAC page not fetched, GAP]. Guided tour incl. entry $65 adult / $45 child under 10 [OP: https://nationalparkmanuelantonio.com/product/expert-guided-tour-of-manuel-antonio-national-park/] (he is 10: child rate may not apply; ask). Another listing: high season (18 Dec-30 Apr) $70 adult / $57 child 3-12 [AGG]. Private guide $55-110+ [AGG]. Duration, cancellation: GAP. Closed Mondays: GAP (not checked here).
+- Manuel Antonio NP entry: $18 adult 13+, $5 child 2-12, under 2 free (2026) [AGG: machupicchu.org summary; official SINAC page not fetched, GAP]. Guided tour incl. entry $65 adult / $45 child under 10 [OP: https://nationalparkmanuelantonio.com/product/expert-guided-tour-of-manuel-antonio-national-park/] (a 10-year-old: child rate may not apply; ask). Another listing: high season (18 Dec-30 Apr) $70 adult / $57 child 3-12 [AGG]. Private guide $55-110+ [AGG]. Duration, cancellation: GAP. Closed Mondays: GAP (not checked here).
 - La Fortuna night walk, Papa's Place (Birding & Nature Fortuna): age tiers on operator page: 0-4 infants, 5-11 children, 12+ adults; 1.5-2 h; 200-600 m route; start times 18:00, 19:00, 20:00; "designed for all ages" [OP https://papasplacecr.com/en/experiences-tour/1-night-walk-tour.html]. Price not on page; reseller says from $40, min age 3 [AGG: https://toursinarenal.com/booking/papas-place-night-walk-tour-in-la-fortuna/]. Rain policy GAP. TripAdvisor reviewers mention 8- and 11-year-olds enjoyed it [AGG]. Verdict: strong fit.
 - Mistico hanging bridges (La Fortuna): guided from $44 + tax (2.5 h), self-guided $32 + tax; ages 0-4 free; no minimum age; horseback min age 10 at Mistico; no zipline at Mistico [OP https://misticopark.com/]. Child price for ages 5-12: GAP.
 - ATV La Fortuna: from $115 adult; kids 5+ as passengers (aggregator); drivers 16+ with licence; double-ATV combined limit ~300-308 lb [AGG: https://theabroadguide.com/atv-tour-in-la-fortuna-arenal-volcano/ , https://originalarenalatv.com/]. Pure Trek ATV rider limit 310 lb, license required [OP kids page]. He would be a passenger only. Verdict: possible, not a highlight; check adult weight vs combined cap.
@@ -125,7 +125,7 @@ Sources: https://ballenatourcostarica.com/tour/whale-watching-uvita/ ; https://w
 - Borinquen canopy, Desafio per-tour limits, Lake Arenal operator pages, Isla del Cano cancellation, Quepos mangrove child price: GAP.
 
 ## 9. Ranked: 6 best family activities for a 10-year-old (excluding Pacuare)
-1. Hacienda Guachipelin day (waterfall canyoning at age 10 + Rio Negro tubing if >=140 cm + canopy + hot springs) - Rincon de la Vieja / Guanacaste. Everything open to him; operator prices and limits confirmed on own pages. Check his height for tubing and age for canyoning.
+1. Hacienda Guachipelin day (waterfall canyoning at age 10 + Rio Negro tubing if >=140 cm + canopy + hot springs) - Rincon de la Vieja / Guanacaste. Everything open to a 10-year-old; operator prices and limits confirmed on own pages. Check the child's height for tubing and age for canyoning.
 2. Pure Trek canyoning (min 5; 4 rappels incl. waterfalls) - La Fortuna / Arenal.
 3. Balsa River Class II-III family float (Arenal Rafting Co 6+, Desafio 8+) - La Fortuna / Arenal.
 4. Sky Adventures Sky Trek + tram (age 5+; check 40 kg child-gear band) - La Fortuna / Arenal. Book ahead.

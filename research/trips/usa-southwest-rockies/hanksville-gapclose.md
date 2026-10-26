@@ -67,7 +67,7 @@ Source: <https://www.roadtripryan.com/go/t/utah/san-rafael-swell/long-dong-silve
 | Gain | **~173 ft / 53 m.** Effectively flat. |
 | What the "trail" is | A **closed roadbed** walked to its end, then **social trails** to the spire base. No cairns needed, no exposure, no scrambling. |
 
-**Verdict for an 11-year-old:** this is the easy one. Flat valley floor, 173 ft of gain, no drop-offs.
+**Verdict for a child of 11:** this is the easy one. Flat valley floor, 173 ft of gain, no drop-offs.
 The only hazards are heat and full sun exposure with zero shade. Do it early morning or the last hour.
 
 **Legality/land status: confirmed BLM.** The route is on a BLM-numbered road (#1574) and BLM publishes
@@ -115,7 +115,7 @@ Source: <https://www.blm.gov/sites/default/files/docs/2026-04/Moonscape%20Overlo
 
 ### The child-safety call — state this plainly in the itinerary
 
-**Moonscape Overlook is the single highest-consequence spot in the Utah leg for an 11-year-old.**
+**Moonscape Overlook is the single highest-consequence spot in the Utah leg for a child of 11.**
 It is an **unfenced, undercut cliff rim on unstable sandstone**, at the **end of a 6-mile dirt road**,
 with **no cell coverage** (BLM: "cell coverage is scarce in the region") and **no facilities**. BLM's
 warning is not boilerplate — it names *unstable sandstone* and *cliff edges* specifically.

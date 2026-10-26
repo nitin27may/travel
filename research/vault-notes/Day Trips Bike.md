@@ -13,7 +13,7 @@ modified: 2026-03-30
 
 # Ontario Family Cycling Guide: 20 Trails Near Whitby
 
-Ontario families based near Whitby have access to 20 outstanding cycling trails — most built on converted railways — offering flat, car-free routes ideal for kids aged 9–12. This guide covers each trail with surface type, difficulty, bike rental options, cool-down spots, and nearby hike recommendations to round out a full day.
+Ontario families based near Whitby have access to 20 outstanding cycling trails — most built on converted railways — offering flat, car-free routes ideal for school-age kids. This guide covers each trail with surface type, difficulty, bike rental options, cool-down spots, and nearby hike recommendations to round out a full day.
 
 See also: [[Day Trips Local]] for destination guides to 40 Ontario attractions within 500 km.
 
@@ -27,7 +27,7 @@ Helmets are mandatory by Ontario law for riders under 18. Adults are strongly en
 
 Bike type is the single most important planning decision. Paved trails (Niagara River, Ottawa pathways, Whitby–Oshawa Waterfront, Kingston, Ajax) work with any bicycle. Crushed limestone and gravel trails (Millennium Trail, Kawartha Trans Canada, Victoria Rail Trail, Algonquin Old Railway) require hybrid or mountain bikes — road bikes with thin tires will struggle and puncture. Check the surface type before renting or loading up the car.
 
-For kids aged 9–12: saddle height should let the child touch the ground with the ball of the foot (not flat-footed). Gears help significantly on any ride over 10 km, even flat ones. Padded shorts eliminate seat soreness on rides over 8 km — worth buying before a longer trail day.
+For school-age kids: saddle height should let the child touch the ground with the ball of the foot (not flat-footed). Gears help significantly on any ride over 10 km, even flat ones. Padded shorts eliminate seat soreness on rides over 8 km — worth buying before a longer trail day.
 
 ### What to pack
 

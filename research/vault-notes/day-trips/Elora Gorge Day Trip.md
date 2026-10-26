@@ -21,7 +21,7 @@ modified: 2026-06-17
 - **Outing type:** Active & outdoorsy + a bit of town charm
 - **Drive radius:** ~180 km / ~2 hrs each way (edge of the 200 km range — worth it)
 - **Time:** Full day / sunrise-to-sunset
-- **Group:** Family, kids 9–12
+- **Group:** Family with school-age kids
 - **Transport:** Car
 
 ## At a glance
@@ -32,7 +32,7 @@ modified: 2026-06-17
 | **Drive time** | ~2 hrs each way (~180 km) |
 | **Best for** | River tubing, gorge hiking, splash pad, village stroll |
 | **Best season** | Mid-June to end of September (tubing season) |
-| **Rough cost** | ~$200–330 for a family of 4 — tubing rental is the big driver (see Costs) |
+| **Rough cost** | ~$200–330 for an example family of four — tubing rental is the big driver (see Costs) |
 | **Heads-up** | Tubing requires everyone ≥48″ (122 cm) and a competent swimmer; book online ahead |
 
 ## Getting there
@@ -89,7 +89,7 @@ modified: 2026-06-17
 - **Capacity & connectivity:** the gorge can hit its day-use cap on hot weekends — arrive by opening — and cell service is patchy, so download maps offline.
 - **On the river:** no lifeguards, no exit points, submerged rocks; one rider per tube; dogs not permitted in the tubing area.
 
-## Costs (family of 4 = 2 adults + 2 kids, approx.)
+## Costs (example family of four: 2 adults + 2 kids, approx.)
 
 Day-use admission is **per person**, not per vehicle: adult (13–64) $9.50, child (4–12) $4.00, senior $7.50, 3 and under free.
 

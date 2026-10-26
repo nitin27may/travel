@@ -21,7 +21,7 @@ modified: 2026-06-17
 - **Outing type:** Active hike + interactive history
 - **Drive radius:** ~125 km / ~1h30 each way
 - **Time:** Full day
-- **Group:** Family, kids 9–12
+- **Group:** Family with school-age kids
 - **Transport:** Car
 
 ## At a glance
@@ -32,7 +32,7 @@ modified: 2026-06-17
 | **Drive time** | ~1h30 each way (~125 km) |
 | **Best for** | Escarpment lookouts, moderate hiking, hands-on history |
 | **Best season** | Spring–fall; longhouses staffed daily in summer |
-| **Rough cost** | ~$90–120 for a family of 4 |
+| **Rough cost** | ~$90–120 for an example family of four |
 
 ## The plan
 
@@ -72,7 +72,7 @@ modified: 2026-06-17
 - **Boardwalk status:** confirm the Crawford Lake boardwalk reconstruction is finished before the trip.
 - **Longhouse hours:** 10 am–4 pm; may close for pre-booked school/groups — fine on a family day but worth a glance at the calendar.
 
-## Costs (family of 4, approx.)
+## Costs (example family of four, approx.)
 
 | Item | Estimate |
 |------|----------|

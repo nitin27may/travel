@@ -33,7 +33,7 @@ Official (NPS/BLM/UDOT/State Parks) sources confirm: UT-12 is 123 mi and about 3
   SOURCE: https://www.blm.gov/visit/lower-calf-creek-falls-trail
 - FINDING: Calf Creek is 11.4 mi south of the UT-12/Burr Trail junction in Boulder and 14.4 mi northeast of Escalante; a paved spur (about 250 yd) leads to the day-use lot. Elevation gain about 505 ft and 2.5-3 h typical (search-result summary of BLM PDF / other sources, not fetched directly). Surface is mostly soft sand, often unshaded, with short steep sections.
   SOURCE: https://www.blm.gov/sites/blm.gov/files/uploads/BLMUtahLowerCalfCreekFalls.pdf (surfaced in search; PDF itself not fetched)
-- FINDING: Age-11 suitability: BLM labels it family-suitable; effort is about 3 h round trip on sand. Plausible for a fit 11-year-old with water and a start before midday heat; this is my inference, not an official age statement. September may still be hot on the exposed canyon floor.
+- FINDING: Age-11 suitability: BLM labels it family-suitable; effort is about 3 h round trip on sand. Plausible for a fit child of 11 with water and a start before midday heat; this is my inference, not an official age statement. September may still be hot on the exposed canyon floor.
   SOURCE: https://www.blm.gov/visit/lower-calf-creek-falls-trail
 - FINDING: Calf Creek Recreation Site reopened 27 Sep 2024 after a prior closure; check BLM page before going.
   SOURCE: https://www.blm.gov/visit/lower-calf-creek-falls-trail

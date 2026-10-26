@@ -1,12 +1,12 @@
 # Adventures research (lane 3), Canadian Rockies Sept 2029
 
-Checked 2026-10-12. All figures are 2026 (or year stated); 2029 data does not exist. Source: web search summaries, official pages not individually fetched, so most entries are GAP/unverified. Child assumption: 6 yrs, 115 cm, 20 kg.
+Checked 2026-10-12. All figures are 2026 (or year stated); 2029 data does not exist. Source: web search summaries, official pages not individually fetched, so most entries are GAP/unverified. Test case: a young child (school age, small for the common 8-year and 23 kg raft minimums); height and weight are listed per rule, not assumed.
 
-## Hard limits that decide the 6-year-old
+## Hard limits that decide a young child
 
 - Norquay Via Ferrata: min age 12 (Skyline/Summiteer 14), min 40 kg. Child fails age and weight.
-- Kicking Horse rafting: family float min 8 yrs and 50 lb (23 kg); child is 6 and 20 kg, fails both. Class III-IV min 12/90 lb or 16/100 lb.
-- Kananaskis River raft: one operator min 5 yrs / 40 lb (18 kg); child is 20 kg so passes age, 40 lb = 18.1 kg so marginal pass.
+- Kicking Horse rafting: family float min 8 yrs and 50 lb (23 kg); a young child under 8 or under 23 kg fails. Class III-IV min 12/90 lb or 16/100 lb.
+- Kananaskis River raft: one operator min 5 yrs / 40 lb (18 kg); a child of 5 or over who weighs more than 18.1 kg (40 lb) passes, so weigh the child.
 - Banff/Lake Louise horse rides: min 8 yrs.
 - Burgess Shale Mt Stephen: under 8 not allowed.
 - Athabasca IceWalks: min about 7 per Lonely Planet (conflict, some say 6).
@@ -133,7 +133,7 @@ Running: Banff Gondola, Lake Louise Gondola, Jasper SkyTram (reduced hours from 
 - Season: Summer; Adventure Float Mon/Fri July-Aug only. Early Sept: GAP (not confirmed)
 - Price 2026: Banff Adventures family trip adult 109 / child 89 (year unknown)
 - Limits: min_age=8 min_height_cm=None max_weight_kg=22.7; child_6yo_ok=no; audience=both
-- Booking: Advance; operators say limits can rise in high water. Note: minimum 8 yrs and 50 lb (23 kg) is a MINIMUM weight, not max. 6-year-old FAILS age. One Banff Adventures page says 6+, conflicting
+- Booking: Advance; operators say limits can rise in high water. Note: minimum 8 yrs and 50 lb (23 kg) is a MINIMUM weight, not max. A child under 8 FAILS age. One Banff Adventures page says 6+, conflicting
 - Weather/refund: Operator-specific GAP
 - Sources: https://www.banffadventures.com/things-to-do/family-whitewater-rafting/, https://www.kootenayrockies.com/partner/wild-water-adventures/, https://www.pelago.com/en-US/activity/p9vx02w53-kicking-horse-river-rafting-family-adventure-kootenay-rockies/
 
@@ -151,7 +151,7 @@ Running: Banff Gondola, Lake Louise Gondola, Jasper SkyTram (reduced hours from 
 - Season: Mid-May to mid-Sept (one operator). Early Sept: yes, ends borderline
 - Price 2026: From 110-130 CAD (listings; year unknown)
 - Limits: min_age=5 min_height_cm=None max_weight_kg=18.1; child_6yo_ok=yes; audience=both
-- Booking: Advance; some operators 5 yrs / 40 lb min; 6-year-old OK subject to operator, check weight min 40 lb (18 kg)
+- Booking: Advance; some operators 5 yrs / 40 lb min; a young child of 5 or over OK subject to operator, check weight min 40 lb (18 kg)
 - Weather/refund: GAP
 - Sources: https://www.banffadventures.com/things-to-do/kananaskis-river-rafting/, https://www.travelalberta.com/listings/kananaskis-river-rafting-chinook-rafting-28425
 
@@ -277,7 +277,7 @@ Running: Banff Gondola, Lake Louise Gondola, Jasper SkyTram (reduced hours from 
 - Season: Late June to early Sept; mid-Sept GAP
 - Price 2026: GAP; packaged trips thousands per family
 - Limits: min_age=4 min_height_cm=None max_weight_kg=None; child_6yo_ok=yes; audience=both
-- Booking: Family option min age 4, best 7-17 (Backroads); 6-year-old fits family trips only
+- Booking: Family option min age 4, best 7-17 (Backroads); a young child fits family trips only
 - Weather/refund: GAP
 - Sources: https://www.backroads.com/trips/WHLI, https://www.banffadventures.com/Things-To-Do/Summer-Activities/Helicopter-Flights/Heli-Hiking
 
@@ -295,7 +295,7 @@ Running: Banff Gondola, Lake Louise Gondola, Jasper SkyTram (reduced hours from 
 - Season: July-Sept 2026; Parks Canada bulletin 21 Jul 2026 prohibits access to quarry and talus slope (status GAP). Early Sept: uncertain
 - Price 2026: Adult 131; senior 110.04; youth 89.08
 - Limits: min_age=None min_height_cm=None max_weight_kg=None; child_6yo_ok=no; audience=adult_only
-- Booking: 24 km return, 900 m gain, 11 hours; no stated min age but practically adult-only for 6-year-old (INFERENCE)
+- Booking: 24 km return, 900 m gain, 11 hours; no stated min age but practically adult-only with a young child (INFERENCE)
 - Weather/refund: GAP
 - Sources: https://parks.canada.ca/pn-np/bc/yoho/activ/burgess/walcott, https://www.parks.canada.ca/pn-np/bc/yoho/bulletins/b2fe66a4-5724-4f4b-8b03-10830ed119eb
 
@@ -304,7 +304,7 @@ Running: Banff Gondola, Lake Louise Gondola, Jasper SkyTram (reduced hours from 
 - Season: 2026: daily morning 30 May-12 Oct. Early Sept: yes
 - Price 2026: GAP (price not found)
 - Limits: min_age=None min_height_cm=None max_weight_kg=None; child_6yo_ok=no; audience=adult_only
-- Booking: Hike itself 17.2 km return with cable section and tunnel: not suited to 6-year-old (INFERENCE). CHILD ALTERNATIVE: border cruise
+- Booking: Hike itself 17.2 km return with cable section and tunnel: not suited to a young child (INFERENCE). CHILD ALTERNATIVE: border cruise
 - Weather/refund: GAP
 - Sources: https://watertoncruise.com, https://www.travelalberta.com/listings/waterton-inter-nation-shoreline-cruise-co-ltd-2097, https://enjoyyourparks.com/waterton-lakes-park/hikes-and-places/crypt-lake-trail/
 
@@ -340,7 +340,7 @@ Running: Banff Gondola, Lake Louise Gondola, Jasper SkyTram (reduced hours from 
 - Season: Paved; bike season; early Sept yes (INFERENCE)
 - Price 2026: Free; rentals as above
 - Limits: min_age=None min_height_cm=None max_weight_kg=None; child_6yo_ok=with_adult; audience=family
-- Booking: 52 km return, not suitable full length for 6-year-old; use Roam bus back or partial ride (INFERENCE)
+- Booking: 52 km return, not suitable full length for a young child; use Roam bus back or partial ride (INFERENCE)
 - Weather/refund: N/A
 - Sources: https://banffbound.com/blog/banff-legacy-trail, https://www.banfflakelouise.com/experiences/bike-the-legacy-trail
 
@@ -394,7 +394,7 @@ Running: Banff Gondola, Lake Louise Gondola, Jasper SkyTram (reduced hours from 
 - Season: Summer; GAP
 - Price 2026: GAP
 - Limits: min_age=None min_height_cm=None max_weight_kg=None; child_6yo_ok=no; audience=adult_only
-- Booking: Min age not found. Mount Yamnuska route has chain section, 900 m gain, 10.5 km: not for 6-year-old (INFERENCE). CHILD ALTERNATIVE: Grassi Lakes or Johnston Canyon
+- Booking: Min age not found. Mount Yamnuska route has chain section, 900 m gain, 10.5 km: not for a young child (INFERENCE). CHILD ALTERNATIVE: Grassi Lakes or Johnston Canyon
 - Weather/refund: N/A
 - Sources: https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/bow-valley/yamnuska-scramble-route, https://www.explorecanmore.ca/listings/yamnuska-mountain-adventures
 
@@ -413,7 +413,7 @@ Running: Banff Gondola, Lake Louise Gondola, Jasper SkyTram (reduced hours from 
 - Walcott Quarry closure bulletin 21 Jul 2026 may recur in 2029.
 - Elk rut: bulls charge; 30 m rule.
 - Bow Valley Parkway fall closure dates conflict between Parks Canada and a blog.
-- Height limits: none found for any product, so 115 cm unconfirmed everywhere (GAP).
+- Height limits: none found for any product, so no product confirms a height limit (GAP).
 ## Where the seven placeless offers happen (ORPH-7, 26 Oct 2026)
 
 Seven offers named no place, so no page could say where they are (`E_PLACE_ORPHAN`). Each now has `at` set to a meeting-point

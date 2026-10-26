@@ -357,7 +357,7 @@ These are for things the rules cannot know: a time the owner chose, a slot, a re
   "schema": "trip-schedule/1",
   "trip": "canadian-rockies-2029",
   "defaultProfile": { "party": "family", "youngest": 10, "pace": "standard", "adults": 2 },
-  "writtenFor": "2 adults and a 6 year old",
+  "writtenFor": "families with a child from about 6",
   "variants": {
     "A": { "label": "Adults' hike", "audience": "adults" },
     "B": { "label": "Whole family", "audience": "family" },
@@ -429,7 +429,7 @@ The validation runs on every `DayTimeline` and per lane. It produces warnings, n
 | Longest walk | Any · 5 · 8 · 12 km (inside "More") | from the youngest age (2.4) |
 | Split days | "Split when the plan allows" (only on trips with parallel variants) | off |
 
-- Below the controls is one line: **"Showing the plan for 2 adults and a 6 year old, standard pace. 13 days family version · 2 days easy version. Written for 2 adults and a 6 year old."**
+- Below the controls is one line: **"Showing the plan for a family, youngest 6, standard pace. 13 days family version · 2 days easy version. Written for families with a child from about 6."**
 - A **Reset** link appears when anything differs from the default.
 - On a phone the selector collapses to that line plus an Edit button that opens an inline panel. It is not a modal.
 - The selector is shown only on trips with days (`full` and `summary`).
@@ -771,7 +771,7 @@ Sources checked on 18 Oct 2026:
 
 | # | Question | Recommendation |
 |---|---|---|
-| 1 | The default profile on each trip: the party the plan was written for (Rockies: 2 adults and a 6 year old), or a neutral "adults, standard" for everyone? | The written-for party. It is the plan as researched, and the line "Written for ..." says so. |
+| 1 | The default profile on each trip: the party the plan was written for (Rockies: families with a child from about 6), or a neutral "adults, standard" for everyone? | The written-for party. It is the plan as researched, and the line "Written for ..." says so. |
 | 2 | Generated meals and coffee breaks: show them in the timeline by default, or behind a "Show breaks" toggle? | Show them as compact rows. They are what makes the day feel real, and they are clearly marked suggested. |
 | 3 | "Add to this day": only places in this trip and the catalog within 30 km of the base, or any catalog place? | Trip plus 30 km. It keeps legs plausible and the list short. |
 | 4 | L3d imports about 330 authored times from the legacy pages. Will you skim each imported trip (about 10 min each) before its times show as "From the plan", or should they show as "suggested" until checked? | Show them as suggested until checked, then flip trip by trip. |
