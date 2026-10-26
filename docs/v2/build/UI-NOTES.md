@@ -15,3 +15,8 @@ build goes here so the audit starts from known items.
 
 | Date | Release | Screen | Note | Severity |
 |---|---|---|---|---|
+| 2026-10-26 | NAV-1 | `/mine/` with copies and favourites kept | The Mine tabs show counts but the panels list kept items as plain links (name and date or kind): the rows, groups and menu are NAV-2 (My trips) and FAV-1 (Favourites). | Should |
+| 2026-10-26 | NAV-1 | `/mine/`, device notice | "Got it" snoozes both lists for 30 days, but the copies envelope has no count field, so only 10 more favourites bring the notice back early; 10 more copies do not (contract limit in `copies/1`). | Could |
+| 2026-10-26 | NAV-1 | Phone header, signed in, rotating a phone past 640 px | The avatar menu is chosen from the width at the moment the session read returns, then follows the media query; the Account link and the avatar never show together, but a signed-in visitor who rotates sees the Sign in link for the first frame. | Could |
+| 2026-10-26 | NAV-1 | Any page, desktop 640 to 899 px | The Mine button mounts after hydration into a reserved slot; with scripts off the slot is empty (Mine is still in the bar on phones, and `/mine/` is linked from nowhere on a script-less desktop). | Could |
+| 2026-10-26 | NAV-1 | Dev build, any page | Next's dev indicator badge covers the first bottom-bar item in dev-server screenshots; production builds are clean. | Could |

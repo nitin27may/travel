@@ -5,7 +5,7 @@
 export const DEFAULT_RETURN = '/account/';
 
 const MAX = 512;
-const PREFIXES = ['/trips/', '/places/', '/globe/', '/favourites/', '/suggest/', '/t/', '/account/'];
+const PREFIXES = ['/trips/', '/places/', '/globe/', '/favourites/', '/mine/', '/suggest/', '/t/', '/account/'];
 const BASE = 'https://placeholder.invalid';
 
 export function returnPath(raw: unknown): string {

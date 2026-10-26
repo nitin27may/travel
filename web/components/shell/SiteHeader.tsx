@@ -15,6 +15,8 @@ import { ThemeToggle } from './ThemeToggle';
 
 // the search dialog (and its dialog code) loads the first time it opens
 const GlobalSearch = dynamic(() => import('@/components/search/GlobalSearch').then((m) => m.GlobalSearch), { ssr: false }) as typeof GlobalSearchType;
+// the desktop Mine link mounts after hydration into the width `.mine-slot` reserves (spec 4), so the place page carries none of it
+const MineLink = dynamic(() => import('./MineLink').then((m) => m.MineLink), { ssr: false });
 
 export const PUBLIC_TABS = [
   { href: '/trips/', label: 'Trips' },
@@ -26,8 +28,9 @@ export const PUBLIC_TABS = [
 export const isCurrent = (path: string, href: string) => path === href || path.startsWith(href);
 
 /**
- * Public header (components 1.1): brand, three tabs, search, theme toggle, and Sign in only when `capabilities.signIn` is on (11.1). 60 px navy with the 2 px amber rule;
- * 56 px on phone, where the tabs move to the bottom bar. Search opens with the icon or with "/" on pages that have no list search.
+ * Public header (components 1.1): brand, three tabs, search, theme toggle, Mine, and Sign in only when `capabilities.signIn` is on (11.1). 60 px navy with the 2 px amber rule;
+ * 56 px on phone, where the tabs move to the bottom bar and the account is an icon between Search and Theme: two server-rendered links
+ * that `html[data-signed-in]` swaps (no avatar menu below 640 px, NAV-F D2). Search opens with the icon or with "/" on pages that have no list search.
  */
 export function SiteHeader({ capabilities = siteCapabilities }: { capabilities?: Capabilities }) {
   const path = usePathname() ?? '/';
@@ -65,7 +68,20 @@ export function SiteHeader({ capabilities = siteCapabilities }: { capabilities?:
           <Button variant="ghost" icon aria-label="Search" aria-keyshortcuts="/" onClick={() => setSearchOpen(true)}>
             <Icon name="search" size={18} />
           </Button>
+          {capabilities.signIn ? (
+            <>
+              <a className="btn btn-ghost btn-icon phone-acct" href="/sign-in/" data-acct="out" aria-label="Sign in" aria-current={path.startsWith('/sign-in/') ? 'page' : undefined}>
+                <i className="mi mi-user" />
+              </a>
+              <a className="btn btn-ghost btn-icon phone-acct" href="/account/" data-acct="in" aria-label="Account" aria-current={path.startsWith('/account/') ? 'page' : undefined}>
+                <i className="mi mi-user" />
+              </a>
+            </>
+          ) : null}
           <ThemeToggle />
+          <span className="mine-slot">
+            <MineLink />
+          </span>
           {capabilities.signIn ? <AccountNav /> : null}
         </div>
       </div>

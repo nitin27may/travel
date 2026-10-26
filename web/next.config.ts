@@ -19,6 +19,10 @@ const config: NextConfig = {
   outputFileTracingExcludes: {
     '*': ['out/**', 'tests/**', 'test-results/**', 'playwright-report/**', 'public/img/**', 'public/og/**', '.og-cache/**', '.fixture-*/**', ...NEVER_SHIPPED_GLOBS.map(fromWebDir)],
   },
+  // /favourites/ was never a page: Favourites is a tab of Mine (NAV-1, nav spec N5)
+  async redirects() {
+    return [{ source: '/favourites', destination: '/mine/?show=favourites', permanent: false }];
+  },
   ...(process.env.NEXT_DIST_DIR ? { distDir: process.env.NEXT_DIST_DIR } : {}),
 };
 

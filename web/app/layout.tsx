@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import { BottomBar } from '@/components/shell/BottomBar';
-import { AccountItems } from '@/components/shell/AccountItems';
-import { capabilities } from '@/lib/capabilities';
 import { SiteFooter } from '@/components/shell/SiteFooter';
 import { SiteHeader } from '@/components/shell/SiteHeader';
 import { THEME_INIT_SCRIPT } from '@/components/shell/ThemeToggle';
@@ -46,7 +44,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             {children}
           </main>
           <SiteFooter />
-          <BottomBar account={capabilities.signIn ? <AccountItems /> : undefined} />
+          <BottomBar />
         </ToastProvider>
         {BEACON_TOKEN ? (
           <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: BEACON_TOKEN })} />
