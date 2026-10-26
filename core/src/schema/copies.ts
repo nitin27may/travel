@@ -6,7 +6,8 @@
 //   - `probeStorage`: can this browser keep data, and if not, why (nav 3.3); `memoryStorage` is the per-tab fallback;
 //   - `writeCopies` and `updateCopies`: compare-and-set writes, so a stale tab never overwrites a newer envelope or another tab's
 //     change (review NAV-C C1);
-//   - `moveLegacyCopies`: `travel:v1:copy-drafts` into the envelope, the old key deleted only after a good write (nav 3.2);
+//   - `moveLegacyCopies`: `travel:v1:copy-drafts` into the envelope, once per device (`LEGACY_MOVED_KEY`), each draft mapped leniently,
+//     the old key rewritten only after a good write (nav 3.2; NAV-2C);
 //   - the device mutations (add, replace, remove, restore) that the copy sheet and Mine call;
 //   - the sign-in merge rule (nav 4.2): idempotent on the copy id, a copy with the same trip and start as an account draft skipped,
 //     the account's 50-draft cap honoured with the newest copies first, and the mapping of a copy onto a `planner_draft` row whose
@@ -31,6 +32,8 @@ import {
   type Checked,
   gateways,
   issuesOf,
+  MAX_ADULTS,
+  MAX_CHILDREN,
   MAX_OVERRIDES,
   originRef,
   overrides,
@@ -327,7 +330,15 @@ export function updateCopies<T>(storage: StorageLike, change: (env: CopiesEnvelo
   return last;
 }
 
-// ---- moving the old key (nav 3.2) ----
+// ---- moving the old key (nav 3.2; NAV-2C, handoff M3, L3, L5) ----
+
+/**
+ * Set (an ISO instant) once this device's old-key move has completed: the envelope written and read back. While it is set the move
+ * is a no-op, so drafts kept under the old key (over the cap, or unusable) never refill a slot the visitor frees later (Remove, then
+ * the toast's Undo would fail on the cap; a removed copy would come back). Its own key, not an envelope field (D9): the envelope
+ * schema is unchanged.
+ */
+export const LEGACY_MOVED_KEY = "travel.copies.legacyMovedAt";
 
 /** The snapshot of a trip's light row; until FAV-C's resolveRefs, the caller may know nothing but the slug. */
 export type Snapshot = Pick<CopyItem, "title" | "days" | "cc" | "photo">;
@@ -336,8 +347,10 @@ export const placeholderSnapshot = (): Snapshot => ({ title: PLACEHOLDER_TITLE, 
 export interface MoveOptions {
   /** a fresh UUID v4 (crypto.randomUUID in the browser) */
   newId: () => string;
-  /** the trip's light row, when known */
+  /** the trip's light row, when known; an invalid or throwing answer falls back to the placeholder */
   snapshot?: (slug: string) => Snapshot | null;
+  /** the move time: `copiedAt` of a draft with no usable `savedAt`, and the marker's value. Defaults to now. */
+  now?: Date;
 }
 
 export type MoveResult =
@@ -347,45 +360,158 @@ export type MoveResult =
       moved: number;
       /** drafts the envelope already holds, or holds a newer copy of the same trip (a re-copy replaces, Q204) */
       superseded: number;
-      /** drafts left under the old key: over the device cap, or not a draft this code wrote */
+      /** good drafts over the device cap, left under the old key and never moved later ("N older copies did not fit") */
       kept: number;
+      /** entries that cannot become a copy (not an object, or no valid `slug` or `start`); left under the old key, never shown */
+      dropped: number;
     }
   | { status: "failed"; reason: "read-failed" | "legacy-unreadable" | "envelope-unreadable" | "newer" | "changed" | "write-failed" };
 
-/** One old CopyDraft as an item, or null when it is not a draft this code wrote. NAV-2 widens this (handoff M3). */
-function fromLegacy(d: unknown, opts: MoveOptions): CopyItem | null {
-  if (!d || typeof d !== "object" || Array.isArray(d)) return null;
-  const o = d as Record<string, unknown>;
-  const snap = (typeof o.slug === "string" && opts.snapshot?.(o.slug)) || placeholderSnapshot();
-  const added = Array.isArray(o.added) ? o.added : [];
-  const savedAt = typeof o.savedAt === "string" && !Number.isNaN(Date.parse(o.savedAt)) ? new Date(o.savedAt).toISOString() : null;
-  const item = {
-    id: opts.newId(),
-    slug: o.slug,
-    ...snap,
-    start: o.start,
-    adults: o.adults,
-    children: o.children,
-    profile: o.profile ?? null,
-    overrides: o.overrides ?? {},
-    added,
-    copiedAt: savedAt,
-  };
-  const r = parseCopy(item);
+/** A legacy draft mapped: the item, and whether its time came from the draft (`savedAt`) or is the move time. */
+interface Mapped {
+  item: CopyItem;
+  dated: boolean;
+}
+
+const OVERRIDE_DAY = /^[1-9]\d?$/;
+const VARIANT = new Set(["A", "B", "C"]);
+
+/** A finite number, or a string of digits, as an integer; anything else null. */
+function intOf(x: unknown): number | null {
+  const n = typeof x === "number" ? x : typeof x === "string" && /^\s*-?\d+(?:\.\d+)?\s*$/.test(x) ? Number(x) : NaN;
+  return Number.isFinite(n) ? Math.round(n) : null;
+}
+const clamp = (n: number, lo: number, hi: number): number => Math.min(hi, Math.max(lo, n));
+
+/** A `YYYY-MM-DD` that is a real calendar date (the schema's own check), else null. */
+function dateOf(x: unknown): string | null {
+  if (typeof x !== "string") return null;
+  const r = copyItem.shape.start.safeParse(x.trim());
   return r.success ? r.data : null;
 }
 
+/** `savedAt` as a UTC `Z` instant the schema accepts, else null (missing, unparsable, or outside years 0000 to 9999). */
+function savedAtOf(x: unknown): string | null {
+  if (typeof x !== "string" && typeof x !== "number") return null;
+  const ms = typeof x === "number" ? x : Date.parse(x);
+  if (!Number.isFinite(ms)) return null;
+  const d = new Date(ms);
+  if (Number.isNaN(d.getTime())) return null;
+  const iso = d.toISOString();
+  return copyItem.shape.copiedAt.safeParse(iso).success ? iso : null;
+}
+
+/** Valid day overrides only, lowest days first, at most MAX_OVERRIDES; an invalid key or variant is dropped. */
+function overridesOf(x: unknown): Record<string, "A" | "B" | "C"> {
+  if (!x || typeof x !== "object" || Array.isArray(x)) return {};
+  const ok = Object.entries(x as Record<string, unknown>)
+    .map(([k, v]) => [k.trim(), typeof v === "string" ? v.trim().toUpperCase() : v] as const)
+    .filter((e): e is readonly [string, "A" | "B" | "C"] => OVERRIDE_DAY.test(e[0]) && typeof e[1] === "string" && VARIANT.has(e[1]))
+    .sort((a, b) => Number(a[0]) - Number(b[0]))
+    .slice(0, MAX_OVERRIDES);
+  return Object.fromEntries(ok);
+}
+
+/** Valid additions only, in order, at most COPY_MAX_ADDED; an invalid one is dropped. */
+function addedOf(x: unknown): CopyItem["added"] {
+  if (!Array.isArray(x)) return [];
+  const out: CopyItem["added"] = [];
+  for (const a of x) {
+    if (out.length >= COPY_MAX_ADDED) break;
+    const r = copyAdded.safeParse(a);
+    if (r.success) out.push(r.data);
+  }
+  return out;
+}
+
+/** The party clamped to the schema: adults 1 to 12, each child's age 0 to 17, at most 12 children; non-numbers dropped. */
+function partyOf(adults: unknown, children: unknown, profileAdults: number | null): { adults: number; children: number[] } {
+  const a = intOf(adults);
+  const kids = Array.isArray(children) ? children.map(intOf).filter((n): n is number => n !== null).map((n) => clamp(n, 0, 17)) : [];
+  // no usable count: the profile's (1, or 2 for two or more), else two, the copy sheet's usual party
+  return { adults: a === null ? (profileAdults ?? 2) : clamp(a, 1, MAX_ADULTS), children: kids.slice(0, MAX_CHILDREN) };
+}
+
+/** The timeline profile, or null (the trip's default) when it does not parse: the profile codec re-checks it when the copy opens. */
+function profileOf(x: unknown): CopyItem["profile"] {
+  if (x === null || x === undefined) return null;
+  const r = timelineProfile.safeParse(x);
+  return r.success ? r.data : null;
+}
+
+function snapshotOf(slug: string, opts: MoveOptions): Snapshot {
+  try {
+    const s = opts.snapshot?.(slug);
+    if (!s) return placeholderSnapshot();
+    const shape = copyItem.shape;
+    const ok = shape.title.safeParse(s.title).success && shape.days.safeParse(s.days).success && shape.cc.safeParse(s.cc).success && shape.photo.safeParse(s.photo).success;
+    return ok ? { title: s.title, days: s.days, cc: s.cc, photo: s.photo } : placeholderSnapshot();
+  } catch {
+    return placeholderSnapshot();
+  }
+}
+
 /**
- * Moves `travel:v1:copy-drafts` into the envelope. Runs on the first read and is a no-op once the old key is gone. The old key is
- * deleted only after the envelope was written (compare-and-set against what this run read) and read back. A draft that cannot move
- * (over the device cap, or one that does not parse) stays under the old key, rewritten to hold only those, so nothing is lost; a
- * draft of a trip the envelope holds a newer or the same copy of is superseded, as a re-copy replaces (Q204).
- * A failed write leaves both keys exactly as they were; `newer` and `changed` are the compare-and-set refusals.
+ * One old CopyDraft as a copy, mapped leniently (NAV-2C, handoff M3): an invalid override, addition or profile is dropped, the party
+ * is clamped to the schema, `copiedAt` is `savedAt` or else the move time, the snapshot is the trip's light row or the placeholder,
+ * and a copy over 4 KB sheds additions, then overrides, until it fits. Null only for an entry with no valid `slug` or `start` (or not
+ * an object): those are counted as `dropped`. Legacy drafts never carried `fromRef`, `gw` or `rev`; any such key is ignored.
+ */
+function fromLegacy(d: unknown, opts: MoveOptions, now: Date): Mapped | null {
+  if (!d || typeof d !== "object" || Array.isArray(d)) return null;
+  const o = d as Record<string, unknown>;
+  const slug = typeof o.slug === "string" && SLUG.test(o.slug.trim()) ? o.slug.trim() : null;
+  const start = dateOf(o.start);
+  if (slug === null || start === null) return null;
+  const profile = profileOf(o.profile);
+  const savedAt = savedAtOf(o.savedAt);
+  const item: CopyItem = {
+    id: opts.newId(),
+    slug,
+    ...snapshotOf(slug, opts),
+    start,
+    ...partyOf(o.adults, o.children, profile?.adults ?? null),
+    profile,
+    overrides: overridesOf(o.overrides),
+    added: addedOf(o.added),
+    copiedAt: savedAt ?? now.toISOString(),
+  };
+  // shed what makes it too big, newest addition first, then the highest day's override; then the snapshot
+  for (;;) {
+    const r = parseCopy(item);
+    if (r.success) return { item: r.data, dated: savedAt !== null };
+    if (item.added.length) item.added = item.added.slice(0, -1);
+    else if (Object.keys(item.overrides).length) item.overrides = Object.fromEntries(Object.entries(item.overrides).slice(0, -1));
+    else if (item.title !== PLACEHOLDER_TITLE) Object.assign(item, placeholderSnapshot());
+    else return null; // unreachable for a valid slug and start (a bad newId); counted as dropped all the same
+  }
+}
+
+/** Dated drafts newest first (the cap keeps the most recent), then undated ones (older than anything dated), each by id. */
+function moveOrder(a: Mapped, b: Mapped): number {
+  if (a.dated !== b.dated) return a.dated ? -1 : 1;
+  return newestFirst(a.item, b.item);
+}
+
+/**
+ * Moves `travel:v1:copy-drafts` into the envelope ONCE per device (NAV-2C). A no-op when LEGACY_MOVED_KEY is set or the old key is
+ * absent. Each draft maps leniently (`fromLegacy`); a draft of a trip the envelope holds a newer or the same copy of is superseded,
+ * as a re-copy replaces (Q204), and an undated draft never replaces a copy. Good drafts over the device cap are `kept` and unusable
+ * entries `dropped`: both stay under the old key, rewritten to hold only them, so nothing is deleted that did not move.
+ *
+ * Order, for crash safety (review M6): (1) the envelope, compare-and-set against what this run read, written and read back; a
+ * failure here leaves both keys exactly as they were (`newer` and `changed` are the compare-and-set refusals, the rest
+ * `write-failed`). (2) The old key rewritten or deleted, best effort: if it throws, it still holds moved drafts, which the marker
+ * hides from every later run. (3) The marker. If it cannot be written, the next run moves again: dated drafts are superseded (equal
+ * instants), undated ones never replace, and the old key no longer holds what moved, so nothing duplicates or comes back; only the `kept`
+ * drafts may then fill a freed slot, as before NAV-2C, and only while the store refuses the marker's few bytes.
  */
 export function moveLegacyCopies(storage: StorageLike, opts: MoveOptions): MoveResult {
+  const now = opts.now ?? new Date();
   let raw: string | null;
   let currentRaw: string | null;
   try {
+    if (storage.getItem(LEGACY_MOVED_KEY) !== null) return { status: "none" };
     raw = storage.getItem(LEGACY_COPIES_KEY);
     if (raw === null) return { status: "none" };
     currentRaw = storage.getItem(COPIES_KEY);
@@ -404,23 +530,24 @@ export function moveLegacyCopies(storage: StorageLike, opts: MoveOptions): MoveR
   if (!cur.ok) return { status: "failed", reason: cur.reason === "newer" ? "newer" : "envelope-unreadable" };
 
   const items = [...cur.envelope.items];
-  const keep: unknown[] = [];
-  // newest first, so the cap keeps the most recent copies; unparsable drafts last
-  const drafts = list
-    .map((d) => ({ d, item: fromLegacy(d, opts) }))
-    .sort((a, b) => (a.item && b.item ? newestFirst(a.item, b.item) : a.item ? -1 : b.item ? 1 : 0));
+  const kept: unknown[] = [];
+  const dropped: unknown[] = [];
+  const mapped: { d: unknown; m: Mapped }[] = [];
+  for (const d of list) {
+    const m = fromLegacy(d, opts, now);
+    if (m) mapped.push({ d, m });
+    else dropped.push(d);
+  }
+  mapped.sort((a, b) => moveOrder(a.m, b.m));
   let moved = 0;
   let superseded = 0;
-  for (const { d, item } of drafts) {
-    if (!item) {
-      keep.push(d);
-      continue;
-    }
+  for (const { d, m } of mapped) {
+    const { item } = m;
     const same = items.findIndex((x) => x.slug === item.slug);
     if (same >= 0) {
       // one per trip, and a re-copy replaces (Q204): the newer copy wins. An equal instant is this draft, moved by an earlier run whose
-      // delete failed; an older draft is the one a re-copy replaced
-      if (instant(items[same]!.copiedAt) >= instant(item.copiedAt)) {
+      // marker write failed; an older draft is the one a re-copy replaced; an undated draft is older than any copy
+      if (!m.dated || instant(items[same]!.copiedAt) >= instant(item.copiedAt)) {
         superseded++;
         continue;
       }
@@ -429,7 +556,7 @@ export function moveLegacyCopies(storage: StorageLike, opts: MoveOptions): MoveR
       continue;
     }
     if (items.length >= DEVICE_COPY_CAP) {
-      keep.push(d);
+      kept.push(d);
       continue;
     }
     items.push(item);
@@ -440,13 +567,19 @@ export function moveLegacyCopies(storage: StorageLike, opts: MoveOptions): MoveR
     const w = writeCopies(storage, next, currentRaw);
     if (!w.ok) return { status: "failed", reason: w.reason === "newer" || w.reason === "changed" ? w.reason : "write-failed" };
   }
+  const left = [...kept, ...dropped];
   try {
-    if (keep.length) storage.setItem(LEGACY_COPIES_KEY, JSON.stringify(keep));
+    if (left.length) storage.setItem(LEGACY_COPIES_KEY, JSON.stringify(left));
     else storage.removeItem(LEGACY_COPIES_KEY);
   } catch {
-    // the envelope holds the moved copies; the old key still holds them too, and the next run finds each one already moved
+    // the envelope holds the moved copies; the old key still holds them too, and the marker keeps every later run from reading it
   }
-  return { status: "moved", moved, superseded, kept: keep.length };
+  try {
+    storage.setItem(LEGACY_MOVED_KEY, now.toISOString());
+  } catch {
+    // the next run moves again; see the order above
+  }
+  return { status: "moved", moved, superseded, kept: kept.length, dropped: dropped.length };
 }
 
 // ---- device mutations ----

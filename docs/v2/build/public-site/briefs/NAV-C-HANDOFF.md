@@ -39,6 +39,15 @@ the ORG-2 and CUS-C briefs:
 
 ## 3. NAV-2 (My trips, signed out) — review M3, L3, L5
 
+> **Items 1 and 2 done (NAV-2C, 26 Oct 2026, branch `public/NAV-2C`; M3 closed).** `moveLegacyCopies` maps each old draft
+> leniently and runs once per device: it is a no-op while `LEGACY_MOVED_KEY` (`travel.copies.legacyMovedAt`, an ISO time) is
+> set, and sets it only after the envelope write and read-back succeed. `MoveResult` "moved" now carries `dropped` beside
+> `kept`: `kept` counts good drafts over the cap ("N older copies did not fit"), `dropped` counts entries with no valid `slug` or
+> `start`; both stay under the old key and are never moved later. An undated draft (no usable `savedAt`) takes the move time,
+> sorts after dated ones at the cap, and never replaces a copy of the same trip. `MoveOptions.now` is optional. The rules are in
+> the function headers in `core/src/schema/copies.ts`; tests in `core/test/schema/copies.test.ts` ("NAV-2C"). Items 3 and 4
+> stay with NAV-2.
+
 1. **Map legacy drafts leniently.** `fromLegacy` in core is strict today: one bad override value, a `placeSlug` that is
    not a slug, a missing `savedAt` or a child's age outside 0 to 17 rejects the whole draft, which then stays under
    `travel:v1:copy-drafts` where nothing reads it. NAV-2 widens the mapping (in core, through the NAV-C owner, or with a

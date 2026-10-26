@@ -14,6 +14,7 @@ import {
   ENVELOPE_MAX_BYTES,
   envelopeRules,
   LEGACY_COPIES_KEY,
+  LEGACY_MOVED_KEY,
   markMerged,
   memoryStorage,
   MERGED_MAX,
@@ -472,7 +473,7 @@ describe("moving travel:v1:copy-drafts (nav 3.2)", () => {
       ]),
     );
     const r = moveLegacyCopies(s, { newId: ids(9), snapshot: (slug) => (slug === "canadian-rockies-2029" ? { title: "Canadian Rockies", days: 15, cc: "CA", photo: null } : null) });
-    expect(r).toEqual({ status: "moved", moved: 2, superseded: 0, kept: 0 });
+    expect(r).toEqual({ status: "moved", moved: 2, superseded: 0, kept: 0, dropped: 0 });
     expect(s.map.has(LEGACY_COPIES_KEY)).toBe(false);
     const env = readCopies(s.map.get(COPIES_KEY)!);
     if (!env.ok) throw new Error("read");
@@ -490,6 +491,7 @@ describe("moving travel:v1:copy-drafts (nav 3.2)", () => {
     expect(moveLegacyCopies(s, { newId: ids() })).toEqual({ status: "failed", reason: "write-failed" });
     expect(s.map.get(LEGACY_COPIES_KEY)).toBe(text);
     expect(s.map.has(COPIES_KEY)).toBe(false);
+    expect(s.map.has(LEGACY_MOVED_KEY)).toBe(false); // the marker only follows a good write
   });
 
   it("keeps the old key when the write is not read back", () => {
@@ -530,6 +532,7 @@ describe("moving travel:v1:copy-drafts (nav 3.2)", () => {
     };
     expect(moveLegacyCopies(racing, { newId: ids(31) })).toEqual({ status: "failed", reason: "changed" });
     expect(s.map.get(LEGACY_COPIES_KEY)).toBe(text);
+    expect(s.map.has(LEGACY_MOVED_KEY)).toBe(false);
     expect(s.map.get(COPIES_KEY)).toBe(JSON.stringify(other.envelope));
     // the next run sees the other tab's envelope and moves on top of it
     expect(moveLegacyCopies(s, { newId: ids(32) })).toMatchObject({ status: "moved", moved: 1 });
@@ -537,7 +540,7 @@ describe("moving travel:v1:copy-drafts (nav 3.2)", () => {
     expect(after.ok && after.envelope.items.map((x) => x.slug).sort()).toEqual(["a", "other"]);
   });
 
-  it("over the device cap or unparsable drafts stay under the old key; an older draft of a copied trip is superseded", () => {
+  it("over the device cap (kept) or unusable (dropped) drafts stay under the old key; an older draft of a copied trip is superseded", () => {
     const s = spyStorage();
     const newId = ids(11);
     let env = emptyCopies();
@@ -553,7 +556,7 @@ describe("moving travel:v1:copy-drafts (nav 3.2)", () => {
       JSON.stringify([legacy("new-1", "2026-10-24T00:00:00.000Z"), legacy("new-2", "2026-10-23T00:00:00.000Z"), legacy(SLUGS[0]!, "2026-10-01T00:00:00.000Z"), broken]),
     );
     const r = moveLegacyCopies(s, { newId });
-    expect(r).toEqual({ status: "moved", moved: 1, superseded: 1, kept: 2 });
+    expect(r).toEqual({ status: "moved", moved: 1, superseded: 1, kept: 1, dropped: 1 });
     const after = readCopies(s.map.get(COPIES_KEY)!);
     if (!after.ok) throw new Error("read");
     expect(after.envelope.items).toHaveLength(DEVICE_COPY_CAP);
@@ -580,7 +583,7 @@ describe("moving travel:v1:copy-drafts (nav 3.2)", () => {
     expect(moveLegacyCopies(s2, { newId: ids(14) })).toMatchObject({ status: "moved", moved: 0, superseded: 1 });
   });
 
-  it("property: a crash on the first old-key write (delete or rewrite) never duplicates or loses a copy on the next run (review M6)", () => {
+  it("property: a crash on the first old-key write (delete or rewrite) never duplicates or loses a copy, and the marker ends the move (review M6)", () => {
     let crashedSet = 0;
     let crashedRemove = 0;
     for (let seedN = 1; seedN <= 60; seedN++) {
@@ -620,7 +623,8 @@ describe("moving travel:v1:copy-drafts (nav 3.2)", () => {
       const slugs = env.envelope.items.map((x) => x.slug);
       expect(new Set(slugs).size, at).toBe(slugs.length);
       expect(slugs.length, at).toBe(Math.min(n, DEVICE_COPY_CAP));
-      expect(second, at).toMatchObject({ status: "moved", moved: 0, kept: Math.max(0, n - DEVICE_COPY_CAP) });
+      expect(first, at).toMatchObject({ moved: Math.min(n, DEVICE_COPY_CAP), kept: Math.max(0, n - DEVICE_COPY_CAP), dropped: 0 });
+      expect(second, at).toEqual({ status: "none" }); // the marker was set after the good envelope write
       // nothing is lost: every draft is in the envelope or still under the old key
       const left = s.map.has(LEGACY_COPIES_KEY) ? (JSON.parse(s.map.get(LEGACY_COPIES_KEY)!) as { slug: string }[]).map((d) => d.slug) : [];
       expect(new Set([...slugs, ...left]).size, at).toBe(n);
@@ -628,6 +632,220 @@ describe("moving travel:v1:copy-drafts (nav 3.2)", () => {
     // both crash points were exercised
     expect(crashedSet).toBeGreaterThan(0);
     expect(crashedRemove).toBeGreaterThan(0);
+  });
+});
+
+describe("NAV-2C: legacy drafts map leniently and move once (NAV-C-HANDOFF M3, L3, L5)", () => {
+  const MOVE_AT = new Date("2026-11-02T08:00:00.000Z");
+  const legacy = (slug: string, savedAt: string | undefined, extra: Record<string, unknown> = {}) => ({ slug, start: "2027-07-03", adults: 2, children: [6], ...(savedAt === undefined ? {} : { savedAt }), ...extra });
+  const envOf = (s: StorageLike): CopiesEnvelope => {
+    const r = readCopies(s.getItem(COPIES_KEY));
+    if (!r.ok) throw new Error(r.reason);
+    return r.envelope;
+  };
+  const moveOne = (draft: unknown, opts: Partial<Parameters<typeof moveLegacyCopies>[1]> = {}) => {
+    const s = spyStorage();
+    s.map.set(LEGACY_COPIES_KEY, JSON.stringify([draft]));
+    const r = moveLegacyCopies(s, { newId: ids(50), now: MOVE_AT, ...opts });
+    return { r, s, items: s.map.has(COPIES_KEY) ? envOf(s).items : [] };
+  };
+
+  it("a draft with one bad override, addition or profile moves without it", () => {
+    const { r, items } = moveOne(legacy("dolomites-july-2027", "2026-10-20T10:00:00.000Z", {
+      overrides: { 3: "B", 5: "Z", 0: "A", 100: "C", x: "A", 7: "c", 8: 1 },
+      added: [{ day: 5, placeSlug: "pyramid-lake" }, { day: 5, placeSlug: "Not A Slug" }, { day: 0, placeSlug: "x" }, "junk", { day: 2, placeSlug: "lake-louise", extra: 1 }],
+      profile: { ...INPUT.profile, pace: "sprint" },
+    }));
+    expect(r).toEqual({ status: "moved", moved: 1, superseded: 0, kept: 0, dropped: 0 });
+    expect(items[0]).toMatchObject({ overrides: { "3": "B", "7": "C" }, added: [{ day: 5, placeSlug: "pyramid-lake" }], profile: null, copiedAt: "2026-10-20T10:00:00.000Z" });
+  });
+
+  it("clamps the party to the schema: a child of 19 is 17, adults 1 to 12, at most 12 children, non-numbers dropped", () => {
+    expect(moveOne(legacy("a", undefined, { children: [19, -2, 4.6, "7", null, "x"] })).items[0]).toMatchObject({ adults: 2, children: [17, 0, 5, 7] });
+    expect(moveOne(legacy("a", undefined, { adults: 0 })).items[0]!.adults).toBe(1);
+    expect(moveOne(legacy("a", undefined, { adults: 40 })).items[0]!.adults).toBe(12);
+    expect(moveOne(legacy("a", undefined, { adults: "lots", profile: { ...INPUT.profile, adults: 1 } })).items[0]!.adults).toBe(1);
+    expect(moveOne(legacy("a", undefined, { adults: undefined })).items[0]!.adults).toBe(2);
+    expect(moveOne(legacy("a", undefined, { children: Array.from({ length: 20 }, () => 3) })).items[0]!.children).toHaveLength(12);
+    expect(moveOne(legacy("a", undefined, { children: "two" })).items[0]!.children).toEqual([]);
+  });
+
+  it("copiedAt is savedAt as UTC Z, else the move time", () => {
+    expect(moveOne(legacy("a", "2026-10-20T15:30:00+05:30")).items[0]!.copiedAt).toBe("2026-10-20T10:00:00.000Z");
+    for (const bad of [undefined, "yesterday", "", "+275760-09-13T00:00:00.001Z", 8.64e15 + 1, {}]) {
+      expect(moveOne(legacy("a", undefined, bad === undefined ? {} : { savedAt: bad })).items[0]!.copiedAt, String(bad)).toBe(MOVE_AT.toISOString());
+    }
+  });
+
+  it("a bad or throwing snapshot falls back to the placeholder; a good one is used", () => {
+    expect(moveOne(legacy("a", undefined), { snapshot: () => ({ title: " ", days: 0, cc: "it", photo: "//x" }) }).items[0]).toMatchObject({ title: PLACEHOLDER_TITLE, days: null, cc: null, photo: null });
+    expect(moveOne(legacy("a", undefined), { snapshot: () => { throw new Error("no row"); } }).items[0]!.title).toBe(PLACEHOLDER_TITLE);
+    expect(moveOne(legacy("a", undefined), { snapshot: () => ({ title: "Alps", days: 9, cc: "CH", photo: "/img/a.webp" }) }).items[0]).toMatchObject({ title: "Alps", days: 9, cc: "CH", photo: "/img/a.webp" });
+  });
+
+  it("a draft over 4 KB sheds additions until it fits instead of being refused", () => {
+    const long = Array.from({ length: 30 }, (_, i) => ({ day: (i % 99) + 1, placeSlug: `${"p".repeat(90)}-${i}` }));
+    const sixty = Object.fromEntries(Array.from({ length: 60 }, (_, i) => [String(i + 1), "A"]));
+    const { r, items } = moveOne(legacy("a", undefined, { added: long, overrides: sixty }));
+    expect(r).toMatchObject({ moved: 1, dropped: 0 });
+    expect(items[0]!.added.length).toBeLessThan(30);
+    expect(items[0]!.added).toEqual(long.slice(0, items[0]!.added.length)); // the first ones kept, in order
+    expect(Object.keys(items[0]!.overrides)).toHaveLength(60);
+  });
+
+  it("drops (and counts) only entries with no valid slug or start, and keeps them under the old key", () => {
+    const bad = [null, 3, "x", [], {}, { slug: "Bad Slug", start: "2027-07-03" }, { slug: "../x", start: "2027-07-03" }, { slug: "a", start: "2027-02-30" }, { slug: "a", start: "soon" }, { slug: "a" }];
+    const s = spyStorage();
+    s.map.set(LEGACY_COPIES_KEY, JSON.stringify([...bad, legacy("ok", undefined)]));
+    expect(moveLegacyCopies(s, { newId: ids(51), now: MOVE_AT })).toEqual({ status: "moved", moved: 1, superseded: 0, kept: 0, dropped: bad.length });
+    expect(JSON.parse(s.map.get(LEGACY_COPIES_KEY)!)).toEqual(bad);
+    expect(envOf(s).items.map((x) => x.slug)).toEqual(["ok"]);
+  });
+
+  it("property: any legacy shape yields a valid copy or a counted drop, and every entry is accounted for", () => {
+    const junk = (r: () => number): unknown => pick(r, [null, undefined, -1, 0, 19, 4.5, 1e9, NaN, "", "x", "2027-07-03", "A", [], [1, "b"], {}, { a: 1 }, true]);
+    const field = <T,>(r: () => number, good: () => T): unknown => (r() < 0.55 ? good() : junk(r));
+    for (let seedN = 1; seedN <= 300; seedN++) {
+      const r = rng(seedN);
+      const n = int(r, 0, 30);
+      const list = Array.from({ length: n }, (_, i) => {
+        if (r() < 0.08) return junk(r);
+        const d: Record<string, unknown> = {
+          slug: field(r, () => (r() < 0.8 ? SLUGS[int(r, 0, 25)]! : `x-${i}`)),
+          start: field(r, () => pick(r, STARTS)),
+          adults: field(r, () => int(r, -3, 30)),
+          children: field(r, () => Array.from({ length: int(r, 0, 15) }, () => (r() < 0.8 ? int(r, -5, 40) : junk(r)))),
+          savedAt: field(r, () => new Date(Date.UTC(2026, 8, 1) + int(r, 0, 1e9)).toISOString()),
+          profile: field(r, () => ({ ...INPUT.profile, youngest: r() < 0.8 ? int(r, 0, 17) : 30 })),
+          overrides: field(r, () => Object.fromEntries(Array.from({ length: int(r, 0, 70) }, () => [String(int(r, 0, 120)), pick(r, ["A", "B", "C", "b", "Q", 1])]))),
+          added: field(r, () => Array.from({ length: int(r, 0, 40) }, () => (r() < 0.8 ? { day: int(r, 0, 100), placeSlug: r() < 0.9 ? `${"p".repeat(int(r, 1, 90))}-${int(r, 0, 9)}` : "No" } : junk(r)))),
+        };
+        for (const k of Object.keys(d)) if (d[k] === undefined || r() < 0.05) delete d[k];
+        if (r() < 0.1) d.extra = junk(r);
+        return d;
+      });
+      const s = spyStorage();
+      s.map.set(LEGACY_COPIES_KEY, JSON.stringify(list));
+      const parsedList = JSON.parse(s.map.get(LEGACY_COPIES_KEY)!) as unknown[];
+      const at = `seed ${seedN}`;
+      const res = moveLegacyCopies(s, { newId: ids(seedN), now: MOVE_AT });
+      if (res.status !== "moved") throw new Error(`${at}: ${JSON.stringify(res)}`);
+      expect(res.moved + res.superseded + res.kept + res.dropped, at).toBe(parsedList.length);
+      const env = readCopies(s.map.get(COPIES_KEY)!);
+      expect(env.ok, at).toBe(true);
+      if (!env.ok) continue;
+      expect(env.envelope.items.length, at).toBe(res.moved); // into an empty envelope, a moved draft is a new copy (or replaced a same-trip one)
+      // a draft is dropped exactly when it has no valid slug or start
+      const usable = (d: unknown) => !!d && typeof d === "object" && !Array.isArray(d) && typeof (d as { slug?: unknown }).slug === "string" && /^[a-z0-9][a-z0-9-]{0,99}$/.test((d as { slug: string }).slug) && parseCopy({ ...INPUT, id: "6f1c0a52-8d0e-4b7e-9a51-2c3d4e5f6a7b", copiedAt: NOW.toISOString(), start: (d as { start?: unknown }).start }).success;
+      expect(res.dropped, at).toBe(parsedList.filter((d) => !usable(d)).length);
+      expect(s.map.get(LEGACY_MOVED_KEY), at).toBe(MOVE_AT.toISOString());
+      // what is left under the old key is exactly the kept and the dropped entries
+      const left = s.map.has(LEGACY_COPIES_KEY) ? (JSON.parse(s.map.get(LEGACY_COPIES_KEY)!) as unknown[]) : [];
+      expect(left.length, at).toBe(res.kept + res.dropped);
+    }
+  });
+
+  it("move once: a second run moves nothing, even with new drafts under the old key", () => {
+    const s = spyStorage();
+    s.map.set(LEGACY_COPIES_KEY, JSON.stringify([legacy("a", "2026-10-20T10:00:00.000Z")]));
+    expect(moveLegacyCopies(s, { newId: ids(60), now: MOVE_AT })).toMatchObject({ status: "moved", moved: 1 });
+    expect(s.map.get(LEGACY_MOVED_KEY)).toBe(MOVE_AT.toISOString());
+    const after = s.map.get(COPIES_KEY);
+    s.map.set(LEGACY_COPIES_KEY, JSON.stringify([legacy("b", "2026-10-21T10:00:00.000Z")])); // an old page still open in a tab
+    expect(moveLegacyCopies(s, { newId: ids(61) })).toEqual({ status: "none" });
+    expect(s.map.get(COPIES_KEY)).toBe(after);
+  });
+
+  it("the marker is set even when nothing moved (all superseded or dropped), and never after a refused or failed write", () => {
+    const s = spyStorage();
+    s.map.set(LEGACY_COPIES_KEY, JSON.stringify([{ slug: "a" }]));
+    expect(moveLegacyCopies(s, { newId: ids(62), now: MOVE_AT })).toEqual({ status: "moved", moved: 0, superseded: 0, kept: 0, dropped: 1 });
+    expect(s.map.has(LEGACY_MOVED_KEY)).toBe(true);
+    for (const failing of [spyStorage({ dropWrites: true }), spyStorage({ failSetOn: COPIES_KEY })]) {
+      failing.map.set(LEGACY_COPIES_KEY, JSON.stringify([legacy("a", undefined)]));
+      expect(moveLegacyCopies(failing, { newId: ids(63) })).toEqual({ status: "failed", reason: "write-failed" });
+      expect(failing.map.has(LEGACY_MOVED_KEY)).toBe(false);
+    }
+    const newer = spyStorage();
+    newer.map.set(COPIES_KEY, JSON.stringify({ schema: "copies/2", items: [] }));
+    newer.map.set(LEGACY_COPIES_KEY, JSON.stringify([legacy("a", undefined)]));
+    expect(moveLegacyCopies(newer, { newId: ids(64) })).toEqual({ status: "failed", reason: "newer" });
+    expect(newer.map.has(LEGACY_MOVED_KEY)).toBe(false);
+  });
+
+  it("Undo at the cap: Remove, then the next read, does not refill the slot from kept drafts, so the toast's Undo succeeds", () => {
+    const s = spyStorage();
+    const drafts = Array.from({ length: DEVICE_COPY_CAP + 3 }, (_, i) => legacy(SLUGS[i]!, new Date(Date.UTC(2026, 9, 1, i)).toISOString()));
+    s.map.set(LEGACY_COPIES_KEY, JSON.stringify(drafts));
+    expect(moveLegacyCopies(s, { newId: ids(70), now: MOVE_AT })).toEqual({ status: "moved", moved: DEVICE_COPY_CAP, superseded: 0, kept: 3, dropped: 0 });
+    const victim = envOf(s).items[0]!;
+    const removed = updateCopies(s, (env) => {
+      const r = removeCopy(env, victim.id);
+      return { envelope: r.envelope, value: r.removed };
+    });
+    expect(removed.ok).toBe(true);
+    // Mine reads again (another page, a refresh): the move runs first and must not pull a kept draft into the free slot
+    expect(moveLegacyCopies(s, { newId: ids(71) })).toEqual({ status: "none" });
+    expect(envOf(s).items).toHaveLength(DEVICE_COPY_CAP - 1);
+    const undo = updateCopies(s, (env) => {
+      const r = restoreCopy(env, victim);
+      return r.ok ? { envelope: r.envelope, value: true } : { envelope: null, value: false };
+    });
+    expect(undo).toMatchObject({ ok: true, value: true });
+    expect(envOf(s).items).toHaveLength(DEVICE_COPY_CAP);
+    // the three oldest stay under the old key for "3 older copies did not fit"
+    expect((JSON.parse(s.map.get(LEGACY_COPIES_KEY)!) as { slug: string }[]).map((d) => d.slug).sort()).toEqual([SLUGS[0], SLUGS[1], SLUGS[2]].sort());
+  });
+
+  it("a removed copy does not come back on the next read (review L3)", () => {
+    const s = spyStorage();
+    s.map.set(LEGACY_COPIES_KEY, JSON.stringify([legacy("a", "2026-10-20T10:00:00.000Z"), legacy("b", undefined)]));
+    moveLegacyCopies(s, { newId: ids(72), now: MOVE_AT });
+    for (const x of envOf(s).items) updateCopies(s, (env) => ({ envelope: removeCopy(env, x.id).envelope, value: null }));
+    expect(moveLegacyCopies(s, { newId: ids(73) })).toEqual({ status: "none" });
+    expect(envOf(s).items).toEqual([]);
+  });
+
+  it("dated drafts move before undated ones at the cap; an undated draft never replaces a copy of its trip", () => {
+    const s = spyStorage();
+    const dated = Array.from({ length: DEVICE_COPY_CAP }, (_, i) => legacy(SLUGS[i]!, new Date(Date.UTC(2020, 0, 1, i)).toISOString()));
+    s.map.set(LEGACY_COPIES_KEY, JSON.stringify([legacy("undated", undefined), ...dated]));
+    expect(moveLegacyCopies(s, { newId: ids(74), now: MOVE_AT })).toMatchObject({ moved: DEVICE_COPY_CAP, kept: 1 });
+    expect(envOf(s).items.some((x) => x.slug === "undated")).toBe(false);
+    // the envelope holds an old copy of a trip; an undated draft of that trip is superseded, not moved over it
+    const t = spyStorage();
+    const a = addCopy(emptyCopies(), INPUT, { now: new Date("2020-01-01T00:00:00Z"), newId: ids(75) });
+    if (!a.ok) throw new Error("add");
+    seed(t, a.envelope);
+    t.map.set(LEGACY_COPIES_KEY, JSON.stringify([legacy(INPUT.slug, undefined, { start: "2029-01-01" })]));
+    expect(moveLegacyCopies(t, { newId: ids(76), now: MOVE_AT })).toMatchObject({ moved: 0, superseded: 1 });
+    expect(envOf(t).items[0]!.start).toBe(INPUT.start);
+  });
+
+  it("property: if the marker cannot be written, the next run duplicates nothing, loses nothing and replaces no copy", () => {
+    for (let seedN = 1; seedN <= 60; seedN++) {
+      const r = rng(seedN + 500);
+      const n = int(r, 1, 25);
+      const drafts = Array.from({ length: n }, (_, i) => legacy(SLUGS[i]!, r() < 0.3 ? undefined : new Date(Date.UTC(2026, 8, 1) + int(r, 0, 1e9)).toISOString()));
+      const s = spyStorage({ failSetOn: LEGACY_MOVED_KEY });
+      s.map.set(LEGACY_COPIES_KEY, JSON.stringify(drafts));
+      const at = `seed ${seedN}`;
+      const first = moveLegacyCopies(s, { newId: ids(seedN), now: MOVE_AT });
+      expect(first, at).toMatchObject({ status: "moved", moved: Math.min(n, DEVICE_COPY_CAP) });
+      expect(s.map.has(LEGACY_MOVED_KEY), at).toBe(false);
+      const before = envOf(s).items;
+      const second = moveLegacyCopies(s, { newId: ids(seedN + 1000), now: new Date(MOVE_AT.getTime() + 60_000) });
+      // all moved: the old key is gone and the run is a no-op; some kept: they are still over the cap and stay kept
+      expect(second, at).toEqual(n <= DEVICE_COPY_CAP ? { status: "none" } : { status: "moved", moved: 0, superseded: 0, kept: n - DEVICE_COPY_CAP, dropped: 0 });
+      expect(envOf(s).items, at).toEqual(before);
+      const left = s.map.has(LEGACY_COPIES_KEY) ? (JSON.parse(s.map.get(LEGACY_COPIES_KEY)!) as { slug: string }[]).map((d) => d.slug) : [];
+      expect(new Set([...before.map((x) => x.slug), ...left]).size, at).toBe(n);
+    }
+  });
+
+  it("results carry counts only, never a draft's value", () => {
+    const { r } = moveOne(legacy("secret-trip", undefined, { children: [41] }));
+    expect(JSON.stringify(r)).not.toMatch(/secret|41/);
   });
 });
 
