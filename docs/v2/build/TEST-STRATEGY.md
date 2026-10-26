@@ -4,7 +4,7 @@
 whole chain (`bash tools/check-all.sh`, the web build, vitest, Playwright e2e, budgets) after every small change; it is
 slow, loads the machine so timing tests flake, and costs tokens. Design an approach that says exactly which tests a feature
 branch or pull request must run, how ready branches are combined and verified once, and what runs only at release.
-**Plan rows:** PLAN R-210 to R-214, TODO (25 Oct), BACKLOG 15.210 to 15.218, EXECUTION-PLAN 10.4, questions Q250 to Q258 (Q240 to Q249, R-197 to R-207, BACKLOG 15.200 to 15.208, EXECUTION-PLAN 10.3 and RELEASE-PLAN I7 are
+**Plan rows:** PLAN R-210 to R-214, TODO (25 Oct), BACKLOG 15.210 to 15.218, EXECUTION-PLAN 10.4, questions Q250 to Q258 (all answered 25 Oct 2026, yes as recommended; Q240 to Q249, R-197 to R-207, BACKLOG 15.200 to 15.208, EXECUTION-PLAN 10.3 and RELEASE-PLAN I7 are
 held by the parallel ORIGIN-PLAN task).
 **Supersedes:** "run `bash tools/check-all.sh` for core/, web/ and data changes" as the builder's per-change step
 (`.claude/agents/travel-builder.md` step 2, HANDOVER section 2 "Full gate" as an every-change command), and the "every
@@ -567,19 +567,19 @@ each merge and compares with T2; any difference is an escape (10.5).
 - Commit only owned paths with `git -C <worktree> add <paths>` (never `-A`); the message ends with the project's
   Co-Authored-By trailer; never push; never merge.
 
-## 13. Owner questions (Q250 to Q258)
+## 13. Owner questions (Q250 to Q258, all answered 25 Oct 2026)
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q250 | Adopt the tiers: builders run T0 and T1 only, check-all and the full e2e move to T2 (stacks) and T3 (release, nightly), after a one-week shadow period? | **Yes** | A narrow map can let a regression reach `main` for up to a day; the nightly and the escape sample catch it |
-| Q251 | Stack up to four ready branches under the rules of 9.1, with the coordinator fast-forwarding `main` to a green stack tip? | **Yes** | A red stack delays its other branches by one or two short reruns; one stack's landing changes `main` by up to four branches at once |
-| Q252 | Nightly T3 as a launchd job on this Mac at 03:00, with the Mac set to wake for it (owner sets the wake schedule)? | **Yes** | The Mac works at night; a night it sleeps through is a missed check, which the next morning's T2 does not replace |
-| Q253 | Flakes: retry once, record, fail on a repeat within 7 days, quarantine at most 14 days with a BACKLOG row? | **Yes** | One extra run per failure; a quarantined test can hide a real bug for up to two weeks, so it still runs at T2 and T3 |
-| Q254 | Timing tests under load: defer with a loud notice and require them at T2, rather than raise thresholds; a calibrated threshold later only if deferrals block stacks? | **Yes** | Some T1 hand-backs carry a `deferred` line; the stack picks it up |
-| Q255 | Escape audit on every fifth stack, plus the nightly comparison; two escapes in four weeks doubles the sampling? | **Yes** | About 45 extra minutes of machine time per five stacks |
-| Q256 | Cache passes by tree hash in the clone's shared git directory for 7 days; the verifier ignores the cache for its independent subset? | **Yes** | A wrong `inputs` list could reuse a stale pass; inputs default wide and narrowing needs review |
-| Q257 | After TS-2 ships, change CLAUDE.md and the builder and verifier definitions as listed in section 14? | **Yes** | Agents follow new commands; old briefs that name check-all need the TS-5 note |
-| Q258 | Machine slots: two builds and one Playwright run at a time across all agents, the full e2e alone; the "two lanes at a time" rule stays? | **Yes** | A third agent waits for a slot instead of competing for CPU, which shows up as wait time in its run |
+| Q250 | Adopt the tiers: builders run T0 and T1 only, check-all and the full e2e move to T2 (stacks) and T3 (release, nightly), after a one-week shadow period? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended) | A narrow map can let a regression reach `main` for up to a day; the nightly and the escape sample catch it |
+| Q251 | Stack up to four ready branches under the rules of 9.1, with the coordinator fast-forwarding `main` to a green stack tip? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended) | A red stack delays its other branches by one or two short reruns; one stack's landing changes `main` by up to four branches at once |
+| Q252 | Nightly T3 as a launchd job on this Mac at 03:00, with the Mac set to wake for it (owner sets the wake schedule)? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended) | The Mac works at night; a night it sleeps through is a missed check, which the next morning's T2 does not replace |
+| Q253 | Flakes: retry once, record, fail on a repeat within 7 days, quarantine at most 14 days with a BACKLOG row? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended) | One extra run per failure; a quarantined test can hide a real bug for up to two weeks, so it still runs at T2 and T3 |
+| Q254 | Timing tests under load: defer with a loud notice and require them at T2, rather than raise thresholds; a calibrated threshold later only if deferrals block stacks? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended) | Some T1 hand-backs carry a `deferred` line; the stack picks it up |
+| Q255 | Escape audit on every fifth stack, plus the nightly comparison; two escapes in four weeks doubles the sampling? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended) | About 45 extra minutes of machine time per five stacks |
+| Q256 | Cache passes by tree hash in the clone's shared git directory for 7 days; the verifier ignores the cache for its independent subset? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended) | A wrong `inputs` list could reuse a stale pass; inputs default wide and narrowing needs review |
+| Q257 | After TS-2 ships, change CLAUDE.md and the builder and verifier definitions as listed in section 14? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended) | Agents follow new commands; old briefs that name check-all need the TS-5 note |
+| Q258 | Machine slots: two builds and one Playwright run at a time across all agents, the full e2e alone; the "two lanes at a time" rule stays? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended) | A third agent waits for a slot instead of competing for CPU, which shows up as wait time in its run |
 
 ## 14. Proposed edits for the owner (not applied)
 
@@ -621,4 +621,5 @@ check-all and e2e only when the brief says T2 or T3". Both wait for TS-2 (TS-5 a
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (owner answers, ANSWERS-4) | Q250 to Q258 answered 25 Oct 2026, yes as recommended. Section 13 table and the plan-rows line marked answered; nothing else changed |
 | 2026-10-25 | Created (TEST-STRATEGY, planned only): measurements, tiers, map, gate, caching, stacking, load and flakes, roles, guardrails, tasks TS-1 to TS-8, Q250 to Q258 |

@@ -1,7 +1,7 @@
 # Trip origin and the nearest airport: where getting there starts
 
 Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements PLAN R-200 to R-207, BACKLOG 15.200 to
-15.208, owner questions Q240 to Q249 (open). Nothing here is built. This page owns one rule, "where does a trip start
+15.208, owner questions Q240 to Q249 (all answered 25 Oct 2026, yes as recommended). Nothing here is built. This page owns one rule, "where does a trip start
 for this visitor", and every surface that reads it. It does not repeat what its neighbours own:
 
 - [trip-timeline.md](trip-timeline.md) 6 (arrival day, departure day, `airport.before`, the day cap after a long flight):
@@ -470,20 +470,20 @@ used.
 7. Budgets of section 12 hold in the public and sign-in-on builds.
 8. First-use walk: a visitor finds and sets "Starting from" in under 20 seconds with no help text (P4).
 
-## 16. Owner questions (Q240 to Q249)
+## 16. Owner questions (Q240 to Q249, all answered 25 Oct 2026)
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q240 | Trips of 0 to 3 nights keep the public hub default ("from Toronto"), and the nearest-airport rule starts at 4 nights? | **Yes** | a Calgary visitor sees "from Toronto" on a day trip until they pick a start |
-| Q241 | A researched gateway beats the computed nearest airport on a public trip, with the computed one as an alternate? | **Yes** | needs ORG-G for 13 trips (3 h); without it the computed airport shows (Innsbruck for the Dolomites) |
-| Q242 | Nearest airport: scheduled service and an IATA code, within 600 km, class penalty medium +150 km and small +250 km, two alternates, no border penalty? | **Yes** | a big airport 150 km further beats a small one next door; the small one is always listed as "Closer, fewer flights" |
-| Q243 | Share links carry the airport code or public hub, never the visitor's town? | **Yes** | a shared Drive-mode link loses the start; the share sheet says so |
-| Q244 | Airports are reference rows (`airport:YYC`), not catalogue places with pages; the Rockies base-plans refs change? | **Yes** | no airport page to link to; the stays spec's proposed `place/...` airport records are dropped |
-| Q245 | No fares at all: "Fares not shown" with a Google Flights search link; fuel as a dated ≈ band per country? | **Yes** | no money figure for flights; no free fare API exists (Amadeus Self-Service shut down 17 Jul 2026) |
-| Q246 | The account default Starting from (O4) waits for v0.12 (account sync); device and copy cover the start until then? | **Yes** | a signed-in visitor on a new device picks the start again until v0.12 |
-| Q247 | Ship the visible part in v0.9 with R-59, or as its own release right after v0.4? | **v0.9 with R-59** | one review and one owner of the trip components; visible about five releases later than an early slot |
-| Q248 | Place pages get a "Nearest airport" row later, lazily, after the Q88 ruling? | **Yes, later** | place pages say nothing about airports until then |
-| Q249 | "Use my location" rounds to 1 decimal place before the airports request and stores only the resolved town or airport? | **Yes** | the nearest airport can be off by one for a visitor on a boundary; their coordinates never leave the browser unrounded |
+| Q240 | Trips of 0 to 3 nights keep the public hub default ("from Toronto"), and the nearest-airport rule starts at 4 nights? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | a Calgary visitor sees "from Toronto" on a day trip until they pick a start |
+| Q241 | A researched gateway beats the computed nearest airport on a public trip, with the computed one as an alternate? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | needs ORG-G for 13 trips (3 h); without it the computed airport shows (Innsbruck for the Dolomites) |
+| Q242 | Nearest airport: scheduled service and an IATA code, within 600 km, class penalty medium +150 km and small +250 km, two alternates, no border penalty? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | a big airport 150 km further beats a small one next door; the small one is always listed as "Closer, fewer flights" |
+| Q243 | Share links carry the airport code or public hub, never the visitor's town? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | a shared Drive-mode link loses the start; the share sheet says so |
+| Q244 | Airports are reference rows (`airport:YYC`), not catalogue places with pages; the Rockies base-plans refs change? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | no airport page to link to; the stays spec's proposed `place/...` airport records are dropped |
+| Q245 | No fares at all: "Fares not shown" with a Google Flights search link; fuel as a dated ≈ band per country? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | no money figure for flights; no free fare API exists (Amadeus Self-Service shut down 17 Jul 2026) |
+| Q246 | The account default Starting from (O4) waits for v0.12 (account sync); device and copy cover the start until then? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | a signed-in visitor on a new device picks the start again until v0.12 |
+| Q247 | Ship the visible part in v0.9 with R-59, or as its own release right after v0.4? | **v0.9 with R-59** (ANSWERED 25 Oct 2026: yes, as recommended.) | one review and one owner of the trip components; visible about five releases later than an early slot |
+| Q248 | Place pages get a "Nearest airport" row later, lazily, after the Q88 ruling? | **Yes, later** (ANSWERED 25 Oct 2026: yes, as recommended.) | place pages say nothing about airports until then |
+| Q249 | "Use my location" rounds to 1 decimal place before the airports request and stores only the resolved town or airport? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | the nearest airport can be off by one for a visitor on a boundary; their coordinates never leave the browser unrounded |
 
 ## 17. Gotchas
 
@@ -506,4 +506,5 @@ used.
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (owner answers, ANSWERS-4) | Q240 to Q249 answered 25 Oct 2026, yes as recommended (Q247 as v0.9 with R-59). Status line and section 16 table marked answered; nothing else changed |
 | 2026-10-25 | First version from the owner's request of the same day: traceability (19 rows), decisions OR1 to OR12, the precedence ladder O1 to O7, OurAirports measured (4,008 scheduled airports with IATA codes) and the class-weighted rule tested on 27 destinations, open jaw, modes and edge cases, what switches with the origin, privacy, UX, data shapes and URL keys, API and MCP, budgets, tasks ORG-N to ORG-P (about 28 h for phase 1), release placement (v0.9 with R-59), Q240 to Q249. travel-planner, Opus |

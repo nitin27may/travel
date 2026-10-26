@@ -710,25 +710,34 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | Q237 | Visitor sees a detail word and the next helpful field, never the number? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
 | Q238 | FBK-2 drops the place and trip fields; REQ-F1 and REQ-F2 build them, so requests ship after reports? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
 | Q239 | Optional "Starting from" (a city or airport, never an address) on trip requests? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
-| Q240 | Trips of 0 to 3 nights keep the public hub default ("from Toronto"); the nearest-airport rule starts at 4 nights? Recommended: yes | 25 Oct |
-| Q241 | A researched gateway beats the computed nearest airport on a public trip, with the computed one as an alternate? Recommended: yes | 25 Oct |
-| Q242 | Nearest airport: scheduled service and an IATA code within 600 km, class penalty medium +150 km and small +250 km, two alternates, no border penalty? Recommended: yes | 25 Oct |
-| Q243 | Share links carry the airport code or public hub, never the visitor's town? Recommended: yes | 25 Oct |
-| Q244 | Airports as reference rows (`airport:YYC`), not catalogue places with pages; the Rockies base-plans refs change? Recommended: yes | 25 Oct |
-| Q245 | No fares: "Fares not shown" with a flight search link; fuel as a dated estimate band per country? Recommended: yes | 25 Oct |
-| Q246 | The account default Starting from waits for v0.12 (account sync); device and copy until then? Recommended: yes | 25 Oct |
-| Q247 | Ship the visible part in v0.9 with R-59, or as its own release after v0.4? Recommended: v0.9 with R-59 | 25 Oct |
-| Q248 | Place pages get a lazy "Nearest airport" row later, after the Q88 ruling? Recommended: yes, later | 25 Oct |
-| Q249 | "Use my location" rounds to 1 decimal place before the airports request and stores only the resolved town or airport? Recommended: yes | 25 Oct |
-| Q250 | Adopt the test tiers: builders run T0 and T1 only; check-all and the full e2e move to T2 (stacks) and T3 (release, nightly), after a one-week shadow period? Recommended: yes ([TEST-STRATEGY.md](../TEST-STRATEGY.md) 13) | 25 Oct |
-| Q251 | Stack up to four ready branches under the stacking rules, the coordinator fast-forwarding `main` to a green stack tip? Recommended: yes | 25 Oct |
-| Q252 | Nightly T3 as a launchd job on the Mac at 03:00, with a wake schedule the owner sets? Recommended: yes | 25 Oct |
-| Q253 | Flakes: retry once, record, fail on a repeat within 7 days, quarantine at most 14 days with a BACKLOG row? Recommended: yes | 25 Oct |
-| Q254 | Timing tests under load: defer loudly and require them at T2, rather than raise thresholds? Recommended: yes | 25 Oct |
-| Q255 | Escape audit on every fifth stack; two escapes in four weeks doubles the sampling? Recommended: yes | 25 Oct |
-| Q256 | Cache passes by tree hash for 7 days in the clone's git directory; the verifier ignores the cache for its own subset? Recommended: yes | 25 Oct |
-| Q257 | After TS-2 ships, apply the proposed CLAUDE.md and agent-definition edits (TEST-STRATEGY 14)? Recommended: yes | 25 Oct |
-| Q258 | Machine slots: two builds and one Playwright run at a time across agents, the full e2e alone; "two lanes at a time" stays? Recommended: yes | 25 Oct |
+| Q240 | Trips of 0 to 3 nights keep the public hub default ("from Toronto"); the nearest-airport rule starts at 4 nights? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q241 | A researched gateway beats the computed nearest airport on a public trip, with the computed one as an alternate? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q242 | Nearest airport: scheduled service and an IATA code within 600 km, class penalty medium +150 km and small +250 km, two alternates, no border penalty? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q243 | Share links carry the airport code or public hub, never the visitor's town? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q244 | Airports as reference rows (`airport:YYC`), not catalogue places with pages; the Rockies base-plans refs change? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q245 | No fares: "Fares not shown" with a flight search link; fuel as a dated estimate band per country? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q246 | The account default Starting from waits for v0.12 (account sync); device and copy until then? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q247 | Ship the visible part in v0.9 with R-59, or as its own release after v0.4? Recommended: v0.9 with R-59 | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q248 | Place pages get a lazy "Nearest airport" row later, after the Q88 ruling? Recommended: yes, later | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q249 | "Use my location" rounds to 1 decimal place before the airports request and stores only the resolved town or airport? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q250 | Adopt the test tiers: builders run T0 and T1 only; check-all and the full e2e move to T2 (stacks) and T3 (release, nightly), after a one-week shadow period? Recommended: yes ([TEST-STRATEGY.md](../TEST-STRATEGY.md) 13) | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q251 | Stack up to four ready branches under the stacking rules, the coordinator fast-forwarding `main` to a green stack tip? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q252 | Nightly T3 as a launchd job on the Mac at 03:00, with a wake schedule the owner sets? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q253 | Flakes: retry once, record, fail on a repeat within 7 days, quarantine at most 14 days with a BACKLOG row? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q254 | Timing tests under load: defer loudly and require them at T2, rather than raise thresholds? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q255 | Escape audit on every fifth stack; two escapes in four weeks doubles the sampling? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q256 | Cache passes by tree hash for 7 days in the clone's git directory; the verifier ignores the cache for its own subset? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q257 | After TS-2 ships, apply the proposed CLAUDE.md and agent-definition edits (TEST-STRATEGY 14)? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q258 | Machine slots: two builds and one Playwright run at a time across agents, the full e2e alone; "two lanes at a time" stays? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended.** |
+| Q260 | Measure the place-size budget on catalogue content only, with shell chrome (header, footer, bar, beacon) under its own cap (BUD-1)? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended. BUD-1 is released to start.** |
+| Q261 | Home point for builders' worktrees from a mode-600 file `~/.config/travel-secrets/home-point.env` that `~/.zshenv` exports? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended. Worktrees source `~/.config/travel-secrets/home-point.env`.** |
+| Q262 | Approve the renumbered train of MASTER-ORDER 5.3 (v0.2 to v0.21, v1.x), version numbers still following the deploy order (Q224)? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended. The renumbered train is THE train; the old numbers are legacy.** |
+| Q263 | Photo figure on place and trail pages server-rendered, one owner-approved re-baseline in v0.7? Recommended: server-render, re-baseline once | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended. Server-rendered, with one re-baseline in v0.7.** |
+| Q264 | Rewrite the stale commit ids in place from the commit map (H3)? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended. The stale commit-id rewrite is approved.** |
+| Q265 | Delete the merged old-history `public/*` branches and their worktrees as one listed batch (H7)? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended. Approved only for the coordinator to carry out.** |
+| Q266 | Keep the Vercel Git integration disconnected (Q226), with the RELEASE-PLAN 7.4 ruleset? Recommended: yes to both | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended. Vercel Git stays off; the RELEASE-PLAN ruleset stands.** |
+| Q267 | TD-1 to TD-3 (trip pages from data) as v0.14, before customise? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended. Trips from data in v0.14.** |
+| Q268 | Close R1 and R2 as superseded by per-release approval of a named commit? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes, as recommended. R1 and R2 are closed.** |
 
 ## Later: after go-live (planner and data)
 

@@ -19,7 +19,7 @@ behind `NEXT_PUBLIC_CF_BEACON_TOKEN`, so only the token and a privacy-page line 
 
 [MASTER-ORDER.md](MASTER-ORDER.md) (R-220) analysed every remaining task for conflicts and re-cut this train. **Its
 section 5.3 is the release order and numbering from v0.4 onward; the release numbers in sections 1 to 3 below are the
-first version's** (Q262 asks the owner to approve the new order). Sections 4 to 8 (gate, smoke, rollback, checklist, CI,
+first version's** (Q262, approved 25 Oct 2026: the section 5.3 numbering is THE train; the release numbers in sections 1 to 3 are legacy). Sections 4 to 8 (gate, smoke, rollback, checklist, CI,
 notes) are unchanged. The corrections, each argued in MASTER-ORDER 5.5:
 
 | # | Correction |
@@ -682,6 +682,7 @@ Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling 
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (owner answers, ANSWERS-4) | Q262 approved 25 Oct 2026: the section 5.3 numbering is THE train; the release numbers in sections 1 to 3 are legacy. Section 0 sentence marked; nothing else changed |
 | 2026-10-25 (master order) | Section 0 added: corrections C0 to C14 and the old-to-new release numbers from [MASTER-ORDER.md](MASTER-ORDER.md) 5.3 and 5.5 (R-220, Q260 to Q268); sections 1 to 3 keep the first version's numbers until the owner answers Q262 |
 | 2026-10-25 (test strategy) | Infra row I8 added for TS-1 to TS-8 ([TEST-STRATEGY.md](TEST-STRATEGY.md)); the gate of section 4.1 is that page's T3, unchanged |
 | 2026-10-25 (trip origin) | Getting there from the nearest airport or the visitor's city ([spec](../features/trip-origin-and-nearest-airport.md)): v0.9 gains ORG-N, ORG-A, ORG-1, ORG-2, ORG-R, ORG-V (16.5 h) after R-59; ORG-C, ORG-D, ORG-G, ORG-M ride earlier as internal; widenings in v0.3 (NAV-C), v0.7 (FBK-C), v0.11 (CUS-C); ORG-H with v0.12 if Q246; ORG-MCP in v0.15; ORG-P not on the train; one parallel row. Q240 to Q249 open |

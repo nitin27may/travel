@@ -2,7 +2,7 @@
 
 Written 25 Oct 2026 by travel-planner (Opus 5.5) on `public/MASTER-ORDER`, branched from `main` 09784bc (rewritten public
 history; `main` has since gained ed0056d, an e2e-only commit). **Planned only: no product code changed.** Requirement PLAN
-R-220; BACKLOG 15.220 to 15.229; owner questions Q260 to Q268 (section 7). Principles cited by number from
+R-220; BACKLOG 15.220 to 15.229; owner questions Q260 to Q268 (section 7; all answered 25 Oct 2026, yes as recommended). Principles cited by number from
 [principles.md](../design/foundation/principles.md).
 
 **The owner's request (25 Oct 2026, after answering Q200 to Q239).** "Fold the detailed plan for everything remaining,
@@ -621,26 +621,26 @@ ids resolves with `git cat-file -t`; no text other than ids and status cells cha
 | GSI-1 and MCP-O briefs predate EML-1 | wrong owned files | re-scope at brief time (C13) |
 | Three agents building at once before TS-4 | timing tests flake; machine stalls | the coordinator's interim rule in 5.1 |
 
-### 7.2 New questions for the owner (Q260 to Q268)
+### 7.2 New questions for the owner (Q260 to Q268, all answered 25 Oct 2026)
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q260 | Measure the place-size budget on catalogue content only, with shell chrome (header, footer, bar, beacon) under its own cap of today's bytes + 1 KB (BUD-1)? | **Yes** | Shell growth is checked by a separate, looser cap; the ratio no longer counts every byte a visitor downloads (as Q222 already accepted for the beacon) |
-| Q261 | Home point for builders' worktrees: put `HOME_POINT_LAT` and `HOME_POINT_LON` in a mode-600 file `~/.config/travel-secrets/home-point.env` that `~/.zshenv` exports, instead of copying the root `.env.local` into worktrees? | **Yes** | Every process of your user account sees the two variables; no worktree ever holds production secrets |
-| Q262 | Approve the renumbered train of 5.3 (v0.2 to v0.21, v1.x), with the version number still following the deploy order (Q224)? | **Yes** | Four more releases and one renumbering, against releases without hidden dependencies |
-| Q263 | The photo figure on place and trail pages (about 400 bytes: image and credit, server-rendered for previews and crawlers) as one owner-approved re-baseline in v0.7, rather than a client-only lazy figure? | **Server-render, re-baseline once** | The ratio absorbs one figure per page; a lazy figure keeps the ratio but shows no photo without JS and none in link previews |
-| Q264 | Rewrite the 684 stale commit ids in place from the commit map (H3), keeping the map in your private backup folder? | **Yes** | One large docs diff at a quiet point; the alternative leaves every old id unreadable to the public |
-| Q265 | Delete the 95 merged old-history `public/*` branches and their worktrees as one listed batch (H7)? | **Yes** | The private history stays in the private remote and the `archive/*` tags; local clutter and the risk of merging one go |
-| Q266 | Keep the Vercel Git integration disconnected (Q226) even after the scrub's step 7 links the new repository, using `git.deploymentEnabled: false` if a link is needed; and use RELEASE-PLAN 7.4's ruleset (no required pull request) instead of the scrub's "PRs required"? | **Yes to both** | Previews by hand only; direct merges by the coordinator keep working |
-| Q267 | TD-1 to TD-3 (trip pages from data) as v0.14, before customise, now that R2 no longer exists (Q80's premise)? | **Yes** | 22 h before customise; without it a trip planned through the `trip` skill has no page |
-| Q268 | Close R1 and R2 as superseded by the per-release approval of a named commit with its smoke and phone check? | **Yes** | No single big review; each release gets a small one |
+| Q260 | Measure the place-size budget on catalogue content only, with shell chrome (header, footer, bar, beacon) under its own cap of today's bytes + 1 KB (BUD-1)? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. BUD-1 is released to start.) | Shell growth is checked by a separate, looser cap; the ratio no longer counts every byte a visitor downloads (as Q222 already accepted for the beacon) |
+| Q261 | Home point for builders' worktrees: put `HOME_POINT_LAT` and `HOME_POINT_LON` in a mode-600 file `~/.config/travel-secrets/home-point.env` that `~/.zshenv` exports, instead of copying the root `.env.local` into worktrees? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. Worktrees source `~/.config/travel-secrets/home-point.env`.) | Every process of your user account sees the two variables; no worktree ever holds production secrets |
+| Q262 | Approve the renumbered train of 5.3 (v0.2 to v0.21, v1.x), with the version number still following the deploy order (Q224)? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. The renumbered train is THE train; the old numbers are legacy.) | Four more releases and one renumbering, against releases without hidden dependencies |
+| Q263 | The photo figure on place and trail pages (about 400 bytes: image and credit, server-rendered for previews and crawlers) as one owner-approved re-baseline in v0.7, rather than a client-only lazy figure? | **Server-render, re-baseline once** (ANSWERED 25 Oct 2026: yes, as recommended. Server-rendered, with one re-baseline in v0.7.) | The ratio absorbs one figure per page; a lazy figure keeps the ratio but shows no photo without JS and none in link previews |
+| Q264 | Rewrite the 684 stale commit ids in place from the commit map (H3), keeping the map in your private backup folder? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. The stale commit-id rewrite is approved.) | One large docs diff at a quiet point; the alternative leaves every old id unreadable to the public |
+| Q265 | Delete the 95 merged old-history `public/*` branches and their worktrees as one listed batch (H7)? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. Approved only for the coordinator to carry out.) | The private history stays in the private remote and the `archive/*` tags; local clutter and the risk of merging one go |
+| Q266 | Keep the Vercel Git integration disconnected (Q226) even after the scrub's step 7 links the new repository, using `git.deploymentEnabled: false` if a link is needed; and use RELEASE-PLAN 7.4's ruleset (no required pull request) instead of the scrub's "PRs required"? | **Yes to both** (ANSWERED 25 Oct 2026: yes, as recommended. Vercel Git stays off; the RELEASE-PLAN ruleset stands.) | Previews by hand only; direct merges by the coordinator keep working |
+| Q267 | TD-1 to TD-3 (trip pages from data) as v0.14, before customise, now that R2 no longer exists (Q80's premise)? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. Trips from data in v0.14.) | 22 h before customise; without it a trip planned through the `trip` skill has no page |
+| Q268 | Close R1 and R2 as superseded by the per-release approval of a named commit with its smoke and phone check? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. R1 and R2 are closed.) | No single big review; each release gets a small one |
 
 ### 7.3 Open questions this order waits on (already asked; not re-asked)
 
 Q88 (now urgent: option A is merged; v0.2), Q101 to Q108 (v0.3), Q185 and Q141 (v0.5), BACKLOG 15.44 accent folding
-(v0.6), Q240 to Q249 (origin, planned, spec merged; v0.8), Q117 to Q124 (v0.9), Q130 to Q137 (v0.10), Q93 to Q100 (v0.12),
+(v0.6), Q117 to Q124 (v0.9), Q130 to Q137 (v0.10), Q93 to Q100 (v0.12),
 Q109 to Q116 and DD-6 (v0.13), Q67, Q98, Q103, Q120 and `planner_draft_signal` (v0.15), Q160 to Q167, Q190 to Q198
-(v0.19, v0.20), Q148, Q149 (v0.21), Q170 to Q177, Q180 to Q187 (track I and v1.x), Q250 to Q258 (test strategy, spec merged), R1 item 7 (the globe mock, GLB2b). Recommendation: one reply "yes as recommended" for each block, with any
+(v0.19, v0.20), Q148, Q149 (v0.21), Q170 to Q177, Q180 to Q187 (track I and v1.x), Q91 (GLB2b inside E or after R2; the globe mock itself was approved at R1). Recommendation: one reply "yes as recommended" for each block, with any
 exception named; each block unblocks the release in brackets.
 
 ## 8. Proposed edits the owner (or a later docs lane) applies
@@ -670,4 +670,5 @@ TEST-STRATEGY once TS-5 runs.
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (owner answers, ANSWERS-4) | Q260 to Q268 answered 25 Oct 2026, yes as recommended: Q260 (BUD-1 released), Q261 (home-point file), Q262 (renumbered train is THE train), Q264 to Q268 as listed. Section 7.2 rows marked; section 7.3 pruned to the questions still open (answered Q240 to Q249 and Q250 to Q258 removed; R1 item 7 replaced by Q91, the open question GLB2b waits on). Nothing else changed |
 | 2026-10-25 | First version (MASTER-ORDER, planned only): inventory deduplicated against `main`, conflict map with hot spots, pairwise UI matrix, contract order, migrations and budgets, lanes and joins, the renumbered train v0.2 to v0.21 and v1.x with corrections C0 to C14, critical path, the first five briefs, risks, Q260 to Q268, proposed CLAUDE.md and HANDOVER edits |
