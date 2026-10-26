@@ -27,6 +27,8 @@ interface Props {
   className?: string;
   /** Height of the peek stop in px (default 120); the globe sheet uses a taller one so the first rows show at rest. */
   peekPx?: number;
+  /** Px the sheet stands above the screen's bottom edge (the globe's list sits on the 84 px phone bottom bar): its height gives them up, so the top is not pushed off screen. */
+  bottomGap?: number;
 }
 
 /**
@@ -34,7 +36,7 @@ interface Props {
  * top bar. Drag with velocity, or the Expand and Collapse buttons for keyboard. A drag past the lowest stop closes it.
  * The container slides with CSS (260 ms in, 200 ms out); Motion owns the drag and the snap settle.
  */
-export function BottomSheet({ open, onOpenChange, title, snaps = ['peek', 'half', 'full'], initial, modal = true, footer, children, className, peekPx = PEEK_PX }: Props) {
+export function BottomSheet({ open, onOpenChange, title, snaps = ['peek', 'half', 'full'], initial, modal = true, footer, children, className, peekPx = PEEK_PX, bottomGap = 0 }: Props) {
   const reduce = useReducedMotion();
   const stops = useMemo(() => SNAP_ORDER.filter((s) => snaps.includes(s)), [snaps]);
   const [snap, setSnap] = useState<Snap>(startSnap(stops, initial));
@@ -48,11 +50,11 @@ export function BottomSheet({ open, onOpenChange, title, snaps = ['peek', 'half'
 
   useEffect(() => {
     if (!open) return;
-    const set = () => setHeight(Math.max(320, window.innerHeight - TOP_GAP));
+    const set = () => setHeight(Math.max(320, window.innerHeight - TOP_GAP) - bottomGap);
     set();
     window.addEventListener('resize', set);
     return () => window.removeEventListener('resize', set);
-  }, [open]);
+  }, [open, bottomGap]);
 
   const offsetOf = useCallback((s: Snap) => snapOffset(s, height, peekPx), [height, peekPx]);
   const idx = stops.indexOf(snap);
