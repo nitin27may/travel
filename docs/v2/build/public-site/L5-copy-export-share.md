@@ -1,5 +1,9 @@
 # L5: copy, export and share
 
+> **Amended 25 Oct 2026 (navigation and Mine):** a visitor's copy is kept in this browser as a `copies/1` envelope and
+> listed in Mine › My trips; the sheet's "Sign in to save it" footer and its done step become the device note and
+> "Open in Mine" ([navigation-and-mine.md](../../features/navigation-and-mine.md) 3.4, task NAV-2).
+
 Wave 2, parallel with L1 to L4. Agent: `travel-builder` (Sonnet). Effort: about 5 hours.
 Plan: [README.md](README.md). Starts after L0 and LD are merged (LM not needed).
 

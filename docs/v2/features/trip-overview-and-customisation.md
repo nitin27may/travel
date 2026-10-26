@@ -1,5 +1,9 @@
 # Trip overview, best time to go, and customisation
 
+> **Amended 25 Oct 2026 (navigation and Mine):** private copies and own plans are listed in Mine › My trips (`/mine/`),
+> where a signed-in customised copy opens at `/t/<id>/`; `trip-custom/1` gains optional `start` and `travellers` so a
+> visitor's device copy can merge into `planner_draft` at sign-in ([navigation-and-mine.md](navigation-and-mine.md) 4.2).
+
 Status: spec, 25 Oct 2026, written by travel-planner (Opus) from the owner's request of the same day. Nothing here is
 built. Tracked as PLAN R-62 to R-67, BACKLOG 15.51 to 15.56, TODO row 2026-10-25. Build brief:
 [build/public-site/briefs/OVR.md](../build/public-site/briefs/OVR.md). Research batches: DATA D7, D5b and D8 in

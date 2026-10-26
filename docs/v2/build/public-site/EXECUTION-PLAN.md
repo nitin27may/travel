@@ -649,6 +649,27 @@ Open the link from the hand-over on your Mac (Safari), then your iPhone (Safari)
 
 Phase E total: about 161 h (agent and builder time), including DATA D6.
 
+### 10.1 Enhancement queue: navigation and Mine (NAV, added 25 Oct 2026, planned only)
+
+Spec [navigation-and-mine.md](../../features/navigation-and-mine.md) (PLAN R-160 to R-164, BACKLOG 15.160 to 15.169,
+Q200 to Q207). Phase 1 needs no backend and is recommended right after ACCT-PH merges (Q206), because Copy to my trips
+writes a copy no page lists. Phase 2 waits for CUS-C, FAV-2 and the R-61 HTTPS preview.
+
+| ID | Task | Agent, model | Effort | Depends on | Acceptance check |
+|---|---|---|---|---|---|
+| NAV-F | Foundation text: components 1.1, 1.4; patterns 1.1, 3.7 | travel-design-reviewer, Opus | 1.5 h | ACCT-PH merged | foundation agrees with the spec |
+| NAV-C | `copies/1` contract, legacy-key move, storage probe, `trip-custom/1` `start` and `travellers`, detector keys | travel-builder, Opus | 3 h | ACCT-PH merged | property tests; detector test |
+| NAV-1 | Bar item Mine (replaces ACCT-PH), icon masks, desktop Mine link, dot, `/mine/` shell, `/favourites/` redirect | travel-builder, Sonnet | 5 h | NAV-C | five items at 320 px; place HTML and trip start JS at or under the ACCT-PH baseline in both builds; CLS 0 |
+| NAV-2 | My trips on the device; copy sheet footer, done step, toast, replace prompt | travel-builder, Sonnet | 6 h | NAV-1; OVR-1 merged or not started | copy, reload, find, open with the profile, ICS with the dates; old key moved |
+| NAV-R1, NAV-V1 | Review and verify phase 1 | reviewer Opus, verifier Sonnet | 4 h | NAV-2 | approved; sweep at 320, 390, 1440, light and dark |
+| FAV-1 (re-scoped) | Favourites as the Mine panel | travel-builder, Sonnet | 12 h | NAV-R1; OVR-0 | visitor spec 15 |
+| NAV-D | Draft ids and the 50-draft cap, migration slug `draft-cap` | travel-builder, Opus | 2 h | CUS-C | child-branch RLS and cap race |
+| NAV-3, NAV-E | Signed-in Mine, the merge on `/account/` and `/mine/`, real-service E2E | travel-builder, Sonnet | 8 h | NAV-D, FAV-2, R-61 | route tests; merge absent from public pages; E2E on the preview |
+| NAV-R2, NAV-V2 | Review and verify phase 2 | reviewer Opus, verifier Sonnet | 4 h | NAV-3 | approved |
+| NAV-M | More sheet at the planner stage | reviewer Opus, builder Sonnet | 5 h | signed-in Home | spec section 7 |
+
+NAV total: about 19.5 h (phase 1) plus about 14 h (phase 2); FAV-1 is 2 h smaller; NAV-M 5 h later.
+
 ## 11. Gate R2: the owner reviews E and approves readiness
 
 ### 11.1 Entry criteria
@@ -937,6 +958,7 @@ Every pending item from every source (BACKLOG, TODO, design reviews and notes, l
 
 | Date | Change |
 |---|---|
+| 2026-10-25 | Navigation and Mine (R-160 to R-164, [navigation-and-mine.md](../../features/navigation-and-mine.md)): new 10.1, the NAV enhancement queue; FAV-1 re-scoped to the Mine panel. Planned only |
 | 2026-10-25 | Local database and seed sync (R-140 to R-146, [local-database-and-seed-sync.md](../../features/local-database-and-seed-sync.md)): 4.8 SRV-0 refined (LOCAL-C, LOCAL-1 to LOCAL-3 can run before the SRV-0 window on Q180). The 24 Oct removal of "Docker steps as historical" still holds for Supabase; a plain Postgres 18 with PostGIS in Docker is current again for development and CI only |
 | 2026-10-25 | R-76 to R-80 stay bases and stay optimisation ([stay-bases-and-optimisation.md](../../features/stay-bases-and-optimisation.md); data batch D9 in [DATA.md](briefs/DATA.md)): fewer-base and cheaper-town alternatives per trip, computed check-in counts, messages, a Where to stay section. Follows R-59 and the OVR contract. DATA-D1 (points, 84 to 6 records without one) merged. |
 | 2026-10-25 | New owner requests specified after phase E planning: R-62 to R-67 trip overview, best-time windows, thumbnails and customisation ([trip-overview-and-customisation.md](../../features/trip-overview-and-customisation.md), brief [OVR.md](briefs/OVR.md), data batches D7, D8, D5b in [DATA.md](briefs/DATA.md)); R-70 to R-75 favourites, place suggestions and trip requests ([visitor-suggestions-and-favourites.md](../../features/visitor-suggestions-and-favourites.md)). Both follow the closure queue and R-59 for `web/components/trips/**`. 14.2 row 4 is refined: stored reports go into the shared intake table, not a separate reports table. |
