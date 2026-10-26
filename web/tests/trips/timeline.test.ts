@@ -224,9 +224,14 @@ describe('review round three', () => {
   });
   it('the leg out of an added place is its own leg, not a copy of the leg in (R2-3)', async () => {
     const { m, candidateToItem } = await model();
-    const athabasca = Object.values(m.timeline!.addables).find((c) => /athabasca falls/i.test(c.name))!;
-    const t = scheduleDay(day(rockies, 5).scheduleInput!, P(), { added: [candidateToItem(athabasca)] });
-    const i = t.entries.findIndex((e) => e.id === 'add-' + athabasca.key);
+    // the farthest place Day 5 offers. It was Athabasca Falls by name until AREA-2 and ORPH-7 (26 Oct 2026) put new places nearer Jasper,
+    // and the panel lists the 8 nearest (PER_DAY.nearby), so the test takes whichever offered place is farthest, which gives a real leg
+    const offered = (m.timeline!.addByDay[5] ?? []).map((k) => m.timeline!.addables[k]!).filter((c) => c.point && c.km !== null);
+    const far = [...offered].sort((a, b) => b.km! - a.km! || a.key.localeCompare(b.key))[0]!;
+    expect(far.km!).toBeGreaterThan(10);
+    const t = scheduleDay(day(rockies, 5).scheduleInput!, P(), { added: [candidateToItem(far)] });
+    const i = t.entries.findIndex((e) => e.id === 'add-' + far.key);
+    expect(i, 'the added place is in the day').toBeGreaterThan(0);
     const into = t.entries.slice(0, i).reverse().find((e) => e.kind === 'leg')!;
     const out = t.entries.slice(i + 1).find((e) => e.kind === 'leg')!;
     expect(out.from?.name ?? '').not.toBe('');

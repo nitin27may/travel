@@ -43,7 +43,7 @@
   "id": 7,
   "query": "trails under 5 km near Jasper",
   "target": "places",
-  "url": "country=CA&region=alberta&area=jasper&k=nature.trail&f.length=lt3,3-6",
+  "url": "country=CA&region=alberta&area=jasper,jasper-national-park&k=nature.trail&f.length=lt3,3-6",
   "chip": [
    "Up to 6 km (nearest band)"
   ]
