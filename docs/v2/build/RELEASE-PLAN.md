@@ -37,6 +37,14 @@ notes) are unchanged. The corrections, each argued in MASTER-ORDER 5.5:
 | C10 | New v0.14: trips written as data get pages (TD-1 to TD-3, Q267), before customise |
 | C11 to C14 | OVR-0 has no dependency on OVR-Cb; migration files are named by slug; FBK-C's migration does not wait for FAV-D; GSI-1 builds on `SignInCard.tsx`; section 2's seat table is replaced by MASTER-ORDER 5.1 and 5.4 |
 
+**Audits after v0.14 (25 Oct 2026, [AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md), R-230 to R-237, Q270 to Q279
+open).** After v0.14 is live, a field-usefulness audit and then a UI and UX audit run; their changes ship as **patch
+releases** `release/v0.14.1` (field slimming) and `release/v0.14.2` (UI audit fixes), which only remove or fix and keep
+the gate, smoke list, rollback and checklist of sections 4 and 6 unchanged (Q271). No release is renumbered. CUS-C (v0.15)
+starts after the owner approves the field list; a delta pass runs before v0.19. Recording during the build (a fixed
+screenshot set per release outside the repository, `budget:report` in each CHANGELOG Internal line) is that page's
+section 8.
+
 The test-strategy and trip-origin plans are merged (I7, I8 and their log rows below). Their text uses the first version's
 numbers: "v0.9" in the trip-origin rows is new v0.8 (MASTER-ORDER 5.3), and I7's "before v0.9" is before new v0.8.
 
@@ -497,6 +505,7 @@ answers 308 to the slash form, which counts as a pass.
 | I6 | Retro tag `release/v0.1` at d93127b | minutes | now (Q220) | coordinator |
 | I7 | ORG-C, ORG-D, ORG-G, ORG-M: origin contracts, the airports layer, trip gateways, routed gateway legs | 11.5 h | any time before v0.9 (seat B) | no visitor change until ORG-1 turns `gettingThere` on in v0.9 |
 | I8 | Test strategy TS-1 to TS-8: tiered gates, the path-to-suite map, `tools/gate.sh`, caching, stacks, slots, nightly T3 | about 35 h | after the Q250 answer; TS-1 any time | [TEST-STRATEGY.md](TEST-STRATEGY.md); the gate of 4.1 stays T3 |
+| I9 | Audit tooling: FA-1 `node core/bin/fields.ts` and UA-0 the audit sweep harness | 10 h + 5 h | FA-1 around v0.11 to v0.12 (B2); UA-0 with v0.14 (B1); both before the gate G-AUD | [AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md) 6, 7; no visitor change |
 
 ## 6. Release checklist for the coordinator
 
@@ -682,6 +691,7 @@ Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling 
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (audits after release) | Section 0 note: audits after v0.14 with patch releases v0.14.1 and v0.14.2 (Q271, open); infra row I9 for the audit tooling ([AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md)). No release renumbered |
 | 2026-10-25 (owner answers, ANSWERS-4) | Q262 approved 25 Oct 2026: the section 5.3 numbering is THE train; the release numbers in sections 1 to 3 are legacy. Section 0 sentence marked; nothing else changed |
 | 2026-10-25 (master order) | Section 0 added: corrections C0 to C14 and the old-to-new release numbers from [MASTER-ORDER.md](MASTER-ORDER.md) 5.3 and 5.5 (R-220, Q260 to Q268); sections 1 to 3 keep the first version's numbers until the owner answers Q262 |
 | 2026-10-25 (test strategy) | Infra row I8 added for TS-1 to TS-8 ([TEST-STRATEGY.md](TEST-STRATEGY.md)); the gate of section 4.1 is that page's T3, unchanged |

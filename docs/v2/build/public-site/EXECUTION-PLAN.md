@@ -774,6 +774,23 @@ ships and Q250 is answered, lanes keep running check-all as today.
 TS total about 35 h (Opus 9, Sonnet 26). Order: TS-1, TS-2a, TS-2, then TS-4 with TS-6 (disjoint files), TS-3, TS-5,
 TS-7, TS-8. One shadow week after TS-2: the coordinator still runs check-all after each merge and compares.
 
+### 10.5 Audit queue: field usefulness, then UI and UX (AU, added 25 Oct 2026, planned only)
+
+Spec [AUDITS-AFTER-RELEASE.md](../AUDITS-AFTER-RELEASE.md) (PLAN R-230 to R-237, BACKLOG 15.230 to 15.241, Q270 to Q279).
+The gate, tasks, owned files, sizes and briefs live there (sections 2, 6 and 7); this table only places them.
+
+| ID | Task | Agent, model | Effort | Depends on | Acceptance check |
+|---|---|---|---|---|---|
+| FL-0, FL-1 | Fields ledger and the rule in the agent definitions | travel-planner, Haiku and Opus | 1 h | Q274 | the ledger file exists; the three agent files name the rule |
+| FA-1 | `node core/bin/fields.ts` | travel-builder, Opus 4 h + Sonnet 6 h | 10 h | FL-0 | spec 7.1 acceptance; two runs byte-identical; no network |
+| UA-0 | Audit sweep harness | travel-builder, Sonnet | 5 h | FA-1 | spec 7.2 acceptance |
+| FA-2 to FA-7 | Field audit, decisions, owner approval, contract, data and UI slimming, fill plan | Opus, Sonnet; owner | 27 h | gate G-AUD | v0.14.1 passes its release gate; `fields.ts audit --check` and `ledger --check` green; place budget re-baselined once |
+| UA-1 to UA-AF | UI audit evidence, two reviews, triage, owner approval, fixes, after set | Sonnet, Opus, Haiku; owner | 65 h | v0.14.1 live | every approved Must and Should closed with a before and after shot; v0.14.2 passes its gate |
+| AU-D | Delta pass before MCP-C | Opus, Sonnet | 6 h | v0.18 live | delta note; MCP-C publishes no removed field |
+
+Order: FL-0 and FL-1 now; FA-1 in B2 around v0.11 to v0.12; UA-0 with v0.14 in B1; then the gate, the field audit, v0.14.1,
+the UI audit, v0.14.2; AU-D after v0.18.
+
 ## 11. Gate R2: the owner reviews E and approves readiness
 
 ### 11.1 Entry criteria
@@ -1062,6 +1079,7 @@ Every pending item from every source (BACKLOG, TODO, design reviews and notes, l
 
 | Date | Change |
 |---|---|
+| 2026-10-25 | Audits after the first release round (R-230 to R-237, [AUDITS-AFTER-RELEASE.md](../AUDITS-AFTER-RELEASE.md)): new 10.5, the AU queue (field audit, then UI audit, patch releases v0.14.1 and v0.14.2, the delta pass before v0.19). Planned only |
 | 2026-10-25 | Master order (R-220, [MASTER-ORDER.md](../MASTER-ORDER.md)): banner at the top with the corrections that touch this page (phase E leftovers in v0.6, TD in v0.14, R1 and R2 superseded on Q268, dependency fixes in 10.1 and 10.2); task detail unchanged. Planned only |
 | 2026-10-25 | Trip origin and the nearest airport (R-200 to R-207, [trip-origin-and-nearest-airport.md](../../features/trip-origin-and-nearest-airport.md)): new 10.3, the ORG queue (about 28 h phase 1); widenings in NAV-C, CUS-C, FBK-C and REQ-F1; visible part with R-59 in v0.9. Planned only |
 | 2026-10-25 | Request intake fields (R-190 to R-196, [request-intake-fields.md](../../features/request-intake-fields.md)): 10.2 gains the request-intake block (REQ-RF-C, REQ-RF, REQ-F1 to REQ-F3, REQ-FB, REQ-R4, REQ-V4); FBK-C widened again (+2.5 h), FBK-2 loses the place and trip fields (−3 h). Planned only |
