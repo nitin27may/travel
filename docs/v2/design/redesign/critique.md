@@ -6,8 +6,8 @@ missing features. It is that every screen is drawn with the same three things: a
 hairline, a grey pill, and a condensed capital headline. Nothing on screen tells you this is a trip to
 the Dolomites rather than a tax return.
 
-Screenshots are in [shots/current/](shots/current/), taken at 1440 x 900 and 390 x 844 from the dev
-server on 18 Oct 2026 (light unless the file name says dark).
+The screenshots were taken at 1440 x 900 and 390 x 844 from the dev server on 18 Oct 2026; they were removed before
+the repository went public (PUBLIC-SCRUB, 25 Oct 2026) because they showed real trip dates and the home town.
 
 ## The seven things that make it read as basic
 

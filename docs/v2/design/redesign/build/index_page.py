@@ -72,7 +72,7 @@ def build() -> None:
         for page, title, sub in PAGES:
             if page == "places" and d != "trailhead":
                 continue
-            tiles += (f'<a class="tile" href="{d}/{page}.html"><img src="shots/{d}-{page}.webp" alt="{esc(title)}, {esc(name)}" loading="lazy">'
+            tiles += (f'<a class="tile" href="{d}/{page}.html">'
                       f'<div><b>{esc(title)}</b><span>{esc(sub)}</span><br><span class="alt" onclick="event.preventDefault();location.href=\'{d}/{page}.html?theme={alt}\'">open in {alt}</span></div></a>')
         secs += (f'<section id="{d}"><div class="dh"><h2>{esc(name)}</h2>{f"<span class=rec>{rec}</span>" if rec else ""}'
                  f'<span class="theme">default {theme} · every page has a theme toggle</span><p>{esc(idea)}</p></div><div class="grid">{tiles}</div></section>')
@@ -81,7 +81,7 @@ def build() -> None:
             f'Open any tile; static previews, no build step.</p><nav>{nav}<a href="#docs">Documents</a></nav></header>'
             f'<section id="docs"><div class="dh"><h2>READ FIRST</h2></div><div class="docs">{docs}</div></section>{secs}'
             f'<footer>Photos: Wikimedia Commons, credited on each page. Relief: Mapterhorn. Rivers and border: OpenStreetMap contributors. '
-            f'Fonts: OFL, in fonts/ with their licences. Current-prototype screenshots: shots/current/.</footer>')
+            f'Fonts: OFL, in fonts/ with their licences.</footer>')
     C.write("index.html", C.page("Redesign directions", CSS, body).replace("../fonts/", "fonts/"))
 
 

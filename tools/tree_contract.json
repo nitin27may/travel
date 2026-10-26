@@ -262,6 +262,10 @@
    {
     "key": "research/audits/public-repo-audit-2026-10-25.md::research/vault-notes/archive/",
     "reason": "audit report names paths that exist only in history or are removed by the pre-public clean-up; drop when the audit is archived"
+   },
+   {
+    "key": "research/audits/public-repo-audit-2026-10-25.md::docs/v2/design/redesign/shots/",
+    "reason": "audit report names paths that exist only in history or are removed by the pre-public clean-up; drop when the audit is archived"
    }
   ],
   "3": [
@@ -289,22 +293,6 @@
    }
   ],
   "8": [
-   {
-    "key": "docs/v2/design/redesign/shots/current/discover-light.webp",
-    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
-   },
-   {
-    "key": "docs/v2/design/redesign/shots/current/explore-light.webp",
-    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
-   },
-   {
-    "key": "docs/v2/design/redesign/shots/current/new-light.webp",
-    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
-   },
-   {
-    "key": "docs/v2/design/redesign/shots/current/templates-light.webp",
-    "reason": "image not named by basename in any tracked text file in its tree (referenced by folder or prefix, or orphaned); not in the plan, found by the guard on 22 Oct; link it or delete it"
-   },
    {
     "key": "docs/v2/design/suitability-display/mock/shots/desktop-dark.png",
     "reason": "over 1.5 MB: the plan names suitability-display mock shots as the known exception (CLN-5 rule 8)"
