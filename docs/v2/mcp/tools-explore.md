@@ -2,6 +2,12 @@
 
 > **Amended 25 Oct 2026 (trip origin and nearest airport):** the public MCP's `get_trip` gains an optional `origin` and returns `getting_there`; a new read-only `nearest_airports` tool is planned (ORG-MCP, with MCP-1). See [../features/trip-origin-and-nearest-airport.md](../features/trip-origin-and-nearest-airport.md) section 11 (PLAN R-206).
 
+> **Scope, 26 Oct 2026 ([tools-v1-from-api.md](tools-v1-from-api.md)):** this page is the planner-era **target**, not v1.
+> The v1 remote tools mirror the API contracts: `search` takes `q`, `kind`, `country` only; lists take the site's facets
+> (ages only as the `kid` facet); `near` takes a `place:`/`area:` token or a town id, never coordinates; `get_place` reads
+> one place per call; ids are capture refs and slugs, not `ent_` ULIDs; paging is by page number. Party, trip dates,
+> drive-time and corridor searches wait for API routes that do not exist yet.
+
 > **Rule, 26 Oct 2026 (planned; PLAN R-252; [README](README.md) 1.1):** every tool on this page calls the same
 > `CatalogueStore` method as its `/api/v1` route (`search` the search route, `get` the detail routes, `area_guide` the
 > area and near routes), and its result passes through `respond()`. No tool here imports a database client or runs SQL;

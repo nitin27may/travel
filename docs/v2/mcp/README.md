@@ -21,8 +21,25 @@ selected or built; everything below is the target design. This folder is the ref
 > ask on the site. Section 8's mixed tools are proposed to split into read and write tools (Q196), so the count rises
 > from 29 to about 38.
 
+> **Remote v1 derived from the API, 26 Oct 2026 (planned; [tools-v1-from-api.md](tools-v1-from-api.md), with the property
+> matrix [../features/property-display-matrix.md](../features/property-display-matrix.md)).** Every remote tool is a
+> projection of one `/api/v1` or account endpoint, through a transport-neutral endpoint table and guard in `core/src/api/`
+> (API-G). It supersedes, for v1: principle 8's `cursor` (the API's `page`, `pageSize`, `nextPage`; MCP page size at most
+> 25), section 2's "Hono app" and "`packages/domain`" (the route is `web/app/mcp/route.ts`; the contracts are
+> `core/src/schema/api/**`), section 4's limits (auth-and-sign-in.md 6.4 wins), and section 5's error list (adds
+> `too_large` and `not_available`, one mapping table with the API codes). The v1 public set is 12 tools (section 3 of that
+> page) plus two graph tools when their routes exist; field lists come from `expose.mcp` in the property registry.
+
+> **The MCP as a product, 26 Oct 2026 (owner's second direction; planned; [product.md](product.md)).** Five layers over one
+> set of operations: API-derived reads, role-scoped writes through the app's routes, our research method and schemas as
+> resources and prompts, validation and previews, and a response format with view hints and MCP Apps views. Users copy and
+> customise trips into their Mine and save their own researched plans privately; catalogue changes are staged, approved on
+> our site and published only by a release. Section 8's tool list is superseded for v1 by
+> [product-roles-and-tools.md](product-roles-and-tools.md) 3; a new bundle H2 (v0.20a writes, v0.20b staging) follows H.
+
 | Page | Contents |
 |---|---|
+| [product.md](product.md) | **the MCP as a product (26 Oct 2026):** vision, principles MX1 to MX10, R-252 extended, phases M1 to M5, owner questions QX1 to QX12; index of the `product-*` pages: [roles and tools](product-roles-and-tools.md), [method and discovery](product-method-and-discovery.md), [staging and admin writes](product-staging-and-admin-writes.md), [response format](product-response-format.md), [security](product-security.md), [testing and evals](product-testing-and-evals.md), [packaging and phases](product-packaging-and-phases.md) |
 | [tools-explore.md](tools-explore.md) | `search`, `get`, `area_guide`, `plan_drive`, `sun`, `weather` |
 | [tools-plan.md](tools-plan.md) | `list_trips`, `get_trip`, `create_trip`, `edit_trip`, `draft_days`, `check_trip`, `share` |
 | [tools-reservations.md](tools-reservations.md) | `reservations` (list, add, update, attach, set status, reveal codes) |
@@ -34,6 +51,7 @@ selected or built; everything below is the target design. This folder is the ref
 | [client-recipes.md](client-recipes.md) | worked example sessions, call by call |
 | [security.md](security.md) | threat model and mitigations |
 | [auth-and-sign-in.md](auth-and-sign-in.md) | how each MCP surface signs in (stdio, public, private), Neon OAuth, personal access tokens, capabilities over RLS, build order |
+| [tools-v1-from-api.md](tools-v1-from-api.md) | the remote v1 tools (v0.19 public, v0.20 private) as projections of API endpoints: inputs, outputs, field lists from the property matrix, paging, errors, privacy, tests, the API tasks that land first |
 
 ## 1. Principles
 

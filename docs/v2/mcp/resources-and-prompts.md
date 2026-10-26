@@ -1,5 +1,10 @@
 # Resources and prompts
 
+> **Superseded for v1, 26 Oct 2026 ([tools-v1-from-api.md](tools-v1-from-api.md) 12):** `schema://entity/<kind>` (the kinds
+> `place, trail, activity, stay, eatery, hub` and "`packages/domain`" no longer exist) gives way to `travel://types`,
+> `travel://type/{id}`, `travel://properties`, `travel://freshness` and `travel://facets`, generated from the property matrix
+> through `/api/v1/types` (API-T). The other resources and the prompts below stay the planner-era target.
+
 ## Resources
 
 Read-only documents a client loads into context. All carry `schema_version` and are cacheable. They
