@@ -399,7 +399,7 @@ def home() -> str:
         if g == "dolomites":
             rows = [dict(trip="dolomites", what="Book the Ortisei stay, 4 nights", detail="Guest Pass hotels; nothing else due before March", due="Mon 15 Mar", when="in 5 months", tab="Bookings", urgent=False)]
         if g == "person":
-            head = (f'<tr class="g"><td colspan="6"><span class="me" style="display:inline-grid;width:22px;height:22px;margin-right:8px;vertical-align:middle">A</span>Kai'
+            head = (f'<tr class="g"><td colspan="6"><span class="me" style="display:inline-grid;width:22px;height:22px;margin-right:8px;vertical-align:middle">K</span>Kai'
                     f'<span class="muted">person · linked check in</span> ' + " ".join(f'<span class="tag" style="margin-left:6px"><i class="sq" {tc(x)}></i>{D.TRIP[x]["title"]}</span>' for x in ("dolomites", "patagonia")) + "</td></tr>")
         else:
             t = D.TRIP[g]

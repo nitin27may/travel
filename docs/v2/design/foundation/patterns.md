@@ -53,7 +53,7 @@ means a public, read-only page.
 | Plan, a day | `/t/<trip-slug>/plan?day=3` | |
 | Item inside a tab (opens the sheet) | `/t/<trip-slug>/<tab>/<item-id>`; item ids are prefixed and opaque: `it_` plan item, `bk_` booking, `tk_` task, `ex_` expense | `/t/patagonia-2027/bookings/bk_7f3a`, `/t/patagonia-2027/tasks/tk_2c91`, `/t/dolomites-2027/plan/it_9d0e` (day inferred) |
 | Shared link | the planner URL plus `?share=<token>`; a guest keeps `share` while moving inside that trip; a signed-in member of the trip is redirected to the plain URL with their own role (N4) | `/t/patagonia-2027/bookings/bk_7f3a?share=k9QwL3` |
-| Cross-trip pages | `/inbox`, `/people`, `/people/<person-id>`, `/settings` | `/people/pe_Kai` |
+| Cross-trip pages | `/inbox`, `/people`, `/people/<person-id>`, `/settings` | `/people/pe_kai` |
 | Not found | any unknown path renders the 404 template (components 6.3) at the requested URL | |
 
 Rules. **Slugs**: a trip slug is the kebab-case name plus the start year for dated trips

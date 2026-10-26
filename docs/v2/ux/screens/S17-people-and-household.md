@@ -16,12 +16,12 @@ Trip people (desktop):
 │ TRAVELLERS                                                                     │
 │ ●Nitin  42 · fitness 4 · limit 15 km/1,000 m · editor (owner)                  │
 │ ●Priya  40 · fitness 3 · limit 12 km/800 m · editor                            │
-│ ●Kai  10 on 13 Jul · 152 cm · fitness 3 · limit 10 km/600 m                  │
+│ ●Kai    10 on 13 Jul · 140 cm · fitness 3 · limit 10 km/600 m                  │
 │ ●Mira   10 on 13 Jul · 138 cm · fitness 2 · limit 8 km/400 m                   │
 │ [+ Guest]                                                                      │
 │ WHO CAN DO WHAT                                                                │
 │ ┌───────────────────────────┬──────┬──────┬──────┬──────┐                      │
-│ │ Item                      │Nitin │Priya │Kai │ Mira │                      │
+│ │ Item                      │Nitin │Priya │Kai   │ Mira │                      │
 │ │ Via ferrata Brigata Tridentina│ ✓ │  ✓  │  ✓   │ ✗ 12+│                      │
 │ │ Seceda ridge 9 km ↑350    │  ✓   │  ✓   │  ✓   │  ✓   │                      │
 │ │ Tre Cime loop 10 km ↑500  │  ✓   │  ✓   │  ✓   │ ⚠ gain│                      │

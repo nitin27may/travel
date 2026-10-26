@@ -27,7 +27,7 @@ Desktop (map on the right shows all bases and the route):
 │  Sun 15 Nov  Book Rifugio Lagazuoi (opens 1 Nov, fills fast)       │                     │
 │  Thu 31 Dec  Last day to cancel Hotel Ambra free                   │                     │
 │                                                                    │                     │
-│ PARTY  ●Nitin ●Priya ●Kai 10 ●Mira 10   [Who can do what]        │                     │
+│ PARTY  ●Nitin ●Priya ●Kai 10 ●Mira 8   [Who can do what]        │                     │
 │ BUDGET  $11,240 planned · $3,820 paid      [Budget]                │                     │
 │ [Plan] [Bookings] [Tasks] [People] [Share]                         │                     │
 └────────────────────────────────────────────────────────────────────┴─────────────────────┘

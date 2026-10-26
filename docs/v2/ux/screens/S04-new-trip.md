@@ -127,7 +127,7 @@ TravellerToggles (FitAvatars) · VibeChips · AvoidChips · PaceSegmented · Lim
 Enter = Next; Esc closes with "Keep as draft?"; chips toggle with Space; sliders have arrow-key steps.
 
 ## Copy
-"Kai is 10 on 13 Jul 2027" (ages at travel). "214 things fit · 61 suit a 12-year-old".
+"Kai is 10 on 13 Jul 2027" (ages at travel). "214 things fit · 61 suit a 10-year-old".
 
 ## Accessibility
 Each step is a fieldset with a legend; the fit line is a polite live region.

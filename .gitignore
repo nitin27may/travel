@@ -45,3 +45,5 @@ web/AGENTS.md
 
 # Google OAuth client downloads hold secrets
 client_secret_*.json
+# PUBLIC-SCRUB: the list of real household strings the privacy guard looks for (web/tests/data/public-privacy.test.ts); never committed
+.private-terms

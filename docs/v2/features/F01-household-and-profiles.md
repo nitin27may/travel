@@ -52,7 +52,7 @@ MCP: read only in v1. `get_household` (scope `trips:read`) returns names, ages a
 
 - A person with only an age band ("teen") and no birth year: eligibility checks treat the lower bound of the band and flag "confirm age" on age-limited items.
 - A guest on one trip (a grandparent) is a `traveller` with a name and age band only, not a household person.
-- Birth year only: age at travel can be off by one; checks within one year of a limit are shown as "check: Kai may be 11 or 12 on this date".
+- Birth year only: age at travel can be off by one; checks within one year of a limit are shown as "check: Kai may be 9 or 10 on this date".
 - Two households both claiming the same child (separated parents): each household has its own `person` row; no linking in v1.
 - Home base outside any area with coverage: Explore still works by distance, with a "we know little near you" note.
 

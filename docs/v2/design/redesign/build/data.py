@@ -113,7 +113,7 @@ NEEDS = [
 ]
 
 # ---------------------------------------------------------------- Dolomites
-TRAVELLERS = [("N", "Nitin"), ("P", "Partner"), ("A", "Kai, 8")]
+TRAVELLERS = [("N", "Nitin"), ("P", "Partner"), ("K", "Kai, 8")]
 
 BASES = [
     dict(name="San Candido", nights="4 nights", days=(1, 4), photo="sancandido"),
@@ -194,8 +194,8 @@ DAY_BASE = {1: 0, 2: 0, 3: 0, 4: 0, 5: 1, 6: 1, 7: 1, 8: 1, 9: 2, 10: 2, 11: 2, 
 
 # ---------------------------------------------------------------- bookings (S2)
 DOLO_BOOKINGS = [
-    dict(kind="flight", title="AC 892 Toronto → Venice", when="Mon 12 Jul 18:30 → Tue 13 Jul 09:05", status="booked", code="K7Q2PZ", money="CAD 4,212 paid", day="Day 1"),
-    dict(kind="car", title="Automatic compact, Marco Polo", when="13 Jul 11:30 → 26 Jul 12:00", status="booked", code="EU-449812", money="CAD 462 due 13 Jul", day="Day 1"),
+    dict(kind="flight", title="AC 892 Toronto → Venice", when="Mon 12 Jul 18:30 → Tue 13 Jul 09:05", status="booked", code="EXMPL1", money="CAD 4,212 paid", day="Day 1"),
+    dict(kind="car", title="Automatic compact, Marco Polo", when="13 Jul 11:30 → 26 Jul 12:00", status="booked", code="EX-000001", money="CAD 462 due 13 Jul", day="Day 1"),
     dict(kind="stay", title="Hotel, San Candido · nights 1-4", when="In 13 Jul 15:00 · out 17 Jul 10:00", status="booked", code="HP-20931", money="€1,340 paid", day="Day 1"),
     dict(kind="parking", title="Lago di Braies P4 parking", when="Wed 14 Jul, entry 05:00 – 09:00", status="to_book", code="", money="€44", day="Day 2", window="Online, before the day"),
     dict(kind="toll", title="Tre Cime toll road slot", when="Thu 15 Jul 11:00", status="to_book", code="", money="€40", day="Day 3", window="Opens Tue 15 Jun 2027"),

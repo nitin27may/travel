@@ -36,7 +36,7 @@ Adapt flow (sheet, 3 short steps then a change summary):
 ```
 ┌ Use "Canadian Rockies, 14 nights" ─────────────────────────────┐
 │ 1 When   [Sat 12 Sep 2026] → 10 nights (template: 14)           │
-│ 2 Who    ●Nitin ●Priya ●Kai 9 ●Mira 9  (template: 2 adults + child 6)│
+│ 2 Who    ●Nitin ●Priya ●Kai 9 ●Mira 7  (template: 2 adults + child 6)│
 │ 3 Keep   (•) adapt for me  ( ) copy exactly                     │
 │ [See changes]                                                   │
 ├─────────────────────────────────────────────────────────────────┤

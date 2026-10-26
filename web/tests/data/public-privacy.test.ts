@@ -1,4 +1,4 @@
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -8,9 +8,9 @@ import { buildSnapshotAllowList } from './allowlist';
 import { REPO, WEB_DIR, realData } from './support';
 import { builtOutDir } from '../helpers/built';
 
-// The prototype's Dolomites data is household data. These tests pull every household value out of the SOURCE
-// file (data/seed/prototype/trip.ts), so they need no node_modules, and prove none reaches the snapshot,
-// the adapter output or a built site.
+// The prototype's Dolomites data is booking-shaped example data (invented travellers and bookings since PUBLIC-SCRUB), treated as if
+// it were household data. These tests pull every such value out of the SOURCE file (data/seed/prototype/trip.ts), so they need no
+// node_modules, and prove none reaches the snapshot, the adapter output or a built site.
 const tripSource = readFileSync(path.join(REPO, 'data', 'seed', 'prototype', 'trip.ts'), 'utf8');
 
 function quoted(re: RegExp): string[] {
@@ -31,7 +31,7 @@ const SECRETS = [
   ...quoted(/\btitle:\s*"([^"]*Example[^"]*)"/g), // example hotels
   'Example hotel',
   'Example guesthouse',
-  'Kai',
+  'Nitin', // the publisher's first name on public-trips entries; the snapshot drops that field
   'Partner',
 ].filter((s) => s.length >= 4);
 
@@ -55,14 +55,14 @@ function walk(dir: string, out: string[] = []): string[] {
 describe('household data never reaches the public output', () => {
   it('found the household values to look for', () => {
     expect(SECRETS.length).toBeGreaterThan(30);
-    expect(SECRETS).toContain('K7Q2PZ');
+    expect(SECRETS).toContain('EXMPL1');
+    expect(SECRETS).toContain('Rowan');
     expect(SECRETS).toContain('Nitin');
   });
 
   it('the committed snapshot holds none of them', () => {
     const text = readFileSync(path.join(WEB_DIR, 'data-snapshots', 'prototype.json'), 'utf8');
     const hits = SECRETS.filter((s) => text.includes(s));
-    // "Nitin" is the publisher's first name on public-trips entries; the snapshot drops that field too
     expect(hits).toEqual([]);
     expect(allKeys(JSON.parse(text).trip).size).toBeGreaterThan(0);
     for (const k of PRIVATE_KEYS) expect(allKeys(JSON.parse(text).trip).has(k), `trip key ${k}`).toBe(false);
@@ -96,10 +96,43 @@ describe('household data never reaches the public output', () => {
     for (const dir of dirs) {
       for (const f of walk(dir).filter((f) => /\.(html|txt|json|xml|js|css|map|svg)$/.test(f))) {
         const text = readFileSync(f, 'utf8');
-        for (const s of SECRETS) if (!/^(Partner|Kai|Nitin)$/.test(s) && text.includes(s)) hits.push(`${path.relative(WEB_DIR, f)}: ${s}`);
+        for (const s of SECRETS) if (!/^(Partner|Rowan|Nitin)$/.test(s) && text.includes(s)) hits.push(`${path.relative(WEB_DIR, f)}: ${s}`);
       }
     }
     expect(hits).toEqual([]);
+  });
+});
+
+// PUBLIC-SCRUB: the real household strings (names, the extended family's town) are never committed, not even in a test. The guard
+// reads them from PRIVATE_TERMS_FILE, else the git-ignored repo-root .private-terms: one term per line, matched case-insensitively
+// as a whole word; blank lines and lines starting with # are skipped. Without the file the tracked-tree and output checks skip.
+const termsFile = process.env.PRIVATE_TERMS_FILE || path.join(REPO, '.private-terms');
+const PRIVATE_TERMS = existsSync(termsFile)
+  ? readFileSync(termsFile, 'utf8').split('\n').map((s) => s.trim()).filter((s) => s && !s.startsWith('#'))
+  : [];
+// the GeoNames towns layer is the public gazetteer verbatim (META-2, below): a hub city there names no one
+const GAZETTEER_PARTS = /^data\/reference\/towns\//;
+
+describe('the sample travellers are invented, and no private term is in the tree or the output (PUBLIC-SCRUB)', () => {
+  it('the seed travellers are the invented example names', () => {
+    expect([...tripSource.matchAll(/\{ id: "t\d", name: "([^"]+)"/g)].map((m) => m[1])).toEqual(['Rowan', 'Sam', 'Kai']);
+    expect(tripSource).toMatch(/EXAMPLE DATA/);
+  });
+
+  it.runIf(PRIVATE_TERMS.length > 0)('no tracked file holds a private term (file names reported, never the term)', () => {
+    const r = spawnSync('git', ['grep', '-I', '-i', '-w', '-F', '-l', '-f', termsFile], { cwd: REPO, encoding: 'utf8', maxBuffer: 1 << 26 });
+    expect(r.status === 0 || r.status === 1, r.stderr).toBe(true);
+    expect(r.stdout.split('\n').filter((f) => f && !GAZETTEER_PARTS.test(f))).toEqual([]);
+  });
+
+  it.runIf(PRIVATE_TERMS.length > 0)('neither the snapshot nor a built site holds a private term', () => {
+    const res = PRIVATE_TERMS.map((t) => new RegExp(`\\b${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i'));
+    const files = [path.join(WEB_DIR, 'data-snapshots', 'prototype.json')];
+    for (const d of ['.next', '.fixture-out', '.fixture-beacon'].filter((d) => existsSync(path.join(WEB_DIR, d, 'BUILD_ID')))) {
+      files.push(...walk(builtOutDir(d)).filter((f) => /\.(html|txt|json|xml|js|css|map|svg)$/.test(f)));
+    }
+    const hits = files.filter((f) => { const text = readFileSync(f, 'utf8'); return res.some((r) => r.test(text)); });
+    expect(hits.map((f) => path.relative(WEB_DIR, f))).toEqual([]);
   });
 });
 

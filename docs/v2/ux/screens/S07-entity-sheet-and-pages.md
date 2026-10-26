@@ -19,7 +19,7 @@ Desktop sheet (right panel over the map, 440 px), trail example:
 │ [photo strip ▸]                               │
 │ Hike · Lake Louise, Banff NP · ✓ stated       │
 │ 7.4 km out-and-back · ↑ 400 m · 2–3 h · Mod.  │
-│ Fits: ●Nitin ●Priya ●Kai(10) ●Mira(9)       │
+│ Fits: ●Nitin ●Priya ●Kai(10) ●Mira(7)       │
 │ Why: lake + tea house + family · open Jun–Oct │
 │ [About] [Facts] [Getting there] [Photos] [Links]│
 │ ── Getting there ─────────────────────────────│
