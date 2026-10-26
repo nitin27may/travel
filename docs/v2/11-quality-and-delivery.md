@@ -24,6 +24,12 @@ How the platform is tested, released and kept running. Complements 05-roadmap.md
 
 ## 1. Test layers
 
+> **Planned 25 Oct 2026 ([build/TEST-STRATEGY.md](build/TEST-STRATEGY.md), R-210 to R-214):** the "Runs" column below
+> becomes a tier: the unit, schema, contract and research layers run at T0 and T1 only for the paths a change touches
+> (selected by `tools/gate/map.json`), in full at T2 per stack of branches and at T3; UI end to end, accessibility and
+> performance run at T2 (mapped specs and the smoke set) and T3 (the full e2e). "Every commit" no longer means every
+> suite on every commit once TS-2 ships.
+
 | Layer | What it covers | Tool | Runs |
 |---|---|---|---|
 | Domain unit | pure functions: sun, book-by, day checks, planner, adapt-template, budget maths, fractional ordering, op reducer | Vitest | every commit, < 30 s |

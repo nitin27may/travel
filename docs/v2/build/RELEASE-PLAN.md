@@ -463,6 +463,7 @@ answers 308 to the slash form, which counts as a pass.
 | I4 | MIG-N migration numbers at merge | 0.5 h | now | docs |
 | I5 | LOCAL-5 child rehearsal command | 2 h | before v1.0 | the coordinator runs it |
 | I6 | Retro tag `release/v0.1` at d93127b | minutes | now (Q220) | coordinator |
+| I8 | Test strategy TS-1 to TS-8: tiered gates, the path-to-suite map, `tools/gate.sh`, caching, stacks, slots, nightly T3 | about 35 h | after the Q250 answer; TS-1 any time | [TEST-STRATEGY.md](TEST-STRATEGY.md); the gate of 4.1 stays T3 |
 
 ## 6. Release checklist for the coordinator
 
@@ -648,5 +649,6 @@ Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling 
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (test strategy) | Infra row I8 added for TS-1 to TS-8 ([TEST-STRATEGY.md](TEST-STRATEGY.md)); the gate of section 4.1 is that page's T3, unchanged |
 | 2026-10-25 (owner answers, ANSWERS-3) | Q220 to Q226 and Q229 answered yes as recommended. Q227 changed: the production secrets and `OWNER_EMAIL` stay in GitHub Actions secrets, with compensating rules R1 to R6 (new 7.5, the 7.4 row, 7.1 and 7.2). Q228 changed: BKP-1 runs from this machine as a launchd job (new 7.6, 7.4 row, I3). The earlier recommendations are marked superseded in section 9 |
 | 2026-10-25 | First version: release train v0.1 to v1.2, critical path and seats, gate, smoke list, rollback, the coordinator's checklist, the GitHub Actions plan for a public repository, the release-notes convention, Q220 to Q229 |

@@ -716,6 +716,27 @@ Request intake total: about 30.5 h net (Opus 6.5, Sonnet 24), after the 3 h FBK-
 the other widenings; REQ-RF-C then REQ-RF any time; REQ-F2, REQ-F1, REQ-F3 one at a time on `web/components/intake/**`
 after FBK-2 and REQ-1; REQ-FB in parallel after FBK-3; then REQ-R4 and REQ-V4.
 
+### 10.4 Infra queue: test strategy (TS, added 25 Oct 2026, planned only)
+
+Spec [TEST-STRATEGY.md](../TEST-STRATEGY.md) (PLAN R-210 to R-214, BACKLOG 15.210 to 15.218, Q250 to Q258). No visitor
+change; it rides any release as "Internal". Briefs: the spec's section 12, with the verification block of 12.1. Until TS-2
+ships and Q250 is answered, lanes keep running check-all as today.
+
+| ID | Task | Agent, model | Effort | Depends on | Acceptance check |
+|---|---|---|---|---|---|
+| TS-1 | `tools/gate/map.json` and `tools/gate/check_map.py` (M1 to M5), the selection replay | travel-builder, Opus | 5 h | none | check green on `main`; 100% of changed test files selected over the last 80 merges |
+| TS-2a | web vitest projects `unit`, `built`, `fixture`, `timing` | travel-builder, Sonnet; Opus review | 3 h | TS-1 | one unit file under 10 s with no build; 166 files and the base commit's test count still run; the home-point setup file in every project |
+| TS-2 | `tools/gate.sh` and `tools/gate/gate.py`; the map check in check-all | travel-builder, Sonnet | 8 h | TS-2a | dry-run equals the replay's selection on 10 merges; a forced failure prints at most 40 lines |
+| TS-3 | cache by tree hash | travel-builder, Sonnet; Opus review | 4 h | TS-2 | unchanged tree all `CACHED` under 10 s; one data file invalidates exactly its suites |
+| TS-4 | slots, load guard, retry once, flake ledger, quarantine | travel-builder, Sonnet | 4 h | TS-2 | second gate waits and names the holder; a repeat flake fails; high load gives `DEFERRED` |
+| TS-5 | agent definitions, HANDOVER commands, brief template; CLAUDE.md after Q257 | travel-planner, Opus | 2 h | TS-2 | a small web lane hands back the block having run T0 and T1 only |
+| TS-6 | nightly T3 by launchd; `e2e.yml` stays with LOCAL-4 | travel-builder, Sonnet | 2 h | TS-2 | one night's summary has every T3 suite; a planted failure shows |
+| TS-7 | `--stack` with ejection and bisect | travel-builder, Sonnet; Opus review | 5 h | TS-2, TS-3 | docs, data and web branches pass with one build; a planted failure is attributed in one round |
+| TS-8 | first escape audit and measured savings | travel-verifier Sonnet, travel-planner Opus | 2 h | two weeks of TS-2 | escapes and flakes counted; savings measured |
+
+TS total about 35 h (Opus 9, Sonnet 26). Order: TS-1, TS-2a, TS-2, then TS-4 with TS-6 (disjoint files), TS-3, TS-5,
+TS-7, TS-8. One shadow week after TS-2: the coordinator still runs check-all after each merge and compares.
+
 ## 11. Gate R2: the owner reviews E and approves readiness
 
 ### 11.1 Entry criteria
