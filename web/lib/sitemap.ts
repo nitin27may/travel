@@ -34,7 +34,7 @@ export const indexXml = (ids: string[]): string => `${HEAD}<sitemapindex xmlns="
 /** The pages the sitemap lists: public pages only, at the same canonical URLs the pages declare. */
 export function sitemapInput(placeSlugs: string[], tripSlugs: string[]): SitemapInput {
   return {
-    fixed: ['/', '/trips/', '/places/', '/globe/', '/about/', '/about/data/', '/terms/'],
+    fixed: ['/', '/trips/', '/places/', '/globe/', '/about/', '/about/data/', '/terms/', '/privacy/'],
     places: placeSlugs.map((s) => `/places/${s}/`),
     trips: tripSlugs.map((s) => `/trips/${s}/`),
   };
