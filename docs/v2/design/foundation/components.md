@@ -86,7 +86,7 @@ Bottom bar: 84 px including a 26 px home-indicator inset, `--header`, 1 px `--he
 `--z-header`. Items 56 px wide minimum, icon 22 px, label mono 11.5 `--header-mute`; current item
 `--header-ink` with the icon in `--accent`. Trip screens: **[trip photo] Plan · Today · Bookings · More**;
 the photo is 28 px in a 2 px identity ring with keyline, label "Switch", first position (thumb reach, S8).
-Outside a trip: Home · Trips · Places · Globe · Me (public: Trips · Places · Globe · Sign in). Badge on
+Outside a trip: Home · Trips · Places · Globe · Me (public: Trips · Places · Globe · Search · Sign in, which becomes Account when signed in; ACCT-PH). Badge on
 Home/Me and on the header bell: 18 px `--crit-fill` disc, `--on-crit-fill` mono 11.5/600 count, when
 something is urgent (tokens 3.1). The bar hides while a
 bottom sheet is above half height and while the keyboard is open.
