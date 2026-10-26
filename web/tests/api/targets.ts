@@ -97,7 +97,11 @@ export function jsonTarget(): { target: ContractTarget; reads: () => number; sou
   };
   /** A store with `p` planted (K26, globePins.cap): towns added to the real layer, a country's pins cloned up to n. */
   const plant = (p: Planted): JsonStore => {
-    const withTowns = wrap(base);
+    // resolveRefs.private: keys pinned in a copy of the planted registry with no public row behind them (a page made private)
+    const hidden = p.hidden ? structuredClone(registry) : null;
+    if (hidden && p.hidden?.place) hidden.places.slugs[p.hidden.place.key] = p.hidden.place.slug;
+    if (hidden && p.hidden?.trip) hidden.trips.slugs[p.hidden.trip.key] = p.hidden.trip.slug;
+    const withTowns = hidden ? { ...wrap(base), registry: hidden } : wrap(base);
     const src: JsonSource = p.towns?.length
       ? { ...withTowns, towns: () => [...(base.towns?.() ?? []), ...p.towns!.map((t): TownRow => ({ id: t.id, name: t.name, lat: t.lat, lon: t.lon, pop: t.pop ?? 0, admin1: t.id.split('-')[1]!, ascii: t.name, geonamesId: 0, cc: t.cc, admin1Name: null }))] }
       : withTowns;

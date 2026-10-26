@@ -12,3 +12,4 @@ export * from "./legs.ts";
 export * from "./globe.ts";
 export * from "./report.ts";
 export * from "./http.ts";
+export * from "./resolve.ts";

@@ -20,6 +20,7 @@ import { PLACE_SORT_VALUES, TRIP_SORT_VALUES, sortRows } from "../sorting.ts";
 import { compareCodePoints, matchesText, sortKey } from "../sortKey.ts";
 import { matchesFreeText, placeHaystack, tripHaystack } from "../../query/text.ts";
 import { mergeParsed, type CatalogueStore } from "../store.ts";
+import { resolveRefsAnswer, resolveSetupOf, type ResolveSetup } from "../resolve.ts";
 import { uncheckedPageOf, type UncheckedGroupRows } from "../unchecked.ts";
 import { stubData, stubSearchRecords, type StubData, type StubPlace, type StubTrip } from "./fixture.ts";
 
@@ -72,6 +73,7 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
   private readonly gazetteer: PublicGazetteer;
   private readonly bySlug: Map<string, StubPlace>;
   private readonly tripBySlug: Map<string, StubTrip>;
+  private resolveSetup: ResolveSetup | null = null;
 
   constructor(opts: StubOptions = {}) {
     const given = opts.data ?? stubData();
@@ -671,5 +673,13 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
     if (!ri.ok) return ri;
     if (!this.data.reportUrl) return fail("not_available", "Reporting is off.");
     return ok({ kind: "link", url: `${this.data.reportUrl}?page=${encodeURIComponent(ri.value.page)}` }, this.rev);
+  }
+
+  // ---- resolveRefs (FAV-1W) ----------------------------------------------------------------------------------------------------
+
+  /** FAV-C's resolver over the fixture's registry and its public rows, built on the first call (core/src/catalogue/resolve.ts). */
+  async resolveRefs(q: S.ResolveQuery): Promise<Result<S.ResolveAnswer>> {
+    this.resolveSetup ??= resolveSetupOf(this.data.registry, this.data.places.map((p) => p.row), this.data.trips.map((t) => t.row));
+    return resolveRefsAnswer(this.resolveSetup, q, this.rev);
   }
 }

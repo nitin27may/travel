@@ -19,6 +19,7 @@ import { listPlacesCases } from "./listPlaces.cases.ts";
 import { nearCases } from "./near.cases.ts";
 import { nearbyForPlaceCases } from "./nearbyForPlace.cases.ts";
 import { reportCases } from "./report.cases.ts";
+import { resolveRefsContractCases } from "./resolveRefs.cases.ts";
 import { revisionCases } from "./revision.cases.ts";
 import { parseCases, searchCases } from "./search.cases.ts";
 import { townsCases } from "./towns.cases.ts";
@@ -53,6 +54,8 @@ export const CONTRACT_TABLES: Record<string, ContractCase[]> = {
   echo: echoCases,
   // HYG (review API3-R-7, PHASE-E-START 15.27): K28
   corpus: corpusCases,
+  // FAV-1W (visitor spec 4.5, 8.2): FAV-C's resolveRefs table plus the store and handler cases
+  resolveRefs: resolveRefsContractCases,
 };
 
 export * from "./kit.ts";

@@ -78,6 +78,8 @@ export interface Planted {
   cities?: GlobeCity[];
   /** a country whose pin count is raised to `n` */
   pins?: { cc: string; n: number };
+  /** keys pinned in the slug registry with no public row behind them: a page made private (case resolveRefs.private) */
+  hidden?: { place?: { key: string; slug: string }; trip?: { key: string; slug: string } };
 }
 
 export interface ContractTarget {

@@ -1,4 +1,5 @@
 import { toSearchParams } from '@travel/core/catalogue/httpCodec.ts';
+import { resolveSearchOf } from '@travel/core/favourites/resolve.ts';
 import { fail, ok, type Result } from '@travel/core/catalogue/result.ts';
 import type { CatalogueStore } from '@travel/core/catalogue/store.ts';
 import { gazetteerOf, type PublicTownsHolder } from '@travel/core/privacy/towns.ts';
@@ -79,6 +80,8 @@ export class HandlerStore implements CatalogueStore, PublicTownsHolder {
   globeLine = (id: string) => this.call<S.GlobeLine>('globeLine', `/api/v1/globe/feature/${encodeURIComponent(id)}/line/`, { id });
   globeCity = (townId: string) => this.call<S.GlobeCity>('globeCity', `/api/v1/globe/city/${encodeURIComponent(townId)}/`, { townId });
   report = (input: S.ReportInput) => this.call<S.ReportResult>('report', '/api/v1/report/', {}, undefined, { method: 'POST', body: JSON.stringify(input) });
+  // FAV-1W: `ref` once per value, in the order asked (a malformed body still reaches the codec, as a URL would carry it)
+  resolveRefs = (q: S.ResolveQuery) => this.call<S.ResolveAnswer>('resolveRefs', '/api/v1/resolve/', {}, new URLSearchParams(resolveSearchOf({ refs: Array.isArray(q?.refs) ? q.refs.map(String) : [] })));
 }
 
 /** Path patterns for `request()`: regexp, endpoint, the names of its path parameters. */
@@ -102,4 +105,5 @@ const ROUTES: [RegExp, EndpointName, string[]][] = [
   [/^\/api\/v1\/globe\/feature\/([^/]+)\/line\/?$/, 'globeLine', ['id']],
   [/^\/api\/v1\/globe\/feature\/([^/]+)\/?$/, 'globeFeature', ['id']],
   [/^\/api\/v1\/globe\/city\/([^/]+)\/?$/, 'globeCity', ['townId']],
+  [/^\/api\/v1\/resolve\/?$/, 'resolveRefs', []],
 ];

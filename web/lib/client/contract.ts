@@ -1,4 +1,4 @@
-import type { TripLegs } from '@travel/core/schema/api/index.ts';
+import type { ResolveRow, TripLegs } from '@travel/core/schema/api/index.ts';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import type { EntityDescriptor, FacetParam, ListState } from '@/lib/entities/types';
 import type { GlobeCardFile, GlobeTree, LightPin } from '@/lib/globe/types';
@@ -37,6 +37,9 @@ export interface GlobeLineFile {
   credit: string;
 }
 
+/** The most distinct values one `resolveRefs` call takes: core's RESOLVE_MAX (pinned equal in tests/api/adapters.test.ts; a literal here so no schema code loads). */
+export const RESOLVE_MAX_CLIENT = 48;
+
 export interface ReportInput {
   /** The page the visitor was on: a pathname such as `/places/moraine-lake/`. Nothing else is sent. */
   page: string;
@@ -74,6 +77,17 @@ export interface DataClient {
   shardRows(type: 'place' | 'trip', id: string, d: EntityDescriptor<never>, countryRows?: number): Promise<readonly unknown[]>;
   /** One full-text file (backlog 3.60). */
   textIndex(id: string): Promise<TextIndex>;
+
+  // ---- FAV-1W: resolveRefs (visitor spec 4.5, 8.2) ---------------------------------------------------------------------------------
+  /**
+   * Where each favourite or copy stands now, for up to RESOLVE_MAX_CLIENT (48) handles (`place:<slug>`, `trip:<slug>`) or public refs:
+   * one row per asked value, in the order asked (a repeat answers twice), each `current`, `moved`, `merged`, `withdrawn` or `unknown`
+   * with its light snapshot (name, kind, cc; P8). `GET /api/v1/resolve?ref=..`, cached by the catalogue revision. Resolves to null when
+   * the adapter has no such endpoint (the StaticAdapter, or a server answering 501 `not_available`): keep the stored snapshots. Rejects
+   * for more than 48 distinct values (ask one visible page at a time), a value that is neither a handle nor a public ref, or a failed
+   * request; the caller keeps its stored snapshots then too.
+   */
+  resolveRefs(refs: readonly string[]): Promise<ResolveRow[] | null>;
 
   // ---- API-3: the server's evaluation (P9) ---------------------------------------------------------------------------------------
   // The ApiAdapter has these three and answers them from /api/v1/; the StaticAdapter does not, and data.ts evaluates the same in the

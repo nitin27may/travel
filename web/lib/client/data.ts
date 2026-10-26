@@ -1,4 +1,4 @@
-import type { TripLegs } from '@travel/core/schema/api/index.ts';
+import type { ResolveRow, TripLegs } from '@travel/core/schema/api/index.ts';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import { filterRows, facetCounts, gapCounts, gapNotes, matchesRow, scopeTotal } from '@/lib/entities/filter';
 import { searchTexts } from '@/lib/search/fulltext';
@@ -109,6 +109,15 @@ export function tripLegs(slug: string): Promise<TripLegs | null> {
   return p;
 }
 const legsAsked = new Map<string, Promise<TripLegs | null>>();
+
+/**
+ * Where favourites and copies stand now (FAV-1W; visitor spec 4.5): for up to 48 handles (`place:<slug>`, `trip:<slug>`) or public
+ * refs, one light row per value in the order asked. Null when the build has no resolve endpoint (static): keep the stored snapshots.
+ * Rejects past 48 values, for a value that is neither a handle nor a ref, or when the request fails. Ask one visible page at a time.
+ */
+export function resolveRefs(refs: readonly string[]): Promise<ResolveRow[] | null> {
+  return client().resolveRefs(refs);
+}
 
 /** The area tree with counts. No pins. */
 export function globeTree(): Promise<GlobeTree> {

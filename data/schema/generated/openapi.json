@@ -12528,6 +12528,265 @@
         }
       }
     },
+    "/api/v1/resolve": {
+      "get": {
+        "operationId": "resolveRefs",
+        "summary": "resolveRefs",
+        "description": "One ref parameter per value, 1 to 48: a handle (place:<slug>, trip:<slug>) or a public ref. One row per value, in the order asked. More than 48 is 413 too_large; a value that is neither is 400 invalid_input naming its index, never the value. A page that is not public answers unknown, like one that never existed.",
+        "parameters": [
+          {
+            "name": "ref",
+            "in": "query",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "maxItems": 48,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 160
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "headers": {
+              "ETag": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "asked": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 160
+                          },
+                          "state": {
+                            "type": "string",
+                            "enum": [
+                              "current",
+                              "moved",
+                              "merged",
+                              "withdrawn",
+                              "unknown"
+                            ]
+                          },
+                          "space": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "place",
+                                  "trip"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "slug": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "pattern": "^[a-z0-9][a-z0-9-]{0,99}$"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "ref": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "minLength": 3,
+                                "maxLength": 160,
+                                "allOf": [
+                                  {
+                                    "pattern": "^[a-z][a-z0-9-]*\\/."
+                                  },
+                                  {
+                                    "pattern": "^(?![\\s\\S]*\\b(?:loc|proto):)"
+                                  },
+                                  {
+                                    "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "name": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 120,
+                                "pattern": "\\S"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "kind": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "pattern": "^[a-z][a-z0-9_-]{0,39}$"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "cc": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "pattern": "^[A-Z]{2}$"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "asked",
+                          "state",
+                          "space",
+                          "slug",
+                          "ref",
+                          "name",
+                          "kind",
+                          "cc"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "items"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "If-None-Match matched the revision"
+          },
+          "400": {
+            "description": "invalid_input or invalid_scope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "too_large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "not_available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/health": {
       "get": {
         "operationId": "revision",

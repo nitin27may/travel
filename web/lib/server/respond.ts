@@ -1,7 +1,8 @@
 import { fromSearchParams } from '@travel/core/catalogue/httpCodec.ts';
+import { RESOLVE_PARAM, resolveQueryOf } from '@travel/core/favourites/resolve.ts';
 import { httpStatus, type Result } from '@travel/core/catalogue/result.ts';
 import type { CatalogueStore } from '@travel/core/catalogue/store.ts';
-import { API_LIMITS, PLACE_ROW_KEYS, TRIP_ROW_KEYS, globeCardKey, reportInput, type ApiError } from '@travel/core/schema/api/index.ts';
+import { API_LIMITS, PLACE_ROW_KEYS, RESOLVE_MAX, TRIP_ROW_KEYS, globeCardKey, reportInput, resolveRow, type ApiError } from '@travel/core/schema/api/index.ts';
 import { gazetteerOf } from '@travel/core/privacy/towns.ts';
 import { privacyHits, rowOutsideAllowlist } from './privacy';
 import { getStore } from './store';
@@ -23,6 +24,8 @@ const NEAR_ROW = new Set<string>([...PLACE_ROW_KEYS, 'distanceKm', 'bearing', 'b
 /** listUnchecked rows: a Places row plus the key it is a gap for (store.ts A27). */
 const UNCHECKED_ROW = new Set<string>([...PLACE_ROW_KEYS, 'gap']);
 const TRIP_ROW = new Set<string>(TRIP_ROW_KEYS);
+/** resolveRefs rows (FAV-1W): the answer schema's keys, light only (P8). */
+const RESOLVE_ROW = new Set<string>(Object.keys(resolveRow.shape));
 
 type Run = (store: CatalogueStore, req: Request, p: Record<string, string>) => Promise<Result<unknown>>;
 interface Endpoint {
@@ -32,6 +35,11 @@ interface Endpoint {
   rows?: ReadonlySet<string>;
   /** where a `moved` answer points, given the current slug */
   movedTo?: (slug: string) => string;
+  /**
+   * What the detector reads, when it is not the body itself; null fails closed. resolveRefs (FAV-1W) uses it to lift its `asked`
+   * echo (see `resolveScan`); every other field of the body is still read.
+   */
+  scan?: (data: Record<string, unknown>, req: Request) => unknown;
 }
 
 const query = (req: Request) => new URL(req.url).searchParams;
@@ -67,6 +75,39 @@ async function boundedText(r: Request, max: number): Promise<string | null> {
 }
 const bad = (error: ApiError): Result<never> => ({ ok: false, error });
 
+/**
+ * `GET /api/v1/resolve?ref=..&ref=..` (FAV-1W; visitor spec 8.2): every `ref` value in order, and no other key. More than RESOLVE_MAX
+ * values is `too_large` before a value is decoded (the store says the same; this keeps a long URL from costing a parse). Validation of
+ * each value, and `invalid_input` naming indexes only, are the store's (core/src/favourites/resolve.ts).
+ */
+const resolveRun: Run = (s, r) => {
+  const params = query(r);
+  const unknown = [...new Set(params.keys())].filter((k) => k !== RESOLVE_PARAM);
+  if (unknown.length) return Promise.resolve(bad({ code: 'invalid_input', message: `unknown query parameter: ${unknown.join(', ')}`, details: { unknown } }));
+  if (params.getAll(RESOLVE_PARAM).length > RESOLVE_MAX) return Promise.resolve(bad({ code: 'too_large', message: `at most ${RESOLVE_MAX} refs in one call`, details: { max: RESOLVE_MAX } }));
+  return s.resolveRefs(resolveQueryOf(params));
+};
+
+/**
+ * The resolve answer as the detector reads it (store.ts A40, applied to `asked`): each row's `asked` is the request's own value at the
+ * same index, verbatim, so it carries nothing the request did not bring, and reading it as text would make the endpoint an oracle
+ * (`?ref=place:<the home town>` answering 500 where any other unknown slug answers 200). It is checked to be exactly that value and then
+ * left out; `slug`, `ref`, `name`, `kind` and `cc` are read as in any body. Any other shape, or an `asked` the request did not send, is
+ * null: fail closed.
+ */
+function resolveScan(data: Record<string, unknown>, req: Request): unknown {
+  const asked = query(req).getAll(RESOLVE_PARAM);
+  const items = data.items;
+  if (!Array.isArray(items) || items.length !== asked.length) return null;
+  const rows: unknown[] = [];
+  for (const [i, row] of items.entries()) {
+    if (!row || typeof row !== 'object' || (row as { asked?: unknown }).asked !== asked[i]) return null;
+    const { asked: _echo, ...rest } = row as Record<string, unknown>;
+    rows.push(rest);
+  }
+  return { ...data, items: rows };
+}
+
 /** The decoded store call of a GET, or the `invalid_input` the codec found. */
 async function decoded(method: Parameters<typeof fromSearchParams>[0], req: Request, p: Record<string, string>, call: (store: CatalogueStore, a: Extract<ReturnType<typeof fromSearchParams>, { ok: true }>['args']) => Promise<Result<unknown>>, store: CatalogueStore) {
   const d = fromSearchParams(method, query(req), p);
@@ -97,6 +138,8 @@ export const ENDPOINTS = {
   globeFeature: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globeFeature(p.id ?? '')) },
   globeLine: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globeLine(p.id ?? '')) },
   globeCity: { cache: CACHE.globe, run: pathOnly((s, _r, p) => s.globeCity(p.townId ?? '')) },
+  // FAV-1W (visitor spec 4.5, 8.2): public, cached by revision like every catalogue read; the answer never varies by visitor
+  resolveRefs: { cache: CACHE.data, rows: RESOLVE_ROW, run: resolveRun, scan: resolveScan },
   report: {
     cache: CACHE.none,
     run: pathOnly(async (s, r) => {
@@ -141,7 +184,8 @@ export async function respond(name: EndpointName, req: Request, params: Record<s
     const stray = ep.rows ? rowOutsideAllowlist(data.items, ep.rows) : null;
     // the detector reads a town's point as public only when it is the loaded gazetteer's own (store.ts A33), and does not read the
     // request's own words back as household text where an echo key repeats them (A40, review API3-R-1)
-    const hits = privacyHits(data, 20, { gazetteer: await gazetteerOf(store), echo: requestText(req) });
+    const scanned = ep.scan ? ep.scan(data, req) : data;
+    const hits = scanned === null ? [{ where: '$', why: 'the body is not the shape its scan expects' }] : privacyHits(scanned, 20, { gazetteer: await gazetteerOf(store), echo: requestText(req) });
     if (stray || hits.length) {
       console.error(`api privacy detector blocked ${name}:`, stray ? `row key ${stray} is not in the allowlist` : JSON.stringify(hits.slice(0, 5)));
       return failure({ code: 'internal', message: 'The response could not be served.' });
