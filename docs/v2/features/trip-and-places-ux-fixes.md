@@ -1,9 +1,8 @@
 # Trip page and places page: UX fixes from the owner's live review (26 Oct 2026)
 
-Status: **spec, planned only, awaiting the owner's design approval.** Written 26 Oct 2026 by travel-planner (Opus 5.5) on
+Status: **design APPROVED by the owner 26 Oct 2026 (gate G-UXA passed, ANSWERS-6); build not started, queued in bundle C behind TRP-GL and NAV-2F/FAV-1.** Written 26 Oct 2026 by travel-planner (Opus 5.5) on
 `public/UX-FEEDBACK-PLAN` from `main` ae3f3be7. Nothing here is built. No product code, no `web/` change and no new HTML
-come from this page. Implementation starts only after the owner approves the designs and answers section 14 (rule C of
-the owner's 26 Oct instruction).
+come from this page. The owner approved the designs and answered section 14 on 26 Oct 2026 (rule C of the owner's 26 Oct instruction); implementation starts when the section 12 dependencies merge.
 
 Tracked as PLAN R-260 to R-266, BACKLOG 15.275 to 15.289, owner questions Q293 to Q302, TODO row 2026-10-26.
 Wireframes (390 and 1440, real data): [design/trip-page/ux-feedback-wireframes-2026-10-26.md](../design/trip-page/ux-feedback-wireframes-2026-10-26.md).
@@ -725,7 +724,7 @@ D3, D10-RO, D10-DO, OFR-1 (8.6).
 
 ### 12.1 Gate
 
-**G-UXA: the owner approves this page and the wireframes and answers Q293 to Q302.** No UXB task starts before it (UXF-29).
+**G-UXA: the owner approves this page and the wireframes and answers Q293 to Q302.** No UXB task starts before it (UXF-29). **Passed 26 Oct 2026:** the owner approved this page and the wireframes and answered Q293 to Q302, yes as recommended (Q302: Stops).
 Changes the owner asks for go into this page first (change log), then the briefs.
 
 ### 12.2 Placement
@@ -997,20 +996,20 @@ UXF-1 to UXF-26; UXB-V1 (Sonnet, 3 h) writes `docs/v2/build/public-site/verify-U
 first-use walk (P4), keyboard and VoiceOver passes and the budget numbers. UXB-R2 and UXB-V2 do the same for UXB-7 and
 re-check the Kind filter. UXB-F applies their must lists.
 
-## 14. Owner questions
+## 14. Owner questions (answered 26 Oct 2026: yes, as recommended)
 
 | Q | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q293 | Five trip tabs, **Summary · Days · Stops · Bookings · Photos**, with Table inside Days and the map beside the lists? | Yes | 320 px phones scroll the tab row |
-| Q294 | Summary as the default tab, and the last tab remembered per trip on this device? | Yes | Links without `view` open the Summary; Mine opens Days |
-| Q295 | Apply the party kept on this device to any trip opened without party settings in its link? | Yes, with "Plan as written" one click away | A visitor may not notice the page is planned for their party; the bar says "Your party" |
-| Q296 | Let shared links carry the exact number of adults (`a=1` to `a=12`)? Children's ages stay out of links | Yes | Slightly more in a link; no household detail beyond a count |
-| Q297 | Replace "The trip at a glance" with "The trip's shape" (bases ribbon, counts, per-day table), collapsed by default? | Yes | The visual of each day's start and end is gone from the overview |
-| Q298 | Weather as links to national weather services only, with no weather API calls from the page; build-time climate numbers from Open-Meteo later only if you want numbers? | Links only now; numbers later on request | No live forecast on the page |
-| Q299 | Table view on phones as three columns with folded lines, no sideways scroll? | Yes | Kind, place and notes are on extra lines, not columns |
-| Q300 | Place pages: hide sections with no value, keep safety gaps as rows, gather all other gaps in one block, and a smaller template for basics-only pages; pull this from FA-6 (bundle F) into bundle C? | Yes | Missing data is less visible per fact |
-| Q301 | All of this in bundle C (about 67 h, first in C's UI queue), nothing added to bundle A? | Yes | You see it one bundle later than the next deploy |
-| Q302 | Call the category tab **"Stops"** (not "By category" or "Places")? | Stops | "Stops" is not a perfect word for stays; "Places" would clash with the site's Places section |
+| Q293 | Five trip tabs, **Summary · Days · Stops · Bookings · Photos**, with Table inside Days and the map beside the lists? | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | 320 px phones scroll the tab row |
+| Q294 | Summary as the default tab, and the last tab remembered per trip on this device? | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | Links without `view` open the Summary; Mine opens Days |
+| Q295 | Apply the party kept on this device to any trip opened without party settings in its link? | **Yes, with "Plan as written" one click away** (ANSWERED 26 Oct 2026: yes, as recommended.) | A visitor may not notice the page is planned for their party; the bar says "Your party" |
+| Q296 | Let shared links carry the exact number of adults (`a=1` to `a=12`)? Children's ages stay out of links | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | Slightly more in a link; no household detail beyond a count |
+| Q297 | Replace "The trip at a glance" with "The trip's shape" (bases ribbon, counts, per-day table), collapsed by default? | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | The visual of each day's start and end is gone from the overview |
+| Q298 | Weather as links to national weather services only, with no weather API calls from the page; build-time climate numbers from Open-Meteo later only if you want numbers? | **Links only now** (ANSWERED 26 Oct 2026: yes, as recommended.) | No live forecast on the page |
+| Q299 | Table view on phones as three columns with folded lines, no sideways scroll? | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | Kind, place and notes are on extra lines, not columns |
+| Q300 | Place pages: hide sections with no value, keep safety gaps as rows, gather all other gaps in one block, and a smaller template for basics-only pages; pull this from FA-6 (bundle F) into bundle C? | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | Missing data is less visible per fact |
+| Q301 | All of this in bundle C (about 67 h, first in C's UI queue), nothing added to bundle A? | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | You see it one bundle later than the next deploy |
+| Q302 | Call the category tab **"Stops"** (not "By category" or "Places")? | **Stops** (ANSWERED 26 Oct 2026: as recommended.) | "Stops" is not a perfect word for stays; "Places" would clash with the site's Places section |
 
 ## 15. Gotchas
 
@@ -1038,3 +1037,4 @@ re-check the Kind filter. UXB-F applies their must lists.
 | Date | Change |
 |---|---|
 | 2026-10-26 | Written by travel-planner (Opus) from the owner's live review (screenshots 8 to 11), item 7 and the delivery instruction. Planned only; R-260 to R-266, BACKLOG 15.275 to 15.289, Q293 to Q302 |
+| 2026-10-26 (owner answers, ANSWERS-6) | Owner approved the design and answered Q293 to Q302: all yes, as recommended (Q302: Stops). Status line, section 12.1 (G-UXA passed) and section 14 marked answered; implementation queued in bundle C. Nothing else changed |
