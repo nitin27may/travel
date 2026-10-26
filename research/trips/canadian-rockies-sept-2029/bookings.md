@@ -111,3 +111,55 @@ All figures are 2026 unless stated. 2029 data does not exist; anything labelled 
 
 ## Sources that failed
 - parks.canada.ca fee page (404), parks.canada.ca/pn-np/ab/banff/visit/shuttles (404), thebanffguide.com Moraine reservations article (404), parks.canada.ca moraine group access page after redirect (404), rmoutlook.com Moraine hiking restriction (403), most backcountry lodge sites (no search results).
+
+## D8-R bookings re-read (26 Oct 2026)
+
+Run `d8r-bookings-2026-10-26-rockies` (run note `research/runs/D8R-rockies-bookings.md`, which has the full table). Official and
+operator pages only, read 2026-10-26. Rules are written without calendar years; the dated facts below are the season they were
+read in.
+
+- GAP CLOSED 2026-10-26: Parks Canada fees page now answers (https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees). It
+  confirms the 2026 admission prices above (daily adult 12.25, family 24.50; Discovery adult 83.50, family 167.50; youth free),
+  the shuttle fares (adult 12.75, senior 6.00, youth 4.00 plus a 3.50 online fee) and Lakeshore parking at 42 per vehicle per day,
+  15 May to 12 Oct. The 36.75 figure above was an older or Alpine Start rate; the fees page wins.
+- Shuttle: re-read https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise. Unchanged: 40 % of seats on one spring launch
+  day at 08:00 Mountain (15 Apr in 2026), 60 % at 08:00 Mountain two days before each departure; phone fee 5.50 on the official
+  page (the Banff Blog's 6.50 stays a conflict, official wins). That the launch is in April every year is a pattern (INFERENCE).
+- Moraine Lake Road: the order of 1 Apr 2026 restricts motor vehicles until further notice; exceptions are licensed commercial
+  operators, Parks Canada shuttles, Moraine Lake Lodge guests and staff, emergency services
+  (https://parks.canada.ca/pn-np/ab/banff/bulletins/5ad13e1f-bf45-4b41-bdd6-d525b33a4bc3).
+- GAP CLOSED 2026-10-26 (Roam, roamtransit.com now fetched): only route 8X takes reservations; route 9 (Johnston Canyon) and
+  the others do not. About 40 % of each 8X departure is kept for walk-up riders, which does not give Moraine Lake access. The
+  Reservable Super Pass (Banff to Lake Louise and Moraine Lake, round trip, online only) is released in monthly batches at
+  09:00 Mountain; in 2026 the September and October batch opened on 27 Jul. Adult 30, senior 15, youth 15, 12 and under free with
+  a reservation. Route 10 did not run in 2026. https://roamtransit.com/fares/reservations/ ;
+  https://roamtransit.com/fares/reservations/super-pass-reservations/
+- Lake O'Hara: GAP CLOSED 2026-10-26 on the fee: 10 per application, non-refundable, on the official reservation policies
+  (https://parks.canada.ca/termes-terms/reservation). Draws run daily in a selection period after the application window; a
+  winner has 14 days to claim; leftover seats become normal reservations, bookable until 15:30 the day before. Bus fare 25.50
+  per person return plus a 3.50 online fee (https://parks.canada.ca/pn-np/bc/yoho/visit/tarifs-fees). The draw result date
+  stays a GAP (draws are daily, so there is no single date).
+- Johnston Canyon: GAP CLOSED 2026-10-26 on the closure: the official bulletin closes the trail, day-use area, washrooms and P1
+  lot from 13 Oct to 11 Dec 2026 for construction
+  (https://parks.canada.ca/pn-np/ab/banff/bulletins/06d4ef61-a3c9-4b65-8dfc-66d056252d6c). The guide's "3 months after
+  Thanksgiving" was close. Bow Valley Parkway fall cycling season 2026: 1 Sep to 6 Oct, no public vehicles on the eastern 17 km
+  (Fireside to Johnston Canyon); the pilot runs 2025 to 2030
+  (https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/promenade-de-la-vallee-de-la-bow-bow-valley-parkway). This settles
+  the day 3 conflict ("28 Aug-2 Oct" against "1 Sep-6 Oct"): the official page says 1 Sep to 6 Oct for 2026. For a September
+  day, come from Castle Junction.
+- Yoho Valley Road: GAP CLOSED 2026-10-26: official, open mid-June to mid-October, weather permitting
+  (https://parks.canada.ca/pn-np/bc/yoho/visit/heures-hours).
+- Kananaskis Conservation Pass: unchanged prices; buy up to 23:59 on the first day parked, no retroactive purchase
+  (https://www.alberta.ca/kananaskis-conservation-pass).
+- Interlakes: 90-day rolling window that moves at 09:00 Mountain each day; 31 per night; season 14 May to 12 Oct 2026
+  (Alberta Parks Interlakes page and reservation FAQs). The page shows "Bookings Open February 13", which is 90 days before
+  the 14 May season start; the 30 Mar date in the Kananaskis section above conflicts with it (kept as a conflict, official page
+  read today).
+- Parks Canada campground launch days 2026: as listed above (official page modified 6 Aug 2026). Takakkaw Falls is now listed
+  with the Banff/Kootenay/Yoho backcountry launch on 26 Jan, so the 20 Jan against 26 Jan conflict is settled for the official
+  page (26 Jan).
+- Columbia Icefield Adventure: the operator publishes no booking window or lead time (pages read 2026-10-26); stored as
+  none_stated.
+- Larch Valley group access: GAP stays open. The old official page is 404 and no Group Access bulletin is in force in late
+  October. The question is in research/method/operator-questions-2026-10-18.md (D8R-2).
+- Peyto Lake: no booking; no 2026 closure notice found.
