@@ -5,6 +5,7 @@ import { seasonLabel } from '@/lib/format/season';
 import { getPlace, getTrip, globeIndex, listPlaces, listTrips } from '@/lib/public';
 import { describesParty } from '@/lib/public/party';
 import { normName } from '@/lib/public/places';
+import { photoUrl } from '@/lib/server/images';
 import type { CardFact, CardImage, GlobeCard, GlobeCardFile, GlobeData, GlobeTree, GlobeTreeNode, LightPin } from './types';
 
 const DEPTH_BADGE: Record<string, string> = { full: 'Full plan', summary: 'Condensed from the full plan', overview: 'Overview only' };
@@ -32,7 +33,7 @@ export function cardSummary(text: string): string {
 const credited = (p: { author: string; licence: string; url: string; width: number; sourceUrl: string } | null | undefined, from: CardImage['from']): CardImage | null =>
   p && p.author && p.licence && p.url ? { url: p.url, width: p.width, author: p.author, licence: p.licence, sourceUrl: p.sourceUrl, from } : null;
 
-const commonsAt = (file: string, width = 640): string => `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file.replace(/ /g, '_'))}?width=${width}`;
+const commonsAt = (file: string, width = 640): string | null => photoUrl(`https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file.replace(/ /g, '_'))}?width=${width}`);
 
 /**
  * The image behind a place card, by the fallback chain (spec 4.3): the place's own credited photo; the gallery photo of a public
@@ -51,7 +52,8 @@ export function placeImage(
     if (hit) return credited(hit, 'trip');
   }
   const row = place.wikidata ? p18[place.wikidata] : undefined;
-  if (row && !row.none && row.file && row.author && row.licence) return { url: commonsAt(row.file), width: 640, author: row.author, licence: row.licence, sourceUrl: row.sourceUrl ?? `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(row.file)}`, from: 'wikidata' };
+  const p18Url = row && !row.none && row.file ? commonsAt(row.file) : null;
+  if (row?.file && p18Url && row.author && row.licence) return { url: p18Url, width: 640, author: row.author, licence: row.licence, sourceUrl: row.sourceUrl ?? `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(row.file)}`, from: 'wikidata' };
   return null;
 }
 

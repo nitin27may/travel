@@ -54,6 +54,10 @@
     "count": 2,
     "reason": "CONS-3: core/src/net/endpoints.ts and tools/net.py"
    },
+   "web/scripts/commons-cache.mjs": {
+    "count": 1,
+    "reason": "CONS-3: core/src/net/endpoints.ts and tools/net.py (the Commons source URL of a cached photo, IMG-1b)"
+   },
    "web/scripts/fetch-photo-credits.mjs": {
     "count": 2,
     "reason": "CONS-3: core/src/net/endpoints.ts and tools/net.py"

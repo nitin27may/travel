@@ -1,8 +1,8 @@
 /**
- * Photo URLs (backlog 2.38). A photo is either a Commons Special:FilePath URL (the source, and what the page holds while a
- * build has no local copy) or a same-origin rendition `/img/<key>-<w>.webp` (what `scripts/images.mjs` rewrites the export
- * to after fetching, resizing and caching it). Pages ask for three widths only, so the rewrite is one to one and the
- * server HTML and the client render agree whichever form the data carries.
+ * Photo URLs (backlog 2.38). A photo is a same-origin rendition `/img/<key>-<w>.webp` (`scripts/images.mjs --prebuild` makes the
+ * files before the build, and the page loaders take the URL from lib/server/images.ts while they render). A Commons Special:FilePath URL
+ * is only the source the loaders see while the photo list is collected. Pages ask for three widths only, so the mapping is one to one and
+ * the server HTML and the client render agree whichever form the data carries.
  */
 export const IMAGE_WIDTHS = [320, 640, 960] as const;
 

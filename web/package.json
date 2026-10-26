@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/images.mjs && node scripts/og.mjs",
+    "build": "node scripts/images.mjs --prebuild && node scripts/og.mjs --prebuild && next build && node scripts/images.mjs --verify",
+    "images:warm": "node scripts/images.mjs --warm",
     "start": "next start",
     "build:fixture": "node scripts/build-fixture.mjs",
     "budget:report": "node scripts/budget-report.mjs",

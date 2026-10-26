@@ -20,9 +20,11 @@ export function ensureRealBuild(): void {
   realDone = true;
   if (process.env.SKIP_WEB_BUILD !== '1') {
     const env = { ...process.env, NEXT_DIST_DIR: '' };
+    // the same order as web/package.json `build` (IMG-1b): renditions and share images, then next build, then the verify step
+    execFileSync(process.execPath, [path.join(web, 'scripts', 'images.mjs'), '--prebuild'], { cwd: web, stdio: 'pipe', env });
+    execFileSync(process.execPath, [path.join(web, 'scripts', 'og.mjs'), '--prebuild'], { cwd: web, stdio: 'pipe', env });
     execFileSync(process.execPath, [next, 'build'], { cwd: web, stdio: 'pipe', env });
-    execFileSync(process.execPath, [path.join(web, 'scripts', 'images.mjs')], { cwd: web, stdio: 'pipe', env });
-    execFileSync(process.execPath, [path.join(web, 'scripts', 'og.mjs')], { cwd: web, stdio: 'pipe', env });
+    execFileSync(process.execPath, [path.join(web, 'scripts', 'images.mjs'), '--verify'], { cwd: web, stdio: 'pipe', env });
   }
   resetBuiltViews(['.next']);
 }

@@ -60,8 +60,9 @@ step "gate map (TS-1: every file, test, spec and check-all step maps to a suite 
 
 if [[ -f "$ROOT/web/package.json" ]]; then
   # Server mode (`next build` then `next start`, API-0): the build runs BEFORE the tests, which read its prerendered output through
-  # web/tests/helpers/built.ts, so no test can pass against a stale or missing build (backlog 15.1). `pnpm build` is `next build`
-  # then the rendition and share-image steps, which write web/public/img and og for `next start`.
+  # web/tests/helpers/built.ts, so no test can pass against a stale or missing build (backlog 15.1). `pnpm build` is the rendition and
+  # share-image steps (`images.mjs --prebuild`, `og.mjs --prebuild`: web/public/img and og, from the cache, before `next build`), then
+  # `next build`, then `images.mjs --verify` (IMG-1b).
   # APPEND POINT (phase B, C1): later lanes add their own `step` lines after the web block, never inside it.
   for script in typecheck lint build test; do
     step "web $script"

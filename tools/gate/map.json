@@ -288,7 +288,7 @@
       "e2e": ["home*.spec.ts", "overflow.spec.ts", "cross-browser.spec.ts", "a11y.spec.ts", "url-state.spec.ts"] },
     { "id": "web-shell", "why": "the shell and foundation components are on every page, so the privacy scan of every built page runs",
       "suites": ["web.fixture"],
-      "paths": ["web/components/{shell,ui}/**", "web/app/{app,globals,account}.css", "web/app/{not-found.tsx,robots.ts,icon.svg,apple-icon.png}", "web/app/{specimen,sitemap.xml,sitemaps,og-manifest.json}/**", "web/lib/*.ts", "web/public/og-default.png", "web/public/fonts/**", "web/types/**", "web/components.json"],
+      "paths": ["web/components/{shell,ui}/**", "web/app/{app,globals,account}.css", "web/app/{not-found.tsx,robots.ts,icon.svg,apple-icon.png}", "web/app/{specimen,sitemap.xml,sitemaps}/**", "web/lib/*.ts", "web/public/og-default.png", "web/public/fonts/**", "web/types/**", "web/components.json"],
       "e2e": ["foundation*.spec.ts", "shell-report.spec.ts", "a11y.spec.ts", "cross-browser.spec.ts", "to-top.spec.ts", "export.spec.ts", "gb-fixes.spec.ts"] },
     { "id": "web-pages", "why": "static pages the privacy scan of the built output reads (GSI-P changed privacy.test.ts with them)",
       "paths": ["web/app/{about,privacy,terms}/**"], "suites": ["web.fixture"],
