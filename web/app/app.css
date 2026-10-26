@@ -65,11 +65,13 @@ html.theme-fade img { transition: none !important; }
 .site-nav a[aria-current='page'] { color: var(--header-ink); font-weight: var(--t-tab-current-weight); border-bottom-color: var(--header-ink); }
 .header-tools { display: flex; align-items: center; gap: var(--s-2); }
 .bottom-bar {
-  display: none; grid-template-columns: repeat(4, 1fr); height: var(--phone-bottombar-h); padding: var(--s-2) var(--s-1) 26px;
+  display: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); height: var(--phone-bottombar-h); padding: var(--s-2) var(--s-1) 26px;
   background: var(--header); border-top: 1px solid var(--header-line);
 }
 .bottom-bar a, .bottom-bar button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s-1); min-width: 56px; min-height: 56px; color: var(--header-mute); font: var(--t-chip); }
 .bottom-bar button { background: transparent; border: 0; padding: 0; cursor: pointer; }
+.bottom-bar [data-acct='signedIn'], html[data-signed-in] .bottom-bar [data-acct='signedOut'] { display: none; }
+html[data-signed-in] .bottom-bar [data-acct='signedIn'] { display: flex; }
 .bottom-bar a[aria-current='page'], .bottom-bar button:hover { color: var(--header-ink); }
 .bottom-bar a[aria-current='page'] svg { color: var(--accent); }
 @media (max-width: 639px) {

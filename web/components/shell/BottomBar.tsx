@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import type { ComponentType } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import { Icon } from '@/components/ui/Icon';
 import type { IconName } from '@/components/ui/Icon';
@@ -14,8 +14,8 @@ const ITEMS: { href: string; label: string; icon: IconName }[] = [
   { href: '/globe/', label: 'Globe', icon: 'globe' },
 ];
 
-/** Phone bottom bar (components 1.4): Trips, Places, Globe, Search; 56 px items, 11.5 px labels. Search opens the header search (the public site has no login; Sign in returns with the planner). Hidden at 640 px and wider. */
-export function BottomBar() {
+/** Phone bottom bar (components 1.4): Trips, Places, Globe, Search and, when the layout passes `account` (sign-in on), Sign in / Account (AccountItems, a server component; `html[data-signed-in]` swaps the two; the sign-in and account pages mark it current with AccountCurrent); 56 px items, 11.5 px labels. Search opens the header search. Hidden at 640 px and wider. */
+export function BottomBar({ account }: { account?: ReactNode }) {
   const path = usePathname() ?? '/';
   const [U, setU] = useState<ComponentType | null>(null);
   // Back-to-top (S28) loads on the first phone scroll; this listener is all it costs at start.
@@ -41,6 +41,7 @@ export function BottomBar() {
         <Icon name="search" size={22} />
         Search
       </button>
+      {account}
     </nav>
     {U && <U />}
     </>
