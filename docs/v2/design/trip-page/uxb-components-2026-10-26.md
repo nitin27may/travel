@@ -693,6 +693,8 @@ remembered): **agree**. Q302 (Stops): **agree**, 1.3. The `view` key (D3) rather
 
 ### 13.2 Differences that need the owner (next free numbers on `main`: Q303 to Q307)
 
+Answered by the owner on 26 Oct 2026, one at a time: all five Yes, as recommended (the build already implements them).
+
 | Q | Question | Recommendation | Trade-off | Spec place it changes |
 |---|---|---|---|---|
 | Q303 | On phones, only one row sticks under the header: on Days the day rail (as today) and on Stops the category strip, while the tab bar scrolls away with the content above; back-to-top returns to the tabs. Desktop keeps both rows sticky | **Yes** | changing tabs from deep in Days on a phone is one extra tap (back to top) | 3.4 "sticky under the header", W1 |
