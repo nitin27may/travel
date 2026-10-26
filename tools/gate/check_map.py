@@ -11,14 +11,16 @@ M3  every `step` label of tools/check-all.sh is listed in some suite's "steps", 
 M4  every e2e spec is attached to a rule, or is "release_only" with a reason
 M5  rules name known suites; every glob (each brace alternative) matches a file; quarantine entries are current, at most
     14 days long and name a BACKLOG row; "not_tests", "release_only" and "allow_unmatched_globs" entries are live
-M6  the web vitest suites (unit, built, fixture, timing) own every web unit test file exactly once; once web/vitest.config.ts
-    declares projects (TS-2a), it names those four
+M6  the web vitest suites (unit, built, fixture, timing) own every web unit test file exactly once, and the projects of
+    web/vitest.config.ts (asked with `vitest list --filesOnly`; `--no-vitest` skips it) resolve to exactly those files
 """
 from __future__ import annotations
 
 import argparse
 import datetime as dt
+import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -71,8 +73,25 @@ def globs_of(m: dict) -> list[tuple[str, str]]:
     return out
 
 
+def vitest_project_files(root: Path = gm.ROOT) -> dict[str, list[str]]:
+    """The test files each web vitest project resolves to, repo-relative, from `vitest list --filesOnly` (nothing is run)."""
+    out: dict[str, list[str]] = {}
+    for sid in WEB_PROJECTS:
+        name = sid.split(".", 1)[1]
+        r = subprocess.run(["pnpm", "--dir", "web", "exec", "vitest", "list", "--filesOnly", "--json", "--project", name],
+                           cwd=root, capture_output=True, text=True, check=False)
+        start = r.stdout.find("[")
+        if r.returncode != 0 or start < 0:
+            raise RuntimeError(f"vitest list --project {name} failed: {(r.stderr or r.stdout)[-300:]}")
+        rows = json.loads(r.stdout[start:])
+        files = sorted({Path(row["file"]).resolve().relative_to(root.resolve()).as_posix() for row in rows})
+        out[name] = files
+    return out
+
+
 def check(m: dict, files: list[str], check_all_text: str, root: Path = gm.ROOT, today: dt.date | None = None,
-          backlog_text: str | None = None, vitest_config: str | None = None) -> list[str]:
+          backlog_text: str | None = None, vitest_config: str | None = None,
+          project_files: dict[str, list[str]] | None = None) -> list[str]:
     today = today or dt.date.today()
     errs: list[str] = []
     suites = m["suites"]
@@ -190,8 +209,16 @@ def check(m: dict, files: list[str], check_all_text: str, root: Path = gm.ROOT, 
     if re.search(r"\bprojects\s*:", vitest_config):
         for sid in WEB_PROJECTS:
             name = suites.get(sid, {}).get("vitest", {}).get("project")
-            if name and not re.search(rf"""name\s*:\s*['"]{re.escape(name)}['"]""", vitest_config):
+            if name and not re.search(rf"""['"]{re.escape(name)}['"]""", vitest_config):
                 errs.append(f"M6 web/vitest.config.ts declares projects but none named \"{name}\" ({sid})")
+    for sid in WEB_PROJECTS if project_files is not None else ():
+        name = suites.get(sid, {}).get("vitest", {}).get("project")
+        want = {p for p in tests if gm.match(WEB_UNIT_GLOB, p) and gm.match_any(suites.get(sid, {}).get("tests", []), p)}
+        got = set(project_files.get(name, []))
+        for p in sorted(want - got)[:5]:
+            errs.append(f"M6 {p}: the map puts it in {name}, the vitest project does not run it")
+        for p in sorted(got - want)[:5]:
+            errs.append(f"M6 {p}: vitest project {name} runs it, the map does not own it there")
     return errs
 
 
@@ -217,13 +244,19 @@ def explain(m: dict, path: str) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Check tools/gate/map.json (TEST-STRATEGY 4.3, M1 to M6).")
     ap.add_argument("--explain", metavar="PATH", help="print what one path selects, and why")
+    ap.add_argument("--no-vitest", action="store_true", help="skip M6's comparison with the real vitest projects")
     a = ap.parse_args(argv)
     m = gm.load_map()
     if a.explain:
         print("\n".join(explain(m, a.explain)))
         return 0
     files = gm.repo_files()
-    errs = check(m, files, gm.CHECK_ALL.read_text(encoding="utf-8"))
+    try:
+        pf = None if a.no_vitest else vitest_project_files()
+    except (RuntimeError, OSError, ValueError, KeyError) as e:
+        print(f"gate map: cannot list the vitest projects: {e}", file=sys.stderr)
+        return 1
+    errs = check(m, files, gm.CHECK_ALL.read_text(encoding="utf-8"), project_files=pf)
     if not errs:
         print(summary(m, files))
         return 0
