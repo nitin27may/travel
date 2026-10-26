@@ -4694,9 +4694,6 @@
                         "seasonNotSet": {
                           "type": "boolean"
                         },
-                        "isDone": {
-                          "type": "boolean"
-                        },
                         "region": {
                           "type": "string"
                         },
@@ -7082,7 +7079,6 @@
                         "nights",
                         "daysCount",
                         "seasonNotSet",
-                        "isDone",
                         "region",
                         "cover",
                         "season",
@@ -9638,9 +9634,6 @@
                           "seasonNotSet": {
                             "type": "boolean"
                           },
-                          "isDone": {
-                            "type": "boolean"
-                          },
                           "region": {
                             "type": "string"
                           },
@@ -9899,7 +9892,6 @@
                           "nights",
                           "days",
                           "seasonNotSet",
-                          "isDone",
                           "region",
                           "cover",
                           "seasonLabel",

@@ -15,7 +15,7 @@ const ROOT = resolve(import.meta.dirname, "..", "..", "..");
 /** The 39 keys of the list row the site ships (web/tests/data/light-data.test.ts pins the same list). */
 const SHIPPED_ROW_KEYS = ["id", "slug", "name", "kind", "kindLabel", "legacyKind", "country", "country_name", "region", "region_name", "regionAliases", "area", "area_name", "lat", "lon", "km", "gain_m", "elevation_m", "season", "kid_fit", "tags", "image", "trips", "honesty", "completeness", "statsState", "researched", "type", "effort", "kids_from", "kids_basis", "time_band", "price_band", "booking", "flags", "walk_band", "shape", "best_time", "badge"];
 /** web/components/trips/types.ts TRIP_LIST_KEYS. */
-const SHIPPED_TRIP_KEYS = ["id", "slug", "title", "depth", "nights", "days", "seasonNotSet", "isDone", "region", "cover", "seasonLabel", "seasonBasis", "seasonMonths", "country", "countryName", "lat", "lon", "approx", "ageFit", "kidsBasis", "effort", "firstBase", "countries", "continents", "length", "lengthClass", "hike", "hikeBasis", "strollerDays", "activities", "highlights", "around", "perDay", "perDayApprox", "shape", "fromHubMin", "fromHubApprox"];
+const SHIPPED_TRIP_KEYS = ["id", "slug", "title", "depth", "nights", "days", "seasonNotSet", "region", "cover", "seasonLabel", "seasonBasis", "seasonMonths", "country", "countryName", "lat", "lon", "approx", "ageFit", "kidsBasis", "effort", "firstBase", "countries", "continents", "length", "lengthClass", "hike", "hikeBasis", "strollerDays", "activities", "highlights", "around", "perDay", "perDayApprox", "shape", "fromHubMin", "fromHubApprox"];
 
 describe("allowlists (schema diff 13.1 items 1 and 2)", () => {
   it("the shipped row is today's 41 keys; the API row adds ref, approx (R-17) and nearTown (store.ts A35) and nothing else", () => {
@@ -34,7 +34,7 @@ describe("allowlists (schema diff 13.1 items 1 and 2)", () => {
     expect(S.placeDetail.shape.notes.safeParse("").success).toBe(true);
     expect(S.placeDetail.shape.notes.safeParse("Hotel idea").success).toBe(false);
   });
-  it("the trip row is web's 37 keys plus ref (seasonBasis added in D6a-W)", () => {
+  it("the trip row is web's 36 keys plus ref (seasonBasis added in D6a-W; isDone removed in PRIV-TD)", () => {
     expect([...S.TRIP_ROW_KEYS].sort()).toEqual([...SHIPPED_TRIP_KEYS, "ref"].sort());
   });
   it("rows are strict: an extra key fails, a missing key fails", async () => {
