@@ -60,7 +60,7 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
               </li>
             ))}
           </ul>
-          <TripActions slug={trip.slug} title={trip.title} nights={trip.nights ?? 0} days={trip.daysCount ?? 0} url={url} hasDays={trip.depth !== 'overview'} seasonMonths={trip.season?.months} done={trip.isDone} />
+          <TripActions slug={trip.slug} title={trip.title} nights={trip.nights ?? 0} days={trip.daysCount ?? 0} url={url} hasDays={trip.depth !== 'overview'} seasonMonths={trip.season?.months} done={trip.isDone} photo={trip.cover ? sizedImage(trip.cover.url, 320) : null} />
         </div>
       </div>
       <dl className="trip-glance">
