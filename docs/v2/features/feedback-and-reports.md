@@ -7,7 +7,7 @@ the intake pipeline): one intake model, one form shell, one route family, one mo
 are untouched. Section 11 lists every conflict with an earlier decision and the proposed resolution.
 
 > **Amended 25 Oct 2026 (request intake fields):** the `place` and `trip` fields of 3.1 are superseded by
-> [request-intake-fields.md](request-intake-fields.md) (PLAN R-180 to R-186): a short required step (place: name and
+> [request-intake-fields.md](request-intake-fields.md) (PLAN R-190 to R-196): a short required step (place: name and
 > country; trip: countries and length) and optional detail steps, structured Where data, `intake-detail/1` in place of
 > `trip_shape`, a detail score and missing codes; `report` gains "When did you see this" and "How do you know". FBK-C
 > widens again (+2.5 h); FBK-2 drops the place and trip step-2 fields (−3 h), which REQ-F2 and REQ-F1 build; the body

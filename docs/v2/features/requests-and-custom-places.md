@@ -19,7 +19,7 @@ Related, and the authority for everything this page links to:
 
 > **Fields amended 25 Oct 2026:** what each request form asks (trip, place, improve, report, custom-stop suggestion),
 > the Where block, the detail score and the research-ready brief are in [request-intake-fields.md](request-intake-fields.md)
-> (PLAN R-180 to R-186). Sections 2.3 and 2.4 here stay; 2.3's "What we already have" also works by region there.
+> (PLAN R-190 to R-196). Sections 2.3 and 2.4 here stay; 2.3's "What we already have" also works by region there.
 
 ## The owner's request (25 Oct 2026, a reviewer asked whether these exist)
 
