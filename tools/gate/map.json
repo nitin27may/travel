@@ -279,13 +279,13 @@
     { "id": "web-trips", "paths": ["web/app/trips/**", "web/components/trips/**", "web/styles/{trips,timeline,print}.css", "web/lib/entities/descriptors/trip.tsx", "web/components/actions/**", "web/scripts/legs/**", "web/scripts/legs-*.mjs"],
       "e2e": ["trip-*.spec.ts", "trips*.spec.ts", "sweep-swa.spec.ts", "tables.scroll.spec.ts", "to-top.spec.ts"] },
     { "id": "web-places", "paths": ["web/app/{places,list,locations}/**", "web/components/{places,entity,suit}/**", "web/styles/{places,filters,suitability}.css", "web/lib/{entities,format}/**", "web/scripts/{tracks-osm,kind-labels,facets-slice,fetch-photo-credits,commons-cache}.*"],
-      "e2e": ["places*.spec.ts", "place-*.spec.ts", "a11y-place.spec.ts", "units-places.spec.ts", "who-it-suits.spec.ts", "lists-lst.spec.ts", "url-state.spec.ts", "tables.scroll.spec.ts"] },
+      "e2e": ["places*.spec.ts", "place-*.spec.ts", "a11y-place.spec.ts", "overflow.spec.ts", "units-places.spec.ts", "who-it-suits.spec.ts", "lists-lst.spec.ts", "url-state.spec.ts", "tables.scroll.spec.ts"] },
     { "id": "web-globe", "paths": ["web/app/{globe,globe-data}/**", "web/components/globe/**", "web/lib/globe/**", "web/public/globe/**", "web/styles/globe.css", "web/scripts/globe-*.mjs"],
       "e2e": ["globe*.spec.ts", "a11y.spec.ts"] },
     { "id": "web-map", "paths": ["web/components/map/**", "web/lib/map/**"],
       "e2e": ["*map*.spec.ts", "trip-routes*.spec.ts", "*google*.spec.ts", "globe.spec.ts", "globe.placelink.gpu.spec.ts"] },
     { "id": "web-home", "paths": ["web/app/page.tsx", "web/components/home/**", "web/styles/home.css"],
-      "e2e": ["home*.spec.ts", "cross-browser.spec.ts", "a11y.spec.ts", "url-state.spec.ts"] },
+      "e2e": ["home*.spec.ts", "overflow.spec.ts", "cross-browser.spec.ts", "a11y.spec.ts", "url-state.spec.ts"] },
     { "id": "web-shell", "why": "the shell and foundation components are on every page, so the privacy scan of every built page runs",
       "suites": ["web.fixture"],
       "paths": ["web/components/{shell,ui}/**", "web/app/{app,globals,account}.css", "web/app/{not-found.tsx,robots.ts,icon.svg,apple-icon.png}", "web/app/{specimen,sitemap.xml,sitemaps,og-manifest.json}/**", "web/lib/*.ts", "web/public/og-default.png", "web/public/fonts/**", "web/types/**", "web/components.json"],
@@ -347,9 +347,7 @@
 
   "release_only": {},
 
-  "allow_unmatched_globs": {
-    "tools/gate.sh": "TS-2 creates the wrapper; remove this entry in the same change (M5 fails once the file exists)"
-  },
+  "allow_unmatched_globs": {},
 
   "test_files": ["**/*.test.{ts,tsx,mts,mjs,js}", "**/*.spec.{ts,tsx,mjs,js}", "**/test_*.py", "**/*_test.py", "**/conftest.py"],
 

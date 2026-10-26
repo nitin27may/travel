@@ -2,21 +2,72 @@
 
 The path-to-suite map of [TEST-STRATEGY](../../docs/v2/build/TEST-STRATEGY.md) (TS-1). Every small change runs only the
 suites its paths select; the full chain runs at T2 (a stack), at T3 (release and nightly), or when a change touches a
-shared contract. The gate that runs the selection is TS-2; this folder holds the map, its check and the replay.
+shared contract. The gate that runs the selection is `tools/gate.sh` (TS-2); this folder holds the map, its check, the replay
+and the gate's code.
 
 | File | What it is |
 |---|---|
 | `map.json` | the map, as data: suites, rules, the `full` and `quiet` lists, quarantine, review paths |
 | `gatemap.py` | loads the map, matches globs, parses check-all steps, and `select()`s suites for a change set (TS-2 imports it) |
 | `check_map.py` | checks M1 to M6 (TEST-STRATEGY 4.3); a step of `tools/check-all.sh`; about one second |
+| `gate.py` | the gate: plan, run, summary (`tools/gate.sh` is its wrapper) |
+| `locks.py` | mkdir slots under the git common dir, so worktrees of one clone never run two builds or two Playwright runs at once |
+| `extract.py` | failure excerpts (tsc, vitest, eslint, pytest, Playwright, check-style tools) |
 | `replay.py` | applies the map to the last N merges into `main` (the TS-1 acceptance check) |
 
 ```bash
 python3 tools/gate/check_map.py                          # one OK line, or at most 40 problem lines
 python3 tools/gate/check_map.py --explain web/app/page.tsx   # what one path selects, and which rule chose each suite
 python3 tools/gate/replay.py --merges 80                 # one row per merge, then the totals; exit 1 on a miss
-python3 -m pytest tools/tests/test_gate_map.py -q
+python3 -m pytest tools/tests/test_gate_map.py tools/tests/test_gate.py -q
 ```
+
+## Using the gate (`tools/gate.sh`)
+
+```bash
+tools/gate.sh --tier 0                      # edit loop: typecheck of changed packages, vitest related, eslint on changed files
+tools/gate.sh --tier 1 --base main          # before hand-back: the map's selection for the branch plus the working tree
+tools/gate.sh --tier 1 --dry-run            # what would run, and which rule chose each suite; runs nothing
+tools/gate.sh --tier 1 --only web.types,links   # exactly these suites (and what they need; --reuse-build drops web.build)
+tools/gate.sh --tier 2                      # every unit and data check, one build, budgets, fixtures, timing, mapped e2e + smoke
+tools/gate.sh --tier 3 [--visual]           # check-all, full e2e on every browser project, db suites if Docker is up, visual hook
+tools/gate.sh --tier 1 --changed docs/v2/PLAN.md  # use a path list instead of git (what the tests and the dry-run examples do)
+```
+
+Flags: `--json` (one JSON object), `--keep-going` / `--fail-fast` (T0 and T1 stop at the first failure, T2 and T3 do not),
+`--full` (treat as a full run; the trailer `Gate: full` on HEAD does the same), `--allow-dirty`, `--reuse-build`.
+
+- **Tiers.** T0: `web.types` / `core.types` for the changed packages (`tsc --incremental`, build info in the git dir), `vitest
+  related` for changed code, eslint on changed files. T1: `gatemap.select()` on the change set, ordered cost class first and
+  dependants after their dependency, one build with `SKIP_WEB_BUILD=1` for everything after it, mapped e2e on Chromium. A
+  `related` suite (`web.unit`, `core.unit`) is narrowed to `vitest related` only when every path that selected it is a code
+  module and no full fallback applies; `web.lint` is narrowed to the changed files the same way. T2: every suite with
+  `always_at` at most 2, plus the mapped specs. T3: `bash tools/check-all.sh`, then `pnpm --dir web e2e` (all projects),
+  `pnpm db:test` when Docker is up, and the visual hook when `GATE_VISUAL_CMD` is set (a command; without it `visual` is
+  deferred).
+- **Output.** At most 40 lines: a header (tier, base, head, changed count, the full-fallback reason), one row per suite
+  (`PASS 4.1s web.types  rule-id`), a short excerpt for each failure, the totals line and the log path. The full log is
+  `$(git rev-parse --git-dir)/gate-logs/<time>-tier<N>.log` (per worktree, untracked), `last.json` beside it. Read the summary;
+  open the log only for a failure the excerpt does not explain.
+- **Exit codes.** 0 pass; 1 a suite failed or was skipped because a failure stopped the run; 2 refused or any suite
+  DEFERRED; 3 the gate broke. A deferred suite is never a pass: it moves to T2 (a T1 hand-back lists it).
+- **Refused (exit 2, nothing runs).** T2 and T3 on a dirty tree (results must name a commit; `--allow-dirty` overrides, an
+  explicit `--changed` list is exempt); T3 when the 1-minute load per core is above 1.5; a base that is not a commit; an
+  unknown `--only` suite; `--reuse-build` with no build.
+- **Deferred.** `web.timing` when load per core is above 1.5 (the load guard: no waiting yet, a loud row); a suite whose slot
+  stayed busy past `GATE_LOCK_TIMEOUT` seconds (default 1200); `db.local` without Docker; `visual` without a hook.
+- **Slots** (`locks.py`). `build` (web.build, web.fixture, check-all), `e2e` (every Playwright run) and `timing`, one holder
+  each. A slot is `mkdir <git-common-dir>/gate-locks/<slot>` with an `owner` file (pid, label, start); a dead pid's lock is
+  reclaimed, the holder releases on exit and on interrupt, a waiter says who holds it (in the log). Env: `GATE_LOCK_TIMEOUT`,
+  `GATE_LOCK_POLL`. Not yet: the second `build` holder, the per-worktree `build-here` lock, the wait-and-recheck load guard
+  (TS-4); caching by tree hash (TS-3); `--stack` (TS-7).
+- **Where commands come from.** The map's `run` entries are parsed and executed as written; the prose ones (build with its
+  `Error:` and ORS checks, the `next start` smoke, the MCP line, e2e, db, visual) are implemented in `gate.py`. A new suite
+  whose `run` is not a plain command needs a branch in `actions_for`; until it has one the suite is DEFERRED with that reason.
+- **Env.** `GATE_LOAD_PER_CORE` and `GATE_LOAD_LIMIT` (tests and tuning), `GATE_SUITE_TIMEOUT`, `GATE_VISUAL_CMD`,
+  `GATE_TSBUILDINFO`. The wrapper pins `NEXT_PUBLIC_PLACE_MAP_FAMILY=maplibre` and empty map keys and puts `.venv/bin` first on
+  `PATH` when it exists. Source the home point yourself (`set -a; source ~/.config/travel-secrets/home-point.env; set +a`): a
+  unit run without it fails the privacy tests.
 
 ## The map
 
