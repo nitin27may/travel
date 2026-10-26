@@ -15,6 +15,32 @@ https://travel-beta-tan.vercel.app, commit d93127b, migrations 0001 to 0011 appl
 the Cloudflare Web Analytics beacon" says a builder must add the script; the script is already in `web/app/layout.tsx`
 behind `NEXT_PUBLIC_CF_BEACON_TOKEN`, so only the token and a privacy-page line are needed (v0.2).
 
+## 0. Corrections from the master order (25 Oct 2026; read first)
+
+[MASTER-ORDER.md](MASTER-ORDER.md) (R-220) analysed every remaining task for conflicts and re-cut this train. **Its
+section 5.3 is the release order and numbering from v0.4 onward; the release numbers in sections 1 to 3 below are the
+first version's** (Q262 asks the owner to approve the new order). Sections 4 to 8 (gate, smoke, rollback, checklist, CI,
+notes) are unchanged. The corrections, each argued in MASTER-ORDER 5.5:
+
+| # | Correction |
+|---|---|
+| C0 | `release/v0.1` goes on `47be5b58`: the history was rewritten, and d93127b (the deployed commit) is its private-history id |
+| C1 | v0.4 (D2b) folds into v0.2: D2b and Q88's option A are already merged and data has no flag. v0.2's owner actions gain `HOME_POINT_LAT` and `HOME_POINT_LON` in Vercel Production and Preview (the build fails closed without them since PUBLIC-SCRUB), the Vercel Firewall rate-limit rule on `/api/v1/*` (BACKLOG 15.22), and the Q88 ruling. v0.2 also gains ACCT-PH-RV (ACCT-PH merged without review) and BUD-1 (Q260) |
+| C2 | New v0.4: the TRP2b2 "before go-live" deferrals (REMAINING-CLOSURE-PLAN 4), open while production is live |
+| C3 | The image and share-image build fix (IMG-1, 7 h) moves from v0.8 to v0.4 |
+| C4 | BKP-1 has no LOCAL-4 dependency (Q228) and adds the migration `backup_reader` to v0.5 |
+| C5 | New v0.6: the owner's 23 Oct closure queue (API/HYG loose ends, LST2b) with LST2c, MX and CONS-3, before R-59 |
+| C6 | Photos (15.158) move to v0.7, before R-59; `pickPhotos` belongs to the photos task; the photo figure needs Q263 |
+| C7 | R-59 is sized (19 h, read-only part) and its part 3 (base changes, signed in) moves to v0.17 |
+| C8 | New v0.11: the request forms (R-190 to R-196), right after the report release (Q238) |
+| C9 | New v0.13: Where to stay (R-76 to R-78) on the public site; STY-2 joins v0.17 |
+| C10 | New v0.14: trips written as data get pages (TD-1 to TD-3, Q267), before customise |
+| C11 to C14 | OVR-0 has no dependency on OVR-Cb; migration files are named by slug; FBK-C's migration does not wait for FAV-D; GSI-1 builds on `SignInCard.tsx`; section 2's seat table is replaced by MASTER-ORDER 5.1 and 5.4 |
+
+Old to new numbers: v0.2 and v0.4 to v0.2; v0.3 stays; v0.5 stays; v0.6 to v0.9; v0.7 to v0.10; v0.8 to v0.7; v0.9 to
+v0.8; v0.10 to v0.12; v0.11 to v0.15; v0.12 to v0.16; v0.13 to v0.17; v0.14 to v0.18; v0.15 to v0.19; v0.16 to v0.20;
+v0.17 to v0.21. New: v0.4, v0.6, v0.11, v0.13, v0.14.
+
 ## 1. Summary
 
 | Release | Goal in one line | Agent hours (from the specs) | Migrations (slugs; numbers at merge) |
@@ -653,6 +679,7 @@ Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling 
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (master order) | Section 0 added: corrections C0 to C14 and the old-to-new release numbers from [MASTER-ORDER.md](MASTER-ORDER.md) 5.3 and 5.5 (R-220, Q260 to Q268); sections 1 to 3 keep the first version's numbers until the owner answers Q262 |
 | 2026-10-25 (test strategy) | Infra row I8 added for TS-1 to TS-8 ([TEST-STRATEGY.md](TEST-STRATEGY.md)); the gate of section 4.1 is that page's T3, unchanged |
 | 2026-10-25 (trip origin) | Getting there from the nearest airport or the visitor's city ([spec](../features/trip-origin-and-nearest-airport.md)): v0.9 gains ORG-N, ORG-A, ORG-1, ORG-2, ORG-R, ORG-V (16.5 h) after R-59; ORG-C, ORG-D, ORG-G, ORG-M ride earlier as internal; widenings in v0.3 (NAV-C), v0.7 (FBK-C), v0.11 (CUS-C); ORG-H with v0.12 if Q246; ORG-MCP in v0.15; ORG-P not on the train; one parallel row. Q240 to Q249 open |
 | 2026-10-25 (owner answers, ANSWERS-3) | Q220 to Q226 and Q229 answered yes as recommended. Q227 changed: the production secrets and `OWNER_EMAIL` stay in GitHub Actions secrets, with compensating rules R1 to R6 (new 7.5, the 7.4 row, 7.1 and 7.2). Q228 changed: BKP-1 runs from this machine as a launchd job (new 7.6, 7.4 row, I3). The earlier recommendations are marked superseded in section 9 |

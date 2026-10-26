@@ -4,6 +4,15 @@
 > stands. Status cells older than 25 Oct lag [PLAN.md](../../PLAN.md): hosting is Vercel (13.2), R-58 is merged, D6a is
 > merged, the 25 Oct features (R-62 to R-129) have their own task tables in their specs and are not repeated here.
 
+> **25 Oct 2026 (master order, R-220):** the order of all remaining work, its lanes, file conflicts, contract order,
+> migrations, shared budgets and the release each task ships in are in [MASTER-ORDER.md](../MASTER-ORDER.md). Task
+> detail stays here and in the specs, with these corrections (MASTER-ORDER 5.5): phase E's remaining lanes LST2b,
+> LST2c, MX, CONS-3 and the R-14 loose ends ship in release v0.6, before R-59; GLB2b waits for the globe mock approval;
+> TD-1 to TD-3 ship in v0.14 (Q267); R1 and R2 (sections 8 and 11) are superseded by the per-release approval if the
+> owner answers Q268 yes; in 10.1 and 10.2, FAV-1 and FBK-2 also wait for OVR-0, FBK-C's migration does not wait for
+> FAV-D, and BKP-1 does not wait for LOCAL-4. New tasks sized there: BUD-1, ACCT-PH-RV, IMG-1, TRP-GL, PHO-C, PHO-R,
+> R59-N, R59-C, R59-1, R59-3C, ORPH-7, AREA-2, H0 to H9.
+
 > **21 Oct 2026:** the entry point is now [docs/v2/PLAN.md](../../PLAN.md) (requirements, order, status, open decisions). This file stays the authority for task-level detail. L7 in section 18 is closed (PR #7 closed 21 Oct; old remote branches archived as `archive/*` tags).
 
 > **24 Oct 2026 (R-58, R-60):** the backend provider is Neon (Postgres, Managed Better Auth, Neon Realtime), not Supabase. The later catalogue store is a proposed `PostgresStore` on Neon Postgres; its loader, per-method contract parity, privacy checks and rollback are still ahead, and `JsonStore` serves the public catalogue. The private account integration is independently verified on the uncommitted session branch and is not a catalogue migration. Hosting, object storage, serverless functions and jobs are not selected. Earlier Supabase CLI, local Docker and generated-types instructions are historical; see PLAN R-58 and [NEON-SETUP.md](NEON-SETUP.md).
@@ -1053,6 +1062,7 @@ Every pending item from every source (BACKLOG, TODO, design reviews and notes, l
 
 | Date | Change |
 |---|---|
+| 2026-10-25 | Master order (R-220, [MASTER-ORDER.md](../MASTER-ORDER.md)): banner at the top with the corrections that touch this page (phase E leftovers in v0.6, TD in v0.14, R1 and R2 superseded on Q268, dependency fixes in 10.1 and 10.2); task detail unchanged. Planned only |
 | 2026-10-25 | Trip origin and the nearest airport (R-200 to R-207, [trip-origin-and-nearest-airport.md](../../features/trip-origin-and-nearest-airport.md)): new 10.3, the ORG queue (about 28 h phase 1); widenings in NAV-C, CUS-C, FBK-C and REQ-F1; visible part with R-59 in v0.9. Planned only |
 | 2026-10-25 | Request intake fields (R-190 to R-196, [request-intake-fields.md](../../features/request-intake-fields.md)): 10.2 gains the request-intake block (REQ-RF-C, REQ-RF, REQ-F1 to REQ-F3, REQ-FB, REQ-R4, REQ-V4); FBK-C widened again (+2.5 h), FBK-2 loses the place and trip fields (−3 h). Planned only |
 | 2026-10-25 | Requests and custom places (R-170 to R-177, [requests-and-custom-places.md](../../features/requests-and-custom-places.md)): new 10.2, the REQ enhancement queue; FBK-C, FBK-3 and CUS-C widened before their migrations. Planned only |
