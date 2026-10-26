@@ -70,14 +70,60 @@ html.theme-fade img { transition: none !important; }
 }
 .bottom-bar a, .bottom-bar button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s-1); min-width: 56px; min-height: 56px; color: var(--header-mute); font: var(--t-chip); }
 .bottom-bar button { background: transparent; border: 0; padding: 0; cursor: pointer; }
-.bottom-bar [data-acct='signedIn'], html[data-signed-in] .bottom-bar [data-acct='signedOut'] { display: none; }
-html[data-signed-in] .bottom-bar [data-acct='signedIn'] { display: flex; }
-.bottom-bar a[aria-current='page'], .bottom-bar button:hover { color: var(--header-ink); }
-.bottom-bar a[aria-current='page'] svg { color: var(--accent); }
+.bottom-bar a[aria-current], .bottom-bar button:hover { color: var(--header-ink); }
+.bottom-bar a[aria-current] .mi { color: var(--accent); }
+
+/* Icons drawn as CSS masks (NAV-1): the bar and the phone account link carry an empty <i>, not an inline SVG, so the markup stays small.
+   The paths are the ones in components/ui/Icon.tsx; the mask uses only the shape, the colour is the text colour. */
+.mi { display: inline-block; flex: none; width: var(--mi-size, 22px); height: var(--mi-size, 22px); background: currentColor; -webkit-mask: var(--mi-src) center / contain no-repeat; mask: var(--mi-src) center / contain no-repeat; }
+.mi-cards { --mi-src: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z'/%3E%3C/svg%3E"); }
+.mi-pin { --mi-src: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s-6-5.6-6-10.5a6 6 0 1 1 12 0C18 15.4 12 21 12 21Zm0-8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z'/%3E%3C/svg%3E"); }
+.mi-globe { --mi-src: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM3 12h18M12 3c2.5 2.7 3.7 5.7 3.7 9S14.5 18.3 12 21c-2.5-2.7-3.7-5.7-3.7-9S9.5 5.7 12 3Z'/%3E%3C/svg%3E"); }
+.mi-search { --mi-src: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm9 16-3.6-3.6'/%3E%3C/svg%3E"); }
+.mi-layers { --mi-src: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 3 9 5-9 5-9-5 9-5ZM3 13l9 5 9-5'/%3E%3C/svg%3E"); }
+.mi-user { --mi-src: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4 21a8 8 0 0 1 16 0'/%3E%3C/svg%3E"); }
+
+/* The Mine dot (spec 3.2): 7 px accent disc inside a 2 px header-coloured ring, no number. */
+@keyframes mine-dot-in { from { transform: scale(0); } to { transform: scale(1); } }
+.bottom-bar a[data-dot] { position: relative; }
+.bottom-bar a[data-dot]::after, .mine-link[data-dot]::before {
+  content: ''; position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 2px var(--header);
+  animation: mine-dot-in var(--d-base) var(--e-out) both;
+}
+.bottom-bar a[data-dot]::after { top: 5px; left: calc(50% + 8px); }
+@media (prefers-reduced-motion: reduce) { .bottom-bar a[data-dot]::after, .mine-link[data-dot]::before { animation: none; } }
+
+/* Phone header account link (D2): two server-rendered links, html[data-signed-in] picks one. Not shown from 640 px (Sign in / the avatar take over). */
+.site-header .phone-acct { display: none; }
+.phone-acct .mi { --mi-size: 18px; }
+.phone-acct[aria-current='page'] .mi { color: var(--accent); }
+.phone-acct[data-acct='in']::before { content: ''; position: absolute; inset: 50% auto auto 50%; width: 30px; height: 30px; box-sizing: border-box; border: 1.5px solid var(--header-mute); border-radius: 50%; transform: translate(-50%, -50%); }
+
+/* Desktop Mine button (spec 4): the slot reserves its width so the link mounting after hydration shifts nothing. */
+.mine-slot { display: none; }
+.mine-link { width: 100%; padding: 0; }
+.mine-link::after { content: ''; position: absolute; inset: 50% auto auto 50%; width: max(100%, var(--touch-min)); height: max(100%, var(--touch-min)); transform: translate(-50%, -50%); }
+.mine-link .mi { --mi-size: 18px; }
+.mine-link[aria-current='page'] .mi { color: var(--accent); }
+.mine-link[aria-current='page'] .mine-link-label { font-weight: 600; }
+.mine-link-label { display: none; }
+.mine-link[data-dot]::before { top: 7px; left: calc(50% + 4px); }
+@media (min-width: 640px) { .mine-slot { display: inline-flex; width: 38px; } }
+@media (min-width: 900px) {
+  .mine-slot { width: 88px; }
+  .mine-link { gap: var(--s-2); }
+  .mine-link-label { display: inline; }
+  .mine-link[data-dot]::before { left: 30px; }
+}
 @media (max-width: 639px) {
   .site-header-inner { gap: var(--s-3); }
-  .site-nav, .header-tools .header-signin { display: none; }
+  .site-nav, .header-tools .header-signin, .header-tools .avatar-btn { display: none; }
   .header-tools { margin-left: auto; }
+  /* the header's tools are 44 x 44 on a phone, 8 px apart (NAV-F D1); 3 x 44 + 2 x 8 leaves 33.6 px spare at 320 */
+  .header-tools .btn-icon, .header-tools .phone-acct { width: var(--touch-min); height: var(--touch-min); }
+  .site-header .phone-acct[data-acct='out'] { display: inline-flex; }
+  html[data-signed-in] .site-header .phone-acct[data-acct='out'] { display: none; }
+  html[data-signed-in] .site-header .phone-acct[data-acct='in'] { display: inline-flex; }
   body { padding-bottom: var(--phone-bottombar-h); }
   .bottom-bar { display: grid; position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-header); }
   .toast-region { bottom: calc(var(--phone-bottombar-h) + 12px); }

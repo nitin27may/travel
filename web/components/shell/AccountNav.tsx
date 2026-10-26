@@ -17,19 +17,22 @@ const AccountMenu = dynamic(() => import('./AccountMenu').then((m) => m.AccountM
  */
 export function AccountNav() {
   const [user, setUser] = useState<HeaderUser>();
-
   useEffect(() => {
     import('@/lib/auth/client')
       .then(({ getAuthClient }) => getAuthClient().getSession())
       .then((r) => {
         const u = (r as { data?: { user?: HeaderUser } } | null)?.data?.user;
-        setUser(u);
-        // the phone bottom bar swaps Sign in for Account from this attribute (ACCT-PH): no second session read
+        // Below 640 px the header shows the phone account link instead (NAV-F D2): the avatar menu and its chunk never load on a phone
+        const q = matchMedia('(min-width: 640px)');
+        q.onchange = () => setUser(q.matches ? u : undefined);
+        setUser(q.matches ? u : undefined);
+        // the phone header swaps its Sign in link for Account from this attribute (NAV-1): no second session read
         if (u) document.documentElement.dataset.signedIn = ''; // sign-out reloads the page
       })
       .catch(() => {});
   }, []);
 
-  // Loading, failed, or signed out: the Sign in link (optimistic, and already the server-rendered markup, so no layout shift).
+  // Loading, failed, signed out, or a phone: the Sign in link (optimistic, and already the server-rendered markup, so no layout shift;
+  // CSS hides it below 640 px).
   return user ? <AccountMenu user={user} /> : <SignInLink />;
 }

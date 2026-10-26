@@ -216,8 +216,8 @@ const MARKUP = [
  * The shell chrome of one page's HTML, in bytes: `markup` (the elements as served), `payload` (their share of the inline
  * RSC payload), `total`, and per part. Throws when the header, footer or bottom bar is missing from either side: a shell
  * renamed or moved must update this method, never measure as zero. A redirect or error document (no layout) has no shell
- * and measures zero with `shell: false`. `beacon` is true when the page carries the tag; `signIn` when the bar has the
- * account items (the sign-in-on build).
+ * and measures zero with `shell: false`. `beacon` is true when the page carries the tag; `signIn` when the header has the
+ * phone account links (the sign-in-on build).
  */
 export function chromeOf(html) {
   const parts = { header: 0, footer: 0, bar: 0, beacon: 0 };
@@ -228,7 +228,8 @@ export function chromeOf(html) {
     for (const m of html.matchAll(open)) {
       const el = html.slice(m.index, elementEnd(html, m.index, tag));
       const n = bytes(el);
-      if (part === 'bar') signIn ||= el.includes(' data-acct="');
+      // the account links moved from the bar to the phone header in NAV-1 (ACCT-PH put them in the bar)
+      if (part === 'header') signIn ||= el.includes(' data-acct="');
       parts[part] += n;
       markup += n;
       found[part] += 1;

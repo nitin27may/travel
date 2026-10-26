@@ -10,6 +10,8 @@ describe('returnPath (Google spec 7.4)', () => {
     '/places/?kind=trail&season=jul',
     '/globe/ca/',
     '/favourites/',
+    '/mine/',
+    '/mine/?show=favourites',
     '/suggest/',
     '/t/abc123/',
     '/account/',

@@ -31,9 +31,3 @@ export const HEAD_ROWS = 48;
 export const LIST_JS_BUDGET_KB = 200;
 export const PLACE_JS_BUDGET_KB = 180;
 export const GLOBE_HTML_BUDGET_KB = 200;
-
-/** ACCT-PH: where the phone bottom bar's fifth item goes, signed out and signed in (the desktop header links the same pages). */
-export const ACCOUNT_LINKS = {
-  signedOut: { href: '/sign-in/', label: 'Sign in' },
-  signedIn: { href: '/account/', label: 'Account' },
-} as const;

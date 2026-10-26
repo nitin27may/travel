@@ -5,6 +5,8 @@ import { cx } from './cx';
 
 interface Props {
   glyph?: IconName;
+  /** A custom glyph that is not in Icon.tsx (the Mine heart lives in its own chunk); replaces `glyph`. */
+  glyphNode?: ReactNode;
   /** Says what is missing ("No stays yet"), never "No data". */
   title: ReactNode;
   /** One line on why. */
@@ -18,11 +20,11 @@ interface Props {
 }
 
 /** Illustration-free empty state (components 6.1): kind glyph on a `--well` disc, title, why, one action. */
-export function EmptyState({ glyph = 'search', title, why, action, secondary, className, as: Heading = 'h2' }: Props) {
+export function EmptyState({ glyph = 'search', glyphNode, title, why, action, secondary, className, as: Heading = 'h2' }: Props) {
   return (
     <div className={cx('empty', className)} role="status">
       <span className="empty-glyph" aria-hidden="true">
-        <Icon name={glyph} size={32} />
+        {glyphNode ?? <Icon name={glyph} size={32} />}
       </span>
       <Heading>{title}</Heading>
       {why ? <p className="empty-why">{why}</p> : null}

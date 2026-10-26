@@ -6,11 +6,10 @@ vi.mock('next/navigation', () => ({ usePathname: () => '/places/moraine-lake/' }
 vi.mock('next/dynamic', () => ({ default: () => () => null }));
 
 import { capabilities } from '@/lib/capabilities';
-import { ACCOUNT_LINKS, reportLink, reportUrl } from '@/lib/config/product';
+import { reportLink, reportUrl } from '@/lib/config/product';
 import { reportProblem } from '@/lib/client/data';
 import { SiteHeader } from '@/components/shell/SiteHeader';
-import { AccountItems } from '@/components/shell/AccountItems';
-import { BottomBar } from '@/components/shell/BottomBar';
+import { BottomBar, mineCurrent } from '@/components/shell/BottomBar';
 import { ReportAnchor } from '@/components/shell/ReportLink';
 
 const FORM = 'https://example.test/feedback/issues/new?template=report.yml';
@@ -28,14 +27,44 @@ describe('signIn flag (11.1)', () => {
   });
 });
 
-describe('phone bar account item (ACCT-PH)', () => {
-  it('renders Sign in and Account links so html[data-signed-in] can swap them without bar state', () => {
-    const html = renderToStaticMarkup(createElement(BottomBar, { account: createElement(AccountItems) }));
-    expect(html).toMatch(/href="\/sign-in\/?" data-acct="signedOut"[^>]*>.*Sign in<\/a>/);
-    expect(html).toMatch(/href="\/account\/?" data-acct="signedIn"[^>]*>.*Account<\/a>/);
+describe('phone bar: Mine replaces the interim account item (NAV-1)', () => {
+  it('renders the same five items whatever the sign-in flag, Mine last, with no session-driven label', () => {
+    const html = renderToStaticMarkup(createElement(BottomBar));
+    expect(html).toMatch(/href="\/mine\/?"[^>]*>.*Mine<\/a>/);
+    expect(html).not.toContain('data-acct');
+    expect(html).not.toContain('Sign in');
+    expect(html.match(/<(a|button)\b/g)).toHaveLength(5);
+    expect(html.indexOf('Search')).toBeLessThan(html.indexOf('Mine'));
   });
-  it('adds nothing when the layout passes no account item (sign-in off)', () => {
-    expect(renderToStaticMarkup(createElement(BottomBar))).not.toContain('data-acct');
+  it('draws the bar icons as CSS masks, not inline SVG', () => {
+    const html = renderToStaticMarkup(createElement(BottomBar));
+    expect(html).not.toContain('<svg');
+    expect(html).toContain('mi-layers');
+  });
+});
+
+describe('phone header account link (NAV-F D2)', () => {
+  const on = renderToStaticMarkup(createElement(SiteHeader, { capabilities: { signIn: true } }));
+  it('renders both links, Sign in and Account, between Search and Theme, for html[data-signed-in] to swap', () => {
+    expect(on).toMatch(/href="\/sign-in\/" data-acct="out" aria-label="Sign in"/);
+    expect(on).toMatch(/href="\/account\/" data-acct="in" aria-label="Account"/);
+    expect(on.indexOf('aria-label="Search"')).toBeLessThan(on.indexOf('data-acct="out"'));
+    expect(on.indexOf('data-acct="in"')).toBeLessThan(on.indexOf('Switch to'));
+  });
+  it('renders neither when sign-in is off', () => {
+    expect(renderToStaticMarkup(createElement(SiteHeader, { capabilities: { signIn: false } }))).not.toContain('data-acct');
+  });
+  it('reserves the Mine slot and ships no Mine link markup (it mounts after hydration)', () => {
+    expect(on).toContain('mine-slot');
+    expect(on).not.toContain('mine-link');
+  });
+});
+
+describe('Mine current by path (D3)', () => {
+  it('is "page" on /mine/ and "true" in the account flow, and nowhere else', () => {
+    expect(mineCurrent('/mine/')).toBe('page');
+    for (const p of ['/account/', '/sign-in/', '/sign-in/reset/', '/sign-up/']) expect(mineCurrent(p), p).toBe('true');
+    for (const p of ['/', '/trips/', '/places/mine-lake/', '/globe/', '/signin/']) expect(mineCurrent(p), p).toBeUndefined();
   });
 });
 
