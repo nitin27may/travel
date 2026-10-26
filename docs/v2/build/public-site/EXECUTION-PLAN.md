@@ -649,6 +649,53 @@ Open the link from the hand-over on your Mac (Safari), then your iPhone (Safari)
 
 Phase E total: about 161 h (agent and builder time), including DATA D6.
 
+### 10.1 Enhancement queue: navigation and Mine (NAV, added 25 Oct 2026, planned only)
+
+Spec [navigation-and-mine.md](../../features/navigation-and-mine.md) (PLAN R-160 to R-164, BACKLOG 15.160 to 15.169,
+Q200 to Q207). Phase 1 needs no backend and is recommended right after ACCT-PH merges (Q206), because Copy to my trips
+writes a copy no page lists. Phase 2 waits for CUS-C, FAV-2 and the R-61 HTTPS preview.
+
+| ID | Task | Agent, model | Effort | Depends on | Acceptance check |
+|---|---|---|---|---|---|
+| NAV-F | Foundation text: components 1.1, 1.4; patterns 1.1, 3.7 | travel-design-reviewer, Opus | 1.5 h | ACCT-PH merged | foundation agrees with the spec |
+| NAV-C | `copies/1` contract, legacy-key move, storage probe, `trip-custom/1` `start` and `travellers`, detector keys | travel-builder, Opus | 3 h | ACCT-PH merged | property tests; detector test |
+| NAV-1 | Bar item Mine (replaces ACCT-PH), phone header sign-in icon (Q203), icon masks, desktop Mine link, dot, `/mine/` shell, `/favourites/` redirect | travel-builder, Sonnet | 5.5 h | NAV-C | five items at 320 px; place HTML and trip start JS at or under the ACCT-PH baseline in both builds; CLS 0 |
+| NAV-2 | My trips on the device; copy sheet footer, done step, toast, replace prompt | travel-builder, Sonnet | 6 h | NAV-1; OVR-1 merged or not started | copy, reload, find, open with the profile, ICS with the dates; old key moved |
+| NAV-R1, NAV-V1 | Review and verify phase 1 | reviewer Opus, verifier Sonnet | 4 h | NAV-2 | approved; sweep at 320, 390, 1440, light and dark |
+| FAV-1 (re-scoped) | Favourites as the Mine panel | travel-builder, Sonnet | 12 h | NAV-R1; OVR-0 | visitor spec 15 |
+| NAV-D | Draft ids and the 50-draft cap, migration slug `draft-cap` | travel-builder, Opus | 2 h | CUS-C | child-branch RLS and cap race |
+| NAV-3, NAV-E | Signed-in Mine, the merge on `/account/` and `/mine/`, real-service E2E | travel-builder, Sonnet | 8 h | NAV-D, FAV-2, R-61 | route tests; merge absent from public pages; E2E on the preview |
+| NAV-R2, NAV-V2 | Review and verify phase 2 | reviewer Opus, verifier Sonnet | 4 h | NAV-3 | approved |
+| NAV-M | More sheet at the planner stage | reviewer Opus, builder Sonnet | 5 h | signed-in Home | spec section 7 |
+
+NAV total: about 20 h (phase 1) plus about 14 h (phase 2); FAV-1 is 2 h smaller; NAV-M 5 h later.
+
+### 10.2 Enhancement queue: requests and custom places (REQ, added 25 Oct 2026, planned only)
+
+Spec [requests-and-custom-places.md](../../features/requests-and-custom-places.md) (PLAN R-170 to R-177, BACKLOG 15.170 to
+15.179, Q210 to Q218). Day one rides on the feedback build and needs no mail domain (signed-in verified senders only).
+FBK-C and CUS-C are widened before their migrations are applied. Briefs are in the spec, section 11.4.
+
+| ID | Task | Agent, model | Effort | Depends on | Acceptance check |
+|---|---|---|---|---|---|
+| FBK-C (+) | `improve` branch, `place` fields `for_trip`, `for_day`, `source_ref`, three intake columns | travel-builder, Opus | +1.5 h | inside FBK-C | union round-trips; private `for_trip` answers identically |
+| FBK-3 (+) | `list --type improve`, `stats --demand`, the `improve` brief | travel-builder, Sonnet | +2 h | inside FBK-3 | CLI tests on the child branch |
+| REQ-1 | `improve` UI, section picker, trip-request "What we already have", Mine link | travel-builder, Sonnet | 6 h | FBK-2, NAV-1 | place HTML and trip start JS unchanged; sheet +2 KB at most |
+| REQ-R1, REQ-V1 | Review and verify day one | reviewer Opus, verifier Sonnet | 4 h | REQ-1 | approved; sweep at 1440 and 390, light and dark |
+| CUS-C (+) | `trip-custom/1` `title`, `moved`, `days`, `notes`, `custom` | travel-builder, Opus | +2 h | inside CUS-C | apply then inverse is identity; caps |
+| REQ-E | Scheduler `moveItem`, `insertDay`, `dropDay` (Opus 3 h), then the copy UI (Sonnet 8 h) | travel-builder | 11 h | CUS-1, CUS-2 | pinned entries never move; dropped day items go to Maybe; reload keeps all |
+| REQ-P | Add a place: catalogue, towns, add as my own | travel-builder, Sonnet | 5 h | REQ-E core | chunk at most 14 KB; no private place shown |
+| REQ-R2, REQ-V2 | Review and verify phase 2 | reviewer Opus, verifier Sonnet | 4 h | REQ-E, REQ-P | approved |
+| REQ-G0 | Google terms and cost cap check plus the fallback switch (docs and owner setup steps only) | travel-planner or travel-researcher, Opus | 3 h | phase 2 | go or no-go for Google with dated pricing and terms; setup steps; fallback numbers |
+| REQ-G | `POST /api/account/geocode`, Google primary, ORS then Photon fallback (Opus 2 h contract, Sonnet 6 h) | travel-builder | 8 h | REQ-G0, EML-Q | buckets, fallback, kill switch, no query in logs, key server-only |
+| REQ-S | Map search tier and the suggestion opt-in | travel-builder, Sonnet | 8 h | REQ-G | address results offer no box; credit line visible |
+| REQ-L | Link and "Use our page" upgrade | travel-builder, Sonnet | 3 h | REQ-S | undo restores the custom stop; no admin write path |
+| REQ-A | CLI for custom suggestions, `source_ref` dedupe | travel-builder, Sonnet | 3 h | FBK-3 | private match never visible to the visitor |
+| REQ-R3, REQ-V3 | Review and verify phase 3 | reviewer Opus, verifier Sonnet | 4 h | REQ-L, REQ-A | approved |
+| REQ-M | MCP intake tools at `owner_admin` (later) | travel-builder, Opus 2 h + Sonnet 4 h | 6 h | MCP-3, MCP-S, MCP-E | no contacts in any result |
+
+REQ total: day one about 13.5 h, phase 2 about 22 h, phase 3 about 27 h (about 62.5 h, Opus 16.5), plus 6 h later.
+
 ## 11. Gate R2: the owner reviews E and approves readiness
 
 ### 11.1 Entry criteria
@@ -937,6 +984,8 @@ Every pending item from every source (BACKLOG, TODO, design reviews and notes, l
 
 | Date | Change |
 |---|---|
+| 2026-10-25 | Requests and custom places (R-170 to R-177, [requests-and-custom-places.md](../../features/requests-and-custom-places.md)): new 10.2, the REQ enhancement queue; FBK-C, FBK-3 and CUS-C widened before their migrations. Planned only |
+| 2026-10-25 | Navigation and Mine (R-160 to R-164, [navigation-and-mine.md](../../features/navigation-and-mine.md)): new 10.1, the NAV enhancement queue; FAV-1 re-scoped to the Mine panel. Planned only |
 | 2026-10-25 | Local database and seed sync (R-140 to R-146, [local-database-and-seed-sync.md](../../features/local-database-and-seed-sync.md)): 4.8 SRV-0 refined (LOCAL-C, LOCAL-1 to LOCAL-3 can run before the SRV-0 window on Q180). The 24 Oct removal of "Docker steps as historical" still holds for Supabase; a plain Postgres 18 with PostGIS in Docker is current again for development and CI only |
 | 2026-10-25 | R-76 to R-80 stay bases and stay optimisation ([stay-bases-and-optimisation.md](../../features/stay-bases-and-optimisation.md); data batch D9 in [DATA.md](briefs/DATA.md)): fewer-base and cheaper-town alternatives per trip, computed check-in counts, messages, a Where to stay section. Follows R-59 and the OVR contract. DATA-D1 (points, 84 to 6 records without one) merged. |
 | 2026-10-25 | New owner requests specified after phase E planning: R-62 to R-67 trip overview, best-time windows, thumbnails and customisation ([trip-overview-and-customisation.md](../../features/trip-overview-and-customisation.md), brief [OVR.md](briefs/OVR.md), data batches D7, D8, D5b in [DATA.md](briefs/DATA.md)); R-70 to R-75 favourites, place suggestions and trip requests ([visitor-suggestions-and-favourites.md](../../features/visitor-suggestions-and-favourites.md)). Both follow the closure queue and R-59 for `web/components/trips/**`. 14.2 row 4 is refined: stored reports go into the shared intake table, not a separate reports table. |

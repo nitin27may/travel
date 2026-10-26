@@ -36,6 +36,9 @@ Tabs: `--t-tab` (mono 13.5/500) `--header-mute`, 12 px side padding, full height
 ring. Keyboard: Tab to the tab list, arrows move, Enter opens; `aria-current="page"`. At tablet the tabs
 stay; on phone the header is 56 px with brand and the right cluster only, tabs move to the bottom bar.
 Do: keep four tabs or fewer. Don't: put trip tabs here.
+Planned change (25 Oct 2026, pending NAV-F): the public right cluster becomes search, theme, **Mine**, Sign in or the
+avatar, and the public phone bar in 1.4 becomes Trips · Places · Globe · Search · Mine, replacing the interim ACCT-PH item
+([navigation-and-mine.md](../../features/navigation-and-mine.md) section 1).
 
 ### 1.2 Trip header (trip bar) and trip tabs
 
