@@ -10,6 +10,7 @@
 // line followed by the next line would be flagged; the separators keep every number from sitting next to a word.
 import { PRINT_GAP, type ExportModel } from "../schema/api/export.ts";
 import { approxNote } from "../export/licence.ts";
+import { bookAheadText } from "../export/bookings.ts";
 
 type Located = { lat: number; lon: number; pointSource: string; sourceLicence: string };
 
@@ -35,11 +36,17 @@ export function printText(model: ExportModel, extra: { area?: string | null } = 
     return `${lines.join("\n")}\n`;
   }
   lines.push(`${model.nights} night${model.nights === 1 ? "" : "s"}`);
+  // "Book ahead" (MUST-6, T1, P6; TRP-GL-C review F5): the trip's bookings, in the model's day order, before the days, so paper says what to
+  // book before the trip starts. Dateless, worded as the page words them (core/src/export/bookings.ts). No block when the plan has none.
+  if (model.bookings.length) {
+    lines.push("", "Book ahead");
+    for (const b of model.bookings) lines.push(`  ${b.day === null ? "Any day" : `Day ${b.day}`} | ${word(b.name)} | ${word(bookAheadText(b))}`);
+  }
   for (const day of model.days) {
     lines.push("", `Day ${day.n}: ${word(day.title)}${day.base ? ` (base ${day.base})` : ""}`);
     const stops = model.stops.filter((s) => s.day === day.n).sort((a, b) => a.order - b.order);
     if (!stops.length) lines.push(`  ${PRINT_GAP}`);
-    for (const s of stops) lines.push(`  ${word(s.time)} | ${word(s.name)} | ${word(s.area)} | ${location(s.point)}${s.lane ? ` | ${s.lane}` : ""}`);
+    for (const s of stops) lines.push(`  ${word(s.time)} | ${word(s.name)} | ${word(s.area)} | ${location(s.point)}${s.lane ? ` | ${s.lane}` : ""}${s.bookAhead ? ` | Book ahead: ${s.bookAhead}` : ""}`);
   }
   return `${lines.join("\n")}\n`;
 }

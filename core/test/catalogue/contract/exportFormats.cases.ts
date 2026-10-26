@@ -58,7 +58,7 @@ export const exportFormatsCases: ContractCase[] = [
   },
   {
     id: "K30",
-    title: "a trip's json model lists its bookings (MUST-6): the trip detail's rows with a window or note, in day order, worded as the page words them, dateless; [] when none; the CSV carries each one",
+    title: "a trip's json model lists its bookings (MUST-6): the trip detail's rows with a window or note, in day order, worded as the page words them, dateless; [] when none; a booking naming a stop's place and day rides on that stop; the CSV and the print carry each one",
     method: "getExport",
     async run(store, t) {
       const slug = t.facts.tripSlug;
@@ -75,13 +75,24 @@ export const exportFormatsCases: ContractCase[] = [
       const dayNs = new Set(m.days.map((d) => d.n));
       for (const b of m.bookings) if (b.day !== null) expect(dayNs.has(b.day), `${b.ref} day ${b.day}`).toBe(true);
       // dateless: a window is relative to a day, never a calendar date, in the model, on a stop, or in the CSV
-      const texts = [...m.bookings.flatMap((b) => [b.name, b.rule, b.note]), ...m.stops.map((s) => s.bookRule)].filter((x): x is string => !!x);
+      const texts = [...m.bookings.flatMap((b) => [b.name, b.rule, b.note]), ...m.stops.map((s) => s.bookAhead)].filter((x): x is string => !!x);
       for (const text of texts) expect(isDated(text), text).toBe(false);
-      expect(householdHits({ bookings: m.bookings, stops: m.stops.map((s) => s.bookRule ?? null) }, `${slug} bookings`)).toEqual([]);
+      expect(householdHits({ bookings: m.bookings, stops: m.stops.map((s) => s.bookAhead ?? null) }, `${slug} bookings`)).toEqual([]);
+      // a booking that names a place rides on that place's stop on its day (review F6: both stores apply withStopBookings)
+      for (const r of Object.values(got.categories).flat()) {
+        const b = m.bookings.find((x) => x.ref === r.key);
+        if (!b || !r.placeSlug) continue;
+        const on = m.stops.filter((s) => s.placeSlug === r.placeSlug && r.days.includes(s.day));
+        for (const s of on) expect(s.bookAhead, `${b.ref} on ${s.id}`).toContain(bookAheadText(b));
+      }
       const csv = expectOk(await store.getExport({ type: "trip", slug, format: "csv" }), "trip csv").body;
+      // the API print lays the bookings out too (review F5): a "Book ahead" block with each one's words
+      const print = expectOk(await store.getExport({ type: "trip", slug, format: "print" }), "trip print").body;
+      expect(/^Book ahead$/m.test(print), "a print 'Book ahead' block exactly when the trip has bookings").toBe(m.bookings.length > 0);
       for (const b of m.bookings) {
         const cell = bookAheadText(b);
         expect(csv.includes(cell) || csv.includes(`"${cell.replace(/"/g, '""')}"`), `${b.ref} in the CSV`).toBe(true);
+        expect(print, `${b.ref} in the print`).toContain(cell);
       }
     },
   },

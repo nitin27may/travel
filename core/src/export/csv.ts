@@ -1,13 +1,18 @@
 // The trip CSV: one row per stop, plus one row per booking (MUST-6), in day order.
 //
 // The CSV time rule (BACKLOG 15.46, settled in TRP-GL-C): the "Time" column follows the selected profile exactly as the print does (the B1
-// rule of the TRP2b2 review). The browser builds the file from `forPage(model, session)` (web/lib/export/plan.ts), which writes each kept
-// stop's time as the print writes it from the page's displayed timeline: "~08:45" for a suggested time (T3: never shown as fixed),
-// "about 19:30" tied to the sun, "07:30 PT" over a time-zone line, the part of the day on a condensed plan, and no time for a stop the
-// timeline does not time. The API export has no profile (exportQuery ignores `profile`, store.ts A31), so it uses the trip's default
-// profile; until SHOULD-9 schedules the API's model (web/lib/server/exports.ts), the API's CSV writes the plan's authored HH:MM.
+// rule of the TRP2b2 review). The browser builds the file from `forPage(model, session)`, that is core's `forTimeline` (plan.ts), which
+// writes each kept stop's time as the print writes it from the page's displayed timeline: "~08:45" for a suggested time (T3: never shown
+// as fixed), "about 19:30" tied to the sun, "07:30 PT" over a time-zone line, the part of the day on a condensed plan, and no time for a
+// stop the timeline does not time. The API export has no profile (exportQuery ignores `profile`, store.ts A31), so it uses the trip's
+// default profile through the same `forTimeline`; until BACKLOG 15.223a wires that (web/lib/server/exports.ts), the API's CSV writes the
+// plan's authored HH:MM.
 //
-// "Book ahead" (MUST-6, T1, P6): a stop's own booking window (`ExportStop.bookRule`) on its row, and each of the trip's bookings as its own
+// Order (TRP-GL-C review F2): day, then `order`, never the clock inside the time text. `forTimeline` numbers the stops in the timeline's
+// order ("Morning" before "Afternoon", "07:30 PT" before "08:15 MT" when the timeline says so); the builder numbers the plan's authored
+// HH:MM chronologically.
+//
+// "Book ahead" (MUST-6, T1, P6): a stop's own booking text (`ExportStop.bookAhead`) on its row, and each of the trip's bookings as its own
 // row ("booking" in Kind) at the head of its day, so a window tied to no stop is still in the file. Dateless, as the page words it.
 import { bookAheadText } from './bookings.ts';
 import { toCsv } from './csvText.ts';
@@ -20,16 +25,13 @@ export const TRIP_CSV_HEADER = ['Day', 'Time', 'Name', 'Kind', 'Category', 'Area
 
 type Cell = string | number | null | undefined;
 
-/** The clock inside a time as the page words it ("~08:45", "about 19:30", "07:30 PT"), for sorting; a part of the day sorts after. */
-const clockOf = (t: string | null): string => t?.match(/\b\d{2}:\d{2}\b/)?.[0] ?? '99:99';
-
-/** Stops and bookings in day order; in a day, its bookings first, then the stops by time, then page order. Coordinates only where the licence guard passes. */
+/** Stops and bookings in day order; in a day, its bookings first, then the stops in the model's order. Coordinates only where the licence guard passes. */
 export function tripCsv(trip: TripExport): string {
   const stops = [...trip.stops]
-    .sort((a, b) => a.day - b.day || clockOf(a.time).localeCompare(clockOf(b.time)) || a.order - b.order)
+    .sort((a, b) => a.day - b.day || a.order - b.order)
     .map((s) => {
       const p = s.point && checkPoint(s.point).ok ? s.point : null;
-      const row: Cell[] = [s.day, s.time, s.name, s.kind, s.category ? CATEGORY_LABEL[s.category as Category] : '', s.area, p ? p.lat : '', p ? p.lon : '', p && approxNote(p) ? 'yes' : '', s.links.join(' '), s.bookRule ?? ''];
+      const row: Cell[] = [s.day, s.time, s.name, s.kind, s.category ? CATEGORY_LABEL[s.category as Category] : '', s.area, p ? p.lat : '', p ? p.lon : '', p && approxNote(p) ? 'yes' : '', s.links.join(' '), s.bookAhead ?? ''];
       return { day: s.day, row };
     });
   const bookings = trip.bookings.map((b) => ({ day: b.day, row: [b.day, '', b.name, 'booking', '', '', '', '', '', '', bookAheadText(b)] as Cell[] }));

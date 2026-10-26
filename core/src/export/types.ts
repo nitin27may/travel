@@ -32,7 +32,10 @@ export interface ExportLine {
 
 export interface ExportStop {
   day: number;
-  /** Position inside the file (chronological: day, then time, then order on the page). */
+  /**
+   * Position inside the file: the CSV and the print sort by day, then this. `buildTripExport` numbers the plan's authored HH:MM
+   * chronologically (then the plan's order); `forTimeline` (plan.ts) renumbers the kept stops in the timeline's order.
+   */
   order: number;
   id: string;
   name: string;
@@ -55,10 +58,11 @@ export interface ExportStop {
   /** The place's own point, with its source, so the CSV can apply the same licence guard as GPX. */
   point: Point | null;
   /**
-   * The booking windows of this stop, as the "Book ahead" text says them (bookings.ts `bookAheadText`), when a booking row names this
-   * stop's place on this day. Absent when none does. Dateless: "Opens 30 days before Day 3".
+   * What "Book ahead" says for this stop: each booking's window and note, as bookings.ts `bookAheadText` words them, when a booking row
+   * names this stop's place on this day. Absent when none does (every real trip today: the logistics rows name no place, BACKLOG
+   * 15.223b). Dateless: "Opens 30 days before Day 3; Non-refundable".
    */
-  bookRule?: string;
+  bookAhead?: string;
 }
 
 /**
@@ -72,9 +76,12 @@ export interface ExportBooking {
   rule: string | null;
   /** The plan's note on booking it ("Pre-booked slots, non-refundable"), or null. */
   note: string | null;
-  /** The first day it is for, or null when the plan ties it to no day. */
+  /** The day the window counts from (the rule's own day), else the first day it is for; null when the plan ties it to no day. */
   day: number | null;
-  /** The page's category row key ("logistics:r-auronzo"): stable for the trip, so the print and the page can name the same row. */
+  /**
+   * The page's category row key ("logistics:r-auronzo"), so the print and the page can name the same row. Opaque: stable within one
+   * revision of the trip only (today's keys are legacy and prototype ids that change at TD-3/TD-4); never parse it or store it.
+   */
   ref: string;
 }
 

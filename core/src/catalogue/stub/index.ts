@@ -12,7 +12,8 @@ import { buildTextIndex, cardText, queryTerms, searchTexts } from "../../search/
 import { publicTownLayer, safeLine, type PublicGazetteer, type PublicTownsHolder } from "../../privacy/towns.ts";
 import { printText } from "../printText.ts";
 import { approxNote } from "../../export/licence.ts";
-import { tripBookings } from "../../export/bookings.ts";
+import { tripBookings, withStopBookings } from "../../export/bookings.ts";
+import { tripCsv } from "../../export/csv.ts";
 import { revisionOf, servedSnapshot } from "../revision.ts";
 import { fail, ok, type Result } from "../result.ts";
 import { currentSlug, isWithdrawn, kebab, movedTo, resolveRegion } from "../slugs.ts";
@@ -524,6 +525,7 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
     const waypoints: S.ExportModel["waypoints"] = [];
     let skipped = 0;
     let order = 0;
+    const rows = Object.values(t.detail.categories).flat();
     for (const day of t.detail.days) {
       for (const it of day.items) {
         const place = it.placeSlug ? this.bySlug.get(it.placeSlug) : undefined;
@@ -538,7 +540,8 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
     }
     return {
       type: "trip", slug, title: t.detail.title, url: `/trips/${slug}/`, depth: t.detail.depth, nights: t.detail.nights ?? 0,
-      days: t.detail.days.map((d) => ({ n: d.n, title: d.title, base: d.base })), stops, bookings: tripBookings(Object.values(t.detail.categories).flat()),
+      // the booking windows as the web store fills them (build.server.ts): the trip's list, and each on the stop whose place and day it names
+      days: t.detail.days.map((d) => ({ n: d.n, title: d.title, base: d.base })), stops: withStopBookings(stops, rows), bookings: tripBookings(rows),
       waypoints, lines: [], tz: null, seasonLabel: t.detail.season?.label ?? null, skipped,
     };
   }
@@ -548,13 +551,14 @@ export class StubStore implements CatalogueStore, PublicTownsHolder {
     if (!qi.ok) return qi;
     const { type, slug } = qi.value;
     const format = qi.value.format;
-    if (format === "json" || format === "print") {
+    // a trip's CSV is core's trip CSV over the model, as the web store writes it (stops, bookings, "Book ahead"; case K30)
+    if (format === "json" || format === "print" || (format === "csv" && type === "trip")) {
       const model = this.exportModel(type, slug);
       if (!model) return fail("not_found", `No public ${type} has that slug.`);
       const approx = model.waypoints.filter((w) => approxNote(w.point) !== null).length;
       const source = model.waypoints.some((w) => w.point.sourceLicence === "ODbL") ? "Map data: OpenStreetMap contributors (ODbL)" : "";
       const area = model.type === "place" ? this.bySlug.get(slug)?.detail.areaLabel ?? null : null;
-      const body = format === "json" ? JSON.stringify(model) : printText(model, { area });
+      const body = format === "json" ? JSON.stringify(model) : format === "csv" && model.type === "trip" ? tripCsv(model) : printText(model, { area });
       return ok({ filename: `${slug}.${S.EXPORT_FILE[format].ext}`, mime: S.EXPORT_FILE[format].mime, body, source, skipped: model.skipped, approx }, this.rev);
     }
     const places = type === "place" ? [this.bySlug.get(slug)].filter((p): p is StubPlace => !!p) : (this.tripBySlug.get(slug)?.places ?? []).map((s) => this.bySlug.get(s)!).filter(Boolean);
