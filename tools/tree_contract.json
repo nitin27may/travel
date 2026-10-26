@@ -52,10 +52,6 @@
     "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
    },
    {
-    "key": "core/src/capture/placementBlock.ts::data/reference/towns",
-    "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
-   },
-   {
     "key": "core/src/catalogue/store.ts::core/src/catalogue/supabase",
     "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
    },
@@ -192,7 +188,7 @@
     "reason": "trip research note written before the v2 layout; names the old legacy/<trip>/data or research/ paths as history; kept as written"
    },
    {
-    "key": "research/vault-notes/travel-finder/Travel Finder — Architecture & Stack.md::data/auth/storage",
+    "key": "research/vault-notes/travel-finder/Travel Finder \u2014 Architecture & Stack.md::data/auth/storage",
     "reason": "imported note kept as written (research/vault-notes); the strings are template placeholders or the author's own paths"
    },
    {
@@ -230,6 +226,34 @@
    {
     "key": "web/lib/public/world.ts::data/outings/from-hubs.json",
     "reason": "code comment or message names an example, optional or planned path (not a live reference); reword when the file is next edited"
+   },
+   {
+    "key": "research/audits/public-repo-audit-2026-10-25.md::docs/v2/design/scenario-check/proto",
+    "reason": "audit report names paths that exist only in history or are removed by the pre-public clean-up; drop when the audit is archived"
+   },
+   {
+    "key": "research/audits/public-repo-audit-2026-10-25.md::docs/v2/reference/wanderlog",
+    "reason": "audit report names paths that exist only in history or are removed by the pre-public clean-up; drop when the audit is archived"
+   },
+   {
+    "key": "research/audits/public-repo-audit-2026-10-25.md::docs/v2/research/map-stack/",
+    "reason": "audit report names paths that exist only in history or are removed by the pre-public clean-up; drop when the audit is archived"
+   },
+   {
+    "key": "research/audits/public-repo-audit-2026-10-25.md::prototype/src/data/trip.ts",
+    "reason": "audit report names paths that exist only in history or are removed by the pre-public clean-up; drop when the audit is archived"
+   },
+   {
+    "key": "research/audits/public-repo-audit-2026-10-25.md::research/inbox/2026-10-17",
+    "reason": "audit report names paths that exist only in history or are removed by the pre-public clean-up; drop when the audit is archived"
+   },
+   {
+    "key": "research/audits/public-repo-audit-2026-10-25.md::research/vault-notes/Travel",
+    "reason": "audit report names paths that exist only in history or are removed by the pre-public clean-up; drop when the audit is archived"
+   },
+   {
+    "key": "research/audits/public-repo-audit-2026-10-25.md::research/vault-notes/archive/India",
+    "reason": "audit report names paths that exist only in history or are removed by the pre-public clean-up; drop when the audit is archived"
    }
   ],
   "3": [
