@@ -15,8 +15,13 @@ export const PROFILE_KEYS = ["p", "pace", "a", "walk", "split", "d", "add"] as c
 
 const PACES: readonly Pace[] = ["relaxed", "standard", "full"];
 const WALKS = [5, 8, 12];
+/** The adult count a link may carry (Q296, 26 Oct 2026): 1 to 12. Children's ages never enter the codec; `p=family-<n>` carries the youngest only. */
+export const MIN_ADULTS = 1;
+export const MAX_URL_ADULTS = 12;
+/** `a=<n>` as a whole number 1 to 12 with no sign, leading zero or decimal; anything else is not a count. */
+export const parseAdults = (v: string | null): number | null => (v !== null && /^(?:[1-9]|1[0-2])$/.test(v) ? Number(v) : null);
 
-/** Parses `p=family-6&pace=relaxed&a=1&walk=8&split=1&d=5C,9A&add=5.moraine-lake`. */
+/** Parses `p=family-6&pace=relaxed&a=3&walk=8&split=1&d=5C,9A&add=5.moraine-lake`. */
 export function parseTimelineUrl(query: URLSearchParams | string, defaults: Profile = DEFAULT_PROFILE): TimelineUrlState {
   const q = typeof query === "string" ? new URLSearchParams(query) : query;
   const get = (k: string): string | null => q.get(k);
@@ -34,7 +39,9 @@ export function parseTimelineUrl(query: URLSearchParams | string, defaults: Prof
   }
   const pace = get("pace");
   if (pace && PACES.includes(pace as Pace)) profile.pace = pace as Pace;
-  if (get("a") === "1") profile.adults = 1;
+  // `a=1` (the only value before Q296) still means one adult; `a=2` to `a=12` are the exact count (spec 5.4, codec change)
+  const adults = parseAdults(get("a"));
+  if (adults !== null) profile.adults = adults;
   const walk = Number(get("walk"));
   if (WALKS.includes(walk)) profile.walkKm = walk;
   if (get("split") === "1") profile.split = true;
@@ -58,7 +65,8 @@ export function serialiseTimelineUrl(state: TimelineUrlState, defaults: Profile 
   const who = (x: Profile): string => (x.party === "adults" ? "adults" : `family-${x.youngest ?? 0}`);
   if (who(p) !== who(defaults)) out.push(`p=${who(p)}`);
   if (p.pace !== defaults.pace) out.push(`pace=${p.pace}`);
-  if (p.adults !== defaults.adults && p.adults === 1) out.push("a=1");
+  // the exact count when it differs from the trip's default (2 on every trip today); out of range is never written
+  if (p.adults !== defaults.adults && parseAdults(String(p.adults)) !== null) out.push(`a=${p.adults}`);
   if (p.walkKm !== defaults.walkKm && p.walkKm !== null) out.push(`walk=${p.walkKm}`);
   if (p.split !== defaults.split && p.split) out.push("split=1");
   const d = Object.entries(state.overrides).map(([n, k]) => [Number(n), k] as const).sort((a, b) => a[0] - b[0]);

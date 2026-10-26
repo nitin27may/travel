@@ -103,7 +103,7 @@ export interface Profile {
   /** The youngest child's age, 0 to 17. null for adults. */
   youngest: number | null;
   pace: Pace;
-  /** 1, or 2 and more (stored as 2). Only matters for split days. */
+  /** 1 to 12 (the codec's `a`, Q296). The scheduler only asks "1, or 2 and more" (split days); the exact count is for the party words and copies. */
   adults: number;
   /** Longest single walk in km; null means from the age (2.4). */
   walkKm: number | null;
