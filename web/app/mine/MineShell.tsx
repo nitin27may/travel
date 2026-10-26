@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Banner } from '@/components/ui/Banner';
@@ -8,12 +9,16 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { markSeen } from '@/lib/mine/dot';
 import { kindLabel } from '@/lib/public/taxonomy';
 import type { PlaceKind } from '@/lib/public/types';
+import type { StorageLike } from '@travel/core/schema/copies.ts';
 import type { MineTab, Overview } from '@/lib/mine/overview';
 import { AccountCard } from './AccountCard';
 import { DeviceNotice } from './DeviceNotice';
 import { MineTabs } from './MineTabs';
 
-type Loaded = { overview: Overview; blocked: boolean; tab: MineTab };
+// the rows, the menu and the copy readers load after the shell paints (Zod stays out of the page's start chunk)
+const MyTrips = dynamic(() => import('@/components/mine/MyTrips').then((m) => m.MyTrips), { ssr: false });
+
+type Loaded = { overview: Overview; blocked: boolean; tab: MineTab; didNotFit: number };
 type Data = typeof import('@/lib/mine/data');
 // the core readers (and Zod) load after the shell paints, so the page's start chunk stays small
 const data = (): Promise<Data> => import('@/lib/mine/data');
@@ -77,10 +82,12 @@ export function MineShell({ signIn }: { signIn: boolean }) {
     void data().then((m) => {
       if (!live) return;
       const probe = m.mineStorage();
+      // the old key's drafts move into the envelope once per device, before the first read (NAV-2C); `kept` is what did not fit
+      const mv = m.moveLegacyOnce(probe.storage);
       const overview = m.readOverview(probe.storage);
       const asked = m.parseShow(new URLSearchParams(location.search).get('show'));
       setD(m);
-      setState({ overview, blocked: probe.kind === 'memory', tab: asked ?? m.defaultTab(overview) });
+      setState({ overview, blocked: probe.kind === 'memory', tab: asked ?? m.defaultTab(overview), didNotFit: mv.status === 'moved' ? mv.kept : 0 });
       markSeen();
     });
     return () => {
@@ -118,6 +125,9 @@ export function MineShell({ signIn }: { signIn: boolean }) {
     }),
     [state],
   );
+
+  // a write in this tab (Remove, Undo, Change dates): read both lists again
+  const reread = () => setState((s) => (s && d ? { ...s, overview: d.readOverview(d.mineStorage().storage) } : s));
 
   const choose = (tab: MineTab) => {
     setMoved(true);
@@ -158,7 +168,7 @@ export function MineShell({ signIn }: { signIn: boolean }) {
               />
             </div>
             <div role="tabpanel" id="mine-panel-trips" aria-labelledby="mine-tab-trips" hidden={state.tab !== 'trips'} className={moved ? 'mine-panel is-moved' : 'mine-panel'}>
-              <TripsPanel overview={state.overview} />
+              <TripsPanel overview={state.overview} storage={d!.mineStorage().storage} signedIn={!!email} didNotFit={state.didNotFit} onChanged={reread} />
             </div>
             <div role="tabpanel" id="mine-panel-favourites" aria-labelledby="mine-tab-favourites" hidden={state.tab !== 'favourites'} className={moved ? 'mine-panel is-moved' : 'mine-panel'}>
               <FavouritesPanel overview={state.overview} />
@@ -180,31 +190,11 @@ export function MineShell({ signIn }: { signIn: boolean }) {
   );
 }
 
-/** My trips. NAV-2 replaces the plain list with the rows, groups and menu of the spec (5.2). */
-function TripsPanel({ overview }: { overview: Overview }) {
+/** My trips: the rows, groups and menu of the spec (5.2) are `MyTrips`; this decides between the error state and the list. */
+function TripsPanel({ overview, storage, signedIn, didNotFit, onChanged }: { overview: Overview; storage: StorageLike; signedIn: boolean; didNotFit: number; onChanged: () => void }) {
   const c = overview.copies;
   if (!c.ok) return <Unreadable what="trips" reason={c.reason} />;
-  if (c.items.length === 0) {
-    return (
-      <EmptyState
-        quiet
-        glyph="layers"
-        title="No trips copied yet"
-        why="Open a trip and choose Copy to my trips. It stays here with your dates."
-        action={<ButtonLink href="/trips/" variant="primary">Browse trips</ButtonLink>}
-      />
-    );
-  }
-  return (
-    <ul className="mine-plain">
-      {c.items.map((i) => (
-        <li key={i.id}>
-          <Link href={`/trips/${i.slug}/`}>{i.title}</Link>
-          <span>{i.start ? dayLabel(i.start) : 'No date'}</span>
-        </li>
-      ))}
-    </ul>
-  );
+  return <MyTrips items={c.items} storage={storage} signedIn={signedIn} didNotFit={didNotFit} onChanged={onChanged} />;
 }
 
 /** Favourites. FAV-1 replaces the plain list with the filter row and list rows of the spec (5.3) and the heart. */

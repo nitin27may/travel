@@ -1,0 +1,52 @@
+/* My trips rows (NAV-2, docs/v2/design/shell/mine-and-bar-spec.md 5.2). Tokens only. */
+.mytrips { display: grid; gap: var(--s-6); }
+.mt-note { margin-bottom: 0; }
+.mt-head { display: flex; align-items: center; justify-content: space-between; margin: 0 0 var(--s-2); font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
+.mt-count { font: var(--t-mono); font-size: 12.5px; }
+.mt-list { list-style: none; margin: 0; padding: 0; }
+.mt-head-past { display: block; }
+.mt-toggle { display: flex; align-items: center; gap: var(--s-2); width: 100%; min-height: var(--touch-min); padding: 0; background: none; border: 0; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; text-align: left; }
+.mt-toggle:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+.mt-caret { transition: transform 200ms var(--e-std); }
+.mt-toggle[aria-expanded='true'] .mt-caret { transform: rotate(90deg); }
+.mt-fold { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 200ms var(--e-std); }
+.mt-fold[data-open] { grid-template-rows: 1fr; }
+.mt-fold > .mt-list { overflow: hidden; min-height: 0; visibility: hidden; transition: visibility 200ms; }
+.mt-fold[data-open] > .mt-list { visibility: visible; }
+
+.crow { display: grid; grid-template-rows: 1fr; border-bottom: 1px solid var(--line); transition: grid-template-rows 200ms var(--e-std), opacity 200ms var(--e-std); }
+.crow:first-child { border-top: 1px solid var(--line); }
+.crow-inner { position: relative; min-height: 76px; min-width: 0; overflow: hidden; }
+.crow[data-collapsing] { grid-template-rows: 0fr; opacity: 0; }
+.crow[data-collapsing] .crow-inner { min-height: 0; }
+.crow[data-restored] { animation: crow-in 200ms var(--e-std) both; }
+@keyframes crow-in { from { grid-template-rows: 0fr; opacity: 0; } to { grid-template-rows: 1fr; opacity: 1; } }
+
+.crow-link { display: grid; grid-template-columns: 52px minmax(0, 1fr); grid-template-areas: 'photo name' 'photo l2' 'photo l3'; column-gap: var(--s-3); row-gap: 3px; align-content: center; min-height: 76px; padding: 12px 0; color: var(--ink); text-decoration: none; }
+a.crow-link:hover { background: var(--surface-2); }
+a.crow-link:focus-visible { outline: var(--focus-ring); outline-offset: -3px; }
+.crow-photo { grid-area: photo; align-self: start; display: grid; place-items: center; width: 52px; height: 38px; border-radius: 6px; overflow: hidden; background: var(--well); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
+.crow-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.crow-name { grid-area: name; padding-right: 48px; font: var(--t-row); line-height: 1.2; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.crow-l2, .crow-l3 { font: var(--t-mono); font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.crow-l2 { grid-area: l2; line-height: 1.35; }
+.crow-l2:has(.chip) { overflow: visible; }
+.crow-l3 { line-height: 1.35; }
+/* a row that is not a link keeps its name clear of the Remove button */
+.crow-link[role='group'] .crow-name { padding-right: 92px; }
+.crow-l3 { grid-area: l3; }
+.crow-chip { position: absolute; right: 0; bottom: 12px; }
+.crow-act { position: absolute; top: 4px; right: 0; display: flex; align-items: center; }
+.crow-menu-btn { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: var(--r-2); background: none; color: var(--ink); cursor: pointer; }
+.crow-menu-btn:hover, .crow-menu-btn[data-popup-open] { background: var(--surface-2); }
+.crow-menu-btn:focus-visible { outline: var(--focus-ring); outline-offset: -3px; }
+.crow-act .btn { margin-right: 0; }
+
+@media (min-width: 1024px) {
+  .mt-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--s-8); }
+  .crow:nth-child(2) { border-top: 1px solid var(--line); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .crow, .mt-fold, .mt-caret, .mt-fold > .mt-list { transition: none; }
+  .crow[data-restored] { animation: none; }
+}

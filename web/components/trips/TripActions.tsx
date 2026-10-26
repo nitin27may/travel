@@ -20,6 +20,9 @@ interface Props {
   seasonMonths?: number[];
   /** The trip already happened: the page is read-only and the primary action reads "Use as a template". */
   done?: boolean;
+  /** The copy's snapshot (NAV-2): the country code (none on a trip page yet) and a same-origin photo path. */
+  cc?: string | null;
+  photo?: string | null;
   className?: string;
 }
 
@@ -50,7 +53,7 @@ export function seasonWindow(months: number[] | undefined): { from: string; to: 
   return { from: `${mm(start)}-01`, to: `${mm(end)}-${last}` };
 }
 
-export function TripActions({ slug, title, nights, days, url, hasDays, seasonMonths, done, className }: Props) {
+export function TripActions({ slug, title, nights, days, url, hasDays, seasonMonths, done, cc, photo, className }: Props) {
   const [copying, setCopying] = useState(false);
   const [sheetEver, setSheetEver] = useState(false);
   return (
@@ -65,7 +68,7 @@ export function TripActions({ slug, title, nights, days, url, hasDays, seasonMon
       ) : null}
       <ExportMenu target={{ type: 'trip', slug }} formats={hasDays ? FORMATS : ['pdf']} label="Export trip" />
       <ShareButton url={url} title={title} />
-      {hasDays && sheetEver ? <CopySheet trip={{ slug, title, nights, days, window: seasonWindow(seasonMonths) }} open={copying} onClose={() => setCopying(false)} /> : null}
+      {hasDays && sheetEver ? <CopySheet trip={{ slug, title, nights, days, window: seasonWindow(seasonMonths), cc, photo }} open={copying} onClose={() => setCopying(false)} /> : null}
     </div>
   );
 }

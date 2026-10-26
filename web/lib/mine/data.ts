@@ -2,3 +2,4 @@
 // schemas, which must not sit in the page's start chunk (budget: 200 KB gzipped at load, web/tests/budget.test.ts).
 export { defaultTab, noticeDue, parseShow, readOverview, snoozeNoticeNow } from './overview';
 export { mineStorage } from './storage';
+export { moveLegacyOnce } from './copies';

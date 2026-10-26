@@ -1,5 +1,6 @@
 import { Credits } from '@/components/ui/Credits';
 import { LazyGallery } from './LazyGallery';
+import { sizedImage } from '@/lib/format/image';
 import type { PublicTrip } from '@/lib/public/types';
 import type { TripPageModel } from './model';
 import { TripActions } from './TripActions';
@@ -13,7 +14,7 @@ export function TripEnd({ trip, model, url }: { trip: PublicTrip; model: TripPag
         <p className="trip-sec-note">{trip.depth === 'overview'
             ? 'This overview has no days to copy yet. Export it as a PDF or share the link.'
             : `${trip.isDone ? 'Use it as a template for your own dates, or export' : 'Copy it to plan your own dates, or export'} it as a PDF, a calendar, a route file or a spreadsheet.`}</p>
-        <TripActions slug={trip.slug} title={trip.title} nights={trip.nights ?? 0} days={trip.daysCount ?? 0} url={url} hasDays={trip.depth !== 'overview'} seasonMonths={trip.season?.months} done={trip.isDone} />
+        <TripActions slug={trip.slug} title={trip.title} nights={trip.nights ?? 0} days={trip.daysCount ?? 0} url={url} hasDays={trip.depth !== 'overview'} seasonMonths={trip.season?.months} done={trip.isDone} photo={trip.cover ? sizedImage(trip.cover.url, 320) : null} />
       </section>
       {model.gallery.length ? (
         <section className="trip-sec" aria-labelledby="gallery-h">
