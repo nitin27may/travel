@@ -45,13 +45,13 @@ export function Menu({ trigger, triggerClassName, triggerLabel, entries, align =
                 {e.separatorBefore ? <BaseMenu.Separator className="menu-sep" /> : null}
                 {e.href ? (
                   <BaseMenu.LinkItem className={cx('menu-item', e.destructive && 'menu-crit')} href={e.href}>
-                    {e.icon ? <Icon name={e.icon} size={16} /> : null}
+                    {e.icon ? <Icon name={e.icon} size={16} className="shrink-0" /> : null}
                     {e.label}
                     {e.shortcut ? <span className="menu-key">{e.shortcut}</span> : null}
                   </BaseMenu.LinkItem>
                 ) : (
                   <BaseMenu.Item className={cx('menu-item', e.destructive && 'menu-crit')} disabled={e.disabled} onClick={e.onSelect}>
-                    {e.icon ? <Icon name={e.icon} size={16} /> : null}
+                    {e.icon ? <Icon name={e.icon} size={16} className="shrink-0" /> : null}
                     {e.label}
                     {e.shortcut ? <span className="menu-key">{e.shortcut}</span> : null}
                   </BaseMenu.Item>

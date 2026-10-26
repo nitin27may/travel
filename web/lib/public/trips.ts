@@ -280,7 +280,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
         const rule: BookRule | null = (l as { bookRule?: { daysBefore: number; dayN: number | null; time: string | null; tz: string | null } }).bookRule ?? null;
         extraCats.push({
           key: `logistics:${l.id}`, category: 'logistics', name: l.label, kind: l.kind, placeSlug: null, days: l.dayN ? [l.dayN] : [], time: null, areaLabel: null,
-          detail: rule ? `Opens ${rule.daysBefore} days before Day ${rule.dayN}` : (l.bookNote ?? null), nights: null, bookRule: rule, bookNote: l.bookNote ?? null,
+          detail: null, nights: null, bookRule: rule, bookNote: l.bookNote ?? null,
         });
       }
     } else if (full === 'rockies') {

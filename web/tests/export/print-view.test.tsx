@@ -6,7 +6,8 @@ import { scheduleTrip } from '@travel/core/schedule/schedule.ts';
 import { DEFAULT_PROFILE, type Profile } from '@travel/core/schedule/types.ts';
 import { localEntries } from '@/components/trips/timeline/marks';
 import { fmtHM } from '@travel/core/schedule/rules.ts';
-import { TripPrintView, printTime, profileLine } from '@/components/actions/TripPrintView';
+import { printTime } from '@travel/core/export/plan.ts';
+import { TripPrintView, profileLine } from '@/components/actions/TripPrintView';
 import { buildTripExport } from '@/lib/export/build.server';
 import type { TimelineSession } from '@/lib/export/timelineState';
 import { getTrip } from '@/lib/public';
@@ -101,6 +102,34 @@ describe('the print says what the page says (review B2)', () => {
     const sec = sectionOf(html, 14);
     expect(sec).toContain('Day 14:');
     expect(sec).not.toContain('Not checked yet');
+  });
+  it('N2: the travel day prints the stretch break and the arrival, with their times, in timeline order', () => {
+    const sec = sectionOf(renderToStaticMarkup(TripPrintView({ data: model, session })), 14);
+    const tl = session.timelines.find((t) => t.day === 14)!;
+    const want = tl.entries.filter((e) => !['start', 'checkout'].includes(e.kind) && !e.insideOf);
+    expect(want.some((e) => e.kind === 'break')).toBe(true);
+    const printed = [...sec.matchAll(/<li><b>([^<]+) · <\/b>([^<]+)/g)].map((m) => [m[1], m[2]]);
+    expect(printed.map((r) => r[0])).toEqual(want.map((e) => printTime(e, tl.blocks)));
+    expect(sec).toContain('12:00');
+    expect(sec).toContain('At the airport');
+    expect(sec).toContain('Stretch break');
+    expect(sec.indexOf('Stretch break')).toBeLessThan(sec.indexOf('At the airport'));
+  });
+  it('MUST-6: the Book ahead section follows the meta line and lists each booking by its dateless rule; a stop shows its own', () => {
+    // Dolomites carries dateless rules ("Opens 30 days before Day 3"); the Rockies rows are notes only until BACKLOG 15.223b
+    const rm = model;
+    expect(rm.bookings.some((b) => b.rule)).toBe(true);
+    const withStop = { ...rm, stops: rm.stops.map((s, i) => (i === 0 ? { ...s, bookAhead: 'Opens 30 days before Day 1' } : s)) };
+    const html = renderToStaticMarkup(TripPrintView({ data: withStop }));
+    const at = html.indexOf('Book ahead</h2>');
+    expect(at).toBeGreaterThan(html.indexOf('</p>'));
+    expect(at).toBeLessThan(html.indexOf('Day 1:'));
+    const book = html.slice(at, html.indexOf('</section>', at));
+    for (const b of rm.bookings) expect(book).toContain(b.name.replace(/&/g, '&amp;').replace(/'/g, '&#x27;'));
+    expect(book).toMatch(/Opens \d+ days? (before Day \d+|ahead)/);
+    expect(text(book)).not.toMatch(/\b(19|20)\d\d\b/);
+    expect(html).toContain('Book ahead: Opens 30 days before Day 1'); // under its stop
+    expect(renderToStaticMarkup(TripPrintView({ data: { ...rm, bookings: [] } }))).not.toContain('Book ahead');
   });
   it('Rockies family-6: Athabasca Falls has the page\'s 25 min and its note', () => {
     const rt = getTrip('canadian-rockies-2029')!;

@@ -35,13 +35,13 @@ export interface BookingSource {
 
 /**
  * The window as the page words it: "Opens 30 days before Day 3", "Opens 60 days ahead at 08:00 local", "Opens 1 day before Day 2". The
- * trip page's chip (`bookRuleLabel` in web/components/trips/model.ts) must say exactly this; web/tests/export/trip-routes.test.ts pins
- * the two together (TRP-GL replaces the copy with this function, review F7).
+ * trip page's chip and rows import this function (TRP-GL, review F7); there is no second wording.
  */
 export function bookRuleText(r: BookRuleInput): string {
   const days = `${r.daysBefore} day${r.daysBefore === 1 ? '' : 's'}`;
   const when = r.daysBefore === 0 ? (r.dayN !== null ? `on Day ${r.dayN}` : 'on the day') : r.dayN !== null ? `${days} before Day ${r.dayN}` : `${days} ahead`;
-  return `Opens ${when}${r.time ? ` at ${r.time}` : ''}${r.tz ? ' local' : ''}`;
+  // "local" qualifies a clock time only: with no time it would dangle ("Opens 30 days before Day 3 local")
+  return `Opens ${when}${r.time ? ` at ${r.time}${r.tz ? ' local' : ''}` : ''}`;
 }
 
 /** What a "Book ahead" cell or line says for one booking: the rule, then the note; empty when it has neither. */

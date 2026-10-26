@@ -2,7 +2,8 @@
 
 // The route map column: label row, key, the map, Directions (map note 3 to 10). This whole file is a dynamic chunk of the trip page
 // (TripPlan loads it with next/dynamic), so none of it counts against the page's start JS (D-E9).
-import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactElement } from 'react';
+import { createPortal } from 'react-dom';
 import type { TripLegs } from '@travel/core/schema/api/index.ts';
 import { OSM_COPYRIGHT_URL } from '@travel/core/export/licence.ts';
 import { MapSurface } from '@/components/map/MapSurface';
@@ -50,9 +51,14 @@ export function RouteKey({ state }: { state: KeyState }) {
   // collapsed on a phone: one line, and the amber one when it is drawn, because it is the loudest line on the map
   const items = [state.items.find((i) => i.id === 'road') ?? state.items.find((i) => i.id === 'estimate')].filter((i): i is NonNullable<typeof i> => !!i);
   const [short, ...rest] = (state.sentence ?? '').split(/(?<=\.) /);
+  // the open panel sits over the bottom of the map, so it is a child of the map box (a portal; events still reach this component), and
+  // falls back to its place in the key's row when there is no box
+  const [host, setHost] = useState<Element | null>(null);
+  const open = () => { setHost(toggle.current?.closest('.tl-mapcol')?.querySelector('.tl-mapbox') ?? null); setAsked(true); };
+  const place = (panel: ReactElement) => (host ? createPortal(panel, host) : panel);
   const close = () => { setAsked(false); setMore(false); toggle.current?.focus({ preventScroll: true }); };
-  const list = (its: typeof state.items, id?: string) => (
-    <ul id={id} className="trip-map-key-list" aria-label="Map key">
+  const list = (its: typeof state.items, id?: string, held?: boolean) => (
+    <ul id={id} className="trip-map-key-list" aria-label="Map key" data-held={held || undefined}>
       {its.map((k) => (
         <li key={k.id}>
           <span className="key-swatch" data-key={k.id} data-pick={k.pick || undefined} data-all={k.style === 'route' || undefined} aria-hidden="true">{k.id === 'stop' ? '1' : null}</span>
@@ -71,12 +77,15 @@ export function RouteKey({ state }: { state: KeyState }) {
   }
   return (
     <div className="trip-map-key" data-print="hide" data-open={asked || undefined} onKeyDown={(e) => { if (e.key === 'Escape' && asked) { e.stopPropagation(); close(); } }}>
-      {asked ? null : list(items)}
-      <button ref={toggle} type="button" className="trip-map-key-toggle" aria-expanded={asked} aria-controls="trip-map-key-panel" onClick={() => (asked ? close() : setAsked(true))}>
+      {list(items, undefined, asked)}
+      <button ref={toggle} type="button" className="trip-map-key-toggle" aria-expanded={asked} aria-controls="trip-map-key-panel" onClick={() => (asked ? close() : open())}>
         Map key
       </button>
-      {asked ? (
+      {asked ? place(
         <div id="trip-map-key-panel" className="trip-map-key-panel" role="group" aria-label="Map key, in full" data-testid="trip-map-key-panel">
+          <div className="trip-map-key-head">
+            <button type="button" className="trip-map-key-close" onClick={close}>Close</button>
+          </div>
           {list(state.items, 'trip-map-key-list')}
           {state.sentence ? (
             <p className="trip-map-key-note">
@@ -90,8 +99,7 @@ export function RouteKey({ state }: { state: KeyState }) {
               ) : null}
             </p>
           ) : null}
-          <button type="button" className="trip-map-key-close" onClick={close}>Close</button>
-        </div>
+        </div>,
       ) : null}
     </div>
   );

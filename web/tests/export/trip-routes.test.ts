@@ -21,14 +21,12 @@ import { getStore } from '@/lib/server/store';
 import { scheduleTrip } from '@travel/core/schedule/schedule.ts';
 import { DEFAULT_PROFILE, type Profile } from '@travel/core/schedule/types.ts';
 import { kids, parseXml } from './helpers';
-import { bookAheadText, bookRuleText, NOTHING_TO_BOOK, publicBookingNote } from '@travel/core/export/bookings.ts';
-import { printTime as corePrintTime } from '@travel/core/export/plan.ts';
+import { bookAheadText, NOTHING_TO_BOOK, publicBookingNote } from '@travel/core/export/bookings.ts';
+import { printTime } from '@travel/core/export/plan.ts';
 import { buildTripExportForDefaultProfile } from '@/lib/export/build.server';
 import { isDated } from '@travel/core/privacy/dateless.ts';
 import { exportModel, exportStop, tripExportModel } from '@travel/core/schema/api/index.ts';
-import { bookRuleLabel } from '@/components/trips/model';
 import { flightEntries, localEntries } from '@/components/trips/timeline/marks';
-import { printTime } from '@/components/actions/TripPrintView';
 
 const SLUGS = ['canadian-rockies-2029', 'dolomites-2027'] as const;
 
@@ -274,8 +272,16 @@ describe.each(SLUGS)('%s: booking windows in the export (MUST-6)', (slug) => {
     }
     const days = p.model.bookings.map((b) => b.day ?? Infinity);
     expect(days).toEqual([...days].sort((a, b) => a - b));
-    // the Rockies rows that say there is nothing to book ("no booking expected", "carry bear spray") are on the page and not in the file
-    if (slug === 'canadian-rockies-2029') expect(pageRows.length - p.model.bookings.length).toBeGreaterThan(0);
+    // page and file agree (BACKLOG 15.223c, TRP-GL): the page's rows go through the same scrub, so the Rockies rows that say there is nothing
+    // to book ("no booking expected", "carry bear spray") show no booking line, and every row that shows one is in the file
+    expect(pageRows.map((r) => r.key).sort()).toEqual(p.model.bookings.map((b) => b.ref).sort());
+    for (const r of pageRows) expect(r.bookNote ?? '', r.key).not.toMatch(/\bINFERENCE\b|\bGAP\b|(?:^|[.;] )(?:19|20)\d\d: /);
+  });
+  it('the Rockies rows that say there is nothing to book are rows without a booking line on the page', () => {
+    if (slug !== 'canadian-rockies-2029') return;
+    const quiet = source.filter((r) => !r.bookRule && r.bookNote && NOTHING_TO_BOOK.test(publicBookingNote(r.bookNote) ?? ''));
+    expect(quiet.length).toBeGreaterThan(0);
+    for (const r of quiet) expect(p.page.sections.flatMap((s) => s.rows).find((x) => x.key === r.key)!.bookNote, r.key).toBeNull();
   });
   it('no exported note carries a research marker or a household make-up clause (review F1)', () => {
     for (const b of p.model.bookings) {
@@ -319,15 +325,6 @@ describe('Dolomites: the Tre Cime toll road window, from the page to every outpu
     expect(JSON.stringify(p.model)).toContain(JSON.stringify(row.bookRule));
     expect(tripCsv(p.model)).toContain(row.bookRule!);
     expect(forPage(p.model, p.session).bookings).toContainEqual(b);
-  });
-  it('core\'s wording and the page\'s chip are one string (bookRuleText = bookRuleLabel)', () => {
-    const rules = [
-      { daysBefore: 30, dayN: 3, time: null, tz: 'Europe/Rome' },
-      { daysBefore: 60, dayN: null, time: '08:00', tz: 'America/Edmonton' },
-      { daysBefore: 2, dayN: 12, time: '07:00', tz: null },
-      { daysBefore: 90, dayN: null, time: null, tz: null },
-    ];
-    for (const r of rules) expect(bookRuleText(r)).toBe(bookRuleLabel(r));
   });
 });
 
@@ -405,20 +402,6 @@ describe('the CSV time rule (BACKLOG 15.46): CSV times follow the selected profi
       }
       expect(rows).toBeGreaterThan(0);
     }
-  });
-  it('core\'s printTime is the print view\'s, on every entry of both trips (one wording until TRP-GL imports core\'s, review F8)', () => {
-    let n = 0;
-    for (const slug of SLUGS) {
-      const p = pageFor(slug, PROFILES['family-6']!);
-      for (const tl of p.timelines) {
-        const d = p.trip.days.find((x) => x.n === tl.day);
-        for (const e of localEntries(flightEntries(tl.entries, d?.flight), d?.zone)) {
-          expect(corePrintTime(e, tl.blocks), `${slug} ${e.id}`).toBe(printTime(e, tl.blocks));
-          n++;
-        }
-      }
-    }
-    expect(n).toBeGreaterThan(50);
   });
   it('a suggested time keeps its "~" in the CSV (T3: never shown as fixed)', () => {
     const p = pageFor('canadian-rockies-2029', PROFILES['family-6']!);

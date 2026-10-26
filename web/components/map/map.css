@@ -52,6 +52,10 @@
 .tp-hit[data-ring] .tp::after { opacity: 1; }
 /* a coarse pointer gets a 36 px target around the 22 px disc */
 @media (pointer: coarse) { .tp-hit[data-numbered] { min-width: 36px; min-height: 36px; justify-content: center; } }
+[data-map-controls] { gap: 10px; } /* 34 px buttons 10 px apart: the 44 px hit areas below meet and never overlap */
+/* N4: the buttons are 44 px to hit, the drawn size unchanged (the same pattern as .btn-icon::after in ui.css) */
+[data-map-controls] button { position: relative; }
+[data-map-controls] button::before { content: ''; position: absolute; left: 50%; top: 50%; width: max(100%, var(--touch-min)); height: max(100%, var(--touch-min)); transform: translate(-50%, -50%); }
 .map-surface[data-trip-map] [data-map-controls] button { min-width: 34px; height: 34px; }
 @media (pointer: coarse) { .map-surface[data-trip-map] [data-map-controls] button { min-width: 44px; height: 44px; } }
 .gtm-state {

@@ -6,7 +6,7 @@ const btnStyle = { fontFamily: 'var(--font-mono, ui-monospace, monospace)', back
 
 export function Controls({ onZoom, onFit }: { onZoom: (d: number) => void; onFit: () => void }) {
   return (
-    <div className="absolute right-2 top-2 z-10 flex flex-col gap-1.5" data-map-controls>
+    <div className="absolute right-2 top-2 z-10 flex flex-col" data-map-controls>
       <button type="button" className={btn} style={btnStyle} aria-label="Zoom in" onClick={() => onZoom(1)}>+</button>
       <button type="button" className={btn} style={btnStyle} aria-label="Zoom out" onClick={() => onZoom(-1)}>−</button>
       <button type="button" className={btn} style={btnStyle} onClick={onFit}>Fit</button>

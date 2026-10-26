@@ -31,6 +31,10 @@ describe("bookRuleText: the page's words for a window, dateless", () => {
     expect(bookRuleText({ daysBefore: 30, dayN: 3, time: null, tz: null })).toBe("Opens 30 days before Day 3");
     expect(bookRuleText({ daysBefore: 60, dayN: null, time: "08:00", tz: "America/Edmonton" })).toBe("Opens 60 days ahead at 08:00 local");
   });
+  it("'local' never dangles: a zone with no time adds nothing (TRP-GL, review F7)", () => {
+    expect(bookRuleText({ daysBefore: 30, dayN: 3, time: null, tz: "Europe/Rome" })).toBe("Opens 30 days before Day 3");
+    expect(bookRuleText({ daysBefore: 30, dayN: 3, time: "09:00", tz: "Europe/Rome" })).toBe("Opens 30 days before Day 3 at 09:00 local");
+  });
   it("bookAheadText joins the rule and the note, and is empty with neither", () => {
     expect(bookAheadText({ rule: "Opens 2 days before Day 1", note: "Non-refundable" })).toBe("Opens 2 days before Day 1; Non-refundable");
     expect(bookAheadText({ rule: null, note: "Buy online" })).toBe("Buy online");
@@ -97,7 +101,7 @@ describe("tripBookings", () => {
     expect(out.map((b) => b.day)).toEqual([1, 3, 5, null]);
   });
   it("carries the page's name, the rule in words, and the note", () => {
-    expect(out[1]).toEqual({ name: "Toll road slot", rule: "Opens 30 days before Day 3 local", note: null, day: 3, ref: "logistics:slot" });
+    expect(out[1]).toEqual({ name: "Toll road slot", rule: "Opens 30 days before Day 3", note: null, day: 3, ref: "logistics:slot" });
     expect(out[0]).toEqual({ name: "Park pass", rule: null, note: "Buy online before the first park gate.", day: 1, ref: "logistics:pass" });
   });
   it("each booking parses as the contract's exportBooking, and none holds a calendar date", () => {
@@ -113,7 +117,7 @@ describe("withStopBookings: a window rides on the stop whose place and day it na
   const stops = [stop({ id: "a", day: 3, placeSlug: "loop" }), stop({ id: "b", day: 4, placeSlug: "loop" }), stop({ id: "c", day: 5, placeSlug: "ridge" }), stop({ id: "d", day: 3, name: "Toll road" })];
   const out = withStopBookings(stops, ROWS);
   it("only on the same place and day; a booking with no place is never guessed onto a stop", () => {
-    expect(out.map((s) => s.bookAhead ?? null)).toEqual(["Opens 30 days before Day 3 local", null, "Opens 60 days ahead at 08:00; Non-refundable", null]);
+    expect(out.map((s) => s.bookAhead ?? null)).toEqual(["Opens 30 days before Day 3", null, "Opens 60 days ahead at 08:00; Non-refundable", null]);
     expect("bookAhead" in out[1]!).toBe(false);
   });
 });
@@ -133,8 +137,8 @@ describe("tripCsv: the 'Book ahead' column", () => {
   it("one booking row at the head of its day, the stop's own window on its row, a dayless booking last, then the source line", () => {
     expect(lines.slice(1, -1)).toEqual([
       "1,,Park pass,booking,,,,,,,Buy online before the first park gate.",
-      "3,,Toll road slot,booking,,,,,,,Opens 30 days before Day 3 local",
-      "3,~09:00,Loop,trail,Trails,,,,,,Opens 30 days before Day 3 local",
+      "3,,Toll road slot,booking,,,,,,,Opens 30 days before Day 3",
+      "3,~09:00,Loop,trail,Trails,,,,,,Opens 30 days before Day 3",
       '5,,"Lift, 08:30 slot",booking,,,,,,,Opens 60 days ahead at 08:00; Non-refundable',
       "5,08:30,Ridge,trail,Trails,,,,,,Opens 60 days ahead at 08:00; Non-refundable",
       ",,Car hire,booking,,,,,,,Reserve with free cancellation.",
