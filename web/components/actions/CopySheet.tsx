@@ -10,8 +10,9 @@ import { useToast } from '@/components/ui/Toast';
 import { downloadGpx, downloadIcs, downloadTripCsv, loadExport } from '@/lib/export/client';
 import type { Generated } from '@/lib/export/client';
 import { addDays, checkWindow, formatDate, iso } from '@/lib/export/dates';
+import type { WriteFailure } from '@/lib/mine/copies';
 import { changeDates, moveLegacyOnce, partyText, saveCopy, undoChange, undoSave } from '@/lib/mine/copies';
-import { mineStorage } from '@/lib/mine/storage';
+import { fallBackToMemory, mineStorage } from '@/lib/mine/storage';
 import type { CopyInput, CopyItem } from '@travel/core/schema/copies.ts';
 import { getTimeline, setYoungest } from '@/lib/export/timelineState';
 import type { TripExport } from '@/lib/export/types';
@@ -20,14 +21,39 @@ import './actions.css';
 
 /** Final props (lane L0). `window` is the season window as `MM-DD` or `YYYY-MM-DD` pairs; the year is ignored. */
 export interface CopySheetProps {
-  trip: { slug: string; title: string; nights: number; days: number; window?: { from: string; to: string }; cc?: string | null; photo?: string | null };
+  trip: { slug: string; title: string; nights: number; days: number; window?: { from: string; to: string }; seasonMonths?: number[]; cc?: string | null; photo?: string | null };
   open: boolean;
   onClose: () => void;
   /** Change dates from Mine: the sheet opens with this copy's date and travellers and saves over it, keeping its id (NAV-2). */
   initial?: { id: string; start: string; adults: number; children: number[] };
   /** Called after a copy was added, changed or undone, so Mine re-reads its list. */
   onSaved?: () => void;
+  /** The trip page's print: the list shows its PDF button only when this is given (on Mine, Print is in the row menu). */
+  onPrint?: () => void;
 }
+
+/** First and last day of the season as "MM-DD" (no year: public trips are dateless). A run may wrap the new year. */
+export function seasonWindow(months: number[] | undefined): { from: string; to: string } | undefined {
+  if (!months?.length) return undefined;
+  const set = new Set(months);
+  const start = months.find((m) => !set.has(m === 1 ? 12 : m - 1)) ?? months[0];
+  let end = start;
+  while (set.has(end === 12 ? 1 : end + 1) && end !== (start === 1 ? 12 : start - 1)) end = end === 12 ? 1 : end + 1;
+  const last = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][end - 1];
+  const mm = (m: number) => String(m).padStart(2, '0');
+  return { from: `${mm(start)}-01`, to: `${mm(end)}-${last}` };
+}
+
+/** Why a write was refused, in the sheet's words (NAV-R2 should 6). `blocked` and `unverified` take the session-only path instead. */
+function problemFor(reason: WriteFailure): 'quota' | 'changed' | 'error' {
+  return reason === 'quota' ? 'quota' : reason === 'changed' ? 'changed' : 'error';
+}
+const PROBLEM_TEXT = {
+  cap: 'You have 20 trip copies on this device, the most we keep. Remove one to copy another.',
+  quota: 'This browser is out of space for this site, so nothing was written. Take the files below.',
+  changed: 'Your trips changed in another tab. Try again.',
+  error: 'This browser holds trip copies this version of the site cannot change, so nothing was written. Reload the page, or take the files below.',
+} as const;
 
 // a snapshot photo is a same-origin path (core: SITE_PATH); a remote URL is not kept
 const sitePath = (p: string | null | undefined): string | null => (p && /^\/(?![/\\])[^\s"<>\\]{1,299}$/.test(p) ? p : null);
@@ -56,7 +82,7 @@ const localToday = (): string => {
  * later lane: until then the copy is held in this browser, and the sheet says so and points at the files.
  * The exports are live in both steps: the calendar uses the picked start date.
  */
-export function CopySheet({ trip, open, onClose, initial, onSaved }: CopySheetProps) {
+export function CopySheet({ trip, open, onClose, initial, onSaved, onPrint }: CopySheetProps) {
   const phone = usePhone();
   const { toast } = useToast();
   const [start, setStart] = useState<string | null>(null);
@@ -67,7 +93,8 @@ export function CopySheet({ trip, open, onClose, initial, onSaved }: CopySheetPr
   const [held, setHeld] = useState(true);
   // asked before replacing the copy of the same trip, and the two reasons a copy is refused (nav 3.1, 9)
   const [prompt, setPrompt] = useState<CopyItem | null>(null);
-  const [problem, setProblem] = useState<'cap' | 'error' | null>(null);
+  const [undoable, setUndo] = useState<{ item: CopyItem; replaced: CopyItem | null; storage: Parameters<typeof undoSave>[0] } | null>(null);
+  const [problem, setProblem] = useState<'cap' | 'quota' | 'changed' | 'error' | null>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -103,7 +130,9 @@ export function CopySheet({ trip, open, onClose, initial, onSaved }: CopySheetPr
   const today = useMemo(() => (open ? localToday() : null), [open]);
   const length = trip.days;
   const end = start ? addDays(start, Math.max(0, length - 1)) : null;
-  const check = useMemo(() => (start ? checkWindow(trip.window, start, length) : null), [start, trip.window, length]);
+  // Change dates from Mine has no window of its own: the export model, once loaded, carries the trip's months
+  const seasonWin = useMemo(() => trip.window ?? seasonWindow(trip.seasonMonths ?? data?.seasonMonths), [trip.window, trip.seasonMonths, data?.seasonMonths]);
+  const check = useMemo(() => (start ? checkWindow(seasonWin, start, length) : null), [start, seasonWin, length]);
   const hasCalendar = data ? data.depth !== 'overview' && data.days.length > 0 : true;
 
   const ready = !!start && adults !== null && children.every((a) => a !== null);
@@ -116,6 +145,7 @@ export function CopySheet({ trip, open, onClose, initial, onSaved }: CopySheetPr
     setStep('form');
     setPrompt(null);
     setProblem(null);
+    setUndo(null);
   };
   const close = () => {
     onClose();
@@ -134,13 +164,14 @@ export function CopySheet({ trip, open, onClose, initial, onSaved }: CopySheetPr
 
   const copy = (replace = false) => {
     if (!start || adults === null || !children.every((a) => a !== null)) return;
-    const probe = mineStorage();
+    let probe = mineStorage();
     const ages = children as number[];
     setPrompt(null);
     setProblem(null);
     if (initial) {
-      const r = changeDates(probe.storage, initial.id, { start, adults, children: ages });
-      if (!r.ok) return setProblem('error');
+      let r = changeDates(probe.storage, initial.id, { start, adults, children: ages });
+      if (!r.ok && r.reason === 'changed') r = changeDates(probe.storage, initial.id, { start, adults, children: ages });
+      if (!r.ok) return setProblem(problemFor(r.reason));
       toast({ message: `${trip.title} now starts ${formatDate(start)}`, actionLabel: 'Undo', onAction: () => void (undoChange(probe.storage, r.before), onSaved?.()) });
       onSaved?.();
       close();
@@ -162,22 +193,29 @@ export function CopySheet({ trip, open, onClose, initial, onSaved }: CopySheetPr
       overrides: tl ? Object.fromEntries(Object.entries(tl.overrides).filter(([k, v]) => /^[1-9]\d?$/.test(k) && /^[ABC]$/.test(v))) as CopyInput['overrides'] : {},
       added: tl ? tl.added.filter((x) => x.day >= 1 && x.day <= 99).slice(0, 30) : [],
     };
-    const r = saveCopy(probe.storage, input, { replace });
+    let r = saveCopy(probe.storage, input, { replace });
+    // another tab wrote between our read and our write: once more, silently
+    if (r.kind === 'failed' && r.reason === 'changed') r = saveCopy(probe.storage, input, { replace });
+    // a store that refuses or drops the write: the session-only path (this tab keeps it, and the done step says so)
+    if (r.kind === 'failed' && (r.reason === 'blocked' || r.reason === 'unverified')) {
+      probe = fallBackToMemory();
+      r = saveCopy(probe.storage, input, { replace });
+    }
     if (r.kind === 'exists') return setPrompt(r.existing);
     if (r.kind === 'cap') return setProblem('cap');
-    if (r.kind === 'failed') return setProblem('error');
+    if (r.kind === 'failed') return setProblem(problemFor(r.reason));
     setHeld(probe.kind === 'local');
+    setUndo({ item: r.item, replaced: r.replaced, storage: probe.storage });
     setStep('done');
     onSaved?.();
-    toast({
-      message: `Copied ${trip.title} to Mine · ${trip.days} days from ${formatDate(start, false)}`,
-      actionLabel: 'Undo',
-      onAction: () => {
-        undoSave(probe.storage, r.item, r.replaced);
-        onSaved?.();
-        setStep('form');
-      },
-    });
+    // no toast: the sheet is modal, so a toast's Undo is out of the focus trap; the done step's footer holds Undo
+  };
+  const undo = () => {
+    if (!undoable) return;
+    undoSave(undoable.storage, undoable.item, undoable.replaced);
+    onSaved?.();
+    setUndo(null);
+    setStep('form');
   };
 
   const body =
@@ -189,7 +227,7 @@ export function CopySheet({ trip, open, onClose, initial, onSaved }: CopySheetPr
             <Icon name="calendar" size={16} />
             {start ? formatDate(start) : 'Pick the day 1 date'}
           </div>
-          {today ? <CalendarPicker value={start} onChange={setStart} window={trip.window} length={length} today={today} /> : null}
+          {today ? <CalendarPicker value={start} onChange={setStart} window={seasonWin} length={length} today={today} /> : null}
           {start && end ? (
             <p className="copy-summary">
               {trip.days} days, {formatDate(start, false)} to {formatDate(end)}
@@ -243,7 +281,7 @@ export function CopySheet({ trip, open, onClose, initial, onSaved }: CopySheetPr
           ))}
         </section>
 
-        <ExportList start={start} trip={trip} data={data} hasCalendar={hasCalendar} onRun={run} />
+        <ExportList start={start} trip={trip} data={data} hasCalendar={hasCalendar} onRun={run} print={onPrint} />
       </div>
     ) : (
       <div className="copy-body copy-done">
@@ -257,54 +295,64 @@ export function CopySheet({ trip, open, onClose, initial, onSaved }: CopySheetPr
           </Banner>
         )}
         <p>
-          {trip.title}, {trip.days} days from {start ? formatDate(start) : ''}, {partyText({ adults: adults ?? 0, children: children as number[] })}.
+          <strong>{trip.title}</strong>
+          <br />
+          {trip.days} days from {start ? formatDate(start) : ''} · {partyText({ adults: adults ?? 0, children: children as number[] })}
         </p>
-        <ExportList start={start} trip={trip} data={data} hasCalendar={hasCalendar} onRun={run} />
+        <ExportList start={start} trip={trip} data={data} hasCalendar={hasCalendar} onRun={run} print={onPrint} />
         {held ? <p className="copy-note">{keptNote}</p> : null}
       </div>
     );
 
+  const note = prompt
+    ? `You already have a copy from ${formatDate(prompt.start)}. Copy again to replace it.`
+    : problem
+      ? PROBLEM_TEXT[problem]
+      : ready
+        ? keptNote
+        : `Still needed: ${missing.join(', ')}.`;
   const footer =
     step === 'form' ? (
-      <>
-        <div className="copy-foot">
-          {prompt ? (
-            <>
-              <Button variant="primary" onClick={() => copy(true)}>
-                Replace
-              </Button>
-              <Button variant="ghost" onClick={() => setPrompt(null)}>
-                Cancel
-              </Button>
-            </>
-          ) : (
-            <Button variant="primary" disabled={!ready} aria-describedby="copy-foot-note" onClick={() => copy()}>
-              {initial ? 'Change dates' : 'Copy to my trips'}
+      <div className="copy-foot" data-stack={prompt || problem ? '' : undefined}>
+        {prompt ? (
+          <>
+            <Button variant="primary" onClick={() => copy(true)}>
+              Replace
             </Button>
-          )}
-          <p className="copy-note" id="copy-foot-note" aria-live="polite">
-            {prompt
-              ? `You already have a copy from ${formatDate(prompt.start)}. Copy again to replace it.`
-              : problem === 'cap'
-                ? 'You have 20 trip copies on this device, the most we keep. Remove one to copy another.'
-                : problem === 'error'
-                  ? 'This browser holds trip copies this version of the site cannot change, so nothing was written. Reload the page, or take the files below.'
-                  : ready
-                    ? keptNote
-                    : `Still needed: ${missing.join(', ')}.`}
-            {problem === 'cap' ? (
-              <>
-                {' '}
-                <a href="/mine/?show=trips">Open Mine</a>
-              </>
-            ) : null}
-          </p>
-        </div>
-      </>
+            <Button variant="ghost" onClick={() => setPrompt(null)}>
+              Cancel
+            </Button>
+          </>
+        ) : problem === 'cap' ? (
+          // the cap leaves nothing to press again: the way out is Mine, where a copy can be removed
+          <>
+            <ButtonLink variant="primary" href="/mine/?show=trips">
+              Open Mine
+            </ButtonLink>
+            <Button variant="ghost" onClick={close}>
+              Cancel
+            </Button>
+          </>
+        ) : (
+          <Button variant="primary" disabled={!ready} aria-describedby="copy-foot-note" onClick={() => copy()}>
+            {initial ? 'Change dates' : 'Copy to my trips'}
+          </Button>
+        )}
+        <p className="copy-note" id="copy-foot-note" aria-live="polite">
+          {note}
+        </p>
+      </div>
     ) : (
-      <Button variant={held ? 'secondary' : 'primary'} onClick={close}>
-        Done
-      </Button>
+      <div className="copy-foot">
+        <Button variant={held ? 'secondary' : 'primary'} onClick={close}>
+          Done
+        </Button>
+        {undoable ? (
+          <Button variant="ghost" onClick={undo}>
+            Undo
+          </Button>
+        ) : null}
+      </div>
     );
 
   const common = { open, title: initial ? 'Change dates' : 'Copy to my trips', footer, className: 'copy-sheet' } as const;
@@ -328,12 +376,14 @@ function ExportList({
   data,
   hasCalendar,
   onRun,
+  print,
 }: {
   start: string | null;
   trip: CopySheetProps['trip'];
   data: TripExport | null;
   hasCalendar: boolean;
   onRun: (make: () => Generated) => void;
+  print?: () => void;
 }) {
   const [full, setFull] = useState(false);
   const session = getTimeline(trip.slug);
@@ -364,9 +414,11 @@ function ExportList({
             <Icon name="download" size={15} /> CSV: {data.stops.length} stops
           </Button>
         ) : null}
-        <Button onClick={() => window.print()}>
-          <Icon name="download" size={15} /> PDF: print {trip.title}
-        </Button>
+        {print ? (
+          <Button onClick={print}>
+            <Icon name="download" size={15} /> PDF: print {trip.title}
+          </Button>
+        ) : null}
       </div>
     </section>
   );

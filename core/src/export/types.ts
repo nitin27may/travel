@@ -108,6 +108,8 @@ export interface TripExport {
   /** IANA zone from the booking rules, when the trip has one. */
   tz: string | null;
   seasonLabel: string | null;
+  /** The months (1 to 12) the plan is built for, when the trip has them: the copy sheet's season window (NAV-R2 should 5). */
+  seasonMonths?: number[];
   /** Points left out of the file because their source is not ours to give (counted, never listed). */
   skipped: number;
 }

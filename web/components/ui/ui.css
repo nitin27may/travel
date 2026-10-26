@@ -154,6 +154,7 @@
 /* menu (5.2) */
 .menu { padding: var(--s-2); min-width: 200px; max-width: 92vw; outline: 0; }
 .menu-item { display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 10px; border-radius: var(--r-2); color: var(--ink); font: var(--t-mono); text-decoration: none; cursor: pointer; outline: 0; }
+@media (max-width: 639px) { .menu-item { min-height: 48px; } } /* components 5.2: phone items 48 px (NAV-R2 I3) */
 .menu-item:hover, .menu-item[data-highlighted] { background: var(--surface-2); }
 .menu-item:focus-visible { outline: var(--focus-ring); outline-offset: -2px; }
 .menu-item[data-disabled], .menu-item[aria-disabled='true'] { opacity: 0.45; cursor: not-allowed; }

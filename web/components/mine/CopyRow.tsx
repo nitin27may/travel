@@ -72,6 +72,7 @@ export function CopyRow({ row, unlisted, collapsing, restored, chip, onCalendar,
         ) : (
           <Link
             className="crow-link"
+            data-chip={chip || undefined}
             href={row.href}
             aria-label={`${title}, from ${row.when.replace(' · ', ', ')}${row.who ? `, ${row.who.replace(' · ', ', ')}` : ''}${chip ? ', on this device' : ''}`}
           >
@@ -79,9 +80,9 @@ export function CopyRow({ row, unlisted, collapsing, restored, chip, onCalendar,
             <span className="crow-name">{title}</span>
             <span className="crow-l2">{row.when}</span>
             <span className="crow-l3">{row.who}</span>
+            {chip ? <span className="chip crow-chip" aria-hidden="true">On this device</span> : null}
           </Link>
         )}
-        {chip && !unlisted ? <span className="chip crow-chip">On this device</span> : null}
         <div className="crow-act">
           {unlisted ? (
             <Button size="sm" aria-label={`Remove ${title}`} onClick={() => onRemove(row)}>

@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { seasonWindow } from '@/components/trips/TripActions';
+import { seasonWindow } from '@/components/actions/CopySheet';
 import { driveLabel, lengthLabel } from '@/components/trips/format';
 import { dayMapOf, pointLookup } from '@/components/trips/mapPins';
 import { buildTripPageModel, tripGallery, whenLabel } from '@/components/trips/model';

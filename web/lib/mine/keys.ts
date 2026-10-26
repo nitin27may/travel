@@ -9,3 +9,5 @@ export const FAV_KEY = 'travel.fav.local';
 export const SEEN_KEY = 'travel.mine.seen';
 /** Dispatched on `window` after a copy or a favourite is added or removed in this tab (the `storage` event covers other tabs). */
 export const CHANGED_EVENT = 'travel:mine-changed';
+/** The one-shot print hand-off (sessionStorage, spec 5.2): Mine writes the trip's slug, the trip page's export menu reads it once and removes it. */
+export const PRINT_KEY = 'travel.mine.print';

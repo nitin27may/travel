@@ -159,7 +159,8 @@ test.describe('the copy sheet saves into Mine', () => {
     await fill(sheet);
     await expect(sheet.locator('.copy-note')).toHaveText('Kept in this browser.'); // sign-in is off in this build
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
-    await expect(page.locator('.toast-region')).toContainText(/Copied .+ to Mine · \d+ days from/);
+    await expect(page.locator('.toast-region .toast')).toHaveCount(0); // the sheet is modal: no toast, Undo is in its footer
+    await expect(sheet.getByRole('button', { name: 'Undo' })).toBeVisible();
     const open = sheet.getByRole('link', { name: 'Open in Mine' });
     await expect(open).toBeVisible();
     // Open in Mine comes first, then the export list, then Done
@@ -201,6 +202,10 @@ test.describe('the copy sheet saves into Mine', () => {
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
     await expect(sheet.locator('.copy-note')).toContainText('You have 20 trip copies on this device, the most we keep. Remove one to copy another.');
     expect((await stored(page))!.items).toHaveLength(20);
+    // the primary is now the way out: Open Mine, with Cancel; no second press of Copy
+    await expect(sheet.getByRole('link', { name: 'Open Mine' })).toHaveAttribute('href', '/mine/?show=trips');
+    await expect(sheet.getByRole('button', { name: 'Copy to my trips' })).toHaveCount(0);
+    await expect(sheet.getByRole('button', { name: 'Cancel' })).toBeVisible();
   });
 
   test('storage blocked: the copy lasts this tab, the sheet says so, and the calendar file still downloads', async ({ page, site }) => {
@@ -221,12 +226,88 @@ test.describe('the copy sheet saves into Mine', () => {
     expect(readFileSync((await ics.path())!, 'utf8')).toContain('BEGIN:VCALENDAR');
   });
 
-  test('Undo in the toast removes the copy', async ({ page, site }) => {
+  test('Undo in the done step\'s footer removes the copy and returns to the form', async ({ page, site }) => {
     const sheet = await openSheet(page, site);
     await fill(sheet, false);
     await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
-    await page.locator('.toast-region').getByRole('button', { name: 'Undo' }).click();
+    await sheet.getByRole('button', { name: 'Undo' }).click();
     await expect.poll(async () => ((await stored(page))?.items.length ?? 0)).toBe(0);
+    await expect(sheet.getByRole('button', { name: 'Copy to my trips' })).toBeVisible();
+  });
+
+  test('quota: the sheet says the browser is out of space and writes nothing', async ({ page, site }) => {
+    await page.addInitScript(() => {
+      const set = Storage.prototype.setItem;
+      let armed = false;
+      (window as unknown as { __arm: () => void }).__arm = () => { armed = true; };
+      Storage.prototype.setItem = function (k: string, v: string) {
+        if (armed && String(k) === 'travel.copies.local') throw new DOMException('full', 'QuotaExceededError');
+        return set.call(this, k, v);
+      };
+    });
+    const sheet = await openSheet(page, site);
+    await fill(sheet, false);
+    await page.evaluate(() => (window as unknown as { __arm: () => void }).__arm());
+    await sheet.getByRole('button', { name: 'Copy to my trips' }).click();
+    await expect(sheet.locator('.copy-note')).toHaveText('This browser is out of space for this site, so nothing was written. Take the files below.');
+  });
+
+  test('Change dates offers Calendar, GPX and CSV only (Print is in the row menu), and an out-of-season date shows the caution', async ({ page, site }) => {
+    await seed(page, { [COPIES_KEY]: envelope([item({ start: '2027-12-03' })]) });
+    await page.goto(`${site.url}/mine/`);
+    await page.getByRole('button', { name: 'Actions for Dolomites' }).click();
+    await page.getByRole('menuitem', { name: 'Change dates' }).click();
+    const sheet = page.locator('.copy-sheet');
+    await expect(sheet.getByRole('button', { name: /^Calendar \(\.ics\)/ })).toBeVisible();
+    await expect(sheet.getByRole('button', { name: /^GPX/ })).toBeVisible();
+    await expect(sheet.getByRole('button', { name: /^PDF/ })).toHaveCount(0);
+    await expect(sheet.getByText('outside the season this plan is built for')).toBeVisible(); // the window comes from the export model
+  });
+});
+
+test.describe('Print from Mine', () => {
+  test('opens the trip, prints its print view once, and leaves no key behind', async ({ page, site }) => {
+    await seed(page, { [COPIES_KEY]: envelope([item()]) });
+    await page.addInitScript(() => {
+      (window as unknown as { __prints: number }).__prints = 0;
+      window.print = () => { (window as unknown as { __prints: number }).__prints++; };
+    });
+    await page.goto(`${site.url}/mine/`);
+    await page.getByRole('button', { name: 'Actions for Dolomites' }).click();
+    await page.getByRole('menuitem', { name: 'Print' }).click();
+    await expect(page).toHaveURL(/\/trips\/dolomites-2027\//);
+    expect(page.url()).not.toMatch(/print/i); // never a URL key
+    await expect.poll(() => page.evaluate(() => (window as unknown as { __prints: number }).__prints), { timeout: 15_000 }).toBe(1);
+    expect(await page.evaluate(() => sessionStorage.getItem('travel.mine.print'))).toBeNull();
+    await expect(page.locator('iframe')).toHaveCount(0);
+  });
+
+  test('a stale key for another trip does nothing, and the key is gone', async ({ page, site }) => {
+    await page.addInitScript(() => {
+      (window as unknown as { __prints: number }).__prints = 0;
+      window.print = () => { (window as unknown as { __prints: number }).__prints++; };
+      if (!sessionStorage.getItem('seeded-print')) { sessionStorage.setItem('seeded-print', '1'); sessionStorage.setItem('travel.mine.print', 'algonquin-muskoka-2026'); }
+    });
+    await page.goto(`${site.url}/trips/dolomites-2027/`);
+    await page.waitForTimeout(1500);
+    expect(await page.evaluate(() => (window as unknown as { __prints: number }).__prints)).toBe(0);
+  });
+});
+
+test.describe('Remove focus, and Change dates', () => {
+  test('the last Upcoming row removed with Past closed puts focus on the Past toggle', async ({ page, site }) => {
+    await seed(page, { [COPIES_KEY]: envelope([item(), item({ id: ID2, slug: 'algonquin-muskoka-2026', title: 'Algonquin', start: '2024-09-01', children: [], profile: null, overrides: {} })]) });
+    await page.goto(`${site.url}/mine/`);
+    await page.getByRole('button', { name: 'Actions for Dolomites' }).click();
+    await page.getByRole('menuitem', { name: 'Remove' }).click();
+    await expect(page.getByRole('button', { name: 'Past (1)' })).toBeFocused();
+  });
+  test('removing the only copy puts focus on the empty state\'s action', async ({ page, site }) => {
+    await seed(page, { [COPIES_KEY]: envelope([item()]) });
+    await page.goto(`${site.url}/mine/`);
+    await page.getByRole('button', { name: 'Actions for Dolomites' }).click();
+    await page.getByRole('menuitem', { name: 'Remove' }).click();
+    await expect(page.getByRole('link', { name: 'Browse trips' })).toBeFocused();
   });
 
   test('Change dates reopens the sheet with the copy\'s date and party and keeps the row\'s id', async ({ page, site }) => {

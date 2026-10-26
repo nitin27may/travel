@@ -143,6 +143,7 @@ export const tripExportModel = z.strictObject({
   lines: z.array(exportLine),
   tz: z.string().nullable(),
   seasonLabel: z.string().nullable(),
+  seasonMonths: z.array(z.int().min(1).max(12)).optional(),
   skipped: z.int().min(0),
 });
 
