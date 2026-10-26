@@ -524,20 +524,20 @@ live in Neon.
   sessions. Set `maxDuration` to 30 s on the MCP routes.
 - **The stdio server reads private files.** It must never be wrapped in an HTTP bridge or a tunnel.
 
-## 12. Open questions for the owner (Q160 to Q167)
+## 12. Owner questions (Q160 to Q167, all answered 26 Oct 2026, yes as recommended)
 
 Q190 to Q198 (access levels, allowed clients, lifetimes, production timing) are in section 14.13.
 
 | # | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q160 | Use Neon's OAuth provider plugin (preview) as the MCP authorization server, after the MCP-0 spike on the child branch? | **Yes** | A preview feature with fixed scopes; the alternative is a second auth service (reverses R-58 for one function) |
-| Q161 | Two URLs (public `/mcp/`, private `/mcp/private/`) rather than one URL with lazy sign-in? | **Two URLs** | The owner adds one connector (private) and the public one serves everyone else; lazy sign-in would be one connector for all, at the cost of mixing public and private code paths |
-| Q162 | Who may use the private endpoint at first? | **The owner only** until MCP-S passes; then invited users by role, regardless of open sign-up | Invited family members wait a few days longer |
-| Q163 | Personal access tokens: 30 days by default, 90 at most, never without expiry? | **Yes** | Headless jobs must rotate a secret every 1 to 3 months |
-| Q164 | Keep Dynamic Client Registration off (CIMD only)? | **Yes**; switch on only for a named client that needs it | A client without CIMD cannot connect; Claude, Claude Code and current ChatGPT builds use CIMD or fall back to DCR, so check each new client |
-| Q165 | Public MCP open to anyone with no sign-in, at 60 calls an hour per IP? | **Yes** (R-1: the public product needs no login) | A scraper can read the catalogue at that pace; P8 caps and per-item exports still apply |
-| Q166 | When: MCP-0 and MCP-C when a seat frees, the build after the closure queue, R-59 and email Phase 1? | **Yes** | Remote MCP waits about two weeks; the stdio server covers the owner meanwhile |
-| Q167 | Keep an MCP audit log (who, which client, which tool, result, duration; no arguments) for 30 days? | **Yes, 30 days**, then daily counts only | Less history for an incident older than a month |
+| Q160 | Use Neon's OAuth provider plugin (preview) as the MCP authorization server, after the MCP-0 spike on the child branch? | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | A preview feature with fixed scopes; the alternative is a second auth service (reverses R-58 for one function) |
+| Q161 | Two URLs (public `/mcp/`, private `/mcp/private/`) rather than one URL with lazy sign-in? | **Two URLs** (ANSWERED 26 Oct 2026: yes, as recommended.) | The owner adds one connector (private) and the public one serves everyone else; lazy sign-in would be one connector for all, at the cost of mixing public and private code paths |
+| Q162 | Who may use the private endpoint at first? | **The owner only** until MCP-S passes; then invited users by role, regardless of open sign-up (ANSWERED 26 Oct 2026: yes, as recommended.) | Invited family members wait a few days longer |
+| Q163 | Personal access tokens: 30 days by default, 90 at most, never without expiry? | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | Headless jobs must rotate a secret every 1 to 3 months |
+| Q164 | Keep Dynamic Client Registration off (CIMD only)? | **Yes**; switch on only for a named client that needs it (ANSWERED 26 Oct 2026: yes, as recommended.) | A client without CIMD cannot connect; Claude, Claude Code and current ChatGPT builds use CIMD or fall back to DCR, so check each new client |
+| Q165 | Public MCP open to anyone with no sign-in, at 60 calls an hour per IP? | **Yes** (R-1: the public product needs no login) (ANSWERED 26 Oct 2026: yes, as recommended.) | A scraper can read the catalogue at that pace; P8 caps and per-item exports still apply |
+| Q166 | When: MCP-0 and MCP-C when a seat frees, the build after the closure queue, R-59 and email Phase 1? | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | Remote MCP waits about two weeks; the stdio server covers the owner meanwhile |
+| Q167 | Keep an MCP audit log (who, which client, which tool, result, duration; no arguments) for 30 days? | **Yes, 30 days**, then daily counts only (ANSWERED 26 Oct 2026: yes, as recommended.) | Less history for an incident older than a month |
 
 ## 13. MCP-0 results and later review notes
 
@@ -1265,19 +1265,19 @@ The Claude Code recipe is in [client-recipes.md](client-recipes.md) section 0 ("
 - **Two Claude surfaces, two ids.** Claude Code has its own client id; a user connecting both sees two rows and sets two
   levels. Expected, and clearer than one shared level.
 
-### 14.13 Owner questions (Q190 to Q198)
+### 14.13 Owner questions (Q190 to Q198, all answered 26 Oct 2026, yes as recommended)
 
 | # | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q190 | Default level for a newly connected app? | **My plans, read** | One more read surface than "Public only", but the app is useless for your plans without it, and nothing can change |
-| Q191 | Once invited users exist (Q162), may they choose write levels for their own plans? | **Yes, up to My plans, change**; research and admin stay role-gated; the owner's `max_level_non_owner` can hold everyone at read | A family member's injected chat could edit their trip, undoable from the activity; removals and sharing still ask on the site |
-| Q192 | Allowed clients in production? | **Claude (claude.ai, Desktop, mobile) and Claude Code only**; others added by you after reading their client document; unknown clients refused for everyone, you included | ChatGPT or another client waits for a listing step by you |
-| Q193 | Show users an activity view (tool, time, result; no arguments)? | **Yes**, 30 days, no export | A little more page to build (in MCP-U's 10 h) |
-| Q194 | Grant lifetimes: read levels 90 days, write levels 30 days after the last change, then renew; PATs unchanged (30 and 90) | **Yes** | You renew a write grant monthly |
-| Q195 | One named level per app, plus three add-ons, rather than free per-capability switches? | **Yes** | An app cannot hold research plus change-my-plans without the owner level |
-| Q196 | Split mixed tools into read and write tools (about 38 tools for you, 20 for a reader)? Conflicts with "about 25" (README principle 1) | **Yes, split** | A longer tool list for the owner's client; the reader's list barely grows |
-| Q197 | You said "Enable it": the child's plugin is already on. Keep production off until MCP-S, then O-M2? | **Yes: child on now, production after MCP-S** | Remote private MCP on production waits for the build (about 51 h) |
-| Q198 | Sharing outside the household, publishing and merging always ask on the site, even at write or admin level (replaces `confirmed_by_user` for those) | **Yes** | One extra tap on the site for each share link |
+| Q190 | Default level for a newly connected app? | **My plans, read** (ANSWERED 26 Oct 2026: yes, as recommended.) | One more read surface than "Public only", but the app is useless for your plans without it, and nothing can change |
+| Q191 | Once invited users exist (Q162), may they choose write levels for their own plans? | **Yes, up to My plans, change**; research and admin stay role-gated; the owner's `max_level_non_owner` can hold everyone at read (ANSWERED 26 Oct 2026: yes, as recommended.) | A family member's injected chat could edit their trip, undoable from the activity; removals and sharing still ask on the site |
+| Q192 | Allowed clients in production? | **Claude (claude.ai, Desktop, mobile) and Claude Code only**; others added by you after reading their client document; unknown clients refused for everyone, you included (ANSWERED 26 Oct 2026: yes, as recommended.) | ChatGPT or another client waits for a listing step by you |
+| Q193 | Show users an activity view (tool, time, result; no arguments)? | **Yes**, 30 days, no export (ANSWERED 26 Oct 2026: yes, as recommended.) | A little more page to build (in MCP-U's 10 h) |
+| Q194 | Grant lifetimes: read levels 90 days, write levels 30 days after the last change, then renew; PATs unchanged (30 and 90) | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | You renew a write grant monthly |
+| Q195 | One named level per app, plus three add-ons, rather than free per-capability switches? | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | An app cannot hold research plus change-my-plans without the owner level |
+| Q196 | Split mixed tools into read and write tools (about 38 tools for you, 20 for a reader)? Conflicts with "about 25" (README principle 1) | **Yes, split** (ANSWERED 26 Oct 2026: yes, as recommended.) | A longer tool list for the owner's client; the reader's list barely grows |
+| Q197 | You said "Enable it": the child's plugin is already on. Keep production off until MCP-S, then O-M2? | **Yes: child on now, production after MCP-S** (ANSWERED 26 Oct 2026: yes, as recommended.) | Remote private MCP on production waits for the build (about 51 h) |
+| Q198 | Sharing outside the household, publishing and merging always ask on the site, even at write or admin level (replaces `confirmed_by_user` for those) | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended.) | One extra tap on the site for each share link |
 
 ## Sources (read 25 Oct 2026)
 

@@ -737,18 +737,18 @@ Total: about 32 h for steps 1 and 2, about 27 h for steps 3 and 4 (reviews inclu
 7. The owner moves a suggestion through `researching` to `added` with the CLI, and the signed-in submitter sees "Added" with the link.
 8. Every route rejects a cross-origin request; the suggestions route also rejects a request with no Origin.
 
-## 17. Open owner questions (Q101 to Q108)
+## 17. Owner questions (Q101 to Q108, all answered 26 Oct 2026, yes as recommended)
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q101 | Allow anonymous place suggestions, or require sign-in for all? | Allow anonymous, with Turnstile and the quotas | More noise to moderate; sign-in-only cuts suggestions to almost none at our size |
-| Q102 | Challenge: Cloudflare Turnstile or Vercel BotID Basic? | Turnstile (6.3) | A Cloudflare widget, a secret and one third-party script on the form pages |
-| Q103 | Trip requests need an account, and Q67 (admission) is open. May anyone sign up for the light account features (favourites sync, suggestions, trip requests) while the planner and customisation stay invite-only (Q98)? | Yes: open sign-up for the account, with planner features gated by role or invite | Needs a role or allowlist check before customisation ships; more accounts to hold |
-| Q104 | Tell submitters by email when a request is researched or added? | No in v1 (no email sender is chosen, F17); status on `/account/` only | Submitters must come back to see it |
-| Q105 | Retention: spam 30 days, rejected and duplicate 90 days, untouched 180 days, added 12 months then de-identified, IP hashes 30 days | Accept as written | Shorter keeps less personal data; longer helps spot repeat abuse |
-| Q106 | Where in the queue: favourites step 1 right after OVR-0 (which frees trip-page bytes), step 2 after the R-61 HTTPS preview, suggestions after that? | Yes | Favourites before the overview's later lanes; both touch the trip header |
-| Q107 | Credit approved suggestions publicly ("Suggested by a visitor")? | No | Less recognition for contributors; no PII and no spam incentive |
-| Q108 | Favourites hold places and trips only, cap 500? | Yes; offers and events later if asked | A visitor cannot heart a single activity or event |
+| Q101 | Allow anonymous place suggestions, or require sign-in for all? | Allow anonymous, with Turnstile and the quotas (ANSWERED 26 Oct 2026: yes, as recommended.) | More noise to moderate; sign-in-only cuts suggestions to almost none at our size |
+| Q102 | Challenge: Cloudflare Turnstile or Vercel BotID Basic? | Turnstile (6.3) (ANSWERED 26 Oct 2026: yes, as recommended.) | A Cloudflare widget, a secret and one third-party script on the form pages |
+| Q103 | Trip requests need an account, and Q67 (admission) is open. May anyone sign up for the light account features (favourites sync, suggestions, trip requests) while the planner and customisation stay invite-only (Q98)? | Yes: open sign-up for the account, with planner features gated by role or invite (ANSWERED 26 Oct 2026: yes, as recommended.) | Needs a role or allowlist check before customisation ships; more accounts to hold |
+| Q104 | Tell submitters by email when a request is researched or added? | No in v1 (no email sender is chosen, F17); status on `/account/` only (ANSWERED 26 Oct 2026: no email to submitters in v1; Q137 adds the outcome email for confirmed guests.) | Submitters must come back to see it |
+| Q105 | Retention: spam 30 days, rejected and duplicate 90 days, untouched 180 days, added 12 months then de-identified, IP hashes 30 days | Accept as written (ANSWERED 26 Oct 2026: yes, as recommended.) | Shorter keeps less personal data; longer helps spot repeat abuse |
+| Q106 | Where in the queue: favourites step 1 right after OVR-0 (which frees trip-page bytes), step 2 after the R-61 HTTPS preview, suggestions after that? | Yes (ANSWERED 26 Oct 2026: yes, as recommended.) | Favourites before the overview's later lanes; both touch the trip header |
+| Q107 | Credit approved suggestions publicly ("Suggested by a visitor")? | No (ANSWERED 26 Oct 2026: yes, as recommended.) | Less recognition for contributors; no PII and no spam incentive |
+| Q108 | Favourites hold places and trips only, cap 500? | Yes; offers and events later if asked (ANSWERED 26 Oct 2026: yes, as recommended.) | A visitor cannot heart a single activity or event |
 
 Conflicts with open decisions, flagged, not changed: Q67 (who may sign in) blocks step 4 and is asked again as Q103;
 Q68 (guest planning) is not decided here, though the local envelope pattern would serve it; Q69 (household RLS)

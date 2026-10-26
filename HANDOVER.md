@@ -304,7 +304,7 @@ The current ids and statuses are in BACKLOG's "Owner questions open" table, rows
 | Q-D (15.25) | Restrict the browser key to named referrers and to the Maps JavaScript API | **Yes, before any preview leaves this Mac**, and certainly before go-live | Each new preview port must be added in the console |
 | Q88 (15.30) | Place-size budget at R2 | **Keep +25%, lazy sections** | One request when a section opens, and fewer crawlable links |
 | Q90 | R2 on the minimum viable data set | **Yes** | Fewer photos and facts at R2, all honest. Saves about 24 h of Opus |
-| Q91 | GLB2b inside E or after R2 | **Inside E**, unless weekly use passes 70% before it starts | After R2 drops R2 check 5 |
+| Q91 | GLB2b inside E or after R2 | **Inside E**, unless weekly use passes 70% before it starts (ANSWERED 26 Oct 2026: as recommended) | After R2 drops R2 check 5 |
 | Q92 | A tunnel for M1 | **Moot.** M1 was accepted on the Mac; preview 1's tunnel ran with the owner's go. Preview 2 at R2 needs a fresh go | none |
 | Q70 follow-up | Create `nitin27may/travel-feedback` (issues only, form `report.yml`), then set `reportUrl` in `web/lib/config/product.ts` (a one-line switch) | **Yes, as the last readiness step** | It is a public repo that carries the owner's GitHub handle, and reporters need a GitHub account |
 | (new) | "by Nitin" on every trip cover (`web/components/trips/TripCover.tsx:55`) | **Keep**, and move the literal into `product.ts` | Together with the feedback URL it names the owner. It is authorship, not household data |

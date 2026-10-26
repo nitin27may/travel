@@ -1093,18 +1093,18 @@ INT-S, INT-2, INT-4 (UI), REP-1 (about 33 h there) are folded in; INT-3 is exten
 8. No exported page, `/api/v1` body or log line contains a contact email (privacy test, log scan).
 9. A research brief keeps visitor text inside the untrusted fence, with no contact data.
 
-## 14. Open owner questions (Q130 to Q137)
+## 14. Owner questions (Q130 to Q137, all answered 26 Oct 2026, yes as recommended)
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q130 | Verify guest emails by a one-click link, keeping unconfirmed items out of your queue? | Yes (option B, 5.3) | One email round trip for guests; nothing works for guests until a domain exists |
-| Q131 | Name required or optional? | Optional; email required | Replies are less personal; fewer people give up |
-| Q132 | Register the domain now (Cloudflare Registrar, Q71) and use Resend's free tier (100 a day) from `mail.<domain>`? | Yes; until then ship signed-in reporting only | About US$10 a year; a second vendor account; the daily cap is shared with Neon Auth mail |
-| Q133 | Drop the public GitHub feedback repo (Q70 follow-up, R-17) now that a private form is planned? | Yes: no public repo, no GitHub fallback; when the form is paused the sheet says so | No channel at all during a pause; reporters cannot see each other's reports |
-| Q134 | Response targets: takedowns reply and hide within 2 working days, safety within 7 days, no promise for the rest? | Yes | You are paged by email for takedowns |
-| Q135 | Photo uploads in v1? | No; a link to a photo is allowed (K7) | A visitor cannot attach a picture of a closure notice |
-| Q136 | Who triages in year one? | You only; the moderator role waits for F17 roles and the console | One person's time sets the response speed |
-| Q137 | Amend the visitor spec: guests may ask for a trip with a confirmed email (1 open, 2 in 30 days), and senders get an outcome email (reverses Q104)? | Yes to both | More trip requests to read; one more mail per closed item |
+| Q130 | Verify guest emails by a one-click link, keeping unconfirmed items out of your queue? | Yes (option B, 5.3) (ANSWERED 26 Oct 2026: yes, as recommended.) | One email round trip for guests; nothing works for guests until a domain exists |
+| Q131 | Name required or optional? | Optional; email required (ANSWERED 26 Oct 2026: yes, as recommended.) | Replies are less personal; fewer people give up |
+| Q132 | Register the domain now (Cloudflare Registrar, Q71) and use Resend's free tier (100 a day) from `mail.<domain>`? | Yes; until then ship signed-in reporting only (ANSWERED 26 Oct 2026: yes; timing follows Q148 (no domain until a trigger fires), and registering needs a domain name and a price from the owner: owner input needed, no purchase approved.) | About US$10 a year; a second vendor account; the daily cap is shared with Neon Auth mail |
+| Q133 | Drop the public GitHub feedback repo (Q70 follow-up, R-17) now that a private form is planned? | Yes: no public repo, no GitHub fallback; when the form is paused the sheet says so (ANSWERED 26 Oct 2026: yes, as recommended.) | No channel at all during a pause; reporters cannot see each other's reports |
+| Q134 | Response targets: takedowns reply and hide within 2 working days, safety within 7 days, no promise for the rest? | Yes (ANSWERED 26 Oct 2026: yes, as recommended.) | You are paged by email for takedowns |
+| Q135 | Photo uploads in v1? | No; a link to a photo is allowed (K7) (ANSWERED 26 Oct 2026: yes, as recommended.) | A visitor cannot attach a picture of a closure notice |
+| Q136 | Who triages in year one? | You only; the moderator role waits for F17 roles and the console (ANSWERED 26 Oct 2026: yes, as recommended.) | One person's time sets the response speed |
+| Q137 | Amend the visitor spec: guests may ask for a trip with a confirmed email (1 open, 2 in 30 days), and senders get an outcome email (reverses Q104)? | Yes to both (ANSWERED 26 Oct 2026: yes, as recommended.) | More trip requests to read; one more mail per closed item |
 
 ## 15. Gotchas
 

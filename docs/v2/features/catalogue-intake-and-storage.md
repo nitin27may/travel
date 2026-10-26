@@ -617,18 +617,18 @@ child branch; a skip is not a pass):
 5. Size: no `meta` over 4 KB; the database stays under 50 MB after a full load.
 6. Parity: the contract kit per method returns the same bodies from PostgresStore and JsonStore.
 
-## 7. Open owner questions
+## 7. Owner questions (Q170 to Q177, all answered 26 Oct 2026, yes as recommended)
 
 | # | Question | Recommendation and trade-off |
 |---|---|---|
-| Q170 | Adopt the keep-or-drop rule K1 to K7, with a `keep` list on every registry property? | **Yes.** It makes "only what adds value" testable. Trade-off: interesting context stays in git rather than the database |
-| Q171 | Give every catalogue and research table (27, section 3.3) a `meta jsonb` under one contract, never readable by the app role? | **Yes.** One contract, no free-text provenance, rollback by run id. Trade-off: the PostgresStore must name its columns |
-| Q172 | Stop writing the verbatim record into the public `entity.doc` and `offer.doc` (write `{}`; `record_doc` keeps the verbatim copy, internal)? | **Yes.** 0003 calls `doc` "the resolved capture record, verbatim" on a public-read table, so every internal note would be readable by `travel_app`. Trade-off: one join to `record_doc` for internal tools |
-| Q173 | Add `notes_private` (at most 1,000 characters, owner and researchers only) to records, `entity`, `offer` and `operator`? | **Yes, empty by default.** Reasoning stays in prose; the column holds a short lead or planning remark. Trade-off: one more private field the detector must guard |
-| Q174 | Keep serving `Val.quote` up to 300 characters on public pages (A6), or cap public quotes at 120 and keep 300 internal in `evidence`? | **Keep A6** for now: today's 686 quotes are short factual phrases with credit, and they are how a reader checks a hard limit. Trade-off: a long quote of a page is copied text; RIS-N warns above 120 so the owner can review |
-| Q175 | Start D2b (basics for the 74 places) only after RIS-C and RIS-N (about 16 h of build)? | **Yes.** The 74 are born compliant and need no second pass. Trade-off: D2b starts about two working days later |
-| Q176 | Give areas a small property list in `area.attrs` (park-pass rule, child-seat law, a dated lodging-rate statistic, the time zone already a column), or keep area facts in prose until D9 needs them? | **Yes, four properties**, stored now, shown only when Q113 and the stay spec allow. Trade-off: one more registry scope to maintain |
-| Q177 | Apply RIS-M to the Neon production branch after the child-branch run passes, on your approval of a named commit, as for 0001 to 0010? | **Yes.** It is additive and changes grants to fail closed. Trade-off: one more production step for you |
+| Q170 | Adopt the keep-or-drop rule K1 to K7, with a `keep` list on every registry property? | **Yes.** It makes "only what adds value" testable. Trade-off: interesting context stays in git rather than the database (ANSWERED 26 Oct 2026: yes, as recommended.) |
+| Q171 | Give every catalogue and research table (27, section 3.3) a `meta jsonb` under one contract, never readable by the app role? | **Yes.** One contract, no free-text provenance, rollback by run id. Trade-off: the PostgresStore must name its columns (ANSWERED 26 Oct 2026: yes, as recommended.) |
+| Q172 | Stop writing the verbatim record into the public `entity.doc` and `offer.doc` (write `{}`; `record_doc` keeps the verbatim copy, internal)? | **Yes.** 0003 calls `doc` "the resolved capture record, verbatim" on a public-read table, so every internal note would be readable by `travel_app`. Trade-off: one join to `record_doc` for internal tools (ANSWERED 26 Oct 2026: yes, as recommended.) |
+| Q173 | Add `notes_private` (at most 1,000 characters, owner and researchers only) to records, `entity`, `offer` and `operator`? | **Yes, empty by default.** Reasoning stays in prose; the column holds a short lead or planning remark. Trade-off: one more private field the detector must guard (ANSWERED 26 Oct 2026: yes, as recommended.) |
+| Q174 | Keep serving `Val.quote` up to 300 characters on public pages (A6), or cap public quotes at 120 and keep 300 internal in `evidence`? | **Keep A6** for now: today's 686 quotes are short factual phrases with credit, and they are how a reader checks a hard limit. Trade-off: a long quote of a page is copied text; RIS-N warns above 120 so the owner can review (ANSWERED 26 Oct 2026: yes, as recommended.) |
+| Q175 | Start D2b (basics for the 74 places) only after RIS-C and RIS-N (about 16 h of build)? | **Yes.** The 74 are born compliant and need no second pass. Trade-off: D2b starts about two working days later (ANSWERED 26 Oct 2026: yes, as recommended.) |
+| Q176 | Give areas a small property list in `area.attrs` (park-pass rule, child-seat law, a dated lodging-rate statistic, the time zone already a column), or keep area facts in prose until D9 needs them? | **Yes, four properties**, stored now, shown only when Q113 and the stay spec allow. Trade-off: one more registry scope to maintain (ANSWERED 26 Oct 2026: yes, as recommended.) |
+| Q177 | Apply RIS-M to the Neon production branch after the child-branch run passes, on your approval of a named commit, as for 0001 to 0010? | **Yes.** It is additive and changes grants to fail closed. Trade-off: one more production step for you (ANSWERED 26 Oct 2026: yes, as recommended.) |
 
 ## 8. Conflicts with existing decisions (flagged, not changed)
 

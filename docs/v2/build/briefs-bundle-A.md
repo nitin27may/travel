@@ -15,7 +15,7 @@ MASTER-ORDER 5.3 says.
 
 ## 1. Decision in one paragraph
 
-Ship v0.2, v0.3 and v0.4 as **one deploy, tagged `release/v0.4`** (Q290), built by two builders, one data seat, one
+Ship v0.2, v0.3 and v0.4 as **one deploy, tagged `release/A`** (Q290; the consolidated plan's tag scheme, RELEASE-PLAN 0a B6; the first version of this page said `release/v0.4`), built by two builders, one data seat, one
 verifier and the design reviewer, on one integration branch `public/BUNDLE-A`. Every task branches from the tip of
 `public/BUNDLE-A` when it starts, merges back with `--no-ff`, and is followed by a cheap per-merge step (typecheck,
 its own tests, one build, `budget:report`) so every budget movement is pinned to one branch. One T2 runs on the stack
@@ -45,7 +45,7 @@ features.
 | D12 | [briefs/OVR.md](public-site/briefs/OVR.md) step 4 | move `CategoryView` "and the future overview" into one chunk loaded on the first "Trip overview" click | the overview does not exist yet: OVR-0 makes `CategoryView` a `next/dynamic` import with SSR kept (a direct `?view=category` still renders on the server); OVR-2 later adds the overview to the same chunk | no SSR regression for direct links and no-JS readers (T2) | this page |
 | D13 | RELEASE-PLAN 6 step 8 | "until v0.8 says prebuilt" | IMG-1 decides; recommended: remote builds stay (`vercel deploy --prod`) and the image and share-image steps move **before** `next build`; prebuilt deploys only if the IMG-1 spike shows the adapter still drops the files | prebuilt from the Mac does not by itself fix the order (the adapter runs inside `next build` in `vercel build` too) | this page |
 | D14 | MASTER-ORDER 5.2; TEST-STRATEGY 9.1 | stacks of at most four branches, never two that move the same budget, T2 per stack | one integration branch, serial merges each followed by the per-merge budget step, one T2 on the tip | the owner asked for one T2 and one T3; the per-merge step keeps the budget attribution the rule protects | this page, bundle A only |
-| D15 | RELEASE-PLAN 3; MASTER-ORDER 5.3; Q224 | v0.2, v0.3, v0.4 are three deploys | one deploy, one tag `release/v0.4`; v0.2 and v0.3 are recorded "shipped inside v0.4" | each deploy costs an approval, a smoke and a phone check; the train keeps its numbers (v0.5 next) | this page, if Q290 is yes |
+| D15 | RELEASE-PLAN 3; MASTER-ORDER 5.3; Q224 | v0.2, v0.3, v0.4 are three deploys | one deploy, one tag `release/A`; v0.2, v0.3 and v0.4 are recorded "shipped inside bundle A" | each deploy costs an approval, a smoke and a phone check; the train keeps its numbers (v0.5 next) | this page; Q290 answered yes 26 Oct 2026 |
 | D16 | MASTER-ORDER 3.4 TRP-GL-D | "blocked: RIS-J" | ready | RIS-J and SEASONS-C merged (c4ed1bc6) | fact |
 | D17 | MASTER-ORDER 3.3 IMG-1 owned paths | images and OG scripts, `package.json`, `tree_check` | adds `web/lib/server/images.ts`, `web/lib/format/image.ts`, the photo URL call sites in `web/lib/public/**` (mapping only), `web/app/og-manifest.json/route.ts` (deleted), `web/tests/e2e/global-setup.ts` and the one `tools/check-all.sh` line that orders the scripts | the fix moves the rewrite from build output to render time | this page |
 
@@ -231,7 +231,7 @@ and merges the v0.2 docs branches of 3.3 into it.
 | NAV-1F | `v2-NAV1F` | `public/NAV-1F` | 3502 |
 | FAV-1 (and FAV-1F) | `v2-FAV1` | `public/FAV-1` | 3506 |
 | reviews and verifies | `v2-NAVR1`, `v2-NAVV1`, `v2-TRPGLR`, `v2-TRPGLV`, `v2-FAVR`, `v2-FAVV`, `v2-IMG1V` | `public/<same name>` | 3510 |
-| release | `release-v0.4` (detached at the named commit) | none | none |
+| release | `release-A` (detached at the named commit) | none | none |
 
 Never use ports 3440 or 3476. Kill a server by its PID, never by name.
 
@@ -841,7 +841,7 @@ rows 1 to 17, plus:
 | O5 | `IMAGES_OFFLINE=1` in Vercel Production and Preview (Q292) | before the deploy |
 | O6 | A manual snapshot of the production Neon branch (no migration in this bundle; two minutes of insurance, Q185 practice) | just before the deploy |
 | O7 | Approve the privacy page words (GSI-P, corrected after review) | with the notes |
-| O8 | Answer Q101 to Q108 ("yes as recommended"; FAV-C was built on them) and Q290 to Q292 | before FAV-1 merges |
+| O8 | **Done 26 Oct 2026:** Q101 to Q108 and Q290 to Q292 answered "yes, as recommended"; FAV-1 is no longer gated by them | done |
 | O9 | Phone check on a real phone at 390 (and 320 if available): bar, header icon, copy a trip then Mine, heart a place then Mine, the trip map key | after the deploy |
 | O10 | Approve the named commit and the CHANGELOG entry ("approved <sha>") | after T3 |
 
@@ -901,11 +901,11 @@ no phone sign-in link, a copied trip no page lists) only by not repeating them; 
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q290 | Ship v0.2, v0.3 and v0.4 as one deploy tagged `release/v0.4`, with v0.2 and v0.3 recorded "shipped inside v0.4", so the train keeps its numbers (v0.5 next)? | **Yes** | One approval, smoke and phone check instead of three; a rollback rolls back all three (the `mine` and `favourites` flags give a finer rollback) |
-| Q291 | If the trip page cannot take the heart's 150 B and keep 256 B of headroom, put "Add to favourites" in the trip's Export menu instead of a heart in the header (D11)? | **Yes** | One more tap to favourite a trip, against keeping room for the stop links of v0.8 |
-| Q292 | Production and preview builds make images only from the uploaded photo cache (`IMAGES_OFFLINE=1`); a photo not in the cache shows the placeholder rather than a Commons link? | **Yes** | A new photo appears only after the cache on the Mac has it (the build lists what is missing); no Commons call from Vercel's build servers, no 429, no hotlink |
+| Q290 | Ship v0.2, v0.3 and v0.4 as one deploy tagged `release/A`, recorded as feature labels shipped inside bundle A, so the train keeps its numbers (v0.5 next)? | **Yes** (ANSWERED 26 Oct 2026: yes, as recommended. The tag is `release/A` (RELEASE-PLAN 0a, B6), not the first version's `release/v0.4`; the number Q290 is also used by DATA-PLAN 6.2 for the re-baseline rule, a different question, also answered yes.) | One approval, smoke and phone check instead of three; a rollback rolls back all three (the `mine` and `favourites` flags give a finer rollback) |
+| Q291 | If the trip page cannot take the heart's 150 B and keep 256 B of headroom, put "Add to favourites" in the trip's Export menu instead of a heart in the header (D11)? | **Yes** (ANSWERED 26 Oct 2026: yes.) | One more tap to favourite a trip, against keeping room for the stop links of v0.8 |
+| Q292 | Production and preview builds make images only from the uploaded photo cache (`IMAGES_OFFLINE=1`); a photo not in the cache shows the placeholder rather than a Commons link? | **Yes** (ANSWERED 26 Oct 2026: yes; `IMAGES_OFFLINE=1` in Vercel Production and Preview is an owner or coordinator action (O5), not done.) | A new photo appears only after the cache on the Mac has it (the build lists what is missing); no Commons call from Vercel's build servers, no 429, no hotlink |
 
-Already asked and still open, gating this bundle: Q101 to Q108 (favourites; FAV-C was built on the recommendations).
+Q101 to Q108 (favourites; FAV-C was built on the recommendations) were answered 26 Oct 2026, yes as recommended, and no longer gate this bundle. Owner actions that remain: O5 (`IMAGES_OFFLINE=1` in Vercel, not done) and the rest of section 8.
 
 ## 10. Gotchas
 
@@ -934,4 +934,5 @@ Already asked and still open, gating this bundle: Q101 to Q108 (favourites; FAV-
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (ANSWERS-5) | Q290 to Q292 and Q101 to Q108 answered yes, as recommended. The tag is `release/A` (RELEASE-PLAN 0a B6) in place of `release/v0.4` (sections 1, 4 D15, the worktree row and Q290); O8 marked done; O5 stays an owner or coordinator action, not done |
 | 2026-10-26 | First version (BUNDLE-A-BRIEFS, planned only): bundle A as one deploy; differences D1 to D17 with which wins; state at the start; 22 ordered tasks with seats, models and hours; dependency graph; parallel plan with disjoint files; critical path about 38.5 h; launch list; worktrees and ports; budget rules and ledger; the common block; briefs for OVR-0, NAV-F, TRP-GL-C, TRP-GL-D, FAV-1W, NAV-1, NAV-2C, IMG-1, NAV-2, TRP-GL, NAV-1F, FAV-1 and the reviews; the bundle's verification plan (per-merge step, one T2, one T3, smoke, owner actions, CHANGELOG draft); Q290 to Q292 |

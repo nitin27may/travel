@@ -59,7 +59,7 @@ data-seat row of [MASTER-ORDER](MASTER-ORDER.md) 5.4. Ids marked (new) had no ta
 
 | # | Id | What | h | Model | Blocked by | Owner decision needed | Bundle | Row |
 |---|---|---|---|---|---|---|---|---|
-| 1 | D1B-Q | The five open D1b rulings (Lac du Chatelard, Cinque Torri and Fiscalina and Vallunga payoffs, Mount Indefatigable, Federa `reaches`, Grand View Point point) | 0.5 owner | owner | | **yes** (section 2.3) | C, D | 5 |
+| 1 | D1B-Q | The five open D1b rulings (Lac du Chatelard, Cinque Torri and Fiscalina and Vallunga payoffs, Mount Indefatigable, Federa `reaches`, Grand View Point point) | 0.5 owner | owner | | **answered 26 Oct 2026, as recommended** (section 2.3); done | C, D | 5 |
 | 2 | LOCAL-3 | Drift stage in check-all (CATALOGUE-EARLY 11.1) | 3 | Sonnet | | | B | 1 |
 | 3 | TRP-GL-D | Identity of Emerald Lake shore, Lake Louise shore, Paint Pots (closure B4, D5) | 2 | Opus | | | A | 1 |
 | 4 | RIS-M | `research_meta` migration (11.2) | 7 | Opus builder, review | | | B | 2 |
@@ -74,30 +74,30 @@ data-seat row of [MASTER-ORDER](MASTER-ORDER.md) 5.4. Ids marked (new) had no ta
 | 13 | CAT-1 | First production load on bundle B's release day (11.7) | 1.5 | coordinator | CAT-V, DV-1, B approval | Q280 to Q286 answered | B | release day |
 | 14 | TRK-1 (new) | Track fetcher for trails with capture records: OSM relations from the record's `links`, files keyed by public slug, no prototype place needed (brief 7.1) | 7 | Sonnet 6, Opus review 1 | | | C | 7 |
 | 15 | AREA-2 | Areas for the 227 records with none, Rockies (114) first; a missing type is one `types.json` entry by one writer with Opus review | 6 | Opus | | | C | 7 |
-| 16 | D3 | Trail facts for the rest: access points 105, `starts_at` 105, Wikidata 75 of 118 trails | 10 | Opus | | D1B-Q 3 (Mount Indefatigable) | C | 8 |
+| 16 | D3 | Trail facts for the rest: access points 105, `starts_at` 105, Wikidata 75 of 118 trails | 10 | Opus | | D1B-Q 3 answered 26 Oct (drop it from the plan) | C | 8 |
 | 17 | TRL-REL (new) | Relevance answers for the 75 trails with none | 3.5 | Sonnet, Opus sample | | | C | 8 |
 | 18 | ORG-G | Gateways for the 13 public trips (`data/trips/gateways.json`) | 3 | Opus | ORG-D (B2 row 6) | | C | 9 |
 | 19 | TRK-CA (new) | Track runs for the Canadian trails: 67 Rockies, then the 6 withheld Quebec trails (OSM ids in the D2b-ca run note); Overpass one runner | 5 | Sonnet run, Opus review of held-back lines | TRK-1 | | C | 9 |
-| 20 | TRK-DO (new) | Dolomites: the 9 held-back tracks (6 unconfirmed, Lagazuoi and Siusi wrong relation, Nuvolau not stitching) and the Fanes second way; start overrides for Cinque Torri and Fanes in `inputs.json` | 2 | Sonnet run, Opus review | TRK-1 | **Siusi**: which plateau walk is meant; D1B-Q 2 and 4 | C | 9 |
+| 20 | TRK-DO (new) | Dolomites: the 9 held-back tracks (6 unconfirmed, Lagazuoi and Siusi wrong relation, Nuvolau not stitching) and the Fanes second way; start overrides for Cinque Torri and Fanes in `inputs.json` | 2 | Sonnet run, Opus review | TRK-1 | **Siusi**: which plateau walk is meant (owner input needed); D1B-Q 2 and 4 answered 26 Oct (no payoff parts; Federa to `reaches`) | C | 9 |
 | 21 | TRK-RW (new) | The other trips' trails: Utah 13, Patagonia 7, Iceland 5, Chamonix 3, Algonquin 2, Vermont 1 | 2 | Sonnet run | TRK-1 | | C (rides D if short) | 9 |
-| 22 | D10-RO (new) | Rockies records below usable that no other task covers: 77 places, 18 other routes, 1 event (keys: links, access points, best time, on-site minutes, access season, wheelchair) | 7 | Sonnet fills, Opus 10-record review | | D1B-Q 3 | C | 10 |
-| 23 | D10-DO (new) | Dolomites: 34 places, 3 other routes, 8 stays | 3.5 | Sonnet, Opus review | | D1B-Q 2, 4 | C (rides D if short) | 10 |
+| 22 | D10-RO (new) | Rockies records below usable that no other task covers: 77 places, 18 other routes, 1 event (keys: links, access points, best time, on-site minutes, access season, wheelchair) | 7 | Sonnet fills, Opus 10-record review | | D1B-Q 3 answered 26 Oct | C | 10 |
+| 23 | D10-DO (new) | Dolomites: 34 places, 3 other routes, 8 stays | 3.5 | Sonnet, Opus review | | D1B-Q 2, 4 answered 26 Oct | C (rides D if short) | 10 |
 | 24 | RIS-H | Registry homes for `duration_min`, `activity_min`, `book_url` (25 offers can never pass without them) and 4 more properties | 3 | Opus, B2 contract lane | not beside STY-P | | C | B2 row 8 |
 | 25 | OFR-1 (new) | The 44 offers below usable: hours 40, `access_cost` 27, summary 27, then the 25 experience offers once RIS-H lands (Rockies 34, Dolomites 4, Patagonia, Iceland, Chamonix 2 each) | 3.5 | Sonnet, Opus review | RIS-H for the last 25 | | C | 11 |
 | 26 | D5c | Photos for the 159 trip place records and 42 offers without one, after the points above are final; Commons one runner | 4 | Opus picks, Haiku runs | the Commons runner free | | C | 11 |
 | 27 | DV-2 (new) | Page-level parity spot check: sampled rendered pages and `/api/v1` bodies against Postgres rows (brief 7.3) | 3 | Sonnet | DV-1, CAT-1 | | C | 11 |
 | 28 | D8-R | Rockies overview facts: access season, booking state, durations, effort for every plan item | 8 | Opus | | | E | 12 |
-| 29 | D10-UT (new) | Utah: 11 places, 1 other route; the 8 D2b records in lane `usa-southwest-rockies` count with it | 1.5 | Sonnet, Opus review | before REQ-RF (B2 row 13) | D1B-Q 5 (Grand View Point) | D | 12 |
+| 29 | D10-UT (new) | Utah: 11 places, 1 other route; the 8 D2b records in lane `usa-southwest-rockies` count with it | 1.5 | Sonnet, Opus review | before REQ-RF (B2 row 13) | D1B-Q 5 answered 26 Oct (Grand View Point corrected by changeset) | D | 12 |
 | 30 | D10-PA (new) | Patagonia: 19 places | 2 | Sonnet, Opus review | before REQ-RF | | D | 12 |
 | 31 | D10-IC (new) | Iceland: 24 places | 2 | Sonnet, Opus review | before REQ-RF | | D | 12 |
-| 32 | D10-CH (new) | Chamonix: 16 places, 2 other routes | 1.5 | Sonnet, Opus review | before REQ-RF | D1B-Q 1 (Lac du Chatelard) | D | 12 |
+| 32 | D10-CH (new) | Chamonix: 16 places, 2 other routes | 1.5 | Sonnet, Opus review | before REQ-RF | D1B-Q 1 answered 26 Oct (drop the stop) | D | 12 |
 | 33 | D10-PAST (new) | Algonquin 4 places; Vermont 4 places, 1 other route | 1 | Sonnet, Opus review | | | D | 12 |
 | 34 | D8 | Overview facts for the other 7 trips with days | 8 | Opus | D8-R | | E | 13 |
-| 35 | STO-1 (new) | The 19 store places with gaps (links 9, parking 9, image via L3, Kennecott booking, Manitou trail facts) and the 7 Sepaq park fees | 1.5 | Sonnet | | **Grand-Sault** identity (3 candidates); Sepaq fees by hand or `searched_none` | D | 13 |
+| 35 | STO-1 (new) | The 19 store places with gaps (links 9, parking 9, image via L3, Kennecott booking, Manitou trail facts) and the 7 Sepaq park fees | 1.5 | Sonnet | | **Grand-Sault** identity (3 candidates; owner input needed: only that one place waits, the other 18 and the fees go ahead); Sepaq fees: `searched_none`, dated, answered 26 Oct | D | 13 |
 | 36 | L3 | Photos for the 12 store places without one, wider sources (Openverse, Geograph) | 4 | Opus picks, Haiku runs | gallery support for Openverse | **DD-3** (licences beyond the allowlist) | D | 13 |
 | 37 | D7 | Best-time windows for 13 trips: the 7 others with days first, then the 6 overview trips | 16 | Opus | OVR-Ca (B2 row 13) | **Q99** (6 overview trips); **Utah dates** (hard line 1 Oct); **Norway** window A or B | E | 14 |
 | 38 | RIS-A | Promote research left in run notes (D7-R access seasons, D3a and D4a proposals, D1b facts, D9-R town facts) | 8 | Opus | RIS-H, STY-P (B2 row 14) | | E | 15 |
-| 39 | D9 | Base plans for the other trips with days | 8.5 | Opus | STY-Ca, STY-E (B2 row 15) | **Q109 to Q116, DD-6**; **Dolomites base split** (3 or 2 bases); **Switzerland** pass choice and **Norway** dates for those two if TD gives them days | E | 16 |
+| 39 | D9 | Base plans for the other trips with days | 8.5 | Opus | STY-Ca, STY-E (B2 row 15) | Q109 to Q116, DD-6 answered 26 Oct; **Dolomites base split** (3 or 2 bases); **Switzerland** pass choice and **Norway** dates for those two if TD gives them days | E | 16 |
 | 40 | OVT (new) | The 6 overview trips' stops (about 88) captured at the required tier, photos at 0.7 min each | 7 | Sonnet, Opus review | TD-1 (B2 row 16) gives them days | | E | 16 |
 | 41 | DP | Dolomites prose to records (5 research files) | 4 | Opus | not beside D9 on the Dolomites | | later (optional) | 17 |
 | 42 | L5 | New areas and places: added through the `location` skill on the owner's request, each to the 4b completion standard of DATA-ROADMAP | per request | Opus, Sonnet fills | | the owner names them | the next bundle after it merges | after row 17 |
@@ -149,21 +149,25 @@ bundle (RELEASE-PLAN 0a, B8). Window E has 40 h spare, the place to catch up any
 
 ### 2.3 Owner decisions that hold data back, and the bundle each unblocks
 
-| Decision | What waits | Bundle it unblocks | Recommendation |
+**26 Oct 2026: the owner answered every decision below that had a written recommendation ("go ahead with all recommended answers"); those tasks are ready.** The values and choices that still need the owner are listed once, in [MASTER-ORDER](MASTER-ORDER.md) 7.3 "Owner inputs still needed".
+
+| Decision | What waited | Bundle it unblocks | Answer (26 Oct 2026) |
 |---|---|---|---|
-| D1B-Q 1: Lac du Chatelard (drop, or `same_place_as`) | the last record without a point (D10-CH) | D | as the D1b run note |
-| D1B-Q 2 and 4: Cinque Torri, Fiscalina and Vallunga payoff places; Federa `reaches` | 3 Dolomites places; the Federa track cut (D10-DO, TRK-DO) | C | as the run note |
-| D1B-Q 3: Mount Indefatigable, decommissioned 2005 (drop, or wait for Alberta Parks) | one trail on the Rockies family plan (D3, D10-RO) | C | drop it from the plan, keep the record retired |
-| D1B-Q 5: Grand View Point pinned 1.4 km wrong by the ledger | one corrected point (D10-UT) | D | correct it through a changeset |
-| Siusi: which plateau walk is meant | the Siusi track (TRK-DO) | C | |
-| Grand-Sault identity (3 candidates in D2b-ca) | 1 store place (STO-1) | D | |
-| Sepaq fees by hand or `searched_none` (D2b-ca 3) | 7 park fees (STO-1) | D | `searched_none`, dated; fees change yearly |
-| DD-3: photo licences beyond CC BY, CC BY-SA, CC0, public domain | L3 (12 store photos) | D | keep the allowlist (DATA-ROADMAP DD-3) |
-| Q99: windows for the 6 overview trips | 6 of D7's 13 trips | E | yes |
-| Utah dates (hard line 1 Oct); Norway window A or B and group size | D7 window choice for Utah and Norway; D9 Norway | E | |
-| Q109 to Q116, DD-6 (stays); Dolomites base split (3 or 2 bases); Switzerland pass choice | D9 and STY-1 | E | as the stay spec section 18 |
-| Peru dates and length | everything for Peru | not on the train | |
-| Q290: re-baseline rule for research-filled pages (section 6.2) | data batches that fill place pages (C onward) | C | yes |
+| D1B-Q 1: Lac du Chatelard | the last record without a point (D10-CH) | D | **Answered:** drop the stop. No lake of that name exists in the area (Overpass and Wikidata searched); mark the stop retired, delete no ref |
+| D1B-Q 2: Cinque Torri, Fiscalina and Vallunga payoff places | 3 Dolomites places (D10-DO) | C | **Answered:** no payoff parts. The routes are `route_is_attraction`, so none is expected and no new place pages are made |
+| D1B-Q 4: Federa `reaches` | the Federa track cut (TRK-DO) | C | **Answered:** move `place/lago-federa` from `starts_at` to `reaches` on the walk (a relation fix, not a point) |
+| D1B-Q 3: Mount Indefatigable, decommissioned 2005 | one trail on the Rockies family plan (D3, D10-RO) | C | **Answered:** drop it from the plan, keep the record retired |
+| D1B-Q 5: Grand View Point pinned 1.4 km wrong by the ledger | one corrected point (D10-UT) | D | **Answered:** record the OSM overlook (node 6806471756) through a changeset, with a reviewed ledger exception for corrected points |
+| Siusi: which plateau walk is meant | the Siusi track (TRK-DO) | C | **Owner input needed** (no recommendation written) |
+| Grand-Sault identity (3 candidates in D2b-ca) | 1 store place (STO-1) | D | **Owner input needed** (no recommendation written); STO-1 runs for the other places and holds this one |
+| Sepaq fees by hand or `searched_none` (D2b-ca 3) | 7 park fees (STO-1) | D | **Answered:** `searched_none`, dated; fees change yearly |
+| DD-3: photo licences beyond CC BY, CC BY-SA, CC0, public domain | L3 (12 store photos) | D | **Answered:** keep the allowlist (DATA-ROADMAP DD-3) |
+| Q99: windows for the 6 overview trips | 6 of D7's 13 trips | E | **Answered:** yes |
+| Utah dates (hard line 1 Oct); Norway window A or B and group size | D7 window choice for Utah and Norway; D9 Norway | E | **Owner input needed** |
+| Q109 to Q116, DD-6 (stays) | D9 and STY-1 | E | **Answered:** as the stay spec section 18 |
+| Dolomites base split (3 or 2 bases); Switzerland pass choice | D9 and STY-1 | E | **Owner input needed** |
+| Peru dates and length | everything for Peru | not on the train | **Owner input needed** |
+| Q290: re-baseline rule for research-filled pages (section 6.2) | data batches that fill place pages (C onward) | C | **Answered:** yes |
 
 Q88 is answered (option A, re-baseline, 25 Oct); MASTER-ORDER 3.4's "blocked: owner" row is corrected by this page.
 
@@ -280,7 +284,7 @@ Targets are the readiness lines of RELEASE-PLAN 0a.4; "held" means the number ma
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q290 | Research fills place pages, and the place-size budget (+25% median over each page's baseline, measured on catalogue content since BUD-1) counts every filled row. About 340 records will move from below usable to complete in bundles C to E. May a page's baseline be re-measured once, at the merge where a research batch takes its record from below the required tier to complete (the BUD-1 method, before and after in the hand-back)? | **Yes**, once per page, only for required-tier fills, never for a UI or renderer change | The budget then guards UI and renderer growth, not research growth; P8's list caps and light list rows still bound the data per row. Without it, the C batches use up the headroom the UI tasks need, and each batch needs its own owner ruling as Q88 did |
+| Q290 | Research fills place pages, and the place-size budget (+25% median over each page's baseline, measured on catalogue content since BUD-1) counts every filled row. About 340 records will move from below usable to complete in bundles C to E. May a page's baseline be re-measured once, at the merge where a research batch takes its record from below the required tier to complete (the BUD-1 method, before and after in the hand-back)? | **Yes**, once per page, only for required-tier fills, never for a UI or renderer change | The budget then guards UI and renderer growth, not research growth; P8's list caps and light list rows still bound the data per row. Without it, the C batches use up the headroom the UI tasks need, and each batch needs its own owner ruling as Q88 did (ANSWERED 26 Oct 2026: yes, as recommended (the re-baseline rule: once per page, required-tier fills only; not the bundle-tag question of the same number in briefs-bundle-A 9).) |
 
 ## 7. Briefs for the new code tasks
 
@@ -381,4 +385,5 @@ merge.
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (ANSWERS-5) | Section 2.3 rewritten: D1B-Q 1 to 5, Sepaq fees, DD-3, Q99, Q109 to Q116, DD-6 and Q290 answered as recommended; the tasks that waited on them are ready; the values still needed (Siusi, Grand-Sault, Utah, Norway and Peru dates, Dolomites base split, Switzerland pass) point to MASTER-ORDER 7.3. Nothing else changed |
 | 2026-10-26 | First version (PLAN-CONSOLIDATE job 3, planned only): state from the coverage report; every pending data and research task in one order with hours, blockers, owner decisions, bundle and seat row; the 384 draft records by trip and kind; the seat schedule by window with capacity; owner decisions by the bundle they unblock; the load and verify pipeline; the database cross-check X1 to X9; the scoreboard and its targets per bundle; the data policy; briefs TRK-1, DV-1, DV-2; Q290. New tasks: TRK-1, TRK-CA, TRK-DO, TRK-RW, D10 splits, TRL-REL, OFR-1, STO-1, OVT, DV-1, DV-2 |
