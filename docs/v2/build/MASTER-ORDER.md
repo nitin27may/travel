@@ -109,10 +109,11 @@ merged** (the spec is on `main`'s docs stack, no code yet), **later** (not on th
 | TS-7 | `--stack` with ejection and bisect | 5 | Sonnet, Opus review | `tools/gate/stack.py` | TS 12 | planned, spec merged | I (v0.6) |
 | TS-8 | First escape audit, measured savings | 2 | Sonnet, Opus | TEST-STRATEGY 11, 15 | TS 12 | planned, spec merged | I (two weeks after TS-2) |
 | BKP-1 | Backups of private tables by a local launchd job; read-only role by an additive migration (`backup-reader`); `age` encryption; retention; monthly restore test | 6 (+0.5 migration) | Opus 3, Sonnet 3.5 | `tools/db/backup.*`, the plist template, `core/src/db/migrations/<n>_backup_reader.sql`, tests | RELEASE-PLAN 7.6 | ready | v0.5 |
-| LOCAL-3 | Drift stage in check-all | 3 | Sonnet | one `tools/check-all.sh` step, its test | local-db 8 | ready | I (v0.6) |
+| LOCAL-3 | Drift stage in check-all (data seat since 26 Oct, [CATALOGUE-EARLY](CATALOGUE-EARLY.md) 11.1) | 3 | Sonnet | one `tools/check-all.sh` step, `tools/db/seed-check.mjs`, its test | local-db 8 | ready | I (v0.5, CAT-1) |
 | LOCAL-4 | `.github/workflows/check.yml` plus RELEASE-PLAN 7.3 fixes not in IMG-1 (pinned actions, budget stage mode); the decoy home point as plain workflow `env` (not a secret) | 5 | Sonnet | `.github/**`, `tools/tree_contract.json` | RELEASE-PLAN 7.2 | blocked: repository public, Q182, LOCAL-3, IMG-1 | I (after the publish) |
 | E2E-YML | Nightly `e2e.yml`, Chromium, decoy data (Q229a) | 3 | Sonnet | `.github/workflows/e2e.yml` | RELEASE-PLAN 7.2 | blocked: LOCAL-4, TS-6 | I |
-| LOCAL-5 | `db:rehearse` | 2 | Sonnet | `core/bin/**` rehearse command | local-db 8 | blocked: RIS-L | v1.0 |
+| LOCAL-5 | `db:rehearse`, with the child and production connection strings from the Neon CLI (data seat, [CATALOGUE-EARLY](CATALOGUE-EARLY.md) 11.5) | 2 | Sonnet | `tools/db/rehearse.mjs`, its `package.json` line, the connection sources in `core/src/catalogue/postgres/load/target.ts` | local-db 8 | blocked: RIS-L | I (v0.5, CAT-1; was v1.0) |
+| CAT-V | (new, 26 Oct) Read-only production drift job against the latest `release/*` tag, weekly by launchd and after each release | 2 | Sonnet | `tools/db/drift-check.sh`, `tools/db/launchd/*.plist`, its test | [CATALOGUE-EARLY](CATALOGUE-EARLY.md) 11.6 | blocked: LOCAL-5 | I (v0.5) |
 
 ### 3.4 Data research (lane D; one runner per service; one writer for `points.json`, `gap-budget.json`)
 
@@ -234,7 +235,10 @@ merged** (the spec is on `main`'s docs stack, no code yet), **later** (not on th
 | ACC-1 | Accent folding in A16 (15.44), if the owner says yes | 3 | Opus | blocked: 15.44 | v0.6 |
 | CONS-3 | Slug-table step deferred to TD-2; palette fallbacks, one UA and endpoints module, `siteOrigin()` | 8 | Sonnet | ready at a quiet point | v0.6 (internal) |
 | R-9 | Export parity browser against API, read-once legs | 2 | Sonnet | open | v1.0 |
-| RIS-L, RIS-T, SRV-0 (with R-10, R-11, GB-A-11) | Loader remainder, load tests, `PostgresStore` per method | 7 + 6 + 24 | Sonnet, Opus review | blocked: RIS-M, RIS-J | v1.0 to v1.2 |
+| RIS-M, RIS-L, RIS-T | The `research_meta` migration, loader remainder, load tests with exposure parity; **moved to the data seat for the first catalogue load CAT-1 (26 Oct, [CATALOGUE-EARLY](CATALOGUE-EARLY.md))** | 7 + 8 + 7 (reviews included) | Opus (RIS-M), Sonnet, Opus review | RIS-M ready (RIS-C, RIS-J merged); RIS-L blocked: RIS-M | v0.5 (Internal, CAT-1) |
+| CAT-1 | (new) First production load: rehearsal, migrations, `db:sync --approve`, verify, recorded `load_run` (coordinator) | 1.5 | coordinator | blocked: LOCAL-5, CAT-V, the v0.5 approval | v0.5 |
+| CAT-Q | (new) Store router and the first `PostgresStore` methods (`resolveRefs`, `countPlaces` by area, `matchNames`) for callers that already hold a Postgres transaction; anonymous routes stay on `JsonStore` | 6 | Opus contract, Sonnet, Opus review | blocked: CAT-1; before FBK-C | I (v0.10) |
+| SRV-0 (with R-10, R-11, GB-A-11) | `PostgresStore` for the remaining methods and the seams | 21 (24 less the 3 h in CAT-Q) | Sonnet, Opus review | blocked: CAT-Q, v0.22 | v1.0 to v1.2 |
 | GB-A-4 (15.20) | Unknown globe levels render on request and cache | 2 | Sonnet | open | v0.6 |
 | TD-3, TD-4, TD-6, 7.11 and CLN-6 | Galleries to data; import the 14 old trips; orientation block; legacy removal | 5; 24; 8; 6 | Sonnet, Opus | TD-3 with v0.14; the rest later | v0.14; later |
 | Not on the train | short trips (2.17, 3.11 to 3.14), smart search phase 2 (3.15), the planner F01 to F17, NAV-M, PHO-1, INT-5, ORG-P | | | later | later |
@@ -262,7 +266,7 @@ merged** (the spec is on `main`'s docs stack, no code yet), **later** (not on th
 | `trip-custom/1` (`core/src/schema/trip-custom.ts`) | contract | NAV-C (creates the skeleton), CUS-C (full), STY-2C (stays), ORG (`from`, `gw` reserved in NAV-C) | NAV-C names the file `trip-custom.ts` (the OVR brief's `custom.ts` is superseded); each widening lands before its migration is applied |
 | `core/src/schedule/profileCodec.ts` | contract | ORG-C (`from`, `gw`), OVR-1 (`w`), STY-1 (`st`, `sw`) | serial; each adds keys only |
 | `core/src/schedule/**` engine | contract | CUS-C (`removeItem`), REQ-E-C, R59-3C | serial, scheduler bundle test each time |
-| `core/src/db/migrations/**`, `core/src/db/inventory.ts`, `core/src/db/tx.ts` | migration | BKP-1, FBK-C, CUS-C, NAV-D, FAV-D, MCP-G, MCP-T, RIS-M, ORG-H, EML Phase 2 | slug in the branch, number at merge (4.4) |
+| `core/src/db/migrations/**`, `core/src/db/inventory.ts`, `core/src/db/tx.ts` | migration | BKP-1, RIS-M (both v0.5), FBK-C, CUS-C, NAV-D, FAV-D, MCP-G, MCP-T, ORG-H, EML Phase 2 | slug in the branch, number at merge (4.4) |
 | `data/vocab/types.json` | generated contract (a TEST-STRATEGY `full` path) | AREA-2 (only if a type is missing), any data batch that meets a new kind | one writer, Opus review; the branch goes first in its stack |
 | `core/src/schema/capture/properties.ts` | contract | STY-P, RIS-H | serial; `capture.ts build` after each |
 | `core/bin/capture.ts` | file | RIS-S | alone |
@@ -309,7 +313,7 @@ task that needs it starts): **NAV-C, FAV-C** (v0.3) → **TRP-GL-C** (v0.4) → 
 **R59-C, ORG-C** (v0.8) → **FBK-C** (v0.10; every widening inside it before its migration is applied) → **REQ-RF-C**
 (v0.11) → **OVR-Ca** (v0.12) → **STY-Ca, STY-E** (v0.13) → **TD-1** (v0.14) → **CUS-C** (v0.15; the invite-only check inside it,
 Q229b) → **NAV-D, FAV-D** (v0.16) → **STY-2C, REQ-E-C, R59-3C** (v0.17) → **REQ-G-C** (v0.18) → **MCP-C, MCP-G** (v0.19,
-v0.20) → **RIS-M** (v1.0). The navigation contract (NAV-C) is the one the request named "NAV-C"; the custom contract
+v0.20). **Changed 26 Oct ([CATALOGUE-EARLY](CATALOGUE-EARLY.md)):** RIS-M (a migration, not a `store.ts` change) runs in the data seat for v0.5, outside this order; **CAT-Q** (`core/src/catalogue/store.ts`, `matchNames`) takes the slot between R59-C, ORG-C (v0.8) and FBK-C (v0.10). The navigation contract (NAV-C) is the one the request named "NAV-C"; the custom contract
 (CUS-C) is the one Mine sync, REQ-E and STY-2 wait for; the feedback contract (FBK-C) is the one REQ-1, REQ-F and REQ-A
 wait for.
 
@@ -323,7 +327,7 @@ wait for.
 | assigned at merge (MIG-N) | `draft_cap`, `account_favourite` | NAV-D, FAV-D | v0.16 |
 | (with v0.16) | `account_start` | ORG-H (if Q246) | v0.16 |
 | assigned at merge (MIG-N) | `mcp_access`, MCP-T token tables | MCP-G, MCP-T | v0.20 |
-| assigned at merge (MIG-N) | `research_meta` | RIS-M | v1.0 |
+| assigned at merge (MIG-N) | `research_meta` | RIS-M | **v0.5** (was v1.0; after `backup_reader` when both merge for v0.5; [CATALOGUE-EARLY](CATALOGUE-EARLY.md) 7) |
 | on trigger | `account_mail_state`, `mail_suppression` (+ `hook_event` if Q149) | EML Phase 2 | v0.21 |
 
 No two branches share a number because none holds one: the coordinator assigns it at merge (MIG-N). Two migrations in
@@ -360,7 +364,8 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | Q160 to Q167, Q190 to Q198, O-M2 to O-M6 | MCP | v0.19, v0.20 |
 | Q270 to Q279 (answered 26 Oct: yes as recommended), O-AU1 (analytics export), FA-D, UA-D | the audits, CUS-C (FA-D), MCP-C (AU-D, narrowed to the MCP field list), v0.22 (G-UI, UA-D) | v0.14.1, v0.22 |
 | Q148, Q149 | Email Phase 2 | v0.21 |
-| Q177, Q183, snapshots | v1.x | v1.0 to v1.2 |
+| Q177, Q280 to Q286 (CATALOGUE-EARLY), the Neon Data API check, snapshots | CAT-1; Q183 superseded by the owner's 26 Oct decision | v0.5 |
+| snapshots, seam approvals | v1.x | v1.0 to v1.2 |
 | the publish of the public repository (scrub 6), Q182, Q266 | LOCAL-4, E2E-YML | I-track |
 
 ## 5. Lanes, sequence points and the release train
@@ -373,9 +378,9 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | C, contracts and core | B2 (Opus) | the contract files of 4.1, `core/src/**` new modules | the order of 4.3 |
 | P, platform and test | B2 between contracts (Sonnet or Opus) | `tools/gate/**`, `tools/db/**`, `tools/nightly/**`, `web/vitest.config.ts`, `web/scripts/{images,og,budget-report}.mjs`, `.github/**` | BUD-1, TS-1, TS-2a, TS-2, TS-4, IMG-1, BKP-1, TS-6, TS-3, TS-5, LOCAL-3, TS-7, RIS-S, then LOCAL-4 and E2E-YML after the publish |
 | A, auth and mail | B2 | `web/components/auth/**`, `web/lib/auth/**`, `web/app/{sign-in,sign-up,account}/**`, `core/src/mail/**` | EML-S, EML-P, EML-E, GSI-0 to GSI-VF, FBK-M, FBK-1, FBK-3, FBK-E, REQ-RF, REQ-FB, REQ-G0, REQ-G, REQ-A |
-| D, data | data seat (Opus researcher; Sonnet builder for RIS-J) | `data/**` through the tools, `research/**` | RIS-J (alone), TRP-GL-D, D1B-Q, ORPH-7, AREA-2, L4, D3, D5c, ORG-G, RIS-A, D8-R, D8, D7, D9, DP |
+| D, data | data seat (Opus researcher; Sonnet builder for RIS-J; lane S's early half, 26 Oct) | `data/**` through the tools, `research/**` | RIS-J (alone), lane S early half interleaved (5.4), TRP-GL-D, D1B-Q, ORPH-7, AREA-2, L4, D3, D5c, ORG-G, RIS-A, D8-R, D8, D7, D9, DP |
 | X, MCP | B2 | `web/app/mcp/**`, `core/src/mcp/**`, `web/app/oauth/**` | MCP-C, MCP-1, MCP-S1, ORG-MCP, MCP-G, MCP-T, MCP-2, MCP-O, (MCP-U in B1), MCP-S, MCP-E |
-| S, server | B2 | `core/src/catalogue/postgres/**`, loader | RIS-M, RIS-L, RIS-T, LOCAL-5, SRV-0, seams |
+| S, server | data seat for the early half (26 Oct, Q286): RIS-M with an Opus builder, the rest Sonnet; B2 for CAT-Q and SRV-0 | `core/src/catalogue/postgres/**`, loader, `tools/db/**` rehearse and drift | LOCAL-3, RIS-M, RIS-L, RIS-T, LOCAL-5, CAT-V, CAT-1 (v0.5); CAT-Q (before FBK-C); SRV-0, seams (v1.x) |
 | H, docs | coordinator, Haiku, planner | `docs/**`, `HANDOVER.md` | H0, H2, H1, then J1: H3, H4, H8, D610, H5, H9 |
 | V, verify and review | verifier (Sonnet), design reviewer (Opus) | notes only | each UI task, in merge order |
 
@@ -405,7 +410,7 @@ screenshots), T2 is the coordinator's check-all plus the mapped e2e after each m
 | **v0.2** [v0.2 + v0.4] | Sign-in on phones, a privacy page, page-view counts, basics for the 74 stored places | ACCT-PH-RV 3, ACCT-PH-F 0 to 2, BUD-1 3, GSI-P 2; D2b and BUDGET-FIX already merged | 8 to 10 | none | D2b is on `main` and data has no flag (correction C1) |
 | **v0.3** [v0.3] | Mine: copies and favourites on this device | OVR-0 3, NAV-F 1.5, NAV-C 3.25, NAV-1 5.5, NAV-2 6, NAV-R1/V1 4, FAV-C 4, FAV-1 12, FAV-R/V 4; RIS-J 6 (data) | 49.25 | none | unchanged; OVR-0 goes first (budget) |
 | **v0.4** [new] | Trip page go-live fixes and share images | TRP-GL-C 3, TRP-GL 5, TRP-GL review 4, TRP-GL-D 2, IMG-1 7 | 21 | none | production is live with closure deferrals open (C2); IMG-1 blocks photos, CI and share previews (C3) |
-| **v0.5** [v0.5] | Sign in by emailed code; backups | EML-S 2, EML-V 2, EML-P 1, EML-E 2, BKP-1 6.5 | 13.5 | `backup_reader` | BKP-1 has no LOCAL-4 dependency and needs a migration (C4) |
+| **v0.5** [v0.5] | Sign in by emailed code; backups; **Internal: the catalogue in Neon (CAT-1)** | EML-S 2, EML-V 2, EML-P 1, EML-E 2, BKP-1 6.5; Internal (data seat): LOCAL-3 3, RIS-M 7, RIS-L 8, RIS-T 7, LOCAL-5 2, CAT-V 2, CAT-1 1.5 | 13.5 + 30.5 Internal | `backup_reader`, `research_meta` | BKP-1 has no LOCAL-4 dependency and needs a migration (C4); the catalogue load moves forward from v1.0 (owner, 26 Oct; C15); if lane S is not green at the cut, CAT-1 rides v0.6 |
 | **v0.6** [new] | Places near a town: Where at city level, near mode, routed times; the closure queue finished | LST2b 12 (incl. LST2b-C), LST2c 9, MX 5, LST2-RV 6, R-14 3, CONS-3 8, GB-A-4 2, ACC-1 3 (if 15.44 yes), ORPH-7 3, AREA-2 6, L4 2 (data) | 59 | none | the owner's 23 Oct closure queue, dropped by RELEASE-PLAN, comes before R-59 (C5) |
 | **v0.7** [v0.8] | Photos on trail and stop pages, from our host | PHO-C 1, PHO-R 8, PHO-R review 4; D3 10, D5c 4 (data) | 27 | none | needs IMG-1 only; `pickPhotos` moves from OVR-3 (C6) |
 | **v0.8** [v0.9] | Links and directions beside every stop; getting there | R59-C 3, R59-N 2, R59-1 10, R59 review 4; ORG phase 1 28 (ORG-C, ORG-D, ORG-G, ORG-M ride earlier as internal) | 47 | none | R-59 sized here (C7); ORG after R-59 as the origin spec says |
@@ -425,8 +430,8 @@ screenshots), T2 is the coordinator's check-all plus the mapped e2e after each m
 | **v0.20** [v0.16] | Private MCP | MCP-G 6, MCP-T 5, MCP-2 8, MCP-O 4, MCP-U 10, MCP-S 2.5, MCP-E 3 | 38.5 | `mcp_access`, token tables | unchanged |
 | **v0.21** [v0.17] | Own domain and Email Phase 2 (on the Q148 trigger only; its number is taken when it ships) | as RELEASE-PLAN | 29 or 42.5 | mail tables | unchanged |
 | **v0.22** [new, audits; 26 Oct] | UI and UX audit and fixes, run once on the whole product just before the Postgres cutover | UA-0 5, AU-GU 0.5, UA-1 4, UA-P 3, UA-W 4.5, UA-A 0.5, UA-2 8, UA-3 6, UA-T 3, UA-D owner, UA-FX 24 (placeholder), UA-FX-R 10, UA-AF 2 | 70.5 | none | owner decision 26 Oct: the audit waits until everything is built; gate G-UI after v0.20 (and v0.21 if shipped); reads [UI-NOTES.md](UI-NOTES.md); v1.0 waits for its fixes |
-| **v1.0 to v1.2** | Postgres cutover, one seam per release | RIS-M 6, RIS-L 7, RIS-T 6, LOCAL-5 2, SRV-0 24, R-9 2 | 47 (RIS-J, RIS-H, RIS-S, LOCAL-3 ride earlier) | `research_meta`, loader tables | unchanged |
-| I (Internal, any release) | Test strategy and CI | TS-1 to TS-8 35, LOCAL-3 3, LOCAL-4 5, E2E-YML 3, RIS-S 3, RIS-H 3 | 52 | none | ride the next release |
+| **v1.0 to v1.2** | Postgres cutover, one seam per release, from a production catalogue loaded since v0.5 | SRV-0 21, R-9 2 | 23 (was 47: RIS-M, RIS-L, RIS-T, LOCAL-3, LOCAL-5 and the load moved to v0.5, CAT-Q to v0.10) | none expected | seams flip only after 4 clean weekly CAT-V runs and parity ([CATALOGUE-EARLY](CATALOGUE-EARLY.md) 6) |
+| I (Internal, any release) | Test strategy and CI | TS-1 to TS-8 35, LOCAL-4 5, E2E-YML 3, RIS-S 3, RIS-H 3, CAT-Q 6 (before FBK-C) | 55 | none | ride the next release; LOCAL-3 is counted in v0.5 |
 
 **Audits (25 Oct, amended 26 Oct, [AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md), Q270 to Q279; Q271 answered by the 26 Oct decision).** v0.14.1 (field slimming) is the only patch release, between v0.14 and v0.15. The UI and UX audit is the new release v0.22 between v0.21 and v1.0; it moved from v0.14.2 on the owner's decision of 26 Oct 2026 (the audit waits until everything is built). No other release or task is renumbered. CUS-C waits for FA-D (the owner's field approval); CUS-1 no longer waits for any UI audit (the 25 Oct note that it waits for UA-D is removed). The field tool (FA-1, B2 around v0.11 to v0.12) rides earlier as internal; the sweep harness UA-0 moved from v0.14 to just before v0.22. UI issues found during the build are appended to [UI-NOTES.md](UI-NOTES.md) so the audit starts from known items, and REC-2 keeps a screenshot set for every release because the audit compares them.
 
@@ -441,16 +446,16 @@ included where they block the next B1 task.
 | # | B1 (critical path) | h | B2 at the same time | h | Data seat | h |
 |---|---|---|---|---|---|---|
 | 1 | GSI-P | 2 | BUD-1 (after Q260), then NAV-C | 6.25 | RIS-J | 6 |
-| 2 | OVR-0 | 3 | TS-1, FAV-C | 9 | TRP-GL-D, D1B-Q | 2.5 |
-| 3 | NAV-1 (after ACCT-PH-RV) | 5.5 | TS-2a, TS-2 | 11 | ORPH-7 | 3 |
-| 4 | NAV-2, NAV-R1/V1 | 10 | TRP-GL-C, IMG-1 | 10 | AREA-2 | 6 |
-| 5 | FAV-1, FAV-R/V | 16 | TS-4, BKP-1, EML-S, EML-P | 13.5 | L4, D610 | 3 |
-| 6 | TRP-GL and review | 9 | EML-E, TS-6, TS-3, LOCAL-3, ORG-C, ORG-D | 18 | ORG-G | 3 |
+| 2 | OVR-0 | 3 | TS-1, FAV-C | 9 | TRP-GL-D, D1B-Q; LOCAL-3 | 5.5 |
+| 3 | NAV-1 (after ACCT-PH-RV) | 5.5 | TS-2a, TS-2 | 11 | RIS-M (Opus builder, review); ORPH-7 | 10 |
+| 4 | NAV-2, NAV-R1/V1 | 10 | TRP-GL-C, IMG-1 | 10 | RIS-L (review); AREA-2 | 14 |
+| 5 | FAV-1, FAV-R/V | 16 | TS-4, BKP-1, EML-S, EML-P | 13.5 | RIS-T, LOCAL-5; L4, D610 | 12 |
+| 6 | TRP-GL and review | 9 | EML-E, TS-6, TS-3, ORG-C, ORG-D | 15 | CAT-V; ORG-G; then the coordinator's CAT-1 on the v0.5 release day | 5 |
 | 7 | LST2b | 12 | R-14, CONS-3 (quiet point), PHO-C, R59-C | 15 | D3 | 10 |
 | 8 | LST2c, LST2-RV | 15 | MX, GB-A-4, ACC-1, ORG-M, ORG-A | 13.5 | D5c (Commons runner) | 4 |
 | 9 | PHO-R and review | 12 | GSI-0, GSI-T, GSI-1 | 12 | D8-R | 8 |
 | 10 | R59-N, R59-1 and review | 16 | GSI-2, GSI-S, GSI-E, TS-5, TS-7, RIS-S | 19 | D8 | 8 |
-| 11 | ORG-N, ORG-1, ORG-2, ORG-R/V | 16.5 | FBK-C | 12.25 | RIS-A (after STY-P) | 8 |
+| 11 | ORG-N, ORG-1, ORG-2, ORG-R/V | 16.5 | CAT-Q, then FBK-C | 18.25 | RIS-A (after STY-P) | 8 |
 | 12 | FBK-N, FBK-2 and review | 21 | FBK-M, FBK-1, FBK-S | 14 | | |
 | 13 | REQ-1 and review | 10 | FBK-3, FBK-E, REQ-RF-C, REQ-RF | 16 | | |
 | 14 | REQ-F2, REQ-F1, REQ-F3, review | 21.5 | REQ-FB, OVR-Ca, OVR-Cb, STY-P | 16 | D7 (after OVR-Ca) | 16 |
@@ -461,10 +466,10 @@ included where they block the next B1 task.
 | 19 | NAV-3, FAV-2, NAV-E, FAV-2E, reviews | 27 | REQ-E-C, STY-2C, R59-3C, MCP-1, MCP-S1, ORG-MCP | 17 | | |
 | 20 | REQ-E UI, REQ-P, STY-2, R59-3 UI, reviews | 39 | REQ-G0, REQ-G-C, REQ-G, REQ-A, MCP-G, MCP-T | 25 | | |
 | 21 | REQ-S, REQ-L, review | 15 | MCP-2, MCP-O | 12 | | |
-| 22 | MCP-U | 10 | MCP-S, MCP-E; then RIS-M, RIS-L, RIS-T, LOCAL-5, R-9, SRV-0 (built, not deployed before v0.22) | 52.5 | | |
+| 22 | MCP-U | 10 | MCP-S, MCP-E; then R-9, SRV-0 (built, not deployed before v0.22; RIS-M to LOCAL-5 moved to rows 2 to 6 on 26 Oct) | 28.5 | | |
 | 23 | UA-0 (just before v0.22), then the UA-FX lanes after UA-D | 29 | UA-1, UA-P, UA-W, UA-A, UA-2, UA-3, UA-T by the verifier, reviewers and planner | 29.5 | | |
 
-B1 total about 385 h including the review time it waits on; B2 about 350 h; data about 90 h. LOCAL-4 and E2E-YML go in
+B1 total about 385 h including the review time it waits on; B2 about 329 h; data about 119 h (26 Oct: lane S's early half moved from B2 rows 6 and 22 into the data seat's idle rows 2 to 6, [CATALOGUE-EARLY](CATALOGUE-EARLY.md) 4). LOCAL-4 and E2E-YML go in
 when the public repository exists; Email Phase 2 only on its trigger; GLB2b when the owner approves the globe mock.
 
 ### 5.5 Corrections made to RELEASE-PLAN (each also in RELEASE-PLAN section 0)
@@ -486,6 +491,7 @@ when the public repository exists; Email Phase 2 only on its trigger; GLB2b when
 | C12 | FBK-C's intake migration does not wait for FAV-D's number | FAV-D ships in v0.16 |
 | C13 | GSI-1 re-scoped onto `SignInCard.tsx`; GSI-1 before MCP-O on that file | EML-1 replaced `AuthForm.tsx` |
 | C14 | The RELEASE-PLAN 2 seat table is replaced by 5.1 and 5.4 here | the lanes and their file sets |
+| C15 | (26 Oct) The catalogue load moves from v1.0 to v0.5 as Internal (CAT-1): LOCAL-3, RIS-M, RIS-L, RIS-T, LOCAL-5 and the new CAT-V in the data seat, CAT-Q before FBK-C; v1.0 keeps SRV-0 and R-9 | owner decision 26 Oct; [CATALOGUE-EARLY.md](CATALOGUE-EARLY.md) |
 
 ## 6. What starts first
 
@@ -647,7 +653,7 @@ ids resolves with `git cat-file -t`; no text other than ids and status cells cha
 Q88 (now urgent: option A is merged; v0.2), Q101 to Q108 (v0.3), Q185 and Q141 (v0.5), BACKLOG 15.44 accent folding
 (v0.6), Q117 to Q124 (v0.9), Q130 to Q137 (v0.10), Q93 to Q100 (v0.12),
 Q109 to Q116 and DD-6 (v0.13), Q67, Q98, Q103, Q120 and `planner_draft_signal` (v0.15), Q160 to Q167, Q190 to Q198
-(v0.19, v0.20), Q148, Q149 (v0.21), Q170 to Q177, Q180 to Q187 (track I and v1.x), Q91 (GLB2b inside E or after R2; the globe mock itself was approved at R1). Recommendation: one reply "yes as recommended" for each block, with any
+(v0.19, v0.20), Q148, Q149 (v0.21), Q280 to Q286 (CAT-1, v0.5; Q183 superseded 26 Oct), Q91 (GLB2b inside E or after R2; the globe mock itself was approved at R1). Recommendation: one reply "yes as recommended" for each block, with any
 exception named; each block unblocks the release in brackets.
 
 ## 8. Proposed edits the owner (or a later docs lane) applies
@@ -677,6 +683,7 @@ TEST-STRATEGY once TS-5 runs.
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (CATALOGUE-EARLY, owner decision) | The catalogue load moves forward from v1.0 to v0.5 as Internal (CAT-1), [CATALOGUE-EARLY.md](CATALOGUE-EARLY.md): 3.3 LOCAL-3 and LOCAL-5 to v0.5, new CAT-V; 3.8 RIS-M, RIS-L, RIS-T to v0.5, new CAT-1 and CAT-Q, SRV-0 21 h; 4.1 migration hot spot; 4.3 CAT-Q before FBK-C; 4.4 `research_meta` to v0.5; 4.6 owner actions; 5.1 lanes S and D; 5.3 rows v0.5, v1.0 and I; 5.4 data seat rows 2 to 6, B2 rows 6, 11 and 22; C15; 7.3 Q280 to Q286. No release renumbered |
 | 2026-10-26 (H-DOCS) | Docs pass on `public/H-DOCS`: H3 commit ids rewritten to public ids (ids with no public commit suffixed "(private history)"); H4 status cells for the merged work (ACCT-PH, LOCAL-2, RIS-J with SEASONS-C, D2b, AUDIT-MOVE) and the stale owner-action lines in 4.6; H7 and H9 unblocked by Q265 and Q268; H8 migration numbers read "assigned at merge" in 4.4 and in the OVR brief line. The rest of section 3.1 stays planned for a later pass. Nothing else changed |
 | 2026-10-26 (AUDIT-MOVE, owner decision) | 5.3: v0.14.2 removed, v0.22 "UI and UX audit and fixes" added before v1.0, AU-D narrowed to the MCP field list (6 h to 3 h); 5.4: row 23 for UA-0 and the UA-FX lanes, B1 total about 385 h; the note that CUS-1 waits for UA-D is removed (CUS-C still waits for FA-D); 4.6 owner actions updated. UA-0 timing moves to just before v0.22; REC-2 keeps screenshots per release because the audit compares them. Nothing else renumbered |
 | 2026-10-25 (audits after release) | 5.3 gains the patch releases v0.14.1 and v0.14.2 and the delta audit row before v0.19, with a note that CUS-C waits for FA-D and CUS-1 for UA-D; 4.6 gains the audit owner actions. Detail in [AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md) (R-230 to R-237, Q270 to Q279); nothing renumbered |
