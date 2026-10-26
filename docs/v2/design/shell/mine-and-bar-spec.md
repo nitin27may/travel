@@ -475,3 +475,7 @@ real local session (NEON-SETUP), and check:
 | Mine tabs as `role="tablist"` while components 2.9 is a radiogroup | nav spec 8 and components 2.9 | tab semantics with the 2.9 look, recorded in components 2.9 (D6) |
 | Mine current on `/mine/`, `/account/`, `/sign-in/` | nav spec 11 item 1 | adds `/sign-up/`; `aria-current="true"` off `/mine/` (D3) |
 | The phone header's 44 px arithmetic assumed while buttons were 38 px | nav spec 1.1 | measured, and the phone tools become 44 px visual (D1, 2.2) |
+| Copy made: a toast with **Undo** while the sheet shows its done step | section 7, copy sheet done step | no toast while the sheet is open; the done step's footer holds **Done** and **Undo** (ghost). The modal sheet traps focus, so a toast's Undo is out of reach (NAV-R2 should 2) |
+| Print reader unspecified | 5.2 Print | `ExportMenu` (the owner of the trip's print model) reads and removes `travel.mine.print` when it equals its slug, waits for the export data and the timeline, and prints through the same path as Export > PDF; never a hidden frame or a timer (NAV-R2 I1) |
+| Change dates reopens the copy sheet with its full export list | 5.2 Change dates | in Change dates the list holds Calendar, GPX and CSV only; Print stays in the row menu (NAV-R2 I2) |
+| Rows in two columns from 1,024 px | 5.1 | two columns that fill down (CSS columns), so dates read in order down each column; the group count sits after the label from 1,024 px ("Upcoming · 3") (NAV-R2 should 4, polish 1) |
