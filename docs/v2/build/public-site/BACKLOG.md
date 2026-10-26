@@ -617,10 +617,10 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | Q63 | Report a problem on every page: an issue link first, a form later, never a personal email in the page? Recommended: yes | 20 Oct **Decided 20 Oct (owner): "go with all recommendations" - the recommendation stands.** The destination is Q70 (the repository is private). |
 | Q64 | The header "Sign in" while no login exists: hide it, or keep it with a "coming later" note? Recommended: hide | 20 Oct **Decided 20 Oct (owner): "go with all recommendations" - the recommendation stands.** |
 | Q65 | Where the backend lives: Supabase cloud free tier (recommended, keep-alive, same schema so self-hosting stays possible), self-hosted Supabase at home (the planner docs' assumption), or Cloudflare Workers, D1 and R2 | 20 Oct. **Answered in part 24 Oct (owner): Neon for Postgres, Managed Better Auth and Realtime (PLAN R-58); the Supabase options above are historical.** Frontend hosting, object storage and functions remain unselected |
-| Q66 | Sign-in method: email link plus Google (recommended), passkeys, other | 20 Oct. Email/password is implemented with Managed Better Auth (R-58); magic link, Google, passkeys, MFA and MCP OAuth are not |
-| Q67 | Who may sign in: invite only at first (recommended) or open | 20 Oct |
-| Q68 | Guest planning in memory with a share link before sign-in (same as Q59): yes (recommended) | 20 Oct |
-| Q69 | Household data (people, ages, passports, passes) private to the household, enforced by row-level security: yes (recommended) | 20 Oct |
+| Q66 | Sign-in method: email link plus Google (recommended), passkeys, other | 20 Oct. Email/password is implemented with Managed Better Auth (R-58); magic link, Google, passkeys, MFA and MCP OAuth are not **Decided 26 Oct 2026 (owner): email code now and Google (Q124, Q140); passkeys, MFA and MCP OAuth later.** |
+| Q67 | Who may sign in: invite only at first (recommended) or open | 20 Oct **Decided 26 Oct 2026 (owner): invite only at first, enforced by our own allow check (EML-0 U2), not by Neon's flag.** |
+| Q68 | Guest planning in memory with a share link before sign-in (same as Q59): yes (recommended) | 20 Oct **Decided 26 Oct 2026 (owner): yes, guest planning in memory with a share link.** |
+| Q69 | Household data (people, ages, passports, passes) private to the household, enforced by row-level security: yes (recommended) | 20 Oct **Decided 26 Oct 2026 (owner): yes, household data private under row-level security.** |
 | Q70 | The repository is private, so a "Report a problem" issue link would 404 for visitors. Where do reports go? Recommended: a small public repo (for example `travel-feedback`) with an issue form, the page path prefilled; a form later with the server ([EXECUTION-PLAN.md](EXECUTION-PLAN.md) 18) | 20 Oct **Decided 20 Oct (owner): small public feedback repo with an issue form. Repo still to be created.** |
 | Q71 | Q44 is yes: which domain name, and register it through Cloudflare Registrar at cost? Recommended: yes, a short name the owner chooses | 20 Oct **Decided 20 Oct (owner): yes, register through Cloudflare Registrar at cost. The owner will give the name; still open until then.** Vercel was selected for hosting 24 Oct; the custom domain and DNS timing remain open after project setup (R-61/14.6). |
 | Q72 | May phase E start while the owner reviews R1 (the preview is a frozen build), with R1 fixes taking priority? Recommended: yes, it saves about 3 working days | 20 Oct **Decided 20 Oct (owner): yes, start E during R1.** **20 Oct, later: with R1 now straight after phase A, this applies to phase B (the API and foundations), which starts at R1 entry.** |
@@ -640,84 +640,84 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | Q86 | B-4: confirm the `prototype/` removal on the day CLN-3 runs (decision D1 covers it; the safety rule asks before each deletion). Recommended: yes | 21 Oct **Answered and done 23 Oct: deletion confirmed; `prototype/` retired in CLN-3 (92e7cfb), tag `archive/prototype-2026-10-22`.** |
 | Q87 | Towns layer: serve the home town like any town with safe geometry at load (PHASE-E-START D-E3), or exclude it (GB-A-8)? Recommended: safe geometry (exclusion breaks Q50 and "near Whitby") | 23 Oct **ANSWERED 23 Oct (owner, reopened, FINAL): neither. Towns are shown exactly as the public GeoNames/OSM data, nothing moved, dropped or flagged (A33, API-3c, 7ee3032).** |
 | Q88 | Place-size budget at R2: keep +25% median with lazy sections (D-E8), or raise to +35% for filled data? Recommended: keep +25%, lazy sections | 23 Oct |
-| Q89 | Before M1: set the Map ID behind `NEXT_PUBLIC_GOOGLE_MAP_ID` to POIs off and add `http://127.0.0.1:3476/*` and `:3488/*` to the key's referrers. Recommended: yes, now | 23 Oct |
+| Q89 | Before M1: set the Map ID behind `NEXT_PUBLIC_GOOGLE_MAP_ID` to POIs off and add `http://127.0.0.1:3476/*` and `:3488/*` to the key's referrers. Recommended: yes, now | 23 Oct **Decided 26 Oct 2026 (owner): yes, now; the Map ID and key referrer changes are Google console steps for the owner (`google-map-note.md` 2.2), owner input needed, not done.** |
 | Q90 | R2 with the minimum viable data set (PHASE-E-START 9); 6.5 rows 7 to 10 in full move to the readiness checklist. Recommended: yes | 23 Oct |
-| Q91 | GLB2b inside E (last in seat A), or after R2 if the allowance runs short? Recommended: inside E; after R2 only if weekly use passes 70% before it starts | 23 Oct |
+| Q91 | GLB2b inside E (last in seat A), or after R2 if the allowance runs short? Recommended: inside E; after R2 only if weekly use passes 70% before it starts | 23 Oct **Decided 26 Oct 2026 (owner): inside E; after R2 only above 70% weekly use.** |
 | Q92 | M1 over a tunnel so the iPhone can open it? Recommended: Mac only for M1; the tunnel at R2 | 23 Oct |
-| Q93 | Flickr as a photo source: a key appears to need paid Pro (about US$70-100 a year, third-party figure). Recommended: no Flickr now; Commons, NPS public domain and the placeholder ([spec](../../features/trip-overview-and-customisation.md) 7) | 25 Oct |
-| Q94 | Best-time window granularity: start week of a month, or half-months? Recommended: weeks, 2 to 4 per trip | 25 Oct |
-| Q95 | "How many trails for that trip": the plan (Rockies 33) or everything researched (62)? Recommended: both as scopes, default In this plan | 25 Oct |
-| Q96 | Signed-out removal through the URL (`rm=`) like the existing `add=`? Recommended: no; removal is signed-in customisation | 25 Oct |
-| Q97 | Admin photo console before the catalogue cutover: wait (local pin command PHO-0 meanwhile) or a GitHub pull-request bridge? Recommended: wait | 25 Oct |
-| Q98 | Who may customise: open sign-up or invite-only (ties to Q67)? Recommended: invite-only until the phase 2 owner preview | 25 Oct |
-| Q99 | Research windows for the 6 overview trips too? Recommended: yes (about 6 h Opus) | 25 Oct |
-| Q100 | Start D7-R (Rockies windows, 4 h Opus) now in the data seat beside the closure queue? Recommended: yes | 25 Oct |
-| Q101 | Allow anonymous place suggestions (Turnstile and quotas), or require sign-in? Recommended: allow anonymous ([spec](../../features/visitor-suggestions-and-favourites.md) section 17) | 25 Oct |
-| Q102 | Challenge: Cloudflare Turnstile or Vercel BotID Basic? Recommended: Turnstile | 25 Oct |
-| Q103 | Open sign-up for the light account features (favourites sync, suggestions, trip requests) while the planner and customisation stay invite-only (ties to Q67, Q98)? Recommended: yes | 25 Oct |
-| Q104 | Email submitters when a request is researched or added? Recommended: no in v1; status on `/account/` | 25 Oct |
-| Q105 | Retention: spam 30 days, rejected and duplicate 90, untouched 180, added 12 months then de-identified, IP hashes 30 days? Recommended: accept | 25 Oct |
-| Q106 | Queue position: favourites step 1 after OVR-0, step 2 after the R-61 HTTPS preview, suggestions after that? Recommended: yes | 25 Oct |
-| Q107 | Credit approved suggestions publicly? Recommended: no | 25 Oct |
-| Q108 | Favourites hold places and trips only, cap 500? Recommended: yes | 25 Oct |
-| Q109 | Keep hotel, apartment and rental names out of public output; town guidance and official directory links only? Recommended: yes ([spec](../../features/stay-bases-and-optimisation.md) section 18) | 25 Oct |
-| Q110 | Name a planned hut night or public campground night on the public page, without booking state? Recommended: yes | 25 Oct |
-| Q111 | Signed out: choose a researched way to stay and a swap by URL; moving nights and merging bases signed in only? Recommended: yes (as Q96) | 25 Oct |
-| Q112 | Allow ways to stay that reorder whole days (Rockies Jasper first), never items inside a day, with `left_out` for what no longer fits? Recommended: yes | 25 Oct |
-| Q113 | Town price bands from an operator sample (at least 5 operator rate pages, list kept private), labelled Estimate, or official statistics only? Recommended: accept the operator sample | 25 Oct |
-| Q114 | The three-base Rockies plan (Jasper, Golden, Banff): an alternative beside the published plan, or the new default? Recommended: alternative first; decide after D9-R's routed numbers | 25 Oct |
-| Q115 | Start D9-R (6 h Opus) after the Banff agent hands back, and STY-P (2 h Opus) before OVR so D9-R can write town records? Recommended: yes | 25 Oct |
-| Q116 | At rest: one line in the trip strip and at most two messages, never a banner or pop-up? Recommended: yes | 25 Oct |
-| Q130 | Confirm guest emails by a one-click link, keeping unconfirmed items out of the queue? Recommended: yes ([spec](../../features/feedback-and-reports.md) section 14) | 25 Oct |
-| Q131 | Name required or optional on reports and suggestions? Recommended: optional; email required | 25 Oct |
-| Q132 | Register the domain now (Cloudflare Registrar, Q71) and send from Resend's free tier on `mail.<domain>`? Recommended: yes; until then signed-in reporting only | 25 Oct |
-| Q133 | Drop the public GitHub feedback repo (Q70 follow-up, R-17) for the private form, with no GitHub fallback? Recommended: yes | 25 Oct |
-| Q134 | Response targets: takedowns reply and hide within 2 working days, safety reports within 7 days, no promise for the rest? Recommended: yes | 25 Oct |
-| Q135 | Photo uploads in v1? Recommended: no; a link to a photo is allowed | 25 Oct |
-| Q136 | Who triages in year one? Recommended: the owner only; moderator role after F17 roles and the console | 25 Oct |
-| Q137 | Confirmed guests may ask for a trip (1 open, 2 in 30 days), and senders get an outcome email (amends visitor spec V5, reverses Q104)? Recommended: yes to both | 25 Oct |
-| Q140 | Passwordless first: one email field, then "Email me a code" now and "Email me a link" after the mail domain, password as the second choice? Recommended: yes ([spec](../../features/email-sign-in-and-account-emails.md) section 15) | 25 Oct |
-| Q141 | Turn on required email verification by code on production right after the new card ships (answers Q121)? Recommended: yes | 25 Oct |
-| Q142 | Our own templates through Neon's `send.otp` and `send.magic_link` webhooks and Resend, instead of Neon custom SMTP with Neon's templates? Recommended: webhooks after the domain; Neon's shared sender until then | 25 Oct |
-| Q143 | Reuse a domain you own for `mail.<domain>`, or register one `.com` at Cloudflare (about US$10.46 a year now; with Q132), keeping the site on `travel-beta-tan.vercel.app`? Recommended: reuse if you have one, otherwise register now | 25 Oct |
-| Q144 | Resend free daily split auth 30, intake 60, alerts 10 (amends 15.92); Pro at US$20 a month only if a cap is hit on 3 days in a month? Recommended: yes | 25 Oct |
-| Q145 | Notices: welcome once, password changed or set, Google added or removed, "you already have an account", email changed with change-email; no new-device alerts in v1? Recommended: yes, as listed | 25 Oct |
-| Q146 | May a code or link create a new account (open sign-up; ties to Q67, Q103, Q120), with the planner gated by role? Recommended: yes | 25 Oct |
-| Q147 | May spikes and the webhook rehearsal use the existing child branch from localhost and a free tunnel, with no deployed test environment? Recommended: yes | 25 Oct |
-| Q160 | Use Neon's OAuth provider plugin (preview) as the MCP authorization server after the MCP-0 spike? Recommended: yes ([spec](../../mcp/auth-and-sign-in.md) section 12) | 25 Oct |
-| Q161 | Two MCP URLs (public `/mcp/`, private `/mcp/private/`) rather than one with lazy sign-in? Recommended: two | 25 Oct |
-| Q162 | Private MCP for the owner only until the security review passes, then invited users by role? Recommended: yes | 25 Oct |
-| Q163 | Personal access tokens 30 days by default, 90 at most, never without expiry? Recommended: yes | 25 Oct |
-| Q164 | Keep Dynamic Client Registration off (client ID metadata documents only)? Recommended: yes | 25 Oct |
-| Q165 | Public MCP open with no sign-in at 60 calls an hour per IP? Recommended: yes | 25 Oct |
-| Q166 | MCP-0 and MCP-C when a seat frees; the MCP build after the closure queue, R-59 and email Phase 1? Recommended: yes | 25 Oct |
-| Q167 | MCP audit log (who, client, tool, result, duration; no arguments) kept 30 days? Recommended: yes | 25 Oct |
-| Q168 | After a password reset by code, sign out every other session (Neon does not, EML-0 U5)? Recommended: yes, in EML-1 ([PLAN](../../PLAN.md) section 5) | 25 Oct |
-| Q170 | Adopt the keep-or-drop rule K1 to K7, with a `keep` list on every registry property? Recommended: yes ([spec](../../features/catalogue-intake-and-storage.md) section 7) | 25 Oct |
-| Q171 | `meta jsonb` under one RowMeta contract on 27 catalogue and research tables, never readable by the app role? Recommended: yes | 25 Oct |
-| Q172 | Stop writing the verbatim record into public `entity.doc` and `offer.doc` (`record_doc` keeps it, internal)? Recommended: yes | 25 Oct |
-| Q173 | Add `notes_private` (at most 1,000 characters, owner and researchers only)? Recommended: yes, empty by default | 25 Oct |
-| Q174 | Keep serving `Val.quote` up to 300 characters (store decision A6), or cap public quotes at 120? Recommended: keep A6; warn above 120 | 25 Oct |
-| Q175 | Start D2b only after RIS-C and RIS-N (about 16 h), so the 74 places are born compliant? Recommended: yes | 25 Oct |
-| Q176 | Four area-level properties in `area.attrs` (park-pass rule, child-seat law, a dated lodging-rate statistic, with the time zone already a column)? Recommended: yes; display stays with Q113 | 25 Oct |
-| Q177 | Apply the RIS-M migration to the Neon production branch after the child-branch run, on approval of a named commit? Recommended: yes | 25 Oct |
-| Q180 | Start LOCAL-1, LOCAL-C, LOCAL-2 and LOCAL-3 now, ahead of the SRV-0 window (D9)? Recommended: yes; no page changes and nothing written to Neon ([spec](../../features/local-database-and-seed-sync.md) 10) | 25 Oct |
-| Q181 | Docker Desktop (installed) as the local database runtime, started now and at sign-in? Recommended: yes; Colima as the fallback | 25 Oct |
-| Q182 | Allow a `.github/` top-level folder for the first CI workflow (gate with no secrets, manual child-branch job)? Recommended: yes | 25 Oct |
-| Q183 | Seed Neon production only when the first 14.2 seam is ready to flip? Recommended: yes | 25 Oct |
-| Q184 | No new long-lived Neon dev branch; Docker for daily work and CI; the existing child for Auth, Realtime and rehearsals? Recommended: yes | 25 Oct |
-| Q185 | A manual Neon snapshot before each production step now; the encrypted nightly dump (BKP-1) before the first non-owner account? Recommended: yes | 25 Oct |
-| Q186 | Migration numbers assigned at merge, specs name migrations by slug (EML-1 took 0011)? Recommended: yes | 25 Oct |
-| Q187 | Keep the private parts of `locations.json` (collections, saved posts, wishlist status) file-only until the planner needs them? Recommended: yes | 25 Oct |
-| Q190 | Default access level for a newly connected MCP app? Recommended: My plans, read ([spec](../../mcp/auth-and-sign-in.md) 14.13) | 25 Oct |
-| Q191 | Once invited users exist, may they choose write levels for their own plans (research and admin stay role-gated)? Recommended: yes, up to My plans, change | 25 Oct |
-| Q192 | Allowed MCP clients in production: Claude (claude.ai, Desktop, mobile) and Claude Code only, unknown clients refused for everyone until you list them? Recommended: yes | 25 Oct |
-| Q193 | Show users an MCP activity view (tool, time, result; no arguments), 30 days, no export? Recommended: yes | 25 Oct |
-| Q194 | MCP grant lifetimes: read levels 90 days, write levels 30 days after the last change, then renew; tokens unchanged? Recommended: yes | 25 Oct |
-| Q195 | One named access level per app plus three add-ons, rather than free per-capability switches? Recommended: yes | 25 Oct |
-| Q196 | Split mixed MCP tools into read and write tools (about 38 for the owner), against "about 25 tools" in mcp/README? Recommended: yes | 25 Oct |
-| Q197 | Child's OAuth plugin on now (it is), production only after MCP-S and with the door shut first? Recommended: yes | 25 Oct |
-| Q198 | Sharing outside the household, publishing and merging always approved on our site, even at write or admin level? Recommended: yes | 25 Oct |
+| Q93 | Flickr as a photo source: a key appears to need paid Pro (about US$70-100 a year, third-party figure). Recommended: no Flickr now; Commons, NPS public domain and the placeholder ([spec](../../features/trip-overview-and-customisation.md) 7) | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q94 | Best-time window granularity: start week of a month, or half-months? Recommended: weeks, 2 to 4 per trip | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q95 | "How many trails for that trip": the plan (Rockies 33) or everything researched (62)? Recommended: both as scopes, default In this plan | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q96 | Signed-out removal through the URL (`rm=`) like the existing `add=`? Recommended: no; removal is signed-in customisation | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q97 | Admin photo console before the catalogue cutover: wait (local pin command PHO-0 meanwhile) or a GitHub pull-request bridge? Recommended: wait | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q98 | Who may customise: open sign-up or invite-only (ties to Q67)? Recommended: invite-only until the phase 2 owner preview | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q99 | Research windows for the 6 overview trips too? Recommended: yes (about 6 h Opus) | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q100 | Start D7-R (Rockies windows, 4 h Opus) now in the data seat beside the closure queue? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q101 | Allow anonymous place suggestions (Turnstile and quotas), or require sign-in? Recommended: allow anonymous ([spec](../../features/visitor-suggestions-and-favourites.md) section 17) | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q102 | Challenge: Cloudflare Turnstile or Vercel BotID Basic? Recommended: Turnstile | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q103 | Open sign-up for the light account features (favourites sync, suggestions, trip requests) while the planner and customisation stay invite-only (ties to Q67, Q98)? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q104 | Email submitters when a request is researched or added? Recommended: no in v1; status on `/account/` | 25 Oct **Decided 26 Oct 2026 (owner): no email to submitters in v1; Q137 adds the outcome email for confirmed guests.** |
+| Q105 | Retention: spam 30 days, rejected and duplicate 90, untouched 180, added 12 months then de-identified, IP hashes 30 days? Recommended: accept | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q106 | Queue position: favourites step 1 after OVR-0, step 2 after the R-61 HTTPS preview, suggestions after that? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q107 | Credit approved suggestions publicly? Recommended: no | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q108 | Favourites hold places and trips only, cap 500? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q109 | Keep hotel, apartment and rental names out of public output; town guidance and official directory links only? Recommended: yes ([spec](../../features/stay-bases-and-optimisation.md) section 18) | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q110 | Name a planned hut night or public campground night on the public page, without booking state? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q111 | Signed out: choose a researched way to stay and a swap by URL; moving nights and merging bases signed in only? Recommended: yes (as Q96) | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q112 | Allow ways to stay that reorder whole days (Rockies Jasper first), never items inside a day, with `left_out` for what no longer fits? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q113 | Town price bands from an operator sample (at least 5 operator rate pages, list kept private), labelled Estimate, or official statistics only? Recommended: accept the operator sample | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q114 | The three-base Rockies plan (Jasper, Golden, Banff): an alternative beside the published plan, or the new default? Recommended: alternative first; decide after D9-R's routed numbers | 25 Oct **Decided 26 Oct 2026 (owner): alternative first; the default is decided after D9-R's routed numbers.** |
+| Q115 | Start D9-R (6 h Opus) after the Banff agent hands back, and STY-P (2 h Opus) before OVR so D9-R can write town records? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q116 | At rest: one line in the trip strip and at most two messages, never a banner or pop-up? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q130 | Confirm guest emails by a one-click link, keeping unconfirmed items out of the queue? Recommended: yes ([spec](../../features/feedback-and-reports.md) section 14) | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q131 | Name required or optional on reports and suggestions? Recommended: optional; email required | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q132 | Register the domain now (Cloudflare Registrar, Q71) and send from Resend's free tier on `mail.<domain>`? Recommended: yes; until then signed-in reporting only | 25 Oct **Decided 26 Oct 2026 (owner): yes; timing follows Q148 (no domain until a trigger fires), and registering needs a domain name and a price from the owner: owner input needed, no purchase approved.** |
+| Q133 | Drop the public GitHub feedback repo (Q70 follow-up, R-17) for the private form, with no GitHub fallback? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q134 | Response targets: takedowns reply and hide within 2 working days, safety reports within 7 days, no promise for the rest? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q135 | Photo uploads in v1? Recommended: no; a link to a photo is allowed | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q136 | Who triages in year one? Recommended: the owner only; moderator role after F17 roles and the console | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q137 | Confirmed guests may ask for a trip (1 open, 2 in 30 days), and senders get an outcome email (amends visitor spec V5, reverses Q104)? Recommended: yes to both | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q140 | Passwordless first: one email field, then "Email me a code" now and "Email me a link" after the mail domain, password as the second choice? Recommended: yes ([spec](../../features/email-sign-in-and-account-emails.md) section 15) | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q141 | Turn on required email verification by code on production right after the new card ships (answers Q121)? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q142 | Our own templates through Neon's `send.otp` and `send.magic_link` webhooks and Resend, instead of Neon custom SMTP with Neon's templates? Recommended: webhooks after the domain; Neon's shared sender until then | 25 Oct **Superseded by Q149 (answered 26 Oct 2026); nothing to answer.** |
+| Q143 | Reuse a domain you own for `mail.<domain>`, or register one `.com` at Cloudflare (about US$10.46 a year now; with Q132), keeping the site on `travel-beta-tan.vercel.app`? Recommended: reuse if you have one, otherwise register now | 25 Oct **Decided 26 Oct 2026 (owner): reuse one if owned, else register when Q148's trigger fires; the domain name and price are owner input needed, no purchase approved.** |
+| Q144 | Resend free daily split auth 30, intake 60, alerts 10 (amends 15.92); Pro at US$20 a month only if a cap is hit on 3 days in a month? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, at the domain step.** |
+| Q145 | Notices: welcome once, password changed or set, Google added or removed, "you already have an account", email changed with change-email; no new-device alerts in v1? Recommended: yes, as listed | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q146 | May a code or link create a new account (open sign-up; ties to Q67, Q103, Q120), with the planner gated by role? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q147 | May spikes and the webhook rehearsal use the existing child branch from localhost and a free tunnel, with no deployed test environment? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q160 | Use Neon's OAuth provider plugin (preview) as the MCP authorization server after the MCP-0 spike? Recommended: yes ([spec](../../mcp/auth-and-sign-in.md) section 12) | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q161 | Two MCP URLs (public `/mcp/`, private `/mcp/private/`) rather than one with lazy sign-in? Recommended: two | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q162 | Private MCP for the owner only until the security review passes, then invited users by role? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q163 | Personal access tokens 30 days by default, 90 at most, never without expiry? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q164 | Keep Dynamic Client Registration off (client ID metadata documents only)? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q165 | Public MCP open with no sign-in at 60 calls an hour per IP? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q166 | MCP-0 and MCP-C when a seat frees; the MCP build after the closure queue, R-59 and email Phase 1? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q167 | MCP audit log (who, client, tool, result, duration; no arguments) kept 30 days? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q168 | After a password reset by code, sign out every other session (Neon does not, EML-0 U5)? Recommended: yes, in EML-1 ([PLAN](../../PLAN.md) section 5) | 25 Oct **Decided 26 Oct 2026 (owner): yes, revoke other sessions in EML-1.** |
+| Q170 | Adopt the keep-or-drop rule K1 to K7, with a `keep` list on every registry property? Recommended: yes ([spec](../../features/catalogue-intake-and-storage.md) section 7) | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q171 | `meta jsonb` under one RowMeta contract on 27 catalogue and research tables, never readable by the app role? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q172 | Stop writing the verbatim record into public `entity.doc` and `offer.doc` (`record_doc` keeps it, internal)? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q173 | Add `notes_private` (at most 1,000 characters, owner and researchers only)? Recommended: yes, empty by default | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q174 | Keep serving `Val.quote` up to 300 characters (store decision A6), or cap public quotes at 120? Recommended: keep A6; warn above 120 | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q175 | Start D2b only after RIS-C and RIS-N (about 16 h), so the 74 places are born compliant? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q176 | Four area-level properties in `area.attrs` (park-pass rule, child-seat law, a dated lodging-rate statistic, with the time zone already a column)? Recommended: yes; display stays with Q113 | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q177 | Apply the RIS-M migration to the Neon production branch after the child-branch run, on approval of a named commit? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q180 | Start LOCAL-1, LOCAL-C, LOCAL-2 and LOCAL-3 now, ahead of the SRV-0 window (D9)? Recommended: yes; no page changes and nothing written to Neon ([spec](../../features/local-database-and-seed-sync.md) 10) | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q181 | Docker Desktop (installed) as the local database runtime, started now and at sign-in? Recommended: yes; Colima as the fallback | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q182 | Allow a `.github/` top-level folder for the first CI workflow (gate with no secrets, manual child-branch job)? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q183 | Seed Neon production only when the first 14.2 seam is ready to flip? Recommended: yes | 25 Oct **Superseded by the owner's decision R-240 (26 Oct 2026); nothing to answer.** |
+| Q184 | No new long-lived Neon dev branch; Docker for daily work and CI; the existing child for Auth, Realtime and rehearsals? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q185 | A manual Neon snapshot before each production step now; the encrypted nightly dump (BKP-1) before the first non-owner account? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q186 | Migration numbers assigned at merge, specs name migrations by slug (EML-1 took 0011)? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q187 | Keep the private parts of `locations.json` (collections, saved posts, wishlist status) file-only until the planner needs them? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q190 | Default access level for a newly connected MCP app? Recommended: My plans, read ([spec](../../mcp/auth-and-sign-in.md) 14.13) | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q191 | Once invited users exist, may they choose write levels for their own plans (research and admin stay role-gated)? Recommended: yes, up to My plans, change | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q192 | Allowed MCP clients in production: Claude (claude.ai, Desktop, mobile) and Claude Code only, unknown clients refused for everyone until you list them? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q193 | Show users an MCP activity view (tool, time, result; no arguments), 30 days, no export? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q194 | MCP grant lifetimes: read levels 90 days, write levels 30 days after the last change, then renew; tokens unchanged? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q195 | One named access level per app plus three add-ons, rather than free per-capability switches? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q196 | Split mixed MCP tools into read and write tools (about 38 for the owner), against "about 25 tools" in mcp/README? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q197 | Child's OAuth plugin on now (it is), production only after MCP-S and with the door shut first? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q198 | Sharing outside the household, publishing and merging always approved on our site, even at write or admin level? Recommended: yes | 25 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
 | Q200 | Label for the personal hub: "Mine", "Me" (foundation today) or "You"? Recommended: Mine ([spec](../../features/navigation-and-mine.md) 12) | 25 Oct **Decided 25 Oct 2026 (owner): Mine.** |
 | Q201 | One page `/mine/` with tabs My trips and Favourites, rather than `/favourites/` and `/my-trips/`? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes.** |
 | Q202 | No More sheet on the public site now; Globe stays in the phone bar and the desktop header? Recommended: yes | 25 Oct **Decided 25 Oct 2026 (owner): yes.** |
@@ -790,7 +790,7 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | Q284 | CAT-V weekly and after every release as a launchd job on the Mac? Recommended: yes ([CATALOGUE-EARLY.md](../CATALOGUE-EARLY.md) 12) | 26 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
 | Q285 | `towns` stays on files until v1.0, flipped early only if REQ-RF's world towns add more than 2 MB to the API function? Recommended: yes, as a contingency only ([CATALOGUE-EARLY.md](../CATALOGUE-EARLY.md) 12) | 26 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
 | Q286 | The early half of lane S in the data seat rather than B2? Recommended: yes ([CATALOGUE-EARLY.md](../CATALOGUE-EARLY.md) 12) | 26 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
-| Q290 | May a place page's size baseline be re-measured once, at the merge where a research batch takes its record from below the required tier to complete (BUD-1 method)? Recommended: yes, once per page, only for required-tier fills ([DATA-PLAN.md](../DATA-PLAN.md) 6) | 26 Oct |
+| Q290 | May a place page's size baseline be re-measured once, at the merge where a research batch takes its record from below the required tier to complete (BUD-1 method)? Recommended: yes, once per page, only for required-tier fills ([DATA-PLAN.md](../DATA-PLAN.md) 6) | 26 Oct **Decided 26 Oct 2026 (owner): yes, as recommended (the re-baseline rule: once per page, required-tier fills only; not the bundle-tag question of the same number in briefs-bundle-A 9).** |
 
 ## Later: after go-live (planner and data)
 

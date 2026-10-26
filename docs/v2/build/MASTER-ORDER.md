@@ -133,7 +133,7 @@ merged** (the spec is on `main`'s docs stack, no code yet), **later** (not on th
 | TS-8 | First escape audit, measured savings | 2 | Sonnet, Opus | TEST-STRATEGY 11, 15 | TS 12 | planned, spec merged | I (two weeks after TS-2) |
 | BKP-1 | Backups of private tables by a local launchd job; read-only role by an additive migration (`backup-reader`); `age` encryption; retention; monthly restore test | 6 (+0.5 migration) | Opus 3, Sonnet 3.5 | `tools/db/backup.*`, the plist template, `core/src/db/migrations/<n>_backup_reader.sql`, tests | RELEASE-PLAN 7.6 | ready | v0.5 |
 | LOCAL-3 | Drift stage in check-all (data seat since 26 Oct, [CATALOGUE-EARLY](CATALOGUE-EARLY.md) 11.1) | 3 | Sonnet | one `tools/check-all.sh` step, `tools/db/seed-check.mjs`, its test | local-db 8 | ready | I (v0.5, CAT-1) |
-| LOCAL-4 | `.github/workflows/check.yml` plus RELEASE-PLAN 7.3 fixes not in IMG-1 (pinned actions, budget stage mode); the decoy home point as plain workflow `env` (not a secret) | 5 | Sonnet | `.github/**`, `tools/tree_contract.json` | RELEASE-PLAN 7.2 | blocked: repository public, Q182, LOCAL-3, IMG-1 | I (after the publish) |
+| LOCAL-4 | `.github/workflows/check.yml` plus RELEASE-PLAN 7.3 fixes not in IMG-1 (pinned actions, budget stage mode); the decoy home point as plain workflow `env` (not a secret) | 5 | Sonnet | `.github/**`, `tools/tree_contract.json` | RELEASE-PLAN 7.2 | blocked: repository public, LOCAL-3, IMG-1 (Q182 answered 26 Oct) | I (after the publish) |
 | E2E-YML | Nightly `e2e.yml`, Chromium, decoy data (Q229a) | 3 | Sonnet | `.github/workflows/e2e.yml` | RELEASE-PLAN 7.2 | blocked: LOCAL-4, TS-6 | I |
 | LOCAL-5 | `db:rehearse`, with the child and production connection strings from the Neon CLI (data seat, [CATALOGUE-EARLY](CATALOGUE-EARLY.md) 11.5) | 2 | Sonnet | `tools/db/rehearse.mjs`, its `package.json` line, the connection sources in `core/src/catalogue/postgres/load/target.ts` | local-db 8 | blocked: RIS-L | I (v0.5, CAT-1; was v1.0) |
 | CAT-V | (new, 26 Oct) Read-only production drift job against the latest `release/*` tag, weekly by launchd and after each release | 2 | Sonnet | `tools/db/drift-check.sh`, `tools/db/launchd/*.plist`, its test | [CATALOGUE-EARLY](CATALOGUE-EARLY.md) 11.6 | blocked: LOCAL-5 | I (v0.5) |
@@ -153,7 +153,7 @@ here is not repeated. Ids and their bundles, for the conflict map below:
 | D | D10-UT, D10-PA, D10-IC, D10-CH, D10-PAST (29 to 33), STO-1 (35), L3 (36) |
 | E | D8-R (28), D8 (34), D7 (37), RIS-A (38), D9 (39), OVT (40) |
 | later | DP (41), L5 new areas (42), Peru (43) |
-| owner | D1B-Q (1) and the decisions of DATA-PLAN 2.3; Q88 is answered (option A, 25 Oct), so its old "blocked: owner" row is closed |
+| owner | D1B-Q (1) and the decisions of DATA-PLAN 2.3 are answered (26 Oct); only the owner inputs of 7.3 remain; Q88 is answered (option A, 25 Oct), so its old "blocked: owner" row is closed |
 
 STY-P (B2, contract lane) stays in 3.5's order with STY-Ca; RIS-H moved from I (v0.7) to bundle C, B2 row 8.
 
@@ -366,23 +366,23 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | O-HP: the home point for worktrees (Q261) | every builder's check-all | J0 |
 | Q88 ruling; Q260 | BUD-1, the v0.2 deploy | v0.2 |
 | Q-D key restriction; the Vercel Firewall rate-limit rule on `/api/v1/*` (15.22, shared later with `/mcp`); beacon token (Production only); privacy words | v0.2 smoke | v0.2 |
-| Q101 to Q108 (favourites) | FAV-C, FAV-1 | v0.3 |
+| Q101 to Q108 (favourites; answered 26 Oct: yes as recommended, no longer a gate) | FAV-C, FAV-1 | v0.3 |
 | O-E0 to O-E3, O-E1 after the deploy, Q185 | v0.5 | v0.5 |
 | Q263 photo figure | PHO-R | v0.7 |
 | Q240 to Q249 (origin, answered 25 Oct: yes as recommended) | ORG-1 | v0.8 |
 | O-0, O-1 to O-5 (Google) | GSI-E | v0.9 |
-| Q130 to Q137; Turnstile (from v0.5) | FBK-1 | v0.10 |
-| Q93 to Q100; the phase 1 owner preview | OVR, CUS | v0.12 |
-| Q109 to Q116, DD-6 | STY-1 | v0.13 |
+| Q130 to Q137 (answered 26 Oct); Turnstile (from v0.5) | FBK-1 | v0.10 |
+| Q93 to Q100 (answered 26 Oct); the phase 1 owner preview | OVR, CUS | v0.12 |
+| Q109 to Q116, DD-6 (answered 26 Oct) | STY-1 | v0.13 |
 | Q267 | TD-1 | v0.14 |
-| Q98, Q67, Q103, Q120, `planner_draft_signal` | CUS-C | v0.15 |
+| Q98, Q67, Q103, Q120 (answered 26 Oct), `planner_draft_signal` (still open) | CUS-C | v0.15 |
 | Google Cloud Places setup | REQ-G | v0.18 |
-| Q160 to Q167, Q190 to Q198, O-M2 to O-M6 | MCP | v0.19, v0.20 |
+| Q160 to Q167, Q190 to Q198 (answered 26 Oct), O-M2 to O-M6 | MCP | v0.19, v0.20 |
 | Q270 to Q279 (answered 26 Oct: yes as recommended), O-AU1 (analytics export), FA-D, UA-D | the audits, CUS-C (FA-D), MCP-C (AU-D, narrowed to the MCP field list), v0.22 (G-UI, UA-D) | v0.14.1, v0.22 |
-| Q148, Q149 | Email Phase 2 | v0.21 |
+| Q148 (no domain for now; a name and price are owner input needed), Q149 (custom SMTP first) | Email Phase 2 | v0.21 |
 | Q177, Q280 to Q286 (CATALOGUE-EARLY; answered 26 Oct: yes, as recommended), the Neon Data API check, snapshots | CAT-1; Q183 superseded by the owner's 26 Oct decision | v0.5 |
 | snapshots, seam approvals | v1.x | v1.0 to v1.2 |
-| the publish of the public repository (scrub 6), Q182, Q266 | LOCAL-4, E2E-YML | I-track |
+| the publish of the public repository (scrub 6), Q182 and Q266 (answered) | LOCAL-4, E2E-YML | I-track |
 
 ## 5. Lanes, sequence points and the release train
 
@@ -676,13 +676,28 @@ ids resolves with `git cat-file -t`; no text other than ids and status cells cha
 | Q267 | TD-1 to TD-3 (trip pages from data) as v0.14, before customise, now that R2 no longer exists (Q80's premise)? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. Trips from data in v0.14.) | 22 h before customise; without it a trip planned through the `trip` skill has no page |
 | Q268 | Close R1 and R2 as superseded by the per-release approval of a named commit with its smoke and phone check? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended. R1 and R2 are closed.) | No single big review; each release gets a small one |
 
-### 7.3 Open questions this order waits on (already asked; not re-asked)
+### 7.3 Open questions this order waits on, and the owner inputs still needed
 
-Q88 (now urgent: option A is merged; v0.2), Q101 to Q108 (v0.3), Q185 and Q141 (v0.5), BACKLOG 15.44 accent folding
-(v0.6), Q117 to Q124 (v0.9), Q130 to Q137 (v0.10), Q93 to Q100 (v0.12),
-Q109 to Q116 and DD-6 (v0.13), Q67, Q98, Q103, Q120 and `planner_draft_signal` (v0.15), Q160 to Q167, Q190 to Q198
-(v0.19, v0.20), Q148, Q149 (v0.21), Q91 (GLB2b inside E or after R2; the globe mock itself was approved at R1). Recommendation: one reply "yes as recommended" for each block, with any
-exception named; each block unblocks the release in brackets.
+**26 Oct 2026: the owner answered every open question that had a written recommendation ("go ahead with all recommended answers", ANSWERS-5): Q66 to Q69, Q89, Q91, Q93 to Q100, Q101 to Q108, Q109 to Q116 and DD-6, Q117 to Q124, Q130 to Q137, Q140 to Q149, Q160 to Q168, Q170 to Q177, Q180 to Q187, Q190 to Q198, Q290 (both uses), Q291, Q292, GB-B-3, ENV, L9, O-1, O-3, O-5, O-6, DD-1 to DD-8 and the five D1b rulings.** FAV-1 is no longer gated by Q101 to Q108, and the DATA-PLAN tasks that waited on the D1b rulings are ready ([DATA-PLAN](DATA-PLAN.md) 2.3). The answers are in [PLAN](../PLAN.md) section 5 (answered table), each spec's question table and BACKLOG.
+
+#### Owner inputs still needed (the one list; [DATA-PLAN](DATA-PLAN.md) 2.3 points here)
+
+Each row is a value or a step only the owner has. The decision behind it is recorded; the task waits only for the value.
+
+| # | Input needed | From | What waits | Release |
+|---|---|---|---|---|
+| 1 | **Mail domain: name and price** (reuse one you own, or register one; no purchase is approved). Q148 says register only when a trigger fires (codes in spam or missing, the "Neon Auth" sender name, guest reporting, magic link or notices wanted) | Q132, Q143, Q148 | Email Phase 2 (O-E4), the guest report flow, a custom site domain (Q118 later) | v0.21 (I), on trigger |
+| 2 | **Utah dates** (hard line 1 Oct), **Norway** window A or B and group size, **Peru** dates and length | DATA-PLAN 2.3 | D7 windows for Utah and Norway, D9 Norway; everything for Peru | E; Peru not on the train |
+| 3 | **Dolomites base split** (3 or 2 bases) and **Switzerland pass choice** | DATA-PLAN 2.3 | D9, STY-1 | E |
+| 4 | **Siusi: which plateau walk is meant**, and **Grand-Sault: which of the 3 candidates** | DATA-PLAN 2.3 | TRK-DO (Siusi); STO-1 holds only Grand-Sault | C, D |
+| 5 | **GB-C-6 (15.26): keep the two-decimal home point, or store a finer one** (no recommendation was written) | PLAN section 5 | nothing blocks; a privacy-circle precision choice | any |
+| 6 | **`planner_draft_signal`: approve as built** (not in the 26 Oct list) | PLAN section 5, HANDOVER item 5 | CUS-C | v0.15 |
+| 7 | **Google console steps (Q89):** Map ID with POIs off; add `http://127.0.0.1:3476/*` and `:3488/*` to the key's referrers (`google-map-note.md` 2.2) | Q89 | the M1 map; Q-A | before M1 |
+| 8 | **Neon dashboard: remove the shared Google credentials from production (Q123, O-0);** the test Gmail address and a recovery second owner for the Google project (Q119) | Q119, Q123 | GSI-E | v0.9 (B) |
+| 9 | **Vercel: `IMAGES_OFFLINE=1` in Production and Preview (Q292, O5)**; `HOME_POINT_*`, the beacon token and the Firewall rule as listed in 4.6 | Q292, 4.6 | the bundle A deploy | A |
+| 10 | **Copy `web/.env.local` from the first machine (ENV)**, mode 600, never through chat | ENV | place and trip maps and MX matrices on this machine | any |
+
+Nothing else the order waits on is open. Retention figures, Turnstile, the Resend split and the other numbers are the recommended values already written in the specs.
 
 ## 8. Proposed edits the owner (or a later docs lane) applies
 
@@ -711,6 +726,7 @@ TEST-STRATEGY once TS-5 runs.
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (ANSWERS-5) | Owner answered every remaining open question with a written recommendation (yes, as recommended): section 7.3 rewritten with the new list "Owner inputs still needed"; 4.6 and 3.x gates updated (FAV-1 no longer gated by Q101 to Q108; D1b rulings answered; Q182 answered). Nothing else changed |
 | 2026-10-26 (PLAN-CONSOLIDATE job 4) | MCP rule (R-252): MCP-C (+0.5 h for the no-database test and the tool-to-route table), MCP-G, MCP-1 and the private MCP rows; [mcp/README](../mcp/README.md) 1.1 |
 | 2026-10-26 (PLAN-CONSOLIDATE job 3) | 3.4's task table moved to [DATA-PLAN.md](DATA-PLAN.md) 2 (the single data plan); 3.4 keeps the ids by bundle; Q88 row closed (answered, option A); lane D's order points to DATA-PLAN; RIS-H to bundle C |
 | 2026-10-26 (PLAN-CONSOLIDATE, owner decision) | Section 0 summary of the release bundles A to K; 5.3 gains a Bundle column (rows are feature labels now); 5.4 rewritten for the bundle windows: data seat rows from DATA-PLAN 2.2 (lane S, DV-1, DV-2, the track fetcher and runs, D10 splits, the rest of the research), OVR-Ca moved to B2 row 13, RIS-H to B2 row 8, done tasks marked; corrections C16 to C18; ACCT-PH-RV narrowed and ACCT-PH-F dropped (3.6); CAT-1 fallback is bundle C. [RELEASE-PLAN](RELEASE-PLAN.md) 0a holds the rules |

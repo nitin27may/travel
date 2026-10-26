@@ -863,22 +863,22 @@ records early (Q115).
 | A11 | Screenshots at 1440 and 390 in light and dark: the at-rest line, the tab with the comparison, a strategy picked in Day by day with chips, a base card open, the map in Bases mode | design review |
 | A12 | First-use walk (P4): a visitor with no help finds "Other ways to stay", compares, picks one and returns to "As planned" | P4 |
 
-## 18. Open owner questions (Q109 to Q116, Q-BASE-1)
+## 18. Owner questions (Q109 to Q116 and Q-BASE-1, all answered 26 Oct 2026, yes as recommended)
 
 From DATA-L1: Q-BASE-2 (alternatives beside the plan, or a new default) is Q114; Q-BASE-3 (may an area average rate appear) is folded into Q113.
 
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q109 | Keep property names (hotels, apartments, rentals) out of public output, showing town guidance and official directory links only? | Yes, keep the rule | Visitors still search for the hotel themselves; nothing household-adjacent can leak |
-| Q110 | May a planned hut night or public campground night (Chamonix Lac Blanc, Iceland campsites) be named on the public page, without booking state? | Yes: they are public catalogue places the plan depends on | A hut name hints at what the author booked; no state is shown |
-| Q111 | Signed out: choose a researched strategy and swap by URL; moving nights and merging bases only signed in? | Yes (consistent with Q96) | A visitor cannot share a hand-edited base plan |
-| Q112 | Allow strategies that reorder whole days (the Rockies "Jasper first"), never items inside a day? | Yes, with `left_out` for anything that no longer fits | More research per strategy; a reordered plan reads differently from the author's |
-| Q113 | Price band basis: accept an operator sample (at least 5 operator rate pages, dated, the list kept private) as a public "≈" band, or official statistics only? | Accept the operator sample, labelled Estimate | Provenance shows the method and count, not the hotels (T3 is weaker); official statistics alone would leave most towns blank |
-| Q114 | Your three-base Rockies plan (Jasper, Golden, Banff): an alternative beside the published plan, or the new default? | Alternative first; decide on the default after D9-R's routed numbers | The published plan keeps five check-ins until you decide |
-| Q115 | Start D9-R (Rockies, 6 h Opus) after the Banff agent hands back, and STY-P (2 h Opus) in the gap before OVR so D9-R can write records? | Yes to both | Uses this week's Opus allowance before R-61 finishes |
-| Q-BASE-1 | Is an easy Calgary return a rule (the last base within 2 h of the airport, so Lake Louise at 155 min cannot be last) or a preference that only drives message M5? (from DATA-L1) | A preference: M5 states it; no strategy is rejected for it | A Lake Louise finish stays possible and is shown with its minus |
-| Q116 | At rest, one line in the trip strip plus at most two messages, never a banner or pop-up? | Yes | Some visitors will not open the tab and never see the comparison |
+| Q109 | Keep property names (hotels, apartments, rentals) out of public output, showing town guidance and official directory links only? | Yes, keep the rule (ANSWERED 26 Oct 2026: yes, as recommended.) | Visitors still search for the hotel themselves; nothing household-adjacent can leak |
+| Q110 | May a planned hut night or public campground night (Chamonix Lac Blanc, Iceland campsites) be named on the public page, without booking state? | Yes: they are public catalogue places the plan depends on (ANSWERED 26 Oct 2026: yes, as recommended.) | A hut name hints at what the author booked; no state is shown |
+| Q111 | Signed out: choose a researched strategy and swap by URL; moving nights and merging bases only signed in? | Yes (consistent with Q96) (ANSWERED 26 Oct 2026: yes, as recommended.) | A visitor cannot share a hand-edited base plan |
+| Q112 | Allow strategies that reorder whole days (the Rockies "Jasper first"), never items inside a day? | Yes, with `left_out` for anything that no longer fits (ANSWERED 26 Oct 2026: yes, as recommended.) | More research per strategy; a reordered plan reads differently from the author's |
+| Q113 | Price band basis: accept an operator sample (at least 5 operator rate pages, dated, the list kept private) as a public "≈" band, or official statistics only? | Accept the operator sample, labelled Estimate (ANSWERED 26 Oct 2026: yes, as recommended.) | Provenance shows the method and count, not the hotels (T3 is weaker); official statistics alone would leave most towns blank |
+| Q114 | Your three-base Rockies plan (Jasper, Golden, Banff): an alternative beside the published plan, or the new default? | Alternative first; decide on the default after D9-R's routed numbers (ANSWERED 26 Oct 2026: alternative first; the default is decided after D9-R's routed numbers.) | The published plan keeps five check-ins until you decide |
+| Q115 | Start D9-R (Rockies, 6 h Opus) after the Banff agent hands back, and STY-P (2 h Opus) in the gap before OVR so D9-R can write records? | Yes to both (ANSWERED 26 Oct 2026: yes, as recommended.) | Uses this week's Opus allowance before R-61 finishes |
+| Q-BASE-1 | Is an easy Calgary return a rule (the last base within 2 h of the airport, so Lake Louise at 155 min cannot be last) or a preference that only drives message M5? (from DATA-L1) | A preference: M5 states it; no strategy is rejected for it (ANSWERED 26 Oct 2026: yes, as recommended; this is DD-6.) | A Lake Louise finish stays possible and is shown with its minus |
+| Q116 | At rest, one line in the trip strip plus at most two messages, never a banner or pop-up? | Yes (ANSWERED 26 Oct 2026: yes, as recommended.) | Some visitors will not open the tab and never see the comparison |
 
 ## 19. Gotchas
 

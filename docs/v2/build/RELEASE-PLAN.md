@@ -852,9 +852,7 @@ R-178, R-179 and Q219 stay unused. The parallel REQ-FORM task took R-190 to R-19
 | Q228 | Run BKP-1 outside this repository's Actions: from a private companion repository (free private minutes) or the owner's Mac, with the encrypted dump stored privately | ~~Private companion repository~~ **CHANGED (owner, 25 Oct 2026): run BKP-1 from this machine as a local scheduled job** (launchd, section 7.6), not from GitHub Actions and not from a companion repository | Backups run only when the Mac is on; a second, encrypted offsite copy is a later option |
 | Q229 | Two planning gaps: (a) add the `e2e.yml` nightly workflow as a LOCAL-4 follow-up (unsized; its brief sizes it); (b) build the invite-only check Q98 implies for customisation inside CUS-C (unsized) | **Yes to both** (ANSWERED 25 Oct 2026: yes, as recommended.) | (a) Actions time each night (the full three-project e2e takes about 41 minutes on the Mac; Chromium alone is less), free on a public repository; (b) CUS-C grows |
 
-Open questions this train also waits on (already in PLAN section 5): Q88 (v0.4), Q101 to Q108 (v0.3), Q130 to Q137 (v0.7),
-Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling (v0.11), Q160 to Q167 and Q190 to Q198
-(v0.15, v0.16), Q148 and Q149 (v0.17). Q280 to Q286 (CAT-1) were answered 26 Oct: yes, as recommended; Q183 is superseded.
+Open questions this train waited on: Q101 to Q108, Q130 to Q137, Q93 to Q100, Q67, Q98, Q103, Q120, Q160 to Q167, Q190 to Q198, Q148 and Q149 were **answered 26 Oct 2026, yes as recommended** (ANSWERS-5; PLAN section 5, answered table). Q148 means the v0.17 domain release ships only on a trigger, and a domain name and price are owner input needed. Still open: the `planner_draft_signal` ruling. The owner inputs are listed once in [MASTER-ORDER.md](MASTER-ORDER.md) 7.3. Q280 to Q286 (CAT-1) were answered 26 Oct: yes, as recommended; Q183 is superseded.
 
 ## 10. Gotchas
 
@@ -875,6 +873,7 @@ Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling 
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (ANSWERS-5) | Section 9's open-questions paragraph updated: Q101 to Q108, Q93 to Q100, Q130 to Q137, Q160 to Q168, Q190 to Q198, Q148 and Q149 answered 26 Oct 2026, yes as recommended; bundle A's tag is `release/A` (Q290). Nothing else changed |
 | 2026-10-26 (PLAN-CONSOLIDATE job 3) | Section 3 note and two Data work rows point to [DATA-PLAN.md](DATA-PLAN.md) instead of repeating it |
 | 2026-10-26 (PLAN-CONSOLIDATE, owner decision) | Section 0a: releases become bundles A to K with the v0.x numbers kept as feature labels; rules B1 to B10 (independent flagged features, T1 per feature, T2 per stack, T3 per bundle, late features shipped dark, security reviews kept in B and H, rollback per bundle, tags `release/<letter>`, one CHANGELOG entry per bundle, data readiness, two-step bundles, order); hours per bundle with research added (986 h with I at 29 h); ten dependency findings and their fixes; data readiness per bundle and the data-seat capacity check. Notes on 4.1, 4.3, 5, 6, 8 and 10. Supersedes one release per feature (R-180) |
 | 2026-10-26 (CATALOGUE-EARLY, owner decision) | C15: the catalogue load moves from v1.0 to v0.5 as Internal (CAT-1); v0.5 gains an Internal row and `research_meta`; v1.0 pre-work, dependencies, data work and migrations rewritten (23 h left); I1 and I5 to v0.5, new I10 (CAT-V) and I11 (CAT-Q); checklist step 9a (catalogue sync after the deploy); open-question line. No release renumbered ([CATALOGUE-EARLY.md](CATALOGUE-EARLY.md)) |

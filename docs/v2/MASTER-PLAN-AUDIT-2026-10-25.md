@@ -80,7 +80,7 @@ These files are outside this task's write set or belong to running agents.
 | ID | Question | Recommendation |
 |---|---|---|
 | Q160 to Q167 | MCP sign-in choices | As in [mcp/auth-and-sign-in.md](mcp/auth-and-sign-in.md) section 12 |
-| Q168 | Revoke other sessions after a password reset by code? | Yes, in EML-1 (Neon exposes `/revoke-other-sessions`) |
+| Q168 | Revoke other sessions after a password reset by code? | Yes, in EML-1 (Neon exposes `/revoke-other-sessions`) (ANSWERED 26 Oct 2026: yes, revoke other sessions in EML-1.) |
 | carried | `planner_draft_signal` owner ruling (HANDOVER item 5) | Approve as built |
 
 ## 6. Verification of this change

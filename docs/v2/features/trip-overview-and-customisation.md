@@ -695,18 +695,18 @@ batch: `travel-verifier` on Sonnet.
 | A10 | A pinned photo survives a D5 rerun; a hidden photo never renders | F16 |
 | A11 | Screenshots at 1440 and 390 in light and dark: When to go, the overview on Trails and Bookings, a filter applied, a private copy with a warning | design review |
 
-## 10. Open owner questions (Q93 to Q100)
+## 10. Owner questions (Q93 to Q100, all answered 26 Oct 2026, yes as recommended)
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q93 | Flickr: confirm no Flickr now (a key appears to need Pro, about US$70-100 a year), or do you already hold Pro and want it as a third source after Commons? | No Flickr now; Commons, NPS public domain and the placeholder | More placeholders in thin areas |
-| Q94 | Window granularity: a start week of a month ("last week of June"), as here, or half-months ("late June")? | Weeks, 2 to 4 per trip | Weeks are precise enough to avoid a holiday weekend; more research per trip |
-| Q95 | Is "how many trails there are for that trip" the plan (33) or everything researched (62)? This spec shows both as scopes, defaulting to the plan | Default In this plan, with the other counts visible | A visitor may read 62 as the plan if the scope pill is missed |
-| Q96 | Should signed-out visitors also remove items through the URL (`rm=`), like the existing `add=`? | No: removal is customisation, signed in | Visitors cannot share a trimmed public link |
-| Q97 | Admin photo console before the data-layer cutover: wait for it (local pin command until then), or build a bridge that opens a GitHub pull request from the deployed admin page? | Wait; use the local pin command (PHO-0) now | Photo fixes need the owner's Mac until the cutover |
-| Q98 | Who may customise: open sign-up or invite-only (ties to Q67)? | Invite-only until the owner's preview of phase 2 | Fewer people try customisation in year one |
-| Q99 | Research windows for the 6 overview trips too (no days yet)? | Yes, about 6 h of Opus; windows do not need days | Usage allowance spent on trips that cannot be customised yet |
-| Q100 | Start D7-R (Rockies windows, 4 h Opus) now in the data seat, beside the closure queue, or after it? | Now: it touches only data and becomes the pattern for the contract | Uses this week's Opus allowance before R-61 finishes |
+| Q93 | Flickr: confirm no Flickr now (a key appears to need Pro, about US$70-100 a year), or do you already hold Pro and want it as a third source after Commons? | No Flickr now; Commons, NPS public domain and the placeholder (ANSWERED 26 Oct 2026: yes, as recommended.) | More placeholders in thin areas |
+| Q94 | Window granularity: a start week of a month ("last week of June"), as here, or half-months ("late June")? | Weeks, 2 to 4 per trip (ANSWERED 26 Oct 2026: yes, as recommended.) | Weeks are precise enough to avoid a holiday weekend; more research per trip |
+| Q95 | Is "how many trails there are for that trip" the plan (33) or everything researched (62)? This spec shows both as scopes, defaulting to the plan | Default In this plan, with the other counts visible (ANSWERED 26 Oct 2026: yes, as recommended.) | A visitor may read 62 as the plan if the scope pill is missed |
+| Q96 | Should signed-out visitors also remove items through the URL (`rm=`), like the existing `add=`? | No: removal is customisation, signed in (ANSWERED 26 Oct 2026: yes, as recommended.) | Visitors cannot share a trimmed public link |
+| Q97 | Admin photo console before the data-layer cutover: wait for it (local pin command until then), or build a bridge that opens a GitHub pull request from the deployed admin page? | Wait; use the local pin command (PHO-0) now (ANSWERED 26 Oct 2026: yes, as recommended.) | Photo fixes need the owner's Mac until the cutover |
+| Q98 | Who may customise: open sign-up or invite-only (ties to Q67)? | Invite-only until the owner's preview of phase 2 (ANSWERED 26 Oct 2026: yes, as recommended.) | Fewer people try customisation in year one |
+| Q99 | Research windows for the 6 overview trips too (no days yet)? | Yes, about 6 h of Opus; windows do not need days (ANSWERED 26 Oct 2026: yes, as recommended.) | Usage allowance spent on trips that cannot be customised yet |
+| Q100 | Start D7-R (Rockies windows, 4 h Opus) now in the data seat, beside the closure queue, or after it? | Now: it touches only data and becomes the pattern for the contract (ANSWERED 26 Oct 2026: yes, as recommended.) | Uses this week's Opus allowance before R-61 finishes |
 
 Owner answers, 25 Oct (second round, in the data seat):
 
