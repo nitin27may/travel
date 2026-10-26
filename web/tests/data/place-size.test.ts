@@ -6,6 +6,11 @@ import { builtOutDir } from '../helpers/built';
 
 // S13: place page HTML stays within +25% of the baseline taken before S1 Part B (tests/data/place-html-baseline.json): the median page and the largest.
 // Reads the real build in web/out; fails when there is none (builtOutDir throws; check-all builds first).
+// Re-baselined once (D2b-INT option A, owner question Q88): the 56 pages of stored places that were stubs until DATA-D2b (no capture
+// record, 1.03x to 1.06x of this baseline on main) start from their first full-record size. S13 guards how the renderer grows a page for
+// the same data; a stub measured against its first record measures the research, not the renderer. The budget, the 1.5 and 2.0 caps and
+// the largest-page check are unchanged, and every other page keeps its pre-S1 size. A stub page is re-baselined only by a decision like
+// this one, never by a lane.
 const baseline = JSON.parse(readFileSync(path.join(WEB_DIR, 'tests', 'data', 'place-html-baseline.json'), 'utf8')) as { pages: Record<string, number> };
 const OUT = path.join(builtOutDir(), 'places');
 const BUDGET = 1.25;
