@@ -1,6 +1,6 @@
 {
   "schema": "weather-links/1",
-  "status": "proposed: no Zod schema or validator owns this file yet (follow-up task UXB-WL); validate.ts --all does not read data/reference/",
+  "status": "registered: validated by core/src/validate/weatherLinks.ts (weather-links/1); validate.ts --all reads it",
   "note": "Outbound weather and climate links for each public trip, by area (Q298: links only, no weather API call from our pages). We store the link, its publisher and the date we read it; we never fetch, copy or store the publisher's forecast or climate values. Every coordinate inside a URL comes from our own base points, OSM or Wikidata, never Google; it is a lookup key for the publisher's page, not a stored place point.",
   "researched": "2026-10-26",
   "run": "UXB-W",

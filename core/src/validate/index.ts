@@ -14,6 +14,7 @@ import { checkTable, err, isObj } from "./rows.ts";
 import type { Ctx } from "./rows.ts";
 import { validateTrip } from "./trip.ts";
 import { validateSeasons } from "./seasons.ts";
+import { validateWeatherLinks } from "./weatherLinks.ts";
 import { validateVocab } from "./vocab.ts";
 import { checkDays, makeContext } from "../checks/index.ts";
 import type { Row as CheckRow } from "../checks/context.ts";
@@ -25,7 +26,7 @@ export { ERROR_CODES, ERROR_CODE_LIST, SUIT_ERROR_CODES, SUIT_ERROR_LIST, SUIT_W
 
 export interface DocInfo {
   family: Family;
-  kind?: DocumentKind | "changes" | "backlog" | "vocab" | "seasons";
+  kind?: DocumentKind | "changes" | "backlog" | "vocab" | "seasons" | "weather-links";
   /** catalog folder name */
   entity?: string;
   /** country code taken from a catalog file name */
@@ -50,6 +51,7 @@ export function detect(path: string | null, doc: unknown, root: string): DocInfo
     if (/(?:^|\/)data\/catalog\/changes\/[^/]+\.jsonl$/.test(r)) return { family: "catalog", kind: "changes" };
     if (/(?:^|\/)data\/catalog\/backlog\.json$/.test(r)) return { family: "catalog", kind: "backlog" };
     if ((m = r.match(/(?:^|\/)data\/seasons\/([^/]+)\.json$/))) return { family: "sidecar", kind: "seasons", folder: m[1] };
+    if (/(?:^|\/)data\/reference\/weather-links\.json$/.test(r)) return { family: "sidecar", kind: "weather-links" };
     if (/(?:^|\/)data\/vocab\/tags\.json$/.test(r)) return { family: "sidecar", kind: "vocab" };
     if (/(?:^|\/)data\/vocab\/types\.json$/.test(r)) return { family: "sidecar", kind: "capture-types" };
     if (/(?:^|\/)data\/capture\/operators\.json$/.test(r)) return { family: "sidecar", kind: "capture-operators" };
@@ -78,6 +80,7 @@ export function detect(path: string | null, doc: unknown, root: string): DocInfo
     if (doc.schema === "capture-run/1") return { family: "sidecar", kind: "capture-run" };
     if (doc.schema === "capture-supersedes/1") return { family: "sidecar", kind: "capture-supersedes" };
     if (doc.schema === "trip-season-basic/1") return { family: "sidecar", kind: "seasons", folder: typeof doc.trip === "string" ? doc.trip : undefined };
+    if (doc.schema === "weather-links/1") return { family: "sidecar", kind: "weather-links" };
     if (doc.schema === "capture-changeset/1") return { family: "sidecar", kind: "capture-changeset" };
     if (doc.schema === "sources/1") return { family: "sidecar", kind: "sources" };
     if ("trip" in doc && "profile" in doc) return { family: "trip" };
@@ -124,6 +127,10 @@ export function validateDoc(doc: unknown, family: Family, root: string, info: Pa
     case "sidecar":
       if (info.kind === "seasons") {
         validateSeasons(doc, ctx, info.folder ?? null);
+        break;
+      }
+      if (info.kind === "weather-links") {
+        validateWeatherLinks(doc, ctx, root);
         break;
       }
       if (info.kind === "vocab") {
@@ -187,7 +194,7 @@ function walk(dir: string, out: string[]): void {
 export function allFiles(root: string): string[] {
   const all: string[] = [];
   for (const d of ["data/trips", "data/catalog", "data/locations", "data/suitability", "data/relevance", "data/capture", "data/seasons"]) walk(join(root, d), all);
-  for (const f of ["data/schema/freshness.json", "data/schema/difficulty-map.json", "data/schema/suitability-applicability.json", "data/vocab/tags.json", "data/vocab/types.json", "data/sources/registry.json"]) if (existsSync(join(root, f))) all.push(join(root, f));
+  for (const f of ["data/schema/freshness.json", "data/schema/difficulty-map.json", "data/schema/suitability-applicability.json", "data/vocab/tags.json", "data/vocab/types.json", "data/sources/registry.json", "data/reference/weather-links.json"]) if (existsSync(join(root, f))) all.push(join(root, f));
   const keep = all.filter((p) => {
     const r = norm(relative(root, p));
     if (/\/trip\.json$/.test(r) || /\/routes\/[^/]+\.json$/.test(r)) return true;
@@ -199,7 +206,7 @@ export function allFiles(root: string): string[] {
     if (/^data\/relevance\/(?!signals\/|derived\/|inputs\/)[^/]+\/[^/]+\.json$/.test(r)) return true;
     if (/^data\/capture\/(?!splits\/|runs\/|changesets\/)[^/]+\/[^/]+\.json$/.test(r) || /^data\/capture\/(?:runs|changesets)\/[^/]+\.json$/.test(r) || r === "data/capture/operators.json" || r === "data/capture/supersedes.json" || r === "data/vocab/types.json") return true;
     if (/^data\/seasons\/[^/]+\.json$/.test(r)) return true;
-    if (r === "data/sources/registry.json") return true;
+    if (r === "data/sources/registry.json" || r === "data/reference/weather-links.json") return true;
     if (r === "data/schema/freshness.json" || r === "data/schema/difficulty-map.json" || r === "data/schema/suitability-applicability.json" || r === "data/vocab/tags.json") return true;
     if (/^data\/locations\/(?:locations|[A-Z]{2})\.json$/.test(r)) return true;
     return false;

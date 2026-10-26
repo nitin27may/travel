@@ -29,6 +29,15 @@ interface LaneDoc { sources?: LaneSource[]; records?: { ref?: string }[]; entrie
 /** The trip-level folders (RIS-J): one file per trip, `sources` at the top and the sourced values under other keys. */
 export const TRIP_LEVEL_FOLDERS = ["windows", "base-plans", "seasons"] as const;
 
+/** The weather links reference file (UXB-WL): no `sources` array; each link, fallback and publisher home is a source of kind official. */
+export const WEATHER_LINKS_PATH = "data/reference/weather-links.json";
+
+interface WxDoc {
+  researched?: string;
+  publishers?: Record<string, { name: string; short?: string; home: string | null }>;
+  trips?: { trip: string; links: { kind: string; label: string; publisher: string; url: string; check: { read: string } }[]; fallback: { url: string; check: { read: string } } }[];
+}
+
 export interface LinkRecord { url: string; status: LinkStatus; http: number | null; final: string | null; checked: string }
 export interface LinksFile { schema: "source-links/1"; links: Record<string, LinkRecord> }
 
@@ -112,6 +121,7 @@ export function buildRegistry(root: string, links: LinksFile = readLinks(root)):
   const acc = new Map<string, Acc>();
   const files = laneFiles(root);
   let rows = 0;
+  let lanesRead = files.length;
   for (const f of files) {
     const rel = relative(root, f).split("\\").join("/");
     let doc: LaneDoc;
@@ -155,6 +165,31 @@ export function buildRegistry(root: string, links: LinksFile = readLinks(root)):
       }
     }
   }
+  const wxPath = join(root, WEATHER_LINKS_PATH);
+  if (existsSync(wxPath)) {
+    lanesRead++;
+    try {
+      const wx = JSON.parse(readFileSync(wxPath, "utf8")) as WxDoc;
+      const add = (url: string, title: string, publisher: string, read: string, ref: string, field: string): void => {
+        const n = normaliseUrl(url);
+        const id = sourceId(n);
+        const a: Acc = acc.get(id) ?? { url: n, rows: [], used: new Map<string, SourceUsedBy>() };
+        a.rows.push({ id, url: n, title, publisher, kind: "official", read });
+        a.used.set(`${WEATHER_LINKS_PATH}\u0000${ref}\u0000${field}`, { file: WEATHER_LINKS_PATH, ref, field });
+        acc.set(id, a);
+        rows++;
+      };
+      const pub = (k: string): string => wx.publishers?.[k]?.name ?? k;
+      for (const t of wx.trips ?? []) {
+        for (const l of t.links) add(l.url, `${l.label} (${wx.publishers?.[l.publisher]?.short ?? l.publisher})`, pub(l.publisher), l.check.read, `weather-links/${t.trip}`, `weather.${l.kind}`);
+        const fp = t.links[0]?.publisher;
+        add(t.fallback.url, `Weather (${wx.publishers?.[fp ?? ""]?.short ?? fp ?? "official"})`, pub(fp ?? ""), t.fallback.check.read, `weather-links/${t.trip}`, "weather.fallback");
+      }
+      for (const [k, p] of Object.entries(wx.publishers ?? {})) if (p.home) add(p.home, p.name, p.name, wx.researched ?? "2026-10-26", `weather-links/publishers/${k}`, "weather.home");
+    } catch (e) {
+      problems.push({ file: WEATHER_LINKS_PATH, message: `not valid JSON or not weather-links/1: ${(e as Error).message}` });
+    }
+  }
   const entries: SourceEntry[] = [];
   for (const [id, a] of acc) {
     const reads = a.rows.map((r) => r.read).sort();
@@ -177,7 +212,7 @@ export function buildRegistry(root: string, links: LinksFile = readLinks(root)):
     });
   }
   entries.sort((x, y) => cmp(x.url, y.url));
-  return { registry: { schema: "sources/1", entries }, problems, lanes: files.length, rows };
+  return { registry: { schema: "sources/1", entries }, problems, lanes: lanesRead, rows };
 }
 
 export const registryText = (r: SourceRegistry): string => JSON.stringify(r, null, 2) + "\n";
