@@ -941,6 +941,7 @@
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-upper-section",
+      "area_id": "CA/BC/columbia-shuswap-regional-district",
       "type": "water.body.river",
       "layer": "route",
       "name": "Kicking Horse River, upper section",
@@ -966,6 +967,7 @@
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-lower-canyon",
+      "area_id": "CA/BC/columbia-shuswap-regional-district",
       "type": "water.body.river",
       "layer": "route",
       "name": "Kicking Horse River, lower canyon",
@@ -1073,6 +1075,7 @@
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking",
+      "area_id": "CA/BC/yoho-national-park",
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {
@@ -1115,6 +1118,7 @@
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking",
+      "area_id": "CA/AB/jasper-national-park",
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {
@@ -1157,6 +1161,7 @@
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds#parking",
+      "area_id": "CA/AB/kananaskis-country",
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {
@@ -1199,6 +1204,7 @@
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/pyramid-lake#parking",
+      "area_id": "CA/AB/jasper-national-park",
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {
@@ -1241,6 +1247,7 @@
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking",
+      "area_id": "CA/AB/kananaskis-country",
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {

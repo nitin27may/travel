@@ -19,6 +19,7 @@
   "records": [
     {
       "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "nature.summit.summit",
       "layer": "place",
       "near_town": {
@@ -73,6 +74,7 @@
     },
     {
       "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#step-into-the-void",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "culture.heritage.landmark",
       "layer": "place",
       "near_town": {
@@ -133,6 +135,7 @@
     },
     {
       "ref": "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#parking",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {
@@ -175,6 +178,7 @@
     },
     {
       "ref": "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "access.transit.transit_stop",
       "layer": "place",
       "near_town": {

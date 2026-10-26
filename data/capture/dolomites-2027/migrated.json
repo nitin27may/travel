@@ -1019,6 +1019,7 @@
     },
     {
       "ref": "place/val-fiscalina",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -1339,6 +1340,7 @@
     },
     {
       "ref": "place/alpe-di-siusi",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -1406,6 +1408,7 @@
     },
     {
       "ref": "place/bullaccia-and-the-witches-benches",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -1474,6 +1477,7 @@
     },
     {
       "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {
@@ -1839,6 +1843,7 @@
     },
     {
       "ref": "place/seceda-ridge",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "nature.trail.walk",
       "layer": "route",
       "near_town": {
@@ -1895,6 +1900,7 @@
     },
     {
       "ref": "part/place/seceda-ridge#payoff",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {
@@ -1991,6 +1997,7 @@
     },
     {
       "ref": "part/place/lago-di-dobbiaco#walk",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "nature.trail.walk",
       "layer": "route",
       "near_town": {
@@ -2163,6 +2170,7 @@
     },
     {
       "ref": "place/lago-di-carezza",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "water.body.lake",
       "layer": "place",
       "near_town": {
@@ -2285,6 +2293,7 @@
     },
     {
       "ref": "place/lago-di-dobbiaco",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "water.body.lake",
       "layer": "place",
       "near_town": {
@@ -2542,6 +2551,7 @@
     },
     {
       "ref": "place/dobbiaco",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -2598,6 +2608,7 @@
     },
     {
       "ref": "place/ortisei",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -2620,6 +2631,7 @@
     },
     {
       "ref": "place/san-candido",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -2665,6 +2677,7 @@
     },
     {
       "ref": "place/santa-cristina",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -2687,6 +2700,7 @@
     },
     {
       "ref": "place/selva-di-val-gardena",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -3057,6 +3071,7 @@
     },
     {
       "ref": "part/place/funbob-monte-baranci#place",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "play.amusement.alpine_coaster",
       "layer": "place",
       "near_town": {

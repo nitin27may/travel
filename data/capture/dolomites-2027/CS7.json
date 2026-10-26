@@ -844,6 +844,7 @@
     },
     {
       "ref": "part/place/lago-di-carezza#parking",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {
@@ -972,6 +973,7 @@
     },
     {
       "ref": "part/place/lago-di-dobbiaco#parking",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {
@@ -1206,7 +1208,6 @@
     },
     {
       "ref": "place/rifugio-scotoni",
-      "area_id": "IT/veneto/belluno",
       "type": "stay.mountain.hut",
       "layer": "place",
       "near_town": {
@@ -1226,6 +1227,7 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Rifugio Scotoni",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "osm_ref": "way/229003439",
       "season": {
         "v": null,

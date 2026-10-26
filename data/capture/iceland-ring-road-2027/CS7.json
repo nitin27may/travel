@@ -19,6 +19,7 @@
   "records": [
     {
       "ref": "part/trip/iceland-ring-road-2027/viewpoint:jokulsarlon#parking",
+      "area_id": "IS/east/hornafjordur",
       "type": "access.park.parking",
       "layer": "place",
       "near_town": {

@@ -28,6 +28,7 @@
   "records": [
     {
       "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
+      "area_id": "CA/ON/haliburton-county",
       "type": "water.falls.waterfall",
       "layer": "place",
       "near_town": {
@@ -50,6 +51,7 @@
     },
     {
       "ref": "trip/algonquin-muskoka-2026/town:huntsville",
+      "area_id": "CA/ON/muskoka-district-municipality",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -107,6 +109,7 @@
     },
     {
       "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+      "area_id": "CA/ON/algonquin-provincial-park",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -175,6 +178,7 @@
     },
     {
       "ref": "trip/algonquin-muskoka-2026/viewpoint:dwight beach sunset",
+      "area_id": "CA/ON/muskoka-district-municipality",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {

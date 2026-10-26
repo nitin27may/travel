@@ -47,6 +47,7 @@
   "records": [
     {
       "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "water.body.lake",
       "layer": "place",
       "near_town": {
@@ -75,6 +76,7 @@
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "ride.lift.cable_car",
       "layer": "route",
       "near_town": {
@@ -100,6 +102,7 @@
     },
     {
       "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "access.transit.station",
       "layer": "place",
       "near_town": {
@@ -165,6 +168,7 @@
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "ride.lift.rack_railway",
       "layer": "route",
       "near_town": {
@@ -192,6 +196,7 @@
     },
     {
       "ref": "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "access.transit.station",
       "layer": "place",
       "near_town": {
@@ -242,6 +247,7 @@
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
+      "area_id": "CH/VS/saint-maurice-district",
       "type": "culture.heritage.dam",
       "layer": "place",
       "near_town": {
@@ -264,6 +270,7 @@
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "culture.under.show_cave",
       "layer": "place",
       "near_town": {
@@ -286,6 +293,7 @@
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -308,6 +316,7 @@
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -330,6 +339,7 @@
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "settlement.town",
       "layer": "place",
       "near_town": {
@@ -435,6 +445,7 @@
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -497,6 +508,7 @@
     },
     {
       "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "water.body.lake",
       "layer": "place",
       "near_town": {
@@ -561,6 +573,7 @@
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "nature.trail.hike",
       "layer": "route",
       "near_town": {
@@ -622,6 +635,7 @@
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+      "area_id": "FR/ARA/haute-savoie",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
       "near_town": {

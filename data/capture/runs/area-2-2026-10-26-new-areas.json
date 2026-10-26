@@ -1,0 +1,2049 @@
+{
+ "schema": "capture-run/1",
+ "run": "area-2-2026-10-26-new-areas",
+ "started": "2026-10-26",
+ "agent": "travel-researcher",
+ "model": "opus",
+ "scope": {
+  "refs": [
+   "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+   "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+   "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge",
+   "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
+   "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+   "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+   "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly",
+   "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer",
+   "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
+   "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
+   "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
+   "legacy/canadian-rockies-sept-2029/sights/berg-lake",
+   "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
+   "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
+   "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+   "legacy/canadian-rockies-sept-2029/sights/elbow-falls",
+   "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+   "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
+   "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
+   "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
+   "legacy/canadian-rockies-sept-2029/sights/jasper-townsite",
+   "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use",
+   "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view",
+   "legacy/canadian-rockies-sept-2029/sights/lake-magog",
+   "legacy/canadian-rockies-sept-2029/sights/maligne-canyon",
+   "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
+   "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
+   "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
+   "legacy/canadian-rockies-sept-2029/sights/mount-edith-cavell",
+   "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+   "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+   "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
+   "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
+   "legacy/canadian-rockies-sept-2029/sights/paint-pots",
+   "legacy/canadian-rockies-sept-2029/sights/prince-of-wales-hotel",
+   "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
+   "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
+   "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
+   "legacy/canadian-rockies-sept-2029/sights/smith-dorrien-trail",
+   "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
+   "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+   "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp",
+   "legacy/canadian-rockies-sept-2029/sights/wapta-falls",
+   "legacy/canadian-rockies-sept-2029/sights/waterton-townsite",
+   "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+   "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
+   "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog",
+   "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+   "legacy/canadian-rockies-sept-2029/trails/bald-hills",
+   "legacy/canadian-rockies-sept-2029/trails/bears-hump",
+   "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail",
+   "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
+   "legacy/canadian-rockies-sept-2029/trails/burstall-pass",
+   "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+   "legacy/canadian-rockies-sept-2029/trails/chester-lake",
+   "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+   "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
+   "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
+   "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
+   "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+   "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline",
+   "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
+   "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+   "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+   "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+   "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+   "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+   "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+   "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
+   "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
+   "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+   "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
+   "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
+   "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint",
+   "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop",
+   "legacy/canadian-rockies-sept-2029/trails/opal-hills",
+   "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+   "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+   "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
+   "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
+   "legacy/canadian-rockies-sept-2029/trails/rawson-lake",
+   "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
+   "legacy/canadian-rockies-sept-2029/trails/ribbon-creek",
+   "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+   "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+   "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
+   "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+   "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog",
+   "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+   "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+   "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+   "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+   "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+   "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail",
+   "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+   "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
+   "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
+   "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
+   "part/legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft#place",
+   "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
+   "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-lower-canyon",
+   "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-upper-section",
+   "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base",
+   "part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking",
+   "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking",
+   "part/legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds#parking",
+   "part/legacy/canadian-rockies-sept-2029/sights/pyramid-lake#parking",
+   "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking",
+   "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
+   "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff",
+   "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+   "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+   "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+   "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff",
+   "part/place/bryce-canyon-national-park#visitor-center-lot",
+   "part/place/bullaccia-and-the-witches-benches#payoff",
+   "part/place/funbob-monte-baranci#place",
+   "part/place/lago-di-carezza#parking",
+   "part/place/lago-di-dobbiaco#parking",
+   "part/place/lago-di-dobbiaco#walk",
+   "part/place/rafting-on-the-rienza#place",
+   "part/place/seceda-ridge#payoff",
+   "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop",
+   "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#parking",
+   "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#step-into-the-void",
+   "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit",
+   "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+   "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top",
+   "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+   "part/trip/iceland-ring-road-2027/activity:myvatn nature baths#place",
+   "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+   "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
+   "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
+   "part/trip/iceland-ring-road-2027/viewpoint:jokulsarlon#parking",
+   "part/trip/patagonia-2027/lake:beagle channel boat#place",
+   "part/trip/patagonia-2027/trail:chorrillo del salto#parking",
+   "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
+   "part/trip/patagonia-2027/trail:laguna capri#payoff",
+   "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+   "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
+   "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
+   "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
+   "part/trip/patagonia-2027/trail:mirador de los condores#trailhead",
+   "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
+   "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
+   "place/alpe-di-siusi",
+   "place/bryce-canyon-national-park",
+   "place/bullaccia-and-the-witches-benches",
+   "place/cortina-dampezzo",
+   "place/dobbiaco",
+   "place/drava-cycle-path-to-lienz",
+   "place/lago-di-carezza",
+   "place/lago-di-dobbiaco",
+   "place/ortisei",
+   "place/rifugio-scotoni",
+   "place/san-candido",
+   "place/santa-cristina",
+   "place/seceda-ridge",
+   "place/selva-di-val-gardena",
+   "place/val-fiscalina",
+   "trip/algonquin-muskoka-2026/sight:ragged falls",
+   "trip/algonquin-muskoka-2026/town:huntsville",
+   "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+   "trip/algonquin-muskoka-2026/trail:track and tower trail",
+   "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
+   "trip/algonquin-muskoka-2026/viewpoint:dwight beach sunset",
+   "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+   "trip/chamonix-mont-blanc-2028/lake:lac du chatelard",
+   "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+   "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+   "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
+   "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+   "trip/chamonix-mont-blanc-2028/town:chamonix market",
+   "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+   "trip/chamonix-mont-blanc-2028/town:les praz village",
+   "trip/chamonix-mont-blanc-2028/town:vallorcine",
+   "trip/chamonix-mont-blanc-2028/trail:col des montets",
+   "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+   "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+   "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+   "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
+   "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls",
+   "trip/iceland-ring-road-2027/sight:dettifoss",
+   "trip/iceland-ring-road-2027/sight:geysir",
+   "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
+   "trip/iceland-ring-road-2027/sight:godafoss",
+   "trip/iceland-ring-road-2027/sight:gullfoss",
+   "trip/iceland-ring-road-2027/sight:namaskard",
+   "trip/iceland-ring-road-2027/sight:seljalandsfoss",
+   "trip/iceland-ring-road-2027/sight:skogafoss",
+   "trip/iceland-ring-road-2027/town:akureyri botanical garden",
+   "trip/iceland-ring-road-2027/town:hofn harbour",
+   "trip/iceland-ring-road-2027/town:reykjavik old harbour",
+   "trip/iceland-ring-road-2027/town:seydisfjordur",
+   "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+   "trip/iceland-ring-road-2027/trail:djupalonssandur",
+   "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+   "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+   "trip/iceland-ring-road-2027/trail:thingvellir",
+   "trip/iceland-ring-road-2027/viewpoint:diamond beach",
+   "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+   "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
+   "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
+   "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
+   "trip/patagonia-2027/sight:penguin colony stop",
+   "trip/patagonia-2027/sight:perito moreno walkways",
+   "trip/patagonia-2027/town:cafe and bookshops",
+   "trip/patagonia-2027/town:harbour walk",
+   "trip/patagonia-2027/town:palermo and recoleta walk",
+   "trip/patagonia-2027/town:san telmo market",
+   "trip/patagonia-2027/town:village and cafes",
+   "trip/patagonia-2027/trail:chorrillo del salto",
+   "trip/patagonia-2027/trail:coastal path",
+   "trip/patagonia-2027/trail:laguna capri",
+   "trip/patagonia-2027/trail:laguna de los tres",
+   "trip/patagonia-2027/trail:laguna esmeralda",
+   "trip/patagonia-2027/trail:mirador de las aguilas",
+   "trip/patagonia-2027/trail:mirador de los condores",
+   "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+   "trip/patagonia-2027/viewpoint:laguna nimez birds",
+   "trip/patagonia-2027/viewpoint:lapataia bay",
+   "trip/utah-five-parks/sight:fruita orchards",
+   "trip/utah-five-parks/sight:goblin valley",
+   "trip/utah-five-parks/sight:temple square",
+   "trip/utah-five-parks/trail:hickman bridge",
+   "trip/utah-five-parks/trail:lower calf creek falls",
+   "trip/utah-five-parks/trail:navajo loop and queens garden",
+   "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+   "trip/utah-five-parks/viewpoint:dead horse point",
+   "trip/utah-five-parks/viewpoint:sunset point",
+   "trip/vermont-fall-2026/sight:covered bridge loop",
+   "trip/vermont-fall-2026/town:hyde park village",
+   "trip/vermont-fall-2026/town:peacham village",
+   "trip/vermont-fall-2026/viewpoint:burke mountain overlook",
+   "trip/vermont-fall-2026/viewpoint:smugglers notch"
+  ]
+ },
+ "hosts": [
+  {
+   "host": "www.wikidata.org",
+   "requests": 194,
+   "robots": "allowed",
+   "terms": "allowed",
+   "status": "ok"
+  },
+  {
+   "host": "geo.fcc.gov",
+   "requests": 6,
+   "robots": "unknown",
+   "terms": "unknown",
+   "status": "ok"
+  }
+ ],
+ "results": [
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
+   "reason": "CA/AB/kananaskis-country: derived from the parent part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q391165",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/athabasca-glacier (Q391165, coordinates Wikidata P625 read 2026-10-26) at 7.8 km; nearest other area 86.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1020179",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/columbia-shuswap-regional-district: point rule, nearest label the store place CA/BC/columbia-shuswap-regional-district/golden (Q1020179, coordinates Wikidata P625 read 2026-10-26) at 1.6 km; nearest other area 32.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q999429",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/jasper (Q999429, coordinates Wikidata P625 read 2026-10-26) at 0.3 km; nearest other area 76.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q999429",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/jasper (Q999429, coordinates Wikidata P625 read 2026-10-26) at 1.7 km; nearest other area 78.3 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q999429",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/jasper (Q999429, coordinates Wikidata P625 read 2026-10-26) at 3.7 km; nearest other area 74.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1020179",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/columbia-shuswap-regional-district: point rule, nearest label the store place CA/BC/columbia-shuswap-regional-district/golden (Q1020179, coordinates Wikidata P625 read 2026-10-26) at 5.7 km; nearest other area 38.3 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q6360620",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/kananaskis-village (Q6360620, coordinates Wikidata P625 read 2026-10-26) at 2.8 km; nearest other area 34.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q7974475",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/waterton-lakes-national-park: point rule, nearest label the store place CA/AB/waterton-lakes-national-park/waterton-park (Q7974475, coordinates Wikidata P625 read 2026-10-26) at 3.8 km; nearest other area 40.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q6921646",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/mount-kerkeslin (Q6921646, coordinates Wikidata P625 read 2026-10-26) at 4.2 km; nearest other area 98.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q4877958",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/beauvais-lake-provincial-park: point rule, nearest label the store place CA/AB/beauvais-lake-provincial-park/beauvais-lake (Q4877958, coordinates Wikidata P625 read 2026-10-26) at 1.3 km; nearest other area 36.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/berg-lake",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1161258",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/mount-robson-provincial-park: point rule, nearest label the store place CA/BC/mount-robson-provincial-park/mount-robson (Q1161258, coordinates Wikidata P625 read 2026-10-26) at 3.8 km; nearest other area 78.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3321701",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/waterton-lakes-national-park: point rule, nearest label the store place CA/AB/waterton-lakes-national-park/mount-blakiston (Q3321701, coordinates Wikidata P625 read 2026-10-26) at 9.5 km; nearest other area 44.5 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q391165",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/athabasca-glacier (Q391165, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 80.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/elbow-falls",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22465470",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/paddy-s-flat (Q22465470, coordinates Wikidata P625 read 2026-10-26) at 5.1 km; nearest other area 42.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3071515",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/yoho-national-park: point rule, nearest label the store place CA/BC/yoho-national-park/field (Q3071515, coordinates Wikidata P625 read 2026-10-26) at 6.1 km; nearest other area 18.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q5760070",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/highwood-pass (Q5760070, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 10 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/jasper-townsite",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q999429",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/jasper (Q999429, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 76.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q7346507",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/upper-kananaskis-lake (Q7346507, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1161258",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/mount-robson-provincial-park: point rule, nearest label the store place CA/BC/mount-robson-provincial-park/mount-robson (Q1161258, coordinates Wikidata P625 read 2026-10-26) at 3.9 km; nearest other area 77.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-canyon",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q999429",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/jasper (Q999429, coordinates Wikidata P625 read 2026-10-26) at 7.1 km; nearest other area 79.5 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q429646",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/maligne-lake (Q429646, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 119.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22457126",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/ashlar-ridge (Q22457126, coordinates Wikidata P625 read 2026-10-26) at 5.4 km; nearest other area 92.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/mount-edith-cavell",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q510573",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/mount-edith-cavell (Q510573, coordinates Wikidata P625 read 2026-10-26) at 1.8 km; nearest other area 88.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q6360620",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/kananaskis-village (Q6360620, coordinates Wikidata P625 read 2026-10-26) at 6.4 km; nearest other area 35.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1161258",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/mount-robson-provincial-park: point rule, nearest label the store place CA/BC/mount-robson-provincial-park/mount-robson (Q1161258, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 76.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3071515",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/yoho-national-park: point rule, nearest label the store place CA/BC/yoho-national-park/field (Q3071515, coordinates Wikidata P625 read 2026-10-26) at 3.5 km; nearest other area 17.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1950710",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/mount-robson-provincial-park: point rule, nearest label the store place CA/BC/mount-robson-provincial-park/mount-robson-provincial-park (Q1950710, coordinates Wikidata P625 read 2026-10-26) at 2.1 km; nearest other area 77 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/prince-of-wales-hotel",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q7974475",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/waterton-lakes-national-park: point rule, nearest label the store place CA/AB/waterton-lakes-national-park/waterton-park (Q7974475, coordinates Wikidata P625 read 2026-10-26) at 1.1 km; nearest other area 41.4 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q999429",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/jasper (Q999429, coordinates Wikidata P625 read 2026-10-26) at 5.6 km; nearest other area 74 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22629068",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/kootenay-national-park: point rule, nearest label the store place CA/BC/kootenay-national-park/sinclair-canyon (Q22629068, coordinates Wikidata P625 read 2026-10-26) at 0.9 km; nearest other area 52.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3321701",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/waterton-lakes-national-park: point rule, nearest label the store place CA/AB/waterton-lakes-national-park/mount-blakiston (Q3321701, coordinates Wikidata P625 read 2026-10-26) at 4.2 km; nearest other area 31.3 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/smith-dorrien-trail",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3364735",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/spray-valley-provincial-park (Q3364735, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 31.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22649377",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/yoho-national-park: point rule, nearest label the store place CA/BC/yoho-national-park/yoho-valley (Q22649377, coordinates Wikidata P625 read 2026-10-26) at 4.9 km; nearest other area 18.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/wapta-falls",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22478655",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/yoho-national-park: point rule, nearest label the store place CA/BC/yoho-national-park/chancellor-peak (Q22478655, coordinates Wikidata P625 read 2026-10-26) at 6.2 km; nearest other area 29.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/waterton-townsite",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q7974475",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/waterton-lakes-national-park: point rule, nearest label the store place CA/AB/waterton-lakes-national-park/waterton-park (Q7974475, coordinates Wikidata P625 read 2026-10-26) at 0.5 km; nearest other area 42.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q6360620",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/kananaskis-village (Q6360620, coordinates Wikidata P625 read 2026-10-26) at 5 km; nearest other area 35.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22612582",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/whiteswan-lake-provincial-park: point rule, nearest label the store place CA/BC/whiteswan-lake-provincial-park/whiteswan-lake (Q22612582, coordinates Wikidata P625 read 2026-10-26) at 6.7 km; nearest other area 57.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3364735",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/spray-valley-provincial-park (Q3364735, coordinates Wikidata P625 read 2026-10-26) at 7.6 km; nearest other area 31.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q6921646",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/mount-kerkeslin (Q6921646, coordinates Wikidata P625 read 2026-10-26) at 4.2 km; nearest other area 98.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q44664199",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/curly-phillips-boathouse (Q44664199, coordinates Wikidata P625 read 2026-10-26) at 0.5 km; nearest other area 110 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/bears-hump",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q7974475",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/waterton-lakes-national-park: point rule, nearest label the store place CA/AB/waterton-lakes-national-park/waterton-park (Q7974475, coordinates Wikidata P625 read 2026-10-26) at 1.1 km; nearest other area 41.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q4877958",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/beauvais-lake-provincial-park: point rule, nearest label the store place CA/AB/beauvais-lake-provincial-park/beauvais-lake (Q4877958, coordinates Wikidata P625 read 2026-10-26) at 1.2 km; nearest other area 36.3 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1950710",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/mount-robson-provincial-park: point rule, nearest label the store place CA/BC/mount-robson-provincial-park/mount-robson-provincial-park (Q1950710, coordinates Wikidata P625 read 2026-10-26) at 2.1 km; nearest other area 78.4 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/burstall-pass",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22353518",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/burstall-lakes (Q22353518, coordinates Wikidata P625 read 2026-10-26) at 2.4 km; nearest other area 29.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q510573",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/mount-edith-cavell (Q510573, coordinates Wikidata P625 read 2026-10-26) at 2.2 km; nearest other area 87.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/chester-lake",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22353518",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/burstall-lakes (Q22353518, coordinates Wikidata P625 read 2026-10-26) at 2.6 km; nearest other area 29.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q7974475",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/waterton-lakes-national-park: point rule, nearest label the store place CA/AB/waterton-lakes-national-park/waterton-park (Q7974475, coordinates Wikidata P625 read 2026-10-26) at 2.7 km; nearest other area 44.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22465470",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/paddy-s-flat (Q22465470, coordinates Wikidata P625 read 2026-10-26) at 5.3 km; nearest other area 41.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22391422",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/elk-lakes-provincial-park: point rule, nearest label the store place CA/BC/elk-lakes-provincial-park/upper-elk-lake (Q22391422, coordinates Wikidata P625 read 2026-10-26) at 2.6 km; nearest other area 8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22391422",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/elk-lakes-provincial-park: point rule, nearest label the store place CA/BC/elk-lakes-provincial-park/upper-elk-lake (Q22391422, coordinates Wikidata P625 read 2026-10-26) at 2.6 km; nearest other area 8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3071515",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/yoho-national-park: point rule, nearest label the store place CA/BC/yoho-national-park/field (Q3071515, coordinates Wikidata P625 read 2026-10-26) at 6.1 km; nearest other area 18.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3071515",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/yoho-national-park: point rule, nearest label the store place CA/BC/yoho-national-park/field (Q3071515, coordinates Wikidata P625 read 2026-10-26) at 6.1 km; nearest other area 18.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q6921646",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/mount-kerkeslin (Q6921646, coordinates Wikidata P625 read 2026-10-26) at 4.9 km; nearest other area 98.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q6921787",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/mount-lawrence-grassi (Q6921787, coordinates Wikidata P625 read 2026-10-26) at 3.1 km; nearest other area 12.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q6921787",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/mount-lawrence-grassi (Q6921787, coordinates Wikidata P625 read 2026-10-26) at 2.1 km; nearest other area 11.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22649377",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/yoho-national-park: point rule, nearest label the store place CA/BC/yoho-national-park/yoho-valley (Q22649377, coordinates Wikidata P625 read 2026-10-26) at 4.9 km; nearest other area 18.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q7346507",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/upper-kananaskis-lake (Q7346507, coordinates Wikidata P625 read 2026-10-26) at 1.8 km; nearest other area 9.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22457126",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/ashlar-ridge (Q22457126, coordinates Wikidata P625 read 2026-10-26) at 5.4 km; nearest other area 92.5 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1950710",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/mount-robson-provincial-park: point rule, nearest label the store place CA/BC/mount-robson-provincial-park/mount-robson-provincial-park (Q1950710, coordinates Wikidata P625 read 2026-10-26) at 2.1 km; nearest other area 78.4 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q999429",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/jasper (Q999429, coordinates Wikidata P625 read 2026-10-26) at 3.9 km; nearest other area 77.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q6360620",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/kananaskis-village (Q6360620, coordinates Wikidata P625 read 2026-10-26) at 6.6 km; nearest other area 34.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q44664199",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/curly-phillips-boathouse (Q44664199, coordinates Wikidata P625 read 2026-10-26) at 0.5 km; nearest other area 110 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q44664199",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/curly-phillips-boathouse (Q44664199, coordinates Wikidata P625 read 2026-10-26) at 0.9 km; nearest other area 110.4 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q7346507",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/upper-kananaskis-lake (Q7346507, coordinates Wikidata P625 read 2026-10-26) at 1.8 km; nearest other area 9.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q6360620",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/kananaskis-village (Q6360620, coordinates Wikidata P625 read 2026-10-26) at 6.4 km; nearest other area 35.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/opal-hills",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q44664199",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/curly-phillips-boathouse (Q44664199, coordinates Wikidata P625 read 2026-10-26) at 0.5 km; nearest other area 110.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1950710",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/mount-robson-provincial-park: point rule, nearest label the store place CA/BC/mount-robson-provincial-park/mount-robson-provincial-park (Q1950710, coordinates Wikidata P625 read 2026-10-26) at 0.6 km; nearest other area 78.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/rawson-lake",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q7346507",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/upper-kananaskis-lake (Q7346507, coordinates Wikidata P625 read 2026-10-26) at 1.9 km; nearest other area 6.3 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3321701",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/waterton-lakes-national-park: point rule, nearest label the store place CA/AB/waterton-lakes-national-park/mount-blakiston (Q3321701, coordinates Wikidata P625 read 2026-10-26) at 4.1 km; nearest other area 31.3 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/ribbon-creek",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q6360620",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/kananaskis-village (Q6360620, coordinates Wikidata P625 read 2026-10-26) at 1.7 km; nearest other area 35.5 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q7346507",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/upper-kananaskis-lake (Q7346507, coordinates Wikidata P625 read 2026-10-26) at 1.9 km; nearest other area 6.3 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q44664199",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/curly-phillips-boathouse (Q44664199, coordinates Wikidata P625 read 2026-10-26) at 0.6 km; nearest other area 110 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22457126",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/ashlar-ridge (Q22457126, coordinates Wikidata P625 read 2026-10-26) at 5.4 km; nearest other area 92.5 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22649377",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/yoho-national-park: point rule, nearest label the store place CA/BC/yoho-national-park/yoho-valley (Q22649377, coordinates Wikidata P625 read 2026-10-26) at 4.9 km; nearest other area 18.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22353518",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/burstall-lakes (Q22353518, coordinates Wikidata P625 read 2026-10-26) at 7.2 km; nearest other area 33.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q391165",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/athabasca-glacier (Q391165, coordinates Wikidata P625 read 2026-10-26) at 2.9 km; nearest other area 80.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q6360620",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/kananaskis-village (Q6360620, coordinates Wikidata P625 read 2026-10-26) at 2.7 km; nearest other area 34.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q7346507",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/upper-kananaskis-lake (Q7346507, coordinates Wikidata P625 read 2026-10-26) at 1.8 km; nearest other area 9.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22478655",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/yoho-national-park: point rule, nearest label the store place CA/BC/yoho-national-park/chancellor-peak (Q22478655, coordinates Wikidata P625 read 2026-10-26) at 5.7 km; nearest other area 28.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q6360620",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/kananaskis-village (Q6360620, coordinates Wikidata P625 read 2026-10-26) at 5 km; nearest other area 35.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q391165",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/jasper-national-park: point rule, nearest label the store place CA/AB/jasper-national-park/athabasca-glacier (Q391165, coordinates Wikidata P625 read 2026-10-26) at 6.7 km; nearest other area 84.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q6921787",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/mount-lawrence-grassi (Q6921787, coordinates Wikidata P625 read 2026-10-26) at 4.1 km; nearest other area 12.4 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+   "reason": "CA/AB/jasper-national-park: derived from the parent legacy/canadian-rockies-sept-2029/adventures/jasper-skytram (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft#place",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3214736",
+   "host": "www.wikidata.org",
+   "reason": "CA/AB/kananaskis-country: point rule, nearest label the store place CA/AB/kananaskis-country/barrier-lake (Q3214736, coordinates Wikidata P625 read 2026-10-26) at 7.5 km; nearest other area 34.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1020179",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/columbia-shuswap-regional-district: point rule, nearest label the store place CA/BC/columbia-shuswap-regional-district/golden (Q1020179, coordinates Wikidata P625 read 2026-10-26) at 1.1 km; nearest other area 34 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-lower-canyon",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1020179",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/columbia-shuswap-regional-district: point rule, nearest label the store place CA/BC/columbia-shuswap-regional-district/golden (Q1020179, coordinates Wikidata P625 read 2026-10-26) at 1.1 km; nearest other area 34 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-upper-section",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1020179",
+   "host": "www.wikidata.org",
+   "reason": "CA/BC/columbia-shuswap-regional-district: point rule, nearest label the store place CA/BC/columbia-shuswap-regional-district/golden (Q1020179, coordinates Wikidata P625 read 2026-10-26) at 1.1 km; nearest other area 34 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
+   "reason": "CA/BC/yoho-national-park: derived from the parent legacy/canadian-rockies-sept-2029/sights/emerald-lake (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
+   "reason": "CA/AB/jasper-national-park: derived from the parent legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds#parking",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+   "reason": "CA/AB/kananaskis-country: derived from the parent legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/pyramid-lake#parking",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
+   "reason": "CA/AB/jasper-national-park: derived from the parent legacy/canadian-rockies-sept-2029/sights/pyramid-lake (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+   "reason": "CA/AB/kananaskis-country: derived from the parent legacy/canadian-rockies-sept-2029/sights/wedge-pond (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+   "reason": "CA/AB/kananaskis-country: derived from the parent legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+   "reason": "CA/AB/kananaskis-country: derived from the parent legacy/canadian-rockies-sept-2029/trails/ha-ling-peak (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+   "reason": "CA/AB/kananaskis-country: derived from the parent legacy/canadian-rockies-sept-2029/trails/sarrail-ridge (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+   "reason": "CA/AB/jasper-national-park: derived from the parent legacy/canadian-rockies-sept-2029/trails/sulphur-skyline (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+   "reason": "CA/AB/jasper-national-park: derived from the parent legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+   "reason": "CA/AB/kananaskis-country: derived from the parent legacy/canadian-rockies-sept-2029/trails/troll-falls (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "place/bullaccia-and-the-witches-benches",
+   "reason": "IT/trentino-alto-adige/bolzano: derived from the parent place/bullaccia-and-the-witches-benches (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/place/funbob-monte-baranci#place",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q549129",
+   "host": "www.wikidata.org",
+   "reason": "IT/trentino-alto-adige/bolzano: point rule, nearest label the store place IT/trentino-alto-adige/bolzano/collegiate-church-of-san-candido (Q549129, coordinates Wikidata P625 read 2026-10-26) at 1.7 km; nearest other area 9.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/place/lago-di-carezza#parking",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "place/lago-di-carezza",
+   "reason": "IT/trentino-alto-adige/bolzano: derived from the parent place/lago-di-carezza (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/place/lago-di-dobbiaco#parking",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "place/lago-di-dobbiaco",
+   "reason": "IT/trentino-alto-adige/bolzano: derived from the parent place/lago-di-dobbiaco (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/place/lago-di-dobbiaco#walk",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "place/lago-di-dobbiaco",
+   "reason": "IT/trentino-alto-adige/bolzano: derived from the parent place/lago-di-dobbiaco (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/place/seceda-ridge#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "place/seceda-ridge",
+   "reason": "IT/trentino-alto-adige/bolzano: derived from the parent place/seceda-ridge (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+   "reason": "FR/ARA/haute-savoie: derived from the parent trip/chamonix-mont-blanc-2028/lake:lac des gaillands (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#parking",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+   "reason": "FR/ARA/haute-savoie: derived from the parent trip/chamonix-mont-blanc-2028/lake:lac des gaillands (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#step-into-the-void",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+   "reason": "FR/ARA/haute-savoie: derived from the parent trip/chamonix-mont-blanc-2028/lift:aiguille du midi (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+   "reason": "FR/ARA/haute-savoie: derived from the parent trip/chamonix-mont-blanc-2028/lift:aiguille du midi (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+   "reason": "FR/ARA/haute-savoie: derived from the parent trip/chamonix-mont-blanc-2028/lift:aiguille du midi (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+   "reason": "FR/ARA/haute-savoie: derived from the parent trip/chamonix-mont-blanc-2028/lift:montenvers train (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+   "reason": "FR/ARA/haute-savoie: derived from the parent trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/iceland-ring-road-2027/activity:myvatn nature baths#place",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1026867",
+   "host": "www.wikidata.org",
+   "reason": "IS/northeast/thingeyjarsveit: point rule, nearest label the store place IS/northeast/thingeyjarsveit/reykjahlid (Q1026867, coordinates Wikidata P625 read 2026-10-26) at 3.2 km; nearest other area 30.4 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/iceland-ring-road-2027/sight:dettifoss",
+   "reason": "IS/northeast/vatnajokull-national-park: derived from the parent trip/iceland-ring-road-2027/sight:dettifoss (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+   "reason": "IS/south/skaftarhreppur: derived from the parent trip/iceland-ring-road-2027/trail:fjadrargljufur canyon (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+   "reason": "IS/east/hornafjordur: derived from the parent trip/iceland-ring-road-2027/trail:skaftafell svartifoss (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/iceland-ring-road-2027/viewpoint:jokulsarlon#parking",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+   "reason": "IS/east/hornafjordur: derived from the parent trip/iceland-ring-road-2027/viewpoint:jokulsarlon (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#parking",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/patagonia-2027/trail:chorrillo del salto",
+   "reason": "AR/Z/lago-argentino-department: derived from the parent trip/patagonia-2027/trail:chorrillo del salto (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/patagonia-2027/trail:chorrillo del salto",
+   "reason": "AR/Z/lago-argentino-department: derived from the parent trip/patagonia-2027/trail:chorrillo del salto (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/patagonia-2027/trail:laguna capri",
+   "reason": "AR/Z/lago-argentino-department: derived from the parent trip/patagonia-2027/trail:laguna capri (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/patagonia-2027/trail:laguna de los tres",
+   "reason": "AR/Z/lago-argentino-department: derived from the parent trip/patagonia-2027/trail:laguna de los tres (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/patagonia-2027/trail:laguna esmeralda",
+   "reason": "AR/V/ushuaia-department: derived from the parent trip/patagonia-2027/trail:laguna esmeralda (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/patagonia-2027/trail:mirador de las aguilas",
+   "reason": "AR/Z/lago-argentino-department: derived from the parent trip/patagonia-2027/trail:mirador de las aguilas (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/patagonia-2027/trail:mirador de los condores",
+   "reason": "AR/Z/lago-argentino-department: derived from the parent trip/patagonia-2027/trail:mirador de los condores (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/patagonia-2027/trail:mirador de los condores#trailhead",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/patagonia-2027/trail:mirador de los condores",
+   "reason": "AR/Z/lago-argentino-department: derived from the parent trip/patagonia-2027/trail:mirador de los condores (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/utah-five-parks/trail:lower calf creek falls",
+   "reason": "US/UT/garfield-county: derived from the parent trip/utah-five-parks/trail:lower calf creek falls (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "trip/utah-five-parks/trail:navajo loop and queens garden",
+   "reason": "US/UT/garfield-county (was US/UT/kane-county): derived from the parent trip/utah-five-parks/trail:navajo loop and queens garden (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "place/alpe-di-siusi",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q377319",
+   "host": "www.wikidata.org",
+   "reason": "IT/trentino-alto-adige/bolzano: point rule, nearest label the store place IT/trentino-alto-adige/bolzano/castelrotto (Q377319, coordinates Wikidata P625 read 2026-10-26) at 5.2 km; nearest other area 15.3 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "place/bullaccia-and-the-witches-benches",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q377319",
+   "host": "www.wikidata.org",
+   "reason": "IT/trentino-alto-adige/bolzano: point rule, nearest label the store place IT/trentino-alto-adige/bolzano/castelrotto (Q377319, coordinates Wikidata P625 read 2026-10-26) at 4.7 km; nearest other area 15.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "place/dobbiaco",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3969534",
+   "host": "www.wikidata.org",
+   "reason": "IT/trentino-alto-adige/bolzano: point rule, nearest label the store place IT/trentino-alto-adige/bolzano/dobbiaco-railway-station (Q3969534, coordinates Wikidata P625 read 2026-10-26) at 1.2 km; nearest other area 12.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "place/lago-di-carezza",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q433287",
+   "host": "www.wikidata.org",
+   "reason": "IT/trentino-alto-adige/bolzano: point rule, nearest label the store place IT/trentino-alto-adige/bolzano/nova-levante (Q433287, coordinates Wikidata P625 read 2026-10-26) at 3.6 km; nearest other area 20.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "place/lago-di-dobbiaco",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3969534",
+   "host": "www.wikidata.org",
+   "reason": "IT/trentino-alto-adige/bolzano: point rule, nearest label the store place IT/trentino-alto-adige/bolzano/dobbiaco-railway-station (Q3969534, coordinates Wikidata P625 read 2026-10-26) at 2.5 km; nearest other area 9.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "place/ortisei",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q384885",
+   "host": "www.wikidata.org",
+   "reason": "IT/trentino-alto-adige/bolzano: point rule, nearest label the store place IT/trentino-alto-adige/bolzano/val-gardena (Q384885, coordinates Wikidata P625 read 2026-10-26) at 3 km; nearest other area 13.3 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "place/san-candido",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q549129",
+   "host": "www.wikidata.org",
+   "reason": "IT/trentino-alto-adige/bolzano: point rule, nearest label the store place IT/trentino-alto-adige/bolzano/collegiate-church-of-san-candido (Q549129, coordinates Wikidata P625 read 2026-10-26) at 0.3 km; nearest other area 10.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "place/santa-cristina",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q384885",
+   "host": "www.wikidata.org",
+   "reason": "IT/trentino-alto-adige/bolzano: point rule, nearest label the store place IT/trentino-alto-adige/bolzano/val-gardena (Q384885, coordinates Wikidata P625 read 2026-10-26) at 0.8 km; nearest other area 9.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "place/seceda-ridge",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q384885",
+   "host": "www.wikidata.org",
+   "reason": "IT/trentino-alto-adige/bolzano: point rule, nearest label the store place IT/trentino-alto-adige/bolzano/val-gardena (Q384885, coordinates Wikidata P625 read 2026-10-26) at 4.5 km; nearest other area 12.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "place/selva-di-val-gardena",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q120751673",
+   "host": "www.wikidata.org",
+   "reason": "IT/trentino-alto-adige/bolzano: point rule, nearest label the store place IT/trentino-alto-adige/bolzano/dantercepies-gondola (Q120751673, coordinates Wikidata P625 read 2026-10-26) at 0.6 km; nearest other area 7.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "place/val-fiscalina",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q113433241",
+   "host": "www.wikidata.org",
+   "reason": "IT/trentino-alto-adige/bolzano: point rule, nearest label the store place IT/trentino-alto-adige/bolzano/rifugio-fondovalle (Q113433241, coordinates Wikidata P625 read 2026-10-26) at 1.7 km; nearest other area 4.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q995211",
+   "host": "www.wikidata.org",
+   "reason": "CA/ON/haliburton-county: point rule, nearest label the store place CA/ON/haliburton-county/oxtongue-lake (Q995211, coordinates Wikidata P625 read 2026-10-26) at 2.9 km; nearest other area 10.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/algonquin-muskoka-2026/town:huntsville",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q4796180",
+   "host": "www.wikidata.org",
+   "reason": "CA/ON/muskoka-district-municipality: point rule, nearest label the store place CA/ON/muskoka-district-municipality/arrowhead-provincial-park (Q4796180, coordinates Wikidata P625 read 2026-10-26) at 6.6 km; nearest other area 23.4 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q22542601",
+   "host": "www.wikidata.org",
+   "reason": "CA/ON/algonquin-provincial-park: point rule, nearest label the store place CA/ON/algonquin-provincial-park/lake-of-two-rivers (Q22542601, coordinates Wikidata P625 read 2026-10-26) at 7.9 km; nearest other area 34.3 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/algonquin-muskoka-2026/viewpoint:dwight beach sunset",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1268459",
+   "host": "www.wikidata.org",
+   "reason": "CA/ON/muskoka-district-municipality: point rule, nearest label the store place CA/ON/muskoka-district-municipality/dwight (Q1268459, coordinates Wikidata P625 read 2026-10-26) at 0.2 km; nearest other area 8.3 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q83236",
+   "host": "www.wikidata.org",
+   "reason": "FR/ARA/haute-savoie: point rule, nearest label the store place FR/ARA/haute-savoie/chamonix-mont-blanc (Q83236, coordinates Wikidata P625 read 2026-10-26) at 1.9 km; nearest other area 19.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q83236",
+   "host": "www.wikidata.org",
+   "reason": "FR/ARA/haute-savoie: point rule, nearest label the store place FR/ARA/haute-savoie/chamonix-mont-blanc (Q83236, coordinates Wikidata P625 read 2026-10-26) at 0.5 km; nearest other area 18.3 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q83236",
+   "host": "www.wikidata.org",
+   "reason": "FR/ARA/haute-savoie: point rule, nearest label the store place FR/ARA/haute-savoie/chamonix-mont-blanc (Q83236, coordinates Wikidata P625 read 2026-10-26) at 0.5 km; nearest other area 17.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q23892375",
+   "host": "www.wikidata.org",
+   "reason": "CH/VS/saint-maurice-district: point rule, nearest label the store place CH/VS/saint-maurice-district/lac-d-emosson (Q23892375, coordinates Wikidata P625 read 2026-10-26) at 1.8 km; nearest other area 3.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q83236",
+   "host": "www.wikidata.org",
+   "reason": "FR/ARA/haute-savoie: point rule, nearest label the store place FR/ARA/haute-savoie/chamonix-mont-blanc (Q83236, coordinates Wikidata P625 read 2026-10-26) at 4.2 km; nearest other area 17 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q83236",
+   "host": "www.wikidata.org",
+   "reason": "FR/ARA/haute-savoie: point rule, nearest label the store place FR/ARA/haute-savoie/chamonix-mont-blanc (Q83236, coordinates Wikidata P625 read 2026-10-26) at 0.4 km; nearest other area 17.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q83236",
+   "host": "www.wikidata.org",
+   "reason": "FR/ARA/haute-savoie: point rule, nearest label the store place FR/ARA/haute-savoie/chamonix-mont-blanc (Q83236, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 17.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q83236",
+   "host": "www.wikidata.org",
+   "reason": "FR/ARA/haute-savoie: point rule, nearest label the store place FR/ARA/haute-savoie/chamonix-mont-blanc (Q83236, coordinates Wikidata P625 read 2026-10-26) at 2.3 km; nearest other area 15.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3209029",
+   "host": "www.wikidata.org",
+   "reason": "FR/ARA/haute-savoie: point rule, nearest label the store place FR/ARA/haute-savoie/la-flegere (Q3209029, coordinates Wikidata P625 read 2026-10-26) at 0.1 km; nearest other area 13.5 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q83236",
+   "host": "www.wikidata.org",
+   "reason": "FR/ARA/haute-savoie: point rule, nearest label the store place FR/ARA/haute-savoie/chamonix-mont-blanc (Q83236, coordinates Wikidata P625 read 2026-10-26) at 2.6 km; nearest other area 20 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3209029",
+   "host": "www.wikidata.org",
+   "reason": "FR/ARA/haute-savoie: point rule, nearest label the store place FR/ARA/haute-savoie/la-flegere (Q3209029, coordinates Wikidata P625 read 2026-10-26) at 2.4 km; nearest other area 11.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q472822",
+   "host": "www.wikidata.org",
+   "reason": "IS/southern-peninsula/grindavikurbaer: point rule, nearest label the store place IS/southern-peninsula/grindavikurbaer/grindavik (Q472822, coordinates Wikidata P625 read 2026-10-26) at 4.1 km; nearest other area 39.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1568140",
+   "host": "www.wikidata.org",
+   "reason": "IS/northeast/vatnajokull-national-park: point rule, nearest label the store place IS/northeast/vatnajokull-national-park/hafragilsfoss (Q1568140, coordinates Wikidata P625 read 2026-10-26) at 1.3 km; nearest other area 31 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/sight:geysir",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1128186",
+   "host": "www.wikidata.org",
+   "reason": "IS/south/blaskogabyggd: point rule, nearest label the store place IS/south/blaskogabyggd/strokkur (Q1128186, coordinates Wikidata P625 read 2026-10-26) at 0.1 km; nearest other area 78.5 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q419691",
+   "host": "www.wikidata.org",
+   "reason": "IS/northwest/skagafjordur: point rule, nearest label the store place IS/northwest/skagafjordur/varmahlid (Q419691, coordinates Wikidata P625 read 2026-10-26) at 7 km; nearest other area 65.5 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/sight:godafoss",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q134328943",
+   "host": "www.wikidata.org",
+   "reason": "IS/northeast/thingeyjarsveit: point rule, nearest label the store place IS/northeast/thingeyjarsveit/fossholl (Q134328943, coordinates Wikidata P625 read 2026-10-26) at 0.6 km; nearest other area 24.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/sight:gullfoss",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1128186",
+   "host": "www.wikidata.org",
+   "reason": "IS/south/blaskogabyggd: point rule, nearest label the store place IS/south/blaskogabyggd/strokkur (Q1128186, coordinates Wikidata P625 read 2026-10-26) at 8.8 km; nearest other area 78.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/sight:namaskard",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1026867",
+   "host": "www.wikidata.org",
+   "reason": "IS/northeast/thingeyjarsveit: point rule, nearest label the store place IS/northeast/thingeyjarsveit/reykjahlid (Q1026867, coordinates Wikidata P625 read 2026-10-26) at 3.8 km; nearest other area 28.4 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q5569999",
+   "host": "www.wikidata.org",
+   "reason": "IS/south/rangarthing-eystra: point rule, nearest label the store place IS/south/rangarthing-eystra/gljufrabui (Q5569999, coordinates Wikidata P625 read 2026-10-26) at 0.7 km; nearest other area 53.4 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q985810",
+   "host": "www.wikidata.org",
+   "reason": "IS/south/rangarthing-eystra: point rule, nearest label the store place IS/south/rangarthing-eystra/skogar (Q985810, coordinates Wikidata P625 read 2026-10-26) at 0.7 km; nearest other area 27.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q29042",
+   "host": "www.wikidata.org",
+   "reason": "IS/northeast/akureyrarbaer: point rule, nearest label the store place IS/northeast/akureyrarbaer/akureyri (Q29042, coordinates Wikidata P625 read 2026-10-26) at 1 km; nearest other area 25.4 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/town:hofn harbour",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q817118",
+   "host": "www.wikidata.org",
+   "reason": "IS/east/hornafjordur: point rule, nearest label the store place IS/east/hornafjordur/hofn (Q817118, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 122.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/town:reykjavik old harbour",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1764",
+   "host": "www.wikidata.org",
+   "reason": "IS/capital-region/reykjavikurborg: point rule, nearest label the store place IS/capital-region/reykjavikurborg/reykjavik (Q1764, coordinates Wikidata P625 read 2026-10-26) at 0.6 km; nearest other area 41.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/town:seydisfjordur",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q2957354",
+   "host": "www.wikidata.org",
+   "reason": "IS/east/mulathing: point rule, nearest label the store place IS/east/mulathing/gufufoss (Q2957354, coordinates Wikidata P625 read 2026-10-26) at 3.6 km; nearest other area 126.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1315012",
+   "host": "www.wikidata.org",
+   "reason": "IS/west/snaefellsbaer: point rule, nearest label the store place IS/west/snaefellsbaer/snaefellsjokull (Q1315012, coordinates Wikidata P625 read 2026-10-26) at 8.6 km; nearest other area 24.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1315012",
+   "host": "www.wikidata.org",
+   "reason": "IS/west/snaefellsbaer: point rule, nearest label the store place IS/west/snaefellsbaer/snaefellsjokull (Q1315012, coordinates Wikidata P625 read 2026-10-26) at 8.5 km; nearest other area 35.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1010183",
+   "host": "www.wikidata.org",
+   "reason": "IS/south/skaftarhreppur: point rule, nearest label the store place IS/south/skaftarhreppur/kirkjubaejarklaustur (Q1010183, coordinates Wikidata P625 read 2026-10-26) at 5.2 km; nearest other area 56.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q3486103",
+   "host": "www.wikidata.org",
+   "reason": "IS/east/hornafjordur: point rule, nearest label the store place IS/east/hornafjordur/skaftafell (Q3486103, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 60.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q307675",
+   "host": "www.wikidata.org",
+   "reason": "IS/south/blaskogabyggd: point rule, nearest label the store place IS/south/blaskogabyggd/oxararfoss (Q307675, coordinates Wikidata P625 read 2026-10-26) at 0.6 km; nearest other area 41.3 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q16429849",
+   "host": "www.wikidata.org",
+   "reason": "IS/east/hornafjordur: point rule, nearest label the store place IS/east/hornafjordur/jokulsa-a-breidamerkursandi (Q16429849, coordinates Wikidata P625 read 2026-10-26) at 1.6 km; nearest other area 98.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q16429849",
+   "host": "www.wikidata.org",
+   "reason": "IS/east/hornafjordur: point rule, nearest label the store place IS/east/hornafjordur/jokulsa-a-breidamerkursandi (Q16429849, coordinates Wikidata P625 read 2026-10-26) at 3 km; nearest other area 96.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q27014314",
+   "host": "www.wikidata.org",
+   "reason": "IS/west/grundarfjardarbaer: point rule, nearest label the store place IS/west/grundarfjardarbaer/grundarfjordur (Q27014314, coordinates Wikidata P625 read 2026-10-26) at 3.4 km; nearest other area 27 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q685369",
+   "host": "www.wikidata.org",
+   "reason": "IS/south/myrdalshreppur: point rule, nearest label the store place IS/south/myrdalshreppur/vik-i-myrdal (Q685369, coordinates Wikidata P625 read 2026-10-26) at 3.1 km; nearest other area 25.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1315012",
+   "host": "www.wikidata.org",
+   "reason": "IS/west/snaefellsbaer: point rule, nearest label the store place IS/west/snaefellsbaer/snaefellsjokull (Q1315012, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 27.5 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/sight:perito moreno walkways",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q367943",
+   "host": "www.wikidata.org",
+   "reason": "AR/Z/lago-argentino-department: point rule, nearest label the store place AR/Z/lago-argentino-department/perito-moreno-glacier (Q367943, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 577.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/town:cafe and bookshops",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1486",
+   "host": "www.wikidata.org",
+   "reason": "AR/C/buenos-aires: point rule, nearest label the store place AR/C/buenos-aires/buenos-aires (Q1486, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 2022.5 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/town:harbour walk",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q44254",
+   "host": "www.wikidata.org",
+   "reason": "AR/V/ushuaia-department: point rule, nearest label the store place AR/V/ushuaia-department/ushuaia (Q44254, coordinates Wikidata P625 read 2026-10-26) at 0.5 km; nearest other area 579.5 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1486",
+   "host": "www.wikidata.org",
+   "reason": "AR/C/buenos-aires: point rule, nearest label the store place AR/C/buenos-aires/buenos-aires (Q1486, coordinates Wikidata P625 read 2026-10-26) at 1.3 km; nearest other area 2023 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/town:san telmo market",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1486",
+   "host": "www.wikidata.org",
+   "reason": "AR/C/buenos-aires: point rule, nearest label the store place AR/C/buenos-aires/buenos-aires (Q1486, coordinates Wikidata P625 read 2026-10-26) at 2.5 km; nearest other area 2021.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/town:village and cafes",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1323978",
+   "host": "www.wikidata.org",
+   "reason": "AR/Z/lago-argentino-department: point rule, nearest label the store place AR/Z/lago-argentino-department/el-chalten (Q1323978, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 683.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1323978",
+   "host": "www.wikidata.org",
+   "reason": "AR/Z/lago-argentino-department: point rule, nearest label the store place AR/Z/lago-argentino-department/el-chalten (Q1323978, coordinates Wikidata P625 read 2026-10-26) at 3.7 km; nearest other area 686.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/trail:coastal path",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q115044",
+   "host": "www.wikidata.org",
+   "reason": "AR/V/ushuaia-department: point rule, nearest label the store place AR/V/ushuaia-department/southern-fuegian-railway (Q115044, coordinates Wikidata P625 read 2026-10-26) at 3.9 km; nearest other area 576.3 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/trail:laguna capri",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1323978",
+   "host": "www.wikidata.org",
+   "reason": "AR/Z/lago-argentino-department: point rule, nearest label the store place AR/Z/lago-argentino-department/el-chalten (Q1323978, coordinates Wikidata P625 read 2026-10-26) at 1.4 km; nearest other area 684.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/trail:laguna de los tres",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1323978",
+   "host": "www.wikidata.org",
+   "reason": "AR/Z/lago-argentino-department: point rule, nearest label the store place AR/Z/lago-argentino-department/el-chalten (Q1323978, coordinates Wikidata P625 read 2026-10-26) at 1.4 km; nearest other area 684.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q521811",
+   "host": "www.wikidata.org",
+   "reason": "AR/V/ushuaia-department: point rule, nearest label the store place AR/V/ushuaia-department/cerro-castor (Q521811, coordinates Wikidata P625 read 2026-10-26) at 6.8 km; nearest other area 578.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "part/trip/patagonia-2027/trail:mirador de los condores#trailhead",
+   "reason": "AR/Z/lago-argentino-department: derived from the parent part/trip/patagonia-2027/trail:mirador de los condores#trailhead (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/trail:mirador de los condores",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1323978",
+   "host": "www.wikidata.org",
+   "reason": "AR/Z/lago-argentino-department: point rule, nearest label the store place AR/Z/lago-argentino-department/el-chalten (Q1323978, coordinates Wikidata P625 read 2026-10-26) at 0.7 km; nearest other area 682.5 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1323978",
+   "host": "www.wikidata.org",
+   "reason": "AR/Z/lago-argentino-department: point rule, nearest label the store place AR/Z/lago-argentino-department/el-chalten (Q1323978, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 683.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/patagonia-2027/viewpoint:lapataia bay",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q115044",
+   "host": "www.wikidata.org",
+   "reason": "AR/V/ushuaia-department: point rule, nearest label the store place AR/V/ushuaia-department/southern-fuegian-railway (Q115044, coordinates Wikidata P625 read 2026-10-26) at 8.1 km; nearest other area 575.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/utah-five-parks/sight:fruita orchards",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q63993567",
+   "host": "www.wikidata.org",
+   "reason": "US/UT/wayne-county: point rule, nearest label the store place US/UT/wayne-county/capitol-reef-national-park-visitor-center (Q63993567, coordinates Wikidata P625 read 2026-10-26) at 1.6 km; nearest other area 13.5 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/utah-five-parks/sight:temple square",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q23337",
+   "host": "www.wikidata.org",
+   "reason": "US/UT/salt-lake-county: point rule, nearest label the store place US/UT/salt-lake-county/salt-lake-city (Q23337, coordinates Wikidata P625 read 2026-10-26) at 2.4 km; nearest other area 51.4 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:hickman bridge",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q63993567",
+   "host": "www.wikidata.org",
+   "reason": "US/UT/wayne-county: point rule, nearest label the store place US/UT/wayne-county/capitol-reef-national-park-visitor-center (Q63993567, coordinates Wikidata P625 read 2026-10-26) at 2.4 km; nearest other area 12.2 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q49873109",
+   "host": "www.wikidata.org",
+   "reason": "US/UT/garfield-county: point rule, nearest label the store place US/UT/garfield-county/calf-creek (Q49873109, coordinates Wikidata P625 read 2026-10-26) at 2.2 km; nearest other area 56.7 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "part/place/bryce-canyon-national-park#visitor-center-lot",
+   "reason": "US/UT/garfield-county (was US/UT/kane-county): point rule, nearest label the authored record part/place/bryce-canyon-national-park#visitor-center-lot at 2 km; nearest other area 78.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q219562",
+   "host": "www.wikidata.org",
+   "reason": "US/UT/garfield-county (was US/UT/kane-county): point rule, nearest label the store place US/UT/kane-county/bryce-canyon-national-park (area_id now US/UT/garfield-county) (Q219562, coordinates Wikidata P625 read 2026-10-26) at 2.3 km; nearest other area 79.5 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/utah-five-parks/viewpoint:sunset point",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q219562",
+   "host": "www.wikidata.org",
+   "reason": "US/UT/garfield-county (was US/UT/kane-county): point rule, nearest label the store place US/UT/kane-county/bryce-canyon-national-park (area_id now US/UT/garfield-county) (Q219562, coordinates Wikidata P625 read 2026-10-26) at 1.9 km; nearest other area 78.1 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/vermont-fall-2026/sight:covered bridge loop",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q1946270",
+   "host": "www.wikidata.org",
+   "reason": "US/VT/franklin-county: point rule, nearest label the store place US/VT/franklin-county/montgomery (Q1946270, coordinates Wikidata P625 read 2026-10-26) at 2.4 km; nearest other area 36.4 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/vermont-fall-2026/town:hyde park village",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q285464",
+   "host": "www.wikidata.org",
+   "reason": "US/VT/lamoille-county: point rule, nearest label the store place US/VT/lamoille-county/morrisville (Q285464, coordinates Wikidata P625 read 2026-10-26) at 3.9 km; nearest other area 31.6 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/vermont-fall-2026/town:peacham village",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q5395781",
+   "host": "www.wikidata.org",
+   "reason": "US/VT/caledonia-county: point rule, nearest label the store place US/VT/caledonia-county/danville (Q5395781, coordinates Wikidata P625 read 2026-10-26) at 9.3 km; nearest other area 42.8 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/vermont-fall-2026/viewpoint:burke mountain overlook",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q2893875",
+   "host": "www.wikidata.org",
+   "reason": "US/VT/caledonia-county: point rule, nearest label the store place US/VT/caledonia-county/east-burke (Q2893875, coordinates Wikidata P625 read 2026-10-26) at 4.3 km; nearest other area 55.9 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "trip/vermont-fall-2026/viewpoint:smugglers notch",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q7546619",
+   "host": "www.wikidata.org",
+   "reason": "US/VT/lamoille-county: point rule, nearest label the store place US/VT/lamoille-county/smugglers-notch-state-park (Q7546619, coordinates Wikidata P625 read 2026-10-26) at 0 km; nearest other area 39 km (capture.ts derive-area, AREA-2)."
+  },
+  {
+   "ref": "place/bryce-canyon-national-park",
+   "field": "area_id",
+   "outcome": "conflict",
+   "src": [
+    "https://geo.fcc.gov/api/census/block/find",
+    "https://www.wikidata.org/wiki/Q219562"
+   ],
+   "host": "geo.fcc.gov",
+   "reason": "Sources disagree on the county. US Census block lookup (FCC API, read 2026-10-26) puts the store's Bryce point and all four amphitheatre record points in Garfield County (FIPS 49017); Wikidata Q219562 P131 lists Kane County only (the park spans both counties). Authored value changed from US/UT/kane-county to US/UT/garfield-county by owner decision 2026-10-26 (the amphitheatre, visitor centre and every Bryce record point are in Garfield); both sources kept here."
+  },
+  {
+   "ref": "part/place/bryce-canyon-national-park#visitor-center-lot",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://geo.fcc.gov/api/census/block/find",
+   "host": "geo.fcc.gov",
+   "reason": "Authored US/UT/garfield-county (was US/UT/kane-county), owner decision 2026-10-26: the US Census block lookup puts the lot's point in Garfield County (FIPS 49017)."
+  },
+  {
+   "ref": "place/rifugio-scotoni",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.altabadia.org/it/info/ristoranti/dettaglio/gastronomy/rifugio-scotoni",
+   "reason": "Authored IT/trentino-alto-adige/bolzano, owner decision 2026-10-26: the hut is on the Alta Badia side (listed by the Alta Badia tourism board, South Tyrol). The point rule gave IT/veneto/belluno from the Lagazuoi tunnels label 3 km away and can never reach Bolzano because the record's near_town (Livinallongo del Col di Lana) is in Veneto."
+  },
+  {
+   "ref": "place/cortina-dampezzo",
+   "field": "area_id",
+   "outcome": "filled",
+   "src": "https://www.wikidata.org/wiki/Q41158",
+   "host": "www.wikidata.org",
+   "reason": "IT/veneto/belluno, now authored instead of derived (value unchanged): Wikidata Q41158 P131 = Q16126 Province of Belluno (read 2026-10-26). Authoring Scotoni added a Bolzano label 12 km away, inside the 2x margin of the Lago di Sorapis label (5.5 km), so the point rule would have dropped Cortina's area as ambiguous."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. No registry area within 10 km. The default anchor (Castle Provincial Park) has the record's own name, so a store label would take over the record's public page; needs an anchor with a different name or an authored area."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: ambiguous. Between two areas without a clear 2x margin; no town within 50 km."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. No registry area within 10 km of the drive's start point; a route through Banff and Jasper, so a single area may be wrong anyway."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/lake-magog",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. Border case, left unresolved by owner decision 2026-10-26: Mount Assiniboine (BC) record whose near_town is Canmore (AB)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. Border case, left unresolved by owner decision 2026-10-26: Kootenay (BC) record whose near_town is Banff (AB), so the region test fails, correctly."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/paint-pots",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. Border case, left unresolved by owner decision 2026-10-26: Kootenay (BC) record whose near_town is Banff (AB); the region test fails, correctly."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. No registry area within 10 km (the Jasper labels added in AREA-2 are farther)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. No registry area within 10 km. The default anchor (Top of the World Provincial Park) has the record's own name (slug takeover); needs an authored area."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. Border case, left unresolved by owner decision 2026-10-26: Kootenay (BC) record whose near_town is Banff (AB); the region test fails, correctly."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. Border case, left unresolved by owner decision 2026-10-26: Kootenay (BC) record whose near_town is Banff (AB); the region test fails, correctly."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. No registry area within 10 km and no town within 50 km (Banff/Jasper boundary area)."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: town_outside_area. Town test: the nearest town (Turner Valley) is not one of the area's label towns and its own point does not fall to Kananaskis Country."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: ambiguous. Between two areas without a clear 2x margin."
+  },
+  {
+   "ref": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. Border case, left unresolved by owner decision 2026-10-26: Mount Assiniboine (BC) record whose near_town is Canmore (AB)."
+  },
+  {
+   "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. No registry area within 10 km (Golden label is farther)."
+  },
+  {
+   "ref": "part/place/rafting-on-the-rienza#place",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. No registry area within 10 km."
+  },
+  {
+   "ref": "part/trip/patagonia-2027/lake:beagle channel boat#place",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. No registry area within 10 km and no town."
+  },
+  {
+   "ref": "place/drava-cycle-path-to-lienz",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. Point is in Carinthia, Austria; AT is not in the registry and out of scope for AREA-2."
+  },
+  {
+   "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: ambiguous. Between two areas without a clear 2x margin."
+  },
+  {
+   "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. No registry area within 10 km."
+  },
+  {
+   "ref": "trip/chamonix-mont-blanc-2028/lake:lac du chatelard",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_point. No point (D1b decision 1)."
+  },
+  {
+   "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: region_mismatch. Border case, left unresolved by owner decision 2026-10-26: French place whose near_town (Martigny-Combe) is in Valais, so the region test fails, correctly."
+  },
+  {
+   "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: region_mismatch. Border case, left unresolved by owner decision 2026-10-26: French place whose near_town is in Valais; the region test fails, correctly."
+  },
+  {
+   "ref": "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. No registry area within 10 km; the default anchor (Hraunfossar) has the record's own subject name (slug takeover)."
+  },
+  {
+   "ref": "trip/patagonia-2027/sight:penguin colony stop",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. Border case, left unresolved by owner decision 2026-10-26: the colony is on Isla Martillo (Argentina) but the near_town is Puerto Williams (Chile); adding a CL region would be wrong."
+  },
+  {
+   "ref": "trip/patagonia-2027/viewpoint:laguna nimez birds",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. No registry area within 10 km. Finding for the owner: the record point (-50.3167, -72.6333) is about 27 km from El Calafate, while Laguna Nimez is at the edge of the town; the point looks wrong but is pinned by the migration ledger (owner decision 2026-10-26: keep pinned)."
+  },
+  {
+   "ref": "trip/utah-five-parks/sight:goblin valley",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: no_area_within_radius. No registry area within 10 km and no town within 50 km; the default anchor (Goblin Valley State Park) has the record's own name (slug takeover)."
+  },
+  {
+   "ref": "trip/utah-five-parks/viewpoint:dead horse point",
+   "field": "area_id",
+   "outcome": "gap",
+   "reason": "derive-area: ambiguous. Between two areas without a clear margin; the default anchor (Dead Horse Point State Park) has the record's own name (slug takeover)."
+  }
+ ]
+}

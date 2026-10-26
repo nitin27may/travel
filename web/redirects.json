@@ -1,7 +1,192 @@
 [
   {
+    "from": "/places/AR/C/buenos-aires/buenos-aires/",
+    "to": "/places/buenos-aires/",
+    "status": 301
+  },
+  {
+    "from": "/places/AR/V/ushuaia-department/cerro-castor/",
+    "to": "/places/cerro-castor/",
+    "status": 301
+  },
+  {
+    "from": "/places/AR/V/ushuaia-department/southern-fuegian-railway/",
+    "to": "/places/southern-fuegian-railway/",
+    "status": 301
+  },
+  {
+    "from": "/places/AR/V/ushuaia-department/ushuaia/",
+    "to": "/places/ushuaia/",
+    "status": 301
+  },
+  {
+    "from": "/places/AR/Z/lago-argentino-department/el-chalten/",
+    "to": "/places/el-chalten/",
+    "status": 301
+  },
+  {
+    "from": "/places/AR/Z/lago-argentino-department/perito-moreno-glacier/",
+    "to": "/places/perito-moreno-glacier/",
+    "status": 301
+  },
+  {
     "from": "/places/CA/AB/banff-national-park/lake-louise/",
     "to": "/places/lake-louise/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/beauvais-lake-provincial-park/beauvais-lake/",
+    "to": "/places/beauvais-lake/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/jasper-national-park/ashlar-ridge/",
+    "to": "/places/ashlar-ridge/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/jasper-national-park/athabasca-glacier/",
+    "to": "/places/athabasca-glacier/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/jasper-national-park/curly-phillips-boathouse/",
+    "to": "/places/curly-phillips-boathouse/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/jasper-national-park/jasper/",
+    "to": "/places/jasper/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/jasper-national-park/maligne-lake/",
+    "to": "/places/maligne-lake/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/jasper-national-park/mount-edith-cavell/",
+    "to": "/places/mount-edith-cavell/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/jasper-national-park/mount-kerkeslin/",
+    "to": "/places/mount-kerkeslin/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/kananaskis-country/barrier-lake/",
+    "to": "/places/barrier-lake/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/kananaskis-country/burstall-lakes/",
+    "to": "/places/burstall-lakes/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/kananaskis-country/highwood-pass/",
+    "to": "/places/highwood-pass/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/kananaskis-country/kananaskis-village/",
+    "to": "/places/kananaskis-village/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/kananaskis-country/mount-lawrence-grassi/",
+    "to": "/places/mount-lawrence-grassi/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/kananaskis-country/paddy-s-flat/",
+    "to": "/places/paddys-flat/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/kananaskis-country/spray-valley-provincial-park/",
+    "to": "/places/spray-valley-provincial-park/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/kananaskis-country/upper-kananaskis-lake/",
+    "to": "/places/upper-kananaskis-lake/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/waterton-lakes-national-park/mount-blakiston/",
+    "to": "/places/mount-blakiston/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/AB/waterton-lakes-national-park/waterton-park/",
+    "to": "/places/waterton-park/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/BC/columbia-shuswap-regional-district/golden/",
+    "to": "/places/golden/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/BC/elk-lakes-provincial-park/upper-elk-lake/",
+    "to": "/places/upper-elk-lake/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/BC/kootenay-national-park/sinclair-canyon/",
+    "to": "/places/sinclair-canyon/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/BC/mount-robson-provincial-park/mount-robson-provincial-park/",
+    "to": "/places/mount-robson-provincial-park/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/BC/mount-robson-provincial-park/mount-robson/",
+    "to": "/places/mount-robson/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/BC/whiteswan-lake-provincial-park/whiteswan-lake/",
+    "to": "/places/whiteswan-lake/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/BC/yoho-national-park/chancellor-peak/",
+    "to": "/places/chancellor-peak/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/BC/yoho-national-park/field/",
+    "to": "/places/field/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/BC/yoho-national-park/yoho-valley/",
+    "to": "/places/yoho-valley/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/ON/algonquin-provincial-park/lake-of-two-rivers/",
+    "to": "/places/lake-of-two-rivers/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/ON/haliburton-county/oxtongue-lake/",
+    "to": "/places/oxtongue-lake/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/ON/muskoka-district-municipality/arrowhead-provincial-park/",
+    "to": "/places/arrowhead-provincial-park/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/ON/muskoka-district-municipality/dwight/",
+    "to": "/places/dwight/",
     "status": 301
   },
   {
@@ -115,8 +300,28 @@
     "status": 301
   },
   {
+    "from": "/places/CH/VS/saint-maurice-district/lac-d-emosson/",
+    "to": "/places/lac-demosson/",
+    "status": 301
+  },
+  {
     "from": "/places/CN/GD/qingyuan/qq-canyon-racer/",
     "to": "/places/qq-canyon-racer-mountain-coaster-gulong-gorge/",
+    "status": 301
+  },
+  {
+    "from": "/places/FR/ARA/haute-savoie/chamonix-mont-blanc/",
+    "to": "/places/chamonix-mont-blanc/",
+    "status": 301
+  },
+  {
+    "from": "/places/FR/ARA/haute-savoie/la-flegere/",
+    "to": "/places/la-flegere/",
+    "status": 301
+  },
+  {
+    "from": "/places/FR/ARA/haute-savoie/vallorcine-railway-station/",
+    "to": "/places/vallorcine-railway-station/",
     "status": 301
   },
   {
@@ -132,6 +337,101 @@
   {
     "from": "/places/IN/sikkim/mangan-district/gurudongmar-lake/",
     "to": "/places/gurudongmar-lake/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/capital-region/reykjavikurborg/reykjavik/",
+    "to": "/places/reykjavik/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/east/hornafjordur/hofn/",
+    "to": "/places/hofn/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/east/hornafjordur/jokulsa-a-breidamerkursandi/",
+    "to": "/places/jokulsa-a-brei-amerkursandi/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/east/hornafjordur/skaftafell/",
+    "to": "/places/skaftafell/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/east/mulathing/gufufoss/",
+    "to": "/places/gufufoss/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/northeast/akureyrarbaer/akureyri/",
+    "to": "/places/akureyri/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/northeast/thingeyjarsveit/fossholl/",
+    "to": "/places/fossholl/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/northeast/thingeyjarsveit/reykjahlid/",
+    "to": "/places/reykjahli/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/northeast/vatnajokull-national-park/hafragilsfoss/",
+    "to": "/places/hafragilsfoss/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/northwest/skagafjordur/varmahlid/",
+    "to": "/places/varmahli/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/south/blaskogabyggd/oxararfoss/",
+    "to": "/places/oxararfoss/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/south/blaskogabyggd/strokkur/",
+    "to": "/places/strokkur/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/south/myrdalshreppur/vik-i-myrdal/",
+    "to": "/places/vik-i-myrdal/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/south/rangarthing-eystra/gljufrabui/",
+    "to": "/places/gljufrabui/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/south/rangarthing-eystra/skogar/",
+    "to": "/places/skogar/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/south/skaftarhreppur/kirkjubaejarklaustur/",
+    "to": "/places/kirkjub-jarklaustur/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/southern-peninsula/grindavikurbaer/grindavik/",
+    "to": "/places/grindavik/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/west/grundarfjardarbaer/grundarfjordur/",
+    "to": "/places/grundarfjor-ur/",
+    "status": 301
+  },
+  {
+    "from": "/places/IS/west/snaefellsbaer/snaefellsjokull/",
+    "to": "/places/sn-fellsjokull/",
     "status": 301
   },
   {
@@ -157,6 +457,46 @@
   {
     "from": "/places/IT/lombardy/milano/milan/",
     "to": "/places/milan/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/trentino-alto-adige/bolzano/castelrotto/",
+    "to": "/places/castelrotto/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/trentino-alto-adige/bolzano/collegiate-church-of-san-candido/",
+    "to": "/places/collegiate-church-of-san-candido/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/trentino-alto-adige/bolzano/dantercepies-gondola/",
+    "to": "/places/dantercepies-gondola/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/trentino-alto-adige/bolzano/dobbiaco-railway-station/",
+    "to": "/places/dobbiaco-railway-station/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/trentino-alto-adige/bolzano/nova-levante/",
+    "to": "/places/nova-levante/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/trentino-alto-adige/bolzano/rifugio-fondovalle/",
+    "to": "/places/rifugio-fondovalle/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/trentino-alto-adige/bolzano/san-cassiano/",
+    "to": "/places/san-cassiano/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/trentino-alto-adige/bolzano/val-gardena/",
+    "to": "/places/val-gardena/",
     "status": 301
   },
   {
@@ -255,6 +595,11 @@
     "status": 301
   },
   {
+    "from": "/places/US/UT/garfield-county/calf-creek/",
+    "to": "/places/calf-creek/",
+    "status": 301
+  },
+  {
     "from": "/places/US/UT/grand-county/arches-national-park/",
     "to": "/places/arches-national-park/",
     "status": 301
@@ -290,6 +635,11 @@
     "status": 301
   },
   {
+    "from": "/places/US/UT/salt-lake-county/salt-lake-city/",
+    "to": "/places/salt-lake-city/",
+    "status": 301
+  },
+  {
     "from": "/places/US/UT/san-juan-county/canyonlands-national-park/",
     "to": "/places/canyonlands-national-park/",
     "status": 301
@@ -297,6 +647,36 @@
   {
     "from": "/places/US/UT/washington-county/zion-national-park/",
     "to": "/places/zion-national-park/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/UT/wayne-county/capitol-reef-national-park-visitor-center/",
+    "to": "/places/capitol-reef-national-park-visitor-center/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/VT/caledonia-county/danville/",
+    "to": "/places/danville/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/VT/caledonia-county/east-burke/",
+    "to": "/places/east-burke/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/VT/franklin-county/montgomery/",
+    "to": "/places/montgomery/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/VT/lamoille-county/morrisville/",
+    "to": "/places/morrisville/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/VT/lamoille-county/smugglers-notch-state-park/",
+    "to": "/places/smugglers-notch-state-park/",
     "status": 301
   },
   {

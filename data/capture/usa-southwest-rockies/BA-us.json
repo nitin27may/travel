@@ -249,7 +249,7 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Bryce Canyon National Park",
-      "area_id": "US/UT/kane-county",
+      "area_id": "US/UT/garfield-county",
       "osm_ref": "relation/4716641",
       "price": {
         "v": [
@@ -330,7 +330,7 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Bryce Canyon visitor center car park",
-      "area_id": "US/UT/kane-county",
+      "area_id": "US/UT/garfield-county",
       "parks_for": [
         "place/bryce-canyon-national-park"
       ],
