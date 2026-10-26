@@ -71,6 +71,29 @@ describe("privacy detector", () => {
     expect(privacyHits({ query: typed }, 20, { echo: [typed] })).toEqual([]);
     expect(privacyHits({ note: typed }, 20, { echo: [typed] }).length).toBe(1);
   });
+  it("reads a resolve row's `asked` as an echo of the request (FAV-1X) and stays strict for every other key and value", () => {
+    const asked = `place:${WORD}`;
+    const row = { asked, state: "unknown", space: "place", slug: null, ref: null, name: null, kind: null, cc: null };
+    // the visitor's own value under `asked` is not read as text, alone or in a list of rows
+    expect(privacyHits({ items: [row] }, 20, { echo: [asked] })).toEqual([]);
+    expect(privacyHits({ items: [row, { ...row, asked: `trip:${NAME}` }] }, 20, { echo: [asked, `trip:${NAME}`] })).toEqual([]);
+    // without the request's echo, or when the request did not send it, `asked` is read like any string
+    expect(privacyHits({ items: [row] }).map((h) => h.why)).toEqual(["the home town"]);
+    expect(privacyHits({ items: [row] }, 20, { echo: ["place:lake"] }).map((h) => h.where)).toEqual(["$.items[0].asked"]);
+    // the same words in ANY other key still fail, even when the request sent them
+    for (const k of ["slug", "ref", "name", "kind", "cc", "space", "state", "summary", "note", "title"]) {
+      expect(privacyHits({ items: [{ ...row, [k]: `${NAME} town` }] }, 20, { echo: [asked, `${NAME} town`] }).map((h) => h.where), k).toEqual([`$.items[0].${k}`]);
+    }
+    // a nested object under `asked` is not an echo: its strings sit under their own keys
+    expect(privacyHits({ asked: { note: NAME } }, 20, { echo: [NAME] }).map((h) => h.where)).toEqual(["$.asked.note"]);
+    // the private keys stay private next to an echoed `asked`
+    for (const k of ["favouredAt", "favourites", "fromRef", "gw", "copiedAt", "travellers"]) {
+      expect(privacyHits({ items: [{ ...row, [k]: "x" }] }, 20, { echo: [asked] }).map((h) => h.why), k).toEqual(["a private key"]);
+    }
+    // an origin key or a planning note the request did not send is still found under `asked`
+    expect(privacyHits({ asked: "loc:CA/x" }, 20, { echo: ["place:lake"] }).map((h) => h.why)).toEqual(["a private origin key (wishlist or prototype id)"]);
+    expect(privacyHits({ asked: "hotel idea" }, 20, { echo: ["place:lake"] }).map((h) => h.why)).toEqual(["a household planning note"]);
+  });
   it("decodes an encoded line under `geometry` and finds a vertex near home, and never reads its characters as words (A39)", () => {
     const p = northOfHome(0.5);
     expect(privacyHits({ geometry: encodePolyline5([[-116.1, 51.3], [p.lon, p.lat]]) }).map((h) => h.why)).toEqual(["a coordinate near the home town in an encoded line"]);

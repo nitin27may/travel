@@ -104,13 +104,21 @@ function resolveHandle(ix: ResolveIndex, light: LightLookup, asked: string, fs: 
   return unknownRow(asked, fs);
 }
 
-/** One public ref: a key, a former key (alias: moved), a merged key, a withdrawn key, or unknown. */
+/**
+ * One public ref: a key, a former key (alias: moved), a merged key, a withdrawn key, or unknown. An unknown ref names NO space (the
+ * answer schema: "null for an unknown ref"), whatever the registry filed it under: a pinned key whose page is not public (a private
+ * trip) must answer exactly like a ref that never existed, or the space would tell a visitor the private id exists (FAV-1X). A handle
+ * keeps its space on `unknown`: the space is the asker's own word, not the registry's.
+ */
 function resolvePublicRef(ix: ResolveIndex, light: LightLookup, asked: string): ResolveRow {
   const former = ix.reg.formerKeys[asked];
   const key = former ?? asked;
   for (const space of ["places", "trips"] as const) {
     const s = ix.reg[space];
-    if (key in s.slugs || key in s.withdrawn) return fromKey(ix, light, asked, space, key, former !== undefined ? "moved" : "current");
+    if (key in s.slugs || key in s.withdrawn) {
+      const r = fromKey(ix, light, asked, space, key, former !== undefined ? "moved" : "current");
+      return r.state === "unknown" ? unknownRow(asked, null) : r;
+    }
   }
   return unknownRow(asked, null);
 }

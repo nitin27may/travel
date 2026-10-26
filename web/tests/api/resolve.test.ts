@@ -92,24 +92,45 @@ describe('DataClient.resolveRefs', () => {
   });
 });
 
-describe('respond() and the resolve echo (store.ts A40 applied to `asked`)', () => {
+describe('respond() and the resolve echo (store.ts A40 applied to `asked`; the detector\'s echo key, FAV-1X)', () => {
   const REV = 'a'.repeat(64);
   const row = (asked: string, extra: Record<string, unknown> = {}) => ({ asked, state: 'unknown', space: 'place', slug: null, ref: null, name: null, kind: null, cc: null, ...extra });
   const store = (items: unknown[]) => ({ revision: async () => REV, resolveRefs: async () => ({ ok: true, data: { items }, revision: REV }) }) as never;
   const req = (...refs: string[]) => new Request(`http://api.test/api/v1/resolve/?${refs.map((r) => `ref=${encodeURIComponent(r)}`).join('&')}`);
 
-  it('answers 200 when `asked` is exactly the request value at that index, even the home town as a slug', async () => {
+  it('answers 200 when `asked` is the request value, even the home town as a slug', async () => {
     const res = await respond('resolveRefs', req(`place:${homeWord}`), {}, store([row(`place:${homeWord}`)]));
     expect(res.status).toBe(200);
     expect(res.headers.get('cache-control')).toMatch(/^public/);
     expect(res.headers.get('etag')).toBe(`"${REV}"`);
   });
 
-  it('fails closed when `asked` is not the request value, the rows do not line up, or another field holds the words', async () => {
+  it('fails closed when `asked` holds words the request did not send, or another field holds the words, or a private key is there', async () => {
     expect((await respond('resolveRefs', req('place:lake'), {}, store([row(`place:${homeWord}`)]))).status).toBe(500);
-    expect((await respond('resolveRefs', req('place:lake', 'place:pond'), {}, store([row('place:lake')]))).status).toBe(500);
     expect((await respond('resolveRefs', req(`place:${homeWord}`), {}, store([row(`place:${homeWord}`, { name: cap(homeWord) })]))).status).toBe(500);
+    expect((await respond('resolveRefs', req(`place:${homeWord}`), {}, store([row(`place:${homeWord}`, { slug: homeWord })]))).status).toBe(500);
     expect((await respond('resolveRefs', req('place:lake'), {}, store([row('place:lake', { favouredAt: '2026-10-26T00:00:00Z' })]))).status).toBe(500);
+  });
+
+  it('the home town as a slug or a ref is indistinguishable from any other unknown value on the real stores (status, headers, body)', async () => {
+    for (const s of [new StubStore(), new JsonStore(createJsonSource())]) {
+      for (const [home, other] of [
+        [`place:${homeWord}`, 'place:never-was-a-place-zz'],
+        [`trip:${homeWord}`, 'trip:never-was-a-trip-zz'],
+        [`place/${homeWord}`, 'place/never-was-a-place-zz'],
+        [`trip/${homeWord}`, 'trip/never-was-a-trip-zz'],
+      ]) {
+        const a = await respond('resolveRefs', req(home), {}, s);
+        const b = await respond('resolveRefs', req(other), {}, s);
+        expect([a.status, b.status], home).toEqual([200, 200]);
+        expect(a.headers.get('cache-control')).toBe(b.headers.get('cache-control'));
+        expect(a.headers.get('etag')).toBe(b.headers.get('etag'));
+        const items = async (r: Response) => ((await r.json()) as { items: Record<string, unknown>[] }).items;
+        const [ia, ib] = [await items(a), await items(b)];
+        expect(ia[0]!.asked).toBe(home);
+        expect(ia.map((i) => ({ ...i, asked: '' }))).toEqual(ib.map((i) => ({ ...i, asked: '' })));
+      }
+    }
   });
 
   it('refuses a key other than ref, and more than 48 values, before the store is asked', async () => {

@@ -14,9 +14,9 @@
 //        `key`, `value` or chip `set.city` is a gazetteer id, when the label holds that town's gazetteer name (review API3-R-2: a place
 //        row's `nearTown` makes nothing else exempt). The `city=<gazetteer id>` parameters of an `href` are not read as text.
 //   2. ECHOES of the request (`opts.echo`, the request's own strings; review API3-R-1). A string under `query`, `q`, `unused`,
-//      `notYet` or `terms` (or an array under one), or an `href` query parameter, whose folded text is contained in one of the
+//      `notYet`, `terms` or `asked` (or an array under one), or an `href` query parameter, whose folded text is contained in one of the
 //      request's strings is not read as text: it carries nothing the request did not bring, and refusing it would make the search box
-//      an oracle (one word answering 500). Every other field holding the same words is still read.
+//      (or the resolve endpoint, FAV-1X) an oracle (one word answering 500). Every other field holding the same words is still read.
 //   3. Nothing else. Encoded polylines under `geometry` are decoded (A34, A39), and a string that is JSON (the `json` export body) is
 //      also parsed and walked, so a line or a point inside it is read like any other (review API3-R-6).
 import { decodePolyline5, POLYLINE5_RE } from "../schema/api/legs.ts";
@@ -94,8 +94,11 @@ export const TOWN_REF_KEYS: readonly string[] = ["nearTown", "townId"];
 export const TOWN_NAME_KEYS: readonly string[] = ["name", "label"];
 /** The longest town name or chip label the exemption lifts. */
 export const TOWN_LABEL_MAX = 80;
-/** Keys that echo the request's own words (search `query`, parse `q`, `unused`, `notYet`, card search `terms`; A40). */
-export const ECHO_KEYS: readonly string[] = ["query", "q", "unused", "notYet", "terms"];
+/**
+ * Keys that echo the request's own words (search `query`, parse `q`, `unused`, `notYet`, card search `terms`; A40), and the resolve
+ * answer's `asked` (FAV-1X): each row repeats the value the visitor sent, so `?ref=place:<a town>` must answer like any unknown slug.
+ */
+export const ECHO_KEYS: readonly string[] = ["query", "q", "unused", "notYet", "terms", "asked"];
 
 export interface Hit {
   where: string;

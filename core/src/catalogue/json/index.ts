@@ -363,8 +363,8 @@ export class JsonStore implements CatalogueStore, PublicTownsHolder {
 
   /**
    * FAV-C's resolver over the pinned registry and the public rows, built on the first call and kept for the store's life (the store
-   * serves one revision). Validation, the 48 cap and the privacy rule are `resolveRefsResult`'s (core/src/favourites/resolve.ts), through
-   * `resolveRefsAnswer` (../resolve.ts), which also keeps an unknown ref from naming a space.
+   * serves one revision). Validation, the 48 cap and the privacy rules (a hidden page answers like one that never existed; an unknown ref
+   * names no space) are `resolveRefsResult`'s (core/src/favourites/resolve.ts), through `resolveRefsAnswer` (../resolve.ts).
    */
   async resolveRefs(q: S.ResolveQuery): Promise<Result<S.ResolveAnswer>> {
     const revision = await this.revision();

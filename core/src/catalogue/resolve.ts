@@ -6,7 +6,7 @@
 // among them (a trip made private, an unlisted trip, a place taken off the site) has no light row, so the resolver answers it `unknown`,
 // exactly like a slug that never existed.
 import { buildResolveIndex, resolveRefsResult, type LightLookup, type ResolveIndex } from "../favourites/resolve.ts";
-import { HANDLE_RE, type FavSpace, type LightRow, type ResolveAnswer } from "../schema/favourites.ts";
+import { type FavSpace, type LightRow, type ResolveAnswer } from "../schema/favourites.ts";
 import type { Result } from "./result.ts";
 import type { SlugRegistry } from "./slugs.ts";
 
@@ -66,15 +66,10 @@ export function resolveSetupOf(reg: SlugRegistry, places: readonly PlaceLight[],
 }
 
 /**
- * The store method's answer: `resolveRefsResult`, then one privacy rule it misses. Asked BY REF, a key the registry pins whose page is
- * not public comes back `unknown` with the space the registry filed it under, while a ref that never existed has `space: null`; the
- * difference would tell a visitor that a private trip id exists. Every `unknown` row asked by ref therefore names no space, as the
- * answer schema says ("null for an unknown ref"). A handle keeps its space: it is the asker's own word. Reported to FAV-C; when
- * core/src/favourites/resolve.ts answers so itself, this map changes nothing.
+ * The store method's answer: `resolveRefsResult` over this setup. Every privacy rule is the resolver's own (core/src/favourites/
+ * resolve.ts): a page pinned but not public answers `unknown` exactly like one that never existed, and asked by ref it names no space
+ * (FAV-1X moved that rule there from a map here).
  */
 export function resolveRefsAnswer(setup: ResolveSetup, input: unknown, revision: string): Result<ResolveAnswer> {
-  const r = resolveRefsResult(setup.ix, setup.light, input, revision);
-  if (!r.ok) return r;
-  const items = r.data.items.map((i) => (i.state === "unknown" && i.space !== null && !HANDLE_RE.test(i.asked) ? { ...i, space: null } : i));
-  return { ...r, data: { items } };
+  return resolveRefsResult(setup.ix, setup.light, input, revision);
 }
