@@ -26,7 +26,9 @@
 .places-map-foot { font: var(--t-meta); margin: 0; }
 
 /* ---------- place page ---------- */
-.pl-page { display: grid; gap: var(--s-6); padding-top: var(--s-2); }
+.pl-page { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-6); padding-top: var(--s-2); }
+/* a grid item defaults to min-width:auto, so the sideways section index (nav.ps-index) stretched the track to its text and the page scrolled */
+.pl-page > * { min-width: 0; }
 .pl-page > .pl-cover { margin-bottom: calc(-1 * var(--s-6)); }
 .pl-page > .pl-cover + .pl-cover-body { border-top: 0; border-radius: 0 0 var(--r-4) var(--r-4); }
 .pl-crumbs { margin-top: var(--s-2); }
@@ -83,7 +85,7 @@
 /* two columns: 1fr / 400px */
 .pl-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); align-items: start; }
 @media (min-width: 1000px) { .pl-cols { grid-template-columns: minmax(0, 1fr) 400px; } }
-.pl-main { display: grid; gap: var(--s-8); min-width: 0; }
+.pl-main { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); min-width: 0; }
 .pl-side { display: grid; gap: var(--s-4); min-width: 0; }
 @media (min-width: 1000px) { .pl-side { position: sticky; top: calc(var(--header-h) + var(--s-4)); } }
 @media (max-width: 999px) {
@@ -122,7 +124,7 @@
 .pl-huts strong { font: var(--t-title); }
 
 /* trailhead and parking */
-.pl-access-list { display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); }
+.pl-access-list { display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr)); }
 .pl-access { display: grid; gap: var(--s-2); align-content: start; padding: var(--s-4); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-4); }
 .pl-access header { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
 .pl-access h3 { font: var(--t-title); flex: 1 1 10rem; }
