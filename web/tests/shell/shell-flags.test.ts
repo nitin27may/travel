@@ -9,7 +9,8 @@ import { capabilities } from '@/lib/capabilities';
 import { reportLink, reportUrl } from '@/lib/config/product';
 import { reportProblem } from '@/lib/client/data';
 import { SiteHeader } from '@/components/shell/SiteHeader';
-import { BottomBar, mineCurrent } from '@/components/shell/BottomBar';
+import { BottomBar } from '@/components/shell/BottomBar';
+import { mineCurrent } from '@/lib/mine/current';
 import { ReportAnchor } from '@/components/shell/ReportLink';
 
 const FORM = 'https://example.test/feedback/issues/new?template=report.yml';
@@ -62,9 +63,13 @@ describe('phone header account link (NAV-F D2)', () => {
 
 describe('Mine current by path (D3)', () => {
   it('is "page" on /mine/ and "true" in the account flow, and nowhere else', () => {
-    expect(mineCurrent('/mine/')).toBe('page');
-    for (const p of ['/account/', '/sign-in/', '/sign-in/reset/', '/sign-up/']) expect(mineCurrent(p), p).toBe('true');
-    for (const p of ['/', '/trips/', '/places/mine-lake/', '/globe/', '/signin/']) expect(mineCurrent(p), p).toBeUndefined();
+    expect(mineCurrent('/mine/', true)).toBe('page');
+    for (const p of ['/account/', '/sign-in/', '/sign-in/reset/', '/sign-up/']) expect(mineCurrent(p, true), p).toBe('true');
+    for (const p of ['/', '/trips/', '/places/mine-lake/', '/globe/', '/signin/']) expect(mineCurrent(p, true), p).toBeUndefined();
+  });
+  it('does not light Mine on the account routes when sign-in is off (the public build placeholders)', () => {
+    for (const p of ['/account/', '/sign-in/', '/sign-up/']) expect(mineCurrent(p, false), p).toBeUndefined();
+    expect(mineCurrent('/mine/', false)).toBe('page');
   });
 });
 

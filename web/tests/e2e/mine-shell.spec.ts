@@ -63,9 +63,10 @@ test.describe('bottom bar: Mine', () => {
 
   const CURRENT: [string, string | null][] = [
     ['/mine/', 'page'],
-    ['/account/', 'true'],
-    ['/sign-in/', 'true'],
-    ['/sign-up/', 'true'],
+    // sign-in is off in this build, so the account routes are placeholders and Mine is not lit there (NAV-R1 P3); the sign-in build is tested below
+    ['/account/', null],
+    ['/sign-in/', null],
+    ['/sign-up/', null],
     ['/trips/', null],
     ['/places/', null],
   ];
@@ -117,6 +118,23 @@ test.describe('bottom bar: Mine', () => {
   test('no dot with nothing kept', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/`, { waitUntil: 'networkidle' });
     await expect(page.locator('.bottom-bar a[href="/mine/"]')).not.toHaveAttribute('data-dot', /.*/);
+  });
+});
+
+test.describe('forced colours (NAV-R1 M3)', () => {
+  test.use({ viewport: PHONE, forcedColors: 'active' });
+  test('the bar icons are painted: a mask needs a non-transparent background', async ({ page, site, browserName }) => {
+    test.skip(browserName !== 'chromium', 'forced-colors emulation is Chromium only');
+    await page.goto(`${site.url}/mine/`, { waitUntil: 'networkidle' });
+    expect(await page.evaluate(() => matchMedia('(forced-colors: active)').matches)).toBe(true);
+    const icons = page.locator('.bottom-bar .mi');
+    await expect(icons).toHaveCount(5);
+    for (const i of await icons.all()) {
+      const bg = await i.evaluate((el) => getComputedStyle(el).backgroundColor);
+      expect(bg).not.toBe('rgba(0, 0, 0, 0)');
+      expect(bg).not.toBe('transparent');
+      expect((await i.boundingBox())!.width).toBeGreaterThan(0);
+    }
   });
 });
 
@@ -199,7 +217,7 @@ test.describe('/mine/ shell', () => {
     await seed(page, { [COPIES_KEY]: bad });
     await page.goto(`${site.url}/mine/`, { waitUntil: 'networkidle' });
     await expect(page.getByRole('tab', { name: /^My trips$/ })).toBeVisible(); // no count rather than a wrong one
-    await expect(page.getByRole('tabpanel', { name: 'My trips' })).toContainText("We couldn't read your trips");
+    await expect(page.getByRole('tabpanel', { name: 'My trips' })).toContainText('This list was written by a newer version of the site');
     expect(await page.evaluate((k) => localStorage.getItem(k), COPIES_KEY)).toBe(bad);
   });
 
@@ -213,8 +231,42 @@ test.describe('/mine/ shell', () => {
       };
     });
     await page.goto(`${site.url}/mine/`, { waitUntil: 'networkidle' });
-    await expect(page.getByText('This browser is not keeping data')).toBeVisible();
-    await expect(page.getByText('Copies and favourites last until you close this tab.')).toBeVisible();
+    // one message, as a components 5.4 notice above the tabs; the panel keeps its own empty state, and only one role=status is on the page (S5, P4)
+    const notice = page.getByRole('status').filter({ hasText: 'This browser is not keeping data' });
+    await expect(notice).toBeVisible();
+    await expect(notice).toContainText('Copies and favourites last until you close this tab.');
+    await expect(notice).toHaveClass(/ban-notice/);
+    const nb = (await notice.boundingBox())!;
+    const tb = (await page.getByRole('tablist', { name: 'Mine' }).boundingBox())!;
+    expect(nb.y + nb.height).toBeLessThanOrEqual(tb.y);
+    await expect(page.getByRole('tabpanel', { name: 'My trips' })).toContainText('No trips copied yet');
+    await expect(page.getByRole('status')).toHaveCount(1);
+    expect(await page.locator('.empty[role="status"]').count()).toBe(0);
+  });
+
+  test('a list written by a newer version offers Reload; a damaged one has no action (S4)', async ({ page, site }) => {
+    const newer = '{"schema":"copies/2","items":[]}';
+    await seed(page, { [COPIES_KEY]: newer, [FAV_KEY]: '{not json' });
+    await page.goto(`${site.url}/mine/`, { waitUntil: 'networkidle' });
+    const trips = page.getByRole('tabpanel', { name: 'My trips' });
+    await expect(trips).toContainText('This list was written by a newer version of the site');
+    await expect(trips).toContainText('Reload the page to see it. Nothing has been changed.');
+    await expect(trips.getByRole('button', { name: 'Reload' })).toBeVisible();
+    await page.getByRole('tab', { name: /^Favourites/ }).click();
+    const favs = page.getByRole('tabpanel', { name: 'Favourites' });
+    await expect(favs).toContainText("We couldn't read your favourites");
+    await expect(favs).toContainText('The list in this browser is damaged. It has been left exactly as it is.');
+    await expect(favs.getByRole('button')).toHaveCount(0);
+    expect(await page.evaluate((k) => localStorage.getItem(k), COPIES_KEY)).toBe(newer); // never written
+    expect(await page.locator('.empty[role="status"]').count()).toBe(0);
+  });
+
+  test('the interim rows read "Sat 3 Jul 2027" and "Lake · Italy" (S3)', async ({ page, site }) => {
+    await seed(page, { [COPIES_KEY]: copies(), [FAV_KEY]: favourites() });
+    await page.goto(`${site.url}/mine/?show=trips`, { waitUntil: 'networkidle' });
+    await expect(page.getByRole('tabpanel', { name: 'My trips' })).toContainText('Sat 3 Jul 2027');
+    await page.getByRole('tab', { name: /^Favourites/ }).click();
+    await expect(page.getByRole('tabpanel', { name: 'Favourites' })).toContainText('Lake · Italy');
   });
 
   for (const theme of THEMES) {
@@ -255,7 +307,7 @@ test.describe('desktop header: Mine', () => {
       expect(await page.locator('.mine-link-label').isVisible()).toBe(label);
       const b = (await link.boundingBox())!;
       expect(b.height).toBe(38);
-      expect(b.width).toBe(label ? 88 : 38);
+      expect(b.width).toBe(label ? 77 : 38);
       const theme = (await page.locator('.site-header').getByRole('button', { name: /theme/ }).boundingBox())!;
       expect(b.x).toBeGreaterThan(theme.x);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(w);
@@ -298,6 +350,7 @@ test.describe('desktop header: Mine', () => {
 });
 
 // ---- the phone header's account link: needs the sign-in-on build ----
+
 
 const SIGNIN_DIST = '.next-signin';
 const signInBuild = existsSync(path.join(ROOT, 'web', SIGNIN_DIST, 'BUILD_ID'));
@@ -416,6 +469,39 @@ test.describe('phone header account link (sign-in build)', () => {
     await page.goto(`${on.url}/sign-in/`, { waitUntil: 'networkidle' });
     await expect(page.locator('.site-header').getByRole('link', { name: 'Sign in' })).toHaveAttribute('aria-current', 'page');
     await expect(page.getByRole('navigation', { name: 'Main, bottom' }).getByRole('link', { name: 'Mine' })).toHaveAttribute('aria-current', 'true');
+  });
+
+  test('forced colours: the phone account link is painted (a mask needs a background)', async ({ browser, browserName }) => {
+    test.skip(browserName !== 'chromium', 'forced-colors emulation is Chromium only');
+    const ctx = await browser.newContext({ viewport: PHONE, forcedColors: 'active' });
+    const page = await ctx.newPage();
+    await signedOut(page);
+    await page.goto(`${on.url}/trips/`, { waitUntil: 'networkidle' });
+    const icon = page.locator('.phone-acct:visible .mi');
+    await expect(icon).toHaveCount(1);
+    const bg = await icon.evaluate((el) => getComputedStyle(el).backgroundColor);
+    expect(bg).not.toBe('rgba(0, 0, 0, 0)');
+    expect((await icon.boundingBox())!.width).toBeGreaterThan(0);
+    await ctx.close();
+  });
+
+  test('the card buttons are the 38 px secondary, not the 30 px small one (S1)', async ({ page }) => {
+    await signedOut(page);
+    await page.setViewportSize(PHONE);
+    await page.goto(`${on.url}/mine/`, { waitUntil: 'networkidle' });
+    const card = page.getByRole('region', { name: 'Your account' });
+    for (const n of ['Sign in', 'Create an account']) expect((await card.getByRole('link', { name: n }).boundingBox())!.height).toBeGreaterThanOrEqual(38);
+  });
+
+  test('the device notice buttons sit under the text on a phone (S6)', async ({ page }) => {
+    await signedOut(page);
+    await seed(page, { [COPIES_KEY]: copies() });
+    await page.setViewportSize(SMALL);
+    await page.goto(`${on.url}/mine/`, { waitUntil: 'networkidle' });
+    const n = page.locator('.mine-notice');
+    const text = (await n.locator('.ban-text').boundingBox())!;
+    const act = (await n.locator('.ban-action').boundingBox())!;
+    expect(act.y).toBeGreaterThanOrEqual(text.y + text.height - 1);
   });
 
   test('the Mine account card offers Sign in and Create an account, returning to /mine/', async ({ page }) => {

@@ -47,3 +47,7 @@
 .mine-notice .ban-action { margin-left: 0; }
 .mine-notice-actions { display: inline-flex; gap: var(--s-2); }
 @media (min-width: 640px) { .mine-notice .ban-action { margin-left: auto; } }
+/* on a phone the buttons go under the text in both builds; 28 px lines them up after the 16 px icon and its gap (NAV-R1 S6) */
+@media (max-width: 639px) { .mine-notice .ban-action { flex-basis: 100%; padding-left: 28px; } }
+/* 32 px between the panel and the device notice (the body gap is 24; NAV-R1 P1) */
+.mine-panel ~ .mine-notice { margin-top: var(--s-2); }

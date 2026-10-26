@@ -15,8 +15,8 @@ import { ThemeToggle } from './ThemeToggle';
 
 // the search dialog (and its dialog code) loads the first time it opens
 const GlobalSearch = dynamic(() => import('@/components/search/GlobalSearch').then((m) => m.GlobalSearch), { ssr: false }) as typeof GlobalSearchType;
-// the desktop Mine link mounts after hydration into the width `.mine-slot` reserves (spec 4), so the place page carries none of it
-const MineLink = dynamic(() => import('./MineLink').then((m) => m.MineLink), { ssr: false });
+// (default export, so no .then) the desktop Mine link mounts after hydration into the width `.mine-slot` reserves (spec 4), so the place page carries none of it
+const MineLink = dynamic(() => import('./MineLink'), { ssr: false });
 
 export const PUBLIC_TABS = [
   { href: '/trips/', label: 'Trips' },
@@ -70,10 +70,10 @@ export function SiteHeader({ capabilities = siteCapabilities }: { capabilities?:
           </Button>
           {capabilities.signIn ? (
             <>
-              <a className="btn btn-ghost btn-icon phone-acct" href="/sign-in/" data-acct="out" aria-label="Sign in" aria-current={path.startsWith('/sign-in/') ? 'page' : undefined}>
+              <a className="btn btn-ghost btn-icon phone-acct" href="/sign-in/" data-acct="out" aria-label="Sign in">
                 <i className="mi mi-user" />
               </a>
-              <a className="btn btn-ghost btn-icon phone-acct" href="/account/" data-acct="in" aria-label="Account" aria-current={path.startsWith('/account/') ? 'page' : undefined}>
+              <a className="btn btn-ghost btn-icon phone-acct" href="/account/" data-acct="in" aria-label="Account">
                 <i className="mi mi-user" />
               </a>
             </>
