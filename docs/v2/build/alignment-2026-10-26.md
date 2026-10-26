@@ -315,6 +315,10 @@ and the evals.
 
 ## 9. Consolidated owner questions (every one still open, de-duplicated, ordered by what blocks the next build)
 
+**Answered by the owner on 26 Oct 2026, one at a time, as recommended (QX4 with option B, published within a day; QX3 option A, the client researches):**
+QX4, QX3, Q308, Q309, QG4, QG1, QG3, QG5, QG2, QM1, QM2, QM7, QM3, planner_draft_signal (approve as built), QM5, QX8, QX9, QX1, QX7, QM4, QM6, QM8, QM10, QX10, QX12, Q-B1, QX2 (bundle H2 added), QX5, QX11, QX6, Q-B2, Q-B3. QM9 is moot.
+Still open: the owner inputs (Siusi plateau walk, Grand-Sault candidate, Utah dates, Norway window and group size, Dolomites base split, Switzerland pass, GB-C-6, mail domain, Peru, Google and Neon console steps, the smn.gob.ar URLs, the Vercel inputs for the A deploy).
+
 Each question keeps its id. "Blocks" says what waits: **(a)** the bundle A release, **(b)** the start of bundle C's
 contract work, **(c)** later. A recommendation is given for each; "yes as recommended" is enough.
 
