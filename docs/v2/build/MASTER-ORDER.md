@@ -1,6 +1,14 @@
 # Master order: every remaining task, what it conflicts with, the lanes, and the release train
 
-> **26 Oct 2026 (UX fixes from the owner's live review, planned, waiting for design approval G-UXA):** UXB-N, UXB-C, UXB-W, UXB-1 to UXB-7, reviews and fixes, about 67 h, ride **bundle C**, first in its B1 queue, after bundle A's TRP-GL, FAV-1 and NAV-2F merge, and before R59-1 and PHO-R. Order, owned files and briefs: [trip-and-places-ux-fixes.md](../features/trip-and-places-ux-fixes.md) 12 and 13 (PLAN R-260 to R-266; Q293 to Q302).
+> **26 Oct 2026, evening (ALIGN, R-256): this page is again the one ordering.** The entity graph (EG), parks (PA), the
+> property matrix (PM, API), the MCP product (MP1 to MP4, bundle H2 if QX2 is yes), the UX fixes (UXB) and the privacy fix
+> PRIV-TD are placed here: section 0 (bundles and hours, 1,350.5 h in all), 3.0 (merged since the morning), 3.9 (the new
+> task rows), 4.1, 4.3, 4.4, 4.5, 4.6, 5.1, 5.3 and 5.4. The audit, the numbering map and the consolidated owner questions
+> are [alignment-2026-10-26.md](alignment-2026-10-26.md). Where a spec's own placement differs, this page wins.
+>
+> **UX fixes (26 Oct):** design approved (G-UXA passed, ANSWERS-6; Q293 to Q307 answered); UXB-N, UXB-C, UXB-W merged,
+> UXB-1 built and reviewed, UXB-1F in its worktree; the rest ride **bundle C**, first in its B1 queue, before R59-1 and
+> PHO-R ([trip-and-places-ux-fixes.md](../features/trip-and-places-ux-fixes.md) 12 and 13; PLAN R-260 to R-266).
 
 Written 25 Oct 2026 by travel-planner (Opus 5.5) on `public/MASTER-ORDER`, branched from `main` 09784bc (rewritten public
 history; `main` has since gained ed0056d, an e2e-only commit). **Planned only: no product code changed.** Requirement PLAN
@@ -29,24 +37,31 @@ any new build starts."
 
 ## 0. Summary: the release bundles (26 Oct 2026)
 
-The owner merged the train into eleven bundles (verification per release was too costly). The v0.x numbers in this page
+The owner merged the train into bundles (verification per release was too costly). The v0.x numbers in this page
 are feature labels; each feature ships in its bundle behind its flag, T3 runs once per bundle, a late feature ships dark.
 Detail and rules: [RELEASE-PLAN](RELEASE-PLAN.md) 0a; data per bundle: [DATA-PLAN.md](DATA-PLAN.md).
 
-| Bundle | Features | Total h (build + infra + data) | Data in it (h) |
-|---|---|---|---|
-| A | v0.2 phone sign-in, privacy, page counts, 74 places; v0.3 Mine, copies and favourites on this device; v0.4 trip-page go-live fixes, share images. First deploy waits for Mine | 81.5 | 5 |
-| B | v0.5 emailed-code sign-in, backups; v0.9 Continue with Google; Internal CAT-1 catalogue load and the database cross-check. Two deploys | 82 | 36.5 |
-| C | v0.6 places near a town, closure queue; v0.7 photos; v0.8 links beside every stop, getting there. UX design approved 26 Oct; UXB tasks in the UI queue | 180.5 | 62.5 |
-| D | v0.10 report and suggest; v0.11 request forms | 118.25 | 13.5 |
-| E | v0.12 best time and overview; v0.13 Where to stay; v0.14 trips from data | 168.5 | 55.5 |
-| F | v0.14.1 field slimming; v0.15 customise; v0.16 account sync | 100.75 | 0 |
-| G | v0.17 more edits; v0.18 map search for stops | 76 | 0 |
-| H | v0.19 public MCP; v0.20 private MCP (own security reviews). Two deploys | 56 | 0 |
-| I | v0.21 domain and Email Phase 2, on the Q148 trigger | 29 or 42.5 | 0 |
-| J | v0.22 UI and UX audit and fixes | 70.5 | 0 |
-| K | v1.0 to v1.2 Postgres cutover, three seam flips | 23 | 0 |
-| **All** | | **986** (I at 29) | **173** |
+**Rewritten 26 Oct 2026, evening (ALIGN).** Hours are planned scope (the 0a.2 convention: work merged before the morning
+of 26 Oct is not counted; work merged since is counted and shown in 3.0). The morning's table said 986 h; four specs had
+each added to bundle C on their own and none to the total ([alignment](alignment-2026-10-26.md) 2.1).
+
+| Bundle | Features | Build h | Infra h | Data h | **Total h** | Added 26 Oct | Migrations |
+|---|---|---|---|---|---|---|---|
+| A | v0.2 phone sign-in, privacy, page counts, 74 places; v0.3 Mine, copies and favourites on this device; v0.4 trip-page go-live fixes, share images; **PRIV-TD** (no household-derived status on public trips). First deploy waits for Mine | 59 | 20 | 5 | **84** | PRIV-TD 2.5 | none |
+| B | v0.5 emailed-code sign-in, backups; v0.9 Continue with Google; Internal CAT-1 catalogue load and the database cross-check. Two deploys | 37.5 | 8 | 36.5 | **82** | | `backup_reader`, `research_meta` |
+| C | v0.6 places near a town, closure queue; v0.7 photos; v0.8 links beside every stop, getting there; **UX fixes** (trip tabs and Summary, party bar, shape, when to go, Table view, Bookings and Photos, place pages show what is known); **parks P1** (entry standard, Book ahead kinds); **graph contract and index** (Internal). Cut rule Q309 | 214.5 | 10 | 77 | **301.5** | UXB 67, EG 23, PA 31 | `relation_kinds` |
+| D | v0.10 report and suggest; v0.11 request forms; Internal: property matrix (PM-C, PM-G, PM-F) | 104.75 | 13 | 13.5 | **131.25** | PM 13 | `intake` |
+| E | v0.12 best time and overview; v0.13 Where to stay; v0.14 trips from data; **place context** (graph read model, EG); **parks P2** (park page, members); facts read model (API-P) | 155 | 0 | 58 | **213** | EG 15, PA 23.5, API-P 6 | none |
+| F | v0.14.1 field slimming; v0.15 customise; v0.16 account sync | 100.75 | 0 | 0 | **100.75** | | `custom_draft`, `draft_cap`, `account_favourite`, `account_start` |
+| G | v0.17 more edits; v0.18 map search for stops; **parks P3** (plan a visit, camping); Internal: API for MCP (API-G, API-T, API-S, API-V, MTH-G, MTH-1) | 93 | 22.5 | 4 | **119.5** | PA 21, API 22.5 | none |
+| H | v0.19 public MCP (MP1); v0.20 private MCP, read (MP2). Two deploys | 81 | 0 | 0 | **81** | +25 | `mcp_access`, token tables |
+| H2 | v0.20a "Plan with your AI" (MP3, user writes, MCP Apps views); v0.20b "Research and admin" (MP4, staging, owner only). Two deploys. **Only if QX2 is yes** | 115 | 0 | 0 | **115** | new | `user_place`, `research_stage` |
+| I | v0.21 domain and Email Phase 2, on the Q148 trigger | 29 or 42.5 | 0 | 0 | **29 or 42.5** | | mail tables |
+| J | v0.22 UI and UX audit and fixes; after H2 (covers the MCP views and the approval page) | 70.5 | 0 | 0 | **70.5** | | none |
+| K | v1.0 to v1.2 Postgres cutover, three seam flips | 23 | 0 | 0 | **23** | | none expected |
+| **All** (I at 29) | | **1,083** | **73.5** | **194** | **1,350.5** | **+364.5** | |
+
+Without H2 (QX2 no) the total is 1,235.5 h. Critical path: section 5.4 (B1, about 511 h left).
 
 ## 1. Decision in one paragraph
 
@@ -90,6 +105,15 @@ Sonnet specified, Opus contracts, privacy, review and research). "Release" is th
 **open** (specified, not started), **ready** (no blocker left), **blocked** (the cell names the blocker), **planned, spec
 merged** (the spec is on `main`'s docs stack, no code yet), **later** (not on the train).
 
+### 3.0 Merged on 26 Oct 2026 (checked at `main` 88404219 by ALIGN; do not schedule again)
+
+The status cells of 3.3 to 3.6 were written in the morning and are not rewritten one by one; this table overrides them.
+
+| Bundle | Merged | Left |
+|---|---|---|
+| A | OVR-0, NAV-F, NAV-1, NAV-R1, NAV-1F, NAV-2C, NAV-2, NAV-R2, NAV-2F, FAV-1W, FAV-1, FAV-1X, TRP-GL-C (with review and TRP-GL-CF), TRP-GL, TRP-GL-R, TRP-GL-F, TRP-GL-D, IMG-1a, IMG-1b, ACCT-PH-RV, BUD-1 (and BUD-1-RV), GSI-P (and GSI-P-RV), V02-VERIFY, SAFE-STORAGE, OVERFLOW-FIX, KIND-FILTER-FIX, SLUG-FIX, HOUSEHOLD-SCRUB, L4; infra TS-1, TS-2a, TS-2, TS-3 | FAV-R, FAV-V (and FAV-1F if they ask), IMG-1V, TRP-GL-V, **PRIV-TD** (3.9), T2, T3, owner actions, deploy, tag `release/A` ([briefs-bundle-A](briefs-bundle-A.md) 4.1 rows 17 to 22) |
+| C | UXB-N, UXB-C, UXB-W, UXB-WL (weather-links schema), AREA-2, ORPH-7, D8-R booking rules (dateless, 15.223b); UXB-1 built and reviewed ("approve with changes", three must-fixes) | UXB-1F, then everything else in C |
+
 ### 3.1 Done since the specs were written (deduplicated; do not schedule again)
 
 | Done | Where | Specs or rows that still say "planned" |
@@ -108,7 +132,7 @@ merged** (the spec is on `main`'s docs stack, no code yet), **later** (not on th
 |---|---|---|---|---|---|---|---|
 | H0 | Merge the three docs branches in order: TEST-STRATEGY (merged), ORIGIN-PLAN (cherry-picked, scrub scan passed), MASTER-ORDER; planning-doc text conflicts resolved with both sides kept. Done on `public/DOCS-STACK`; the fast-forward of `main` is the coordinator's | 0.5 | coordinator | merges | this page 6 | stacked, awaiting the fast-forward of `main` | J0 |
 | H1 | Tag `release/v0.1` on `47be5b58` with the message "v0.1: public site live (deployed as 47be5b5 on the private history)" | 0.1 | coordinator | tag | RELEASE-PLAN I6 (corrected) | ready | v0.1 |
-| H2 | Copy the filter-repo commit map out of the session scratch folder to the owner's private backup folder | 0.1 | coordinator | none in the repo | scrub 4, 5.5 | ready, urgent | J0 |
+| H2 (housekeeping; not bundle H2) | Copy the filter-repo commit map out of the session scratch folder to the owner's private backup folder | 0.1 | coordinator | none in the repo | scrub 4, 5.5 | ready, urgent | J0 |
 | H3 | Rewrite the 684 stale commit ids in 87 tracked files to public ids from the map; ids with no public commit (archive tags, private-only merges) get a "(private history)" suffix | 3 | Haiku script, Sonnet check | `docs/**`, `HANDOVER.md`, `CHANGELOG.md`, `research/runs/**`, `research/audits/**`, one comment in `core/src/catalogue/store.ts`, four test comments, the note in `data/capture/gap-budget.json` | scrub 5.5 | done on `public/H-DOCS` (Q264 answered yes) | J1 |
 | H4 | Status sync: BACKLOG and DATA-ROADMAP rows for the work in 3.1 marked done with public ids | 1.5 | Haiku | `BACKLOG.md`, `DATA-ROADMAP.md` | this page 3.1 | partly done on `public/H-DOCS` (listed rows; the rest of 3.1 still planned) | J1 |
 | H5 | HANDOVER current section rewritten (text in 8.2) | 1.5 | Opus planner | `HANDOVER.md` | 8.2 | blocked: J1 | J1 |
@@ -183,8 +207,9 @@ STY-P (B2, contract lane) stays in 3.5's order with STY-Ca; RIS-H moved from I (
 | REQ-E-C | Scheduler `moveItem`, `insertDay`, `dropDay` | 3 | Opus | requests 11 | blocked: CUS-1 | v0.17 |
 | R59-3C | (new) Base-change recompute as an operation with inverse (signed in) | 3 | Opus | TRIP-NAVIGATION-PLAN 3 | blocked: CUS-1 | v0.17 |
 | REQ-G-C | Geocode contract | 2 | Opus | requests 11 | blocked: REQ-G0 | v0.18 |
-| MCP-C | Remote contracts, levels vocabulary, annotations; **(26 Oct, R-252)** the tool-to-route table (each tool names the `/api/v1` store method or operation it shares) and the test that fails on any database import or SQL under `core/src/mcp/**` ([mcp/README](../mcp/README.md) 1.1) | 5.5 | Opus | MCP 14.9 | ready (core only) | v0.19 (H) |
+| MCP-C | Remote contracts, levels vocabulary, annotations; **(26 Oct, R-252)** the tool-to-route table (each tool names the `/api/v1` store method or operation it shares) and the test that fails on any database import or SQL under `core/src/mcp/**` ([mcp/README](../mcp/README.md) 1.1). **Resized 26 Oct (ALIGN): 10 h, see 3.9 MP1** | 10 | Opus | MCP product packaging 4 | **blocked:** API-G, API-P, API-T, API-S, API-V, PM-G, AU-D (was "ready (core only)", tools-v1 F10) | v0.19 (H) |
 | MCP-G | Migration `mcp_access`, the level check; **(26 Oct, R-252)** the check is a shared server function outside `core/src/mcp/**`, called by the MCP transport | 6 | Opus | MCP 14.9 | blocked: MCP-C | v0.20 (H) |
+| (26 Oct, ALIGN) | **The new contract tasks** PRIV-TD, EG-C, EG-M, EG-Q, PA-C, PA-X, PA-Q, PA-3C, PM-C, PM-G, PM-F, API-P, API-G, API-T, API-S, API-V, MTH-G, UPL-C, STG-C are rows of **3.9**; their slots are in 4.3 | | | | | |
 | RIS-M | Migration `research_meta` | 6 | Opus | catalogue-intake 6 | ready on the child; production Q177 | v1.0 |
 
 ### 3.6 Web UI (lane W, run by B1; every row moves a budget and ends with design review then verifier)
@@ -246,9 +271,9 @@ STY-P (B2, contract lane) stays in 3.5's order with STY-Ca; RIS-H moved from I (
 
 | Id | Task | h | Model | Status | Release |
 |---|---|---|---|---|---|
-| MCP-1, MCP-S1, ORG-MCP | Public endpoint, the public half of the security review (Q225), origin tools; **(26 Oct, R-252)** MCP-1 extends the no-database test to `web/app/mcp/**` and `web/lib/mcp/**`, and every public tool calls the `CatalogueStore` method of its `/api/v1` route through `respond()`; MCP-S1 checks the test | 6 + 1.5 + 1.5 | Sonnet, Opus | blocked: MCP-C | v0.19 (H) |
-| MCP-T, MCP-2, MCP-O, MCP-S, MCP-E; owner O-M2, O-M3, O-M6, O-M4 | Private MCP; **(26 Oct, R-252)** private writes call the app's operations (validation and RLS identical); MCP-T's token logic lives in the shared server layer, not `core/src/mcp/tokens/**` | 5 + 8 + 4 + 2.5 + 3 | Opus, Sonnet | blocked: MCP-G | v0.20 |
-| MCP-3, MCP-P, REQ-M | Research proposals, approvals, intake tools | 8 + 8 + 6 | Opus, Sonnet | later | later |
+| MCP-1, MCP-S1, ORG-MCP | Public endpoint, the public half of the security review (Q225), origin tools; **(26 Oct, R-252)** MCP-1 extends the no-database test to `web/app/mcp/**` and `web/lib/mcp/**`, and every public tool calls the `CatalogueStore` method of its `/api/v1` route through `respond()`; MCP-S1 checks the test. **Resized 26 Oct (ALIGN): MCP-1 8 h, MCP-S1 2.5 h; the full MP1 list is 3.9** | 8 + 2.5 + 1.5 | Sonnet, Opus | blocked: MCP-C | v0.19 (H) |
+| MCP-T, MCP-2, MCP-O, MCP-S, MCP-E; owner O-M2, O-M3, O-M6, O-M4 | Private MCP; **(26 Oct, R-252)** private writes call the app's operations (validation and RLS identical); MCP-T's token logic lives in the shared server layer, not `core/src/mcp/tokens/**`. **26 Oct (ALIGN): MCP-2 9 h, MCP-S 4 h; MP2 in 3.9** | 5 + 9 + 4 + 4 + 3 | Opus, Sonnet | blocked: MCP-G | v0.20 |
+| MCP-3, MCP-P, REQ-M | Research proposals, approvals, intake tools. **26 Oct (ALIGN): moved into bundle H2 (MP3, MP4 in 3.9) if QX2 is yes; MCP-3 10 h** | 10 + 8 + 6 | Opus, Sonnet | blocked: QX2 | H2 (v0.20a, v0.20b) |
 | R-14 | API/HYG loose ends: map each R-14 claim to a case on three runners; add only missing cases | 3 | Sonnet | ready | v0.6 |
 | ACC-1 | Accent folding in A16 (15.44), if the owner says yes | 3 | Opus | blocked: 15.44 | v0.6 |
 | CONS-3 | Slug-table step deferred to TD-2; palette fallbacks, one UA and endpoints module, `siteOrigin()` | 8 | Sonnet | ready at a quiet point | v0.6 (internal) |
@@ -261,13 +286,74 @@ STY-P (B2, contract lane) stays in 3.5's order with STY-Ca; RIS-H moved from I (
 | TD-3, TD-4, TD-6, 7.11 and CLN-6 | Galleries to data; import the 14 old trips; orientation block; legacy removal | 5; 24; 8; 6 | Sonnet, Opus | TD-3 with v0.14; the rest later | v0.14; later |
 | Not on the train | short trips (2.17, 3.11 to 3.14), smart search phase 2 (3.15), the planner F01 to F17, NAV-M, PHO-1, INT-5, ORG-P | | | later | later |
 
+### 3.9 Added 26 Oct 2026: UX fixes, privacy fix, entity graph, parks, property matrix, API for MCP, the MCP product (ALIGN)
+
+Every task the five specs of 26 Oct defined, in one table, with the seat that runs it. Owned files are summaries; the
+full lists are in each spec's task table and brief. Models per CLAUDE.md (a task that creates a shared contract is Opus
+even when it is code; reviews never below the writer). "Status" reads **done**, **in fixes**, **ready** (no blocker left),
+or **blocked: <what>**. The MCP product's phases M1 to M5 are written **MP1 to MP5** here (the R-252 rules of
+[mcp/README](../mcp/README.md) 1.1 already use M1 to M5; [alignment](alignment-2026-10-26.md) 4).
+
+| Id | Task | h | Model | Seat | Owns (main paths) | Spec | Status | Bundle (label) |
+|---|---|---|---|---|---|---|---|---|
+| **PRIV-TD** | Public trip contract and pages carry no household-derived status: `isDone` out of `TripRow`, `TripDetail`, the pages, sort and descriptor; detector key; tests. Brief: [alignment](alignment-2026-10-26.md) 3.1 | 2.5 (Opus 1, Sonnet 1, verifier 0.5) | Opus, Sonnet | B2, then B1 or B2 | `core/src/schema/api/trip.ts`, `core/src/privacy/detect.ts`, `web/lib/public/trips.ts`, `TripCover.tsx`, `TripEnd.tsx`, `web/app/trips/**` (two files), trip descriptor, tests | BACKLOG 15.310, 15.328; R-257 | **ready, urgent** (live v0.1 serves "Finished plan") | A (before its deploy) |
+| UXB-N | Design note and foundation entries | 4 | Opus reviewer | R | design notes | UX spec 13.1 | done | C |
+| UXB-C | Trip summary, shape, tabs, party, place-known contracts | 4 | Opus | B2 | core codec and schemas | 13.2 | done | C |
+| UXB-W | Weather links for 14 trips (and UXB-WL schema) | 3 | Opus researcher | D | `data/reference/weather-links.json` | 13.3 | done | C |
+| UXB-1, UXB-1F | Tab shell and Summary; review must-fixes | 8 + 1.5 | Sonnet | B1 | `TripPlan.tsx`, `trips/tabs/**`, `trips/summary/**`, `useTripUrl.ts` | 13.4 | built; **in fixes** | C |
+| UXB-2, UXB-3, UXB-4 | Party bar; the trip's shape; when to go (serial: same top area) | 6 + 5 + 4 | Sonnet | B1 | `timeline/ProfileBar.tsx`, `PartyEditor.tsx`, `summary/TripShape.tsx`, `summary/WhenToGo.tsx` | 13.5 to 13.7 | ready after UXB-1 merges | C |
+| UXB-5, UXB-6 | Table view; Bookings and Photos tabs | 6 + 4 | Sonnet | B1 | `timeline/DayTables.tsx`, `trips/tabs/{Bookings,Photos}Panel.tsx`, one function in `core/src/export/bookings.ts` | 13.8, 13.9 | ready after UXB-1 | C |
+| UXB-R1, UXB-V1 | Review and verify the trip round | 3 + 3 | Opus, Sonnet | R, V | notes | 13.11 | after UXB-2 to UXB-6 | C |
+| UXB-7 | Place pages show what is known; one gap block; templates | 10 | Sonnet | B1 | `web/components/places/**`, `web/lib/public/sections.ts` (render rules), place baseline | 13.10 | ready (FAV-1 merged) | C |
+| UXB-R2, UXB-V2, UXB-F | Review and verify the places round; fixes | 2 + 2 + 3 | Opus, Sonnet, Sonnet | R, V, B1 | notes; fixed files | 13.11 | after UXB-7 | C |
+| EG-C | Graph contract: `RELATION_RULES`, `CHAIN_RULES`, enums, records, properties, validator codes, `types.json` leaves | 6 | **Opus** | B2 | `core/src/schema/capture/relations.ts` (new), `enums.ts`, `records.ts`, `properties.ts`, `core/src/validate/capture.ts`, `codes.ts`, `core/src/capture/records.ts`, `data/vocab/types.json` | [entity-graph](../features/entity-graph.md) 11.1, 13 | blocked: QG1, QG3, QG4, QG5; RIS-H | C (Internal) |
+| EG-R0 | Review of EG-C | 1 | Opus | R | review note | 13 | after EG-C | C |
+| EG-M | Migration `relation_kinds`, `entity.run_by`, enum and SQL drift test, loader mapping | 2.5 | **Opus** builder | data seat (lane S) | `core/src/db/migrations/<n>_relation_kinds.sql`, `core/test/db/relation-kinds.test.ts`, loader mapping | 11.3 | blocked: EG-C, RIS-L, QG5 | C (Internal; production at C's release, before the sync) |
+| EG-FX | Graph fixtures | 2.5 | Sonnet | B2 | `core/test/fixtures/graph/**` | 13 | after EG-C | C |
+| EG-I | Index builder and CLI `core/bin/graph.ts`, generated `data/catalogue/graph/**`, one check-all step, gate-map row | 6 | Sonnet | B2 | `core/src/graph/**`, `core/bin/graph.ts`, `core/test/graph/**`, `data/catalogue/graph/**`, `tools/check-all.sh` (one line), `tools/gate/map.json` (one row) | 8, 13 | after EG-FX | C (Internal) |
+| EG-D | Ten relation fixes, the Larch Valley meadows variant, `strict` list, graph rebuilt | 3 (Sonnet 1.5, Opus researcher 1.5) | Sonnet, Opus | data seat | a changeset, Rockies and Dolomites lane files, `gap-budget.json`, `data/catalogue/graph/**` | 11.2 | after EG-C, EG-I | C |
+| EG-DOC | Capture contract and `research/method/linking.md` aligned | 2 | Opus | planner | research method docs | 10.1, 13 | after EG-C | C |
+| EG-N | Design note: place context block (gate G-EG-UI) | 2 | Opus reviewer | R | `docs/v2/design/place-context/**` | 13 | after UXB-7; QG2 | E |
+| EG-Q | Store and API: `within` facet, `PlaceContext`, `TripTouches`, OpenAPI, detector keys | 4 | **Opus** | B2 | `core/src/catalogue/store.ts`, `json/index.ts`, `core/src/schema/api/{place,trip}.ts`, `core/src/query/**`, `detect.ts` (keys) | 9, 13 | after EG-I, REQ-RF-C (B2 row 13, before OVR-Ca) | E |
+| EG-W, EG-R/EG-V | Place-page context block; review and verify | 6 + 3 | Sonnet; Opus, Sonnet | B1, R, V | `web/components/places/context/**`, `web/lib/public/places.ts` (join) | 13 | after EG-N, EG-Q | E |
+| PA-C | Parks capture contract (entry block, summary on offers, marks, codes) | 6 | **Opus** | B2 | the capture contract files of EG-C, `core/src/capture/engine.ts`, `relevance-classes.json` | [protected-area-entry](../features/protected-area-entry.md) 5.1, 12 | blocked: EG-C | C |
+| PA-FX | Four synthetic parks | 3 | Sonnet | B2 | `core/test/fixtures/protected-areas/**` | 12, 13 | after PA-C | C |
+| PA-X | Export and API contract: booking kinds, wording, CSV kind | 4 | **Opus** | B2 | `core/src/export/{bookings,types}.ts`, `core/src/schema/api/{trip,export}.ts` | 5.2 | after PA-C | C |
+| PA-D | `parkVisits`, `entryNeeds`, `entryFor` over `requirementsOf` | 3.5 | Sonnet | B2 | `core/src/parks/**` | 6, 12 | after PA-C, PA-FX, EG-I | C |
+| PA-R-CA | Rockies parks, zones, requirements, Tre Cime toll | 6 | **Opus** researcher | data seat | `data/capture/catalogue/PA-ca.json`, CS7 additions, relevance, run note | 11 | after PA-C | C |
+| PA-W | Derived Book ahead rows and park line in the Bookings and Summary tabs; print and CSV kinds | 4 | Sonnet | B1 | `web/lib/public/trips.ts`, `trips/tabs/BookingsPanel.tsx`, `trips/summary/**` (park line), `data/trips/booking-refs.json` | 12 | after PA-X, PA-D, PA-R-CA, UXB-R1, UXB-V1, UXB-F | C |
+| PA-M | `research/method/kinds/protected-area.md` and contract rows | 1.5 | Opus | planner | method docs | 9.1 | after PA-C | C |
+| PA-R1, PA-V1 | Review and verify P1 | 3 | Opus, Sonnet | R, V | notes | 12 | after PA-W | C |
+| PA-N | Park page note and wireframes (gate G-PA) | 3 | Opus reviewer | R | `docs/v2/design/park-page/**` | 8 | after P1, UXB-7 | E |
+| PA-Q | `PlaceLookup.entry` with `inheritedFrom`; OpenAPI | 2 | **Opus** | B2 | `store.ts`, `core/src/schema/api/place.ts`, place route schemas | 6.5 | after PA-D, EG-Q | E |
+| PA-2, PA-R2/V2 | Park page and member line; review and verify | 10 + 4 | Sonnet; Opus, Sonnet | B1, R, V | `web/components/places/park/**`, `web/lib/public/places.ts` (entry join) | 8 | after PA-N, PA-Q | E |
+| PA-DV | Derived park `access_cost` and `ext.area.pass` | 2 | Sonnet | B2 | `core/src/relevance/derive.ts`, `engine.ts` | 4.6 | after PA-D | E |
+| PA-MUS | US fee migration and the national pass | 2.5 | Sonnet, Opus review | data seat | `PA-us.json`, `BA-us.json` | 11 | after PA-C | E |
+| PA-N3 | Plan-a-visit note | 2 | Opus reviewer | R | design note | 7 | after P2 | G |
+| PA-3C | Camping contract and the `park_visits` override op | 3 | **Opus** | B2 | `records.ts`, `properties.ts`, `types.json`, one op in `core/src/ops/**`, `core/src/schema/trip.ts` | 7, 12 | after P2, TD-1, STY-2C | G |
+| PA-3, PA-R3/V3 | Plan a visit; review and verify | 8 + 4 | Sonnet; Opus, Sonnet | B1, R, V | park components | 7 | after PA-N3, PA-3C, CUS-1, v0.17 | G |
+| PA-R-ON | Algonquin pilot | 4 | **Opus** researcher | data seat | `PA-ca.json` additions | 12 | after PA-3C | G |
+| PM-C | Registry exposure contract (`privacy`, `expose`, `lanes`, `deprecated`, `reserved`; `exposeOf`; `core/src/schema/exposure.ts`) | 4 | **Opus** | B2 | `properties.ts`, `core/src/schema/exposure.ts` (new), tests | [property-display-matrix](../features/property-display-matrix.md) 3, 12 | blocked: QM1, QM7; PA-C | D (Internal) |
+| PM-G | Matrix generator and checks K1 to K12, allow list | 5 (Sonnet 4, Opus review 1) | Sonnet | **data seat** (Sonnet builder; was B2) | `core/src/capture/generate.ts` (one writer), `core/src/capture/matrix.ts`, generated matrix, allow list | 10, 12 | blocked: PM-C, QM2 | D (Internal) |
+| PM-F | Formatter to core | 4 (Sonnet 3, verifier 1) | Sonnet | **B1** (was B2; B1 holds `sections.ts` after UXB-7) | `core/src/format/property.ts`, import lines in `sections.ts` and `printText.ts` | 3.5, 12 | blocked: PM-C, UXB-7, QM3 | D (Internal) |
+| API-P | Facts read model `GET /api/v1/places/{slug}/facts`; print and CSV read it | 6 (Opus 2, Sonnet 4) | Opus, Sonnet | B2 | `core/src/schema/api/facts.ts`, one store method, `json/**`, the route | 12 | blocked: PM-F, PA-Q, QM3 | E |
+| API-G | Endpoint table and guard in core; `respond()` becomes the HTTP wrapper | 4 | **Opus** | B2 | `core/src/api/**`, `web/lib/server/respond.ts` | [tools-v1-from-api](../mcp/tools-v1-from-api.md) 2 | blocked: REQ-G-C; merges alone in its stack | G (Internal) |
+| API-T, API-S | `/api/v1/types`, `/api/v1/types/{id}`; `/api/v1/sun` | 3 + 1.5 | Sonnet | B2 | `web/app/api/v1/{types,sun}/**`, `core/src/catalogue/types.ts` | 3, 12 | blocked: API-G, PM-G, QM5 | G (Internal) |
+| API-V | `POST /api/v1/validate` over the core validators | 5 (Opus 2, Sonnet 3) | Opus, Sonnet | B2 | validate route, in-memory tree | [method](../mcp/product-method-and-discovery.md) 6.1 | blocked: API-G, QX9 | G (Internal) |
+| MTH-G, MTH-1 | Method remote edition (generator, privacy scan); method routes | 6 + 3 | Opus, Sonnet | B2 | generator, `/api/v1/method/**` | method 7 | blocked: PM-G, API-G, QX8 | G (Internal) |
+| **MP1** | Public MCP v0.19: AU-D 3, MCP-C 10, MCP-1 8, MCP-M 3, MCP-GR 2, ORG-MCP 1.5, MCP-PK 3, MCP-EV 6, MCP-S1 2.5, MCP-E1 1 | 40 | Opus (AU-D, MCP-C, MCP-S1, MCP-EV 2), Sonnet | B2 contracts; **B1** the Sonnet builds | `core/src/mcp/remote/**`, `web/app/mcp/**`, `web/lib/mcp/**` | [packaging](../mcp/product-packaging-and-phases.md) 4 | blocked: the G API tasks, PM-G, QX1, QX7, QM4, QM6, QM10 | H |
+| **MP2** | Private MCP v0.20, read: MCP-G 6, MCP-T 5, MCP-2 9, MCP-O 4, MCP-U 10, MCP-S 4, MCP-E 3 | 41 | Opus, Sonnet | B2; MCP-U and MCP-E in B1 | as 3.8 | packaging 4; auth 14.9 | blocked: MP1, CUS-C, NAV-D, FAV-D, QM8 | H |
+| **MP3** | v0.20a "Plan with your AI": UPL-C 6, UPL-1 8, MCP-W 10, MCP-P 8, MCP-UI 19, MCP-S3 4, MCP-EV2 3, MCP-E3 2 | 60 | Opus (UPL-C, MCP-W 3, MCP-P 3, MCP-S3), Sonnet | B2 contracts; B1 UPL-1, MCP-UI, MCP-P UI | `user-plan/1`, `user-place/1`, migration `user_place`, `/api/account/{plans,places}/**`, `web/mcp-views/**` | [staging](../mcp/product-staging-and-admin-writes.md) 1, [response](../mcp/product-response-format.md) 5 | blocked: QX2, QX5, QX6, Q-B2, Q-B3; MP2, TD-1, CUS-C, REQ-E-C, FAV-D, FBK-1 | H2 |
+| **MP4** | v0.20b "Research and admin": STG-C 6, STG-1 8, STG-P 7, MCP-3 10, REQ-M 6, MCP-A 6, MCP-P2 3, MCP-S4 6, MCP-EV3 2, MCP-E4 1 | 55 | Opus (STG-C, MCP-3 4, REQ-M 2, MCP-A 2, MCP-S4), Sonnet | B2 contracts; B1 STG-1, STG-P, MCP-P2 | `research-batch/1`, migration `research_stage`, admin routes, `core/bin/stage.ts` | staging 2 | blocked: QX2, QX3, QX4, QX11; MP3 shipped | H2 |
+| MP5 | Public research toolkit, directory listings, export over MCP | not sized | | | | packaging 3 | later (QX12, QM10) | after v1.0 |
+
 ## 4. Conflict map
 
 ### 4.1 Hot spots and their rule
 
 | Hot spot | Kind | Tasks that write it | Rule |
 |---|---|---|---|
-| `web/components/trips/**` | folder | OVR-0, FAV-1 (mount), TRP-GL, R59-1, ORG-1, OVR-1, OVR-2, OVR-3, STY-1, FBK-2 (mount), CUS-1 (`custom/**`), R59-3 UI | one task at a time, in that order |
+| `web/components/trips/**` | folder | OVR-0, FAV-1 (mount), TRP-GL (all three done), **PRIV-TD (cover, end), UXB-1, UXB-2, UXB-3, UXB-4 (serial), UXB-5, UXB-6 (disjoint files, may run beside UXB-2 to UXB-4), PA-W**, R59-1, ORG-1, OVR-1, OVR-2, OVR-3, STY-1, FBK-2 (mount), CUS-1 (`custom/**`), R59-3 UI, PA-3 | one task at a time, in that order (ALIGN 26 Oct: the UXB round and PA-W go before R59-1); `web/styles/timeline.css` blocks appended per task, never edited across tasks |
 | `web/components/actions/CopySheet.tsx` and `actions/**` | file | NAV-2, TRP-GL (print, CSV), ORG-2, OVR-1 (week) | never in parallel; order NAV-2, TRP-GL, ORG-2, OVR-1 |
 | `web/components/shell/**` | folder | ACCT-PH-F, GSI-P (`SiteFooter.tsx`), NAV-1 (`BottomBar.tsx`, `SiteHeader.tsx`, `MineLink.tsx`), FBK-2 (`ReportLink.tsx`) | file-disjoint, so parallel builds are allowed; merges one at a time (shell chrome budget) |
 | `web/components/mine/**`, `web/lib/mine/**` | folder | NAV-1, NAV-2, FAV-1, ORG-2, NAV-3 | serial |
@@ -296,7 +382,16 @@ STY-P (B2, contract lane) stays in 3.5's order with STY-Ca; RIS-H moved from I (
 | `web/tests/data/place-html-baseline.json`, `place-size.test.ts`, `budget.test.ts` | budget (a `full` path) | BUD-1, PHO-R (Q263 re-baseline) | only those two, each with the owner's ruling |
 | Commons, Openverse | service | D5c, L3, IMG-1 (cold-cache renditions) | one runner on the machine |
 | ORS | service | MX, ORG-M, STY-L | one runner |
-| Overpass, Wikidata | service | AREA-2, ORPH-7, D3, D8-R, the TRK runs, the D10 splits, OVT | one runner each |
+| Overpass, Wikidata | service | AREA-2, ORPH-7, D3, D8-R, the TRK runs, the D10 splits, OVT, PA-R-CA, PA-R-ON | one runner each |
+| Capture contract files: `core/src/schema/capture/{records,properties,relations}.ts`, `core/src/schema/enums.ts`, `core/src/validate/capture.ts`, `codes.ts`, `data/vocab/types.json` (added 26 Oct, ALIGN) | contract | RIS-H, EG-C, PA-C, PM-C, STY-P, FA-4, PA-3C | one author, in that order (4.3); `capture.ts build` after each; replaces the two-task rule of the `properties.ts` row above |
+| `core/src/schema/api/trip.ts` (added 26 Oct) | contract | PRIV-TD, PA-X, R59-C, ORG-C, EG-Q, OVR-Ca, STY-Ca, TD-1 | one author, in that order |
+| `core/src/catalogue/store.ts`, `core/src/schema/api/place.ts` (added 26 Oct) | contract | LST2b-C, ORG-C, CAT-Q, FBK-C, REQ-RF-C, EG-Q, OVR-Ca, STY-Ca, PA-Q, API-P, CUS-C | one author (4.3) |
+| `web/lib/server/respond.ts`, `core/src/api/**` (added 26 Oct) | contract, `full` path | API-G (creates), API-T, API-S, API-V, MTH-1, MCP-C | API-G merges alone and first in its stack (TEST-STRATEGY 9.1) |
+| `web/components/places/**`, `web/lib/public/places.ts`, `web/lib/public/sections.ts` (added 26 Oct) | folder | UXB-7, PM-F (import lines), PHO-R, EG-W (`places/context/**`), PA-2 (`places/park/**`) | serial in that order; each moves the place budget (4.5) |
+| `data/catalogue/graph/**` (generated, committed; added 26 Oct) | generated data | EG-I (creates), EG-D, every data batch after EG-I (rebuild in the same commit) | one writer, the data seat; `graph.ts build --check` in check-all |
+| `core/src/capture/generate.ts`, generated matrix (added 26 Oct) | generated contract | PM-G | one writer; MTH-G and API-T read it |
+| `tools/check-all.sh`, `tools/gate/map.json` (26 Oct additions) | file | EG-I (graph step, map row), PM-G (matrix check inside `capture.ts build`) | append only; serial merges |
+| `web/mcp-views/**` (added 26 Oct) | folder | MCP-UI | B1; design review and verifier as any UI |
 
 ### 4.2 Pairwise matrix of the UI hot spots
 
@@ -326,8 +421,24 @@ tasks that can be built beside almost anything.
 
 ### 4.3 Contracts that must land first, and their one-author order
 
-B2 is the only author of the shared contract files of 4.1 while a contract task runs. Order (each merges before the
-task that needs it starts): **NAV-C, FAV-C** (v0.3) → **TRP-GL-C** (v0.4) → **LST2b-C** (v0.6) → **PHO-C** (v0.7) →
+**Rewritten 26 Oct 2026, evening (ALIGN): the one order.** B2 is the only author of the shared contract files of 4.1
+while a contract task runs; each merges before the task that needs it starts. Bold = added on 26 Oct.
+
+| # | Bundle window | Contract tasks, in order | Notes |
+|---|---|---|---|
+| 1 | A (done) | NAV-C, FAV-C, FAV-1W, NAV-2C, TRP-GL-C (with TRP-GL-CF), **UXB-C** | merged |
+| 2 | A | **PRIV-TD** | next author of `trip.ts`; before bundle A's deploy |
+| 3 | C | LST2b-C → PHO-C → **RIS-H → EG-C → PA-C → PA-X** → R59-C → ORG-C | RIS-H starts now; EG-C waits for QG1, QG3, QG4, QG5; PA-X before R59-C on `trip.ts`. **EG-M** (migration) runs in the data seat after EG-C and RIS-L |
+| 4 | C (end) to D | CAT-Q → FBK-C (every widening inside it before `intake` is applied) → **PM-C** → **PM-G** (data seat, one writer of `generate.ts`) → REQ-RF-C → **EG-Q** → OVR-Ca | PM-C after PA-C, before STY-P; EG-Q takes the slot after REQ-RF-C (entity-graph 13), OVR-Ca follows; **PM-F** in B1 after UXB-7 and PM-C |
+| 5 | E | STY-P → STY-Ca → STY-E → **PA-Q** → **API-P** → TD-1 | PA-Q after EG-Q (same `store.ts`, `place.ts`); API-P after PA-Q and PM-F |
+| 6 | F | CUS-C (invite-only check inside, Q229b; after FA-D and the `planner_draft_signal` ruling) → NAV-D, FAV-D | FA-4 (field slimming) edits `properties.ts` after PM-C and STY-P |
+| 7 | G | STY-2C, REQ-E-C, R59-3C → **PA-3C** → REQ-G-C → **API-G** (alone in its stack) → **API-T, API-S, API-V, MTH-G** | MTH-1 (Sonnet) after MTH-G and API-G |
+| 8 | H | MCP-C → MCP-G | MCP-C needs AU-D's `expose.mcp` overrides |
+| 9 | H2 (if QX2) | **UPL-C** → **STG-C** | `user_place`, `research_stage` migrations |
+
+The paragraph below is the 25 Oct order, kept for its notes; the table above wins where they differ.
+
+Order (25 Oct; each merges before the task that needs it starts): **NAV-C, FAV-C** (v0.3) → **TRP-GL-C** (v0.4) → **LST2b-C** (v0.6) → **PHO-C** (v0.7) →
 **R59-C, ORG-C** (v0.8) → **FBK-C** (v0.10; every widening inside it before its migration is applied) → **REQ-RF-C**
 (v0.11) → **OVR-Ca** (v0.12) → **STY-Ca, STY-E** (v0.13) → **TD-1** (v0.14) → **CUS-C** (v0.15; the invite-only check inside it,
 Q229b) → **NAV-D, FAV-D** (v0.16) → **STY-2C, REQ-E-C, R59-3C** (v0.17) → **REQ-G-C** (v0.18) → **MCP-C, MCP-G** (v0.19,
@@ -344,7 +455,10 @@ wait for.
 | assigned at merge (MIG-N) | `custom_draft` | CUS-C | v0.15 |
 | assigned at merge (MIG-N) | `draft_cap`, `account_favourite` | NAV-D, FAV-D | v0.16 |
 | (with v0.16) | `account_start` | ORG-H (if Q246) | v0.16 |
+| assigned at merge (MIG-N) | `relation_kinds` (relation CHECK follows `CAP_RELATION`; `entity.run_by`) (26 Oct, ALIGN) | EG-M | C: child in C's window, production at C's release before the step 9a sync (QG5) |
 | assigned at merge (MIG-N) | `mcp_access`, MCP-T token tables | MCP-G, MCP-T | v0.20 |
+| assigned at merge (MIG-N) | `user_place` (and `planner_draft.kind`) (26 Oct, ALIGN) | UPL-C | H2 v0.20a (if QX2) |
+| assigned at merge (MIG-N) | `research_stage` (and decisions) (26 Oct, ALIGN) | STG-C | H2 v0.20b (if QX2) |
 | assigned at merge (MIG-N) | `research_meta` | RIS-M | **v0.5** (was v1.0; after `backup_reader` when both merge for v0.5; [CATALOGUE-EARLY](CATALOGUE-EARLY.md) 7) |
 | on trigger | `account_mail_state`, `mail_suppression` (+ `hook_event` if Q149) | EML Phase 2 | v0.21 |
 
@@ -359,6 +473,8 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | Place HTML (+25% median) | public build median 1.2491 of 1.25 (option A); 19 B in the sign-in-on build | GSI-P (footer link), the beacon tag, NAV-1 (frees about 1 KB a page with CSS masks), FAV-1 (heart), PHO-R (photo figure, about 400 B), data batches (D3, ORPH-7, AREA-2, the D10 splits, the TRK runs, OVT, any new record on a place page; in bundle C before PHO-R; Q290) | BUD-1 first (Q260) so shell chrome leaves the ratio; NAV-1 before PHO-R; PHO-R's re-baseline by Q263 only; a data batch that moves the median merges alone in its stack |
 | Shell chrome (new with BUD-1) | today + 1 KB | GSI-P, NAV-1, FBK-2 (`ReportLink`), beacon | one shell change per stack |
 | Sheet chunk 18 KB (+2 KB REQ-1); request chunks 9, 7, 5 KB; Mine 30 KB; stays 10 KB; panel chunks | each new | their own tasks | measured in the hand-back |
+| (26 Oct, ALIGN) Trip start JS after bundle A | about 460 B (UX spec 12.5) | PRIV-TD (frees a few bytes), UXB-1 to UXB-6 (each ends at or above the headroom it started with; editor, rows, Table, Stops filters and Photos are lazy chunks), PA-W (+0, server-rendered rows), then R59-1, ORG-1 as above | every UXB and PA task quotes `budget:report` before and after in both builds |
+| (26 Oct, ALIGN) Place HTML S13 after bundle A | about 113 B | **UXB-7 first** (must lower the median; one owner-approved re-baseline at its merge), then the C data batches (Q290 rule), then PHO-R (Q263), then PM-F (byte-identical), EG-W and PA-2 (E; lazy sections, each alone in its stack) | a stack never holds two place-budget movers |
 
 ### 4.6 Owner actions that gate a task
 
@@ -384,6 +500,13 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | Q148 (no domain for now; a name and price are owner input needed), Q149 (custom SMTP first) | Email Phase 2 | v0.21 |
 | Q177, Q280 to Q286 (CATALOGUE-EARLY; answered 26 Oct: yes, as recommended), the Neon Data API check, snapshots | CAT-1; Q183 superseded by the owner's 26 Oct decision | v0.5 |
 | snapshots, seam approvals | v1.x | v1.0 to v1.2 |
+| (26 Oct, ALIGN) Q308 (no objection to PRIV-TD's wording change) | PRIV-TD | A |
+| (26 Oct) QG1, QG3, QG4, QG5; Q309 (bundle C cut); Siusi pick | EG-C and the parks chain; EG-M; C's T3 plan; TRK-DO | C |
+| (26 Oct) QG2 | EG-W | E |
+| (26 Oct) QM1, QM2, QM7; QM3 | PM-C, PM-G; PM-F, API-P | D, E |
+| (26 Oct) QM5, QX8, QX9 | API-T, API-S; MTH-G, MTH-1; API-V | G |
+| (26 Oct) QX1, QX7, QM4, QM6, QM8, QM9, QM10, QX10 (API keys for evals), QX12, Q-B1 | MCP-C, MP1, MP2 | H |
+| (26 Oct) QX2 first, then QX3, QX4, QX5, QX6, QX11, Q-B2, Q-B3 | all of H2 | H2 |
 | the publish of the public repository (scrub 6), Q182 and Q266 (answered) | LOCAL-4, E2E-YML | I-track |
 
 ## 5. Lanes, sequence points and the release train
@@ -401,6 +524,16 @@ one release (v0.16, v0.20) are applied in the order of the table, on the child f
 | S, server | data seat for the early half (26 Oct, Q286): RIS-M with an Opus builder, the rest Sonnet; B2 for CAT-Q and SRV-0 | `core/src/catalogue/postgres/**`, loader, `tools/db/**` rehearse and drift | LOCAL-3, RIS-M, RIS-L, RIS-T, LOCAL-5, CAT-V, CAT-1 (v0.5); CAT-Q (before FBK-C); SRV-0, seams (v1.x) |
 | H, docs | coordinator, Haiku, planner | `docs/**`, `HANDOVER.md` | H0, H2, H1, then J1: H3, H4, H8, D610, H5, H9 |
 | V, verify and review | verifier (Sonnet), design reviewer (Opus) | notes only | each UI task, in merge order |
+
+**Seat changes, 26 Oct (ALIGN).** B1 adds the UXB tasks, PRIV-TD's web half (if B2 is busy), PA-W, PA-2, PA-3, EG-W, PM-F
+(it holds `sections.ts` after UXB-7), and **from bundle G onward the Sonnet builds of lane X** (MCP-1, MCP-M, MCP-GR,
+ORG-MCP, MCP-PK, MCP-U, MCP-E1, MCP-E; in H2 UPL-1, STG-1, STG-P, MCP-UI, MCP-P's page, MCP-P2), because B1's own queue
+thins after G while B2's grows; B2 keeps every contract (EG-C, EG-Q, PA-C, PA-X, PA-Q, PA-3C, PM-C, API-P, API-G,
+API-V, MTH-G, MCP-C, MCP-G, MCP-T, MCP-2, MCP-O, UPL-C, MCP-W, STG-C, MCP-3, MCP-A) and the evals. The data seat adds
+EG-M (lane S, Opus builder), EG-D, PA-R-CA, PA-MUS, PA-R-ON, PM-G (Sonnet builder; one writer of `generate.ts`), and the
+graph rebuild after every batch. The design reviewer adds EG-R0, EG-N, PA-N, PA-N3 and the UXB, PA and EG reviews; the
+planner EG-DOC, PA-M and AU-D. Lane X's file set gains `web/mcp-views/**`, `core/src/api/**` (after API-G) and
+`/api/account/{plans,places}/**`.
 
 **Concurrency.** Two builders (B1, B2), one verifier and one data seat; reviewers and docs lanes on top. Heavy work
 stays inside TEST-STRATEGY's slots: two builds and one Playwright run at a time, the full e2e alone. Until TS-4 enforces
@@ -433,26 +566,35 @@ RELEASE-PLAN 0a.2; data tasks per bundle are in [DATA-PLAN.md](DATA-PLAN.md) 2.
 | **v0.2** [v0.2 + v0.4] | **A** | Sign-in on phones, a privacy page, page-view counts, basics for the 74 stored places | ACCT-PH-RV 3, ACCT-PH-F 0 to 2, BUD-1 3, GSI-P 2; D2b and BUDGET-FIX already merged | 8 to 10 | none | D2b is on `main` and data has no flag (correction C1) |
 | **v0.3** [v0.3] | **A** | Mine: copies and favourites on this device | OVR-0 3, NAV-F 1.5, NAV-C 3.25, NAV-1 5.5, NAV-2 6, NAV-R1/V1 4, FAV-C 4, FAV-1 12, FAV-R/V 4; RIS-J 6 (data) | 49.25 | none | unchanged; OVR-0 goes first (budget) |
 | **v0.4** [new] | **A** | Trip page go-live fixes and share images | TRP-GL-C 3, TRP-GL 5, TRP-GL review 4, TRP-GL-D 2, IMG-1 7 | 21 | none | production is live with closure deferrals open (C2); IMG-1 blocks photos, CI and share previews (C3) |
+| (26 Oct, ALIGN) | **A** | No household-derived status on public trips | PRIV-TD 2.5 ([alignment](alignment-2026-10-26.md) 3.1) | 2.5 | none | live v0.1 prints "Finished plan" from the household's real trip date; the next deploy is the only fix |
 | **v0.5** [v0.5] | **B** | Sign in by emailed code; backups; **Internal: the catalogue in Neon (CAT-1)** | EML-S 2, EML-V 2, EML-P 1, EML-E 2, BKP-1 6.5; Internal (data seat): LOCAL-3 3, RIS-M 7, RIS-L 8, RIS-T 7, LOCAL-5 2, CAT-V 2, CAT-1 1.5 | 13.5 + 30.5 Internal | `backup_reader`, `research_meta` | BKP-1 has no LOCAL-4 dependency and needs a migration (C4); the catalogue load moves forward from v1.0 (owner, 26 Oct; C15); if lane S is not green at the cut, CAT-1 rides bundle C |
 | **v0.6** [new] | **C** | Places near a town: Where at city level, near mode, routed times; the closure queue finished | LST2b 12 (incl. LST2b-C), LST2c 9, MX 5, LST2-RV 6, R-14 3, CONS-3 8, GB-A-4 2, ACC-1 3 (if 15.44 yes), ORPH-7 3, AREA-2 6, L4 2 (data) | 59 | none | the owner's 23 Oct closure queue, dropped by RELEASE-PLAN, comes before R-59 (C5) |
 | **v0.7** [v0.8] | **C** | Photos on trail and stop pages, from our host | PHO-C 1, PHO-R 8, PHO-R review 4; D3 10, D5c 4 (data) | 27 | none | needs IMG-1 only; `pickPhotos` moves from OVR-3 (C6) |
 | **v0.8** [v0.9] | **C** | Links and directions beside every stop; getting there | R59-C 3, R59-N 2, R59-1 10, R59 review 4; ORG phase 1 28 (ORG-C, ORG-D, ORG-G, ORG-M ride earlier as internal) | 47 | none | R-59 sized here (C7); ORG after R-59 as the origin spec says |
+| (26 Oct; UX fixes, R-260 to R-266) | **C** | Trip tabs and Summary, party bar, the trip's shape, when to go, Table view, Bookings and Photos tabs; place pages show what is known | UXB-N 4, UXB-C 4, UXB-W 3 (data), UXB-1 8, UXB-2 6, UXB-3 5, UXB-4 4, UXB-5 6, UXB-6 4, UXB-R1/V1 6, UXB-7 10, UXB-R2/V2 4, UXB-F 3 | 67 | none | the owner's live review; first in C's B1 queue (Q301) |
+| (26 Oct; entity graph, R-254) | **C** (Internal) | One linking schema: relation rules, chain, index | EG-C 6, EG-R0 1, EG-M 2.5 (data), EG-FX 2.5, EG-I 6, EG-D 3 (data), EG-DOC 2 | 23 | `relation_kinds` | parks P1 cannot land without it (QG4) |
+| (26 Oct; parks P1, R-253) | **C** | Park entry requirements and Book ahead kinds on the trip page | PA-C 6, PA-FX 3, PA-X 4, PA-D 3.5, PA-R-CA 6 (data), PA-W 4, PA-M 1.5, PA-R1/V1 3 | 31 | none | the Rockies Bookings tab shows "0 dated" until it lands (QP6) |
 | **v0.9** [v0.6] | **B** | Continue with Google | GSI-0 3, GSI-T 1, GSI-1 8, GSI-2 4, GSI-S 2, GSI-E 3, GSI-R/VF 3 | 24 | none | built in B2 beside v0.6 to v0.8; ships when ready, after v0.5 (email spec 12) |
 | **v0.10** [v0.7] | **D** | Report a problem, suggest an improvement (signed in) | FBK-C 12.25, FBK-N 2, FBK-M 2, FBK-1 8, FBK-S 4, FBK-2 13, FBK-R/V 6, FBK-3 6, FBK-E 4, REQ-1 6, REQ-R1/V1 4 | 67.25 | `intake` | FBK-2 is 3 h smaller (Q238); widenings counted in FBK-C |
 | **v0.11** [new] | **D** | Ask for a trip and suggest a place with research-ready detail | REQ-RF-C 2, REQ-RF 4, REQ-F2 7, REQ-F1 8.5, REQ-F3 2, REQ-FB 4, REQ-R4/V4 4 | 31.5 | none | a few days after v0.10 (Q238); missing from RELEASE-PLAN (C8) |
+| (26 Oct; property matrix, R-255) | **D** (Internal) | Every property's privacy and exposure in the registry; the generated matrix; the formatter in core | PM-C 4, PM-G 5 (data seat), PM-F 4 (B1) | 13 | none | before the field audit (F) and MCP (H) read it |
 | **v0.12** [v0.10] | **E** | Best time to go and the trip overview | OVR-N 3, OVR-Ca 4, OVR-Cb 6, OVR-1 6, OVR-2 14, OVR-3 3, OVR-R/V 6, PHO-0 3; D8-R 8, D8 8, D7 16 (data) | 77 | none | unchanged content |
 | **v0.13** [new] | **E** | Where to stay on every trip | STY-P 2, STY-Ca 5, STY-E 6, STY-L 3, STY-Cb 5, STY-N 3, STY-1 14, STY-Q/R/V 8; D9 8.5 (data); RIS-A 8 (data) | 62.5 | none | owner: "do not miss it"; public, read-only; RELEASE-PLAN had no slot (C9) |
 | **v0.14** [new] | **E** | Trips written as data get pages | TD-1 6, TD-2 11, TD-3 5 | 22 | none | Q80's "after R2" premise is gone; before CUS so `source_trip` is a data trip id (Q267, C10) |
+| (26 Oct; graph read model, parks P2, facts) | **E** | Place context ("In Banff National Park", ways to do it, how to get there); the park page; one facts model | EG-N 2, EG-Q 4, EG-W 6, EG-R/V 3; PA-N 3, PA-Q 2, PA-2 10, PA-DV 2, PA-MUS 2.5 (data), PA-R2/V2 4; API-P 6 | 44.5 | none | after UXB-7's templates (C) |
 | **v0.14.1** [new, audits] | **F** | Field slimming: fields nobody fills or reads leave the pages and the contract | AU-G 0.5, FA-2 6, FA-3 2, FA-D owner, FA-4 6, FA-5 3, FA-6 9, FA-7 1 ([AUDITS-AFTER-RELEASE.md](AUDITS-AFTER-RELEASE.md) 6) | 27.5 | none | the gate after v0.14 (Q270); before CUS-C copies the field set (Q271, 26 Oct: the only patch release) |
 | **v0.15** [v0.11] | **F** | Customise a trip (signed in) | CUS-C 10.25, CUS-1 20, CUS-2 3, CUS-R 3 | 36.25 | `custom_draft` | unchanged |
 | **v0.16** [v0.12] | **F** | Copies and favourites follow you into your account | NAV-D 2, NAV-3 6, NAV-E 2, NAV-R2/V2 4, FAV-D 4, FAV-2 12, FAV-2E 3, ORG-H 4 | 37 | `draft_cap`, `account_favourite`, `account_start` | unchanged |
 | **v0.17** [v0.13] | **G** | More edits, your own stops, base tweaks | REQ-E-C 3, REQ-E UI 8, REQ-P 5, REQ-R2/V2 4, STY-2C 2, STY-2 10, STY-2V 5, R59-3C 3, R59-3 UI 7 | 47 | none | STY-2 and R-59 part 3 had no slot (C9) |
 | **v0.18** [v0.14] | **G** | Search the map for a stop we do not have | REQ-G0 3, REQ-G-C 2, REQ-G 6, REQ-S 8, REQ-L 3, REQ-A 3, REQ-R3/V3 4 | 29 | none | unchanged |
+| (26 Oct; parks P3; API for MCP) | **G** | Plan a park visit and camping; Internal: endpoint table and guard, types, sun, validate, method routes | PA-N3 2, PA-3C 3, PA-3 8, PA-R-ON 4 (data), PA-R3/V3 4; API-G 4, API-T 3, API-S 1.5, API-V 5, MTH-G 6, MTH-1 3 | 43.5 | none | P3 needs customise (F) and own stops (v0.17); the API rows are MCP-C's prerequisites |
 | (before v0.19) | **H** | Delta audit narrowed to the MCP field list (the field tool on the v0.18 commit) | AU-D 3 | 3 | none | MCP-C publishes only kept fields (Q277) |
-| **v0.19** [v0.15] | **H** | Public MCP | MCP-C 5.5 (with the R-252 test), MCP-1 6, MCP-S1 1.5, ORG-MCP 1.5 | 14.5 | none | unchanged |
-| **v0.20** [v0.16] | **H** | Private MCP | MCP-G 6, MCP-T 5, MCP-2 8, MCP-O 4, MCP-U 10, MCP-S 2.5, MCP-E 3 | 38.5 | `mcp_access`, token tables | unchanged |
+| **v0.19** [v0.15] | **H** | Public MCP (MP1) | **(26 Oct, ALIGN)** MCP-C 10, MCP-1 8, MCP-M 3, MCP-GR 2, ORG-MCP 1.5, MCP-PK 3, MCP-EV 6, MCP-S1 2.5, MCP-E1 1 (AU-D 3 in the row above) | 37 | none | 21 public tools, `travel-view/1`, method resources ([packaging](../mcp/product-packaging-and-phases.md) 4) |
+| **v0.20** [v0.16] | **H** | Private MCP, read (MP2) | MCP-G 6, MCP-T 5, MCP-2 9, MCP-O 4, MCP-U 10, MCP-S 4, MCP-E 3 | 41 | `mcp_access`, token tables | (26 Oct) MCP-2 +1, MCP-S 4 as auth 14.9 |
+| **v0.20a** [new, 26 Oct] | **H2** (if QX2) | Plan with your AI: copy, customise, own plans with private places, favourites, requests; previews; MCP Apps views (MP3) | UPL-C 6, UPL-1 8, MCP-W 10, MCP-P 8, MCP-UI 19, MCP-S3 4, MCP-EV2 3, MCP-E3 2 | 60 | `user_place` | its own deploy and security review (QX2) |
+| **v0.20b** [new, 26 Oct] | **H2** (if QX2) | Research and admin: staged research batches approved on our site, work lists, intake tools (MP4), owner only (QX11) | STG-C 6, STG-1 8, STG-P 7, MCP-3 10, REQ-M 6, MCP-A 6, MCP-P2 3, MCP-S4 6, MCP-EV3 2, MCP-E4 1 | 55 | `research_stage` | after v0.20a ships; publish path per QX4 |
 | **v0.21** [v0.17] | **I** | Own domain and Email Phase 2 (on the Q148 trigger only; its number is taken when it ships) | as RELEASE-PLAN | 29 or 42.5 | mail tables | unchanged |
-| **v0.22** [new, audits; 26 Oct] | **J** | UI and UX audit and fixes, run once on the whole product just before the Postgres cutover | UA-0 5, AU-GU 0.5, UA-1 4, UA-P 3, UA-W 4.5, UA-A 0.5, UA-2 8, UA-3 6, UA-T 3, UA-D owner, UA-FX 24 (placeholder), UA-FX-R 10, UA-AF 2 | 70.5 | none | owner decision 26 Oct: the audit waits until everything is built; gate G-UI after v0.20 (and v0.21 if shipped); reads [UI-NOTES.md](UI-NOTES.md); v1.0 waits for its fixes |
+| **v0.22** [new, audits; 26 Oct] | **J** | UI and UX audit and fixes, run once on the whole product just before the Postgres cutover | UA-0 5, AU-GU 0.5, UA-1 4, UA-P 3, UA-W 4.5, UA-A 0.5, UA-2 8, UA-3 6, UA-T 3, UA-D owner, UA-FX 24 (placeholder), UA-FX-R 10, UA-AF 2 | 70.5 | none | owner decision 26 Oct: the audit waits until everything is built; gate G-UI after v0.20 (and v0.21 if shipped; **after v0.20b too when QX2 is yes**, ALIGN); reads [UI-NOTES.md](UI-NOTES.md); v1.0 waits for its fixes |
 | **v1.0 to v1.2** | **K** | Postgres cutover, one seam per release, from a production catalogue loaded since v0.5 | SRV-0 21, R-9 2 | 23 (was 47: RIS-M, RIS-L, RIS-T, LOCAL-3, LOCAL-5 and the load moved to v0.5, CAT-Q to v0.10) | none expected | seams flip only after 4 clean weekly CAT-V runs and parity ([CATALOGUE-EARLY](CATALOGUE-EARLY.md) 6) |
 | I (Internal, any release) | per RELEASE-PLAN 0a.2 | Test strategy and CI | TS-1 to TS-8 35, LOCAL-4 5, E2E-YML 3, RIS-S 3, RIS-H 3, CAT-Q 6 (before FBK-C) | 55 | none | ride the next release; LOCAL-3 is counted in v0.5 |
 
@@ -463,41 +605,47 @@ the version number follows the deploy order (Q224). The order above is the recom
 
 ### 5.4 Critical path (week-less, ordered, with sizes)
 
-B1 carries the critical path; B2 keeps the next contract merged before B1 needs it. Hours are agent hours, reviews
-included where they block the next B1 task.
+**Rewritten 26 Oct 2026, evening (ALIGN)** from the state of 3.0 (bundle A almost done, UXB-1 in fixes) with every task
+of 3.9 placed. The morning's 23-row table is replaced; its sequencing rules stand (OVR-Ca right after REQ-RF-C, RIS-H
+before OFR-1 and RIS-A, the D10 splits before REQ-RF, data before PHO-R in C). Hours are agent hours left, reviews
+included where they block the next B1 task. B1 carries the critical path; B2 keeps the next contract merged before B1
+needs it; in D and H the two seats are about equal, which is why PM-G moved to the data seat, PM-F to B1 and lane X's
+Sonnet builds to B1 (5.1).
 
-Windows (26 Oct, bundles): rows 1 to 6 build bundle A (and B's Internal in the data seat), rows 7 to 11 bundle C (bundle B
-ships from B2 rows 5 to 10 at about the same time), rows 12 to 14 bundle D, rows 15 to 17 bundle E, rows 18 and 19 F, rows
-20 and 21 G, row 22 H, row 23 J. The data seat column follows [DATA-PLAN.md](DATA-PLAN.md) 2.2.
+| # | Window | B1 (critical path) | h | B2 at the same time | h | Data seat | h |
+|---|---|---|---|---|---|---|---|
+| 1 | A (finish) | FAV-1F if FAV-R or FAV-V ask; PRIV-TD's web half if B2 is busy; support for T2 and T3 | 3 | **PRIV-TD** contract (Opus), TS-4 | 5 | lane S starts: LOCAL-3, RIS-M (Opus builder) | 10 |
+| 2 | C | UXB-1F, merge UXB-1; UXB-2 | 7.5 | **RIS-H**, LST2b-C, PHO-C; EML-S, EML-P | 9 | RIS-L | 8 |
+| 3 | C | UXB-3, UXB-4 | 9 | **EG-C** (after QG1, QG3, QG4, QG5), EG-R0 (reviewer), EG-FX | 9.5 | RIS-T, LOCAL-5 | 9 |
+| 4 | C | UXB-5, UXB-6, UXB-R1/V1 | 16 | **EG-I**, **PA-C** | 12 | CAT-V, DV-1, TRK-1 | 15 |
+| 5 | C | UXB-7, UXB-R2/V2, UXB-F | 17 | PA-FX, **PA-X**, PA-D; BKP-1, EML-V | 19 | **EG-M** (Opus builder), **EG-D**, **PA-R-CA**, D5c (before the Summary highlights ship) | 15.5 |
+| 6 | C | **PA-W**, PA-R1/V1 (PA-M, EG-DOC by the planner) | 7 | TS-6, TS-5, ORG-C, ORG-D, ORG-M, ORG-A | 15 | D3, TRL-REL | 13.5 |
+| 7 | C | LST2b | 12 | R-14, CONS-3 (quiet point), R59-C, GB-A-4, ACC-1 (if 15.44 yes) | 19 | ORG-G, TRK-CA, TRK-DO, TRK-RW | 12 |
+| 8 | C | LST2c, LST2-RV | 15 | MX, GSI-0, GSI-T, GSI-1 | 17 | D10-RO, D10-DO | 10.5 |
+| 9 | C | PHO-R and review (after the C data batches and UXB-7's re-baseline) | 12 | GSI-2, GSI-S, GSI-E, TS-7, RIS-S | 14 | OFR-1 (after RIS-H), DV-2 (after CAT-1) | 6.5 |
+| 10 | C | R59-N, R59-1 and review | 16 | CAT-Q, then FBK-C | 18.25 | D8-R facts; D10-UT, D10-PA, D10-IC, D10-CH, D10-PAST (pulled from D's window; before REQ-RF) | 16 |
+| 11 | C | ORG-N, ORG-1, ORG-2, ORG-R/V | 16.5 | FBK-M, FBK-1 | 10 | catch-up for anything slipped | |
+| 12 | D | FBK-N, FBK-2 and review | 21 | FBK-S, FBK-3, FBK-E, **PM-C** | 18 | **PM-G** (Sonnet builder, Opus review); D8 | 13 |
+| 13 | D | REQ-1 and review; **PM-F** | 14 | REQ-RF-C, **EG-Q**, OVR-Ca, REQ-RF | 14 | STO-1 (Grand-Sault on the owner's pick), L3 | 5.5 |
+| 14 | D | REQ-F2, REQ-F1, REQ-F3, review | 21.5 | REQ-FB, OVR-Cb, STY-P | 12 | D7 (after OVR-Ca) | 16 |
+| 15 | E | OVR-N, OVR-1, OVR-2, OVR-3, review | 32 | PHO-0, STY-Ca, STY-E, STY-L, STY-Cb | 22 | RIS-A (after STY-P and RIS-H) | 8 |
+| 16 | E | STY-N, STY-1, review | 25 | **PA-Q**, **API-P**, PA-DV, TD-1, TD-3 | 21 | D9 (after STY-E); OVT (after TD-1) | 15.5 |
+| 17 | E | TD-2; **EG-W** and review (EG-N by the reviewer); **PA-2** and review (PA-N by the reviewer) | 34 | CUS-C | 10.25 | **PA-MUS**; DP (optional) | 6.5 |
+| 18 | F | CUS-1, CUS-R (CUS-2 by the verifier) | 26 | NAV-D, FAV-D, ORG-H core; FA-4, FA-5 | 19 | | |
+| 19 | F | NAV-3, FAV-2, NAV-E, FAV-2E, reviews | 27 | REQ-E-C, STY-2C, R59-3C | 8 | | |
+| 20 | G | REQ-E UI, REQ-P, STY-2, R59-3 UI, reviews | 39 | **PA-3C**, REQ-G0, REQ-G-C, REQ-G, REQ-A | 17 | **PA-R-ON** | 4 |
+| 21 | G | REQ-S, REQ-L, review; **PA-3** and review (PA-N3 by the reviewer) | 27 | **API-G** (alone in its stack), **API-T**, **API-S**, **API-V**, **MTH-G**, **MTH-1** | 22.5 | | |
+| 22 | H | after MCP-C: MCP-1, MCP-M, MCP-GR, ORG-MCP, MCP-PK, MCP-E1; MCP-U, MCP-E | 31.5 | **MCP-C**, MCP-EV; MCP-G, MCP-T, MCP-2, MCP-O (AU-D by the planner; MCP-S1, MCP-S by Opus reviewers) | 40 | | |
+| 23 | H2 (if QX2) | UPL-1, MCP-UI, the MCP-P page; STG-1, STG-P, MCP-P2, MCP-E3, MCP-E4 | 53 | **UPL-C**, MCP-W, MCP-P contract, **STG-C**, MCP-3, REQ-M, MCP-A, MCP-EV2, MCP-EV3 (MCP-S3, MCP-S4 by Opus reviewers) | 52 | | |
+| 24 | J | UA-0 (just before v0.22), then the UA-FX lanes after UA-D | 29 | UA-1, UA-P, UA-W, UA-A, UA-2, UA-3, UA-T by the verifier, reviewers and planner; SRV-0 built beside | 29.5 | | |
+| 25 | K | | | R-9, SRV-0 seam flips | 23 | | |
 
-| # | B1 (critical path) | h | B2 at the same time | h | Data seat | h |
-|---|---|---|---|---|---|---|
-| 1 | GSI-P (done) | 0 | (BUD-1, NAV-C done) TS-2a | 3 | LOCAL-3, TRP-GL-D (RIS-J done) | 5 |
-| 2 | OVR-0 | 3 | TS-1 (FAV-C done) | 5 | RIS-M (Opus builder, review) | 7 |
-| 3 | NAV-1 (after ACCT-PH-RV's baselines) | 5.5 | TS-2 | 8 | RIS-L (review) | 8 |
-| 4 | NAV-2, NAV-R1/V1 | 10 | TRP-GL-C, IMG-1 | 10 | RIS-T, LOCAL-5 | 9 |
-| 5 | FAV-1, FAV-R/V | 16 | TS-4, BKP-1, EML-S, EML-P | 13.5 | CAT-V, DV-1, L4, D610; owner D1B-Q | 11 |
-| 6 | TRP-GL and review | 9 | EML-E, TS-6, TS-3, ORG-C, ORG-D | 15 | ORPH-7; the coordinator's CAT-1 on B's release day | 3 |
-| 7 | LST2b | 12 | R-14, CONS-3 (quiet point), PHO-C, R59-C | 15 | TRK-1 (Sonnet builder), AREA-2 | 13 |
-| 8 | LST2c, LST2-RV | 15 | MX, GB-A-4, ACC-1, ORG-M, ORG-A, RIS-H | 16.5 | D3, TRL-REL | 13.5 |
-| 9 | PHO-R and review | 12 | GSI-0, GSI-T, GSI-1 | 12 | ORG-G (after ORG-D), TRK-CA, TRK-DO, TRK-RW | 12 |
-| 10 | R59-N, R59-1 and review | 16 | GSI-2, GSI-S, GSI-E, TS-5, TS-7, RIS-S | 19 | D10-RO, D10-DO | 10.5 |
-| 11 | ORG-N, ORG-1, ORG-2, ORG-R/V | 16.5 | CAT-Q, then FBK-C | 18.25 | OFR-1 (after RIS-H), D5c (Commons runner), DV-2 | 10.5 |
-| 12 | FBK-N, FBK-2 and review | 21 | FBK-M, FBK-1, FBK-S | 14 | D8-R; D10-UT, D10-PA, D10-IC, D10-CH, D10-PAST (before REQ-RF) | 16 |
-| 13 | REQ-1 and review | 10 | FBK-3, FBK-E, REQ-RF-C, OVR-Ca (moved up from row 14, 26 Oct), then REQ-RF | 20 | D8; STO-1; L3 (if DD-3) | 13.5 |
-| 14 | REQ-F2, REQ-F1, REQ-F3, review | 21.5 | REQ-FB, OVR-Cb, STY-P | 12 | D7 (after OVR-Ca) | 16 |
-| 15 | OVR-N, OVR-1, OVR-2, OVR-3, review | 32 | PHO-0, STY-Ca, STY-E, STY-L, STY-Cb | 22 | RIS-A (after STY-P and RIS-H) | 8 |
-| 16 | STY-N, STY-1, review | 25 | TD-1, TD-3 | 11 | D9 (after STY-E); OVT (after TD-1) | 15.5 |
-| 17 | TD-2 | 11 | CUS-C | 10.25 | DP (optional) | 4 |
-| 18 | CUS-1, CUS-R (CUS-2 by the verifier) | 26 | NAV-D, FAV-D, ORG-H core, MCP-C | 12 | | |
-| 19 | NAV-3, FAV-2, NAV-E, FAV-2E, reviews | 27 | REQ-E-C, STY-2C, R59-3C, MCP-1, MCP-S1, ORG-MCP | 17 | | |
-| 20 | REQ-E UI, REQ-P, STY-2, R59-3 UI, reviews | 39 | REQ-G0, REQ-G-C, REQ-G, REQ-A, MCP-G, MCP-T | 25 | | |
-| 21 | REQ-S, REQ-L, review | 15 | MCP-2, MCP-O | 12 | | |
-| 22 | MCP-U | 10 | MCP-S, MCP-E; then R-9, SRV-0 (built, not deployed before v0.22; RIS-M to LOCAL-5 moved to rows 2 to 6 on 26 Oct) | 28.5 | | |
-| 23 | UA-0 (just before v0.22), then the UA-FX lanes after UA-D | 29 | UA-1, UA-P, UA-W, UA-A, UA-2, UA-3, UA-T by the verifier, reviewers and planner | 29.5 | | |
-
-B1 total about 383 h left including the review time it waits on (GSI-P done); B2 about 322 h; the data seat about 172 h plus DP (26 Oct: lane S's early half moved from B2 rows 6 and 22 into the data seat's rows 1 to 6, [CATALOGUE-EARLY](CATALOGUE-EARLY.md) 4; the research no task covered, the track fetcher and the database cross-check added by [DATA-PLAN.md](DATA-PLAN.md); OVR-Ca one row earlier so D7 is off E's critical path; RIS-H in B2 row 8 so OFR-1 and RIS-A can use its homes). LOCAL-4 and E2E-YML go in
-when the public repository exists; Email Phase 2 only on its trigger; GLB2b when the owner approves the globe mock.
+**Totals left:** B1 about **511 h** (A 3, C 128, D 56.5, E 91, F 53, G 66, H 31.5, H2 53, J 29); B2 about 430 h; the data
+seat about 185 h. Without H2, B1 about 458 h. **The one chain that can stall C:** the owner's QG answers, then RIS-H 3,
+EG-C 6, EG-R0 1, EG-FX 2.5, EG-I 6, PA-C 6, PA-FX 3, PA-X 4, PA-D 3.5 (B2, 35 h) with PA-R-CA beside it, joining B1 at
+PA-W in row 6 (about 50 B1 hours into C). If the QG answers come later than about a week after row 2 starts, PA-W and
+the parks P1 rows ship dark under Q309's cut. LOCAL-4 and E2E-YML go in when the public repository exists; Email Phase 2
+only on its trigger; GLB2b when the owner approves the globe mock.
 
 ### 5.5 Corrections made to RELEASE-PLAN (each also in RELEASE-PLAN section 0)
 
@@ -522,6 +670,7 @@ when the public repository exists; Email Phase 2 only on its trigger; GLB2b when
 | C17 | (26 Oct) Bundling findings: ACCT-PH-F dropped and ACCT-PH-RV narrowed (the interim item never deploys); B and H deploy in two steps on one commit (O-E1 before Google; Q225 public before private); C's data batches merge before PHO-R; D10 splits before REQ-RF; OVR-Ca one B2 row earlier; K flips one seam per redeploy | RELEASE-PLAN 0a.3 |
 | C18 | (26 Oct) Every pending research task gets a bundle and its hours count in that bundle: track fetcher TRK-1 and runs, trip records D10, trail relevance TRL-REL, offers OFR-1, store gaps STO-1, overview-trip stops OVT, the database cross-check DV-1 and DV-2 | owner follow-up 26 Oct; [DATA-PLAN.md](DATA-PLAN.md) |
 | C15 | (26 Oct) The catalogue load moves from v1.0 to v0.5 as Internal (CAT-1): LOCAL-3, RIS-M, RIS-L, RIS-T, LOCAL-5 and the new CAT-V in the data seat, CAT-Q before FBK-C; v1.0 keeps SRV-0 and R-9 | owner decision 26 Oct; [CATALOGUE-EARLY.md](CATALOGUE-EARLY.md) |
+| C19 | (26 Oct evening, ALIGN) Bundle hours rewritten (C 301.5 h, all 1,350.5 h); new bundle H2 if QX2; PRIV-TD in A; the 26 Oct contract tasks placed in one order (4.3); PM-G to the data seat, PM-F and lane X Sonnet builds to B1; MCP phases written MP1 to MP5 | [alignment-2026-10-26.md](alignment-2026-10-26.md) |
 
 ## 6. What starts first
 
@@ -682,6 +831,11 @@ ids resolves with `git cat-file -t`; no text other than ids and status cells cha
 
 **26 Oct 2026: the owner answered every open question that had a written recommendation ("go ahead with all recommended answers", ANSWERS-5): Q66 to Q69, Q89, Q91, Q93 to Q100, Q101 to Q108, Q109 to Q116 and DD-6, Q117 to Q124, Q130 to Q137, Q140 to Q149, Q160 to Q168, Q170 to Q177, Q180 to Q187, Q190 to Q198, Q290 (both uses), Q291, Q292, GB-B-3, ENV, L9, O-1, O-3, O-5, O-6, DD-1 to DD-8 and the five D1b rulings.** FAV-1 is no longer gated by Q101 to Q108, and the DATA-PLAN tasks that waited on the D1b rulings are ready ([DATA-PLAN](DATA-PLAN.md) 2.3). The answers are in [PLAN](../PLAN.md) section 5 (answered table), each spec's question table and BACKLOG.
 
+**26 Oct 2026, evening (ALIGN): new open questions since ANSWERS-5.** The entity graph (QG1 to QG5), the property
+matrix (QM1 to QM10), the MCP product (QX1 to QX12, Q-B1 to Q-B3) and Q308, Q309 are open. The one consolidated list,
+de-duplicated and ordered by what each blocks, with a recommendation and the consequence of each option, is
+[alignment-2026-10-26.md](alignment-2026-10-26.md) section 9. The owner inputs below stay the list of values.
+
 #### Owner inputs still needed (the one list; [DATA-PLAN](DATA-PLAN.md) 2.3 points here)
 
 Each row is a value or a step only the owner has. The decision behind it is recorded; the task waits only for the value.
@@ -729,6 +883,7 @@ TEST-STRATEGY once TS-5 runs.
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (ALIGN, evening) | One ordering again ([alignment-2026-10-26.md](alignment-2026-10-26.md), R-256): section 0 bundle table rewritten (C 301.5 h; H 81 h; new H2 115 h if QX2; total 1,350.5 h); 3.0 merged-today table; 3.2 "H2 (housekeeping)"; 3.5 MCP-C blocked and resized; 3.8 MCP rows resized and pointed to 3.9; new 3.9 (PRIV-TD, UXB, EG, PA, PM, API, MTH, MP1 to MP5); 4.1 new hot spots; 4.3 the one contract order; 4.4 `relation_kinds`, `user_place`, `research_stage`; 4.5 budgets after A; 4.6 new owner gates; 5.1 seat changes; 5.3 new rows (v0.20a, v0.20b and the 26 Oct additions per bundle); 5.4 rewritten (B1 about 511 h left); C19; 7.3 points to the consolidated questions. Owner decisions untouched |
 | 2026-10-26 (ANSWERS-5) | Owner answered every remaining open question with a written recommendation (yes, as recommended): section 7.3 rewritten with the new list "Owner inputs still needed"; 4.6 and 3.x gates updated (FAV-1 no longer gated by Q101 to Q108; D1b rulings answered; Q182 answered). Nothing else changed |
 | 2026-10-26 (PLAN-CONSOLIDATE job 4) | MCP rule (R-252): MCP-C (+0.5 h for the no-database test and the tool-to-route table), MCP-G, MCP-1 and the private MCP rows; [mcp/README](../mcp/README.md) 1.1 |
 | 2026-10-26 (PLAN-CONSOLIDATE job 3) | 3.4's task table moved to [DATA-PLAN.md](DATA-PLAN.md) 2 (the single data plan); 3.4 keeps the ids by bundle; Q88 row closed (answered, option A); lane D's order points to DATA-PLAN; RIS-H to bundle C |

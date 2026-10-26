@@ -1,6 +1,11 @@
 # Release plan: one ordered train from v0.1 to the Postgres cutover
 
-> **26 Oct 2026 (UX fixes from the owner's live review, planned, waiting for design approval G-UXA):** UXB-N, UXB-C, UXB-W, UXB-1 to UXB-7, reviews and fixes, about 67 h, ride **bundle C**, first in its B1 queue, after bundle A's TRP-GL, FAV-1 and NAV-2F merge, and before R59-1 and PHO-R. Order, owned files and briefs: [trip-and-places-ux-fixes.md](../features/trip-and-places-ux-fixes.md) 12 and 13 (PLAN R-260 to R-266; Q293 to Q302).
+> **26 Oct 2026, evening (ALIGN, R-256):** the bundle table of 0a.2 is rewritten with every task the specs of 26 Oct added
+> (UX fixes, entity graph, parks, property matrix, API for MCP, the MCP product, the privacy fix PRIV-TD): C 301.5 h, H 81 h,
+> new bundle **H2** (v0.20a, v0.20b) 115 h if the owner answers QX2 yes, 1,350.5 h in all. The ordering is
+> [MASTER-ORDER](MASTER-ORDER.md) 0, 4.3 and 5.4; the audit and the consolidated owner questions are
+> [alignment-2026-10-26.md](alignment-2026-10-26.md). The UX design is approved (G-UXA passed 26 Oct) and its build is in
+> C's queue.
 
 > **26 Oct 2026: releases are bundles A to K (section 0a, owner decision).** The v0.x numbers below are feature labels.
 
@@ -44,6 +49,7 @@ most one bundle, because a late mate is shipped dark, rule B3).
 | B8 | **Data readiness:** every bundle names the scoreboard numbers ([DATA-PLAN.md](DATA-PLAN.md) 5) its features display. The data seat schedules research so they are met at the bundle's T3 (DATA-PLAN 2.2). Data that falls short ships partial, each gap a dated `searched_none` and one Known limits line; it never blocks the bundle |
 | B9 | **Two-step bundles.** B: deploy with `NEXT_PUBLIC_SIGN_IN_GOOGLE=0`, owner O-E1 (Require Verification), smoke; then redeploy the same named commit with the Google flag on and run GSI-E (Google linking needs required verification, email spec 12). H: deploy with `MCP_PRIVATE_ENABLED=0` and the public MCP on; after MCP-S and at least 7 days of clean public use, O-M2 and O-M6, then the private flag on and a redeploy of the same commit (keeps Q225, public before private). K: one seam flag per redeploy of the same commit, a week apart, CAT-V clean between flips. Each step is a flag change on the bundle's tag, not a new release |
 | B10 | **Order.** A, B, C ... is the recommended deploy order; B (built in B2) and C (built in B1) are ready at about the same time and may swap. As with Q224, the letter follows the deploy order |
+| B11 | **(26 Oct, ALIGN) Bundle H2**, if QX2 is yes: between H and I; two deploys, v0.20a (user writes and MCP Apps views, MCP-S3) then v0.20b (staging, owner only, MCP-S4), each with its own T3, security review and smoke, tags `release/H2a` and `release/H2b`; J (the UI and UX audit) follows H2 and covers its views and the approval page |
 
 ### 0a.2 The bundles
 
@@ -52,20 +58,26 @@ merged and not counted). "Infra" is the test-strategy and platform work that rid
 research and the load and verify work the data seat does for the bundle; task by task in
 [DATA-PLAN.md](DATA-PLAN.md) 2. Feature detail stays in section 3 (under the old numbers) and in MASTER-ORDER 5.3.
 
-| Bundle | Features (labels) | What a visitor gets | Build h | Infra h | Data h | **Total h** | Migrations | Security reviews | Deploys |
-|---|---|---|---|---|---|---|---|---|---|
-| **A** | v0.2 + v0.3 + v0.4 | sign-in reachable on phones, the privacy page, page-view counts, basics for the 74 stored places, Mine with copies and favourites on this device, trip-page go-live fixes, share images. **The first deploy since v0.1 waits for Mine** | 56.5 | 20 | 5 | **81.5** | none | none | 1 |
-| **B** | v0.5 + v0.9 | sign in by emailed code, verified accounts, backups, Continue with Google; Internal: the catalogue in Neon (CAT-1) and the database cross-check | 37.5 | 8 | 36.5 | **82** | `backup_reader`, `research_meta` | EML-S, GSI-S, BKP-1 gate | 2 (B9) |
-| **C** | v0.6 + v0.7 + v0.8 | places near a town (Where by city, near mode, routed times), the closure queue, photos on trail and stop pages, links and directions beside every stop, getting there. UX design approved 26 Oct; UXB tasks in the UI queue | 108 | 10 | 62.5 | **180.5** | none | none | 1 |
-| **D** | v0.10 + v0.11 | report a problem, suggest an improvement or a place, ask for a trip with research-ready detail and "What we already have" | 104.75 | 0 | 13.5 | **118.25** | `intake` | FBK-S | 1 |
-| **E** | v0.12 + v0.13 + v0.14 | best time to go and the trip overview, Where to stay on every trip, trips written as data get pages | 113 | 0 | 55.5 | **168.5** | none | none | 1 |
-| **F** | v0.14.1 + v0.15 + v0.16 | field slimming, customise a trip (signed in), copies and favourites follow you into your account | 100.75 | 0 | 0 | **100.75** | `custom_draft`, `draft_cap`, `account_favourite`, `account_start` | CUS-R | 1 |
-| **G** | v0.17 + v0.18 | more edits, your own stops, base tweaks; search the map for a stop we do not have | 76 | 0 | 0 | **76** | none | REQ-G key and terms check (section 3 v0.14 extra gate) | 1 |
-| **H** | v0.19 + v0.20 | public MCP, then private MCP (your plans, read) and Connected apps | 56 | 0 | 0 | **56** | `mcp_access`, token tables | MCP-S1, MCP-S | 2 (B9) |
-| **I** | v0.21 | own domain and Email Phase 2, only on the Q148 trigger | 29 or 42.5 | 0 | 0 | **29 or 42.5** | mail tables | EML-S2 | 1 |
-| **J** | v0.22 | the UI and UX audit and its fixes, once, on the finished product | 70.5 | 0 | 0 | **70.5** | none | none | 1 |
-| **K** | v1.0 to v1.2 | the public catalogue served from Postgres, one seam at a time | 23 | 0 | 0 | **23** | none expected | parity per method | 3 flips (B9) |
-| | | **All, I at 29 h** | **775** | **38** | **173** | **986** | | | |
+**Rewritten 26 Oct 2026, evening (ALIGN).** Same convention (work merged before the morning of 26 Oct is not counted);
+the 26 Oct additions are named in the last column. The morning's version of this table (986 h) is replaced.
+
+| Bundle | Features (labels) | What a visitor gets | Build h | Infra h | Data h | **Total h** | Added 26 Oct | Migrations | Security reviews | Deploys |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **A** | v0.2 + v0.3 + v0.4 | sign-in reachable on phones, the privacy page, page-view counts, basics for the 74 stored places, Mine with copies and favourites on this device, trip-page go-live fixes, share images; no "Finished plan" from household dates (PRIV-TD). **The first deploy since v0.1 waits for Mine** | 59 | 20 | 5 | **84** | PRIV-TD 2.5 | none | the Opus privacy audit at T3 | 1 |
+| **B** | v0.5 + v0.9 | sign in by emailed code, verified accounts, backups, Continue with Google; Internal: the catalogue in Neon (CAT-1) and the database cross-check | 37.5 | 8 | 36.5 | **82** | | `backup_reader`, `research_meta` | EML-S, GSI-S, BKP-1 gate | 2 (B9) |
+| **C** | v0.6 + v0.7 + v0.8, UX fixes, parks P1, graph (Internal) | trip tabs with a Summary, party bar, the trip's shape, when to go, Table view, Bookings and Photos tabs; place pages that show what is known; park entry requirements in Book ahead; places near a town, the closure queue; photos on trail and stop pages; links and directions beside every stop; getting there | 214.5 | 10 | 77 | **301.5** | UXB 67, EG 23, PA 31 | `relation_kinds` | none | 1 (cut rule Q309) |
+| **D** | v0.10 + v0.11, property matrix (Internal) | report a problem, suggest an improvement or a place, ask for a trip with research-ready detail and "What we already have" | 104.75 | 13 | 13.5 | **131.25** | PM 13 | `intake` | FBK-S | 1 |
+| **E** | v0.12 + v0.13 + v0.14, place context, parks P2, facts model | best time to go and the trip overview, Where to stay on every trip, trips written as data get pages; "In Banff National Park", ways to do a trail, how to get there; park pages | 155 | 0 | 58 | **213** | EG 15, PA 23.5, API-P 6 | none | none | 1 |
+| **F** | v0.14.1 + v0.15 + v0.16 | field slimming, customise a trip (signed in), copies and favourites follow you into your account | 100.75 | 0 | 0 | **100.75** | | `custom_draft`, `draft_cap`, `account_favourite`, `account_start` | CUS-R | 1 |
+| **G** | v0.17 + v0.18, parks P3, API for MCP (Internal) | more edits, your own stops, base tweaks; search the map for a stop we do not have; plan a park visit and camping | 93 | 22.5 | 4 | **119.5** | PA 21, API 22.5 | none | REQ-G key and terms check | 1 |
+| **H** | v0.19 + v0.20 (MP1, MP2) | public MCP (21 tools, method resources, validate, typed payloads with view hints), then private MCP (your plans, read) and Connected apps | 81 | 0 | 0 | **81** | +25 | `mcp_access`, token tables | MCP-S1, MCP-S | 2 (B9) |
+| **H2** | v0.20a + v0.20b (MP3, MP4); **only if QX2 is yes** | plan with your AI: copy, customise, own plans with private places, MCP Apps views; research and admin: staged batches approved on our site (owner only) | 115 | 0 | 0 | **115** | new | `user_place`, `research_stage` | MCP-S3, MCP-S4 | 2 (B11) |
+| **I** | v0.21 | own domain and Email Phase 2, only on the Q148 trigger | 29 or 42.5 | 0 | 0 | **29 or 42.5** | | mail tables | EML-S2 | 1 |
+| **J** | v0.22 | the UI and UX audit and its fixes, once, on the finished product (after H2) | 70.5 | 0 | 0 | **70.5** | | none | none | 1 |
+| **K** | v1.0 to v1.2 | the public catalogue served from Postgres, one seam at a time | 23 | 0 | 0 | **23** | | none expected | parity per method | 3 flips (B9) |
+| | | **All, I at 29 h** | **1,083** | **73.5** | **194** | **1,350.5** | **+364.5** | | | |
+
+Without H2 (QX2 no): 1,235.5 h. The morning's table (A 81.5, C 180.5, D 118.25, E 168.5, G 76, H 56; 986 h) is superseded.
 
 Not in a bundle: LOCAL-4 (5 h) and E2E-YML (3 h) wait for the repository to be public and ride the next bundle after it;
 DP (4 h, optional), new areas (L5, sized per request), GLB2b (25 h, on the globe mock approval), TD-4, TD-6, 7.11 and the
@@ -84,6 +96,13 @@ How the hours were counted, per bundle:
   D8-R 8, D8 8, D7 16, D9 8.5, RIS-A 8, OVT 7.
 - **F.** v0.14.1 27.5, v0.15 36.25, v0.16 37. **G.** v0.17 47, v0.18 29. **H.** MCP-C 5.5 (with the database-import test of
   [mcp/README.md](../mcp/README.md) 1.1), MCP-1 6, MCP-S1 1.5, ORG-MCP 1.5, v0.20 38.5, AU-D 3. **J, K, I** as MASTER-ORDER 5.3.
+- **26 Oct additions (ALIGN).** A: PRIV-TD 2.5 (build). C: UXB 67 (build 64; data UXB-W 3), EG 23 (build EG-C 6, EG-R0 1,
+  EG-FX 2.5, EG-I 6, EG-DOC 2; data EG-M 2.5, EG-D 3), PA P1 31 (build PA-C 6, PA-FX 3, PA-X 4, PA-D 3.5, PA-W 4, PA-M 1.5,
+  PA-R1/V1 3; data PA-R-CA 6). D: infra PM-C 4, PM-G 5, PM-F 4. E: EG-N 2, EG-Q 4, EG-W 6, EG-R/V 3; PA-N 3, PA-Q 2, PA-2 10,
+  PA-DV 2, PA-R2/V2 4; data PA-MUS 2.5; API-P 6. G: PA-N3 2, PA-3C 3, PA-3 8, PA-R3/V3 4; data PA-R-ON 4; infra API-G 4, API-T 3,
+  API-S 1.5, API-V 5, MTH-G 6, MTH-1 3. H: MP1 40 (AU-D 3, MCP-C 10, MCP-1 8, MCP-M 3, MCP-GR 2, ORG-MCP 1.5, MCP-PK 3, MCP-EV 6,
+  MCP-S1 2.5, MCP-E1 1) and MP2 41 (MCP-G 6, MCP-T 5, MCP-2 9, MCP-O 4, MCP-U 10, MCP-S 4, MCP-E 3). H2: MP3 60, MP4 55
+  ([MASTER-ORDER](MASTER-ORDER.md) 3.9).
 
 ### 0a.3 Dependency check inside each bundle (the master order's conflict map, MASTER-ORDER 4)
 
@@ -102,6 +121,10 @@ and owner gates (4.6). Ten findings; each is fixed here and in the page named.
 | 8 | F | v0.14.1 opens only at gate G-AUD, with v0.14 live; v0.14 is in E | F's field audit starts after E is live; CUS-C starts after FA-D, inside F. No bundle can hold both v0.14 and v0.14.1 |
 | 9 | H | Q225: the public MCP ships before the private one; one bundle would open both at once | two-step (B9): the private door stays shut at the deploy and opens on a flag after MCP-S and 7 days of public use |
 | 10 | K | "One seam per release" (EXECUTION-PLAN 14.2) | one seam flag per redeploy of the K tag, a week apart, CAT-V clean between (B9); the bundle is one release with three flips |
+| 11 | C (26 Oct, ALIGN) | C is 301.5 h, 3.7 times A; one slow feature holds every C feature | cut rule (Q309): C cuts when the UX round, parks P1, the graph and the closure queue are verified; PHO-R, R-59 and getting there ship dark if late (B3) |
+| 12 | C | parks P1 needs the graph contract (same files, one author) and the migration `relation_kinds` before C's sync | contract chain RIS-H, EG-C, PA-C, PA-X (MASTER-ORDER 4.3); EG-M on the child in C's window, on production at C's release before step 9a |
+| 13 | A | the live site prints "Finished plan" from the household's real trip date (BACKLOG 15.310) | PRIV-TD rides A, merged before T3 |
+| 14 | H, H2 | MCP-C needs the API tasks of G (API-G, API-T, API-S, API-V) and the matrix (D); H2 needs CUS-C, TD-1, REQ-E-C, FAV-D, FBK-1 | all land in D to G first; checked in MASTER-ORDER 4.3; J follows H2 |
 
 Checked with no problem: A (OVR-0 before every other trip-page consumer; NAV-C and FAV-C merged; TRP-GL after FAV-1; IMG-1
 before PHO-R in C); B (EML-P after GSI-P, merged; BKP-1 before the first non-owner account); C (LST2b after A; the closure
@@ -127,6 +150,8 @@ photo 60 of 355. Targets are measured at the bundle's T3 with the commands of DA
 | F | every field has a ledger row and an audit verdict; required-tier share recorded before and after slimming (both numerator and denominator) | ships |
 | G | no new data; gap budget does not rise | ships |
 | H | MCP publishes only the fields AU-D kept; exposure parity 0; required tier 90% or more overall | ships |
+| C additions (26 Oct) | parks P1: the 5 Rockies parks and 2 zones at the required tier with every requirement; `graph.ts build --check` green; `E_CAP_REL_TARGET` strict after EG-D; Summary highlights have licensed photos for the Rockies (D5c) | parks rows ship dark; highlights fall back to the gallery by name |
+| H2 | user places and staged batches carry only registry properties; the staging export passes every validator on the then-current tree | ships dark |
 | I, J | none | |
 | K | CAT-V clean for the last 4 weekly runs and the last bundle; the database cross-check green on production; parity per method | the seam does not flip |
 
@@ -582,7 +607,8 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 
 Stay bases and optimisation (R-76 to R-80), short trips (backlog 2.17, 3.11 to 3.14), smart search phase 2 (3.15), the planner (F01 to
 F17), the admin console (F16, INT-5, PHO-1 after the cutover), MCP-3 and MCP-P, REQ-M, NAV-M, ORG-P (the place-page airport row, after Q88 and Q248), TD-1 to TD-4 and
-legacy removal (7.11). Each gets a release row when its spec is scheduled.
+legacy removal (7.11). Each gets a release row when its spec is scheduled. **(26 Oct, ALIGN: stale in part.** Stay bases are v0.13 and TD-1 to TD-3 v0.14 since the master order; MCP-3, MCP-P and
+REQ-M move to bundle H2 if QX2 is yes; the bundle table of 0a.2 is the current list.)
 
 ## 4. Verification gate, smoke test and rollback
 
@@ -875,6 +901,7 @@ Open questions this train waited on: Q101 to Q108, Q130 to Q137, Q93 to Q100, Q6
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (ALIGN, evening) | Banner rewritten (G-UXA passed); 0a.1 rule B11 (bundle H2, if QX2); 0a.2 table rewritten with the 26 Oct additions (C 301.5 h, H 81 h, H2 115 h, 1,350.5 h) and their counting; 0a.3 findings 11 to 14; 0a.4 rows for C additions and H2. [alignment-2026-10-26.md](alignment-2026-10-26.md) |
 | 2026-10-26 (ANSWERS-5) | Section 9's open-questions paragraph updated: Q101 to Q108, Q93 to Q100, Q130 to Q137, Q160 to Q168, Q190 to Q198, Q148 and Q149 answered 26 Oct 2026, yes as recommended; bundle A's tag is `release/A` (Q290). Nothing else changed |
 | 2026-10-26 (PLAN-CONSOLIDATE job 3) | Section 3 note and two Data work rows point to [DATA-PLAN.md](DATA-PLAN.md) instead of repeating it |
 | 2026-10-26 (PLAN-CONSOLIDATE, owner decision) | Section 0a: releases become bundles A to K with the v0.x numbers kept as feature labels; rules B1 to B10 (independent flagged features, T1 per feature, T2 per stack, T3 per bundle, late features shipped dark, security reviews kept in B and H, rollback per bundle, tags `release/<letter>`, one CHANGELOG entry per bundle, data readiness, two-step bundles, order); hours per bundle with research added (986 h with I at 29 h); ten dependency findings and their fixes; data readiness per bundle and the data-seat capacity check. Notes on 4.1, 4.3, 5, 6, 8 and 10. Supersedes one release per feature (R-180) |
