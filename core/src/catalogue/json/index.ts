@@ -20,6 +20,7 @@ import { PLACE_SORT_VALUES, TRIP_SORT_VALUES, sortRows } from "../sorting.ts";
 import { compareCodePoints, sortKey } from "../sortKey.ts";
 import { matchesFreeText, placeHaystack, tripHaystack } from "../../query/text.ts";
 import { mergeParsed, type CatalogueStore } from "../store.ts";
+import { resolveRefsAnswer, resolveSetupOf, type ResolveSetup } from "../resolve.ts";
 import { uncheckedPageOf } from "../unchecked.ts";
 import { noLegs, tripLegsOf } from "./legs.ts";
 import { NO_TOWNS, TownsLayer } from "./towns.ts";
@@ -40,6 +41,7 @@ function check<T>(schema: z.ZodType<T>, input: unknown): { ok: true; value: T } 
 export class JsonStore implements CatalogueStore, PublicTownsHolder {
   private revPromise: Promise<string> | null = null;
   private townsLayer: TownsLayer | null | undefined;
+  private resolveSetup: ResolveSetup | null = null;
   private readonly placeBySlug: Map<string, S.PlaceRow>;
   private readonly tripBySlug: Map<string, S.TripRow>;
 
@@ -355,5 +357,18 @@ export class JsonStore implements CatalogueStore, PublicTownsHolder {
     if (!ri.ok) return ri;
     const url = this.source.reportLink(ri.value.page);
     return url ? ok({ kind: "link", url }, await this.revision()) : fail("not_available", "Reporting is off.");
+  }
+
+  // ---- resolveRefs (FAV-1W) ----------------------------------------------------------------------------------------------------
+
+  /**
+   * FAV-C's resolver over the pinned registry and the public rows, built on the first call and kept for the store's life (the store
+   * serves one revision). Validation, the 48 cap and the privacy rule are `resolveRefsResult`'s (core/src/favourites/resolve.ts), through
+   * `resolveRefsAnswer` (../resolve.ts), which also keeps an unknown ref from naming a space.
+   */
+  async resolveRefs(q: S.ResolveQuery): Promise<Result<S.ResolveAnswer>> {
+    const revision = await this.revision();
+    this.resolveSetup ??= resolveSetupOf(this.source.registry, this.source.placeRows, this.source.tripRows);
+    return resolveRefsAnswer(this.resolveSetup, q, revision);
   }
 }

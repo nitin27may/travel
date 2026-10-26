@@ -75,6 +75,8 @@ describe("round trips: every StubStore answer parses with its method's output sc
     ["globeLine", () => store.globeLine("ne-range-1")],
     ["globeCity", () => store.globeCity("ca-ab-canmore")],
     ["report", () => store.report({ page: "/trips/stub-alps-week/" })],
+    // FAV-1W
+    ["resolveRefs", () => store.resolveRefs({ refs: ["place:glacier-lake", "trip:stub-rockies-loop", "place:no-such-place-zz", "route/no-such-route-zz"] })],
   ];
   for (const [method, call] of calls) {
     it(method, async () => {

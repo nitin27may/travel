@@ -45,7 +45,15 @@ export function buildOpenApi(): Json {
     };
     const params: Json[] = [...path.matchAll(/\{(\w+)\}/g)].map((x) => ({ name: x[1], in: "path", required: true, schema: paramSchema(x[1]!) }));
     if (c.query) {
-      for (const key of Object.keys(c.query.shape)) params.push({ name: key, in: "query", required: false, schema: { type: "string" } });
+      for (const [key, sch] of Object.entries(c.query.shape as Record<string, z.ZodType>)) {
+        // a repeated key (resolveRefs' `ref`, FAV-1W) is a form-exploded array: `?ref=a&ref=b`; every other key is one flat string
+        const inner = sch instanceof z.ZodOptional ? sch.unwrap() : sch;
+        if (inner instanceof z.ZodArray) {
+          const js = z.toJSONSchema(inner, { target: "draft-2020-12", unrepresentable: "any" }) as Json;
+          delete js.$schema;
+          params.push({ name: key, in: "query", required: false, style: "form", explode: true, schema: js });
+        } else params.push({ name: key, in: "query", required: false, schema: { type: "string" } });
+      }
     }
     const o = c.output;
     const op: Json = {
@@ -53,7 +61,9 @@ export function buildOpenApi(): Json {
       summary: m,
       description: c.query && "q" in c.query.shape && "country" in c.query.shape
         ? `Facets are comma lists; a narrowed Kind adds f.<facet> parameters (pattern ${S.FACET_KEY_RE.source}).${m === "countPlaces" ? ` A parse to merge first (store.ts A25) is sent as parsed.q and parsed.<facet> parameters (the facet part matches the same pattern).` : ""}`
-        : undefined,
+        : m === "resolveRefs"
+          ? `One ref parameter per value, 1 to ${S.RESOLVE_MAX}: a handle (place:<slug>, trip:<slug>) or a public ref. One row per value, in the order asked. More than ${S.RESOLVE_MAX} is 413 too_large; a value that is neither is 400 invalid_input naming its index, never the value. A page that is not public answers unknown, like one that never existed.`
+          : undefined,
       parameters: params,
       responses: {
         "200": { description: "ok", headers: { ETag: { schema: { type: "string" } } }, content: { "application/json": { schema: schemaOf(pascal(m), o, components) } } },

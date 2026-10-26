@@ -1,4 +1,4 @@
-import type { CardHits, CardQuery, CountQuery, FacetCounts, ParseInput, ParsedQuery, PlaceQuery, PlaceRow, ReportResult as ApiReportResult, SearchQuery, SearchResult as ApiSearchResult, GlobeCardFile as ApiGlobeCard, GlobeTree as ApiGlobeTree, LightPin as ApiLightPin, ExportFile, Paged, TripLegs as ApiTripLegs, UncheckedPage, UncheckedQuery } from '@travel/core/schema/api/index.ts';
+import type { CardHits, CardQuery, CountQuery, FacetCounts, ParseInput, ParsedQuery, PlaceQuery, PlaceRow, ReportResult as ApiReportResult, SearchQuery, SearchResult as ApiSearchResult, GlobeCardFile as ApiGlobeCard, GlobeTree as ApiGlobeTree, LightPin as ApiLightPin, ExportFile, Paged, ResolveAnswer, ResolveRow, TripLegs as ApiTripLegs, UncheckedPage, UncheckedQuery } from '@travel/core/schema/api/index.ts';
 import { reportLink, reportUrl } from '@/lib/config/product';
 import { defaultOrder } from '@/lib/entities/sort';
 import { SHARD_ROWS } from '@/lib/entities/shards';
@@ -9,7 +9,7 @@ import { normalize } from '@/lib/search/normalize';
 import { GROUP_DEFAULT_LIMIT } from '@/lib/search/search';
 import { suggest as suggestFrom } from '@/lib/search/suggest';
 import type { SearchRecord, SearchResult } from '@/lib/search/types';
-import type { DataClient, GlobeLineFile, ReportResult } from './contract';
+import { RESOLVE_MAX_CLIENT, type DataClient, type GlobeLineFile, type ReportResult } from './contract';
 import { staticClient } from './static';
 
 // ApiAdapter, the default (EXECUTION-PLAN 4.5): the data functions as calls on /api/v1/*. `ApiCalls` is the typed seam: `fetchCalls()`
@@ -38,6 +38,8 @@ export interface ApiCalls {
   report(page: string): Promise<ApiReportResult | null>;
   /** tripLegs (TRP2b): null for a trip the server does not list. */
   tripLegs(slug: string): Promise<ApiTripLegs | null>;
+  /** resolveRefs (FAV-1W): one row per value, in order; null when the server answers not_available. */
+  resolveRefs(refs: readonly string[]): Promise<ResolveAnswer | null>;
 }
 
 // ---- the browser's calls ----------------------------------------------------------------------------------------------------------
@@ -132,6 +134,17 @@ export function fetchCalls(): ApiCalls {
     globeLine: (id) => readOrNull('globeLine', at(`/globe/feature/${seg(id)}/line`)),
     exportFile: (type, slug, format) => read('getExport', at(`/export/${type}/${seg(slug)}`, new URLSearchParams({ format }))),
     tripLegs: (slug) => readOrNull('tripLegs', at(`/trips/${seg(slug)}/legs`)),
+    resolveRefs: async (refs) => {
+      // `ref` once per value (core/src/favourites/resolve.ts resolveSearchOf; written here so no schema code loads)
+      const p = new URLSearchParams();
+      for (const r of refs) p.append('ref', r);
+      const r = await fetch(at('/resolve', p));
+      if (r.status === 501) return null;
+      if (!r.ok) throw new Error(`resolve: ${r.status}`);
+      const data = (await r.json()) as ResolveAnswer;
+      await check('resolveRefs', data);
+      return data;
+    },
     report: async (page) => {
       const r = await fetch(at('/report'), { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ page }) });
       if (r.status === 501) return null;
@@ -310,6 +323,20 @@ export function createApiClient(calls: ApiCalls): DataClient {
       return p;
     },
     globeLine: (id) => calls.globeLine(id).catch(() => null),
+    async resolveRefs(refs): Promise<ResolveRow[] | null> {
+      // the distinct values, sorted: the same set is one URL, so one CDN entry per revision (P9); the rows come back in the order asked
+      const asked = [...new Set(refs)].sort();
+      if (!asked.length) return [];
+      if (asked.length > RESOLVE_MAX_CLIENT) throw new RangeError(`resolveRefs: at most ${RESOLVE_MAX_CLIENT} refs in one call`);
+      const got = await calls.resolveRefs(asked);
+      if (!got) return null;
+      const byAsked = new Map(got.items.map((row) => [row.asked, row]));
+      return refs.map((r) => {
+        const row = byAsked.get(r);
+        if (!row) throw new Error('resolveRefs: the answer is missing a row');
+        return row;
+      });
+    },
     async reportProblem(input): Promise<ReportResult> {
       // reporting is off in the product settings until the feedback repo exists: nothing to ask the server then
       if (!reportLink(reportUrl, input.page)) return { kind: 'off' };

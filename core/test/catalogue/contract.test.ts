@@ -37,12 +37,14 @@ const stubFacts: ContractFacts = {
   cardOrder: { exact: true, cases: STUB_CARD_ORDER },
 };
 
-/** A StubStore over the fixture with `p` planted (cases K26, globePins.cap): towns and outlines added, a country's pins cloned up to n. */
+/** A StubStore over the fixture with `p` planted (cases K26, globePins.cap, resolveRefs.private): towns and outlines added, a country's pins cloned up to n, keys pinned with no row. */
 function plantStub(layers?: StubOptions["layers"]) {
   return (p: Planted): StubStore => {
     const d: StubData = stubData();
     if (p.towns) d.towns.push(...p.towns);
     if (p.cities) d.cities.push(...p.cities);
+    if (p.hidden?.place) d.registry.places.slugs[p.hidden.place.key] = p.hidden.place.slug;
+    if (p.hidden?.trip) d.registry.trips.slugs[p.hidden.trip.key] = p.hidden.trip.slug;
     if (p.pins) {
       const cc = p.pins.cc.toUpperCase();
       const seed = d.places.find((x) => x.row.country === cc && x.detail.point)!;

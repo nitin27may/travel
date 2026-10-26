@@ -36,6 +36,11 @@ export function callsFromStore(store: CatalogueStore, reportOn = true): ApiCalls
       const r = await store.tripLegs(slug);
       return r.ok && !('moved' in r.data) ? r.data : null;
     },
+    resolveRefs: async (refs) => {
+      const r = await store.resolveRefs({ refs: [...refs] });
+      if (!r.ok && r.error.code === 'not_available') return null;
+      return unwrap(r);
+    },
     report: async (page) => {
       if (!reportOn) return null;
       return orNull(store.report({ page }));

@@ -288,4 +288,6 @@ export const staticClient: DataClient = {
   globeTree, globePins, globeCard, globeLine, reportProblem,
   shardRows: (type, id) => shardRows(type, id),
   textIndex,
+  // resolveRefs (FAV-1W): the static files carry no resolve answer (not_available), so a list keeps its stored snapshots
+  resolveRefs: () => Promise.resolve(null),
 };

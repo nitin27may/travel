@@ -278,6 +278,7 @@
 // C7  `rowReads` for JsonStore is counted by the target (a FileStore spy), not by the store (R-28).
 import type { z } from "zod";
 import * as S from "../schema/api/index.ts";
+import type { ResolveRefsMethod } from "../favourites/resolve.ts";
 import type { Result } from "./result.ts";
 
 export interface CatalogueStore {
@@ -391,7 +392,22 @@ export interface CatalogueStore {
 
   /** Report a problem on a page: the feedback form's link now, a stored report later. No personal data is kept. `not_available` when reporting is off. */
   report(input: S.ReportInput): Promise<Result<S.ReportResult>>;
+
+  /**
+   * FAV-1W (visitor spec 4.5, 8.2; the contract is FAV-C's `ResolveRefsMethod`, core/src/favourites/resolve.ts): for up to
+   * RESOLVE_MAX (48) handles (`place:<slug>`, `trip:<slug>`) or public refs, one row per asked value, in order, each `current`,
+   * `moved`, `merged`, `withdrawn` or `unknown` with its light snapshot (name, kind, cc: P8). More than 48 is `too_large` with
+   * `details.max`; a value that is neither a handle nor a public ref is `invalid_input` naming its index only, never the value. A key
+   * the registry pins whose page is not public now answers exactly like a slug that never existed (case resolveRefs.private). Built once
+   * per store over the pinned registry and the public rows (core/src/catalogue/resolve.ts); the answer carries the store's revision.
+   * `GET /api/v1/resolve?ref=...&ref=...`.
+   */
+  resolveRefs(q: S.ResolveQuery): Promise<Result<S.ResolveAnswer>>;
 }
+
+/** The store method is FAV-C's declared method, unchanged: a compile-time check, no runtime code. */
+type MustBeTrue<T extends true> = T;
+export type ResolveRefsIsFavC = MustBeTrue<CatalogueStore extends ResolveRefsMethod ? true : false>;
 
 export type CatalogueMethod = keyof CatalogueStore;
 
@@ -423,6 +439,7 @@ export const CATALOGUE_CONTRACT = {
   globeLine: { http: "GET /api/v1/globe/feature/{id}/line", input: S.globeIdInput, output: S.globeLine },
   globeCity: { http: "GET /api/v1/globe/city/{townId}", input: S.globeCityInput, output: S.globeCity },
   report: { http: "POST /api/v1/report", input: S.reportInput, output: S.reportResult },
+  resolveRefs: { http: "GET /api/v1/resolve", query: S.resolveHttpQuery, input: S.resolveQuery, output: S.resolveAnswer },
 } as const satisfies Record<CatalogueMethod, { http: string; query?: z.ZodType; path?: z.ZodObject; input: z.ZodType | null; output: z.ZodType }>;
 
 export const CATALOGUE_METHODS = Object.keys(CATALOGUE_CONTRACT) as CatalogueMethod[];
