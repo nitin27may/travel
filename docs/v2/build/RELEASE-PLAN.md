@@ -1,5 +1,7 @@
 # Release plan: one ordered train from v0.1 to the Postgres cutover
 
+> **26 Oct 2026 (UX fixes from the owner's live review, planned, waiting for design approval G-UXA):** UXB-N, UXB-C, UXB-W, UXB-1 to UXB-7, reviews and fixes, about 67 h, ride **bundle C**, first in its B1 queue, after bundle A's TRP-GL, FAV-1 and NAV-2F merge, and before R59-1 and PHO-R. Order, owned files and briefs: [trip-and-places-ux-fixes.md](../features/trip-and-places-ux-fixes.md) 12 and 13 (PLAN R-260 to R-266; Q293 to Q302).
+
 > **26 Oct 2026: releases are bundles A to K (section 0a, owner decision).** The v0.x numbers below are feature labels.
 
 Written 25 Oct 2026 by travel-planner (Opus) at `main` 52339a0. Planned only: nothing here is built or deployed by this

@@ -1,5 +1,7 @@
 # Place page sections: the contract's 14 sections, designed
 
+> **Superseded in part 26 Oct 2026 (UX fixes, planned, waiting for the owner's design approval):** "the empty and gap state of each" section is replaced by the hide-empty rule: a section with no value and no safety gap is not drawn; non-safety gaps go to one "Not checked yet" block per page; "At this place you can also" is not drawn until it has a value; basics-only pages use a compact template. See [../features/trip-and-places-ux-fixes.md](../features/trip-and-places-ux-fixes.md) 8 (PLAN R-265). Layout and wording of sections that have values stand.
+
 Status: design, 18 Oct 2026 (travel-design-reviewer, S1 Part 0). Governs the layout, wording, states and motion of every
 place, route and offer page section that had no design before S1: Cover with the relevance badge, At a glance, the
 warnings ("Before you go"), The route or the activity, Options and prices, How to get there, When to go, Facilities, At

@@ -1,5 +1,7 @@
 # Trip timeline and party profile (public trip page)
 
+> **Amended 26 Oct 2026 (UX fixes, planned, waiting for the owner's design approval):** 3.1's selector (Who is going, Youngest stepper) is replaced by a collapsed party bar with adults, children and each child's age kept on the device; 3.8's `a` widens to `a=1` to `a=12`; `view` gains `summary` (the new default), `table`, `bookings`, `photos`; 3.10's "whole-trip timeline" with each day's span is replaced by "The trip's shape" in the Summary tab. See [trip-and-places-ux-fixes.md](trip-and-places-ux-fixes.md) 3.4, 4, 5 (PLAN R-260 to R-262).
+
 > **Amended 25 Oct 2026 (trip origin and nearest airport):** the arrival and departure day rules (6) keep their mechanics; the airport now comes from the origin ladder (the visitor's start, else the trip's gateway, else the nearest airport), the 6 h day cap applies when the flight estimate exceeds 5 h, and `airport.before` picks domestic (120) or international (180) from the visitor's country. URL keys `from` and `gw` join 3.8 after `walk`. See [trip-origin-and-nearest-airport.md](trip-origin-and-nearest-airport.md) sections 7 and 10 (PLAN R-203, R-206).
 
 Status: spec, 18 Oct 2026. Owner direction of 18 Oct 2026. Build brief: [L3c-trip-timeline.md](../build/public-site/L3c-trip-timeline.md).

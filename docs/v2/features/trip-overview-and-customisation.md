@@ -1,5 +1,7 @@
 # Trip overview, best time to go, and customisation
 
+> **Amended 26 Oct 2026 (UX fixes, planned, waiting for the owner's design approval):** the "[Day by day] [Trip overview]" toggle of 3.3 is replaced by page tabs (Summary · Days · Stops · Bookings · Photos); the overview renders inside the **Stops** tab and its Bookings sub-tab becomes the page's **Bookings** tab (URL `view=all`, `view=bookings`; OVR's `tab=` stays the sub-tab inside Stops). The SeasonBand redesign of 2.1 starts from the When to go design; OVR-1 fills its "Other weeks" slot and the hero's window. OVR-N must read UXB-N first. See [trip-and-places-ux-fixes.md](trip-and-places-ux-fixes.md) 3, 6 (PLAN R-260, R-263).
+
 > **Amended 25 Oct 2026 (trip origin and nearest airport):** `trip-custom/1` gains optional private `from` and `gw`, reserved in CUS-C (+0.25 h) before its migration is applied. Not `start`, which stays the ISO date. See [trip-origin-and-nearest-airport.md](trip-origin-and-nearest-airport.md) section 10 (PLAN R-204).
 
 > **Amended 25 Oct 2026 (requests and custom places):** `trip-custom/1` gains `title`, `moved` (reorder in a day),

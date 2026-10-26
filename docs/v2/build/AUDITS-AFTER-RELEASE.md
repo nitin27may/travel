@@ -1,5 +1,7 @@
 # Audits after the first release round: field usefulness, then UI and UX
 
+> **26 Oct 2026 (UX fixes, planned):** the Q273 gap-row collapse moves from FA-6 (bundle F) to UXB-7 (bundle C), together with hiding empty sections and a compact basics template, if the owner answers Q300 yes. FA-6 keeps the field-audit removals (SHOW-IF-PRESENT, REMOVE-FROM-UI) and its re-baseline covers only those. See [../features/trip-and-places-ux-fixes.md](../features/trip-and-places-ux-fixes.md) 8 (PLAN R-265).
+
 Written 25 Oct 2026 by travel-planner (Opus 5.5) on `public/AUDIT-PLAN`, branched from `main` 917e754d. **Amended 26 Oct 2026
 (owner decision, task AUDIT-MOVE): the UI and UX audit moves from v0.14.2 to a new release slot v0.22 "UI and UX audit and
 fixes", run once at the end of the UI train, just before the v1.0 Postgres cutover. The field-usefulness audit stays after
