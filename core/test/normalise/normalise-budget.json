@@ -1,13 +1,17 @@
 {
   "schema": "normalise-budget/1",
   "note": "What `node core/bin/normalise.ts --check` finds on the repository's files, pinned so the counts only fall (RIS-N). RIS-J runs `--write` and lowers these to the unavoidable findings; a rise needs a reason in the change that raises it. Update with `node core/bin/normalise.ts --budget --update` (it refuses to raise a count).",
-  "changes": {},
+  "changes": {
+    "seasons.basis": 71,
+    "seasons.meta": 6,
+    "seasons.method": 10,
+    "seasons.season_shape": 36
+  },
   "findings": {
-    "E_NORM_REFUSED": 1,
     "E_NOTE_LONG": 21,
     "W_KEEP_UNREAD": 19,
     "W_NORM_CONFLICT_SHOWN": 3,
-    "W_NORM_PRIVACY": 3,
+    "W_NORM_PRIVACY": 2,
     "W_QUOTE_LONG": 36
   }
 }
