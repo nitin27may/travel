@@ -99,7 +99,7 @@ def test_every_check_all_step_belongs_to_a_suite(real: tuple[dict, list[str]]) -
 
 def test_docs_only_selects_links_and_the_map_check(real: tuple[dict, list[str]]) -> None:
     m, _ = real
-    sel = gm.select(m, ["docs/v2/PLAN.md", "README.md", ".claude/agents/travel-builder.md"])
+    sel = gm.select(m, ["docs/v2/PLAN.md", "README.md", "docs/v2/design/foundation/principles.md"])
     assert not sel.full
     assert set(sel.suites) == {"links", "gate.map"}
 

@@ -82,7 +82,7 @@ def replay(m: dict, merges: int, ref: str) -> tuple[list[dict], list[str]]:
                     fails.append(f"{sha[:8]} {branch}: changed test {p} is owned by no selected suite")
         # the author's signal: would the rules alone, from the merge's other paths, have run each test it changed?
         changed_tests = [p for p in paths if gm.is_test_file(m, p) and (gm.ROOT / p).is_file()]
-        rest = [p for p in paths if not gm.is_test_file(m, p) and not gm.match_any(m["quiet"], p)]
+        rest = [p for p in paths if not gm.is_test_file(m, p)]
         implied = 0
         if changed_tests and rest:
             alone = gm.select(m, rest, check_all_old=old, check_all_new=new, specs=specs)
