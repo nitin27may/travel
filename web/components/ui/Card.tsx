@@ -41,7 +41,6 @@ interface CardProps {
   /** Extra attributes for list state hooks. */
   'data-entity-id'?: string;
   'data-focused'?: true;
-  'data-past'?: true;
 }
 
 /** Trip, public trip, place and trail card (components 3.1). Photo 16:10, then title, meta, chips, summary and footer. */

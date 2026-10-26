@@ -67,9 +67,6 @@ export interface TripRow {
   /** 'plan' = a data/trips trip, 'legacy' = a page from legacy/ with no data file yet. */
   source: 'plan' | 'legacy';
   href: string;
-  /** Relative to the build date: past, today, soon, later, unknown. */
-  when: 'past' | 'today' | 'soon' | 'later' | 'unknown';
-  badge: string;
 }
 
 export interface TripRecord extends TripRow {

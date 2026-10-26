@@ -10,7 +10,7 @@ const MARKERS: { id: HonestyId; label: string; means: string }[] = [
   { id: 'condensed', label: 'Condensed from the full plan', means: 'The days are a short list of stops, not the whole plan.' },
   { id: 'overview_only', label: 'Overview only', means: 'No day-by-day plan yet; the page has the cover, season and photos.' },
   { id: 'drive_estimated', label: 'Drive time estimated', means: 'A straight line scaled to the road, shown with a tilde.' },
-  { id: 'pattern_2026', label: '2026 data used as a pattern', means: 'A past trip used as the template for a future year.' },
+  { id: 'pattern_2026', label: '2026 data used as a pattern', means: 'Opening times, prices or other figures were read in 2026 and are reused as a guide for a later year.' },
 ];
 
 export function AboutData() {
