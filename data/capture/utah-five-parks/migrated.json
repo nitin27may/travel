@@ -214,10 +214,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "The Narrows",
-      "origin": {
-        "from": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -234,7 +230,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
@@ -499,10 +503,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Navajo Loop and Queens Garden",
-      "origin": {
-        "from": "trip/utah-five-parks/trail:navajo loop and queens garden",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -519,7 +519,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/utah-five-parks/trail:navajo loop and queens garden",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
@@ -628,10 +636,6 @@
         "note": "Derived (capture.ts derive-near): no GeoNames town of 1000+ people within 50 km (cities1000 downloaded 2026-10-25)."
       },
       "name": "Lower Calf Creek Falls",
-      "origin": {
-        "from": "trip/utah-five-parks/trail:lower calf creek falls",
-        "reason": "payoff of the trail"
-      },
       "links": [
         {
           "kind": "official",
@@ -668,7 +672,15 @@
           "width": 2048,
           "height": 1536
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/utah-five-parks/trail:lower calf creek falls",
+          "reason": "payoff of the trail"
+        }
+      }
     },
     {
       "ref": "trip/utah-five-parks/trail:hickman bridge",
@@ -1041,10 +1053,6 @@
       "reaches": [
         "trip/utah-five-parks/viewpoint:grand view point"
       ],
-      "origin": {
-        "from": "trip/utah-five-parks/viewpoint:grand view point",
-        "reason": "the route to the place"
-      },
       "photos": [
         {
           "file": "File:Approaching Grand View Point - panoramio.jpg",
@@ -1064,7 +1072,15 @@
           "width": 8784,
           "height": 2452
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "trip/utah-five-parks/viewpoint:grand view point",
+          "reason": "the route to the place"
+        }
+      }
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:dead horse point",

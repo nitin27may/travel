@@ -1,4 +1,4 @@
-// Derives data/sources/registry.json from the `sources` arrays of every suitability and relevance lane file. Offline and
+// Derives data/sources/registry.json from the `sources` arrays of every suitability, relevance and capture lane file and of the trip-level windows, base-plans and seasons files. Offline and
 // deterministic: the same lane files and links.json always give the same bytes. The registry is never edited by hand.
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
@@ -22,8 +22,12 @@ export const KIND_MAP: Record<string, SourceEntry["kind"]> = {
   computed: "reference",
 };
 
-interface LaneSource { id: string; url: string; title: string; publisher: string; kind: string; read: string }
+// title and kind are optional in the trip-level files (base plans carry only publisher and read)
+interface LaneSource { id: string; url: string; title?: string; publisher: string; kind?: string; read: string }
 interface LaneDoc { sources?: LaneSource[]; records?: { ref?: string }[]; entries?: { ref?: string }[] }
+
+/** The trip-level folders (RIS-J): one file per trip, `sources` at the top and the sourced values under other keys. */
+export const TRIP_LEVEL_FOLDERS = ["windows", "base-plans", "seasons"] as const;
 
 export interface LinkRecord { url: string; status: LinkStatus; http: number | null; final: string | null; checked: string }
 export interface LinksFile { schema: "source-links/1"; links: Record<string, LinkRecord> }
@@ -39,6 +43,12 @@ export function laneFiles(root: string): string[] {
       if (skip.includes(trip) || !statSync(tdir).isDirectory()) continue;
       for (const n of readdirSync(tdir).filter((x) => x.endsWith(".json")).sort()) out.push(join(tdir, n));
     }
+  }
+  // the trip-level folders: data/<folder>/<trip>.json
+  for (const base of TRIP_LEVEL_FOLDERS) {
+    const dir = join(root, "data", base);
+    if (!existsSync(dir)) continue;
+    for (const n of readdirSync(dir).filter((x) => x.endsWith(".json")).sort()) out.push(join(dir, n));
   }
   // the trips' base points: one file, with its own sources array and a record per trip (data/trips/base-points.json)
   const bp = join(root, "data", "trips", "base-points.json");
@@ -124,7 +134,14 @@ export function buildRegistry(root: string, links: LinksFile = readLinks(root)):
       a.rows.push(s);
       acc.set(id, a);
     }
-    for (const r of doc.records ?? doc.entries ?? []) {
+    // a trip-level file has no records: its other top-level keys are the records, the field starts with the key
+    const tripLevel = TRIP_LEVEL_FOLDERS.some((b) => rel.startsWith(`data/${b}/`));
+    const recs: { ref?: string }[] = tripLevel
+      ? Object.entries(doc as Record<string, unknown>)
+          .filter(([k, v]) => k !== "sources" && v !== null && typeof v === "object")
+          .map(([k, v]) => ({ ref: rel.replace(/^data\//, "").replace(/\.json$/, ""), [k]: v }))
+      : (doc.records ?? doc.entries ?? []);
+    for (const r of recs) {
       for (const { field, ids } of srcUses(r)) {
         for (const lid of ids) {
           const rid = byLocal.get(lid);
@@ -142,13 +159,13 @@ export function buildRegistry(root: string, links: LinksFile = readLinks(root)):
   for (const [id, a] of acc) {
     const reads = a.rows.map((r) => r.read).sort();
     const used = [...a.used.values()].sort((x, y) => cmp(x.file, y.file) || cmp(x.ref, y.ref) || cmp(x.field, y.field));
-    const kinds = a.rows.map((r) => KIND_MAP[r.kind] ?? "reference");
+    const kinds = a.rows.map((r) => KIND_MAP[r.kind ?? ""] ?? "reference");
     const link = links.links[id];
     const local = !isWebUrl(a.url);
     entries.push({
       id,
       url: a.url,
-      title: mostCommon(a.rows.map((r) => r.title)),
+      title: mostCommon(a.rows.map((r) => r.title ?? r.publisher ?? a.url)),
       publisher: mostCommon(a.rows.map((r) => r.publisher)),
       kind: mostCommon(kinds) as SourceEntry["kind"],
       first_read: reads[0]!,

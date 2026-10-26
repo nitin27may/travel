@@ -31,8 +31,9 @@ describe('data/seasons through the adapter', () => {
     const t = d.internals.trips.find((x) => x.slug === slug)!;
     expect(t.season).not.toBeNull();
     expect(t.seasonNotSet).toBe(false);
-    expect(t.season!.months).toEqual(file.months.value);
-    expect(t.season!.label).toBe(file.label.value);
+    // the six are in the research contract's Val shape (SEASONS-C)
+    expect(t.season!.months).toEqual(file.months.v);
+    expect(t.season!.label).toBe(file.label.v);
     expect(t.season!.why.length).toBeGreaterThan(10);
   });
 
@@ -85,6 +86,34 @@ describe('readSeason', () => {
     expect(() => readSeason(rootWith('t', doc({ months: field([13]) })), 't', new DropLog(), monthsLabel)).toThrow(/t\.json: season file is not trip-season-basic\/1 at \/season\/months/);
     expect(() => readSeason(rootWith('t', '{oops'), 't', new DropLog(), monthsLabel)).toThrow(/t\.json: not valid JSON/);
     expect(() => parseSeasonFile({ schema: 'x' }, 'f.json', 'f')).toThrow(/f\.json: season file is not/);
+  });
+  it('a field in the Val shape draws exactly what the same field in the first shape draws', () => {
+    const asVal = (f: { value: unknown; basis: string }, basis: string) => ({ v: f.value, state: 'value', basis, src: [] });
+    const first = doc();
+    const val = {
+      ...doc(), months_basis: 'plan_months',
+      season: {
+        months: asVal(first.season.months, 'our_inference'), label: asVal(first.season.label, 'our_inference'), why: asVal(first.season.why, 'official_info'),
+        weather: {
+          tempC: asVal(first.season.weather.tempC, 'official_info'), rain: asVal(first.season.weather.rain, 'official_info'),
+          daylight: asVal(first.season.weather.daylight, 'our_inference'), notes: [{ text: 'Bring a hat.', basis: 'official_info' }],
+        },
+      },
+    };
+    expect(readSeason(rootWith('t', val), 't', new DropLog(), monthsLabel)).toEqual(readSeason(rootWith('t', first), 't', new DropLog(), monthsLabel));
+  });
+  it('in the Val shape the plan marker is months_basis: plan_months, not the basis word', () => {
+    const v = (x: unknown, basis = 'our_inference') => ({ v: x, state: 'value', basis, src: [] });
+    const val = (over: Record<string, unknown>) => ({ ...doc(), ...over, season: { ...doc().season, months: v([2]), label: v('Mid-February') } });
+    expect(readSeason(rootWith('t', val({ months_basis: 'plan_months' })), 't', new DropLog(), monthsLabel)!.basis).toBe('plan');
+    expect(readSeason(rootWith('t', val({})), 't', new DropLog(), monthsLabel)!.basis).toBe('researched');
+  });
+  it('a searched_none weather Val draws as no text, and a shown field may not be searched_none', () => {
+    const none = { v: null, state: 'searched_none', basis: null, src: [], on: '2026-10-25' };
+    const first = doc();
+    const rainless = { ...first, season: { ...first.season, weather: { ...first.season.weather, rain: none } } };
+    expect(readSeason(rootWith('t', rainless), 't', new DropLog(), monthsLabel)!.weather.rain).toBe('');
+    expect(() => readSeason(rootWith('t', doc({ label: none })), 't', new DropLog(), monthsLabel)).toThrow(/at \/season\/label/);
   });
   it('a file whose trip is not its name fails (a copied file would show another trip\'s season)', () => {
     expect(() => readSeason(rootWith('other', doc()), 'other', new DropLog(), monthsLabel)).toThrow(/"trip" is "t" but the file is for "other"/);

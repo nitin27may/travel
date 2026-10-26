@@ -134,4 +134,20 @@ describe("trip base points (backlog 3.41) and the Drei Zinnen page (3.30)", () =
     expect(e.kind).toBe("official");
     expect(e.used_by.some((u) => u.ref === "place/tre-cime-di-lavaredo-loop")).toBe(true);
   });
+  it("reads the trip-level folders (windows, base-plans, seasons): sources without a title or kind, uses by top-level key (RIS-J)", () => {
+    const root = tmpRoot();
+    put(root, "data/base-plans/t.json", { schema: "base-plan/1", sources: [{ id: "s-aaaaaaaaaa", url: "https://parks.example/pass", publisher: "Parks", read: "2026-10-25" }], strategies: [{ id: "x", plus: [{ v: "a", basis: "official_info", src: ["s-aaaaaaaaaa"] }] }] });
+    put(root, "data/windows/t.json", { schema: "window/1", sources: [row("s-bbbbbbbbbb", "https://op.example/hours", { kind: "operator" })], windows: [{ minus: [{ v: "b", src: ["s-bbbbbbbbbb"] }] }] });
+    put(root, "data/seasons/t.json", { schema: "season/1", sources: [row("s-cccccccccc", "https://wx.example/normals", { kind: "computed" })], season: { why: { v: "c", src: ["s-cccccccccc"] } } });
+    const { registry, lanes, problems } = buildRegistry(root);
+    expect(problems).toEqual([]);
+    expect(lanes).toBe(3);
+    const by = (u: string) => registry.entries.find((e) => e.url === u)!;
+    expect(by("https://parks.example/pass").title).toBe("Parks");
+    expect(by("https://parks.example/pass").kind).toBe("reference");
+    expect(by("https://parks.example/pass").used_by).toEqual([{ file: "data/base-plans/t.json", ref: "base-plans/t", field: "strategies.plus" }]);
+    expect(by("https://op.example/hours").used_by[0]).toMatchObject({ file: "data/windows/t.json", field: "windows.minus" });
+    expect(by("https://wx.example/normals").used_by[0]).toMatchObject({ file: "data/seasons/t.json", field: "season.why" });
+    for (const e of registry.entries) expect(sourceEntry.safeParse(e).success).toBe(true);
+  });
 });

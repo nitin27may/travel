@@ -3312,7 +3312,8 @@
                   "note": "the plan's figure from thebanffblog.com and travelbanffcanada.com"
                 }
               ],
-              "read": "2026-10-25"
+              "read": "2026-10-25",
+              "estimate": true
             },
             "gain_m": {
               "v": null,
@@ -3433,6 +3434,10 @@
         "walk_km": 9.4,
         "walk_gain_m": null,
         "suit_level": "usable_partial"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {
@@ -6909,7 +6914,8 @@
           "src": [
             "src-0018"
           ],
-          "note": "Parks Canada: 'reachable year-round by a short gravel trail'; 100 m is our estimate of 'short'."
+          "note": "Parks Canada: 'reachable year-round by a short gravel trail'; 100 m is our estimate of 'short'.",
+          "estimate": true
         }
       },
       "ext": {
@@ -6928,6 +6934,10 @@
         "walk_km": null,
         "walk_gain_m": null,
         "suit_level": "usable"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {
@@ -9576,7 +9586,8 @@
           "src": [
             "src-0046"
           ],
-          "note": "About 50-60 km from Kananaskis Village to the pass; our estimate, no official time."
+          "note": "About 50-60 km from Kananaskis Village to the pass; our estimate, no official time.",
+          "estimate": true
         }
       },
       "flat": {
@@ -9592,6 +9603,10 @@
         "walk_km": null,
         "walk_gain_m": null,
         "suit_level": "usable"
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N"
       }
     },
     {

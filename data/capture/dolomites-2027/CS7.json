@@ -125,10 +125,6 @@
         "it": "Tre Cime di Lavaredo",
         "de": "Drei Zinnen"
       },
-      "origin": {
-        "from": "place/tre-cime-di-lavaredo-loop",
-        "reason": "Backlog row 2 (spec 2.7.1 example 4): the mountain the loop circles."
-      },
       "links": [
         {
           "kind": "wikidata",
@@ -148,7 +144,15 @@
           "query": "Tre Cime di Lavaredo official page (Comune di Auronzo / Tre Cime nature park)",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/tre-cime-di-lavaredo-loop",
+          "reason": "Backlog row 2 (spec 2.7.1 example 4): the mountain the loop circles."
+        }
+      }
     },
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#north-face-viewpoint",
@@ -173,10 +177,6 @@
       },
       "name": "Tre Cime north-face viewpoint by Rifugio Locatelli",
       "osm_ref": "node/12091634369",
-      "origin": {
-        "from": "place/tre-cime-di-lavaredo-loop",
-        "reason": "Backlog row 2: the classic north-face view from the Locatelli saddle."
-      },
       "links": [
         {
           "kind": "osm",
@@ -190,7 +190,15 @@
           "query": "Tre Cime north face viewpoint Locatelli",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/tre-cime-di-lavaredo-loop",
+          "reason": "Backlog row 2: the classic north-face view from the Locatelli saddle."
+        }
+      }
     },
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo",
@@ -214,10 +222,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Rifugio Auronzo",
-      "origin": {
-        "from": "place/tre-cime-di-lavaredo-loop",
-        "reason": "Backlog row 2: a hut on the loop."
-      },
       "season": {
         "v": null,
         "state": "searched_none",
@@ -245,7 +249,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/tre-cime-di-lavaredo-loop",
+          "reason": "Backlog row 2: a hut on the loop."
+        }
+      }
     },
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo",
@@ -269,10 +281,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Rifugio Lavaredo",
-      "origin": {
-        "from": "place/tre-cime-di-lavaredo-loop",
-        "reason": "Backlog row 2: a hut on the loop."
-      },
       "season": {
         "v": null,
         "state": "searched_none",
@@ -300,7 +308,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/tre-cime-di-lavaredo-loop",
+          "reason": "Backlog row 2: a hut on the loop."
+        }
+      }
     },
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli",
@@ -324,10 +340,6 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Dreizinnenhütte / Rifugio Antonio Locatelli",
-      "origin": {
-        "from": "place/tre-cime-di-lavaredo-loop",
-        "reason": "Backlog row 2: a hut on the loop."
-      },
       "season": {
         "v": [
           {
@@ -362,7 +374,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/tre-cime-di-lavaredo-loop",
+          "reason": "Backlog row 2: a hut on the loop."
+        }
+      }
     },
     {
       "ref": "offer/place/tre-cime-di-lavaredo-loop#rifugio-auronzo-lodging",
@@ -404,9 +424,13 @@
           ]
         }
       ],
-      "origin": {
-        "from": "place/tre-cime-di-lavaredo-loop",
-        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/tre-cime-di-lavaredo-loop",
+          "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+        }
       }
     },
     {
@@ -446,7 +470,8 @@
         ],
         "read": "2026-10-19",
         "quote": "€ 120,00 a notte per persona, con trattamento mezza pensione",
-        "note": "No year on the rates; re-read for backlog 3.36 and still undated, so read them as the 2026 season. Re-read at the 90-day cadence."
+        "note": "No year on the rates; re-read for backlog 3.36 and still undated, so read them as the 2026 season. Re-read at the 90-day cadence.",
+        "applies_to": "2026"
       },
       "links": [
         {
@@ -468,9 +493,13 @@
           ]
         }
       ],
-      "origin": {
-        "from": "place/tre-cime-di-lavaredo-loop",
-        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/tre-cime-di-lavaredo-loop",
+          "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+        }
       }
     },
     {
@@ -527,9 +556,13 @@
           ]
         }
       ],
-      "origin": {
-        "from": "place/tre-cime-di-lavaredo-loop",
-        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/tre-cime-di-lavaredo-loop",
+          "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+        }
       }
     },
     {
@@ -558,10 +591,6 @@
       "reaches": [
         "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo"
       ],
-      "origin": {
-        "from": "place/tre-cime-di-lavaredo-loop",
-        "reason": "Backlog row 2: the toll road from Lago d'Antorno to the Auronzo car park."
-      },
       "links": [
         {
           "kind": "official",
@@ -578,7 +607,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/tre-cime-di-lavaredo-loop",
+          "reason": "Backlog row 2: the toll road from Lago d'Antorno to the Auronzo car park."
+        }
+      }
     },
     {
       "ref": "part/place/tre-cime-di-lavaredo-loop#auronzo-car-park",
@@ -606,10 +643,6 @@
       "parks_for": [
         "place/tre-cime-di-lavaredo-loop"
       ],
-      "origin": {
-        "from": "place/tre-cime-di-lavaredo-loop",
-        "reason": "The toll car park at the end of the road (OSM maps four lots, P1 to P4; P4 is used for the point)."
-      },
       "links": [
         {
           "kind": "official",
@@ -626,7 +659,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/tre-cime-di-lavaredo-loop",
+          "reason": "The toll car park at the end of the road (OSM maps four lots, P1 to P4; P4 is used for the point)."
+        }
+      }
     },
     {
       "ref": "offer/place/tre-cime-di-lavaredo-loop#toll",
@@ -740,9 +781,13 @@
           ]
         }
       ],
-      "origin": {
-        "from": "place/tre-cime-di-lavaredo-loop",
-        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/tre-cime-di-lavaredo-loop",
+          "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+        }
       }
     },
     {
@@ -771,10 +816,6 @@
       "parks_for": [
         "place/lago-di-braies"
       ],
-      "origin": {
-        "from": "place/lago-di-braies",
-        "reason": "Lake access point (CS7 goal 5): OSM way 442280371, ref P4, the lot nearest the lake. OSM fee and charge tags are hints, not prices."
-      },
       "links": [
         {
           "kind": "official",
@@ -791,7 +832,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/lago-di-braies",
+          "reason": "Lake access point (CS7 goal 5): OSM way 442280371, ref P4, the lot nearest the lake. OSM fee and charge tags are hints, not prices."
+        }
+      }
     },
     {
       "ref": "part/place/lago-di-carezza#parking",
@@ -818,10 +867,6 @@
       "parks_for": [
         "place/lago-di-carezza"
       ],
-      "origin": {
-        "from": "place/lago-di-carezza",
-        "reason": "Lake access point (CS7 goal 5): OSM relation 19117506, visitor-centre lot, capacity 280. OSM fee and charge tags are hints, not prices."
-      },
       "links": [
         {
           "kind": "osm",
@@ -829,7 +874,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/lago-di-carezza",
+          "reason": "Lake access point (CS7 goal 5): OSM relation 19117506, visitor-centre lot, capacity 280. OSM fee and charge tags are hints, not prices."
+        }
+      }
     },
     {
       "ref": "part/place/lago-di-landro#parking",
@@ -857,10 +910,6 @@
       "parks_for": [
         "place/lago-di-landro"
       ],
-      "origin": {
-        "from": "place/lago-di-landro",
-        "reason": "Lake access point (CS7 goal 5): OSM way 437446697, fee=yes, the lot beside the lake. OSM fee and charge tags are hints, not prices."
-      },
       "links": [
         {
           "kind": "osm",
@@ -868,7 +917,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/lago-di-landro",
+          "reason": "Lake access point (CS7 goal 5): OSM way 437446697, fee=yes, the lot beside the lake. OSM fee and charge tags are hints, not prices."
+        }
+      }
     },
     {
       "ref": "part/place/lago-dantorno#parking",
@@ -896,10 +953,6 @@
       "parks_for": [
         "place/lago-dantorno"
       ],
-      "origin": {
-        "from": "place/lago-dantorno",
-        "reason": "Lake access point (CS7 goal 5): OSM way 234899048, fee=no, south of the lake on the toll-road approach. OSM fee and charge tags are hints, not prices."
-      },
       "links": [
         {
           "kind": "osm",
@@ -907,7 +960,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/lago-dantorno",
+          "reason": "Lake access point (CS7 goal 5): OSM way 234899048, fee=no, south of the lake on the toll-road approach. OSM fee and charge tags are hints, not prices."
+        }
+      }
     },
     {
       "ref": "part/place/lago-di-dobbiaco#parking",
@@ -934,10 +995,6 @@
       "parks_for": [
         "place/lago-di-dobbiaco"
       ],
-      "origin": {
-        "from": "place/lago-di-dobbiaco",
-        "reason": "Lake access point (CS7 goal 5): OSM way 75384548, name 'Toblacher See', fee=yes. OSM fee and charge tags are hints, not prices."
-      },
       "links": [
         {
           "kind": "osm",
@@ -945,7 +1002,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/lago-di-dobbiaco",
+          "reason": "Lake access point (CS7 goal 5): OSM way 75384548, name 'Toblacher See', fee=yes. OSM fee and charge tags are hints, not prices."
+        }
+      }
     },
     {
       "ref": "part/place/lago-di-misurina#parking",
@@ -973,10 +1038,6 @@
       "parks_for": [
         "place/lago-di-misurina"
       ],
-      "origin": {
-        "from": "place/lago-di-misurina",
-        "reason": "Lake access point (CS7 goal 5): OSM way 178543599, fee=yes, at the south end of the lake. OSM fee and charge tags are hints, not prices."
-      },
       "links": [
         {
           "kind": "osm",
@@ -984,7 +1045,15 @@
           "state": "filled",
           "on": "2026-10-18"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/lago-di-misurina",
+          "reason": "Lake access point (CS7 goal 5): OSM way 178543599, fee=yes, at the south end of the lake. OSM fee and charge tags are hints, not prices."
+        }
+      }
     },
     {
       "ref": "offer/place/lago-di-braies#parking-p4",
@@ -1048,9 +1117,13 @@
           ]
         }
       ],
-      "origin": {
-        "from": "place/lago-di-braies",
-        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/lago-di-braies",
+          "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+        }
       }
     },
     {
@@ -1076,10 +1149,6 @@
       },
       "name": "Rifugio Nuvolau and Averau",
       "osm_ref": "way/200226208",
-      "origin": {
-        "from": "place/rifugio-nuvolau-and-averau",
-        "reason": "CS7c research (3.53): the trip stop had no capture record; the record is Rifugio Nuvolau, with Averau below it on the same outing."
-      },
       "season": {
         "v": [
           {
@@ -1125,7 +1194,15 @@
           "state": "filled",
           "on": "2026-10-19"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/rifugio-nuvolau-and-averau",
+          "reason": "CS7c research (3.53): the trip stop had no capture record; the record is Rifugio Nuvolau, with Averau below it on the same outing."
+        }
+      }
     },
     {
       "ref": "place/rifugio-scotoni",
@@ -1150,10 +1227,6 @@
       },
       "name": "Rifugio Scotoni",
       "osm_ref": "way/229003439",
-      "origin": {
-        "from": "place/rifugio-scotoni",
-        "reason": "CS7c research (3.53): the trip stop had no capture record."
-      },
       "season": {
         "v": null,
         "state": "searched_none",
@@ -1191,7 +1264,15 @@
           "state": "filled",
           "on": "2026-10-19"
         }
-      ]
+      ],
+      "meta": {
+        "schema_version": 1,
+        "run_id": "RIS-N",
+        "origin": {
+          "from": "place/rifugio-scotoni",
+          "reason": "CS7c research (3.53): the trip stop had no capture record."
+        }
+      }
     }
   ]
 }
