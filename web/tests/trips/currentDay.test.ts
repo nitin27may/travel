@@ -45,9 +45,12 @@ describe('dayOfHash', () => {
 
 describe('tripQuery keeps keys it does not own', () => {
   it('appends extra keys after the timeline keys and the view', () => {
-    expect(tripQuery('day', 'p=adults', 'utm=mail')).toBe('?p=adults&utm=mail');
-    expect(tripQuery('category', 'pace=relaxed', 'utm=mail')).toBe('?pace=relaxed&view=category&utm=mail');
-    expect(tripQuery('day', '')).toBe('');
+    const days = { tab: 'days', daysView: 'list' } as const;
+    const summary = { tab: 'summary', daysView: 'list' } as const;
+    expect(tripQuery(days, 'p=adults', 'utm=mail')).toBe('?p=adults&view=day&utm=mail');
+    expect(tripQuery({ tab: 'stops', daysView: 'list' }, 'pace=relaxed', 'utm=mail')).toBe('?pace=relaxed&view=all&utm=mail');
+    expect(tripQuery(summary, '')).toBe('');
+    expect(tripQuery(summary, 'p=adults', 'utm=mail')).toBe('?p=adults&utm=mail');
   });
 });
 

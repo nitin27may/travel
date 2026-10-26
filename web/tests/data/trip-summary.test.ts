@@ -34,11 +34,15 @@ describe('Summary: Canadian Rockies (the test case)', () => {
     });
   });
   it('has 13 highlights with days, a route folded into its payoff, photos from the place or the gallery section that names it', () => {
+    // the gallery's own order (UXB-1F S2): the curator's sections run Moraine Lake, Lake Louise, Johnston Canyon, Peyto Lake, the Icefields
+    // Parkway, the Columbia Icefield, Maligne Lake, Yoho; places with no photo follow in day order
     expect(s.highlights.map((h) => h.slug)).toEqual([
-      'johnston-canyon', 'lake-louise', 'athabasca-glacier-and-columbia-icefield', 'icefields-parkway-scenic-drive', 'peyto-lake-lookout-banff',
-      'maligne-lake-and-spirit-island', 'athabasca-falls', 'takakkaw-falls', 'plain-of-six-glaciers-to-teahouse-and-abbot-pass-viewpoint',
-      'larch-valley-to-sentinel-pass', 'moraine-lake', 'highwood-pass-and-hwy-40-corridor', 'ptarmigan-cirque',
+      'moraine-lake', 'lake-louise', 'johnston-canyon', 'peyto-lake-lookout-banff', 'icefields-parkway-scenic-drive', 'athabasca-glacier-and-columbia-icefield',
+      'maligne-lake-and-spirit-island', 'takakkaw-falls', 'athabasca-falls', 'plain-of-six-glaciers-to-teahouse-and-abbot-pass-viewpoint',
+      'larch-valley-to-sentinel-pass', 'highwood-pass-and-hwy-40-corridor', 'ptarmigan-cirque',
     ]);
+    // S1: the first eight all have a photo (a caption or a section names the place's core)
+    expect(s.highlights.slice(0, 8).every((h) => h.photo !== null)).toBe(true);
     const by = Object.fromEntries(s.highlights.map((h) => [h.slug, h]));
     expect(by['lake-louise']!.days).toEqual([3, 10]);
     expect(by['athabasca-glacier-and-columbia-icefield']!.days).toEqual([4, 8]);

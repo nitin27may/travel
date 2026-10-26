@@ -53,7 +53,7 @@ test.describe('back-to-top on a phone', () => {
   });
 
   test('hides while the trip map sheet is open, and returns when it closes (second open too)', async ({ page, site }) => {
-    await page.goto(`${site.url}/trips/dolomites-2027/`, { waitUntil: 'networkidle' });
+    await page.goto(`${site.url}/trips/dolomites-2027/?view=day`, { waitUntil: 'networkidle' });
     await scrollTo(page, 2000);
     const btn = page.getByRole('button', { name: 'Back to top' });
     await expect(btn).toBeVisible();

@@ -80,7 +80,7 @@ export function useTimeline(model: TimelineModel, url: TripUrl): TimelineApi {
   }, [plain, engine, model, state.profile, state.overrides, added]);
 
   const write = useCallback(
-    (next: TimelineUrlState) => url.go({ view: url.view, hash: url.hash || undefined, timeline: serialiseTimelineUrl(next, defaults) }, 'push'),
+    (next: TimelineUrlState) => url.go({ hash: url.hash || undefined, timeline: serialiseTimelineUrl(next, defaults) }, 'push'),
     [url, defaults],
   );
 
@@ -106,6 +106,6 @@ export function useTimeline(model: TimelineModel, url: TripUrl): TimelineApi {
       const i = state.added.findIndex((a) => a.day === day && a.slug === key);
       if (i >= 0) write({ ...state, added: state.added.filter((_, j) => j !== i) });
     },
-    reset: () => url.go({ view: url.view, hash: url.hash || undefined, timeline: '' }, 'push'),
+    reset: () => url.go({ hash: url.hash || undefined, timeline: '' }, 'push'),
   };
 }

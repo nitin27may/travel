@@ -28,7 +28,7 @@ test.describe('privacy of the party (2.34)', () => {
 
 test.describe('trip map with no positions (2.35)', () => {
   test('a trip with no positioned stop shows a plain line and no route map', async ({ page, site }) => {
-    await page.goto(`${site.url}/trips/vermont-fall-2026/`);
+    await page.goto(`${site.url}/trips/vermont-fall-2026/?view=day`);
     const plain = page.getByTestId('route-unplaced');
     const map = page.locator('#route [data-map-family]');
     // either the trip has positions and draws a map, or it says so; never a map framed on nothing

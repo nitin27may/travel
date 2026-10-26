@@ -15,7 +15,7 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
     { k: 'Length', v: lengthLabel(trip.nights, trip.daysCount) },
     ...(trip.bases.length ? [{ k: 'Bases', v: `${trip.bases.length} ${trip.bases.length === 1 ? 'base' : 'bases'}` }] : []),
     ...(drive ? [{ k: 'Drive a day', v: `${drive} on average`, title: 'Estimated: a straight line scaled to a road time' }] : []),
-    { k: trip.season?.basis === 'plan' ? 'Planned for' : 'Valid for', v: trip.season?.label ?? 'Season not set yet' },
+    { k: trip.season?.basis === 'plan' ? 'Planned for' : 'Best time', v: trip.season?.label ?? 'Season not set yet' },
   ];
   return (
     <header className="trip-head">

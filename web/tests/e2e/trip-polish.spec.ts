@@ -7,7 +7,7 @@ const settle = (page: Page, ms = 900) => page.waitForTimeout(ms);
 
 test.describe('trip page polish (TRP, stage 4)', () => {
   test('a Pace change cross-fades the day cards: out, then in; reduced motion jumps (check 4)', async ({ page, site }) => {
-    await page.goto(`${site.url}${ROCKIES}`);
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
     await page.locator('#plan-for').scrollIntoViewIfNeeded();
     const sample = () =>
       page.evaluate(async () => {
@@ -38,7 +38,7 @@ test.describe('trip page polish (TRP, stage 4)', () => {
 
   test('the phone has no floating map pill: Map lives in the sticky day strip and covers nothing (R4-T1, review M7)', async ({ page, site }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto(`${site.url}${ROCKIES}`);
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
     await expect(page.locator('.tl-mappill')).toHaveCount(0);
     await page.evaluate(() => document.getElementById('day-3')?.scrollIntoView({ block: 'start' }));
     const btn = page.locator('.tl-planbar .tl-mapbtn');
@@ -68,7 +68,7 @@ test.describe('trip page polish (TRP, stage 4)', () => {
     await expect(page.getByRole('button', { name: /copy to my trips/i })).toHaveCount(0);
     await expect(page.getByText(/copy it to plan/i)).toHaveCount(0);
     await expect(page.getByText(/season not set yet/i)).toHaveCount(0);
-    await expect(page.getByText(/^This plan has not been converted to days yet\. Only the overview is here so far\./)).toHaveCount(1);
+    await expect(page.getByText(/This plan has not been converted to days yet\./)).toHaveCount(1); // the Summary's lead says it once
     await expect(page.getByRole('heading', { name: /this plan is valid for/i })).toHaveCount(1);
   });
 
@@ -95,7 +95,7 @@ test.describe('trip page polish (TRP, stage 4)', () => {
   test('the strip shows 06, 12 and 18 and no truncated drive text at 1440 and 390 (check 5)', async ({ page, site }) => {
     for (const size of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
       await page.setViewportSize(size);
-      await page.goto(`${site.url}${ROCKIES}`);
+      await page.goto(`${site.url}${ROCKIES}`); // the whole-trip strip is in the Summary
       await expect(page.locator('.tl-trip-scale:first-child .tl-scale-tick')).toHaveText(['06', '12', '18']);
       const clipped = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('.tl-trip-drive')].filter((e) => e.scrollWidth > e.clientWidth + 1).length);
       expect(clipped, `${size.width}`).toBe(0);
@@ -106,7 +106,7 @@ test.describe('trip page polish (TRP, stage 4)', () => {
 
   test('the phone day header is under 260 px before the first time (check 6)', async ({ page, site }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto(`${site.url}${ROCKIES}`);
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
     const tops = await page.evaluate(() => [...document.querySelectorAll('li.tl-day')].map((li) => [li.id, li.querySelector('.tl-time')!.getBoundingClientRect().top - li.getBoundingClientRect().top] as const));
     for (const [id, y] of tops) expect(y, id).toBeLessThan(260);
   });
@@ -114,15 +114,16 @@ test.describe('trip page polish (TRP, stage 4)', () => {
   test('"Plan it for" sits above the season band, and the sticky bar names the profile (checks 7, 11)', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}`);
     const y = (sel: string) => page.locator(sel).first().evaluate((e) => e.getBoundingClientRect().top + window.scrollY);
-    expect(await y('#plan-for')).toBeLessThan(await y('.trip-season'));
+    expect(await y('#plan-for')).toBeLessThan(await y('.trip-season')); // the band is "When to go" in the Summary now, below the party bar
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
     await expect(page.locator('.tl-planbar-who')).toHaveText('Family, 10 · Standard') // the family default opens on a 10-year-old (FAMAGE10); the plan's written-for age stays 6;
     await expect(page.locator('.tl-planbar')).not.toContainText('Plan as written');
-    await page.goto(`${site.url}${ROCKIES}?p=adults&pace=full`);
+    await page.goto(`${site.url}${ROCKIES}?p=adults&pace=full&view=day`);
     await expect(page.locator('.tl-planbar-who')).toHaveText('Adults · Full');
   });
 
   test('the add panel says what an addition costs before it is made, and not offers one past 23:00 (check 3)', async ({ page, site }) => {
-    await page.goto(`${site.url}${ROCKIES}`);
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
     await page.locator('#day-5 .tl-add-open').click();
     const first = page.locator('#day-5 .tl-add-cost').first();
     await expect(first).toContainText(/adds (about|no)/, { timeout: 15_000 });
@@ -130,7 +131,7 @@ test.describe('trip page polish (TRP, stage 4)', () => {
   });
 
   test('the version menu says what each version does to the day (4.6)', async ({ page, site }) => {
-    await page.goto(`${site.url}${ROCKIES}`);
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
     await page.locator('#day-5 .tl-vchip').click();
     await expect(page.locator('#day-5 .tl-menu-detail').first()).toBeVisible({ timeout: 15_000 });
     await expect(page.locator('#day-5 .tl-menu-detail')).toHaveCount(3, { timeout: 15_000 });
@@ -138,7 +139,7 @@ test.describe('trip page polish (TRP, stage 4)', () => {
   });
 
   test('Day 6 marks the time-zone line at Mount Robson and reads the stops there in local time (row 3.35, check 9)', async ({ page, site }) => {
-    await page.goto(`${site.url}${ROCKIES}`);
+    await page.goto(`${site.url}${ROCKIES}?view=day`);
     await expect(page.locator('#day-6 .tl-zone')).toHaveCount(2);
     await expect(page.locator('#day-6 .tl-zone').first()).toContainText('Pacific time');
     await expect(page.locator('#day-6 .tl-zone').last()).toContainText('Mountain time');
@@ -195,7 +196,7 @@ test.describe('trip page polish (TRP, stage 4)', () => {
   test('each route map opens fitted to the positioned stops (check 8)', async ({ page, site }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     for (const slug of ['canadian-rockies-2029', 'dolomites-2027', 'vermont-fall-2026']) {
-      await page.goto(`${site.url}/trips/${slug}/`);
+      await page.goto(`${site.url}/trips/${slug}/?view=day`);
       if (await page.getByTestId('route-unplaced').count()) continue;
       await expect(page.locator('#route [data-map-family]')).toBeVisible({ timeout: 15_000 });
       // the key says what the map draws, and the first view is the whole trip, not one stop

@@ -26,18 +26,21 @@ test.describe('trips list', () => {
 });
 
 test.describe('trip page', () => {
-  test('Dolomites: 14 day timelines in order, six chips, By category regroups', async ({ page, site }) => {
-    await page.goto(`${site.url}/trips/dolomites-2027/`);
+  test('Dolomites: 14 day timelines in order; the Stops tab has six chips and picking one regroups', async ({ page, site }) => {
+    await page.goto(`${site.url}/trips/dolomites-2027/?view=day`);
     const rows = page.locator('li.tl-day');
     await expect(rows).toHaveCount(14);
     expect(await rows.evaluateAll((els) => els.map((e) => e.id))).toEqual(Array.from({ length: 14 }, (_, i) => `day-${i + 1}`));
+    await expect(page.locator('.cat-chip')).toHaveCount(0); // the chips live in the Stops tab, which is not loaded yet
+    await page.getByRole('tab', { name: /^Stops/ }).click();
     const chips = page.locator('.cat-chip');
     await expect(chips).toHaveCount(6);
     expect(await chips.allInnerTexts()).toEqual(['Stays\n4', 'Trails\n10', 'Sights\n11', 'Activities\n3', 'Food\n2', 'Logistics\n7']);
     expect(await page.locator('main').innerText()).not.toMatch(DATE);
     await chips.nth(1).click();
-    await expect(page).toHaveURL(/view=category#trails/);
+    await expect(page).toHaveURL(/view=all#trails/);
     await expect(page.getByRole('heading', { name: /^Trails/ })).toBeVisible();
+    await page.goBack();
     await page.goBack();
     await expect(page.locator('li.tl-day').first()).toBeVisible();
   });
@@ -55,7 +58,7 @@ test.describe('trip page', () => {
     await expect(page.getByRole('radiogroup', { name: 'Who is going' })).toBeVisible();
   });
   test('summary and overview trips are labelled', async ({ page, site }) => {
-    await page.goto(`${site.url}/trips/patagonia-2027/`);
+    await page.goto(`${site.url}/trips/patagonia-2027/?view=day`);
     await expect(page.getByText('Condensed from the full plan').first()).toBeVisible();
     await page.goto(`${site.url}/trips/switzerland-2027/`);
     // an overview with a season (D6a-W) shows the season band and the "not converted" banner; the no-season notice is for an overview with none
@@ -73,7 +76,7 @@ test.describe('trip page', () => {
   });
   test('no horizontal scroll at 390 and axe is clean', async ({ page, site }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    for (const path of ['/trips/', '/trips/dolomites-2027/', '/trips/switzerland-2027/']) {
+    for (const path of ['/trips/', '/trips/dolomites-2027/', '/trips/dolomites-2027/?view=day', '/trips/dolomites-2027/?view=all', '/trips/switzerland-2027/']) {
       await page.goto(`${site.url}${path}`);
       await page.waitForTimeout(500);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), path).toBe(true);
@@ -110,7 +113,7 @@ test.describe('trip page', () => {
 
 test.describe('trip page extras', () => {
   test('a done trip is a template and offers "Use as a template"', async ({ page, site }) => {
-    await page.goto(`${site.url}/trips/vermont-fall-2026/`);
+    await page.goto(`${site.url}/trips/vermont-fall-2026/?view=day`);
     await expect(page.getByRole('button', { name: 'Use as a template' }).first()).toBeVisible();
     await expect(page.getByRole('button', { name: 'Copy to my trips' })).toHaveCount(0);
     await expect(page.getByText('A finished plan, kept as a template.')).toBeVisible();

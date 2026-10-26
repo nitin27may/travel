@@ -48,7 +48,7 @@ test.describe('trip hero title (backlog 4.25)', () => {
 // Backlog 4.23: the route map's key names the dashed line, and the label counts a stop that is not on the map.
 test('the trip route key says "Straight line, not a route" and names the numbered day', async ({ page, site }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto(`${site.url}/trips/canadian-rockies-2029/`);
+  await page.goto(`${site.url}/trips/canadian-rockies-2029/?view=day`);
   const key = page.locator('#trip-map-key-list');
   await expect(key).toContainText('Straight line, not a route');
   await expect(key).not.toContainText('Picked day');

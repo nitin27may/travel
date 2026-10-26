@@ -342,6 +342,79 @@ export function report(dist = '.next') {
   ];
 }
 
+// ---- JS loaded just after hydration (UXB-1F; review UXB-1 section 4) ----
+
+/**
+ * The start-JS gate counts the scripts named in the HTML. A `next/dynamic(..., { ssr: false })` chunk is not named there, so moving code behind
+ * a lazy import makes the gate number fall without making the page lighter. This opens a trip page in a real browser against a local
+ * `next start`, waits for React to hydrate the page, and adds every script that finished loading within one second after that: the
+ * lazy chunks the first view needs at once. The two numbers are read together (start + lazy), so a saving that only moved bytes shows.
+ * Gzipped from the built files, as the start-JS number is. Needs a build and Playwright's Chromium; the CLI runs it unless `--no-lazy`.
+ */
+export async function lazyJsReport(dist = '.next', pages = [['Rockies Summary', '/trips/canadian-rockies-2029/'], ['Rockies Days', '/trips/canadian-rockies-2029/?view=day'], ['Rockies #day-11', '/trips/canadian-rockies-2029/#day-11']]) {
+  const { spawn } = await import('node:child_process');
+  const net = await import('node:net');
+  const http = await import('node:http');
+  const { chromium } = await import('@playwright/test');
+  const root = path.resolve(WEB, dist);
+  const port = await new Promise((res, rej) => {
+    const srv = net.createServer();
+    srv.listen(0, '127.0.0.1', () => {
+      const { port } = srv.address();
+      srv.close(() => res(port));
+    });
+    srv.on('error', rej);
+  });
+  const next = path.join(WEB, 'node_modules', 'next', 'dist', 'bin', 'next');
+  const server = spawn(process.execPath, [next, 'start', '-p', String(port)], { cwd: WEB, stdio: 'ignore', env: { ...process.env, NEXT_DIST_DIR: dist === '.next' ? '' : dist } });
+  const up = async () => {
+    for (let i = 0; i < 120; i++) {
+      const ok = await new Promise((res) => http.get({ host: '127.0.0.1', port, path: '/' }, (r) => { r.resume(); res(true); }).on('error', () => res(false)));
+      if (ok) return;
+      await new Promise((r) => setTimeout(r, 500));
+    }
+    throw new Error('next start did not come up');
+  };
+  const lines = [];
+  try {
+    await up();
+    const browser = await chromium.launch();
+    try {
+      for (const [label, url] of pages) {
+        const page = await (await browser.newContext({ viewport: { width: 390, height: 844 }, locale: 'en-CA' })).newPage();
+        const loaded = new Map();
+        const t0 = Date.now();
+        page.on('response', (r) => {
+          const u = new URL(r.url());
+          if (u.origin === `http://127.0.0.1:${port}` && /\/_next\/static\/.*\.js$/.test(u.pathname)) loaded.set(u.pathname, Date.now() - t0);
+        });
+        await page.goto(`http://127.0.0.1:${port}${url}`, { waitUntil: 'load' });
+        // hydrated: React has put its props on the tab button
+        const hydrated = await page.waitForFunction(() => { const b = document.querySelector('[role=tab]'); return !!b && Object.keys(b).some((k) => k.startsWith('__reactProps')); }, null, { timeout: 30_000 }).then(() => Date.now() - t0);
+        await page.waitForTimeout(1000);
+        const html = await page.evaluate(() => [...document.scripts].filter((x) => x.src).map((x) => new URL(x.src).pathname));
+        const start = await (await fetch(`http://127.0.0.1:${port}${url}`)).text();
+        const named = new Set(startScripts(start).map((x) => x.split('?')[0]));
+        const gz = (p) => gzipSync(readFileSync(path.join(root, 'static', p.replace(/^\/_next\/static\//, '')))).length;
+        const lazy = [...loaded].filter(([p, t]) => !named.has(p) && t <= hydrated + 1000 && existsSync(path.join(root, 'static', p.replace(/^\/_next\/static\//, ''))));
+        const lazyB = lazy.reduce((n, [p]) => n + gz(p), 0);
+        const startB = [...named].reduce((n, p) => n + gz(p), 0);
+        void html;
+        lines.push(`  ${label}: start ${(startB / 1024).toFixed(1)} KB + lazy within 1 s of hydration ${(lazyB / 1024).toFixed(1)} KB (${lazy.length} chunks) = ${((startB + lazyB) / 1024).toFixed(1)} KB gz; hydrated at ${hydrated} ms`);
+        await page.context().close();
+      }
+    } finally {
+      await browser.close();
+    }
+  } finally {
+    server.kill();
+  }
+  return ['JS loaded within 1 s of hydration (lazy chunks count; a bundle moved behind a lazy import saves nothing here)', ...lines];
+}
+
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  console.log(report(process.argv[2] || '.next').join('\n'));
+  const args = process.argv.slice(2);
+  const dist = args.find((a) => !a.startsWith('--')) || '.next';
+  console.log(report(dist).join('\n'));
+  if (!args.includes('--no-lazy')) console.log((await lazyJsReport(dist)).join('\n'));
 }

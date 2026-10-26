@@ -117,7 +117,7 @@ export function summaryInput(trip: PublicTrip, lookup: Lookup): SummaryInput {
     food: count('food'),
     bookings,
     highlights: [...cand.values()],
-    gallery: { photos: trip.gallery.length, sections },
+    gallery: { photos: trip.gallery.length, sections, items: trip.gallery.map((ph) => ({ caption: ph.caption, group: ph.group ?? null })) },
     versions: [...versions].map(([audience, days]) => ({ audience, days })).sort((a, b) => b.days - a.days),
   };
 }

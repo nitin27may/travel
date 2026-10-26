@@ -46,7 +46,7 @@ export interface VariantLine {
 /** The consequence of picking a version, from the scheduled day itself. */
 export function variantLine(tl: DayTimeline, unit: DistanceUnit): VariantLine {
   const parts = [
-    tl.totals.walkKm > 0 ? `${formatDistance(tl.totals.walkKm, unit)} walking` : 'no walking',
+    tl.totals.walkKm > 0 ? `${formatDistance(tl.totals.walkKm, unit)} walking` : 'no walk planned',
     tl.totals.driveMin > 0 ? `${fmtHM(tl.totals.driveMin)} driving` : null,
     tl.blocks ? null : `${tl.span.start} to ${tl.span.end}`,
   ].filter(Boolean);
