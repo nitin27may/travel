@@ -1,9 +1,10 @@
 # Rendering and interaction technology (working draft)
 
 > **Amended 25 Oct 2026 (requests and custom places):** map stack job 3 ("Find a place by name") is refined: our
-> catalogue, then our towns layer, then openrouteservice autocomplete through a signed-in server route with Photon as
-> fallback. Nominatim stays a research resolver only, because its usage policy forbids type-ahead. Google Places stays
-> unused. See [requests-and-custom-places.md](../features/requests-and-custom-places.md) section 4.3 (PLAN R-174).
+> catalogue, then our towns layer, then Google Places autocomplete through a signed-in server route (owner decision
+> 25 Oct, Q210: 10 to 20 users, free monthly usage) with openrouteservice, then Photon, as the switchable fallback.
+> Google terms hold: only `place_id` is stored, no Google names or coordinates in our data, results never on MapLibre
+> maps. Nominatim stays a research resolver only, because its usage policy forbids type-ahead. See [requests-and-custom-places.md](../features/requests-and-custom-places.md) section 4.3 (PLAN R-174).
 
 Chosen to make the interactions in interactions.md fast on a mid-range phone. Versions checked on the
 npm registry on 17 Oct 2026 (the prototype pins versions at least two weeks old).

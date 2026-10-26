@@ -8,7 +8,7 @@
 > **Amended 25 Oct 2026 (requests and custom places):** item 4's "a pasted URL is fetched for title and coordinates
 > (Google Maps links, ...)" is superseded: the server never fetches a pasted link (visitor spec V9); a map link is parsed
 > by pattern on the client, and a Google-derived point stays in the person's own plan only. The add box's catalogue
-> search and "Add as my own" arrive early, in the customised copy, with a map search through openrouteservice
+> search and "Add as my own" arrive early, in the customised copy, with a map search through Google Places (openrouteservice and Photon as fallback; owner Q210)
 > ([requests-and-custom-places.md](requests-and-custom-places.md) section 4, PLAN R-174).
 
 ## Purpose

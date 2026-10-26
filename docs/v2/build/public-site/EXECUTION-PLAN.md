@@ -659,7 +659,7 @@ writes a copy no page lists. Phase 2 waits for CUS-C, FAV-2 and the R-61 HTTPS p
 |---|---|---|---|---|---|
 | NAV-F | Foundation text: components 1.1, 1.4; patterns 1.1, 3.7 | travel-design-reviewer, Opus | 1.5 h | ACCT-PH merged | foundation agrees with the spec |
 | NAV-C | `copies/1` contract, legacy-key move, storage probe, `trip-custom/1` `start` and `travellers`, detector keys | travel-builder, Opus | 3 h | ACCT-PH merged | property tests; detector test |
-| NAV-1 | Bar item Mine (replaces ACCT-PH), icon masks, desktop Mine link, dot, `/mine/` shell, `/favourites/` redirect | travel-builder, Sonnet | 5 h | NAV-C | five items at 320 px; place HTML and trip start JS at or under the ACCT-PH baseline in both builds; CLS 0 |
+| NAV-1 | Bar item Mine (replaces ACCT-PH), phone header sign-in icon (Q203), icon masks, desktop Mine link, dot, `/mine/` shell, `/favourites/` redirect | travel-builder, Sonnet | 5.5 h | NAV-C | five items at 320 px; place HTML and trip start JS at or under the ACCT-PH baseline in both builds; CLS 0 |
 | NAV-2 | My trips on the device; copy sheet footer, done step, toast, replace prompt | travel-builder, Sonnet | 6 h | NAV-1; OVR-1 merged or not started | copy, reload, find, open with the profile, ICS with the dates; old key moved |
 | NAV-R1, NAV-V1 | Review and verify phase 1 | reviewer Opus, verifier Sonnet | 4 h | NAV-2 | approved; sweep at 320, 390, 1440, light and dark |
 | FAV-1 (re-scoped) | Favourites as the Mine panel | travel-builder, Sonnet | 12 h | NAV-R1; OVR-0 | visitor spec 15 |
@@ -668,7 +668,7 @@ writes a copy no page lists. Phase 2 waits for CUS-C, FAV-2 and the R-61 HTTPS p
 | NAV-R2, NAV-V2 | Review and verify phase 2 | reviewer Opus, verifier Sonnet | 4 h | NAV-3 | approved |
 | NAV-M | More sheet at the planner stage | reviewer Opus, builder Sonnet | 5 h | signed-in Home | spec section 7 |
 
-NAV total: about 19.5 h (phase 1) plus about 14 h (phase 2); FAV-1 is 2 h smaller; NAV-M 5 h later.
+NAV total: about 20 h (phase 1) plus about 14 h (phase 2); FAV-1 is 2 h smaller; NAV-M 5 h later.
 
 ### 10.2 Enhancement queue: requests and custom places (REQ, added 25 Oct 2026, planned only)
 
@@ -686,8 +686,8 @@ FBK-C and CUS-C are widened before their migrations are applied. Briefs are in t
 | REQ-E | Scheduler `moveItem`, `insertDay`, `dropDay` (Opus 3 h), then the copy UI (Sonnet 8 h) | travel-builder | 11 h | CUS-1, CUS-2 | pinned entries never move; dropped day items go to Maybe; reload keeps all |
 | REQ-P | Add a place: catalogue, towns, add as my own | travel-builder, Sonnet | 5 h | REQ-E core | chunk at most 14 KB; no private place shown |
 | REQ-R2, REQ-V2 | Review and verify phase 2 | reviewer Opus, verifier Sonnet | 4 h | REQ-E, REQ-P | approved |
-| REQ-G0 | Geocoder spike note (docs only) | travel-planner or travel-researcher, Opus | 2 h | phase 2 | go or no-go with numbers |
-| REQ-G | `POST /api/account/geocode` (Opus 2 h contract, Sonnet 5 h) | travel-builder | 7 h | REQ-G0, EML-Q | buckets, fallback, kill switch, no query in logs, key server-only |
+| REQ-G0 | Google terms and cost cap check plus the fallback switch (docs and owner setup steps only) | travel-planner or travel-researcher, Opus | 3 h | phase 2 | go or no-go for Google with dated pricing and terms; setup steps; fallback numbers |
+| REQ-G | `POST /api/account/geocode`, Google primary, ORS then Photon fallback (Opus 2 h contract, Sonnet 6 h) | travel-builder | 8 h | REQ-G0, EML-Q | buckets, fallback, kill switch, no query in logs, key server-only |
 | REQ-S | Map search tier and the suggestion opt-in | travel-builder, Sonnet | 8 h | REQ-G | address results offer no box; credit line visible |
 | REQ-L | Link and "Use our page" upgrade | travel-builder, Sonnet | 3 h | REQ-S | undo restores the custom stop; no admin write path |
 | REQ-A | CLI for custom suggestions, `source_ref` dedupe | travel-builder, Sonnet | 3 h | FBK-3 | private match never visible to the visitor |

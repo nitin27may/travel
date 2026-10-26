@@ -3,6 +3,11 @@
 Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements PLAN R-160 to R-164, BACKLOG 15.160 to
 15.169, owner questions Q200 to Q207. Nothing here is built. Phase 1 needs no backend.
 
+**Owner answers, 25 Oct 2026:** Q200 to Q207 are all answered yes. **Q203 changed:** sign-in is on the Mine page **and also** a
+small person icon in the phone header, so the phone header gains one icon (brand, search, sign-in, theme). N6, section 1.1,
+the 320 px fit check, the header budget (section 6) and the NAV-1 brief below are updated for it. The ACCT-PH interim
+bottom-bar slot is unaffected: NAV-1 still replaces it 1:1 with Mine.
+
 Related: [visitor-suggestions-and-favourites.md](visitor-suggestions-and-favourites.md) (R-70 to R-75: favourites on this
 device, then synced), [trip-overview-and-customisation.md](trip-overview-and-customisation.md) (R-65: the private copy in
 `planner_draft`, opened at `/t/<id>/`), [feedback-and-reports.md](feedback-and-reports.md) (the footer entry "Report or
@@ -26,7 +31,7 @@ suggest"), [public-trips-dateless.md](../design/public-trips-dateless.md) ("Pick
 | Thing | State | Where |
 |---|---|---|
 | Phone bottom bar | Trips · Places · Globe · Search, 4 items, 56 px | `web/components/shell/BottomBar.tsx`, `web/app/app.css` 67-82 |
-| Phone header | brand, search icon, theme toggle; the header Sign in is hidden below 640 px | `SiteHeader.tsx`, `app.css` 77 |
+| Phone header | brand, search icon, theme toggle; the header Sign in is hidden below 640 px (`.header-tools .header-signin { display: none }`, `app.css` 77). **To change (Q203):** it shows as an icon below 640 px | `SiteHeader.tsx`, `app.css` 77 |
 | ACCT-PH (in progress, uncommitted) | fifth item "Sign in" to `/sign-in/`, "Account" to `/account/` when signed in, through `lib/auth/header-session.ts`; bar grid becomes auto-flow | `public/ACCT-PH` worktree |
 | Desktop header | Trips · Places · Globe; search, theme, Sign in or the avatar menu (Account, Sign out) | `SiteHeader.tsx`, `AccountNav.tsx`, `AccountMenu.tsx` |
 | Copy to my trips | the sheet saves a `CopyDraft` (slug, start, adults, children's ages, timeline profile, overrides, additions) to `localStorage` key `travel:v1:copy-drafts`, one per trip, no cap, no schema version | `web/lib/export/draft.ts`, `web/components/actions/CopySheet.tsx` |
@@ -61,16 +66,16 @@ first; and a public site with a sixth destination later (Home) must then move Gl
 |---|---|---|---|
 | N1 | **One hub, `/mine/`, with tabs My trips and Favourites**, not two pages | One slot in a five-slot bar; one place to remember ("my things"); both counts at a glance (P3); both lists are small, local and the visitor's own (P9 allows it) | A longer page; deep links need `?show=` |
 | N2 | **The bar label is "Mine"** with the `layers` icon (the icon of "Copy to my trips") | "My trips" would sit beside "Trips" and read as the same thing; "Saved" is banned (it means the owner's wishlist on the globe and "Save to a trip" in the planner, visitor spec 3); "Me" (foundation) reads as account only, and most visitors never sign in. `layers` is already in `Icon.tsx`, so no new path ships in every start chunk | A new word; the reviewer may prefer another (Q200) |
-| N3 | **Phone bar Trips · Places · Globe · Search · Mine; no More sheet now** | Five fit at 320 px; Search is the 90%'s first action (P7) and the bottom is thumb reach; every secondary item (About the data, Terms, Privacy, Report or suggest, units) is already in the footer of every page, and the theme toggle is in the header | One more tap to sign in on phone (Mine, then Sign in) |
+| N3 | **Phone bar Trips · Places · Globe · Search · Mine; no More sheet now** | Five fit at 320 px; Search is the 90%'s first action (P7) and the bottom is thumb reach; every secondary item (About the data, Terms, Privacy, Report or suggest, units) is already in the footer of every page, and the theme toggle is in the header | Sign in is also in the header (N6), so the bar need not carry it |
 | N4 | **Globe stays a main item** on phone and desktop | The globe is the discovery view and the owner's showcase (product direction, keep-from-live-site); the home cover leads into it; with no usage data, the product reason wins | Globe is the heaviest page on a phone in the field (T2); it loads only when tapped |
 | N5 | **Desktop header: tabs Trips · Places · Globe; right cluster Search, Theme, Mine, Sign in or avatar** | Mine is personal, not a catalogue section, so it sits with the account controls; three tabs stay under the four-tab rule | One more control in the cluster; icon-only from 640 to 899 px |
-| N6 | **Sign-in on phone lives on Mine**, at the top of the page; nothing new in the 56 px phone header | One place for the account on phone; the header stays brand, search and theme | A visitor who looks top right for Sign in does not find it there (Q203) |
+| N6 | **Sign-in on phone is in two places (owner, Q203, 25 Oct):** the account card at the top of Mine, and a small person icon in the 56 px phone header (icon only, `aria-label` "Sign in"; "Account" when signed in) | The owner wants the usual top-right place to work on a phone as well as the Mine card; the header already renders the sign-in link and CSS hides it below 640 px, so showing it as an icon costs no JS | The phone header gets a fourth element (brand, search, sign-in, theme) and must still fit at 320 px (1.1); two routes to one action |
 | N7 | **Copies are a versioned device envelope `copies/1`**, one per trip (re-copy asks to replace), 20 per device | Today's key has no version, no id and no cap; an id per copy makes the sign-in merge idempotent | A visitor cannot hold two date variants of one trip on one device in v1 |
 | N8 | **No dated trip view for a device copy in v1.** Open goes to the public trip with the saved profile restored by the existing URL codec; dates live in the row and in the exports | No new renderer, no trip start JS; the private copy at `/t/<id>/` (CUS-1) is the dated view later | The opened page shows Day 1 to N, not the visitor's dates |
 | N9 | **The sign-in merge runs on `/account/` and `/mine/` only**, never from the header on every page | The trip page has 2 B of start JS headroom; sign-in always lands on `/account/` first (R-81: `callbackURL` is `/account/` with a sanitised `next`), so the merge runs there before forwarding | A visitor who signs in elsewhere sees the merge only when that landing runs, which it always does |
 | N10 | **Badges: a small accent dot, never a count**, on Mine after a save or copy on this device, until Mine is opened | `--crit` count discs are reserved for urgent items (tokens 3.1); a count of favourites is not urgent | No at-rest number on the bar |
 | N11 | **`/account/` keeps account settings only**; the draft list moves to Mine › My trips | One list of a person's trips; Account is identity, ways to sign in, connected apps, export and delete | Two pages to change in one task |
-| N12 | **ACCT-PH is interim and is replaced 1:1 by Mine** in the same slot; its `ACCOUNT_LINKS` and the bar's use of `useSignedIn` are removed | The bar no longer needs session state (Mine's label never changes), which saves start JS | ACCT-PH's work is short-lived |
+| N12 | **ACCT-PH is interim and is replaced 1:1 by Mine** in the same slot; its `ACCOUNT_LINKS` and the bar's use of `useSignedIn` are removed | The bar no longer needs session state (Mine's label never changes), which saves start JS. The header icon (N6) reuses the session read `AccountNav` already makes on every page | ACCT-PH's work is short-lived |
 
 ## 1. Navigation map
 
@@ -79,7 +84,7 @@ first; and a public site with a sixth destination later (Home) must then move Gl
 ```
 320 px                                                      390 px
 ┌────────────────────────────────────┐                       ┌──────────────────────────────────────────┐
-│ TRIP PLANS              [search][◐] │ 56 px header           │ TRIP PLANS                    [search][◐] │
+│ TRIP PLANS       [search][user][◐]  │ 56 px header          │ TRIP PLANS              [search][user][◐] │
 └────────────────────────────────────┘                       └──────────────────────────────────────────┘
                ... page ...                                                 ... page ...
 ┌──────┬──────┬──────┬──────┬───────┐                       ┌───────┬───────┬───────┬───────┬────────┐
@@ -100,7 +105,26 @@ Rules: items 56 px minimum height and width, icon 22 px, label mono 11.5 (`--t-c
 is above half height and while the keyboard is open (components 1.4, unchanged). At 200% text the labels wrap to two
 lines inside the 56 px item; they never truncate.
 
-The phone header is unchanged: brand, search icon, theme toggle. No Sign in, no avatar (N6).
+**The phone header gains one icon (owner, Q203):** brand, search, **sign-in**, theme. The sign-in icon is the `user` glyph
+already in `Icon.tsx` (no new path), 44 px target, `aria-label` "Sign in" linking to `/sign-in/` when signed out;
+signed in it keeps the glyph with `aria-label` "Account" and links to `/account/` (no avatar menu on a phone). It is the
+existing `AccountNav` element, today hidden below 640 px, shown as icon only: the same session read as now, so no new
+start JS. `aria-current="page"` on `/sign-in/`, `/sign-up/` and `/account/`.
+
+320 px fit check (assumes the 14 px phone `--margin` and the 8 px gap `--s-2` between tools; NAV-1 measures the real
+widths and fixes the arithmetic if it differs):
+
+| Part | Width |
+|---|---|
+| Content width (320 minus 2 x 14) | 292 px |
+| Three icon targets at 44 px with two 8 px gaps | 148 px |
+| Gap between brand and tools (`--s-3`) | 12 px |
+| Left for the brand | 132 px, and "TRIP PLANS" in the header mono needs about 100 px |
+| Spare | about 32 px |
+
+If the measured brand plus tools exceed 292 px at 320, the brand text shrinks one step (`--t-chip`) before any icon
+shrinks below 44 px; the targets never drop under 44 px (accessibility section) and the icons never wrap to a second
+row.
 
 ### 1.2 Desktop and tablet (640 px and wider)
 
@@ -125,7 +149,7 @@ Mine link is current (`aria-current="page"`) on `/mine/**`.
 
 | Item | Phone | Desktop |
 |---|---|---|
-| Sign in, Create an account | Mine, account card | header Sign in; Mine, account card |
+| Sign in, Create an account | header person icon (Sign in); Mine, account card | header Sign in; Mine, account card |
 | Account settings | Mine, account card, "Account" link | avatar menu, Account |
 | Theme | header toggle | header toggle |
 | Units | footer (every page) | footer |
@@ -138,7 +162,7 @@ Nothing is left for a More sheet to hold on the public site.
 ### 1.4 How this replaces ACCT-PH
 
 ACCT-PH stays merged and working until NAV-1 lands. NAV-1 then changes the fifth item's label to "Mine", its target to
-`/mine/`, its icon to `layers`, and removes the session read from the bar. The phone path to sign in becomes Mine, then
+`/mine/`, its icon to `layers`, and removes the session read from the bar. The phone paths to sign in become the header person icon (one tap, N6) or Mine, then
 "Sign in" on the account card (two taps, both in thumb reach). Signed in, Mine shows the email and an "Account" link.
 
 ## 2. The Mine page (`/mine/`)
@@ -358,7 +382,8 @@ Its metadata description becomes "Your account settings."
 
 | Budget | Today | Rule for NAV | How |
 |---|---|---|---|
-| Trip page start JS, 200 KB gzipped | 2 B headroom (coordinator, 25 Oct) | **at most +0 B against the ACCT-PH baseline** | the bar loses `useSignedIn` and `ACCOUNT_LINKS` (ACCT-PH) and gains one constant item; the dot is one `localStorage` read in the bar's existing effect. NAV-1 measures first; if the net is above 0 B, the dot goes |
+| Trip page start JS, 200 KB gzipped | 2 B headroom (coordinator, 25 Oct) | **at most +0 B against the ACCT-PH baseline** | the bar loses `useSignedIn` and `ACCOUNT_LINKS` (ACCT-PH) and gains one constant item; the dot is one `localStorage` read in the bar's existing effect. The phone header icon (Q203) is the existing `AccountNav` element shown by CSS, so it adds no JS; if NAV-1 finds it needs any, it is the icon that stays and the dot that goes. NAV-1 measures first; if the net is above 0 B, the dot goes |
+| Phone header width (Q203) | brand, search, theme | **brand, search, sign-in, theme inside 292 px at 320 px** | the 320 px fit check in 1.1; icon-only, `user` glyph already shipped; no layout shift (the element exists in the DOM today) |
 | Place HTML, +25% median cap | 19 B headroom in the sign-in-on build | **at most +0 B in both builds** | the bar item replaces ACCT-PH's (shorter label); in the public build, where ACCT-PH renders nothing, the bar's four inline SVG icons move to CSS mask images in `app.css` (served once and cached), which frees roughly 1 KB of HTML per page, more than the new item costs. The desktop Mine link renders after hydration (0 server bytes); `.header-tools` reserves its width in CSS so nothing shifts |
 | `/mine/` route chunk | new | 30 KB gzipped for both panels | static noindex shell; panels are client components over at most 520 local items (the visitor's own data, P9) |
 | Favourites panel | visitor spec 7 (25 KB for `/favourites/`) | counted inside the 30 KB | FAV-1 builds a panel, not a page |
@@ -434,7 +459,7 @@ owns (`web/components/trips/**` while OVR or R-59 run).
 |---|---|---|---|---|---|---|
 | NAV-F | travel-design-reviewer, Opus | 1.5 h | Foundation text: components 1.1 (right cluster with Mine), 1.4 (public bar Trips · Places · Globe · Search · Mine; the dot; signed-in bar after Home in 7), patterns 1.1 table rows and 3.7 (visitors' copy lands in Mine); review the wireframes of sections 1 and 2 | `docs/v2/design/foundation/components.md` (1.1, 1.4), `patterns.md` (1.1, 3.7) | code | foundation agrees with this spec; any change the reviewer makes is written back here |
 | NAV-C | travel-builder, Opus | 3 h | Contracts: `copies/1` envelope and the legacy-key move; the shared storage probe; mapping to `trip-custom/1` with `start` and `travellers`; merge rule as property tests; privacy detector keys `copiedAt`, `travellers` | `core/src/schema/copies.ts` (new), `core/src/schema/trip-custom.ts` (two optional fields, only if CUS-C has not merged; otherwise a written request to its owner), `core/src/privacy/detect.ts` (two keys), `core/test/schema/copies.test.ts` | `web/**` | envelope round-trips; a newer envelope is left untouched; merge is idempotent, dedupes same trip and start, honours the cap; the detector fails on a planted `travellers` |
-| NAV-1 | travel-builder, Sonnet | 5 h | Shell: the fifth item becomes Mine (replacing ACCT-PH), bar icons as CSS masks, the desktop Mine link after hydration, the dot, `/mine/` shell with the account card, tabs and empty states, `/favourites/` redirect to `/mine/?show=favourites`, `mine` capability | `web/components/shell/BottomBar.tsx`, `SiteHeader.tsx` (the cluster mount only), `web/components/shell/MineLink.tsx` (new), `web/app/app.css` (bar and cluster rules), `web/app/mine/**` (new), `web/lib/mine/storage.ts` (new), `web/lib/config/product.ts` (remove `ACCOUNT_LINKS`), `web/lib/capabilities.ts` (append `mine`), `web/next.config.*` (the one redirect), `web/tests/shell/**`, `web/e2e/mine-shell.spec.ts` | `web/components/trips/**`, `web/components/actions/**`, `web/app/account/**` | five items at 320 px each at least 56 px wide; Mine current on `/mine/`, `/account/`, `/sign-in/`; place HTML and trip start JS at or under the ACCT-PH baseline in both builds; no layout shift when the desktop link mounts (CLS 0 in the e2e); keyboard and screen-reader walk |
+| NAV-1 | travel-builder, Sonnet | 5.5 h | Shell: the fifth item becomes Mine (replacing ACCT-PH), **the phone header sign-in icon (Q203, N6, 1.1: show `.header-signin` as the `user` icon below 640 px, "Account" when signed in, 44 px target, brand shrink rule if 320 px overflows)**, bar icons as CSS masks, the desktop Mine link after hydration, the dot, `/mine/` shell with the account card, tabs and empty states, `/favourites/` redirect to `/mine/?show=favourites`, `mine` capability | `web/components/shell/BottomBar.tsx`, `SiteHeader.tsx` (the cluster mount only), `web/components/shell/MineLink.tsx` (new), `web/app/app.css` (bar and cluster rules), `web/app/mine/**` (new), `web/lib/mine/storage.ts` (new), `web/lib/config/product.ts` (remove `ACCOUNT_LINKS`), `web/lib/capabilities.ts` (append `mine`), `web/next.config.*` (the one redirect), `web/tests/shell/**`, `web/e2e/mine-shell.spec.ts` | `web/components/trips/**`, `web/components/actions/**`, `web/app/account/**` | five items at 320 px each at least 56 px wide; the phone header shows brand, search, sign-in and theme with no overflow or wrap at 320, 390 and 640-1 px, each target at least 44 px, the icon links to `/sign-in/` signed out and `/account/` signed in, and is hidden or replaced by the avatar from 640 px; Mine current on `/mine/`, `/account/`, `/sign-in/`; place HTML and trip start JS at or under the ACCT-PH baseline in both builds; no layout shift when the desktop link mounts (CLS 0 in the e2e); keyboard and screen-reader walk |
 | NAV-2 | travel-builder, Sonnet | 6 h | My trips, signed out: rows, groups, Open with the profile codec, Add to calendar, Print, Change dates, Remove with Undo; the copy sheet's footer note, done step, toast and replace prompt; cap 20; storage fallback; legacy-key move | `web/lib/mine/copies.ts` (new), `web/components/mine/**` (new), `web/lib/export/draft.ts` (becomes a shim over `copies.ts`), `web/components/actions/CopySheet.tsx` (footer note, done step, toast only; after OVR-1 merges or before it starts, never in parallel), `web/tests/mine/**`, `web/e2e/mine-trips.spec.ts` | `web/components/trips/**`, the copy sheet's date and traveller steps | copy a trip, find it in Mine after reload; Open restores the profile; ICS uses the copy's dates; storage blocked shows the session note; the old key moves once and is deleted only after a good write; a second tab updates |
 | NAV-R1, NAV-V1 | travel-design-reviewer Opus; travel-verifier Sonnet | 2 h + 2 h | Review against P1 to P9, T1, T2 and this spec; independent verification | review note `docs/v2/design/shell/review-nav-1.md`; verify note | code | approved; sweep passes at 320, 390 and 1440, light and dark |
 | FAV-1 (re-scoped) | travel-builder, Sonnet | 12 h (was 14) | As the visitor spec, but the list is the Favourites panel in `/mine/`, not a page | `web/components/mine/Favourites*.tsx` instead of `web/app/favourites/**`; the rest as there | as there | as there, plus the panel inside the 30 KB `/mine/` chunk |
@@ -444,7 +469,7 @@ owns (`web/components/trips/**` while OVR or R-59 run).
 | NAV-R2, NAV-V2 | travel-design-reviewer Opus; travel-verifier Sonnet | 2 h + 2 h | Review and verify NAV-3 | notes | code | approved; sweep passes |
 | NAV-M (later) | travel-design-reviewer Opus 1 h; travel-builder Sonnet 4 h | 5 h | The More sheet and the signed-in bar of section 7 | at that time | | as section 7 |
 
-Total now: **phase 1 about 19.5 h** (NAV-F, NAV-C, NAV-1, NAV-2, NAV-R1, NAV-V1; no backend), **phase 2 about 14 h**
+Total now: **phase 1 about 20 h** (NAV-F, NAV-C, NAV-1, NAV-2, NAV-R1, NAV-V1; no backend), **phase 2 about 14 h**
 (NAV-D, NAV-3, NAV-E, NAV-R2, NAV-V2), FAV-1 2 h smaller, NAV-M 5 h later. Opus: 10.5 h (NAV-F, NAV-C, NAV-D, two
 reviews); Sonnet: the rest.
 
@@ -468,7 +493,8 @@ the visitor can never find.
 ## 11. Acceptance criteria (feature level)
 
 1. At 320 px the bar shows Trips · Places · Globe · Search · Mine, each at least 56 px wide, and Mine is current on
-   `/mine/`, `/account/` and `/sign-in/`.
+   `/mine/`, `/account/` and `/sign-in/`. The phone header shows brand, search, a sign-in icon and theme without overflow;
+   one tap on the icon reaches `/sign-in/`.
 2. Signed out, a visitor copies a trip, reloads, and finds it in Mine › My trips; Open restores the chosen party, pace,
    variants and additions; Add to calendar uses the chosen dates.
 3. A visitor with a copy from before NAV-2 finds it in Mine after the update; the old key is gone only after a good write.
@@ -479,18 +505,18 @@ the visitor can never find.
 7. `/account/` shows no draft list; Mine does.
 8. No exported page, `/api/v1` body or catalogue file contains a copy, a party or a favourite (privacy test).
 
-## 12. Open owner questions (Q200 to Q207)
+## 12. Owner questions (Q200 to Q207, all answered 25 Oct 2026)
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q200 | Label for the personal hub: "Mine", "Me" (foundation today) or "You"? | **Mine** | A new word; "Me" reads as account only, and most visitors never sign in |
-| Q201 | One page `/mine/` with tabs My trips and Favourites, rather than `/favourites/` and `/my-trips/`? | **Yes** | Deep links need `?show=`; `/favourites/` redirects |
-| Q202 | No More sheet on the public site now; Globe stays in the phone bar and the desktop header? | **Yes** | If the planner adds Home, Globe moves then (Q207) |
-| Q203 | On phones, sign-in lives on the Mine page only (nothing new in the phone header)? | **Yes** | Two taps to sign in on a phone; people who look top right do not find it |
-| Q204 | One device copy per trip (re-copy replaces after a prompt), 20 copies per device, 50 trips per account? | **Yes** | Two date variants of one trip need the planner |
-| Q205 | Turn on the Cloudflare Web Analytics beacon (cookieless, free) on the Vercel production address to count page views per path, and judge Globe and Mine after four weeks? | **Yes** | A third-party script on every page, named in the privacy page; one token to set |
-| Q206 | Queue NAV phase 1 (about 19.5 h, no backend) right after ACCT-PH merges, ahead of the rest of the closure queue? | **Yes** | Closure items wait about two working days |
-| Q207 | At the planner stage, signed-in bar Home · Trips · Places · Mine · More, with Globe first in More? | **Yes, confirmed then with the Q205 numbers** | One more tap to the globe for signed-in phone users |
+| Q200 | Label for the personal hub: "Mine", "Me" (foundation today) or "You"? | **Mine** (ANSWERED 25 Oct 2026: yes, Mine.) | A new word; "Me" reads as account only, and most visitors never sign in |
+| Q201 | One page `/mine/` with tabs My trips and Favourites, rather than `/favourites/` and `/my-trips/`? | **Yes** (ANSWERED 25 Oct 2026: yes.) | Deep links need `?show=`; `/favourites/` redirects |
+| Q202 | No More sheet on the public site now; Globe stays in the phone bar and the desktop header? | **Yes** (ANSWERED 25 Oct 2026: yes.) | If the planner adds Home, Globe moves then (Q207) |
+| Q203 | On phones, sign-in lives on the Mine page only (nothing new in the phone header)? | **ANSWERED 25 Oct 2026, changed:** sign-in is on the Mine page **and also** a small person icon in the phone header (N6, 1.1) | Two routes to one action; the phone header gets one more icon and a 320 px fit check |
+| Q204 | One device copy per trip (re-copy replaces after a prompt), 20 copies per device, 50 trips per account? | **Yes** (ANSWERED 25 Oct 2026: yes (1 copy per trip, 20 per device, 50 per account).) | Two date variants of one trip need the planner |
+| Q205 | Turn on the Cloudflare Web Analytics beacon (cookieless, free) on the Vercel production address to count page views per path, and judge Globe and Mine after four weeks? | **Yes** (ANSWERED 25 Oct 2026: yes. Turning the beacon on needs the Cloudflare token or a dashboard step and is an owner action (TODO row), not done by an agent.) | A third-party script on every page, named in the privacy page; one token to set |
+| Q206 | Queue NAV phase 1 (about 20 h, no backend) right after ACCT-PH merges, ahead of the rest of the closure queue? | **Yes** (ANSWERED 25 Oct 2026: yes, NAV phase 1 runs next after ACCT-PH merges.) | Closure items wait about two working days |
+| Q207 | At the planner stage, signed-in bar Home · Trips · Places · Mine · More, with Globe first in More? | **Yes, confirmed then with the Q205 numbers** (ANSWERED 25 Oct 2026: yes, decided at Home time against the Q205 analytics.) | One more tap to the globe for signed-in phone users |
 
 Conflicts flagged, not changed: the foundation's "Me" and public "Sign in" bar item (components 1.4, patterns 1.1) wait
 for NAV-F; Q67 (who may sign up) still governs signed-in features; Q68 (guest planning) is not decided here, though copies
@@ -529,4 +555,5 @@ fields (rule 4.2.2).
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (later) | Owner answered Q200 to Q207: all yes, Q203 changed (sign-in also as a phone header icon). Updated N3, N6, N12, the phone header section and 320 px fit check, the header budget, the NAV-1 brief and acceptance 1; Q205 beacon is an owner action |
 | 2026-10-25 | First version from the owner's four questions of 25 Oct: decisions N1 to N12, the phone and desktop maps, the Mine page, copies on the device (`copies/1`), the sign-in merge, Globe, budgets, the later More sheet, tasks NAV-F to NAV-M, questions Q200 to Q207 |
