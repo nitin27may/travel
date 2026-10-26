@@ -1,7 +1,7 @@
 # Requests and custom places: what a visitor can ask for, and what they can add to their own copy
 
 Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements PLAN R-170 to R-177, BACKLOG 15.170 to
-15.179, owner questions Q210 to Q218. Nothing here is built. This page is a **gap analysis first**: most of what the owner
+15.179, owner questions Q210 to Q218 (**Q210 answered 25 Oct 2026, changed: Google Places is the primary place search, ORS and Photon the fallback; Q211 to Q218 still open**). Nothing here is built. This page is a **gap analysis first**: most of what the owner
 asked for is already specified, and this page links to it rather than repeating it. It adds only what is missing.
 
 Related, and the authority for everything this page links to:
@@ -55,10 +55,10 @@ the copy sheet (L5).
 | RQ2 | **No personal trip advice.** A trip request is a vote for research (visitor 5.2); the sent step shows what we already have for that destination | One person runs this; personal replies do not scale and set an expectation we cannot meet | A visitor asking "where should I go" gets our catalogue, not an opinion |
 | RQ3 | **Custom stops live only in the signed-in private copy** (`trip-custom/1` operation `custom`), never in device copies (`copies/1`) | The copy is RLS-protected and per user; device copies are snapshots and Q68 (guest planning) is open; the geocoder runs behind a per-account quota | Signed-out visitors cannot add a place we do not have |
 | RQ4 | **The picker searches our catalogue first, then our towns, then the map**, and the map tier is an explicit step ("Not in our list? Search the map"), not every keystroke | P7: the catalogue is the product; it saves the free geocoder quota; it keeps the honest data first | One more tap for places we do not have |
-| RQ5 | **Map search provider: openrouteservice (Pelias) autocomplete through our server, Photon as fallback; never Google Places; never Nominatim for type-ahead** (section 4.3) | Free, a key we already hold, server-side; OSM-derived results we may keep with credit; Google's terms forbid storing anything but `place_id` and forbid its content near our MapLibre maps; Nominatim's policy forbids autocomplete | 1,000 autocomplete requests a day; weaker than Google for shops and restaurants (tech.md already accepts this) |
+| RQ5 | **Map search provider (owner, 25 Oct, Q210): Google Places Autocomplete through our server is primary; openrouteservice, then Photon, is the switchable fallback; never Nominatim for type-ahead** (section 4.3). Supersedes the first draft's "never Google Places" | Best coverage of shops and restaurants for 10 to 20 users inside Google's free monthly usage; the owner accepts a billing account. Google's terms still hold: store only `place_id`, no Google names or coordinates in our data, no Google results on MapLibre maps, research never takes coordinates from Google | A billing account with a capped exposure; Google rows have no distance, category or point; two sets of terms; the fallback keeps the feature alive if Google causes trouble |
 | RQ6 | **A custom stop is the visitor's data; a suggestion is a separate intake item** created only through the opt-in in section 5.1 | Privacy: a home, a friend's cabin or a private meeting point must never reach our queue by default | Some real places are not suggested because the box was unticked |
 | RQ7 | **Opt-in default by category:** ticked for public points of interest (nature, trails, viewpoints, parks, sights, attractions), unticked and hidden for addresses, houses, streets and lodging | Honours the owner's "whatever the visitor adds goes to the queue" for public places; never sends an address | A rule table to keep; a public place mis-tagged as an address is not suggested |
-| RQ8 | **The point in a copy may come from the geocoder; the catalogue's point never does.** Research re-derives every point from an allowed source; the OSM id from the picker is a lookup key, not a value | The research rule (every point has a `point_source`; never from Google; the visitor is never the source) stands; an OSM id is still a much better seed than a typed name | Research still has to read OSM itself |
+| RQ8 | **The point in a copy never comes from Google; it may come from the visitor or from OSM (fallback, ODbL). The catalogue's point never comes from the geocoder.** Research re-derives every point from an allowed source; the `place_id` or OSM id from the picker is a lookup key, not a value | The research rule (every point has a `point_source`; never from Google; the visitor is never the source) stands; an OSM id is still a much better seed than a typed name | Research still has to read OSM itself |
 | RQ9 | **The upgrade to our page is offered in the copy, never applied by the admin.** When the linked suggestion becomes `added` or a public `duplicate`, the copy shows "Use our page" | No admin or job ever writes into a person's private draft (RLS owner predicate, F17 two walls) | The visitor must accept once |
 | RQ10 | **One owner role for the CLI, the console and MCP**: the `app_user` owner row bootstrapped by MCP-G's CLI from the verified `OWNER_EMAIL` account (MCP spec 14.2a) | "F17 roles" in INT-5 and PHO-1 and "admin role" in MCP-G are the same thing; one row, one bootstrap, one audit | INT-5 and PHO-1 wait on MCP-G's bootstrap, not on the whole of F17 |
 | RQ11 | **The CLI stays the admin tool until the console;** MCP intake tools come after MCP-3 and MCP-S, at `owner_admin`, without contact data | The CLI works today on the owner's connection; MCP adds a remote attack surface to the most sensitive table (contacts) | The owner moderates from the Mac until then |
@@ -77,8 +77,9 @@ flowchart LR
   P1["Tier 1: our catalogue<br/>DataClient search"]:::core
   P2["Tier 2: our towns<br/>DataClient towns"]:::core
   P3["Tier 3: Search the map<br/>POST /api/account/geocode"]:::sec
-  ORS["openrouteservice<br/>autocomplete (server key)"]:::ext
-  PH["Photon (fallback)"]:::ext
+  GG["Google Places Autocomplete<br/>(primary, server key, place_id only)"]:::ext
+  ORS["openrouteservice<br/>autocomplete (fallback 1)"]:::ext
+  PH["Photon (fallback 2)"]:::ext
   C[("planner_draft.doc<br/>trip-custom/1 custom op<br/>RLS owner")]:::data
   O{"Opt-in ticked?<br/>(category rule)"}:::infra
   S[("visitor_submission<br/>type place, source_ref,<br/>for_trip")]:::data
@@ -90,8 +91,9 @@ flowchart LR
   V --> P1
   P1 -- "not found" --> P2
   P2 -- "not found" --> P3
-  P3 --> ORS
-  P3 -. "quota or error" .-> PH
+  P3 --> GG
+  P3 -. "cap, error or switch" .-> ORS
+  ORS -. "quota or error" .-> PH
   P1 --> C
   P2 --> C
   P3 --> C
@@ -219,11 +221,11 @@ Desktop 1440, the copy of the Rockies, Day 5 (side sheet, 460 px)
 
 After "Search the map"
 │ ON THE MAP                       near Jasper │
-│  ◦ Pyramid Lake Road · road · 3 km N         │  address-like: no suggestion (5.1)
-│  ◦ Pyramid Stables · leisure · 6 km N        │
-│  ◦ Pyramid Mountain · peak · 11 km NW        │
-│ Search by openrouteservice ·                 │
-│ © OpenStreetMap contributors                 │  credit line, always under the list
+│  ◦ Pyramid Lake Road, Jasper, AB             │  address-like: no suggestion (5.1)
+│  ◦ Pyramid Stables, Jasper, AB               │  Google rows: text only, no distance, no map
+│  ◦ Pyramid Mountain, Jasper, AB              │
+│ Powered by Google                            │  provider credit, always under the list
+│ (OSM results: © OpenStreetMap contributors)  │  shown instead when a fallback answered
 ```
 
 ```
@@ -232,7 +234,7 @@ Phone 390, bottom sheet at full height, after picking "Pyramid Stables"
 │ ▬▬                           │
 │ ADD TO DAY 5                 │
 │ Pyramid Stables              │  name, editable (2 to 120)
-│ leisure · 6 km N of Jasper   │
+│ Location: not set  [Set it]  │  drop a pin, paste lat, lon, or pick an OSM match
 │ Time there  [ 1 h ▾ ]        │  default 1 h; 15 min to 8 h
 │ After  [ Maligne Canyon ▾ ]  │
 │ Link (optional) [          ] │  https only
@@ -249,11 +251,15 @@ Phone 390, bottom sheet at full height, after picking "Pyramid Stables"
 |---|---|---|---|---|
 | 1. Our places | the public catalogue (places of every kind, trails and activities included) | `DataClient` search (`/api/v1/search`, existing), light rows, at most 8 | as you type, 150 ms debounce, 2 characters | name, kind, band from the day's base (nearby spec 5.1), thumbnail when one exists |
 | 2. Our towns | the towns layer (GeoNames, `data/reference/towns/**`, META-2) | `DataClient` towns (`/api/v1/towns`, existing) | as you type, with tier 1 | town, region |
-| 3. The map | openrouteservice autocomplete, Photon fallback (4.3) | `POST /api/account/geocode` (new, signed in only) | only after **Search the map**, then as you type with 300 ms debounce, 3 characters | name, OSM category, distance from the day's base, credit line |
+| 3. The map | Google Places Autocomplete; ORS then Photon as fallback (4.3) | `POST /api/account/geocode` (new, signed in only) | only after **Search the map**, then as you type with 300 ms debounce, 3 characters | Google rows: text and Google attribution, no map, no distance. Fallback rows: name, OSM category, distance from the day's base, OSM credit |
 | No location | the visitor's typed text | none | always | "Add '<text>' as my own stop, no location" (F06 item 4's wording) |
 
-- Ranking in tier 3: the request carries `focus.point` = the day's base point and `boundary.country` = the trip's
-  countries, so "Pyramid" near Jasper does not return Egypt.
+- Ranking in tier 3: the request carries a location bias of the day's base point and a region restriction to the trip's
+  countries (Google `locationBias` and `includedRegionCodes`; ORS `focus.point` and `boundary.country`), so "Pyramid"
+  near Jasper does not return Egypt.
+- Setting a location on a Google-picked stop: "Set it" offers drop a pin on the copy's map, paste "lat, lon", or "Find on
+  OpenStreetMap" (the same name through ORS or Photon, whose points we may store). Without one the stop shows "Add a
+  location" and no pin (4.2).
 - A pasted map link (Google, Apple, OSM) in the box is parsed **by pattern on the client** for "lat, lon" (visitor 6.5),
   never fetched by the server (V9). It creates a custom stop with `source.provider: "pasted"`. A Google-derived point may
   sit in the visitor's own copy (it is their data) but is never sent as a point in a suggestion: the suggestion carries it
@@ -269,49 +275,84 @@ location appears in the day list with "Add a location" and no pin, as F06 says f
 Q51) a custom stop is our overlay (map-stack: our content on a Google map is allowed), drawn with a hollow pin and the
 label "Your stop".
 
-### 4.3 Provider decision: Google Places, or a free OpenStreetMap geocoder
+### 4.3 Provider decision: Google Places first, openrouteservice and Photon as the fallback
 
-| | Google Places Autocomplete (New) | **openrouteservice autocomplete (Pelias)** | Photon (photon.komoot.io) | Nominatim (OSMF) | MapTiler or Mapbox geocoding |
-|---|---|---|---|---|---|
-| In the repo now | no (Places is not enabled; map-stack step 2 says enable Maps JS and Embed only) | **yes**: `ORS_API_KEY`, server-side, used for legs; check-all fails if it reaches client output | no | yes, for research only (`tools/locations.py`, one request a second under a lock) | no |
-| Cost at our size | per-request billing for abandoned sessions; a session ends with a Place Details call; free monthly allowance per SKU; a billing account and card on file | **$0**: free Standard plan, about 1,000 autocomplete requests a day and 100 a minute (separate from directions) | $0, "fair use", throttled, no SLA | $0 | free tiers, keyed in the browser; MapTiler's free plan is non-commercial |
-| May we keep the results | **no**, except `place_id` (Places policies; map-stack: "no Places coordinates in our store", 30-day lat/lng cache only) | yes: OSM (ODbL), GeoNames (CC-BY 4.0), OpenAddresses, Who's On First data, with credit (to be confirmed in REQ-G0 against the current ORS terms) | yes, OSM data under ODbL with credit | yes, with credit | Mapbox's temporary geocoding may not be stored; permanent is paid |
-| Map rule | Places content shown on a map must be on a Google map; never beside our MapLibre maps (globe, trip planner) | none (OSM data on any map) | none | none | none |
-| Attribution | Google logo when shown without a Google map | "© OpenStreetMap contributors" and the ORS line | OSM | OSM | provider logo |
-| Type-ahead allowed | yes | yes | yes | **no**: "you must not implement such a service on the client side" | yes |
-| Key exposure | a browser key with Places enabled, or a server proxy | **server proxy only** (the key never leaves the server) | no key | no key | browser key |
-| Fit with research | none: research may never take coordinates from Google | good: an OSM id is a direct lookup key for research (Overpass, allowed source) | good: OSM id | good | partial |
+**Owner decision, 25 Oct 2026 (Q210, changed from the first draft):** Google Places is the primary place search for
+custom stops. The user count is 10 to 20 and Google gives a free monthly allowance, so the owner accepts a billing
+account in exchange for the best coverage of shops, restaurants and small attractions. openrouteservice (ORS)
+autocomplete with Photon behind it is the fallback if Google causes trouble (cost, terms, outage, quota). This
+supersedes the first draft's "never Google Places" (RQ5). Nominatim stays research-only.
 
-**Recommendation: openrouteservice autocomplete through our signed-in server route, Photon as the automatic fallback,
-Google Places rejected, Nominatim kept for research only.** Trade-off: weaker coverage of shops and restaurants than
-Google (the stack has accepted this since 18 Oct: tech.md "Find a place by name"), a 1,000-a-day ceiling, and a
-dependency on two free services with no uptime promise.
+| | **Google Places Autocomplete (New)** | openrouteservice autocomplete (Pelias) | Photon (photon.komoot.io) | Nominatim (OSMF) |
+|---|---|---|---|---|
+| Role | **primary** | fallback 1 | fallback 2 | research only (never type-ahead) |
+| In the repo now | no; needs a Google Cloud project, billing account and a Places API (New) key | yes: `ORS_API_KEY`, server-side, used for legs; check-all fails if it reaches client output | no | yes, `tools/locations.py`, one request a second under a lock |
+| Cost at our size | free monthly usage per SKU, then per-request billing; a billing account and card on file. **Unverified detail:** Google's pricing page (updated 2026-10-23, read 25 Oct through a page summary) lists Autocomplete Requests (Essentials) at 10,000 free a month and does not mention a USD 200 monthly credit; REQ-G0 re-confirms on the page itself | $0: free Standard plan, about 1,000 autocomplete requests a day and 100 a minute (separate from directions; REQ-G0 re-checks) | $0, "fair use", throttled, no SLA | $0 |
+| May we keep the results | **no, except `place_id`** (Places policies; map-stack: no Places coordinates in our store; 30-day lat/lng cache only). Names, addresses, coordinates and types are not stored | yes: OSM (ODbL), GeoNames, OpenAddresses, Who's On First, with credit (REQ-G0 confirms against current ORS terms) | yes, OSM data under ODbL with credit | yes, with credit |
+| Map rule | **Google results are not shown on our MapLibre maps** (globe, planner map). They appear as a list with Google attribution, or on a Google map | none | none | none |
+| Attribution | Google attribution shown with the list ("Powered by Google" per the current Places policy) | "© OpenStreetMap contributors" and the ORS line | OSM | OSM |
+| Type-ahead allowed | yes | yes | yes | no |
+| Key exposure | **server-side key** in our route; never in the browser, never in the repo; stored in Vercel | server proxy only | no key | no key |
+| Fit with research | **none: research may never take a name, point or fact from Google.** `place_id` is a lookup key the owner may open by hand in Google, nothing more | good: OSM id is a direct lookup key (Overpass) | good | good |
+
+**Recommendation (owner's choice, Q210): Google Places Autocomplete through our signed-in server route, ORS then Photon as
+the automatic and switchable fallback.** Trade-offs: a Google Cloud billing account and card on file with a real, if
+capped, exposure; Google rows carry no distance, category or point (we do not fetch Place Details, because its
+coordinates cannot be stored); a Google-picked stop therefore needs a location from the visitor or an OSM match to get a
+pin or a leg; two sets of terms to follow.
+
+#### Google constraints (visible on purpose; each is a test or a review check)
+
+| Rule | How it is kept |
+|---|---|
+| Store only `place_id` | the copy and the queue hold `source: { provider: "google", id: <place_id> }` and nothing else from Google. No Google name, address, coordinate, rating or type in `planner_draft.doc`, `visitor_submission`, logs or the catalogue. The privacy test greps fixtures for a Google-shaped payload |
+| No Google names or coordinates in our data | the stop's `name` is the visitor's own text: prefilled with what they typed in the search box, editable, never Google's returned string. The point is entered by the visitor (drop a pin, paste coordinates) or taken from an allowed source (an OSM match from the fallback, our towns layer); see the storage table. REQ-G0 asks whether prefilling the picked suggestion's main text counts as storing Google content; until it says yes, the prefill is the typed text |
+| Not on MapLibre maps | the tier 3 list is text only, with Google attribution under it. A Google row never gets a pin on the globe, the planner or any MapLibre map. On the copy's Google trip map (Q51) a stop shows only if it has a visitor-given point; no runtime Place Details lookup in v1 |
+| Research never takes coordinates from Google | unchanged and now louder: the brief for a Google-picked suggestion carries `place_id` as an unchecked hint and the visitor's typed name; research finds the place in OSM or an official source itself, and `point_source` can never be Google |
+| Billing account, restricted key, hard cap, alerts | see the cost control table below; REQ-G0 sets them up as an owner action |
+| Secrets | the key is server-side only (Vercel project environment `GOOGLE_PLACES_API_KEY`); never committed, never in a public repo, never in client output (check-all extends the existing `ORS_API_KEY` check to this name) |
+| Guards and kill switch | the guards below stay; `GEOCODE_ENABLED=0` hides tier 3 entirely; `GEOCODE_PROVIDER=ors` skips Google without a code change |
+
+#### Cost control (Google)
+
+| Control | Value | Note |
+|---|---|---|
+| Key restriction | restrict to the Places API (New) only. A referrer restriction applies to browser keys; our key is used from the server, so the restriction that works is by API, plus the route's own origin check | the owner asked for referrer and API restriction; referrer is only meaningful if a browser key is ever used, which this design avoids |
+| Hard cap | a per-day request quota on the Places API in the Cloud console, set to the global bucket below, so Google itself refuses beyond it | a billing budget alone only sends alerts and does not stop spend; the quota is the hard stop |
+| Budget and alerts | a budget on the billing account (suggested USD 5 a month) with alerts at 50, 90 and 100 percent to the owner's email | alerts are late by hours; the quota is the real cap |
+| Our own cap | global 300 Google requests a day (about 9,000 a month, under the 10,000 free Autocomplete Requests figure) and per account below | above it the route silently falls to ORS |
+| No sessions, no Details | Autocomplete is called per request with no Place Details call, so the session SKU is not used and no Details SKU is billed | if REQ-G0 finds a Details call is needed (for example to refresh a `place_id`), its free allowance is 5,000 to 10,000 a month depending on fields; read the page again then |
+
+**Fallback switch.** The route reads `GEOCODE_PROVIDER` (`google` default, then `ors`, then `photon`). Fallback is automatic
+on a Google error, a 429, a timeout, a billing or quota refusal, or our own daily cap; the owner switches by changing the
+variable in Vercel (no code change). The response says which provider answered, so the UI shows the right credit line.
+When ORS or Photon answers, rows carry OSM ids and points, which may be stored (storage table).
 
 Limits and guards (numbers in `core/src/config/geocode.ts`, CONS rule):
 
 | Guard | Value | Why |
 |---|---|---|
-| Who | signed-in accounts only; `sameOrigin`; the session user id, never the body (as drafts) | RQ3; keeps the free quota for real people |
-| Per account | 60 requests an hour, 200 a day (`quota_bucket`, EML-Q) | one person planning hard uses about 40 a session |
-| Global | 900 a day to ORS (100 below the free ceiling); above it, Photon; above Photon's throttling, "Map search is busy; add it as your own stop" | never pay, never fail silently |
+| Who | signed-in accounts only; `sameOrigin`; the session user id, never the body (as drafts) | RQ3; keeps the quota for real people |
+| Per account | 60 requests an hour, 100 a day to Google (`quota_bucket`, EML-Q); 200 a day across all providers | one person planning hard uses about 40 a session |
+| Global | 300 a day to Google; then 900 a day to ORS (100 below its free ceiling); then Photon; above Photon's throttling, "Map search is busy; add it as your own stop" | never pay beyond the cap, never fail silently |
 | Per request | query 3 to 80 characters, NFC, control characters stripped (visitor 6.4); 5 results; 3 s timeout | P8 light rows |
-| Cache | per-instance memory cache of normalised query, country and rounded focus (2 decimals) for 10 minutes; no database cache in v1 | cuts repeat keystrokes; nothing to purge |
-| Logs | query text never logged (it can be an address); counts and result codes only (`safeError`) | privacy |
+| Cache | per-instance memory cache of normalised query, country and rounded focus (2 decimals) for 10 minutes, text of Google rows held in memory only, never in a database | cuts repeat keystrokes; nothing to purge; Google content is not persisted |
+| Logs | query text never logged (it can be an address); counts, provider and result codes only (`safeError`) | privacy |
 | Kill switch | `GEOCODE_ENABLED=0` hides tier 3 and the route answers `not_available` | the owner can turn it off without a redeploy of code |
 
-What each place stores:
+What each place stores (rows that assumed provider data may be stored are now split by provider):
 
 | Data | The visitor's copy (`planner_draft.doc`, RLS owner) | The admin queue (`visitor_submission`, only when 5.1's box is ticked) | The public catalogue |
 |---|---|---|---|
-| Name | yes, as picked or edited (2 to 120) | yes (the existing `name`) | only after research, through the `location` skill, in our words |
-| Point | yes: `lat`, `lon` at 5 decimals from the picker, a pasted link or none | as a hint only: the existing `pin_lat`, `pin_lon` at 4 decimals, never from a pasted Google link | re-derived by research from OSM or an official source, with `point_source` |
-| Provider id | yes: `source: { provider, id }` | yes: `source_ref` (2.4), the research lookup key | research may record the OSM id as a source |
-| Category | yes (OSM category) | as `kind_hint`, mapped | the type from `types.json` |
+| Name | yes, **the visitor's own text** (typed, or edited in the field; 2 to 120). Never a Google-returned string. For an ORS or Photon pick the prefill may be the OSM name (ODbL, with credit) | yes (the existing `name`), the same text | only after research, through the `location` skill, in our words |
+| Point | **Google pick: none from Google.** The visitor may drop a pin, paste "lat, lon", or accept an OSM match; stored as `lat`, `lon` at 5 decimals with `point_origin: "visitor" \| "osm"`. ORS or Photon pick: the OSM point. Else none | as a hint only: the existing `pin_lat`, `pin_lon` at 4 decimals, sent only when `point_origin` is `visitor` or `osm`; never derived from Google | re-derived by research from OSM or an official source, with `point_source` |
+| Provider id | yes: `source: { provider, id }`; for Google the `place_id` (the one thing we may store) | yes: `source_ref` (2.4), the research lookup key: a `place_id` for Google, an OSM id otherwise | research may record an OSM id as a source; a `place_id` never |
+| Category | **Google pick: not stored** (the Google types are read once for the opt-in default in 5.1, then dropped). ORS or Photon pick: the OSM category | as `kind_hint`, mapped, only when it came from OSM or the visitor | the type from `types.json` |
 | Link | yes, https only, at most 500 | yes (the existing `link`) | research checks it (R-96) |
 | The visitor's note | yes, private (at most 280) | **no**; a separate optional "Note to us" (at most 500) only | never |
 | Trip, day, time there, order | yes | `for_trip` and `for_day` only (public trip structure, no dates) | no |
 | Dates, travellers, party profile | in the copy already (household data) | **never** | never |
-| Anything from Google APIs | never | never | never |
+| Anything else from Google APIs (names, addresses, coordinates, ratings, photos, types, reviews) | never | never | never |
 
 ### 4.4 The `custom` operation
 
@@ -319,7 +360,8 @@ What each place stores:
 { "op": "o-20", "day": 5, "after": "d5-b-3",
   "name": "Pyramid Stables", "kind": "leisure",
   "point": { "lat": 52.93210, "lon": -118.10124 },             // or null
-  "source": { "provider": "ors", "id": "osm:way/123456789" },   // ors | photon | towns | pasted | none
+  "source": { "provider": "ors", "id": "osm:way/123456789" },   // google (id = place_id) | ors | photon | towns | pasted | none
+  "point_origin": "osm",                                        // visitor | osm | towns; never google
   "minutes": 60, "link": null, "note": "Pony ride for the kids",
   "suggestion": "FB-4K7Q-M2D9" }                                 // set when 5.1 sent one; else absent
 ```
@@ -335,7 +377,7 @@ sitemap fails closed.
 
 | Picked as | Box default | Shown |
 |---|---|---|
-| Tier 3 result in a public category (natural, peak, water, waterfall, viewpoint, park, protected area, trail or path relation, tourism attraction, museum, historic, leisure attraction, ski and outdoor activity) | **ticked** | yes |
+| Tier 3 result in a public category (natural, peak, water, waterfall, viewpoint, park, protected area, trail or path relation, tourism attraction, museum, historic, leisure attraction, ski and outdoor activity). For a Google row the category is read once from Google's type list to set the default and is not stored; no types answer means unticked | **ticked** | yes |
 | Tier 3 result that is an address, house, street, building without a public category, or lodging (hotel, cabin, rental) | unticked | **hidden**, with the line "This looks like an address. It stays in your trip only." |
 | A pasted link or a stop with no location | unticked | yes |
 | Tier 1 or 2 (already ours) | n/a | no box |
@@ -356,10 +398,14 @@ sitemap fails closed.
 
 ~~~
 Visitor-picked map object, not checked: osm:way/123456789 (via openrouteservice); category leisure
-Point hint (visitor's pick, never a point_source): 52.9321, -118.1012, 6 km N of the Jasper base of trip canadian-rockies-2029, Day 5
+  or: Google place_id ChIJ... (unchecked lookup key; no Google name, point or fact is in this brief or may be used)
+Name as the visitor wrote it: "Pyramid Stables"
+Point hint (visitor's pick or OSM, never Google, never a point_source): 52.9321, -118.1012, 6 km N of the Jasper base of trip canadian-rockies-2029, Day 5
+  or: none given
 Asked by 3 accounts (cluster)
-Task: confirm the object in OSM through Overpass (one runner, under the lock); research to Draft level for its kind;
-add through the location skill; record the OSM id as a source, never the visitor.
+Task: find the place in OSM through Overpass (one runner, under the lock) or an official source; research to Draft
+level for its kind; add through the location skill; record the OSM id or official source, never the visitor and never
+Google.
 ~~~
 
 Rules from feedback 8 apply unchanged: visitor text fenced as untrusted; links opened only from official domains or on
@@ -412,9 +458,11 @@ Nobody but the visitor writes to the copy (RQ9). Keep mine dismisses the offer f
 | A custom stop reaches public output | it lives only in `planner_draft.doc` under the owner predicate; `/t/<id>/` is noindex, `private, no-store`, never under `/trips/`, and another user's id is a 404 (overview 5.7); detector keys (4.4); the privacy scan over every public page, `/api/v1` body and export while drafts with custom stops exist |
 | A home address reaches the queue | opt-in default by category (5.1); the "Note to us" is separate from the private note; PII redaction on intake text (visitor 6.4) |
 | The private wishlist leaks through the picker or dedupe | tiers 1 and 2 are public rows only; private matches answer like any other (PRIV1) |
-| Google content in our store | Google Places is not used; a pasted Google link is parsed for a point only into the visitor's own copy and travels to the queue only as the existing pin hint, which research never stores (visitor 6.5) |
-| The ORS key leaks | server route only; check-all already fails if `ORS_API_KEY` reaches client output |
-| Quota exhaustion by one account | per-account and global buckets; Photon fallback; then "add as your own stop" |
+| Google content in our store | Google is the primary search, so this is a live risk: only `place_id` is stored (4.3 table); no Google name, address, point or type in the copy, the queue, logs or the catalogue; a privacy test greps for Google-shaped payloads; a pasted Google link is parsed for a point only into the visitor's own copy and travels to the queue only as the existing pin hint, which research never stores (visitor 6.5) |
+| Google results on a MapLibre map | the tier 3 list is text only; a review check and a test that no Google row reaches a MapLibre source |
+| An unexpected Google bill | restricted key, a Cloud console daily quota as the hard cap, our own 300 a day, budget alerts, a kill switch and `GEOCODE_PROVIDER=ors` (4.3) |
+| The Google or ORS key leaks | server route only; secrets in Vercel; check-all fails if `GOOGLE_PLACES_API_KEY` or `ORS_API_KEY` reaches client output or the repo |
+| Quota exhaustion by one account | per-account and global buckets; ORS then Photon fallback; then "add as your own stop" |
 | Prompt injection through a stop name or note | names and notes in briefs are fenced as untrusted (feedback 8); MCP returns fenced text (MCP spec 6.5) |
 | An admin edits a person's copy | no path exists: no admin route or job writes `planner_draft` rows of another user (RQ9) |
 
@@ -426,7 +474,7 @@ Nobody but the visitor writes to the copy (RQ9). Keep mine dismisses the offer f
 | Trip start JS (public page) | **+0 B** | nothing here mounts on `/trips/...`; Add a place exists only in `/t/<id>/` |
 | Sheet chunk (18 KB gzipped, feedback 3.4) | at most +2 KB | one more branch and the sent-step block |
 | Add a place chunk | at most 14 KB gzipped | lazy on first press; no map library (the copy's map is already loaded) |
-| Geocode answers | 5 rows, light fields only | P8; the visitor's own query, not a catalogue load (P9) |
+| Geocode answers | 5 rows, light fields only (Google rows: id and display text) | P8; the visitor's own query, not a catalogue load (P9) |
 | Copy doc | at most 64 KB (CUS-C), 30 custom stops, 100 notes | Zod caps |
 
 ## 10. Data and API deltas
@@ -435,7 +483,7 @@ Nobody but the visitor writes to the copy (RQ9). Keep mine dismisses the offer f
 |---|---|---|
 | `core/src/schema/api/submission.ts` (FBK-C, not built) | FBK-C, +1.5 h | branch `improve` (2.1); `place` gains `for_trip`, `for_day`, `source_ref` (2.4); `IMPROVE_REASONS`; the intake migration (still unapplied) gains three nullable columns `for_trip`, `for_day`, `source_ref` and an index `(source_ref) where source_ref is not null` |
 | `core/src/schema/trip-custom.ts` (CUS-C, not built) | CUS-C, +2 h | `title`, `moved`, `days`, `notes`, `custom` (3, 4.4); detector keys |
-| `core/src/schema/api/geocode.ts` (new) | REQ-G | `geocodeInput { q, focus?: {lat, lon}, countries?: cc[] }`, `geocodeHit/1 { name, label, category, lat, lon, source: { provider, id }, distance_km? }`, result codes `ok`, `rate_limited`, `not_available`, `busy`; listed nowhere public (an `/api/account/*` route, outside OpenAPI, as today) |
+| `core/src/schema/api/geocode.ts` (new) | REQ-G | `geocodeInput { q, focus?: {lat, lon}, countries?: cc[] }`, `geocodeHit/1 { label, source: { provider: "google" \| "ors" \| "photon", id }, plus for ors and photon only: name, category, lat, lon, distance_km? }` (a Google hit has no point, name or category fields at all, so none can be stored by mistake), `provider` on the response, result codes `ok`, `rate_limited`, `not_available`, `busy`; listed nowhere public (an `/api/account/*` route, outside OpenAPI, as today) |
 | Scheduler | REQ-E | `moveItem`, `insertDay`, `dropDay` beside CUS-1's `removeItem`, pure functions in `core/src/schedule/`, each returning its inverse |
 
 No catalogue store method changes; tiers 1 and 2 use the existing `search` and `towns` methods.
@@ -448,12 +496,12 @@ No catalogue store method changes; tiers 1 and 2 use the existing `search` and `
 |---|---|---|---|---|
 | **Day one (R1 of this spec): requests, signed in** | `improve` type (B, C), trip requests answer with what we have and cluster by country (A), place suggestions in a trip context (D, fields only), "Your requests" from Mine, demand stats | FBK-C +1.5 h (Opus), FBK-3 +2 h (Sonnet), REQ-1 6 h (Sonnet), REQ-R1 2 h (Opus), REQ-V1 2 h (Sonnet) | FBK-C, FBK-1, FBK-2, FBK-3 and NAV-1 merged; `reportForm` on; signed-in verified senders only (no mail domain, Q148) | **13.5 h** (Opus 3.5, Sonnet 10) |
 | Phase 2: richer copies and custom stops without a map search | reorder in a day, add and drop a day, notes, title, change dates in the copy (E); Add a place with tiers 1 and 2 and "add as my own" (F, no external search) | CUS-C +2 h (Opus), REQ-E 3 h core (Opus) + 8 h UI (Sonnet), REQ-P 5 h (Sonnet), REQ-R2 2 h (Opus), REQ-V2 2 h (Sonnet) | CUS-1 merged (R-65's own gates: phase 1 owner preview, R-61 HTTPS preview, the `planner_draft_signal` ruling) | **22 h** (Opus 7, Sonnet 15) |
-| Phase 3: map search and the queue loop | tier 3 search (F), opt-in suggestions, seeding and the upgrade offer (G), `source_ref` dedupe and the custom view in the CLI (H) | REQ-G0 2 h (Opus), REQ-G 2 h contract (Opus) + 5 h (Sonnet), REQ-S 8 h (Sonnet), REQ-L 3 h (Sonnet), REQ-A 3 h (Sonnet), REQ-R3 2 h (Opus), REQ-V3 2 h (Sonnet) | phase 2; EML-Q's `quota_bucket`; FBK-3 | **27 h** (Opus 6, Sonnet 21) |
+| Phase 3: map search and the queue loop | tier 3 search (F), opt-in suggestions, seeding and the upgrade offer (G), `source_ref` dedupe and the custom view in the CLI (H) | REQ-G0 3 h (Opus; Google terms and cost cap check plus the fallback switch), REQ-G 2 h contract (Opus) + 6 h (Sonnet; the Google adapter is added), REQ-S 8 h (Sonnet), REQ-L 3 h (Sonnet), REQ-A 3 h (Sonnet), REQ-R3 2 h (Opus), REQ-V3 2 h (Sonnet) | phase 2; EML-Q's `quota_bucket`; FBK-3 | **29 h** (Opus 7, Sonnet 22) |
 | Later | MCP intake tools (H) | REQ-M 2 h (Opus) + 4 h (Sonnet) | MCP-3, MCP-S, MCP-E | 6 h |
 
-Total about 62.5 h now (Opus 16.5, Sonnet 46) plus 6 h later.
+Total about 64.5 h now (Opus 17.5, Sonnet 47) plus 6 h later.
 
-**Explicitly out of day one:** custom stops of any kind; any external place search; Google Places (out for good, RQ5);
+**Explicitly out of day one:** custom stops of any kind; any external place search (Google included; it arrives in phase 3 after the REQ-G0 spike);
 copy edits beyond CUS-1; guest (signed-out) requests until a mail domain (Q148, Q132); custom stops in device copies
 (RQ3, Q68 open); a public request board or votes; photo uploads (K7); personal trip advice (RQ2); MCP intake tools
 (RQ11); following a trip for updates.
@@ -540,21 +588,33 @@ parsing by pattern (reuse the visitor spec 6.5 parser in core if FBK-C built it)
 link, note). Acceptance: chunk at most 14 KB; no request outside `DataClient`; a private place never appears (fixture);
 a pasted link makes a stop with `provider: pasted`; screenshots at 1440 and 390, light and dark.
 
-**REQ-G0: map search spike (2 h, travel-researcher or travel-planner, Opus; docs only).**
-Goal: confirm 4.3 before any code. Owns: `docs/v2/build/public-site/REQ-G0-geocoder.md` (new). Steps: read the current
-ORS terms and plans page (storage, attribution, quotas, the geocode autocomplete endpoint and parameters); run 30 sample
-queries (two per trip region, plus 4 addresses) once, sequentially, with the server key from `web/.env.local`, never
-printing it; the same against Photon; measure precision at 5 for named outdoor places and p95 latency. Acceptance: a
-go or no-go with numbers; if ORS storage is not allowed, the note names Photon as primary and says what changes.
+**REQ-G0: Google terms and cost cap check, plus the fallback switch (3 h, travel-researcher or travel-planner, Opus; docs and owner steps only).**
+Goal: confirm 4.3 before any code. Owns: `docs/v2/build/public-site/REQ-G0-geocoder.md` (new). Must not touch: code,
+`web/`, `core/`, any `.env` file. Steps: (1) read the current Google Places API policies and the Places API (New)
+pricing page; record the free monthly usage for Autocomplete Requests and for Place Details, the date of the page, and
+whether any monthly credit still exists (the 25 Oct read says 10,000 free Autocomplete Requests a month and no USD 200
+credit; state "unverified" for anything you cannot read on the page itself). (2) Settle the two open terms questions:
+may the visitor-confirmed name be prefilled from the picked suggestion's main text (4.3), and how long may a `place_id`
+be kept before it must be refreshed. (3) Write the owner's setup steps: Cloud project, billing account, Places API (New)
+enabled, API key restricted to that API, a daily quota on the API equal to the global cap, a budget with alerts at 50,
+90 and 100 percent, the key placed in Vercel as `GOOGLE_PLACES_API_KEY` and never in the repo. These are owner actions;
+do not create a key or touch billing. (4) Specify the switch: `GEOCODE_PROVIDER` order, the automatic fallback
+conditions, the response `provider` field. (5) Run 30 sample queries (two per trip region plus 4 addresses) once,
+sequentially, against ORS and Photon only, with the ORS key from `web/.env.local`, never printing it; measure precision
+at 5 for named outdoor places and p95 latency; run the Google comparison only after the owner has created the key, and
+never save Google's responses. Acceptance: a go or no-go for Google with the pricing and terms read dated; the setup
+steps; the fallback numbers; if Google is a no-go the note names ORS as primary and says what changes.
 
-**REQ-G: the geocode route (2 h contract on Opus, then 5 h on Sonnet, travel-builder).**
+**REQ-G: the geocode route (2 h contract on Opus, then 6 h on Sonnet, travel-builder).**
 Goal: `POST /api/account/geocode` (4.3). Owns: `core/src/schema/api/geocode.ts`, `core/src/config/geocode.ts`,
-`core/src/geocode/**` (normaliser, category map, Photon and ORS adapters as pure parsers), `web/app/api/account/geocode/route.ts`,
+`core/src/geocode/**` (normaliser, category map, Google, Photon and ORS adapters as pure parsers; the Google adapter
+returns `place_id` and display text only and drops every other field), `web/app/api/account/geocode/route.ts`,
 `web/lib/server/geocode.ts`, `web/tests/geocode/**`. Must not touch: UI files, `/api/v1/**`, OpenAPI. Steps: contract;
-adapters with a 3 s timeout; the buckets on `quota_bucket`; fallback order; the memory cache; `GEOCODE_ENABLED`; no
-query in logs. Acceptance: route tests for 401, cross-origin 403, each bucket (429 with `Retry-After`), ORS failure falls
-to Photon, both failing answers `busy`, kill switch answers `not_available`; the key never in client output (check-all);
-a log scan finds no query text.
+adapters with a 3 s timeout; the buckets on `quota_bucket`; the provider order and automatic fallback; the memory
+cache; `GEOCODE_ENABLED` and `GEOCODE_PROVIDER`; no query in logs. Acceptance: route tests for 401, cross-origin 403, each
+bucket (429 with `Retry-After`), a Google failure or cap falls to ORS, ORS to Photon, all failing answers `busy`, kill
+switch answers `not_available`, `GEOCODE_PROVIDER=ors` never calls Google; a Google fixture's name, address and point
+are absent from the route output and from every log line; neither key in client output (check-all covers both names).
 
 **REQ-S: tier 3 and the opt-in (8 h, travel-builder, Sonnet).**
 Goal: 4.1 tier 3 and 5.1. Owns: `web/components/custom/MapSearch*.tsx`, `web/components/custom/SuggestBox.tsx` (new),
@@ -592,8 +652,11 @@ light and dark plus a first-use walk (P4).
    India yet", with no new endpoint called.
 3. In their copy, the visitor reorders Day 5, adds a free day after Day 6, drops Day 11 (its items move to Maybe),
    writes a note, renames the copy and changes the start date; each step undoes; reload keeps them all.
-4. The visitor searches "pyramid" in Add a place: our places first; after Search the map, OSM results near Jasper with
-   the credit line; picking Pyramid Stables adds it to Day 5 with a hollow pin; an address result offers no suggestion.
+4. The visitor searches "pyramid" in Add a place: our places first; after Search the map, Google suggestions as text
+   with Google attribution (no map pin, no distance); picking Pyramid Stables adds it to Day 5 under the visitor's own
+   typed name with no location until they set one (pin, coordinates or an OSM match); the stored stop holds only the
+   `place_id` from Google; an address result offers no suggestion. With `GEOCODE_PROVIDER=ors`, the same search shows OSM
+   results near Jasper with the OSM credit and a point.
 5. With the box ticked, the owner sees the suggestion with `source_ref`, `for_trip` and a cluster count; after
    research and `intake.ts added`, the visitor's copy offers "Use our page", and accepting keeps the day, order, time
    and note.
@@ -606,7 +669,7 @@ light and dark plus a first-use walk (P4).
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
-| Q210 | Map search provider for custom stops: openrouteservice autocomplete through our server (the key we hold), Photon as fallback, no Google Places, Nominatim for research only? | **Yes** | Weaker for shops and restaurants than Google; 1,000 requests a day |
+| Q210 | Map search provider for custom stops. **ANSWERED 25 Oct 2026 (changed): Google Places is the primary place search (10 to 20 users, free monthly usage); openrouteservice then Photon is the fallback if Google causes trouble; Nominatim for research only.** | **Decided by the owner** | A billing account with a capped exposure; Google rows carry no point; Google terms to follow (4.3) |
 | Q211 | Custom stops become suggestions by default for public points of interest, never for addresses or lodging, with the box always visible? | **Yes** | A mis-tagged public place is not suggested; a few more queue items |
 | Q212 | Custom stops only in the signed-in copy, not in device copies? | **Yes** (Q68 stays open) | Signed-out visitors cannot add a place we do not have |
 | Q213 | A new request type "Suggest an improvement" (a stop, more detail, a longer or shorter version, another season) rather than more report reasons? | **Yes** | One more branch in the intake contract |
@@ -625,8 +688,12 @@ and 3; Q148 (no mail domain now) keeps day one to verified signed-in senders.
 - **Nominatim forbids type-ahead.** Its usage policy lists autocomplete as unacceptable use. `tools/locations.py` uses it
   for research at one request a second under a lock; never wire it to a search box.
 - **Google Places content may not sit near a MapLibre map** and may not be stored beyond `place_id`; the copy has both a
-  Google trip map and MapLibre elsewhere. Do not enable Places on the maps key.
-- **The ORS key is server-only.** check-all fails if it reaches `web/.next/static`; keep every call in the route.
+  Google trip map and MapLibre elsewhere. Google rows are a text list with attribution. Use a separate key for Places,
+  not the Maps JS key, so each restriction and quota stands alone.
+- **A budget is not a cap.** Google billing budgets only alert. The hard stop is the daily quota on the API in the Cloud
+  console plus our own 300 a day.
+- **Do not call Place Details to get a point.** Its coordinates cannot be stored; the pin comes from the visitor or OSM.
+- **The Google, ORS and Photon keys are server-only.** check-all fails if either key reaches `web/.next/static`; keep every call in the route.
 - **ORS quotas are per endpoint** (autocomplete separate from directions); count them separately in `quota_bucket`.
 - **A geocode query can be a home address.** Never log it, never cache it in the database, never send it to the queue.
 - **`added` items use catalogue refs; custom stops do not.** Never put a name-only item in `added` (overview 5.6); use
@@ -646,14 +713,16 @@ and 3; Q148 (no mail domain now) keeps day one to verified signed-in senders.
 | "Only places are added" and "added items use catalogue refs, never names" | [overview spec](trip-overview-and-customisation.md) 5.2, 5.6 | still true for `added`; a separate `custom` operation holds stops we do not have (4.4), signed in only; banner added there |
 | Intake types report, place, trip, feedback | [feedback spec](feedback-and-reports.md) 1.1, 9.1 | plus `improve`; `place` gains `for_trip`, `for_day`, `source_ref`; banner added there |
 | "A pasted URL is fetched for title and coordinates (Google Maps links, operator pages, OSM links)" | [F06](F06-plan-document-lists-and-days.md) item 4 | no server fetch of a pasted link (visitor spec V9); a map link is parsed by pattern on the client, and a Google-derived point stays in the person's own plan only; banner added there |
-| "Find a place by name: our catalog first, then Photon/Nominatim" | [tech.md](../design/tech.md) map stack row 3 | catalogue, then towns, then openrouteservice autocomplete with Photon as fallback; Nominatim only for research (its policy forbids type-ahead); banner added there |
-| "Geocoding: Nominatim" | [04-stack.md](../04-stack.md) | still the research resolver; interactive search is section 4.3 here; banner added there |
+| "Find a place by name: our catalog first, then Photon/Nominatim" | [tech.md](../design/tech.md) map stack row 3 | catalogue, then towns, then Google Places autocomplete (owner, Q210) with openrouteservice and Photon as fallback; Nominatim only for research (its policy forbids type-ahead); banner updated there |
+| "Geocoding: Nominatim" | [04-stack.md](../04-stack.md) | still the research resolver; interactive search is Google first with the OSM fallback, section 4.3 here; row updated there |
+| This page's first draft: "never Google Places" (RQ5, 4.3, the out-of-day-one list) | this page, 25 Oct | replaced by the owner's answer to Q210 the same day: Google primary, ORS and Photon fallback, Google terms kept (4.3) |
 | INT-5 and PHO-1 "after F17 roles" | visitor spec 9.3, overview 6.3 | the owner role of MCP-G's bootstrap is enough for the owner (RQ10); other roles still wait for F17 |
 
 ## Change log
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (later) | Owner answered Q210 (changed): Google Places is the primary place search, ORS then Photon the fallback. Section 4.3, RQ5, RQ8, the storage table, the custom operation, the brief, the privacy and budget rows, REQ-G0 (now Google terms and cost cap check plus the fallback switch, 3 h), REQ-G (6 h), acceptance 4, gotchas and Q210 rewritten. Q211 to Q218 stay open |
 | 2026-10-25 | First version from the owner's request of 25 Oct (items A to I): traceability against R-62 to R-67, R-70 to R-75, R-90 to R-96, R-150 to R-156, R-160 to R-164; decisions RQ1 to RQ12; the `improve` type, trip-request answers, place fields, copy edits, custom stops, the provider decision, the queue loop, the admin side; tasks REQ-1, REQ-E, REQ-P, REQ-G0, REQ-G, REQ-S, REQ-L, REQ-A, REQ-M and widenings of FBK-C, CUS-C, FBK-3; questions Q210 to Q218 |
 
 Sources checked 25 Oct 2026: [Nominatim usage policy](https://operations.osmfoundation.org/policies/nominatim/)
@@ -663,6 +732,9 @@ throttled, no availability promise), [Google Places API policies](https://develo
 [Google Places session pricing](https://developers.google.com/maps/documentation/places/web-service/session-pricing)
 (a session ends with Place Details; abandoned sessions bill per request), [openrouteservice plans](https://openrouteservice.org/plans/)
 and [terms](https://openrouteservice.org/?p=940) (free Standard plan; geocode autocomplete about 1,000 a day and 100 a
-minute; credit line; data from OSM, OpenAddresses, GeoNames, Who's On First). Not verified: the exact current ORS
-quota numbers and whether its terms limit storing geocode results (REQ-G0 checks both); Google's current free monthly
-allowance per Places SKU (not needed, Places is rejected).
+minute; credit line; data from OSM, OpenAddresses, GeoNames, Who's On First), [Google Maps Platform pricing](https://developers.google.com/maps/billing-and-pricing/pricing)
+(page dated 2026-10-23, read 25 Oct through a page summary: Autocomplete Requests Essentials 10,000 free a month,
+Session Usage unlimited, Place Details Essentials 10,000 and Pro 5,000 free a month; no USD 200 credit mentioned).
+Not verified: the exact current ORS quota numbers and whether its terms limit storing geocode results; the Google
+figures above are from a summary of the pricing page, not the page itself, and the current attribution wording and the
+`place_id` refresh period (REQ-G0 checks all of these).
