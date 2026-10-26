@@ -4,14 +4,12 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { readText, walkFiles } from './helpers';
 import { builtOutDir } from './helpers/built';
+// one script parser for this gate and for `pnpm --dir web budget:report` (BUD-1), so a hand-back quotes what this test checks
 import { report, START_JS_BUDGET_KB, startScripts } from '../scripts/budget-report.mjs';
 
 const OUT = builtOutDir();
 const LIST_BUDGET_KB = 200;
 const PLACE_BUDGET_KB = 180;
-
-// One parser for the gate and for `pnpm --dir web budget:report` (BUD-1), so a hand-back quotes what this test checks.
-export { startScripts };
 
 export function gzippedKb(srcs: string[]): number {
   const unique = [...new Set(srcs)];

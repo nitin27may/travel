@@ -6,8 +6,10 @@
 // own cap (CHROME_CAP_BYTES, web/tests/data/shell-size.test.ts).
 //
 // Place size (S13) holds the shell at its baseline size: a page counts as `page - chrome now + chrome at the baseline`,
-// against the baseline page. A footer link, a bar item or the beacon therefore cannot move S13, and every byte a record
-// or a place section adds still counts (P8). The +25% keeps the meaning it had when it was set on whole pages; dividing
+// against the baseline page. A footer link, a bar item or the beacon therefore does not move S13, except for the bytes
+// a shell change leaves outside its own elements: a new client chunk's <script> tag (about 70 B), a chunk ref in every module
+// row (7 B each) and payload row-id renumbering (a few bytes); those are charged to content. Every byte a record or a place
+// section adds still counts (P8). The +25% keeps the meaning it had when it was set on whole pages; dividing
 // content by content instead would tighten it (the shell is the part that did not grow), which only the owner can do.
 //
 // Usage: node scripts/budget-report.mjs [distDir]   (default .next; reads a server build, prints under 20 lines)
@@ -38,20 +40,21 @@ export const OVER_50 = new Set(["grand-view-point-walk", "mesa-arch", "lago-fede
 /** Gzipped KB of the scripts any page loads at start (web/tests/budget.test.ts). */
 export const START_JS_BUDGET_KB = 200;
 /**
- * The largest shell chrome on any page of each build on 25 Oct 2026 (BUD-1, measured on main 4fe7721c), without the beacon.
- * The cap is this, plus the beacon allowance, plus 1 KB (Q260). A shell change that needs more is argued in review, not raised here.
+ * The largest shell chrome on any page of each build on 25 Oct 2026 (BUD-1, measured on main 4fe7721c), without the beacon:
+ * the public build, and the same commit built with NEXT_PUBLIC_SIGN_IN=1. The cap is this plus 1 KB (Q260); the beacon is one
+ * of the consumers of that 1 KB (MASTER-ORDER 4.5), charged inside it. A shell change that needs more is argued in review.
  */
 export const CHROME_TODAY_BYTES = { public: 4004, signIn: 5669 };
 /**
  * Bytes the Cloudflare beacon tag adds to a page with a production token: 320 B in the beacon fixture build (151 markup, 169
  * payload) with its 17-character token, plus 15 B in each copy for a 32-character one. A build without the token is charged
- * this, so the cap holds the deployed page and not only the local build.
+ * this inside the cap, so the cap holds the deployed page and not only the local build.
  */
 export const BEACON_ALLOWANCE_BYTES = 350;
 export const CHROME_HEADROOM_BYTES = 1024;
 export const CHROME_CAP_BYTES = {
-  public: CHROME_TODAY_BYTES.public + BEACON_ALLOWANCE_BYTES + CHROME_HEADROOM_BYTES,
-  signIn: CHROME_TODAY_BYTES.signIn + BEACON_ALLOWANCE_BYTES + CHROME_HEADROOM_BYTES,
+  public: CHROME_TODAY_BYTES.public + CHROME_HEADROOM_BYTES,
+  signIn: CHROME_TODAY_BYTES.signIn + CHROME_HEADROOM_BYTES,
 };
 
 const BEACON_SRC = 'https://static.cloudflareinsights.com/beacon.min.js';
@@ -225,7 +228,7 @@ export function chromeOf(html) {
     for (const m of html.matchAll(open)) {
       const el = html.slice(m.index, elementEnd(html, m.index, tag));
       const n = bytes(el);
-      if (part === 'bar') signIn = el.includes(' data-acct="');
+      if (part === 'bar') signIn ||= el.includes(' data-acct="');
       parts[part] += n;
       markup += n;
       found[part] += 1;
@@ -263,7 +266,9 @@ export function placeRows(baseline, htmlOf) {
     if (html == null) return [];
     const then = baseline.chrome?.[slug];
     if (typeof then !== 'number') throw new Error(`place-html-baseline.json has no chrome for ${slug}`);
-    const c = chromeOf(html).total;
+    const chrome = chromeOf(html);
+    if (!chrome.shell) throw new Error(`baseline page ${slug} is a redirect or error document: decide its baseline`);
+    const c = chrome.total;
     return [{ slug, was, now: bytes(html) - c + then, page: bytes(html), chromeNow: c, chromeThen: then }];
   });
 }
@@ -317,6 +322,7 @@ export function report(dist = '.next') {
     if (kb > js.kb) js = { kb, page: rel };
     if (/^trips\/[^/]+$/.test(rel) && kb > trip.kb) trip = { kb, page: rel };
   }
+  if (!top.c) throw new Error(`no page with a shell in ${root}`);
   const build = signIn ? 'signIn' : 'public';
   const cap = CHROME_CAP_BYTES[build];
   const room = (kb) => `${Math.round((START_JS_BUDGET_KB - kb) * 1024)} B`;

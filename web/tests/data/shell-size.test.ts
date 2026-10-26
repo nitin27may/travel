@@ -11,13 +11,13 @@ import type { Chrome } from '../../scripts/budget-report.mjs';
 // so this is the one gate on shell growth: one shell change per stack, each quoting `pnpm --dir web budget:report` before and after.
 
 /** A minimal page as Next serves it: the shell markup, and the payload as one html-escaped push. */
-function page({ footerText = 'About the data', beacon = false, main = 'Body' } = {}): string {
+function page({ footerText = 'About the data', beacon = false, main = 'Body', sharedInMain = false } = {}): string {
   const rows = [
     '1:I[1,["/_next/a.js"],"SiteHeader"]',
     '2:I[2,["/_next/a.js"],"BottomBar"]',
     '3:I[3,["/_next/a.js"],"UnitSwitch"]',
     '4:I[4,["/_next/a.js"],"PlaceShell"]',
-    `0:["$","body",null,{"children":[["$","$L1",null,{}],["$","main",null,{"children":["$","$L4",null,{"title":${JSON.stringify(main)}}]}],` +
+    `0:["$","body",null,{"children":[["$","$L1",null,{}],["$","main",null,{"children":[["$","$L4",null,{"title":${JSON.stringify(main)}}]${sharedInMain ? ',["$","$L3",null,{}]' : ''}]}],` +
       `["$","footer",null,{"className":"site-footer","children":[${JSON.stringify(footerText)},["$","$L3",null,{}]]}],["$","$L2",null,{"account":"$undefined"}]` +
       (beacon ? ',["$","script",null,{"defer":true,"src":"https://static.cloudflareinsights.com/beacon.min.js","data-cf-beacon":"{\\"token\\":\\"t\\"}"}]' : '') +
       ']}]',
@@ -48,6 +48,14 @@ describe('the chrome measure', () => {
     expect(c.payload).toBe([...rows, ...subtrees].reduce((n, s) => n + JSON.stringify(s).length - 2, 0));
   });
 
+  it('keeps a row that the shell shares with the page in content', () => {
+    const own = chromeOf(page());
+    const shared = chromeOf(page({ sharedInMain: true }));
+    // the UnitSwitch module row is also referenced from main, so it leaves the chrome; the footer subtree itself stays
+    expect(own.payload - shared.payload).toBe(JSON.stringify('3:I[3,["/_next/a.js"],"UnitSwitch"]\n').length - 2);
+    expect(shared.markup).toBe(own.markup);
+  });
+
   it('counts the beacon tag when it is there', () => {
     const off = chromeOf(page());
     const on = chromeOf(page({ beacon: true }));
@@ -61,6 +69,9 @@ describe('the chrome measure', () => {
   it('fails loudly when a shell part is missing, so a renamed shell never measures zero', () => {
     expect(() => chromeOf(page().replace('class="bottom-bar"', 'class="tab-bar"'))).toThrow(/bar element/);
     expect(() => chromeOf(page().replace('\\"className\\":\\"site-footer\\"', '\\"className\\":\\"foot\\"'))).toThrow(/footer subtree/);
+    expect(() => chromeOf(page().replace('class="site-header"', 'class="top"'))).toThrow(/header element/);
+    expect(() => chromeOf(page().replace('</footer>', '</footer><footer class="site-footer"><p>again</p></footer>'))).toThrow(/one footer element in the markup, found 2/);
+    expect(() => chromeOf(page().replace('<script>self', '<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js"></script><script>self'))).toThrow(/1 beacon tags in the markup, 0 in the payload/);
     expect(chromeOf('<!DOCTYPE html><html id="__next_error__"><head></head><body></body></html>').shell).toBe(false);
   });
 });
@@ -74,9 +85,12 @@ function measured(dist?: string): { page: string; c: Chrome }[] {
 }
 
 describe('shell chrome cap (BUD-1)', () => {
-  it('holds the cap at today plus the beacon allowance plus 1 KB', () => {
+  it('holds the cap at today plus 1 KB, with the beacon charged inside it (Q260, MASTER-ORDER 4.5)', () => {
+    // pinned: raising any of these loosens the gate, so it is a reviewed change to this test, not a constant edit
+    expect(CHROME_TODAY_BYTES).toEqual({ public: 4004, signIn: 5669 });
+    expect(BEACON_ALLOWANCE_BYTES).toBe(350);
     expect(CHROME_HEADROOM_BYTES).toBe(1024);
-    for (const b of ['public', 'signIn'] as const) expect(CHROME_CAP_BYTES[b]).toBe(CHROME_TODAY_BYTES[b] + BEACON_ALLOWANCE_BYTES + 1024);
+    expect(CHROME_CAP_BYTES).toEqual({ public: 5028, signIn: 6693 });
   });
 
   it('keeps every page of the build under the cap of its kind (public or sign-in on)', () => {
