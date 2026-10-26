@@ -1,7 +1,9 @@
 // The account cache (visitor spec 4.2, 4.4): `travel.fav.acct.<h>`, the hash, which keys to delete on sign-out or a user switch, and the
 // offline write queue (`pending`). Pure apart from `accountHash`, which uses Web Crypto (the browser's and Node's `crypto.subtle`).
-import { ACCOUNT_HASH_RE, FAV_ACCOUNT_KEY_PREFIX, FAVOURITES_CAP, PENDING_MAX, emptyFavourites, type FavItem, type FavouritesEnvelope, type FavPending } from "../schema/favourites.ts";
-import { handleOf, newestFirst } from "./envelope.ts";
+import type { StorageLike } from "../schema/copies.ts";
+import { ACCOUNT_HASH_RE, FAV_ACCOUNT_KEY_PREFIX, FAV_LOCAL_KEY, FAVOURITES_CAP, PENDING_MAX, emptyFavourites, type FavItem, type FavouritesEnvelope, type FavPending } from "../schema/favourites.ts";
+import { handleOf, newestFirst, parseMergeAnswer, updateFavourites } from "./envelope.ts";
+import { markFavouritesMerged } from "./merge.ts";
 
 /**
  * SHA-256 of the user id, the first 16 hex characters (visitor spec 4.2). It names the cache key and the `merged` map entry; it is not a
@@ -74,4 +76,43 @@ export function withPending(serverItems: readonly FavItem[], pending: readonly F
     }
   }
   return newestFirst(items);
+}
+
+export type FinishResult =
+  | { ok: true; local: FavouritesEnvelope; cache: FavouritesEnvelope }
+  | { ok: false; step: "answer" | "unload" | "cache" | "local"; reason: string };
+
+/**
+ * The device side of a merge, after the server answered (visitor spec 4.4 step 3), in the one order that is safe to crash anywhere:
+ *   1. unload every other account's cache (V12: a shared computer must not show the previous person's list);
+ *   2. write this account's cache from the answer (compare-and-set);
+ *   3. remove from the local list the handles the server confirmed (`taken`), and record the account in `merged` (compare-and-set).
+ * A failure at any step returns before the next, so the local list is never emptied unless the account's list is on this device too;
+ * a re-run (the next visit to /account/ or /mine/) asks the server again, which answers the same (the merge is idempotent).
+ * `keys` lists the storage keys present (the browser's `Object.keys(localStorage)`).
+ */
+export function finishMerge(storage: StorageLike, opts: { hash: string; answer: unknown; at: Date; keys: Iterable<string> }): FinishResult {
+  const a = parseMergeAnswer(opts.answer);
+  if (!a.success) return { ok: false, step: "answer", reason: a.issues.join("; ") };
+  try {
+    for (const k of staleCacheKeys(opts.keys, opts.hash)) storage.removeItem(k);
+  } catch {
+    return { ok: false, step: "unload", reason: "blocked" };
+  }
+  let cacheKey: string;
+  try {
+    cacheKey = accountCacheKey(opts.hash);
+  } catch {
+    return { ok: false, step: "answer", reason: "not an account hash" };
+  }
+  const cache = updateFavourites(storage, cacheKey, (prev) => ({ envelope: cacheFrom(a.data.items, prev), value: null }));
+  if (!cache.ok) return { ok: false, step: "cache", reason: cache.reason };
+  let markIssue: string | null = null;
+  const local = updateFavourites(storage, FAV_LOCAL_KEY, (env) => {
+    const m = markFavouritesMerged(env, a.data, opts.hash, opts.at);
+    if (!m.success) markIssue = m.issues.join("; ");
+    return { envelope: m.success ? m.data : null, value: null };
+  });
+  if (!local.ok) return { ok: false, step: "local", reason: markIssue ?? local.reason };
+  return { ok: true, local: local.envelope, cache: cache.envelope };
 }

@@ -13,6 +13,14 @@
 // page knows only its slug (visitor spec 7: no new props cross the server boundary), so the slug is the device key; the stable public
 // `ref` is filled in by `resolveRefs` and is what the account table keys on (FAV-D: primary key (user_id, ref)).
 //
+// VALIDATION. The raw zod objects here do not hold the cross-field rules (one row per page and per ref, a trip has no kind, the
+// envelope's byte size, at most MERGED_MAX accounts), which live in rule functions so the schemas stay exportable to JSON Schema. Never
+// call `.parse` or `.safeParse` on them outside the parsing entry points (core/src/favourites/envelope.ts `parseFavourites`,
+// `readFavourites`, `parseMergeItems`, `parseResolveRows`, `parseAccountRows`, `parseMergeAnswer`, and resolve.ts for the query):
+// core/test/favourites/boundary.test.ts fails on a bare call anywhere else in core/src or web/ (review NAV-C C2, mirrored).
+//
+// Times are UTC instants with `Z` (`toISOString`), any fraction, and are compared as instants (`Date.parse`), never as strings (M1).
+//
 // Snapshot fields are `name`, `kind` and `cc` only (P8: no facts, links, times or suitability). `favouredAt` is private: the detector
 // fails a public body holding `favouredAt` or `favourites` (visitor spec 8.3).
 import { z } from "zod";
@@ -33,6 +41,10 @@ export const RESOLVE_MAX = 48;
 export const MERGE_BODY_MAX_BYTES = 64 * 1024;
 /** Offline account writes kept for replay: at most one per favourite after compaction, so twice the cap bounds it. */
 export const PENDING_MAX = 2 * FAVOURITES_CAP;
+/** The whole envelope (review L2, mirrored): 500 long rows plus a full pending queue fit; anything larger is refused, never written. */
+export const ENVELOPE_MAX_BYTES = 640 * 1024;
+/** `merged` keeps the most recent accounts only; it is a hint, never the rule (owner, 26 Oct 2026). */
+export const MERGED_MAX = 10;
 /** The notice's "Got it" snooze: until 10 more favourites or 30 days (visitor spec 14). */
 export const SNOOZE_DAYS = 30;
 export const SNOOZE_MORE = 10;
@@ -45,7 +57,8 @@ export const ACCOUNT_HASH_RE = /^[0-9a-f]{16}$/;
 /** A device handle: the space, a colon, the slug. Never a public ref: every ref has a slash after its first word (REF_RE). */
 export const HANDLE_RE = /^(place|trip):([a-z0-9][a-z0-9-]{0,99})$/;
 
-const isoDateTime = z.iso.datetime({ offset: true });
+/** UTC with `Z` only, any fraction (review M1): an offset would make two spellings of one instant. */
+const isoDateTime = z.iso.datetime();
 const space = z.enum(FAV_SPACES);
 const slug = z.string().regex(SLUG);
 /** A private origin key anywhere in a ref (store.ts A24; the detector's ORIGIN_REF). */
@@ -57,7 +70,7 @@ const NO_ORIGIN_KEY = /^(?![\s\S]*\b(?:loc|proto):)/;
 export const favRef = z.string().min(3).max(REF_MAX).regex(REF_RE, "a public ref").regex(NO_ORIGIN_KEY, "a public ref").regex(/^[^\u0000-\u001f\u007f]+$/, "no control characters");
 /** A place kind word. Loose on purpose: a new kind in the catalogue must never turn a stored envelope invalid. */
 const kindWord = z.string().regex(/^[a-z][a-z0-9_-]{0,39}$/);
-const name = z.string().min(1).max(160).regex(/\S/, "not blank");
+const name = z.string().min(1).max(120).regex(/\S/, "not blank");
 const cc = z.string().regex(/^[A-Z]{2}$/);
 
 export const favItem = z.strictObject({
@@ -98,7 +111,10 @@ export const favouritesEnvelope = z.strictObject({
   snoozedUntil: isoDateTime.nullable(),
   /** ... or until the list holds SNOOZE_MORE more than it did when snoozed */
   snoozedAtCount: z.int().min(0).max(FAVOURITES_CAP).nullable(),
-  /** account hash -> when this device last merged into that account (once per device and account) */
+  /**
+   * account hash -> when this device last merged into that account. A HINT only (owner, 26 Oct 2026): the merge runs whenever the list
+   * holds items (`mergeDue`); this only tells a first merge from a later one. At most MERGED_MAX entries, the most recent kept.
+   */
   merged: z.record(z.string().regex(ACCOUNT_HASH_RE), isoDateTime),
   /** the account cache's offline writes; always empty in the signed-out list */
   pending: z.array(favPending).max(PENDING_MAX),
@@ -183,9 +199,10 @@ export const mergeAnswer = z.strictObject({
   dropped: z.int().min(0),
   overCap: z.int().min(0),
   /**
-   * The device handles that did not fit (NAV-C's rule: what the account could not take stays on the device). Additive to the spec's
-   * `{ items, added, dropped, overCap }`, so the client can empty the rest without knowing the plan.
+   * The device handles the server CONFIRMED (review M2): inserted per the insert's `returning ref`, already held, or dropped as gone.
+   * The device removes these and only these; everything else stays (over the cap, a row the cap trigger refused). Additive to the
+   * spec's `{ items, added, dropped, overCap }`; it replaces the earlier `keep` list, which removed what the server never confirmed.
    */
-  keep: z.array(z.string().regex(HANDLE_RE)).max(FAVOURITES_CAP),
+  taken: z.array(z.string().regex(HANDLE_RE)).max(FAVOURITES_CAP),
 });
 export type MergeAnswer = z.infer<typeof mergeAnswer>;

@@ -9,6 +9,7 @@ import {
   markNoteSeen,
   noticeDue,
   parseFavourites,
+  updateFavourites,
   parseHandle,
   readFavourites,
   removeFavourite,
@@ -20,6 +21,9 @@ import { resolveOne } from "../../src/favourites/resolve.ts";
 import { PRIVATE_KEYS, privacyHits } from "../../src/privacy/detect.ts";
 import {
   emptyFavourites,
+  ENVELOPE_MAX_BYTES,
+  MERGED_MAX,
+  PENDING_MAX,
   FAV_LOCAL_KEY,
   favItem,
   FAVOURITES_CAP,
@@ -33,6 +37,15 @@ import {
 import { INDEX, light } from "./fixture.ts";
 
 const NOW = new Date("2026-10-25T14:02:11Z");
+function readOk(raw: string | null): FavouritesEnvelope {
+  const r = readFavourites(raw);
+  if (!r.ok) throw new Error(r.reason);
+  return r.envelope;
+}
+function applied(r: ReturnType<typeof applyResolution>) {
+  if (!r.success) throw new Error(r.issues.join("; "));
+  return r.data;
+}
 const later = (min: number) => new Date(NOW.getTime() + min * 60_000);
 
 function must(r: ReturnType<typeof addFavourite>): FavouritesEnvelope {
@@ -82,7 +95,7 @@ describe("favourites/1 envelope", () => {
   it("round-trips: add, write, read gives the same envelope", () => {
     const s = memoryStorage();
     const env = must(addFavourite(emptyFavourites(), { space: "place", slug: "moraine-lake", name: "Moraine Lake", kind: "lake", cc: "CA" }, { now: NOW }));
-    expect(writeFavourites(s, FAV_LOCAL_KEY, env)).toEqual({ ok: true });
+    expect(writeFavourites(s, FAV_LOCAL_KEY, env, null)).toEqual({ ok: true, raw: JSON.stringify(env) });
     const back = readFavourites(s.getItem(FAV_LOCAL_KEY));
     expect(back).toEqual({ ok: true, envelope: env, fresh: false });
   });
@@ -96,14 +109,54 @@ describe("favourites/1 envelope", () => {
     expect(JSON.stringify(bad)).not.toMatch(/Secret Name/);
   });
 
-  it("refuses a duplicate page, a duplicate ref, a trip with a kind, a private origin key as ref, and over 500 items", () => {
+  it("each negative fails on the rule it names, and only that rule (review M6)", () => {
     const a: FavItem = { space: "place", slug: "a", ref: "route/a", name: null, kind: null, cc: null, favouredAt: NOW.toISOString(), unlistedAt: null };
-    const dupHandle = { ...emptyFavourites(), items: [a, { ...a, ref: null }] };
-    const dupRef = { ...emptyFavourites(), items: [a, { ...a, slug: "b" }] };
-    const tripKind = { ...emptyFavourites(), items: [{ ...a, space: "trip", kind: "lake" }] };
-    const origin = { ...emptyFavourites(), items: [{ ...a, ref: "place/x loc:abc" }] };
-    const many = { ...emptyFavourites(), items: Array.from({ length: FAVOURITES_CAP + 1 }, (_, i) => ({ ...a, slug: `s-${i}`, ref: null })) };
-    for (const x of [dupHandle, dupRef, tripKind, origin, many]) expect(parseFavourites(x).success).toBe(false);
+    const issuesOf = (x: unknown): string[] => {
+      const r = parseFavourites(x);
+      return r.success ? [] : r.issues;
+    };
+    const only = (x: unknown, rule: RegExp) => {
+      const got = issuesOf(x);
+      expect(got.length, `expected ${rule}`).toBeGreaterThan(0);
+      for (const i of got) expect(i).toMatch(rule);
+    };
+    only({ ...emptyFavourites(), items: [a, { ...a, ref: null }] }, /^\$\.items: one favourite per page$/);
+    only({ ...emptyFavourites(), items: [a, { ...a, slug: "b" }] }, /^\$\.items: one favourite per ref$/);
+    only({ ...emptyFavourites(), items: [{ ...a, space: "trip", kind: "lake" }] }, /^\$\.items\.0\.kind: a trip has no kind$/);
+    only({ ...emptyFavourites(), items: [{ ...a, ref: "place/x loc:abc" }] }, /^\$\.items\.0\.ref: a public ref$/);
+    // the 500 cap: 501 distinct, valid rows fail on $.items' size and nothing else; 500 pass
+    const rows = (n: number) => Array.from({ length: n }, (_, i) => ({ ...a, slug: `s-${i}`, ref: null }));
+    expect(issuesOf({ ...emptyFavourites(), items: rows(FAVOURITES_CAP) })).toEqual([]);
+    only({ ...emptyFavourites(), items: rows(FAVOURITES_CAP + 1) }, /^\$\.items: Too big: expected array to have <=500 items$/);
+    // the 1000 pending cap
+    const op = (i: number) => ({ op: "add", space: "place", slug: `p-${i}`, ref: null, at: NOW.toISOString() });
+    expect(issuesOf({ ...emptyFavourites(), pending: Array.from({ length: PENDING_MAX }, (_, i) => op(i)) })).toEqual([]);
+    only({ ...emptyFavourites(), pending: Array.from({ length: PENDING_MAX + 1 }, (_, i) => op(i)) }, /^\$\.pending: Too big: expected array to have <=1000 items$/);
+    // the byte bound: every count inside its cap, the whole too large
+    const fat = {
+      ...emptyFavourites(),
+      items: rows(FAVOURITES_CAP).map((r, i) => ({ ...r, slug: `${"s".repeat(90)}-${i}`, ref: `route/${"\u00e9".repeat(150)}${i}`, name: "\u{1F3D4}".repeat(120) })),
+      pending: Array.from({ length: PENDING_MAX }, (_, i) => ({ ...op(i), slug: `${"p".repeat(90)}-${i}`, ref: `route/${"\u00e9".repeat(150)}${i}` })),
+    };
+    only(fat, new RegExp(`^\\$: an envelope is at most ${ENVELOPE_MAX_BYTES} bytes$`));
+    // merged: at most MERGED_MAX accounts
+    const merged = (n: number) => Object.fromEntries(Array.from({ length: n }, (_, i) => [i.toString(16).padStart(16, "0"), NOW.toISOString()]));
+    expect(issuesOf({ ...emptyFavourites(), merged: merged(MERGED_MAX) })).toEqual([]);
+    only({ ...emptyFavourites(), merged: merged(MERGED_MAX + 1) }, new RegExp(`^\\$\\.merged: at most ${MERGED_MAX} accounts$`));
+  });
+
+  it("times are UTC with Z only (review M1): an offset is refused, any fraction is fine", () => {
+    const a = { space: "place", slug: "a", ref: null, name: null, kind: null, cc: null, unlistedAt: null };
+    for (const t of ["2026-10-25T14:02:11Z", "2026-10-25T14:02:11.5Z", "2026-10-25T14:02:11.123456Z"])
+      expect(parseFavourites({ ...emptyFavourites(), items: [{ ...a, favouredAt: t }] }).success, t).toBe(true);
+    for (const t of ["2026-10-25T16:02:11+02:00", "2026-10-25T14:02:11", "2026-10-25"])
+      expect(parseFavourites({ ...emptyFavourites(), items: [{ ...a, favouredAt: t }] }).success, t).toBe(false);
+  });
+
+  it("refs never take a URL form (review L1): protocol-relative, a scheme, a backslash host", () => {
+    const a = { space: "place", slug: "a", name: null, kind: null, cc: null, favouredAt: NOW.toISOString(), unlistedAt: null };
+    for (const ref of ["//evil.example/x", "http://evil.example/", "https://x/y", "javascript:alert(1)", "\\\\evil\\x", "/places/x", "Route/x"])
+      expect(parseFavourites({ ...emptyFavourites(), items: [{ ...a, ref }] }).success, ref).toBe(false);
     // refs with spaces, colons and hashes are public refs
     expect(parseFavourites({ ...emptyFavourites(), items: [{ ...a, ref: "trip/algonquin/sight:ragged falls" }] }).success).toBe(true);
     expect(parseFavourites({ ...emptyFavourites(), items: [{ ...a, ref: "offer/x#ticket" }] }).success).toBe(true);
@@ -111,10 +164,10 @@ describe("favourites/1 envelope", () => {
 
   it("a write that fails (quota), is dropped, or is invalid never reports ok", () => {
     const env = filled(1);
-    expect(writeFavourites(spyStorage({ quota: true }), FAV_LOCAL_KEY, env)).toEqual({ ok: false, reason: "quota" });
-    expect(writeFavourites(spyStorage({ dropWrites: true }), FAV_LOCAL_KEY, env)).toEqual({ ok: false, reason: "unverified" });
+    expect(writeFavourites(spyStorage({ quota: true }), FAV_LOCAL_KEY, env, null)).toEqual({ ok: false, reason: "quota" });
+    expect(writeFavourites(spyStorage({ dropWrites: true }), FAV_LOCAL_KEY, env, null)).toEqual({ ok: false, reason: "unverified" });
     const s = spyStorage();
-    expect(writeFavourites(s, FAV_LOCAL_KEY, { ...env, items: [...env.items, env.items[0]!] })).toEqual({ ok: false, reason: "invalid" });
+    expect(writeFavourites(s, FAV_LOCAL_KEY, { ...env, items: [...env.items, env.items[0]!] }, null)).toEqual({ ok: false, reason: "invalid" });
     expect(s.map.size).toBe(0);
   });
 
@@ -123,7 +176,67 @@ describe("favourites/1 envelope", () => {
       throw new Error("SecurityError");
     });
     expect(p).toMatchObject({ kind: "memory", reason: "blocked" });
-    expect(writeFavourites(p.storage, FAV_LOCAL_KEY, filled(2))).toEqual({ ok: true });
+    expect(writeFavourites(p.storage, FAV_LOCAL_KEY, filled(2), null).ok).toBe(true);
+  });
+});
+
+describe("compare-and-set writes (review NAV-C C1, mirrored)", () => {
+  it("never overwrites a stored favourites/2: the write answers newer and the stored text is untouched", () => {
+    const s = memoryStorage();
+    const v2 = JSON.stringify({ schema: "favourites/2", items: [{ anything: true }] });
+    s.setItem(FAV_LOCAL_KEY, v2);
+    expect(writeFavourites(s, FAV_LOCAL_KEY, filled(1), null)).toEqual({ ok: false, reason: "newer" });
+    expect(writeFavourites(s, FAV_LOCAL_KEY, filled(1), v2)).toEqual({ ok: false, reason: "newer" });
+    expect(updateFavourites(s, FAV_LOCAL_KEY, (e) => ({ envelope: e, value: 1 }))).toMatchObject({ ok: false, reason: "newer" });
+    expect(s.getItem(FAV_LOCAL_KEY)).toBe(v2);
+  });
+
+  it("two tabs: a stale base answers changed instead of losing the other tab's heart", () => {
+    const s = memoryStorage();
+    const first = writeFavourites(s, FAV_LOCAL_KEY, filled(1), null);
+    if (!first.ok) throw new Error("seed");
+    // both tabs read the same text
+    const baseA = s.getItem(FAV_LOCAL_KEY);
+    const baseB = s.getItem(FAV_LOCAL_KEY);
+    const envA = must(addFavourite(readOk(baseA), { space: "place", slug: "from-tab-a" }, { now: later(5) }));
+    const envB = must(addFavourite(readOk(baseB), { space: "trip", slug: "from-tab-b" }, { now: later(6) }));
+    expect(writeFavourites(s, FAV_LOCAL_KEY, envB, baseB).ok).toBe(true);
+    expect(writeFavourites(s, FAV_LOCAL_KEY, envA, baseA)).toEqual({ ok: false, reason: "changed" });
+    expect(readOk(s.getItem(FAV_LOCAL_KEY)).items.map(handleOf)).toContain("trip:from-tab-b");
+  });
+
+  it("updateFavourites re-reads and re-applies on changed, so both tabs' hearts survive", () => {
+    const inner = memoryStorage();
+    let raced = false;
+    // tab B writes between tab A's read and tab A's write, once
+    const s: StorageLike = {
+      getItem: (k) => inner.getItem(k),
+      removeItem: (k) => inner.removeItem(k),
+      setItem: (k, v) => inner.setItem(k, v),
+    };
+    const r = updateFavourites(s, FAV_LOCAL_KEY, (env) => {
+      if (!raced) {
+        raced = true;
+        const b = must(addFavourite(env, { space: "trip", slug: "from-tab-b" }, { now: later(1) }));
+        inner.setItem(FAV_LOCAL_KEY, JSON.stringify(b));
+      }
+      const a = addFavourite(env, { space: "place", slug: "from-tab-a" }, { now: later(2) });
+      return { envelope: a.ok ? a.envelope : null, value: a.ok };
+    });
+    expect(r.ok).toBe(true);
+    expect(readOk(inner.getItem(FAV_LOCAL_KEY)).items.map(handleOf).sort()).toEqual(["place:from-tab-a", "trip:from-tab-b"]);
+  });
+
+  it("a refused change (the cap) writes nothing; an unchanged envelope is not rewritten", () => {
+    const s = spyStorage();
+    s.map.set(FAV_LOCAL_KEY, JSON.stringify(filled(FAVOURITES_CAP)));
+    const before = s.map.get(FAV_LOCAL_KEY);
+    const r = updateFavourites(s, FAV_LOCAL_KEY, (env) => {
+      const a = addFavourite(env, { space: "place", slug: "one-more" }, { now: later(999) });
+      return { envelope: a.ok ? a.envelope : null, value: a };
+    });
+    expect(r).toMatchObject({ ok: false, reason: "refused", value: { ok: false, reason: "cap" } });
+    expect(s.map.get(FAV_LOCAL_KEY)).toBe(before);
   });
 });
 
@@ -197,7 +310,7 @@ describe("applying resolveRefs (visitor spec 4.5)", () => {
 
   it("fills snapshots and refs, moves a retired slug, tombstones a withdrawn or unknown page, and is idempotent", () => {
     const env = list(["place", "moraine-lake"], ["place", "lake-agnes"], ["place", "athabasca-icewalk"], ["trip", "private-trip"], ["trip", "dolomites-2027"]);
-    const r = applyResolution(env, resolveAll(env), later(100));
+    const r = applied(applyResolution(env, resolveAll(env), later(100)));
     expect(r).toMatchObject({ moved: 1, folded: 0, unlisted: 2, relisted: 0, changed: true });
     const by = Object.fromEntries(r.envelope.items.map((i) => [handleOf(i), i]));
     expect(by["place:moraine-lake"]).toMatchObject({ ref: "route/moraine-lake", name: "Moraine Lake", kind: "lake", cc: "CA", unlistedAt: null });
@@ -210,19 +323,19 @@ describe("applying resolveRefs (visitor spec 4.5)", () => {
     expect(r.envelope.items).toHaveLength(5);
     expect(parseFavourites(r.envelope).success).toBe(true);
     // again, with a fresh resolve of the new list: nothing changes, and the tombstone keeps its first time
-    const again = applyResolution(r.envelope, resolveAll(r.envelope), later(200));
+    const again = applied(applyResolution(r.envelope, resolveAll(r.envelope), later(200)));
     expect(again.changed).toBe(false);
     expect(again.envelope).toBe(r.envelope);
   });
 
   it("a merged page becomes its survivor, folded into the survivor's row when the list holds it (earlier time kept)", () => {
     const both = list(["place", "lake-louise-gondola"], ["place", "lake-louise-sightseeing"]);
-    const r = applyResolution(both, resolveAll(both), later(100));
+    const r = applied(applyResolution(both, resolveAll(both), later(100)));
     expect(r).toMatchObject({ folded: 1, moved: 0 });
     expect(r.envelope.items).toHaveLength(1);
     expect(r.envelope.items[0]).toMatchObject({ slug: "lake-louise-gondola", ref: "sight/lake-louise-gondola", favouredAt: later(0).toISOString() });
     const alone = list(["place", "louise-sightseeing-old"]);
-    const s = applyResolution(alone, resolveAll(alone), later(100));
+    const s = applied(applyResolution(alone, resolveAll(alone), later(100)));
     expect(s).toMatchObject({ moved: 1, folded: 0 });
     expect(s.envelope.items[0]).toMatchObject({ slug: "lake-louise-gondola", name: "Lake Louise Gondola" });
   });
@@ -230,14 +343,14 @@ describe("applying resolveRefs (visitor spec 4.5)", () => {
   it("a tombstone is lifted when the page is listed again", () => {
     const env = list(["place", "moraine-lake"]);
     const dead = { ...env, items: env.items.map((i) => ({ ...i, unlistedAt: NOW.toISOString() })) };
-    const r = applyResolution(dead, resolveAll(dead), later(5));
+    const r = applied(applyResolution(dead, resolveAll(dead), later(5)));
     expect(r).toMatchObject({ relisted: 1, changed: true });
     expect(r.envelope.items[0]!.unlistedAt).toBeNull();
   });
 
   it("rows not in the answer are left alone; an answer for another space is ignored", () => {
     const env = list(["place", "moraine-lake"], ["trip", "dolomites-2027"]);
-    const r = applyResolution(env, [{ ...resolveOne(INDEX, light, "trip:moraine-lake"), asked: "place:moraine-lake" }], later(5));
+    const r = applied(applyResolution(env, [{ ...resolveOne(INDEX, light, "trip:moraine-lake"), asked: "place:moraine-lake" }], later(5)));
     expect(r.changed).toBe(false);
   });
 });
