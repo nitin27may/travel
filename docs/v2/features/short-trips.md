@@ -1,5 +1,7 @@
 # Short trips: day trips, overnights and weekends
 
+> **Amended 25 Oct 2026 (trip origin and nearest airport):** the hub default (K5, 4.1 to 4.4) stands for trips of 0 to 3 nights (OR6, Q240). A visitor's own start (a city or airport chosen on the device or in a copy) now recomputes the out and back legs as estimates, and `from=` also accepts an airport code. Trips of 4 or more nights start from the trip's researched gateway, else the nearest airport. See [trip-origin-and-nearest-airport.md](trip-origin-and-nearest-airport.md) (PLAN R-200 to R-207).
+
 Status: spec, 18 Oct 2026. Owner request of 18 Oct 2026. Written by travel-planner (Opus).
 
 This page covers trips of 0 to 3 nights. It builds on:

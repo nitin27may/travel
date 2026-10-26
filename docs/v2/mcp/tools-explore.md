@@ -1,5 +1,7 @@
 # Explore tools
 
+> **Amended 25 Oct 2026 (trip origin and nearest airport):** the public MCP's `get_trip` gains an optional `origin` and returns `getting_there`; a new read-only `nearest_airports` tool is planned (ORG-MCP, with MCP-1). See [../features/trip-origin-and-nearest-airport.md](../features/trip-origin-and-nearest-airport.md) section 11 (PLAN R-206).
+
 Scope `catalog:read` (anonymous allowed at low limits). Read-only. Results come from the published
 catalog only (`entity.status = 'published'`); proposed changes are never shown here.
 

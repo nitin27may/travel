@@ -1,5 +1,7 @@
 # F01. Household and profiles
 
+> **Amended 25 Oct 2026 (trip origin and nearest airport):** the home base as "the trip origin default" (behaviour 2) is level O4 of the origin ladder in [trip-origin-and-nearest-airport.md](trip-origin-and-nearest-airport.md) section 3. A copy's or a device's explicit start comes first, and the public default (a researched gateway or the nearest airport) comes after. Before the planner exists, O4 is a single private Starting from on the account (ORG-H, Q246), not a point.
+
 ## Purpose
 
 Most of a trip's setup is the same every time: where the family lives, who travels, their ages, how

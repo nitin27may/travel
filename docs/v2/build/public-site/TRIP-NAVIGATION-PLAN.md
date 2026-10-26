@@ -1,5 +1,7 @@
 # Trip navigation links and base-aware day routes
 
+> **Amended 25 Oct 2026 (trip origin and nearest airport):** the trip's first and last direction (getting there, from the visitor's start or the nearest airport) is specified in [../../features/trip-origin-and-nearest-airport.md](../../features/trip-origin-and-nearest-airport.md) and ships with this plan in v0.9 (Q247). ORG-1 runs after R-59 merges, because R-59 owns `web/components/trips/**` while it runs.
+
 Owner request, 24 Oct 2026: show trail links and directions directly in the
 timeline, provide a combined day map with every stop, and explain how one fixed
 base changes the plan and driving. **Plan only for now. Execute after the current

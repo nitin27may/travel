@@ -1,5 +1,7 @@
 # Trip timeline and party profile (public trip page)
 
+> **Amended 25 Oct 2026 (trip origin and nearest airport):** the arrival and departure day rules (6) keep their mechanics; the airport now comes from the origin ladder (the visitor's start, else the trip's gateway, else the nearest airport), the 6 h day cap applies when the flight estimate exceeds 5 h, and `airport.before` picks domestic (120) or international (180) from the visitor's country. URL keys `from` and `gw` join 3.8 after `walk`. See [trip-origin-and-nearest-airport.md](trip-origin-and-nearest-airport.md) sections 7 and 10 (PLAN R-203, R-206).
+
 Status: spec, 18 Oct 2026. Owner direction of 18 Oct 2026. Build brief: [L3c-trip-timeline.md](../build/public-site/L3c-trip-timeline.md).
 Design (layout, motion, colour): [design/trip-page/timeline-design.md](../design/trip-page/timeline-design.md) (Fable, written in parallel).
 Where the two disagree, this page governs the data and the rules, and the design page governs the layout.

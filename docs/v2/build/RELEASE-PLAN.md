@@ -27,10 +27,10 @@ behind `NEXT_PUBLIC_CF_BEACON_TOKEN`, so only the token and a privacy-page line 
 | **v0.6** | Continue with Google | 24 h | none |
 | **v0.7** | Report a problem, suggest a place or an improvement, ask for a trip (signed in) | 67.5 h | `intake` |
 | **v0.8** | The licensed trail and stop photos shown, resized on our host, and share images | unsized (15.158 and the image build fix) | none |
-| **v0.9** | Trail links and directions beside every stop; whole-day route | unsized (R-59) | none |
+| **v0.9** | Trail links and directions beside every stop; whole-day route; getting there from your city or the nearest airport | unsized (R-59) + ORG 16.5 h (core and data, 11.5 h, ride earlier as internal) | none |
 | **v0.10** | Best time to go and the trip overview with thumbnails | 46 h + D8-R 8 h | none |
 | **v0.11** | Customise a trip (signed in) | 34 h | `custom-draft` |
-| **v0.12** | Copies and favourites follow you into your account | 33 h | `draft-cap`, `account_favourite` |
+| **v0.12** | Copies and favourites follow you into your account | 33 h | `draft-cap`, `account_favourite` (+ `account-start` if Q246) |
 | **v0.13** | More edits in a customised trip; add your own stops from our places | 20 h (+2 h CUS-C widening counted in v0.11) | none |
 | **v0.14** | Search the map for a stop we do not have; suggest it to us | 29 h | none |
 | **v0.15** | Public MCP (read-only catalogue, no sign-in), security-reviewed | 11 h + review slice (Q225) | none |
@@ -113,6 +113,7 @@ may pair with what.
 | REQ-1 | FBK-3, MCP-C, MCP-G (core only, no web files) | `core/src/catalogue/store.ts`, `core/src/schema/api/**`, OpenAPI: one contract author (D-E2) for FAV-C, OVR-Ca, MCP-C |
 | 15.158 photos | MCP-1 (`web/app/mcp/**`), LOCAL-4 | Commons: one runner, never two agents (images build included) |
 | R-59 | OVR-Ca, OVR-Cb (store and routes) | `web/components/actions/CopySheet.tsx`: NAV-2 and OVR-1 never in parallel |
+| R-59, then ORG-1 and ORG-2 | ORG-C, then ORG-D, ORG-G, ORG-M (core and data only) | `core/src/privacy/detect.ts` and `core/src/catalogue/store.ts`: ORG-C one at a time with NAV-C, FAV-C, CUS-C and OVR-Ca (one contract author); ORS: one runner |
 | OVR-1, OVR-2, OVR-3 | D8-R research (data only), CUS-C | `web/scripts/neon-e2e.mjs` (EML-E, GSI-E, FBK-E, FAV-2E, NAV-E, CUS-2): one at a time |
 | CUS-1 | MCP-T, MCP-2 | `web/lib/capabilities.ts`: append-only; rebase, never reorder |
 | REQ-E UI, REQ-P | NAV-D, FAV-D, FAV-2, NAV-3 (account routes) | `web/app/t/**`: REQ-E never in parallel with CUS-2 |
@@ -162,7 +163,7 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 | Field | Content |
 |---|---|
 | Goal | A visitor who copies a trip or favourites a place finds it again in Mine, on phone and desktop, with no account (P7: copy is the 90% action, and today the copy is unfindable) |
-| Contents | NAV phase 1 (20 h): NAV-F 1.5 h, NAV-C 3 h, NAV-1 5.5 h (with the phone header sign-in icon, Q203), NAV-2 6 h, NAV-R1 2 h, NAV-V1 2 h. Favourites step 1 (20 h): FAV-C 4 h, FAV-1 12 h (re-scoped to the Mine panel), FAV-R 2 h, FAV-V 2 h. OVR-0 3 h (pulled forward, Q223): `CategoryView` into a dynamic chunk, which frees trip start JS for the trip-page heart. Total 43 h |
+| Contents | NAV phase 1 (20 h): NAV-F 1.5 h, NAV-C 3 h (+0.25 h: `copies/1` reserves `from` and `gw`, [origin spec](../features/trip-origin-and-nearest-airport.md) 10), NAV-1 5.5 h (with the phone header sign-in icon, Q203), NAV-2 6 h, NAV-R1 2 h, NAV-V1 2 h. Favourites step 1 (20 h): FAV-C 4 h, FAV-1 12 h (re-scoped to the Mine panel), FAV-R 2 h, FAV-V 2 h. OVR-0 3 h (pulled forward, Q223): `CategoryView` into a dynamic chunk, which frees trip start JS for the trip-page heart. Total 43 h |
 | Dependencies | v0.2 merged (ACCT-PH baseline); Q101 to Q108 answered (Q108 favourite scope and cap); OVR-0 merges before R-59 starts, because both own `web/components/trips/**` |
 | Owner actions | phone check at 320 and 390 px (five items in the bar, the header icon, copy a trip then find it in Mine after reload); approve |
 | Data work | none |
@@ -224,7 +225,7 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 | Field | Content |
 |---|---|
 | Goal | A signed-in visitor reports a problem on a trail, trip, day, stop or place, suggests a place or an improvement, or asks for a trip; the owner triages from the CLI |
-| Contents | Feedback (54 h, FBK-M at 2 h per email spec 12): FBK-N 2 h, FBK-C 8 h, FBK-M 2 h, FBK-1 8 h, FBK-S 4 h, FBK-2 16 h, FBK-R 3 h, FBK-V 3 h, FBK-3 4 h, FBK-E 4 h. Requests day one (13.5 h, requests spec 11.1): FBK-C +1.5 h (`improve`, `for_trip`, `for_day`, `source_ref`), FBK-3 +2 h, REQ-1 6 h, REQ-R1 2 h, REQ-V1 2 h. Total 67.5 h |
+| Contents | Feedback (54 h, FBK-M at 2 h per email spec 12): FBK-N 2 h, FBK-C 8 h, FBK-M 2 h, FBK-1 8 h, FBK-S 4 h, FBK-2 16 h, FBK-R 3 h, FBK-V 3 h, FBK-3 4 h, FBK-E 4 h. Requests day one (13.5 h, requests spec 11.1): FBK-C +1.5 h (`improve`, `for_trip`, `for_day`, `source_ref`), FBK-3 +2 h, REQ-1 6 h, REQ-R1 2 h, REQ-V1 2 h. FBK-C +0.25 h (trip `start` as `{ref, text}`, origin spec 10). Total 67.75 h |
 | Dependencies | NAV-1 (v0.3, for the Mine "Your requests" link); EML-Q's `quota_bucket` and Turnstile (v0.5); Q130 to Q137 answered; widen FBK-C before its migration is applied |
 | Owner actions | none new (Turnstile from v0.5); approve the "Reports and suggestions" privacy section; approve |
 | Data work | none; triage writes data later through the skills |
@@ -250,18 +251,20 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 | Rollback | standard |
 | Notes | coordinator drafts, owner approves |
 
-### v0.9: links and directions beside every stop
+### v0.9: links and directions beside every stop, and getting there
 
 | Field | Content |
 |---|---|
-| Goal | Each stop shows Directions, View in Maps and AllTrails or official links beside its name; each day opens as one ordered route with every stop |
-| Contents | R-59 ([TRIP-NAVIGATION-PLAN.md](public-site/TRIP-NAVIGATION-PLAN.md), unsized): visible stop actions, combined day directions without silent truncation, base-aware plan changes (the read-only part) |
-| Dependencies | OVR-0 merged (v0.3); R-59 owns `web/components/trips/**` while it runs |
-| Owner actions | phone check of the stop actions; approve |
+| Goal | Each stop shows Directions, View in Maps and AllTrails or official links beside its name; each day opens as one ordered route with every stop; each trip says how you get there, from the nearest airport by default or from the city you choose, and Day 1 and the last day follow it |
+| Contents | R-59 ([TRIP-NAVIGATION-PLAN.md](public-site/TRIP-NAVIGATION-PLAN.md), unsized): visible stop actions, combined day directions without silent truncation, base-aware plan changes (the read-only part). Then ORG ([trip-origin-and-nearest-airport.md](../features/trip-origin-and-nearest-airport.md) 13): ORG-N 1.5 h, ORG-A 2 h, ORG-1 7 h, ORG-2 2 h, ORG-R 2 h, ORG-V 2 h (16.5 h), flag `gettingThere`. ORG-C 4 h, ORG-D 3 h, ORG-G 3 h and ORG-M 1.5 h run in seat B before this and ship earlier as internal |
+| Dependencies | OVR-0 merged (v0.3); R-59 owns `web/components/trips/**` while it runs, so ORG-1 starts after R-59 merges; ORG-C, ORG-D, ORG-G merged; NAV-2 merged (v0.3) for ORG-2; Q240 to Q249 answered |
+| Owner actions | phone check of the stop actions and of Starting from; Q240 to Q249; approve |
+| Data work | ORG-G gateways for the 13 public trips; ORG-M routed gateway legs (about 80 ORS cells, one runner) |
 | Migrations | none |
-| Risks | trip start JS (OVR-0 freed some; R-59 measures); links only, never AllTrails data |
-| Smoke | `/trips/canadian-rockies-2029/` a day with more than nine stops opens one route with all of them; a trail stop shows its AllTrails link |
-| Rollback | standard |
+| Risks | trip start JS (OVR-0 freed some; R-59 measures; ORG-1 adds at most 200 B and loads its panel on open); links only, never AllTrails data; OurAirports' scheduled-service flag can be stale (gateways override it); a visitor's start must never reach server HTML, OG or logs |
+| Extra gate | server HTML of a trip byte-identical with and without `?from=`; privacy test over `origin/1` and the copies' `from`; the 27-destination golden test |
+| Smoke | `/trips/canadian-rockies-2029/` a day with more than nine stops opens one route with all of them; a trail stop shows its AllTrails link; the Getting there line names Calgary (YYC); Starting from "Mumbai" changes Day 1 and the last day in place; `/trips/algonquin-muskoka-2026/` reads "from Toronto" |
+| Rollback | standard; `gettingThere` off |
 | Notes | coordinator drafts, owner approves |
 
 ### v0.10: best time to go and the trip overview
@@ -284,7 +287,7 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 | Field | Content |
 |---|---|
 | Goal | A signed-in visitor makes a private copy at `/t/<id>/` and adds, removes, moves and parks items, with undo and autosave |
-| Contents | CUS-C 6 h + 2 h widening (`title`, `moved`, `days`, `notes`, `custom` before its migration is applied), CUS-1 20 h, CUS-2 3 h, CUS-R 3 h. Total 34 h |
+| Contents | CUS-C 6 h + 2 h widening (`title`, `moved`, `days`, `notes`, `custom` before its migration is applied) + 0.25 h (`from` and `gw`, origin spec 10), CUS-1 20 h, CUS-2 3 h, CUS-R 3 h. Total 34.25 h |
 | Dependencies | v0.10's owner preview; the `planner_draft_signal` ruling; Q98 (who may customise: invite-only recommended) and Q67, Q103, Q120 (sign-up policy) |
 | Owner actions | the rulings above; approve |
 | Migrations | `custom-draft` (`planner_draft` gains `source_trip`, `source_revision`, `doc`, `revision`; same RLS) |
@@ -299,7 +302,7 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 | Field | Content |
 |---|---|
 | Goal | Device copies and favourites merge into the account once at sign-in and follow the visitor to other devices |
-| Contents | NAV phase 2 (14 h): NAV-D 2 h, NAV-3 6 h, NAV-E 2 h, NAV-R2 2 h, NAV-V2 2 h. Favourites sync (19 h): FAV-D 4 h, FAV-2 12 h, FAV-2E 3 h. Total 33 h |
+| Contents | NAV phase 2 (14 h): NAV-D 2 h, NAV-3 6 h, NAV-E 2 h, NAV-R2 2 h, NAV-V2 2 h. Favourites sync (19 h): FAV-D 4 h, FAV-2 12 h, FAV-2E 3 h. Total 33 h; plus ORG-H 4 h (the account's private default Starting from, migration `account-start`) if Q246 is answered yes |
 | Dependencies | CUS-C (v0.11); Google (v0.6, Q124) |
 | Owner actions | approve |
 | Migrations | `draft-cap` (client ids, 50-draft cap trigger), `account_favourite` |
@@ -340,7 +343,7 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 | Field | Content |
 |---|---|
 | Goal | A chat app can search and read the public catalogue at `/mcp/` with no sign-in, under quotas and the privacy detector |
-| Contents | MCP-C 5 h (contracts, levels vocabulary, annotations, the read and write split, the public tool rename), MCP-1 6 h; a security review of the public half (Q225; MCP-S is 4 h for the whole MCP and the spec does not split it; the brief sizes the slice) |
+| Contents | MCP-C 5 h (contracts, levels vocabulary, annotations, the read and write split, the public tool rename), MCP-1 6 h; ORG-MCP 1.5 h (`get_trip.origin`, `nearest_airports`, origin spec 11); a security review of the public half (Q225; MCP-S is 4 h for the whole MCP and the spec does not split it; the brief sizes the slice) |
 | Dependencies | EML-Q (v0.1); Q165 (60 calls an hour per IP) answered; the one Hobby WAF rate-limit rule shared with `/api/v1/*` (15.22) |
 | Owner actions | the WAF rule in Vercel Firewall; approve |
 | Migrations | none |
@@ -394,7 +397,7 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 ### Not on this train (planned elsewhere, no release slot yet)
 
 Stay bases and optimisation (R-76 to R-80), short trips (backlog 2.17, 3.11 to 3.14), smart search phase 2 (3.15), the planner (F01 to
-F17), the admin console (F16, INT-5, PHO-1 after the cutover), MCP-3 and MCP-P, REQ-M, NAV-M, TD-1 to TD-4 and
+F17), the admin console (F16, INT-5, PHO-1 after the cutover), MCP-3 and MCP-P, REQ-M, NAV-M, ORG-P (the place-page airport row, after Q88 and Q248), TD-1 to TD-4 and
 legacy removal (7.11). Each gets a release row when its spec is scheduled.
 
 ## 4. Verification gate, smoke test and rollback
@@ -463,6 +466,7 @@ answers 308 to the slash form, which counts as a pass.
 | I4 | MIG-N migration numbers at merge | 0.5 h | now | docs |
 | I5 | LOCAL-5 child rehearsal command | 2 h | before v1.0 | the coordinator runs it |
 | I6 | Retro tag `release/v0.1` at d93127b | minutes | now (Q220) | coordinator |
+| I7 | ORG-C, ORG-D, ORG-G, ORG-M: origin contracts, the airports layer, trip gateways, routed gateway legs | 11.5 h | any time before v0.9 (seat B) | no visitor change until ORG-1 turns `gettingThere` on in v0.9 |
 | I8 | Test strategy TS-1 to TS-8: tiered gates, the path-to-suite map, `tools/gate.sh`, caching, stacks, slots, nightly T3 | about 35 h | after the Q250 answer; TS-1 any time | [TEST-STRATEGY.md](TEST-STRATEGY.md); the gate of 4.1 stays T3 |
 
 ## 6. Release checklist for the coordinator
@@ -650,5 +654,6 @@ Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling 
 | Date | Change |
 |---|---|
 | 2026-10-25 (test strategy) | Infra row I8 added for TS-1 to TS-8 ([TEST-STRATEGY.md](TEST-STRATEGY.md)); the gate of section 4.1 is that page's T3, unchanged |
+| 2026-10-25 (trip origin) | Getting there from the nearest airport or the visitor's city ([spec](../features/trip-origin-and-nearest-airport.md)): v0.9 gains ORG-N, ORG-A, ORG-1, ORG-2, ORG-R, ORG-V (16.5 h) after R-59; ORG-C, ORG-D, ORG-G, ORG-M ride earlier as internal; widenings in v0.3 (NAV-C), v0.7 (FBK-C), v0.11 (CUS-C); ORG-H with v0.12 if Q246; ORG-MCP in v0.15; ORG-P not on the train; one parallel row. Q240 to Q249 open |
 | 2026-10-25 (owner answers, ANSWERS-3) | Q220 to Q226 and Q229 answered yes as recommended. Q227 changed: the production secrets and `OWNER_EMAIL` stay in GitHub Actions secrets, with compensating rules R1 to R6 (new 7.5, the 7.4 row, 7.1 and 7.2). Q228 changed: BKP-1 runs from this machine as a launchd job (new 7.6, 7.4 row, I3). The earlier recommendations are marked superseded in section 9 |
 | 2026-10-25 | First version: release train v0.1 to v1.2, critical path and seats, gate, smoke list, rollback, the coordinator's checklist, the GitHub Actions plan for a public repository, the release-notes convention, Q220 to Q229 |

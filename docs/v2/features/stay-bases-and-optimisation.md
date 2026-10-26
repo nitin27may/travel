@@ -1,5 +1,7 @@
 # Stay bases and stay optimisation (where to stay, fewer moves, lower cost)
 
+> **Amended 25 Oct 2026 (trip origin and nearest airport):** every trip now has a gateway in `data/trips/gateways.json` (`trip-gateways/1`), and a strategy's own `gateway` is its default. Airports become reference rows (`airport:YYC`, `airport:YEG`) instead of the proposed `place/calgary-international-airport` and `place/edmonton-international-airport` records (9.2), if Q244 is answered yes. The Where to stay comparison gains an "Airport in and out" row. See [trip-origin-and-nearest-airport.md](trip-origin-and-nearest-airport.md) sections 5 and 10 (PLAN R-202).
+
 Status: spec, 25 Oct 2026, written by travel-planner (Opus) from the owner's request of the same day. Nothing here is
 built. Tracked as PLAN R-76 to R-80, BACKLOG 15.76 to 15.80, TODO row 2026-10-25. Research batches: DATA D9-R and D9 in
 [build/public-site/briefs/DATA.md](../build/public-site/briefs/DATA.md), prompts in

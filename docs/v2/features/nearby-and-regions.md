@@ -1,5 +1,7 @@
 # Nearby places, the Where filter and the smart trip builder
 
+> **Amended 25 Oct 2026 (trip origin and nearest airport):** in the smart trip builder (6.1 step 2) the source is no longer "a hub, or the private origin when signed in". It follows the precedence ladder of [trip-origin-and-nearest-airport.md](trip-origin-and-nearest-airport.md) section 3: the visitor's choice, then the account default, then the nearest airport to the base (a public hub for 0 to 3 nights). The picker is the same component as on trip pages (PLAN R-200, R-205).
+
 Status: spec, 20 Oct 2026. Written by travel-planner (Opus) from the owner's request of 20 Oct (backlog 8.1 to 8.6).
 Nothing in it is built. It extends, and does not replace: smart-search.md (A5, A6, A14, Q37), relevance.md 3.2
 (`pair_with`, Similar nearby), place-page-sections.md section 11, short-trips.md 4.1 (the hub matrix, row 3.12) and

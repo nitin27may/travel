@@ -1,5 +1,7 @@
 # Request intake fields: ask enough to start research, without a heavy form
 
+> **Amended 25 Oct 2026 (trip origin and nearest airport):** "Starting from" (Q239) uses the shared origin picker (airports and gazetteer towns, shown exactly as their files hold them) and stores `start` as `{ref, text}`; free text stays as a fallback. FBK-C +0.25 h, REQ-F1 +0.5 h. See [trip-origin-and-nearest-airport.md](trip-origin-and-nearest-airport.md) sections 9 and 10 (PLAN R-205).
+
 Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements PLAN R-190 to R-196, BACKLOG 15.190 to
 15.196, owner questions Q230 to Q239 (**all answered 25 Oct 2026, yes as recommended**). Nothing here is built. This page specifies **the fields** of every intake type; it
 does not repeat the intake pipeline, the guards, the queue or the custom-stop picker. Those stay in:

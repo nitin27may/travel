@@ -716,6 +716,34 @@ Request intake total: about 30.5 h net (Opus 6.5, Sonnet 24), after the 3 h FBK-
 the other widenings; REQ-RF-C then REQ-RF any time; REQ-F2, REQ-F1, REQ-F3 one at a time on `web/components/intake/**`
 after FBK-2 and REQ-1; REQ-FB in parallel after FBK-3; then REQ-R4 and REQ-V4.
 
+### 10.3 Enhancement queue: trip origin and the nearest airport (ORG, added 25 Oct 2026, planned only)
+
+Spec [trip-origin-and-nearest-airport.md](../../features/trip-origin-and-nearest-airport.md) (PLAN R-200 to R-207, BACKLOG 15.200 to 15.208, Q240 to Q249 open).
+Getting there starts from the visitor's chosen city or airport, else the trip's researched gateway (a public hub for 0
+to 3 nights), else the nearest airport with scheduled flights. Core and data run in seat B any time; the trip page waits
+for R-59, which owns `web/components/trips/**` while it runs. Briefs are the spec's section 13 rows (goal, owned and
+forbidden files, steps, acceptance, verification, commit rules).
+
+| ID | Task | Agent, model | Effort | Depends on | Acceptance check |
+|---|---|---|---|---|---|
+| ORG-N | Design note and foundation rows (Getting there line, panel, picker, trigger location, patterns 1.2 keys) | travel-design-reviewer, Opus | 1.5 h | none | P1 to P7, T5 cited; one trigger location |
+| ORG-C | `core/src/origin/**`, config, three schemas, store methods, OpenAPI, stub, airport identity rule, detector keys, codec keys | travel-builder, Opus | 4 h | none | golden table of 27 destinations; precedence properties; contract kit green |
+| ORG-D | `tools/airports.py` and `data/reference/airports/**` from OurAirports with a manifest and `--check` | travel-builder, Sonnet | 3 h | ORG-C schema | rows verbatim; `--check` offline in check-all |
+| ORG-G | `data/trips/gateways.json` for 13 trips; Rockies refs to `airport:` ids; gap report | travel-researcher, Opus | 3 h | ORG-D | `E_GATEWAY_IATA` 0; every 4+ night trip has in and out |
+| ORG-M | Routed gateway legs (about 80 ORS cells) into the legs store | travel-builder, Sonnet | 1.5 h | ORG-G | `--check` fails on a missing pair; key never in output |
+| ORG-A | Routes `origins`, `airports`, `getting-there`; `DataClient`; log retention recorded | travel-builder, Sonnet | 2 h | ORG-C, ORG-D | route tests; no query in our logs |
+| ORG-1 | Trip page line, Day 1 and Day N from the resolver, trigger, lazy panel, `origin/1`, `from` and `gw`, flag `gettingThere` | travel-builder, Sonnet | 7 h | ORG-N, ORG-A, R-59 merged | place HTML +0 B; trip start JS at most +200 B; panel at most 8 KB; server HTML identical with and without `?from=` |
+| ORG-2 | Copy sheet line, `copies/1` and `trip-custom/1` `from`, Mine row | travel-builder, Sonnet | 2 h | ORG-1, NAV-2 | origin kept across reload; never in a public payload |
+| NAV-C (+), CUS-C (+), FBK-C (+), REQ-F1 (+) | reserve `from` and `gw`; intake `start` as `{ref, text}`; the picker in Starting from | travel-builder, Opus 0.75 h, Sonnet 0.5 h | 1.25 h | inside each task | each task's own tests |
+| ORG-R, ORG-V | Review and verify | reviewer Opus, verifier Sonnet | 4 h | ORG-2 | approved; first-use walk under 20 s; sweep at 1440 and 390, light and dark |
+| ORG-MCP | Public MCP `get_trip.origin`, `nearest_airports` | travel-builder, Sonnet | 1.5 h | MCP-1, ORG-C | tool tests; no arguments in the audit log |
+| ORG-H, ORG-P | Account default (migration `account-start`); place-page airport row (lazy) | travel-builder, Opus 1 h + Sonnet 6 h | 7 h | v0.12; Q88 and Q248 | later |
+
+ORG total: about 28 h for phase 1 (Opus 10.5, Sonnet 17.5), 1.25 h of widenings, ORG-MCP 1.5 h, 7 h later. Order:
+ORG-C, then ORG-D, ORG-G, ORG-M (seat B, no visitor change) and ORG-N; ORG-A; ORG-1 after R-59; ORG-2; ORG-R and ORG-V.
+`web/components/actions/CopySheet.tsx`: ORG-2 never in parallel with NAV-2 or OVR-1. `core/src/privacy/detect.ts`: ORG-C
+one at a time with NAV-C, FAV-C and CUS-C.
+
 ### 10.4 Infra queue: test strategy (TS, added 25 Oct 2026, planned only)
 
 Spec [TEST-STRATEGY.md](../TEST-STRATEGY.md) (PLAN R-210 to R-214, BACKLOG 15.210 to 15.218, Q250 to Q258). No visitor
@@ -1025,6 +1053,7 @@ Every pending item from every source (BACKLOG, TODO, design reviews and notes, l
 
 | Date | Change |
 |---|---|
+| 2026-10-25 | Trip origin and the nearest airport (R-200 to R-207, [trip-origin-and-nearest-airport.md](../../features/trip-origin-and-nearest-airport.md)): new 10.3, the ORG queue (about 28 h phase 1); widenings in NAV-C, CUS-C, FBK-C and REQ-F1; visible part with R-59 in v0.9. Planned only |
 | 2026-10-25 | Request intake fields (R-190 to R-196, [request-intake-fields.md](../../features/request-intake-fields.md)): 10.2 gains the request-intake block (REQ-RF-C, REQ-RF, REQ-F1 to REQ-F3, REQ-FB, REQ-R4, REQ-V4); FBK-C widened again (+2.5 h), FBK-2 loses the place and trip fields (−3 h). Planned only |
 | 2026-10-25 | Requests and custom places (R-170 to R-177, [requests-and-custom-places.md](../../features/requests-and-custom-places.md)): new 10.2, the REQ enhancement queue; FBK-C, FBK-3 and CUS-C widened before their migrations. Planned only |
 | 2026-10-25 | Navigation and Mine (R-160 to R-164, [navigation-and-mine.md](../../features/navigation-and-mine.md)): new 10.1, the NAV enhancement queue; FAV-1 re-scoped to the Mine panel. Planned only |

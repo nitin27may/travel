@@ -1,5 +1,7 @@
 # Navigation and "Mine": the phone bar, the header, and one home for a visitor's own things
 
+> **Amended 25 Oct 2026 (trip origin and nearest airport):** `copies/1` gains optional private `from` (an origin reference) and `gw` (`{in, out}`), reserved in NAV-C (+0.25 h); a copy row in Mine shows "from <city>". The origin is never in a public payload. See [trip-origin-and-nearest-airport.md](trip-origin-and-nearest-airport.md) sections 8 and 10 (PLAN R-204, R-205).
+
 Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements PLAN R-160 to R-164, BACKLOG 15.160 to
 15.169, owner questions Q200 to Q207. Nothing here is built. Phase 1 needs no backend.
 

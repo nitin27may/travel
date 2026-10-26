@@ -1,5 +1,7 @@
 # Trip overview, best time to go, and customisation
 
+> **Amended 25 Oct 2026 (trip origin and nearest airport):** `trip-custom/1` gains optional private `from` and `gw`, reserved in CUS-C (+0.25 h) before its migration is applied. Not `start`, which stays the ISO date. See [trip-origin-and-nearest-airport.md](trip-origin-and-nearest-airport.md) section 10 (PLAN R-204).
+
 > **Amended 25 Oct 2026 (requests and custom places):** `trip-custom/1` gains `title`, `moved` (reorder in a day),
 > `days` (add or drop a day), `notes` and `custom` (a stop we do not have, with the visitor's point and source), widened
 > in CUS-C before the migration is applied. "Only places are added" and "added items use catalogue refs, never names"
