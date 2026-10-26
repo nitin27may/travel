@@ -19,6 +19,12 @@ OAuth provider are not selected (R-60, Oct 2026; the Cloudflare Tunnel plan in 0
 It touches private family data (ages, travel dates, where the house will be empty, booking codes) and
 it accepts writes from software that reads untrusted web pages. That combination is the risk.
 
+> **Rule, 26 Oct 2026 (planned; PLAN R-252; [README](README.md) 1.1):** MCP tools never touch the database directly. No
+> MCP code imports a database client or runs SQL (a grep test in MCP-C and MCP-1 enforces it); every tool calls the same
+> store method or operation as the matching `/api/v1` route; `respond()` and its privacy detector run on every MCP
+> response; private writes run the app's operations inside `withUserTransaction`, so validation and RLS are identical; the
+> grant, token and quota checks are shared server functions. This narrows T7 and T12 below to one code path.
+
 ## Assets
 
 | Asset | Why it matters |
@@ -47,6 +53,7 @@ it accepts writes from software that reads untrusted web pages. That combination
 | T11 | **Server-side request forgery** | `add_from_url` or `attach {url}` pointed at the home network | URL fetching only over HTTPS to public addresses; private and link-local ranges blocked; size and time limits; no redirects to private ranges |
 | T13 | **Leaky share links** | a guest link forwarded beyond the grandparents, or a link that shows more than intended | links are scoped (day, list, item...), expire by default, can carry a PIN, never include codes, attachments, ages or home address; open count and last opened are shown; revoke is instant; creating guest or public links needs `confirmed_by_user` and is logged in the activity feed |
 | T12 | **Infrastructure exposure** | a future public host exposes more than `/mcp` and the app | a deployment must expose only the web app's routes; no database console, direct Postgres access or admin route is selected or authorised today; database owner and service credentials never leave the server or reach a browser bundle. (Historical: the home-server tunnel, Supabase Studio and gateway admin routes in 08-self-hosted.md) |
+| T14 | **A second path to the database** | an MCP tool written with its own query skips the privacy detector, the allowlists or RLS that `/api/v1` applies | rule M1 to M5 of the README 1.1: no database client or SQL in MCP code (grep test), store and operations only, `respond()` on every response; MCP-S checks the test exists and passes |
 
 ## Operational rules
 

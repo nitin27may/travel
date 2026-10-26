@@ -66,6 +66,25 @@ selected or built; everything below is the target design. This folder is the ref
 8. **Small outputs.** Lists are paginated (`cursor`), entities come in a compact form unless
    `detail: "full"` is asked for, and geometry is omitted unless requested.
 
+### 1.1 Rule: MCP sits on the API layer, never on the database (planned, 26 Oct 2026; PLAN R-252)
+
+The remote MCP tools (public and private) are a second door onto the layer `/api/v1` already uses: the typed
+`CatalogueStore` behind the store router (CAT-Q), the Zod contracts in `core/src/schema/api/**`, the operations in
+`core/src/ops/**` and the shared server functions the route handlers call. They never reach the database themselves.
+
+| # | Rule | How it is held |
+|---|---|---|
+| M1 | **No MCP code imports a database client or runs SQL.** Nothing under `web/app/mcp/**`, `web/lib/mcp/**` or `core/src/mcp/**` imports `pg`, `postgres`, `@neondatabase/serverless`, an ORM or query builder, `core/src/db/**` (including `withUserTransaction`) or `core/src/catalogue/postgres/**`, and none holds a SQL string or `sql` template | a test greps those paths for the imports and for SQL keywords at the start of a string (MCP-C writes it for `core/src/mcp/**`; MCP-1 extends it to the web paths; it runs in T1 for every MCP change and in check-all) |
+| M2 | **Reads go through the store, writes through the operations.** A public tool calls the same `CatalogueStore` method as its `/api/v1` route; a private tool calls the same server function or operation as the app's route for that action (`trip.create`, `item.move`, ...), which opens `withUserTransaction` itself | the tool-to-route table in MCP-C's contract names, for every tool, the route handler or operation it shares; a tool without one fails the contract test |
+| M3 | **`respond()` applies to every MCP response.** The privacy detector and allowlists that guard `/api/v1` bodies run on every tool result, public and private, before it leaves the server | MCP-1 and MCP-2 tests plant household strings and expect a refusal |
+| M4 | **Private writes get the same validation and RLS as the app.** Because they run the app's operations inside `withUserTransaction` as the caller, Zod validation, row-level security and the `op_event` log are identical whichever door was used (principle 2 above) | MCP-2's cross-user tests reuse the route handlers' isolation cases |
+| M5 | **Access checks live in the shared layer too.** The level and grant check (MCP-G), token resolution (MCP-T) and quotas (the `quota_bucket` module of EML-Q) are server functions outside the MCP folders that the MCP transport calls with the verified identity; the MCP folders hold only transport, tool registry, schemas and mapping | MCP-G and MCP-T own their logic under the shared server layer (for example `core/src/access/**`), not `core/src/mcp/tokens/**` as auth-and-sign-in.md 8 first listed |
+
+**Consequence:** the Postgres cutover (bundle K, SRV-0 seams) is invisible to MCP. When a store method moves from
+`JsonStore` to `PostgresStore`, the public tools change with `/api/v1` and need no edit; the early Postgres reads of
+private MCP (CATALOGUE-EARLY 5) already arrive through the same router. The local stdio server (`core/bin/mcp.ts`) is
+owner-only and reads files; M1 applies to it too (it imports no database client today).
+
 ## 2. Transport and endpoint
 
 - **Streamable HTTP** at `https://app.<domain>/mcp`, served by the Hono app inside the Next.js

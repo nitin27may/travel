@@ -1,5 +1,10 @@
 # MCP sign-in: how each of our MCP servers authenticates, with the current Neon and Vercel setup
 
+> **26 Oct 2026 (planned; PLAN R-252; [README](README.md) 1.1):** MCP tools sit on the `/api/v1` store and operation
+> layer and never on the database. This moves MCP-T's token logic and MCP-G's level check out of `core/src/mcp/**` into
+> the shared server layer (for example `core/src/access/**`); the files listed in section 8 for them are superseded on
+> that point. MCP-C and MCP-1 add a test that fails on any database import or SQL in MCP code.
+
 Status: **design, 25 Oct 2026 (travel-planner, Opus). Nothing here is built. Spike MCP-0 passed on the child branch
 on 25 Oct with conditions (section 13). Access levels and the Connected apps settings added 25 Oct (section 14; PLAN
 R-150 to R-156, BACKLOG 15.150 to 15.157, Q190 to Q198).** Last verified 25 Oct 2026 against main 753bbcc (section 14

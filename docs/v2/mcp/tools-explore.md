@@ -2,6 +2,12 @@
 
 > **Amended 25 Oct 2026 (trip origin and nearest airport):** the public MCP's `get_trip` gains an optional `origin` and returns `getting_there`; a new read-only `nearest_airports` tool is planned (ORG-MCP, with MCP-1). See [../features/trip-origin-and-nearest-airport.md](../features/trip-origin-and-nearest-airport.md) section 11 (PLAN R-206).
 
+> **Rule, 26 Oct 2026 (planned; PLAN R-252; [README](README.md) 1.1):** every tool on this page calls the same
+> `CatalogueStore` method as its `/api/v1` route (`search` the search route, `get` the detail routes, `area_guide` the
+> area and near routes), and its result passes through `respond()`. No tool here imports a database client or runs SQL;
+> the "Ops" lines below name operations of that shared layer. After the Postgres cutover these tools read Postgres
+> through the store with no change of their own.
+
 Scope `catalog:read` (anonymous allowed at low limits). Read-only. Results come from the published
 catalog only (`entity.status = 'published'`); proposed changes are never shown here.
 
