@@ -1,7 +1,7 @@
 # Requests and custom places: what a visitor can ask for, and what they can add to their own copy
 
 Status: **spec, planned only** (25 Oct 2026, travel-planner, Opus). Requirements PLAN R-170 to R-177, BACKLOG 15.170 to
-15.179, owner questions Q210 to Q218 (**Q210 answered 25 Oct 2026, changed: Google Places is the primary place search, ORS and Photon the fallback; Q211 to Q218 still open**). Nothing here is built. This page is a **gap analysis first**: most of what the owner
+15.179, owner questions Q210 to Q218 (**all answered 25 Oct 2026: Q210 changed, Google Places is the primary place search, ORS and Photon the fallback; Q211 to Q218 yes, as recommended**). Nothing here is built. This page is a **gap analysis first**: most of what the owner
 asked for is already specified, and this page links to it rather than repeating it. It adds only what is missing.
 
 Related, and the authority for everything this page links to:
@@ -665,19 +665,19 @@ light and dark plus a first-use walk (P4).
 7. Place HTML and public trip start JS are unchanged in both builds.
 8. With `GEOCODE_ENABLED=0`, tier 3 is hidden and "add as my own" still works.
 
-## 13. Open owner questions (Q210 to Q218)
+## 13. Owner questions (Q210 to Q218, all answered 25 Oct 2026)
 
 | ID | Question | Recommendation | Trade-off |
 |---|---|---|---|
 | Q210 | Map search provider for custom stops. **ANSWERED 25 Oct 2026 (changed): Google Places is the primary place search (10 to 20 users, free monthly usage); openrouteservice then Photon is the fallback if Google causes trouble; Nominatim for research only.** | **Decided by the owner** | A billing account with a capped exposure; Google rows carry no point; Google terms to follow (4.3) |
-| Q211 | Custom stops become suggestions by default for public points of interest, never for addresses or lodging, with the box always visible? | **Yes** | A mis-tagged public place is not suggested; a few more queue items |
-| Q212 | Custom stops only in the signed-in copy, not in device copies? | **Yes** (Q68 stays open) | Signed-out visitors cannot add a place we do not have |
-| Q213 | A new request type "Suggest an improvement" (a stop, more detail, a longer or shorter version, another season) rather than more report reasons? | **Yes** | One more branch in the intake contract |
-| Q214 | Copy edits beyond CUS-1 (reorder in a day, add and drop a day, notes, title, dates) right after CUS-1, as REQ-E? | **Yes** | About 11 h more before customisation is called done |
-| Q215 | Once a suggested place is added, offer the requester "Use our page" in their copy, never change it for them? | **Yes** | One tap for the visitor |
-| Q216 | Keep the CLI as the admin tool; MCP intake tools later at `owner_admin` only, after MCP-3 and MCP-S; one owner role (MCP-G's bootstrap) for console and MCP? | **Yes** | Moderation stays on the Mac until then |
-| Q217 | No personal replies to "where should I go"; show what we already have and count the request? | **Yes** | Some visitors want advice we will not give |
-| Q218 | Keep no public credit (Q107); show "You suggested this" to the requester only? | **Yes** | No public recognition |
+| Q211 | Custom stops become suggestions by default for public points of interest, never for addresses or lodging, with the box always visible? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | A mis-tagged public place is not suggested; a few more queue items |
+| Q212 | Custom stops only in the signed-in copy, not in device copies? | **Yes** (Q68 stays open; ANSWERED 25 Oct 2026: yes, as recommended.) | Signed-out visitors cannot add a place we do not have |
+| Q213 | A new request type "Suggest an improvement" (a stop, more detail, a longer or shorter version, another season) rather than more report reasons? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | One more branch in the intake contract |
+| Q214 | Copy edits beyond CUS-1 (reorder in a day, add and drop a day, notes, title, dates) right after CUS-1, as REQ-E? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | About 11 h more before customisation is called done |
+| Q215 | Once a suggested place is added, offer the requester "Use our page" in their copy, never change it for them? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | One tap for the visitor |
+| Q216 | Keep the CLI as the admin tool; MCP intake tools later at `owner_admin` only, after MCP-3 and MCP-S; one owner role (MCP-G's bootstrap) for console and MCP? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | Moderation stays on the Mac until then |
+| Q217 | No personal replies to "where should I go"; show what we already have and count the request? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | Some visitors want advice we will not give |
+| Q218 | Keep no public credit (Q107); show "You suggested this" to the requester only? | **Yes** (ANSWERED 25 Oct 2026: yes, as recommended.) | No public recognition |
 
 Conflicts flagged, not changed: Q67 (who may sign up) still governs every signed-in part; Q68 (guest planning) is not
 decided (RQ3 keeps custom stops out of device copies either way); Q98 (who may customise, invite-only) gates phases 2
@@ -722,6 +722,7 @@ and 3; Q148 (no mail domain now) keeps day one to verified signed-in senders.
 
 | Date | Change |
 |---|---|
+| 2026-10-25 (owner answers, ANSWERS-2) | Owner answered Q211 to Q218: all yes, as recommended, no changes. Section 13 heading and status cells marked answered; nothing else changed |
 | 2026-10-25 (later) | Owner answered Q210 (changed): Google Places is the primary place search, ORS then Photon the fallback. Section 4.3, RQ5, RQ8, the storage table, the custom operation, the brief, the privacy and budget rows, REQ-G0 (now Google terms and cost cap check plus the fallback switch, 3 h), REQ-G (6 h), acceptance 4, gotchas and Q210 rewritten. Q211 to Q218 stay open |
 | 2026-10-25 | First version from the owner's request of 25 Oct (items A to I): traceability against R-62 to R-67, R-70 to R-75, R-90 to R-96, R-150 to R-156, R-160 to R-164; decisions RQ1 to RQ12; the `improve` type, trip-request answers, place fields, copy edits, custom stops, the provider decision, the queue loop, the admin side; tasks REQ-1, REQ-E, REQ-P, REQ-G0, REQ-G, REQ-S, REQ-L, REQ-A, REQ-M and widenings of FBK-C, CUS-C, FBK-3; questions Q210 to Q218 |
 
