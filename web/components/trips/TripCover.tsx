@@ -31,7 +31,7 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
         <div className="trip-cover-scrim" aria-hidden="true" />
         <div className="trip-cover-text">
           <p className="trip-kicker">
-            {trip.depth === 'overview' ? 'Overview' : trip.isDone ? 'Finished plan' : 'Published plan'} &middot; {trip.region}
+            {trip.depth === 'overview' ? 'Overview' : 'Published plan'} &middot; {trip.region}
           </p>
           <h1 className="trip-title">{trip.title}</h1>
           <p className="trip-standfirst">{trip.subtitle}</p>
@@ -46,11 +46,6 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
                 <Chip kind="neutral" icon="user">{ageLabel('fit', trip.ageFit)}</Chip>
               </li>
             ) : null}
-            {trip.isDone ? (
-              <li>
-                <Chip kind="neutral" icon="check" title="A finished plan. It stays as written; copy it to plan your own.">Finished plan, kept as a template</Chip>
-              </li>
-            ) : null}
             <li>
               <Chip kind="neutral" icon={false}>by Nitin</Chip>
             </li>
@@ -60,7 +55,7 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
               </li>
             ))}
           </ul>
-          <TripActions slug={trip.slug} title={trip.title} nights={trip.nights ?? 0} days={trip.daysCount ?? 0} url={url} hasDays={trip.depth !== 'overview'} seasonMonths={trip.season?.months} done={trip.isDone} photo={trip.cover ? sizedImage(trip.cover.url, 320) : null} />
+          <TripActions slug={trip.slug} title={trip.title} nights={trip.nights ?? 0} days={trip.daysCount ?? 0} url={url} hasDays={trip.depth !== 'overview'} seasonMonths={trip.season?.months} photo={trip.cover ? sizedImage(trip.cover.url, 320) : null} />
         </div>
       </div>
       <dl className="trip-glance">

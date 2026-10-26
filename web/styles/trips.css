@@ -20,7 +20,6 @@
   /* a 44 px target without a taller chip */
   .tag-link::before { content: ''; position: absolute; inset: -9px -3px; }
 }
-.card:has([data-trip-done]) .card-media img { filter: saturate(0.6) brightness(var(--img)); }
 .trips-credits { margin-top: var(--s-10); }
 
 /* ---------- map view ---------- */

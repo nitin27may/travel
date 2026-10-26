@@ -9,7 +9,9 @@ test.describe('trips list', () => {
     await expect(page.locator('.card').first()).toBeVisible();
     for (const name of ['Where', 'When', 'Length', 'Youngest child']) await expect(page.getByRole('button', { name })).toBeVisible();
     for (const v of ['Cards', 'List', 'Table', 'Map']) await expect(page.getByRole('radio', { name: v })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Finished plans, use as templates' })).toBeVisible();
+    // every public trip reads as a published plan: no finished group, no done marker (PRIV-TD)
+    await expect(page.getByRole('heading', { name: 'Finished plans, use as templates' })).toHaveCount(0);
+    await expect(page.locator('[data-trip-done]')).toHaveCount(0);
     await expect(page.locator('.card').first().getByRole('link', { name: 'Public page' })).toHaveAttribute('href', /\/trips\/[a-z0-9-]+\/$/);
     expect(await page.locator('main').innerText()).not.toMatch(DATE);
     await page.goto(`${site.url}/trips/?view=map&c=12.1,46.5,7`);
@@ -112,11 +114,12 @@ test.describe('trip page', () => {
 });
 
 test.describe('trip page extras', () => {
-  test('a done trip is a template and offers "Use as a template"', async ({ page, site }) => {
+  test('a trip whose real dates have passed reads as a published plan and offers "Copy to my trips" (PRIV-TD)', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/vermont-fall-2026/?view=day`);
-    await expect(page.getByRole('button', { name: 'Use as a template' }).first()).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Copy to my trips' })).toHaveCount(0);
-    await expect(page.getByText('A finished plan, kept as a template.')).toBeVisible();
+    await expect(page.locator('.trip-kicker')).toContainText('Published plan');
+    await expect(page.getByRole('button', { name: 'Copy to my trips' }).first()).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Use as a template' })).toHaveCount(0);
+    await expect(page.getByText(/finished plan/i)).toHaveCount(0);
   });
   test('an open day offers a link to itself and every row has its anchor', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/dolomites-2027/#day-3`);

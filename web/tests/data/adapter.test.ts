@@ -103,9 +103,9 @@ describe('trips', () => {
     expect(c.honesty.map((h) => h.id)).toContain('overview_only');
   });
 
-  it('past trips are marked done so the list can group them as templates', () => {
-    const done = d.listTrips().filter((t) => t.isDone).map((t) => t.slug).sort();
-    expect(done).toEqual(['algonquin-muskoka-2026', 'new-hampshire-stopover-2026', 'niagara-day-2026', 'quebec-2026', 'vermont-fall-2026']);
+  it('no trip carries a status computed from the household\'s real trip date (PRIV-TD)', () => {
+    for (const t of d.listTrips()) expect(Object.keys(t), t.slug).not.toContain('isDone');
+    for (const t of d.internals.trips) expect(Object.keys(t), t.slug).not.toContain('isDone');
   });
 });
 

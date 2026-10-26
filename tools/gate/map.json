@@ -128,7 +128,7 @@
                 "!web/tests/data/shell-size.test.ts", "!web/tests/data/specimen-privacy.test.ts", "!web/tests/export/page-data.test.ts", "!web/tests/favourites/boundary.test.ts",
                 "!web/tests/fonts.test.ts", "!web/tests/images.test.ts", "!web/tests/og-images.test.ts", "!web/tests/og.test.ts",
                 "!web/tests/places/built-pages.test.ts", "!web/tests/places/tracks-markers.test.ts", "!web/tests/privacy.test.ts",
-                "!web/tests/shell/privacy-page.test.ts", "!web/tests/trips/timeline-outlinks.test.ts", "!web/tests/no-hex.test.ts",
+                "!web/tests/shell/privacy-page.test.ts", "!web/tests/trips/timeline-outlinks.test.ts", "!web/tests/privacy/trip-status-built.test.ts", "!web/tests/no-hex.test.ts",
                 "!web/tests/api/revision-timing.test.ts", "!web/tests/search/budget.test.ts", "!web/tests/home/search.test.ts",
                 "!web/tests/search/split.test.ts"],
       "steps": ["web test"]
@@ -142,7 +142,8 @@
                 "web/tests/data/light-data.test.ts", "web/tests/data/link-only-facts.test.ts", "web/tests/data/photo-credits-clean.test.ts",
                 "web/tests/data/place-size.test.ts", "web/tests/data/specimen-privacy.test.ts", "web/tests/export/page-data.test.ts", "web/tests/favourites/boundary.test.ts",
                 "web/tests/fonts.test.ts", "web/tests/images.test.ts", "web/tests/og-images.test.ts", "web/tests/places/built-pages.test.ts",
-                "web/tests/places/tracks-markers.test.ts", "web/tests/shell/privacy-page.test.ts", "web/tests/trips/timeline-outlinks.test.ts"],
+                "web/tests/places/tracks-markers.test.ts", "web/tests/shell/privacy-page.test.ts", "web/tests/trips/timeline-outlinks.test.ts",
+                "web/tests/privacy/trip-status-built.test.ts"],
       "steps": ["web test"]
     },
     "web.fixture": {

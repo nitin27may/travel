@@ -33,8 +33,6 @@ export function publicTripBadges(t: TripListRow): Badge[] {
   return out;
 }
 
-const PHASE_TITLE = { plan: 'Published plans', done: 'Finished plans, use as templates' } as const;
-const phase = (t: TripListRow) => (t.isDone ? 'done' : 'plan');
 const DEPTH_RANK = { full: 0, summary: 1, overview: 2 } as const;
 
 function col(id: string, header: string, cell: ColumnDef<TripListRow, unknown>['cell'], text: (t: TripListRow) => string | number, size = 140, opts: { align?: 'right'; sort?: boolean } = {}): ColumnDef<TripListRow, unknown> {
@@ -67,7 +65,6 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
       <span className="card-links trip-links">
         <a href={tripHref(t.slug)}>Public page</a>
       </span>
-      {t.isDone ? <span hidden data-trip-done="" /> : null}
     </>
   ),
   iconFor: () => 'calendar',
@@ -199,13 +196,13 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
   ],
   defaultColumns: ['title', 'fit', 'length', 'nights', 'season', 'countries', 'kids', 'depth'],
   groupBy: [
-    { id: 'phase', label: 'Plan', key: phase, title: (t) => PHASE_TITLE[phase(t)], subtitle: (t) => (t.isDone ? 'Kept as templates to copy' : '') },
     // Day trips first, then overnights, weekends, long weekends and the 4+ bands (short-trips 3.3)
     { id: 'length', label: 'Length', key: (t) => String(lengthRank(t)), order: (t) => lengthRank(t), title: (t) => (t.length ? PHASE_FOR_LENGTH[t.length] : 'Length not set') },
     { id: 'country', label: 'Country', key: (t) => t.country || '~', title: (t) => t.countryName || 'Country not set' },
     { id: 'depth', label: 'Depth', key: (t) => String(DEPTH_RANK[t.depth]), title: (t) => DEPTH_LABEL[t.depth] },
   ],
-  defaultGroup: 'phase',
+  // no phase group: a public trip has no finished state (PRIV-TD), so the list is one ungrouped run, most complete first
+  defaultGroup: 'none',
   sorts: {
     title: { label: 'Name', value: (t) => t.title },
     nights: { label: 'Length', value: (t) => t.nights },
@@ -213,7 +210,7 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
     depth: { label: 'Depth', value: (t) => DEPTH_RANK[t.depth] },
     country: { label: 'Country', value: (t) => t.countryName || null },
   },
-  defaultSort: (a, b) => Number(a.isDone) - Number(b.isDone) || DEPTH_RANK[a.depth] - DEPTH_RANK[b.depth] || a.title.localeCompare(b.title),
+  defaultSort: (a, b) => DEPTH_RANK[a.depth] - DEPTH_RANK[b.depth] || a.title.localeCompare(b.title),
   defaultSortLabel: 'Most complete first',
   // a plan above the chosen age fades with the reason on its card (there is no rule split for trips yet)
   fadeBy: 'plan',

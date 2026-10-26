@@ -18,8 +18,6 @@ interface Props {
   hasDays: boolean;
   /** Months (1 to 12) the plan is valid for; becomes the copy sheet's valid window. */
   seasonMonths?: number[];
-  /** The trip already happened: the page is read-only and the primary action reads "Use as a template". */
-  done?: boolean;
   /** The copy's snapshot (NAV-2): the country code (none on a trip page yet) and a same-origin photo path. */
   cc?: string | null;
   photo?: string | null;
@@ -41,7 +39,7 @@ const CopySheet = dynamic(() => import('@/components/actions/CopySheet').then((m
 const FORMATS: ExportFormat[] = ['pdf', 'ics', 'gpx', 'kml', 'csv'];
 
 /** Copy to my trips, Export and Share. The three parts are L5's components; this only places them. The sheet takes the season window from the months. */
-export function TripActions({ slug, title, nights, days, url, hasDays, seasonMonths, done, cc, photo, className }: Props) {
+export function TripActions({ slug, title, nights, days, url, hasDays, seasonMonths, cc, photo, className }: Props) {
   const [copying, setCopying] = useState(false);
   const [sheetEver, setSheetEver] = useState(false);
   // the favourites heart, after Share in the cover's row only (FAV-1, D11): an import() after hydration, so the page pays the stub alone
@@ -57,7 +55,7 @@ export function TripActions({ slug, title, nights, days, url, hasDays, seasonMon
             setSheetEver(true);
             setCopying(true);
           }}>
-          <Icon name="layers" size={15} /> {done ? 'Use as a template' : 'Copy to my trips'}
+          <Icon name="layers" size={15} /> Copy to my trips
         </Button>
       ) : null}
       <ExportMenu target={{ type: 'trip', slug }} formats={hasDays ? FORMATS : ['pdf']} label="Export trip" />

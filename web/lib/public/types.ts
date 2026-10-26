@@ -342,8 +342,6 @@ export interface PublicTripCard {
   daysCount: number | null;
   /** True when the trip has no season yet; the page says "season not set yet". */
   seasonNotSet: boolean;
-  /** The trip already happened: goes in the "done, use as a template" group. */
-  isDone: boolean;
   region: string;
   cover: Photo | null;
   season: Season | null;

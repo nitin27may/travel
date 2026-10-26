@@ -28,7 +28,8 @@ const photo = z.strictObject({
 const honesty = z.strictObject({ id: z.enum(HONESTY_IDS), label: z.string(), reason: z.string() });
 const idLabel = z.strictObject({ id: z.string(), label: z.string() });
 
-/** `TripRow`: the 37 keys of web TRIP_LIST_KEYS plus `ref`, and nothing else (the allowlist of case K2). */
+/** `TripRow`: the 36 keys of web TRIP_LIST_KEYS plus `ref`, and nothing else (the allowlist of case K2). No key derived from the household's
+ * real trip dates (PRIV-TD: `isDone` left the contract; PLAN 1 Privacy, P9). */
 export const tripRow = z.strictObject({
   ref: tripRefId,
   id: apiSlug,
@@ -38,7 +39,6 @@ export const tripRow = z.strictObject({
   nights: z.int().min(0).nullable(),
   days: z.int().min(0).nullable(),
   seasonNotSet: z.boolean(),
-  isDone: z.boolean(),
   region: z.string(),
   cover: z.string().nullable(),
   seasonLabel: z.string().nullable(),
@@ -148,7 +148,9 @@ const publicDay = z.strictObject({
     place: z.string(),
     label: z.string(),
     abbr: z.string(),
+    /** The trip's own base zone, never the household's (PRIV-TD; alignment 2.6 S3). */
     home: z.string(),
+    /** The abbreviation of `home`: the trip's own base zone, never the household's. */
     homeAbbr: z.string(),
     offsetMin: z.int(),
     items: z.array(z.string()),
@@ -203,7 +205,6 @@ export const tripDetail = z.strictObject({
   nights: z.int().min(0).nullable(),
   daysCount: z.int().min(0).nullable(),
   seasonNotSet: z.boolean(),
-  isDone: z.boolean(),
   region: z.string(),
   cover: photo.nullable(),
   season: z.strictObject({
