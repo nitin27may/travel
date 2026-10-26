@@ -424,14 +424,13 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
     if (days.some((d) => d.driveIsEstimate)) h.push(honesty('drive_estimated', 'Drive times are estimates, not routed.'));
     const startYear = hub?.date ? Number(hub.date.slice(0, 4)) : 0;
     if (depth !== 'overview' && startYear >= 2027) h.push(honesty('pattern_2026', 'Opening times and prices were read in 2026 and are used as a pattern.'));
-    let isDone = false;
-    if (hub?.date && nights !== null) isDone = Date.parse(hub.date) + (nights + 1) * 86_400_000 < Date.parse(src.today);
+    // no status is computed from the household's real trip date: every public trip reads as a published, dateless plan (PRIV-TD)
 
     const region = pub?.region ?? hub?.region ?? '';
     const effort = pub?.effort ?? null;
     const built1: PublicTrip = {
       schedule,
-      slug, title, subtitle, depth, visibility: vis, nights, daysCount: days.length || (nights !== null ? nights + 1 : null), seasonNotSet: !season, isDone, region, cover, season,
+      slug, title, subtitle, depth, visibility: vis, nights, daysCount: days.length || (nights !== null ? nights + 1 : null), seasonNotSet: !season, region, cover, season,
       firstBase: bases[0]?.name ?? (region.split(',')[0]?.trim() || null), legacyUrl: `/${folder}/`, honesty: uniqueHonesty(h),
       bases, days, categories, gallery, effort, ageFit: statedAge(pub?.ageFit ?? null, schedule), driveAvgMin: scheduledDrive ?? pub?.driveAvgMin ?? null,
     };

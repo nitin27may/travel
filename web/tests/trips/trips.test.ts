@@ -90,10 +90,14 @@ describe('wording and url', () => {
 
 describe('trips list', () => {
   const rows = tripListRows();
-  it('lists the public trips, done ones last', () => {
+  it('lists the public trips, most complete first, then by title; no finished state (PRIV-TD)', () => {
     expect(rows).toHaveLength(listTrips().length);
-    const firstDone = rows.findIndex((r) => r.isDone);
-    expect(rows.slice(firstDone).every((r) => r.isDone)).toBe(true);
+    const rank = { full: 0, summary: 1, overview: 2 } as const;
+    for (let i = 1; i < rows.length; i++) {
+      const [a, b] = [rows[i - 1]!, rows[i]!];
+      expect(rank[a.depth] < rank[b.depth] || (rank[a.depth] === rank[b.depth] && a.title.localeCompare(b.title) <= 0), `${a.slug} before ${b.slug}`).toBe(true);
+    }
+    for (const r of rows) expect(Object.keys(r), r.slug).not.toContain('isDone');
   });
   it('badges are honest: unset season and depth are marked', () => {
     // every trip has a season now (D6a-W), so the honest badge is checked on a row with the season removed

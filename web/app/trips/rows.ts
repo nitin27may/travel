@@ -49,7 +49,6 @@ export function tripListRows(cards: PublicTripCard[] = listTrips()): TripListRow
         nights: c.nights,
         days: c.daysCount,
         seasonNotSet: c.seasonNotSet,
-        isDone: c.isDone,
         region: c.region,
         cover: c.cover?.url ?? null,
         seasonLabel: c.season?.label ?? null,
@@ -81,6 +80,6 @@ export function tripListRows(cards: PublicTripCard[] = listTrips()): TripListRow
         fromHubApprox: toronto ? toronto.basis === 'estimate' : false,
       } satisfies TripListRow;
     })
-    .sort((a, b) => Number(a.isDone) - Number(b.isDone) || DEPTH_RANK[a.depth] - DEPTH_RANK[b.depth] || a.title.localeCompare(b.title));
+    .sort((a, b) => DEPTH_RANK[a.depth] - DEPTH_RANK[b.depth] || a.title.localeCompare(b.title));
 }
 

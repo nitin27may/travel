@@ -47,11 +47,6 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
   return (
     <article className="trip-page" data-depth={trip.depth}>
       <TripCover trip={trip} url={url} />
-      {trip.isDone ? (
-        <section className="trip-sec" aria-label="About this plan" data-print="hide">
-          <Banner kind="notice">A finished plan, kept as a template. Copy it to plan your own dates.</Banner>
-        </section>
-      ) : null}
       {trip.depth === 'overview' ? (
         <section className="trip-sec" aria-label="About this plan">
           {trip.season ? (

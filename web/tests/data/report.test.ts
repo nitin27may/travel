@@ -19,7 +19,7 @@ describe('report', () => {
     const gallery = trips.reduce((n, t) => n + t.gallery.length, 0);
     const lines = [
       'public data snapshot',
-      `trips by depth     ${JSON.stringify(byDepth)}  (${trips.length} total, ${trips.filter((t) => t.isDone).length} done)`,
+      `trips by depth     ${JSON.stringify(byDepth)}  (${trips.length} total)`,
       `places by kind     ${JSON.stringify(byKind)}  (${d.internals.places.length} total)`,
       `places by category ${JSON.stringify(byCat)}`,
       `completeness       ${JSON.stringify(levels)}`,
