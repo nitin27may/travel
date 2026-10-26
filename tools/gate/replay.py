@@ -79,7 +79,7 @@ def replay(m: dict, merges: int, ref: str) -> tuple[list[dict], list[str]]:
         if sel.full and not set(gm.full_suites(m)) <= set(sel.suites):
             fails.append(f"{sha[:8]} {branch}: full but suites missing")
         for p in paths:
-            if gm.is_test_file(m, p):
+            if gm.is_test_file(m, p) and (gm.ROOT / p).is_file():  # a test the merge deleted or renamed has no suite to own it
                 own = [s for s in gm.owners(m, p) if s in sel.suites]
                 if gm.is_spec(p) and p[len(gm.E2E_DIR):] not in sel.specs:
                     own = []

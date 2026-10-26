@@ -7,13 +7,13 @@ Tags used here:
 - **GAP**: not verified; the failed or missing source is named where known.
 - **Matrix**: a drive time from `data/bases.json`. The researcher estimated every value in that matrix from general road knowledge, rounded to 5 minutes, with no routing source. Only four legs have a source: Calgary-Banff about 90 min (Rome2Rio, 1h25-1h45), Banff-Lake Louise 40 min (Canadream), Banff-Jasper 3.5-4 h, Golden-Jasper 4h34 (wanderlog, possibly a different route). Treat every matrix figure as INFERENCE.
 
-Party assumed: two adults and a child of about 6. The adventure research assumed 115 cm and 20 kg. Those numbers decide three activities (below), so they need confirming.
+Party assumed: a family with a young child. The adventure research assumed a small young child; the height and weight rules decide three activities (below), so check them against the actual child.
 
 ---
 
 ## 1. Days per park
 
-The starting point is the INFERENCE table in `research-timing-hazards.md` section 5, which the researcher built for a 6-year-old in September. I keep its numbers where the evidence supports them and say where I depart from them.
+The starting point is the INFERENCE table in `research-timing-hazards.md` section 5, which the researcher built for a young child in September. I keep its numbers where the evidence supports them and say where I depart from them.
 
 | Park or area | Minimum | Comfortable | Ideal | Evidence | My reasoning | This plan |
 |---|---|---|---|---|---|---|
@@ -21,12 +21,12 @@ The starting point is the INFERENCE table in `research-timing-hazards.md` sectio
 | Lake Louise and Moraine Lake | 1.5 | 2 | 3 | banffbound: 2-3 days with the Moraine and Banff basics. Researcher: 1.5/2/3, "diminishing returns after ~3 (shuttle/parking friction)". | Two days is the floor once an adult-only hike is added, because Plain of Six and Larch Valley each take 5-6 h and both leave from a lake you can only reach by shuttle or a pre-dawn car park. One shuttle ticket covers Lake Louise, Moraine and the Lake Connector (Parks Canada 2026), so a third day adds little. | 2 days (Days 10-11) plus one overnight (Day 3) |
 | Yoho | 0.5 | 1 | 1.5 | Blogs: 1 full day for Emerald Lake and Takakkaw Falls, 2 with hikes (authentikcanada, wereintherockies; partly the search tool's own synthesis). | One full day fits the Iceline (7-8 h) for one adult while the family covers Takakkaw, Emerald Lake and Natural Bridge. Lake O'Hara would be a second day, but it is a March lottery (INFERENCE for 2029) and the dataset has no O'Hara trail ids. | 1 day (Day 9) |
 | Kootenay | 0.5 | 1 | 1.5 | Blogs: Kootenay plus Radium 1-2 days. | Only the north end is in the plan. Radium Hot Springs is 115 min from Banff (matrix), which breaks the child's 2-3 h driving rule as a day trip. The dataset has no adult trail in Kootenay (Stanley Glacier was not carried into `trails.json`: GAP), so Kootenay offers no split-day value. | 0.5 day (Day 3) |
-| Icefields Parkway | 1 (drive) | 2 split | 2 plus an Icefield stop | 232 km Lake Louise-Jasper, 3-5 h straight, 6-8 h with stops (icefieldsparkway.com, VERIFIED). Researcher: 7-8 h realistic with a 6-year-old. explorewitherin: one full day or two shorter days. | Two days, one in each direction, with different stops each way. That keeps each day to 4-5 stops instead of 8-9. The cost is driving the road twice (INFERENCE: worth it because the alternative, Jasper to Calgary at 300 min or Jasper to Edmonton at 225 min on the last day, is just as long and has nothing to see). | 2 days (Days 4 and 8) |
+| Icefields Parkway | 1 (drive) | 2 split | 2 plus an Icefield stop | 232 km Lake Louise-Jasper, 3-5 h straight, 6-8 h with stops (icefieldsparkway.com, VERIFIED). Researcher: 7-8 h realistic with a young child. explorewitherin: one full day or two shorter days. | Two days, one in each direction, with different stops each way. That keeps each day to 4-5 stops instead of 8-9. The cost is driving the road twice (INFERENCE: worth it because the alternative, Jasper to Calgary at 300 min or Jasper to Edmonton at 225 min on the last day, is just as long and has nothing to see). | 2 days (Days 4 and 8) |
 | Jasper (incl. Maligne) | 2 | 3 | 4 | Sundog Tours: 2 days highlights, 3 relaxed. 3-5 days common; one low-authority wiki says 5-7 for families. Researcher: 2/3/4. | 3 full days: Maligne, Robson, Miette. Jasper is the far end of the loop and the part most exposed to closures (Maligne Canyon, Edith Cavell, Opal Hills were all closed in 2026), so a day of slack lives here. | 3 days (Days 5-7) |
 | Mount Robson (provincial) | 0.5 | 1 | 1 | No source gives a day count (GAP). Jasper-Mount Robson 60 min (matrix). Kinney Lake 10 km, 131 m, 3-3.5 h; Overlander Falls 2.3 km (BC Parks via `trails.json`). Berg Lake is 46 km and multi-day with reservations. | INFERENCE: one day from Jasper covers the viewpoint, Overlander Falls and Kinney Lake. Probably on Pacific time (GAP). | 1 day (Day 6) |
 | Kananaskis and Peter Lougheed (provincial) | 1 | 1.5 | 2 | We3Travel: a 1-2 day add-on. No dedicated recommendation found (GAP). Researcher: 1/1.5/2. | I go above the researcher's ideal (2.5 days) for one reason: in a mid-September window, Highwood Pass and Ptarmigan Cirque are the best chance of larch colour on a walk the child can do (Alberta Parks: larches turn mid-Sep to early Oct). It also ends the trip 70 min from Calgary airport (matrix). | 2.5 days (Days 12-14) |
 | Waterton | 1.5 incl. transfer | 2 | 3 | Blogs: 1-2 days; reaching it adds a transfer day. Calgary-Waterton 271 km / 2h48 (Authentik), Waterton-Banff 372 km / 3h55 (Authentik). Matrix: Calgary 195, Banff 265, Kananaskis Village 200. | Cut from the recommendation. Two nights cost two transfer days of 195-200 min each, Crypt Lake (the signature hike) is adult-only and had no boat access on 12 Oct 2026, and in a late-September window the Goat Haunt cruise has ended (20 Sep in 2026). In the 16-night option. | 0 |
-| Mount Assiniboine (provincial) | info only | | | Helicopter Wed/Fri/Sun with a camping or lodge reservation; lodge requests taken 1-31 Aug 14+ months ahead (2026 pattern), about 4x oversubscribed; Mount Shark to Magog 26-27 km one way on foot. Child policy, fares and child weight rules GAP. | INFERENCE: 2-3 nights minimum if ever, and not with a 6-year-old until the lodge confirms children. Not in any option. | 0 |
+| Mount Assiniboine (provincial) | info only | | | Helicopter Wed/Fri/Sun with a camping or lodge reservation; lodge requests taken 1-31 Aug 14+ months ahead (2026 pattern), about 4x oversubscribed; Mount Shark to Magog 26-27 km one way on foot. Child policy, fares and child weight rules GAP. | INFERENCE: 2-3 nights minimum if ever, and not with a young child until the lodge confirms children. Not in any option. | 0 |
 | Elk Lakes (provincial) | info only | | | About 67 km of forest service road, medium clearance, radio recommended, industrial traffic (BC trail report, May 2026). | INFERENCE: standard rental contracts bar unsealed roads (the logistics research found no Canadian policy, GAP). One day if ever, in your own vehicle. | 0 |
 | Hamber (provincial) | info only | | | GAP: no research file covers it. | Remote, backcountry access only (general knowledge, not from the research). Not in any option. | 0 |
 
@@ -55,7 +55,7 @@ None of these can be assumed open or closed in September 2029. Each is checked i
 
 All options start Sat 8 Sep 2029 (the recommended window, section 4) and return to Calgary unless stated. Walking and driving figures are INFERENCE: family walking is the sum of the default family-track distances in `data/trails.json`; driving is matrix legs plus my estimates for legs not in the matrix (Sunshine, Maligne Lake, Miette, Highwood Pass, Upper Kananaskis Lake).
 
-School absence assumes the child's Ontario school starts Tue 4 Sep 2029, the day after Labour Day (INFERENCE: the usual Ontario pattern; the 2029-30 board calendar is not published, GAP).
+School absence assumes an Ontario school year that starts Tue 4 Sep 2029, the day after Labour Day (INFERENCE: the usual Ontario pattern; the 2029-30 board calendar is not published, GAP).
 
 | Nights | Parks covered | What is cut | Longest drive day | Walking vs driving for the child | School days missed | Jasper risk |
 |---|---|---|---|---|---|---|
@@ -102,14 +102,14 @@ Base split check: 2 + 1 + 4 + 4 + 3 = 14 nights. Five check-ins, four distinct b
 | Larch colour | Green everywhere | Edge of colour at best: Larch Valley first trees yellow about mid-Sep with peak about 10 days later; Ptarmigan Cirque and Highwood mid-Sep to early Oct; Banff guides say peak about 20 Sep-5 Oct | loudavymkrokem 2026, Alberta Parks, thebanffguide |
 | Sunshine gondola | Open | Open on Day 2 (Sun 9 Sep); the 2029 closing date is unknown and could be Sun 16 Sep (INFERENCE) | thebanffguide, skibig3 |
 | Moraine Lake canoe | Open | Borderline on Tue 18 Sep (lodge: mid-June to mid-September) | morainelake.com |
-| Kananaskis River rafting (the one raft a 20 kg child can take) | Open | Likely ended ("mid-May to mid-September") | adventures.merged.json |
+| Kananaskis River rafting (the one raft a young child of 5 or over and 18 kg or over can take) | Open | Likely ended ("mid-May to mid-September") | adventures.merged.json |
 | Kicking Horse gondola and grizzly refuge | Daily to 7 Sep | Thu-Mon only from 10 Sep (2026) | adventures.merged.json |
 | Miette Hot Springs | Hours before 8 Sep not stated (GAP) | 11:00-21:00 (2026) | adventures.merged.json |
 | Maligne cruise | 09:00-18:00 to 6 Sep, then 09:00-17:30 | 09:00-17:30 | research-bookings |
 | Elk rut | Early rut | Peak rut (mid-Sep to mid-Oct) in both townsites: more bugling to watch, more risk with a child | Parks Canada Banff bulletin 2026, banffbound |
 | Snow at passes | Possible (first snow 24 Aug 2025, about 30 Aug 2026, 7 Sep 2023) | More likely late in the trip (INFERENCE: seasonal cooling) | research-timing-hazards |
 | Daylight | 13 h 37 m on 1 Sep to 12 h 44 m on 15 Sep | 13 h 11 m on 8 Sep to 12 h 16 m on 22 Sep (CALC, Banff, flat horizon) | computed |
-| School days missed | 9 (Tue 4-Fri 14) | 10 (Mon 10-Fri 21); the child does attend the first week of grade 1 | INFERENCE, calendar GAP |
+| School days missed | 9 (Tue 4-Fri 14) | 10 (Mon 10-Fri 21); the first school week is attended | INFERENCE, calendar GAP |
 | Free park entry | The 2026 Canada Strong Pass ran to Labour Day; nothing known for 2029 | Not applicable | canada.ca (2026 only) |
 
 **Recommendation: Window B, Sat 8 to Sat 22 Sep 2029.** The child's experience barely differs between the two windows, because the family walks are the same either way. The adults gain three things in Window B: no Labour Day weekend in Banff, a real chance of first colour on the Larch Valley and Ptarmigan Cirque days, and quieter trailheads once Alberta schools are back. The costs are a borderline Moraine canoe, no Kananaskis raft, colder mornings (Lake Louise's September mean low is already -0.8 C, Parks Canada) and more chance of snow on the two highest adult hikes. One extra school day separates them.

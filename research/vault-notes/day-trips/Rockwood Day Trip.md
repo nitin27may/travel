@@ -21,7 +21,7 @@ modified: 2026-06-17
 - **Outing type:** Explore (caves, ruins, potholes) + beach swim
 - **Drive radius:** ~155 km / ~1h45 each way
 - **Time:** Full day
-- **Group:** Family, kids 9–12
+- **Group:** Family with school-age kids
 - **Transport:** Car
 
 ## At a glance
@@ -32,7 +32,7 @@ modified: 2026-06-17
 | **Drive time** | ~1h45 each way (~155 km) |
 | **Best for** | Caves, glacial potholes, mill ruins, beach swimming, canoeing |
 | **Best season** | Late spring–early fall (beach + canoe season) |
-| **Rough cost** | ~$90–140 for a family of 4 |
+| **Rough cost** | ~$90–140 for an example family of four |
 
 ## The plan
 
@@ -64,7 +64,7 @@ modified: 2026-06-17
 - **Caves:** bring a flashlight; passages are tight and dark. Wear shoes with grip.
 - **Beach:** life jackets available to borrow — use them for weaker swimmers.
 
-## Costs (family of 4, approx.)
+## Costs (example family of four, approx.)
 
 | Item | Estimate |
 |------|----------|

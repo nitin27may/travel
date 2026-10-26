@@ -1,11 +1,11 @@
 # Lane 6: timing, hazards, light, days needed (raw data)
-Trip: Sat 1 Sep to mid Sep 2029, 2 adults + child ~6. Researched 2026-10-12. No 2029 data exists; years noted per figure. Tags: CALC = computed, INFERENCE = derived by me, GAP = unverified.
+Trip: Sat 1 Sep to mid Sep 2029, a family with a young child. Researched 2026-10-12. No 2029 data exists; years noted per figure. Tags: CALC = computed, INFERENCE = derived by me, GAP = unverified.
 Method note: sources came via web search summaries plus page fetches. Where I only saw a search snippet, I say so.
 
 ## 0. Biggest planning flags (INFERENCE from data below)
 - Sentinel/Larch Valley peak (~15-25 Sep) mostly falls AFTER 1-8 Sep. A trip of 1-15 Sep catches the START of larch colour at best; 2025 Sunshine gondola closed 21 Sep, 2026 closes 20 Sep (so likely ~mid/late Sep 2029; GAP exact 2029 date).
 - Snow dusting in September at altitude is normal (see section 2). Lake Louise and Sunshine saw first snow 24 Aug 2025, ~30 Aug 2026, ~7 Sep 2023.
-- Group of 4 hiking rule at Larch Valley/Sentinel Pass has been used by Parks Canada in past years in response to bears (year unconfirmed; family of 3 would not qualify). GAP: current status.
+- Group of 4 hiking rule at Larch Valley/Sentinel Pass has been used by Parks Canada in past years in response to bears (year unconfirmed; a group of fewer than four would not qualify). GAP: current status.
 - Lake O'Hara shuttle is a random draw (applications 2-23 Mar 2026); children 1-16 must be on the reservation; season ends ~4 Oct. For 2029 expect application window in March 2029 (INFERENCE).
 
 ## 1. What peaks when
@@ -105,7 +105,7 @@ Early September (1-8) is a few degrees warmer than the monthly mean, mid-Sep coo
 - Environment Canada forecast pages for Banff, Jasper, Lake Louise, Kananaskis (weather.gc.ca): GAP, URLs not seen; do not invent.
 - Thunderstorms: GAP on stats; anecdotal in codidact thread above. INFERENCE: afternoon convective storms are less frequent in September than July-Aug (total rain ~38-41 mm Banff/LL, Parks Canada table).
 
-## 3. Safety with a 6 year old
+## 3. Safety with a young child
 
 Bear spray (Parks Canada): not allowed on any commercial flight, even checked; carry clip on, in trunk or sealed container in vehicle; legal labelled "for animals", max 500 ml, recommended 225 ml, 0.75-1% capsaicin ~10 s spray; use only if bear within ~5 m and acting aggressive; check expiry; do not spray gear/tent. https://www.parks.canada.ca/pn-np/mtn/ours-bears/securite-safety/gaz-spray
 - Rent/buy (2025-2026 blog and Reddit, low confidence): rental ~C$10-12/day at Wilson Mountain Sports Banff, Ultimate Sports Banff; Lake Louise: Wilson (Samson Mall), Chateau Mountain Sports; buy C$35-65 (Canadian Tire Canmore, Atmosphere Canmore); some shops refund ~25 on return. Sources: https://banffbound.com/bear-spray ; https://redlib.groet-infra.nl/r/Banff/comments/1ufgqco/where_to_get_bear_spray/ (Jun 2026). Prices GAP-verify. Jasper rental shops: named in search but no URL.
@@ -161,7 +161,7 @@ Blogs and operators:
 - Kananaskis: add-on 1-2 days (We3Travel); GAP dedicated recommendation.
 - Fodors 9 and 11-year-olds: 2 days Jasper, 1 Parkway, 4 Banff = 7 days; replies called a tighter plan "way too ambitious".
 
-INFERENCE table (for a 6-year-old, September, 1-15 Sep window; my numbers):
+INFERENCE table (for a young child, September, 1-15 Sep window; my numbers):
 | Area | Minimum | Comfortable | Ideal | Diminishing returns after |
 | Banff townsite + Bow Valley | 2 | 3 | 4 | ~4 nights |
 | Lake Louise + Moraine | 1.5 | 2 | 3 | ~3 (shuttle/parking friction) |

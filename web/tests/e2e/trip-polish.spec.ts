@@ -54,8 +54,9 @@ test.describe('trip page polish (TRP, stage 4)', () => {
   test('Patagonia Day 2 says it has no stops on the map, and no chip reads "level None" (R4-T2)', async ({ page, site }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(`${site.url}/trips/patagonia-2027/#day-2`);
-    // Ushuaia has no map point yet, so the caption says so; a base with a point is framed and picked instead (unit-tested)
-    await expect(page.locator('.tl-mapcol-label')).toContainText('Day 2 · no stop has a map position yet · showing the whole trip');
+    // no stop has a map point, so the caption says so; the night's base has one, so it is framed (labelOf: "showing the base"; the older
+    // "showing the whole trip" wording is for a day with no base on the map either)
+    await expect(page.locator('.tl-mapcol-label')).toContainText('Day 2 · Ushuaia · no stop has a map position · showing the base');
     await expect(page.getByText(/0 stops/)).toHaveCount(0);
     await expect(page.getByText(/level none/i)).toHaveCount(0);
   });

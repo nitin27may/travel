@@ -37,7 +37,9 @@ test.describe('trip page go-live fixes', () => {
     expect(day).toContain('12:00');
     expect(day).toContain('At the airport');
     expect(day).toMatch(/Stretch break/);
-    expect(day.match(/Drive (on )?to /g)?.length ?? 0).toBeGreaterThanOrEqual(2);
+    expect(day).toMatch(/Drive to /);
+    expect(day).toMatch(/Drive on · /); // P1: the second half does not repeat the destination
+    expect(day).not.toMatch(/Drive on to /);
   });
 
   test('MUST-6: the Rockies and Dolomites prints have a Book ahead section after the meta line, before Day 1; Dolomites words its windows dateless', async ({ page, site }) => {
@@ -64,6 +66,6 @@ test.describe('trip page go-live fixes', () => {
     const halves = texts.filter((t) => /Drive/.test(t));
     expect(halves.length).toBeGreaterThanOrEqual(2);
     expect(withKm.length).toBe(1);
-    expect(withKm[0]).toMatch(/ in all/);
+    expect(withKm[0]).toMatch(/to Venice Marco Polo Airport · [\d.,]+ (mi|km) in all$/);
   });
 });

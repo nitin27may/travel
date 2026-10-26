@@ -32,7 +32,7 @@ function rowsOf(day: number, stops: ExportStop[], session: TimelineSession | nul
   const mine = stops.filter((s) => s.day === day);
   const of = (e: TimelineEntry): Row => {
     const stop = mine.find((s) => s.placeSlug && s.placeSlug === e.at?.placeSlug) ?? null;
-    return { key: e.id, time: printTime(e, tl.blocks), name: e.title, duration: e.durationMin > 0 ? fmtHM(e.durationMin) : null, note: e.time.note ?? stop?.note ?? null, stop };
+    return { key: e.id, time: printTime(e, tl.blocks), name: /^Drive on to /.test(e.title) ? 'Drive on' : e.title, duration: e.durationMin > 0 ? fmtHM(e.durationMin) : null, note: e.time.note ?? stop?.note ?? null, stop };
   };
   const rows = tl.entries.filter((e) => PRINTED.has(e.kind) && !e.insideOf).map(of);
   // a day with no visit (a travel day) prints its travel, not a missing-fact marker: every entry of the day but the start and the check-out

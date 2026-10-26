@@ -130,7 +130,7 @@ Cells: **R** required for Usable; **A** applicable, shown when known; **N** not 
 | eatery | N | N | N | N | N | N | N | N |
 
 Notes:
-- **`group_min` is R for `hike`** (F2 was U for every trail). Parks Canada's group-of-four rule stops a family of three. The lane answers it once per park from the restrictions page, which covers every trail in the park, so it costs one read, not one per trail.
+- **`group_min` is R for `hike`** (F2 was U for every trail). Parks Canada's group-of-four rule stops a group of three. The lane answers it once per park from the restrictions page, which covers every trail in the park, so it costs one read, not one per trail.
 - **The bungee guardian rule is not `adult_required`.** A parent signs and need not jump. It goes in `participation.waiver.guardian_signs_under`.
 - **`mtb_xc` and `cycle_path` have no limits.** The rental age is `ext.ride.min_rider_age`, which is A on the rental offer.
 - **`max_age` is A where a source has published one**, such as the minitrekking upper limit of 65 and one Interlaken listing's 60. It is N wherever no operator uses it.

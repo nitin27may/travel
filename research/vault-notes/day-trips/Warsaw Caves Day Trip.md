@@ -21,7 +21,7 @@ modified: 2026-06-17
 - **Outing type:** Adventure & exploration (caving) + river swim
 - **Drive radius:** ~135 km / ~1h40 each way, **no GTA traffic**
 - **Time:** Full day
-- **Group:** Family, kids 9–12 (great age for the caves)
+- **Group:** Family with school-age kids (a good age for the caves)
 - **Transport:** Car
 
 ## At a glance
@@ -32,7 +32,7 @@ modified: 2026-06-17
 | **Drive time** | ~1h40 each way (~135 km, northeast) |
 | **Best for** | Caving, a lookout hike, shallow-river swimming |
 | **Best season** | Mid-May to mid-October (caves dry enough to explore) |
-| **Rough cost** | ~$75–110 for a family of 4 |
+| **Rough cost** | ~$75–110 for an example family of four |
 
 ## The plan
 
@@ -45,7 +45,7 @@ modified: 2026-06-17
 - **Gear matters:** wear a **headlamp** (you need your hands free — a handheld flashlight won't cut it), put kids in a **helmet** (lots of low rock and head bumps), and wear old closed-toe shoes and clothes you don't mind getting muddy. Don't explore alone.
 
 **~12:00 pm — Caves & Scenic Lookout loop (4 km, moderate)**
-- The signature loop winds through forest and limestone plains to **scenic lookout points** over the Indian River valley. Easy-moderate for 9–12s.
+- The signature loop winds through forest and limestone plains to **scenic lookout points** over the Indian River valley. Easy-moderate for school-age kids.
 
 **~1:00 pm — Picnic lunch** at the conservation area.
 
@@ -66,7 +66,7 @@ modified: 2026-06-17
 - **Caving safety:** headlamps, helmets for kids, sturdy shoes, layers (caves are cold), and a buddy system. Skip if anyone is claustrophobic.
 - **Cell service** is spotty out here — download the trail map offline before you leave.
 
-## Costs (family of 4, approx.)
+## Costs (example family of four, approx.)
 
 | Item | Estimate |
 |------|----------|

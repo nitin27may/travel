@@ -152,8 +152,8 @@ still be changed on its own." Three fields in a row on desktop (1.4fr 1fr 1fr) a
 
 Footer line (hairline above): `--t-section` amber-text count "14" + mono "of 14 days fit", then
 "≈ 48 km walking", "≈ 23 h driving", "6 fixed slots", and a notice chip (`--info-soft`) that states
-whose plan is showing: "Showing the plan as Nitin wrote it: family, youngest 6" or, after a change,
-"Re-laid for your choice; Nitin planned it for a family with a 6-year-old".
+whose plan is showing: "Showing the plan as written: families with a child from about 6" or, after a change,
+"Re-laid for your choice; the plan was written for families with a child from about 6".
 
 Behaviour.
 - The page loads with the **author's profile** selected and labelled as such. A read-only page must show

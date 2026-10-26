@@ -159,7 +159,7 @@ only through the generated `navigation` links above, which hand our point to Goo
 | `attrs.restrictions` | list: `group_min` (Parks Canada group of four in grizzly areas, with dates), `dogs` (allowed, leash, banned), `bikes`, `drones`, `permit_required` (with the `offer`), `quota` |
 | `attrs.dogs` | `allowed_leash`, `allowed_off_leash`, `banned`, `unknown` |
 | `eligibility` | `min_age_guidance` (our recommendation with reason, never invented as a rule), `stroller` (`yes`, `jogging_stroller`, `no`), `carrier_ok`, `accessibility` (`step-free`, `partial`, `none`), `fitness` 1-5 |
-| `attrs.kid_note` | our words on kids (the Rockies `child_note`: "too long and steep for a 6-year-old") |
+| `attrs.kid_note` | our words on kids (the Rockies `child_note`: "too long and steep for a young child") |
 | `attrs.payoff` | what you see and where (the Mt. Pisgah lesson: forested summit, view 0.4 mi beyond) |
 | `attrs.light` | best-light windows computed with core/src/sun (timing lane, R12) |
 | `attrs.crowds` | `{peak_hours, quiet_hours, weekday_vs_weekend, source}` |

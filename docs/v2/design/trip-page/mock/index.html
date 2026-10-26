@@ -426,7 +426,7 @@ svg.i{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.75;strok
       <span class="stat"><b id="walkTot">≈ 48 km</b><span>walking</span></span>
       <span class="stat"><b id="driveTot">≈ 23 h</b><span>driving</span></span>
       <span class="stat"><b id="slotTot">6</b><span>fixed slots</span></span>
-      <span class="chip info" id="profNote"><svg class="i"><use href="#i-info"/></svg> Showing the plan as Nitin wrote it: family, youngest 6</span>
+      <span class="chip info" id="profNote"><svg class="i"><use href="#i-info"/></svg> Showing the plan as written: families with a child from about 6</span>
     </div>
   </section>
 
@@ -749,7 +749,7 @@ function render(){
   document.getElementById('paceSub').textContent={relaxed:'Relaxed: lifts, boardwalks and hot springs; walks under 2 km; start 08:30.',standard:'Standard: one main outing a day, back at base before dinner.',full:'Full: the longest option every day; start 07:00, dinner late.'}[S.pace];
   const n=document.getElementById('profNote');
   const isAuthor=S.who==='family'&&S.age===6&&S.days==='14'&&S.pace==='standard';
-  n.innerHTML=`${ico('i-info')} ${isAuthor?'Showing the plan as Nitin wrote it: family, youngest 6':'Re-laid for your choice; Nitin planned it for a family with a 6-year-old'}`;
+  n.innerHTML=`${ico('i-info')} ${isAuthor?'Showing the plan as written: families with a child from about 6':'Re-laid for your choice; the plan was written for families with a child from about 6'}`;
   const w={adults:'≈ 96 km',family:'≈ 48 km'}[S.who]; document.getElementById('walkTot').textContent=S.pace==='relaxed'?'≈ 18 km':w;
   document.getElementById('fitCount').textContent=S.who==='adults'?'13':'14';
   pins();

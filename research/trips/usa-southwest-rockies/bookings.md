@@ -120,7 +120,7 @@ Sources: https://www.nps.gov/zion/planyourvisit/angels-landing-hiking-permits.ht
 ### Costs
 - **$6 non-refundable application fee**, covers an application for **up to 6 people** including the applicant.
 - **$3 per person permit fee**, charged only if you win.
-- Total for a party of 4: $6 + $12 = **$18**.
+- Example total for four people: $6 + $12 = **$18**.
 
 ### Seasonal lottery — 2026 published windows (Zion NP)
 | Hike dates | Lottery opens 8 a.m. MT | Closes 11:59 p.m. MT | Permits issued |

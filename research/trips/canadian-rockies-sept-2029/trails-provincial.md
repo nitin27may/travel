@@ -27,7 +27,7 @@ Alberta Parks: larches turn mid-Sept to early Oct, varies yearly. Chester Lake: 
 - Upper Kananaskis Lake circuit (North Interlakes to White Spruce) closed until further notice for grizzly with cubs; Rawson/Sarrail advisory effective July 5 2026; Lower Lake item effective July 8 2026. Mount Shark: min group of 4 plus bear spray (Sept 2025). Hike in tight groups of 4+. Call 403-591-7755 to report; info line 403-678-0760. https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/peter-lougheed/1982-canadian-mount-everest-expedition-interpretive/ , https://cms.albertaparks.ca/parks/kananaskis/spray-valley-pp/advisories
 - Mount Robson: elk, moose aggressive in Sept-Oct rut; permanent boil-water advisory on Berg Lake trail. https://bcparks.ca/mount-robson-park/
 
-## Realistic for a 6-year-old
+## Realistic for a young child
 
 Realistic: Wedge Pond, Elbow Falls, Mount Lorette Ponds, Troll Falls, Grassi Lakes easy route, Rockwall lookout, Interlakes (partial), Ptarmigan Cirque, Chester Lake (long), Kinney Lake (long, flat), Overlander Falls, Elk Lakes lower/upper (if road OK), Lussier Hot Springs, Robson viewpoint.
 Info only: Sarrail, Ha Ling, Tent Ridge, Burstall, Berg Lake, Assiniboine (heli plus reservation, fares GAP), Indefatigable bench, Top of the World, Castle, Beauvais.

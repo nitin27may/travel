@@ -94,7 +94,7 @@ All commit ids change. Commit ids quoted in tracked files point at the private h
 ## 5. Remaining risks and owner decisions
 
 1. **Home town named in about 122 tracked files** (audit M2): the scrub pattern, legacy pages, trip research, two day-trip
-   vault notes that also give the party's age band (kids 9 to 12), tests and the GeoNames layer. It is already public on
+   vault notes that also give the party's age band, tests and the GeoNames layer. It is already public on
    the live legacy site. Owner decision; not changed here.
 2. **The extended family's town is one row of the GeoNames towns layer** (`data/reference/towns/`, a large city of its
    country, selected mechanically by population; the file is the public gazetteer verbatim and its hashes are pinned).
@@ -114,7 +114,7 @@ All commit ids change. Commit ids quoted in tracked files point at the private h
    still name the removed social-post screenshots as provenance. Harmless text; clearing it needs the `location` skill.
 7. **Sample party.** Specs and mocks still read "Nitin, Partner, Kai": owner, a partner and one child. The child's name, age
    and birth year are invented now; the other sample names (a partner name and a second child) were treated as invented,
-   as the audit did. The trip-page mock says a trip was planned "for a family with a 6-year-old" (public page copy).
+   as the audit did. The trip-page mock named the planned party with a child's age (public page copy; rewritten by HOUSEHOLD-SCRUB).
 8. **Images not read by machine.** Image text cannot be grepped. Kept images were checked by sample; the 248 images in
    history outside the removed sets (legacy galleries, globe and live-site captures, the old specimen photos) were not
    each opened.

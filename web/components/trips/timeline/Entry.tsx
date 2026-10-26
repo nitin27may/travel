@@ -42,6 +42,7 @@ export function LegRow({ e }: { e: TimelineEntry }) {
   // N3: a split drive's halves both carry the whole route's km (the schedule does not store each half's share), so the distance is said once,
   // on the first half, as the whole drive's ("in all"); the second half ("on to ...") carries none, and the two never add up to twice the road
   const split = (e.leg?.breaks ?? 0) > 0;
+  // read left to right, the half's time and the whole drive's distance must not look like one claim (127 mph), so a split's distance follows the destination
   const km = !e.leg?.km || (split && back) ? '' : ` · ${formatDistance(e.leg.km, prefs.distance)}${split ? ' in all' : ''}`;
   return (
     <li className="tl-leg num" data-lane={e.lane} data-mode={e.leg?.mode} data-estimate={est || undefined}>
@@ -53,8 +54,9 @@ export function LegRow({ e }: { e: TimelineEntry }) {
         <span aria-hidden="true">
           {est ? <><span className="tl-est" title="A straight line or the plan's own figure, not a routed road time">≈</span>{' '}</> : null}
           {word} <b>{fmtHM(e.durationMin)}</b>
-          {km}
+          {split ? null : km}
           {to && !back ? ` to ${to}` : back ? ` ${e.title.replace(/^Drive on to /, 'on to ')}` : ''}
+          {split ? km : null}
         </span>
       </p>
     </li>

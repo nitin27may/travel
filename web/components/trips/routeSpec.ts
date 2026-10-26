@@ -119,7 +119,7 @@ export function routeSpec({ bases, models, picked, geometry, wide = true }: Spec
 
 // ---- the key (note 5.2) ------------------------------------------------------------------------------------------------------------------
 export const KEY_LABEL = {
-  stop: "Stop, numbered in the day's order",
+  stop: "Stop, in the day's order",
   stops: 'Stop',
   base: 'Base for the night',
   estimate: 'Straight line, not a route',
@@ -130,7 +130,14 @@ export const KEY_LABEL = {
 export const KEY_NO_ROUTE = "Road routes are not drawn yet. Lines join each day's stops in order; use Directions for the drive.";
 export const KEY_SOME_ROUTE = "Road routes from OpenStreetMap data run to each stop's car park or trailhead. A straight line has no road route stored, often because the stop is reached on foot, by lift or by boat.";
 
-export interface KeyState { items: (LegendItem & { dim?: boolean; pick?: boolean })[]; sentence: string | null }
+export interface KeyState {
+  items: (LegendItem & { dim?: boolean; pick?: boolean })[];
+  sentence: string | null;
+  /** The line the collapsed phone key names: the one that is drawn longer, so the row never names a road that is a few pixels under a pin (S3). */
+  lead: 'road' | 'estimate' | null;
+}
+
+const lineM = (cs: LngLat[]): number => cs.slice(1).reduce((a, c, i) => a + gapM(cs[i]!, c), 0);
 
 /** Only what the map draws in this view, in the note's order. */
 export function keyOf(spec: Pick<MapSpec, 'pins' | 'lines' | 'selectedId'>): KeyState {
@@ -147,7 +154,9 @@ export function keyOf(spec: Pick<MapSpec, 'pins' | 'lines' | 'selectedId'>): Key
   // the swatch is the line the map draws: amber with a casing for the picked day, thin ink for All days; a walk says so
   if (routed) items.push({ id: 'road', label: routedLines.some((l) => l.mode === 'walk') ? KEY_LABEL.roadOrPath : KEY_LABEL.road, style: routedLines.some((l) => l.style === 'route-pick') ? 'route-pick' : 'route' });
   if (has((p) => p.style === 'stop' && !!p.dim)) items.push({ id: 'other', label: KEY_LABEL.other, style: 'stop', dim: true });
-  return { items, sentence: routed ? (estimate ? KEY_SOME_ROUTE : null) : KEY_NO_ROUTE };
+  const drawn = (f: (l: Line) => boolean) => spec.lines.filter(f).reduce((a, l) => a + lineM(l.coords), 0);
+  const lead = routed && estimate ? (drawn((l) => l.style === 'straight-estimate') > drawn((l) => l.style !== 'straight-estimate') ? 'estimate' : 'road') : routed ? 'road' : estimate ? 'estimate' : null;
+  return { items, sentence: routed ? (estimate ? KEY_SOME_ROUTE : null) : KEY_NO_ROUTE, lead };
 }
 
 // ---- the label row (note 4.1, 6.3) -------------------------------------------------------------------------------------------------------

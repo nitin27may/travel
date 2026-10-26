@@ -1,6 +1,6 @@
-# Gap-close: Grand Teton trail data + every age/height/weight gate for an 11-year-old
+# Gap-close: Grand Teton trail data + every age/height/weight gate at age 11 (test age)
 
-**Trip dates: 10 Sep – 4 Oct 2028 (fixed). Party: 2 adults + 1 child aged 11 at travel. Hiking ceiling ~12 km round trip.**
+**Trip dates: 10 Sep – 4 Oct 2028 (fixed). Test age: a child of 11 at travel; every gate is checked at that age. Hiking ceiling ~12 km round trip.**
 Research date: 2026-09-05. This file only closes the two clusters assigned; it does not restate
 `research-trails.md`, `research-bookings.md`, `research-bases.md` or `research-hours-closures.md`.
 
@@ -12,7 +12,7 @@ Research date: 2026-09-05. This file only closes the two clusters assigned; it d
    distance, an elevation gain, a difficulty and an average slope — the exact table prior research said
    NPS no longer publishes. **All Grand Teton `GAP:` markers in research-trails.md §11 for distances are
    now closed and should be treated as superseded.**
-2. **Ouray Via Ferrata is NOT out for an 11-year-old.** The 62" reach / 90 lb floor are *unguided* rules.
+2. **Ouray Via Ferrata is NOT out for a child of 11.** The 62" reach / 90 lb floor are *unguided* rules.
    Guided minors are explicitly permitted, minimum age **7–8** depending on operator. Prior "Likely OUT"
    verdict is **overturned** — see B1.
 
@@ -43,7 +43,7 @@ All figures verbatim from NPS. Each destination is published as TWO routes: "via
 
 - **"Without the boat, Cascade Canyon exceeds 12 km" — CONFIRMED, but the framing was too generous.**
   **Cascade Canyon to the Forks exceeds the 12 km ceiling WITH the boat too: 15.1 km.** Without the
-  boat it is 21.4 km, nearly double the ceiling. **The Forks are out for this party either way.**
+  boat it is 21.4 km, nearly double the ceiling. **The Forks are out for this family either way.**
   What the boat actually rescues is *Inspiration Point*, not Cascade Canyon.
 
 - **Boat also saves the trailhead-side distances from the dock.** Jenny Lake Boating publishes
@@ -53,7 +53,7 @@ All figures verbatim from NPS. Each destination is published as TWO routes: "via
 
 ### What this means for the 12 km ceiling — the actual planning verdict
 
-| Option | Round trip | Verdict for 2 adults + 11-year-old |
+| Option | Round trip | Verdict for a family with a child of 11 |
 |---|---|---|
 | Inspiration Point **with** boat | **2.9 km, 170 m** | **Comfortably in.** Half a morning. |
 | Inspiration Point **without** boat | **9.2 km, 270 m** | **Still in** — 77% of the ceiling, but it fits. |
@@ -62,12 +62,12 @@ All figures verbatim from NPS. Each destination is published as TWO routes: "via
 | **Forks of Cascade Canyon, with boat** | **15.1 km, 450 m** | **OUT — 26% over the ceiling.** |
 | **Forks, without boat** | **21.4 km, 520 m** | **Far out.** |
 
-**Key correction for the itinerary: losing the boat does NOT kill Grand Teton for this party.**
+**Key correction for the itinerary: losing the boat does NOT kill Grand Teton for this family.**
 Inspiration Point on foot is 9.2 km / 870 ft — inside the ceiling. Prior research's line that
 "walking around the lake burns your entire day's distance budget" is directionally right but
 overstated: it costs you 6.3 km of the 12 km budget, leaving a viable but tight day.
-The boat turns a moderate 9.2 km day into an easy 2.9 km one. **That is a comfort upgrade for an
-11-year-old, not a go/no-go.**
+The boat turns a moderate 9.2 km day into an easy 2.9 km one. **That is a comfort upgrade for a
+child of 11, not a go/no-go.**
 
 ## A2. Jenny Lake shuttle boat — 2028 dates, price, pre-booking
 
@@ -83,7 +83,7 @@ Source for all: https://www.jennylakeboating.com/shuttle
   - **Last day of the season is 30 September.**
 - **Fares (2026):** Adults 13–61 **$20 RT / $15 one-way**; **Children 2–12 $15 RT / $12 one-way**;
   Seniors 62+ $18 RT / $15 one-way; free under 2 and over 80.
-  → **An 11-year-old pays the child fare $15 RT.** Party of 3 round trip = $20 + $20 + $15 = **$55**.
+  → **A child of 11 pays the child fare $15 RT** (adult $20 RT).
 - **Pre-booking: NO, and it is not needed.** Verbatim: *"Reservations are not taken as the boats run
   continuously throughout the day. Come to the East Boat Dock, purchase the fare, and board the boat."*
   Shuttles run every 10–15 minutes.
@@ -114,8 +114,8 @@ All NPS `/thingstodo/` unless noted. These close the remaining distance gaps in 
 
 - **Jenny Lake Loop at 11.4 km sits at 95% of the 12 km ceiling with 320 m of gain.** Technically
   inside, practically the whole day, and it duplicates scenery you get for free off the boat.
-  **Recommend against it for this party** — take the boat/Inspiration Point instead.
-- **Taggart Lake at 4.8 km / 110 m is the single best Teton hike for an 11-year-old on this list**:
+  **Recommend against it for this family** — take the boat/Inspiration Point instead.
+- **Taggart Lake at 4.8 km / 110 m is the single best Teton hike for a child of 11 on this list**:
   short, low gain, lake-and-Tetons payoff, and it is the out-and-back that dodges the construction
   (see A4).
 
@@ -155,7 +155,7 @@ All NPS `/thingstodo/` unless noted. These close the remaining distance gaps in 
   Teton-reflection sunrise spot. **Treat the car park as small and arrive 45–60 min before sunrise
   in late September** — this is judgement, not a sourced figure.
 - **Sunrise on 28–29 Sep 2028 at Jackson is approx. 07:15** (research-bases.md has 30 Sep 2026 at 07:18).
-  A 06:15 departure from Moose/Dornans is a ~15 min drive. Very doable with an 11-year-old.
+  A 06:15 departure from Moose/Dornans is a ~15 min drive. Very doable with a child of 11.
 
 ## A4. Taggart Lake construction — status for 2028
 
@@ -181,9 +181,9 @@ All NPS `/thingstodo/` unless noted. These close the remaining distance gaps in 
 
 ---
 
-# CLUSTER B — AGE / HEIGHT / WEIGHT GATES FOR AN 11-YEAR-OLD
+# CLUSTER B — AGE / HEIGHT / WEIGHT GATES AT AGE 11 (TEST AGE)
 
-Verdict column: **YES** = an 11-year-old is admitted. **NO** = excluded. **MEASURE** = depends on the
+Verdict column: **YES** = a child of 11 is admitted. **NO** = excluded. **MEASURE** = depends on the
 child's actual height/weight and must be checked nearer the time.
 
 ## B1. Ouray Via Ferrata — **PRIOR VERDICT OVERTURNED**
@@ -205,7 +205,7 @@ explicitly catered for. VERDICT: YES, with a guide — book a private guided tri
   from search-engine extraction of the official /rules/ page plus operator restatements, not a direct
   read of the page. A human browser will load it fine.`
 
-**Why this does not exclude an 11-year-old:**
+**Why this does not exclude a child of 11:**
 - **The 62" reach and 90 lb floor are gear-fit rules for self-belay on the manufacturer's lanyard.
   A guide belaying the climber removes the dependency on the lanyard's rated range.** That is exactly
   what the rule text says: outside the range → *you need a professional guide with belay techniques*,
@@ -219,7 +219,7 @@ explicitly catered for. VERDICT: YES, with a guide — book a private guided tri
 | **San Juan Mountain Guides** | states *"all ages and ability levels are welcome on the route"* | | https://mtnguide.net/trips/via-ferrata/ouray-via-ferrata/ |
 | Moxie Mountain Guides | — | *"People under 90 lbs or over 265 lbs will require a belay to ensure the equipment functions properly — this may require an extra guide."* Confirms the belay workaround. | https://www.moxiemountainguides.com/via-ferrata |
 
-**VERDICT for an 11-year-old: YES.** Minimum age 7 (Basecamp) or 8 (Mountain Trip) — an 11-year-old
+**VERDICT for a child of 11: YES.** Minimum age 7 (Basecamp) or 8 (Mountain Trip) — a child of 11
 clears both by 3–4 years. **You must book a PRIVATE guided trip** (Mountain Trip's rule for under-16s),
 and **budget for a possible second guide** if the child is under 90 lbs.
 
@@ -229,8 +229,8 @@ and **budget for a possible second guide** if the child is under 90 lbs.
   Via Ferrata, or **$695 for up to 3** on Gold Mountain — **plus a possible extra guide charge if the
   child is under 90 lbs.**
 - The route itself is free if self-equipped — **but that path is genuinely closed to the child** by
-  the 62" reach rule unless he measures over it (a tall 11-year-old might; average 11-year-old
-  standing reach is under 62"). **The 18+ gear-rental rule also blocks self-equipping him.**
+  the 62" reach rule unless the child measures over it (a tall child of 11 might; the average 11-year-old
+  standing reach is under 62"). **The 18+ gear-rental rule also blocks self-equipping a child.**
 - `MEASURE: the child's weight against the 90 lb floor determines whether a second guide (and its
   cost) is required. Ask the operator at booking with the actual number.`
 - **The 18+ rental rule is not a barrier on a guided trip** — the guide service supplies the gear
@@ -246,7 +246,7 @@ Sources: https://durangotrain.com/classes-service/ | https://durangotrain.com/cl
 
 **Age gates by class — CONFIRMED and slightly wider than prior research stated:**
 
-| Class | Age rule | 11-year-old? |
+| Class | Age rule | Age 11? |
 |---|---|---|
 | **Standard Class — Coach** | All ages | **YES** |
 | **Standard Class — Open-Air Gondola** | All ages | **YES** |
@@ -254,16 +254,16 @@ Sources: https://durangotrain.com/classes-service/ | https://durangotrain.com/cl
 | **Parlor Cars (incl. Alamosa, Yankee Girl)** | **21+** | **NO** |
 | **Presidential Class (Cinco Animas)** | **21 and over**; offered **May 15 – Oct 11** | **NO** |
 
-- **The 11-year-old rides Standard Class — Coach or Open-Air Gondola. Those are the only two options.**
+- **A child of 11 rides Standard Class — Coach or Open-Air Gondola. Those are the only two options.**
   For a family this is fine: the open-air gondola is the better car for a child anyway (unobstructed
   views, and the one kids actually enjoy). Note it is genuinely open-air — bring layers for a late-Sept
   Animas Canyon morning.
 - **Child fare: age 4–11. Round Trip Silverton, Standard Coach: Adult (12+) $89, Child (4–11) $55.**
   Children under 4 not occupying a seat ride free (except special events).
   Source: https://durangotrain.com/round-trip-silverton-train-tour-2/
-- **⚠️ TIMING TRAP: the child fare band is 4–11. An 11-year-old at travel is on the LAST year of the
-  child fare.** Party of 3 = $89 + $89 + $55 = **$233** in Standard Coach. If the child has a birthday
-  before the trip and turns 12, that becomes $267. **Check his birthday against the travel date.**
+- **⚠️ TIMING TRAP: the child fare band is 4–11. A child of 11 at travel is on the LAST year of the
+  child fare.** Standard Coach is $89 per adult and $55 per child. A child who turns 12
+  before the trip pays the adult $89. **Check the child's age on the travel date.**
 - **Train-up / bus-back option:** the bus legs are priced as add-ons — **morning bus $10, afternoon
   bus $32** — added to a train fare. **`GAP: no separate age rule for the bus is published on
   durangotrain.com. durangotrain.com/important-information/ and /skyway-tour-2/ both return HTTP 403
@@ -272,12 +272,12 @@ Sources: https://durangotrain.com/classes-service/ | https://durangotrain.com/cl
   confirmation — one phone call closes it.
 - Season context from research-bookings.md §8: Scenic Round Trip runs May 2 – Nov 1; the Silverton
   Express (5.5 hr, bus one way) runs Jun 8–Aug 9 **and Sept 7 – Oct 11** — **inside the 2028 window.**
-  **The 5.5-hour Silverton Express is the version to book with an 11-year-old**; the 9.25-hour full
+  **The 5.5-hour Silverton Express is the version to book with a child of 11**; the 9.25-hour full
   round trip is a long day for a child with no cell service in the canyon.
 
 ## B3. Antelope Canyon — minimum ages by canyon
 
-| Canyon | Operator | Minimum age | 11-year-old? | Source |
+| Canyon | Operator | Minimum age | Age 11? | Source |
 |---|---|---|---|---|
 | **Upper Antelope** | Antelope Canyon Tours Inc. | **All ages** ("from $85, all ages") | **YES** | https://www.antelopecanyon.com/ |
 | **Upper Antelope** | Adventurous Antelope Canyon Tours | **8** — *"No Children Between Ages 0-7 Allowed Due to Intensity."* From $120 | **YES** | https://adventurousantelopecanyon.com/ |
@@ -296,7 +296,7 @@ Sources: https://durangotrain.com/classes-service/ | https://durangotrain.com/cl
 - **Carrying a child is NOT permitted** on the ladder sections (children 2 and under must be in a
   hiking backpack; older children must climb themselves), and **you cannot leave a child at the top
   with one parent** — the group moves together.
-- **VERDICT: an 11-year-old climbing normal ladders unassisted is squarely inside the rule. YES.**
+- **VERDICT: a child of 11 climbing normal ladders unassisted is squarely inside the rule. YES.**
   The practical difficulty band is under-5s, not pre-teens.
 - **Canyon X is the no-ladder option** — uneven surfaces and elevation changes but **no ladders** —
   and the smallest groups (8–10 vs 11–13). If the child dislikes ladders, this is the substitute.
@@ -314,15 +314,15 @@ Source: https://www.nps.gov/zion/planyourvisit/angels-landing-hiking-permits.htm
 - **NPS publishes NO minimum age and NO supervision rule for Angels Landing.** This was checked
   directly against the NPS permit page and both recreation.gov permit pages (4675325 seasonal,
   4675324 day-before). **`GAP: confirmed absent, not merely unfound.` There is no legal age barrier.**
-- **Does the child need his own permit? YES — effectively.** The permit names individuals:
+- **Does a child need their own permit? YES — effectively.** The permit names individuals:
   - **The $6 non-refundable application fee covers an application for up to 6 people including the
     applicant** — so one application covers the whole family.
-  - **The $3 per-person permit fee is charged per person if you win.** A party of 3 = **$6 + $9 = $15.**
+  - **The $3 per-person permit fee is charged per person if you win.** Total = **$6 plus $3 per named person.**
   - **Names must match photo ID and cannot be changed after submission.** *"You may need to show this
     and identification to a ranger on the trail."*
   - **Practical consequence for a minor: the child must be NAMED on the permit and counted in the
-    group size, and you should carry ID for him.** An 11-year-old will not have a driver's licence —
-    **carry his passport** (you are travelling internationally anyway).
+    group size, and you should carry ID for the child.** A child will not have a driver's licence —
+    **carry the child's passport** (an international trip needs one anyway).
   - **Submitting multiple applications cancels all of them** — one application for the family, not
     one each.
 - **The honest substitute — Scout Lookout, and NPS itself frames it that way:**
@@ -336,9 +336,9 @@ Source: https://www.nps.gov/zion/planyourvisit/angels-landing-hiking-permits.htm
   chains.** Reasons: (a) it needs no permit, so it removes a lottery with ~20–30% autumn success from
   the critical path of the whole trip; (b) it is 7.2 km, comfortably inside the ceiling; (c) the view
   from Scout Lookout is the canyon view — the chains add exposure, not scenery; (d) the chains section
-  is the part of Zion with a fatality record and it is a genuinely bad place to discover that an
-  11-year-old is uncomfortable with exposure, because the only way off is back down the same chains
-  against oncoming traffic. **The lottery costs $15 and one calendar reminder if you want to enter
+  is the part of Zion with a fatality record and it is a genuinely bad place to discover that a
+  child is uncomfortable with exposure, because the only way off is back down the same chains
+  against oncoming traffic. **The lottery costs $6 plus $3 per person and one calendar reminder if you want to enter
   anyway — enter it, and treat winning as optional upside.**
 - Other hard facts carried forward: permits required 24/7; valid a single day; start at the Grotto
   (Shuttle Stop 6) in your assigned slot; hiking without a permit risks fines up to $5,000.
@@ -352,7 +352,7 @@ Source: https://www.nps.gov/zion/planyourvisit/angels-landing-hiking-permits.htm
 Source: https://www.nps.gov/meve/planyourvisit/cliff_dwelling_tours.htm | https://www.recreation.gov/ticket/facility/233362
 
 - **NO minimum age on either tour.** The only age rule is **"Minors under 18 must be accompanied by
-  an adult."** **VERDICT: YES for an 11-year-old on both.**
+  an adult."** **VERDICT: YES for a child of 11 on both.**
 - **The real gate is a capability rule, and it is stated identically for both tours:**
   - **Cliff Palace: "All persons, including children, must be capable of climbing the ladders on
     their own."**
@@ -370,11 +370,11 @@ Source: https://www.nps.gov/meve/planyourvisit/cliff_dwelling_tours.htm | https:
 
 - **Recreation.gov states for Balcony House: "No height or age restrictions, though children must
   independently climb ladders."** The **18 in × 27 in × 12 ft tunnel is the de-facto body-size filter,
-  and an 11-year-old is on the easy side of it** — this tunnel excludes large adults, not children.
+  and a child of 11 is on the easy side of it** — this tunnel excludes large adults, not children.
   **Balcony House is genuinely the better of the two for a child**: the ladder and the crawl are the
   fun part.
 - **Child fare: Balcony House is $8.00 per person, ages 3 and up** (recreation.gov, verbatim) —
-  **there is no reduced child rate; the 11-year-old pays the same $8.**
+  **there is no reduced child rate; a child pays the same $8.**
   `GAP: Cliff Palace's exact ticket price is not published on the NPS fees page or the recreation.gov
   facility page. Budget ~$8/person.`
 - **America the Beautiful does NOT cover tour tickets** — entrance and standard day-use amenity fees only.
@@ -394,10 +394,10 @@ https://www.recreation.gov/ticket/234668/ticket/116 (ranger-guided) |
 https://www.recreation.gov/ticket/234668/ticket/10087108 (self-guided)
 
 - **Minimum age is 5 for BOTH the ranger-led tour and the self-guided permit. Children under 5 are
-  not allowed on either.** **VERDICT: YES for an 11-year-old on both.**
+  not allowed on either.** **VERDICT: YES for a child of 11 on both.**
 - **Supervision: children 12 and under must be accompanied by a responsible adult**, and **one adult
-  is required per child aged 5 or 6** (does not bind here). **An 11-year-old is inside the "12 and
-  under, must be accompanied" band — he must be with an adult, which he will be.**
+  is required per child aged 5 or 6** (does not bind here). **A child of 11 is inside the "12 and
+  under, must be accompanied" band — the child must be with an adult.**
 - Ranger-guided hike is **2.5 hours, "difficult and strenuous, requiring the occasional use of hands
   to scramble up and through narrow cracks and along narrow ledges above drop-offs."** Max group size 6.
 - **Season trap carried forward: ranger-guided tours run ~mid-April through September and "will end
@@ -409,7 +409,7 @@ https://www.recreation.gov/ticket/234668/ticket/10087108 (self-guided)
 
 ## B7. Yellowstone and Grand Teton — ranger programmes and Junior Ranger
 
-**Junior Ranger — this is the genuinely good one for an 11-year-old, and it is free.**
+**Junior Ranger — this is the genuinely good one for a child of 11, and it is free.**
 
 | Park | Programme | Age | Cost | How it works | Source |
 |---|---|---|---|---|---|
@@ -417,12 +417,12 @@ https://www.recreation.gov/ticket/234668/ticket/10087108 (self-guided)
 | **Yellowstone** | **Young Scientist** | **"Kids 5 and older"**, run in **three age bands**; the **ages 5–9 version is only at Old Faithful** | **$5** for the self-guiding booklet | Request the booklet at the **Canyon Visitor Education Center** or **Old Faithful Visitor Education Center**. Solve science mysteries combining visitor-center and field investigation. **Patch for ages 5–13**, key chain for 14+. | https://www.nps.gov/yell/learn/kidsyouth/young-scientist.htm |
 | **Grand Teton** | **Junior Ranger — "The Grand Adventure"** | **"children of all ages"**, activities tailored by age group | Free | **"The Grand Adventure is available at any park visitor center."** Complete the activities for your age level. Can be completed at home and mailed to park HQ for the badge. | https://www.nps.gov/grte/learn/kidsyouth/beajuniorranger.htm |
 
-- **Recommendation: an 11-year-old is in the sweet spot for Yellowstone's Young Scientist at the
-  CANYON Visitor Education Center** (the 5–9 band is Old Faithful-only, so at 11 he gets the older,
+- **Recommendation: a child of 11 is in the sweet spot for Yellowstone's Young Scientist at the
+  CANYON Visitor Education Center** (the 5–9 band is Old Faithful-only, so at 11 a child gets the older,
   more substantial version). **$5, no booking, and it turns the Canyon area into an activity rather
   than a viewpoint queue.** Pair it with the free Junior Ranger badge in both parks.
 - **Neither Junior Ranger programme requires a booking or a ranger-led walk** — booklet + ranger
-  sign-off at a visitor center. **No age gate excludes an 11-year-old anywhere in these programmes.**
+  sign-off at a visitor center. **No age gate excludes a child of 11 anywhere in these programmes.**
 - **Ranger-led walks/talks:** `GAP: no age minimums are published for Grand Teton or Yellowstone
   ranger programmes, and current schedules are not posted this far ahead. Failed/thin sources:
   nps.gov/grte/planyourvisit/ranger-programs.htm (schedule only, no age rules),
@@ -452,32 +452,32 @@ Source: https://www.nps.gov/aboutus/nonresident-fees.htm | https://www.recreatio
   Mountain, Sequoia & Kings Canyon, Yellowstone, Yosemite, Zion.** **Four are on this route: Zion,
   Bryce Canyon, Grand Teton, Yellowstone.** (Mesa Verde, Arches, Canyonlands, Capitol Reef, Natural
   Bridges and Glen Canyon are NOT surcharge parks.)
-- **→ The 11-year-old is exempt from the surcharge in his own right, pass or no pass.**
-  **Worst-case exposure without any pass is 4 parks × 2 adults × $100 = $800, not $1,200.**
+- **→ A child under 16 is exempt from the surcharge in their own right, pass or no pass.**
+  **Worst-case exposure without any pass is 4 parks × $100 per adult 16+; for two adults $800, and nothing for children under 16.**
 
-**Q3: Does the $250 non-resident America the Beautiful pass cover all three travellers? YES.**
+**Q3: Does the $250 non-resident America the Beautiful pass cover every traveller in the car? YES.**
 - **Verbatim: valid America the Beautiful passes and park-specific annual passes "will cover entrance
   fees and nonresident fees for the pass holder and passengers in a private vehicle or on two
   motorcycles."**
-- **One $250 pass, one named holder, everyone else in the car rides on it — including the child, and
+- **One $250 pass, one named holder, everyone else in the car rides on it — including children, and
   including the $100 surcharges at all four surcharge parks.**
 - Bryce's fee page states the exemption directly: *"Non-US residents (16 and over) must pay an
   additional $100 per person fee **unless admitted with an Annual or America the Beautiful Pass**."*
   Identical wording appears on the Yellowstone and Grand Teton fee pages.
 - **Where a park charges per-person rather than per-vehicle, the pass covers "the passholder plus
-  three additional adults."** A party of 2 adults + 1 child is inside that even in the per-person case.
+  three additional adults."** A family of up to four adults plus children is inside that even in the per-person case.
 
-**The arithmetic, corrected for the child:**
+**The arithmetic, for two non-resident adults (children under 16 are exempt):**
 
 | Scenario | Cost |
 |---|---|
-| No pass: surcharges alone (2 adults × 4 parks × $100; child exempt) | **$800** |
+| No pass: surcharges alone (2 adults × 4 parks × $100; children under 16 exempt) | **$800** |
 | No pass: plus ~$280 of vehicle entrance fees across the route | **≈$1,080** |
-| **One $250 non-resident America the Beautiful pass** | **$250, covering all three travellers everywhere** |
+| **One $250 non-resident America the Beautiful pass** | **$250, covering everyone in the car everywhere** |
 
 - **Buy one $250 non-resident America the Beautiful pass. It saves roughly $830 and it is the single
   highest-value admin action of the trip.** Unchanged from prior research — but now confirmed that the
-  child neither needs his own pass nor triggers a surcharge.
+  a child neither needs their own pass nor triggers a surcharge.
 - **Pass admin gotchas:** non-refundable, non-transferable, not replaceable if lost.
   **"Passholders must show valid photo identification (ID) with each pass"** — the pass holder must be
   an adult with photo ID and **must be present**. Online orders ship a physical pass and **"may take
@@ -486,13 +486,13 @@ Source: https://www.nps.gov/aboutus/nonresident-fees.htm | https://www.recreatio
 - **Fee-free days from 2026 apply only to U.S. residents** — non-residents still pay.
 - **NOT covered by the pass:** Monument Valley Navajo Tribal Park, Antelope Canyon (Navajo Nation),
   Horseshoe Bend parking (City of Page), Dead Horse Point State Park (Utah State Parks).
-- **The $55 Southeast Utah annual pass is US-residents-only** and unavailable to this party.
+- **The $55 Southeast Utah annual pass is US-residents-only** and unavailable to non-residents.
 
 ---
 
 # SUMMARY TABLE — every gate, one line each
 
-| # | Gate | Limit | 11-year-old |
+| # | Gate | Limit | Age 11 |
 |---|---|---|---|
 | B1 | **Ouray Via Ferrata — unguided** | 62" standing reach; 90–265 lbs | **NO** (and 18+ to rent gear) |
 | B1 | **Ouray Via Ferrata — GUIDED** | Min age **7** (Basecamp) / **8** (Mountain Trip); under-16s need a PRIVATE trip | **YES** — book private, from $169–$795 |

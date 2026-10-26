@@ -317,3 +317,11 @@ Lake and Burstall Pass trailheads; see `research/runs/DATA-D1b-points.md`). Thes
 | D4a-7 | Icewalks | (780) 852-3803 | May a child under 7 join the half-day walk (the fare table starts at 7)? Where exactly do walkers meet? Fills `min_age` and the meeting point. |
 | D4a-8 | Alpine Helicopters, Canmore | from canmore.alpinehelicopter.com | Minimum age, child fare and the summer season of the Three Sisters tour. Fills `min_age`, `price`, `season`. |
 | D4a-9 | Alpine Stables, Waterton | from alpinestables.com | Where are the stables (address), and what are the summer season dates and hourly rates? Fills the Waterton half of the two-operator horse record. |
+
+## D8-R bookings (26 Oct 2026, Rockies booking rules)
+
+| # | To | Contact | Question |
+|---|---|---|---|
+| D8R-1 | Parks Canada, Banff (Lake Louise and Moraine Lake shuttle) | 1-877-RESERVE (1-877-737-3783); parks.canada.ca/lakelouise-transit | Is the shuttle launch day set each spring (April in 2026), and will the 40 % at launch and 60 % two days before split continue? Turns the "spring launch" pattern into a rule on `window` of the shuttle seat. |
+| D8R-2 | Parks Canada, Banff (Lake Louise visitor centre) | parks.canada.ca/pn-np/ab/banff | When Group Access is in effect on the Moraine Lake area trails, does a child count toward the group of four, and is the in-effect period announced each year by bulletin? Fills the note on `group_min` (R2a). |
+| D8R-3 | Roam Transit | roamtransit.com/contact | Are the summer Super Pass releases always monthly batches at 09:00 Mountain, and when is the schedule published each spring? Turns the pattern into a rule on the proposed `#roam-super-pass` window. |

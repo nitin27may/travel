@@ -17570,6 +17570,38 @@
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
           "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+          "field": "window"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-4809e7029e",
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield-adventure/tickets",
+      "title": "Columbia Icefield Adventure tickets",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "first_read": "2026-10-26",
+      "last_read": "2026-10-26",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+          "field": "book_url"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",

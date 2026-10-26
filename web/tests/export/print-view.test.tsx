@@ -115,6 +115,12 @@ describe('the print says what the page says (review B2)', () => {
     expect(sec).toContain('Stretch break');
     expect(sec.indexOf('Stretch break')).toBeLessThan(sec.indexOf('At the airport'));
   });
+  it('P1: the second half of a split drive prints "Drive on", not the destination again', () => {
+    const sec = sectionOf(renderToStaticMarkup(TripPrintView({ data: model, session })), 14);
+    expect(sec).toMatch(/Drive on<\/b>|Drive on[ <]/);
+    expect(sec).not.toMatch(/Drive on to/);
+    expect((sec.match(/Venice Marco Polo Airport/g) ?? []).length).toBeLessThanOrEqual(2);
+  });
   it('MUST-6: the Book ahead section follows the meta line and lists each booking by its dateless rule; a stop shows its own', () => {
     // Dolomites carries dateless rules ("Opens 30 days before Day 3"); the Rockies rows are notes only until BACKLOG 15.223b
     const rm = model;

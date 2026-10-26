@@ -1,6 +1,6 @@
 # Dolomites 2027: Italy city extension decision
 
-Read 2026-10-24. Research memo for the party of 3 (2 adults + child 11); adapts the destination-overview, road/legs, fares/costs, family and events lanes. Not a city record or a booked itinerary. Confidence labels describe the source; **agent_inferred** marks calculations or recommendations. All 2027 timetables, fares and weather remain unconfirmed unless specifically noted.
+Read 2026-10-24. Research memo for a family with an older child (under 12); adapts the destination-overview, road/legs, fares/costs, family and events lanes. Not a city record or a booked itinerary. Confidence labels describe the source; **agent_inferred** marks calculations or recommendations. All 2027 timetables, fares and weather remain unconfirmed unless specifically noted.
 
 ## Decision
 
@@ -72,7 +72,7 @@ The same calculation for Aug 17–30 shifts each date by 35 days. These are exam
 ## Rail, flight and car logistics
 
 - Current operator reference times: Venice–Rome about 3 h 58 min direct; Rome–Verona about 3 h 18 min; Venice–Verona about 1 h 12 min; Verona–Bologna about 52 min. These are city-to-city train journey references, not door-to-door elapsed times; allow station access, arrival buffer, local transit and luggage handling. 2027 timetables/fares were not invented. [source: Trenitalia, https://www.trenitalia.com/it/frecciarossa/collegamenti-frecciarossa/con-frecciarossa-a-venezia.html and https://www.trenitalia.com/it/frecciarossa/collegamenti-frecciarossa/verona-con-frecciarossa.html, read 2026-10-24, confidence operator; buffer: agent_inferred]
-- Trenitalia says high-speed fares have limited seats at each price level and vary by train/day; the 11-year-old qualifies for the published children’s 50% reduction on the Base fare for eligible Frecce services. Do not assume that this beats a limited promotional fare; compare the total for 2 adults + 1 child at booking. [source: Trenitalia fare information, https://www.trenitalia.com/en/html/trenitalia/Info_Tariffe_en_LeFrecce.html, read 2026-10-24, confidence operator]
+- Trenitalia says high-speed fares have limited seats at each price level and vary by train/day; a child in the published child age band qualifies for the children’s 50% reduction on the Base fare for eligible Frecce services. Do not assume that this beats a limited promotional fare; compare the total for the whole party at booking. [source: Trenitalia fare information, https://www.trenitalia.com/en/html/trenitalia/Info_Tariffe_en_LeFrecce.html, read 2026-10-24, confidence operator]
 - The FrecciaFAMILY offer is available on listed Frecce services, with limited seat availability and age documentation requirements; check the exact terms and offer at purchase. [source: Trenitalia, https://www.trenitalia.com/en/offers/frecciafamily.html, read 2026-10-24, confidence operator]
 - For Venice, avoid carrying the rental car into the historic centre. The clean end-of-trip sequence is mountain drive → VCE rental return → ATVO airport express → Venice; ATVO states airport buses have luggage space and unlimited baggage included. [source: Comune di Venezia, https://www.comune.venezia.it/en/content/car, read 2026-10-24, confidence official; ATVO, https://www.atvo.it/en/services-provided/airport-services/venice-airport-bus-express, read 2026-10-24, confidence operator]
 - For Verona or Bologna, compare rail access against driving into city centres; do not plan on using the Dolomites rental car as an urban sightseeing vehicle. A Venice–Rome extension with the existing VCE return entails returning north by rail unless a suitable FCO departure is secured. [source: Trenitalia route pages above and existing VCE in/out plan, read 2026-10-24, confidence agent_inferred]
@@ -124,7 +124,7 @@ The same calculation for Aug 17–30 shifts each date by 35 days. These are exam
 
 ## Gaps
 
-GAP: Full, comparable city accommodation prices for a family of three from direct operator sources for July/August 2027; the €200/night used above is the owner’s target, not an availability claim.
+GAP: Full, comparable city accommodation prices for a small family from direct operator sources for July/August 2027; the €200/night used above is the owner’s target, not an availability claim.
 GAP: Actual 2027 YYZ–VCE / YYZ–FCO flight dates, schedule and multi-city fares; Air Canada’s cited pages are route context, not a 2027 quote.
 GAP: Trenitalia 2027 timetable, booking release and family fare totals for the selected dates.
 GAP: Exact Venice 2027 fee-application dates within Jul 13–26 and the applicable overnight-guest exemption process.

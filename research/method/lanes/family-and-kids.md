@@ -6,9 +6,19 @@ Status: draft (17 Oct 2026).
 
 Make every entity answer "can **our** children do this, and will they enjoy it": hard limits, realistic
 distances, facilities, safety edges, family versions of adult activities, kid prices, and kid-specific
-places (splash pads, playgrounds, interactive museums, beaches with shallow water). The household in the
-intent notes travels with kids 9-12 and avoids unfenced cliff edges; the Rockies plan was built around a
-6-year-old with a family track every day.
+places (splash pads, playgrounds, interactive museums, beaches with shallow water). Plans are written for
+an audience, not a household: the family default (youngest child 10, R-121) or the age a plan states, often
+with a family track every day; unfenced cliff edges are a common avoid rule.
+
+**Write for an audience, never for the household.** Research prose, run notes and record notes never state who
+travels: no party lines, party sizes, traveller ages, age bands, birthdays, heights, weights, school grades or
+pronouns for a child, and no home town as the party's origin. When a verdict needs an age, name it as a test age
+("checked at age 11 (test age)", or "the product default, youngest child 10") or use the plan's public
+written-for statement. State the operator threshold, not the child's measurement ("under 8 or under 23 kg
+fails"). Price totals are per adult and per child; a party total is labelled "example". The real party lives
+only in private household data, never in tracked files. Before hand-back, grep new files for
+`adults \+|family of [0-9]|party of [0-9]|[0-9]+-year-old|(son|daughter|wife)` and rewrite each hit that
+describes the travellers.
 
 ## 2. Produces
 
