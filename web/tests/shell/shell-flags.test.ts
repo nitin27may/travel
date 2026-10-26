@@ -6,9 +6,10 @@ vi.mock('next/navigation', () => ({ usePathname: () => '/places/moraine-lake/' }
 vi.mock('next/dynamic', () => ({ default: () => () => null }));
 
 import { capabilities } from '@/lib/capabilities';
-import { reportLink, reportUrl } from '@/lib/config/product';
+import { ACCOUNT_LINKS, reportLink, reportUrl } from '@/lib/config/product';
 import { reportProblem } from '@/lib/client/data';
 import { SiteHeader } from '@/components/shell/SiteHeader';
+import { AccountItems } from '@/components/shell/AccountItems';
 import { BottomBar } from '@/components/shell/BottomBar';
 import { ReportAnchor } from '@/components/shell/ReportLink';
 
@@ -24,6 +25,17 @@ describe('signIn flag (11.1)', () => {
     const html = renderToStaticMarkup(createElement(SiteHeader, { capabilities: { signIn: true } }));
     expect(html).toMatch(/href="\/sign-in\/?"/);
     expect(html).toContain('Sign in');
+  });
+});
+
+describe('phone bar account item (ACCT-PH)', () => {
+  it('renders Sign in and Account links so html[data-signed-in] can swap them without bar state', () => {
+    const html = renderToStaticMarkup(createElement(BottomBar, { account: createElement(AccountItems) }));
+    expect(html).toMatch(/href="\/sign-in\/?" data-acct="signedOut"[^>]*>.*Sign in<\/a>/);
+    expect(html).toMatch(/href="\/account\/?" data-acct="signedIn"[^>]*>.*Account<\/a>/);
+  });
+  it('adds nothing when the layout passes no account item (sign-in off)', () => {
+    expect(renderToStaticMarkup(createElement(BottomBar))).not.toContain('data-acct');
   });
 });
 

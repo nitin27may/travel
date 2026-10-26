@@ -16,30 +16,20 @@ const AccountMenu = dynamic(() => import('./AccountMenu').then((m) => m.AccountM
  * lazily inside the effect so Better Auth stays out of the initial shared bundle on public pages.
  */
 export function AccountNav() {
-  const [user, setUser] = useState<HeaderUser | null>(null);
-  const [loaded, setLoaded] = useState(false);
+  const [user, setUser] = useState<HeaderUser>();
 
   useEffect(() => {
-    let alive = true;
     import('@/lib/auth/client')
       .then(({ getAuthClient }) => getAuthClient().getSession())
       .then((r) => {
-        if (!alive) return;
-        setUser(((r as { data?: { user?: HeaderUser } } | null)?.data?.user ?? null) || null);
-        setLoaded(true);
+        const u = (r as { data?: { user?: HeaderUser } } | null)?.data?.user;
+        setUser(u);
+        // the phone bottom bar swaps Sign in for Account from this attribute (ACCT-PH): no second session read
+        if (u) document.documentElement.dataset.signedIn = ''; // sign-out reloads the page
       })
-      .catch(() => {
-        if (alive) setLoaded(true);
-      });
-    return () => {
-      alive = false;
-    };
+      .catch(() => {});
   }, []);
 
-  // While loading, and whenever signed out, show the Sign in link (optimistic): no layout shift for
-  // the common case, and it is already the server-rendered markup.
-  if (!loaded || !user) {
-    return <SignInLink />;
-  }
-  return <AccountMenu user={user} />;
+  // Loading, failed, or signed out: the Sign in link (optimistic, and already the server-rendered markup, so no layout shift).
+  return user ? <AccountMenu user={user} /> : <SignInLink />;
 }
