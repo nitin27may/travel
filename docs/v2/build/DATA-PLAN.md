@@ -18,6 +18,12 @@ task table in [MASTER-ORDER](MASTER-ORDER.md) 3.4 (which now points here). [CATA
 the authority for the load briefs (LOCAL-3 to CAT-Q); section 3 here only orders them with the research. The release
 bundles and their rules are [RELEASE-PLAN](RELEASE-PLAN.md) 0a.
 
+> **26 Oct 2026, evening (ALIGN, R-256):** rows 45 to 50 add the data-seat work of the UX fixes, the entity graph and the
+> parks spec (UXB-W, EG-M, EG-D, PA-R-CA, PA-MUS, PA-R-ON); the seat also builds PM-G (D, counted as Infra); TRP-GL-D,
+> L4, ORPH-7, AREA-2 and UXB-W are merged; the D10 splits for the other trips and the D8-R facts move into C's window
+> (they still count in D and E). Data hours: **194 h**. Seat schedule 2.2 rewritten to MASTER-ORDER 5.4.
+> [alignment-2026-10-26.md](alignment-2026-10-26.md) 2.4.
+
 ## 0. Decision in one paragraph
 
 **One data seat runs a single ordered queue (section 2): the early half of the catalogue load first (bundle B's Internal,
@@ -61,19 +67,19 @@ data-seat row of [MASTER-ORDER](MASTER-ORDER.md) 5.4. Ids marked (new) had no ta
 |---|---|---|---|---|---|---|---|---|
 | 1 | D1B-Q | The five open D1b rulings (Lac du Chatelard, Cinque Torri and Fiscalina and Vallunga payoffs, Mount Indefatigable, Federa `reaches`, Grand View Point point) | 0.5 owner | owner | | **answered 26 Oct 2026, as recommended** (section 2.3); done | C, D | 5 |
 | 2 | LOCAL-3 | Drift stage in check-all (CATALOGUE-EARLY 11.1) | 3 | Sonnet | | | B | 1 |
-| 3 | TRP-GL-D | Identity of Emerald Lake shore, Lake Louise shore, Paint Pots (closure B4, D5) | 2 | Opus | | | A | 1 |
+| 3 | TRP-GL-D | Identity of Emerald Lake shore, Lake Louise shore, Paint Pots (closure B4, D5) | 2 | Opus | | | A | **done** (merged 26 Oct; storing blocked by the ledger pin, run note) |
 | 4 | RIS-M | `research_meta` migration (11.2) | 7 | Opus builder, review | | | B | 2 |
 | 5 | RIS-L | The 26 seed families on the engine (11.3) | 8 | Sonnet, Opus review | RIS-M | | B | 3 |
 | 6 | RIS-T | Load tests with exposure parity (11.4) | 7 | Sonnet, verifier | RIS-L | | B | 4 |
 | 7 | LOCAL-5 | `db:rehearse` on the child (11.5) | 2 | Sonnet | RIS-T | | B | 4 |
 | 8 | CAT-V | Read-only production drift job (11.6) | 2 | Sonnet | LOCAL-5 | | B | 5 |
 | 9 | DV-1 (new) | Database cross-check `db:crosscheck`: field-by-field compare, counts with `seed_commit`, referential integrity, role grants, exposure parity (section 4, brief 7.2) | 6 | Sonnet 5, Opus review 1 | RIS-L | | B | 5 |
-| 10 | L4 | Cross-check the 74 stored places: 10-value samples against sources | 2 | Sonnet verifier | | | A | 5 |
+| 10 | L4 | Cross-check the 74 stored places: 10-value samples against sources | 2 | Sonnet verifier | | | A | **done** (merged 26 Oct: 60 values, 93.3% confirmed) |
 | 11 | D610 | The 42 dated texts list (BACKLOG 3.10) and the D6a run note | 1 | Haiku | | | A | 5 |
-| 12 | ORPH-7 | Place records for the 7 offers that say where nowhere (`E_PLACE_ORPHAN` 7 to 0) | 3 | Opus | | | C | 6 |
+| 12 | ORPH-7 | Place records for the 7 offers that say where nowhere (`E_PLACE_ORPHAN` 7 to 0) | 3 | Opus | | | C | **done** (merged 26 Oct) |
 | 13 | CAT-1 | First production load on bundle B's release day (11.7) | 1.5 | coordinator | CAT-V, DV-1, B approval | Q280 to Q286 answered | B | release day |
 | 14 | TRK-1 (new) | Track fetcher for trails with capture records: OSM relations from the record's `links`, files keyed by public slug, no prototype place needed (brief 7.1) | 7 | Sonnet 6, Opus review 1 | | | C | 7 |
-| 15 | AREA-2 | Areas for the 227 records with none, Rockies (114) first; a missing type is one `types.json` entry by one writer with Opus review | 6 | Opus | | | C | 7 |
+| 15 | AREA-2 | Areas for the 227 records with none, Rockies (114) first; a missing type is one `types.json` entry by one writer with Opus review | 6 | Opus | | | C | **done** (merged 26 Oct: `E_PLACE_AREA` 227 to 28, 76 new store places) |
 | 16 | D3 | Trail facts for the rest: access points 105, `starts_at` 105, Wikidata 75 of 118 trails | 10 | Opus | | D1B-Q 3 answered 26 Oct (drop it from the plan) | C | 8 |
 | 17 | TRL-REL (new) | Relevance answers for the 75 trails with none | 3.5 | Sonnet, Opus sample | | | C | 8 |
 | 18 | ORG-G | Gateways for the 13 public trips (`data/trips/gateways.json`) | 3 | Opus | ORG-D (B2 row 6) | | C | 9 |
@@ -103,8 +109,14 @@ data-seat row of [MASTER-ORDER](MASTER-ORDER.md) 5.4. Ids marked (new) had no ta
 | 42 | L5 | New areas and places: added through the `location` skill on the owner's request, each to the 4b completion standard of DATA-ROADMAP | per request | Opus, Sonnet fills | | the owner names them | the next bundle after it merges | after row 17 |
 | 43 | PERU | Peru: research notes only, no page, no data | | | | **dates and length** | not on the train | |
 | 44 | SYNC | Catalogue sync to production on every bundle that changes data (RELEASE-PLAN 6 step 9a, CATALOGUE-EARLY 11.7) | 0.3 per bundle | coordinator | CAT-1 | release approval covers it (Q282) | every bundle from B | release day |
+| 45 | UXB-W (26 Oct) | Official weather and climate links for the 14 public trips (with the UXB-WL schema) | 3 | Opus | | | C | **done** (merged 26 Oct) |
+| 46 | EG-M (26 Oct) | Migration `relation_kinds`, `entity.run_by`, enum and SQL drift test, loader mapping ([entity-graph](../features/entity-graph.md) 11.3) | 2.5 | Opus builder (lane S) | EG-C, RIS-L | QG5 | C | MASTER-ORDER 5.4 row 5 |
+| 47 | EG-D (26 Oct) | The 10 wrong-target relation fixes (changeset), the Larch Valley meadows variant (researched), `E_CAP_REL_TARGET` strict, graph rebuilt | 3 | Sonnet 1.5, Opus researcher 1.5 | EG-C, EG-I | QG1 to QG5 | C | row 5 |
+| 48 | PA-R-CA (26 Oct) | Rockies parks (Banff, Jasper, Yoho, Kootenay, Kananaskis Country) through the locations store first, 2 zones, every entry requirement reshaped from the D8-R proposals, the Tre Cime toll ([protected-area-entry](../features/protected-area-entry.md) 11) | 6 | Opus researcher | PA-C; not beside D10-RO on the Rockies lane files | QP1 to QP6 answered | C | row 5 |
+| 49 | PA-MUS (26 Oct) | US park fees off the place onto `#entrance-fee` offers, `covered_by` the national pass | 2.5 | Sonnet, Opus review 0.5 | PA-C | | E | row 17 |
+| 50 | PA-R-ON (26 Oct) | Algonquin pilot: minimal park, two campgrounds, backcountry permit | 4 | Opus researcher | PA-3C | | G | row 20 |
 
-Totals by bundle (hours counted in RELEASE-PLAN 0a.2): A 5, B 36.5, C 62.5, D 13.5, E 55.5; 173 h with DP and L5 outside.
+Totals by bundle (hours counted in RELEASE-PLAN 0a.2): A 5, B 36.5, C 62.5, D 13.5, E 55.5; 173 h with DP and L5 outside. **With rows 45 to 50 (26 Oct, ALIGN): A 5, B 36.5, C 77, D 13.5, E 58, G 4; 194 h.** PM-G (5 h, Sonnet builder in this seat during D's window) is counted as D's Infra, not here.
 Of these, the work no task covered before today: TRK-1 7, TRK-CA 5, TRK-DO 2, TRK-RW 2, D10 18.5, TRL-REL 3.5, OFR-1 3.5,
 STO-1 1.5, OVT 7, DV-1 6, DV-2 3 (59 h). The report's 29 h becomes 34 h here because each D10 split carries its Opus
 10-record review (3.5 h) and OFR-1 adds the 25 offers RIS-H unblocks (1.5 h).
@@ -133,15 +145,19 @@ and TRK (geometry); offer keys are OFR-1 and RIS-H.
 One data seat (Opus researcher, or a Sonnet builder for code-run tasks), one task at a time. A window is the time B1
 takes for a bundle's critical path (MASTER-ORDER 5.4); the plan assumes one data-seat hour per B1 hour.
 
+**Rewritten 26 Oct 2026, evening (ALIGN)** to MASTER-ORDER 5.4's new rows. The 25 Oct windows are replaced; lane S has
+not started, so it runs at the head of C's window.
+
 | Window (5.4 rows) | B1 hours | Data seat queue | Seat hours | Spare | Ships in |
 |---|---|---|---|---|---|
-| A (1 to 6) | 43.5 | LOCAL-3, TRP-GL-D; RIS-M; RIS-L; RIS-T, LOCAL-5; CAT-V, DV-1, L4, D610; ORPH-7 | 43 | 0.5 | A (TRP-GL-D, L4, D610), B (lane S, DV-1), C (ORPH-7) |
-| C (7 to 11; B ships from B2 rows 5 to 10) | 71.5 | TRK-1, AREA-2; D3, TRL-REL; ORG-G, TRK-CA, TRK-DO, TRK-RW; D10-RO, D10-DO; OFR-1, D5c, DV-2 | 59.5 | 12 | C |
-| D (12 to 14) | 52.5 | D8-R, D10-UT, D10-PA, D10-IC, D10-CH, D10-PAST; D8, STO-1, L3; D7 | 45.5 | 7 | D (D10, STO-1, L3), E (D8-R, D8, D7) |
-| E (15 to 17) | 68 | RIS-A; D9, OVT; DP (optional) | 23.5 (+4) | 40.5 | E |
+| A finish (1) | 3 | LOCAL-3, RIS-M | 10 | | B |
+| C (2 to 11) | 128 | RIS-L; RIS-T, LOCAL-5; CAT-V, DV-1, TRK-1; EG-M, EG-D, PA-R-CA, D5c; D3, TRL-REL; ORG-G, TRK-CA, TRK-DO, TRK-RW; D10-RO, D10-DO; OFR-1, DV-2; D8-R facts, D10-UT, D10-PA, D10-IC, D10-CH, D10-PAST | 106 | 22 | B (lane S, DV-1), C, and D and E for the pulled-forward splits and D8-R |
+| D (12 to 14) | 56.5 | PM-G (code); D8; STO-1, L3; D7 (after OVR-Ca) | 34.5 | 22 | D, E |
+| E (15 to 17) | 91 | RIS-A; D9, OVT; PA-MUS; DP (optional) | 30 | 61 | E |
+| G (20, 21) | 66 | PA-R-ON | 4 | | G |
 | F onward | | L5 requests, re-measures, any slipped batch | | | next bundle |
 
-**Where it can slip, and what happens.** Window A has no spare: if lane S runs over, ORPH-7 moves to C and CAT-1 rides
+**Where it can slip, and what happens** (25 Oct text; since ALIGN lane S runs at the head of C's window, so bundle B's CAT-1 waits for it or rides C, and C has 22 h spare). Window A has no spare: if lane S runs over, ORPH-7 moves to C and CAT-1 rides
 C (RELEASE-PLAN 0a.3 row 3). Window C has 12 h: Overpass outages (the CA split of D2b lost an hour to 502s) or the Opus
 weekly cap (research pauses above 70% of the week's use) are the likely causes; then TRK-RW and D10-DO ship partial in C,
 each unfilled key a dated `searched_none` and one Known limits line, and finish in D. Nothing in this plan blocks a
@@ -385,5 +401,6 @@ merge.
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (ALIGN, evening) | Banner; rows 3, 10, 12, 15 marked done; rows 45 to 50 (UXB-W, EG-M, EG-D, PA-R-CA, PA-MUS, PA-R-ON); totals 194 h; 2.2 rewritten to MASTER-ORDER 5.4 (lane S at the head of C's window; D10 splits and D8-R facts pulled into C; PM-G built in this seat). [alignment-2026-10-26.md](alignment-2026-10-26.md) |
 | 2026-10-26 (ANSWERS-5) | Section 2.3 rewritten: D1B-Q 1 to 5, Sepaq fees, DD-3, Q99, Q109 to Q116, DD-6 and Q290 answered as recommended; the tasks that waited on them are ready; the values still needed (Siusi, Grand-Sault, Utah, Norway and Peru dates, Dolomites base split, Switzerland pass) point to MASTER-ORDER 7.3. Nothing else changed |
 | 2026-10-26 | First version (PLAN-CONSOLIDATE job 3, planned only): state from the coverage report; every pending data and research task in one order with hours, blockers, owner decisions, bundle and seat row; the 384 draft records by trip and kind; the seat schedule by window with capacity; owner decisions by the bundle they unblock; the load and verify pipeline; the database cross-check X1 to X9; the scoreboard and its targets per bundle; the data policy; briefs TRK-1, DV-1, DV-2; Q290. New tasks: TRK-1, TRK-CA, TRK-DO, TRK-RW, D10 splits, TRL-REL, OFR-1, STO-1, OVT, DV-1, DV-2 |
