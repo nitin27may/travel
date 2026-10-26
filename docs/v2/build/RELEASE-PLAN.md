@@ -1,5 +1,7 @@
 # Release plan: one ordered train from v0.1 to the Postgres cutover
 
+> **26 Oct 2026: releases are bundles A to K (section 0a, owner decision).** The v0.x numbers below are feature labels.
+
 Written 25 Oct 2026 by travel-planner (Opus) at `main` 52339a0. Planned only: nothing here is built or deployed by this
 page. Requirement PLAN [R-180](../PLAN.md); owner questions Q220 to Q229 (section 9; **all answered 25 Oct 2026: Q220 to Q226, Q229 yes as recommended; Q227 and Q228 changed**). Release notes live in the root
 [CHANGELOG.md](../../../CHANGELOG.md).
@@ -14,6 +16,126 @@ current section and EXECUTION-PLAN 13.2. Production has been live since 25 Oct 2
 https://travel-beta-tan.vercel.app, commit 47be5b5, migrations 0001 to 0011 applied. The TODO row "Owner action: turn on
 the Cloudflare Web Analytics beacon" says a builder must add the script; the script is already in `web/app/layout.tsx`
 behind `NEXT_PUBLIC_CF_BEACON_TOKEN`, so only the token and a privacy-page line are needed (v0.2).
+
+## 0a. Release bundles (owner decision, 26 Oct 2026; read first)
+
+The owner (26 Oct 2026): "merge a few into one; the verification overhead per release is too high." **The train is now
+eleven bundles, A to K. The v0.x numbers stay as feature labels**, so every reference in the specs, BACKLOG and briefs
+keeps working ("FAV-1 ships in v0.3" now reads "FAV-1 is feature v0.3, which ships in bundle A"). PLAN R-250; BACKLOG
+15.260 to 15.262. This section supersedes "each feature released on its own" (R-180) and the one-release-per-number
+reading of [MASTER-ORDER](MASTER-ORDER.md) 5.3; the gate, smoke list, checklist and CI plan of sections 4 to 8 stand,
+applied once per bundle. **Trade-off:** about four times fewer T3 runs, owner approvals and smoke rounds, against bigger
+deploys whose rollback takes a whole bundle back, and features that wait for their bundle mates (a ready feature waits at
+most one bundle, because a late mate is shipped dark, rule B3).
+
+### 0a.1 Rules
+
+| # | Rule |
+|---|---|
+| B1 | A release is a **bundle of independent features**, each behind its capability flag (`web/lib/capabilities.ts`). Data has no flag: a merged data batch rides the next bundle's deploy whatever its label |
+| B2 | **Test tiers** ([TEST-STRATEGY.md](TEST-STRATEGY.md)): each feature gets only **T1** while it is built (the builder's hand-back; design review and verifier for UI features, as today). **T2** runs once per stack of merged branches. **T3** (section 4.1: check-all, budgets in both builds, the quiet full e2e, the privacy audit, migrations on the child) runs **once per bundle** on its named commit, with every flag of the bundle on |
+| B3 | **A feature that is not ready is left flagged off and does not block the bundle.** It ships dark (code merged, flag off, listed under Internal as "built, switched off") and its flag turns on in the next bundle after its own T1 is green. A feature whose migration is not applied is not merged |
+| B4 | **Security-heavy bundles keep their reviews:** B (EML-S for sign-in by code, GSI-S for Google, the BKP-1 gate of Q185) and H (MCP-S1 on the public half before it opens, MCP-S on the private half before its door opens). D keeps FBK-S, F keeps CUS-R. No bundle ships with an open high finding |
+| B5 | **Rollback is per bundle.** First the flags (off, redeploy the same commit). Then `vercel rollback`, which on the Hobby plan reaches only the immediately previous production deployment; anything older is a redeploy of the previous bundle's tag through section 6 steps 8 and 9. Bundles that deploy twice (B, H, K, rule B9) leave their own first step as "previous", so a whole-bundle rollback is always the tag redeploy |
+| B6 | **Tags:** `release/<letter>` for bundles A to K (`release/A` ...); a fix to a live bundle is `release/<letter>.1`; `release/v0.1` stays as it is. Letters cannot collide with the feature labels, which a `release/v0.x` tag would. "The latest release tag" (CAT-V, section 6) means the latest `release/*` tag by creation date: `git for-each-ref --sort=-creatordate --count=1 refs/tags/release/` |
+| B7 | **Notes:** one CHANGELOG entry per bundle, `## [A] - <date>`, whose first line lists the feature labels it carries ("Features: v0.2, v0.3, v0.4"), then the groups of section 8. A feature shipped dark appears under Internal, and under Added only in the bundle that turns it on |
+| B8 | **Data readiness:** every bundle names the scoreboard numbers ([DATA-PLAN.md](DATA-PLAN.md) 5) its features display. The data seat schedules research so they are met at the bundle's T3 (DATA-PLAN 2.2). Data that falls short ships partial, each gap a dated `searched_none` and one Known limits line; it never blocks the bundle |
+| B9 | **Two-step bundles.** B: deploy with `NEXT_PUBLIC_SIGN_IN_GOOGLE=0`, owner O-E1 (Require Verification), smoke; then redeploy the same named commit with the Google flag on and run GSI-E (Google linking needs required verification, email spec 12). H: deploy with `MCP_PRIVATE_ENABLED=0` and the public MCP on; after MCP-S and at least 7 days of clean public use, O-M2 and O-M6, then the private flag on and a redeploy of the same commit (keeps Q225, public before private). K: one seam flag per redeploy of the same commit, a week apart, CAT-V clean between flips. Each step is a flag change on the bundle's tag, not a new release |
+| B10 | **Order.** A, B, C ... is the recommended deploy order; B (built in B2) and C (built in B1) are ready at about the same time and may swap. As with Q224, the letter follows the deploy order |
+
+### 0a.2 The bundles
+
+Hours are agent hours. "Build" is what is left after the merges on `main` by 26 Oct (BUD-1, GSI-P, NAV-C, FAV-C, RIS-J are
+merged and not counted). "Infra" is the test-strategy and platform work that rides the bundle as Internal. "Data" is the
+research and the load and verify work the data seat does for the bundle; task by task in
+[DATA-PLAN.md](DATA-PLAN.md) 2. Feature detail stays in section 3 (under the old numbers) and in MASTER-ORDER 5.3.
+
+| Bundle | Features (labels) | What a visitor gets | Build h | Infra h | Data h | **Total h** | Migrations | Security reviews | Deploys |
+|---|---|---|---|---|---|---|---|---|---|
+| **A** | v0.2 + v0.3 + v0.4 | sign-in reachable on phones, the privacy page, page-view counts, basics for the 74 stored places, Mine with copies and favourites on this device, trip-page go-live fixes, share images. **The first deploy since v0.1 waits for Mine** | 56.5 | 20 | 5 | **81.5** | none | none | 1 |
+| **B** | v0.5 + v0.9 | sign in by emailed code, verified accounts, backups, Continue with Google; Internal: the catalogue in Neon (CAT-1) and the database cross-check | 37.5 | 8 | 36.5 | **82** | `backup_reader`, `research_meta` | EML-S, GSI-S, BKP-1 gate | 2 (B9) |
+| **C** | v0.6 + v0.7 + v0.8 | places near a town (Where by city, near mode, routed times), the closure queue, photos on trail and stop pages, links and directions beside every stop, getting there | 108 | 10 | 62.5 | **180.5** | none | none | 1 |
+| **D** | v0.10 + v0.11 | report a problem, suggest an improvement or a place, ask for a trip with research-ready detail and "What we already have" | 104.75 | 0 | 13.5 | **118.25** | `intake` | FBK-S | 1 |
+| **E** | v0.12 + v0.13 + v0.14 | best time to go and the trip overview, Where to stay on every trip, trips written as data get pages | 113 | 0 | 55.5 | **168.5** | none | none | 1 |
+| **F** | v0.14.1 + v0.15 + v0.16 | field slimming, customise a trip (signed in), copies and favourites follow you into your account | 100.75 | 0 | 0 | **100.75** | `custom_draft`, `draft_cap`, `account_favourite`, `account_start` | CUS-R | 1 |
+| **G** | v0.17 + v0.18 | more edits, your own stops, base tweaks; search the map for a stop we do not have | 76 | 0 | 0 | **76** | none | REQ-G key and terms check (section 3 v0.14 extra gate) | 1 |
+| **H** | v0.19 + v0.20 | public MCP, then private MCP (your plans, read) and Connected apps | 56 | 0 | 0 | **56** | `mcp_access`, token tables | MCP-S1, MCP-S | 2 (B9) |
+| **I** | v0.21 | own domain and Email Phase 2, only on the Q148 trigger | 29 or 42.5 | 0 | 0 | **29 or 42.5** | mail tables | EML-S2 | 1 |
+| **J** | v0.22 | the UI and UX audit and its fixes, once, on the finished product | 70.5 | 0 | 0 | **70.5** | none | none | 1 |
+| **K** | v1.0 to v1.2 | the public catalogue served from Postgres, one seam at a time | 23 | 0 | 0 | **23** | none expected | parity per method | 3 flips (B9) |
+| | | **All, I at 29 h** | **775** | **38** | **173** | **986** | | | |
+
+Not in a bundle: LOCAL-4 (5 h) and E2E-YML (3 h) wait for the repository to be public and ride the next bundle after it;
+DP (4 h, optional), new areas (L5, sized per request), GLB2b (25 h, on the globe mock approval), TD-4, TD-6, 7.11 and the
+rest of MASTER-ORDER 3.8 "not on the train".
+
+How the hours were counted, per bundle:
+- **A.** Build: ACCT-PH-RV 1.5 (narrowed, 0a.3 row 1), OVR-0 3, NAV-F 1.5, NAV-1 5.5, NAV-2 6, NAV-R1/V1 4, FAV-1 12, FAV-R/V 4,
+  TRP-GL-C 3, TRP-GL 5, TRP-GL review 4, IMG-1 7. Infra: TS-1 5, TS-2a 3, TS-2 8, TS-4 4. Data: TRP-GL-D 2, L4 2, D610 1.
+- **B.** Build: EML-S 2, EML-V 2, EML-P 1, EML-E 2, BKP-1 6.5, GSI 24. Infra: TS-6 2, TS-3 4, TS-5 2. Data: LOCAL-3 3, RIS-M 7,
+  RIS-L 8, RIS-T 7, LOCAL-5 2, CAT-V 2, CAT-1 1.5, DV-1 6 (built in the data seat during A's window).
+- **C.** Build: v0.6 48 (LST2b 12, LST2c 9, MX 5, LST2-RV 6, R-14 3, CONS-3 8, GB-A-4 2, ACC-1 3), v0.7 13 (PHO-C 1, PHO-R 8,
+  review 4), v0.8 44 (R-59 19, ORG phase 1 25 without ORG-G), RIS-H 3. Infra: TS-7 5, TS-8 2, RIS-S 3. Data: AREA-2 6, ORPH-7 3,
+  D3 10, TRL-REL 3.5, D5c 4, ORG-G 3, TRK-1 7, TRK-CA 5, TRK-DO 2, TRK-RW 2, D10-RO 7, D10-DO 3.5, OFR-1 3.5, DV-2 3.
+- **D.** Build: v0.10 67.25, v0.11 31.5, CAT-Q 6. Data: D10-UT 1.5, D10-PA 2, D10-IC 2, D10-CH 1.5, D10-PAST 1, STO-1 1.5, L3 4.
+- **E.** Build: v0.12 45 (OVR-N 3, OVR-Ca 4, OVR-Cb 6, OVR-1 6, OVR-2 14, OVR-3 3, OVR-R/V 6, PHO-0 3), v0.13 46, v0.14 22. Data:
+  D8-R 8, D8 8, D7 16, D9 8.5, RIS-A 8, OVT 7.
+- **F.** v0.14.1 27.5, v0.15 36.25, v0.16 37. **G.** v0.17 47, v0.18 29. **H.** MCP-C 5.5 (with the database-import test of
+  [mcp/README.md](../mcp/README.md) 1.1), MCP-1 6, MCP-S1 1.5, ORG-MCP 1.5, v0.20 38.5, AU-D 3. **J, K, I** as MASTER-ORDER 5.3.
+
+### 0a.3 Dependency check inside each bundle (the master order's conflict map, MASTER-ORDER 4)
+
+Every bundle was checked against the contract order (MASTER-ORDER 4.3), the hot spots (4.1), migrations (4.4), budgets (4.5)
+and owner gates (4.6). Ten findings; each is fixed here and in the page named.
+
+| # | Bundle | Problem the grouping causes | Fix |
+|---|---|---|---|
+| 1 | A | The first deploy waits for Mine, so ACCT-PH's interim bar item never reaches production: NAV-1 replaces it 1:1 before any deploy | ACCT-PH-F dropped; ACCT-PH-RV keeps only the start-JS and place-HTML baselines NAV-1 needs (verifier 1.5 h; the design review of the interim item is dropped). MASTER-ORDER 3.6 |
+| 2 | B | Google linking is safe only after Require Verification (O-E1), and O-E1 must follow the deploy (email spec 12). One deploy for v0.5 and v0.9 would open Google before O-E1 | two-step deploy (B9) |
+| 3 | B | CAT-1's fallback was "v0.6" | fallback is the next bundle (C); B ships without it |
+| 4 | C | One bundle now holds PHO-R's owner-approved re-baseline (Q263) and every data batch that adds bytes to place pages (AREA-2, D3, D10-RO, D10-DO, track lines) | data batches merge before PHO-R, each alone in its stack with `budget:report` before and after; PHO-R's re-baseline then covers the photo figure only. A standing rule for research-filled pages is asked as Q290 (DATA-PLAN 6) |
+| 5 | C | R-59 and ORG-1 need ORG-G's gateways, and ORG-G waits on ORG-D (B2) | ORG-D stays in B2 row 6; ORG-G moves to data-seat row 9, ahead of ORG-1 (MASTER-ORDER 5.4) |
+| 6 | D | REQ-RF rebuilds the towns layer (one writer); D's research splits (Utah, Patagonia, Iceland, Chamonix) can add points in a new admin-1, which also rebuilds it | the D10 splits run in data-seat row 12, before REQ-RF starts in B2 row 13; a split that meets a new admin-1 after that waits for REQ-RF to merge |
+| 7 | E | D7 (16 h of windows, E's data) waits on OVR-Ca, which sat in B2 row 14, the last row of D's window, leaving D7 on E's critical path | OVR-Ca moves to B2 row 13, right after REQ-RF-C (the one-author contract order of MASTER-ORDER 4.3 is unchanged); D7 runs in data-seat row 14 |
+| 8 | F | v0.14.1 opens only at gate G-AUD, with v0.14 live; v0.14 is in E | F's field audit starts after E is live; CUS-C starts after FA-D, inside F. No bundle can hold both v0.14 and v0.14.1 |
+| 9 | H | Q225: the public MCP ships before the private one; one bundle would open both at once | two-step (B9): the private door stays shut at the deploy and opens on a flag after MCP-S and 7 days of public use |
+| 10 | K | "One seam per release" (EXECUTION-PLAN 14.2) | one seam flag per redeploy of the K tag, a week apart, CAT-V clean between (B9); the bundle is one release with three flips |
+
+Checked with no problem: A (OVR-0 before every other trip-page consumer; NAV-C and FAV-C merged; TRP-GL after FAV-1; IMG-1
+before PHO-R in C); B (EML-P after GSI-P, merged; BKP-1 before the first non-owner account); C (LST2b after A; the closure
+queue before R-59 in B1's order; PHO-R after IMG-1 and PHO-C; R59-1 after TRP-GL); D (FBK-1 after B's Turnstile and quotas;
+CAT-Q before FBK-C; FBK-N after OVR-0; REQ-1 after NAV-1); E (OVR after R59-1 and ORG-2; STY-1 after OVR-2; TD-1 on Q267);
+F (FAV-2 after Google in B, Q124; NAV-D and FAV-D after CUS-C); G (v0.17 after CUS-1; REQ-G0 inside G); H (AU-D on G's
+commit before MCP-C); J (G-UI after H, and after I if shipped); K (after J).
+
+### 0a.4 Data readiness per bundle
+
+Baseline 26 Oct 2026 ([coverage report](../../../research/reports/coverage-2026-10-26.md)): 114 of 498 records at the
+required tier (23%); store basics 54 of 74; `E_PLACE_AREA` 227; `E_PLACE_ORPHAN` 7; trail geometry 9 of 118; trail relevance
+43 of 118; windows 1 of 14 trips; base plans 1 of 14; overview facts 0 of 14; gateways 0 of 13; place pages showing a
+photo 60 of 355. Targets are measured at the bundle's T3 with the commands of DATA-PLAN 5.
+
+| Bundle | Data readiness line (targets at T3) | If short |
+|---|---|---|
+| A | store basics 54 of 74 held; L4 cross-check 9 of 10 sampled values or better; the 3 Rockies identities of TRP-GL-D fixed; `gaps --budget --check` OK | ships; gaps listed |
+| B | Postgres equals the files: the database cross-check (DATA-PLAN 4) green on the child and production; row counts per table and family recorded with `seed_commit`; exposure parity 0 differences | CAT-1 rides C; B ships |
+| C | required tier: Rockies 180 of 199 (90%), Dolomites 68 of 76; `E_PLACE_AREA` at most 25 (Rockies 0); `E_PLACE_ORPHAN` 0; trails: 118 of 118 with distance, gain and time or a dated `searched_none`, relevance 118 of 118, every trail track attempted (confirmed or held back with a stated reason; 60 or more confirmed); every Rockies and Dolomites place record has a photo or a dated "No licensed photo yet"; 250 or more of 355 place pages show a photo; gateways 13 of 13 | ships; the other trips' tracks and the Dolomites fills ride D |
+| D | required tier 90% or more on each of the 8 trips with days (448 or more of 498 overall); store basics 73 of 74 (Grand-Sault on the owner's ruling); store photos 74 of 74 or dated; "What we already have" counts equal in Postgres and the files | ships; gaps listed |
+| E | windows 8 of 14 (every trip with days; 14 of 14 if Q99 yes); overview facts 8 of 8 trips with days; base plans 8 of 8 trips with days (Dolomites on its base-split ruling); the 6 overview trips' stops (about 88) captured at the required tier; RIS-A leftovers promoted | ships; a trip without windows or bases shows today's view |
+| F | every field has a ledger row and an audit verdict; required-tier share recorded before and after slimming (both numerator and denominator) | ships |
+| G | no new data; gap budget does not rise | ships |
+| H | MCP publishes only the fields AU-D kept; exposure parity 0; required tier 90% or more overall | ships |
+| I, J | none | |
+| K | CAT-V clean for the last 4 weekly runs and the last bundle; the database cross-check green on production; parity per method | the seam does not flip |
+
+**Can the data seat do it?** Yes, with two moves made in MASTER-ORDER 5.4 (lane S in A's window as planned; OVR-Ca one row
+earlier, 0a.3 row 7) and assuming one data-seat hour per B1 hour. Load per window: A 43 of 43.5 available (ORPH-7 fills
+the spare); C 59.5 of 71.5; D 45.5 of 52.5; E 23.5 of 68 (DATA-PLAN 2.2). The tight windows are A (no spare: if lane S
+slips, ORPH-7 moves to C and CAT-1 rides C) and
+C (12 h spare: if Overpass or the Opus usage cap slows it, TRK-RW and D10-DO ship partial in C with dated gaps and finish
+in D; C still ships). The work no task covered before 26 Oct adds about 59 h (DATA-PLAN 2.1: 34 h of research and sample reviews, 16 h for the
+track fetcher and its runs, 9 h for the database cross-check); it fits only because
+lane S, which used the data seat's idle time, ends in A's window. Opus research lanes pause above 70% of the week's use; that is the most likely cause of a slip.
 
 ## 0. Corrections from the master order (25 Oct 2026; read first)
 
@@ -238,7 +360,7 @@ specs; "unsized" means no spec gives one, and the task's brief must size it befo
 | Field | Content |
 |---|---|
 | Goal | Sign in or create an account with a code by email; every new password account is verified by code |
-| Internal (C15, 26 Oct) | **CAT-1, the catalogue in Neon:** LOCAL-3 3 h, RIS-M 7 h, RIS-L 8 h, RIS-T 7 h, LOCAL-5 2 h, CAT-V 2 h (data seat), CAT-1 1.5 h (coordinator) ([CATALOGUE-EARLY.md](CATALOGUE-EARLY.md) 4, 11.7). No visitor change. If lane S is not green at the cut, CAT-1 rides v0.6 and v0.5 ships without it. Migration `research_meta` after `backup_reader`; the child rehearsal of the named commit before the production migrations; the production sync at step 9a; Q280 to Q286; the owner confirms the Neon Data API is off |
+| Internal (C15, 26 Oct) | **CAT-1, the catalogue in Neon:** LOCAL-3 3 h, RIS-M 7 h, RIS-L 8 h, RIS-T 7 h, LOCAL-5 2 h, CAT-V 2 h (data seat), CAT-1 1.5 h (coordinator) ([CATALOGUE-EARLY.md](CATALOGUE-EARLY.md) 4, 11.7). No visitor change. If lane S is not green at the cut, CAT-1 rides the next bundle (C) and bundle B ships without it (0a.3 row 3). Migration `research_meta` after `backup_reader`; the child rehearsal of the named commit before the production migrations; the production sync at step 9a; Q280 to Q286; the owner confirms the Neon Data API is off |
 | Contents | Built in v0.1: EML-M, EML-Q, EML-1, EML-R. Remaining Phase 1 (7 h): EML-S 2 h (security review before O-E1), EML-V 2 h, EML-P 1 h (the "Sign-in emails" section on `/privacy/`, after GSI-P), EML-E 2 h + 20 min owner (real-service checks after O-E1). Q168's revoke of other sessions after a reset is built (`web/lib/auth/revoke.ts`); EML-E proves it live. BKP-1 6 h (infra track) as a gate: Q185 asks for it before the first non-owner account, and code sign-in makes accounts one step away |
 | Dependencies | v0.2 (privacy page); EML-S with no open high finding; BKP-1 green, or the owner accepts a manual Neon snapshot regime until it is (Q185) |
 | Owner actions | O-E0 Application Name "Trip Plans" on the production branch; O-E2 Turnstile widget (hostnames `travel-beta-tan.vercel.app`, `localhost`), `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`; O-E3 `AUTH_QUOTA_SECRET`, `OWNER_EMAIL`, `SITE_ORIGIN` in Vercel (confirm what v0.1 already set); set `NEXT_PUBLIC_SIGN_IN_CODE=1`; after the deploy, O-E1 (Require Verification by code) in the same session; EML-E test inboxes (20 min); approve EML-P words |
@@ -461,6 +583,11 @@ legacy removal (7.11). Each gets a release row when its spec is scheduled.
 
 ### 4.1 The gate (every release)
 
+**Since 26 Oct (section 0a, B2): "every release" means every bundle.** This table is T3: it runs once per bundle on its
+named commit with all of the bundle's flags on. Features get T1 while built and T2 per stack; rows 6 to 8 (design review,
+verifier, security review) are done per feature during the build and only re-checked here (their notes exist, no open
+high finding).
+
 | # | Check | Command or owner | Pass |
 |---|---|---|---|
 | 1 | Full gate on the release commit | `mv web/.env.local <aside> && PATH=<venv>/bin:$PATH bash tools/check-all.sh; mv <aside> web/.env.local` | ends `CHECK-ALL OK` (it stops at the first failure: read the last `==` line) |
@@ -502,6 +629,9 @@ answers 308 to the slash form, which counts as a pass.
 
 ### 4.3 Rollback
 
+Per bundle since 26 Oct (section 0a, B5): flags first, then `vercel rollback` (one deploy deep), then a redeploy of the
+previous bundle's tag.
+
 - **Code:** `vercel rollback <previous deployment url>`. On the Hobby plan this reaches only the immediately previous
   production deployment ([Vercel docs](https://vercel.com/docs/cli/rollback)). Anything older is a redeploy of the older
   `release/vX.Y` tag through section 6 steps 8 and 9 (minutes, not seconds). While a rollback is active, production
@@ -514,6 +644,10 @@ answers 308 to the slash form, which counts as a pass.
   take a manual snapshot of the production branch before any production database or auth step (Q185).
 
 ## 5. Infra track I (no visitor change; ships with the next release, listed under "Internal")
+
+Bundles since 26 Oct (section 0a.2): TS-1, TS-2a, TS-2, TS-4 ride A; TS-6, TS-3, TS-5, I1, I3, I5, I10 and CAT-1 ride B; TS-7,
+TS-8, RIS-S, RIS-H and I7 ride C; I11 (CAT-Q) rides D; I9's FA-1 rides E and UA-0 rides J; I2 (LOCAL-4) and E2E-YML ride the
+first bundle after the repository is public.
 
 | Id | Task | Size (spec) | When | Note |
 |---|---|---|---|---|
@@ -532,6 +666,12 @@ answers 308 to the slash form, which counts as a pass.
 ## 6. Release checklist for the coordinator
 
 Run it top to bottom for every release. Push and tag commands go on lines of their own (the bash guard).
+
+**Since 26 Oct a release is a bundle (section 0a):** `vX.Y` in the steps below reads as the bundle letter (`release/A`);
+step 1 lists every feature of the bundle with its flag and marks each ready or shipped dark (B3); step 3 is T3 once for the
+bundle; step 4 writes one CHANGELOG entry for the bundle with its "Features:" line (B7) and the data readiness numbers
+measured against section 0a.4; the two-step bundles (B, H, K) repeat steps 7 to 9 for the flag step on the same commit
+(B9) and tag once, after the first step's smoke.
 
 1. **Ready.** Every task in the release row is merged on `main` with its review and verify notes; the flags to turn on,
    the migrations, the owner actions and the smoke additions are listed in the row.
@@ -670,7 +810,18 @@ here is built.
 ## 8. Release notes convention
 
 - One file, the root [CHANGELOG.md](../../../CHANGELOG.md), in Keep a Changelog style: newest first, a "Next" section at
-  the top for what is merged or planned and not released, then one `vX.Y` entry per release.
+  the top for what is merged or planned and not released, then one entry per release. **Since 26 Oct one entry per bundle**
+  (`## [A] - <date>`), whose first line names the feature labels it carries (`Features: v0.2, v0.3, v0.4`); `v0.1` keeps its
+  entry. Template:
+
+  ```
+  ## [A] - <date>
+  Features: v0.2, v0.3, v0.4. Commit <sha>. Deployment <id>. Migrations: none. Owner actions: <list>.
+  ### Added / Changed / Fixed / Removed / Security
+  ### Data  (the bundle's readiness line, measured: target and result)
+  ### Known limits
+  ### Internal  (infra, the catalogue sync, features built and switched off)
+  ```
 - Each entry carries: the date, the named commit, the deployment id, migrations applied (numbers), the owner actions
   done, then the groups Added, Changed, Fixed, Removed, Security and Known limits, and "Internal" for changes with no
   visitor effect.
@@ -705,7 +856,8 @@ Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling 
 ## 10. Gotchas
 
 - **Hobby rollback is one step deep.** Two quick deploys in a row leave no instant way back to the first; space releases
-  so each has its smoke run before the next deploy.
+  so each has its smoke run before the next deploy. Bundles B, H and K deploy twice by design (0a, B9): their own first step
+  is then the only instant way back, and the previous bundle needs a tag redeploy.
 - **`NEXT_PUBLIC_*` is build-time.** Flipping a flag in Vercel does nothing until the named commit is deployed again.
 - **One environment.** Preview runs on production values (owner, 25 Oct): a preview is not a safe test bed for a
   migration or a Neon config change; the child branch is.
@@ -720,6 +872,7 @@ Q93 to Q100 (v0.10), Q67, Q98, Q103, Q120 and the `planner_draft_signal` ruling 
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (PLAN-CONSOLIDATE, owner decision) | Section 0a: releases become bundles A to K with the v0.x numbers kept as feature labels; rules B1 to B10 (independent flagged features, T1 per feature, T2 per stack, T3 per bundle, late features shipped dark, security reviews kept in B and H, rollback per bundle, tags `release/<letter>`, one CHANGELOG entry per bundle, data readiness, two-step bundles, order); hours per bundle with research added (986 h with I at 29 h); ten dependency findings and their fixes; data readiness per bundle and the data-seat capacity check. Notes on 4.1, 4.3, 5, 6, 8 and 10. Supersedes one release per feature (R-180) |
 | 2026-10-26 (CATALOGUE-EARLY, owner decision) | C15: the catalogue load moves from v1.0 to v0.5 as Internal (CAT-1); v0.5 gains an Internal row and `research_meta`; v1.0 pre-work, dependencies, data work and migrations rewritten (23 h left); I1 and I5 to v0.5, new I10 (CAT-V) and I11 (CAT-Q); checklist step 9a (catalogue sync after the deploy); open-question line. No release renumbered ([CATALOGUE-EARLY.md](CATALOGUE-EARLY.md)) |
 | 2026-10-26 (H-DOCS) | Status lines fixed (MASTER-ORDER H4): the owner action for Q240 to Q249 reads answered 25 Oct; I8 waits on Q250, answered 25 Oct, not on "the Q250 answer". Nothing else changed |
 | 2026-10-26 (AUDIT-MOVE) | Section 0 note: the UI and UX audit moves from patch release v0.14.2 to the new release v0.22 before v1.0 (owner decision); v0.14.1 is the only patch release (Q271 answered); I9 timing for UA-0; UI-NOTES.md. Train: v0.22 follows v0.21 (MASTER-ORDER 5.3); no other release renumbered |

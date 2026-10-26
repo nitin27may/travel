@@ -114,7 +114,9 @@ flowchart LR
 patch number (Q271 made v0.14.1 the only one), and the load changes nothing a visitor sees, which is what the Internal track is
 for (RELEASE-PLAN 5). v0.5 is already the database release (BKP-1, its `backup_reader` migration, the snapshot regime of
 Q185), so one snapshot, one child rehearsal and one production step cover both migrations and the load. If the lane S chain
-is not green when v0.5 is cut, CAT-1 rides v0.6 unchanged and v0.5 ships without it: it never blocks a release.
+is not green when v0.5 is cut, CAT-1 rides v0.6 unchanged and v0.5 ships without it: it never blocks a release. **Since
+26 Oct (bundles, [RELEASE-PLAN](RELEASE-PLAN.md) 0a):** v0.5 ships in bundle B, so CAT-1 rides B, with bundle C as the
+fallback.
 
 **Seat.** The data seat runs the early half of lane S (Q286): in MASTER-ORDER 5.4 its rows 2 to 6 hold 17.5 h of research
 against 43.5 h of B1 work, so about 26 h are idle, while B2 is already at or above B1 in rows 3 and 6. RIS-M runs there with
@@ -318,7 +320,8 @@ names the model and pastes the commands with their exit codes.
 - **Goal.** Know within a week, and on every release, whether production still equals the released commit's seed (P9).
 - **Owns.** `tools/db/drift-check.sh` (new), `tools/db/launchd/com.nks.travel.catalogue-drift.plist` (template, new), a test
   under `tools/tests/`.
-- **Steps.** Resolve the latest `release/*` tag; in a temporary detached worktree of it, run `db:verify --target production
+- **Steps.** Resolve the latest `release/*` tag by creation date (`git for-each-ref --sort=-creatordate --count=1
+  refs/tags/release/`; bundle tags are `release/<letter>` since 26 Oct, RELEASE-PLAN 0a B6); in a temporary detached worktree of it, run `db:verify --target production
   --json` (read-only; guard row 17 allows it); write the result to `~/Library/Logs/travel/catalogue-drift/<UTC>.json` with the
   tag, commit, per-table status and `pg_database_size`; `osascript` notification on any difference; remove the worktree; weekly
   `StartCalendarInterval`.

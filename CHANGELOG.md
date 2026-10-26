@@ -7,16 +7,30 @@ migrations applied and the owner's actions. The release order, gates and checkli
 
 ## [Next] - unreleased
 
-Planned for v0.2 (see the release plan for the full train).
+Planned for **bundle A** (features v0.2, v0.3 and v0.4; tag `release/A`). Since 26 Oct 2026 releases are bundles of
+features: one entry per bundle, its first line listing the features it carries (see section 0a of the release plan).
+The first deploy since v0.1 waits until Mine is ready.
 
 ### Added
-- A sign-in item in the phone menu bar, so you can sign in or reach your account from a phone.
+- Sign-in reachable on phones: a person icon in the phone header and a sign-in line on Mine.
 - A privacy page that says what the site keeps and what it does not.
 - Anonymous page-view counting (Cloudflare Web Analytics: no cookies, no personal data), named on the privacy page.
+- **Mine:** the trips you copied and the places and trips you saved as favourites, kept on this device with no account,
+  on phones and desktops, with a Mine item in the phone bar.
+- A heart on place and trip pages to save a favourite.
+- Basics for 74 more places (where they are, seasons, points), or an honest "Not checked yet".
+- Link previews: shared links show an image.
+
+### Fixed
+- Trip pages: booking windows in the printed plan and the CSV, travel-day rows in print, larger tap targets on phones,
+  and the map key on phones takes at most half the map.
 
 ### Internal
 - A tool that builds the catalogue database from the files in the repository and keeps it in sync. No change for
   visitors.
+- Test tiers and the gate command (TS-1, TS-2a, TS-2, TS-4); a place-size budget that measures catalogue content only.
+
+Later bundles (B to K) are listed in the release plan, section 0a.
 
 ## [v0.1] - 2026-10-25
 

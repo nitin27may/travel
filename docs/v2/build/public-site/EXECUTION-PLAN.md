@@ -13,6 +13,12 @@
 > FAV-D, and BKP-1 does not wait for LOCAL-4. New tasks sized there: BUD-1, ACCT-PH-RV, IMG-1, TRP-GL, PHO-C, PHO-R,
 > R59-N, R59-C, R59-1, R59-3C, ORPH-7, AREA-2, H0 to H9.
 
+> **26 Oct 2026 (release bundles, R-250):** releases are bundles A to K ([RELEASE-PLAN.md](../RELEASE-PLAN.md) 0a); every "v0.x"
+> below is a feature label, shipped in its bundle (A = v0.2 to v0.4, B = v0.5 and v0.9, C = v0.6 to v0.8, D = v0.10 and v0.11,
+> E = v0.12 to v0.14, F = v0.14.1 to v0.16, G = v0.17 and v0.18, H = v0.19 and v0.20, I = v0.21, J = v0.22, K = v1.0 to v1.2).
+> T1 per task, T2 per stack, T3 (section 8's and RELEASE-PLAN 4.1's full gate) once per bundle. Data tasks and their bundles:
+> [DATA-PLAN.md](../DATA-PLAN.md).
+
 > **21 Oct 2026:** the entry point is now [docs/v2/PLAN.md](../../PLAN.md) (requirements, order, status, open decisions). This file stays the authority for task-level detail. L7 in section 18 is closed (PR #7 closed 21 Oct; old remote branches archived as `archive/*` tags).
 
 > **24 Oct 2026 (R-58, R-60):** the backend provider is Neon (Postgres, Managed Better Auth, Neon Realtime), not Supabase. The later catalogue store is a proposed `PostgresStore` on Neon Postgres; its loader, per-method contract parity, privacy checks and rollback are still ahead, and `JsonStore` serves the public catalogue. The private account integration is independently verified on the uncommitted session branch and is not a catalogue migration. Hosting, object storage, serverless functions and jobs are not selected. Earlier Supabase CLI, local Docker and generated-types instructions are historical; see PLAN R-58 and [NEON-SETUP.md](NEON-SETUP.md).
@@ -1080,6 +1086,7 @@ Every pending item from every source (BACKLOG, TODO, design reviews and notes, l
 
 | Date | Change |
 |---|---|
+| 2026-10-26 (PLAN-CONSOLIDATE) | Banner: release bundles A to K (R-250); v0.x are feature labels; data tasks in DATA-PLAN |
 | 2026-10-26 (CATALOGUE-EARLY, owner decision) | 4.8 SRV-0 row and 14.2: the catalogue load moves forward to v0.5 as Internal (CAT-1, with RIS-M, RIS-L, RIS-T, LOCAL-3, LOCAL-5 and the drift job CAT-V); CAT-Q (router and three `PostgresStore` methods for connected callers) before v0.10; the seams stay v1.0 to v1.2 ([CATALOGUE-EARLY.md](../CATALOGUE-EARLY.md), R-240) |
 | 2026-10-26 (H-DOCS) | Status lines fixed (MASTER-ORDER H4): Q240 to Q249 and Q250 to Q258 read as answered 25 Oct, yes as recommended, in 10.3 and 10.4; 10.4 no longer waits for Q250. Nothing else changed |
 | 2026-10-26 | AUDIT-MOVE (owner decision): 10.5 moves the UI audit from v0.14.2 to v0.22 before v1.0, narrows AU-D to the MCP field list and moves UA-0 to just before v0.22. Planned only |

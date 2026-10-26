@@ -532,6 +532,9 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | 15.254 | **Catalogue sync on every data release (R-240).** RELEASE-PLAN 6 step 9a: dry run; if different, rehearse, sync with the release approval, verify, one CAT-V run; deploy first, sync after | coordinator, about 0.3 h a release | planned; from the release after CAT-1; Q282, Q283 |
 | 15.255 | **Owner actions for CAT-1 (R-240).** Answer Q280 to Q286 (done 26 Oct: yes, as recommended); confirm the Neon Data API is off on production; snapshot before the v0.5 database steps; load the CAT-V launchd agent once | owner, about 15 min | open |
 | 15.256 | **Towns contingency (R-240, Q285).** Flip only the `towns` method to Postgres before v1.0 if REQ-RF's world towns would add more than 2 MB to the API function; else it flips with seam 1 | travel-builder, Sonnet, about 2 h on the trigger | on trigger only |
+| 15.260 | **Release bundles (owner decision, 26 Oct; R-250).** "Merge a few into one; the verification overhead per release is too high." Bundles A to K, v0.x kept as feature labels, rules B1 to B10 (flagged independent features, T1 per feature, T2 per stack, T3 per bundle, late features dark, security reviews kept in B and H, rollback per bundle, tags `release/<letter>`, one CHANGELOG entry per bundle, data readiness, two-step bundles), hours per bundle with research. [RELEASE-PLAN.md](../RELEASE-PLAN.md) 0a | PLAN R-250 | **done** (docs only, `public/PLAN-CONSOLIDATE`) |
+| 15.261 | **Bundle findings to apply at brief time (R-250).** ACCT-PH-RV narrowed to the NAV-1 baselines and ACCT-PH-F dropped; B and H deploy twice on one commit (O-E1 before Google; private MCP door after MCP-S and 7 days of public use); C's data batches merge before PHO-R; D10 splits before REQ-RF; OVR-Ca in B2 row 13; K flips one seam per redeploy. RELEASE-PLAN 0a.3; MASTER-ORDER 5.4, C17 | coordinator | planned |
+| 15.262 | **Q290: re-baseline rule for research-filled place pages (R-250, R-251).** Owner question; DATA-PLAN 6 | owner | open |
 
 ## Owner questions open
 
@@ -775,6 +778,7 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | Q284 | CAT-V weekly and after every release as a launchd job on the Mac? Recommended: yes ([CATALOGUE-EARLY.md](../CATALOGUE-EARLY.md) 12) | 26 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
 | Q285 | `towns` stays on files until v1.0, flipped early only if REQ-RF's world towns add more than 2 MB to the API function? Recommended: yes, as a contingency only ([CATALOGUE-EARLY.md](../CATALOGUE-EARLY.md) 12) | 26 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
 | Q286 | The early half of lane S in the data seat rather than B2? Recommended: yes ([CATALOGUE-EARLY.md](../CATALOGUE-EARLY.md) 12) | 26 Oct **Decided 26 Oct 2026 (owner): yes, as recommended.** |
+| Q290 | May a place page's size baseline be re-measured once, at the merge where a research batch takes its record from below the required tier to complete (BUD-1 method)? Recommended: yes, once per page, only for required-tier fills ([DATA-PLAN.md](../DATA-PLAN.md) 6) | 26 Oct |
 
 ## Later: after go-live (planner and data)
 
