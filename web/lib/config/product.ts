@@ -31,3 +31,6 @@ export const HEAD_ROWS = 48;
 export const LIST_JS_BUDGET_KB = 200;
 export const PLACE_JS_BUDGET_KB = 180;
 export const GLOBE_HTML_BUDGET_KB = 200;
+
+/** How long a favourites toast stays, in ms: the first-save note, and a toast with an Undo (components 5.3). */
+export const FAVOURITES_TOAST_TIMES = { first: 8000, undo: 6000 } as const;

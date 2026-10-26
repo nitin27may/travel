@@ -119,7 +119,7 @@ export function FavouritesPanel({ items, storage, onChanged }: Props) {
           toast({
             message: say.removed(name),
             actionLabel: 'Undo',
-            duration: say.UNDO_MS,
+            duration: say.UNDO_TOAST,
             onAction: () => {
               if (restoreHeart(res.removed)) {
                 setRestored(handleOf(res.removed));

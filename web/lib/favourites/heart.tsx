@@ -58,7 +58,7 @@ function Heart({ space, slug, name, kind = null, cc = null }: Props) {
       s.removeHeart(space, slug);
       setPressed(false);
     };
-    if (out.session) return toast({ message: say.sessionOnly, actionLabel: 'Undo', onAction: undo, duration: say.FIRST_MS });
+    if (out.session) return toast({ message: say.sessionOnly, actionLabel: 'Undo', onAction: undo, duration: say.FIRST_TOAST });
     if (out.first) {
       const signIn = capabilities.signIn;
       const message = signIn ? (
@@ -69,9 +69,9 @@ function Heart({ space, slug, name, kind = null, cc = null }: Props) {
       ) : (
         say.firstNote(false)
       );
-      return toast({ message, actionLabel: 'Undo', onAction: undo, duration: say.FIRST_MS });
+      return toast({ message, actionLabel: 'Undo', onAction: undo, duration: say.FIRST_TOAST });
     }
-    toast({ message: say.added(label), actionLabel: 'Undo', onAction: undo, duration: say.UNDO_MS });
+    toast({ message: say.added(label), actionLabel: 'Undo', onAction: undo, duration: say.UNDO_TOAST });
   };
 
   const remove = (s: Store) => {
@@ -85,7 +85,7 @@ function Heart({ space, slug, name, kind = null, cc = null }: Props) {
     toast({
       message: say.removed(label),
       actionLabel: 'Undo',
-      duration: say.UNDO_MS,
+      duration: say.UNDO_TOAST,
       onAction: () => {
         if (s.restoreHeart(out.removed)) setPressed(true);
         else toast({ message: say.cannotRestore(label) });

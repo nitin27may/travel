@@ -2,10 +2,11 @@
  * The words of the heart's toasts (mine-and-bar-spec 7). Never "saved" (visitor spec 3). Plain strings, so a test pins each one and the
  * heart and Mine's row share them. `ms` is the time the toast stays; 8 s for the first-save note and 6 s with an Undo (components 5.3).
  */
+import { FAVOURITES_TOAST_TIMES } from '@/lib/config/product';
 /** The device cap, written out: importing it from core would pull the schema (and Zod) into the heart's chunk. tests/favourites/toast.test.ts pins it to `FAVOURITES_CAP`. */
 export const CAP = 500;
-export const FIRST_MS = 8000;
-export const UNDO_MS = 6000;
+export const FIRST_TOAST: number = FAVOURITES_TOAST_TIMES.first;
+export const UNDO_TOAST: number = FAVOURITES_TOAST_TIMES.undo;
 
 export const added = (name: string): string => `Added ${name} to favourites`;
 export const removed = (name: string): string => `Removed ${name} from favourites`;

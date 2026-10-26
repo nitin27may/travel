@@ -14,8 +14,8 @@ describe('the heart\'s words', () => {
     expect(say.capReached).toBe('You have 500 favourites, the most we keep. Remove one to add another.');
   });
   it('times: 8 s for the first note, 6 s with Undo', () => {
-    expect(say.FIRST_MS).toBe(8000);
-    expect(say.UNDO_MS).toBe(6000);
+    expect(say.FIRST_TOAST).toBe(8000);
+    expect(say.UNDO_TOAST).toBe(6000);
   });
   it('never says "saved", never an exclamation mark', () => {
     for (const v of Object.values(say)) if (typeof v === 'string') expect(v).not.toMatch(/\bsaved?\b|!/i);
