@@ -39,7 +39,11 @@ export interface ExportStop {
   kind: string;
   category: string | null;
   area: string | null;
-  /** HH:MM, or null. */
+  /**
+   * HH:MM as the plan writes it, or null. After `forPage` (web/lib/export/plan.ts) with the page's timeline, the time as the page and the
+   * print say it for the chosen profile: "~08:45" suggested, "about 19:30" tied to the sun, "07:30 PT" over a zone line, or a part of the
+   * day on a condensed plan (csv.ts header: the CSV time rule).
+   */
   time: string | null;
   durationMin: number | null;
   /** "A" or "B" lane, or the track label on a split day. */
@@ -50,6 +54,28 @@ export interface ExportStop {
   links: string[];
   /** The place's own point, with its source, so the CSV can apply the same licence guard as GPX. */
   point: Point | null;
+  /**
+   * The booking windows of this stop, as the "Book ahead" text says them (bookings.ts `bookAheadText`), when a booking row names this
+   * stop's place on this day. Absent when none does. Dateless: "Opens 30 days before Day 3".
+   */
+  bookRule?: string;
+}
+
+/**
+ * One booking of the trip (MUST-6): a category row with a booking window or a booking note, worded as the page words it. Dateless: a
+ * window is relative to a day, never a calendar date.
+ */
+export interface ExportBooking {
+  /** The row's name on the page: "Tre Cime toll road slot". */
+  name: string;
+  /** The window, "Opens 30 days before Day 3"; null when the plan only has a note. */
+  rule: string | null;
+  /** The plan's note on booking it ("Pre-booked slots, non-refundable"), or null. */
+  note: string | null;
+  /** The first day it is for, or null when the plan ties it to no day. */
+  day: number | null;
+  /** The page's category row key ("logistics:r-auronzo"): stable for the trip, so the print and the page can name the same row. */
+  ref: string;
 }
 
 export interface ExportDay {
@@ -68,6 +94,8 @@ export interface TripExport {
   nights: number;
   days: ExportDay[];
   stops: ExportStop[];
+  /** The trip's bookings in day order (bookings.ts `tripBookings`); empty when the plan has none. Never a calendar date. */
+  bookings: ExportBooking[];
   waypoints: ExportWaypoint[];
   lines: ExportLine[];
   /** IANA zone from the booking rules, when the trip has one. */

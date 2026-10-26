@@ -21,6 +21,12 @@ import { getStore } from '@/lib/server/store';
 import { scheduleTrip } from '@travel/core/schedule/schedule.ts';
 import { DEFAULT_PROFILE, type Profile } from '@travel/core/schedule/types.ts';
 import { kids, parseXml } from './helpers';
+import { bookAheadText, bookRuleText } from '@travel/core/export/bookings.ts';
+import { isDated } from '@travel/core/privacy/dateless.ts';
+import { exportModel, exportStop, tripExportModel } from '@travel/core/schema/api/index.ts';
+import { bookRuleLabel } from '@/components/trips/model';
+import { flightEntries, localEntries } from '@/components/trips/timeline/marks';
+import { printTime } from '@/components/actions/TripPrintView';
 
 const SLUGS = ['canadian-rockies-2029', 'dolomites-2027'] as const;
 
@@ -227,5 +233,147 @@ describe.each(SLUGS)('%s: every export format is clean to the privacy scan', (sl
     expect(privacyHits(JSON.stringify(routes))).toEqual([]);
     // no vertex of a routed line is near home (the store already refused such a leg; this is the second look)
     for (const l of (await legsOf(slug)).legs) if (l.geometry) expect(decodePolyline5(l.geometry)!.length).toBeGreaterThan(1);
+  });
+});
+
+// ---- TRP-GL-C: booking windows in the export contract (MUST-6; T1, P6, P8) -----------------------------------------------------
+// The expected values are read from the page's own model (the "By category" rows), never typed in: the export must say what the page says.
+describe.each(SLUGS)('%s: booking windows in the export (MUST-6)', (slug) => {
+  const p = pageFor(slug, getTrip(slug)!.schedule!.defaultProfile);
+  /** The page's rows that carry a window or a booking note, with the page's words. */
+  const pageRows = p.page.sections.flatMap((s) => s.rows).filter((r) => r.bookRule || r.bookNote);
+  const csv = tripCsv(forPage(p.model, p.session));
+  const lines = csv.replace(/^\ufeff/, '').trimEnd().split('\r\n');
+  const col = TRIP_CSV_HEADER.indexOf('Book ahead');
+  const cells = (line: string) => [...line.matchAll(/("(?:[^"]|"")*"|[^,]*)(,|$)/g)].map((m) => m[1]!.replace(/^"|"$/g, '').replace(/""/g, '"')).slice(0, TRIP_CSV_HEADER.length);
+
+  it('the model lists every booking row of the page, in day order, worded as the page words it', () => {
+    expect(pageRows.length).toBeGreaterThan(0);
+    expect(p.model.bookings.map((b) => b.ref).sort()).toEqual(pageRows.map((r) => r.key).sort());
+    for (const b of p.model.bookings) {
+      const row = pageRows.find((r) => r.key === b.ref)!;
+      expect(b.name).toBe(row.name);
+      expect(b.rule).toBe(row.bookRule);
+      expect(b.note).toBe(row.bookNote);
+      expect(b.day).toBe(row.days.length ? Math.min(...row.days) : null);
+    }
+    const days = p.model.bookings.map((b) => b.day ?? Infinity);
+    expect(days).toEqual([...days].sort((a, b) => a - b));
+  });
+  it('the CSV has a "Book ahead" column with at least one value, each one the page\'s rule or note', () => {
+    expect(col).toBe(TRIP_CSV_HEADER.length - 1);
+    expect(lines[0]).toBe(TRIP_CSV_HEADER.join(','));
+    const values = lines.slice(1, -1).map((l) => cells(l)[col]!).filter(Boolean);
+    expect(values.length).toBeGreaterThan(0);
+    for (const r of pageRows) expect(values).toContain(bookAheadText({ rule: r.bookRule, note: r.bookNote }));
+    // a booking row says what it is, on the day it is for
+    const bookingRows = lines.slice(1, -1).map(cells).filter((c) => c[3] === 'booking');
+    expect(bookingRows).toHaveLength(p.model.bookings.length);
+  });
+  it('the print model (forPage) keeps the trip\'s bookings whole, whatever version the page shows', () => {
+    expect(forPage(p.model, p.session).bookings).toEqual(p.model.bookings);
+  });
+  it('no booking carries a calendar date, and the privacy detector passes over the bookings, the CSV and the API json', async () => {
+    for (const b of p.model.bookings) for (const t of [b.name, b.rule, b.note]) if (t) expect(isDated(t), t).toBe(false);
+    for (const s of p.model.stops) if (s.bookRule) expect(isDated(s.bookRule), s.bookRule).toBe(false);
+    expect(privacyHits(p.model.bookings)).toEqual([]);
+    expect(privacyHits(csv)).toEqual([]);
+    const r = await getStore().getExport({ type: 'trip', slug, format: 'json' });
+    if (!r.ok) throw new Error(r.error.message);
+    const api = exportModel.parse(JSON.parse(r.data.body));
+    if (api.type !== 'trip') throw new Error('not a trip');
+    expect(api.bookings).toEqual(p.model.bookings);
+  });
+});
+
+describe('Dolomites: the Tre Cime toll road window, from the page to every output', () => {
+  const p = pageFor('dolomites-2027', getTrip('dolomites-2027')!.schedule!.defaultProfile);
+  const row = p.page.sections.flatMap((s) => s.rows).find((r) => r.bookRule)!;
+  it('the page\'s chip text is the export\'s rule, in JSON, CSV and the print model', () => {
+    expect(row.bookRule).toMatch(/^Opens \d+ days before Day \d+/);
+    const b = p.model.bookings.find((x) => x.ref === row.key)!;
+    expect(b.rule).toBe(row.bookRule);
+    expect(JSON.stringify(p.model)).toContain(JSON.stringify(row.bookRule));
+    expect(tripCsv(p.model)).toContain(row.bookRule!);
+    expect(forPage(p.model, p.session).bookings).toContainEqual(b);
+  });
+  it('core\'s wording and the page\'s chip are one string (bookRuleText = bookRuleLabel)', () => {
+    const rules = [
+      { daysBefore: 30, dayN: 3, time: null, tz: 'Europe/Rome' },
+      { daysBefore: 60, dayN: null, time: '08:00', tz: 'America/Edmonton' },
+      { daysBefore: 2, dayN: 12, time: '07:00', tz: null },
+      { daysBefore: 90, dayN: null, time: null, tz: null },
+    ];
+    for (const r of rules) expect(bookRuleText(r)).toBe(bookRuleLabel(r));
+  });
+});
+
+describe('a stop\'s own window rides on its row (ExportStop.bookRule)', () => {
+  const trip = getTrip('dolomites-2027')!;
+  const stop = buildTripExport(trip).stops.find((s) => s.placeSlug && s.day === 3)!;
+  // the snapshot does not yet name a booking's place (the gap is written in the hand-back), so plant one on a copy of the trip
+  const planted = { ...trip, categories: { ...trip.categories, logistics: [...trip.categories.logistics, { key: 'logistics:planted', category: 'logistics' as const, name: 'Planted slot', kind: 'parking', placeSlug: stop.placeSlug, days: [3], time: null, areaLabel: null, detail: null, nights: null, bookRule: { daysBefore: 14, dayN: 3, time: null, tz: null }, bookNote: 'Planted note' }] } };
+  const model = buildTripExport(planted);
+  it('a booking naming the stop\'s place on its day puts its window on the stop, and on that stop only', () => {
+    const on = model.stops.filter((s) => s.bookRule);
+    expect(on.length).toBeGreaterThan(0);
+    for (const s of on) expect([s.placeSlug, s.day]).toEqual([stop.placeSlug, 3]);
+    expect(on[0]!.bookRule).toBe('Opens 14 days before Day 3; Planted note');
+    expect(model.bookings.some((b) => b.ref === 'logistics:planted')).toBe(true);
+  });
+  it('the CSV writes it on the stop\'s row too, and the contract parses it', () => {
+    const line = tripCsv(model).split('\r\n').find((l) => l.includes(`,${stop.name.includes(',') ? `"${stop.name}"` : stop.name},`) && l.endsWith('Opens 14 days before Day 3; Planted note'));
+    expect(line).toBeTruthy();
+    // the stop with its window, and the bookings, as the contract has them (points are cut to the contract's five fields elsewhere)
+    for (const s of model.stops.filter((x) => x.bookRule)) expect(exportStop.safeParse({ ...s, point: null }).success).toBe(true);
+    expect(exportStop.safeParse({ ...stop, point: null, bookRule: '' }).success, 'an empty window is never written').toBe(false);
+    expect(tripExportModel.shape.bookings.safeParse(model.bookings).success).toBe(true);
+  });
+  it('the real trips put no window on a stop by guessing from a name', () => {
+    for (const slug of SLUGS) expect(buildTripExport(getTrip(slug)!).stops.filter((s) => s.bookRule)).toEqual([]);
+  });
+});
+
+describe('the CSV time rule (BACKLOG 15.46): CSV times follow the selected profile exactly as the print does', () => {
+  it.each([
+    ['dolomites-2027', 'family-4'],
+    ['dolomites-2027', 'adults'],
+    ['canadian-rockies-2029', 'family-6'],
+  ] as const)('%s %s: each stop\'s CSV time is the print\'s time of its timeline entry', (slug, key) => {
+    const p = pageFor(slug, PROFILES[key]!);
+    // the page's displayed days, built as TripPlan builds them (flight-tied times, then the zone line)
+    const display = p.timelines.map((t) => { const d = p.trip.days.find((x) => x.n === t.day); return { ...t, entries: localEntries(flightEntries(t.entries, d?.flight), d?.zone) }; });
+    const mine = forPage(p.model, { ...p.session, display });
+    let timed = 0;
+    for (const s of mine.stops) {
+      const tl = display.find((t) => t.day === s.day)!;
+      const e = tl.entries.find((x) => !x.insideOf && (s.placeSlug ? x.at?.placeSlug === s.placeSlug : x.title === s.name)) ?? (s.placeSlug ? null : undefined);
+      const want = e ? printTime(e, tl.blocks) : null;
+      expect(s.time, `day ${s.day} ${s.name}`).toBe(want);
+      if (want) timed++;
+    }
+    expect(timed).toBeGreaterThan(0);
+    // the file's rows carry the same times, in the page's order within a day
+    const rows = tripCsv(mine).replace(/^\ufeff/, '').trimEnd().split('\r\n').slice(1, -1).filter((l) => !/,booking,/.test(l));
+    const times = rows.map((l) => (l.match(/^\d+,("[^"]*"|[^,]*),/)?.[1] ?? '').replace(/^"|"$/g, ''));
+    expect(times.filter(Boolean).length).toBe(timed);
+    for (const s of mine.stops) if (s.time) expect(times).toContain(s.time);
+  });
+  it('one row per row of the page: a place the chosen version holds once is one CSV row, not one per version', () => {
+    for (const slug of SLUGS) {
+      for (const key of Object.keys(PROFILES)) {
+        const p = pageFor(slug, PROFILES[key]!);
+        const mine = forPage(p.model, p.session);
+        const keys = mine.stops.map((s) => `${s.day}:${s.placeSlug ?? s.name}`);
+        expect(new Set(keys).size, `${slug} ${key}`).toBe(keys.length);
+        expect(mine.stops.map((s) => s.order)).toEqual(mine.stops.map((_, i) => i));
+      }
+    }
+  });
+  it('a suggested time keeps its "~" in the CSV (T3: never shown as fixed)', () => {
+    const p = pageFor('canadian-rockies-2029', PROFILES['family-6']!);
+    const mine = forPage(p.model, p.session);
+    expect(mine.stops.some((s) => s.time?.startsWith('~'))).toBe(true);
+    expect(tripCsv(mine)).toMatch(/\r\n\d+,~\d\d:\d\d,/);
   });
 });

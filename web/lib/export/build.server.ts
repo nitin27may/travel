@@ -1,6 +1,7 @@
 import { getPlace, getTrip, placeSlugs, tripSlugs } from '@/lib/public';
 import type { PublicPlace, PublicTrip } from '@/lib/public';
 import { absoluteUrl } from '@/lib/site';
+import { tripBookings, withStopBookings } from '@travel/core/export/bookings.ts';
 import { checkPoint, lineExportable } from './licence';
 import { zoneByName, zoneNear } from './tz';
 import type { ExportLine, ExportStop, ExportWaypoint, PlaceExport, TripExport } from './types';
@@ -83,7 +84,8 @@ export function buildTripExport(trip: PublicTrip, lookup: (slug: string) => Publ
   for (const b of trip.bases) {
     if (b.point) add({ key: b.id, name: b.name, kind: 'base', role: 'base', day: b.days[0] ?? null, note: `${b.nights} night${b.nights === 1 ? '' : 's'}`, url: null, point: b.point });
   }
-  const tz = Object.values(trip.categories).flat().map((c) => c.bookRule?.tz).find((t): t is string => !!t) ?? null;
+  const rows = Object.values(trip.categories).flat();
+  const tz = rows.map((c) => c.bookRule?.tz).find((t): t is string => !!t) ?? null;
   return {
     type: 'trip',
     slug: trip.slug,
@@ -92,7 +94,9 @@ export function buildTripExport(trip: PublicTrip, lookup: (slug: string) => Publ
     depth: trip.depth,
     nights: trip.nights ?? Math.max(0, trip.days.length - 1),
     days: trip.days.map((d) => ({ n: d.n, title: d.title, base: d.base })),
-    stops,
+    // the booking windows as the page's category rows hold them (MUST-6): the trip's list, and each on the stop whose place it names
+    stops: withStopBookings(stops, rows),
+    bookings: tripBookings(rows),
     waypoints,
     lines,
     tz: tz ?? tripZone(trip),

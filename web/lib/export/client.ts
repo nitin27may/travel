@@ -43,7 +43,8 @@ export function downloadKml(d: TripExport | PlaceExport, routes: ExportLine[] = 
 export function downloadTripCsv(d: TripExport): Generated {
   const name = fileName(d.slug, 'csv');
   saveFile(name, 'csv', tripCsv(d));
-  return { name, summary: `${d.stops.length} stops` };
+  // the file's own rows: its stops, and the trip's bookings when it has any (MUST-6)
+  return { name, summary: `${d.stops.length} stops${d.bookings.length ? `, ${d.bookings.length} to book ahead` : ''}` };
 }
 export function downloadIcs(d: TripExport, startDate: string, timeline?: IcsTimeline): Generated {
   const name = fileName(d.slug, 'ics');

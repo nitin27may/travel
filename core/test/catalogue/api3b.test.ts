@@ -15,7 +15,7 @@ const row = (name: string, ref = `place/${name.toLowerCase()}`, over: Partial<Pl
 describe("printText", () => {
   const point = { lat: 51.3, lon: -116.1, pointSource: "osm_node:1", pointChecked: null, sourceLicence: "ODbL" };
   const trip: ExportModel = {
-    type: "trip", slug: "t", title: "A trip", url: "https://x.invalid/trips/t/", depth: "full", nights: 1, tz: null, seasonLabel: null, skipped: 0, waypoints: [], lines: [],
+    type: "trip", slug: "t", title: "A trip", url: "https://x.invalid/trips/t/", depth: "full", nights: 1, tz: null, seasonLabel: null, skipped: 0, waypoints: [], lines: [], bookings: [],
     days: [{ n: 1, title: "Arrive", base: "Banff" }, { n: 2, title: "Nothing planned", base: null }],
     stops: [
       { day: 1, order: 0, id: "a", name: "Scenic Drive", kind: "sight", category: null, area: null, time: "09:00", durationMin: null, lane: null, note: null, placeSlug: null, links: [], point },
