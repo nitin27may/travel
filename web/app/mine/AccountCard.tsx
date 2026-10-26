@@ -13,7 +13,7 @@ export function AccountCard({ signIn, email }: { signIn: boolean; email: string 
         <>
           <p className="mine-card-text">Signed in as {email}</p>
           <div className="mine-card-actions">
-            <ButtonLink href="/account/" size="sm">
+            <ButtonLink href="/account/">
               Account
             </ButtonLink>
           </div>
@@ -24,10 +24,10 @@ export function AccountCard({ signIn, email }: { signIn: boolean; email: string 
           <p className="mine-card-text">Kept in this browser only.</p>
           {signIn ? (
             <div className="mine-card-actions">
-              <ButtonLink href={`/sign-in/${NEXT}`} size="sm">
+              <ButtonLink href={`/sign-in/${NEXT}`}>
                 Sign in
               </ButtonLink>
-              <ButtonLink href={`/sign-up/${NEXT}`} variant="ghost" size="sm">
+              <ButtonLink href={`/sign-up/${NEXT}`} variant="ghost">
                 Create an account
               </ButtonLink>
             </div>

@@ -99,9 +99,18 @@ html.theme-fade img { transition: none !important; }
 .phone-acct[aria-current='page'] .mi { color: var(--accent); }
 .phone-acct[data-acct='in']::before { content: ''; position: absolute; inset: 50% auto auto 50%; width: 30px; height: 30px; box-sizing: border-box; border: 1.5px solid var(--header-mute); border-radius: 50%; transform: translate(-50%, -50%); }
 
+/* Forced colours (NAV-R1 M3): a mask paints with `background`, which the mode replaces with Canvas, so the glyphs would vanish. Keep the
+   mask and give it system colours: LinkText at rest, ButtonText on the Search button, Highlight for the current item and the dot. */
+@media (forced-colors: active) {
+  .mi { forced-color-adjust: none; background: LinkText; }
+  .bottom-bar button .mi { background: ButtonText; }
+  .bottom-bar a[aria-current] .mi, .phone-acct[aria-current='page'] .mi, .mine-link[aria-current='page'] .mi { background: Highlight; }
+  .bottom-bar a[data-dot]::after, .mine-link[data-dot]::before { forced-color-adjust: none; background: Highlight; box-shadow: none; }
+}
+
 /* Desktop Mine button (spec 4): the slot reserves its width so the link mounting after hydration shifts nothing. */
 .mine-slot { display: none; }
-.mine-link { width: 100%; padding: 0; }
+.mine-link { width: 100%; padding: 0; justify-content: flex-start; padding-inline: 10px; } /* 10 px each side, like the icon buttons beside it (P2) */
 .mine-link::after { content: ''; position: absolute; inset: 50% auto auto 50%; width: max(100%, var(--touch-min)); height: max(100%, var(--touch-min)); transform: translate(-50%, -50%); }
 .mine-link .mi { --mi-size: 18px; }
 .mine-link[aria-current='page'] .mi { color: var(--accent); }
@@ -110,10 +119,10 @@ html.theme-fade img { transition: none !important; }
 .mine-link[data-dot]::before { top: 7px; left: calc(50% + 4px); }
 @media (min-width: 640px) { .mine-slot { display: inline-flex; width: 38px; } }
 @media (min-width: 900px) {
-  .mine-slot { width: 88px; }
+  .mine-slot { width: 77px; } /* 10 + 18 icon + 8 gap + about 31 label + 10, measured */
   .mine-link { gap: var(--s-2); }
   .mine-link-label { display: inline; }
-  .mine-link[data-dot]::before { left: 30px; }
+  .mine-link[data-dot]::before { left: 25px; }
 }
 @media (max-width: 639px) {
   .site-header-inner { gap: var(--s-3); }

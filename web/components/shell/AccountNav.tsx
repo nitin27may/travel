@@ -23,9 +23,8 @@ export function AccountNav() {
       .then((r) => {
         const u = (r as { data?: { user?: HeaderUser } } | null)?.data?.user;
         // Below 640 px the header shows the phone account link instead (NAV-F D2): the avatar menu and its chunk never load on a phone
-        const q = matchMedia('(min-width: 640px)');
-        q.onchange = () => setUser(q.matches ? u : undefined);
-        setUser(q.matches ? u : undefined);
+        // (one check when the session read returns: a phone rotated to 640 px or wider keeps the link until the next page)
+        setUser(innerWidth >= 640 ? u : undefined); // the CSS breakpoint
         // the phone header swaps its Sign in link for Account from this attribute (NAV-1): no second session read
         if (u) document.documentElement.dataset.signedIn = ''; // sign-out reloads the page
       })

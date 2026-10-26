@@ -2,9 +2,12 @@
 
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ButtonLink } from '@/components/ui/Button';
+import { Banner } from '@/components/ui/Banner';
+import { Button, ButtonLink } from '@/components/ui/Button';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { markSeen } from '@/lib/mine/dot';
+import { kindLabel } from '@/lib/public/taxonomy';
+import type { PlaceKind } from '@/lib/public/types';
 import type { MineTab, Overview } from '@/lib/mine/overview';
 import { AccountCard } from './AccountCard';
 import { DeviceNotice } from './DeviceNotice';
@@ -24,15 +27,37 @@ function HeartGlyph() {
   );
 }
 
-function Unreadable({ what }: { what: string }) {
-  return (
-    <EmptyState
-      glyph="warn"
-      title={`We couldn't read your ${what}`}
-      why="This browser holds data this version of the site can't read. It has been left exactly as it is."
-    />
-  );
+/** A list the browser holds but this version cannot read: a newer one (reload) or a damaged one (left as it is). Never written to. */
+function Unreadable({ what, reason }: { what: string; reason: 'corrupt' | 'newer' | 'invalid' }) {
+  if (reason === 'newer') {
+    return (
+      <EmptyState
+        quiet
+        glyph="warn"
+        title="This list was written by a newer version of the site"
+        why="Reload the page to see it. Nothing has been changed."
+        action={
+          <Button variant="primary" onClick={() => location.reload()}>
+            Reload
+          </Button>
+        }
+      />
+    );
+  }
+  return <EmptyState quiet glyph="warn" title={`We couldn't read your ${what}`} why="The list in this browser is damaged. It has been left exactly as it is." />;
 }
+
+// 'Sat 3 Jul 2027': the form the copy sheet shows. UTC so the calendar date never shifts with the visitor's zone.
+const DAY = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+const dayLabel = (iso: string): string => DAY.format(new Date(`${iso}T00:00:00Z`)).replace(/,/g, '');
+const regions = (() => {
+  try {
+    return new Intl.DisplayNames(['en'], { type: 'region' });
+  } catch {
+    return null;
+  }
+})();
+const countryName = (cc: string | null): string | null => (cc ? (regions?.of(cc) ?? cc) : null);
 
 /**
  * The Mine shell (NAV-1): account card, tabs with counts, the two panels and the device notice. It reads both lists through the core
@@ -114,12 +139,13 @@ export function MineShell({ signIn }: { signIn: boolean }) {
         {state ? (
           <>
             {state.blocked ? (
-              <EmptyState
-                glyph="warn"
-                title="This browser is not keeping data"
-                why="Copies and favourites last until you close this tab. Sign in to keep them."
-                action={signIn ? <ButtonLink href="/sign-in/?next=%2Fmine%2F" variant="primary">Sign in</ButtonLink> : undefined}
-              />
+              <Banner
+                kind="notice"
+                className="mine-notice"
+                action={signIn ? <ButtonLink href="/sign-in/?next=%2Fmine%2F" size="sm">Sign in</ButtonLink> : undefined}
+              >
+                <strong>This browser is not keeping data.</strong> Copies and favourites last until you close this tab. Sign in to keep them.
+              </Banner>
             ) : null}
             <div ref={tabsRef}>
               <MineTabs
@@ -157,10 +183,11 @@ export function MineShell({ signIn }: { signIn: boolean }) {
 /** My trips. NAV-2 replaces the plain list with the rows, groups and menu of the spec (5.2). */
 function TripsPanel({ overview }: { overview: Overview }) {
   const c = overview.copies;
-  if (!c.ok) return <Unreadable what="trips" />;
+  if (!c.ok) return <Unreadable what="trips" reason={c.reason} />;
   if (c.items.length === 0) {
     return (
       <EmptyState
+        quiet
         glyph="layers"
         title="No trips copied yet"
         why="Open a trip and choose Copy to my trips. It stays here with your dates."
@@ -173,7 +200,7 @@ function TripsPanel({ overview }: { overview: Overview }) {
       {c.items.map((i) => (
         <li key={i.id}>
           <Link href={`/trips/${i.slug}/`}>{i.title}</Link>
-          <span>{i.start ?? 'No date'}</span>
+          <span>{i.start ? dayLabel(i.start) : 'No date'}</span>
         </li>
       ))}
     </ul>
@@ -183,10 +210,11 @@ function TripsPanel({ overview }: { overview: Overview }) {
 /** Favourites. FAV-1 replaces the plain list with the filter row and list rows of the spec (5.3) and the heart. */
 function FavouritesPanel({ overview }: { overview: Overview }) {
   const f = overview.favourites;
-  if (!f.ok) return <Unreadable what="favourites" />;
+  if (!f.ok) return <Unreadable what="favourites" reason={f.reason} />;
   if (f.items.length === 0) {
     return (
       <EmptyState
+        quiet
         glyph="search"
         glyphNode={<HeartGlyph />}
         title="No favourites yet"
@@ -201,7 +229,7 @@ function FavouritesPanel({ overview }: { overview: Overview }) {
       {f.items.map((i) => (
         <li key={`${i.space}:${i.slug}`}>
           <Link href={`/${i.space === 'trip' ? 'trips' : 'places'}/${i.slug}/`}>{i.name ?? i.slug}</Link>
-          <span>{i.unlistedAt ? 'No longer listed' : i.space === 'trip' ? 'Trip' : (i.kind ?? 'Place')}</span>
+          <span>{i.unlistedAt ? 'No longer listed' : [i.space === 'trip' ? 'Trip' : (i.kind ? kindLabel(i.kind as PlaceKind, null) : 'Place'), countryName(i.cc)].filter(Boolean).join(' · ')}</span>
         </li>
       ))}
     </ul>
