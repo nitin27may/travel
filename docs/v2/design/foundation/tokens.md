@@ -200,6 +200,15 @@ as a wider line under the amber line, so the visible casing is half the differen
 The earlier rule "hovered country fills `--accent-soft` at 35%" is withdrawn: blended over land it is `#F3EDE1`,
 1.01:1, invisible. A casing wider than 1 px reads as a black border (experience review M14) and is not allowed.
 
+**The picked route on Google's basemap** (TRP-GL-R, 26 Oct 2026, measured on real-key 2x shots of Dolomites days 3 and 4,
+dark and light). The same two-layer rule holds with no new token: `--map-route-pick` 3.5 px over a 1 px `--map-casing`.
+Dark: amber is 3.55:1 on the lightest land fill (`#2D4E5B`), 4.19:1 on the grey-violet rock (`#363F53`) and 4.5 to 6.3:1
+on the teal land; on the light grey roads and label glyphs (`#79858D`, `#687B73`), where amber falls to 1.5 to 1.8:1,
+the casing carries the edge at 5.01 and 4.21:1. Light: amber is 1.7 to 2.4:1 on every fill, the casing 10.8 to 18.2:1.
+The only pixels within 6 px of the line that miss 3:1 against both layers are the line's own anti-aliased edge. After
+the Map ID restyle (owner Q-A) dark wood `#2B3845` gives amber 4.76:1. Do not add a `--map-estimate` or a wider casing
+for this.
+
 ### 5.2 Globe
 
 | Token | Light | Dark | Use |
