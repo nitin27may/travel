@@ -62,6 +62,20 @@ export const PRIVATE_KEYS: readonly string[] = ["isDone", "height_cm", "weight_k
  * string under `from`, nesting deeper than three levels, and a reference under another key (`start.ref`, `origin`, `ref`).
  */
 export const ORIGIN_VALUE_KEYS: readonly string[] = ["from"];
+
+/**
+ * A visitor's editable trip document (edit-my-trip.md 7; EM-C): `plan-draft/<n>`, a list of them (`plan-drafts/<n>`) or the outbox
+ * that edits them (`plan-outbox/<n>`). No served public body carries one; the account routes, which do, are private and never pass
+ * through this detector. The object itself is a hit, and under it the keys that are only private there: `template` (the person's
+ * changes), `notes` (personal text) and `start` (Day 1: when the house is empty). Elsewhere these three keys stay public (a window's
+ * `start`, a trip's public `notes`), so they are read only under a draft shape: an object with such a `schema`, or one whose
+ * `template` is an object naming a `trip` (a template block on its own).
+ */
+export const DRAFT_SCHEMA_VALUE = /^plan-(?:drafts?|outbox)\/\d+$/;
+export const DRAFT_PRIVATE_KEYS: readonly string[] = ["template", "notes", "start"];
+const isDraftShape = (o: Record<string, unknown>): boolean =>
+  (typeof o.schema === "string" && DRAFT_SCHEMA_VALUE.test(o.schema)) ||
+  (!!o.template && typeof o.template === "object" && !Array.isArray(o.template) && typeof (o.template as Record<string, unknown>).trip === "string");
 export const ORIGIN_REFERENCE_VALUE = /^\s*(?:iata|hub|town|gn):/i;
 
 /**
@@ -355,8 +369,11 @@ export function privacyHits(body: unknown, limit = 20, opts: DetectOptions = {})
       if (isNum(o.lat) && isNum(o.lon) && nearHome(o.lat, o.lon) && !(gz && own.some((id) => gz.isPoint(id, o.lat as number, o.lon as number)))) {
         hits.push({ where: at, why: "a point near the home town" });
       }
+      const draft = isDraftShape(o);
+      if (draft && typeof o.schema === "string" && DRAFT_SCHEMA_VALUE.test(o.schema)) hits.push({ where: at, why: "a visitor's trip document" });
       for (const [k, y] of Object.entries(o)) {
         if (PRIVATE_KEYS.includes(k) || (k === "status" && typeof y === "string" && STATUS_WORDS.includes(y))) hits.push({ where: `${at}.${k}`, why: "a private key" });
+        else if (draft && DRAFT_PRIVATE_KEYS.includes(k)) hits.push({ where: `${at}.${k}`, why: "a private key" });
         if (ORIGIN_VALUE_KEYS.includes(k) && isOriginValue(y)) hits.push({ where: `${at}.${k}`, why: "a visitor's origin" });
         // a map keyed by ref (refSlugs, citations) would carry an origin key as a key; the path omits the key so the hit cannot leak it
         if (ORIGIN_REF.test(k)) hits.push({ where: `${at}[key]`, why: "a private origin key (wishlist or prototype id)" });
