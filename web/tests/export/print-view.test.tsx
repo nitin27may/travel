@@ -164,7 +164,8 @@ describe('the print view: park entry (PA-W, protected-area-entry 6.4)', () => {
   it('lists a pass or a check with its kind, and the booking page of a row', () => {
     const data = { ...model, bookings: [{ name: 'Discovery Pass', rule: 'Buy any time before Day 1', note: null, day: 1, ref: 'logistics:pass', kind: 'pass' as const, park: null, link: 'https://parks.canada.ca/voyage-travel/admission' }] };
     const html = renderToStaticMarkup(TripPrintView({ data, session }));
-    expect(html).toContain('Discovery Pass</b> · pass');
+    expect(html).toContain('aria-label="Passes"');
+    expect(html).toContain('Discovery Pass</b>');
     expect(html).toContain('https://parks.canada.ca/voyage-travel/admission');
   });
 });

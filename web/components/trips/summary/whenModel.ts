@@ -86,28 +86,74 @@ export interface Card {
   label: string;
   /** null: nothing is written down, so the card says "Not checked yet". */
   value: string | null;
+  /** A quieter second line (the crowd level's source). */
+  sub?: string | null;
 }
 
-/** Four equal cards (I8). Crowds come from a windows file's crowd level, which no adapter reads yet: "Not checked yet" rather than a guess. */
-export function cards(weather: Season['weather'], crowds: string | null = null): Card[] {
+/** Four equal cards (I8). Crowds come from the researched window's crowd level (lib/public/windows.ts); a trip with no windows file says "Not checked yet", never a guess. */
+export function cards(weather: Season['weather'], crowds: { value: string; sub: string | null } | null = null): Card[] {
   const v = (s: string) => (s.trim() ? s.trim() : null);
   return [
     { key: 'temperature', label: 'Temperature', value: v(weather.tempC) },
     { key: 'rain', label: 'Rain and snow', value: v(weather.rain) },
     { key: 'daylight', label: 'Daylight', value: v(weather.daylight) },
-    { key: 'crowds', label: 'Crowds', value: crowds },
+    { key: 'crowds', label: 'Crowds', value: crowds?.value ?? null, sub: crowds?.sub ?? null },
   ];
 }
 
-/** Words that make a season note a closure or a hazard (I9: the warn glyph is for these only; everything else is advice with the info glyph). */
-const HAZARD = /\b(clos(?:e|es|ed|ing|ures?)|cut off|ends early|flash flood|unsafe|dangerous|danger|hazards?|avalanche)\b/i;
+/**
+ * Words that make a season note a closure or a hazard (I9: the warn glyph is for these only; everything else is advice with the info glyph; UXB-4
+ * review C2). A hazard shows at rest on a phone (P2), so the list leans toward catching one: closures and season ends, fords and river crossings,
+ * rockfall and landslides, wildfire and smoke, lightning, flash floods, avalanche, unsafe or dangerous conditions. "Close to" and "closer" are
+ * distance, not a closure. A data flag on each note (authored kind) replaces this list when it exists (BACKLOG); every real note is pinned in
+ * tests/trips/when-to-go.test.tsx, so a new note cannot silently fold.
+ */
+const HAZARD = /\b(clos(?:e|es|ed|ing|ures?)|cut off|ends early|season ends|river crossings?|fords?|rockfall|landslides?|wildfire|smoke|lightning|rip currents?|hypothermia|heat stroke|flash flood|unsafe|dangerous|danger|hazards?|avalanche)\b/i;
 export type NoteKind = 'warn' | 'info';
-export const noteKind = (text: string): NoteKind => (HAZARD.test(text) ? 'warn' : 'info');
+export const noteKind = (text: string): NoteKind => (HAZARD.test(text.replace(/\bclos(?:e|er) to\b/gi, '')) ? 'warn' : 'info');
 
 export interface Note {
   text: string;
   kind: NoteKind;
+  /** Folded behind "Show N more" on a phone. */
+  fold: boolean;
 }
 
-/** The notes in their order, each with its glyph kind. */
-export const notesOf = (notes: readonly string[]): Note[] => notes.filter((n) => n.trim()).map((text) => ({ text, kind: noteKind(text) }));
+/** Longer lists fold their advice on a phone; three notes or fewer always show whole (a fold that hides one line costs a tap to save one line). */
+export const FOLD_ABOVE = 3;
+
+/**
+ * The notes in their order, each with its glyph kind and whether a phone folds it. Over FOLD_ABOVE notes, a closure or hazard stays at rest and
+ * advice folds; a long list with no hazard keeps its first note at rest, so the heading is never drawn over an empty list.
+ */
+export function notesOf(notes: readonly string[]): Note[] {
+  const list = notes.filter((n) => n.trim()).map((text) => ({ text, kind: noteKind(text) }));
+  if (list.length <= FOLD_ABOVE) return list.map((n) => ({ ...n, fold: false }));
+  const firstAdvice = list.findIndex((n) => n.kind === 'info');
+  const keep = list.some((n) => n.kind === 'warn') ? -1 : firstAdvice;
+  return list.map((n, i) => ({ ...n, fold: n.kind === 'info' && i !== keep }));
+}
+
+/** Months a researched "good" window starts in, for the strip (a "workable" window draws nothing; "best" is the season's own months). */
+export function goodMonths(rows: readonly { verdict: string; startMonth: number | null }[]): Partial<Record<number, MonthState>> {
+  const out: Partial<Record<number, MonthState>> = {};
+  for (const r of rows) if (r.verdict === 'good' && r.startMonth) out[r.startMonth] = 'good';
+  return out;
+}
+
+const cap = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
+export const VERDICT_WORD = { best: 'Best', good: 'Good', workable: 'Workable' } as const;
+
+/** The crowds card: the level of the researched window the plan is written for, with its source ("Government of Alberta, 2019 pattern"). Null without windows. */
+export function crowdsCard(rows: readonly { crowd: { level: string; source: string | null; year: number | null } | null; verdict: string; isDefault: boolean }[]): { value: string; sub: string | null } | null {
+  const w = rows.find((r) => r.isDefault && r.crowd) ?? rows.find((r) => r.verdict === 'best' && r.crowd);
+  if (!w?.crowd) return null;
+  const sub = [w.crowd.source, w.crowd.year ? `${w.crowd.year} pattern` : null].filter(Boolean).join(', ');
+  return { value: cap(w.crowd.level), sub: sub || null };
+}
+
+/** The windows other than the one the plan is written for, for "Other weeks that work", in the file's order. */
+export function otherWeeks<T extends { verdict: string; isDefault: boolean }>(rows: readonly T[]): T[] {
+  const own = rows.find((r) => r.isDefault) ?? rows.find((r) => r.verdict === 'best');
+  return rows.filter((r) => r !== own);
+}

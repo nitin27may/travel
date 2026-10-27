@@ -4,9 +4,10 @@ import { bookingCounts, tripBookings } from '@travel/core/export/bookings.ts';
 import type { ExportBooking } from '@travel/core/export/types.ts';
 import { createPublicData } from '@/lib/public';
 import { BookingsPanel } from '@/components/trips/tabs/BookingsPanel';
-import { PhotosPanel } from '@/components/trips/tabs/PhotosPanel';
+import { PhotosPanel, photoTabModel } from '@/components/trips/tabs/PhotosPanel';
 import { bookingsSummary, groupBookings, pricesLine, safeLink } from '@/components/trips/tabs/bookingGroups';
 import { daysLabel, photoGroups } from '@/components/trips/tabs/photoGroups';
+import { sectionsLabel } from '@/components/trips/tabs/photoGroups';
 import { PHOTOS_TAB_MIN } from '@/components/trips/summary/text';
 import { Gallery } from '@/components/ui/Gallery';
 import type { Photo } from '@/lib/public/types';
@@ -31,7 +32,9 @@ describe('the count says what it counts', () => {
     expect(groupBookings([])).toEqual([]);
   });
   it('one prices line for the rows that cost money, never a column; none when there are none', () => {
-    expect(pricesLine(rows)).toBe('Prices: not checked yet for these 3.');
+    expect(pricesLine(rows)).toBe('Prices: not checked yet for the 2 bookings and 1 pass.');
+    expect(pricesLine(rows.slice(0, 2))).toBe('Prices: not checked yet for these 2.');
+    expect(pricesLine([rows[2]!])).toBe('Prices: not checked yet for the 1 pass.');
     expect(pricesLine([rows[1]!])).toBe('Prices: not checked yet for this one.');
     expect(pricesLine(rows.slice(3))).toBeNull();
   });
@@ -55,7 +58,8 @@ describe('BookingsPanel', () => {
     expect(t).toContain('1 to book ahead, none with a published opening date yet; also 1 check.');
     expect(html).toContain('To book ahead');
     expect(html).toContain('To check');
-    expect(html).toContain('nothing to book, not counted');
+    expect(html).toContain('nothing to book.');
+    expect(html).not.toMatch(/not counted|Bought any time/);
     expect(html).toContain('href="/places/tre-cime/"');
     expect(html).toContain('Banff National Park');
     expect(html).toMatch(/href="https:\/\/example.org\/book" target="_blank" rel="noopener noreferrer"/);
@@ -105,10 +109,12 @@ describe('photo groups', () => {
   it('keeps the gallery order, matches a section to the plan rows it names, and marks the rest nearby', () => {
     const g = photoGroups([photo(1, 'Moraine Lake and the Valley of the Ten Peaks'), photo(2, 'Lake Louise and Lake Agnes'), photo(3, 'Waterton Lakes'), photo(4, 'Lake Louise and Lake Agnes'), photo(5, null)], rows);
     expect(g.map((x) => x.name)).toEqual(['Moraine Lake and the Valley of the Ten Peaks', 'Lake Louise and Lake Agnes', 'Waterton Lakes', null]);
-    expect(g[0]).toMatchObject({ placeSlug: 'moraine-lake', days: [11], nearby: false });
-    expect(g[1]).toMatchObject({ placeSlug: 'lake-louise', days: [3, 10], nearby: false });
+    expect(g[0]).toMatchObject({ days: [11], nearby: false });
+    expect(g[0]!.parts.find((x) => x.slug)).toMatchObject({ text: 'Moraine Lake', slug: 'moraine-lake' });
+    expect(g[1]).toMatchObject({ days: [3, 10], nearby: false });
+    expect(g[1]!.parts.filter((x) => x.slug).map((x) => x.slug)).toEqual(['lake-louise']);
     expect(g[1]!.photos).toHaveLength(2);
-    expect(g[2]).toMatchObject({ placeSlug: null, days: [], nearby: true });
+    expect(g[2]).toMatchObject({ days: [], nearby: true, inPlan: false });
     expect(g[3]!.nearby).toBe(false);
   });
   it('an overview trip has no plan rows, so nothing is called "not in this plan"', () => {
@@ -132,21 +138,70 @@ describe('PhotosPanel and the credit at rest', () => {
     expect(text(renderToStaticMarkup(<PhotosPanel photos={[]} />))).toContain('No licensed photos for this trip yet.');
   });
   it('headings carry the place link, the day signs and "Nearby, not in this plan"', () => {
-    const html = renderToStaticMarkup(
-      <PhotosPanel photos={[photo(1, 'Moraine Lake'), photo(2, 'Waterton Lakes')]} rows={[{ name: 'Moraine Lake', placeSlug: 'moraine-lake', days: [11] }]} />,
-    );
+    const m = photoTabModel([photo(1, 'Moraine Lake'), photo(2, 'Waterton Lakes')], [{ name: 'Moraine Lake', placeSlug: 'moraine-lake', days: [11] }]);
+    const html = renderToStaticMarkup(<Gallery photos={m.flat} sections={m.sections} creditAtRest />) + renderToStaticMarkup(<PhotosPanel photos={[photo(1, 'Moraine Lake'), photo(2, 'Waterton Lakes')]} />);
     expect(html).toContain('href="/places/moraine-lake/"');
     expect(text(html)).toContain('Day 11');
     expect(text(html)).toContain('Nearby, not in this plan');
-    expect(text(html)).toContain('2 photos · 2 places');
+    expect(text(html)).toContain('2 photos in 2 sections');
   });
   it('Gallery: at rest the credit is author and licence, visible to a screen reader; otherwise it stays the hidden hover strip', () => {
     const p = [{ url: 'https://commons.example/a.jpg', caption: 'A lake', title: 'A lake', author: 'Ann', licence: 'CC BY 4.0' }];
     const rest = renderToStaticMarkup(<Gallery photos={p} creditAtRest />);
     expect(rest).toContain('gal-rest');
-    expect(rest).toContain('<span class="gal-credit">Ann · CC BY 4.0</span>');
+    expect(rest).toContain('<span class="gal-credit-by">Ann</span>');
+    expect(rest).toContain('<span class="gal-credit-lic">CC BY 4.0</span>');
     const hover = renderToStaticMarkup(<Gallery photos={p} />);
     expect(hover).toContain('aria-hidden="true">A lake · Ann · CC BY 4.0');
     expect(hover).not.toContain('gal-rest');
+  });
+});
+
+describe('UXB-6F: section matching on the real Rockies rows', () => {
+  const data = createPublicData();
+  const t = data.getTrip('canadian-rockies-2029')!;
+  const planRows = Object.values(t.categories).flat().map((r) => ({ name: r.name, placeSlug: r.placeSlug, days: r.days }));
+  const groups = photoGroups(t.gallery, planRows);
+  const g = (needle: RegExp) => groups.find((x) => x.name && needle.test(x.name))!;
+  it('Kananaskis reads the days the plan is there (12 to 14), never Day 10 from "Park and Ride"', () => {
+    const k = g(/Kananaskis/);
+    expect(k.days).not.toContain(10);
+    expect(k.days.every((d) => d >= 12)).toBe(true);
+  });
+  it('"Park and Ride" and a bare "park" match no section', () => {
+    const rows = [{ name: 'Lake Louise Lakeshore parking and Park and Ride', placeSlug: null, days: [10] }];
+    expect(photoGroups([photo(1, 'Kananaskis Country and Peter Lougheed Provincial Park')], rows)[0]!.days).toEqual([]);
+  });
+  it('PP and NP read as provincial and national park', () => {
+    const rows = [{ name: 'Kananaskis Village / Peter Lougheed PP', placeSlug: 'plpp', days: [12, 13] }, { name: 'Banff NP entry', placeSlug: null, days: [1] }];
+    const k = photoGroups([photo(1, 'Kananaskis Country and Peter Lougheed Provincial Park'), photo(2, 'Banff National Park')], rows);
+    expect(k[0]!.days).toEqual([12, 13]);
+    expect(k[1]!.days).toEqual([1]);
+  });
+  it('a heading naming two places links each to its own page, never one to whichever comes first', () => {
+    const rows = [
+      { name: 'Lake Minnewanka', placeSlug: 'lake-minnewanka', days: [3] },
+      { name: 'Johnston Canyon', placeSlug: 'johnston-canyon', days: [2] },
+    ];
+    const j = photoGroups([photo(1, 'Johnston Canyon and Lake Minnewanka')], rows)[0]!;
+    expect(j.parts.filter((x) => x.slug).map((x) => [x.text, x.slug])).toEqual([['Johnston Canyon', 'johnston-canyon'], ['Lake Minnewanka', 'lake-minnewanka']]);
+    expect(j.parts.map((x) => x.text).join('')).toBe('Johnston Canyon and Lake Minnewanka');
+    const real = g(/Johnston/);
+    for (const part of real.parts.filter((x) => x.slug)) expect(part.slug).not.toBe(null);
+  });
+  it('the card and the tab count sections the same way, never "places"', () => {
+    expect(sectionsLabel(13)).toBe('13 sections');
+    expect(sectionsLabel(1)).toBe('1 section');
+  });
+  it('one lightbox over every photo: the panel passes one flat list with each section named', () => {
+    const m = photoTabModel(t.gallery, planRows);
+    expect(m.flat).toHaveLength(t.gallery.length);
+    expect(m.sections!.map((x) => x.from)).toEqual([...m.sections!.map((x) => x.from)].sort((a, b) => a - b));
+    expect(m.flat.every((p) => p.section)).toBe(true);
+    const html = renderToStaticMarkup(<Gallery photos={m.flat} sections={m.sections} creditAtRest />);
+    expect((html.match(/gal-tile/g) ?? []).length).toBe(t.gallery.length);
+    expect((html.match(/Open photo \d+ of /g) ?? []).length).toBe(t.gallery.length);
+    expect(html).toContain(`of ${t.gallery.length}`);
+    expect(text(renderToStaticMarkup(<PhotosPanel photos={t.gallery} rows={planRows} />))).toContain(`${t.gallery.length} photos in`);
   });
 });

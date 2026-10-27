@@ -39,8 +39,7 @@ for (const vp of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
       await expect(view).toBeAttached();
       const parks = view.locator('section[aria-label="Park entry"]');
       await expect(parks).toContainText('Entry not checked yet for Upper and Lower Kananaskis Lakes');
-      await expect(view.locator('section[aria-label="Passes, checks and tasks"]')).toContainText('Lake Louise Lakeshore parking and Park and Ride');
-      await expect(view.locator('section[aria-label="Passes, checks and tasks"]')).toContainText('check');
+      await expect(view.locator('section[aria-label="To check"]')).toContainText('Lake Louise Lakeshore parking and Park and Ride');
       await expect(view.locator('section[aria-label="Book ahead"]')).toContainText('Opens 2 days before Day 10 at 08:00 local');
       // the park lines come first
       // (the print view is off screen until the browser prints, so it is read by selector, not by role)
