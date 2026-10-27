@@ -1,5 +1,6 @@
 # check.yml, phase 1 (task WF-2; docs/v2/build/WORKFLOW-EFFICIENCY.md 4.3). Jobs: plan, links, core-data, summary.
-# The web, db-local and e2e jobs arrive with WF-3 and WF-6; until then the summary lists their groups as not run yet.
+# The web, db-local and e2e jobs arrive with WF-3 and WF-6; until then the summary lists their groups as not run yet and says
+# "partial", never "green". DO NOT make `check / summary` a required status check on main before WF-3 lands (WORKFLOW-EFFICIENCY 4.5, Q-W2).
 # Rules (tools/ci/lint_workflows.py enforces them on this file): no secrets, no write permission, no pull_request_target or
 # workflow_run, GitHub-authored actions pinned by commit SHA, a timeout on every job, a concurrency group that cancels.
 name: check
@@ -12,8 +13,10 @@ on:
 
 permissions: {}
 
+# A newer push cancels an older run of the same branch. main is never cancelled: its group also holds the commit, so two quick
+# fast-forwards cannot leave the middle commit without a status.
 concurrency:
-  group: check-${{ github.ref }}
+  group: check-${{ github.ref }}${{ github.ref == 'refs/heads/main' && format('-{0}', github.sha) || '' }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
@@ -25,6 +28,7 @@ env:
   NEXT_PUBLIC_GOOGLE_MAPS_KEY: ''
   NEXT_PUBLIC_GOOGLE_MAP_ID: ''
   GATE_RUNNER: ci
+  COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
 
 jobs:
   plan:
@@ -33,10 +37,11 @@ jobs:
     permissions: { contents: read }
     outputs:
       groups: ${{ steps.sel.outputs.groups }}
-      docs_only: ${{ steps.sel.outputs.docs_only }}
       mac_only: ${{ steps.sel.outputs.mac_only }}
       base: ${{ steps.sel.outputs.base }}
       tier: ${{ steps.sel.outputs.tier }}
+      suites_links: ${{ steps.sel.outputs.suites_links }}
+      suites_core_data: ${{ steps.sel.outputs.suites_core_data }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with: { fetch-depth: 0, persist-credentials: false }
@@ -47,6 +52,7 @@ jobs:
       - id: sel
         name: Select suites from tools/gate/map.json (the map the builders use)
         env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
           EVENT: ${{ github.event_name }}
           REF: ${{ github.ref }}
           BEFORE: ${{ github.event.before }}
@@ -54,21 +60,24 @@ jobs:
         run: |
           set -euo pipefail
           # A pull request compares with its target; a push to main with the commit before the push; any other branch with main.
+          # A manual dispatch, and a push to main whose previous commit is not in the clone (a force push), run the full T2 content.
+          # Everything else runs what the change needs (T1), so a docs-only push runs links only.
+          tier=1
           case "$EVENT" in
             pull_request) base="origin/$BASE_REF" ;;
             push)
-              if [ "$REF" = refs/heads/main ] && [ -n "$BEFORE" ] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
-                base="$BEFORE"
-              elif [ "$REF" = refs/heads/main ]; then
-                base="HEAD~1"
+              if [ "$REF" = refs/heads/main ]; then
+                if [ -n "$BEFORE" ] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+                  base="$BEFORE"
+                else
+                  base="HEAD~1"; tier=2
+                fi
               else
                 base="$(git merge-base origin/main HEAD)"
               fi ;;
-            *) base="$(git merge-base origin/main HEAD)" ;;
+            *) base="$(git merge-base origin/main HEAD)"; tier=2 ;;
           esac
           base="$(git rev-parse "$base^{commit}")"
-          # A manual dispatch is the full T2 content; everything else runs what the change needs (T1), so a docs-only push runs links only.
-          tier=1; [ "$EVENT" = workflow_dispatch ] && tier=2
           tools/gate.sh --tier "$tier" --base "$base" --dry-run --out "$RUNNER_TEMP/plan.json"
           python3 tools/ci/plan_to_outputs.py "$RUNNER_TEMP/plan.json" | tee -a "$GITHUB_OUTPUT"
           echo "base=$base" >> "$GITHUB_OUTPUT"
@@ -86,19 +95,18 @@ jobs:
       - run: bash tools/ci/guard_env.sh
       # gate.map lists the vitest projects, so the links group needs the workspace installed.
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with: { node-version: 22 }
+        with: { node-version: '>=22.23 <23' }
       - run: corepack enable && pnpm install --frozen-lockfile
-      - run: tools/gate.sh --tier "$TIER" --base "$BASE" --group links --out ci-out/links.json
+      - run: tools/gate.sh --tier "$TIER" --base "$BASE" --group links --expect "$SUITES" --out ci-out/links.json
         env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
           TIER: ${{ needs.plan.outputs.tier }}
           BASE: ${{ needs.plan.outputs.base }}
+          SUITES: ${{ needs.plan.outputs.suites_links }}
       - id: scan
         name: Scan the artifact for leaks before upload
         if: always()
-        run: |
-          if [ -d ci-out ] && grep -rIlE '(gh[pousr]_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE|://[^/ :@]+:[^/ @]+@|[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.[A-Za-z]{2,})' ci-out; then
-            echo "a secret pattern or an address is in the artifact (file names above); not uploading"; exit 1
-          fi
+        run: python3 tools/ci/scrub_check.py ci-out   # fails closed: a hit or an unreadable file means no upload
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always() && steps.scan.outcome == 'success'
         with: { name: gate-links, path: ci-out/, retention-days: 7, if-no-files-found: ignore }
@@ -114,22 +122,21 @@ jobs:
         with: { fetch-depth: 0, persist-credentials: false }
       - run: bash tools/ci/guard_env.sh
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with: { node-version: 22 }
-      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with: { node-version: '>=22.23 <23' }
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0 (v7.1.0 is under 14 days old)
         with: { python-version: '3.13' }
       - run: corepack enable && pnpm install --frozen-lockfile
-      - run: python3 -m pip install 'pytest>=8'
-      - run: tools/gate.sh --tier "$TIER" --base "$BASE" --group core-data --out ci-out/core-data.json
+      - run: python3 -m pip install pytest==9.1.1
+      - run: tools/gate.sh --tier "$TIER" --base "$BASE" --group core-data --expect "$SUITES" --out ci-out/core-data.json
         env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
           TIER: ${{ needs.plan.outputs.tier }}
           BASE: ${{ needs.plan.outputs.base }}
+          SUITES: ${{ needs.plan.outputs.suites_core_data }}
       - id: scan
         name: Scan the artifact for leaks before upload
         if: always()
-        run: |
-          if [ -d ci-out ] && grep -rIlE '(gh[pousr]_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE|://[^/ :@]+:[^/ @]+@|[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.[A-Za-z]{2,})' ci-out; then
-            echo "a secret pattern or an address is in the artifact (file names above); not uploading"; exit 1
-          fi
+        run: python3 tools/ci/scrub_check.py ci-out   # fails closed: a hit or an unreadable file means no upload
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always() && steps.scan.outcome == 'success'
         with: { name: gate-core-data, path: ci-out/, retention-days: 7, if-no-files-found: ignore }
@@ -141,7 +148,7 @@ jobs:
     if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-    permissions: { contents: read }
+    permissions: {}
     steps:
       - name: Summarise and decide
         env:
@@ -153,31 +160,33 @@ jobs:
           SHA: ${{ github.sha }}
         run: |
           fail=0
-          row() { # name result planned(true|false)
-            local verdict="$2"
-            if [ "$3" = true ]; then [ "$2" = success ] || fail=1
-            else verdict="$2 (not needed)"; [ "$2" = skipped ] || [ "$2" = success ] || fail=1; fi
-            echo "| $1 | $verdict |"
-          }
+          row() { echo "| $1 | $2$([ "$3" = true ] || echo ' (not needed)') |"; } # name result planned(true|false)
           has() { case ",$GROUPS_PLANNED," in *",$1,"*) echo true ;; *) echo false ;; esac; }
           [ "$PLAN" = success ] || fail=1
+          # decide first, print after: a pipe to tee would run the block in a subshell and lose `fail`
+          rows="$(row links "$LINKS" "$(has links)"; row core-data "$CORE_DATA" "$(has core-data)")"
+          [ "$LINKS" = success ] || [ "$LINKS" = skipped ] || fail=1
+          [ "$CORE_DATA" = success ] || [ "$CORE_DATA" = skipped ] || fail=1
+          [ "$(has links)" != true ] || [ "$LINKS" = success ] || fail=1
+          [ "$(has core-data)" != true ] || [ "$CORE_DATA" = success ] || fail=1
+          pending=""
+          for g in web db e2e visual; do
+            if [ "$(has $g)" = true ]; then pending="$pending $g"; fi
+          done
           {
             echo "## check, phase 1 (commit ${SHA:0:12})"
             echo
             echo "| job | result |"
             echo "|---|---|"
             echo "| plan | $PLAN |"
-            row links "$LINKS" "$(has links)"
-            row core-data "$CORE_DATA" "$(has core-data)"
+            echo "$rows"
             echo
-            pending=""
-            for g in web db e2e visual; do
-              if [ "$(has $g)" = true ]; then pending="$pending $g"; fi
-            done
             echo "Planned but not run in phase 1 (WF-3, WF-6 add them):${pending:- none}"
             echo
             echo "Pending on the Mac (CI never runs them): ${MAC_ONLY:-none}"
             echo
-            echo "Overall: $([ "$fail" = 0 ] && echo green || echo RED)"
+            if [ "$fail" != 0 ]; then echo "Overall: RED"
+            elif [ -n "$pending" ]; then echo "Overall: partial (not run in CI:$pending); this is NOT a green verdict for those groups"
+            else echo "Overall: green"; fi
           } | tee -a "$GITHUB_STEP_SUMMARY"
           exit "$fail"

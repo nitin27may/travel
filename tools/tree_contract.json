@@ -10,6 +10,9 @@
   "tools",
   "web"
  ],
+ "top_level_folder_reasons": {
+  ".github": "owner-approved exception to ENGINEERING-STANDARD S1.1 (WORKFLOW-EFFICIENCY 4.3, WF-2): GitHub reads workflows only from .github/workflows"
+ },
  "research_root_files": [
   "README.md",
   "backlog.md",

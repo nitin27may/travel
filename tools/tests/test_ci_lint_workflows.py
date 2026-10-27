@@ -146,3 +146,74 @@ def test_cli_exit_codes(tmp_path):
     r = run(str(d))
     assert r.returncode == 1 and "bad.yml" in r.stdout and "pull_request_target" in r.stdout
     assert run(str(tmp_path / "missing")).returncode == 2
+
+
+# ----- the 12 bypass probes of docs/v2/build/review-wf-2-2026-10-26.md S1 (each failed to be caught by the first version) ---------------
+def with_step(step: str) -> str:
+    return GOOD + step
+
+
+def test_probe01_quoted_uses_key():
+    assert "pin" in rules(with_step('      - "uses": evil/act@v1\n'))
+
+
+def test_probe02_quoted_permission_key():
+    assert "write" in rules(GOOD.replace("contents: read", '"contents": write'))
+
+
+def test_probe03_quoted_write_all_value():
+    assert "write" in rules(GOOD.replace("permissions: {}", 'permissions: "write-all"'))
+
+
+def test_probe04_escaped_trigger_key():
+    assert "escape" in rules(GOOD.replace("  pull_request:\n", '  "pull_request\\x5ftarget":\n'))
+
+
+def test_probe05_escaped_secrets_value():
+    assert "escape" in rules(with_step('      - run: echo\n        env: { K: "\\x24{{ secr\\x65ts.T }}" }\n'))
+
+
+def test_probe06_secrets_index_split_from_the_expression_open():
+    assert "secrets" in rules(with_step("      - run: echo\n        env:\n          K: ${{\n            secrets['T'] }}\n"))
+
+
+def test_probe07_event_title_inside_run():
+    assert "injection" in rules(with_step("      - run: echo ${{ github.event.pull_request.title }}\n"))
+
+
+def test_probe08_head_ref_inside_a_run_block():
+    assert "injection" in rules(with_step("      - run: |\n          git checkout ${{ github.head_ref }}\n"))
+
+
+def test_probe09_constant_false_cancel_expression():
+    assert "concurrency" in rules(GOOD.replace("${{ github.ref != 'refs/heads/main' }}", "${{ false }}"))
+
+
+def test_probe10_runs_on_group():
+    assert "runner" in rules(GOOD.replace("runs-on: ubuntu-24.04", "runs-on: { group: my-pool }"))
+
+
+def test_probe11_local_composite_action():
+    assert "pin" in rules(with_step("      - uses: ./.github/actions/x\n"))
+
+
+def test_probe12_write_scope_not_in_any_list():
+    assert "write" in rules(GOOD.replace("contents: read", "artifact-metadata: write"))
+
+
+def test_safe_expressions_in_run_are_allowed():
+    ok = "      - run: echo ${{ needs.plan.outputs.base }} ${{ steps.a.outputs.b }} ${{ matrix.shard }} ${{ env.X }}\n"
+    assert rules(with_step(ok)) == []
+
+
+def test_flow_style_concurrency_is_read():
+    flow = GOOD[: GOOD.index("concurrency:")] + "concurrency: { group: x, cancel-in-progress: true }\n" + GOOD[GOOD.index("jobs:"):]
+    assert rules(flow) == []
+
+
+def test_block_scalar_content_is_not_mistaken_for_keys():
+    assert rules(with_step("      - run: |\n          echo 'uses: nothing'\n          echo done\n")) == []
+
+
+def test_the_docstring_says_it_is_a_drift_guard():
+    assert "NOT A SECURITY BOUNDARY" in (lw.__doc__ or "")

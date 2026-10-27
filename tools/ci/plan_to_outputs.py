@@ -7,10 +7,11 @@ raw, so a path with odd characters cannot inject another output):
 
   groups     comma list of the groups that have a suite to run, in the map's order (links, core-data, web, db, e2e, visual)
   specs      comma list of the e2e specs of `e2e.mapped` (file names), empty when none
-  mac_only   comma list of suites that CI never runs (they are pending on the Mac), from the plan
+  mac_only   comma list of suites that CI never runs (they are pending on the Mac): the plan rows the gate marks `mac_only`
   full       true when the plan is a full run
   docs_only  true when the only group is links
   suites     comma list of every suite id in the plan
+  suites_<group>  (group name with `-` as `_`) the suites of that group, for `gate.py --expect`: a job that selects anything else fails
 
 Python 3 standard library only. Exit 2 on a plan it cannot read.
 """
@@ -22,13 +23,11 @@ import sys
 from pathlib import Path
 
 GROUPS = ("links", "core-data", "web", "db", "e2e", "visual")
-SAFE = re.compile(r"^[A-Za-z0-9._/-]+$")
-# suites a hosted runner cannot answer for; WF-3 moves this list into the map as `mac_only`
-MAC_ONLY = ("web.timing",)
+SAFE = re.compile(r"[A-Za-z0-9._/-]+")  # always fullmatch: `$` would let a final newline through
 
 
 def safe_list(values: list) -> str:
-    return ",".join(v for v in values if isinstance(v, str) and SAFE.match(v))
+    return ",".join(v for v in values if isinstance(v, str) and SAFE.fullmatch(v))
 
 
 def outputs(plan: dict) -> dict[str, str]:
@@ -36,6 +35,8 @@ def outputs(plan: dict) -> dict[str, str]:
     if not isinstance(rows, list):
         raise ValueError("no `suites` list in the plan")
     groups: set[str] = set()
+    by_group: dict[str, list[str]] = {g: [] for g in GROUPS}
+    macs: list[str] = []
     specs: list[str] = []
     ids: list[str] = []
     for r in rows:
@@ -46,7 +47,10 @@ def outputs(plan: dict) -> dict[str, str]:
         g = r.get("group")
         if g not in GROUPS:
             raise ValueError(f"suite {sid} has group {g!r}: run the gate with GATE_RUNNER=ci so the plan carries groups")
-        if sid not in MAC_ONLY:
+        by_group[g].append(sid)
+        if r.get("mac_only"):
+            macs.append(sid)
+        else:
             groups.add(g)
         if sid == "e2e.mapped":
             specs = [Path(f).name for f in r.get("files", [])]
@@ -54,10 +58,11 @@ def outputs(plan: dict) -> dict[str, str]:
     return {
         "groups": safe_list(ordered),
         "specs": safe_list(specs),
-        "mac_only": safe_list([i for i in ids if i in MAC_ONLY]),
+        "mac_only": safe_list(macs),
         "full": "true" if plan.get("full") else "false",
         "docs_only": "true" if ordered and set(ordered) <= {"links"} else "false",
         "suites": safe_list(ids),
+        **{f"suites_{g.replace('-', '_')}": safe_list(by_group[g]) for g in GROUPS},
     }
 
 

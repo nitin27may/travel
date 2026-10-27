@@ -88,7 +88,11 @@ def is_dirty(root: Path | None = None) -> bool:
 
 
 def gate_full_trailer(root: Path | None = None) -> bool:
-    return re.search(r"^Gate:\s*full\s*$", git("log", "-1", "--format=%B", root=root, check=False), re.M | re.I) is not None
+    rev = "HEAD"
+    # CI on a pull request checks out GitHub's merge commit; the author's trailer is on its second parent
+    if os.environ.get("GITHUB_EVENT_NAME") == "pull_request" and is_ci() and git("rev-parse", "-q", "--verify", "HEAD^2", root=root, check=False).strip():
+        rev = "HEAD^2"
+    return re.search(r"^Gate:\s*full\s*$", git("log", "-1", "--format=%B", rev, root=root, check=False), re.M | re.I) is not None
 
 
 # ----- plan ------------------------------------------------------------------------------------------------------------------------------
@@ -477,7 +481,7 @@ def run_job(m: dict, job: Job, *, root: Path, lock_root: Path, label: str, log: 
             res.status, res.seconds, res.note = "CACHED", 0.0, f"was {float(hit.get('seconds', 0)):.1f}s on {hit.get('head', '?')}"
             log(f"CACHED {sid} key {ckey[:12]} {res.note}")
             return res
-    if is_ci() and (s.get("slot") == "timing" or sid == "web.timing"):
+    if is_ci() and mac_only(s, sid):
         res.status, res.note = "MAC_ONLY", "timing suites run on the Mac (shared runners are noisy)"
         return res
     if s.get("slot") == "timing" or sid == "web.timing":
@@ -570,7 +574,7 @@ def verdict(results: list[Result]) -> tuple[str, int]:
         return "FAIL", 1
     if "DEFERRED" in st:
         return "DEFERRED (not a pass)", 2
-    # MAC_ONLY (CI mode) is neither: the summary lists it as pending, so it does not turn a green run red  # CACHED and UNNEEDED are passes: a stored pass on identical inputs
+    # CACHED and UNNEEDED are passes: a stored pass on identical inputs. MAC_ONLY (CI mode) is neither: the summary lists it as pending
     return "PASS", 0
 
 
@@ -625,9 +629,15 @@ def to_json(plan: Plan, results: list[Result], *, base: str, head: str, log_path
         files = {j.suite: j.files for j in plan.jobs}
         for row in doc["suites"]:
             row["group"] = suite_group(m, row["suite"])
+            row["mac_only"] = mac_only(meta(m, row["suite"]), row["suite"])
             if row["suite"] == "e2e.mapped":
                 row["files"] = files.get("e2e.mapped", [])
     return doc
+
+
+def mac_only(s: dict, sid: str) -> bool:
+    """A suite a hosted runner cannot answer for (shared runners are noisy). WF-3 moves this decision into the map."""
+    return s.get("slot") == "timing" or sid == "web.timing"
 
 
 def suite_group(m: dict, sid: str) -> str:
@@ -652,6 +662,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     ap.add_argument("--verifier", action="store_true", help="the verifier's run: never uses the cache (also GATE_VERIFIER=1)")
     ap.add_argument("--cache-stats", action="store_true", help="print the cache store (entries, age, hits) and exit")
     ap.add_argument("--group", default=None, help="keep only the suites of this group of the map (CI jobs: links, core-data, web, db, e2e, visual)")
+    ap.add_argument("--expect", default=None, metavar="SUITES", help="comma list of suite ids this group must select (CI: the plan job's output); a difference, or none selected, is refused")
     ap.add_argument("--out", default=None, metavar="FILE", help="also write the --json document to FILE")
     ap.add_argument("--visual", action="store_true", help="T3: include the visual-sweep hook (GATE_VISUAL_CMD)")
     return ap.parse_args(argv)
@@ -690,7 +701,21 @@ def main(argv: list[str] | None = None, root: Path = ROOT) -> int:
             known = {meta(m, s).get("group", "other") for s in m["suites"]}
             if args.group not in known:
                 raise Refused(f"unknown group {args.group} (known: {', '.join(sorted(known))})")
-            plan.jobs = [j for j in plan.jobs if suite_group(m, j.suite) == args.group]
+            keep = {j.suite for j in plan.jobs if suite_group(m, j.suite) == args.group}
+            todo = list(keep)
+            while todo:  # a suite's `needs` stay with it even when they belong to another group (e2e.mapped needs web.build)
+                for dep in meta(m, todo.pop()).get("needs", []):
+                    if dep not in keep and any(j.suite == dep for j in plan.jobs):
+                        keep.add(dep)
+                        todo.append(dep)
+            plan.jobs = [j for j in plan.jobs if j.suite in keep]
+        if args.expect is not None:
+            want = sorted(s for s in args.expect.split(",") if s)
+            got = sorted(j.suite for j in plan.jobs if suite_group(m, j.suite) == (args.group or suite_group(m, j.suite)))
+            if not got:
+                raise Refused("this job selected no suites; a planned group must have work")
+            if want != got:
+                raise Refused(f"this job's plan differs from the plan job's (expected {','.join(want) or 'nothing'}; got {','.join(got) or 'nothing'})")
         refusal = None
         if args.tier >= 2 and args.changed is None and not args.allow_dirty and is_dirty(root):
             refusal = f"T{args.tier} needs a clean tree (results must name a commit); commit, or pass --allow-dirty"

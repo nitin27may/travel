@@ -149,3 +149,104 @@ def test_guard_rejects_a_database_url_without_printing_it():
 def test_guard_rejects_a_missing_home_point():
     r = subprocess.run(["bash", str(ROOT / "tools/ci/guard_env.sh")], capture_output=True, text=True, env={"PATH": os.environ["PATH"]})
     assert r.returncode == 1
+
+
+# ----- review S2, S7, S8 and the nits ---------------------------------------------------------------------------------------------
+def test_trailing_newline_cannot_pass_the_output_filter():
+    plan = {"suites": [{"suite": "e2e.mapped", "group": "e2e", "files": ["a.spec.ts\n", "b.spec.ts"]}]}
+    out = po.outputs(plan)
+    assert out["specs"] == "b.spec.ts" and not po.SAFE.fullmatch("x\n")
+
+
+def test_suites_are_listed_per_group_and_mac_only_comes_from_the_plan_rows(monkeypatch):
+    out = po.outputs(ci_plan(["tools/gate/gate.py"], monkeypatch=monkeypatch))
+    assert "web.timing" in out["suites_web"].split(",") and out["mac_only"] == "web.timing"
+    assert out["suites_links"].split(",")[0] == "links" and "py.tools" in out["suites_core_data"].split(",")
+    assert "web.timing" not in po.__dict__.get("MAC_ONLY", ())  # one source of truth: the gate
+
+
+def test_expect_refuses_a_different_selection(tmp_path):
+    ok = run_gate("--tier", "1", "--dry-run", "--changed", "docs/v2/PLAN.md", "--group", "links", "--expect", "links,gate.map")
+    assert ok.returncode == 0, ok.stdout
+    bad = run_gate("--tier", "1", "--dry-run", "--changed", "docs/v2/PLAN.md", "--group", "links", "--expect", "links,gate.map,hardcode")
+    assert bad.returncode == 2 and "differs" in bad.stdout
+
+
+def test_a_planned_group_that_selects_nothing_is_refused():
+    r = run_gate("--tier", "1", "--dry-run", "--changed", "docs/v2/PLAN.md", "--group", "core-data", "--expect", "py.tools")
+    assert r.returncode == 2 and "no suites" in r.stdout
+
+
+def test_group_keeps_needs_from_other_groups(monkeypatch):
+    # e2e.mapped (group e2e) needs web.build (group web): selecting the e2e group must still build first
+    r = run_gate("--tier", "1", "--dry-run", "--changed", "web/components/home/HomeSearch.tsx", "--group", "e2e")
+    rows = [ln.split()[1] for ln in r.stdout.splitlines() if ln.startswith("WOULD")]
+    assert "web.build" in rows and rows.index("web.build") < rows.index("e2e.mapped")
+
+
+def test_full_trailer_is_read_from_the_pr_head_not_the_merge_commit(tmp_path, monkeypatch):
+    def g(*a):
+        subprocess.run(["git", "-C", str(tmp_path), *a], check=True, capture_output=True, env={**os.environ, "GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@example.com",
+                       "GIT_COMMITTER_NAME": "t", "GIT_COMMITTER_EMAIL": "t@example.com"})
+    g("init", "-q", "-b", "main")
+    g("commit", "-q", "--allow-empty", "-m", "base")
+    g("checkout", "-q", "-b", "pr")
+    g("commit", "-q", "--allow-empty", "-m", "change\n\nGate: full")
+    g("checkout", "-q", "main")
+    g("commit", "-q", "--allow-empty", "-m", "other")
+    g("merge", "-q", "--no-ff", "pr", "-m", "Merge pr")
+    monkeypatch.setenv("GATE_RUNNER", "ci")
+    monkeypatch.setenv("GITHUB_EVENT_NAME", "pull_request")
+    assert gate.gate_full_trailer(tmp_path) is True
+    monkeypatch.setenv("GITHUB_EVENT_NAME", "push")
+    assert gate.gate_full_trailer(tmp_path) is False
+    monkeypatch.delenv("GATE_RUNNER")
+    assert gate.gate_full_trailer(tmp_path) is False
+
+
+def test_guard_reads_the_decoy_from_the_typescript_file():
+    ts = (ROOT / "core/test/setup/home-point.ts").read_text()
+    assert "lat: 10.5, lon: -140.5" in ts and "10.5" in (ROOT / ".github/workflows/check.yml").read_text()
+    assert guard().returncode == 0
+
+
+# ----- scrub_check.py (S3, S4) -----------------------------------------------------------------------------------------------------
+import scrub_check as sc  # noqa: E402
+
+
+@pytest.mark.parametrize("text", [
+    "ghp_" + "a" * 36, "github_pat_" + "A1b2" * 8, "npm_" + "a1" * 18, "AKIA" + "A" * 16, "AIza" + "x" * 35, "GOCSPX-" + "ab12" * 4,
+    "sk-" + "a1" * 12, "xoxb-" + "1234567890-ab", "eyJ" + "a" * 20 + ".eyJ" + "b" * 12 + ".sig123", "napi_" + "a" * 30, "re_" + "A1_" * 8,
+    "-----BEGIN RSA PRIVATE KEY-----", "postgres://user:pa/ss@host/db", "someone@corp-mail.org",
+])
+def test_scrub_flags_each_token_shape(text):
+    assert sc.scan_text("log line " + text + " end")
+
+
+@pytest.mark.parametrize("text", ["git@github.com:owner/repo.git", "icon@2x.png", "user@example.com", "noreply@anthropic.com", "the word restore_cache is fine", "https://github.com/a/b"])
+def test_scrub_allows_harmless_matches(text):
+    assert sc.scan_text(text) == []
+
+
+def test_scrub_cli_clean_hit_and_names(tmp_path):
+    run = lambda p: subprocess.run([sys.executable, str(ROOT / "tools/ci/scrub_check.py"), str(p)], capture_output=True, text=True)  # noqa: E731
+    (tmp_path / "ok.json").write_text('{"suite": "links"}')
+    assert run(tmp_path).returncode == 0
+    (tmp_path / "bad.json").write_text("token ghp_" + "a" * 36)
+    r = run(tmp_path)
+    assert r.returncode == 1 and "bad.json" in r.stdout and "ghp_" not in r.stdout
+    (tmp_path / "bad.json").unlink()
+    (tmp_path / ".env.local").write_text("X=1")
+    assert run(tmp_path).returncode == 1
+    assert run(tmp_path / "nothing").returncode == 0
+
+
+def test_scrub_fails_closed_on_an_unreadable_file(tmp_path):
+    f = tmp_path / "a.json"
+    f.write_text("{}")
+    f.chmod(0)
+    try:
+        r = subprocess.run([sys.executable, str(ROOT / "tools/ci/scrub_check.py"), str(tmp_path)], capture_output=True, text=True)
+        assert r.returncode == 2 or os.geteuid() == 0
+    finally:
+        f.chmod(0o600)
