@@ -1,6 +1,8 @@
 // The Summary tab's words and card list (spec 3.5, W2), pure so the page and the tests read one definition. The numbers come from
 // core's tripSummary (via lib/public/summary.ts); nothing here counts or invents a fact.
 import type { ExportBooking } from '@travel/core/export/types.ts';
+import { datedPhrase } from '../tabs/bookingGroups';
+import { sectionsLabel } from '../tabs/photoGroups';
 import type { TripSummary } from '@travel/core/trips/summary.ts';
 
 /** The Photos tab is drawn from this many licensed photos (owner Q307, recommended: yes); fewer stay at the foot of the page. */
@@ -45,10 +47,10 @@ export function countCards(s: TripSummary, link: LinkTabs, groups = 0): CountCar
   }
   if (s.flags.bookings) {
     const b = c.bookings;
-    const sub = b.dated === 0 ? 'none has a published opening date yet' : b.earliest ? `earliest: ${b.earliest.name}, ${lower(b.earliest.rule)}` : null;
+    const sub = b.dated === 0 ? datedPhrase(0) : b.earliest ? `earliest: ${b.earliest.name}, ${lower(b.earliest.rule)}` : null;
     out.push({ key: 'bookings', value: `${b.count} to book ahead`, sub, href: link.bookings ? '?view=bookings' : null });
   }
-  if (c.photos > 0) out.push({ key: 'photos', value: plural(c.photos, 'photo', 'photos'), sub: groups > 0 ? plural(groups, 'place', 'places') : null, href: link.photos ? '?view=photos' : null });
+  if (c.photos > 0) out.push({ key: 'photos', value: plural(c.photos, 'photo', 'photos'), sub: groups > 0 ? sectionsLabel(groups) : null, href: link.photos ? '?view=photos' : null });
   return out;
 }
 

@@ -48,6 +48,7 @@ export function BookingsPanel({ bookings, placeSlugs = {} }: { bookings: readonl
     <section className="trip-sec bk-panel" aria-labelledby="bk-h">
       <h2 id="bk-h" className="trip-h">Bookings</h2>
       <p className="trip-sec-note" data-testid="bk-summary">{bookingsSummary(bookings)}.</p>
+      {groups.length === 1 && groups[0]!.note ? <p className="trip-sec-note bk-solo-note">{groups[0]!.note}</p> : null}
       {groups.map((g) => (
         <section key={g.kind} className="bk-group" data-group={g.kind} aria-labelledby={`bk-g-${g.kind}`}>
           {groups.length > 1 ? (

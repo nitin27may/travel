@@ -1,12 +1,15 @@
 import { bookingCounts } from '@travel/core/export/bookings.ts';
 import type { BookingKind, ExportBooking } from '@travel/core/export/types.ts';
 
-/** The order the Bookings tab draws its groups in, the heading of each, and the line under it that says what the rows are (owner QP3: honest words). */
+/**
+ * The order the Bookings tab draws its groups in, the heading of each, and the line under it that says what the rows are, in visitor words
+ * (UXB-6F S5). The Passes note leaves the "when" to each row's own window: some passes close on a day, some are bought on arrival.
+ */
 export const BOOKING_GROUPS: readonly { kind: BookingKind; heading: string; note: string | null }[] = [
   { kind: 'booking', heading: 'To book ahead', note: null },
-  { kind: 'pass', heading: 'Passes', note: 'Bought any time before the trip; not counted as a booking to watch.' },
-  { kind: 'check', heading: 'To check', note: 'Listed so you know; nothing to book, not counted.' },
-  { kind: 'task', heading: 'Tasks', note: 'Your own to-dos; not counted as a booking.' },
+  { kind: 'pass', heading: 'Passes', note: 'Entry passes. The line under each says when to buy.' },
+  { kind: 'check', heading: 'To check', note: 'Rules and conditions to know before the day; nothing to book.' },
+  { kind: 'task', heading: 'Tasks', note: 'To-dos before you go; nothing to book.' },
 ];
 
 export interface BookingGroup {
@@ -24,6 +27,9 @@ export function groupBookings(bookings: readonly ExportBooking[]): BookingGroup[
   });
 }
 
+/** The one wording of how many bookings have a published opening date, for the card and the tab. */
+export const datedPhrase = (dated: number): string => (dated === 0 ? 'none with a published opening date yet' : `${dated} with a published opening date`);
+
 const plural = (n: number, one: string, many: string): string => `${n} ${n === 1 ? one : many}`;
 
 /**
@@ -34,16 +40,21 @@ const plural = (n: number, one: string, many: string): string => `${n} ${n === 1
 export function bookingsSummary(bookings: readonly ExportBooking[]): string {
   const c = bookingCounts(bookings);
   const dated = bookings.filter((b) => b.kind === 'booking' && b.rule).length;
-  const head = c.toBook === 0 ? 'Nothing to book ahead' : `${c.toBook} to book ahead, ${dated === 0 ? 'none with a published opening date yet' : `${dated} with a published opening date`}`;
+  const head = c.toBook === 0 ? 'Nothing to book ahead' : `${c.toBook} to book ahead, ${datedPhrase(dated)}`;
   const rest = [c.pass ? plural(c.pass, 'pass', 'passes') : '', c.check ? plural(c.check, 'check', 'checks') : '', c.task ? plural(c.task, 'task', 'tasks') : ''].filter(Boolean);
   return rest.length ? `${head}; also ${rest.join(', ')}` : head;
 }
 
-/** "Prices: not checked yet for these 7": the export holds no price, so one line says so for the rows that cost money (bookings and passes). Null when none. */
+/**
+ * One prices line for the rows that cost money: "Prices: not checked yet for these 7." with bookings only, and
+ * "for the 2 bookings and 1 pass" when a pass is listed too, so the count matches the headline (UXB-6F S4). Null when there are none.
+ */
 export function pricesLine(bookings: readonly ExportBooking[]): string | null {
-  const n = bookings.filter((b) => b.kind === 'booking' || b.kind === 'pass').length;
-  if (n === 0) return null;
-  return `Prices: not checked yet for ${n === 1 ? 'this one' : `these ${n}`}.`;
+  const c = bookingCounts(bookings);
+  if (c.booking + c.pass === 0) return null;
+  if (c.pass === 0) return `Prices: not checked yet for ${c.booking === 1 ? 'this one' : `these ${c.booking}`}.`;
+  const parts = [c.booking ? plural(c.booking, 'booking', 'bookings') : '', plural(c.pass, 'pass', 'passes')].filter(Boolean);
+  return `Prices: not checked yet for the ${parts.join(' and ')}.`;
 }
 
 /** An official link is drawn only when it is an http(s) address: the contract carries a string, the page never writes a `javascript:` href. */

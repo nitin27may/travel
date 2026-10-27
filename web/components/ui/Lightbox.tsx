@@ -84,7 +84,7 @@ export function Lightbox({ photos, index, onIndexChange, finalFocus }: Props) {
                       </a>
                     </>
                   ) : null}{' '}
-                  &middot; <span aria-live="polite">{i + 1} / {photos.length}</span>
+                  &middot; <span aria-live="polite">{i + 1} / {photos.length}{photo.section ? ` · ${photo.section}` : ''}</span>
                 </p>
               </div>
             </>
