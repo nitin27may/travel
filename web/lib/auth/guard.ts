@@ -9,6 +9,7 @@ import { addressHash, ipHash } from '@travel/core/quota/keys.ts';
 import { createPgQuotaStore } from '@travel/core/quota/pg.ts';
 import type { QuotaRule, QuotaStore } from '@travel/core/quota/store.ts';
 import { isIP } from 'node:net';
+import { authFlagsNow, type AuthFlags } from '@/lib/auth/flags';
 import { revokeSessionsBefore } from '@/lib/auth/revoke';
 import { clientIp } from '@/lib/server/client-ip';
 import { getMailer, ownerEmail } from '@/lib/server/mailer';
@@ -31,6 +32,22 @@ import { turnstilePassed, verifyTurnstile } from '@/lib/server/turnstile';
  *      - Neon's 429 keeps a Retry-After (the SDK proxy drops Neon's `x-retry-after`);
  *      - a send Neon refuses (429 or 5xx) is counted and becomes SEND_FAILED, with owner alerts (first refusal of a day, three
  *        failures in an hour); our own global cap becomes SEND_UNAVAILABLE with an alert once a day.
+ *
+ * Allow-list (hotfix A1, review MF3): only the routes this site calls are proxied: `get-session` (GET), `sign-out` (POST) and the
+ * seven routes of the sign-in card (ROUTES). Every other path and method answers 404 here, whatever plugins are switched on in the
+ * Neon console (`organization`, `update-user`, `delete-user`, `forget-password`, `change-email`, ...). Every non-GET call must carry
+ * a same-origin `Origin` header: a missing one is refused too (MF1), because a browser always sends it on a POST. This guards our
+ * proxy only: Neon's Auth base URL is public and can be called directly, so the production branch must have Better Auth "Allow
+ * Localhost" OFF and the `organization` plugin disabled in the Neon console (owner steps, review checklist items 1 and 2).
+ *
+ * Flags (MF4): with `NEXT_PUBLIC_SIGN_IN` off every path answers 404; with `NEXT_PUBLIC_SIGN_IN_CODE` off a code send of type
+ * `sign-in` and `sign-in/email-otp` answer 404, so turning a flag off and redeploying really turns the server side off (spec 11.2).
+ *
+ * Bodies (SF1): each guarded body is rebuilt from that route's own field list (string values only); anything else, `callbackURL`
+ * included (spec 5.1), never reaches Neon, and sign-up always sends `name: ''` (rule E8).
+ *
+ * Password sign-in never sends mail through us (MF2): it takes no send bucket and needs no Turnstile, so the Neon setting "Send
+ * verification email on sign-in" must stay false. The card asks for a confirmation code through the guarded send route instead.
  *
  * Fail closed: without the quota store or AUTH_QUOTA_SECRET, or without TURNSTILE_SECRET_KEY, guarded calls answer 503 in production; only
  * NODE_ENV test or development may skip them. `AUTH_GUARD=off` (spec 11.2 rollback) skips Turnstile, quotas and counters but keeps
@@ -55,24 +72,30 @@ interface Route {
   verifies?: boolean;
 }
 
-/** Guarded Neon Auth routes (lower-case path under /api/auth/). Everything else passes through untouched. */
-const ROUTES: Record<string, Route> = {
-  'email-otp/send-verification-otp': { id: 'send_otp', kind: 'send', sendOk: { success: true } },
-  'email-otp/request-password-reset': { id: 'reset_request', kind: 'send', sendOk: { success: true } },
-  'forget-password/email-otp': { id: 'reset_request_legacy', kind: 'send', sendOk: { success: true } },
-  'request-password-reset': { id: 'reset_request_link', kind: 'send', sendOk: { status: true } },
-  'send-verification-email': { id: 'verify_resend_link', kind: 'send', sendOk: { status: true } },
-  'sign-in/magic-link': { id: 'magic_link', kind: 'send', sendOk: { status: true } },
-  'sign-up/email': { id: 'sign_up', kind: 'signup' },
-  'sign-in/email': { id: 'sign_in_password', kind: 'password' },
-  'sign-in/email-otp': { id: 'sign_in_code', kind: 'verify', verifies: true },
-  'email-otp/verify-email': { id: 'verify_email', kind: 'verify', verifies: true },
-  'email-otp/check-verification-otp': { id: 'check_code', kind: 'verify' },
-  'email-otp/reset-password': { id: 'reset_password', kind: 'reset', verifies: true },
+interface GuardedRoute extends Route {
+  /** The body fields forwarded to Neon (string values only); every other field is dropped (SF1). */
+  fields: readonly string[];
+  /** Answers 404 unless the code option is on (MF4). */
+  codeOnly?: boolean;
+}
+
+/**
+ * The guarded routes: exactly the seven the sign-in card calls (components/auth/api.ts), lower-case path under /api/auth/, POST only.
+ * Not here, so 404: the legacy and link sends (`forget-password/email-otp`, `request-password-reset`, `send-verification-email`,
+ * `sign-in/magic-link`), `email-otp/check-verification-otp`, change of email, and every plugin route.
+ */
+const ROUTES: Record<string, GuardedRoute> = {
+  'email-otp/send-verification-otp': { id: 'send_otp', kind: 'send', sendOk: { success: true }, fields: ['email', 'type'] },
+  'email-otp/request-password-reset': { id: 'reset_request', kind: 'send', sendOk: { success: true }, fields: ['email'] },
+  'sign-up/email': { id: 'sign_up', kind: 'signup', fields: ['email', 'password'] },
+  'sign-in/email': { id: 'sign_in_password', kind: 'password', fields: ['email', 'password'] },
+  'sign-in/email-otp': { id: 'sign_in_code', kind: 'verify', verifies: true, fields: ['email', 'otp'], codeOnly: true },
+  'email-otp/verify-email': { id: 'verify_email', kind: 'verify', verifies: true, fields: ['email', 'otp'] },
+  'email-otp/reset-password': { id: 'reset_password', kind: 'reset', verifies: true, fields: ['email', 'otp', 'password'] },
 };
 
-/** Routes not offered in v1 (change of email A8, link reset): refused here so nothing unguarded can send mail. */
-const BLOCKED = ['reset-password', 'change-email', 'email-otp/change-email', 'email-otp/request-email-change'];
+/** Unguarded routes the site itself uses (the session read and sign-out), with the one method each accepts. */
+const OPEN: Record<string, 'GET' | 'POST'> = { 'get-session': 'GET', 'sign-out': 'POST' };
 
 /** The `type` values the send route accepts (spec 4.5); `change-email` is not offered. */
 const OTP_TYPES = new Set(['sign-in', 'email-verification', 'forget-password']);
@@ -139,14 +162,9 @@ function rebuild(request: Request, body: string): Request {
   return new Request(request.url, { method: request.method, headers, body });
 }
 
-/** A copy of an upstream answer with a new JSON body, keeping its cookies and safe headers. */
-function withBody(upstream: Response, status: number, body: unknown, extra: Record<string, string> = {}): Response {
-  const headers = new Headers(upstream.headers);
-  for (const h of ['content-length', 'content-encoding']) headers.delete(h);
-  headers.set('content-type', 'application/json');
-  headers.set('Cache-Control', 'private, no-store');
-  for (const [k, v] of Object.entries(extra)) headers.set(k, v);
-  return new Response(JSON.stringify(body), { status, headers });
+/** The pending sign-up answer, built fresh: no header of Neon's (a cookie or request id on one branch only) can tell addresses apart (SF2). */
+function signupPending(): Response {
+  return Response.json(SIGNUP_PENDING, { status: 200, headers: NO_STORE });
 }
 
 function withHeader(upstream: Response, name: string, value: string): Response {
@@ -198,6 +216,8 @@ export interface GuardDeps {
   revokeSessions(email: string, before: Date): Promise<number>;
   env(): { NODE_ENV?: string; AUTH_GUARD?: string; AUTH_QUOTA_SECRET?: string; TURNSTILE_SECRET_KEY?: string };
   now(): Date;
+  /** The sign-in flags (lib/auth/flags.ts), read per call. */
+  flags(): AuthFlags;
   /** Cloudflare's siteverify (tests inject a fake). */
   turnstileFetch?: typeof fetch;
 }
@@ -218,6 +238,7 @@ export function defaultGuardDeps(upstream: GuardDeps['upstream']): GuardDeps {
       TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY,
     }),
     now: () => new Date(),
+    flags: authFlagsNow,
   };
 }
 
@@ -242,11 +263,28 @@ function rulesFor(kind: Kind, addr: string, ip: string): QuotaRule[] {
   }
 }
 
-export function classify(path: readonly string[]): Route | 'blocked' | null {
-  if (path.some((s) => s === '' || s === '.' || s === '..')) return 'blocked';
+export type Classified = { path: string; route: GuardedRoute } | { path: string; open: 'GET' | 'POST' } | null;
+
+/** What a path is: a guarded route, an open one (with its method), or null: not offered here, 404 (MF3). */
+export function classify(path: readonly string[]): Classified {
+  if (path.length === 0 || path.some((s) => s === '' || s === '.' || s === '..')) return null;
   const p = path.join('/').toLowerCase();
-  if (BLOCKED.some((b) => p === b || p.startsWith(`${b}/`))) return 'blocked';
-  return ROUTES[p] ?? null;
+  if (Object.hasOwn(ROUTES, p)) return { path: p, route: ROUTES[p] };
+  if (Object.hasOwn(OPEN, p)) return { path: p, open: OPEN[p] };
+  return null;
+}
+
+/** The body Neon gets: only the route's own fields with string values; sign-up always without a name (E8). */
+function allowedBody(route: GuardedRoute, body: Record<string, unknown>): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  for (const f of route.fields) if (typeof body[f] === 'string') out[f] = body[f];
+  if (route.kind === 'signup') out.name = '';
+  return out;
+}
+
+/** A non-GET call needs an Origin header that matches the host: missing counts as foreign (MF1). */
+function originOk(request: Request): boolean {
+  return request.headers.get('origin') !== null && sameOrigin(request);
 }
 
 export function createAuthGuard(deps: GuardDeps) {
@@ -277,12 +315,27 @@ export function createAuthGuard(deps: GuardDeps) {
 
   async function handle(request: Request, ctx: RouteCtx): Promise<Response> {
     const { path } = await ctx.params;
-    const route = classify(path ?? []);
-    if (route === 'blocked') {
-      guardLog('info', { event: 'auth_guard', outcome: 'blocked' });
+    const flags = deps.flags();
+    const found = flags.signIn ? classify(path ?? []) : null;
+    const method = request.method.toUpperCase();
+    if (!found || ('open' in found ? found.open !== method : method !== 'POST')) {
+      guardLog('info', { event: 'auth_guard', outcome: flags.signIn ? 'not_offered' : 'sign_in_off' });
       return answer(404, 'NOT_FOUND');
     }
-    if (!route || request.method !== 'POST') return deps.upstream(request, ctx);
+    // Neon gets the canonical (lower-case) path the allow-list matched, never the raw one.
+    const canonical: RouteCtx = { params: Promise.resolve({ path: found.path.split('/') }) };
+    if ('open' in found) {
+      if (method !== 'GET' && !originOk(request)) {
+        guardLog('warn', { event: 'auth_guard', route: found.path, outcome: 'origin' });
+        return answer(403, 'FORBIDDEN');
+      }
+      return deps.upstream(request, canonical);
+    }
+    const route = found.route;
+    if (route.codeOnly && !flags.signInCode) {
+      guardLog('info', { event: 'auth_guard', route: route.id, outcome: 'code_off' });
+      return answer(404, 'NOT_FOUND');
+    }
 
     const started = deps.now();
     const env = deps.env();
@@ -290,8 +343,8 @@ export function createAuthGuard(deps: GuardDeps) {
     const done = (level: 'info' | 'warn' | 'error', outcome: string, extra: Record<string, LogValue> = {}) =>
       guardLog(level, { event: 'auth_guard', route: route.id, outcome, ...extra });
 
-    // 1. Origin, before anything else (no quota is spent on a forged cross-site call).
-    if (!sameOrigin(request)) {
+    // 1. Origin, before anything else (no quota is spent on a forged cross-site call); a missing Origin is refused too.
+    if (!originOk(request)) {
       done('warn', 'origin');
       return answer(403, 'FORBIDDEN');
     }
@@ -321,6 +374,11 @@ export function createAuthGuard(deps: GuardDeps) {
       done('info', 'bad_type');
       return answer(400, 'VALIDATION_ERROR');
     }
+    if (route.id === 'send_otp' && body.type === 'sign-in' && !flags.signInCode) {
+      done('info', 'code_off');
+      return answer(404, 'NOT_FOUND');
+    }
+    body = allowedBody(route, body);
 
     // 3 and 4. Turnstile and quotas, unless the guard is switched off (rollback only).
     const guardOn = env.AUTH_GUARD !== 'off';
@@ -382,7 +440,7 @@ export function createAuthGuard(deps: GuardDeps) {
     // 5. Forward, then fix the answer. The proxy always waits for Neon, known address or not (no early answer on our side).
     let upstream: Response;
     try {
-      upstream = await deps.upstream(rebuild(request, JSON.stringify(body)), ctx);
+      upstream = await deps.upstream(rebuild(request, JSON.stringify(body)), canonical);
     } catch {
       upstream = Response.json({ code: 'UPSTREAM_ERROR' }, { status: 502 });
     }
@@ -411,11 +469,11 @@ export function createAuthGuard(deps: GuardDeps) {
           // Verification required: the same answer for a new and an existing address. Neon sent a code only for a new one.
           if (json.user && typeof json.user === 'object' && (json.user as Record<string, unknown>).role != null) await count(store, [AUTH_METRICS.sent]);
           done('info', 'signup_pending', { upstream: status });
-          return withBody(upstream, 200, SIGNUP_PENDING);
+          return signupPending();
         }
         if (status === 422 && /^USER_ALREADY_EXISTS/.test(safeCode(json, ''))) {
           done('info', 'signup_pending', { upstream: status });
-          return withBody(upstream, 200, SIGNUP_PENDING);
+          return signupPending();
         }
         if (upstream.ok) {
           // Verification not required yet (before O-E1): a new account is signed in at once; that cannot look like anything else.
@@ -445,7 +503,10 @@ export function createAuthGuard(deps: GuardDeps) {
       case 'verify':
       case 'password': {
         if (upstream.ok && route.verifies) await count(store, [AUTH_METRICS.verified]);
-        done(status >= 500 ? 'warn' : 'info', upstream.ok ? 'ok' : 'neon_rejected', { upstream: status });
+        // An unverified account: the card now asks for a code through the guarded send route (MF2). If this answer ever comes with a
+        // mail of Neon's, the console setting "send verification email on sign-in" is on, which it must not be; the log line shows it.
+        const unverified = route.kind === 'password' && status === 403 && safeCode(await jsonOf(upstream), '') === 'EMAIL_NOT_VERIFIED';
+        done(status >= 500 ? 'warn' : 'info', upstream.ok ? 'ok' : unverified ? 'email_not_verified' : 'neon_rejected', { upstream: status });
         return status === 429 ? withHeader(upstream, 'Retry-After', retry['Retry-After']) : upstream;
       }
     }

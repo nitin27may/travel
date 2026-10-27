@@ -84,6 +84,8 @@ beforeEach(() => {
   vi.stubEnv('TURNSTILE_SECRET_KEY', TEST_PASS);
   vi.stubEnv('OWNER_EMAIL', OWNER);
   vi.stubEnv('AUTH_GUARD', '');
+  vi.stubEnv('NEXT_PUBLIC_SIGN_IN', '1');
+  vi.stubEnv('NEXT_PUBLIC_SIGN_IN_CODE', '1');
   vi.stubGlobal('fetch', async (input: string | URL | Request, init: RequestInit = {}) => {
     const url = new URL(input instanceof Request ? input.url : String(input));
     if (url.host === 'challenges.cloudflare.com') {
@@ -180,27 +182,36 @@ describe('forwarding and rewriting', () => {
     expect(JSON.parse(known.body)).toEqual({ success: true });
   });
 
-  it('sign-up answers the same for a new and an existing address (Require Verification on, EML-0 U8)', async () => {
+  it('sign-up answers the same for a new and an existing address (Require Verification on, EML-0 U8), headers included (SF2)', async () => {
+    // Neon's headers differ by branch (a cookie and a request id on the new one only): none of them may reach the client.
     neon = (_p, body) =>
-      Response.json({
-        token: null,
-        user: { id: 'x', email: body?.email, emailVerified: false, role: body?.email === 'new@example.test' ? 'user' : null },
-      });
+      Response.json(
+        { token: null, user: { id: 'x', email: body?.email, emailVerified: false, role: body?.email === 'new@example.test' ? 'user' : null } },
+        body?.email === 'new@example.test'
+          ? { headers: { 'set-cookie': '__Secure-neon-auth.dont_remember=1; Path=/', 'x-neon-ret-request-id': 'r-new', 'x-extra': 'new' } }
+          : { headers: { 'x-neon-ret-request-id': 'r-old' } },
+      );
     const fresh = await shape(await call('sign-up/email', { email: 'new@example.test', password: 'a-long-password', name: '' }));
     at('2026-10-25T10:02:30Z');
     const existing = await shape(await call('sign-up/email', { email: 'old@example.test', password: 'a-long-password', name: '' }));
     expect(fresh).toEqual(existing);
     expect(JSON.parse(fresh.body)).toEqual({ token: null, user: null });
+    expect(fresh.headers.map(([k]) => k).sort()).toEqual(['cache-control', 'content-type']);
     // Only the new account made Neon send a code.
     const sent = state.store.rows().find((r) => r.bucket === 'auth:metric:sent');
     expect(sent?.count).toBe(1);
   });
 
-  it('sign-up maps 422 USER_ALREADY_EXISTS (Require Verification off) to the same pending answer', async () => {
-    neon = () => Response.json({ code: 'USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL', message: 'User already exists. Use another email.' }, { status: 422 });
+  it('sign-up maps 422 USER_ALREADY_EXISTS (Require Verification off) to the same pending answer, with fresh headers', async () => {
+    neon = () =>
+      Response.json(
+        { code: 'USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL', message: 'User already exists. Use another email.' },
+        { status: 422, headers: { 'x-neon-ret-request-id': 'r1', 'set-cookie': 'a=b; Path=/' } },
+      );
     const res = await call('sign-up/email', { email: 'old@example.test', password: 'a-long-password', name: '' });
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ token: null, user: null });
+    expect([...res.headers.keys()].sort()).toEqual(['cache-control', 'content-type']);
   });
 
   it('sign-up with Require Verification off passes a new session through (nothing else is possible before O-E1)', async () => {
@@ -291,8 +302,29 @@ describe('refusals before Neon', () => {
     expect(neonCalls).toHaveLength(0);
   });
 
-  it.each(['reset-password', 'reset-password/some-token', 'change-email', 'email-otp/request-email-change', 'email-otp/change-email'])(
-    'blocks %s (not offered in v1)',
+  it.each([
+    'reset-password',
+    'reset-password/some-token',
+    'change-email',
+    'email-otp/request-email-change',
+    'email-otp/change-email',
+    'organization/create',
+    'organization/invite-member',
+    'update-user',
+    'delete-user',
+    'forget-password',
+    'forget-password/email-otp',
+    'request-password-reset',
+    'send-verification-email',
+    'sign-in/magic-link',
+    'email-otp/check-verification-otp',
+    'token',
+    'admin/list-users',
+    'made-up/route',
+    'sign-in',
+    'get-session/../update-user',
+  ])(
+    'answers 404 for %s (allow-list, MF3)',
     async (path) => {
       const res = await POST(req(path, { email: 'v@example.test', newEmail: 'w@example.test' }), ctx(path));
       expect(res.status).toBe(404);
@@ -553,6 +585,144 @@ describe('sender monitoring and owner alerts', () => {
     const res = await sendCode('a@example.test');
     expect(res.status).toBe(400);
     expect(await res.text()).not.toContain('a@example.test');
+  });
+});
+
+describe('hotfix A1: allow-list, flags, origin, fields', () => {
+  const noOrigin = (path: string, body: unknown, method = 'POST') => {
+    const r = req(path, body, {}, method);
+    const headers = new Headers(r.headers);
+    headers.delete('origin');
+    return new Request(r.url, { method, headers, body: method === 'GET' ? undefined : JSON.stringify(body) });
+  };
+
+  it.each(['organization/create', 'organization/list', 'update-user', 'delete-user', 'list-sessions', 'made-up'])(
+    'GET %s answers 404 and never reaches Neon (MF3)',
+    async (path) => {
+      const res = await GET(req(path, null, {}, 'GET'), ctx(path));
+      expect(res.status).toBe(404);
+      expect((await res.json()).code).toBe('NOT_FOUND');
+      expect(neonCalls).toHaveLength(0);
+    },
+  );
+
+  it('an open route answers 404 on the other method (POST get-session, GET sign-out)', async () => {
+    expect((await POST(req('get-session', {}), ctx('get-session'))).status).toBe(404);
+    expect((await GET(req('sign-out', null, {}, 'GET'), ctx('sign-out'))).status).toBe(404);
+    expect(neonCalls).toHaveLength(0);
+  });
+
+  it('a guarded route answers 404 on GET', async () => {
+    expect((await GET(req('sign-in/email', null, {}, 'GET'), ctx('sign-in/email'))).status).toBe(404);
+    expect(neonCalls).toHaveLength(0);
+  });
+
+  it('with NEXT_PUBLIC_SIGN_IN off, every path answers 404, the session read and sign-out included (MF4)', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SIGN_IN', '');
+    for (const [path, method] of [
+      ['get-session', 'GET'],
+      ['sign-out', 'POST'],
+      ['sign-in/email', 'POST'],
+      ['email-otp/send-verification-otp', 'POST'],
+      ['sign-up/email', 'POST'],
+    ] as const) {
+      const r = req(path, { email: 'v@example.test', password: 'a-long-password', type: 'email-verification' }, {}, method);
+      const res = method === 'GET' ? await GET(r, ctx(path)) : await POST(r, ctx(path));
+      expect(res.status, path).toBe(404);
+    }
+    expect(neonCalls).toHaveLength(0);
+    expect(cfCalls).toHaveLength(0);
+    expect(state.store.rows()).toHaveLength(0);
+  });
+
+  it('with NEXT_PUBLIC_SIGN_IN_CODE off, a sign-in code send and sign-in by code answer 404; confirming an email still works (MF4)', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SIGN_IN_CODE', '');
+    const send = await sendCode('v@example.test');
+    expect(send.status).toBe(404);
+    expect((await send.json()).code).toBe('NOT_FOUND');
+    expect((await call('sign-in/email-otp', { email: 'v@example.test', otp: CODE })).status).toBe(404);
+    expect(neonCalls).toHaveLength(0);
+    expect(cfCalls).toHaveLength(0);
+    expect(state.store.rows()).toHaveLength(0);
+    // The password flow keeps its confirmation code and its check.
+    expect((await call('email-otp/send-verification-otp', { email: 'v@example.test', type: 'email-verification' })).status).toBe(200);
+    neon = () => Response.json({ token: 't', user: { id: 'u' } });
+    expect((await call('email-otp/verify-email', { email: 'v@example.test', otp: CODE })).status).toBe(200);
+    expect(neonCalls.map((c) => c.path)).toEqual(['email-otp/send-verification-otp', 'email-otp/verify-email']);
+  });
+
+  it('refuses a cross-site non-GET call on an open route (sign-out) with 403', async () => {
+    const res = await POST(req('sign-out', {}, { origin: 'https://evil.test' }), ctx('sign-out'));
+    expect(res.status).toBe(403);
+    expect((await res.json()).code).toBe('FORBIDDEN');
+    expect(neonCalls).toHaveLength(0);
+  });
+
+  it.each(['sign-out', 'sign-in/email', 'email-otp/send-verification-otp', 'sign-up/email', 'sign-in/email-otp'])(
+    'refuses a POST to %s with no Origin header (MF1)',
+    async (path) => {
+      const res = await POST(noOrigin(path, { email: 'v@example.test', password: 'a-long-password', type: 'sign-in', otp: CODE }), ctx(path));
+      expect(res.status).toBe(403);
+      expect(neonCalls).toHaveLength(0);
+      expect(cfCalls).toHaveLength(0);
+      expect(state.store.rows()).toHaveLength(0);
+    },
+  );
+
+  it('an http Origin for a production host is foreign', async () => {
+    const res = await sendCode('v@example.test', { origin: 'http://travel.test' });
+    expect(res.status).toBe(403);
+  });
+
+  it('reads the session with no Origin (a GET)', async () => {
+    const res = await GET(noOrigin('get-session', null, 'GET'), ctx('get-session'));
+    expect(res.status).toBe(200);
+  });
+
+  it('forwards the canonical lower-case path the allow-list matched', async () => {
+    const path = 'Email-OTP/Send-Verification-OTP';
+    expect((await POST(req(path, { email: 'v@example.test', type: 'email-verification' }), ctx(path))).status).toBe(200);
+    expect(neonCalls.map((c) => c.path)).toEqual(['email-otp/send-verification-otp']);
+  });
+
+  it.each([
+    ['sign-up/email', { email: 'v@example.test', password: 'a-long-password', name: 'Click https://evil.test now', image: 'https://evil.test/x.png', callbackURL: 'https://evil.test/' }, { email: 'v@example.test', password: 'a-long-password', name: '' }],
+    ['sign-up/email', { email: 'v@example.test', password: 'a-long-password' }, { email: 'v@example.test', password: 'a-long-password', name: '' }],
+    ['sign-in/email', { email: 'v@example.test', password: 'a-long-password', callbackURL: 'https://evil.test/', rememberMe: true }, { email: 'v@example.test', password: 'a-long-password' }],
+    ['email-otp/send-verification-otp', { email: 'v@example.test', type: 'email-verification', callbackURL: '//evil.test' }, { email: 'v@example.test', type: 'email-verification' }],
+    ['email-otp/request-password-reset', { email: 'v@example.test', redirectTo: 'https://evil.test/' }, { email: 'v@example.test' }],
+    ['email-otp/verify-email', { email: 'v@example.test', otp: CODE, callbackURL: 'https://evil.test/' }, { email: 'v@example.test', otp: CODE }],
+    ['sign-in/email-otp', { email: 'v@example.test', otp: 482913, callbackURL: 'https://evil.test/' }, { email: 'v@example.test' }],
+    ['email-otp/reset-password', { email: 'v@example.test', otp: CODE, password: 'a-new-long-password', name: 'x' }, { email: 'v@example.test', otp: CODE, password: 'a-new-long-password' }],
+  ] as const)('%s forwards only its own fields (SF1): %j', async (path, body, forwarded) => {
+    neon = () => Response.json({ token: null, user: null });
+    await call(path, body);
+    expect(neonCalls).toHaveLength(1);
+    expect(neonCalls[0].body).toEqual(forwarded);
+  });
+
+  it('password sign-in never takes a send bucket nor asks Turnstile, also for an unverified account (MF2)', async () => {
+    neon = () => Response.json({ code: 'EMAIL_NOT_VERIFIED', message: 'Email not verified' }, { status: 403 });
+    const res = await call('sign-in/email', { email: 'v@example.test', password: 'a-long-password' }, { 'x-turnstile-token': '' });
+    expect(res.status).toBe(403);
+    expect((await res.json()).code).toBe('EMAIL_NOT_VERIFIED');
+    expect(cfCalls).toHaveLength(0);
+    expect(state.store.rows().filter((r) => r.bucket.startsWith('auth:send:') || r.bucket === 'auth:metric:sent')).toHaveLength(0);
+    expect(logs.some((l) => l.includes('"outcome":"email_not_verified"'))).toBe(true);
+    // The card's follow-up send is the guarded one: Turnstile and every send bucket.
+    neon = () => Response.json({ success: true });
+    expect((await call('email-otp/send-verification-otp', { email: 'v@example.test', type: 'email-verification' })).status).toBe(200);
+    expect(cfCalls).toHaveLength(1);
+    expect(new Set(state.store.rows().map((r) => r.bucket))).toEqual(
+      new Set(['auth:password:addr', 'auth:password:ip', 'auth:send:addr', 'auth:send:ip', 'auth:send:global', 'auth:metric:sent']),
+    );
+  });
+
+  it("keys the IP on Vercel's x-vercel-forwarded-for (right-most entry), then x-real-ip (SF8)", async () => {
+    await sendCode('a@example.test', { 'x-vercel-forwarded-for': '198.51.100.9', 'x-real-ip': '203.0.113.7' });
+    await sendCode('b@example.test', { 'x-vercel-forwarded-for': '192.0.2.1, 198.51.100.10' });
+    await sendCode('c@example.test', { 'x-vercel-forwarded-for': 'garbage' });
+    expect(cfCalls.map((f) => f.get('remoteip'))).toEqual(['198.51.100.9', '198.51.100.10', '203.0.113.7']);
   });
 });
 

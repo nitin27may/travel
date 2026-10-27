@@ -13,7 +13,13 @@ export function getAuth(): ReturnType<typeof createNeonAuth> {
   return (auth ??= createNeonAuth({ baseUrl, cookies: { secret: cookieSecret } }));
 }
 
-export type SessionUser = { id: string; email: string; name?: string | null };
+/** A loggable code for an auth error: an upper-case token, or `unknown`. */
+export function authErrorCode(error: unknown): string {
+  const code = error && typeof error === 'object' ? (error as { code?: unknown }).code : undefined;
+  return typeof code === 'string' && /^[A-Z][A-Z0-9_]{0,63}$/.test(code) ? code : 'unknown';
+}
+
+export type SessionUser ={ id: string; email: string; name?: string | null };
 
 /**
  * The signed-in user, or null. Call it first in every Server Component data path, Server Action and
@@ -30,7 +36,8 @@ export async function getUser(pageUserId?: string): Promise<SessionUser | null> 
   try {
     const res = await getAuth().getSession(); // returns { data, error }; does not throw on HTTP errors
     if (res.error) {
-      console.warn('[auth] getSession failed', res.error.code ?? res.error);
+      // Only a plain error code: the raw error object may carry a message, a URL or request data (hotfix A1, review SF8).
+      console.warn('[auth] getSession failed', authErrorCode(res.error));
     }
     data = res.data as { user?: SessionUser | null } | null;
   } catch (e) {

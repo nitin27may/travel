@@ -270,9 +270,28 @@ test('an unverified password account goes to the code step to confirm the email'
   // "Confirm your email first." is its own sentence, so "to" never sits alone on a line (review S2).
   await expect(page.getByText('Confirm your email first.', { exact: true })).toBeVisible();
   await expect(page.getByText('We sent a 6-digit code to', { exact: true })).toBeVisible();
+  // Neon sends nothing on sign-in (review MF2): the card asks for the code through the guarded send, with a Turnstile token.
+  const send = calls.filter((c) => c.path === 'email-otp/send-verification-otp');
+  expect(send).toHaveLength(1);
+  expect(send[0].body).toEqual({ email: 'nitin@example.com', type: 'email-verification' });
+  expect(send[0].turnstile).toMatch(/^cf-token-/);
   await page.getByLabel('Code').fill(GOOD_CODE);
   await page.waitForURL(`${site.url}/account/`);
   expect(calls.some((c) => c.path === 'email-otp/verify-email' && c.body.otp === GOOD_CODE)).toBe(true);
+});
+
+test('an unverified password account whose confirmation send is refused stays on the password step with the wait', async ({ page }) => {
+  await mockAuth(page, {
+    'sign-in/email': () => ({ status: 403, body: { code: 'EMAIL_NOT_VERIFIED' } }),
+    'email-otp/send-verification-otp': () => ({ status: 429, body: { code: 'RATE_LIMITED' }, headers: { 'retry-after': '40' } }),
+  });
+  await toChooser(page);
+  await page.getByRole('button', { name: 'Use my password' }).click();
+  await pw(page).fill(GOOD_PASSWORD);
+  await page.getByRole('button', { name: 'Sign in' }).click();
+  await expect(page.locator('.auth-card .ban').first()).toBeVisible();
+  await expect(page.getByLabel('Code')).toHaveCount(0);
+  await expect(pw(page)).toBeVisible();
 });
 
 test('sign-up with a password sends no name, then confirms the email by code', async ({ page }) => {

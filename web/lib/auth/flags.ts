@@ -20,12 +20,21 @@ export function authFlagsFrom(env: { signIn?: string; code?: string; link?: stri
   return { signIn, signInCode, signInLink };
 }
 
-/** Build-time values: written out in full so Next inlines each `NEXT_PUBLIC_` name. */
-export const authFlags: AuthFlags = authFlagsFrom({
-  signIn: process.env.NEXT_PUBLIC_SIGN_IN,
-  code: process.env.NEXT_PUBLIC_SIGN_IN_CODE,
-  link: process.env.NEXT_PUBLIC_SIGN_IN_LINK,
-});
+/**
+ * The flags read at call time. Each `NEXT_PUBLIC_` name is written out in full, so in a Next build it is the build-time value (the
+ * route and the pages agree; a flag change takes a redeploy, spec 11.2), and tests can stub the environment. The auth route and guard
+ * use this one (hotfix A1, MF4).
+ */
+export function authFlagsNow(): AuthFlags {
+  return authFlagsFrom({
+    signIn: process.env.NEXT_PUBLIC_SIGN_IN,
+    code: process.env.NEXT_PUBLIC_SIGN_IN_CODE,
+    link: process.env.NEXT_PUBLIC_SIGN_IN_LINK,
+  });
+}
+
+/** Build-time values, for the sign-in pages. */
+export const authFlags: AuthFlags = authFlagsNow();
 
 /** The Turnstile widget key (public by design), or null: no key, no widget (local runs; the guard skips Turnstile only there). */
 export const turnstileSiteKey: string | null = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() || null;
