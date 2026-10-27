@@ -14,7 +14,6 @@ const PLACES = [
   { name: 'a seeded lift', slug: 'lake-louise-summer-gondola' },
   { name: 'an older page', slug: 'lake-louise' },
 ];
-const NO_POINT = 'aiguille-du-midi';
 const SIZES = [
   { w: 1440, h: 900 },
   { w: 1024, h: 768 },
@@ -72,12 +71,29 @@ for (const size of SIZES) {
   });
 }
 
+/** A place with no stored point, read from the dataset (the API list) at run time, so a later sourced point cannot make this stale. */
+async function placeWithoutPoint(page: Page, base: string): Promise<string> {
+  const tried: string[] = [];
+  for (let n = 1, next: number | null = 1; next && n <= 20; n++) {
+    const j = (await (await page.request.get(`${base}/api/v1/places/?page=${next}`)).json()) as { items: { slug: string; lat: number | null; lon: number | null }[]; nextPage: number | null };
+    for (const row of j.items.filter((r) => r.lat == null || r.lon == null)) {
+      // the list row has no point; the page must agree and the Globe has no route for it
+      const html = await (await page.request.get(`${base}/places/${row.slug}/`)).text();
+      tried.push(row.slug);
+      if (/No point is stored for this place yet/.test(html)) return row.slug;
+    }
+    next = j.nextPage;
+  }
+  throw new Error(`no place without a point found in the dataset (tried: ${tried.join(', ') || 'none'})`);
+}
+
 test('a place with no map point has no Globe button and says so', async ({ page, site }) => {
-  await page.goto(`${site.url}/places/${NO_POINT}/`);
+  const slug = await placeWithoutPoint(page, site.url);
+  await page.goto(`${site.url}/places/${slug}/`);
   await expect(page.getByText(/No point is stored for this place yet/).first()).toBeVisible();
   await expect(page.locator('.pl-actions').getByRole('link', { name: /Globe/ })).toHaveCount(0);
-  const res = await page.request.get(`${site.url}/globe/place/${NO_POINT}/`);
-  expect(res.status(), 'no globe route for a place with no point').toBe(404);
+  const res = await page.request.get(`${site.url}/globe/place/${slug}/`);
+  expect(res.status(), `no globe route for ${slug}, a place with no point`).toBe(404);
 });
 
 test('a district that holds a trip base lists the trip (backlog 3.65)', async ({ page, site }) => {
