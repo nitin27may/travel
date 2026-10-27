@@ -24,8 +24,8 @@ export const MATRIX_SCHEMA = "property-matrix/1";
 
 export const RULES = ["K1", "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9", "K10", "K11", "K12"] as const;
 export type Rule = (typeof RULES)[number];
-/** The rules whose breaks may sit on the allow list (K1, K2, K10 and K11 hold today and are never allowed). */
-export const ALLOWABLE: readonly Rule[] = ["K3", "K4", "K5", "K6", "K7", "K8", "K9", "K12"];
+/** The rules whose breaks may sit on the allow list (K1, K2, K10 and K11 hold today; K8, a read-model key with no privacy row, is a privacy gap: none of these is ever allowed). */
+export const ALLOWABLE: readonly Rule[] = ["K3", "K4", "K5", "K6", "K7", "K9", "K12"];
 
 export interface Problem { rule: Rule; key: string; detail: string }
 export const problemId = (p: Pick<Problem, "rule" | "key">): string => `${p.rule} ${p.key}`;

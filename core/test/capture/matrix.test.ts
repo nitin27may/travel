@@ -16,6 +16,55 @@ import { REPO, put, scratchRoot } from "./helpers.ts";
 /** The allow list may only shrink: lower this number in the change that removes entries (FA-4 takes it to 0). */
 const ALLOW_CEILING = 41;
 
+/**
+ * The allowed ids, frozen. The list may only shrink: a new id, or a swap (one entry dropped, another added), fails here even when the
+ * count still fits the ceiling. To remove an entry, fix the property, delete its entry from the allow json AND its id from this set
+ * in the same commit, then lower ALLOW_CEILING to the set's size. Never add an id.
+ */
+const PINNED_ALLOWED: ReadonlySet<string> = new Set([
+  "K3 cost_band",
+  "K4 covered_by",
+  "K4 entry",
+  "K4 ext.wildlife.stay_in_vehicle",
+  "K4 water_safety.lifejacket",
+  "K5 effort.drivers.distance_km",
+  "K5 effort.drivers.gain_m",
+  "K5 season",
+  "K6 adult_required",
+  "K6 capacity",
+  "K6 child_time_min",
+  "K6 ext.cave.air_temp_c",
+  "K6 ext.cave.tour_m",
+  "K6 ext.coaster.driver_rule",
+  "K6 ext.coaster.max_load_kg",
+  "K6 ext.drive.drive_min",
+  "K6 ext.drive.fuel_gap_km",
+  "K6 ext.ferrata.approach_min",
+  "K6 ext.flight.flight_min",
+  "K6 ext.flight.takeoff_run_m",
+  "K6 ext.glacier.ice_min",
+  "K6 ext.jump.height_m",
+  "K6 ext.lift.ride_min",
+  "K6 ext.paddle.on_water_min",
+  "K6 ext.snow.ski_school_min_age",
+  "K6 ext.wildlife.min_distance_m",
+  "K6 ext.zip.tandem_under_kg",
+  "K6 group_min",
+  "K6 participation.driver",
+  "K6 solo",
+  "K6 water_safety.water_temp_c",
+  "K9 access.pass:serves",
+  "K9 animals.ride:part_of",
+  "K9 culture.show:part_of",
+  "K9 culture.tour:part_of",
+  "K9 ride.wheel:reaches",
+  "K9 water.boat:part_of",
+  "K9 water.motor:part_of",
+  "K9 water.river:part_of",
+  "K9 water.surf:part_of",
+  "K9 water.under:part_of",
+]);
+
 const prop = (key: string, over: Partial<PropertyDef> = {}): PropertyDef => ({ ...PROPERTY_BY_KEY.get(key)!, ...over });
 const withExpose = (p: PropertyDef, e: Partial<PropertyDef["expose"]>): PropertyDef => ({ ...p, expose: { ...p.expose, ...e } });
 const fresh: Freshness = { classes: [{ id: "prices", fields: ["price", "window"], stale_after_days: 120 }] };
@@ -135,6 +184,26 @@ describe("the allow list only shrinks", () => {
     expect(new Set(allow.entries.map((e) => `${e.rule} ${e.key}`)).size).toBe(allow.entries.length);
   });
   it("is no longer than the ceiling (lower the ceiling when entries go)", () => expect(allow.entries.length).toBeLessThanOrEqual(ALLOW_CEILING));
+  it("the allowed ids are exactly the pinned set, and the ceiling is its size", () => {
+    const ids = allow.entries.map((e) => `${e.rule} ${e.key}`);
+    expect(ids.filter((i) => !PINNED_ALLOWED.has(i)), "ids added to the allow list").toEqual([]);
+    expect([...PINNED_ALLOWED].filter((i) => !ids.includes(i)), "pinned ids with no entry (delete them from the set)").toEqual([]);
+    expect(ALLOW_CEILING).toBe(PINNED_ALLOWED.size);
+    expect(ALLOWABLE).not.toContain("K8");
+    expect(ids.some((i) => i.startsWith("K8 "))).toBe(false);
+  });
+  it("a swap (one entry dropped, a planted K6 entry added) is caught by the pin", () => {
+    const swapped = [...allow.entries.slice(1), { rule: "K6" as const, key: "planted_swap", reason: "planted entry that is not in the pinned set" }];
+    const ids = swapped.map((e) => `${e.rule} ${e.key}`);
+    expect(ids.length).toBe(allow.entries.length);
+    expect(ids.filter((i) => !PINNED_ALLOWED.has(i))).toEqual(["K6 planted_swap"]);
+    expect([...PINNED_ALLOWED].filter((i) => !ids.includes(i))).toHaveLength(1);
+  });
+  it("a planted K8 entry cannot be allowed", () => {
+    const k8: AllowFile = { ...allow, entries: [{ rule: "K8", key: "some_key", reason: "planted privacy gap that must not be allowed" }] };
+    const p = { rule: "K8" as const, key: "some_key", detail: "x" };
+    expect(judge([p], k8).fresh).toEqual([p]);
+  });
   it("today's registry has no break outside the list and no stale entry", () => {
     const j = judge(problems, allow);
     expect(j.fresh).toEqual([]);
