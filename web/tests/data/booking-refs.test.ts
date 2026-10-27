@@ -76,7 +76,7 @@ describe('the Rockies rows on the real data', () => {
   });
   it('the park lines: Banff, Jasper, Yoho and Kananaskis Country say their rule; no national park is "not checked"', () => {
     const lines = (trip.parks ?? []).map((p) => p.line);
-    expect(lines).toContain('Banff National Park, days 1 to 4 and 10 to 11: entry fee each day, or the Parks Canada Discovery Pass covers it (also Jasper and Yoho on this trip)');
+    expect(lines).toContain('Banff National Park, days 1 to 4 and 10 to 11: entry fee each day, or the Parks Canada Discovery Pass covers it (also Kootenay, Jasper and Yoho on this trip)');
     expect(lines).toContain('Kananaskis Country, days 12 to 15: vehicle permit each day, or the Kananaskis Conservation Pass (yearly pass) covers it');
     expect(lines.filter((l) => /^Entry not checked yet/.test(l))).toEqual(['Entry not checked yet for Upper and Lower Kananaskis Lakes']);
   });

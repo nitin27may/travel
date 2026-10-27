@@ -306,13 +306,15 @@ const EMAIL_PATTERNS: [string, RegExp][] = [
 
 // The one address the owner chose to publish (26 Oct 2026), on the privacy page only, as the way to ask a question or have an account removed.
 const PUBLISHED_CONTACT = /nitin27may(?:@|%40)gmail\.com/g;
+// Neon's own sender address for sign-in emails (EML-P wording), named on the privacy page so a visitor can recognise the message. A service address, not a person's.
+const PUBLISHED_SENDER = /auth(?:@|%40)mail\.myneon\.app/g;
 
 export function emailLeaks(root: string): string[] {
   const hits: string[] = [];
   const r = (f: string) => path.relative(root, f).split(path.sep).join('/');
   for (const f of walkFiles(root).filter((x) => TEXTY.test(r(x)) || !path.extname(x))) {
     if (r(f).startsWith('_next/static/')) continue;
-    const text = /^privacy[./]/.test(r(f)) ? readText(f).replace(PUBLISHED_CONTACT, '') : readText(f);
+    const text = /^privacy[./]/.test(r(f)) ? readText(f).replace(PUBLISHED_CONTACT, '').replace(PUBLISHED_SENDER, '') : readText(f);
     for (const [label, re] of EMAIL_PATTERNS) if (re.test(text)) hits.push(`${r(f)}: ${label}`);
   }
   return hits;
