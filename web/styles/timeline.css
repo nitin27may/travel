@@ -9,36 +9,12 @@
 .tl-reset { background: none; border: 0; padding: 0; color: var(--accent-text); font: inherit; text-decoration: underline; cursor: pointer; }
 .tl-reset:hover { color: var(--ink); }
 .tl-reset:focus-visible, .tl-more:focus-visible, .tl-remove:focus-visible, .tl-add-open:focus-visible, .tl-add-item:focus-visible, .tl-add-close:focus-visible,
-.tl-trip-row:focus-visible, .tl-rail-cell:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.tl-rail-cell:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 .tl-more { display: inline-flex; align-items: center; gap: var(--s-1); min-height: 28px; padding: 0 var(--s-2); border: 0; border-radius: var(--r-2); background: none; color: var(--ink-2); font: var(--t-meta); cursor: pointer; }
 .tl-more svg { transition: transform var(--d-base) var(--e-out); }
 .tl-more[aria-expanded='true'] svg { transform: rotate(180deg); }
 .tl-more:hover { color: var(--ink); background: var(--surface-2); }
 .tl-profile-note { margin-top: var(--s-3); font: var(--t-meta); color: var(--warn); }
-
-/* ---------- the whole trip ---------- */
-.tl-trip { max-width: 62rem; margin: 0 0 var(--s-10); }
-.tl-scale { display: grid; grid-template-columns: 1fr; max-width: 62rem; }
-.tl-scale { display: none; }
-.tl-trip-list { --ticks: none; --cols: 74px minmax(0, 1.3fr) minmax(120px, 1.7fr) 78px 92px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-4); overflow: hidden; }
-.tl-trip-item { border-top: 1px solid var(--line); }
-.tl-trip-item:first-child { border-top: 0; }
-.tl-trip-item[data-base-change]:not(:first-child) { border-top-color: var(--line-2); }
-.tl-trip-base { padding: var(--s-2) var(--s-4) 0; font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
-.tl-trip-row {
-  display: grid; grid-template-columns: var(--cols); gap: var(--s-3); align-items: center; min-height: 44px; padding: var(--s-2) var(--s-4);
-  color: inherit; text-decoration: none; transition: background-color var(--d-fast);
-}
-.tl-trip-row:hover { background: var(--surface-2); }
-.tl-trip-item[data-picked] .tl-trip-row { background: var(--accent-soft); }
-.tl-trip-title { font: var(--t-small); color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.tl-bar { position: relative; height: 10px; border-radius: var(--r-full); background: var(--well); }
-.tl-bar-span { position: absolute; top: 0; bottom: 0; border-radius: var(--r-full); background: var(--line-2); overflow: hidden; }
-.tl-bar-drive { display: block; height: 100%; background: var(--ink); opacity: 0.85; }
-.tl-trip-v, .tl-trip-drive { font: var(--t-meta); color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.tl-trip-flags { display: inline-flex; gap: var(--s-2); justify-content: flex-end; font: var(--t-meta); }
-.tl-flag { display: inline-flex; align-items: center; gap: 2px; color: var(--muted); }
-.tl-flag-warn { color: var(--warn); }
 
 /* ---------- sticky plan bar ---------- */
 /* Height of the sticky bar under the header, measured by useScrollSpy; this is the no-JS value (a day anchor clears the plan bar). */
@@ -177,11 +153,6 @@
 @keyframes tl-fade { from { opacity: 0; } to { opacity: 1; } }
 
 /* two lanes are drawn side by side from tablet up; on a phone one lane shows at a time */
-@media (max-width: 899px) {
-  .tl-trip-list { --cols: 74px minmax(0, 1fr) auto auto; }
-  .tl-trip-row .tl-bar { grid-column: 1 / -1; order: 5; }
-  .tl-trip-v { display: none; }
-}
 @media (max-width: 639px) {
   .tl-planbar-line { display: none; }
   .tl-day-head { grid-template-columns: 64px minmax(0, 1fr); gap: var(--s-3); }
@@ -204,7 +175,7 @@
 }
 
 @media print {
-  .tl-planbar, .tl-add, .tl-day-foot, .tl-more, .tl-trip { display: none; }
+  .tl-planbar, .tl-add, .tl-day-foot, .tl-more { display: none; }
   .tl-day { break-inside: avoid; page-break-before: always; border-color: var(--line-2); }
   .tl-know[hidden] { display: block; }
   .tl-time, .tl-node { color: var(--ink); }
@@ -239,31 +210,11 @@
 
 /* ================= TRP (stage 4) ================= */
 
-/* ---- the whole-trip strip: hour ticks, the drive with a glyph, the version column only when it tells days apart ---- */
-.tl-trip-list[data-version] { --cols: 74px minmax(0, 1.2fr) minmax(120px, 1.6fr) minmax(0, 0.9fr) 78px 92px; }
-.tl-trip-scale { display: grid; grid-template-columns: var(--cols); gap: var(--s-3); padding: var(--s-2) var(--s-4) 0; border-top: 0; }
-.tl-trip-scale:last-child { padding: 0 var(--s-4) var(--s-2); }
-.tl-scale-bar { position: relative; grid-column: 3; height: 16px; font: var(--t-label); color: var(--muted); }
-.tl-trip-list[data-version] .tl-scale-bar { grid-column: 3; }
-.tl-scale-tick { position: absolute; top: 0; transform: translateX(-50%); font: var(--t-meta); color: var(--muted); }
-.tl-bar { background-color: var(--well); background-image: var(--ticks, none); }
-.tl-bar-span { transition: left var(--d-base) var(--e-out), width var(--d-base) var(--e-out); }
-.tl-bar-drive { transition: width var(--d-base) var(--e-out); }
-.tl-trip-drive { display: inline-flex; align-items: center; gap: var(--s-1); overflow: visible; text-overflow: clip; color: var(--ink-2); }
-.tl-trip-drive svg { flex: none; color: var(--muted); }
-@media (max-width: 899px) {
-  .tl-trip-scale { grid-template-columns: 1fr; }
-  .tl-scale-bar { grid-column: 1; }
-  .tl-trip-v { display: none; }
-  .tl-flag-t { display: none; }
-}
-
 /* ---- the swap when who is going or the pace changes (design 7): out 120 ms, in 200 ms, 20 ms apart for the first five ---- */
 .tl-days[data-swap='out'] .tl-day { opacity: 0; transition: opacity 120ms var(--e-in), border-color var(--d-base); }
 .tl-days[data-swap='in'] .tl-day { animation: tl-fade 200ms var(--e-out) both; animation-delay: calc(var(--i, 0) * 20ms); }
 @media (prefers-reduced-motion: reduce) {
   .tl-days[data-swap] .tl-day { opacity: 1; animation: none; transition: none; }
-  .tl-bar-span, .tl-bar-drive { transition: none; }
 }
 
 /* ---- "Plan it for" now line, the sticky bar's profile ---- */
@@ -336,7 +287,7 @@
   .tl-add-item { padding-top: var(--s-2); padding-bottom: var(--s-2); }
 }
 @media print {
-  .tl-trip-scale, .tl-day-chip { display: none; }
+  .tl-day-chip { display: none; }
   .tl-days .tl-day { opacity: 1; animation: none; }
 }
 

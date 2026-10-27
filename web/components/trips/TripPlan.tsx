@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import type { ShapeFacts } from './summary/shapeTypes';
 import { MapFamilyProvider } from '@/components/map/MapFamilyProvider';
 import { TAB_LABEL, type TripTab } from '@travel/core/trips/tabs.ts';
 import { Banner } from '@/components/ui/Banner';
@@ -52,21 +53,16 @@ const StopsPanel = dynamic(stopsChunk, {
     </div>
   ),
 });
-// The sticky plan bar is needed on Days only, and the whole-trip glance (the shape slot of the Summary, UXB-3 rebuilds it) below the fold: both
-// load after the page, so the tab shell costs the trip page's start JS nothing net (spec D12). The bar's shell holds its place meanwhile.
+// The sticky plan bar is needed on Days only: it loads after the page, so the tab shell costs the trip page's start JS nothing net (spec D12). The
+// bar's shell holds its place meanwhile.
 const planBarChunk = () => import('./timeline/PlanBar').then((m) => m.PlanBar);
 const PlanBar = dynamic(planBarChunk, {
   ssr: false,
   loading: () => <nav className="tl-planbar" aria-label="Days" data-print="hide" data-loading="" />,
 });
-const TripTimeline = dynamic(() => import('./timeline/TripTimeline').then((m) => m.TripTimeline), {
-  ssr: false,
-  loading: () => (
-    <p role="status" className="trip-sec-note">
-      Loading the trip at a glance
-    </p>
-  ),
-});
+// The trip's shape (UXB-3) is a lazy chunk that still renders on the server: its ribbon and count line are in the page's HTML, and its table is a
+// further chunk that loads on the first open (summary/TripShape.tsx).
+const TripShape = dynamic(() => import('./summary/TripShape').then((m) => m.TripShape));
 /** A tab took focus: its lazy chunk loads now, so the press that follows opens it at once (components 1.6). */
 const prefetchTab = (t: TripTab): void => {
   if (t === 'stops') void stopsChunk();
@@ -85,6 +81,8 @@ interface Props {
   tabs: { available: TripTab[]; counts: Partial<Record<TripTab, number>> };
   /** The server-rendered parts of the Summary, the Bookings panel and the Photos panel. */
   slots: { summaryTop: ReactNode; summaryBottom: ReactNode; bookings: ReactNode; photos: ReactNode };
+  /** The facts the trip's shape needs besides the timelines; null draws no shape (a trip with no schedule). */
+  shape: ShapeFacts | null;
 }
 
 const reduced = () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -112,7 +110,7 @@ function TimesBanner({ condensed }: { condensed: boolean }) {
 }
 
 /**
- * The trip as a timeline: the "Suggested times" banner, the party profile, the whole trip at a glance, the route map, then each
+ * The trip as a timeline: the "Suggested times" banner, the party profile, the trip's shape (in the Summary), the route map, then each
  * day on a time rail (trip-timeline spec). The day at the top of the screen is the current day: it lights the rail, the strip and the day, and the map follows it once scrolling settles; By category regroups the same items and never
  * changes the order inside a day. Trips without schedule data keep the plain day rows.
  */
@@ -137,7 +135,7 @@ function Tabs({ tabs, api }: { tabs: Props['tabs']; api: ReturnType<typeof useTr
   );
 }
 
-function TimelinePlan({ slug, model, depth, season, tabs, slots, tlModel, url }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
+function TimelinePlan({ slug, model, depth, season, tabs, slots, shape, tlModel, url }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
   const api = useTimeline(tlModel, url);
   const tabApi = useTripTabs(slug, url, tabs.available);
   const tab = tabApi.tab;
@@ -317,9 +315,7 @@ function TimelinePlan({ slug, model, depth, season, tabs, slots, tlModel, url }:
       <TripPanel tab="summary" current={tab}>
         {slots.summaryTop}
         {season}
-        <div id="trip-shape" className="sum-shape">
-          <TripTimeline model={tlModel} timelines={shown} changedDays={api.changedDays} picked={null} onPick={(n) => tabApi.follow(`?view=day#day-${n}`)} />
-        </div>
+        {shape ? <TripShape slug={slug} facts={shape} days={tlModel.days} timelines={shown} changedDays={api.changedDays} /> : null}
         {slots.summaryBottom}
       </TripPanel>
 

@@ -161,9 +161,10 @@ for (const size of SIZES) {
       await expect.poll(() => shown(page), { timeout: 20_000 }).toEqual({ rail: [10], day: [10] });
     });
 
-    test('the whole-trip strip (in the Summary) opens Days at its day, and a rail cell takes Enter from the keyboard', async ({ page, site }) => {
+    test("the trip's shape (in the Summary) opens Days at its day, and a rail cell takes Enter from the keyboard", async ({ page, site }) => {
       await page.goto(`${site.url}${TRIPS[1]}`);
-      await page.locator('.tl-trip-row[href="#day-6"]').click();
+      await page.locator('.shape-toggle').click();
+      await page.locator('.shape-row[data-day="6"] .shape-link').click();
       await page.locator('.tl-planbar').waitFor();
       await settled(page);
       await expect(page.locator(CELL)).toHaveText('6');

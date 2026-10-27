@@ -11,11 +11,14 @@ test.describe('trip timeline (L3c)', () => {
     for (const slug of FULL) {
       await page.goto(`${site.url}/trips/${slug}/`);
       await expect(page.locator('#plan-for'), slug).toBeVisible();
-      await expect(page.locator('#trip-at-a-glance'), slug).toBeVisible(); // the whole-trip view is in the Summary
+      await expect(page.locator('#trip-shape'), slug).toBeVisible(); // the whole-trip view (the shape) is in the Summary
       await page.getByRole('tab', { name: /^Days/ }).click();
       const days = await page.locator('li.tl-day').count();
       expect(days, slug).toBeGreaterThan(2);
-      expect(await page.locator('.tl-trip-item').count(), slug).toBe(days);
+      await page.getByRole('tab', { name: /^Summary/ }).click();
+      await page.locator('#trip-shape .shape-toggle').click();
+      await expect(page.locator('#trip-shape tbody tr.shape-row'), slug).toHaveCount(days);
+      await page.getByRole('tab', { name: /^Days/ }).click();
       await expect(page.locator('li.tl-day').first().locator('.tl-time').first(), slug).toBeVisible();
     }
     await page.goto(`${site.url}/trips/switzerland-2027/`);
