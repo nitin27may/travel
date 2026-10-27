@@ -3,7 +3,8 @@
 // stays true), and Account reads whether there was one (string 24). Only method words and a time; never an address.
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
-  clearGooglePending, lastMethod, markGooglePending, peekGooglePending, rememberMethod, takeGoogleRoundTrip, undoGooglePress,
+  clearGooglePending, dropHandedOffEmail, handOffEmail, lastMethod, markGooglePending, methodBeforePress, peekGooglePending, peekHandedOffEmail,
+  rememberMethod, takeGoogleRoundTrip, undoGooglePress,
 } from '@/components/auth/memory';
 
 let local: Map<string, string>;
@@ -100,5 +101,33 @@ describe('the Google round trip', () => {
     }).not.toThrow();
     expect(takeGoogleRoundTrip()).toEqual({ mark: null, hadMethod: false });
     expect(lastMethod()).toBeNull();
+  });
+  it('methodBeforePress reads what undo would leave, and writes nothing (GSI-UXF M1)', () => {
+    rememberMethod('code');
+    press();
+    const before = [new Map(local), new Map(session)];
+    expect(methodBeforePress()).toBe('code');
+    expect(methodBeforePress()).toBe('code');
+    expect([local, session]).toEqual(before);
+    undoGooglePress();
+    expect(lastMethod()).toBe('code');
+    expect(methodBeforePress()).toBe('code');
+  });
+  it('methodBeforePress with no mark is the last way in; a hostile "before" is none', () => {
+    rememberMethod('google');
+    expect(methodBeforePress()).toBe('google');
+    press();
+    session.set('auth.googleBefore', 'n@gmail.com');
+    expect(methodBeforePress()).toBeNull();
+  });
+});
+
+describe('the reset hand-off (GSI-UXF M1: a render reads, the effect removes)', () => {
+  it('peek reads without removing, drop removes', () => {
+    handOffEmail('nitin@example.com');
+    expect(peekHandedOffEmail()).toBe('nitin@example.com');
+    expect(peekHandedOffEmail()).toBe('nitin@example.com');
+    dropHandedOffEmail();
+    expect(peekHandedOffEmail()).toBe('');
   });
 });

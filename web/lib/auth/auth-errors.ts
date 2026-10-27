@@ -90,6 +90,17 @@ export function resentMessage(email: string): string {
   return `We sent a new code to ${maskAddress(email)}. Use the newest email.`;
 }
 
+/**
+ * A message cut around the masked address it names, so the banner can keep the address on one line (GSI-UX-R S3: "n…" must not end
+ * one line and "@example.com" start the next). Null when the message does not name it.
+ */
+export function splitAtAddress(text: string, email: string): { before: string; masked: string; after: string } | null {
+  const masked = maskAddress(email);
+  const at = masked ? text.indexOf(masked) : -1;
+  if (at < 0) return null;
+  return { before: text.slice(0, at), masked, after: text.slice(at + masked.length) };
+}
+
 /** The error under a dead code (too many tries or expired) while the resend wait runs (review M4). */
 export function deadCodeMessage(code: string, secondsLeftLabel: string | null): string {
   const lead = code === 'OTP_EXPIRED' ? 'That code has expired.' : 'Too many tries.';

@@ -3,8 +3,9 @@
 import { useId } from 'react';
 import { Button } from '@/components/ui/Button';
 import { COPY, type AuthProblem } from '@/lib/auth/auth-errors';
+import { EMAIL_CODE } from '@travel/core/config/auth-limits.ts';
 import { timeLeft } from './live';
-import { AddressLine, ProblemBanner, StepHeading } from './parts';
+import { AddressLine, KeepPhrase, ProblemBanner, StepHeading } from './parts';
 
 interface Props {
   email: string;
@@ -38,7 +39,7 @@ export function ChooserStep({ email, signUp, passwordFirst, problem, sending, fo
   );
   const help = codeFirst ? (
     <p key="help" id={helpId} className="auth-help">
-      {COPY.codeHelp}
+      <KeepPhrase text={COPY.codeHelp} phrase={`${EMAIL_CODE.length}-digit`} />
     </p>
   ) : null;
   const password = (
