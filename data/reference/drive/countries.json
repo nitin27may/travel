@@ -1,0 +1,189 @@
+{
+  "schema": "drive-profile/1",
+  "about": "Per-country and per-subdivision drive profiles for the L2 model (docs/v2/features/driving-time-model.md 5.1). Authored; seed rows for the countries with routed legs (CA, IT), DT-C 27 Oct 2026. Bump a row's version on any change.",
+  "licence": "Legal limits are facts, cited by value. The Canada rows cite the OpenStreetMap wiki (CC BY-SA 2.0) as read on 27 Oct 2026; the generated import (legal-speeds.json, DT-P0) stays a separate attributed file and is never merged here.",
+  "rows": [
+    {
+      "cc": "CA",
+      "sub": null,
+      "name": "Canada",
+      "side": "right",
+      "legal": {
+        "urban": 50,
+        "rural": null,
+        "expressway": null,
+        "motorway": null,
+        "unpaved": null
+      },
+      "legalSource": {
+        "url": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
+        "title": "OpenStreetMap wiki: Default speed limits (Canada rows)",
+        "read": "2026-10-27"
+      },
+      "terrain": "rolling",
+      "terrainBasis": "prior",
+      "rain": null,
+      "winter": null,
+      "borderDefaultMin": {
+        "US": 20
+      },
+      "ferryCheckinMin": null,
+      "version": 1,
+      "read": "2026-10-27",
+      "note": "Speed limits are provincial: a point without a subdivision row has no rural limit and is estimated as rough. CA-US border default 20 min per driving-time-model.md 4.4 (a prior; live waits are a link)."
+    },
+    {
+      "cc": "CA",
+      "sub": "AB",
+      "name": "Alberta",
+      "side": "right",
+      "legal": {
+        "urban": 50,
+        "rural": 100,
+        "expressway": null,
+        "motorway": 110,
+        "unpaved": null
+      },
+      "legalSource": {
+        "url": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
+        "title": "OpenStreetMap wiki: Default speed limits (Canada rows)",
+        "read": "2026-10-27"
+      },
+      "terrain": "rolling",
+      "terrainBasis": "prior",
+      "rain": null,
+      "winter": null,
+      "borderDefaultMin": {},
+      "ferryCheckinMin": null,
+      "version": 1,
+      "read": "2026-10-27",
+      "note": "Rural 100 on provincial highways; motorway 110 where posted. Park roads are lower (Bow Valley Parkway 60, unverified): the routers read OSM maxspeed, the model uses the area terrain."
+    },
+    {
+      "cc": "CA",
+      "sub": "BC",
+      "name": "British Columbia",
+      "side": "right",
+      "legal": {
+        "urban": 50,
+        "rural": 80,
+        "expressway": null,
+        "motorway": null,
+        "unpaved": null
+      },
+      "legalSource": {
+        "url": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
+        "title": "OpenStreetMap wiki: Default speed limits (Canada rows)",
+        "read": "2026-10-27"
+      },
+      "terrain": "mountain",
+      "terrainBasis": "prior",
+      "rain": null,
+      "winter": null,
+      "borderDefaultMin": {},
+      "ferryCheckinMin": null,
+      "version": 1,
+      "read": "2026-10-27",
+      "note": "Motorway limits are posted per highway, so the column is null."
+    },
+    {
+      "cc": "CA",
+      "sub": "ON",
+      "name": "Ontario",
+      "side": "right",
+      "legal": {
+        "urban": 50,
+        "rural": 80,
+        "expressway": null,
+        "motorway": 100,
+        "unpaved": null
+      },
+      "legalSource": {
+        "url": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
+        "title": "OpenStreetMap wiki: Default speed limits (Canada rows)",
+        "read": "2026-10-27"
+      },
+      "terrain": "flat",
+      "terrainBasis": "prior",
+      "rain": null,
+      "winter": null,
+      "borderDefaultMin": {},
+      "ferryCheckinMin": null,
+      "version": 1,
+      "read": "2026-10-27",
+      "note": "Motorway 100 as posted on 400-series highways."
+    },
+    {
+      "cc": "CA",
+      "sub": "QC",
+      "name": "Quebec",
+      "side": "right",
+      "legal": {
+        "urban": 50,
+        "rural": 90,
+        "expressway": null,
+        "motorway": 100,
+        "unpaved": null
+      },
+      "legalSource": {
+        "url": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
+        "title": "OpenStreetMap wiki: Default speed limits (Canada rows)",
+        "read": "2026-10-27"
+      },
+      "terrain": "rolling",
+      "terrainBasis": "prior",
+      "rain": null,
+      "winter": null,
+      "borderDefaultMin": {},
+      "ferryCheckinMin": null,
+      "version": 1,
+      "read": "2026-10-27"
+    },
+    {
+      "cc": "IT",
+      "sub": null,
+      "name": "Italy",
+      "side": "right",
+      "legal": {
+        "urban": 50,
+        "rural": 90,
+        "expressway": 110,
+        "motorway": 130,
+        "unpaved": null
+      },
+      "legalSource": {
+        "url": "https://brocardi.it/codice-della-strada/titolo-v/art142.html",
+        "title": "Codice della Strada art. 142 comma 1 (Brocardi, updated 25 Apr 2026)",
+        "read": "2026-10-27"
+      },
+      "terrain": "hilly",
+      "terrainBasis": "prior",
+      "rain": {
+        "motorway": 110,
+        "expressway": 90
+      },
+      "winter": {
+        "months": [
+          11,
+          12,
+          1,
+          2,
+          3
+        ],
+        "factor": 0.9,
+        "basis": "prior",
+        "note": "Factor is the spec 5.1 prior; the winter tyre and chain rule (15 Nov to 15 Apr on signed roads) is DT-S0's to source."
+      },
+      "borderDefaultMin": {
+        "AT": 0,
+        "CH": 5,
+        "FR": 0,
+        "SI": 0
+      },
+      "ferryCheckinMin": null,
+      "version": 1,
+      "read": "2026-10-27",
+      "note": "Schengen neighbours 0 min; CH 5 min (customs, spec 5.1 example)."
+    }
+  ]
+}

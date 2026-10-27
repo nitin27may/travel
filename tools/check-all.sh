@@ -108,6 +108,8 @@ step "OpenAPI is current (API-1b: data/schema/generated/openapi.json matches the
 node "$ROOT/core/bin/openapi.ts" --check --root "$ROOT"
 step "catalogue slugs are pinned (API-1a, D-B1: data/catalogue/slugs.json matches what the dataset builder assigns)"
 node "$ROOT/core/bin/slugs.ts" --check --root "$ROOT"
+step "drive model data and calibration (DT-1a: data/reference/drive validates; generated/calibration.json matches the golden routed legs; spec 6.3 error limits hold)"
+node "$ROOT/core/bin/drive-calibrate.ts" --check --root "$ROOT"
 
 echo
 echo "CHECK-ALL OK"
