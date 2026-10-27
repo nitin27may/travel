@@ -674,6 +674,7 @@
       "type": "access.pass.timed_entry",
       "layer": "offer",
       "name": "Tre Cime toll and car park (12-hour slot)",
+      "summary": "Toll and parking for the road to Rifugio Auronzo, booked online in advance for a 12-hour slot per vehicle; there is no walk-up sale.",
       "on": [
         {
           "ref": "part/place/tre-cime-di-lavaredo-loop#toll-road"
@@ -781,6 +782,35 @@
           ]
         }
       ],
+      "entry": {
+        "v": {
+          "required": "always",
+          "needed_for": [
+            "day"
+          ],
+          "unit": "vehicle",
+          "valid": {
+            "span": 12,
+            "unit": "hour",
+            "from": "slot_start"
+          },
+          "channel": [
+            "online"
+          ],
+          "cancel": {
+            "refund": "full",
+            "note": "Free cancellation until 23:59 five days before the visit."
+          }
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-19",
+        "quote": "consentito solo previa prenotazione online",
+        "note": "Restructured by PA-R-CA (2026-10-27) from the facts this lane read on 2026-10-18/19 (price note and window note); not re-fetched."
+      },
       "meta": {
         "schema_version": 1,
         "run_id": "RIS-N",

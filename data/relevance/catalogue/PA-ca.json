@@ -1,0 +1,1587 @@
+{
+  "schema": "relevance/1",
+  "trip": "catalogue",
+  "lane": "PA-ca",
+  "researched": "2026-10-27",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/voyage-travel/admission",
+      "title": "Admission and passes",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://parks.canada.ca/voyage-travel/imprimable-printable",
+      "title": "Printable Discovery Pass",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://parks.canada.ca/termes-terms/reservation",
+      "title": "Reservation policies and pass terms of use",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+      "title": "Fees, Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees",
+      "title": "Fees, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/visit/tarifs-fees",
+      "title": "Fees, Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/visit/tarifs-fees",
+      "title": "Fees, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes",
+      "title": "Park passes, Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://parks.canada.ca/pn-np/ab/banff",
+      "title": "Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper",
+      "title": "Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho",
+      "title": "Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay",
+      "title": "Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit",
+      "title": "Plan a trip to Lake O'Hara",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://www.alberta.ca/kananaskis-conservation-pass",
+      "title": "Kananaskis Conservation Pass",
+      "publisher": "Government of Alberta",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/",
+      "title": "Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/kananaskis-contacts/kananaskis-visitor-information-centre/",
+      "title": "Kananaskis Visitor Information Centre",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees/portes-gates",
+      "title": "Park passes, Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins",
+      "title": "Important bulletins: Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/bulletins",
+      "title": "Important bulletins: Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/bulletins",
+      "title": "Important bulletins: Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/visit/services",
+      "title": "Facilities and services, Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/",
+      "title": "Advisories and public safety, Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/7d9a90ac-8cd6-4a47-9051-e2e41121e93b",
+      "title": "Restricted activity: Travel in Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/06d4ef61-a3c9-4b65-8dfc-66d056252d6c",
+      "title": "Area Closure: Johnston Canyon Trail and Day Use Area",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/bulletins/f5abd01d-f731-497e-ab08-8425b6e1f000",
+      "title": "Area Closure: Seasonal closures for caribou conservation",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/annual-road-closures/",
+      "title": "Annual Road Closures, Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://parks.canada.ca/pn-np/mtn/ours-bears/securite-safety",
+      "title": "Bear safety: bears in the mountain national parks",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/wildlife/",
+      "title": "Wildlife, Kananaskis Country",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+      "title": "Visiting Lake Louise and Moraine Lake",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.banfflakelouise.com/park-pass-purchase",
+      "title": "Purchase a Park Pass for Banff National Park",
+      "publisher": "Banff & Lake Louise Tourism",
+      "kind": "press",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q41858|Q503429|Q828404|Q903323|Q3373468",
+      "title": "Wikidata entities of the five parks (P625, P402, P856, P1435)",
+      "publisher": "Wikidata",
+      "kind": "computed",
+      "read": "2026-10-27",
+      "method": "read"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "Overpass query: visitor information offices, Lake O'Hara and its car park (Rockies box)",
+      "publisher": "OpenStreetMap contributors",
+      "kind": "computed",
+      "read": "2026-10-27",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/banff-national-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q41858",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0031"
+        ],
+        "read": "2026-10-27",
+        "note": "Store resolver QID; label, P856 official site and P402 boundary match the park. Agent-checked 2026-10-27; needs a person's check."
+      },
+      "class_key": "park/protected-area",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Canada's first national park and part of the Canadian Rocky Mountain Parks World Heritage Site (park page)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "The park page calls it the flagship of the national park system."
+      },
+      "standing_scope": "Canadian national parks",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Jasper, Yoho and Kootenay border it with similar mountain landscapes, but Lake Louise and Moraine Lake are its own."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Our judgement: the main lakes and viewpoints are by road or shuttle; much is seen from the car."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Mountain views; low cloud hides the peaks."
+      },
+      "why": "Canada's first national park: Lake Louise, Moraine Lake, the Bow Valley and the town of Banff.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0009"
+        ],
+        "read": "2026-10-27",
+        "note": "Entry is a pass, not a hard access cost: the requirement offers at this park carry the fee and its rules."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Banff National Park",
+              "scope": "own"
+            },
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "read": "2026-10-27",
+          "quote": "Banff is part of the Canadian Rocky Mountain Parks UNESCO World Heritage Site."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-27",
+          "tried": [
+            "the pages read for this record (see sources): no top-list mention; tourism-board and national-guide top lists were not searched in this run"
+          ],
+          "note": "No top-list mention recorded."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "place/jasper-national-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q503429",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0031"
+        ],
+        "read": "2026-10-27",
+        "note": "Store resolver QID; label, P856 official site and P402 boundary match the park. Agent-checked 2026-10-27; needs a person's check."
+      },
+      "class_key": "park/protected-area",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Largest national park in the Canadian Rockies, a dark-sky preserve and part of the World Heritage Site (park page, Wikidata P1435)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "The park page calls it the largest national park in the Canadian Rockies."
+      },
+      "standing_scope": "Canadian Rockies national parks",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Its size, the Icefields Parkway's north end and the dark-sky preserve set it apart from Banff."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Our judgement: distances are long; the main sights are spread along two highways."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Mountain views; low cloud hides the peaks."
+      },
+      "why": "The largest park in the Canadian Rockies: Maligne Lake, the Columbia Icefield road and a dark-sky preserve.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0010"
+        ],
+        "read": "2026-10-27",
+        "note": "Entry is a pass, not a hard access cost: the requirement offers at this park carry the fee and its rules."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "own"
+            },
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "scope": "own"
+            },
+            {
+              "type": "dark_sky",
+              "name": "Jasper National Park Dark Sky Preserve",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0010"
+          ],
+          "read": "2026-10-27",
+          "quote": "Jasper National Park is the second largest dark sky preserve in the world!"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-27",
+          "tried": [
+            "the pages read for this record (see sources): no top-list mention; tourism-board and national-guide top lists were not searched in this run"
+          ],
+          "note": "No top-list mention recorded."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "place/yoho-national-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q828404",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0031"
+        ],
+        "read": "2026-10-27",
+        "note": "Store resolver QID; label, P856 official site and P402 boundary match the park. Agent-checked 2026-10-27; needs a person's check."
+      },
+      "class_key": "park/protected-area",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "A Rocky Mountain national park and part of the World Heritage Site (Wikidata P1435); smaller than Banff and Jasper."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Lake O'Hara, Emerald Lake and Takakkaw Falls are among the most sought-after places in the four parks."
+      },
+      "standing_scope": "the four Rocky Mountain national parks",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "The Burgess Shale fossil beds and the gated Lake O'Hara area are found nowhere else in the four parks."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Our judgement: Emerald Lake, Natural Bridge and the Spiral Tunnels are roadside; Lake O'Hara needs the bus."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Mountain views; low cloud hides the peaks."
+      },
+      "why": "A compact Rocky Mountain park west of Lake Louise: Emerald Lake, Takakkaw Falls, Lake O'Hara and the Burgess Shale.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0011"
+        ],
+        "read": "2026-10-27",
+        "note": "Entry is a pass, not a hard access cost: the requirement offers at this park carry the fee and its rules."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Yoho National Park",
+              "scope": "own"
+            },
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0031"
+          ],
+          "read": "2026-10-27"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-27",
+          "tried": [
+            "the pages read for this record (see sources): no top-list mention; tourism-board and national-guide top lists were not searched in this run"
+          ],
+          "note": "No top-list mention recorded."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "place/kootenay-national-park",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q903323",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0031"
+        ],
+        "read": "2026-10-27",
+        "note": "Store resolver QID; label, P856 official site and P402 boundary match the park. Agent-checked 2026-10-27; needs a person's check."
+      },
+      "class_key": "park/protected-area",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "A Rocky Mountain national park and part of the World Heritage Site (Wikidata P1435)."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Visited mostly along Highway 93 South between Castle Junction and Radium Hot Springs."
+      },
+      "standing_scope": "the four Rocky Mountain national parks",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Banff and Yoho next door offer similar canyons and valleys."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Our judgement: Marble Canyon, the Paint Pots and the hot springs are short walks from the highway."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Mountain views; low cloud hides the peaks."
+      },
+      "why": "The Highway 93 South park: Marble Canyon, the Paint Pots and the Radium hot springs.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0012"
+        ],
+        "read": "2026-10-27",
+        "note": "Entry is a pass, not a hard access cost: the requirement offers at this park carry the fee and its rules."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Kootenay National Park",
+              "scope": "own"
+            },
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0031"
+          ],
+          "read": "2026-10-27"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-27",
+          "tried": [
+            "the pages read for this record (see sources): no top-list mention; tourism-board and national-guide top lists were not searched in this run"
+          ],
+          "note": "No top-list mention recorded."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "place/kananaskis-country",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q3373468",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0031"
+        ],
+        "read": "2026-10-27",
+        "note": "Store resolver QID; label, P856 official site and P402 boundary match the park. Agent-checked 2026-10-27; needs a person's check."
+      },
+      "class_key": "park/protected-area",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "A park system and public land west of Calgary run by Alberta Parks; a regional draw next to the national parks."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "The busiest provincial recreation area in the Alberta Rockies by our reading of the Alberta Parks pages."
+      },
+      "standing_scope": "Alberta's Rocky Mountain parks",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Its lakes and peaks are like those of the national parks next door, with fewer crowds."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Our judgement: many lakes and viewpoints are next to Highway 40."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Mountain views; low cloud hides the peaks."
+      },
+      "why": "Alberta Parks' mountain country west of Calgary: the Kananaskis Lakes, Peter Lougheed park and Highway 40.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0015"
+        ],
+        "read": "2026-10-27",
+        "note": "Entry is a pass, not a hard access cost: the requirement offers at this park carry the fee and its rules."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "read": "2026-10-27",
+          "note": "No single designation: Kananaskis Country is a multi-use area holding several provincial parks."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-27",
+          "tried": [
+            "the pages read for this record (see sources): no top-list mention; tourism-board and national-guide top lists were not searched in this run"
+          ],
+          "note": "No top-list mention recorded."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/banff-national-park#lake-louise-area",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-27",
+        "tried": [
+          "Wikidata search 'Lake Louise' (2026-10-27): Q1367398 is the lake and Q12826048 the hamlet; no item for the Parks Canada area"
+        ]
+      },
+      "class_key": "park/protected-area",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Booking that sells out: the land manager says its reservation-only shuttle seats typically sell out well in advance (Lake Louise page)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Parks Canada runs a dedicated shuttle system for this area."
+      },
+      "standing_scope": "Banff National Park",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Two glacial lakes with a shuttle-only road to one of them."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Our judgement: both lakeshores are at the shuttle stops."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Mountain views; low cloud hides the peaks."
+      },
+      "why": "The Lake Louise and Moraine Lake corner of Banff, where shuttles, parking fees and a closed road shape the visit.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0029"
+        ],
+        "read": "2026-10-27",
+        "note": "Moraine Lake Road is closed to personal vehicles year-round (its own shuttle and Roam records carry that); Lake Louise Lakeshore has paid parking May to October."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Banff National Park",
+              "scope": "parent",
+              "wikidata": "Q41858"
+            },
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0031"
+          ],
+          "read": "2026-10-27"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-27",
+          "tried": [
+            "the pages read for this record (see sources): no top-list mention; tourism-board and national-guide top lists were not searched in this run"
+          ],
+          "note": "No top-list mention recorded."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/yoho-national-park#lake-ohara",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-27",
+        "tried": [
+          "Wikidata search 'Lake O'Hara' (2026-10-27): Q1801034 is the lake itself; no item for the managed area that the bus serves"
+        ]
+      },
+      "class_key": "park/protected-area",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "A gated alpine area whose bus seats go by lottery (park page)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "The park page calls it a true gem of the park."
+      },
+      "standing_scope": "Yoho National Park",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Access by a lottery bus is unique in the four parks."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Our judgement: the lake is at the bus stop, the alpine circuits need hours of hiking."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "Mountain views; low cloud hides the peaks."
+      },
+      "why": "A gated alpine basin in Yoho reached by a lottery-run bus or a 22 km return walk on the road.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "permit_lottery",
+            "note": "day-use bus seats by a spring random draw"
+          },
+          {
+            "type": "long_walk_in",
+            "note": "without a seat, 11 km each way on the access road"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0013"
+        ],
+        "read": "2026-10-27",
+        "quote": "access to Lake O'Hara is managed through Parks Canada shuttle bus reservations"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Yoho National Park",
+              "scope": "parent",
+              "wikidata": "Q828404"
+            },
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0031"
+          ],
+          "read": "2026-10-27"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-27",
+          "tried": [
+            "the pages read for this record (see sources): no top-list mention; tourism-board and national-guide top lists were not searched in this run"
+          ],
+          "note": "No top-list mention recorded."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/banff-national-park#banff-visitor-centre",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-27",
+        "tried": [
+          "Wikidata wbsearchentities 'Banff Visitor Centre' (2026-10-27): no item"
+        ]
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "A visitor centre, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "The park's information office."
+      },
+      "standing_scope": "the park it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "One of the park's information points."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "It is the start of the visit."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "An information office."
+      },
+      "why": "The Parks Canada visitor centre on Banff Avenue in the town of Banff: passes, maps and trail news.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "No fee to enter the visitor centre; park entry rules apply around it."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-27",
+          "note": "None of its own; it serves the park."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-27",
+          "tried": [
+            "the pages read for this record (see sources): no top-list mention; tourism-board and national-guide top lists were not searched in this run"
+          ],
+          "note": "No top-list mention recorded."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/banff-national-park#lake-louise-visitor-centre",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-27",
+        "tried": [
+          "Wikidata wbsearchentities 'Lake Louise Visitor Centre' (2026-10-27): no item"
+        ]
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "A visitor centre, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "The park's information office."
+      },
+      "standing_scope": "the park it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "One of the park's information points."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "It is the start of the visit."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "An information office."
+      },
+      "why": "The Parks Canada visitor centre in the village of Lake Louise, beside Samson Mall.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "No fee to enter the visitor centre; park entry rules apply around it."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-27",
+          "note": "None of its own; it serves the park."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-27",
+          "tried": [
+            "the pages read for this record (see sources): no top-list mention; tourism-board and national-guide top lists were not searched in this run"
+          ],
+          "note": "No top-list mention recorded."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/jasper-national-park#jasper-information-centre",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": "Q6164023",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0032"
+        ],
+        "read": "2026-10-27",
+        "note": "Wikidata search for the name (2026-10-27): the label matches this building; needs a person's check."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "A visitor centre, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "The park's information office."
+      },
+      "standing_scope": "the park it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "One of the park's information points."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "It is the start of the visit."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "An information office."
+      },
+      "why": "Jasper's Parks Canada information centre on Connaught Drive, itself a national historic site.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "No fee to enter the visitor centre; park entry rules apply around it."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-27",
+          "note": "None of its own; it serves the park."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-27",
+          "tried": [
+            "the pages read for this record (see sources): no top-list mention; tourism-board and national-guide top lists were not searched in this run"
+          ],
+          "note": "No top-list mention recorded."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": "Q69742837",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0032"
+        ],
+        "read": "2026-10-27",
+        "note": "Wikidata search for the name (2026-10-27): the label matches this building; needs a person's check."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "A visitor centre, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "The park's information office."
+      },
+      "standing_scope": "the park it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "One of the park's information points."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "It is the start of the visit."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "An information office."
+      },
+      "why": "The Parks Canada visitor centre on the Trans-Canada Highway at Field.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "No fee to enter the visitor centre; park entry rules apply around it."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-27",
+          "note": "None of its own; it serves the park."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-27",
+          "tried": [
+            "the pages read for this record (see sources): no top-list mention; tourism-board and national-guide top lists were not searched in this run"
+          ],
+          "note": "No top-list mention recorded."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-27",
+        "tried": [
+          "Wikidata wbsearchentities 'Kootenay National Park Visitor Centre' (2026-10-27): no item"
+        ]
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "A visitor centre, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "The park's information office."
+      },
+      "standing_scope": "the park it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "One of the park's information points."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "It is the start of the visit."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "An information office."
+      },
+      "why": "Kootenay's visitor centre in the village of Radium Hot Springs, shared with the local tourism office.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "No fee to enter the visitor centre; park entry rules apply around it."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-27",
+          "note": "None of its own; it serves the park."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-27",
+          "tried": [
+            "the pages read for this record (see sources): no top-list mention; tourism-board and national-guide top lists were not searched in this run"
+          ],
+          "note": "No top-list mention recorded."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    },
+    {
+      "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
+      "kind": "access",
+      "subkind": "station",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-27",
+        "tried": [
+          "Wikidata wbsearchentities 'Kananaskis Visitor Information Centre' (2026-10-27): no item"
+        ]
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "A visitor centre, not a draw: no designation, top list or tourism board headline; the class is the closest in the vocabulary (no access class exists)."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "The park's information office."
+      },
+      "standing_scope": "the park it serves",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "One of the park's information points."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "It is the start of the visit."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "An information office."
+      },
+      "why": "The year-round Alberta Parks visitor centre on Highway 40, about 7 km south of the Trans-Canada Highway.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "read": "2026-10-27",
+        "note": "No fee to enter the visitor centre; park entry rules apply around it."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "read": "2026-10-27",
+          "note": "None of its own; it serves the park."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-27",
+          "tried": [
+            "the pages read for this record (see sources): no top-list mention; tourism-board and national-guide top lists were not searched in this run"
+          ],
+          "note": "No top-list mention recorded."
+        }
+      },
+      "meta": {
+        "schema_version": 1,
+        "run_id": "pa-r-ca-2026-10-27-rockies-parks"
+      }
+    }
+  ]
+}

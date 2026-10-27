@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "canadian-rockies-2029",
-  "as_of": "2026-10-25",
+  "as_of": "2026-10-27",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -157,8 +157,8 @@
         ]
       },
       "far_pointer": {
-        "ref": "place/lake-louise",
-        "km": 5.7,
+        "ref": "part/place/banff-national-park#lake-louise-area",
+        "km": 2.2,
         "draw": "world",
         "same_class": false
       },
@@ -409,8 +409,8 @@
         ]
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
-        "km": 34.5,
+        "ref": "place/banff-national-park",
+        "km": 16,
         "draw": "world",
         "same_class": false
       },
@@ -734,7 +734,12 @@
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/banff-national-park",
+        "km": 17.4,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
@@ -809,7 +814,12 @@
           }
         ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/banff-national-park",
+        "km": 16.4,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [],
       "pair_pending": [],
       "part_of": [],
@@ -1503,7 +1513,12 @@
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/jasper-national-park",
+        "km": 34.8,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [],
       "pair_pending": [],
       "part_of": [],
@@ -1586,8 +1601,8 @@
         ]
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
-        "km": 37.4,
+        "ref": "place/banff-national-park",
+        "km": 15.2,
         "draw": "world",
         "same_class": false
       },
@@ -1841,9 +1856,9 @@
         ]
       },
       "far_pointer": {
-        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-        "km": 4.4,
-        "draw": "national",
+        "ref": "place/banff-national-park",
+        "km": 1.1,
+        "draw": "world",
         "same_class": false
       },
       "pair_with": [
@@ -1945,9 +1960,9 @@
         ]
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
-        "km": 45.4,
-        "draw": "national",
+        "ref": "place/jasper-national-park",
+        "km": 34.9,
+        "draw": "world",
         "same_class": false
       },
       "pair_with": [],
@@ -2020,9 +2035,9 @@
         ]
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
-        "km": 28.6,
-        "draw": "national",
+        "ref": "place/jasper-national-park",
+        "km": 3.5,
+        "draw": "world",
         "same_class": false
       },
       "pair_with": [],
@@ -2314,6 +2329,46 @@
             "km": 41,
             "draw": "regional",
             "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#lake-louise-visitor-centre",
+            "km": 28.6,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+            "km": 34.9,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#banff-visitor-centre",
+            "km": 40.3,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+            "km": 61.4,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
+            "km": 79.7,
+            "draw": "local",
+            "standing": "ordinary",
             "access_cost": [],
             "family_effort": null
           }
@@ -2781,7 +2836,12 @@
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/banff-national-park",
+        "km": 16.4,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [],
       "pair_pending": [],
       "part_of": [],
@@ -3071,8 +3131,8 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
-        "km": 48.7,
+        "ref": "place/jasper-national-park",
+        "km": 5.1,
         "draw": "world",
         "same_class": false
       },
@@ -3997,8 +4057,8 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
-        "km": 43.9,
+        "ref": "place/banff-national-park",
+        "km": 2,
         "draw": "world",
         "same_class": false
       },
@@ -4061,8 +4121,8 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
-        "km": 43.7,
+        "ref": "place/jasper-national-park",
+        "km": 0.5,
         "draw": "world",
         "same_class": false
       },
@@ -4128,8 +4188,8 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
-        "km": 44.7,
+        "ref": "place/banff-national-park",
+        "km": 1.7,
         "draw": "world",
         "same_class": false
       },
@@ -4350,6 +4410,46 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#lake-louise-visitor-centre",
+            "km": 28.6,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+            "km": 34.9,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#banff-visitor-centre",
+            "km": 40.3,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+            "km": 61.4,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
+            "km": 79.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
           }
         ]
       },
@@ -4520,7 +4620,12 @@
           }
         ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/banff-national-park",
+        "km": 15.8,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [],
       "pair_pending": [
         {
@@ -4659,8 +4764,8 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
-        "km": 43.7,
+        "ref": "place/jasper-national-park",
+        "km": 4.1,
         "draw": "world",
         "same_class": false
       },
@@ -4737,8 +4842,8 @@
         ]
       },
       "far_pointer": {
-        "ref": "place/lake-louise",
-        "km": 5.7,
+        "ref": "part/place/banff-national-park#lake-louise-area",
+        "km": 2.1,
         "draw": "world",
         "same_class": false
       },
@@ -4837,8 +4942,8 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
-        "km": 48.6,
+        "ref": "place/banff-national-park",
+        "km": 9.3,
         "draw": "world",
         "same_class": false
       },
@@ -5152,7 +5257,16 @@
       "detour_town": "Banff",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
+        "near": [
+          {
+            "ref": "part/place/banff-national-park#banff-visitor-centre",
+            "km": 3.1,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
         "area": [
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
@@ -5169,12 +5283,52 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#banff-visitor-centre",
+            "km": 3.1,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
+            "km": 39.3,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/banff-national-park#lake-louise-visitor-centre",
+            "km": 52.8,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+            "km": 69,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+            "km": 70.4,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
           }
         ]
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
-        "km": 47.5,
+        "ref": "place/banff-national-park",
+        "km": 3.1,
         "draw": "world",
         "same_class": false
       },
@@ -5245,9 +5399,23 @@
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "part/place/jasper-national-park#jasper-information-centre",
+            "km": 34.9,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/jasper-national-park",
+        "km": 34.9,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [],
       "pair_pending": [
         {
@@ -5465,8 +5633,8 @@
         ]
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
-        "km": 42.4,
+        "ref": "place/jasper-national-park",
+        "km": 1.8,
         "draw": "world",
         "same_class": false
       },
@@ -5533,8 +5701,8 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
-        "km": 45.7,
+        "ref": "place/banff-national-park",
+        "km": 0.3,
         "draw": "world",
         "same_class": false
       },
@@ -5645,7 +5813,12 @@
           }
         ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/banff-national-park",
+        "km": 15.8,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [],
       "pair_pending": [
         {
@@ -5804,8 +5977,8 @@
         ]
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
-        "km": 34.5,
+        "ref": "place/banff-national-park",
+        "km": 16,
         "draw": "world",
         "same_class": false
       },
@@ -5854,7 +6027,12 @@
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/banff-national-park",
+        "km": 17.4,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
@@ -5930,7 +6108,12 @@
           }
         ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/banff-national-park",
+        "km": 16.4,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [],
       "pair_pending": [],
       "part_of": [],
@@ -6211,7 +6394,12 @@
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/jasper-national-park",
+        "km": 34.8,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [],
       "pair_pending": [],
       "part_of": [],
@@ -6949,8 +7137,8 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
-        "km": 43.7,
+        "ref": "place/jasper-national-park",
+        "km": 4.1,
         "draw": "world",
         "same_class": false
       },
@@ -7028,8 +7216,8 @@
         ]
       },
       "far_pointer": {
-        "ref": "place/lake-louise",
-        "km": 5.7,
+        "ref": "part/place/banff-national-park#lake-louise-area",
+        "km": 2.1,
         "draw": "world",
         "same_class": false
       },

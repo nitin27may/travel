@@ -1,0 +1,715 @@
+{
+  "schema": "capture-run/1",
+  "run": "pa-r-ca-2026-10-27-rockies-parks",
+  "started": "2026-10-27",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "types": [
+      "access.amenity.visitor_info",
+      "access.park.parking",
+      "access.pass.entry_fee",
+      "access.pass.park_pass",
+      "access.pass.shuttle_seat",
+      "access.pass.timed_entry",
+      "access.pass.vehicle_permit",
+      "nature.protected.conservation_area",
+      "nature.protected.national_park",
+      "nature.protected.zone"
+    ],
+    "refs": [
+      "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+      "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+      "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat",
+      "offer/operator/parks-canada#discovery-pass",
+      "offer/place/banff-national-park#daily-admission",
+      "offer/place/banff-national-park#frontcountry-campsite",
+      "offer/place/jasper-national-park#daily-admission",
+      "offer/place/kananaskis-country#conservation-pass-day",
+      "offer/place/kananaskis-country#conservation-pass-year",
+      "offer/place/kootenay-national-park#daily-admission",
+      "offer/place/lake-louise#parking",
+      "offer/place/tre-cime-di-lavaredo-loop#toll",
+      "offer/place/yoho-national-park#daily-admission",
+      "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+      "part/place/banff-national-park#banff-visitor-centre",
+      "part/place/banff-national-park#lake-louise-area",
+      "part/place/banff-national-park#lake-louise-visitor-centre",
+      "part/place/jasper-national-park#jasper-information-centre",
+      "part/place/kananaskis-country#kananaskis-visitor-centre",
+      "part/place/kootenay-national-park#kootenay-visitor-centre",
+      "part/place/yoho-national-park#lake-ohara",
+      "part/place/yoho-national-park#lake-ohara-parking",
+      "part/place/yoho-national-park#yoho-visitor-centre",
+      "place/banff-national-park",
+      "place/jasper-national-park",
+      "place/kananaskis-country",
+      "place/kootenay-national-park",
+      "place/yoho-national-park"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "parks.canada.ca",
+      "requests": 24,
+      "robots": "none",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.alberta.ca",
+      "requests": 2,
+      "robots": "allowed",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "albertaparks.ca",
+      "requests": 5,
+      "robots": "none",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.albertaparks.ca",
+      "requests": 1,
+      "robots": "none",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "roamtransit.com",
+      "requests": 2,
+      "robots": "allowed",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.banfflakelouise.com",
+      "requests": 1,
+      "robots": "unknown",
+      "terms": "unknown",
+      "status": "ok"
+    },
+    {
+      "host": "www.wikidata.org",
+      "requests": 20,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "requests": 2,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "overpass-api.de",
+      "requests": 1,
+      "robots": "none",
+      "terms": "allowed",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "place/banff-national-park",
+      "field": "closures",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/bulletins/06d4ef61-a3c9-4b65-8dfc-66d056252d6c"
+      ]
+    },
+    {
+      "ref": "place/banff-national-park",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/jasper-national-park",
+      "field": "closures",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/bulletins/f5abd01d-f731-497e-ab08-8425b6e1f000"
+      ]
+    },
+    {
+      "ref": "place/jasper-national-park",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/yoho-national-park",
+      "field": "closures",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho"
+      ]
+    },
+    {
+      "ref": "place/yoho-national-park",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/kootenay-national-park",
+      "field": "closures",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/kootenay"
+      ]
+    },
+    {
+      "ref": "place/kootenay-national-park",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "place/kananaskis-country",
+      "field": "closures",
+      "outcome": "filled",
+      "src": [
+        "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/annual-road-closures/"
+      ]
+    },
+    {
+      "ref": "place/kananaskis-country",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/banff-national-park#lake-louise-area",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/yoho-national-park#lake-ohara",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/banff-national-park#banff-visitor-centre",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/banff-national-park#lake-louise-visitor-centre",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/jasper-national-park#jasper-information-centre",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/yoho-national-park#yoho-visitor-centre",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "part/place/yoho-national-park#lake-ohara-parking",
+      "field": "point",
+      "outcome": "filled",
+      "host": "overpass-api.de",
+      "src": "https://overpass-api.de/api/interpreter"
+    },
+    {
+      "ref": "offer/operator/parks-canada#discovery-pass",
+      "field": "price",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+        "https://parks.canada.ca/voyage-travel/admission"
+      ]
+    },
+    {
+      "ref": "offer/operator/parks-canada#discovery-pass",
+      "field": "window",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/voyage-travel/admission",
+        "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes"
+      ]
+    },
+    {
+      "ref": "offer/operator/parks-canada#discovery-pass",
+      "field": "entry",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/termes-terms/reservation",
+        "https://parks.canada.ca/voyage-travel/imprimable-printable"
+      ]
+    },
+    {
+      "ref": "offer/operator/parks-canada#discovery-pass",
+      "field": "season",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/voyage-travel/admission"
+      ]
+    },
+    {
+      "ref": "offer/place/banff-national-park#daily-admission",
+      "field": "price",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees"
+      ]
+    },
+    {
+      "ref": "offer/place/banff-national-park#daily-admission",
+      "field": "window",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes"
+      ]
+    },
+    {
+      "ref": "offer/place/banff-national-park#daily-admission",
+      "field": "entry",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes",
+        "https://parks.canada.ca/pn-np/ab/banff/bulletins/7d9a90ac-8cd6-4a47-9051-e2e41121e93b"
+      ]
+    },
+    {
+      "ref": "offer/place/banff-national-park#daily-admission",
+      "field": "season",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff"
+      ]
+    },
+    {
+      "ref": "offer/place/jasper-national-park#daily-admission",
+      "field": "price",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees"
+      ]
+    },
+    {
+      "ref": "offer/place/jasper-national-park#daily-admission",
+      "field": "window",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes"
+      ]
+    },
+    {
+      "ref": "offer/place/jasper-national-park#daily-admission",
+      "field": "entry",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes",
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees/portes-gates"
+      ]
+    },
+    {
+      "ref": "offer/place/jasper-national-park#daily-admission",
+      "field": "season",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/jasper"
+      ]
+    },
+    {
+      "ref": "offer/place/yoho-national-park#daily-admission",
+      "field": "price",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/visit/tarifs-fees"
+      ]
+    },
+    {
+      "ref": "offer/place/yoho-national-park#daily-admission",
+      "field": "window",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes"
+      ]
+    },
+    {
+      "ref": "offer/place/yoho-national-park#daily-admission",
+      "field": "entry",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes",
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees/portes-gates"
+      ]
+    },
+    {
+      "ref": "offer/place/yoho-national-park#daily-admission",
+      "field": "season",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho"
+      ]
+    },
+    {
+      "ref": "offer/place/kootenay-national-park#daily-admission",
+      "field": "price",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/kootenay/visit/tarifs-fees"
+      ]
+    },
+    {
+      "ref": "offer/place/kootenay-national-park#daily-admission",
+      "field": "window",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes"
+      ]
+    },
+    {
+      "ref": "offer/place/kootenay-national-park#daily-admission",
+      "field": "entry",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes",
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees/portes-gates"
+      ]
+    },
+    {
+      "ref": "offer/place/kootenay-national-park#daily-admission",
+      "field": "season",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/kootenay"
+      ]
+    },
+    {
+      "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+      "field": "price",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/visit/tarifs-fees",
+        "https://parks.canada.ca/termes-terms/reservation"
+      ]
+    },
+    {
+      "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+      "field": "window",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/termes-terms/reservation",
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit"
+      ]
+    },
+    {
+      "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+      "field": "entry",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/termes-terms/reservation",
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit"
+      ]
+    },
+    {
+      "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+      "field": "season",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit"
+      ]
+    },
+    {
+      "ref": "offer/place/kananaskis-country#conservation-pass-day",
+      "field": "price",
+      "outcome": "filled",
+      "src": [
+        "https://www.alberta.ca/kananaskis-conservation-pass"
+      ]
+    },
+    {
+      "ref": "offer/place/kananaskis-country#conservation-pass-day",
+      "field": "window",
+      "outcome": "filled",
+      "src": [
+        "https://www.alberta.ca/kananaskis-conservation-pass"
+      ]
+    },
+    {
+      "ref": "offer/place/kananaskis-country#conservation-pass-day",
+      "field": "entry",
+      "outcome": "filled",
+      "src": [
+        "https://www.alberta.ca/kananaskis-conservation-pass"
+      ]
+    },
+    {
+      "ref": "offer/place/kananaskis-country#conservation-pass-day",
+      "field": "season",
+      "outcome": "filled",
+      "src": [
+        "https://www.alberta.ca/kananaskis-conservation-pass"
+      ]
+    },
+    {
+      "ref": "offer/place/kananaskis-country#conservation-pass-year",
+      "field": "price",
+      "outcome": "filled",
+      "src": [
+        "https://www.alberta.ca/kananaskis-conservation-pass"
+      ]
+    },
+    {
+      "ref": "offer/place/kananaskis-country#conservation-pass-year",
+      "field": "window",
+      "outcome": "filled",
+      "src": [
+        "https://www.alberta.ca/kananaskis-conservation-pass"
+      ]
+    },
+    {
+      "ref": "offer/place/kananaskis-country#conservation-pass-year",
+      "field": "entry",
+      "outcome": "filled",
+      "src": [
+        "https://www.alberta.ca/kananaskis-conservation-pass"
+      ]
+    },
+    {
+      "ref": "offer/place/kananaskis-country#conservation-pass-year",
+      "field": "season",
+      "outcome": "filled",
+      "src": [
+        "https://www.alberta.ca/kananaskis-conservation-pass"
+      ]
+    },
+    {
+      "ref": "part/place/banff-national-park#lake-louise-area",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Lake%20Louise"
+      ],
+      "reason": "Q1367398 is the lake and Q12826048 the hamlet; no item for the Parks Canada area"
+    },
+    {
+      "ref": "part/place/yoho-national-park#lake-ohara",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "tried": [
+        "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Lake%20O'Hara"
+      ],
+      "reason": "Q1801034 is the lake itself, not the managed area"
+    },
+    {
+      "ref": "part/place/banff-national-park#banff-visitor-centre",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "tried": [
+        "Wikidata wbsearchentities 'Banff Visitor Centre' 2026-10-27"
+      ]
+    },
+    {
+      "ref": "part/place/banff-national-park#lake-louise-visitor-centre",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "tried": [
+        "Wikidata wbsearchentities 'Lake Louise Visitor Centre' 2026-10-27"
+      ]
+    },
+    {
+      "ref": "part/place/kootenay-national-park#kootenay-visitor-centre",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "tried": [
+        "Wikidata wbsearchentities 'Kootenay National Park Visitor Centre' 2026-10-27",
+        "Wikidata wbsearchentities 'Radium Hot Springs Visitor Centre' 2026-10-27"
+      ]
+    },
+    {
+      "ref": "part/place/kananaskis-country#kananaskis-visitor-centre",
+      "field": "wikidata",
+      "outcome": "searched_none",
+      "tried": [
+        "Wikidata wbsearchentities 'Kananaskis Visitor Information Centre' 2026-10-27",
+        "Wikidata wbsearchentities 'Barrier Lake Visitor Information Centre' 2026-10-27"
+      ]
+    },
+    {
+      "ref": "place/kananaskis-country",
+      "field": "osm_ref",
+      "outcome": "searched_none",
+      "tried": [
+        "Overpass rel[name~^Kananaskis][boundary] in the Kananaskis box, 2026-10-27"
+      ],
+      "reason": "only relation 7231693 (Kananaskis Country Public Land Use Zone) and 8845133 (Kananaskis Improvement District, administrative); neither is the whole Kananaskis Country"
+    },
+    {
+      "ref": "offer/operator/parks-canada#discovery-pass",
+      "field": "summary",
+      "outcome": "conflict",
+      "src": [
+        "https://parks.canada.ca/voyage-travel/admission",
+        "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes",
+        "https://parks.canada.ca/pn-np/ab/jasper/visit/tarifs-fees/portes-gates"
+      ],
+      "reason": "coverage count: the admission page says more than 80 destinations; the Banff and Jasper pass pages say more than 100. No count is stored; the summary names the four Rockies parks only"
+    },
+    {
+      "ref": "offer/place/banff-national-park#daily-admission",
+      "field": "entry",
+      "outcome": "conflict",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/bulletins/7d9a90ac-8cd6-4a47-9051-e2e41121e93b",
+        "https://www.banfflakelouise.com/park-pass-purchase"
+      ],
+      "reason": "Banff & Lake Louise Tourism says a pass is required for all visitors; the Parks Canada order (official_rule) exempts travel without stopping on Highways 1 and 93 South. The official rule is stored"
+    },
+    {
+      "ref": "offer/place/banff-national-park#daily-admission",
+      "field": "entry",
+      "outcome": "gap",
+      "reason": "validity is until 16:00 the day after purchase; entry.valid cannot say 16:00, so it is stored as 1 day from purchase with the rule in the note"
+    },
+    {
+      "ref": "offer/place/kananaskis-country#conservation-pass-day",
+      "field": "entry",
+      "outcome": "gap",
+      "reason": "cancel: online purchases can be cancelled until 23:59 the day before the pass starts, but the page does not say the refund is full; cancel is left unset and the rule is in the note"
+    },
+    {
+      "ref": "offer/place/banff-national-park#frontcountry-campsite",
+      "field": "price",
+      "outcome": "gap",
+      "reason": "contract: not stored: a stay.camp.campground lodging offer requires cost_band (no home in the registry) and check_in_out and the stay suitability block (wheelchair); the D8-R campground prices and launch-day rule stay in the run note until PA-3C"
+    },
+    {
+      "ref": "offer/place/lake-louise#parking",
+      "field": "entry",
+      "outcome": "gap",
+      "reason": "contract: protected-area-entry 11 asks for an entry block on the Lake Louise parking offer; the validator allows entry only on access.pass offers (E_ENTRY_SCHEMA), and the record is access.park.parking"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+      "field": "part_of",
+      "outcome": "gap",
+      "reason": "not edited: the lake is a member of Banff NP by its area; part_of the Lake Louise area zone needs an edit of migrated.json, which this lane does not own"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat",
+      "field": "window",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+        "https://parks.canada.ca/termes-terms/reservation"
+      ],
+      "reason": "reshaped: fixed_date 04-15 08:00 (40%) then rolling 2 days 08:00 (60%); was rolling only"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat",
+      "field": "entry",
+      "outcome": "filled",
+      "src": [
+        "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+        "https://parks.canada.ca/termes-terms/reservation"
+      ]
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat",
+      "field": "summary",
+      "outcome": "filled",
+      "src": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+      "field": "season",
+      "outcome": "filled",
+      "src": "https://roamtransit.com/fares/reservations/super-pass-reservations/",
+      "host": "roamtransit.com"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+      "field": "price",
+      "outcome": "filled",
+      "src": "https://roamtransit.com/fares/reservations/super-pass-reservations/",
+      "host": "roamtransit.com"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+      "field": "window",
+      "outcome": "filled",
+      "src": "https://roamtransit.com/fares/reservations/super-pass-reservations/",
+      "host": "roamtransit.com"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+      "field": "entry",
+      "outcome": "filled",
+      "src": "https://roamtransit.com/fares/reservations/super-pass-reservations/",
+      "host": "roamtransit.com"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass",
+      "field": "summary",
+      "outcome": "filled",
+      "src": "https://roamtransit.com/fares/reservations/super-pass-reservations/",
+      "host": "roamtransit.com"
+    },
+    {
+      "ref": "offer/place/tre-cime-di-lavaredo-loop#toll",
+      "field": "entry",
+      "outcome": "filled",
+      "src": "https://auronzo.info/parcheggio-tre-cime-di-lavaredo/",
+      "reason": "restructured from this lane's reads of 2026-10-18 and 2026-10-19 (not re-fetched)"
+    },
+    {
+      "ref": "offer/place/tre-cime-di-lavaredo-loop#toll",
+      "field": "hours",
+      "outcome": "gap",
+      "reason": "unchanged gap: the toll hours are not stored (outside this run's reads)"
+    },
+    {
+      "ref": "offer/place/yoho-national-park#lake-ohara-day-use-bus",
+      "field": "window",
+      "outcome": "ask",
+      "to": "Parks Canada, Yoho National Park (Lake O'Hara office)",
+      "contact_url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit",
+      "question": "Is the Lake O'Hara day-use bus random draw held in March every year, and when is the next draw window announced?"
+    }
+  ]
+}

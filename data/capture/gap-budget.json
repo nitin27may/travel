@@ -8,12 +8,20 @@
     "E_PLACE_ORPHAN": 0,
     "W_PLACE_POINT": 1,
     "W_PLACE_APPROX": 0,
-    "E_PLACE_FAR": 0,
+    "E_PLACE_FAR": 4,
     "W_PLACE_TOWN": 0,
-    "W_TIER_REQUIRED": 383,
-    "W_TIER_REQUIRED.keys": 3663
+    "W_TIER_REQUIRED": 382,
+    "W_TIER_REQUIRED.keys": 3659
   },
-  "raised": [],
+  "raised": [
+    {
+      "on": "2026-10-27",
+      "code": "E_PLACE_FAR",
+      "from": 0,
+      "to": 4,
+      "reason": "PA-R-CA: the new locations-store place Banff National Park gives the area CA/AB/banff-national-park a second store point, so E_PLACE_FAR judges it for the first time; Bow Lake, its parking, Peyto Lake and the Peyto lookout are inside Banff NP on the Icefields Parkway (false positive of the 25 km box with two store points)"
+    }
+  ],
   "known": [
     {
       "code": "E_CAP_REL_TARGET",

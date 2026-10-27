@@ -17,6 +17,7 @@
   "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque": ["route","nature.trail.hike",null,"ptarmigan-cirque"],
   "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout": ["route","nature.trail.walk",null,"rockwall-lookout-rockwall-fen"],
   "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog": ["route","nature.trail.hike",null,"sunburst-lake-to-lake-magog"],
+  "offer/operator/parks-canada#discovery-pass": ["offer","access.pass.park_pass",null,null],
   "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base": ["place","access.start.meeting_point",null,null],
   "part/place/rafting-on-the-rienza#place": ["place","water.body.river",null,"rienza"],
   "part/trip/patagonia-2027/lake:beagle channel boat#place": ["place","water.body.sea_bay_fjord",null,"beagle-channel"],
@@ -44,7 +45,9 @@
  "inv": {
   "legacy/canadian-rockies-sept-2029/sights/lake-magog": {"offers_at":["legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter"]},
   "legacy/canadian-rockies-sept-2029/sights/marble-canyon": {"reached_by":["legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk"]},
+  "offer/operator/parks-canada#discovery-pass": {"covers":["offer/place/banff-national-park#daily-admission","offer/place/jasper-national-park#daily-admission","offer/place/kootenay-national-park#daily-admission","offer/place/yoho-national-park#daily-admission"]},
   "operator/3-zinnen-dolomites-lift-operator": {"operator_of":["place/funbob-monte-baranci"]},
+  "operator/alberta-parks": {"operator_of":["offer/place/kananaskis-country#conservation-pass-day","offer/place/kananaskis-country#conservation-pass-year","place/kananaskis-country"]},
   "operator/alpine-helicopters": {"operator_of":["legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore"]},
   "operator/banff-norquay": {"operator_of":["legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata"]},
   "operator/banff-trail-riders": {"operator_of":["legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride"]},
@@ -60,9 +63,10 @@
   "operator/lake-louise-ski-resort": {"operator_of":["offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket"]},
   "operator/moraine-lake-lodge": {"operator_of":["legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe"]},
   "operator/mount-assiniboine-lodge": {"operator_of":["legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter"]},
-  "operator/parks-canada": {"operator_of":["legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs","legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen","legacy/canadian-rockies-sept-2029/adventures/burgess-walcott","legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs","legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs"]},
+  "operator/parks-canada": {"operator_of":["legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs","legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen","legacy/canadian-rockies-sept-2029/adventures/burgess-walcott","legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs","legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs","offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat","offer/operator/parks-canada#discovery-pass","offer/place/banff-national-park#daily-admission","offer/place/jasper-national-park#daily-admission","offer/place/kootenay-national-park#daily-admission","offer/place/yoho-national-park#daily-admission","offer/place/yoho-national-park#lake-ohara-day-use-bus","part/place/banff-national-park#lake-louise-area","part/place/yoho-national-park#lake-ohara","place/banff-national-park","place/jasper-national-park","place/kootenay-national-park","place/yoho-national-park"]},
   "operator/pursuit-banff-jasper-collection": {"operator_of":["legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer","legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise","legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise","offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket","offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket"]},
   "operator/rafting-club-activ": {"operator_of":["place/rafting-on-the-rienza"]},
+  "operator/roam-transit": {"operator_of":["offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#roam-super-pass"]},
   "operator/sundog-tours": {"operator_of":["legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour"]},
   "operator/waterton-shoreline-cruise": {"operator_of":["legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle","legacy/canadian-rockies-sept-2029/adventures/waterton-cruise"]},
   "operator/white-mountain-adventures": {"operator_of":["legacy/canadian-rockies-sept-2029/adventures/heli-hiking"]},
@@ -75,5 +79,7 @@
  "members": {},
  "members_all": {},
  "stages": {},
- "req": {}
+ "req": {
+  "offer/operator/parks-canada#discovery-pass": [{"ref":"offer/operator/parks-canada#discovery-pass","from":"offer/operator/parks-canada#discovery-pass","via":"self"}]
+ }
 }
