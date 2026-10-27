@@ -127,3 +127,12 @@ describe("the other fixes", () => {
     for (const w of ["Sulphur Mountain", "Tre Cime", "Rockpile", "shuttle stop", "Larch Valley"]) expect(t, w).toContain(w);
   });
 });
+
+// PA-R-CA3: the derive rule fences Kootenay's Marble Canyon (15.6 km from a labelled point) out on purpose, so the four day-3 records
+// carry an authored area_id; the Kootenay park line depends on it.
+describe("Rockies day 3 (Marble Canyon, Paint Pots) is placed in Kootenay", () => {
+  const recs = read<{ records: { ref: string; area_id?: string }[] }>("data/capture/canadian-rockies-2029/migrated.json").records;
+  it.each(["sights/marble-canyon", "sights/paint-pots", "trails/marble-canyon-walk", "trails/paint-pots-walk"])("%s", (leaf) => {
+    expect(recs.find((r) => r.ref === `legacy/canadian-rockies-sept-2029/${leaf}`)?.area_id).toBe("CA/BC/kootenay-national-park");
+  });
+});

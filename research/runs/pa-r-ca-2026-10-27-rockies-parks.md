@@ -110,3 +110,12 @@ P1435) and OpenStreetMap through Overpass (points, `osm_ref`). The registry is r
   (the legacy row lists days 8 to 11; it is ridden on 10 and 11) and drops the note that repeated the launch-day rule.
 - Kootenay has no park line: Marble Canyon and the Paint Pots (day 3) have no `area_id` (`gaps --placement`: no area 14), so they are
   not members. That is a `migrated.json` edit for the owner of the Rockies records.
+
+## Follow-up PA-R-CA3 (27 Oct 2026, Sonnet)
+
+- Kootenay park line: `derive-area` cannot place Marble Canyon and the Paint Pots (10 km radius fence on purpose; Marble Canyon is
+  15.6 km from a labelled point), so the four day-3 records (`sights/marble-canyon`, `sights/paint-pots`, `trails/marble-canyon-walk`,
+  `trails/paint-pots-walk`) carry an authored `area_id` of `CA/BC/kootenay-national-park` in `data/capture/canadian-rockies-2029/migrated.json`.
+  The Kootenay park record (`place/kootenay-national-park`, with its entry rule) already existed; nothing was invented.
+- `derive-area --write` refreshed `derived-areas.json` (one rival distance moved); `gaps --budget --write` lowered the placement budget (no area 14 to 10).
+- Rockies lines now: Banff days 1 to 4 and 10 to 11, Kootenay day 3, Jasper days 4 to 8, Yoho day 9, Kananaskis days 12 to 15.

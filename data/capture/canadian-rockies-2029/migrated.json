@@ -2482,6 +2482,7 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Marble Canyon Walk",
+      "area_id": "CA/BC/kootenay-national-park",
       "reaches": [
         "legacy/canadian-rockies-sept-2029/sights/marble-canyon"
       ],
@@ -2710,6 +2711,7 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Paint Pots Walk",
+      "area_id": "CA/BC/kootenay-national-park",
       "route_is_attraction": true,
       "attraction_reason": "The payoff is the Paint Pots, which already has a place record (sights/paint-pots); the draw moves to it when the ledger allows a relevance edit.",
       "links": [
@@ -3645,6 +3647,7 @@
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
       "name": "Marble Canyon",
+      "area_id": "CA/BC/kootenay-national-park",
       "photos": [
         {
           "file": "File:Marble Canyon, Kootenay National Park, British Columbia, 2025-07-11 02.jpg",
@@ -4232,7 +4235,8 @@
         "on": "2026-10-27",
         "note": "Derived (capture.ts derive-near): straight line to that town's GeoNames point."
       },
-      "name": "Paint Pots"
+      "name": "Paint Pots",
+      "area_id": "CA/BC/kootenay-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use",
