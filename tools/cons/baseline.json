@@ -254,10 +254,6 @@
     "count": 1,
     "reason": "CONS-3: the host appears only in web/lib/site.ts and the UA modules"
    },
-   "web/lib/export/share.ts": {
-    "count": 1,
-    "reason": "CONS-3: the host appears only in web/lib/site.ts and the UA modules"
-   },
    "web/lib/site.ts": {
     "count": 1,
     "reason": "the legitimate default origin (siteOrigin); the one allowed home of the host"

@@ -318,7 +318,9 @@ Names only, never values. Every name read in `web/`, `core/` or `tools/` is a ro
 | `GATE_SUITE_TIMEOUT` | tools `gate/gate.py`, `gate/locks.py` | Per-suite wall-clock limit in seconds | no |
 | `GATE_TSBUILDINFO` | tools `gate/gate.py`, `gate/locks.py` | Where the gate keeps the incremental typecheck build info | no |
 | `GATE_VISUAL_CMD` | tools `gate/gate.py`, `gate/locks.py` | Command the gate runs as the visual suite; unset, the suite is deferred | no |
-| `SITE_ORIGIN` | web `lib/site.ts`, `lib/export/share.ts` | Canonical origin for links, sitemap and share images; defaults to the live host | no |
+| `SITE_ORIGIN` | web `lib/site.ts`, `lib/export/share.ts` | Canonical origin for links, sitemap, exports and share images. Defaults to the OLD site's host for dev, test and preview builds only; a production deploy (`VERCEL_ENV=production`) or any build with `REQUIRE_SITE_ORIGIN=1` FAILS when it is unset (REF-REVIEW S7: that host's home page links every dated trip folder) | yes on production |
+| `REQUIRE_SITE_ORIGIN` | web `lib/site.ts` | `1` makes a build fail when `SITE_ORIGIN` is unset, outside Vercel production too | no |
+| `SLUGS_BASE` | core `bin/slugs.ts` | Git ref the pinned folder aliases are compared with (E_SLUG_ALIAS_PINNED); default `origin/main` when the repository has it, else `HEAD` (REF-REVIEW S5) | no |
 | `OWN_HOSTS_EXTRA` | web `lib/config/product.ts` | Comma-separated extra hosts that are ours for the privacy detector's dated-folder rule (public-ref-aliases 6.1); the old and beta hosts and the `SITE_ORIGIN` host are always included | no |
 | `HUB_TODAY` | web `lib/data/root.ts`, `tools/hub.py`, the staging tool | Pins "today" (`YYYY-MM-DD`) for badges, so builds and diffs repeat | no |
 | `TRAVEL_TODAY` | core `bin/mcp.ts`, `src/ops/run.ts` | Pins today for checks, ops and the MCP server | no |

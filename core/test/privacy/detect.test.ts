@@ -157,6 +157,39 @@ describe("privacy detector: dated trip folders (public-ref-aliases 6.1, REF-C A3
     ];
     for (const x of clean) expect(dated(x), JSON.stringify(x)).toEqual([]);
   });
+  it("S1: ambiguous English months in prose slugs are not trip folders, but a real folder in the same words still is", () => {
+    const clean = [
+      { note: "you-may-2020 is a slug in a sentence" },
+      { note: "after covid-march-2020 the trail reopened" },
+      { note: "see open-may-2026 for details" },
+      { note: "we-march-2025 and they-may-2024" },
+      { url: "www.on-top.ca/Outings/Bench-July-2022.html" },
+      { url: "//on-top.ca/Outings/Bench-July-2022.html" },
+      { body: "Read www.on-top.ca/Outings/Bench-July-2022.html and //cdn.on-top.ca/a/Bench-July-2022.html" },
+    ];
+    for (const x of clean) expect(dated(x), JSON.stringify(x)).toEqual([]);
+    const hitsOn = [
+      { ref: "legacy/rockies-may-2029/sights/a" }, // an id context, even for may
+      { id: "offer-legacy-rockies-may-2029-x" },
+      { slug: "rockies-may-2029" }, // the whole string
+      { url: "https://nks-travel.pages.dev/rockies-march-2029/" },
+      { note: "see canadian-rockies-sept-2029 here" }, // any other month word is read in prose too
+      { note: "see quebec-july-2026 here" },
+      { url: "www.nks-travel.pages.dev/canadian-rockies-sept-2029/" },
+      { url: "//nks-travel.pages.dev/canadian-rockies-sept-2029/" },
+    ];
+    for (const x of hitsOn) expect(dated(x).length, JSON.stringify(x)).toBe(1);
+  });
+  it("S3: a link to another host that wraps one of our URLs is read (archive snapshot, redirect query)", () => {
+    const hitsOn = [
+      { url: `https://web.archive.org/web/2026/https://nks-travel.pages.dev/${F}/` },
+      { url: `https://x.example/r?u=nks-travel.pages.dev/${F}` },
+      { url: `https://x.example/r?u=https%3A%2F%2Ftravel-beta-tan.vercel.app%2F${F}` },
+      { url: `https://x.example/r?u=https%253A%252F%252Fnks-travel.pages.dev%252Flegacy%252Frockies-sept-2029` },
+    ];
+    for (const x of hitsOn) expect(dated(x).length, JSON.stringify(x)).toBe(1);
+    expect(dated({ url: "https://web.archive.org/web/2026/https://on-top.ca/Outings/Bench-July-2022.html" })).toEqual([]);
+  });
   it("a hit names where, never the value; the key path omits the key", () => {
     const h = privacyHits({ refSlugs: { [`legacy/${F}/a`]: "a" } });
     expect(h).toEqual([{ where: "$.refSlugs[key]", why: DATED_FOLDER_WHY }]);

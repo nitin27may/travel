@@ -1,7 +1,8 @@
+import { siteOrigin } from '@/lib/site';
 // Share links follow the URL table (patterns 1.2): the canonical page, with the anchor for a day or the list state.
 // `c=` (camera) rides along only on a map view.
 
-const origin = (): string => (typeof window !== 'undefined' ? window.location.origin : (process.env.SITE_ORIGIN ?? 'https://nks-travel.pages.dev').replace(/\/+$/, ''));
+const origin = (): string => (typeof window !== 'undefined' ? window.location.origin : siteOrigin());
 
 /** Link to a trip, or to one day of it: `/trips/dolomites-2027/#day-3`. */
 export function shareUrl(trip: { slug: string }, day?: number | null): string {

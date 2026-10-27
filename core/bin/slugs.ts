@@ -119,12 +119,28 @@ function knownFolders(root: string, snap: SlugSnapshot): string[] {
   return [...out].sort();
 }
 
-/** The committed registry the folder aliases must keep (E_SLUG_ALIAS_PINNED): `--base-file`, else git `--base` (default HEAD); null when absent. */
+/**
+ * The git ref the folder aliases are compared with (S5, REF-REVIEW): `--base <ref>`, else `$SLUGS_BASE`, else `origin/main` when the
+ * repository has it, else HEAD. HEAD is the commit under test, so a removed alias would be compared with itself and pass; origin/main is
+ * what a merge would change. An explicit ref that cannot be read is an error, never a silent skip.
+ */
+export function baseRef(root: string, argv: string[]): { ref: string; explicit: boolean } {
+  const given = arg(argv, "--base") ?? process.env.SLUGS_BASE;
+  if (given) return { ref: given, explicit: true };
+  const has = spawnSync("git", ["-C", root, "rev-parse", "--verify", "--quiet", "origin/main^{commit}"], { encoding: "utf8" });
+  return { ref: has.status === 0 ? "origin/main" : "HEAD", explicit: false };
+}
+
+/** The committed registry the folder aliases must keep (E_SLUG_ALIAS_PINNED): `--base-file`, else git at `baseRef`; null when absent. */
 function baseRegistry(root: string, argv: string[]): SlugRegistry | null {
   const file = arg(argv, "--base-file");
   if (file) return parseRegistry(readFileSync(resolve(file), "utf8"));
-  const run = spawnSync("git", ["-C", root, "show", `${arg(argv, "--base") ?? "HEAD"}:${SLUG_REGISTRY_PATH}`], { encoding: "utf8" });
-  if (run.status !== 0) return null;
+  const { ref, explicit } = baseRef(root, argv);
+  const run = spawnSync("git", ["-C", root, "show", `${ref}:${SLUG_REGISTRY_PATH}`], { encoding: "utf8" });
+  if (run.status !== 0) {
+    if (explicit) throw new Error(`cannot read ${SLUG_REGISTRY_PATH} at ${ref}: ${(run.stderr ?? "").trim()}`);
+    return null;
+  }
   try {
     return parseRegistry(run.stdout);
   } catch {

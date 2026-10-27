@@ -61,6 +61,17 @@ describe("publicStore", () => {
       ["legacy/stub-rockies-jan-2029/hikes/larch-basin", "unknown", null],
     ]);
   });
+  it("resolve with duplicate refs: one row per input, in the order sent, each `asked` restored verbatim (REF-REVIEW)", async () => {
+    const pub = publicStore(plantedDatedStub(), PLANTED_TABLE);
+    const aliasRef = `legacy/${PLANTED_ALIAS}/hikes/larch-basin`;
+    const datedRef = `legacy/${PLANTED_DATED}/hikes/larch-basin`;
+    const asked = [datedRef, aliasRef, datedRef, aliasRef, `place:${STUB_RETIRED.to}`, aliasRef, "legacy/stub-rockies-jan-2029/hikes/larch-basin", datedRef];
+    const r = await pub.resolveRefs({ refs: asked });
+    if (!r.ok) throw new Error(r.error.message);
+    expect(r.data.items.map((i) => i.asked)).toEqual(asked);
+    expect(r.data.items.map((i) => i.state)).toEqual(["unknown", "current", "unknown", "current", "current", "current", "unknown", "unknown"]);
+    expect(r.data.items.map((i) => i.ref)).toEqual([null, aliasRef, null, aliasRef, aliasRef, aliasRef, null, null]);
+  });
   it("an error's message and details are public too", async () => {
     const inner = new StubStore();
     const leaky: CatalogueStore = Object.assign(Object.create(inner) as CatalogueStore, {
