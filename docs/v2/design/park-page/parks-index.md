@@ -1,16 +1,16 @@
 # The /parks index
 
-Part of [the park page design](README.md) (PA-N, gate G-PA). `/parks` lists every national, provincial or state park and
+Part of [the park page design](README.md) (PA-N, revised after PA-NR; gate G-PA open). `/parks` lists every national, provincial or state park and
 equivalent we hold. It is **the places list engine with the protected-area kinds fixed** (PN14): the same `listPlaces`
 and `countPlaces` calls through `web/lib/public` and `/api/v1/places`, the same cards, pills, pager and map, a different
-title, filter set and default view. No new list code, no new client bulk load (P9).
+title and filter set, and the `/places` views (List, Cards, Map; default List). No new list code, no new client bulk load (P9).
 
 ## 1. What is listed
 
 | Included (type) | Filter label (Type pill) | Card kicker |
 |---|---|---|
 | `nature.protected.national_park` | National park | National park |
-| `nature.protected.state_provincial_park` | State or provincial park | "Provincial park" (CA), "State park" (US), else "Regional park" (Q-PN9) |
+| `nature.protected.state_provincial_park` | State or provincial park | "Provincial park" (CA), "State park" (US), else "Park" (Q-PN9) |
 | `nature.protected.conservation_area`, `nature.protected.nature_reserve` | Conservation area or reserve | Conservation area · Nature reserve |
 | `nature.protected.forest` | National forest | National forest |
 | `nature.protected.dark_sky_site` | Dark-sky site | Dark-sky site |
@@ -25,43 +25,50 @@ merged) and 17 locations-store places of kind `park`. The page is designed for 1
 
 ## 2. URL and list state
 
-`/parks` plus list state in the patterns 1.2 order. Defaults are omitted. The `/parks` row is added to patterns 1.2 by the
-design reviewer (README R4).
+`/parks` plus list state in the patterns 1.2 order. Defaults are omitted. The `/parks` row is added to patterns 1.2 in
+FND-PA after G-PA (README R4).
 
 | Key | Meaning | Example |
 |---|---|---|
 | `q` | search within parks (names and areas) | `q=lake` |
 | `country`, `region` | the Where pill (country, then province or state) | `country=ca&region=on` |
 | `k` | Type, as type ids (the Places `k` facet) | `k=nature.protected.national_park` |
-| `season` | open in these months | `season=jul,aug` |
-| `from`, `drive` | Drive time: a public hub id or an airport code, and one-way minutes (60, 120, 180, 240) | `from=hub-toronto&drive=180` |
-| `view` | `list` (desktop default: list beside the map), `cards`, `map`; phones default `list` | `view=map` |
-| `bbox` | "Search this area" on the map (existing `ListState.bbox`) | `bbox=-80.5,44.9,-77.4,46.2` |
-| `sort`, `dir` | `draw` (default), `name`, `drive` (default when `from` is set) | `sort=name` |
+| `season` | open in these months (the Open in pill) | `season=jul,aug` |
+| `drive` | Drive time, the **existing** codec (PN15, review M6): `<hub>-<band>`, the band in whole hours up to the parser's `HUB_MAX`, comma list allowed; the same values smart search writes (`core/src/parse/parse.ts`) and labels (`core/src/query/valueLabels.ts`: "Within 3 hours of Toronto") | `drive=toronto-3` |
+| `view` | `list` (default), `cards`, `map`, as `/places` | `view=map` |
+| `bbox` | "Search this area" in the Map view (existing `ListState.bbox`) | `bbox=-80.5,44.9,-77.4,46.2` |
+| `sort`, `dir` | `draw` (default), `name`, `drive` (default when `drive` is set) | `sort=name` |
 | `page` | pager, 48 per page (components 8.5) | `page=2` |
 
-Example: `/parks?country=ca&region=on&season=jul&from=hub-toronto&drive=180`.
+Example: `/parks?country=ca&region=on&season=jul&drive=toronto-3`.
 
-`from` never holds a town, a point or a home (trip-builder OR9; README PN15). `drive` without `from` is dropped. A link
-with an unknown hub drops both and shows the "Drive time" pill unset.
+No `from` key. `drive` carries only a public hub id (today `toronto`; more hubs as the hub list grows; airports as ids such
+as `yyz` once ORG has them), never a town, a point or a home (trip-builder OR9). An unknown hub drops the key and shows the
+Drive time pill unset. `drive` is a trips-only facet today (`TRIPS_ONLY` in the parser); PA-IXC allows it on places lists
+for protected areas, with the same meaning.
 
 ## 3. Filters (P4: four pills, results update as you choose)
 
 | Pill | Menu | Count per option | Notes |
 |---|---|---|---|
 | **Where** | the existing WhereMenu with two levels only (country, then province or state); the "Parks and areas" column is hidden here | yes, live | `WhereMenu` gains a `levels={2}` prop (one small change, PA-IX) |
-| **Type** | checkboxes of section 1; labels follow the chosen country (Q-PN9) | yes | multi-select |
-| **Drive time** | "From" (a hub list: Toronto, Hamilton, Ottawa, Montréal, ... from the hub list; airports by code search) and "Use my location" (the device picks the nearest public hub and the pill says "From Toronto, nearest to you"); then "Up to" chips 1 h, 2 h, 3 h, 4 h | yes, per band | drawn only when the driving-time model and the hub list exist (PA-IXD, Q-PN5); routed times say "about 2 h 50", modelled ones "≈ 2 h 50" (driving-time model) |
-| **Season** | months (Jan to Dec), multi-select; "Open all year" option | yes | a park with no checked season is not counted as open; the result line says "6 more parks have no season checked: show them" (a link that clears Season) |
+| **Type** | checkboxes of section 1; labels follow the chosen country, fallback "Park" (Q-PN9) | yes | multi-select |
+| **Drive time** | "From" (the hub list; airports when ORG adds them) and "Use my location" (the device picks the nearest public hub and the pill says "From Toronto, nearest to you"); then "Up to" chips by band (1 h, 2 h, 3 h, 4 h) | yes, per band | the existing 2.7 pill with a hub menu; drawn only when the driving-time model and the hub list exist (PA-IXD, Q-PN5); routed times say "about 2 h 50", modelled ones "≈ 2 h 50" |
+| **Open in** | months (Jan to Dec), multi-select; "Open all year" option | yes | filters opening, not quality. **Parks with no checked season stay in the result**, in a second group "Season not checked (n)" under the open parks, each with the gap chip (PN20, review M5). Nothing is dropped silently |
 
 "More filters" is not drawn in v1 (no extra row keys). Camping and Entry filters are a later step when the counts justify
-them (they would need two more row keys, P8).
+them (they would need more row keys, P8).
 
-Active state, clear, counts and the phone docking menus are components 2.7 unchanged. "Clear all" in the subbar.
+Active state, clear, counts and the phone docking menus are components 2.7 unchanged. "Clear all" in the subbar. Under
+640 px Sort moves into the Filters sheet, so the subbar keeps one line (review S9).
 
 ## 4. Layout
 
-### 4.1 Desktop, 1440: list beside the map (default `view=list`)
+v1 uses the `/places` views: **List (default), Cards, Map**. The list-beside-map split is **deferred** (review S6): it would
+load the map at first paint on desktop, which `/places` does not, and it is a list-engine feature to add for `/places` and
+`/parks` together later, with the map after first paint and a measured budget.
+
+### 4.1 Desktop, 1440: List view (default)
 
 ```
 +--------------------------------------------------------------------------------------------------------------+
@@ -69,38 +76,39 @@ Active state, clear, counts and the phone docking menus are components 2.7 uncha
 +--------------------------------------------------------------------------------------------------------------+
 | PARKS                                                                                                        |
 | National, provincial and state parks we have researched, with what you need to enter.                        |
-| [ / Search parks ]  (Where: Canada · Ontario x) (Type v) (Drive time v) (Season: Jul x)    [List|Cards|Map]   |
+| [ / Search parks ]  (Where: Canada · Ontario x) (Type v) (Drive time v) (Open in: Jul x)   [List|Cards|Map]  |
 | 14 parks · Clear all                                     Sort: Most worth it v  [dir]                         |
-+-----------------------------------------------------+--------------------------------------------------------+
-| CANADA · ONTARIO                              14    |                                                        |
-| +-------------------------------------------------+ |   [map 44%: pins of this page's 14 parks; country     |
-| | [photo 96x64] ALGONQUIN PROVINCIAL PARK       > | |    count discs for parks outside the view;            |
-| | Provincial park · Ontario · ≈ 2 h 50 from Toronto| |    "Search this area" button after a pan;             |
-| | [Book ahead] [Open May to Oct] 120 places inside | |    hover a row: the pin rings (components 7.1);       |
-| +-------------------------------------------------+ |    click a pin: the row highlights and scrolls into   |
-| | [glyph]       ARROWHEAD PROVINCIAL PARK       > | |    view; no boundary polygons, honesty line           |
-| | Provincial park · Ontario                        | |    "Pins mark each park's main visitor centre or      |
-| | [Entry not checked yet] [Season not checked]     | |    map point"]                                         |
-| +-------------------------------------------------+ |                                                        |
-| | ...                                              | |                                                        |
-| +-------------------------------------------------+ |                                                        |
-| ‹ 1 ›  1 to 14 of 14                                |                                                        |
-+-----------------------------------------------------+--------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------+
+| OPEN IN JULY · CANADA · ONTARIO                                                                     9        |
+| +----------------------------------------------------------------------------------------------------------+ |
+| | [photo 96x64] ALGONQUIN PROVINCIAL PARK                                                                 > | |
+| |               Provincial park · Ontario · ≈ 2 h 50 from Toronto · 120 places inside                      | |
+| |               [Fee · book ahead] [Open May to Oct]                                                        | |
+| +----------------------------------------------------------------------------------------------------------+ |
+| | ...                                                                                                      | |
+| +----------------------------------------------------------------------------------------------------------+ |
+| SEASON NOT CHECKED · CANADA · ONTARIO                                                               5        |
+| +----------------------------------------------------------------------------------------------------------+ |
+| | [glyph]       ARROWHEAD PROVINCIAL PARK                                                                 > | |
+| |               Provincial park · Ontario                                                                  | |
+| |               [Entry not checked yet] [Season not checked]                                               | |
+| +----------------------------------------------------------------------------------------------------------+ |
+| ‹ 1 ›  1 to 14 of 14                                                                                         |
++--------------------------------------------------------------------------------------------------------------+
 | credits footer                                                                                               |
 +--------------------------------------------------------------------------------------------------------------+
 ```
 
 Values in the frame are a shape: Algonquin has no park record yet (PA-R-ON), and drive times wait for the model.
 
-- List column 1fr (min 560 px), map 44%, sticky under the header, the full height of the viewport; the divider is not
-  draggable here (it is on Plan). Under 1024 px the map is not beside the list: `view=list` shows the list only and the
-  Map segment shows the map full width.
-- Rows are the list row (components 3.2) widened to two lines: photo or glyph, name (serif 17/600), meta line (kicker ·
-  area · drive), chips (entry label, season, places inside). Kids and effort chips are not drawn on park rows (a park has
-  no single effort); they are on the park's members.
+- Rows are the list row `variant="two-line"` (components 3.2 variant, review N4): photo or glyph, name (serif 17/600), meta
+  line (kicker · area · drive · places inside), then at most two chips (entry label, season). Kids and effort chips are not
+  drawn on park rows (a park has no single effort); they are on the park's members.
 - Group by country with sticky headings and counts (keep-from-live-site); one country chosen: group by province or state.
-- `Cards` view uses the place card (3.1) in the 4/3/2/1 grid; `Map` view is the map full width with the pins of the
-  current page and a "List" button.
+  With Open in set, the open parks come first and "Season not checked" second, each grouped the same way.
+- `Cards` view uses the place card (3.1) in the 4/3/2/1 grid. `Map` view is the map full width with the pins of the
+  current page, per-country count discs, "Search this area" after a pan, a "List" button, and the honesty line "Pins mark
+  each park's main visitor centre or map point; no park boundary is drawn" (T5). The map loads only in the Map view.
 
 ### 4.2 Phone, 390
 
@@ -111,15 +119,16 @@ Values in the frame are a shape: Algonquin has no park record yet (PA-R-ON), and
 | PARKS                                |
 | National, provincial and state parks |
 | [ Search parks               ]       |
-| (Where: Ontario x) (Type) (Drive) >  |   (pills scroll sideways with a fade; "Filters (2)" opens the sheet)
+| (Where: Ontario x) (Type) (Drive) >  |   (pills scroll sideways with a fade; "Filters (2)" opens the sheet, with Sort)
 | 14 parks · Clear all   [List | Map]  |
 +--------------------------------------+
-| CANADA · ONTARIO                 14  |
+| OPEN IN JULY · ONTARIO            9  |
 | [glyph] ALGONQUIN PROVINCIAL PARK >  |
-|  Provincial park · ≈ 2 h 50          |
-|  [Book ahead] [May to Oct]           |
+|  Provincial park · ≈ 2 h 50 ·        |
 |  120 places inside                   |
+|  [Fee · book ahead] [May to Oct]     |   (two chips at most, one chip line)
 | ------------------------------------ |
+| SEASON NOT CHECKED · ONTARIO      5  |
 | [glyph] ARROWHEAD PROVINCIAL PARK >  |
 |  Provincial park                     |
 |  [Entry not checked yet]             |
@@ -138,9 +147,9 @@ selection card pattern) opens on a pin tap with "Open park", and "List" returns 
 | Shown | Row key | Status |
 |---|---|---|
 | name, kind word, area, slug, season, completeness label | existing allowlist | exists |
-| entry label: "No fee", "Fee", "Book ahead", "Entry not checked yet" | `entry` (enum) | new, Q-PN4, PA-IXC |
+| entry label: "No fee", "Fee", "Book ahead", "Fee · book ahead", "Entry not checked yet" | `entry` enum `none`, `fee`, `book_ahead`, `fee_book_ahead`, `not_checked` | new, Q-PN4 (answered, with `fee_book_ahead`), PA-IXC |
 | places inside | `members` (integer) | new, Q-PN4, PA-IXC |
-| drive time from the chosen hub | `driveMin` and its basis (routed, modelled), only in a response to a `from` query | new query output, PA-IXD; never stored on the row |
+| drive time from the chosen hub | `driveMin` and its basis (routed, modelled), only in a response to a `drive` query | new query output, PA-IXD; never stored on the row |
 | photo | existing card photo ref | exists |
 
 No prices, windows, links, authority names or facts on a row: those are on the park page, one request per park (P8).
@@ -149,12 +158,13 @@ No prices, windows, links, authority names or facts on a row: those are on the p
 
 | State | What shows |
 |---|---|
-| Loading | 8 skeleton rows and the map's `--well` "Loading map" (components 6.2) |
-| Empty result | components 6.1, with the nearest match (principles P4): "No parks open in January in Ontario in our catalogue. Without 'Season: Jan' there are 14." and one button "Remove Season"; then "Ask us to research a park ->" |
-| No parks in a country at all | "We have not researched parks in <country> yet. Ask us ->" (never padded with other countries) |
+| Loading | 8 skeleton rows (components 6.2); in the Map view the map's `--well` "Loading map" |
+| Open in, some parks unknown | the open parks, then "Season not checked (n)" with the gap chip on each; never a "show them" link (M5) |
+| Empty result | components 6.1, with the nearest match (principles P4): "No parks open in January in Ontario in our catalogue. Without 'Open in: Jan' there are 14." and one button "Remove Open in"; then "Ask us to research a park ->" (only when REQ's route exists, R7) |
+| No parks in a country at all | "We have not researched parks in <country> yet." (never padded with other countries) |
 | Drive time with nothing in range | "No parks within 1 h of Toronto in our catalogue. 6 within 2 h ->" (widens the band by one step) |
 | Error | components 6.3 inline, Retry |
-| Map error | the list stays usable; the map region shows the error with Retry |
+| Map error | the Map view shows the error with Retry and a "List" button |
 
 ## 7. Entry points
 
@@ -168,8 +178,8 @@ No prices, windows, links, authority names or facts on a row: those are on the p
 
 - Server-rendered first page (48 rows), with list state from the URL; filters call `/api/v1/places` with the fixed `k`
   set, as the Places page does.
-- The map draws only the current page's pins plus per-country count discs from `countPlaces` (no full point set); "Search
-  this area" sets `bbox`.
+- The map loads only in the Map view and draws only the current page's pins plus per-country count discs from
+  `countPlaces` (no full point set); "Search this area" sets `bbox`.
 - `/parks` start JS no larger than `/places` (PN17), measured by `pnpm --dir web budget:report`.
 - The 10,000-place synthetic check (principles P1 table) runs with 10,000 synthetic parks: first page under the list
-  budget, counts correct, pager correct.
+  budget, counts correct, pager correct, and the "Season not checked" group counted right.
